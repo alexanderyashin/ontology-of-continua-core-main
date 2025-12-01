@@ -1,0 +1,61 @@
+% =============================================
+%  Ontology of Continuum — Core
+%  Stable LaTeX Preamble (do not edit)
+% =============================================
+
+\usepackage{fontspec}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\setotherlanguages{english}
+\newfontfamily\cyrillicfont{DejaVu Serif}
+
+\usepackage[a4paper,margin=2.5cm]{geometry}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+
+\usepackage{hyperref}
+\hypersetup{
+  unicode=true,
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  pdftitle={Ontology of Continuum — Core},
+  pdfauthor={Alexander Yashin}
+}
+
+\usepackage[nameinlink,capitalize]{cleveref}
+
+\usepackage{csquotes}
+
+\usepackage[
+  backend=biber,
+  style=authoryear,
+  sorting=nyt
+]{biblatex}
+
+\addbibresource{bib/references.bib}
+
+\numberwithin{equation}{section}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Теорема}[section]
+\newtheorem{lemma}[theorem]{Лемма}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Определение}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Замечание}
