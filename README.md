@@ -70,3 +70,111 @@ will be added in later releases.
 └── .github/
     └── workflows/
         └── build-pdf.yml  # GitHub Actions workflow for PDF builds
+
+🧪 How to build the PDF locally
+
+The repository is optimised for XeLaTeX with latexmk.
+
+Requirements
+
+TeX Live 2023+ (or equivalent full LaTeX distribution)
+
+latexmk command available in your PATH
+
+Linux / macOS
+latexmk -xelatex main.tex -interaction=nonstopmode -output-directory=build
+
+
+The compiled PDF will be located at:
+
+build/main.pdf
+
+Windows (MiKTeX / TeX Live)
+
+Use a terminal (PowerShell or cmd) with latexmk available and run the
+same command:
+
+latexmk -xelatex main.tex -interaction=nonstopmode -output-directory=build
+
+
+If your distribution does not ship latexmk by default, install it via
+your package manager or the distribution’s package GUI.
+
+🤖 Continuous integration (GitHub Actions)
+
+The workflow file:
+
+.github/workflows/build-pdf.yml
+
+
+does the following on every push to main and on pull requests:
+
+Checks out the repository
+
+Installs TeX Live and latexmk
+
+Runs latexmk -xelatex with build/ as the output directory
+
+Uploads build/main.pdf as a build artefact
+
+You can always download the latest PDF from the Actions tab of the
+repository.
+
+🧩 Using this repository as a template
+
+To use this repository as a starting point for a new document:
+
+Clone or fork the repository.
+
+Update content/frontmatter.tex:
+
+title, subtitle, abstract
+
+version string in \date{...}
+
+Replace the placeholder content in:
+
+01_intro.tex, 02_background.tex, 03_model.tex,
+04_results.tex, 05_discussion.tex, 06_conclusion.tex
+
+Add real figures under figures/ and update figure includes.
+
+Extend bib/references.bib with your bibliography entries.
+
+Adapt .zenodo.json if you plan to publish via Zenodo
+(title, description, version, creators, etc.).
+
+The goal is to keep the build pipeline unchanged so future work can
+reuse it without extra setup.
+
+📚 Zenodo integration
+
+The file .zenodo.json contains metadata for automated deposition to
+Zenodo when a GitHub Release is created.
+
+After the first release has been archived on Zenodo, you may add a
+DOI badge here, e.g.:
+
+[![DOI](https://doi.org/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+
+
+Replace XXXXXXX with the actual Zenodo record number.
+
+⚖️ License
+
+The contents of this repository are licensed under:
+
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+See the LICENSE file for details.
+
+You are free to share and adapt the material, provided that appropriate
+credit is given.
+
+👤 Maintainer
+
+Alexander Yashin
+
+ORCID: 0009-0008-6166-0914
+
+For questions, please use the issue tracker of this repository.
