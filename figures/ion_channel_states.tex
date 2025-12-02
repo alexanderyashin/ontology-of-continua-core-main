@@ -1,0 +1,16 @@
+% FILE: figures/ion_channel_states.tex
+% Ion channel state diagram
+
+\begin{tikzpicture}[>=latex,thick,scale=1]
+  % States
+  \node[draw, rounded corners, fill=gray!10, minimum width=2.4cm] (closed) at (0,0) {closed};
+  \node[draw, rounded corners, fill=gray!10, minimum width=2.4cm] (open)   at (4,0) {open};
+  \node[draw, rounded corners, fill=gray!10, minimum width=2.4cm] (leaky)  at (2,-2) {leaky};
+
+  % Transitions
+  \draw[->] (closed) -- node[above] {$\Delta V>\Theta_{\text{open}}$} (open);
+  \draw[->] (open)   -- node[below] {$\Delta V<\Theta_{\text{close}}$} (closed);
+  \draw[->] (closed) -- node[left] {$\Theta_{\text{leak}}$} (leaky);
+  \draw[->] (leaky)  -- node[right] {repair} (closed);
+\end{tikzpicture}
+
