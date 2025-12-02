@@ -1,28 +1,60 @@
-# Ontology of Continua — Core 1.1 (Whitepaper Shell)
+# Ontology of Continua — Core 1.1
 
-This repository provides a stable, fully reproducible LaTeX build pipeline and publication shell for **Ontology of Continua — Core 1.1**, intended as the canonical structure for all future Core releases and domain-specific extensions (Physics, Chemistry, Biology, Cognition, Society, Civilization, Meta-theory).
+This repository contains the LaTeX sources and reproducible build
+pipeline for the **Ontology of Continua — Core 1.1** publication shell
+(“Whitepaper 1.1”). It is designed as a stable template for all future
+Core versions and domain–specific preprints.
 
-The goal of this repository is to ensure:
-- reproducible PDF builds (local and CI),
-- clean modular LaTeX structure,
-- long-term maintainability,
-- Zenodo auto-publishing with versioned DOIs,
-- a universal template for future Ontology of Continua publications.
+> **Goal:** provide a minimal, robust and fully automated LaTeX
+> infrastructure so that future scientific work can focus on content,
+> not tooling.
 
 ---
 
-## 📘 Contents
+## 🔧 Build Status
 
-```
+GitHub Actions automatically compile the PDF on every push to `main`:
+
+![Build LaTeX PDF](https://github.com/alexanderyashin/ontology-of-continua-core-main/actions/workflows/build-pdf.yml/badge.svg)
+
+---
+
+## 📄 What this repository provides
+
+- A **XeLaTeX–based LaTeX pipeline** with Unicode support  
+- A modular document structure with section placeholders:
+  - introduction, background, model, results, discussion, conclusion
+- Ready–to–use **figure and table placeholders**
+- A **GitHub Actions** workflow for automatic PDF builds
+- A `.zenodo.json` file with metadata for Zenodo integration
+- A structure that can be reused as a **template** for:
+  - Core 1.2+
+  - Physics / Chemistry / Biology preprints
+  - K0–K12 level extensions
+
+The current version focuses on the *infrastructure*. Scientific content
+will be added in later releases.
+
+---
+
+## 📁 Repository structure
+
+```text
 / (root)
-├── main.tex
-├── preamble.tex
-├── README.md
-├── LICENSE
+├── README.md              # This file
+├── LICENSE                # CC-BY 4.0 license
 ├── .gitignore
-├── .zenodo.json
+├── .zenodo.json           # Zenodo metadata for releases
+├── main.tex               # Main document file
+├── preamble.tex           # Stable LaTeX preamble (XeLaTeX)
+├── bib/
+│   └── references.bib     # Bibliography database (dummy entry)
+├── build/                 # Build output (created by latexmk / CI)
+│   ├── logs/
+│   │   └── compile.log    # LaTeX build log (optional)
+│   └── (generated *.pdf etc.)
 ├── content/
-│   ├── frontmatter.tex
+│   ├── frontmatter.tex    # Title, abstract, metadata
 │   ├── 01_intro.tex
 │   ├── 02_background.tex
 │   ├── 03_model.tex
@@ -31,117 +63,10 @@ The goal of this repository is to ensure:
 │   ├── 06_conclusion.tex
 │   └── placeholders/
 │       ├── fig_placeholder.pdf
-│       ├── table_placeholder.tex
-│       └── section_template.tex
-├── build/
-│   ├── .gitkeep
-│   └── logs/
-│       └── .gitkeep
+│       ├── section_template.tex
+│       └── table_placeholder.tex
+├── figures/
+│   └── placeholder.txt    # Keeps the directory under version control
 └── .github/
     └── workflows/
-        └── build-pdf.yml
-```
-
----
-
-## 📄 Project Description
-
-**Ontology of Continua (OC)** is a unified theoretical framework describing the emergence, structure, and evolution of continua across physical, chemical, biological, cognitive, social, civilizational, and meta-theoretical domains.
-
-**Core 1.1** represents the first stable, consolidated version of the foundational layer of the theory, formatted as **Whitepaper 1.1**.
-
-This repository contains:
-- the LaTeX implementation of Core 1.1,
-- publication-ready modular structure,
-- figure/table/section placeholders,
-- CI/CD configuration for automated PDF builds.
-
----
-
-## 🔗 DOI (Zenodo)
-
-**DOI:** will be attached automatically after creating a GitHub Release  
-Zenodo will auto-archive this repository and assign a versioned DOI using `.zenodo.json`.
-
----
-
-## 🛠️ Building the PDF (Local)
-
-### Requirements
-- **TeX Live (recommended: full installation)**
-- **latexmk**
-- Perl (included on most systems)
-
-### Build commands
-```bash
-latexmk -xelatex -interaction=nonstopmode -output-directory=build main.tex
-```
-
-To clean generated files:
-```bash
-latexmk -C
-```
-
----
-
-## ⚙️ Continuous Integration (GitHub Actions)
-
-Every push to `main` triggers:
-- installation of TeX Live (full),
-- XeLaTeX build of `main.tex`,
-- upload of `main.pdf` as a workflow artifact.
-
-Workflow file:  
-`.github/workflows/build-pdf.yml`
-
----
-
-## 🧩 Using This Repository as a Template
-
-This structure is intended to serve as the official template for:
-
-- Ontology of Continua Core versions (1.2, 1.3, …)
-- Physics Preprint Series
-- Chemistry U0.x Series
-- Biology U0.x Series
-- Cognitive Theory K6/K7 expansions
-- Social and Civilizational continua (K7–K8)
-- Meta-theory (K9–K10)
-- Meta-metatheory (K11–K12)
-
-To create a new release:
-1. Copy the repository.
-2. Replace the section `.tex` files with real content.
-3. Update `.zenodo.json` (title, description, version).
-4. Create a GitHub Release — Zenodo will publish automatically.
-
----
-
-## 📚 Dependencies
-
-Recommended environment:
-
-- **TeX Live 2023 or newer**
-- `latexmk`
-- `xelatex`
-- Packages included:
-  - `fontspec`
-  - `geometry`
-  - `hyperref`
-  - `biblatex`
-  - `csquotes`
-  - and all standard TeX Live components
-
----
-
-## 👤 Maintainer
-
-**Alexander Yashin**  
-ORCID: **0009-0008-6166-0914**
-
----
-
-## 📄 License
-
-This project is released under the **Creative Commons Attribution 4.0 International (CC-BY-4.0)** license.
-
+        └── build-pdf.yml  # GitHub Actions workflow for PDF builds
