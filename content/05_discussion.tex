@@ -4,142 +4,181 @@
 \label{sec:discussion}
 
 This section provides a conceptual analysis of the structural framework presented in 
-Sections~\ref{sec:model}--\ref{sec:results}.  
-Unlike earlier Core drafts, which used the discussion chapter as a placeholder, 
-the present version contains an integrated and coherent reflection on the Ontology of Continua (OC), 
-its interpretational commitments, its limitations, and its implications across domains.
-The purpose of this chapter is not to introduce new axioms or results, 
-but to clarify the meaning of the existing formalism and to outline the trajectories 
-for future development.
+Sections~\ref{sec:model}–\ref{sec:results}.  
+Unlike earlier Core drafts, where the discussion chapter served as a placeholder, 
+the present version offers a coherent interpretation of the Ontology of Continua (OC), 
+its commitments, limitations and cross–domain implications.
+No new axioms or theorems are introduced here; the goal is to clarify the meaning of the existing formalism 
+and to outline trajectories for further development.
 
 \subsection{Conceptual structure of the OC framework}
 
-OC proposes that continua across all scientific domains share a common ontological structure.
-This structure consists of:
+OC proposes that continua across scientific domains share a common ontological structure.
+This structure is given by the tuple
+\[
+  K = \big(\Omega(K), A(K), P(t), J(t), \Theta(K), \partial\Omega(K), C(K), k(t)\big),
+\]
+where:
 \begin{itemize}
-    \item a nonempty state space \(\Omega(K)\),
-    \item axes of differences \(A(K)\),
-    \item potentials \(P(t)\),
-    \item flows \(J(t)\),
-    \item thresholds \(\Theta(K)\),
-    \item boundaries \(\partial\Omega(K)\),
-    \item cycles \(C(K)\),
-    \item a measure of continuumness \(k(t)\).
+    \item \(\Omega(K)\) is the state space of admissible configurations;
+    \item \(A(K)\) is the collection of axes of incompatible differences;
+    \item \(P(t)\) is the vector of potentials;
+    \item \(J(t)\) is the family of flows;
+    \item \(\Theta(K)\) is the threshold landscape;
+    \item \(\partial\Omega(K)\) is the boundary defined by threshold saturation;
+    \item \(C(K)\) is the set of structurally stable cycles;
+    \item \(k(t)\) is the measure of continuumness.
 \end{itemize}
 
-The discussion section evaluates how these components interact conceptually.
+The discussion below focuses on how these elements function conceptually.
 
-\paragraph{Axes.}  
-Axes represent incompatible classes of differences.  
-The existence of axes implies the possibility of modelling a continuum through a structured state space.  
-Different domains instantiate axes differently—but the structural role is identical.
+\paragraph{Axes.}
+Axes represent incompatible classes of differences that cannot be reduced to one another.
+They define the effective dimensionality of the continuum.
+In physical systems, axes may correspond to spatial or internal degrees of freedom; 
+in chemical systems, to concentrations and environmental parameters; 
+in cognitive or social systems, to representational or institutional coordinates.
+OC treats all of these as instances of the same structural role: axes determine what distinctions the continuum can express.
 
-\paragraph{Potentials and flows.}  
-Potentials encode internal constraints; flows encode transformations of these constraints.  
-The conceptual strength of OC is that these notions generalise cleanly from energetic to informational, 
-chemical, biological, social, and cognitive domains.
+\paragraph{Potentials and flows.}
+Potentials encode the internal configuration of constraints and driving forces (energetic, chemical, informational, normative).
+Flows describe how these potentials change in time and how the system moves through \(\Omega(K)\).
+The central conceptual point is that OC uses a single language for these notions:
+flows can support, challenge or destroy the structure of the continuum independently of their physical realisation.
 
-\paragraph{Thresholds and boundaries.}  
-Thresholds serve as the primary mechanism for qualitative change.  
-Their saturation defines the boundary \(\partial\Omega\).  
-This conceptually replaces domain-specific notions of criticality, capacity, viability, and stability.
+\paragraph{Thresholds and boundaries.}
+Thresholds provide the primary mechanism for qualitative change.
+They partition the extended state space into regions of existence, stability, criticality, dimensional emergence and collapse.
+The boundary \(\partial\Omega(K)\) is defined as the locus where at least one threshold is saturated.
+This replaces a collection of domain–specific concepts (critical temperatures, carrying capacities, viability limits, institutional breaking points) with a unified notion of threshold surfaces.
 
-\paragraph{Cycles and continuumness.}  
-OC emphasises that stability is not passive: persistence requires flows and cycles.
-Continuumness \(k(t)\) captures this requirement in a unified form.
+\paragraph{Cycles and continuumness.}
+OC emphasises that structural persistence is an active property: it requires ongoing flows and cycles.
+Cycles are closed trajectories that remain strictly inside \(\Omega(K)\) and at a finite distance from \(\partial\Omega(K)\).
+The measure \(k(t)\) integrates information about the richness of \(\Omega(K)\), the presence and stability of cycles, expressive adequacy of axes and compatibility with thresholds.
+Conceptually, a continuum is “alive” exactly when it maintains such cycles under the constraints imposed by its embedding space.
 
-\subsection{Interpretation of the theorems}
+\subsection{Interpretation of the structural results}
 
-The results from Section~\ref{sec:results} reveal several deep conceptual commitments of OC:
+The results in Section~\ref{sec:results} express several core commitments of the OC framework.
 
 \begin{itemize}
-    \item \textbf{Monotonic dimensionality} means that continua can only grow in structural richness; they cannot shrink their representational capacities without collapse.
-    \item \textbf{Threshold-based emergence} implies that qualitative change is discrete, not gradual; new structure arises only through saturation of \(\Theta_{\mathrm{dim}}\).
-    \item \textbf{Irreversibility of death} emphasises that continuum collapse is not “repairable” from within; once \(\Omega\) is empty, there is no substrate on which dynamics can operate.
-    \item \textbf{Compatibility with embedding spaces} highlights that continua are never autonomous; they require an overlying structure \(M\) to ground their axes.
-    \item \textbf{Universal complexity growth} suggests that all live continua evolve towards higher structural integration as long as they remain below death thresholds.
+    \item \textbf{Monotonic dimensionality.}
+          Theorem~1 asserts that dimensionality cannot decrease along live trajectories.
+          Conceptually, this means that once a continuum has acquired new axes, it cannot smoothly “forget” them without ceasing to exist as that continuum.
+    \item \textbf{Threshold–based emergence.}
+          Theorems~2, 6 and 11 encode the idea that emergence is discrete and threshold–driven:
+          new structure appears only when structural tension exceeds dimensional thresholds and the embedding space has a suitable axis available.
+    \item \textbf{Irreversibility of death.}
+          Theorems~3 and 9 formalise death as the collapse of \(\Omega(K)\) together with the disappearance of stable cycles.
+          Once this occurs, no internal dynamics can restore the continuum; only a new continuum can be born.
+    \item \textbf{Dependence on embedding spaces.}
+          Theorems~4, 5, 10 and 12 show that continua are never fully autonomous:
+          they require embedding spaces that supply axes, constraints and room for dimensional growth.
+    \item \textbf{Complexity growth and the absence of eternal stabilisation.}
+          Theorems~7 and 8 state that structural complexity tends to increase for live continua and that permanent nontrivial fixed points are not possible.
+          Conceptually, live continua are either evolving structurally or heading towards collapse.
 \end{itemize}
 
-These features place OC closer to structural and dynamical systems theory than to traditional reductionist models.
+Taken together, these results position OC as a structural theory of organised systems rather than a reductionist account of their microscopic constituents.
 
 \subsection{Limitations of the current formalism}
 
-Despite its generality, OC has several conceptual and methodological limitations:
+Despite its generality, the present version of the OC framework has several clear limitations.
 
-\paragraph{Abstraction.}  
-The framework is highly abstract, making empirical instantiation nontrivial.
+\paragraph{Level of abstraction.}
+The formalism is intentionally abstract, which makes it applicable across multiple domains but complicates direct empirical use.
+Bridging from the structural language \((\Omega,A,P,J,\Theta,\partial\Omega,C,k)\) to concrete datasets is nontrivial and requires careful domain–specific modelling.
 
-\paragraph{Level transitions.}  
-While the conditions for \(K_x \to K_{x+1}\) transitions are clearly stated, 
-quantitative models of transitions remain underdeveloped.
+\paragraph{Quantitative level transitions.}
+The conditions for transitions \(K_x \to K_{x+1}\) are stated qualitatively in terms of tension and dimensional thresholds.
+Quantitative models of such transitions, including explicit forms of \(T(P,A,\nabla P)\) and \(\Theta_{\mathrm{dim}}\), are mostly available only for particular case studies (e.g. phase transitions, protocell closure) and remain to be generalised.
 
-\paragraph{Threshold specification.}  
-The taxonomy of thresholds is comprehensive, but determining explicit functional forms 
-for \(\Theta_{\text{crit}}, \Theta_{\text{dim}}, \Theta_{\text{death}}\) requires domain-specific modelling.
+\paragraph{Threshold specification.}
+The taxonomy of thresholds (\(\Theta_{\mathrm{exist}}, \Theta_{\mathrm{stab}}, \Theta_{\mathrm{crit}}, \Theta_{\mathrm{dim}}, \Theta_{\mathrm{death}}\)) is structurally complete, 
+but explicit functional forms for these thresholds must be determined separately for each class of systems.
+At present, OC provides the structural scaffold; filling it with numerically calibrated thresholds is a task for future work.
 
-\paragraph{Expressivity.}  
-OC asserts that collapse may be driven by insufficient expressive capacity, 
-but operational measures of expressivity for real systems remain an open challenge.
+\paragraph{Expressive capacity.}
+Theorems on threshold–expressivity incompatibility state that collapse can be driven by insufficient dimensionality of \(A(K)\).
+However, operational measures of expressive capacity for realistic cognitive, social or theoretical systems are not yet fully developed.
 
-\paragraph{Inter–continuum interactions.}  
-The operator \(E_{\mathrm{int}}\) provides a qualitative understanding, 
-but quantitative theories of competition, symbiosis, and parasitism are pending.
+\paragraph{Inter–continuum interactions.}
+The interaction operator \(E_{\mathrm{int}}\) captures generic regimes (competition, parasitism, symbiosis, fusion), but quantitative theories of such interactions for complex continua (e.g. interacting institutions, coupled civilizations, competing theories) are still largely schematic.
 
 \subsection{OC in the context of existing scientific theories}
 
-The OC framework intersects with several established paradigms:
+OC can be located with respect to several established paradigms.
 
 \begin{itemize}
-    \item \textbf{Statistical physics}: through thresholds, criticality, and phase transitions.
-    \item \textbf{Chemical systems theory}: through RAF networks and catalytic closure.
-    \item \textbf{Biophysics}: through membrane tension, redox potentials, and excitability.
-    \item \textbf{Neuroscience}: through excitation thresholds, spiking flows, and binding.
-    \item \textbf{Cognitive science}: through representational axes, expressive capacity, and coherence.
-    \item \textbf{Systems theory}: through dynamical stability, embedding spaces, and multi-level structure.
-    \item \textbf{Social theory}: through institutional thresholds, interaction flows, and collapse.
-    \item \textbf{Logic and metatheory}: through the definition of \(K_9\) and \(K_{10}\) as continua of theories and meta-theories.
+    \item \textbf{Statistical physics.}
+          Concepts of thresholds, criticality, order parameters and phase transitions correspond to \(\Theta_{\mathrm{crit}}\), structural tension \(T\), and changes in \(\Omega(K)\).
+          OC generalises these ideas beyond physical systems.
+    \item \textbf{Chemical systems theory.}
+          RAF networks, catalytic closure and reaction–diffusion structures instantiate OC notions of cycles, supporting flows and existence thresholds in \(K_3\).
+    \item \textbf{Biophysics and early life.}
+          Membrane closure, osmotic and curvature thresholds, redox and pH gradients, and protocell dynamics are concrete examples of threshold and boundary behaviour in \(K_4\).
+    \item \textbf{Neuroscience.}
+          Excitability, ion channel dynamics and spiking correspond to electrical thresholds, flows and cycles in \(K_5\).
+    \item \textbf{Cognitive science.}
+          Binding, representation, prediction and memory stability instantiate axes, expressive capacity and coherence thresholds in \(K_6\).
+    \item \textbf{Systems and social theory.}
+          Stability of institutions, systemic resilience and collapse illustrate thresholds, cycles and embedding constraints at levels \(K_7\)–\(K_8\).
+    \item \textbf{Logic and metatheory.}
+          The levels \(K_9\) and \(K_{10}\) treat theories, paradigms and formal languages as continua constrained by consistency, coherence and expressive thresholds.
 \end{itemize}
 
-OC does not replace these theories.  
-Rather, it aims to provide a unifying structural layer that explains why analogous behaviour appears across domains.
+OC does not claim to supersede these theories.
+Its role is to provide a structural layer that explains why analogous patterns of thresholds, cycles and collapse appear across such diverse domains.
 
-\subsection{Implications for continuum hierarchy}
+\subsection{Implications for the continuum hierarchy}
 
-The vertical hierarchy \(K_0\)–\(K_{10}\) can be understood conceptually as a ladder of increasing representational and dynamical richness.
+The vertical hierarchy \(K_0\)–\(K_{10}\) can be read as a sequence of increasing representational and dynamical richness:
 
 \begin{itemize}
-    \item \(K_0\) provides logical possibility but no dynamics.
-    \item \(K_1\) introduces geometric continuity.
-    \item \(K_2\) introduces physical thresholds and phase structure.
-    \item \(K_3\)–\(K_4\) introduce chemical and prebiotic organization.
-    \item \(K_5\) introduces early electrical excitability.
-    \item \(K_6\) introduces symbolic axes and cognitive coherence.
-    \item \(K_7\)–\(K_8\) introduce social and civilizational dynamics.
-    \item \(K_9\)–\(K_{10}\) introduce theoretical and meta-theoretical structure.
+    \item \(K_0\) encodes mere distinguishability; there is no time, energy or geometry.
+    \item \(K_1\) introduces geometric continuity and classical stability thresholds.
+    \item \(K_2\) organises physical fields, phases and mass–related structures.
+    \item \(K_3\)–\(K_4\) introduce chemical and prebiotic organisation (RAF networks, protocells, internal gradients).
+    \item \(K_5\) introduces early bioelectrical excitability and protospiking.
+    \item \(K_6\) introduces cognitive axes, internal models and binding thresholds.
+    \item \(K_7\)–\(K_8\) describe social and civilizational continua with institutional, infrastructural and systemic thresholds.
+    \item \(K_9\)–\(K_{10}\) describe theoretical and meta–theoretical continua, where theories and languages themselves form state spaces subject to consistency and coherence thresholds.
 \end{itemize}
 
-Conceptually, each level is constrained by its embedding space and by its representational capacity.  
-Dimensional growth is possible only through genuine incompatibility of differences and saturation of \(\Theta_{\mathrm{dim}}\).
+Conceptually, each level:
+\begin{enumerate}
+    \item inherits the general continuum structure of Section~\ref{sec:model};
+    \item adds new axes and thresholds that cannot be reduced to lower levels;
+    \item is constrained by an embedding space \(M_x\) that must expand for higher levels to exist.
+\end{enumerate}
+This hierarchy is not merely a taxonomy; it is a claim that all these domains can be analysed with a single structural toolkit.
 
 \subsection{Future development paths}
 
-Moving forward, several major developments are planned:
+Several directions for future work follow naturally from the current state of the Core:
 
 \begin{itemize}
-    \item full mathematical proofs of the theorems stated in Section~\ref{sec:results};
-    \item quantitative definitions of tension, thresholds, and flows for key domains;
-    \item structural analyses of collapse in \(K_3\)–\(K_5\) (chemical and early life continua);
-    \item extended treatment of cognitive continua \(K_6\), including binding and representation;
-    \item application of the OC framework to social and civilizational stability;
-    \item integration of OC with empirical datasets and simulation pipelines;
-    \item formal specification of \(K_9\) and \(K_{10}\) in terms of logic, language, and meta-theory.
+    \item full, self–contained proofs of the theorems stated in Section~\ref{sec:results}, with explicit assumptions and intermediate lemmas;
+    \item quantitative definitions of structural tension, thresholds and flows in key case studies (e.g. BKT transitions, RAF networks, protocell stability, protospiking);
+    \item refined models of collapse and recovery attempts at levels \(K_3\)–\(K_5\), including explicit threshold landscapes and cycle metrics;
+    \item systematic development of cognitive continua \(K_6\), with formal treatment of binding, prediction, memory and model–selection thresholds;
+    \item applications of OC to social and civilizational dynamics at levels \(K_7\)–\(K_8\), including stress–testing of institutions and infrastructures;
+    \item integration of the OC framework with empirical datasets and simulation pipelines, in order to test falsifiable predictions about thresholds and dimensional transitions;
+    \item formal specification of \(K_9\) and \(K_{10}\) in terms of logical systems, model theory and meta–level recursion.
 \end{itemize}
+
+These tasks are intended not as speculative extensions but as concrete steps from the current structural core towards domain–specific, testable models.
 
 \subsection{Summary}
 
-The discussion chapter synthesises the conceptual insights that follow from the OC framework:
-axes as generators of structure, thresholds as regulators of qualitative change, cycles as stabilisers of continuity, 
-and embedding spaces as the meta-structure enabling emergence.  
-Although many technical details remain to be developed in future Core versions, 
-the structural foundation presented in Core~1.1 provides a consistent and extensible platform 
-for cross-domain unification of continua.
+The discussion chapter synthesises the conceptual content of the OC framework.
+Axes provide the coordinates of structural difference; 
+potentials and flows describe how continua move through their state spaces; 
+thresholds and boundaries govern qualitative change; 
+cycles and the measure \(k(t)\) capture the conditions for structural persistence; 
+embedding spaces constrain what continua are possible and how they can evolve.
+Within this picture, emergence, stability and collapse appear as different regimes of the same structural machinery.
+
+Core~1.1 does not claim to complete this programme.
+It provides a coherent, minimal and extensible foundation on which more detailed, domain–specific developments can be built in subsequent Core and extension papers.
