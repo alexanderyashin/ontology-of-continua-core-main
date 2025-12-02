@@ -1,39 +1,282 @@
 % ====================================================================
 % FILE: content/09_thresholds.tex
-% Extended Threshold Landscape
-% Dummy skeleton for Core 1.1 Full Recovery
+% Extended Threshold Landscape (Restored Full Version)
+% Ontology of Continua — Core 1.1
 % ====================================================================
 
 \section{Extended Threshold Landscape}
 \label{sec:thresholds-extended}
 
-% TODO: Insert restored content from Core 1.0 / 1.1.1.
-% Full taxonomy of thresholds and multidimensional threshold geometry.
+This chapter reconstructs the complete theory of thresholds in the Ontology of
+Continua (OC), combining all structural elements scattered across the
+Physics, Chemistry, Biology and Cognition runs. Thresholds are the central
+mechanism through which qualitative change, dimensional emergence,
+collapse and death are produced.
+
+Thresholds are universal: they apply to physical, chemical, biological,
+cognitive, social and theoretical continua.
 
 \subsection{What is a Threshold?}
-% TODO
+
+A \emph{threshold} is a structural constraint function
+\[
+   \Theta_k : \Omega(K) \rightarrow \mathbb{R}
+\]
+with the property:
+\[
+   \Theta_k(s) \le 0
+   \quad\text{for all admissible states } s\in\Omega(K).
+\]
+
+A threshold separates qualitatively different dynamical regimes:
+\begin{itemize}
+    \item \( \Theta_k(s) < 0 \): safe regime (internal region),
+    \item \( \Theta_k(s) = 0 \): boundary regime,
+    \item \( \Theta_k(s) > 0 \): forbidden regime (outside \Omega(K)).
+\end{itemize}
+
+Thus thresholds define the shape of the admissible set \(\Omega(K)\),
+its boundary \(\partial\Omega(K)\),
+and the conditions under which the continuum exists or collapses.
+
+Thresholds are not constants.
+They depend on potentials \(P(t)\), flows \(J(t)\),
+axes \(A(K)\), environmental constraints, and embedding space structure.
+
+Formally:
+\[
+  \frac{d\Theta_k}{dt}
+   = H_k(\Theta_k, P, J, A, M),
+\]
+where \(H_k\) is the appropriate threshold–evolution operator.
 
 \subsection{Taxonomy of Thresholds}
-% TODO
-%   - Θ_exist
-%   - Θ_stab
-%   - Θ_crit
-%   - Θ_dim
-%   - Θ_death
-%   - Θ_expr
-%   - Θ_embed
+
+OC distinguishes seven universal classes of thresholds.
+This taxonomy was consolidated in Core~2.x and clarified across the domain runs.
+
+\paragraph{1. Existence Thresholds (\(\Theta_{\rm exist}\)).}
+Conditions required for \(\Omega(K)\neq\emptyset\).
+Examples:
+\begin{itemize}
+    \item minimum energy for bound physical states (K_2),
+    \item minimal catalytic closure (K_3),
+    \item minimal membrane continuity (K_4),
+    \item minimal coherence of internal models (K_6),
+    \item minimal legitimacy of institutions (K_7).
+\end{itemize}
+
+\paragraph{2. Stability Thresholds (\(\Theta_{\rm stab}\)).}
+Conditions under which flows do not diverge, and cycles remain bounded.
+Examples:
+\begin{itemize}
+    \item confinement conditions in physics,
+    \item osmotic homeostasis conditions in protocells,
+    \item membrane potential stability in neurons,
+    \item normative stability in social continua.
+\end{itemize}
+
+\paragraph{3. Critical Thresholds (\(\Theta_{\rm crit}\)).}
+Points of qualitative change within the same dimension.
+Examples:
+\begin{itemize}
+    \item phase transitions (K_2),
+    \item onset of catalytic networks (K_3),
+    \item metabolic switching (K_4),
+    \item spike initiation threshold (K_5),
+    \item cognitive prediction–error thresholds (K_6),
+    \item institutional bifurcations (K_7).
+\end{itemize}
+
+\paragraph{4. Dimensional Thresholds (\(\Theta_{\rm dim}\)).}
+Constraints that trigger the creation of new axes.
+This threshold type is central in OC:
+\[
+   T(K,t) > \Theta_{\rm dim}(K)
+   \quad\Rightarrow\quad
+   \text{new axis } A_{\rm new}.
+\]
+
+\paragraph{5. Death Thresholds (\(\Theta_{\rm death}\)).}
+Values beyond which no admissible state remains:
+\[
+   \forall s:\ \exists k : \Theta_k(s) > 0
+   \quad\Leftrightarrow\quad
+   \Omega(K)=\emptyset.
+\]
+
+\paragraph{6. Expressivity Thresholds (\(\Theta_{\rm expr}\)).}
+A continuum collapses when
+\[
+   {\rm dim}(A(K)) < {\rm dim}({\rm Differences}(K)).
+\]
+This threshold governs cognitive, social and meta–theoretical collapse.
+
+\paragraph{7. Embedding Thresholds (\(\Theta_{\rm embed}\)).}
+Constraints imposed by the embedding space \(M_x\).
+A continuum cannot exist if the embedding space does not support its axes or flows.
 
 \subsection{Threshold Geometry}
-% TODO
+
+Thresholds define a stratified geometry on \Omega(K).
+For each threshold \(\Theta_k\), consider the level sets:
+\[
+  \Sigma_k(c) = \{\, s \in \Omega(K) \mid \Theta_k(s) = c \,\}.
+\]
+
+In particular:
+\begin{itemize}
+    \item \(\Sigma_k(0)\) defines boundary components,
+    \item \(\Sigma_k(c<0)\) defines safe regions,
+    \item \(\Sigma_k(c>0)\) defines forbidden regions.
+\end{itemize}
+
+Thresholds interact to produce:
+\begin{itemize}
+    \item multi–threshold intersections,
+    \item cusps and folds (catastrophe–like structures),
+    \item curvature concentration regions,
+    \item patch–level heterogeneity (see \S\ref{sec:boundary-extended}).
+\end{itemize}
+
+The geometry of thresholds determines:
+\begin{itemize}
+    \item the shape of \Omega(K),
+    \item the organisation of flows within it,
+    \item the possible transitions of K.
+\end{itemize}
 
 \subsection{Dimensional Thresholds}
-% TODO
+
+Dimensional thresholds occupy a privileged role in OC:
+they determine when new differences become unrepresentable within the current axes.
+
+Formally, let \(T(K,t)\) be structural tension.
+Then:
+\[
+  T(K,t) < \Theta_{\rm dim}(K)
+   \quad\Rightarrow\quad
+   \text{all differences are expressible in } A(K),
+\]
+\[
+  T(K,t) = \Theta_{\rm dim}(K)
+   \quad\Rightarrow\quad
+   \text{projection fails},
+\]
+\[
+  T(K,t) > \Theta_{\rm dim}(K)
+   \quad\Rightarrow\quad
+   \text{new axis required}.
+\]
+
+Dimensional thresholds thus govern:
+\begin{itemize}
+    \item birth of K_1 from K_0,
+    \item emergence of chemical axes in K_3,
+    \item membrane axes in K_4,
+    \item excitation axes in K_5,
+    \item cognitive representational axes in K_6,
+    \item social normative axes in K_7,
+    \item meta–logical axes in K_9–K_{10}.
+\end{itemize}
 
 \subsection{Threshold Cascades}
-% TODO
+
+In many systems thresholds interact,
+producing cascades such as:
+\[
+  \Theta_{\rm grad} \rightarrow \Theta_{\rm perm} \rightarrow \Theta_{\rm mem}.
+\]
+
+Known examples:
+\begin{itemize}
+    \item Vesicle bursting (K_4):
+          osmotic gradient exceeds \Theta_{\rm grad},
+          permeability increases (\Theta_{\rm perm}),
+          membrane fails (\Theta_{\rm mem}).
+    \item Action potentials (K_5):
+          depolarisation exceeds \Theta_{\rm grad},
+          channels open (\Theta_{\rm crit}),
+          spike fires (cycle activation).
+    \item Institutional collapse (K_7):
+          trust deficit exceeds \Theta_{\rm grad},
+          normative breakdown (\Theta_{\rm expr}),
+          institutional death (\Theta_{\rm death}).
+\end{itemize}
+
+Cascades are essential for understanding early life, neural systems,
+and social/infrastructural dynamics.
 
 \subsection{Death Thresholds}
-% TODO
+
+Death thresholds determine when a continuum ceases to exist.
+
+Equivalent conditions:
+\begin{itemize}
+    \item complete violation of thresholds everywhere,
+    \item collapse of cycles (\(C(K)=\emptyset\)),
+    \item collapse of \Omega(K),
+    \item representational failure (\Theta_{\rm expr}),
+    \item incompatibility with embedding space.
+\end{itemize}
+
+Death is irreversible:
+no operator acting within the same continuum can recreate \Omega(K).
 
 \subsection{Examples Across K-levels}
-% TODO
+
+\paragraph{K_1 (Geometric Continua).}
+\begin{itemize}
+    \item \Theta_{\rm exist}: manifold differentiability conditions,
+    \item \Theta_{\rm crit}: classical bifurcations.
+\end{itemize}
+
+\paragraph{K_2 (Physical Continua).}
+\begin{itemize}
+    \item \Theta_{\rm crit}: BKT threshold,
+    \item \Theta_{\rm dim}: coherence thresholds (mass generation),
+    \item \Theta_{\rm death}: confinement/decoupling limits.
+\end{itemize}
+
+\paragraph{K_3 (Chemical Continua).}
+\begin{itemize}
+    \item \Theta_{\rm exist}: catalytic closure (RAF existence),
+    \item \Theta_{\rm crit}: reaction network percolation,
+    \item \Theta_{\rm expr}: insufficient chemical axes.
+\end{itemize}
+
+\paragraph{K_4 (Prebiotic/Biological Membrane Continua).}
+\begin{itemize}
+    \item \Theta_{\rm grad}: osmotic pressure limit,
+    \item \Theta_{\rm perm}: permeability limit,
+    \item \Theta_{\rm mem}: membrane rupture threshold.
+\end{itemize}
+
+\paragraph{K_5 (Excitable Continua).}
+\begin{itemize}
+    \item \Theta_{\rm crit}: spike initiation threshold,
+    \item \Theta_{\rm stab}: refractory conditions,
+    \item \Theta_{\rm death}: loss of excitability.
+\end{itemize}
+
+\paragraph{K_6 (Cognitive Continua).}
+\begin{itemize}
+    \item \Theta_{\rm expr}: binding capacity limits,
+    \item \Theta_{\rm crit}: prediction–error bifurcations,
+    \item \Theta_{\rm stab}: memory coherence limits.
+\end{itemize}
+
+\paragraph{K_7–K_8 (Social/Civilizational Continua).}
+\begin{itemize}
+    \item \Theta_{\rm exist}: trust and legitimacy thresholds,
+    \item \Theta_{\rm expr}: institutional capacity limits,
+    \item \Theta_{\rm death}: systemic collapse.
+\end{itemize}
+
+\paragraph{K_9–K_{10} (Theoretical and Meta–Theoretical Continua).}
+\begin{itemize}
+    \item \Theta_{\rm expr}: expressive capacity of theories,
+    \item \Theta_{\rm dim}: meta–level expansion thresholds,
+    \item \Theta_{\rm death}: inconsistency or incoherence.
+\end{itemize}
+
