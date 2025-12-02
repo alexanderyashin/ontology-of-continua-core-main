@@ -8,7 +8,7 @@ It consolidates the approved components of Core~2.x into a compact and verticall
 The material below is canonical: it restates, in unified notation, the axioms, definitions and structural theorems that have already been established in earlier internal runs.
 
 OC describes continua across multiple scientific domains using a single structural language built from
-axes, potentials, flows, thresholds, boundaries, cycles, and a measure of continuumness.
+axes, potentials, flows, thresholds, boundaries, cycles, a measure of continuumness, and their embedding into surrounding meta-spaces.
 All definitions in this section are domain–independent and apply equally to physical, chemical, biological, cognitive, social and meta–theoretical systems.
 
 \subsection{Axiomatic foundation: Level \texorpdfstring{$K_0$}{K0}}
@@ -111,6 +111,12 @@ where:
     \item \(k(K,t)\) is the measure of continuumness.
 \end{itemize}
 
+Every continuum is assumed to be embedded into a surrounding meta-space \(M\) such that
+\[
+    \Omega(K)\subseteq\Omega(M), \qquad A(K)\subseteq A(M).
+\]
+The meta-space provides additional admissible states and axes that can host future dimensional extensions of \(K\).
+
 \paragraph{State space and boundary.}
 Thresholds are represented as functions \(f_k : \overline{\Omega(K)} \to \mathbb{R}\) with
 \[
@@ -180,20 +186,19 @@ At a structural level, they satisfy
 \]
 where \(d_{\partial\Omega}(s)\) is the distance (in the induced structural metric) from state \(s\) to the boundary.
 
-Core~2.3 introduces a universal form of continuumness \(k(K,t)\) as
+Core~1.1 adopts the unified form of continuumness encoded in the operator \(U\),
 \[
     k(K,t)
-    = H_{\Omega}(K,t)
-      \cdot S_{\mathrm{conn}}(K,t)
-      \cdot S_{\mathrm{axes}}(K,t)
-      \cdot S_{\mathrm{cycles}}(K,t)
-      \cdot S_{\mathrm{flows}}(K,t),
+    = \chi_{\Omega}(K,t)\;
+      S_{\mathrm{axes}}(K,t)\;
+      S_{\mathrm{cycles}}(K,t)\;
+      S_{\mathrm{flows}}(K,t)\;
+      S_{\mathrm{coh}}(K,t),
 \]
 where:
 \begin{itemize}
-    \item \(H_{\Omega}(K,t)\) is the existence indicator:
-          \(H_{\Omega}(K,t)=1\) if the current state belongs to \(\Omega(K)\), and \(0\) otherwise;
-    \item \(S_{\mathrm{conn}}(K,t)\) measures structural connectedness, for example as the size of the largest connected component of the relevant graph divided by the total number of nodes (for levels without an explicit graph, such as \(K_0\)–\(K_1\), one sets \(S_{\mathrm{conn}}=1\));
+    \item \(\chi_{\Omega}(K,t)\) is the existence indicator:
+          \(\chi_{\Omega}(K,t)=1\) if the current state belongs to \(\Omega(K)\), and \(0\) otherwise;
     \item \(S_{\mathrm{axes}}(K,t)\) quantifies effective axis saturation, e.g.\ the ratio of the effective rank of working axes to the maximal possible rank for that level;
     \item \(S_{\mathrm{cycles}}(K,t)\) measures the strength and efficiency of stable cycles, such as a weighted sum of cycle efficiencies normalised by their maximal values;
     \item \(S_{\mathrm{flows}}(K,t)\) captures flow stability, for instance
@@ -202,7 +207,8 @@ where:
               = \frac{\Phi_{\mathrm{support}}(t)}
                      {\Phi_{\mathrm{support}}(t)+\Phi_{\mathrm{kill}}(t)},
           \]
-          where \(\Phi_{\mathrm{support}}\) and \(\Phi_{\mathrm{kill}}\) are aggregated magnitudes of supporting and destructive flows.
+          where \(\Phi_{\mathrm{support}}\) and \(\Phi_{\mathrm{kill}}\) are aggregated magnitudes of supporting and destructive flows;
+    \item \(S_{\mathrm{coh}}(K,t)\) encodes global structural coherence, which may include connectedness of the relevant graphs, compatibility of thresholds and flows, and absence of contradictory constraints.
 \end{itemize}
 
 By construction \(0 \le k(K,t) \le 1\).
@@ -233,6 +239,22 @@ Core~1.1 does not expand these into explicit differential equations, but treats 
 Dynamics continues as long as \(\Omega(K(t)) \neq \emptyset\).
 Once \(\Omega(K(t^\ast)) = \emptyset\), the continuum is dead and \(E\) can no longer act meaningfully on it.
 
+\subsection{Embedding into meta-spaces}
+
+Each level \(K_x\) is embedded into a meta-space \(M_x\) that provides additional admissible states and axes.
+At the structural level this is captured by the conditions
+\[
+    \Omega(K_x(t)) \subseteq \Omega(M_x(t)), \qquad
+    A(K_x) \subseteq A(M_x).
+\]
+The universal evolution axiom can then be stated schematically as
+\[
+    K_x(t+dt) = E\big(K_x(t), M_x(t)\big),
+\]
+with the additional requirement that if the embedding condition fails (\(\Omega(K_x)\not\subseteq\Omega(M_x)\)), the continuum \(K_x\) ceases to exist.
+Dimensional growth of \(K_x\) is only possible if the meta-space contains an axis \(A_{\mathrm{new}}\in A(M_x)\setminus A(K_x)\) and structural tension exceeds the corresponding dimensional threshold.
+This is the content of the general theorems on monotonicity of dimension and the impossibility of self-generated axes.
+
 \subsection{Birth of continua}
 
 The emergence of a new continuum \(K_{x+1}\) from \(K_x\) is a threshold–induced phase transition.
@@ -253,7 +275,7 @@ The operator of dimensional birth
     \Psi_{x\to x+1}: K_x \to K_{x+1}
 \]
 is minimal and irreversible: any nonzero emergence of the new axis constitutes the new continuum \(K_{x+1}\), and the dimension of \(K_{x+1}\) cannot revert to that of \(K_x\) without destroying \(\Omega(K_{x+1})\).
-This is the structural content of the monotonicity of dimension.
+This is the structural content of the monotonicity of dimension and of the theorem on the impossibility of self-produced axes.
 
 \subsection{Life of continua}
 
@@ -281,7 +303,7 @@ A continuum \(K\) dies at time \(t^\ast\) when
 \[
     \Omega(K(t^\ast)) = \emptyset,
 \]
-which implies \(H_{\Omega}(K,t^\ast)=0\) and hence \(k(K,t^\ast)=0\).
+which implies \(\chi_{\Omega}(K,t^\ast)=0\) and hence \(k(K,t^\ast)=0\).
 Equivalently:
 \begin{itemize}
     \item all stable cycles vanish, \(C(K(t^\ast)) = \emptyset\);
@@ -336,5 +358,5 @@ Core~1.1 does not expand the domain–specific representation theorems in detail
 \subsection{Summary}
 
 This section has presented the ontological backbone of OC:
-the axioms of \(K_0\), the construction of \(K_1\), the general definition of a continuum, the taxonomy of thresholds, the roles of potentials, flows and structural tension, the definition of cycles and continuumness, the evolution operator, the structural conditions for birth, life and death, the interaction operator and the vertical hierarchy \(K_0\)–\(K_{10}\).
+the axioms of \(K_0\), the construction of \(K_1\), the general definition of a continuum, the taxonomy of thresholds, the roles of potentials, flows and structural tension, the definition of cycles and continuumness, the evolution operator and embedding into meta-spaces, the structural conditions for birth, life and death, the interaction operator and the vertical hierarchy \(K_0\)–\(K_{10}\).
 All further developments in the Core and in extension papers rely on this structure as their common foundation.
