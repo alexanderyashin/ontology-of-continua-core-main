@@ -3,102 +3,104 @@
 \section{Introduction}
 \label{sec:intro}
 
-The present whitepaper, \emph{Ontology of Continua v3.0 — Core 1.1}, consolidates and systematizes the current state of the Ontology of Continua (OC) project.
-It is intended as a compact but self–contained reference for the core formalism and for the vertical hierarchy of levels \(K_0\)–\(K_{10}\).
-Compared to earlier core versions, Core~1.1 incorporates a refined axiomatics for the base level \(K_0\), a compact reconstruction of \(K_1\), a unified treatment of thresholds and boundaries, and an explicit formulation of birth, life, and death of continua across all levels.
+The present whitepaper, \emph{Ontology of Continua v3.0 — Core~1.1}, provides the first fully consolidated, vertically coherent, and formally unified reference for the Ontology of Continua (OC) framework. Core~1.1 integrates all previously approved components of the model — the axiomatics of level \(K_0\), the construction of \(K_1\), the general continuum definition, the taxonomy of thresholds, the formal treatment of potentials and flows, the structural conditions for birth, life, and death, and the complete vertical hierarchy \(K_0\)–\(K_{10}\). No new axioms are introduced; rather, Core~1.1 reorganizes, clarifies, and harmonizes the accepted formal results into a single, stable publication.
 
-The central idea of OC is that many heterogeneous systems — physical, chemical, biological, cognitive, social, and meta–theoretical — can be treated as \emph{continua} in a common structural sense.
-Each continuum \(K\) is characterized by:
+The central idea of OC is that heterogeneous systems across physics, chemistry, biology, cognition, social dynamics, and meta-theoretical spaces can be modeled as \emph{continua} — entities characterized not by the nature of their substrate but by a common structural ontology. Each continuum \(K\) is defined by:
+
 \begin{itemize}
-  \item a set of admissible states \(\Omega(K)\) and its boundary \(\partial\Omega(K)\);
-  \item a collection of axes of differences \(A(K)\) that define the internal dimensionality of the system;
-  \item potentials \(P(t)\) that encode energetic, informational, or structural constraints;
-  \item flows \(J(t)\) that transport and transform potentials;
-  \item thresholds \(\Theta\) that separate qualitatively different regimes of behaviour;
-  \item cycles \(C\) that realize persistent patterns of dynamics;
-  \item a measure of continuumness \(k(t)\) that quantifies the integrity and viability of the system.
+    \item a space of admissible states \(\Omega(K)\) and its boundary \(\partial\Omega(K)\);
+    \item a set of axes \(A(K)\) representing independent differences, determining the internal dimensionality of the system;
+    \item potentials \(P(t)\) capturing energetic, informational, chemical, biological, cognitive, or institutional constraints;
+    \item flows \(J(t)\) that redistribute or transform potentials;
+    \item thresholds \(\Theta(K)\) that separate qualitatively distinct dynamical regimes;
+    \item cycles \(C(K)\) that maintain persistent structure and organization;
+    \item a continuumness measure \(k(t)\) quantifying the structural integrity, viability, and resilience of the system.
 \end{itemize}
-The same scheme is applied from the most elementary mathematical substrate \(K_0\) up to meta–theoretical structures \(K_{10}\), with appropriate specializations at each level.
+
+This scheme applies uniformly from the most elementary substrate \(K_0\) up to meta-theoretical recursion in \(K_{10}\). The goal is not conceptual unification for its own sake, but a systematic account of how continua arise, persist, interact, and die.
 
 \subsection{Motivation}
 
-Traditional theories of complex systems typically operate within a fixed domain: statistical physics, chemistry, biology, cognitive science, social theory, or formal logic.
-Bridging these domains is difficult because each uses its own ontology and mathematical language.
-OC addresses this by providing a single structural framework in which different domains appear as particular realizations of the same set of concepts: continua, axes, potentials, flows, thresholds, cycles, and boundaries.
+The sciences of complex systems traditionally operate in disconnected ontological spaces: quantum fields in physics, RAF networks in chemistry, protocells and metabolic systems in biology, neuronal and cognitive architectures, social and institutional structures, and meta-theoretical frameworks in epistemology. Each domain uses its own language and assumptions, making cross-domain comparison difficult.
 
-The motivation is not to replace existing domain–specific theories, but to:
+OC proposes that these domains can be understood within a single structural ontology grounded in continua, axes, potentials, thresholds, flows, and cycles. The motivation is to:
+
 \begin{enumerate}
-  \item clarify which structural assumptions are shared across domains;
-  \item organize known results in terms of dimension, thresholds, and continuity;
-  \item enable cross–domain analogies that are more than metaphors, because they are grounded in the same formal layer;
-  \item formulate falsifiable predictions about how new levels of organization emerge and how they die.
+    \item identify structural assumptions common across scientific disciplines;
+    \item provide a uniform language for describing emergence and organization;
+    \item make dimension, threshold dynamics, and continuity explicit and comparable across domains;
+    \item derive falsifiable predictions about transitions between levels of organization;
+    \item establish a rigorous framework that is modest, empirical, and anti-hype, avoiding speculative or metaphoric claims.
 \end{enumerate}
-The project is explicitly anti–hype: the goal is a modest but precise framework that can be confronted with empirical systems and either supported or falsified.
+
+OC does not replace domain-specific theories. It provides the layer beneath them: a structural ontology that exposes their shared mechanisms and clarifies when cross-domain analogies reflect genuine structural equivalence rather than linguistic coincidence.
 
 \subsection{Scope of Core 1.1}
 
-Core~1.1 focuses on the following tasks:
+Core~1.1 has a restricted but precise purpose: to stabilize and unify the fundamental formalism. Its main tasks are:
+
 \begin{itemize}
-  \item to specify the axiomatic base at level \(K_0\), including the notion of structural difference, the non–trivial threshold \(\Theta_0\), and the absence of time at this level;
-  \item to define a compact one–dimensional continuum \(K_1\) and the conditions for passing from \(K_0\) to \(K_1\);
-  \item to provide a unified geometric and topological description of \(\Omega(K)\), \(\partial\Omega(K)\) and thresholds \(\Theta\), together with a taxonomy of thresholds (\(\Theta_{\text{exist}}, \Theta_{\text{stab}}, \Theta_{\text{crit}}, \Theta_{\text{dim}}, \Theta_{\text{death}}\));
-  \item to formalize potentials \(P(t)\), flows \(J(t)\), and their interaction with thresholds, cycles, and the measure \(k(t)\);
-  \item to state general evolution equations for \(K(t)\) in terms of axes \(A\), potentials \(P\), flows \(J\), thresholds \(\Theta\), boundaries \(\partial\Omega\), cycles \(C\), and continuumness \(k\);
-  \item to formulate structural conditions for birth, life, and death of continua and to state the irreversibility of death;
-  \item to define the interaction operator \(E_{\text{int}}\) and to classify basic regimes of interaction between continua (competition, parasitism, symbiosis, fusion);
-  \item to present the hierarchy of levels \(K_0\)–\(K_{10}\) in a compact and vertically consistent way.
+    \item formalizing the axiomatic base of \(K_0\), including structural difference \(\Delta\), the non-trivial threshold \(\Theta_0\), the absence of time, and the minimal continuity conditions;
+    \item reconstructing \(K_1\) as a one-dimensional continuum with a full definition of its state space, smoothness assumptions, classical region \(\Omega_{\mathrm{cl}}\), and the transition operator \(\Psi_{0\to 1}\);
+    \item presenting a unified geometric and topological description of \(\Omega(K)\), \(\partial\Omega(K)\), and the threshold taxonomies \(\Theta_{\mathrm{exist}}, \Theta_{\mathrm{stab}}, \Theta_{\mathrm{crit}}, \Theta_{\mathrm{dim}}, \Theta_{\mathrm{death}}\);
+    \item defining potentials \(P(t)\) in their general form across levels, including energetic, chemical, biological, cognitive, and informational variants;
+    \item specifying flows \(J(t)\), including supporting, destructive, and critical flows, and their interaction with potentials and thresholds;
+    \item stating the general evolution operator \(E\) generating \(K(t+dt)\) from \(K(t)\);
+    \item defining structural criteria for birth (dimension-increasing transitions), life (cycle-supported persistence), and death (collapse of admissible state space);
+    \item introducing the interaction operator \(E_{\mathrm{int}}\) and classifying canonical interaction regimes: competition, parasitism, symbiosis, and fusion;
+    \item presenting the complete vertical hierarchy \(K_0\)–\(K_{10}\) in a single coherent format.
 \end{itemize}
 
-The document is intentionally limited to the \emph{core} of the framework.
-Detailed domain–specific developments — for example, the physics of phase transitions, chemical RAF–networks, protocells and bioelectricity, cognitive binding, or social institutions and civilizations — are referenced only to the extent necessary to illustrate the formal concepts.
-Full domain–specific treatments are planned as separate extension papers.
+Domain-specific details (phase transitions in physics, RAF networks, protocells, bioelectrical dynamics, cognitive binding, institutional structures, civilizational dynamics) are mentioned only insofar as they exemplify the core structure. They are expanded in separate extension papers following the Core~1.1 release.
 
 \subsection{Vertical hierarchy of levels}
 
-OC organizes systems into a vertical hierarchy of continua:
-\[
-  K_0, K_1, K_2, \dots, K_{10}.
-\]
-Each \(K_x\) has its own state space \(\Omega(K_x)\), axes \(A(K_x)\), thresholds \(\Theta_x\), flows \(J_x\), cycles \(C_x\), and continuumness measure \(k_x(t)\).
-Levels are not arbitrary labels: transitions \(K_x \to K_{x+1}\) correspond to the emergence of new axes that cannot be represented within the lower–dimensional structure.
+The OC hierarchy:
 
-At a high level:
+\[
+K_0, K_1, K_2, \dots, K_{10},
+\]
+
+captures the main structural phases of organization observed across scientific and meta-scientific domains. Each level \(K_x\) is defined by its own state space \(\Omega_x\), axes \(A_x\), thresholds \(\Theta_x\), flows \(J_x\), cycles \(C_x\), and continuumness measure \(k_x(t)\). The key principle is that transitions \(K_x \to K_{x+1}\) require the appearance of a new axis \(A_{\mathrm{new}}\) that cannot be represented within the geometry of \(K_x\).
+
+A high-level overview:
+
 \begin{itemize}
-  \item \(K_0\) is a purely structural substrate of distinguishable states without geometry, time, or energy.
-  \item \(K_1\) introduces a one–dimensional continuum and classical–like configurations.
-  \item \(K_2\) captures physical fields and phase transitions.
-  \item \(K_3\) and \(K_4\) describe chemical and prebiotic systems, including RAF–networks and protocells.
-  \item \(K_5\) corresponds to early neural and bioelectric dynamics.
-  \item \(K_6\) describes cognitive continua with internal models and binding.
-  \item \(K_7\) and \(K_8\) represent social and civilizational systems.
-  \item \(K_9\) is the space of theories, paradigms, ontologies, and formal languages.
-  \item \(K_{10}\) captures meta–level recursive structures acting on the previous levels.
+    \item \(K_0\): structural substrate without geometry, time, energy, or dynamics.
+    \item \(K_1\): one-dimensional classical continuum with admissible configurations and classical region \(\Omega_{\mathrm{cl}}\).
+    \item \(K_2\): physical continua including fields, phase transitions, percolation, BKT phenomena, QCD mass structure, and other representation theorems.
+    \item \(K_3\): chemical continua including reaction networks, RAF structures, concentrations, environmental parameters.
+    \item \(K_4\): protocellular continua with membranes, gradients, osmotic and curvature thresholds, and metabolic subspaces.
+    \item \(K_5\): early neural and bioelectrical continua with excitation thresholds, ion channels, and protospike dynamics.
+    \item \(K_6\): cognitive continua with binding, internal models, thresholds of prediction and memory stability.
+    \item \(K_7\): social continua with trust thresholds, institutional cycles, and structural flows.
+    \item \(K_8\): civilizational continua with systemic stability, infrastructure cycles, and global thresholds.
+    \item \(K_9\): meta-theoretical continua composed of theories, paradigms, ontologies, and formal languages.
+    \item \(K_{10}\): recursive meta-levels regulating and transforming the space of all previous continua.
 \end{itemize}
-Core~1.1 does not introduce new levels beyond \(K_{10}\); instead, it concentrates on ensuring that the definitions and transitions between these levels are consistent and formally explicit.
+
+Core~1.1 does not introduce levels beyond \(K_{10}\). It ensures the consistency of definitions, boundaries, thresholds, and transitions for all existing levels.
 
 \subsection{Relation to previous versions}
 
-Earlier versions of the OC core provided separate treatments of several components:
-base–level axioms, physical and chemical representations, biological thresholds, and the social and meta–theoretical levels.
-Over time, these were refined and partially re–written in different contexts and notations.
-Core~1.1 has two main goals with respect to this legacy:
+Earlier versions of the OC Core were distributed across multiple internal documents, each focusing on a fragment: the definition of \(K_0\), chemical representation theorems, biological threshold landscapes, cognitive thresholds, or social and civilizational structures. Core~1.1 integrates these previously separate elements into a single coherent document.
+
+Two main goals motivate this consolidation:
+
 \begin{enumerate}
-  \item consolidate all approved elements into a single coherent LaTeX document with a stable structure;
-  \item eliminate internal inconsistencies and gaps, especially in the definitions of thresholds, boundaries, and level transitions.
+    \item establish a uniform notation, structure, and threshold taxonomy across all levels;
+    \item eliminate inconsistencies, ambiguities, and redundancies, ensuring that every level’s definition follows from the general continuum ontology.
 \end{enumerate}
 
-No new axioms or theorems are introduced in Core~1.1.
-Instead, previously formulated axioms, theorems, and representation results are re–organized and stated in a more compact and uniform way.
-Where necessary, minor clarifications of wording are made to avoid ambiguity, but the logical content is kept the same.
+The logical content of the theory remains unchanged; Core~1.1 is a restructuring and clarification effort, not a theoretical expansion.
 
 \subsection{Structure of the paper}
 
-The remainder of this whitepaper is organized as follows.
-Section~\ref{sec:background} reviews the minimal mathematical background and the general conceptual setting of OC, including the notions of continua, axes, thresholds, and boundaries.
-Section~\ref{sec:model} presents the core formalism: the axioms for \(K_0\), the construction of \(K_1\), the general definition of a continuum \(K\), the taxonomy of thresholds, the operators for potentials, flows, and cycles, and the general evolution equations, together with the formulation of birth, life, and death and the operator of interaction between continua.
-Section~\ref{sec:results} summarizes key structural results that follow from the core framework, including monotonicity of dimension, impossibility of spontaneous dimension creation, irreversibility of death, and the general theorem on emergence at threshold crossing.
-Section~\ref{sec:discussion} discusses the interpretation of the model, its limitations, and how it relates to existing theories of complex systems.
-Section~\ref{sec:conclusion} concludes and outlines the roadmap for extensions and empirical applications.
+The rest of this whitepaper is structured as follows.  
+Section~\ref{sec:background} introduces the minimal structural and mathematical background needed for the framework.  
+Section~\ref{sec:model} presents the formal core: the axioms of \(K_0\), the construction of \(K_1\), the general continuum definition, threshold taxonomy, operators for potentials and flows, the evolution operator, and the structural conditions for birth, life, and death.  
+Section~\ref{sec:results} outlines the main structural consequences: monotonicity of dimension, impossibility of spontaneous dimension creation, threshold-induced emergence, and irreversibility of death.  
+Section~\ref{sec:discussion} discusses interpretation, scope, and limitations.  
+Section~\ref{sec:conclusion} concludes and outlines future extensions.
 
-The document is written to be readable as a standalone reference.
-Readers primarily interested in applications may skim the detailed axiomatics and focus on the high–level results and their implications; readers interested in the formal structure can follow the definitions and proofs in detail.
+Core~1.1 is intended as a standalone reference. Readers focused on applications may skip technical details; readers focused on formal structure can follow the definitions and structural consequences in detail.
