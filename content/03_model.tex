@@ -30,12 +30,12 @@ where:
 \end{itemize}
 There is no time parameter and no evolution operator at this level.
 
-\paragraph{Axiom 0.1 (Difference and connectedness).}
+\paragraph{Axiom 0.1 (Difference and distinguishability).}
 For all \(s_1,s_2 \in S\),
 \[
     \Delta(s_1,s_2) = 0 \;\Rightarrow\; s_1 = s_2.
 \]
-Nonzero structural difference is the minimal condition for distinguishability, and distinguishability is the minimal form of connectedness.
+Nonzero structural difference is the minimal condition for distinguishability.
 A continuum cannot exist without at least two distinguishable states.
 
 \paragraph{Axiom 0.2 (Nontrivial threshold \texorpdfstring{$\Theta_0$}{Theta0}).}
@@ -45,7 +45,7 @@ There exists \(\varepsilon > 0\) such that for any distinguishable pair
 \]
 The value \(\Theta_0 = \varepsilon\) acts as a minimal structural threshold: differences smaller than \(\varepsilon\) are not resolved at the level of \(K_0\).
 
-\paragraph{Axiom 0.3 (Logical overdominance).}
+\paragraph{Axiom 0.3 (Logical substrate).}
 \(K_0\) carries no time parameter and no dynamical operator.
 It does not evolve and does not generate higher levels by itself.
 It specifies only logical conditions on distinguishability and the existence of nontrivial differences.
@@ -62,7 +62,7 @@ Level \(K_1\) is the simplest genuine continuum: it introduces time, a one–dim
 \paragraph{Data of \(K_1\).}
 The continuum \(K_1\) is defined by:
 \[
-    K_1 = (\Omega_1,A_1,P_1,J_1,\Theta_1,\partial\Omega_1,C_1,k_1(t)),
+    K_1 = \big(\Omega_1,A_1,P_1(t),J_1(t),\Theta_1,\partial\Omega_1,C_1,k_1(t)\big),
 \]
 where:
 \begin{itemize}
@@ -75,7 +75,7 @@ where:
     \item \(\Theta_1\) encodes minimal conditions for classical stability;
     \item \(\partial\Omega_1\) is the boundary where stability thresholds saturate;
     \item \(C_1\) is the set of classical cycles (for example, periodic orbits);
-    \item \(k_1(t)\) measures one–dimensional continuumness.
+    \item \(k_1(t)\) measures one–dimensional continuumness according to the general definition below.
 \end{itemize}
 
 \paragraph{Transition \texorpdfstring{$\Psi_{0\to 1}$}{Psi 0→1}.}
@@ -97,7 +97,7 @@ This is the first instance of dimensional emergence: a continuous axis appears t
 
 For any level \(K\) in the hierarchy, a continuum is defined as the tuple
 \[
-    K = \big(\Omega(K), A(K), P(t), J(t), \Theta(K), \partial\Omega(K), C(K), k(t)\big),
+    K = \big(\Omega(K), A(K), P(t), J(t), \Theta(K), \partial\Omega(K), C(K), k(K,t)\big),
 \]
 where:
 \begin{itemize}
@@ -108,7 +108,7 @@ where:
     \item \(\Theta(K) = \{\Theta_k\}\) is the set of threshold functions;
     \item \(\partial\Omega(K)\) is the boundary of admissible states;
     \item \(C(K)\) is the family of structurally stable cycles;
-    \item \(k(t)\) is the measure of continuumness.
+    \item \(k(K,t)\) is the measure of continuumness.
 \end{itemize}
 
 \paragraph{State space and boundary.}
@@ -121,6 +121,12 @@ and the boundary is defined as
     \partial\Omega(K) = \{ s \in \overline{\Omega(K)} \mid \exists\, k: f_k(s) = 0 \}.
 \]
 This definition requires no metric and applies equally to geometric, topological, energetic, informational, or logical continua.
+
+The boundary is dynamic and evolves under a boundary–evolution operator
+\[
+    \frac{d}{dt}\,\partial\Omega(K) = R\big(\partial\Omega(K),P(t),J(t),\Theta(K)\big),
+\]
+which can contract, expand or bifurcate \(\Omega(K)\) during birth, life and death events.
 
 \subsection{Taxonomy of thresholds}
 
@@ -155,42 +161,53 @@ Flows \(J(t)\) describe the rate of change of potentials and state variables:
 \]
 with \(J(t)\) decomposed into structurally distinct classes:
 \begin{itemize}
-    \item \textbf{supporting flows} \(J_{\mathrm{support}}\), which maintain cycles and stabilise \(k(t)\);
+    \item \textbf{supporting flows} \(J_{\mathrm{support}}\), which maintain cycles and stabilise \(k(K,t)\);
     \item \textbf{critical flows} \(J_{\mathrm{critical}}\), which move the system towards or across critical thresholds \(\Theta_{\mathrm{crit}}\) and \(\Theta_{\mathrm{dim}}\);
-    \item \textbf{destructive flows} \(J_{\mathrm{kill}}\), which push the system across \(\Theta_{\mathrm{death}}\) and reduce \(k(t)\).
+    \item \textbf{destructive flows} \(J_{\mathrm{kill}}\), which push the system across \(\Theta_{\mathrm{death}}\) and reduce \(k(K,t)\).
 \end{itemize}
 
-Structural tension \(T(K)\) is a functional of potentials, axes and gradients (schematically \(T=T(P,A,\nabla P)\)).
+Structural tension \(T(K,t)\) is a functional of potentials, axes and gradients (schematically \(T=T(P,A,\nabla P)\)).
 It measures how strongly the current configuration stresses the threshold landscape.
-Dimensional transitions occur when \(T\) exceeds \(\Theta_{\mathrm{dim}}\); collapse occurs when destructive flows combined with tension drive the system across \(\Theta_{\mathrm{death}}\).
+Dimensional transitions occur when \(T(K,t)\) exceeds \(\Theta_{\mathrm{dim}}(K)\); collapse occurs when destructive flows combined with tension drive the system across \(\Theta_{\mathrm{death}}(K)\).
 
 \subsection{Cycles and continuumness}
 
 Cycles \(C(K)\) are closed trajectories in \(\Omega(K)\) that remain at a finite distance from the boundary and preserve continuumness.
-At a structural level, they satisfy:
+At a structural level, they satisfy
 \[
-    L(C) = \oint d\Omega < \infty,\qquad
+    L(C) = \oint_{C} d\Omega < \infty,\qquad
     S(C) = \min_{s \in C} d_{\partial\Omega}(s) > 0,
 \]
 where \(d_{\partial\Omega}(s)\) is the distance (in the induced structural metric) from state \(s\) to the boundary.
 
-The measure of continuumness \(k(t)\) combines contributions from the richness of admissible states, the presence and stability of cycles, expressive adequacy of axes, internal coherence and compatibility with thresholds.
-In compact form:
+Core~2.3 introduces a universal form of continuumness \(k(K,t)\) as
 \[
-    k(t) = H(\Omega(K)) \cdot \frac{|C_{\max}|}{|C_{\mathrm{all}}|}
-           \cdot E_{\mathrm{expr}} \cdot I_{\mathrm{coh}} \cdot Cons_t,
+    k(K,t)
+    = H_{\Omega}(K,t)
+      \cdot S_{\mathrm{conn}}(K,t)
+      \cdot S_{\mathrm{axes}}(K,t)
+      \cdot S_{\mathrm{cycles}}(K,t)
+      \cdot S_{\mathrm{flows}}(K,t),
 \]
 where:
 \begin{itemize}
-    \item \(H(\Omega(K))\) is a structural entropy of the state space;
-    \item \(|C_{\max}|\) is the size of the largest stable cycle complex;
-    \item \(|C_{\mathrm{all}}|\) is the total number of relevant cycles;
-    \item \(E_{\mathrm{expr}}\) measures the expressive adequacy of axes;
-    \item \(I_{\mathrm{coh}}\) captures internal coherence between flows, potentials and thresholds;
-    \item \(Cons_t\) encodes consistency with the threshold landscape at time \(t\).
+    \item \(H_{\Omega}(K,t)\) is the existence indicator:
+          \(H_{\Omega}(K,t)=1\) if the current state belongs to \(\Omega(K)\), and \(0\) otherwise;
+    \item \(S_{\mathrm{conn}}(K,t)\) measures structural connectedness, for example as the size of the largest connected component of the relevant graph divided by the total number of nodes (for levels without an explicit graph, such as \(K_0\)–\(K_1\), one sets \(S_{\mathrm{conn}}=1\));
+    \item \(S_{\mathrm{axes}}(K,t)\) quantifies effective axis saturation, e.g.\ the ratio of the effective rank of working axes to the maximal possible rank for that level;
+    \item \(S_{\mathrm{cycles}}(K,t)\) measures the strength and efficiency of stable cycles, such as a weighted sum of cycle efficiencies normalised by their maximal values;
+    \item \(S_{\mathrm{flows}}(K,t)\) captures flow stability, for instance
+          \[
+              S_{\mathrm{flows}}(K,t)
+              = \frac{\Phi_{\mathrm{support}}(t)}
+                     {\Phi_{\mathrm{support}}(t)+\Phi_{\mathrm{kill}}(t)},
+          \]
+          where \(\Phi_{\mathrm{support}}\) and \(\Phi_{\mathrm{kill}}\) are aggregated magnitudes of supporting and destructive flows.
 \end{itemize}
 
-A continuum exists as a live continuum if and only if \(k(t) > 0\).
+By construction \(0 \le k(K,t) \le 1\).
+A continuum exists as a live continuum if and only if \(k(K,t) > 0\).
+Death corresponds to \(k(K,t)\to 0\) in combination with the collapse of \(\Omega(K)\).
 
 \subsection{Evolution operator}
 
@@ -225,9 +242,9 @@ Structurally, birth occurs when the following conditions are met:
     \item A new class of differences appears that cannot be represented using the existing axes \(A(K_x)\).
     \item Structural tension associated with these differences satisfies
           \[
-              T(K_x) > \Theta_{\mathrm{dim}}(K_x).
+              T(K_x,t) > \Theta_{\mathrm{dim}}(K_x).
           \]
-    \item The embedding space \(M_x\) contains at least one axis that can host the new differences (i.e., \(A_{\mathrm{new}} \in A(M_x) \setminus A(K_x)\)).
+    \item The embedding space \(M_x\) contains at least one axis that can host the new differences (i.e.\ \(A_{\mathrm{new}} \in A(M_x) \setminus A(K_x)\)).
     \item There exists a nonempty set of admissible states \(\Omega(K_{x+1})\) compatible with the new axis and thresholds.
 \end{enumerate}
 
@@ -236,14 +253,14 @@ The operator of dimensional birth
     \Psi_{x\to x+1}: K_x \to K_{x+1}
 \]
 is minimal and irreversible: any nonzero emergence of the new axis constitutes the new continuum \(K_{x+1}\), and the dimension of \(K_{x+1}\) cannot revert to that of \(K_x\) without destroying \(\Omega(K_{x+1})\).
+This is the structural content of the monotonicity of dimension.
 
 \subsection{Life of continua}
 
-A continuum \(K\) is alive on an interval of time if:
-
+A continuum \(K\) is alive on an interval of time if
 \[
     \Omega(K(t)) \neq \emptyset,\qquad
-    k(t) > 0,\qquad
+    k(K,t) > 0,\qquad
     C(K(t)) \neq \emptyset,
 \]
 and if supporting flows \(J_{\mathrm{support}}\) dominate destructive flows \(J_{\mathrm{kill}}\) when integrated over relevant cycles.
@@ -260,14 +277,14 @@ These conditions are interpreted differently at each level \(K_x\), but the stru
 
 \subsection{Death of continua}
 
-A continuum \(K\) dies at time \(t^\ast\) when:
+A continuum \(K\) dies at time \(t^\ast\) when
 \[
-    \Omega(K(t^\ast)) = \emptyset.
+    \Omega(K(t^\ast)) = \emptyset,
 \]
+which implies \(H_{\Omega}(K,t^\ast)=0\) and hence \(k(K,t^\ast)=0\).
 Equivalently:
 \begin{itemize}
     \item all stable cycles vanish, \(C(K(t^\ast)) = \emptyset\);
-    \item continuumness drops to zero, \(k(t^\ast)=0\);
     \item no state satisfies the threshold inequalities concurrently;
     \item any attempted continuation of dynamics would violate at least one existence threshold \(\Theta_{\mathrm{exist}}\).
 \end{itemize}
