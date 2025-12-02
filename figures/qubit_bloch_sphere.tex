@@ -1,0 +1,23 @@
+% FILE: figures/qubit_bloch_sphere.tex
+% Bloch sphere schematic
+
+\begin{tikzpicture}[>=latex,thick,scale=1]
+  % Circle
+  \draw (0,0) circle (2);
+
+  % Axes
+  \draw[->] (0,0) -- (0,2.4) node[above] {$Z$};
+  \draw[->] (0,0) -- (2.4,0) node[right] {$X$};
+  \draw[->] (0,0) -- (-1.7,-1.7) node[below left] {$Y$};
+
+  % State vector
+  \draw[->,thick] (0,0) -- (1.4,1.2);
+  \node[anchor=west] at (1.4,1.2) {$|\psi\rangle$};
+
+  % Angles
+  \draw (0.5,0) arc (0:40:0.5);
+  \node at (0.7,0.3) {$\theta$};
+
+  \draw (1.0,0) arc (0:35:1.0);
+  \node at (1.4,0.2) {$\phi$};
+\end{tikzpicture}
