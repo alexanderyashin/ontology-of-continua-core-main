@@ -1,30 +1,37 @@
 % =============================================
-%  Ontology of Continuum — Core
-%  Stable LaTeX Preamble (do not edit)
+%  Ontology of Continua — Core 1.1
+%  Stable LaTeX preamble (infrastructure)
 % =============================================
 
+% Font configuration (XeLaTeX, Unicode)
 \usepackage{fontspec}
 \setmainfont{DejaVu Serif}
 \setsansfont{DejaVu Sans}
 \setmonofont{DejaVu Sans Mono}
 
+% Language configuration (primary: English, secondary: Russian)
 \usepackage{polyglossia}
-\setdefaultlanguage{russian}
-\setotherlanguages{english}
+\setdefaultlanguage{english}
+\setotherlanguages{russian}
 \newfontfamily\cyrillicfont{DejaVu Serif}
 
+% Page layout
 \usepackage[a4paper,margin=2.5cm]{geometry}
 
+% Math packages
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{mathtools}
 
+% Graphics
 \usepackage{graphicx}
-\graphicspath{{figures/}}
+\graphicspath{{figures/}{content/placeholders/}}
 
+% Tables
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{longtable}
 
+% Hyperlinks
 \usepackage{hyperref}
 \hypersetup{
   unicode=true,
@@ -32,14 +39,17 @@
   linkcolor=blue,
   citecolor=blue,
   urlcolor=blue,
-  pdftitle={Ontology of Continuum — Core},
+  pdftitle={Ontology of Continua --- Core 1.1},
   pdfauthor={Alexander Yashin}
 }
 
+% Clever references
 \usepackage[nameinlink,capitalize]{cleveref}
 
+% Quotation tools
 \usepackage{csquotes}
 
+% Bibliography
 \usepackage[
   backend=biber,
   style=authoryear,
@@ -48,14 +58,16 @@
 
 \addbibresource{bib/references.bib}
 
+% Number equations by section
 \numberwithin{equation}{section}
 
+% Theorem-like environments (English)
 \theoremstyle{plain}
-\newtheorem{theorem}{Теорема}[section]
-\newtheorem{lemma}[theorem]{Лемма}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
 
 \theoremstyle{definition}
-\newtheorem{definition}[theorem]{Определение}
+\newtheorem{definition}[theorem]{Definition}
 
 \theoremstyle{remark}
-\newtheorem{remark}[theorem]{Замечание}
+\newtheorem{remark}[theorem]{Remark}
