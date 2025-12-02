@@ -1,0 +1,142 @@
+% ====================================================================
+% FILE: appendix/C_klevels_tables.tex
+% Tabular Summary of K-levels for Core 1.1
+% ====================================================================
+
+\section{Tabular Summary of \texorpdfstring{$K_0$–$K_{10}$}{K0–K10}}
+\label{app:klevels-tables}
+
+This appendix summarises the continua \(K_0\)–\(K_{10}\) in tabular form.
+The goal is to provide a compact reference; detailed descriptions are given in
+Section~\ref{sec:klevels-full}.
+
+\subsection{Overview Table}
+
+\begin{table}[h]
+  \centering
+  \caption{Continuum hierarchy \(K_0\)–\(K_{10}\).}
+  \label{tab:klevels-overview}
+  \begin{tabular}{llp{0.55\textwidth}}
+    \hline
+    Level & Domain & Structural characterisation \\
+    \hline
+    \(K_0\) & Structural substrate &
+      Set of distinguishable states \((S,\Delta,\mathcal{C})\), no time,
+      no energy, no geometry; minimal threshold \(\Theta_0\). \\[0.3em]
+    \(K_1\) & Classical continua &
+      One--dimensional axis, continuous configurations on \((X,\tau)\),
+      basic stability thresholds. \\[0.3em]
+    \(K_2\) & Physical continua &
+      Fields, phases, percolation and BKT--type transitions, mass
+      generation, physical thresholds. \\[0.3em]
+    \(K_3\) & Chemical continua &
+      Reaction networks, RAF structures, concentrations, environmental
+      parameters, catalytic closure thresholds. \\[0.3em]
+    \(K_4\) & Protocellular continua &
+      Membranes, osmotic and curvature thresholds, gradient maintenance,
+      metabolic subspaces. \\[0.3em]
+    \(K_5\) & Early neural/bioelectrical &
+      Ion channels, membrane potentials, excitability thresholds, proto--spikes. \\[0.3em]
+    \(K_6\) & Cognitive continua &
+      Representational axes, binding, internal models, prediction and
+      memory thresholds. \\[0.3em]
+    \(K_7\) & Social continua &
+      Norms, roles, institutions, trust thresholds, institutional cycles. \\[0.3em]
+    \(K_8\) & Civilizational continua &
+      Infrastructures, technological systems, large--scale threshold
+      landscapes and collapse regimes. \\[0.3em]
+    \(K_9\) & Theoretical continua &
+      Theories, paradigms, ontologies, logical languages; coherence and
+      consistency thresholds. \\[0.3em]
+    \(K_{10}\) & Meta--theoretical continua &
+      Structures that organise and transform models and modelling
+      frameworks; self--referential thresholds. \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\subsection{Structural Components per Level}
+
+Table~\ref{tab:klevels-structure} summarises the main components of the
+continuum tuple for each level.
+
+\begin{table}[h]
+  \centering
+  \caption{Structural components \((\Omega, A, P, J, \Theta, \partial\Omega, C, k)\) per level.}
+  \label{tab:klevels-structure}
+  \small
+  \begin{tabular}{lp{0.18\textwidth}p{0.22\textwidth}p{0.4\textwidth}}
+    \hline
+    Level & Axes \(A\) & Potentials \(P\) & Typical cycles \(C\) \\
+    \hline
+    \(K_0\) &
+      Structural distinguishability axis &
+      None (no dynamics) &
+      None (no time). \\[0.3em]
+    \(K_1\) &
+      Single geometric axis & 
+      Classical energy functionals &
+      Periodic orbits, oscillations. \\[0.3em]
+    \(K_2\) &
+      Spatial, internal and order parameter axes &
+      Field energies, order parameters, coupling constants &
+      Phase cycles, vortex/defect cycles, coherence cycles. \\[0.3em]
+    \(K_3\) &
+      Concentration axes, environmental axes &
+      Chemical potentials, free energy, pH, redox potentials &
+      Metabolic loops, autocatalytic cycles, RAF structures. \\[0.3em]
+    \(K_4\) &
+      Membrane axes, gradient axes, structural axes of compartments &
+      Osmotic, curvature and electrochemical potentials &
+      Membrane growth/division cycles, gradient maintenance cycles. \\[0.3em]
+    \(K_5\) &
+      Excitation axes, electrical axes, channel configuration axes &
+      Membrane potential, gating variables, synaptic weights &
+      Spike cycles, proto--circuit cycles, oscillatory activity. \\[0.3em]
+    \(K_6\) &
+      Representational and feature axes, model axes &
+      Predictive, value and confidence potentials &
+      Attention cycles, prediction--correction cycles, learning cycles. \\[0.3em]
+    \(K_7\) &
+      Social role axes, group axes, institutional axes &
+      Normative, reputational and resource potentials &
+      Role/interaction cycles, institutional cycles, governance loops. \\[0.3em]
+    \(K_8\) &
+      Civilizational axes (infrastructures, sectors, regions) &
+      Resource, energy and risk potentials &
+      Economic cycles, infrastructure renewal cycles, stability cycles. \\[0.3em]
+    \(K_9\) &
+      Theory and paradigm axes, formal language axes &
+      Coherence, consistency and expressive potentials &
+      Programme cycles, theory revision cycles, paradigm cycles. \\[0.3em]
+    \(K_{10}\) &
+      Meta--model and meta--language axes &
+      Structural adequacy and applicability potentials &
+      Meta--theoretical update cycles, cross--model translation cycles. \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\subsection{Vertical Continuity Conditions}
+
+For neighbouring levels \(K_x\) and \(K_{x+1}\) the following continuity
+conditions hold:
+
+\begin{itemize}
+  \item State spaces are nested via projection:
+        there exists a projection
+        \(\pi_{x+1\to x} : \Omega(K_{x+1}) \to \Omega(K_x)\)
+        that forgets the new axis.
+  \item Axes are monotonic:
+        \(A(K_x)\subset A(K_{x+1})\) and
+        \(\dim A(K_{x+1}) > \dim A(K_x)\).
+  \item Thresholds respect inheritance:
+        thresholds of \(K_x\) are recovered from those of \(K_{x+1}\) by
+        restricting to the subspace where the new axis is fixed.
+  \item Embedding spaces are nested:
+        \(M_x\subset M_{x+1}\) with
+        \(A(M_x)\subset A(M_{x+1})\).
+\end{itemize}
+
+These relations ensure that the continuum hierarchy is vertically coherent:
+higher levels refine rather than contradict the structure of lower levels.
