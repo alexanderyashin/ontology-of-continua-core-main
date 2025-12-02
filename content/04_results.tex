@@ -7,7 +7,7 @@ This section summarises the core structural results that follow from the formal 
 Unlike earlier drafts of the Core, this chapter is not a placeholder: it presents the canonical consequences of the Ontology of Continua (OC) axioms and operators, as consolidated from Core~2.x and reorganised for Core~1.1.
 
 All results in this chapter are domain–independent.
-They follow solely from the structural definitions of continua, axes, thresholds, potentials, flows, boundaries, cycles and the measure of continuumness \(k(t)\).
+They follow solely from the structural definitions of continua, axes, thresholds, potentials, flows, boundaries, cycles and the measure of continuumness \(k(K,t)\).
 Proofs are not reproduced here in full detail; they are deferred to dedicated extension papers.
 The focus is on stating the key theorems and consequences that constrain all continua in the hierarchy \(K_0\)–\(K_{10}\).
 
@@ -21,34 +21,37 @@ If a continuum \(K_{x+1}\) emerges from \(K_x\), then
 
 \textbf{Justification (sketch).}
 Dimensional emergence is defined as the appearance of a new axis \(A_{\mathrm{new}}\) that is incompatible with all existing axes in \(A(K_x)\); that is, it cannot be represented as a linear or structural combination of them.
-The dimensional threshold \(\Theta_{\mathrm{dim}}\) enforces that \(A_{\mathrm{new}}\) is nondegenerate and structurally necessary.
+The dimensional threshold \(\Theta_{\mathrm{dim}}(K_x)\) enforces that \(A_{\mathrm{new}}\) is nondegenerate and structurally necessary.
 Hence, any emergent continuum has strictly higher dimensionality than its predecessor.
 
 \textbf{Corollary 1.1 (No degradational simplification).}
 There is no continuum–level evolution that reduces dimensionality while preserving existence:
-if \(K(t)\) is live (\(k(t) > 0\)), then
+if \(K(t)\) is live (\(k(K,t) > 0\)), then
 \[
-    \dim(K(t+dt)) \ge \dim(K(t)).
+    \dim\big(K(t+dt)\big) \ge \dim\big(K(t)\big).
 \]
 Apparent reduction of dimension corresponds to the death of the higher–dimensional continuum and the birth of a different, lower–dimensional one, not to a continuous simplification.
 
 \subsection{Theorem 2: Impossibility of spontaneous dimension creation}
 
 \textbf{Statement.}
-No continuum can increase its dimensionality without exceeding the dimensional threshold:
+No continuum can increase its dimensionality without exceeding the dimensional threshold and having access to a suitable axis in its embedding space:
 \[
-    T(K) > \Theta_{\mathrm{dim}}(K)
+    \dim(K_{x+1}) > \dim(K_x)
     \quad\Rightarrow\quad
-    \text{only then can a new axis emerge.}
+    T(K_x,t) > \Theta_{\mathrm{dim}}(K_x)
+    \ \wedge\
+    A_{\mathrm{new}} \in A(M_x)\setminus A(K_x).
 \]
 
 \textbf{Justification (sketch).}
 New axes represent classes of differences that are incompatible with existing axes.
-Such incompatibility arises only when structural tension \(T\) with respect to the current threshold landscape cannot be resolved within the existing axes.
-By definition of \(\Theta_{\mathrm{dim}}\), below this threshold all differences can be projected onto the span of \(A(K)\); above it, projection fails and a new axis is required.
+Such incompatibility arises only when structural tension \(T(K_x,t)\) with respect to the current threshold landscape cannot be resolved within the existing axes.
+By definition of \(\Theta_{\mathrm{dim}}\), below this threshold all differences can be projected onto the span of \(A(K_x)\); above it, projection fails and a new axis is required.
+The new axis must already be available in the embedding space \(M_x\); otherwise there is no structural direction along which the continuum can expand.
 
 \textbf{Consequence 2.1.}
-Noise, local fluctuations or internal flows that do not raise structural tension above \(\Theta_{\mathrm{dim}}\) cannot generate new dimensions.
+Noise, local fluctuations or internal flows that do not raise structural tension above \(\Theta_{\mathrm{dim}}(K_x)\) cannot generate new dimensions.
 
 \subsection{Theorem 3: Death through boundary and embedding collapse}
 
@@ -64,8 +67,8 @@ The following conditions are equivalent and characterise the death of \(K\):
     \item supporting cycles disappear, \(C(K) = \emptyset\);
     \item supporting flows vanish, \(J_{\mathrm{support}} = 0\), or are insufficient to maintain any cycles;
     \item there exists a state–independent violation of thresholds, \(\forall s:\ \exists\,k\ \text{with } f_k(s) > 0\);
-    \item continuumness collapses, \(k(t) \to 0\);
-    \item the continuum exits the region supported by its embedding space \(M\), i.e. no state satisfies both the internal thresholds of \(K\) and the external constraints of \(M\).
+    \item continuumness collapses, \(k(K,t) \to 0\), with \(H_{\Omega}(K,t)\to 0\);
+    \item the continuum exits the region supported by its embedding space \(M\), i.e.\ no state satisfies both the internal thresholds of \(K\) and the external constraints of \(M\).
 \end{enumerate}
 
 \textbf{Corollary 3.1 (Death as exit from embedding space).}
@@ -81,9 +84,9 @@ Any apparent ``recovery'' corresponds to the birth of a new continuum \(K'\), no
 Let \(K_x\) be a continuum embedded in \(M_x\).
 Then for all times \(t\),
 \[
-    A(K_x(t)) \subseteq A(M_x),
+    A\big(K_x(t)\big) \subseteq A(M_x),
     \qquad
-    \mathrm{span}\,A(K_x(t+dt)) \subseteq \mathrm{span}\,A(M_x).
+    \mathrm{span}\,A\big(K_x(t+dt)\big) \subseteq \mathrm{span}\,A(M_x).
 \]
 
 \textbf{Consequence 4.1.}
@@ -93,7 +96,7 @@ A continuum cannot evolve in directions not present in its embedding space.
 \subsection{Theorem 5: Necessity and sufficiency of compatibility with \texorpdfstring{$M$}{M}}
 
 \textbf{Statement.}
-A continuum \(K\) exists (i.e. \(\Omega(K)\neq\emptyset\) and \(k>0\)) if and only if it is compatible with its embedding space \(M\):
+A continuum \(K\) exists as a live continuum (i.e.\ \(\Omega(K)\neq\emptyset\) and \(k(K,t)>0\)) if and only if it is compatible with its embedding space \(M\):
 \[
     K \text{ exists }
     \Longleftrightarrow
@@ -106,42 +109,42 @@ A continuum \(K\) exists (i.e. \(\Omega(K)\neq\emptyset\) and \(k>0\)) if and on
 
 \textbf{Consequence 5.1.}
 Even if a configuration is mathematically well–defined at the level of \(K\), it does not correspond to a live continuum unless the embedding space can support the required axes, thresholds and flows.
-Incompatible configurations are excluded by setting \(\Omega(K) = \emptyset\).
+Incompatible configurations are excluded structurally by setting \(\Omega(K) = \emptyset\).
 
 \subsection{Theorem 6: Structural tension and phase transitions}
 
 \textbf{Statement.}
-Let \(T(K)\) denote structural tension, understood as a functional of potentials, axes and their gradients:
+Let \(T(K,t)\) denote structural tension, understood as a functional of potentials, axes and their gradients:
 \[
-    T = T(P,A,\nabla P).
+    T(K,t) = T\big(P(t),A,\nabla P(t)\big).
 \]
 Then:
 \begin{itemize}
     \item a phase transition occurs when
           \(
-              T = \Theta_{\mathrm{crit}},
+              T(K,t) = \Theta_{\mathrm{crit}}(K),
           \)
     \item a dimensional transition occurs when
           \(
-              T = \Theta_{\mathrm{dim}},
+              T(K,t) = \Theta_{\mathrm{dim}}(K),
           \)
     \item structural collapse occurs when
           \(
-              T = \Theta_{\mathrm{death}}.
+              T(K,t) = \Theta_{\mathrm{death}}(K).
           \)
 \end{itemize}
 
 \textbf{Corollary 6.1.}
-All qualitative changes in the continuum — emergence of new regimes, new dimensions, or collapse — are governed by the relationship between structural tension and the threshold landscape.
+All qualitative changes in the continuum --- emergence of new regimes, new dimensions, or collapse --- are governed by the relationship between structural tension and the threshold landscape.
 
 \subsection{Theorem 7: Universal law of complexity growth}
 
 \textbf{Statement.}
 For any live continuum \(K\),
 \[
-    S(K(t+dt)) \ge S(K(t)),
+    S\big(K(t+dt)\big) \ge S\big(K(t)\big),
 \]
-where \(S\) is a structural measure of complexity defined on the state space and its organisation (e.g. combining contributions from number of axes, diversity of states, richness of cycles and structure of embedding).
+where \(S\) is a structural measure of complexity defined on the state space and its organisation (for example, combining contributions from number of axes, diversity of states, richness of cycles and properties of the embedding).
 
 \textbf{Consequence 7.1.}
 Complexity increases strictly whenever:
@@ -151,9 +154,10 @@ Complexity increases strictly whenever:
     \item the admissible state space \(\Omega(K)\) expands;
     \item the embedding space \(M\) gains new axes relevant to \(K\).
 \end{itemize}
-Stagnant or constant complexity corresponds to finely balanced dynamics below critical thresholds; however, this regime is generically unstable (see Theorem~8).
+Stagnant or constant complexity corresponds to finely balanced dynamics below critical thresholds; however, this regime is generically unstable (see Theorem~\ref{thm:no-eternal-stabilisation}).
 
 \subsection{Theorem 8: Impossibility of eternal stabilisation}
+\label{thm:no-eternal-stabilisation}
 
 \textbf{Statement.}
 There is no nontrivial live continuum \(K\) that remains forever at a fixed point in its state space while maintaining positive continuumness.
@@ -186,7 +190,7 @@ If no such cycle exists, then:
 \begin{itemize}
     \item supporting flows cannot form closed loops;
     \item trajectories either approach \(\partial\Omega\) or violate thresholds;
-    \item continuumness \(k(t)\) decays to zero.
+    \item continuumness \(k(K,t)\) decays to zero.
 \end{itemize}
 Therefore loss of the maximal cycle complex coincides with the collapse of \(\Omega(K)\).
 
@@ -214,7 +218,7 @@ New continua cannot appear without an expansion of the structural possibilities 
 \textbf{Statement.}
 A continuum \(K\) collapses when its axes become insufficient to express the required differences:
 \[
-    \dim(A(K)) < \dim\big(\mathrm{Differences}(K)\big),
+    \dim\big(A(K)\big) < \dim\big(\mathrm{Differences}(K)\big),
 \]
 where \(\mathrm{Differences}(K)\) is the effective dimension of structurally relevant distinctions imposed by the embedding space and thresholds.
 
@@ -262,7 +266,7 @@ In the vertical hierarchy \(K_0\)–\(K_{10}\), the structural theorems manifest
     \item \(K_9\)–\(K_{10}\): expressive, coherence and consistency thresholds in the space of theories, paradigms, ontologies and meta–theoretical structures.
 \end{itemize}
 
-In each case, the same structural principles — monotonic dimension, threshold–governed emergence and collapse, dependence on embedding spaces, and complexity growth — apply, while the concrete interpretation of variables changes.
+In each case, the same structural principles --- monotonic dimension, threshold–governed emergence and collapse, dependence on embedding spaces, and complexity growth --- apply, while the concrete interpretation of variables changes.
 
 \subsection{Summary}
 
