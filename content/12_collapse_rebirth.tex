@@ -1,48 +1,436 @@
 % ====================================================================
 % FILE: content/12_collapse_rebirth.tex
 % Collapse and Rebirth of Continua
-% Dummy skeleton for Core 1.1 Full Recovery
+% Core 1.1 — canonical version
 % ====================================================================
 
 \section{Collapse and Rebirth of Continua}
 \label{sec:collapse-rebirth}
 
-% TODO: Restore detailed collapse/rebirth material from Core 1.0 / 1.1.1.
-% This section formalises conditions of collapse (Ω=∅, k→0) and the
-% extremely restricted conditions under which a new continuum may appear.
+This section develops the structural theory of collapse and rebirth in the
+Ontology of Continua (OC).  It refines the general death condition
+\(\Omega(K)=\emptyset\) and \(k(K,t)\to 0\) from
+Section~\ref{sec:results} into explicit criteria, dynamical signatures and
+restricted scenarios for the birth of new continua after collapse.
+
+No new axioms are introduced; the discussion assembles consequences of the
+general framework of Section~\ref{sec:model}, the structural results of
+Section~\ref{sec:results}, the extended treatment of boundaries in
+Section~\ref{sec:boundary-extended}, the threshold landscape in
+Section~\ref{sec:thresholds-extended}, the full hierarchy of levels in
+Section~\ref{sec:klevels-full}, and the operator family in
+Section~\ref{sec:operators-full}.
 
 \subsection{Formal Criteria for Collapse}
-% TODO
-% - Ω(K) becomes empty
-% - k(t) → 0
-% - Θ_exist or Θ_stab violated
-% - Destruction of ∂Ω
+
+Let
+\[
+  K(t) =
+  \big(
+    \Omega(t), A(t), P(t), J(t),
+    \Theta(t), \partial\Omega(t), C(t), k(t)
+  \big)
+\]
+be a continuum embedded in a space \(M\).  The structural notion of collapse
+must distinguish transient excursions toward the boundary from genuine
+termination of the continuum.
+
+\paragraph{Definition 12.1 (Collapse).}
+A continuum \(K\) \emph{collapses} at time \(t^{\ast}\) if the following
+conditions hold:
+\begin{enumerate}
+  \item the admissible state space becomes empty:
+        \[
+          \Omega\big(K(t^{\ast})\big) = \emptyset;
+        \]
+  \item continuumness decays to zero:
+        \[
+          \lim_{t \nearrow t^{\ast}} k\big(K,t\big) = 0;
+        \]
+  \item at least one existence or stability threshold is violated for all
+        candidate configurations:
+        \[
+          \forall s \in \Omega(M):
+          \quad
+          \exists \theta \in \Theta_{\mathrm{exist}} \cup \Theta_{\mathrm{stab}}
+          \ \text{such that}\ \theta(s) > 0.
+        \]
+\end{enumerate}
+
+These conditions match the equivalent characterisations of death stated in
+Theorem~3 and Theorem~9 of Section~\ref{sec:results}.
+In particular, the vanishing of \(\Omega\) and \(k\) coincide with the
+disappearance of the maximal structurally stable cycle complex
+\(C_{\max}(K)\).
+
+\paragraph{Proposition 12.2 (Boundary destruction).}
+At collapse time \(t^{\ast}\), the boundary \(\partial\Omega\) ceases to be a
+well--defined separating surface between admissible and inadmissible states.
+Formally, either
+\begin{equation}
+  \partial\Omega\big(K(t^{\ast})\big) = \emptyset
+  \quad\text{or}\quad
+  \partial\Omega\big(K(t^{\ast})\big) = \Omega(M),
+\end{equation}
+depending on whether the embedding constraints become trivially strict or
+trivially loose.  In both cases the structural role of \(\partial\Omega\)
+as a viability boundary is lost.
+
+The operator view is:
+\begin{itemize}
+  \item the boundary operator \(R\) becomes undefined once
+        \(\Omega(K)=\emptyset\);
+  \item the continuumness operator \(U\) returns \(k=0\) and remains
+        constant thereafter for that continuum.
+\end{itemize}
 
 \subsection{Internal vs External Collapse}
-% TODO
-% - Internal: flows, potentials, thresholds
-% - External: embedding-space constraints (M_x)
+
+Collapse can arise from internal dynamics of the continuum or from external
+changes in its embedding space.  The distinction is structural rather than
+causal: it depends on whether the operators acting on \(K\) or those acting on
+\(M\) are responsible for the violation of thresholds.
+
+\paragraph{Definition 12.3 (Internal collapse).}
+\emph{Internal collapse} occurs when collapse is caused solely by the internal
+evolution operator \(E=(F,G,H,Q,R,S,U)\) acting on \(K\), while the embedding
+space \(M\) remains structurally static over the relevant time interval.
+Typical signatures include:
+\begin{itemize}
+  \item destructive flows \(J_{\mathrm{kill}}\) dominating supporting flows;
+  \item internal thresholds \(\Theta_{\mathrm{stab}}\) or
+        \(\Theta_{\mathrm{crit}}\) crossed due to internal accumulation of
+        tension;
+  \item cycle breakdown driven by internal imbalances.
+\end{itemize}
+
+\paragraph{Definition 12.4 (External collapse).}
+\emph{External collapse} occurs when the embedding space \(M\) changes in such
+a way that no configuration of \(K\) remains compatible with the new
+constraints.  Formally, there exists a time interval \([t_0,t^{\ast}]\) such
+that:
+\[
+  \Omega(K(t_0))\neq\emptyset,
+  \quad
+  E\ \text{remains within the previous admissible region},
+\]
+but a change in \(M\) induced by its own evolution operator \(E_M\) yields
+\[
+  \Omega(K(t^{\ast})) =
+    \big\{ s \in \Omega(M(t^{\ast})) \mid
+           \Theta(K(t_0))(s)\le 0 \big\} = \emptyset.
+\]
+
+Corollary~3.1 in Section~\ref{sec:results} can be restated as:
+external collapse is equivalent to the loss of common solutions of the
+constraints of \(K\) and \(M\).
+
+\paragraph{Mixed collapse.}
+In realistic systems both mechanisms co--operate.  For example, a protocell
+may internally deplete resources while an external change in osmotic
+conditions simultaneously tightens viability ranges.  OC does not attempt to
+sharp--split these cases; the internal/external distinction is primarily a
+tool for analysis.
 
 \subsection{Collapse Dynamics}
-% TODO
-% - Critical slowing near thresholds
-% - Divergence of structural tension T
-% - Patch failure (boundary-driven collapse)
-% - Cycle breakdown (C → ∅)
+
+Collapse is not generally an instantaneous event at the level of observables.
+The structural framework predicts a characteristic approach to collapse
+governed by thresholds, tension and boundary geometry.
+
+\paragraph{Critical slowing down.}
+Near stability or critical thresholds \(\Theta_{\mathrm{stab}}\) and
+\(\Theta_{\mathrm{crit}}\), small perturbations relax increasingly slowly.
+In the operator language this corresponds to:
+\begin{itemize}
+  \item eigenvalues of the linearised flow operator \(F\) approaching zero
+        real part;
+  \item time scales of cycle restoration encoded in \(Q\) diverging;
+  \item boundary motion under \(R\) becoming sluggish while remaining directed
+        toward contraction of \(\Omega\).
+\end{itemize}
+Critical slowing appears in physical phase transitions, ecological collapses,
+financial crises, protocell failure and cognitive overload.
+
+\paragraph{Divergence of structural tension.}
+The structural tension \(T(K,t)\) approaches the death threshold
+\(\Theta_{\mathrm{death}}(K)\) as collapse nears:
+\[
+  \lim_{t\nearrow t^{\ast}} T\big(K,t\big)
+    = \Theta_{\mathrm{death}}(K).
+\]
+Below this threshold the system may still maintain cycles, albeit with
+increasingly narrow margins.  At the threshold, any further perturbation
+forces trajectories to cross \(\partial\Omega\) or to leave the embedding
+region.
+
+\paragraph{Patch failure and boundary-driven collapse.}
+The patch model of boundaries
+(Section~\ref{sec:boundary-extended}) provides a more granular picture.
+Writing the boundary as a collection of patches \(\{P_i\}\) with local states
+\(\sigma_i\) and threshold vectors \(\Theta_i\),
+collapse can proceed via:
+\begin{itemize}
+  \item local loss of integrity (e.g.\ membrane rupture at individual
+        patches, institutional failure in specific domains);
+  \item propagation of failure through coupling of patches, leading to
+        global breach of the boundary and uncontrolled exchange with the
+        embedding space;
+  \item eventual destruction of all patches supporting a nonempty
+        \(\Omega(K)\).
+\end{itemize}
+From the operator perspective this is a coupled instability of \(R\),
+\(H\) and \(Q\).
+
+\paragraph{Cycle breakdown.}
+As collapse approaches, the cycle operator \(Q\) eliminates more and more
+cycles from the structurally stable complex.  The sequence
+\[
+  C_{\max}(t_0)
+  \supset C_{\max}(t_1)
+  \supset \dots
+  \supset C_{\max}(t_n)
+\]
+shrinks until it becomes empty at \(t^{\ast}\).  Operationally:
+\begin{itemize}
+  \item amplitudes of key cycles decay;
+  \item cycle periods lengthen or become irregular;
+  \item cycles increasingly graze \(\partial\Omega\) and are destroyed by
+        threshold crossings.
+\end{itemize}
 
 \subsection{Post-Collapse Residue}
-% TODO
-% - Residual structures
-% - Limits of recovery
+
+Even when a continuum collapses, its traces may persist in the embedding
+space.  OC distinguishes sharply between the \emph{continuum} and its
+\emph{residue}.
+
+\paragraph{Definition 12.5 (Residue).}
+The \emph{residue} of a collapsed continuum \(K\) is the set of structures in
+the embedding space that remain after \(\Omega(K)=\emptyset\), for example:
+\begin{itemize}
+  \item material residues (e.g.\ reaction products, broken infrastructure);
+  \item topological residues (e.g.\ defects, scars in field configurations);
+  \item informational residues (e.g.\ documents, data traces);
+  \item normative residues (e.g.\ partially preserved legal frameworks).
+\end{itemize}
+
+Residues are no longer organised by the original tuple
+\((\Omega,A,P,J,\Theta,\partial\Omega,C,k)\).  They may, however, form the
+substrate for new continua.
+
+\paragraph{Limits of recovery.}
+Because death is structurally irreversible
+(Theorem~3 and Corollary~3.2 in Section~\ref{sec:results}), no operator acting
+within the same level can reconstruct the original continuum from its
+residue.  Two cases are distinguished:
+\begin{itemize}
+  \item \emph{Reconstruction.}\
+        An external agent (e.g.\ experimenter, engineer, institution) may
+        construct a new continuum \(K'\) that resembles \(K\) in some
+        variables; structurally this is a new birth event, not recovery.
+  \item \emph{Spontaneous reorganisation.}\
+        Under appropriate conditions residues may reorganise into a new
+        continuum (see below).  Again this is a new entity with its own
+        identity, even if many components are inherited.
+\end{itemize}
 
 \subsection{Rebirth Mechanisms}
-% TODO
-% - Rare dimensional rebirth events
-% - Formal birth operator Ψ_{x→x+1}
-% - Examples across K_3–K_5 (protocells) and higher levels
+
+Rebirth is the emergence of a new continuum after collapse of a previous one.
+OC treats rebirth as a special case of birth, governed by the same operators
+\(\Psi_{x\to x+1}\) but with initial conditions shaped by residues.
+
+\paragraph{Definition 12.6 (Rebirth).}
+A \emph{rebirth event} occurs when, after the collapse of \(K\),
+a new continuum \(K'\) appears in the same or a related embedding space such
+that:
+\begin{enumerate}
+  \item there exists a time interval with
+        \(\Omega(K)=\emptyset\) and \(k(K,t)=0\) while
+        \(\Omega(K')\neq\emptyset\);
+  \item at least one structural element of \(K'\) (axes, potentials, boundary
+        components, residues in \(\Omega(M)\)) is inherited from the residue of
+        \(K\);
+  \item \(K'\) satisfies the birth conditions for some level \(K_y\),
+        possibly equal to the original level of \(K\) or to a different one.
+\end{enumerate}
+
+Rebirth is thus structurally rare and constrained.  The following regimes
+are typical.
+
+\paragraph{Dimensional rebirth.}
+After collapse of a continuum \(K_x\), residues may support the birth of a
+new continuum at a different level:
+\begin{itemize}
+  \item \emph{upward rebirth} (\(K_x\to K_{x+1}\)):
+        collapse of an overstrained structure at level \(K_x\) creates
+        conditions for a higher--dimensional continuum (e.g.\ collapse of
+        a simple institutional framework enabling emergence of a more complex
+        governance structure).
+  \item \emph{sideways rebirth} (\(K_x\to K_x'\)):
+        residues support a new continuum at the same level but with different
+        axes or thresholds (e.g.\ reorganisation of a failed protocell into a
+        new protocell with altered composition).
+\end{itemize}
+Downward rebirth (\(K_x\to K_{x-1}\)) is not considered rebirth of the same
+continuum: lower--level continua may persist as independent entities, but the
+collapsed higher--level continuum is not resurrected.
+
+\paragraph{Formal conditions.}
+Let \(K\) collapse at time \(t^{\ast}\) and \(R_{\mathrm{res}}\) be its
+residue in \(M\).  A rebirth event is permitted when:
+\begin{enumerate}
+  \item the residue defines a nonempty candidate state set
+        \(\Omega_{\mathrm{res}}\subseteq \Omega(M)\);
+  \item there exist axes \(A_{\mathrm{res}}\subseteq A(M)\) and thresholds
+        \(\Theta_{\mathrm{res}}\) such that
+        \[
+          \Omega(K') =
+            \{ s\in \Omega_{\mathrm{res}}
+               \mid \Theta_{\mathrm{res}}(s)\le 0
+            \}
+          \neq \emptyset;
+        \]
+  \item structural tension based on \((\Omega_{\mathrm{res}},A_{\mathrm{res}},
+        \Theta_{\mathrm{res}})\) exceeds the relevant dimensional threshold
+        (if a level increase is involved) and an appropriate birth operator
+        \(\Psi\) is defined.
+\end{enumerate}
+
+\paragraph{Examples across \(K_3\)–\(K_5\).}
+In the chemical and protocellular regime:
+\begin{itemize}
+  \item collapse of a protocell (membrane rupture, gradient loss) leaves
+        residues of lipids, nucleotides and catalysts in the environment;
+  \item these residues may recombine into new vesicles and networks under
+        favourable conditions;
+  \item the new protocells constitute new continua \(K_4'\) with their own
+        thresholds and cycles, even if they inherit components from the
+        collapsed ancestors.
+\end{itemize}
+
+In early bioelectrical systems:
+\begin{itemize}
+  \item collapse of excitability in a primitive network (e.g.\ due to
+        channel failure) may leave membrane fragments and channels that form
+        new excitable patches;
+  \item regenerated excitable domains define new \(K_5'\) continua.
+\end{itemize}
+
+\paragraph{Rebirth at higher levels.}
+At cognitive, social and civilizational levels:
+\begin{itemize}
+  \item cognitive collapse (loss of coherent internal models) may be followed
+        by reconstruction of new models using surviving representations as
+        seeds; structurally this is the birth of a new cognitive continuum
+        \(K_6'\);
+  \item institutional collapse (e.g.\ failure of a governance regime) leaves
+        legal, organisational and infrastructural residues that can be reused
+        in the creation of new institutions \(K_7'\);
+  \item civilizational collapse leaves material infrastructure, cultural
+        artefacts and population distributions that may support emergent
+        civilisations \(K_8'\).
+\end{itemize}
+
+In all cases OC insists that the new continuum has its own identity; the
+structural irreversibility of death is not violated.
 
 \subsection{Collapse in Higher-Level Continua}
-% TODO
-% - Cognitive collapse (K_6)
-% - Institutional collapse (K_7)
-% - Civilisational collapse (K_8)
+
+Higher levels \(K_6\)–\(K_{10}\) expose collapse phenomena that are less
+obviously physical but structurally analogous.
+
+\paragraph{Cognitive collapse (\(K_6\)).}
+For cognitive continua the key elements are:
+\begin{itemize}
+  \item axes representing concepts, features and model parameters;
+  \item potentials measuring prediction error, value and confidence;
+  \item cycles representing attention loops, prediction--correction cycles
+        and learning cycles.
+\end{itemize}
+Cognitive collapse occurs when:
+\begin{itemize}
+  \item prediction error and internal tension exceed expressive capacity
+        thresholds (\(\Theta_{\mathrm{expr}}\));
+  \item no coherent internal model can be maintained within the given axes
+        and thresholds;
+  \item all structurally stable cognitive cycles vanish, leading to
+        \(C_{\max}(K_6)=\emptyset\) and \(k(K_6,t)\to 0\).
+\end{itemize}
+Examples include total breakdown of a conceptual scheme, severe overload or
+pathological states where the system cannot maintain any stable model of its
+environment.
+
+\paragraph{Institutional collapse (\(K_7\)).}
+For social continua the relevant components are:
+\begin{itemize}
+  \item social graphs, role structures and institutional arrangements in
+        \(\Omega(K_7)\);
+  \item trust, legitimacy and resource thresholds in \(\Theta(K_7)\);
+  \item cycles representing institutional routines and governance loops.
+\end{itemize}
+Institutional collapse occurs when:
+\begin{itemize}
+  \item trust and legitimacy fall below existence thresholds;
+  \item key cycles (e.g.\ tax collection, legal enforcement, decision loops)
+        break;
+  \item social graphs fragment beyond what is compatible with institutional
+        operation.
+\end{itemize}
+The residue may include legal texts, physical buildings and fragmented
+networks, from which new institutions \(K_7'\) may later be assembled.
+
+\paragraph{Civilizational collapse (\(K_8\)).}
+At the civilizational level:
+\begin{itemize}
+  \item axes represent infrastructures, sectors, regions and large--scale
+        organisational forms;
+  \item potentials include energy availability, resource stocks and risk
+        gradients;
+  \item cycles include economic cycles, infrastructure renewal, knowledge
+        transmission.
+\end{itemize}
+Civilizational collapse corresponds to breakdown of these cycles across
+multiple sectors, crossing of multiple thresholds in the extended threshold
+landscape and global contraction of \(\Omega(K_8)\) to the empty set.  The
+residue consists of infrastructure, population distributions and cultural
+artefacts that can seed future civilisations.
+
+\paragraph{Theoretical and meta-theoretical collapse (\(K_9\)–\(K_{10}\)).}
+Theories and meta--theories can also collapse structurally:
+\begin{itemize}
+  \item internal inconsistency or empirical failure may violate
+        \(\Theta_{\mathrm{exist}}\) or \(\Theta_{\mathrm{stab}}\) at level
+        \(K_9\);
+  \item meta--theoretical frameworks at \(K_{10}\) may become incoherent or
+        unable to accommodate growing bodies of models, violating expressive
+        thresholds;
+  \item in both cases cycle complexes representing research programmes,
+        paradigm cycles and meta--theoretical update loops can disappear,
+        yielding \(C_{\max}=\emptyset\) and effective death of the framework.
+\end{itemize}
+Subsequent emergence of new theories or meta--frameworks built on surviving
+results is structurally treated as rebirth.
+
+\subsection{Summary}
+
+Collapse and rebirth in OC are not metaphorical but structurally defined
+phenomena.  Collapse corresponds to the emptying of the admissible state
+space, disappearance of stable cycles, loss of a meaningful boundary and
+vanishing continuumness.  It can be driven by internal dynamics, external
+embedding changes or their interaction, and it exhibits characteristic
+signatures such as critical slowing, divergence of structural tension, patch
+failure and cycle breakdown.
+
+Rebirth is strongly constrained: a new continuum may emerge from residues only
+when embedding spaces and threshold landscapes once again support a nonempty
+admissible region and when the birth conditions are satisfied.  The new
+continuum always has its own structural identity, even if it inherits
+components from the collapsed predecessor.
+
+These principles apply uniformly from protocells and early bioelectrical
+systems through cognitive and social structures up to theories and
+meta--theoretical frameworks.  Collapse and rebirth are thus not special
+cases but generic regimes of the same structural machinery that governs the
+birth, evolution and death of continua across the hierarchy \(K_0\)–\(K_{10}\).
