@@ -1,5 +1,83 @@
-\section{Введение}
+\section{Introduction}
+\label{sec:introduction}
 
-Это placeholder для введения Ontology of Continuum Core v1.2.
+The present document serves as the publication shell for the
+\emph{Ontology of Continua --- Core 1.1}. Its primary purpose is to
+establish a stable, reproducible and extensible LaTeX infrastructure that
+will be used for all future versions of the Core and for the
+domain-specific preprint series (physics, chemistry, biology, cognition,
+social continua, civilization, and meta-theory).
 
-Здесь позже появится реальный текст.
+This introductory section demonstrates how figures, tables and modular
+content components can be integrated into the document. All scientific
+content here is placeholder material and will be replaced with the real
+text in subsequent Core versions.
+
+\subsection{Purpose of the Core 1.1 shell}
+
+The Core 1.1 shell is designed to provide:
+
+\begin{itemize}
+    \item a canonical document structure for the entire Ontology of
+          Continua project;
+    \item a reproducible build pipeline (local + GitHub Actions);
+    \item modular organisation of sections, allowing incremental updates
+          without restructuring the repository;
+    \item placeholders illustrating how figures, tables and additional
+          sections are integrated.
+\end{itemize}
+
+This ensures that future extensions of the theory can be incorporated
+without modifying the technical backbone.
+
+\subsection{Placeholder figure}
+
+Figure~\ref{fig:placeholder} demonstrates how graphical material is
+inserted into the document. The image is a neutral placeholder intended
+to show the integration mechanism rather than to convey scientific
+content.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{content/placeholders/fig_placeholder.pdf}
+    \caption{Placeholder figure demonstrating figure integration in the
+    Core 1.1 publication shell. Replace with real diagrams in future
+    versions.}
+    \label{fig:placeholder}
+\end{figure}
+
+\subsection{Placeholder table}
+
+Tables can be maintained as modular components and included via
+\verb|\input|. Table~\ref{tab:placeholder} is inserted from a separate
+file under \texttt{content/placeholders/}.
+
+\input{content/placeholders/table_placeholder.tex}
+
+\subsection{Template for additional sections}
+
+New sections or appendices can be added by copying the following
+template:
+
+\begin{verbatim}
+content/placeholders/section_template.tex
+\end{verbatim}
+
+This keeps the overall structure clean and consistent across all releases
+of the Core theory.
+
+\subsection{Roadmap for future versions}
+
+The planned evolution of the Core publication is as follows:
+
+\begin{enumerate}
+    \item Core 1.1 — infrastructure-only shell (this document).
+    \item Core 1.2 — integration of the first stable scientific content.
+    \item Core 1.3+ — progressive expansion of the theoretical material.
+    \item Domain preprints — physics, chemistry, biology, cognition,
+          social systems, civilization.
+    \item Meta-theoretical layers — K9, K10, and beyond.
+\end{enumerate}
+
+The current shell defines the long-term technical foundation for this
+entire publication series.
