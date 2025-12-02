@@ -1,72 +1,377 @@
 % ====================================================================
 % FILE: content/10_klevels_full.tex
 % Full K-level Definitions (K0–K10)
-% Dummy skeleton for Core 1.1 Full Recovery
+% Ontology of Continua — Core 1.1 (Restored Complete Version)
 % ====================================================================
 
 \section{Full Hierarchy of Continua \texorpdfstring{$K_0$–$K_{10}$}{K0–K10}}
 \label{sec:klevels-full}
 
-% TODO: Insert restored detailed level descriptions from Core 1.0 / 1.1.1.
-% This section provides the complete formal definition of all K-levels,
-% beyond the compact overview in Section~\ref{sec:model}.
+This chapter provides the complete reconstructed description of all
+continuum levels \(K_0\)–\(K_{10}\), integrating the material originally
+distributed across Core~2.x, the Physics, Chemistry, Biology, Cognition
+and Social runs.  
+Unlike Section~\ref{sec:model}, which presented a compact overview, the
+present chapter expands each level into its full structural definition.
 
+Each continuum level is defined by the tuple
+\[
+    K_x = (\Omega_x, A_x, P_x(t), J_x(t), \Theta_x,
+           \partial\Omega_x, C_x, k_x(t)).
+\]
+Levels differ by the nature of their axes, potentials, thresholds,
+boundary geometry, cycles, and by the structure of the embedding space
+\(M_x\) required for their existence.
+
+
+% ====================================================================
 \subsection{Overview of the Vertical Hierarchy}
-% TODO
-% - Global table of K-levels
-% - Axes, potentials, thresholds, flows per level
-% - Embedding spaces M_x
+% ====================================================================
 
+The vertical hierarchy of continua is monotonic:
+\[
+    K_0 \rightarrow K_1 \rightarrow K_2 \rightarrow \dots
+    \rightarrow K_{10},
+\]
+where each transition corresponds to the emergence of new axes,
+thresholds, flows and cycles that cannot be reduced to those of lower
+levels.
+
+A global summary is shown in Table~\ref{tab:klevels-summary}.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{p{1.8cm} p{3.5cm} p{4.5cm}}
+\hline
+Level & Dominant Axes & Characteristic Structure \\
+\hline
+\(K_0\) & Difference axis & Structural substrate \\
+\(K_1\) & 1D geometric axis & Classical continuum \\
+\(K_2\) & Physical field axes & Phases, BKT, mass, coherence \\
+\(K_3\) & Chemical axes & RAF networks, catalysis \\
+\(K_4\) & Membrane axes & Osmotic, curvature, permeability thresholds \\
+\(K_5\) & Excitability axes & Proto-spikes, ion flows \\
+\(K_6\) & Cognitive axes & Binding, internal models \\
+\(K_7\) & Normative/social axes & Institutions, trust \\
+\(K_8\) & Civilizational axes & Infrastructure, collective cycles \\
+\(K_9\) & Theoretical axes & Paradigms, ontologies \\
+\(K_{10}\) & Meta-theoretical axes & Model-of-models recursion \\
+\hline
+\end{tabular}
+\caption{Global overview of continua \(K_0\)–\(K_{10}\).}
+\label{tab:klevels-summary}
+\end{table}
+
+Each level requires an embedding space
+\[
+   M_0 \subset M_1 \subset \dots \subset M_{10},
+\]
+with axes \(A(M_x)\) sufficient to host the continua of that level.
+
+
+% ====================================================================
 \subsection{Level \texorpdfstring{$K_0$}{K0}: Structural Substrate}
-% TODO
-% - Detailed data (S, Δ, 𝒞)
-% - Threshold Θ_0
-% - Role as logical base
+% ====================================================================
 
+\paragraph{Formal Data.}
+\[
+    K_0 = (S,\Delta,\mathcal{C}),
+\]
+with:
+\begin{itemize}
+    \item \(S\) a set of distinguishable states,
+    \item \(\Delta\) a structural difference function,
+    \item \(\mathcal{C}\) a structural relation preserving distinguishability.
+\end{itemize}
+
+No time, geometry, flows or potentials exist here.
+
+\paragraph{Threshold.}
+Existence threshold:
+\[
+   \Theta_0 = \varepsilon > 0,
+\quad
+   \Delta(s_1,s_2) \ge \varepsilon.
+\]
+
+\paragraph{Role.}
+Provides the logical substrate of distinguishability;  
+no continuum can exist without this level.
+
+
+% ====================================================================
 \subsection{Level \texorpdfstring{$K_1$}{K1}: One-Dimensional Continua}
-% TODO
-% - Topological substratum (X, τ)
-% - Classical region Ω_cl
-% - Example: classical field / chain
+% ====================================================================
 
+\paragraph{Formal Data.}
+\[
+    K_1 = (\Omega_1, A_1, P_1, J_1, \Theta_1,
+           \partial\Omega_1, C_1, k_1).
+\]
+
+\begin{itemize}
+    \item \(A_1\): one geometric axis (1D continuum).
+    \item \(\Omega_1\): classical configuration space
+          (e.g.\ \(C^0(T,H^1(X))\cap C^1(T,L^2(X))\)).
+    \item \(P_1\): classical energy functional.
+    \item \(J_1\): classical dynamical flow.
+    \item \(\Theta_1\): stability and critical thresholds.
+\end{itemize}
+
+\paragraph{Examples.}
+Classical fields in 1D, coupled oscillators, scalar diffusion models.
+
+\paragraph{Cycles.}
+Periodic orbits, stable limit cycles.
+
+
+% ====================================================================
 \subsection{Level \texorpdfstring{$K_2$}{K2}: Physical Continua}
-% TODO
-% - Fields, phases, percolation, BKT
-% - Mass structure, coherence thresholds
-% - Representative theorems (physics block)
+% ====================================================================
 
+\paragraph{Axes.}
+Multi-dimensional field axes:
+\begin{itemize}
+    \item spatial axes,
+    \item internal field axes (e.g.\ gauge degrees of freedom),
+    \item order-parameter axes (coherence, magnetisation, etc.).
+\end{itemize}
+
+\paragraph{Potentials and Flows.}
+Physical energy functionals, field equations, renormalisation flows.
+
+\paragraph{Thresholds.}
+\begin{itemize}
+    \item \(\Theta_{\rm crit}\): phase boundaries,
+    \item \(\Theta_{\rm BKT}\): vortex unbinding threshold,
+    \item \(\Theta_{\rm mass}\): coherence threshold for mass emergence,
+    \item \(\Theta_{\rm death}\): confinement or decoupling.
+\end{itemize}
+
+\paragraph{Cycles.}
+Topological solitons, vortex pairs, field-theoretic cycles.
+
+
+% ====================================================================
 \subsection{Levels \texorpdfstring{$K_3$–$K_4$}{K3–K4}: Chemical and Protocellular Continua}
-% TODO
-% - RAF networks, catalytic closure (K_3)
-% - Membranes, osmotic/curvature thresholds (K_4)
-% - Transition K_3 → pre-K_4 → K_4
+% ====================================================================
 
+\subsubsection{Level \(K_3\): Chemical Continua}
+
+\paragraph{Axes.}
+Chemical concentration axes, environmental axes (pH, salinity, temperature).
+
+\paragraph{Thresholds.}
+\begin{itemize}
+    \item RAF existence threshold (closure),
+    \item catalytic activation thresholds,
+    \item percolation threshold for reaction networks.
+\end{itemize}
+
+\paragraph{Cycles.}
+Chemical cycles, RAF closure cycles.
+
+\subsubsection{Level \(K_4\): Protocellular Continua}
+
+\paragraph{Axes.}
+Membrane axes: curvature, surface tension, permeability, charge.
+
+\paragraph{Thresholds.}
+\begin{itemize}
+    \item osmotic threshold \(\Theta_{\rm grad}\),
+    \item permeability threshold \(\Theta_{\rm perm}\),
+    \item membrane rupture threshold \(\Theta_{\rm mem}\),
+    \item curvature threshold \(\Theta_{\rm curv}\).
+\end{itemize}
+
+\paragraph{Cycles.}
+Metabolic cycles, membrane-growth cycles, gradient-maintenance cycles.
+
+\paragraph{Boundary Geometry.}
+Detailed patch model:  
+patch states \(\sigma_i\in\{L_\alpha,L_\beta,L_o,L_f,L_b\}\),
+local threshold vectors \(\Theta_i\),
+patch–level interactions and rupture dynamics.
+
+
+% ====================================================================
 \subsection{Level \texorpdfstring{$K_5$}{K5}: Early Neural and Bioelectrical Continua}
-% TODO
-% - Ion channels, ΔV, excitation thresholds
-% - Proto-spikes, cycles C_spike
-% - Patch model of excitability
+% ====================================================================
 
+\paragraph{Axes.}
+Excitability axes:
+\begin{itemize}
+    \item membrane potential axis \(\Delta V\),
+    \item ion concentration axes,
+    \item channel state axes.
+\end{itemize}
+
+\paragraph{Potentials and Flows.}
+\begin{itemize}
+    \item \(P_5\): electrochemical potentials,
+    \item \(J_5\): ion fluxes, gating-variable flows.
+\end{itemize}
+
+\paragraph{Thresholds.}
+\begin{itemize}
+    \item excitation threshold \(\Theta_{\rm exc}\),
+    \item refractory threshold \(\Theta_{\rm refr}\),
+    \item gradient threshold \(\Theta_{\rm grad}\),
+    \item failure threshold \(\Theta_{\rm death}\) (loss of excitability).
+\end{itemize}
+
+\paragraph{Cycles.}
+Proto-spike cycle \(C_{\rm spike}\),
+early oscillatory cycles,
+patch-level excitation loops.
+
+
+% ====================================================================
 \subsection{Level \texorpdfstring{$K_6$}{K6}: Cognitive Continua}
-% TODO
-% - Representational axes, binding
-% - Internal models, prediction, memory thresholds
-% - Cognitive flows J_6
+% ====================================================================
 
+\paragraph{Axes.}
+\begin{itemize}
+    \item representational axes,
+    \item binding axes,
+    \item conceptual axes,
+    \item predictive axes.
+\end{itemize}
+
+\paragraph{Potentials.}
+\begin{itemize}
+    \item semantic energy potentials,
+    \item prediction-error potentials,
+    \item memory-stability potentials.
+\end{itemize}
+
+\paragraph{Thresholds.}
+\begin{itemize}
+    \item binding threshold \(\Theta_{\rm bind}\),
+    \item prediction threshold \(\Theta_{\rm pred}\),
+    \item coherence threshold \(\Theta_{\rm coh}\),
+    \item expressive threshold \(\Theta_{\rm expr}\).
+\end{itemize}
+
+\paragraph{Cycles.}
+Cognitive cycles:
+\begin{itemize}
+    \item attention cycle,
+    \item prediction cycle,
+    \item memory consolidation cycle,
+    \item model-update cycle.
+\end{itemize}
+
+
+% ====================================================================
 \subsection{Levels \texorpdfstring{$K_7$–$K_8$}{K7–K8}: Social and Civilizational Continua}
-% TODO
-% - Trust thresholds, institutional cycles (K_7)
-% - Infrastructure, energy cycles, systemic thresholds (K_8)
-% - Collapse and reorganisation
+% ====================================================================
 
+\subsubsection{Level \(K_7\): Social Continua}
+
+\paragraph{Axes.}
+\begin{itemize}
+    \item normative axes,
+    \item trust axes,
+    \item role axes,
+    \item institution axes.
+\end{itemize}
+
+\paragraph{Thresholds.}
+\begin{itemize}
+    \item trust threshold \(\Theta_{\rm trust}\),
+    \item legitimacy threshold \(\Theta_{\rm leg}\),
+    \item role–coherence threshold \(\Theta_{\rm role}\).
+\end{itemize}
+
+\paragraph{Cycles.}
+Normative cycles, institutional cycles, coordination cycles.
+
+\subsubsection{Level \(K_8\): Civilizational Continua}
+
+\paragraph{Axes.}
+Large-scale:
+\begin{itemize}
+    \item infrastructural axes,
+    \item energy-flow axes,
+    \item communication axes,
+    \item complexity axes.
+\end{itemize}
+
+\paragraph{Thresholds.}
+\begin{itemize}
+    \item systemic stress threshold,
+    \item capacity threshold,
+    \item cohesion threshold.
+\end{itemize}
+
+\paragraph{Cycles.}
+Energy cycles, economic cycles, institutional mega-cycles.
+
+
+% ====================================================================
 \subsection{Levels \texorpdfstring{$K_9$–$K_{10}$}{K9–K10}: Theoretical and Meta-Theoretical Continua}
-% TODO
-% - Theories, paradigms, ontologies as continua (K_9)
-% - Meta-theory, self-reference, modelling models (K_{10})
-% - Thresholds of consistency, expressivity, self-reference
+% ====================================================================
 
+\subsubsection{Level \(K_9\): Theoretical Continua}
+
+\paragraph{Axes.}
+\begin{itemize}
+    \item conceptual axes,
+    \item formal axes,
+    \item modelling axes.
+\end{itemize}
+
+\paragraph{Thresholds.}
+\begin{itemize}
+    \item consistency threshold,
+    \item coherence threshold,
+    \item expressive threshold \(\Theta_{\rm expr}\).
+\end{itemize}
+
+\paragraph{Cycles.}
+Theory-evolution cycles, paradigm cycles.
+
+\subsubsection{Level \(K_{10}\): Meta-Theoretical Continua}
+
+\paragraph{Axes.}
+\begin{itemize}
+    \item meta-linguistic axes,
+    \item functorial axes,
+    \item model-of-models axes.
+\end{itemize}
+
+\paragraph{Thresholds.}
+\begin{itemize}
+    \item meta-coherence threshold,
+    \item self-reference threshold,
+    \item meta-expressivity threshold.
+\end{itemize}
+
+\paragraph{Cycles.}
+Functorial cycles, meta-theoretical recursion cycles.
+
+
+% ====================================================================
 \subsection{Cross-Level Summary}
-% TODO
-% - Unified table of (Ω, A, P, J, Θ, ∂Ω, C, k) per level
-% - Vertical continuity conditions
-% - Role of embedding spaces M_x
+% ====================================================================
+
+A continuum \(K_x\) exists if and only if:
+\[
+   \Omega_x \neq \emptyset,
+   \qquad
+   A_x \subseteq A(M_x),
+   \qquad
+   \Theta_x \text{ satisfiable}.
+\]
+
+Vertical continuity conditions:
+\begin{itemize}
+    \item \(A_x \subset A_{x+1}\),
+    \item \(M_x \subset M_{x+1}\),
+    \item \(\Theta_{x+1}\) refine \(\Theta_x\),
+    \item flows \(J_x\) embed into \(J_{x+1}\),
+    \item cycles \(C_x\) form substructures of \(C_{x+1}\).
+\end{itemize}
+
+This completes the reconstructed full hierarchy of continua.
