@@ -1,0 +1,189 @@
+% ====================================================================
+% FILE: appendix/B_axioms_full.tex
+% Core 1.1 — Axiomatics (compact collected form)
+% ====================================================================
+
+\section{Collected Axiomatics}
+\label{app:axioms-full}
+
+This appendix collects the main axioms of the Ontology of Continua as used in
+Core~1.1.  It is not a replacement for the detailed exposition in
+Section~\ref{sec:model}, but it provides a concise reference.
+
+\subsection{Level \texorpdfstring{$K_0$}{K0} Axioms}
+
+\paragraph{Axiom 0.1 (Difference and distinguishability).}
+\(K_0 = (S,\Delta,\mathcal{C})\) with a difference function
+\(\Delta : S\times S \to \mathbb{R}_{\ge 0}\) such that
+\[
+  \Delta(s_1,s_2) = 0 \;\Rightarrow\; s_1 = s_2.
+\]
+
+\paragraph{Axiom 0.2 (Nontrivial threshold \(\Theta_0\)).}
+There exists \(\varepsilon>0\) such that
+\[
+  s_1\neq s_2 \;\Rightarrow\; \Delta(s_1,s_2)\ge\varepsilon.
+\]
+The quantity \(\Theta_0=\varepsilon\) is the minimal structural threshold of
+distinguishability.
+
+\paragraph{Axiom 0.3 (No dynamics at \(K_0\)).}
+\(K_0\) carries no time parameter and no evolution operator.  It specifies only
+logical conditions on distinguishability; all dynamics belong to \(K_1\) and
+higher levels.
+
+\paragraph{Axiom 0.4 (Embedding constraint).}
+The degrees of freedom of any continuum are restricted by its embedding space:
+for a continuum \(K\subset M\) one has
+\[
+  A(K) \subseteq A(M),
+  \qquad
+  \dim A(K) \le \dim A(M).
+\]
+
+\subsection{General Continuum Axioms}
+
+\paragraph{Axiom 1.1 (Continuum data).}
+Any continuum \(K\) is specified by a tuple
+\[
+  K =
+  \big(
+    \Omega(K), A(K), P(t), J(t),
+    \Theta(K), \partial\Omega(K), C(K), k(K,t)
+  \big)
+\]
+with nonempty \(\Omega(K)\) and finite axis set \(A(K)\).
+
+\paragraph{Axiom 1.2 (Boundary via thresholds).}
+There exists a family of functions
+\(f_k : \overline{\Omega(K)}\to\mathbb{R}\) such that
+\[
+  \Omega(K) = \big\{ s \mid f_k(s)\le 0 \ \forall k \big\},
+  \qquad
+  \partial\Omega(K) = \big\{ s \mid \exists k: f_k(s)=0 \big\}.
+\]
+
+\paragraph{Axiom 1.3 (Threshold taxonomy).}
+Thresholds partition into existence, stability, critical, dimensional, death,
+expressive and embedding thresholds:
+\[
+  \Theta(K) =
+  \big(
+    \Theta_{\mathrm{exist}},
+    \Theta_{\mathrm{stab}},
+    \Theta_{\mathrm{crit}},
+    \Theta_{\mathrm{dim}},
+    \Theta_{\mathrm{death}},
+    \Theta_{\mathrm{expr}},
+    \Theta_{\mathrm{embed}}
+  \big).
+\]
+
+\paragraph{Axiom 1.4 (Continuumness).}
+Continuumness \(k(K,t)\) is a scalar functional of the continuum components,
+satisfying \(0\le k\le 1\) and
+\[
+  k(K,t) = 0 \quad\Longleftrightarrow\quad
+  \Omega(K) = \emptyset
+  \ \text{ or }\
+  C(K)=\emptyset.
+\]
+
+\paragraph{Axiom 1.5 (Evolution operator).}
+There exists an evolution operator
+\(E = (F,G,H,Q,R,S,U)\) acting on the components of \(K\) as described in
+Section~\ref{sec:operators-full}.  \(E\) is defined only while
+\(\Omega(K)\neq\emptyset\).
+
+\subsection{Dimensionality and Birth}
+
+\paragraph{Axiom 2.1 (Monotonic dimension).}
+For any live continuum \(K(t)\) one has
+\[
+  \dim A(t+dt) \ge \dim A(t).
+\]
+Strict inequality occurs only at dimensional transitions.
+
+\paragraph{Axiom 2.2 (Dimensional threshold).}
+A new axis can be activated only when the structural tension satisfies
+\[
+  T(K,t) > \Theta_{\mathrm{dim}}(K).
+\]
+
+\paragraph{Axiom 2.3 (Embedding availability).}
+If a new axis \(A_{\mathrm{new}}\) is added to \(K\), it must belong to the
+axis set of the embedding space:
+\[
+  A_{\mathrm{new}}\in A(M)\setminus A(K).
+\]
+
+\paragraph{Axiom 2.4 (Birth operator).}
+Whenever Axioms~2.2 and~2.3 are satisfied and a nonempty admissible region
+\(\Omega(K_{x+1})\) exists, a birth operator \(\Psi_{x\to x+1}\) is defined and
+maps \((K_x,M_x)\) to \((K_{x+1},M_{x+1})\).
+
+\subsection{Life and Death}
+
+\paragraph{Axiom 3.1 (Life conditions).}
+A continuum is \emph{alive} on a time interval if and only if
+\[
+  \Omega(K(t))\neq\emptyset,\quad
+  C(K(t))\neq\emptyset,\quad
+  k(K,t)>0.
+\]
+
+\paragraph{Axiom 3.2 (Death condition).}
+A continuum \emph{dies} at time \(t^{\ast}\) when
+\[
+  \Omega\big(K(t^{\ast})\big) = \emptyset.
+\]
+After death the operators \(F,G,H,Q,R,S,U\) are no longer defined for that
+continuum.
+
+\paragraph{Axiom 3.3 (Irreversibility of death).}
+No operator acting within the same level can restore a dead continuum; any new
+live continuum is considered a new entity.
+
+\subsection{Embedding Spaces}
+
+\paragraph{Axiom 4.1 (Monotonic embedding spaces).}
+Embedding spaces form a monotonic sequence
+\[
+  M_0 \subset M_1 \subset M_2 \subset \dots
+\]
+with
+\(A(M_x)\subset A(M_{x+1})\) whenever a new level \(K_{x+1}\) is born.
+
+\paragraph{Axiom 4.2 (Compatibility with embedding).}
+A continuum exists only if its states, axes and thresholds are compatible with
+its embedding space:
+\[
+  \Omega(K)\neq\emptyset
+  \ \Longrightarrow\
+  A(K)\subseteq A(M),\
+  \Theta(K) \ \text{is satisfiable in } M.
+\]
+
+\subsection{Interaction}
+
+\paragraph{Axiom 5.1 (Interaction operator).}
+For any pair of continua \((K_a,K_b)\) embedded in the same space \(M\) there
+exists an interaction operator
+\[
+  E_{\mathrm{int}} : (K_a,K_b,M) \to (K_a',K_b',M')
+\]
+that updates their potentials, flows, thresholds, cycles and possibly axes,
+subject to the same structural constraints as the single--continuum operators.
+
+\paragraph{Axiom 5.2 (Conservation of identity in non-fusion regimes).}
+In competition, parasitism and symbiosis the identities of \(K_a\) and \(K_b\)
+are preserved.  Fusion creates a new continuum \(K_{\mathrm{fusion}}\) with its
+own identity and embedding space.
+
+\subsection{Remarks}
+
+The axioms listed here represent the subset of the full Core~2.x axiomatics
+that is required for Core~1.1.  Additional technical axioms introduced in
+extension papers (for example, detailed forms of structural tension, specific
+boundary conditions or renormalisation schemes) are compatible with this list
+but are not reproduced here.
