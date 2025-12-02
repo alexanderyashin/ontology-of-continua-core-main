@@ -1,0 +1,19 @@
+% FILE: figures/civilization_energy_cycles.tex
+% Civilizational energy and infrastructure cycles
+
+\begin{tikzpicture}[>=latex,thick,scale=1]
+  % Nodes
+  \node[draw, rounded corners, fill=gray!10] (Res) at (0,0) {resources};
+  \node[draw, rounded corners, fill=gray!10] (Energy) at (4,0) {energy};
+  \node[draw, rounded corners, fill=gray!10] (Infra) at (8,0) {infrastructure};
+  \node[draw, rounded corners, fill=gray!10] (Soc) at (4,-2.5) {social systems};
+
+  % Arrows
+  \draw[->] (Res) -- (Energy);
+  \draw[->] (Energy) -- (Infra);
+  \draw[->] (Infra) -- (Soc);
+  \draw[->] (Soc) .. controls (4,1.5) .. (Res);
+
+  \node[anchor=north] at (4,-3.2) {$C_8$: civilizational cycle};
+\end{tikzpicture}
+
