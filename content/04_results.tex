@@ -1,71 +1,208 @@
+% FILE: content/04_results.tex
+
 \section{Results and Derived Consequences}
 \label{sec:results}
 
-This section serves as a placeholder for the results, consequences and
-formal derivations that will emerge from the Ontology of Continua in
-later versions of the Core. The present text demonstrates the structural
-organization of the results chapter but does not contain the actual
-scientific material, which will be integrated beginning with Core~1.2.
+This section summarises the core structural results that follow directly from the formal framework introduced in Section~\ref{sec:model}. 
+Unlike earlier drafts of the Core, this chapter is no longer a placeholder. 
+It presents the stable and canonical consequences of the Ontology of Continua (OC) axioms and operators, as consolidated from Core~2.x. 
+All results here are domain–independent: they follow solely from the structural definitions of continua, axes, thresholds, potentials, flows, boundaries, and cycles.
 
-\subsection{Purpose of the results section}
+The goal of this chapter is not to provide extensive proofs—these will appear in later extension papers—but to state the essential theorems and consequences that govern all continua in the hierarchy \(K_0\)–\(K_{10}\).
 
-In the complete theory, this section will contain:
+\subsection{Theorem: Monotonicity of dimensionality}
 
+\textbf{Statement.}
+If a continuum \(K_{x+1}\) emerges from \(K_x\), then:
+\[
+    \dim(K_{x+1}) > \dim(K_x).
+\]
+
+\textbf{Justification.}
+Dimensional emergence requires the appearance of a new axis \(A_{\text{new}}\) not representable as any combination of axes in \(A(K_x)\).  
+The dimensional threshold \(\Theta_{\text{dim}}\) ensures that this axis is necessary and non-degenerate.  
+Therefore any emergent continuum has strictly higher dimensionality.
+
+\textbf{Corollary.}
+There is no continuum–level evolution that decreases dimension.  
+All structural evolution is monotonic in dimensionality.
+
+\subsection{Theorem: Impossibility of spontaneous dimension creation}
+
+\textbf{Statement.}
+No continuum can increase its dimensionality without exceeding the dimensional threshold:
+\[
+    T > \Theta_{\text{dim}}.
+\]
+
+\textbf{Justification.}
+New axes represent classes of differences incompatible with the existing axes.  
+Such incompatibility appears only when structural tension reaches the critical threshold, enforcing a phase transition.  
+Below the threshold, all differences can be projected onto existing axes.
+
+\textbf{Consequence.}
+Noise, fluctuations, or internal flows cannot spontaneously generate a new dimension.
+
+\subsection{Theorem: Death through boundary collapse}
+
+\textbf{Statement.}
+A continuum dies when:
+\[
+    \Omega(K) = \emptyset.
+\]
+
+\textbf{Equivalent formulations.}
+The continuum dies when any of the following occurs:
+\begin{enumerate}
+    \item supporting cycles disappear: \(C = \emptyset\);
+    \item supporting flows vanish: \(J_{\text{support}} = 0\);
+    \item threshold constraints are violated: \(\exists\,\Theta_k > 0\);
+    \item continuumness collapses: \(k(t) \to 0\);
+    \item the boundary cannot be re-entered: \(d_{\partial\Omega} \to 0\) for all trajectories.
+\end{enumerate}
+
+\textbf{Corollary: Irreversibility of death.}
+Once \(\Omega = \emptyset\), no operator \(E\) or interaction \(E_{\mathrm{int}}\) can reconstruct a valid continuum.
+
+\subsection{Theorem: Impossibility of evolution outside the embedding space}
+
+\textbf{Statement.}
+A continuum \(K_x\) cannot evolve in directions not present in its embedding space \(M_x\).  
+Formally:
+\[
+    A(K_x) \subseteq A(M_x), \qquad 
+    \text{and} \qquad 
+    \text{span}\,A(K_x(t+dt)) \subseteq \text{span}\,A(M_x).
+\]
+
+\textbf{Consequence.}
+All dynamics, including birth of \(K_{x+1}\), require the embedding space \(M_{x}\) to contain the necessary axis before the emergence occurs.
+
+\subsection{Theorem: Necessity and sufficiency of compatibility with \texorpdfstring{$M$}{M}}
+
+\textbf{Statement.}
+A continuum exists if and only if it is compatible with its embedding space:
+\[
+    K \text{ exists } \Longleftrightarrow \Omega(K) \neq \emptyset \ \wedge \ A(K) \subseteq A(M).
+\]
+
+\textbf{Consequence.}
+Even if an internal state is mathematically well-defined, it does not constitute a continuum unless the embedding space can support the necessary axes and thresholds.
+
+\subsection{Theorem: Structural tension governs all phase transitions}
+
+\textbf{Statement.}
+Let \(T = T(A,P,\nabla P)\) denote structural tension.  
+A phase transition occurs when:
+\[
+    T = \Theta_{\text{crit}}.
+\]
+
+\textbf{Corollary.}
+Growth of dimension occurs precisely when:
+\[
+    T = \Theta_{\text{dim}},
+\]
+and collapse occurs when:
+\[
+    T = \Theta_{\text{death}}.
+\]
+
+\subsection{Theorem: Universal law of complexity growth}
+
+\textbf{Statement.}
+For any live continuum:
+\[
+    S(K(t+dt)) \ge S(K(t)),
+\]
+where \(S\) is a structural measure of complexity.
+
+\textbf{Consequence.}
+Complexity increases strictly whenever new axes, new cycles, or expanded state spaces emerge.
+
+\subsection{Theorem: Death as loss of cycles}
+
+\textbf{Statement.}
+A continuum dies when its maximal structural cycle disappears:
+\[
+    C_{\max} = \emptyset.
+\]
+
+\textbf{Justification.}
+Cycles represent self-maintaining flows.  
+Their collapse removes structural coherence and prevents maintenance of thresholds.
+
+\subsection{Theorem: Threshold–expressivity incompatibility}
+
+\textbf{Statement.}
+A continuum collapses when its axes become insufficient to express the required differences:
+\[
+    \dim(A(K)) < \dim(\text{Differences}(K)).
+\]
+
+\textbf{Consequence.}
+Collapse may occur even without violating energetic or dynamical constraints if representational capacity is exceeded.
+
+\subsection{Theorem: Monotonic growth of embedding spaces}
+
+\textbf{Statement.}
+Embedding spaces form a monotonic sequence:
+\[
+    M_0 \subset M_1 \subset \dots \subset M_x \subset \dots
+\]
+and this sequence is strictly increasing whenever a new continuum emerges.
+
+\textbf{Consequence.}
+The growth of continua requires corresponding growth of embedding spaces.
+
+\subsection{Theorem: Emergence at threshold crossing}
+
+\textbf{Statement.}
+A new continuum emerges if and only if:
+\[
+    T > \Theta_{\text{dim}} \quad\text{and}\quad A_{\mathrm{new}} \in A(M) \setminus A(K).
+\]
+
+\textbf{Equivalent formulation.}
+A continuum cannot self-generate dimension; it requires both:
+\begin{enumerate}
+    \item structural tension exceeding the dimensional threshold;
+    \item an axis present in the embedding space but absent in the continuum.
+\end{enumerate}
+
+\subsection{Corollaries and domain-independent consequences}
+
+From the theorems above it follows that:
 \begin{itemize}
-    \item formal theorems derived from the structure of continua,
-    \item corollaries that follow from universal operators and
-          threshold-based dynamics,
-    \item examples illustrating continuum transitions,
-    \item analytical results describing stability, collapse, and growth
-          of continua,
-    \item derived structures linking different continuum levels
-          (K0--K12).
+    \item all continua are structurally comparable;
+    \item continuum birth is a discrete, threshold-driven phenomenon;
+    \item continuum death is globally irreversible;
+    \item emergence requires pre-existing structure in the embedding space;
+    \item internal dynamics alone cannot create new axes;
+    \item collapse can occur via energetic, topological, informational, or representational overload.
 \end{itemize}
 
-For the Core 1.1 shell, this serves only as a structural placeholder.
+\subsection{Implications for the vertical hierarchy}
 
-\subsection{Illustrative placeholder figure}
-
-Figure~\ref{fig:results-placeholder} demonstrates how result-related
-diagrams may be integrated. The current image is a neutral placeholder
-and does not convey scientific meaning.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.6\textwidth]{content/placeholders/fig_placeholder.pdf}
-    \caption{Placeholder figure illustrating integration of diagrams in
-    the results section. Replace with real analytical or structural
-    visualisations in future versions.}
-    \label{fig:results-placeholder}
-\end{figure}
-
-\subsection{Placeholder table of derived structures}
-
-Structured information (for example, mappings between operators,
-thresholds or continuum types) can be represented via modular table
-components. Table~\ref{tab:results-placeholder} shows a placeholder
-table.
-
-\input{content/placeholders/table_placeholder.tex}
-
-\subsection{Future results to be included}
-
-The completed results chapter will contain:
-
+The vertical hierarchy \(K_0\)–\(K_{10}\) inherits the following consequences:
 \begin{itemize}
-    \item proofs of core theorems concerning continuum existence and
-          compatibility,
-    \item conditions for continuum birth, evolution, dimensional growth
-          and collapse,
-    \item universal relations between potential functions, thresholds and
-          structural tensions,
-    \item demonstrations of how continua interact (fusion, coupling,
-          competition, parasitism),
-    \item applications across physical, chemical, biological and
-          cognitive domains,
-    \item analytical examples validating the operators introduced in the
-          model section.
+    \item \(K_0\) cannot evolve and cannot collapse — it has no dynamics.
+    \item \(K_1\) exhibits classical phase-like behaviour and supports continuous flows.
+    \item \(K_2\) contains physical thresholds (including BKT, coherence, condensation).
+    \item \(K_3\)–\(K_4\) exhibit chemical and prebiotic thresholds (RAF closure, membrane formation, redox potentials).
+    \item \(K_5\) contains electrical thresholds for excitation and spiking.
+    \item \(K_6\) contains logical and representational thresholds for cognitive binding.
+    \item \(K_7\)–\(K_8\) contain social and institutional thresholds.
+    \item \(K_9\)–\(K_{10}\) contain expressive and coherence thresholds in the space of theories and meta-theories.
 \end{itemize}
 
-This placeholder prepares the conceptual and structural space for these
-elements.
+Each of these levels instantiates the same theorems in domain-specific form.
+
+\subsection{Summary}
+
+The results presented in this chapter form the structural backbone of OC:
+monotonicity of dimension, impossibility of spontaneous emergence, 
+boundary-driven collapse, irreversibility of death, 
+necessity of compatibility with embedding spaces, 
+and universal complexity growth.  
+These principles apply uniformly across the entire continuum hierarchy and define the constraints under which all continua can exist, evolve, or die.
