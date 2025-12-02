@@ -1,55 +1,78 @@
+
 % =============================================
-%  Ontology of Continua — Core 1.1
-%  Stable LaTeX preamble (infrastructure)
+%  Ontology of Continua — Core
+%  Stable LaTeX Preamble (do not edit lightly)
 % =============================================
 
-% Font configuration (XeLaTeX, Unicode)
+% --- Engine & fonts (XeLaTeX) -----------------
+
 \usepackage{fontspec}
+
 \setmainfont{DejaVu Serif}
 \setsansfont{DejaVu Sans}
 \setmonofont{DejaVu Sans Mono}
 
-% Language configuration (primary: English, secondary: Russian)
+% --- Languages (Polyglossia) ------------------
+
 \usepackage{polyglossia}
+
+% Default language of the publication shell is English.
 \setdefaultlanguage{english}
 \setotherlanguages{russian}
+
+% Support for Cyrillic in case Russian text is used.
 \newfontfamily\cyrillicfont{DejaVu Serif}
 
-% Page layout
+% --- Page layout --------------------------------
+
 \usepackage[a4paper,margin=2.5cm]{geometry}
 
-% Math packages
+% --- Mathematics --------------------------------
+
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{mathtools}
 
-% Graphics
-\usepackage{graphicx}
-\graphicspath{{figures/}{content/placeholders/}}
+% --- Graphics -----------------------------------
 
-% Tables
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
+% --- Tables -------------------------------------
+
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{longtable}
 
-% Hyperlinks
+% --- Hyperlinks & PDF metadata ------------------
+
 \usepackage{hyperref}
+
 \hypersetup{
-  unicode=true,
-  colorlinks=true,
-  linkcolor=blue,
-  citecolor=blue,
-  urlcolor=blue,
-  pdftitle={Ontology of Continua --- Core 1.1},
-  pdfauthor={Alexander Yashin}
+  unicode        = true,
+  colorlinks     = true,
+  linkcolor      = blue,
+  citecolor      = blue,
+  urlcolor       = blue,
+  pdftitle       = {Ontology of Continua --- Core 1.1},
+  pdfauthor      = {Alexander Yashin},
+  pdfsubject     = {Ontology of Continua Core 1.1 publication shell},
+  pdfkeywords    = {ontology of continua, continuum theory, unified model, core 1.1},
+  pdfcreator     = {XeLaTeX with latexmk},
+  pdfproducer    = {GitHub Actions CI},
+  pdflicenseurl  = {https://creativecommons.org/licenses/by/4.0/},
+  pdflang        = {en}
 }
 
-% Clever references
+% --- Clever references --------------------------
+
 \usepackage[nameinlink,capitalize]{cleveref}
 
-% Quotation tools
+% --- Quotations ---------------------------------
+
 \usepackage{csquotes}
 
-% Bibliography
+% --- Bibliography (biber + biblatex) -----------
+
 \usepackage[
   backend=biber,
   style=authoryear,
@@ -58,10 +81,12 @@
 
 \addbibresource{bib/references.bib}
 
-% Number equations by section
+% --- Numbering ----------------------------------
+
 \numberwithin{equation}{section}
 
-% Theorem-like environments (English)
+% --- Theorem-like environments ------------------
+
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
