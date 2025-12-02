@@ -1,0 +1,25 @@
+% FILE: figures/levels_hierarchy.tex
+% Vertical hierarchy K0--K10
+
+\begin{tikzpicture}[node distance=1.1cm,>=latex,thick]
+
+% List levels
+\node[draw, fill=gray!15, rounded corners] (K0) {$K_0$};
+\node[draw, fill=gray!15, rounded corners, below=of K0] (K1) {$K_1$};
+\node[draw, fill=gray!15, rounded corners, below=of K1] (K2) {$K_2$};
+\node[draw, fill=gray!15, rounded corners, below=of K2] (K3) {$K_3$};
+\node[draw, fill=gray!15, rounded corners, below=of K3] (K4) {$K_4$};
+\node[draw, fill=gray!15, rounded corners, below=of K4] (K5) {$K_5$};
+\node[draw, fill=gray!15, rounded corners, below=of K5] (K6) {$K_6$};
+\node[draw, fill=gray!15, rounded corners, below=of K6] (K7) {$K_7$};
+\node[draw, fill=gray!15, rounded corners, below=of K7] (K8) {$K_8$};
+\node[draw, fill=gray!15, rounded corners, below=of K8] (K9) {$K_9$};
+\node[draw, fill=gray!15, rounded corners, below=of K9] (K10) {$K_{10}$};
+
+% Arrows
+\foreach \i/\j in {K0/K1, K1/K2, K2/K3, K3/K4, K4/K5, K5/K6, K6/K7, K7/K8, K8/K9, K9/K10}
+{
+    \draw[->] (\i) -- (\j);
+}
+
+\end{tikzpicture}
