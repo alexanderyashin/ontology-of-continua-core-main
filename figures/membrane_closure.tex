@@ -1,0 +1,19 @@
+% FILE: figures/membrane_closure.tex
+% Membrane closure schematic (vesicle formation)
+
+\begin{tikzpicture}[>=latex,thick,scale=1]
+  % Open patch
+  \node[anchor=south] at (-3,3.0) {open patch};
+  \draw (-5,0) -- (-1,0);
+  \draw (-5,0) arc (180:0:2);
+  % "gap" at top
+  \draw[dashed] (-3,2.0) -- (-3,2.5);
+  \node at (-3,-0.5) {$\Theta_{\text{closure}}$ not reached};
+
+  % Closed vesicle
+  \node[anchor=south] at (3,3.0) {closed vesicle};
+  \draw (3,1.0) circle (2.0);
+  \node at (3,1.0) {K$_4$};
+  \node at (3,-1.3) {$\Theta_{\text{closure}}$ crossed};
+\end{tikzpicture}
+
