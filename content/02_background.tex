@@ -3,164 +3,172 @@
 \section{Background and Motivation}
 \label{sec:background}
 
-This section provides the conceptual and mathematical background required for the Ontology of Continua (OC). 
-Unlike the introduction, which situates the project historically and narratively, the purpose here is to outline 
-the structural assumptions that make the unified continuum formalism possible. 
-The material presented in this chapter is not placeholder content: it encodes the minimal background needed to understand 
-how continua, thresholds, boundaries, potentials, and flows are treated in Core~1.1.
+This section introduces the structural and mathematical background required to understand the Ontology of Continua (OC). 
+The goal is not to provide a full historical survey, but to specify the minimal conceptual machinery that underlies the unified continuum framework. 
+The notions of continua, axes, thresholds, boundaries, potentials, flows, and continuumness are presented in their general form, independent of any specific domain such as physics, chemistry, biology, cognition, or social systems.
 
 \subsection{Continuum as a structural object}
 
-In OC, a \emph{continuum} is not defined by geometric smoothness or by physical material extension. 
-Instead, a continuum is a system that satisfies the following structural properties:
+In OC, a \emph{continuum} is defined not by smooth geometry or physical extension, but by a set of structural criteria. 
+A system qualifies as a continuum \(K\) if and only if it satisfies:
+
 \begin{itemize}
-    \item it possesses a nonempty set of admissible states \(\Omega\);
-    \item it has at least one axis of differences \(A = \{A_1,\dots,A_n\}\), where each axis specifies a distinct dimension along which states can vary;
-    \item it supports potentials \(P(t)\) that encode energetic, informational, or structural constraints;
-    \item it supports flows \(J(t)\) that transform potentials and move the system across states;
-    \item it is subject to thresholds \(\Theta\) that separate qualitatively different regimes;
-    \item it has a boundary \(\partial\Omega\), defined as the set where at least one threshold is saturated;
-    \item it maintains structural continuity through cycles \(C\) and a nonzero measure of continuumness \(k(t)\).
+    \item a nonempty set of admissible states \(\Omega(K)\);
+    \item a finite collection of axes of differences \(A(K) = \{A_1, \dots, A_n\}\), each axis representing an independent dimension along which states vary;
+    \item a family of potentials \(P(t)\) that encode energetic, informational, chemical, biological, or logical constraints;
+    \item flows \(J(t)\) that transform potentials and drive state transitions;
+    \item thresholds \(\Theta(K)\) separating qualitatively distinct dynamical regimes;
+    \item a boundary \(\partial\Omega(K)\), defined as the locus where thresholds saturate;
+    \item cycles \(C(K)\) that maintain persistent organizational patterns;
+    \item a continuumness measure \(k(t)\), quantifying the structural viability and integrity of the system.
 \end{itemize}
 
-This definition is intentionally abstract: physical fields, reaction networks, protocells, neural populations, cognitive models, 
-and social institutions can all be treated as continua as long as they satisfy the structural requirements listed above.
+The continuum definition is intentionally domain–agnostic.  
+Physical fields, chemical reaction networks, protocells, neural assemblies, conceptual systems, social institutions, and scientific theories can all be represented as continua provided they satisfy the structural criteria above.
 
 \subsection{Axes and dimensionality}
 
-Every continuum has a finite number of axes \(A(K)\), and these axes determine its internal dimensionality. 
-Axes correspond to \emph{incompatible differences} --- differences that cannot be represented as combinations of one another.
+The axes \(A(K)\) determine the dimensionality of a continuum.  
+Axes correspond to \emph{incompatible differences}: distinctions that cannot be represented as combinations of existing axes.  
+If a new class of differences cannot be projected onto the current span of \(A(K)\), a new dimension is required.
 
-A key structural statement is the \emph{monotonicity of dimension}:  
+The \emph{monotonicity of dimension} states:
+
 \[
-    \dim(K_{x+1}) > \dim(K_x) \quad\text{whenever } K_{x+1} \text{ is an emergent continuum}.
+    \dim(K_{x+1}) > \dim(K_x)
+    \quad\text{whenever a new continuum } K_{x+1} \text{ emerges from } K_x.
 \]
-In OC, dimensionality is not an arbitrary label but the number of independent axes required to describe the system's state space.
 
-The birth of a new dimension occurs only when:
+A new dimension appears only when:
+
 \begin{enumerate}
-    \item the system experiences differences that cannot be mapped onto the existing axes;
-    \item structural tension \(T\) exceeds a critical threshold \(\Theta_{\text{dim}}\);
-    \item the overlying space \(M\) contains an available axis that is not yet represented in \(K\).
+    \item a structural difference arises that cannot be expressed along the existing axes;
+    \item structural tension \(T\) associated with this difference exceeds a dimensional threshold \(\Theta_{\mathrm{dim}}\);
+    \item the embedding space \(M_x\) contains an axis not yet represented in \(A(K_x)\).
 \end{enumerate}
+
+Thus dimension is not arbitrary, but a structural invariant tied to incompatible distinctions and threshold crossing.
 
 \subsection{Boundaries and thresholds}
 
-A continuum does not fail when it reaches the edge of its state space, but when it reaches the edge of \emph{its thresholds}.
-Every continuum has a set of threshold functions:
+A continuum is constrained by its threshold landscape \(\Theta(K)\).  
+Thresholds are functions:
+
 \[
     \Theta = \{\Theta_k\}, \qquad \Theta_k(s) \le 0
 \]
-which must remain nonpositive for \(s \in \Omega\).
 
-Thresholds classify into several types:
+for every admissible state \(s \in \Omega(K)\).  
+Thresholds classify into several structural types:
+
 \begin{itemize}
-    \item \textbf{Existence thresholds} \(\Theta_{\text{exist}}\): minimal conditions for a continuum to exist.
-    \item \textbf{Stability thresholds} \(\Theta_{\text{stab}}\): constraints that ensure bounded dynamics.
-    \item \textbf{Critical thresholds} \(\Theta_{\text{crit}}\): points of qualitative change (phase transitions).
-    \item \textbf{Dimensional thresholds} \(\Theta_{\text{dim}}\): tension levels at which new axes emerge.
-    \item \textbf{Death thresholds} \(\Theta_{\text{death}}\): structural limits where \(\Omega\) collapses to the empty set.
+    \item \textbf{Existence thresholds} \(\Theta_{\mathrm{exist}}\): minimal conditions required for the continuum to exist.
+    \item \textbf{Stability thresholds} \(\Theta_{\mathrm{stab}}\): conditions required for bounded, non–divergent dynamics.
+    \item \textbf{Critical thresholds} \(\Theta_{\mathrm{crit}}\): surfaces where qualitative changes (phase transitions) occur.
+    \item \textbf{Dimensional thresholds} \(\Theta_{\mathrm{dim}}\): tension levels at which new axes and dimensions emerge.
+    \item \textbf{Death thresholds} \(\Theta_{\mathrm{death}}\): limits where admissible states vanish and \(\Omega(K)\) collapses.
 \end{itemize}
 
-The boundary \(\partial\Omega\) is defined as:
+The boundary of the state space is the set of states where at least one threshold saturates:
+
 \[
-    \partial\Omega = \{ s \mid \exists\, k: \Theta_k(s) = 0 \}.
+    \partial\Omega(K) = \{ s \mid \exists \, k: \Theta_k(s) = 0 \}.
 \]
-This boundary can be geometric, topological, energetic, informational, or logical depending on the continuum.
+
+Depending on the continuum, \(\partial\Omega\) may be geometric, energetic, topological, informational, logical, or social.
 
 \subsection{Potentials and flows}
 
-Potentials \(P(t)\) describe the internal configuration of forces, constraints, or informational gradients within a continuum.  
-Examples include:
+Potentials \(P(t)\) represent internal constraints or driving forces.  
+They may encode:
+
 \begin{itemize}
-    \item energy gradients in physical systems,
-    \item concentration and redox potentials in chemical systems,
-    \item electric and electrochemical potentials in biological membranes,
-    \item representational potentials in cognitive systems,
-    \item institutional and normative potentials in social systems.
+    \item energy landscapes in physical systems;
+    \item concentration, pH, and redox potentials in chemical systems;
+    \item electrochemical and membrane potentials in biological systems;
+    \item representational and predictive potentials in cognitive systems;
+    \item institutional, normative, and informational potentials in social systems.
 \end{itemize}
 
-Flows \(J(t)\) describe how potentials change:
+Flows \(J(t)\) describe how potentials change over time:
+
 \[
     \frac{dP}{dt} = J(t).
 \]
 
-Three structural classes of flows are used throughout OC:
+OC distinguishes three structurally universal classes of flows:
+
 \begin{itemize}
-    \item \textbf{supporting flows} \(J_{\text{support}}\) that maintain cycles and stabilise \(k(t)\);
-    \item \textbf{critical flows} \(J_{\text{critical}}\) that move the system towards or across thresholds;
-    \item \textbf{destructive flows} \(J_{\text{kill}}\) that push the system beyond the boundary \(\partial\Omega\) and reduce \(k(t)\).
+    \item \textbf{Supporting flows} \(J_{\mathrm{support}}\): maintain cycles, preserve coherence, and stabilise \(k(t)\).
+    \item \textbf{Critical flows} \(J_{\mathrm{critical}}\): drive the system toward or across thresholds.
+    \item \textbf{Destructive flows} \(J_{\mathrm{kill}}\): violate threshold constraints, push the system across \(\partial\Omega\), and reduce \(k(t)\).
 \end{itemize}
 
-Different continua interpret these flows differently, but the structural logic is identical.
+The meaning of potentials and flows differs across domains, but their structural behaviour is invariant.
 
 \subsection{Continuumness}
 
-The measure \(k(t)\) quantifies whether the system is a \emph{live continuum}.  
-It depends on:
+The measure \(k(t)\) captures whether a system functions as a \emph{live continuum}.  
+Core~1.1 adopts the consolidated definition:
+
 \[
-    k(t) = H(\Omega)\cdot S(C)\cdot E_{\text{expr}} \cdot I_{\text{coh}} \cdot Cons_t,
+    k(t) = H(\Omega) \cdot S(C) \cdot E_{\mathrm{expr}} \cdot I_{\mathrm{coh}} \cdot Cons_t,
 \]
+
 where:
+
 \begin{itemize}
-    \item \(H(\Omega)\) is the structural entropy of the state space,
-    \item \(S(C)\) is the stability of cycles,
-    \item \(E_{\text{expr}}\) is the expressive adequacy of the axes,
-    \item \(I_{\text{coh}}\) measures internal coherence,
-    \item \(Cons_t\) expresses consistency with threshold constraints.
+    \item \(H(\Omega)\): structural entropy or diversity of admissible states;
+    \item \(S(C)\): stability of cycles;
+    \item \(E_{\mathrm{expr}}\): expressive adequacy of axes;
+    \item \(I_{\mathrm{coh}}\): internal coherence of potentials and flows;
+    \item \(Cons_t\): consistency with threshold structure.
 \end{itemize}
 
 A continuum exists if and only if \(k(t) > 0\).  
-Its death is the moment when \(k(t) \to 0\) and \(\Omega \to \emptyset\).
+Death occurs when \(k(t) \to 0\) and \(\Omega(K) \to \emptyset\), regardless of the cause.
 
 \subsection{Motivation for Core 1.1}
 
-The purpose of Core~1.1 is to consolidate all approved structural components into a unified, minimal reference document.  
-This includes:
+Core~1.1 serves to unify and stabilize all established structural components of OC into a single reference document.  
+Its primary objectives are:
+
 \begin{itemize}
-    \item a stable LaTeX structure with a canonical file hierarchy;
-    \item integrated and clarified base–level axioms for \(K_0\) and the construction of \(K_1\);
-    \item a uniform treatment of thresholds and boundaries;
-    \item a consistent formulation of potentials, flows, cycles, and evolution equations;
-    \item a clean vertical integration of all levels \(K_0\)–\(K_{10}\).
+    \item establishing a canonical file structure and reproducible build system;
+    \item consolidating the axioms of \(K_0\) and the construction of \(K_1\);
+    \item presenting a unified treatment of thresholds and boundaries;
+    \item formalizing potentials, flows, cycles, and evolution equations in a consistent language;
+    \item integrating the full hierarchy of continua \(K_0\)–\(K_{10}\) into a coherent vertical structure.
 \end{itemize}
 
-The intention is pragmatic: later versions of the Core will expand individual sections, 
-but the structure established in Core~1.1 will remain unchanged.
+Future Core versions will expand technical details, but the structural backbone established in 1.1 is intended to remain stable.
 
 \subsection{Historical motivation}
 
-The OC framework emerged from repeated attempts to understand why 
-systems that differ in physical nature nevertheless exhibit analogous structural behaviour.
-Examples include:
-\begin{itemize}
-    \item phase transitions in physics,
-    \item catalytic closure in RAF–networks,
-    \item protocell membrane formation,
-    \item neural spiking and cognitive binding,
-    \item institutional coherence and civilizational stability.
-\end{itemize}
+The OC framework emerged from repeated attempts to understand why structurally unrelated systems exhibit the same organisational patterns:
+phase transitions in physics, catalytic closure in RAF–networks, protocell membrane stabilization, neural excitation and binding, institutional coherence, and civilizational dynamics.
 
-Across these systems, one observes:
+Across these systems, four invariants consistently appear:
+
 \begin{enumerate}
-    \item the presence of thresholds;
-    \item the emergence of new dimensions;
-    \item cycles that stabilise the system;
-    \item collapse when boundaries are crossed.
+    \item thresholds controlling admissibility and stability;
+    \item emergence of new dimensions under structural tension;
+    \item cycles stabilizing the dynamics;
+    \item collapse when thresholds are violated.
 \end{enumerate}
 
-The OC framework formalizes this regularity.
+OC formalises these invariants within a single structural ontology.
 
 \subsection{Scope of future background material}
 
-Future versions of the background chapter will expand on:
+Later versions of the background chapter will expand on:
+
 \begin{itemize}
-    \item mathematical preliminaries on state spaces, potentials, and flows;
+    \item mathematical preliminaries on state spaces, potentials, flows, and cycle stability;
     \item historical continuum models in mathematics, physics, and systems theory;
-    \item motivations for cross–domain unification;
-    \item conceptual roots of the OC axioms;
-    \item relations between continua and their embedding spaces \(M_x\);
-    \item the role of monotonicity, stability, and coherence.
+    \item structural motivations behind the OC axiomatics;
+    \item properties of embedding spaces \(M_x\) and their role in dimensional emergence;
+    \item systematic treatment of monotonicity, coherence, and stability across levels.
 \end{itemize}
 
-Core~1.1 includes only the minimal background needed to support the model section that follows.
+Core~1.1 includes only the minimal background needed to support the model section that follows.  
