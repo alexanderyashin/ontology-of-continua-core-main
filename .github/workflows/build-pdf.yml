@@ -18,11 +18,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y texlive-full latexmk
 
-      - name: Build PDF
+      - name: Build PDF (XeLaTeX)
         run: |
           mkdir -p build
-          latexmk -pdf main.tex -interaction=nonstopmode -output-directory=build
-          # Optional: copy log to logs directory if you want it tracked
+          latexmk -xelatex -interaction=nonstopmode -output-directory=build main.tex
           mkdir -p build/logs
           cp build/main.log build/logs/compile.log || true
 
