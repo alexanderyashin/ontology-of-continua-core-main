@@ -1,83 +1,166 @@
+% FILE: content/02_background.tex
+
 \section{Background and Motivation}
 \label{sec:background}
 
-This section provides a high-level background for the Ontology of
-Continua project and outlines the motivation for establishing the Core
-1.1 publication shell. The content presented here is placeholder
-material, intended to demonstrate the structure and integration of
-sections within the LaTeX template. The scientific background will be
-introduced in later versions of the Core.
+This section provides the conceptual and mathematical background required for the Ontology of Continua (OC). 
+Unlike the introduction, which situates the project historically and narratively, the purpose here is to outline 
+the structural assumptions that make the unified continuum formalism possible. 
+The material presented in this chapter is not placeholder content: it encodes the minimal background needed to understand 
+how continua, thresholds, boundaries, potentials, and flows are treated in Core~1.1.
 
-\subsection{Context of the Ontology of Continua framework}
+\subsection{Continuum as a structural object}
 
-The Ontology of Continua (OC) is a unified theoretical framework aimed
-at describing the emergence, structure and evolution of continua across
-multiple scientific domains. It seeks to identify universal principles
-governing:
-
+In OC, a \emph{continuum} is not defined by geometric smoothness or by physical material extension. 
+Instead, a continuum is a system that satisfies the following structural properties:
 \begin{itemize}
-    \item physical continua (spacetime, fields, matter distributions),
-    \item chemical continua (reaction networks, catalytic sets),
-    \item biological continua (cells, membranes, regulatory cycles),
-    \item cognitive continua (neural states, computational flows),
-    \item social continua (institutional structures, communication
-          dynamics),
-    \item civilizational continua (technological, informational and
-          energetic systems),
-    \item meta-theoretical continua (models, meta-models and logical
-          structures).
+    \item it possesses a nonempty set of admissible states \(\Omega\);
+    \item it has at least one axis of differences \(A = \{A_1,\dots,A_n\}\), where each axis specifies a distinct dimension along which states can vary;
+    \item it supports potentials \(P(t)\) that encode energetic, informational, or structural constraints;
+    \item it supports flows \(J(t)\) that transform potentials and move the system across states;
+    \item it is subject to thresholds \(\Theta\) that separate qualitatively different regimes;
+    \item it has a boundary \(\partial\Omega\), defined as the set where at least one threshold is saturated;
+    \item it maintains structural continuity through cycles \(C\) and a nonzero measure of continuumness \(k(t)\).
 \end{itemize}
 
-The challenge is to construct a single coherent ontology capable of
-capturing the transition between these domains while preserving internal
-consistency and explanatory power.
+This definition is intentionally abstract: physical fields, reaction networks, protocells, neural populations, cognitive models, 
+and social institutions can all be treated as continua as long as they satisfy the structural requirements listed above.
+
+\subsection{Axes and dimensionality}
+
+Every continuum has a finite number of axes \(A(K)\), and these axes determine its internal dimensionality. 
+Axes correspond to \emph{incompatible differences} --- differences that cannot be represented as combinations of one another.
+
+A key structural statement is the \emph{monotonicity of dimension}:  
+\[
+    \dim(K_{x+1}) > \dim(K_x) \quad\text{whenever } K_{x+1} \text{ is an emergent continuum}.
+\]
+In OC, dimensionality is not an arbitrary label but the number of independent axes required to describe the system's state space.
+
+The birth of a new dimension occurs only when:
+\begin{enumerate}
+    \item the system experiences differences that cannot be mapped onto the existing axes;
+    \item structural tension \(T\) exceeds a critical threshold \(\Theta_{\text{dim}}\);
+    \item the overlying space \(M\) contains an available axis that is not yet represented in \(K\).
+\end{enumerate}
+
+\subsection{Boundaries and thresholds}
+
+A continuum does not fail when it reaches the edge of its state space, but when it reaches the edge of \emph{its thresholds}.
+Every continuum has a set of threshold functions:
+\[
+    \Theta = \{\Theta_k\}, \qquad \Theta_k(s) \le 0
+\]
+which must remain nonpositive for \(s \in \Omega\).
+
+Thresholds classify into several types:
+\begin{itemize}
+    \item \textbf{Existence thresholds} \(\Theta_{\text{exist}}\): minimal conditions for a continuum to exist.
+    \item \textbf{Stability thresholds} \(\Theta_{\text{stab}}\): constraints that ensure bounded dynamics.
+    \item \textbf{Critical thresholds} \(\Theta_{\text{crit}}\): points of qualitative change (phase transitions).
+    \item \textbf{Dimensional thresholds} \(\Theta_{\text{dim}}\): tension levels at which new axes emerge.
+    \item \textbf{Death thresholds} \(\Theta_{\text{death}}\): structural limits where \(\Omega\) collapses to the empty set.
+\end{itemize}
+
+The boundary \(\partial\Omega\) is defined as:
+\[
+    \partial\Omega = \{ s \mid \exists\, k: \Theta_k(s) = 0 \}.
+\]
+This boundary can be geometric, topological, energetic, informational, or logical depending on the continuum.
+
+\subsection{Potentials and flows}
+
+Potentials \(P(t)\) describe the internal configuration of forces, constraints, or informational gradients within a continuum.  
+Examples include:
+\begin{itemize}
+    \item energy gradients in physical systems,
+    \item concentration and redox potentials in chemical systems,
+    \item electric and electrochemical potentials in biological membranes,
+    \item representational potentials in cognitive systems,
+    \item institutional and normative potentials in social systems.
+\end{itemize}
+
+Flows \(J(t)\) describe how potentials change:
+\[
+    \frac{dP}{dt} = J(t).
+\]
+
+Three structural classes of flows are used throughout OC:
+\begin{itemize}
+    \item \textbf{supporting flows} \(J_{\text{support}}\) that maintain cycles and stabilise \(k(t)\);
+    \item \textbf{critical flows} \(J_{\text{critical}}\) that move the system towards or across thresholds;
+    \item \textbf{destructive flows} \(J_{\text{kill}}\) that push the system beyond the boundary \(\partial\Omega\) and reduce \(k(t)\).
+\end{itemize}
+
+Different continua interpret these flows differently, but the structural logic is identical.
+
+\subsection{Continuumness}
+
+The measure \(k(t)\) quantifies whether the system is a \emph{live continuum}.  
+It depends on:
+\[
+    k(t) = H(\Omega)\cdot S(C)\cdot E_{\text{expr}} \cdot I_{\text{coh}} \cdot Cons_t,
+\]
+where:
+\begin{itemize}
+    \item \(H(\Omega)\) is the structural entropy of the state space,
+    \item \(S(C)\) is the stability of cycles,
+    \item \(E_{\text{expr}}\) is the expressive adequacy of the axes,
+    \item \(I_{\text{coh}}\) measures internal coherence,
+    \item \(Cons_t\) expresses consistency with threshold constraints.
+\end{itemize}
+
+A continuum exists if and only if \(k(t) > 0\).  
+Its death is the moment when \(k(t) \to 0\) and \(\Omega \to \emptyset\).
 
 \subsection{Motivation for Core 1.1}
 
-Core 1.1 does not yet contain the complete theoretical material. Instead
-it establishes:
-
+The purpose of Core~1.1 is to consolidate all approved structural components into a unified, minimal reference document.  
+This includes:
 \begin{itemize}
-    \item a stable and extensible document structure,
-    \item a reproducible PDF build pipeline (local and CI),
-    \item a modular system for sections and content components,
-    \item integration of placeholder figures, tables and templates,
-    \item compatibility with Zenodo for versioned academic releases.
+    \item a stable LaTeX structure with a canonical file hierarchy;
+    \item integrated and clarified base–level axioms for \(K_0\) and the construction of \(K_1\);
+    \item a uniform treatment of thresholds and boundaries;
+    \item a consistent formulation of potentials, flows, cycles, and evolution equations;
+    \item a clean vertical integration of all levels \(K_0\)–\(K_{10}\).
 \end{itemize}
 
-This technical foundation ensures that the scientific content can be
-added incrementally in future Core versions without requiring structural
-modifications.
+The intention is pragmatic: later versions of the Core will expand individual sections, 
+but the structure established in Core~1.1 will remain unchanged.
 
 \subsection{Historical motivation}
 
-The Ontology of Continua project has evolved over multiple stages:
+The OC framework emerged from repeated attempts to understand why 
+systems that differ in physical nature nevertheless exhibit analogous structural behaviour.
+Examples include:
+\begin{itemize}
+    \item phase transitions in physics,
+    \item catalytic closure in RAF–networks,
+    \item protocell membrane formation,
+    \item neural spiking and cognitive binding,
+    \item institutional coherence and civilizational stability.
+\end{itemize}
 
+Across these systems, one observes:
 \begin{enumerate}
-    \item Early conceptual development focused on distinguishing
-          continuum-based models from discrete formulations.
-    \item Intermediate phases explored the idea of universal operators
-          governing transitions between continuum levels.
-    \item Recent stages emphasised the need for a rigorous, unified
-          mathematical structure capable of bridging diverse scientific
-          domains.
+    \item the presence of thresholds;
+    \item the emergence of new dimensions;
+    \item cycles that stabilise the system;
+    \item collapse when boundaries are crossed.
 \end{enumerate}
 
-Core 1.1 provides the first stable publication environment where this
-line of research can be formalised and expanded.
+The OC framework formalizes this regularity.
 
 \subsection{Scope of future background material}
 
-The completed background chapter in Core 1.2 and beyond will include:
-
+Future versions of the background chapter will expand on:
 \begin{itemize}
-    \item a historical overview of continuum models in physics,
-    \item connections with systems theory and complex networks,
-    \item motivations for unification of cross-domain continua,
-    \item conceptual challenges that led to the development of the OC
-          framework,
-    \item mapping of scientific domains to continuum levels (K0--K12).
+    \item mathematical preliminaries on state spaces, potentials, and flows;
+    \item historical continuum models in mathematics, physics, and systems theory;
+    \item motivations for cross–domain unification;
+    \item conceptual roots of the OC axioms;
+    \item relations between continua and their embedding spaces \(M_x\);
+    \item the role of monotonicity, stability, and coherence.
 \end{itemize}
 
-The present placeholder section establishes the structural foundation for
-these additions.
+Core~1.1 includes only the minimal background needed to support the model section that follows.
