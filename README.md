@@ -1,180 +1,138 @@
 # Ontology of Continua — Core 1.1
+Stable LaTeX repository for Core whitepaper builds
 
-This repository contains the LaTeX sources and reproducible build
-pipeline for the **Ontology of Continua — Core 1.1** publication shell
-(“Whitepaper 1.1”). It is designed as a stable template for all future
-Core versions and domain–specific preprints.
+This repository provides the canonical, deterministic and reproducible LaTeX
+environment for building the "Ontology of Continua — Core" whitepaper
+(version 1.1). It serves as the reference template for all future Core
+versions and for domain-specific preprints (Physics, Chemistry, Biology,
+K0–K12 Extensions).
 
-> **Goal:** provide a minimal, robust and fully automated LaTeX
-> infrastructure so that future scientific work can focus on content,
-> not tooling.
+Everything needed for building the PDF is part of this repository:
+- master LaTeX file (main.tex),
+- stable global preamble (preamble.tex),
+- modular content structure in content/,
+- placeholders for figures and tables,
+- GitHub Actions workflow for CI builds,
+- Zenodo metadata (.zenodo.json),
+- open license (CC BY 4.0).
 
----
+------------------------------------------------------------
+1. PDF build
+------------------------------------------------------------
 
-## 🔧 Build Status
+The PDF is built automatically on every push to the main branch.
 
-GitHub Actions automatically compile the PDF on every push to `main`:
+Output file:
+- build/main.pdf
 
-![Build LaTeX PDF](https://github.com/alexanderyashin/ontology-of-continua-core-main/actions/workflows/build-pdf.yml/badge.svg)
+Continuous integration:
+- .github/workflows/build_pdf.yml
 
----
+You can download the latest artifact from:
+- GitHub → Actions → Build PDF → Artifacts → OK-Core-1.1-PDF
 
-## 📄 What this repository provides
+------------------------------------------------------------
+2. Local build instructions
+------------------------------------------------------------
 
-- A **XeLaTeX–based LaTeX pipeline** with Unicode support  
-- A modular document structure with section placeholders:
-  - introduction, background, model, results, discussion, conclusion
-- Ready–to–use **figure and table placeholders**
-- A **GitHub Actions** workflow for automatic PDF builds
-- A `.zenodo.json` file with metadata for Zenodo integration
-- A structure that can be reused as a **template** for:
-  - Core 1.2+
-  - Physics / Chemistry / Biology preprints
-  - K0–K12 level extensions
+Requirements:
 
-The current version focuses on the *infrastructure*. Scientific content
-will be added in later releases.
+- TeX Live (2023 or newer) with:
+  - xelatex
+  - biber
+- latexmk (recommended)
 
----
+Recommended one-command build (from repository root):
 
-## 📁 Repository structure
+    latexmk -xelatex -synctex=1 -interaction=nonstopmode -output-directory=build main.tex
 
-```text
-/ (root)
-├── README.md              # This file
-├── LICENSE                # CC-BY 4.0 license
-├── .gitignore
-├── .zenodo.json           # Zenodo metadata for releases
-├── main.tex               # Main document file
-├── preamble.tex           # Stable LaTeX preamble (XeLaTeX)
-├── bib/
-│   └── references.bib     # Bibliography database (dummy entry)
-├── build/                 # Build output (created by latexmk / CI)
-│   ├── logs/
-│   │   └── compile.log    # LaTeX build log (optional)
-│   └── (generated *.pdf etc.)
-├── content/
-│   ├── frontmatter.tex    # Title, abstract, metadata
-│   ├── 01_intro.tex
-│   ├── 02_background.tex
-│   ├── 03_model.tex
-│   ├── 04_results.tex
-│   ├── 05_discussion.tex
-│   ├── 06_conclusion.tex
-│   └── placeholders/
-│       ├── fig_placeholder.pdf
-│       ├── section_template.tex
-│       └── table_placeholder.tex
-├── figures/
-│   └── placeholder.txt    # Keeps the directory under version control
-└── .github/
-    └── workflows/
-        └── build-pdf.yml  # GitHub Actions workflow for PDF builds
+The resulting PDF will be written to:
 
-🧪 How to build the PDF locally
+    build/main.pdf
 
-The repository is optimised for XeLaTeX with latexmk.
+Cleaning auxiliary files:
 
-Requirements
+    latexmk -C -output-directory=build
 
-TeX Live 2023+ (or equivalent full LaTeX distribution)
+Manual XeLaTeX build (if latexmk is not available):
 
-latexmk command available in your PATH
+    xelatex -output-directory=build main.tex
+    biber build/main
+    xelatex -output-directory=build main.tex
+    xelatex -output-directory=build main.tex
 
-Linux / macOS
-latexmk -xelatex main.tex -interaction=nonstopmode -output-directory=build
+This sequence reproduces what latexmk normally does: generate auxiliary files,
+run biber for bibliography and re-run XeLaTeX to stabilise references and TOC.
 
+------------------------------------------------------------
+3. Repository structure (short overview)
+------------------------------------------------------------
 
-The compiled PDF will be located at:
+Root level:
 
-build/main.pdf
+- main.tex        – master document and single entry point
+- preamble.tex    – global LaTeX configuration (fonts, languages, packages)
+- README.md       – this file
+- LICENSE         – CC BY 4.0 license text
+- .gitignore      – ignores build/ and auxiliary files
+- .zenodo.json    – metadata for Zenodo DOI integration
 
-Windows (MiKTeX / TeX Live)
+Content directory (logical sections of the paper):
 
-Use a terminal (PowerShell or cmd) with latexmk available and run the
-same command:
+- content/frontmatter.tex   – title, author, abstract
+- content/01_intro.tex      – introduction
+- content/02_background.tex – background and motivation
+- content/03_model.tex      – core model structure
+- content/04_results.tex    – results and consequences
+- content/05_discussion.tex – discussion and limitations
+- content/06_conclusion.tex – conclusion and outlook
 
-latexmk -xelatex main.tex -interaction=nonstopmode -output-directory=build
+Placeholders:
 
+- content/placeholders/fig_placeholder.pdf   – dummy figure
+- content/placeholders/table_placeholder.tex – dummy table environment
+- content/placeholders/section_template.tex  – template for new sections
 
-If your distribution does not ship latexmk by default, install it via
-your package manager or the distribution’s package GUI.
+Additional documentation:
 
-🤖 Continuous integration (GitHub Actions)
+- ARCHITECTURE.md – full repository layout and file roles
+- CONVENTIONS.md  – LaTeX and naming conventions
+- BUILD_NOTES.md  – build system description and troubleshooting
 
-The workflow file:
-
-.github/workflows/build-pdf.yml
-
-
-does the following on every push to main and on pull requests:
-
-Checks out the repository
-
-Installs TeX Live and latexmk
-
-Runs latexmk -xelatex with build/ as the output directory
-
-Uploads build/main.pdf as a build artefact
-
-You can always download the latest PDF from the Actions tab of the
-repository.
-
-🧩 Using this repository as a template
-
-To use this repository as a starting point for a new document:
-
-Clone or fork the repository.
-
-Update content/frontmatter.tex:
-
-title, subtitle, abstract
-
-version string in \date{...}
-
-Replace the placeholder content in:
-
-01_intro.tex, 02_background.tex, 03_model.tex,
-04_results.tex, 05_discussion.tex, 06_conclusion.tex
-
-Add real figures under figures/ and update figure includes.
-
-Extend bib/references.bib with your bibliography entries.
-
-Adapt .zenodo.json if you plan to publish via Zenodo
-(title, description, version, creators, etc.).
-
-The goal is to keep the build pipeline unchanged so future work can
-reuse it without extra setup.
-
-📚 Zenodo integration
-
-The file .zenodo.json contains metadata for automated deposition to
-Zenodo when a GitHub Release is created.
-
-After the first release has been archived on Zenodo, you may add a
-DOI badge here, e.g.:
-
-[![DOI](https://doi.org/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
-
-
-Replace XXXXXXX with the actual Zenodo record number.
-
-⚖️ License
-
-The contents of this repository are licensed under:
-
-Creative Commons Attribution 4.0 International (CC BY 4.0)
-
-See the LICENSE file for details.
-
-You are free to share and adapt the material, provided that appropriate
-credit is given.
-
-👤 Maintainer
-
-Alexander Yashin
-
-ORCID: 0009-0008-6166-0914
-
-For questions, please use the issue tracker of this repository.
+These three documents are the canonical technical reference for working with
+this repository.
+
+------------------------------------------------------------
+4. Using this repository as a template
+------------------------------------------------------------
+
+To create a new project (for example Core 1.2 or a domain preprint):
+
+1. Clone or copy this repository.
+2. Update the title, author and abstract in content/frontmatter.tex.
+3. Replace placeholder text in content/*.tex with real scientific content.
+4. Add real figures to the figures/ directory and update figure references
+   in the sections.
+5. Maintain all new references inside bib/references.bib.
+6. If required, adjust .zenodo.json (title, description, version) for the
+   new Zenodo record.
+
+The overall structure (files, directories, CI workflow) should remain unchanged
+to keep builds reproducible across all future releases.
+
+------------------------------------------------------------
+5. License and metadata
+------------------------------------------------------------
+
+License:
+- Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Maintainer:
+- Alexander Yashin
+
+ORCID:
+- 0009-0008-6166-0914
+
+This README is the human-facing overview of the repository. For detailed
+technical information always refer to ARCHITECTURE.md, CONVENTIONS.md and
+BUILD_NOTES.md.
