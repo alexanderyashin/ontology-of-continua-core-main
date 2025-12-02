@@ -3,13 +3,13 @@
 \section{Background and Motivation}
 \label{sec:background}
 
-This chapter introduces the structural and mathematical background required to understand the Ontology of Continua (OC). 
-Its purpose is not to provide a historical survey but to present the minimal conceptual machinery that underlies the unified continuum framework. 
-All notions---continua, axes, thresholds, boundaries, potentials, flows, cycles, and continuumness---are given in their domain–agnostic form, independently of whether the concrete system is physical, chemical, biological, cognitive, social, or meta–theoretical.
+This chapter introduces the structural and mathematical background required to understand the Ontology of Continua (OC).
+Its purpose is not to provide a historical survey but to present the minimal conceptual machinery that underlies the unified continuum framework.
+All notions — continua, axes, thresholds, boundaries, potentials, flows, cycles, and continuumness — are given in their domain–agnostic form, independently of whether the concrete system is physical, chemical, biological, cognitive, social, or meta–theoretical.
 
 \subsection{Continuum as a structural object}
 
-In OC, a \emph{continuum} is defined not by smooth geometry or physical extent but by a set of structural conditions. 
+In OC, a \emph{continuum} is defined not by smooth geometry or physical extent but by a set of structural conditions.
 A system qualifies as a continuum \(K\) if and only if it satisfies:
 
 \begin{itemize}
@@ -20,17 +20,18 @@ A system qualifies as a continuum \(K\) if and only if it satisfies:
     \item a threshold landscape \(\Theta(K)\) separating qualitatively distinct dynamical regimes;
     \item a boundary \(\partial\Omega(K)\), the locus where thresholds saturate;
     \item a family of stable cycles \(C(K)\) that maintain persistent organization and keep the continuum away from its boundary;
-    \item a measure of continuumness \(k(K,t)\) quantifying structural viability, integrity, and resilience.
+    \item a measure of continuumness \(k(K,t)\) quantifying structural viability, integrity, and resilience;
+    \item an embedding meta-space \(M\) such that \(\Omega(K)\subseteq\Omega(M)\) and \(A(K)\subseteq A(M)\), guaranteeing that the continuum is compatible with its environment.
 \end{itemize}
 
-This definition is deliberately domain–neutral. 
+This definition is deliberately domain–neutral.
 Physical fields, chemical reaction networks, protocells, neural assemblies, representational systems, social institutions, and scientific theories can all be represented as continua provided they satisfy the structural criteria above.
 
 \subsection{Axes and dimensionality}
 
-The axes \(A(K)\) determine the effective dimensionality of a continuum. 
-Axes correspond to \emph{incompatible differences}: distinctions that cannot be expressed, projected, or reconstructed from the existing axes. 
-This includes the full family of structural axes identified in Core~2.x: functional axes, gradient axes, membrane axes, excitation axes, cognitive axes, social–difference axes, and higher–level expressive axes.
+The axes \(A(K)\) determine the effective dimensionality of a continuum.
+Axes correspond to \emph{incompatible differences}: distinctions that cannot be expressed, projected, or reconstructed from the existing axes.
+This includes the main structural axes identified in the Core: energetic axes, gradient axes, membrane axes, excitation axes, cognitive axes, social–difference axes, and higher–level expressive axes.
 
 Dimensionality is governed by the \emph{monotonicity principle}:
 
@@ -44,18 +45,19 @@ A new dimension appears only when:
 \begin{enumerate}
     \item a new class of structural differences arises that cannot be represented within \(\mathrm{span}(A(K_x))\);
     \item structural tension \(T(K_x)\) exceeds the dimensional threshold \(\Theta_{\mathrm{dim}}(K_x)\);
-    \item the embedding space \(M_x\) contains at least one axis suitable for hosting the new difference.
+    \item the embedding space \(M_x\) contains at least one axis suitable for hosting the new difference, i.e.\ there exists
+    \(A_{\mathrm{new}}\in A(M_x)\setminus A(K_x)\).
 \end{enumerate}
 
-Thus dimensionality is a structural invariant, not a free parameter: it increases only when incompatible distinctions force the birth of a new continuum.
+Thus dimensionality is a structural invariant, not a free parameter: it increases only when incompatible distinctions force the birth of a new continuum and the surrounding meta-space makes a new axis available.
 
 \subsection{Boundaries and thresholds}
 
-A continuum is constrained by its threshold landscape \(\Theta(K)\). 
+A continuum is constrained by its threshold landscape \(\Theta(K)\).
 Thresholds are functions
 \[
-    \Theta_k : \Omega(K) \rightarrow \mathbb{R}, 
-    \qquad 
+    \Theta_k : \Omega(K) \rightarrow \mathbb{R},
+    \qquad
     \Theta_k(s) \le 0 \ \text{for all } s\in\Omega(K),
 \]
 and classify into structural types:
@@ -68,24 +70,26 @@ and classify into structural types:
     \item \textbf{Death thresholds} \(\Theta_{\mathrm{death}}\): boundaries beyond which no admissible states remain.
 \end{itemize}
 
-The structural boundary is:
+The structural boundary is
 \[
 \partial\Omega(K) = \{\, s \in \Omega(K) \mid \exists k : \Theta_k(s)=0 \,\}.
 \]
 
-As established in Core~2.x, the boundary is dynamic: 
+The boundary carries the full structure of the continuum’s limits.
+In the Core this is captured by a boundary–evolution operator
 \[
 \frac{d}{dt}\,\partial\Omega = R(\partial\Omega, P, J, \Theta),
 \]
-where \(R\) is the boundary–evolution operator. 
-Boundaries may expand, contract, or bifurcate during birth, life, and death transitions.
+which describes how \(\partial\Omega\) expands, contracts, or bifurcates under changes in potentials, flows, and thresholds.
+Birth, life, and death processes correspond to structurally distinct regimes of \(R\).
 
 \subsection{Potentials and flows}
 
-Potentials \(P(t)\) encode the internal configuration of constraints and driving forces. Examples include:
+Potentials \(P(t)\) encode the internal configuration of constraints and driving forces.
+Examples include:
 
 \begin{itemize}
-    \item energy landscapes and order parameters (physics);
+    \item energy landscapes, fields, and order parameters (physics);
     \item concentrations, pH, redox potentials (chemistry);
     \item membrane and electrochemical potentials (biology);
     \item representational and predictive potentials (cognition);
@@ -105,62 +109,62 @@ OC distinguishes three universal classes of flows:
     \item \textbf{Destructive flows} \(J_{\mathrm{kill}}\): violate thresholds, push the system across \(\Theta_{\mathrm{death}}\), or eliminate cycles.
 \end{itemize}
 
-All flows participate in the full evolution operator family \(F, G, H, Q, R, S, U\) introduced in Core~2.x.
+All flows participate in the evolution–operator family \(F, G, H, Q, R, S, U\) introduced in the Core.
+These operators specify how axes, potentials, thresholds, flows, cycles, and the boundary co-evolve in time.
 
 \subsection{Continuumness}
 
-The measure \(k(K,t)\) determines whether a system operates as a \emph{live continuum}. 
-Core~1.1 adopts the fully unified definition from Core~2.3:
+The measure \(k(K,t)\) determines whether a system operates as a \emph{live continuum}.
+Core~1.1 adopts the unified definition encoded in the operator \(U\), which aggregates several structural components:
 
 \[
-k(K,t) = 
-H_{\Omega}(K,t)\;
+k(K,t) =
+\chi_{\Omega}(K,t)\;
 S_{\mathrm{axes}}(K,t)\;
 S_{\mathrm{cycles}}(K,t)\;
 S_{\mathrm{flows}}(K,t)\;
-H_{\Omega}(K,t),
+S_{\mathrm{coh}}(K,t),
 \]
 
 where:
 
 \begin{itemize}
-    \item \(H_{\Omega}\): structural entropy or diversity of admissible states;
-    \item \(S_{\mathrm{axes}}\): effective saturation and expressive adequacy of axes;
-    \item \(S_{\mathrm{cycles}}\): presence and efficiency of stable cycles;
-    \item \(S_{\mathrm{flows}}\): dominance of supporting over destructive flows;
-    \item the first \(H_{\Omega}\) acts as the existence indicator \(H_\Omega =1\) if \(s\in\Omega\), and \(0\) otherwise.
+    \item \(\chi_{\Omega}(K,t)\) is the existence indicator, equal to \(1\) if \(\Omega(K)\neq\emptyset\) and \(0\) otherwise;
+    \item \(S_{\mathrm{axes}}(K,t)\) measures effective saturation and expressive adequacy of axes;
+    \item \(S_{\mathrm{cycles}}(K,t)\) captures the presence and efficiency of stable cycles;
+    \item \(S_{\mathrm{flows}}(K,t)\) reflects the dominance of supporting over destructive flows;
+    \item \(S_{\mathrm{coh}}(K,t)\) encodes global structural coherence and compatibility of the above components.
 \end{itemize}
 
-A continuum exists as a live continuum if and only if:
+A continuum exists as a live continuum if and only if
 \[
 k(K,t)>0.
 \]
-
-Death occurs when \(k(K,t)\to 0\) and \(\Omega(K)\to\emptyset\), regardless of cause.
+Death occurs when \(k(K,t)\rightarrow 0\) and \(\Omega(K)\rightarrow\emptyset\), regardless of the particular causal path.
 
 \subsection{Motivation for Core~1.1}
 
-Core~1.1 consolidates all structural components of OC into a vertically consistent reference document. 
+Core~1.1 consolidates all structural components of OC into a vertically consistent reference document.
 Its goals are:
 
 \begin{itemize}
-    \item to establish a canonical file and repository structure;
-    \item to consolidate the axioms of \(K_0\) and the construction of \(K_1\);
+    \item to establish a canonical file and repository structure for the Core;
+    \item to consolidate the axiomatics of \(K_0\) and the construction of \(K_1\);
     \item to present a unified treatment of boundaries and thresholds;
     \item to formalise potentials, flows, cycles, and evolution operators in a consistent language;
-    \item to integrate the full hierarchy \(K_0\)–\(K_{10}\) into a single coherent structure.
+    \item to integrate the full hierarchy \(K_0\)–\(K_{10}\) into a single coherent structure, including the role of the embedding meta-spaces \(M_x\).
 \end{itemize}
 
 \subsection{Historical motivation}
 
-OC originated from attempts to understand why structurally unrelated systems---phase transitions, catalytic closure, protocell stabilisation, neural excitation, institutional coherence, civilizational collapse---exhibit the same organisational patterns. 
+OC originated from attempts to understand why structurally unrelated systems — phase transitions, catalytic closure, protocell stabilisation, neural excitation, institutional coherence, civilizational collapse — exhibit the same organisational patterns.
 Across systems, four invariants persist:
 
 \begin{enumerate}
     \item thresholds governing admissibility and stability;
     \item emergence of new dimensions under structural tension;
     \item cycles stabilising flows;
-    \item collapse when thresholds are violated.
+    \item collapse when thresholds are violated and the admissible state space disappears.
 \end{enumerate}
 
 OC formalises these invariants within a single structural ontology.
@@ -174,7 +178,7 @@ Future versions of the background chapter will extend:
     \item structural motivations for the OC axiomatics;
     \item the role of embedding spaces \(M_x\) and their monotonic expansion;
     \item formal treatment of monotonicity, coherence, and stability across levels;
-    \item derivations of universal operators \(F,G,H,Q,R,S,U\) from first principles.
+    \item derivations of the universal operators \(F,G,H,Q,R,S,U\) from more primitive structural assumptions.
 \end{itemize}
 
 Core~1.1 includes only the minimal structural background required for the formal model in Section~\ref{sec:model}.
