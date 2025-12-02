@@ -3,206 +3,269 @@
 \section{Results and Derived Consequences}
 \label{sec:results}
 
-This section summarises the core structural results that follow directly from the formal framework introduced in Section~\ref{sec:model}. 
-Unlike earlier drafts of the Core, this chapter is no longer a placeholder. 
-It presents the stable and canonical consequences of the Ontology of Continua (OC) axioms and operators, as consolidated from Core~2.x. 
-All results here are domain–independent: they follow solely from the structural definitions of continua, axes, thresholds, potentials, flows, boundaries, and cycles.
+This section summarises the core structural results that follow from the formal framework introduced in Section~\ref{sec:model}.
+Unlike earlier drafts of the Core, this chapter is not a placeholder: it presents the canonical consequences of the Ontology of Continua (OC) axioms and operators, as consolidated from Core~2.x and reorganised for Core~1.1.
 
-The goal of this chapter is not to provide extensive proofs—these will appear in later extension papers—but to state the essential theorems and consequences that govern all continua in the hierarchy \(K_0\)–\(K_{10}\).
+All results in this chapter are domain–independent.
+They follow solely from the structural definitions of continua, axes, thresholds, potentials, flows, boundaries, cycles and the measure of continuumness \(k(t)\).
+Proofs are not reproduced here in full detail; they are deferred to dedicated extension papers.
+The focus is on stating the key theorems and consequences that constrain all continua in the hierarchy \(K_0\)–\(K_{10}\).
 
-\subsection{Theorem: Monotonicity of dimensionality}
+\subsection{Theorem 1: Monotonicity of dimensionality}
 
 \textbf{Statement.}
-If a continuum \(K_{x+1}\) emerges from \(K_x\), then:
+If a continuum \(K_{x+1}\) emerges from \(K_x\), then
 \[
     \dim(K_{x+1}) > \dim(K_x).
 \]
 
-\textbf{Justification.}
-Dimensional emergence requires the appearance of a new axis \(A_{\text{new}}\) not representable as any combination of axes in \(A(K_x)\).  
-The dimensional threshold \(\Theta_{\text{dim}}\) ensures that this axis is necessary and non-degenerate.  
-Therefore any emergent continuum has strictly higher dimensionality.
+\textbf{Justification (sketch).}
+Dimensional emergence is defined as the appearance of a new axis \(A_{\mathrm{new}}\) that is incompatible with all existing axes in \(A(K_x)\); that is, it cannot be represented as a linear or structural combination of them.
+The dimensional threshold \(\Theta_{\mathrm{dim}}\) enforces that \(A_{\mathrm{new}}\) is nondegenerate and structurally necessary.
+Hence, any emergent continuum has strictly higher dimensionality than its predecessor.
 
-\textbf{Corollary.}
-There is no continuum–level evolution that decreases dimension.  
-All structural evolution is monotonic in dimensionality.
+\textbf{Corollary 1.1 (No degradational simplification).}
+There is no continuum–level evolution that reduces dimensionality while preserving existence:
+if \(K(t)\) is live (\(k(t) > 0\)), then
+\[
+    \dim(K(t+dt)) \ge \dim(K(t)).
+\]
+Apparent reduction of dimension corresponds to the death of the higher–dimensional continuum and the birth of a different, lower–dimensional one, not to a continuous simplification.
 
-\subsection{Theorem: Impossibility of spontaneous dimension creation}
+\subsection{Theorem 2: Impossibility of spontaneous dimension creation}
 
 \textbf{Statement.}
 No continuum can increase its dimensionality without exceeding the dimensional threshold:
 \[
-    T > \Theta_{\text{dim}}.
+    T(K) > \Theta_{\mathrm{dim}}(K)
+    \quad\Rightarrow\quad
+    \text{only then can a new axis emerge.}
 \]
 
-\textbf{Justification.}
-New axes represent classes of differences incompatible with the existing axes.  
-Such incompatibility appears only when structural tension reaches the critical threshold, enforcing a phase transition.  
-Below the threshold, all differences can be projected onto existing axes.
+\textbf{Justification (sketch).}
+New axes represent classes of differences that are incompatible with existing axes.
+Such incompatibility arises only when structural tension \(T\) with respect to the current threshold landscape cannot be resolved within the existing axes.
+By definition of \(\Theta_{\mathrm{dim}}\), below this threshold all differences can be projected onto the span of \(A(K)\); above it, projection fails and a new axis is required.
 
-\textbf{Consequence.}
-Noise, fluctuations, or internal flows cannot spontaneously generate a new dimension.
+\textbf{Consequence 2.1.}
+Noise, local fluctuations or internal flows that do not raise structural tension above \(\Theta_{\mathrm{dim}}\) cannot generate new dimensions.
 
-\subsection{Theorem: Death through boundary collapse}
+\subsection{Theorem 3: Death through boundary and embedding collapse}
 
 \textbf{Statement.}
-A continuum dies when:
+A continuum \(K\) dies when its admissible state space collapses:
 \[
     \Omega(K) = \emptyset.
 \]
 
 \textbf{Equivalent formulations.}
-The continuum dies when any of the following occurs:
+The following conditions are equivalent and characterise the death of \(K\):
 \begin{enumerate}
-    \item supporting cycles disappear: \(C = \emptyset\);
-    \item supporting flows vanish: \(J_{\text{support}} = 0\);
-    \item threshold constraints are violated: \(\exists\,\Theta_k > 0\);
-    \item continuumness collapses: \(k(t) \to 0\);
-    \item the boundary cannot be re-entered: \(d_{\partial\Omega} \to 0\) for all trajectories.
+    \item supporting cycles disappear, \(C(K) = \emptyset\);
+    \item supporting flows vanish, \(J_{\mathrm{support}} = 0\), or are insufficient to maintain any cycles;
+    \item there exists a state–independent violation of thresholds, \(\forall s:\ \exists\,k\ \text{with } f_k(s) > 0\);
+    \item continuumness collapses, \(k(t) \to 0\);
+    \item the continuum exits the region supported by its embedding space \(M\), i.e. no state satisfies both the internal thresholds of \(K\) and the external constraints of \(M\).
 \end{enumerate}
 
-\textbf{Corollary: Irreversibility of death.}
-Once \(\Omega = \emptyset\), no operator \(E\) or interaction \(E_{\mathrm{int}}\) can reconstruct a valid continuum.
+\textbf{Corollary 3.1 (Death as exit from embedding space).}
+If the constraints of \(M\) change so that no configuration of \(K\) can be embedded into \(M\) while satisfying its thresholds, then \(\Omega(K)\) becomes empty and the continuum dies, regardless of its internal structure.
 
-\subsection{Theorem: Impossibility of evolution outside the embedding space}
+\textbf{Corollary 3.2 (Irreversibility of death).}
+Once \(\Omega(K) = \emptyset\), no operator \(E\) acting within the same level, nor any interaction operator \(E_{\mathrm{int}}\) that preserves the identity of \(K\), can reconstruct a nonempty \(\Omega(K)\).
+Any apparent ``recovery'' corresponds to the birth of a new continuum \(K'\), not the resurrection of the original \(K\).
 
-\textbf{Statement.}
-A continuum \(K_x\) cannot evolve in directions not present in its embedding space \(M_x\).  
-Formally:
-\[
-    A(K_x) \subseteq A(M_x), \qquad 
-    \text{and} \qquad 
-    \text{span}\,A(K_x(t+dt)) \subseteq \text{span}\,A(M_x).
-\]
-
-\textbf{Consequence.}
-All dynamics, including birth of \(K_{x+1}\), require the embedding space \(M_{x}\) to contain the necessary axis before the emergence occurs.
-
-\subsection{Theorem: Necessity and sufficiency of compatibility with \texorpdfstring{$M$}{M}}
+\subsection{Theorem 4: Impossibility of evolution outside the embedding space}
 
 \textbf{Statement.}
-A continuum exists if and only if it is compatible with its embedding space:
+Let \(K_x\) be a continuum embedded in \(M_x\).
+Then for all times \(t\),
 \[
-    K \text{ exists } \Longleftrightarrow \Omega(K) \neq \emptyset \ \wedge \ A(K) \subseteq A(M).
+    A(K_x(t)) \subseteq A(M_x),
+    \qquad
+    \mathrm{span}\,A(K_x(t+dt)) \subseteq \mathrm{span}\,A(M_x).
 \]
 
-\textbf{Consequence.}
-Even if an internal state is mathematically well-defined, it does not constitute a continuum unless the embedding space can support the necessary axes and thresholds.
+\textbf{Consequence 4.1.}
+All dynamical processes of \(K_x\), including dimensional birth \(K_x \to K_{x+1}\), require that the embedding space \(M_x\) already contain the axes along which the evolution proceeds.
+A continuum cannot evolve in directions not present in its embedding space.
 
-\subsection{Theorem: Structural tension governs all phase transitions}
+\subsection{Theorem 5: Necessity and sufficiency of compatibility with \texorpdfstring{$M$}{M}}
 
 \textbf{Statement.}
-Let \(T = T(A,P,\nabla P)\) denote structural tension.  
-A phase transition occurs when:
+A continuum \(K\) exists (i.e. \(\Omega(K)\neq\emptyset\) and \(k>0\)) if and only if it is compatible with its embedding space \(M\):
 \[
-    T = \Theta_{\text{crit}}.
+    K \text{ exists }
+    \Longleftrightarrow
+    \Omega(K) \neq \emptyset
+    \ \wedge\
+    A(K) \subseteq A(M)
+    \ \wedge\
+    \Theta(K) \text{ is satisfiable within } M.
 \]
 
-\textbf{Corollary.}
-Growth of dimension occurs precisely when:
-\[
-    T = \Theta_{\text{dim}},
-\]
-and collapse occurs when:
-\[
-    T = \Theta_{\text{death}}.
-\]
+\textbf{Consequence 5.1.}
+Even if a configuration is mathematically well–defined at the level of \(K\), it does not correspond to a live continuum unless the embedding space can support the required axes, thresholds and flows.
+Incompatible configurations are excluded by setting \(\Omega(K) = \emptyset\).
 
-\subsection{Theorem: Universal law of complexity growth}
+\subsection{Theorem 6: Structural tension and phase transitions}
 
 \textbf{Statement.}
-For any live continuum:
+Let \(T(K)\) denote structural tension, understood as a functional of potentials, axes and their gradients:
+\[
+    T = T(P,A,\nabla P).
+\]
+Then:
+\begin{itemize}
+    \item a phase transition occurs when
+          \(
+              T = \Theta_{\mathrm{crit}},
+          \)
+    \item a dimensional transition occurs when
+          \(
+              T = \Theta_{\mathrm{dim}},
+          \)
+    \item structural collapse occurs when
+          \(
+              T = \Theta_{\mathrm{death}}.
+          \)
+\end{itemize}
+
+\textbf{Corollary 6.1.}
+All qualitative changes in the continuum — emergence of new regimes, new dimensions, or collapse — are governed by the relationship between structural tension and the threshold landscape.
+
+\subsection{Theorem 7: Universal law of complexity growth}
+
+\textbf{Statement.}
+For any live continuum \(K\),
 \[
     S(K(t+dt)) \ge S(K(t)),
 \]
-where \(S\) is a structural measure of complexity.
+where \(S\) is a structural measure of complexity defined on the state space and its organisation (e.g. combining contributions from number of axes, diversity of states, richness of cycles and structure of embedding).
 
-\textbf{Consequence.}
-Complexity increases strictly whenever new axes, new cycles, or expanded state spaces emerge.
+\textbf{Consequence 7.1.}
+Complexity increases strictly whenever:
+\begin{itemize}
+    \item new axes appear;
+    \item new stable cycles form;
+    \item the admissible state space \(\Omega(K)\) expands;
+    \item the embedding space \(M\) gains new axes relevant to \(K\).
+\end{itemize}
+Stagnant or constant complexity corresponds to finely balanced dynamics below critical thresholds; however, this regime is generically unstable (see Theorem~8).
 
-\subsection{Theorem: Death as loss of cycles}
-
-\textbf{Statement.}
-A continuum dies when its maximal structural cycle disappears:
-\[
-    C_{\max} = \emptyset.
-\]
-
-\textbf{Justification.}
-Cycles represent self-maintaining flows.  
-Their collapse removes structural coherence and prevents maintenance of thresholds.
-
-\subsection{Theorem: Threshold–expressivity incompatibility}
+\subsection{Theorem 8: Impossibility of eternal stabilisation}
 
 \textbf{Statement.}
-A continuum collapses when its axes become insufficient to express the required differences:
+There is no nontrivial live continuum \(K\) that remains forever at a fixed point in its state space while maintaining positive continuumness.
+Formally, there is no solution with
 \[
-    \dim(A(K)) < \dim(\text{Differences}(K)).
+    \frac{dP}{dt} = 0, \quad \frac{dJ}{dt} = 0, \quad \frac{d\Theta}{dt} = 0, \quad \frac{dk}{dt} = 0
+\]
+for all \(t\), except the trivial case where \(K\) is structurally frozen and decoupled from its embedding space.
+
+\textbf{Justification (sketch).}
+Embedding spaces \(M_x\) themselves evolve and expand (Theorem~10).
+Internal and external flows cannot both be identically zero on all time scales without either:
+\begin{itemize}
+    \item driving the continuum to collapse (loss of supporting flows), or
+    \item inducing structural changes (axes, thresholds, cycles).
+\end{itemize}
+Hence any nontrivial live continuum is subject to evolution of its structure or to eventual death.
+
+\subsection{Theorem 9: Death as loss of cycles}
+
+\textbf{Statement.}
+A live continuum \(K\) dies when its maximal structurally stable cycle complex disappears:
+\[
+    C_{\max}(K) = \emptyset.
 \]
 
-\textbf{Consequence.}
-Collapse may occur even without violating energetic or dynamical constraints if representational capacity is exceeded.
+\textbf{Justification (sketch).}
+Cycles represent self–maintaining flows that keep the continuum away from its boundary \(\partial\Omega\).
+If no such cycle exists, then:
+\begin{itemize}
+    \item supporting flows cannot form closed loops;
+    \item trajectories either approach \(\partial\Omega\) or violate thresholds;
+    \item continuumness \(k(t)\) decays to zero.
+\end{itemize}
+Therefore loss of the maximal cycle complex coincides with the collapse of \(\Omega(K)\).
 
-\subsection{Theorem: Monotonic growth of embedding spaces}
+\textbf{Corollary 9.1.}
+Death can be detected structurally by the disappearance of all cycles satisfying a minimal stability condition (strictly positive distance to \(\partial\Omega\)).
+
+\subsection{Theorem 10: Monotonic growth of embedding spaces}
 
 \textbf{Statement.}
 Embedding spaces form a monotonic sequence:
 \[
-    M_0 \subset M_1 \subset \dots \subset M_x \subset \dots
+    M_0 \subset M_1 \subset \dots \subset M_x \subset \dots,
 \]
-and this sequence is strictly increasing whenever a new continuum emerges.
+and whenever a new continuum \(K_{x+1}\) emerges, the corresponding embedding space \(M_{x+1}\) strictly extends \(M_x\) in terms of its available axes:
+\[
+    A(M_{x}) \subset A(M_{x+1}).
+\]
 
-\textbf{Consequence.}
-The growth of continua requires corresponding growth of embedding spaces.
+\textbf{Consequence 10.1.}
+The growth of continua in dimension and complexity is inseparable from the growth of their embedding spaces.
+New continua cannot appear without an expansion of the structural possibilities encoded in \(M\).
 
-\subsection{Theorem: Emergence at threshold crossing}
+\subsection{Theorem 11: Threshold–expressivity incompatibility}
 
 \textbf{Statement.}
-A new continuum emerges if and only if:
+A continuum \(K\) collapses when its axes become insufficient to express the required differences:
 \[
-    T > \Theta_{\text{dim}} \quad\text{and}\quad A_{\mathrm{new}} \in A(M) \setminus A(K).
+    \dim(A(K)) < \dim\big(\mathrm{Differences}(K)\big),
 \]
+where \(\mathrm{Differences}(K)\) is the effective dimension of structurally relevant distinctions imposed by the embedding space and thresholds.
 
-\textbf{Equivalent formulation.}
-A continuum cannot self-generate dimension; it requires both:
-\begin{enumerate}
-    \item structural tension exceeding the dimensional threshold;
-    \item an axis present in the embedding space but absent in the continuum.
-\end{enumerate}
+\textbf{Consequence 11.1.}
+Collapse may occur even without violating energetic or dynamical constraints if representational capacity is exceeded.
+In particular, cognitive, social or meta–theoretical continua can die purely due to loss of expressive adequacy of their axes.
 
-\subsection{Corollaries and domain-independent consequences}
+\subsection{Theorem 12: Incompleteness of embedding spaces}
 
-From the theorems above it follows that:
+\textbf{Statement.}
+For any finite embedding space \(M_x\), there exist potential continua \(K'\) that cannot be realised within \(M_x\) because their axes or thresholds are incompatible with \(A(M_x)\) or with the constraints of \(M_x\).
+
+\textbf{Consequence 12.1.}
+No single embedding space \(M_x\) is universal for all possible continua.
+The sequence of embedding spaces must itself expand and diversify to host new structural regimes.
+
+\subsection{Corollaries and domain–independent consequences}
+
+Collecting the theorems above, we obtain the following domain–independent consequences:
+
 \begin{itemize}
-    \item all continua are structurally comparable;
-    \item continuum birth is a discrete, threshold-driven phenomenon;
-    \item continuum death is globally irreversible;
-    \item emergence requires pre-existing structure in the embedding space;
-    \item internal dynamics alone cannot create new axes;
-    \item collapse can occur via energetic, topological, informational, or representational overload.
+    \item Dimensionality is strictly monotonic for live continua; no continuous degradation of dimension is possible.
+    \item Dimension cannot appear spontaneously; it requires structural tension above \(\Theta_{\mathrm{dim}}\) and the presence of suitable axes in the embedding space.
+    \item Death is characterised by the collapse of \(\Omega(K)\), the disappearance of cycles and the irreversibility of this collapse.
+    \item Evolution is constrained by embedding spaces; continua cannot evolve in directions that \(M\) does not support.
+    \item Complexity tends to grow for live continua, driven by new axes, new cycles and expanding state spaces.
+    \item Eternal exact stabilisation is structurally excluded for nontrivial continua; they either evolve or die.
+    \item Representational and expressive limits can cause collapse even when energetic and dynamical limits are not yet reached.
 \end{itemize}
+
+These consequences hold uniformly for all levels \(K_0\)–\(K_{10}\); their domain–specific content arises only from the interpretation of axes, potentials, thresholds and flows in each level.
 
 \subsection{Implications for the vertical hierarchy}
 
-The vertical hierarchy \(K_0\)–\(K_{10}\) inherits the following consequences:
+In the vertical hierarchy \(K_0\)–\(K_{10}\), the structural theorems manifest as follows:
+
 \begin{itemize}
-    \item \(K_0\) cannot evolve and cannot collapse — it has no dynamics.
-    \item \(K_1\) exhibits classical phase-like behaviour and supports continuous flows.
-    \item \(K_2\) contains physical thresholds (including BKT, coherence, condensation).
-    \item \(K_3\)–\(K_4\) exhibit chemical and prebiotic thresholds (RAF closure, membrane formation, redox potentials).
-    \item \(K_5\) contains electrical thresholds for excitation and spiking.
-    \item \(K_6\) contains logical and representational thresholds for cognitive binding.
-    \item \(K_7\)–\(K_8\) contain social and institutional thresholds.
-    \item \(K_9\)–\(K_{10}\) contain expressive and coherence thresholds in the space of theories and meta-theories.
+    \item \(K_0\): no dynamics, no birth or death; only structural conditions for distinguishability.
+    \item \(K_1\): classical phase–like behaviour with continuous flows and basic stability/critical thresholds.
+    \item \(K_2\): physical thresholds, including percolation, BKT transitions, coherence/condensation thresholds and mass–generating mechanisms.
+    \item \(K_3\)–\(K_4\): chemical and prebiotic thresholds (RAF closure, membrane formation, osmotic and curvature thresholds, redox and pH thresholds).
+    \item \(K_5\): electrical thresholds for excitation, spiking and gradient–driven flows in early neural systems.
+    \item \(K_6\): logical and representational thresholds for cognitive binding, prediction, memory stability and internal model coherence.
+    \item \(K_7\)–\(K_8\): social and civilizational thresholds governing trust, institutional stability, systemic resilience and collapse.
+    \item \(K_9\)–\(K_{10}\): expressive, coherence and consistency thresholds in the space of theories, paradigms, ontologies and meta–theoretical structures.
 \end{itemize}
 
-Each of these levels instantiates the same theorems in domain-specific form.
+In each case, the same structural principles — monotonic dimension, threshold–governed emergence and collapse, dependence on embedding spaces, and complexity growth — apply, while the concrete interpretation of variables changes.
 
 \subsection{Summary}
 
-The results presented in this chapter form the structural backbone of OC:
-monotonicity of dimension, impossibility of spontaneous emergence, 
-boundary-driven collapse, irreversibility of death, 
-necessity of compatibility with embedding spaces, 
-and universal complexity growth.  
-These principles apply uniformly across the entire continuum hierarchy and define the constraints under which all continua can exist, evolve, or die.
+The results presented in this chapter constitute the structural backbone of OC.
+They state that dimension is monotonic, that emergent dimensions require threshold–induced phase transitions, that death is characterised by the collapse of admissible states and is irreversible, that evolution is constrained by embedding spaces, that complexity tends to grow for live continua, that cycles are the carriers of structural life, and that expressive limits can cause collapse.
+These principles apply across the entire continuum hierarchy and define the constraints under which all continua can exist, evolve or die.
