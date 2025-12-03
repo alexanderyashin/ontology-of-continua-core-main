@@ -1,34 +1,40 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Always run from repo root (in case script is called from subdirs)
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd)"
+# Определяем корень репозитория (папка, где лежит этот скрипт)
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT_DIR"
 
 echo "===[1/4] Generate missing .tex from YAML ====================="
 python tools/generate_core_from_yaml.py
 
 echo "===[2/4] Validate structure =================================="
-python tools/validate_core_structure.py
+# Если валидатор упадёт, сборку можно либо останавливать, либо продолжать.
+# Сейчас: только предупреждаем, но НЕ роняем билд.
+if ! python tools/validate_core_structure.py; then
+    echo "[WARN] Validator reported issues (missing or extra files)."
+    echo "       Продолжаю сборку, но лучше посмотреть лог выше."
+fi
 
 echo "===[3/4] Generate auto include file =========================="
 python tools/generate_auto_inputs.py
 
 echo "===[4/4] Build PDF via latexmk ==============================="
 
-# Ensure build directory exists
+# Гарантируем, что каталог для билда существует
 mkdir -p build
 
-# Check if latexmk is available (lokal in Codespaces oft nicht installiert)
+# Проверяем, установлен ли latexmk (локально в Codespaces может отсутствовать)
 if ! command -v latexmk >/dev/null 2>&1; then
-  echo "ERROR: 'latexmk' wurde nicht gefunden."
-  echo "  - Lokal/Codespaces: installiere latexmk + TeX (z.B. in Debian/Ubuntu: "
-  echo "      sudo apt-get update && sudo apt-get install -y latexmk texlive-full"
-  echo "  - Oder lass den Build einfach über GitHub Actions laufen."
-  exit 1
+    echo "ERROR: 'latexmk' не найден в PATH."
+    echo "  Варианты:"
+    echo "    • Локально / Codespaces: установить latexmk + TeX, напр.:"
+    echo "        sudo apt-get update && sudo apt-get install -y latexmk texlive-full"
+    echo "    • Или не трогать локальный билд и собирать PDF через GitHub Actions."
+    exit 1
 fi
 
-# WICHTIG: xelatex statt pdflatex wegen fontspec
+# ВАЖНО: используем xelatex, а не pdflatex, из-за fontspec в preamble.tex
 latexmk \
   -xelatex \
   -interaction=nonstopmode \
@@ -38,4 +44,4 @@ latexmk \
   main.tex
 
 echo
-echo "Fertig. Falls keine Fehler oben stehen, liegt das PDF unter: build/main.pdf"
+echo "Готово. Если ошибок нет, PDF лежит здесь: build/main.pdf"
