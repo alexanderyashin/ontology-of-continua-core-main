@@ -1,0 +1,91 @@
+name: Core — Build & Draft Release on tag
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-and-draft-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Установить TeX-среду.
+      # Если у тебя в build-pdf.yml другой способ установки TeXLive,
+      # можно позже скопировать его сюда — сейчас берём универсальный, но тяжёлый вариант.
+      - name: Install TeX Live (full)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-full latexmk
+
+      - name: Make build_core.sh executable
+        run: chmod +x ./build_core.sh
+
+      - name: Build Core PDF
+        run: ./build_core.sh
+
+      - name: Find built PDF
+        id: find_pdf
+        run: |
+          PDF_PATH=$(find build -maxdepth 1 -name "*.pdf" | head -n 1)
+          if [ -z "$PDF_PATH" ]; then
+            echo "No PDF found in build/"
+            exit 1
+          fi
+          echo "Found PDF at: $PDF_PATH"
+          echo "pdf_path=$PDF_PATH" >> "$GITHUB_OUTPUT"
+
+      - name: Create source archive (ZIP)
+        id: make_zip
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          ZIP_NAME="core-${TAG}-source.zip"
+          echo "Creating $ZIP_NAME"
+          zip -r "$ZIP_NAME" . \
+            -x ".git/*" \
+               ".github/*" \
+               "build/*"
+          echo "zip_name=$ZIP_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Create draft GitHub release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Ontology of Continua — Core ${{ github.ref_name }}
+          draft: true
+          prerelease: false
+          body: |
+            Ontology of Continua — Core ${{ github.ref_name }}
+
+            This is an auto-generated draft release for the Core whitepaper.
+            It includes:
+            - Compiled PDF (XeLaTeX build)
+            - Source ZIP (LaTeX + build pipeline)
+
+            After reviewing, publish this release to trigger Zenodo DOI generation.
+
+      - name: Upload PDF asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.find_pdf.outputs.pdf_path }}
+          asset_name: core-${{ github.ref_name }}.pdf
+          asset_content_type: application/pdf
+
+      - name: Upload source ZIP asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.make_zip.outputs.zip_name }}
+          asset_name: ${{ steps.make_zip.outputs.zip_name }}
+          asset_content_type: application/zip
