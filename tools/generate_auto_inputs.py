@@ -1,146 +1,240 @@
 #!/usr/bin/env python3
-r"""
-Generate LaTeX \input lines from master_core_structure.yaml.
+# -*- coding: utf-8 -*-
+"""
+Generate LaTeX \input lines for the Core main article from master_core_structure.yaml.
 
-Usage (from repo root):
+Compatible with the current Ontology of Continua Core YAML layout:
 
+core:
+  main_article:
+    entrypoint: main.tex
+    sections:
+      - id: intro
+        path: content/01_intro.tex
+      ...
+
+If in the future you want to support other shapes (simple list, root/sections/nodes),
+the helper functions below already cover them.
+
+Usage (defaults are fine for build_core.sh):
     python tools/generate_auto_inputs.py
-    python tools/generate_auto_inputs.py path/to/your.yaml
-
-The script writes all discovered .tex files from the YAML (in order)
-into content/_auto_core_inputs.tex as:
-
-    \input{content/whatever_without_extension}
-
-YAML format (supported variants):
-
-1) Top-level list of nodes:
-
-   - title: Introduction
-     file: content/01_intro.tex
-   - title: K-levels
-     file: content/k_levels/klevels_master.tex
-     children:
-       - title: K0
-         file: content/k_levels/k0.tex
-
-2) Top-level dict with one of the keys: root / sections / nodes:
-
-   root:
-     - title: ...
-       file: ...
+    python tools/generate_auto_inputs.py --yaml master_core_structure.yaml --output content/_auto_core_inputs.tex
 """
 
-import os
+import argparse
 import sys
-from typing import Any, Dict, List
+from pathlib import Path
 
-import yaml  # pip install pyyaml
-
-# ------------------------------------------------------------
-# Settings
-# ------------------------------------------------------------
-
-STRUCTURE_FILE = sys.argv[1] if len(sys.argv) > 1 else "master_core_structure.yaml"
-OUTPUT_TEX = "content/_auto_core_inputs.tex"
+try:
+    import yaml
+except ImportError:
+    print("[ERROR] PyYAML is required: pip install pyyaml", file=sys.stderr)
+    sys.exit(1)
 
 
-# ------------------------------------------------------------
-# Helpers
-# ------------------------------------------------------------
+# --------------------------------------------------------------------
+# YAML loaders / extractors
+# --------------------------------------------------------------------
 
-def load_nodes(path: str) -> List[Dict[str, Any]]:
-    """Try to load a list of nodes from YAML.
-
-    Returns an empty list if the structure is not recognized, but does not crash.
+def _extract_from_simple_list(data):
     """
-    if not os.path.exists(path):
-        print(f"[inputs] YAML file not found: {path}")
+    Case 1: top-level YAML is just a list of paths or dicts with 'path'.
+    Example:
+      - content/01_intro.tex
+      - path: content/02_background.tex
+    """
+    paths = []
+    for item in data:
+        if isinstance(item, str):
+            paths.append(item)
+        elif isinstance(item, dict) and "path" in item:
+            paths.append(item["path"])
+    return paths
+
+
+def _extract_from_root_tree(data):
+    """
+    Case 2: generic tree with root/sections/nodes.
+    This is kept for backwards compatibility with an earlier design.
+
+    Expected shape (conceptually):
+      root:
+        sections:
+          - path: content/foo.tex
+          - nodes:
+              - path: content/bar.tex
+    """
+
+    def walk_node(node, acc):
+        # node may contain direct path
+        if isinstance(node, dict):
+            if "path" in node and isinstance(node["path"], str):
+                acc.append(node["path"])
+            # nested sections or nodes
+            for key in ("sections", "nodes", "children"):
+                if key in node and isinstance(node[key], list):
+                    for child in node[key]:
+                        walk_node(child, acc)
+
+    paths = []
+    root = data.get("root", {})
+    if isinstance(root, dict):
+        sections = root.get("sections", [])
+        if isinstance(sections, list):
+            for node in sections:
+                walk_node(node, paths)
+    return paths
+
+
+def _extract_from_core_main_article(data):
+    """
+    Case 3 (CURRENT PROJECT): structure with 'core' / 'main_article' / 'sections'.
+
+    Expected shape:
+    core:
+      main_article:
+        entrypoint: main.tex
+        sections:
+          - id: intro
+            path: content/01_intro.tex
+          - id: background
+            path: content/02_background.tex
+          ...
+    """
+    core = data.get("core", {})
+    if not isinstance(core, dict):
         return []
 
-    with open(path, "r", encoding="utf-8") as f:
-        data = yaml.safe_load(f)
-
-    if data is None:
-        print("[inputs] YAML is empty, nothing to generate.")
+    main_article = core.get("main_article", {})
+    if not isinstance(main_article, dict):
         return []
 
-    # Case 1: top-level list
-    if isinstance(data, list):
-        return data
+    sections = main_article.get("sections", [])
+    if not isinstance(sections, list):
+        return []
 
-    # Case 2: top-level dict with known key
-    if isinstance(data, dict):
-        for key in ("root", "sections", "nodes"):
-            value = data.get(key)
-            if isinstance(value, list):
-                return value
-
-    # Unknown structure: soft fail
-    print("⚠️  Не могу понять структуру YAML для auto-inputs. "
-          "Ожидал list или ключи root/sections/nodes.")
-    return []
+    paths = []
+    for sec in sections:
+        if isinstance(sec, dict) and "path" in sec:
+            paths.append(sec["path"])
+    return paths
 
 
-def walk_nodes(nodes: List[Dict[str, Any]]) -> List[str]:
-    """Flatten tree of nodes into an ordered list of file paths."""
-    result: List[str] = []
+def extract_tex_paths(yaml_data):
+    """
+    Unified extractor:
+    1) simple list
+    2) old tree with root/sections/nodes
+    3) current 'core.main_article.sections' scheme
+    """
+    # Case 1: plain list
+    if isinstance(yaml_data, list):
+        return _extract_from_simple_list(yaml_data)
 
-    def _walk(subnodes: List[Dict[str, Any]]) -> None:
-        for node in subnodes:
-            if not isinstance(node, dict):
-                continue
-            file_path = node.get("file")
-            if file_path and isinstance(file_path, str):
-                result.append(file_path)
-            children = (
-                node.get("children")
-                or node.get("subsections")
-                or []
-            )
-            if isinstance(children, list) and children:
-                _walk(children)
+    if not isinstance(yaml_data, dict):
+        raise ValueError("Ожидал либо список, либо словарь с описанием структуры Core.")
 
-    _walk(nodes)
-    return result
+    # Case 3: current Core schema (preferred for this project)
+    paths = _extract_from_core_main_article(yaml_data)
+    if paths:
+        return paths
 
+    # Case 2: generic tree with root/sections/nodes
+    if "root" in yaml_data:
+        paths = _extract_from_root_tree(yaml_data)
+        if paths:
+            return paths
 
-def tex_path_without_ext(path: str) -> str:
-    """Convert 'content/foo.tex' -> 'content/foo'."""
-    if path.lower().endswith(".tex"):
-        return path[:-4]
-    return path
+    # If nothing matched, complain clearly
+    raise ValueError(
+        "Не могу понять структуру YAML для auto-inputs.\n"
+        "Ожидал один из вариантов:\n"
+        "  1) простой список путей;\n"
+        "  2) дерево с ключами root/sections/nodes;\n"
+        "  3) структуру core/main_article/sections (текущий формат)."
+    )
 
 
-def write_auto_inputs(tex_files: List[str], output_path: str) -> None:
-    """Write \input lines (or just a comment if list is empty)."""
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+# --------------------------------------------------------------------
+# Writer
+# --------------------------------------------------------------------
 
-    lines: List[str] = []
-    lines.append("% AUTO-GENERATED FILE — DO NOT EDIT MANUALLY\n")
-    lines.append("% This file is generated by tools/generate_auto_inputs.py\n\n")
+def write_inputs_file(output_path: Path, paths):
+    """
+    Write \input lines into the given file.
+    If list is empty, still write a comment header so LaTeX doesn't break.
+    """
+    header = [
+        "% ==========================================",
+        "%  Auto-generated by generate_auto_inputs.py",
+        "%  DO NOT EDIT THIS FILE MANUALLY",
+        "% ==========================================",
+        "",
+    ]
 
-    if not tex_files:
-        lines.append("% No sections defined in master_core_structure.yaml yet.\n")
+    lines = header[:]
+
+    if not paths:
+        lines.append("% No auto-included sections defined in YAML.\n")
     else:
-        for p in tex_files:
-            lines.append(f"\\input{{{tex_path_without_ext(p)}}}\n")
+        for p in paths:
+            # Normalize to forward slashes for LaTeX
+            s = str(p).replace("\\", "/")
+            lines.append(f"\\input{{{s}}}")
 
-    with open(output_path, "w", encoding="utf-8") as f:
-        f.writelines(lines)
+        # Ensure final newline
+        lines.append("")
 
-    print(f"[inputs] Written {len(tex_files)} \\input lines to {output_path}")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text("\n".join(lines), encoding="utf-8")
 
 
-# ------------------------------------------------------------
-# main
-# ------------------------------------------------------------
+# --------------------------------------------------------------------
+# CLI
+# --------------------------------------------------------------------
 
-def main() -> None:
-    print(f"[inputs] Using YAML: {STRUCTURE_FILE}")
-    nodes = load_nodes(STRUCTURE_FILE)
-    tex_files = walk_nodes(nodes) if nodes else []
-    write_auto_inputs(tex_files, OUTPUT_TEX)
+def main():
+    parser = argparse.ArgumentParser(
+        description="Generate LaTeX \\input list from master_core_structure.yaml"
+    )
+    parser.add_argument(
+        "--yaml",
+        default="master_core_structure.yaml",
+        help="YAML file describing Core structure",
+    )
+    parser.add_argument(
+        "--output",
+        default="content/_auto_core_inputs.tex",
+        help="Path to the generated .tex with \\input lines",
+    )
+
+    args = parser.parse_args()
+
+    yaml_path = Path(args.yaml)
+    out_path = Path(args.output)
+
+    if not yaml_path.exists():
+        print(f"[ERROR] YAML file not found: {yaml_path}", file=sys.stderr)
+        sys.exit(1)
+
+    try:
+        data = yaml.safe_load(yaml_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"[ERROR] Failed to parse YAML: {e}", file=sys.stderr)
+        sys.exit(1)
+
+    try:
+        paths = extract_tex_paths(data)
+    except Exception as e:
+        print(f"[inputs] ERROR: {e}", file=sys.stderr)
+        # Still write a minimal file to keep LaTeX happy
+        write_inputs_file(out_path, [])
+        sys.exit(1)
+
+    print(f"[inputs] Using YAML: {yaml_path}")
+    print(f"[inputs] Found {len(paths)} section(s) for auto-include.")
+    write_inputs_file(out_path, paths)
+    print(f"[inputs] Written {len(paths)} \\input lines to {out_path}")
 
 
 if __name__ == "__main__":

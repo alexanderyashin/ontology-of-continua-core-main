@@ -5,30 +5,16 @@
 
 \begin{document}
 
-\input{content/frontmatter}
+% Frontmatter: title, abstract, TOC
+\input{content/frontmatter.tex}
 
-\tableofcontents
+% Hauptinhalt (01_intro ... 06_conclusion, 08_..._15_)
+% wird aus master_core_structure.yaml generiert
+\input{content/_auto_core_inputs.tex}
+
+% Figure appendix (solange 07_figures nicht in YAML steckt, bleibt das hier)
 \clearpage
-
-\input{content/01_intro}
-\input{content/02_background}
-\input{content/03_model}
-\input{content/04_results}
-\input{content/05_discussion}
-\input{content/06_conclusion}
-
-\clearpage
-\input{content/07_figures}
-
-% Extended structural material
-\input{content/08_boundary}
-\input{content/09_thresholds}
-\input{content/10_klevels_full}
-\input{content/11_operators_full}
-\input{content/12_collapse_rebirth}
-\input{content/13_branching_topology}
-\input{content/14_disciplines_extended}
-\input{content/15_falsifiability_extended}
+\input{content/07_figures.tex}
 
 \printbibliography
 
