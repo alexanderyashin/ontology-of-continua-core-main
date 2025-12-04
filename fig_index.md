@@ -36,7 +36,7 @@ Each entry specifies:
 **Section:** `content/04_results.tex`  
 **Label:** `fig:raf-network`  
 **Caption:** Example of an autocatalytic RAF network illustrating chemical-level continuity.  
-**Purpose:** Used as the canonical structure for K₃ chemical continua.
+**Purpose:** Canonical structure for K₃ chemical continua.
 
 ---
 
@@ -45,7 +45,7 @@ Each entry specifies:
 **Section:** `content/04_results.tex`  
 **Label:** `fig:bkt-transition`  
 **Caption:** Schematic of the Berezinskii–Kosterlitz–Thouless transition as a topological phase change.  
-**Purpose:** Represents K₄/K₃ interface phenomenon in physical continua.
+**Purpose:** Represents K₄/K₃ interface in physical continua.
 
 ---
 
