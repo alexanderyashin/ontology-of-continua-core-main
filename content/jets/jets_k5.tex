@@ -2,12 +2,380 @@
 % ==== FILE: content/jets/jets_k5.tex
 % ================================================================
 
-% ==============================
-%  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/jets/jets_k5.tex
-%  Status: EMPTY — TO BE FILLED
-% ==============================
-
 \section{Jets on $K_5$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:jets-k5}
+
+The continuum $K_5$ is characterised by the emergence of an electrical
+dimension enabled by ion gradients, membrane potential, channel-mediated
+flows, and proto-spike dynamics. Jets on $K_5$ formalise the
+infinitesimal variations of electrical, ionic, and permeability fields,
+their coupling to membrane geometry, stochastic noise, and
+excitation–recovery cycles that define the viability of early neural
+systems.
+
+
+% ================================================================
+\subsection{Birth of the Electrical Jet Structure}
+% ================================================================
+
+The defining axis of $K_5$ is the electrical axis
+\[
+A_{\mathrm{exc}} \in A(M_4)\setminus A(K_4),
+\]
+created when membrane-bound charge separation becomes dynamically
+coupled to selective ion permeation.
+
+The core field is the membrane potential:
+\[
+\Delta V = V_{\mathrm{in}} - V_{\mathrm{out}},
+\]
+with associated ionic reversal potentials $E_{\mathrm{ion}}$,
+conductances $g_{\mathrm{ion}}$, and channel states
+\[
+s \in \{\mathrm{open},\mathrm{closed},\mathrm{blocked},\mathrm{leaky}\}.
+\]
+
+Jets capture infinitesimal variations:
+\[
+J^{m,n}(\Delta V)=
+\{\partial_t^k\partial_{A_{\mathrm{exc}}}^\ell \Delta V\}, 
+\qquad
+0 \le k \le m,\ 0\le\ell\le n.
+\]
+
+
+% ================================================================
+\subsection{Jets of Ion Channel States and Conductance}
+% ================================================================
+
+A channel is defined by:
+\[
+J_{\mathrm{ion}} = g_{\mathrm{channel}}(\Delta V - E_{\mathrm{ion}}),
+\]
+where $g_{\mathrm{channel}}$ depends on the state $s$.
+
+The jet structure includes:
+\[
+J^1(g_{\mathrm{channel}})=
+\{\dot{g}_{\mathrm{channel}},
+\ \partial_{A_{\mathrm{exc}}}g_{\mathrm{channel}}\}.
+\]
+
+For discrete channel states, jets describe the transition rates between
+them:
+\[
+\lambda_{s\to s'} = \partial_t p(s') = M_{s\to s'}(t)\,p(s),
+\]
+with stochastic operator $M$ from Fix.W2.
+
+Key consequences:
+
+\begin{itemize}
+    \item sensitivity of excitation thresholds to channel kinetics,
+    \item onset of proto-spike oscillations,
+    \item channel noise amplification when approaching criticality.
+\end{itemize}
+
+
+% ================================================================
+\subsection{Jets of the Membrane Potential $\Delta V$}
+% ================================================================
+
+The temporal derivative:
+\[
+\dot{\Delta V}
+=
+-\,\sum_{\mathrm{ion}} g_{\mathrm{ion}}(\Delta V - E_{\mathrm{ion}})
++ J_{\mathrm{pump}}
++ J_{\mathrm{leak}},
+\]
+
+Jets:
+\[
+J^1(\Delta V)=
+\{\dot{\Delta V}, \ \partial_{A_{\mathrm{exc}}}\Delta V\}.
+\]
+
+Spatial or structural derivatives appear via boundary patches:
+\[
+\partial_{A_{\mathrm{exc}}}\Delta V_i
+=
+\Delta V_i' \quad\text{(local change under electrical axis variation)}.
+\]
+
+These jets govern:
+
+\begin{itemize}
+    \item spike initiation,
+    \item spike propagation across patches,
+    \item local failures of excitability,
+    \item refractory behaviour.
+\end{itemize}
+
+
+% ================================================================
+\subsection{Jets of Ionic Fluxes and Pump–Leak Balance}
+% ================================================================
+
+Ion flux:
+\[
+J_{\mathrm{ion}} = g_{\mathrm{ion}}(\Delta V - E_{\mathrm{ion}}).
+\]
+
+Jets:
+\[
+J^1(J_{\mathrm{ion}})=
+\{\dot{J}_{\mathrm{ion}},\;
+\partial_{A_{\mathrm{exc}}}J_{\mathrm{ion}}\}.
+\]
+
+Active pumping:
+\[
+J_{\mathrm{pump}}=\alpha\,P_{\mathrm{energy}},
+\qquad \dot{J}_{\mathrm{pump}} \propto \dot{P}_{\mathrm{energy}}.
+\]
+
+Leak:
+\[
+J_{\mathrm{leak}} = L(\Delta V - E_{\mathrm{env}}).
+\]
+
+Jets reveal:
+
+\begin{itemize}
+    \item emergence of pump-dominated regimes,
+    \item instability when leak > pump (collapse of ΔV),
+    \item oscillatory behaviour in overcompensated regimes,
+    \item transitions to stable excitability cycles.
+\end{itemize}
+
+
+% ================================================================
+\subsection{Jets of Excitation Threshold and Recovery Threshold}
+% ================================================================
+
+The excitation threshold:
+\[
+\Theta_{\mathrm{exc}}=
+\Theta(\Delta V,\ g_{\mathrm{channel}},\ J_{\mathrm{ion}},\ \eta_{\mathrm{noise}}),
+\]
+with noise $\eta_{\mathrm{noise}}$ from Fix.W2.
+
+Jets:
+\[
+J^1(\Theta_{\mathrm{exc}})=
+\{\dot{\Theta}_{\mathrm{exc}},\;
+\partial_{A_{\mathrm{exc}}}\Theta_{\mathrm{exc}}\}.
+\]
+
+Similarly for recovery threshold $\Theta_{\mathrm{rec}}$.
+
+Their jet derivatives determine:
+
+\begin{itemize}
+    \item existence and shape of spike cycles,
+    \item refractory period duration,
+    \item sensitivity to noise and channel density,
+    \item boundary of the admissible excitability region $\partial\Omega(K_5)$.
+\end{itemize}
+
+
+% ================================================================
+\subsection{Jets of Channel Noise and Stochastic Logic}
+% ================================================================
+
+Stochastic logic (Fix.W2) formalises membrane state transitions with
+probability vector $p(t)$ evolving via:
+\[
+p(t+\Delta t)=M(t)p(t),\qquad
+\eta_{\mathrm{noise}}=\text{stochastic component}.
+\]
+
+Noise jets:
+\[
+J^1(\eta_{\mathrm{noise}})=
+\{\dot{\eta},\ \partial_{A_{\mathrm{exc}}}\eta\}.
+\]
+
+Biological effects:
+
+\begin{itemize}
+    \item stochastic opening of channels near threshold,
+    \item noise-driven proto-spikes,
+    \item noise-suppression cycles (stability control),
+    \item emergence of proto-computational logic gates on $K_5$.
+\end{itemize}
+
+
+% ================================================================
+\subsection{Patch Jets and Proto-Spike Propagation}
+% ================================================================
+
+Each membrane patch $i$ has variables:
+\[
+(\Delta V_i,\ g_{\mathrm{ion},i},\ P_{\mathrm{open},i},\ \eta_i).
+\]
+
+Jets:
+\[
+J^1(\Delta V_i)=\{\dot{\Delta V_i},\;\partial_{A_{\mathrm{exc}}}\Delta V_i\},
+\qquad
+J^1(P_{\mathrm{open},i})=\{\dot{P}_{\mathrm{open},i},\;
+\partial_{A_{\mathrm{exc}}}P_{\mathrm{open},i}\}.
+\]
+
+Propagation condition:
+\[
+\partial_{A_{\mathrm{exc}}}\Delta V_{i} > \Theta_{\mathrm{prop}},
+\]
+where $\Theta_{\mathrm{prop}}$ is the minimal local depolarisation needed
+to activate neighbouring patch $i+1$.
+
+Consequences:
+
+\begin{itemize}
+    \item wave-like proto-spike propagation,
+    \item failure modes (local quenching),
+    \item splitting of excitation waves,
+    \item basis for one-dimensional neural conduction.
+\end{itemize}
+
+
+% ================================================================
+\subsection{Jets of Refractory Dynamics}
+% ================================================================
+
+Refractory behaviour arises when channel states become transiently
+inactivated. Let $s_{\mathrm{inact}}$ be an inactivated state.
+
+Jet condition:
+\[
+\partial_{A_{\mathrm{exc}}}p(s_{\mathrm{inact}}) > \Theta_{\mathrm{ref}}.
+\]
+
+This ensures:
+
+\begin{itemize}
+    \item suppression of immediate reactivation,
+    \item control of spike frequency,
+    \item temporal separation of signals,
+    \item stability of $C_{\mathrm{spike}}$ cycles.
+\end{itemize}
+
+
+% ================================================================
+\subsection{Jets of Boundary Coupling (K4→K5)}
+% ================================================================
+
+Although $K_5$ possesses a new electrical axis, it remains constrained by
+the membrane structure inherited from $K_4$:
+
+\[
+T_{\mathrm{mem}}(t),\quad C_i(t),\quad P_{\mathrm{perm}}(t).
+\]
+
+Jets of electrical variables couple to membrane jets through:
+
+\[
+\partial_{A_{\mathrm{exc}}}g_{\mathrm{channel}}
+\propto
+\partial_{A_{\mathrm{boundary}}}P_{\mathrm{perm}},
+\qquad
+\partial_{A_{\mathrm{exc}}}\Delta V
+\propto
+\partial_{A_{\mathrm{boundary}}}C.
+\]
+
+These relations encode the residual dependence of neural excitability on
+biophysical structure.
+
+
+% ================================================================
+\subsection{Jets and $\partial\Omega(K_5)$ Stability}
+% ================================================================
+
+The boundary of admissibility for $K_5$ is shaped by:
+
+\begin{itemize}
+    \item excitability thresholds,
+    \item pump–leak balance,
+    \item channel density,
+    \item noise amplitude,
+    \item membrane tension inherited from $K_4$.
+\end{itemize}
+
+Jets determine when the system approaches violation of admissibility:
+
+\[
+\partial_{A_{\mathrm{exc}}}(\Delta V - \Theta_{\mathrm{exc}}) < 0
+\quad\Rightarrow\quad
+\text{collapse of excitability}.
+\]
+
+Collapse modes include:
+
+\begin{itemize}
+    \item permanent depolarisation,
+    \item permanent hyperpolarisation,
+    \item noise-dominated failure,
+    \item loss of pump dominance.
+\end{itemize}
+
+
+% ================================================================
+\subsection{Jets and the Full Proto-Spike Cycle}
+% ================================================================
+
+The spike cycle on $K_5$:
+\[
+C_{\mathrm{spike}}=
+(\text{rest} \to \text{rise} \to \text{peak} \to \text{fall} \to \text{recovery}),
+\]
+
+has a jet representation:
+
+\[
+J^1(C_{\mathrm{spike}})=
+\{
+\partial_t\Delta V,
+\partial_{A_{\mathrm{exc}}}\Delta V,\;
+\partial_t g_{\mathrm{ion}},
+\partial_{A_{\mathrm{exc}}}g_{\mathrm{ion}},\;
+\partial_t p(s),\;
+\partial_{A_{\mathrm{exc}}}p(s)
+\}.
+\]
+
+These jets encode:
+
+\begin{itemize}
+    \item spike amplitude,
+    \item spike width,
+    \item phase durations,
+    \item stability under perturbations,
+    \item susceptibility to noise and membrane deformation.
+\end{itemize}
+
+
+% ================================================================
+\subsection{Summary}
+% ================================================================
+
+Jets on $K_5$ provide the formal infinitesimal structure of neural
+excitability:
+
+\begin{itemize}
+    \item membrane potential dynamics and electrical axis derivatives,
+    \item channel state kinetics and conductance jets,
+    \item ionic flow and pump–leak balance,
+    \item excitation and recovery thresholds,
+    \item stochastic noise and logic gates,
+    \item patch-level propagation,
+    \item refractory structure,
+    \item coupling to $K_4$ membrane jets,
+    \item stability of $\partial\Omega(K_5)$,
+    \item analytic structure of the full spike cycle.
+\end{itemize}
+
+These jets constitute the mathematical foundation of the transition to
+higher neural organisation in $K_6$.
