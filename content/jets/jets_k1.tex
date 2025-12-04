@@ -2,12 +2,230 @@
 % ==== FILE: content/jets/jets_k1.tex
 % ================================================================
 
-% ==============================
-%  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/jets/jets_k1.tex
-%  Status: EMPTY — TO BE FILLED
-% ==============================
-
 \section{Jets on $K_1$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:jets-k1}
+
+The level $K_1$ is the first continuum in the OC hierarchy that admits
+a genuine infinitesimal structure. It introduces a topological space
+$(X,\tau)$, a single axis $A_1$, a configuration space
+$\Omega(K_1)=C^0(X,V)$, and a classical energy functional $E$ satisfying
+axioms E1--E3. Time $t$ appears as the parameter of evolution of
+configurations, making the jet formalism $J^n(K_1)$ nontrivial for the
+first time.
+
+This section defines and analyses jets on $K_1$, their admissibility,
+their interaction with the classical boundary $\partial\Omega_{\mathrm{cl}}$,
+and their role in the transition $K_1\to K_2$.
+
+
+
+% ================================================================
+\subsection{Jet Structure on \texorpdfstring{$K_1$}{K1}}
+% ================================================================
+
+Let $\phi(x,t)\in\Omega(K_1)$ denote an admissible classical
+configuration. Since $(X,\tau)$ carries no geometry beyond continuity,
+the only derivatives available at $K_1$ are \emph{time derivatives}.
+Spatial derivatives arise only at $K_2$, where the continuum gains a
+geometric substrate.
+
+Thus the $n$-jet of $\phi$ on $K_1$ has the form:
+\[
+J^n(\phi)
+=
+\left\{
+\frac{d^k\phi}{dt^k}(x,t)
+\ \bigg|\ 
+0 \le k \le n
+\right\}.
+\]
+
+No derivatives with respect to $x\in X$ exist; no connection or metric
+structure is available. Jets at $K_1$ describe purely temporal
+deformations of admissible configurations.
+
+
+
+% ================================================================
+\subsection{Energy and Action Jets}
+% ================================================================
+
+The classical energy functional on $K_1$ is:
+\[
+E[\phi] = \int_X \mathcal{E}(\phi(x,t))\, d\mu_1,
+\]
+where $d\mu_1$ is the minimal admissible measure (arising from the
+minimal measurability axiom). Since $\mathcal{E}$ contains no gradient
+terms, its jet structure reduces to:
+\[
+J^1(E) = \left\{ \frac{dE}{dt} \right\}
+=
+\left\{
+\int_X
+\frac{\partial\mathcal{E}}{\partial\phi}
+\frac{d\phi}{dt}\,
+d\mu_1
+\right\}.
+\]
+
+The action functional $S[\phi]$---when defined---inherits the same
+temporal jet structure:
+\[
+J^1(S) = \left\{ \frac{dS}{dt} \right\}.
+\]
+
+This makes $K_1$ the minimal continuum where variational principles can
+be meaningfully formulated, albeit without spatial structure.
+
+
+
+% ================================================================
+\subsection{Jets of the Boundary \texorpdfstring{$\partial\Omega_{\mathrm{cl}}$}{Boundary}}
+% ================================================================
+
+The classical boundary $\partial\Omega_{\mathrm{cl}}(K_1)$ is defined as
+the set of configurations violating the admissibility imposed by the
+energy and threshold conditions of $K_1$:
+\[
+\partial\Omega_{\mathrm{cl}} = \left\{ \phi\in\Omega(K_1) \mid E[\phi] = \Theta_1 \right\}.
+\]
+
+The jet of the boundary is:
+\[
+J^1(\partial\Omega_{\mathrm{cl}})
+=
+\left\{
+\frac{d}{dt}\left(E[\phi(t)]-\Theta_1\right)
+\right\}.
+\]
+
+Since $\Theta_1$ is structural and constant on $K_1$, the evolution of
+the boundary is governed entirely by $\frac{dE}{dt}$:
+\[
+\frac{d}{dt}\partial\Omega_{\mathrm{cl}}
+\quad\Longleftrightarrow\quad
+\frac{dE}{dt}.
+\]
+
+A configuration exits $K_1$ when:
+\[
+\frac{dE}{dt} > 0
+\quad\text{and}\quad
+E(t) \to \Theta_1.
+\]
+
+This prepares the ground for the emergence of gradient energy at $K_2$.
+
+
+
+% ================================================================
+\subsection{Jets of Structural Quantities}
+% ================================================================
+
+Jets also apply to the structural components of $K_1$:
+
+\begin{itemize}
+    \item \textbf{Axis}:
+    \[
+    J^1(A_1) = \left\{\frac{dA_1}{dt}\right\},
+    \]
+    describing its admissible temporal deformation.
+    
+    \item \textbf{Tension}:
+    \[
+    J^1(T_1) = \left\{\frac{dT_1}{dt}\right\},
+    \]
+    where $T_1$ is induced from the distribution of potential values and
+    boundary proximity.
+
+    \item \textbf{Thresholds}:
+    \[
+    J^1(\Theta_1)=\{0\},
+    \]
+    since thresholds at $K_1$ are structural and time-invariant.
+
+    \item \textbf{Continuum Measure}:
+    \[
+    J^1(k_1) = \left\{ \frac{dk_1}{dt} \right\},
+    \]
+    linking infinitesimal change in continuumness to the tension and the
+    evolution of $\Omega(K_1)$.
+\end{itemize}
+
+
+
+% ================================================================
+\subsection{Admissibility and Jet Constraints}
+% ================================================================
+
+The general admissibility condition for jets on $K_1$ is:
+\[
+T_1(t) < \Theta_1.
+\]
+
+A jet $J^n(\phi)$ is admissible iff all derivatives preserve this
+condition. For example:
+\[
+\frac{d\phi}{dt} \ \text{is admissible}
+\quad\Longleftrightarrow\quad
+\frac{dE}{dt} < \frac{d\Theta_1}{dt} = 0.
+\]
+
+If the jet violates admissibility, the configuration leaves the
+continuum:
+\[
+\Omega(K_1) \to \varnothing,
+\qquad
+k_1 \to 0.
+\]
+
+This is the earliest level where collapse due to jet divergence can be
+defined.
+
+
+
+% ================================================================
+\subsection{Role in the Transition \texorpdfstring{$K_1\to K_2$}{K1→K2}}
+% ================================================================
+
+The emergence of $K_2$ requires:
+
+\begin{itemize}
+    \item a new axis $A_{\mathrm{geom}}$ not expressible as a
+    deformation of $A_1$,
+    \item a nonzero gradient term in the energy functional,
+    \item a deformation of the boundary $\partial\Omega$ indicating the
+    need for spatial structure.
+\end{itemize}
+
+The jet interpretation of the transition is:
+
+\[
+\frac{d^2\phi}{dt^2} \ \text{and}\ 
+\frac{dT_1}{dt}\ \text{grow large}
+\quad\Longrightarrow\quad
+\exists A_{\mathrm{geom}}\notin \text{span}\{A_1\}.
+\]
+
+This implements the formal operator $F_{1\to2}$ and initiates the first
+genuine geometric continuum.
+
+
+
+% ================================================================
+\subsection{Summary}
+% ================================================================
+
+Jets on $K_1$ are the first nontrivial jets in the continuum hierarchy.
+They describe:
+
+\begin{itemize}
+    \item temporal deformation of configurations,
+    \item temporal variation of energy and tension,
+    \item evolution of the boundary $\partial\Omega_{\mathrm{cl}}$,
+    \item constraints from the threshold $\Theta_1$,
+    \item first stability analyses via jet admissibility.
+\end{itemize}
+
+They also provide the mathematical language for the transition to $K_2$,
+where spatial structure and gradient jets first appear.
