@@ -2,12 +2,364 @@
 % ==== FILE: content/cycles/cycles_k7.tex
 % ================================================================
 
-% ==============================
-%  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/cycles/cycles_k7.tex
-%  Status: EMPTY — TO BE FILLED
-% ==============================
-
 \section{Cycles on $K_7$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:cycles-k7}
+
+The level $K_7$ represents the social continuum: a structured domain of
+roles, norms, communicative flows, trust dynamics, and institutional
+stabilisation.  
+Cycles on $K_7$ formalise recurrent social processes that maintain the
+persistence of social groups, institutions, and collective behaviour.
+
+Axes on $K_7$ include:
+\[
+  A_{\mathrm{role}},\;
+  A_{\mathrm{norm}},\;
+  A_{\mathrm{trust}},\;
+  A_{\mathrm{comm}},\;
+  A_{\mathrm{coop}},
+\]
+with potentials:
+\[
+  P_{\mathrm{trust}},\;
+  P_{\mathrm{coh}},\;
+  P_{\mathrm{normative}},\;
+  P_{\mathrm{stability}},
+\]
+and flows (memory~\#44, \#45):
+\[
+  J_{\mathrm{comm}},\;
+  J_{\mathrm{coop}},\;
+  J_{\mathrm{stab}}.
+\]
+
+Thresholds determining cycle viability:
+\[
+  \Theta_{\mathrm{trust}},\;
+  \Theta_{\mathrm{norm}},\;
+  \Theta_{\mathrm{coh\text{-}soc}},\;
+  \Theta_{\mathrm{embed}},\;
+  \Theta_{\mathrm{fragility}}.
+\]
+
+\subsection{Overview}
+
+A social continuum persists not because its components are static, but because
+they are dynamically maintained through recurrent cycles of communication,
+cooperation, norm enforcement, trust regeneration, and institutional
+reproduction.  
+This section formalises these cycles in the language of the OC framework.
+
+\subsection{1. Communication Cycle $C_{\mathrm{comm}}$}
+
+Communication is the core process establishing shared state within the social
+continuum.
+
+The cycle:
+\[
+  \mathrm{signal}
+  \to
+  \mathrm{interpretation}
+  \to
+  \mathrm{feedback}
+  \to
+  \mathrm{alignment}
+  \to
+  \mathrm{signal}.
+\]
+
+Formally:
+\[
+  C_{\mathrm{comm}}
+    =
+    \left\{
+      A_{\mathrm{comm}}(t),
+      P_{\mathrm{coh}}(t),
+      J_{\mathrm{comm}}(t)
+    \right\}.
+\]
+
+Stability requires:
+\[
+  T_{\mathrm{comm}} < \Theta_{\mathrm{coh\text{-}soc}}.
+\]
+
+\subsection{2. Trust-Regeneration Cycle $C_{\mathrm{trust}}$}
+
+Trust is a dynamic potential $P_{\mathrm{trust}}$ subject to fluctuations,
+erosion, and restoration.
+
+Cycle structure:
+\[
+  \mathrm{cooperation}
+  \to
+  \mathrm{verification}
+  \to
+  \mathrm{reinforcement}
+  \to
+  \mathrm{renewal}
+  \to
+  \mathrm{cooperation}.
+\]
+
+Formally:
+\[
+ C_{\mathrm{trust}}
+   =
+   \left\{
+     P_{\mathrm{trust}}(t),\;
+     J_{\mathrm{coop}}(t),\;
+     A_{\mathrm{trust}}(t)
+   \right\}.
+\]
+
+Existence condition:
+\[
+  P_{\mathrm{trust}}(t+\tau_{\mathrm{trust}})=
+  P_{\mathrm{trust}}(t).
+\]
+
+Threshold:
+\[
+  T_{\mathrm{trust}} < \Theta_{\mathrm{trust}}.
+\]
+
+\subsection{3. Norm Enforcement Cycle $C_{\mathrm{norm}}$}
+
+Social norms regulate expectations and behaviour.
+
+Cycle:
+\[
+  \mathrm{activation}
+  \to
+  \mathrm{monitoring}
+  \to
+  \mathrm{sanction}
+  \to
+  \mathrm{repair}
+  \to
+  \mathrm{activation}.
+\]
+
+Form:
+\[
+  C_{\mathrm{norm}}=
+  \left\{
+    A_{\mathrm{norm}}(t),
+    P_{\mathrm{normative}}(t),
+    J_{\mathrm{stab}}(t)
+  \right\}.
+\]
+
+Threshold condition:
+\[
+  T_{\mathrm{norm}} < \Theta_{\mathrm{norm}}.
+\]
+
+\subsection{4. Role-Structure Cycle $C_{\mathrm{role}}$}
+
+Social roles must be continuously reproduced to sustain institutional order.
+
+Cycle:
+\[
+  \mathrm{role\ learning}
+  \to
+  \mathrm{performance}
+  \to
+  \mathrm{evaluation}
+  \to
+  \mathrm{adjustment}
+  \to
+  \mathrm{role\ learning}.
+\]
+
+Formally:
+\[
+  C_{\mathrm{role}}
+  =
+  \left\{
+     A_{\mathrm{role}}(t),\;
+     P_{\mathrm{stability}}(t),\;
+     J_{\mathrm{comm}}(t)
+  \right\}.
+\]
+
+Threshold:
+\[
+  T_{\mathrm{role}} < \Theta_{\mathrm{coh\text{-}soc}}.
+\]
+
+\subsection{5. Cooperation Cycle $C_{\mathrm{coop}}$}
+
+Cooperation, sustained by $J_{\mathrm{coop}}$, is a recurrent structure:
+
+\[
+ \mathrm{proposal}
+ \to
+ \mathrm{coordination}
+ \to
+ \mathrm{execution}
+ \to
+ \mathrm{reward}
+ \to
+ \mathrm{renewal}.
+\]
+
+Formally:
+\[
+ C_{\mathrm{coop}}=
+ \left\{
+   J_{\mathrm{coop}}(t),\;
+   P_{\mathrm{trust}}(t),\;
+   A_{\mathrm{coop}}(t)
+ \right\}.
+\]
+
+Stability condition:
+\[
+ T_{\mathrm{coop}} < \Theta_{\mathrm{trust}}.
+\]
+
+\subsection{6. Institutional Reproduction Cycle $C_{\mathrm{inst}}$}
+
+Institutions are persistent social structures defined by:
+
+\[
+  \mathrm{codification}
+  \to
+  \mathrm{implementation}
+  \to
+  \mathrm{monitoring}
+  \to
+  \mathrm{repair}
+  \to
+  \mathrm{codification}.
+\]
+
+Institutional reproduction depends on:
+
+\[
+ C_{\mathrm{inst}}
+ =
+ \left\{
+   A_{\mathrm{norm}}(t),\;
+   A_{\mathrm{role}}(t),\;
+   P_{\mathrm{stability}}(t),\;
+   J_{\mathrm{stab}}(t)
+ \right\}.
+\]
+
+Threshold:
+\[
+ T_{\mathrm{inst}} < \Theta_{\mathrm{embed}}.
+\]
+
+The embedding-space constraint encodes the dependence of
+$K_7$ on $M_7$.
+
+\subsection{7. Social-Stability Cycle $C_{\mathrm{stab}}$}
+
+This is a multi-cycle integration:
+
+\[
+  C_{\mathrm{stab}}
+    =
+    C_{\mathrm{comm}}
+    \cup
+    C_{\mathrm{trust}}
+    \cup
+    C_{\mathrm{norm}}
+    \cup
+    C_{\mathrm{role}}
+    \cup
+    C_{\mathrm{coop}}.
+\]
+
+Stability requires:
+
+\[
+  T_{\mathrm{soc}}
+  <
+  \min(\Theta_{\mathrm{trust}},
+       \Theta_{\mathrm{norm}},
+       \Theta_{\mathrm{coh\text{-}soc}},
+       \Theta_{\mathrm{embed}}).
+\]
+
+This cycle corresponds to the existence of a coherent social continuum.
+
+\subsection{Cycle Metrics on $K_7$}
+
+\paragraph{Length.}
+\[
+  L(C)
+  = \oint d\Omega(K_7).
+\]
+
+\paragraph{Efficiency.}
+\[
+  C_{\mathrm{eff}}
+    =
+    \frac{\oint J_7\cdot dA}{L(C)}.
+\]
+
+\paragraph{Stability.}
+\[
+ S(C)
+  = \min_{t\in C}
+    d(\Omega(K_7), \partial\Omega(K_7)).
+\]
+
+\paragraph{Weight.}
+\[
+ w(C)
+ =
+ F(C_{\mathrm{eff}},S(C),
+   P_{\mathrm{trust}},
+   P_{\mathrm{normative}},
+   P_{\mathrm{coh}}).
+\]
+
+\subsection{Collapse of $K_7$ Cycles}
+
+Collapse of social cycles occurs when:
+
+\[
+ T_{\mathrm{trust}} > \Theta_{\mathrm{trust}},
+ \qquad
+ T_{\mathrm{norm}} > \Theta_{\mathrm{norm}},
+ \qquad
+ T_{\mathrm{comm}} > \Theta_{\mathrm{coh\text{-}soc}},
+\]
+
+or when embedding-space constraints fail:
+
+\[
+ M_7 \not\supseteq \Omega(K_7).
+\]
+
+Collapse implies:
+
+\[
+ C_j \to \varnothing,\quad
+ \Omega(K_7)=\varnothing,\quad
+ k_7\to 0.
+\]
+
+\subsection{Continuity from $K_6$ to $K_7$}
+
+The transition $K_6\to K_7$ (memory~\#49) occurs when:
+\[
+  T_{\mathrm{comm}} > \Theta_{\mathrm{dim}},
+\]
+and new axes appear:
+\[
+  A_{\mathrm{role}},\;
+  A_{\mathrm{norm}},\;
+  A_{\mathrm{trust}},\;
+  A_{\mathrm{coop}}.
+\]
+
+This generates new thresholds and permits the existence of social cycles
+with no analogue at the cognitive level $K_6$.
+
