@@ -2,12 +2,178 @@
 % ==== FILE: content/jets/jets_master.tex
 % ================================================================
 
-% ==============================
-%  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/jets/jets_master.tex
-%  Status: EMPTY — TO BE FILLED
-% ==============================
-
 \section{Overview}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:jets-master}
+
+The jet formalism introduced in this section provides a unified,
+dimension-agnostic description of \emph{infinitesimal structural
+propagation} across all continua in the Ontology of Continua (OC).
+While the operators $E$, $\Psi$, $\Phi$ and $U$ describe macroscopic
+evolution, embedding, deformation of admissible regions and global
+continuumness, the jet hierarchy captures the \emph{local differential
+structure} governing how continua deform along their axes, potentials,
+flows, thresholds, and boundary gradients.
+
+\medskip
+
+In classical mathematics, jets represent truncated Taylor expansions of
+smooth functions. In OC, jets generalise this idea: a jet is a local,
+structurally admissible fragment of continuum evolution, encoding
+\emph{all allowed derivatives of all structural components} up to a
+specified order. This includes derivatives of:
+
+\begin{itemize}
+    \item axes $A(t)$ and their deformation modes,
+    \item potentials $P(t)$ and their gradients $\partial P / \partial A$,
+    \item thresholds $\Theta(t)$ and their rate of change,
+    \item flows $J(t)$, including cross-level flows and boundary exchange,
+    \item cycles $C(t)$ and their infinitesimal stability conditions,
+    \item admissible regions $\Omega(K)$ and their boundary geometry $\partial\Omega(K)$,
+    \item continuumness $k(t)$ and its differential response.
+\end{itemize}
+
+Thus, a jet represents the \emph{infinitesimal content} of the universal
+evolution operator:
+\[
+E(K(t), M(t)) = K(t+\Delta t),
+\]
+providing a differential expansion that allows OC to connect macroscopic
+evolution to local geometric constraints.
+
+
+
+% ================================================================
+\subsection{Definition of Structural Jets}
+% ================================================================
+
+For any continuum $K_x$, we define its $n$-th jet $J^n(K_x)$ as:
+
+\begin{equation}
+J^n(K_x)(t) = 
+\left\{
+\frac{d^m A}{dt^m},
+\frac{d^m P}{dt^m},
+\frac{d^m \Theta}{dt^m},
+\frac{d^m J}{dt^m},
+\frac{d^m C}{dt^m},
+\frac{d^m \partial\Omega}{dt^m},
+\frac{d^m k}{dt^m}
+\ \middle|\ 
+0 \le m \le n
+\right\}.
+\end{equation}
+
+A jet exists if and only if:
+
+\begin{enumerate}
+    \item all derivatives up to order $n$ respect the admissibility
+    conditions of the continuum;
+    \item the deformation does not push $K_x$ outside $\Omega(M_x)$;
+    \item thresholds at every order remain finite; and
+    \item the structural tension at each order satisfies:
+    \[
+        T^{(m)}(t) < \Theta_{\mathrm{collapse}}^{(m)}.
+    \]
+\end{enumerate}
+
+Thus, jets encode differential consistency conditions across all levels
+of OC.
+
+
+
+% ================================================================
+\subsection{Role of Jets in Universal Dynamics}
+% ================================================================
+
+Jets serve four structural functions:
+
+\paragraph{(1) Local generator of global evolution.}
+While $E$ provides the global update, jets describe its infinitesimal
+expansion:
+\[
+E(K(t)) = K(t) + dt \cdot J^1(K) + dt^2 \cdot J^2(K) + \cdots.
+\]
+
+\paragraph{(2) Compatibility conditions for $\Psi$ and $\Phi$.}
+The embedding operator $\Psi$ and the evolution of the ambient space
+$\Phi$ must satisfy jet-consistency constraints, ensuring that:
+\[
+J^n(K_x) \subseteq J^n(M_x).
+\]
+
+\paragraph{(3) Local structure of phase transitions.}
+Every dimensional transition (e.g., $K_{x} \to K_{x+1}$) begins as a
+jet instability: an $n$th-order divergence along a new axis.
+
+\paragraph{(4) Diagnosis of collapse modes.}
+Death of a continuum corresponds to jet-level singularities:
+\[
+\left| \frac{d^m X}{dt^m} \right| \to \infty,
+\]
+for some structural component $X$.
+
+
+
+% ================================================================
+\subsection{Jets Across the Levels $K_0 \to K_{12}$}
+% ================================================================
+
+Every level $K_x$ has a characteristic jet structure:
+
+\begin{itemize}
+    \item $K_0$: trivial jet (no derivatives, no axes).
+    \item $K_1$: geometric jets on $(X,\tau)$, first-order boundary motion.
+    \item $K_2$: physical jets (fields, gradients, variational structure).
+    \item $K_3$: chemical jets (activation energies, reaction profiles).
+    \item $K_4$: biological jets (membrane curvature, gradient kinetics).
+    \item $K_5$: electrical jets (ion flux derivatives, excitability).
+    \item $K_6$: cognitive jets (prediction-error gradients).
+    \item $K_7$: social jets (resource flows, institutional rigidity).
+    \item $K_8$: civilizational jets (symbolic/technological propagation).
+    \item $K_9$: theoretical jets (paradigm deformation, model flux).
+    \item $K_{10}$: meta-theoretical jets (functorial consistency).
+    \item $K_{11}$: hyper-theoretical jets (modal universe curvature).
+    \item $K_{12}$: universal jets (derivatives of structural laws).
+\end{itemize}
+
+All specialised jet files extend this master definition.
+
+
+
+% ================================================================
+\subsection{Boundary and Threshold Constraints}
+% ================================================================
+
+For any jet to exist, the boundary and threshold conditions must remain
+admissible:
+
+\begin{align}
+\partial\Omega(K_x)(t + dt) &= \partial\Omega(K_x)(t)
+  + dt \cdot \frac{d}{dt}\partial\Omega(K_x)
+  + O(dt^2), \\
+\Theta_x(t + dt) &= \Theta_x(t)
+  + dt \cdot \frac{d\Theta_x}{dt}
+  + O(dt^2).
+\end{align}
+
+A jet exists if and only if:
+
+\[
+\partial\Omega(K_x)(t+dt) \subseteq \Omega(M_x)(t+dt),
+\qquad
+\Theta_x^{(m)} < \Theta_{\mathrm{max}}^{(m)}.
+\]
+
+Failures of these conditions correspond to structural collapse.
+
+
+
+% ================================================================
+\subsection{Summary}
+% ================================================================
+
+This master section establishes jets as the infinitesimal, level-agnostic
+formalism linking all structural components of OC. It provides the
+foundation for each specialised jets-file that follows, ensuring
+consistency across $K_0 \to K_{12}$ and integration with the universal
+operators $E$, $\Psi$, $\Phi$, and $U$.
