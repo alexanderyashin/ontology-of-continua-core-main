@@ -2,12 +2,351 @@
 % ==== FILE: content/jets/jets_k3.tex
 % ================================================================
 
-% ==============================
-%  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/jets/jets_k3.tex
-%  Status: EMPTY — TO BE FILLED
-% ==============================
-
 \section{Jets on $K_3$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:jets-k3}
+
+The continuum $K_3$ introduces chemical organisation on top of the
+geometric substrate of $K_2$. Jets on $K_3$ describe how chemical
+potentials, reaction pathways, activation energies, and configurational
+structures vary under infinitesimal changes of state. They provide the
+local analytic machinery for chemical kinetics, catalytic effects,
+RAF-network formation, membrane precursor dynamics, and the emergence of
+prebiotic compartments that form the bridge toward $K_4$.
+
+
+
+% ================================================================
+\subsection{Emergence of Chemical Jet Structure}
+% ================================================================
+
+The transition $K_2 \to K_3$ is driven by localisation of tension
+gradients from $K_2$, which creates stable interaction sites. The
+operator $F_{2\to3}$ introduces a new axis
+\[
+A_{\mathrm{chem}} \in A(M_2)\setminus A(K_2),
+\]
+corresponding to chemical state transitions (bond formation, breaking,
+reaction coordinates).
+
+A configuration on $K_3$ takes the form:
+\[
+\phi = (\{\text{atoms}\},\{\text{bonds}\},\{\text{molecules}\}),
+\]
+with chemical potentials
+\[
+P_{\mathrm{chem}} = \bigl(\mu_i, E_{\mathrm{act}}, E_{\mathrm{conf}}, E_{\mathrm{bond}}\bigr)
+\]
+defined on molecular states.
+
+Jets encode variations of all these quantities:
+\[
+J^{m,n}(\phi) =
+\left\{
+\partial_t^k \partial_{A_{\mathrm{chem}}}^{\ell} \phi
+\right\}_{0\le k\le m,\; 0\le\ell\le n}.
+\]
+
+
+
+% ================================================================
+\subsection{Jets of the Chemical Potential}
+% ================================================================
+
+The chemical potential $\mu_i$ for species $i$ is a function of
+concentration, temperature, and molecular configuration. Its first jet is:
+\[
+J^1(\mu_i) = 
+\left\{
+\frac{d\mu_i}{dt},\;
+\partial_{A_{\mathrm{chem}}}\mu_i
+\right\}.
+\]
+
+The second component expresses sensitivity to infinitesimal displacement
+along the reaction coordinate.
+
+Explicitly:
+\[
+\partial_{A_{\mathrm{chem}}}\mu_i
+= 
+\frac{\partial \mu_i}{\partial \xi},
+\qquad
+\xi\ \text{reaction coordinate}.
+\]
+
+This derivative governs:
+
+\begin{itemize}
+    \item direction of spontaneous reaction flow,
+    \item local curvature of the energy landscape,
+    \item stability of transient intermediates.
+\end{itemize}
+
+
+
+% ================================================================
+\subsection{Jets of Activation Energy and Reaction Pathways}
+% ================================================================
+
+Each chemical reaction has an activation barrier $E_{\mathrm{act}}$.
+Jets describe how this barrier changes under perturbations of state:
+\[
+J^1(E_{\mathrm{act}}) =
+\left\{
+\frac{dE_{\mathrm{act}}}{dt},\;
+\partial_{A_{\mathrm{chem}}}E_{\mathrm{act}}
+\right\}.
+\]
+
+The spatial derivative along the chemical axis determines how the
+reaction accelerates or decelerates locally.
+
+For a reaction path $\gamma$ in state space,
+\[
+\gamma: [0,1] \to \Omega(K_3),
+\]
+the jet of the energy profile $E(\gamma(s))$ satisfies:
+\[
+\partial_s E = \nabla E \cdot \dot{\gamma},
+\qquad
+\partial_s^2 E = H_E(\dot{\gamma},\dot{\gamma}),
+\]
+where $H_E$ is the Hessian of the chemical energy.
+
+These jets determine:
+
+\begin{itemize}
+    \item saddle points (transition states),
+    \item local minima (stable molecules),
+    \item curvature of reaction funnels.
+\end{itemize}
+
+
+
+% ================================================================
+\subsection{Jets of Bond Structure and Configurational Energy}
+% ================================================================
+
+The bond network $B$ of a molecular configuration changes under the
+chemical jet flow:
+\[
+\partial_{A_{\mathrm{chem}}} B
+\quad\text{encodes infinitesimal bond weakening/strengthening.}
+\]
+
+Configurational energy $E_{\mathrm{conf}}$ has the jet:
+\[
+J^1(E_{\mathrm{conf}})=
+\left\{
+\frac{dE_{\mathrm{conf}}}{dt},\;
+\partial_{A_{\mathrm{chem}}}E_{\mathrm{conf}}
+\right\}.
+\]
+
+The latter derivative determines:
+
+\begin{itemize}
+    \item rotational barriers,
+    \item torsional stiffness,
+    \item conformational transitions,
+    \item emergence of proto-membrane lipids and amphiphiles.
+\end{itemize}
+
+
+
+% ================================================================
+\subsection{Jets and Catalysis (RAF Networks)}
+% ================================================================
+
+Catalysis lowers energy barriers without altering final states.
+In OC formalism, catalysis introduces a new reaction path supported by a
+sub-continuum:
+\[
+K_{\mathrm{path}}(C),
+\]
+whose jets capture intermediate configurations induced by the catalyst.
+
+The catalytic jet signature is:
+\[
+\partial_{A_{\mathrm{chem}}}E_{\mathrm{act}}(C)
+<
+\partial_{A_{\mathrm{chem}}}E_{\mathrm{act}},
+\]
+consistent with the structural theorem of catalysis in the OC core.
+
+RAF (Reflexively Autocatalytic and Food-generated) networks exhibit
+collective jet coherence:
+\[
+J^1(E_{\mathrm{act}}^{\mathrm{network}}) 
+\ll 
+J^1(E_{\mathrm{act}}^{\mathrm{isolated}}),
+\]
+which is the analytic expression of their stabilising effect.
+
+Jets quantify how catalytic pathways reshape $\partial\Omega(K_3)$ by
+lowering local thresholds.
+
+
+
+% ================================================================
+\subsection{Jets of the Boundary \texorpdfstring{$\partial\Omega(K_3)$}{Boundary}}
+% ================================================================
+
+The admissible chemical region is:
+\[
+\Omega(K_3)=
+\{
+\text{configurations with bounded potential, finite gradients, and }
+T_3 < \Theta_{\mathrm{chem}}
+\}.
+\]
+
+The boundary carries a jet structure:
+\[
+J^1(\partial\Omega)=
+\left\{
+\partial_t(E_{\mathrm{act}}-\Theta_{\mathrm{chem}}),\;
+\partial_{A_{\mathrm{chem}}}(E_{\mathrm{act}}-\Theta_{\mathrm{chem}})
+\right\}.
+\]
+
+Crossing the boundary corresponds to chemical collapse:
+
+\begin{itemize}
+    \item runaway reactions,
+    \item unbounded radical formation,
+    \item breakdown of stable molecular species.
+\end{itemize}
+
+
+
+% ================================================================
+\subsection{Jets of Chemical Oscillations and Early Networks}
+% ================================================================
+
+Many prebiotic systems exhibit oscillatory or autocatalytic dynamics.
+Jets provide their analytic characterisation.
+
+For a chemical cycle with state variable $x$:
+\[
+\dot{x}=f(x),
+\qquad
+J^1(x)=\{\dot{x}\},
+\qquad
+J^2(x)=\{\ddot{x}\}.
+\]
+
+Oscillatory behaviour requires:
+\[
+\ddot{x}<0\ \text{at turning points}.
+\]
+
+Jets identify:
+
+\begin{itemize}
+    \item proto-metabolic cycles,
+    \item oscillatory redox systems,
+    \item lipid-assembly/dissolution cycles,
+    \item proto-feedback networks.
+\end{itemize}
+
+
+
+% ================================================================
+\subsection{Jets and Prebiotic Compartment Formation}
+% ================================================================
+
+The transition $K_3\to K_4$ requires the formation of compartments with
+semi-stable boundaries. Jets capture:
+
+\[
+\partial_{A_{\mathrm{chem}}}E_{\mathrm{conf}}
+\quad\text{large and negative}
+\quad\Longrightarrow\quad
+\text{spontaneous aggregation (micelles, vesicles)}.
+\]
+
+Reaction jets determine:
+
+\begin{itemize}
+    \item stability of amphiphilic assemblies,
+    \item membrane curvature formation,
+    \item emergence of proto-boundaries $\partial\Omega(K_4)$,
+    \item redox-gradient localisation.
+\end{itemize}
+
+These jet signatures produce the *closure conditions* that define early
+compartments.
+
+
+
+% ================================================================
+\subsection{Admissibility of Jets on $K_3$}
+% ================================================================
+
+A jet on $K_3$ is admissible iff:
+
+\[
+T_3 < \Theta_{\mathrm{chem}},
+\qquad
+E_{\mathrm{act}} < E_{\max},
+\qquad
+|\partial_{A_{\mathrm{chem}}}\phi| < G_{\mathrm{chem}}.
+\]
+
+Violation implies:
+
+\[
+\Omega(K_3)\to\varnothing,
+\qquad
+k_3\to 0.
+\]
+
+
+
+% ================================================================
+\subsection{Role in Transition \texorpdfstring{$K_3\to K_4$}{K3→K4}}
+% ================================================================
+
+Jets provide the analytic mechanism for the shift from purely chemical
+reaction networks to bounded biochemical systems.
+
+The transition requires:
+
+\begin{itemize}
+    \item localisation of gradients,
+    \item formation of stable amphiphilic structures,
+    \item reduction of activation barriers for boundary-forming reactions,
+    \item temporal coherence of chemical oscillations.
+\end{itemize}
+
+Formally:
+\[
+\partial_{A_{\mathrm{chem}}}E_{\mathrm{conf}}
+\ \text{stable and negative}
+\quad\Longrightarrow\quad
+A_{\mathrm{comp}}\ \text{(the boundary axis)}\in A(M_3).
+\]
+
+This jet signature marks the emergence of the membrane continuum $K_4$.
+
+
+
+% ================================================================
+\subsection{Summary}
+% ================================================================
+
+Jets on $K_3$ encode:
+
+\begin{itemize}
+    \item fine-scale variation of potentials along reaction coordinates,
+    \item sensitivity of activation barriers,
+    \item bond network dynamics,
+    \item catalytic modification of reaction pathways,
+    \item structural deformation of $\partial\Omega(K_3)$,
+    \item oscillatory and autocatalytic phenomena,
+    \item emergence of compartments and preparation for $K_4$.
+\end{itemize}
+
+They form the analytic core of chemical organisation and the essential
+bridge to the biological continuum.
