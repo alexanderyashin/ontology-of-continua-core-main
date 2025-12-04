@@ -2,12 +2,289 @@
 % ==== FILE: content/falsifiability/falsifiability_k5.tex
 % ================================================================
 
-% ==============================
-%  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/falsifiability/falsifiability_k5.tex
-%  Status: EMPTY — TO BE FILLED
-% ==============================
-
 \section{Falsifiability of $K_5$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:falsifiability-k5}
+
+The continuum $K_5$ formalises early neuronal excitability:
+stable membrane-bound electrical potentials, ion-selective channels,
+proto–spikes, controlled pump–leak cycles, and emerging electrical
+signalling.  
+Falsifiability of $K_5$ concerns the necessary structural and dynamical
+conditions under which excitability cannot arise or cannot persist.
+
+A valid $K_5$ requires:
+
+\begin{itemize}
+    \item a stable membrane boundary $\partial\Omega(K_5)$ capable
+          of maintaining an electrical potential difference;
+    \item a set of electrical axes $A_5$ including 
+          $A_{\mathrm{exc}}, A_{\mathrm{channel}}, A_{\mathrm{perm}}$,
+          and early stochastic logic $A_{\mathrm{logic}}$;
+    \item electrical potentials $P_5$:
+          membrane potential $\Delta V$, Nernst potentials $E_{\mathrm{ion}}$,
+          redox-driven energetic potentials, and channel gating energies;
+    \item biological thresholds $\Theta_5$:
+          excitation threshold $\Theta_{\mathrm{exc}}$,
+          recovery threshold $\Theta_{\mathrm{rec}}$,
+          leak threshold $\Theta_{\mathrm{leak}}$,
+          noise threshold $\Theta_{\mathrm{noise}}$;
+    \item flows $J_5$: ion fluxes through channels, leaks,
+          pumps, excitatory flows, recovery flows;
+    \item cycles $C_5$: excitation–recovery cycles,
+          leak–pump balance cycles, electrical buffering cycles;
+    \item $k_5>0$ supported by stable excitability and recovery.
+\end{itemize}
+
+If any of these structures fails, the neuronal continuum $K_5$
+collapses and cannot exist.
+
+
+
+% ================================================================
+\subsection{Falsifiability via Membrane and Electrical Boundary}
+% ================================================================
+
+A stable membrane is a prerequisite for $K_5$.
+The continuum is falsified when:
+
+\paragraph{(F5.1) No stable membrane potential.}
+If $\Delta V = 0$ for all time and cannot be induced by ionic
+concentrations or pumps, excitability cannot arise.
+
+\paragraph{(F5.2) Excessive leakage.}
+If passive ion leaks exceed pump capacity (violating
+$\Theta_{\mathrm{leak}}$), $\Delta V$ cannot be maintained.
+
+\paragraph{(F5.3) Patch instability.}
+If membrane patches fluctuate beyond local thresholds
+$\Theta_{\mathrm{mem},i}$ (LUX patch model), global excitability fails.
+
+\paragraph{(F5.4) No channel selectivity.}
+If channels cannot discriminate ions, $E_{\mathrm{ion}}$ is undefined,
+so $\Delta V$ becomes incoherent.
+
+\paragraph{(F5.5) Osmotic/electrical incompatibility.}
+If osmotic forces violate curvature or tension thresholds,
+$\partial\Omega(K_5)$ collapses.
+
+
+
+% ================================================================
+\subsection{Falsifiability via Electrical Potentials $P_5$}
+% ================================================================
+
+Neuronal excitability depends on:
+
+- $\Delta V$ — membrane potential;
+- $E_{\mathrm{ion}}$ — equilibrium potentials;
+- gating potentials for channel opening/closing.
+
+The continuum is falsified when:
+
+\paragraph{(F5.6) Undefined Nernst potentials.}
+If ion gradients collapse ($P_{\mathrm{grad}}$ fails),
+$E_{\mathrm{ion}}$ cannot be defined.
+
+\paragraph{(F5.7) Flattened electrical landscape.}
+If gating energies cannot produce stable open/closed states,
+channels cannot support excitability.
+
+\paragraph{(F5.8) Divergent $\Delta V$.}
+If $\Delta V$ exceeds $\Theta_{\mathrm{exc,max}}$ without recovery,
+structural tension $T_5$ diverges.
+
+\paragraph{(F5.9) No recovery potentials.}
+If the system lacks a path back to baseline
+($P_{\mathrm{rec}}$ undefined), cycles $C_5$ cannot close.
+
+\paragraph{(F5.10) Redox instability.}
+If redox energy driving pumps violates $\Theta_{\mathrm{redox}}$,
+electrical potentials cannot be maintained.
+
+
+
+% ================================================================
+\subsection{Falsifiability via Ion Flows $J_5$}
+% ================================================================
+
+Flows constitute the dynamical basis of excitability.
+
+$K_5$ is falsified if:
+
+\paragraph{(F5.11) No ion channels.}
+If $J_{\mathrm{channel}} = 0$ for all states,
+excitation dynamics cannot occur.
+
+\paragraph{(F5.12) Channel gating incompatibility.}
+If channel transitions (open/closed/refrac/noisy) violate
+\[
+J_{\mathrm{ion}} = g_{\mathrm{channel}}(\Delta V - E_{\mathrm{ion}}),
+\]
+excitability fails.
+
+\paragraph{(F5.13) Leak runaway.}
+If leak currents exceed $\Theta_{\mathrm{leak}}$, the system collapses to
+a depolarised state.
+
+\paragraph{(F5.14) Pump failure.}
+If metabolic pumps cannot compensate leaks,
+$\Delta V$ vanishes and $k_5 \to 0$.
+
+\paragraph{(F5.15) No refractory flow.}
+If $J_{\mathrm{refrac}}$ cannot restore channel states,
+spike cycles cannot repeat.
+
+\paragraph{(F5.16) Counter-flow conflict.}
+If fluxes violate conservation or create contradictory $P_5$,
+the continuum destabilises.
+
+
+
+% ================================================================
+\subsection{Falsifiability via Neural Cycles $C_5$}
+% ================================================================
+
+The early neuronal continuum requires several stabilising cycles:
+
+- the excitation cycle $C_{\mathrm{exc}}$,
+- the recovery cycle $C_{\mathrm{rec}}$,
+- the leak–pump balance cycle $C_{\mathrm{leak}}$,
+- early electrical buffering cycles.
+
+The continuum is falsified when:
+
+\paragraph{(F5.17) No excitation cycle.}
+If an initial excitation cannot propagate along $A_{\mathrm{exc}}$
+or fails to reach threshold $\Theta_{\mathrm{exc}}$,
+action-potential–like dynamics do not exist.
+
+\paragraph{(F5.18) Failure to reach recovery.}
+If the system cannot return to baseline,
+the excitation–recovery cycle cannot close.
+
+\paragraph{(F5.19) Divergent recovery.}
+If recovery overshoots beyond stability thresholds,
+oscillations destroy boundary integrity.
+
+\paragraph{(F5.20) Leak–pump imbalance.}
+If $C_{\mathrm{leak}}$ cannot offset leaks,
+stable $\Delta V$ is impossible.
+
+\paragraph{(F5.21) Cycle incompatibility.}
+If cycles impose conflicting demands on $\Delta V$ or $E_{\mathrm{ion}}$,
+no coherent excitability regime exists.
+
+
+
+% ================================================================
+\subsection{Falsifiability via Stochastic Logic and Information Flow}
+% ================================================================
+
+At $K_5$ the stochastic logic axis $A_{\mathrm{logic}}$ becomes functional
+(Fix.W2).  
+Switching dynamics are governed by:
+\[
+p(t+\Delta t) = M(t) p(t),
+\]
+where $M(t)$ depends on potentials, flows and thresholds.
+
+The continuum collapses when:
+
+\paragraph{(F5.22) No switching matrix $M(t)$.}
+If logical transitions cannot be defined, regulatory control is absent.
+
+\paragraph{(F5.23) Excessive noise.}
+If noise exceeds $\Theta_{\mathrm{noise}}$,
+switching becomes random, destroying coordinated excitability.
+
+\paragraph{(F5.24) Logical entropy divergence.}
+If the logical entropy $S_{\mathrm{logic}} > S_{\max}$,
+stable information processing cannot occur.
+
+\paragraph{(F5.25) Incompatible regulatory cycles.}
+If regulatory logic conflicts with cycles $C_5$ or flows $J_5$,
+the continuum destabilises.
+
+
+
+% ================================================================
+\subsection{Falsifiability via Structural Tension $T_5$}
+% ================================================================
+
+Electrical activity induces tension:
+\[
+T_5 = T_{\mathrm{chem}} + T_{\mathrm{mem}} + T_{\mathrm{elec}}.
+\]
+
+$K_5$ is falsified when:
+
+\paragraph{(F5.26) $T_5$ exceeds collapse threshold $\Theta_{\mathrm{collapse}}$.}
+Excitability leads to membrane rupture or ionic overload.
+
+\paragraph{(F5.27) Persistent local overstress.}
+Local overstresses $T_i$ (patch-level) induce failure cascades.
+
+\paragraph{(F5.28) Refractory instability.}
+If refractory processes cannot reduce tension,
+excitability cannot be cyclic.
+
+\paragraph{(F5.29) Electric runaway.}
+If sequential spikes exceed tension bounds,
+the system transitions into uncontrollable oscillations.
+
+
+
+% ================================================================
+\subsection{Falsifiability of Transition $K_4 \to K_5$}
+% ================================================================
+
+The transition is governed by the operator $\Psi_{4\to 5}$,
+requiring:
+
+- stable $\partial\Omega(K_4)$,
+- persistent $\Delta V$,
+- ion channels,
+- gating dynamics,
+- excitation and recovery within bounds.
+
+Transition fails when:
+
+\paragraph{(F5.30) $\Psi_{4\to 5}$ is undefined.}
+If no electrical axis $A_{\mathrm{exc}}$ can emerge,
+$K_5$ cannot be born.
+
+\paragraph{(F5.31) No incompatible states in $A_{\mathrm{channel}}$.}
+If channels have fewer than two incompatible gating states,
+dimension growth fails (Theorem 5).
+
+\paragraph{(F5.32) Threshold mismatch.}
+If $\Theta_{\mathrm{exc}}$, $\Theta_{\mathrm{rec}}$,
+$\Theta_{\mathrm{leak}}$ cannot be simultaneously satisfied,
+$\Omega(K_5)$ is empty.
+
+\paragraph{(F5.33) Pump–energy incompatibility.}
+If energetic potentials from $K_4$ cannot support pumping,
+$\Delta V$ vanishes.
+
+\paragraph{(F5.34) No viable recovery path.}
+If cycles cannot restore the system to baseline,
+$K_5$ cannot stabilise.
+
+
+% ================================================================
+\subsection{Summary}
+% ================================================================
+
+The neuronal proto-excitable continuum $K_5$ is falsified if any of:
+
+\begin{itemize}
+    \item membrane potential $\Delta V$ cannot be maintained;
+    \item ion flows $J_5$ cannot create or sustain excitability;
+    \item cycles $C_5$ cannot close;
+    \item stochastic logic becomes noise-dominated;
+    \item structural tension $T_5$ exceeds thresholds;
+    \item the transition $\Psi_{4\to 5}$ is not viable.
+\end{itemize}
+
+If these conditions fail, the electrical axis collapses,
+and no neuronal lineage toward $K_6$ can arise.
