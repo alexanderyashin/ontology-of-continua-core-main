@@ -2,12 +2,343 @@
 % ==== FILE: content/jets/jets_k7.tex
 % ================================================================
 
-% ==============================
-%  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/jets/jets_k7.tex
-%  Status: EMPTY — TO BE FILLED
-% ==============================
-
 \section{Jets on $K_7$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:jets-k7}
+
+The level $K_7$ introduces social continua: multi-agent structures with
+collective states, norms, roles, distributed information, and
+institutional constraints. Jets on $K_7$ provide the infinitesimal
+analysis of social potentials, flows, coordination mechanisms, and
+instability thresholds governing cooperation, conflict, and institutional
+persistence.
+
+
+% ================================================================
+\subsection{State Space and Jet Coordinates of $K_7$}
+% ================================================================
+
+A social-state $\omega_7$ consists of
+\[
+\omega_7 = 
+(G,\ R,\ S,\ N,\ P,\ J),
+\]
+where:
+\begin{itemize}
+    \item $G$ — group-structure configuration (membership, topology),
+    \item $R$ — role assignments and behavioural repertoires,
+    \item $S$ — status and authority distributions,
+    \item $N$ — norms and institutional constraints,
+    \item $P$ — social potentials (trust, cohesion, sanction pressure),
+    \item $J$ — social flows (information, resources, influence).
+\end{itemize}
+
+The $m$-$n$ jet bundle of $K_7$:
+\[
+J^{m,n}(K_7)
+=
+\big\{
+\partial_t^k \partial_{A_7}^\ell (G,R,S,N,P,J)
+\big\},
+\quad
+0\le k\le m,\; 0\le\ell\le n,
+\]
+where $A_7$ denotes the set of social axes (coordination, imitation,
+status-gradient, normative force, institutional rigidity, network
+connectivity).
+
+
+% ================================================================
+\subsection{Jets of Group Structure $G$}
+% ================================================================
+
+Group structure evolves by:
+\[
+\dot{G} = F_G(G,S,P,J_{\mathrm{comm}}).
+\]
+
+Jets:
+\[
+J^1(G) = \{\dot{G},\ \partial_{A_7}G\}.
+\]
+
+Interpretation:
+\begin{itemize}
+    \item changes in group topology (coalitions, fragmentation),
+    \item sensitivity to trust potentials and influence gradients,
+    \item onset of coordination or polarisation,
+    \item conditions for network bifurcations.
+\end{itemize}
+
+
+% ================================================================
+\subsection{Jets of Roles $R$}
+% ================================================================
+
+Roles formalise stable behavioural channels:
+\[
+\dot{R}=F_R(R,N,S,P).
+\]
+
+Jets:
+\[
+\partial_{A_7}R
+=
+\partial_{S}R\,\partial_{A_7}S
++\partial_{N}R\,\partial_{A_7}N
++\partial_{P}R\,\partial_{A_7}P.
+\]
+
+They encode:
+\begin{itemize}
+    \item role-switch dynamics,
+    \item emergence of functional differentiation,
+    \item instability when norms degrade,
+    \item coupling between status and role coherence.
+\end{itemize}
+
+
+% ================================================================
+\subsection{Jets of Status Distribution $S$}
+% ================================================================
+
+Status field:
+\[
+\dot{S}=F_S(S,G,P,J_{\mathrm{influence}}).
+\]
+
+Jet:
+\[
+J^1(S)=\{\dot{S},\ \partial_{A_7}S\}.
+\]
+
+Interpretation:
+\begin{itemize}
+    \item status competition and stabilisation,
+    \item influence propagation,
+    \item transition from hierarchical to flat structures,
+    \item bifurcations at institutional thresholds $\Theta_{\mathrm{inst}}$.
+\end{itemize}
+
+
+% ================================================================
+\subsection{Jets of Norms and Institutional Constraints $N$}
+% ================================================================
+
+Norm dynamics:
+\[
+\dot{N} = F_N(N,P,S,J_{\mathrm{sanction}}).
+\]
+
+Jets:
+\[
+\partial_{A_7}N 
+= 
+\partial_P N\, \partial_{A_7}P
++
+\partial_S N\, \partial_{A_7}S.
+\]
+
+Norm jets capture:
+\begin{itemize}
+    \item stability of rule-sets,
+    \item emergence of local conventions,
+    \item institutional drift,
+    \item conditions of breakdown when normative force falls below
+          $\Theta_{\mathrm{norm}}$.
+\end{itemize}
+
+
+% ================================================================
+\subsection{Jets of Social Potentials $P_7$}
+% ================================================================
+
+Social potentials include trust, cohesion, sanction pressure, expectation
+alignment, and cooperative incentive structure:
+\[
+P = (P_{\mathrm{trust}}, P_{\mathrm{cohesion}}, P_{\mathrm{sanction}},
+P_{\mathrm{coord}}, P_{\mathrm{inst}}).
+\]
+
+Their jets:
+\[
+J^1(P)=\{\dot{P},\ \partial_{A_7}P\}.
+\]
+
+These derivatives quantify:
+\begin{itemize}
+    \item erosion or reinforcement of trust,
+    \item formation of cooperative equilibria,
+    \item phase transitions between coordination regimes,
+    \item strengthening or weakening of institutions.
+\end{itemize}
+
+
+% ================================================================
+\subsection{Jets of Social Flows $J_7$}
+% ================================================================
+
+Flows in $K_7$ include:
+\[
+J_{\mathrm{comm}},\;
+J_{\mathrm{resource}},\;
+J_{\mathrm{influence}},\;
+J_{\mathrm{sanction}},\;
+J_{\mathrm{coord}}.
+\]
+
+Dynamics:
+\[
+\dot{J}_7 = F_J(J_7, P, G, S, N).
+\]
+
+Jet:
+\[
+J^1(J_7)=\{\dot{J}_7,\ \partial_{A_7}J_7\}.
+\]
+
+Interpretation:
+\begin{itemize}
+    \item stability of communication networks,
+    \item propagation of influence and norms,
+    \item coordination efficiency,
+    \item onset of systemic conflict or alignment.
+\end{itemize}
+
+
+% ================================================================
+\subsection{Jets of Social Thresholds $\Theta_7$}
+% ================================================================
+
+Key thresholds:
+\[
+\Theta_7 =
+\{
+\Theta_{\mathrm{trust}},\,
+\Theta_{\mathrm{cohesion}},\,
+\Theta_{\mathrm{norm}},\,
+\Theta_{\mathrm{inst}},\,
+\Theta_{\mathrm{coord}}
+\}.
+\]
+
+Their jets:
+\[
+J^1(\Theta_7)=\{\dot{\Theta}_7,\ \partial_{A_7}\Theta_7\}.
+\]
+
+Threshold jets describe:
+\begin{itemize}
+    \item proximity to institutional collapse,
+    \item formation of new stable norms,
+    \item collective action failure,
+    \item condensation of coordinated behaviour.
+\end{itemize}
+
+
+% ================================================================
+\subsection{Jets of Social Cycles $C_7$}
+% ================================================================
+
+The social continuum contains characteristic cycles:
+\[
+C_{\mathrm{coord}},\;
+C_{\mathrm{norm}},\;
+C_{\mathrm{status}},\;
+C_{\mathrm{resource}},\;
+C_{\mathrm{influence}},\;
+C_{\mathrm{institution}}.
+\]
+
+A jet of a cycle $C_j$ is:
+\[
+J^1(C_j)
+=
+\{
+\partial_t X_j,\;
+\partial_{A_7}X_j
+\},
+\quad 
+X_j\in\{G,R,S,N,P,J\}.
+\]
+
+Cycle jets diagnose:
+\begin{itemize}
+    \item coordination oscillations and coherence domains,
+    \item status rivalry / stabilisation,
+    \item normative reinforcement loops,
+    \item resource redistribution dynamics,
+    \item institutional drift and lock-in,
+    \item conditions for emergence of $K_8$-level structures.
+\end{itemize}
+
+
+% ================================================================
+\subsection{Jets and Boundary Stability $\partial\Omega(K_7)$}
+% ================================================================
+
+The social continuum becomes unstable when:
+\[
+\partial_{A_7}(P_{\mathrm{trust}} - \Theta_{\mathrm{trust}}) < 0,
+\]
+or
+\[
+\partial_{A_7}(P_{\mathrm{inst}} - \Theta_{\mathrm{inst}}) < 0,
+\]
+indicating breakdown of trust or institutional authority.
+
+Similarly, coordination collapse occurs if
+\[
+\partial_{A_7}(P_{\mathrm{coord}} - \Theta_{\mathrm{coord}})<0.
+\]
+
+Jets quantify distances to these boundaries and predict which axes are
+responsible for approaching $\partial\Omega$.
+
+
+% ================================================================
+\subsection{Jets and the Transition $K_6 \to K_7$}
+% ================================================================
+
+The emergence of the social continuum arises when cognitive models
+become aligned across agents:
+
+\[
+\partial_{A_7}G
+\propto
+\partial_{A_6}M_{\mathrm{shared}},
+\qquad
+\partial_{A_7}N
+\propto
+\partial_{A_6}\Pi_{\mathrm{collective}},
+\]
+
+\[
+\partial_{A_7}P_{\mathrm{trust}}
+\propto
+\partial_{A_6}C_{\mathrm{model}}.
+\]
+
+Thus, jets of $K_6$ (model coherence, attention, prediction cycles)
+stabilise and extend into the social domain, giving rise to coordinated
+groups, norms, and institutions.
+
+
+% ================================================================
+\subsection{Summary}
+% ================================================================
+
+Jets on $K_7$ formalise the infinitesimal structure of social continua:
+
+\begin{itemize}
+    \item group topology and coordination,
+    \item role and status differentiation,
+    \item norm dynamics and institutional strength,
+    \item social potentials (trust, cohesion, sanction),
+    \item information and resource flows,
+    \item social thresholds and boundary stability,
+    \item characteristic coordination and norm cycles,
+    \item emergence of collective structures from $K_6$ cognition.
+\end{itemize}
+
+They form the transition layer toward $K_8$, where symbolic and
+civilisational structures emerge.
