@@ -2,12 +2,188 @@
 % ==== FILE: content/cycles/cycles_k3.tex
 % ================================================================
 
-% ==============================
-%  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/cycles/cycles_k3.tex
-%  Status: EMPTY — TO BE FILLED
-% ==============================
-
 \section{Cycles on $K_3$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:cycles-k3}
+
+Level $K_3$ corresponds to the RAF–chemical continuum: 
+a self-sustaining reaction network enabled by autocatalysis and
+F-closure.  
+Its state space is given by
+\[
+  \Omega(K_3) = \{(M,R,C,F)\mid (M',R')\in \mathrm{RAF}(G_2)\},
+\]
+where $G_2$ is the connectivity graph inherited from $K_2$,
+and the RAF condition enforces both autocatalytic support and reachability
+of all reactants from the food-set $F$.
+Cycles on $K_3$ emerge as recurrent chemical transformations involving
+reaction pathways, catalytic flows, and closure restoration.
+
+\subsection{Fundamental Types of Cycles on $K_3$}
+
+Three structural classes of cycles define the dynamical complexity of
+the RAF–continuum.
+
+\paragraph{(1) Autocatalytic Reaction Cycles.}
+
+These are closed paths in reaction space:
+\[
+  m_{i_1}\xrightarrow{r_1} m_{i_2}
+    \xrightarrow{r_2} \dots
+    \xrightarrow{r_k} m_{i_1},
+\]
+where each reaction $r_j$ is catalysed by some $m\in M'$.
+Such cycles maintain concentrations, control production ratios, and
+propagate RAF stability.
+They represent the minimal dynamical substrate of $K_3$.
+
+\paragraph{(2) F-closure Restoration Cycles.}
+
+The RAF property requires:
+\[
+  \text{all reactants in } R' \text{ must be reachable from } F.
+\]
+Perturbations (e.g.\ deficit of a molecule) can temporarily break
+F-closure.
+Cycles restoring F-closure satisfy:
+\[
+  F \to M_{\mathrm{lost}} \to M_{\mathrm{restored}} \to F
+\]
+and are essential for the viability of $K_3$.
+They interact directly with the threshold $\Theta_{\mathrm{kas}}$.
+
+\paragraph{(3) Energetic and Redox Cycles.}
+
+Following the extended chemical block (memory~\#52),
+chemical potentials include:
+\[
+  P_{\mathrm{chem}}(t),\;
+  P_{\mathrm{redox}}(t),\;
+  P_{\mathrm{grad}}(t).
+\]
+Correspondingly, $K_3$ supports energetic cycles:
+\[
+  C_{\mathrm{energy}}: 
+  P_{\mathrm{chem}}\to P_{\mathrm{redox}}
+    \to P_{\mathrm{grad}} \to P_{\mathrm{chem}},
+\]
+which prefigure the metabolic and gradient cycles of $K_4$.
+
+These processes keep the RAF system within the energy-viable region
+of state space.
+
+\subsection{Structural Tension and Thresholds}
+
+The structural tension $T_3(t)$ is determined by:
+\[
+  T_3 = 
+   f\bigl(
+     \mathrm{deficit}_{\mathrm{catalysis}},\;
+     1-\rho_{\mathrm{closure}},\;
+     \mathrm{energy\ deficit},\;
+     \mathrm{redox\ imbalance}
+   \bigr),
+\]
+where $\rho_{\mathrm{closure}}$ is the closure metric defined by:
+\[
+  \rho_{\mathrm{closure}} =
+    \frac{\text{number of reachable reactants from } F}
+         {\text{total reactants in } R'}.
+\]
+
+Cycle viability requires:
+\[
+  T_3(t) < \Theta_{\mathrm{death}}^{(3)},
+\]
+and RAF existence requires:
+\[
+  \rho_{\mathrm{cat}} \cdot \rho_{\mathrm{closure}}
+  \ge \Theta_{\mathrm{kas}}.
+\]
+
+Thus cycles on $K_3$ exist inside a sharply defined viability region.
+
+\subsection{Metrics of Cycles on $K_3$}
+
+Consistent with the universal metrics (Run~9):
+
+\paragraph{Length.}
+\[
+  L(C) = \int_0^\tau \|J_{\mathrm{chem}}(t)\|\, dt,
+\]
+where $J_{\mathrm{chem}}$ is the reaction–flow vector.
+
+\paragraph{Efficiency.}
+\[
+  C_{\mathrm{eff}}
+   = \frac{1}{L(C)}
+     \int_0^\tau J_{\mathrm{chem}}(t)\cdot dA_{\mathrm{chem}}(t),
+\]
+where $A_{\mathrm{chem}}$ are chemical-state axes (active/inactive
+reaction, presence/absence of species).
+
+\paragraph{Stability.}
+\[
+  S(C) = \min_{t\in[0,\tau]}
+         d\bigl(
+           \Omega(K_3),\;
+           \partial\Omega(K_3)
+         \bigr),
+\]
+which corresponds to proximity to breaking either autocatalysis or
+closure.
+
+\paragraph{Weight.}
+\[
+  w(C) = F\bigl(
+           C_{\mathrm{eff}},\;
+           S(C),\;
+           \mathrm{energy\ turnover}
+         \bigr).
+\]
+
+\subsection{Time and Cycle Periods}
+
+The chemical time on $K_3$ is defined via:
+\[
+  \tau(K_3) = \int \frac{ds}{v_{\mathrm{chem}}},
+\]
+where $v_{\mathrm{chem}}$ is the effective reaction velocity.
+For RAF cycles, the characteristic recurrence period is:
+\[
+  \tau_{\mathrm{RAF}}
+  \sim \frac{1}{k_{\mathrm{cat}}}
+\]
+where $k_{\mathrm{cat}}$ is the effective catalytic rate.
+
+Time itself is thus a function of recurring reaction structure.
+
+\subsection{Birth of Higher-Level Cycles}
+
+Cycles at $K_3$ serve as the precursors to $K_4$ cycles:
+
+\begin{itemize}
+  \item membrane-maintenance cycles,
+  \item energy–gradient cycles across a boundary,
+  \item proto-metabolic loops,
+  \item pre-excitability cycles (via ion or proton gradients).
+\end{itemize}
+
+The continuity map $K_3\to K_4$ (memory \#55, \#62, \#69, \#70)
+shows that cycles of:
+
+\[
+  (P_{\mathrm{chem}}, P_{\mathrm{grad}}, J_{\mathrm{chem}})
+\]
+
+gradually become:
+
+\[
+  (P_{\mathrm{mem}}, P_{\mathrm{grad}}, J_{\mathrm{in/out}})
+\]
+
+as a membrane $\partial\Omega$ forms.
+
+Thus cycles on $K_3$ encode the earliest organisational structure 
+from which biological cycles (metabolic, membrane, excitability)
+emerge.
+
