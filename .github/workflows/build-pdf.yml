@@ -1,4 +1,4 @@
-name: Build LaTeX PDF
+name: Build Core PDF
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Install TeX Live
@@ -18,14 +18,13 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y texlive-full latexmk
 
-      - name: Build PDF (XeLaTeX)
-        run: |
-          mkdir -p build
-          latexmk -xelatex -interaction=nonstopmode -output-directory=build main.tex
-          mkdir -p build/logs
-          cp build/main.log build/logs/compile.log || true
+      - name: Make build script executable
+        run: chmod +x build_core.sh
 
-      - name: Upload PDF Artifact
+      - name: Build Core 1.1 PDF via build_core.sh
+        run: ./build_core.sh
+
+      - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
           name: OK-Core-1.1-PDF
