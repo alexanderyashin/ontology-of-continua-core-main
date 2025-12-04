@@ -2,12 +2,284 @@
 % ==== FILE: content/cycles/cycles_k5.tex
 % ================================================================
 
-% ==============================
-%  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/cycles/cycles_k5.tex
-%  Status: EMPTY — TO BE FILLED
-% ==============================
-
 \section{Cycles on $K_5$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:cycles-k5}
+
+Level $K_5$ corresponds to the early neural (bioelectrical) continuum.
+It is defined by the presence of an excitable membrane, ion-channel
+architecture, threshold-governed spikes, recovery dynamics, and
+electrical–chemical coupling.  
+Cycles on $K_5$ represent the fundamental recurrent processes that endow
+the system with excitability, signalling, rhythmicity and proto-network
+coordination.
+
+\subsection{Overview of Cycle Structure on $K_5$}
+
+According to the representability theorem for neurons (memory~\#26),
+the state space $\Omega(K_5)$ includes:
+\[
+  V_m(t),\;
+  P_{\mathrm{ion}}(t),\;
+  \{g_i(t)\},\;
+  \{w_{ij}(t)\},\;
+  \mathrm{Ca}^{2+}(t),\;
+  \mathrm{channel\ states},
+\]
+with thresholds:
+\[
+  \Theta_{\mathrm{spike}},\;
+  \Theta_{\mathrm{exc}},\;
+  \Theta_{\mathrm{noise-elec}},\;
+  \Theta_{\mathrm{front}},\;
+  \Theta_{\mathrm{refrac}},\;
+  \Theta_{\mathrm{spatial}}.
+\]
+
+Cycles arise when flows $J(t)$, potentials $P(t)$, and axes $A(t)$
+return to an equivalent configuration after a finite time $\tau$.
+Time exists on $K_5$ only because these cycles are stable and recurrent.
+
+The core families of cycles are:
+
+\begin{itemize}
+  \item action-potential cycles $C_{\mathrm{spike}}$,
+  \item subthreshold oscillatory cycles $C_{\mathrm{sub}}$,
+  \item refractory-reset cycles $C_{\mathrm{refrac}}$,
+  \item channel-gating cycles $C_{\mathrm{gate}}$,
+  \item calcium/second-messenger cycles $C_{\mathrm{Ca}}$,
+  \item synaptic potentiation/depression cycles $C_{\mathrm{syn}}$,
+  \item network rhythmic cycles $C_{\mathrm{net}}$ forming the extended continuum $K_5'$.
+\end{itemize}
+
+\subsection{1. Action-Potential Cycles $C_{\mathrm{spike}}$}
+
+The spike is a phase transition caused by:
+\[
+  T(t) > \Theta_{\mathrm{spike}},
+\]
+as stated in memory~\#26.
+
+A complete cycle consists of:
+\[
+  \mathrm{rest} 
+  \;\to\;
+  \mathrm{depolarisation}
+  \;\to\;
+  \mathrm{overshoot}
+  \;\to\;
+  \mathrm{repolarisation}
+  \;\to\;
+  \mathrm{hyperpolarisation}
+  \;\to\;
+  \mathrm{rest}.
+\]
+
+Formally:
+\[
+  C_{\mathrm{spike}}
+  =\{(V_m(t), g_i(t), P_{\mathrm{ion}}(t))\}_{t_0}^{t_0+\tau_{\mathrm{spike}}},
+\]
+with period $\tau_{\mathrm{spike}} < \infty$.
+
+The spike cycle is the canonical electrical cycle on $K_5$ and the 
+central element of its structural identity.
+
+\subsection{2. Subthreshold Oscillatory Cycles $C_{\mathrm{sub}}$}
+
+When the membrane potential oscillates without crossing 
+$\Theta_{\mathrm{spike}}$ but approaches the excitable regime:
+\[
+  |V_m(t) - V_{\mathrm{rest}}| < \Theta_{\mathrm{exc}},
+\]
+recurrent oscillations emerge:
+\[
+  V_m(t) = V_{\mathrm{rest}} + A\sin(\omega t).
+\]
+
+These cycles are precursors to rhythmogenesis in $K_5'$.
+
+\subsection{3. Refractory-Reset Cycles $C_{\mathrm{refrac}}$}
+
+Following a spike, thresholds shift (memory~\#26, \#77):
+\[
+  \Theta_{\mathrm{spike}}(t+\delta t)
+  >
+  \Theta_{\mathrm{spike}}(t).
+\]
+
+The refractory cycle is:
+\[
+  \mathrm{spike} 
+  \to 
+  \mathrm{absolute\ refractory}
+  \to
+  \mathrm{relative\ refractory}
+  \to
+  \mathrm{threshold\ reset}.
+\]
+
+Its period $\tau_{\mathrm{refrac}}$ determines the maximal firing rate.
+
+\subsection{4. Channel-Gating Cycles $C_{\mathrm{gate}}$}
+
+Ion channels undergo cyclic transitions among states:
+\[
+  S_i \in \{\mathrm{open}, \mathrm{closed}, \mathrm{inactive}\}.
+\]
+
+The gating cycle is driven by:
+\[
+  g_i(t) = g_{\mathrm{max}} m(t)^p h(t)^q,
+\]
+where $m,h$ satisfy their own recurrence equations.
+
+The full cycle:
+\[
+  S_i^{(\mathrm{open})}
+  \to 
+  S_i^{(\mathrm{inactive})}
+  \to
+  S_i^{(\mathrm{closed})}
+  \to
+  S_i^{(\mathrm{open})}.
+\]
+
+Gating cycles stabilise $C_{\mathrm{spike}}$ and $C_{\mathrm{sub}}$.
+
+\subsection{5. Calcium and Second-Messenger Cycles $C_{\mathrm{Ca}}$}
+
+Calcium concentration dynamics:
+\[
+  \mathrm{Ca}^{2+}(t)
+  \leftrightarrows
+  \mathrm{buffered\; Ca},\;
+  \mathrm{pumped\; Ca},
+\]
+form cycles involving release, sequestration and pumping.
+
+Stability requires:
+\[
+  T_{\mathrm{Ca}} < \Theta_{\mathrm{noise-elec}}.
+\]
+
+These cycles modulate both excitability and synaptic change.
+
+\subsection{6. Synaptic Potentiation/Depression Cycles $C_{\mathrm{syn}}$}
+
+Sustained activity leads to cyclic modulation of synaptic weight:
+\[
+  w_{ij}(t+\tau) = w_{ij}(t),
+\]
+driven by:
+\[
+  J_{\mathrm{pre}},\; J_{\mathrm{post}},\; [\mathrm{Ca}^{2+}],
+\]
+and threshold conditions for plasticity:
+\[
+  T_{\mathrm{plastic}} > \Theta_{\mathrm{plastic}}.
+\]
+
+These cycles enable memory and persistent patterns.
+
+\subsection{7. Network-Level Cycles $C_{\mathrm{net}}$ (Continuum $K_5'$)}
+
+Using the representability theorem for neural networks (memory~\#26),
+a network forms an extended continuum $K_5'$ with cycles:
+
+\[
+  C_{\mathrm{rhythm}},
+  \qquad
+  C_{\mathrm{sync}},
+  \qquad
+  C_{\mathrm{burst}}.
+\]
+
+They arise when collective activation fields
+$p_i(t)$ satisfy the recurrence:
+\[
+  p_i(t+\tau) = p_i(t),
+\]
+and threshold conditions:
+\[
+  T_{\mathrm{sync}} < \Theta_{\mathrm{front}},\qquad
+  T_{\mathrm{burst}} < \Theta_{\mathrm{spatial}}.
+\]
+
+These cycles are the basis of organized oscillations and
+proto-cognition in $K_5'$.
+
+\subsection{Metrics of Cycles on $K_5$}
+
+Using the universal cycle metrics (memory~\#41):
+
+\paragraph{Length.}
+\[
+  L(C)=\oint d\Omega(K_5).
+\]
+
+\paragraph{Efficiency.}
+\[
+  C_{\mathrm{eff}}=\frac{\oint J\cdot dA}{L(C)},
+\]
+where $A$ includes:
+\[
+  A_{\mathrm{exc}},\;
+  A_{\mathrm{ion}},\;
+  A_{\mathrm{syn}},\;
+  A_{\mathrm{Ca}}.
+\]
+
+\paragraph{Stability.}
+\[
+  S(C) = 
+    \min\limits_{t\in C}
+      d\bigl(\Omega(K_5),\partial\Omega(K_5)\bigr).
+\]
+
+\paragraph{Weight.}
+\[
+  w(C) =
+    F\bigl(C_{\mathrm{eff}}, S(C), P_{\mathrm{ion}},
+      P_{\mathrm{Ca}}, w_{ij}\bigr).
+\]
+
+\subsection{Collapse of $C(K_5)$}
+
+According to memory~\#69, collapse occurs if:
+
+\[
+  \Theta_{\mathrm{exc}},\;
+  \Theta_{\mathrm{spike}},\;
+  \Theta_{\mathrm{noise-elec}},\;
+  \Theta_{\mathrm{front}},\;
+  \Theta_{\mathrm{spatial}},\;
+  \Theta_{\mathrm{refrac}}
+\]
+are violated.
+
+Then:
+\[
+  C_j \to \varnothing,
+\qquad
+  \Omega(K_5)=\varnothing,
+\qquad
+  k_5\to 0.
+\]
+
+\subsection{Continuity from $K_4$ to $K_5$}
+
+From Polish~W3 (memory~\#74), the transition is $C^1$-continuous:
+\[
+  C_{\mathrm{exc}}^{(K_4)}
+   \longrightarrow
+  C_{\mathrm{spike}}^{(K_5)},
+\]
+with smooth emergence of:
+\[
+  A_{\mathrm{exc}},\quad
+  \Theta_{\mathrm{spike}},\quad
+  C_{\mathrm{refrac}}.
+\]
+
+This soft transition ensures the viability of the first neural cells.
+
