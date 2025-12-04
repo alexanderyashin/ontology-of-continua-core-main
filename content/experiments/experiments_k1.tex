@@ -2,12 +2,168 @@
 % ==== FILE: content/experiments/experiments_k1.tex
 % ================================================================
 
-% ==============================
-%  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/experiments/experiments_k1.tex
-%  Status: EMPTY — TO BE FILLED
-% ==============================
-
 \section{Experiments for $K_1$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:experiments-k1}
+
+The continuum level $K_1$ represents the first fully realized continuum in
+the Ontology of Continua.  
+It is defined as a smooth one–dimensional manifold $X = (a,b)$ equipped with:
+\begin{itemize}
+    \item a state space $\Omega(K_1)$ satisfying 
+          $C^0(T,H^1(X,V))\cap C^1(T,L^2(X,V))$;
+    \item the axis $A_1(x)=x$;
+    \item potentials $P_1(t,x)$;
+    \item flows $J_1(t,x)$;
+    \item structural tension $T_1(t)$;
+    \item a stability threshold $\Theta_1$;
+    \item the trivial cycle $C_{\mathrm{triv}}$;
+    \item a well–defined time parameter $\tau(K_1)$.
+\end{itemize}
+
+Because $K_1$ is the lowest continuum that possesses genuine dynamics,  
+its experimental programme establishes the basic empirical and analytic 
+tests that validate the continuum formalism and its evolution operator 
+$E(K_1)$.
+
+
+\subsection{Objectives of $K_1$ Experiments}
+
+Experiments at the level of $K_1$ aim to verify:
+
+\begin{enumerate}
+    \item \textbf{Existence and smoothness of the continuum.}  
+          Confirming the manifold structure of $X=(a,b)$
+          and the smoothness requirements on fields.
+
+    \item \textbf{Correctness of the axis $A_1$.}  
+          The axis must correspond to the real coordinate of the 
+          manifold and must remain stable under the evolution operator.
+
+    \item \textbf{Continuity and differentiability of flows.}  
+          Flows $J_1(t,x)$ must satisfy the regularity imposed by the 
+          space $\Omega(K_1)$ and produce finite energy and tension.
+
+    \item \textbf{Existence of a trivial cycle.}  
+          The cycle $C_{\mathrm{triv}}$ must be realizable in practice:
+          a constant or periodic configuration with vanishing net flow.
+
+    \item \textbf{Threshold behaviour.}  
+          Experimental perturbations must reproduce the critical 
+          condition $T_1 = \Theta_1$ marking the onset of instability.
+
+    \item \textbf{Reproducibility of the evolution operator.}  
+          Numerical and analytical experiments must validate the 
+          operator $E(K_1)$ as defined in Core~1.1.
+\end{enumerate}
+
+
+\subsection{Type~I Experiments: Continuity and Smoothness}
+
+These experiments verify that fields inhabiting $\Omega(K_1)$ satisfy the
+required regularity:
+
+\begin{itemize}
+    \item $P_1(t,x)$ and $J_1(t,x)$ must be continuous in $t$ and $x$;
+    \item spatial derivatives must lie in $L^2(X)$;
+    \item temporal derivatives must lie in $L^2(X)$ in the sense of 
+          distributions.
+\end{itemize}
+
+Typical experiments:
+
+\begin{enumerate}
+    \item Approximating fields by smooth test functions and evaluating 
+          convergence in $H^1$.
+    \item Numerical integration of flows with imposed small perturbations.
+    \item Regularity checks via discrete Sobolev norms.
+\end{enumerate}
+
+
+\subsection{Type~II Experiments: Flow Stability and Tension}
+
+The structural tension $T_1(t)$ is measurable through the deviation of flows
+from stable configurations.  
+Experiments focus on:
+
+\begin{itemize}
+    \item establishing a stable flow $J_1^{\mathrm{stable}}(x)$ with minimal tension;
+    \item perturbing it and measuring $T_1(t)$ as the system relaxes;
+    \item identifying the threshold $\Theta_1$ at which relaxation fails.
+\end{itemize}
+
+Such tests validate the definition of stability encoded in the Core.
+
+
+\subsection{Type~III Experiments: Existence of the Trivial Cycle}
+
+The trivial cycle $C_{\mathrm{triv}}$ is defined as a configuration that
+remains invariant under evolution:
+\[
+    E(K_1)[C_{\mathrm{triv}}] = C_{\mathrm{triv}}.
+\]
+
+Experiments include:
+
+\begin{enumerate}
+    \item constructing constant fields $P_1(x)=\mathrm{const}$,
+          $J_1(x)=0$;
+    \item evolving them numerically or analytically;
+    \item verifying invariance and stability for small perturbations.
+\end{enumerate}
+
+These experiments establish the existence of time at $K_1$ in the precise
+sense of a closed minimal cycle.
+
+
+\subsection{Type~IV Experiments: Threshold Dynamics}
+
+Experiments probe the behaviour near the critical threshold $\Theta_1$:
+
+\begin{itemize}
+    \item applying increasing perturbations to a stable configuration;
+    \item measuring tension $T_1$ as a function of perturbation amplitude;
+    \item detecting the point where $T_1 = \Theta_1$;
+    \item observing the onset of instability or collapse.
+\end{itemize}
+
+These tests confirm the role of $\Theta_1$ as an existence and stability
+threshold.
+
+
+\subsection{Type~V Experiments: Validation of $E(K_1)$}
+
+The evolution operator $E(K_1)$ must satisfy:
+
+\[
+    K_1(t+\Delta t) = E(K_1(t)).
+\]
+
+Experiments validate this by:
+
+\begin{enumerate}
+    \item integrating the fields forward in time using numerical schemes;
+    \item checking conservation or decay properties of energy $E_1$;
+    \item verifying tension evolution $dT_1/dt$ against theoretical 
+          predictions derived from the Core equations;
+    \item benchmarking analytical solutions against the evolution operator.
+\end{enumerate}
+
+These experiments are the first point where the general evolution operator
+from the Core becomes empirically testable.
+
+
+\subsection{Summary}
+
+Experiments on $K_1$ establish the foundations of physical dynamics in the
+Ontology of Continua:
+
+\begin{itemize}
+    \item continuity,
+    \item smoothness,
+    \item flow regularity,
+    \item existence of cycles,
+    \item threshold behaviour,
+    \item validity of evolution.
+\end{itemize}
+
+All higher levels depend on the correctness of these baseline tests.
