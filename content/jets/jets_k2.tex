@@ -2,12 +2,303 @@
 % ==== FILE: content/jets/jets_k2.tex
 % ================================================================
 
-% ==============================
-%  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/jets/jets_k2.tex
-%  Status: EMPTY — TO BE FILLED
-% ==============================
-
 \section{Jets on $K_2$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:jets-k2}
+
+The continuum $K_2$ is the first level in the OC hierarchy that admits
+a genuine geometric substrate. Unlike $K_1$, where only temporal jets
+exist, the emergent axis $A_{\mathrm{geom}}$ at $K_2$ supports
+spatial structure, spatial gradients, and geometric contributions to the
+energy and tension. Jets on $K_2$ therefore include both temporal and
+spatial components. They encode the fine-scale behaviour of fields near
+percolation thresholds, cluster boundaries, and structural transitions
+that enable the emergence of higher-order continua such as $K_3$.
+
+
+
+% ================================================================
+\subsection{Jet Space and Geometric Axis}
+% ================================================================
+
+The emergence of $K_2$ occurs through the operator $F_{1\to2}$, which
+introduces a new axis
+\[
+A_{\mathrm{geom}}\notin \text{span}\{A_1\}.
+\]
+This axis supports spatial variation and connectedness structures.
+
+A configuration on $K_2$ is a field
+\[
+\phi : X \to V,
+\]
+where $X$ now carries minimal geometric structure sufficient to define
+adjacency, neighbourhoods, and spatial differences.
+
+The $(m,n)$-jet of $\phi$ at $K_2$ consists of all mixed temporal and
+spatial derivatives up to order $m$ in time and $n$ in space:
+\[
+J^{m,n}(\phi) =
+\left\{
+\partial_t^k \partial_x^\ell \phi \;\middle|\; 0\le k\le m,\; 0\le \ell\le n
+\right\}.
+\]
+
+Spatial jets make sense because $K_2$ possesses:
+
+\begin{itemize}
+    \item a geometric adjacency structure (arising from percolation),
+    \item definable local neighbourhoods,
+    \item minimal differentiability of admissible configurations.
+\end{itemize}
+
+
+
+% ================================================================
+\subsection{Jets and Percolation Structure}
+% ================================================================
+
+The structural hallmark of $K_2$ is the presence of clusters and
+connected components arising from percolation. A configuration $\phi$
+near the percolation threshold $p_c$ has large correlation lengths and
+strong sensitivity to small perturbations.
+
+Let $\mathcal{C}(\phi)$ denote the connected cluster containing a
+reference point $x$. The jet of the cluster indicator is:
+\[
+J^1(\chi_{\mathcal{C}}) =
+\left\{
+\frac{d}{dt}\chi_{\mathcal{C}}(x,t),\;
+\partial_x \chi_{\mathcal{C}}(x,t)
+\right\}.
+\]
+
+Spatial jets capture how the local connectivity changes under
+perturbations. For example:
+\[
+\partial_x \chi_{\mathcal{C}}(x) \neq 0
+\quad\Longleftrightarrow\quad
+x\ \text{lies on a cluster boundary}.
+\]
+
+Temporal jets capture the rate at which a configuration approaches or
+moves away from the percolation threshold. These jets are essential in
+determining structural tension $T_2$.
+
+
+
+% ================================================================
+\subsection{Jets of the Energy Functional}
+% ================================================================
+
+The energy functional at $K_2$ includes spatial-derivative terms:
+\[
+E[\phi] = \int_X
+\left(
+\mathcal{E}_0(\phi)
++ \alpha\, |\nabla \phi|^2
+\right)\, d\mu_2,
+\]
+where $\alpha>0$ quantifies the geometric stiffness of the continuum.
+
+The jet of the energy is:
+\[
+J^1(E) =
+\left\{
+\frac{dE}{dt} =
+\int_X
+\left(
+\frac{\partial\mathcal{E}_0}{\partial\phi}\,\partial_t \phi
++
+2\alpha\, \nabla\phi \cdot \nabla(\partial_t \phi)
+\right)
+d\mu_2
+\right\}.
+\]
+
+Spatial jets appear even in the first temporal jet:
+\[
+\nabla \phi,\qquad \nabla(\partial_t \phi).
+\]
+
+They quantify how spatial structure contributes to the energy flow.
+
+
+
+% ================================================================
+\subsection{Mass as a Jet Derivative of Tension}
+% ================================================================
+
+The mass operator derived in the OC framework is
+\[
+m = \partial_{A_{\mathrm{geom}}} T_2,
+\]
+the structural derivative of the tension with respect to the geometric
+axis.
+
+Jets of tension take the form:
+\[
+J^{1,1}(T_2) =
+\left\{
+\frac{dT_2}{dt},\;
+\partial_x T_2
+\right\}.
+\]
+
+The presence of $\partial_x T_2$ is a purely $K_2$ phenomenon; it does
+not exist on $K_1$.
+
+Mass appears as a first-order spatial jet of tension. Thus:
+\[
+m(x) = \partial_x T_2(x).
+\]
+
+This interpretation reproduces the dependence of mass on geometric
+structure, including emergent mass from cluster boundaries, curvature of
+field configurations, and the energy of spatial gradients.
+
+
+
+% ================================================================
+\subsection{Jets of the Boundary \texorpdfstring{$\partial\Omega(K_2)$}{Boundary}}
+% ================================================================
+
+The admissible region $\Omega(K_2)$ is determined by the combined
+constraints of:
+
+\begin{itemize}
+    \item geometric connectivity,
+    \item bounded spatial gradients,
+    \item bounded tension $T_2<\Theta_2$.
+\end{itemize}
+
+The boundary $\partial\Omega(K_2)$ therefore has a nontrivial jet
+structure:
+\[
+J^{1,1}(\partial\Omega) =
+\left\{
+\partial_t\bigl(E[\phi]-\Theta_2\bigr),\;
+\partial_x\bigl(E[\phi]-\Theta_2\bigr)
+\right\}.
+\]
+
+The spatial component indicates where local geometric instabilities
+arise.
+
+A configuration approaches collapse when:
+\[
+T_2(x,t)\to \Theta_2
+\quad\text{and/or}\quad
+|\nabla\phi|\to\infty.
+\]
+
+The latter has no analogue at $K_1$.
+
+
+
+% ================================================================
+\subsection{Critical Jets Near the Percolation Threshold}
+% ================================================================
+
+Near the percolation threshold $p_c$, the continuum exhibits critical
+behaviour:
+
+\begin{itemize}
+    \item correlation length $\xi\to\infty$,
+    \item fluctuations become scale-free,
+    \item jet magnitudes diverge.
+\end{itemize}
+
+The jet signature of criticality is:
+\[
+|\nabla\phi| \sim \xi^{-1} \to 0,
+\qquad
+|\nabla^2\phi| \sim \xi^{-2} \to 0,
+\]
+but higher-order statistical jets (variance, covariance of jets) grow
+without bound.
+
+Critical jets mark the onset of dimension-increase readiness:
+\[
+T_2 \to \Theta_{\mathrm{dim}}
+\quad\Longrightarrow\quad
+A_{\mathrm{chem}}\ \text{becomes admissible (transition to $K_3$)}.
+\]
+
+
+
+% ================================================================
+\subsection{Admissibility of Jets on $K_2$}
+% ================================================================
+
+A jet $J^{m,n}(\phi)$ is admissible iff:
+
+\[
+T_2 < \Theta_2,
+\qquad
+|\nabla\phi| < G_{\max},
+\qquad
+\text{and}\quad
+\mathcal{C}(\phi)\ \text{percolates}.
+\]
+
+The explicit gradient bound $G_{\max}$ appears for the first time at
+$K_2$, since $K_1$ had no gradient energy.
+
+The violation of admissibility results in:
+
+\[
+\Omega(K_2)\to\varnothing,
+\qquad
+k_2 \to 0.
+\]
+
+
+
+% ================================================================
+\subsection{Role in the Transition \texorpdfstring{$K_2\to K_3$}{K2→K3}}
+% ================================================================
+
+Jets provide the analytic mechanism for the emergence of the chemical
+continuum $K_3$.
+
+The transition occurs when:
+
+\begin{itemize}
+    \item spatial jets become sufficiently structured,
+    \item tension gradients localize to form stable motifs,
+    \item energy jets favour formation of discrete interaction sites.
+\end{itemize}
+
+Formally:
+\[
+\partial_x T_2 \ \text{large and stable}
+\quad\Longrightarrow\quad
+A_{\mathrm{chem}}\in A(M_2)\setminus A(K_2),
+\]
+which is precisely the jet signature of the birth of chemical
+interaction axes.
+
+This is the geometric-to-chemical phase transition encoded in the
+operator $F_{2\to3}$.
+
+
+
+% ================================================================
+\subsection{Summary}
+% ================================================================
+
+Jets on $K_2$ are the first jets with full mixed temporal and spatial
+structure. They encode:
+
+\begin{itemize}
+    \item geometric variation,
+    \item percolation behaviour,
+    \item spatial gradients of tension (mass),
+    \item boundary geometry of $\partial\Omega(K_2)$,
+    \item critical phenomena near $p_c$,
+    \item admissibility constraints for stable continua,
+    \item the mechanism for emergence of $K_3$.
+\end{itemize}
+
+They form the mathematical backbone of the physical continuum and the
+bridge toward chemical organisation.
