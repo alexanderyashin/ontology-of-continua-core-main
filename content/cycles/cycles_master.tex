@@ -2,12 +2,191 @@
 % ==== FILE: content/cycles/cycles_master.tex
 % ================================================================
 
-% ==============================
-%  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/cycles/cycles_master.tex
-%  Status: EMPTY — TO BE FILLED
-% ==============================
+\section{Cycle Structure in the Ontology of Continua}
+\label{sec:cycles-master}
 
-\section{Overview}
-% PLACEHOLDER — TO BE FILLED
+This master section provides the unified formal framework for cycle
+structure in the Ontology of Continua (OC).  
+Cycles constitute the central mechanism of structural persistence:
+a continuum remains alive if and only if it maintains at least one
+structurally stable cycle that stays within its admissible state space
+\(\Omega(K)\) and maintains positive continuumness \(k(K,t)\).
+The material below consolidates all general results on cycles across
+levels \(K_0\)–\(K_{12}\), independent of domain-specific interpretations.
+
+\subsection{Definition of Cycles}
+
+A \emph{cycle} of a continuum \(K\) is a closed trajectory
+\[
+  C : [0,\tau] \to \Omega(K),
+  \qquad
+  C(0)=C(\tau),
+\]
+such that:
+\begin{enumerate}
+  \item \(C(t)\) remains strictly inside the admissible domain:
+        \(\mathrm{dist}(C(t),\partial\Omega(K)) > 0\);
+  \item the flow field \(J(t)\) supports the trajectory:
+        \(\dot{C}(t) = J\big(C(t),t\big)\);
+  \item the cycle forms a stable attractor under the evolution operator
+        \(E:K(t)\to K(t+dt)\).
+\end{enumerate}
+
+A cycle is \emph{structurally stable} if perturbations of potentials,
+flows or thresholds do not destroy its closed form:
+there exists \(\varepsilon > 0\) such that all trajectories with
+initial distance \(<\varepsilon\) return to the cycle within bounded time.
+
+\subsection{Role of Cycles in Continuum Persistence}
+
+In OC, cycles are not dynamical ornaments but structural necessities.
+They serve several essential functions:
+
+\begin{itemize}
+  \item \textbf{Maintain distance from the boundary \(\partial\Omega(K)\).}  
+        Without stable cycles, trajectories generically reach the boundary,
+        where thresholds saturate and the continuum collapses.
+  \item \textbf{Stabilise potentials and flows.}  
+        Cycles maintain oscillatory, periodic, quasi-periodic or recurrent
+        regimes that preserve the structural viability of \(K\).
+  \item \textbf{Carry the measure of continuumness.}  
+        The contribution of cycles enters explicitly into the global measure
+        \(k(K,t)\) through their stability, diversity and distance to
+        \(\partial\Omega(K)\).
+  \item \textbf{Ensure structural identity.}  
+        The presence of characteristic cycle complexes allows a continuum
+        to preserve its structural type across time.
+\end{itemize}
+
+As a consequence, the disappearance of all structurally stable cycles
+coincides with the death of the continuum.
+
+\subsection{Cycle Complexes}
+
+For most continua, cycles do not appear in isolation but in interconnected
+clusters called \emph{cycle complexes}.
+A cycle complex \(C_{\mathrm{cx}}\) is a finite or countably infinite
+collection of cycles \(\{C_i\}\) satisfying:
+
+\begin{enumerate}
+  \item shared supporting flows;
+  \item structural compatibility under perturbations of thresholds;
+  \item existence of transition paths between cycles that do not reach
+        \(\partial\Omega(K)\).
+\end{enumerate}
+
+The \emph{maximal cycle complex} \(C_{\max}(K)\) is the set of all cycles
+that remain stable under the full threshold landscape \(\Theta(K)\).
+
+Theorem~7 (OC Core) states that
+\[
+  C_{\max}(K) = \emptyset
+  \quad\Longleftrightarrow\quad
+  \Omega(K) = \emptyset,
+\]
+i.e.\ death is equivalent to the disappearance of the maximal cycle complex.
+
+\subsection{Metrics on Cycles}
+
+OC defines several universal metrics on cycles, needed for expressing
+continuumness, structural tension and stability criteria.
+
+\paragraph{Length.}
+The geometric or functional length of a cycle is defined by
+\[
+  L(C) = \int_{0}^{\tau} \big\|\dot{C}(t)\big\|\, dt.
+\]
+
+\paragraph{Efficiency.}
+Cycle efficiency measures the degree to which flows align with axes:
+\[
+  C_{\mathrm{eff}}(C)
+  = \frac{1}{L(C)} \int_0^{\tau}
+      J(C(t),t)\cdot dA(C(t))
+    \,.
+\]
+
+\paragraph{Stability.}
+The distance of a cycle to the boundary is
+\[
+  S(C) = \min_{t\in[0,\tau]}
+         d\!\left(C(t),\partial\Omega(K)\right).
+\]
+
+This quantity plays a fundamental role:
+\[
+  S(C)=0
+  \quad\Longleftrightarrow\quad
+  C \text{ is not structurally viable}.
+\]
+
+\paragraph{Weight.}
+A structural weight \(w(C)\) encodes relative contribution of the cycle to
+global viability and is defined as an aggregate of length, efficiency,
+stability and embedding-compatibility criteria.
+
+\subsection{Cycle Dynamics and Operator \(Q\)}
+
+The operator \(Q\) defines the time-evolution of cycle structure:
+\[
+  \frac{dC}{dt} = Q(C,P,J,\Theta).
+\]
+
+Core behaviours captured by \(Q\) include:
+\begin{itemize}
+  \item \textbf{Cycle formation:} birth of new cycles when flows become
+        recurrent and thresholds stabilise oscillations.
+  \item \textbf{Cycle stabilisation:} increase of \(S(C)\) and reduction of
+        oscillatory distance to the attractor.
+  \item \textbf{Cycle deformation:} changes in length, shape or period due to
+        modifications in potentials or flows.
+  \item \textbf{Cycle destruction:} collapse when  
+        \(S(C)\to 0\) or flows fail to support recurrence.
+\end{itemize}
+
+This operator interacts with all other structural operators
+(\(F,G,H,R,S,U\)) and contributes directly to the derivative of
+continuumness:
+\[
+  \frac{dk}{dt} = U(\Omega,A,P,J,\Theta,C,\partial\Omega).
+\]
+
+\subsection{Cycles Across the K-Hierarchy}
+
+Cycles appear at every level of the continuum hierarchy, though
+their interpretations differ:
+
+\begin{itemize}
+  \item \(K_1\): periodic field or geometric oscillations.
+  \item \(K_2\): coherence cycles, topological defects, phase loops.
+  \item \(K_3\): catalytic cycles in RAF networks.
+  \item \(K_4\): metabolic and membrane-maintenance cycles.
+  \item \(K_5\): excitation–repolarisation cycles (proto-spikes).
+  \item \(K_6\): cognitive feedback loops and prediction cycles.
+  \item \(K_7\): institutional cycles and cooperation loops.
+  \item \(K_8\): infrastructural and energy-logistics cycles.
+  \item \(K_9,K_{10}\): theoretical and meta-theoretical cycles.
+\end{itemize}
+
+Despite these differences, all such cycles share:
+closure inside \(\Omega(K)\), positive distance to \(\partial\Omega\),
+and stabilising interaction with thresholds.
+
+\subsection{Cycles and Dimensional Transitions}
+
+Dimensional birth \((K_x\to K_{x+1})\) requires that cycles at level \(K_x\)
+approach the dimensional threshold \(\Theta_{\mathrm{dim}}(K_x)\)
+in such a way that their representational capacity becomes insufficient.  
+Loss of cycle stability is one of the earliest indicators of an impending
+dimensional transition.
+
+\subsection{Summary}
+
+Cycles encode the persistence, identity and structural viability
+of continua across all domains.  
+Their stability, diversity and organisation form a key component of
+continuumness \(k(K,t)\).
+The disappearance of all structurally stable cycles corresponds to
+the death of a continuum, while deformation and emergence of new cycles
+signal structural reorganisation or dimensional transition.
+
