@@ -1,11 +1,14 @@
 % =============================================
-%  Ontology of Continua — Core
-%  Stable LaTeX Preamble (do not edit lightly)
+%  Ontology of Continua — Core 1.1
+%  Stable LaTeX Preamble (XeLaTeX, do not edit lightly)
 % =============================================
 
 % --- Engine & fonts (XeLaTeX) -----------------
 
 \usepackage{fontspec}
+
+% Global font defaults
+\defaultfontfeatures{Ligatures=TeX}
 
 \setmainfont{DejaVu Serif}
 \setsansfont{DejaVu Sans}
@@ -19,7 +22,7 @@
 \setdefaultlanguage{english}
 \setotherlanguages{russian}
 
-% Support for Cyrillic in case Russian text is used.
+% Support for Cyrillic if Russian text is used.
 \newfontfamily\cyrillicfont{DejaVu Serif}
 
 % --- Page layout ------------------------------
@@ -36,7 +39,7 @@
 \usepackage{graphicx}
 \graphicspath{{figures/}}
 
-% TikZ for all figure .tex files
+% TikZ for structural and technical diagrams
 \usepackage{tikz}
 \usetikzlibrary{
   positioning,              % node distance, left=of, etc.
