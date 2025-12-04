@@ -2,12 +2,275 @@
 % ==== FILE: content/cycles/cycles_k4.tex
 % ================================================================
 
-% ==============================
-%  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/cycles/cycles_k4.tex
-%  Status: EMPTY — TO BE FILLED
-% ==============================
-
 \section{Cycles on $K_4$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:cycles-k4}
+
+Level $K_4$ corresponds to the protocellular continuum: 
+a chemically self-organised domain enclosed by a semi-permeable
+membrane $\partial\Omega(K_4)$.
+Cycles define the persistent dynamic structure of the protocell:
+maintenance of gradients, metabolic turnover, membrane repair,
+energy conversion, replication accuracy, and early proto-excitability.
+They determine the viability of the protocell and the possibility
+of transition to the excitability level $K_5$.
+
+\subsection{Classes of Cycles on $K_4$}
+
+Following the Biology U0.3b formalisation, $K_4$ supports six
+fundamental families of cycles.
+
+\subsubsection{1. Membrane-Maintenance Cycles $C_{\mathrm{mem}}$}
+
+These cycles repair, stabilise and reshape the membrane.
+They involve:
+\[
+  J_{\mathrm{lipid}},\quad
+  J_{\mathrm{in/out}},\quad
+  P_{\mathrm{mem}},\quad
+  \gamma_{\mathrm{edge}},\quad
+  \kappa_{\mathrm{bend}},
+\]
+where $\gamma_{\mathrm{edge}}$ is the line tension of membrane pores
+and $\kappa$ is the bending modulus (memory~\#57).
+
+The cycle structure is:
+\[
+  \partial\Omega \to 
+  \mathrm{stretching} \to 
+  \mathrm{repair} \to 
+  \partial\Omega.
+\]
+
+Stability requires:
+\[
+  T_{\mathrm{mem}}(t) < \Theta_{\mathrm{mem}},
+\]
+where $T_{\mathrm{mem}}$ measures osmotically and mechanically
+induced tension.
+
+\subsubsection{2. Gradient-Maintenance Cycles $C_{\mathrm{grad}}$}
+
+The membrane introduces new axes:
+\[
+  A_{\mathrm{in/out}},\;
+  A_{\mathrm{perm}},\;
+  A_{\mathrm{grad}}.
+\]
+Correspondingly, gradient cycles regulate:
+\[
+  P_{\mathrm{grad}}=
+    (\Delta \mathrm{pH}, \Delta \mathrm{ion}, \Delta \mathrm{redox}),
+\]
+with flows:
+\[
+  J_{\mathrm{pump}},\;
+  J_{\mathrm{leak}},\;
+  J_{\mathrm{channel}}.
+\]
+
+The cycle has the form:
+\[
+  \Delta G \to \mathrm{pump} \to
+  \mathrm{leak} \to \mathrm{dissipation} \to
+  \Delta G,
+\]
+where $P_{\mathrm{grad}}$ must remain in the viable domain:
+\[
+  |P_{\mathrm{grad}}| < \Theta_{\mathrm{grad}}.
+\]
+
+These cycles are precursors of the electrochemical structure of $K_5$.
+
+\subsubsection{3. Energetic and Redox Cycles $C_{\mathrm{energy}}$}
+
+From memory~\#67, the energetic architecture includes:
+\[
+  P_{\mathrm{energy}},
+  P_{\mathrm{redox}},
+  P_{\mathrm{grad-energy}},
+\]
+and flows:
+\[
+  J_{\mathrm{energy}},\;
+  J_{\mathrm{redox}},\;
+  J_{\mathrm{grad}}.
+\]
+
+The protometabolic cycle is:
+\[
+  \Delta G_{\mathrm{in}} \to 
+  \mathrm{activation} \to
+  \mathrm{transfer} \to 
+  \mathrm{dissipation} \to 
+  \Delta G_{\mathrm{in}}.
+\]
+
+Existence requires:
+\[
+  T_{\mathrm{cycle-energy}} < \Theta_{\mathrm{cycle-energy}}.
+\]
+
+These cycles stabilise the internal environment and support
+gradient-maintenance cycles.
+
+\subsubsection{4. Metabolic Turnover Cycles $C_{\mathrm{metabolic}}$}
+
+Building on the RAF precursor structure from $K_3$, $K_4$ forms
+localised protometabolic loops embedded inside the membrane:
+\[
+  M_{\mathrm{in}} \xrightarrow{r_1}
+  M_{\mathrm{act}} \xrightarrow{r_2}
+  M_{\mathrm{out}} \xrightarrow{r_3}
+  M_{\mathrm{in}}.
+\]
+
+They contribute to:
+\[
+  P_{\mathrm{in}},\; P_{\mathrm{chem}},\; P_{\mathrm{stability}},
+\]
+and maintain viable concentration ranges.
+
+Disruption:
+\[
+  T_{\mathrm{metabolic}}>\Theta_{\mathrm{stability}}
+\quad\Rightarrow\quad
+  \Omega(K_4)=\varnothing.
+\]
+
+\subsubsection{5. Information-Stability Cycles $C_{\mathrm{info}}$}
+
+From the replication accuracy block (memory~\#68),
+information-bearing polymers must satisfy:
+\[
+  P_{\mathrm{copy}}=(1-\varepsilon)^L \ge P_{\min}.
+\]
+
+The mutation–correction–selection loop:
+\[
+  \mathrm{template}
+  \to \mathrm{copy}
+  \to \mathrm{mutation}
+  \to \mathrm{correction}
+  \to \mathrm{selection}
+  \to \mathrm{template}
+\]
+forms a genuine cycle.
+
+Its viability is equivalent to:
+\[
+  \varepsilon < \Theta_{\mathrm{error}}.
+\]
+
+Above the error threshold, the protocell’s informational structure
+collapses.
+
+\subsubsection{6. Proto-Excitability Cycles $C_{\mathrm{exc}}$}
+
+Based on memory~\#75 and \#76, early channels and gradients produce
+ignition–front cycles (“proto–action potentials”):
+\[
+  P_{\mathrm{grad}} \to
+  \mathrm{local\ ignition} \to
+  \mathrm{front\ propagation} \to
+  \mathrm{recovery} \to
+  P_{\mathrm{grad}}.
+\]
+
+Ignition requires:
+\[
+  G_{\mathrm{lat}} > \Theta^{\mathrm{crit}}_{\mathrm{lat}}
+\quad\text{and}\quad
+  C_{\mathrm{mem}}>C_{\mathrm{mem}}^{\mathrm{crit}}.
+\]
+
+These cycles define the soft transition $K_4\to K_5$ 
+(Polish~W3 memory).
+
+\subsection{Metrics of Cycles at $K_4$}
+
+\paragraph{Length.}
+\[
+  L(C)=\oint d\Omega,
+\]
+where $\Omega$ is the state space of internal composition.
+
+\paragraph{Efficiency.}
+\[
+  C_{\mathrm{eff}}
+    =\frac{\int J\cdot dA}{L(C)},
+\]
+with flows $J$ across:
+\[
+  A_{\mathrm{mem}}, A_{\mathrm{grad}}, A_{\mathrm{metabolic}}.
+\]
+
+\paragraph{Stability.}
+\[
+  S(C) 
+   = \min_{t\in C}
+       d\bigl(
+         \Omega(K_4),\;
+         \partial\Omega(K_4)
+       \bigr).
+\]
+
+\paragraph{Weight.}
+\[
+  w(C)=F\bigl(
+        C_{\mathrm{eff}},\;
+        S(C),\;
+        \mathrm{energy\ turnover},\;
+        P_{\mathrm{grad}}
+      \bigr).
+\]
+
+\subsection{Time and Recurrence Structure}
+
+The defining timescales of $K_4$ cycles include:
+
+\[
+  \tau_{\mathrm{pump}},\quad
+  \tau_{\mathrm{leak}},\quad
+  \tau_{\mathrm{repair}},\quad
+  \tau_{\mathrm{metabolic}},\quad
+  \tau_{\mathrm{exc}}.
+\]
+
+The continuum possesses time if these satisfy stable recurrence:
+\[
+  \tau_i<\infty \quad\forall i.
+\]
+
+\subsection{Collapse and Viability of $C(K_4)$}
+
+The death of $K_4$ (memory~\#69) occurs if any of:
+
+\[
+  \Theta_{\mathrm{mem}},\;
+  \Theta_{\mathrm{grad}},\;
+  \Theta_{\mathrm{cycle-energy}},\;
+  \Theta_{\mathrm{error}},\;
+  \Theta_{\mathrm{stability}}
+\]
+is violated.
+
+All cycles break simultaneously:
+\[
+  C_j \to \varnothing,
+\quad
+  \Omega(K_4)=\varnothing.
+\]
+
+\subsection{Transition Toward $K_5$}
+
+Cycles $C_{\mathrm{exc}}$ and $C_{\mathrm{grad}}$ gradually 
+stiffen into temporal–electrical loops, matching the 
+proto–spike structure of $K_5$:
+\[
+  C_{\mathrm{exc}}\longrightarrow C_{\mathrm{spike}}.
+\]
+
+This transition is continuous (C$^1$), as ensured by 
+the Polish~W3 soft–threshold formulation.
+
+
