@@ -1,303 +1,233 @@
-# Build System Notes — Ontology of Continua Core
+# Build System Notes — Ontology of Continua Core 1.1
 
-This document describes the full build pipeline used for the Ontology of Continua  
-Core 1.1 publication shell.  
-It is the canonical reference for local builds, CI builds, dependency rules,  
-and failure recovery procedures.
+This document describes the canonical, frozen build pipeline for the
+Ontology of Continua — Core 1.1 publication shell.  
+It defines the only supported build entry point, dependency rules,
+and CI execution model.
 
-Any modifications to the build system must be reflected here.
+Any changes to the build system must be approved by OK Main HQ and
+Core 1.1 Release HQ.
 
----
+------------------------------------------------------------
+1. Overview
+------------------------------------------------------------
 
-# 1. Build Overview
+Core 1.1 uses a structured, reproducible build pipeline based on:
 
-The project uses a **single master entry point**:
+- a single entry script: build_core.sh  
+- YAML-driven generation of section inputs  
+- XeLaTeX as the only engine  
+- latexmk as the PDF orchestrator  
+- biber for bibliography  
 
-```
-main.tex
-```
+The high-level flow is:
 
-The full document is assembled using:
+1. master_core_structure.yaml → auto-generate missing .tex files  
+2. validate structure  
+3. generate content/_auto_core_inputs.tex  
+4. compile main.tex via XeLaTeX through latexmk
 
-- `preamble.tex` — global configuration
-- `content/*.tex` — all sections
-- `figures/` — figure files
-- `bib/references.bib` — bibliography
+The user never edits auto-generated files.
 
-The build system supports **only one engine**:
+------------------------------------------------------------
+2. The Only Supported Build Command
+------------------------------------------------------------
 
-```
-XeLaTeX
-```
+To build Core 1.1 you MUST use:
 
-This ensures Unicode support, modern fonts, and compatibility with polyglossia.
+    ./build_core.sh
 
----
+This script:
 
-# 2. Local Build Instructions
+1. Generates missing section files from master_core_structure.yaml  
+2. Validates the repository structure  
+3. Regenerates content/_auto_core_inputs.tex  
+4. Calls latexmk -xelatex with correct flags  
+5. Writes final PDF to build/main.pdf  
 
-## 2.1 Dependencies
+Direct calls to:
 
-You must install:
+- latexmk
+- xelatex
+- python generators
+- manual editing of auto_core_inputs.tex
 
-- TeX Live 2023+ (full installation recommended)
+are NOT supported and may break the build.
+
+------------------------------------------------------------
+3. Local Dependencies
+------------------------------------------------------------
+
+Required:
+
+- TeX Live 2023 or newer (full installation recommended)
+- python3
 - latexmk
 - biber
 
-### Debian / Ubuntu
+Ubuntu / Debian:
 
-```
-sudo apt-get update
-sudo apt-get install texlive-full latexmk biber
-```
+    sudo apt-get update
+    sudo apt-get install -y texlive-full latexmk biber python3
 
-### Windows (TeX Live)
+macOS:
 
-- Install TeX Live from official installer  
-- Ensure `xelatex`, `latexmk`, `biber` are in PATH  
-- Enable shell-escape if required
+    brew install --cask mactex
+    brew install latexmk
 
-### macOS
+Windows:
 
-```
-brew install --cask mactex
-brew install latexmk
-```
+- Install TeX Live (full)
+- Ensure xelatex, latexmk, biber are in PATH
+- Ensure python3 is installed
 
----
+------------------------------------------------------------
+4. What build_core.sh does
+------------------------------------------------------------
 
-# 3. Local Build Command
+The script performs four steps:
 
-Use latexmk wrapper:
+(1) Generate missing .tex files  
+    tools/generate_core_from_yaml.py
 
-```
-latexmk -xelatex main.tex -interaction=nonstopmode -output-directory=build
-```
+(2) Validate structure  
+    tools/validate_core_structure.py  
+    (Warnings do not stop the build.)
 
-This will:
+(3) Generate auto include file  
+    tools/generate_auto_inputs.py  
+    → writes content/_auto_core_inputs.tex
 
-1. create `build/` directory (if not present)
-2. compile `.tex → .xdv`
-3. run Biber for bibliography
-4. run XeLaTeX until references and TOC are stable
-5. output final PDF:
+(4) Build the PDF  
+    latexmk -xelatex -output-directory=build main.tex
 
-```
-build/main.pdf
-```
+Users must not modify these scripts unless instructed.
 
----
+------------------------------------------------------------
+5. CI Build Pipeline
+------------------------------------------------------------
 
-# 4. Repository Build Structure
+GitHub Actions runs the build via:
 
-The build directory is structured as:
+    ./build_core.sh
 
-```
-build/
- ├── main.pdf          # Final output
- ├── main.log          # XeLaTeX log
- ├── main.xdv          # Intermediate driver output
- ├── main.aux          # References
- ├── main.toc          # Table of contents
- ├── main.bbl          # Bibliography (generated by Biber)
- ├── logs/
- │    └── compile.log  # Copied from main.log for debugging
-```
+Workflow file:
 
-The `build/` directory is **ignored by git**, except for the `logs/` placeholder.
+    .github/workflows/build-core.yml
 
----
-
-# 5. GitHub Actions CI Pipeline
-
-The CI configuration is inside:
-
-```
-.github/workflows/build_pdf.yml
-```
-
-It performs:
+The CI performs:
 
 1. Checkout repository  
-2. Install TeX Live  
-3. Run latexmk with XeLaTeX  
-4. Save output PDF as an artifact  
-5. Mirror metadata to Zenodo (if a release is created)
+2. Install TeX Live + latexmk  
+3. Make build_core.sh executable  
+4. Run build_core.sh  
+5. Upload build/main.pdf as artifact  
 
----
+There are NO other CI pipelines.  
+All YAML generators are called only through build_core.sh.
 
-## 5.1 Workflow Logic (Simplified)
+------------------------------------------------------------
+6. Generated Files
+------------------------------------------------------------
 
-```
-on:
-  push to main
-  pull_request
+The following files are auto-generated:
 
-steps:
-  - actions/checkout
-  - apt install texlive-full + latexmk
-  - latexmk -xelatex main.tex
-  - upload build/main.pdf
-```
-
-If build succeeds:  
-- Workflow status = green  
-- PDF is available in "Artifacts"
-
-If build fails:  
-- Workflow is red  
-- Full logs are available under "build/logs/compile.log"
-
----
-
-# 6. Biber and Bibliography System
-
-The bibliography pipeline:
-
-```
-biblatex + biber
-```
+- content/_auto_core_inputs.tex  
+- any .tex file created from YAML by tools/generate_core_from_yaml.py  
 
 Rules:
 
-- Always use `.bib` file: `bib/references.bib`
-- Never edit `.bbl` manually
-- Biber runs automatically during CI
+- Do NOT edit these by hand  
+- Do NOT commit changes to auto_core_inputs.tex  
+- Always regenerate via ./build_core.sh
 
-Common problems:
+------------------------------------------------------------
+7. build/ directory
+------------------------------------------------------------
 
-1. Missing commas or braces → Biber error  
-2. Incorrect encoding → Biber crash  
-3. Wrong citation keys → undefined references
+The build directory contains:
 
----
+build/main.pdf  
+build/main.log  
+build/main.aux  
+build/main.toc  
+build/main.bbl  
+build/main.xdv  
+build/logs/compile.log  
 
-# 7. Common Build Failures and Fixes
+The directory is ignored by git except for the placeholder in build/logs/.
 
-## 7.1 “Undefined references”
+------------------------------------------------------------
+8. Bibliography System
+------------------------------------------------------------
 
-Cause:  
-- New labels added  
-- TOC changed
+Core uses:
 
-Fix:  
-Run latexmk more than once:
+- biblatex
+- biber
 
-```
-latexmk -C
-latexmk -xelatex main.tex
-```
+Rules:
 
----
+- Edit only bib/references.bib  
+- Never modify main.bbl  
+- Biber is invoked automatically by latexmk
 
-## 7.2 “Missing bbl file”
+------------------------------------------------------------
+9. Troubleshooting
+------------------------------------------------------------
 
-Cause: Biber did not run.
+Undefined references:
 
-Fix:
+    ./build_core.sh
+    latexmk may run multiple times automatically
 
-```
-biber main
-latexmk -xelatex main.tex
-```
+Biber errors:
 
----
+- Check bib/references.bib for invalid entries
+- Ensure UTF-8 encoding
 
-## 7.3 “Engine mismatch: fontspec requires XeLaTeX”
+Fontspec / engine errors:
 
-Cause: Wrong engine (pdflatex).
+- Ensure XeLaTeX is used (pdflatex is not supported)
 
-Fix: Use:
+Polyglossia language errors:
 
-```
-latexmk -xelatex main.tex
-```
+- Ensure TeX Live is complete (texlive-full)
 
----
+------------------------------------------------------------
+10. Do-Not-Touch Zones
+------------------------------------------------------------
 
-## 7.4 “Package polyglossia error: missing language”
+The following files are protected under ARCHITECTURE FREEZE:
 
-Cause: corrupted TeX Live
+preamble.tex  
+main.tex  
+master_core_structure.yaml  
+tools/*.py  
+build_core.sh  
+content/_auto_core_inputs.tex (generated)  
 
-Fix:
+Modifying these incorrectly can break:
 
-```
-sudo apt-get install texlive-lang-european
-sudo apt-get install texlive-lang-cyrillic
-```
+- rebuilds
+- section ordering
+- YAML integration
+- CI pipelines
+- Zenodo DOI captures
 
----
+------------------------------------------------------------
+11. Release Checklist
+------------------------------------------------------------
 
-# 8. Do-Not-Touch Zones
+Before tagging Core 1.1:
 
-The following files must **not** be modified without strong reason:
+- [ ] ./build_core.sh builds successfully  
+- [ ] CI pipeline is green  
+- [ ] No undefined references  
+- [ ] Biber runs cleanly  
+- [ ] PDF identical locally and in CI  
+- [ ] README.md references build_core.sh  
+- [ ] .zenodo.json metadata verified  
+- [ ] master_core_structure.yaml validated
 
-```
-preamble.tex          # global config for all future cores
-build_pdf.yml         # CI stability layer
-.zenodo.json          # metadata synchronization
-```
-
-Touching these incorrectly can break:
-
-- PDF builds
-- Zenodo DOI updates
-- Cross-repository template inheritance
-
----
-
-# 9. Adding New Build Features (Rules)
-
-If adding tooling, you MUST:
-
-1. Document it in this file  
-2. Ensure CI builds locally  
-3. Ensure CI builds remotely  
-4. Ensure it remains compatible with TeX Live 2023+  
-5. Ensure XeLaTeX remains the default engine
-
----
-
-# 10. Full Build Workflow Summary
-
-**Local developer workflow**
-
-```
-edit → git commit → latexmk -xelatex main.tex → check PDF → push
-```
-
-**CI workflow**
-
-```
-push → GitHub Actions → TeX Live → XeLaTeX → PDF artifact
-```
-
-**Release workflow**
-
-```
-create GitHub Release → Zenodo automatic capture → DOI update
-```
-
-This guarantees:
-
-- reproducibility  
-- traceability  
-- archival stability  
-- automated distribution  
-
----
-
-# 11. Final Checklist Before Release
-
-Before tagging a release:
-
-- [ ] All sections compile
-- [ ] No undefined references
-- [ ] Biber runs cleanly
-- [ ] PDF builds identical locally & via CI
-- [ ] Zenodo metadata (.zenodo.json) is correct
-- [ ] README.md updated
-- [ ] Version number consistent
-
----
-
+This ensures reproducibility and archival stability.
