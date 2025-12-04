@@ -2,12 +2,172 @@
 % ==== FILE: content/cycles/cycles_k2.tex
 % ================================================================
 
-% ==============================
-%  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/cycles/cycles_k2.tex
-%  Status: EMPTY — TO BE FILLED
-% ==============================
-
 \section{Cycles on $K_2$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:cycles-k2}
+
+Level $K_2$ corresponds to the continuum of connectivity.
+Its state space is represented by a percolation-like configuration
+\[
+  \Omega(K_2) \cong \{0,1\}^{|E|},
+\]
+where $E$ is the set of edges, and the structural variable is the
+occupation probability $p$.
+The fundamental phenomenon at this level is the emergence or destruction
+of global connectivity.
+
+Cycles on $K_2$ arise due to oscillations in cluster structure, 
+connectivity measures, and the effective time $\tau(K_2)$ associated
+with correlation dynamics.
+
+\subsection{Definition of Cycles on $K_2$}
+
+A cycle on $K_2$ is a dynamical trajectory
+\[
+  C:[0,\tau]\to\Omega(K_2)
+\]
+such that:
+\[
+  C(0)=C(\tau),
+\]
+and its evolution is governed by the operator
+\[
+  \frac{dp}{dt}
+  = F_2(p,\, A_2,\, P_2,\, J_2,\, \Theta_2),
+\]
+where:
+
+\begin{itemize}
+  \item $A_2$ are connectivity axes (local ``occupied/unoccupied'' states),
+  \item $P_2$ are potentials derived from cluster sizes, correlation length,
+        or energy-like parameters,
+  \item $J_2$ are flows of connectivity changes,
+  \item $\Theta_2$ contains the critical percolation threshold $p_c$.
+\end{itemize}
+
+Thus a cycle is a closed recurrence of connectivity configurations.
+
+\subsection{Types of Cycles on $K_2$}
+
+Three major classes of cycles exist.
+
+\paragraph{(1) Cluster–Rearrangement Cycles.}
+Local edge-flip dynamics generates oscillatory behaviour in cluster
+structure.
+These cycles do not approach criticality and have bounded correlation
+length.
+
+\paragraph{(2) Subcritical Connectivity Cycles.}
+For $p<p_c$, the system may undergo recurrent behaviour in the size
+distribution of finite clusters:
+\[
+  C: \quad
+  N(s,t) \to N(s,t+\tau),
+\]
+where $N(s)$ is the number of clusters of size $s$.
+These cycles are structurally stable due to the absence of a giant
+component.
+
+\paragraph{(3) Critical–Near-Critical Cycles.}
+For $p\approx p_c$, oscillations may bring the system repeatedly close
+to the critical percolation threshold.
+These cycles have:
+
+\begin{itemize}
+  \item long correlation lengths $\xi(p(t))$,
+  \item high structural tension $T_2(t)$,
+  \item sensitivity to thresholds $\Theta_2$,
+  \item potential for phase-transition-like excursions.
+\end{itemize}
+
+This is the first level in the hierarchy where non-trivial structural
+cycles appear.
+
+\subsection{Structural Tension and Threshold Interaction}
+
+Structural tension on $K_2$ is given by:
+\[
+  T_2(p)
+  = f\bigl(\xi(p),\; \mathrm{Conn}(p),\;
+       |p - p_c|\bigr),
+\]
+where $f$ grows as the system approaches criticality.
+
+A cycle can be periodic only if:
+\[
+  T_2(t) < \Theta_{\mathrm{death}}
+\]
+for all $t$.
+If the loop crosses the phase boundary
+\[
+  p = p_c,
+\]
+the system undergoes a structural transition, and the cycle cannot close
+smoothly unless the dynamics returns $p$ across the same boundary.
+
+This leads to the possibility of **critical cycles**, the first instance
+in OC of loops that interact with phase transitions.
+
+\subsection{Metrics of Cycles on $K_2$}
+
+Consistent with Run~9, cycles are measured via:
+
+\[
+  L(C)
+  = \int_0^\tau \|\dot{p}(t)\|\, dt,
+\]
+\[
+  C_{\mathrm{eff}}
+  = \frac{1}{L(C)} \int_0^\tau J_2(t)\cdot dA_2(t),
+\]
+\[
+  S(C) = \min_{t\in[0,\tau]} d\bigl(\Omega(K_2),\partial\Omega(K_2)\bigr),
+\]
+where $d$ depends on the proximity to criticality.
+
+For near-critical cycles:
+\[
+  S(C) \to 0 \quad \text{as} \quad p\to p_c.
+\]
+
+This is the origin of ``critical slowing down'' and ``critical cycle
+degeneration.''
+
+\subsection{Birth of Time and Non-Trivial Cycles}
+
+According to the formal definition of $\tau(K_2)$ (memory block~C.1–7),
+time on $K_2$ is determined by the recurrence period of correlation
+structures:
+\[
+  \tau(K_2) \sim \frac{1}{\omega_{\mathrm{corr}}}.
+\]
+
+Thus cycles on $K_2$ are directly tied to:
+
+\begin{itemize}
+  \item correlation length evolution $\xi(t)$,
+  \item cluster rearrangement timescales,
+  \item occupation-flow dynamics $dp/dt$.
+\end{itemize}
+
+This establishes $K_2$ as the first level with **dynamic temporal
+complexity**.
+
+\subsection{Role of $K_2$ Cycles in the Hierarchy}
+
+Cycles on $K_2$ are the precursor to:
+
+\begin{itemize}
+  \item chemical reaction cycles on $K_3$;
+  \item membrane and metabolic cycles on $K_4$;
+  \item spike cycles on $K_5$;
+  \item cognitive recurrence loops on $K_6$;
+  \item institutional cycles on $K_7$;
+  \item civilisation-level reproduction cycles on $K_8$.
+\end{itemize}
+
+The essential mechanism introduced at $K_2$ is \emph{critical recurrence}
+— the possibility of interacting with thresholds in a cyclical manner.
+
+Thus $K_2$ is the minimal level where the Ontology of Continua admits
+non-trivial, threshold-sensitive, structurally complex cycles.
+
