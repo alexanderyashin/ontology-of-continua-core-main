@@ -6,26 +6,359 @@
 %  Ontology of Continua — Core
 %  K-level Module: K1
 %  File: content/k_levels/k1.tex
-%  Status: EMPTY — STRUCTURAL SKELETON
+%  Status: FULLY DEFINED
 % ==============================
 
 \section{$K_1$ Overview}
+\label{sec:k1-overview}
+
+Level $K_1$ is the first genuinely \emph{structural} continuum.
+It arises from the action of the operator $\Psi_{0\to1}$ on $K_0$,
+introducing a one-dimensional axis $A_1$ and thus enabling the existence
+of continuous degrees of freedom.
+
+$K_1$ is not yet physical space; rather, it is the abstract prototype of
+a one-dimensional continuum:
+\[
+K_1 = (X, \tau, \mu, A_1),
+\]
+where $X$ is a one-dimensional domain, $\tau$ is the structural
+topology, and $\mu$ is a measure compatible with $\tau$.
+
+The creation of $K_1$ is the first step where:
+\begin{itemize}
+    \item differences can be expressed along an axis,
+    \item coherent variation becomes possible,
+    \item structural tension can propagate,
+    \item constraints produce continuous curves.
+\end{itemize}
+
+Every higher continuum inherits $A_1$ as its foundational axis.
+
+% ================================================================
 \section{State Space $\Omega(K_1)$}
+
+The state space of $K_1$ is:
+\[
+\Omega(K_1) = C^0(X, V),
+\]
+the space of continuous functions from the one-dimensional domain $X$
+to a value set $V$.
+
+Properties:
+\begin{enumerate}
+    \item $\Omega(K_1)$ is infinite-dimensional (function space).
+    \item Every configuration is continuous by definition.
+    \item Discontinuities lie outside $\Omega(K_1)$ and correspond to
+          violations of structural coherence.
+    \item $X$ may be open, closed, compact or non-compact depending on
+          constraints in the corresponding $M_1$.
+\end{enumerate}
+
+This is the minimal space in which continuous variation exists.
+
+% ================================================================
 \section{Boundary $\partial\Omega(K_1)$}
+
+The boundary consists of configurations that approach loss of
+continuity:
+\[
+\partial\Omega(K_1) =
+\{ f \in C^0(X,V) : \exists\, x_0 \in X \text{ with } 
+\lim_{x \to x_0} f(x) \text{ undefined} \}.
+\]
+
+Interpretation:
+\begin{itemize}
+    \item Points where continuity fails.
+    \item Points where structural tension exceeds $\Theta_1$.
+    \item Points where the domain $X$ degenerates or collapses.
+\end{itemize}
+
+Crossing the boundary destroys the continuum $K_1$.
+
+% ================================================================
 \section{Axes $A(K_1)$}
+
+$K_1$ has exactly one axis:
+\[
+A_1 : X \to \mathbb{R},
+\]
+representing the intrinsic parameter along which differences become
+ordered.
+
+Conditions:
+\begin{itemize}
+    \item $A_1$ must be monotonic (Axiom A$_{1,\text{mon}}$).
+    \item $A_1$ must be connected (Axiom A$_{1,\text{conn}}$).
+    \item $A_1$ must allow variation compatible with $\tau$.
+\end{itemize}
+
+All future axes $A_k$ for $k \ge 2$ extend this foundational structure.
+
+% ================================================================
 \section{Potentials $P(K_1)$}
+
+Potentials on $K_1$ include:
+\[
+P(K_1) = \{ P_{\mathrm{grad}}, P_{\mathrm{bound}}, P_{\mathrm{smooth}} \},
+\]
+describing:
+\begin{itemize}
+    \item gradients along the axis,
+    \item boundary-induced stresses,
+    \item smoothness constraints,
+    \item allowed curvature of functions in $\Omega(K_1)$.
+\end{itemize}
+
+These are not yet forces; they are structural potentials governing
+coherence of variation.
+
+% ================================================================
 \section{Thresholds $\Theta(K_1)$}
+
+Thresholds regulate the admissibility of states:
+\[
+\Theta(K_1) = \{ \Theta_{\mathrm{cont}}, \Theta_{\mathrm{grad}},
+                 \Theta_{\mathrm{smooth}} \}.
+\]
+
+Examples:
+\begin{itemize}
+    \item $\Theta_{\mathrm{cont}}$ — minimal continuity required.
+    \item $\Theta_{\mathrm{grad}}$ — maximal admissible gradient before
+          tension becomes unsustainable.
+    \item $\Theta_{\mathrm{smooth}}$ — minimal regularity required.
+\end{itemize}
+
+If any threshold is exceeded, the configuration lies outside
+$\Omega(K_1)$.
+
+% ================================================================
 \section{Flows $J(K_1)$}
+
+Flows describe allowed continuous changes along $A_1$:
+\[
+J(K_1) = \{ \partial_x f(x),\; \partial_t f(x,t),\; \text{admissible deformations} \}.
+\]
+
+Key properties:
+\begin{itemize}
+    \item flows propagate structural tension,
+    \item flows must preserve continuity,
+    \item flows cannot create new axes (requires $K_1\to K_2$ transition).
+\end{itemize}
+
+% ================================================================
 \section{Cycles $C(K_1)$}
+
+Because $K_1$ supports continuous variation but not yet multi-dimensional
+interaction, cycles are topologically trivial:
+\[
+C_{\mathrm{triv}} = \text{constant loops in function space}.
+\]
+
+No nontrivial structural cycles exist, since cyclic structure requires
+at least two independent axes ($K_2$).
+
+Thus:
+\[
+\tau(K_1) \text{ cannot emerge.}
+\]
+
+% ================================================================
 \section{Time $\tau(K_1)$}
+
+Time does not exist at $K_1$.
+
+According to the Time-Origin Theorem (Physics Run):
+
+\[
+\text{time emerges only at } K_2 \text{ from non-degradable cycles}.
+\]
+
+Thus:
+\[
+\tau(K_1) \text{ is undefined and unrepresentable.}
+\]
+
+% ================================================================
 \section{Continuumness $k(K_1)$}
+
+The measure of continuumness:
+\[
+k(K_1) =
+H(\Omega(K_1)) \cdot
+\frac{|A(K_1)|}{|A(M_1)|} \cdot
+(1 - \frac{T_1}{\Theta_{\mathrm{cont}}})_+,
+\]
+where:
+\begin{itemize}
+    \item $|A(K_1)| = 1$,
+    \item $A(M_1)$ may permit more axes but not realized yet,
+    \item $T_1$ is structural tension,
+    \item $(\cdot)_+$ is the positive part.
+\end{itemize}
+
+$k(K_1)$ measures whether $K_1$ remains structurally viable.
+
+% ================================================================
 \section{Structural Tension $T(K_1)$}
+
+Structural tension on $K_1$ arises from:
+\begin{itemize}
+    \item gradients of functions,
+    \item boundary effects,
+    \item incompatibility of constraints along $A_1$.
+\end{itemize}
+
+If:
+\[
+T(K_1) > \Theta_{\mathrm{cont}},
+\]
+then continuity fails and the continuum collapses.
+
+% ================================================================
 \section{Energy $E(K_1)$}
+
+Energy is defined structurally as:
+\[
+E(K_1) = \int_X \mathcal{E}(f(x), \partial_x f(x))\, d\mu,
+\]
+where $\mathcal{E}$ is a structural energy density depending on:
+\begin{itemize}
+    \item value variation,
+    \item smoothness constraints,
+    \item regularity penalties.
+\end{itemize}
+
+$E(K_1)$ has no physical meaning yet; it is a functional measuring
+coherence.
+
+% ================================================================
 \section{Operators on $K_1$ ($\Psi$, $\Phi$, $\Lambda$, $U$, $\Chi$)}
+
+\begin{itemize}
+    \item $\Psi_{1\to2}$ — birth of the second axis $A_2$, enabling
+          $K_2$.
+    \item $\Phi$ — evolution of the admissible meta-space $M_1$.
+    \item $\Lambda$ — constraint operator enforcing continuity,
+          monotonicity and connectedness.
+    \item $U$ — unification of local structure into global coherence.
+    \item $\Chi$ — branching operator enabling incompatible $K_1$
+          manifolds.
+\end{itemize}
+
+These operators define how $K_1$ evolves and how new dimensions arise.
+
+% ================================================================
 \section{Processes on $K_1$}
+
+Key processes:
+\begin{itemize}
+    \item propagation of gradients,
+    \item smoothing of discontinuities,
+    \item stabilization of continuous configurations,
+    \item structural collapse under excessive tension,
+    \item dimensional transition to $K_2$ under pressure of
+          incompatible differences (Axiom~15).
+\end{itemize}
+
+% ================================================================
 \section{Predictions for $K_1$}
+
+The theory predicts:
+\begin{enumerate}
+    \item continuity must be globally maintained;
+    \item dimensional growth requires incompatible variations that cannot
+          be represented on a single axis;
+    \item no temporal phenomena appear at $K_1$;
+    \item collapse under excessive gradients is universal;
+    \item all $K_1$ continua must embed into their $M_1$ meta-space.
+\end{enumerate}
+
+% ================================================================
 \section{Experiments for $K_1$}
+
+Indirect tests:
+\begin{itemize}
+    \item universality of 1D gradient-collapse behaviour in physical,
+          chemical and biological filaments,
+    \item observation of threshold behaviour under steep gradients,
+    \item detection of forced dimensional growth in systems where a
+          single axis becomes insufficient.
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item polymer strand collapse under tension,
+    \item memristive filament breakdown,
+    \item 1D reaction-diffusion channel instability.
+\end{itemize}
+
+% ================================================================
 \section{Collapse and Death of $K_1$}
+
+$K_1$ collapses when:
+\[
+\Omega(K_1) = \varnothing.
+\]
+
+This happens if:
+\begin{itemize}
+    \item continuity is broken,
+    \item gradients exceed thresholds,
+    \item constraints in $\mathcal{L}$ (carried from $K_0$) become
+          incompatible.
+\end{itemize}
+
+After collapse, transition to $K_2$ is impossible.
+
+% ================================================================
 \section{Falsifiability of $K_1$}
+
+Predictions that may be empirically falsified:
+\begin{enumerate}
+    \item universal presence of continuity thresholds,
+    \item absence of nontrivial cycles,
+    \item absence of emergent time,
+    \item monotonic connected axis requirement,
+    \item dimensional transition only under incompatible differences.
+\end{enumerate}
+
+Violation of any of these predictions challenges the $K_1$ description.
+
+% ================================================================
 \section{Branching / Ontological Position of $K_1$}
+
+$K_1$ sits directly above $K_0$ in the ontological tree:
+\[
+K_0 \to K_1 \to K_2.
+\]
+
+Branching at $K_1$ corresponds to incompatible admissible manifolds
+sharing the same meta-laws but differing in structural constraints.
+
+Such branches remain admissible as long as they stay within $\Omega(K_1)$.
+
+% ================================================================
 \section{Relation to M-spaces}
+
+$K_1$ is embedded in its meta-space:
+\[
+K_1 \subseteq M_1 \subseteq \Omega(K_0).
+\]
+
+$M_1$ determines:
+\begin{itemize}
+    \item the topology $\tau$ of $X$,
+    \item the regularity constraints,
+    \item permissible ranges for potentials,
+    \item admissibility thresholds.
+\end{itemize}
+
+The transition to $K_2$ occurs when:
+\[
+A_1 \text{ cannot represent all emerging differences.}
+\]
+
