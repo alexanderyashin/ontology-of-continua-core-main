@@ -4,10 +4,261 @@
 
 % ==============================
 %  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/m_spaces/m5.tex
-%  Status: EMPTY — TO BE FILLED
+%  Meta-Space: M5
+%  FULL MODULE — FINAL VERSION
 % ==============================
 
 \section{$M_5$ Overview}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:m5-overview}
+
+$M_5$ is the meta-space that makes \emph{electrical excitability} admissible.
+It is the environment in which a biological continuum can exhibit:
+
+\begin{itemize}
+    \item stable membrane voltage $V(t)$,
+    \item ion-channel–mediated conductance states,
+    \item threshold-based excitation ($\Theta_{\mathrm{exc}}$),
+    \item propagating electrical events (precursors of action potentials),
+    \item regenerative feedback required for spike cycles.
+\end{itemize}
+
+Where $M_4$ enabled \emph{chemical} compartmentalization,  
+$M_5$ enables \emph{electrochemical} dynamics that define the $K_5$ continuum.
+
+% ---------------------------------------------------------------
+\subsection*{1. Admissible Configuration Space $\Omega(M_5)$}
+
+The admissible configurations extend $\Omega(M_4)$ by including:
+
+\[
+\Omega(M_5) = 
+\left\{
+(\partial\Omega,\ V,\ g_{\mathrm{ion}},\ 
+\Pi_{\mathrm{ion}},\
+\Delta\mu_{\mathrm{ion}},\
+C_m,\
+\mathcal{C}_{\mathrm{channels}})
+\ \Big|\ 
+\text{admissibility conditions hold}
+\right\}.
+\]
+
+Where:
+
+\begin{itemize}
+    \item $V$ — membrane voltage field,
+    \item $C_m$ — membrane capacitance,
+    \item $g_{\mathrm{ion}}$ — conductance states of ion channels,
+    \item $\mathcal{C}_{\mathrm{channels}}$ — channel population and gating logic,
+    \item $\Pi_{\mathrm{ion}}$ — ion-specific permeabilities,
+    \item $\Delta\mu_{\mathrm{ion}}$ — electrochemical gradients generating currents.
+\end{itemize}
+
+Admissibility requires:
+
+\begin{enumerate}
+    \item Membrane integrity as in $M_4$.
+    \item Ion channels capable of switching between at least two states:
+          \[
+          \{ \text{open},\ \text{closed} \}.
+          \]
+    \item Voltage dynamics satisfying:
+          \[
+          C_m \frac{dV}{dt} = - \sum_i g_i (V - E_i) + I_{\mathrm{ext}}
+          \]
+          in an admissible parameter region.
+    \item Existence of a nontrivial equilibrium and a separatrix defining a 
+          threshold.
+\end{enumerate}
+
+Thus $M_5$ is the minimal environment where a cell can be excitable.
+
+% ---------------------------------------------------------------
+\subsection*{2. Admissible Axes $A(M_5)$}
+
+A new fundamental axis arises:
+
+\[
+A_{\mathrm{exc}} = \{ \text{excitable},\ \text{nonexcitable} \},
+\]
+
+with the corresponding voltage-threshold distinction:
+
+\[
+A_V = \{ V < \Theta_{\mathrm{exc}},\ V \ge \Theta_{\mathrm{exc}} \}.
+\]
+
+Other admissible axes:
+
+\begin{itemize}
+    \item $A_{\mathrm{ion}}$ — ion-specific channel conformations,
+    \item $A_{\mathrm{gate}}$ — gating variable states (activation/inactivation),
+    \item $A_{\mathrm{cond}}$ — conductance regimes,
+    \item $A_{\mathrm{spike}}$ — refractory/overshoot/reset phases.
+\end{itemize}
+
+These axes define the high-dimensional dynamical geometry of excitable membranes.
+
+% ---------------------------------------------------------------
+\subsection*{3. Potentials $P(M_5)$}
+
+$M_5$ introduces potentials associated with electrodynamics:
+
+\[
+P(M_5) =
+(U_{\mathrm{ion}},\ U_V,\ U_{\mathrm{gate}},\ 
+U_{\mathrm{CAP}},\ U_{\mathrm{rest}}).
+\]
+
+Interpretation:
+
+\begin{itemize}
+    \item $U_{\mathrm{ion}}$ — Nernst-like electrochemical potentials,
+    \item $U_V$ — voltage-dependent energy landscape,
+    \item $U_{\mathrm{gate}}$ — gating energy for channel transitions,
+    \item $U_{\mathrm{CAP}}$ — capacitive energy of the membrane,
+    \item $U_{\mathrm{rest}}$ — resting-state energy minimum.
+\end{itemize}
+
+Conditions for admissibility:
+
+\begin{enumerate}
+    \item $U_V$ must have a local minimum (resting state),
+    \item the gain function must allow suprathreshold instability,
+    \item gating transitions must be thermally and chemically feasible.
+\end{enumerate}
+
+% ---------------------------------------------------------------
+\subsection*{4. Thresholds $\Theta(M_5)$}
+
+The defining threshold:
+
+\[
+\Theta_{\mathrm{exc}} = \text{minimal depolarization required to initiate a regenerative event}.
+\]
+
+Additional thresholds:
+
+\begin{itemize}
+    \item $\Theta_{\mathrm{gate}}$ — gating activation threshold,
+    \item $\Theta_{\mathrm{cond}}$ — conductance switching threshold,
+    \item $\Theta_{\mathrm{stability}}$ — stability boundary for oscillatory modes.
+\end{itemize}
+
+Critical relation:
+
+\[
+V(t) \ge \Theta_{\mathrm{exc}} \quad\Rightarrow\quad 
+\text{transition into spike-generating regime}.
+\]
+
+% ---------------------------------------------------------------
+\subsection*{5. Flows $J(M_5)$}
+
+Admissible flows expand those in $M_4$ by including:
+
+\[
+J(M_5) = 
+\big(
+J_{\mathrm{ion}},\
+J_V,\
+J_{\mathrm{gate}},\
+J_{\mathrm{exc}},\
+\nabla_i T_5
+\big).
+\]
+
+Where:
+
+\begin{itemize}
+    \item $J_{\mathrm{ion}}$ — ion-specific currents,
+    \item $J_V$ — voltage-driven flows,
+    \item $J_{\mathrm{gate}}$ — dynamic gating transitions,
+    \item $J_{\mathrm{exc}}$ — regenerative excitation flow regime,
+    \item $\nabla_i T_5$ — flows driven by tension gradients under excitability.
+\end{itemize}
+
+Conservation laws:
+
+\[
+\sum_i J_{\mathrm{ion},i} = C_m \frac{dV}{dt}.
+\]
+
+% ---------------------------------------------------------------
+\subsection*{6. Cycles in $M_5$}
+
+The key cycle:
+
+\[
+C_{\mathrm{spike}}
+= 
+\{\text{rest} \to \text{depolarization} \to 
+\text{overshoot} \to \text{repolarization} \to \text{refractory} \to \text{rest}\}.
+\]
+
+Other admissible cycles:
+
+\begin{itemize}
+    \item $C_{\mathrm{gate}}$ — gating activation/inactivation loop,
+    \item $C_{\mathrm{osc}}$ — subthreshold oscillatory cycles (when allowed),
+    \item $C_{\mathrm{conduct}}$ — transition cycles between conductance states.
+\end{itemize}
+
+Condition for existence of a spike cycle:
+
+\[
+\oint_{C_{\mathrm{spike}}} dA_{\mathrm{phase}} \approx 0
+\quad\text{and}\quad 
+V(t) \text{ crosses } \Theta_{\mathrm{exc}} \text{ once per cycle}.
+\]
+
+% ---------------------------------------------------------------
+\subsection*{7. Boundary $\partial\Omega(M_5)$}
+
+A configuration approaches $\partial\Omega(M_5)$ when:
+
+\begin{itemize}
+    \item the membrane cannot support stable resting potential,
+    \item gating kinetics break excitability,
+    \item conductance saturates or collapses,
+    \item $\Theta_{\mathrm{exc}}$ becomes unreachable (too high) or trivial (zero),
+    \item depolarization block persists,
+    \item ionic gradients fall below minimal viability levels.
+\end{itemize}
+
+Crossing $\partial\Omega(M_5)$ makes a spike impossible;  
+thus $K_5$ collapses or returns to a $K_4$-like regime.
+
+% ---------------------------------------------------------------
+\subsection*{8. Relation to $M_4$ and $M_6$}
+
+Transition $K_4 \to K_5$ is admissible when:
+
+\[
+A_{\mathrm{exc}} \in A(M_5),
+\qquad
+V(t) \ge \Theta_{\mathrm{exc}},
+\qquad
+\text{ion channels form coherent gating dynamics}.
+\]
+
+Transition toward $K_6$ (cognitive attractors) requires:
+
+\[
+A_{\mathrm{concept}} \in A(M_6),
+\qquad
+C_{\mathrm{spike}} \text{ must support coupling to other spikes},
+\]
+\[
+\text{emergence of attractor dynamics from spike trains}.
+\]
+
+Thus $M_5$ is the meta-space enabling:
+
+\begin{itemize}
+    \item electrical excitability,
+    \item spike generation,
+    \item dynamic conductance regulation,
+    \item early bioelectrical logic,
+    \item the structural bridge to neural computation.
+\end{itemize}
