@@ -6,26 +6,440 @@
 %  Ontology of Continua — Core
 %  K-level Module: K4
 %  File: content/k_levels/k4.tex
-%  Status: EMPTY — STRUCTURAL SKELETON
+%  Status: FULLY DEFINED
 % ==============================
 
 \section{$K_4$ Overview}
+\label{sec:k4-overview}
+
+$K_4$ is the level where a \emph{biological} structure first becomes
+possible. The defining event is the appearance of a \emph{semi-stable
+membrane} that generates a new ontological distinction:
+\[
+\text{inside} \;|\; \text{outside}.
+\]
+
+This is a genuine new axis of the continuum, creating:
+\begin{itemize}
+    \item a bounded chemical interior,
+    \item selective transport regimes,
+    \item spatially structured gradients,
+    \item proto-homeostasis,
+    \item the first biological cycles of excitation, survival and repair.
+\end{itemize}
+
+The transition $K_3 \to K_4$ corresponds to protocell formation: a RAF
+network enclosed by a semi-permeable membrane whose stability is governed
+by threshold conditions $\Theta_{\mathrm{mem}}$,
+$\Theta_{\mathrm{perm}}$, $\Theta_{\mathrm{osm}}$ and
+$\Theta_{\mathrm{curv}}$.
+
+$K_4$ is the minimal biological continuum: the simplest form of organised
+and sustained protocellular life.
+
+% ================================================================
 \section{State Space $\Omega(K_4)$}
+
+The state space includes:
+\[
+\Omega(K_4) =
+\{(\mathbf{c}_{\mathrm{in}},\mathbf{c}_{\mathrm{out}},
+  \partial\Omega,\; \mathbf{g},\; \Gamma_{\mathrm{RAF}},
+  \mathbf{p})\},
+\]
+where:
+\begin{itemize}
+    \item $\mathbf{c}_{\mathrm{in}}$: concentrations inside the membrane,
+    \item $\mathbf{c}_{\mathrm{out}}$: external concentrations,
+    \item $\partial\Omega$: membrane boundary with patch-structure,
+    \item $\mathbf{g}$: gradients across the membrane (osmotic, ionic,
+          pH, potential),
+    \item $\Gamma_{\mathrm{RAF}}$: the internal catalytic network,
+    \item $\mathbf{p}$: permeability and curvature parameters for each
+          boundary patch.
+\end{itemize}
+
+The state space is higher-dimensional than $K_3$ due to membrane topology
+and patchwise degrees of freedom.
+
+Admissible states must satisfy:
+\begin{itemize}
+    \item membrane cohesion,
+    \item controlled permeability,
+    \item non-destructive gradients,
+    \item viability of RAF network inside.
+\end{itemize}
+
+% ================================================================
 \section{Boundary $\partial\Omega(K_4)$}
+
+The membrane is a \emph{dynamic boundary}:
+\[
+\partial\Omega(K_4) = \bigcup_{i=1}^{N_{\mathrm{patch}}}
+    \partial\Omega_i.
+\]
+
+Each patch $\partial\Omega_i$ has:
+\begin{itemize}
+    \item local curvature $K_i$,
+    \item local permeability $p_i$,
+    \item local tension $T_i$,
+    \item local gradient constraints (osmotic, ionic, pH),
+    \item phase-state (L\textsubscript{α}, L\textsubscript{o},
+          L\textsubscript{β}, porous).
+\end{itemize}
+
+A patch collapses when:
+\[
+T_i > \Theta_{\mathrm{mem},i}
+\quad \text{or} \quad
+\Delta \Pi_i > \Theta_{\mathrm{osm},i}
+\quad \text{or} \quad
+K_i > \Theta_{\mathrm{curv},i}.
+\]
+
+Loss of any critical patch destroys $\Omega(K_4)$.
+
+% ================================================================
 \section{Axes $A(K_4)$}
+
+$K_4$ supports at minimum the following axes:
+\[
+A(K_4) = \{ A_{\mathrm{comp}}, A_{\mathrm{boundary}},
+           A_{\mathrm{curv}}, A_{\mathrm{perm}}, A_{\mathrm{grad}}\}.
+\]
+
+Interpretation:
+\begin{itemize}
+    \item $A_{\mathrm{comp}}$: inside/outside compartment distinction,
+    \item $A_{\mathrm{boundary}}$: membrane degrees of freedom,
+    \item $A_{\mathrm{curv}}$: curvature states of boundary patches,
+    \item $A_{\mathrm{perm}}$: variable permeability regimes,
+    \item $A_{\mathrm{grad}}$: chemical/electrical/ionic gradients.
+\end{itemize}
+
+These axes are \emph{not} reducible to chemical axes of $K_3$; each
+represents new structural differences of biological organisation.
+
+% ================================================================
 \section{Potentials $P(K_4)$}
+
+Potentials include:
+\[
+P(K_4) =
+\{ \mu_i^{\mathrm{in}},\; \mu_i^{\mathrm{out}},\;
+   P_{\mathrm{grad}},\;
+   P_{\mathrm{osm}},\;
+   P_{\mathrm{curv}},\;
+   P_{\mathrm{mem}},\;
+   P_{\mathrm{pump}} \}.
+\]
+
+Meaning:
+\begin{itemize}
+    \item internal/external chemical potentials,
+    \item gradient potentials driving selective transport,
+    \item osmotic pressure potentials,
+    \item curvature energy of membrane patches,
+    \item membrane-tension potentials,
+    \item energy stored in primitive pumps (if any appear).
+\end{itemize}
+
+These potentials regulate survival: too large a gradient or curvature
+destroys the system.
+
+% ================================================================
 \section{Thresholds $\Theta(K_4)$}
+
+Thresholds determine membrane and protocell viability:
+\[
+\Theta(K_4) =
+\{\Theta_{\mathrm{mem}},\;
+  \Theta_{\mathrm{perm}},\;
+  \Theta_{\mathrm{osm}},\;
+  \Theta_{\mathrm{curv}},\;
+  \Theta_{\mathrm{pH}},\;
+  \Theta_{\mathrm{grad}},\;
+  \Theta_{\mathrm{RAF-survival}}\}.
+\]
+
+Key interpretations:
+\begin{itemize}
+    \item $\Theta_{\mathrm{mem}}$: maximal membrane tension before
+          rupture,
+    \item $\Theta_{\mathrm{perm}}$: limits on passive permeability,
+    \item $\Theta_{\mathrm{osm}}$: osmotic tolerance before burst,
+    \item $\Theta_{\mathrm{curv}}$: curvature instability threshold,
+    \item $\Theta_{\mathrm{pH}}$: internal pH viability range,
+    \item $\Theta_{\mathrm{grad}}$: gradients sustainable without
+          collapse,
+    \item $\Theta_{\mathrm{RAF-survival}}$: minimal catalytic activity
+          for homeostatic cycles.
+\end{itemize}
+
+These thresholds collectively determine the boundary of viable protocell
+states.
+
+% ================================================================
 \section{Flows $J(K_4)$}
+
+Flows in $K_4$ include:
+\begin{itemize}
+    \item transmembrane transport:
+          \[
+          J_{\mathrm{ion}},\; J_{\mathrm{water}},\; J_{\mathrm{solute}},
+          \]
+    \item passive leak flows,
+    \item curvature-driven flows and patch rearrangements,
+    \item internal RAF-reactive flows,
+    \item pump-driven active flows (if primitive pumps exist),
+    \item osmotic swelling–relaxation cycles.
+\end{itemize}
+
+Flow stability requires control of:
+\[
+\Delta V,\; \Delta \Pi,\; \Delta c_i,\; \Delta \mathrm{pH}.
+\]
+
+% ================================================================
 \section{Cycles $C(K_4)$}
+
+Biological cycles first appear:
+\[
+C(K_4) =
+\{ C_{\mathrm{survival}},\;
+   C_{\mathrm{osmotic}},\;
+   C_{\mathrm{pH-recovery}},\;
+   C_{\mathrm{leak-pump}},\;
+   C_{\mathrm{RAF-stability}} \}.
+\]
+
+Meaning:
+\begin{itemize}
+    \item $C_{\mathrm{survival}}$: minimal homeostatic cycle preserving
+          membrane integrity,
+    \item $C_{\mathrm{osmotic}}$: repeated swelling–relaxation cycles,
+    \item $C_{\mathrm{pH-recovery}}$: buffering and reaction flows,
+    \item $C_{\mathrm{leak-pump}}$: balance of passive leaks and active
+          or semi-active transport,
+    \item $C_{\mathrm{RAF-stability}}$: internal network dynamics feeding
+          boundary stability.
+\end{itemize}
+
+Cycles define biological time direction and protocell persistence.
+
+% ================================================================
 \section{Time $\tau(K_4)$}
+
+Time exists when:
+\[
+\Pi(C_{\mathrm{survival}}) > \Theta_{\mathrm{time}}
+\quad\text{and}\quad
+\Pi(C_{\mathrm{RAF-stability}}) > \Theta_{\mathrm{time}}.
+\]
+
+Thus:
+\begin{itemize}
+    \item biological time arises from survival cycles,
+    \item time collapses when membrane cannot sustain stable cycle
+          operation,
+    \item temporal ordering is stronger than in $K_3$ due to boundary
+          feedback loops.
+\end{itemize}
+
+% ================================================================
 \section{Continuumness $k(K_4)$}
+
+Applying the general formula:
+\[
+k(K_4) = 
+\frac{\mu(\Omega(K_4))}{\mu(S(K_4))}
+\cdot
+\frac{|A(K_4)|}{|A(M_4)|}
+\cdot
+\frac{\sum \mathrm{Stab}(C)}{\sum \mathrm{MaxStab}(C)}
+\cdot
+(1 - \frac{\sigma(J)}{\sigma_{\max}})
+\cdot
+(1 - \frac{T}{\Theta_{\mathrm{stab}}})_+.
+\]
+
+Implications:
+\begin{itemize}
+    \item membrane stability increases $k(K_4)$,
+    \item osmotic and curvature fluctuations decrease $k(K_4)$,
+    \item loss of patch-level integrity sets $k(K_4)=0$,
+    \item successful protocell organisation corresponds to
+          $k(K_4)>0$ for extended periods.
+\end{itemize}
+
+% ================================================================
 \section{Structural Tension $T(K_4)$}
+
+Sources:
+\begin{itemize}
+    \item incompatible osmotic gradients,
+    \item excessive curvature stress at boundary patches,
+    \item pH stress,
+    \item uncontrolled permeability,
+    \item imbalance between leak and pump flows,
+    \item insufficient RAF support.
+\end{itemize}
+
+Structural failure occurs if:
+\[
+T(K_4) > \Theta_{\mathrm{mem}}.
+\]
+
+% ================================================================
 \section{Energy $E(K_4)$}
+
+Energy functional includes:
+\[
+E(K_4) =
+E_{\mathrm{chem}}^{\mathrm{in}} + E_{\mathrm{chem}}^{\mathrm{out}}
++ E_{\mathrm{osm}} + E_{\mathrm{curv}}
++ E_{\mathrm{grad}} + E_{\mathrm{mem}}
++ E_{\mathrm{RAF}}.
+\]
+
+Components:
+\begin{itemize}
+    \item internal and external chemical energies,
+    \item osmotic pressure energy,
+    \item membrane curvature energy,
+    \item gradient energy,
+    \item membrane-tension energy,
+    \item RAF network catalytic energy.
+\end{itemize}
+
+$E(K_4)$ determines protocell stability and dynamics.
+
+% ================================================================
 \section{Operators on $K_4$ ($\Psi$, $\Phi$, $\Lambda$, $U$, $\Chi$)}
+
+\begin{itemize}
+    \item $\Psi_{4\to5}$ — emergence of electrical excitability and
+          primitive ion channels (transition to $K_5$),
+    \item $\Phi$ — evolution of membrane constraints and permitted
+          chemistries,
+    \item $\Lambda$ — structural coupling of membrane and RAF sets,
+    \item $U$ — unification of gradient and membrane subsystems,
+    \item $\Chi$ — branching into alternative protocell types (different
+          membrane chemistries or transport regimes).
+\end{itemize}
+
+% ================================================================
 \section{Processes on $K_4$}
+
+Characteristic processes:
+\begin{itemize}
+    \item vesicle formation and closure,
+    \item curvature-driven rearrangements,
+    \item osmotic swelling and relaxation,
+    \item pH-buffering cycles,
+    \item leak–pump balance dynamics,
+    \item proto-metabolic feedback loops,
+    \item emergence of early ion channels,
+    \item stabilisation of electrical axis (pre-$K_5$).
+\end{itemize}
+
+% ================================================================
 \section{Predictions for $K_4$}
+
+\begin{enumerate}
+    \item Membrane stability requires curvature and osmotic thresholds
+          within narrow bounds.
+    \item Patch-based tension distribution predicts local flicker modes.
+    \item pH-recovery cycles are necessary for protocell continuation.
+    \item RAF networks alone cannot maintain organisation without
+          boundary stability.
+    \item Electrical gradients begin to appear before full $K_5$.
+    \item Transition to $K_5$ occurs only after stabilisation of ion
+          channels.
+\end{enumerate}
+
+% ================================================================
 \section{Experiments for $K_4$}
+
+Empirical analogues include:
+\begin{itemize}
+    \item fatty-acid vesicle experiments,
+    \item protocell osmotic-burst tests,
+    \item patch-level fluorescence mapping of membrane flicker,
+    \item ion-channel insertion in simple vesicles,
+    \item RAF networks enclosed in vesicles,
+    \item pH-buffered vesicle dynamics.
+\end{itemize}
+
+These tests validate thresholds $\Theta_{\mathrm{mem}}$,
+$\Theta_{\mathrm{curv}}$, $\Theta_{\mathrm{osm}}$,
+$\Theta_{\mathrm{pH}}$.
+
+% ================================================================
 \section{Collapse and Death of $K_4$}
+
+Collapse occurs when:
+\[
+\Omega(K_4) = \varnothing.
+\]
+
+Contributors:
+\begin{itemize}
+    \item membrane rupture,
+    \item extreme osmotic imbalance,
+    \item curvature-induced bursting,
+    \item catastrophic pH collapse,
+    \item leak runaway,
+    \item failure of survival cycles.
+\end{itemize}
+
+Once collapsed, transition to $K_5$ is impossible.
+
+% ================================================================
 \section{Falsifiability of $K_4$}
+
+Predictions that can be experimentally challenged:
+\begin{enumerate}
+    \item the existence of strict membrane thresholds for survival,
+    \item universal form of osmotic-collapse curves,
+    \item necessity of RAF-supported buffering cycles,
+    \item impossibility of sustained protocell organisation without
+          patch-level curvature control,
+    \item early appearance of proto-electrical gradients,
+    \item requirement of minimal leak–pump balance.
+\end{enumerate}
+
+Failure of these predictions would refute $K_4$ as presently defined.
+
+% ================================================================
 \section{Branching / Ontological Position of $K_4$}
+
+Branching types:
+\begin{itemize}
+    \item different membrane chemistries (fatty-acid, phospholipid,
+          mixed),
+    \item distinct permeability regimes,
+    \item alternative RAF cores compatible with membrane dynamics,
+    \item divergent proto-metabolic strategies.
+\end{itemize}
+
+Ontological position:
+\[
+K_3 \to K_4 \to K_5,
+\]
+with $K_4$ as the first biological continuum.
+
+% ================================================================
 \section{Relation to M-spaces}
+
+$M_4$ specifies:
+\begin{itemize}
+    \item admissible membrane materials,
+    \item allowed curvature and permeability ranges,
+    \item environmental regimes (osmotic, ionic, pH),
+    \item permitted transport processes,
+    \item constraints for forming $\partial\Omega$ as a stable boundary.
+\end{itemize}
+
+Compatibility of $K_4$ with $M_4$ determines protocell viability.
