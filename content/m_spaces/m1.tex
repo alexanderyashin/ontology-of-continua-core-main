@@ -4,10 +4,168 @@
 
 % ==============================
 %  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/m_spaces/m1.tex
-%  Status: EMPTY — TO BE FILLED
+%  Meta-Space: M1
+%  FULL MODULE — FINAL
 % ==============================
 
 \section{$M_1$ Overview}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:m1-overview}
+
+$M_1$ is the meta-space that provides the admissibility structure for the
+one-dimensional continuum $K_1$.  
+Unlike $M_0$, which governs only proto-differences, $M_1$ introduces the
+first genuine geometric and dynamical admissibility conditions:
+\[
+\Omega(K_1) \subseteq \Omega(M_1).
+\]
+
+$M_1$ is the minimal meta-space in which the following are well-defined:
+
+\begin{itemize}
+    \item a measurable axis $A_1$;
+    \item a continuous field $\phi(x)$ over a one-dimensional domain;
+    \item proto-dynamics via flows $J_1=(\partial_x \phi, \partial_t \phi)$;
+    \item admissible energy functionals and actions;
+    \item well-formed structural tension $T_1$ and a meaningful threshold $\Theta_1$;
+    \item the existence and collapse rules of $K_1$.
+\end{itemize}
+
+Thus, $M_1$ is the meta-structure that makes $K_1$ mathematically and physically possible.
+
+\subsection*{1. Structure of $\Omega(M_1)$}
+
+\[
+\Omega(M_1)
+=
+\Big\{
+\phi : X \to V \ \big|\
+\phi \in C^{0}(X,V),\ 
+\partial_x \phi,\ \partial_t \phi\ \text{well-defined in } H^1
+\Big\}.
+\]
+
+$M_1$ enforces:
+
+\begin{enumerate}
+    \item \textbf{Continuity:}  
+    Fields must admit continuous representations; discontinuous maps lie outside $\partial\Omega(M_1)$.
+
+    \item \textbf{Sobolev regularity:}  
+    First derivatives must exist in the weak sense:
+    \[
+    \partial_x \phi,\ \partial_t \phi \in H^1.
+    \]
+
+    \item \textbf{Metric compatibility:}  
+    The admissible metric structure of $X$ and $V$ is fixed by $M_1$ and is required to compute energy and tension.
+
+    \item \textbf{Topological admissibility:}  
+    $X$ must be a one-dimensional topological manifold
+    (open interval, circle, half-line, etc.).
+\end{enumerate}
+
+Any violation of these constraints places a configuration on the boundary
+$\partial\Omega(M_1)$, making the existence of $K_1$ impossible.
+
+\subsection*{2. Admissible Axes in $M_1$}
+
+$M_1$ allows exactly one structural axis:
+\[
+A_1 : X \to \mathbb{R},
+\]
+representing the first measurable dimension.
+
+The following are prohibited in $M_1$:
+
+\begin{itemize}
+    \item additional independent axes;
+    \item incompatible nonlinear structure for $A_1$;
+    \item oscillatory axes without admissible dynamics.
+\end{itemize}
+
+These prohibitions define the scope of possible $K_1$ evolutions.
+
+\subsection*{3. Admissible Potentials and Energies}
+
+$M_1$ requires the existence of a well-defined energy functional
+consistent with the universal operator structure:
+\[
+E[\phi] = \int_X \left(
+\frac{1}{2} |\partial_x \phi|^2 + V(\phi)
+\right)\,dx,
+\]
+with:
+
+\begin{itemize}
+    \item $V(\phi)$ bounded below,
+    \item coercivity to prevent collapse,
+    \item differentiability to define flows.
+\end{itemize}
+
+Admissible potentials $P(M_1)$ are exactly those satisfying the above.
+
+\subsection*{4. Thresholds and Structural Tension}
+
+$M_1$ defines the threshold:
+\[
+\Theta_1 = \inf \{ T_1(\phi) : \phi \in \Omega(M_1) \},
+\]
+and the structural tension functional:
+\[
+T_1(\phi) = 
+\int_X \left(
+|\partial_x \phi|^2 + W(\phi)
+\right)\, dx,
+\]
+where $W$ includes constraint-enforcing terms.
+
+Violation of $T_1 < \Theta_1$ drives $K_1$ to collapse.
+
+\subsection*{5. Admissible Flows and Proto-Dynamics}
+
+Allowed flows are:
+\[
+J_1 = (\partial_x \phi,\ \partial_t \phi),
+\]
+with $\partial_t\phi$ belonging to the admissible tangent space of $\Omega(M_1)$.
+
+$M_1$ prohibits flows that:
+\begin{itemize}
+    \item increase tension without admissible compensation,
+    \item cause nonphysical discontinuities,
+    \item violate the action principle or conservation constraints.
+\end{itemize}
+
+\subsection*{6. Collapse and Boundary of $M_1$}
+
+A configuration lies on the boundary $\partial\Omega(M_1)$ if:
+
+\begin{itemize}
+    \item continuity fails,
+    \item Sobolev regularity fails,
+    \item energy becomes unbounded,
+    \item $T_1 \ge \Theta_1$,
+    \item $A_1$ becomes non-measurable.
+\end{itemize}
+
+Collapse of $K_1$ occurs when its admissible configurations cross this boundary.
+
+\subsection*{7. Relation to $K_0$ and $K_2$}
+
+$M_1$ is the minimal space that permits the transition $K_0 \to K_1$ via the operator $\Psi_{0\to1}$.
+
+A transition $K_1 \to K_2$ is admissible only if:
+\[
+A_2 \in A(M_2),\qquad
+\Omega(K_2) \subseteq \Omega(M_2),\qquad
+T_1 \ge \Theta_{\text{dim}}.
+\]
+
+Thus, $M_1$ governs:
+
+\begin{itemize}
+    \item existence and stability of $K_1$,
+    \item the admissible domain for the first dynamic continuum,
+    \item the structural possibility of higher-dimensional continua.
+\end{itemize}
+
