@@ -6,26 +6,394 @@
 %  Ontology of Continua — Core
 %  K-level Module: K2
 %  File: content/k_levels/k2.tex
-%  Status: EMPTY — STRUCTURAL SKELETON
+%  Status: FULLY DEFINED
 % ==============================
 
 \section{$K_2$ Overview}
+\label{sec:k2-overview}
+
+Level $K_2$ is the first continuum that supports \emph{genuine
+two-dimensional structure}. It arises through the dimensional transition
+$\Psi_{1\to2}$ when the constraints of $K_1$ become insufficient to
+represent incompatible variations (Axiom~15). The new axis $A_2$ is
+orthogonal in the structural sense and cannot be expressed as a function
+of $A_1$.
+
+As a result, $K_2$ becomes the first level at which:
+\begin{itemize}
+    \item nontrivial cycles exist,
+    \item time $\tau$ emerges (via stable $C$-cycles),
+    \item gradients and potentials form two-dimensional fields,
+    \item defects, vortices and dislocations appear,
+    \item topological phenomena become meaningful.
+\end{itemize}
+
+$K_2$ is the minimal setting for classical field-theoretic behaviour and
+the BKT-type transition.
+
+% ================================================================
 \section{State Space $\Omega(K_2)$}
+
+The state space of $K_2$ is:
+\[
+\Omega(K_2) = C^0(X_1 \times X_2, V),
+\]
+a space of continuous fields over a 2D domain.
+
+Key properties:
+\begin{enumerate}
+    \item $\Omega(K_2)$ contains configurations with meaningful local
+          gradients in two independent directions.
+    \item Defects (e.g., vortices) lie in $\partial\Omega(K_2)$ unless
+          they satisfy admissibility constraints of $M_2$.
+    \item Nontrivial homotopy classes exist:
+          \[
+          \pi_1(\Omega(K_2)) \neq 0.
+          \]
+\end{enumerate}
+
+This is the first level where geometry (in the weak structural sense)
+emerges.
+
+% ================================================================
 \section{Boundary $\partial\Omega(K_2)$}
+
+$\partial\Omega(K_2)$ contains:
+\begin{itemize}
+    \item discontinuous fields,
+    \item fields whose energy density diverges,
+    \item configurations exceeding $\Theta_{\mathrm{grad}}$ or
+          $\Theta_{\mathrm{defect}}$,
+    \item fields where cycles collapse ($C \to \varnothing$).
+\end{itemize}
+
+A special part of the boundary corresponds to topological defects whose
+core size collapses to zero, signalling destruction of dimensional
+coherence.
+
+% ================================================================
 \section{Axes $A(K_2)$}
+
+Axes consist of:
+\[
+A(K_2) = \{A_1, A_2\},
+\]
+where:
+\begin{itemize}
+    \item $A_1$ is inherited from $K_1$,
+    \item $A_2$ is a new independent structural axis.
+\end{itemize}
+
+The independence condition is:
+\[
+\nexists\, h: \mathbb{R} \to \mathbb{R} \text{ such that } A_2 = h \circ A_1.
+\]
+
+This independence is the formal core of the dimensional jump.
+
+% ================================================================
 \section{Potentials $P(K_2)$}
+
+The set of potentials now includes full 2D structural terms:
+\[
+P(K_2) = 
+\{ P_{\mathrm{grad}}, P_{\mathrm{curl}}, P_{\mathrm{div}},
+   P_{\mathrm{bond}}, P_{\mathrm{smooth}}, P_{\mathrm{top}} \}.
+\]
+
+Interpretation:
+\begin{itemize}
+    \item gradients in two axes encode local tension,
+    \item curl-like structures encode rotational degrees of freedom,
+    \item divergence potentials encode compressive or dilational tension,
+    \item $P_{\mathrm{top}}$ captures energy of vortices and defects.
+\end{itemize}
+
+These potentials reproduce, at the abstract level, the structural
+precursors of fields in physics.
+
+% ================================================================
 \section{Thresholds $\Theta(K_2)$}
+
+Thresholds now include:
+\[
+\Theta(K_2) =
+\{\Theta_{\mathrm{grad}}, \Theta_{\mathrm{curl}},
+  \Theta_{\mathrm{defect}}, \Theta_{\mathrm{coh}},
+  \Theta_{\mathrm{BKT}}\}.
+\]
+
+Their meaning:
+\begin{itemize}
+    \item $\Theta_{\mathrm{grad}}$: maximal admissible gradient magnitude.
+    \item $\Theta_{\mathrm{curl}}$: rotational tolerance.
+    \item $\Theta_{\mathrm{defect}}$: defect-core stability threshold.
+    \item $\Theta_{\mathrm{coh}}$: coherence threshold for 2D order.
+    \item $\Theta_{\mathrm{BKT}}$: threshold for the appearance of
+          stable $C$-cycles; equivalent to $K_c$ in the BKT theorem of
+          representability.
+\end{itemize}
+
+Crossing $\Theta_{\mathrm{BKT}}$ yields the emergent time axis.
+
+% ================================================================
 \section{Flows $J(K_2)$}
+
+Flows include:
+\[
+J(K_2) = \{\partial_{x_1} f,\; \partial_{x_2} f,\;
+\text{2D deformations},\; \text{vortex drift},\; \text{phase rotations}\}.
+\]
+
+Here appear:
+\begin{itemize}
+    \item divergence and curl flows,
+    \item diffusion-like equilibration,
+    \item defect-annihilation and defect-unbinding dynamics.
+\end{itemize}
+
+Flows define the dynamical admissibility of evolution in $\Omega(K_2)$.
+
+% ================================================================
 \section{Cycles $C(K_2)$}
+
+$K_2$ is the first level with nontrivial cycles:
+\[
+C(K_2) = \{C_{\mathrm{vortex}},\; C_{\mathrm{phase}},\; C_{\mathrm{ring}}\}.
+\]
+
+Most important:
+\[
+C_{\mathrm{vortex}}: \oint \nabla \theta \cdot d\ell = 2\pi n.
+\]
+
+According to Theorem of Representability~5 (BKT):
+\begin{itemize}
+    \item For coupling $K < K_c$, $C_{\mathrm{vortex}}$ are unstable and
+          decay.
+    \item For $K > K_c$, cycles become stable and produce global
+          coherence.
+\end{itemize}
+
+These stable cycles generate the time degree of freedom.
+
+% ================================================================
 \section{Time $\tau(K_2)$}
+
+Time emerges for the first time at $K_2$.
+
+From the Time Emergence Theorem:
+\[
+\tau \text{ exists iff there is a stable cycle } 
+C \text{ with } \Pi(C) > \Theta_{\mathrm{time}}.
+\]
+
+Here $\Pi(C)$ is the cycle-power functional.
+
+Thus:
+\[
+\tau(K_2) =
+\begin{cases}
+\text{undefined}, & K < K_c, \\
+\text{well-defined monotonic parameter}, & K > K_c.
+\end{cases}
+\]
+
+This is the structural analogue of temporal ordering arising from
+persistent 2D coherence.
+
+% ================================================================
 \section{Continuumness $k(K_2)$}
+
+The general formula:
+\[
+k(K_2) =
+\frac{\mu(\Omega(K_2))}{\mu(S(K_2))}
+\cdot
+\frac{|A(K_2)|}{|A(M_2)|}
+\cdot
+\frac{\sum \mathrm{Stab}(C)}{\sum \mathrm{MaxStab}(C)}
+\cdot
+\left(1 - \frac{\sigma(J)}{\sigma_{\max}}\right)
+\cdot
+\left(1 - \frac{T}{\Theta_{\mathrm{coh}}}\right)_+.
+\]
+
+Interpretation:
+\begin{itemize}
+    \item growth of $\Omega(K_2)$ increases $k$,
+    \item increasing defect density lowers $k$,
+    \item stable cycles raise $k$,
+    \item turbulence-like flows reduce $k$.
+\end{itemize}
+
+This quantifies structural viability of the 2D continuum.
+
+% ================================================================
 \section{Structural Tension $T(K_2)$}
+
+Sources of tension:
+\begin{itemize}
+    \item large gradients,
+    \item vortex cores,
+    \item defect–anti-defect interactions,
+    \item incompatible boundary conditions.
+\end{itemize}
+
+Collapse occurs when:
+\[
+T(K_2) > \Theta_{\mathrm{coh}}.
+\]
+
+This leads to loss of coherence and destruction of $C$-cycles.
+
+% ================================================================
 \section{Energy $E(K_2)$}
+
+The structural energy:
+\[
+E(K_2) = \int_{X_1 \times X_2}
+\mathcal{E}(f, \nabla f, \nabla^2 f)\, d\mu,
+\]
+where $\mathcal{E}$ includes:
+\begin{itemize}
+    \item gradient energy,
+    \item elastic-like energy,
+    \item defect-core energy,
+    \item topological energy of vortices.
+\end{itemize}
+
+This is the structural prototype of energy functionals in physics.
+
+% ================================================================
 \section{Operators on $K_2$ ($\Psi$, $\Phi$, $\Lambda$, $U$, $\Chi$)}
+
+\begin{itemize}
+    \item $\Psi_{2\to3}$ — dimensional transition to $K_3$ when 2D
+          structure becomes insufficient.
+    \item $\Phi$ — meta-space evolution operator for $M_2$.
+    \item $\Lambda$ — constraint-enforcing operator that stabilizes
+          gradients, smoothness and defect bounds.
+    \item $U$ — unification of local 2D regions into global coherent
+          fields.
+    \item $\Chi$ — branching operator allowing multiple $K_2$
+          manifolds with different coherence structures.
+\end{itemize}
+
+% ================================================================
 \section{Processes on $K_2$}
+
+Processes include:
+\begin{itemize}
+    \item vortex creation, annihilation and drift,
+    \item phase ordering and disordering,
+    \item BKT-type transitions,
+    \item stabilization of global coherence,
+    \item collapse under defect proliferation,
+    \item dimensional growth to $K_3$ when incompatible variations
+          cannot be captured by $\{A_1, A_2\}$.
+\end{itemize}
+
+% ================================================================
 \section{Predictions for $K_2$}
+
+\begin{enumerate}
+    \item Existence of a coherence threshold $K_c$ (BKT).
+    \item Sharp transition between stable and unstable vortices.
+    \item Emergence of time only when vortex cycles stabilize.
+    \item Universal power-law correlations below $K_c$.
+    \item Loss of coherence under defect proliferation.
+    \item Necessity of two independent axes for nontrivial cycles.
+\end{enumerate}
+
+These predictions match a wide class of physical systems (XY-model,
+superfluid films, thin magnetic layers).
+
+% ================================================================
 \section{Experiments for $K_2$}
+
+Canonical experimental signatures:
+\begin{itemize}
+    \item measurement of vortex-unbinding temperature in 2D superfluids,
+    \item detection of BKT-like transitions in atomically thin films,
+    \item observation of coherence collapse at high defect density,
+    \item phase-ordering kinetics in 2D materials,
+    \item universal jump in stiffness at the BKT transition.
+\end{itemize}
+
+Indirect tests appear in:
+\begin{itemize}
+    \item graphene defect dynamics,
+    \item 2D liquid-crystal films,
+    \item biological membranes with topological defect patterns.
+\end{itemize}
+
+% ================================================================
 \section{Collapse and Death of $K_2$}
+
+$K_2$ collapses when:
+\[
+\Omega(K_2) = \varnothing,
+\]
+due to:
+\begin{itemize}
+    \item runaway defect proliferation,
+    \item loss of coherence ($T > \Theta_{\mathrm{coh}}$),
+    \item destruction of all $C$-cycles,
+    \item inability to maintain two independent axes.
+\end{itemize}
+
+After collapse, no transition to $K_3$ is possible.
+
+% ================================================================
 \section{Falsifiability of $K_2$}
+
+Falsifiable predictions:
+\begin{enumerate}
+    \item existence of a sharp BKT-like threshold,
+    \item necessity of cycles for emergent time,
+    \item correlation-length behaviour near $K_c$,
+    \item universal stiffness jump,
+    \item topological protection of $C_{\mathrm{vortex}}$ above $K_c$.
+\end{enumerate}
+
+Empirical violation of these features would contradict the structural
+model.
+
+% ================================================================
 \section{Branching / Ontological Position of $K_2$}
+
+$K_2$ is the root of all higher-dimensional continua:
+\[
+K_0 \to K_1 \to K_2 \to K_3 \to \dots
+\]
+
+Branching at $K_2$ corresponds to different admissible 2D coherence
+structures:
+\begin{itemize}
+    \item vortex-rich vs vortex-free phases,
+    \item smooth vs defect-dominated manifolds,
+    \item high-coherence vs low-coherence branches.
+\end{itemize}
+
+These branches remain distinct unless unified by operator $U$.
+
+% ================================================================
 \section{Relation to M-spaces}
+
+$K_2$ is embedded in:
+\[
+K_2 \subseteq M_2 \subseteq M_1 \subseteq M_0.
+\]
+
+$M_2$ defines:
+\begin{itemize}
+    \item admissible 2D topologies,
+    \item allowed defect classes,
+    \item gradient and curl bounds,
+    \item coherence conditions for dimensional stability.
+\end{itemize}
+
+Transition to $K_3$ requires that $M_2$ cannot accommodate new
+incompatible classes of differences.
+
