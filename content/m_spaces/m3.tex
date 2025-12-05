@@ -4,10 +4,253 @@
 
 % ==============================
 %  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/m_spaces/m3.tex
-%  Status: EMPTY — TO BE FILLED
+%  Meta-Space: M3
+%  FULL MODULE — FINAL VERSION
 % ==============================
 
 \section{$M_3$ Overview}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:m3-overview}
+
+$M_3$ is the meta-space that provides the admissibility conditions for 
+three-dimensional continua $K_3$.  
+It is the first meta-space in which:
+
+\begin{itemize}
+    \item a third independent axis $A_3$ becomes admissible,
+    \item reactive structure appears (chemical binding / dissociation),
+    \item valence states become part of the admissible configuration space,
+    \item diffusion and transport occur in three spatial dimensions,
+    \item local interaction graphs (reaction networks) are stable objects,
+    \item activation thresholds and reaction potentials become well-defined,
+    \item spatial heterogeneity and gradients are dynamically supported.
+\end{itemize}
+
+$M_3$ is the mathematical and physical environment within which 
+the chemical continuum $K_3$ can exist, evolve and undergo structural transitions
+towards higher continua such as $K_4$.
+
+% ---------------------------------------------------------------
+\subsection*{1. Admissible Configuration Space $\Omega(M_3)$}
+
+The admissible set of configurations in $M_3$ is:
+
+\[
+\Omega(M_3)
+=
+\Big\{
+(\phi,\, G_{\mathrm{chem}},\, \rho,\, g_{ij}) \ \Big|\
+\phi \in C^{0}(X_3, V),\
+G_{\mathrm{chem}} \in \mathcal{G}_{\mathrm{RAF}},\
+\rho \in L^1(X_3),\
+g_{ij}\in C^{0}
+\Big\}.
+\]
+
+Key admissibility conditions:
+
+\begin{enumerate}
+    \item \textbf{Three-dimensional topology.}  
+    $X_3$ must be a 3-manifold supporting local coordinate charts,
+    differentiability and diffusion.
+
+    \item \textbf{Local reaction networks.}  
+    $G_{\mathrm{chem}}$ must be representable as a finite, locally supported 
+    reaction graph satisfying the RAF conditions for closure and catalytic action.
+
+    \item \textbf{Density fields.}  
+    $\rho(x)$ defines molecular or atomic concentrations 
+    and must be integrable with finite total mass.
+
+    \item \textbf{Metric admissibility.}  
+    $g_{ij}$ describes spatial geometry but does not yet include 
+    relativistic structure; only Riemannian (positive definite) metrics
+    are admissible at this level.
+
+    \item \textbf{Locality.}  
+    All interactions must be expressible through local potentials 
+    and local reaction kernels.
+\end{enumerate}
+
+Thus, $\Omega(M_3)$ expands the geometric and physical admissibility of $M_2$
+into the chemical regime.
+
+% ---------------------------------------------------------------
+\subsection*{2. Admissible Axes $A(M_3)$}
+
+A new axis $A_3$ becomes admissible in $M_3$, satisfying:
+
+\[
+A_3 \not\subset \operatorname{span}(A_1, A_2),
+\qquad
+T_2 \ge \Theta_{\mathrm{dim}}.
+\]
+
+Additional admissible internal axes:
+
+\begin{itemize}
+    \item $A_{\mathrm{val}}$: valence states (bonding possibilities),
+    \item $A_{\mathrm{react}}$: admissible reaction modes,
+    \item $A_{\mathrm{conf}}$: configuration states of molecules.
+\end{itemize}
+
+These internal axes encode chemical structure within the meta-space.
+
+% ---------------------------------------------------------------
+\subsection*{3. Potentials $P(M_3)$}
+
+Admissible potentials in $M_3$ correspond to chemical and spatial interactions:
+
+\[
+P(M_3)
+=
+\left\{
+U_{\mathrm{bond}} + U_{\mathrm{rep}} + U_{\mathrm{conf}} 
++ U_{\mathrm{diff}} + U_{\mathrm{local}} 
+\right\}.
+\]
+
+Where:
+
+\begin{itemize}
+    \item $U_{\mathrm{bond}}$ — bonding potentials with minima at stable bond lengths,
+    \item $U_{\mathrm{rep}}$ — short-range repulsive potentials preventing collapse,
+    \item $U_{\mathrm{conf}}$ — internal configuration potentials for molecular states,
+    \item $U_{\mathrm{diff}}$ — potentials associated with concentration gradients,
+    \item $U_{\mathrm{local}}$ — any locally defined energetic contribution.
+\end{itemize}
+
+Constraints:
+
+\begin{enumerate}
+    \item potentials must be bounded from below,
+    \item they must be differentiable almost everywhere,
+    \item they must enforce local, not global or action-at-a-distance, structure.
+\end{enumerate}
+
+% ---------------------------------------------------------------
+\subsection*{4. Thresholds $\Theta(M_3)$}
+
+$M_3$ formalizes several chemical thresholds:
+
+\begin{itemize}
+    \item $\Theta_{\mathrm{bond}}$ — minimal energy required to break a bond,
+    \item $\Theta_{\mathrm{act}}$ — activation threshold for reactions,
+    \item $\Theta_{\mathrm{cluster}}$ — minimal stable cluster energy,
+    \item $\Theta_{\mathrm{grad}}$ — threshold for maintaining spatial gradients,
+    \item $\Theta_{\mathrm{RAF}}$ — threshold for RAF-network closure.
+\end{itemize}
+
+Stability of $K_3$ requires:
+
+\[
+T_3 < \min\{\Theta_{\mathrm{bond}}, \Theta_{\mathrm{cluster}}, 
+\Theta_{\mathrm{RAF}}\}.
+\]
+
+Where $T_3$ is the structural tension of configurations in $\Omega(K_3)$.
+
+% ---------------------------------------------------------------
+\subsection*{5. Flows $J(M_3)$}
+
+Admissible flows include:
+
+\[
+J(M_3) = 
+\big(
+J_{\mathrm{diff}},\ 
+J_{\mathrm{react}},\ 
+J_{\mathrm{grad}},\ 
+\nabla_i T_3
+\big).
+\]
+
+Interpretation:
+
+\begin{itemize}
+    \item $J_{\mathrm{diff}}$ — diffusion flows in 3D,
+    \item $J_{\mathrm{react}}$ — local reaction fluxes given RAF rules,
+    \item $J_{\mathrm{grad}}$ — flows maintaining or reducing local gradients,
+    \item $\nabla_i T_3$ — flows driven by gradients of structural tension.
+\end{itemize}
+
+All flows must preserve local mass conservation.
+
+% ---------------------------------------------------------------
+\subsection*{6. Cycles and Reaction Networks}
+
+$M_3$ is the first meta-space where chemical cycles are admissible:
+
+\[
+C_{\mathrm{chem}}
+=
+\big\{
+\text{bond-formation} \to
+\text{transformation} \to
+\text{bond-breaking}
+\to \dots
+\big\}.
+\]
+
+RAF nets become admissible cycles when:
+
+\[
+E_{\mathrm{in}} \ge \Theta_{\mathrm{act}}
+\quad\text{and}\quad
+\text{closure conditions satisfied}.
+\]
+
+These cycles form the minimal building blocks for the emergence of biological continua ($K_4$).
+
+% ---------------------------------------------------------------
+\subsection*{7. Boundary $\partial\Omega(M_3)$ and Collapse}
+
+A configuration approaches the boundary $\partial\Omega(M_3)$ if:
+
+\begin{itemize}
+    \item bonding potentials become singular,
+    \item reaction flux diverges,
+    \item gradients become non-integrable ($|\nabla\rho| \to \infty$),
+    \item RAF closure is lost ($G_{\mathrm{chem}} \notin \mathcal{G}_{\mathrm{RAF}}$),
+    \item total structural tension exceeds threshold:
+    \[
+    T_3 \ge \Theta_3.
+    \]
+\end{itemize}
+
+Crossing $\partial\Omega(M_3)$ destroys chemical continuity and collapses $K_3$.
+
+% ---------------------------------------------------------------
+\subsection*{8. Relation to $M_2$ and $M_4$}
+
+The transition $K_2 \to K_3$ becomes admissible when:
+
+\[
+A_3 \in A(M_3),
+\qquad
+\Omega(K_3) \subseteq \Omega(M_3),
+\qquad
+T_2 \ge \Theta_{\mathrm{dim}}.
+\]
+
+Transition toward $K_4$ requires:
+
+\[
+\Omega(K_4) \subseteq \Omega(M_4),
+\qquad
+\partial\Omega(M_3) \ \text{supports bounded permeability},
+\qquad
+\Theta_{\mathrm{mem}} > 0.
+\]
+
+Thus, $M_3$ is the meta-space of:
+
+\begin{itemize}
+    \item chemical structure,
+    \item reaction networks,
+    \item three-dimensional diffusion,
+    \item valence and bonding,
+    \item activation barriers,
+    \item robust gradients.
+\end{itemize}
+
+It is the structural foundation enabling chemical continua $K_3$ and the emergence of protocellular structures in $K_4$.
