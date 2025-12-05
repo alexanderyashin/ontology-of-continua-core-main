@@ -6,26 +6,418 @@
 %  Ontology of Continua — Core
 %  K-level Module: K5
 %  File: content/k_levels/k5.tex
-%  Status: EMPTY — STRUCTURAL SKELETON
+%  Status: FULLY DEFINED
 % ==============================
 
 \section{$K_5$ Overview}
+\label{sec:k5-overview}
+
+$K_5$ is the level at which \emph{electrical excitability} emerges as a
+new ontological dimension. The protocell boundary of $K_4$ becomes an
+\emph{electrically active membrane} through the formation of ion channels
+with controlled conductance. This generates a new axis:
+\[
+A_{\mathrm{exc}}: \Delta V \;\mapsto\; \text{electrical state difference},
+\]
+where $\Delta V$ is the transmembrane potential.
+
+This axis is not definable in $K_4$. It represents a new class of
+incompatible differences and therefore constitutes a genuine increase in
+dimension.
+
+Organisationally, $K_5$ is characterised by:
+\begin{itemize}
+    \item stable ion channels (open/closed/leaky/blocked),
+    \item controlled ionic fluxes,
+    \item excitable cycles (excitation–recovery),
+    \item refractory dynamics,
+    \item noise control and thresholded responses,
+    \item self-sustaining electrical organisation tightly coupled to the
+          chemical interior.
+\end{itemize}
+
+$K_5$ is the minimal \emph{neuron-like} continuum, even if no real
+neurons exist yet.
+
+% ================================================================
 \section{State Space $\Omega(K_5)$}
+
+A state of $K_5$ includes:
+\[
+\Omega(K_5) = \{ \Delta V,\, c_i,\, g_{\mathrm{ion}},\,
+                P_{\mathrm{open}},\,
+                x(t),\,
+                G=(V,E),\,
+                I(t) \}.
+\]
+
+Components:
+\begin{itemize}
+    \item $\Delta V$ — transmembrane potential,
+    \item $c_i$ — ionic concentrations inside and outside,
+    \item $g_{\mathrm{ion}}$ — conductances of ion channels,
+    \item $P_{\mathrm{open}}$ — open probabilities,
+    \item $x(t)$ — internal activation variables,
+    \item $G=(V,E)$ — proto-neural connectivity graph for multi-unit
+          $K_5$ systems,
+    \item $I(t)$ — external or internal currents.
+\end{itemize}
+
+Admissibility requires:
+\[
+|\Delta V| < \Theta_{\mathrm{volt-max}}, \quad
+c_i \in \text{viability range}, \quad
+0 \le P_{\mathrm{open}} \le 1.
+\]
+
+% ================================================================
 \section{Boundary $\partial\Omega(K_5)$}
+
+The membrane inherits $K_4$'s boundary with a new structure:
+\[
+\partial\Omega(K_5)
+    = \partial\Omega(K_4)
+      \cup \{ \text{ion channels with gating kinetics} \}.
+\]
+
+For each channel $k$:
+\begin{itemize}
+    \item state space: open/closed/blocked/leaky,
+    \item parameters: $g_k$, reversal potential $E_k$, gating variables,
+    \item patch-level localisation,
+    \item interactions with local curvature and tension.
+\end{itemize}
+
+Collapse of channel ordering or gating kinetics destroys $\Omega(K_5)$.
+
+% ================================================================
 \section{Axes $A(K_5)$}
+
+The minimal axes are:
+\[
+A(K_5) = A(K_4)\; \cup\;
+\{ A_{\mathrm{exc}},\; A_{\mathrm{ion}},\; A_{\mathrm{gate}} \}.
+\]
+
+Where:
+\begin{itemize}
+    \item $A_{\mathrm{exc}}$: electrical excitation axis,
+    \item $A_{\mathrm{ion}}$: ionic species and flux differences,
+    \item $A_{\mathrm{gate}}$: gating-state differences for ion channels.
+\end{itemize}
+
+These axes are incompatible with chemical-only differences of $K_4$ and
+imply a higher-dimensional continuum.
+
+% ================================================================
 \section{Potentials $P(K_5)$}
+
+Potentials include:
+\[
+P(K_5)=\{
+E_{\mathrm{ion}},\;
+P_{\mathrm{gate}},\;
+P_{\mathrm{exc}},\;
+P_{\mathrm{noise}},\;
+P_{\mathrm{refrac}},\;
+P_{\mathrm{coupling}}
+\}.
+\]
+
+Interpretation:
+\begin{itemize}
+    \item $E_{\mathrm{ion}}$ — Nernst potentials for each ionic species,
+    \item $P_{\mathrm{gate}}$ — gating activation potentials,
+    \item $P_{\mathrm{exc}}$ — excitation thresholds for spike initiation,
+    \item $P_{\mathrm{noise}}$ — noise-control potentials,
+    \item $P_{\mathrm{refrac}}$ — refractory resetting potentials,
+    \item $P_{\mathrm{coupling}}$ — potentials for electrically coupling
+          multiple units via $G$.
+\end{itemize}
+
+% ================================================================
 \section{Thresholds $\Theta(K_5)$}
+
+Threshold structure:
+\[
+\Theta(K_5)=\{
+\Theta_{\mathrm{exc}},\;
+\Theta_{\mathrm{noise}},\;
+\Theta_{\mathrm{volt-max}},\;
+\Theta_{\mathrm{channel-open}},\;
+\Theta_{\mathrm{channel-close}},\;
+\Theta_{\mathrm{channel-noise}},\;
+\Theta_{\mathrm{front}},\;
+\Theta_{\mathrm{refrac}}
+\}.
+\]
+
+Meaning:
+\begin{itemize}
+    \item $\Theta_{\mathrm{exc}}$: excitation threshold for spike
+          generation,
+    \item $\Theta_{\mathrm{noise}}$: noise limit beyond which excitation
+          is lost,
+    \item $\Theta_{\mathrm{volt-max}}$: maximal safe transmembrane
+          voltage,
+    \item $\Theta_{\mathrm{channel-open}}$, $\Theta_{\mathrm{channel-close}}$:
+          gating viability thresholds,
+    \item $\Theta_{\mathrm{channel-noise}}$: noise tolerance in gating,
+    \item $\Theta_{\mathrm{front}}$: minimal conditions for propagation
+          fronts in multi-unit settings,
+    \item $\Theta_{\mathrm{refrac}}$: minimal refractory recovery level.
+\end{itemize}
+
+Exceeding $\Theta_{\mathrm{volt-max}}$ or $\Theta_{\mathrm{channel-noise}}$
+annihilates the continuum.
+
+% ================================================================
 \section{Flows $J(K_5)$}
+
+Flows:
+\begin{itemize}
+    \item ionic currents:
+    \[
+    J_{\mathrm{ion},k} = g_k(\Delta V - E_k),
+    \]
+    \item leak currents and noise currents,
+    \item gating-variable flows:
+          $\dot{x} = f(x,\Delta V)$,
+    \item spike-propagation flows over graph edges $E$,
+    \item refractoriness recovery flows,
+    \item coupling flows between units.
+\end{itemize}
+
+Stability requires:
+\[
+\sigma(J) < \sigma_{\max}(K_5).
+\]
+
+% ================================================================
 \section{Cycles $C(K_5)$}
+
+Characteristic cycles:
+\[
+C(K_5)
+= \{ C_{\mathrm{exc}},\;
+     C_{\mathrm{refrac}},\;
+     C_{\mathrm{noise-control}},\;
+     C_{\mathrm{channel-dynamics}},\;
+     C_{\mathrm{coupling}} \}.
+\]
+
+Descriptions:
+\begin{itemize}
+    \item $C_{\mathrm{exc}}$: excitation cycle (rest → excitation →
+          peak → repolarisation),
+    \item $C_{\mathrm{refrac}}$: refractory cycle restoring channel
+          states,
+    \item $C_{\mathrm{noise-control}}$: suppression of stochastic
+          fluctuations,
+    \item $C_{\mathrm{channel-dynamics}}$: gating cycles that sustain
+          excitability,
+    \item $C_{\mathrm{coupling}}$: multi-unit synchronisation cycles.
+\end{itemize}
+
+Each cycle has a characteristic period $\tau_{C_j}$.
+
+% ================================================================
 \section{Time $\tau(K_5)$}
+
+Time emerges from the existence of stable excitation cycles:
+\[
+\tau(K_5)
+    = \min_j \tau_{C_j},
+\qquad
+\Pi(C_j) > \Theta_{\mathrm{time}}.
+\]
+
+Temporal ordering at $K_5$ is more rigid than at $K_4$, due to sharp
+excitation thresholds and refractory intervals.
+
+% ================================================================
 \section{Continuumness $k(K_5)$}
+
+Using the general definition:
+\[
+k_5
+= H(\Omega(K_5))
+  \cdot\frac{|V_{\mathrm{cycle}}|}{|V|}
+  \cdot\frac{\sum_j C_j^{\mathrm{eff}}}{\sum_j C_j^{\max}}
+  \cdot\left(1-\frac{\sigma(J)}{\sigma_{\max}}\right)
+  \cdot\left(1-\frac{T(K_5)}{\Theta_{\mathrm{stab}}}\right)_+.
+\]
+
+Interpretation:
+\begin{itemize}
+    \item cycle fraction controls viability,
+    \item excessive noise reduces $k_5$,
+    \item too large $\Delta V$ collapses $k_5$ to zero,
+    \item coordinated excitation raises $k_5$.
+\end{itemize}
+
+% ================================================================
 \section{Structural Tension $T(K_5)$}
+
+Sources of tension:
+\begin{itemize}
+    \item incompatible ionic gradients,
+    \item gating noise,
+    \item runaway excitation,
+    \item insufficient refractory recovery,
+    \item loss of coupling stability,
+    \item uncontrolled depolarisation.
+\end{itemize}
+
+Failure if:
+\[
+T(K_5) > \Theta_{\mathrm{volt-max}}.
+\]
+
+% ================================================================
 \section{Energy $E(K_5)$}
+
+Energy functional:
+\[
+E(K_5)
+= E_{\mathrm{chem}}
++ E_{\mathrm{ion}}
++ E_{\mathrm{pump}}
++ E_{\mathrm{exc}}
++ E_{\mathrm{noise}}
++ E_{\mathrm{coupling}}.
+\]
+
+Components:
+\begin{itemize}
+    \item chemical energy for maintaining gradients,
+    \item ionic current energy,
+    \item pump-driven energy consumption,
+    \item excitation and gating energy,
+    \item noise-control energy,
+    \item coupling energy in multi-unit networks.
+\end{itemize}
+
+% ================================================================
 \section{Operators on $K_5$ ($\Psi$, $\Phi$, $\Lambda$, $U$, $\Chi$)}
+
+\begin{itemize}
+    \item $\Psi_{5\to6}$ — emergence of cognitive modelling axes and
+          transformation of excitation cycles into attractors,
+    \item $\Phi$ — evolution of channel kinetics and conductances,
+    \item $\Lambda$ — structural coupling of excitation with chemical
+          homeostasis,
+    \item $U$ — unification of ionic species into integrated electrical
+          dynamics,
+    \item $\Chi$ — branching into different excitability regimes (burst,
+          tonic, phasic).
+\end{itemize}
+
+% ================================================================
 \section{Processes on $K_5$}
+
+Typical processes:
+\begin{itemize}
+    \item spike initiation and recovery,
+    \item gating kinetics transitions,
+    \item fluctuations around excitation threshold,
+    \item propagation of fronts across $G$,
+    \item refractoriness-driven ordering of activity,
+    \item synchronisation in coupled units,
+    \item emergence of attractor-like stable firing patterns.
+\end{itemize}
+
+% ================================================================
 \section{Predictions for $K_5$}
+
+\begin{enumerate}
+    \item Excitability requires tightly controlled noise regimes.
+    \item Spike-like events appear spontaneously once $\Theta_{\mathrm{exc}}$
+          is crossed.
+    \item Global depolarisation causes structural collapse.
+    \item Networked $K_5$ systems form attractors that prefigure $K_6$
+          cognitive models.
+    \item Channel diversity expands viable regions of $\Omega(K_5)$.
+\end{enumerate}
+
+% ================================================================
 \section{Experiments for $K_5$}
+
+Empirical analogues:
+\begin{itemize}
+    \item artificial lipid vesicles with reconstituted ion channels,
+    \item patch-clamp experiments measuring gating noise,
+    \item voltage-clamp characterisation of $\Delta V$ thresholds,
+    \item multi-vesicle coupling and synchronisation tests,
+    \item proto-neuron models with minimal excitability.
+\end{itemize}
+
+These tests directly probe $\Theta_{\mathrm{exc}}$, $\Theta_{\mathrm{noise}}$,
+$\Theta_{\mathrm{channel-open}}$, etc.
+
+% ================================================================
 \section{Collapse and Death of $K_5$}
+
+Occurs when:
+\[
+\Omega(K_5) = \varnothing.
+\]
+
+Mechanisms:
+\begin{itemize}
+    \item uncontrolled depolarisation,
+    \item channel malfunction or gating collapse,
+    \item ionic-gradient dissipation,
+    \item noise-induced runaway failures,
+    \item inability to recover from excitation.
+\end{itemize}
+
+Collapse prevents emergence of $K_6$.
+
+% ================================================================
 \section{Falsifiability of $K_5$}
+
+Key testable predictions:
+\begin{enumerate}
+    \item Excitable behaviour cannot be sustained without refractory
+          cycles.
+    \item Noise-control thresholds are real and measurable.
+    \item Ion-channel distributions determine viability boundaries.
+    \item Stable attractors in $K_5$ must exist before $K_6$ can form.
+    \item Spike propagation requires $\Theta_{\mathrm{front}}$.
+\end{enumerate}
+
+Failure of these predictions refutes the model of $K_5$.
+
+% ================================================================
 \section{Branching / Ontological Position of $K_5$}
+
+Branching types:
+\begin{itemize}
+    \item tonic–phasic–burst excitability regimes,
+    \item multi-channel vs. single-channel systems,
+    \item weakly vs. strongly coupled units,
+    \item distributed vs. localised excitation patterns.
+\end{itemize}
+
+Ontological location:
+\[
+K_4 \to K_5 \to K_6.
+\]
+
+$K_5$ is the bridge between biological protocells and cognitive systems.
+
+% ================================================================
 \section{Relation to M-spaces}
+
+$M_5$ specifies:
+\begin{itemize}
+    \item permitted ionic species and charge-carriers,
+    \item admissible ranges of conductances and potentials,
+    \item noise regimes compatible with excitability,
+    \item environmental constraints allowing channel stability,
+    \item allowed coupling structures.
+\end{itemize}
+
+Compatibility of $K_5$ with $M_5$ determines the existence of
+electrically excitable systems.
