@@ -4,10 +4,278 @@
 
 % ==============================
 %  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/m_spaces/m4.tex
-%  Status: EMPTY — TO BE FILLED
+%  Meta-Space: M4
+%  FULL MODULE — FINAL VERSION
 % ==============================
 
 \section{$M_4$ Overview}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:m4-overview}
+
+$M_4$ is the meta-space that provides the admissibility conditions for 
+biological continua of level $K_4$.  
+It is the first meta-space in which:
+
+\begin{itemize}
+    \item a stable \emph{semipermeable boundary} is admissible,
+    \item the topological distinction \textbf{inside/outside} becomes an axis,
+    \item nontrivial \emph{concentration, electrical, pH and redox gradients} 
+    can be sustained,
+    \item active transport and energy conversion processes are allowed,
+    \item reaction networks are confined and spatially coordinated,
+    \item the transition from chemical to protobiological structure ($K_3 \to K_4$)
+          is admissible.
+\end{itemize}
+
+$M_4$ introduces the geometric and energetic conditions for 
+compartmentalization---the defining property of early cells.
+
+% ---------------------------------------------------------------
+\subsection*{1. Admissible Configuration Space $\Omega(M_4)$}
+
+The admissible configurations in $M_4$ extend those of $M_3$ by adding:
+
+\[
+\Omega(M_4)
+=
+\Big\{
+(\phi,\ G_{\mathrm{chem}},\ \rho_{\mathrm{in/out}},\ 
+\Delta\mu,\ g_{ij},\ \partial\Omega,\ \Pi)
+\ \Big|\ \text{admissibility conditions hold}
+\Big\}.
+\]
+
+Where:
+
+\begin{itemize}
+    \item $\partial\Omega$ — a semipermeable membrane forming a compact boundary,
+    \item $\rho_{\mathrm{in/out}}$ — concentration fields inside and outside,
+    \item $\Delta\mu$ — electrochemical potential gradients across $\partial\Omega$,
+    \item $\Pi$ — permeability tensor (direction- and species-dependent),
+    \item $G_{\mathrm{chem}}$ — internal RAF networks that remain functional
+          under confinement.
+\end{itemize}
+
+Admissibility conditions:
+
+\begin{enumerate}
+    \item \textbf{Membrane stability}:  
+    $\partial\Omega$ must maintain mechanical integrity under tension 
+    $T_{\mathrm{mem}} < \Theta_{\mathrm{mem}}$.
+
+    \item \textbf{Permeability constraints}:  
+    $\Pi$ must be finite, anisotropic and species-specific.
+
+    \item \textbf{Gradient compatibility}:  
+    electrochemical gradients must satisfy:
+    \[
+    |\Delta\mu| < \Theta_{\mathrm{grad-max}}.
+    \]
+
+    \item \textbf{Volume finiteness}:  
+    the internal region must have bounded volume and mass.
+
+    \item \textbf{RAF compatibility}:  
+    internal reaction networks must remain topologically closed.
+\end{enumerate}
+
+$M_4$ thus provides the minimal environment where protocells can exist.
+
+% ---------------------------------------------------------------
+\subsection*{2. Admissible Axes $A(M_4)$}
+
+A new fundamental axis appears:
+
+\[
+A_{\mathrm{in/out}} = \{ \text{inside},\ \text{outside} \}.
+\]
+
+It satisfies:
+
+\[
+A_{\mathrm{in/out}} \not\subseteq \operatorname{span}(A_1, A_2, A_3)
+\quad\Rightarrow\quad
+\text{new dimension allowed}.
+\]
+
+Additional admissible axes include:
+
+\begin{itemize}
+    \item $A_{\mathrm{perm}}$ — permeability states,
+    \item $A_{\mathrm{grad}}$ — gradient configurations (pH, ions, charge),
+    \item $A_{\mathrm{vol}}$ — volume/pressure axis,
+    \item $A_{\mathrm{energy}}$ — internal energy states 
+          (ATP-like precursors, redox pools).
+\end{itemize}
+
+These axes define the internal functional geometry of early cells.
+
+% ---------------------------------------------------------------
+\subsection*{3. Potentials $P(M_4)$}
+
+$M_4$ admits new classes of potentials:
+
+\[
+P(M_4) =
+\big(
+U_{\mathrm{mem}},\ 
+U_{\mathrm{grad}},\
+U_{\mathrm{osm}},\
+U_{\mathrm{charge}},\
+U_{\mathrm{redox}},\
+U_{\mathrm{active}}
+\big).
+\]
+
+Interpretation:
+
+\begin{itemize}
+    \item $U_{\mathrm{mem}}$ — membrane bending and surface tension potential,
+    \item $U_{\mathrm{grad}}$ — energy stored in chemical/electrical gradients,
+    \item $U_{\mathrm{osm}}$ — osmotic pressure potential,
+    \item $U_{\mathrm{charge}}$ — Coulombic and dielectric interactions,
+    \item $U_{\mathrm{redox}}$ — redox-energy landscape,
+    \item $U_{\mathrm{active}}$ — energy conversion enabling active transport.
+\end{itemize}
+
+All potentials must be:
+
+\begin{enumerate}
+    \item differentiable almost everywhere,
+    \item bounded from below,
+    \item compatible with membrane stability conditions.
+\end{enumerate}
+
+% ---------------------------------------------------------------
+\subsection*{4. Thresholds $\Theta(M_4)$}
+
+Key biological thresholds introduced:
+
+\begin{itemize}
+    \item $\Theta_{\mathrm{mem}}$ — membrane rupture threshold,
+    \item $\Theta_{\mathrm{grad}}$ — minimal gradient needed to maintain structure,
+    \item $\Theta_{\mathrm{grad-max}}$ — maximal tolerable gradient,
+    \item $\Theta_{\mathrm{osm}}$ — osmotic pressure tolerance,
+    \item $\Theta_{\mathrm{pH}}$ — viability interval for internal pH,
+    \item $\Theta_{\mathrm{redox}}$ — redox compatibility threshold.
+\end{itemize}
+
+Critical condition for $K_4$ to remain alive:
+
+\[
+T_4 < 
+\min\{
+\Theta_{\mathrm{mem}},\ 
+\Theta_{\mathrm{osm}},\
+\Theta_{\mathrm{grad-max}},\
+\Theta_{\mathrm{pH}},\
+\Theta_{\mathrm{redox}}
+\}.
+\]
+
+% ---------------------------------------------------------------
+\subsection*{5. Flows $J(M_4)$}
+
+Admissible flows include:
+
+\[
+J(M_4)
+=
+\big(
+J_{\mathrm{diff}},\
+J_{\mathrm{perm}},\
+J_{\mathrm{pump}},\
+J_{\mathrm{redox}},\
+J_{\mathrm{osm}},\
+\nabla_i T_4
+\big).
+\]
+
+Where:
+
+\begin{itemize}
+    \item $J_{\mathrm{diff}}$ — passive diffusion inside/outside,
+    \item $J_{\mathrm{perm}}$ — membrane-permeation flows,
+    \item $J_{\mathrm{pump}}$ — active transport against gradients,
+    \item $J_{\mathrm{redox}}$ — redox-cycling flows,
+    \item $J_{\mathrm{osm}}$ — osmotic balance flows,
+    \item $\nabla_i T_4$ — flows driven by structural tension gradients.
+\end{itemize}
+
+All flows must satisfy mass conservation within the membrane boundary.
+
+% ---------------------------------------------------------------
+\subsection*{6. Cycles in $M_4$}
+
+$M_4$ is the meta-space where biological cycles become admissible:
+
+\begin{itemize}
+    \item $C_{\mathrm{RAF-core}}$ — reaction-autocatalytic cycles,
+    \item $C_{\mathrm{metabolic}}$ — basic metabolic turnover,
+    \item $C_{\mathrm{pump}}$ — pump-driven active transport cycles,
+    \item $C_{\mathrm{redox}}$ — electron-transfer cycles,
+    \item $C_{\mathrm{buffer}}$ — pH-buffering cycles.
+\end{itemize}
+
+Condition for cycle stability:
+
+\[
+\oint_C dA_i \approx 0
+\quad\text{and}\quad 
+T_4 \ \text{bounded}.
+\]
+
+These cycles generate the temporal structure $\tau(K_4)$.
+
+% ---------------------------------------------------------------
+\subsection*{7. Boundary $\partial\Omega(M_4)$}
+
+A configuration approaches $\partial\Omega(M_4)$ when:
+
+\begin{itemize}
+    \item membrane tension approaches the rupture threshold:
+    \[
+    T_{\mathrm{mem}} \to \Theta_{\mathrm{mem}},
+    \]
+    \item internal pH exits the viability interval,
+    \item gradients exceed $\Theta_{\mathrm{grad-max}}$,
+    \item osmotic imbalance becomes unstable,
+    \item confinement breaks RAF closure inside the compartment.
+\end{itemize}
+
+Crossing $\partial\Omega(M_4)$ destroys the protobiological continuum $K_4$.
+
+% ---------------------------------------------------------------
+\subsection*{8. Relation to $M_3$ and $M_5$}
+
+Transition $K_3 \to K_4$ is admissible when:
+
+\[
+A_{\mathrm{in/out}} \in A(M_4),
+\qquad
+\Omega(K_4) \subseteq \Omega(M_4),
+\qquad
+T_3 \ge \Theta_{\mathrm{dim}}.
+\]
+
+Transition toward $K_5$ requires:
+
+\[
+A_{\mathrm{exc}} \in A(M_5),
+\qquad
+\Delta V \ge \Theta_{\mathrm{exc}},
+\qquad
+\text{channels and electrical conduction admissible}.
+\]
+
+Thus, $M_4$ is the meta-space of:
+
+\begin{itemize}
+    \item membrane structure,
+    \item compartmentalization,
+    \item gradients and osmotic physics,
+    \item energy conversion,
+    \item early metabolism,
+    \item minimal biological stability.
+\end{itemize}
+
+It is the structural foundation enabling protocellular life.
