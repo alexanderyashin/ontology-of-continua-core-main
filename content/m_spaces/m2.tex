@@ -4,10 +4,223 @@
 
 % ==============================
 %  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/m_spaces/m2.tex
-%  Status: EMPTY — TO BE FILLED
+%  Meta-Space: M2
+%  FULL MODULE — FINAL
 % ==============================
 
 \section{$M_2$ Overview}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:m2-overview}
+
+$M_2$ is the meta-space that provides the admissibility structure for the
+two-dimensional continuum $K_2$.  
+Transition into $M_2$ corresponds to the emergence of:
+
+\begin{itemize}
+    \item spatial dimensionality beyond $A_1$,
+    \item local geometric structure,
+    \item a dynamical metric,
+    \item causal cones and permitted propagation velocities,
+    \item quantization thresholds and minimal clusters,
+    \item the full action-based dynamics of continua.
+\end{itemize}
+
+It is the first meta-space where geometry, time, and physical propagation are jointly admissible.
+
+\subsection*{1. Structure of $\Omega(M_2)$}
+
+The admissible configuration space in $M_2$ is:
+
+\[
+\Omega(M_2)
+=
+\Big\{
+\phi : X_2 \to V \ \big|\ 
+\phi \in C^{0}(X_2,V),\
+\partial_i\phi,\ \partial_t\phi \in H^1,\ 
+g_{\mu\nu} \in C^{0}
+\Big\}.
+\]
+
+Requirements:
+
+\begin{enumerate}
+    \item \textbf{Two-dimensional topology.}  
+    $X_2$ must be a 2-manifold with local coordinate charts.  
+    Typical examples: $\mathbb{R}^2$, a cylinder, or a compact surface.
+
+    \item \textbf{Local differentiability.}  
+    First derivatives $\partial_i\phi$ and $\partial_t\phi$ must exist in the Sobolev sense.
+
+    \item \textbf{Admissible metric field.}  
+    $M_2$ allows a dynamical metric $g_{\mu\nu}$, but only with signature:
+    \[
+    (-,+,+),
+    \]
+    arising as the Hessian of the structural tension functional $T_2$.
+
+    \item \textbf{Locality constraint.}  
+    Allowed interactions must be local in $X_2$.
+
+    \item \textbf{Finite propagation.}  
+    Causal cones must exist (Θ\(_{\text{conn}}\) enforces the light-cone admissibility).
+\end{enumerate}
+
+These conditions define the admissible region for any $K_2$ continuum.
+
+\subsection*{2. Admissible Axes in $M_2$}
+
+$M_2$ admits exactly two independent spatial axes:
+
+\[
+A_1,\ \ A_2,
+\]
+with $A_1$ inherited and $A_2$ arising from the dimensional threshold condition:
+\[
+T_1 \ge \Theta_{\text{dim}}.
+\]
+
+No additional axes are admissible in $M_2$.  
+Higher axes require transitions into $M_3$ and above.
+
+\subsection*{3. Admissible Potentials and Energies}
+
+The meta-space $M_2$ enforces energy functionals of the form:
+
+\[
+E[\phi]
+=
+\int_{X_2}
+\left(
+\frac{1}{2} g^{ij} \partial_i \phi \partial_j \phi
++ V(\phi)
+\right) \sqrt{|g|}\, d^2x.
+\]
+
+Admissible potentials $P(M_2)$ must satisfy:
+
+\begin{itemize}
+    \item coercivity to ensure stability against collapse,
+    \item boundedness from below,
+    \item differentiability for generating flows,
+    \item local dependence only (no nonlocal potentials allowed).
+\end{itemize}
+
+\subsection*{4. Thresholds and Structural Tension}
+
+$M_2$ defines:
+
+\[
+\Theta_2 = \inf \{ T_2(\phi, g_{\mu\nu}) : (\phi, g) \in \Omega(M_2) \},
+\]
+
+with the structural tension:
+
+\[
+T_2 = \int_{X_2}
+\left(
+g^{ij} \partial_i \phi \partial_j \phi
++ W(\phi)
++ \alpha R
+\right)
+\sqrt{|g|}\, d^2x,
+\]
+
+where:
+
+\begin{itemize}
+    \item $W(\phi)$ enforces constraints on admissible configurations,
+    \item $R$ is the scalar curvature,
+    \item $\alpha$ controls geometric stiffness.
+\end{itemize}
+
+A key feature of $M_2$:  
+**the metric $g_{\mu\nu}$ emerges from the second variation of $T_2$**,  
+making geometry a derivative concept rather than primitive.
+
+\subsection*{5. Admissible Flows and Propagation}
+
+Allowed flows:
+
+\[
+J_2 = (\partial_i \phi,\ \partial_t \phi,\ \nabla_i T_2,\ \Box_g \phi),
+\]
+
+with the d'Alembertian defined through $g$.
+
+Propagation constraints:
+
+\begin{itemize}
+    \item signals must lie within the causal cone determined by $\Theta_{\text{conn}}$,  
+    \item propagation speed cannot exceed the admissible limit set by $g_{\mu\nu}$,
+    \item flows must preserve regularity ($H^1$ compatibility).
+\end{itemize}
+
+These encode the emergence of physical causality in $K_2$.
+
+\subsection*{6. Quantization Thresholds and Minimal Clusters}
+
+$M_2$ is the first meta-space to enforce:
+
+\[
+\Theta_{\text{quant}} > 0.
+\]
+
+This yields:
+
+\begin{itemize}
+    \item a minimal stable cluster size $q_{\min}$,
+    \item discrete operator actions:
+    \[
+    a^\dagger |k\rangle,\quad a |k\rangle,
+    \]
+    as changes in connectedness measure $k$,
+    \item quantized excitations as topologically stable configurations in $\Omega(M_2)$.
+\end{itemize}
+
+Thus, quantization is a structural necessity, not an external axiom.
+
+\subsection*{7. Collapse and Boundary of $M_2$}
+
+A configuration touches $\partial\Omega(M_2)$ if:
+
+\begin{itemize}
+    \item the metric degenerates ($\det g \to 0$),
+    \item locality is violated,
+    \item $T_2 \ge \Theta_2$,
+    \item curvature diverges ($|R| \to \infty$),
+    \item admissible axes cease to be measurable.
+\end{itemize}
+
+Crossing this boundary forces collapse of any $K_2$ continuum.
+
+\subsection*{8. Relation to $K_1$ and $K_3$}
+
+$M_2$ enables the transition $K_1 \to K_2$ via $\Psi_{1\to2}$, defined through:
+
+\[
+A_1 \mapsto (A_1, A_2),\quad
+\Omega(K_1) \to \Omega(K_2),\quad
+T_1 \to T_2,\quad
+\text{dim} = 2.
+\]
+
+Transition to $K_3$ becomes admissible only when:
+
+\[
+A_3 \in A(M_3),\qquad
+T_2 \ge \Theta_{\text{dim}},
+\qquad
+\Omega(K_3) \subseteq \Omega(M_3).
+\]
+
+Thus, $M_2$ is the meta-space of:
+
+\begin{itemize}
+    \item geometry,
+    \item causality,
+    \item quantization,
+    \item dimensional stability,
+    \item propagation.
+\end{itemize}
+
+It is the structural foundation for all higher continua.
