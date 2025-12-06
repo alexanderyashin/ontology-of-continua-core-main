@@ -1,14 +1,321 @@
-
 % ================================================================
 % ==== FILE: content/processes/processes_k2.tex
 % ================================================================
 
 % ==============================
 %  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/processes/processes_k2.tex
-%  Status: EMPTY — TO BE FILLED
+%  Processes on K2
 % ==============================
 
 \section{Processes on $K_2$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:processes-k2}
+
+Processes on $K_2$ describe the first genuinely spatial and topological
+dynamics in the Ontology of Continua. While $K_1$ supports temporal
+evolution of a single-axis field, $K_2$ introduces:
+
+\begin{itemize}
+    \item a network-like state space $\Omega(K_2)$,
+    \item a topology of connectivity and clusters,
+    \item percolation processes with thresholds,
+    \item causal propagation,
+    \item multi-axis interactions,
+    \item and emergent geometrical structure.
+\end{itemize}
+
+Thus, processes at $K_2$ correspond to the birth of spatial organisation
+and the first form of physical locality.
+
+% ---------------------------------------------------------------
+\subsection{Structure of a $K_2$ Process}
+
+A process on $K_2$ is an evolution of:
+
+\[
+G(t) = (V, E(t)),
+\]
+where $V$ is the inherited set of nodes (states at $K_1$), and $E(t)$
+the time-dependent set of edges representing interactions, adjacency,
+or causal relations.
+
+Each edge $e_{ij} \in E(t)$ has:
+
+\[
+p_{ij}(t) \in [0,1], \quad
+J_{ij}(t) \in \mathbb{R}, \quad
+\omega_{ij}(t) \in \mathcal{W},
+\]
+
+representing:
+\begin{itemize}
+    \item probability of connectivity,
+    \item flow along the link,
+    \item weight or metric contribution.
+\end{itemize}
+
+The evolution of $E(t)$ follows:
+
+\[
+\partial_t p_{ij} = \Phi_2(p_{ij}, J_{ij}, T_2, \Theta_2),
+\]
+which generalises $K_1$ flows to relational structure.
+
+% ---------------------------------------------------------------
+\subsection{Percolation Processes}
+
+The hallmark of $K_2$ is the percolation process.
+
+Define the mean connectivity:
+\[
+p = \frac{1}{|E_{\max}|} \sum_{i<j} p_{ij}.
+\]
+
+There exists a critical threshold $p_c$ such that:
+
+\[
+\begin{cases}
+p < p_c & \Rightarrow \text{only small clusters}, \\
+p = p_c & \Rightarrow \text{critical state}, \\
+p > p_c & \Rightarrow \text{giant connected component}.
+\end{cases}
+\]
+
+A $K_2$ percolation process is any evolution where:
+
+\[
+\partial_t p \neq 0,
+\]
+or, more generally, when cluster connectivity undergoes transitions.
+
+Near $p_c$, processes show:
+
+\begin{itemize}
+    \item critical slowing down of $\tau$,
+    \item emergence of long-range correlations,
+    \item divergence of cluster size variance,
+    \item onset of spatial dimensionality.
+\end{itemize}
+
+This is the fundamental mechanism underpinning the birth of “space”.
+Spatial axes $A_2$ emerge precisely when percolation produces stable
+pathways across the graph.
+
+% ---------------------------------------------------------------
+\subsection{Causal Processes}
+
+Once percolation produces extended clusters, flows $J_{ij}(t)$ propagate
+across them, giving rise to causal dynamics.
+
+A causal process on $K_2$ is defined by:
+
+\[
+\partial_t \phi_i = \sum_{j \in \mathcal{N}(i,t)} J_{ij}(t),
+\]
+where $\mathcal{N}(i,t)$ is the dynamic neighbourhood induced by $E(t)$.
+
+Causality is not fundamental but emergent:
+it arises when flows become constrained by stable connectivity and finite
+transmission time.
+
+% ---------------------------------------------------------------
+\subsection{Metric-Emergence Processes}
+
+Edges carry weights $\omega_{ij}(t)$ that define a proto-metric:
+
+\[
+d(i,j) = \min_{\text{paths }P} \sum_{(k\ell)\in P} \omega_{k\ell}.
+\]
+
+A process is metric-forming if:
+
+\[
+\partial_t d(i,j) \neq 0.
+\]
+
+Stable metrics (constant or stationary $d$) correspond to emergence of
+geometric structure and spatial axes.
+
+This is the first point in the OC hierarchy where geometry becomes a
+process in itself.
+
+% ---------------------------------------------------------------
+\subsection{Topological Processes}
+
+Processes that change the qualitative structure of $\Omega(K_2)$ include:
+
+\begin{itemize}
+    \item edge formation / deletion,
+    \item cluster merging / splitting,
+    \item loop creation,
+    \item change of homology groups,
+    \item emergence of percolating structures,
+    \item collapse of connectivity.
+\end{itemize}
+
+Formally, a topological transition occurs when:
+
+\[
+\pi_n(G(t^-)) \not\simeq \pi_n(G(t^+)).
+\]
+
+Such transitions often correspond to threshold-crossing events:
+\[
+T_2 = \Theta_2^{\text{top}},
+\]
+where structural tension reaches the critical value associated with
+topological instability.
+
+% ---------------------------------------------------------------
+\subsection{Processes Driven by Operators}
+
+The operators act on $K_2$ as follows:
+
+\paragraph{Generative Operator $\Psi_2$.}
+\[
+\Psi_2: \text{create or modify edges, clusters, or weights}.
+\]
+
+This operator generates:
+
+\begin{itemize}
+    \item new connectivity,
+    \item new metric contributions,
+    \item new interaction channels.
+\end{itemize}
+
+\paragraph{Evolution Operator $\Phi_2$.}
+
+\[
+\partial_t p_{ij} = \Phi_2(p_{ij}, J_{ij}, T_2, \Theta_2).
+\]
+
+This is the canonical form of $K_2$ evolution.
+
+\paragraph{Compositional Operator $\Lambda_2$.}
+
+Merges clusters, composes subnetworks, or lifts patterns from $K_1$ into
+$K_2$ relational structure.
+
+\paragraph{Universal Operator $U_2$.}
+
+Updates continuumness:
+
+\[
+k_2(t+\mathrm{d}t) = U_2(k_2, G(t), J_2, T_2, \Theta_2).
+\]
+
+\paragraph{Constraint Operator $\Chi_2$.}
+
+Enforces boundary constraints on:
+
+\begin{itemize}
+    \item allowable edges,
+    \item maximum degree,
+    \item metric bounds,
+    \item interaction locality.
+\end{itemize}
+
+% ---------------------------------------------------------------
+\subsection{Structural Tension and Thresholds}
+
+Structural tension for a graph-like $K_2$ is:
+
+\[
+T_2 = f(p_{ij}, J_{ij}, \omega_{ij}, \text{cluster structure}).
+\]
+
+Critical thresholds include:
+
+\begin{itemize}
+    \item $\Theta_2^{\text{perc}}$ — percolation threshold,
+    \item $\Theta_2^{\text{top}}$ — topology-changing threshold,
+    \item $\Theta_2^{\text{metric}}$ — metric-instability threshold,
+    \item $\Theta_2^{\text{death}}$ — collapse of connectivity.
+\end{itemize}
+
+Crossing thresholds induces discrete changes in the geometry or topology
+of the continuum.
+
+% ---------------------------------------------------------------
+\subsection{Cycles on $K_2$}
+
+Cycles $C(K_2)$ correspond to:
+
+\begin{itemize}
+    \item loop flows,
+    \item circulation in connected components,
+    \item recurrence patterns in connectivity,
+    \item and re-emerging metric configurations.
+\end{itemize}
+
+A cycle process satisfies:
+
+\[
+G(t + T) \simeq G(t),
+\]
+where $T$ is the cycle period.
+
+Cycles stabilise $k_2$ and define early “laws” akin to conservation
+through recurrence.
+
+% ---------------------------------------------------------------
+\subsection{Emergence of $K_3$ Processes}
+
+Processes on $K_2$ generate $K_3$ when chemical-like structure emerges:
+
+\[
+\exists \text{ stable subgraphs } H \subseteq G
+\quad
+\text{with}
+\quad
+\Phi_2(H) \approx 0.
+\]
+
+Stable, bounded, non-trivial relational clusters behave as molecules.
+
+The transition operator:
+
+\[
+\Psi_{2\to3}: K_2 \to K_3
+\]
+
+activates when:
+
+\[
+T_2 > \Theta_2^{\text{chem}},
+\]
+producing chemically interpretable binding relations.
+
+% ---------------------------------------------------------------
+\subsection{Collapse and Death of $K_2$}
+
+A $K_2$ continuum collapses when:
+
+\begin{itemize}
+    \item $p \to 0$ (loss of connectivity),
+    \item cluster sizes remain $O(1)$ for all time,
+    \item metric degenerates ($d \to \infty$ or $0$ everywhere),
+    \item structural tension exceeds $\Theta_2^{\text{death}}$,
+    \item cycles collapse and $k_2 \to 0$.
+\end{itemize}
+
+In collapse, $K_2$ decays into multiple disconnected $K_1$-like
+subcontinua.
+
+% ---------------------------------------------------------------
+\subsection{Summary}
+
+Processes on $K_2$ introduce:
+
+\begin{itemize}
+    \item percolation and emergence of space,
+    \item causal propagation constrained by connectivity,
+    \item proto-metric formation,
+    \item topological transitions,
+    \item multi-axis interactions,
+    \item stable loops and early “laws”,
+    \item and the generative pathway to $K_3$.
+\end{itemize}
+
+$K_2$ thus forms the bridge between purely dynamical continua ($K_1$)
+and materially structured continua ($K_3$).
