@@ -4,10 +4,304 @@
 
 % ==============================
 %  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/processes/processes_master.tex
-%  Status: EMPTY — TO BE FILLED
+%  Processes Master Module
 % ==============================
 
 \section{Overview}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:processes-master}
+
+Processes constitute the dynamic layer of the Ontology of Continua (OC).  
+A \emph{process} is defined as any structured transformation
+\[
+\mathcal{P}: \Omega(K) \longrightarrow \Omega(K)
+\]
+regulated by the internal axes $A(K)$, potentials $P(K)$, flows $J(K)$,
+thresholds $\Theta(K)$, structural tension $T(K)$, and the operators 
+$\Psi$, $\Phi$, $\Lambda$, $U$, $\Chi$.
+
+A process exists only if the continuum $K$ maintains
+non-zero continuumness:
+\[
+k(K,t) > 0,
+\]
+and the transformation remains within the admissible region:
+\[
+\mathcal{P}(s) \in \Omega(K) \quad \forall\, s \in \Omega(K).
+\]
+
+This master module provides the unified framework for all
+process-descriptions in OC and applies to every level $K_0$--$K_{12}$.
+
+% ---------------------------------------------------------------
+\subsection{Definition of a Process}
+
+A process on a continuum $K$ is a tuple:
+\[
+\Pi(K) = 
+\bigl(
+\Omega(K),\ 
+A(K),\ 
+P(K),\ 
+J(K),\ 
+\Theta(K),\ 
+C(K),\ 
+T(K),\ 
+k(K),\ 
+\mathcal{O}
+\bigr),
+\]
+where $\mathcal{O} = \{\Psi, \Phi, \Lambda, U, \Chi\}$ is the set of
+universal OC operators.
+
+Formally, a process is a map:
+\[
+\mathcal{P}(t): \Omega(K,t) \to \Omega(K,t+\Delta t)
+\]
+satisfying:
+
+\begin{enumerate}
+    \item \textbf{Admissibility:} 
+    $\mathcal{P}(t)(\Omega(K,t)) \subseteq \Omega(K,t+\Delta t)$;
+
+    \item \textbf{Threshold compliance:}
+    $f_{\Theta}(s) \le 0$ for all evolved states $s$;
+
+    \item \textbf{Flow coherence:}
+    $J(K,t)$ must permit the transition enforced by $\mathcal{P}$;
+
+    \item \textbf{Cycle compatibility:}
+    $\mathcal{P}$ either preserves or transforms the existing cycles $C(K)$
+    without destroying the structural coherence of $K$;
+
+    \item \textbf{Continuity condition:}
+    $k(K,t+\Delta t) \ge 0$, and death is defined by $k \to 0$.
+\end{enumerate}
+
+% ---------------------------------------------------------------
+\subsection{Operators and Processes}
+
+Processes arise through the universal operators:
+
+\begin{itemize}
+    \item $\Psi$: generative operator (birth of distinctions, axes, and new states);
+    \item $\Phi$: structural operator (reconfiguration, alignment, mapping);
+    \item $\Lambda$: boundary operator (modifies $\partial\Omega$, creates new regions);
+    \item $U$: evolution operator (global update of $k$, $T$, $J$, $P$, $\Theta$);
+    \item $\Chi$: collapse operator (extinction, fragmentation, death).
+\end{itemize}
+
+Every process is expressible as a composition of these:
+
+\[
+\mathcal{P} = 
+\Lambda^{\alpha} \circ \Phi^{\beta} \circ \Psi^{\gamma} 
+\circ U^{\delta} \circ \Chi^{\epsilon},
+\]
+with exponents indicating activation or multiplicity.
+
+% ---------------------------------------------------------------
+\subsection{Classes of Processes}
+
+We classify processes into six universal families:
+
+\begin{enumerate}
+    \item \textbf{Generative processes} ($\Psi$-dominated):  
+    birth of axes, dimensions, states, or entire continua.
+    
+    \item \textbf{Structural processes} ($\Phi$-dominated):  
+    rearrangement of $A$, $P$, $J$, or internal geometry of $\Omega(K)$.
+
+    \item \textbf{Boundary processes} ($\Lambda$-dominated):  
+    modifications of $\partial\Omega(K)$, creation or destruction of
+    admissible regions.
+
+    \item \textbf{Evolutionary processes} ($U$-dominated):  
+    updates of tension, thresholds, flows, and continuumness.
+
+    \item \textbf{Cyclic processes} ($C(K)$-dominated):  
+    self-sustaining loops generating stability and coherence.
+
+    \item \textbf{Collapse processes} ($\Chi$-dominated):  
+    destruction, degeneration, fragmentation, or death of the continuum.
+\end{enumerate}
+
+Every specific continuum $K$ exhibits its own instantiation of these
+universal classes.
+
+% ---------------------------------------------------------------
+\subsection{Conditions for the Existence of Processes}
+
+For a process to exist at time $t$:
+
+\[
+k(K,t) > 0,
+\]
+
+\[
+T(K,t) < \Theta_{\mathrm{death}},
+\]
+
+\[
+\Omega(K,t) \neq \emptyset,
+\]
+
+and
+
+\[
+J(K,t) \ \text{supports the transformation}.
+\]
+
+Violating any of these conditions induces a collapse trajectory under $\Chi$.
+
+% ---------------------------------------------------------------
+\subsection{Birth of a Process}
+
+A process is born when:
+
+\begin{itemize}
+    \item new distinctions emerge (via $\Psi$),
+    \item $A(K)$ gains a new axis,
+    \item $P(K)$ changes beyond a generative threshold $\Theta_{\mathrm{gen}}$,
+    \item a new region of $\Omega(K)$ becomes accessible,
+    \item a cycle $C(K)$ begins to self-close,
+    \item structural tension $T$ crosses a metastable boundary.
+\end{itemize}
+
+Birth is always accompanied by a local increase in $k(K)$.
+
+% ---------------------------------------------------------------
+\subsection{Evolution of a Process}
+
+A process evolves according to:
+
+\[
+\frac{d}{dt}\mathcal{P}(t) 
+= U\bigl(P, A, \Theta, J, T, k\bigr),
+\]
+where the evolution operator $U$ updates:
+
+\begin{align*}
+A(t),\ 
+P(t),\ 
+\Theta(t),\ 
+J(t),\ 
+T(t),\ 
+k(t).
+\end{align*}
+
+The evolution is coherent if:
+
+\[
+C(K,t) \neq \emptyset 
+\quad\text{and}\quad
+f_{\Theta}(s) \le 0.
+\]
+
+% ---------------------------------------------------------------
+\subsection{Death of a Process}
+
+A process dies when any of the following occur:
+
+\[
+k(K,t) \to 0,
+\]
+
+\[
+T(K,t) > \Theta_{\mathrm{death}},
+\]
+
+\[
+\partial\Omega(K) \ \text{undergoes fragmentation},
+\]
+
+\[
+J_{\mathrm{support}} < J_{\mathrm{critical}},
+\]
+
+\[
+C(K,t) \ \text{breaks (cycle collapse)}.
+\]
+
+Death may be localized (partial collapse) or global ($K$ itself collapses).
+
+% ---------------------------------------------------------------
+\subsection{Universal Schema of a Process}
+
+Every process in OC follows the structure:
+
+\[
+\text{birth} 
+\ \xrightarrow{\Psi}
+\ \text{structural alignment}
+\ \xrightarrow{\Phi}
+\ \text{boundary update}
+\ \xrightarrow{\Lambda}
+\ \text{evolution}
+\ \xrightarrow{U}
+\ \text{stability or collapse}
+\ \xrightarrow{\Chi}.
+\]
+
+This schema is invariant from $K_0$ to $K_{12}$.
+
+% ---------------------------------------------------------------
+\subsection{Processes Across Levels $K_0$--$K_{12}$}
+
+The nature of processes varies with level:
+
+\begin{itemize}
+    \item $K_0$: pre-continuum proto-processes (formation of distinctions).
+    \item $K_1$: geometric and energetic processes.
+    \item $K_2$: dynamical and temporal processes.
+    \item $K_3$: chemical reactions, bond formation/breaking.
+    \item $K_4$: metabolic, osmotic, excitability processes.
+    \item $K_5$: network, signaling, proto-cognitive processes.
+    \item $K_6$: cognitive, representational, inferential processes.
+    \item $K_7$: social, normative, institutional processes.
+    \item $K_8$: civilizational, infrastructural, systemic processes.
+    \item $K_9$: theoretical processes (model formation).
+    \item $K_{10}$: formal, logical, recursive processes.
+    \item $K_{11}$: cross-model, intertheoretic processes.
+    \item $K_{12}$: meta-dynamic processes among model-spaces.
+\end{itemize}
+
+At each level, processes inherit the universal schema but operate on
+different structures of $\Omega(K)$ and $\partial\Omega(K)$.
+
+% ---------------------------------------------------------------
+\subsection{Processes and M-Spaces}
+
+In M-spaces, processes are governed by:
+
+\[
+\Theta^M,\ 
+A^M,\ 
+\partial\Omega(M),\ 
+J^M,\ 
+C^M,
+\]
+
+and represent transformations between entire continua.  
+
+A process in an M-space may induce:
+
+\begin{itemize}
+    \item birth of new continua,
+    \item branching of K-levels,
+    \item dimensional shifts,
+    \item cross-level fusions,
+    \item global reconfiguration of $\Omega$.
+\end{itemize}
+
+M-processes obey the same universal schema but take place in the
+superstructure where $K_0$--$K_{12}$ reside as objects.
+
+% ---------------------------------------------------------------
+\subsection{Summary}
+
+This module provides the universal definition and classification of processes
+across all levels of the Ontology of Continua.  
+It establishes the formal conditions for birth, evolution, stability,
+and death of processes, and clarifies the role of universal operators.
+It serves as the foundation for all level-specific process modules in
+the subsequent files.
