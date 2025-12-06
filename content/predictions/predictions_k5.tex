@@ -4,10 +4,285 @@
 
 % ==============================
 %  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/predictions/predictions_k5.tex
-%  Status: EMPTY — TO BE FILLED
+%  Predictions for K5 — FULL VERSION
 % ==============================
 
 \section{Predictions for $K_5$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:predictions-k5}
+
+Level $K_5$ is the continuum of \emph{elementary excitability}: a membrane-bound
+system capable of generating, propagating, and regulating electrical
+excitation fronts driven by ion fluxes and membrane potential dynamics.
+$K_5$ emerges from $K_4$ when a new axis $A_{\mathrm{exc}}$ appears and when
+the system becomes capable of sustaining:
+\[
+C_{\mathrm{spike}} \neq 0,
+\qquad
+\Delta V(t) \ \text{self-amplifying for a finite interval}.
+\]
+
+Predictions for $K_5$ follow from:
+\begin{itemize}
+    \item excitability thresholds $\Theta_{\mathrm{exc}},\Theta_{\mathrm{channel}}$;
+    \item membrane ionic conductances $g_{\mathrm{ion}}$ and their nonlinearities;
+    \item lateral coupling and conductivity $G_{\mathrm{lat}}$;
+    \item ignition condition and critical membrane dynamics (L2.3);
+    \item flows $J_{\mathrm{ion}},J_{\mathrm{pump}},J_{\mathrm{leak}}$;
+    \item cycles $C_{\mathrm{spike}},C_{\mathrm{refractory}},C_{\mathrm{reset}}$;
+    \item metabolic potentials $P_{\mathrm{grad}},P_{\mathrm{energy}}$;
+    \item redox–electrical coupling from late $K_4$.
+\end{itemize}
+
+Predictions are grouped into seven categories.
+
+% ---------------------------------------------------------------
+\subsection{P1: Predictions Concerning the Birth of Excitability}
+
+\paragraph{(P5.1) Threshold of Electrical Excitability $\Theta_{\mathrm{exc}}$.}
+$K_5$ predicts the existence of a membrane potential threshold:
+\[
+|\Delta V| > \Theta_{\mathrm{exc}}
+\Rightarrow \text{self-amplifying excitation event (proto-spike)}.
+\]
+
+\paragraph{(P5.2) Emergence of the Excitability Axis.}
+A new dynamical axis $A_{\mathrm{exc}}$ is predicted when $\Delta V$ acquires
+its own internal dynamics:
+\[
+\frac{d \Delta V}{dt} = F(\Delta V, J_{\mathrm{ion}},J_{\mathrm{pump}}),
+\]
+with positive feedback for short time intervals.
+
+\paragraph{(P5.3) Necessity of Voltage-Gated Behaviour.}
+$K_5$ predicts that purely passive membranes cannot sustain excitability; thus:
+\[
+g_{\mathrm{channel}}(\Delta V) \ \text{must be nonlinear.}
+\]
+
+\paragraph{(P5.4) Existence of Ion Channel Threshold $\Theta_{\mathrm{channel}}$.}
+Excitation requires:
+\[
+g_{\mathrm{channel}} > \Theta_{\mathrm{channel-open}},
+\]
+identifying a minimal conductance for spike initiation.
+
+% ---------------------------------------------------------------
+\subsection{P2: Predictions Concerning Spatial Propagation}
+
+\paragraph{(P5.5) Ignition Condition for Proto-AP Fronts (L2.3).}
+A spatially propagating excitation front exists iff:
+\[
+G_{\mathrm{lat}} > G_{\mathrm{crit}},
+\qquad
+C_{\mathrm{mem}} > C_{\mathrm{mem}}^{\mathrm{crit}},
+\]
+where $G_{\mathrm{lat}}$ is lateral conductivity, and $C_{\mathrm{mem}}$ is
+membrane capacitance.
+
+\paragraph{(P5.6) Minimal Spatial Extent for Propagation.}
+There exists a critical cluster size:
+\[
+C_{\mathrm{critical}} \sim O(10) \ \text{units},
+\]
+below which propagation cannot be sustained.
+
+\paragraph{(P5.7) Conduction Velocity Scaling.}
+$K_5$ predicts:
+\[
+v_{\mathrm{cond}} \propto \sqrt{G_{\mathrm{lat}}}.
+\]
+
+% ---------------------------------------------------------------
+\subsection{P3: Predictions Concerning Spike Dynamics}
+
+\paragraph{(P5.8) Existence of Spike Cycle $C_{\mathrm{spike}}$.}
+The spike cycle consists of:
+\[
+\text{activation} \to \text{peak} \to \text{inactivation} \to \text{reset},
+\]
+and must be closed for stability of $K_5$.
+
+\paragraph{(P5.9) Refractory Cycle $C_{\mathrm{refractory}}$.}
+$K_5$ predicts a refractory period:
+\[
+T_{\mathrm{ref}} > 0,
+\]
+arising from the interplay of channel inactivation and pump recovery.
+
+\paragraph{(P5.10) Reset Cycle $C_{\mathrm{reset}}$.}
+A return to baseline potential requires:
+\[
+J_{\mathrm{pump}} - J_{\mathrm{leak}} > 0,
+\]
+predicting pump-dominant recovery.
+
+\paragraph{(P5.11) Spike Amplitude Threshold.}
+Amplitude satisfies:
+\[
+A_{\mathrm{spike}} > \Theta_{\mathrm{amp}},
+\]
+a necessary condition for propagation.
+
+% ---------------------------------------------------------------
+\subsection{P4: Predictions Concerning Ion Channels and Conductance}
+
+\paragraph{(P5.12) Evolutionary Prediction: Specialisation of Ion Channels.}
+$K_5$ predicts differentiation of:
+\[
+g_{\mathrm{Na}}, g_{\mathrm{K}}, g_{\mathrm{Ca}},
+\]
+arising from selection pressures for excitability robustness.
+
+\paragraph{(P5.13) Conductance Time-Scale Separation.}
+For sustained spiking:
+\[
+\tau_{\mathrm{open}} \ll \tau_{\mathrm{close}},
+\]
+i.e.\ opening must be fast and closing must be slow.
+
+\paragraph{(P5.14) Metabolic Cost Constraint.}
+$K_5$ predicts an energy requirement:
+\[
+P_{\mathrm{grad}} \downarrow \Rightarrow 
+A_{\mathrm{spike}} \downarrow \quad \text{or} \quad \text{failure}.
+\]
+
+\paragraph{(P5.15) Noise-Induced Spiking Threshold.}
+Thermal noise may induce:
+\[
+\Delta V + \eta(t) > \Theta_{\mathrm{exc}},
+\]
+predicting spontaneous spikes near threshold.
+
+% ---------------------------------------------------------------
+\subsection{P5: Predictions Concerning Collapse, Death and Threshold Phenomena}
+
+\paragraph{(P5.16) Excitability Collapse via Ion Exhaustion.}
+$K_5$ predicts collapse when:
+\[
+P_{\mathrm{grad}}(t) < \Theta_{\mathrm{grad-min}},
+\]
+causing failure to reach $\Theta_{\mathrm{exc}}$.
+
+\paragraph{(P5.17) Refractory Overload.}
+If:
+\[
+T_{\mathrm{ref}} \to \infty,
+\]
+the spike cycle collapses and $K_5$ loses continuity.
+
+\paragraph{(P5.18) Blow-Up Regime (Runaway Excitation).}
+If positive feedback dominates:
+\[
+\frac{d\Delta V}{dt} > \Theta_{\mathrm{blowup}},
+\]
+leading to membrane destruction or channel burnout.
+
+\paragraph{(P5.19) Oscillatory Collapse (Near-Hopf).}
+$K_5$ predicts:
+\[
+\text{limit cycle} \to \text{unstable cycle} \to \text{collapse},
+\]
+under near-critical $G_{\mathrm{lat}}$ or $P_{\mathrm{grad}}$ conditions.
+
+\paragraph{(P5.20) Electro-Osmotic Death Mode.}
+Large $\Delta V$ induces:
+\[
+J_{\mathrm{osmotic}} \gg 0,
+\]
+swelling and rupture (coupling $K_5$ collapse to $K_4$ death modes).
+
+% ---------------------------------------------------------------
+\subsection{P6: Predictions Concerning the Transition to $K_6$}
+
+\paragraph{(P5.21) Emergence of Patterned Excitation.}
+When excitation becomes structured:
+\[
+C_{\mathrm{pattern}} \neq 0,
+\]
+a new axis $A_{\mathrm{pattern}}$ emerges, precursor to cognition.
+
+\paragraph{(P5.22) Multi-Spike Integration.}
+$K_5$ predicts:
+\[
+\text{summation of spikes} \Rightarrow \text{pattern formation}.
+\]
+
+\paragraph{(P5.23) Threshold for Binding Capacity.}
+$K_5$ predicts a minimal number of simultaneously active units:
+\[
+N_{\mathrm{bind}} > \Theta_{\mathrm{bind}},
+\]
+required to form coherent patterns.
+
+\paragraph{(P5.24) Emergence of Attractors.}
+If:
+\[
+G_{\mathrm{lat}} \text{ sufficiently high},
+\]
+then stable attractor-like patterns appear — signature of $K_6$.
+
+\paragraph{(P5.25) Coding via Spike Timing.}
+$K_5$ predicts:
+\[
+t_{\mathrm{spike}} \mapsto \text{information},
+\]
+a precursor of temporal coding in $K_6$ cognitive continua.
+
+% ---------------------------------------------------------------
+\subsection{P7: Predictions Concerning Evolution and Higher-Level Behaviour}
+
+\paragraph{(P5.26) Prediction of Axonal Conductance Scaling.}
+$K_5$ predicts that selection favours:
+\[
+G_{\mathrm{lat}} \uparrow \Rightarrow v_{\mathrm{cond}} \uparrow,
+\]
+consistent with the emergence of elongated processes.
+
+\paragraph{(P5.27) Prediction of Myelination Precursors.}
+Energy efficiency predicts:
+\[
+C_{\mathrm{mem}} \downarrow
+\Rightarrow v_{\mathrm{cond}} \uparrow,
+\]
+leading to insulating structures.
+
+\paragraph{(P5.28) Prediction of Channel Diversity Increase.}
+Evolution moves toward:
+\[
+N_{\mathrm{channel-types}} \uparrow,
+\]
+increasing dynamical richness.
+
+\paragraph{(P5.29) Prediction of Metabolic Coupling.}
+Excitability requires:
+\[
+C_{\mathrm{energy}} \neq 0,
+\]
+predicting stronger metabolic integration compared to $K_4$.
+
+\paragraph{(P5.30) Prediction of Early Neural Networks.}
+Aggregations with strong lateral coupling evolve into:
+\[
+K_5 \to K_6,
+\]
+giving rise to proto-neural structures.
+
+% ---------------------------------------------------------------
+\subsection{Summary}
+
+$K_5$ predicts:
+\begin{itemize}
+    \item a strict excitability threshold $\Theta_{\mathrm{exc}}$ and channel threshold $\Theta_{\mathrm{channel}}$;
+    \item the emergence of a new axis $A_{\mathrm{exc}}$ and spike cycle $C_{\mathrm{spike}}$;
+    \item existence of spatially propagating excitation fronts and an ignition condition ($G_{\mathrm{lat}} > G_{\mathrm{crit}}$);
+    \item structured spike dynamics: refractory cycle, reset cycle, and amplitude threshold;
+    \item several collapse modes: ion exhaustion, refractory lock, runaway excitation, oscillatory collapse, electro-osmotic destruction;
+    \item evolutionary predictions: channel diversification, proto-axonal conduction, insulating precursors, metabolic–electrical coupling;
+    \item high-level predictions for the transition into $K_6$: pattern formation, attractors, binding capacity threshold, temporal coding.
+\end{itemize}
+
+These predictions uniquely define $K_5$ as the continuum of elementary
+excitability and distinguish it sharply from chemical-membrane systems ($K_4$)
+and cognitive continua ($K_6$).
+
