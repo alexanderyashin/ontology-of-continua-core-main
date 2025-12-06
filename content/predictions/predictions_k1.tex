@@ -4,10 +4,203 @@
 
 % ==============================
 %  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/predictions/predictions_k1.tex
-%  Status: EMPTY — TO BE FILLED
+%  Predictions for K1 — FULL VERSION
 % ==============================
 
 \section{Predictions for $K_1$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:predictions-k1}
+
+Predictions for $K_1$ follow from the formal structure established in the
+Core: the birth of the first axis, the emergence of time $\tau$, the space
+of admissible fields
+\[
+\Omega(K_1) = C^0(X,V) \subset H^1(X,V),
+\]
+the presence of a boundary class $\partial\Omega_{\mathrm{cl}}$, an energy
+functional $E[\phi]$ and an action $S[\phi]$, with minimal threshold
+$\Theta_1$ determining the stability of $K_1$.
+
+The predictions divide into six categories.
+
+% ---------------------------------------------------------------
+\subsection{P1: Predictions Concerning Axes and Time}
+
+\paragraph{(P1.1) Existence of a Single Axis.}
+$K_1$ predicts that exactly one axis is definable:
+\[
+\dim A(K_1) = 1.
+\]
+Any structure exhibiting two independent axes contradicts $K_1$ and belongs
+instead to $K_2$.
+
+\paragraph{(P1.2) Time Emerges Uniquely.}
+The first axis must behave as a temporal axis:
+\[
+A_1 \equiv \tau.
+\]
+Thus $K_1$ predicts that the earliest continuum with dynamics must possess
+a monotonic ordering of configurations:
+\[
+\tau: X \to \mathbb{R}, \qquad \frac{d\tau}{ds} \ge 0.
+\]
+
+\paragraph{(P1.3) No Spatial Degrees of Freedom.}
+$K_1$ predicts:
+\[
+\neg \exists\, x \in \text{spatial manifold} \qquad\text{at this level}.
+\]
+All spatial structure must be emergent in $K_2$.
+
+% ---------------------------------------------------------------
+\subsection{P2: Predictions Concerning Fields and Regularity}
+
+\paragraph{(P2.1) Minimal Regularity Prediction.}
+Fields $\phi(\tau)$ must satisfy
+\[
+\phi \in C^0(\tau), \qquad \partial_\tau \phi \in L^2,
+\]
+i.e. $K_1$ predicts Sobolev regularity $H^1$ as the *minimal coherent
+structure* of any evolving continuum.
+
+Any dynamics requiring higher derivatives (e.g., curvature) cannot arise at
+this level.
+
+\paragraph{(P2.2) No Higher-Order Terms.}
+Energy and action must be first-order in $\partial_\tau\phi$:
+\[
+E[\phi] = \int f\big(\phi(\tau), \partial_\tau\phi(\tau)\big)\, d\tau.
+\]
+$K_1$ predicts the absence of second-order spatial or temporal operators.
+
+\paragraph{(P2.3) No Local Interactions.}
+All interactions must be global or integral, not local in space, because no
+spatial neighbourhood exists.
+
+% ---------------------------------------------------------------
+\subsection{P3: Predictions Concerning Dynamics and Evolution}
+
+\paragraph{(P3.1) One-Dimensional Causality.}
+Causality reduces to ordering:
+\[
+\tau_1 < \tau_2 \quad \Rightarrow \quad \phi(\tau_1) \text{ influences } \phi(\tau_2).
+\]
+No multi-directional causal cones exist at $K_1$.
+
+\paragraph{(P3.2) Universal Relaxation Prediction.}
+Because the only motion permitted is along $\tau$, $K_1$ predicts that
+all stable solutions exhibit relaxation to fixed points:
+\[
+\partial_\tau \phi = 0 \text{ at equilibrium}.
+\]
+
+\paragraph{(P3.3) No Oscillatory Dynamics.}
+$K_1$ forbids periodic solutions:
+\[
+\phi(\tau + T) = \phi(\tau)
+\quad\Rightarrow\quad \text{collapse of } K_1.
+\]
+Oscillations require a second axis → $K_2$.
+
+\paragraph{(P3.4) First-Order Evolution Equation.}
+Predicted form:
+\[
+\partial_\tau \phi = -\frac{\delta E}{\delta\phi},
+\]
+i.e., gradient-like evolution is the only admissible dynamic.
+
+% ---------------------------------------------------------------
+\subsection{P4: Predictions Concerning Thresholds and Tension}
+
+\paragraph{(P4.1) Single Stability Threshold.}
+$K_1$ predicts a single effective threshold:
+\[
+T_1(\tau) < \Theta_1
+\quad\Rightarrow\quad \text{stable}.
+\]
+
+\paragraph{(P4.2) Critical Slowing Prediction.}
+As $T_1 \to \Theta_1$, the relaxation time diverges:
+\[
+\tau_{\mathrm{relax}} \to \infty.
+\]
+This provides a direct empirical signature of $K_1$ dynamics.
+
+\paragraph{(P4.3) No Stress Propagation.}
+Because no spatial axes exist:
+\[
+\text{stress cannot propagate or diffuse}.
+\]
+Any observed propagation indicates $K_2$.
+
+% ---------------------------------------------------------------
+\subsection{P5: Predictions Concerning Collapse and Boundaries}
+
+\paragraph{(P5.1) Collapse Criterion.}
+$K_1$ collapses when
+\[
+E[\phi] \notin \mathbb{R},\quad
+\partial_\tau \phi \notin L^2,\quad
+T_1 > \Theta_1,
+\]
+or when $\phi$ exits $\Omega(K_1)$.
+
+\paragraph{(P5.2) Boundary Prediction.}
+$K_1$ predicts the existence of a boundary class:
+\[
+\partial\Omega_{\mathrm{cl}} = 
+\{ \phi : \partial_\tau \phi \in L^2 \text{ but } \phi \notin C^0 \}.
+\]
+Crossing this boundary signals the onset of $K_0$-like behaviour (degenerate
+continuum death).
+
+\paragraph{(P5.3) No Partial Collapse.}
+Collapse is binary because $k_1$ has no spatial decomposition:
+\[
+k_1 = 0\quad \text{or}\quad k_1 > 0.
+\]
+No domainwise collapse exists at this level.
+
+% ---------------------------------------------------------------
+\subsection{P6: Predictions Concerning Transitions and M-Spaces}
+
+\paragraph{(P6.1) Necessary Condition for $K_1 \to K_2$.}
+A transition requires an admissible spatial axis in $M_1$:
+\[
+A_2 \in \Omega(M_1)
+\quad\Rightarrow\quad K_1\to K_2.
+\]
+
+\paragraph{(P6.2) Forbidden Self-Generation of Space.}
+$K_1$ predicts:
+\[
+\neg\exists\ \text{internal process generating a second axis}.
+\]
+Spatial structure cannot emerge from temporal dynamics alone.
+
+\paragraph{(P6.3) Dimensional Tension Prediction.}
+If the system accumulates structural tension $T_1$ that cannot be resolved
+within the single axis, then either:
+\[
+K_1 \rightarrow K_2
+\qquad\text{or}\qquad
+K_1 \rightarrow \varnothing.
+\]
+
+% ---------------------------------------------------------------
+\subsection{Summary}
+
+$K_1$ predicts that:
+
+\begin{itemize}
+    \item exactly one axis exists and it must behave as time;
+    \item fields exhibit $C^0$ regularity with $L^2$ derivatives;
+    \item dynamics are first-order, causal, and purely relaxational;
+    \item oscillations, waves and spatial propagation are impossible;
+    \item stability is governed by a single threshold $\Theta_1$;
+    \item collapse is global and binary;
+    \item transition to $K_2$ requires a spatial axis provided by $M_1$.
+\end{itemize}
+
+These predictions represent the minimal empirically testable signatures of
+one-dimensional continuua and define the necessary and sufficient conditions
+for the birth of classical dynamical structure at $K_2$.
