@@ -4,10 +4,260 @@
 
 % ==============================
 %  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/processes/processes_k1.tex
-%  Status: EMPTY — TO BE FILLED
+%  Processes on K1
 % ==============================
 
 \section{Processes on $K_1$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:processes-k1}
+
+Processes on $K_1$ constitute the first fully dynamical class of processes
+in the Ontology of Continua. Unlike $K_0$, which admits only structural
+transformations of $(S,\Delta,\mathcal{C})$, the continuum $K_1$ possesses:
+
+\begin{itemize}
+    \item a state space $\Omega(K_1) = C^0(X,V)$,
+    \item a boundary $\partial\Omega(K_1)$,
+    \item a continuous axis (the first axis) $A_1$,
+    \item time $\tau(K_1)$ as an ordering parameter,
+    \item flows $J_1$ along the axis,
+    \item an energy functional $E[\phi]$,
+    \item and an action functional $S[\phi]$.
+\end{itemize}
+
+Thus, processes on $K_1$ are the first in the hierarchy that behave like
+physical dynamical systems.
+
+% ---------------------------------------------------------------
+\subsection{Definition of a $K_1$ Process}
+
+A process on $K_1$ is any evolution of a field-like configuration:
+\[
+\phi: X \times \tau \to V,
+\]
+driven by admissible flows $J_1$, constrained by the boundary
+$\partial\Omega(K_1)$, and regulated by the energy and action functionals.
+
+Formally:
+\[
+\mathcal{P}_1: \phi(t) \longrightarrow \phi(t+\mathrm{d}t)
+\quad \text{with} \quad
+(\phi, \partial_x \phi, \partial_t \phi) \in \Omega(K_1).
+\]
+
+All $K_1$ processes satisfy the Sobolev regularity conditions:
+\[
+\phi \in H^1(X,V),
+\qquad
+\partial_x \phi, \partial_t \phi \in L^2(X,V).
+\]
+
+% ---------------------------------------------------------------
+\subsection{Types of Processes on $K_1$}
+
+There are four canonical classes of processes at this level.
+
+% -----------------
+\paragraph{1. Evolution Through Flows ($J_1$).}
+
+Flows are the primary mechanism of change in $K_1$:
+\[
+J_1 = f(\phi, \partial_x\phi, \partial_t\phi).
+\]
+
+These flows govern the redistribution of quantities along the axis $A_1$.
+
+The universal evolution equation is:
+\[
+\partial_t \phi = \Phi_1(\phi, \partial_x \phi, J_1),
+\]
+where $\Phi_1$ is the level-1 instance of the general evolutionary operator.
+
+% -----------------
+\paragraph{2. Energy-Driven Processes.}
+
+Processes can minimize or redistribute the $K_1$ energy:
+\[
+E[\phi] = \int_X \left( 
+\frac{1}{2} |\partial_x \phi|^2 + U(\phi)
+\right) \mathrm{d}x.
+\]
+
+A gradient-flow process satisfies:
+\[
+\partial_t \phi = - \frac{\delta E}{\delta \phi}.
+\]
+
+This captures diffusion-like behaviour, smoothing, and relaxation.
+
+% -----------------
+\paragraph{3. Action-Driven (Variational) Processes.}
+
+When driven by the action functional:
+\[
+S[\phi] = \int_{\tau} \int_X
+\mathcal{L}(\phi, \partial_t\phi, \partial_x\phi) \, \mathrm{d}x \, \mathrm{d}t,
+\]
+processes follow Euler–Lagrange dynamics:
+\[
+\frac{\partial \mathcal{L}}{\partial \phi}
+- \partial_t \left( \frac{\partial \mathcal{L}}{\partial(\partial_t \phi)} \right)
+- \partial_x \left( \frac{\partial \mathcal{L}}{\partial(\partial_x \phi)} \right)
+= 0.
+\]
+
+This is the first emergence of variational physics in the OC framework.
+
+% -----------------
+\paragraph{4. Boundary-Driven Processes.}
+
+Changes in $\partial\Omega(K_1)$ induce boundary conditions:
+
+\[
+\phi|_{\partial\Omega} = g(t),
+\qquad
+\partial_x\phi|_{\partial\Omega} = h(t),
+\]
+
+which can serve as sources, sinks, or constraints initiating new flows.
+
+% ---------------------------------------------------------------
+\subsection{Role of Operators on $K_1$}
+
+$K_1$ processes are governed by the action of the general operators:
+
+\begin{itemize}
+    \item $\Psi$ — generative operator (creates new modes or patterns),
+    \item $\Phi$ — evolutionary operator (drives temporal change),
+    \item $\Lambda$ — compositional operator (combines fields/structures),
+    \item $U$ — universal operator governing $k(t)$ evolution,
+    \item $\Chi$ — boundary and constraint operator.
+\end{itemize}
+
+Their $K_1$ forms reduce to:
+
+\[
+\Psi_1: \text{mode creation}
+\quad\Rightarrow\quad
+\phi \mapsto \phi + \delta\phi_{\text{mode}},
+\]
+
+\[
+\Phi_1: \text{flow-based evolution}
+\quad\Rightarrow\quad
+\partial_t \phi = \Phi_1(\phi,J_1),
+\]
+
+\[
+\Lambda_1: \text{composition}
+\quad\Rightarrow\quad
+\phi = \phi_1 \oplus \phi_2,
+\]
+
+\[
+U_1: \text{update of continuumness}
+\quad\Rightarrow\quad
+k_1(t+\mathrm{d}t) = U_1(k_1,\phi,J_1,T_1,\Theta_1),
+\]
+
+\[
+\Chi_1: \text{boundary enforcement}.
+\]
+
+% ---------------------------------------------------------------
+\subsection{Continuumness Evolution}
+
+$K_1$ admits a non-trivial evolution of the measure of continuumness:
+\[
+k_1(t) = F_k\big(\Omega(K_1), J_1, T_1, \Theta_1 \big).
+\]
+
+$k_1$ increases under coherent flows and decreases under irregular,
+high-gradient, or threshold-violating behaviour.
+
+If
+\[
+k_1(t) \to 0,
+\]
+the continuum internally collapses into a $K_0$-like state.
+
+% ---------------------------------------------------------------
+\subsection{Structural Tension and Threshold-Crossing Processes}
+
+$K_1$ includes:
+
+\[
+T_1 = f(\phi, \partial_x \phi, \partial_t \phi),
+\]
+
+with thresholds:
+
+\begin{itemize}
+    \item $\Theta_{\mathrm{stab}}$ — stability threshold,
+    \item $\Theta_{\mathrm{crit}}$ — critical tension (phase change),
+    \item $\Theta_{\mathrm{death}}$ — death of continuum.
+\end{itemize}
+
+Processes exhibit:
+
+\begin{itemize}
+    \item \textbf{stability regime}: $T_1 < \Theta_{\mathrm{stab}}$,
+    \item \textbf{critical regime}: $T_1 = \Theta_{\mathrm{crit}}$,
+    \item \textbf{phase transition}: $T_1 > \Theta_{\mathrm{crit}}$ with new
+          structural modes arising,
+    \item \textbf{collapse}: $T_1 > \Theta_{\mathrm{death}}$.
+\end{itemize}
+
+% ---------------------------------------------------------------
+\subsection{Emergence of $K_2$ Processes}
+
+$K_1$ processes generate $K_2$ when the flows and relational structure
+induce non-trivial interactions that cannot be encoded in one axis.
+
+Formally, the transition is triggered when:
+\[
+\exists\, \phi, J_1 \text{ such that }
+\dim(\Omega(K_1)) < \dim(\Omega(K_2)).
+\]
+
+This is mediated by the operator:
+\[
+\Psi_{1\to2}: K_1 \to K_2.
+\]
+
+The hallmark of this process is the birth of percolation-like structures
+and causal networks.
+
+% ---------------------------------------------------------------
+\subsection{Death of $K_1$ Processes}
+
+A $K_1$ process terminates when:
+
+\[
+T_1 > \Theta_{\mathrm{death}},
+\qquad
+k_1 \to 0,
+\qquad
+\text{or}
+\qquad
+\partial\Omega(K_1) \to \emptyset.
+\]
+
+Because $K_1$ has no redundancy of cycles (unlike $K_2$ and above),
+collapse is typically global.
+
+% ---------------------------------------------------------------
+\subsection{Summary}
+
+Processes on $K_1$ introduce:
+
+\begin{itemize}
+    \item temporal evolution,
+    \item field-like dynamics,
+    \item flows and gradients,
+    \item variational behaviour,
+    \item threshold-induced transitions,
+    \item and the first emergence of physical-like laws.
+\end{itemize}
+
+$K_1$ is the first level where continuum physics appears, and all higher
+levels inherit its dynamical schema.
