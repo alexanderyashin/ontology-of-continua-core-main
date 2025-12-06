@@ -4,10 +4,310 @@
 
 % ==============================
 %  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/processes/processes_k3.tex
-%  Status: EMPTY — TO BE FILLED
+%  Processes on K3
 % ==============================
 
 \section{Processes on $K_3$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:processes-k3}
+
+Processes on $K_3$ describe the first materially-structured dynamics in 
+the hierarchy of continua. While $K_2$ provides a relational and 
+topological substrate, $K_3$ introduces:
+\begin{itemize}
+    \item chemically meaningful state configurations,
+    \item binding and dissociation processes,
+    \item activation barriers and energy thresholds,
+    \item reaction pathways and fluxes,
+    \item stable and metastable molecular structures,
+    \item and the first robust ``objects'' with internal organisation.
+\end{itemize}
+
+Thus, $K_3$ is the level where physical connectivity becomes chemical 
+structure and reactive dynamics.
+
+% ---------------------------------------------------------------
+\subsection{Structure of a $K_3$ Process}
+
+The state space $\Omega(K_3)$ contains configurations:
+\[
+X = (\{A_i\}, \{\text{bonds}_{ij}\}, \{\rho(\mathbf{r})\}, P_\text{chem}),
+\]
+where:
+\begin{itemize}
+    \item $A_i$ are atomic-like units inherited from $K_2$ clusters,
+    \item $\text{bonds}_{ij}$ encode binding potentials,
+    \item $\rho(\mathbf{r})$ is the electronic or charge-density analogue,
+    \item $P_\text{chem}$ is the chemical potential landscape.
+\end{itemize}
+
+A process on $K_3$ is the evolution:
+\[
+\partial_t X = \Phi_3(X, J_3, T_3, \Theta_3),
+\]
+where the operator $\Phi_3$ encodes kinetics, energy landscapes,
+threshold conditions, and topological transformations of molecular 
+structure.
+
+% ---------------------------------------------------------------
+\subsection{Binding and Dissociation Processes}
+
+The defining feature of $K_3$ is the existence of chemically meaningful
+binding energies $E_{\text{bond}}$.
+
+A bond between units $A_i$ and $A_j$ exists if:
+\[
+E < \Theta_{\text{bond}} = E_{\text{bond}},
+\]
+where $E$ is the local energy.
+
+A \emph{binding process} is any trajectory where:
+\[
+E(t) \downarrow E_{\text{bond}} \quad \Rightarrow \quad \text{bond}_{ij}(t+\mathrm{d}t)=1.
+\]
+
+A \emph{dissociation process} occurs when:
+\[
+E(t) > E_{\text{bond}} \quad \Rightarrow \quad \text{bond}_{ij}(t+\mathrm{d}t)=0.
+\]
+
+Dissociation is the canonical form of ``death'' for a local subsystem of
+$K_3$; binding is a local birth event.
+
+These transitions constitute the simplest non-trivial topological
+updates of molecular graphs.
+
+% ---------------------------------------------------------------
+\subsection{Activation Processes and Energy Barriers}
+
+Many transformations in $K_3$ require surpassing an activation energy:
+\[
+E_{\text{act}}.
+\]
+
+The canonical activated process:
+\[
+\text{State } X \to X' \quad \text{requires} \quad E \ge E_{\text{act}}.
+\]
+
+The rate is typically:
+\[
+J_{\text{act}} = J_0 \exp\!\left[-\frac{E_{\text{act}}-E}{k_BT}\right],
+\]
+expressed symbolically in OC notation as:
+\[
+J_3 = f(P_\text{chem}, T_3, \Theta_3^{\text{act}}).
+\]
+
+Activation processes enable:
+\begin{itemize}
+    \item isomerisations,
+    \item bond rearrangements,
+    \item energy-driven structural transitions,
+    \item catalytic pathways (via reduced $\Theta_3^{\text{act}}$).
+\end{itemize}
+
+% ---------------------------------------------------------------
+\subsection{Reaction Pathway Processes}
+
+A reaction pathway is a sequence:
+\[
+X_0 \xrightarrow{J_3} X_1 \xrightarrow{J_3} \cdots 
+\xrightarrow{J_3} X_n,
+\]
+with intermediates and transition states lying in $\Omega(K_3)$.
+
+Reaction dynamics follow:
+\[
+\partial_t P(X) = 
+\sum_{X'} \Big(
+    J_{X'\to X} P(X') 
+    - J_{X\to X'} P(X)
+\Big).
+\]
+
+A $K_3$ reaction process is characterised by:
+\begin{itemize}
+    \item fluxes $J_3$ along reaction channels,
+    \item transitions over energy landscapes,
+    \item threshold-controlled jumps at saddle configurations,
+    \item and stable minima representing molecules.
+\end{itemize}
+
+This is the minimal structure necessary for chemical kinetics.
+
+% ---------------------------------------------------------------
+\subsection{Processes of Potential Landscape Deformation}
+
+Chemical potentials $P_\text{chem}$ evolve under external conditions 
+(temperature, pressure, pH-like parameters, electromagnetic fields).
+
+A deformation process is defined by:
+\[
+\partial_t P_\text{chem} \neq 0.
+\]
+
+Such processes change:
+\begin{itemize}
+    \item depths of minima (stability of molecules),
+    \item heights of barriers (reaction rates),
+    \item accessible channels (topology of $\Omega(K_3)$),
+    \item positions of transition states.
+\end{itemize}
+
+They are the origin of context-dependence in chemical reactivity.
+
+% ---------------------------------------------------------------
+\subsection{Processes of Concentration and Diffusive Motion}
+
+At $K_3$ one may define concentration-like coordinates $c_i(t)$ for 
+species or clusters.
+
+A concentration process satisfies:
+\[
+\partial_t c_i = D_i \nabla^2 c_i - \sum_j J_{ij}(c),
+\]
+with diffusion coefficients $D_i$ inherited from the connectivity 
+structure of $K_2$.
+
+These processes encode:
+\begin{itemize}
+    \item spatial mixing,
+    \item reaction-diffusion waves,
+    \item gradients that later drive $K_4$ metabolism.
+\end{itemize}
+
+% ---------------------------------------------------------------
+\subsection{Processes Driven by Operators}
+
+\paragraph{Generative Operator $\Psi_3$.}
+Creates or removes bonds, introduces new atomic clusters, or modifies 
+potential wells:
+\[
+\Psi_3 : \Omega(K_3) \to \Omega(K_3).
+\]
+
+\paragraph{Evolution Operator $\Phi_3$.}
+Governs chemical kinetics:
+\[
+\partial_t X = \Phi_3(\{E\}, P_\text{chem}, J_3, \Theta_3).
+\]
+
+\paragraph{Compositional Operator $\Lambda_3$.}
+Combines substructures into larger molecules or fragments:
+\[
+\Lambda_3(H_1, H_2) = H_1 \cup H_2 \quad 
+\text{if } E_{\text{bond}}^{\text{new}} < \Theta_3.
+\]
+
+\paragraph{Universal Operator $U_3$.}
+Updates continuumness:
+\[
+k_3(t+\mathrm{d}t) = U_3(k_3, J_3, \Omega(K_3), \Theta_3).
+\]
+
+\paragraph{Constraint Operator $\Chi_3$.}
+Imposes:
+\begin{itemize}
+    \item valence limits,
+    \item geometric constraints,
+    \item conservation rules,
+    \item bounding of energy surfaces.
+\end{itemize}
+
+% ---------------------------------------------------------------
+\subsection{Threshold Processes in $K_3$}
+
+Key thresholds of $K_3$ include:
+
+\begin{itemize}
+    \item $\Theta_3^{\text{bond}}$ — bond formation threshold,
+    \item $\Theta_3^{\text{diss}}$ — dissociation threshold,
+    \item $\Theta_3^{\text{act}}$ — activation barrier,
+    \item $\Theta_3^{\text{stab}}$ — stability threshold for molecules,
+    \item $\Theta_3^{\text{chem}}$ — transition to $K_4$ metabolic structure.
+\end{itemize}
+
+Crossing these thresholds induces discrete structural transformations in 
+the chemical graph.
+
+% ---------------------------------------------------------------
+\subsection{Cycles on $K_3$}
+
+Cycles $C(K_3)$ include:
+\begin{itemize}
+    \item catalytic cycles,
+    \item closed reaction loops,
+    \item oscillatory chemical networks,
+    \item periodic bond rearrangements,
+    \item relaxation oscillations.
+\end{itemize}
+
+A cycle process satisfies:
+\[
+X(t + T) \simeq X(t),
+\]
+where $T$ is determined by the interplay of $J_3$, barrier heights, and 
+dissipation.
+
+Cycles stabilise $k_3$ and mark the emergence of chemical ``laws'' analogous 
+to periodicity and conservation.
+
+% ---------------------------------------------------------------
+\subsection{Emergence of $K_4$ Processes}
+
+A $K_3$ process generates $K_4$ when reaction networks become 
+autocatalytic and produce membranes or boundary-like structures.
+
+Formally, a transition occurs when:
+\[
+\exists\, H \subseteq \Omega(K_3) 
+\quad \text{such that} \quad
+\Phi_3(H) \approx 0 \quad \text{and} \quad
+J_3(H) > J_{\text{crit}}.
+\]
+
+This marks the formation of:
+\begin{itemize}
+    \item stable autocatalytic sets,
+    \item metabolic-like fluxes,
+    \item boundary-forming amphiphilic molecules.
+\end{itemize}
+
+The operator $\Psi_{3\to4}$ activates once:
+\[
+T_3 > \Theta_3^{\text{metabolic}},
+\]
+producing structures that behave as protocellular precursors.
+
+% ---------------------------------------------------------------
+\subsection{Collapse and Death of $K_3$}
+
+A $K_3$ continuum collapses when:
+
+\begin{itemize}
+    \item all bonds dissociate ($\text{bond}_{ij} \to 0$),
+    \item no stable minima remain in $P_\text{chem}$,
+    \item activation barriers prevent reaction fluxes ($J_3\to 0$),
+    \item energy surfaces flatten to noise,
+    \item structural tension $T_3$ exceeds $\Theta_3^{\text{death}}$.
+\end{itemize}
+
+In collapse, $K_3$ degenerates to disconnected reactive fragments, 
+behaving like $K_2$ clusters without chemical identity.
+
+% ---------------------------------------------------------------
+\subsection{Summary}
+
+Processes on $K_3$ include:
+\begin{itemize}
+    \item formation and breaking of chemical bonds,
+    \item activation-driven transitions,
+    \item kinetic reaction pathways,
+    \item diffusion and concentration dynamics,
+    \item catalytic and oscillatory cycles,
+    \item potential landscape deformation,
+    \item and the emergence of metabolic structure (precursor to $K_4$).
+\end{itemize}
+
+$K_3$ thus bridges the relational topology of $K_2$ and the biological 
+continuity of $K_4$.
