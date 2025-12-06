@@ -4,10 +4,195 @@
 
 % ==============================
 %  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/predictions/predictions_k2.tex
-%  Status: EMPTY — TO BE FILLED
+%  Predictions for K2 — FULL VERSION
 % ==============================
 
 \section{Predictions for $K_2$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:predictions-k2}
+
+Level $K_2$ corresponds to the first continuum possessing a spatial axis,
+nontrivial topology, and a connected state space that supports extended
+dynamics. Formally, $K_2$ emerges when the axis structure expands from the
+single temporal axis of $K_1$ to a two-dimensional configuration:
+\[
+A(K_2) = \{\tau, x\},
+\]
+where $x$ denotes the first spatial coordinate. The key structural ingredient
+is the onset of percolation and the formation of connected spatial domains.
+
+Predictions for $K_2$ follow from the structure of $\Omega(K_2)$,
+the percolation threshold $p_c$, the tension threshold $\Theta_2$, and the
+dynamics induced by the universal evolution operator $U$.
+
+The predictions fall into six major groups.
+
+% ---------------------------------------------------------------
+\subsection{P1: Predictions Concerning Axes and Geometry}
+
+\paragraph{(P2.1) Existence of a Single Spatial Axis.}
+$K_2$ predicts:
+\[
+\dim A(K_2) = 2, \qquad A(K_2) = \{\tau, x\}.
+\]
+Any continuum with more than one spatial axis belongs to $K_3$ or higher.
+
+\paragraph{(P2.2) Prediction of Coordinate Continuity.}
+Fields $\phi(x,\tau)$ must be continuous in both coordinates:
+\[
+\phi \in C^0(X\times\tau).
+\]
+
+\paragraph{(P2.3) Prediction of Finite Spatial Neighbourhoods.}
+The geometry of $K_2$ must admit neighbourhoods $U_\epsilon(x)$, enabling:
+\[
+\text{local interactions, diffusion, propagation}.
+\]
+Such locality is impossible at $K_1$.
+
+% ---------------------------------------------------------------
+\subsection{P2: Predictions Concerning Percolation and Connectivity}
+
+\paragraph{(P2.4) Existence of a Critical Percolation Threshold.}
+$K_2$ predicts a structural phase transition at
+\[
+p = p_c,
+\]
+where $p$ denotes the effective occupation/connectivity probability.
+For $p < p_c$, $\Omega(K_2)$ fragments; for $p \ge p_c$, a giant connected
+component exists:
+\[
+C_{\max} \sim O(|X|).
+\]
+
+\paragraph{(P2.5) Uniqueness of the Giant Cluster.}
+Above $p_c$, $K_2$ predicts:
+\[
+\text{there exists exactly one macroscopic connected component}.
+\]
+
+\paragraph{(P2.6) Scaling Laws Near $p_c$.}
+The geometry must exhibit critical exponents (dimension-dependent):
+\[
+\xi \sim (p-p_c)^{-\nu},
+\qquad
+C_{\max} \sim (p-p_c)^\beta.
+\]
+Any violation implies the continuum is not $K_2$.
+
+% ---------------------------------------------------------------
+\subsection{P3: Predictions Concerning Dynamics}
+
+\paragraph{(P3.1) Existence of Wave-Like Propagation.}
+Because a spatial axis exists, $K_2$ predicts:
+\[
+\partial_\tau^2 \phi, \quad \partial_x^2 \phi
+\]
+may appear in $U$.
+Thus wave propagation and diffusion are admissible and must occur.
+
+\paragraph{(P3.2) Diffusion as a Universal Process.}
+The universal form of $K_2$ dynamics predicts:
+\[
+\partial_\tau \phi = D\, \partial_x^2\phi + \text{lower-order terms}.
+\]
+
+\paragraph{(P3.3) Finite-Range Causality.}
+Because spatial neighbourhoods exist, disturbances satisfy a causal bound:
+\[
+v_{\mathrm{prop}} < \infty,
+\]
+where $v_{\mathrm{prop}}$ is the propagation velocity determined by $U$.
+
+\paragraph{(P3.4) Critical Slowing Down Near $p_c$.}
+As $p \to p_c^+$,
+\[
+\tau_{\mathrm{relax}} \sim \xi^z \to \infty,
+\]
+with $\xi$ the correlation length.
+
+% ---------------------------------------------------------------
+\subsection{P4: Predictions Concerning Thresholds and Tension}
+
+\paragraph{(P4.1) Spatial Tension Threshold.}
+$K_2$ predicts a new class of thresholds:
+\[
+\Theta_2 = \{\Theta_{\mathrm{conn}}, \Theta_{\mathrm{dim}}, 
+\Theta_{\mathrm{stab}}\},
+\]
+with $\Theta_{\mathrm{conn}}$ the percolation threshold.
+
+\paragraph{(P4.2) Stress Propagation.}
+Unlike $K_1$, stress can propagate:
+\[
+\partial_\tau T = D_T \partial_x^2 T + \ldots
+\]
+
+\paragraph{(P4.3) Local Collapse Criterion.}
+Because space is extended, collapse may be local:
+\[
+k_2(x,\tau) = 0 \quad \text{for some } x.
+\]
+Partial failure is a prediction unique to $K_2$ and above.
+
+% ---------------------------------------------------------------
+\subsection{P5: Predictions Concerning Boundary, Collapse and Phase Transitions}
+
+\paragraph{(P5.1) Boundary Geometry.}
+$K_2$ predicts:
+\[
+\partial\Omega(K_2) = \text{sets of fields where connectivity breaks}.
+\]
+
+\paragraph{(P5.2) Collapse via Connectivity Loss.}
+Collapse happens when:
+\[
+p < p_c,
+\]
+even if local dynamics remain smooth.
+
+\paragraph{(P5.3) Topological Death.}
+$K_2$ predicts a form of death absent at $K_1$:
+\[
+\Omega(K_2) \to \varnothing
+\ \text{if the space fragments beyond recovery}.
+\]
+
+% ---------------------------------------------------------------
+\subsection{P6: Predictions Concerning Transitions to Higher Levels}
+
+\paragraph{(P6.1) Necessary Condition for $K_2\to K_3$.}
+Transition requires:
+\[
+\exists\, y \in A(K_3), \quad \text{independent of } x.
+\]
+I.e., a \emph{second spatial axis} must be present in $M_2$.
+
+\paragraph{(P6.2) Emergence of Two-Dimensional Geometry.}
+$K_2$ predicts that in the presence of sufficient tension
+\[
+T_2 > \Theta_{\mathrm{dim}},
+\]
+the system must either transition to $K_3$ or collapse.
+
+\paragraph{(P6.3) Critical Tension as Predictor of Dimensional Growth.}
+Dimensionality growth is predicted when:
+\[
+\frac{\partial T}{\partial x} \text{ cannot be balanced within 1D space}.
+\]
+
+% ---------------------------------------------------------------
+\subsection{Summary}
+
+$K_2$ makes the following core predictions:
+
+\begin{itemize}
+    \item existence of one spatial axis and emergent geometry;
+    \item existence of a percolation threshold $p_c$ and a giant cluster;
+    \item wave propagation, diffusion and finite-range causality;
+    \item spatial stress propagation and local collapse;
+    \item divergence of relaxation times near $p_c$;
+    \item transitions to $K_3$ driven by dimensional tension.
+\end{itemize}
+
+These predictions constitute the empirically testable signature of the
+first extended spatial continuum.
