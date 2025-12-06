@@ -16,8 +16,8 @@ sections:
   - id: conclusion
     path: content/06_conclusion.tex
 
-  # content/07_figures.tex по-прежнему можно подключать напрямую в main.tex
-  # Если захочешь, его легко добавить сюда как отдельную секцию.
+  # content/07_figures.tex по-прежнему подключаем напрямую в main.tex.
+  # При желании можно будет добавить его сюда позже.
 
   - id: boundary
     path: content/08_boundary.tex
@@ -65,6 +65,7 @@ core:
   main_article:
     entrypoint: main.tex
     sections:
+      # ===== Те же основные главы =====
       - id: intro
         path: content/01_intro.tex
       - id: background
@@ -77,6 +78,7 @@ core:
         path: content/05_discussion.tex
       - id: conclusion
         path: content/06_conclusion.tex
+
       - id: boundary
         path: content/08_boundary.tex
       - id: thresholds
@@ -93,6 +95,27 @@ core:
         path: content/14_disciplines_extended.tex
       - id: falsifiability_extended
         path: content/15_falsifiability_extended.tex
+
+      # ===== И те же мастер-файлы модулей =====
+      - id: klevels_master
+        path: content/k_levels/klevels_master.tex
+      - id: mspaces_master
+        path: content/m_spaces/mspaces_master.tex
+      - id: processes_master
+        path: content/processes/processes_master.tex
+      - id: jets_master
+        path: content/jets/jets_master.tex
+      - id: cycles_master
+        path: content/cycles/cycles_master.tex
+      - id: falsifiability_master
+        path: content/falsifiability/falsifiability_master.tex
+      - id: predictions_master
+        path: content/predictions/predictions_master.tex
+      - id: experiments_master
+        path: content/experiments/experiments_master.tex
+      - id: crossk_master
+        path: content/crossk/crossk_master.tex
+
 
 modules:
 
