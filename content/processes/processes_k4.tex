@@ -4,10 +4,355 @@
 
 % ==============================
 %  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/processes/processes_k4.tex
-%  Status: EMPTY — TO BE FILLED
+%  Processes on K4
 % ==============================
 
 \section{Processes on $K_4$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:processes-k4}
+
+Processes on $K_4$ describe the dynamics of protocellular continua:
+systems in which chemical networks, gradients, and boundary structures 
+form a unified and self-maintaining whole. $K_4$ marks the transition 
+from chemistry ($K_3$) to early biology, where membranes, flux balance, 
+and metabolic closure become the dominant organising principles.
+
+A process on $K_4$ is an evolution of the tuple:
+\[
+X_4 = \big(\Omega(K_4), \partial\Omega(K_4), 
+A_\text{mem}, A_\text{grad}, A_\text{flux}, 
+P_\text{mem}, P_\text{chem}, P_\text{ion},
+J_\text{met}, J_\text{grad}, J_\text{ion}, J_\text{leak},
+C_\text{met}, C_\text{buffer}, C_\text{pump},
+\Theta_\text{mem}, \Theta_\text{grad}, \Theta_\text{cycle}\big),
+\]
+updated by the evolution operator $\Phi_4$:
+\[
+\partial_t X_4 = \Phi_4(X_4, J_4, T_4, \Theta_4).
+\]
+
+% ---------------------------------------------------------------
+\subsection{Membrane Formation, Deformation and Maintenance}
+
+The membrane is the defining structural feature of $K_4$. A membrane 
+process is governed by:
+\[
+\partial_t \partial\Omega(K_4) 
+    = f(\gamma, \kappa, \Delta P, J_{\text{lipid}}, T_4),
+\]
+where:
+\begin{itemize}
+    \item $\gamma$ is surface tension,
+    \item $\kappa$ is bending rigidity,
+    \item $\Delta P$ is osmotic or hydrostatic pressure difference,
+    \item $J_{\text{lipid}}$ is lipid flux across or along the membrane,
+    \item $T_4$ is structural tension.
+\end{itemize}
+
+Membrane processes include:
+\begin{itemize}
+    \item vesicle growth and shrinkage,
+    \item budding, fusion and fission,
+    \item curvature-driven deformation,
+    \item flickering fluctuations (near-critical $\kappa$ regime),
+    \item thickness and permeability changes.
+\end{itemize}
+
+A membrane is stable iff:
+\[
+T_4 < \Theta_{\text{mem}} \quad\text{and}\quad
+|\Delta P| < \Theta_{\text{osm}}.
+\]
+
+% ---------------------------------------------------------------
+\subsection{Osmotic, Ionic and Chemical Gradient Processes}
+
+Gradients are the main driving potentials of $K_4$.  
+We define concentration, pH, redox and ionic axes:
+\[
+A_\text{grad} = \{[S_i],\, \Delta \text{pH},\, \Delta V,\, \Delta \text{redox}\}.
+\]
+
+A gradient-evolution process satisfies:
+\[
+\partial_t P_\text{grad} = 
+    J_{\text{pump}} - J_{\text{leak}} + J_{\text{chem}}.
+\]
+
+There are three principal classes:
+
+\paragraph{(1) Osmotic Gradient Processes}
+\[
+J_{\text{osm}} = f(\Delta [S], \Theta_{\text{osm}}, P_\text{mem}).
+\]
+These regulate swelling, shrinking and mechanical stress on the boundary.
+
+\paragraph{(2) Ionic Gradient Processes}
+\[
+J_{\text{ion}} = g(\Delta V, g_{\text{channel}}, \Theta_{\text{ion}}).
+\]
+Channels, pores, and non-specific leakage govern $\Delta V$.
+
+\paragraph{(3) Chemical / pH / Redox Gradient Processes}
+\[
+\partial_t (\Delta \text{pH}) = J_{\text{acid/base}} 
+    - J_{\text{buffer}},
+\]
+\[
+\partial_t (\Delta \text{redox}) = J_{\text{redox}}^{\text{met}} 
+    - J_{\text{redox}}^{\text{env}}.
+\]
+
+Gradients drive metabolism and structure; collapse of gradients often 
+triggers death of $K_4$.
+
+% ---------------------------------------------------------------
+\subsection{Metabolic and Autocatalytic Processes}
+
+A key innovation of $K_4$ is the formation of metabolic cycles 
+$C_\text{met}$, which include:
+\begin{itemize}
+    \item substrate uptake,
+    \item internal transformation,
+    \item energy production,
+    \item waste generation and export.
+\end{itemize}
+
+Let $X_i$ be metabolite concentrations.  
+A general metabolic process is:
+\[
+\partial_t X_i = 
+\sum_j J_{j \to i}^{\text{react}} 
+    - \sum_k J_{i \to k}^{\text{react}}
+    + J_{\text{import}} - J_{\text{export}}.
+\]
+
+Autocatalytic closure occurs when:
+\[
+\exists\, C \subset \Omega(K_4)
+\quad\text{such that}\quad 
+\Lambda_4(C) = C \quad\text{and}\quad J_{\text{met}}(C) > 0.
+\]
+
+This condition marks the completion of a RAF-like set:
+Reflexively Autocatalytic and F-generated.
+
+% ---------------------------------------------------------------
+\subsection{Waste–Pressure–Tension Loop Processes}
+
+Waste accumulation is a uniquely destabilising $K_4$ process.
+
+Define:
+\[
+W(t) = \text{total waste concentration}.
+\]
+
+Waste dynamics:
+\[
+\partial_t W = J_{\text{waste,prod}} - J_{\text{waste,export}}.
+\]
+
+Pressure response:
+\[
+\Delta P = f(W, \Theta_{\text{perm}}, \Theta_{\text{osm}}).
+\]
+
+Tension increase:
+\[
+T_4 = T_4^0 + \alpha\, \Delta P.
+\]
+
+If:
+\[
+T_4 > \Theta_{\text{mem}},
+\]
+the membrane undergoes rupture or uncontrolled leak — a canonical death 
+mode for $K_4$.
+
+% ---------------------------------------------------------------
+\subsection{Processes of Permeability, Leakage, and Ion Balance}
+
+Membrane permeability defines the stability window for $K_4$.
+
+Leak flux:
+\[
+J_{\text{leak}} = g_\text{leak}(P_\text{mem}, \Delta V, \Delta[S]).
+\]
+
+Channels (primitive pores) contribute:
+\[
+J_{\text{channel}} = g_{\text{channel}}(\Delta V, \Theta_{\text{channel}}).
+\]
+
+High leak destroys gradients and collapses $k_4$.
+
+% ---------------------------------------------------------------
+\subsection{Pump-Driven Processes and Proto-Energy Handling}
+
+Primitive pumps (chemical or electrochemical) update gradients:
+
+\[
+J_{\text{pump}} = f(E_{\text{met}}, \Delta G, \Theta_{\text{pump}}).
+\]
+
+Their existence is a defining step toward $K_5$ excitability.
+
+Energy cycles include:
+\[
+C_\text{energy}: \; 
+E_\text{nutrient} \to E_\text{usable} \to E_\text{gradient}.
+\]
+
+These processes regulate:
+\begin{itemize}
+    \item maintenance of $\Delta V$,
+    \item maintenance of pH and redox gradients,
+    \item activation of metabolic pathways,
+    \item proto-excitability transitions.
+\end{itemize}
+
+% ---------------------------------------------------------------
+\subsection{Processes of Boundary Excitability (Proto-AP)}
+
+The LUX Biology run identified the ignition condition for proto-action 
+potentials (proto-AP), a key transition to early $K_5$.
+
+Define excitability variable:
+\[
+E_{\text{exc}}(t).
+\]
+
+Ignition condition:
+\[
+E_{\text{exc}} > \Theta_{\text{exc}}
+\quad\Rightarrow\quad
+\text{activation of a propagating boundary front}.
+\]
+
+Front propagation:
+\[
+v_{\text{front}} = f(g_{\text{channel}}, \Delta V, \Theta_{\text{curv}},
+\Theta_{\text{perm}}, J_{\text{ion}}).
+\]
+
+A proto-AP process is a boundary-localised transient that:
+\begin{itemize}
+    \item couples membrane curvature,
+    \item couples ion flux,
+    \item propagates laterally along the membrane,
+    \item increases local metabolic demand.
+\end{itemize}
+
+This is the precursor of spiking dynamics at $K_5$.
+
+% ---------------------------------------------------------------
+\subsection{Processes of Buffering and Homeostatic Regulation}
+
+Buffers regulate pH, redox balance, and metabolite concentration.
+
+A buffering process satisfies:
+\[
+\partial_t X_i = -k_{\text{bind}} X_i + k_{\text{release}} B_i,
+\]
+with buffer states $B_i$.
+
+Homeostatic regulation emerges when:
+\[
+\partial_t P_\text{grad} \approx 0
+\quad\text{while}\quad 
+J_{\text{met}} > 0.
+\]
+
+Such plateaus define the long-living operational zone of $K_4$.
+
+% ---------------------------------------------------------------
+\subsection{Processes of Spatial Compartmentalisation}
+
+$K_4$ is the first level capable of producing internal compartments.
+
+Compartment formation requires:
+\[
+T_4 < \Theta_{\text{curv}} \quad\text{and}\quad
+J_{\text{lipid}} > J_{\text{crit}}.
+\]
+
+Sub-compartments modify:
+\begin{itemize}
+    \item reaction rates,
+    \item metabolic flux patterns,
+    \item spatial separation of incompatible reactions.
+\end{itemize}
+
+This is a precursor to organelle-like structure at $K_5/K_6$.
+
+% ---------------------------------------------------------------
+\subsection{Processes Driving $K_4 \to K_5$ Transition}
+
+The following conditions collectively mark the emergence of $K_5$:
+\begin{enumerate}
+    \item Persistent electrical gradients ($\Delta V$) maintained by pumps.
+    \item Appearance of ignition-capable excitability variable 
+    $E_{\text{exc}}$.
+    \item Formation of proto-AP fronts.
+    \item Increase of information-carrying boundary modes.
+    \item Local spiking cycles coupled to metabolic cycles.
+\end{enumerate}
+
+When:
+\[
+\Delta V > \Theta_{\text{exc}}
+\quad\text{and}\quad
+C_\text{met} \text{ supports } C_\text{spike},
+\]
+a new axis $A_{\text{exc}}$ emerges, giving birth to $K_5$.
+
+% ---------------------------------------------------------------
+\subsection{Collapse and Death of $K_4$}
+
+A $K_4$ continuum collapses when at least one of the following holds:
+
+\begin{itemize}
+    \item \textbf{Membrane rupture:}
+    \[
+    T_4 > \Theta_{\text{mem}}.
+    \]
+    \item \textbf{Osmotic explosion or implosion:}
+    \[
+    |\Delta P| > \Theta_{\text{osm}}.
+    \]
+    \item \textbf{Gradient collapse:}
+    \[
+    \Delta V,\; \Delta \text{pH},\; \Delta \text{redox} \to 0.
+    \]
+    \item \textbf{Metabolic failure:}
+    \[
+    J_{\text{met}} \to 0.
+    \]
+    \item \textbf{Uncontrolled permeability:}
+    \[
+    J_{\text{leak}} \gg J_{\text{pump}}.
+    \]
+\end{itemize}
+
+Collapse removes boundary integrity and reduces the system to $K_3$ 
+chemical fragments.
+
+% ---------------------------------------------------------------
+\subsection{Summary}
+
+Processes on $K_4$ comprise:
+\begin{itemize}
+    \item membrane formation, deformation, stability and rupture,
+    \item osmotic, ionic and chemical gradient dynamics,
+    \item metabolic and autocatalytic flux cycles,
+    \item waste–pressure–tension instability loops,
+    \item permeability and leak processes,
+    \item pump-driven proto-energy handling,
+    \item proto-excitability and boundary front propagation,
+    \item buffering and homeostasis,
+    \item spatial compartmentalisation,
+    \item and transitions toward full excitability at $K_5$.
+\end{itemize}
+
+$K_4$ is therefore the minimal level of biological organisation: a 
+self-maintaining protocell-like continuum capable of gradients, cycles, 
+and boundary-mediated information flow.
