@@ -1,24 +1,50 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Generate LaTeX \input lines for the Core main article from master_core_structure.yaml.
+Generate LaTeX \\input lines for the Core main article from master_core_structure.yaml.
 
-Compatible with the current Ontology of Continua Core YAML layout:
+Unterstützte YAML-Layouts (kombiniert):
 
-core:
-  main_article:
-    entrypoint: main.tex
-    sections:
-      - id: intro
-        path: content/01_intro.tex
-      ...
+1) Einfacher Listenmodus (Legacy):
+   - content/01_intro.tex
+   - path: content/02_background.tex
 
-If in the future you want to support other shapes (simple list, root/sections/nodes),
-the helper functions below already cover them.
+2) Baum mit root/sections/nodes (Legacy):
+   root:
+     sections:
+       - path: content/foo.tex
+       - nodes:
+           - path: content/bar.tex
 
-Usage (defaults are fine for build_core.sh):
-    python tools/generate_auto_inputs.py
-    python tools/generate_auto_inputs.py --yaml master_core_structure.yaml --output content/_auto_core_inputs.tex
+3) Aktuelles Core-Schema:
+   core:
+     main_article:
+       entrypoint: main.tex
+       sections:
+         - id: intro
+           path: content/01_intro.tex
+         ...
+
+4) Top-level sections:
+   sections:
+     - id: ...
+       path: content/...
+
+5) Module-Master-Dateien:
+   modules:
+     k_levels:
+       master: { path: content/k_levels/klevels_master.tex, status: ... }
+     ...
+
+Der Generator sammelt ALLE relevanten Pfade:
+- core.main_article.sections
+- sections (top-level)
+- root/sections/nodes
+- modules.*.master.path
+- einfache Liste (falls verwendet)
+
+und schreibt sie (dedupliziert, in Reihenfolge) nach:
+  content/_auto_core_inputs.tex
 """
 
 import argparse
@@ -54,8 +80,7 @@ def _extract_from_simple_list(data):
 
 def _extract_from_root_tree(data):
     """
-    Case 2: generic tree with root/sections/nodes.
-    This is kept for backwards compatibility with an earlier design.
+    Case 2: generic tree with root/sections/nodes (legacy).
 
     Expected shape (conceptually):
       root:
@@ -66,11 +91,11 @@ def _extract_from_root_tree(data):
     """
 
     def walk_node(node, acc):
-        # node may contain direct path
         if isinstance(node, dict):
+            # direct path
             if "path" in node and isinstance(node["path"], str):
                 acc.append(node["path"])
-            # nested sections or nodes
+            # nested sections / nodes / children
             for key in ("sections", "nodes", "children"):
                 if key in node and isinstance(node[key], list):
                     for child in node[key]:
@@ -120,12 +145,60 @@ def _extract_from_core_main_article(data):
     return paths
 
 
+def _extract_from_top_sections(data):
+    """
+    Ergänzung: top-level 'sections' (wie in deinem master_core_structure.yaml).
+
+    Expected shape:
+      sections:
+        - id: ...
+          path: content/...
+    """
+    paths = []
+    sections = data.get("sections")
+    if isinstance(sections, list):
+        for sec in sections:
+            if isinstance(sec, dict) and "path" in sec:
+                paths.append(sec["path"])
+    return paths
+
+
+def _extract_from_modules_master(data):
+    """
+    Ergänzung: modules.*.master.path
+
+    Expected shape:
+      modules:
+        k_levels:
+          master: { path: content/k_levels/klevels_master.tex, status: ... }
+        m_spaces:
+          master: { path: content/m_spaces/mspaces_master.tex, status: ... }
+        ...
+    """
+    paths = []
+    modules = data.get("modules")
+    if not isinstance(modules, dict):
+        return paths
+
+    for name, mod in modules.items():
+        if not isinstance(mod, dict):
+            continue
+        master = mod.get("master")
+        if isinstance(master, dict) and "path" in master:
+            paths.append(master["path"])
+    return paths
+
+
 def extract_tex_paths(yaml_data):
     """
     Unified extractor:
-    1) simple list
-    2) old tree with root/sections/nodes
-    3) current 'core.main_article.sections' scheme
+      - simple list (legacy),
+      - core.main_article.sections (основной артикул),
+      - top-level sections,
+      - root/sections/nodes (legacy),
+      - modules.*.master.path (мастер-файлы модулей).
+
+    Все пути объединяются и дедуплицируются по строковому значению.
     """
     # Case 1: plain list
     if isinstance(yaml_data, list):
@@ -134,25 +207,38 @@ def extract_tex_paths(yaml_data):
     if not isinstance(yaml_data, dict):
         raise ValueError("Ожидал либо список, либо словарь с описанием структуры Core.")
 
-    # Case 3: current Core schema (preferred for this project)
-    paths = _extract_from_core_main_article(yaml_data)
-    if paths:
-        return paths
+    paths = []
 
-    # Case 2: generic tree with root/sections/nodes
+    # 1) current Core schema (main article)
+    paths.extend(_extract_from_core_main_article(yaml_data))
+
+    # 2) top-level 'sections'
+    paths.extend(_extract_from_top_sections(yaml_data))
+
+    # 3) generic tree with root/sections/nodes (legacy)
     if "root" in yaml_data:
-        paths = _extract_from_root_tree(yaml_data)
-        if paths:
-            return paths
+        paths.extend(_extract_from_root_tree(yaml_data))
 
-    # If nothing matched, complain clearly
-    raise ValueError(
-        "Не могу понять структуру YAML для auto-inputs.\n"
-        "Ожидал один из вариантов:\n"
-        "  1) простой список путей;\n"
-        "  2) дерево с ключами root/sections/nodes;\n"
-        "  3) структуру core/main_article/sections (текущий формат)."
-    )
+    # 4) modules.*.master.path (module masters)
+    paths.extend(_extract_from_modules_master(yaml_data))
+
+    # Deduplicate by normalized string path, keep order
+    uniq = []
+    seen = set()
+    for p in paths:
+        s = str(p)
+        if s in seen:
+            continue
+        seen.add(s)
+        uniq.append(s)
+
+    if not uniq:
+        raise ValueError(
+            "Не смог извлечь ни одного пути из YAML.\n"
+            "Проверь core.main_article.sections, sections, root/sections и modules.*.master."
+        )
+
+    return uniq
 
 
 # --------------------------------------------------------------------
@@ -161,7 +247,7 @@ def extract_tex_paths(yaml_data):
 
 def write_inputs_file(output_path: Path, paths):
     """
-    Write \input lines into the given file.
+    Write \\input lines into the given file.
     If list is empty, still write a comment header so LaTeX doesn't break.
     """
     header = [
@@ -181,9 +267,7 @@ def write_inputs_file(output_path: Path, paths):
             # Normalize to forward slashes for LaTeX
             s = str(p).replace("\\", "/")
             lines.append(f"\\input{{{s}}}")
-
-        # Ensure final newline
-        lines.append("")
+        lines.append("")  # final newline
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text("\n".join(lines), encoding="utf-8")
