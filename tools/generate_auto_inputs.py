@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Generate LaTeX \\input lines for the Core main article from master_core_structure.yaml.
+r"""
+Generate LaTeX \input lines for the Core main article from master_core_structure.yaml.
 
 Unterstützte YAML-Layouts (kombiniert):
 
@@ -114,17 +114,6 @@ def _extract_from_root_tree(data):
 def _extract_from_core_main_article(data):
     """
     Case 3 (CURRENT PROJECT): structure with 'core' / 'main_article' / 'sections'.
-
-    Expected shape:
-    core:
-      main_article:
-        entrypoint: main.tex
-        sections:
-          - id: intro
-            path: content/01_intro.tex
-          - id: background
-            path: content/02_background.tex
-          ...
     """
     core = data.get("core", {})
     if not isinstance(core, dict):
@@ -148,11 +137,6 @@ def _extract_from_core_main_article(data):
 def _extract_from_top_sections(data):
     """
     Ergänzung: top-level 'sections' (wie in deinem master_core_structure.yaml).
-
-    Expected shape:
-      sections:
-        - id: ...
-          path: content/...
     """
     paths = []
     sections = data.get("sections")
@@ -166,14 +150,6 @@ def _extract_from_top_sections(data):
 def _extract_from_modules_master(data):
     """
     Ergänzung: modules.*.master.path
-
-    Expected shape:
-      modules:
-        k_levels:
-          master: { path: content/k_levels/klevels_master.tex, status: ... }
-        m_spaces:
-          master: { path: content/m_spaces/mspaces_master.tex, status: ... }
-        ...
     """
     paths = []
     modules = data.get("modules")
@@ -192,17 +168,19 @@ def _extract_from_modules_master(data):
 def extract_tex_paths(yaml_data):
     """
     Unified extractor:
-      - simple list (legacy),
-      - core.main_article.sections (основной артикул),
+      - simple list,
+      - core.main_article.sections,
       - top-level sections,
-      - root/sections/nodes (legacy),
-      - modules.*.master.path (мастер-файлы модулей).
+      - root/sections/nodes,
+      - modules.*.master.path.
 
-    Все пути объединяются и дедуплицируются по строковому значению.
+    Alle Pfade werden gesammelt und nachher dedupliziert.
     """
     # Case 1: plain list
     if isinstance(yaml_data, list):
-        return _extract_from_simple_list(yaml_data)
+        paths = _extract_from_simple_list(yaml_data)
+        print(f"[inputs-debug] simple list: {len(paths)}")
+        return paths
 
     if not isinstance(yaml_data, dict):
         raise ValueError("Ожидал либо список, либо словарь с описанием структуры Core.")
@@ -210,17 +188,26 @@ def extract_tex_paths(yaml_data):
     paths = []
 
     # 1) current Core schema (main article)
-    paths.extend(_extract_from_core_main_article(yaml_data))
+    core_paths = _extract_from_core_main_article(yaml_data)
+    print(f"[inputs-debug] core.main_article.sections: {len(core_paths)}")
+    paths.extend(core_paths)
 
     # 2) top-level 'sections'
-    paths.extend(_extract_from_top_sections(yaml_data))
+    top_sections = _extract_from_top_sections(yaml_data)
+    print(f"[inputs-debug] top-level sections: {len(top_sections)}")
+    paths.extend(top_sections)
 
     # 3) generic tree with root/sections/nodes (legacy)
+    root_paths = []
     if "root" in yaml_data:
-        paths.extend(_extract_from_root_tree(yaml_data))
+        root_paths = _extract_from_root_tree(yaml_data)
+    print(f"[inputs-debug] root tree sections: {len(root_paths)}")
+    paths.extend(root_paths)
 
     # 4) modules.*.master.path (module masters)
-    paths.extend(_extract_from_modules_master(yaml_data))
+    module_masters = _extract_from_modules_master(yaml_data)
+    print(f"[inputs-debug] modules.*.master: {len(module_masters)}")
+    paths.extend(module_masters)
 
     # Deduplicate by normalized string path, keep order
     uniq = []
@@ -238,6 +225,7 @@ def extract_tex_paths(yaml_data):
             "Проверь core.main_article.sections, sections, root/sections и modules.*.master."
         )
 
+    print(f"[inputs-debug] total unique paths: {len(uniq)}")
     return uniq
 
 
@@ -247,7 +235,7 @@ def extract_tex_paths(yaml_data):
 
 def write_inputs_file(output_path: Path, paths):
     """
-    Write \\input lines into the given file.
+    Write \input lines into the given file.
     If list is empty, still write a comment header so LaTeX doesn't break.
     """
     header = [
