@@ -4,10 +4,378 @@
 
 % ==============================
 %  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/processes/processes_k6.tex
-%  Status: EMPTY — TO BE FILLED
+%  Processes on K6
 % ==============================
 
 \section{Processes on $K_6$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:processes-k6}
+
+$K_6$ is the first level at which excitability becomes cognitively 
+structured. A $K_6$ continuum supports stable attractors, 
+multi-step information flows, temporal integration, 
+pattern-based state updates, and the minimal architecture of 
+proto-representation. The defining new axis is
+\[
+A_{\text{cog}} = 
+\{\text{pattern space},\; 
+\text{integration window},\;
+\text{internal state variables},\;
+\text{proto-model variables}\},
+\]
+and the defining operator is the information-flow operator:
+\[
+J_{\text{info}}:\; \Omega(K_6)\to\Omega(K_6).
+\]
+
+Processes on $K_6$ evolve the system
+\[
+X_6 =
+(\Omega_c,\, A_{\text{cog}}, A_{\text{exc}}, 
+P_{\text{cog}}, P_{\text{info}}, 
+J_{\text{exc}}, J_{\text{info}}, 
+C_{\text{pattern}}, C_{\text{integration}}, 
+C_{\text{predict}}, 
+\Theta_{\text{cog}}, \Theta_{\text{cons}}, 
+T_6),
+\]
+under the operator $\Phi_6$:
+\[
+\partial_t X_6 = \Phi_6(X_6, J_6, T_6, \Theta_6).
+\]
+
+% ---------------------------------------------------------------
+\subsection{Pattern Formation and Stabilisation Processes}
+
+K$_6$ supports autonomous formation of information-bearing patterns.
+
+Let $S(t)$ be the instantaneous spike-pattern vector derived from $K_5$:
+\[
+S(t)=\mathcal{E}(\Delta V, E_{\text{exc}},\text{spike\ events}).
+\]
+
+Patterns stabilise when they enter an attractor basin:
+\[
+\partial_t S = F(S) + J_{\text{info}}(S) 
+\quad\Rightarrow\quad
+S \to S^\ast,
+\]
+where $S^\ast$ is a stable pattern.
+
+A process of pattern stabilisation includes:
+\begin{itemize}
+    \item formation of recurrent motifs,
+    \item decay of noise-driven fluctuations,
+    \item establishment of spatio-temporal correlational structure.
+\end{itemize}
+
+Pattern stability is the first necessary condition for memory.
+
+% ---------------------------------------------------------------
+\subsection{Attractor Dynamics and State Convergence}
+
+Let $x(t)$ be an internal cognitive variable.
+
+State evolution:
+\[
+\partial_t x = G(x, S(t), P_{\text{cog}}).
+\]
+
+An attractor $x^\ast$ satisfies:
+\[
+G(x^\ast, S(t), P_{\text{cog}})=0.
+\]
+
+Processes:
+\begin{enumerate}
+    \item \textbf{Formation of attractor basins:}  
+    structure emerges from network coupling and stability of feedback loops.
+    \item \textbf{Convergence:}  
+    initial states collapse into low-dimensional manifolds.
+    \item \textbf{Cycle attractors:}  
+    recurrent thought-like loops (proto-inference).
+\end{enumerate}
+
+These processes convert raw excitation patterns into stable internal states.
+
+% ---------------------------------------------------------------
+\subsection{Temporal Integration Processes}
+
+$K_6$ introduces explicit temporal integration:
+\[
+I(t) = \int_{t-\tau}^{t} S(\xi)\, w(t-\xi)\,d\xi,
+\]
+where $\tau$ is the integration window and $w$ is a weighting kernel.
+
+Integration processes:
+\begin{itemize}
+    \item smoothing,
+    \item prediction,
+    \item temporal binding,
+    \item context construction.
+\end{itemize}
+
+Temporal integration is necessary for recognition and proto-prediction.
+
+% ---------------------------------------------------------------
+\subsection{Multi-Step Information Flow Processes}
+
+Information at $K_6$ is not single-step (as in $K_5$), but iterative:
+\[
+S(t) \xrightarrow{J_{\text{info}}}
+I(t) \xrightarrow{\Psi_6}
+x(t) \xrightarrow{\Phi_6}
+S(t+\Delta t).
+\]
+
+This defines:
+\begin{itemize}
+    \item recurrent inference loops,
+    \item internal updating cycles,
+    \item formation of internal models.
+\end{itemize}
+
+The system becomes capable of representing and modifying its own state.
+
+% ---------------------------------------------------------------
+\subsection{Consistency Maintenance Processes}
+
+Internal states must satisfy a cognitive consistency threshold $\Theta_{\text{cons}}$.
+
+Let $x_i$ be a set of interacting internal variables.
+
+Consistency metric:
+\[
+C_{\text{cons}} = \sum_{i,j} W_{ij} |x_i - f_{ij}(x_j)|.
+\]
+
+A consistency-maintenance process minimises:
+\[
+\partial_t C_{\text{cons}} = -\gamma C_{\text{cons}},
+\]
+unless external input forces reconfiguration.
+
+Excessive inconsistency leads to tension spikes:
+\[
+T_6 > \Theta_{\text{cog}}
+\Rightarrow \text{cognitive collapse or restructuring}.
+\]
+
+% ---------------------------------------------------------------
+\subsection{State-Update, Comparison, and Error-Correction Processes}
+
+Let $x_{\text{old}}$ be the previous internal state and 
+$x_{\text{new}}$ the proposed updated state.
+
+Error estimate:
+\[
+\epsilon = D(x_{\text{new}}, x_{\text{old}}).
+\]
+
+Processes include:
+\begin{itemize}
+    \item comparison of predicted and observed patterns,
+    \item error-driven adjustments,
+    \item propagation of correction across internal variables,
+    \item reweighting of pattern associations.
+\end{itemize}
+
+This is the formal analogue of learning in the $K_6$ continuum.
+
+% ---------------------------------------------------------------
+\subsection{S-Cell (S-Unit) Meaning-Formation Processes}
+
+The S-module gives a universal minimal unit of meaning:
+\[
+A \to \text{fix} \to \text{expect } B \to C \to \text{compare} \to 
+\text{update}.
+\]
+
+Processes at this level:
+\begin{enumerate}
+    \item \textbf{Fixation:}  
+    selecting a pattern as a reference.
+    \item \textbf{Expectation:}  
+    predicting the next state.
+    \item \textbf{Comparison:}  
+    evaluating deviation from prediction.
+    \item \textbf{Update:}  
+    adjusting internal variables or thresholds.
+\end{enumerate}
+
+Meaning is thus the result of dynamic alignment between prediction, 
+observation and internal model.
+
+% ---------------------------------------------------------------
+\subsection{Information Routing and Selective Attention Processes}
+
+Routing is controlled by $J_{\text{info}}$ acting on selected subspaces.
+
+Let $\Pi$ be a projection operator selecting relevant channels.
+
+Selective routing:
+\[
+J_{\text{info}}^{(\Pi)} = \Pi \circ J_{\text{info}}.
+\]
+
+This creates processes:
+\begin{itemize}
+    \item dynamic reallocation of processing resources,
+    \item selective enhancement of patterns,
+    \item suppression of irrelevant information,
+    \item stabilisation of attention loops.
+\end{itemize}
+
+This emerges naturally from thresholds and attractor geometry.
+
+% ---------------------------------------------------------------
+\subsection{Stability, Conflict and Cognitive Tension Processes}
+
+Structural tension at $K_6$:
+\[
+T_6 = F(\epsilon, C_{\text{cons}}, \Theta_{\text{cog}}, J_{\text{info}}, P_{\text{cog}}).
+\]
+
+Processes:
+\begin{itemize}
+    \item tension accumulation (prediction error, inconsistency),
+    \item local correction (partial updates),
+    \item global reorganisation (attractor reshaping),
+    \item breakdown (collapse to K$_5$ dynamics).
+\end{itemize}
+
+High $T_6$ triggers qualitative shifts in cognitive structure.
+
+% ---------------------------------------------------------------
+\subsection{Memory Formation and Retrieval Processes}
+
+Memory is a stable attractor or pattern stored in $\Omega(K_6)$.
+
+Encoding:
+\[
+\partial_t x = \Phi_6(x, S(t)).
+\]
+
+Strengthening:
+\[
+\partial_t W_{ij} = H(S_i, S_j, x).
+\]
+
+Retrieval:
+\[
+S_{\text{cue}} \to x^\ast \to S_{\text{restored}}.
+\]
+
+Memory is thus a dynamical process, not an object.
+
+% ---------------------------------------------------------------
+\subsection{Proto-Representation and Internal Modelling Processes}
+
+A representation occurs when:
+\[
+x_r(t) \approx \mathcal{M}(S(t)),
+\]
+with $\mathcal{M}$ an internal model mapping external patterns into 
+internal variables.
+
+Processes:
+\begin{itemize}
+    \item construction of latent variables,
+    \item predictive modelling,
+    \item generation of counterfactual patterns,
+    \item simulation-like internal cycles.
+\end{itemize}
+
+This is not full symbolic reasoning, but structured proto-modelling.
+
+% ---------------------------------------------------------------
+\subsection{Decision and Action-Preparation Processes}
+
+When multiple attractors compete, decision processes select one:
+\[
+x_{\text{selected}} = 
+\arg\min_x E_{\text{tension}}(x).
+\]
+
+Action preparation occurs when internal states generate predictive 
+signals:
+\[
+J_{\text{prep}} = \Psi_6(x_{\text{selected}}).
+\]
+
+This is still internal; external motor action appears only at $K_7$.
+
+% ---------------------------------------------------------------
+\subsection{Noise-Driven Cognitive Fluctuation Processes}
+
+Noise $\eta(t)$ acts on internal variables:
+\[
+\partial_t x = G(x) + \eta(t).
+\]
+
+Processes include:
+\begin{itemize}
+    \item spontaneous reconfiguration,
+    \item escape from shallow attractors,
+    \item creativity-like divergence,
+    \item noise-induced transitions between states.
+\end{itemize}
+
+Noise becomes a functional exploration tool.
+
+% ---------------------------------------------------------------
+\subsection{Transition Processes $K_6 \to K_7$}
+
+A transition occurs when:
+\begin{enumerate}
+    \item multiple $K_6$ continua synchronise,
+    \item information flows become inter-agent,
+    \item shared symbols or norms stabilise,
+    \item externalised patterns (signals/actions) form coupling loops.
+\end{enumerate}
+
+This produces:
+\[
+A_{\text{soc}},\; J_{\text{soc}},\;
+C_{\text{norm}},\;
+\Theta_{\text{legit}},
+\]
+signalling the emergence of $K_7$.
+
+% ---------------------------------------------------------------
+\subsection{Collapse and Death of $K_6$}
+
+$K_6$ collapses when:
+\begin{enumerate}
+    \item excitability support ($K_5$ substrate) fails,
+    \item attractors destabilise catastrophically,
+    \item inconsistency exceeds $\Theta_{\text{cog}}$,
+    \item information routing breaks down,
+    \item tension $T_6$ diverges.
+\end{enumerate}
+
+The result is reversion to $K_5$ dynamics or fragmentation into 
+disconnected subsystems.
+
+% ---------------------------------------------------------------
+\subsection{Summary}
+
+Processes at $K_6$ include:
+\begin{itemize}
+    \item pattern stabilisation and attractor formation,
+    \item temporal integration,
+    \item multi-step inference loops,
+    \item cognitive consistency maintenance,
+    \item prediction–error correction,
+    \item meaning-formation via S-cells,
+    \item selective attention and routing,
+    \item tension dynamics and reorganisation,
+    \item memory encoding and retrieval,
+    \item proto-representation and internal modelling,
+    \item early decision processes,
+    \item noise-driven exploration,
+    \item transition dynamics to $K_7$.
+\end{itemize}
+
+$K_6$ is the first level supporting genuine cognition: 
+a continuum able to integrate patterns, maintain internal models, 
+predict, correct itself and generate meaning.
