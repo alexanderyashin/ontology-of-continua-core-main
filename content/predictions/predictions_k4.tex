@@ -4,10 +4,280 @@
 
 % ==============================
 %  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/predictions/predictions_k4.tex
-%  Status: EMPTY — TO BE FILLED
+%  Predictions for K4 — FULL VERSION
 % ==============================
 
 \section{Predictions for $K_4$}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:predictions-k4}
+
+Level $K_4$ is the first biological continuum.  
+It is defined by the existence of a semi-permeable membrane $\partial\Omega(K_4)$,
+chemical gradients across the membrane, metabolic flow cycles, and internal
+reaction networks capable of maintaining non-equilibrium structure.
+
+Predictions for $K_4$ follow from:
+\begin{itemize}
+    \item membrane thresholds $\Theta_{\mathrm{mem}}$ (stretch, curvature, osmosis, charge);
+    \item gradient axes $A_{\mathrm{grad}},A_{\mathrm{ion}},A_{\mathrm{pH}},A_{\mathrm{redox}}$;
+    \item metabolic potentials $P_{\mathrm{energy}},P_{\mathrm{redox}},P_{\mathrm{grad}}$;
+    \item flows $J_{\mathrm{pump}},J_{\mathrm{redox}},J_{\mathrm{metabolic}}$;
+    \item cycles $C_{\mathrm{energy}},C_{\mathrm{buffering}},C_{\mathrm{redox}}$;
+    \item vesicle flickering regimes and instability thresholds;
+    \item collapse modes discovered in Chemistry Run (pH-collapse, osmotic burst, waste–pressure loop).
+\end{itemize}
+
+The predictions are grouped into seven families.
+
+% ---------------------------------------------------------------
+\subsection{P1: Predictions Concerning Membrane Structure and Stability}
+
+\paragraph{(P4.1) Existence of a Stable Semi-Permeable Boundary.}
+$K_4$ predicts that the membrane must satisfy:
+\[
+\Theta_{\mathrm{stretch}} > T_{\mathrm{mem}}(t), \qquad
+\Theta_{\mathrm{curv}} > |H(x,t)|,
+\]
+where $H$ is mean curvature.  
+Otherwise $\partial\Omega(K_4)$ ruptures and $K_4$ dies.
+
+\paragraph{(P4.2) Flickering Regime.}
+$K_4$ predicts a regime of membrane flickering:
+\[
+C_{\mathrm{flickering}} \neq 0
+\]
+near critical osmotic and curvature thresholds.  
+This regime is a universal near-critical phenomenon absent in $K_3$.
+
+\paragraph{(P4.3) Osmotic Equilibrium Constraint.}
+The osmotic potential must satisfy:
+\[
+|\Delta \Pi| < \Theta_{\mathrm{osm}},
+\]
+predicting a maximum sustainable solute difference before collapse.
+
+\paragraph{(P4.4) Charge Threshold.}
+A membrane charge threshold:
+\[
+\Theta_{\mathrm{charge}}
+\]
+limits electric potential before destabilisation.
+
+% ---------------------------------------------------------------
+\subsection{P2: Predictions Concerning Internal Chemical Organization}
+
+\paragraph{(P4.5) Reaction Network Closure.}
+$K_4$ predicts the existence of at least one internally closed metabolic loop:
+\[
+C_{\mathrm{core}} = A \to B \to C \to A.
+\]
+
+\paragraph{(P4.6) Threshold for Waste Accumulation.}
+There exists a metabolic waste threshold:
+\[
+\Theta_{\mathrm{waste}},
+\]
+where exceeding it generates internal pressure and induces collapse.
+
+\paragraph{(P4.7) pH Buffering Cycle.}
+$K_4$ predicts:
+\[
+C_{\mathrm{buffering}} \neq 0,
+\]
+a cycle regulating internal pH and protecting against the pH-collapse mode
+identified in Chemistry Run.
+
+\paragraph{(P4.8) Redox Potential Gradient.}
+A redox-driven potential difference must exist:
+\[
+P_{\mathrm{redox}}(in) \neq P_{\mathrm{redox}}(out),
+\]
+predicting metabolic energy production even in early protocells.
+
+% ---------------------------------------------------------------
+\subsection{P3: Predictions Concerning Flows and Transport}
+
+\paragraph{(P4.9) Active Transport.}
+$K_4$ predicts that passive transport is insufficient for stability:
+\[
+J_{\mathrm{active}} > 0
+\]
+must compensate losses and maintain gradients.
+
+\paragraph{(P4.10) Gradient-Driven Coupling.}
+Flows satisfy:
+\[
+J_{\mathrm{ion}} \propto \nabla P_{\mathrm{grad}},
+\qquad
+J_{\mathrm{metabolic}} \propto P_{\mathrm{energy}}.
+\]
+
+\paragraph{(P4.11) Osmotic Inflow Instability.}
+There exists a regime where:
+\[
+\frac{dV}{dt} > 0, \quad \frac{d^2V}{dt^2} > 0,
+\]
+predicting runaway swelling until membrane rupture.
+
+% ---------------------------------------------------------------
+\subsection{P4: Predictions Concerning Cycles and Non-Equilibrium Dynamics}
+
+\paragraph{(P4.12) Existence of Energy Cycle.}
+$K_4$ predicts:
+\[
+C_{\mathrm{energy}} \neq \varnothing,
+\]
+minimal for maintaining $k_4(t)>0$.
+
+\paragraph{(P4.13) Turnover Cycle.}
+A turnover cycle:
+\[
+C_{\mathrm{turnover}} = 
+\{\text{production} \to \text{consumption} \to \text{waste export}\}
+\]
+must exist and determines lifetime of $K_4$.
+
+\paragraph{(P4.14) Redox Cycle Oscillations.}
+Small oscillations in redox potential are predicted:
+\[
+P_{\mathrm{redox}}(t) = P_0 + \delta P(t).
+\]
+
+\paragraph{(P4.15) Metabolic Bottleneck Threshold.}
+If:
+\[
+T_{\mathrm{metabolic}} > \Theta_{\mathrm{path}},
+\]
+then collapse via pathway exhaustion occurs.
+
+% ---------------------------------------------------------------
+\subsection{P5: Predictions Concerning Collapse, Death and Threshold Behaviour}
+
+\paragraph{(P4.16) pH-Collapse (Golden Test 1).}
+$K_4$ predicts catastrophic loss of continuity if:
+\[
+P_{\mathrm{H}^+}(t) > \Theta_{\mathrm{pH}},
+\]
+causing membrane destabilisation and enzymatic inactivity.
+
+\paragraph{(P4.17) Osmotic Burst (Golden Test 2).}
+If:
+\[
+\Delta \Pi(t) > \Theta_{\mathrm{osm}},
+\]
+then the membrane ruptures and $\Omega(K_4)$ disappears.
+
+\paragraph{(P4.18) Waste–Pressure Loop (Golden Test 3).}
+A positive feedback loop is predicted:
+\[
+\text{waste} \uparrow \Rightarrow P_{int} \uparrow 
+\Rightarrow k_4(t) \downarrow.
+\]
+
+\paragraph{(P4.19) Critical Flicker Collapse.}
+Near:
+\[
+T_{\mathrm{mem}} \approx \Theta_{\mathrm{curv}},
+\]
+flickering frequency diverges, predicting structural failure.
+
+\paragraph{(P4.20) Charge-Induced Death.}
+Excess membrane potential:
+\[
+|\Delta V| > \Theta_{\mathrm{charge}}
+\]
+destabilises $\partial\Omega(K_4)$.
+
+% ---------------------------------------------------------------
+\subsection{P6: Predictions Concerning Transition to $K_5$}
+
+\paragraph{(P4.21) Threshold for Electrical Excitability.}
+$K_4$ predicts:
+\[
+\exists\ \Theta_{\mathrm{exc}} \quad \text{such that}\quad
+|\Delta V| > \Theta_{\mathrm{exc}}
+\Rightarrow \text{proto-action potential}.
+\]
+
+\paragraph{(P4.22) Birth of a New Axis $A_{\mathrm{exc}}$.}
+When membrane depolarisation becomes cyclic:
+\[
+C_{\mathrm{spike}} \neq 0,
+\]
+a new dynamical axis of excitability emerges — signature of $K_5$.
+
+\paragraph{(P4.23) Transition via Ion Channel Specialisation.}
+The transition $K_4 \to K_5$ requires:
+\[
+g_{\mathrm{channel}} > \Theta_{\mathrm{channel-open}},
+\]
+predicting evolution of early ion channels.
+
+\paragraph{(P4.24) Redox-to-Electrical Coupling.}
+The early form of electrophysiological behaviour is predicted:
+\[
+J_{\mathrm{redox}} \to J_{\mathrm{ion}} \to \Delta V.
+\]
+
+\paragraph{(P4.25) Spatially Propagating Excitation (proto-AP).}
+If:
+\[
+G_{\mathrm{lat}} > G_{\mathrm{crit}},
+\]
+a travelling excitation front emerges — defining property of $K_5$.
+
+% ---------------------------------------------------------------
+\subsection{P7: Predictions Concerning Evolution and Higher-Level Structure}
+
+\paragraph{(P4.26) Prediction of Autocatalytic Complexity Growth.}
+$K_4$ predicts that metabolic complexity grows if:
+\[
+\frac{dC_{\mathrm{core}}}{dt} > 0,
+\]
+under stable membrane conditions.
+
+\paragraph{(P4.27) Prediction of Genetic Precursors.}
+Template-like molecular structures must appear if:
+\[
+J_{\mathrm{ligation}} - J_{\mathrm{fragmentation}} > 0,
+\]
+predicting the onset of informational continuity.
+
+\paragraph{(P4.28) Prediction of Spatial Heterogeneity.}
+$K_4$ predicts emergence of:
+\[
+\nabla P_{\mathrm{grad}}(x,y) \neq 0,
+\]
+leading to compartmentalisation, precursor to $K_5$ morphology.
+
+\paragraph{(P4.29) Evolutionary Boundary Stability.}
+Systems evolve toward:
+\[
+\Theta_{\mathrm{mem}} \uparrow,\ \Theta_{\mathrm{osm}} \uparrow,
+\]
+predicting progressive robustness of biological membranes.
+
+\paragraph{(P4.30) Prediction of Multi-Vesicle Aggregation.}
+At low tension:
+\[
+T_{\mathrm{mem}} < \Theta_{\mathrm{adhesion}},
+\]
+vesicles fuse or aggregate, precursor to multicellular scaffolds.
+
+% ---------------------------------------------------------------
+\subsection{Summary}
+
+Level $K_4$ predicts:
+\begin{itemize}
+    \item stable semi-permeable boundaries with curvature, stretch and osmotic thresholds;
+    \item membrane flickering as a universal near-critical regime;
+    \item internal metabolic loops, redox cycles and buffering systems;
+    \item active transport and gradient maintenance;
+    \item three universal collapse modes: pH-collapse, osmotic burst, waste–pressure loop;
+    \item conditions for emergence of excitability and the transition to $K_5$;
+    \item early evolutionary dynamics: complexity growth, proto-genetic systems, vesicle aggregation.
+\end{itemize}
+
+These predictions uniquely define $K_4$ as the first biological continuum and
+distinguish it sharply from both chemical systems ($K_3$) and neural-excitable
+systems ($K_5$).
+
