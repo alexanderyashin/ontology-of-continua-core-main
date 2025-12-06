@@ -4,10 +4,232 @@
 
 % ==============================
 %  Ontology of Continua — Core
-%  PLACEHOLDER MODULE
-%  File: content/predictions/predictions_master.tex
-%  Status: EMPTY — TO BE FILLED
+%  Predictions Module — Master
+%  FULL VERSION FOR CORE 1.1
 % ==============================
 
 \section{Overview}
-% PLACEHOLDER — TO BE FILLED
+\label{sec:predictions-master}
+
+Predictions in the Ontology of Continua (OC) are structural consequences  
+of the formal definition of a continuum
+\[
+K = (\Omega, A, P, J, \Theta, C, k)
+\]
+and of the compatibility requirement with the corresponding meta-space $M$:
+\[
+\Omega(K) \subseteq \Omega(M).
+\]
+
+OC does not generate phenomenological predictions directly.  
+Instead, it yields \emph{structural invariants},  
+\emph{threshold relations}, and \emph{dynamical constraints}  
+that must hold in any admissible real physical, chemical, biological,  
+cognitive, social or meta-theoretical instantiation.
+
+The predictions are therefore:
+
+\begin{enumerate}
+    \item \textbf{universal} (independent of domain);
+    \item \textbf{structural} (arising from the architecture of continua);
+    \item \textbf{threshold-based} (arising from $\Theta$-conditions);
+    \item \textbf{dimensional} (arising from emergence of new axes);
+    \item \textbf{cycle-dependent} (linked to $C_j$ existence/viability);
+    \item \textbf{meta-constrained} (arising from compatibility with $M$).
+\end{enumerate}
+
+The framework of predictions is uniform across all levels $K_0$–$K_{12}$.
+
+% ---------------------------------------------------------------
+\subsection{Prediction Types}
+
+A prediction $P_i$ belongs to one of five classes.
+
+\paragraph{(1) Invariance Predictions.}
+Any structure that appears in $\Omega(K)$ must satisfy invariants implied by  
+axes $A$, thresholds $\Theta$, and admissible flows $J$.  
+Example pattern:
+\[
+\text{If } A_{\mathrm{new}} \notin A(M), \text{ then } A_{\mathrm{new}} \text{ cannot appear in } K.
+\]
+
+\paragraph{(2) Threshold Predictions.}
+Whenever a potential crosses a threshold, a phase transition or loss of  
+existence occurs:
+\[
+P(t) > \Theta \quad\Rightarrow\quad \Omega(K)\to\Omega'(K).
+\]
+
+\paragraph{(3) Dimensional Predictions.}
+A new dimension may emerge only if the meta-space admits it and the system  
+reaches the required structural tension:
+\[
+T > \Theta_{\mathrm{dim}}
+\quad\Rightarrow\quad
+\dim(K)\to\dim(K)+1.
+\]
+
+\paragraph{(4) Cycle Predictions.}
+Life/operation/continuity requires at least one stabilising cycle:
+\[
+C_j \text{ exists} \quad\Rightarrow\quad k(t)>0.
+\]
+Loss of all such cycles implies collapse.
+
+\paragraph{(5) Collapse Predictions.}
+A continuum dies when compatibility is lost:
+\[
+\Omega(K)\not\subseteq\Omega(M)
+\quad\Rightarrow\quad
+k(K)=0.
+\]
+
+% ---------------------------------------------------------------
+\subsection{Universal Prediction Constraints}
+
+All predictions across $K_0$–$K_{12}$ must satisfy:
+
+\begin{enumerate}
+    \item \textbf{Meta-space admissibility:}  
+    \[
+    P_i \text{ valid} \ \Longrightarrow\ \exists M : \Omega(K)\subseteq\Omega(M).
+    \]
+
+    \item \textbf{Structural monotonicity:}  
+    Predictions must not violate the monotonicity of axes, thresholds or  
+    dimensionality:
+    \[
+    \dim(K_{x+1}) \ge \dim(K_x).
+    \]
+
+    \item \textbf{Threshold consistency:}  
+    All phenomena must emerge at threshold crossings definable in terms of  
+    $P$, $J$, $\Theta$.
+
+    \item \textbf{Continuity of $\Omega$:}  
+    Predictions must respect  
+    \[
+    \partial\Omega(K_x)\subseteq \partial\Omega(M_{x+1}).
+    \]
+
+    \item \textbf{No ad hoc parameters:}  
+    Predictions arise only from operators already defined:  
+    $\Psi$, $\Phi$, $\Lambda$, $U$, $\Chi$.
+\end{enumerate}
+
+% ---------------------------------------------------------------
+\subsection{Prediction Template for Each K-level}
+
+A prediction for level $K_x$ has the canonical form:
+
+\[
+P^{(x)}_i = 
+\left(
+\text{Assumptions on } A_x, P_x, J_x, \Theta_x
+\right)
+\Rightarrow
+\left(
+\text{Invariant / Transition / Collapse}
+\right).
+\]
+
+Examples of generic prediction templates implemented throughout the module:
+
+\begin{itemize}
+    \item \textbf{Invariant Template}
+    \[
+    A_x^{(i)} = \mathrm{const}
+    \quad\Rightarrow\quad
+    T_x(t) \text{ monotonic}.
+    \]
+
+    \item \textbf{Threshold Template}
+    \[
+    P_x^{(j)} > \Theta_x^{(j)}
+    \quad\Rightarrow\quad
+    \text{Phase transition in }\Omega(K_x).
+    \]
+
+    \item \textbf{Dimensional Template}
+    \[
+    T_x(t) > \Theta_{\mathrm{dim},x}
+    \Rightarrow
+    \dim(K_x)\to\dim(K_x)+1.
+    \]
+
+    \item \textbf{Cycle Template}
+    \[
+    C_x^{(k)} \text{ broken}
+    \Rightarrow
+    k_x(t)\to 0.
+    \]
+
+    \item \textbf{Collapse Template}
+    \[
+    \Omega(K_x)\not\subseteq\Omega(M_x)
+    \Rightarrow
+    K_x\text{ ceases to exist}.
+    \]
+\end{itemize}
+
+These templates guarantee uniformity across domains  
+and allow each prediction module $P(K_0)$–$P(K_{12})$  
+to be derived transparently from the formal structure.
+
+% ---------------------------------------------------------------
+\subsection{Role of Predictions Within Core 1.1}
+
+Predictions serve three purposes in OC:
+
+\paragraph{(i) Structural falsifiability.}
+Every prediction is paired with a falsifiability criterion  
+defined in the corresponding module:
+\[
+P_i \text{ false } \Rightarrow \text{OC incomplete or incorrect}.
+\]
+
+\paragraph{(ii) Cross-domain coherence.}
+A prediction derived at $K_x$ must not contradict predictions at  
+lower or higher levels $K_y$ whenever their domains overlap.
+
+\paragraph{(iii) Empirical anchoring.}
+Predictions relating to physical, chemical, biological, cognitive or  
+social continua become empirically testable via the experiments  
+defined in the corresponding $K_x$ experimental modules.
+
+% ---------------------------------------------------------------
+\subsection{Interaction with Meta-Spaces}
+
+Predictions are constrained by meta-spaces $M_x$:
+
+\[
+P^{(x)}_i \text{ valid}
+\quad\Leftrightarrow\quad
+P^{(x)}_i \in \Omega(M_x) \text{ and does not violate } \Theta(M_x).
+\]
+
+This ensures:
+
+\begin{itemize}
+    \item existence of $K_x$,
+    \item admissibility of transitions,
+    \item compatibility with higher-level spaces,
+    \item logical consistency across the hierarchy.
+\end{itemize}
+
+% ---------------------------------------------------------------
+\subsection{Summary}
+
+The master prediction module provides:
+
+\begin{itemize}
+    \item a universal formalism for deriving predictions at all K-levels,
+    \item structural templates linking potentials, flows and thresholds,
+    \item a unified theory of dimensional transitions,
+    \item compatibility rules with meta-spaces $M_x$,
+    \item a foundation for empirical testing in accompanying modules.
+\end{itemize}
+
+This framework ensures that the predictive content of OC  
+is mathematically grounded, operationalisable, falsifiable  
+and consistent across the entire K/M hierarchy.
