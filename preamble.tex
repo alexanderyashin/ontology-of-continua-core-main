@@ -34,6 +34,31 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{mathtools}
 
+% --- OC Core: custom Greek macros (future-proof) ----
+%
+% LaTeX definiert keine Makros wie \Alpha, \Beta, \Chi etc.
+% Wir legen sie einmal vorsichtig mit \providecommand an,
+% so dass:
+%   - aktuelle Inhalte (z.B. \Chi) kompilieren,
+%   - spätere explizite Re-Definitionen nicht überschrieben werden.
+
+\providecommand{\Alpha}{\mathrm{A}}
+\providecommand{\Beta}{\mathrm{B}}
+\providecommand{\Epsilon}{\mathrm{E}}
+\providecommand{\Zeta}{\mathrm{Z}}
+\providecommand{\Eta}{\mathrm{H}}
+\providecommand{\Iota}{\mathrm{I}}
+\providecommand{\Kappa}{\mathrm{K}}
+\providecommand{\Mu}{\mathrm{M}}
+\providecommand{\Nu}{\mathrm{N}}
+\providecommand{\Omicron}{\mathrm{O}}
+\providecommand{\Rho}{\mathrm{P}}
+\providecommand{\Tau}{\mathrm{T}}
+\providecommand{\Chi}{\mathrm{X}}
+
+% Bei Bedarf kannst du später einzelne davon durch
+% \renewcommand oder \DeclareMathOperator umdefinieren.
+
 % --- Graphics & TikZ --------------------------
 
 \usepackage{graphicx}
