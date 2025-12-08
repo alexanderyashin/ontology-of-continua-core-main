@@ -149,7 +149,15 @@ def _extract_from_top_sections(data):
 
 def _extract_from_modules_master(data):
     """
-    Ergänzung: modules.*.master.path
+    Ergänzung: modules.*.master.path ODER modules.*.master als String.
+
+    Unterstützt beides:
+      modules:
+        k_levels:
+          master: { path: content/k_levels/klevels_master.tex, status: ... }
+      und:
+        k_levels:
+          master: content/k_levels/klevels_master.tex
     """
     paths = []
     modules = data.get("modules")
@@ -159,10 +167,19 @@ def _extract_from_modules_master(data):
     for name, mod in modules.items():
         if not isinstance(mod, dict):
             continue
+
         master = mod.get("master")
+
+        # Fall 1: dict mit "path"
         if isinstance(master, dict) and "path" in master:
             paths.append(master["path"])
+
+        # Fall 2: master ist direkt ein String
+        elif isinstance(master, str):
+            paths.append(master)
+
     return paths
+
 
 
 def extract_tex_paths(yaml_data):
