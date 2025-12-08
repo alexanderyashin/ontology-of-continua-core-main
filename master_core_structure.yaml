@@ -2,300 +2,369 @@ root:
   entrypoint: main.tex
 
 sections:
-  # ===== Основные главы основного артикула =====
+  # ===== Hauptartikel (Core 1.1) =====
   - id: intro
     path: content/01_intro.tex
+
   - id: background
     path: content/02_background.tex
+
   - id: model
     path: content/03_model.tex
+
   - id: results
     path: content/04_results.tex
+
   - id: discussion
     path: content/05_discussion.tex
+
   - id: conclusion
     path: content/06_conclusion.tex
 
-  # content/07_figures.tex по-прежнему подключаем напрямую в main.tex.
-  # При желании можно будет добавить его сюда позже.
+  # ===== Figures (bleibt vorerst Aggregator; Einzel-Figuren hängen wir später an, falls gewünscht) =====
+  - id: figures
+    path: content/07_figures.tex
 
+  # ===== Extended Core-Kapitel =====
   - id: boundary
     path: content/08_boundary.tex
+
   - id: thresholds
     path: content/09_thresholds.tex
+
   - id: klevels_full
     path: content/10_klevels_full.tex
+
   - id: operators_full
     path: content/11_operators_full.tex
+
   - id: collapse_rebirth
     path: content/12_collapse_rebirth.tex
+
   - id: branching_topology
     path: content/13_branching_topology.tex
+
   - id: disciplines_extended
     path: content/14_disciplines_extended.tex
+
   - id: falsifiability_extended
     path: content/15_falsifiability_extended.tex
 
-  # ===== Глава 16: агрегатор всех модульных блоков =====
-  - id: modules_aggregated
+  # ===== Modul-Master (Sammelkapitel für Spezialbände) =====
+  - id: modules_master
     path: content/16_modules_master.tex
+    children:
+      # ----- K-Levels -----
+      - id: k_levels_master
+        path: content/k_levels/klevels_master.tex
+        children:
+          - id: k0
+            path: content/k_levels/k0.tex
+          - id: k1
+            path: content/k_levels/k1.tex
+          - id: k2
+            path: content/k_levels/k2.tex
+          - id: k3
+            path: content/k_levels/k3.tex
+          - id: k4
+            path: content/k_levels/k4.tex
+          - id: k5
+            path: content/k_levels/k5.tex
+          - id: k6
+            path: content/k_levels/k6.tex
+          - id: k7
+            path: content/k_levels/k7.tex
+          - id: k8
+            path: content/k_levels/k8.tex
+          - id: k9
+            path: content/k_levels/k9.tex
+          - id: k10
+            path: content/k_levels/k10.tex
+          - id: k11
+            path: content/k_levels/k11.tex
+          - id: k12
+            path: content/k_levels/k12.tex
 
-  # ===== LEGACY: старые прямые подключения мастер-файлов модулей =====
-  # Оставлены как документация структуры, но не используются генератором auto-inputs.
-  # Если понадобится снова включать мастера по отдельности — можно раскомментировать.
-  #
-  # - id: modules_klevels
-  #   path: content/k_levels/klevels_master.tex
-  # - id: modules_mspaces
-  #   path: content/m_spaces/mspaces_master.tex
-  # - id: modules_cycles
-  #   path: content/cycles/cycles_master.tex
-  # - id: modules_experiments
-  #   path: content/experiments/experiments_master.tex
-  # - id: modules_falsifiability
-  #   path: content/falsifiability/falsifiability_master.tex
-  # - id: modules_jets
-  #   path: content/jets/jets_master.tex
-  # - id: modules_predictions
-  #   path: content/predictions/predictions_master.tex
-  # - id: modules_processes
-  #   path: content/processes/processes_master.tex
-  #
-  # - id: klevels_master
-  #   path: content/k_levels/klevels_master.tex
-  # - id: mspaces_master
-  #   path: content/m_spaces/mspaces_master.tex
-  # - id: processes_master
-  #   path: content/processes/processes_master.tex
-  # - id: jets_master
-  #   path: content/jets/jets_master.tex
-  # - id: cycles_master
-  #   path: content/cycles/cycles_master.tex
-  # - id: falsifiability_master
-  #   path: content/falsifiability/falsifiability_master.tex
-  # - id: predictions_master
-  #   path: content/predictions/predictions_master.tex
-  # - id: experiments_master
-  #   path: content/experiments/experiments_master.tex
-  # - id: crossk_master
-  #   path: content/crossk/crossk_master.tex
+      # ----- M-Spaces -----
+      - id: m_spaces_master
+        path: content/m_spaces/mspaces_master.tex
+        children:
+          - id: m1
+            path: content/m_spaces/m1.tex
+          - id: m2
+            path: content/m_spaces/m2.tex
+          - id: m3
+            path: content/m_spaces/m3.tex
+          - id: m4
+            path: content/m_spaces/m4.tex
+          - id: m5
+            path: content/m_spaces/m5.tex
+          - id: m6
+            path: content/m_spaces/m6.tex
+          - id: m7
+            path: content/m_spaces/m7.tex
+          - id: m8
+            path: content/m_spaces/m8.tex
+          - id: m9
+            path: content/m_spaces/m9.tex
+          - id: m10
+            path: content/m_spaces/m10.tex
+          - id: m11
+            path: content/m_spaces/m11.tex
+          - id: m12
+            path: content/m_spaces/m12.tex
 
+      # ----- Cross-K -----
+      - id: crossk_master
+        path: content/crossk/crossk_master.tex
+        children:
+          - id: crossk_global_landscape
+            path: content/crossk/crossk_global_landscape.tex
+          - id: crossk_k0_k1
+            path: content/crossk/crossk_k0_k1.tex
+          - id: crossk_k1_k2
+            path: content/crossk/crossk_k1_k2.tex
+          - id: crossk_k2_k3
+            path: content/crossk/crossk_k2_k3.tex
+          - id: crossk_k3_k4
+            path: content/crossk/crossk_k3_k4.tex
+          - id: crossk_k4_k5
+            path: content/crossk/crossk_k4_k5.tex
+          - id: crossk_k5_k6
+            path: content/crossk/crossk_k5_k6.tex
+          - id: crossk_k6_k7
+            path: content/crossk/crossk_k6_k7.tex
+          - id: crossk_k7_k8
+            path: content/crossk/crossk_k7_k8.tex
+          - id: crossk_k8_k9
+            path: content/crossk/crossk_k8_k9.tex
+          - id: crossk_k9_k10
+            path: content/crossk/crossk_k9_k10.tex
+          - id: crossk_k10_k11
+            path: content/crossk/crossk_k10_k11.tex
+          - id: crossk_k11_k12
+            path: content/crossk/crossk_k11_k12.tex
 
-core:
-  version: "Core-TOC-v2.2"
-  status: "FINAL_DO_NOT_CHANGE"
-  description: "Stable modular skeleton for Ontology of Continua Core (K0–K12, M0–M12)."
+      # ----- Cycles -----
+      - id: cycles_master
+        path: content/cycles/cycles_master.tex
+        children:
+          - id: cycles_k0
+            path: content/cycles/cycles_k0.tex
+          - id: cycles_k1
+            path: content/cycles/cycles_k1.tex
+          - id: cycles_k2
+            path: content/cycles/cycles_k2.tex
+          - id: cycles_k3
+            path: content/cycles/cycles_k3.tex
+          - id: cycles_k4
+            path: content/cycles/cycles_k4.tex
+          - id: cycles_k5
+            path: content/cycles/cycles_k5.tex
+          - id: cycles_k6
+            path: content/cycles/cycles_k6.tex
+          - id: cycles_k7
+            path: content/cycles/cycles_k7.tex
+          - id: cycles_k8
+            path: content/cycles/cycles_k8.tex
+          - id: cycles_k9
+            path: content/cycles/cycles_k9.tex
+          - id: cycles_k10
+            path: content/cycles/cycles_k10.tex
+          - id: cycles_k11
+            path: content/cycles/cycles_k11.tex
+          - id: cycles_k12
+            path: content/cycles/cycles_k12.tex
 
-  main_article:
-    entrypoint: main.tex
-    sections:
-      # ===== Те же основные главы =====
-      - id: intro
-        path: content/01_intro.tex
-      - id: background
-        path: content/02_background.tex
-      - id: model
-        path: content/03_model.tex
-      - id: results
-        path: content/04_results.tex
-      - id: discussion
-        path: content/05_discussion.tex
-      - id: conclusion
-        path: content/06_conclusion.tex
+      # ----- Experiments -----
+      - id: experiments_master
+        path: content/experiments/experiments_master.tex
+        children:
+          - id: experiments_k0
+            path: content/experiments/experiments_k0.tex
+          - id: experiments_k1
+            path: content/experiments/experiments_k1.tex
+          - id: experiments_k2
+            path: content/experiments/experiments_k2.tex
+          - id: experiments_k3
+            path: content/experiments/experiments_k3.tex
+          - id: experiments_k4
+            path: content/experiments/experiments_k4.tex
+          - id: experiments_k5
+            path: content/experiments/experiments_k5.tex
+          - id: experiments_k6
+            path: content/experiments/experiments_k6.tex
+          - id: experiments_k7
+            path: content/experiments/experiments_k7.tex
+          - id: experiments_k8
+            path: content/experiments/experiments_k8.tex
+          - id: experiments_k9
+            path: content/experiments/experiments_k9.tex
+          - id: experiments_k10
+            path: content/experiments/experiments_k10.tex
+          - id: experiments_k11
+            path: content/experiments/experiments_k11.tex
+          - id: experiments_k12
+            path: content/experiments/experiments_k12.tex
 
-      - id: boundary
-        path: content/08_boundary.tex
-      - id: thresholds
-        path: content/09_thresholds.tex
-      - id: klevels_full
-        path: content/10_klevels_full.tex
-      - id: operators_full
-        path: content/11_operators_full.tex
-      - id: collapse_rebirth
-        path: content/12_collapse_rebirth.tex
-      - id: branching_topology
-        path: content/13_branching_topology.tex
-      - id: disciplines_extended
-        path: content/14_disciplines_extended.tex
-      - id: falsifiability_extended
-        path: content/15_falsifiability_extended.tex
+      # ----- Falsifiability -----
+      - id: falsifiability_master
+        path: content/falsifiability/falsifiability_master.tex
+        children:
+          - id: falsifiability_k0
+            path: content/falsifiability/falsifiability_k0.tex
+          - id: falsifiability_k1
+            path: content/falsifiability/falsifiability_k1.tex
+          - id: falsifiability_k2
+            path: content/falsifiability/falsifiability_k2.tex
+          - id: falsifiability_k3
+            path: content/falsifiability/falsifiability_k3.tex
+          - id: falsifiability_k4
+            path: content/falsifiability/falsifiability_k4.tex
+          - id: falsifiability_k5
+            path: content/falsifiability/falsifiability_k5.tex
+          - id: falsifiability_k6
+            path: content/falsifiability/falsifiability_k6.tex
+          - id: falsifiability_k7
+            path: content/falsifiability/falsifiability_k7.tex
+          - id: falsifiability_k8
+            path: content/falsifiability/falsifiability_k8.tex
+          - id: falsifiability_k9
+            path: content/falsifiability/falsifiability_k9.tex
+          - id: falsifiability_k10
+            path: content/falsifiability/falsifiability_k10.tex
+          - id: falsifiability_k11
+            path: content/falsifiability/falsifiability_k11.tex
+          - id: falsifiability_k12
+            path: content/falsifiability/falsifiability_k12.tex
 
-      # ===== Глава 16: агрегатор всех модульных блоков =====
-      - id: modules_aggregated
-        path: content/16_modules_master.tex
+      # ----- Jets -----
+      - id: jets_master
+        path: content/jets/jets_master.tex
+        children:
+          - id: jets_k0
+            path: content/jets/jets_k0.tex
+          - id: jets_k1
+            path: content/jets/jets_k1.tex
+          - id: jets_k2
+            path: content/jets/jets_k2.tex
+          - id: jets_k3
+            path: content/jets/jets_k3.tex
+          - id: jets_k4
+            path: content/jets/jets_k4.tex
+          - id: jets_k5
+            path: content/jets/jets_k5.tex
+          - id: jets_k6
+            path: content/jets/jets_k6.tex
+          - id: jets_k7
+            path: content/jets/jets_k7.tex
+          - id: jets_k8
+            path: content/jets/jets_k8.tex
+          - id: jets_k9
+            path: content/jets/jets_k9.tex
+          - id: jets_k10
+            path: content/jets/jets_k10.tex
+          - id: jets_k11
+            path: content/jets/jets_k11.tex
+          - id: jets_k12
+            path: content/jets/jets_k12.tex
 
-      # ===== LEGACY: прямые мастера модулей (оставлены как документация) =====
-      # - id: klevels_master
-      #   path: content/k_levels/klevels_master.tex
-      # - id: mspaces_master
-      #   path: content/m_spaces/mspaces_master.tex
-      # - id: processes_master
-      #   path: content/processes/processes_master.tex
-      # - id: jets_master
-      #   path: content/jets/jets_master.tex
-      # - id: cycles_master
-      #   path: content/cycles/cycles_master.tex
-      # - id: falsifiability_master
-      #   path: content/falsifiability/falsifiability_master.tex
-      # - id: predictions_master
-      #   path: content/predictions/predictions_master.tex
-      # - id: experiments_master
-      #   path: content/experiments/experiments_master.tex
-      # - id: crossk_master
-      #   path: content/crossk/crossk_master.tex
+      # ----- Predictions -----
+      - id: predictions_master
+        path: content/predictions/predictions_master.tex
+        children:
+          - id: predictions_k0
+            path: content/predictions/predictions_k0.tex
+          - id: predictions_k1
+            path: content/predictions/predictions_k1.tex
+          - id: predictions_k2
+            path: content/predictions/predictions_k2.tex
+          - id: predictions_k3
+            path: content/predictions/predictions_k3.tex
+          - id: predictions_k4
+            path: content/predictions/predictions_k4.tex
+          - id: predictions_k5
+            path: content/predictions/predictions_k5.tex
+          - id: predictions_k6
+            path: content/predictions/predictions_k6.tex
+          - id: predictions_k7
+            path: content/predictions/predictions_k7.tex
+          - id: predictions_k8
+            path: content/predictions/predictions_k8.tex
+          - id: predictions_k9
+            path: content/predictions/predictions_k9.tex
+          - id: predictions_k10
+            path: content/predictions/predictions_k10.tex
+          - id: predictions_k11
+            path: content/predictions/predictions_k11.tex
+          - id: predictions_k12
+            path: content/predictions/predictions_k12.tex
 
+      # ----- Processes -----
+      - id: processes_master
+        path: content/processes/processes_master.tex
+        children:
+          - id: processes_k0
+            path: content/processes/processes_k0.tex
+          - id: processes_k1
+            path: content/processes/processes_k1.tex
+          - id: processes_k2
+            path: content/processes/processes_k2.tex
+          - id: processes_k3
+            path: content/processes/processes_k3.tex
+          - id: processes_k4
+            path: content/processes/processes_k4.tex
+          - id: processes_k5
+            path: content/processes/processes_k5.tex
+          - id: processes_k6
+            path: content/processes/processes_k6.tex
+          - id: processes_k7
+            path: content/processes/processes_k7.tex
+          - id: processes_k8
+            path: content/processes/processes_k8.tex
+          - id: processes_k9
+            path: content/processes/processes_k9.tex
+          - id: processes_k10
+            path: content/processes/processes_k10.tex
+          - id: processes_k11
+            path: content/processes/processes_k11.tex
+          - id: processes_k12
+            path: content/processes/processes_k12.tex
 
+# ===== Modul-Registry (Meta; optional für andere Tools) =====
 modules:
-
   k_levels:
-    master: { path: content/k_levels/klevels_master.tex, status: empty }
-    per_level:
-      k0:  { path: content/k_levels/k0.tex,  status: empty }
-      k1:  { path: content/k_levels/k1.tex,  status: empty }
-      k2:  { path: content/k_levels/k2.tex,  status: empty }
-      k3:  { path: content/k_levels/k3.tex,  status: empty }
-      k4:  { path: content/k_levels/k4.tex,  status: empty }
-      k5:  { path: content/k_levels/k5.tex,  status: empty }
-      k6:  { path: content/k_levels/k6.tex,  status: empty }
-      k7:  { path: content/k_levels/k7.tex,  status: empty }
-      k8:  { path: content/k_levels/k8.tex,  status: empty }
-      k9:  { path: content/k_levels/k9.tex,  status: empty }
-      k10: { path: content/k_levels/k10.tex, status: empty }
-      k11: { path: content/k_levels/k11.tex, status: empty }
-      k12: { path: content/k_levels/k12.tex, status: empty }
+    master:
+      path: content/k_levels/klevels_master.tex
 
   m_spaces:
-    master: { path: content/m_spaces/mspaces_master.tex, status: empty }
-    per_level:
-      k0:  { path: content/m_spaces/m0.tex,  status: empty }
-      k1:  { path: content/m_spaces/m1.tex,  status: empty }
-      k2:  { path: content/m_spaces/m2.tex,  status: empty }
-      k3:  { path: content/m_spaces/m3.tex,  status: empty }
-      k4:  { path: content/m_spaces/m4.tex,  status: empty }
-      k5:  { path: content/m_spaces/m5.tex,  status: empty }
-      k6:  { path: content/m_spaces/m6.tex,  status: empty }
-      k7:  { path: content/m_spaces/m7.tex,  status: empty }
-      k8:  { path: content/m_spaces/m8.tex,  status: empty }
-      k9:  { path: content/m_spaces/m9.tex,  status: empty }
-      k10: { path: content/m_spaces/m10.tex, status: empty }
-      k11: { path: content/m_spaces/m11.tex, status: empty }
-      k12: { path: content/m_spaces/m12.tex, status: empty }
-
-  processes:
-    master: { path: content/processes/processes_master.tex, status: empty }
-    per_level:
-      k0:  { path: content/processes/processes_k0.tex,  status: empty }
-      k1:  { path: content/processes/processes_k1.tex,  status: empty }
-      k2:  { path: content/processes/processes_k2.tex,  status: empty }
-      k3:  { path: content/processes/processes_k3.tex,  status: empty }
-      k4:  { path: content/processes/processes_k4.tex,  status: empty }
-      k5:  { path: content/processes/processes_k5.tex,  status: empty }
-      k6:  { path: content/processes/processes_k6.tex,  status: empty }
-      k7:  { path: content/processes/processes_k7.tex,  status: empty }
-      k8:  { path: content/processes/processes_k8.tex,  status: empty }
-      k9:  { path: content/processes/processes_k9.tex,  status: empty }
-      k10: { path: content/processes/processes_k10.tex, status: empty }
-      k11: { path: content/processes/processes_k11.tex, status: empty }
-      k12: { path: content/processes/processes_k12.tex, status: empty }
-
-  jets:
-    master: { path: content/jets/jets_master.tex, status: empty }
-    per_level:
-      k0:  { path: content/jets/jets_k0.tex,  status: empty }
-      k1:  { path: content/jets/jets_k1.tex,  status: empty }
-      k2:  { path: content/jets/jets_k2.tex,  status: empty }
-      k3:  { path: content/jets/jets_k3.tex,  status: empty }
-      k4:  { path: content/jets/jets_k4.tex,  status: empty }
-      k5:  { path: content/jets/jets_k5.tex,  status: empty }
-      k6:  { path: content/jets/jets_k6.tex,  status: empty }
-      k7:  { path: content/jets/jets_k7.tex,  status: empty }
-      k8:  { path: content/jets/jets_k8.tex,  status: empty }
-      k9:  { path: content/jets/jets_k9.tex,  status: empty }
-      k10: { path: content/jets/jets_k10.tex, status: empty }
-      k11: { path: content/jets/jets_k11.tex, status: empty }
-      k12: { path: content/jets/jets_k12.tex, status: empty }
-
-  cycles:
-    master: { path: content/cycles/cycles_master.tex, status: empty }
-    per_level:
-      k0:  { path: content/cycles/cycles_k0.tex,  status: empty }
-      k1:  { path: content/cycles/cycles_k1.tex,  status: empty }
-      k2:  { path: content/cycles/cycles_k2.tex,  status: empty }
-      k3:  { path: content/cycles/cycles_k3.tex,  status: empty }
-      k4:  { path: content/cycles/cycles_k4.tex,  status: empty }
-      k5:  { path: content/cycles/cycles_k5.tex,  status: empty }
-      k6:  { path: content/cycles/cycles_k6.tex,  status: empty }
-      k7:  { path: content/cycles/cycles_k7.tex,  status: empty }
-      k8:  { path: content/cycles/cycles_k8.tex,  status: empty }
-      k9:  { path: content/cycles/cycles_k9.tex,  status: empty }
-      k10: { path: content/cycles/cycles_k10.tex, status: empty }
-      k11: { path: content/cycles/cycles_k11.tex, status: empty }
-      k12: { path: content/cycles/cycles_k12.tex, status: empty }
-
-  falsifiability:
-    master: { path: content/falsifiability/falsifiability_master.tex, status: empty }
-    per_level:
-      k0:  { path: content/falsifiability/falsifiability_k0.tex,  status: empty }
-      k1:  { path: content/falsifiability/falsifiability_k1.tex,  status: empty }
-      k2:  { path: content/falsifiability/falsifiability_k2.tex,  status: empty }
-      k3:  { path: content/falsifiability/falsifiability_k3.tex,  status: empty }
-      k4:  { path: content/falsifiability/falsifiability_k4.tex,  status: empty }
-      k5:  { path: content/falsifiability/falsifiability_k5.tex,  status: empty }
-      k6:  { path: content/falsifiability/falsifiability_k6.tex,  status: empty }
-      k7:  { path: content/falsifiability/falsifiability_k7.tex,  status: empty }
-      k8:  { path: content/falsifiability/falsifiability_k8.tex,  status: empty }
-      k9:  { path: content/falsifiability/falsifiability_k9.tex,  status: empty }
-      k10: { path: content/falsifiability/falsifiability_k10.tex, status: empty }
-      k11: { path: content/falsifiability/falsifiability_k11.tex, status: empty }
-      k12: { path: content/falsifiability/falsifiability_k12.tex, status: empty }
-
-  predictions:
-    master: { path: content/predictions/predictions_master.tex, status: empty }
-    per_level:
-      k0:  { path: content/predictions/predictions_k0.tex,  status: empty }
-      k1:  { path: content/predictions/predictions_k1.tex,  status: empty }
-      k2:  { path: content/predictions/predictions_k2.tex,  status: empty }
-      k3:  { path: content/predictions/predictions_k3.tex,  status: empty }
-      k4:  { path: content/predictions/predictions_k4.tex,  status: empty }
-      k5:  { path: content/predictions/predictions_k5.tex,  status: empty }
-      k6:  { path: content/predictions/predictions_k6.tex,  status: empty }
-      k7:  { path: content/predictions/predictions_k7.tex,  status: empty }
-      k8:  { path: content/predictions/predictions_k8.tex,  status: empty }
-      k9:  { path: content/predictions/predictions_k9.tex,  status: empty }
-      k10: { path: content/predictions/predictions_k10.tex, status: empty }
-      k11: { path: content/predictions/predictions_k11.tex, status: empty }
-      k12: { path: content/predictions/predictions_k12.tex, status: empty }
-
-  experiments:
-    master: { path: content/experiments/experiments_master.tex, status: empty }
-    per_level:
-      k0:  { path: content/experiments/experiments_k0.tex,  status: empty }
-      k1:  { path: content/experiments/experiments_k1.tex,  status: empty }
-      k2:  { path: content/experiments/experiments_k2.tex, status: empty }
-      k3:  { path: content/experiments/experiments_k3.tex, status: empty }
-      k4:  { path: content/experiments/experiments_k4.tex, status: empty }
-      k5:  { path: content/experiments/experiments_k5.tex, status: empty }
-      k6:  { path: content/experiments/experiments_k6.tex, status: empty }
-      k7:  { path: content/experiments/experiments_k7.tex, status: empty }
-      k8:  { path: content/experiments/experiments_k8.tex, status: empty }
-      k9:  { path: content/experiments/experiments_k9.tex, status: empty }
-      k10: { path: content/experiments/experiments_k10.tex, status: empty }
-      k11: { path: content/experiments/experiments_k11.tex, status: empty }
-      k12: { path: content/experiments/experiments_k12.tex, status: empty }
+    master:
+      path: content/m_spaces/mspaces_master.tex
 
   crossk:
-    master: { path: content/crossk/crossk_master.tex, status: empty }
-    per_level:
-      k0:  { path: content/crossk/crossk_k0.tex,  status: empty }
-      k1:  { path: content/crossk/crossk_k1.tex,  status: empty }
-      k2:  { path: content/crossk/crossk_k2.tex,  status: empty }
-      k3:  { path: content/crossk/crossk_k3.tex,  status: empty }
-      k4:  { path: content/crossk/crossk_k4.tex,  status: empty }
-      k5:  { path: content/crossk/crossk_k5.tex,  status: empty }
-      k6:  { path: content/crossk/crossk_k6.tex,  status: empty }
-      k7:  { path: content/crossk/crossk_k7.tex,  status: empty }
-      k8:  { path: content/crossk/crossk_k8.tex,  status: empty }
-      k9:  { path: content/crossk/crossk_k9.tex,  status: empty }
-      k10: { path: content/crossk/crossk_k10.tex, status: empty }
-      k11: { path: content/crossk/crossk_k11.tex, status: empty }
-      k12: { path: content/crossk/crossk_k12.tex, status: empty }
+    master:
+      path: content/crossk/crossk_master.tex
+
+  cycles:
+    master:
+      path: content/cycles/cycles_master.tex
+
+  experiments:
+    master:
+      path: content/experiments/experiments_master.tex
+
+  falsifiability:
+    master:
+      path: content/falsifiability/falsifiability_master.tex
+
+  jets:
+    master:
+      path: content/jets/jets_master.tex
+
+  predictions:
+    master:
+      path: content/predictions/predictions_master.tex
+
+  processes:
+    master:
+      path: content/processes/processes_master.tex

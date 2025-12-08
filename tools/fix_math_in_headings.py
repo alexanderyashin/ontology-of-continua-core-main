@@ -1,76 +1,92 @@
 #!/usr/bin/env python3
 import re
-import os
 from pathlib import Path
 
 ROOT = Path("content")
 
-# Patterns for headings/captions
-PATTERNS = [
-    r"\\section\{([^}]*)\}",
-    r"\\subsection\{([^}]*)\}",
-    r"\\subsubsection\{([^}]*)\}",
-    r"\\paragraph\{([^}]*)\}",
-    r"\\caption\{([^}]*)\}",
-]
-
 # Math patterns: $, \(...\), \[...\]
-MATH_RE = re.compile(
-    r"(\$[^$]+\$|\\\([^)]*\\\)|\\\[[^\]]*\\\])"
-)
+MATH_RE = re.compile(r"(\$[^$]+\$|\\\([^)]*\\\)|\\\[[^\]]*\\\])")
 
-def make_texorpdfstring(text: str) -> str:
+# Heading-like commands, inkl. paragraphs & captions
+HEADING_CMDS = ("section", "subsection", "subsubsection", "paragraph", "caption")
+
+
+def wrap_math_in_texorpdfstring(text: str) -> str:
     """
-    Wrap math in texorpdfstring.
-    Plain text version: math stripped of \( \) \[ \] $.
+    Wrap math segments in \\texorpdfstring{<math>}{<plain>}.
+
+    Sicherheitsregeln:
+    - Wenn im Text bereits '\\texorpdfstring' vorkommt -> nichts tun.
+    - Plain-Version: wir strippen nur die Math-Klammern ($, \\(\\), \\[\\]),
+      der Rest bleibt wie er ist.
     """
+    if r"\texorpdfstring" in text:
+        return text
+
     def repl(m):
         math = m.group(1)
         plain = (
             math.replace("$", "")
-                .replace(r"\(", "")
-                .replace(r"\)", "")
-                .replace(r"\[", "")
-                .replace(r"\]", "")
+            .replace(r"\(", "")
+            .replace(r"\)", "")
+            .replace(r"\[", "")
+            .replace(r"\]", "")
         )
-        return rf"\texorpdfstring{{{math}}}{{{plain}}}"
+        return r"\texorpdfstring{" + math + "}{" + plain + "}"
 
     return MATH_RE.sub(repl, text)
 
 
-def process_file(path: Path):
+def process_tex_file(path: Path) -> bool:
+    """
+    Process one .tex file.
+    Returns True if file was modified.
+    """
     original = path.read_text(encoding="utf-8")
-    updated = original
 
-    for pat in PATTERNS:
-        regex = re.compile(pat)
+    # Regex: \section{...}, \section*{...}, \paragraph{...}, \caption{...}, etc.
+    # Gruppe 1: Befehl (section / subsection / paragraph / caption)
+    # Gruppe 2: optionaler Stern *
+    # Gruppe 3: Inhalt { ... }
+    pattern = re.compile(
+        r"\\(" + "|".join(HEADING_CMDS) + r")(\*?)\{([^}]*)\}",
+        flags=re.DOTALL,
+    )
 
-        def fix(match):
-            full = match.group(0)
-            inside = match.group(1)
+    def heading_repl(m):
+        cmd = m.group(1)
+        star = m.group(2)
+        body = m.group(3)
 
-            # Only apply if math is inside
-            if not MATH_RE.search(inside):
-                return full
+        new_body = wrap_math_in_texorpdfstring(body)
+        return "\\" + cmd + star + "{" + new_body + "}"
 
-            safe = make_texorpdfstring(inside)
-            return full.replace(inside, safe)
+    modified = pattern.sub(heading_repl, original)
 
-        updated = regex.sub(fix, updated)
+    if modified != original:
+        path.write_text(modified, encoding="utf-8")
+        print(f"[fix_math] Updated: {path}")
+        return True
 
-    if updated != original:
-        path.write_text(updated, encoding="utf-8")
-        print(f"[fixed] {path}")
+    return False
 
 
 def main():
-    tex_files = list(ROOT.rglob("*.tex"))
-    print(f"[scan] {len(tex_files)} .tex files found")
+    tex_files = sorted(ROOT.rglob("*.tex"))
+    if not tex_files:
+        print("No .tex files found under 'content/'.")
+        return
 
+    changed_any = False
     for f in tex_files:
-        process_file(f)
+        if process_tex_file(f):
+            changed_any = True
 
-    print("[done] All headings/captions cleaned.")
+    if not changed_any:
+        print("[fix_math] No changes made (already clean).")
+    else:
+        print("[fix_math] Done.")
+
 
 if __name__ == "__main__":
     main()

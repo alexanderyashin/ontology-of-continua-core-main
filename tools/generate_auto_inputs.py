@@ -1,42 +1,42 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Generate LaTeX \input lines for the Core main article from master_core_structure.yaml.
+r"""
+Generate a LaTeX \input list from master_core_structure.yaml.
 
-Unterstützte YAML-Layouts (kombiniert):
+The generator walks the hierarchical YAML structure (root/sections + children)
+and writes a flat list of \input{...} lines into:
 
-1) Einfacher Listenmodus (Legacy):
-   - content/01_intro.tex
-   - path: content/02_background.tex
+    content/_auto_core_inputs.tex
 
-2) Baum mit root/sections/nodes (Legacy):
-   root:
-     sections:
-       - path: content/foo.tex
-       - nodes:
-           - path: content/bar.tex
+Supported YAML shapes (tolerant):
 
-3) Aktuelles Core-Schema:
-   core:
-     main_article:
-       entrypoint: main.tex
-       sections:
-         - id: intro
-           path: content/01_intro.tex
-         ...
+1) New Core 1.1 schema (recommended):
 
-4) Top-level sections:
-   sections:
-     - id: ...
-       path: content/...
+root:
+  entrypoint: main.tex
+  sections:
+    - id: intro
+      path: content/01_intro.tex
+    - id: modules_master
+      path: content/16_modules_master.tex
+      children:
+        - id: k_levels_master
+          path: content/k_levels/klevels_master.tex
+          children:
+            - id: k0
+              path: content/k_levels/k0.tex
+            ...
 
-Der Generator sammelt Pfade in folgender Reihenfolge:
-- core.main_article.sections (wenn vorhanden – ПРИОРИТЕТ)
-- sections (top-level, как fallback/legacy)
-- root/sections/nodes (совсем старый формат)
+2) Legacy examples:
 
-und schreibt sie (dedupliziert, in Reihenfolge) nach:
-  content/_auto_core_inputs.tex
+- top-level list of paths or nodes
+- dict with keys: root / sections / nodes / chapters / toc / content
+- dict-of-dicts: {Title: {file: ..., children: [...]}, ...}
+
+Each node may contain:
+  - path or file: path to .tex
+  - title / id: optional metadata (ignored here)
+  - children / subsections / nodes / sections: optional nested nodes
 """
 
 import argparse
@@ -54,138 +54,138 @@ except ImportError:
 # YAML loaders / extractors
 # --------------------------------------------------------------------
 
-def _extract_from_simple_list(data):
+def load_yaml(path: Path):
+    text = path.read_text(encoding="utf-8")
+    data = yaml.safe_load(text)
+    if data is None:
+        raise SystemExit("YAML пустой. Ожидал структуру секций.")
+    return data
+
+
+def extract_root_nodes(data):
     """
-    Case 1: top-level YAML is just a list of paths or dicts with 'path'.
-    Example:
-      - content/01_intro.tex
-      - path: content/02_background.tex
+    Extract the top-level list of nodes from various wrapper schemes.
+
+    Supports:
+      - top-level list
+      - {root: {sections: [...]}}
+      - {sections: [...]}
+      - {root: [...]}
+      - {nodes|chapters|toc|content: [...]}
+      - first list-of-dicts in values
+      - dict-of-dicts fallback
     """
-    paths = []
-    for item in data:
-        if isinstance(item, str):
-            paths.append(item)
-        elif isinstance(item, dict) and "path" in item:
-            paths.append(item["path"])
-    return paths
+    # 1) Direct list
+    if isinstance(data, list):
+        return data
+
+    if isinstance(data, dict):
+        # New Core schema: root: {entrypoint: ..., sections: [...]}
+        root = data.get("root")
+        if isinstance(root, dict) and isinstance(root.get("sections"), list):
+            return root["sections"]
+
+        # Simple wrapper: sections: [...]
+        if isinstance(data.get("sections"), list):
+            return data["sections"]
+
+        # Legacy: root: [...]
+        if isinstance(root, list):
+            return root
+
+        # Legacy: other typical keys
+        for key in ("nodes", "chapters", "toc", "content"):
+            value = data.get(key)
+            if isinstance(value, list):
+                return value
+
+        # Fallback: first list-of-dicts
+        for value in data.values():
+            if isinstance(value, list) and (not value or isinstance(value[0], dict)):
+                return value
+
+        # Ultimate fallback: dict-of-dicts → list of nodes
+        nodes = []
+        for key, value in data.items():
+            node = {"title": str(key)}
+            if isinstance(value, dict):
+                node.update(value)
+            nodes.append(node)
+        return nodes
+
+    raise SystemExit(
+        "Не могу понять структуру YAML даже после всех попыток. "
+        "Ожидал list или dict с вложенными нодами."
+    )
 
 
-def _extract_from_root_tree(data):
+def iter_children(node):
     """
-    Case 2: generic tree with root/sections/nodes (legacy).
+    Return list of children for a node.
 
-    Expected shape (conceptually):
-      root:
-        sections:
-          - path: content/foo.tex
-          - nodes:
-              - path: content/bar.tex
+    Supports keys:
+      - children
+      - subsections
+      - nodes
+      - sections
     """
-
-    def walk_node(node, acc):
-        if isinstance(node, dict):
-            # direct path
-            if "path" in node and isinstance(node["path"], str):
-                acc.append(node["path"])
-            # nested sections / nodes / children
-            for key in ("sections", "nodes", "children"):
-                if key in node and isinstance(node[key], list):
-                    for child in node[key]:
-                        walk_node(child, acc)
-
-    paths = []
-    root = data.get("root", {})
-    if isinstance(root, dict):
-        sections = root.get("sections", [])
-        if isinstance(sections, list):
-            for node in sections:
-                walk_node(node, paths)
-    return paths
-
-
-def _extract_from_core_main_article(data):
-    """
-    Case 3 (CURRENT PROJECT): structure with 'core' / 'main_article' / 'sections'.
-    """
-    core = data.get("core", {})
-    if not isinstance(core, dict):
+    if not isinstance(node, dict):
         return []
-
-    main_article = core.get("main_article", {})
-    if not isinstance(main_article, dict):
-        return []
-
-    sections = main_article.get("sections", [])
-    if not isinstance(sections, list):
-        return []
-
-    paths = []
-    for sec in sections:
-        if isinstance(sec, dict) and "path" in sec:
-            paths.append(sec["path"])
-    return paths
+    for key in ("children", "subsections", "nodes", "sections"):
+        value = node.get(key)
+        if isinstance(value, list):
+            return value
+    return []
 
 
-def _extract_from_top_sections(data):
+def flatten_paths(nodes):
     """
-    Ergänzung: top-level 'sections' (wie in deinem master_core_structure.yaml).
+    Recursively walk node tree and collect all path/file entries (DFS order).
+
+    Nodes may be:
+      - strings (treated directly as paths),
+      - dicts with "path"/"file" and optional children.
     """
-    paths = []
-    sections = data.get("sections")
-    if isinstance(sections, list):
-        for sec in sections:
-            if isinstance(sec, dict) and "path" in sec:
-                paths.append(sec["path"])
-    return paths
+    collected = []
+
+    def _walk(items):
+        for item in items:
+            # Case: plain string => direct path
+            if isinstance(item, str):
+                collected.append(item)
+                continue
+
+            if not isinstance(item, dict):
+                continue
+
+            path = item.get("path") or item.get("file")
+            if path:
+                collected.append(path)
+
+            children = iter_children(item)
+            if children:
+                _walk(children)
+
+    _walk(nodes)
+    return collected
 
 
 def extract_tex_paths(yaml_data):
     """
     Unified extractor:
-      - simple list,
-      - core.main_article.sections,
-      - top-level sections,
-      - root/sections/nodes.
 
-    Alle Pfade werden gesammelt und nachher dedupliziert.
+    1) find root node list (extract_root_nodes),
+    2) flatten whole tree (including children),
+    3) deduplicate while preserving order.
     """
-    # Case 1: plain list
-    if isinstance(yaml_data, list):
-        paths = _extract_from_simple_list(yaml_data)
-        print(f"[inputs-debug] simple list: {len(paths)}")
-        return paths
-
-    if not isinstance(yaml_data, dict):
-        raise ValueError("Ожидал либо список, либо словарь с описанием структуры Core.")
-
-    paths = []
-
-    # 1) current Core schema (main article) — основной, канонический путь
-    core_paths = _extract_from_core_main_article(yaml_data)
-    print(f"[inputs-debug] core.main_article.sections: {len(core_paths)}")
-    paths.extend(core_paths)
-
-    # 2) top-level 'sections' (legacy / fallback)
-    top_sections = _extract_from_top_sections(yaml_data)
-    print(f"[inputs-debug] top-level sections: {len(top_sections)}")
-    paths.extend(top_sections)
-
-    # 3) generic tree with root/sections/nodes (legacy)
-    root_paths = []
-    if "root" in yaml_data:
-        root_paths = _extract_from_root_tree(yaml_data)
-    print(f"[inputs-debug] root tree sections: {len(root_paths)}")
-    paths.extend(root_paths)
-
-    # ВАЖНО: modules.*.master мы БОЛЬШЕ НЕ ДОБАВЛЯЕМ сюда,
-    # потому что теперь все модульные мастера заходят через content/16_modules_master.tex.
-    # Это предотвращает двойные \input и дублирование контента.
+    nodes = extract_root_nodes(yaml_data)
+    paths = flatten_paths(nodes)
 
     # Deduplicate by normalized string path, keep order
     uniq = []
     seen = set()
     for p in paths:
-        s = str(p)
+        s = str(p).replace("\\", "/")
         if s in seen:
             continue
         seen.add(s)
@@ -194,10 +194,10 @@ def extract_tex_paths(yaml_data):
     if not uniq:
         raise ValueError(
             "Не смог извлечь ни одного пути из YAML.\n"
-            "Проверь core.main_article.sections, sections и root/sections."
+            "Проверь root/sections или другие обёртки."
         )
 
-    print(f"[inputs-debug] total unique paths: {len(uniq)}")
+    print(f"[inputs-debug] total unique paths (DFS): {len(uniq)}")
     return uniq
 
 
@@ -212,7 +212,7 @@ def write_inputs_file(output_path: Path, paths):
     """
     header = [
         "% ==========================================",
-        "%  Auto-generated by generate_auto_inputs.py",
+        "%  Auto-generated by tools/generate_auto_inputs.py",
         "%  DO NOT EDIT THIS FILE MANUALLY",
         "% ==========================================",
         "",
@@ -262,9 +262,10 @@ def main():
         sys.exit(1)
 
     try:
-        data = yaml.safe_load(yaml_path.read_text(encoding="utf-8"))
+        data = load_yaml(yaml_path)
     except Exception as e:
         print(f"[ERROR] Failed to parse YAML: {e}", file=sys.stderr)
+        write_inputs_file(out_path, [])
         sys.exit(1)
 
     try:

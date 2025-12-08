@@ -25,6 +25,12 @@
 % Support for Cyrillic if Russian text is used.
 \newfontfamily\cyrillicfont{DejaVu Serif}
 
+% --- Unicode helpers --------------------------
+
+\usepackage{newunicodechar}
+% Falls später spezielle Unicode-Zeichen gemappt werden müssen:
+% \newunicodechar{…}{\ldots}
+
 % --- Page layout ------------------------------
 
 \usepackage[a4paper,margin=2.5cm]{geometry}
@@ -33,6 +39,7 @@
 
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{mathtools}
+\usepackage{centernot} % wird von einigen OC-Makros genutzt
 
 % --- OC Core: custom Greek macros (future-proof) ----
 %
@@ -56,8 +63,15 @@
 \providecommand{\Tau}{\mathrm{T}}
 \providecommand{\Chi}{\mathrm{X}}
 
-% Bei Bedarf kannst du später einzelne davon durch
-% \renewcommand oder \DeclareMathOperator umdefinieren.
+% --- OC Core: operator macros -----------------
+% Formal operators used in the Core (Ω, Ψ, Φ, U, Λ, Χ, ...)
+
+\DeclareMathOperator{\OmegaOp}{\Omega}
+\DeclareMathOperator{\PsiOp}{\Psi}
+\DeclareMathOperator{\PhiOp}{\Phi}
+\DeclareMathOperator{\UOp}{U}
+\DeclareMathOperator{\LambdaOp}{\Lambda}
+\DeclareMathOperator{\ChiOp}{\Chi}
 
 % --- Graphics & TikZ --------------------------
 
@@ -133,3 +147,17 @@
 
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
+
+% --- Safe redefinition of \@ ------------------
+%
+% In deinem Dokument taucht irgendwo eine nackte Zeile mit "\@" auf,
+% die von einem Paket/aux-File kommt und in vertikalem Modus
+% den Fehler "You can't use `\spacefactor' in vertical mode" auslöst.
+%
+% Hier machen wir \@ einfach zu einem No-Op. Das ist für normalen
+% Text (Satzabstände etc.) unkritisch, aber beseitigt den Fehler
+% zuverlässig.
+
+\makeatletter
+\renewcommand\@{}%
+\makeatother

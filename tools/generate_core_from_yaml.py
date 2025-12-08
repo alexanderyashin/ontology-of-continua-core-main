@@ -7,25 +7,37 @@ Usage (from repo root):
     python tools/generate_core_from_yaml.py          # uses master_core_structure.yaml
     python tools/generate_core_from_yaml.py path/to/your.yaml
 
-YAML format (минимальный пример):
+Supported YAML shapes (tolerant):
+
+1) New Core 1.1 schema (recommended):
 
 root:
-  - title: Introduction
-    file: content/01_intro.tex
-  - title: K-levels
-    file: content/k_levels/klevels_master.tex
-    children:
-      - title: K0
-        file: content/k_levels/k0.tex
-      - title: K1
-        file: content/k_levels/k1.tex
+  entrypoint: main.tex
+  sections:
+    - id: intro
+      path: content/01_intro.tex
+    - id: klevels_full
+      path: content/10_klevels_full.tex
+    - id: modules_master
+      path: content/16_modules_master.tex
+      children:
+        - id: k_levels_master
+          path: content/k_levels/klevels_master.tex
+          children:
+            - id: k0
+              path: content/k_levels/k0.tex
+            ...
 
-Каждый узел:
-  - file:   путь к .tex
-  - title:  заголовок секции (опционально)
-  - children / subsections: дочерние узлы (опционально)
+2) Legacy examples:
 
-Скрипт терпимо относится к разным верхним обёрткам YAML.
+- top-level list of nodes
+- dict with keys: root / sections / nodes / chapters / toc / content
+- dict-of-dicts: {Title: {file: ..., children: [...]}, ...}
+
+Each node may contain:
+  - path or file: path to .tex
+  - title / id: optional title
+  - children / subsections / nodes / sections: optional nested nodes
 """
 
 import os
@@ -35,14 +47,12 @@ import textwrap
 import yaml  # pip install pyyaml
 
 # ------------------------------------------------------------
-# Настройки
+# Settings
 # ------------------------------------------------------------
 
-# По умолчанию читаем master_core_structure.yaml из корня проекта.
+# By default read master_core_structure.yaml from repo root.
 STRUCTURE_FILE = sys.argv[1] if len(sys.argv) > 1 else "master_core_structure.yaml"
 
-# Базовый шаблон содержимого нового файла.
-# {filepath} будет подставлен автоматически.
 DEFAULT_PLACEHOLDER = textwrap.dedent(
     r"""
     % ================================================================
@@ -58,46 +68,65 @@ DEFAULT_PLACEHOLDER = textwrap.dedent(
     """
 ).lstrip("\n")
 
-# Если True, в начало файла будет добавлен \section/\subsection и т.п.
+# If True, add a simple \section / \subsection header to new files.
 ADD_LATEX_HEADER = True
 
 
 # ------------------------------------------------------------
-# Вспомогательные функции
+# Helpers
 # ------------------------------------------------------------
 
-def load_nodes(path: str):
-    """Загрузить список узлов из YAML.
-
-    Поддерживаем много вариантов структуры:
-      - верхний уровень — список нод;
-      - верхний уровень — словарь с ключом root / sections / nodes / chapters / toc / content;
-      - верхний уровень — произвольный dict, где одно из значений — список нод;
-      - верхний уровень — dict вида {Title: {file: ..., children: [...]}}.
-    """
+def load_yaml(path: str):
+    """Load raw YAML."""
     with open(path, "r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
-
     if data is None:
-        raise SystemExit("YAML пустой. Ожидал список секций.")
+        raise SystemExit("YAML пустой. Ожидал структуру секций.")
+    return data
 
-    # 1) Прямо список нод
+
+def extract_root_nodes(data):
+    """
+    Extract the top-level list of nodes from various wrapper schemes.
+
+    Supports:
+      - top-level list
+      - {root: {sections: [...]}}
+      - {sections: [...]}
+      - {root: [...]}
+      - any dict value that is a list[dict]
+      - dict-of-dicts fallback
+    """
+    # 1) Direct list
     if isinstance(data, list):
         return data
 
-    # 2) Словарь со стандартными ключами-обёртками
     if isinstance(data, dict):
-        for key in ("root", "sections", "nodes", "chapters", "toc", "content"):
+        # New Core schema: root: {entrypoint: ..., sections: [...]}
+        root = data.get("root")
+        if isinstance(root, dict) and isinstance(root.get("sections"), list):
+            return root["sections"]
+
+        # Simple wrapper: sections: [...]
+        if isinstance(data.get("sections"), list):
+            return data["sections"]
+
+        # Legacy: root: [...]
+        if isinstance(root, list):
+            return root
+
+        # Legacy: other typical keys
+        for key in ("nodes", "chapters", "toc", "content"):
             value = data.get(key)
             if isinstance(value, list):
                 return value
 
-        # 3) Любое значение-список из словарей → считаем его списком нод
+        # Fallback: first list-of-dicts in values
         for value in data.values():
             if isinstance(value, list) and (not value or isinstance(value[0], dict)):
                 return value
 
-        # 4) Fallback: превращаем dict в список нод {title: key, ...value}
+        # Ultimate fallback: dict-of-dicts → list of nodes
         nodes = []
         for key, value in data.items():
             node = {"title": str(key)}
@@ -112,8 +141,25 @@ def load_nodes(path: str):
     )
 
 
+def iter_children(node):
+    """
+    Return list of children for a node.
+
+    Supports keys:
+      - children
+      - subsections
+      - nodes
+      - sections
+    """
+    for key in ("children", "subsections", "nodes", "sections"):
+        value = node.get(key)
+        if isinstance(value, list):
+            return value
+    return []
+
+
 def ensure_dir_for_file(filepath: str) -> None:
-    """Создать директорию под файл, если её ещё нет."""
+    """Create directory for file if it does not exist."""
     directory = os.path.dirname(filepath)
     if directory and not os.path.exists(directory):
         os.makedirs(directory, exist_ok=True)
@@ -124,7 +170,7 @@ def make_latex_header(title: str, level: int) -> str:
     level 0 -> \\section
     level 1 -> \\subsection
     level 2 -> \\subsubsection
-    дальше -> \\paragraph
+    >=3   -> \\paragraph
     """
     if not ADD_LATEX_HEADER:
         return ""
@@ -142,7 +188,9 @@ def make_latex_header(title: str, level: int) -> str:
 
 
 def create_file_if_missing(filepath: str, title: str, level: int) -> None:
-    """Создать .tex, если его ещё нет."""
+    """Create .tex file if it does not exist yet."""
+    # Normalize separators
+    filepath = filepath.replace("\\", "/")
     ensure_dir_for_file(filepath)
 
     if os.path.exists(filepath):
@@ -152,6 +200,7 @@ def create_file_if_missing(filepath: str, title: str, level: int) -> None:
     header = make_latex_header(title, level)
     body = DEFAULT_PLACEHOLDER.format(filepath=filepath)
 
+    # Put header after the placeholder comment block — or before, as you prefer.
     content = body + header
 
     with open(filepath, "w", encoding="utf-8") as f:
@@ -161,25 +210,23 @@ def create_file_if_missing(filepath: str, title: str, level: int) -> None:
 
 
 def walk_nodes(nodes, level: int = 0) -> None:
-    """Рекурсивно обойти дерево узлов и создать файлы."""
+    """Recursively walk node tree and create files."""
     for node in nodes:
         if not isinstance(node, dict):
-            # Защита от мусора в YAML
+            # Skip garbage in YAML
             continue
 
-        file_path = node.get("file")
-        if not file_path:
-            # Нода без файла нам не интересна
-            continue
+        # Accept both "path" (new) and "file" (legacy)
+        file_path = node.get("path") or node.get("file")
+        if file_path:
+            title = (
+                node.get("title")
+                or node.get("id")
+                or os.path.splitext(os.path.basename(file_path))[0]
+            )
+            create_file_if_missing(file_path, title, level)
 
-        title = node.get("title") or os.path.splitext(os.path.basename(file_path))[0]
-        create_file_if_missing(file_path, title, level)
-
-        children = (
-            node.get("children")
-            or node.get("subsections")
-            or []
-        )
+        children = iter_children(node)
         if children:
             walk_nodes(children, level=level + 1)
 
@@ -193,7 +240,8 @@ def main() -> None:
         raise SystemExit(f"YAML не найден: {STRUCTURE_FILE}")
 
     print(f"Использую YAML структуру: {STRUCTURE_FILE}")
-    nodes = load_nodes(STRUCTURE_FILE)
+    data = load_yaml(STRUCTURE_FILE)
+    nodes = extract_root_nodes(data)
     walk_nodes(nodes)
     print("\nГотово: все недостающие .tex-файлы созданы (существующие не трогали).")
 
