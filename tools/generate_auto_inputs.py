@@ -149,43 +149,38 @@ def _extract_from_top_sections(data):
 
 def _extract_from_modules_master(data):
     """
-    Ergänzung: modules.*.master.path ODER modules.*.master als String.
+    Ergänzung: modules.*.master.path
 
-    Unterstützt u.a.:
-      modules:
-        k_levels:
-          master: { path: content/k_levels/klevels_master.tex, status: ... }
-      und:
-        k_levels:
-          master: content/k_levels/klevels_master.tex
-
-    Außerdem werden Module auch unter core.modules gefunden.
+    Unterstützt beide Varianten:
+      1) Top-Level 'modules'
+      2) 'core.modules' (falls Module irgendwann unter 'core' einsortiert werden)
     """
     paths = []
 
-    def collect_from(modules):
-        if not isinstance(modules, dict):
-            return
+    # 1) Top-Level 'modules'
+    modules = data.get("modules")
+    if isinstance(modules, dict):
         for name, mod in modules.items():
             if not isinstance(mod, dict):
                 continue
             master = mod.get("master")
-            # Fall 1: dict mit "path"
             if isinstance(master, dict) and "path" in master:
                 paths.append(master["path"])
-            # Fall 2: master ist direkt ein String
-            elif isinstance(master, str):
-                paths.append(master)
 
-    # 1) Top-level modules
-    collect_from(data.get("modules"))
-
-    # 2) Falls Module unter 'core' hängen
+    # 2) Fallback: 'core.modules'
     core = data.get("core")
     if isinstance(core, dict):
-        collect_from(core.get("modules"))
+        core_modules = core.get("modules")
+        if isinstance(core_modules, dict):
+            for name, mod in core_modules.items():
+                if not isinstance(mod, dict):
+                    continue
+                master = mod.get("master")
+                if isinstance(master, dict) and "path" in master:
+                    paths.append(master["path"])
 
     return paths
+
 
 
 
