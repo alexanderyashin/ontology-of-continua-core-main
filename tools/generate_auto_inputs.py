@@ -8,9 +8,19 @@ and writes a flat list of \input{...} lines into:
 
     content/_auto_core_inputs.tex
 
+Core 1.1 semantics:
+
+  • Sections 1–15  → simple top-level .tex files from `root.sections`.
+  • Section 16     → `modules_master` + ALL its children:
+        - for each module-folder node:
+              master.tex first,
+              then all K-files (k0..k12) in the order given in YAML.
+
+  • No manual editing of YAML, main.tex or build_core.sh is required.
+
 Supported YAML shapes (tolerant):
 
-1) New Core 1.1 schema (recommended):
+1) Core 1.1 schema (recommended):
 
 root:
   entrypoint: main.tex
@@ -80,7 +90,7 @@ def extract_root_nodes(data):
         return data
 
     if isinstance(data, dict):
-        # New Core schema: root: {entrypoint: ..., sections: [...]}
+        # Core 1.1 schema: root: {entrypoint: ..., sections: [...]}
         root = data.get("root")
         if isinstance(root, dict) and isinstance(root.get("sections"), list):
             return root["sections"]
@@ -145,12 +155,24 @@ def flatten_paths(nodes):
     Nodes may be:
       - strings (treated directly as paths),
       - dicts with "path"/"file" and optional children.
+
+    Core 1.1 behaviour:
+
+      • For top-level sections 1–15, we just take their .tex paths.
+      • For the 'modules_master' section, we:
+            - include its own path (16_modules_master.tex),
+            - then, for EACH of its children (module-folders),
+              include module master.tex,
+              then all its K-files (k0..k12) in YAML order.
+
+      This is achieved by a straightforward DFS with NO special-case that
+      stops recursion at 'modules_master'.
     """
     collected = []
 
     def _walk(items):
         for item in items:
-            # Case: plain string => direct path
+            # Plain string => direct path
             if isinstance(item, str):
                 collected.append(item)
                 continue
@@ -162,6 +184,7 @@ def flatten_paths(nodes):
             if path:
                 collected.append(path)
 
+            # Always walk children (no stop at modules_master)
             children = iter_children(item)
             if children:
                 _walk(children)

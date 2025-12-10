@@ -1,20 +1,195 @@
 % ======================================================================
 % Ontology of Continua — Core 1.1
 % Cross-K module: crossk_k4_k5.tex
-% This file is currently a structural placeholder.
-% Replace this stub with real content when ready.
+% Cross-level relations between K4 and K5
 % ======================================================================
 
-\subsection{K4 K5 cross-level structure}
+\subsubsection{K4–K5 cross-level structure}
 \label{sec:crossk-k4-k5}
 
-% TODO: Describe the cross-level structure, thresholds, and operators
-%       relevant to this K-level combination.
-%
-% Suggested outline:
-%   1. Levels involved and their roles
-%   2. Shared / inherited axes and thresholds
-%   3. Cross-level flows (J), cycles (C), and tensions (T)
-%   4. Birth / death conditions across the levels
-%   5. Empirical or conceptual examples
+The transition $K_4 \rightarrow K_5$ marks the emergence of the neuronal
+continuum from the biological continuum. While $K_4$ supports gradients,
+membranes, and metabolic cycles, $K_5$ introduces:
+\begin{itemize}
+  \item electrical excitability and membrane voltage dynamics,
+  \item ion channels with discrete open/closed states,
+  \item propagating electrical events (proto-spikes),
+  \item refractory mechanisms and excitability thresholds,
+  \item spatial propagation along membranes and early network structure,
+  \item attractor-like patterns forming proto-information flows.
+\end{itemize}
+
+This is the birth of nervous-system–like organisation: structure capable of
+encoding, propagating and transforming electrical signals.
+
+% ----------------------------------------------------------------------
+\subsubsection{1. Levels involved and their roles}
+
+\paragraph{K4 (biological continuum).}
+$K_4$ provides:
+\begin{itemize}
+  \item membranes and compartments $\partial\Omega$,
+  \item gradients (ion, pH, redox) with potentials $P_{\mathrm{grad}}$,
+  \item ion fluxes and osmosis ($J_{\mathrm{ion}}, J_{\mathrm{osm}}$),
+  \item metabolic and pump cycles $C_{\mathrm{energy}}$,
+  \item thresholds $\Theta_{\mathrm{mem}}, \Theta_{\mathrm{grad}},
+        \Theta_{\mathrm{osm}}, \Theta_{\mathrm{redox}}$.
+\end{itemize}
+
+However, $K_4$ lacks:
+\begin{itemize}
+  \item regenerative electrical excitation,
+  \item discrete channel gating dynamics,
+  \item long-range electrical propagation,
+  \item stable electrical attractors.
+\end{itemize}
+
+\paragraph{K5 (neuronal continuum).}
+$K_5$ introduces:
+\begin{itemize}
+  \item the excitation axis $A_{\mathrm{exc}}$ defining membrane voltage,
+  \item ion-channel axes $A_{\mathrm{channel}}$ describing open/closed states,
+  \item electrical potentials $P_{\mathrm{elect}}$,
+  \item flows $J_5 = (J_{\mathrm{ion}}, J_{\mathrm{exc}}, J_{\mathrm{leak}},
+        J_{\mathrm{shunt}})$,
+  \item proto-spike and refractory cycles $C_{\mathrm{spike}},C_{\mathrm{recovery}}$,
+  \item thresholds $\Theta_{\mathrm{exc}}, \Theta_{\mathrm{refrac}},
+        \Theta_{\mathrm{noise-electrical}}$.
+\end{itemize}
+
+$K_5$ is the first continuum capable of spatiotemporal pattern propagation.
+
+% ----------------------------------------------------------------------
+\subsubsection{2. Shared and inherited axes and thresholds}
+
+\paragraph{Inherited axes.}
+The gradients of $K_4$ become components of the electrical axis:
+\[
+A_{\mathrm{grad}}(K_4) \subset A_{\mathrm{exc}}(K_5).
+\]
+The membrane axis $A_{\mathrm{mem}}$ becomes the substrate for channel
+placement and spatial propagation.
+
+\paragraph{New axes.}
+$K_5$ introduces:
+\begin{itemize}
+  \item $A_{\mathrm{exc}}$ — membrane voltage axis,
+  \item $A_{\mathrm{channel}}$ — discrete gating states,
+  \item $A_{\mathrm{lat}}$ — lateral propagation along the membrane surface.
+\end{itemize}
+
+\paragraph{Thresholds.}
+New threshold families include:
+\begin{itemize}
+  \item $\Theta_{\mathrm{exc}}$ — minimal depolarisation for spike formation,
+  \item $\Theta_{\mathrm{refrac}}$ — recovery time constraints,
+  \item $\Theta_{\mathrm{channel}}$ — gating stability and failure points,
+  \item $\Theta_{\mathrm{noise-electrical}}$ — noise-induced collapse limits.
+\end{itemize}
+
+Violation of $\Theta_4$ prevents excitability:
+\[
+\Theta_4^{\mathrm{death}} \Rightarrow \Omega(K_5)=\varnothing.
+\]
+
+% ----------------------------------------------------------------------
+\subsubsection{3. Cross-level flows, cycles, and tensions}
+
+\paragraph{Flows.}
+Flows in $K_5$ derive from $J_4$ but gain new electrical components:
+\[
+J_5 = (J_{\mathrm{ion}}, J_{\mathrm{exc}}, J_{\mathrm{leak}}, J_{\mathrm{shunt}}).
+\]
+
+Key contributions:
+\begin{itemize}
+  \item \textbf{$J_{\mathrm{exc}}$}: regenerative sodium–like surge,
+  \item \textbf{$J_{\mathrm{leak}}$}: damping background current,
+  \item \textbf{$J_{\mathrm{shunt}}$}: membrane-stabilising bypass currents,
+  \item \textbf{$J_{\mathrm{ion}}$}: classical Nernst-like gradient-driven flux.
+\end{itemize}
+
+\paragraph{Cycles.}
+Two fundamental cycles appear in $K_5$:
+\[
+C_{\mathrm{spike}}:\ \Delta V \uparrow \rightarrow \Delta V_{\mathrm{peak}}
+\rightarrow \text{repolarisation} \rightarrow \text{recovery}.
+\]
+
+\[
+C_{\mathrm{recovery}}:\ \text{refractory} \rightarrow \text{reset}
+\rightarrow \text{excitability restored}.
+\]
+
+These cycles depend on stable gradients and channel kinetics.
+
+\paragraph{Tension.}
+Cross-level tension:
+\[
+T_{4,5} =
+g(\Theta_{\mathrm{exc}} - P_{\mathrm{elect}},\
+  J_{\mathrm{leak}} - J_{\mathrm{exc}},\
+  \Theta_{\mathrm{channel}} - A_{\mathrm{channel}}).
+\]
+
+When $T_{4,5}$ exceeds the dimensional threshold, propagation fails and
+the system collapses back to a non-excitable K₄ regime.
+
+% ----------------------------------------------------------------------
+\subsubsection{4. Birth and death conditions across the levels}
+
+\paragraph{Birth of \texorpdfstring{$K_5$}{K_5}.}
+The neuronal continuum emerges when:
+\[
+T_4 > \Theta_{4,\mathrm{dim}}
+\quad\text{and}\quad
+A_{\mathrm{exc}}, A_{\mathrm{channel}} \in M_5 \setminus A(K_4),
+\]
+allowing stable spike dynamics.
+
+State space expansion:
+\[
+\Omega(K_5) = \Omega(K_4) \cup \Delta\Omega_{\mathrm{neural}}.
+\]
+
+\paragraph{Death propagation.}
+If $\Theta_4$ thresholds fail (membrane rupture, gradient collapse),
+then $K_5$ loses the basis for excitability.
+
+If $\Theta_5$ thresholds fail (excess noise, channel instability,
+insufficient gradient), only $K_5$ collapses; $K_4$ survives.
+
+% ----------------------------------------------------------------------
+\subsubsection{5. Conceptual examples}
+
+\paragraph{Proto-spike formation.}
+Given:
+\[
+\Delta V > \Theta_{\mathrm{exc}}
+\quad\text{and}\quad
+A_{\mathrm{channel}} = \text{open},
+\]
+a regenerative upstroke forms and propagates across the local membrane.
+
+\paragraph{2D propagation.}
+Lateral axis $A_{\mathrm{lat}}$ allows propagation of electrical patterns
+across two-dimensional membrane surfaces — impossible in K₄.
+
+\paragraph{Excitability as new dimension.}
+The appearance of $\Delta V(t)$ dynamics constitutes a new axis and a new
+class of flows, satisfying the dimensional growth rule:
+\[
+\dim K_5 = \dim K_4 + 1.
+\]
+
+\paragraph{Early information flow.}
+Spike–like activity supports pattern transmission and proto-coding,
+creating the first substrate for structured information within the
+continuum hierarchy.
+
+Thus the K4→K5 transition can be summarised as:
+\[
+\textbf{The emergence of excitability, electrical signalling and
+pattern propagation from biological gradients and membranes.}
+\]
 

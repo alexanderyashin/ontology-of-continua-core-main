@@ -1,20 +1,156 @@
 % ======================================================================
 % Ontology of Continua — Core 1.1
 % Cross-K module: crossk_global_landscape.tex
-% This file is currently a structural placeholder.
-% Replace this stub with real content when ready.
+% Global cross-level landscape
 % ======================================================================
 
-\subsection{Global cross-K landscape}
+\subsubsection{Global cross-K landscape}
 \label{sec:crossk-global-landscape}
 
-% TODO: Describe the cross-level structure, thresholds, and operators
-%       relevant to this K-level combination.
-%
-% Suggested outline:
-%   1. Levels involved and their roles
-%   2. Shared / inherited axes and thresholds
-%   3. Cross-level flows (J), cycles (C), and tensions (T)
-%   4. Birth / death conditions across the levels
-%   5. Empirical or conceptual examples
+The cross-K landscape describes how individual continua $K_d$ are embedded
+into a single multi-level structure. Instead of treating each level as an
+isolated theory, the Ontology of Continua organises them as a chain of
+dimension-increasing transitions:
+\[
+R_d : K_d \rightarrow K_{d+1},
+\]
+where each $R_d$ is a constrained transition that:
+\begin{itemize}
+  \item preserves the core axioms (non-emptiness of $\Omega$, thresholds,
+        flows, cycles),
+  \item introduces at least one new axis $A_{\text{new}} \in M_d \setminus A(K_d)$,
+  \item passes a dimensional threshold $T_d > \Theta_{d,\text{dim}}$,
+  \item produces a strictly richer space of admissible states
+        $\Omega(K_{d+1}) \supset \Omega(K_d)$.
+\end{itemize}
 
+The global landscape is therefore not a flat list of levels, but a
+structured sequence of phase transitions in which each $K_d$ emerges from
+a predecessor and constrains its successors.
+
+% ----------------------------------------------------------------------
+\subsubsection{1. Levels involved and their roles}
+
+At a coarse resolution, the chain can be grouped into four bands:
+\begin{enumerate}
+  \item \textbf{Physical band} ($K_0$--$K_2$): basic structure, action and
+        percolation of connectivity.
+  \item \textbf{Material and biological band} ($K_3$--$K_5$):
+        fields, chemistry, compartments and proto-neural dynamics.
+  \item \textbf{Cognitive and social band} ($K_6$--$K_8$):
+        meaning, social systems and civilisational infrastructures.
+  \item \textbf{Theoretical band} ($K_9$--$K_{11}$):
+        theories, metatheories and trans-metatheoretical constraints.
+\end{enumerate}
+
+Each band is internally coherent but also linked by explicit cross-level
+operators $R_d$ and by shared meta-spaces $M_n$.
+
+% ----------------------------------------------------------------------
+\subsubsection{2. Shared axes and thresholds across levels}
+
+Across the chain $K_0$--$K_{11}$, several structural motifs reappear:
+\begin{itemize}
+  \item \textbf{Axes $A(K_d)$}: each level introduces new axes but inherits
+        transformed versions of earlier ones (e.g.\ energy, gradients,
+        information, roles, symbols).
+  \item \textbf{Thresholds $\Theta(K_d)$}: existence, stability, critical,
+        death and dimensional thresholds appear at all levels, specialised
+        to the local physics/biology/social/theoretical context.
+  \item \textbf{State domains $\Omega(K_d)$}: every continuum has a
+        non-empty domain of admissible states, with a boundary
+        $\partial\Omega(K_d)$ defined by violated thresholds.
+  \item \textbf{Cycles $C(K_d)$}: minimal stabilising cycles exist on each
+        level (from trivial physical cycles to institutional and
+        meta-theoretical cycles).
+\end{itemize}
+
+The global landscape can be seen as the evolution of these structural
+motifs as dimension and complexity increase.
+
+% ----------------------------------------------------------------------
+\subsubsection{3. Cross-level flows, cycles, and tensions}
+
+Cross-level dynamics can be summarised by three families of objects:
+\begin{description}
+  \item[Flows.] Cross-level flows $J_{d,d+1}$ map states and structures
+        from $K_d$ to $K_{d+1}$ (e.g.\ chemical gradients shaping $K_4$,
+        neural patterns inducing $K_6$, social norms supporting $K_8$).
+  \item[Cycles.] Some cycles explicitly span multiple levels, such as
+        civilisation--theory feedback loops ($K_8$--$K_9$--$K_8$) or
+        meta-theory--practice cycles ($K_9$--$K_{10}$--$K_8$).
+  \item[Tension.] Cross-level tension $T_{d,d+1}$ measures mismatch between
+        the constraints of $K_d$ and $K_{d+1}$; excessive tension can
+        prevent the birth of a new level or trigger collapse downwards.
+\end{description}
+
+Formally, one can write a generic cross-level tension functional
+\[
+T_{d,d+1} = F\bigl(
+  A(K_{d+1}) - A(K_d),\,
+  P(K_{d+1}) - P(K_d),\,
+  J_{d,d+1},\,
+  \Theta(K_{d+1}) - \Theta(K_d)
+\bigr),
+\]
+with $T_{d,d+1} > \Theta_{d,\text{dim}}$ signalling a dimensional
+transition.
+
+% ----------------------------------------------------------------------
+\subsubsection{4. Birth and death conditions in the global chain}
+
+Birth of a new level $K_{d+1}$ is governed by three conditions:
+\begin{enumerate}
+  \item \textbf{Availability of a new axis:}
+        there exists $A_{\text{new}} \in M_d$ such that
+        $A_{\text{new}} \notin A(K_d)$.
+  \item \textbf{Dimensional tension:}
+        structural tension exceeds a critical threshold,
+        $T_d > \Theta_{d,\text{dim}}$, making the old configuration unstable
+        without a new dimension.
+  \item \textbf{Admissible state extension:}
+        the new domain satisfies $\Omega(K_{d+1}) \neq \varnothing$ and
+        $\Omega(K_{d+1}) \supset \Omega(K_d)$.
+\end{enumerate}
+
+Death of a level $K_d$ may occur locally (collapse of a specific
+continuum) or globally (destruction of its entire class) when:
+\[
+\Omega(K_d) = \varnothing
+\quad\text{or}\quad
+k(K_d) \rightarrow 0
+\quad\text{or}\quad
+\tau_{\text{cycle}}(K_d) \rightarrow \infty.
+\]
+
+Global collapse of multiple adjacent levels can be understood as a cascade
+of threshold violations propagating across the chain.
+
+% ----------------------------------------------------------------------
+\subsubsection{5. Canonical cross-level chains}
+
+Several cross-level chains are of particular importance:
+
+\begin{itemize}
+  \item \textbf{Physical–chemical–biological chain:}
+        $K_1 \rightarrow K_2 \rightarrow K_3 \rightarrow K_4 \rightarrow K_5$
+        (from action and percolation to membranes and proto-neural
+        dynamics).
+  \item \textbf{Biological–cognitive–social chain:}
+        $K_4 \rightarrow K_5 \rightarrow K_6 \rightarrow K_7$ (from
+        gradients and spikes to cognition and institutions).
+  \item \textbf{Social–civilisational–theoretical chain:}
+        $K_7 \rightarrow K_8 \rightarrow K_9 \rightarrow K_{10} \rightarrow K_{11}$
+        (from norms and roles to civilisational technologies and
+        meta-frameworks).
+\end{itemize}
+
+Each of the detailed cross-K modules (e.g.\ \texttt{crossk\_k4\_k5.tex},
+\texttt{crossk\_k6\_k7.tex}, \texttt{crossk\_k8\_k9.tex},
+\texttt{crossk\_k10\_k11.tex}, \texttt{crossk\_k11\_k12.tex}) refines one
+of these canonical chains by providing explicit descriptions of shared
+axes, thresholds, flows, cycles and death conditions.
+
+In this sense, the global cross-K landscape is the \emph{map} of how all
+individual continua $K_d$ fit into a single, coherent, multi-level
+structure.

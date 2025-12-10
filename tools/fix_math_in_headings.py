@@ -2,24 +2,30 @@
 import re
 from pathlib import Path
 
-ROOT = Path("content")
+# Welche Verzeichnisse scannen (falls du willst, kannst du später noch "appendix" hinzufügen)
+ROOTS = ["content"]
 
-# Math patterns: $, \(...\), \[...\]
-MATH_RE = re.compile(r"(\$[^$]+\$|\\\([^)]*\\\)|\\\[[^\]]*\\\])")
+# Überschriften + captions, Stern ist optional (\section{..} oder \section*{..})
+PATTERNS = [
+    r"(\\section\*?\{)([^}]*)(\})",
+    r"(\\subsection\*?\{)([^}]*)(\})",
+    r"(\\subsubsection\*?\{)([^}]*)(\})",
+    r"(\\paragraph\*?\{)([^}]*)(\})",
+    r"(\\subparagraph\*?\{)([^}]*)(\})",
+    r"(\\caption\*?\{)([^}]*)(\})",
+]
 
-# Heading-like commands, inkl. paragraphs & captions
-HEADING_CMDS = ("section", "subsection", "subsubsection", "paragraph", "caption")
+# Math in Überschriften/Kapiteln: $, \(..\), \[..\]
+MATH_RE = re.compile(
+    r"(\$[^$]+\$|\\\([^)]*\\\)|\\\[[^\]]*\\\])"
+)
 
-
-def wrap_math_in_texorpdfstring(text: str) -> str:
+def make_texorpdfstring(text: str) -> str:
     """
-    Wrap math segments in \\texorpdfstring{<math>}{<plain>}.
-
-    Sicherheitsregeln:
-    - Wenn im Text bereits '\\texorpdfstring' vorkommt -> nichts tun.
-    - Plain-Version: wir strippen nur die Math-Klammern ($, \\(\\), \\[\\]),
-      der Rest bleibt wie er ist.
+    Wrappt Math-Ausdrücke in \texorpdfstring{...}{...}.
+    Die Plain-Variante ist grob "Math ohne Delimiter".
     """
+    # Wenn der Text schon texorpdfstring enthält, nicht anfassen
     if r"\texorpdfstring" in text:
         return text
 
@@ -27,65 +33,46 @@ def wrap_math_in_texorpdfstring(text: str) -> str:
         math = m.group(1)
         plain = (
             math.replace("$", "")
-            .replace(r"\(", "")
-            .replace(r"\)", "")
-            .replace(r"\[", "")
-            .replace(r"\]", "")
+                .replace(r"\(", "")
+                .replace(r"\)", "")
+                .replace(r"\[", "")
+                .replace(r"\]", "")
         )
+        # ein bisschen Whitespace säubern
+        plain = " ".join(plain.split())
         return r"\texorpdfstring{" + math + "}{" + plain + "}"
 
     return MATH_RE.sub(repl, text)
 
 
-def process_tex_file(path: Path) -> bool:
-    """
-    Process one .tex file.
-    Returns True if file was modified.
-    """
-    original = path.read_text(encoding="utf-8")
+def process_file(path: Path) -> bool:
+    content = path.read_text(encoding="utf-8")
+    original = content
 
-    # Regex: \section{...}, \section*{...}, \paragraph{...}, \caption{...}, etc.
-    # Gruppe 1: Befehl (section / subsection / paragraph / caption)
-    # Gruppe 2: optionaler Stern *
-    # Gruppe 3: Inhalt { ... }
-    pattern = re.compile(
-        r"\\(" + "|".join(HEADING_CMDS) + r")(\*?)\{([^}]*)\}",
-        flags=re.DOTALL,
-    )
+    for pattern in PATTERNS:
+        def repl(m):
+            prefix, inner, suffix = m.group(1), m.group(2), m.group(3)
+            new_inner = make_texorpdfstring(inner)
+            return prefix + new_inner + suffix
 
-    def heading_repl(m):
-        cmd = m.group(1)
-        star = m.group(2)
-        body = m.group(3)
+        content = re.sub(pattern, repl, content, flags=re.DOTALL)
 
-        new_body = wrap_math_in_texorpdfstring(body)
-        return "\\" + cmd + star + "{" + new_body + "}"
-
-    modified = pattern.sub(heading_repl, original)
-
-    if modified != original:
-        path.write_text(modified, encoding="utf-8")
+    if content != original:
+        path.write_text(content, encoding="utf-8")
         print(f"[fix_math] Updated: {path}")
         return True
-
     return False
 
 
 def main():
-    tex_files = sorted(ROOT.rglob("*.tex"))
-    if not tex_files:
-        print("No .tex files found under 'content/'.")
-        return
-
     changed_any = False
-    for f in tex_files:
-        if process_tex_file(f):
-            changed_any = True
+    for root in ROOTS:
+        for path in Path(root).rglob("*.tex"):
+            if process_file(path):
+                changed_any = True
 
     if not changed_any:
         print("[fix_math] No changes made (already clean).")
-    else:
-        print("[fix_math] Done.")
 
 
 if __name__ == "__main__":

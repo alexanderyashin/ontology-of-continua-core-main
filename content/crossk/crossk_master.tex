@@ -1,11 +1,90 @@
 % OC Core 1.1 — Cross-level structures master module
-% This file can later \input{} specific cross-K linking sections.
+% This file orchestrates all cross-K linking sections.
 
-\section{Cross-level structures: overview}
+\section{Cross-level structures}
 \label{sec:crossk_master}
 
-% TODO:
-%  - define what exactly "cross-K" means in the Core context
-%  - possibly \input{...} per-K cross-linking files
-%  - keep this as a thin orchestrator, not a content dump
+\subsection{Purpose of the Cross-K layer}
+The Cross-K layer formalises all structures, transitions and constraints
+that \emph{link different continuum levels $K_0 \rightarrow K_{12}$}.  
+While each $K$-level has its own ontology (axes, potentials, thresholds,
+flows, cycles, domains $\Omega(K)$, boundaries $\partial\Omega(K)$ and
+continuum measure $k(K)$), many phenomena in the Core require
+\textbf{relations across levels}. These relations are neither optional
+nor external: they are part of the intrinsic architecture of a dynamic
+continuum.
+
+The Cross-K layer therefore:
+\begin{itemize}
+  \item defines \textbf{mapping structures} between levels;
+  \item specifies \textbf{transition operators} and their constraints;
+  \item introduces \textbf{consistency conditions} ensuring that evolution
+        across adjacent levels is mathematically and conceptually valid;
+  \item provides \textbf{global landscape rules}, describing how the entire
+        stack of $K$-levels forms a coherent meta-continuum.
+\end{itemize}
+
+\subsection{Definition of Cross-K structures}
+A \emph{Cross-K structure} is any formal object that:
+\begin{enumerate}
+  \item involves at least two levels $K_i, K_j$ with $i \neq j$;
+  \item establishes a relation $R_{ij}$ between their components
+        $(A,P,\Theta,J,C,\Omega,\partial\Omega,k)$;
+  \item satisfies the general compatibility rule:
+        \[
+        R_{ij} : K_i \leftrightarrow K_j \quad \text{preserving continuity and
+        allowing valid transitions under the global operator } E.
+        \]
+\end{enumerate}
+
+Thus Cross-K structures include:
+\begin{itemize}
+  \item \textbf{transition maps} (dimensional, structural, energetic);
+  \item \textbf{inheritance relations} (axes, potentials, thresholds);
+  \item \textbf{boundary transformations} between $\partial\Omega(K_i)$ and
+        $\partial\Omega(K_j)$;
+  \item \textbf{cycle projections and lifts} (mapping cycles from one level
+        into another);
+  \item \textbf{global constraints} ensuring that no level violates the
+        rules of its neighbours.
+\end{itemize}
+
+\subsection{Role of this master file}
+This master module intentionally remains a \textbf{thin orchestration layer}.  
+It does not store heavy theoretical content. Instead, it:
+\begin{itemize}
+  \item introduces the concept of Cross-K structures,
+  \item provides the global definition and purpose,
+  \item and assembles all detailed cross-level analyses through \verb|\input|.
+\end{itemize}
+
+The individual transition sections are organised as:
+\begin{itemize}
+  \item global landscape (all-level perspective),
+  \item local transitions ($K_i \rightarrow K_{i+1}$),
+  \item special two-way or non-adjacent mappings where required.
+\end{itemize}
+
+\subsection{Module structure}
+\noindent The following files are orchestrated by this module:
+\begin{itemize}
+  \item \verb|crossk_global_landscape.tex| — global multi-level geometry;
+  \item \verb|crossk_k0_k1.tex|, \verb|crossk_k1_k2.tex|, \dots —
+        adjacent-level transition blocks;
+  \item \verb|crossk_k10_k11.tex|, \verb|crossk_k11_k12.tex| — upper-level
+        transitions and meta-structures.
+\end{itemize}
+
+\subsection{Inclusion of detailed sections}
+\noindent The detailed cross-K analyses can be included as:
+\begin{verbatim}
+\input{content/crossk/crossk_global_landscape.tex}
+\input{content/crossk/crossk_k0_k1.tex}
+\input{content/crossk/crossk_k1_k2.tex}
+...
+\input{content/crossk/crossk_k11_k12.tex}
+\end{verbatim}
+
+\noindent This file thus defines the \textbf{conceptual container} for the
+Cross-K domain of OC Core 1.1.
 

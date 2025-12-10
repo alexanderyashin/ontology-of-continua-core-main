@@ -29,6 +29,7 @@ mkdir -p build
 
 # ВАЖНО: используем xelatex, а не pdflatex, из-за fontspec
 latexmk \
+  -g \
   -xelatex \
   -interaction=nonstopmode \
   -halt-on-error \
