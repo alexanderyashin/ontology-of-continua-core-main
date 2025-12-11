@@ -1,0 +1,252 @@
+% ============================
+% content/axioms_full.tex
+% ============================
+\section{Complete Axiomatic System of Core 1.2}
+\label{sec:axioms-full}
+
+This section presents the full axiomatics of Core~1.2 for continua \(K\) embedded in meta-domains \(M\).
+Throughout, a continuum is defined by the tuple
+\[
+  K(t) = \bigl(\Omega(t),\partial\Omega(t),A(t),P(t),\Theta(t),J(t),C(t),\tau(K),k(t)\bigr),
+\]
+and the meta-domain \(M\) has its own admissible region \(\Omega(M)\), axis set \(A(M)\), and threshold system \(\Theta^M\).
+All axioms below are understood to hold for all times at which \(K\) exists.
+
+\subsection{Level-0 Axioms (Meta-Domain \texorpdfstring{\(M\)}{M})}
+
+\paragraph{Axiom 0.1 (Existence of a meta-domain).}
+There exists a meta-domain \(M\) providing the ambient space of possible states for all continua \(K\).
+Its admissible region satisfies \(\Omega(M)\neq \varnothing\).
+
+\paragraph{Axiom 0.2 (Meta-pressure).}
+Every embedded continuum \(K\subset M\) is subject to meta-pressure: a logical requirement of structural coherence and consistent discrimination of differences.
+This pressure forces any viable continuum to form axes \(A\) and thresholds \(\Theta\).
+
+\paragraph{Axiom 0.3 (Primacy of difference).}
+Every axis in a continuum arises from a genuine incompatible difference present in \(\Omega(M)\).
+A continuum achieves its first dimension only once at least one such difference becomes explicit.
+
+\paragraph{Axiom 0.4 (Locality of thresholds).}
+All admissibility constraints are of the form
+\[
+  f_k(s)\le 0,\qquad s\in \Omega(M),
+\]
+where each threshold \(f_k\) depends on finitely many local state variables.
+
+\paragraph{Axiom 0.5 (Monotonicity of the meta-domain).}
+The measure of the admissible region \(\mu(\Omega(M(t)))\) is non-decreasing in meta-time:
+\[
+  t_2>t_1 \;\Rightarrow\; \mu(\Omega(M(t_2)))\ge \mu(\Omega(M(t_1))).
+\]
+Thus \(M\) may expand but never contract.
+
+\paragraph{Axiom 0.6 (Consistency of the environment).}
+The meta-thresholds \(\Theta^M\) are jointly satisfiable: there exists at least one state \(s\in\Omega(M)\) satisfying all meta-constraints.
+
+\paragraph{Axiom 0.7 (Irreducibility of meta-pressure).}
+The meta-pressure of Level~0 cannot be cancelled by any internal dynamics of a continuum.
+All structural evolution within \(K\) occurs under the influence of meta-pressure.
+
+\paragraph{Axiom 0.8 (Non-degeneracy).}
+No non-trivial continuum occupies the entire admissible region of the meta-domain.
+For any viable \(K\),
+\[
+  \Omega(K)\subsetneq \Omega(M).
+\]
+
+\paragraph{Axiom 0.9 (Finite local structural complexity).}
+For any bounded region \(U\subset \Omega(M)\), the number of independent axes and thresholds required to describe all states in \(U\) is finite.
+
+\subsection{Axioms for Continua \texorpdfstring{\(K\)}{K}}
+
+\paragraph{Axiom K.1 (Structure of a continuum).}
+A continuum is specified by the tuple
+\[
+  K = (\Omega,\partial\Omega,A,P,\Theta,J,C,\tau,k),
+\]
+where:
+\begin{itemize}
+  \item \(\Omega\): admissible internal states;
+  \item \(\partial\Omega\): boundary separating \(K\) from its environment;
+  \item \(A\): set of axes (structural degrees of freedom);
+  \item \(P\): potentials;
+  \item \(\Theta\): thresholds;
+  \item \(J\): flows;
+  \item \(C\): cycles;
+  \item \(\tau\): temporal constants;
+  \item \(k\in[0,1]\): continuumness.
+\end{itemize}
+
+\paragraph{Axiom K.2 (Non-emptiness of a living continuum).}
+A continuum is alive at time \(t\) (\(k(t)>0\)) if and only if \(\Omega(t)\neq \varnothing\).
+
+\paragraph{Axiom K.3 (Axes as coordinates).}
+Each state \(s\in\Omega\) has a coordinate vector along all axes:
+\[
+  \chi_A(s)\in \prod_{a\in A} X_a,
+\]
+where \(X_a\) is the value-domain of axis \(a\).
+States incompatible along any axis must differ in their coordinate on that axis.
+
+\paragraph{Axiom K.4 (Threshold-defined admissibility).}
+The admissible region of a continuum is given by the thresholds:
+\[
+  \Omega = \{ s\in\Omega(M)\mid f_k(s)\le 0 \;\text{for all}\; f_k\in \Theta\}.
+\]
+
+\paragraph{Axiom K.5 (Flows and potentials).}
+Each flow \(J_i\) is driven by (and corresponds to) the gradient of some potential \(P_j\).
+Flows evolve in directions that effectively decrease potentials, subject to threshold constraints.
+
+\paragraph{Axiom K.6 (Cycles as carriers of stability).}
+Cycles \(C_j\) are closed sequences of states and flows that return the continuum to (approximately) its initial configuration.
+A living continuum must possess at least one supporting cycle.
+
+\paragraph{Axiom K.7 (Continuumness as an integral measure).}
+The scalar \(k(t)\) measures the global coherence of all structural components.
+It satisfies \(k(t)>0\) if and only if:
+\begin{itemize}
+  \item \(\Omega(t)\neq\varnothing\),
+  \item at least one stable cycle \(C_j\) exists,
+  \item the threshold system \(\Theta\) is jointly satisfiable.
+\end{itemize}
+
+\paragraph{Axiom K.8 (Temporal structure).}
+The temporal structure consists of characteristic times:
+\[
+  \tau(K)=\{\tau_{\mathrm{life}},\tau_{\mathrm{regen}},
+  \tau_{\mathrm{response}},\tau_{\mathrm{cycle}},
+  \tau_{\mathrm{collapse}},\dots\},
+\]
+governing reactivity, cycle closures, and collapse dynamics.
+
+\paragraph{Axiom K.9 (Local controllability).}
+Changes in axes, potentials, thresholds, and flows are governed by smooth (or piecewise smooth) operators depending on finitely many local parameters.
+
+\subsection{Axioms for Axes \texorpdfstring{\(A\)}{A}}
+
+\paragraph{Axiom A.1 (Birth of a new axis).}
+A new axis \(a_{\mathrm{new}}\) may appear in a continuum only if a corresponding structural difference exists in the meta-domain:
+\[
+  a_{\mathrm{new}}\in A(M)\setminus A(K).
+\]
+
+\paragraph{Axiom A.2 (Independence of axes).}
+If axes \(a_1,a_2\in A\) are independent, then for every admissible state there exist neighbourhoods allowing independent variation of their coordinates.
+
+\paragraph{Axiom A.3 (Minimal dimensionality).}
+Any living continuum has dimension \(\dim K \ge 1\).
+Dimension \(0\) corresponds to absence of differences and implies death.
+
+\subsection{Axioms for Thresholds \texorpdfstring{\(\Theta\)}{\Theta}}
+
+\paragraph{Axiom \texorpdfstring{\(\Theta.1\)}{\Theta.1} (Types of thresholds).}
+Thresholds decompose into five functional classes:
+\[
+  \Theta = \Theta_{\mathrm{exist}} \cup \Theta_{\mathrm{stab}} \cup
+  \Theta_{\mathrm{crit}} \cup \Theta_{\mathrm{death}} \cup \Theta_{\mathrm{dim}},
+\]
+governing existence, stability, critical transitions, death, and dimensional growth.
+
+\paragraph{Axiom \texorpdfstring{\(\Theta.2\)}{\Theta.2} (Refinement of meta-thresholds).}
+Every threshold \(f_k\in\Theta\) is a refinement of some meta-threshold \(f_k^M\in \Theta^M\):
+\[
+  f_k(s)\le f_k^M(s)\qquad\forall s\in\Omega(K).
+\]
+
+\paragraph{Axiom \texorpdfstring{\(\Theta.3\)}{\Theta.3} (Critical threshold).}
+Exceeding a threshold in \(\Theta_{\mathrm{crit}}\) induces a qualitative restructuring of \(\Omega\) but does not kill the continuum or require new axes.
+
+\paragraph{Axiom \texorpdfstring{\(\Theta.4\)}{\Theta.4} (Dimensional threshold).}
+Exceeding \(\Theta_{\mathrm{dim}}\) indicates that the current dimension \(\dim K\) is insufficient to accommodate the structural tension \(T\), and a new axis must be introduced.
+
+\paragraph{Axiom \texorpdfstring{\(\Theta.5\)}{\Theta.5} (Death threshold).}
+Violating any threshold in \(\Theta_{\mathrm{death}}\) forces \(\Omega=\varnothing\) and \(k=0\).
+
+\subsection{Axioms for Potentials and Flows}
+
+\paragraph{Axiom P.1 (Threshold-constrained potentials).}
+Each potential \(P_i\) is associated with a set of thresholds \(\Theta(P_i)\) that constrain its admissible range.
+
+\paragraph{Axiom P.2 (Gradient-driven evolution).}
+Flows evolve according to:
+\[
+  \frac{dP_i}{dt} = G_i(A,J,\nabla P,\Theta),
+\]
+where the sign and direction of \(G_i\) are consistent with effective gradient descent under threshold constraints.
+
+\paragraph{Axiom P.3 (Boundary-flow consistency).}
+The total flow across the boundary \(\partial\Omega\) is consistent with the evolution of the measure \(|\Omega|\) and continuumness \(k(t)\).
+
+\subsection{Axioms for Cycles and Continuumness}
+
+\paragraph{Axiom C.1 (Minimal supporting cycle).}
+A living continuum contains at least one core cycle \(C_{\mathrm{core}}\) whose destruction leads to \(\tau_{\mathrm{cycle}}\to\infty\) and death.
+
+\paragraph{Axiom C.2 (Continuum rhythm).}
+Each cycle \(C_j\) has a characteristic frequency \(\omega_j=1/\tau_{C_j}\).
+The temporal rhythm of the continuum is determined by the set of these frequencies.
+
+\paragraph{Axiom k.1 (Evolution of continuumness).}
+The derivative \(dk/dt\) is governed by the universal operator \(U\) depending on \(\Omega,\partial\Omega,A,P,\Theta,J,C\).
+If all thresholds are satisfied and cycles remain stable, then \(dk/dt\ge 0\).
+
+\subsection{Axioms for Dimension and the Operator \texorpdfstring{\(\Psi\)}{\Psi}}
+
+\paragraph{Axiom \texorpdfstring{\(\Psi.1\)}{\Psi.1} (Constraint on dimensional growth).}
+A continuum cannot generate a new axis absent from the meta-domain:
+\[
+  a_{\mathrm{new}} \in A(M),\qquad a_{\mathrm{new}}\notin A(K).
+\]
+
+\paragraph{Axiom \texorpdfstring{\(\Psi.2\)}{\Psi.2} (Operator of dimensional growth).}
+There exists an operator
+\[
+  \Psi : (K,M)\mapsto K',
+\]
+such that:
+\begin{itemize}
+  \item \(\dim K' = \dim K + 1\),
+  \item \(A(K') = A(K)\cup\{a_{\mathrm{new}}\}\) for some \(a_{\mathrm{new}}\in A(M)\setminus A(K)\),
+  \item \(\Omega(K)\subseteq \Omega(K')\subseteq \Omega(M)\).
+\end{itemize}
+The operator \(\Psi\) is applicable exactly when the structural tension \(T\) exceeds the dimensional threshold \(\Theta_{\mathrm{dim}}\).
+
+\paragraph{Axiom \texorpdfstring{\(\Psi.3\)}{\Psi.3} (Impossibility of dimensional reduction).}
+If \(\dim K(t+dt)<\dim K(t)\), then necessarily \(\Omega(K(t+dt))=\varnothing\) and \(k(t+dt)=0\).
+A living continuum can only maintain or increase its dimension.
+
+\subsection{Axioms for Meta-Domain Evolution and the Operator \texorpdfstring{\(\Phi\)}{\Phi}}
+
+\paragraph{Axiom \texorpdfstring{\(\Phi.1\)}{\Phi.1} (Meta-domain evolution operator).}
+There exists an operator
+\[
+  \Phi : M(t)\mapsto M(t+dt),
+\]
+governing the evolution of \(\Omega(M)\), \(A(M)\), and \(\Theta^M\).
+
+\paragraph{Axiom \texorpdfstring{\(\Phi.2\)}{\Phi.2} (Compatibility of \texorpdfstring{\(K\)}{K} with \texorpdfstring{\(M\)}{M}).}
+At all times for any continuum \(K\subset M\),
+\[
+  \Omega(K)\subseteq \Omega(M),\qquad
+  A(K)\subseteq A(M),\qquad
+  \Theta^M\;\text{is no weaker than}\;\Theta.
+\]
+
+\paragraph{Axiom \texorpdfstring{\(\Phi.3\)}{\Phi.3} (Monotonic growth of ambient axes).}
+The set of available axes in the meta-domain is non-decreasing:
+\[
+  A(M(t_2)) \supseteq A(M(t_1)),\qquad t_2>t_1.
+\]
+
+\subsection{Axioms of Death}
+
+\paragraph{Axiom D.1 (Death as empty admissible region).}
+A continuum dies at time \(t^*\) if \(\Omega(t^*)=\varnothing\).
+Then \(\tau_{\mathrm{cycle}}\to\infty\) and \(k(t^*)=0\).
+
+\paragraph{Axiom D.2 (Death via loss of cyclic time).}
+If all supporting cycles satisfy \(\tau_{C_j}\to\infty\) and no new cycles with finite period appear, the continuum dies even if \(\Omega\) is formally non-empty.
+
+\paragraph{Axiom D.3 (Death by threshold incompatibility).}
+If evolution of the meta-domain \(\Phi\) makes the meta-thresholds \(\Theta^M\) incompatible with \(\Theta\), then \(\Omega(K)\) becomes empty and the continuum dies.

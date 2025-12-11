@@ -1,179 +1,200 @@
-# Ontology of Continua — Core 1.1
-Stable LaTeX repository for Core whitepaper builds
+# Ontology of Continua — Core 1.2  
+Axiomatically complete reference implementation of the OC framework
 
-This repository provides the canonical, deterministic, and reproducible LaTeX
-environment for building the **Ontology of Continua — Core** whitepaper
-(version 1.1).  
-It serves as the reference template for:
+This repository hosts the canonical, deterministic, and fully reproducible
+LaTeX environment for building the **Ontology of Continua — Core** whitepaper  
+(**version 1.2**).
 
-- all future Core versions (1.2+),
-- Physics, Chemistry, Biology preprints,
-- K0–K12 level extensions,
-- any domain-specific subprojects of the Ontology of Continua.
+Core 1.2 is the first *axiomatically closed* and *mathematically complete*
+release of the OC framework.  
+It establishes the stable theoretical baseline for all future physics,
+chemistry, biology, cognition and organisational extensions.
 
-Everything needed for building the PDF is part of this repository:
+Everything required to build the PDF is contained inside this repository:
 
-- `main.tex` — single master document
-- `preamble.tex` — global configuration (fonts, languages, packages)
-- modular content structure inside `content/`
-- “auto-inputs” mechanism via YAML → tools → `_auto_core_inputs.tex`
-- GitHub Actions CI workflow
-- Zenodo metadata (`.zenodo.json`)
-- open-access license (CC BY 4.0)
+- `main.tex` — single master document  
+- `preamble.tex` — global LaTeX configuration  
+- modular content structure inside `content/`  
+- YAML → Python → `_auto_core_inputs.tex` pipeline  
+- GitHub Actions CI workflow  
+- Zenodo metadata integration  
+- CC BY 4.0 open-access license  
 
-This repository is under **ARCHITECTURE FREEZE**, ensuring stable builds.
+This repository is under **ARCHITECTURE FREEZE (Core 1.2)**.  
+Only content files (`content/*.tex`) may change;  
+pipeline, structure and LaTeX architecture are locked.
 
-------------------------------------------------------------
-1. PDF build
-------------------------------------------------------------
+---
 
-The PDF is built automatically on every push to the `main` branch.
+## 1. What’s new in Core 1.2
 
-Output file:
+Core 1.2 extends the structural foundation introduced in Core 1.1 and turns it
+into a fully closed formal theory. Key additions:
 
-    build/main.pdf
+### **Axiomatics**
+- complete axiom set covering  
+  existence, admissible states, axes, potentials, flows, thresholds,  
+  boundaries, cycles, continuumness, and evolution;  
+- fully formalised dimensional transitions and death conditions.
 
-Continuous Integration workflow:
+### **Universal operators**
+- the operator suite  
+  **F, G, H, Q, R, S, U**  
+  governing evolution of axes, potentials, thresholds, flows, boundaries,  
+  cycles and complexity.
 
-    .github/workflows/build_pdf.yml
+### **Theorem corpus**
+- monotonicity of dimension  
+- impossibility of spontaneous dimension creation  
+- death through incompatibility with embedding space  
+- universal law of complexity growth  
+- structural landscape of admissible configurations
 
-You can download the resulting PDF via:
+### **Complexity measure**
+- formal definition of the OC complexity metric `S`  
+- integration with operator `U`  
+- relation to cycles, thresholds and Ω-geometry
 
-- GitHub → Actions → “Build Core PDF” → Artifacts → **OK-Core-1.1-PDF**
+### **Hierarchy K0–K12**
+- full, vertically consistent continuum ladder  
+- transitions, operators, thresholds, cycles, admissible state geometry  
+- embedding spaces `M0 … M12`
 
-------------------------------------------------------------
-2. Local build instructions
-------------------------------------------------------------
+### **Observed-universe module (TOE)**
+- empirical constants  
+- cosmological and field-theoretic parameters  
+- mapping of physical reality to an OC continuum instance
+
+---
+
+## 2. PDF build
+
+The PDF is built automatically on every push to `main`.
+
+Output:
+
+build/main.pdf 
+
+CI workflow:
+
+.github/workflows/build_pdf.yml
+
+
+Download via:
+
+GitHub → Actions → “Build Core PDF” → Artifacts → **OC-Core-1.2-PDF**
+
+---
+
+## 3. Local build instructions
 
 Requirements:
 
-- TeX Live 2023+ (with xelatex + biber)
+- TeX Live 2023+ (xelatex + biber)
 - latexmk (recommended)
 
-### Recommended one-command build:
+### One-command build (recommended):
 
-    ./build_core.sh
+./build_core.sh
 
-or manually:
+### Manual sequence:
 
-    latexmk -xelatex -synctex=1 -interaction=nonstopmode \
-      -output-directory=build main.tex
+latexmk -xelatex -interaction=nonstopmode
+-output-directory=build main.tex
 
-Result:
+Cleanup:
+latexmk -C -output-directory=build
 
-    build/main.pdf
+---
 
-### Cleanup:
+## 4. Repository structure (short overview)
 
-    latexmk -C -output-directory=build
+### Root:
 
-### Manual XeLaTeX sequence:
+- `main.tex` — master entry  
+- `preamble.tex` — global configuration  
+- `README.md` — this document  
+- `ARCHITECTURE.md` — repo structure specification  
+- `CONVENTIONS.md` — naming/style rules  
+- `BUILD_NOTES.md` — build system specification  
+- `master_core_structure.yaml` — source of truth for content structure  
+- `.zenodo.json` — metadata for DOI  
+- `build_core.sh` — *only allowed* build entry  
+- `.github/workflows/*.yml` — CI/CD
 
-    xelatex -output-directory=build main.tex
-    biber build/main
-    xelatex -output-directory=build main.tex
-    xelatex -output-directory=build main.tex
+### Content (`content/`):
 
-This reproduces latexmk’s logic (aux files → bibliography → repeated passes).
+Core scientific text, including:
 
-------------------------------------------------------------
-3. Repository structure (short overview)
-------------------------------------------------------------
+- `frontmatter.tex`  
+- classical chapters (`01_intro.tex` … `06_conclusion.tex`)  
+- extended chapters (`08_boundary.tex` … `16_modules_master.tex`)  
+- new Core 1.2 modules:
+  - `axioms_full.tex`
+  - `operators_universal.tex`
+  - `theorems_master.tex`
+  - `complexity_S.tex`
+- K-levels (`k_levels/`)
+- M-spaces (`m_spaces/`)
+- cross-level transitions (`crossk/`)
+- cycles, experiments, falsifiability, predictions, processes
+- TOE module: `content/toe/`
 
-Root level:
+Automatically generated include list:
 
-- `main.tex`        — master entry point  
-- `preamble.tex`    — global LaTeX configuration  
-- `build_core.sh`   — the **only allowed** build entry  
-- `README.md`       — human-facing overview  
-- `ARCHITECTURE.md` — canonical repo structure  
-- `CONVENTIONS.md`  — style/naming standards  
-- `BUILD_NOTES.md`  — build system specification  
-- `.zenodo.json`    — metadata for Zenodo DOI integration  
-- `.gitignore`      — ignores build directory and aux files  
+content/_auto_core_inputs.tex
 
-Content directory (`content/`):
+Do not edit this file manually.
 
-- `frontmatter.tex` — title, author, abstract  
-- `01_intro.tex`  
-- `02_background.tex`  
-- `03_model.tex`  
-- `04_results.tex`  
-- `05_discussion.tex`  
-- `06_conclusion.tex`  
-- `_auto_core_inputs.tex` — auto-generated (never edit manually)
+### Appendix:
 
-Placeholders:
+- `A_notation.tex`
+- `B_axioms_full.tex`
+- `C_klevels_tables.tex`
+- `toe_data.tex` (observed-universe constants)
 
-- `content/placeholders/fig_placeholder.pdf`
-- `content/placeholders/table_placeholder.tex`
-- `content/placeholders/section_template.tex`
+### Figures:
 
-Figures:
+Stored only in `figures/`.
 
-- stored only in `figures/`
-- not inside `content/`
+---
 
-Bibliography:
+## 5. Using this repository as a template
 
-- `bib/references.bib`
+To create Core 1.3 or any extension (Physics Run, Chemistry Run, K-level expansions):
 
-Build directory:
+1. Clone this repository.  
+2. Update `content/frontmatter.tex`.  
+3. Add/modify scientific content inside `content/`.  
+4. Place all figures in `figures/`.  
+5. Add bibliography entries to `bib/references.bib`.  
+6. If publishing separately, update `.zenodo.json`.  
 
-- generated automatically by XeLaTeX/latexmk  
-- contains `main.pdf`, logs, aux files  
-- never committed to Git  
+### **Do not modify (frozen architecture):**
 
-GitHub Actions:
+- `main.tex`  
+- `preamble.tex`  
+- YAML → auto-input pipeline  
+- build scripts  
+- CI workflows  
 
-- `.github/workflows/build_pdf.yml`  
-- uses **only** `build_core.sh`  
-- enforces XeLaTeX + biber reproducibility  
+These components guarantee reproducibility and must remain unchanged.
 
-------------------------------------------------------------
-4. Using this repository as a template
-------------------------------------------------------------
+---
 
-To create Core 1.2 or a domain-specific preprint:
+## 6. License and metadata
 
-1. Clone or copy this repository.
-2. Update title/abstract in `content/frontmatter.tex`.
-3. Replace placeholder text in `content/*.tex` with real scientific content.
-4. Add figures to `figures/` and reference them in the sections.
-5. Add bibliography entries to `bib/references.bib`.
-6. Update `.zenodo.json` for new versions/titles if creating a new Zenodo record.
+License: **CC BY 4.0**
 
-**Do not modify:**
-- `main.tex` (except top-level include order when explicitly required)
-- `preamble.tex`
-- YAML → auto-input generation pipeline
-- build_core.sh
+Maintainer: **Alexander Yashin**  
+ORCID: **0009-0008-6166-0914**
 
-These files are part of the **frozen architecture**.
+---
 
-------------------------------------------------------------
-5. License and metadata
-------------------------------------------------------------
+This README is the authoritative entry point for the Core 1.2 repository.  
+For architectural details, always refer to:
 
-License:
-
-- **Creative Commons Attribution 4.0 International (CC BY 4.0)**
-
-Maintainer:
-
-- **Alexander Yashin**
-
-ORCID:
-
-- **0009-0008-6166-0914**
-
-------------------------------------------------------------
-
-This README is the top-level guide to the repository.  
-For detailed technical specifications, always refer to:
-
-- **ARCHITECTURE.md**
-- **CONVENTIONS.md**
+- **ARCHITECTURE.md**  
+- **CONVENTIONS.md**  
 - **BUILD_NOTES.md**
 
-These three documents together form the stable foundation for all Core-level and extension-level work.

@@ -8,12 +8,14 @@ on:
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # важно для создания релиза и загрузки assets
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # TeX-Umgebung installieren (schwer, aber robust)
+      # TeX-Umgebung installieren
       - name: Install TeX Live (full)
         run: |
           sudo apt-get update
@@ -48,14 +50,11 @@ jobs:
                "build/*"
           echo "zip_name=$ZIP_NAME" >> "$GITHUB_OUTPUT"
 
-      - name: Create GitHub release (published)
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create GitHub release and upload assets
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.ref_name }}
-          release_name: Ontology of Continua — Core ${{ github.ref_name }}
+          name: Ontology of Continua — Core ${{ github.ref_name }}
           draft: false
           prerelease: false
           body: |
@@ -68,23 +67,6 @@ jobs:
 
             If this repository is linked to Zenodo, publishing this release
             will automatically trigger a new Zenodo record / version using zenodo.json metadata.
-
-      - name: Upload PDF asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ steps.find_pdf.outputs.pdf_path }}
-          asset_name: core-${{ github.ref_name }}.pdf
-          asset_content_type: application/pdf
-
-      - name: Upload source ZIP asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ steps.make_zip.outputs.zip_name }}
-          asset_name: ${{ steps.make_zip.outputs.zip_name }}
-          asset_content_type: application/zip
+          files: |
+            ${{ steps.find_pdf.outputs.pdf_path }}
+            ${{ steps.make_zip.outputs.zip_name }}

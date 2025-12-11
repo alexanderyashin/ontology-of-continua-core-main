@@ -1,0 +1,248 @@
+% ============================
+% content/operators_universal.tex
+% ============================
+\section{Universal Evolution Operators}
+\label{sec:operators-universal}
+
+The evolution of a continuum \(K(t)\) is governed by a family of operators
+\[
+  F,G,H,Q,R,S,U,
+\]
+which determine the dynamics of axes, potentials, thresholds, flows, boundary, cycles, and continuumness.
+
+For brevity we write
+\[
+  K(t)=(\Omega(t),\partial\Omega(t),A(t),P(t),\Theta(t),J(t),C(t),\tau(K),k(t)),
+\]
+and omit the explicit \(t\)-dependence when no confusion arises.
+Structural tension is denoted by \(T(t)\) and is understood as a functional of \(\Omega,A,P,\Theta,J\).
+
+\subsection{Operator \texorpdfstring{\(F\)}{F}: dynamics of axes \texorpdfstring{\(A\)}{A}}
+
+\paragraph{Definition.}
+The operator \(F\) governs the evolution of the axis set \(A(t)\):
+\[
+  \frac{dA_i}{dt} = F_i\bigl(A(t),P(t),\Theta(t),J(t),T(t),k(t)\bigr),
+\]
+for each axis component \(A_i\in A\).
+Here \(T(t)\) is the structural tension and \(k(t)\) the continuumness.
+
+\paragraph{Domain and codomain.}
+Formally,
+\[
+  F:\; A\times P\times\Theta\times J\times\mathbb{R}_{\ge 0}\times[0,1]
+     \;\longrightarrow\; T_A,
+\]
+where \(T_A\) is the tangent space to the manifold of admissible axis configurations.
+
+\paragraph{Output.}
+The vector \(\frac{dA}{dt}\in T_A\) encodes:
+\begin{itemize}
+  \item birth of new axes (via the dimensional operator \(\Psi\));
+  \item deactivation or effective collapse of redundant axes;
+  \item smooth deformation of existing axes.
+\end{itemize}
+
+\paragraph{Relation to components of \texorpdfstring{\(K\)}{K}.}
+The operator \(F\) is sensitive to:
+\begin{itemize}
+  \item gradients and distributions of potentials (through \(P\) and \(J\));
+  \item structural tension \(T\) and its approach to \(\Theta_{\mathrm{dim}}\);
+  \item current continuumness \(k\), suppressing axis changes when the continuum is close to death.
+\end{itemize}
+
+\subsection{Operator \texorpdfstring{\(G\)}{G}: dynamics of potentials \texorpdfstring{\(P\)}{P}}
+
+\paragraph{Definition.}
+The operator \(G\) governs the evolution of potentials:
+\[
+  \frac{dP_i}{dt} = G_i\bigl(A(t),J(t),\nabla P(t),\Theta(t)\bigr),
+\]
+for each potential component \(P_i\).
+
+\paragraph{Domain and codomain.}
+We write
+\[
+  G:\; A\times J\times \mathcal{F}(P)\times\Theta \;\longrightarrow\; T_P,
+\]
+where \(\mathcal{F}(P)\) is the space of potential gradients and \(T_P\) is the tangent space of the potential space.
+
+\paragraph{Output.}
+The vector \(\frac{dP}{dt}\in T_P\) is aligned with the effective gradients of the potentials under threshold constraints \(\Theta\).
+
+\paragraph{Relation to components of \texorpdfstring{\(K\)}{K}.}
+\begin{itemize}
+  \item \(G\) shapes the energetic landscape over \(\Omega\).
+  \item It determines which regions of \(\Omega\) are preferred and which are unstable.
+  \item It contributes directly to structural tension \(T(t)\) and to the triggering of phase transitions.
+\end{itemize}
+
+\subsection{Operator \texorpdfstring{\(H\)}{H}: dynamics of thresholds \texorpdfstring{\(\Theta\)}{\Theta}}
+
+\paragraph{Definition.}
+The operator \(H\) governs the evolution of thresholds:
+\[
+  \frac{d\Theta_k}{dt} = H_k\bigl(A(t),P(t),J(t),C(t)\bigr),
+\]
+for each threshold component \(\Theta_k\).
+
+\paragraph{Domain and codomain.}
+\[
+  H:\; A\times P\times J\times C \;\longrightarrow\; T_\Theta,
+\]
+where \(T_\Theta\) is the tangent space of the threshold space.
+
+\paragraph{Output.}
+The vector \(\frac{d\Theta}{dt}\in T_\Theta\) encodes:
+\begin{itemize}
+  \item adaptation of the continuum to environmental and internal conditions;
+  \item tightening or relaxation of admissibility constraints;
+  \item motion toward or away from \(\Theta_{\mathrm{crit}}, \Theta_{\mathrm{dim}}, \Theta_{\mathrm{death}}\).
+\end{itemize}
+
+\paragraph{Relation to components of \texorpdfstring{\(K\)}{K}.}
+\begin{itemize}
+  \item Changes in \(\Theta\) deform the admissible region \(\Omega\subset\Omega(M)\).
+  \item Through \(\Theta\), phase transitions and the onset of death are regulated.
+\end{itemize}
+
+\subsection{Operator \texorpdfstring{\(Q\)}{Q}: dynamics of flows \texorpdfstring{\(J\)}{J}}
+
+\paragraph{Definition.}
+The operator \(Q\) governs the evolution of flows:
+\[
+  \frac{dJ_i}{dt} = Q_i\bigl(A(t),P(t),\partial\Omega(t),\Theta(t)\bigr),
+\]
+for each flow component \(J_i\).
+
+\paragraph{Domain and codomain.}
+\[
+  Q:\; A\times P\times \partial\Omega\times\Theta \;\longrightarrow\; T_J,
+\]
+where \(T_J\) is the tangent space of the flow space.
+
+\paragraph{Output.}
+The vector \(\frac{dJ}{dt}\in T_J\) describes:
+\begin{itemize}
+  \item redistribution of flows within \(\Omega\);
+  \item modification of flows across the boundary \(\partial\Omega\);
+  \item creation or annihilation of transport channels.
+\end{itemize}
+
+\paragraph{Relation to components of \texorpdfstring{\(K\)}{K}.}
+\begin{itemize}
+  \item Flows constrain which cycles \(C_j\) can exist and remain stable.
+  \item Changes in flows influence energetic stability and thus \(k(t)\).
+\end{itemize}
+
+\subsection{Operator \texorpdfstring{\(R\)}{R}: dynamics of the boundary \texorpdfstring{\(\partial\Omega\)}{\partial\Omega}}
+
+\paragraph{Definition.}
+The operator \(R\) governs the evolution of the boundary:
+\[
+  \frac{d(\partial\Omega)}{dt} = R\bigl(A(t),P(t),J(t),\Theta(t)\bigr).
+\]
+
+\paragraph{Domain and codomain.}
+\[
+  R:\; A\times P\times J\times\Theta \;\longrightarrow\; T_{\partial\Omega},
+\]
+where \(T_{\partial\Omega}\) is the space of boundary deformations.
+
+\paragraph{Output.}
+The quantity \(\frac{d(\partial\Omega)}{dt}\in T_{\partial\Omega}\) describes changes of shape and permeability of the boundary, including:
+\begin{itemize}
+  \item expansion or contraction of \(\Omega\);
+  \item modification of permeability for different flows;
+  \item birth of new internal interfaces within the continuum.
+\end{itemize}
+
+\paragraph{Relation to components of \texorpdfstring{\(K\)}{K}.}
+\begin{itemize}
+  \item The boundary determines the separation between continuum and environment.
+  \item The geometry and topology of \(\partial\Omega\) shape the structure of flows and cycles.
+\end{itemize}
+
+\subsection{Operator \texorpdfstring{\(S\)}{S}: dynamics of cycles \texorpdfstring{\(C\)}{C}}
+
+\paragraph{Definition.}
+The operator \(S\) governs the evolution of cycles:
+\[
+  \frac{dC_j}{dt} = S_j\bigl(A(t),J(t),\Theta(t),P(t)\bigr),
+\]
+for each cycle \(C_j\).
+
+\paragraph{Domain and codomain.}
+\[
+  S:\; A\times J\times\Theta\times P \;\longrightarrow\; T_C,
+\]
+where \(T_C\) is the space of deformations and transformations of cycles.
+
+\paragraph{Output.}
+The quantity \(\frac{dC}{dt}\in T_C\) captures changes in the cycle system:
+\begin{itemize}
+  \item birth of new cycles from combinations of flows;
+  \item breaking of existing cycles;
+  \item restructuring of cycle periods and amplitudes.
+\end{itemize}
+
+\paragraph{Relation to components of \texorpdfstring{\(K\)}{K}.}
+\begin{itemize}
+  \item Cycles support the temporal rhythm encoded in \(\tau(K)\).
+  \item Destruction of critical cycles typically reduces \(k(t)\) and may trigger death.
+\end{itemize}
+
+\subsection{Operator \texorpdfstring{\(U\)}{U}: dynamics of continuumness \(k(t)\)}
+
+\paragraph{Definition.}
+The operator \(U\) governs the evolution of continuumness:
+\[
+  \frac{dk}{dt} = U\bigl(\Omega(t),\partial\Omega(t),A(t),P(t),\Theta(t),J(t),C(t)\bigr).
+\]
+
+\paragraph{Domain and codomain.}
+\[
+  U:\; \mathcal{P}(\Omega)\times\partial\Omega\times A\times P\times\Theta\times J\times C
+  \;\longrightarrow\; \mathbb{R},
+\]
+where \(\mathcal{P}(\Omega)\) denotes the space of admissible deformations of the state region.
+
+\paragraph{Output.}
+The scalar \(\frac{dk}{dt}\) determines:
+\begin{itemize}
+  \item growth of \(k(t)\) when structural coherence and cycle support increase;
+  \item decay of \(k(t)\) when cycles are destroyed, thresholds are violated, or axes become inconsistent;
+  \item stabilization of \(k(t)\) when gains and losses of structure balance.
+\end{itemize}
+
+\paragraph{Relation to components of \texorpdfstring{\(K\)}{K}.}
+\begin{itemize}
+  \item \(U\) aggregates the effects of all other operators on the single scalar order parameter \(k(t)\).
+  \item The sign of \(U\) determines whether the continuum is moving toward higher stability or toward collapse.
+\end{itemize}
+
+\subsection{Joint Evolution Operator \texorpdfstring{\(E\)}{E}}
+
+\paragraph{Definition.}
+The combined evolution of the continuum is given by the operator
+\[
+  E:\; K(t)\mapsto K(t+dt),
+\]
+which, in differential form, is realized by the system:
+\begin{align*}
+  \frac{dA}{dt}                &= F\bigl(A,P,\Theta,J,T,k\bigr),\\
+  \frac{dP}{dt}                &= G\bigl(A,J,\nabla P,\Theta\bigr),\\
+  \frac{d\Theta}{dt}           &= H\bigl(A,P,J,C\bigr),\\
+  \frac{dJ}{dt}                &= Q\bigl(A,P,\partial\Omega,\Theta\bigr),\\
+  \frac{d(\partial\Omega)}{dt} &= R\bigl(A,P,J,\Theta\bigr),\\
+  \frac{dC}{dt}                &= S\bigl(A,J,\Theta,P\bigr),\\
+  \frac{dk}{dt}                &= U\bigl(\Omega,\partial\Omega,A,P,\Theta,J,C\bigr).
+\end{align*}
+
+\paragraph{Compatibility.}
+The operator \(E\) is compatible with the Level-0 axioms and the axioms of continua \(K\):
+\begin{itemize}
+  \item it does not drive the system outside \(\Omega(M)\) while the continuum is alive (\(k>0\));
+  \item it respects the refinement relation between \(\Theta\) and \(\Theta^M\);
+  \item it preserves the logical constraints required by the meta-domain evolution operator \(\Phi\).
+\end{itemize}

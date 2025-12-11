@@ -1,0 +1,132 @@
+% ============================
+% content/complexity_S.tex
+% ============================
+\section{Complexity Metric \(S(K)\)}
+\label{sec:complexity-S}
+
+\subsection{Definition of Complexity Components}
+
+The complexity of a continuum \(K\) measures the structural richness of its state space \(\Omega\), axis set \(A\), cycle system \(C\), threshold structure \(\Theta\), and flows \(J\).
+We decompose it into five components:
+\[
+  S(K)=w_\Omega S_\Omega + w_A S_A + w_C S_C + w_\Theta S_\Theta + w_J S_J,
+\]
+where \(w_\bullet\ge 0\) are weight coefficients.
+
+\paragraph{Component \texorpdfstring{\(S_\Omega\)}{S_\Omega} (state space).}
+Let \(\mu(\Omega)\) be a normalized measure of the admissible state region \(\Omega\) inside \(\Omega(M)\), with \(0\le\mu(\Omega)\le 1\).
+Then we define
+\[
+  S_\Omega(K) = \log\bigl(1+\alpha_\Omega \mu(\Omega)\bigr),
+\]
+where \(\alpha_\Omega>0\) is a scale parameter.
+
+\paragraph{Component \texorpdfstring{\(S_A\)}{S_A} (axes).}
+Let \(\dim K = |A|\) be the number of independent axes.
+Then
+\[
+  S_A(K) = \log\bigl(1+\alpha_A \dim K\bigr),
+\]
+with \(\alpha_A>0\) a scale parameter.
+
+\paragraph{Component \texorpdfstring{\(S_C\)}{S_C} (cycles).}
+Let \(|C|\) be the number of independent cycles and \(\overline{\tau_C}\) the mean period of the stable cycles.
+We define
+\[
+  S_C(K) = \log\bigl(1+\alpha_C |C|\bigr)\cdot \log\bigl(1+\beta_C/\overline{\tau_C}\bigr),
+\]
+where \(\alpha_C,\beta_C>0\).
+Thus the contribution of cycles grows with both their number and their frequency.
+
+\paragraph{Component \texorpdfstring{\(S_\Theta\)}{S_\Theta} (threshold structure).}
+Let \(N_{\mathrm{eff}}(\Theta)\) be the effective number of independent thresholds, i.e.\ the minimal number of threshold functions \(f_k\) sufficient to define the admissible region \(\Omega\).
+Then
+\[
+  S_\Theta(K) = \log\bigl(1+\alpha_\Theta N_{\mathrm{eff}}(\Theta)\bigr),
+\]
+with \(\alpha_\Theta>0\).
+
+\paragraph{Component \texorpdfstring{\(S_J\)}{S_J} (flows).}
+Let \(J\) be the set of flows and \(\|J\|\) some aggregated norm (for example, the time-averaged sum of absolute values of all flows).
+We set
+\[
+  S_J(K) = \log\bigl(1+\alpha_J \|J\|\bigr),
+\]
+with \(\alpha_J>0\).
+
+\subsection{Unified Complexity Formula}
+
+Combining the components, we obtain
+\begin{equation}
+  S(K) =
+  w_\Omega \log\bigl(1+\alpha_\Omega \mu(\Omega)\bigr)
+  + w_A \log\bigl(1+\alpha_A \dim K\bigr)
+  + w_C \log\bigl(1+\alpha_C |C|\bigr)\log\bigl(1+\beta_C/\overline{\tau_C}\bigr)
+\end{equation}
+\[
+  +\; w_\Theta \log\bigl(1+\alpha_\Theta N_{\mathrm{eff}}(\Theta)\bigr)
+  + w_J \log\bigl(1+\alpha_J \|J\|\bigr).
+\]
+
+This formula defines a scalar complexity metric \(S(K)\ge 0\) that increases monotonically with each component, assuming the others are fixed.
+
+\subsection{Relation of \(S(K)\) to \(k(t)\), \(T(t)\), and \(\tau(K)\)}
+
+\paragraph{Relation to continuumness \(k(t)\).}
+Continuumness \(k(t)\) reflects the \emph{quality} of coherence and stability, whereas \(S(K)\) reflects the \emph{amount} of structure.
+In general:
+\begin{itemize}
+  \item low \(S(K)\) restricts the achievable maximal value of \(k(t)\) because there is not enough structure to support rich dynamics;
+  \item excessively high \(S(K)\) at fixed resources can reduce \(k(t)\) due to overload of thresholds \(\Theta\) and insufficient support by cycles.
+\end{itemize}
+Functionally, the universal operator \(U\) governing \(dk/dt\) depends on \(S(K)\):
+\[
+  \frac{dk}{dt} = U(\ldots,S(K),\ldots),
+\]
+with the contribution of \(S(K)\) to \(U\) being typically positive for moderate complexity and negative for excessive complexity.
+
+\paragraph{Relation to structural tension \(T(t)\).}
+Structural tension \(T(t)\) tends to grow when:
+\begin{itemize}
+  \item \(\mu(\Omega)\) increases without a corresponding increase in the number of axes \(A\);
+  \item \(N_{\mathrm{eff}}(\Theta)\) increases at fixed axes \(A\);
+  \item flows \(J\) and cycles \(C\) become misaligned or incoherent.
+\end{itemize}
+Thus \(T(t)\) can be expressed as a functional of the components \(S_\Omega,S_A,S_C,S_\Theta,S_J\).
+The phase thresholds \(\Theta_{\mathrm{crit}}\), \(\Theta_{\mathrm{dim}}\), and \(\Theta_{\mathrm{death}}\) appear as critical values for specific combinations of these components.
+
+\paragraph{Relation to the temporal structure \(\tau(K)\).}
+The temporal structure \(\tau(K)\) captures how quickly the continuum can process its complexity:
+\begin{itemize}
+  \item for fixed \(S(K)\), decreasing \(\tau_{\mathrm{response}}\) and \(\tau_{\mathrm{regen}}\) increases the probability of maintaining \(k(t)>0\);
+  \item if \(S(K)\) grows faster than the continuum can adapt its temporal constants, the system approaches a collapse threshold \(\Theta_{\mathrm{collapse}}\).
+\end{itemize}
+Formally, the lifetime functional
+\[
+  \tau_{\mathrm{life}}(K) = \int_{t_0}^{t_{\mathrm{death}}} k(t)\,dt
+\]
+is determined by the trajectory \(S(K(t))\) together with the temporal parameters \(\tau(K)\).
+
+\subsection{Interpretation of the Complexity Metric}
+
+\paragraph{Interpretation of \texorpdfstring{\(S_\Omega\)}{S_\Omega}.}
+\(S_\Omega\) captures the volume of admissible states.
+An increase in \(\mu(\Omega)\) without an accompanying growth in axes raises structural tension.
+
+\paragraph{Interpretation of \texorpdfstring{\(S_A\)}{S_A}.}
+\(S_A\) captures the dimensionality and the number of independent directions of difference.
+Growth of \(\dim K\) via \(\Psi\) allows tension to be redistributed but increases the cost of maintaining structure.
+
+\paragraph{Interpretation of \texorpdfstring{\(S_C\)}{S_C}.}
+\(S_C\) measures the number and speed of cycles that support the life of the continuum.
+Too few cycles make the system fragile; too many cycles at fixed resources can lead to competition for flows and a drop in \(k(t)\).
+
+\paragraph{Interpretation of \texorpdfstring{\(S_\Theta\)}{S_\Theta}.}
+\(S_\Theta\) captures the complexity of the threshold landscape.
+A large number of independent thresholds makes \(\Omega\) narrow and increases the risk of crossing death thresholds \(\Theta_{\mathrm{death}}\).
+
+\paragraph{Interpretation of \texorpdfstring{\(S_J\)}{S_J}.}
+\(S_J\) measures the intensity of motion inside the continuum.
+Insufficient flows make cycles impossible; excessive flows can erode the boundary \(\partial\Omega\) and violate thresholds \(\Theta\).
+
+Taken together, the components \(S_\Omega,S_A,S_C,S_\Theta,S_J\) provide a quantitative measure of complexity \(S(K)\) that supports the formal description of growth, phase transitions, and death of continua within Core~1.2.
