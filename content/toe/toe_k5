@@ -1,24 +1,131 @@
 % content/toe/toe_k5.tex
 
-\subsection{Level \(K_X\): <short descriptor>}
-\label{subsec:toe-kX}
+\subsection{Level \(K_5\): excitable membranes and proto-neuronal continua}
+\label{subsec:toe-k5}
 
-Here we instantiate level \(K_X\) of the Ontology of Continua for the
-observed universe.
+Level \(K_5\) describes excitable biological continua: systems whose 
+structure is maintained by ion gradients, membrane potentials and 
+gated transport processes that allow the emergence of electrical 
+excitability. While \(K_4\) establishes protocellular organisation with 
+semi-permeable boundaries and metabolic cycles, \(K_5\) introduces the 
+capacity for rapid, threshold-dependent state changes—an essential 
+prerequisite for neural organisation at \(K_6\).
+
+In the observed universe this corresponds to environments where:
+\begin{itemize}
+    \item lipid or similar membranes support stable ion gradients;
+    \item selective channels and transporters enable voltage-dependent 
+          or ligand-dependent fluxes;
+    \item energetic processes (ATP-driven or analogous) maintain 
+          electrochemical differentials;
+    \item transient depolarisation events propagate through excitable 
+          regions via coupled membrane dynamics.
+\end{itemize}
 
 \paragraph{Axes and potentials.}
-We identify the relevant axes \(A^{(X)}\) and potentials \(P^{(X)}\)
-for this level (see Table~\ref{tab:toe-kX-axes-potentials}) and map
-them to measurable quantities in the observed universe.
+
+The characteristic axes \(A^{(5)}\) include:
+\begin{enumerate}
+    \item \(A_{\mathrm{ion}}\): axes describing ionic species 
+          (\(\mathrm{K}^+,\,\mathrm{Na}^+,\,\mathrm{Ca}^{2+},\,\mathrm{Cl}^-\))
+          and channel states (open, closed, inactive);
+    \item \(A_{\mathrm{voltage}}\): membrane potential axis 
+          (\(\Delta V\), local field gradients);
+    \item \(A_{\mathrm{perm}}\): permeability and selectivity of 
+          channels and leak pathways;
+    \item \(A_{\mathrm{exc}}\): axes representing excitability and 
+          spike-initiation dynamics;
+    \item \(A_{\mathrm{energy}}\): axes for ATP-driven pumping and 
+          metabolic support of gradients.
+\end{enumerate}
+
+The corresponding potentials \(P^{(5)}\) include:
+\begin{itemize}
+    \item \(P_{\mathrm{ion}}\): Nernst-derived ionic potentials 
+          (\(E_{\mathrm{ion}}\));
+    \item \(P_{\mathrm{grad}}\): electrochemical gradients across 
+          membranes;
+    \item \(P_{\mathrm{exc}}\): excitability potential controlling the 
+          stability of the resting state;
+    \item \(P_{\mathrm{pump}}\): energetic potential associated with 
+          ion pumps (e.g.\ \(\mathrm{Na}^+/\mathrm{K}^+\)-ATPase);
+    \item \(P_{\mathrm{noise}}\): noise-related potentials affecting 
+          spike probability.
+\end{itemize}
 
 \paragraph{Thresholds and admissible states.}
-We specify threshold ranges \(\Theta^{(X)}\) that delimit the
-admissible region \(\Omega(K_X)\) for the observed universe, and show
-that the measured parameters lie within this region at least for a
-finite time window.
+
+The admissible region \(\Omega(K_5)\) is bounded by structural and 
+biophysical thresholds \(\Theta^{(5)}\):
+\begin{enumerate}
+    \item \textbf{Excitability threshold.}
+          \[
+              \Delta V \geq \Theta_{\mathrm{exc}}
+          \]
+          for spike initiation (proto-action potentials);
+    \item \textbf{Gradient maintenance.}
+          \[
+              P_{\mathrm{grad}} > \Theta_{\mathrm{grad}}
+          \]
+          ensuring the membrane is not driven to equilibrium;
+    \item \textbf{Channel gating stability.}
+          \[
+              P_{\mathrm{ion}} \in 
+              [\Theta_{\mathrm{ion}}^{\min}, 
+               \Theta_{\mathrm{ion}}^{\max}]
+          \]
+          defining the range in which channels operate without runaway 
+          depolarisation or collapse;
+    \item \textbf{Pump viability.}
+          \[
+              P_{\mathrm{pump}} > \Theta_{\mathrm{pump}}
+          \]
+          ensuring sufficient energetic input for sustaining gradients.
+\end{enumerate}
+
+These thresholds correspond to empirically measurable parameters such as 
+resting membrane potentials (\(-30\) to \(-90\,\mathrm{mV}\)), 
+channel conductances, reversal potentials, and ATP consumption rates.
 
 \paragraph{Flows and cycles.}
-We describe the dominant flows \(J^{(X)}\) and cycles \(C^{(X)}\) that
-keep the observed universe within \(\Omega(K_X)\), and outline the
-collapse modes that would correspond to exiting this region.
 
+Dominant flows \(J^{(5)}\) characteristic of excitable continua include:
+\begin{itemize}
+    \item \(J_{\mathrm{ion}}\): voltage- and concentration-driven 
+          ionic currents through selective channels;
+    \item \(J_{\mathrm{leak}}\): passive leak currents stabilising 
+          or destabilising \(\Delta V\);
+    \item \(J_{\mathrm{pump}}\): ATP-driven pumping restoring ionic 
+          distributions;
+    \item \(J_{\mathrm{metabolic}}\): metabolic flows maintaining 
+          energetic support for pumps and channel dynamics.
+\end{itemize}
+
+Stabilising cycles \(C^{(5)}\) include:
+\begin{itemize}
+    \item \(C_{\mathrm{excitation}}\): sequence of 
+          depolarisation → peak → repolarisation → recovery;
+    \item \(C_{\mathrm{refrac}}\): cycles enforcing refractory periods 
+          and preventing uncontrolled firing;
+    \item \(C_{\mathrm{leak\text{-}pump}}\): balance cycle between 
+          leak-mediated dissipation and pump-driven restoration;
+    \item \(C_{\mathrm{energy}}\): metabolic cycles replenishing ATP 
+          pools required for sustained excitability.
+\end{itemize}
+
+Collapse conditions for \(\Omega(K_5)\) arise when:
+\begin{enumerate}
+    \item excitability fails 
+          (\(\Delta V < \Theta_{\mathrm{exc}}\));
+    \item gradients dissipate below 
+          \(\Theta_{\mathrm{grad}}\);
+    \item channel noise overwhelms gating control 
+          (\(P_{\mathrm{noise}}\) exceeds bounds);
+    \item pump energy supply vanishes, causing 
+          \(k_5(t) \rightarrow 0\).
+\end{enumerate}
+
+Within the observed universe, biophysical conditions across planetary 
+environments allow extended regions where \(\Omega(K_5)\) is realised, 
+forming the foundation for neural and cognitive organisation at level 
+\(K_6\).
