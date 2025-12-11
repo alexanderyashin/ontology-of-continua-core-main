@@ -4,22 +4,318 @@
 \section{Constants and parameters used for the continuum instance}
 \label{app:toe-constants-and-parameters}
 
-% Example table for K2 (cosmology)
+This appendix lists the empirical and derived parameters used in the construction 
+of the continuum instance corresponding to the observed universe. 
+Values are given together with uncertainties or ranges when applicable. 
+All constants are quoted in SI unless stated otherwise. 
+Where the continuum formalism introduces structural parameters not directly 
+measured, we provide the corresponding functional form, numerical estimates, 
+or admissible ranges.
+
+% ---------------------------------------------------------
+% K2 — Cosmological and field-level parameters
+% ---------------------------------------------------------
+
+\subsection*{K2: Cosmological and field-level parameters}
+
 \begin{table}[h]
   \centering
   \caption{Effective cosmological parameters used at level \(K_2\).}
-  \label{tab:toe-k2-cosmological-parameters}
+  \label{tab:k2-cosmological-parameters}
   \begin{tabular}{lll}
     \hline
     Quantity & Symbol & Value / range \\
     \hline
-    Hubble parameter today & \(H_0\) & <value or interval> \\
-    Matter density fraction & \(\Omega_\mathrm{m}\) & <value> \\
-    Dark energy fraction    & \(\Omega_\Lambda\) & <value> \\
-    Curvature parameter     & \(\Omega_k\) & <value> \\
-    % ...
+    Hubble parameter today & \(H_0\) 
+        & \(67.4 \pm 0.5 ~ \mathrm{km\,s^{-1}Mpc^{-1}}\) \\
+    Critical density       & \(\rho_c\)
+        & \(8.50 \times 10^{-27} ~ \mathrm{kg\,m^{-3}}\) \\
+    Matter density fraction & \(\Omega_\mathrm{m}\)
+        & \(0.315 \pm 0.007\) \\
+    Baryon fraction         & \(\Omega_\mathrm{b}\)
+        & \(0.0493 \pm 0.0005\) \\
+    Dark energy fraction    & \(\Omega_\Lambda\)
+        & \(0.685 \pm 0.007\) \\
+    Curvature parameter     & \(\Omega_k\)
+        & \(|\Omega_k| < 2 \times 10^{-3}\) \\
+    Radiation density       & \(\Omega_r\)
+        & \(9.2 \times 10^{-5}\) \\
+    CMB temperature         & \(T_\mathrm{CMB}\)
+        & \(2.72548 \pm 0.00057 \,\mathrm{K}\) \\
+    Age of the universe     & \(t_0\)
+        & \(13.797 \pm 0.023 ~ \mathrm{Gyr}\) \\
     \hline
   \end{tabular}
 \end{table}
 
-% Additional tables for K3–K12 go here.
+% ---------------------------------------------------------
+% K3 — Molecular-scale parameters
+% ---------------------------------------------------------
+
+\subsection*{K3: Molecular-scale parameters}
+
+\begin{table}[h]
+  \centering
+  \caption{Representative molecular parameters relevant at level \(K_3\).}
+  \label{tab:k3-molecular-parameters}
+  \begin{tabular}{lll}
+    \hline
+    Quantity & Symbol & Typical value / range \\
+    \hline
+    Bond length (covalent) & \(r_\mathrm{cov}\)
+        & \(0.1\text{–}0.2~\mathrm{nm}\) \\
+    Bond dissociation energy & \(E_\mathrm{bond}\)
+        & \(1\text{–}5~\mathrm{eV}\) \\
+    van der Waals radius & \(r_\mathrm{vdW}\)
+        & \(0.12\text{–}0.2~\mathrm{nm}\) \\
+    Reaction activation energies & \(E^\ddagger\)
+        & \(0.1\text{–}1~\mathrm{eV}\) \\
+    Solvent dielectric constant (water, 298K)
+        & \(\varepsilon_r\)
+        & \(78.4\) \\
+    \hline
+  \end{tabular}
+\end{table}
+
+% ---------------------------------------------------------
+% K4 — Protocellular / membrane-level parameters
+% ---------------------------------------------------------
+
+\subsection*{K4: Compartmental and membrane parameters}
+
+\begin{table}[h]
+  \centering
+  \caption{Structural and energetic parameters relevant at \(K_4\).}
+  \label{tab:k4-membrane-parameters}
+  \begin{tabular}{lll}
+    \hline
+    Quantity & Symbol & Value / range \\
+    \hline
+    Membrane thickness & \(d_\mathrm{mem}\)
+        & \(3\text{–}5~\mathrm{nm}\) \\
+    Membrane bending modulus & \(\kappa\)
+        & \(10\text{–}25~k_\mathrm{B}T\) \\
+    Line tension (edge) & \(\gamma_\mathrm{edge}\)
+        & \(5\text{–}20~\mathrm{pN}\) \\
+    Osmotic pressure scale & \(\Pi\)
+        & \(10^5\text{–}10^6~\mathrm{Pa}\) \\
+    Typical proton gradient & \(\Delta pH\)
+        & \(0.5\text{–}2\) units \\
+    Permeability ranges & \(P_i\)
+        & \(10^{-12}\text{–}10^{-8}~\mathrm{m/s}\) \\
+    \hline
+  \end{tabular}
+\end{table}
+
+% ---------------------------------------------------------
+% K5 — Early neuronal / excitable systems
+% ---------------------------------------------------------
+
+\subsection*{K5: Excitable systems and early neural parameters}
+
+\begin{table}[h]
+  \centering
+  \caption{Electrical and ion-channel parameters used at \(K_5\).}
+  \label{tab:k5-excitable-parameters}
+  \begin{tabular}{lll}
+    \hline
+    Quantity & Symbol & Value / range \\
+    \hline
+    Membrane capacitance & \(C_m\)
+        & \(1~\mu\mathrm{F/cm^2}\) \\
+    Resting membrane potential & \(V_\mathrm{rest}\)
+        & \(-60\text{–}-75~\mathrm{mV}\) \\
+    Nernst potentials (Na, K, Cl) &
+        \(E_{\mathrm{Na,K,Cl}}\)
+        & \((+60, -90, -65)~\mathrm{mV}\) \\
+    Channel conductance (single) & \(g_\mathrm{ch}\)
+        & \(5\text{–}40~\mathrm{pS}\) \\
+    Refractory time & \(\tau_\mathrm{ref}\)
+        & \(2\text{–}5~\mathrm{ms}\) \\
+    \hline
+  \end{tabular}
+\end{table}
+
+% ---------------------------------------------------------
+% K6 — Cognitive and representational parameters
+% ---------------------------------------------------------
+
+\subsection*{K6: Cognitive-level parameters}
+
+\begin{table}[h]
+  \centering
+  \caption{Parameters governing representational stability and prediction thresholds at \(K_6\).}
+  \label{tab:k6-cognitive-parameters}
+  \begin{tabular}{lll}
+    \hline
+    Quantity & Symbol & Value / range \\
+    \hline
+    Prediction-error threshold & \(\Theta_{\mathrm{pred}}\)
+        & \(0.05\text{–}0.15\) (normed units) \\
+    Working-memory span & \(M_\mathrm{WM}\)
+        & \(3\text{–}7\) bound items \\
+    Feature dimensionality (per modality) 
+        & \(d_f\)
+        & \(10^2\text{–}10^3\) \\
+    Hebbian strength coefficient & \(\eta\)
+        & \(10^{-3}\text{–}10^{-1}\) \\
+    \hline
+  \end{tabular}
+\end{table}
+
+% ---------------------------------------------------------
+% K7 — Social-group level parameters
+% ---------------------------------------------------------
+
+\subsection*{K7: Social coordination parameters}
+
+\begin{table}[h]
+  \centering
+  \caption{Typical social-coordination parameters used at \(K_7\).}
+  \label{tab:k7-social-parameters}
+  \begin{tabular}{lll}
+    \hline
+    Quantity & Symbol & Value / range \\
+    \hline
+    Group stability size (Dunbar-like) & \(N_s\)
+        & \(120\text{–}180\) \\
+    Information-flow bandwidth per agent & \(J_\mathrm{comm}\)
+        & \(1\text{–}5~\mathrm{bits/s}\) \\
+    Coordination threshold & \(\Theta_{\mathrm{coord}}\)
+        & \(0.2\text{–}0.4\) \\
+    Conflict cost scale & \(C_\mathrm{conf}\)
+        & \(0.1\text{–}1\) (arbitrary units) \\
+    \hline
+  \end{tabular}
+\end{table}
+
+% ---------------------------------------------------------
+% K8 — Civilizational-level parameters
+% ---------------------------------------------------------
+
+\subsection*{K8: Civilizational and infrastructural parameters}
+
+\begin{table}[h]
+  \centering
+  \caption{Parameters for large-scale civilizational continua at \(K_8\).}
+  \label{tab:k8-civilizational-parameters}
+  \begin{tabular}{lll}
+    \hline
+    Quantity & Symbol & Value / range \\
+    \hline
+    Energy consumption density & \(E_\mathrm{dens}\)
+        & \(10^2\text{–}10^3~\mathrm{W/m^2}\) \\
+    Infrastructure renewal time & \(\tau_\mathrm{infra}\)
+        & \(20\text{–}50~\mathrm{years}\) \\
+    Information-coherence threshold & \(\Theta_I\)
+        & \(0.1\text{–}0.3\) \\
+    Repair-to-decay ratio & \(R_\mathrm{rep}\)
+        & \(0.8\text{–}1.2\) \\
+    \hline
+  \end{tabular}
+\end{table}
+
+% ---------------------------------------------------------
+% K9 — Theoretical / scientific model-level parameters
+% ---------------------------------------------------------
+
+\subsection*{K9: Knowledge-system parameters}
+
+\begin{table}[h]
+  \centering
+  \caption{Parameters defining the behaviour of scientific-meta systems at \(K_9\).}
+  \label{tab:k9-knowledge-parameters}
+  \begin{tabular}{lll}
+    \hline
+    Quantity & Symbol & Value / range \\
+    \hline
+    Paradigm-coherence threshold & \(\Theta_{\mathrm{par}}\)
+        & \(0.15\text{–}0.25\) \\
+    Anomaly accumulation rate & \(J_\mathrm{anom}\)
+        & \(10^{-4}\text{–}10^{-2}\) per cycle \\
+    Model-validation bandwidth & \(B_\mathrm{val}\)
+        & \(0.1\text{–}1\) (normalised) \\
+    Scientific-memory half-life & \(\tau_\mathrm{mem}\)
+        & \(30\text{–}200~\mathrm{years}\) \\
+    \hline
+  \end{tabular}
+\end{table}
+
+% ---------------------------------------------------------
+% K10 — Formal-system parameters
+% ---------------------------------------------------------
+
+\subsection*{K10: Formal-system and recursion parameters}
+
+\begin{table}[h]
+  \centering
+  \caption{Structural parameters of formal continua at \(K_{10}\).}
+  \label{tab:k10-formal-parameters}
+  \begin{tabular}{lll}
+    \hline
+    Quantity & Symbol & Value / range \\
+    \hline
+    Recursion depth (effective) & \(d_\mathrm{rec}\)
+        & \(10\text{–}10^4\) \\
+    Expressivity class & \(\mathcal{E}\)
+        & \(\mathrm{P}, \mathrm{NP}, \mathrm{RE}\) (context-dependent) \\
+    Consistency threshold & \(\Theta_\mathrm{cons}\)
+        & \(0.01\text{–}0.05\) \\
+    Proof-flow capacity & \(J_\mathrm{proof}\)
+        & \(1\text{–}10^3\) steps/s (machine) \\
+    \hline
+  \end{tabular}
+\end{table}
+
+% ---------------------------------------------------------
+% K11 — Meta-theoretical parameters
+% ---------------------------------------------------------
+
+\subsection*{K11: Meta-theoretical parameters}
+
+\begin{table}[h]
+  \centering
+  \caption{Parameters governing meta-theoretical landscapes at \(K_{11}\).}
+  \label{tab:k11-meta-parameters}
+  \begin{tabular}{lll}
+    \hline
+    Quantity & Symbol & Value / range \\
+    \hline
+    Meta-coherence threshold & \(\Theta_\mathrm{meta}\)
+        & \(0.02\text{–}0.1\) \\
+    Functorial potential & \(P_\mathrm{funct}\)
+        & \(10^0\text{–}10^3\) (abstract units) \\
+    Reflexive depth & \(d_\mathrm{refl}\)
+        & \(3\text{–}50\) \\
+    Cross-landscape coupling & \(J_\mathrm{X}\)
+        & \(0.1\text{–}1\) \\
+    \hline
+  \end{tabular}
+\end{table}
+
+% ---------------------------------------------------------
+% K12 — Universal-structure parameters
+% ---------------------------------------------------------
+
+\subsection*{K12: Universal-structure parameters}
+
+\begin{table}[h]
+  \centering
+  \caption{Parameters relevant at the highest-level structural continuum \(K_{12}\).}
+  \label{tab:k12-universal-parameters}
+  \begin{tabular}{lll}
+    \hline
+    Quantity & Symbol & Value / range \\
+    \hline
+    Universal integration capacity & \(C_\mathrm{uni}\)
+        & \(10^3\text{–}10^{12}\) (dimensionless) \\
+    Cross-continuum compatibility & \(\Theta_\mathrm{uni}\)
+        & \(0.001\text{–}0.01\) \\
+    Structural reachability & \(R_\mathrm{uni}\)
+        & \(0.1\text{–}1\) \\
+    Global tension budget & \(T_\mathrm{uni}\)
+        & \(10^2\text{–}10^8\) \\
+    \hline
+  \end{tabular}
+\end{table}
+
