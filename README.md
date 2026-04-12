@@ -1,14 +1,19 @@
-# Ontology of Continua — Core 1.2  
-Axiomatically complete reference implementation of the OC framework
+# Ontology of Continua — Core public source corpus
+Canonical LaTeX source environment for the OC core releases
 
 This repository hosts the canonical, deterministic, and fully reproducible
-LaTeX environment for building the **Ontology of Continua — Core** whitepaper  
-(**version 1.2**).
+LaTeX environment for building the **Ontology of Continua — Core** corpus.
+It preserves the frozen **Core 1.2** baseline as the archival public source
+witness and now also carries the source-first **Core 1.3** scholarly release
+route built from that same corpus.
 
-Core 1.2 is the first *axiomatically closed* and *mathematically complete*
-release of the OC framework.  
-It establishes the stable theoretical baseline for all future physics,
-chemistry, biology, cognition and organisational extensions.
+Core 1.2 remains the first *axiomatically closed* and *mathematically complete*
+public OC baseline. Core 1.3 rebuilds the outward publication contour on top of
+that baseline through a dual-track release architecture:
+
+- a monograph-scale master volume built directly from the LaTeX corpus;
+- a narrower journal-core extraction derived from the master;
+- supporting release materials, figures, appendices, and publication metadata.
 
 Everything required to build the PDF is contained inside this repository:
 
@@ -60,31 +65,35 @@ into a fully closed formal theory. Key additions:
 - transitions, operators, thresholds, cycles, admissible state geometry  
 - embedding spaces `M0 … M12`
 
-### **Observed-universe module (TOE)**
+### **Observed-universe module**
 - empirical constants  
 - cosmological and field-theoretic parameters  
 - mapping of physical reality to an OC continuum instance
 
 ---
 
-## 2. PDF build
+## 2. Current release routes
 
-The PDF is built automatically on every push to `main`.
+### Core 1.2 archival route
+
+The historical Core 1.2 PDF is built automatically on every push to `main`.
 
 Output:
 
-build/main.pdf 
+build/main.pdf
 
-CI workflow:
+### Core 1.3 scholarly route
 
-.github/workflows/build_pdf.yml
+The Core 1.3 release bundle is materialized under:
 
+`releases/oc_core_1_3/`
 
-Download via:
+This bundle contains:
 
-GitHub → Actions → “Build Core PDF” → Artifacts → **OC-Core-1.2-PDF**
-
----
+- the LaTeX-derived master monograph;
+- the journal-core extraction;
+- editorial and figure assets;
+- outward release metadata for the public repository and Zenodo route.
 
 ## 3. Local build instructions
 
@@ -138,7 +147,7 @@ Core scientific text, including:
 - M-spaces (`m_spaces/`)
 - cross-level transitions (`crossk/`)
 - cycles, experiments, falsifiability, predictions, processes
-- TOE module: `content/toe/`
+- observed-universe module: `content/toe/`
 
 Automatically generated include list:
 

@@ -2,7 +2,7 @@
 
 Alexander Yashin
 Unabhängiger Forscher
-Kontakt: alexander.yashin@yahoo.de
+ORCID: 0009-0008-6166-0914
 
 ## Zusammenfassung
 Diese Arbeit revalidiert einen begrenzten Kern der Ontology of Continua direkt aus dem getaggten Core-1.2-LaTeX-Korpus und dem gesperrten PDF vom 11. Dezember 2025 unter einer strengen quellenbasierten Prüfdisziplin.
