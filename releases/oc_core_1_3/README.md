@@ -1,8 +1,8 @@
 # OC Core 1.3 Release Bundle
 
-This folder prepares the trilingual OC Core 1.3 flagship release for the open foundation publication route.
+This folder prepares the dual-track OC Core 1.3 science release for the open foundation publication route.
 
-- EN is the master manuscript.
-- RU and DE are full companion translations of the same scientific package.
-- EN, RU, and DE each ship their own manuscript-ready display assets for the cited figures and table.
-- Shared provenance and release metadata remain aligned across the same scientific version.
+- `monograph/` contains the English master monograph built directly from the public LaTeX source corpus.
+- `journal_core/` contains the shorter journal-facing extraction, with English as the master lane and Russian/German as full companion translations.
+- `manuscripts/` keeps compatibility aliases for the journal-core PDFs and Markdown sources.
+- `editorial/` and `assets/` contain the outward support package shared across the same scientific version.

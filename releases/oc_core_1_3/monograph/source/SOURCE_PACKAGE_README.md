@@ -1,0 +1,8 @@
+# OC Core 1.3 Master Monograph Source Package
+
+This folder contains the primary entry points added for the OC Core 1.3 master monograph route.
+
+- Canonical build root: `oc_core_1_3_master_monograph.tex`
+- Baseline shell: the public Core 1.2 LaTeX corpus in the same repository
+- Publication identity: ORCID-first scholarly front matter
+- Role: master monograph source package, from which the journal core is derived
