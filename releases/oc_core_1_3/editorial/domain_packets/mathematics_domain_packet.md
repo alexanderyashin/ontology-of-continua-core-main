@@ -52,7 +52,7 @@ A single replay divergence or surviving counterexample collapses promotion for t
 
 ## Replay Harness
 
-- Replay command: `PENDING_REPLAY_COMMAND`
+- Replay command: `logion/k7/spe/orchestrator/science/run_claim_simulations_v1.py`
 - Replay program status: `ACTIVE_REPLAY_LANE`
 - Execution protocol id: `OC13::EXECUTION::MATHEMATICS::ANCHOR_REPLAY`
 - Evidence bar: `HYBRID_ESCALATION`

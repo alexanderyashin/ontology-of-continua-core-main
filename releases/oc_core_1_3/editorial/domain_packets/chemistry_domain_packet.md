@@ -55,7 +55,7 @@ A held-out thermochemical, spectral, or kinetic family outside tolerance collaps
 
 ## Replay Harness
 
-- Replay command: `logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py`
+- Replay command: `logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY`
 - Replay program status: `PROGRAM_EXECUTED_PROXY_NOT_PASS_ELIGIBLE`
 - Execution protocol id: `OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY_SPECTRA_KINETICS`
 - Evidence bar: `HYBRID_ESCALATION`

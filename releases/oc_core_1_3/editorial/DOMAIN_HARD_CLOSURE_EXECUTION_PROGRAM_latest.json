@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "repo_sha": "0342306731f12419da726988b1a734e1c7b9e38e",
+    "repo_sha": "faf95cb0a4ac38223143f8afae4d7c9e918f19bf",
     "script": "oc_core_operationalization_v1.py",
     "surface": "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
-    "ts_utc": "2026-04-13T15:54:56Z"
+    "ts_utc": "2026-04-13T16:30:58Z"
   },
   "refs": {
     "domain_external_data_manifest": "logion/k0/governance/status/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
@@ -40,6 +40,8 @@
       "measurement_escalation_status": "NOT_REQUIRED",
       "measurement_schema": "Replay declared mathematical packets deterministically against the strict closure ledger and counterexample traces.",
       "next_required_action": "MAINTAIN_REPLAY_DISCIPLINE",
+      "official_coverage_summary": {},
+      "official_metrics_summary": {},
       "official_source_family_targets": [
         "Tier-1 mathematics exact-question corpus"
       ],
@@ -863,7 +865,7 @@
         "logion/k0/governance/status/SCIENTIFIC_METHOD_AUTHORITY_latest.json"
       ],
       "replay_contract": {
-        "replay_command_ref": "",
+        "replay_command_ref": "logion/k7/spe/orchestrator/science/run_claim_simulations_v1.py",
         "replay_status": "PASS_REPLAYABLE"
       },
       "target_state": "VALIDATED_ANCHOR_ACTIVE"
@@ -901,10 +903,10 @@
       ],
       "blocking_ids": [
         "PHYSICS__NUMERICAL_PACKET_PASS_REQUIRED",
-        "PHYSICS__OFFICIAL_OR_INSTITUTE_RUN_REPLAY_REQUIRED"
+        "PHYSICS__OFFICIAL_BENCHMARK_FAMILY_COVERAGE_REQUIRED"
       ],
       "closure_wave_id": "WAVE_1_PHYSICS",
-      "current_state": "PACKETIZED_PROXY_REPLAY_EXECUTED",
+      "current_state": "PACKETIZED_PARTIAL_OFFICIAL_REPLAY_EXECUTED",
       "domain_id": "PHYSICS",
       "domain_title": "Physics",
       "falsifier_specification": "Any benchmark family with residuals outside tolerance or with broken sign/order constraints falsifies the promoted packet.",
@@ -916,7 +918,29 @@
       "measurement_escalation_rule": "If official/open data do not cover the required observable family, queue institute-run measurement or observational partner acquisition.",
       "measurement_escalation_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
       "measurement_schema": "Bind theorem-to-observable maps to pinned official constants and spectra, then evaluate held-out residual envelopes.",
-      "next_required_action": "REPLACE_PROXY_WITH_OFFICIAL_OR_INSTITUTE_RUN_REPLAY",
+      "next_required_action": "COMPLETE_OFFICIAL_BENCHMARK_FAMILY_COVERAGE_AND_PROMOTE_NUMERICAL_PACKET",
+      "official_coverage_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 0.666667,
+        "covered_benchmark_total": 2,
+        "full_coverage_benchmark_ratio": 0.0,
+        "full_coverage_benchmark_total": 0
+      },
+      "official_metrics_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 0.666667,
+        "covered_benchmark_total": 2,
+        "covered_case_total": 12,
+        "covered_held_out_case_total": 5,
+        "critical_case_total": 1,
+        "full_coverage_benchmark_ratio": 0.0,
+        "full_coverage_benchmark_total": 0,
+        "normalized_error_max": 4334.360429,
+        "normalized_error_mean_abs": 1324.910189,
+        "normalized_error_p95": 4269.318976,
+        "severe_case_total": 1,
+        "tail_breach_count": 1
+      },
       "official_source_family_targets": [
         "NIST / CODATA constants",
         "NIST spectra and reference data",
@@ -937,7 +961,7 @@
       ],
       "packet_id": "OC13::PHYSICS::FOUNDATIONAL_CONSTANTS_AND_SPECTRA",
       "packetized_domain_status": "PASS",
-      "quantitative_pass_result": "PROXY_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE",
+      "quantitative_pass_result": "OFFICIAL_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE",
       "refs": [
         "logion/k0/governance/status/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
@@ -947,8 +971,8 @@
         "logion/k0/governance/status/OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest.json"
       ],
       "replay_contract": {
-        "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py",
-        "replay_status": "PROXY_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE"
+        "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS",
+        "replay_status": "PARTIAL_OFFICIAL_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE"
       },
       "target_state": "EMPIRICAL_HARD_CLOSED"
     },
@@ -1001,6 +1025,8 @@
       "measurement_escalation_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
       "measurement_schema": "Map theorem packets to thermochemical, spectral, and kinetic observables against pinned reference tables.",
       "next_required_action": "REPLACE_PROXY_WITH_OFFICIAL_OR_INSTITUTE_RUN_REPLAY",
+      "official_coverage_summary": {},
+      "official_metrics_summary": {},
       "official_source_family_targets": [
         "NIST Chemistry WebBook",
         "DOE BES / EFRC challenge corpora"
@@ -1025,7 +1051,7 @@
         "logion/k0/governance/status/OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest.json"
       ],
       "replay_contract": {
-        "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py",
+        "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY",
         "replay_status": "PROXY_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE"
       },
       "target_state": "EMPIRICAL_HARD_CLOSED"
@@ -1079,6 +1105,8 @@
       "measurement_escalation_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
       "measurement_schema": "Choose one bounded biological lane and evaluate predicted state transitions or response signatures against open assay data.",
       "next_required_action": "REPLACE_PROXY_WITH_OFFICIAL_OR_INSTITUTE_RUN_REPLAY",
+      "official_coverage_summary": {},
+      "official_metrics_summary": {},
       "official_source_family_targets": [
         "NCBI GEO",
         "official open biological assay repositories"
@@ -1103,7 +1131,7 @@
         "logion/k0/governance/status/OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest.json"
       ],
       "replay_contract": {
-        "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py",
+        "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY",
         "replay_status": "PROXY_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE"
       },
       "target_state": "EMPIRICAL_HARD_CLOSED"
@@ -1157,6 +1185,8 @@
       "measurement_escalation_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
       "measurement_schema": "Evaluate K8 projection packets against pinned official macro-process series with held-out interval tests.",
       "next_required_action": "REPLACE_PROXY_WITH_OFFICIAL_OR_INSTITUTE_RUN_REPLAY",
+      "official_coverage_summary": {},
+      "official_metrics_summary": {},
       "official_source_family_targets": [
         "World Bank Indicators API",
         "official macro-process or infrastructure benchmark series",
@@ -1189,7 +1219,7 @@
         "logion/k0/governance/status/OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest.json"
       ],
       "replay_contract": {
-        "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py",
+        "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION",
         "replay_status": "PROXY_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE"
       },
       "target_state": "EMPIRICAL_HARD_CLOSED"
