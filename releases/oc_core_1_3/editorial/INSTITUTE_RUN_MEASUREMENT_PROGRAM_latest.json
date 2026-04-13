@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "repo_sha": "d849c8fd33124fdfd5f04e160663b87f5d0d29a4",
+    "repo_sha": "9a5c0473e196095aafe9e79ef22fd4b8bfb4af27",
     "script": "oc_core_operationalization_v1.py",
     "surface": "logion/k0/governance/status/INSTITUTE_RUN_MEASUREMENT_PROGRAM_latest.json",
-    "ts_utc": "2026-04-13T19:14:30Z"
+    "ts_utc": "2026-04-13T20:11:02Z"
   },
   "rows": [
     {
@@ -15,15 +15,33 @@
       "domain_id": "PHYSICS",
       "domain_title": "Physics",
       "escalation_trigger": "OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_RESIDUAL_BREACH_PERSISTS",
+      "evidence_input_refs": [
+        "logion/k0/governance/status/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "logion/k0/governance/status/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
+        "logion/k7/spe/registry/OC_DOMAIN_BENCHMARK_CASESET_v1.json",
+        "logion/k7/spe/registry/OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1.json",
+        "logion/k7/spe/registry/OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1.json"
+      ],
+      "lawful_ingestion_pipeline_refs": [
+        "logion/k7/spe/orchestrator/science/build_observation_request_queue_v1.py",
+        "logion/k7/spe/orchestrator/intake/build_observation_input_instance_v1.py",
+        "logion/k7/spe/orchestrator/intake/normalize_observations_v1.py",
+        "logion/k7/spe/orchestrator/intake/validate_observation_semantic_integrity_v1.py"
+      ],
       "measurement_plan_summary": "Acquire partner or institute-run measurements for the missing observable family and rerun the held-out replay packet without widening scope.",
+      "measurement_provenance_status": "PIPELINE_READY_PENDING_REAL_WAVE_EXECUTION",
       "measurement_wave_id": "INSTITUTE_RUN::PHYSICS::WAVE_1A",
       "next_required_action": "COMPLETE_OFFICIAL_BENCHMARK_FAMILY_COVERAGE_AND_PROMOTE_NUMERICAL_PACKET",
+      "post_wave_promotion_policy": "PROMOTE_ONLY_AFTER_QUANTITATIVE_THRESHOLDS_PASS",
       "refs": [
         "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
         "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
         "logion/k7/spe/registry/OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1.json"
       ],
-      "wave_status": "STAND_BY"
+      "wave_execution_mode": "STRICT_REAL_RUN",
+      "wave_status": "STAND_BY",
+      "wave_terminal_status": "PENDING_REAL_WAVE_EXECUTION"
     },
     {
       "blocking_ids": [
@@ -34,15 +52,33 @@
       "domain_id": "CHEMISTRY",
       "domain_title": "Chemistry",
       "escalation_trigger": "OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_RESIDUAL_BREACH_PERSISTS",
+      "evidence_input_refs": [
+        "logion/k0/governance/status/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "logion/k0/governance/status/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
+        "logion/k7/spe/registry/OC_DOMAIN_BENCHMARK_CASESET_v1.json",
+        "logion/k7/spe/registry/OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1.json",
+        "logion/k7/spe/registry/OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1.json"
+      ],
+      "lawful_ingestion_pipeline_refs": [
+        "logion/k7/spe/orchestrator/science/build_observation_request_queue_v1.py",
+        "logion/k7/spe/orchestrator/intake/build_observation_input_instance_v1.py",
+        "logion/k7/spe/orchestrator/intake/normalize_observations_v1.py",
+        "logion/k7/spe/orchestrator/intake/validate_observation_semantic_integrity_v1.py"
+      ],
       "measurement_plan_summary": "Acquire targeted laboratory or partner measurements for unsupported thermochemical, spectral, or kinetic families before any positive promotion.",
+      "measurement_provenance_status": "PIPELINE_READY_PENDING_REAL_WAVE_EXECUTION",
       "measurement_wave_id": "INSTITUTE_RUN::CHEMISTRY::WAVE_2A",
       "next_required_action": "COMPLETE_OFFICIAL_BENCHMARK_FAMILY_COVERAGE_AND_PROMOTE_NUMERICAL_PACKET",
+      "post_wave_promotion_policy": "PROMOTE_ONLY_AFTER_QUANTITATIVE_THRESHOLDS_PASS",
       "refs": [
         "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
         "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
         "logion/k7/spe/registry/OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1.json"
       ],
-      "wave_status": "STAND_BY"
+      "wave_execution_mode": "STRICT_REAL_RUN",
+      "wave_status": "STAND_BY",
+      "wave_terminal_status": "PENDING_REAL_WAVE_EXECUTION"
     },
     {
       "blocking_ids": [
@@ -53,15 +89,33 @@
       "domain_id": "BIOLOGY",
       "domain_title": "Biology",
       "escalation_trigger": "OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_SIGNATURE_CLASS_UNDERCONSTRAINED",
+      "evidence_input_refs": [
+        "logion/k0/governance/status/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "logion/k0/governance/status/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
+        "logion/k7/spe/registry/OC_DOMAIN_BENCHMARK_CASESET_v1.json",
+        "logion/k7/spe/registry/OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1.json",
+        "logion/k7/spe/registry/OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1.json"
+      ],
+      "lawful_ingestion_pipeline_refs": [
+        "logion/k7/spe/orchestrator/science/build_observation_request_queue_v1.py",
+        "logion/k7/spe/orchestrator/intake/build_observation_input_instance_v1.py",
+        "logion/k7/spe/orchestrator/intake/normalize_observations_v1.py",
+        "logion/k7/spe/orchestrator/intake/validate_observation_semantic_integrity_v1.py"
+      ],
       "measurement_plan_summary": "Run a bounded institute observation or assay campaign only for the explicitly declared biological lane; no widening of biological scope is allowed.",
+      "measurement_provenance_status": "PIPELINE_READY_PENDING_REAL_WAVE_EXECUTION",
       "measurement_wave_id": "INSTITUTE_RUN::BIOLOGY::WAVE_3A",
       "next_required_action": "REPLACE_PROXY_WITH_OFFICIAL_OR_INSTITUTE_RUN_REPLAY",
+      "post_wave_promotion_policy": "PROMOTE_ONLY_AFTER_QUANTITATIVE_THRESHOLDS_PASS",
       "refs": [
         "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
         "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
         "logion/k7/spe/registry/OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1.json"
       ],
-      "wave_status": "STAND_BY"
+      "wave_execution_mode": "STRICT_REAL_RUN",
+      "wave_status": "STAND_BY",
+      "wave_terminal_status": "PENDING_REAL_WAVE_EXECUTION"
     },
     {
       "blocking_ids": [
@@ -72,21 +126,40 @@
       "domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
       "domain_title": "Systems / Civilizational projection",
       "escalation_trigger": "OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_INTERVAL_COUNT_LT_30_OR_TURNING_POINT_BREACH_PERSISTS",
+      "evidence_input_refs": [
+        "logion/k0/governance/status/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
+        "logion/k0/governance/status/DOMAIN_BENCHMARK_CASESET_latest.json",
+        "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
+        "logion/k7/spe/registry/OC_DOMAIN_BENCHMARK_CASESET_v1.json",
+        "logion/k7/spe/registry/OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1.json",
+        "logion/k7/spe/registry/OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1.json"
+      ],
+      "lawful_ingestion_pipeline_refs": [
+        "logion/k7/spe/orchestrator/science/build_observation_request_queue_v1.py",
+        "logion/k7/spe/orchestrator/intake/build_observation_input_instance_v1.py",
+        "logion/k7/spe/orchestrator/intake/normalize_observations_v1.py",
+        "logion/k7/spe/orchestrator/intake/validate_observation_semantic_integrity_v1.py"
+      ],
       "measurement_plan_summary": "Acquire partner or institute-run observation programs for the missing macro-process lane and rerun the held-out interval evaluation without broadening civilizational claims.",
+      "measurement_provenance_status": "PIPELINE_READY_PENDING_REAL_WAVE_EXECUTION",
       "measurement_wave_id": "INSTITUTE_RUN::SYSTEMS::WAVE_4A",
       "next_required_action": "COMPLETE_OFFICIAL_BENCHMARK_FAMILY_COVERAGE_AND_PROMOTE_NUMERICAL_PACKET",
+      "post_wave_promotion_policy": "PROMOTE_ONLY_AFTER_QUANTITATIVE_THRESHOLDS_PASS",
       "refs": [
         "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
         "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
         "logion/k7/spe/registry/OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1.json"
       ],
-      "wave_status": "STAND_BY"
+      "wave_execution_mode": "STRICT_REAL_RUN",
+      "wave_status": "STAND_BY",
+      "wave_terminal_status": "PENDING_REAL_WAVE_EXECUTION"
     }
   ],
   "schema_id": "INSTITUTE_RUN_MEASUREMENT_PROGRAM_v1",
   "status": "PASS",
   "summary": {
     "measurement_wave_total": 4,
-    "stand_by_wave_total": 4
+    "stand_by_wave_total": 4,
+    "strict_real_run_wave_total": 4
   }
 }
