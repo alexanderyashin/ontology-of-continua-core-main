@@ -2,119 +2,33 @@
   "metadata": {
     "repo_sha": "0342306731f12419da726988b1a734e1c7b9e38e",
     "script": "oc_core_operationalization_v1.py",
-    "surface": "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
+    "surface": "logion/k0/governance/status/DOMAIN_BENCHMARK_CASESET_latest.json",
     "ts_utc": "2026-04-13T15:54:56Z"
   },
   "rows": [
     {
-      "acceptance_criterion": "No replay divergence and no surviving counterexample against the promoted packet.",
+      "accession_frozen_case_total": 0,
       "benchmark_case_gap_total": 31,
       "benchmark_case_total": 0,
-      "benchmark_dataset_manifest": [],
-      "benchmark_dataset_total": 0,
-      "benchmark_families": [
-        "TIER1_AIMATH_PDF_013_Q010",
-        "strict closure result ledger",
-        "counterexample search corpus",
-        "deterministic replay traces"
-      ],
       "case_coverage_ratio": 0.0,
       "case_rows": [],
       "coverage_readiness_status": "NOT_REQUIRED",
       "domain_id": "MATHEMATICS",
       "domain_title": "Mathematics",
-      "evidence_bar": "HYBRID_ESCALATION",
-      "execution_protocol_id": "OC13::EXECUTION::MATHEMATICS::ANCHOR_REPLAY",
-      "falsifier_specification": "A single replay divergence or surviving counterexample collapses promotion for the affected packet.",
       "held_out_case_total": 0,
-      "held_out_policy": "DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY",
-      "measurable_outputs": [
-        "epsilon_star",
-        "minimal_denominator",
-        "minimal_augmentation_rank",
-        "component_fiber_count",
-        "move_connectivity_or_degree_bound",
-        "strict_terminalized_total",
-        "counterexample_executed_total",
-        "python_evidence_executed_total"
-      ],
-      "measurement_schema": "Replay declared mathematical packets deterministically against the strict closure ledger and counterexample traces.",
       "minimum_cases_total": 31,
       "parameterization_status": "NOT_REQUIRED",
       "pinned_case_total": 0,
       "prediction_declared_case_total": 0,
-      "quantitative_acceptance_thresholds": {
-        "counterexample_survivor_total_max": 0,
-        "policy_snapshot": {
-          "benchmark_residual_policy": {
-            "critical_residual_sigma_threshold": 2.5,
-            "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
-            "severe_residual_sigma_threshold": 1.5
-          },
-          "prediction_accuracy_policy": {
-            "brier_score_max": 0.08,
-            "cases_total_required": 30,
-            "coverage_ratio_required": 1.0,
-            "critical_failure_f1_min": 0.87,
-            "critical_failure_precision_min": 0.85,
-            "critical_failure_recall_min": 0.9,
-            "expected_calibration_error_max": 0.05,
-            "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
-          },
-          "prediction_sigma_policy": {
-            "cases_total_min": 30,
-            "normalized_error_max_max_sigma": 5.0,
-            "normalized_error_mean_abs_max_sigma": 1.0,
-            "normalized_error_p95_max_sigma": 2.5,
-            "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
-            "tail_breach_count_max": 0
-          }
-        },
-        "replay_divergence_total_max": 0,
-        "strict_terminalized_total_min": 31
-      },
       "refs": [
-        "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
-        "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
-        "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
-        "logion/k0/governance/status/DOMAIN_BENCHMARK_CASESET_latest.json"
-      ],
-      "replay_command_ref": "logion/k7/spe/orchestrator/science/run_claim_simulations_v1.py"
+        "logion/k7/spe/registry/OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1.json",
+        "logion/k7/spe/registry/OC_DOMAIN_BENCHMARK_CASESET_v1.json"
+      ]
     },
     {
-      "acceptance_criterion": "Held-out residuals stay inside the declared tolerance band for every promoted benchmark family.",
+      "accession_frozen_case_total": 0,
       "benchmark_case_gap_total": 0,
       "benchmark_case_total": 30,
-      "benchmark_dataset_manifest": [
-        {
-          "authority_ref": "NIST / CODATA constants",
-          "benchmark_id": "PHY_BENCH_001",
-          "dataset_url": "https://physics.nist.gov/cuu/Constants/index.html",
-          "held_out_policy": "leave-one-family-out residual verification",
-          "observable_name": "fine_structure_constant_residual"
-        },
-        {
-          "authority_ref": "NIST Atomic Spectra Database",
-          "benchmark_id": "PHY_BENCH_002",
-          "dataset_url": "https://physics.nist.gov/PhysRefData/ASD/lines_form.html",
-          "held_out_policy": "reserve transitions not used during packet fitting",
-          "observable_name": "hydrogen_balmer_line_residual"
-        },
-        {
-          "authority_ref": "DOE Office of Science challenge corpora",
-          "benchmark_id": "PHY_BENCH_003",
-          "dataset_url": "https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf",
-          "held_out_policy": "hold out one transport regime family",
-          "observable_name": "transport_scaling_residual"
-        }
-      ],
-      "benchmark_dataset_total": 3,
-      "benchmark_families": [
-        "PHY_BENCH_001",
-        "fundamental constants residuals",
-        "spectral line residual envelopes",
-        "transport or plasma scaling envelopes"
-      ],
       "case_coverage_ratio": 1.0,
       "case_rows": [
         {
@@ -751,97 +665,20 @@
       "coverage_readiness_status": "PASS_CASESET_MINIMUM_REACHED",
       "domain_id": "PHYSICS",
       "domain_title": "Physics",
-      "evidence_bar": "HYBRID_ESCALATION",
-      "execution_protocol_id": "OC13::EXECUTION::PHYSICS::CONSTANTS_SPECTRA_TRANSPORT",
-      "falsifier_specification": "Any benchmark family with residuals outside tolerance or with broken sign/order constraints falsifies the promoted packet.",
       "held_out_case_total": 20,
-      "held_out_policy": "LEAVE_ONE_BENCHMARK_FAMILY_OUT",
-      "measurable_outputs": [
-        "relative_constant_error",
-        "spectral_line_residual",
-        "transport_scaling_residual"
-      ],
-      "measurement_schema": "Bind theorem-to-observable maps to pinned official constants and spectra, then evaluate held-out residual envelopes.",
       "minimum_cases_total": 30,
       "parameterization_status": "PREDICTIONS_DECLARED_FOR_ALL_CASES",
       "pinned_case_total": 30,
       "prediction_declared_case_total": 30,
-      "quantitative_acceptance_thresholds": {
-        "coverage_ratio_required": 1.0,
-        "critical_residual_sigma_threshold": 2.5,
-        "normalized_error_max_max_sigma": 5.0,
-        "normalized_error_mean_abs_max_sigma": 1.0,
-        "normalized_error_p95_max_sigma": 2.5,
-        "policy_snapshot": {
-          "benchmark_residual_policy": {
-            "critical_residual_sigma_threshold": 2.5,
-            "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
-            "severe_residual_sigma_threshold": 1.5
-          },
-          "prediction_accuracy_policy": {
-            "brier_score_max": 0.08,
-            "cases_total_required": 30,
-            "coverage_ratio_required": 1.0,
-            "critical_failure_f1_min": 0.87,
-            "critical_failure_precision_min": 0.85,
-            "critical_failure_recall_min": 0.9,
-            "expected_calibration_error_max": 0.05,
-            "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
-          },
-          "prediction_sigma_policy": {
-            "cases_total_min": 30,
-            "normalized_error_max_max_sigma": 5.0,
-            "normalized_error_mean_abs_max_sigma": 1.0,
-            "normalized_error_p95_max_sigma": 2.5,
-            "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
-            "tail_breach_count_max": 0
-          }
-        },
-        "severe_residual_sigma_threshold": 1.5,
-        "tail_breach_count_max": 0
-      },
       "refs": [
-        "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
-        "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
-        "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
-        "logion/k0/governance/status/DOMAIN_BENCHMARK_CASESET_latest.json"
-      ],
-      "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS"
+        "logion/k7/spe/registry/OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1.json",
+        "logion/k7/spe/registry/OC_DOMAIN_BENCHMARK_CASESET_v1.json"
+      ]
     },
     {
-      "acceptance_criterion": "Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions.",
+      "accession_frozen_case_total": 0,
       "benchmark_case_gap_total": 0,
       "benchmark_case_total": 30,
-      "benchmark_dataset_manifest": [
-        {
-          "authority_ref": "NIST Chemistry WebBook",
-          "benchmark_id": "CHEM_BENCH_001",
-          "dataset_url": "https://webbook.nist.gov/chemistry/",
-          "held_out_policy": "hold out one compound family from calibration",
-          "observable_name": "gas_phase_enthalpy_residual"
-        },
-        {
-          "authority_ref": "NIST Chemistry WebBook",
-          "benchmark_id": "CHEM_BENCH_002",
-          "dataset_url": "https://webbook.nist.gov/chemistry/",
-          "held_out_policy": "hold out one spectral family",
-          "observable_name": "spectral_transition_residual"
-        },
-        {
-          "authority_ref": "DOE BES / EFRC challenge corpora",
-          "benchmark_id": "CHEM_BENCH_003",
-          "dataset_url": "https://science.osti.gov/bes/efrc/Research/Grand-Challenges",
-          "held_out_policy": "hold out one reaction-class envelope",
-          "observable_name": "kinetic_or_equilibrium_residual"
-        }
-      ],
-      "benchmark_dataset_total": 3,
-      "benchmark_families": [
-        "CHEM_BENCH_001",
-        "thermochemical reference values",
-        "spectroscopic transition families",
-        "kinetic or equilibrium observable envelopes"
-      ],
       "case_coverage_ratio": 1.0,
       "case_rows": [
         {
@@ -1478,97 +1315,20 @@
       "coverage_readiness_status": "PASS_CASESET_MINIMUM_REACHED",
       "domain_id": "CHEMISTRY",
       "domain_title": "Chemistry",
-      "evidence_bar": "HYBRID_ESCALATION",
-      "execution_protocol_id": "OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY_SPECTRA_KINETICS",
-      "falsifier_specification": "A held-out thermochemical, spectral, or kinetic family outside tolerance collapses the promoted chemistry packet.",
       "held_out_case_total": 19,
-      "held_out_policy": "HOLD_OUT_ONE_COMPOUND_OR_REACTION_CLASS",
-      "measurable_outputs": [
-        "enthalpy_residual",
-        "spectral_transition_residual",
-        "kinetic_or_equilibrium_residual"
-      ],
-      "measurement_schema": "Map theorem packets to thermochemical, spectral, and kinetic observables against pinned reference tables.",
       "minimum_cases_total": 30,
       "parameterization_status": "PREDICTIONS_DECLARED_FOR_ALL_CASES",
       "pinned_case_total": 30,
       "prediction_declared_case_total": 30,
-      "quantitative_acceptance_thresholds": {
-        "coverage_ratio_required": 1.0,
-        "critical_residual_sigma_threshold": 2.5,
-        "normalized_error_max_max_sigma": 5.0,
-        "normalized_error_mean_abs_max_sigma": 1.0,
-        "normalized_error_p95_max_sigma": 2.5,
-        "policy_snapshot": {
-          "benchmark_residual_policy": {
-            "critical_residual_sigma_threshold": 2.5,
-            "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
-            "severe_residual_sigma_threshold": 1.5
-          },
-          "prediction_accuracy_policy": {
-            "brier_score_max": 0.08,
-            "cases_total_required": 30,
-            "coverage_ratio_required": 1.0,
-            "critical_failure_f1_min": 0.87,
-            "critical_failure_precision_min": 0.85,
-            "critical_failure_recall_min": 0.9,
-            "expected_calibration_error_max": 0.05,
-            "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
-          },
-          "prediction_sigma_policy": {
-            "cases_total_min": 30,
-            "normalized_error_max_max_sigma": 5.0,
-            "normalized_error_mean_abs_max_sigma": 1.0,
-            "normalized_error_p95_max_sigma": 2.5,
-            "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
-            "tail_breach_count_max": 0
-          }
-        },
-        "severe_residual_sigma_threshold": 1.5,
-        "tail_breach_count_max": 0
-      },
       "refs": [
-        "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
-        "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
-        "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
-        "logion/k0/governance/status/DOMAIN_BENCHMARK_CASESET_latest.json"
-      ],
-      "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY"
+        "logion/k7/spe/registry/OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1.json",
+        "logion/k7/spe/registry/OC_DOMAIN_BENCHMARK_CASESET_v1.json"
+      ]
     },
     {
-      "acceptance_criterion": "The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary.",
+      "accession_frozen_case_total": 30,
       "benchmark_case_gap_total": 0,
       "benchmark_case_total": 30,
-      "benchmark_dataset_manifest": [
-        {
-          "authority_ref": "NCBI GEO",
-          "benchmark_id": "BIO_BENCH_001",
-          "dataset_url": "https://www.ncbi.nlm.nih.gov/geo/",
-          "held_out_policy": "reserve one time-series family for held-out replay",
-          "observable_name": "expression_signature_residual"
-        },
-        {
-          "authority_ref": "NCBI GEO",
-          "benchmark_id": "BIO_BENCH_002",
-          "dataset_url": "https://www.ncbi.nlm.nih.gov/geo/",
-          "held_out_policy": "reserve one cell-state transition family",
-          "observable_name": "state_transition_order_error"
-        },
-        {
-          "authority_ref": "official open biological assay repositories",
-          "benchmark_id": "BIO_BENCH_003",
-          "dataset_url": "https://www.ncbi.nlm.nih.gov/geo/",
-          "held_out_policy": "reserve one response-signature family",
-          "observable_name": "response_onset_residual"
-        }
-      ],
-      "benchmark_dataset_total": 3,
-      "benchmark_families": [
-        "BIO_BENCH_001",
-        "gene-expression time-series families",
-        "cell-state transition signatures",
-        "stimulus-response or excitability onset markers"
-      ],
       "case_coverage_ratio": 1.0,
       "case_rows": [
         {
@@ -2265,96 +2025,20 @@
       "coverage_readiness_status": "PASS_CASESET_MINIMUM_REACHED",
       "domain_id": "BIOLOGY",
       "domain_title": "Biology",
-      "evidence_bar": "HYBRID_ESCALATION",
-      "execution_protocol_id": "OC13::EXECUTION::BIOLOGY::STATE_TRANSITIONS_AND_RESPONSE_SIGNATURES",
-      "falsifier_specification": "If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound.",
       "held_out_case_total": 16,
-      "held_out_policy": "RESERVE_ONE_DATASET_FAMILY_PER_SIGNATURE_CLASS",
-      "measurable_outputs": [
-        "expression_signature_residual",
-        "state_transition_order_error",
-        "response_onset_residual"
-      ],
-      "measurement_schema": "Choose one bounded biological lane and evaluate predicted state transitions or response signatures against open assay data.",
       "minimum_cases_total": 30,
       "parameterization_status": "PREDICTIONS_DECLARED_FOR_ALL_CASES",
       "pinned_case_total": 30,
       "prediction_declared_case_total": 30,
-      "quantitative_acceptance_thresholds": {
-        "coverage_ratio_required": 1.0,
-        "expected_calibration_error_max": 0.05,
-        "normalized_error_max_max_sigma": 5.0,
-        "normalized_error_mean_abs_max_sigma": 1.0,
-        "normalized_error_p95_max_sigma": 2.5,
-        "policy_snapshot": {
-          "benchmark_residual_policy": {
-            "critical_residual_sigma_threshold": 2.5,
-            "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
-            "severe_residual_sigma_threshold": 1.5
-          },
-          "prediction_accuracy_policy": {
-            "brier_score_max": 0.08,
-            "cases_total_required": 30,
-            "coverage_ratio_required": 1.0,
-            "critical_failure_f1_min": 0.87,
-            "critical_failure_precision_min": 0.85,
-            "critical_failure_recall_min": 0.9,
-            "expected_calibration_error_max": 0.05,
-            "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
-          },
-          "prediction_sigma_policy": {
-            "cases_total_min": 30,
-            "normalized_error_max_max_sigma": 5.0,
-            "normalized_error_mean_abs_max_sigma": 1.0,
-            "normalized_error_p95_max_sigma": 2.5,
-            "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
-            "tail_breach_count_max": 0
-          }
-        },
-        "tail_breach_count_max": 0
-      },
       "refs": [
-        "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
-        "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
-        "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
-        "logion/k0/governance/status/DOMAIN_BENCHMARK_CASESET_latest.json"
-      ],
-      "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY"
+        "logion/k7/spe/registry/OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1.json",
+        "logion/k7/spe/registry/OC_DOMAIN_BENCHMARK_CASESET_v1.json"
+      ]
     },
     {
-      "acceptance_criterion": "Declared trajectory and regime-change observables remain inside tolerance on held-out intervals.",
+      "accession_frozen_case_total": 0,
       "benchmark_case_gap_total": 0,
       "benchmark_case_total": 30,
-      "benchmark_dataset_manifest": [
-        {
-          "authority_ref": "World Bank Indicators API",
-          "benchmark_id": "SYS_BENCH_001",
-          "dataset_url": "https://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?format=json",
-          "held_out_policy": "leave out one interval family",
-          "observable_name": "population_trajectory_residual"
-        },
-        {
-          "authority_ref": "World Bank Indicators API",
-          "benchmark_id": "SYS_BENCH_002",
-          "dataset_url": "https://api.worldbank.org/v2/en/indicator/NY.GDP.MKTP.KD.ZG?format=json",
-          "held_out_policy": "reserve one held-out macro interval",
-          "observable_name": "gdp_growth_turning_point_error"
-        },
-        {
-          "authority_ref": "DOE ASCR process-systems references",
-          "benchmark_id": "SYS_BENCH_003",
-          "dataset_url": "https://science.osti.gov/ascr/Community-Resources/Workshops-and-Conferences/Grand-Challenges",
-          "held_out_policy": "reserve one regime-shift benchmark family",
-          "observable_name": "process_system_regime_score"
-        }
-      ],
-      "benchmark_dataset_total": 3,
-      "benchmark_families": [
-        "SYS_BENCH_001",
-        "macro indicator trajectories",
-        "resource-intensity or throughput curves",
-        "held-out interval stability and regime shifts"
-      ],
       "case_coverage_ratio": 1.0,
       "case_rows": [
         {
@@ -3051,70 +2735,26 @@
       "coverage_readiness_status": "PASS_CASESET_MINIMUM_REACHED",
       "domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
       "domain_title": "Systems / Civilizational projection",
-      "evidence_bar": "HYBRID_ESCALATION",
-      "execution_protocol_id": "OC13::EXECUTION::SYSTEMS::MACRO_TRAJECTORIES_AND_REGIME_SHIFTS",
-      "falsifier_specification": "A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet.",
       "held_out_case_total": 18,
-      "held_out_policy": "HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS",
-      "measurable_outputs": [
-        "trajectory_residual",
-        "turning_point_error",
-        "held_out_interval_regime_score"
-      ],
-      "measurement_schema": "Evaluate K8 projection packets against pinned official macro-process series with held-out interval tests.",
       "minimum_cases_total": 30,
       "parameterization_status": "PREDICTIONS_DECLARED_FOR_ALL_CASES",
       "pinned_case_total": 30,
       "prediction_declared_case_total": 30,
-      "quantitative_acceptance_thresholds": {
-        "brier_score_max": 0.08,
-        "coverage_ratio_required": 1.0,
-        "critical_failure_f1_min": 0.87,
-        "critical_failure_precision_min": 0.85,
-        "critical_failure_recall_min": 0.9,
-        "expected_calibration_error_max": 0.05,
-        "policy_snapshot": {
-          "benchmark_residual_policy": {
-            "critical_residual_sigma_threshold": 2.5,
-            "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
-            "severe_residual_sigma_threshold": 1.5
-          },
-          "prediction_accuracy_policy": {
-            "brier_score_max": 0.08,
-            "cases_total_required": 30,
-            "coverage_ratio_required": 1.0,
-            "critical_failure_f1_min": 0.87,
-            "critical_failure_precision_min": 0.85,
-            "critical_failure_recall_min": 0.9,
-            "expected_calibration_error_max": 0.05,
-            "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
-          },
-          "prediction_sigma_policy": {
-            "cases_total_min": 30,
-            "normalized_error_max_max_sigma": 5.0,
-            "normalized_error_mean_abs_max_sigma": 1.0,
-            "normalized_error_p95_max_sigma": 2.5,
-            "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
-            "tail_breach_count_max": 0
-          }
-        },
-        "tail_breach_count_max": 0
-      },
       "refs": [
-        "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
-        "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
-        "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
-        "logion/k0/governance/status/DOMAIN_BENCHMARK_CASESET_latest.json"
-      ],
-      "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION"
+        "logion/k7/spe/registry/OC_DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1.json",
+        "logion/k7/spe/registry/OC_DOMAIN_BENCHMARK_CASESET_v1.json"
+      ]
     }
   ],
-  "schema_id": "DOMAIN_BENCHMARK_DATASET_MANIFEST_v1",
+  "schema_id": "DOMAIN_BENCHMARK_CASESET_v1",
   "status": "PASS",
   "summary": {
-    "benchmark_dataset_total": 12,
+    "accession_frozen_case_total": 30,
+    "benchmark_case_total": 120,
     "checked_domain_total": 5,
-    "empirical_lane_total": 4,
-    "empirical_lane_with_manifest_total": 4
+    "domains_with_cases_total": 4,
+    "held_out_case_total": 73,
+    "pinned_case_total": 120,
+    "prediction_declared_case_total": 120
   }
 }

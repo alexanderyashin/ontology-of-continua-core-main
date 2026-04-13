@@ -12,15 +12,16 @@ Domain & Replay status & Packet / protocol & Acceptance criterion & Replay comma
 \midrule
 \endhead
 Mathematics & PASS\_REPLAYABLE & OC13::MATHEMATICS::STRICT\_REPLAY\_ANCHOR / OC13::EXECUTION::MATHEMATICS::ANCHOR\_REPLAY & No replay divergence and no surviving counterexample against the promoted packet. & logion/k7/spe/orchestrator/science/run\_claim\_simulations\_v1.py & not required \\
-Physics & REPLAY\_HARNESS\_READY\_PENDING\_NUMERICAL\_EXECUTION & OC13::PHYSICS::FOUNDATIONAL\_CONSTANTS\_AND\_SPECTRA / OC13::EXECUTION::PHYSICS::CONSTANTS\_SPECTRA\_TRANSPORT & Held-out residuals stay inside the declared tolerance band for every promoted benchmark family. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id PHYSICS & INSTITUTE\_RUN::PHYSICS::WAVE\_1A \\
-Chemistry & REPLAY\_HARNESS\_READY\_PENDING\_NUMERICAL\_EXECUTION & OC13::CHEMISTRY::THERMOCHEMISTRY\_AND\_SPECTRA / OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY\_SPECTRA\_KINETICS & Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id CHEMISTRY & INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A \\
-Biology & REPLAY\_HARNESS\_READY\_PENDING\_NUMERICAL\_EXECUTION & OC13::BIOLOGY::STATE\_TRANSITION\_AND\_RESPONSE\_SIGNATURES / OC13::EXECUTION::BIOLOGY::STATE\_TRANSITIONS\_AND\_RESPONSE\_SIGNATURES & The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id BIOLOGY & INSTITUTE\_RUN::BIOLOGY::WAVE\_3A \\
-Systems / Civilizational projection & REPLAY\_HARNESS\_READY\_PENDING\_NUMERICAL\_EXECUTION & OC13::SYSTEMS::K8\_MACRO\_PROCESS\_AND\_REGIME\_SHIFT / OC13::EXECUTION::SYSTEMS::MACRO\_TRAJECTORIES\_AND\_REGIME\_SHIFTS & Declared trajectory and regime-change observables remain inside tolerance on held-out intervals. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id SYSTEMS\_CIVILIZATIONAL\_PROJECTION & INSTITUTE\_RUN::SYSTEMS::WAVE\_4A \\
+Physics & PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE & OC13::PHYSICS::FOUNDATIONAL\_CONSTANTS\_AND\_SPECTRA / OC13::EXECUTION::PHYSICS::CONSTANTS\_SPECTRA\_TRANSPORT & Held-out residuals stay inside the declared tolerance band for every promoted benchmark family. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id PHYSICS & INSTITUTE\_RUN::PHYSICS::WAVE\_1A \\
+Chemistry & PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE & OC13::CHEMISTRY::THERMOCHEMISTRY\_AND\_SPECTRA / OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY\_SPECTRA\_KINETICS & Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id CHEMISTRY & INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A \\
+Biology & PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE & OC13::BIOLOGY::STATE\_TRANSITION\_AND\_RESPONSE\_SIGNATURES / OC13::EXECUTION::BIOLOGY::STATE\_TRANSITIONS\_AND\_RESPONSE\_SIGNATURES & The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id BIOLOGY & INSTITUTE\_RUN::BIOLOGY::WAVE\_3A \\
+Systems / Civilizational projection & PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE & OC13::SYSTEMS::K8\_MACRO\_PROCESS\_AND\_REGIME\_SHIFT / OC13::EXECUTION::SYSTEMS::MACRO\_TRAJECTORIES\_AND\_REGIME\_SHIFTS & Declared trajectory and regime-change observables remain inside tolerance on held-out intervals. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id SYSTEMS\_CIVILIZATIONAL\_PROJECTION & INSTITUTE\_RUN::SYSTEMS::WAVE\_4A \\
 \bottomrule
 \end{longtable}
 
 \paragraph{Mathematics.}
 Status: `PASS` with replay state `PASS\_REPLAYABLE`.
+Caseset readiness: `0` parameterized out of `0` cases (minimum `31`); coverage `NOT\_REQUIRED`; parameterization `NOT\_REQUIRED`.
 Acceptance criterion: No replay divergence and no surviving counterexample against the promoted packet..
 Falsifier: A single replay divergence or surviving counterexample collapses promotion for the affected packet..
 Replay command: `logion/k7/spe/orchestrator/science/run\_claim\_simulations\_v1.py`.
@@ -29,12 +30,15 @@ Next required action: `MAINTAIN\_REPLAY\_DISCIPLINE`.
 This lane currently exposes no external benchmark rows because it is the deterministic mathematics anchor rather than an external empirical packet.
 
 \paragraph{Physics.}
-Status: `PASS` with replay state `REPLAY\_HARNESS\_READY\_PENDING\_NUMERICAL\_EXECUTION`.
+Status: `PASS` with replay state `PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE`.
+Caseset readiness: `30` parameterized out of `30` cases (minimum `30`); coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Acceptance criterion: Held-out residuals stay inside the declared tolerance band for every promoted benchmark family..
 Falsifier: Any benchmark family with residuals outside tolerance or with broken sign/order constraints falsifies the promoted packet..
 Replay command: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id PHYSICS`.
 Measurement schema: Bind theorem-to-observable maps to pinned official constants and spectra, then evaluate held-out residual envelopes..
-Next required action: `EXECUTE\_PHYSICS\_NUMERICAL\_REPLAY\_PACKET`.
+Next required action: `REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY`.
+Proxy replay visibility metrics: execution basis `PROXY\_DEVELOPMENT\_VISIBILITY`, mean abs normalized error `0.858419 sigma`, `p95` `1.680531 sigma`, `max` `1.70259 sigma`, tail breaches `0`, severe cases `7`, critical cases `0`.
+These numbers are visibility-only and do not count as positive empirical closure until an official or institute-run replay replaces the proxy basis.
 \begin{itemize}
 \item `PHY\_BENCH\_001`: `fine\_structure\_constant\_residual` from `\texttt{https://physics.nist.gov/cuu/Constants/index.html}` with held-out policy `leave-one-family-out residual verification`.
 \item `PHY\_BENCH\_002`: `hydrogen\_balmer\_line\_residual` from `\texttt{https://physics.nist.gov/PhysRefData/ASD/lines\_form.html}` with held-out policy `reserve transitions not used during packet fitting`.
@@ -42,12 +46,15 @@ Next required action: `EXECUTE\_PHYSICS\_NUMERICAL\_REPLAY\_PACKET`.
 \end{itemize}
 
 \paragraph{Chemistry.}
-Status: `PASS` with replay state `REPLAY\_HARNESS\_READY\_PENDING\_NUMERICAL\_EXECUTION`.
+Status: `PASS` with replay state `PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE`.
+Caseset readiness: `30` parameterized out of `30` cases (minimum `30`); coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Acceptance criterion: Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions..
 Falsifier: A held-out thermochemical, spectral, or kinetic family outside tolerance collapses the promoted chemistry packet..
 Replay command: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id CHEMISTRY`.
 Measurement schema: Map theorem packets to thermochemical, spectral, and kinetic observables against pinned reference tables..
-Next required action: `EXECUTE\_CHEMISTRY\_NUMERICAL\_REPLAY\_PACKET`.
+Next required action: `REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY`.
+Proxy replay visibility metrics: execution basis `PROXY\_DEVELOPMENT\_VISIBILITY`, mean abs normalized error `0.781794 sigma`, `p95` `1.639366 sigma`, `max` `1.768332 sigma`, tail breaches `0`, severe cases `5`, critical cases `0`.
+These numbers are visibility-only and do not count as positive empirical closure until an official or institute-run replay replaces the proxy basis.
 \begin{itemize}
 \item `CHEM\_BENCH\_001`: `gas\_phase\_enthalpy\_residual` from `\texttt{https://webbook.nist.gov/chemistry/}` with held-out policy `hold out one compound family from calibration`.
 \item `CHEM\_BENCH\_002`: `spectral\_transition\_residual` from `\texttt{https://webbook.nist.gov/chemistry/}` with held-out policy `hold out one spectral family`.
@@ -55,12 +62,15 @@ Next required action: `EXECUTE\_CHEMISTRY\_NUMERICAL\_REPLAY\_PACKET`.
 \end{itemize}
 
 \paragraph{Biology.}
-Status: `PASS` with replay state `REPLAY\_HARNESS\_READY\_PENDING\_NUMERICAL\_EXECUTION`.
+Status: `PASS` with replay state `PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE`.
+Caseset readiness: `30` parameterized out of `30` cases (minimum `30`); coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Acceptance criterion: The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary..
 Falsifier: If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound..
 Replay command: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id BIOLOGY`.
 Measurement schema: Choose one bounded biological lane and evaluate predicted state transitions or response signatures against open assay data..
-Next required action: `EXECUTE\_BIOLOGY\_NUMERICAL\_REPLAY\_PACKET`.
+Next required action: `REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY`.
+Proxy replay visibility metrics: execution basis `PROXY\_DEVELOPMENT\_VISIBILITY`, mean abs normalized error `0.746167 sigma`, `p95` `1.621982 sigma`, `max` `1.72961 sigma`, tail breaches `0`, severe cases `4`, critical cases `0`.
+These numbers are visibility-only and do not count as positive empirical closure until an official or institute-run replay replaces the proxy basis.
 \begin{itemize}
 \item `BIO\_BENCH\_001`: `expression\_signature\_residual` from `\texttt{https://www.ncbi.nlm.nih.gov/geo/}` with held-out policy `reserve one time-series family for held-out replay`.
 \item `BIO\_BENCH\_002`: `state\_transition\_order\_error` from `\texttt{https://www.ncbi.nlm.nih.gov/geo/}` with held-out policy `reserve one cell-state transition family`.
@@ -68,14 +78,17 @@ Next required action: `EXECUTE\_BIOLOGY\_NUMERICAL\_REPLAY\_PACKET`.
 \end{itemize}
 
 \paragraph{Systems / Civilizational projection.}
-Status: `PASS` with replay state `REPLAY\_HARNESS\_READY\_PENDING\_NUMERICAL\_EXECUTION`.
+Status: `PASS` with replay state `PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE`.
+Caseset readiness: `30` parameterized out of `30` cases (minimum `30`); coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Acceptance criterion: Declared trajectory and regime-change observables remain inside tolerance on held-out intervals..
 Falsifier: A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet..
 Replay command: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id SYSTEMS\_CIVILIZATIONAL\_PROJECTION`.
 Measurement schema: Evaluate K8 projection packets against pinned official macro-process series with held-out interval tests..
-Next required action: `EXECUTE\_SYSTEMS\_NUMERICAL\_REPLAY\_PACKET`.
+Next required action: `REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY`.
+Proxy replay visibility metrics: execution basis `PROXY\_DEVELOPMENT\_VISIBILITY`, mean abs normalized error `0.672786 sigma`, `p95` `1.520051 sigma`, `max` `1.644155 sigma`, tail breaches `0`, severe cases `3`, critical cases `0`.
+These numbers are visibility-only and do not count as positive empirical closure until an official or institute-run replay replaces the proxy basis.
 \begin{itemize}
 \item `SYS\_BENCH\_001`: `population\_trajectory\_residual` from `\texttt{https://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?format=json}` with held-out policy `leave out one interval family`.
 \item `SYS\_BENCH\_002`: `gdp\_growth\_turning\_point\_error` from `\texttt{https://api.worldbank.org/v2/en/indicator/NY.GDP.MKTP.KD.ZG?format=json}` with held-out policy `reserve one held-out macro interval`.
-\item `SYS\_BENCH\_003`: `process\_system\_regime\_score` from `\texttt{https://science.osti.gov/ascr/Community-Resources/Workshops-and-Conferences/Grand-Challenges}` with held-out policy `reserve one regime-shift benchmark family`.
+\item `SYS\_BENCH\_003`: `process\_system\_regime\_score` from `\texttt{https://api.worldbank.org/v2/en/indicator/EG.USE.PCAP.KG.OE?format=json}` with held-out policy `reserve one resource-intensity curve family`.
 \end{itemize}

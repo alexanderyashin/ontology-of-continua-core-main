@@ -6,6 +6,7 @@ This appendix names the benchmark families, pinned datasets, held-out policies, 
 Execution protocol: `OC13::EXECUTION::MATHEMATICS::ANCHOR\_REPLAY`. Evidence bar: `HYBRID\_ESCALATION`.
 Measurement schema: Replay declared mathematical packets deterministically against the strict closure ledger and counterexample traces..
 Held-out policy: `DETERMINISTIC\_COUNTEREXAMPLE\_AND\_TRACE\_REPLAY` with minimum cases `31`.
+Caseset state: `0` pinned, `0` held-out, `0` parameterized out of `0` cases; coverage `NOT\_REQUIRED`; parameterization `NOT\_REQUIRED`.
 Quantitative thresholds: coverage `N/A`, mean abs error at most `N/A sigma`, `p95` at most `N/A sigma`, `max` at most `N/A sigma`, Brier at most `N/A`, ECE at most `N/A`, tail breaches `N/A`.
 Acceptance criterion: No replay divergence and no surviving counterexample against the promoted packet..
 Falsifier: A single replay divergence or surviving counterexample collapses promotion for the affected packet..
@@ -16,6 +17,7 @@ No pinned external dataset manifest is required for the mathematics anchor lane 
 Execution protocol: `OC13::EXECUTION::PHYSICS::CONSTANTS\_SPECTRA\_TRANSPORT`. Evidence bar: `HYBRID\_ESCALATION`.
 Measurement schema: Bind theorem-to-observable maps to pinned official constants and spectra, then evaluate held-out residual envelopes..
 Held-out policy: `LEAVE\_ONE\_BENCHMARK\_FAMILY\_OUT` with minimum cases `30`.
+Caseset state: `30` pinned, `20` held-out, `30` parameterized out of `30` cases; coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Quantitative thresholds: coverage `1.0`, mean abs error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `N/A`, ECE at most `N/A`, tail breaches `0`.
 Acceptance criterion: Held-out residuals stay inside the declared tolerance band for every promoted benchmark family..
 Falsifier: Any benchmark family with residuals outside tolerance or with broken sign/order constraints falsifies the promoted packet..
@@ -30,6 +32,7 @@ Replay command: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\
 Execution protocol: `OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY\_SPECTRA\_KINETICS`. Evidence bar: `HYBRID\_ESCALATION`.
 Measurement schema: Map theorem packets to thermochemical, spectral, and kinetic observables against pinned reference tables..
 Held-out policy: `HOLD\_OUT\_ONE\_COMPOUND\_OR\_REACTION\_CLASS` with minimum cases `30`.
+Caseset state: `30` pinned, `19` held-out, `30` parameterized out of `30` cases; coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Quantitative thresholds: coverage `1.0`, mean abs error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `N/A`, ECE at most `N/A`, tail breaches `0`.
 Acceptance criterion: Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions..
 Falsifier: A held-out thermochemical, spectral, or kinetic family outside tolerance collapses the promoted chemistry packet..
@@ -44,6 +47,7 @@ Replay command: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\
 Execution protocol: `OC13::EXECUTION::BIOLOGY::STATE\_TRANSITIONS\_AND\_RESPONSE\_SIGNATURES`. Evidence bar: `HYBRID\_ESCALATION`.
 Measurement schema: Choose one bounded biological lane and evaluate predicted state transitions or response signatures against open assay data..
 Held-out policy: `RESERVE\_ONE\_DATASET\_FAMILY\_PER\_SIGNATURE\_CLASS` with minimum cases `30`.
+Caseset state: `30` pinned, `16` held-out, `30` parameterized out of `30` cases; coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Quantitative thresholds: coverage `1.0`, mean abs error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `N/A`, ECE at most `0.05`, tail breaches `0`.
 Acceptance criterion: The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary..
 Falsifier: If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound..
@@ -58,6 +62,7 @@ Replay command: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\
 Execution protocol: `OC13::EXECUTION::SYSTEMS::MACRO\_TRAJECTORIES\_AND\_REGIME\_SHIFTS`. Evidence bar: `HYBRID\_ESCALATION`.
 Measurement schema: Evaluate K8 projection packets against pinned official macro-process series with held-out interval tests..
 Held-out policy: `HELD\_OUT\_INTERVAL\_REPLAY\_WITH\_TURNING\_POINT\_CHECKS` with minimum cases `30`.
+Caseset state: `30` pinned, `18` held-out, `30` parameterized out of `30` cases; coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Quantitative thresholds: coverage `1.0`, mean abs error at most `N/A sigma`, `p95` at most `N/A sigma`, `max` at most `N/A sigma`, Brier at most `0.08`, ECE at most `0.05`, tail breaches `0`.
 Acceptance criterion: Declared trajectory and regime-change observables remain inside tolerance on held-out intervals..
 Falsifier: A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet..

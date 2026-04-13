@@ -25,10 +25,10 @@ Domain & Validation & Data route & Benchmark families & Next lawful action \\
 \midrule
 \endhead
 Mathematics & PASS & PASS & TIER1\_AIMATH\_PDF\_013\_Q010; strict closure result ledger; counterexample search corpus; deterministic replay traces & MAINTAIN\_REPLAY\_DISCIPLINE \\
-Physics & FAIL\_CLOSED & PASS & PHY\_BENCH\_001; fundamental constants residuals; spectral line residual envelopes; transport or plasma scaling envelopes & EXECUTE\_PHYSICS\_NUMERICAL\_REPLAY\_PACKET \\
-Chemistry & FAIL\_CLOSED & PASS & CHEM\_BENCH\_001; thermochemical reference values; spectroscopic transition families; kinetic or equilibrium observable envelopes & EXECUTE\_CHEMISTRY\_NUMERICAL\_REPLAY\_PACKET \\
-Biology & FAIL\_CLOSED & PASS & BIO\_BENCH\_001; gene-expression time-series families; cell-state transition signatures; stimulus-response or excitability onset markers & EXECUTE\_BIOLOGY\_NUMERICAL\_REPLAY\_PACKET \\
-Systems / Civilizational projection & FAIL\_CLOSED & PASS & SYS\_BENCH\_001; macro indicator trajectories; resource-intensity or throughput curves; held-out interval stability and regime shifts & EXECUTE\_SYSTEMS\_NUMERICAL\_REPLAY\_PACKET \\
+Physics & FAIL\_CLOSED & PASS & PHY\_BENCH\_001; fundamental constants residuals; spectral line residual envelopes; transport or plasma scaling envelopes & REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY \\
+Chemistry & FAIL\_CLOSED & PASS & CHEM\_BENCH\_001; thermochemical reference values; spectroscopic transition families; kinetic or equilibrium observable envelopes & REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY \\
+Biology & FAIL\_CLOSED & PASS & BIO\_BENCH\_001; gene-expression time-series families; cell-state transition signatures; stimulus-response or excitability onset markers & REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY \\
+Systems / Civilizational projection & FAIL\_CLOSED & PASS & SYS\_BENCH\_001; macro indicator trajectories; resource-intensity or throughput curves; held-out interval stability and regime shifts & REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY \\
 \bottomrule
 \end{longtable}
 
@@ -48,7 +48,7 @@ Measurement escalation status: `NOT\_REQUIRED`.
 Next lawful action: `MAINTAIN\_REPLAY\_DISCIPLINE`.
 
 \paragraph{Physics.}
-Closure wave: `WAVE\_1\_PHYSICS`. Current state: `PACKETIZED\_PENDING\_QUANTITATIVE\_VALIDATION`. Target state: `EMPIRICAL\_HARD\_CLOSED`.
+Closure wave: `WAVE\_1\_PHYSICS`. Current state: `PACKETIZED\_PROXY\_REPLAY\_EXECUTED`. Target state: `EMPIRICAL\_HARD\_CLOSED`.
 Benchmark families: PHY\_BENCH\_001; fundamental constants residuals; spectral line residual envelopes; transport or plasma scaling envelopes.
 Measurable outputs: relative\_constant\_error; spectral\_line\_residual; transport\_scaling\_residual.
 Measurement schema: Bind theorem-to-observable maps to pinned official constants and spectra, then evaluate held-out residual envelopes..
@@ -56,13 +56,13 @@ Acceptance criterion: Held-out residuals stay inside the declared tolerance band
 Falsifier: Any benchmark family with residuals outside tolerance or with broken sign/order constraints falsifies the promoted packet..
 Official/open route: `PASS` with source families NIST / CODATA constants; NIST spectra and reference data; DOE Office of Science challenge corpora.
 Selected route instances: U.S. Department of Energy Office of Science; U.S. Department of Energy Office of Science.
-Numerical packet status: `PROGRAM\_READY\_PENDING\_NUMERICAL\_EXECUTION`; replay status: `REPLAY\_HARNESS\_READY\_PENDING\_EXECUTION`.
+Numerical packet status: `PROGRAM\_READY\_PENDING\_NUMERICAL\_EXECUTION`; replay status: `PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE`.
 Measurement escalation rule: If official/open data do not cover the required observable family, queue institute-run measurement or observational partner acquisition..
 Measurement escalation status: `STAND\_BY\_FOR\_INSTITUTE\_RUN\_MEASUREMENT\_IF\_OPEN\_DATA\_IS\_INSUFFICIENT`.
-Next lawful action: `EXECUTE\_PHYSICS\_NUMERICAL\_REPLAY\_PACKET`.
+Next lawful action: `REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY`.
 
 \paragraph{Chemistry.}
-Closure wave: `WAVE\_2\_CHEMISTRY`. Current state: `PACKETIZED\_PENDING\_QUANTITATIVE\_VALIDATION`. Target state: `EMPIRICAL\_HARD\_CLOSED`.
+Closure wave: `WAVE\_2\_CHEMISTRY`. Current state: `PACKETIZED\_PROXY\_REPLAY\_EXECUTED`. Target state: `EMPIRICAL\_HARD\_CLOSED`.
 Benchmark families: CHEM\_BENCH\_001; thermochemical reference values; spectroscopic transition families; kinetic or equilibrium observable envelopes.
 Measurable outputs: enthalpy\_residual; spectral\_transition\_residual; kinetic\_or\_equilibrium\_residual.
 Measurement schema: Map theorem packets to thermochemical, spectral, and kinetic observables against pinned reference tables..
@@ -70,13 +70,13 @@ Acceptance criterion: Declared chemistry benchmark families pass the tolerance e
 Falsifier: A held-out thermochemical, spectral, or kinetic family outside tolerance collapses the promoted chemistry packet..
 Official/open route: `PASS` with source families NIST Chemistry WebBook; DOE BES / EFRC challenge corpora.
 Selected route instances: U.S. Department of Energy Office of Science.
-Numerical packet status: `PROGRAM\_READY\_PENDING\_NUMERICAL\_EXECUTION`; replay status: `REPLAY\_HARNESS\_READY\_PENDING\_EXECUTION`.
+Numerical packet status: `PROGRAM\_READY\_PENDING\_NUMERICAL\_EXECUTION`; replay status: `PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE`.
 Measurement escalation rule: When official/open reference data are insufficient, queue targeted laboratory or partner-measurement acquisition..
 Measurement escalation status: `STAND\_BY\_FOR\_INSTITUTE\_RUN\_MEASUREMENT\_IF\_OPEN\_DATA\_IS\_INSUFFICIENT`.
-Next lawful action: `EXECUTE\_CHEMISTRY\_NUMERICAL\_REPLAY\_PACKET`.
+Next lawful action: `REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY`.
 
 \paragraph{Biology.}
-Closure wave: `WAVE\_3\_BIOLOGY`. Current state: `PACKETIZED\_PENDING\_QUANTITATIVE\_VALIDATION`. Target state: `EMPIRICAL\_HARD\_CLOSED`.
+Closure wave: `WAVE\_3\_BIOLOGY`. Current state: `PACKETIZED\_PROXY\_REPLAY\_EXECUTED`. Target state: `EMPIRICAL\_HARD\_CLOSED`.
 Benchmark families: BIO\_BENCH\_001; gene-expression time-series families; cell-state transition signatures; stimulus-response or excitability onset markers.
 Measurable outputs: expression\_signature\_residual; state\_transition\_order\_error; response\_onset\_residual.
 Measurement schema: Choose one bounded biological lane and evaluate predicted state transitions or response signatures against open assay data..
@@ -84,13 +84,13 @@ Acceptance criterion: The promoted biological packet reproduces the declared mea
 Falsifier: If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound..
 Official/open route: `PASS` with source families NCBI GEO; official open biological assay repositories.
 Selected route instances: U.S. National Center for Biotechnology Information.
-Numerical packet status: `PROGRAM\_READY\_PENDING\_NUMERICAL\_EXECUTION`; replay status: `REPLAY\_HARNESS\_READY\_PENDING\_EXECUTION`.
+Numerical packet status: `PROGRAM\_READY\_PENDING\_NUMERICAL\_EXECUTION`; replay status: `PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE`.
 Measurement escalation rule: If open repositories cannot close the lane honestly, promote an institute-run observation or assay plan instead of overclaiming..
 Measurement escalation status: `STAND\_BY\_FOR\_INSTITUTE\_RUN\_MEASUREMENT\_IF\_OPEN\_DATA\_IS\_INSUFFICIENT`.
-Next lawful action: `EXECUTE\_BIOLOGY\_NUMERICAL\_REPLAY\_PACKET`.
+Next lawful action: `REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY`.
 
 \paragraph{Systems / Civilizational projection.}
-Closure wave: `WAVE\_4\_SYSTEMS`. Current state: `PACKETIZED\_PENDING\_QUANTITATIVE\_VALIDATION`. Target state: `EMPIRICAL\_HARD\_CLOSED`.
+Closure wave: `WAVE\_4\_SYSTEMS`. Current state: `PACKETIZED\_PROXY\_REPLAY\_EXECUTED`. Target state: `EMPIRICAL\_HARD\_CLOSED`.
 Benchmark families: SYS\_BENCH\_001; macro indicator trajectories; resource-intensity or throughput curves; held-out interval stability and regime shifts.
 Measurable outputs: trajectory\_residual; turning\_point\_error; held\_out\_interval\_regime\_score.
 Measurement schema: Evaluate K8 projection packets against pinned official macro-process series with held-out interval tests..
@@ -98,10 +98,10 @@ Acceptance criterion: Declared trajectory and regime-change observables remain i
 Falsifier: A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet..
 Official/open route: `PASS` with source families World Bank Indicators API; official macro-process or infrastructure benchmark series; DOE ASCR process-systems references.
 Selected route instances: U.S. Department of Energy Office of Science; World Bank.
-Numerical packet status: `PROGRAM\_READY\_PENDING\_NUMERICAL\_EXECUTION`; replay status: `REPLAY\_HARNESS\_READY\_PENDING\_EXECUTION`.
+Numerical packet status: `PROGRAM\_READY\_PENDING\_NUMERICAL\_EXECUTION`; replay status: `PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE`.
 Measurement escalation rule: If open macro-process series are insufficient, queue institute-run observation design or partner data acquisition..
 Measurement escalation status: `STAND\_BY\_FOR\_INSTITUTE\_RUN\_MEASUREMENT\_IF\_OPEN\_DATA\_IS\_INSUFFICIENT`.
-Next lawful action: `EXECUTE\_SYSTEMS\_NUMERICAL\_REPLAY\_PACKET`.
+Next lawful action: `REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY`.
 
 \subsection{Interpretation}
 The table is meant to keep the monograph honest. A domain may be conceptually projected by the OC hierarchy without yet being promoted as a standalone predictive theory.

@@ -3,7 +3,7 @@
     "repo_sha": "0342306731f12419da726988b1a734e1c7b9e38e",
     "script": "oc_core_operationalization_v1.py",
     "surface": "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
-    "ts_utc": "2026-04-13T13:50:00Z"
+    "ts_utc": "2026-04-13T15:54:56Z"
   },
   "policy_refs": [
     "logion/k7/spe/registry/BENCHMARK_RESIDUAL_POLICY_v1.json",
@@ -23,6 +23,7 @@
       "domain_id": "MATHEMATICS",
       "domain_title": "Mathematics",
       "evidence_bar": "HYBRID_ESCALATION",
+      "execution_basis_class": "CANONICAL_ANCHOR_REPLAY",
       "execution_readiness_status": "PASS",
       "execution_scope": "DETERMINISTIC_EXACT_REPLAY",
       "institute_run_escalation": {
@@ -51,6 +52,9 @@
       ],
       "official_source_status": "PASS",
       "protocol_id": "OC13::EXECUTION::MATHEMATICS::ANCHOR_REPLAY",
+      "proxy_basis_allowed_for_dev_visibility": null,
+      "proxy_basis_pass_eligible": null,
+      "proxy_metrics_summary": {},
       "quantitative_acceptance_thresholds": {
         "counterexample_survivor_total_max": 0,
         "policy_snapshot": {
@@ -107,14 +111,14 @@
       "benchmark_wave_id": "WAVE_1_PHYSICS",
       "blocking_ids": [
         "PHYSICS__NUMERICAL_PACKET_PASS_REQUIRED",
-        "PHYSICS__REPLAY_PASS_REQUIRED",
-        "PHYSICS__EXECUTION_PROTOCOL_ACTIVE"
+        "PHYSICS__OFFICIAL_OR_INSTITUTE_RUN_REPLAY_REQUIRED"
       ],
-      "current_state": "PACKETIZED_PENDING_QUANTITATIVE_VALIDATION",
+      "current_state": "PACKETIZED_PROXY_REPLAY_EXECUTED",
       "domain_id": "PHYSICS",
       "domain_title": "Physics",
       "evidence_bar": "HYBRID_ESCALATION",
-      "execution_readiness_status": "PROGRAM_READY_PENDING_EXECUTION",
+      "execution_basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+      "execution_readiness_status": "PROXY_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE",
       "execution_scope": "BOUNDED_OFFICIAL_CONSTANTS_SPECTRA_AND_TRANSPORT",
       "institute_run_escalation": {
         "current_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
@@ -149,6 +153,24 @@
       ],
       "official_source_status": "PASS",
       "protocol_id": "OC13::EXECUTION::PHYSICS::CONSTANTS_SPECTRA_TRANSPORT",
+      "proxy_basis_allowed_for_dev_visibility": true,
+      "proxy_basis_pass_eligible": false,
+      "proxy_metrics_summary": {
+        "cases_total": 30,
+        "critical_case_total": 0,
+        "critical_residual_sigma_threshold": 2.5,
+        "held_out_case_total": 20,
+        "normalized_error_max": 1.70259,
+        "normalized_error_max_max_sigma": 5.0,
+        "normalized_error_mean_abs": 0.858419,
+        "normalized_error_mean_abs_max_sigma": 1.0,
+        "normalized_error_p95": 1.680531,
+        "normalized_error_p95_max_sigma": 2.5,
+        "severe_case_total": 7,
+        "severe_residual_sigma_threshold": 1.5,
+        "tail_breach_count": 0,
+        "tail_breach_count_max": 0
+      },
       "quantitative_acceptance_thresholds": {
         "coverage_ratio_required": 1.0,
         "critical_residual_sigma_threshold": 2.5,
@@ -198,7 +220,7 @@
         "deterministic_replay_required": true,
         "output_schema": "OC_CORE_DOMAIN_HARD_CLOSURE_REPLAY_REPORT_v1"
       },
-      "replay_status": "REPLAY_HARNESS_READY_PENDING_EXECUTION"
+      "replay_status": "PROXY_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE"
     },
     {
       "benchmark_design": {
@@ -209,14 +231,14 @@
       "benchmark_wave_id": "WAVE_2_CHEMISTRY",
       "blocking_ids": [
         "CHEMISTRY__NUMERICAL_PACKET_PASS_REQUIRED",
-        "CHEMISTRY__REPLAY_PASS_REQUIRED",
-        "CHEMISTRY__EXECUTION_PROTOCOL_ACTIVE"
+        "CHEMISTRY__OFFICIAL_OR_INSTITUTE_RUN_REPLAY_REQUIRED"
       ],
-      "current_state": "PACKETIZED_PENDING_QUANTITATIVE_VALIDATION",
+      "current_state": "PACKETIZED_PROXY_REPLAY_EXECUTED",
       "domain_id": "CHEMISTRY",
       "domain_title": "Chemistry",
       "evidence_bar": "HYBRID_ESCALATION",
-      "execution_readiness_status": "PROGRAM_READY_PENDING_EXECUTION",
+      "execution_basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+      "execution_readiness_status": "PROXY_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE",
       "execution_scope": "BOUNDED_OFFICIAL_THERMOCHEMISTRY_SPECTRA_AND_KINETICS",
       "institute_run_escalation": {
         "current_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
@@ -244,6 +266,24 @@
       ],
       "official_source_status": "PASS",
       "protocol_id": "OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY_SPECTRA_KINETICS",
+      "proxy_basis_allowed_for_dev_visibility": true,
+      "proxy_basis_pass_eligible": false,
+      "proxy_metrics_summary": {
+        "cases_total": 30,
+        "critical_case_total": 0,
+        "critical_residual_sigma_threshold": 2.5,
+        "held_out_case_total": 19,
+        "normalized_error_max": 1.768332,
+        "normalized_error_max_max_sigma": 5.0,
+        "normalized_error_mean_abs": 0.781794,
+        "normalized_error_mean_abs_max_sigma": 1.0,
+        "normalized_error_p95": 1.639366,
+        "normalized_error_p95_max_sigma": 2.5,
+        "severe_case_total": 5,
+        "severe_residual_sigma_threshold": 1.5,
+        "tail_breach_count": 0,
+        "tail_breach_count_max": 0
+      },
       "quantitative_acceptance_thresholds": {
         "coverage_ratio_required": 1.0,
         "critical_residual_sigma_threshold": 2.5,
@@ -293,7 +333,7 @@
         "deterministic_replay_required": true,
         "output_schema": "OC_CORE_DOMAIN_HARD_CLOSURE_REPLAY_REPORT_v1"
       },
-      "replay_status": "REPLAY_HARNESS_READY_PENDING_EXECUTION"
+      "replay_status": "PROXY_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE"
     },
     {
       "benchmark_design": {
@@ -304,14 +344,14 @@
       "benchmark_wave_id": "WAVE_3_BIOLOGY",
       "blocking_ids": [
         "BIOLOGY__NUMERICAL_PACKET_PASS_REQUIRED",
-        "BIOLOGY__REPLAY_PASS_REQUIRED",
-        "BIOLOGY__EXECUTION_PROTOCOL_ACTIVE"
+        "BIOLOGY__OFFICIAL_OR_INSTITUTE_RUN_REPLAY_REQUIRED"
       ],
-      "current_state": "PACKETIZED_PENDING_QUANTITATIVE_VALIDATION",
+      "current_state": "PACKETIZED_PROXY_REPLAY_EXECUTED",
       "domain_id": "BIOLOGY",
       "domain_title": "Biology",
       "evidence_bar": "HYBRID_ESCALATION",
-      "execution_readiness_status": "PROGRAM_READY_PENDING_EXECUTION",
+      "execution_basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+      "execution_readiness_status": "PROXY_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE",
       "execution_scope": "BOUNDED_OPEN_ASSAY_STATE_TRANSITION_LANE",
       "institute_run_escalation": {
         "current_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
@@ -332,6 +372,24 @@
       ],
       "official_source_status": "PASS",
       "protocol_id": "OC13::EXECUTION::BIOLOGY::STATE_TRANSITIONS_AND_RESPONSE_SIGNATURES",
+      "proxy_basis_allowed_for_dev_visibility": true,
+      "proxy_basis_pass_eligible": false,
+      "proxy_metrics_summary": {
+        "cases_total": 30,
+        "critical_case_total": 0,
+        "critical_residual_sigma_threshold": 2.5,
+        "held_out_case_total": 16,
+        "normalized_error_max": 1.72961,
+        "normalized_error_max_max_sigma": 5.0,
+        "normalized_error_mean_abs": 0.746167,
+        "normalized_error_mean_abs_max_sigma": 1.0,
+        "normalized_error_p95": 1.621982,
+        "normalized_error_p95_max_sigma": 2.5,
+        "severe_case_total": 4,
+        "severe_residual_sigma_threshold": 1.5,
+        "tail_breach_count": 0,
+        "tail_breach_count_max": 0
+      },
       "quantitative_acceptance_thresholds": {
         "coverage_ratio_required": 1.0,
         "expected_calibration_error_max": 0.05,
@@ -380,7 +438,7 @@
         "deterministic_replay_required": true,
         "output_schema": "OC_CORE_DOMAIN_HARD_CLOSURE_REPLAY_REPORT_v1"
       },
-      "replay_status": "REPLAY_HARNESS_READY_PENDING_EXECUTION"
+      "replay_status": "PROXY_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE"
     },
     {
       "benchmark_design": {
@@ -391,14 +449,14 @@
       "benchmark_wave_id": "WAVE_4_SYSTEMS",
       "blocking_ids": [
         "SYSTEMS_CIVILIZATIONAL_PROJECTION__NUMERICAL_PACKET_PASS_REQUIRED",
-        "SYSTEMS_CIVILIZATIONAL_PROJECTION__REPLAY_PASS_REQUIRED",
-        "SYSTEMS_CIVILIZATIONAL_PROJECTION__EXECUTION_PROTOCOL_ACTIVE"
+        "SYSTEMS_CIVILIZATIONAL_PROJECTION__OFFICIAL_OR_INSTITUTE_RUN_REPLAY_REQUIRED"
       ],
-      "current_state": "PACKETIZED_PENDING_QUANTITATIVE_VALIDATION",
+      "current_state": "PACKETIZED_PROXY_REPLAY_EXECUTED",
       "domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
       "domain_title": "Systems / Civilizational projection",
       "evidence_bar": "HYBRID_ESCALATION",
-      "execution_readiness_status": "PROGRAM_READY_PENDING_EXECUTION",
+      "execution_basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+      "execution_readiness_status": "PROXY_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE",
       "execution_scope": "BOUNDED_MACRO_PROCESS_AND_HELD_OUT_INTERVAL_REPLAY",
       "institute_run_escalation": {
         "current_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
@@ -426,6 +484,24 @@
       ],
       "official_source_status": "PASS",
       "protocol_id": "OC13::EXECUTION::SYSTEMS::MACRO_TRAJECTORIES_AND_REGIME_SHIFTS",
+      "proxy_basis_allowed_for_dev_visibility": true,
+      "proxy_basis_pass_eligible": false,
+      "proxy_metrics_summary": {
+        "cases_total": 30,
+        "critical_case_total": 0,
+        "critical_residual_sigma_threshold": 2.5,
+        "held_out_case_total": 18,
+        "normalized_error_max": 1.644155,
+        "normalized_error_max_max_sigma": 5.0,
+        "normalized_error_mean_abs": 0.672786,
+        "normalized_error_mean_abs_max_sigma": 1.0,
+        "normalized_error_p95": 1.520051,
+        "normalized_error_p95_max_sigma": 2.5,
+        "severe_case_total": 3,
+        "severe_residual_sigma_threshold": 1.5,
+        "tail_breach_count": 0,
+        "tail_breach_count_max": 0
+      },
       "quantitative_acceptance_thresholds": {
         "brier_score_max": 0.08,
         "coverage_ratio_required": 1.0,
@@ -475,7 +551,7 @@
         "deterministic_replay_required": true,
         "output_schema": "OC_CORE_DOMAIN_HARD_CLOSURE_REPLAY_REPORT_v1"
       },
-      "replay_status": "REPLAY_HARNESS_READY_PENDING_EXECUTION"
+      "replay_status": "PROXY_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE"
     }
   ],
   "schema_id": "DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_v1",
@@ -485,6 +561,7 @@
     "hard_closed_total": 1,
     "hybrid_escalation_domain_total": 5,
     "institute_run_wave_total": 4,
-    "ready_for_execution_total": 4
+    "proxy_execution_complete_total": 4,
+    "ready_for_execution_total": 0
   }
 }
