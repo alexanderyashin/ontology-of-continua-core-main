@@ -1,19 +1,23 @@
 {
   "metadata": {
-    "repo_sha": "5de1e8534f11917dc2bf33f39bd60d89fde01adf",
+    "repo_sha": "0342306731f12419da726988b1a734e1c7b9e38e",
     "script": "oc_core_operationalization_v1.py",
     "surface": "logion/k0/governance/status/SCIENCE_OPERATIONALIZATION_AUTOPROPAGATION_CONTRACT_latest.json",
-    "ts_utc": "2026-04-13T11:15:02Z"
+    "ts_utc": "2026-04-13T13:31:30Z"
   },
   "refs": {
+    "domain_benchmark_dataset_manifest": "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
+    "domain_empirical_execution_protocols": "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
     "domain_hard_closure_execution_program": "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
-    "empirical_domain_validation_matrix": "logion/k0/governance/status/EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json"
+    "domain_replay_reports": "logion/k0/governance/status/DOMAIN_REPLAY_REPORTS_latest.json",
+    "empirical_domain_validation_matrix": "logion/k0/governance/status/EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json",
+    "institute_run_measurement_program": "logion/k0/governance/status/INSTITUTE_RUN_MEASUREMENT_PROGRAM_latest.json"
   },
   "rows": [
     {
       "autopropagation_status": "PASS",
       "consumer_proof_requirement": "Each target must expose the propagated ref in its authoritative contract.",
-      "projection_rule": "DERIVE_ONLY_FROM_CANONICAL_SCIENCE_TRUTH_AND_FAIL_CLOSED_IF_ANY_REQUIRED_SURFACE_IS_STALE",
+      "projection_rule": "DERIVE_ONLY_FROM_CANONICAL_SCIENCE_TRUTH_AND_FAIL_CLOSED_IF_ANY_REQUIRED_SURFACE_IS_STALE_OR_REPLAY_REPORTS_ARE_MISSING",
       "target_id": "SCIENCE_ARTIFACTS",
       "target_summary": "Master monograph, journal core, and companion packet set",
       "trigger_rule": "PROMOTED_SCIENCE_RESULT_OR_OPERATIONALIZATION_SURFACE_DELTA"
@@ -21,7 +25,7 @@
     {
       "autopropagation_status": "PASS",
       "consumer_proof_requirement": "Each target must expose the propagated ref in its authoritative contract.",
-      "projection_rule": "DERIVE_ONLY_FROM_CANONICAL_SCIENCE_TRUTH_AND_FAIL_CLOSED_IF_ANY_REQUIRED_SURFACE_IS_STALE",
+      "projection_rule": "DERIVE_ONLY_FROM_CANONICAL_SCIENCE_TRUTH_AND_FAIL_CLOSED_IF_ANY_REQUIRED_SURFACE_IS_STALE_OR_REPLAY_REPORTS_ARE_MISSING",
       "target_id": "COCKPIT_OWNER_CATALOG",
       "target_summary": "Owner outbound artifact catalog, channel catalog, and briefs",
       "trigger_rule": "PROMOTED_SCIENCE_RESULT_OR_OPERATIONALIZATION_SURFACE_DELTA"
@@ -29,7 +33,7 @@
     {
       "autopropagation_status": "PASS",
       "consumer_proof_requirement": "Each target must expose the propagated ref in its authoritative contract.",
-      "projection_rule": "DERIVE_ONLY_FROM_CANONICAL_SCIENCE_TRUTH_AND_FAIL_CLOSED_IF_ANY_REQUIRED_SURFACE_IS_STALE",
+      "projection_rule": "DERIVE_ONLY_FROM_CANONICAL_SCIENCE_TRUTH_AND_FAIL_CLOSED_IF_ANY_REQUIRED_SURFACE_IS_STALE_OR_REPLAY_REPORTS_ARE_MISSING",
       "target_id": "OUTBOUND_CHANNEL_DERIVATIVES",
       "target_summary": "Science, social, toolkit/product, and business/client payloads",
       "trigger_rule": "PROMOTED_SCIENCE_RESULT_OR_OPERATIONALIZATION_SURFACE_DELTA"
@@ -37,7 +41,7 @@
     {
       "autopropagation_status": "PASS",
       "consumer_proof_requirement": "Each target must expose the propagated ref in its authoritative contract.",
-      "projection_rule": "DERIVE_ONLY_FROM_CANONICAL_SCIENCE_TRUTH_AND_FAIL_CLOSED_IF_ANY_REQUIRED_SURFACE_IS_STALE",
+      "projection_rule": "DERIVE_ONLY_FROM_CANONICAL_SCIENCE_TRUTH_AND_FAIL_CLOSED_IF_ANY_REQUIRED_SURFACE_IS_STALE_OR_REPLAY_REPORTS_ARE_MISSING",
       "target_id": "PUBLIC_RELEASE_BUNDLE",
       "target_summary": "Release manifest, Zenodo preview, editorial bundle, and source package",
       "trigger_rule": "PROMOTED_SCIENCE_RESULT_OR_OPERATIONALIZATION_SURFACE_DELTA"

@@ -1,0 +1,69 @@
+\section{Pinned Benchmark Dataset Manifest}
+
+This appendix names the benchmark families, pinned datasets, held-out policies, quantitative thresholds, and falsifiers that define lawful empirical promotion for the current release.
+
+\subsection{Mathematics}
+Execution protocol: `OC13::EXECUTION::MATHEMATICS::ANCHOR\_REPLAY`. Evidence bar: `HYBRID\_ESCALATION`.
+Measurement schema: Replay declared mathematical packets deterministically against the strict closure ledger and counterexample traces..
+Held-out policy: `DETERMINISTIC\_COUNTEREXAMPLE\_AND\_TRACE\_REPLAY` with minimum cases `31`.
+Quantitative thresholds: coverage `N/A`, mean abs error at most `N/A sigma`, `p95` at most `N/A sigma`, `max` at most `N/A sigma`, Brier at most `N/A`, ECE at most `N/A`, tail breaches `N/A`.
+Acceptance criterion: No replay divergence and no surviving counterexample against the promoted packet..
+Falsifier: A single replay divergence or surviving counterexample collapses promotion for the affected packet..
+Replay command: `logion/k7/spe/orchestrator/science/run\_claim\_simulations\_v1.py`.
+No pinned external dataset manifest is required for the mathematics anchor lane because the benchmark family is deterministic strict replay rather than external measurement.
+
+\subsection{Physics}
+Execution protocol: `OC13::EXECUTION::PHYSICS::CONSTANTS\_SPECTRA\_TRANSPORT`. Evidence bar: `HYBRID\_ESCALATION`.
+Measurement schema: Bind theorem-to-observable maps to pinned official constants and spectra, then evaluate held-out residual envelopes..
+Held-out policy: `LEAVE\_ONE\_BENCHMARK\_FAMILY\_OUT` with minimum cases `30`.
+Quantitative thresholds: coverage `1.0`, mean abs error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `N/A`, ECE at most `N/A`, tail breaches `0`.
+Acceptance criterion: Held-out residuals stay inside the declared tolerance band for every promoted benchmark family..
+Falsifier: Any benchmark family with residuals outside tolerance or with broken sign/order constraints falsifies the promoted packet..
+Replay command: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id PHYSICS`.
+\begin{itemize}
+\item `PHY\_BENCH\_001`: `fine\_structure\_constant\_residual`; authority `NIST / CODATA constants`; dataset `\texttt{https://physics.nist.gov/cuu/Constants/index.html}`; held-out policy `leave-one-family-out residual verification`.
+\item `PHY\_BENCH\_002`: `hydrogen\_balmer\_line\_residual`; authority `NIST Atomic Spectra Database`; dataset `\texttt{https://physics.nist.gov/PhysRefData/ASD/lines\_form.html}`; held-out policy `reserve transitions not used during packet fitting`.
+\item `PHY\_BENCH\_003`: `transport\_scaling\_residual`; authority `DOE Office of Science challenge corpora`; dataset `\texttt{https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES\_Grand\_Challenges\_Report\_final.pdf}`; held-out policy `hold out one transport regime family`.
+\end{itemize}
+
+\subsection{Chemistry}
+Execution protocol: `OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY\_SPECTRA\_KINETICS`. Evidence bar: `HYBRID\_ESCALATION`.
+Measurement schema: Map theorem packets to thermochemical, spectral, and kinetic observables against pinned reference tables..
+Held-out policy: `HOLD\_OUT\_ONE\_COMPOUND\_OR\_REACTION\_CLASS` with minimum cases `30`.
+Quantitative thresholds: coverage `1.0`, mean abs error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `N/A`, ECE at most `N/A`, tail breaches `0`.
+Acceptance criterion: Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions..
+Falsifier: A held-out thermochemical, spectral, or kinetic family outside tolerance collapses the promoted chemistry packet..
+Replay command: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id CHEMISTRY`.
+\begin{itemize}
+\item `CHEM\_BENCH\_001`: `gas\_phase\_enthalpy\_residual`; authority `NIST Chemistry WebBook`; dataset `\texttt{https://webbook.nist.gov/chemistry/}`; held-out policy `hold out one compound family from calibration`.
+\item `CHEM\_BENCH\_002`: `spectral\_transition\_residual`; authority `NIST Chemistry WebBook`; dataset `\texttt{https://webbook.nist.gov/chemistry/}`; held-out policy `hold out one spectral family`.
+\item `CHEM\_BENCH\_003`: `kinetic\_or\_equilibrium\_residual`; authority `DOE BES / EFRC challenge corpora`; dataset `\texttt{https://science.osti.gov/bes/efrc/Research/Grand-Challenges}`; held-out policy `hold out one reaction-class envelope`.
+\end{itemize}
+
+\subsection{Biology}
+Execution protocol: `OC13::EXECUTION::BIOLOGY::STATE\_TRANSITIONS\_AND\_RESPONSE\_SIGNATURES`. Evidence bar: `HYBRID\_ESCALATION`.
+Measurement schema: Choose one bounded biological lane and evaluate predicted state transitions or response signatures against open assay data..
+Held-out policy: `RESERVE\_ONE\_DATASET\_FAMILY\_PER\_SIGNATURE\_CLASS` with minimum cases `30`.
+Quantitative thresholds: coverage `1.0`, mean abs error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `N/A`, ECE at most `0.05`, tail breaches `0`.
+Acceptance criterion: The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary..
+Falsifier: If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound..
+Replay command: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id BIOLOGY`.
+\begin{itemize}
+\item `BIO\_BENCH\_001`: `expression\_signature\_residual`; authority `NCBI GEO`; dataset `\texttt{https://www.ncbi.nlm.nih.gov/geo/}`; held-out policy `reserve one time-series family for held-out replay`.
+\item `BIO\_BENCH\_002`: `state\_transition\_order\_error`; authority `NCBI GEO`; dataset `\texttt{https://www.ncbi.nlm.nih.gov/geo/}`; held-out policy `reserve one cell-state transition family`.
+\item `BIO\_BENCH\_003`: `response\_onset\_residual`; authority `official open biological assay repositories`; dataset `\texttt{https://www.ncbi.nlm.nih.gov/geo/}`; held-out policy `reserve one response-signature family`.
+\end{itemize}
+
+\subsection{Systems / Civilizational projection}
+Execution protocol: `OC13::EXECUTION::SYSTEMS::MACRO\_TRAJECTORIES\_AND\_REGIME\_SHIFTS`. Evidence bar: `HYBRID\_ESCALATION`.
+Measurement schema: Evaluate K8 projection packets against pinned official macro-process series with held-out interval tests..
+Held-out policy: `HELD\_OUT\_INTERVAL\_REPLAY\_WITH\_TURNING\_POINT\_CHECKS` with minimum cases `30`.
+Quantitative thresholds: coverage `1.0`, mean abs error at most `N/A sigma`, `p95` at most `N/A sigma`, `max` at most `N/A sigma`, Brier at most `0.08`, ECE at most `0.05`, tail breaches `0`.
+Acceptance criterion: Declared trajectory and regime-change observables remain inside tolerance on held-out intervals..
+Falsifier: A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet..
+Replay command: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id SYSTEMS\_CIVILIZATIONAL\_PROJECTION`.
+\begin{itemize}
+\item `SYS\_BENCH\_001`: `population\_trajectory\_residual`; authority `World Bank Indicators API`; dataset `\texttt{https://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?format=json}`; held-out policy `leave out one interval family`.
+\item `SYS\_BENCH\_002`: `gdp\_growth\_turning\_point\_error`; authority `World Bank Indicators API`; dataset `\texttt{https://api.worldbank.org/v2/en/indicator/NY.GDP.MKTP.KD.ZG?format=json}`; held-out policy `reserve one held-out macro interval`.
+\item `SYS\_BENCH\_003`: `process\_system\_regime\_score`; authority `DOE ASCR process-systems references`; dataset `\texttt{https://science.osti.gov/ascr/Community-Resources/Workshops-and-Conferences/Grand-Challenges}`; held-out policy `reserve one regime-shift benchmark family`.
+\end{itemize}

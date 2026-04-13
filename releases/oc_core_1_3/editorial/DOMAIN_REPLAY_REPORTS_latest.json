@@ -1,0 +1,271 @@
+{
+  "metadata": {
+    "repo_sha": "0342306731f12419da726988b1a734e1c7b9e38e",
+    "script": "oc_core_operationalization_v1.py",
+    "surface": "logion/k0/governance/status/DOMAIN_REPLAY_REPORTS_latest.json",
+    "ts_utc": "2026-04-13T13:31:30Z"
+  },
+  "rows": [
+    {
+      "acceptance_criterion": "No replay divergence and no surviving counterexample against the promoted packet.",
+      "benchmark_dataset_total": 0,
+      "benchmark_rows": [],
+      "domain_id": "MATHEMATICS",
+      "domain_title": "Mathematics",
+      "evidence_bar": "HYBRID_ESCALATION",
+      "falsifier_specification": "A single replay divergence or surviving counterexample collapses promotion for the affected packet.",
+      "institute_run_measurement_wave_id": "",
+      "measurement_schema": "Replay declared mathematical packets deterministically against the strict closure ledger and counterexample traces.",
+      "measurement_wave_status": "NOT_REQUIRED",
+      "next_required_action": "MAINTAIN_REPLAY_DISCIPLINE",
+      "packet_id": "OC13::MATHEMATICS::STRICT_REPLAY_ANCHOR",
+      "protocol_id": "OC13::EXECUTION::MATHEMATICS::ANCHOR_REPLAY",
+      "quantitative_acceptance_thresholds": {
+        "counterexample_survivor_total_max": 0,
+        "replay_divergence_total_max": 0,
+        "strict_terminalized_total_min": 31
+      },
+      "quantitative_validation_status": "PASS_TERMINALIZED_NUMERICAL_REPLAY",
+      "refs": [
+        "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
+        "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
+        "logion/k0/governance/status/INSTITUTE_RUN_MEASUREMENT_PROGRAM_latest.json",
+        "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py"
+      ],
+      "replay_command_ref": "logion/k7/spe/orchestrator/science/run_claim_simulations_v1.py",
+      "replay_status": "PASS_REPLAYABLE",
+      "status": "PASS"
+    },
+    {
+      "acceptance_criterion": "Held-out residuals stay inside the declared tolerance band for every promoted benchmark family.",
+      "benchmark_dataset_total": 3,
+      "benchmark_rows": [
+        {
+          "benchmark_id": "PHY_BENCH_001",
+          "dataset_url": "https://physics.nist.gov/cuu/Constants/index.html",
+          "held_out_policy": "leave-one-family-out residual verification",
+          "observable_name": "fine_structure_constant_residual",
+          "replay_status": "PENDING_MODEL_PARAMETERIZATION"
+        },
+        {
+          "benchmark_id": "PHY_BENCH_002",
+          "dataset_url": "https://physics.nist.gov/PhysRefData/ASD/lines_form.html",
+          "held_out_policy": "reserve transitions not used during packet fitting",
+          "observable_name": "hydrogen_balmer_line_residual",
+          "replay_status": "PENDING_MODEL_PARAMETERIZATION"
+        },
+        {
+          "benchmark_id": "PHY_BENCH_003",
+          "dataset_url": "https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf",
+          "held_out_policy": "hold out one transport regime family",
+          "observable_name": "transport_scaling_residual",
+          "replay_status": "PENDING_MODEL_PARAMETERIZATION"
+        }
+      ],
+      "domain_id": "PHYSICS",
+      "domain_title": "Physics",
+      "evidence_bar": "HYBRID_ESCALATION",
+      "falsifier_specification": "Any benchmark family with residuals outside tolerance or with broken sign/order constraints falsifies the promoted packet.",
+      "institute_run_measurement_wave_id": "INSTITUTE_RUN::PHYSICS::WAVE_1A",
+      "measurement_schema": "Bind theorem-to-observable maps to pinned official constants and spectra, then evaluate held-out residual envelopes.",
+      "measurement_wave_status": "STAND_BY",
+      "next_required_action": "EXECUTE_PHYSICS_NUMERICAL_REPLAY_PACKET",
+      "packet_id": "OC13::PHYSICS::FOUNDATIONAL_CONSTANTS_AND_SPECTRA",
+      "protocol_id": "OC13::EXECUTION::PHYSICS::CONSTANTS_SPECTRA_TRANSPORT",
+      "quantitative_acceptance_thresholds": {
+        "coverage_ratio_required": 1.0,
+        "critical_residual_sigma_threshold": 2.5,
+        "normalized_error_max_max_sigma": 5.0,
+        "normalized_error_mean_abs_max_sigma": 1.0,
+        "normalized_error_p95_max_sigma": 2.5,
+        "severe_residual_sigma_threshold": 1.5,
+        "tail_breach_count_max": 0
+      },
+      "quantitative_validation_status": "PENDING_REPLAYABLE_NUMERICAL_EXECUTION",
+      "refs": [
+        "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
+        "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
+        "logion/k0/governance/status/INSTITUTE_RUN_MEASUREMENT_PROGRAM_latest.json",
+        "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py"
+      ],
+      "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS",
+      "replay_status": "REPLAY_HARNESS_READY_PENDING_NUMERICAL_EXECUTION",
+      "status": "PASS"
+    },
+    {
+      "acceptance_criterion": "Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions.",
+      "benchmark_dataset_total": 3,
+      "benchmark_rows": [
+        {
+          "benchmark_id": "CHEM_BENCH_001",
+          "dataset_url": "https://webbook.nist.gov/chemistry/",
+          "held_out_policy": "hold out one compound family from calibration",
+          "observable_name": "gas_phase_enthalpy_residual",
+          "replay_status": "PENDING_MODEL_PARAMETERIZATION"
+        },
+        {
+          "benchmark_id": "CHEM_BENCH_002",
+          "dataset_url": "https://webbook.nist.gov/chemistry/",
+          "held_out_policy": "hold out one spectral family",
+          "observable_name": "spectral_transition_residual",
+          "replay_status": "PENDING_MODEL_PARAMETERIZATION"
+        },
+        {
+          "benchmark_id": "CHEM_BENCH_003",
+          "dataset_url": "https://science.osti.gov/bes/efrc/Research/Grand-Challenges",
+          "held_out_policy": "hold out one reaction-class envelope",
+          "observable_name": "kinetic_or_equilibrium_residual",
+          "replay_status": "PENDING_MODEL_PARAMETERIZATION"
+        }
+      ],
+      "domain_id": "CHEMISTRY",
+      "domain_title": "Chemistry",
+      "evidence_bar": "HYBRID_ESCALATION",
+      "falsifier_specification": "A held-out thermochemical, spectral, or kinetic family outside tolerance collapses the promoted chemistry packet.",
+      "institute_run_measurement_wave_id": "INSTITUTE_RUN::CHEMISTRY::WAVE_2A",
+      "measurement_schema": "Map theorem packets to thermochemical, spectral, and kinetic observables against pinned reference tables.",
+      "measurement_wave_status": "STAND_BY",
+      "next_required_action": "EXECUTE_CHEMISTRY_NUMERICAL_REPLAY_PACKET",
+      "packet_id": "OC13::CHEMISTRY::THERMOCHEMISTRY_AND_SPECTRA",
+      "protocol_id": "OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY_SPECTRA_KINETICS",
+      "quantitative_acceptance_thresholds": {
+        "coverage_ratio_required": 1.0,
+        "critical_residual_sigma_threshold": 2.5,
+        "normalized_error_max_max_sigma": 5.0,
+        "normalized_error_mean_abs_max_sigma": 1.0,
+        "normalized_error_p95_max_sigma": 2.5,
+        "severe_residual_sigma_threshold": 1.5,
+        "tail_breach_count_max": 0
+      },
+      "quantitative_validation_status": "PENDING_REPLAYABLE_NUMERICAL_EXECUTION",
+      "refs": [
+        "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
+        "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
+        "logion/k0/governance/status/INSTITUTE_RUN_MEASUREMENT_PROGRAM_latest.json",
+        "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py"
+      ],
+      "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY",
+      "replay_status": "REPLAY_HARNESS_READY_PENDING_NUMERICAL_EXECUTION",
+      "status": "PASS"
+    },
+    {
+      "acceptance_criterion": "The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary.",
+      "benchmark_dataset_total": 3,
+      "benchmark_rows": [
+        {
+          "benchmark_id": "BIO_BENCH_001",
+          "dataset_url": "https://www.ncbi.nlm.nih.gov/geo/",
+          "held_out_policy": "reserve one time-series family for held-out replay",
+          "observable_name": "expression_signature_residual",
+          "replay_status": "PENDING_MODEL_PARAMETERIZATION"
+        },
+        {
+          "benchmark_id": "BIO_BENCH_002",
+          "dataset_url": "https://www.ncbi.nlm.nih.gov/geo/",
+          "held_out_policy": "reserve one cell-state transition family",
+          "observable_name": "state_transition_order_error",
+          "replay_status": "PENDING_MODEL_PARAMETERIZATION"
+        },
+        {
+          "benchmark_id": "BIO_BENCH_003",
+          "dataset_url": "https://www.ncbi.nlm.nih.gov/geo/",
+          "held_out_policy": "reserve one response-signature family",
+          "observable_name": "response_onset_residual",
+          "replay_status": "PENDING_MODEL_PARAMETERIZATION"
+        }
+      ],
+      "domain_id": "BIOLOGY",
+      "domain_title": "Biology",
+      "evidence_bar": "HYBRID_ESCALATION",
+      "falsifier_specification": "If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound.",
+      "institute_run_measurement_wave_id": "INSTITUTE_RUN::BIOLOGY::WAVE_3A",
+      "measurement_schema": "Choose one bounded biological lane and evaluate predicted state transitions or response signatures against open assay data.",
+      "measurement_wave_status": "STAND_BY",
+      "next_required_action": "EXECUTE_BIOLOGY_NUMERICAL_REPLAY_PACKET",
+      "packet_id": "OC13::BIOLOGY::STATE_TRANSITION_AND_RESPONSE_SIGNATURES",
+      "protocol_id": "OC13::EXECUTION::BIOLOGY::STATE_TRANSITIONS_AND_RESPONSE_SIGNATURES",
+      "quantitative_acceptance_thresholds": {
+        "coverage_ratio_required": 1.0,
+        "expected_calibration_error_max": 0.05,
+        "normalized_error_max_max_sigma": 5.0,
+        "normalized_error_mean_abs_max_sigma": 1.0,
+        "normalized_error_p95_max_sigma": 2.5,
+        "tail_breach_count_max": 0
+      },
+      "quantitative_validation_status": "PENDING_REPLAYABLE_NUMERICAL_EXECUTION",
+      "refs": [
+        "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
+        "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
+        "logion/k0/governance/status/INSTITUTE_RUN_MEASUREMENT_PROGRAM_latest.json",
+        "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py"
+      ],
+      "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY",
+      "replay_status": "REPLAY_HARNESS_READY_PENDING_NUMERICAL_EXECUTION",
+      "status": "PASS"
+    },
+    {
+      "acceptance_criterion": "Declared trajectory and regime-change observables remain inside tolerance on held-out intervals.",
+      "benchmark_dataset_total": 3,
+      "benchmark_rows": [
+        {
+          "benchmark_id": "SYS_BENCH_001",
+          "dataset_url": "https://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?format=json",
+          "held_out_policy": "leave out one interval family",
+          "observable_name": "population_trajectory_residual",
+          "replay_status": "PENDING_MODEL_PARAMETERIZATION"
+        },
+        {
+          "benchmark_id": "SYS_BENCH_002",
+          "dataset_url": "https://api.worldbank.org/v2/en/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+          "held_out_policy": "reserve one held-out macro interval",
+          "observable_name": "gdp_growth_turning_point_error",
+          "replay_status": "PENDING_MODEL_PARAMETERIZATION"
+        },
+        {
+          "benchmark_id": "SYS_BENCH_003",
+          "dataset_url": "https://science.osti.gov/ascr/Community-Resources/Workshops-and-Conferences/Grand-Challenges",
+          "held_out_policy": "reserve one regime-shift benchmark family",
+          "observable_name": "process_system_regime_score",
+          "replay_status": "PENDING_MODEL_PARAMETERIZATION"
+        }
+      ],
+      "domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
+      "domain_title": "Systems / Civilizational projection",
+      "evidence_bar": "HYBRID_ESCALATION",
+      "falsifier_specification": "A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet.",
+      "institute_run_measurement_wave_id": "INSTITUTE_RUN::SYSTEMS::WAVE_4A",
+      "measurement_schema": "Evaluate K8 projection packets against pinned official macro-process series with held-out interval tests.",
+      "measurement_wave_status": "STAND_BY",
+      "next_required_action": "EXECUTE_SYSTEMS_NUMERICAL_REPLAY_PACKET",
+      "packet_id": "OC13::SYSTEMS::K8_MACRO_PROCESS_AND_REGIME_SHIFT",
+      "protocol_id": "OC13::EXECUTION::SYSTEMS::MACRO_TRAJECTORIES_AND_REGIME_SHIFTS",
+      "quantitative_acceptance_thresholds": {
+        "brier_score_max": 0.08,
+        "coverage_ratio_required": 1.0,
+        "critical_failure_f1_min": 0.87,
+        "critical_failure_precision_min": 0.85,
+        "critical_failure_recall_min": 0.9,
+        "expected_calibration_error_max": 0.05,
+        "tail_breach_count_max": 0
+      },
+      "quantitative_validation_status": "PENDING_REPLAYABLE_NUMERICAL_EXECUTION",
+      "refs": [
+        "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
+        "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
+        "logion/k0/governance/status/INSTITUTE_RUN_MEASUREMENT_PROGRAM_latest.json",
+        "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py"
+      ],
+      "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION",
+      "replay_status": "REPLAY_HARNESS_READY_PENDING_NUMERICAL_EXECUTION",
+      "status": "PASS"
+    }
+  ],
+  "schema_id": "DOMAIN_REPLAY_REPORTS_v1",
+  "status": "PASS",
+  "summary": {
+    "checked_domain_total": 5,
+    "pass_replayable_total": 1,
+    "pending_execution_total": 4,
+    "stand_by_measurement_wave_total": 4
+  }
+}

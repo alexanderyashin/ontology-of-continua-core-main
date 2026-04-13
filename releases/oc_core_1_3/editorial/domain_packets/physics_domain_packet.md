@@ -16,9 +16,15 @@
 
 ## Benchmark Dataset Manifest
 
-- {'authority_ref': 'NIST / CODATA constants', 'benchmark_id': 'PHY_BENCH_001', 'dataset_url': 'https://physics.nist.gov/cuu/Constants/index.html', 'held_out_policy': 'leave-one-family-out residual verification', 'observable_name': 'fine_structure_constant_residual'}
-- {'authority_ref': 'NIST Atomic Spectra Database', 'benchmark_id': 'PHY_BENCH_002', 'dataset_url': 'https://physics.nist.gov/PhysRefData/ASD/lines_form.html', 'held_out_policy': 'reserve transitions not used during packet fitting', 'observable_name': 'hydrogen_balmer_line_residual'}
-- {'authority_ref': 'DOE Office of Science challenge corpora', 'benchmark_id': 'PHY_BENCH_003', 'dataset_url': 'https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf', 'held_out_policy': 'hold out one transport regime family', 'observable_name': 'transport_scaling_residual'}
+- PHY_BENCH_001: fine_structure_constant_residual | NIST / CODATA constants | https://physics.nist.gov/cuu/Constants/index.html | held-out: leave-one-family-out residual verification
+- PHY_BENCH_002: hydrogen_balmer_line_residual | NIST Atomic Spectra Database | https://physics.nist.gov/PhysRefData/ASD/lines_form.html | held-out: reserve transitions not used during packet fitting
+- PHY_BENCH_003: transport_scaling_residual | DOE Office of Science challenge corpora | https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf | held-out: hold out one transport regime family
+
+## Pinned Official Route Protocol
+
+- PHY_ROUTE_001: NIST (OFFICIAL_CONSTANTS_PORTAL) -> https://physics.nist.gov/cuu/Constants/index.html | purpose: Pinned constants and CODATA reference values
+- PHY_ROUTE_002: NIST (OFFICIAL_SPECTRA_DATABASE) -> https://physics.nist.gov/PhysRefData/ASD/lines_form.html | purpose: Pinned spectral benchmark families
+- PHY_ROUTE_003: U.S. Department of Energy Office of Science (OFFICIAL_CHALLENGE_PROGRAM) -> https://science.osti.gov/ascr | purpose: Transport or plasma-scale challenge framing and official program context
 
 ## Measurable Outputs
 
@@ -38,15 +44,29 @@ Held-out residuals stay inside the declared tolerance band for every promoted be
 
 Any benchmark family with residuals outside tolerance or with broken sign/order constraints falsifies the promoted packet.
 
+## Quantitative Acceptance Thresholds
+
+- coverage_ratio_required: 1.0
+- critical_residual_sigma_threshold: 2.5
+- normalized_error_max_max_sigma: 5.0
+- normalized_error_mean_abs_max_sigma: 1.0
+- normalized_error_p95_max_sigma: 2.5
+- severe_residual_sigma_threshold: 1.5
+- tail_breach_count_max: 0
+
 ## Replay Harness
 
 - Replay command: `logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py`
 - Replay program status: `PROGRAM_DEFINED_PENDING_EXECUTION`
+- Execution protocol id: `OC13::EXECUTION::PHYSICS::CONSTANTS_SPECTRA_TRANSPORT`
+- Evidence bar: `HYBRID_ESCALATION`
 
-## Official / Open Source Routes
+## Institute-run Escalation
 
-- U.S. Department of Energy Office of Science (OFFICIAL_GRAND_CHALLENGE_REPORT): https://science.osti.gov/-/media/hep/pdf/files/Banner-PDFs/QIS_Study_Group_Report.pdf
-- U.S. Department of Energy Office of Science (OFFICIAL_GRAND_CHALLENGE_REPORT): https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf
+- Current escalation status: `STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT`
+- Escalation trigger: `OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_RESIDUAL_BREACH_PERSISTS`
+- Measurement wave id: `INSTITUTE_RUN::PHYSICS::WAVE_1A`
+- Measurement plan: Acquire partner or institute-run measurements for the missing observable family and rerun the held-out replay packet without widening scope.
 
 ## Blocking IDs
 

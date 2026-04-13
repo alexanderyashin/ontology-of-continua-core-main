@@ -7,4 +7,5 @@ This folder prepares the dual-track OC Core 1.3 science release for the open fou
 - `manuscripts/` keeps compatibility aliases for the journal-core PDFs and Markdown sources.
 - `editorial/` and `assets/` contain the outward support package shared across the same scientific version.
 - `editorial/domain_packets/` contains the packetized hard-closure domain dossiers with benchmark routes, replay commands, and falsifier definitions.
+- `editorial/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json`, `editorial/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json`, `editorial/DOMAIN_REPLAY_REPORTS_latest.json`, and `editorial/INSTITUTE_RUN_MEASUREMENT_PROGRAM_latest.json` expose the hybrid-escalation evidence bar, pinned benchmark datasets, replay packets, and the institute-run fallback waves.
 - The monograph source package includes the reader guide, source-audit chapter, and the Core 1.3 foundational consistency dossier used to explain hierarchy, statement classes, and extraction boundaries.
