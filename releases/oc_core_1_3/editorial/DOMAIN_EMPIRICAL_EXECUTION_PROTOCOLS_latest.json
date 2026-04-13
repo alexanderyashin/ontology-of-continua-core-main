@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "repo_sha": "9a5c0473e196095aafe9e79ef22fd4b8bfb4af27",
+    "repo_sha": "6bf2f62b3facac6c6a33d3db05acd760079d63ee",
     "script": "oc_core_operationalization_v1.py",
     "surface": "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
-    "ts_utc": "2026-04-13T20:11:02Z"
+    "ts_utc": "2026-04-13T21:34:39Z"
   },
   "policy_refs": [
     "logion/k7/spe/registry/BENCHMARK_RESIDUAL_POLICY_v1.json",
@@ -358,27 +358,46 @@
         "out_of_sample_required": true
       },
       "benchmark_wave_id": "WAVE_3_BIOLOGY",
-      "blocking_ids": [
-        "BIOLOGY__NUMERICAL_PACKET_PASS_REQUIRED",
-        "BIOLOGY__OFFICIAL_OR_INSTITUTE_RUN_REPLAY_REQUIRED"
-      ],
-      "current_state": "PACKETIZED_PROXY_REPLAY_EXECUTED",
+      "blocking_ids": [],
+      "current_state": "EMPIRICAL_HARD_CLOSED",
       "domain_id": "BIOLOGY",
       "domain_title": "Biology",
       "evidence_bar": "HYBRID_ESCALATION",
-      "execution_basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
-      "execution_readiness_status": "PROXY_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE",
+      "execution_basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+      "execution_readiness_status": "PASS",
       "execution_scope": "BOUNDED_OPEN_ASSAY_STATE_TRANSITION_LANE",
       "institute_run_escalation": {
-        "current_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
+        "current_status": "NOT_REQUIRED",
         "default_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
         "escalation_trigger": "OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_SIGNATURE_CLASS_UNDERCONSTRAINED",
         "measurement_plan_summary": "Run a bounded institute observation or assay campaign only for the explicitly declared biological lane; no widening of biological scope is allowed.",
         "measurement_wave_id": "INSTITUTE_RUN::BIOLOGY::WAVE_3A"
       },
-      "numerical_packet_status": "PROGRAM_READY_PENDING_NUMERICAL_EXECUTION",
-      "official_coverage_summary": {},
-      "official_metrics_summary": {},
+      "numerical_packet_status": "PASS_ACTIVE_NUMERICAL_PACKET",
+      "official_coverage_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3
+      },
+      "official_metrics_summary": {
+        "benchmark_total": 3,
+        "calibration_case_total": 16,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "covered_case_total": 30,
+        "covered_held_out_case_total": 16,
+        "critical_case_total": 0,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3,
+        "held_out_evaluated_case_total": 16,
+        "normalized_error_max": 1.438582,
+        "normalized_error_mean_abs": 0.444222,
+        "normalized_error_p95": 1.030033,
+        "severe_case_total": 0,
+        "tail_breach_count": 0
+      },
       "official_route_refs": [
         {
           "authority_class": "OFFICIAL_OPEN_DATA_HUB",
@@ -390,24 +409,9 @@
       ],
       "official_source_status": "PASS",
       "protocol_id": "OC13::EXECUTION::BIOLOGY::STATE_TRANSITIONS_AND_RESPONSE_SIGNATURES",
-      "proxy_basis_allowed_for_dev_visibility": true,
-      "proxy_basis_pass_eligible": false,
-      "proxy_metrics_summary": {
-        "cases_total": 30,
-        "critical_case_total": 0,
-        "critical_residual_sigma_threshold": 2.5,
-        "held_out_case_total": 16,
-        "normalized_error_max": 1.72961,
-        "normalized_error_max_max_sigma": 5.0,
-        "normalized_error_mean_abs": 0.746167,
-        "normalized_error_mean_abs_max_sigma": 1.0,
-        "normalized_error_p95": 1.621982,
-        "normalized_error_p95_max_sigma": 2.5,
-        "severe_case_total": 4,
-        "severe_residual_sigma_threshold": 1.5,
-        "tail_breach_count": 0,
-        "tail_breach_count_max": 0
-      },
+      "proxy_basis_allowed_for_dev_visibility": null,
+      "proxy_basis_pass_eligible": null,
+      "proxy_metrics_summary": {},
       "quantitative_acceptance_thresholds": {
         "coverage_ratio_required": 1.0,
         "expected_calibration_error_max": 0.05,
@@ -456,7 +460,7 @@
         "deterministic_replay_required": true,
         "output_schema": "OC_CORE_DOMAIN_HARD_CLOSURE_REPLAY_REPORT_v1"
       },
-      "replay_status": "PROXY_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE"
+      "replay_status": "PASS_REPLAYABLE"
     },
     {
       "benchmark_design": {
@@ -596,11 +600,11 @@
   "status": "PASS",
   "summary": {
     "domain_total": 5,
-    "hard_closed_total": 1,
+    "hard_closed_total": 2,
     "hybrid_escalation_domain_total": 5,
     "institute_run_wave_total": 4,
     "official_partial_execution_complete_total": 3,
-    "proxy_execution_complete_total": 1,
+    "proxy_execution_complete_total": 0,
     "ready_for_execution_total": 0
   }
 }

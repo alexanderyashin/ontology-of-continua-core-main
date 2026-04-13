@@ -2,11 +2,11 @@
 
 ## Status Snapshot
 
-- Current state: `PACKETIZED_PROXY_REPLAY_EXECUTED`
+- Current state: `EMPIRICAL_HARD_CLOSED`
 - Target state: `EMPIRICAL_HARD_CLOSED`
-- Quantitative pass result: `PROXY_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE`
-- Next required action: `REPLACE_PROXY_WITH_OFFICIAL_OR_INSTITUTE_RUN_REPLAY`
-- Replay status: `PROXY_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE`
+- Quantitative pass result: `PASS`
+- Next required action: `MAINTAIN_REPLAY_DISCIPLINE`
+- Replay status: `PASS_REPLAYABLE`
 
 ## Theorem-to-Observable Map
 
@@ -54,18 +54,17 @@ If the bounded signature family fails on held-out datasets, the biological packe
 ## Replay Harness
 
 - Replay command: `logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY`
-- Replay program status: `PROGRAM_EXECUTED_PROXY_NOT_PASS_ELIGIBLE`
+- Replay program status: `ACTIVE_REPLAY_LANE`
 - Execution protocol id: `OC13::EXECUTION::BIOLOGY::STATE_TRANSITIONS_AND_RESPONSE_SIGNATURES`
 - Evidence bar: `HYBRID_ESCALATION`
 
 ## Institute-run Escalation
 
-- Current escalation status: `STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT`
+- Current escalation status: `NOT_REQUIRED`
 - Escalation trigger: `OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_SIGNATURE_CLASS_UNDERCONSTRAINED`
 - Measurement wave id: `INSTITUTE_RUN::BIOLOGY::WAVE_3A`
 - Measurement plan: Run a bounded institute observation or assay campaign only for the explicitly declared biological lane; no widening of biological scope is allowed.
 
 ## Blocking IDs
 
-- BIOLOGY__NUMERICAL_PACKET_PASS_REQUIRED
-- BIOLOGY__OFFICIAL_OR_INSTITUTE_RUN_REPLAY_REQUIRED
+- None.

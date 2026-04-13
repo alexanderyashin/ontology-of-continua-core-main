@@ -2,7 +2,7 @@
 
 This appendix turns the empirical closure backlog into an execution board. Each row states whether the domain can be run now, which replay command constitutes the lawful next step, and whether the institute-run fallback wave is merely on stand-by or already the active route.
 
-The current board exposes 5 tracked lanes: 1 already validated, 0 executable immediately, and 4 with an institute-run fallback wave already defined.
+The current board exposes 5 tracked lanes: 2 already validated, 0 executable immediately, and 3 with an institute-run fallback wave already defined.
 
 \begin{longtable}{p{0.13\textwidth}p{0.12\textwidth}p{0.10\textwidth}p{0.16\textwidth}p{0.16\textwidth}p{0.21\textwidth}}
 \toprule
@@ -16,7 +16,7 @@ Domain & Validation & Execute now & Command phase & Measurement wave & Next lawf
 Mathematics & PASS & YES & MAINTENANCE & not required & MAINTAIN\_REPLAY\_DISCIPLINE \\
 Physics & FAIL\_CLOSED & NO & COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE & INSTITUTE\_RUN::PHYSICS::WAVE\_1A & COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE\_AND\_PROMOTE\_NUMERICAL\_PACKET \\
 Chemistry & FAIL\_CLOSED & NO & COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE & INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A & COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE\_AND\_PROMOTE\_NUMERICAL\_PACKET \\
-Biology & FAIL\_CLOSED & NO & BLOCKED & INSTITUTE\_RUN::BIOLOGY::WAVE\_3A & REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY \\
+Biology & PASS & YES & MAINTENANCE & INSTITUTE\_RUN::BIOLOGY::WAVE\_3A & MAINTAIN\_REPLAY\_DISCIPLINE \\
 Systems / Civilizational projection & FAIL\_CLOSED & NO & COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE & INSTITUTE\_RUN::SYSTEMS::WAVE\_4A & COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE\_AND\_PROMOTE\_NUMERICAL\_PACKET \\
 \bottomrule
 \end{longtable}
@@ -52,14 +52,14 @@ Blocking ids: CHEMISTRY\_\_NUMERICAL\_PACKET\_PASS\_REQUIRED; CHEMISTRY\_\_OFFIC
 Measurement wave: `INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A` with status `STAND\_BY`.
 
 \paragraph{Biology.}
-Validation status: `FAIL\_CLOSED`. Execute now: `NO`. Command phase: `BLOCKED`.
+Validation status: `PASS`. Execute now: `YES`. Command phase: `MAINTENANCE`.
 Command ref: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id BIOLOGY`.
 Caseset readiness: `30` parameterized out of `30` cases (minimum `30`); coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Acceptance criterion: The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary..
 Falsifier: If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound..
 Prerequisites: PINNED\_SOURCE\_ROUTE; BENCHMARK\_DATASET\_MANIFEST; NUMERICAL\_PACKET\_SPEC; REPLAY\_HARNESS; EXPLICIT\_FALSIFIER.
-Blocking ids: BIOLOGY\_\_NUMERICAL\_PACKET\_PASS\_REQUIRED; BIOLOGY\_\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY\_REQUIRED; BIOLOGY\_\_EMPIRICAL\_VALIDATION\_PENDING.
-Measurement wave: `INSTITUTE\_RUN::BIOLOGY::WAVE\_3A` with status `STAND\_BY`.
+Blocking ids: none.
+Measurement wave: `INSTITUTE\_RUN::BIOLOGY::WAVE\_3A` with status `NOT\_REQUIRED`.
 
 \paragraph{Systems / Civilizational projection.}
 Validation status: `FAIL\_CLOSED`. Execute now: `NO`. Command phase: `COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE`.

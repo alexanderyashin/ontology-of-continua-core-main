@@ -8,7 +8,7 @@ This is why the release now carries a distinct operationalization stack. It reco
 
 \subsection{Current release truth}
 The current hard validation matrix checks 5 anchor or empirical domains.
-At present 1 of these lanes satisfy the full validation bar, while 4 lanes remain fail-closed.
+At present 2 of these lanes satisfy the full validation bar, while 3 lanes remain fail-closed.
 The resulting release posture is therefore intentionally asymmetric: the mathematical anchor is active and replayable, but the broader empirical program is still frontier-bound and may not be advertised as already closed.
 
 \subsection{Domain order and promotion rule}
@@ -27,7 +27,7 @@ Domain & Validation & Data route & Benchmark families & Next lawful action \\
 Mathematics & PASS & PASS & TIER1\_AIMATH\_PDF\_013\_Q010; strict closure result ledger; counterexample search corpus; deterministic replay traces & MAINTAIN\_REPLAY\_DISCIPLINE \\
 Physics & FAIL\_CLOSED & PASS & PHY\_BENCH\_001; fundamental constants residuals; spectral line residual envelopes; transport or plasma scaling envelopes & COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE\_AND\_PROMOTE\_NUMERICAL\_PACKET \\
 Chemistry & FAIL\_CLOSED & PASS & CHEM\_BENCH\_001; thermochemical reference values; spectroscopic transition families; kinetic or equilibrium observable envelopes & COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE\_AND\_PROMOTE\_NUMERICAL\_PACKET \\
-Biology & FAIL\_CLOSED & PASS & BIO\_BENCH\_001; gene-expression time-series families; cell-state transition signatures; stimulus-response or excitability onset markers & REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY \\
+Biology & PASS & PASS & BIO\_BENCH\_001; gene-expression time-series families; cell-state transition signatures; stimulus-response or excitability onset markers & MAINTAIN\_REPLAY\_DISCIPLINE \\
 Systems / Civilizational projection & FAIL\_CLOSED & PASS & SYS\_BENCH\_001; macro indicator trajectories; resource-intensity or throughput curves; held-out interval stability and regime shifts & COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE\_AND\_PROMOTE\_NUMERICAL\_PACKET \\
 \bottomrule
 \end{longtable}
@@ -76,7 +76,7 @@ Measurement escalation status: `STAND\_BY\_FOR\_INSTITUTE\_RUN\_MEASUREMENT\_IF\
 Next lawful action: `COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE\_AND\_PROMOTE\_NUMERICAL\_PACKET`.
 
 \paragraph{Biology.}
-Closure wave: `WAVE\_3\_BIOLOGY`. Current state: `PACKETIZED\_PROXY\_REPLAY\_EXECUTED`. Target state: `EMPIRICAL\_HARD\_CLOSED`.
+Closure wave: `WAVE\_3\_BIOLOGY`. Current state: `EMPIRICAL\_HARD\_CLOSED`. Target state: `EMPIRICAL\_HARD\_CLOSED`.
 Benchmark families: BIO\_BENCH\_001; gene-expression time-series families; cell-state transition signatures; stimulus-response or excitability onset markers.
 Measurable outputs: expression\_signature\_residual; state\_transition\_order\_error; response\_onset\_residual.
 Measurement schema: Choose one bounded biological lane and evaluate predicted state transitions or response signatures against open assay data..
@@ -84,10 +84,10 @@ Acceptance criterion: The promoted biological packet reproduces the declared mea
 Falsifier: If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound..
 Official/open route: `PASS` with source families NCBI GEO; official open biological assay repositories.
 Selected route instances: U.S. National Center for Biotechnology Information.
-Numerical packet status: `PROGRAM\_READY\_PENDING\_NUMERICAL\_EXECUTION`; replay status: `PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE`.
+Numerical packet status: `PASS\_ACTIVE\_NUMERICAL\_PACKET`; replay status: `PASS\_REPLAYABLE`.
 Measurement escalation rule: If open repositories cannot close the lane honestly, promote an institute-run observation or assay plan instead of overclaiming..
-Measurement escalation status: `STAND\_BY\_FOR\_INSTITUTE\_RUN\_MEASUREMENT\_IF\_OPEN\_DATA\_IS\_INSUFFICIENT`.
-Next lawful action: `REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY`.
+Measurement escalation status: `NOT\_REQUIRED`.
+Next lawful action: `MAINTAIN\_REPLAY\_DISCIPLINE`.
 
 \paragraph{Systems / Civilizational projection.}
 Closure wave: `WAVE\_4\_SYSTEMS`. Current state: `PACKETIZED\_PARTIAL\_OFFICIAL\_REPLAY\_EXECUTED`. Target state: `EMPIRICAL\_HARD\_CLOSED`.
@@ -109,5 +109,5 @@ For this reason the current release distinguishes bridge status from hard closur
 
 \subsection{Release consequence}
 The foundational consistency dossier therefore marks the platinum release state as `FAIL\_CLOSED`.
-The current matrix still blocks 4 of 5 checked lanes, and any empirical lane that lacks a standalone packet, numerical contract, replay harness, or falsifier remains fail-closed by policy.
+The current matrix still blocks 3 of 5 checked lanes, and any empirical lane that lacks a standalone packet, numerical contract, replay harness, or falsifier remains fail-closed by policy.
 This does not diminish the proved Core kernel; it prevents overclaiming beyond what has actually been formalized, benchmarked, and made replayable.

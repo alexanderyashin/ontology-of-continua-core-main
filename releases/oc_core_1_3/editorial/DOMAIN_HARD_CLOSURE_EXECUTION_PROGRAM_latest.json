@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "repo_sha": "9a5c0473e196095aafe9e79ef22fd4b8bfb4af27",
+    "repo_sha": "6bf2f62b3facac6c6a33d3db05acd760079d63ee",
     "script": "oc_core_operationalization_v1.py",
     "surface": "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
-    "ts_utc": "2026-04-13T20:11:02Z"
+    "ts_utc": "2026-04-13T21:34:39Z"
   },
   "refs": {
     "domain_external_data_manifest": "logion/k0/governance/status/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
@@ -1147,12 +1147,9 @@
         "cell-state transition signatures",
         "stimulus-response or excitability onset markers"
       ],
-      "blocking_ids": [
-        "BIOLOGY__NUMERICAL_PACKET_PASS_REQUIRED",
-        "BIOLOGY__OFFICIAL_OR_INSTITUTE_RUN_REPLAY_REQUIRED"
-      ],
+      "blocking_ids": [],
       "closure_wave_id": "WAVE_3_BIOLOGY",
-      "current_state": "PACKETIZED_PROXY_REPLAY_EXECUTED",
+      "current_state": "EMPIRICAL_HARD_CLOSED",
       "domain_id": "BIOLOGY",
       "domain_title": "Biology",
       "falsifier_specification": "If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound.",
@@ -1162,13 +1159,46 @@
         "response_onset_residual"
       ],
       "measurement_escalation_rule": "If open repositories cannot close the lane honestly, promote an institute-run observation or assay plan instead of overclaiming.",
-      "measurement_escalation_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
+      "measurement_escalation_status": "NOT_REQUIRED",
       "measurement_schema": "Choose one bounded biological lane and evaluate predicted state transitions or response signatures against open assay data.",
       "measurement_wave_execution_mode": "STRICT_REAL_RUN",
-      "next_required_action": "REPLACE_PROXY_WITH_OFFICIAL_OR_INSTITUTE_RUN_REPLAY",
-      "official_acceptance_summary": {},
-      "official_coverage_summary": {},
-      "official_metrics_summary": {},
+      "next_required_action": "MAINTAIN_REPLAY_DISCIPLINE",
+      "official_acceptance_summary": {
+        "acceptance_mode": "SIGMA_RESIDUAL_ENVELOPE",
+        "checked_thresholds": {
+          "coverage_ratio_required": 1.0,
+          "normalized_error_max_max_sigma": 5.0,
+          "normalized_error_mean_abs_max_sigma": 1.0,
+          "normalized_error_p95_max_sigma": 2.5,
+          "tail_breach_count_max": 0
+        },
+        "failure_ids": [],
+        "pass_eligible": true
+      },
+      "official_coverage_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3
+      },
+      "official_metrics_summary": {
+        "benchmark_total": 3,
+        "calibration_case_total": 16,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "covered_case_total": 30,
+        "covered_held_out_case_total": 16,
+        "critical_case_total": 0,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3,
+        "held_out_evaluated_case_total": 16,
+        "normalized_error_max": 1.438582,
+        "normalized_error_mean_abs": 0.444222,
+        "normalized_error_p95": 1.030033,
+        "severe_case_total": 0,
+        "tail_breach_count": 0
+      },
       "official_source_family_targets": [
         "NCBI GEO",
         "official open biological assay repositories"
@@ -1183,7 +1213,7 @@
       ],
       "packet_id": "OC13::BIOLOGY::STATE_TRANSITION_AND_RESPONSE_SIGNATURES",
       "packetized_domain_status": "PASS",
-      "quantitative_pass_result": "PROXY_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE",
+      "quantitative_pass_result": "PASS",
       "refs": [
         "logion/k0/governance/status/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
@@ -1194,7 +1224,7 @@
       ],
       "replay_contract": {
         "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY",
-        "replay_status": "PROXY_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE"
+        "replay_status": "PASS_REPLAYABLE"
       },
       "target_state": "EMPIRICAL_HARD_CLOSED"
     },
@@ -1344,11 +1374,11 @@
   "status": "PASS",
   "summary": {
     "domain_total": 5,
-    "hard_closed_total": 1,
-    "measurement_escalation_required_total": 4,
+    "hard_closed_total": 2,
+    "measurement_escalation_required_total": 3,
     "official_route_pass_total": 5,
     "packetized_pending_validation_total": 0,
     "program_defined_total": 0,
-    "replay_ready_total": 1
+    "replay_ready_total": 2
   }
 }
