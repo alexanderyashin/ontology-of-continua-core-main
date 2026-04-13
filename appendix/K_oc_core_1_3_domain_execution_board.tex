@@ -15,7 +15,7 @@ Domain & Validation & Execute now & Command phase & Measurement wave & Next lawf
 \endhead
 Mathematics & PASS & YES & MAINTENANCE & not required & MAINTAIN\_REPLAY\_DISCIPLINE \\
 Physics & FAIL\_CLOSED & NO & COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE & INSTITUTE\_RUN::PHYSICS::WAVE\_1A & COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE\_AND\_PROMOTE\_NUMERICAL\_PACKET \\
-Chemistry & FAIL\_CLOSED & NO & REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY & INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A & REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY \\
+Chemistry & FAIL\_CLOSED & NO & COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE & INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A & COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE\_AND\_PROMOTE\_NUMERICAL\_PACKET \\
 Biology & FAIL\_CLOSED & NO & REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY & INSTITUTE\_RUN::BIOLOGY::WAVE\_3A & REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY \\
 Systems / Civilizational projection & FAIL\_CLOSED & NO & COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE & INSTITUTE\_RUN::SYSTEMS::WAVE\_4A & COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE\_AND\_PROMOTE\_NUMERICAL\_PACKET \\
 \bottomrule
@@ -42,13 +42,13 @@ Blocking ids: PHYSICS\_\_NUMERICAL\_PACKET\_PASS\_REQUIRED; PHYSICS\_\_OFFICIAL\
 Measurement wave: `INSTITUTE\_RUN::PHYSICS::WAVE\_1A` with status `STAND\_BY`.
 
 \paragraph{Chemistry.}
-Validation status: `FAIL\_CLOSED`. Execute now: `NO`. Command phase: `REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY`.
+Validation status: `FAIL\_CLOSED`. Execute now: `NO`. Command phase: `COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE`.
 Command ref: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id CHEMISTRY`.
 Caseset readiness: `30` parameterized out of `30` cases (minimum `30`); coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Acceptance criterion: Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions..
 Falsifier: A held-out thermochemical, spectral, or kinetic family outside tolerance collapses the promoted chemistry packet..
 Prerequisites: PINNED\_SOURCE\_ROUTE; BENCHMARK\_DATASET\_MANIFEST; NUMERICAL\_PACKET\_SPEC; REPLAY\_HARNESS; EXPLICIT\_FALSIFIER.
-Blocking ids: CHEMISTRY\_\_NUMERICAL\_PACKET\_PASS\_REQUIRED; CHEMISTRY\_\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY\_REQUIRED; CHEMISTRY\_\_EMPIRICAL\_VALIDATION\_PENDING.
+Blocking ids: CHEMISTRY\_\_NUMERICAL\_PACKET\_PASS\_REQUIRED; CHEMISTRY\_\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE\_REQUIRED; CHEMISTRY\_\_EMPIRICAL\_VALIDATION\_PENDING.
 Measurement wave: `INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A` with status `STAND\_BY`.
 
 \paragraph{Biology.}

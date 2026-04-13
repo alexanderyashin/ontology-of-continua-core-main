@@ -13,7 +13,7 @@ Domain & Replay status & Packet / protocol & Acceptance criterion & Replay comma
 \endhead
 Mathematics & PASS\_REPLAYABLE & OC13::MATHEMATICS::STRICT\_REPLAY\_ANCHOR / OC13::EXECUTION::MATHEMATICS::ANCHOR\_REPLAY & No replay divergence and no surviving counterexample against the promoted packet. & logion/k7/spe/orchestrator/science/run\_claim\_simulations\_v1.py & not required \\
 Physics & PARTIAL\_OFFICIAL\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE & OC13::PHYSICS::FOUNDATIONAL\_CONSTANTS\_AND\_SPECTRA / OC13::EXECUTION::PHYSICS::CONSTANTS\_SPECTRA\_TRANSPORT & Held-out residuals stay inside the declared tolerance band for every promoted benchmark family. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id PHYSICS & INSTITUTE\_RUN::PHYSICS::WAVE\_1A \\
-Chemistry & PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE & OC13::CHEMISTRY::THERMOCHEMISTRY\_AND\_SPECTRA / OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY\_SPECTRA\_KINETICS & Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id CHEMISTRY & INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A \\
+Chemistry & PARTIAL\_OFFICIAL\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE & OC13::CHEMISTRY::THERMOCHEMISTRY\_AND\_SPECTRA / OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY\_SPECTRA\_KINETICS & Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id CHEMISTRY & INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A \\
 Biology & PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE & OC13::BIOLOGY::STATE\_TRANSITION\_AND\_RESPONSE\_SIGNATURES / OC13::EXECUTION::BIOLOGY::STATE\_TRANSITIONS\_AND\_RESPONSE\_SIGNATURES & The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id BIOLOGY & INSTITUTE\_RUN::BIOLOGY::WAVE\_3A \\
 Systems / Civilizational projection & OFFICIAL\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE & OC13::SYSTEMS::K8\_MACRO\_PROCESS\_AND\_REGIME\_SHIFT / OC13::EXECUTION::SYSTEMS::MACRO\_TRAJECTORIES\_AND\_REGIME\_SHIFTS & Declared trajectory and regime-change observables remain inside tolerance on held-out intervals. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id SYSTEMS\_CIVILIZATIONAL\_PROJECTION & INSTITUTE\_RUN::SYSTEMS::WAVE\_4A \\
 \bottomrule
@@ -46,15 +46,15 @@ This is a lawful partial official replay state: official primary data are alread
 \end{itemize}
 
 \paragraph{Chemistry.}
-Status: `PASS` with replay state `PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE`.
+Status: `PASS` with replay state `PARTIAL\_OFFICIAL\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE`.
 Caseset readiness: `30` parameterized out of `30` cases (minimum `30`); coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Acceptance criterion: Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions..
 Falsifier: A held-out thermochemical, spectral, or kinetic family outside tolerance collapses the promoted chemistry packet..
 Replay command: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id CHEMISTRY`.
 Measurement schema: Map theorem packets to thermochemical, spectral, and kinetic observables against pinned reference tables..
-Next required action: `REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY`.
-Proxy replay visibility metrics: execution basis `PROXY\_DEVELOPMENT\_VISIBILITY`, mean abs normalized error `0.781794 sigma`, `p95` `1.639366 sigma`, `max` `1.768332 sigma`, tail breaches `0`, severe cases `5`, critical cases `0`.
-These numbers are visibility-only and do not count as positive empirical closure until an official or institute-run replay replaces the proxy basis.
+Next required action: `COMPLETE\_SPECTRAL\_AND\_KINETIC\_FAMILY\_OFFICIAL\_NUMERICAL\_PACKETS`.
+Official replay coverage and metrics: execution basis `PARTIAL\_OFFICIAL\_PRIMARY\_DATA`, covered benchmarks `1` of `3`, full-coverage benchmarks `0`, mean abs normalized error `75.617337 sigma`, `p95` `350.581941 sigma`, `max` `484.747059 sigma`, tail breaches `3`.
+This is a lawful partial official replay state: official primary data are already exercised, but the lane remains fail-closed until benchmark-family coverage is complete and the promoted numerical packet survives the full acceptance bar.
 \begin{itemize}
 \item `CHEM\_BENCH\_001`: `gas\_phase\_enthalpy\_residual` from `\texttt{https://webbook.nist.gov/chemistry/}` with held-out policy `hold out one compound family from calibration`.
 \item `CHEM\_BENCH\_002`: `spectral\_transition\_residual` from `\texttt{https://webbook.nist.gov/chemistry/}` with held-out policy `hold out one spectral family`.
