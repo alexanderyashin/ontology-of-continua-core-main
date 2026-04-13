@@ -1,0 +1,67 @@
+\section{Domain Hard-Closure Command Board}
+
+This appendix turns the empirical closure backlog into an execution board. Each row states whether the domain can be run now, which replay command constitutes the lawful next step, and whether the institute-run fallback wave is merely on stand-by or already the active route.
+
+The current board exposes 5 tracked lanes: 1 already validated, 4 executable immediately, and 4 with an institute-run fallback wave already defined.
+
+\begin{longtable}{p{0.13\textwidth}p{0.12\textwidth}p{0.10\textwidth}p{0.16\textwidth}p{0.16\textwidth}p{0.21\textwidth}}
+\toprule
+Domain & Validation & Execute now & Command phase & Measurement wave & Next lawful action \\
+\midrule
+\endfirsthead
+\toprule
+Domain & Validation & Execute now & Command phase & Measurement wave & Next lawful action \\
+\midrule
+\endhead
+Mathematics & PASS & YES & MAINTENANCE & not required & MAINTAIN\_REPLAY\_DISCIPLINE \\
+Physics & FAIL\_CLOSED & YES & EXECUTE\_NUMERICAL\_REPLAY & INSTITUTE\_RUN::PHYSICS::WAVE\_1A & EXECUTE\_PHYSICS\_NUMERICAL\_REPLAY\_PACKET \\
+Chemistry & FAIL\_CLOSED & YES & EXECUTE\_NUMERICAL\_REPLAY & INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A & EXECUTE\_CHEMISTRY\_NUMERICAL\_REPLAY\_PACKET \\
+Biology & FAIL\_CLOSED & YES & EXECUTE\_NUMERICAL\_REPLAY & INSTITUTE\_RUN::BIOLOGY::WAVE\_3A & EXECUTE\_BIOLOGY\_NUMERICAL\_REPLAY\_PACKET \\
+Systems / Civilizational projection & FAIL\_CLOSED & YES & EXECUTE\_NUMERICAL\_REPLAY & INSTITUTE\_RUN::SYSTEMS::WAVE\_4A & EXECUTE\_SYSTEMS\_NUMERICAL\_REPLAY\_PACKET \\
+\bottomrule
+\end{longtable}
+
+\paragraph{Mathematics.}
+Validation status: `PASS`. Execute now: `YES`. Command phase: `MAINTENANCE`.
+Command ref: `logion/k7/spe/orchestrator/science/run\_claim\_simulations\_v1.py`.
+Acceptance criterion: No replay divergence and no surviving counterexample against the promoted packet..
+Falsifier: A single replay divergence or surviving counterexample collapses promotion for the affected packet..
+Prerequisites: PINNED\_SOURCE\_ROUTE; BENCHMARK\_DATASET\_MANIFEST; NUMERICAL\_PACKET\_SPEC; REPLAY\_HARNESS; EXPLICIT\_FALSIFIER.
+Blocking ids: none.
+Measurement wave: `not required` with status `NOT\_REQUIRED`.
+
+\paragraph{Physics.}
+Validation status: `FAIL\_CLOSED`. Execute now: `YES`. Command phase: `EXECUTE\_NUMERICAL\_REPLAY`.
+Command ref: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id PHYSICS`.
+Acceptance criterion: Held-out residuals stay inside the declared tolerance band for every promoted benchmark family..
+Falsifier: Any benchmark family with residuals outside tolerance or with broken sign/order constraints falsifies the promoted packet..
+Prerequisites: PINNED\_SOURCE\_ROUTE; BENCHMARK\_DATASET\_MANIFEST; NUMERICAL\_PACKET\_SPEC; REPLAY\_HARNESS; EXPLICIT\_FALSIFIER.
+Blocking ids: PHYSICS\_\_NUMERICAL\_PACKET\_PASS\_REQUIRED; PHYSICS\_\_REPLAY\_PASS\_REQUIRED; PHYSICS\_\_EMPIRICAL\_VALIDATION\_PENDING.
+Measurement wave: `INSTITUTE\_RUN::PHYSICS::WAVE\_1A` with status `STAND\_BY`.
+
+\paragraph{Chemistry.}
+Validation status: `FAIL\_CLOSED`. Execute now: `YES`. Command phase: `EXECUTE\_NUMERICAL\_REPLAY`.
+Command ref: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id CHEMISTRY`.
+Acceptance criterion: Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions..
+Falsifier: A held-out thermochemical, spectral, or kinetic family outside tolerance collapses the promoted chemistry packet..
+Prerequisites: PINNED\_SOURCE\_ROUTE; BENCHMARK\_DATASET\_MANIFEST; NUMERICAL\_PACKET\_SPEC; REPLAY\_HARNESS; EXPLICIT\_FALSIFIER.
+Blocking ids: CHEMISTRY\_\_NUMERICAL\_PACKET\_PASS\_REQUIRED; CHEMISTRY\_\_REPLAY\_PASS\_REQUIRED; CHEMISTRY\_\_EMPIRICAL\_VALIDATION\_PENDING.
+Measurement wave: `INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A` with status `STAND\_BY`.
+
+\paragraph{Biology.}
+Validation status: `FAIL\_CLOSED`. Execute now: `YES`. Command phase: `EXECUTE\_NUMERICAL\_REPLAY`.
+Command ref: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id BIOLOGY`.
+Acceptance criterion: The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary..
+Falsifier: If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound..
+Prerequisites: PINNED\_SOURCE\_ROUTE; BENCHMARK\_DATASET\_MANIFEST; NUMERICAL\_PACKET\_SPEC; REPLAY\_HARNESS; EXPLICIT\_FALSIFIER.
+Blocking ids: BIOLOGY\_\_NUMERICAL\_PACKET\_PASS\_REQUIRED; BIOLOGY\_\_REPLAY\_PASS\_REQUIRED; BIOLOGY\_\_EMPIRICAL\_VALIDATION\_PENDING.
+Measurement wave: `INSTITUTE\_RUN::BIOLOGY::WAVE\_3A` with status `STAND\_BY`.
+
+\paragraph{Systems / Civilizational projection.}
+Validation status: `FAIL\_CLOSED`. Execute now: `YES`. Command phase: `EXECUTE\_NUMERICAL\_REPLAY`.
+Command ref: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id SYSTEMS\_CIVILIZATIONAL\_PROJECTION`.
+Acceptance criterion: Declared trajectory and regime-change observables remain inside tolerance on held-out intervals..
+Falsifier: A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet..
+Prerequisites: PINNED\_SOURCE\_ROUTE; BENCHMARK\_DATASET\_MANIFEST; NUMERICAL\_PACKET\_SPEC; REPLAY\_HARNESS; EXPLICIT\_FALSIFIER.
+Blocking ids: SYSTEMS\_CIVILIZATIONAL\_PROJECTION\_\_NUMERICAL\_PACKET\_PASS\_REQUIRED; SYSTEMS\_CIVILIZATIONAL\_PROJECTION\_\_REPLAY\_PASS\_REQUIRED; SYSTEMS\_CIVILIZATIONAL\_PROJECTION\_\_EMPIRICAL\_VALIDATION\_PENDING.
+Measurement wave: `INSTITUTE\_RUN::SYSTEMS::WAVE\_4A` with status `STAND\_BY`.
