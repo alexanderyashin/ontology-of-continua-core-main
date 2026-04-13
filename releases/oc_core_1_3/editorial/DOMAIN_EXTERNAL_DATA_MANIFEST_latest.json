@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "repo_sha": "4adb398f65ded5e4707096672a12b4503e6738bf",
+    "repo_sha": "5de1e8534f11917dc2bf33f39bd60d89fde01adf",
     "script": "oc_core_operationalization_v1.py",
     "surface": "logion/k0/governance/status/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
-    "ts_utc": "2026-04-13T10:12:40Z"
+    "ts_utc": "2026-04-13T11:15:02Z"
   },
   "refs": {
     "oc_domain_theory_package_registry": "logion/k0/governance/status/OC_DOMAIN_THEORY_PACKAGE_REGISTRY_latest.json",
@@ -30,6 +30,7 @@
         "Tier-1 mathematics exact-question corpus"
       ],
       "official_source_total": 161,
+      "packet_id": "",
       "refs": [
         "logion/k0/governance/status/TIER1_LIVE_SOURCE_REGISTRY_latest.json",
         "logion/k0/governance/status/OC_OPEN_QUESTION_LINKAGE_latest.json",
@@ -1653,9 +1654,27 @@
     },
     {
       "benchmark_dataset_manifest": [
-        "fundamental constants residuals",
-        "spectral line residual envelopes",
-        "transport or plasma scaling envelopes"
+        {
+          "authority_ref": "NIST / CODATA constants",
+          "benchmark_id": "PHY_BENCH_001",
+          "dataset_url": "https://physics.nist.gov/cuu/Constants/index.html",
+          "held_out_policy": "leave-one-family-out residual verification",
+          "observable_name": "fine_structure_constant_residual"
+        },
+        {
+          "authority_ref": "NIST Atomic Spectra Database",
+          "benchmark_id": "PHY_BENCH_002",
+          "dataset_url": "https://physics.nist.gov/PhysRefData/ASD/lines_form.html",
+          "held_out_policy": "reserve transitions not used during packet fitting",
+          "observable_name": "hydrogen_balmer_line_residual"
+        },
+        {
+          "authority_ref": "DOE Office of Science challenge corpora",
+          "benchmark_id": "PHY_BENCH_003",
+          "dataset_url": "https://science.osti.gov/-/media/fes/pdf/workshop-reports/FES_Grand_Challenges_Report_final.pdf",
+          "held_out_policy": "hold out one transport regime family",
+          "observable_name": "transport_scaling_residual"
+        }
       ],
       "discipline_families": [
         "PHYSICS"
@@ -1665,17 +1684,19 @@
       "literature_seed_total": 0,
       "measurement_escalation_rule": "If official/open data do not cover the required observable family, queue institute-run measurement or observational partner acquisition.",
       "next_required_action": "MAINTAIN_PINNED_SOURCE_ROUTE",
-      "nonclaim_boundary": "Current inclusion is bridge-only; no proved standalone physics theorem package is promoted here.",
+      "nonclaim_boundary": "This packet materializes the standalone physics lane, but no positive outward empirical promotion is allowed until replayable numerical validation passes on pinned official datasets.",
       "official_source_family_targets": [
         "NIST / CODATA constants",
         "NIST spectra and reference data",
         "DOE Office of Science challenge corpora"
       ],
       "official_source_total": 2,
+      "packet_id": "OC13::PHYSICS::FOUNDATIONAL_CONSTANTS_AND_SPECTRA",
       "refs": [
         "logion/k0/governance/status/TIER1_LIVE_SOURCE_REGISTRY_latest.json",
         "logion/k0/governance/status/OC_CORE_1_3_K_LEVEL_SYSTEM_latest.json",
-        "logion/k0/governance/status/OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest.json"
+        "logion/k0/governance/status/OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest.json",
+        "logion/k7/spe/registry/OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1.json"
       ],
       "route_quality_status": "PINNED_OFFICIAL_OR_OPEN_PRIMARY_ROUTE",
       "selected_sources": [
@@ -1705,9 +1726,27 @@
     },
     {
       "benchmark_dataset_manifest": [
-        "thermochemical reference values",
-        "spectroscopic transition families",
-        "kinetic or equilibrium observable envelopes"
+        {
+          "authority_ref": "NIST Chemistry WebBook",
+          "benchmark_id": "CHEM_BENCH_001",
+          "dataset_url": "https://webbook.nist.gov/chemistry/",
+          "held_out_policy": "hold out one compound family from calibration",
+          "observable_name": "gas_phase_enthalpy_residual"
+        },
+        {
+          "authority_ref": "NIST Chemistry WebBook",
+          "benchmark_id": "CHEM_BENCH_002",
+          "dataset_url": "https://webbook.nist.gov/chemistry/",
+          "held_out_policy": "hold out one spectral family",
+          "observable_name": "spectral_transition_residual"
+        },
+        {
+          "authority_ref": "DOE BES / EFRC challenge corpora",
+          "benchmark_id": "CHEM_BENCH_003",
+          "dataset_url": "https://science.osti.gov/bes/efrc/Research/Grand-Challenges",
+          "held_out_policy": "hold out one reaction-class envelope",
+          "observable_name": "kinetic_or_equilibrium_residual"
+        }
       ],
       "discipline_families": [
         "CHEMISTRY"
@@ -1717,16 +1756,18 @@
       "literature_seed_total": 0,
       "measurement_escalation_rule": "When official/open reference data are insufficient, queue targeted laboratory or partner-measurement acquisition.",
       "next_required_action": "MAINTAIN_PINNED_SOURCE_ROUTE",
-      "nonclaim_boundary": "Current inclusion is bridge-only; no proved standalone chemistry theorem package is promoted here.",
+      "nonclaim_boundary": "This packet materializes the standalone chemistry lane, but it remains frontier-bound until replayable numerical validation passes on pinned official/open chemistry references.",
       "official_source_family_targets": [
         "NIST Chemistry WebBook",
         "DOE BES / EFRC challenge corpora"
       ],
       "official_source_total": 1,
+      "packet_id": "OC13::CHEMISTRY::THERMOCHEMISTRY_AND_SPECTRA",
       "refs": [
         "logion/k0/governance/status/TIER1_LIVE_SOURCE_REGISTRY_latest.json",
         "logion/k0/governance/status/OC_CORE_1_3_K_LEVEL_SYSTEM_latest.json",
-        "logion/k0/governance/status/OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest.json"
+        "logion/k0/governance/status/OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest.json",
+        "logion/k7/spe/registry/OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1.json"
       ],
       "route_quality_status": "PINNED_OFFICIAL_OR_OPEN_PRIMARY_ROUTE",
       "selected_sources": [
@@ -1746,9 +1787,27 @@
     },
     {
       "benchmark_dataset_manifest": [
-        "gene-expression time-series families",
-        "cell-state transition signatures",
-        "stimulus-response or excitability onset markers"
+        {
+          "authority_ref": "NCBI GEO",
+          "benchmark_id": "BIO_BENCH_001",
+          "dataset_url": "https://www.ncbi.nlm.nih.gov/geo/",
+          "held_out_policy": "reserve one time-series family for held-out replay",
+          "observable_name": "expression_signature_residual"
+        },
+        {
+          "authority_ref": "NCBI GEO",
+          "benchmark_id": "BIO_BENCH_002",
+          "dataset_url": "https://www.ncbi.nlm.nih.gov/geo/",
+          "held_out_policy": "reserve one cell-state transition family",
+          "observable_name": "state_transition_order_error"
+        },
+        {
+          "authority_ref": "official open biological assay repositories",
+          "benchmark_id": "BIO_BENCH_003",
+          "dataset_url": "https://www.ncbi.nlm.nih.gov/geo/",
+          "held_out_policy": "reserve one response-signature family",
+          "observable_name": "response_onset_residual"
+        }
       ],
       "discipline_families": [
         "BIOLOGY"
@@ -1758,16 +1817,18 @@
       "literature_seed_total": 0,
       "measurement_escalation_rule": "If open repositories cannot close the lane honestly, promote an institute-run observation or assay plan instead of overclaiming.",
       "next_required_action": "MAINTAIN_PINNED_SOURCE_ROUTE",
-      "nonclaim_boundary": "Current inclusion is bridge-only; no proved standalone biology theorem package is promoted here.",
+      "nonclaim_boundary": "This packet materializes a bounded biological operationalization lane, but it does not authorize positive outward biological closure until replayable validation or institute-run observation passes.",
       "official_source_family_targets": [
         "NCBI GEO",
         "official open biological assay repositories"
       ],
       "official_source_total": 1,
+      "packet_id": "OC13::BIOLOGY::STATE_TRANSITION_AND_RESPONSE_SIGNATURES",
       "refs": [
         "logion/k0/governance/status/TIER1_LIVE_SOURCE_REGISTRY_latest.json",
         "logion/k0/governance/status/OC_CORE_1_3_K_LEVEL_SYSTEM_latest.json",
-        "logion/k0/governance/status/OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest.json"
+        "logion/k0/governance/status/OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest.json",
+        "logion/k7/spe/registry/OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1.json"
       ],
       "route_quality_status": "PINNED_OFFICIAL_OR_OPEN_PRIMARY_ROUTE",
       "selected_sources": [
@@ -1787,9 +1848,27 @@
     },
     {
       "benchmark_dataset_manifest": [
-        "macro indicator trajectories",
-        "resource-intensity or throughput curves",
-        "held-out interval stability and regime shifts"
+        {
+          "authority_ref": "World Bank Indicators API",
+          "benchmark_id": "SYS_BENCH_001",
+          "dataset_url": "https://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?format=json",
+          "held_out_policy": "leave out one interval family",
+          "observable_name": "population_trajectory_residual"
+        },
+        {
+          "authority_ref": "World Bank Indicators API",
+          "benchmark_id": "SYS_BENCH_002",
+          "dataset_url": "https://api.worldbank.org/v2/en/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+          "held_out_policy": "reserve one held-out macro interval",
+          "observable_name": "gdp_growth_turning_point_error"
+        },
+        {
+          "authority_ref": "DOE ASCR process-systems references",
+          "benchmark_id": "SYS_BENCH_003",
+          "dataset_url": "https://science.osti.gov/ascr/Community-Resources/Workshops-and-Conferences/Grand-Challenges",
+          "held_out_policy": "reserve one regime-shift benchmark family",
+          "observable_name": "process_system_regime_score"
+        }
       ],
       "discipline_families": [
         "SYSTEMS_CIVILIZATIONAL_PROJECTION",
@@ -1800,19 +1879,21 @@
       "literature_seed_total": 0,
       "measurement_escalation_rule": "If open macro-process series are insufficient, queue institute-run observation design or partner data acquisition.",
       "next_required_action": "MAINTAIN_PINNED_SOURCE_ROUTE",
-      "nonclaim_boundary": "Current inclusion is bridge-only; no proved standalone systems/civilizational theorem package is promoted here.",
+      "nonclaim_boundary": "This packet materializes the K8 systems lane, but no positive outward systems/civilizational closure is allowed until held-out interval replay passes on pinned official series.",
       "official_source_family_targets": [
         "World Bank Indicators API",
         "official macro-process or infrastructure benchmark series",
         "DOE ASCR process-systems references"
       ],
       "official_source_total": 2,
+      "packet_id": "OC13::SYSTEMS::K8_MACRO_PROCESS_AND_REGIME_SHIFT",
       "refs": [
         "logion/k0/governance/status/TIER1_LIVE_SOURCE_REGISTRY_latest.json",
         "logion/k0/governance/status/OC_CORE_1_3_K_LEVEL_SYSTEM_latest.json",
         "logion/k0/governance/status/OC_CORE_ROOT_REVISION_LEDGER_latest.json",
         "logion/k0/governance/status/ROOT_PRINCIPLE_THEOREM_STACK_latest.json",
-        "logion/k0/governance/status/OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest.json"
+        "logion/k0/governance/status/OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest.json",
+        "logion/k7/spe/registry/OC_DOMAIN_HARD_CLOSURE_PACKET_SPECS_v1.json"
       ],
       "route_quality_status": "PINNED_OFFICIAL_OR_OPEN_PRIMARY_ROUTE",
       "selected_sources": [
@@ -1851,6 +1932,7 @@
       "nonclaim_boundary": "Only isolated draft/source artefact traces are present; no proved OC-native bridge survives as a canonical domain package.",
       "official_source_family_targets": [],
       "official_source_total": 0,
+      "packet_id": "",
       "refs": [
         "logion/k0/governance/status/TIER1_LIVE_SOURCE_REGISTRY_latest.json",
         "logion/k0/governance/status/OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest.json"
@@ -1871,6 +1953,7 @@
       "nonclaim_boundary": "",
       "official_source_family_targets": [],
       "official_source_total": 0,
+      "packet_id": "",
       "refs": [
         "logion/k0/governance/status/TIER1_LIVE_SOURCE_REGISTRY_latest.json",
         "logion/k0/governance/status/OC_METAONTOLOGY_FRAME_latest.json",

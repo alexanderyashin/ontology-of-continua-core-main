@@ -6,4 +6,5 @@ This folder prepares the dual-track OC Core 1.3 science release for the open fou
 - `journal_core/` contains the shorter journal-facing extraction, with English as the master lane and Russian/German as full companion translations.
 - `manuscripts/` keeps compatibility aliases for the journal-core PDFs and Markdown sources.
 - `editorial/` and `assets/` contain the outward support package shared across the same scientific version.
+- `editorial/domain_packets/` contains the packetized hard-closure domain dossiers with benchmark routes, replay commands, and falsifier definitions.
 - The monograph source package includes the reader guide, source-audit chapter, and the Core 1.3 foundational consistency dossier used to explain hierarchy, statement classes, and extraction boundaries.
