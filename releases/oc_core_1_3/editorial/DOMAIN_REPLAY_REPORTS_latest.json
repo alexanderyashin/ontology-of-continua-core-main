@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "repo_sha": "faf95cb0a4ac38223143f8afae4d7c9e918f19bf",
+    "repo_sha": "099b7855fda7a1a26e47d2d76b42aace68a32cab",
     "script": "oc_core_operationalization_v1.py",
     "surface": "logion/k0/governance/status/DOMAIN_REPLAY_REPORTS_latest.json",
-    "ts_utc": "2026-04-13T16:30:59Z"
+    "ts_utc": "2026-04-13T17:45:37Z"
   },
   "rows": [
     {
@@ -6047,15 +6047,292 @@
             }
           ],
           "dataset_url": "https://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?format=json",
-          "execution_basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "execution_basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "held_out_policy": "leave out one interval family",
           "observable_name": "population_trajectory_residual",
-          "proxy_case_total": 10,
-          "proxy_critical_breach_total": 0,
-          "proxy_held_out_case_total": 6,
-          "proxy_normalized_error_max": 1.644155,
-          "proxy_normalized_error_mean_abs": 0.838283,
-          "proxy_normalized_error_p95": 1.593691,
+          "official_case_metrics": [
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_001",
+              "case_id": "SYS_CASE_001_POP_USA",
+              "case_title": "United States total population trajectory",
+              "held_out_role": "CALIBRATION_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.113548,
+              "official_observed_held_out_values": [
+                332099760.0,
+                334017321.0,
+                336806231.0,
+                340110988.0
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/USA/indicator/SP.POP.TOTL?format=json",
+              "official_turning_point_error": 0.0,
+              "predicted_held_out_values": [
+                335276366.475359,
+                339016270.203316,
+                342797891.395708,
+                346621695.397893
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "CALIBRATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_001",
+              "case_id": "SYS_CASE_002_POP_CHN",
+              "case_title": "China total population trajectory",
+              "held_out_role": "CALIBRATION_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.170536,
+              "official_observed_held_out_values": [
+                1412360000.0,
+                1412175000.0,
+                1410710000.0,
+                1408975000.0
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/CHN/indicator/SP.POP.TOTL?format=json",
+              "official_turning_point_error": 0.75,
+              "predicted_held_out_values": [
+                1426840382.198719,
+                1442756343.471749,
+                1458849842.349129,
+                1475122859.20769
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "CALIBRATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_001",
+              "case_id": "SYS_CASE_003_POP_IND",
+              "case_title": "India total population trajectory",
+              "held_out_role": "CALIBRATION_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.033285,
+              "official_observed_held_out_values": [
+                1414203896.0,
+                1425423212.0,
+                1438069596.0,
+                1450935791.0
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/IND/indicator/SP.POP.TOTL?format=json",
+              "official_turning_point_error": 0.0,
+              "predicted_held_out_values": [
+                1418263459.721129,
+                1434083748.087997,
+                1450080506.857664,
+                1466255704.502658
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "CALIBRATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_001",
+              "case_id": "SYS_CASE_004_POP_DEU",
+              "case_title": "Germany total population trajectory",
+              "held_out_role": "CALIBRATION_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.55559,
+              "official_observed_held_out_values": [
+                83196078.0,
+                83177813.0,
+                83287273.0,
+                83516593.0
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/DEU/indicator/SP.POP.TOTL?format=json",
+              "official_turning_point_error": 0.25,
+              "predicted_held_out_values": [
+                84088504.685436,
+                85026485.8365,
+                85974929.875959,
+                86933953.514083
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "CALIBRATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_001",
+              "case_id": "SYS_CASE_005_POP_BRA",
+              "case_title": "Brazil total population trajectory",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.089475,
+              "official_observed_held_out_values": [
+                209550294.0,
+                210306415.0,
+                211140729.0,
+                211998573.0
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/BRA/indicator/SP.POP.TOTL?format=json",
+              "official_turning_point_error": 0.0,
+              "predicted_held_out_values": [
+                210988388.880438,
+                213341898.823369,
+                215721661.438691,
+                218127969.566809
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_001",
+              "case_id": "SYS_CASE_006_POP_ZAF",
+              "case_title": "South Africa total population trajectory",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.037588,
+              "official_observed_held_out_values": [
+                61502603.0,
+                62378410.0,
+                63212384.0,
+                64007187.0
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/ZAF/indicator/SP.POP.TOTL?format=json",
+              "official_turning_point_error": 0.0,
+              "predicted_held_out_values": [
+                61237935.548795,
+                61921025.698748,
+                62611735.507149,
+                63310149.968922
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_001",
+              "case_id": "SYS_CASE_007_POP_JPN",
+              "case_title": "Japan total population trajectory",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.450485,
+              "official_observed_held_out_values": [
+                125681593.0,
+                125124989.0,
+                124516650.0,
+                123975371.0
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/JPN/indicator/SP.POP.TOTL?format=json",
+              "official_turning_point_error": 1.0,
+              "predicted_held_out_values": [
+                127669402.237115,
+                129093514.763721,
+                130533512.823218,
+                131989573.613792
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_001",
+              "case_id": "SYS_CASE_008_POP_FRA",
+              "case_title": "France total population trajectory",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.220872,
+              "official_observed_held_out_values": [
+                67842811.0,
+                68184457.0,
+                68372286.0,
+                68551653.0
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/FRA/indicator/SP.POP.TOTL?format=json",
+              "official_turning_point_error": 0.0,
+              "predicted_held_out_values": [
+                68355179.384493,
+                69117660.178748,
+                69888646.20943,
+                70668232.349808
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_001",
+              "case_id": "SYS_CASE_009_POP_MEX",
+              "case_title": "Mexico total population trajectory",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.042506,
+              "official_observed_held_out_values": [
+                127648148.0,
+                128613117.0,
+                129739759.0,
+                130861007.0
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/MEX/indicator/SP.POP.TOTL?format=json",
+              "official_turning_point_error": 0.0,
+              "predicted_held_out_values": [
+                128213458.06236,
+                129643639.362708,
+                131089773.891233,
+                132552039.60124
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_001",
+              "case_id": "SYS_CASE_010_POP_IDN",
+              "case_title": "Indonesia total population trajectory",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.044046,
+              "official_observed_held_out_values": [
+                276758053.0,
+                278830529.0,
+                281190067.0,
+                283487931.0
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/IDN/indicator/SP.POP.TOTL?format=json",
+              "official_turning_point_error": 0.0,
+              "predicted_held_out_values": [
+                277880340.47008,
+                280980009.355707,
+                284114254.084967,
+                287283460.340655
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            }
+          ],
+          "official_coverage_summary": {
+            "case_total": 10,
+            "coverage_ratio_held_out": 1.0,
+            "coverage_ratio_total": 1.0,
+            "covered_case_total": 10,
+            "covered_held_out_case_total": 6,
+            "held_out_case_total": 6
+          },
+          "official_metrics_summary": {
+            "calibration_case_total": 4,
+            "covered_case_total": 10,
+            "covered_held_out_case_total": 6,
+            "critical_case_total": 0,
+            "held_out_evaluated_case_total": 6,
+            "mean_turning_point_error": 0.2,
+            "normalized_error_max": 0.55559,
+            "normalized_error_mean_abs": 0.175793,
+            "normalized_error_p95": 0.508293,
+            "severe_case_total": 0,
+            "tail_breach_count": 0
+          },
           "replay_status": "REPLAY_HARNESS_READY_PENDING_EXECUTION"
         },
         {
@@ -6293,15 +6570,292 @@
             }
           ],
           "dataset_url": "https://api.worldbank.org/v2/en/indicator/NY.GDP.MKTP.KD.ZG?format=json",
-          "execution_basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "execution_basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "held_out_policy": "reserve one held-out macro interval",
           "observable_name": "gdp_growth_turning_point_error",
-          "proxy_case_total": 10,
-          "proxy_critical_breach_total": 0,
-          "proxy_held_out_case_total": 6,
-          "proxy_normalized_error_max": 0.994486,
-          "proxy_normalized_error_mean_abs": 0.561341,
-          "proxy_normalized_error_p95": 0.952619,
+          "official_case_metrics": [
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_002",
+              "case_id": "SYS_CASE_011_GDPGROWTH_USA",
+              "case_title": "United States GDP growth held-out interval",
+              "held_out_role": "CALIBRATION_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.449674,
+              "official_observed_held_out_values": [
+                6.05505293244555,
+                2.51237531986017,
+                2.88755600749487,
+                2.79300127716779
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/USA/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+              "official_turning_point_error": 0.75,
+              "predicted_held_out_values": [
+                2.954875,
+                2.954875,
+                2.954875,
+                2.954875
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
+              "prediction_split_role": "CALIBRATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_002",
+              "case_id": "SYS_CASE_012_GDPGROWTH_CHN",
+              "case_title": "China GDP growth held-out interval",
+              "held_out_role": "CALIBRATION_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.380811,
+              "official_observed_held_out_values": [
+                8.57008513166322,
+                3.1341888719577,
+                5.41484330099675,
+                4.9773565917572
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/CHN/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+              "official_turning_point_error": 0.75,
+              "predicted_held_out_values": [
+                2.954875,
+                2.954875,
+                2.954875,
+                2.954875
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
+              "prediction_split_role": "CALIBRATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_002",
+              "case_id": "SYS_CASE_013_GDPGROWTH_IND",
+              "case_title": "India GDP growth held-out interval",
+              "held_out_role": "CALIBRATION_SEED",
+              "official_case_verdict": "SEVERE_BREACH",
+              "official_normalized_error_sigma": 1.656034,
+              "official_observed_held_out_values": [
+                9.68959249192875,
+                7.60936497768895,
+                9.19075493028345,
+                6.49476552383821
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/IND/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+              "official_turning_point_error": 0.75,
+              "predicted_held_out_values": [
+                2.954875,
+                2.954875,
+                2.954875,
+                2.954875
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
+              "prediction_split_role": "CALIBRATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_002",
+              "case_id": "SYS_CASE_014_GDPGROWTH_DEU",
+              "case_title": "Germany GDP growth held-out interval",
+              "held_out_role": "CALIBRATION_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 1.024125,
+              "official_observed_held_out_values": [
+                3.90999994204108,
+                1.8092581243061,
+                -0.869647578573321,
+                -0.495851897260366
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/DEU/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+              "official_turning_point_error": 0.75,
+              "predicted_held_out_values": [
+                2.954875,
+                2.954875,
+                2.954875,
+                2.954875
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
+              "prediction_split_role": "CALIBRATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_002",
+              "case_id": "SYS_CASE_015_GDPGROWTH_BRA",
+              "case_title": "Brazil GDP growth held-out interval",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.158549,
+              "official_observed_held_out_values": [
+                4.7626043797061,
+                3.01669435408112,
+                3.24165532813583,
+                3.41931516597739
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/BRA/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+              "official_turning_point_error": 0.75,
+              "predicted_held_out_values": [
+                2.954875,
+                2.954875,
+                2.954875,
+                2.954875
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_002",
+              "case_id": "SYS_CASE_016_GDPGROWTH_ZAF",
+              "case_title": "South Africa GDP growth held-out interval",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.694429,
+              "official_observed_held_out_values": [
+                4.85864865060148,
+                2.05813661692193,
+                0.80610455095804,
+                0.534843531905139
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/ZAF/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+              "official_turning_point_error": 0.75,
+              "predicted_held_out_values": [
+                2.954875,
+                2.954875,
+                2.954875,
+                2.954875
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_002",
+              "case_id": "SYS_CASE_017_GDPGROWTH_JPN",
+              "case_title": "Japan GDP growth held-out interval",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.419716,
+              "official_observed_held_out_values": [
+                2.69657404187188,
+                0.941998775483285,
+                1.47503481053384,
+                0.104309021773304
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/JPN/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+              "official_turning_point_error": 0.75,
+              "predicted_held_out_values": [
+                2.954875,
+                2.954875,
+                2.954875,
+                2.954875
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_002",
+              "case_id": "SYS_CASE_018_GDPGROWTH_FRA",
+              "case_title": "France GDP growth held-out interval",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.777442,
+              "official_observed_held_out_values": [
+                6.88233783360239,
+                2.71676264185913,
+                1.43921494437743,
+                1.19046798275883
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/FRA/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+              "official_turning_point_error": 0.75,
+              "predicted_held_out_values": [
+                2.954875,
+                2.954875,
+                2.954875,
+                2.954875
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_002",
+              "case_id": "SYS_CASE_019_GDPGROWTH_MEX",
+              "case_title": "Mexico GDP growth held-out interval",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.365613,
+              "official_observed_held_out_values": [
+                6.0484834621255,
+                3.70975709163623,
+                3.35354140652768,
+                1.42742769080466
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/MEX/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+              "official_turning_point_error": 0.75,
+              "predicted_held_out_values": [
+                2.954875,
+                2.954875,
+                2.954875,
+                2.954875
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_002",
+              "case_id": "SYS_CASE_020_GDPGROWTH_IDN",
+              "case_title": "Indonesia GDP growth held-out interval",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.533636,
+              "official_observed_held_out_values": [
+                3.70288562827751,
+                5.30719722664799,
+                5.04902331835997,
+                5.03034469419038
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/IDN/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+              "official_turning_point_error": 0.75,
+              "predicted_held_out_values": [
+                2.954875,
+                2.954875,
+                2.954875,
+                2.954875
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            }
+          ],
+          "official_coverage_summary": {
+            "case_total": 10,
+            "coverage_ratio_held_out": 1.0,
+            "coverage_ratio_total": 1.0,
+            "covered_case_total": 10,
+            "covered_held_out_case_total": 6,
+            "held_out_case_total": 6
+          },
+          "official_metrics_summary": {
+            "calibration_case_total": 4,
+            "covered_case_total": 10,
+            "covered_held_out_case_total": 6,
+            "critical_case_total": 0,
+            "held_out_evaluated_case_total": 6,
+            "mean_turning_point_error": 0.75,
+            "normalized_error_max": 1.656034,
+            "normalized_error_mean_abs": 0.646003,
+            "normalized_error_p95": 1.371675,
+            "severe_case_total": 0,
+            "tail_breach_count": 0
+          },
           "replay_status": "REPLAY_HARNESS_READY_PENDING_EXECUTION"
         },
         {
@@ -6539,349 +7093,1076 @@
             }
           ],
           "dataset_url": "https://api.worldbank.org/v2/en/indicator/EG.USE.PCAP.KG.OE?format=json",
-          "execution_basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "execution_basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "held_out_policy": "reserve one resource-intensity curve family",
           "observable_name": "process_system_regime_score",
-          "proxy_case_total": 10,
-          "proxy_critical_breach_total": 0,
-          "proxy_held_out_case_total": 6,
-          "proxy_normalized_error_max": 1.505431,
-          "proxy_normalized_error_mean_abs": 0.618736,
-          "proxy_normalized_error_p95": 1.393858,
+          "official_case_metrics": [
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_003",
+              "case_id": "SYS_CASE_021_ENERGYUSE_USA",
+              "case_title": "United States energy-use-per-capita curve",
+              "held_out_role": "CALIBRATION_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.262182,
+              "official_observed_held_out_values": [
+                6445.83409243358,
+                6511.68841394546,
+                6363.50015820072,
+                6359.43979855855
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/USA/indicator/EG.USE.PCAP.KG.OE?format=json",
+              "official_turning_point_error": 0.5,
+              "predicted_held_out_values": [
+                6215.929455,
+                6291.228909,
+                6367.440536,
+                6444.575388
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "CALIBRATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_003",
+              "case_id": "SYS_CASE_022_ENERGYUSE_CHN",
+              "case_title": "China energy-use-per-capita curve",
+              "held_out_role": "CALIBRATION_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.313817,
+              "official_observed_held_out_values": [
+                2465.96954605987,
+                2623.79959356116,
+                2676.48200976111,
+                2850.94152906511
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/CHN/indicator/EG.USE.PCAP.KG.OE?format=json",
+              "official_turning_point_error": 0.0,
+              "predicted_held_out_values": [
+                2427.01756,
+                2456.418327,
+                2486.175254,
+                2516.292655
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "CALIBRATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_003",
+              "case_id": "SYS_CASE_023_ENERGYUSE_IND",
+              "case_title": "India energy-use-per-capita curve",
+              "held_out_role": "CALIBRATION_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.333689,
+              "official_observed_held_out_values": [
+                632.239828540427,
+                676.814293488143,
+                727.902200094024,
+                763.197899394641
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/IND/indicator/EG.USE.PCAP.KG.OE?format=json",
+              "official_turning_point_error": 0.25,
+              "predicted_held_out_values": [
+                675.057077,
+                683.234684,
+                691.511355,
+                699.888288
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "CALIBRATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_003",
+              "case_id": "SYS_CASE_024_ENERGYUSE_DEU",
+              "case_title": "Germany energy-use-per-capita curve",
+              "held_out_role": "CALIBRATION_SEED",
+              "official_case_verdict": "SEVERE_BREACH",
+              "official_normalized_error_sigma": 1.617094,
+              "official_observed_held_out_values": [
+                3467.03057027911,
+                3261.8564081995,
+                2928.19658713867,
+                2824.59006117053
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/DEU/indicator/EG.USE.PCAP.KG.OE?format=json",
+              "official_turning_point_error": 0.75,
+              "predicted_held_out_values": [
+                3389.771344,
+                3430.834862,
+                3472.395821,
+                3514.460248
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "CALIBRATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_003",
+              "case_id": "SYS_CASE_025_ENERGYUSE_BRA",
+              "case_title": "Brazil energy-use-per-capita curve",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.225497,
+              "official_observed_held_out_values": [
+                1430.3934661032,
+                1432.72741132919,
+                1481.22439922518,
+                1511.62383133688
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/BRA/indicator/EG.USE.PCAP.KG.OE?format=json",
+              "official_turning_point_error": 0.0,
+              "predicted_held_out_values": [
+                1395.954621,
+                1412.865145,
+                1429.980521,
+                1447.303233
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_003",
+              "case_id": "SYS_CASE_026_ENERGYUSE_ZAF",
+              "case_title": "South Africa energy-use-per-capita curve",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "SEVERE_BREACH",
+              "official_normalized_error_sigma": 1.847585,
+              "official_observed_held_out_values": [
+                2037.46194166103,
+                2124.62297436572,
+                1938.30644693274,
+                1938.50916018053
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/ZAF/indicator/EG.USE.PCAP.KG.OE?format=json",
+              "official_turning_point_error": 0.5,
+              "predicted_held_out_values": [
+                2258.948001,
+                2286.312782,
+                2314.009059,
+                2342.040847
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_003",
+              "case_id": "SYS_CASE_027_ENERGYUSE_JPN",
+              "case_title": "Japan energy-use-per-capita curve",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.378351,
+              "official_observed_held_out_values": [
+                3196.03970960845,
+                3129.65861717499,
+                3039.14126131753,
+                3005.89902824379
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/JPN/indicator/EG.USE.PCAP.KG.OE?format=json",
+              "official_turning_point_error": 0.75,
+              "predicted_held_out_values": [
+                3083.764251,
+                3121.120815,
+                3158.929914,
+                3197.19703
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_003",
+              "case_id": "SYS_CASE_028_ENERGYUSE_FRA",
+              "case_title": "France energy-use-per-capita curve",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.862319,
+              "official_observed_held_out_values": [
+                3469.83398574773,
+                3100.1897815932,
+                3136.12237461475,
+                3184.7895085475
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/FRA/indicator/EG.USE.PCAP.KG.OE?format=json",
+              "official_turning_point_error": 0.25,
+              "predicted_held_out_values": [
+                3267.598911,
+                3307.182438,
+                3347.245478,
+                3387.79384
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_003",
+              "case_id": "SYS_CASE_029_ENERGYUSE_MEX",
+              "case_title": "Mexico energy-use-per-capita curve",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.772095,
+              "official_observed_held_out_values": [
+                1417.70559078908,
+                1441.98382794786,
+                1467.10931902847,
+                1558.75790867013
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/MEX/indicator/EG.USE.PCAP.KG.OE?format=json",
+              "official_turning_point_error": 0.0,
+              "predicted_held_out_values": [
+                1382.980056,
+                1399.733406,
+                1416.689705,
+                1433.851412
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            },
+            {
+              "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+              "benchmark_id": "SYS_BENCH_003",
+              "case_id": "SYS_CASE_030_ENERGYUSE_IDN",
+              "case_title": "Indonesia energy-use-per-capita curve",
+              "held_out_role": "HELD_OUT_SEED",
+              "official_case_verdict": "WITHIN_THRESHOLD",
+              "official_normalized_error_sigma": 0.552683,
+              "official_observed_held_out_values": [
+                856.09619536168,
+                902.233603991512,
+                958.649355730549,
+                982.414925134717
+              ],
+              "official_source_url": "https://api.worldbank.org/v2/country/IDN/indicator/EG.USE.PCAP.KG.OE?format=json",
+              "official_turning_point_error": 0.0,
+              "predicted_held_out_values": [
+                861.043519,
+                871.474157,
+                882.03115,
+                892.716031
+              ],
+              "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
+              "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
+              "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
+            }
+          ],
+          "official_coverage_summary": {
+            "case_total": 10,
+            "coverage_ratio_held_out": 1.0,
+            "coverage_ratio_total": 1.0,
+            "covered_case_total": 10,
+            "covered_held_out_case_total": 6,
+            "held_out_case_total": 6
+          },
+          "official_metrics_summary": {
+            "calibration_case_total": 4,
+            "covered_case_total": 10,
+            "covered_held_out_case_total": 6,
+            "critical_case_total": 0,
+            "held_out_evaluated_case_total": 6,
+            "mean_turning_point_error": 0.3,
+            "normalized_error_max": 1.847585,
+            "normalized_error_mean_abs": 0.716531,
+            "normalized_error_p95": 1.743864,
+            "severe_case_total": 1,
+            "tail_breach_count": 0
+          },
           "replay_status": "REPLAY_HARNESS_READY_PENDING_EXECUTION"
         }
       ],
       "case_coverage_ratio": 1.0,
       "case_metrics": [
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_001",
           "case_id": "SYS_CASE_001_POP_USA",
           "case_title": "United States total population trajectory",
           "held_out_role": "CALIBRATION_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.113548,
+          "official_observed_held_out_values": [
+            332099760.0,
+            334017321.0,
+            336806231.0,
+            340110988.0
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/USA/indicator/SP.POP.TOTL?format=json",
+          "official_turning_point_error": 0.0,
+          "predicted_held_out_values": [
+            335276366.475359,
+            339016270.203316,
+            342797891.395708,
+            346621695.397893
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "CALIBRATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.322047
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_001",
           "case_id": "SYS_CASE_002_POP_CHN",
           "case_title": "China total population trajectory",
           "held_out_role": "CALIBRATION_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.170536,
+          "official_observed_held_out_values": [
+            1412360000.0,
+            1412175000.0,
+            1410710000.0,
+            1408975000.0
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/CHN/indicator/SP.POP.TOTL?format=json",
+          "official_turning_point_error": 0.75,
+          "predicted_held_out_values": [
+            1426840382.198719,
+            1442756343.471749,
+            1458849842.349129,
+            1475122859.20769
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "CALIBRATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.343172
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_001",
           "case_id": "SYS_CASE_003_POP_IND",
           "case_title": "India total population trajectory",
           "held_out_role": "CALIBRATION_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.033285,
+          "official_observed_held_out_values": [
+            1414203896.0,
+            1425423212.0,
+            1438069596.0,
+            1450935791.0
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/IND/indicator/SP.POP.TOTL?format=json",
+          "official_turning_point_error": 0.0,
+          "predicted_held_out_values": [
+            1418263459.721129,
+            1434083748.087997,
+            1450080506.857664,
+            1466255704.502658
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "CALIBRATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.22297
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_001",
           "case_id": "SYS_CASE_004_POP_DEU",
           "case_title": "Germany total population trajectory",
           "held_out_role": "CALIBRATION_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.55559,
+          "official_observed_held_out_values": [
+            83196078.0,
+            83177813.0,
+            83287273.0,
+            83516593.0
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/DEU/indicator/SP.POP.TOTL?format=json",
+          "official_turning_point_error": 0.25,
+          "predicted_held_out_values": [
+            84088504.685436,
+            85026485.8365,
+            85974929.875959,
+            86933953.514083
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "CALIBRATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.39785
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_001",
           "case_id": "SYS_CASE_005_POP_BRA",
           "case_title": "Brazil total population trajectory",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.089475,
+          "official_observed_held_out_values": [
+            209550294.0,
+            210306415.0,
+            211140729.0,
+            211998573.0
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/BRA/indicator/SP.POP.TOTL?format=json",
+          "official_turning_point_error": 0.0,
+          "predicted_held_out_values": [
+            210988388.880438,
+            213341898.823369,
+            215721661.438691,
+            218127969.566809
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.661699
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_001",
           "case_id": "SYS_CASE_006_POP_ZAF",
           "case_title": "South Africa total population trajectory",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.037588,
+          "official_observed_held_out_values": [
+            61502603.0,
+            62378410.0,
+            63212384.0,
+            64007187.0
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/ZAF/indicator/SP.POP.TOTL?format=json",
+          "official_turning_point_error": 0.0,
+          "predicted_held_out_values": [
+            61237935.548795,
+            61921025.698748,
+            62611735.507149,
+            63310149.968922
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 1.309591
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_001",
           "case_id": "SYS_CASE_007_POP_JPN",
           "case_title": "Japan total population trajectory",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.450485,
+          "official_observed_held_out_values": [
+            125681593.0,
+            125124989.0,
+            124516650.0,
+            123975371.0
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/JPN/indicator/SP.POP.TOTL?format=json",
+          "official_turning_point_error": 1.0,
+          "predicted_held_out_values": [
+            127669402.237115,
+            129093514.763721,
+            130533512.823218,
+            131989573.613792
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 1.063957
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_001",
           "case_id": "SYS_CASE_008_POP_FRA",
           "case_title": "France total population trajectory",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.220872,
+          "official_observed_held_out_values": [
+            67842811.0,
+            68184457.0,
+            68372286.0,
+            68551653.0
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/FRA/indicator/SP.POP.TOTL?format=json",
+          "official_turning_point_error": 0.0,
+          "predicted_held_out_values": [
+            68355179.384493,
+            69117660.178748,
+            69888646.20943,
+            70668232.349808
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "SEVERE_BREACH",
-          "proxy_normalized_error_sigma": 1.644155
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_001",
           "case_id": "SYS_CASE_009_POP_MEX",
           "case_title": "Mexico total population trajectory",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.042506,
+          "official_observed_held_out_values": [
+            127648148.0,
+            128613117.0,
+            129739759.0,
+            130861007.0
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/MEX/indicator/SP.POP.TOTL?format=json",
+          "official_turning_point_error": 0.0,
+          "predicted_held_out_values": [
+            128213458.06236,
+            129643639.362708,
+            131089773.891233,
+            132552039.60124
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "SEVERE_BREACH",
-          "proxy_normalized_error_sigma": 1.532012
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_001",
           "case_id": "SYS_CASE_010_POP_IDN",
           "case_title": "Indonesia total population trajectory",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.044046,
+          "official_observed_held_out_values": [
+            276758053.0,
+            278830529.0,
+            281190067.0,
+            283487931.0
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/IDN/indicator/SP.POP.TOTL?format=json",
+          "official_turning_point_error": 0.0,
+          "predicted_held_out_values": [
+            277880340.47008,
+            280980009.355707,
+            284114254.084967,
+            287283460.340655
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.885373
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_002",
           "case_id": "SYS_CASE_011_GDPGROWTH_USA",
           "case_title": "United States GDP growth held-out interval",
           "held_out_role": "CALIBRATION_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.449674,
+          "official_observed_held_out_values": [
+            6.05505293244555,
+            2.51237531986017,
+            2.88755600749487,
+            2.79300127716779
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/USA/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+          "official_turning_point_error": 0.75,
+          "predicted_held_out_values": [
+            2.954875,
+            2.954875,
+            2.954875,
+            2.954875
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
           "prediction_split_role": "CALIBRATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.408434
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_002",
           "case_id": "SYS_CASE_012_GDPGROWTH_CHN",
           "case_title": "China GDP growth held-out interval",
           "held_out_role": "CALIBRATION_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.380811,
+          "official_observed_held_out_values": [
+            8.57008513166322,
+            3.1341888719577,
+            5.41484330099675,
+            4.9773565917572
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/CHN/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+          "official_turning_point_error": 0.75,
+          "predicted_held_out_values": [
+            2.954875,
+            2.954875,
+            2.954875,
+            2.954875
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
           "prediction_split_role": "CALIBRATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.152665
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_002",
           "case_id": "SYS_CASE_013_GDPGROWTH_IND",
           "case_title": "India GDP growth held-out interval",
           "held_out_role": "CALIBRATION_SEED",
+          "official_case_verdict": "SEVERE_BREACH",
+          "official_normalized_error_sigma": 1.656034,
+          "official_observed_held_out_values": [
+            9.68959249192875,
+            7.60936497768895,
+            9.19075493028345,
+            6.49476552383821
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/IND/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+          "official_turning_point_error": 0.75,
+          "predicted_held_out_values": [
+            2.954875,
+            2.954875,
+            2.954875,
+            2.954875
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
           "prediction_split_role": "CALIBRATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.33202
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_002",
           "case_id": "SYS_CASE_014_GDPGROWTH_DEU",
           "case_title": "Germany GDP growth held-out interval",
           "held_out_role": "CALIBRATION_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 1.024125,
+          "official_observed_held_out_values": [
+            3.90999994204108,
+            1.8092581243061,
+            -0.869647578573321,
+            -0.495851897260366
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/DEU/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+          "official_turning_point_error": 0.75,
+          "predicted_held_out_values": [
+            2.954875,
+            2.954875,
+            2.954875,
+            2.954875
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
           "prediction_split_role": "CALIBRATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.350422
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_002",
           "case_id": "SYS_CASE_015_GDPGROWTH_BRA",
           "case_title": "Brazil GDP growth held-out interval",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.158549,
+          "official_observed_held_out_values": [
+            4.7626043797061,
+            3.01669435408112,
+            3.24165532813583,
+            3.41931516597739
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/BRA/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+          "official_turning_point_error": 0.75,
+          "predicted_held_out_values": [
+            2.954875,
+            2.954875,
+            2.954875,
+            2.954875
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.901448
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_002",
           "case_id": "SYS_CASE_016_GDPGROWTH_ZAF",
           "case_title": "South Africa GDP growth held-out interval",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.694429,
+          "official_observed_held_out_values": [
+            4.85864865060148,
+            2.05813661692193,
+            0.80610455095804,
+            0.534843531905139
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/ZAF/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+          "official_turning_point_error": 0.75,
+          "predicted_held_out_values": [
+            2.954875,
+            2.954875,
+            2.954875,
+            2.954875
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.994486
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_002",
           "case_id": "SYS_CASE_017_GDPGROWTH_JPN",
           "case_title": "Japan GDP growth held-out interval",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.419716,
+          "official_observed_held_out_values": [
+            2.69657404187188,
+            0.941998775483285,
+            1.47503481053384,
+            0.104309021773304
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/JPN/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+          "official_turning_point_error": 0.75,
+          "predicted_held_out_values": [
+            2.954875,
+            2.954875,
+            2.954875,
+            2.954875
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.353303
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_002",
           "case_id": "SYS_CASE_018_GDPGROWTH_FRA",
           "case_title": "France GDP growth held-out interval",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.777442,
+          "official_observed_held_out_values": [
+            6.88233783360239,
+            2.71676264185913,
+            1.43921494437743,
+            1.19046798275883
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/FRA/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+          "official_turning_point_error": 0.75,
+          "predicted_held_out_values": [
+            2.954875,
+            2.954875,
+            2.954875,
+            2.954875
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.67276
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_002",
           "case_id": "SYS_CASE_019_GDPGROWTH_MEX",
           "case_title": "Mexico GDP growth held-out interval",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.365613,
+          "official_observed_held_out_values": [
+            6.0484834621255,
+            3.70975709163623,
+            3.35354140652768,
+            1.42742769080466
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/MEX/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+          "official_turning_point_error": 0.75,
+          "predicted_held_out_values": [
+            2.954875,
+            2.954875,
+            2.954875,
+            2.954875
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.780058
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_002",
           "case_id": "SYS_CASE_020_GDPGROWTH_IDN",
           "case_title": "Indonesia GDP growth held-out interval",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.533636,
+          "official_observed_held_out_values": [
+            3.70288562827751,
+            5.30719722664799,
+            5.04902331835997,
+            5.03034469419038
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/IDN/indicator/NY.GDP.MKTP.KD.ZG?format=json",
+          "official_turning_point_error": 0.75,
+          "predicted_held_out_values": [
+            2.954875,
+            2.954875,
+            2.954875,
+            2.954875
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_LEVEL_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.667814
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_003",
           "case_id": "SYS_CASE_021_ENERGYUSE_USA",
           "case_title": "United States energy-use-per-capita curve",
           "held_out_role": "CALIBRATION_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.262182,
+          "official_observed_held_out_values": [
+            6445.83409243358,
+            6511.68841394546,
+            6363.50015820072,
+            6359.43979855855
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/USA/indicator/EG.USE.PCAP.KG.OE?format=json",
+          "official_turning_point_error": 0.5,
+          "predicted_held_out_values": [
+            6215.929455,
+            6291.228909,
+            6367.440536,
+            6444.575388
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "CALIBRATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.124216
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_003",
           "case_id": "SYS_CASE_022_ENERGYUSE_CHN",
           "case_title": "China energy-use-per-capita curve",
           "held_out_role": "CALIBRATION_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.313817,
+          "official_observed_held_out_values": [
+            2465.96954605987,
+            2623.79959356116,
+            2676.48200976111,
+            2850.94152906511
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/CHN/indicator/EG.USE.PCAP.KG.OE?format=json",
+          "official_turning_point_error": 0.0,
+          "predicted_held_out_values": [
+            2427.01756,
+            2456.418327,
+            2486.175254,
+            2516.292655
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "CALIBRATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.308239
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_003",
           "case_id": "SYS_CASE_023_ENERGYUSE_IND",
           "case_title": "India energy-use-per-capita curve",
           "held_out_role": "CALIBRATION_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.333689,
+          "official_observed_held_out_values": [
+            632.239828540427,
+            676.814293488143,
+            727.902200094024,
+            763.197899394641
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/IND/indicator/EG.USE.PCAP.KG.OE?format=json",
+          "official_turning_point_error": 0.25,
+          "predicted_held_out_values": [
+            675.057077,
+            683.234684,
+            691.511355,
+            699.888288
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "CALIBRATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.244165
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_003",
           "case_id": "SYS_CASE_024_ENERGYUSE_DEU",
           "case_title": "Germany energy-use-per-capita curve",
           "held_out_role": "CALIBRATION_SEED",
+          "official_case_verdict": "SEVERE_BREACH",
+          "official_normalized_error_sigma": 1.617094,
+          "official_observed_held_out_values": [
+            3467.03057027911,
+            3261.8564081995,
+            2928.19658713867,
+            2824.59006117053
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/DEU/indicator/EG.USE.PCAP.KG.OE?format=json",
+          "official_turning_point_error": 0.75,
+          "predicted_held_out_values": [
+            3389.771344,
+            3430.834862,
+            3472.395821,
+            3514.460248
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "CALIBRATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.360637
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_003",
           "case_id": "SYS_CASE_025_ENERGYUSE_BRA",
           "case_title": "Brazil energy-use-per-capita curve",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.225497,
+          "official_observed_held_out_values": [
+            1430.3934661032,
+            1432.72741132919,
+            1481.22439922518,
+            1511.62383133688
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/BRA/indicator/EG.USE.PCAP.KG.OE?format=json",
+          "official_turning_point_error": 0.0,
+          "predicted_held_out_values": [
+            1395.954621,
+            1412.865145,
+            1429.980521,
+            1447.303233
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.418005
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_003",
           "case_id": "SYS_CASE_026_ENERGYUSE_ZAF",
           "case_title": "South Africa energy-use-per-capita curve",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "SEVERE_BREACH",
+          "official_normalized_error_sigma": 1.847585,
+          "official_observed_held_out_values": [
+            2037.46194166103,
+            2124.62297436572,
+            1938.30644693274,
+            1938.50916018053
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/ZAF/indicator/EG.USE.PCAP.KG.OE?format=json",
+          "official_turning_point_error": 0.5,
+          "predicted_held_out_values": [
+            2258.948001,
+            2286.312782,
+            2314.009059,
+            2342.040847
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.695645
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_003",
           "case_id": "SYS_CASE_027_ENERGYUSE_JPN",
           "case_title": "Japan energy-use-per-capita curve",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.378351,
+          "official_observed_held_out_values": [
+            3196.03970960845,
+            3129.65861717499,
+            3039.14126131753,
+            3005.89902824379
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/JPN/indicator/EG.USE.PCAP.KG.OE?format=json",
+          "official_turning_point_error": 0.75,
+          "predicted_held_out_values": [
+            3083.764251,
+            3121.120815,
+            3158.929914,
+            3197.19703
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.653062
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_003",
           "case_id": "SYS_CASE_028_ENERGYUSE_FRA",
           "case_title": "France energy-use-per-capita curve",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.862319,
+          "official_observed_held_out_values": [
+            3469.83398574773,
+            3100.1897815932,
+            3136.12237461475,
+            3184.7895085475
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/FRA/indicator/EG.USE.PCAP.KG.OE?format=json",
+          "official_turning_point_error": 0.25,
+          "predicted_held_out_values": [
+            3267.598911,
+            3307.182438,
+            3347.245478,
+            3387.79384
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "SEVERE_BREACH",
-          "proxy_normalized_error_sigma": 1.505431
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_003",
           "case_id": "SYS_CASE_029_ENERGYUSE_MEX",
           "case_title": "Mexico energy-use-per-capita curve",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.772095,
+          "official_observed_held_out_values": [
+            1417.70559078908,
+            1441.98382794786,
+            1467.10931902847,
+            1558.75790867013
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/MEX/indicator/EG.USE.PCAP.KG.OE?format=json",
+          "official_turning_point_error": 0.0,
+          "predicted_held_out_values": [
+            1382.980056,
+            1399.733406,
+            1416.689705,
+            1433.851412
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 1.25749
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         },
         {
-          "basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+          "basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
           "benchmark_id": "SYS_BENCH_003",
           "case_id": "SYS_CASE_030_ENERGYUSE_IDN",
           "case_title": "Indonesia energy-use-per-capita curve",
           "held_out_role": "HELD_OUT_SEED",
+          "official_case_verdict": "WITHIN_THRESHOLD",
+          "official_normalized_error_sigma": 0.552683,
+          "official_observed_held_out_values": [
+            856.09619536168,
+            902.233603991512,
+            958.649355730549,
+            982.414925134717
+          ],
+          "official_source_url": "https://api.worldbank.org/v2/country/IDN/indicator/EG.USE.PCAP.KG.OE?format=json",
+          "official_turning_point_error": 0.0,
+          "predicted_held_out_values": [
+            861.043519,
+            871.474157,
+            882.03115,
+            892.716031
+          ],
+          "prediction_basis": "CALIBRATION_MEAN_CAGR_ENVELOPE",
           "prediction_split_role": "HELD_OUT_VALIDATION_CASE",
-          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION",
-          "proxy_case_verdict": "WITHIN_PROXY_THRESHOLD",
-          "proxy_normalized_error_sigma": 0.620466
+          "prediction_status": "PREDICTION_DECLARED_PENDING_EXECUTION"
         }
       ],
       "case_rows": [
@@ -7580,39 +8861,44 @@
       "domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
       "domain_title": "Systems / Civilizational projection",
       "evidence_bar": "HYBRID_ESCALATION",
-      "execution_basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+      "execution_basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
       "falsifier_specification": "A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet.",
       "held_out_case_total": 18,
       "institute_run_measurement_wave_id": "INSTITUTE_RUN::SYSTEMS::WAVE_4A",
       "measurement_schema": "Evaluate K8 projection packets against pinned official macro-process series with held-out interval tests.",
       "measurement_wave_status": "STAND_BY",
       "minimum_cases_total": 30,
-      "next_required_action": "REPLACE_PROXY_WITH_OFFICIAL_OR_INSTITUTE_RUN_REPLAY",
-      "official_coverage_summary": {},
-      "official_metrics_summary": {},
+      "next_required_action": "TIGHTEN_HELD_OUT_INTERVAL_MODEL_AND_TURNING_POINT_DISCIPLINE",
+      "official_coverage_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3
+      },
+      "official_metrics_summary": {
+        "benchmark_total": 3,
+        "covered_benchmark_ratio": 1.0,
+        "covered_benchmark_total": 3,
+        "covered_case_total": 30,
+        "covered_held_out_case_total": 18,
+        "critical_case_total": 0,
+        "full_coverage_benchmark_ratio": 1.0,
+        "full_coverage_benchmark_total": 3,
+        "normalized_error_max": 1.847585,
+        "normalized_error_mean_abs": 0.512776,
+        "normalized_error_p95": 1.638511,
+        "severe_case_total": 1,
+        "tail_breach_count": 0
+      },
       "packet_id": "OC13::SYSTEMS::K8_MACRO_PROCESS_AND_REGIME_SHIFT",
       "parameterization_status": "PREDICTIONS_DECLARED_FOR_ALL_CASES",
       "pinned_case_total": 30,
       "prediction_declared_case_total": 30,
       "protocol_id": "OC13::EXECUTION::SYSTEMS::MACRO_TRAJECTORIES_AND_REGIME_SHIFTS",
-      "proxy_basis_allowed_for_dev_visibility": true,
-      "proxy_basis_pass_eligible": false,
-      "proxy_metrics_summary": {
-        "cases_total": 30,
-        "critical_case_total": 0,
-        "critical_residual_sigma_threshold": 2.5,
-        "held_out_case_total": 18,
-        "normalized_error_max": 1.644155,
-        "normalized_error_max_max_sigma": 5.0,
-        "normalized_error_mean_abs": 0.672786,
-        "normalized_error_mean_abs_max_sigma": 1.0,
-        "normalized_error_p95": 1.520051,
-        "normalized_error_p95_max_sigma": 2.5,
-        "severe_case_total": 3,
-        "severe_residual_sigma_threshold": 1.5,
-        "tail_breach_count": 0,
-        "tail_breach_count_max": 0
-      },
+      "proxy_basis_allowed_for_dev_visibility": null,
+      "proxy_basis_pass_eligible": null,
+      "proxy_metrics_summary": {},
       "quantitative_acceptance_thresholds": {
         "brier_score_max": 0.08,
         "coverage_ratio_required": 1.0,
@@ -7622,7 +8908,7 @@
         "expected_calibration_error_max": 0.05,
         "tail_breach_count_max": 0
       },
-      "quantitative_validation_status": "PROXY_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE",
+      "quantitative_validation_status": "OFFICIAL_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE",
       "refs": [
         "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
         "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
@@ -7631,7 +8917,7 @@
         "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py"
       ],
       "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION",
-      "replay_status": "PROXY_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE",
+      "replay_status": "OFFICIAL_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE",
       "status": "PASS"
     }
   ],
@@ -7639,10 +8925,10 @@
   "status": "PASS",
   "summary": {
     "checked_domain_total": 5,
-    "official_partial_execution_total": 1,
+    "official_partial_execution_total": 2,
     "pass_replayable_total": 1,
     "pending_execution_total": 0,
-    "proxy_execution_total": 3,
+    "proxy_execution_total": 2,
     "stand_by_measurement_wave_total": 4
   }
 }

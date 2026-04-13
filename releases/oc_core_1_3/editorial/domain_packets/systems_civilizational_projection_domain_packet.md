@@ -2,11 +2,11 @@
 
 ## Status Snapshot
 
-- Current state: `PACKETIZED_PROXY_REPLAY_EXECUTED`
+- Current state: `PACKETIZED_PARTIAL_OFFICIAL_REPLAY_EXECUTED`
 - Target state: `EMPIRICAL_HARD_CLOSED`
-- Quantitative pass result: `PROXY_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE`
-- Next required action: `REPLACE_PROXY_WITH_OFFICIAL_OR_INSTITUTE_RUN_REPLAY`
-- Replay status: `PROXY_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE`
+- Quantitative pass result: `OFFICIAL_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE`
+- Next required action: `COMPLETE_OFFICIAL_BENCHMARK_FAMILY_COVERAGE_AND_PROMOTE_NUMERICAL_PACKET`
+- Replay status: `OFFICIAL_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE`
 
 ## Theorem-to-Observable Map
 
@@ -56,7 +56,7 @@ A missed turning point or out-of-band held-out trajectory falsifies the promoted
 ## Replay Harness
 
 - Replay command: `logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION`
-- Replay program status: `PROGRAM_EXECUTED_PROXY_NOT_PASS_ELIGIBLE`
+- Replay program status: `PROGRAM_EXECUTED_PARTIAL_OFFICIAL_NOT_PASS_ELIGIBLE`
 - Execution protocol id: `OC13::EXECUTION::SYSTEMS::MACRO_TRAJECTORIES_AND_REGIME_SHIFTS`
 - Evidence bar: `HYBRID_ESCALATION`
 
@@ -70,4 +70,4 @@ A missed turning point or out-of-band held-out trajectory falsifies the promoted
 ## Blocking IDs
 
 - SYSTEMS_CIVILIZATIONAL_PROJECTION__NUMERICAL_PACKET_PASS_REQUIRED
-- SYSTEMS_CIVILIZATIONAL_PROJECTION__OFFICIAL_OR_INSTITUTE_RUN_REPLAY_REQUIRED
+- SYSTEMS_CIVILIZATIONAL_PROJECTION__OFFICIAL_BENCHMARK_FAMILY_COVERAGE_REQUIRED

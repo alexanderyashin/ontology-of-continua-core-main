@@ -15,7 +15,7 @@ Mathematics & PASS\_REPLAYABLE & OC13::MATHEMATICS::STRICT\_REPLAY\_ANCHOR / OC1
 Physics & PARTIAL\_OFFICIAL\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE & OC13::PHYSICS::FOUNDATIONAL\_CONSTANTS\_AND\_SPECTRA / OC13::EXECUTION::PHYSICS::CONSTANTS\_SPECTRA\_TRANSPORT & Held-out residuals stay inside the declared tolerance band for every promoted benchmark family. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id PHYSICS & INSTITUTE\_RUN::PHYSICS::WAVE\_1A \\
 Chemistry & PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE & OC13::CHEMISTRY::THERMOCHEMISTRY\_AND\_SPECTRA / OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY\_SPECTRA\_KINETICS & Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id CHEMISTRY & INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A \\
 Biology & PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE & OC13::BIOLOGY::STATE\_TRANSITION\_AND\_RESPONSE\_SIGNATURES / OC13::EXECUTION::BIOLOGY::STATE\_TRANSITIONS\_AND\_RESPONSE\_SIGNATURES & The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id BIOLOGY & INSTITUTE\_RUN::BIOLOGY::WAVE\_3A \\
-Systems / Civilizational projection & PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE & OC13::SYSTEMS::K8\_MACRO\_PROCESS\_AND\_REGIME\_SHIFT / OC13::EXECUTION::SYSTEMS::MACRO\_TRAJECTORIES\_AND\_REGIME\_SHIFTS & Declared trajectory and regime-change observables remain inside tolerance on held-out intervals. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id SYSTEMS\_CIVILIZATIONAL\_PROJECTION & INSTITUTE\_RUN::SYSTEMS::WAVE\_4A \\
+Systems / Civilizational projection & OFFICIAL\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE & OC13::SYSTEMS::K8\_MACRO\_PROCESS\_AND\_REGIME\_SHIFT / OC13::EXECUTION::SYSTEMS::MACRO\_TRAJECTORIES\_AND\_REGIME\_SHIFTS & Declared trajectory and regime-change observables remain inside tolerance on held-out intervals. & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id SYSTEMS\_CIVILIZATIONAL\_PROJECTION & INSTITUTE\_RUN::SYSTEMS::WAVE\_4A \\
 \bottomrule
 \end{longtable}
 
@@ -78,15 +78,15 @@ These numbers are visibility-only and do not count as positive empirical closure
 \end{itemize}
 
 \paragraph{Systems / Civilizational projection.}
-Status: `PASS` with replay state `PROXY\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE`.
+Status: `PASS` with replay state `OFFICIAL\_REPLAY\_EXECUTED\_NOT\_PASS\_ELIGIBLE`.
 Caseset readiness: `30` parameterized out of `30` cases (minimum `30`); coverage `PASS\_CASESET\_MINIMUM\_REACHED`; parameterization `PREDICTIONS\_DECLARED\_FOR\_ALL\_CASES`.
 Acceptance criterion: Declared trajectory and regime-change observables remain inside tolerance on held-out intervals..
 Falsifier: A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet..
 Replay command: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id SYSTEMS\_CIVILIZATIONAL\_PROJECTION`.
 Measurement schema: Evaluate K8 projection packets against pinned official macro-process series with held-out interval tests..
-Next required action: `REPLACE\_PROXY\_WITH\_OFFICIAL\_OR\_INSTITUTE\_RUN\_REPLAY`.
-Proxy replay visibility metrics: execution basis `PROXY\_DEVELOPMENT\_VISIBILITY`, mean abs normalized error `0.672786 sigma`, `p95` `1.520051 sigma`, `max` `1.644155 sigma`, tail breaches `0`, severe cases `3`, critical cases `0`.
-These numbers are visibility-only and do not count as positive empirical closure until an official or institute-run replay replaces the proxy basis.
+Next required action: `TIGHTEN\_HELD\_OUT\_INTERVAL\_MODEL\_AND\_TURNING\_POINT\_DISCIPLINE`.
+Official replay coverage and metrics: execution basis `OFFICIAL\_OPEN\_PRIMARY\_DATA`, covered benchmarks `3` of `3`, full-coverage benchmarks `3`, mean abs normalized error `0.512776 sigma`, `p95` `1.638511 sigma`, `max` `1.847585 sigma`, tail breaches `0`.
+This is a lawful partial official replay state: official primary data are already exercised, but the lane remains fail-closed until benchmark-family coverage is complete and the promoted numerical packet survives the full acceptance bar.
 \begin{itemize}
 \item `SYS\_BENCH\_001`: `population\_trajectory\_residual` from `\texttt{https://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?format=json}` with held-out policy `leave out one interval family`.
 \item `SYS\_BENCH\_002`: `gdp\_growth\_turning\_point\_error` from `\texttt{https://api.worldbank.org/v2/en/indicator/NY.GDP.MKTP.KD.ZG?format=json}` with held-out policy `reserve one held-out macro interval`.
