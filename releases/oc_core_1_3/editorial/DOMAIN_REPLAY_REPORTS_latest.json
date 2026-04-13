@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "repo_sha": "3937094bfa68e8fe9e42afc6ec8e144e991ebad5",
+    "repo_sha": "d849c8fd33124fdfd5f04e160663b87f5d0d29a4",
     "script": "oc_core_operationalization_v1.py",
     "surface": "logion/k0/governance/status/DOMAIN_REPLAY_REPORTS_latest.json",
-    "ts_utc": "2026-04-13T18:08:30Z"
+    "ts_utc": "2026-04-13T19:14:30Z"
   },
   "rows": [
     {
@@ -12,14 +12,19 @@
       "benchmark_case_total": 0,
       "benchmark_dataset_total": 0,
       "benchmark_rows": [],
+      "blocking_ids": [],
       "case_coverage_ratio": 0.0,
       "case_metrics": [],
       "case_rows": [],
+      "claim_level": "descriptive_only",
+      "compression_bundle_ref": "logion/k0/governance/status/oc_compression/bundles/mathematics/scientific_internal__08ab6d21dd2cfa83.json",
+      "compression_hash": "08ab6d21dd2cfa8397456668a3da96c283e122746fcf8ac77fb985b19d3bebe4",
       "coverage_readiness_status": "NOT_REQUIRED",
       "domain_id": "MATHEMATICS",
       "domain_title": "Mathematics",
       "evidence_bar": "HYBRID_ESCALATION",
       "execution_basis_class": "UNKNOWN",
+      "execution_readiness": "ready",
       "falsifier_specification": "A single replay divergence or surviving counterexample collapses promotion for the affected packet.",
       "held_out_case_total": 0,
       "institute_run_measurement_wave_id": "",
@@ -52,7 +57,9 @@
       ],
       "replay_command_ref": "logion/k7/spe/orchestrator/science/run_claim_simulations_v1.py",
       "replay_status": "PASS_REPLAYABLE",
-      "status": "PASS"
+      "scientific_state": "validated_strong",
+      "status": "PASS",
+      "task_profile": "scientific_internal"
     },
     {
       "acceptance_criterion": "Held-out residuals stay inside the declared tolerance band for every promoted benchmark family.",
@@ -1177,6 +1184,11 @@
           "replay_status": "REPLAY_HARNESS_READY_PENDING_EXECUTION"
         }
       ],
+      "blocking_ids": [
+        "PHYSICS__NUMERICAL_PACKET_PASS_REQUIRED",
+        "PHYSICS__OFFICIAL_BENCHMARK_FAMILY_COVERAGE_REQUIRED",
+        "PHYSICS__EMPIRICAL_VALIDATION_PENDING"
+      ],
       "case_coverage_ratio": 1.0,
       "case_metrics": [
         {
@@ -2208,11 +2220,15 @@
           "units": "domain-specific scaling quantity"
         }
       ],
+      "claim_level": "parameterized_predictive",
+      "compression_bundle_ref": "logion/k0/governance/status/oc_compression/bundles/physics/scientific_internal__468829010e92122d.json",
+      "compression_hash": "468829010e92122d23347675081f135ee0faa9b975f7da81457dd01d48359e1d",
       "coverage_readiness_status": "PASS_CASESET_MINIMUM_REACHED",
       "domain_id": "PHYSICS",
       "domain_title": "Physics",
       "evidence_bar": "HYBRID_ESCALATION",
       "execution_basis_class": "PARTIAL_OFFICIAL_PRIMARY_DATA",
+      "execution_readiness": "conditionally_ready",
       "falsifier_specification": "Any benchmark family with residuals outside tolerance or with broken sign/order constraints falsifies the promoted packet.",
       "held_out_case_total": 20,
       "institute_run_measurement_wave_id": "INSTITUTE_RUN::PHYSICS::WAVE_1A",
@@ -2269,7 +2285,9 @@
       ],
       "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS",
       "replay_status": "PARTIAL_OFFICIAL_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE",
-      "status": "PASS"
+      "scientific_state": "validated_partial",
+      "status": "PASS",
+      "task_profile": "scientific_internal"
     },
     {
       "acceptance_criterion": "Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions.",
@@ -3388,6 +3406,11 @@
           "replay_status": "REPLAY_HARNESS_READY_PENDING_EXECUTION"
         }
       ],
+      "blocking_ids": [
+        "CHEMISTRY__NUMERICAL_PACKET_PASS_REQUIRED",
+        "CHEMISTRY__OFFICIAL_BENCHMARK_FAMILY_COVERAGE_REQUIRED",
+        "CHEMISTRY__EMPIRICAL_VALIDATION_PENDING"
+      ],
       "case_coverage_ratio": 1.0,
       "case_metrics": [
         {
@@ -4411,18 +4434,22 @@
           "units": "rate, equilibrium constant, or bounded residual envelope"
         }
       ],
+      "claim_level": "parameterized_predictive",
+      "compression_bundle_ref": "logion/k0/governance/status/oc_compression/bundles/chemistry/scientific_internal__922be24a72e8589a.json",
+      "compression_hash": "922be24a72e8589a08989f767e6ef98f6db1f264779ad302da270d865d4b288c",
       "coverage_readiness_status": "PASS_CASESET_MINIMUM_REACHED",
       "domain_id": "CHEMISTRY",
       "domain_title": "Chemistry",
       "evidence_bar": "HYBRID_ESCALATION",
       "execution_basis_class": "PARTIAL_OFFICIAL_PRIMARY_DATA",
+      "execution_readiness": "conditionally_ready",
       "falsifier_specification": "A held-out thermochemical, spectral, or kinetic family outside tolerance collapses the promoted chemistry packet.",
       "held_out_case_total": 19,
       "institute_run_measurement_wave_id": "INSTITUTE_RUN::CHEMISTRY::WAVE_2A",
       "measurement_schema": "Map theorem packets to thermochemical, spectral, and kinetic observables against pinned reference tables.",
       "measurement_wave_status": "STAND_BY",
       "minimum_cases_total": 30,
-      "next_required_action": "COMPLETE_SPECTRAL_AND_KINETIC_FAMILY_OFFICIAL_NUMERICAL_PACKETS",
+      "next_required_action": "COMPLETE_OFFICIAL_BENCHMARK_FAMILY_COVERAGE_AND_PROMOTE_NUMERICAL_PACKET",
       "official_coverage_summary": {
         "benchmark_total": 3,
         "covered_benchmark_ratio": 0.333333,
@@ -4472,7 +4499,9 @@
       ],
       "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY",
       "replay_status": "PARTIAL_OFFICIAL_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE",
-      "status": "PASS"
+      "scientific_state": "validated_partial",
+      "status": "PASS",
+      "task_profile": "scientific_internal"
     },
     {
       "acceptance_criterion": "The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary.",
@@ -5218,6 +5247,11 @@
           "proxy_normalized_error_p95": 1.510536,
           "replay_status": "REPLAY_HARNESS_READY_PENDING_EXECUTION"
         }
+      ],
+      "blocking_ids": [
+        "BIOLOGY__NUMERICAL_PACKET_PASS_REQUIRED",
+        "BIOLOGY__OFFICIAL_OR_INSTITUTE_RUN_REPLAY_REQUIRED",
+        "BIOLOGY__EMPIRICAL_VALIDATION_PENDING"
       ],
       "case_coverage_ratio": 1.0,
       "case_metrics": [
@@ -6244,11 +6278,15 @@
           "units": "response onset, delay, or bounded signature score"
         }
       ],
+      "claim_level": "case_backed",
+      "compression_bundle_ref": "logion/k0/governance/status/oc_compression/bundles/biology/scientific_internal__a2340e59f6f37c5e.json",
+      "compression_hash": "a2340e59f6f37c5e0ea3b5e1b24be48653a25fe6ddd43f284258aa3819b817fc",
       "coverage_readiness_status": "PASS_CASESET_MINIMUM_REACHED",
       "domain_id": "BIOLOGY",
       "domain_title": "Biology",
       "evidence_bar": "HYBRID_ESCALATION",
       "execution_basis_class": "PROXY_DEVELOPMENT_VISIBILITY",
+      "execution_readiness": "conditionally_ready",
       "falsifier_specification": "If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound.",
       "held_out_case_total": 16,
       "institute_run_measurement_wave_id": "INSTITUTE_RUN::BIOLOGY::WAVE_3A",
@@ -6299,7 +6337,9 @@
       ],
       "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY",
       "replay_status": "PROXY_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE",
-      "status": "PASS"
+      "scientific_state": "predictive_candidate",
+      "status": "PASS",
+      "task_profile": "scientific_internal"
     },
     {
       "acceptance_criterion": "Declared trajectory and regime-change observables remain inside tolerance on held-out intervals.",
@@ -7877,6 +7917,11 @@
           "replay_status": "REPLAY_HARNESS_READY_PENDING_EXECUTION"
         }
       ],
+      "blocking_ids": [
+        "SYSTEMS_CIVILIZATIONAL_PROJECTION__NUMERICAL_PACKET_PASS_REQUIRED",
+        "SYSTEMS_CIVILIZATIONAL_PROJECTION__OFFICIAL_BENCHMARK_FAMILY_COVERAGE_REQUIRED",
+        "SYSTEMS_CIVILIZATIONAL_PROJECTION__EMPIRICAL_VALIDATION_PENDING"
+      ],
       "case_coverage_ratio": 1.0,
       "case_metrics": [
         {
@@ -9352,18 +9397,22 @@
           "units": "kg oil equivalent per capita"
         }
       ],
+      "claim_level": "parameterized_predictive",
+      "compression_bundle_ref": "logion/k0/governance/status/oc_compression/bundles/systems_civilizational_projection/scientific_internal__a0e71548371b2d52.json",
+      "compression_hash": "a0e71548371b2d52e406e2dc0c309223484fad68d05984ddb2824467c5db9f08",
       "coverage_readiness_status": "PASS_CASESET_MINIMUM_REACHED",
       "domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
       "domain_title": "Systems / Civilizational projection",
       "evidence_bar": "HYBRID_ESCALATION",
       "execution_basis_class": "OFFICIAL_OPEN_PRIMARY_DATA",
+      "execution_readiness": "conditionally_ready",
       "falsifier_specification": "A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet.",
       "held_out_case_total": 18,
       "institute_run_measurement_wave_id": "INSTITUTE_RUN::SYSTEMS::WAVE_4A",
       "measurement_schema": "Evaluate K8 projection packets against pinned official macro-process series with held-out interval tests.",
       "measurement_wave_status": "STAND_BY",
       "minimum_cases_total": 30,
-      "next_required_action": "TIGHTEN_HELD_OUT_INTERVAL_MODEL_AND_TURNING_POINT_DISCIPLINE",
+      "next_required_action": "COMPLETE_OFFICIAL_BENCHMARK_FAMILY_COVERAGE_AND_PROMOTE_NUMERICAL_PACKET",
       "official_coverage_summary": {
         "benchmark_total": 3,
         "covered_benchmark_ratio": 1.0,
@@ -9413,12 +9462,16 @@
       ],
       "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION",
       "replay_status": "OFFICIAL_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE",
-      "status": "PASS"
+      "scientific_state": "validated_partial",
+      "status": "PASS",
+      "task_profile": "scientific_internal"
     }
   ],
   "schema_id": "DOMAIN_REPLAY_REPORTS_v1",
   "status": "PASS",
   "summary": {
+    "bundle_backed": true,
+    "bundle_task_profile": "scientific_internal",
     "checked_domain_total": 5,
     "official_partial_execution_total": 3,
     "pass_replayable_total": 1,
