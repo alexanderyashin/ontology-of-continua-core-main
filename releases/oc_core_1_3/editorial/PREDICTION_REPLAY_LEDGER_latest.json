@@ -1,13 +1,19 @@
 {
   "metadata": {
-    "repo_sha": "950373025fb5c38aa3fa834ed629bc90247b51c3",
+    "repo_sha": "4adb398f65ded5e4707096672a12b4503e6738bf",
     "script": "oc_core_operationalization_v1.py",
     "surface": "logion/k0/governance/status/PREDICTION_REPLAY_LEDGER_latest.json",
-    "ts_utc": "2026-04-13T08:56:30Z"
+    "ts_utc": "2026-04-13T10:12:40Z"
   },
   "rows": [
     {
       "acceptance_criterion": "A promoted mathematical numerical packet must keep deterministic replay semantics, explicit evidence outputs, and counterexample logging.",
+      "benchmark_families": [
+        "TIER1_AIMATH_PDF_013_Q010",
+        "strict closure result ledger",
+        "counterexample search corpus",
+        "deterministic replay traces"
+      ],
       "domain_id": "MATHEMATICS",
       "domain_title": "Mathematics",
       "evidence_snapshot": {
@@ -15,16 +21,24 @@
         "python_evidence_executed_total": 21,
         "simulation_bundle_blocked_total": 21
       },
-      "falsifier_route": "A domain claim fails promotion if replay cannot be rerun deterministically against the declared benchmark and measurable outputs.",
+      "falsifier_route": "A single replay divergence or surviving counterexample collapses promotion for the affected packet.",
+      "measurement_escalation_status": "NOT_REQUIRED",
       "refs": [
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
         "logion/k0/governance/status/QUESTION_COMPUTATIONAL_EVIDENCE_latest.json"
       ],
       "replay_command_ref": "logion/k7/spe/orchestrator/science/run_claim_simulations_v1.py",
+      "replay_program_status": "ACTIVE_REPLAY_LANE",
       "replay_status": "PASS_REPLAYABLE"
     },
     {
       "acceptance_criterion": "Standalone domain theory and a validated numerical packet are required before replay is lawful.",
+      "benchmark_families": [
+        "SOURCE_NATIVE_DOMAIN_PACKET_REQUIRED",
+        "fundamental constants residuals",
+        "spectral line residual envelopes",
+        "transport or plasma scaling envelopes"
+      ],
       "domain_id": "PHYSICS",
       "domain_title": "Physics",
       "evidence_snapshot": {
@@ -32,16 +46,24 @@
         "python_evidence_executed_total": 21,
         "simulation_bundle_blocked_total": 21
       },
-      "falsifier_route": "A domain claim fails promotion if replay cannot be rerun deterministically against the declared benchmark and measurable outputs.",
+      "falsifier_route": "Any benchmark family with residuals outside tolerance or with broken sign/order constraints falsifies the promoted packet.",
+      "measurement_escalation_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
       "refs": [
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
         "logion/k0/governance/status/QUESTION_COMPUTATIONAL_EVIDENCE_latest.json"
       ],
       "replay_command_ref": "",
+      "replay_program_status": "PROGRAM_DEFINED_PENDING_REPLAY_HARNESS",
       "replay_status": "FAIL_CLOSED_PENDING_DOMAIN_NUMERICAL_PACKET"
     },
     {
       "acceptance_criterion": "Standalone domain theory and a validated numerical packet are required before replay is lawful.",
+      "benchmark_families": [
+        "SOURCE_NATIVE_DOMAIN_PACKET_REQUIRED",
+        "thermochemical reference values",
+        "spectroscopic transition families",
+        "kinetic or equilibrium observable envelopes"
+      ],
       "domain_id": "CHEMISTRY",
       "domain_title": "Chemistry",
       "evidence_snapshot": {
@@ -49,16 +71,24 @@
         "python_evidence_executed_total": 21,
         "simulation_bundle_blocked_total": 21
       },
-      "falsifier_route": "A domain claim fails promotion if replay cannot be rerun deterministically against the declared benchmark and measurable outputs.",
+      "falsifier_route": "A held-out thermochemical, spectral, or kinetic family outside tolerance collapses the promoted chemistry packet.",
+      "measurement_escalation_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
       "refs": [
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
         "logion/k0/governance/status/QUESTION_COMPUTATIONAL_EVIDENCE_latest.json"
       ],
       "replay_command_ref": "",
+      "replay_program_status": "PROGRAM_DEFINED_PENDING_REPLAY_HARNESS",
       "replay_status": "FAIL_CLOSED_PENDING_DOMAIN_NUMERICAL_PACKET"
     },
     {
       "acceptance_criterion": "Standalone domain theory and a validated numerical packet are required before replay is lawful.",
+      "benchmark_families": [
+        "SOURCE_NATIVE_DOMAIN_PACKET_REQUIRED",
+        "gene-expression time-series families",
+        "cell-state transition signatures",
+        "stimulus-response or excitability onset markers"
+      ],
       "domain_id": "BIOLOGY",
       "domain_title": "Biology",
       "evidence_snapshot": {
@@ -66,16 +96,24 @@
         "python_evidence_executed_total": 21,
         "simulation_bundle_blocked_total": 21
       },
-      "falsifier_route": "A domain claim fails promotion if replay cannot be rerun deterministically against the declared benchmark and measurable outputs.",
+      "falsifier_route": "If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound.",
+      "measurement_escalation_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
       "refs": [
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
         "logion/k0/governance/status/QUESTION_COMPUTATIONAL_EVIDENCE_latest.json"
       ],
       "replay_command_ref": "",
+      "replay_program_status": "PROGRAM_DEFINED_PENDING_REPLAY_HARNESS",
       "replay_status": "FAIL_CLOSED_PENDING_DOMAIN_NUMERICAL_PACKET"
     },
     {
       "acceptance_criterion": "Standalone domain theory and a validated numerical packet are required before replay is lawful.",
+      "benchmark_families": [
+        "SOURCE_NATIVE_DOMAIN_PACKET_REQUIRED",
+        "macro indicator trajectories",
+        "resource-intensity or throughput curves",
+        "held-out interval stability and regime shifts"
+      ],
       "domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
       "domain_title": "Systems / Civilizational projection",
       "evidence_snapshot": {
@@ -83,16 +121,21 @@
         "python_evidence_executed_total": 21,
         "simulation_bundle_blocked_total": 21
       },
-      "falsifier_route": "A domain claim fails promotion if replay cannot be rerun deterministically against the declared benchmark and measurable outputs.",
+      "falsifier_route": "A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet.",
+      "measurement_escalation_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
       "refs": [
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
         "logion/k0/governance/status/QUESTION_COMPUTATIONAL_EVIDENCE_latest.json"
       ],
       "replay_command_ref": "",
+      "replay_program_status": "PROGRAM_DEFINED_PENDING_REPLAY_HARNESS",
       "replay_status": "FAIL_CLOSED_PENDING_DOMAIN_NUMERICAL_PACKET"
     },
     {
       "acceptance_criterion": "No replay contract is required for this domain in the outward release.",
+      "benchmark_families": [
+        "NOT_APPLICABLE"
+      ],
       "domain_id": "DRT",
       "domain_title": "DRT",
       "evidence_snapshot": {
@@ -101,15 +144,20 @@
         "simulation_bundle_blocked_total": 21
       },
       "falsifier_route": "A domain claim fails promotion if replay cannot be rerun deterministically against the declared benchmark and measurable outputs.",
+      "measurement_escalation_status": "NOT_REQUIRED",
       "refs": [
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
         "logion/k0/governance/status/QUESTION_COMPUTATIONAL_EVIDENCE_latest.json"
       ],
       "replay_command_ref": "",
+      "replay_program_status": "NOT_REQUIRED_OR_SUPPORTING",
       "replay_status": "NOT_REQUIRED_OR_SUPPORTING"
     },
     {
       "acceptance_criterion": "No replay contract is required for this domain in the outward release.",
+      "benchmark_families": [
+        "NOT_APPLICABLE"
+      ],
       "domain_id": "METAONTOLOGY",
       "domain_title": "Metaontology",
       "evidence_snapshot": {
@@ -118,11 +166,13 @@
         "simulation_bundle_blocked_total": 21
       },
       "falsifier_route": "A domain claim fails promotion if replay cannot be rerun deterministically against the declared benchmark and measurable outputs.",
+      "measurement_escalation_status": "NOT_REQUIRED",
       "refs": [
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
         "logion/k0/governance/status/QUESTION_COMPUTATIONAL_EVIDENCE_latest.json"
       ],
       "replay_command_ref": "",
+      "replay_program_status": "NOT_REQUIRED_OR_SUPPORTING",
       "replay_status": "NOT_REQUIRED_OR_SUPPORTING"
     }
   ],
@@ -131,6 +181,7 @@
   "summary": {
     "domain_total": 7,
     "fail_closed_total": 4,
+    "program_defined_total": 4,
     "replayable_total": 1
   }
 }

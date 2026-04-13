@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "repo_sha": "950373025fb5c38aa3fa834ed629bc90247b51c3",
+    "repo_sha": "4adb398f65ded5e4707096672a12b4503e6738bf",
     "script": "oc_core_operationalization_v1.py",
     "surface": "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
-    "ts_utc": "2026-04-13T08:56:30Z"
+    "ts_utc": "2026-04-13T10:12:40Z"
   },
   "refs": {
     "domain_external_data_manifest": "logion/k0/governance/status/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
@@ -13,20 +13,37 @@
   },
   "rows": [
     {
+      "acceptance_criterion": "No replay divergence and no surviving counterexample against the promoted packet.",
       "benchmark": "TIER1_AIMATH_PDF_013_Q010",
+      "benchmark_families": [
+        "TIER1_AIMATH_PDF_013_Q010",
+        "strict closure result ledger",
+        "counterexample search corpus",
+        "deterministic replay traces"
+      ],
+      "blocking_ids": [],
       "domain_id": "MATHEMATICS",
       "domain_title": "Mathematics",
+      "falsifier_specification": "A single replay divergence or surviving counterexample collapses promotion for the affected packet.",
       "measurable_outputs": [
         "epsilon_star",
         "minimal_denominator",
         "minimal_augmentation_rank",
         "component_fiber_count",
-        "move_connectivity_or_degree_bound"
+        "move_connectivity_or_degree_bound",
+        "strict_terminalized_total",
+        "counterexample_executed_total",
+        "python_evidence_executed_total"
       ],
+      "measurement_escalation_rule": "Expand the exact-question corpus rather than broadening outward claims when a replay gap appears.",
+      "measurement_schema": "Replay declared mathematical packets deterministically against the strict closure ledger and counterexample traces.",
+      "next_required_action": "MAINTAIN_REPLAY_DISCIPLINE",
       "nonclaim_boundary": "Only the proved subset may carry quantitative outputs for this domain.",
+      "numerical_packet_program_status": "ANCHOR_NUMERICAL_PACKET_ACTIVE",
       "numerical_packet_status": "PASS_ACTIVE_NUMERICAL_PACKET",
       "prediction_contract_status": "ACTIVE_NUMERICAL_PACKET",
       "promotion_scope_status": "STANDALONE_EXPANSION_ACTIVE",
+      "quantitative_acceptance_result": "PASS_TERMINALIZED_NUMERICAL_REPLAY",
       "refs": [
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest.json",
         "logion/k0/governance/status/QUESTION_COMPUTATIONAL_EVIDENCE_latest.json",
@@ -43,18 +60,38 @@
       }
     },
     {
+      "acceptance_criterion": "Held-out residuals stay inside the declared tolerance band for every promoted benchmark family.",
       "benchmark": "SOURCE_NATIVE_DOMAIN_PACKET_REQUIRED",
+      "benchmark_families": [
+        "SOURCE_NATIVE_DOMAIN_PACKET_REQUIRED",
+        "fundamental constants residuals",
+        "spectral line residual envelopes",
+        "transport or plasma scaling envelopes"
+      ],
+      "blocking_ids": [
+        "PHYSICS__STANDALONE_DOMAIN_THEORY_REQUIRED",
+        "PHYSICS__NUMERICAL_PACKET_REQUIRED"
+      ],
       "domain_id": "PHYSICS",
       "domain_title": "Physics",
+      "falsifier_specification": "Any benchmark family with residuals outside tolerance or with broken sign/order constraints falsifies the promoted packet.",
       "measurable_outputs": [
         "contradiction_load_threshold",
         "stabilization_margin",
-        "collapse_regime_boundary"
+        "collapse_regime_boundary",
+        "relative_constant_error",
+        "spectral_line_residual",
+        "transport_scaling_residual"
       ],
+      "measurement_escalation_rule": "If official/open data do not cover the required observable family, queue institute-run measurement or observational partner acquisition.",
+      "measurement_schema": "Bind theorem-to-observable maps to pinned official constants and spectra, then evaluate held-out residual envelopes.",
+      "next_required_action": "MATERIALIZE_STANDALONE_DOMAIN_THEORY_PACKET",
       "nonclaim_boundary": "Current inclusion is bridge-only; no proved standalone physics theorem package is promoted here.",
+      "numerical_packet_program_status": "PROGRAM_DEFINED_PENDING_STANDALONE_DOMAIN_THEORY",
       "numerical_packet_status": "FAIL_CLOSED_PENDING_STANDALONE_DOMAIN_THEORY",
       "prediction_contract_status": "FAIL_CLOSED_PENDING_DOMAIN_THEORY",
       "promotion_scope_status": "BRIDGE_ONLY_SCOPE",
+      "quantitative_acceptance_result": "NOT_YET_RUN",
       "refs": [
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest.json",
         "logion/k0/governance/status/QUESTION_COMPUTATIONAL_EVIDENCE_latest.json",
@@ -66,18 +103,38 @@
       "validation_evidence": {}
     },
     {
+      "acceptance_criterion": "Declared chemistry benchmark families pass the tolerance envelope on held-out compounds or reactions.",
       "benchmark": "SOURCE_NATIVE_DOMAIN_PACKET_REQUIRED",
+      "benchmark_families": [
+        "SOURCE_NATIVE_DOMAIN_PACKET_REQUIRED",
+        "thermochemical reference values",
+        "spectroscopic transition families",
+        "kinetic or equilibrium observable envelopes"
+      ],
+      "blocking_ids": [
+        "CHEMISTRY__STANDALONE_DOMAIN_THEORY_REQUIRED",
+        "CHEMISTRY__NUMERICAL_PACKET_REQUIRED"
+      ],
       "domain_id": "CHEMISTRY",
       "domain_title": "Chemistry",
+      "falsifier_specification": "A held-out thermochemical, spectral, or kinetic family outside tolerance collapses the promoted chemistry packet.",
       "measurable_outputs": [
         "contradiction_load_threshold",
         "stabilization_margin",
-        "collapse_regime_boundary"
+        "collapse_regime_boundary",
+        "enthalpy_residual",
+        "spectral_transition_residual",
+        "kinetic_or_equilibrium_residual"
       ],
+      "measurement_escalation_rule": "When official/open reference data are insufficient, queue targeted laboratory or partner-measurement acquisition.",
+      "measurement_schema": "Map theorem packets to thermochemical, spectral, and kinetic observables against pinned reference tables.",
+      "next_required_action": "MATERIALIZE_STANDALONE_DOMAIN_THEORY_PACKET",
       "nonclaim_boundary": "Current inclusion is bridge-only; no proved standalone chemistry theorem package is promoted here.",
+      "numerical_packet_program_status": "PROGRAM_DEFINED_PENDING_STANDALONE_DOMAIN_THEORY",
       "numerical_packet_status": "FAIL_CLOSED_PENDING_STANDALONE_DOMAIN_THEORY",
       "prediction_contract_status": "FAIL_CLOSED_PENDING_DOMAIN_THEORY",
       "promotion_scope_status": "BRIDGE_ONLY_SCOPE",
+      "quantitative_acceptance_result": "NOT_YET_RUN",
       "refs": [
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest.json",
         "logion/k0/governance/status/QUESTION_COMPUTATIONAL_EVIDENCE_latest.json",
@@ -89,18 +146,38 @@
       "validation_evidence": {}
     },
     {
+      "acceptance_criterion": "The promoted biological packet reproduces the declared measurable signatures on held-out datasets without widening the claim boundary.",
       "benchmark": "SOURCE_NATIVE_DOMAIN_PACKET_REQUIRED",
+      "benchmark_families": [
+        "SOURCE_NATIVE_DOMAIN_PACKET_REQUIRED",
+        "gene-expression time-series families",
+        "cell-state transition signatures",
+        "stimulus-response or excitability onset markers"
+      ],
+      "blocking_ids": [
+        "BIOLOGY__STANDALONE_DOMAIN_THEORY_REQUIRED",
+        "BIOLOGY__NUMERICAL_PACKET_REQUIRED"
+      ],
       "domain_id": "BIOLOGY",
       "domain_title": "Biology",
+      "falsifier_specification": "If the bounded signature family fails on held-out datasets, the biological packet remains frontier-bound.",
       "measurable_outputs": [
         "contradiction_load_threshold",
         "stabilization_margin",
-        "collapse_regime_boundary"
+        "collapse_regime_boundary",
+        "expression_signature_residual",
+        "state_transition_order_error",
+        "response_onset_residual"
       ],
+      "measurement_escalation_rule": "If open repositories cannot close the lane honestly, promote an institute-run observation or assay plan instead of overclaiming.",
+      "measurement_schema": "Choose one bounded biological lane and evaluate predicted state transitions or response signatures against open assay data.",
+      "next_required_action": "MATERIALIZE_STANDALONE_DOMAIN_THEORY_PACKET",
       "nonclaim_boundary": "Current inclusion is bridge-only; no proved standalone biology theorem package is promoted here.",
+      "numerical_packet_program_status": "PROGRAM_DEFINED_PENDING_STANDALONE_DOMAIN_THEORY",
       "numerical_packet_status": "FAIL_CLOSED_PENDING_STANDALONE_DOMAIN_THEORY",
       "prediction_contract_status": "FAIL_CLOSED_PENDING_DOMAIN_THEORY",
       "promotion_scope_status": "BRIDGE_ONLY_SCOPE",
+      "quantitative_acceptance_result": "NOT_YET_RUN",
       "refs": [
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest.json",
         "logion/k0/governance/status/QUESTION_COMPUTATIONAL_EVIDENCE_latest.json",
@@ -108,22 +185,42 @@
         "logion/k0/governance/status/OC_CORE_1_3_K_LEVEL_SYSTEM_latest.json",
         "logion/k0/governance/status/OC_DOMAIN_INCLUSION_VERDICT_LEDGER_latest.json"
       ],
-      "source_route_status": "FAIL_CLOSED",
+      "source_route_status": "PASS",
       "validation_evidence": {}
     },
     {
+      "acceptance_criterion": "Declared trajectory and regime-change observables remain inside tolerance on held-out intervals.",
       "benchmark": "SOURCE_NATIVE_DOMAIN_PACKET_REQUIRED",
+      "benchmark_families": [
+        "SOURCE_NATIVE_DOMAIN_PACKET_REQUIRED",
+        "macro indicator trajectories",
+        "resource-intensity or throughput curves",
+        "held-out interval stability and regime shifts"
+      ],
+      "blocking_ids": [
+        "SYSTEMS_CIVILIZATIONAL_PROJECTION__STANDALONE_DOMAIN_THEORY_REQUIRED",
+        "SYSTEMS_CIVILIZATIONAL_PROJECTION__NUMERICAL_PACKET_REQUIRED"
+      ],
       "domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
       "domain_title": "Systems / Civilizational projection",
+      "falsifier_specification": "A missed turning point or out-of-band held-out trajectory falsifies the promoted systems packet.",
       "measurable_outputs": [
         "contradiction_load_threshold",
         "stabilization_margin",
-        "collapse_regime_boundary"
+        "collapse_regime_boundary",
+        "trajectory_residual",
+        "turning_point_error",
+        "held_out_interval_regime_score"
       ],
+      "measurement_escalation_rule": "If open macro-process series are insufficient, queue institute-run observation design or partner data acquisition.",
+      "measurement_schema": "Evaluate K8 projection packets against pinned official macro-process series with held-out interval tests.",
+      "next_required_action": "MATERIALIZE_STANDALONE_DOMAIN_THEORY_PACKET",
       "nonclaim_boundary": "Current inclusion is bridge-only; no proved standalone systems/civilizational theorem package is promoted here.",
+      "numerical_packet_program_status": "PROGRAM_DEFINED_PENDING_STANDALONE_DOMAIN_THEORY",
       "numerical_packet_status": "FAIL_CLOSED_PENDING_STANDALONE_DOMAIN_THEORY",
       "prediction_contract_status": "FAIL_CLOSED_PENDING_DOMAIN_THEORY",
       "promotion_scope_status": "REFUTED_SCOPE_CLOSED",
+      "quantitative_acceptance_result": "NOT_YET_RUN",
       "refs": [
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest.json",
         "logion/k0/governance/status/QUESTION_COMPUTATIONAL_EVIDENCE_latest.json",
@@ -137,14 +234,25 @@
       "validation_evidence": {}
     },
     {
+      "acceptance_criterion": "",
       "benchmark": "NOT_APPLICABLE",
+      "benchmark_families": [
+        "NOT_APPLICABLE"
+      ],
+      "blocking_ids": [],
       "domain_id": "DRT",
       "domain_title": "DRT",
+      "falsifier_specification": "",
       "measurable_outputs": [],
+      "measurement_escalation_rule": "",
+      "measurement_schema": "",
+      "next_required_action": "NOT_REQUIRED",
       "nonclaim_boundary": "Only isolated draft/source artefact traces are present; no proved OC-native bridge survives as a canonical domain package.",
+      "numerical_packet_program_status": "NOT_REQUIRED_OR_SUPPORTING",
       "numerical_packet_status": "NOT_REQUIRED_OR_SUPPORTING",
       "prediction_contract_status": "NOT_REQUIRED_OR_META_ONLY",
       "promotion_scope_status": "REFUTED_SCOPE_CLOSED",
+      "quantitative_acceptance_result": "NOT_REQUIRED",
       "refs": [
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest.json",
         "logion/k0/governance/status/QUESTION_COMPUTATIONAL_EVIDENCE_latest.json",
@@ -155,14 +263,25 @@
       "validation_evidence": {}
     },
     {
+      "acceptance_criterion": "",
       "benchmark": "NOT_APPLICABLE",
+      "benchmark_families": [
+        "NOT_APPLICABLE"
+      ],
+      "blocking_ids": [],
       "domain_id": "METAONTOLOGY",
       "domain_title": "Metaontology",
+      "falsifier_specification": "",
       "measurable_outputs": [],
+      "measurement_escalation_rule": "",
+      "measurement_schema": "",
+      "next_required_action": "NOT_REQUIRED",
       "nonclaim_boundary": "Only the proved subset may carry quantitative outputs for this domain.",
+      "numerical_packet_program_status": "NOT_REQUIRED_OR_SUPPORTING",
       "numerical_packet_status": "NOT_REQUIRED_OR_SUPPORTING",
       "prediction_contract_status": "NOT_REQUIRED_OR_META_ONLY",
       "promotion_scope_status": "CORE_FRAME_ONLY",
+      "quantitative_acceptance_result": "NOT_REQUIRED",
       "refs": [
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest.json",
         "logion/k0/governance/status/QUESTION_COMPUTATIONAL_EVIDENCE_latest.json",
@@ -180,6 +299,7 @@
     "active_numerical_packet_total": 1,
     "domain_total": 7,
     "fail_closed_total": 4,
+    "program_defined_total": 4,
     "required_empirical_domain_total": 4
   }
 }
