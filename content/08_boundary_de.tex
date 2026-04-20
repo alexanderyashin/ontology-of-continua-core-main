@@ -1,0 +1,242 @@
+% GENERATED_BY: oc_core_monograph_translation_draft_pipeline_v1.py
+% AI_ASSISTED_TRANSLATION_DRAFT: TRUE
+% THEOREM_REVIEW_STATUS: PENDING
+% THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
+% THEOREM_REVIEW_REVIEWER_ID: 
+% THEOREM_REVIEW_AUTHORITY_CLASS: 
+% THEOREM_REVIEWED_AT: 
+% THEOREM_REVIEW_DOSSIER_REF: 
+% SOURCE_LANGUAGE: EN
+% TARGET_LANGUAGE: DE
+% SOURCE_EN_REF: content/08_boundary.tex
+% ====================================================================
+% FILE: content/08_boundary.tex
+% Extended Boundary and Patch Geometry — Core 1.1 (Final Version)
+% ====================================================================
+
+\section{Extended Boundary and Patch Geometry}
+\label{sec:boundary-extended}
+
+This chapter restores the full theory of boundaries and patch geometry.
+Boundaries constitute one of the most universal structures in the OC framework:
+they govern phase separation in \(K_2\), membrane formation in \(K_3\)--\(K_4\),
+excitability in \(K_5\), and representational or institutional limits in
+\(K_6\)--\(K_8\).  
+The present version consolidates the complete structure needed for Core~1.1:
+threshold–defined boundaries, patch discretisation, local threshold classes,
+and boundary–driven transitions.
+
+\subsection{Formal Definition of \texorpdfstring{$\partial\Omega(K)$}{boundary}}
+
+For any continuum \(K\) with admissible state space \(\Omega(K)\) and threshold
+landscape \(\Theta(K)\), the boundary is defined as the set of states at which
+at least one threshold is exactly saturated:
+\[
+  \partial\Omega(K)
+  =
+  \big\{\, s \in \overline{\Omega(K)} :
+          \exists k\ \text{such that}\ f_k(s) = \Theta_k \big\}.
+\]
+
+Thus:
+\begin{itemize}
+    \item interior states satisfy \(f_k(s) < \Theta_k\) for all thresholds;
+    \item exterior states violate at least one threshold;
+    \item the boundary is a \emph{threshold–defined surface}, not a geometric
+          primitive.
+\end{itemize}
+
+This definition unifies classical surfaces, membranes, vesicles,
+percolation fronts, excitable boundaries, logical limits and institutional
+thresholds under one structure.
+
+\subsection{Boundary Geometry}
+
+Boundary geometry emerges from the local structure of thresholds, potentials
+and flows.  
+If the active threshold at a point \(s \in \partial\Omega(K)\) is \(f_k\), the
+outward normal is aligned with the gradient:
+\[
+  n(s) \propto \nabla f_k(s).
+\]
+
+Multiple active thresholds create corners, ridges and high–curvature regions.
+Curvature becomes dynamically relevant whenever bending or surface–energy
+terms enter the potential:
+\[
+  P_{\mathrm{bend}}(s) = \tfrac{1}{2}\,\kappa(s)^2\,\kappa_b,
+\]
+with bending rigidity \(\kappa_b\).
+
+This connects:
+\begin{itemize}
+    \item \(K_2\): classical surface tension,
+    \item \(K_3\)–\(K_4\): membrane curvature and vesicle energetics,
+    \item \(K_5\): excitable boundary geometry.
+\end{itemize}
+
+\subsection{Patch Model of Boundaries}
+
+OC models boundaries not as continuous uniform surfaces but as collections of
+dynamic \emph{patches}:
+\[
+  \partial\Omega(K) = \bigcup_i \partial\Omega_i.
+\]
+
+Each patch \(P_i\) carries:
+\[
+  (\sigma_i,\Theta_i,P_i(t),J_i(t)),
+\]
+representing its local state, thresholds, potentials and flows.
+
+\paragraph{Local states.}
+Patches take symbolic states:
+\[
+  \sigma_i \in \{L_\alpha, L_\beta, L_o, L_f, L_b\},
+\]
+encoding local packing or structural regimes:
+\begin{itemize}
+    \item \(L_\alpha\): fluid–disordered,
+    \item \(L_\beta\): ordered/gel,
+    \item \(L_o\): liquid–ordered,
+    \item \(L_f\): fragile/thin (pre–rupture),
+    \item \(L_b\): broken boundary state.
+\end{itemize}
+
+This alphabet generalises beyond biological membranes to percolation edges,
+fracture fronts, fluctuating interfaces and even symbolic/cognitive boundaries.
+
+\paragraph{Local thresholds.}
+Each patch has a vector:
+\[
+  \Theta_i = (\Theta^{\rm perm}_i, \Theta^{\rm grad}_i, \Theta^{\rm mem}_i,
+              \Theta^{\rm bend}_i, \ldots ),
+\]
+with corresponding local potentials \(P_i(t)\) and flows \(J_i(t)\).
+
+\subsection{Boundary Threshold System}
+
+Across \(K_2\)--\(K_5\) three threshold classes appear universally.
+
+\paragraph{1. Permeability threshold \(\Theta_{\rm perm}\).}
+A patch becomes permeable when:
+\[
+  |\nabla P_i| > \Theta^{\rm perm}_i.
+\]
+Examples:
+\begin{itemize}
+    \item osmotic permeability (\(K_3\)--\(K_4\)),
+    \item ion leak onset (\(K_5\)),
+    \item phase–front penetration (\(K_2\)).
+\end{itemize}
+
+\paragraph{2. Gradient threshold \(\Theta_{\rm grad}\).}
+If a gradient is unsustainable:
+\[
+  |\nabla P_i| > \Theta^{\rm grad}_i
+  \quad\Rightarrow\quad \sigma_i \to L_f.
+\]
+This governs:
+\begin{itemize}
+    \item vesicle rupture at high osmotic pressure (\(K_4\)),
+    \item action–potential initiation at axon initial segments (\(K_5\)),
+    \item accelerated phase fronts and crack propagation (\(K_2\)).
+\end{itemize}
+
+\paragraph{3. Membrane integrity threshold \(\Theta_{\rm mem}\).}
+If membrane tension or curvature exceeds limits:
+\[
+  \gamma_i > \Theta^{\rm mem}_i
+  \qquad\text{or}\qquad
+  \kappa(s) > \Theta^{\rm bend}_i,
+\]
+then:
+\[
+  \sigma_i \to L_b.
+\]
+
+This yields a unified understanding of rupture, buckling, pore formation,
+boundary breakdown and surface collapse.
+
+\subsection{Boundary–Driven Dynamics}
+
+Neighbouring patches interact via flows:
+\[
+  J_{ij} = F(P_i, P_j, \sigma_i, \sigma_j).
+\]
+
+This produces:
+\begin{itemize}
+    \item stabilisation and rearrangement of patch mosaics,
+    \item propagation of rupture fronts,
+    \item curvature–driven migration,
+    \item pore initiation,
+    \item excitable–medium behaviour in \(K_5\).
+\end{itemize}
+
+Patch evolution follows:
+\[
+  \frac{d\sigma_i}{dt}
+  = S(\sigma_i, P_i, J_i, \Theta_i),
+\]
+where \(S\) is a structural update operator independent of domain.
+
+\medskip
+\textbf{Boundary Localisation Principle.}
+\emph{All \(K_3\)--\(K_5\) dimensional transitions initiate on boundary patches.}
+
+This explains:
+\begin{itemize}
+    \item protocell bursting beginning at high–curvature points,
+    \item action potentials initiating at axon initial segments,
+    \item phase transitions nucleating at defects or surfaces.
+\end{itemize}
+
+\subsection{Boundary Failure and Collapse}
+
+Boundary collapse occurs when a connected set of patches becomes broken:
+\[
+  \sigma_i = L_b
+  \qquad \forall\, i \in \mathcal{C},
+\]
+and the cluster \(\mathcal{C}\) percolates across the boundary.
+
+By Theorem~3 (Results chapter),
+\[
+  \partial\Omega(K)\ \text{collapses}
+  \quad\Longrightarrow\quad
+  \Omega(K) = \emptyset,
+\]
+and the continuum dies.
+
+We distinguish:
+\begin{itemize}
+    \item \textbf{local failure}: isolated \(L_b\) patches, reversible;
+    \item \textbf{cluster collapse}: percolating \(L_b\) network, irreversible;
+    \item \textbf{global boundary loss}: disappearance of the boundary, implying
+          death or transition to a new continuum.
+\end{itemize}
+
+\subsection{Boundary and Rebirth}
+
+Birth of a new continuum \(K_{x+1}\) typically requires:
+\begin{itemize}
+    \item formation or rupture of boundary patches,
+    \item creation of new patch types,
+    \item emergence of new threshold classes on boundary regions,
+    \item establishment of a new global boundary geometry.
+\end{itemize}
+
+\textbf{Boundary Rebirth Principle.}
+\emph{New continua emerge from new boundary geometries.}
+
+Examples:
+\begin{itemize}
+    \item membrane closure in the \(K_3 \to K_4\) transition,
+    \item appearance of excitable boundaries in \(K_4 \to K_5\),
+    \item formation of institutional boundaries in \(K_6 \to K_7\),
+    \item emergence of representational boundaries in \(K_9 \to K_{10}\).
+\end{itemize}
+
+Boundaries are therefore not merely limits:  
+they are generative surfaces where new axes, constraints and cycles are born.

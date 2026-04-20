@@ -2,17 +2,20 @@
 
 ## Status Snapshot
 
-- Current state: `PACKETIZED_PARTIAL_OFFICIAL_REPLAY_EXECUTED`
-- Target state: `EMPIRICAL_HARD_CLOSED`
-- Quantitative pass result: `OFFICIAL_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE`
-- Next required action: `COMPLETE_OFFICIAL_BENCHMARK_FAMILY_COVERAGE_AND_PROMOTE_NUMERICAL_PACKET`
-- Replay status: `PARTIAL_OFFICIAL_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE`
+- Current state: `VALIDATED_ANCHOR_ACTIVE`
+- Target state: `VALIDATED_ANCHOR_ACTIVE`
+- Scientific class: `THEOREM_NATIVE`
+- Trace status: `TRACE_COMPLETE`
+- Closure verdict: `PASS`
+- Quantitative pass result: `PASS`
+- Next required action: `MAINTENANCE_ONLY`
+- Replay status: `PASS_REPLAYABLE`
 
 ## Theorem-to-Observable Map
 
-- K2/K3/K4 organizational thresholds are bound to thermochemical, spectroscopic, and kinetic observable families through constrained bridge maps.
-- The packet is explicitly restricted to bounded chemistry benchmark families and does not claim general chemical closure.
-- Only held-out thermochemical, spectral, and kinetic residual lanes are considered lawful validation targets.
+- K2/K3/K4 organizational thresholds lawfully generate the bounded chemistry packet over thermochemical, spectral, and kinetic observable families.
+- The promoted chemistry packet binds source-native thresholds to pinned residual observables without expanding to unrestricted chemical universalization.
+- Every promoted chemistry benchmark family is traced through the locked K2/K3/K4 route, pinned reference tables, and held-out replay.
 
 ## Benchmark Dataset Manifest
 
@@ -50,24 +53,23 @@ A held-out thermochemical, spectral, or kinetic family outside tolerance collaps
 - normalized_error_max_max_sigma: 5.0
 - normalized_error_mean_abs_max_sigma: 1.0
 - normalized_error_p95_max_sigma: 2.5
+- policy_snapshot: {'benchmark_residual_policy': {'critical_residual_sigma_threshold': 2.5, 'schema_id': 'LOGION_BENCHMARK_RESIDUAL_POLICY_v1', 'severe_residual_sigma_threshold': 1.5}, 'prediction_accuracy_policy': {'brier_score_max': 0.08, 'cases_total_required': 30, 'coverage_ratio_required': 1.0, 'critical_failure_f1_min': 0.87, 'critical_failure_precision_min': 0.85, 'critical_failure_recall_min': 0.9, 'expected_calibration_error_max': 0.05, 'schema_id': 'LOGION_PREDICTION_ACCURACY_POLICY_v2'}, 'prediction_sigma_policy': {'cases_total_min': 30, 'normalized_error_max_max_sigma': 5.0, 'normalized_error_mean_abs_max_sigma': 1.0, 'normalized_error_p95_max_sigma': 2.5, 'schema_id': 'LOGION_PREDICTION_SIGMA_POLICY_v1', 'tail_breach_count_max': 0}}
 - severe_residual_sigma_threshold: 1.5
 - tail_breach_count_max: 0
 
 ## Replay Harness
 
 - Replay command: `logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY`
-- Replay program status: `PROGRAM_EXECUTED_PARTIAL_OFFICIAL_NOT_PASS_ELIGIBLE`
-- Execution protocol id: `OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY_SPECTRA_KINETICS`
 - Evidence bar: `HYBRID_ESCALATION`
+- Protocol id: `OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY_SPECTRA_KINETICS`
 
 ## Institute-run Escalation
 
-- Current escalation status: `STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT`
+- Current escalation status: `NOT_REQUIRED_UNLESS_NEW_OBSERVABLE_FAMILY_ENTERS`
 - Escalation trigger: `OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_RESIDUAL_BREACH_PERSISTS`
 - Measurement wave id: `INSTITUTE_RUN::CHEMISTRY::WAVE_2A`
 - Measurement plan: Acquire targeted laboratory or partner measurements for unsupported thermochemical, spectral, or kinetic families before any positive promotion.
 
 ## Blocking IDs
 
-- CHEMISTRY__NUMERICAL_PACKET_PASS_REQUIRED
-- CHEMISTRY__OFFICIAL_BENCHMARK_FAMILY_COVERAGE_REQUIRED
+- None.

@@ -1,0 +1,89 @@
+{
+  "package_type": "closure_bundle_task_board",
+  "bundle_id": "CLOSURE_BUNDLE::LOAD_BEARING_SPINE",
+  "claim_id": "LOAD_BEARING_SPINE",
+  "phase_id": "PHASE_1_STABILIZE_CLOSED_CORE",
+  "status": "PASS",
+  "rows": [
+    {
+      "task_id": "TASK::LOAD_BEARING_SPINE::THEOREM_PACKET",
+      "artifact_kind": "theorem_packet",
+      "assignee_role": "FORMAL_THEOREM_TRACK",
+      "entry_gate": "ENTRY_IMMEDIATE",
+      "current_artifact_status": "COMPLETE",
+      "artifact_file_ref": "releases/oc_core_1_3/editorial/dossier_packages/closure_bundles/load_bearing_spine/theorem_packet.md",
+      "pass_transition": "MARK_COMPLETE_AND_UNLOCK_PARAMETER_LAW_GATE",
+      "fail_transition": "KEEP_FAIL_CLOSED_AND_REQUIRE_SPLIT_WITH_EXPLICIT_PARENT_RELATION_OR_REFUTE_OR_SUSPEND"
+    },
+    {
+      "task_id": "TASK::LOAD_BEARING_SPINE::PARAMETER_LAW_PACKET",
+      "artifact_kind": "parameter_law_packet",
+      "assignee_role": "PARAMETER_LAW_TRACK",
+      "entry_gate": "ENTRY_AFTER_THEOREM_TARGET_LOCKS",
+      "current_artifact_status": "NOT_REQUIRED_NONEMPIRICAL",
+      "artifact_file_ref": "releases/oc_core_1_3/editorial/dossier_packages/closure_bundles/load_bearing_spine/parameter_law_packet.md",
+      "pass_transition": "MARK_COMPLETE_AND_UNLOCK_OBSERVABLE_BINDING_GATE",
+      "fail_transition": "KEEP_FAIL_CLOSED_AND_REQUIRE_REPARAMETERIZATION_OR_CLAIM_DECOMPOSITION"
+    },
+    {
+      "task_id": "TASK::LOAD_BEARING_SPINE::OBSERVABLE_BINDING_SPEC",
+      "artifact_kind": "observable_binding_spec",
+      "assignee_role": "OBSERVABLE_BINDING_TRACK",
+      "entry_gate": "ENTRY_AFTER_THEOREM_AND_PARAMETER_LAW_LOCK",
+      "current_artifact_status": "NOT_REQUIRED_NONEMPIRICAL",
+      "artifact_file_ref": "releases/oc_core_1_3/editorial/dossier_packages/closure_bundles/load_bearing_spine/observable_binding_spec.md",
+      "pass_transition": "MARK_COMPLETE_AND_UNLOCK_DATA_ROUTE_GATE",
+      "fail_transition": "KEEP_FAIL_CLOSED_AND_REQUIRE_EXPLICIT_THEOREM_TO_OBSERVABLE_REBUILD"
+    },
+    {
+      "task_id": "TASK::LOAD_BEARING_SPINE::DATASET_DATA_ROUTE_MANIFEST",
+      "artifact_kind": "dataset_data_route_manifest",
+      "assignee_role": "DATA_ROUTE_TRACK",
+      "entry_gate": "ENTRY_AFTER_OBSERVABLE_BINDING_LOCKS",
+      "current_artifact_status": "NOT_REQUIRED_NONEMPIRICAL",
+      "artifact_file_ref": "releases/oc_core_1_3/editorial/dossier_packages/closure_bundles/load_bearing_spine/dataset_data_route_manifest.md",
+      "pass_transition": "MARK_COMPLETE_AND_LOCK_HELD_OUT_POLICY",
+      "fail_transition": "KEEP_FAIL_CLOSED_AND_REQUIRE_NEW_DATA_ROUTE_JUSTIFICATION"
+    },
+    {
+      "task_id": "TASK::LOAD_BEARING_SPINE::HELD_OUT_REPLAY_SPEC",
+      "artifact_kind": "held_out_replay_spec",
+      "assignee_role": "REPLAY_PROTOCOL_TRACK",
+      "entry_gate": "ENTRY_AFTER_DATA_ROUTE_LOCKS",
+      "current_artifact_status": "NOT_REQUIRED_NONEMPIRICAL",
+      "artifact_file_ref": "releases/oc_core_1_3/editorial/dossier_packages/closure_bundles/load_bearing_spine/held_out_replay_spec.md",
+      "pass_transition": "MARK_COMPLETE_AND_UNLOCK_PROMOTION_AUDIT",
+      "fail_transition": "KEEP_FAIL_CLOSED_AND_FORBID_PROMOTION"
+    },
+    {
+      "task_id": "TASK::LOAD_BEARING_SPINE::FALSIFIER_LEDGER",
+      "artifact_kind": "falsifier_ledger",
+      "assignee_role": "FALSIFIER_TRACK",
+      "entry_gate": "ENTRY_AFTER_THEOREM_SCOPE_LOCKS",
+      "current_artifact_status": "COMPLETE",
+      "artifact_file_ref": "releases/oc_core_1_3/editorial/dossier_packages/closure_bundles/load_bearing_spine/falsifier_ledger.md",
+      "pass_transition": "MARK_COMPLETE_AND_UNLOCK_COUNTEREXAMPLE_AUDIT",
+      "fail_transition": "KEEP_FAIL_CLOSED_AND_WITHDRAW_POSITIVE_OUTWARD_SCIENCE"
+    },
+    {
+      "task_id": "TASK::LOAD_BEARING_SPINE::COUNTEREXAMPLE_LEDGER",
+      "artifact_kind": "counterexample_ledger",
+      "assignee_role": "COUNTEREXAMPLE_TRACK",
+      "entry_gate": "ENTRY_AFTER_THEOREM_SCOPE_LOCKS",
+      "current_artifact_status": "ACTIVE_CONTINUOUS_SEARCH",
+      "artifact_file_ref": "releases/oc_core_1_3/editorial/dossier_packages/closure_bundles/load_bearing_spine/counterexample_ledger.md",
+      "pass_transition": "MARK_COMPLETE_IF_NO_SURVIVING_COUNTEREXAMPLE_REMAINS",
+      "fail_transition": "KEEP_FAIL_CLOSED_AND_REFUTE_OR_NARROW_SCOPE"
+    },
+    {
+      "task_id": "TASK::LOAD_BEARING_SPINE::SAME_CLAIM_CLASS_COMPARATOR_LEDGER",
+      "artifact_kind": "same_claim_class_comparator_ledger",
+      "assignee_role": "ADVERSARIAL_BASELINE_TRACK",
+      "entry_gate": "ENTRY_AFTER_REPLAY_AND_FALSIFIER_LOCK",
+      "current_artifact_status": "DECLARED_NO_SUPERIOR_BASELINE",
+      "artifact_file_ref": "releases/oc_core_1_3/editorial/dossier_packages/closure_bundles/load_bearing_spine/same_claim_class_comparator_ledger.md",
+      "pass_transition": "MARK_COMPLETE_ONLY_IF_NO_SIMPLER_SUPERIOR_BASELINE_SURVIVES",
+      "fail_transition": "KEEP_FAIL_CLOSED_AND_DEMOTE_TO_FRONTIER_OR_SUPERSEDE_CLAIM"
+    }
+  ]
+}

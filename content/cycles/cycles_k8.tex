@@ -20,11 +20,12 @@ The state of $K_8$ is:
 The fundamental flows (memory~\#28) are:
 \[
   J^{(8)} =
-  (J_{\mathrm{energy}},\,
-   J_{\mathrm{material}},\,
-   J_{\mathrm{logistics}},\,
-   J_{\mathrm{info}},\,
-   J_{\mathrm{population}}).
+  \left(
+  \begin{aligned}
+   &J_{\mathrm{energy}}, J_{\mathrm{material}}, J_{\mathrm{logistics}},\\
+   &J_{\mathrm{info}}, J_{\mathrm{population}}
+  \end{aligned}
+  \right).
 \]
 
 Critical thresholds:
@@ -39,11 +40,14 @@ Critical thresholds:
 Structural tension:
 \[
   T_8 = 
-    w_E(E_{\mathrm{crit}} - E_{\mathrm{density}})
-  + w_L(L_{\mathrm{demand}} - L_{\mathrm{capacity}})
-  + w_M(M_{\mathrm{demand}} - M_{\mathrm{repair}})
-  + w_I(I_{\mathrm{complexity}} - I_{\mathrm{coherence}})
-  + w_R(R_{\mathrm{demand}} - R_{\mathrm{supply}}).
+  \begin{aligned}
+    &w_E(E_{\mathrm{crit}} - E_{\mathrm{density}})
+    + w_L(L_{\mathrm{demand}} - L_{\mathrm{capacity}})\\
+    &\quad + w_M(M_{\mathrm{demand}} - M_{\mathrm{repair}})
+    + w_I(I_{\mathrm{complexity}} - I_{\mathrm{coherence}})\\
+    &\quad + w_R(R_{\mathrm{demand}} - R_{\mathrm{supply}})
+  \end{aligned}
+  .
 \]
 
 The existence of a civilizational continuum requires:
@@ -114,10 +118,12 @@ Form:
 \[
  C_{\mathrm{mat/log}} =
  \left\{
-   J_{\mathrm{material}}(t),\;
-   J_{\mathrm{logistics}}(t),\;
-   L_{\mathrm{capacity}}(t),\;
-   \mathrm{Infra}_{\mathrm{industrial}}(t)
+ \begin{aligned}
+   &J_{\mathrm{material}}(t),\;
+    J_{\mathrm{logistics}}(t),\\
+   &L_{\mathrm{capacity}}(t),\;
+    \mathrm{Infra}_{\mathrm{industrial}}(t)
+ \end{aligned}
  \right\}.
 \]
 
@@ -146,9 +152,11 @@ Form:
 \[
   C_{\mathrm{infra}} =
   \left\{
-     M_{\mathrm{repair}}(t),\;
-     \mathrm{Infra}(t),\;
-     J_{\mathrm{material}}(t)
+  \begin{aligned}
+     &M_{\mathrm{repair}}(t),\;
+      \mathrm{Infra}(t),\\
+     &J_{\mathrm{material}}(t)
+  \end{aligned}
   \right\}.
 \]
 
@@ -177,13 +185,15 @@ A civilization requires consistent information-processing capacity.
 
 Form:
 \[
- C_{\mathrm{info}}
+  C_{\mathrm{info}}
   =
- \left\{
-   J_{\mathrm{info}}(t),\;
-   I_{\mathrm{coherence}}(t),\;
-   I_{\mathrm{complexity}}(t)
- \right\}.
+  \left\{
+  \begin{aligned}
+    &J_{\mathrm{info}}(t),\;
+     I_{\mathrm{coherence}}(t),\\
+    &I_{\mathrm{complexity}}(t)
+  \end{aligned}
+  \right\}.
 \]
 
 Threshold:
@@ -215,9 +225,11 @@ Form:
   C_{\mathrm{pop}}
     =
     \left\{
-      J_{\mathrm{population}}(t),\;
-      R_{\mathrm{supply}}(t),\;
-      R_{\mathrm{demand}}(t)
+    \begin{aligned}
+      &J_{\mathrm{population}}(t),\;
+       R_{\mathrm{supply}}(t),\\
+      &R_{\mathrm{demand}}(t)
+    \end{aligned}
     \right\}.
 \]
 
@@ -246,11 +258,13 @@ Formally:
 \[
  C_{\mathrm{econ}}=
  \left\{
-   \mathrm{Econ}(t),\;
-   J_{\mathrm{material}}(t),\;
-   J_{\mathrm{energy}}(t),\;
-   J_{\mathrm{info}}(t)
- \right\}.
+ \begin{aligned}
+   &\mathrm{Econ}(t),\;
+    J_{\mathrm{material}}(t),\\
+   &J_{\mathrm{energy}}(t),\;
+    J_{\mathrm{info}}(t)
+ \end{aligned}
+  \right\}.
 \]
 
 Stability requires:
@@ -265,20 +279,22 @@ remain within stable thresholds.
 
 \[
  C_{\mathrm{civ}}
-   =
-     C_{\mathrm{energy}}
-     \cup C_{\mathrm{mat/log}}
-     \cup C_{\mathrm{infra}}
-     \cup C_{\mathrm{info}}
-     \cup C_{\mathrm{pop}}
-     \cup C_{\mathrm{econ}}.
+   = \begin{aligned}[t]
+     &C_{\mathrm{energy}}
+      \cup C_{\mathrm{mat/log}}
+      \cup C_{\mathrm{infra}}\\
+     &\cup C_{\mathrm{info}}
+      \cup C_{\mathrm{pop}}
+      \cup C_{\mathrm{econ}}
+   \end{aligned}
+   .
 \]
 
 Stability requires:
 \[
   T_8
    <
-   \min(\Theta_E,\Theta_L,\Theta_I,\Theta_M,\Theta_R).
+   \min\!\bigl(\Theta_E,\Theta_L,\Theta_I,\Theta_M,\Theta_R\bigr).
 \]
 
 If any subthreshold fails, $\Omega(K_8)$ undergoes collapse.

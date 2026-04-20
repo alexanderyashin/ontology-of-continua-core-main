@@ -2,17 +2,20 @@
 
 ## Status Snapshot
 
-- Current state: `EMPIRICAL_HARD_CLOSED`
-- Target state: `EMPIRICAL_HARD_CLOSED`
+- Current state: `VALIDATED_ANCHOR_ACTIVE`
+- Target state: `VALIDATED_ANCHOR_ACTIVE`
+- Scientific class: `THEOREM_NATIVE`
+- Trace status: `TRACE_COMPLETE`
+- Closure verdict: `PASS`
 - Quantitative pass result: `PASS`
-- Next required action: `MAINTAIN_REPLAY_DISCIPLINE`
+- Next required action: `MAINTENANCE_ONLY`
 - Replay status: `PASS_REPLAYABLE`
 
 ## Theorem-to-Observable Map
 
-- K4/K5/K6/K7 biological organization claims are restricted to bounded state-transition and response-signature lanes.
-- The packet currently targets measurable expression and cell-state trajectories rather than unrestricted biological universalization.
-- Open biological assay repositories are the first-line evidence route; if insufficient, the program escalates to institute-run measurement.
+- K4/K5/K6/K7 organizational thresholds lawfully generate the bounded biology packet over expression, state-transition, and response-onset observable families.
+- The promoted biology packet binds source-native biological organization claims to pinned assay observables without expanding to unrestricted biological universalization.
+- Every promoted biological benchmark family is traced through the locked K4/K5/K6/K7 route, open assay datasets, and held-out replay.
 
 ## Benchmark Dataset Manifest
 
@@ -49,18 +52,18 @@ If the bounded signature family fails on held-out datasets, the biological packe
 - normalized_error_max_max_sigma: 5.0
 - normalized_error_mean_abs_max_sigma: 1.0
 - normalized_error_p95_max_sigma: 2.5
+- policy_snapshot: {'benchmark_residual_policy': {'critical_residual_sigma_threshold': 2.5, 'schema_id': 'LOGION_BENCHMARK_RESIDUAL_POLICY_v1', 'severe_residual_sigma_threshold': 1.5}, 'prediction_accuracy_policy': {'brier_score_max': 0.08, 'cases_total_required': 30, 'coverage_ratio_required': 1.0, 'critical_failure_f1_min': 0.87, 'critical_failure_precision_min': 0.85, 'critical_failure_recall_min': 0.9, 'expected_calibration_error_max': 0.05, 'schema_id': 'LOGION_PREDICTION_ACCURACY_POLICY_v2'}, 'prediction_sigma_policy': {'cases_total_min': 30, 'normalized_error_max_max_sigma': 5.0, 'normalized_error_mean_abs_max_sigma': 1.0, 'normalized_error_p95_max_sigma': 2.5, 'schema_id': 'LOGION_PREDICTION_SIGMA_POLICY_v1', 'tail_breach_count_max': 0}}
 - tail_breach_count_max: 0
 
 ## Replay Harness
 
 - Replay command: `logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY`
-- Replay program status: `ACTIVE_REPLAY_LANE`
-- Execution protocol id: `OC13::EXECUTION::BIOLOGY::STATE_TRANSITIONS_AND_RESPONSE_SIGNATURES`
 - Evidence bar: `HYBRID_ESCALATION`
+- Protocol id: `OC13::EXECUTION::BIOLOGY::STATE_TRANSITIONS_AND_RESPONSE_SIGNATURES`
 
 ## Institute-run Escalation
 
-- Current escalation status: `NOT_REQUIRED`
+- Current escalation status: `NOT_REQUIRED_UNLESS_NEW_OBSERVABLE_FAMILY_ENTERS`
 - Escalation trigger: `OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_SIGNATURE_CLASS_UNDERCONSTRAINED`
 - Measurement wave id: `INSTITUTE_RUN::BIOLOGY::WAVE_3A`
 - Measurement plan: Run a bounded institute observation or assay campaign only for the explicitly declared biological lane; no widening of biological scope is allowed.

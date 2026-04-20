@@ -1,19 +1,37 @@
 \section{Institute-Run Measurement and Observation Program}
 
-This appendix specifies the measurement or observation waves that become mandatory if pinned official or open sources do not close the declared empirical lane honestly.
+This appendix records the stand-by measurement waves that would become mandatory
+only if pinned official or open sources stopped closing the declared empirical
+lanes honestly. At the present release boundary, all four empirical domains
+remain on official- or open-data routes; the institute-run waves are retained
+as controlled fallback mechanisms rather than as active evidence channels.
 
-\begin{longtable}{p{0.18\textwidth}p{0.16\textwidth}p{0.20\textwidth}p{0.22\textwidth}p{0.16\textwidth}}
+\begingroup
+\footnotesize
+\RaggedRight
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTleft}{0pt}
+\setlength{\LTright}{0pt}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}L{0.18\textwidth}L{0.24\textwidth}L{0.38\textwidth}L{0.14\textwidth}@{}}
 \toprule
-Domain & Wave status & Measurement wave id & Escalation trigger & Next action \\
+Domain & Stand-by wave & Escalation trigger & Current action \\
 \midrule
-\endfirsthead
-\toprule
-Domain & Wave status & Measurement wave id & Escalation trigger & Next action \\
-\midrule
-\endhead
-Physics & STAND\_BY & INSTITUTE\_RUN::PHYSICS::WAVE\_1A & OPEN\_DATA\_COVERAGE\_LT\_1\_0\_OR\_HELD\_OUT\_CASES\_LT\_30\_OR\_RESIDUAL\_BREACH\_PERSISTS & COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE\_AND\_PROMOTE\_NUMERICAL\_PACKET \\
-Chemistry & STAND\_BY & INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A & OPEN\_DATA\_COVERAGE\_LT\_1\_0\_OR\_HELD\_OUT\_CASES\_LT\_30\_OR\_RESIDUAL\_BREACH\_PERSISTS & COMPLETE\_OFFICIAL\_BENCHMARK\_FAMILY\_COVERAGE\_AND\_PROMOTE\_NUMERICAL\_PACKET \\
-Biology & NOT\_REQUIRED & INSTITUTE\_RUN::BIOLOGY::WAVE\_3A & OPEN\_DATA\_COVERAGE\_LT\_1\_0\_OR\_HELD\_OUT\_CASES\_LT\_30\_OR\_SIGNATURE\_CLASS\_UNDERCONSTRAINED & MAINTAIN\_REPLAY\_DISCIPLINE \\
-Systems / Civilizational projection & STAND\_BY & INSTITUTE\_RUN::SYSTEMS::WAVE\_4A & OPEN\_DATA\_COVERAGE\_LT\_1\_0\_OR\_HELD\_OUT\_INTERVAL\_COUNT\_LT\_30\_OR\_TURNING\_POINT\_BREACH\_PERSISTS & TIGHTEN\_OFFICIAL\_REPLAY\_MODEL\_AND\_PROMOTE\_NUMERICAL\_PACKET \\
+Physics & \occode{INSTITUTE_RUN::PHYSICS::WAVE_1A} & Open-data coverage falls below full coverage, held-out coverage drops below 30 cases, or residual breaches persist after replay maintenance. & Maintain replay discipline \\
+Chemistry & \occode{INSTITUTE_RUN::CHEMISTRY::WAVE_2A} & Open-data coverage falls below full coverage, held-out coverage drops below 30 cases, or residual breaches persist after replay maintenance. & Maintain replay discipline \\
+Biology & \occode{INSTITUTE_RUN::BIOLOGY::WAVE_3A} & Open-data coverage falls below full coverage, held-out coverage drops below 30 cases, or the bounded signature class remains underconstrained. & Maintain replay discipline \\
+Systems / Civilizational projection & \occode{INSTITUTE_RUN::SYSTEMS::WAVE_4A} & Open-data coverage falls below full coverage, held-out interval coverage drops below 30 intervals, or turning-point breaches persist. & Maintain replay discipline \\
 \bottomrule
-\end{longtable}
+\end{tabular}
+\end{table}
+
+\paragraph{Interpretive rule.}
+These waves are not alternate proof routes. They are reserve observation
+programs that become lawful only after the official or open route fails to
+cover the declared observable family. Until such a trigger is reached, the
+current release remains committed to the pinned replay discipline already
+documented in the empirical protocol chapters and benchmark appendices.
+
+\endgroup

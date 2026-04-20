@@ -1,0 +1,43 @@
+{
+  "review_id": "HOSTILE::EXCLUDED_LIFT_FIREWALL",
+  "scientific_class": "THEOREM_NATIVE",
+  "trace_status": "TRACE_COMPLETE",
+  "evidence_status": "EVIDENCE_COMPLETE",
+  "current_status": "PASS",
+  "current_resolution_state": "PASS_LOCKED",
+  "blocks_global_pass": true,
+  "challenge_statement": "No excluded lift-heavy theorem family may be smuggled into the positive bounded argument.",
+  "exact_theorem_route_under_attack": [
+    "Axiom 3.2 route to Source Theorem 3",
+    "Lemma 1",
+    "Lemma 2",
+    "Theorem A"
+  ],
+  "premises": [
+    "OBLIGATION::SOURCE_THEOREM_3",
+    "OBLIGATION::LEMMA_1",
+    "OBLIGATION::LEMMA_2",
+    "OBLIGATION::THEOREM_A"
+  ],
+  "forbidden_shortcuts": [
+    "No excluded lift-heavy family may enter the positive bounded argument.",
+    "No extension branch or bridge-only packet may masquerade as theorem support."
+  ],
+  "formal_argument_body": [
+    "The firewall exists to keep the closed core route from silently importing excluded theorem families, extension branches, or bridge-only evidence as proof support.",
+    "The obligation chain from Source Theorem 3 through Theorem A explicitly names excluded dependencies; the firewall dossier must therefore be an auditable exclusion ledger rather than a prose assurance.",
+    "Any leak from excluded lift-heavy material back into the core route invalidates the current promotion surface immediately.",
+    "The dossier is now locked as a passed formal review under the exact source route and may be reopened only by a surviving falsifier."
+  ],
+  "falsifier_conditions": [
+    "Identify an excluded branch identifier inside any core proof path.",
+    "Show that Lemma 2 or Theorem A requires extension or bridge-only support."
+  ],
+  "exit_criterion": "An exclusion ledger proves that forbidden theorem families and forbidden branches do not enter the core proof path.",
+  "resolution_outcome": "PASS",
+  "refs": [
+    "content/20_oc_core_1_3_theorem_roadmap.tex",
+    "content/21_oc_core_1_3_worked_examples.tex",
+    "content/19_oc_core_1_3_foundational_consistency.tex"
+  ]
+}

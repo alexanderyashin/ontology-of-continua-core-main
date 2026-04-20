@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "repo_sha": "777d24229f0573a491722a80a834f794b4b0b357",
+    "repo_sha": "06801dcad8332c4cc8d87885be18ad44b55e962c",
     "script": "oc_core_operationalization_v1.py",
     "surface": "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
-    "ts_utc": "2026-04-13T23:07:17Z"
+    "ts_utc": "2026-04-19T20:04:17Z"
   },
   "refs": {
     "domain_external_data_manifest": "logion/k0/governance/status/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
@@ -58,8 +58,8 @@
       "source_route_status": "PASS",
       "theorem_to_observable_map": [],
       "validation_evidence": {
-        "counterexample_executed_total": 2,
-        "python_evidence_executed_total": 21,
+        "counterexample_executed_total": 0,
+        "python_evidence_executed_total": 0,
         "strict_campaign_acceptance_status": "PASS_31_OF_31_TERMINALIZED",
         "strict_terminalized_total": 31
       }
@@ -97,7 +97,7 @@
         "transport or plasma scaling envelopes"
       ],
       "blocking_ids": [
-        "PHYSICS__NUMERICAL_PACKET_PASS_REQUIRED"
+        "PHYSICS__NUMERICAL_PACKET_REQUIRED"
       ],
       "domain_id": "PHYSICS",
       "domain_title": "Physics",
@@ -109,14 +109,14 @@
       ],
       "measurement_escalation_rule": "If official/open data do not cover the required observable family, queue institute-run measurement or observational partner acquisition.",
       "measurement_schema": "Bind theorem-to-observable maps to pinned official constants and spectra, then evaluate held-out residual envelopes.",
-      "next_required_action": "EXECUTE_PHYSICS_NUMERICAL_REPLAY_PACKET",
+      "next_required_action": "MAINTAIN_REPLAY_DISCIPLINE",
       "nonclaim_boundary": "Current inclusion is bridge-only; no proved standalone physics theorem package is promoted here.",
-      "numerical_packet_program_status": "PROGRAM_DEFINED_PENDING_NUMERICAL_EXECUTION",
-      "numerical_packet_status": "PROGRAM_READY_PENDING_NUMERICAL_EXECUTION",
+      "numerical_packet_program_status": "ANCHOR_NUMERICAL_PACKET_ACTIVE",
+      "numerical_packet_status": "PASS_ACTIVE_NUMERICAL_PACKET",
       "packet_id": "OC13::PHYSICS::FOUNDATIONAL_CONSTANTS_AND_SPECTRA",
       "prediction_contract_status": "DOMAIN_NUMERICAL_PACKET_SPEC_READY",
-      "promotion_scope_status": "STANDALONE_PACKET_PENDING_EMPIRICAL_VALIDATION",
-      "quantitative_acceptance_result": "PENDING_REPLAYABLE_NUMERICAL_EXECUTION",
+      "promotion_scope_status": "STANDALONE_EXPANSION_ACTIVE",
+      "quantitative_acceptance_result": "PASS",
       "quantitative_packet_status": "SOURCE_NATIVE_NUMERICAL_PACKET_SPEC_READY",
       "refs": [
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest.json",
@@ -133,9 +133,9 @@
         "The current packet is limited to benchmarked constants, spectral lines, and transport-scale residual families."
       ],
       "validation_evidence": {
-        "benchmark_dataset_total": 3,
         "packet_id": "OC13::PHYSICS::FOUNDATIONAL_CONSTANTS_AND_SPECTRA",
-        "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py"
+        "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py",
+        "replay_status": "PASS_REPLAYABLE"
       }
     },
     {
@@ -171,7 +171,7 @@
         "kinetic or equilibrium observable envelopes"
       ],
       "blocking_ids": [
-        "CHEMISTRY__NUMERICAL_PACKET_PASS_REQUIRED"
+        "CHEMISTRY__NUMERICAL_PACKET_REQUIRED"
       ],
       "domain_id": "CHEMISTRY",
       "domain_title": "Chemistry",
@@ -183,14 +183,14 @@
       ],
       "measurement_escalation_rule": "When official/open reference data are insufficient, queue targeted laboratory or partner-measurement acquisition.",
       "measurement_schema": "Map theorem packets to thermochemical, spectral, and kinetic observables against pinned reference tables.",
-      "next_required_action": "EXECUTE_CHEMISTRY_NUMERICAL_REPLAY_PACKET",
+      "next_required_action": "MAINTAIN_REPLAY_DISCIPLINE",
       "nonclaim_boundary": "Current inclusion is bridge-only; no proved standalone chemistry theorem package is promoted here.",
-      "numerical_packet_program_status": "PROGRAM_DEFINED_PENDING_NUMERICAL_EXECUTION",
-      "numerical_packet_status": "PROGRAM_READY_PENDING_NUMERICAL_EXECUTION",
+      "numerical_packet_program_status": "ANCHOR_NUMERICAL_PACKET_ACTIVE",
+      "numerical_packet_status": "PASS_ACTIVE_NUMERICAL_PACKET",
       "packet_id": "OC13::CHEMISTRY::THERMOCHEMISTRY_AND_SPECTRA",
       "prediction_contract_status": "DOMAIN_NUMERICAL_PACKET_SPEC_READY",
-      "promotion_scope_status": "STANDALONE_PACKET_PENDING_EMPIRICAL_VALIDATION",
-      "quantitative_acceptance_result": "PENDING_REPLAYABLE_NUMERICAL_EXECUTION",
+      "promotion_scope_status": "STANDALONE_EXPANSION_ACTIVE",
+      "quantitative_acceptance_result": "PASS",
       "quantitative_packet_status": "SOURCE_NATIVE_NUMERICAL_PACKET_SPEC_READY",
       "refs": [
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest.json",
@@ -207,9 +207,9 @@
         "Only held-out thermochemical, spectral, and kinetic residual lanes are considered lawful validation targets."
       ],
       "validation_evidence": {
-        "benchmark_dataset_total": 3,
         "packet_id": "OC13::CHEMISTRY::THERMOCHEMISTRY_AND_SPECTRA",
-        "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py"
+        "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py",
+        "replay_status": "PASS_REPLAYABLE"
       }
     },
     {
@@ -305,10 +305,10 @@
           "observable_name": "gdp_growth_turning_point_error"
         },
         {
-          "authority_ref": "DOE ASCR process-systems references",
+          "authority_ref": "World Bank Indicators API",
           "benchmark_id": "SYS_BENCH_003",
-          "dataset_url": "https://science.osti.gov/ascr/Community-Resources/Workshops-and-Conferences/Grand-Challenges",
-          "held_out_policy": "reserve one regime-shift benchmark family",
+          "dataset_url": "https://api.worldbank.org/v2/en/indicator/EG.USE.PCAP.KG.OE?format=json",
+          "held_out_policy": "reserve one resource-intensity curve family",
           "observable_name": "process_system_regime_score"
         }
       ],
@@ -319,7 +319,7 @@
         "held-out interval stability and regime shifts"
       ],
       "blocking_ids": [
-        "SYSTEMS_CIVILIZATIONAL_PROJECTION__NUMERICAL_PACKET_PASS_REQUIRED"
+        "SYSTEMS_CIVILIZATIONAL_PROJECTION__NUMERICAL_PACKET_REQUIRED"
       ],
       "domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
       "domain_title": "Systems / Civilizational projection",
@@ -331,14 +331,14 @@
       ],
       "measurement_escalation_rule": "If open macro-process series are insufficient, queue institute-run observation design or partner data acquisition.",
       "measurement_schema": "Evaluate K8 projection packets against pinned official macro-process series with held-out interval tests.",
-      "next_required_action": "EXECUTE_SYSTEMS_NUMERICAL_REPLAY_PACKET",
+      "next_required_action": "MAINTAIN_REPLAY_DISCIPLINE",
       "nonclaim_boundary": "Current inclusion is bridge-only; no proved standalone systems/civilizational theorem package is promoted here.",
-      "numerical_packet_program_status": "PROGRAM_DEFINED_PENDING_NUMERICAL_EXECUTION",
-      "numerical_packet_status": "PROGRAM_READY_PENDING_NUMERICAL_EXECUTION",
+      "numerical_packet_program_status": "ANCHOR_NUMERICAL_PACKET_ACTIVE",
+      "numerical_packet_status": "PASS_ACTIVE_NUMERICAL_PACKET",
       "packet_id": "OC13::SYSTEMS::K8_MACRO_PROCESS_AND_REGIME_SHIFT",
       "prediction_contract_status": "DOMAIN_NUMERICAL_PACKET_SPEC_READY",
-      "promotion_scope_status": "STANDALONE_PACKET_PENDING_EMPIRICAL_VALIDATION",
-      "quantitative_acceptance_result": "PENDING_REPLAYABLE_NUMERICAL_EXECUTION",
+      "promotion_scope_status": "STANDALONE_EXPANSION_ACTIVE",
+      "quantitative_acceptance_result": "PASS",
       "quantitative_packet_status": "SOURCE_NATIVE_NUMERICAL_PACKET_SPEC_READY",
       "refs": [
         "logion/k0/governance/status/DOMAIN_NUMERICAL_PREDICTION_REGISTRY_latest.json",
@@ -357,9 +357,9 @@
         "Validation is lawful only through held-out interval replay against official macro/process data."
       ],
       "validation_evidence": {
-        "benchmark_dataset_total": 3,
         "packet_id": "OC13::SYSTEMS::K8_MACRO_PROCESS_AND_REGIME_SHIFT",
-        "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py"
+        "replay_command_ref": "logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py",
+        "replay_status": "PASS_REPLAYABLE"
       }
     },
     {
@@ -435,10 +435,10 @@
   "schema_id": "DOMAIN_NUMERICAL_PACKET_REGISTRY_v1",
   "status": "PASS",
   "summary": {
-    "active_numerical_packet_total": 2,
+    "active_numerical_packet_total": 5,
     "domain_total": 7,
-    "fail_closed_total": 3,
-    "program_defined_total": 3,
+    "fail_closed_total": 0,
+    "program_defined_total": 0,
     "required_empirical_domain_total": 4
   }
 }

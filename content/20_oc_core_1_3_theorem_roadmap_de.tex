@@ -1,0 +1,172 @@
+% GENERATED_BY: oc_core_monograph_translation_draft_pipeline_v1.py
+% AI_ASSISTED_TRANSLATION_DRAFT: TRUE
+% THEOREM_REVIEW_STATUS: PENDING
+% THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
+% THEOREM_REVIEW_REVIEWER_ID: 
+% THEOREM_REVIEW_AUTHORITY_CLASS: 
+% THEOREM_REVIEWED_AT: 
+% THEOREM_REVIEW_DOSSIER_REF: 
+% SOURCE_LANGUAGE: EN
+% TARGET_LANGUAGE: DE
+% SOURCE_EN_REF: content/20_oc_core_1_3_theorem_roadmap.tex
+\section{Theorem Roadmap, Proof Navigation, and Reader Entry Paths}
+\label{sec:oc13-theorem-roadmap}
+
+One persistent weakness of large foundational manuscripts is that they force every reader to
+discover the proof architecture by brute force. That is acceptable for an internal draft but not
+for a öffentlichation-grade monograph whose stated ambition is to be both auditable and teachable.
+Core 1.3 therefore adds an explicit theorem roadmap inside the master volume itself. The purpose
+is not to replace the formal chapters with commentary. The purpose is to let the reader see, in
+one place, what the shortest lawful route through the theory is, which rows carry the actual
+burden of proof, and how the larger monograph body surrounds and stabilizes that core.
+
+\subsection{Three lawful entry paths into the same scientific object}
+
+The monograph is one scientific object, but it should not pretend that every serious reader
+enters it in the same order. The öffentlichation architecture is easier to trust when those entry
+paths are stated explicitly.
+
+\begin{enumerate}
+\item \textbf{Editorial route.}
+      A journal editor or hostile reviewer should be able to inspect the abstract, the present
+      theorem roadmap, the main theorem chain in Section~\ref{sec:results}, the collapse and
+      rebirth material, the 1.3 source-audit layer, and the reviewer-navigation appendix. This
+      route is designed to answer the first two hard questions quickly: what exactly is being
+      defended, and where does the support boundary stop?
+\item \textbf{Formal route.}
+      A reader interested primarily in correctness should move through the axioms, the operator
+      shell, the theorem-bearing chapters, the K-level doctrine, the appendices, and the explicit
+      1.3 consistency dossier. This route keeps the dependency chain visible and makes it harder
+      for explanatory prose to masquerade as proof.
+\item \textbf{Didactic route.}
+      A scientifically serious non-specialist should be able to read the introduction, background,
+      model, present roadmap, the worked examples in
+      Section~\ref{sec:oc13-worked-examples}, and then return to the denser theorem-bearing
+      chapters with a more stable map in hand. This route is slower, but it is honest: it does
+      not ask the reader to infer the whole architecture from compressed theorem names alone.
+\end{enumerate}
+
+The existence of these routes is not editorial indulgence. It is part of scientific rigor. A
+foundational manuscript that cannot be entered cleanly by multiple serious readers becomes easier
+to misread and easier to oversell.
+
+\subsection{Load-bearing theorem spine}
+
+At the level of the bounded journal-core claim, the present release depends on a relatively small
+load-bearing spine even though the monograph itself remains much larger. That spine can be stated
+schematically as
+\[
+\bigl(\text{Axiom 3.2} + \text{Definitions 12.1, 12.3, 12.4}\bigr)
+\Longrightarrow
+\text{Source Theorem 3}
+\Longrightarrow
+\text{Lemma 1},
+\]
+\[
+\bigl(\text{Axiom 3.3} + \text{Definition 12.6}\bigr)
+\Longrightarrow
+\text{Source Corollary 3.2}
+\Longrightarrow
+\text{Lemma 3},
+\]
+\[
+\bigl(\text{Lemma 1} + \text{Definition 12.5}\bigr)
+\Longrightarrow
+\text{Lemma 2}
+\Longrightarrow
+\text{Theorem A}.
+\]
+
+The point of making that chain explicit is not to reduce the theory to one diagram. The point is
+to let the reader see that the present bounded result is neither a free-floating slogan nor an
+arbitrary editorial condensation. It is a controlled extraction from a larger formal corpus whose
+positive body can be inspected step by step.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/oc_core_1_3_theorem_spine.tex}
+\caption{The load-bearing theorem spine of the Core 1.3 bounded claim. The monograph remains
+larger than this diagram because the surrounding chapters explain the formal setting, the K-level
+hierarchy, the operator shell, the domain modules, the falsifiability routes, and the 1.3 repair
+discipline. But the bounded editorial route becomes lawful only because this smaller spine is
+visible and auditable.}
+\label{fig:oc13-theorem-spine}
+\end{figure}
+
+\subsection{Which statements carry which burden}
+
+The volume is easier to read once each statement class is attached to a reader task rather than
+presented as one undifferentiated flow of prose.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{p{3.1cm} p{4.7cm} p{5.0cm}}
+\toprule
+\textbf{Statement class} & \textbf{Scientific burden} & \textbf{Where the reader should check it} \\
+\midrule
+Axiomatic statements & Fix primitive admissibility, identity, or threshold conditions. & Axiomatics, notation appendix, source-audit chapter. \\
+Derived theorems and lemmas & Carry the proof-bearing positive body. & Results chapter, collapse/rebirth chapter, theorem roadmap, reviewer appendix. \\
+Structural statements & Explain the hierarchy, module layout, and relation between artifacts. & K-level chapter, modules, foundational consistency dossier. \\
+Interpretive statements & Explain meaning, Nichtbehauptungs, and downstream projection boundaries. & Discussion, source-audit, worked examples, domänenübergreifend mapping. \\
+Editorial bridge statements & Explain how the monograph, journal core, and Begleit packets fit together. & Reader guide, journal-core bridge appendix, release bundle notes. \\
+\bottomrule
+\end{tabular}
+\caption{Statement classes and reader tasks in Core 1.3. This table is a navigation aid, not a
+substitute for the formal chapters themselves.}
+\label{tab:oc13-statement-classes}
+\end{table}
+
+This classification matters because a hostile review often begins by testing whether a Artikel is
+quietly shifting from one statement class to another. A formal theorem may be defensible while
+the surrounding interpretive prose is too wide. Conversely, a structural or didactic sentence may
+be perfectly helpful while still being inadmissible as proof. The roadmap makes that separation
+inspectable.
+
+\subsection{Why the master volume must remain larger than the defended Artikel}
+
+The bounded journal-core claim is not the whole scientific content of the monograph. It is the
+most defensible öffentlich theorem route at the present release boundary. The master volume remains
+larger because it carries at least five scientific burdens that the short Artikel alone should not
+be forced to bear.
+
+\begin{enumerate}
+\item It preserves the inherited axiomatic and operator shell in one readable object.
+\item It carries the full K-level doctrine and explains why the hierarchy is fixed as
+      \(K_0,\dots,K_{12}\) rather than cut short by editorial convenience.
+\item It keeps the broader domain-facing modules, falsifiability routes, and projection
+      boundaries available for scrutiny instead of hiding them behind internal registries.
+\item It holds the 1.3 source-audit, chronology, and consistency apparatus inside the scientific
+      object itself.
+\item It teaches the reader how later artifacts are derived so that journal-core, outreach, and
+      owner-facing channels do not become separate interpretive universes.
+\end{enumerate}
+
+In other words, the master monograph is not larger than the Artikel because the release lacks
+discipline. It is larger because a serious foundational framework needs one place where its
+vocabulary, proof routes, reader guidance, figures, appendices, and limitations still coexist.
+
+\subsection{The shortest hostile-review checklist}
+
+If a reviewer wishes to challenge the release at its most vulnerable points, the logically
+efficient order is the following.
+
+\begin{enumerate}
+\item Check whether collapse is tied to the loss of admissible realization rather than to loose
+      metaphor.
+\item Check whether the irreversibility rule really forbids restoration of the original
+      continuum as numerically the same entity.
+\item Check whether residue and rebirth are used as controlled classifications rather than as
+      decorative narrative labels.
+\item Check whether any excluded lift-heavy theorem family is smuggled back into the positive
+      begrenzte Argumentation.
+\item Check whether the journal-core extraction says anything stronger than the master monograph.
+\item Check whether the K-level doctrine is structurally justified or merely counted upward by
+      enthusiasm.
+\end{enumerate}
+
+If the manuscript survives those checks, it deserves a slower and fuller reading. If it fails
+them, no amount of later prose can repair the result. Making that sequence explicit is part of
+the 1.3 improvement: the monograph now teaches the reviewer where the real risk lies instead of
+burying it inside a vast undifferentiated shell.
+
+\clearpage

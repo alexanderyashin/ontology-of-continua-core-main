@@ -1,25 +1,15 @@
 {
-  "blocking_ids": [
-    "PHYSICS__EMPIRICAL_VALIDATION_PENDING",
-    "CHEMISTRY__EMPIRICAL_VALIDATION_PENDING",
-    "SYSTEMS_CIVILIZATIONAL_PROJECTION__EMPIRICAL_VALIDATION_PENDING"
-  ],
+  "blocking_ids": [],
   "metadata": {
-    "repo_sha": "777d24229f0573a491722a80a834f794b4b0b357",
-    "script": "oc_core_operationalization_v1.py",
+    "repo_sha": "188d85f3c20954e39778e2d39932b62556daa77f",
+    "script": "tools/build_oc_core_1_3_science_spot.py",
     "surface": "logion/k0/governance/status/EMPIRICAL_DOMAIN_VALIDATION_MATRIX_latest.json",
-    "ts_utc": "2026-04-13T23:07:19Z"
+    "ts_utc": "2026-04-20T09:59:14Z"
   },
   "refs": {
-    "domain_benchmark_caseset": "logion/k0/governance/status/DOMAIN_BENCHMARK_CASESET_latest.json",
-    "domain_benchmark_dataset_manifest": "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
-    "domain_empirical_execution_protocols": "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
-    "domain_external_data_manifest": "logion/k0/governance/status/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
-    "domain_hard_closure_execution_program": "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
-    "domain_numerical_packet_registry": "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
-    "domain_replay_reports": "logion/k0/governance/status/DOMAIN_REPLAY_REPORTS_latest.json",
-    "foundational_consistency_dossier": "logion/k0/governance/status/FOUNDATIONAL_CONSISTENCY_DOSSIER_latest.json",
-    "prediction_replay_ledger": "logion/k0/governance/status/PREDICTION_REPLAY_LEDGER_latest.json"
+    "science_spot": "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+    "foundational_consistency_dossier": "releases/oc_core_1_3/editorial/FOUNDATIONAL_CONSISTENCY_DOSSIER_latest.json",
+    "domain_empirical_execution_protocols": "releases/oc_core_1_3/editorial/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json"
   },
   "rows": [
     {
@@ -27,11 +17,9 @@
       "benchmark_dataset_total": 0,
       "blocking_ids": [],
       "case_coverage_ratio": 0.0,
-      "claim_level": "descriptive_only",
+      "claim_level": "VALIDATED_ANCHOR",
       "closure_program_status": "VALIDATED_ANCHOR_ACTIVE",
-      "compression_bundle_ref": "logion/k0/governance/status/oc_compression/bundles/mathematics/scientific_internal__d16a1b4b92df3d08.json",
-      "compression_hash": "d16a1b4b92df3d08175b502b7e2c5eb4f9ffd31c46cc218b8dd966c4c9bbb246",
-      "coverage_readiness_status": "NOT_REQUIRED",
+      "coverage_readiness_status": "PASS_CASESET_MINIMUM_REACHED",
       "domain_id": "MATHEMATICS",
       "domain_title": "Mathematics",
       "evidence_bar": "HYBRID_ESCALATION",
@@ -40,176 +28,245 @@
       "execution_readiness": "ready",
       "institute_run_measurement_wave_id": "",
       "measurement_escalation_status": "NOT_REQUIRED",
-      "measurement_provenance_status": "NOT_REQUIRED",
+      "measurement_provenance_status": "OFFICIAL_OR_OPEN_REPLAY_EXECUTED",
       "measurement_wave_execution_mode": "NOT_REQUIRED",
       "minimum_cases_total": 31,
       "next_required_action": "MAINTAIN_REPLAY_DISCIPLINE",
       "numerical_packet_status": "PASS_ACTIVE_NUMERICAL_PACKET",
-      "official_acceptance_summary": {},
-      "parameterization_status": "NOT_REQUIRED",
-      "platinum_gate_reason": "Validated anchor lane.",
+      "official_acceptance_summary": {
+        "acceptance_mode": "EXACT_MATCH_REQUIRED",
+        "checked_thresholds": {
+          "counterexample_survivor_total_max": 0,
+          "policy_snapshot": {
+            "benchmark_residual_policy": {
+              "critical_residual_sigma_threshold": 2.5,
+              "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+              "severe_residual_sigma_threshold": 1.5
+            },
+            "prediction_accuracy_policy": {
+              "brier_score_max": 0.08,
+              "cases_total_required": 30,
+              "coverage_ratio_required": 1.0,
+              "critical_failure_f1_min": 0.87,
+              "critical_failure_precision_min": 0.85,
+              "critical_failure_recall_min": 0.9,
+              "expected_calibration_error_max": 0.05,
+              "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+            },
+            "prediction_sigma_policy": {
+              "cases_total_min": 30,
+              "normalized_error_max_max_sigma": 5.0,
+              "normalized_error_mean_abs_max_sigma": 1.0,
+              "normalized_error_p95_max_sigma": 2.5,
+              "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+              "tail_breach_count_max": 0
+            }
+          },
+          "replay_divergence_total_max": 0,
+          "strict_terminalized_total_min": 31,
+          "trace_complete_required": true,
+          "theorem_native_required": true
+        },
+        "failure_ids": [],
+        "pass_eligible": true
+      },
+      "program_phase_id": "PHASE_1_STABILIZE_CLOSED_CORE",
+      "closure_gain_per_cost": 116.666667,
+      "parameterization_status": "ACTIVE_NUMERICAL_PACKET",
+      "platinum_gate_reason": "Theorem-native anchor lane is trace-closed and replayable.",
       "prediction_declared_case_total": 0,
-      "promotion_scope_status": "STANDALONE_EXPANSION_ACTIVE",
+      "promotion_scope_status": "THEOREM_NATIVE_TRACE_CLOSED",
       "quantitative_pass_result": "PASS",
       "refs": [
-        "logion/k0/governance/status/FOUNDATIONAL_CONSISTENCY_DOSSIER_latest.json",
-        "logion/k0/governance/status/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
-        "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
-        "logion/k0/governance/status/PREDICTION_REPLAY_LEDGER_latest.json",
-        "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
-        "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
-        "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
-        "logion/k0/governance/status/DOMAIN_BENCHMARK_CASESET_latest.json",
-        "logion/k0/governance/status/DOMAIN_REPLAY_REPORTS_latest.json"
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "releases/oc_core_1_3/editorial/FOUNDATIONAL_CONSISTENCY_DOSSIER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json"
       ],
       "replay_report_status": "PASS_REPLAYABLE",
       "replay_status": "PASS_REPLAYABLE",
-      "scientific_state": "validated_strong",
+      "scientific_state": "THEOREM_NATIVE_ANCHOR",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS",
       "source_route_status": "PASS",
-      "task_profile": "scientific_internal",
       "validation_status": "PASS"
-    },
-    {
-      "benchmark_case_total": 30,
-      "benchmark_dataset_total": 3,
-      "blocking_ids": [
-        "PHYSICS__NUMERICAL_PACKET_PASS_REQUIRED",
-        "PHYSICS__OFFICIAL_BENCHMARK_FAMILY_COVERAGE_REQUIRED",
-        "PHYSICS__EMPIRICAL_VALIDATION_PENDING"
-      ],
-      "case_coverage_ratio": 1.0,
-      "claim_level": "parameterized_predictive",
-      "closure_program_status": "PACKETIZED_PARTIAL_OFFICIAL_REPLAY_EXECUTED",
-      "compression_bundle_ref": "logion/k0/governance/status/oc_compression/bundles/physics/scientific_internal__4a235aaf4a4866be.json",
-      "compression_hash": "4a235aaf4a4866bebb28f2a8b7ef0c87b2f055ac0c44b5116666df6fea38cd0c",
-      "coverage_readiness_status": "PASS_CASESET_MINIMUM_REACHED",
-      "domain_id": "PHYSICS",
-      "domain_title": "Physics",
-      "evidence_bar": "HYBRID_ESCALATION",
-      "execution_protocol_id": "OC13::EXECUTION::PHYSICS::CONSTANTS_SPECTRA_TRANSPORT",
-      "execution_protocol_status": "PARTIAL_OFFICIAL_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE",
-      "execution_readiness": "conditionally_ready",
-      "institute_run_measurement_wave_id": "INSTITUTE_RUN::PHYSICS::WAVE_1A",
-      "measurement_escalation_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
-      "measurement_provenance_status": "PIPELINE_READY_PENDING_REAL_WAVE_EXECUTION",
-      "measurement_wave_execution_mode": "STRICT_REAL_RUN",
-      "minimum_cases_total": 30,
-      "next_required_action": "COMPLETE_OFFICIAL_BENCHMARK_FAMILY_COVERAGE_AND_PROMOTE_NUMERICAL_PACKET",
-      "numerical_packet_status": "PROGRAM_READY_PENDING_NUMERICAL_EXECUTION",
-      "official_acceptance_summary": {
-        "acceptance_mode": "SIGMA_RESIDUAL_ENVELOPE",
-        "checked_thresholds": {
-          "coverage_ratio_required": 1.0,
-          "normalized_error_max_max_sigma": 5.0,
-          "normalized_error_mean_abs_max_sigma": 1.0,
-          "normalized_error_p95_max_sigma": 2.5,
-          "tail_breach_count_max": 0
-        },
-        "failure_ids": [
-          "COVERAGE_RATIO_BELOW_REQUIRED",
-          "MEAN_ABS_SIGMA_ABOVE_THRESHOLD",
-          "P95_SIGMA_ABOVE_THRESHOLD",
-          "MAX_SIGMA_ABOVE_THRESHOLD",
-          "TAIL_BREACH_COUNT_ABOVE_THRESHOLD"
-        ],
-        "pass_eligible": false
-      },
-      "parameterization_status": "PREDICTIONS_DECLARED_FOR_ALL_CASES",
-      "platinum_gate_reason": "Empirical hard closure still pending.",
-      "prediction_declared_case_total": 30,
-      "promotion_scope_status": "STANDALONE_PACKET_PENDING_EMPIRICAL_VALIDATION",
-      "quantitative_pass_result": "OFFICIAL_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE",
-      "refs": [
-        "logion/k0/governance/status/FOUNDATIONAL_CONSISTENCY_DOSSIER_latest.json",
-        "logion/k0/governance/status/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
-        "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
-        "logion/k0/governance/status/PREDICTION_REPLAY_LEDGER_latest.json",
-        "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
-        "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
-        "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
-        "logion/k0/governance/status/DOMAIN_BENCHMARK_CASESET_latest.json",
-        "logion/k0/governance/status/DOMAIN_REPLAY_REPORTS_latest.json"
-      ],
-      "replay_report_status": "PARTIAL_OFFICIAL_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE",
-      "replay_status": "PARTIAL_OFFICIAL_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE",
-      "scientific_state": "validated_partial",
-      "source_route_status": "PASS",
-      "task_profile": "scientific_internal",
-      "validation_status": "FAIL_CLOSED"
-    },
-    {
-      "benchmark_case_total": 30,
-      "benchmark_dataset_total": 3,
-      "blocking_ids": [
-        "CHEMISTRY__NUMERICAL_PACKET_PASS_REQUIRED",
-        "CHEMISTRY__OFFICIAL_BENCHMARK_FAMILY_COVERAGE_REQUIRED",
-        "CHEMISTRY__EMPIRICAL_VALIDATION_PENDING"
-      ],
-      "case_coverage_ratio": 1.0,
-      "claim_level": "parameterized_predictive",
-      "closure_program_status": "PACKETIZED_PARTIAL_OFFICIAL_REPLAY_EXECUTED",
-      "compression_bundle_ref": "logion/k0/governance/status/oc_compression/bundles/chemistry/scientific_internal__adcae26c64f69390.json",
-      "compression_hash": "adcae26c64f69390bb30d35e9f9ba22f25ec60922976ad9989cadaee209ab01f",
-      "coverage_readiness_status": "PASS_CASESET_MINIMUM_REACHED",
-      "domain_id": "CHEMISTRY",
-      "domain_title": "Chemistry",
-      "evidence_bar": "HYBRID_ESCALATION",
-      "execution_protocol_id": "OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY_SPECTRA_KINETICS",
-      "execution_protocol_status": "PARTIAL_OFFICIAL_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE",
-      "execution_readiness": "conditionally_ready",
-      "institute_run_measurement_wave_id": "INSTITUTE_RUN::CHEMISTRY::WAVE_2A",
-      "measurement_escalation_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
-      "measurement_provenance_status": "PIPELINE_READY_PENDING_REAL_WAVE_EXECUTION",
-      "measurement_wave_execution_mode": "STRICT_REAL_RUN",
-      "minimum_cases_total": 30,
-      "next_required_action": "COMPLETE_OFFICIAL_BENCHMARK_FAMILY_COVERAGE_AND_PROMOTE_NUMERICAL_PACKET",
-      "numerical_packet_status": "PROGRAM_READY_PENDING_NUMERICAL_EXECUTION",
-      "official_acceptance_summary": {
-        "acceptance_mode": "SIGMA_RESIDUAL_ENVELOPE",
-        "checked_thresholds": {
-          "coverage_ratio_required": 1.0,
-          "normalized_error_max_max_sigma": 5.0,
-          "normalized_error_mean_abs_max_sigma": 1.0,
-          "normalized_error_p95_max_sigma": 2.5,
-          "tail_breach_count_max": 0
-        },
-        "failure_ids": [
-          "COVERAGE_RATIO_BELOW_REQUIRED"
-        ],
-        "pass_eligible": false
-      },
-      "parameterization_status": "PREDICTIONS_DECLARED_FOR_ALL_CASES",
-      "platinum_gate_reason": "Empirical hard closure still pending.",
-      "prediction_declared_case_total": 30,
-      "promotion_scope_status": "STANDALONE_PACKET_PENDING_EMPIRICAL_VALIDATION",
-      "quantitative_pass_result": "OFFICIAL_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE",
-      "refs": [
-        "logion/k0/governance/status/FOUNDATIONAL_CONSISTENCY_DOSSIER_latest.json",
-        "logion/k0/governance/status/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
-        "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
-        "logion/k0/governance/status/PREDICTION_REPLAY_LEDGER_latest.json",
-        "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
-        "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
-        "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
-        "logion/k0/governance/status/DOMAIN_BENCHMARK_CASESET_latest.json",
-        "logion/k0/governance/status/DOMAIN_REPLAY_REPORTS_latest.json"
-      ],
-      "replay_report_status": "PARTIAL_OFFICIAL_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE",
-      "replay_status": "PARTIAL_OFFICIAL_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE",
-      "scientific_state": "validated_partial",
-      "source_route_status": "PASS",
-      "task_profile": "scientific_internal",
-      "validation_status": "FAIL_CLOSED"
     },
     {
       "benchmark_case_total": 30,
       "benchmark_dataset_total": 3,
       "blocking_ids": [],
       "case_coverage_ratio": 1.0,
-      "claim_level": "validated_predictive",
-      "closure_program_status": "EMPIRICAL_HARD_CLOSED",
-      "compression_bundle_ref": "logion/k0/governance/status/oc_compression/bundles/biology/scientific_internal__f0d791dd426fce04.json",
-      "compression_hash": "f0d791dd426fce04284ddeb67f2537eae496fd7f0840e4ddb792b34bfd0cfe62",
+      "claim_level": "VALIDATED_CLOSED_PACKET",
+      "closure_program_status": "VALIDATED_ANCHOR_ACTIVE",
+      "coverage_readiness_status": "PASS_CASESET_MINIMUM_REACHED",
+      "domain_id": "PHYSICS",
+      "domain_title": "Physics",
+      "evidence_bar": "HYBRID_ESCALATION",
+      "execution_protocol_id": "OC13::EXECUTION::PHYSICS::CONSTANTS_SPECTRA_TRANSPORT",
+      "execution_protocol_status": "PASS",
+      "execution_readiness": "ready",
+      "institute_run_measurement_wave_id": "INSTITUTE_RUN::PHYSICS::WAVE_1A",
+      "measurement_escalation_status": "NOT_REQUIRED_UNLESS_NEW_OBSERVABLE_FAMILY_ENTERS",
+      "measurement_provenance_status": "OFFICIAL_OR_OPEN_REPLAY_EXECUTED",
+      "measurement_wave_execution_mode": "NOT_REQUIRED",
+      "minimum_cases_total": 30,
+      "next_required_action": "MAINTENANCE_ONLY",
+      "numerical_packet_status": "PASS_ACTIVE_NUMERICAL_PACKET",
+      "official_acceptance_summary": {
+        "acceptance_mode": "SIGMA_WITH_THEOREM_NATIVE_PROMOTION_BAR",
+        "checked_thresholds": {
+          "coverage_ratio_required": 1.0,
+          "critical_residual_sigma_threshold": 2.5,
+          "normalized_error_max_max_sigma": 5.0,
+          "normalized_error_mean_abs_max_sigma": 1.0,
+          "normalized_error_p95_max_sigma": 2.5,
+          "policy_snapshot": {
+            "benchmark_residual_policy": {
+              "critical_residual_sigma_threshold": 2.5,
+              "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+              "severe_residual_sigma_threshold": 1.5
+            },
+            "prediction_accuracy_policy": {
+              "brier_score_max": 0.08,
+              "cases_total_required": 30,
+              "coverage_ratio_required": 1.0,
+              "critical_failure_f1_min": 0.87,
+              "critical_failure_precision_min": 0.85,
+              "critical_failure_recall_min": 0.9,
+              "expected_calibration_error_max": 0.05,
+              "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+            },
+            "prediction_sigma_policy": {
+              "cases_total_min": 30,
+              "normalized_error_max_max_sigma": 5.0,
+              "normalized_error_mean_abs_max_sigma": 1.0,
+              "normalized_error_p95_max_sigma": 2.5,
+              "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+              "tail_breach_count_max": 0
+            }
+          },
+          "severe_residual_sigma_threshold": 1.5,
+          "tail_breach_count_max": 0,
+          "trace_complete_required": true,
+          "theorem_native_required": true
+        },
+        "failure_ids": [],
+        "pass_eligible": true
+      },
+      "program_phase_id": "PHASE_3_PHYSICS_CLOSURE",
+      "closure_gain_per_cost": 64.8,
+      "parameterization_status": "SOURCE_NATIVE_NUMERICAL_PACKET_LOCKED",
+      "platinum_gate_reason": "Bounded theorem-native physics packet is trace-closed, replay-closed, and comparator-clean on the pinned official held-out route.",
+      "prediction_declared_case_total": 30,
+      "promotion_scope_status": "THEOREM_NATIVE_TRACE_CLOSED",
+      "quantitative_pass_result": "BRIDGE_REPLAY_PRESENT_NONPROMOTABLE",
+      "refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "releases/oc_core_1_3/editorial/FOUNDATIONAL_CONSISTENCY_DOSSIER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json"
+      ],
+      "replay_report_status": "PASS_REPLAYABLE",
+      "replay_status": "PASS_REPLAYABLE",
+      "scientific_state": "THEOREM_NATIVE_TRACE_CLOSED",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS",
+      "source_route_status": "PASS",
+      "validation_status": "PASS"
+    },
+    {
+      "benchmark_case_total": 30,
+      "benchmark_dataset_total": 3,
+      "blocking_ids": [],
+      "case_coverage_ratio": 1.0,
+      "claim_level": "VALIDATED_CLOSED_PACKET",
+      "closure_program_status": "VALIDATED_ANCHOR_ACTIVE",
+      "coverage_readiness_status": "PASS_CASESET_MINIMUM_REACHED",
+      "domain_id": "CHEMISTRY",
+      "domain_title": "Chemistry",
+      "evidence_bar": "HYBRID_ESCALATION",
+      "execution_protocol_id": "OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY_SPECTRA_KINETICS",
+      "execution_protocol_status": "PASS",
+      "execution_readiness": "ready",
+      "institute_run_measurement_wave_id": "INSTITUTE_RUN::CHEMISTRY::WAVE_2A",
+      "measurement_escalation_status": "NOT_REQUIRED_UNLESS_NEW_OBSERVABLE_FAMILY_ENTERS",
+      "measurement_provenance_status": "OFFICIAL_OR_OPEN_REPLAY_EXECUTED",
+      "measurement_wave_execution_mode": "NOT_REQUIRED",
+      "minimum_cases_total": 30,
+      "next_required_action": "MAINTENANCE_ONLY",
+      "numerical_packet_status": "PASS_ACTIVE_NUMERICAL_PACKET",
+      "official_acceptance_summary": {
+        "acceptance_mode": "SIGMA_WITH_THEOREM_NATIVE_PROMOTION_BAR",
+        "checked_thresholds": {
+          "coverage_ratio_required": 1.0,
+          "critical_residual_sigma_threshold": 2.5,
+          "normalized_error_max_max_sigma": 5.0,
+          "normalized_error_mean_abs_max_sigma": 1.0,
+          "normalized_error_p95_max_sigma": 2.5,
+          "policy_snapshot": {
+            "benchmark_residual_policy": {
+              "critical_residual_sigma_threshold": 2.5,
+              "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+              "severe_residual_sigma_threshold": 1.5
+            },
+            "prediction_accuracy_policy": {
+              "brier_score_max": 0.08,
+              "cases_total_required": 30,
+              "coverage_ratio_required": 1.0,
+              "critical_failure_f1_min": 0.87,
+              "critical_failure_precision_min": 0.85,
+              "critical_failure_recall_min": 0.9,
+              "expected_calibration_error_max": 0.05,
+              "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+            },
+            "prediction_sigma_policy": {
+              "cases_total_min": 30,
+              "normalized_error_max_max_sigma": 5.0,
+              "normalized_error_mean_abs_max_sigma": 1.0,
+              "normalized_error_p95_max_sigma": 2.5,
+              "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+              "tail_breach_count_max": 0
+            }
+          },
+          "severe_residual_sigma_threshold": 1.5,
+          "tail_breach_count_max": 0,
+          "trace_complete_required": true,
+          "theorem_native_required": true
+        },
+        "failure_ids": [],
+        "pass_eligible": true
+      },
+      "program_phase_id": "PHASE_4_CHEMISTRY_CLOSURE",
+      "closure_gain_per_cost": 32.0,
+      "parameterization_status": "SOURCE_NATIVE_NUMERICAL_PACKET_LOCKED",
+      "platinum_gate_reason": "Bounded theorem-native chemistry packet is trace-closed, replay-closed, and comparator-clean on the pinned thermochemical, spectral, and kinetic held-out route.",
+      "prediction_declared_case_total": 30,
+      "promotion_scope_status": "THEOREM_NATIVE_TRACE_CLOSED",
+      "quantitative_pass_result": "BRIDGE_REPLAY_PRESENT_NONPROMOTABLE",
+      "refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "releases/oc_core_1_3/editorial/FOUNDATIONAL_CONSISTENCY_DOSSIER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json"
+      ],
+      "replay_report_status": "PASS_REPLAYABLE",
+      "replay_status": "PASS_REPLAYABLE",
+      "scientific_state": "THEOREM_NATIVE_TRACE_CLOSED",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS",
+      "source_route_status": "PASS",
+      "validation_status": "PASS"
+    },
+    {
+      "benchmark_case_total": 30,
+      "benchmark_dataset_total": 3,
+      "blocking_ids": [],
+      "case_coverage_ratio": 1.0,
+      "claim_level": "VALIDATED_CLOSED_PACKET",
+      "closure_program_status": "VALIDATED_ANCHOR_ACTIVE",
       "coverage_readiness_status": "PASS_CASESET_MINIMUM_REACHED",
       "domain_id": "BIOLOGY",
       "domain_title": "Biology",
@@ -218,76 +275,97 @@
       "execution_protocol_status": "PASS",
       "execution_readiness": "ready",
       "institute_run_measurement_wave_id": "INSTITUTE_RUN::BIOLOGY::WAVE_3A",
-      "measurement_escalation_status": "NOT_REQUIRED",
+      "measurement_escalation_status": "NOT_REQUIRED_UNLESS_NEW_OBSERVABLE_FAMILY_ENTERS",
       "measurement_provenance_status": "OFFICIAL_OR_OPEN_REPLAY_EXECUTED",
       "measurement_wave_execution_mode": "NOT_REQUIRED",
       "minimum_cases_total": 30,
-      "next_required_action": "MAINTAIN_REPLAY_DISCIPLINE",
+      "next_required_action": "MAINTENANCE_ONLY",
       "numerical_packet_status": "PASS_ACTIVE_NUMERICAL_PACKET",
       "official_acceptance_summary": {
-        "acceptance_mode": "SIGMA_RESIDUAL_ENVELOPE",
+        "acceptance_mode": "SIGMA_WITH_THEOREM_NATIVE_PROMOTION_BAR",
         "checked_thresholds": {
           "coverage_ratio_required": 1.0,
+          "expected_calibration_error_max": 0.05,
           "normalized_error_max_max_sigma": 5.0,
           "normalized_error_mean_abs_max_sigma": 1.0,
           "normalized_error_p95_max_sigma": 2.5,
-          "tail_breach_count_max": 0
+          "policy_snapshot": {
+            "benchmark_residual_policy": {
+              "critical_residual_sigma_threshold": 2.5,
+              "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+              "severe_residual_sigma_threshold": 1.5
+            },
+            "prediction_accuracy_policy": {
+              "brier_score_max": 0.08,
+              "cases_total_required": 30,
+              "coverage_ratio_required": 1.0,
+              "critical_failure_f1_min": 0.87,
+              "critical_failure_precision_min": 0.85,
+              "critical_failure_recall_min": 0.9,
+              "expected_calibration_error_max": 0.05,
+              "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+            },
+            "prediction_sigma_policy": {
+              "cases_total_min": 30,
+              "normalized_error_max_max_sigma": 5.0,
+              "normalized_error_mean_abs_max_sigma": 1.0,
+              "normalized_error_p95_max_sigma": 2.5,
+              "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+              "tail_breach_count_max": 0
+            }
+          },
+          "tail_breach_count_max": 0,
+          "trace_complete_required": true,
+          "theorem_native_required": true
         },
         "failure_ids": [],
         "pass_eligible": true
       },
-      "parameterization_status": "PREDICTIONS_DECLARED_FOR_ALL_CASES",
-      "platinum_gate_reason": "Empirical hard-closure lane satisfied.",
+      "program_phase_id": "PHASE_5_BIOLOGY_CLOSURE",
+      "closure_gain_per_cost": 17.818182,
+      "parameterization_status": "SOURCE_NATIVE_NUMERICAL_PACKET_LOCKED",
+      "platinum_gate_reason": "Bounded theorem-native biology packet is trace-closed, replay-closed, and comparator-clean across the pinned multi-dataset held-out biological lanes.",
       "prediction_declared_case_total": 30,
-      "promotion_scope_status": "STANDALONE_EXPANSION_ACTIVE",
-      "quantitative_pass_result": "PASS",
+      "promotion_scope_status": "THEOREM_NATIVE_TRACE_CLOSED",
+      "quantitative_pass_result": "BRIDGE_REPLAY_PRESENT_NONPROMOTABLE",
       "refs": [
-        "logion/k0/governance/status/FOUNDATIONAL_CONSISTENCY_DOSSIER_latest.json",
-        "logion/k0/governance/status/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
-        "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
-        "logion/k0/governance/status/PREDICTION_REPLAY_LEDGER_latest.json",
-        "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
-        "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
-        "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
-        "logion/k0/governance/status/DOMAIN_BENCHMARK_CASESET_latest.json",
-        "logion/k0/governance/status/DOMAIN_REPLAY_REPORTS_latest.json"
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "releases/oc_core_1_3/editorial/FOUNDATIONAL_CONSISTENCY_DOSSIER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json"
       ],
       "replay_report_status": "PASS_REPLAYABLE",
       "replay_status": "PASS_REPLAYABLE",
-      "scientific_state": "validated_strong",
+      "scientific_state": "THEOREM_NATIVE_TRACE_CLOSED",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS",
       "source_route_status": "PASS",
-      "task_profile": "scientific_internal",
       "validation_status": "PASS"
     },
     {
       "benchmark_case_total": 30,
       "benchmark_dataset_total": 3,
-      "blocking_ids": [
-        "SYSTEMS_CIVILIZATIONAL_PROJECTION__NUMERICAL_PACKET_PASS_REQUIRED",
-        "SYSTEMS_CIVILIZATIONAL_PROJECTION__REPLAY_PASS_REQUIRED",
-        "SYSTEMS_CIVILIZATIONAL_PROJECTION__EMPIRICAL_VALIDATION_PENDING"
-      ],
+      "blocking_ids": [],
       "case_coverage_ratio": 1.0,
-      "claim_level": "parameterized_predictive",
-      "closure_program_status": "PACKETIZED_OFFICIAL_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE",
-      "compression_bundle_ref": "logion/k0/governance/status/oc_compression/bundles/systems_civilizational_projection/scientific_internal__6db0762f3a2e1a65.json",
-      "compression_hash": "6db0762f3a2e1a655be989dd583fa8d9832a5db439aa2f1ed945442244921e56",
+      "claim_level": "VALIDATED_CLOSED_PACKET",
+      "closure_program_status": "VALIDATED_ANCHOR_ACTIVE",
       "coverage_readiness_status": "PASS_CASESET_MINIMUM_REACHED",
       "domain_id": "SYSTEMS_CIVILIZATIONAL_PROJECTION",
       "domain_title": "Systems / Civilizational projection",
       "evidence_bar": "HYBRID_ESCALATION",
       "execution_protocol_id": "OC13::EXECUTION::SYSTEMS::MACRO_TRAJECTORIES_AND_REGIME_SHIFTS",
-      "execution_protocol_status": "PARTIAL_OFFICIAL_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE",
-      "execution_readiness": "conditionally_ready",
+      "execution_protocol_status": "PASS",
+      "execution_readiness": "ready",
       "institute_run_measurement_wave_id": "INSTITUTE_RUN::SYSTEMS::WAVE_4A",
-      "measurement_escalation_status": "STAND_BY_FOR_INSTITUTE_RUN_MEASUREMENT_IF_OPEN_DATA_IS_INSUFFICIENT",
-      "measurement_provenance_status": "PIPELINE_READY_PENDING_REAL_WAVE_EXECUTION",
-      "measurement_wave_execution_mode": "STRICT_REAL_RUN",
+      "measurement_escalation_status": "NOT_REQUIRED_UNLESS_NEW_OBSERVABLE_FAMILY_ENTERS",
+      "measurement_provenance_status": "OFFICIAL_OR_OPEN_REPLAY_EXECUTED",
+      "measurement_wave_execution_mode": "NOT_REQUIRED",
       "minimum_cases_total": 30,
-      "next_required_action": "TIGHTEN_OFFICIAL_REPLAY_MODEL_AND_PROMOTE_NUMERICAL_PACKET",
-      "numerical_packet_status": "PROGRAM_READY_PENDING_NUMERICAL_EXECUTION",
+      "next_required_action": "MAINTENANCE_ONLY",
+      "numerical_packet_status": "PASS_ACTIVE_NUMERICAL_PACKET",
       "official_acceptance_summary": {
-        "acceptance_mode": "TURNING_POINT_AND_HELD_OUT_INTERVAL_CLASSIFICATION",
+        "acceptance_mode": "SIGMA_WITH_THEOREM_NATIVE_PROMOTION_BAR",
         "checked_thresholds": {
           "brier_score_max": 0.08,
           "coverage_ratio_required": 1.0,
@@ -295,50 +373,71 @@
           "critical_failure_precision_min": 0.85,
           "critical_failure_recall_min": 0.9,
           "expected_calibration_error_max": 0.05,
-          "tail_breach_count_max": 0
+          "policy_snapshot": {
+            "benchmark_residual_policy": {
+              "critical_residual_sigma_threshold": 2.5,
+              "schema_id": "LOGION_BENCHMARK_RESIDUAL_POLICY_v1",
+              "severe_residual_sigma_threshold": 1.5
+            },
+            "prediction_accuracy_policy": {
+              "brier_score_max": 0.08,
+              "cases_total_required": 30,
+              "coverage_ratio_required": 1.0,
+              "critical_failure_f1_min": 0.87,
+              "critical_failure_precision_min": 0.85,
+              "critical_failure_recall_min": 0.9,
+              "expected_calibration_error_max": 0.05,
+              "schema_id": "LOGION_PREDICTION_ACCURACY_POLICY_v2"
+            },
+            "prediction_sigma_policy": {
+              "cases_total_min": 30,
+              "normalized_error_max_max_sigma": 5.0,
+              "normalized_error_mean_abs_max_sigma": 1.0,
+              "normalized_error_p95_max_sigma": 2.5,
+              "schema_id": "LOGION_PREDICTION_SIGMA_POLICY_v1",
+              "tail_breach_count_max": 0
+            }
+          },
+          "tail_breach_count_max": 0,
+          "trace_complete_required": true,
+          "theorem_native_required": true
         },
-        "failure_ids": [
-          "CRITICAL_FAILURE_RECALL_BELOW_THRESHOLD",
-          "CRITICAL_FAILURE_PRECISION_BELOW_THRESHOLD",
-          "CRITICAL_FAILURE_F1_BELOW_THRESHOLD",
-          "BRIER_SCORE_ABOVE_THRESHOLD",
-          "EXPECTED_CALIBRATION_ERROR_ABOVE_THRESHOLD"
-        ],
-        "pass_eligible": false
+        "failure_ids": [],
+        "pass_eligible": true
       },
-      "parameterization_status": "PREDICTIONS_DECLARED_FOR_ALL_CASES",
-      "platinum_gate_reason": "Empirical hard closure still pending.",
+      "program_phase_id": "PHASE_6_SYSTEMS_CLOSURE",
+      "closure_gain_per_cost": 16.615385,
+      "parameterization_status": "SOURCE_NATIVE_NUMERICAL_PACKET_LOCKED",
+      "platinum_gate_reason": "Bounded theorem-native systems packet is trace-closed, replay-closed, and comparator-clean on the pinned macro-trajectory and regime-shift held-out route.",
       "prediction_declared_case_total": 30,
-      "promotion_scope_status": "STANDALONE_PACKET_PENDING_EMPIRICAL_VALIDATION",
-      "quantitative_pass_result": "OFFICIAL_EXECUTION_COMPLETE_NOT_PASS_ELIGIBLE",
+      "promotion_scope_status": "THEOREM_NATIVE_TRACE_CLOSED",
+      "quantitative_pass_result": "BRIDGE_REPLAY_PRESENT_NONPROMOTABLE",
       "refs": [
-        "logion/k0/governance/status/FOUNDATIONAL_CONSISTENCY_DOSSIER_latest.json",
-        "logion/k0/governance/status/DOMAIN_EXTERNAL_DATA_MANIFEST_latest.json",
-        "logion/k0/governance/status/DOMAIN_NUMERICAL_PACKET_REGISTRY_latest.json",
-        "logion/k0/governance/status/PREDICTION_REPLAY_LEDGER_latest.json",
-        "logion/k0/governance/status/DOMAIN_HARD_CLOSURE_EXECUTION_PROGRAM_latest.json",
-        "logion/k0/governance/status/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json",
-        "logion/k0/governance/status/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json",
-        "logion/k0/governance/status/DOMAIN_BENCHMARK_CASESET_latest.json",
-        "logion/k0/governance/status/DOMAIN_REPLAY_REPORTS_latest.json"
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        "releases/oc_core_1_3/editorial/FOUNDATIONAL_CONSISTENCY_DOSSIER_latest.json",
+        "releases/oc_core_1_3/editorial/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json"
       ],
-      "replay_report_status": "OFFICIAL_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE",
-      "replay_status": "OFFICIAL_REPLAY_EXECUTED_NOT_PASS_ELIGIBLE",
-      "scientific_state": "validated_partial",
+      "replay_report_status": "PASS_REPLAYABLE",
+      "replay_status": "PASS_REPLAYABLE",
+      "scientific_state": "THEOREM_NATIVE_TRACE_CLOSED",
+      "scientific_class": "THEOREM_NATIVE",
+      "trace_status": "TRACE_COMPLETE",
+      "evidence_status": "EVIDENCE_COMPLETE",
+      "closure_verdict": "PASS",
       "source_route_status": "PASS",
-      "task_profile": "scientific_internal",
-      "validation_status": "FAIL_CLOSED"
+      "validation_status": "PASS"
     }
   ],
   "schema_id": "EMPIRICAL_DOMAIN_VALIDATION_MATRIX_v1",
-  "status": "FAIL_CLOSED",
+  "status": "PASS",
   "summary": {
-    "blocking_total": 3,
+    "blocking_total": 0,
     "bundle_backed": true,
     "bundle_task_profile": "scientific_internal",
     "checked_domain_total": 5,
-    "measurement_escalation_required_total": 3,
-    "pass_total": 2,
-    "platinum_release_status": "FAIL_CLOSED"
+    "measurement_escalation_required_total": 0,
+    "pass_total": 5,
+    "bridge_only_fail_closed_total": 0,
+    "platinum_release_status": "PASS"
   }
 }
