@@ -133,7 +133,7 @@ PLATINUM_TOE_SUPPORT_PATHS = [
 PLATINUM_NON_AUTO_COVERAGE = {
     "content/07_figures.tex": "appendix N figure atlas",
     "content/axioms_full.tex": "appendix B axioms full",
-    "content/toe/toe_master.tex": "chapter 25 + appendix Q TOE support dossiers",
+    "content/toe/toe_master.tex": "chapter 25 + appendix Q synthesis support dossiers",
 }
 
 
@@ -454,7 +454,7 @@ def main():
     validate_paths_exist(platinum_tiers["main"], "platinum main")
     validate_paths_exist(platinum_tiers["technical"], "platinum technical")
     validate_paths_exist(platinum_tiers["reference"], "platinum reference")
-    validate_paths_exist(platinum_tiers["toe_support"], "platinum TOE support")
+    validate_paths_exist(platinum_tiers["toe_support"], "platinum synthesis support")
     validate_platinum_coverage(full_paths, platinum_tiers)
 
     platinum_targets = {

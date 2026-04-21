@@ -31,11 +31,9 @@ and the baseline witness listed above.
   regenerates
   [`editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json`](editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json)
   with `status = PASS` and `llm_gate_status = PASS`.
-- TOE means the gated Theory of Everything synthesis surface. The
-  compatibility filename `OC_CORE_1_3_TOE_SYNTHESIS_latest.json` remains stable
-  for tooling. The public title `Theory of Everything Synthesis` is permitted
-  only when the `FINAL_TOE_VALIDATOR_PASS` policy in SPOT is `PASS`; otherwise
-  the fail-closed public wording is `Unified Science Closure Attempt`.
+- The public synthesis title is `Unified Science Synthesis`. Compatibility
+  filenames used by tooling are not public claim language and must not be read
+  as a claim that OC is a total theory of everything.
 
 The sections below separate the source-owned scientific corpus, bundle-local
 projection surfaces, and packaged mirrors. Directories such as `monograph/`,
@@ -88,7 +86,9 @@ science.
 - `editorial/OC_CORE_1_3_HOSTILE_REVIEW_BACKLOG_latest.json` carries the hostile-review blockers.
 - `editorial/OC_CORE_1_3_DOMAIN_CLOSURE_BUNDLE_REGISTRY_latest.json` carries the per-claim closure bundles.
 - `editorial/OC_CORE_1_3_PHASE1_CLOSED_CORE_DOSSIER_latest.json` carries the first-class Phase 1 closed-core dossier.
-- `editorial/OC_CORE_1_3_TOE_SYNTHESIS_latest.json` is the manuscript-facing unified science closure surface. The `TOE` filename is retained for compatibility; public TOE naming is permitted only after the `FINAL_TOE_VALIDATOR_PASS` policy recorded in `editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json`.
+- The manuscript-facing unified science closure surface is generated from
+  `editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json` and retained for tooling
+  compatibility under its existing machine filename.
 - `editorial/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json` exposes the hybrid-escalation evidence bar and the per-domain execution discipline.
 - `editorial/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json` exposes the pinned benchmark datasets and held-out split locks.
 - `editorial/DOMAIN_REPLAY_REPORTS_latest.json` exposes the replay packets and their measured outcomes.
@@ -110,6 +110,6 @@ science.
 - Its practical-consequences chapter and appendix state bounded prediction,
   audit, comparison, and operational-use lanes while keeping frontier and
   hypothesis-only rows explicit.
-- Its generated unified science closure section includes explicit K0 through
+- Its generated unified science synthesis section includes explicit K0 through
   K12 numerical rows.
-- The `Theory of Everything Synthesis` title follows that science-spot gate policy.
+- The public synthesis title is `Unified Science Synthesis`.

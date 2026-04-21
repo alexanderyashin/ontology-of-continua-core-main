@@ -12,7 +12,7 @@ def main() -> int:
     parser.add_argument(
         "--require-final-toe-pass",
         action="store_true",
-        help="Fail unless the repository already satisfies the full final TOE closure bar.",
+        help="Fail unless the repository already satisfies the full final synthesis closure bar.",
     )
     parser.add_argument(
         "--require-cerberus-clean",

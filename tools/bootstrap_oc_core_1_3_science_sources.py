@@ -193,7 +193,7 @@ def read_surfaces() -> dict[str, Any]:
         "spot": load_json(root / "OC_CORE_1_3_SCIENCE_SPOT_latest.json"),
         "closure_bundles": load_json(root / "OC_CORE_1_3_DOMAIN_CLOSURE_BUNDLE_REGISTRY_latest.json"),
         "hostile_review": load_json(root / "OC_CORE_1_3_HOSTILE_REVIEW_BACKLOG_latest.json"),
-        "toe": load_json(root / "OC_CORE_1_3_TOE_SYNTHESIS_latest.json"),
+        "toe": load_json(root / "OC_CORE_1_3_UNIFIED_SYNTHESIS_latest.json"),
         "proofs": load_json(root / "OC_CORE_1_3_PROOF_OBLIGATION_REGISTRY_latest.json"),
     }
 

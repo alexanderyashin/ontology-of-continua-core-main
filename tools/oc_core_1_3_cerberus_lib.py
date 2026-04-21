@@ -1002,7 +1002,7 @@ def deterministic_structure_review(manifest: dict[str, Any], run_id: str) -> lis
                 determinism_class=DETERMINISTIC_CLASS,
                 claim="The appendix order no longer matches the canonical inspection spine.",
                 evidence=f"Observed appendix order: {actual_appendix_inputs}",
-                required_action="Restore the monotone appendix order ending with Q as TOE support and R as practical comparison atlas.",
+                required_action="Restore the monotone appendix order ending with Q as synthesis support and R as practical comparison atlas.",
             )
         )
     for forbidden_ref in ["content/toe/toe_master.tex", "appendix/toe_data.tex"]:
@@ -1180,9 +1180,9 @@ def deterministic_numeric_surface_review(manifest: dict[str, Any], run_id: str) 
                 severity="BLOCKER",
                 category="numeric_sync",
                 determinism_class=DETERMINISTIC_CLASS,
-                claim="The TOE synthesis surface no longer covers every K-level row.",
-                evidence=f"Observed TOE row total: {len(toe_rows)}",
-                required_action="Restore explicit K0-K12 coverage in the TOE synthesis surface.",
+                claim="The unified synthesis surface no longer covers every K-level row.",
+                evidence=f"Observed synthesis row total: {len(toe_rows)}",
+                required_action="Restore explicit K0-K12 coverage in the unified synthesis surface.",
             )
         )
     return findings
@@ -1476,7 +1476,7 @@ def render_llm_prompt(units: list[dict[str, Any]], reviewer: dict[str, Any]) -> 
         )
     elif any(token in joined_refs for token in ["25_oc_core_1_3_toe_synthesis", "toe_support", "content/toe/"]):
         extra_context.append(
-            "Canonical TOE synthesis surface excerpt:\n"
+            "Canonical unified synthesis surface excerpt:\n"
             + unit_excerpt(json.dumps(load_json(SCIENCE_SURFACE_TARGETS["toe_synthesis"]), indent=2, ensure_ascii=True), max_chars=2500)
         )
     else:

@@ -139,7 +139,7 @@ TOE_LEVEL_SPECS = {
         "toe_file_ref": "content/toe/toe_k0",
         "appendix_table_label": "tab:k0-structural-parameters",
         "theorem_native_claim": "K0 fixes the non-empty admissible meta-domain required for any lawful continuum and therefore bounds every later K-level before empirical specialization.",
-        "operator_binding_summary": "The local K0 root process glyphs Psi_0, Phi_0, and Lambda_0 fix distinction generation, relational reconfiguration, and compositional assembly; compact TOE aliases F_0, Q_0, and U_0 label the corresponding root constraints only where they are defined locally.",
+        "operator_binding_summary": "The local K0 root process glyphs Psi_0, Phi_0, and Lambda_0 fix distinction generation, relational reconfiguration, and compositional assembly; compact synthesis aliases F_0, Q_0, and U_0 label the corresponding root constraints only where they are defined locally.",
         "parameter_law_display": r"\mu(\Omega(K_0)) > 0,\quad \forall x \in \{1,\dots,12\}: \mathrm{DoF}(M_x)>0\ \mathrm{and}\ \frac{\mathrm{DoF}(K_x)}{\mathrm{DoF}(M_x)} \leq 1,\quad C_{\mathrm{triv}} \geq 1",
         "observable_map_summary": "Meta-admissibility, meta-space compatibility, and the presence of at least one trivial lawful cycle.",
         "synthetic_observable_ids": [
@@ -1124,7 +1124,7 @@ SCIENCE_SURFACE_TARGETS = {
     "hostile_review": EDITORIAL_DIR / "OC_CORE_1_3_HOSTILE_REVIEW_BACKLOG_latest.json",
     "closure_bundles": EDITORIAL_DIR / "OC_CORE_1_3_DOMAIN_CLOSURE_BUNDLE_REGISTRY_latest.json",
     "phase1_dossier": EDITORIAL_DIR / "OC_CORE_1_3_PHASE1_CLOSED_CORE_DOSSIER_latest.json",
-    "toe_synthesis": EDITORIAL_DIR / "OC_CORE_1_3_TOE_SYNTHESIS_latest.json",
+    "toe_synthesis": EDITORIAL_DIR / "OC_CORE_1_3_UNIFIED_SYNTHESIS_latest.json",
     "practical_utility": EDITORIAL_DIR / "OC_CORE_1_3_PRACTICAL_UTILITY_ATLAS_latest.json",
 }
 
@@ -2142,16 +2142,16 @@ def toe_branding_payload(status: str) -> dict[str, Any]:
     if status == "PASS":
         return {
             "branding_mode": "STRICT_TOE_PROMOTED",
-            "public_chapter_title": "Theory of Everything Synthesis",
-            "public_surface_label": "TOE synthesis surface",
-            "public_status_label": "Final TOE release status",
-            "public_gate_title": "Final TOE Release Gate",
+            "public_chapter_title": "Unified Science Synthesis",
+            "public_surface_label": "Unified synthesis surface",
+            "public_status_label": "Final unified-synthesis release status",
+            "public_gate_title": "Final Unified Synthesis Release Gate",
             "public_intro_text": (
                 "This chapter states the promoted synthesis projected from the canonical science SPOT. "
-                "It gives the lawfully promoted TOE with explicit K0--K12 parameter laws, numerical rows, falsifiers, and empirical held-out prediction summaries."
+                "It gives the lawfully promoted unified synthesis with explicit K0--K12 parameter laws, numerical rows, falsifiers, and empirical held-out prediction summaries."
             ),
             "public_empirical_summary_text": (
-                "The following summary records the empirical TOE lanes that have already cleared theorem-native promotion and held-out prediction review."
+                "The following summary records the empirical synthesis lanes that have already cleared theorem-native promotion and held-out prediction review."
             ),
             "optimistic_toe_naming_allowed": True,
         }
@@ -2326,7 +2326,7 @@ def build_toe_synthesis_registry(
             }
         )
     return {
-        "toe_id": "OC_CORE_1_3_TOE_SYNTHESIS",
+        "toe_id": "OC_CORE_1_3_UNIFIED_SYNTHESIS",
         "manuscript_target": "ENGLISH_MASTER_MONOGRAPH_ONLY",
         "kernel_ref": kernel["kernel_id"],
         "status": global_verdict["toe_release_candidate_status"],
@@ -2616,7 +2616,7 @@ def build_practical_utility_atlas(
             "chapter_rule": "NO_PRACTICAL_CLAIM_MAY_OUTRUN_THE_CANONICAL_UTILITY_ATLAS",
             "usable_now_support_classes": sorted(USABLE_NOW_SUPPORT_CLASSES, key=practical_support_sort_key),
             "frontier_support_classes": ["FRONTIER_PROGRAM", "HYPOTHESIS_ONLY"],
-            "chapter_25_nonduplication_rule": "PRACTICAL_UTILITY_CHAPTER_MAY_NOT_DUPLICATE_THE_CANONICAL_TOE_SYNTHESIS",
+            "chapter_25_nonduplication_rule": "PRACTICAL_UTILITY_CHAPTER_MAY_NOT_DUPLICATE_THE_CANONICAL_UNIFIED_SYNTHESIS",
         },
     }
 
@@ -3297,8 +3297,8 @@ def build_surface_projection_manifest() -> dict[str, Any]:
                 "projection_rule": "DERIVE_FROM_SPOT_ONLY",
             },
             {
-                "surface_id": "OC_CORE_1_3_TOE_SYNTHESIS_latest.json",
-                "target_path": "releases/oc_core_1_3/editorial/OC_CORE_1_3_TOE_SYNTHESIS_latest.json",
+                "surface_id": "OC_CORE_1_3_UNIFIED_SYNTHESIS_latest.json",
+                "target_path": "releases/oc_core_1_3/editorial/OC_CORE_1_3_UNIFIED_SYNTHESIS_latest.json",
                 "projection_rule": "DERIVE_FROM_SPOT_ONLY",
             },
             {
@@ -3430,8 +3430,8 @@ def build_policy() -> dict[str, Any]:
             "required_empirical_prediction_tables": CORE_DOMAIN_IDS[1:],
             "truth_first_naming_policy": {
                 "fail_closed_public_chapter_title": "Unified Science Closure Attempt",
-                "pass_public_chapter_title": "Theory of Everything Synthesis",
-                "toe_naming_allowed_only_if": "FINAL_TOE_VALIDATOR_PASS",
+                "pass_public_chapter_title": "Unified Science Synthesis",
+                "synthesis_title_allowed_only_if": "FINAL_UNIFIED_SYNTHESIS_VALIDATOR_PASS",
             },
         },
     }
@@ -4234,7 +4234,7 @@ def project_toe_synthesis_surface(spot: dict[str, Any]) -> dict[str, Any]:
         "metadata": {
             "repo_sha": spot["metadata"]["repo_sha"],
             "script": spot["metadata"]["script"],
-            "surface": "logion/k0/governance/status/OC_CORE_1_3_TOE_SYNTHESIS_latest.json",
+            "surface": "logion/k0/governance/status/OC_CORE_1_3_UNIFIED_SYNTHESIS_latest.json",
             "ts_utc": utc_now(),
         },
         **toe,
@@ -4246,7 +4246,7 @@ def project_toe_synthesis_surface(spot: dict[str, Any]) -> dict[str, Any]:
             "toe_chapter": "content/25_oc_core_1_3_toe_synthesis.tex",
             "toe_appendix": "appendix/toe_data.tex",
         },
-        "schema_id": "OC_CORE_1_3_TOE_SYNTHESIS_v1",
+        "schema_id": "OC_CORE_1_3_UNIFIED_SYNTHESIS_v1",
         "status": toe["status"],
     }
 
@@ -4263,7 +4263,7 @@ def project_practical_utility_atlas(spot: dict[str, Any]) -> dict[str, Any]:
         **atlas,
         "refs": {
             "science_spot": "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
-            "toe_synthesis": "releases/oc_core_1_3/editorial/OC_CORE_1_3_TOE_SYNTHESIS_latest.json",
+            "toe_synthesis": "releases/oc_core_1_3/editorial/OC_CORE_1_3_UNIFIED_SYNTHESIS_latest.json",
             "proof_machinery": "releases/oc_core_1_3/editorial/OC_CORE_1_3_PROOF_OBLIGATION_REGISTRY_latest.json",
             "manuscript_chapter": "content/26_oc_core_1_3_practical_utility.tex",
             "manuscript_appendix": "appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas.tex",
@@ -5018,9 +5018,9 @@ def render_toe_support_master_tex(spot: dict[str, Any]) -> str:
         (
             f"It therefore stays aligned with the current truth state: {tex_code(toe['release_candidate_status'])}. "
             + (
-                "Public TOE naming remains demoted until the final validator promotes the repository to PASS."
+                "Public synthesis naming remains demoted until the final validator promotes the repository to PASS."
                 if not toe["optimistic_toe_naming_allowed"]
-                else "The final validator has promoted the repository to PASS, so TOE naming is lawful."
+                else "The final validator has promoted the repository to PASS, so unified-synthesis naming is lawful."
             )
         ),
         "",
@@ -5059,7 +5059,7 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
         ),
         "",
         rf"\subsection{{{tex_escape(branding['public_gate_title'])}}}",
-        f"Exact validator: {tex_code('FINAL_TOE_VALIDATOR_PASS')}.",
+        f"Exact validator: {tex_code('FINAL_UNIFIED_SYNTHESIS_VALIDATOR_PASS')}.",
         (
             f"The release gate now reports {tex_code(toe['bridge_only_domain_total'])} bridge-only domains, "
             f"{tex_code(toe['hostile_review_blocking_total'])} hostile-review blockers, "
@@ -5089,9 +5089,9 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
                 rf"\subsection{{{row['level_id']}: {tex_escape(row['level_title'])}}}",
                 rf"\label{{sec:oc-core-1-3-toe-{row['level_id'].lower()}}}",
                 (
-                    f"This row is currently {tex_code(row['closure_verdict'])} and therefore contributes lawfully to the closed TOE stack."
+                    f"This row is currently {tex_code(row['closure_verdict'])} and therefore contributes lawfully to the closed synthesis stack."
                     if row["closure_verdict"] == "PASS"
-                    else f"This row is currently {tex_code(row['closure_verdict'])} and remains outside the promoted TOE stack."
+                    else f"This row is currently {tex_code(row['closure_verdict'])} and remains outside the promoted synthesis stack."
                 ),
                 (
                     f"Promotion blockers: {tex_list(row['blocking_domain_ids'], wrap_code=True)}."
@@ -5154,7 +5154,7 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
             if omitted_binding_total:
                 omitted_ids = [binding["domain_id"] for binding in row["domain_bindings"] if binding["closure_verdict"] != "PASS"]
                 lines.append(
-                    f"The SPOT also tracks {tex_code(omitted_binding_total)} excluded or non-promoted side binding(s) for this level outside the closed TOE summary: {tex_list(omitted_ids, wrap_code=True)}. The corresponding source rows remain in the canonical surfaces and support appendices, not in the promoted TOE stack."
+                    f"The SPOT also tracks {tex_code(omitted_binding_total)} excluded or non-promoted side binding(s) for this level outside the closed synthesis summary: {tex_list(omitted_ids, wrap_code=True)}. The corresponding source rows remain in the canonical surfaces and support appendices, not in the promoted synthesis stack."
                 )
         else:
             lines.append("No promoted domain packets are attached to this level in the current SPOT.")
@@ -5163,8 +5163,8 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
             "",
             r"\subsection{Empirical Held-Out Prediction Summary}",
             normalize_sentence(branding["public_empirical_summary_text"]),
-            r"Where a promoted lane carries severe cases or false negatives, those adverse metrics are reported explicitly below. The pass/fail policy is the validation matrix in Appendix~\ref{sec:oc-core-1-3-empirical-validation-matrix}; Appendix~\ref{app:toe-constants-and-parameters} and the canonical TOE surface retain the full numerical record.",
-            r"Metric labels are printed with their canonical surface names; \occode{critical_failure_recall} is the promoted systems recall metric used by the TOE surface.",
+            r"Where a promoted lane carries severe cases or false negatives, those adverse metrics are reported explicitly below. The pass/fail policy is the validation matrix in Appendix~\ref{sec:oc-core-1-3-empirical-validation-matrix}; Appendix~\ref{app:toe-constants-and-parameters} and the canonical synthesis surface retain the full numerical record.",
+            r"Metric labels are printed with their canonical surface names; \occode{critical_failure_recall} is the promoted systems recall metric used by the synthesis surface.",
             "",
         ]
     )
@@ -6181,8 +6181,8 @@ def validate_spot_structure(
     }
     if "OC_CORE_1_3_PHASE1_CLOSED_CORE_DOSSIER_latest.json" not in projection_surface_ids:
         errors.append("Surface projection manifest is missing the Phase 1 closed-core dossier")
-    if "OC_CORE_1_3_TOE_SYNTHESIS_latest.json" not in projection_surface_ids:
-        errors.append("Surface projection manifest is missing the TOE synthesis surface")
+    if "OC_CORE_1_3_UNIFIED_SYNTHESIS_latest.json" not in projection_surface_ids:
+        errors.append("Surface projection manifest is missing the unified synthesis surface")
     if "OC_CORE_1_3_PRACTICAL_UTILITY_ATLAS_latest.json" not in projection_surface_ids:
         errors.append("Surface projection manifest is missing the practical-utility atlas")
     generated_tex_ids = {
@@ -6304,13 +6304,13 @@ def validate_spot_structure(
         errors.append("Unified science atlas is missing domain translation rows")
     toe = spot.get("toe_synthesis_registry", {})
     if not toe.get("branding"):
-        errors.append("TOE synthesis registry is missing branding policy")
+        errors.append("Unified synthesis registry is missing branding policy")
     if not toe.get("public_chapter_title"):
-        errors.append("TOE synthesis registry is missing public chapter title")
+        errors.append("Unified synthesis registry is missing public chapter title")
     expected_k_levels = {f"K{index}" for index in range(13)}
     toe_rows = toe.get("k_level_rows", [])
     if {row.get("level_id") for row in toe_rows} != expected_k_levels:
-        errors.append("TOE synthesis registry must contain exactly K0-K12 rows")
+        errors.append("Unified synthesis registry must contain exactly K0-K12 rows")
     for row in toe_rows:
         for field in [
             "theorem_refs",
@@ -6322,19 +6322,19 @@ def validate_spot_structure(
             "manuscript_anchor_refs",
         ]:
             if not row.get(field):
-                errors.append(f"{row.get('level_id', 'UNKNOWN_K')}: TOE row is missing {field}")
+                errors.append(f"{row.get('level_id', 'UNKNOWN_K')}: unified synthesis row is missing {field}")
         expected_appendix_label = science_sources.get("k_levels", {}).get(row.get("level_id"), {}).get(
             "appendix_table_label",
             TOE_LEVEL_SPECS.get(row.get("level_id"), {}).get("appendix_table_label"),
         )
         if row.get("appendix_table_label") != expected_appendix_label:
-            errors.append(f"{row.get('level_id', 'UNKNOWN_K')}: TOE appendix table label is not synchronized")
+            errors.append(f"{row.get('level_id', 'UNKNOWN_K')}: synthesis appendix table label is not synchronized")
     empirical_prediction_rows = toe.get("empirical_prediction_rows", [])
     if {row.get("domain_id") for row in empirical_prediction_rows} != set(CORE_DOMAIN_IDS[1:]):
-        errors.append("TOE synthesis empirical prediction rows must cover physics, chemistry, biology, and systems")
+        errors.append("Unified synthesis empirical prediction rows must cover physics, chemistry, biology, and systems")
     for row in empirical_prediction_rows:
         if row.get("held_out_case_total", 0) <= 0:
-            errors.append(f"{row.get('domain_id', 'UNKNOWN_DOMAIN')}: TOE empirical prediction row is missing held-out cases")
+            errors.append(f"{row.get('domain_id', 'UNKNOWN_DOMAIN')}: synthesis empirical prediction row is missing held-out cases")
     practical = spot.get("practical_utility_atlas", {})
     for field in [
         "support_class_legend",
@@ -6419,16 +6419,16 @@ def validate_existing_bundle(repo_root: Path | None = None, require_final_toe_pa
             errors.append(f"Generated source TeX mismatch for {target_path}")
     for key, target_path in ROOT_TOE_SUPPORT_TARGETS.items():
         if not target_path.exists():
-            errors.append(f"Missing generated TOE support file: {target_path}")
+            errors.append(f"Missing generated synthesis support file: {target_path}")
             continue
         if target_path.read_text(encoding="utf-8").rstrip() != expected_toe_support[key].rstrip():
-            errors.append(f"Generated TOE support mismatch for {target_path}")
+            errors.append(f"Generated synthesis support mismatch for {target_path}")
     for key, target_path in SOURCE_TOE_SUPPORT_TARGETS.items():
         if not target_path.exists():
-            errors.append(f"Missing generated source TOE support file: {target_path}")
+            errors.append(f"Missing generated source synthesis support file: {target_path}")
             continue
         if target_path.read_text(encoding="utf-8").rstrip() != expected_toe_support[key].rstrip():
-            errors.append(f"Generated source TOE support mismatch for {target_path}")
+            errors.append(f"Generated source synthesis support mismatch for {target_path}")
     for path, (payload_kind, payload) in expected_dossier_package_files(spot).items():
         if not path.exists():
             errors.append(f"Missing generated dossier package file: {path}")
@@ -6448,11 +6448,11 @@ def validate_existing_bundle(repo_root: Path | None = None, require_final_toe_pa
             errors.append(f"Legacy domain packet mismatch for {path}")
     toe_wrapper = repo_root / "content" / "25_oc_core_1_3_toe_synthesis.tex"
     if not toe_wrapper.exists():
-        errors.append(f"Missing TOE chapter wrapper: {toe_wrapper}")
+        errors.append(f"Missing unified synthesis chapter wrapper: {toe_wrapper}")
     else:
         wrapper_text = toe_wrapper.read_text(encoding="utf-8")
         if r"\section{" in wrapper_text:
-            errors.append("TOE chapter wrapper must not carry a hard-coded section title")
+            errors.append("Unified synthesis chapter wrapper must not carry a hard-coded section title")
     practical_wrapper = repo_root / "content" / "26_oc_core_1_3_practical_utility.tex"
     if not practical_wrapper.exists():
         errors.append(f"Missing practical-utility chapter wrapper: {practical_wrapper}")
@@ -6479,14 +6479,14 @@ def validate_existing_bundle(repo_root: Path | None = None, require_final_toe_pa
     toe_tex = expected_tex["toe_synthesis"]
     expected_title = spot.get("toe_synthesis_registry", {}).get("public_chapter_title", "")
     if expected_title and rf"\section{{{expected_title}}}" not in toe_tex:
-        errors.append("Generated TOE chapter is missing the expected public chapter title")
-    if spot.get("toe_synthesis_registry", {}).get("status") != "PASS" and r"\section{Theory of Everything Synthesis}" in toe_tex:
-        errors.append("Fail-closed closure chapter must not present itself as Theory of Everything Synthesis")
+        errors.append("Generated unified synthesis chapter is missing the expected public chapter title")
+    if spot.get("toe_synthesis_registry", {}).get("status") != "PASS" and r"\section{Unified Science Synthesis}" in toe_tex:
+        errors.append("Fail-closed closure chapter must not present itself with deprecated total-theory language")
     for level_id in [f"K{index}" for index in range(13)]:
         if rf"\subsection{{{level_id}:" not in toe_tex:
-            errors.append(f"Generated TOE chapter is missing subsection for {level_id}")
+            errors.append(f"Generated unified synthesis chapter is missing subsection for {level_id}")
     if toe_tex.count(r"\begin{longtable}") < 14:
-        errors.append("Generated TOE chapter must contain numerical longtables for K0-K12 and empirical prediction summary")
+        errors.append("Generated unified synthesis chapter must contain numerical longtables for K0-K12 and empirical prediction summary")
     practical_tex = expected_tex["practical_utility"]
     if r"\subsection{Practical value and support boundary}" not in practical_tex:
         errors.append("Generated practical-utility chapter is missing the usefulness subsection")
@@ -6499,11 +6499,11 @@ def validate_existing_bundle(repo_root: Path | None = None, require_final_toe_pa
         toe_master_text = toe_master_root.read_text(encoding="utf-8")
         for level_id in TOE_LEVEL_IDS:
             if rf"\input{{content/toe/toe_{level_id.lower()}}}" not in toe_master_text:
-                errors.append(f"TOE support master is missing {level_id} input")
+                errors.append(f"Synthesis support master is missing {level_id} input")
     for level_id in TOE_LEVEL_IDS:
         level_path = repo_root / "content" / "toe" / f"toe_{level_id.lower()}"
         if not level_path.exists():
-            errors.append(f"Missing TOE support level file: {level_path}")
+            errors.append(f"Missing synthesis support level file: {level_path}")
             continue
         level_text = level_path.read_text(encoding="utf-8")
         for heading in TOE_SUPPORT_REQUIRED_HEADINGS:
@@ -6512,22 +6512,22 @@ def validate_existing_bundle(repo_root: Path | None = None, require_final_toe_pa
     readme_path = repo_root / "releases" / "oc_core_1_3" / "README.md"
     if readme_path.exists():
         readme_text = readme_path.read_text(encoding="utf-8")
-        if spot.get("toe_synthesis_registry", {}).get("status") != "PASS" and "generated `Theory of Everything Synthesis` chapter" in readme_text:
-            errors.append("Fail-closed release README must not advertise a generated Theory of Everything Synthesis chapter")
+        if spot.get("toe_synthesis_registry", {}).get("status") != "PASS" and "generated `Unified Science Synthesis` chapter" in readme_text:
+            errors.append("Fail-closed release README must not advertise deprecated total-theory language")
     if require_final_toe_pass:
         if spot.get("global_verdict", {}).get("closure_verdict") != "PASS":
-            errors.append("Final TOE validation failed: global verdict is not PASS")
+            errors.append("Final synthesis validation failed: global verdict is not PASS")
         if spot.get("global_verdict", {}).get("bridge_only_domain_total") != 0:
-            errors.append("Final TOE validation failed: bridge-only domains remain")
+            errors.append("Final synthesis validation failed: bridge-only domains remain")
         if spot.get("global_verdict", {}).get("hostile_review_blocking_total") != 0:
-            errors.append("Final TOE validation failed: hostile-review blockers remain open")
+            errors.append("Final synthesis validation failed: hostile-review blockers remain open")
         if spot.get("global_verdict", {}).get("integrability_suite_status") != "PASS":
-            errors.append("Final TOE validation failed: integrability suite is not PASS")
+            errors.append("Final synthesis validation failed: integrability suite is not PASS")
         if spot.get("toe_synthesis_registry", {}).get("status") != "PASS":
-            errors.append("Final TOE validation failed: TOE synthesis surface is not PASS")
+            errors.append("Final synthesis validation failed: unified synthesis surface is not PASS")
         for row in spot.get("toe_synthesis_registry", {}).get("empirical_prediction_rows", []):
             if row.get("closure_verdict") != "PASS":
-                errors.append(f"Final TOE validation failed: {row.get('domain_id', 'UNKNOWN_DOMAIN')} is not PASS")
+                errors.append(f"Final synthesis validation failed: {row.get('domain_id', 'UNKNOWN_DOMAIN')} is not PASS")
     return errors
 
 
