@@ -5335,7 +5335,7 @@ def render_practical_utility_tex(spot: dict[str, Any]) -> str:
     for row in atlas["same_claim_class_baseline_rows"]:
         comparison_scope = (
             tex_escape(britishize_text(row["comparison_scope"]))
-            + r" \allowbreak Cost-normalised budget: "
+            + r" \allowbreak Cost-normalized budget: "
             + tex_code(row.get("complexity_budget", "NOT_DECLARED"))
         )
         lines.append(
@@ -5562,7 +5562,7 @@ def render_practical_utility_appendix_tex(spot: dict[str, Any]) -> str:
     )
     for row in atlas["same_claim_class_baseline_rows"]:
         trace_parts = [f"Verdict {tex_code(row['verdict'])}"]
-        trace_parts.append(f"Cost-normalised budget {tex_code(row.get('complexity_budget', 'NOT_DECLARED'))}")
+        trace_parts.append(f"Cost-normalized budget {tex_code(row.get('complexity_budget', 'NOT_DECLARED'))}")
         if row.get("source_bundle_ref"):
             trace_parts.append(f"Source bundle {tex_code(row['source_bundle_ref'])}")
         if row.get("closure_bundle_ref"):
@@ -5657,10 +5657,10 @@ def render_operationalization_tex(spot: dict[str, Any]) -> str:
         key=lambda row: (row["formal_derivation_order"], row["empirical_cost_order"]),
     )
     current_release_truth = (
-        f"Mathematics remains the strongest anchor, and physics, chemistry, biology, and Systems / Civilizational projection now clear theorem-native closure on their locked held-out routes. "
+        f"Mathematics is the formal anchor for exact proof obligations, while physics, chemistry, biology, and Systems / Civilizational projection now clear theorem-native closure on their locked held-out routes. "
         f"Within the declared {tex_code('CORE_1_3_SCIENCE_ONLY')} scope, the hostile-review backlog is closed and the Core~1.3 science verdict is PASS."
         if global_pass
-        else f"Mathematics remains the strongest anchor. Physics, chemistry, biology, and systems retain bounded bridge replay, but they do not yet qualify as theorem-native closure. The global backlog also keeps {tex_code(spot['global_verdict']['hostile_review_blocking_total'])} hostile-review dossiers open before any Core~1.3 PASS is lawful within the declared {tex_code('CORE_1_3_SCIENCE_ONLY')} scope."
+        else f"Mathematics remains the formal anchor for exact proof obligations. Physics, chemistry, biology, and systems retain bounded bridge replay, but they do not yet qualify as theorem-native closure. The global backlog also keeps {tex_code(spot['global_verdict']['hostile_review_blocking_total'])} hostile-review dossiers open before any Core~1.3 PASS is lawful within the declared {tex_code('CORE_1_3_SCIENCE_ONLY')} scope."
     )
     release_consequence = (
         "The kernel, theorem spine, domain packets, held-out evidence, hostile-review dossiers, and unified atlas are now mutually aligned under the declared promotion bar."
