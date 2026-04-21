@@ -142,8 +142,8 @@ and the boundary is defined as
 \]
 This definition requires no metric and applies equally to geometric, topological, energetic, informational, or logical continua.
 
-The boundary is dynamic. The following display avoids a literal derivative of
-a set-valued object and records only the symbolic update rule under \(R\):
+The boundary is dynamic. The notation below is an update map, not a derivative
+of a set-valued object:
 \[
     \partial\Omega(K,t+dt) =
     R\big(\partial\Omega(K,t),P(t),J(t),\Theta(K)\big),
@@ -213,6 +213,8 @@ When the continuum evolves, the admissible region is read as time-dependent:
 \(\Omega(K,t)\) denotes the state space available to \(K\) at time \(t\), while
 \(\Omega(K)\) denotes the underlying level-relative admissible space when no
 time slice is being specified.
+When older formulas write \(\Omega(K(t))\), read that notation as the same
+time-slice object \(\Omega(K,t)\).
 Core~1.3 adopts the following unified definition of continuumness,
 \[
     k(K,t)
@@ -264,9 +266,9 @@ or, in expanded form,
 Here \(A'\) denotes the post-evolution axis set of the same continuum in the
 expanded tuple.
 
-Core~1.3 treats the component operators for flows, thresholds, cycles,
-boundaries, axes, and continuumness as a constrained structural evolution
-framework rather than as one explicit differential system. The constraints are:
+Core~1.3 does not merge the flow, threshold, cycle, boundary, axis, and
+continuumness operators into one differential system. It treats them as a
+constrained structural evolution framework with the following requirements:
 
 \begin{itemize}
     \item \textbf{Consistency:} if \(s(t) \in \Omega(K(t))\), then either \(s(t+dt) \in \Omega(K(t+dt))\) or the transition is associated with a threshold crossing.
@@ -318,8 +320,9 @@ The operator of dimensional birth
     \Psi_{x\to x+1}: K_x \to K_{x+1}
 \]
 is minimal and irreversible: any nonzero emergence of the new axis constitutes the new continuum \(K_{x+1}\), and the dimension of \(K_{x+1}\) cannot revert to that of \(K_x\) without destroying \(\Omega(K_{x+1})\).
-The local model therefore instantiates dimensional monotonicity. Theorem~2
-records the corresponding impossibility of spontaneous dimension creation.
+The local model therefore instantiates dimensional monotonicity. The
+corresponding no-spontaneous-creation result is recorded separately in
+Theorem~2.
 
 \subsection{Life of continua}
 

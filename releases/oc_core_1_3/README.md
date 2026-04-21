@@ -6,9 +6,13 @@ review, citation, and archival release.
 ## Release metadata
 
 - Release line: OC Core 1.3 public release bundle.
+- Release date: April 21, 2026.
 - Baseline witness: [`commit SHA 7ceb46acfbcb4e83d6568fea3c2530bd9eb95719`](https://github.com/alexanderyashin/ontology-of-continua-core-main/commit/7ceb46acfbcb4e83d6568fea3c2530bd9eb95719).
-- Current acceptance state: governed by the Cerberus certificate and source
-  files committed with this release branch.
+- Current acceptance state: governed by
+  [`editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json`](editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json);
+  the release verdict is the certificate's `status` field.
+- Science-state projection:
+  [`editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json`](editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json).
 
 The sections below separate the source-owned scientific corpus, bundle-local
 projection surfaces, and packaged mirrors. Directories such as `monograph/`,

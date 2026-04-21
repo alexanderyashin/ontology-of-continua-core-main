@@ -77,6 +77,16 @@ declared
 related-space witnesses; this worked example uses the stricter
 \(\sim_{\mathrm{res}}\) witness so the related branch is auditable rather than
 assumed.
+For this example, the predicate is explicitly:
+\[
+\operatorname{Pres}_{\Theta,\Omega}(h,r;K,K')
+\Longleftrightarrow
+\begin{gathered}
+h \text{ preserves the residue-bearing substructure containing } r,\\
+h(r)\in\Omega(\mathcal{M}'),\ \text{and the threshold/admissibility tests}\\
+\text{used for }K'\text{ agree with those inherited from the residue clause.}
+\end{gathered}
+\]
 
 \begin{figure}[htbp]
 \centering
@@ -185,8 +195,11 @@ It is necessary for any reduction claim, but this worked example also records
 a separate non-definitional coherence audit. For a finite family of tested
 objects \(F\subseteq\mathcal{U}_{11,12}\), chosen requirements
 \(r_X\in\mathcal{B}^{\wedge}(X)\), and a declared common meta-language
-\(\mathcal{L}_F\) into which each \(r_X\) is translated, the auditor may
-inspect the family-level conjunction inside \(\mathcal{L}_F\). In this
+\(\mathcal{L}_F\), the audit must also declare translations
+\(\iota_{F,X}:\mathcal{B}^{\wedge}(X)\to\mathcal{L}_F\). The family-level
+test is the finite conjunction
+\(\bigwedge_{X\in F}\iota_{F,X}(r_X)\) inside \(\mathcal{L}_F\), together
+with any cross-object coherence clauses asserted for that family. In this
 heuristic check, a
 \(K_{10}\)-only reduction is flagged if it preserves every object locally
 while losing a declared cross-framework coherence obligation carried by
