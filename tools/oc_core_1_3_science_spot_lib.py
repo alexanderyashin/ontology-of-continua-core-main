@@ -5782,8 +5782,10 @@ def render_protocols_tex(spot: dict[str, Any]) -> str:
         r"\endhead",
     ]
     for domain in core_domains:
+        replay_command = domain["replay_harness"].get("command_ref", "NOT_REQUIRED")
+        replay_command = replay_command.replace("logion/k7/spe/orchestrator/science/", "")
         lines.append(
-            f"{tex_escape(domain['domain_title'])} & {tex_code(domain['benchmark_wave_id'] or 'NONE')} & {tex_code(domain['evidence_bar'])} & {tex_code(domain['benchmark_design'].get('held_out_policy', 'NOT_REQUIRED'))} & {tex_code(domain['replay_harness'].get('command_ref', 'NOT_REQUIRED'))} & {tex_code(domain.get('replay_status', 'NOT_RECORDED'))} & {tex_code(domain['closure_verdict'])} \\\\"
+            f"{tex_escape(domain['domain_title'])} & {tex_code(domain['benchmark_wave_id'] or 'NONE')} & {tex_code(domain['evidence_bar'])} & {tex_code(domain['benchmark_design'].get('held_out_policy', 'NOT_REQUIRED'))} & {tex_code(replay_command)} & {tex_code(domain.get('replay_status', 'NOT_RECORDED'))} & {tex_code(domain['closure_verdict'])} \\\\"
         )
     lines.extend(
         [

@@ -4,7 +4,7 @@
 **Affiliation:** Independent Researcher  
 **ORCID:** [0009-0008-6166-0914](https://orcid.org/0009-0008-6166-0914)  
 **Release version:** OC Core 1.3  
-**Release state:** Public release candidate
+**Release state:** Public release candidate<br>
 **Release date:** 2026-04-21
 
 ## Abstract
@@ -123,6 +123,11 @@ External comparator families:
 - STROGATZ_2015: High-level comparison family for bifurcation and qualitative regime-change language. Steven H. Strogatz, Nonlinear Dynamics and Chaos: With Applications to Physics, Biology, Chemistry, and Engineering, 2nd ed., Westview Press, 2015.
 - CONLEY_1978: High-level comparison family for persistence failure and terminal invariant-set structure. Charles Conley, Isolated Invariant Sets and the Morse Index, American Mathematical Society, 1978.
 - MILNOR_1985: High-level comparison family for post-transition objects and attractor change. John Milnor, On the concept of attractor, Communications in Mathematical Physics 99(2) (1985), 177–195.
+The comparator claims in this section cite those works inline by the labels
+above: formal-ontology background uses GUARINO_1998, GRENON_SMITH_2004, and
+LOWE_2006; transition-taxonomy background uses THOM_1994 and STROGATZ_2015;
+survival-under-constraints background uses AUBIN_1991; and persistence-failure
+background uses CONLEY_1978 and MILNOR_1985.
 The following rows are article-level review classifications, not page-level or theorem-level claims about the comparator works. They state how the present article uses each comparator family as background: viability theory for admissible-state survival under constraints, the Conley-Milnor cluster for persistence-failure language and post-transition objects, and Thom/Strogatz for qualitative transition language. At this granularity, the cited families function as comparison backgrounds rather than as matched source witnesses for the exact death/residue/rebirth trichotomy defended by the OC kernel. The table keeps the Conley and Milnor works together because both are used here as transition-background comparators rather than as separate source witnesses for the OC theorem chain.
 | comparator | formal background role | agreement | bounded difference | work-level comparison boundary |
 | --- | --- | --- | --- | --- |

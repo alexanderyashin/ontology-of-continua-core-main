@@ -92,7 +92,11 @@ Here \(\mathcal{D}_{\Theta,\Omega}\) denotes the local admissibility data:
 the nonemptiness indicator together with the active residual-threshold signs
 and saturated constraints. The equality therefore says that the named map
 transports the residue-bearing threshold and admissibility data used to test
-the later live continuum; it is not an informal resemblance clause.
+the later live continuum; it is not an informal resemblance clause. The
+pushforward \(h_{\ast}\) is componentwise: it applies \(h\) to the residue
+state, carries each named residual threshold \(f_i\) to the corresponding
+declared residual threshold \(f_i'\), preserves the sign relation
+\(\le 0\), and preserves the saturated subset \(f_i=0\).
 
 \begin{figure}[htbp]
 \centering
@@ -155,7 +159,7 @@ objects assigned to the two tested upper-level roles. A \(K_{10}\)-only
 reduction is a tuple \((\rho,\equiv_{\rho},\rho_{\ast})\), where
 \(\rho:\mathcal{U}_{11,12}\to \mathrm{Car}(K_{10})\),
 \(\equiv_{\rho}\subseteq\mathcal{U}_{11,12}\times\mathcal{U}_{11,12}\) is the
-declared identification relation induced by the translation, and
+declared compatibility relation induced by the translation, and
 \(\rho_{\ast}\) is shorthand for the family of transports
 \(\{\rho_{\ast,X}\}_X\) that sends upper-level requirements to their proposed
 \(K_{10}\) counterparts. For each object \(X\), let
@@ -180,18 +184,19 @@ codomain, and admissibility guard; otherwise it fails. The expression
 of the translated requirement in the target language. The relation
 \(\equiv_{\rho}\) is a typed compatibility relation on tested objects; if it
 is used as a quotient, reflexivity, symmetry, and transitivity must be supplied
-explicitly. In this section it is used only as a burden-preservation test, not
+explicitly. In this section it is used only as a burden-preservation
+compatibility test, not
 as a decorative quotient. The reduction is lossless only if
 \[
   \forall X\in\mathcal{U}_{11,12}\ \forall r\in\mathcal{B}^{\wedge}(X):
   \qquad X\models r \Longleftrightarrow \rho(X)\models \rho_{\ast,X}(r),
 \]
-and only if \(X\equiv_{\rho}Y\) never identifies two objects whose
+and only if \(X\equiv_{\rho}Y\) never declares compatible two objects whose
 admissible-state, continuumness, operator-obligation, identity, or falsifier burdens differ. This
 makes the compatibility relation a preservation constraint rather than a
 decorative quotient. In the reduction test, source-object compatibility and
 source-to-target preservation are separate checks. The relation
-\(\equiv_{\rho}\) constrains identifications among source objects only; the
+\(\equiv_{\rho}\) constrains compatibility among source objects only; the
 pair \(X,\rho(X)\) preserves identity only when the admissible-state,
 continuumness, operator-obligation, identity-preservation, and falsifier
 burdens of \(X\) match their translated \(K_{10}\) counterparts under

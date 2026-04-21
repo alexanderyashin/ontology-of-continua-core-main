@@ -85,6 +85,20 @@ escalation rules.
 \item \textbf{Frontier statements} may remain in the research program, but may
       not enter positive outward science without formal promotion.
 \end{itemize}
+These local classes are not assumed to be disjoint. When a sentence could fit
+more than one class, use the following precedence rule before assigning its
+public status:
+\begin{enumerate}
+\item explicit refutation maps first to \occode{REFUTED};
+\item promoted empirical or derived content is inspected as
+      \occode{THEOREM_NATIVE};
+\item admitted axioms remain axiomatic premises;
+\item frontier wording takes precedence over merely structural or interpretive
+      wording unless promotion has occurred;
+\item remaining structural or interpretive content keeps the SPOT-recorded
+      \occode{BRIDGE_ONLY}, \occode{FRAME_ONLY}, or \occode{EXTENSION}
+      class.
+\end{enumerate}
 
 These prose classes are a local proof-status taxonomy, not a replacement for
 the canonical SPOT scientific-class and closure-verdict vocabulary. Release
@@ -92,21 +106,21 @@ verdicts such as \texttt{PASS} and \texttt{FAIL\_CLOSED} remain a separate
 verdict layer. The mapping is:
 \begin{itemize}
 \item Axiomatic statements are admitted premises or identity rules. They may
-      sit inside a \texttt{THEOREM\_NATIVE} route as named assumptions, but
+      sit inside a \occode{THEOREM_NATIVE} route as named assumptions, but
       the axiom itself is not thereby converted into a proved theorem.
-\item Derived statements map to \texttt{THEOREM\_NATIVE} when the support
+\item Derived statements map to \occode{THEOREM_NATIVE} when the support
       route is closed.
-\item Empirical statements map to \texttt{THEOREM\_NATIVE} only after the
+\item Empirical statements map to \occode{THEOREM_NATIVE} only after the
       source-owned packet, theorem-native trace, pinned data route, numerical
       parameter law, observable binding, locked held-out replay procedure,
       comparator audit, and falsifier gates pass.
-\item Structural and interpretive statements map to \texttt{BRIDGE\_ONLY},
-      \texttt{FRAME\_ONLY}, or \texttt{EXTENSION} as recorded by SPOT.
-\item Frontier statements map to \texttt{EXTENSION} unless explicitly refuted
+\item Structural and interpretive statements map to \occode{BRIDGE_ONLY},
+      \occode{FRAME_ONLY}, or \occode{EXTENSION} as recorded by SPOT.
+\item Frontier statements map to \occode{EXTENSION} unless explicitly refuted
       or promoted.
 \item Fail-closed bridge, frame, or extension lanes retain the class recorded
       by SPOT; closure failure by itself is not refutation.
-\item Statements map to \texttt{REFUTED} only when SPOT records an explicit
+\item Statements map to \occode{REFUTED} only when SPOT records an explicit
       refutation rather than a blocked promotion.
 \end{itemize}
 This chapter classifies the statement classes that affect theorem status,
@@ -117,11 +131,12 @@ Editorial-bridge language is not a seventh proof class; it is an interpretive
 and release-consistency label for statements that connect the monograph,
 journal core, dossiers, and public package without adding theorem force.
 Operational statements are the later exact-match, held-out replay,
-five-sigma/tail-bar, comparator, falsifier, and escalation rules attached to
-empirical promotion. Structural statements are reviewed by scope, dependency,
-and source-boundary checks instead. Both kinds of control are handled after
-the statement class, numerical parameter law, and observable binding have already been fixed
-here, and neither becomes a seventh proof-status class.
+statistical-threshold, tail-breach, comparator, falsifier, and escalation
+rules attached to empirical promotion. Structural statements are reviewed by
+scope, dependency, and source-boundary checks instead. Both kinds of control
+are handled after the statement class, numerical parameter law, and observable
+binding have already been fixed here, and neither becomes a seventh
+proof-status class.
 
 The journal-core extraction is allowed to narrow this body, but not to blur
 these classes into one another.
