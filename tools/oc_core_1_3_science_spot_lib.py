@@ -141,7 +141,7 @@ TOE_LEVEL_SPECS = {
         "theorem_native_claim": "K0 fixes the non-empty admissible meta-domain required for any lawful continuum and therefore bounds every later K-level before empirical specialization.",
         "operator_binding_summary": "The local K0 root process glyphs Psi_0, Phi_0, and Lambda_0 fix distinction generation, relational reconfiguration, and compositional assembly; compact TOE aliases F_0, Q_0, and U_0 label the corresponding root constraints only where they are defined locally.",
         "parameter_law_display": r"\mu(\Omega(K_0)) > 0,\quad \forall x \in \{1,\dots,12\}: \mathrm{DoF}(M_x)>0\ \mathrm{and}\ \frac{\mathrm{DoF}(K_x)}{\mathrm{DoF}(M_x)} \leq 1,\quad C_{\mathrm{triv}} \geq 1",
-        "observable_map_summary": "Meta-admissibility, meta-space compatibility, and the presence of at least one non-trivial lawful cycle.",
+        "observable_map_summary": "Meta-admissibility, meta-space compatibility, and the presence of at least one trivial lawful cycle.",
         "synthetic_observable_ids": [
             "K0::ADMISSIBLE_STATE_MEASURE",
             "K0::META_SPACE_COMPATIBILITY_RATIO",
@@ -161,13 +161,13 @@ TOE_LEVEL_SPECS = {
                 "units_note": "dimensionless ratio; applies for each promoted level",
             },
             {
-                "quantity": "Non-trivial cycle presence",
+                "quantity": "Trivial cycle presence",
                 "symbol_tex": r"C_{\mathrm{triv}}",
                 "value_tex": r"1",
                 "units_note": "present",
             },
         ],
-        "collapse_boundary": "Collapse occurs if the admissible set degenerates, if a later K-level exceeds its meta-space, or if the structural substrate loses its last non-trivial lawful cycle.",
+        "collapse_boundary": "Collapse occurs if the admissible set degenerates, if a later K-level exceeds its meta-space, or if the structural substrate loses its last trivial lawful cycle.",
     },
     "K1": {
         "title": "Minimal Observable Distinctions and Energetic Axes",
@@ -5144,7 +5144,7 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
             "",
             r"\subsection{Empirical Held-Out Prediction Summary}",
             normalize_sentence(branding["public_empirical_summary_text"]),
-            r"Where a promoted lane carries severe cases or false negatives, those adverse canonical fields are reported explicitly below. Appendix~C, Section~\ref{app:toe-constants-and-parameters}, and the canonical TOE surface retain the full numerical record.",
+            r"Where a promoted lane carries severe cases or false negatives, those adverse metrics are reported explicitly below. Appendix~\ref{app:toe-constants-and-parameters} and the canonical TOE surface retain the full numerical record.",
             r"Metric labels are printed with their canonical surface names; \occode{critical_failure_recall} is the promoted systems recall metric used by the TOE surface.",
             "",
         ]
@@ -5265,7 +5265,10 @@ def render_practical_utility_tex(spot: dict[str, Any]) -> str:
         capability_clause = capability_text[:1].lower() + capability_text[1:] if capability_text else capability_text
         open_text = "; ".join(row["what_remains_open"] for row in open_rows) if open_rows else "no explicit frontier row remains for this domain in the current atlas"
         outputs_text = ", ".join(tex_code(item) for item in domain["measurable_outputs"])
-        benchmark_text = "; ".join(tex_escape(britishize_text(item)) for item in domain["benchmark_families"])
+        benchmark_text = "; ".join(
+            tex_code(item) if "_BENCH_" in item else tex_escape(britishize_text(item))
+            for item in domain["benchmark_families"]
+        )
         row_trace_text = r"; \allowbreak ".join(main_trace(row, "use_case_id") for row in domain_rows) if domain_rows else "no usable-now use-case row"
         lines.extend(
             [
