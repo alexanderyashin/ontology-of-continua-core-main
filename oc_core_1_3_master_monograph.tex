@@ -1,35 +1,31 @@
 \documentclass[11pt,a4paper]{article}
 
 \input{preamble}
-
-\hypersetup{
-  pdftitle    = {Ontology of Continua - Core 1.3 | Master Monograph},
-  pdfauthor   = {Alexander Yashin},
-  pdfsubject  = {Ontology of Continua Core 1.3 master monograph},
-  pdfkeywords = {ontology of continua, core 1.3, master monograph, theorem roadmap, practical utility, unified science},
-  pdflang     = {en}
-}
+% PDF metadata source of truth: preamble.tex.
+% Required metadata fields: pdftitle, pdfauthor, pdfsubject, pdfkeywords, pdflang.
 
 \begin{document}
 
 \input{content/frontmatter_oc_core_1_3_master.tex}
 \tableofcontents
 \clearpage
+\phantomsection
+\addcontentsline{toc}{section}{List of Figures}
 \listoffigures
 \clearpage
+\phantomsection
+\addcontentsline{toc}{section}{List of Tables}
 \listoftables
-\clearpage
-
-\ocvolumeblock{Front Matter and Reader Contract}{The title page, abstract, contents, reader guide, and navigation contract define what this flagship volume is, which scientific object it defends, and how different readers can inspect the same proof boundary without reconstructing the manuscript from scratch.}
+\ocvolumeblock{Front Matter and Reader Contract}{The title page, abstract, table of contents, List of Figures, and List of Tables identify the release and its reader contract. The guide that follows gives five entry points: hostile review, formal doctrine, domain evidence, broad scientific overview, and practical use.}
 \input{content/17_oc_core_1_3_reader_guide.tex}
-\ocvolumeblock{Orientation and Scientific Promise}{The opening chapters state the problem, the scientific promise, the core model, the present result contour, and the high-level discussion in the order a strong external reader can lawfully absorb them.}
+\ocvolumeblock{Orientation and Scientific Promise}{This block presents the problem, background, model, first structural results, discussion, and conclusion as a compact continuous introduction to the theory before the Core~1.3 closure block.}
 \input{content/01_intro.tex}
 \input{content/02_background.tex}
 \input{content/03_model.tex}
 \input{content/04_results.tex}
 \input{content/05_discussion.tex}
 \input{content/06_conclusion.tex}
-\ocvolumeblock{Formal Core and Structural Doctrine}{The next block fixes ontology, thresholds, levels, operators, collapse and rebirth, branch topology, disciplinary embedding, and falsifiability as the formal doctrine of the framework rather than as a loose conceptual overlay.}
+\ocvolumeblock{Formal Core and Structural Doctrine}{This block fixes the vocabulary for boundaries, thresholds, levels, operators, collapse and rebirth, branch topology, disciplinary embedding, and falsifiability. It is the doctrine layer for claims that depend on formal structure rather than exposition.}
 \input{content/08_boundary.tex}
 \input{content/09_thresholds.tex}
 \input{content/10_klevels_full.tex}
@@ -38,7 +34,7 @@
 \input{content/13_branching_topology.tex}
 \input{content/14_disciplines_extended.tex}
 \input{content/15_falsifiability_extended.tex}
-\ocvolumeblock{Core 1.3 Closure, Synthesis, and Practical Use}{This block fixes publication boundary, foundational consistency, theorem navigation, worked examples, operational and empirical discipline, proof machinery, TOE synthesis, and practical utility in the order needed for review, use, and external citation.}
+\ocvolumeblock{Core~1.3 Closure, Synthesis, and Practical Use}{This block gives the main review path: source audit, foundational consistency, theorem roadmap, worked examples, operational discipline, empirical execution, proof machinery, synthesis, and practical use. It is the primary block for review, external citation, and bounded application.}
 \input{content/18_oc_core_1_3_source_audit.tex}
 \input{content/19_oc_core_1_3_foundational_consistency.tex}
 \input{content/20_oc_core_1_3_theorem_roadmap.tex}
@@ -50,7 +46,7 @@
 \input{content/26_oc_core_1_3_practical_utility.tex}
 
 \appendix
-\ocvolumeblock{Audit and Atlas Archive}{The appendices keep notation, axiomatic support, reviewer and empirical audit surfaces, technical and benchmark atlases, TOE support dossiers, and practical comparison matrices inside the same flagship volume without letting the archive compete with the main teaching spine.}
+\ocvolumeblock{Audit and Atlas Archive}{The appendices contain notation, axioms, reviewer maps, empirical audit surfaces, technical atlases, benchmark atlases, Theory-of-Everything support dossiers, and practical comparison matrices. They preserve the evidence layer without interrupting the main teaching spine. The benchmark appendices follow semantic inspection order: manifest, caseset, replay reports, and execution board.}
 \input{appendix/A_notation}
 \input{appendix/B_axioms_full}
 \input{appendix/C_klevels_tables}
@@ -72,6 +68,6 @@
 
 \clearpage
 \nocite{*}
-\printbibliography[heading=bibintoc,title={References}]
+\printbibliography[heading=bibintoc,title={Bibliography}]
 
 \end{document}

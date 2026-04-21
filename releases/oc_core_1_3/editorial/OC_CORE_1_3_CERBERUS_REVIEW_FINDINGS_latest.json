@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "repo_sha": "7ceb46acfbcb4e83d6568fea3c2530bd9eb95719",
+    "generated_at_utc": "2026-04-21T17:57:35Z",
+    "surface": "logion/k0/governance/status/OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json",
+    "script": "oc_core_1_3_cerberus_review.py"
+  },
+  "run_id": "CERBERUS_RUN__20260421T171906Z__7ceb46ac",
+  "scope_id": "OC_CORE_1_3_ENGLISH_FLAGSHIP_RELEASE_PACKAGE",
+  "findings": [
+    {
+      "finding_id": "CERBERUS_FINDING::f741c6a71946e8d8a370",
+      "run_id": "CERBERUS_RUN__20260421T171906Z__7ceb46ac",
+      "reviewer_id": "CERBERUS_LLM__ORCHESTRATOR",
+      "artifact_id": "CERBERUS::oc_core_1_3_master_monograph.tex",
+      "artifact_ref": "oc_core_1_3_master_monograph.tex",
+      "section_ref": "oc_core_1_3_master_monograph.tex",
+      "severity": "BLOCKER",
+      "category": "release_consistency",
+      "determinism_class": "LLM_CODEX_CLI",
+      "claim": "The mandatory Cerberus LLM review panel did not complete successfully.",
+      "evidence": "Command '['codex', 'exec', '-C', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main', '-m', 'gpt-5.4-mini', '--dangerously-bypass-approvals-and-sandbox', '--color', 'never', '--output-schema', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\releases\\\\oc_core_1_3\\\\editorial\\\\cerberus_runs\\\\CERBERUS_RUN__20260421T171906Z__7ceb46ac\\\\llm\\\\6002ca7419749347_schema.json', '-o', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\releases\\\\oc_core_1_3\\\\editorial\\\\cerberus_runs\\\\CERBERUS_RUN__20260421T171906Z__7ceb46ac\\\\llm\\\\6002ca7419749347_output.json', '-']' timed out after 1800 seconds",
+      "required_action": "Repair the Codex CLI review path and rerun the full Cerberus panel.",
+      "status": "OPEN",
+      "corroborating_reviewer_ids": []
+    }
+  ]
+}

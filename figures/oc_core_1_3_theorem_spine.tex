@@ -11,7 +11,7 @@
 \node[proofnode] (sourcethm) at (0, 1.55) {Source Theorem 3};
 \node[proofnode] (lemmaone) at (0, 0.05) {Lemma 1};
 
-\node[supportnode] (rightsupport) at (4.9, 3.2) {Axiom 3.3\\Definitions 12.5, 12.6};
+\node[supportnode] (rightsupport) at (4.9, 3.2) {Axiom 3.3\\Definition 12.6};
 \node[proofnode] (sourcecor) at (4.9, 1.55) {Source Corollary 3.2};
 \node[proofnode] (lemmathree) at (4.9, 0.05) {Lemma 3};
 
@@ -19,7 +19,7 @@
 \node[proofnode] (lemmatwo) at (2.85, -3.15) {Lemma 2};
 \node[proofnode, fill=green!8, minimum width=4.1cm] (theorema) at (2.85, -4.9) {Theorem A\\Bounded post-collapse identity};
 
-\node[excludednode] (excludedlift) at (7.2, -2.35) {Excluded lift-heavy family\\not in the positive bounded route};
+\node[excludednode] (excludedlift) at (7.2, -2.35) {Excluded lift-heavy family\\reviewed boundary only\\not in the positive bounded route};
 
 \draw[->] (leftsupport) -- (sourcethm);
 \draw[->] (sourcethm) -- (lemmaone);
@@ -27,12 +27,10 @@
 \draw[->] (sourcecor) -- (lemmathree);
 \draw[->] (lemmaone) -- (lemmatwo);
 \draw[->] (defresidue) -- (lemmatwo);
-\draw[->] (lemmathree) -- (lemmatwo);
 \draw[->] (lemmatwo) -- (theorema);
 
 \draw[dashed, ->] (lemmathree.east) .. controls +(0.9,0.2) and +(-1.0,0.0) .. (excludedlift.west);
-\draw[dashed, ->] (excludedlift.south west) .. controls +(-0.2,-1.0) and +(1.0,0.5) .. (theorema.east);
 
-\node[anchor=north west, align=left] at (-1.0, -6.2) {\footnotesize Solid arrows: admitted support chain\\\footnotesize Dashed arrows: excluded temptation route};
+\node[anchor=north west, align=left] at (-1.0, -6.2) {\footnotesize Solid arrows: admitted theorem route and admitted rebirth-control branch\\\footnotesize Dashed arrows: excluded temptation route reviewed but not admitted};
 
 \end{tikzpicture}

@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "repo_sha": "188d85f3c20954e39778e2d39932b62556daa77f",
+    "repo_sha": "7ceb46acfbcb4e83d6568fea3c2530bd9eb95719",
     "script": "tools/build_oc_core_1_3_science_spot.py",
     "surface": "logion/k0/governance/status/OC_CORE_1_3_TOE_SYNTHESIS_latest.json",
-    "ts_utc": "2026-04-20T09:59:14Z"
+    "ts_utc": "2026-04-21T17:16:52Z"
   },
   "toe_id": "OC_CORE_1_3_TOE_SYNTHESIS",
   "manuscript_target": "ENGLISH_MASTER_MONOGRAPH_ONLY",
@@ -28,7 +28,7 @@
   "bridge_only_domain_total": 0,
   "hostile_review_blocking_total": 0,
   "integrability_suite_status": "PASS",
-  "acceptance_rule": "Final unified-science promotion requires every empirical core domain to be theorem-native, zero bridge-only domains, a passed atlas, resolved hostile-review backlog, and explicit K0-K12 numerical presentation.",
+  "acceptance_rule": "Final unified-science promotion requires every empirical core domain to be theorem-native. It also requires zero bridge-only domains, a passed atlas, a resolved hostile-review backlog, and explicit K0--K12 numerical presentation.",
   "k_level_rows": [
     {
       "level_id": "K0",
@@ -38,8 +38,8 @@
       "evidence_status": "EVIDENCE_COMPLETE",
       "closure_verdict": "PASS",
       "theorem_native_claim": "K0 fixes the non-empty admissible meta-domain required for any lawful continuum and therefore bounds every later K-level before empirical specialization.",
-      "operator_binding_summary": "Root operators F, Q, and U fix admissibility, distinguishability, and lawful update availability before the first observable lift.",
-      "parameter_law_display": "\\mu(\\Omega(K_0)) > 0,\\quad \\frac{\\mathrm{DoF}(K_x)}{\\mathrm{DoF}(M_x)} \\leq 1,\\quad C_{\\mathrm{triv}} \\geq 1",
+      "operator_binding_summary": "Static root operators F_0, Q_0, and U_0 fix admissibility, distinguishability, and the continuumness floor before the first observable lift.",
+      "parameter_law_display": "\\mu(\\Omega(K_0)) > 0,\\quad \\forall x \\in \\{1,\\dots,12\\}: \\frac{\\mathrm{DoF}(K_x)}{\\mathrm{DoF}(M_x)} \\leq 1,\\quad C_{\\mathrm{triv}} \\geq 1",
       "observable_map_summary": "Meta-admissibility, meta-space compatibility, and the presence of at least one non-trivial lawful cycle.",
       "theorem_refs": [
         "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
@@ -109,10 +109,10 @@
           "units_note": "dimensionless lower bound"
         },
         {
-          "quantity": "Meta-space compatibility ratio",
+          "quantity": "Meta-space compatibility ratio for each promoted level",
           "symbol_tex": "\\mathrm{DoF}(K_x)/\\mathrm{DoF}(M_x)",
           "value_tex": "\\leq 1",
-          "units_note": "dimensionless ratio"
+          "units_note": "dimensionless ratio; applies for each x in 1,...,12"
         },
         {
           "quantity": "Non-trivial cycle presence",
@@ -123,7 +123,7 @@
       ],
       "appendix_table_label": "tab:k0-structural-parameters",
       "falsifier_summary": "Projection fails if no source-native bridge or threshold packet survives for this level.",
-      "collapse_boundary": "Collapse occurs if the admissible set degenerates, if a later K-level exceeds its meta-space, or if no lawful update cycle survives.",
+      "collapse_boundary": "Collapse occurs if the admissible set degenerates, if a later K-level exceeds its meta-space, or if the structural substrate loses its last non-trivial lawful cycle.",
       "falsifier_refs": [
         "content/toe/toe_k0",
         "content/falsifiability/falsifiability_master.tex",
@@ -415,7 +415,7 @@
       "closure_verdict": "PASS",
       "theorem_native_claim": "K2 binds field configurations, expansion history, and phase thresholds into the first large-scale physical continuum admissible under the kernel operators.",
       "operator_binding_summary": "F, H, and R constrain field admissibility, phase transitions, and large-scale stabilization margins inside the physical continuum.",
-      "parameter_law_display": "0 < H(t) < H_{\\max},\\quad |\\Omega_k| < 2 \\times 10^{-3},\\quad T(t) \\in \\{T_c^{\\mathrm{QCD}}, T_c^{\\mathrm{EW}}, \\dots\\}",
+      "parameter_law_display": "H_0 > 0,\\quad 0 < \\Omega_{\\mathrm{m}} < 1,\\quad |\\Omega_k| < 2 \\times 10^{-3},\\quad T(t) \\in \\{T_c^{\\mathrm{EW}}, T_c^{\\mathrm{QCD}}\\}",
       "observable_map_summary": "Expansion rate, curvature, cosmological density fractions, and critical phase windows tied to physical observables and replay packets.",
       "theorem_refs": [
         "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
@@ -490,13 +490,19 @@
           "quantity": "Hubble parameter today",
           "symbol_tex": "H_0",
           "value_tex": "67.4 \\pm 0.5",
-          "units_note": "\\mathrm{km\\,s^{-1}Mpc^{-1}}"
+          "units_note": "\\mathrm{km\\,s^{-1}\\,Mpc^{-1}}"
         },
         {
           "quantity": "Matter density fraction",
           "symbol_tex": "\\Omega_{\\mathrm{m}}",
           "value_tex": "0.315 \\pm 0.007",
           "units_note": "dimensionless"
+        },
+        {
+          "quantity": "Critical phase windows",
+          "symbol_tex": "T_c^{\\mathrm{EW}},\\ T_c^{\\mathrm{QCD}}",
+          "value_tex": "\\sim 100\\ \\mathrm{GeV};\\ 150\\text{--}170\\ \\mathrm{MeV}",
+          "units_note": "closed phase set"
         },
         {
           "quantity": "Curvature bound",
@@ -819,7 +825,7 @@
       ],
       "appendix_table_label": "tab:k3-molecular-parameters",
       "falsifier_summary": "Projection fails if no source-native bridge or threshold packet survives for this level.",
-      "collapse_boundary": "K3 collapses when bond- and barrier-level regularities cannot be bounded by a non-rubber parameter law or when chemical observables drift outside admissible molecular windows.",
+      "collapse_boundary": "K3 collapses when bond- and barrier-level regularities cannot be bounded by a non-degenerate parameter law or when chemical observables drift outside admissible molecular windows.",
       "falsifier_refs": [
         "content/toe/toe_k3",
         "content/falsifiability/falsifiability_master.tex",
@@ -1279,7 +1285,7 @@
         {
           "quantity": "Resting membrane potential",
           "symbol_tex": "V_{\\mathrm{rest}}",
-          "value_tex": "-60\\text{--}-75",
+          "value_tex": "-75\\text{--}-60",
           "units_note": "\\mathrm{mV}"
         },
         {

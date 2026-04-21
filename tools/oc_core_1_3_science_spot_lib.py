@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import shutil
 import subprocess
 from copy import deepcopy
@@ -129,6 +130,7 @@ SERIOUS_MODEL_COMPARISON_REQUIRED_FIELDS = [
     "relationship_to_oc",
     "scope_boundary",
     "practical_takeaway",
+    "source_refs",
 ]
 
 TOE_LEVEL_SPECS = {
@@ -137,8 +139,8 @@ TOE_LEVEL_SPECS = {
         "toe_file_ref": "content/toe/toe_k0",
         "appendix_table_label": "tab:k0-structural-parameters",
         "theorem_native_claim": "K0 fixes the non-empty admissible meta-domain required for any lawful continuum and therefore bounds every later K-level before empirical specialization.",
-        "operator_binding_summary": "Root operators F, Q, and U fix admissibility, distinguishability, and lawful update availability before the first observable lift.",
-        "parameter_law_display": r"\mu(\Omega(K_0)) > 0,\quad \frac{\mathrm{DoF}(K_x)}{\mathrm{DoF}(M_x)} \leq 1,\quad C_{\mathrm{triv}} \geq 1",
+        "operator_binding_summary": "Static root operators F_0, Q_0, and U_0 fix admissibility, distinguishability, and the continuumness floor before the first observable lift.",
+        "parameter_law_display": r"\mu(\Omega(K_0)) > 0,\quad \forall x \in \{1,\dots,12\}: \frac{\mathrm{DoF}(K_x)}{\mathrm{DoF}(M_x)} \leq 1,\quad C_{\mathrm{triv}} \geq 1",
         "observable_map_summary": "Meta-admissibility, meta-space compatibility, and the presence of at least one non-trivial lawful cycle.",
         "synthetic_observable_ids": [
             "K0::ADMISSIBLE_STATE_MEASURE",
@@ -153,10 +155,10 @@ TOE_LEVEL_SPECS = {
                 "units_note": "dimensionless lower bound",
             },
             {
-                "quantity": "Meta-space compatibility ratio",
+                "quantity": "Meta-space compatibility ratio for each promoted level",
                 "symbol_tex": r"\mathrm{DoF}(K_x)/\mathrm{DoF}(M_x)",
                 "value_tex": r"\leq 1",
-                "units_note": "dimensionless ratio",
+                "units_note": "dimensionless ratio; applies for each promoted level",
             },
             {
                 "quantity": "Non-trivial cycle presence",
@@ -165,7 +167,7 @@ TOE_LEVEL_SPECS = {
                 "units_note": "present",
             },
         ],
-        "collapse_boundary": "Collapse occurs if the admissible set degenerates, if a later K-level exceeds its meta-space, or if no lawful update cycle survives.",
+        "collapse_boundary": "Collapse occurs if the admissible set degenerates, if a later K-level exceeds its meta-space, or if the structural substrate loses its last non-trivial lawful cycle.",
     },
     "K1": {
         "title": "Minimal Observable Distinctions and Energetic Axes",
@@ -208,7 +210,7 @@ TOE_LEVEL_SPECS = {
         "appendix_table_label": "tab:k2-cosmological-parameters",
         "theorem_native_claim": "K2 binds field configurations, expansion history, and phase thresholds into the first large-scale physical continuum admissible under the kernel operators.",
         "operator_binding_summary": "F, H, and R constrain field admissibility, phase transitions, and large-scale stabilization margins inside the physical continuum.",
-        "parameter_law_display": r"0 < H(t) < H_{\max},\quad |\Omega_k| < 2 \times 10^{-3},\quad T(t) \in \{T_c^{\mathrm{QCD}}, T_c^{\mathrm{EW}}, \dots\}",
+        "parameter_law_display": r"H_0 > 0,\quad 0 < \Omega_{\mathrm{m}} < 1,\quad |\Omega_k| < 2 \times 10^{-3},\quad T(t) \in \{T_c^{\mathrm{EW}}, T_c^{\mathrm{QCD}}\}",
         "observable_map_summary": "Expansion rate, curvature, cosmological density fractions, and critical phase windows tied to physical observables and replay packets.",
         "synthetic_observable_ids": [
             "K2::EXPANSION_RATE",
@@ -220,13 +222,19 @@ TOE_LEVEL_SPECS = {
                 "quantity": "Hubble parameter today",
                 "symbol_tex": r"H_0",
                 "value_tex": r"67.4 \pm 0.5",
-                "units_note": r"\mathrm{km\,s^{-1}Mpc^{-1}}",
+                "units_note": r"\mathrm{km\,s^{-1}\,Mpc^{-1}}",
             },
             {
                 "quantity": "Matter density fraction",
                 "symbol_tex": r"\Omega_{\mathrm{m}}",
                 "value_tex": r"0.315 \pm 0.007",
                 "units_note": "dimensionless",
+            },
+            {
+                "quantity": "Critical phase windows",
+                "symbol_tex": r"T_c^{\mathrm{EW}},\ T_c^{\mathrm{QCD}}",
+                "value_tex": r"\sim 100\ \mathrm{GeV};\ 150\text{--}170\ \mathrm{MeV}",
+                "units_note": "closed phase set",
             },
             {
                 "quantity": "Curvature bound",
@@ -270,7 +278,7 @@ TOE_LEVEL_SPECS = {
                 "units_note": r"\mathrm{eV}",
             },
         ],
-        "collapse_boundary": "K3 collapses when bond- and barrier-level regularities cannot be bounded by a non-rubber parameter law or when chemical observables drift outside admissible molecular windows.",
+        "collapse_boundary": "K3 collapses when bond- and barrier-level regularities cannot be bounded by a non-degenerate parameter law or when chemical observables drift outside admissible molecular windows.",
     },
     "K4": {
         "title": "Compartmental and Membrane Thresholds",
@@ -330,7 +338,7 @@ TOE_LEVEL_SPECS = {
             {
                 "quantity": "Resting membrane potential",
                 "symbol_tex": r"V_{\mathrm{rest}}",
-                "value_tex": r"-60\text{--}-75",
+                "value_tex": r"-75\text{--}-60",
                 "units_note": r"\mathrm{mV}",
             },
             {
@@ -879,7 +887,7 @@ METHOD_LADDER_ROWS = [
         "order": 3,
         "method_class": "REPARAMETERIZATION_OR_CLAIM_DECOMPOSITION",
         "entry_rule": "Use when the claim is too wide, rubberized, or under-specified to admit a lawful parameter law.",
-        "advance_condition": "The claim is replaced by narrower child claims with explicit parent relations and non-rubber parameter laws.",
+        "advance_condition": "The claim is replaced by narrower child claims with explicit parent relations and non-degenerate parameter laws.",
         "anti_cycle_condition": "May not be repeated unless a new observable family or a new admissible regime is declared before replay.",
     },
     {
@@ -1637,6 +1645,8 @@ def validate_science_source_corpus(corpus: dict[str, Any], repo_root: Path | Non
                 errors.append(
                     f"{comparison_catalog.get('source_file_ref', 'serious_model_comparison_catalog')}:rows[{index}]: illegal relationship_to_oc {row.get('relationship_to_oc')}"
                 )
+            for ref in row.get("source_refs", []):
+                assert_ref_exists(repo_root, ref, errors)
     for level_id, payload in corpus.get("k_levels", {}).items():
         for field in SCIENCE_SOURCE_K_LEVEL_REQUIRED_FIELDS:
             if field not in payload:
@@ -2040,7 +2050,7 @@ def build_theorem_spine(domain_registry: list[dict[str, Any]]) -> list[dict[str,
             "trace_status": "TRACE_COMPLETE",
             "evidence_status": "EVIDENCE_COMPLETE",
             "closure_verdict": "PASS",
-            "summary": "K0-K12 hierarchy remains the formal topology that all domain projections must trace through explicitly.",
+            "summary": "K0--K12 hierarchy remains the formal topology that all domain projections must trace through explicitly.",
             "refs": [
                 "content/10_klevels_full.tex",
                 "content/19_oc_core_1_3_foundational_consistency.tex",
@@ -2330,7 +2340,7 @@ def build_toe_synthesis_registry(
         "bridge_only_domain_total": global_verdict["bridge_only_domain_total"],
         "hostile_review_blocking_total": global_verdict["hostile_review_blocking_total"],
         "integrability_suite_status": global_verdict["integrability_suite_status"],
-        "acceptance_rule": "Final unified-science promotion requires every empirical core domain to be theorem-native, zero bridge-only domains, a passed atlas, resolved hostile-review backlog, and explicit K0-K12 numerical presentation.",
+        "acceptance_rule": "Final unified-science promotion requires every empirical core domain to be theorem-native. It also requires zero bridge-only domains, a passed atlas, a resolved hostile-review backlog, and explicit K0--K12 numerical presentation.",
         "k_level_rows": rows,
         "empirical_prediction_rows": empirical_prediction_rows,
     }
@@ -2383,6 +2393,7 @@ def build_practical_utility_atlas(
                 "comparison_scope": domain.get("classification_rationale", ""),
                 "closure_verdict": domain["closure_verdict"],
                 "source_bundle_ref": source_bundle.get("source_file_ref", ""),
+                "closure_bundle_ref": closure_bundle.get("dossier_package_ref", ""),
             }
         )
         for row in source_bundle.get("practical_use_rows", []):
@@ -2429,6 +2440,7 @@ def build_practical_utility_atlas(
                     "trace_refs": deepcopy(playbook["trace_refs"]),
                     "failure_boundary": playbook["failure_boundary"],
                     "closure_verdict": domain["closure_verdict"],
+                    "source_bundle_ref": source_bundle.get("source_file_ref", ""),
                     "closure_bundle_ref": closure_bundle.get("dossier_package_ref", ""),
                 }
             )
@@ -2458,12 +2470,12 @@ def build_practical_utility_atlas(
                 "content/25_oc_core_1_3_toe_synthesis.tex",
             ],
             "benchmark_comparators": [
-                "local domain heuristics without cross-domain trace discipline",
-                "ad hoc patchwork model selection",
+                "best-in-class local-model portfolio governance",
+                "multimodel expert routing without shared theorem trace",
             ],
             "serious_model_families": [
-                "Reductionist patchwork of separate domain theories",
-                "Complexity-science integration programs",
+                "Best-in-class local-model portfolio governance across separate domain theories",
+                "Complexity-science and multiscale integration programs",
             ],
             "what_remains_open": "Unrestricted cross-domain intervention planning beyond the declared closed packets remains outside lawful promotion.",
             "benchmark_families": [],
@@ -2524,6 +2536,13 @@ def build_practical_utility_atlas(
             "relationship_to_oc": row["relationship_to_oc"],
             "scope_boundary": row["scope_boundary"],
             "practical_takeaway": row["practical_takeaway"],
+            "source_refs": unique_strings(
+                [
+                    comparison_catalog.get("source_file_ref", ""),
+                    source_bundles.get(row["domain_id"], {}).get("source_file_ref", ""),
+                    *row.get("source_refs", []),
+                ]
+            ),
         }
         serious_rows.append(enriched)
         fragmentation_rows.append(
@@ -2559,6 +2578,7 @@ def build_practical_utility_atlas(
     hypothesis_rows = [row for row in use_case_rows if row["support_class"] == "HYPOTHESIS_ONLY"]
     return {
         "atlas_id": "OC_CORE_1_3_PRACTICAL_UTILITY_ATLAS",
+        "schema_id": "OC_CORE_1_3_PRACTICAL_UTILITY_ATLAS_v1",
         "status": "PASS" if global_verdict["closure_verdict"] == "PASS" else "FAIL_CLOSED",
         "chapter_title": "Practical Consequences, Predictive Power, and Use of OC Core 1.3",
         "appendix_title": "Practical Utility and Model Comparison Atlas",
@@ -2578,7 +2598,7 @@ def build_practical_utility_atlas(
             "serious_comparison_total": len(serious_rows),
             "key_points": [
                 f"OC currently exposes {len(usable_now_rows)} bounded practical lanes that are already usable under explicit theorem, data-route, and falsifier discipline.",
-                "Its closed practical value is not unrestricted universal prediction; it is lawful packet selection, bounded residual prediction, anomaly screening, state-transition auditing, and regime-shift monitoring under one source-bound route.",
+                "Its closed practical value is not unrestricted universal prediction; it is lawful packet selection, bounded residual prediction, anomaly screening, state-transition auditing, regime-shift monitoring, and cross-domain route selection within one source-bound routing framework.",
                 (
                     f"The atlas also keeps {len(frontier_rows)} frontier-program "
                     f"{'row' if len(frontier_rows) == 1 else 'rows'} and {len(hypothesis_rows)} "
@@ -4076,7 +4096,7 @@ def project_full_scientific_closure_program(spot: dict[str, Any]) -> dict[str, A
             "ts_utc": utc_now(),
         },
         "summary": {
-            "goal": "One continuous scientific chain from kernel through K0-K12 and domain theorems to observables, datasets, held-out replay, falsifiers, and a global verdict.",
+            "goal": "One continuous scientific chain from kernel through K0--K12 and domain theorems to observables, datasets, held-out replay, falsifiers, and a global verdict.",
             "current_global_verdict": spot["global_verdict"]["closure_verdict"],
             "closed_canon_status": spot["closed_canon"]["current_status"],
             "frontier_workbench_status": spot["frontier_workbench"]["current_status"],
@@ -4733,6 +4753,7 @@ def tex_escape(text: Any) -> str:
     }
     for source, target in replacements.items():
         value = value.replace(source, target)
+    value = value.replace("OC Core 1.3", r"OC Core~1.3")
     return value
 
 
@@ -4757,6 +4778,32 @@ def normalize_sentence(text: Any) -> str:
     return sentence
 
 
+def britishize_text(text: Any) -> str:
+    if text is None:
+        return ""
+    value = str(text)
+    replacements = {
+        "organization": "organisation",
+        "organizations": "organisations",
+        "organized": "organised",
+        "organizing": "organising",
+        "organizational": "organisational",
+        "modeling": "modelling",
+        "modeled": "modelled",
+        "behavior": "behaviour",
+        "behaviors": "behaviours",
+        "stabilization": "stabilisation",
+        "prioritization": "prioritisation",
+        "specialized": "specialised",
+        "materialized": "materialised",
+        "signaling": "signalling",
+    }
+    for source, target in replacements.items():
+        value = re.sub(rf"\b{re.escape(source)}\b", target, value)
+        value = re.sub(rf"\b{re.escape(source.capitalize())}\b", target.capitalize(), value)
+    return value
+
+
 def tex_math_or_text(value: Any) -> str:
     text = str(value)
     if any(token in text for token in ["\\", "^", "_"]):
@@ -4764,11 +4811,10 @@ def tex_math_or_text(value: Any) -> str:
     return tex_escape(text)
 
 
-def summarize_metrics_for_tex(metric_summary: dict[str, Any]) -> str:
+def summarize_metrics_for_tex(metric_summary: dict[str, Any], preferred_keys: list[str] | None = None) -> str:
     if not metric_summary:
         return "none"
-    parts = []
-    for key in [
+    keys = preferred_keys or [
         "strict_campaign_acceptance_status",
         "strict_terminalized_total",
         "covered_case_total",
@@ -4777,7 +4823,9 @@ def summarize_metrics_for_tex(metric_summary: dict[str, Any]) -> str:
         "normalized_error_p95",
         "normalized_error_max",
         "tail_breach_count",
-    ]:
+    ]
+    parts = []
+    for key in keys:
         if key in metric_summary:
             parts.append(f"{tex_code(key)}={tex_escape(metric_summary[key])}")
     return r", \allowbreak ".join(parts) if parts else "none"
@@ -4812,6 +4860,8 @@ def summarize_thresholds_for_sentence(threshold_snapshot: dict[str, Any], minimu
         parts.append(f"strictly terminalized cases at least {tex_escape(threshold_snapshot['strict_terminalized_total_min'])}")
     if threshold_snapshot.get("counterexample_survivor_total_max") is not None:
         parts.append(f"counterexample survivors capped at {tex_escape(threshold_snapshot['counterexample_survivor_total_max'])}")
+    if threshold_snapshot.get("replay_divergence_total_max") is not None:
+        parts.append(f"replay divergences capped at {tex_escape(threshold_snapshot['replay_divergence_total_max'])}")
     if threshold_snapshot.get("coverage_ratio_required") is not None:
         parts.append(f"coverage ratio {tex_escape(threshold_snapshot['coverage_ratio_required'])}")
     if threshold_snapshot.get("normalized_error_mean_abs_max_sigma") is not None:
@@ -4830,12 +4880,18 @@ def summarize_thresholds_for_sentence(threshold_snapshot: dict[str, Any], minimu
         parts.append(f"Brier score at or below {tex_escape(threshold_snapshot['brier_score_max'])}")
     if threshold_snapshot.get("expected_calibration_error_max") is not None:
         parts.append(f"expected calibration error at or below {tex_escape(threshold_snapshot['expected_calibration_error_max'])}")
+    if threshold_snapshot.get("critical_failure_f1_min") is not None:
+        parts.append(f"critical-failure F1 at least {tex_escape(threshold_snapshot['critical_failure_f1_min'])}")
+    if threshold_snapshot.get("critical_failure_precision_min") is not None:
+        parts.append(f"critical-failure precision at least {tex_escape(threshold_snapshot['critical_failure_precision_min'])}")
+    if threshold_snapshot.get("critical_failure_recall_min") is not None:
+        parts.append(f"critical-failure recall at least {tex_escape(threshold_snapshot['critical_failure_recall_min'])}")
     return normalize_sentence("; ".join(parts))
 
 
 def render_toe_numeric_table(rows: list[dict[str, Any]]) -> list[str]:
     lines = [
-        r"\begin{longtable}{@{}L{0.30\textwidth}L{0.16\textwidth}L{0.17\textwidth}L{0.19\textwidth}@{}}",
+        r"\begin{longtable}{@{}L{0.27\textwidth}L{0.15\textwidth}L{0.24\textwidth}L{0.16\textwidth}@{}}",
         r"\toprule",
         r"Quantity & Symbol & Value / range & Units or note \\",
         r"\midrule",
@@ -4846,8 +4902,10 @@ def render_toe_numeric_table(rows: list[dict[str, Any]]) -> list[str]:
         r"\endhead",
     ]
     for row in rows:
+        symbol_tex = str(row["symbol_tex"]).replace(",", r",\allowbreak ").replace("/", r"/\allowbreak ")
+        value_tex = str(row["value_tex"]).replace(";", r";\allowbreak ")
         lines.append(
-            f"{tex_escape(row['quantity'])} & $\\scriptstyle {row['symbol_tex']}$ & ${row['value_tex']}$ & {tex_math_or_text(row['units_note'])} \\\\"
+            f"{tex_escape(row['quantity'])} & $\\scriptstyle {symbol_tex}$ & ${value_tex}$ & {tex_math_or_text(row['units_note'])} \\\\"
         )
     lines.extend([r"\bottomrule", r"\end{longtable}"])
     return lines
@@ -4974,16 +5032,26 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
     lines = [
         "% Generated from OC_CORE_1_3_SCIENCE_SPOT_latest.json",
         rf"\section{{{tex_escape(branding['public_chapter_title'])}}}",
+        r"\label{sec:oc-core-1-3-toe-synthesis}",
         f"{tex_escape(branding['public_status_label'])}: {tex_code(toe['release_candidate_status'])}.",
         "",
         normalize_sentence(branding["public_intro_text"]),
+        (
+            f"The public TOE title is used only because the exact gate {tex_code('FINAL_TOE_VALIDATOR_PASS')} "
+            f"is currently {tex_code(toe['release_candidate_status'])} under the canonical naming policy."
+            if toe["release_candidate_status"] == "PASS"
+            else f"The public TOE title remains withheld because the exact gate {tex_code('FINAL_TOE_VALIDATOR_PASS')} "
+            f"is currently {tex_code(toe['release_candidate_status'])} under the canonical naming policy."
+        ),
         "",
         rf"\subsection{{{tex_escape(branding['public_gate_title'])}}}",
+        f"Exact validator: {tex_code('FINAL_TOE_VALIDATOR_PASS')}.",
         (
             f"The release gate now reports {tex_code(toe['bridge_only_domain_total'])} bridge-only domains, "
             f"{tex_code(toe['hostile_review_blocking_total'])} hostile-review blockers, "
             f"and integrability at {tex_code(toe['integrability_suite_status'])}."
         ),
+        normalize_sentence(tex_escape(toe["acceptance_rule"])),
         (
             "No release blocker remains in the canonical SPOT."
             if not toe["release_candidate_blockers"]
@@ -5018,7 +5086,7 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
                 "",
                 tex_block_label("Operator and K-level binding."),
                 normalize_sentence(tex_escape(row["operator_binding_summary"])),
-                f"Core witness files: {tex_list(row['operator_refs'], wrap_code=True)}.",
+                "Core witness anchors are tabulated in Appendix~\\ref{sec:oc-core-1-3-toe-support-dossiers} and Appendix~\\ref{app:toe-constants-and-parameters}.",
                 "",
                 tex_block_label(parameter_label),
                 r"\[",
@@ -5039,7 +5107,7 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
                 "",
                 tex_block_label("Falsifier and collapse boundary."),
                 normalize_sentence(tex_escape(row["collapse_boundary"])),
-                f"Falsifier witness files: {tex_list(row['falsifier_refs'], wrap_code=True)}.",
+                "Falsifier witness anchors are tabulated in Appendix~\\ref{sec:oc-core-1-3-toe-support-dossiers}.",
                 "",
                 tex_block_label("Domain packet bindings."),
             ]
@@ -5047,13 +5115,22 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
         if promoted_bindings:
             lines.append(r"\begin{itemize}[leftmargin=1.6em,nosep]")
             for binding in promoted_bindings:
+                metric_sentence = summarize_metrics_for_sentence(binding["metric_summary"]).rstrip(".")
+                if metric_sentence == "No quantitative replay metrics are required for this row":
+                    metric_clause = "No quantitative replay metrics are required for this row. "
+                else:
+                    metric_clause = f"The key replay metrics are {metric_sentence}. "
+                binding_status_clause = (
+                    f"The theorem packet is {tex_code(binding['theorem_packet_status'])} "
+                    f"and the parameter law is {tex_code(binding['parameter_law_status'])}. "
+                )
                 lines.append(
                     r"\item "
                     + f"{tex_escape(binding['domain_title'])} is closed as {tex_code(binding['scientific_class'])} with verdict {tex_code(binding['closure_verdict'])} "
                     + f"and {tex_code(binding['held_out_case_total'])} held-out cases. "
-                    + f"The theorem packet is {tex_code(binding['theorem_packet_status'])}, the parameter law is {tex_code(binding['parameter_law_status'])}, "
-                    + f"and the key replay metrics are {summarize_metrics_for_sentence(binding['metric_summary']).rstrip('.')}. "
-                    + f"Closure dossier: {tex_code(binding['closure_bundle_ref'] or 'none')}."
+                    + binding_status_clause
+                    + metric_clause
+                    + "The closure dossier anchor is listed in Appendix~\\ref{sec:oc-core-1-3-toe-support-dossiers}."
                 )
             lines.append(r"\end{itemize}")
             if omitted_binding_total:
@@ -5067,6 +5144,8 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
             "",
             r"\subsection{Empirical Held-Out Prediction Summary}",
             normalize_sentence(branding["public_empirical_summary_text"]),
+            r"Where a promoted lane carries severe cases or false negatives, those adverse canonical fields are reported explicitly below. Appendix~C, Section~\ref{app:toe-constants-and-parameters}, and the canonical TOE surface retain the full numerical record.",
+            r"Metric labels are printed with their canonical surface names; \occode{critical_failure_recall} is the promoted systems recall metric used by the TOE surface.",
             "",
         ]
     )
@@ -5085,7 +5164,7 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
     )
     for row in toe["empirical_prediction_rows"]:
         lines.append(
-            f"{tex_escape(row['domain_title'])} & {tex_code(row['scientific_class'])} & {tex_code(row['closure_verdict'])} & {tex_code(row['held_out_case_total'])} & {summarize_metrics_for_tex(row['metric_summary'])} \\\\"
+            f"{tex_escape(row['domain_title'])} & {tex_code(row['scientific_class'])} & {tex_code(row['closure_verdict'])} & {tex_code(row['held_out_case_total'])} & {summarize_metrics_for_tex(row['metric_summary'], preferred_keys=['covered_case_total', 'covered_held_out_case_total', 'normalized_error_mean_abs', 'normalized_error_p95', 'normalized_error_max', 'severe_case_total', 'fn', 'critical_failure_recall', 'tail_breach_count'])} \\\\"
         )
     lines.extend([r"\bottomrule", r"\end{longtable}"])
     return "\n".join(lines)
@@ -5098,7 +5177,7 @@ def render_practical_utility_tex(spot: dict[str, Any]) -> str:
     hypothesis_rows = [row for row in atlas["use_case_rows"] if row["support_class"] == "HYPOTHESIS_ONLY"]
     lines = [
         "% Generated from OC_CORE_1_3_SCIENCE_SPOT_latest.json",
-        r"\subsection{Why OC is useful}",
+        r"\subsection{Practical value and support boundary}",
         (
             f"The practical utility atlas currently tracks {tex_code(len(usable_now_rows))} usable-now rows, "
             f"{tex_code(len(frontier_rows))} frontier-program {'row' if len(frontier_rows) == 1 else 'rows'}, "
@@ -5106,7 +5185,7 @@ def render_practical_utility_tex(spot: dict[str, Any]) -> str:
         ),
     ]
     for sentence in atlas["executive_summary"]["key_points"]:
-        lines.append(normalize_sentence(sentence))
+        lines.append(normalize_sentence(britishize_text(sentence)))
     lines.extend(
         [
             "",
@@ -5117,69 +5196,90 @@ def render_practical_utility_tex(spot: dict[str, Any]) -> str:
     )
     for row in atlas["support_class_legend"]:
         lines.append(
-            rf"\item {tex_code(row['support_class'])} means {tex_escape(row['label'])}"
+            rf"\item {tex_code(row['support_class'])} means {tex_escape(britishize_text(row['label']))}"
             + (" and is usable now within the declared bounds." if row["usable_now"] else " and is not yet a lawful usable-now claim.")
         )
+    def main_trace(row: dict[str, Any], row_id_key: str) -> str:
+        parts = [f"row {tex_code(row[row_id_key])}"]
+        if row.get("source_bundle_ref"):
+            parts.append(f"source {tex_code(row['source_bundle_ref'])}")
+        if row.get("closure_bundle_ref"):
+            parts.append(f"closure {tex_code(row['closure_bundle_ref'])}")
+        refs = row.get("trace_refs") or row.get("source_refs") or []
+        if refs:
+            parts.append("refs " + tex_list(refs[:2], wrap_code=True))
+        return r"; \allowbreak ".join(parts)
+
     lines.extend([r"\end{itemize}", "", r"\subsection{What is already usable now}"])
     lines.extend(
         [
             r"\begingroup",
-            r"\footnotesize",
-            r"\sloppy",
-            r"\setlength{\tabcolsep}{3pt}",
+            r"\scriptsize",
+            r"\setlength{\emergencystretch}{1.5em}",
+            r"\setlength{\tabcolsep}{2pt}",
             r"\setlength{\LTleft}{0pt}",
             r"\setlength{\LTright}{0pt}",
-            r"\begin{longtable}{@{}L{0.13\textwidth}L{0.18\textwidth}L{0.22\textwidth}L{0.13\textwidth}L{0.22\textwidth}@{}}",
+            r"\begin{longtable}{@{}L{0.11\textwidth}L{0.16\textwidth}L{0.19\textwidth}L{0.12\textwidth}L{0.18\textwidth}L{0.16\textwidth}@{}}",
             r"\toprule",
-            r"Domain & Problem class & What OC gives now & Support & Output / decision \\",
+            r"Domain & Problem class & What OC gives now & Support & Output / decision & Trace \\",
             r"\midrule",
             r"\endfirsthead",
             r"\toprule",
-            r"Domain & Problem class & What OC gives now & Support & Output / decision \\",
+            r"Domain & Problem class & What OC gives now & Support & Output / decision & Trace \\",
             r"\midrule",
             r"\endhead",
         ]
     )
     for row in usable_now_rows:
         lines.append(
-            f"{tex_escape(row['domain_title'])} & {tex_escape(row['problem_class'])} & {tex_escape(row['what_can_be_predicted_or_done'])} & {tex_escape(row['support_label'])} & {tex_escape(row['output_or_decision'])} \\\\"
+            f"{tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text(row['problem_class']))} & {tex_escape(britishize_text(row['what_can_be_predicted_or_done']))} & {tex_escape(britishize_text(row['support_label']))} & {tex_escape(britishize_text(row['output_or_decision']))} & {main_trace(row, 'use_case_id')} \\\\"
         )
     lines.extend([r"\bottomrule", r"\end{longtable}", r"\endgroup", "", r"\subsection{How to use OC in practice}"])
     lines.append("The playbooks below answer the operational question directly: when to use OC, what inputs are required, what procedure to run, and what the resulting decision or prediction actually is.")
     for playbook in atlas["operational_playbooks"]:
-        inputs_text = r"; \allowbreak ".join(tex_escape(item) for item in playbook["required_inputs_or_observables"])
-        procedure_text = r" $\rightarrow$ ".join(tex_escape(item) for item in playbook["procedure_steps"])
+        when_text = normalize_sentence(britishize_text(playbook["when_to_use"]))
+        inputs_text = r"; \allowbreak ".join(tex_escape(britishize_text(item)) for item in playbook["required_inputs_or_observables"])
+        procedure_text = r" $\rightarrow$ ".join(tex_escape(britishize_text(item)) for item in playbook["procedure_steps"])
         lines.extend(
             [
                 "",
-                rf"\paragraph{{{tex_escape(playbook['domain_title'])}: {tex_escape(playbook['title'])}}}",
-                f"When to use: {normalize_sentence(tex_escape(playbook['when_to_use']))}",
+                rf"\paragraph{{{tex_escape(britishize_text(playbook['domain_title']))}: {tex_escape(britishize_text(playbook['title']))}}}",
+                tex_escape(when_text),
                 f"Inputs: {inputs_text}.",
                 f"Procedure: {procedure_text.rstrip('.')}.",
-                f"Output: {normalize_sentence(tex_escape(playbook['output_or_decision']))}",
-                f"Support class: {tex_escape(playbook['support_label'])}.",
-                f"Failure boundary: {normalize_sentence(tex_escape(playbook['failure_boundary']))}",
-                "Appendix~R carries the exact trace anchors and the full benchmark alignment for this playbook.",
+                f"Output: {tex_escape(normalize_sentence(britishize_text(playbook['output_or_decision'])))}",
+                f"Support class: {tex_escape(britishize_text(playbook['support_label']))}.",
+                f"Trace: {main_trace(playbook, 'playbook_id')}.",
+                f"Failure boundary: {tex_escape(normalize_sentence(britishize_text(playbook['failure_boundary'])))}",
             ]
         )
-    lines.extend(["", r"\subsection{What OC predicts by domain}"])
+    lines.extend(["", r"\subsection{What OC predicts across the closed empirical domains}"])
     for domain_id in CORE_DOMAIN_IDS[1:]:
         domain = next(domain for domain in spot["domain_registry"] if domain["domain_id"] == domain_id)
         domain_rows = [row for row in atlas["use_case_rows"] if row["domain_id"] == domain_id and row["usable_now"]]
         open_rows = [row for row in atlas["use_case_rows"] if row["domain_id"] == domain_id and not row["usable_now"]]
         capability_text = "; ".join(row["what_can_be_predicted_or_done"] for row in domain_rows) if domain_rows else "No usable-now lane is currently declared"
+        capability_clause = capability_text[:1].lower() + capability_text[1:] if capability_text else capability_text
         open_text = "; ".join(row["what_remains_open"] for row in open_rows) if open_rows else "no explicit frontier row remains for this domain in the current atlas"
         outputs_text = ", ".join(tex_code(item) for item in domain["measurable_outputs"])
-        benchmark_text = "; ".join(tex_escape(item) for item in domain["benchmark_families"])
+        benchmark_text = "; ".join(tex_escape(britishize_text(item)) for item in domain["benchmark_families"])
+        row_trace_text = r"; \allowbreak ".join(main_trace(row, "use_case_id") for row in domain_rows) if domain_rows else "no usable-now use-case row"
         lines.extend(
             [
                 "",
-                rf"\paragraph{{{tex_escape(domain['domain_title'])}.}}",
-                normalize_sentence(
-                    f"The closed packet currently predicts or audits the following bounded lane(s): {capability_text}"
+                rf"\paragraph{{{tex_escape(britishize_text(domain['domain_title']))}.}}",
+                tex_escape(
+                    normalize_sentence(
+                        britishize_text(
+                            f"For this domain, OC currently uses the closed packet to {capability_clause}"
+                        )
+                    )
                 ),
-                f"Measured outputs are {outputs_text}; benchmark families are {benchmark_text}; held-out case total is {len(domain['held_out_case_ids'])}.",
-                normalize_sentence(f"What remains open: {open_text}"),
+                f"Use-case trace: {row_trace_text}.",
+                f"Measured outputs: {outputs_text}.",
+                f"Benchmark families: {benchmark_text}.",
+                f"Held-out case total: {len(domain['held_out_case_ids'])}.",
+                tex_escape(normalize_sentence(britishize_text(f"What remains open: {open_text}"))),
             ]
         )
     lines.extend(
@@ -5187,28 +5287,34 @@ def render_practical_utility_tex(spot: dict[str, Any]) -> str:
             "",
             r"\subsection{Benchmark against serious alternatives}",
             "This chapter distinguishes between simpler same-claim-class baselines and serious established model families. The first question is whether a cheaper competitor already solves the same bounded lane. The second is whether OC merely coexists with, integrates, or improves the fragmented scientific picture around that lane.",
+            "Each comparison row below is an indexed main-body summary rather than a standalone verdict. The comparison id is the row-level trace anchor; Appendix~\\ref{sec:oc-core-1-3-practical-utility-atlas} expands that id into the source refs, scope boundary, comparator row, and trace hooks that make the summary auditable.",
             "",
             r"\paragraph{Same-claim-class baselines.}",
             r"\begingroup",
-            r"\footnotesize",
-            r"\sloppy",
-            r"\setlength{\tabcolsep}{3pt}",
+            r"\scriptsize",
+            r"\setlength{\emergencystretch}{1.5em}",
+            r"\setlength{\tabcolsep}{2pt}",
             r"\setlength{\LTleft}{0pt}",
             r"\setlength{\LTright}{0pt}",
-            r"\begin{longtable}{@{}L{0.14\textwidth}L{0.24\textwidth}L{0.13\textwidth}L{0.37\textwidth}@{}}",
+            r"\begin{longtable}{@{}L{0.14\textwidth}L{0.10\textwidth}L{0.17\textwidth}L{0.10\textwidth}L{0.23\textwidth}L{0.18\textwidth}@{}}",
             r"\toprule",
-            r"Domain & Comparator families & Verdict & Comparison scope \\",
+            r"Comparison id & Domain & Comparator families & Verdict & Comparison scope & Trace \\",
             r"\midrule",
             r"\endfirsthead",
             r"\toprule",
-            r"Domain & Comparator families & Verdict & Comparison scope \\",
+            r"Comparison id & Domain & Comparator families & Verdict & Comparison scope & Trace \\",
             r"\midrule",
             r"\endhead",
         ]
     )
     for row in atlas["same_claim_class_baseline_rows"]:
+        comparison_scope = (
+            tex_escape(britishize_text(row["comparison_scope"]))
+            + r" \allowbreak Cost-normalised budget: "
+            + tex_code(row.get("complexity_budget", "NOT_DECLARED"))
+        )
         lines.append(
-            f"{tex_escape(row['domain_title'])} & {tex_escape('; '.join(row['comparator_families']))} & {tex_code(row['verdict'])} & {tex_escape(row['comparison_scope'])} \\\\"
+            f"{tex_code(row['comparison_id'])} & {tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text('; '.join(row['comparator_families'])))} & {tex_code(row['verdict'])} & {comparison_scope} & {main_trace(row, 'comparison_id')} \\\\"
         )
     lines.extend(
         [
@@ -5218,42 +5324,50 @@ def render_practical_utility_tex(spot: dict[str, Any]) -> str:
             "",
             r"\paragraph{Serious model families.}",
             r"\begingroup",
-            r"\footnotesize",
-            r"\sloppy",
-            r"\setlength{\tabcolsep}{3pt}",
+            r"\scriptsize",
+            r"\setlength{\emergencystretch}{1.5em}",
+            r"\setlength{\tabcolsep}{2pt}",
             r"\setlength{\LTleft}{0pt}",
             r"\setlength{\LTright}{0pt}",
-            r"\begin{longtable}{@{}L{0.13\textwidth}L{0.18\textwidth}L{0.15\textwidth}L{0.13\textwidth}L{0.33\textwidth}@{}}",
+            r"\begin{longtable}{@{}L{0.14\textwidth}L{0.09\textwidth}L{0.14\textwidth}L{0.12\textwidth}L{0.10\textwidth}L{0.18\textwidth}L{0.15\textwidth}@{}}",
             r"\toprule",
-            r"Domain & Model family & Problem class & Relation to OC & What OC adds or closes \\",
+            r"Comparison id & Domain & Model family & Problem class & Relation to OC & What OC adds or closes & Source refs \\",
             r"\midrule",
             r"\endfirsthead",
             r"\toprule",
-            r"Domain & Model family & Problem class & Relation to OC & What OC adds or closes \\",
+            r"Comparison id & Domain & Model family & Problem class & Relation to OC & What OC adds or closes & Source refs \\",
             r"\midrule",
             r"\endhead",
         ]
     )
     for row in atlas["serious_model_comparison_rows"]:
+        relationship_labels = {
+            "complements": "complements",
+            "integrates": "integrates",
+            "subsumes_in_scope": "subsumes within scope",
+            "still_superior_in_lane": "remains superior within its lane",
+            "open": "open",
+        }
+        relationship_label = relationship_labels.get(row["relationship_to_oc"], row["relationship_to_oc"].replace("_", " "))
         lines.append(
-            f"{tex_escape(row['domain_title'])} & {tex_escape(row['serious_model_family'])} & {tex_escape(row['problem_class'])} & {tex_escape(row['relationship_to_oc'].replace('_', ' '))} & {tex_escape(row['what_oc_adds_or_unifies'])} \\\\"
+            f"{tex_code(row['comparison_id'])} & {tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text(row['serious_model_family']))} & {tex_escape(britishize_text(row['problem_class']))} & {tex_escape(britishize_text(relationship_label))} & {tex_escape(britishize_text(row['what_oc_adds_or_unifies']))} & {tex_list(row['source_refs'][:2], wrap_code=True)} \\\\"
         )
     lines.extend([r"\bottomrule", r"\end{longtable}", r"\endgroup", "", r"\subsection{What prior science could do, what remained fragmented, and what OC closes}"])
     lines.extend(
         [
             r"\begingroup",
-            r"\footnotesize",
-            r"\sloppy",
-            r"\setlength{\tabcolsep}{3pt}",
+            r"\scriptsize",
+            r"\setlength{\emergencystretch}{1.5em}",
+            r"\setlength{\tabcolsep}{2pt}",
             r"\setlength{\LTleft}{0pt}",
             r"\setlength{\LTright}{0pt}",
-            r"\begin{longtable}{@{}L{0.12\textwidth}L{0.20\textwidth}L{0.20\textwidth}L{0.23\textwidth}L{0.17\textwidth}@{}}",
+            r"\begin{longtable}{@{}L{0.17\textwidth}L{0.09\textwidth}L{0.17\textwidth}L{0.17\textwidth}L{0.20\textwidth}L{0.14\textwidth}@{}}",
             r"\toprule",
-            r"Domain & Prior science already did & Fragmentation or limit & What OC closes or adds & Open boundary \\",
+            r"Comparison id & Domain & Prior science already did & Fragmentation or limit & What OC closes or adds & Open boundary \\",
             r"\midrule",
             r"\endfirsthead",
             r"\toprule",
-            r"Domain & Prior science already did & Fragmentation or limit & What OC closes or adds & Open boundary \\",
+            r"Comparison id & Domain & Prior science already did & Fragmentation or limit & What OC closes or adds & Open boundary \\",
             r"\midrule",
             r"\endhead",
         ]
@@ -5261,16 +5375,16 @@ def render_practical_utility_tex(spot: dict[str, Any]) -> str:
     for row in atlas["fragmentation_closure_rows"]:
         domain_title = next((item["domain_title"] for item in atlas["serious_model_comparison_rows"] if item["comparison_id"] == row["comparison_id"]), row["domain_id"])
         lines.append(
-            f"{tex_escape(domain_title)} & {tex_escape(row['prior_science_strength'])} & {tex_escape(row['fragmentation_boundary'])} & {tex_escape(row['oc_closure_or_gain'])} & {tex_escape(row['what_remains_open'])} \\\\"
+            f"{tex_code(row['comparison_id'])} & {tex_escape(britishize_text(domain_title))} & {tex_escape(britishize_text(row['prior_science_strength']))} & {tex_escape(britishize_text(row['fragmentation_boundary']))} & {tex_escape(britishize_text(row['oc_closure_or_gain']))} & {tex_escape(britishize_text(row['what_remains_open']))} \\\\"
         )
     lines.extend([r"\bottomrule", r"\end{longtable}", r"\endgroup", "", r"\subsection{What remains frontier or hypothesis}"])
     if frontier_rows or hypothesis_rows:
         lines.extend(
             [
                 r"\begingroup",
-                r"\footnotesize",
-                r"\sloppy",
-                r"\setlength{\tabcolsep}{3pt}",
+                r"\scriptsize",
+                r"\setlength{\emergencystretch}{1.5em}",
+                r"\setlength{\tabcolsep}{2pt}",
                 r"\setlength{\LTleft}{0pt}",
                 r"\setlength{\LTright}{0pt}",
                 r"\begin{longtable}{@{}L{0.11\textwidth}L{0.19\textwidth}L{0.14\textwidth}L{0.48\textwidth}@{}}",
@@ -5286,7 +5400,7 @@ def render_practical_utility_tex(spot: dict[str, Any]) -> str:
         )
         for row in [*frontier_rows, *hypothesis_rows]:
             lines.append(
-                f"{tex_escape(row['domain_title'])} & {tex_escape(row['problem_class'])} & {tex_escape(row['support_label'])} & {tex_escape(row['what_remains_open'])} \\\\"
+                f"{tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text(row['problem_class']))} & {tex_escape(britishize_text(row['support_label']))} & {tex_escape(britishize_text(row['what_remains_open']))} \\\\"
             )
         lines.extend([r"\bottomrule", r"\end{longtable}", r"\endgroup"])
     else:
@@ -5298,7 +5412,10 @@ def render_practical_utility_appendix_tex(spot: dict[str, Any]) -> str:
     atlas = spot["practical_utility_atlas"]
     lines = [
         "% Generated from OC_CORE_1_3_SCIENCE_SPOT_latest.json",
-        "This appendix carries the exhaustive practical-utility and serious-comparison matrices referenced in Chapter~26.",
+        "",
+        r"\begingroup",
+        r"\scriptsize",
+        r"\setlength{\tabcolsep}{2pt}",
         "",
         r"\subsection{Full use-case table}",
         r"\begin{longtable}{@{}L{0.13\textwidth}L{0.14\textwidth}L{0.12\textwidth}L{0.18\textwidth}L{0.17\textwidth}L{0.20\textwidth}@{}}",
@@ -5312,9 +5429,40 @@ def render_practical_utility_appendix_tex(spot: dict[str, Any]) -> str:
         r"\endhead",
     ]
     for row in atlas["use_case_rows"]:
-        inputs_text = r"; \allowbreak ".join(tex_escape(item) for item in row["required_inputs_or_observables"])
+        inputs_text = r"; \allowbreak ".join(tex_escape(britishize_text(item)) for item in row["required_inputs_or_observables"])
         lines.append(
-            f"{tex_code(row['use_case_id'])} & {tex_escape(row['domain_title'])} & {tex_escape(row['support_label'])} & {inputs_text} & {tex_escape(row['output_or_decision'])} & {tex_escape(row['scope_boundary'])} \\\\"
+            f"{tex_code(row['use_case_id'])} & {tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text(row['support_label']))} & {inputs_text} & {tex_escape(britishize_text(row['output_or_decision']))} & {tex_escape(britishize_text(row['scope_boundary']))} \\\\"
+        )
+    lines.extend(
+        [
+            r"\bottomrule",
+            r"\end{longtable}",
+            "",
+            r"\subsection{Use-case trace-anchor matrix}",
+            r"\begin{longtable}{@{}L{0.16\textwidth}L{0.38\textwidth}L{0.34\textwidth}@{}}",
+            r"\toprule",
+            r"Use-case id & Trace anchors & Bundle / comparator hooks \\",
+            r"\midrule",
+            r"\endfirsthead",
+            r"\toprule",
+            r"Use-case id & Trace anchors & Bundle / comparator hooks \\",
+            r"\midrule",
+            r"\endhead",
+        ]
+    )
+    for row in atlas["use_case_rows"]:
+        hook_parts = []
+        if row.get("source_bundle_ref"):
+            hook_parts.append(f"Source bundle {tex_code(row['source_bundle_ref'])}")
+        if row.get("closure_bundle_ref"):
+            hook_parts.append(f"Closure dossier {tex_code(row['closure_bundle_ref'])}")
+        if row.get("benchmark_comparators"):
+            hook_parts.append(
+                "Comparators "
+                + tex_escape(britishize_text("; ".join(row["benchmark_comparators"])))
+            )
+        lines.append(
+            f"{tex_code(row['use_case_id'])} & {tex_list(row['trace_refs'], wrap_code=True)} & {normalize_sentence('; '.join(hook_parts) if hook_parts else 'No additional bundle hook is declared for this row')} \\\\"
         )
     lines.extend(
         [
@@ -5334,33 +5482,117 @@ def render_practical_utility_appendix_tex(spot: dict[str, Any]) -> str:
         ]
     )
     for row in atlas["operational_playbooks"]:
-        procedure_text = r" $\rightarrow$ ".join(tex_escape(item) for item in row["procedure_steps"])
+        procedure_text = r" $\rightarrow$ ".join(tex_escape(britishize_text(item)) for item in row["procedure_steps"])
         lines.append(
-            f"{tex_code(row['playbook_id'])} & {tex_escape(row['domain_title'])} & "
-            f"{normalize_sentence(tex_escape(row['when_to_use']))} & "
+            f"{tex_code(row['playbook_id'])} & {tex_escape(britishize_text(row['domain_title']))} & "
+            f"{tex_escape(normalize_sentence(britishize_text(row['when_to_use'])))} & "
             f"Procedure: {procedure_text.rstrip('.')}. \\allowbreak Failure boundary: "
-            f"{normalize_sentence(tex_escape(row['failure_boundary']))} \\\\"
+            f"{tex_escape(normalize_sentence(britishize_text(row['failure_boundary'])))} \\\\"
         )
     lines.extend(
         [
             r"\bottomrule",
             r"\end{longtable}",
             "",
-            r"\subsection{Serious-comparator matrix}",
-            r"\begin{longtable}{@{}L{0.11\textwidth}L{0.15\textwidth}L{0.14\textwidth}L{0.26\textwidth}L{0.26\textwidth}@{}}",
+            r"\subsection{Operational playbook trace-anchor matrix}",
+            r"\begin{longtable}{@{}L{0.16\textwidth}L{0.38\textwidth}L{0.34\textwidth}@{}}",
             r"\toprule",
-            r"Domain & Model family & Problem class & Prior strength / fragmentation & OC gain / relation \\",
+            r"Playbook id & Trace anchors & Bundle hooks \\",
             r"\midrule",
             r"\endfirsthead",
             r"\toprule",
-            r"Domain & Model family & Problem class & Prior strength / fragmentation & OC gain / relation \\",
+            r"Playbook id & Trace anchors & Bundle hooks \\",
+            r"\midrule",
+            r"\endhead",
+        ]
+    )
+    for row in atlas["operational_playbooks"]:
+        hook_parts = []
+        if row.get("source_bundle_ref"):
+            hook_parts.append(f"Source bundle {tex_code(row['source_bundle_ref'])}")
+        if row.get("closure_bundle_ref"):
+            hook_parts.append(f"Closure dossier {tex_code(row['closure_bundle_ref'])}")
+        lines.append(
+            f"{tex_code(row['playbook_id'])} & {tex_list(row['trace_refs'], wrap_code=True)} & {normalize_sentence('; '.join(hook_parts) if hook_parts else 'No additional bundle hook is declared for this playbook')} \\\\"
+        )
+    lines.extend(
+        [
+            r"\bottomrule",
+            r"\end{longtable}",
+            "",
+            r"\subsection{Same-claim baseline matrix}",
+            r"\begin{longtable}{@{}L{0.17\textwidth}L{0.11\textwidth}L{0.25\textwidth}L{0.35\textwidth}@{}}",
+            r"\toprule",
+            r"Comparison id & Domain & Comparator families & Verdict / trace anchors \\",
+            r"\midrule",
+            r"\endfirsthead",
+            r"\toprule",
+            r"Comparison id & Domain & Comparator families & Verdict / trace anchors \\",
+            r"\midrule",
+            r"\endhead",
+        ]
+    )
+    for row in atlas["same_claim_class_baseline_rows"]:
+        trace_parts = [f"Verdict {tex_code(row['verdict'])}"]
+        trace_parts.append(f"Cost-normalised budget {tex_code(row.get('complexity_budget', 'NOT_DECLARED'))}")
+        if row.get("source_bundle_ref"):
+            trace_parts.append(f"Source bundle {tex_code(row['source_bundle_ref'])}")
+        if row.get("closure_bundle_ref"):
+            trace_parts.append(f"Closure dossier {tex_code(row['closure_bundle_ref'])}")
+        lines.append(
+            f"{tex_code(row['comparison_id'])} & {tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text('; '.join(row['comparator_families'])))} & {normalize_sentence('; '.join(trace_parts))} \\\\"
+        )
+    lines.extend(
+        [
+            r"\bottomrule",
+            r"\end{longtable}",
+            "",
+            r"\subsection{Serious model comparison matrix}",
+            r"\begin{longtable}{@{}L{0.09\textwidth}L{0.14\textwidth}L{0.12\textwidth}L{0.23\textwidth}L{0.12\textwidth}L{0.22\textwidth}@{}}",
+            r"\toprule",
+            r"Domain & Model family & Problem class & Prior strength / fragmentation & Relation & OC gain \\",
+            r"\midrule",
+            r"\endfirsthead",
+            r"\toprule",
+            r"Domain & Model family & Problem class & Prior strength / fragmentation & Relation & OC gain \\",
+            r"\midrule",
+            r"\endhead",
+        ]
+    )
+    for row in atlas["serious_model_comparison_rows"]:
+        prior_strength = tex_escape(normalize_sentence(britishize_text(row["what_it_already_explains_or_predicts"])))
+        fragmentation = tex_escape(normalize_sentence(britishize_text(row["where_fragmentation_or_limit_remains"])))
+        relationship_labels = {
+            "complements": "complements",
+            "integrates": "integrates",
+            "subsumes_in_scope": "subsumes in scope",
+            "still_superior_in_lane": "remains superior within its lane",
+            "open": "open",
+        }
+        relationship_label = relationship_labels.get(row["relationship_to_oc"], row["relationship_to_oc"].replace("_", " "))
+        lines.append(
+            f"{tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text(row['serious_model_family']))} & {tex_escape(britishize_text(row['problem_class']))} & {prior_strength} \\allowbreak {fragmentation} & {tex_escape(britishize_text(relationship_label))} & {tex_escape(britishize_text(row['what_oc_adds_or_unifies']))} \\\\"
+        )
+    lines.extend(
+        [
+            r"\bottomrule",
+            r"\end{longtable}",
+            "",
+            r"\subsection{Serious model comparison trace matrix}",
+            r"\begin{longtable}{@{}L{0.20\textwidth}L{0.11\textwidth}L{0.33\textwidth}L{0.28\textwidth}@{}}",
+            r"\toprule",
+            r"Comparison id & Domain & Trace anchors & Scope boundary \\",
+            r"\midrule",
+            r"\endfirsthead",
+            r"\toprule",
+            r"Comparison id & Domain & Trace anchors & Scope boundary \\",
             r"\midrule",
             r"\endhead",
         ]
     )
     for row in atlas["serious_model_comparison_rows"]:
         lines.append(
-            f"{tex_escape(row['domain_title'])} & {tex_escape(row['serious_model_family'])} & {tex_escape(row['problem_class'])} & {tex_escape(row['what_it_already_explains_or_predicts'])}; \\allowbreak {tex_escape(row['where_fragmentation_or_limit_remains'])} & {tex_escape(row['what_oc_adds_or_unifies'])}; \\allowbreak {tex_escape(row['relationship_to_oc'].replace('_', ' '))} \\\\"
+            f"{tex_code(row['comparison_id'])} & {tex_escape(britishize_text(row['domain_title']))} & {tex_list(row['source_refs'], wrap_code=True)} & {tex_escape(britishize_text(row['scope_boundary']))} \\\\"
         )
     lines.extend(
         [
@@ -5381,9 +5613,9 @@ def render_practical_utility_appendix_tex(spot: dict[str, Any]) -> str:
     )
     for row in atlas["readiness_matrix_rows"]:
         lines.append(
-            f"{tex_code(row['use_case_id'])} & {tex_escape(row['domain_title'])} & {tex_escape(row['support_label'])} & {tex_escape(row['what_remains_open'])} \\\\"
+            f"{tex_code(row['use_case_id'])} & {tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text(row['support_label']))} & {tex_escape(britishize_text(row['what_remains_open']))} \\\\"
         )
-    lines.extend([r"\bottomrule", r"\end{longtable}"])
+    lines.extend([r"\bottomrule", r"\end{longtable}", r"\endgroup"])
     return "\n".join(lines)
 
 
@@ -5397,10 +5629,10 @@ def render_operationalization_tex(spot: dict[str, Any]) -> str:
         key=lambda row: (row["formal_derivation_order"], row["empirical_cost_order"]),
     )
     current_release_truth = (
-        "Mathematics remains the strongest anchor, and physics, chemistry, biology, and systems now clear theorem-native closure on their locked held-out routes. "
-        "The hostile-review backlog is closed and global PASS is lawful."
+        f"Mathematics remains the strongest anchor, and physics, chemistry, biology, and Systems / Civilizational projection now clear theorem-native closure on their locked held-out routes. "
+        f"Within the declared {tex_code('CORE_1_3_SCIENCE_ONLY')} scope, the hostile-review backlog is closed and the Core~1.3 science verdict is PASS."
         if global_pass
-        else f"Mathematics remains the strongest anchor. Physics, chemistry, biology, and systems retain bounded bridge replay, but they do not yet qualify as theorem-native closure. The global backlog also keeps {tex_code(spot['global_verdict']['hostile_review_blocking_total'])} hostile-review dossiers open before any global PASS is lawful."
+        else f"Mathematics remains the strongest anchor. Physics, chemistry, biology, and systems retain bounded bridge replay, but they do not yet qualify as theorem-native closure. The global backlog also keeps {tex_code(spot['global_verdict']['hostile_review_blocking_total'])} hostile-review dossiers open before any Core~1.3 PASS is lawful within the declared {tex_code('CORE_1_3_SCIENCE_ONLY')} scope."
     )
     release_consequence = (
         "The kernel, theorem spine, domain packets, held-out evidence, hostile-review dossiers, and unified atlas are now mutually aligned under the declared promotion bar."
@@ -5446,7 +5678,7 @@ def render_operationalization_tex(spot: dict[str, Any]) -> str:
             r"\end{longtable}",
             "",
             r"\subsection{Domain order and promotion rule}",
-            "The formal derivation order remains physics, chemistry, biology, and then systems. The empirical cost order lets cheaper systems data preparation run early, but final systems promotion still waits for the biology formal route to lock.",
+            "The formal derivation order remains physics, chemistry, biology, and then Systems / Civilizational projection. The empirical cost order lets cheaper systems data preparation run early, but final systems promotion still waits for the biology formal route to lock.",
             "Bridge evidence may support the research program, but it cannot by itself promote a domain to closed science.",
             "",
             r"\subsection{Operationalization table}",
@@ -5474,8 +5706,12 @@ def render_operationalization_tex(spot: dict[str, Any]) -> str:
                 f"Benchmark families cover {tex_list(domain['benchmark_families'], wrap_code=True)}.",
                 f"Measured outputs track {tex_list(domain['measurable_outputs'], wrap_code=True)}.",
                 f"Measurement schema: {normalize_sentence(tex_escape(domain['measurement_schema']))}",
-                "The theorem-to-observable route is as follows: "
-                + normalize_sentence("; ".join(tex_escape(item) for item in domain["theorem_to_observable_map"])),
+                (
+                    "The theorem-to-observable route has three claims. "
+                    + " ".join(normalize_sentence(tex_escape(item)) for item in domain["theorem_to_observable_map"])
+                    if domain["theorem_to_observable_map"]
+                    else "This formal lane does not introduce a separate external theorem-to-observable route; it closes as a theorem-native mathematical anchor without an additional measurement surface."
+                ),
                 f"Acceptance criterion: {normalize_sentence(tex_escape(domain['acceptance_criterion']))}",
                 f"Falsifier: {normalize_sentence(tex_escape(domain['falsifier_specification']))}",
                 f"Primary route institutions: {tex_list(domain['selected_route_institutions'])}.",
@@ -5488,7 +5724,7 @@ def render_operationalization_tex(spot: dict[str, Any]) -> str:
     lines.extend(
         [
             r"\subsection{Release consequence}",
-            f"The scientific SPOT therefore sets the global science verdict to {tex_code(spot['global_verdict']['closure_verdict'])}.",
+            f"The scientific SPOT therefore sets the Core~1.3 science verdict, within scope {tex_code('CORE_1_3_SCIENCE_ONLY')}, to {tex_code(spot['global_verdict']['closure_verdict'])}.",
             release_consequence,
         ]
     )
@@ -5611,7 +5847,7 @@ def render_proof_machinery_tex(spot: dict[str, Any]) -> str:
             "",
             r"\subsection{Consistency and promotion law}",
             f"The foundational dossier tracks {tex_code(summary['k_level_total'])} K-level doctrine rows and sets the overall science verdict to {tex_code(summary['platinum_release_status'])}.",
-            "Positive outward science is permitted only for claims that are source-bound, proof-bound, theorem-to-observable trace-complete, support-consistent, and, when empirical, terminated in held-out evidence and explicit falsifiers.",
+            "The promotion law keeps two gates distinct. A derived claim is admissible only when it is source-bound, proof-bound, and dependency-exact. An empirical claim must satisfy the foundational empirical gate: standalone domain packet, data route, numerical packet, replay procedure, and explicit falsifier. Separately, the science SPOT invariant requires held-out evidence to be locked before replay and to survive the declared thresholds. The theorem-to-observable trace remains packet evidence, not an extra foundational gate.",
             normalize_sentence(hostile_review_sentence),
             "Closure work is now executed through generated dossier packages and a first-class Phase 1 closed-core dossier rather than through drifting editorial reminders.",
             "",
@@ -5625,13 +5861,13 @@ def render_proof_machinery_tex(spot: dict[str, Any]) -> str:
             normalize_sentence(irreducibility_sentence),
             "",
             r"\subsection{Alternative-model competition}",
-            f"The competition policy remains {tex_code('BOTH')}. The matrix currently tracks {tex_code(len(competition_rows))} comparison rows, of which {tex_code(ready_total)} are pass-eligible under the present SPOT.",
+            f"The competition policy remains {tex_code('BOTH')}: same-claim-class competition and domain-baseline competition are both in force. The matrix currently tracks {tex_code(len(competition_rows))} comparison rows, of which {tex_code(ready_total)} are pass-eligible under the present SPOT.",
             "",
             r"\subsection{Unified-science atlas}",
             normalize_sentence(atlas_sentence),
             "",
             r"\subsection{Compression as a bounded metric}",
-            f"The release treats compression as {tex_code('BOUNDED_METRIC')} rather than as a central theorem claim. Coverage per kernel statement remains {tex_code(COMPRESSION_ROWS[0]['performance_value'])}, while coverage per active numerical packet remains {tex_code(COMPRESSION_ROWS[1]['performance_value'])}.",
+            f"The release treats compression as {tex_code('BOUNDED_METRIC')} rather than as a central theorem claim. Coverage per rooted theorem-support statement remains {tex_code(COMPRESSION_ROWS[0]['performance_value'])}, while coverage per active numerical packet remains {tex_code(COMPRESSION_ROWS[1]['performance_value'])}.",
         ]
     )
 
@@ -6222,7 +6458,7 @@ def validate_existing_bundle(repo_root: Path | None = None, require_final_toe_pa
     if toe_tex.count(r"\begin{longtable}") < 14:
         errors.append("Generated TOE chapter must contain numerical longtables for K0-K12 and empirical prediction summary")
     practical_tex = expected_tex["practical_utility"]
-    if r"\subsection{Why OC is useful}" not in practical_tex:
+    if r"\subsection{Practical value and support boundary}" not in practical_tex:
         errors.append("Generated practical-utility chapter is missing the usefulness subsection")
     if r"\subsection{Benchmark against serious alternatives}" not in practical_tex:
         errors.append("Generated practical-utility chapter is missing the serious-alternatives subsection")

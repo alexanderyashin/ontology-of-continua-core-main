@@ -1,5 +1,5 @@
 % =============================================
-%  Ontology of Continua — Core 1.3
+%  Ontology of Continua --- Core 1.3 Canonical Master Monograph
 %  Stable LaTeX Preamble (XeLaTeX, do not edit lightly)
 % =============================================
 
@@ -7,29 +7,62 @@
 
 \usepackage{fontspec}
 
-% Global font defaults
+% Global font defaults. The flagship build uses TeX-distributed fonts rather
+% than operating-system fonts, so the manuscript remains reproducible on a
+% standard XeLaTeX installation instead of depending on a Windows desktop stack.
 \defaultfontfeatures{Ligatures=TeX}
 
-\setmainfont{Times New Roman}
-\setsansfont{Arial}
-\setmonofont{Consolas}
+\setmainfont{TeX Gyre Termes}
+\setsansfont{TeX Gyre Heros}
+\setmonofont{TeX Gyre Cursor}
 
 % --- Languages (Polyglossia) ------------------
 
 \usepackage{polyglossia}
 
-% Default language of the publication shell is English.
-\setdefaultlanguage{english}
-\setotherlanguages{russian}
+% The English flagship is the default. Translation shells may set
+% \ocdefaultlanguage before loading the shared preamble.
+\providecommand{\ocdefaultlanguage}{english}
+\setdefaultlanguage{\ocdefaultlanguage}
+\setotherlanguages{english,german,russian}
 
-% Support for Cyrillic if Russian text is used.
-\newfontfamily\cyrillicfont{Times New Roman}
+% Support for Cyrillic if Russian text is used. The CMU Unicode fonts ship
+% with MiKTeX/TeX Live and avoid falling back to Latin-only TeX Gyre faces.
+\newfontfamily\cyrillicfont[
+  UprightFont    = cmunrm.otf,
+  BoldFont       = cmunbx.otf,
+  ItalicFont     = cmunti.otf,
+  BoldItalicFont = cmunbi.otf
+]{cmunrm.otf}
+\newfontfamily\cyrillicfontsf[
+  UprightFont    = cmunss.otf,
+  BoldFont       = cmunsx.otf,
+  ItalicFont     = cmunso.otf,
+  BoldItalicFont = cmunbxo.otf
+]{cmunss.otf}
+\newfontfamily\cyrillicfonttt[
+  UprightFont    = cmuntt.otf,
+  BoldFont       = cmuntb.otf,
+  ItalicFont     = cmunit.otf,
+  BoldItalicFont = cmunbto.otf
+]{cmuntt.otf}
 
 % --- Unicode helpers --------------------------
 
 \usepackage{newunicodechar}
-% Falls später spezielle Unicode-Zeichen gemappt werden müssen:
+% Add explicit mappings here if later source files introduce special Unicode.
 % \newunicodechar{…}{\ldots}
+\newunicodechar{₀}{\ensuremath{_0}}
+\newunicodechar{₁}{\ensuremath{_1}}
+\newunicodechar{₂}{\ensuremath{_2}}
+\newunicodechar{₃}{\ensuremath{_3}}
+\newunicodechar{₄}{\ensuremath{_4}}
+\newunicodechar{₅}{\ensuremath{_5}}
+\newunicodechar{₆}{\ensuremath{_6}}
+\newunicodechar{₇}{\ensuremath{_7}}
+\newunicodechar{₈}{\ensuremath{_8}}
+\newunicodechar{₉}{\ensuremath{_9}}
+\newunicodechar{′}{\ensuremath{'}}
 
 % --- Page layout ------------------------------
 
@@ -39,15 +72,14 @@
 
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{mathtools}
-\usepackage{centernot} % wird von einigen OC-Makros genutzt
+\usepackage{centernot} % used by some OC macros
 
 % --- OC Core: custom Greek macros (future-proof) ----
 %
-% LaTeX definiert keine Makros wie \Alpha, \Beta, \Chi etc.
-% Wir legen sie einmal vorsichtig mit \providecommand an,
-% so dass:
-%   - aktuelle Inhalte (z.B. \Chi) kompilieren,
-%   - spätere explizite Re-Definitionen nicht überschrieben werden.
+% LaTeX does not define macros such as \Alpha, \Beta, or \Chi.
+% Define them once with \providecommand so that:
+%   - current content, for example \Chi, compiles;
+%   - later explicit redefinitions are not overwritten.
 
 \providecommand{\Alpha}{\mathrm{A}}
 \providecommand{\Beta}{\mathrm{B}}
@@ -109,13 +141,38 @@
   linkcolor    = blue,
   citecolor    = blue,
   urlcolor     = blue,
-  pdftitle     = {Ontology of Continua --- Core 1.3},
+  pdftitle     = {Ontology of Continua --- Core 1.3 Canonical Master Monograph},
   pdfauthor    = {Alexander Yashin},
-  pdfsubject   = {Ontology of Continua Core 1.3 Master Monograph},
-  pdfkeywords  = {ontology of continua, continuum theory, unified model, core 1.3, master monograph},
+  pdfsubject   = {Continuum ontology, theorem closure, empirical validation, and practical utility},
+  pdfkeywords  = {Ontology of Continua, Core 1.3, continuum ontology, K-level hierarchy, theorem closure, empirical validation, falsifiability, practical utility, unified science},
   pdfcreator   = {XeLaTeX},
   pdfproducer  = {Ontology of Continua editorial build},
   pdflang      = {en}
+}
+\pdfstringdefDisableCommands{%
+  \def\ensuremath#1{#1}%
+  \def\₀{0}%
+  \def\₁{1}%
+  \def\₂{2}%
+  \def\₃{3}%
+  \def\₄{4}%
+  \def\₅{5}%
+  \def\₆{6}%
+  \def\₇{7}%
+  \def\₈{8}%
+  \def\₉{9}%
+  \def\′{'}%
+  \def\Omega{Omega}%
+  \def\Theta{Theta}%
+  \def\Delta{Delta}%
+  \def\Lambda{Lambda}%
+  \def\Phi{Phi}%
+  \def\Psi{Psi}%
+  \def\partial{partial }%
+  \def\mathcal#1{#1}%
+  \def\mathrm#1{#1}%
+  \def\texttt#1{#1}%
+  \def\occode#1{#1}%
 }
 \Urlmuskip=0mu plus 1mu\relax
 \setlength{\emergencystretch}{2em}
@@ -155,7 +212,7 @@
 \newtheorem{remark}[theorem]{Remark}
 
 % --- Section numbering & TOC depth ------------
-% Nummerierung und Inhaltsverzeichnis bis \subsubsection
+% Number sections through \subsubsection and list contents through \subsection.
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{2}
 
@@ -172,8 +229,8 @@
     {\Large\bfseries #1\par}
     \vspace{0.8cm}
     \begin{minipage}{0.78\textwidth}
-      \centering
-      \itshape #2
+      \RaggedRight
+      #2
     \end{minipage}
   \end{center}
   \vspace*{\fill}
@@ -182,16 +239,3 @@
 \setlist[itemize]{leftmargin=1.4em, itemsep=0.2em, topsep=0.3em}
 \newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
 
-% --- Safe redefinition of \@ ------------------
-%
-% In deinem Dokument taucht irgendwo eine nackte Zeile mit "\@" auf,
-% die von einem Paket/aux-File kommt und in vertikalem Modus
-% den Fehler "You can't use `\spacefactor' in vertical mode" auslöst.
-%
-% Hier machen wir \@ einfach zu einem No-Op. Das ist für normalen
-% Text (Satzabstände etc.) unkritisch, aber beseitigt den Fehler
-% zuverlässig.
-
-\makeatletter
-\renewcommand\@{}%
-\makeatother

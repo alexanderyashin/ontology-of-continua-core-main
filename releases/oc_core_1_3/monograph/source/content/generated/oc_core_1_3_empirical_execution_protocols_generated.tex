@@ -46,7 +46,7 @@ Protocol \occode{OC13::EXECUTION::MATHEMATICS::ANCHOR_REPLAY} runs under evidenc
 Closure phase: \occode{PHASE_1_STABILIZE_CLOSED_CORE}. Launch rule: \occode{MAINTAIN_ALWAYS_ON}.
 Pinned route institutions: Clay Mathematics Institute, \allowbreak American Institute of Mathematics.
 Held-out policy: \occode{DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY}, with minimum cases \occode{31}.
-Quantitative gate: minimum cases 31; strictly terminalized cases at least 31; counterexample survivors capped at 0.
+Quantitative gate: minimum cases 31; strictly terminalized cases at least 31; counterexample survivors capped at 0; replay divergences capped at 0.
 Replay harness: \occode{logion/k7/spe/orchestrator/science/run_claim_simulations_v1.py}.
 Institute-run trigger: \occode{ONLY_IF_DETERMINISTIC_REPLAY_BREAKS}. Measurement wave: \occode{NONE}.
 Open gaps: none.
@@ -90,7 +90,7 @@ Protocol \occode{OC13::EXECUTION::SYSTEMS::MACRO_TRAJECTORIES_AND_REGIME_SHIFTS}
 Closure phase: \occode{PHASE_6_SYSTEMS_CLOSURE}. Launch rule: \occode{ALLOW_PARALLEL_DATA_PREP_AFTER_CHEMISTRY_BUT_FINAL_PROMOTION_AFTER_BIOLOGY_FORMAL_ROUTE}.
 Pinned route institutions: World Bank, \allowbreak U.S. Department of Energy Office of Science.
 Held-out policy: \occode{HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS}, with minimum cases \occode{30}.
-Quantitative gate: minimum cases 30; coverage ratio 1.0; tail breaches capped at 0; Brier score at or below 0.08; expected calibration error at or below 0.05.
+Quantitative gate: minimum cases 30; coverage ratio 1.0; tail breaches capped at 0; Brier score at or below 0.08; expected calibration error at or below 0.05; critical-failure F1 at least 0.87; critical-failure precision at least 0.85; critical-failure recall at least 0.9.
 Replay harness: \occode{logion/k7/spe/orchestrator/science/run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION}.
 Institute-run trigger: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_INTERVAL_COUNT_LT_30_OR_TURNING_POINT_BREACH_PERSISTS}. Measurement wave: \occode{INSTITUTE_RUN::SYSTEMS::WAVE_4A}.
 Open gaps: none.

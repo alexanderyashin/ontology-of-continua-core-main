@@ -1,0 +1,21 @@
+% FILE: figures/cognitive_state_space.tex
+% Cognitive state space with stable region
+
+\begin{tikzpicture}[>=latex,thick,scale=1]
+  % Axes
+  \draw[->] (-0.2,0) -- (5.2,0) node[right] {dimension 1};
+  \draw[->] (0,-0.2) -- (0,4.2) node[above] {dimension 2};
+
+  % Stable region
+  \draw[fill=gray!10] (0.5,0.5) ellipse (1.4 and 1.0);
+  \node at (0.5,0.5) {$\Omega_{\text{stable}}$};
+
+  % Unstable region
+  \draw[dashed] (2.8,1.5) ellipse (1.5 and 1.2);
+  \node at (2.8,1.5) {$\Omega_{\text{unstable}}$};
+
+  % Threshold contour
+  \draw[thick] (1.8,2.8) circle (0.5);
+  \node at (1.8,2.8) {$\Theta_{\text{model}}$};
+\end{tikzpicture}
+

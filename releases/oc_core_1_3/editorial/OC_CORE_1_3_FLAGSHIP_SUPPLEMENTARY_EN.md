@@ -12,8 +12,8 @@
 - Definition 12.1 (Collapse): A continuum K collapses at time t* if the admissible state space becomes empty, continuumness decays to zero, and every candidate configuration violates at least one existence or stability threshold.
 - Definition 12.3 (Internal collapse): Internal collapse occurs when collapse is caused solely by the internal evolution operator E = (F, G, H, Q, R, S, U) acting on K while the embedding space M remains structurally static over the relevant interval.
 - Definition 12.4 (External collapse): External collapse occurs when the embedding space M changes so that no configuration of K remains compatible with the new constraints, even though the prior internal evolution stayed within the previously admissible region.
-- Definition 12.5 (Residue): The residue of a collapsed continuum K is the set of structures in the embedding space that remain after Omega(K) = empty; residues may persist without preserving the original live identity.
-- Definition 12.6 (Rebirth): A rebirth event occurs when, after the collapse of K, a new continuum K' appears while Omega(K) = empty and k(K,t) = 0, inherits at least one structural element from residue, and satisfies the birth conditions for some level.
+- Definition 12.5 (Residue): The residue of a collapsed continuum K is the set of structures in the embedding space that remain after `Ω(K)=∅`; residues may persist without preserving the original live identity.
+- Definition 12.6 (Rebirth): A rebirth event occurs when, after the collapse of K, a new continuum K' appears while `Ω(K)=∅` and `k(K,t)=0`, inherits at least one structural element from residue, and satisfies the birth conditions for some level.
 - Axiom 3.2 (Death condition): A continuum dies at time t* when Omega(K(t*)) = empty; after death the operators F, G, H, Q, R, S, and U are no longer defined for that continuum.
 - Axiom 3.3 (Irreversibility of death): No operator acting within the same level can restore a dead continuum; any new live continuum is considered a new entity.
 

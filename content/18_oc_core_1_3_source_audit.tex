@@ -2,19 +2,24 @@
 \label{sec:oc13-publication-boundary}
 
 This chapter fixes the publication boundary of Core~1.3. Its task is to state
-which scientific object is canonical, how source witnessing is enforced, how
+which scientific authority is canonical, how source witnessing is enforced, how
 theorem fate is separated across outward artifacts, and how later channels must
-derive from the flagship monograph. It does not re-argue the formal doctrine or
+remain aligned with the source corpus, SPOT, and flagship monograph. It does not re-argue the formal doctrine or
 theorem spine; those burdens belong to the surrounding chapters and appendices.
 
-\subsection{Canonical scientific object}
+\subsection{Canonical scientific authority}
 
-The canonical scientific object of the release is the present master
-monograph. It is the volume in which the orientation ladder, formal doctrine,
-theorem route, empirical discipline, synthesis, practical utility, and audit
-layers remain visible together. Narrower outward artifacts may be derived from
-it, but they are not allowed to displace it as the authority on claim scope,
-notation, or proof boundary.
+The canonical scientific authority of the release is the SPOT projection
+\occode{releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json}
+(surface id \occode{OC_CORE_1_3_SCIENCE_SPOT}, repo SHA
+\occode{7ceb46acfbcb4e83d6568fea3c2530bd9eb95719}). The source-owned science
+corpus at \occode{releases/oc_core_1_3/editorial/science_sources/} is the
+authoring and witness locus from which that SPOT is projected. The present
+master monograph is the flagship reader-facing projection and compiled
+reference volume derived from those records. It keeps the orientation ladder,
+formal doctrine, theorem route, empirical discipline, synthesis, practical
+utility, and audit layers visible together, but it does not displace the SPOT
+as the final authority on claim scope, notation, or proof boundary.
 
 This rule matters because foundational programmes accumulate several different
 textual layers over time: source-native definitions and theorems, explanatory
@@ -38,9 +43,9 @@ drift between five things that often blur inside large research programmes:
 
 When that boundary blurs, a summary sentence can begin to masquerade as the
 theorem itself, or a release dashboard can begin to replace the actual
-manuscript. Core~1.3 blocks that failure by keeping source witnessing inside
-the flagship scientific object rather than relegating it to hidden control
-files.
+scientific record. Core~1.3 blocks that failure by keeping source witnessing
+bound to the source-owned science corpus and the canonical SPOT projection
+rather than relegating it to hidden control files.
 
 \subsection{Theorem fate and scope discipline}
 
@@ -48,13 +53,27 @@ The present release also separates theorem fate explicitly. Not every inherited
 row serves the same role in every outward artifact.
 
 \begin{itemize}
-\item Some rows remain part of the formal backbone and survive unchanged.
-\item Some remain scientifically useful but only under explicit scope notes.
-\item Some belong in support layers, appendices, or narrower companion
-      artifacts rather than in the positive body of every outward paper.
-\item Some remain frontier or hypothesis material and therefore may not be
-      silently promoted by summary prose.
+\item \occode{THEOREM_NATIVE} rows may carry positive theorem-native claims
+      when their proof and dependency route remains exact.
+\item \occode{BRIDGE_ONLY} rows may remain scientifically useful under
+      explicit scope notes, but they cannot be promoted as theorem-native.
+\item \occode{FRAME_ONLY} and \occode{EXTENSION} rows belong in support
+      layers, appendices, narrower companion artifacts, or future work rather
+      than in the positive body of every outward paper.
+\item \occode{REFUTED} rows are excluded from the positive proof path. They may
+      be mentioned only as negative audit history or as a falsifier record, not
+      as live support.
+\item Frontier or hypothesis material may be discussed only under visibly
+      labelled frontier language and may not be silently promoted by summary
+      prose.
 \end{itemize}
+
+The public closure claim is scoped exactly to
+\occode{CORE_1_3_SCIENCE_ONLY}. \occode{FRAME_ONLY} rows may still close as
+frame-level PASS rows inside the synthesis surface, but they do not become
+standalone theorem-native empirical promotions. \occode{EXTENSION} and
+\occode{REFUTED} rows remain outside the public PASS scope and cannot carry
+positive closure claims in this release.
 
 This is not retreat. It is a condition of honest publication. The monograph
 can remain large without rhetorical inflation only if the reader can tell which
@@ -63,20 +82,37 @@ material.
 
 \subsection{Relation to journal-core and companion artifacts}
 
-Core~1.3 therefore adopts a one-way publication logic:
+Core~1.3 therefore adopts a one-way reader-facing publication logic:
 \[
-\text{Master Monograph} \longrightarrow \text{Derived outward artifacts}.
+\begin{gathered}
+\text{Source-owned science corpus}\\
+\text{plus canonical SPOT}\\
+\Downarrow\\
+\text{Master Monograph}\\
+\Downarrow\\
+\text{Derived outward artifacts}
+\end{gathered}
 \]
+This diagram describes publication order, not the full provenance graph of
+the release package. Several editorial JSON surfaces, generated science
+chapters, and release matrices are direct SPOT projections or mirrors of other
+governing canonical surfaces. They do not become true merely because the
+master monograph cites them, and they are not descendants of the monograph
+alone. The monograph is the flagship reading object; the source-owned science
+corpus remains the authoring and witness locus, and the SPOT remains the canonical
+projection authority for release surfaces.
 
-The journal-core article is narrower by design. Companion packets, matrices,
+The journal-core article is narrower by design. Companion dossiers, matrices,
 and release surfaces are narrower or more operational by design. Those
-artifacts may compress, subset, or reorganize the flagship material for a
+artifacts may compress, subset, or reorganise the flagship material for a
 specific task, but they may not enlarge the scientific claim, widen notation,
 or outrun the theorem-fate discipline fixed here.
 
-The practical consequence is simple. If an outward artifact says something
-stronger than the flagship volume, the outward artifact is wrong, even if it is
-shorter, cleaner, or easier to market.
+The practical consequence is simple. If an outward reader-facing artifact says
+something stronger than the source corpus and SPOT authorise, the outward
+artifact is wrong, even if it is shorter, cleaner, or easier to market. The
+flagship boundary is the publication rule that enforces that ceiling; it is
+not an additional source of scientific authority.
 
 \subsection{Downstream projection rule}
 
@@ -91,7 +127,7 @@ different parts of the flagship volume:
 \item the audit appendices when challenge and traceability are the issue.
 \end{itemize}
 
-What they may not do is invent a second scientific object. Source witnessing,
+What they may not do is invent a second scientific authority. Source witnessing,
 theorem fate, and publication boundary exist so that external use can remain
 concise without becoming interpretively lawless.
 
