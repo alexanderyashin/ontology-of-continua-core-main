@@ -7,9 +7,9 @@
 
 \usepackage{fontspec}
 
-% Global font defaults. The flagship build uses TeX-distributed fonts rather
-% than operating-system fonts, so the manuscript remains reproducible on a
-% standard XeLaTeX installation instead of depending on a Windows desktop stack.
+% Global font defaults. The flagship build uses TeX-distributed fonts so the
+% manuscript remains reproducible on a standard XeLaTeX installation without
+% depending on host operating-system font availability.
 \defaultfontfeatures{Ligatures=TeX}
 
 \setmainfont{TeX Gyre Termes}
@@ -173,6 +173,20 @@
   \def\mathrm#1{#1}%
   \def\texttt#1{#1}%
   \def\occode#1{#1}%
+  \def\texorpdfstring#1#2{#2}%
+  \def\Chi{Chi}%
+  \def\chi{chi}%
+  \def\tau{tau}%
+  \def\rho{rho}%
+  \def\equiv{ equivalent }%
+  \def\to{ to }%
+  \def\mapsto{ maps to }%
+  \def\subset{subset }%
+  \def\in{ in }%
+  \def\not{not }%
+  \def\leq{ less than or equal to }%
+  \def\geq{ greater than or equal to }%
+  \def\sim{ related to }%
 }
 \Urlmuskip=0mu plus 1mu\relax
 \setlength{\emergencystretch}{2em}

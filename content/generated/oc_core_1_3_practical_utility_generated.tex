@@ -47,7 +47,7 @@ The playbooks below answer the operational question directly: when to use OC, wh
 \paragraph{Mathematics: Strict closure and counterexample playbook}
 Use when the task is to determine whether a bounded exact question already lies inside the promoted mathematical anchor or should be rejected by the strict counterexample route.
 Inputs: formal question encoding; \allowbreak strict closure policy; \allowbreak counterexample search route.
-Procedure: Encode the target object in the admissible exact-question form. $\rightarrow$ Run the declared terminalization and counterexample search. $\rightarrow$ Accept the result only if the replay is deterministic and survivor-free. $\rightarrow$ Escalate to frontier if the question leaves the declared exact scope.
+Procedure: 1. Encode the target object in the admissible exact-question form. 2. Run the declared terminalization and counterexample search. 3. Accept the result only if the replay is deterministic and survivor-free. 4. Escalate to frontier if the question leaves the declared exact scope.
 Output: A replayable proof result, a surviving counterexample, or a lawful frontier demotion.
 Support class: formally proved.
 Trace: row \occode{MATHEMATICS_PLAYBOOK_001_STRICT_CLOSURE}; \allowbreak source \occode{releases/oc_core_1_3/editorial/science_sources/closure_bundles/mathematics/bundle.json}; \allowbreak closure \occode{releases/oc_core_1_3/editorial/dossier_packages/closure_bundles/mathematics}; \allowbreak refs \occode{content/20_oc_core_1_3_theorem_roadmap.tex}, \allowbreak \occode{content/21_oc_core_1_3_worked_examples.tex}.
@@ -56,7 +56,7 @@ Failure boundary: Stop if the object cannot be encoded in the admissible exact-q
 \paragraph{Physics: Bounded constants, spectra, and transport audit}
 Use when the task is to decide whether a constants family, spectral family, or transport family belongs inside the promoted physics packet or should be escalated as an anomaly.
 Inputs: chosen benchmark family; \allowbreak official dataset route; \allowbreak held-out split and sigma policy.
-Procedure: Map the observable family to the promoted physics packet. $\rightarrow$ Load the pinned official dataset and the locked held-out split. $\rightarrow$ Run the declared residual replay and inspect sign or order constraints. $\rightarrow$ Accept the family only if the replay stays inside the promoted tolerance band.
+Procedure: 1. Map the observable family to the promoted physics packet. 2. Load the pinned official dataset and the locked held-out split. 3. Run the declared residual replay and inspect sign or order constraints. 4. Accept the family only if the replay stays inside the promoted tolerance band.
 Output: A bounded inclusion, anomaly, or escalation verdict for the target physical family.
 Support class: theorem-native + empirical / held-out validated.
 Trace: row \occode{PHYSICS_PLAYBOOK_001_BOUNDED_RESIDUAL_AUDIT}; \allowbreak source \occode{releases/oc_core_1_3/editorial/science_sources/closure_bundles/physics/bundle.json}; \allowbreak closure \occode{releases/oc_core_1_3/editorial/dossier_packages/closure_bundles/physics}; \allowbreak refs \occode{content/22_oc_core_1_3_operationalization_program.tex}, \allowbreak \occode{content/23_oc_core_1_3_empirical_execution_protocols.tex}.
@@ -65,7 +65,7 @@ Failure boundary: Stop and demote to frontier if the observable family requires 
 \paragraph{Chemistry: Thermochemical, spectral, and kinetic packet audit}
 Use when the task is to decide whether a bounded compound family or reaction class lies inside the promoted chemistry packet or should be escalated as an out-of-envelope case.
 Inputs: compound or reaction-family definition; \allowbreak pinned NIST or DOE-linked route; \allowbreak held-out rotation and tolerance policy.
-Procedure: Map the chemistry lane to the promoted packet and observable family. $\rightarrow$ Load the pinned reference tables and the locked held-out split. $\rightarrow$ Run the declared replay on thermochemical, spectral, or kinetic outputs. $\rightarrow$ Accept the lane only if the held-out family remains inside the promoted tolerance band.
+Procedure: 1. Map the chemistry lane to the promoted packet and observable family. 2. Load the pinned reference tables and the locked held-out split. 3. Run the declared replay on thermochemical, spectral, or kinetic outputs. 4. Accept the lane only if the held-out family remains inside the promoted tolerance band.
 Output: A bounded inclusion, anomaly, or escalation verdict for the target chemistry lane.
 Support class: theorem-native + empirical / held-out validated.
 Trace: row \occode{CHEMISTRY_PLAYBOOK_001_PACKET_AUDIT}; \allowbreak source \occode{releases/oc_core_1_3/editorial/science_sources/closure_bundles/chemistry/bundle.json}; \allowbreak closure \occode{releases/oc_core_1_3/editorial/dossier_packages/closure_bundles/chemistry}; \allowbreak refs \occode{content/22_oc_core_1_3_operationalization_program.tex}, \allowbreak \occode{content/23_oc_core_1_3_empirical_execution_protocols.tex}.
@@ -74,7 +74,7 @@ Failure boundary: Stop and demote to frontier if the lane requires hidden fit fr
 \paragraph{Biology: Bounded biological signature and onset screening}
 Use when the task is to decide whether a bounded assay lane belongs inside the promoted biological packet or should be escalated as an unresolved biological signature family.
 Inputs: bounded assay family; \allowbreak multi-dataset held-out split; \allowbreak declared signature, transition, or onset observable.
-Procedure: Map the biological lane to the promoted packet and observable family. $\rightarrow$ Load the locked multi-dataset route and held-out split. $\rightarrow$ Run the declared replay on expression, transition-order, or onset outputs. $\rightarrow$ Accept the lane only if the held-out datasets stay inside the promoted signature envelope.
+Procedure: 1. Map the biological lane to the promoted packet and observable family. 2. Load the locked multi-dataset route and held-out split. 3. Run the declared replay on expression, transition-order, or onset outputs. 4. Accept the lane only if the held-out datasets stay inside the promoted signature envelope.
 Output: A bounded inclusion, anomaly, or escalation verdict for the target biological lane.
 Support class: theorem-native + empirical / held-out validated.
 Trace: row \occode{BIOLOGY_PLAYBOOK_001_SIGNATURE_SCREENING}; \allowbreak source \occode{releases/oc_core_1_3/editorial/science_sources/closure_bundles/biology/bundle.json}; \allowbreak closure \occode{releases/oc_core_1_3/editorial/dossier_packages/closure_bundles/biology}; \allowbreak refs \occode{content/22_oc_core_1_3_operationalization_program.tex}, \allowbreak \occode{content/23_oc_core_1_3_empirical_execution_protocols.tex}.
@@ -83,7 +83,7 @@ Failure boundary: Stop and demote to frontier if the lane depends on a single da
 \paragraph{Systems / Civilizational projection: Bounded macro-trajectory and regime-shift monitoring}
 Use when the task is to decide whether an official macro-process series remains inside the promoted systems packet or should be escalated as a turning-point or regime anomaly.
 Inputs: target macro-process series; \allowbreak held-out interval; \allowbreak declared trajectory or turning-point metric.
-Procedure: Map the macro-process lane to the promoted systems packet. $\rightarrow$ Load the pinned official series and the locked held-out interval. $\rightarrow$ Run the declared residual and turning-point replay. $\rightarrow$ Accept the lane only if held-out intervals remain inside the promoted trajectory and regime envelope.
+Procedure: 1. Map the macro-process lane to the promoted systems packet. 2. Load the pinned official series and the locked held-out interval. 3. Run the declared residual and turning-point replay. 4. Accept the lane only if held-out intervals remain inside the promoted trajectory and regime envelope.
 Output: A bounded inclusion, anomaly, or escalation verdict for the target systems lane.
 Support class: theorem-native + empirical / held-out validated.
 Trace: row \occode{SYSTEMS_PLAYBOOK_001_REGIME_SHIFT_MONITORING}; \allowbreak source \occode{releases/oc_core_1_3/editorial/science_sources/closure_bundles/systems_civilizational_projection/bundle.json}; \allowbreak closure \occode{releases/oc_core_1_3/editorial/dossier_packages/closure_bundles/systems_civilizational_projection}; \allowbreak refs \occode{content/22_oc_core_1_3_operationalization_program.tex}, \allowbreak \occode{content/23_oc_core_1_3_empirical_execution_protocols.tex}.
@@ -92,7 +92,7 @@ Failure boundary: Stop and demote to frontier if the lane requires out-of-band t
 \paragraph{Cross-domain / unified science: Cross-domain packet selection and escalation playbook}
 Use when a scientific or engineering problem touches more than one domain lane and the team must decide which closed packet, comparator family, and evidence route should govern the next action.
 Inputs: declared target problem class; \allowbreak bounded observable family; \allowbreak candidate domain packets; \allowbreak decision or intervention objective.
-Procedure: Map the target problem to the narrowest lawful observable family. $\rightarrow$ Select the closed packet whose theorem-to-observable map already governs that family. $\rightarrow$ Check same-claim baselines and serious comparators before claiming advantage. $\rightarrow$ Escalate only when the closed packet boundary is reached and the atlas permits the translation.
+Procedure: 1. Map the target problem to the narrowest lawful observable family. 2. Select the closed packet whose theorem-to-observable map already governs that family. 3. Check same-claim baselines and serious comparators before claiming advantage. 4. Escalate only when the closed packet boundary is reached and the atlas permits the translation.
 Output: A lawful route-selection decision with explicit packet, comparator, falsifier, and escalation boundaries.
 Support class: operationally supported within bounds.
 Trace: row \occode{UNIFIED_PLAYBOOK_001_ROUTE_SELECTION}; \allowbreak refs \occode{content/22_oc_core_1_3_operationalization_program.tex}, \allowbreak \occode{content/23_oc_core_1_3_empirical_execution_protocols.tex}.

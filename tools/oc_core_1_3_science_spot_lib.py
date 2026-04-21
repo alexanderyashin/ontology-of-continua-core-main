@@ -139,8 +139,8 @@ TOE_LEVEL_SPECS = {
         "toe_file_ref": "content/toe/toe_k0",
         "appendix_table_label": "tab:k0-structural-parameters",
         "theorem_native_claim": "K0 fixes the non-empty admissible meta-domain required for any lawful continuum and therefore bounds every later K-level before empirical specialization.",
-        "operator_binding_summary": "Static root operators F_0, Q_0, and U_0 fix admissibility, distinguishability, and the continuumness floor before the first observable lift.",
-        "parameter_law_display": r"\mu(\Omega(K_0)) > 0,\quad \forall x \in \{1,\dots,12\}: \frac{\mathrm{DoF}(K_x)}{\mathrm{DoF}(M_x)} \leq 1,\quad C_{\mathrm{triv}} \geq 1",
+        "operator_binding_summary": r"The local K0 root process glyphs \Psi_0, \Phi_0, and \Lambda_0 fix distinction generation, relational reconfiguration, and compositional assembly; compact TOE aliases F_0, Q_0, and U_0 label the corresponding root constraints only where they are defined locally.",
+        "parameter_law_display": r"\mu(\Omega(K_0)) > 0,\quad \forall x \in \{1,\dots,12\}: \mathrm{DoF}(M_x)>0\ \mathrm{and}\ \frac{\mathrm{DoF}(K_x)}{\mathrm{DoF}(M_x)} \leq 1,\quad C_{\mathrm{triv}} \geq 1",
         "observable_map_summary": "Meta-admissibility, meta-space compatibility, and the presence of at least one non-trivial lawful cycle.",
         "synthetic_observable_ids": [
             "K0::ADMISSIBLE_STATE_MEASURE",
@@ -210,7 +210,7 @@ TOE_LEVEL_SPECS = {
         "appendix_table_label": "tab:k2-cosmological-parameters",
         "theorem_native_claim": "K2 binds field configurations, expansion history, and phase thresholds into the first large-scale physical continuum admissible under the kernel operators.",
         "operator_binding_summary": "F, H, and R constrain field admissibility, phase transitions, and large-scale stabilization margins inside the physical continuum.",
-        "parameter_law_display": r"H_0 > 0,\quad 0 < \Omega_{\mathrm{m}} < 1,\quad |\Omega_k| < 2 \times 10^{-3},\quad T(t) \in \{T_c^{\mathrm{EW}}, T_c^{\mathrm{QCD}}\}",
+        "parameter_law_display": r"H_0 > 0,\quad 0 < \Omega_{\mathrm{m}} < 1,\quad |\Omega_k| < 2 \times 10^{-3},\quad \mathcal{T}_{\mathrm{phase}}(t) \in \{T_c^{\mathrm{EW}}, T_c^{\mathrm{QCD}}\}",
         "observable_map_summary": "Expansion rate, curvature, cosmological density fractions, and critical phase windows tied to physical observables and replay packets.",
         "synthetic_observable_ids": [
             "K2::EXPANSION_RATE",
@@ -354,10 +354,10 @@ TOE_LEVEL_SPECS = {
         "title": "Cognitive Prediction and Representation",
         "toe_file_ref": "content/toe/toe_k6",
         "appendix_table_label": "tab:k6-cognitive-parameters",
-        "theorem_native_claim": "K6 formalizes bounded cognitive prediction and representation by linking prediction-error thresholds, memory span, and feature dimensionality.",
+        "theorem_native_claim": "K6 formalizes bounded cognitive prediction and representation by linking prediction-error thresholds, working-memory span, and adaptation strength.",
         "operator_binding_summary": "Q, R, and S bind representation stability, prediction thresholds, and adaptive update constraints in bounded cognitive lanes.",
         "parameter_law_display": r"\Theta_{\mathrm{pred}} \in [0.05,0.15],\quad M_{\mathrm{WM}} \in [3,7],\quad \eta \in [10^{-3},10^{-1}]",
-        "observable_map_summary": "Prediction error, working-memory span, feature dimensionality, and adaptation strength for bounded cognitive organization.",
+        "observable_map_summary": "Prediction error, working-memory span, and adaptation strength for bounded cognitive organization.",
         "synthetic_observable_ids": [
             "K6::PREDICTION_ERROR_THRESHOLD",
             "K6::WORKING_MEMORY_SPAN",
@@ -532,7 +532,7 @@ TOE_LEVEL_SPECS = {
         "theorem_native_claim": "K11 captures meta-theoretical reflexivity only if cross-framework coherence carries irreducible work beyond K10.",
         "operator_binding_summary": "Q, R, and S bind meta-coherence, reflexive depth, and cross-landscape coupling under the irreducibility fork.",
         "parameter_law_display": r"\Theta_{\mathrm{meta}} \in [0.02,0.1],\quad d_{\mathrm{refl}} \in [3,50],\quad J_X \in [0.1,1]",
-        "observable_map_summary": "Meta-coherence, reflexive depth, functorial potential, and cross-landscape coupling in the meta-theoretical packet.",
+        "observable_map_summary": "Meta-coherence, reflexive depth, and cross-landscape coupling in the meta-theoretical packet.",
         "synthetic_observable_ids": [
             "K11::META_COHERENCE_THRESHOLD",
             "K11::REFLEXIVE_DEPTH",
@@ -567,11 +567,11 @@ TOE_LEVEL_SPECS = {
         "theorem_native_claim": "K12 packages global semantic coherence only if cross-domain meaning remains jointly interpretable and no surviving global falsifier breaks the unified atlas.",
         "operator_binding_summary": "Q, R, S, and U bind semantic coherence, global compatibility, and reference stability into the final unified-science synthesis layer.",
         "parameter_law_display": r"C_{\mathrm{uni}} \in [10^3,10^{12}],\quad \Theta_{\mathrm{uni}} \in [10^{-3},10^{-2}],\quad R_{\mathrm{uni}} \in [0.1,1]",
-        "observable_map_summary": "Universal integration capacity, cross-continuum compatibility, structural reachability, and global tension budget.",
+        "observable_map_summary": "Universal integration capacity, cross-continuum compatibility, and structural reachability.",
         "synthetic_observable_ids": [
             "K12::UNIVERSAL_INTEGRATION_CAPACITY",
             "K12::CROSS_CONTINUUM_COMPATIBILITY",
-            "K12::GLOBAL_TENSION_BUDGET",
+            "K12::STRUCTURAL_REACHABILITY",
         ],
         "numerical_rows": [
             {
@@ -5239,7 +5239,10 @@ def render_practical_utility_tex(spot: dict[str, Any]) -> str:
     for playbook in atlas["operational_playbooks"]:
         when_text = normalize_sentence(britishize_text(playbook["when_to_use"]))
         inputs_text = r"; \allowbreak ".join(tex_escape(britishize_text(item)) for item in playbook["required_inputs_or_observables"])
-        procedure_text = r" $\rightarrow$ ".join(tex_escape(britishize_text(item)) for item in playbook["procedure_steps"])
+        procedure_text = " ".join(
+            f"{index}. {tex_escape(britishize_text(item).rstrip('.'))}."
+            for index, item in enumerate(playbook["procedure_steps"], start=1)
+        )
         lines.extend(
             [
                 "",
@@ -5482,7 +5485,10 @@ def render_practical_utility_appendix_tex(spot: dict[str, Any]) -> str:
         ]
     )
     for row in atlas["operational_playbooks"]:
-        procedure_text = r" $\rightarrow$ ".join(tex_escape(britishize_text(item)) for item in row["procedure_steps"])
+        procedure_text = " ".join(
+            f"{index}. {tex_escape(britishize_text(item).rstrip('.'))}."
+            for index, item in enumerate(row["procedure_steps"], start=1)
+        )
         lines.append(
             f"{tex_code(row['playbook_id'])} & {tex_escape(britishize_text(row['domain_title']))} & "
             f"{tex_escape(normalize_sentence(britishize_text(row['when_to_use'])))} & "

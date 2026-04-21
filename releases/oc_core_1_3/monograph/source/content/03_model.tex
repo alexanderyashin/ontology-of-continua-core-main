@@ -146,7 +146,7 @@ The boundary is dynamic. The following display avoids a literal derivative of
 a set-valued object and records only the symbolic update rule under \(R\):
 \[
     \partial\Omega(K,t+dt) =
-    R_{\partial}\big(\partial\Omega(K,t),P(t),J(t),\Theta(K)\big),
+    R\big(\partial\Omega(K,t),P(t),J(t),\Theta(K)\big),
 \]
 which can contract, expand, or bifurcate \(\Omega(K)\) during birth, life, and death events.
 
@@ -243,7 +243,11 @@ Section~\ref{sec:operators-full}, updates or evaluates this value along the
 lawful time evolution of the fixed continuum \(K\).
 
 By construction \(0 \le k(K,t) \le 1\).
-A continuum exists as a live continuum if and only if \(k(K,t) > 0\).
+Positive \(k(K,t)\) is the live-continuumness indicator: it records that the
+current state remains inside the admissible region with nonzero axis, cycle,
+flow, and coherence support. The full live-continuum classification also keeps
+the admissible-state, threshold, and identity clauses stated in the
+collapse--rebirth chapter.
 Death corresponds to \(k(K,t)\to 0\) in combination with the collapse of \(\Omega(K)\).
 
 \subsection{Evolution operator}
@@ -260,11 +264,9 @@ or, in expanded form,
 Here \(A'\) denotes the post-evolution axis set of the same continuum in the
 expanded tuple.
 
-Core~1.3 does not combine the component operators for flows, thresholds,
-cycles, boundaries, axes, and continuumness into a single explicit
-differential system.
-Instead, it treats them as a structural evolution framework subject to the
-following constraints:
+Core~1.3 treats the component operators for flows, thresholds, cycles,
+boundaries, axes, and continuumness as a constrained structural evolution
+framework rather than as one explicit differential system. The constraints are:
 
 \begin{itemize}
     \item \textbf{Consistency:} if \(s(t) \in \Omega(K(t))\), then either \(s(t+dt) \in \Omega(K(t+dt))\) or the transition is associated with a threshold crossing.

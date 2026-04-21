@@ -3,13 +3,18 @@
 This folder contains the outward-facing OC Core 1.3 release bundle for public
 review, citation, and archival release.
 
-Immutable release witness for the present bundle:
-[`commit SHA 7ceb46acfbcb4e83d6568fea3c2530bd9eb95719`](https://github.com/alexanderyashin/ontology-of-continua-core-main/commit/7ceb46acfbcb4e83d6568fea3c2530bd9eb95719).
-The sections below separate governing canonical surfaces from bundle contents
-and packaged mirrors. Directories such as `monograph/`, `journal_core/`,
-`manuscripts/`, `assets/`, `editorial/dossier_packages/`, and
+## Release metadata
+
+- Release line: OC Core 1.3 public release bundle.
+- Baseline witness: [`commit SHA 7ceb46acfbcb4e83d6568fea3c2530bd9eb95719`](https://github.com/alexanderyashin/ontology-of-continua-core-main/commit/7ceb46acfbcb4e83d6568fea3c2530bd9eb95719).
+- Current acceptance state: governed by the Cerberus certificate and source
+  files committed with this release branch.
+
+The sections below separate the source-owned scientific corpus, bundle-local
+projection surfaces, and packaged mirrors. Directories such as `monograph/`,
+`journal_core/`, `manuscripts/`, `assets/`, `editorial/dossier_packages/`, and
 `editorial/domain_packets/` are bundle contents or mirrors rather than
-canonical `_latest.json` surfaces.
+source-owned science files.
 
 The scientific `PASS` claim in this bundle applies only to the canonical
 `CORE_1_3_SCIENCE_ONLY` scope recorded in
@@ -25,10 +30,25 @@ science.
 - `manuscripts/` contains EN/DE/RU flagship manuscript variants. Each variant ships as a PDF and companion Markdown file with a shared base stem.
 - `assets/` contains the outward visual and table assets shared across the same scientific version.
 
-## Canonical surfaces
+## Science source corpus
 
-- `editorial/` contains the canonical `_latest.json` surfaces.
-- `editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json` is the canonical scientific authority for Core 1.3; the foundational dossier, empirical execution surfaces, validation matrix, command board, and generated science chapters now project from this single point of truth (SPOT).
+- `editorial/science_sources/` is the source-owned science corpus for the
+  release. It contains the authored closure bundles, hostile-review dossiers,
+  K-level source rows, and practical-comparison source catalogues from which
+  the release-facing projection surfaces are generated.
+- Reviewers should cite the source corpus when auditing authored scientific
+  support, and cite the projection surfaces when auditing the generated
+  release state that appears in the monograph and package.
+
+## Bundle-local projection surfaces
+
+- `editorial/` contains the release-bundled `_latest.json` projection
+  surfaces.
+- `editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json` is the bundle-local
+  scientific state projection for Core 1.3; the foundational dossier,
+  empirical execution surfaces, validation matrix, command board, and generated
+  science chapters are generated from the source-owned corpus through this
+  SPOT projection.
 - `editorial/OC_CORE_1_3_FULL_SCIENTIFIC_CLOSURE_PROGRAM_latest.json` carries the long-horizon closure program.
 - `editorial/OC_CORE_1_3_UNIFIED_SCIENCE_ATLAS_latest.json` carries the cross-domain atlas scaffold.
 - `editorial/OC_CORE_1_3_PROOF_OBLIGATION_REGISTRY_latest.json` carries the load-bearing proof obligations.
