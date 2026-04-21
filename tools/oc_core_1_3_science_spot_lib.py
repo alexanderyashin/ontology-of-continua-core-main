@@ -4757,8 +4757,34 @@ def tex_escape(text: Any) -> str:
     return value
 
 
+def publication_code_alias(text: Any) -> str:
+    """Render legacy internal paths with publication-safe synthesis labels.
+
+    Some historical file names still contain the old synthesis acronym.  The
+    repository keeps those paths for compatibility, but the manuscript should
+    expose the scientific role of the anchor rather than the legacy path name.
+    """
+    value = str(text)
+    normalized = value.replace("\\", "/")
+    match = re.fullmatch(r"content/toe/toe_k(\d+)(?:_(ru|de))?(?:\.tex)?", normalized)
+    if match:
+        locale = f" ({match.group(2).upper()})" if match.group(2) else ""
+        return f"Appendix Q synthesis dossier K{match.group(1)}{locale}"
+    if re.fullmatch(r"content/toe/toe_master(?:_(ru|de))?\.tex", normalized):
+        return "compatibility synthesis-support master"
+    aliases = {
+        "content/25_oc_core_1_3_toe_synthesis.tex": "Chapter 25 unified-synthesis chapter",
+        "content/generated/oc_core_1_3_toe_synthesis_generated.tex": "generated unified-synthesis chapter",
+        "appendix/toe_data.tex": "Appendix C constants-and-parameters apparatus",
+        "appendix/toe_data_ru.tex": "Appendix C constants-and-parameters apparatus (RU)",
+        "appendix/toe_data_de.tex": "Appendix C constants-and-parameters apparatus (DE)",
+        "content/_auto_core_platinum_toe_support_inputs.tex": "platinum synthesis-support include list",
+    }
+    return aliases.get(normalized, value)
+
+
 def tex_code(text: Any) -> str:
-    return r"\occode{" + str(text) + "}"
+    return r"\occode{" + publication_code_alias(text) + "}"
 
 
 def tex_operator_binding_summary(row: dict[str, Any]) -> str:
