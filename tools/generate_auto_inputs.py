@@ -93,10 +93,10 @@ PLATINUM_MAIN_PATHS = [
     "content/13_branching_topology.tex",
     "content/14_disciplines_extended.tex",
     "content/15_falsifiability_extended.tex",
+    "content/16_modules_master.tex",
 ]
 
 PLATINUM_TECHNICAL_SPECS = [
-    ("modules_master", "root_only"),
     ("k_levels_master", "subtree"),
     ("m_spaces_master", "subtree"),
     ("crossk_master", "subtree"),

@@ -20,8 +20,11 @@ review, citation, and archival release.
   regenerates
   [`editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json`](editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json)
   with `status = PASS` and `llm_gate_status = PASS`.
-- TOE means the gated Theory of Everything synthesis surface; the title is
-  permitted only by the final SPOT policy recorded in the science projection.
+- TOE means the gated Theory of Everything synthesis surface. The
+  compatibility filename `OC_CORE_1_3_TOE_SYNTHESIS_latest.json` remains stable
+  for tooling. The public title `Theory of Everything Synthesis` is permitted
+  only when the `FINAL_TOE_VALIDATOR_PASS` policy in SPOT is `PASS`; otherwise
+  the fail-closed public wording is `Unified Science Closure Surface`.
 
 The sections below separate the source-owned scientific corpus, bundle-local
 projection surfaces, and packaged mirrors. Directories such as `monograph/`,
@@ -38,11 +41,16 @@ science.
 ## Bundle contents
 
 - `monograph/` contains the English master monograph built directly from the public LaTeX source corpus.
-- German and Russian guided-reading editions in `monograph/` remain translation drafts under theorem review; they are localised access aids, not proof-bearing master texts.
-- `journal_core/` contains the bounded Journal Core article in English plus German and Russian companion translation drafts.
+- Language variants are classified uniformly: English is the proof-bearing
+  source language; German and Russian files are translation drafts under
+  theorem review and function as localised access aids only.
+- `monograph/` contains the English master monograph plus German and Russian
+  monograph translation drafts.
+- `journal_core/` contains the bounded Journal Core article in English plus
+  German and Russian journal-core translation drafts.
 - `manuscripts/` contains the primary English flagship manuscript plus German
-  and Russian translation drafts as non-blocking localised overlays. Each
-  variant ships as a PDF and companion Markdown file with a shared base stem.
+  and Russian manuscript translation drafts as non-blocking localised overlays.
+  Each variant ships as a PDF and companion Markdown file with a shared base stem.
 - `assets/` contains the outward visual and table assets shared across the same scientific version.
 
 ## Science source corpus

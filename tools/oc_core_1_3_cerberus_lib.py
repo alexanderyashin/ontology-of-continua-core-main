@@ -101,6 +101,7 @@ EXPECTED_MAIN_INPUT_ORDER = [
     "content/13_branching_topology.tex",
     "content/14_disciplines_extended.tex",
     "content/15_falsifiability_extended.tex",
+    "content/16_modules_master.tex",
     "content/18_oc_core_1_3_source_audit.tex",
     "content/19_oc_core_1_3_foundational_consistency.tex",
     "content/20_oc_core_1_3_theorem_roadmap.tex",

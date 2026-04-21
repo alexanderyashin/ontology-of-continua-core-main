@@ -4761,6 +4761,22 @@ def tex_code(text: Any) -> str:
     return r"\occode{" + str(text) + "}"
 
 
+def tex_operator_binding_summary(row: dict[str, Any]) -> str:
+    text = tex_escape(row["operator_binding_summary"])
+    if row.get("level_id") == "K0":
+        replacements = {
+            r"Psi\_0": r"\(\Psi_0\)",
+            r"Phi\_0": r"\(\Phi_0\)",
+            r"Lambda\_0": r"\(\Lambda_0\)",
+            r"F\_0": r"\(F_0\)",
+            r"Q\_0": r"\(Q_0\)",
+            r"U\_0": r"\(U_0\)",
+        }
+        for source, target in replacements.items():
+            text = text.replace(source, target)
+    return text
+
+
 def tex_list(items: list[Any], wrap_code: bool = False) -> str:
     if not items:
         return "none"
@@ -4947,7 +4963,7 @@ def render_toe_support_level_tex(row: dict[str, Any]) -> str:
         tex_escape(row["theorem_native_claim"]),
         "",
         tex_block_label("Operator and K-level binding."),
-        tex_escape(row["operator_binding_summary"])
+        tex_operator_binding_summary(row)
         + " "
         + f"Kernel refs: {tex_list(row['operator_refs'], wrap_code=True)}.",
         "",
@@ -5089,7 +5105,7 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
                 normalize_sentence(tex_escape(row["theorem_native_claim"])),
                 "",
                 tex_block_label("Operator and K-level binding."),
-                normalize_sentence(tex_escape(row["operator_binding_summary"])),
+                normalize_sentence(tex_operator_binding_summary(row)),
                 "Core witness anchors are tabulated in Appendix~\\ref{sec:oc-core-1-3-toe-support-dossiers} and Appendix~\\ref{app:toe-constants-and-parameters}.",
                 "",
                 tex_block_label(parameter_label),
@@ -5138,8 +5154,9 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
                 )
             lines.append(r"\end{itemize}")
             if omitted_binding_total:
+                omitted_ids = [binding["domain_id"] for binding in row["domain_bindings"] if binding["closure_verdict"] != "PASS"]
                 lines.append(
-                    f"The SPOT also tracks {tex_code(omitted_binding_total)} excluded or non-promoted side binding(s) for this level outside the closed TOE summary."
+                    f"The SPOT also tracks {tex_code(omitted_binding_total)} excluded or non-promoted side binding(s) for this level outside the closed TOE summary: {tex_list(omitted_ids, wrap_code=True)}. The corresponding source rows remain in the canonical surfaces and support appendices, not in the promoted TOE stack."
                 )
         else:
             lines.append("No promoted domain packets are attached to this level in the current SPOT.")
@@ -5168,7 +5185,7 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
     )
     for row in toe["empirical_prediction_rows"]:
         lines.append(
-            f"{tex_escape(row['domain_title'])} & {tex_code(row['scientific_class'])} & {tex_code(row['closure_verdict'])} & {tex_code(row['held_out_case_total'])} & {summarize_metrics_for_tex(row['metric_summary'], preferred_keys=['covered_case_total', 'covered_held_out_case_total', 'normalized_error_mean_abs', 'normalized_error_p95', 'normalized_error_max', 'severe_case_total', 'fn', 'critical_failure_recall', 'tail_breach_count'])} \\\\"
+            f"{tex_escape(row['domain_title'])} & {tex_code(row['scientific_class'])} & {tex_code(row['closure_verdict'])} & {tex_code(row['held_out_case_total'])} & {summarize_metrics_for_tex(row['metric_summary'], preferred_keys=['covered_case_total', 'covered_held_out_case_total', 'normalized_error_mean_abs', 'normalized_error_p95', 'normalized_error_max', 'severe_case_total', 'fn', 'critical_failure_precision', 'critical_failure_recall', 'critical_failure_f1', 'tail_breach_count'])} \\\\"
         )
     lines.extend([r"\bottomrule", r"\end{longtable}"])
     return "\n".join(lines)
