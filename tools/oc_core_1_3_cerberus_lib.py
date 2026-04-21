@@ -1527,6 +1527,7 @@ def call_codex_llm(
     codex_binary: str,
     codex_model: str,
     batch_index: int,
+    timeout_seconds: int,
 ) -> dict[str, Any]:
     started_at = time.perf_counter()
     llm_dir = run_dir / "llm"
@@ -1547,6 +1548,7 @@ def call_codex_llm(
     last_result: subprocess.CompletedProcess[str] | None = None
     last_command: list[str] | None = None
     payload: dict[str, Any] = {"findings": []}
+    timeout_seconds = max(60, int(timeout_seconds))
     for model_index, active_model in enumerate(model_candidates):
         command = [
             codex_binary,
@@ -1564,23 +1566,41 @@ def call_codex_llm(
             str(output_path),
             "-",
         ]
+        model_timed_out = False
         for attempt_index in range(len(retry_delays) + 1):
             if output_path.exists():
                 output_path.unlink()
-            result = subprocess.run(
-                command,
-                cwd=REPO_ROOT,
-                input=prompt,
-                capture_output=True,
-                text=True,
-                encoding="utf-8",
-                errors="replace",
-                timeout=1800,
-            )
+            try:
+                result = subprocess.run(
+                    command,
+                    cwd=REPO_ROOT,
+                    input=prompt,
+                    capture_output=True,
+                    text=True,
+                    encoding="utf-8",
+                    errors="replace",
+                    timeout=timeout_seconds,
+                )
+            except subprocess.TimeoutExpired as exc:
+                stdout = exc.stdout if isinstance(exc.stdout, str) else ""
+                stderr = exc.stderr if isinstance(exc.stderr, str) else ""
+                timeout_note = (
+                    f"TIMEOUT after {timeout_seconds}s for {reviewer['reviewer_id']} "
+                    f"on batch {batch_index} with model {active_model}"
+                )
+                result = subprocess.CompletedProcess(
+                    command,
+                    124,
+                    stdout=stdout,
+                    stderr="\n".join(part for part in [stderr, timeout_note] if part),
+                )
+                model_timed_out = True
             last_result = result
             last_command = command
             if result.returncode == 0 and output_path.exists():
                 payload = json.loads(output_path.read_text(encoding="utf-8"))
+                break
+            if model_timed_out:
                 break
             if attempt_index < len(retry_delays):
                 time.sleep(retry_delays[attempt_index])
@@ -1621,6 +1641,7 @@ def llm_review(
     artifact_ref_filter: set[str] | None = None,
     max_workers: int = 1,
     batch_max_chars: int = 12000,
+    llm_timeout_seconds: int = 900,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     findings: list[dict[str, Any]] = []
     llm_runs: list[dict[str, Any]] = []
@@ -1653,6 +1674,7 @@ def llm_review(
                     codex_binary=codex_binary,
                     codex_model=codex_model,
                     batch_index=task["batch_index"],
+                    timeout_seconds=llm_timeout_seconds,
                 ): task
                 for task in tasks
             }
@@ -1707,6 +1729,7 @@ def llm_review(
         "codex_binary": codex_binary,
         "max_workers": max_workers,
         "batch_max_chars": batch_max_chars,
+        "timeout_seconds": max(60, int(llm_timeout_seconds)),
         "artifact_ref_filter": sorted(artifact_ref_filter) if artifact_ref_filter is not None else None,
     }
 
@@ -1801,6 +1824,7 @@ def run_cerberus_review(
     llm_artifact_refs: set[str] | None = None,
     llm_workers: int = 1,
     llm_batch_max_chars: int = 12000,
+    llm_timeout_seconds: int = 900,
     build_mode: str = "full",
 ) -> dict[str, Any]:
     started_at = time.perf_counter()
@@ -1845,6 +1869,7 @@ def run_cerberus_review(
         "artifact_ref_filter": sorted(llm_ref_filter) if llm_ref_filter is not None else None,
         "max_workers": max(1, llm_workers),
         "batch_max_chars": max(1200, llm_batch_max_chars),
+        "timeout_seconds": max(60, int(llm_timeout_seconds)),
     }
     llm_gate_status = "SKIPPED_DETERMINISTIC_OPEN_DEFECTS"
     if skip_llm:
@@ -1860,6 +1885,7 @@ def run_cerberus_review(
                 artifact_ref_filter=llm_ref_filter,
                 max_workers=max(1, llm_workers),
                 batch_max_chars=max(1200, llm_batch_max_chars),
+                llm_timeout_seconds=max(60, int(llm_timeout_seconds)),
             )
             llm_info["llm_scope"] = llm_scope
             llm_info["artifact_ref_filter"] = sorted(llm_ref_filter) if llm_ref_filter is not None else None

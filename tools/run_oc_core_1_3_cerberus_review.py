@@ -54,6 +54,15 @@ def main() -> int:
         ),
     )
     parser.add_argument(
+        "--llm-timeout-seconds",
+        type=int,
+        default=900,
+        help=(
+            "Per-Codex-call timeout. Timed-out batches fail closed but fall through the configured model roster instead "
+            "of blocking the whole review loop for an unbounded period."
+        ),
+    )
+    parser.add_argument(
         "--build-mode",
         choices=["full", "skip"],
         default="full",
@@ -73,6 +82,7 @@ def main() -> int:
         llm_artifact_refs=set(args.llm_artifact_ref),
         llm_workers=args.llm_workers,
         llm_batch_max_chars=args.llm_batch_max_chars,
+        llm_timeout_seconds=args.llm_timeout_seconds,
         build_mode=args.build_mode,
     )
     acceptance = result["acceptance"]
