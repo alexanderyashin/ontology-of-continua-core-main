@@ -31,7 +31,9 @@ science.
 - `monograph/` contains the English master monograph built directly from the public LaTeX source corpus.
 - German and Russian guided-reading editions in `monograph/` remain translation drafts under theorem review; they are localised access aids, not proof-bearing master texts.
 - `journal_core/` contains the bounded Journal Core article in English plus German and Russian companion translation drafts.
-- `manuscripts/` contains EN/DE/RU flagship manuscript variants. Each variant ships as a PDF and companion Markdown file with a shared base stem.
+- `manuscripts/` contains the primary English flagship manuscript plus German
+  and Russian translation drafts as non-blocking localised overlays. Each
+  variant ships as a PDF and companion Markdown file with a shared base stem.
 - `assets/` contains the outward visual and table assets shared across the same scientific version.
 
 ## Science source corpus
@@ -75,8 +77,12 @@ science.
 
 - `editorial/dossier_packages/` materialises the dossier set on disk: one dossier package per closure bundle, one formal dossier per hostile-review blocker, and one consolidated package for the Phase 1 closed core.
 - `editorial/domain_packets/` contains the packaged hard-closure domain dossiers with benchmark routes, replay commands, and falsifier definitions.
-- The monograph source package includes the reader guide, source-audit chapter, and foundational consistency dossier.
-- The monograph source package includes revision law, minimality ablation ledger, alternative-model competition matrix, and bounded compression benchmark.
-- The monograph source package includes the practical-consequences chapter and appendix, which state bounded prediction, audit, comparison, and operational-use lanes while keeping frontier and hypothesis-only rows explicit.
-- The monograph source package also includes the generated unified science closure section with explicit K0 through K12 numerical rows.
+- The monograph source package includes the reader guide, source-audit chapter,
+  foundational consistency dossier, revision law, minimality ablation ledger,
+  alternative-model competition matrix, and bounded compression benchmark.
+- Its practical-consequences chapter and appendix state bounded prediction,
+  audit, comparison, and operational-use lanes while keeping frontier and
+  hypothesis-only rows explicit.
+- Its generated unified science closure section includes explicit K0 through
+  K12 numerical rows.
 - The `Theory of Everything Synthesis` title follows that science-spot gate policy.

@@ -139,7 +139,7 @@ TOE_LEVEL_SPECS = {
         "toe_file_ref": "content/toe/toe_k0",
         "appendix_table_label": "tab:k0-structural-parameters",
         "theorem_native_claim": "K0 fixes the non-empty admissible meta-domain required for any lawful continuum and therefore bounds every later K-level before empirical specialization.",
-        "operator_binding_summary": r"The local K0 root process glyphs \Psi_0, \Phi_0, and \Lambda_0 fix distinction generation, relational reconfiguration, and compositional assembly; compact TOE aliases F_0, Q_0, and U_0 label the corresponding root constraints only where they are defined locally.",
+        "operator_binding_summary": "The local K0 root process glyphs Psi_0, Phi_0, and Lambda_0 fix distinction generation, relational reconfiguration, and compositional assembly; compact TOE aliases F_0, Q_0, and U_0 label the corresponding root constraints only where they are defined locally.",
         "parameter_law_display": r"\mu(\Omega(K_0)) > 0,\quad \forall x \in \{1,\dots,12\}: \mathrm{DoF}(M_x)>0\ \mathrm{and}\ \frac{\mathrm{DoF}(K_x)}{\mathrm{DoF}(M_x)} \leq 1,\quad C_{\mathrm{triv}} \geq 1",
         "observable_map_summary": "Meta-admissibility, meta-space compatibility, and the presence of at least one non-trivial lawful cycle.",
         "synthetic_observable_ids": [
@@ -2597,7 +2597,7 @@ def build_practical_utility_atlas(
             "same_claim_baseline_total": len(baseline_rows),
             "serious_comparison_total": len(serious_rows),
             "key_points": [
-                f"OC currently exposes {len(usable_now_rows)} bounded practical lanes that are already usable under explicit theorem, data-route, and falsifier discipline.",
+                "The theorem-native domain lanes are usable under explicit theorem, data-route, and falsifier discipline; the cross-domain route-selection lane is operationally supported within bounds and is used for packet selection rather than as a domain-level theorem claim.",
                 "Its closed practical value is not unrestricted universal prediction; it is lawful packet selection, bounded residual prediction, anomaly screening, state-transition auditing, regime-shift monitoring, and cross-domain route selection within one source-bound routing framework.",
                 (
                     f"The atlas also keeps {len(frontier_rows)} frontier-program "
