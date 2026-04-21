@@ -2147,8 +2147,8 @@ def toe_branding_payload(status: str) -> dict[str, Any]:
             "public_status_label": "Final TOE release status",
             "public_gate_title": "Final TOE Release Gate",
             "public_intro_text": (
-                "The generated synthesis block in this chapter is projected directly from the canonical science SPOT. "
-                "It exposes a lawfully promoted TOE with explicit K0--K12 parameter laws, numerical rows, falsifiers, and empirical held-out prediction summaries."
+                "This chapter states the promoted synthesis projected from the canonical science SPOT. "
+                "It gives the lawfully promoted TOE with explicit K0--K12 parameter laws, numerical rows, falsifiers, and empirical held-out prediction summaries."
             ),
             "public_empirical_summary_text": (
                 "The following summary records the empirical TOE lanes that have already cleared theorem-native promotion and held-out prediction review."
@@ -2162,7 +2162,7 @@ def toe_branding_payload(status: str) -> dict[str, Any]:
         "public_status_label": "Current fail-closed closure status",
         "public_gate_title": "Final Promotion Gate",
         "public_intro_text": (
-            "The generated synthesis block in this chapter is projected directly from the canonical science SPOT. "
+            "This chapter states the strongest synthesis projected from the canonical science SPOT. "
             "It exposes the strongest fail-closed unified-science closure attempt the repository can lawfully support at build time, "
             "including explicit K0--K12 parameter laws, numerical rows, falsifiers, and empirical held-out prediction summaries."
         ),
@@ -5053,11 +5053,9 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
         "",
         normalize_sentence(branding["public_intro_text"]),
         (
-            f"The public TOE title is used only because the exact gate {tex_code('FINAL_TOE_VALIDATOR_PASS')} "
-            f"is currently {tex_code(toe['release_candidate_status'])} under the canonical naming policy."
-            if toe["release_candidate_status"] == "PASS"
-            else f"The public TOE title remains withheld because the exact gate {tex_code('FINAL_TOE_VALIDATOR_PASS')} "
-            f"is currently {tex_code(toe['release_candidate_status'])} under the canonical naming policy."
+            "The title and scope of this chapter follow the canonical SPOT "
+            "record; the paragraphs below state the promoted synthesis without "
+            "restating release metadata as prose."
         ),
         "",
         rf"\subsection{{{tex_escape(branding['public_gate_title'])}}}",

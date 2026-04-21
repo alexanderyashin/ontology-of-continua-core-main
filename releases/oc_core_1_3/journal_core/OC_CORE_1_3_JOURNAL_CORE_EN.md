@@ -1,11 +1,11 @@
 # OC Core 1.3 Journal Core: A Source-Audited Revalidation of Collapse, Residue, and Rebirth
 
-**Author:** Alexander Yashin  
-**Affiliation:** Independent Researcher  
-**ORCID:** [0009-0008-6166-0914](https://orcid.org/0009-0008-6166-0914)  
-**Release version:** OC Core 1.3  
-**Release state:** Public release candidate<br>
-**Release date:** 2026-04-21
+- **Author:** Alexander Yashin
+- **Affiliation:** Independent Researcher
+- **ORCID:** [0009-0008-6166-0914](https://orcid.org/0009-0008-6166-0914)
+- **Release version:** OC Core 1.3
+- **Release state:** Public release candidate
+- **Release date:** 2026-04-21
 
 ## Abstract
 This article revalidates a bounded kernel of the Ontology of Continua under a strict source-audit discipline.
@@ -58,7 +58,7 @@ These observables matter because they turn the argument from an ontological slog
 - `stabilization_cost`: Margin between current contradiction load and the nearest collapse or lift-trigger threshold.
 
 ## Source Audit and Canon Repair
-The manuscript is source-native by construction. The main theorem chain is rebuilt from the tagged Core 1.2 LaTeX repository and the canonical compiled PDF, not from later optimistic summaries. Every load-bearing row in the main argument is required to survive three linked repairs before it can carry weight: source witnessing, canonical uniqueness, and dependency exactness. This is the central methodological discipline of the paper.
+The manuscript is source-native in its death-and-residue theorem body. The article-local related-space rebirth branch is a witness-controlled extension layered on top of that audited support rather than a claim that every related-space rebirth route in the inherited corpus has been promoted. The main theorem chain is rebuilt from the tagged Core 1.2 LaTeX repository and the canonical compiled PDF, not from later optimistic summaries. Every load-bearing row in the main argument is required to survive three linked repairs before it can carry weight: source witnessing, canonical uniqueness, and dependency exactness. This is the central methodological discipline of the paper.
 The tagged public source snapshot is v1.2.1 at 2c61b7879ed36cd8366d87892a066082b6418ce8. For the bounded surviving kernel, the theorem-bearing draft sources are concentrated in the axiom, core-results, and collapse/rebirth source modules of that public release. The PDF witness 'Ontology of Continua — Core v1.2.0' is the fixed compiled predecessor. The tagged v1.2.1 repository snapshot is the exact public source witness audited alongside that PDF. The PDF supplies the archival compiled witness; the tag/commit locks the source files. The pairing is therefore a provenance control, not a claim that the PDF itself bears a v1.2.1 label. The revised main theorem is tracked explicitly as a bounded classification theorem whose support is distributed across anchored source rows rather than disguised as a verbatim single-source theorem.
 Companion dossiers extend the article with the full source witness matrix, theorem-support dossier, chronology dossier, and projection atlases, but none of those companions relax the rule that the main theorem chain must be carried by the audited Core 1.2 kernel alone. When this document refers to the companion dossier package, it means those release-facing support files rather than a separate source of theorem authority.
 The companion-material crosswalk is:
@@ -154,7 +154,7 @@ That boundary is essential for journal positioning. The article states only what
 ## Cross-Domain Interpretation and Scope Discipline
 The manuscript has implications beyond a single formal kernel, but it does not claim that those implications are already proved as a universal cross-domain theorem. The wider Core 1.3 release separately contains a [practical-utility atlas](../editorial/OC_CORE_1_3_PRACTICAL_UTILITY_ATLAS_latest.json) with bounded operational routing rows. Those rows are release guidance, not premises in the present journal-core theorem. The supplementary cross-domain projection map is different: it is a bounded map of projection targets and separate projection tests, not proof of complete downstream closure. Mathematics, domain science, and later domain families are shown as projection targets whose admissibility depends on separate theorem programs and empirical or formal validation routes.
 This distinction is important for editorial honesty. A generalist venue needs to understand why the work matters beyond one notation system, but it also needs to see that the manuscript does not inflate projection potential into accomplished proof. The paper therefore uses cross-domain language only to identify where the collapse-residue-rebirth grammar should be tested next and what would count as a failed projection.
-Tier 1 mathematics remains outside the main theorem chain in the present article, and the cross-domain atlas marks later test lanes and downstream research families without silently promoting them into proved support.
+Tier 1 mathematics remains outside the main theorem chain in the present article. The cross-domain atlas separates one already usable mathematical route-selection lane from later projection tests and downstream research families, so neither category is silently promoted into proof support for the journal-core theorem.
 In that sense the paper offers a kernel-local collapse, residue, and rebirth grammar together with a disciplined research agenda. It does not confuse the one with the other.
 
 ## Reviewer Objections and Resolutions

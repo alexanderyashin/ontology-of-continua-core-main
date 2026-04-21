@@ -16,16 +16,18 @@ citation, and archival use.
 
 For public citation, use the release metadata in `.zenodo.json` together with
 the archived DOI record when the bundle is deposited. From this release folder,
-the citation metadata file is `../../.zenodo.json`. Until deposition, cite
+the citation metadata file is [`../../.zenodo.json`](../../.zenodo.json). Until deposition, cite
 Alexander Yashin, *Ontology of Continua — Core v1.3.0*, GitHub repository
 `alexanderyashin/ontology-of-continua-core-main`, release date April 21, 2026,
 and the baseline witness listed above.
 
-## Current gate status
+## Gate status snapshot
 
-- Current Cerberus scope: the scripted release-review authority
+- Snapshot source:
+  [`editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json`](editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json).
+- Cerberus scope: the scripted release-review authority
   `OC_CORE_1_3_ENGLISH_FLAGSHIP_RELEASE_PACKAGE`.
-- Current checked-in Cerberus verdict: `FAIL_CLOSED` until the final full gate
+- Checked-in Cerberus verdict: `FAIL_CLOSED` until the final full gate
   regenerates
   [`editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json`](editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json)
   with `status = PASS` and `llm_gate_status = PASS`.
