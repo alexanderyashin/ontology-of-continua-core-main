@@ -17,12 +17,15 @@
   "appendix_table_label": "tab:k4-membrane-parameters",
   "theorem_native_claim": "K4 closes the first compartmental organization packet by binding membrane thickness, bending stability, and gradient maintenance to lawful biological thresholds.",
   "operator_binding_summary": "H, R, and S couple membrane stability, osmotic admissibility, and retained gradients into a bounded protocellular regime.",
-  "parameter_law_display": "d_{\\mathrm{mem}} \\in [3, 5]\\,\\mathrm{nm},\\quad \\kappa \\in [10, 25]\\,k_{\\mathrm{B}}T,\\quad \\Delta pH \\in [0.5, 2]",
+  "parameter_law_display": "\\begin{gathered} d_{\\mathrm{mem}} \\in [3, 5]\\,\\mathrm{nm},\\quad \\kappa \\in [10, 25]\\,k_{\\mathrm{B}}T,\\quad \\Delta pH \\in [0.5, 2] \\\\ \\gamma_{\\mathrm{edge}} \\in [5,20]\\,\\mathrm{pN},\\quad \\Pi \\in [10^5,10^6]\\,\\mathrm{Pa},\\quad P_i \\in [10^{-12},10^{-8}]\\,\\mathrm{m/s} \\end{gathered}",
   "observable_map_summary": "Membrane thickness, bending modulus, osmotic pressure, proton gradient, and permeability lanes for compartmental organization.",
   "synthetic_observable_ids": [
     "K4::MEMBRANE_THICKNESS",
     "K4::BENDING_MODULUS",
-    "K4::PROTON_GRADIENT"
+    "K4::PROTON_GRADIENT",
+    "K4::LINE_TENSION",
+    "K4::OSMOTIC_PRESSURE_SCALE",
+    "K4::PERMEABILITY_RANGE"
   ],
   "numerical_rows": [
     {
@@ -42,6 +45,24 @@
       "symbol_tex": "\\Delta pH",
       "value_tex": "0.5\\text{--}2",
       "units_note": "pH units"
+    },
+    {
+      "quantity": "Line tension (edge)",
+      "symbol_tex": "\\gamma_{\\mathrm{edge}}",
+      "value_tex": "5\\text{--}20",
+      "units_note": "\\mathrm{pN}"
+    },
+    {
+      "quantity": "Osmotic pressure scale",
+      "symbol_tex": "\\Pi",
+      "value_tex": "10^5\\text{--}10^6",
+      "units_note": "\\mathrm{Pa}"
+    },
+    {
+      "quantity": "Permeability range",
+      "symbol_tex": "P_i",
+      "value_tex": "10^{-12}\\text{--}10^{-8}",
+      "units_note": "\\mathrm{m/s}"
     }
   ],
   "collapse_boundary": "K4 collapses if compartments cannot retain a lawful gradient, if membranes lose structural stability, or if permeability escapes the admissible packet.",

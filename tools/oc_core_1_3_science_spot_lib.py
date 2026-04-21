@@ -2147,8 +2147,8 @@ def toe_branding_payload(status: str) -> dict[str, Any]:
             "public_status_label": "Final TOE release status",
             "public_gate_title": "Final TOE Release Gate",
             "public_intro_text": (
-                "This chapter is projected directly from the canonical science SPOT. "
-                "It therefore exposes a lawfully promoted TOE with explicit K0--K12 parameter laws, numerical rows, falsifiers, and empirical held-out prediction summaries."
+                "The generated synthesis block in this chapter is projected directly from the canonical science SPOT. "
+                "It exposes a lawfully promoted TOE with explicit K0--K12 parameter laws, numerical rows, falsifiers, and empirical held-out prediction summaries."
             ),
             "public_empirical_summary_text": (
                 "The following summary records the empirical TOE lanes that have already cleared theorem-native promotion and held-out prediction review."
@@ -2162,8 +2162,8 @@ def toe_branding_payload(status: str) -> dict[str, Any]:
         "public_status_label": "Current fail-closed closure status",
         "public_gate_title": "Final Promotion Gate",
         "public_intro_text": (
-            "This chapter is projected directly from the canonical science SPOT. "
-            "It therefore exposes the strongest fail-closed unified-science closure attempt the repository can lawfully support at build time, "
+            "The generated synthesis block in this chapter is projected directly from the canonical science SPOT. "
+            "It exposes the strongest fail-closed unified-science closure attempt the repository can lawfully support at build time, "
             "including explicit K0--K12 parameter laws, numerical rows, falsifiers, and empirical held-out prediction summaries."
         ),
         "public_empirical_summary_text": (

@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "repo_sha": "0d6b5ee37c811180bbbb9233930968470b16ec63",
+    "repo_sha": "c32d45775497cc077a943a62fd03c24f04cd9d59",
     "script": "tools/build_oc_core_1_3_science_spot.py",
     "surface": "logion/k0/governance/status/OC_CORE_1_3_TOE_SYNTHESIS_latest.json",
-    "ts_utc": "2026-04-21T21:08:05Z"
+    "ts_utc": "2026-04-21T21:37:53Z"
   },
   "toe_id": "OC_CORE_1_3_TOE_SYNTHESIS",
   "manuscript_target": "ENGLISH_MASTER_MONOGRAPH_ONLY",
@@ -15,7 +15,7 @@
     "public_surface_label": "TOE synthesis surface",
     "public_status_label": "Final TOE release status",
     "public_gate_title": "Final TOE Release Gate",
-    "public_intro_text": "This chapter is projected directly from the canonical science SPOT. It therefore exposes a lawfully promoted TOE with explicit K0--K12 parameter laws, numerical rows, falsifiers, and empirical held-out prediction summaries.",
+    "public_intro_text": "The generated synthesis block in this chapter is projected directly from the canonical science SPOT. It exposes a lawfully promoted TOE with explicit K0--K12 parameter laws, numerical rows, falsifiers, and empirical held-out prediction summaries.",
     "public_empirical_summary_text": "The following summary records the empirical TOE lanes that have already cleared theorem-native promotion and held-out prediction review.",
     "optimistic_toe_naming_allowed": true
   },
@@ -935,7 +935,7 @@
       "closure_verdict": "PASS",
       "theorem_native_claim": "K4 closes the first compartmental organization packet by binding membrane thickness, bending stability, and gradient maintenance to lawful biological thresholds.",
       "operator_binding_summary": "H, R, and S couple membrane stability, osmotic admissibility, and retained gradients into a bounded protocellular regime.",
-      "parameter_law_display": "d_{\\mathrm{mem}} \\in [3, 5]\\,\\mathrm{nm},\\quad \\kappa \\in [10, 25]\\,k_{\\mathrm{B}}T,\\quad \\Delta pH \\in [0.5, 2]",
+      "parameter_law_display": "\\begin{gathered} d_{\\mathrm{mem}} \\in [3, 5]\\,\\mathrm{nm},\\quad \\kappa \\in [10, 25]\\,k_{\\mathrm{B}}T,\\quad \\Delta pH \\in [0.5, 2] \\\\ \\gamma_{\\mathrm{edge}} \\in [5,20]\\,\\mathrm{pN},\\quad \\Pi \\in [10^5,10^6]\\,\\mathrm{Pa},\\quad P_i \\in [10^{-12},10^{-8}]\\,\\mathrm{m/s} \\end{gathered}",
       "observable_map_summary": "Membrane thickness, bending modulus, osmotic pressure, proton gradient, and permeability lanes for compartmental organization.",
       "theorem_refs": [
         "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
@@ -993,6 +993,9 @@
         "K4::MEMBRANE_THICKNESS",
         "K4::BENDING_MODULUS",
         "K4::PROTON_GRADIENT",
+        "K4::LINE_TENSION",
+        "K4::OSMOTIC_PRESSURE_SCALE",
+        "K4::PERMEABILITY_RANGE",
         "BIOLOGY::EXPRESSION_SIGNATURE_RESIDUAL",
         "BIOLOGY::STATE_TRANSITION_ORDER_ERROR",
         "BIOLOGY::RESPONSE_ONSET_RESIDUAL",
@@ -1018,6 +1021,24 @@
           "symbol_tex": "\\Delta pH",
           "value_tex": "0.5\\text{--}2",
           "units_note": "pH units"
+        },
+        {
+          "quantity": "Line tension (edge)",
+          "symbol_tex": "\\gamma_{\\mathrm{edge}}",
+          "value_tex": "5\\text{--}20",
+          "units_note": "\\mathrm{pN}"
+        },
+        {
+          "quantity": "Osmotic pressure scale",
+          "symbol_tex": "\\Pi",
+          "value_tex": "10^5\\text{--}10^6",
+          "units_note": "\\mathrm{Pa}"
+        },
+        {
+          "quantity": "Permeability range",
+          "symbol_tex": "P_i",
+          "value_tex": "10^{-12}\\text{--}10^{-8}",
+          "units_note": "\\mathrm{m/s}"
         }
       ],
       "appendix_table_label": "tab:k4-membrane-parameters",
@@ -1648,7 +1669,7 @@
       "closure_verdict": "PASS",
       "theorem_native_claim": "K7 closes bounded social coordination through group size, communication bandwidth, and coordination thresholds.",
       "operator_binding_summary": "R, S, and U bind coordination thresholds, communication throughput, and conflict costs into admissible social trajectories.",
-      "parameter_law_display": "N_s \\in [120,180],\\quad J_{\\mathrm{comm}} \\in [1,5]\\,\\mathrm{bits/s},\\quad \\Theta_{\\mathrm{coord}} \\in [0.2,0.4]",
+      "parameter_law_display": "\\begin{gathered} N_s \\in [120,180],\\quad J_{\\mathrm{comm}} \\in [1,5]\\,\\mathrm{bits/s},\\quad \\Theta_{\\mathrm{coord}} \\in [0.2,0.4] \\\\ C_{\\mathrm{conf}} \\in [0.1,1] \\end{gathered}",
       "observable_map_summary": "Group stability size, communication throughput, coordination threshold, and conflict cost inside social coordination continua.",
       "theorem_refs": [
         "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
@@ -1696,6 +1717,7 @@
         "K7::GROUP_STABILITY_SIZE",
         "K7::COMMUNICATION_BANDWIDTH",
         "K7::COORDINATION_THRESHOLD",
+        "K7::CONFLICT_COST_SCALE",
         "BIOLOGY::EXPRESSION_SIGNATURE_RESIDUAL",
         "BIOLOGY::STATE_TRANSITION_ORDER_ERROR",
         "BIOLOGY::RESPONSE_ONSET_RESIDUAL"
@@ -1718,6 +1740,12 @@
           "symbol_tex": "\\Theta_{\\mathrm{coord}}",
           "value_tex": "0.2\\text{--}0.4",
           "units_note": "dimensionless"
+        },
+        {
+          "quantity": "Conflict cost scale",
+          "symbol_tex": "C_{\\mathrm{conf}}",
+          "value_tex": "0.1\\text{--}1",
+          "units_note": "arbitrary units"
         }
       ],
       "appendix_table_label": "tab:k7-social-parameters",
@@ -2006,7 +2034,7 @@
       "closure_verdict": "PASS",
       "theorem_native_claim": "K9 formalizes bounded scientific-knowledge continua through anomaly accumulation, paradigm coherence, and model-validation bandwidth.",
       "operator_binding_summary": "Q, R, and U bind anomaly handling, paradigm coherence, and memory retention inside knowledge-system packets.",
-      "parameter_law_display": "\\Theta_{\\mathrm{par}} \\in [0.15,0.25],\\quad J_{\\mathrm{anom}} \\in [10^{-4},10^{-2}],\\quad \\tau_{\\mathrm{mem}} \\in [30,200]\\,\\mathrm{years}",
+      "parameter_law_display": "\\begin{gathered} \\Theta_{\\mathrm{par}} \\in [0.15,0.25],\\quad J_{\\mathrm{anom}} \\in [10^{-4},10^{-2}],\\quad \\tau_{\\mathrm{mem}} \\in [30,200]\\,\\mathrm{years} \\\\ B_{\\mathrm{val}} \\in [0.1,1] \\end{gathered}",
       "observable_map_summary": "Paradigm coherence, anomaly accumulation, validation bandwidth, and scientific-memory half-life.",
       "theorem_refs": [
         "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
@@ -2069,6 +2097,7 @@
         "K9::PARADIGM_COHERENCE_THRESHOLD",
         "K9::ANOMALY_ACCUMULATION_RATE",
         "K9::SCIENTIFIC_MEMORY_HALF_LIFE",
+        "K9::MODEL_VALIDATION_BANDWIDTH",
         "MATHEMATICS::EPSILON_STAR",
         "MATHEMATICS::MINIMAL_DENOMINATOR",
         "MATHEMATICS::MINIMAL_AUGMENTATION_RANK",
@@ -2099,6 +2128,12 @@
           "symbol_tex": "\\tau_{\\mathrm{mem}}",
           "value_tex": "30\\text{--}200",
           "units_note": "years"
+        },
+        {
+          "quantity": "Model-validation bandwidth",
+          "symbol_tex": "B_{\\mathrm{val}}",
+          "value_tex": "0.1\\text{--}1",
+          "units_note": "normalised"
         }
       ],
       "appendix_table_label": "tab:k9-knowledge-parameters",
@@ -2295,7 +2330,7 @@
       "closure_verdict": "PASS",
       "theorem_native_claim": "K10 binds bounded recursion, expressivity classes, and proof-flow capacity into the formal-system lane of the unified-science closure stack.",
       "operator_binding_summary": "F, Q, and U bind recursion depth, proof throughput, and consistency thresholds in formal continua.",
-      "parameter_law_display": "d_{\\mathrm{rec}} \\in [10,10^4],\\quad \\Theta_{\\mathrm{cons}} \\in [0.01,0.05],\\quad J_{\\mathrm{proof}} \\in [1,10^3]",
+      "parameter_law_display": "\\begin{gathered} d_{\\mathrm{rec}} \\in [10,10^4],\\quad \\Theta_{\\mathrm{cons}} \\in [0.01,0.05],\\quad J_{\\mathrm{proof}} \\in [1,10^3] \\\\ \\mathcal{E} \\in \\{\\mathrm{P},\\mathrm{NP},\\mathrm{RE}\\}\\ \\text{(context-dependent)} \\end{gathered}",
       "observable_map_summary": "Recursion depth, consistency threshold, expressivity class, and proof-flow capacity in bounded formal systems.",
       "theorem_refs": [
         "releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json",
@@ -2358,6 +2393,7 @@
         "K10::RECURSION_DEPTH",
         "K10::CONSISTENCY_THRESHOLD",
         "K10::PROOF_FLOW_CAPACITY",
+        "K10::EXPRESSIVITY_CLASS",
         "MATHEMATICS::EPSILON_STAR",
         "MATHEMATICS::MINIMAL_DENOMINATOR",
         "MATHEMATICS::MINIMAL_AUGMENTATION_RANK",
@@ -2376,6 +2412,12 @@
           "symbol_tex": "d_{\\mathrm{rec}}",
           "value_tex": "10\\text{--}10^4",
           "units_note": "steps"
+        },
+        {
+          "quantity": "Expressivity class",
+          "symbol_tex": "\\mathcal{E}",
+          "value_tex": "\\mathrm{P},\\mathrm{NP},\\mathrm{RE}",
+          "units_note": "context-dependent"
         },
         {
           "quantity": "Consistency threshold",

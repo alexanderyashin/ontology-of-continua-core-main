@@ -3,7 +3,7 @@
 \label{sec:oc-core-1-3-toe-synthesis}
 Final TOE release status: \occode{PASS}.
 
-This chapter is projected directly from the canonical science SPOT. It therefore exposes a lawfully promoted TOE with explicit K0--K12 parameter laws, numerical rows, falsifiers, and empirical held-out prediction summaries.
+The generated synthesis block in this chapter is projected directly from the canonical science SPOT. It exposes a lawfully promoted TOE with explicit K0--K12 parameter laws, numerical rows, falsifiers, and empirical held-out prediction summaries.
 The public TOE title is used only because the exact gate \occode{FINAL_TOE_VALIDATOR_PASS} is currently \occode{PASS} under the canonical naming policy.
 
 \subsection{Final TOE Release Gate}
@@ -217,12 +217,12 @@ Core witness anchors are tabulated in Appendix~\ref{sec:oc-core-1-3-toe-support-
 
 \paragraph{Parameter law.}
 \[
-d_{\mathrm{mem}} \in [3, 5]\,\mathrm{nm},\quad \kappa \in [10, 25]\,k_{\mathrm{B}}T,\quad \Delta pH \in [0.5, 2]
+\begin{gathered} d_{\mathrm{mem}} \in [3, 5]\,\mathrm{nm},\quad \kappa \in [10, 25]\,k_{\mathrm{B}}T,\quad \Delta pH \in [0.5, 2] \\ \gamma_{\mathrm{edge}} \in [5,20]\,\mathrm{pN},\quad \Pi \in [10^5,10^6]\,\mathrm{Pa},\quad P_i \in [10^{-12},10^{-8}]\,\mathrm{m/s} \end{gathered}
 \]
 
 \paragraph{Observable map and units.}
 Membrane thickness, bending modulus, osmotic pressure, proton gradient, and permeability lanes for compartmental organization.
-Registered observables: \occode{K4::MEMBRANE_THICKNESS}, \allowbreak \occode{K4::BENDING_MODULUS}, \allowbreak \occode{K4::PROTON_GRADIENT}, \allowbreak \occode{BIOLOGY::EXPRESSION_SIGNATURE_RESIDUAL}, \allowbreak \occode{BIOLOGY::STATE_TRANSITION_ORDER_ERROR}, \allowbreak \occode{BIOLOGY::RESPONSE_ONSET_RESIDUAL}, \allowbreak \occode{CHEMISTRY::GAS_PHASE_ENTHALPY_RESIDUAL}, \allowbreak \occode{CHEMISTRY::SPECTRAL_TRANSITION_RESIDUAL}, \allowbreak \occode{CHEMISTRY::KINETIC_OR_EQUILIBRIUM_RESIDUAL}.
+Registered observables: \occode{K4::MEMBRANE_THICKNESS}, \allowbreak \occode{K4::BENDING_MODULUS}, \allowbreak \occode{K4::PROTON_GRADIENT}, \allowbreak \occode{K4::LINE_TENSION}, \allowbreak \occode{K4::OSMOTIC_PRESSURE_SCALE}, \allowbreak \occode{K4::PERMEABILITY_RANGE}, \allowbreak \occode{BIOLOGY::EXPRESSION_SIGNATURE_RESIDUAL}, \allowbreak \occode{BIOLOGY::STATE_TRANSITION_ORDER_ERROR}, \allowbreak \occode{BIOLOGY::RESPONSE_ONSET_RESIDUAL}, \allowbreak \occode{CHEMISTRY::GAS_PHASE_ENTHALPY_RESIDUAL}, \allowbreak \occode{CHEMISTRY::SPECTRAL_TRANSITION_RESIDUAL}, \allowbreak \occode{CHEMISTRY::KINETIC_OR_EQUILIBRIUM_RESIDUAL}.
 
 \paragraph{Numerical instantiation and prediction table.}
 The numerical rows below are synchronized with Appendix~\ref{tab:k4-membrane-parameters}.
@@ -238,6 +238,9 @@ Quantity & Symbol & Value / range & Units or note \\
 Membrane thickness & $\scriptstyle d_{\mathrm{mem}}$ & $3\text{--}5$ & $\mathrm{nm}$ \\
 Membrane bending modulus & $\scriptstyle \kappa$ & $10\text{--}25$ & $k_{\mathrm{B}}T$ \\
 Typical proton gradient & $\scriptstyle \Delta pH$ & $0.5\text{--}2$ & pH units \\
+Line tension (edge) & $\scriptstyle \gamma_{\mathrm{edge}}$ & $5\text{--}20$ & $\mathrm{pN}$ \\
+Osmotic pressure scale & $\scriptstyle \Pi$ & $10^5\text{--}10^6$ & $\mathrm{Pa}$ \\
+Permeability range & $\scriptstyle P_i$ & $10^{-12}\text{--}10^{-8}$ & $\mathrm{m/s}$ \\
 \bottomrule
 \end{longtable}
 
@@ -360,12 +363,12 @@ Core witness anchors are tabulated in Appendix~\ref{sec:oc-core-1-3-toe-support-
 
 \paragraph{Parameter law.}
 \[
-N_s \in [120,180],\quad J_{\mathrm{comm}} \in [1,5]\,\mathrm{bits/s},\quad \Theta_{\mathrm{coord}} \in [0.2,0.4]
+\begin{gathered} N_s \in [120,180],\quad J_{\mathrm{comm}} \in [1,5]\,\mathrm{bits/s},\quad \Theta_{\mathrm{coord}} \in [0.2,0.4] \\ C_{\mathrm{conf}} \in [0.1,1] \end{gathered}
 \]
 
 \paragraph{Observable map and units.}
 Group stability size, communication throughput, coordination threshold, and conflict cost inside social coordination continua.
-Registered observables: \occode{K7::GROUP_STABILITY_SIZE}, \allowbreak \occode{K7::COMMUNICATION_BANDWIDTH}, \allowbreak \occode{K7::COORDINATION_THRESHOLD}, \allowbreak \occode{BIOLOGY::EXPRESSION_SIGNATURE_RESIDUAL}, \allowbreak \occode{BIOLOGY::STATE_TRANSITION_ORDER_ERROR}, \allowbreak \occode{BIOLOGY::RESPONSE_ONSET_RESIDUAL}.
+Registered observables: \occode{K7::GROUP_STABILITY_SIZE}, \allowbreak \occode{K7::COMMUNICATION_BANDWIDTH}, \allowbreak \occode{K7::COORDINATION_THRESHOLD}, \allowbreak \occode{K7::CONFLICT_COST_SCALE}, \allowbreak \occode{BIOLOGY::EXPRESSION_SIGNATURE_RESIDUAL}, \allowbreak \occode{BIOLOGY::STATE_TRANSITION_ORDER_ERROR}, \allowbreak \occode{BIOLOGY::RESPONSE_ONSET_RESIDUAL}.
 
 \paragraph{Numerical instantiation and prediction table.}
 The numerical rows below are synchronized with Appendix~\ref{tab:k7-social-parameters}.
@@ -381,6 +384,7 @@ Quantity & Symbol & Value / range & Units or note \\
 Group stability size & $\scriptstyle N_s$ & $120\text{--}180$ & agents \\
 Information-flow bandwidth per agent & $\scriptstyle J_{\mathrm{comm}}$ & $1\text{--}5$ & $\mathrm{bits/s}$ \\
 Coordination threshold & $\scriptstyle \Theta_{\mathrm{coord}}$ & $0.2\text{--}0.4$ & dimensionless \\
+Conflict cost scale & $\scriptstyle C_{\mathrm{conf}}$ & $0.1\text{--}1$ & arbitrary units \\
 \bottomrule
 \end{longtable}
 
@@ -454,12 +458,12 @@ Core witness anchors are tabulated in Appendix~\ref{sec:oc-core-1-3-toe-support-
 
 \paragraph{Parameter law.}
 \[
-\Theta_{\mathrm{par}} \in [0.15,0.25],\quad J_{\mathrm{anom}} \in [10^{-4},10^{-2}],\quad \tau_{\mathrm{mem}} \in [30,200]\,\mathrm{years}
+\begin{gathered} \Theta_{\mathrm{par}} \in [0.15,0.25],\quad J_{\mathrm{anom}} \in [10^{-4},10^{-2}],\quad \tau_{\mathrm{mem}} \in [30,200]\,\mathrm{years} \\ B_{\mathrm{val}} \in [0.1,1] \end{gathered}
 \]
 
 \paragraph{Observable map and units.}
 Paradigm coherence, anomaly accumulation, validation bandwidth, and scientific-memory half-life.
-Registered observables: \occode{K9::PARADIGM_COHERENCE_THRESHOLD}, \allowbreak \occode{K9::ANOMALY_ACCUMULATION_RATE}, \allowbreak \occode{K9::SCIENTIFIC_MEMORY_HALF_LIFE}, \allowbreak \occode{MATHEMATICS::EPSILON_STAR}, \allowbreak \occode{MATHEMATICS::MINIMAL_DENOMINATOR}, \allowbreak \occode{MATHEMATICS::MINIMAL_AUGMENTATION_RANK}, \allowbreak \occode{MATHEMATICS::COMPONENT_FIBER_COUNT}, \allowbreak \occode{MATHEMATICS::MOVE_CONNECTIVITY_OR_DEGREE_BOUND}, \allowbreak \occode{MATHEMATICS::STRICT_TERMINALIZED_TOTAL}, \allowbreak \occode{MATHEMATICS::COUNTEREXAMPLE_EXECUTED_TOTAL}, \allowbreak \occode{MATHEMATICS::PYTHON_EVIDENCE_EXECUTED_TOTAL}, \allowbreak \occode{PHYSICS::FINE_STRUCTURE_CONSTANT_RESIDUAL}, \allowbreak \occode{PHYSICS::HYDROGEN_BALMER_LINE_RESIDUAL}, \allowbreak \occode{PHYSICS::TRANSPORT_SCALING_RESIDUAL}.
+Registered observables: \occode{K9::PARADIGM_COHERENCE_THRESHOLD}, \allowbreak \occode{K9::ANOMALY_ACCUMULATION_RATE}, \allowbreak \occode{K9::SCIENTIFIC_MEMORY_HALF_LIFE}, \allowbreak \occode{K9::MODEL_VALIDATION_BANDWIDTH}, \allowbreak \occode{MATHEMATICS::EPSILON_STAR}, \allowbreak \occode{MATHEMATICS::MINIMAL_DENOMINATOR}, \allowbreak \occode{MATHEMATICS::MINIMAL_AUGMENTATION_RANK}, \allowbreak \occode{MATHEMATICS::COMPONENT_FIBER_COUNT}, \allowbreak \occode{MATHEMATICS::MOVE_CONNECTIVITY_OR_DEGREE_BOUND}, \allowbreak \occode{MATHEMATICS::STRICT_TERMINALIZED_TOTAL}, \allowbreak \occode{MATHEMATICS::COUNTEREXAMPLE_EXECUTED_TOTAL}, \allowbreak \occode{MATHEMATICS::PYTHON_EVIDENCE_EXECUTED_TOTAL}, \allowbreak \occode{PHYSICS::FINE_STRUCTURE_CONSTANT_RESIDUAL}, \allowbreak \occode{PHYSICS::HYDROGEN_BALMER_LINE_RESIDUAL}, \allowbreak \occode{PHYSICS::TRANSPORT_SCALING_RESIDUAL}.
 
 \paragraph{Numerical instantiation and prediction table.}
 The numerical rows below are synchronized with Appendix~\ref{tab:k9-knowledge-parameters}.
@@ -475,6 +479,7 @@ Quantity & Symbol & Value / range & Units or note \\
 Paradigm-coherence threshold & $\scriptstyle \Theta_{\mathrm{par}}$ & $0.15\text{--}0.25$ & dimensionless \\
 Anomaly accumulation rate & $\scriptstyle J_{\mathrm{anom}}$ & $10^{-4}\text{--}10^{-2}$ & per cycle \\
 Scientific-memory half-life & $\scriptstyle \tau_{\mathrm{mem}}$ & $30\text{--}200$ & years \\
+Model-validation bandwidth & $\scriptstyle B_{\mathrm{val}}$ & $0.1\text{--}1$ & normalised \\
 \bottomrule
 \end{longtable}
 
@@ -502,12 +507,12 @@ Core witness anchors are tabulated in Appendix~\ref{sec:oc-core-1-3-toe-support-
 
 \paragraph{Parameter law.}
 \[
-d_{\mathrm{rec}} \in [10,10^4],\quad \Theta_{\mathrm{cons}} \in [0.01,0.05],\quad J_{\mathrm{proof}} \in [1,10^3]
+\begin{gathered} d_{\mathrm{rec}} \in [10,10^4],\quad \Theta_{\mathrm{cons}} \in [0.01,0.05],\quad J_{\mathrm{proof}} \in [1,10^3] \\ \mathcal{E} \in \{\mathrm{P},\mathrm{NP},\mathrm{RE}\}\ \text{(context-dependent)} \end{gathered}
 \]
 
 \paragraph{Observable map and units.}
 Recursion depth, consistency threshold, expressivity class, and proof-flow capacity in bounded formal systems.
-Registered observables: \occode{K10::RECURSION_DEPTH}, \allowbreak \occode{K10::CONSISTENCY_THRESHOLD}, \allowbreak \occode{K10::PROOF_FLOW_CAPACITY}, \allowbreak \occode{MATHEMATICS::EPSILON_STAR}, \allowbreak \occode{MATHEMATICS::MINIMAL_DENOMINATOR}, \allowbreak \occode{MATHEMATICS::MINIMAL_AUGMENTATION_RANK}, \allowbreak \occode{MATHEMATICS::COMPONENT_FIBER_COUNT}, \allowbreak \occode{MATHEMATICS::MOVE_CONNECTIVITY_OR_DEGREE_BOUND}, \allowbreak \occode{MATHEMATICS::STRICT_TERMINALIZED_TOTAL}, \allowbreak \occode{MATHEMATICS::COUNTEREXAMPLE_EXECUTED_TOTAL}, \allowbreak \occode{MATHEMATICS::PYTHON_EVIDENCE_EXECUTED_TOTAL}, \allowbreak \occode{PHYSICS::FINE_STRUCTURE_CONSTANT_RESIDUAL}, \allowbreak \occode{PHYSICS::HYDROGEN_BALMER_LINE_RESIDUAL}, \allowbreak \occode{PHYSICS::TRANSPORT_SCALING_RESIDUAL}.
+Registered observables: \occode{K10::RECURSION_DEPTH}, \allowbreak \occode{K10::CONSISTENCY_THRESHOLD}, \allowbreak \occode{K10::PROOF_FLOW_CAPACITY}, \allowbreak \occode{K10::EXPRESSIVITY_CLASS}, \allowbreak \occode{MATHEMATICS::EPSILON_STAR}, \allowbreak \occode{MATHEMATICS::MINIMAL_DENOMINATOR}, \allowbreak \occode{MATHEMATICS::MINIMAL_AUGMENTATION_RANK}, \allowbreak \occode{MATHEMATICS::COMPONENT_FIBER_COUNT}, \allowbreak \occode{MATHEMATICS::MOVE_CONNECTIVITY_OR_DEGREE_BOUND}, \allowbreak \occode{MATHEMATICS::STRICT_TERMINALIZED_TOTAL}, \allowbreak \occode{MATHEMATICS::COUNTEREXAMPLE_EXECUTED_TOTAL}, \allowbreak \occode{MATHEMATICS::PYTHON_EVIDENCE_EXECUTED_TOTAL}, \allowbreak \occode{PHYSICS::FINE_STRUCTURE_CONSTANT_RESIDUAL}, \allowbreak \occode{PHYSICS::HYDROGEN_BALMER_LINE_RESIDUAL}, \allowbreak \occode{PHYSICS::TRANSPORT_SCALING_RESIDUAL}.
 
 \paragraph{Numerical instantiation and prediction table.}
 The numerical rows below are synchronized with Appendix~\ref{tab:k10-formal-parameters}.
@@ -521,6 +526,7 @@ Quantity & Symbol & Value / range & Units or note \\
 \midrule
 \endhead
 Recursion depth (effective) & $\scriptstyle d_{\mathrm{rec}}$ & $10\text{--}10^4$ & steps \\
+Expressivity class & $\scriptstyle \mathcal{E}$ & $\mathrm{P},\mathrm{NP},\mathrm{RE}$ & context-dependent \\
 Consistency threshold & $\scriptstyle \Theta_{\mathrm{cons}}$ & $0.01\text{--}0.05$ & dimensionless \\
 Proof-flow capacity & $\scriptstyle J_{\mathrm{proof}}$ & $1\text{--}10^3$ & steps/s \\
 \bottomrule

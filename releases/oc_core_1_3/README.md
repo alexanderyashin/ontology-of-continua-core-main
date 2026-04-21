@@ -12,6 +12,12 @@ review, citation, and archival release.
   Truth surface,
   [`editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json`](editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json).
 
+## Citation
+
+For public citation, use the release metadata in `.zenodo.json` together with
+the archived DOI record when the bundle is deposited. Until deposition, cite
+the repository, release line, release date, and baseline witness above.
+
 ## Current gate status
 
 - Current Cerberus scope: the scripted release-review authority
@@ -41,10 +47,10 @@ science.
 ## Bundle contents
 
 - `monograph/` contains the English master monograph built directly from the
-  public LaTeX source corpus plus German and Russian monograph translation
-  drafts. Language variants are classified uniformly: English is the
-  proof-bearing source language; German and Russian files are translation
-  drafts under theorem review and function as localised access aids only.
+  public LaTeX source corpus.
+- German and Russian monograph files in the bundle are translation drafts under
+  theorem review. They function as localised access aids only; English remains
+  the proof-bearing source language.
 - `journal_core/` contains the bounded Journal Core article in English plus
   German and Russian journal-core translation drafts.
 - `manuscripts/` contains the primary English flagship manuscript plus German
@@ -68,9 +74,9 @@ science.
   surfaces.
 - `editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json` is the bundle-local
   scientific state projection for Core 1.3; the foundational dossier,
-  empirical execution surfaces, validation matrix, command board, and generated
-  science chapters are generated from the source-owned corpus through this
-  SPOT projection.
+  empirical execution surfaces, validation matrix, command board, and science
+  chapters are projected from the source-owned corpus through this SPOT
+  surface.
 - `editorial/OC_CORE_1_3_FULL_SCIENTIFIC_CLOSURE_PROGRAM_latest.json` carries the long-horizon closure program.
 - `editorial/OC_CORE_1_3_UNIFIED_SCIENCE_ATLAS_latest.json` carries the cross-domain atlas scaffold.
 - `editorial/OC_CORE_1_3_PROOF_OBLIGATION_REGISTRY_latest.json` carries the load-bearing proof obligations.

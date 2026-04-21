@@ -11,11 +11,11 @@ R, S, and U bind coordination thresholds, communication throughput, and conflict
 
 \paragraph{Parameter law.}
 \[
-N_s \in [120,180],\quad J_{\mathrm{comm}} \in [1,5]\,\mathrm{bits/s},\quad \Theta_{\mathrm{coord}} \in [0.2,0.4]
+\begin{gathered} N_s \in [120,180],\quad J_{\mathrm{comm}} \in [1,5]\,\mathrm{bits/s},\quad \Theta_{\mathrm{coord}} \in [0.2,0.4] \\ C_{\mathrm{conf}} \in [0.1,1] \end{gathered}
 \]
 
 \paragraph{Observable binding and units.}
-Group stability size, communication throughput, coordination threshold, and conflict cost inside social coordination continua. Observable ids: \occode{K7::GROUP_STABILITY_SIZE}, \allowbreak \occode{K7::COMMUNICATION_BANDWIDTH}, \allowbreak \occode{K7::COORDINATION_THRESHOLD}, \allowbreak \occode{BIOLOGY::EXPRESSION_SIGNATURE_RESIDUAL}, \allowbreak \occode{BIOLOGY::STATE_TRANSITION_ORDER_ERROR}, \allowbreak \occode{BIOLOGY::RESPONSE_ONSET_RESIDUAL}.
+Group stability size, communication throughput, coordination threshold, and conflict cost inside social coordination continua. Observable ids: \occode{K7::GROUP_STABILITY_SIZE}, \allowbreak \occode{K7::COMMUNICATION_BANDWIDTH}, \allowbreak \occode{K7::COORDINATION_THRESHOLD}, \allowbreak \occode{K7::CONFLICT_COST_SCALE}, \allowbreak \occode{BIOLOGY::EXPRESSION_SIGNATURE_RESIDUAL}, \allowbreak \occode{BIOLOGY::STATE_TRANSITION_ORDER_ERROR}, \allowbreak \occode{BIOLOGY::RESPONSE_ONSET_RESIDUAL}.
 
 \paragraph{Numerical instantiation and prediction table.}
 Numerical backing rows are synchronized with Appendix~\ref{tab:k7-social-parameters}.
@@ -31,6 +31,7 @@ Quantity & Symbol & Value / range & Units or note \\
 Group stability size & $\scriptstyle N_s$ & $120\text{--}180$ & agents \\
 Information-flow bandwidth per agent & $\scriptstyle J_{\mathrm{comm}}$ & $1\text{--}5$ & $\mathrm{bits/s}$ \\
 Coordination threshold & $\scriptstyle \Theta_{\mathrm{coord}}$ & $0.2\text{--}0.4$ & dimensionless \\
+Conflict cost scale & $\scriptstyle C_{\mathrm{conf}}$ & $0.1\text{--}1$ & arbitrary units \\
 \bottomrule
 \end{longtable}
 

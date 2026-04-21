@@ -104,8 +104,10 @@ closure layer. The mapping is:
       \texttt{FRAME\_ONLY}, or \texttt{EXTENSION} as recorded by SPOT.
 \item Frontier statements map to \texttt{EXTENSION} unless explicitly refuted
       or promoted.
-\item Blocked or refuted statements map to \texttt{REFUTED} when SPOT records
-      closure failure.
+\item Fail-closed bridge, frame, or extension lanes retain the class recorded
+      by SPOT; closure failure by itself is not refutation.
+\item Statements map to \texttt{REFUTED} only when SPOT records an explicit
+      refutation rather than a blocked promotion.
 \end{itemize}
 This chapter classifies the statement classes that affect theorem status,
 structural scope, interpretation, empirical promotion, and frontier boundaries.

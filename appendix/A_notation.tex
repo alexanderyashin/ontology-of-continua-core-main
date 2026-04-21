@@ -38,27 +38,34 @@ the science appendices.
   \item[\(\mathbf{1}_{\Omega\neq\emptyset}(K,t)\)] Nonemptiness indicator for
         the time-slice admissible region: it is \(1\) exactly when
         \(\Omega(K,t)\neq\emptyset\) and \(0\) otherwise.
-  \item[\(\partial\Omega(K)\)] Boundary of admissible states of \(K\), defined
-        by threshold saturation:
-        \(\partial\Omega(K)=\{s\in\overline{\Omega(K)}\mid
-        \exists i:\,f_i(s)=0\}\) for the active threshold family
-        \(\{f_i\}\). Here \(f_i\) is the shifted residual form of a raw
-        threshold inequality: \(f_i(s)=g_i(s)-\Theta_i\), so \(f_i(s)\le0\)
-        is the admissible-side convention and \(f_i(s)=0\) is equivalent to
-        the raw saturation equation \(g_i(s)=\Theta_i\). The same residual
-        convention is used in the model and boundary chapters. The closure is taken
-        in the ambient topology supplied by the relevant embedding space
-        \(M_x\); Sections~\ref{sec:boundary-extended}
+  \item[\(\Sigma_{\Omega}(K;M_x)\)] Threshold-saturation locus of
+        \(\Omega(K)\) inside the declared ambient embedding space \(M_x\):
+        \[
+          \Sigma_{\Omega}(K;M_x)=
+          \{s\in\overline{\Omega(K)}^{\,M_x}\mid \exists i:\,f_i(s)=0\}.
+        \]
+        Here \(f_i\) is the shifted residual form of a raw threshold
+        inequality: \(f_i(s)=g_i(s)-\Theta_i\), so \(f_i(s)\le0\) is the
+        admissible-side convention and \(f_i(s)=0\) is equivalent to the raw
+        saturation equation \(g_i(s)=\Theta_i\). The same residual convention
+        is used in the model and boundary chapters.
+  \item[\(\partial\Omega(K)\)] Boundary shorthand for the admissible region
+        when the ambient space \(M_x\) and the local regularity convention are
+        fixed by the surrounding chapter:
+        \[
+          \partial\Omega(K)=
+          \partial_{M_x}\Omega(K)=\Sigma_{\Omega}(K;M_x).
+        \]
+        The standing convention is that active residual thresholds are
+        continuous on the ambient closure, the admissible set is the
+        intersection of their closed sublevel regions, and no redundant
+        saturated constraint is counted as boundary unless the local section
+        names it. Sections~\ref{sec:boundary-extended}
         and~\ref{sec:thresholds-extended} fix the boundary and threshold
-        assumptions used by this shorthand.
-        The shorthand assumes the local regularity convention used in the
-        model chapter: active residual thresholds are continuous on the
-        ambient closure, the admissible set is the intersection of their
-        closed sublevel regions, and no redundant saturated constraint is
-        counted as boundary unless the local section names it. Without that
-        convention, the same formula should be read only as the
-        threshold-saturation locus, not as a claim that every saturated point
-        is a topological boundary point.
+        assumptions used by this shorthand. Without those ambient and
+        regularity hypotheses, use \(\Sigma_{\Omega}(K;M_x)\) and read the
+        statement as threshold saturation rather than as a topological
+        boundary claim.
   \item[\(\partial\Omega(K,t)\)] Time-indexed admissible boundary of \(K\)
         at time \(t\), equivalently the boundary of \(\Omega(K,t)\) under the
         threshold family active at that slice.

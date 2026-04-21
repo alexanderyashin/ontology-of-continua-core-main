@@ -16,12 +16,13 @@
   "appendix_table_label": "tab:k7-social-parameters",
   "theorem_native_claim": "K7 closes bounded social coordination through group size, communication bandwidth, and coordination thresholds.",
   "operator_binding_summary": "R, S, and U bind coordination thresholds, communication throughput, and conflict costs into admissible social trajectories.",
-  "parameter_law_display": "N_s \\in [120,180],\\quad J_{\\mathrm{comm}} \\in [1,5]\\,\\mathrm{bits/s},\\quad \\Theta_{\\mathrm{coord}} \\in [0.2,0.4]",
+  "parameter_law_display": "\\begin{gathered} N_s \\in [120,180],\\quad J_{\\mathrm{comm}} \\in [1,5]\\,\\mathrm{bits/s},\\quad \\Theta_{\\mathrm{coord}} \\in [0.2,0.4] \\\\ C_{\\mathrm{conf}} \\in [0.1,1] \\end{gathered}",
   "observable_map_summary": "Group stability size, communication throughput, coordination threshold, and conflict cost inside social coordination continua.",
   "synthetic_observable_ids": [
     "K7::GROUP_STABILITY_SIZE",
     "K7::COMMUNICATION_BANDWIDTH",
-    "K7::COORDINATION_THRESHOLD"
+    "K7::COORDINATION_THRESHOLD",
+    "K7::CONFLICT_COST_SCALE"
   ],
   "numerical_rows": [
     {
@@ -41,6 +42,12 @@
       "symbol_tex": "\\Theta_{\\mathrm{coord}}",
       "value_tex": "0.2\\text{--}0.4",
       "units_note": "dimensionless"
+    },
+    {
+      "quantity": "Conflict cost scale",
+      "symbol_tex": "C_{\\mathrm{conf}}",
+      "value_tex": "0.1\\text{--}1",
+      "units_note": "arbitrary units"
     }
   ],
   "collapse_boundary": "K7 collapses when communication throughput and coordination thresholds cannot stabilize social group trajectories without hidden rescue assumptions.",
