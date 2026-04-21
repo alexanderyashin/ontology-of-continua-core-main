@@ -15,8 +15,11 @@ review, citation, and archival release.
 ## Citation
 
 For public citation, use the release metadata in `.zenodo.json` together with
-the archived DOI record when the bundle is deposited. Until deposition, cite
-the repository, release line, release date, and baseline witness above.
+the archived DOI record when the bundle is deposited. From this release folder,
+the citation metadata file is `../../.zenodo.json`. Until deposition, cite
+Alexander Yashin, *Ontology of Continua -- Core v1.3.0*, GitHub repository
+`alexanderyashin/ontology-of-continua-core-main`, release date April 21, 2026,
+and the baseline witness listed above.
 
 ## Current gate status
 

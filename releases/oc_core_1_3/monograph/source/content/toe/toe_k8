@@ -11,11 +11,11 @@ H, R, and U bind throughput, repair-decay balance, and regime-shift boundaries i
 
 \paragraph{Parameter law.}
 \[
-E_{\mathrm{dens}} \in [10^2,10^3]\,\mathrm{W/m^2},\quad \tau_{\mathrm{infra}} \in [20,50]\,\mathrm{years},\quad R_{\mathrm{rep}} \in [0.8,1.2]
+\begin{gathered} E_{\mathrm{dens}} \in [10^2,10^3]\,\mathrm{W/m^2},\quad \tau_{\mathrm{infra}} \in [20,50]\,\mathrm{years},\quad R_{\mathrm{rep}} \in [0.8,1.2] \\ \Theta_I \in [0.1,0.3] \end{gathered}
 \]
 
 \paragraph{Observable binding and units.}
-Energy density, infrastructure renewal, information coherence, and repair-decay balance in bounded civilizational lanes. Observable ids: \occode{K8::ENERGY_CONSUMPTION_DENSITY}, \allowbreak \occode{K8::INFRASTRUCTURE_RENEWAL_TIME}, \allowbreak \occode{K8::REPAIR_TO_DECAY_RATIO}, \allowbreak \occode{SYSTEMS_CIVILIZATIONAL_PROJECTION::POPULATION_TRAJECTORY_RESIDUAL}, \allowbreak \occode{SYSTEMS_CIVILIZATIONAL_PROJECTION::GDP_GROWTH_TURNING_POINT_ERROR}, \allowbreak \occode{SYSTEMS_CIVILIZATIONAL_PROJECTION::PROCESS_SYSTEM_REGIME_SCORE}.
+Energy density, infrastructure renewal, information coherence, and repair-decay balance in bounded civilizational lanes. Observable ids: \occode{K8::ENERGY_CONSUMPTION_DENSITY}, \allowbreak \occode{K8::INFRASTRUCTURE_RENEWAL_TIME}, \allowbreak \occode{K8::REPAIR_TO_DECAY_RATIO}, \allowbreak \occode{K8::INFORMATION_COHERENCE_THRESHOLD}, \allowbreak \occode{SYSTEMS_CIVILIZATIONAL_PROJECTION::POPULATION_TRAJECTORY_RESIDUAL}, \allowbreak \occode{SYSTEMS_CIVILIZATIONAL_PROJECTION::GDP_GROWTH_TURNING_POINT_ERROR}, \allowbreak \occode{SYSTEMS_CIVILIZATIONAL_PROJECTION::PROCESS_SYSTEM_REGIME_SCORE}.
 
 \paragraph{Numerical instantiation and prediction table.}
 Numerical backing rows are synchronized with Appendix~\ref{tab:k8-civilizational-parameters}.
@@ -30,6 +30,7 @@ Quantity & Symbol & Value / range & Units or note \\
 \endhead
 Energy consumption density & $\scriptstyle E_{\mathrm{dens}}$ & $10^2\text{--}10^3$ & $\mathrm{W/m^2}$ \\
 Infrastructure renewal time & $\scriptstyle \tau_{\mathrm{infra}}$ & $20\text{--}50$ & years \\
+Information-coherence threshold & $\scriptstyle \Theta_I$ & $0.1\text{--}0.3$ & dimensionless \\
 Repair-to-decay ratio & $\scriptstyle R_{\mathrm{rep}}$ & $0.8\text{--}1.2$ & dimensionless \\
 \bottomrule
 \end{longtable}
