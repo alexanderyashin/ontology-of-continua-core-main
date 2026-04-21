@@ -82,8 +82,8 @@ where:
           \[
               \Omega_1 = C^0(I,H^1(X_1,V_1)) \cap C^1(I,L^2(X_1,V_1)),
           \]
-          where \(I\) is the time interval and \(V_1\) is the value space for
-          the analytic example.
+          where \(I\) is the time interval and \(V_1\) is the chosen
+          finite-dimensional or Hilbert value space for the analytic example.
     \item \(P_1(t)\) is an energy-like potential functional on \(\Omega_1\);
     \item \(J_1(t)\) are flows derived from the variation of \(P_1\);
     \item \(\Theta_1\) encodes minimal conditions for classical stability;
@@ -164,11 +164,11 @@ Each continuum has a structured set of thresholds \(\Theta(K)\), organised into 
 
 The full threshold landscape of a continuum is thus a collection of inequalities:
 \[
-    f_{k}^{(\mathrm{exist})}(s) \le 0,\quad
-    f_{k}^{(\mathrm{stab})}(s) \le 0,\quad
-    f_{k}^{(\mathrm{crit})}(s) \le 0,\quad
-    f_{k}^{(\mathrm{dim})}(s) \le 0,\quad
-    f_{k}^{(\mathrm{death})}(s) \le 0,
+    f_{i}^{(\mathrm{exist})}(s) \le 0,\quad
+    f_{i}^{(\mathrm{stab})}(s) \le 0,\quad
+    f_{i}^{(\mathrm{crit})}(s) \le 0,\quad
+    f_{i}^{(\mathrm{dim})}(s) \le 0,\quad
+    f_{i}^{(\mathrm{death})}(s) \le 0,
 \]
 with corresponding boundary components given by the equalities.
 
@@ -266,6 +266,10 @@ or, in expanded form,
 \]
 Here \(A'\) denotes the post-evolution axis set of the same continuum in the
 expanded tuple.
+This is a unary evolution operator on a time slice of \(K\). The active
+meta-space is part of the surrounding environment or is shown as a subscripted
+parameter; writing it as a second argument is avoided in Core~1.3 so the
+operator arity remains fixed.
 
 Core~1.3 does not merge the flow, threshold, cycle, boundary, axis, and
 continuumness operators into one differential system. It treats them as a
@@ -290,7 +294,7 @@ At the structural level this is captured by the conditions
 \]
 The universal evolution axiom can then be stated schematically as
 \[
-    K_x(t+dt) = E\big(K_x(t), M_x(t)\big),
+    K_x(t+dt) = E_{M_x(t)}\big(K_x(t)\big),
 \]
 with the additional requirement that if the time-slice embedding condition
 fails, \(\Omega(K_x(t))\not\subseteq\Omega(M_x(t))\), the continuum \(K_x\)

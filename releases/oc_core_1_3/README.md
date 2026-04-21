@@ -3,19 +3,25 @@
 This folder contains the outward-facing OC Core 1.3 release bundle for public
 review, citation, and archival release.
 
-## Release metadata
+## Static release metadata
 
 - Release line: OC Core 1.3 public release bundle.
 - Release date: April 21, 2026.
 - Baseline witness: [`commit SHA 7ceb46acfbcb4e83d6568fea3c2530bd9eb95719`](https://github.com/alexanderyashin/ontology-of-continua-core-main/commit/7ceb46acfbcb4e83d6568fea3c2530bd9eb95719).
-- Current Cerberus scope:
+- Science-state projection: SPOT, the Science Projection and Operational
+  Truth surface,
+  [`editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json`](editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json).
+
+## Current gate status
+
+- Current Cerberus scope: the scripted release-review authority
   `OC_CORE_1_3_ENGLISH_FLAGSHIP_RELEASE_PACKAGE`.
 - Current checked-in Cerberus verdict: `FAIL_CLOSED` until the final full gate
   regenerates
   [`editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json`](editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json)
   with `status = PASS` and `llm_gate_status = PASS`.
-- Science-state projection:
-  [`editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json`](editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json).
+- TOE means the gated Theory of Everything synthesis surface; the title is
+  permitted only by the final SPOT policy recorded in the science projection.
 
 The sections below separate the source-owned scientific corpus, bundle-local
 projection surfaces, and packaged mirrors. Directories such as `monograph/`,
