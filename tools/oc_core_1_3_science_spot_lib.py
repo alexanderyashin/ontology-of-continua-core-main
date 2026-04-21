@@ -530,7 +530,7 @@ TOE_LEVEL_SPECS = {
         "toe_file_ref": "content/toe/toe_k11",
         "appendix_table_label": "tab:k11-meta-parameters",
         "theorem_native_claim": "K11 captures meta-theoretical reflexivity only if cross-framework coherence carries irreducible work beyond K10.",
-        "operator_binding_summary": "Q, R, and S bind meta-coherence, reflexive depth, and cross-landscape coupling under the irreducibility fork.",
+        "operator_binding_summary": "Q, R, and S bind meta-coherence, reflexive depth, and cross-landscape coupling under the requirement that no K10-only translation preserves all declared upper-level burdens.",
         "parameter_law_display": r"\Theta_{\mathrm{meta}} \in [0.02,0.1],\quad d_{\mathrm{refl}} \in [3,50],\quad J_X \in [0.1,1]",
         "observable_map_summary": "Meta-coherence, reflexive depth, and cross-landscape coupling in the meta-theoretical packet.",
         "synthetic_observable_ids": [
@@ -558,7 +558,7 @@ TOE_LEVEL_SPECS = {
                 "units_note": "dimensionless",
             },
         ],
-        "collapse_boundary": "K11 collapses if meta-theoretical work reduces cleanly to K10 or if meta-coherence requires hidden lift leakage.",
+        "collapse_boundary": "K11 collapses if an explicit K10-only reduction preserves the declared meta-theoretical burdens or if meta-coherence depends on an excluded lift route.",
     },
     "K12": {
         "title": "Global Semantic Coherence",
@@ -5051,7 +5051,11 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
             f"{tex_code(toe['hostile_review_blocking_total'])} hostile-review blockers, "
             f"and integrability at {tex_code(toe['integrability_suite_status'])}."
         ),
-        normalize_sentence(tex_escape(toe["acceptance_rule"])),
+        (
+            "The final promotion rule is parallel: every empirical core domain must be theorem-native; "
+            "the bridge-only domain total must be zero; the hostile-review blocker total must be zero; "
+            "the unified atlas and integrability suite must pass; and the K0--K12 numerical rows must remain explicit."
+        ),
         (
             "No release blocker remains in the canonical SPOT."
             if not toe["release_candidate_blockers"]
@@ -5144,7 +5148,7 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
             "",
             r"\subsection{Empirical Held-Out Prediction Summary}",
             normalize_sentence(branding["public_empirical_summary_text"]),
-            r"Where a promoted lane carries severe cases or false negatives, those adverse metrics are reported explicitly below. Appendix~\ref{app:toe-constants-and-parameters} and the canonical TOE surface retain the full numerical record.",
+            r"Where a promoted lane carries severe cases or false negatives, those adverse metrics are reported explicitly below. The pass/fail policy is the validation matrix in Appendix~\ref{sec:oc-core-1-3-empirical-validation-matrix}; Appendix~\ref{app:toe-constants-and-parameters} and the canonical TOE surface retain the full numerical record.",
             r"Metric labels are printed with their canonical surface names; \occode{critical_failure_recall} is the promoted systems recall metric used by the TOE surface.",
             "",
         ]
