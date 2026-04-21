@@ -9,7 +9,7 @@
 
 ## Abstract
 This article revalidates a bounded kernel of the Ontology of Continua under a strict source-audit discipline.
-The surviving source-native kernel supports the death-and-residue part of the post-collapse identity classification. When a continuum loses every admissible realisation, the original continuum is dead and structural residue may remain. A later live continuum is promoted as rebirth only inside the audited same-space branch or the manuscript-local related-space witness branch; otherwise the article does not promote a rebirth claim.
+The surviving source-native kernel supports the death-and-residue part of the post-collapse identity classification. When a continuum loses every admissible realisation, the original continuum is dead and structural residue may remain. A later live continuum is counted as rebirth only inside the audited same-space branch or the manuscript-local related-space witness branch; otherwise the article does not promote a rebirth claim.
 The contribution is both scientific and methodological. Scientifically, the paper restores a lawful theorem chain from the public Core 1.2 source corpus instead of relying on optimistic summary layers. Methodologically, it shows how unresolved theorem families are excluded rather than rhetorically blended into a stronger claim. Source witnesses are placed where they directly support the bounded result.
 
 ## Problem Statement
@@ -26,7 +26,7 @@ The main result is a bounded classification theorem about lawful post-collapse i
 1. the original continuum is dead;
 2. any surviving post-collapse structure is residue rather than a still-live instance of K.
 
-**Proposition B (manuscript-local rebirth control).** A later live continuum is promoted as rebirth only in the audited case where all of the following hold:
+**Proposition B (manuscript-local rebirth control).** A later live continuum is counted as rebirth only in the audited case where all of the following hold:
 1. it appears while $\Omega(K)=\emptyset$ and $k(K,t)=0$;
 2. it appears either in the same embedding space or in a related embedding space $M'$ with $M\sim_{\mathrm{res}}M'$;
 3. for the related-space branch, $M\sim_{\mathrm{res}}M'$ means that a named structure-preserving map $h:M\to M'$ and a residue element $r$ witness that $h(r)$ is present in $M'$ and that the threshold and admissibility predicates are preserved on that residue-bearing substructure;
@@ -48,7 +48,7 @@ The manuscript fixes four load-bearing notions:
 
 For auditability, $\Omega(K)$ denotes the admissible-state region of $K$, and $k(K,t)$ denotes the continuumness scalar of $K$ at time $t$. The same-space branch is literal. The related-space branch uses the article-local relation $M\sim_{\mathrm{res}}M'$ from Proposition B: a named structure-preserving map $h:M\to M'$ and a residue element $r$ must preserve the residue-bearing substructure and the threshold/admissibility predicates used to test the later continuum. If the map/witness pair is absent, the article falls back to the stricter same-embedding-space case rather than promoting the broader related-space branch.
 
-"Birth conditions for a given level" means the level-specific admissibility, threshold, and coherence conditions that allow a new continuum at that level to count as live. For the present article, those clauses synthesize the Rebirth definition and its surrounding formal-condition discussion in Core 1.2 source file `content/12_collapse_rebirth.tex`: a nonempty residue-supported candidate state set, embedding compatibility, threshold satisfaction, viable cycle or operator support, identity distinction from the dead original, and the level-specific axes required for the proposed new continuum.
+"Birth conditions for a given level" means the level-specific admissibility, threshold, and coherence conditions that allow a new continuum at that level to count as live. For the present article, those clauses synthesize the Rebirth definition and its surrounding formal-condition discussion in the audited OC source module `content/12_collapse_rebirth.tex` under the v1.2.1 source witness and Core 1.3 repair: a nonempty residue-supported candidate state set, embedding compatibility, threshold satisfaction, viable cycle or operator support, identity distinction from the dead original, and the level-specific axes required for the proposed new continuum.
 The article also keeps a small operational vocabulary for later projections. These observables are not used to inflate the present argument into a full universal law; they are included because they specify what later mathematical or domain-level projections would have to measure if the bounded theorem grammar is taken seriously.
 These observables matter because they turn the argument from an ontological slogan into a falsifiable grammar. They tell the reader what kind of counterexample would matter, what kind of terminal loss counts as death, and what kind of post-collapse persistence claim is prohibited by the manuscript.
 - `contradiction_load`: Minimal mismatch between required differences and currently expressible axes and admissible coordinates.
@@ -121,7 +121,7 @@ Source-witness anchors for the audited OC corpus:
 
 ### External comparator families
 External comparator families:
-- GUARINO_1998: High-level formal-ontology comparison family for category discipline and identity vocabulary. Nicola Guarino, Formal Ontology and Information Systems, in Formal Ontology in Information Systems, IOS Press, 1998.
+- GUARINO_1998: High-level formal-ontology comparison family for category discipline and identity vocabulary. Nicola Guarino, Formal Ontology and Information Systems, in N. Guarino (ed.), Formal Ontology in Information Systems: Proceedings of FOIS 1998, IOS Press, 1998.
 - GRENON_SMITH_2004: High-level formal-ontology comparison family for dynamic identity and process structure. Pierre Grenon and Barry Smith, SNAP and SPAN: Towards Dynamic Spatial Ontology, Spatial Cognition and Computation 4(1), 2004.
 - LOWE_2006: High-level metaphysical comparison family for identity and persistence categories. E. J. Lowe, The Four-Category Ontology: A Metaphysical Foundation for Natural Science, Oxford University Press, 2006.
 - THOM_1994: High-level transition-taxonomy comparison family for qualitative structural change. René Thom, Structural Stability and Morphogenesis: An Outline of a General Theory of Models, Westview Press, 1994.
@@ -199,7 +199,7 @@ The companion-material crosswalk above is the canonical support-artifact map. Th
 ## References
 [1] Alexander Yashin, Ontology of Continua — Core v1.2.0, Zenodo, 2025, DOI 10.5281/zenodo.17903912, https://zenodo.org/records/17903912.
 [2] Alexander Yashin, ontology-of-continua-core-main, GitHub repository, tag v1.2.1, commit 2c61b7879ed36cd8366d87892a066082b6418ce8, https://github.com/alexanderyashin/ontology-of-continua-core-main/commit/2c61b7879ed36cd8366d87892a066082b6418ce8.
-[3] Nicola Guarino, Formal Ontology and Information Systems, in Formal Ontology in Information Systems, IOS Press, 1998, pp. 3–15.
+[3] Nicola Guarino, Formal Ontology and Information Systems, in N. Guarino (ed.), Formal Ontology in Information Systems: Proceedings of FOIS 1998, IOS Press, 1998, pp. 3–15.
 [4] Pierre Grenon and Barry Smith, SNAP and SPAN: Towards Dynamic Spatial Ontology, Spatial Cognition and Computation, vol. 4, no. 1, pp. 69–103, 2004.
 [5] E. J. Lowe, The Four-Category Ontology: A Metaphysical Foundation for Natural Science, Oxford University Press, 2006.
 [6] René Thom, Structural Stability and Morphogenesis: An Outline of a General Theory of Models, Westview Press, 1994.

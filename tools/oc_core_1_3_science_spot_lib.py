@@ -5765,25 +5765,25 @@ def render_protocols_tex(spot: dict[str, Any]) -> str:
     core_domains = [domain for domain in spot["domain_registry"] if domain["domain_id"] in CORE_DOMAIN_IDS]
     lines = [
         "% Generated from OC_CORE_1_3_SCIENCE_SPOT_latest.json",
-        "The evidence bar is now locked to the canonical SPOT rather than to drifting summary surfaces. Deterministic statements require exact replay. Sigma-semantics lanes require held-out results that clear the declared five-sigma bar without tail-breach inflation. Residual containment by itself is not enough for promotion.",
+        "The evidence bar is now locked to the canonical SPOT rather than to drifting summary surfaces. The mathematics anchor is replay-only: it requires deterministic exact replay rather than a data-backed benchmark route. The empirical domain lanes require held-out results that clear the declared five-sigma bar without tail-breach inflation. Residual containment by itself is not enough for promotion.",
         "",
         r"\subsection{Global evidence bar}",
         "The default empirical bar remains hybrid escalation: official or open primary data first, then institute-run measurements only if the observable family cannot be closed otherwise. That escalation sits behind theorem-native trace closure rather than replacing it.",
         "",
         r"\subsection{Execution protocol matrix}",
-        r"\begin{longtable}{@{}L{0.14\textwidth}L{0.11\textwidth}L{0.13\textwidth}L{0.16\textwidth}L{0.17\textwidth}L{0.12\textwidth}@{}}",
+        r"\begin{longtable}{@{}L{0.13\textwidth}L{0.10\textwidth}L{0.12\textwidth}L{0.14\textwidth}L{0.16\textwidth}L{0.13\textwidth}L{0.10\textwidth}@{}}",
         r"\toprule",
-        r"Domain & Wave & Evidence bar & Held-out policy & Replay & Promotion verdict \\",
+        r"Domain & Wave & Evidence bar & Held-out policy & Replay command & Replay status & Closure verdict \\",
         r"\midrule",
         r"\endfirsthead",
         r"\toprule",
-        r"Domain & Wave & Evidence bar & Held-out policy & Replay & Promotion verdict \\",
+        r"Domain & Wave & Evidence bar & Held-out policy & Replay command & Replay status & Closure verdict \\",
         r"\midrule",
         r"\endhead",
     ]
     for domain in core_domains:
         lines.append(
-            f"{tex_escape(domain['domain_title'])} & {tex_code(domain['benchmark_wave_id'] or 'NONE')} & {tex_code(domain['evidence_bar'])} & {tex_code(domain['benchmark_design'].get('held_out_policy', 'NOT_REQUIRED'))} & {tex_code(domain['replay_harness'].get('command_ref', 'NOT_REQUIRED'))} & {tex_code(domain['closure_verdict'])} \\\\"
+            f"{tex_escape(domain['domain_title'])} & {tex_code(domain['benchmark_wave_id'] or 'NONE')} & {tex_code(domain['evidence_bar'])} & {tex_code(domain['benchmark_design'].get('held_out_policy', 'NOT_REQUIRED'))} & {tex_code(domain['replay_harness'].get('command_ref', 'NOT_REQUIRED'))} & {tex_code(domain.get('replay_status', 'NOT_RECORDED'))} & {tex_code(domain['closure_verdict'])} \\\\"
         )
     lines.extend(
         [
