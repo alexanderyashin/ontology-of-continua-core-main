@@ -4998,7 +4998,7 @@ def render_toe_support_level_tex(row: dict[str, Any]) -> str:
         + f"Observable ids: {tex_list(row['observable_ids'], wrap_code=True)}.",
         "",
         tex_block_label("Numerical instantiation and prediction table."),
-        f"Numerical backing rows are synchronized with Appendix~\\ref{{{row['appendix_table_label']}}}.",
+        f"Selected numerical backing rows are synchronized with Appendix~\\ref{{{row['appendix_table_label']}}}.",
     ]
     lines.extend(render_toe_numeric_table(row["numerical_rows"]))
     lines.extend(
@@ -5136,7 +5136,7 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
                 f"Registered observables: {tex_list(row['observable_ids'], wrap_code=True)}.",
                 "",
                 tex_block_label("Numerical instantiation and prediction table."),
-                f"The numerical rows below are synchronized with Appendix~\\ref{{{row['appendix_table_label']}}}.",
+                f"The selected numerical rows below are synchronized with Appendix~\\ref{{{row['appendix_table_label']}}}.",
             ]
         )
         lines.extend(render_toe_numeric_table(row["numerical_rows"]))

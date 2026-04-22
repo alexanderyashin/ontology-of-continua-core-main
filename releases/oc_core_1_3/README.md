@@ -17,9 +17,12 @@ citation, and archival use.
 For public citation, use the release metadata in the bundle-local
 [`./.zenodo.json`](.zenodo.json) together with the archived DOI record when
 the bundle is deposited. Until deposition, use this provisional citation:
-Alexander Yashin, *Ontology of Continua — Core v1.3.0*, GitHub repository
-`alexanderyashin/ontology-of-continua-core-main`, release date April 21, 2026,
-baseline witness commit `7ceb46acfbcb4e83d6568fea3c2530bd9eb95719`.
+
+- Author: Alexander Yashin.
+- Title: *Ontology of Continua --- Core v1.3.0*.
+- Repository: [`alexanderyashin/ontology-of-continua-core-main`](https://github.com/alexanderyashin/ontology-of-continua-core-main).
+- Release date: April 21, 2026.
+- Baseline witness commit: `7ceb46acfbcb4e83d6568fea3c2530bd9eb95719`.
 
 ## Gate status snapshot
 
@@ -58,9 +61,9 @@ science.
 
 - `monograph/` contains the English master monograph built directly from the
   public LaTeX source corpus.
-- German and Russian monograph files in the bundle are translation drafts under
-  theorem review. They function as localised access aids only; English remains
-  the proof-bearing source language.
+- German and Russian monograph files in the bundle are native source-first
+  translation draft routes under theorem review. English remains the
+  proof-bearing source language until those routes pass their own review gates.
 - `journal_core/` contains the bounded Journal Core article in English plus
   German and Russian journal-core translation drafts.
 - `manuscripts/` contains the primary English flagship manuscript plus German
