@@ -53,6 +53,27 @@ MASTER_AUXILIARY_SUFFIXES = [
     ".run.xml",
     ".toc",
 ]
+DEDICATION_REQUIREMENTS = [
+    {
+        "language_code": "EN",
+        "root_ref": "content/frontmatter_oc_core_1_3_master.tex",
+        "source_ref": "releases/oc_core_1_3/monograph/source/content/frontmatter_oc_core_1_3_master.tex",
+        "text": "Dedicated to my dear wife Maria, without whom this work would have been impossible.",
+    },
+    {
+        "language_code": "RU",
+        "root_ref": "content/frontmatter_oc_core_1_3_master_ru.tex",
+        "source_ref": "releases/oc_core_1_3/monograph/source/content/frontmatter_oc_core_1_3_master_ru.tex",
+        "text": "Посвящается моей дорогой жене Марии, без которой эта работа была бы невозможной.",
+    },
+    {
+        "language_code": "DE",
+        "root_ref": "content/frontmatter_oc_core_1_3_master_de.tex",
+        "source_ref": "releases/oc_core_1_3/monograph/source/content/frontmatter_oc_core_1_3_master_de.tex",
+        "text": "Meiner lieben Ehefrau Maria gewidmet, ohne die diese Arbeit nicht möglich gewesen wäre.",
+    },
+]
+DEDICATION_MARKERS = ["DEDICATION_REQUIRED_DO_NOT_REMOVE", "OC_CORE_PUBLICATION_DEDICATION"]
 
 SEVERITY_VALUES = ["BLOCKER", "MAJOR", "MINOR", "NON_DEFECT_OBSERVATION"]
 CATEGORY_VALUES = [
@@ -687,8 +708,68 @@ def count_open_defects(findings: list[dict[str, Any]]) -> int:
     return sum(1 for row in findings if row["status"] == OPEN_STATUS and row["severity"] != "NON_DEFECT_OBSERVATION")
 
 
+def dedication_integrity_review(run_id: str) -> list[dict[str, Any]]:
+    findings: list[dict[str, Any]] = []
+    for row in DEDICATION_REQUIREMENTS:
+        refs = [row["root_ref"], row["source_ref"]]
+        existing_paths: list[Path] = []
+        for ref in refs:
+            path = REPO_ROOT / ref
+            if not path.exists():
+                findings.append(
+                    make_finding(
+                        run_id=run_id,
+                        reviewer_id="CERBERUS_DETERMINISTIC__RELEASE_INTEGRITY",
+                        artifact_ref=ref,
+                        severity="BLOCKER",
+                        category="release_consistency",
+                        determinism_class=DETERMINISTIC_CLASS,
+                        claim="The mandatory OC Core title-page dedication file is missing.",
+                        evidence=f"Missing {row['language_code']} dedication carrier: {ref}",
+                        required_action="Restore the language-specific frontmatter file with the required title-page dedication before release review continues.",
+                    )
+                )
+                continue
+            existing_paths.append(path)
+            text = path.read_text(encoding="utf-8", errors="replace")
+            missing_markers = [marker for marker in DEDICATION_MARKERS if marker not in text]
+            if row["text"] not in text or missing_markers:
+                findings.append(
+                    make_finding(
+                        run_id=run_id,
+                        reviewer_id="CERBERUS_DETERMINISTIC__RELEASE_INTEGRITY",
+                        artifact_ref=ref,
+                        severity="BLOCKER",
+                        category="release_consistency",
+                        determinism_class=DETERMINISTIC_CLASS,
+                        claim="The mandatory OC Core title-page dedication is absent or has drifted from the canonical localized text.",
+                        evidence=(
+                            f"{row['language_code']} dedication check failed for {ref}; "
+                            f"missing_text={row['text'] not in text}; missing_markers={missing_markers}"
+                        ),
+                        required_action="Restore the exact localized dedication text and both guard markers on the title page.",
+                    )
+                )
+        if len(existing_paths) == 2 and sha256_file(existing_paths[0]) != sha256_file(existing_paths[1]):
+            findings.append(
+                make_finding(
+                    run_id=run_id,
+                    reviewer_id="CERBERUS_DETERMINISTIC__RELEASE_INTEGRITY",
+                    artifact_ref=row["root_ref"],
+                    severity="BLOCKER",
+                    category="release_consistency",
+                    determinism_class=DETERMINISTIC_CLASS,
+                    claim="The mandatory OC Core title-page dedication carrier has drifted between root and release-source mirrors.",
+                    evidence=f"{row['root_ref']} != {row['source_ref']}",
+                    required_action="Resynchronize the release-source frontmatter from the root title-page source before release review continues.",
+                )
+            )
+    return findings
+
+
 def deterministic_release_integrity_review(manifest: dict[str, Any], run_id: str) -> list[dict[str, Any]]:
     findings: list[dict[str, Any]] = []
+    findings.extend(dedication_integrity_review(run_id))
     for target in manifest["artifact_targets"]:
         ref = target["artifact_ref"]
         path = REPO_ROOT / ref

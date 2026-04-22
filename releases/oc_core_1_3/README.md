@@ -66,6 +66,15 @@ The scientific `PASS` claim in this bundle applies only to the canonical
 remain outside the public closure claim and are not promoted here as solved
 science.
 
+## Permanent publication dedication
+
+Every OC Core release from Core 1.3 onward carries the author's title-page
+dedication in each publication-language monograph route. The exact localized
+dedication is guarded by the `DEDICATION_REQUIRED_DO_NOT_REMOVE` and
+`OC_CORE_PUBLICATION_DEDICATION` markers in the monograph frontmatter. Cerberus
+release-integrity review treats omission, text drift, or root/release-source
+mirror drift as a release-blocking defect.
+
 ## Bundle contents
 
 - `monograph/` contains the English master monograph built directly from the
