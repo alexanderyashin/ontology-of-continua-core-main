@@ -1,11 +1,92 @@
 {
   "metadata": {
-    "repo_sha": "384a92b8644397e6900eab675450c24ed18197e1",
-    "generated_at_utc": "2026-04-22T15:36:42Z",
+    "repo_sha": "06d6a0154abf856c9085eee001dee2043220d789",
+    "generated_at_utc": "2026-04-22T20:51:26Z",
     "surface": "logion/k0/governance/status/OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json",
     "script": "oc_core_1_3_cerberus_review.py"
   },
-  "run_id": "CERBERUS_RUN__20260422T153409Z__384a92b8",
-  "scope_id": "OC_CORE_1_3_MULTILINGUAL_FLAGSHIP_RELEASE_PACKAGE",
-  "findings": []
+  "run_id": "CERBERUS_RUN__20260422T204330Z__06d6a015",
+  "scope_id": "OC_CORE_1_3_ENGLISH_FLAGSHIP_RELEASE_PACKAGE",
+  "findings": [
+    {
+      "finding_id": "CERBERUS_FINDING::9f2a7218adea04f60f00",
+      "run_id": "CERBERUS_RUN__20260422T204330Z__06d6a015",
+      "reviewer_id": "CERBERUS_LLM__HOSTILE_MATHEMATICIAN",
+      "artifact_id": "CERBERUS_UNIT::appendix__Q_oc_core_1_3_toe_support_dossiers.tex",
+      "artifact_ref": "appendix/Q_oc_core_1_3_toe_support_dossiers.tex",
+      "section_ref": "lines 15-20",
+      "severity": "NON_DEFECT_OBSERVATION",
+      "category": "claim_scope",
+      "determinism_class": "LLM_CODEX_CLI",
+      "claim": "The mutual-exclusion paragraph uses build-internal role labels without mapping them to concrete files, so the exclusivity/auditability statement is not locally checkable from this appendix alone.",
+      "evidence": "The paragraph names the \"full DFS compatibility stream\", \"compatibility synthesis-support master\", and \"platinum master\", but it never states which file each label denotes.",
+      "required_action": "If the paragraph is meant to be self-contained, add a short glossary or spell out the file-path mapping on first use.",
+      "status": "NOT_ACTIONABLE",
+      "corroborating_reviewer_ids": []
+    },
+    {
+      "finding_id": "CERBERUS_FINDING::815a839253700c9cfe46",
+      "run_id": "CERBERUS_RUN__20260422T204330Z__06d6a015",
+      "reviewer_id": "CERBERUS_LLM__HOSTILE_GENERALIST_SCIENTIST",
+      "artifact_id": "CERBERUS_UNIT::content__17_oc_core_1_3_reader_guide.tex",
+      "artifact_ref": "content/17_oc_core_1_3_reader_guide.tex",
+      "section_ref": "\\subsection{External interaction crosswalk}",
+      "severity": "NON_DEFECT_OBSERVATION",
+      "category": "structure",
+      "determinism_class": "LLM_CODEX_CLI",
+      "claim": "The proof-support route is split between the prose route description and the crosswalk row, so a reader using only the table will not see the Technical Derivation Atlas named where the prose says local proof support lives.",
+      "evidence": "The opening route description points local proof support to Appendix~\\ref{sec:oc-core-1-3-technical-derivation-atlas}, but the \"Use or compare the model\" row ends with the section range for proof or replay support and does not repeat that appendix.",
+      "required_action": "Optional: add the Technical Derivation Atlas to the crosswalk's proof-support branch, or relax the prose so the atlas is not singled out as the local proof-support destination.",
+      "status": "NOT_ACTIONABLE",
+      "corroborating_reviewer_ids": []
+    },
+    {
+      "finding_id": "CERBERUS_FINDING::8928c8f270e07f44a3af",
+      "run_id": "CERBERUS_RUN__20260422T204330Z__06d6a015",
+      "reviewer_id": "CERBERUS_LLM__HOSTILE_GENERALIST_SCIENTIST",
+      "artifact_id": "CERBERUS_UNIT::content__20_oc_core_1_3_theorem_roadmap.tex",
+      "artifact_ref": "content/20_oc_core_1_3_theorem_roadmap.tex",
+      "section_ref": "\\subsection{Statement classes and burden}",
+      "severity": "NON_DEFECT_OBSERVATION",
+      "category": "citation",
+      "determinism_class": "LLM_CODEX_CLI",
+      "claim": "The table says every inspection target is label-checked, but several target cells still use prose names instead of explicit cross-references, so the navigation claim is a little stronger than the table itself.",
+      "evidence": "Rows in the table name the axioms, notation, reviewer-navigation, proof-machinery, journal-core bridge, and source-audit appendices in prose rather than as explicit \\ref links.",
+      "required_action": "Optional: replace the prose appendix names with explicit refs, or narrow the label-checked claim to the cells that are actually cross-referenced.",
+      "status": "NOT_ACTIONABLE",
+      "corroborating_reviewer_ids": []
+    },
+    {
+      "finding_id": "CERBERUS_FINDING::464b15fb2f7e9401b4e4",
+      "run_id": "CERBERUS_RUN__20260422T204330Z__06d6a015",
+      "reviewer_id": "CERBERUS_LLM__HOSTILE_MATHEMATICIAN",
+      "artifact_id": "CERBERUS_UNIT::content__20_oc_core_1_3_theorem_roadmap.tex",
+      "artifact_ref": "content/20_oc_core_1_3_theorem_roadmap.tex",
+      "section_ref": "\\subsection{Statement classes and burden}",
+      "severity": "NON_DEFECT_OBSERVATION",
+      "category": "claim_scope",
+      "determinism_class": "LLM_CODEX_CLI",
+      "claim": "The inspection-burden table is only partially self-checking because several targets are named by prose shorthand rather than explicit cross-references, so the \"label-checked\" claim is not fully transparent from the table itself.",
+      "evidence": "The row text uses names like \"Axioms Appendix\", \"Notation Appendix\", \"Reviewer Navigation Matrix\", and \"Proof Machinery Appendix\" instead of explicit `\\ref{...}` targets, while other rows do use explicit section references.",
+      "required_action": "If local checkability matters, replace the shorthands with explicit appendix references or add a legend that maps each shorthand to a file or label.",
+      "status": "NOT_ACTIONABLE",
+      "corroborating_reviewer_ids": []
+    },
+    {
+      "finding_id": "CERBERUS_FINDING::8a406b07bdbb19c58044",
+      "run_id": "CERBERUS_RUN__20260422T204330Z__06d6a015",
+      "reviewer_id": "CERBERUS_DETERMINISTIC__TYPOGRAPHY",
+      "artifact_id": "CERBERUS::oc_core_1_3_master_monograph.tex",
+      "artifact_ref": "oc_core_1_3_master_monograph.tex",
+      "section_ref": "oc_core_1_3_master_monograph.tex",
+      "severity": "NON_DEFECT_OBSERVATION",
+      "category": "latex_typography",
+      "determinism_class": "DETERMINISTIC_SCRIPT",
+      "claim": "The build log contains underfull boxes, recorded as advisory typography debt.",
+      "evidence": "Underfull total: 51",
+      "required_action": "Advisory only; do not block the English release solely on underfull boxes.",
+      "status": "NOT_ACTIONABLE",
+      "corroborating_reviewer_ids": []
+    }
+  ]
 }
