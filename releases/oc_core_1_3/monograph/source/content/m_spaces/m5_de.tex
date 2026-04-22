@@ -1,14 +1,3 @@
-% GENERATED_BY: oc_core_monograph_translation_draft_pipeline_v1.py
-% AI_ASSISTED_TRANSLATION_DRAFT: TRUE
-% THEOREM_REVIEW_STATUS: PENDING
-% THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
-% THEOREM_REVIEW_REVIEWER_ID: 
-% THEOREM_REVIEW_AUTHORITY_CLASS: 
-% THEOREM_REVIEWED_AT: 
-% THEOREM_REVIEW_DOSSIER_REF: 
-% SOURCE_LANGUAGE: EN
-% TARGET_LANGUAGE: DE
-% SOURCE_EN_REF: content/m_spaces/m5.tex
 % ================================================================
 % ==== FILE: content/m_spaces/m5.tex
 % ================================================================
@@ -19,257 +8,257 @@
 %  FULL MODULE — FINAL VERSION
 % ==============================
 
-\subsubsection{\texorpdfstring{$M_5$}{M_5} Overview}
+\subsubsection{\texorpdfstring{$M_5$}{M_5} Übersicht}
 \label{sec:m5-overview}
 
-$M_5$ is the meta-space that makes \emph{electrical excitability} admissible.
-It is the environment in which a biological continuum can exhibit:
+$M_5$ ist der Metaraum, der \emph{elektrische Erregbarkeit} zulässig macht.
+Es ist die Umgebung, in der ein biologisches Kontinuum Folgendes zeigen kann:
 
 \begin{itemize}
-    \item stable membrane voltage $V(t)$,
-    \item ion-channel–mediated conductance states,
-    \item threshold-based excitation ($\Theta_{\mathrm{exc}}$),
-    \item propagating electrical events (precursors of action potentials),
-    \item regenerative feedback required for spike cycles.
+    \item stabile Membranspannung $V(t)$,
+    \item Ionenkanal-vermittelte Leitfähigkeitszustände,
+    \item schwellenbasierte Anregung ($\Theta_{\mathrm{exc}}$),
+    \item Ausbreitung elektrischer Ereignisse (Vorläufer von Aktionspotentialen),
+    \item regeneratives Feedback für Spitzenzyklen erforderlich.
 \end{itemize}
 
-Where $M_4$ enabled \emph{chemical} compartmentalization,  
-$M_5$ enables \emph{electrochemical} dynamics that define the $K_5$ continuum.
+Wo $M_4$ die \emph{chemische} Kompartimentierung ermöglichte,
+$M_5$ ermöglicht \emph{elektrochemische} Dynamiken, die das $K_5$-Kontinuum definieren.
 
 % ---------------------------------------------------------------
-\subsubsection*{1. Admissible Configuration Space \texorpdfstring{$\Omega(M_5)$}{\Omega(M_5)}}
+\subsubsection*{1. Zulässiger Konfigurationsraum \texorpdfstring{$\Omega(M_5)$}{\Omega(M_5)}}
 
-The admissible configurations extend $\Omega(M_4)$ by including:
+Die zulässigen Konfigurationen erweitern $\Omega(M_4)$ um:
 
 \[
-\Omega(M_5) = 
+\Omega(M_5) =
 \left\{
-(\partial\Omega,\ V,\ g_{\mathrm{ion}},\ 
+(\partial\Omega,\ V,\ g_{\mathrm{ion}},\
 \Pi_{\mathrm{ion}},\
 \Delta\mu_{\mathrm{ion}},\
 C_m,\
-\mathcal{C}_{\mathrm{channels}})
-\ \Big|\ 
-\text{admissibility conditions hold}
+\mathcal{C}_{\mathrm{Kanäle}})
+\ \Big|\
+\text{Zulässigkeitsbedingungen gelten}
 \right\}.
 \]
 
-Where:
+Wo:
 
 \begin{itemize}
-    \item $V$ — membrane voltage field,
-    \item $C_m$ — membrane capacitance,
-    \item $g_{\mathrm{ion}}$ — conductance states of ion channels,
-    \item $\mathcal{C}_{\mathrm{channels}}$ — channel population and gating logic,
-    \item $\Pi_{\mathrm{ion}}$ — ion-specific permeabilities,
-    \item $\Delta\mu_{\mathrm{ion}}$ — electrochemical gradients generating currents.
+    \item $V$ — Membranspannungsfeld,
+    \item $C_m$ — Membrankapazität,
+    \item $g_{\mathrm{ion}}$ — Leitfähigkeitszustände von Ionenkanälen,
+    \item $\mathcal{C}_{\mathrm{channels}}$ – Kanalpopulation und Gating-Logik,
+    \item $\Pi_{\mathrm{ion}}$ — ionenspezifische Permeabilitäten,
+    \item $\Delta\mu_{\mathrm{ion}}$ – elektrochemische Gradienten, die Ströme erzeugen.
 \end{itemize}
 
-Admissibility requires:
+Voraussetzung für die Zulassung sind:
 
 \begin{enumerate}
-    \item Membrane integrity as in $M_4$.
-    \item Ion channels capable of switching between at least two states:
+    \item Membranintegrität wie in $M_4$.
+    \item Ionenkanäle, die zwischen mindestens zwei Zuständen wechseln können:
           \[
-          \{ \text{open},\ \text{closed} \}.
+          \{ \text{offen},\ \text{geschlossen} \}.
           \]
-    \item Voltage dynamics satisfying:
+    \item Spannungsdynamik erfüllt:
           \[
           C_m \frac{dV}{dt} = - \sum_i g_i (V - E_i) + I_{\mathrm{ext}}
           \]
-          in an admissible parameter region.
-    \item Existence of a nontrivial equilibrium and a separatrix defining a 
-          threshold.
+          in einem zulässigen Parameterbereich.
+    \item Existenz eines nichttrivialen Gleichgewichts und einer Separatrix, die a definiert
+          Schwelle.
 \end{enumerate}
 
-Thus $M_5$ is the minimal environment where a cell can be excitable.
+Somit ist $M_5$ die minimale Umgebung, in der eine Zelle erregbar sein kann.
 
 % ---------------------------------------------------------------
-\subsubsection*{2. Admissible Axes \texorpdfstring{$A(M_5)$}{A(M_5)}}
+\subsubsection*{2. Zulässige Achsen \texorpdfstring{$A(M_5)$}{A(M_5)}}
 
-A new fundamental axis arises:
+Es entsteht eine neue Grundachse:
 
 \[
-A_{\mathrm{exc}} = \{ \text{excitable},\ \text{nonexcitable} \},
+A_{\mathrm{exc}} = \{ \text{erregbar},\ \text{nicht erregbar} \},
 \]
 
-with the corresponding voltage-threshold distinction:
+mit der entsprechenden Spannungs-Schwellen-Unterscheidung:
 
 \[
 A_V = \{ V < \Theta_{\mathrm{exc}},\ V \ge \Theta_{\mathrm{exc}} \}.
 \]
 
-Other admissible axes:
+Weitere zulässige Achsen:
 
 \begin{itemize}
-    \item $A_{\mathrm{ion}}$ — ion-specific channel conformations,
-    \item $A_{\mathrm{gate}}$ — gating variable states (activation/inactivation),
-    \item $A_{\mathrm{cond}}$ — conductance regimes,
-    \item $A_{\mathrm{spike}}$ — refractory/overshoot/reset phases.
+    \item $A_{\mathrm{ion}}$ — ionenspezifische Kanalkonformationen,
+    \item $A_{\mathrm{gate}}$ – Gating-Variablenzustände (Aktivierung/Inaktivierung),
+    \item $A_{\mathrm{cond}}$ – Leitfähigkeitsregime,
+    \item $A_{\mathrm{spike}}$ – Refraktär-/Überschwing-/Rücksetzphasen.
 \end{itemize}
 
-These axes define the high-dimensional dynamical geometry of excitable membranes.
+Diese Achsen definieren die hochdimensionale dynamische Geometrie anregbarer Membranen.
 
 % ---------------------------------------------------------------
-\subsubsection*{3. Potentials \texorpdfstring{$P(M_5)$}{P(M_5)}}
+\subsubsection*{3. Potentiale \texorpdfstring{$P(M_5)$}{P(M_5)}}
 
-$M_5$ introduces potentials associated with electrodynamics:
+$M_5$ führt mit der Elektrodynamik verbundene Potentiale ein:
 
 \[
 P(M_5) =
-(U_{\mathrm{ion}},\ U_V,\ U_{\mathrm{gate}},\ 
+(U_{\mathrm{ion}},\ U_V,\ U_{\mathrm{gate}},\
 U_{\mathrm{CAP}},\ U_{\mathrm{rest}}).
 \]
 
 Interpretation:
 
 \begin{itemize}
-    \item $U_{\mathrm{ion}}$ — Nernst-like electrochemical potentials,
-    \item $U_V$ — voltage-dependent energy landscape,
-    \item $U_{\mathrm{gate}}$ — gating energy for channel transitions,
-    \item $U_{\mathrm{CAP}}$ — capacitive energy of the membrane,
-    \item $U_{\mathrm{rest}}$ — resting-state energy minimum.
+    \item $U_{\mathrm{ion}}$ — Nernst-ähnliche elektrochemische Potentiale,
+    \item $U_V$ — spannungsabhängige Energielandschaft,
+    \item $U_{\mathrm{gate}}$ – Gating-Energie für Kanalübergänge,
+    \item $U_{\mathrm{CAP}}$ — kapazitive Energie der Membran,
+    \item $U_{\mathrm{rest}}$ — Energieminimum im Ruhezustand.
 \end{itemize}
 
-Conditions for admissibility:
+Voraussetzungen für die Zulassung:
 
 \begin{enumerate}
-    \item $U_V$ must have a local minimum (resting state),
-    \item the gain function must allow suprathreshold instability,
-    \item gating transitions must be thermally and chemically feasible.
+    \item $U_V$ muss ein lokales Minimum haben (Ruhezustand),
+    \item Die Verstärkungsfunktion muss eine überschwellige Instabilität zulassen,
+    \item Gating-Übergänge müssen thermisch und chemisch machbar sein.
 \end{enumerate}
 
 % ---------------------------------------------------------------
-\subsubsection*{4. Thresholds \texorpdfstring{$\Theta(M_5)$}{\Theta(M_5)}}
+\subsubsection*{4. Schwellenwerte \texorpdfstring{$\Theta(M_5)$}{\Theta(M_5)}}
 
-The defining threshold:
+Die definierende Schwelle:
 
 \[
-\Theta_{\mathrm{exc}} = \text{minimal depolarization required to initiate a regenerative event}.
+\Theta_{\mathrm{exc}} = \text{minimale Depolarisation erforderlich, um ein regeneratives Ereignis auszulösen}.
 \]
 
-Additional thresholds:
+Zusätzliche Schwellenwerte:
 
 \begin{itemize}
-    \item $\Theta_{\mathrm{gate}}$ — gating activation threshold,
-    \item $\Theta_{\mathrm{cond}}$ — conductance switching threshold,
-    \item $\Theta_{\mathrm{stability}}$ — stability boundary for oscillatory modes.
+    \item $\Theta_{\mathrm{gate}}$ – Gating-Aktivierungsschwelle,
+    \item $\Theta_{\mathrm{cond}}$ — Schaltschwelle der Leitfähigkeit,
+    \item $\Theta_{\mathrm{Stabilität}}$ — Stabilitätsgrenze für Schwingungsmodi.
 \end{itemize}
 
-Critical relation:
+Kritische Beziehung:
 
 \[
-V(t) \ge \Theta_{\mathrm{exc}} \quad\Rightarrow\quad 
-\text{transition into spike-generating regime}.
+V(t) \ge \Theta_{\mathrm{exc}} \quad\Rightarrow\quad
+\text{Übergang in ein Spike-erzeugendes Regime}.
 \]
 
 % ---------------------------------------------------------------
-\subsubsection*{5. Flows \texorpdfstring{$J(M_5)$}{J(M_5)}}
+\subsubsection*{5. Flüsse \texorpdfstring{$J(M_5)$}{J(M_5)}}
 
-Admissible flows expand those in $M_4$ by including:
+Zulässige Flüsse erweitern die in $M_4$ um Folgendes:
 
 \[
-J(M_5) = 
+J(M_5) =
 \big(
 J_{\mathrm{ion}},\
 J_V,\
-J_{\mathrm{gate}},\
+J_{\mathrm{Gate}},\
 J_{\mathrm{exc}},\
 \nabla_i T_5
-\big).
+\Big).
 \]
 
-Where:
+Wo:
 
 \begin{itemize}
-    \item $J_{\mathrm{ion}}$ — ion-specific currents,
-    \item $J_V$ — voltage-driven flows,
-    \item $J_{\mathrm{gate}}$ — dynamic gating transitions,
-    \item $J_{\mathrm{exc}}$ — regenerative excitation flow regime,
-    \item $\nabla_i T_5$ — flows driven by tension gradients under excitability.
+    \item $J_{\mathrm{ion}}$ — ionenspezifische Ströme,
+    \item $J_V$ – spannungsgetriebene Flüsse,
+    \item $J_{\mathrm{gate}}$ – dynamische Gating-Übergänge,
+    \item $J_{\mathrm{exc}}$ – regeneratives Anregungsflussregime,
+    \item $\nabla_i T_5$ – Strömungen, die durch Spannungsgradienten unter Erregbarkeit angetrieben werden.
 \end{itemize}
 
-Conservation laws:
+Naturschutzgesetze:
 
 \[
 \sum_i J_{\mathrm{ion},i} = C_m \frac{dV}{dt}.
 \]
 
 % ---------------------------------------------------------------
-\subsubsection*{6. Cycles in \texorpdfstring{$M_5$}{M_5}}
+\subsubsection*{6. Zyklen in \texorpdfstring{$M_5$}{M_5}}
 
-The key cycle:
+Der Schlüsselzyklus:
 
 \[
-C_{\mathrm{spike}}
-= 
-\{\text{rest} \to \text{depolarization} \to 
-\text{overshoot} \to \text{repolarization} \to \text{refractory} \to \text{rest}\}.
+C_{\mathrm{Spike}}
+=
+\{\text{Rest} \to \text{Depolarisation} \to
+\text{Überschwingen} \to \text{Repolarisation} \to \text{Refraktärität} \to \text{Rest}\}.
 \]
 
-Other admissible cycles:
+Weitere zulässige Zyklen:
 
 \begin{itemize}
-    \item $C_{\mathrm{gate}}$ — gating activation/inactivation loop,
-    \item $C_{\mathrm{osc}}$ — subthreshold oscillatory cycles (when allowed),
-    \item $C_{\mathrm{conduct}}$ — transition cycles between conductance states.
+    \item $C_{\mathrm{gate}}$ – Gating-Aktivierungs-/Inaktivierungsschleife,
+    \item $C_{\mathrm{osc}}$ – Oszillationszyklen unterhalb des Schwellenwerts (sofern zulässig),
+    \item $C_{\mathrm{conduct}}$ – Übergangszyklen zwischen Leitfähigkeitszuständen.
 \end{itemize}
 
-Condition for existence of a spike cycle:
+Voraussetzung für die Existenz eines Spike-Zyklus:
 
 \[
-\oint_{C_{\mathrm{spike}}} dA_{\mathrm{phase}} \approx 0
-\quad\text{and}\quad 
-V(t) \text{ crosses } \Theta_{\mathrm{exc}} \text{ once per cycle}.
+\oint_{C_{\mathrm{Spike}}} dA_{\mathrm{Phase}} \ approx 0
+\quad\text{und}\quad
+V(t) \text{ kreuzt } \Theta_{\mathrm{exc}} \text{ einmal pro Zyklus}.
 \]
 
 % ---------------------------------------------------------------
-\subsubsection*{7. Boundary \texorpdfstring{$\partial\Omega(M_5)$}{\partial\Omega(M_5)}}
+\subsubsection*{7. Grenze \texorpdfstring{$\partial\Omega(M_5)$}{\partial\Omega(M_5)}}
 
-A configuration approaches $\partial\Omega(M_5)$ when:
+Eine Konfiguration nähert sich $\partial\Omega(M_5)$, wenn:
 
 \begin{itemize}
-    \item the membrane cannot support stable resting potential,
-    \item gating kinetics break excitability,
-    \item conductance saturates or collapses,
-    \item $\Theta_{\mathrm{exc}}$ becomes unreachable (too high) or trivial (zero),
-    \item depolarization block persists,
-    \item ionic gradients fall below minimal viability levels.
+    \item die Membran kann kein stabiles Ruhepotential unterstützen,
+    \item Gating-Kinetik unterbricht die Erregbarkeit,
+    \item Leitfähigkeit sättigt oder bricht zusammen,
+    \item $\Theta_{\mathrm{exc}}$ wird unerreichbar (zu hoch) oder trivial (null),
+    \item Depolarisationsblock bleibt bestehen,
+    \item Ionengradienten fallen unter minimale Lebensfähigkeitsniveaus.
 \end{itemize}
 
-Crossing $\partial\Omega(M_5)$ makes a spike impossible;  
-thus $K_5$ collapses or returns to a $K_4$-like regime.
+Das Überschreiten von $\partial\Omega(M_5)$ macht eine Spitze unmöglich;
+somit bricht $K_5$ zusammen oder kehrt zu einem $K_4$-ähnlichen Regime zurück.
 
 % ---------------------------------------------------------------
-\subsubsection*{8. Relation to \texorpdfstring{$M_4$}{M_4} and \texorpdfstring{$M_6$}{M_6}}
+\subsubsection*{8. Beziehung zu \texorpdfstring{$M_4$}{M_4} und \texorpdfstring{$M_6$}{M_6}}
 
-Transition $K_4 \to K_5$ is admissible when:
+Der Übergang $K_4 \to K_5$ ist zulässig, wenn:
 
 \[
 A_{\mathrm{exc}} \in A(M_5),
 \qquad
-V(t) \ge \Theta_{\mathrm{exc}},
+V(t)\ge\Theta_{\mathrm{exc}},
 \qquad
-\text{ion channels form coherent gating dynamics}.
+\text{Ionenkanäle bilden kohärente Gating-Dynamik}.
 \]
 
-Transition toward $K_6$ (cognitive attractors) requires:
+Der Übergang zu $K_6$ (kognitive Attraktoren) erfordert:
 
 \[
-A_{\mathrm{concept}} \in A(M_6),
+A_{\mathrm{Konzept}} \in A(M_6),
 \qquad
-C_{\mathrm{spike}} \text{ must support coupling to other spikes},
+C_{\mathrm{Spike}} \text{ muss die Kopplung mit anderen Spikes unterstützen},
 \]
 \[
-\text{emergence of attractor dynamics from spike trains}.
+\text{Entstehung der Attraktordynamik aus Spike-Zügen}.
 \]
 
-Thus $M_5$ is the meta-space enabling:
+Somit ist $M_5$ der Metaraum, der Folgendes ermöglicht:
 
 \begin{itemize}
-    \item electrical excitability,
-    \item spike generation,
-    \item dynamic conductance regulation,
-    \item early bioelectrical logic,
-    \item the structural bridge to neural computation.
+    \item elektrische Erregbarkeit,
+    \item Spitzengenerierung,
+    \item dynamische Leitfähigkeitsregulierung,
+    \item frühe bioelektrische Logik,
+    \item die strukturelle Brücke zur neuronalen Berechnung.
 \end{itemize}

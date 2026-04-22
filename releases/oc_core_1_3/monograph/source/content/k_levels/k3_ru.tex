@@ -2,10 +2,10 @@
 % AI_ASSISTED_TRANSLATION_DRAFT: TRUE
 % THEOREM_REVIEW_STATUS: PENDING
 % THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
-% THEOREM_REVIEW_REVIEWER_ID: 
-% THEOREM_REVIEW_AUTHORITY_CLASS: 
-% THEOREM_REVIEWED_AT: 
-% THEOREM_REVIEW_DOSSIER_REF: 
+% THEOREM_REVIEW_REVIEWER_ID:
+% THEOREM_REVIEW_AUTHORITY_CLASS:
+% THEOREM_REVIEWED_AT:
+% THEOREM_REVIEW_DOSSIER_REF:
 % SOURCE_LANGUAGE: EN
 % TARGET_LANGUAGE: RU
 % SOURCE_EN_REF: content/k_levels/k3.tex
@@ -20,127 +20,131 @@
 %  Status: FULLY DEFINED
 % ==============================
 
-\subsubsection{\texorpdfstring{$K_3$}{K_3} Overview}
+\subsubsection{\texorpdfstring{$K_3$}{K_3} Обзор}
 \label{sec:k3-overview}
 
-$K_3$ is the level at which \emph{chemical organisation} becomes
-structurally possible. It represents the transition from purely geometric
-and topological continua ($K_0$--$K_2$) to systems in which:
+$K_3$ — это уровень, на котором
+\emph{химическая организация} становится
+структурно возможной. Он представляет переход от чисто геометрических
+и топологических континуумов ($K_0$--$K_2$) к системам, в которых:
 \begin{itemize}
-    \item reactions, transformations and conversions appear as admissible
-          flows,
-    \item potentials correspond to reaction affinities and concentration
-          gradients,
-    \item boundaries $\partial\Omega$ include molecular-compositional and
-          topological constraints,
-    \item minimal autocatalytic closure becomes representable,
-    \item the first structurally coherent networks arise (RAF networks).
+    \item реакции, преобразования и конверсии появляются как допустимые
+          потоки,
+    \item потенциалы соответствуют реакционным affinities и градиентам
+          концентраций,
+    \item границы $\partial\Omega$ включают молекулярно-композиционные и
+          топологические ограничения,
+    \item минимальное автокаталитическое замыкание становится представимым,
+    \item возникают первые структурно согласованные сети (сети RAF).
 \end{itemize}
 
-The dimensional transition $\Psi_{2\to3}$ occurs when incompatible
-chemical differences cannot be expressed within the axes $\{A_1,A_2\}$ of
-$K_2$. A new axis $A_3$ is introduced, representing a distinct dimension
-of \emph{composition space}, enabling emergent chemical continua.
+Размерностный переход $\Psi_{2\to3}$ происходит, когда несовместимые
+химические различия не могут быть выражены в рамках осей $\{A_1,A_2\}$
+уровня $K_2$. Вводится новая ось $A_3$, представляющая отдельную
+размерность
+\emph{пространства состава}, которая делает возможным химическое
+возникновение континуумов.
 
-$K_3$ serves as the structural substrate for all later biological and
-cognitive continua, but itself remains non-living.
+$K_3$ служит структурной подосновой для всех последующих биологических и
+когнитивных континуумов, но сам по себе не является живым.
 
 % ================================================================
-\subsubsection{State Space \texorpdfstring{$\Omega(K_3)$}{\Omega(K_3)}}
+\subsubsection{\texorpdfstring{$\Omega(K_3)$}{\Omega(K_3)} Пространство состояний}
 
-The state space of $K_3$ is:
+Пространство состояний $K_3$:
 \[
-\Omega(K_3) = \{ (\mathbf{c}, \mathbf{r}, \Gamma) \mid 
+\Omega(K_3) = \{ (\mathbf{c}, \mathbf{r}, \Gamma) \mid
 \mathbf{c} \in \mathbb{R}_{\ge0}^N,\;
 \mathbf{r} \in \mathbb{R}_{\ge0}^M,\;
 \Gamma \subseteq R \},
 \]
-where:
+где:
 \begin{itemize}
-    \item $\mathbf{c}$: vector of concentrations of molecular species,
-    \item $\mathbf{r}$: vector of reaction fluxes,
-    \item $\Gamma$: set of enabled reactions (stoichiometric structure).
+    \item $\mathbf{c}$: вектор концентраций молекулярных видов,
+    \item $\mathbf{r}$: вектор реакционных потоков,
+    \item $\Gamma$: множество активированных реакций (стехиометрическая структура).
 \end{itemize}
 
-Properties:
+Свойства:
 \begin{enumerate}
-    \item $\Omega(K_3)$ allows nonlinear transformations induced by
-          reaction networks.
-    \item Admissible states must satisfy mass-balance constraints and
-          threshold limitations from $M_3$.
-    \item RAF subnetworks embed into $\Omega(K_3)$ as structurally
-          coherent regions.
+    \item $\Omega(K_3)$ допускает нелинейные преобразования, индуцированные
+          реакционными сетями.
+    \item Допустимые состояния должны удовлетворять ограничениям баланса масс и
+          порогам из $M_3$.
+    \item Подсети RAF как структурно согласованные области встраиваются в
+          $\Omega(K_3)$.
 \end{enumerate}
 
-Stability of $K_3$ depends on whether $\Omega(K_3)$ contains any closed
-autocatalytic subsets with sustained flux.
+Стабильность $K_3$ зависит от того, содержит ли $\Omega(K_3)$ какие-либо
+замкнутые автокаталитические подмножества с устойчивым потоком.
 
 % ================================================================
-\subsubsection{Boundary \texorpdfstring{$\partial\Omega(K_3)$}{\partial\Omega(K_3)}}
+\subsubsection{\texorpdfstring{$\partial\Omega(K_3)$}{\partial\Omega(K_3)} Граница}
 
-$\partial\Omega(K_3)$ includes:
+$\partial\Omega(K_3)$ включает:
 \begin{itemize}
-    \item states where any concentration becomes negative (forbidden),
-    \item divergent fluxes exceeding $\Theta_{\mathrm{flux}}$,
-    \item chemical configurations violating stoichiometric feasibility,
-    \item collapse regimes: pH-collapse, osmotic collapse,
-          reaction-chain instability,
-    \item loss of autocatalytic closure.
+    \item состояния, где какая-либо концентрация становится отрицательной
+          (запрещено),
+    \item расходящиеся потоки, превышающие $\Theta_{\mathrm{flux}}$,
+    \item химические конфигурации, нарушающие стехиометрическую реализуемость,
+    \item режимы коллапса: pH-коллапс, осмотический коллапс,
+          нестабильность реакционных цепочек,
+    \item потерю автокаталитического замыкания.
 \end{itemize}
 
-Critical for $K_3$:  
-\textbf{loss of closure} implies $\Omega(K_3)$ becomes disconnected,
-preventing sustained organisation.
+Ключевым для $K_3$ является:
+\textbf{потеря замыкания} приводит к разрывности $\Omega(K_3)$,
+что предотвращает устойчивую организацию.
 
 % ================================================================
-\subsubsection{Axes \texorpdfstring{$A(K_3)$}{A(K_3)}}
+\subsubsection{\texorpdfstring{$A(K_3)$}{A(K_3)} Оси}
 
-$K_3$ supports three independent structural axes:
+$K_3$ поддерживает три независимые структурные оси:
 \[
 A(K_3) = \{A_1, A_2, A_3\},
 \]
-where $A_3$ is the new compositional axis.
+где $A_3$ является новой осью состава.
 
-$A_3$ encodes:
+$A_3$ кодирует:
 \begin{itemize}
-    \item stoichiometric structure,
-    \item reaction-direction degrees of freedom,
-    \item compositional differences that cannot be mapped to geometric
-          or phase-coherence differences of $K_2$.
+    \item стехиометрическую структуру,
+    \item степени свободы направления реакций,
+    \item композиционные различия, которые нельзя отобразить на
+          геометрические или фазовые различия согласованности $K_2$.
 \end{itemize}
 
-Independence:
+Независимость:
 \[
 A_3 \notin \mathrm{span}\{A_1,A_2\}.
 \]
 
-This expresses the irreducible novelty of chemical organisation.
+Так выражается непреодолимая новизна химической организации.
 
 % ================================================================
-\subsubsection{Potentials \texorpdfstring{$P(K_3)$}{P(K_3)}}
+\subsubsection{\texorpdfstring{$P(K_3)$}{P(K_3)} Потенциалы}
 
-Chemical potentials include:
+Химические потенциалы включают:
 \[
 P(K_3) = \{ \mu_i,\; \Delta G_r,\; P_{\mathrm{affinity}},\;
            P_{\mathrm{mix}},\; P_{\mathrm{exchange}}\},
 \]
-with:
+где:
 \begin{itemize}
-    \item $\mu_i$: species-level potentials,
-    \item $\Delta G_r$: reaction Gibbs free energies,
-    \item $P_{\mathrm{affinity}}$: reaction driving forces,
-    \item $P_{\mathrm{mix}}$: entropic mixing potentials,
-    \item $P_{\mathrm{exchange}}$: exchange with environment (\emph{if}
-          allowed by $M_3$).
+    \item $\mu_i$: потенциалы по видам,
+    \item $\Delta G_r$: термодинамически свободные энергии реакций,
+    \item $P_{\mathrm{affinity}}$: движущие силы реакций,
+    \item $P_{\mathrm{mix}}$: энтропийные потенциалы смешивания,
+    \item $P_{\mathrm{exchange}}$: обмен со средой (
+          \emph{если} разрешено $M_3$).
 \end{itemize}
 
-Chemical organisation arises when these potentials create a stable,
-self-reinforcing structure.
+Химическая организация возникает, когда эти потенциалы создают
+стабильную, самоподдерживающуюся структуру.
 
 % ================================================================
-\subsubsection{Thresholds \texorpdfstring{$\Theta(K_3)$}{\Theta(K_3)}}
+\subsubsection{\texorpdfstring{$\Theta(K_3)$}{\Theta(K_3)} Пороги}
 
-Relevant thresholds include:
+Соответствующие пороги:
 \[
 \Theta(K_3) =
 \{\Theta_{\mathrm{closure}},\;
@@ -151,92 +155,92 @@ Relevant thresholds include:
   \Theta_{\mathrm{react}}\}.
 \]
 
-Interpretation:
+Интерпретация:
 \begin{itemize}
-    \item $\Theta_{\mathrm{closure}}$: minimal conditions for
-          autocatalytic closure,
-    \item $\Theta_{\mathrm{flux}}$: maximal sustainable reaction rate,
-    \item $\Theta_{\mathrm{pH}}$: permissible acid-base imbalance,
-    \item $\Theta_{\mathrm{osm}}$: osmotic-stability threshold,
-    \item $\Theta_{\mathrm{grad}}$: concentration-gradient bounds,
-    \item $\Theta_{\mathrm{react}}$: energy threshold for reactions.
+    \item $\Theta_{\mathrm{closure}}$: минимальные условия для
+          автокаталитического замыкания,
+    \item $\Theta_{\mathrm{flux}}$: максимально устойчивая скорость реакций,
+    \item $\Theta_{\mathrm{pH}}$: допустимая кислотно-основная
+          неуравновешенность,
+    \item $\Theta_{\mathrm{osm}}$: порог осмотической устойчивости,
+    \item $\Theta_{\mathrm{grad}}$: границы градиента концентраций,
+    \item $\Theta_{\mathrm{react}}$: энергетический порог реакций.
 \end{itemize}
 
-Crossing these thresholds drives collapse (Section~\ref{sec:k3-collapse}).
+Переход через эти пороги приводит к коллапсу (Секц.~\ref{sec:k3-collapse}).
 
 % ================================================================
-\subsubsection{Flows \texorpdfstring{$J(K_3)$}{J(K_3)}}
+\subsubsection{\texorpdfstring{$J(K_3)$}{J(K_3)} Потоки}
 
-Admissible flows:
+Допустимые потоки:
 \[
-J(K_3) = \{\text{reaction fluxes},\; \text{diffusive transport},\;
-         \text{exchange flows},\; \text{autocatalytic amplification}\}.
+J(K_3) = \{\text{реакционные потоки},\; \text{диффузионный транспорт},\;
+         \text{потоки обмена},\; \text{автокаталитическое усиление}\}.
 \]
 
-Qualitative types:
+Типы качественные:
 \begin{itemize}
-    \item linear mass-action flows,
-    \item nonlinear autocatalytic flows,
-    \item balancing flows preventing runaway instability,
-    \item exchange flows across proto-boundaries.
+    \item линейные массовые потоки,
+    \item нелинейные автокаталитические потоки,
+    \item выравнивающие потоки, предотвращающие самовозрастание,
+    \item обменные потоки через протобеременные границы.
 \end{itemize}
 
-Autocatalytic flows are central: they define structural amplification
-necessary for $K_3$ viability.
+Автокаталитические потоки центральны: они определяют структурное
+усиление, необходимое для жизнеспособности $K_3$.
 
 % ================================================================
-\subsubsection{Cycles \texorpdfstring{$C(K_3)$}{C(K_3)}}
+\subsubsection{\texorpdfstring{$C(K_3)$}{C(K_3)} Циклы}
 
-Cycles in $K_3$ include:
+Циклы в $K_3$ включают:
 \[
-C(K_3) = \{\text{reaction cycles},\;
-           \text{autocatalytic loops},\;
+C(K_3) = \{\text{реакционные циклы},\;
+           \text{автокаталитические петли},\;
            C_{\mathrm{RAF}}\}.
 \]
 
-$C_{\mathrm{RAF}}$ is the minimal closed RAF cycle satisfying:
+$C_{\mathrm{RAF}}$ — минимальный замкнутый RAF-цикл, удовлетворяющий:
 \[
-r_i \in \text{RAF} \iff \text{all reactants of $r_i$ and a catalyst
-are produced within the set.}
+r_i \\in \\text{RAF} \\iff \\text{все реагенты $r_i$ и катализатор\r\nпроизведены внутри данного множества.}
 \]
 
-Properties:
+Свойства:
 \begin{itemize}
-    \item RAF cycles provide structural persistence,
-    \item their power functional $\Pi(C_{\mathrm{RAF}})$ determines
-          whether organisation is sustainable,
-    \item existence of $C_{\mathrm{RAF}}$ is necessary (but not
-          sufficient) for transition to $K_4$.
+    \item RAF-циклы обеспечивают структурную персистентность,
+    \item их функционал мощности $\Pi(C_{\mathrm{RAF}})$ определяет,
+          может ли быть организация устойчивой,
+    \item существование $C_{\mathrm{RAF}}$ необходимо (но не достаточно)
+          для перехода к $K_4$.
 \end{itemize}
 
-When $C_{\mathrm{RAF}}$ becomes stable, $K_3$ supports precursor forms of
-temporal ordering.
+Когда $C_{\mathrm{RAF}}$ становится устойчивым, $K_3$ поддерживает
+прототипы временной упорядоченности.
 
 % ================================================================
-\subsubsection{Time \texorpdfstring{$\tau(K_3)$}{\tau(K_3)}}
+\subsubsection{\texorpdfstring{$\tau(K_3)$}{\tau(K_3)} Время}
 
-Time in $K_3$ arises when autocatalytic cycles maintain non-zero cycle
-power:
+Время в $K_3$ возникает, когда автокаталитические циклы поддерживают
+ненулевую мощность цикла:
 \[
-\tau(K_3) \text{ exists iff } \Pi(C_{\mathrm{RAF}}) >
+\tau(K_3) \text{ существует тогда и только тогда, когда } \Pi(C_{\mathrm{RAF}}) >
 \Theta_{\mathrm{time}}.
 \]
 
-Temporal structure is weaker than in $K_2$:
+Временная структура слабее, чем в $K_2$:
 \begin{itemize}
-    \item time is defined through reaction-cycle iteration,
-    \item time fails if cycles extinguish or drift to zero flux.
+    \item время определяется через итерацию реакционных циклов,
+    \item время исчезает, если циклы гасят или переходят к нулевому потоку.
 \end{itemize}
 
-Stable temporal ordering is a necessary condition for transition to
-biological $K_4$.
+Стабильная временная упорядоченность — необходимое условие для перехода
+к биологическому $K_4$.
 
 % ================================================================
-\subsubsection{Continuumness \texorpdfstring{$k(K_3)$}{k(K_3)}}
+\subsubsection{\texorpdfstring{$k(K_3)$}{k(K_3)} Континуумность}
 
-The general formula applies:
+Применяется общая формула:
 \[
-k(K_3) = 
+k(K_3) =
 \frac{\mu(\Omega(K_3))}{\mu(S(K_3))}
 \cdot
 \frac{|A(K_3)|}{|A(M_3)|}
@@ -248,36 +252,36 @@ k(K_3) =
 (1 - \frac{T}{\Theta_{\mathrm{stab}}})_+.
 \]
 
-Interpretation:
+Интерпретация:
 \begin{itemize}
-    \item existence of a RAF cycle boosts $k(K_3)$,
-    \item high imbalance of fluxes lowers $k(K_3)$,
-    \item osmotic or pH-stress dramatically reduces $k(K_3)$,
-    \item $k(K_3)=0$ corresponds to chemical death.
+    \item существование RAF-цикла повышает $k(K_3)$,
+    \item сильный дисбаланс потоков снижает $k(K_3)$,
+    \item осмотический или pH-стресс драматически уменьшает $k(K_3)$,
+    \item $k(K_3)=0$ соответствует химической смерти.
 \end{itemize}
 
 % ================================================================
-\subsubsection{Structural Tension \texorpdfstring{$T(K_3)$}{T(K_3)}}
+\subsubsection{\texorpdfstring{$T(K_3)$}{T(K_3)} Структурное напряжение}
 
-Sources of tension:
+Источники напряжения:
 \begin{itemize}
-    \item incompatible reaction fluxes,
-    \item strong concentration gradients,
-    \item pH imbalance,
-    \item osmotic gradients,
-    \item missing catalysts (incomplete closure).
+    \item несовместимые реакционные потоки,
+    \item сильные концентрационные градиенты,
+    \item pH-дисбаланс,
+    \item осмотические градиенты,
+    \item отсутствующие катализаторы (неполное замыкание).
 \end{itemize}
 
-When:
+Когда:
 \[
 T(K_3) > \Theta_{\mathrm{stab}},
 \]
-autocatalytic organisation collapses.
+автокаталитическая организация коллапсирует.
 
 % ================================================================
-\subsubsection{Energy \texorpdfstring{$E(K_3)$}{E(K_3)}}
+\subsubsection{\texorpdfstring{$E(K_3)$}{E(K_3)} Энергия}
 
-Energy functional:
+Энергетический функционал:
 \[
 E(K_3) =
 \sum_i \mu_i c_i +
@@ -285,134 +289,134 @@ E(K_3) =
 E_{\mathrm{grad}} + E_{\mathrm{mix}} + E_{\mathrm{osm}}.
 \]
 
-Terms denote:
+В терминах:
 \begin{itemize}
-    \item chemical potentials and free energies,
-    \item gradient-energy costs,
-    \item osmotic imbalance,
-    \item mixing entropy.
+    \item химические потенциалы и свободные энергии,
+    \item затраты градиентной энергии,
+    \item осмотический дисбаланс,
+    \item энтропия смешивания.
 \end{itemize}
 
-This functional governs chemical stability.
+Этот функционал задает химическую устойчивость.
 
 % ================================================================
-\subsubsection{Operators on \texorpdfstring{$K_3$}{K_3} (\texorpdfstring{$\Psi$}{\Psi}, \texorpdfstring{$\Phi$}{\Phi}, \texorpdfstring{$\Lambda$}{\Lambda}, \texorpdfstring{$U$}{U}, \texorpdfstring{$\Chi$}{\Chi})}
+\subsubsection{\texorpdfstring{$K_3$}{K_3} Операторы (\texorpdfstring{$\Psi$}{\Psi}, \texorpdfstring{$\Phi$}{\Phi}, \texorpdfstring{$\Lambda$}{\Lambda}, \texorpdfstring{$U$}{U}, \texorpdfstring{$\Chi$}{\Chi})}
 
 \begin{itemize}
-    \item $\Psi_{3\to4}$ — biological transition: appearance of
-          compartmentalisation (membrane closure) generating $K_4$.
-    \item $\Phi$ — evolution of $M_3$ constraints (composition limits,
-          reaction admissibility).
-    \item $\Lambda$ — operator enforcing stoichiometric consistency.
-    \item $U$ — unification of reaction subnetworks.
-    \item $\Chi$ — allows branching into alternative chemical
-          organisations (different RAF cores).
-\end{itemize}
-
-% ================================================================
-\subsubsection{Processes on \texorpdfstring{$K_3$}{K_3}}
-
-Representative processes:
-\begin{itemize}
-    \item autocatalytic amplification,
-    \item cross-catalytic chain formation,
-    \item pH-drift and recovery,
-    \item osmotic imbalance and stabilisation,
-    \item formation or dissolution of RAF subnetworks,
-    \item structural drift toward $K_4$ when a boundary $\partial\Omega$
-          emerges.
+    \item $\Psi_{3\to4}$ — биологический переход: появление
+          компартментации (мембранного закрытия), порождающей $K_4$.
+    \item $\Phi$ — эволюция ограничений в $M_3$ (пределы состава,
+          допустимость реакций).
+    \item $\Lambda$ — оператор стехиометрической согласованности.
+    \item $U$ — унификация реакционных подсетей.
+    \item $\Chi$ — допускает ветвление в альтернативные химические
+          организации (разные RAF-ядра).
 \end{itemize}
 
 % ================================================================
-\subsubsection{Predictions for \texorpdfstring{$K_3$}{K_3}}
+\subsubsection{Процессы на \texorpdfstring{$K_3$}{K_3}}
+
+Представительные процессы:
+\begin{itemize}
+    \item автокаталитическое усиление,
+    \item образование перекрестно-каталитических цепей,
+    \item pH-дрифт и восстановление,
+    \item осмотический дисбаланс и стабилизация,
+    \item формирование или распад RAF-подсетей,
+    \item структурный дрейф к $K_4$, когда возникает граница $\partial\Omega$.
+\end{itemize}
+
+% ================================================================
+\subsubsection{Прогнозы для \texorpdfstring{$K_3$}{K_3}}
 
 \begin{enumerate}
-    \item RAF emergence is a threshold phenomenon governed by
+    \item Возникновение RAF — пороговый феномен, управляемый
           $\Theta_{\mathrm{closure}}$.
-    \item Minimal chemical organisation requires autocatalytic cycles.
-    \item pH-collapse produces rapid destruction of $\Omega(K_3)$.
-    \item Osmotic-stress curve has a universal sigmoidal form 
+    \item Минимальная химическая организация требует автокаталитических циклов.
+    \item pH-коллапс вызывает быстрое разрушение $\Omega(K_3)$.
+    \item Кривая осмотического стресса имеет универсальную сигмоидную форму
           ($\Theta_{\mathrm{osm}}$).
-    \item Transition to $K_4$ requires formation of a semi-stable
-          proto-boundary.
+    \item Переход к $K_4$ требует формирования полу-устойчивой
+          протограницы.
 \end{enumerate}
 
 % ================================================================
-\subsubsection{Experiments for \texorpdfstring{$K_3$}{K_3}}
+\subsubsection{Эксперименты для \texorpdfstring{$K_3$}{K_3}}
 
-Empirical analogues:
+Эмпирические аналоги:
 \begin{itemize}
-    \item experimental RAF networks (Steel–Hordijk),
-    \item protocell-free polymerisation systems,
-    \item pH-gradient oscillators,
-    \item osmotic swelling–bursting cycles in vesicles without membranes,
-    \item open-system autocatalytic reactors.
+    \item экспериментальные сети RAF (Steel–Hordijk),
+    \item системы полимеризации без протоклеток,
+    \item осцилляторы pH-градиентов,
+    \item осмотические циклы набухания и разрыва в везикулах без мембран,
+    \item автокаталитические реакторы открытых систем.
 \end{itemize}
 
-Each provides tests for $\Theta_{\mathrm{closure}}$,
-$\Theta_{\mathrm{react}}$, and collapse criteria.
+Каждая из них даёт проверки для $\Theta_{\mathrm{closure}}$,
+$\Theta_{\mathrm{react}}$ и критериев коллапса.
 
 % ================================================================
-\subsubsection{Collapse and Death of \texorpdfstring{$K_3$}{K_3}}
+\subsubsection{Смерть и коллапс \texorpdfstring{$K_3$}{K_3}}
 \label{sec:k3-collapse}
 
-Collapse occurs when:
+Коллапс происходит, когда:
 \[
 \Omega(K_3) = \varnothing,
 \]
-due to:
+по причине:
 \begin{itemize}
-    \item destruction of RAF closure,
-    \item pH-collapse,
-    \item osmotic burst,
-    \item runaway flux divergence,
-    \item incompatible stoichiometric constraints.
+    \item разрушения RAF-замыкания,
+    \item pH-коллапса,
+    \item осмотического разрыва,
+    \item неконтролируемого расхода потоков,
+    \item несовместимых стехиометрических ограничений.
 \end{itemize}
 
-After death, no transition to biological $K_4$ is possible.
+После смерти переход к биологическому $K_4$ невозможен.
 
 % ================================================================
-\subsubsection{Falsifiability of \texorpdfstring{$K_3$}{K_3}}
+\subsubsection{Фальсифицируемость \texorpdfstring{$K_3$}{K_3}}
 
-Testable predictions:
+Прогнозы, поддающиеся проверке:
 \begin{enumerate}
-    \item existence of a minimal RAF threshold,
-    \item necessity of autocatalytic loops for sustained organisation,
-    \item osmotic-collapse envelope reproducible across chemistries,
-    \item pH-limits defining structural survival,
-    \item inability of chemical organisation to persist without closure.
+    \item существование минимального порога RAF,
+    \item необходимость автокаталитических циклов для устойчивой организации,
+    \item воспроизводимая осмотическая оболочка коллапса в разных химических
+          средах,
+    \item pH-границы, определяющие структурное выживание,
+    \item невозможность поддержания химической организации без замыкания.
 \end{enumerate}
 
-Violations of these predictions would refute the structural model.
+Нарушения этих предсказаний опровергнут структурную модель.
 
 % ================================================================
-\subsubsection{Branching / Ontological Position of \texorpdfstring{$K_3$}{K_3}}
+\subsubsection{Ветвление / Онтологическая позиция \texorpdfstring{$K_3$}{K_3}}
 
-Branching occurs through:
+Ветвление происходит через:
 \begin{itemize}
-    \item alternative RAF cores,
-    \item differing stoichiometric subnetworks,
-    \item divergent environmental-exchange regimes.
+    \item альтернативные RAF-ядра,
+    \item различные стехиометрические подсети,
+    \item различающиеся режимы обмена с окружающей средой.
 \end{itemize}
 
-Positionally:
+Позиционно:
 \[
 K_2 \to K_3 \to K_4,
 \]
-where $K_3$ is the unique chemical intermediate between physical and
-biological continua.
+где $K_3$ является уникальным химическим промежуточным звеном между
+физическими и биологическими континуумами.
 
 % ================================================================
-\subsubsection{Relation to M-spaces}
+\subsubsection{Связь с M-пространствами}
 
-$K_3$ exists within $M_3$, which specifies:
+$K_3$ существует внутри $M_3$, который задает:
 \begin{itemize}
-    \item admissible composition ranges,
-    \item allowable reaction classes,
-    \item environmental exchange limits,
-    \item osmotic and pH constraints,
-    \item structural conditions for emergence of boundaries $\partial\Omega$.
+    \item допустимые диапазоны состава,
+    \item допустимые классы реакций,
+    \item пределы обмена со средой,
+    \item осмотические и pH-ограничения,
+    \item структурные условия для возникновения границ $\partial\Omega$.
 \end{itemize}
 
-Transition $K_3 \to K_4$ requires $M_3$ to generate a new admissible
-topology with an inside/outside distinction.
+Переход $K_3 \to K_4$ требует от $M_3$ порождения нового допустимого
+топологического различения «внутри/снаружи».

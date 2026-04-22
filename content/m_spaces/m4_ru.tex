@@ -2,10 +2,10 @@
 % AI_ASSISTED_TRANSLATION_DRAFT: TRUE
 % THEOREM_REVIEW_STATUS: PENDING
 % THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
-% THEOREM_REVIEW_REVIEWER_ID: 
-% THEOREM_REVIEW_AUTHORITY_CLASS: 
-% THEOREM_REVIEWED_AT: 
-% THEOREM_REVIEW_DOSSIER_REF: 
+% THEOREM_REVIEW_REVIEWER_ID:
+% THEOREM_REVIEW_AUTHORITY_CLASS:
+% THEOREM_REVIEWED_AT:
+% THEOREM_REVIEW_DOSSIER_REF:
 % SOURCE_LANGUAGE: EN
 % TARGET_LANGUAGE: RU
 % SOURCE_EN_REF: content/m_spaces/m4.tex
@@ -19,116 +19,118 @@
 %  FULL MODULE — FINAL VERSION
 % ==============================
 
-\subsubsection{\texorpdfstring{$M_4$}{M_4} Overview}
+\subsubsection{\texorpdfstring{$M_4$}{M_4} Обзор}
 \label{sec:m4-overview}
 
-$M_4$ is the meta-space that provides the admissibility conditions for 
-biological continua of level $K_4$.  
-It is the first meta-space in which:
+$M_4$ — это мета-пространство, задающее условия допустимости для
+биологических континуумов уровня $K_4$.
+Это первое мета-пространство, в котором:
 
 \begin{itemize}
-    \item a stable \emph{semipermeable boundary} is admissible,
-    \item the topological distinction \textbf{inside/outside} becomes an axis,
-    \item nontrivial \emph{concentration, electrical, pH and redox gradients} 
-    can be sustained,
-    \item active transport and energy conversion processes are allowed,
-    \item reaction networks are confined and spatially coordinated,
-    \item the transition from chemical to protobiological structure ($K_3 \to K_4$)
-          is admissible.
+    \item допустима стабильная \emph{полупроницаемая граница},
+    \item топологическое различие \textbf{внутри/снаружи} становится осью,
+    \item могут поддерживаться не-тривиальные \\emph{градиенты концентрации, электрического,
+    pH и редокс потенциалов},
+    \item разрешены процессы активного транспорта и преобразования энергии,
+    \item реакционные сети локализуются и пространственно координируются,
+    \item переход от химической к прото-биологической структуре ($K_3 \to K_4$)
+          допустим.
 \end{itemize}
 
-$M_4$ introduces the geometric and energetic conditions for 
-compartmentalization---the defining property of early cells.
+$M_4$ вводит геометрические и энергетические условия
+компартментации — определяющего признака ранних клеток.
 
 % ---------------------------------------------------------------
-\subsubsection*{1. Admissible Configuration Space \texorpdfstring{$\Omega(M_4)$}{\Omega(M_4)}}
+\subsubsection*{1. Допустимое конфигурационное пространство \texorpdfstring{$\Omega(M_4)$}{\Omega(M_4)}}
 
-The admissible configurations in $M_4$ extend those of $M_3$ by adding:
+Допустимые конфигурации в $M_4$ расширяют конфигурации $M_3$ добавлением:
 
 \[
 \Omega(M_4)
 =
 \Big\{
-(\phi,\ G_{\mathrm{chem}},\ \rho_{\mathrm{in/out}},\ 
+(\phi,\ G_{\mathrm{chem}},\ \rho_{\mathrm{in/out}},
 \Delta\mu,\ g_{ij},\ \partial\Omega,\ \Pi)
-\ \Big|\ \text{admissibility conditions hold}
+\ \Big|\ \text{выполняются условия допустимости}
 \Big\}.
 \]
 
-Where:
+Где:
 
 \begin{itemize}
-    \item $\partial\Omega$ — a semipermeable membrane forming a compact boundary,
-    \item $\rho_{\mathrm{in/out}}$ — concentration fields inside and outside,
-    \item $\Delta\mu$ — electrochemical potential gradients across $\partial\Omega$,
-    \item $\Pi$ — permeability tensor (direction- and species-dependent),
-    \item $G_{\mathrm{chem}}$ — internal RAF networks that remain functional
-          under confinement.
+    \item $\partial\Omega$ — полупроницаемая мембрана, формирующая компактную границу,
+    \item $\rho_{\mathrm{in/out}}$ — концентрации внутри и снаружи,
+    \item $\Delta\mu$ — градиенты электрохимического потенциала через $\partial\Omega$,
+    \item $\Pi$ — тензор проницаемости (направленно-зависимый и зависимый от вида частиц),
+    \item $G_{\mathrm{chem}}$ — внутренние RAF-сети, остающиеся функциональными
+          под конфайнментом.
 \end{itemize}
 
-Admissibility conditions:
+Условия допустимости:
 
 \begin{enumerate}
-    \item \textbf{Membrane stability}:  
-    $\partial\Omega$ must maintain mechanical integrity under tension 
+    \item \textbf{Стабильность мембраны}:
+    $\partial\Omega$ должен сохранять механическую целостность при
+    натяжении
     $T_{\mathrm{mem}} < \Theta_{\mathrm{mem}}$.
 
-    \item \textbf{Permeability constraints}:  
-    $\Pi$ must be finite, anisotropic and species-specific.
+    \item \textbf{Ограничения проницаемости}:
+    $\Pi$ должен быть конечным, анизотропным и видово-специфичным.
 
-    \item \textbf{Gradient compatibility}:  
-    electrochemical gradients must satisfy:
+    \item \textbf{Согласованность градиентов}:
+    электрохимические градиенты должны удовлетворять:
     \[
     |\Delta\mu| < \Theta_{\mathrm{grad-max}}.
     \]
 
-    \item \textbf{Volume finiteness}:  
-    the internal region must have bounded volume and mass.
+    \item \textbf{Конечность объёма}:
+    внутренний регион должен иметь конечный объём и массу.
 
-    \item \textbf{RAF compatibility}:  
-    internal reaction networks must remain topologically closed.
+    \item \textbf{RAF-совместимость}:
+    внутренние реакционные сети остаются топологически замкнутыми.
 \end{enumerate}
 
-$M_4$ thus provides the minimal environment where protocells can exist.
+$M_4$ поэтому задаёт минимальную среду, в которой могут существовать
+протоклетки.
 
 % ---------------------------------------------------------------
-\subsubsection*{2. Admissible Axes \texorpdfstring{$A(M_4)$}{A(M_4)}}
+\subsubsection*{2. Допустимые оси \texorpdfstring{$A(M_4)$}{A(M_4)}}
 
-A new fundamental axis appears:
+Появляется новая базовая ось:
 
 \[
 A_{\mathrm{in/out}} = \{ \text{inside},\ \text{outside} \}.
 \]
 
-It satisfies:
+Она удовлетворяет:
 
 \[
 A_{\mathrm{in/out}} \not\subseteq \operatorname{span}(A_1, A_2, A_3)
 \quad\Rightarrow\quad
-\text{new dimension allowed}.
+\text{допускается новая размерность}.
 \]
 
-Additional admissible axes include:
+К этой группе относятся также:
 
 \begin{itemize}
-    \item $A_{\mathrm{perm}}$ — permeability states,
-    \item $A_{\mathrm{grad}}$ — gradient configurations (pH, ions, charge),
-    \item $A_{\mathrm{vol}}$ — volume/pressure axis,
-    \item $A_{\mathrm{energy}}$ — internal energy states 
-          (ATP-like precursors, redox pools).
+    \item $A_{\mathrm{perm}}$ — состояния проницаемости,
+    \item $A_{\mathrm{grad}}$ — конфигурации градиентов (pH, ионы, заряд),
+    \item $A_{\mathrm{vol}}$ — ось объёма/давления,
+    \item $A_{\mathrm{energy}}$ — внутренние энергетические состояния
+          (предшественники ATP, редокс-пулы).
 \end{itemize}
 
-These axes define the internal functional geometry of early cells.
+Эти оси определяют внутреннюю функциональную геометрию ранних клеток.
 
 % ---------------------------------------------------------------
-\subsubsection*{3. Potentials \texorpdfstring{$P(M_4)$}{P(M_4)}}
+\subsubsection*{3. Потенциалы \texorpdfstring{$P(M_4)$}{P(M_4)}}
 
-$M_4$ admits new classes of potentials:
+$M_4$ допускает новые классы потенциалов:
 
 \[
 P(M_4) =
 \big(
-U_{\mathrm{mem}},\ 
+U_{\mathrm{mem}},\
 U_{\mathrm{grad}},\
 U_{\mathrm{osm}},\
 U_{\mathrm{charge}},\
@@ -137,45 +139,46 @@ U_{\mathrm{active}}
 \big).
 \]
 
-Interpretation:
+Интерпретация:
 
 \begin{itemize}
-    \item $U_{\mathrm{mem}}$ — membrane bending and surface tension potential,
-    \item $U_{\mathrm{grad}}$ — energy stored in chemical/electrical gradients,
-    \item $U_{\mathrm{osm}}$ — osmotic pressure potential,
-    \item $U_{\mathrm{charge}}$ — Coulombic and dielectric interactions,
-    \item $U_{\mathrm{redox}}$ — redox-energy landscape,
-    \item $U_{\mathrm{active}}$ — energy conversion enabling active transport.
+    \item $U_{\mathrm{mem}}$ — потенциал изгиба мембраны и поверхностного натяжения,
+    \item $U_{\mathrm{grad}}$ — энергия, запасённая в химических и электрических градиентах,
+    \item $U_{\mathrm{osm}}$ — потенциал осмотического давления,
+    \item $U_{\mathrm{charge}}$ — кулоновские и диэлектрические взаимодействия,
+    \item $U_{\mathrm{redox}}$ — редокс-энергетический ландшафт,
+    \item $U_{\mathrm{active}}$ — преобразование энергии, обеспечивающее
+          активный транспорт.
 \end{itemize}
 
-All potentials must be:
+Все потенциалы должны быть:
 
 \begin{enumerate}
-    \item differentiable almost everywhere,
-    \item bounded from below,
-    \item compatible with membrane stability conditions.
+    \item почти всюду дифференцируемыми,
+    \item ограниченными снизу,
+    \item совместимыми с условиями стабильности мембраны.
 \end{enumerate}
 
 % ---------------------------------------------------------------
-\subsubsection*{4. Thresholds \texorpdfstring{$\Theta(M_4)$}{\Theta(M_4)}}
+\subsubsection*{4. Пороги \texorpdfstring{$\Theta(M_4)$}{\Theta(M_4)}}
 
-Key biological thresholds introduced:
+Ключевые биологические пороги:
 
 \begin{itemize}
-    \item $\Theta_{\mathrm{mem}}$ — membrane rupture threshold,
-    \item $\Theta_{\mathrm{grad}}$ — minimal gradient needed to maintain structure,
-    \item $\Theta_{\mathrm{grad-max}}$ — maximal tolerable gradient,
-    \item $\Theta_{\mathrm{osm}}$ — osmotic pressure tolerance,
-    \item $\Theta_{\mathrm{pH}}$ — viability interval for internal pH,
-    \item $\Theta_{\mathrm{redox}}$ — redox compatibility threshold.
+    \item $\Theta_{\mathrm{mem}}$ — порог разрыва мембраны,
+    \item $\Theta_{\mathrm{grad}}$ — минимальный градиент для поддержания структуры,
+    \item $\Theta_{\mathrm{grad-max}}$ — максимально допустимый градиент,
+    \item $\Theta_{\mathrm{osm}}$ — осмотическая толерантность,
+    \item $\Theta_{\mathrm{pH}}$ — интервал жизнеспособности внутреннего pH,
+    \item $\Theta_{\mathrm{redox}}$ — порог редокс-совместимости.
 \end{itemize}
 
-Critical condition for $K_4$ to remain alive:
+Критическое условие сохранения живучести $K_4$:
 
 \[
-T_4 < 
+T_4 <
 \min\{
-\Theta_{\mathrm{mem}},\ 
+\Theta_{\mathrm{mem}},\
 \Theta_{\mathrm{osm}},\
 \Theta_{\mathrm{grad-max}},\
 \Theta_{\mathrm{pH}},\
@@ -184,9 +187,9 @@ T_4 <
 \]
 
 % ---------------------------------------------------------------
-\subsubsection*{5. Flows \texorpdfstring{$J(M_4)$}{J(M_4)}}
+\subsubsection*{5. Потоки \texorpdfstring{$J(M_4)$}{J(M_4)}}
 
-Admissible flows include:
+Допустимые потоки:
 
 \[
 J(M_4)
@@ -201,64 +204,64 @@ J_{\mathrm{osm}},\
 \big).
 \]
 
-Where:
+Где:
 
 \begin{itemize}
-    \item $J_{\mathrm{diff}}$ — passive diffusion inside/outside,
-    \item $J_{\mathrm{perm}}$ — membrane-permeation flows,
-    \item $J_{\mathrm{pump}}$ — active transport against gradients,
-    \item $J_{\mathrm{redox}}$ — redox-cycling flows,
-    \item $J_{\mathrm{osm}}$ — osmotic balance flows,
-    \item $\nabla_i T_4$ — flows driven by structural tension gradients.
+    \item $J_{\mathrm{diff}}$ — пассивная диффузия внутри/снаружи,
+    \item $J_{\mathrm{perm}}$ — мембранные пермеационные потоки,
+    \item $J_{\mathrm{pump}}$ — активный перенос против градиентов,
+    \item $J_{\mathrm{redox}}$ — редокс-циклические потоки,
+    \item $J_{\mathrm{osm}}$ — осмотические балансные потоки,
+    \item $\nabla_i T_4$ — потоки по градиенту структурной натяжки.
 \end{itemize}
 
-All flows must satisfy mass conservation within the membrane boundary.
+Все потоки должны удовлетворять сохранению массы внутри границы мембраны.
 
 % ---------------------------------------------------------------
-\subsubsection*{6. Cycles in \texorpdfstring{$M_4$}{M_4}}
+\subsubsection*{6. Циклы в \texorpdfstring{$M_4$}{M_4}}
 
-$M_4$ is the meta-space where biological cycles become admissible:
+$M_4$ — это мета-пространство, где становятся допустимыми биологические циклы:
 
 \begin{itemize}
-    \item $C_{\mathrm{RAF-core}}$ — reaction-autocatalytic cycles,
-    \item $C_{\mathrm{metabolic}}$ — basic metabolic turnover,
-    \item $C_{\mathrm{pump}}$ — pump-driven active transport cycles,
-    \item $C_{\mathrm{redox}}$ — electron-transfer cycles,
-    \item $C_{\mathrm{buffer}}$ — pH-buffering cycles.
+    \item $C_{\mathrm{RAF-core}}$ — реакционно-автокаталитические циклы,
+    \item $C_{\mathrm{metabolic}}$ — базовый метаболический оборот,
+    \item $C_{\mathrm{pump}}$ — циклы активного транспорта насосов,
+    \item $C_{\mathrm{redox}}$ — циклы переноса электронов,
+    \item $C_{\mathrm{buffer}}$ — pH-буферные циклы.
 \end{itemize}
 
-Condition for cycle stability:
+Условие устойчивости цикла:
 
 \[
 \oint_C dA_i \approx 0
-\quad\text{and}\quad 
-T_4 \ \text{bounded}.
+\quad\text{и}\quad
+T_4 \ \text{ограничена}.
 \]
 
-These cycles generate the temporal structure $\tau(K_4)$.
+Эти циклы формируют временную структуру $\tau(K_4)$.
 
 % ---------------------------------------------------------------
-\subsubsection*{7. Boundary \texorpdfstring{$\partial\Omega(M_4)$}{\partial\Omega(M_4)}}
+\subsubsection*{7. Граница \texorpdfstring{$\partial\Omega(M_4)$}{\partial\Omega(M_4)}}
 
-A configuration approaches $\partial\Omega(M_4)$ when:
+Конфигурация приближается к $\partial\Omega(M_4)$, когда:
 
 \begin{itemize}
-    \item membrane tension approaches the rupture threshold:
+    \item мембранное натяжение приближается к порогу разрыва:
     \[
     T_{\mathrm{mem}} \to \Theta_{\mathrm{mem}},
     \]
-    \item internal pH exits the viability interval,
-    \item gradients exceed $\Theta_{\mathrm{grad-max}}$,
-    \item osmotic imbalance becomes unstable,
-    \item confinement breaks RAF closure inside the compartment.
+    \item внутренний pH выходит за пределы жизнеспособного интервала,
+    \item градиенты превосходят $\Theta_{\mathrm{grad-max}}$,
+    \item осмотический дисбаланс становится неустойчивым,
+    \item конфайнмент нарушает RAF-замыкание внутри компартмента.
 \end{itemize}
 
-Crossing $\partial\Omega(M_4)$ destroys the protobiological continuum $K_4$.
+Пересечение $\partial\Omega(M_4)$ разрушает протобиологический континуум $K_4$.
 
 % ---------------------------------------------------------------
-\subsubsection*{8. Relation to \texorpdfstring{$M_3$}{M_3} and \texorpdfstring{$M_5$}{M_5}}
+\subsubsection*{8. Связь с \texorpdfstring{$M_3$}{M_3} и \texorpdfstring{$M_5$}{M_5}}
 
-Transition $K_3 \to K_4$ is admissible when:
+Переход $K_3 \to K_4$ допустим, когда:
 
 \[
 A_{\mathrm{in/out}} \in A(M_4),
@@ -268,25 +271,25 @@ A_{\mathrm{in/out}} \in A(M_4),
 T_3 \ge \Theta_{\mathrm{dim}}.
 \]
 
-Transition toward $K_5$ requires:
+Переход к $K_5$ требует:
 
 \[
 A_{\mathrm{exc}} \in A(M_5),
 \qquad
 \Delta V \ge \Theta_{\mathrm{exc}},
 \qquad
-\text{channels and electrical conduction admissible}.
+\text{допустимы каналы и электрическая проводимость}.
 \]
 
-Thus, $M_4$ is the meta-space of:
+Итак, $M_4$ — мета-пространство:
 
 \begin{itemize}
-    \item membrane structure,
-    \item compartmentalization,
-    \item gradients and osmotic physics,
-    \item energy conversion,
-    \item early metabolism,
-    \item minimal biological stability.
+    \item структуры мембраны,
+    \item компартментации,
+    \item градиентов и осмотической физики,
+    \item преобразования энергии,
+    \item раннего метаболизма,
+    \item минимальной биологической устойчивости.
 \end{itemize}
 
-It is the structural foundation enabling protocellular life.
+Это структурная основа, обеспечивающая существование протоклеток.

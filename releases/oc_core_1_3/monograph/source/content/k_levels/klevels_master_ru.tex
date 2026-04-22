@@ -2,10 +2,10 @@
 % AI_ASSISTED_TRANSLATION_DRAFT: TRUE
 % THEOREM_REVIEW_STATUS: PENDING
 % THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
-% THEOREM_REVIEW_REVIEWER_ID: 
-% THEOREM_REVIEW_AUTHORITY_CLASS: 
-% THEOREM_REVIEWED_AT: 
-% THEOREM_REVIEW_DOSSIER_REF: 
+% THEOREM_REVIEW_REVIEWER_ID:
+% THEOREM_REVIEW_AUTHORITY_CLASS:
+% THEOREM_REVIEWED_AT:
+% THEOREM_REVIEW_DOSSIER_REF:
 % SOURCE_LANGUAGE: EN
 % TARGET_LANGUAGE: RU
 % SOURCE_EN_REF: content/k_levels/klevels_master.tex
@@ -13,174 +13,171 @@
 % ==== FILE: content/k_levels/klevels_master.tex
 % ================================================================
 
-\section{Extended modules and cross-level structures}
+\section{Расширенные модули и межуровневые структуры}
 \label{sec:klevels-master}
 
-The ontology of continua is organised as a hierarchical sequence of
-levels
+Онтология континуумов организована как иерархическая последовательность
+уровней
 \[
 K_0, K_1, \dots, K_{12},
 \]
-each representing a qualitatively distinct form of structure,
-dynamics, and admissible states.  
-Every level $K_x$ possesses:
+каждый из которых представляет качественно отличную форму структуры,
+динамики и допустимых состояний.
+Каждый уровень $K_x$ имеет:
 \begin{itemize}
-    \item a state space $\Omega(K_x)$,
-    \item a set of axes $A(K_x)$,
-    \item potentials $P(K_x)$,
-    \item thresholds $\Theta(K_x)$,
-    \item flows $J(K_x)$,
-    \item cycles $C(K_x)$ with characteristic times $\tau(K_x)$,
-    \item a continuum measure $k(K_x)$,
-    \item and a boundary $\partial\Omega(K_x)$ describing the conditions
-          of collapse or transition.
+    \item пространство состояний $\Omega(K_x)$,
+    \item множество осей $A(K_x)$,
+    \item потенциалы $P(K_x)$,
+    \item пороги $\Theta(K_x)$,
+    \item потоки $J(K_x)$,
+    \item циклы $C(K_x)$ с характерными временами $\tau(K_x)$,
+    \item меру континуума $k(K_x)$,
+    \item и границу $\partial\Omega(K_x)$, описывающую условия
+          коллапса или перехода.
 \end{itemize}
 
-Each $K_x$ is embedded into a corresponding meta-space $M_x$ that
-determines the admissible axes and states:
+Каждый $K_x$ вложен в соответствующее мета-пространство $M_x$, которое
+задаёт допустимые оси и состояния:
 \[
-A(K_x) \subseteq A(M_x), \qquad 
+A(K_x) \subseteq A(M_x), \qquad
 \Omega(K_x) \subseteq \Omega(M_x).
 \]
-The meta-space restricts the degrees of freedom available to the
-continuum and thereby shapes its evolution.
+Мета-пространство ограничивает число степеней свободы континуума и
+тем самым определяет его эволюцию.
 
 
 % ================================================================
-\subsection{Dimensional Growth and Transitions $K_x \to K_{x+1}$}
+\subsection{Размерностный рост и переходы $K_x \to K_{x+1}$}
 % ================================================================
 
-A transition from level $K_x$ to $K_{x+1}$ occurs when:
+Переход от уровня $K_x$ к $K_{x+1}$ происходит, когда:
 \begin{enumerate}
-    \item a new class of differences emerges that cannot be represented
-          within the existing axes $A(K_x)$;
-    \item structural tension exceeds a threshold:
+    \item появляется новый класс различий, который нельзя представить
+          в пределах существующих осей $A(K_x)$;
+    \item структурное напряжение превышает порог:
     \[
         T(K_x) > \Theta_{\mathrm{dim}}(K_x);
     \]
-    \item the meta-space requires a higher-dimensional representation;
-    \item the existing configuration space $\Omega(K_x)$ becomes
-          insufficient or collapses onto its boundary $\partial\Omega(K_x)$.
+    \item мета-пространство требует более высокоразмерного представления;
+    \item существующее пространство конфигураций $\Omega(K_x)$ становится
+          недостаточным или схлопывается на свою границу $\partial\Omega(K_x)$.
 \end{enumerate}
 
-This process is irreversible:
+Процесс необратим:
 \[
 \dim K_{x+1} \ge \dim K_x,
 \]
-and any ``reduction'' of dimensionality corresponds to the death of the
-continuum:
+а любая «редукция» размерности соответствует смерти континуума:
 \[
 \Omega(K_x) = \varnothing.
 \]
 
 
 % ================================================================
-\subsection{Universal Structure Across All Levels}
+\subsection{Единая формальная структура уровней}
 % ================================================================
 
-Despite the qualitative diversity of levels, every $K_x$ shares a common
-formal structure.  
-The evolution of a continuum is governed by:
+Несмотря на качественное разнообразие уровней, каждый $K_x$ обладает общей
+формальной структурой.
+Эволюция континуума задаётся уравнением:
 \[
 K_x(t + dt) = E\bigl(K_x(t), M_x(t)\bigr),
 \]
-where $E$ is an evolution operator constrained by the meta-space
-$M_x$.  
-A continuum evolves only within the admissible region of its
-meta-space:
+где $E$ — оператор эволюции, ограниченный мета-пространством
+$M_x$.
+Континуум эволюционирует только внутри допустимой области своего
+мета-пространства:
 \[
 K_x(t+dt) \in \Omega(M_x)
-\quad\text{or the evolution is forbidden}.
+\quad\text{или эволюция запрещена}.
 \]
 
-The continuum measure is:
+Мера континуума задаётся как:
 \[
 k(K_x) =
 k_{\Omega} \cdot k_{A} \cdot k_{C} \cdot k_{J} \cdot k_{T},
 \]
-where:
+где:
 \begin{itemize}
-    \item $k_{\Omega}$ measures the volume of allowed states,
-    \item $k_{A}$ counts realised axes relative to the meta-space,
-    \item $k_{C}$ reflects stability of cycles,
-    \item $k_{J}$ describes coherence of flows,
-    \item $k_{T}$ measures structural tension relative to thresholds.
+    \item $k_{\Omega}$ измеряет объём допустимых состояний,
+    \item $k_{A}$ считает реализованные оси относительно мета-пространства,
+    \item $k_{C}$ отражает устойчивость циклов,
+    \item $k_{J}$ описывает когерентность потоков,
+    \item $k_{T}$ измеряет структурное напряжение относительно порогов.
 \end{itemize}
 
 
 % ================================================================
-\subsection{Hierarchy of Levels $K_0 \to K_{12}$}
+\subsection{Иерархия уровней $K_0 \to K_{12}$}
 % ================================================================
 
-Each level represents a distinct stratum of organisation:
+Каждый уровень представляет собой отдельную стратификацию организации:
 
 \begin{itemize}
-    \item $K_0$ — meta-pressure, possibility conditions, and pre-structural logic;
-    \item $K_1$ — continuous one-dimensional continua;
-    \item $K_2$ — two-dimensional continua with internal flows and clusters;
-    \item $K_3$ — chemical configuration spaces and reaction manifolds;
-    \item $K_4$ — protocell-level continua with membranes and boundaries;
-    \item $K_5$ — neural continua with excitation cycles and attractors;
-    \item $K_6$ — cognitive continua with predictive models;
-    \item $K_7$ — social continua with group-level stability cycles;
-    \item $K_8$ — civilisational continua with large-scale coordination flows;
-    \item $K_9$ — theoretical continua (structure of explanations);
-    \item $K_{10}$ — meta-theoretical continua (structure of structural spaces);
-    \item $K_{11}$ — formal ontologies and logic-level continua;
-    \item $K_{12}$ — meta-ontological continua governing the possibility space
-                     of all lower levels.
+    \item $K_0$ — метадавление, условия возможности и препредметная логика;
+    \item $K_1$ — непрерывные одномерные континуумы;
+    \item $K_2$ — двумерные континуумы с внутренними потоками и кластерами;
+    \item $K_3$ — химические конфигурационные пространства и многообразия реакций;
+    \item $K_4$ — континуумы уровня протоклеток с мембранами и границами;
+    \item $K_5$ — нейронные континуумы с циклами возбуждения и аттракторами;
+    \item $K_6$ — когнитивные континуумы с предиктивными моделями;
+    \item $K_7$ — социальные континуумы с групповыми устойчивыми циклами;
+    \item $K_8$ — цивилизационные континуумы с потоками крупномасштабной координации;
+    \item $K_9$ — теоретические континуумы (структура объяснений);
+    \item $K_{10}$ — метатеоретические континуумы (структура пространств структуры);
+    \item $K_{11}$ — формальные онтологии и логические континуумы;
+    \item $K_{12}$ — метаонтологические континуумы, задающие пространство
+                     возможностей всех нижних уровней.
 \end{itemize}
 
-Higher levels do not replace lower ones; they embed and extend them:
+Более высокие уровни не отменяют нижние; они включают их и расширяют:
 \[
-K_x \subseteq M_x, 
-\qquad 
+K_x \subseteq M_x,
+\qquad
 M_x \subseteq \Omega(K_{x+1}).
 \]
 
 
 % ================================================================
-\subsection{Boundaries, Collapse and Death of Continua}
+\subsection{Границы, коллапс и смерть континуумов}
 % ================================================================
 
-Every $K_x$ has a boundary $\partial\Omega(K_x)$ where the
-continuum loses admissibility.  
-A continuum dies when:
+Каждый $K_x$ имеет границу $\partial\Omega(K_x)$, где
+континуум теряет допустимость.
+Континуум «умирает», когда:
 \[
 \Omega(K_x) = \varnothing
 \quad\Rightarrow\quad
 k(K_x) = 0,
 \]
-which corresponds to:
+что соответствует:
 \begin{itemize}
-    \item violation of thresholds $\Theta(K_x)$,
-    \item loss of stable cycles $C(K_x)$,
-    \item destructive flows reaching critical values,
-    \item collapse of axes or incompatibility with $M_x$.
+    \item нарушению порогов $\Theta(K_x)$,
+    \item потере устойчивых циклов $C(K_x)$,
+    \item потокам-деструкторам, достигающим критических значений,
+    \item схлопыванию осей или несовместимости с $M_x$.
 \end{itemize}
 
-Death is distinct from evolution: it removes the continuum from the
-space of admissible structures and cannot be undone.
+Смерть континуума отличается от эволюции: она убирает континуум из
+пространства допустимых структур и не может быть обращена.
 
 
 % ================================================================
-\subsection{Role of \texorpdfstring{$k$}{k}-Level Structure in the Core Model}
+\subsection{Роль \texorpdfstring{$k$}{k}-уровневой структуры в ядре модели}
 % ================================================================
 
-The $K$-levels provide the vertical backbone of the Ontology of
-Continua.  
-They:
+$K$-уровни составляют вертикальный каркас Онтологии Континуумов.
+Они:
 \begin{itemize}
-    \item organise emergence from physical to cognitive to social to
-          meta-ontological structures;
-    \item define the recursion $K_x \to M_x \to K_{x+1}$;
-    \item supply the dimensional ladder necessary for universal
-          applicability;
-    \item constrain the evolution of continua via admissibility
-          conditions;
-    \item unify all domains of reality under one mathematical framework.
+    \item организуют зарождение от физических структур к когнитивным,
+          социальным и метаонтологическим структурам;
+    \item определяют рекурсию $K_x \to M_x \to K_{x+1}$;
+    \item обеспечивают размерностную лестницу, необходимую для универсальной
+          применимости;
+    \item ограничивают эволюцию континуумов через условия допустимости;
+    \item объединяют все области реальности под одной математической рамкой.
 \end{itemize}
 
-The structure of $K$-levels makes the ontology both hierarchical and
-recursive: every level depends on the meta-space above it and constrains
-the level below.
+Структура $K$-уровней делает онтологию иерархической и рекурсивной:
+каждый уровень зависит от мета-пространства над ним и ограничивает уровень
+ниже.
