@@ -2471,7 +2471,7 @@ def build_practical_utility_atlas(
             ],
             "benchmark_comparators": [
                 "best-in-class local-model portfolio governance",
-                "multimodel expert routing without shared theorem trace",
+                "multi-model expert routing without shared theorem trace",
             ],
             "serious_model_families": [
                 "Best-in-class local-model portfolio governance across separate domain theories",
@@ -4769,16 +4769,16 @@ def publication_code_alias(text: Any) -> str:
     match = re.fullmatch(r"content/toe/toe_k(\d+)(?:_(ru|de))?(?:\.tex)?", normalized)
     if match:
         locale = f" ({match.group(2).upper()})" if match.group(2) else ""
-        return f"Appendix Q synthesis dossier K{match.group(1)}{locale}"
+        return f"APPENDIX_Q_SYNTHESIS_DOSSIER_K{match.group(1)}{locale}"
     if re.fullmatch(r"content/toe/toe_master(?:_(ru|de))?\.tex", normalized):
-        return "compatibility synthesis-support master"
+        return "APPENDIX_Q_SYNTHESIS_SUPPORT_MASTER"
     aliases = {
-        "content/25_oc_core_1_3_toe_synthesis.tex": "Chapter 25 unified-synthesis chapter",
-        "content/generated/oc_core_1_3_toe_synthesis_generated.tex": "generated unified-synthesis chapter",
-        "appendix/toe_data.tex": "Appendix C constants-and-parameters apparatus",
-        "appendix/toe_data_ru.tex": "Appendix C constants-and-parameters apparatus (RU)",
-        "appendix/toe_data_de.tex": "Appendix C constants-and-parameters apparatus (DE)",
-        "content/_auto_core_platinum_toe_support_inputs.tex": "platinum synthesis-support include list",
+        "content/25_oc_core_1_3_toe_synthesis.tex": "CHAPTER_25_UNIFIED_SYNTHESIS",
+        "content/generated/oc_core_1_3_toe_synthesis_generated.tex": "GENERATED_UNIFIED_SYNTHESIS_SURFACE",
+        "appendix/toe_data.tex": "APPENDIX_C_SYNTHESIS_CONSTANTS",
+        "appendix/toe_data_ru.tex": "APPENDIX_C_SYNTHESIS_CONSTANTS_RU",
+        "appendix/toe_data_de.tex": "APPENDIX_C_SYNTHESIS_CONSTANTS_DE",
+        "content/_auto_core_platinum_toe_support_inputs.tex": "PLATINUM_SYNTHESIS_SUPPORT_INCLUDE_LIST",
     }
     return aliases.get(normalized, value)
 
@@ -5080,8 +5080,8 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
         normalize_sentence(branding["public_intro_text"]),
         (
             "The title and scope of this chapter follow the canonical SPOT "
-            "record; the paragraphs below state the promoted synthesis without "
-            "restating release metadata as prose."
+            "record; release-gate metadata is confined to the opening status "
+            "lines and the dedicated gate paragraph below."
         ),
         "",
         rf"\subsection{{{tex_escape(branding['public_gate_title'])}}}",
@@ -5490,6 +5490,7 @@ def render_practical_utility_appendix_tex(spot: dict[str, Any]) -> str:
             r"\end{longtable}",
             "",
             r"\subsection{Use-case trace-anchor matrix}",
+            "Trace anchors in this appendix use publication-safe alias keys for legacy compatibility filenames. The alias keys are stable release anchors resolved by the review-target manifest and by the generated projection surfaces.",
             r"\begin{longtable}{@{}L{0.16\textwidth}L{0.38\textwidth}L{0.34\textwidth}@{}}",
             r"\toprule",
             r"Use-case id & Trace anchors & Bundle / comparator hooks \\",
@@ -5696,7 +5697,7 @@ def render_operationalization_tex(spot: dict[str, Any]) -> str:
     lines = [
         "% Generated from OC_CORE_1_3_SCIENCE_SPOT_latest.json",
         r"\subsection{Why the present release separates explanatory force from predictive promotion}",
-        "The canonical science SPOT distinguishes explanatory reach from lawful promotion. Positive outward science is permitted only when a domain closes one continuous trace from the kernel and K-level theorem spine through observables to held-out evidence and explicit falsifiers.",
+        "The canonical science SPOT distinguishes explanatory reach from lawful promotion. Empirical and predictive outward claims are promoted only when a domain closes one continuous trace from the kernel and K-level theorem spine through observables to held-out evidence and explicit falsifiers; theorem-native mathematical claims close by proof route rather than by measurement surface.",
         "",
         r"\subsection{Current release truth}",
         f"The canonical SPOT checks {len(core_domains)} core lanes. At present {tex_code(pass_total)} lanes satisfy the full promotion bar, while {tex_code(fail_total)} lanes remain fail-closed.",
@@ -5795,6 +5796,9 @@ def render_protocols_tex(spot: dict[str, Any]) -> str:
         "The default empirical bar remains hybrid escalation: official or open primary data first, then institute-run measurements only if the observable family cannot be closed otherwise. That escalation sits behind theorem-native trace closure rather than replacing it.",
         "",
         r"\subsection{Execution protocol matrix}",
+        r"\begingroup",
+        r"\scriptsize",
+        r"\setlength{\tabcolsep}{1.5pt}",
         r"\begin{longtable}{@{}L{0.13\textwidth}L{0.10\textwidth}L{0.12\textwidth}L{0.14\textwidth}L{0.16\textwidth}L{0.13\textwidth}L{0.10\textwidth}@{}}",
         r"\toprule",
         r"Domain & Wave & Evidence bar & Held-out policy & Replay command & Replay status & Closure verdict \\",
@@ -5815,6 +5819,7 @@ def render_protocols_tex(spot: dict[str, Any]) -> str:
         [
             r"\bottomrule",
             r"\end{longtable}",
+            r"\endgroup",
             "",
             r"\subsection{Method ladder}",
             r"\begin{longtable}{@{}L{0.07\textwidth}L{0.18\textwidth}L{0.26\textwidth}L{0.27\textwidth}@{}}",

@@ -8,15 +8,14 @@ citation, and archival use.
 - Release line: OC Core 1.3 public release bundle.
 - Release date: April 21, 2026.
 - Baseline witness: [`commit SHA 7ceb46acfbcb4e83d6568fea3c2530bd9eb95719`](https://github.com/alexanderyashin/ontology-of-continua-core-main/commit/7ceb46acfbcb4e83d6568fea3c2530bd9eb95719).
-- Science-state projection: SPOT, the Science Projection and Operational
-  Truth surface,
-  [`editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json`](editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json).
+- Science-state projection: see the bundle-local projection surfaces section
+  below for the SPOT authority and generated companion surfaces.
 
 ## Citation
 
-For public citation, use the release metadata in `.zenodo.json` together with
-the archived DOI record when the bundle is deposited. From this release folder,
-the citation metadata file is [`../../.zenodo.json`](../../.zenodo.json). Until deposition, cite
+For public citation, use the release metadata in the bundle-local
+[`./.zenodo.json`](.zenodo.json) together with the archived DOI record when
+the bundle is deposited. Until deposition, cite
 Alexander Yashin, *Ontology of Continua — Core v1.3.0*, GitHub repository
 `alexanderyashin/ontology-of-continua-core-main`, release date April 21, 2026,
 and the baseline witness listed above.
@@ -27,8 +26,10 @@ and the baseline witness listed above.
   [`editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json`](editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json).
 - Cerberus scope: the scripted release-review authority
   `OC_CORE_1_3_ENGLISH_FLAGSHIP_RELEASE_PACKAGE`.
-- Checked-in Cerberus verdict: `FAIL_CLOSED` until the final full gate
-  regenerates
+- Checked-in Cerberus verdict at this snapshot: `FAIL_CLOSED`; the latest
+  full LLM panel completed, and open findings remain tracked in
+  [`editorial/OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json`](editorial/OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json).
+- Final publication readiness requires regenerating
   [`editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json`](editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json)
   with `status = PASS` and `llm_gate_status = PASS`.
 - The public synthesis title is `Unified Science Synthesis`. Compatibility

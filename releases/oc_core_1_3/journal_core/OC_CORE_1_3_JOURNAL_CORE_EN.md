@@ -28,7 +28,11 @@ The main result is a bounded classification theorem about lawful post-collapse i
 **Proposition B (article-local related-space rebirth control).** A later live continuum is counted as rebirth only in the audited case where all of the following hold:
 1. it appears while $\Omega(K)=\emptyset$ and $k(K,t)=0$;
 2. it appears either in the same embedding space or in a related embedding space $M'$ with $M\sim_{\mathrm{res}}M'$;
-3. for the related-space branch, $M\sim_{\mathrm{res}}M'$ means that a named structure-preserving map $h:M\to M'$ and a residue element $r$ witness that $h(r)$ is present in $M'$ and that the threshold and admissibility predicates are preserved on that residue-bearing substructure;
+3. for the related-space branch, $M\sim_{\mathrm{res}}M'$ means that the following witness data are supplied:
+   - a named structure-preserving map $h:M\to M'$;
+   - a residue element $r$;
+   - the condition that $h(r)$ is present in $M'$;
+   - preservation of the threshold and admissibility predicates on that residue-bearing substructure;
 4. it inherits at least one structural element from residue and satisfies the birth conditions for a given level.
 
 The manuscript carries Theorem A in revised form: within the surviving source-native OC Core kernel, post-collapse traces are classified as residue. When a later qualifying live continuum appears, Proposition B classifies it as rebirth of a numerically new continuum rather than persistence of the original continuum.
@@ -47,7 +51,14 @@ The manuscript fixes four load-bearing notions:
 
 For auditability, $\Omega(K)$ denotes the admissible-state region of $K$, and $k(K,t)$ denotes the continuumness scalar of $K$ at time $t$. The same-space case is literal. The article-local related-space witness branch uses the relation $M\sim_{\mathrm{res}}M'$ from Proposition B: a named structure-preserving map $h:M\to M'$ and a residue element $r$ must preserve the residue-bearing substructure and the threshold/admissibility predicates used to test the later continuum. If the map/witness pair is absent, the article falls back to the stricter same-space case rather than promoting the broader related-space branch.
 
-"Birth conditions for a given level" means the level-specific admissibility, threshold, and coherence conditions that allow a new continuum at that level to count as live. For the present article, those clauses synthesize the Rebirth definition and its surrounding formal-condition discussion in the audited OC source module `content/12_collapse_rebirth.tex` under the v1.2.1 source witness and Core 1.3 repair: a nonempty residue-supported candidate state set, embedding compatibility, threshold satisfaction, viable cycle or operator support, identity distinction from the dead original, and the level-specific axes required for the proposed new continuum.
+"Birth conditions for a given level" means the level-specific admissibility, threshold, and coherence conditions that allow a new continuum at that level to count as live. For the present article, those clauses synthesize the Rebirth definition and its surrounding formal-condition discussion in the audited OC source module `content/12_collapse_rebirth.tex` under the v1.2.1 source witness and Core 1.3 repair.
+The required conditions are:
+- a nonempty residue-supported candidate state set;
+- embedding compatibility;
+- threshold satisfaction;
+- viable cycle or operator support;
+- identity distinction from the dead original;
+- the level-specific axes required for the proposed new continuum.
 The article also keeps a small operational vocabulary for later projections. These observables are not used to inflate the present argument into a full universal law; they are included because they specify what later mathematical or domain-level projections would have to measure if the bounded theorem grammar is taken seriously.
 These observables matter because they turn the argument from an ontological slogan into a falsifiable grammar. They tell the reader what kind of counterexample would matter, what kind of terminal loss counts as death, and what kind of post-collapse persistence claim is prohibited by the manuscript.
 - `contradiction_load`: Minimal mismatch between required differences and currently expressible axes and admissible coordinates.
@@ -104,13 +115,13 @@ Proof of Proposition B. Lemma 3 supplies the source-native non-persistence rule 
 
 **Excluded support boundary.** The present route does not keep a shadow theorem body in reserve. Any inherited theorem family that would be needed to defend a general contradiction-to-lift claim is outside the main article unless it survives separate revalidation with explicit provenance and exact dependency support. At the current manuscript boundary, no theorem family remains in provisional support limbo. The inherited lift and representability families are excluded from the main article rather than presented as tacitly available support.
 
-## Literature Screen
-The paper is not written as if it were the first text ever to discuss collapse, viability, or regime change. Its literature screen identifies relevant formal background families, states what each contributes at work-level granularity, and marks why the present article asks a different source-native identity question. The screen is not a theorem-by-theorem negative exclusion of those literatures, and it should not be read as a section-by-section priority claim against them.
-
-### OC provenance anchors
+## Source Provenance Anchors
 Source-witness anchors for the audited OC corpus:
 - YASHIN_OC_CORE_2025: Primary archival witness for the exact PDF theorem corpus audited by the present article. Alexander Yashin, Ontology of Continua — Core v1.2.0, Zenodo, 2025, DOI 10.5281/zenodo.17903912, https://zenodo.org/records/17903912.
 - OC_CORE_PUBLIC_TAG_V121: Public LaTeX source lock used to witness exact theorem, axiom, and definition bodies in the audited OC corpus. Alexander Yashin, ontology-of-continua-core-main, GitHub repository, tag v1.2.1, commit 2c61b7879ed36cd8366d87892a066082b6418ce8, https://github.com/alexanderyashin/ontology-of-continua-core-main/commit/2c61b7879ed36cd8366d87892a066082b6418ce8.
+
+## Literature Screen
+The paper is not written as if it were the first text ever to discuss collapse, viability, or regime change. Its literature screen identifies relevant formal background families, states what each contributes at work-level granularity, and marks why the present article asks a different source-native identity question. The screen is not a theorem-by-theorem negative exclusion of those literatures, and it should not be read as a section-by-section priority claim against them.
 
 ### External comparator families
 External comparator families:
@@ -152,7 +163,7 @@ The table is the novelty summary for this section. It separates external trigger
 ## Cross-Domain Interpretation and Scope Discipline
 The manuscript has implications beyond a single formal kernel, but it does not claim that those implications are already proved as a universal cross-domain theorem. The wider Core 1.3 release separately contains a [practical-utility atlas](../editorial/OC_CORE_1_3_PRACTICAL_UTILITY_ATLAS_latest.json) with bounded usable-now operational routing rows for the promoted release lanes. Those rows are release guidance, not premises in the present journal-core theorem. The supplementary cross-domain projection map is different: it lists frontier and hypothesis projection targets whose admissibility depends on separate theorem programs and empirical or formal validation routes.
 This distinction is important for editorial honesty. A generalist venue needs to understand why the work matters beyond one notation system, but it also needs to see that the manuscript does not inflate projection potential into accomplished proof. The paper therefore uses cross-domain language only to identify where the collapse-residue-rebirth grammar should be tested next and what would count as a failed projection.
-Tier 1 mathematics remains outside the main theorem chain in the present article. The cross-domain utility row is a separate operational route-selection lane supported within bounds, while frontier projection families remain projection targets. None of these lanes is silently promoted into proof support for the journal-core theorem.
+Tier 1 mathematics remains outside the main theorem chain in the present article, but it is a usable supporting-evidence lane for bounded route selection in the practical-utility atlas. Frontier projection families remain projection targets whose admissibility depends on separate theorem programs and empirical or formal validation. None of these lanes is silently promoted into proof support for the journal-core theorem.
 In that sense the paper offers a kernel-local collapse, residue, and rebirth grammar together with a disciplined research agenda. It does not confuse the one with the other.
 
 ## Reviewer Objections and Resolutions
