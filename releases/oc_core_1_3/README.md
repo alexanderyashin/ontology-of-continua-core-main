@@ -10,7 +10,9 @@ citation, and archival use.
   bundle label `Core 1.3` and the semantic version `v1.3.0` refer to the same
   release.
 - Release date: April 21, 2026.
-- Baseline witness commit: `7ceb46acfbcb4e83d6568fea3c2530bd9eb95719`.
+- Public source witness: tag/source commit
+  [`2c61b7879ed36cd8366d87892a066082b6418ce8`](https://github.com/alexanderyashin/ontology-of-continua-core-main/commit/2c61b7879ed36cd8366d87892a066082b6418ce8),
+  paired with the archived Core v1.2.0 DOI witness.
 
 ## Citation
 
@@ -22,13 +24,16 @@ the bundle is deposited. Until deposition, use this provisional citation:
 - Title: *Ontology of Continua — Core v1.3.0*.
 - Repository: [`alexanderyashin/ontology-of-continua-core-main`](https://github.com/alexanderyashin/ontology-of-continua-core-main).
 - Release date: April 21, 2026.
-- Baseline witness commit: `7ceb46acfbcb4e83d6568fea3c2530bd9eb95719`.
+- Public source witness: tag/source commit
+  [`2c61b7879ed36cd8366d87892a066082b6418ce8`](https://github.com/alexanderyashin/ontology-of-continua-core-main/commit/2c61b7879ed36cd8366d87892a066082b6418ce8).
 
 ## Gate status snapshot
 
 Current public-readiness rule: this bundle is publication-ready only when the
 Cerberus certificate reports both `status = PASS` and `llm_gate_status = PASS`.
 The files below are the machine-readable evidence for that status.
+Current checked-in gate state before the final release run is
+`FAIL_CLOSED` unless the certificate linked below says otherwise.
 
 - Snapshot source:
   [`editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json`](editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json).
