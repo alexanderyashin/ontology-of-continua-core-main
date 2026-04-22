@@ -695,12 +695,6 @@ COMPRESSION_ROWS = [
         "performance_value": 1.0,
         "interpretation": "How much validated coverage is carried per active numerical packet under the present replay bar.",
     },
-    {
-        "axis": "COVERAGE_PER_COMPLEXITY_VS_COMPETITORS",
-        "complexity_units": 5,
-        "performance_value": 0.384615,
-        "interpretation": "Computed as 5 validated lanes divided by 13 declared same-claim and domain-baseline comparator units; source row: alternative-model competition matrix.",
-    },
 ]
 
 LOAD_BEARING_DEPENDENCY_ATLAS = [

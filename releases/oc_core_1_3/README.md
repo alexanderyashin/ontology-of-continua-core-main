@@ -11,17 +11,15 @@ citation, and archival use.
   release.
 - Release date: April 21, 2026.
 - Baseline witness commit: `7ceb46acfbcb4e83d6568fea3c2530bd9eb95719`.
-- Science-state projection: see the bundle-local projection surfaces section
-  below for the SPOT authority and generated companion surfaces.
 
 ## Citation
 
 For public citation, use the release metadata in the bundle-local
 [`./.zenodo.json`](.zenodo.json) together with the archived DOI record when
-the bundle is deposited. Until deposition, cite
+the bundle is deposited. Until deposition, use this provisional citation:
 Alexander Yashin, *Ontology of Continua — Core v1.3.0*, GitHub repository
 `alexanderyashin/ontology-of-continua-core-main`, release date April 21, 2026,
-and the baseline witness listed above.
+baseline witness commit `7ceb46acfbcb4e83d6568fea3c2530bd9eb95719`.
 
 ## Gate status snapshot
 
@@ -84,6 +82,9 @@ science.
 
 - `editorial/` contains the release-bundled `_latest.json` projection
   surfaces.
+- Science-state projection authority:
+  `editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json`, the Science Projection
+  and Operational Truth surface.
 - `editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json` is the bundle-local
   scientific state projection for Core 1.3; the foundational dossier,
   empirical execution surfaces, validation matrix, command board, and science
