@@ -1,43 +1,27 @@
 {
   "metadata": {
-    "repo_sha": "b0412d4a0b2df52f5402bf2ef7516d9920041178",
-    "generated_at_utc": "2026-04-22T11:13:48Z",
+    "repo_sha": "369aeb375691a7538e55dacde1ffd1349a3d8c4e",
+    "generated_at_utc": "2026-04-22T11:51:23Z",
     "surface": "logion/k0/governance/status/OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json",
     "script": "oc_core_1_3_cerberus_review.py"
   },
-  "run_id": "CERBERUS_RUN__20260422T110707Z__b0412d4a",
+  "run_id": "CERBERUS_RUN__20260422T114538Z__369aeb37",
   "scope_id": "OC_CORE_1_3_ENGLISH_FLAGSHIP_RELEASE_PACKAGE",
   "findings": [
     {
-      "finding_id": "CERBERUS_FINDING::35e718878e31787a3096",
-      "run_id": "CERBERUS_RUN__20260422T110707Z__b0412d4a",
+      "finding_id": "CERBERUS_FINDING::21f69a059720487db91a",
+      "run_id": "CERBERUS_RUN__20260422T114538Z__369aeb37",
       "reviewer_id": "CERBERUS_LLM__HOSTILE_MATHEMATICIAN",
-      "artifact_id": "CERBERUS_UNIT::appendix__A_notation.tex",
-      "artifact_ref": "appendix/A_notation.tex",
-      "section_ref": "Operators",
+      "artifact_id": "CERBERUS_UNIT::appendix__Q_oc_core_1_3_toe_support_dossiers.tex",
+      "artifact_ref": "appendix/Q_oc_core_1_3_toe_support_dossiers.tex",
+      "section_ref": "sec:oc-core-1-3-synthesis-support-dossiers",
       "severity": "NON_DEFECT_OBSERVATION",
-      "category": "notation",
+      "category": "claim_scope",
       "determinism_class": "LLM_CODEX_CLI",
-      "claim": "The appendix mentions the aliases F_0, Q_0, and U_0, but never gives them explicit entries or a symbol-to-meaning mapping.",
-      "evidence": "The prose at lines 175-180 names F_0, Q_0, and U_0 as K0 aliases, while the list below defines only F, Q, U and \\Psi_0, \\Phi_0, \\Lambda_0.",
-      "required_action": "LLM minor advisory only. Deterministic reviewers, hard-build checks, and LLM BLOCKER/MAJOR findings remain release-blocking; this observation is tracked for later editorial polish but does not block release acceptance.",
-      "status": "NOT_ACTIONABLE",
-      "corroborating_reviewer_ids": []
-    },
-    {
-      "finding_id": "CERBERUS_FINDING::58eeebbee3e15a4a876b",
-      "run_id": "CERBERUS_RUN__20260422T110707Z__b0412d4a",
-      "reviewer_id": "CERBERUS_LLM__HOSTILE_MATHEMATICIAN",
-      "artifact_id": "CERBERUS_UNIT::appendix__A_notation.tex",
-      "artifact_ref": "appendix/A_notation.tex",
-      "section_ref": "Continuum Structure",
-      "severity": "NON_DEFECT_OBSERVATION",
-      "category": "notation",
-      "determinism_class": "LLM_CODEX_CLI",
-      "claim": "The time-indexed boundary notation introduces \\partial_{M_x(t)}\\Omega(K_x,t) without defining it, so readers cannot tell whether it is the topological boundary or the threshold-defined admissible boundary.",
-      "evidence": "Lines 97-101 equate \\partial\\Omega(K_x,t) with \\partial_{M_x(t)}\\Omega(K_x,t), but the only explicit ambient-space boundary notation earlier is \\partial_{M_x}^{\\mathrm{top}}\\Omega(K_x).",
-      "required_action": "LLM minor advisory only. Deterministic reviewers, hard-build checks, and LLM BLOCKER/MAJOR findings remain release-blocking; this observation is tracked for later editorial polish but does not block release acceptance.",
-      "status": "NOT_ACTIONABLE",
+      "claim": "The opening scope sentence is a bit stronger than the included material: the appendix does not just avoid the chapter introduction and release gate, it also re-states per-level theorem claims, parameter laws, observable bindings, numerical tables, and falsifier boundaries through the imported dossier files.",
+      "evidence": "The wrapper ends with `\\input{content/_auto_core_platinum_toe_support_inputs.tex}` on line 30; that list expands to `content/toe/toe_k0` through `toe_k12`. In `content/toe/toe_k0` (lines 6-18), the imported dossier explicitly contains `Theorem claim`, `Parameter law`, `Observable binding and units`, and `Falsifier and collapse boundary` sections.",
+      "required_action": "If literal precision matters, narrow the sentence to say the appendix omits the chapter-level introduction and release gate while carrying compact per-level support dossiers.",
+      "status": "OPEN",
       "corroborating_reviewer_ids": []
     }
   ]
