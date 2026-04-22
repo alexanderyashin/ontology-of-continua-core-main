@@ -9,7 +9,7 @@ citation, and archival use.
 - Versioned release name: Ontology of Continua — Core v1.3.0. The short
   bundle label `Core 1.3` and the semantic version `v1.3.0` refer to the same
   release.
-- Release date: April 21, 2026.
+- Release date: April 22, 2026.
 - Public source witness: public `v1.2.1` source commit
   [`2c61b7879ed36cd8366d87892a066082b6418ce8`](https://github.com/alexanderyashin/ontology-of-continua-core-main/commit/2c61b7879ed36cd8366d87892a066082b6418ce8),
   paired with the archived Core v1.2.0 DOI witness.
@@ -23,7 +23,7 @@ the bundle is deposited. Until deposition, use this provisional citation:
 - Author: Alexander Yashin.
 - Title: *Ontology of Continua — Core v1.3.0*.
 - Repository: [`alexanderyashin/ontology-of-continua-core-main`](https://github.com/alexanderyashin/ontology-of-continua-core-main).
-- Release date: April 21, 2026.
+- Release date: April 22, 2026.
 - Public source witness: public `v1.2.1` source commit
   [`2c61b7879ed36cd8366d87892a066082b6418ce8`](https://github.com/alexanderyashin/ontology-of-continua-core-main/commit/2c61b7879ed36cd8366d87892a066082b6418ce8).
 

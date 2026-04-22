@@ -2,15 +2,46 @@
 \phantomsection
 \label{sec:oc13-title-page}
 \thispagestyle{empty}
+\definecolor{ocTitleBlue}{HTML}{173B57}
+\definecolor{ocTitleGold}{HTML}{A77D2A}
+\begin{tikzpicture}[remember picture,overlay]
+\draw[ocTitleBlue,line width=0.75pt]
+  ([xshift=1.35cm,yshift=-1.35cm]current page.north west)
+  rectangle
+  ([xshift=-1.35cm,yshift=1.35cm]current page.south east);
+\draw[ocTitleGold,line width=0.35pt]
+  ([xshift=1.55cm,yshift=-1.55cm]current page.north west)
+  rectangle
+  ([xshift=-1.55cm,yshift=1.55cm]current page.south east);
+\draw[ocTitleGold,line width=0.9pt]
+  ([xshift=1.55cm,yshift=-1.55cm]current page.north west) -- ++(1.45cm,0);
+\draw[ocTitleGold,line width=0.9pt]
+  ([xshift=1.55cm,yshift=-1.55cm]current page.north west) -- ++(0,-1.45cm);
+\draw[ocTitleGold,line width=0.9pt]
+  ([xshift=-1.55cm,yshift=-1.55cm]current page.north east) -- ++(-1.45cm,0);
+\draw[ocTitleGold,line width=0.9pt]
+  ([xshift=-1.55cm,yshift=-1.55cm]current page.north east) -- ++(0,-1.45cm);
+\draw[ocTitleGold,line width=0.9pt]
+  ([xshift=1.55cm,yshift=1.55cm]current page.south west) -- ++(1.45cm,0);
+\draw[ocTitleGold,line width=0.9pt]
+  ([xshift=1.55cm,yshift=1.55cm]current page.south west) -- ++(0,1.45cm);
+\draw[ocTitleGold,line width=0.9pt]
+  ([xshift=-1.55cm,yshift=1.55cm]current page.south east) -- ++(-1.45cm,0);
+\draw[ocTitleGold,line width=0.9pt]
+  ([xshift=-1.55cm,yshift=1.55cm]current page.south east) -- ++(0,1.45cm);
+\end{tikzpicture}
 \begin{center}
-{\huge \textbf{Ontology of Continua}}\\[0.45cm]
-{\Large Core~1.3 Canonical Master Monograph}\\[1.2cm]
+\vspace*{1.0cm}
+{\sffamily\Large\color{ocTitleBlue}\textsc{Ontology of Continua}}\\[0.38cm]
+{\sffamily\Huge\bfseries Core~1.3}\\[0.28cm]
+{\sffamily\Large Canonical Master Monograph}\\[0.75cm]
+{\color{ocTitleGold}\rule{0.42\textwidth}{0.5pt}}\\[0.95cm]
 
 {\Large Alexander Yashin}\\[0.2cm]
 {\normalsize Independent Researcher, Leipzig/Halle, Germany}\\[0.2cm]
 {\normalsize \href{https://orcid.org/0009-0008-6166-0914}{ORCID 0009-0008-6166-0914}}\\[1.0cm]
 
-{\normalsize Version v1.3.0; release date: April 21, 2026}\\[1.2cm]
+{\normalsize Version v1.3.0; release date: 22.04.2026}\\[1.2cm]
 
 \vfill
 
@@ -18,9 +49,15 @@
 % OC_CORE_PUBLICATION_DEDICATION
 {\small\itshape Dedicated to my dear wife Maria, without whom this work would have been impossible.}\\[0.8cm]
 
-{\small Project repository: \href{https://github.com/alexanderyashin/ontology-of-continua-core-main}{github.com/alexanderyashin/ontology-of-continua-core-main}}\\
-{\small Public source witness: \href{https://github.com/alexanderyashin/ontology-of-continua-core-main/commit/2c61b7879ed36cd8366d87892a066082b6418ce8}{v1.2.1 source commit \occode{2c61b7879ed36cd8366d87892a066082b6418ce8}}}\\
-{\small Prior archived release: \emph{Ontology of Continua --- Core v1.2.0}, \href{https://doi.org/10.5281/zenodo.17903912}{10.5281/zenodo.17903912}}
+\begin{minipage}{0.82\textwidth}
+\centering\scriptsize
+Project repository:
+\href{https://github.com/alexanderyashin/ontology-of-continua-core-main}{alexanderyashin/ontology-of-continua-core-main}\\[0.08cm]
+Public source witness:
+\href{https://github.com/alexanderyashin/ontology-of-continua-core-main/commit/2c61b7879ed36cd8366d87892a066082b6418ce8}{v1.2.1 source commit \occode{2c61b7879ed3}}\\[0.08cm]
+Prior archived release: \emph{Ontology of Continua --- Core v1.2.0},
+\href{https://doi.org/10.5281/zenodo.17903912}{10.5281/zenodo.17903912}
+\end{minipage}
 \end{center}
 \end{titlepage}
 
