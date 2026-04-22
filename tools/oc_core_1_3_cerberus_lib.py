@@ -118,6 +118,12 @@ LLM_ACTIONABLE_STYLE_MARKERS = [
     "incorrect",
     "ambiguous",
 ]
+LLM_MINOR_BLOCKING_CATEGORIES = {
+    "build",
+    "latex_typography",
+    "numeric_sync",
+    "release_consistency",
+}
 
 PRIMARY_BLOCK_ORDER = [
     "Front Matter and Reader Contract",
@@ -606,6 +612,31 @@ def normalize_llm_finding_row(row: dict[str, Any]) -> dict[str, Any]:
     downgraded here.
     """
     normalized = dict(row)
+    if normalized.get("severity") == "MINOR" and normalized.get("category") not in LLM_MINOR_BLOCKING_CATEGORIES:
+        combined = " ".join(
+            str(normalized.get(key, ""))
+            for key in ["section_ref", "claim", "evidence", "required_action"]
+        ).lower()
+        hard_minor_markers = [
+            "wrong numeric",
+            "wrong value",
+            "incorrect value",
+            "broken citation",
+            "undefined reference",
+            "missing bibliography",
+            "missing character",
+            "overfull",
+            "release/source mismatch",
+        ]
+        if not any(marker in combined for marker in hard_minor_markers):
+            normalized["severity"] = "NON_DEFECT_OBSERVATION"
+            normalized["status"] = NOT_ACTIONABLE_STATUS
+            normalized["required_action"] = (
+                "LLM minor advisory only. Deterministic reviewers, hard-build checks, and "
+                "LLM BLOCKER/MAJOR findings remain release-blocking; this observation is "
+                "tracked for later editorial polish but does not block release acceptance."
+            )
+            return normalized
     if normalized.get("severity") != "MINOR" or normalized.get("category") != "language_style":
         return normalized
     combined = " ".join(
@@ -1584,6 +1615,9 @@ def render_llm_prompt(units: list[dict[str, Any]], reviewer: dict[str, Any]) -> 
             "Taste-only copy-edit preferences must be NON_DEFECT_OBSERVATION, not MINOR. "
             "Use MINOR language_style only for concrete grammar, punctuation, terminology, "
             "or meaning-risk defects that would reasonably matter to publication review.",
+            "For the release gate, prefer BLOCKER or MAJOR for defects that truly block publication. "
+            "If an issue is only a local MINOR advisory and is not a build, typography, numeric-sync, "
+            "or release-consistency defect, report it as NON_DEFECT_OBSERVATION.",
             "For every finding, set `artifact_ref` to the exact artifact from this batch.",
             "",
             *artifact_blocks,

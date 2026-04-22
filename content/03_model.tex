@@ -44,9 +44,10 @@ Nonzero structural difference is the minimal condition for distinguishability.
 A continuum cannot exist without at least two distinguishable states.
 
 \paragraph{Axiom 0.2 (Nontrivial threshold \texorpdfstring{$\Theta_0$}{Theta\_0}).}
-There exists \(\varepsilon > 0\) such that for any distinguishable pair
+There exists \(\varepsilon > 0\) such that
 \[
-    s_1 \neq s_2 \;\Rightarrow\; \Delta(s_1,s_2) \ge \varepsilon.
+    \forall s_1,s_2\in S,\qquad
+    s_1 \neq s_2 \Rightarrow \Delta(s_1,s_2) \ge \varepsilon.
 \]
 The value \(\Theta_0 = \varepsilon\) acts as a minimal structural threshold: differences smaller than \(\varepsilon\) are not resolved at the level of \(K_0\).
 
@@ -247,8 +248,8 @@ where:
               \dfrac{\Phi_{\mathrm{support}}(t)}
                     {\Phi_{\mathrm{support}}(t)+\Phi_{\mathrm{kill}}(t)},
                     & \Phi_{\mathrm{support}}(t)+\Phi_{\mathrm{kill}}(t)>0,\\[0.7em]
-              1, & \Phi_{\mathrm{support}}(t)=\Phi_{\mathrm{kill}}(t)=0
-                   \text{ and the flow channel is inactive in the tested state.}
+              1, & \substack{\Phi_{\mathrm{support}}(t)=\Phi_{\mathrm{kill}}(t)=0\\
+                   \text{and the flow channel is inactive in the tested state.}}
               \end{cases}
           \]
           Thus if support vanishes while destructive flow is positive,

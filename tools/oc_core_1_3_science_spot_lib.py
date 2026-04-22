@@ -5673,7 +5673,70 @@ def render_practical_utility_appendix_tex(spot: dict[str, Any]) -> str:
         lines.append(
             f"{tex_code(row['use_case_id'])} & {tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text(row['support_label']))} & {tex_escape(britishize_text(row['what_remains_open']))} \\\\"
         )
-    lines.extend([r"\bottomrule", r"\end{longtable}", r"\endgroup"])
+    lines.extend(
+        [
+            r"\bottomrule",
+            r"\end{longtable}",
+            "",
+            r"\subsection{Fragmentation-to-closure matrix}",
+            r"\begin{longtable}{@{}L{0.17\textwidth}L{0.09\textwidth}L{0.17\textwidth}L{0.17\textwidth}L{0.20\textwidth}L{0.14\textwidth}@{}}",
+            r"\toprule",
+            r"Comparison id & Domain & Prior science already did & Fragmentation or limit & What OC closes or adds & Open boundary \\",
+            r"\midrule",
+            r"\endfirsthead",
+            r"\toprule",
+            r"Comparison id & Domain & Prior science already did & Fragmentation or limit & What OC closes or adds & Open boundary \\",
+            r"\midrule",
+            r"\endhead",
+        ]
+    )
+    for row in atlas["fragmentation_closure_rows"]:
+        domain_title = next(
+            (
+                item["domain_title"]
+                for item in atlas["serious_model_comparison_rows"]
+                if item["comparison_id"] == row["comparison_id"]
+            ),
+            row["domain_id"],
+        )
+        lines.append(
+            f"{tex_code(row['comparison_id'])} & {tex_escape(britishize_text(domain_title))} & {tex_escape(britishize_text(row['prior_science_strength']))} & {tex_escape(britishize_text(row['fragmentation_boundary']))} & {tex_escape(britishize_text(row['oc_closure_or_gain']))} & {tex_escape(britishize_text(row['what_remains_open']))} \\\\"
+        )
+    lines.extend(
+        [
+            r"\bottomrule",
+            r"\end{longtable}",
+            "",
+            r"\subsection{Frontier and hypothesis boundary}",
+        ]
+    )
+    frontier_rows = [
+        row
+        for row in atlas["use_case_rows"]
+        if row.get("support_class") in {"FRONTIER_PROGRAM", "HYPOTHESIS_ONLY"}
+    ]
+    if frontier_rows:
+        lines.extend(
+            [
+                r"\begin{longtable}{@{}L{0.11\textwidth}L{0.19\textwidth}L{0.14\textwidth}L{0.48\textwidth}@{}}",
+                r"\toprule",
+                r"Domain & Problem class & Support & Why this is not yet closed \\",
+                r"\midrule",
+                r"\endfirsthead",
+                r"\toprule",
+                r"Domain & Problem class & Support & Why this is not yet closed \\",
+                r"\midrule",
+                r"\endhead",
+            ]
+        )
+        for row in frontier_rows:
+            lines.append(
+                f"{tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text(row['problem_class']))} & {tex_escape(britishize_text(row['support_label']))} & {tex_escape(britishize_text(row['what_remains_open']))} \\\\"
+            )
+        lines.extend([r"\bottomrule", r"\end{longtable}"])
+    else:
+        lines.append("No explicit frontier or hypothesis-only practical rows remain in the current atlas.")
+    lines.append(r"\endgroup")
     return "\n".join(lines)
 
 
@@ -5699,11 +5762,14 @@ def render_operationalization_tex(spot: dict[str, Any]) -> str:
     )
     lines = [
         "% Generated from OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        f"SPOT revision: repo SHA {tex_code(spot['metadata']['repo_sha'])}; timestamp {tex_code(spot['metadata']['ts_utc'])}.",
+        "",
         r"\subsection{Why the present release separates explanatory force from predictive promotion}",
         "The canonical science SPOT distinguishes explanatory reach from lawful promotion. Empirical and predictive outward claims are promoted only when a domain closes one continuous trace from the kernel and K-level theorem spine through observables to held-out evidence and explicit falsifiers; theorem-native mathematical claims close by proof route rather than by measurement surface.",
         "",
         r"\subsection{Current release truth}",
         f"The canonical SPOT checks {len(core_domains)} core lanes. At present {tex_code(pass_total)} lanes satisfy the full promotion bar, while {tex_code(fail_total)} lanes remain fail-closed.",
+        f"That PASS count applies only to the five core theorem-native lanes inside {tex_code('CORE_1_3_SCIENCE_ONLY')}; frame-only, extension, and refuted rows remain support, frontier, or negative-audit rows rather than public positive closure claims.",
         normalize_sentence(current_release_truth),
         "",
         r"\subsection{Closed canon and frontier workbench}",
@@ -5793,10 +5859,11 @@ def render_protocols_tex(spot: dict[str, Any]) -> str:
     core_domains = [domain for domain in spot["domain_registry"] if domain["domain_id"] in CORE_DOMAIN_IDS]
     lines = [
         "% Generated from OC_CORE_1_3_SCIENCE_SPOT_latest.json",
+        f"SPOT revision: repo SHA {tex_code(spot['metadata']['repo_sha'])}; timestamp {tex_code(spot['metadata']['ts_utc'])}.",
         "The evidence bar is now locked to the canonical SPOT rather than to drifting summary surfaces. The mathematics anchor is replay-only: it requires deterministic exact replay rather than a data-backed benchmark route. The empirical domain lanes require held-out results that clear the declared five-sigma bar without tail-breach inflation. Residual containment by itself is not enough for promotion.",
         "",
         r"\subsection{Global evidence bar}",
-        "The default empirical bar remains hybrid escalation: official or open primary data first, then institute-run measurements only if the observable family cannot be closed otherwise. That escalation sits behind theorem-native trace closure rather than replacing it.",
+        "For the empirical lanes, the default evidence bar remains hybrid escalation: official or open primary data first, then institute-run measurements only if the observable family cannot be closed otherwise. The mathematics lane is replay-only and closes through deterministic exact replay rather than an out-of-sample data route. In every lane, evidence discipline sits behind theorem-native trace closure rather than replacing it.",
         "",
         r"\subsection{Execution protocol matrix}",
         r"\begingroup",
@@ -5911,7 +5978,7 @@ def render_proof_machinery_tex(spot: dict[str, Any]) -> str:
             "",
             r"\subsection{Consistency and promotion law}",
             f"The foundational dossier tracks {tex_code(summary['k_level_total'])} K-level doctrine rows and sets the overall science verdict to {tex_code(summary['platinum_release_status'])}.",
-            "The promotion law keeps two gates distinct. A derived claim is admissible only when it is source-bound, proof-bound, and dependency-exact. An empirical claim must satisfy the foundational empirical gate: standalone domain packet, data route, numerical packet, replay procedure, and explicit falsifier. Separately, the science SPOT invariant requires held-out evidence to be locked before replay and to survive the declared thresholds. The theorem-to-observable trace remains packet evidence, not an extra foundational gate.",
+            "The promotion law keeps two gates distinct. A derived claim is admissible only when it is source-bound, proof-bound, and dependency-exact. An empirical claim is promoted only under the full source-owned empirical gate: a domain packet, theorem-native trace, numerical parameter law, observable binding, pinned data route, locked held-out replay, comparator audit, and explicit falsifier must all be present and must survive the declared thresholds. This sentence is a compressed gate summary; the theorem roadmap records the item-by-item checklist.",
             normalize_sentence(hostile_review_sentence),
             "Closure work is now executed through generated dossier packages and a first-class Phase 1 closed-core dossier rather than through drifting editorial reminders.",
             "",

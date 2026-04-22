@@ -101,9 +101,12 @@ function rather than by surface phrasing:
 \item explanatory, audience-facing, or didactic sentences remain interpretive
       unless they assert theorem or empirical force;
 \item unpromoted research-program proposals remain frontier statements;
-\item remaining structural or interpretive content keeps the SPOT-recorded
-      \occode{BRIDGE_ONLY}, \occode{FRAME_ONLY}, or \occode{EXTENSION}
-      class.
+\item pure structural or interpretive content keeps the SPOT-recorded
+      \occode{FRAME_ONLY} or \occode{EXTENSION} class unless it is explicitly
+      attached to evidence-bearing bridge material;
+\item \occode{BRIDGE_ONLY} is reserved for evidence-bearing rows or packets
+      that have bridge support but have not yet earned theorem-native
+      promotion.
 \end{enumerate}
 Words such as ``frontier'', ``candidate'', or ``projection'' are therefore
 diagnostic signals, not the class assignment rule itself.
@@ -122,10 +125,12 @@ verdict layer. The mapping is:
       source-owned packet, theorem-native trace, pinned data route, numerical
       parameter law, observable binding, locked held-out replay procedure,
       comparator audit, and falsifier gates pass.
-\item Structural and interpretive statements map to \occode{BRIDGE_ONLY},
-      \occode{FRAME_ONLY}, or \occode{EXTENSION} as recorded by SPOT.
-\item Frontier statements map to \occode{EXTENSION} unless explicitly refuted
-      or promoted.
+\item Structural and interpretive statements map to \occode{FRAME_ONLY} or
+      \occode{EXTENSION} as recorded by SPOT unless the statement is attached
+      to an evidence-bearing bridge row.
+\item Frontier statements map to \occode{EXTENSION} until a later section or
+      release promotes them through the same theorem-native or empirical gates
+      used for other positive claims, or records an explicit refutation.
 \item Fail-closed bridge, frame, or extension lanes retain the class recorded
       by SPOT; closure failure by itself is not refutation.
 \item Statements map to \occode{REFUTED} only when SPOT records an explicit
@@ -199,8 +204,10 @@ The public closure boundary remains the
 \texttt{CORE\_1\_3\_SCIENCE\_ONLY} scope stated in
 Section~\ref{sec:oc13-publication-boundary}. \texttt{FRAME\_ONLY} closures
 may be \texttt{PASS} as frame support, but they do not become standalone
-empirical promotions. \texttt{EXTENSION} and \texttt{REFUTED} lanes remain
-outside public \texttt{PASS} authority.
+empirical promotions. \texttt{BRIDGE\_ONLY} rows are evidence support rather
+than public promoted closure unless and until the canonical promotion gates
+convert them into theorem-native \texttt{PASS} rows. \texttt{EXTENSION} and
+\texttt{REFUTED} lanes remain outside public \texttt{PASS} authority.
 
 \subsection{Reader-facing consequence}
 
