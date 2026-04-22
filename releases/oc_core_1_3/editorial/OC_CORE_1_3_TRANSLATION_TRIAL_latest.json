@@ -4,13 +4,13 @@
     "ts_utc": "2026-04-22T09:28:00Z",
     "english_freeze_commit": "bd8766aadf051ce4b7f10b46cd46320a4e37cb49",
     "closure_commit_pending": true,
-    "policy": "FAST_RU_DE_TRANSLATION_TRIAL_PROMOTED_TO_RELEASE_TRANSLATIONS"
+    "policy": "FAST_RU_DE_TRANSLATION_TRIAL_DEFERRED_FROM_ENGLISH_RELEASE_GATE"
   },
   "summary": {
-    "english_status": "FROZEN_BASELINE_RECHECKED_AFTER_TRANSLATION_LAYOUT_PATCH",
-    "translation_trial_status": "PASS",
-    "release_inclusion_decision": "EN_RU_DE_INCLUDED",
-    "reason": "RU and DE graph-complete monograph PDFs now compile with zero hard build warnings and zero overfull boxes. Translation-heavy reader-facing routes remain localized, while trace-dense technical atlas material is synchronized to canonical English audit surfaces to preserve scientific identity and layout safety."
+    "english_status": "FROZEN_BASELINE_FOR_ENGLISH_ONLY_RELEASE",
+    "translation_trial_status": "DEFERRED_TRANSLATION_REVIEW_REQUIRED",
+    "release_inclusion_decision": "EN_ONLY_RU_DE_DEFERRED",
+    "reason": "Russian and German translation work is preserved in the source tree but is not release-ready for the Core 1.3 button-release gate. The active public release gate is English-only until each translation passes a separate translation review."
   },
   "languages": [
     {
@@ -30,8 +30,8 @@
       "dedication_visible_on_title_page": true,
       "forbidden_public_total_theory_scan": "PASS",
       "public_toe_claim_scan": "PASS",
-      "release_decision": "INCLUDE_IN_1_3_RELEASE",
-      "remaining_note": "Residual underfull warnings are confined to dense translated and atlas material; no hard-warning or overfull blocker remains."
+      "release_decision": "DEFERRED_TRANSLATION_REVIEW_REQUIRED",
+      "remaining_note": "Translation work is preserved but not included in the English-only release-ready gate."
     },
     {
       "language_code": "DE",
@@ -50,9 +50,9 @@
       "dedication_visible_on_title_page": true,
       "forbidden_public_total_theory_scan": "PASS",
       "public_toe_claim_scan": "PASS",
-      "release_decision": "INCLUDE_IN_1_3_RELEASE",
-      "remaining_note": "Residual underfull warnings are confined to dense translated and atlas material; no hard-warning or overfull blocker remains."
+      "release_decision": "DEFERRED_TRANSLATION_REVIEW_REQUIRED",
+      "remaining_note": "Translation work is preserved but not included in the English-only release-ready gate."
     }
   ],
-  "next_action": "Refresh outward EN/RU/DE PDFs from the accepted builds and keep Cerberus/release validation as the final publication gate."
+  "next_action": "Prepare the English release package; resume RU/DE only after the English release gate is closed."
 }

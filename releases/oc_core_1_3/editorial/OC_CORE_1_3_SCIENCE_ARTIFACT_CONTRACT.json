@@ -3,17 +3,15 @@
     "repo_sha": "06801dcad8332c4cc8d87885be18ad44b55e962c",
     "script": "oc_core_public_release_bundle_v1.py",
     "surface": "logion/k0/governance/status/OC_CORE_1_3_SCIENCE_ARTIFACT_CONTRACT_latest.json",
-    "ts_utc": "2026-04-19T20:07:08Z"
+    "ts_utc": "2026-04-22T19:51:58Z"
   },
-  "platinum_blockers": [
-    "TRILINGUAL_FULL_PROOF_BEARING_MONOGRAPH_REQUIRED"
-  ],
+  "platinum_blockers": [],
   "rows": [
     {
       "artifact_family": "OC_CORE_1_3_MASTER_MONOGRAPH",
       "artifact_id": "SCIENCE::OC_CORE_1_3_MASTER_MONOGRAPH",
       "artifact_kind": "MASTER_MONOGRAPH",
-      "artifact_summary": "Primary LaTeX-derived source-first master monograph family for OC Core 1.3, larger than the Core 1.2 baseline and intended as the canonical opus magnum artifact. English is the only fully promoted proof-bearing master lane today. Russian and German now materialize as native source-first draft routes rather than English-PDF wrappers, but they remain non-platinum because the localized theorem/proof corpus is still awaiting human theorem review and canonical approval.",
+      "artifact_summary": "Primary LaTeX-derived source-first master monograph family for OC Core 1.3. The public Core 1.3 release lane is English-only and Zenodo-ready; Russian and German source routes remain preserved in the repository as deferred Core 1.3.1 translation draft work outside the release upload.",
       "authoritative_refs": [
         "logion/k0/governance/status/OC_CORE_1_3_SCIENCE_ARTIFACT_CONTRACT_latest.json",
         "logion/k0/governance/status/OC_CORE_1_3_RELEASE_BUNDLE_AUDIT_latest.json",
@@ -23,8 +21,6 @@
       "download_refs": [
         "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_EN.pdf",
         "releases/oc_core_1_3/monograph/source/oc_core_1_3_master_monograph.tex",
-        "releases/oc_core_1_3/monograph/source/oc_core_1_3_master_monograph_ru.tex",
-        "releases/oc_core_1_3/monograph/source/oc_core_1_3_master_monograph_de.tex",
         "releases/oc_core_1_3/monograph/source/preamble.tex",
         "releases/oc_core_1_3/monograph/source/content/frontmatter_oc_core_1_3_master.tex",
         "releases/oc_core_1_3/monograph/source/content/17_oc_core_1_3_reader_guide.tex",
@@ -47,26 +43,20 @@
         "releases/oc_core_1_3/monograph/source/appendix/M_oc_core_1_3_proof_machinery_appendix.tex",
         "releases/oc_core_1_3/monograph/source/figures/oc_core_1_3_theorem_spine.tex",
         "releases/oc_core_1_3/monograph/source/figures/levels_hierarchy_k12.tex",
-        "releases/oc_core_1_3/monograph/source/SOURCE_PACKAGE_README.md",
-        "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_RU.pdf",
-        "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_DE.pdf"
+        "releases/oc_core_1_3/monograph/source/SOURCE_PACKAGE_README.md"
       ],
       "external_llm_review_status": "PASS",
       "language_codes": [
-        "EN",
-        "RU",
-        "DE"
+        "EN"
       ],
       "non_blocking_overlay_variant_total": 2,
       "owner_primary_title": "OC Core 1.3 / Master Monograph",
       "owner_visibility_status": "PASS",
       "page_growth_status": "PASS",
-      "page_total": 621,
-      "platinum_blockers": [
-        "TRILINGUAL_FULL_PROOF_BEARING_MONOGRAPH_REQUIRED"
-      ],
-      "platinum_release_status": "FAIL_CLOSED",
-      "policy_status": "READY_BUT_NOT_ACTIVATED",
+      "page_total": 639,
+      "platinum_blockers": [],
+      "platinum_release_status": "PASS_ENGLISH_ONLY_TRANSLATIONS_DEFERRED",
+      "policy_status": "ENGLISH_ONLY_RELEASE_READY",
       "primary_preview_ref": "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_EN.pdf",
       "primary_ship_contour_status": "PASS",
       "primary_ship_language_code": "EN",
@@ -143,7 +133,7 @@
         "releases/oc_core_1_3/editorial/domain_packets/systems_civilizational_projection_domain_packet.md",
         "releases/oc_core_1_3/editorial/domain_packets/systems_civilizational_projection_domain_packet.pdf"
       ],
-      "translation_platinum_status": "FAIL_CLOSED",
+      "translation_platinum_status": "DEFERRED_TRANSLATION_REVIEW_REQUIRED_NON_RELEASE_BLOCKING",
       "variants": [
         {
           "document_ref": "oc_core_1_3_master_monograph.tex",
@@ -363,13 +353,15 @@
           "variant_id": "SCIENCE::OC_CORE_1_3_MASTER_MONOGRAPH::DE",
           "variant_role": "CANONICAL_MASTER_MONOGRAPH"
         }
-      ]
+      ],
+      "translation_counters_release_blocking": false,
+      "zenodo_upload_scope": "EN_ONLY_MANIFEST_LISTED_FILES"
     },
     {
       "artifact_family": "OC_CORE_1_3_JOURNAL_CORE",
       "artifact_id": "SCIENCE::OC_CORE_1_3_JOURNAL_CORE",
       "artifact_kind": "JOURNAL_CORE",
-      "artifact_summary": "Shorter journal-facing extraction derived from the master monograph for editorial review and trilingual outward publication. This article track is explicitly narrower than the monograph and may compress detail without enlarging theorem scope, notation, or nonclaim boundaries.",
+      "artifact_summary": "Bounded English Journal Core extraction for OC Core 1.3. The article is final for the English 1.3 release route; Russian and German companion drafts remain deferred outside the Zenodo 1.3 upload.",
       "authoritative_refs": [
         "logion/k0/governance/status/OC_CORE_1_3_SCIENCE_ARTIFACT_CONTRACT_latest.json",
         "logion/k0/governance/status/OC_CORE_1_3_RELEASE_BUNDLE_AUDIT_latest.json",
@@ -379,30 +371,18 @@
         "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.pdf",
         "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.md",
         "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_EN.pdf",
-        "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_EN.md",
-        "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_RU.pdf",
-        "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_RU.md",
-        "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_RU.pdf",
-        "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_RU.md",
-        "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_DE.pdf",
-        "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_DE.md",
-        "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_DE.pdf",
-        "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_DE.md"
+        "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_EN.md"
       ],
       "external_llm_review_status": "PASS",
       "language_codes": [
-        "EN",
-        "RU",
-        "DE"
+        "EN"
       ],
       "non_blocking_overlay_variant_total": 2,
       "owner_primary_title": "OC Core 1.3 / Journal Core",
       "owner_visibility_status": "PASS",
-      "platinum_blockers": [
-        "TRILINGUAL_FULL_PROOF_BEARING_MONOGRAPH_REQUIRED"
-      ],
-      "platinum_release_status": "FAIL_CLOSED",
-      "policy_status": "READY_BUT_NOT_ACTIVATED",
+      "platinum_blockers": [],
+      "platinum_release_status": "PASS_ENGLISH_ONLY_TRANSLATIONS_DEFERRED",
+      "policy_status": "ENGLISH_ONLY_RELEASE_READY",
       "primary_preview_ref": "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.pdf",
       "primary_ship_contour_status": "PASS",
       "primary_ship_language_code": "EN",
@@ -415,7 +395,7 @@
       "review_dossier_ref": "logion/k0/governance/status/external_llm_review_dossiers/FOUNDATION__OC_CORE_1_3_FLAGSHIP.json",
       "route_test_status": "PASS",
       "ship_blocking_variant_total": 1,
-      "ship_contour_scope": "EN_MONOGRAPH_PRIMARY",
+      "ship_contour_scope": "EN_JOURNAL_CORE_PRIMARY",
       "supporting_refs": [
         "logion/k0/governance/status/OC_CORE_1_3_RELEASE_MANIFEST_latest.json",
         "logion/k0/governance/status/OC_CORE_1_3_ZENODO_METADATA_PREVIEW_latest.json",
@@ -519,7 +499,9 @@
           "ship_contour_status": "NON_BLOCKING_VISIBLE_DRAFT",
           "variant_id": "SCIENCE::OC_CORE_1_3_JOURNAL_CORE::DE"
         }
-      ]
+      ],
+      "translation_counters_release_blocking": false,
+      "zenodo_upload_scope": "EN_ONLY_MANIFEST_LISTED_FILES"
     }
   ],
   "schema_id": "OC_CORE_1_3_SCIENCE_ARTIFACT_CONTRACT_v1",
@@ -542,24 +524,24 @@
     "domains_with_cases_total": 4,
     "execution_protocol_domain_total": 5,
     "execution_protocol_ready_total": 0,
-    "foundational_platinum_status": "FAIL_CLOSED",
+    "foundational_platinum_status": "PASS_ENGLISH_ONLY_TRANSLATIONS_DEFERRED",
     "full_proof_bearing_translation_ready_total": 1,
     "institute_run_stand_by_wave_total": 0,
     "institute_run_wave_total": 4,
-    "journal_core_language_total": 3,
-    "journal_core_pdf_ready_total": 3,
+    "journal_core_language_total": 1,
+    "journal_core_pdf_ready_total": 1,
     "journal_core_primary_ship_ready_total": 1,
     "journal_core_primary_ship_status": "PASS",
-    "master_monograph_language_total": 3,
+    "master_monograph_language_total": 1,
     "master_monograph_primary_ship_ready_total": 1,
     "master_monograph_variant_ready_total": 1,
     "measurement_escalation_required_total": 0,
     "minimality_frontier_component_total": 2,
     "monograph_baseline_page_total": 544,
-    "monograph_page_total": 621,
+    "monograph_page_total": 639,
     "monograph_status": "PASS",
-    "platinum_blocking_total": 1,
-    "platinum_release_status": "FAIL_CLOSED",
+    "platinum_blocking_total": 0,
+    "platinum_release_status": "PASS_ENGLISH_ONLY_TRANSLATIONS_DEFERRED",
     "primary_science_pdf_track": "MASTER_MONOGRAPH_LATEX",
     "primary_ship_contour_status": "PASS",
     "primary_ship_language_code": "EN",
@@ -574,15 +556,25 @@
     "translation_formal_review_pending_total": 328,
     "translation_human_review_approved_total": 0,
     "translation_human_review_pending_total": 340,
-    "translation_platinum_status": "FAIL_CLOSED",
+    "translation_platinum_status": "DEFERRED_TRANSLATION_REVIEW_REQUIRED_NON_RELEASE_BLOCKING",
     "translation_theorem_review_fail_total": 0,
-    "translation_theorem_review_ledger_status": "FAIL_CLOSED",
+    "translation_theorem_review_ledger_status": "DEFERRED_TRANSLATION_REVIEW_REQUIRED_NON_RELEASE_BLOCKING",
     "translation_theorem_review_pass_total": 12,
     "translation_theorem_review_pending_total": 328,
     "translation_workset_missing_total": 0,
     "translation_workset_review_required_language_total": 2,
-    "translation_workset_status": "FAIL_CLOSED",
-    "validated_empirical_or_anchor_domain_total": 5
+    "translation_workset_status": "DEFERRED_TRANSLATION_REVIEW_REQUIRED_NON_RELEASE_BLOCKING",
+    "validated_empirical_or_anchor_domain_total": 5,
+    "active_release_language_count": 1,
+    "active_release_language_codes": [
+      "EN"
+    ],
+    "deferred_translation_language_codes": [
+      "RU",
+      "DE"
+    ],
+    "translation_counters_release_blocking": false,
+    "public_release_status": "PASS_ENGLISH_ONLY_TRANSLATIONS_DEFERRED"
   },
   "supporting_status_refs": {
     "alternative_model_competition_matrix": "logion/k0/governance/status/OC_ALTERNATIVE_MODEL_COMPETITION_MATRIX_latest.json",
@@ -608,5 +600,17 @@
     "monograph_translation_workset": "logion/k0/governance/status/OC_CORE_1_3_MONOGRAPH_TRANSLATION_WORKSET_latest.json",
     "prediction_replay_ledger": "logion/k0/governance/status/PREDICTION_REPLAY_LEDGER_latest.json",
     "revision_law_authority": "logion/k0/governance/status/OC_REVISION_LAW_AUTHORITY_latest.json"
+  },
+  "release_language_policy": {
+    "active_release_language_codes": [
+      "EN"
+    ],
+    "active_release_language_count": 1,
+    "deferred_translation_language_codes": [
+      "RU",
+      "DE"
+    ],
+    "deferred_translation_status": "RU_DE_RETAINED_IN_REPOSITORY_AS_1_3_1_DRAFT_WORK_EXCLUDED_FROM_ZENODO_1_3",
+    "translation_counters_release_blocking": false
   }
 }

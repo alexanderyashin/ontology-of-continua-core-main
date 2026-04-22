@@ -4,7 +4,7 @@
 - **Affiliation:** Independent Researcher
 - **ORCID:** [0009-0008-6166-0914](https://orcid.org/0009-0008-6166-0914)
 - **Release version:** OC Core 1.3
-- **Release state:** Public release candidate
+- **Release state:** Final English release
 - **Release date:** 2026-04-21
 - **Source witness:** v1.2.1 source commit `2c61b7879ed36cd8366d87892a066082b6418ce8`; archival PDF DOI `10.5281/zenodo.17903912`
 

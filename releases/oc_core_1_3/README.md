@@ -32,13 +32,13 @@ the bundle is deposited. Until deposition, use this provisional citation:
 Current public-readiness rule: this bundle is publication-ready only when the
 Cerberus certificate reports both `status = PASS` and `llm_gate_status = PASS`.
 The files below are the machine-readable evidence for that status.
-Current checked-in gate state before the final release run is
-`FAIL_CLOSED` unless the certificate linked below says otherwise.
+Current checked-in gate state is the certificate linked below; this README is
+only a pointer to the machine-readable release surfaces.
 
 - Snapshot source:
   [`editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json`](editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json).
 - Cerberus scope: the scripted release-review authority
-  `OC_CORE_1_3_MULTILINGUAL_FLAGSHIP_RELEASE_PACKAGE`.
+  `OC_CORE_1_3_ENGLISH_FLAGSHIP_RELEASE_PACKAGE`.
 - Current inline status: this README is a pointer to the checked-in Cerberus
   surfaces; publication readiness is not claimed unless the certificate itself
   reports `status = PASS` and `llm_gate_status = PASS`.
@@ -69,33 +69,44 @@ science.
 ## Permanent publication dedication
 
 Every OC Core release from Core 1.3 onward carries the author's title-page
-dedication in each publication-language monograph route. The exact localized
+dedication in each active publication-language monograph route. The exact
 dedication is guarded by the `DEDICATION_REQUIRED_DO_NOT_REMOVE` and
-`OC_CORE_PUBLICATION_DEDICATION` markers in the monograph frontmatter. Cerberus
-release-integrity review treats omission, text drift, or root/release-source
-mirror drift as a release-blocking defect.
+`OC_CORE_PUBLICATION_DEDICATION` markers in the monograph frontmatter. For this
+English-only release gate, Cerberus treats omission, text drift, or
+root/release-source mirror drift in the English route as a release-blocking
+defect. Russian and German dedication carriers remain in the source tree for
+the deferred translation work.
 
 ## Bundle contents
 
-- `monograph/` contains the English, Russian, and German master monographs
-  built from the same full Core 1.3 platinum source graph. The localized
-  routes preserve formulas, labels, theorem references, numeric rows, verdicts,
-  and dedication blocks while using canonical English technical atlas surfaces
-  where the audit material is intentionally trace-dense.
-- German and Russian monograph inclusion is recorded in
-  [`editorial/OC_CORE_1_3_TRANSLATION_TRIAL_latest.json`](editorial/OC_CORE_1_3_TRANSLATION_TRIAL_latest.json);
-  both localized monograph builds now clear the release hard-warning bar with
-  zero undefined references, zero rerun warnings, zero empty bibliography
-  warnings, zero PDF-string warnings, zero missing-character warnings, and
-  zero overfull boxes.
-- `journal_core/` contains the bounded Journal Core article in English plus
-  German and Russian journal-core companion translations.
-- `manuscripts/` contains the flagship manuscript PDFs and companion Markdown
-  surfaces for the same scientific version. The English PDF and master
-  monograph PDF are generated from the same accepted flagship build; Russian
-  and German PDFs are generated from the corresponding localized monograph
-  builds.
+- `monograph/` contains the release-ready English master monograph built from
+  the full Core 1.3 platinum source graph. Russian and German translation
+  sources may be present in the repository, but they are deferred with status
+  `DEFERRED_TRANSLATION_REVIEW_REQUIRED` and are not part of this release gate.
+- `journal_core/` contains the bounded Journal Core article in English. Any
+  Russian or German companion translation files are draft/deferred materials
+  until they pass their own translation review.
+- `manuscripts/` contains the English flagship manuscript PDF and companion
+  Markdown surface for the same scientific version. The English manuscript PDF
+  and English master monograph PDF are generated from the same accepted
+  flagship build and must remain hash-identical.
 - `assets/` contains the outward visual and table assets shared across the same scientific version.
+
+## Zenodo upload manifest
+
+The Core 1.3 Zenodo upload is English-only. The upload set is defined by
+[`OC_CORE_1_3_ZENODO_EN_ONLY_MANIFEST.json`](OC_CORE_1_3_ZENODO_EN_ONLY_MANIFEST.json)
+and staged by:
+
+```powershell
+python tools\stage_oc_core_1_3_zenodo_en_release.py
+```
+
+The staging helper copies only manifest-listed files into
+`build_oc_core_1_3_zenodo_en_only/`. Russian and German PDFs, Markdown files,
+localized assets, and localized LaTeX source files remain in the repository as
+deferred Core 1.3.1 translation draft work, but they are excluded from the
+Core 1.3 Zenodo upload.
 
 ## Science source corpus
 
