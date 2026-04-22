@@ -86,19 +86,27 @@ escalation rules.
       not enter positive outward science without formal promotion.
 \end{itemize}
 These local classes are not assumed to be disjoint. When a sentence could fit
-more than one class, use the following precedence rule before assigning its
-public status:
+more than one class, its public status is assigned by semantic role and proof
+function rather than by surface phrasing:
 \begin{enumerate}
-\item explicit refutation maps first to \occode{REFUTED};
-\item promoted empirical or derived content is inspected as
-      \occode{THEOREM_NATIVE};
-\item admitted axioms remain axiomatic premises;
-\item frontier wording takes precedence over merely structural or interpretive
-      wording unless promotion has occurred;
+\item an explicit contradiction of a promoted claim maps first to
+      \occode{REFUTED};
+\item empirical content is inspected by packet, data route, replay,
+      comparator, and falsifier support before any prose label is trusted;
+\item derived theorem content is inspected by its proof route and dependency
+      graph;
+\item admitted primitive assumptions remain axiomatic premises;
+\item structural mapping and hierarchy claims remain structural even when
+      they mention possible later use;
+\item explanatory, audience-facing, or didactic sentences remain interpretive
+      unless they assert theorem or empirical force;
+\item unpromoted research-program proposals remain frontier statements;
 \item remaining structural or interpretive content keeps the SPOT-recorded
       \occode{BRIDGE_ONLY}, \occode{FRAME_ONLY}, or \occode{EXTENSION}
       class.
 \end{enumerate}
+Words such as ``frontier'', ``candidate'', or ``projection'' are therefore
+diagnostic signals, not the class assignment rule itself.
 
 These prose classes are a local proof-status taxonomy, not a replacement for
 the canonical SPOT scientific-class and closure-verdict vocabulary. Release

@@ -4975,7 +4975,7 @@ def render_toe_support_level_tex(row: dict[str, Any]) -> str:
     lines = [
         f"% Generated from OC_CORE_1_3_SCIENCE_SPOT_latest.json for {row['level_id']}",
         rf"\subsection{{Level {row['level_id']}: {tex_escape(row['level_title']).lower()}}}",
-        rf"\label{{subsec:toe-{row['level_id'].lower()}}}",
+        rf"\label{{subsec:synthesis-support-{row['level_id'].lower()}}}",
         (
             f"Current closure status: {tex_code(row['closure_verdict'])}. "
             + (
@@ -5074,7 +5074,7 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
     lines = [
         "% Generated from OC_CORE_1_3_SCIENCE_SPOT_latest.json",
         rf"\section{{{tex_escape(branding['public_chapter_title'])}}}",
-        r"\label{sec:oc-core-1-3-toe-synthesis}",
+        r"\label{sec:oc-core-1-3-unified-synthesis}",
         f"{tex_escape(branding['public_status_label'])}: {tex_code(toe['release_candidate_status'])}.",
         "",
         normalize_sentence(branding["public_intro_text"]),
@@ -5113,7 +5113,7 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
             [
                 "",
                 rf"\subsection{{{row['level_id']}: {tex_escape(row['level_title'])}}}",
-                rf"\label{{sec:oc-core-1-3-toe-{row['level_id'].lower()}}}",
+                rf"\label{{sec:oc-core-1-3-synthesis-{row['level_id'].lower()}}}",
                 (
                     f"This row is currently {tex_code(row['closure_verdict'])} and therefore contributes lawfully to the closed synthesis stack."
                     if row["closure_verdict"] == "PASS"
@@ -5130,7 +5130,7 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
                 "",
                 tex_block_label("Operator and K-level binding."),
                 normalize_sentence(tex_operator_binding_summary(row)),
-                "Core witness anchors are tabulated in Appendix~\\ref{sec:oc-core-1-3-toe-support-dossiers} and Appendix~\\ref{app:toe-constants-and-parameters}.",
+                "Core witness anchors are tabulated in Appendix~\\ref{sec:oc-core-1-3-synthesis-support-dossiers} and Appendix~\\ref{app:synthesis-constants-and-parameters}.",
                 "",
                 tex_block_label(parameter_label),
                 r"\[",
@@ -5151,7 +5151,7 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
                 "",
                 tex_block_label("Falsifier and collapse boundary."),
                 normalize_sentence(tex_escape(row["collapse_boundary"])),
-                "Falsifier witness anchors are tabulated in Appendix~\\ref{sec:oc-core-1-3-toe-support-dossiers}.",
+                "Falsifier witness anchors are tabulated in Appendix~\\ref{sec:oc-core-1-3-synthesis-support-dossiers}.",
                 "",
                 tex_block_label("Domain packet bindings."),
             ]
@@ -5174,13 +5174,13 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
                     + f"and {tex_code(binding['held_out_case_total'])} held-out cases. "
                     + binding_status_clause
                     + metric_clause
-                    + "The closure dossier anchor is listed in Appendix~\\ref{sec:oc-core-1-3-toe-support-dossiers}."
+                    + "The closure dossier anchor is listed in Appendix~\\ref{sec:oc-core-1-3-synthesis-support-dossiers}."
                 )
             lines.append(r"\end{itemize}")
             if omitted_binding_total:
                 omitted_ids = [binding["domain_id"] for binding in row["domain_bindings"] if binding["closure_verdict"] != "PASS"]
                 lines.append(
-                    f"The SPOT also tracks {tex_code(omitted_binding_total)} excluded or non-promoted side binding(s) for this level outside the closed synthesis summary: {tex_list(omitted_ids, wrap_code=True)}. The corresponding source rows remain in the canonical surfaces and support appendices, not in the promoted synthesis stack."
+                    f"The SPOT also tracks {tex_code(omitted_binding_total)} excluded or non-promoted side bindings for this level outside the closed synthesis summary: {tex_list(omitted_ids, wrap_code=True)}. The corresponding source rows remain in the canonical surfaces and support appendices, not in the promoted synthesis stack."
                 )
         else:
             lines.append("No promoted domain packets are attached to this level in the current SPOT.")
@@ -5189,7 +5189,7 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
             "",
             r"\subsection{Empirical Held-Out Prediction Summary}",
             normalize_sentence(branding["public_empirical_summary_text"]),
-            r"Where a promoted lane carries severe cases or false negatives, those adverse metrics are reported explicitly below. The pass/fail policy is the validation matrix in Appendix~\ref{sec:oc-core-1-3-empirical-validation-matrix}; Appendix~\ref{app:toe-constants-and-parameters} and the canonical synthesis surface retain the full numerical record.",
+            r"Where a promoted lane carries severe cases or false negatives, those adverse metrics are reported explicitly below. The pass/fail policy is the validation matrix in Appendix~\ref{sec:oc-core-1-3-empirical-validation-matrix}; Appendix~\ref{app:synthesis-constants-and-parameters} and the canonical synthesis surface retain the full numerical record.",
             r"Metric labels are printed with their canonical surface names; \occode{critical_failure_recall} is the promoted systems recall metric used by the synthesis surface.",
             "",
         ]
