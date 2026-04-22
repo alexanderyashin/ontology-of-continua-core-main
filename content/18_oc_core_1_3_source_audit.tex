@@ -74,9 +74,10 @@ The public positive closure claim is scoped exactly to
 \occode{CORE_1_3_SCIENCE_ONLY}. \occode{FRAME_ONLY} rows may still close as
 frame-level PASS rows inside the synthesis surface, but they do not become
 standalone theorem-native empirical promotions. \occode{EXTENSION} and
-\occode{REFUTED} rows remain publicly visible as fail-closed or refuted lanes
-but stay outside the public PASS scope and cannot carry positive closure claims
-in this release.
+\occode{REFUTED} rows remain outside the public PASS scope for different
+reasons: \occode{EXTENSION} rows are frontier/support lanes awaiting later
+promotion or rejection, while \occode{REFUTED} rows are negative-audit lanes.
+Neither class can carry positive closure claims in this release.
 For avoidance of doubt, a \occode{FRAME_ONLY} \occode{PASS} row is excluded
 from the public positive closure claim unless a later release promotes it into
 \occode{CORE_1_3_SCIENCE_ONLY} with the required theorem-native support.

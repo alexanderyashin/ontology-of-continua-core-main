@@ -40,6 +40,13 @@ structural elements that appear in most chapters.
         thresholds.
   \item[\(C(K)\)] Family of structurally stable cycles of \(K\).
   \item[\(k(K,t)\)] Measure of continuumness (viability) of \(K\).
+  \item[\(H(\Omega(K_x))\)] Legacy K-level notation for the Boolean
+        nonemptiness factor of the admissible region; it is not the threshold
+        operator \(H_{\mathrm{thr}}\).
+  \item[\(\tau_{\mathrm{eff}}(K_x)\)] Scalar effective time of a level. When a
+        K-level chapter locally writes scalar \(\tau(K_x)\), it is read as an
+        alias for \(\tau_{\mathrm{eff}}(K_x)\), not as the full family of
+        temporal parameters.
 \end{description}
 
 \subsection{Thresholds and Tension}
@@ -74,8 +81,9 @@ structural elements that appear in most chapters.
         \(F: J(t)\mapsto J(t+dt)\).
   \item[\(G\)] Potential operator:
         \(G: P(t)\mapsto P(t+dt)\).
-  \item[\(H\)] Threshold operator:
-        \(H: \Theta(t)\mapsto \Theta(t+dt)\).
+  \item[\(H_{\mathrm{thr}}\)] Threshold operator, often written locally as
+        \(H\) after the chapter has bound the symbol:
+        \(H_{\mathrm{thr}}: \Theta(t)\mapsto \Theta(t+dt)\).
   \item[\(Q\)] Cycle operator:
         \(Q: C(t)\mapsto C(t+dt)\).
   \item[\(R\)] Boundary operator:
@@ -87,6 +95,10 @@ structural elements that appear in most chapters.
         \(U: k(t)\mapsto k(t+dt)\).
   \item[\(\Psi_{x\to x+1}\)] Birth operator:
         transition from \(K_x\) to \(K_{x+1}\).
+  \item[\(\Psi_{x\to y}\)] Non-adjacent birth-route notation for \(y>x\). By
+        default it is not a new primitive, but an abbreviation for the admissible
+        composition \(\Psi_{y-1\to y}\circ\cdots\circ\Psi_{x\to x+1}\), with
+        every intermediate threshold and embedding obligation preserved.
   \item[\(E_{\mathrm{int}}\)] Interaction operator for multiple continua.
 \end{description}
 

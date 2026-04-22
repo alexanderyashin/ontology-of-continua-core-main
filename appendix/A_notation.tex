@@ -24,23 +24,21 @@ the science appendices.
   \item[\(K(t)\)] Time-sliced continuum object obtained from a fixed continuum
         \(K\) at local time \(t\). If a chapter needs the internal state
         separately, it names that state as \(s(t)\in\Omega(K,t)\).
-  \item[\(\tau(K)\)] Finite ordered family of characteristic times or
-        temporal parameters attached to \(K\) when the level has temporal
-        dynamics, e.g.
-        \(\tau(K)=(\tau_1(K),\dots,\tau_m(K))\) for some finite \(m\).
-        If the level is atemporal or the local construction does not represent
-        time, \(\tau(K)\) is left undefined rather than silently replaced by a
-        trivial time object. An actual temporal order relation, when needed, is
-        written separately, for example as \(\preceq_K\), and is not denoted by
-        \(\tau(K)\). Namespace is fixed as follows: topology is written as a
-        paired structure such as \((X_1,\tau_1)\), or as the legacy local alias
-        \((X,\tau)\) when the local \(K_1\) display binds it explicitly;
-        temporal structure is written as \(\tau(K)\); and temporal constants
-        use decorated symbols such as \(\tau_{\mathrm{spike}}\). Bare \(\tau\)
-        has no theorem-bearing meaning unless a local display explicitly binds
-        it.
+  \item[\(\tau(K)\)] Scalar level-time symbol used by the K-level chapters when
+        a level has an effective temporal rhythm. In those chapters
+        \(\tau(K_x)\) is the local scalar alias of
+        \(\tau_{\mathrm{eff}}(K_x)\). A finite ordered family of temporal
+        parameters must be written with a decorated family symbol such as
+        \(\boldsymbol{\tau}(K)=(\tau_1(K),\dots,\tau_m(K))\). If the level is
+        atemporal or the local construction does not represent time,
+        \(\tau(K)\) is left undefined rather than silently replaced by a trivial
+        time object. An actual temporal order relation, when needed, is written
+        separately, for example as \(\preceq_K\), and is not denoted by
+        \(\tau(K)\). Topology is written as a paired structure such as
+        \((X_1,\tau_1)\), or as the legacy local alias \((X,\tau)\) when the
+        local \(K_1\) display binds it explicitly.
   \item[\(\tau_{\mathrm{eff}}(K)\)] Scalar effective time or rhythm selected
-        from the temporal-parameter family \(\tau(K)\) by the local rule
+        from the temporal-parameter family \(\boldsymbol{\tau}(K)\) by the local rule
         declared in the surrounding chapter. When \(\tau_{C_j}\) is a cycle
         period and the selected rhythm is the slowest non-degradable cycle, the
         corresponding extremum is \(\max_j\tau_{C_j}\). Displays using
@@ -59,6 +57,9 @@ the science appendices.
   \item[\(\mathbf{1}_{\{\Omega(K,t)\neq\emptyset\}}\)] Nonemptiness indicator for
         the time-slice admissible region: it is \(1\) exactly when
         \(\Omega(K,t)\neq\emptyset\) and \(0\) otherwise.
+  \item[\(H(\Omega(K_x))\)] Legacy K-level notation for the same nonemptiness
+        factor in continuity products. It is a Boolean admissibility indicator,
+        not the threshold-evolution operator \(H_{\mathrm{thr}}\).
   \item[\(\Sigma_{\Omega}(K_x;M_x)\)] Threshold-saturation locus of
         \(\Omega(K_x)\) inside the declared ambient embedding space \(M_x\):
         \[
@@ -199,8 +200,9 @@ dynamic operator meanings listed below.
         \(F:(J(t),P(t),A(t),\Theta(t),M)\mapsto J(t+dt)\).
   \item[\(G\)] Potential operator:
         \(G:(P(t),A(t),J(t),\Theta(t),M)\mapsto P(t+dt)\).
-  \item[\(H\)] Threshold operator:
-        \(H:(\Theta(t),P(t),J(t),M)\mapsto \Theta(t+dt)\).
+  \item[\(H_{\mathrm{thr}}\)] Threshold-evolution operator, often written
+        locally as \(H\) after the chapter has bound the symbol:
+        \(H_{\mathrm{thr}}:(\Theta(t),P(t),J(t),M)\mapsto \Theta(t+dt)\).
   \item[\(Q\)] Cycle operator:
         \(Q:(C(t),P(t),J(t),\Theta(t))\mapsto C(t+dt)\).
   \item[\(R\)] Boundary operator:
@@ -228,6 +230,11 @@ dynamic operator meanings listed below.
         admissible transition \((K_x,M_x)\mapsto (K_{x+1},M_{x+1})\) when
         the surrounding birth, embedding, and threshold conditions are
         satisfied.
+  \item[\(\Psi_{x\to y}\)] Non-adjacent birth-route notation for \(y>x\). It is
+        not an additional primitive unless a local theorem explicitly declares
+        it so; by default it abbreviates the admissible composition
+        \(\Psi_{y-1\to y}\circ\cdots\circ\Psi_{x\to x+1}\), with every
+        intermediate threshold and embedding obligation still required.
   \item[\(\Psi_{\mathrm{reb}}\)] Rebirth-route operator family. A candidate-
         specific use is written
         \(\Psi_{\mathrm{reb}}(K,K',h;R_{\mathrm{res}}(K),\mathcal{M},\mathcal{M}')\):
@@ -286,11 +293,18 @@ generated K-level archive.
   \item[\(\dim(K(t))\)] Time-slice dimensionality convention for an evolving
         continuum: \(\dim(K(t)) = |A(K,t)|\), where \(A(K,t)\) is the
         effective axis set at that slice.
-  \item[\(\dim(\Omega(K))\)] Covering dimension of \(\Omega(K)\) with the
-        subspace topology inherited from the declared ambient space. This
-        notation is used only for nonempty admissible regions unless a local
-        empty-set convention is explicitly declared. Local linearized or
-        rank-based approximations must use a separate symbol such as
+  \item[\(\dim_{\mathrm{cov}}(\Omega(K))\)] Covering dimension of
+        \(\Omega(K)\) with the subspace topology inherited from the declared
+        ambient space. This notation is used only for nonempty admissible
+        regions unless a local empty-set convention is explicitly declared.
+  \item[\(\dim_{\mathrm{eff}}(\Omega(K))\)] Effective admissible-state
+        dimension used in cross-level emergence comparisons. It may coincide
+        with \(\dim_{\mathrm{cov}}(\Omega(K))\) only under the local hypotheses
+        stated in the surrounding argument; otherwise it is a rank or active-axis
+        proxy, not the literal covering dimension. Legacy displays of
+        \(\dim(\Omega(K_1))<\dim(\Omega(K_2))\) in transition schematics are to
+        be read as \(\dim_{\mathrm{eff}}\)-comparisons. Local linearized
+        approximations may also use a separate symbol such as
         \(r_{\mathrm{lin}}(K)\).
   \item[\(\dim(S,\Delta,\mathcal{C})\)] Dimension of a structural tuple, read
         as the dimension of the structural set equipped with its declared
