@@ -14,6 +14,12 @@
 \newcommand{\ocdefaultlanguage}{russian}
 \input{preamble}
 
+% Translation-trial layout guard: the RU technical atlases retain long
+% trace identifiers from the canonical corpus, so allow wider emergency
+% stretch without changing scientific content.
+\setlength{\emergencystretch}{8em}
+\sloppy
+
 \hypersetup{
   pdftitle    = {Ontology of Continua - Core 1.3 | Russian Master Monograph Draft},
   pdfsubject  = {Ontology of Continua Core 1.3 Russian proof-bearing draft monograph},
@@ -26,13 +32,35 @@
 \input{content/frontmatter_oc_core_1_3_master_ru.tex}
 \tableofcontents
 \clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Список рисунков}
 \listoffigures
 \clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Список таблиц}
 \listoftables
 \clearpage
 
+\ocvolumeblock{Вводный блок и контракт чтения}{Титульные материалы, содержание, список рисунков и список таблиц идентифицируют релиз. Следующий путеводитель даёт основные маршруты чтения: рецензент, формальный читатель, предметный читатель, широкий научный читатель и практический пользователь.}
 \input{content/17_oc_core_1_3_reader_guide_ru.tex}
-\input{content/_auto_core_inputs_ru.tex}
+\ocvolumeblock{Ориентация и научное обещание}{Этот блок вводит задачу, фон, модель, первые структурные результаты, обсуждение и заключение как непрерывный вход в теорию перед блоком закрытия Core~1.3.}
+\input{content/01_intro_ru.tex}
+\input{content/02_background_ru.tex}
+\input{content/03_model_ru.tex}
+\input{content/04_results_ru.tex}
+\input{content/05_discussion_ru.tex}
+\input{content/06_conclusion_ru.tex}
+\ocvolumeblock{Формальное ядро и структурная доктрина}{Этот блок фиксирует словарь границ, порогов, уровней, операторов, коллапса и возрождения, ветвления, дисциплинарного вложения и фальсифицируемости.}
+\input{content/08_boundary_ru.tex}
+\input{content/09_thresholds_ru.tex}
+\input{content/10_klevels_full_ru.tex}
+\input{content/11_operators_full_ru.tex}
+\input{content/12_collapse_rebirth_ru.tex}
+\input{content/13_branching_topology_ru.tex}
+\input{content/14_disciplines_extended_ru.tex}
+\input{content/15_falsifiability_extended_ru.tex}
+\input{content/16_modules_master_ru.tex}
+\ocvolumeblock{Закрытие Core~1.3, синтез и практическое применение}{Этот блок даёт основной маршрут рецензирования: аудит источника, фундаментальную согласованность, дорожную карту теорем, разобранные примеры, операционную дисциплину, эмпирическое исполнение, proof machinery, синтез и практическое применение.}
 \input{content/18_oc_core_1_3_source_audit_ru.tex}
 \input{content/19_oc_core_1_3_foundational_consistency_ru.tex}
 \input{content/20_oc_core_1_3_theorem_roadmap_ru.tex}
@@ -40,8 +68,11 @@
 \input{content/22_oc_core_1_3_operationalization_program_ru.tex}
 \input{content/23_oc_core_1_3_empirical_execution_protocols_ru.tex}
 \input{content/24_oc_core_1_3_proof_machinery_ru.tex}
+\input{content/25_oc_core_1_3_toe_synthesis_ru.tex}
+\input{content/26_oc_core_1_3_practical_utility_ru.tex}
 
 \appendix
+\ocvolumeblock{Audit and Atlas Archive}{Приложения содержат обозначения, аксиомы, карты рецензирования, эмпирические audit surfaces, технические атласы, benchmark atlases, досье поддержки синтеза и матрицы практического сравнения.}
 \input{appendix/A_notation_ru.tex}
 \input{appendix/B_axioms_full_ru.tex}
 \input{appendix/C_klevels_tables_ru.tex}
@@ -56,6 +87,11 @@
 \input{appendix/J_oc_core_1_3_domain_replay_reports_ru.tex}
 \input{appendix/K_oc_core_1_3_domain_execution_board_ru.tex}
 \input{appendix/M_oc_core_1_3_proof_machinery_appendix_ru.tex}
+\input{appendix/N_oc_core_1_3_figure_atlas_ru.tex}
+\input{appendix/O_oc_core_1_3_technical_derivation_atlas_ru.tex}
+\input{appendix/P_oc_core_1_3_reference_benchmark_atlas_ru.tex}
+\input{appendix/Q_oc_core_1_3_toe_support_dossiers_ru.tex}
+\input{appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas_ru.tex}
 
 \clearpage
 \nocite{*}

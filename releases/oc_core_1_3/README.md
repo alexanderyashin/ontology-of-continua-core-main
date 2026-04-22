@@ -70,9 +70,13 @@ science.
 
 - `monograph/` contains the English master monograph built directly from the
   public LaTeX source corpus.
-- German and Russian monograph files in the bundle are native source-first
-  translation draft routes under theorem review. English remains the
-  proof-bearing source language until those routes pass their own review gates.
+- German and Russian monograph files in the bundle are graph-complete
+  translation-candidate routes under theorem review. The fast April 22, 2026
+  trial is recorded in
+  [`editorial/OC_CORE_1_3_TRANSLATION_TRIAL_latest.json`](editorial/OC_CORE_1_3_TRANSLATION_TRIAL_latest.json);
+  both localised PDFs are currently marked
+  `DEFERRED_TRANSLATION_REVIEW_REQUIRED`, so English remains the only
+  release-ready proof-bearing publication route until those gates pass.
 - `journal_core/` contains the bounded Journal Core article in English plus
   German and Russian journal-core translation drafts.
 - `manuscripts/` contains the primary English flagship manuscript plus German
