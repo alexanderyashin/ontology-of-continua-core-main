@@ -26,6 +26,10 @@ the bundle is deposited. Until deposition, use this provisional citation:
 
 ## Gate status snapshot
 
+Current public-readiness rule: this bundle is publication-ready only when the
+Cerberus certificate reports both `status = PASS` and `llm_gate_status = PASS`.
+The files below are the machine-readable evidence for that status.
+
 - Snapshot source:
   [`editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json`](editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json).
 - Cerberus scope: the scripted release-review authority
