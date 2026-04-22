@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "repo_sha": "0dd049c48def00df8a7d50bef07abb127a3c4fb3",
-    "generated_at_utc": "2026-04-22T09:47:02Z",
+    "repo_sha": "9ca743e51724d93c86696ea4b516f0f9b3156b50",
+    "generated_at_utc": "2026-04-22T10:24:50Z",
     "surface": "logion/k0/governance/status/OC_CORE_1_3_CERBERUS_RUN_latest.json",
     "script": "oc_core_1_3_cerberus_review.py"
   },
-  "run_id": "CERBERUS_RUN__20260422T094701Z__0dd049c4",
+  "run_id": "CERBERUS_RUN__20260422T101415Z__9ca743e5",
   "scope_id": "OC_CORE_1_3_ENGLISH_FLAGSHIP_RELEASE_PACKAGE",
-  "manifest_fingerprint": "1ecdbf950d4bc48c9dc8fce3180390663825bf51c8ddc176c896008048c33eb2",
+  "manifest_fingerprint": "31f4de4e8fe5ad0f7f404f5d444c180f31d1cea01167e81e0eb6abe371f0a3a3",
   "build": {
     "build_dir": "build_oc_core_1_3_cerberus_review",
     "pdf_ref": "",
@@ -28,21 +28,181 @@
   },
   "summary": {
     "deterministic_findings_total": 0,
-    "llm_findings_total": 0,
+    "llm_findings_total": 1,
     "open_findings_total": 0,
-    "llm_gate_status": "SKIPPED_BY_FLAG",
+    "llm_gate_status": "TARGETED_PASS_NOT_RELEASE_GATE",
     "status": "FAIL_CLOSED",
-    "duration_seconds": 1.422
+    "duration_seconds": 634.67
   },
   "llm": {
-    "review_count": 0,
-    "runs": [],
+    "review_count": 5,
+    "runs": [
+      {
+        "reviewer_id": "CERBERUS_LLM__HOSTILE_GENERALIST_SCIENTIST",
+        "batch_index": 1,
+        "model_used": "gpt-5.4-mini",
+        "artifact_refs": [
+          "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.md"
+        ],
+        "command": [
+          "codex",
+          "exec",
+          "-C",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main",
+          "-m",
+          "gpt-5.4-mini",
+          "--dangerously-bypass-approvals-and-sandbox",
+          "--color",
+          "never",
+          "--output-schema",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260422T101415Z__9ca743e5\\llm\\ae2ae831aff01d0b_schema.json",
+          "-o",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260422T101415Z__9ca743e5\\llm\\ae2ae831aff01d0b_output.json",
+          "-"
+        ],
+        "returncode": 0,
+        "stdout_tail": "{\"findings\":[{\"artifact_ref\":\"releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.md\",\"severity\":\"MINOR\",\"category\":\"structure\",\"section_ref\":\"Header metadata (lines 6-9) and Cross-Domain Interpretation and Scope Discipline (lines 166-169)\",\"claim\":\"The manuscript date is out of sync with the release artifacts it cites: the front matter says 2026-04-21, but the Practical Utility Atlas referenced as part of the same Core 1.3 package is timestamped 2026-04-22T09:23:17Z in the canonical metadata.\",\"evidence\":\"Line 8 lists \\\"Release date: 2026-04-21\\\". The body then points readers to the Practical Utility and Model Comparison Atlas as current release material, but the atlas metadata timestamp is 2026-04-22T09:23:17Z.\",\"required_action\":\"Synchronize the manuscript release date with the companion release-package timestamps, or explicitly label the atlas as a later companion artifact rather than contemporaneous release material.\",\"status\":\"OPEN\"}]}",
+        "stderr_tail": "2026-04-22T10:23:56.705189Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:23:56.706336Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:23:56.720656Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:23:56.721765Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:23:56.740198Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:23:56.741284Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:23:56.756778Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:23:56.757910Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:23:56.776719Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:23:56.777809Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:23:56.798639Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:23:56.799732Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:23:56.816699Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:23:56.817794Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:23:56.842220Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:23:56.843325Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\ncodex\n{\"findings\":[{\"artifact_ref\":\"releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.md\",\"severity\":\"MINOR\",\"category\":\"structure\",\"section_ref\":\"Header metadata (lines 6-9) and Cross-Domain Interpretation and Scope Discipline (lines 166-169)\",\"claim\":\"The manuscript date is out of sync with the release artifacts it cites: the front matter says 2026-04-21, but the Practical Utility Atlas referenced as part of the same Core 1.3 package is timestamped 2026-04-22T09:23:17Z in the canonical metadata.\",\"evidence\":\"Line 8 lists \\\"Release date: 2026-04-21\\\". The body then points readers to the Practical Utility and Model Comparison Atlas as current release material, but the atlas metadata timestamp is 2026-04-22T09:23:17Z.\",\"required_action\":\"Synchronize the manuscript release date with the companion release-package timestamps, or explicitly label the atlas as a later companion artifact rather than contemporaneous release material.\",\"status\":\"OPEN\"}]}\ntokens used\n80.017",
+        "prompt_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260422T101415Z__9ca743e5/llm/ae2ae831aff01d0b_prompt.txt",
+        "schema_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260422T101415Z__9ca743e5/llm/ae2ae831aff01d0b_schema.json",
+        "output_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260422T101415Z__9ca743e5/llm/ae2ae831aff01d0b_output.json",
+        "duration_seconds": 633.578
+      },
+      {
+        "reviewer_id": "CERBERUS_LLM__HOSTILE_MATHEMATICIAN",
+        "batch_index": 1,
+        "model_used": "gpt-5.4-mini",
+        "artifact_refs": [
+          "content/19_oc_core_1_3_foundational_consistency.tex"
+        ],
+        "command": [
+          "codex",
+          "exec",
+          "-C",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main",
+          "-m",
+          "gpt-5.4-mini",
+          "--dangerously-bypass-approvals-and-sandbox",
+          "--color",
+          "never",
+          "--output-schema",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260422T101415Z__9ca743e5\\llm\\b657233c38564831_schema.json",
+          "-o",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260422T101415Z__9ca743e5\\llm\\b657233c38564831_output.json",
+          "-"
+        ],
+        "returncode": 0,
+        "stdout_tail": "{\"findings\":[]}",
+        "stderr_tail": "2026-04-22T10:18:46.050851Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:18:46.052058Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:18:46.066852Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:18:46.067957Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:18:46.086716Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:18:46.087821Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:18:46.103522Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:18:46.104638Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:18:46.124299Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:18:46.125434Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:18:46.145337Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:18:46.146425Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:18:46.163975Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:18:46.165065Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:18:46.188709Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:18:46.189794Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\ncodex\n{\"findings\":[]}\ntokens used\n207.593",
+        "prompt_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260422T101415Z__9ca743e5/llm/b657233c38564831_prompt.txt",
+        "schema_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260422T101415Z__9ca743e5/llm/b657233c38564831_schema.json",
+        "output_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260422T101415Z__9ca743e5/llm/b657233c38564831_output.json",
+        "duration_seconds": 330.288
+      },
+      {
+        "reviewer_id": "CERBERUS_LLM__ELITE_COPY_CHIEF",
+        "batch_index": 1,
+        "model_used": "gpt-5.4-mini",
+        "artifact_refs": [
+          "content/03_model.tex"
+        ],
+        "command": [
+          "codex",
+          "exec",
+          "-C",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main",
+          "-m",
+          "gpt-5.4-mini",
+          "--dangerously-bypass-approvals-and-sandbox",
+          "--color",
+          "never",
+          "--output-schema",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260422T101415Z__9ca743e5\\llm\\2383b69399af5090_schema.json",
+          "-o",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260422T101415Z__9ca743e5\\llm\\2383b69399af5090_output.json",
+          "-"
+        ],
+        "returncode": 0,
+        "stdout_tail": "{\"findings\":[]}",
+        "stderr_tail": "2026-04-22T10:18:00.120806Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:18:00.121976Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:18:00.137035Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:18:00.138185Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:18:00.156897Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:18:00.158026Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:18:00.173439Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:18:00.174544Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:18:00.193518Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:18:00.194686Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:18:00.215560Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:18:00.216719Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:18:00.234194Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:18:00.235317Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:18:00.259888Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:18:00.261019Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\ncodex\n{\"findings\":[]}\ntokens used\n83.442",
+        "prompt_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260422T101415Z__9ca743e5/llm/2383b69399af5090_prompt.txt",
+        "schema_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260422T101415Z__9ca743e5/llm/2383b69399af5090_schema.json",
+        "output_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260422T101415Z__9ca743e5/llm/2383b69399af5090_output.json",
+        "duration_seconds": 237.79
+      },
+      {
+        "reviewer_id": "CERBERUS_LLM__ELITE_COPY_CHIEF",
+        "batch_index": 2,
+        "model_used": "gpt-5.4-mini",
+        "artifact_refs": [
+          "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.md"
+        ],
+        "command": [
+          "codex",
+          "exec",
+          "-C",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main",
+          "-m",
+          "gpt-5.4-mini",
+          "--dangerously-bypass-approvals-and-sandbox",
+          "--color",
+          "never",
+          "--output-schema",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260422T101415Z__9ca743e5\\llm\\b00d64b74089543b_schema.json",
+          "-o",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260422T101415Z__9ca743e5\\llm\\b00d64b74089543b_output.json",
+          "-"
+        ],
+        "returncode": 0,
+        "stdout_tail": "{\"findings\":[]}",
+        "stderr_tail": "2026-04-22T10:17:20.629988Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:17:20.631665Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:17:20.646185Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:17:20.647240Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:17:20.664901Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:17:20.665965Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:17:20.681000Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:17:20.682102Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:17:20.700896Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:17:20.701968Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:17:20.721341Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:17:20.722397Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:17:20.739083Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:17:20.740138Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:17:20.763405Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:17:20.764471Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\ncodex\n{\"findings\":[]}\ntokens used\n70.369",
+        "prompt_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260422T101415Z__9ca743e5/llm/b00d64b74089543b_prompt.txt",
+        "schema_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260422T101415Z__9ca743e5/llm/b00d64b74089543b_schema.json",
+        "output_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260422T101415Z__9ca743e5/llm/b00d64b74089543b_output.json",
+        "duration_seconds": 244.803
+      },
+      {
+        "reviewer_id": "CERBERUS_LLM__PRACTICAL_RED_TEAM",
+        "batch_index": 1,
+        "model_used": "gpt-5.4-mini",
+        "artifact_refs": [
+          "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.md"
+        ],
+        "command": [
+          "codex",
+          "exec",
+          "-C",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main",
+          "-m",
+          "gpt-5.4-mini",
+          "--dangerously-bypass-approvals-and-sandbox",
+          "--color",
+          "never",
+          "--output-schema",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260422T101415Z__9ca743e5\\llm\\582d34d57e7656ba_schema.json",
+          "-o",
+          "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main\\releases\\oc_core_1_3\\editorial\\cerberus_runs\\CERBERUS_RUN__20260422T101415Z__9ca743e5\\llm\\582d34d57e7656ba_output.json",
+          "-"
+        ],
+        "returncode": 0,
+        "stdout_tail": "{\"findings\":[]}",
+        "stderr_tail": "2026-04-22T10:17:00.418695Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:17:00.419838Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:17:00.434400Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:17:00.435526Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:17:00.453392Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:17:00.454537Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:17:00.470121Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:17:00.471258Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:17:00.490069Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:17:00.491189Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:17:00.510967Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:17:00.512083Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:17:00.529268Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:17:00.530378Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\n2026-04-22T10:17:00.555079Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\build-ios-apps\\.codex-plugin/plugin.json\n2026-04-22T10:17:00.556296Z  WARN codex_core::plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=C:\\Users\\Megaport\\.codex\\.tmp\\plugins\\plugins\\plugin-eval\\.codex-plugin/plugin.json\ncodex\n{\"findings\":[]}\ntokens used\n102.083",
+        "prompt_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260422T101415Z__9ca743e5/llm/582d34d57e7656ba_prompt.txt",
+        "schema_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260422T101415Z__9ca743e5/llm/582d34d57e7656ba_schema.json",
+        "output_ref": "releases/oc_core_1_3/editorial/cerberus_runs/CERBERUS_RUN__20260422T101415Z__9ca743e5/llm/582d34d57e7656ba_output.json",
+        "duration_seconds": 186.001
+      }
+    ],
     "codex_model": "gpt-5.4-mini",
     "codex_binary": "codex",
-    "llm_scope": "full",
-    "artifact_ref_filter": null,
-    "max_workers": 4,
+    "max_workers": 5,
     "batch_max_chars": 3200,
-    "timeout_seconds": 900
+    "timeout_seconds": 900,
+    "artifact_ref_filter": [
+      "content/03_model.tex",
+      "content/19_oc_core_1_3_foundational_consistency.tex",
+      "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.md"
+    ],
+    "llm_scope": "refs"
   }
 }

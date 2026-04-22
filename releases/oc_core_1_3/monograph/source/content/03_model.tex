@@ -241,15 +241,15 @@ where:
     \item \(S_{\mathrm{flows}}(K,t)\) captures flow stability. With aggregated
           supporting and destructive magnitudes
           \(\Phi_{\mathrm{support}}\) and \(\Phi_{\mathrm{kill}}\), one local
-          rule is
+          rule is shown below. The zero-flow branch applies only when the
+          tested state has no active flow channel:
           \[
               S_{\mathrm{flows}}(K,t)=
               \begin{cases}
               \dfrac{\Phi_{\mathrm{support}}(t)}
                     {\Phi_{\mathrm{support}}(t)+\Phi_{\mathrm{kill}}(t)},
                     & \Phi_{\mathrm{support}}(t)+\Phi_{\mathrm{kill}}(t)>0,\\[0.7em]
-              1, & \substack{\Phi_{\mathrm{support}}(t)=\Phi_{\mathrm{kill}}(t)=0\\
-                   \text{and the flow channel is inactive in the tested state.}}
+              1, & \Phi_{\mathrm{support}}(t)=\Phi_{\mathrm{kill}}(t)=0.
               \end{cases}
           \]
           Thus if support vanishes while destructive flow is positive,

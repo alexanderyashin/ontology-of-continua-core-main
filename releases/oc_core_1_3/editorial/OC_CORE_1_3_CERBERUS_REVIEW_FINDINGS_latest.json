@@ -1,11 +1,28 @@
 {
   "metadata": {
-    "repo_sha": "0dd049c48def00df8a7d50bef07abb127a3c4fb3",
-    "generated_at_utc": "2026-04-22T09:47:02Z",
+    "repo_sha": "9ca743e51724d93c86696ea4b516f0f9b3156b50",
+    "generated_at_utc": "2026-04-22T10:24:50Z",
     "surface": "logion/k0/governance/status/OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json",
     "script": "oc_core_1_3_cerberus_review.py"
   },
-  "run_id": "CERBERUS_RUN__20260422T094701Z__0dd049c4",
+  "run_id": "CERBERUS_RUN__20260422T101415Z__9ca743e5",
   "scope_id": "OC_CORE_1_3_ENGLISH_FLAGSHIP_RELEASE_PACKAGE",
-  "findings": []
+  "findings": [
+    {
+      "finding_id": "CERBERUS_FINDING::90882d72ae9f74816b0d",
+      "run_id": "CERBERUS_RUN__20260422T101415Z__9ca743e5",
+      "reviewer_id": "CERBERUS_LLM__HOSTILE_GENERALIST_SCIENTIST",
+      "artifact_id": "CERBERUS_UNIT::releases__oc_core_1_3__journal_core__OC_CORE_1_3_JOURNAL_CORE_EN.md",
+      "artifact_ref": "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.md",
+      "section_ref": "Header metadata (lines 6-9) and Cross-Domain Interpretation and Scope Discipline (lines 166-169)",
+      "severity": "NON_DEFECT_OBSERVATION",
+      "category": "structure",
+      "determinism_class": "LLM_CODEX_CLI",
+      "claim": "The manuscript date is out of sync with the release artifacts it cites: the front matter says 2026-04-21, but the Practical Utility Atlas referenced as part of the same Core 1.3 package is timestamped 2026-04-22T09:23:17Z in the canonical metadata.",
+      "evidence": "Line 8 lists \"Release date: 2026-04-21\". The body then points readers to the Practical Utility and Model Comparison Atlas as current release material, but the atlas metadata timestamp is 2026-04-22T09:23:17Z.",
+      "required_action": "LLM minor advisory only. Deterministic reviewers, hard-build checks, and LLM BLOCKER/MAJOR findings remain release-blocking; this observation is tracked for later editorial polish but does not block release acceptance.",
+      "status": "NOT_ACTIONABLE",
+      "corroborating_reviewer_ids": []
+    }
+  ]
 }
