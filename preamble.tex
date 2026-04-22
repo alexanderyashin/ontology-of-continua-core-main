@@ -14,7 +14,7 @@
 
 \setmainfont{TeX Gyre Termes}
 \setsansfont{TeX Gyre Heros}
-\setmonofont{TeX Gyre Cursor}
+\setmonofont[Ligatures=NoCommon]{TeX Gyre Cursor}
 
 % --- Languages (Polyglossia) ------------------
 
@@ -249,6 +249,7 @@
 \newcommand{\occode}[1]{%
   \begingroup
   \small\ttfamily
+  \addfontfeatures{Ligatures=NoCommon}%
   \edef\oc@detok{\detokenize{#1}}%
   \expandafter\seqsplit\expandafter{\oc@detok}%
   \endgroup
