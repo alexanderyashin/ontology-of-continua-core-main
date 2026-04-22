@@ -1,129 +1,118 @@
-% GENERATED_BY: oc_core_monograph_translation_draft_pipeline_v1.py
-% AI_ASSISTED_TRANSLATION_DRAFT: TRUE
-% THEOREM_REVIEW_STATUS: PENDING
-% THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
-% THEOREM_REVIEW_REVIEWER_ID: 
-% THEOREM_REVIEW_AUTHORITY_CLASS: 
-% THEOREM_REVIEWED_AT: 
-% THEOREM_REVIEW_DOSSIER_REF: 
-% SOURCE_LANGUAGE: EN
-% TARGET_LANGUAGE: DE
-% SOURCE_EN_REF: content/cycles/cycles_k2.tex
 % ================================================================
 % ==== FILE: content/cycles/cycles_k2.tex
 % ================================================================
 
-\subsubsection{Cycles on \texorpdfstring{$K_2$}{K_2}}
+\subsubsection{Zyklen auf \texorpdfstring{$K_2$}{K_2}}
 \label{sec:cycles-k2}
 
-Level $K_2$ corresponds to the continuum of connectivity.
-Its state space is represented by a percolation-like configuration
+Ebene$K_2$entspricht dem Kontinuum der Konnektivität.
+Sein Zustandsraum wird durch eine versickerungsartige Konfiguration dargestellt
 \[
   \Omega(K_2) \cong \{0,1\}^{|E|},
 \]
-where $E$ is the set of edges, and the structural variable is the
-occupation probability $p$.
-The fundamental phenomenon at this level is the emergence or destruction
-of global connectivity.
+Wo$E$ist die Menge der Kanten und die Strukturvariable ist die
+Berufswahrscheinlichkeit$p$.
+Das grundlegende Phänomen auf dieser Ebene ist die Entstehung oder Zerstörung
+der globalen Konnektivität.
 
-Cycles on $K_2$ arise due to oscillations in cluster structure, 
+Zyklen weiter$K_2$entstehen aufgrund von Schwankungen in der Clusterstruktur,
 connectivity measures, and the effective time $\tau(K_2)$ associated
-with correlation dynamics.
+mit Korrelationsdynamik.
 
-\subsubsection{Definition of Cycles on \texorpdfstring{$K_2$}{K_2}}
+\subsubsection{Definition von Zyklen auf \texorpdfstring{$K_2$}{K_2}}
 
-A cycle on $K_2$ is a dynamical trajectory
+Ein Zyklus weiter$K_2$ist eine dynamische Flugbahn
 \[
   C:[0,\tau]\to\Omega(K_2)
 \]
-such that:
+so dass:
 \[
   C(0)=C(\tau),
 \]
-and its evolution is governed by the operator
+und seine Entwicklung wird vom Operator gesteuert
 \[
   \frac{dp}{dt}
   = F_2(p,\, A_2,\, P_2,\, J_2,\, \Theta_2),
 \]
-where:
+Wo:
 
 \begin{itemize}
-  \item $A_2$ are connectivity axes (local ``occupied/unoccupied'' states),
-  \item $P_2$ are potentials derived from cluster sizes, correlation length,
-        or energy-like parameters,
-  \item $J_2$ are flows of connectivity changes,
-  \item $\Theta_2$ contains the critical percolation threshold $p_c$.
+  \item $A_2$sind Konnektivitätsachsen (lokale „besetzte/unbesetzte“ Zustände),
+  \item $P_2$sind Potenziale, die aus Clustergrößen, Korrelationslänge,
+oder energieähnliche Parameter,
+  \item $J_2$sind Ströme von Konnektivitätsänderungen,
+  \item $\Theta_2$enthält die kritische Versickerungsschwelle$p_c$.
 \end{itemize}
 
-Thus a cycle is a closed recurrence of connectivity configurations.
+Somit ist ein Zyklus eine geschlossene Wiederholung von Konnektivitätskonfigurationen.
 
-\subsubsection{Types of Cycles on \texorpdfstring{$K_2$}{K_2}}
+\subsubsection{Arten von Zyklen auf \texorpdfstring{$K_2$}{K_2}}
 
-Three major classes of cycles exist.
+Es gibt drei Hauptklassen von Zyklen.
 
 \paragraph{(1) Cluster–Rearrangement Cycles.}
-Local edge-flip dynamics generates oscillatory behaviour in cluster
-structure.
-These cycles do not approach criticality and have bounded correlation
-length.
+Lokale Edge-Flip-Dynamik erzeugt oszillierendes Verhalten im Cluster
+Struktur.
+Diese Zyklen nähern sich nicht der Kritikalität und weisen eine begrenzte Korrelation auf
+Länge.
 
 \paragraph{(2) Subcritical Connectivity Cycles.}
-For $p<p_c$, the system may undergo recurrent behaviour in the size
-distribution of finite clusters:
+Für$p<p_c$, kann das System in der Größe wiederkehrendes Verhalten erfahren
+Verteilung endlicher Cluster:
 \[
   C: \quad
   N(s,t) \to N(s,t+\tau),
 \]
-where $N(s)$ is the number of clusters of size $s$.
-These cycles are structurally stable due to the absence of a giant
-component.
+Wo$N(s)$ist die Anzahl der Clustergrößen$s$.
+Diese Zyklen sind aufgrund des Fehlens eines Riesen strukturell stabil
+Komponente.
 
 \paragraph{(3) Critical–Near-Critical Cycles.}
 For $p\approx p_c$, oscillations may bring the system repeatedly close
-to the critical percolation threshold.
-These cycles have:
+bis zur kritischen Perkolationsschwelle.
+Diese Zyklen haben:
 
 \begin{itemize}
-  \item long correlation lengths $\xi(p(t))$,
-  \item high structural tension $T_2(t)$,
-  \item sensitivity to thresholds $\Theta_2$,
-  \item potential for phase-transition-like excursions.
+  \item lange Korrelationslängen$\xi(p(t))$,
+  \item hohe strukturelle Spannung$T_2(t)$,
+  \item Empfindlichkeit gegenüber Schwellenwerten$\Theta_2$,
+  \item Potenzial für phasenübergangsartige Exkursionen.
 \end{itemize}
 
-This is the first level in the hierarchy where non-trivial structural
-cycles appear.
+Dies ist die erste Ebene in der Hierarchie mit nicht trivialen Strukturen
+Zyklen erscheinen.
 
-\subsubsection{Structural Tension and Threshold Interaction}
+\subsubsection{Strukturelle Spannung und Schwelleninteraktion}
 
-Structural tension on $K_2$ is given by:
+Strukturelle Spannung an$K_2$ist gegeben durch:
 \[
-  T_2(p)
+T_2(p)
   = f\bigl(\xi(p),\; \mathrm{Conn}(p),\;
        |p - p_c|\bigr),
 \]
-where $f$ grows as the system approaches criticality.
+Wo$f$wächst, wenn sich das System der Kritikalität nähert.
 
-A cycle can be periodic only if:
+Ein Zyklus kann nur dann periodisch sein, wenn:
 \[
   T_2(t) < \Theta_{\mathrm{death}}
 \]
-for all $t$.
-If the loop crosses the phase boundary
+für alle$t$.
+Wenn die Schleife die Phasengrenze überschreitet
 \[
-  p = p_c,
+p = p_c,
 \]
-the system undergoes a structural transition, and the cycle cannot close
-smoothly unless the dynamics returns $p$ across the same boundary.
+Das System durchläuft einen Strukturwandel und der Kreislauf kann sich nicht schließen
+reibungslos, es sei denn, die Dynamik kehrt zurück$p$über die gleiche Grenze.
 
-This leads to the possibility of **critical cycles**, the first instance
-in OC of loops that interact with phase transitions.
+Dies führt zunächst einmal zur Möglichkeit **kritischer Zyklen**
+im OC von Schleifen, die mit Phasenübergängen interagieren.
 
-\subsubsection{Metrics of Cycles on \texorpdfstring{$K_2$}{K_2}}
+\subsubsection{Metriken von Zyklen auf \texorpdfstring{$K_2$}{K_2}}
 
-Consistent with Run~9, cycles are measured via:
+In Übereinstimmung mit Lauf ~ 9 werden die Zyklen wie folgt gemessen:
 
 \[
-  L(C)
+L(C)
   = \int_0^\tau \|\dot{p}(t)\|\, dt,
 \]
 \[
@@ -133,51 +122,52 @@ Consistent with Run~9, cycles are measured via:
 \[
   S(C) = \min_{t\in[0,\tau]} d\bigl(\Omega(K_2),\partial\Omega(K_2)\bigr),
 \]
-where $d$ depends on the proximity to criticality.
+Wo$d$hängt von der Nähe zur Kritikalität ab.
 
-For near-critical cycles:
+Für nahezu kritische Zyklen:
 \[
   S(C) \to 0 \quad \text{as} \quad p\to p_c.
 \]
 
-This is the origin of ``critical slowing down'' and ``critical cycle
-degeneration.''
+Dies ist der Ursprung der „kritischen Verlangsamung“ und des „kritischen Zyklus“.
+Degeneration.''
 
-\subsubsection{Birth of Time and Non-Trivial Cycles}
+\subsubsection{Geburt der Zeit und nicht-trivialer Zyklen}
 
 According to the formal definition of $\tau(K_2)$ (memory block~C.1–7),
-time on $K_2$ is determined by the recurrence period of correlation
-structures:
+Zeit weiter$K_2$wird durch die Wiederholungsperiode der Korrelation bestimmt
+Strukturen:
 \[
   \tau(K_2) \sim \frac{1}{\omega_{\mathrm{corr}}}.
 \]
 
-Thus cycles on $K_2$ are directly tied to:
+So geht es weiter$K_2$stehen in direktem Zusammenhang mit:
 
 \begin{itemize}
-  \item correlation length evolution $\xi(t)$,
-  \item cluster rearrangement timescales,
-  \item occupation-flow dynamics $dp/dt$.
+  \item Entwicklung der Korrelationslänge$\xi(t)$,
+  \item Zeitskalen der Clusterumordnung,
+  \item Beschäftigungsflussdynamik$dp/dt$.
 \end{itemize}
 
-This establishes $K_2$ as the first level with **dynamic temporal
-complexity**.
+Dies stellt fest$K_2$als erste Ebene mit **dynamischem Temporal
+Komplexität**.
 
-\subsubsection{Role of \texorpdfstring{$K_2$}{K_2} Cycles in the Hierarchy}
+\subsubsection{Rolle von \texorpdfstring{$K_2$}{K_2} Zyklen in der Hierarchie}
 
-Cycles on $K_2$ are the precursor to:
+Zyklen weiter$K_2$sind der Vorläufer von:
 
 \begin{itemize}
-  \item chemical reaction cycles on $K_3$;
-  \item membrane and metabolic cycles on $K_4$;
-  \item spike cycles on $K_5$;
-  \item cognitive recurrence loops on $K_6$;
-  \item institutional cycles on $K_7$;
-  \item civilisation-level reproduction cycles on $K_8$.
+  \item chemische Reaktionszyklen auf$K_3$;
+  \item Membran- und Stoffwechselzyklen auf$K_4$;
+  \item Spike-Zyklen an$K_5$;
+  \item kognitive Wiederholungsschleifen weiter$K_6$;
+  \item institutionelle Zyklen auf$K_7$;
+  \item Reproduktionszyklen auf Zivilisationsebene weiter$K_8$.
 \end{itemize}
 
 The essential mechanism introduced at $K_2$ is \emph{critical recurrence}
-— the possibility of interacting with thresholds in a cyclical manner.
+— die Möglichkeit, zyklisch mit Schwellenwerten zu interagieren.
 
-Thus $K_2$ is the minimal level where the Ontology of Continua admits
-non-trivial, threshold-sensitive, structurally complex cycles.
+Daher$K_2$ist das minimale Niveau, das die Ontologie von Continua zulässt
+nichttriviale, schwellensensitive, strukturell komplexe Zyklen.
+

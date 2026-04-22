@@ -1,92 +1,81 @@
-% GENERATED_BY: oc_core_monograph_translation_draft_pipeline_v1.py
-% AI_ASSISTED_TRANSLATION_DRAFT: TRUE
-% THEOREM_REVIEW_STATUS: PENDING
-% THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
-% THEOREM_REVIEW_REVIEWER_ID: 
-% THEOREM_REVIEW_AUTHORITY_CLASS: 
-% THEOREM_REVIEWED_AT: 
-% THEOREM_REVIEW_DOSSIER_REF: 
-% SOURCE_LANGUAGE: EN
-% TARGET_LANGUAGE: DE
-% SOURCE_EN_REF: content/cycles/cycles_k3.tex
 % ================================================================
 % ==== FILE: content/cycles/cycles_k3.tex
 % ================================================================
 
-\subsubsection{Cycles on \texorpdfstring{$K_3$}{K_3}}
+\subsubsection{Zyklen auf \texorpdfstring{$K_3$}{K_3}}
 \label{sec:cycles-k3}
 
-Level $K_3$ corresponds to the RAF–chemical continuum: 
-a self-sustaining reaction network enabled by autocatalysis and
-F-closure.  
-Its state space is given by
+Ebene$K_3$entspricht dem RAF-chemischen Kontinuum:
+ein sich selbst erhaltendes Reaktionsnetzwerk, das durch Autokatalyse ermöglicht wird und
+F-Verschluss.
+Sein Zustandsraum ist gegeben durch
 \[
   \Omega(K_3) = \{(M,R,C,F)\mid (M',R')\in \mathrm{RAF}(G_2)\},
 \]
-where $G_2$ is the connectivity graph inherited from $K_2$,
-and the RAF condition enforces both autocatalytic support and reachability
-of all reactants from the food-set $F$.
-Cycles on $K_3$ emerge as recurrent chemical transformations involving
-reaction pathways, catalytic flows, and closure restoration.
+Wo$G_2$ist das Konnektivitätsdiagramm, von dem geerbt wurde$K_2$,
+und die RAF-Bedingung erzwingt sowohl autokatalytische Unterstützung als auch Erreichbarkeit
+aller Reaktanten aus dem Lebensmittelset$F$.
+Zyklen weiter$K_3$entstehen als wiederkehrende chemische Transformationen
+Reaktionswege, katalytische Flüsse und Wiederherstellung des Verschlusses.
 
-\subsubsection{Fundamental Types of Cycles on \texorpdfstring{$K_3$}{K_3}}
+\subsubsection{Grundlegende Arten von Zyklen auf \texorpdfstring{$K_3$}{K_3}}
 
-Three structural classes of cycles define the dynamical complexity of
-the RAF–continuum.
+Drei strukturelle Klassen von Zyklen definieren die dynamische Komplexität von
+das RAF-Kontinuum.
 
 \paragraph{(1) Autocatalytic Reaction Cycles.}
 
-These are closed paths in reaction space:
+Dies sind geschlossene Pfade im Reaktionsraum:
 \[
   m_{i_1}\xrightarrow{r_1} m_{i_2}
     \xrightarrow{r_2} \dots
     \xrightarrow{r_k} m_{i_1},
 \]
 where each reaction $r_j$ is catalysed by some $m\in M'$.
-Such cycles maintain concentrations, control production ratios, and
-propagate RAF stability.
-They represent the minimal dynamical substrate of $K_3$.
+Solche Zyklen halten Konzentrationen aufrecht, kontrollieren Produktionsverhältnisse und
+propagieren RAF-Stabilität.
+Sie stellen das minimale dynamische Substrat dar$K_3$.
 
 \paragraph{(2) F-closure Restoration Cycles.}
 
-The RAF property requires:
+Die RAF-Eigenschaft erfordert:
 \[
   \text{all reactants in } R' \text{ must be reachable from } F.
 \]
 Perturbations (e.g.\ deficit of a molecule) can temporarily break
-F-closure.
-Cycles restoring F-closure satisfy:
+F-Verschluss.
+Zyklen, die den F-Abschluss wiederherstellen, erfüllen:
 \[
   F \to M_{\mathrm{lost}} \to M_{\mathrm{restored}} \to F
 \]
-and are essential for the viability of $K_3$.
+und sind für die Lebensfähigkeit von wesentlicher Bedeutung$K_3$.
 They interact directly with the threshold $\Theta_{\mathrm{kas}}$.
 
 \paragraph{(3) Energetic and Redox Cycles.}
 
 Following the extended chemical block (memory~\#52),
-chemical potentials include:
+Zu den chemischen Potenzialen gehören:
 \[
   P_{\mathrm{chem}}(t),\;
   P_{\mathrm{redox}}(t),\;
   P_{\mathrm{grad}}(t).
 \]
-Correspondingly, $K_3$ supports energetic cycles:
+Entsprechend,$K_3$unterstützt energetische Kreisläufe:
 \[
   C_{\mathrm{energy}}: 
   P_{\mathrm{chem}}\to P_{\mathrm{redox}}
     \to P_{\mathrm{grad}} \to P_{\mathrm{chem}},
 \]
-which prefigure the metabolic and gradient cycles of $K_4$.
+die die Stoffwechsel- und Gradientenzyklen von vorwegnehmen$K_4$.
 
-These processes keep the RAF system within the energy-viable region
-of state space.
+Diese Prozesse halten das RAF-System im energieeffizienten Bereich
+des Zustandsraums.
 
-\subsubsection{Structural Tension and Thresholds}
+\subsubsection{Strukturelle Spannungen und Schwellen}
 
-The structural tension $T_3(t)$ is determined by:
+Die strukturelle Spannung$T_3(t)$wird bestimmt durch:
 \[
-  T_3 = 
+T_3 =
    f\bigl(
      \mathrm{deficit}_{\mathrm{catalysis}},\;
      1-\rho_{\mathrm{closure}},\;
@@ -101,21 +90,21 @@ where $\rho_{\mathrm{closure}}$ is the closure metric defined by:
          {\text{total reactants in } R'}.
 \]
 
-Cycle viability requires:
+Die Lebensfähigkeit des Zyklus erfordert:
 \[
   T_3(t) < \Theta_{\mathrm{death}}^{(3)},
 \]
-and RAF existence requires:
+und die Existenz einer RAF erfordert:
 \[
   \rho_{\mathrm{cat}} \cdot \rho_{\mathrm{closure}}
   \ge \Theta_{\mathrm{kas}}.
 \]
 
-Thus cycles on $K_3$ exist inside a sharply defined viability region.
+So geht es weiter$K_3$existieren innerhalb einer klar definierten Lebensfähigkeitsregion.
 
-\subsubsection{Metrics of Cycles on \texorpdfstring{$K_3$}{K_3}}
+\subsubsection{Metriken von Zyklen auf \texorpdfstring{$K_3$}{K_3}}
 
-Consistent with the universal metrics (Run~9):
+Im Einklang mit den universellen Metriken (Run~9):
 
 \paragraph{Length.}
 \[
@@ -130,7 +119,7 @@ where $J_{\mathrm{chem}}$ is the reaction–flow vector.
      \int_0^\tau J_{\mathrm{chem}}(t)\cdot dA_{\mathrm{chem}}(t),
 \]
 where $A_{\mathrm{chem}}$ are chemical-state axes (active/inactive
-reaction, presence/absence of species).
+Reaktion, An-/Abwesenheit von Arten).
 
 \paragraph{Stability.}
 \[
@@ -140,8 +129,8 @@ reaction, presence/absence of species).
            \partial\Omega(K_3)
          \bigr),
 \]
-which corresponds to proximity to breaking either autocatalysis or
-closure.
+was der Nähe zum Brechen entweder der Autokatalyse oder entspricht
+Schließung.
 
 \paragraph{Weight.}
 \[
@@ -152,41 +141,41 @@ closure.
          \bigr).
 \]
 
-\subsubsection{Time and Cycle Periods}
+\subsubsection{Zeit- und Zyklusperioden}
 
-The chemical time on $K_3$ is defined via:
+Die chemische Zeit läuft$K_3$ist definiert über:
 \[
   \tau(K_3) = \int \frac{ds}{v_{\mathrm{chem}}},
 \]
 where $v_{\mathrm{chem}}$ is the effective reaction velocity.
-For RAF cycles, the characteristic recurrence period is:
+Für RAF-Zyklen beträgt die charakteristische Wiederholungsperiode:
 \[
   \tau_{\mathrm{RAF}}
   \sim \frac{1}{k_{\mathrm{cat}}}
 \]
 where $k_{\mathrm{cat}}$ is the effective catalytic rate.
 
-Time itself is thus a function of recurring reaction structure.
+Die Zeit selbst ist somit eine Funktion der wiederkehrenden Reaktionsstruktur.
 
-\subsubsection{Birth of Higher-Level Cycles}
+\subsubsection{Geburt höherer Zyklen}
 
-Cycles at $K_3$ serve as the precursors to $K_4$ cycles:
+Zyklen bei$K_3$dienen als Vorläufer$K_4$Zyklen:
 
 \begin{itemize}
-  \item membrane-maintenance cycles,
-  \item energy–gradient cycles across a boundary,
-  \item proto-metabolic loops,
-  \item pre-excitability cycles (via ion or proton gradients).
+  \item Membranwartungszyklen,
+  \item Energie-Gradienten-Zyklen über eine Grenze hinweg,
+  \item protometabolische Schleifen,
+  \item Vorerregbarkeitszyklen (über Ionen- oder Protonengradienten).
 \end{itemize}
 
 The continuity map $K_3\to K_4$ (memory \#55, \#62, \#69, \#70)
-shows that cycles of:
+zeigt, dass Zyklen von:
 
 \[
   (P_{\mathrm{chem}}, P_{\mathrm{grad}}, J_{\mathrm{chem}})
 \]
 
-gradually become:
+nach und nach werden:
 
 \[
   (P_{\mathrm{mem}}, P_{\mathrm{grad}}, J_{\mathrm{in/out}})
@@ -194,6 +183,7 @@ gradually become:
 
 as a membrane $\partial\Omega$ forms.
 
-Thus cycles on $K_3$ encode the earliest organisational structure 
-from which biological cycles (metabolic, membrane, excitability)
-emerge.
+So geht es weiter$K_3$Kodieren Sie die früheste Organisationsstruktur.
+Biologische Zyklen (Stoffwechsel, Membran, Erregbarkeit) entstehen erst später
+von dieser Basis aus.
+

@@ -1,39 +1,28 @@
-% GENERATED_BY: oc_core_monograph_translation_draft_pipeline_v1.py
-% AI_ASSISTED_TRANSLATION_DRAFT: TRUE
-% THEOREM_REVIEW_STATUS: PENDING
-% THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
-% THEOREM_REVIEW_REVIEWER_ID: 
-% THEOREM_REVIEW_AUTHORITY_CLASS: 
-% THEOREM_REVIEWED_AT: 
-% THEOREM_REVIEW_DOSSIER_REF: 
-% SOURCE_LANGUAGE: EN
-% TARGET_LANGUAGE: DE
-% SOURCE_EN_REF: content/cycles/cycles_k4.tex
 % ================================================================
 % ==== FILE: content/cycles/cycles_k4.tex
 % ================================================================
 
-\subsubsection{Cycles on \texorpdfstring{$K_4$}{K_4}}
+\subsubsection{Zyklen auf \texorpdfstring{$K_4$}{K_4}}
 \label{sec:cycles-k4}
 
-Level $K_4$ corresponds to the protocellular continuum: 
-a chemically self-organised domain enclosed by a semi-permeable
+Ebene$K_4$entspricht dem protozellulären Kontinuum:
+eine chemisch selbstorganisierte Domäne, die von einem semipermeablen umgeben ist
 membrane $\partial\Omega(K_4)$.
-Cycles define the persistent dynamic structure of the protocell:
-maintenance of gradients, metabolic turnover, membrane repair,
-energy conversion, replication accuracy, and early proto-excitability.
-They determine the viability of the protocell and the possibility
-of transition to the excitability level $K_5$.
+Zyklen definieren die persistente dynamische Struktur der Protozelle:
+Aufrechterhaltung von Gradienten, Stoffwechselumsatz, Membranreparatur,
+Energieumwandlung, Replikationsgenauigkeit und frühe Protoerregbarkeit.
+Sie bestimmen die Lebensfähigkeit der Protozelle und die Möglichkeit
+des Übergangs zum Erregbarkeitsniveau$K_5$.
 
-\subsubsection{Classes of Cycles on \texorpdfstring{$K_4$}{K_4}}
+\subsubsection{Klassen von Zyklen auf \texorpdfstring{$K_4$}{K_4}}
 
-Following the Biology U0.3b formalisation, $K_4$ supports six
-fundamental families of cycles.
+Nach der Formalisierung Biologie U0.3b,$K_4$unterstützt sechs
+grundlegende Familien von Zyklen.
 
-\subsubsection{1. Membrane-Maintenance Cycles $C_{\mathrm{mem}}$}
+\subsubsection{1. Membranwartungszyklen$C_{\mathrm{mem}}$}
 
-These cycles repair, stabilise and reshape the membrane.
-They involve:
+Diese Zyklen reparieren, stabilisieren und formen die Membran neu.
+Dazu gehören:
 \[
   J_{\mathrm{lipid}},\quad
   J_{\mathrm{in/out}},\quad
@@ -44,7 +33,7 @@ They involve:
 where $\gamma_{\mathrm{edge}}$ is the line tension of membrane pores
 and $\kappa$ is the bending modulus (memory~\#57).
 
-The cycle structure is:
+Die Zyklusstruktur ist:
 \[
   \partial\Omega \to 
   \mathrm{stretching} \to 
@@ -52,34 +41,34 @@ The cycle structure is:
   \partial\Omega.
 \]
 
-Stability requires:
+Stabilität erfordert:
 \[
   T_{\mathrm{mem}}(t) < \Theta_{\mathrm{mem}},
 \]
 where $T_{\mathrm{mem}}$ measures osmotically and mechanically
-induced tension.
+induzierte Spannung.
 
-\subsubsection{2. Gradient-Maintenance Cycles $C_{\mathrm{grad}}$}
+\subsubsection{2. Gradientenerhaltungszyklen$C_{\mathrm{grad}}$}
 
-The membrane introduces new axes:
+Die Membran führt neue Achsen ein:
 \[
   A_{\mathrm{in/out}},\;
   A_{\mathrm{perm}},\;
   A_{\mathrm{grad}}.
 \]
-Correspondingly, gradient cycles regulate:
+Dementsprechend regulieren Gradientenzyklen:
 \[
   P_{\mathrm{grad}}=
     (\Delta \mathrm{pH}, \Delta \mathrm{ion}, \Delta \mathrm{redox}),
 \]
-with flows:
+mit Flüssen:
 \[
   J_{\mathrm{pump}},\;
   J_{\mathrm{leak}},\;
   J_{\mathrm{channel}}.
 \]
 
-The cycle has the form:
+Der Zyklus hat die Form:
 \[
   \Delta G \to \mathrm{pump} \to
   \mathrm{leak} \to \mathrm{dissipation} \to
@@ -90,9 +79,9 @@ where $P_{\mathrm{grad}}$ must remain in the viable domain:
   |P_{\mathrm{grad}}| < \Theta_{\mathrm{grad}}.
 \]
 
-These cycles are precursors of the electrochemical structure of $K_5$.
+Diese Zyklen sind Vorläufer der elektrochemischen Struktur von$K_5$.
 
-\subsubsection{3. Energetic and Redox Cycles $C_{\mathrm{energy}}$}
+\subsubsection{3. Energie- und Redoxzyklen$C_{\mathrm{energy}}$}
 
 From memory~\#67, the energetic architecture includes:
 \[
@@ -100,14 +89,14 @@ From memory~\#67, the energetic architecture includes:
   P_{\mathrm{redox}},
   P_{\mathrm{grad-energy}},
 \]
-and flows:
+und fließt:
 \[
   J_{\mathrm{energy}},\;
   J_{\mathrm{redox}},\;
   J_{\mathrm{grad}}.
 \]
 
-The protometabolic cycle is:
+Der protometabolische Zyklus ist:
 \[
   \Delta G_{\mathrm{in}} \to 
   \mathrm{activation} \to
@@ -116,18 +105,18 @@ The protometabolic cycle is:
   \Delta G_{\mathrm{in}}.
 \]
 
-Existence requires:
+Existenz erfordert:
 \[
   T_{\mathrm{cycle-energy}} < \Theta_{\mathrm{cycle-energy}}.
 \]
 
-These cycles stabilise the internal environment and support
-gradient-maintenance cycles.
+Diese Zyklen stabilisieren das innere Umfeld und unterstützen
+Gradientenerhaltungszyklen.
 
-\subsubsection{4. Metabolic Turnover Cycles $C_{\mathrm{metabolic}}$}
+\subsubsection{4. Stoffwechselumsatzzyklen$C_{\mathrm{metabolic}}$}
 
-Building on the RAF precursor structure from $K_3$, $K_4$ forms
-localised protometabolic loops embedded inside the membrane:
+Aufbauend auf der RAF-Vorläuferstruktur von$K_3$, $K_4$Formen
+lokalisierte protometabolische Schleifen, eingebettet in die Membran:
 \[
   M_{\mathrm{in}} \xrightarrow{r_1}
   M_{\mathrm{act}} \xrightarrow{r_2}
@@ -135,28 +124,28 @@ localised protometabolic loops embedded inside the membrane:
   M_{\mathrm{in}}.
 \]
 
-They contribute to:
+Sie tragen dazu bei:
 \[
   P_{\mathrm{in}},\; P_{\mathrm{chem}},\; P_{\mathrm{stability}},
 \]
-and maintain viable concentration ranges.
+und brauchbare Konzentrationsbereiche aufrechtzuerhalten.
 
-Disruption:
+Störung:
 \[
   T_{\mathrm{metabolic}}>\Theta_{\mathrm{stability}}
 \quad\Rightarrow\quad
   \Omega(K_4)=\varnothing.
 \]
 
-\subsubsection{5. Information-Stability Cycles $C_{\mathrm{info}}$}
+\subsubsection{5. Informationsstabilitätszyklen$C_{\mathrm{info}}$}
 
 From the replication accuracy block (memory~\#68),
-information-bearing polymers must satisfy:
+Informationstragende Polymere müssen Folgendes erfüllen:
 \[
   P_{\mathrm{copy}}=(1-\varepsilon)^L \ge P_{\min}.
 \]
 
-The mutation–correction–selection loop:
+Die Mutations-Korrektur-Selektionsschleife:
 \[
   \mathrm{template}
   \to \mathrm{copy}
@@ -165,20 +154,20 @@ The mutation–correction–selection loop:
   \to \mathrm{selection}
   \to \mathrm{template}
 \]
-forms a genuine cycle.
+bildet einen echten Kreislauf.
 
-Its viability is equivalent to:
+Seine Lebensfähigkeit entspricht:
 \[
   \varepsilon < \Theta_{\mathrm{error}}.
 \]
 
-Above the error threshold, the protocell’s informational structure
-collapses.
+Oberhalb der Fehlerschwelle die Informationsstruktur der Protozelle
+bricht zusammen.
 
-\subsubsection{6. Proto-Excitability Cycles $C_{\mathrm{exc}}$}
+\subsubsection{6. Proto-Erregbarkeitszyklen$C_{\mathrm{exc}}$}
 
 Based on memory~\#75 and \#76, early channels and gradients produce
-ignition–front cycles (“proto–action potentials”):
+Zünd-Front-Zyklen („Proto-Aktionspotentiale“):
 \[
   P_{\mathrm{grad}} \to
   \mathrm{local\ ignition} \to
@@ -187,7 +176,7 @@ ignition–front cycles (“proto–action potentials”):
   P_{\mathrm{grad}}.
 \]
 
-Ignition requires:
+Die Zündung erfordert:
 \[
   G_{\mathrm{lat}} > \Theta^{\mathrm{crit}}_{\mathrm{lat}}
 \quad\text{and}\quad
@@ -195,9 +184,9 @@ Ignition requires:
 \]
 
 These cycles define the soft transition $K_4\to K_5$ 
-(Polish~W3 memory).
+(Polnisch~W3-Speicher).
 
-\subsubsection{Metrics of Cycles at \texorpdfstring{$K_4$}{K_4}}
+\subsubsection{Metriken von Zyklen bei \texorpdfstring{$K_4$}{K_4}}
 
 \paragraph{Length.}
 \[
@@ -210,14 +199,14 @@ where $\Omega$ is the state space of internal composition.
   C_{\mathrm{eff}}
     =\frac{\int J\cdot dA}{L(C)},
 \]
-with flows $J$ across:
+mit Strömungen$J$über:
 \[
   A_{\mathrm{mem}}, A_{\mathrm{grad}}, A_{\mathrm{metabolic}}.
 \]
 
 \paragraph{Stability.}
 \[
-  S(C) 
+SC)
    = \min_{t\in C}
        d\bigl(
          \Omega(K_4),\;
@@ -235,9 +224,9 @@ with flows $J$ across:
       \bigr).
 \]
 
-\subsubsection{Time and Recurrence Structure}
+\subsubsection{Zeit- und Wiederholungsstruktur}
 
-The defining timescales of $K_4$ cycles include:
+Die definierenden Zeitskalen von$K_4$Zu den Zyklen gehören:
 
 \[
   \tau_{\mathrm{pump}},\quad
@@ -247,12 +236,12 @@ The defining timescales of $K_4$ cycles include:
   \tau_{\mathrm{exc}}.
 \]
 
-The continuum possesses time if these satisfy stable recurrence:
+Das Kontinuum besitzt Zeit, wenn diese der stabilen Wiederholung genügen:
 \[
   \tau_i<\infty \quad\forall i.
 \]
 
-\subsubsection{Collapse and Viability of \texorpdfstring{$C(K_4)$}{C(K_4)}}
+\subsubsection{Zusammenbruch und Lebensfähigkeit von \texorpdfstring{$C(K_4)$}{C(K_4)}}
 
 The death of $K_4$ (memory~\#69) occurs if any of:
 
@@ -263,23 +252,25 @@ The death of $K_4$ (memory~\#69) occurs if any of:
   \Theta_{\mathrm{error}},\;
   \Theta_{\mathrm{stability}}
 \]
-is violated.
+wird verletzt.
 
-All cycles break simultaneously:
+Alle Zyklen brechen gleichzeitig:
 \[
   C_j \to \varnothing,
 \quad
   \Omega(K_4)=\varnothing.
 \]
 
-\subsubsection{Transition Toward \texorpdfstring{$K_5$}{K_5}}
+\subsubsection{Übergang zu \texorpdfstring{$K_5$}{K_5}}
 
 Cycles $C_{\mathrm{exc}}$ and $C_{\mathrm{grad}}$ gradually 
-stiffen into temporal–electrical loops, matching the 
-proto–spike structure of $K_5$:
+versteifen sich zu temporal-elektrischen Schleifen, passend zu den
+Proto-Spike-Struktur von$K_5$:
 \[
   C_{\mathrm{exc}}\longrightarrow C_{\mathrm{spike}}.
 \]
 
-This transition is continuous (C$^1$), as ensured by 
-the Polish~W3 soft–threshold formulation.
+Dieser Übergang ist kontinuierlich (C$^1$), wie gewährleistet durch
+die polnische ~W3-Soft-Threshold-Formulierung.
+
+
