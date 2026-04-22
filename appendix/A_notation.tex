@@ -252,8 +252,10 @@ generated K-level archive.
   \item[\(\dim(K(t))\)] Time-slice dimensionality convention for an evolving
         continuum: \(\dim(K(t)) = |A(K,t)|\), where \(A(K,t)\) is the
         effective axis set at that slice.
-  \item[\(\dim(\Omega(K))\)] Dimension of the admissible state space in the
-        active ambient topology or local linearisation.
+  \item[\(\dim(\Omega(K))\)] Covering dimension of \(\Omega(K)\) with the
+        subspace topology inherited from the declared ambient space. Local
+        linearized or rank-based approximations must use a separate symbol
+        such as \(r_{\mathrm{lin}}(K)\).
   \item[\(\dim(S,\Delta,\mathcal{C})\)] Dimension of a structural tuple, read
         as the dimension of the structural set equipped with its declared
         difference and connectivity data.
@@ -272,9 +274,12 @@ generated K-level archive.
         \(\Theta(K)\). Time-slice death checks use \(C_{\max}(t)\), and
         summary statistics must be named separately.
   \item[\(\mathrm{span}_{\mathrm{str}}(A)\)] Structural span of a set of
-        axes: the closure of the admissible structural combinations of those
-        axes inside the fixed ambient continuum or meta-space used by the
-        local argument.
+        axes: the smallest structurally closed subobject, inside the fixed
+        ambient continuum or meta-space, that contains \(A\) and is closed
+        under the locally declared admissible composition, restriction, and
+        threshold-respecting transport operations. Equivalently it is the
+        intersection of all locally declared structurally closed subobjects
+        that contain \(A\).
   \item[\(\mathrm{span}_{\mathrm{lin}}(A)\)] Ordinary linear span of a set of
         axes inside a local linearization. It is used only when a section
         states an explicit linear approximation.

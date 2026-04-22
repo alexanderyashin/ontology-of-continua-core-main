@@ -5080,8 +5080,8 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
         normalize_sentence(branding["public_intro_text"]),
         (
             "The title and scope of this chapter follow the canonical SPOT "
-            "record; release-gate metadata is confined to the opening status "
-            "lines and the dedicated gate paragraph below."
+            "record; the opening gate paragraph states the release status, "
+            "and later K-level rows repeat only the status needed to keep each row auditable."
         ),
         "",
         rf"\subsection{{{tex_escape(branding['public_gate_title'])}}}",
@@ -5164,10 +5164,16 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
                     metric_clause = "No quantitative replay metrics are required for this row. "
                 else:
                     metric_clause = f"The key replay metrics are {metric_sentence}. "
-                binding_status_clause = (
-                    f"The theorem packet is {tex_code(binding['theorem_packet_status'])} "
-                    f"and the parameter law is {tex_code(binding['parameter_law_status'])}. "
-                )
+                if binding["scientific_class"] == "FRAME_ONLY":
+                    binding_status_clause = (
+                        "This is a frame-only support row, so packet completeness is recorded as a support-surface "
+                        "status rather than as a theorem-native empirical closure claim. "
+                    )
+                else:
+                    binding_status_clause = (
+                        f"The theorem packet is {tex_code(binding['theorem_packet_status'])} "
+                        f"and the parameter law is {tex_code(binding['parameter_law_status'])}. "
+                    )
                 lines.append(
                     r"\item "
                     + f"{tex_escape(binding['domain_title'])} is closed as {tex_code(binding['scientific_class'])} with verdict {tex_code(binding['closure_verdict'])} "
@@ -6032,7 +6038,7 @@ def render_appendix_proof_tex(spot: dict[str, Any]) -> str:
     lines.extend(
         render_centered_tabular(
             r"@{}L{0.18\textwidth}L{0.25\textwidth}L{0.11\textwidth}L{0.15\textwidth}L{0.23\textwidth}@{}",
-            r"Review id & Challenge & Status & Lock state & Exit criterion \\",
+            r"Review id & Challenge & Status & Resolution state & Exit criterion \\",
             hostile_rows,
         )
     )

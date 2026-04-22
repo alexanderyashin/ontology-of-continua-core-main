@@ -54,11 +54,12 @@ If a route uses the related-embedding option rather than the same embedding
 space, the relation must be tested against the residue and threshold clauses
 rather than inferred after the fact to save a desired rebirth reading. In this
 article-level use, one auditable compatibility witness for ``related'' is the explicitly
-scoped condition
+scoped condition. Let \(\Omega_{\mathrm{amb}}(\mathcal{M}')\) denote the
+ambient admissible region declared for the proposed embedding space:
 \[
   \begin{aligned}
   &\exists h:\mathcal{M}\to\mathcal{M}'\ \exists r\in R_{\mathrm{res}}(K)\\
-  &\qquad h(r)\in\Omega(K')\subseteq\Omega(\mathcal{M}')\ \text{and}\
+  &\qquad h(r)\in\Omega(K')\subseteq\Omega_{\mathrm{amb}}(\mathcal{M}')\ \text{and}\
   \operatorname{Pres}_{\Theta,\Omega}(h,r;K,K').
   \end{aligned}
 \]
@@ -74,7 +75,7 @@ example-specific relation denoted by
 \(\mathcal{M}\sim_{\mathrm{res}}\mathcal{M}'\). The formal rebirth predicate
 remains Definition~12.6; the source predicate may admit other properly
 declared
-related-space witnesses; this worked example uses the stricter
+related-embedding witnesses; this worked example uses the stricter
 \(\sim_{\mathrm{res}}\) witness so the related branch is auditable rather than
 assumed.
 For this example, the predicate is explicitly:
@@ -83,7 +84,7 @@ For this example, the predicate is explicitly:
 \Longleftrightarrow
 \begin{gathered}
 h \text{ preserves the residue-bearing substructure containing } r,\\
-h(r)\in\Omega(K')\subseteq\Omega(\mathcal{M}'),\ \text{and the threshold/admissibility tests}\\
+h(r)\in\Omega(K')\subseteq\Omega_{\mathrm{amb}}(\mathcal{M}'),\ \text{and the threshold/admissibility tests}\\
 \mathcal{D}_{\Theta,\Omega}(K';h(r))
 =h_{\ast}\mathcal{D}^{\mathrm{res}}_{\Theta,\Omega}(K;r).
 \end{gathered}
@@ -189,7 +190,9 @@ reduction is a tuple \((\rho,\equiv_{\rho},\rho_{\ast})\), where
 declared compatibility relation induced by the translation, and
 \(\rho_{\ast}\) is shorthand for the family of transports
 \(\{\rho_{\ast,X}\}_X\) that sends upper-level requirements to their proposed
-\(K_{10}\) counterparts. Despite the glyph, \(\equiv_{\rho}\) is not assumed
+\(K_{10}\) counterparts. For time-sensitive atoms the reduction also declares
+an order-preserving interval transport
+\(\lambda_X:I_X\to I_{\rho(X)}\). Despite the glyph, \(\equiv_{\rho}\) is not assumed
 to be an equivalence relation in this test; it is only a typed compatibility
 predicate unless reflexivity, symmetry, and transitivity are supplied
 separately. For each object \(X\), let
@@ -206,7 +209,7 @@ names the corresponding proposed \(K_{10}\) target language. The transport
 \(\rho_{\ast,X}:\mathcal{L}_{\mathrm{OC}}(X)\to\mathcal{L}_{10}(\rho(X))\)
 maps each typed atom to its proposed \(K_{10}\)-language counterpart and
 extends to finite conjunctions by preserving their typed clauses. For the
-reduction test, the satisfaction clauses are the following bounded clauses:
+reduction test, the satisfaction clauses are the following bounded clauses,
 where \(I_X\) is the declared finite test interval for \(X\):
 \[
 \begin{aligned}
@@ -231,7 +234,8 @@ only when the relevant operator is defined on the declared source and target
 objects and the mapped obligation preserves the operator's stated domain,
 codomain, and admissibility guard; otherwise it fails. The expression
 \(\rho(X)\models\rho_{\ast,X}(r)\) means satisfaction
-of the translated requirement in the target language. The relation
+of the translated requirement in the target language, using
+\(I_{\rho(X)}=\lambda_X(I_X)\) for time-sensitive atoms. The relation
 \(\equiv_{\rho}\) is a typed compatibility relation on tested objects; if it
 is used as a quotient, reflexivity, symmetry, and transitivity must be supplied
 explicitly. In this section it is used only as a burden-preservation

@@ -6,8 +6,11 @@ citation, and archival use.
 ## Static release metadata
 
 - Release line: OC Core 1.3 public release bundle.
+- Versioned release name: Ontology of Continua — Core v1.3.0. The short
+  bundle label `Core 1.3` and the semantic version `v1.3.0` refer to the same
+  release.
 - Release date: April 21, 2026.
-- Baseline witness: [`commit SHA 7ceb46acfbcb4e83d6568fea3c2530bd9eb95719`](https://github.com/alexanderyashin/ontology-of-continua-core-main/commit/7ceb46acfbcb4e83d6568fea3c2530bd9eb95719).
+- Baseline witness commit: `7ceb46acfbcb4e83d6568fea3c2530bd9eb95719`.
 - Science-state projection: see the bundle-local projection surfaces section
   below for the SPOT authority and generated companion surfaces.
 
@@ -26,6 +29,9 @@ and the baseline witness listed above.
   [`editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json`](editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json).
 - Cerberus scope: the scripted release-review authority
   `OC_CORE_1_3_ENGLISH_FLAGSHIP_RELEASE_PACKAGE`.
+- Current inline status: this README is a pointer to the checked-in Cerberus
+  surfaces; publication readiness is not claimed unless the certificate itself
+  reports `status = PASS` and `llm_gate_status = PASS`.
 - Checked-in Cerberus verdict: inspect
   [`editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json`](editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json)
   and
@@ -36,7 +42,7 @@ and the baseline witness listed above.
   with `status = PASS` and `llm_gate_status = PASS`.
 - The public synthesis title is `Unified Science Synthesis`. Compatibility
   filenames used by tooling are not public claim language and must not be read
-  as a claim that OC is a total theory of everything.
+  as a claim that OC is an unrestricted universal explanation.
 
 The sections below separate the source-owned scientific corpus, bundle-local
 projection surfaces, and packaged mirrors. Directories such as `monograph/`,
@@ -89,9 +95,9 @@ science.
 - `editorial/OC_CORE_1_3_HOSTILE_REVIEW_BACKLOG_latest.json` carries the hostile-review blockers.
 - `editorial/OC_CORE_1_3_DOMAIN_CLOSURE_BUNDLE_REGISTRY_latest.json` carries the per-claim closure bundles.
 - `editorial/OC_CORE_1_3_PHASE1_CLOSED_CORE_DOSSIER_latest.json` carries the first-class Phase 1 closed-core dossier.
-- The manuscript-facing unified science closure surface is generated from
-  `editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json` and retained for tooling
-  compatibility under its existing machine filename.
+- `editorial/OC_CORE_1_3_UNIFIED_SYNTHESIS_latest.json` is the
+  manuscript-facing unified science closure surface generated from
+  `editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json`.
 - `editorial/DOMAIN_EMPIRICAL_EXECUTION_PROTOCOLS_latest.json` exposes the hybrid-escalation evidence bar and the per-domain execution discipline.
 - `editorial/DOMAIN_BENCHMARK_DATASET_MANIFEST_latest.json` exposes the pinned benchmark datasets and held-out split locks.
 - `editorial/DOMAIN_REPLAY_REPORTS_latest.json` exposes the replay packets and their measured outcomes.
