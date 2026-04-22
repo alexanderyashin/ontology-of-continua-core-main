@@ -38,6 +38,10 @@ RELEASE_README = REPO_ROOT / "releases" / "oc_core_1_3" / "README.md"
 ZENODO_METADATA = REPO_ROOT / ".zenodo.json"
 EN_RELEASE_MONOGRAPH_PDF = REPO_ROOT / "releases" / "oc_core_1_3" / "monograph" / "OC_CORE_1_3_MASTER_MONOGRAPH_EN.pdf"
 EN_RELEASE_MANUSCRIPT_PDF = REPO_ROOT / "releases" / "oc_core_1_3" / "manuscripts" / "OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_EN.pdf"
+RU_RELEASE_MONOGRAPH_PDF = REPO_ROOT / "releases" / "oc_core_1_3" / "monograph" / "OC_CORE_1_3_MASTER_MONOGRAPH_RU.pdf"
+RU_RELEASE_MANUSCRIPT_PDF = REPO_ROOT / "releases" / "oc_core_1_3" / "manuscripts" / "OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_RU.pdf"
+DE_RELEASE_MONOGRAPH_PDF = REPO_ROOT / "releases" / "oc_core_1_3" / "monograph" / "OC_CORE_1_3_MASTER_MONOGRAPH_DE.pdf"
+DE_RELEASE_MANUSCRIPT_PDF = REPO_ROOT / "releases" / "oc_core_1_3" / "manuscripts" / "OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_DE.pdf"
 EN_JOURNAL_CORE_MD = REPO_ROOT / "releases" / "oc_core_1_3" / "journal_core" / "OC_CORE_1_3_JOURNAL_CORE_EN.md"
 EN_JOURNAL_CORE_PDF = REPO_ROOT / "releases" / "oc_core_1_3" / "journal_core" / "OC_CORE_1_3_JOURNAL_CORE_EN.pdf"
 RELEASE_ARTIFACT_CONTRACT = EDITORIAL_DIR / "OC_CORE_1_3_SCIENCE_ARTIFACT_CONTRACT.json"
@@ -504,6 +508,10 @@ def build_artifact_targets(review_units: list[dict[str, Any]]) -> list[dict[str,
     for ref in [
         repo_rel(EN_RELEASE_MONOGRAPH_PDF),
         repo_rel(EN_RELEASE_MANUSCRIPT_PDF),
+        repo_rel(RU_RELEASE_MONOGRAPH_PDF),
+        repo_rel(RU_RELEASE_MANUSCRIPT_PDF),
+        repo_rel(DE_RELEASE_MONOGRAPH_PDF),
+        repo_rel(DE_RELEASE_MANUSCRIPT_PDF),
         repo_rel(EN_JOURNAL_CORE_PDF),
         repo_rel(RELEASE_ARTIFACT_CONTRACT),
         repo_rel(SCIENCE_SURFACE_TARGETS["spot"]),
@@ -535,7 +543,23 @@ def build_hash_groups() -> list[dict[str, Any]]:
                 repo_rel(EN_RELEASE_MONOGRAPH_PDF),
                 repo_rel(EN_RELEASE_MANUSCRIPT_PDF),
             ],
-        }
+        },
+        {
+            "group_id": "RU_FLAGSHIP_RELEASE_PDF_HASH_GROUP",
+            "expected_hash_identity": True,
+            "refs": [
+                repo_rel(RU_RELEASE_MONOGRAPH_PDF),
+                repo_rel(RU_RELEASE_MANUSCRIPT_PDF),
+            ],
+        },
+        {
+            "group_id": "DE_FLAGSHIP_RELEASE_PDF_HASH_GROUP",
+            "expected_hash_identity": True,
+            "refs": [
+                repo_rel(DE_RELEASE_MONOGRAPH_PDF),
+                repo_rel(DE_RELEASE_MANUSCRIPT_PDF),
+            ],
+        },
     ]
 
 
@@ -560,12 +584,12 @@ def build_release_review_targets(repo_root: Path | None = None) -> dict[str, Any
             "script": "oc_core_1_3_cerberus_review.py",
             "surface": "logion/k0/governance/status/OC_CORE_1_3_RELEASE_REVIEW_TARGETS_latest.json",
         },
-        "scope_id": "OC_CORE_1_3_ENGLISH_FLAGSHIP_RELEASE_PACKAGE",
+        "scope_id": "OC_CORE_1_3_MULTILINGUAL_FLAGSHIP_RELEASE_PACKAGE",
         "stop_rule": "ZERO_OPEN_FINDINGS",
-        "capability_scope": "RELEASE_WIDE_BUT_EN_FIRST",
-        "active_language_codes": ["EN"],
-        "deferred_language_codes": ["RU", "DE"],
-        "deferred_reason": "Translations stay secondary until the English flagship Cerberus authority reaches zero open findings.",
+        "capability_scope": "RELEASE_WIDE_MULTILINGUAL_WITH_EN_CANONICAL_LLM_AUTHORITY",
+        "active_language_codes": ["EN", "RU", "DE"],
+        "deferred_language_codes": [],
+        "deferred_reason": "",
         "review_units": review_units,
         "artifact_targets": artifact_targets,
         "hash_identity_groups": build_hash_groups(),

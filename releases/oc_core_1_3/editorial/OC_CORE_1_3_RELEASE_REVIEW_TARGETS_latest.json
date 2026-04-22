@@ -1,23 +1,22 @@
 {
   "metadata": {
-    "repo_sha": "a3c7dae2749c8de3d51eed904e2ddc855a984111",
+    "repo_sha": "64e68421d784dd87add4221cea132243666b3fda",
     "cerberus_baseline_tag": "oc-core-1.3-pre-cerberus-baseline",
     "cerberus_baseline_sha": "7ceb46acfbcb4e83d6568fea3c2530bd9eb95719",
-    "generated_at_utc": "2026-04-22T12:21:21Z",
+    "generated_at_utc": "2026-04-22T13:24:00Z",
     "script": "oc_core_1_3_cerberus_review.py",
     "surface": "logion/k0/governance/status/OC_CORE_1_3_RELEASE_REVIEW_TARGETS_latest.json"
   },
-  "scope_id": "OC_CORE_1_3_ENGLISH_FLAGSHIP_RELEASE_PACKAGE",
+  "scope_id": "OC_CORE_1_3_MULTILINGUAL_FLAGSHIP_RELEASE_PACKAGE",
   "stop_rule": "ZERO_OPEN_FINDINGS",
-  "capability_scope": "RELEASE_WIDE_BUT_EN_FIRST",
+  "capability_scope": "RELEASE_WIDE_MULTILINGUAL_WITH_EN_CANONICAL_LLM_AUTHORITY",
   "active_language_codes": [
-    "EN"
-  ],
-  "deferred_language_codes": [
+    "EN",
     "RU",
     "DE"
   ],
-  "deferred_reason": "Translations stay secondary until the English flagship Cerberus authority reaches zero open findings.",
+  "deferred_language_codes": [],
+  "deferred_reason": "",
   "review_units": [
     {
       "artifact_id": "CERBERUS_UNIT::oc_core_1_3_master_monograph.tex",
@@ -2842,6 +2841,30 @@
       "outward_facing": true
     },
     {
+      "artifact_id": "CERBERUS_TARGET::releases__oc_core_1_3__monograph__OC_CORE_1_3_MASTER_MONOGRAPH_RU.pdf",
+      "artifact_ref": "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_RU.pdf",
+      "artifact_kind": "RELEASE_ARTIFACT",
+      "outward_facing": true
+    },
+    {
+      "artifact_id": "CERBERUS_TARGET::releases__oc_core_1_3__manuscripts__OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_RU.pdf",
+      "artifact_ref": "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_RU.pdf",
+      "artifact_kind": "RELEASE_ARTIFACT",
+      "outward_facing": true
+    },
+    {
+      "artifact_id": "CERBERUS_TARGET::releases__oc_core_1_3__monograph__OC_CORE_1_3_MASTER_MONOGRAPH_DE.pdf",
+      "artifact_ref": "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_DE.pdf",
+      "artifact_kind": "RELEASE_ARTIFACT",
+      "outward_facing": true
+    },
+    {
+      "artifact_id": "CERBERUS_TARGET::releases__oc_core_1_3__manuscripts__OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_DE.pdf",
+      "artifact_ref": "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_DE.pdf",
+      "artifact_kind": "RELEASE_ARTIFACT",
+      "outward_facing": true
+    },
+    {
       "artifact_id": "CERBERUS_TARGET::releases__oc_core_1_3__journal_core__OC_CORE_1_3_JOURNAL_CORE_EN.pdf",
       "artifact_ref": "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.pdf",
       "artifact_kind": "RELEASE_ARTIFACT",
@@ -2891,6 +2914,22 @@
       "refs": [
         "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_EN.pdf",
         "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_EN.pdf"
+      ]
+    },
+    {
+      "group_id": "RU_FLAGSHIP_RELEASE_PDF_HASH_GROUP",
+      "expected_hash_identity": true,
+      "refs": [
+        "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_RU.pdf",
+        "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_RU.pdf"
+      ]
+    },
+    {
+      "group_id": "DE_FLAGSHIP_RELEASE_PDF_HASH_GROUP",
+      "expected_hash_identity": true,
+      "refs": [
+        "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_DE.pdf",
+        "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_DE.pdf"
       ]
     }
   ],
@@ -4062,8 +4101,12 @@
     "releases/oc_core_1_3/editorial/OC_CORE_1_3_UNIFIED_SYNTHESIS_latest.json",
     "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.md",
     "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.pdf",
+    "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_DE.pdf",
     "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_EN.pdf",
-    "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_EN.pdf"
+    "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_RU.pdf",
+    "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_DE.pdf",
+    "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_EN.pdf",
+    "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_RU.pdf"
   ],
   "llm_reviewer_roster": [
     {

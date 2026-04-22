@@ -39,6 +39,13 @@ the science appendices.
         use decorated symbols such as \(\tau_{\mathrm{spike}}\). Bare \(\tau\)
         has no theorem-bearing meaning unless a local display explicitly binds
         it.
+  \item[\(\tau_{\mathrm{eff}}(K)\)] Scalar effective time or rhythm selected
+        from the temporal-parameter family \(\tau(K)\) by the local rule
+        declared in the surrounding chapter. When \(\tau_{C_j}\) is a cycle
+        period and the selected rhythm is the slowest non-degradable cycle, the
+        corresponding extremum is \(\max_j\tau_{C_j}\). Displays using
+        \(\min_j\tau_{C_j}\) name the fastest closed rhythm and must not be read
+        as the slowest-cycle convention.
   \item[\(M_x\)] Embedding space for level \(K_x\).
   \item[\(M_x(t)\)] Time-indexed embedding space for \(K_x\) when the
         surrounding chapter allows the environment itself to vary.
@@ -59,13 +66,17 @@ the science appendices.
           \{s\in\overline{\Omega(K_x)}^{\,M_x}\mid
           \exists i\in I_{\mathrm{act}}(K_x;M_x):\,f_i(s)=0\}.
         \]
-        Here \(g_i,\Theta_i:\overline{\Omega(K_x)}^{\,M_x}\to\mathbb{R}\) are
-        evaluated on the same local state domain and \(f_i\) is the shifted
-        residual form of a raw threshold inequality:
-        \(f_i(s)=g_i(s)-\Theta_i(s)\). Thus \(f_i(s)\le0\) is the
-        admissible-side convention and \(f_i(s)=0\) is equivalent to the
-        pointwise raw saturation equation \(g_i(s)=\Theta_i(s)\). Scalar
-        thresholds are the constant-function special case. Let
+        Here \(g_i,\theta_i^{\mathrm{bdry}}:
+        \overline{\Omega(K_x)}^{\,M_x}\to\mathbb{R}\) are evaluated on the same
+        local state domain and \(f_i\) is the shifted residual form of a raw
+        threshold inequality:
+        \(f_i(s)=g_i(s)-\theta_i^{\mathrm{bdry}}(s)\). Thus \(f_i(s)\le0\) is
+        the admissible-side convention and \(f_i(s)=0\) is equivalent to the
+        pointwise raw saturation equation \(g_i(s)=
+        \theta_i^{\mathrm{bdry}}(s)\). The decorated
+        \(\theta_i^{\mathrm{bdry}}\) is the local boundary-threshold function,
+        not the global threshold family \(\Theta(K)\). Scalar thresholds are
+        the constant-function special case. Let
         \(I_{\Theta}(K_x;M_x)\) be the finite threshold family declared for this
         local boundary computation. The active set is
         \[
@@ -180,8 +191,10 @@ name local root constraints only and do not inherit the time-indexed \(K_1+\)
 dynamic operator meanings listed below.
 
 \begin{description}
-  \item[\(E\)] Structural evolution operator:
-        \(E: K(t) \to K(t+dt)\).
+  \item[\(E_{\mathrm{evol}}\)] Structural evolution operator, often written
+        locally as \(E\) after the chapter has bound the symbol:
+        \(E_{\mathrm{evol}}: K(t) \to K(t+dt)\). The decorated form avoids
+        collision with energy quantities such as \(E(K_x)\).
   \item[\(F\)] Flow operator:
         \(F:(J(t),P(t),A(t),\Theta(t),M)\mapsto J(t+dt)\).
   \item[\(G\)] Potential operator:
@@ -193,8 +206,10 @@ dynamic operator meanings listed below.
   \item[\(R\)] Boundary operator:
         \(R:(\partial\Omega(t),P(t),J(t),\Theta(t),M)\mapsto
         \partial\Omega(t+dt)\).
-  \item[\(S\)] Structural operator:
-        \(S:(A(t),P(t),J(t),\Theta(t),M)\mapsto A(t+dt)\).
+  \item[\(S_{\mathrm{axis}}\)] Axis-structure operator, often written locally
+        as \(S\) after the chapter has bound the symbol:
+        \(S_{\mathrm{axis}}:(A(t),P(t),J(t),\Theta(t),M)\mapsto A(t+dt)\).
+        The decorated form avoids collision with scalar complexity \(S(K)\).
   \item[\(U\)] Continuumness operator:
         \(U:(k(t),\Omega(t),A(t),P(t),J(t),\Theta(t),C(t),
         \partial\Omega(t),M)\mapsto k(t+dt)\).
