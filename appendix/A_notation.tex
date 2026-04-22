@@ -29,8 +29,9 @@ the science appendices.
         or the local construction does not represent time, \(\tau(K)\) is left
         undefined rather than silently replaced by a trivial order. Namespace
         is fixed as follows: topology is written as a paired structure such as
-        \((X_1,\tau_1)\), temporal structure is written as \(\tau(K)\), and
-        temporal constants use decorated symbols such as
+        \((X_1,\tau_1)\), or as the legacy local alias \((X,\tau)\) when the
+        local \(K_1\) display binds it explicitly; temporal structure is
+        written as \(\tau(K)\); and temporal constants use decorated symbols such as
         \(\tau_{\mathrm{spike}}\). Bare \(\tau\) has no theorem-bearing meaning
         unless a local display explicitly binds it.
   \item[\(M_x\)] Embedding space for level \(K_x\).
@@ -72,10 +73,13 @@ the science appendices.
           \text{with } f_j(u)\le0\text{ for all }j\ne i\text{ but }f_i(u)>0
           \end{array}\right\}.
         \]
-        Thus a constraint is active only when its equality can be reached and
-        removing that constraint would locally enlarge the admissible side.
-        The same residual convention is used in the model and boundary
-        chapters.
+        Thus \(I_{\mathrm{act}}\) records constraints whose equality can be
+        reached and whose removal has a local violating witness. The stronger
+        reading that removing the constraint enlarges the full admissible side
+        requires the regularity and constraint-qualification assumptions stated
+        locally; without those assumptions, \(I_{\mathrm{act}}\) is used only as
+        a threshold-saturation witness. The same residual convention is used in
+        the model and boundary chapters.
   \item[\(\partial\Omega(K_x)\)] Topological boundary shorthand for the
         admissible region of the level-indexed continuum \(K_x\), read
         relative to its declared ambient space:
@@ -262,9 +266,11 @@ generated K-level archive.
         continuum: \(\dim(K(t)) = |A(K,t)|\), where \(A(K,t)\) is the
         effective axis set at that slice.
   \item[\(\dim(\Omega(K))\)] Covering dimension of \(\Omega(K)\) with the
-        subspace topology inherited from the declared ambient space. Local
-        linearized or rank-based approximations must use a separate symbol
-        such as \(r_{\mathrm{lin}}(K)\).
+        subspace topology inherited from the declared ambient space. This
+        notation is used only for nonempty admissible regions unless a local
+        empty-set convention is explicitly declared. Local linearized or
+        rank-based approximations must use a separate symbol such as
+        \(r_{\mathrm{lin}}(K)\).
   \item[\(\dim(S,\Delta,\mathcal{C})\)] Dimension of a structural tuple, read
         as the dimension of the structural set equipped with its declared
         difference and connectivity data.
@@ -297,8 +303,7 @@ generated K-level archive.
         states an explicit linear approximation.
   \item[\(\mathrm{span}(A)\)] Shorthand for
         \(\mathrm{span}_{\mathrm{str}}(A)\) in theorem-bearing structural
-        transition, projection, and branching arguments unless a section
-        explicitly declares a local linearisation. Use
+        text unless a section explicitly declares a local linearisation. Use
         \(\mathrm{span}_{\mathrm{lin}}(A)\) only under such an explicit linear
         approximation. The subscripted forms remain preferred.
   \item[\(\chi_{\Omega}(s;K,t)\)] Binary admissibility indicator with codomain

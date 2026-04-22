@@ -8,7 +8,7 @@
 - **Release date:** 2026-04-21
 
 ## Abstract
-This article proves a bounded post-collapse identity classification inside the audited Ontology of Continua kernel. When a continuum loses every admissible realisation, the original continuum is dead and any surviving structure is residue rather than continuing live identity. A later live continuum is counted as rebirth only in the same embedding, or in a related embedding with an explicit map-and-residue witness; otherwise this article withholds the rebirth claim.
+This article proves a bounded post-collapse identity classification inside the audited Ontology of Continua kernel. When a continuum loses every admissible realisation, the original continuum is dead and any surviving structure is residue rather than continuing live identity. A later live continuum is counted as rebirth only in the same-embedding branch, or in a related-embedding branch with an explicit map-and-residue witness; otherwise this article withholds the rebirth claim.
 The contribution is both scientific and methodological. Scientifically, the article restores a lawful theorem chain from the public Core 1.2 source corpus instead of relying on optimistic summary layers. Methodologically, it shows how unresolved theorem families are excluded rather than rhetorically blended into a stronger claim. Source witnesses are placed where they directly support the bounded result.
 
 ## Problem Statement
@@ -31,7 +31,7 @@ The main result is a bounded classification theorem about lawful post-collapse i
 3. for the related-embedding branch, $M\sim_{\mathrm{res}}M'$ means that the following witness data are supplied:
    - a named structure-preserving map $h:M\to M'$;
    - a residue element $r$;
-   - the condition that $h(r)$ is present in $M'$;
+   - the condition that $h(r)\in\Omega(K')\subseteq\Omega_{\mathrm{amb}}(M')$;
    - preservation of the threshold and admissibility predicates on that residue-bearing substructure;
 4. it inherits at least one structural element from residue and satisfies the birth conditions for a given level.
 
@@ -103,7 +103,7 @@ The derived article-level rows built on top of that source-native witness set ar
 - Lemma 2 (Post-collapse trace is residue): derived from Source Theorem 3, Axiom 3.2, and Definitions 12.1, 12.3, 12.4, and 12.5.
 - Lemma 3 (Later live continuum satisfying the rebirth predicate is classified as rebirth): derived from Axiom 3.1, Source Corollary 3.2, Axiom 3.3, and Definitions 12.5 and 12.6.
 - Theorem A (post-collapse identity classification): the bounded article-level classification theorem supported by the death-and-residue route.
-- Proposition B (article-local related-embedding rebirth control): the parallel rebirth-control branch for later qualifying continua.
+- Proposition B (article-local rebirth control): the parallel rebirth-control branch for later qualifying continua, including the article-local related-embedding witness discipline.
 
 ## Proof Architecture and Admissible Support
 The positive proof architecture is organised as a ladder instead of a slogan because the article wants the reader to see exactly where the result is justified. The ladder is review-order information, not a second theorem statement. The canonical source-native support inventory appears once in the Source Audit and Canon Repair section above, and the proof section below uses that inventory without restating it as a second source list. The route is conservative: it begins with the restored death theorem and irreversibility corollary, treats residue and rebirth as semantic controls, and excludes unrevalidated lift-support families from the main article.
@@ -152,7 +152,7 @@ The source witness matrix, theorem-support dossier, and release-facing companion
 This literature screen also bounds the novelty claim. The article does not claim to supersede catastrophe theory, viability theory, invariant-set theory, or nonlinear dynamics. Its comparative claim is narrower and sharper. Catastrophe theory analyses transition classes, viability theory studies survival under constraints, and invariant-set or attractor theory studies persistence failure and post-transition objects. The present article instead makes explicit, within the OC family, a source-audited derived classification that separates death, residue, and rebirth as distinct identity statuses under one audited chain of support.
 
 ## Novelty and Prior-Art Boundary
-The novelty claim in this article is exactly the bounded classification formalized in Theorem A, not a broader closure theorem for the inherited OC corpus.
+The novelty claim in this article is exactly the bounded classification formalised in Theorem A, not a broader closure theorem for the inherited OC corpus.
 The main proof does not claim a universal contradiction-to-lift theorem, a full representability theory, or completed universal closure. It claims only a source-audited classification theorem on death, residue, and rebirth after admissible-state loss.
 The novelty claim is therefore bounded in theorem scope and deliberately modest. Relative to the inherited OC corpus, the article contributes a conservative source-audit repair that separates surviving theorem support from removed or unrevalidated material and shows that the surviving source theorem and irreversibility corollary, together with the collapse, residue, and rebirth definitions, support a post-collapse non-persistence classification. Relative to broader foundational discourse, it does not claim priority for every idea involving collapse, persistence failure, or structural rebirth. Its positive contribution is narrower and cleaner: a source-audited derived classification after admissible-state loss, together with a reproducible method for rebuilding such a classification from heterogeneous theoretical corpora without silently importing unresolved premises.
 Within the reviewed comparator set, the viability-kernel baseline supplies a standard external criterion for whether admissible evolution still exists under constraints. The article-level contribution then addresses a narrower downstream question inside the OC kernel by making the post-emptiness identity consequences explicit and auditable.

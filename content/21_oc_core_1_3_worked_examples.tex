@@ -89,7 +89,14 @@ declared
 related-embedding witnesses; this worked example uses the stricter
 \(\sim_{\mathrm{res}}\) witness so the related branch is auditable rather than
 assumed.
-For this example, the predicate is explicitly:
+The witness data also include the active residue-threshold index family
+\(I_K^{\mathrm{res}}\), the corresponding active target subfamily
+\(I_{K'}^{h}\subseteq I_{K'}\), and a declared bijection
+\(\eta_h:I_K^{\mathrm{res}}\xrightarrow{\sim}I_{K'}^{h}\). The induced
+pushforward \(h_\ast\) applies \(h\) to the residue state and transports each
+named residual threshold by \(\eta_h\).
+For this example, \(\operatorname{Pres}_{\Theta,\Omega}\) is the following
+declared predicate:
 \[
 \operatorname{Pres}_{\Theta,\Omega}(h,r;K,K')
 \Longleftrightarrow
@@ -115,17 +122,16 @@ object \(Y\) and point \(y\), this local data is the typed record
     \{i\in I_Y:f_i^Y(y)=0\}
   \big).
 \]
-For the residue branch, \(I_K^{\mathrm{res}}\) is the subfamily of active
-thresholds declared on the residue-bearing substructure, and \(h_\ast\)
-targets the corresponding family \(I_{K'}\) used to test \(\Omega(K')\).
-The index-set transport is a declared map
-\(\eta_h:I_K^{\mathrm{res}}\to I_{K'}\) with
+Here \(I_K^{\mathrm{res}}\) is the subfamily of active thresholds declared on
+the residue-bearing substructure, and \(I_{K'}^{h}\) is the corresponding
+active target subfamily used to test \(\Omega(K')\) along this witness. The
+transport satisfies
 \(f_{\eta_h(i)}^{K'}\circ h=f_i^K\) on \(\mathcal{R}_K(r)\).
 Consequently the saturated set is transported as
 \[
   \eta_h\bigl(\{i\in I_K^{\mathrm{res}}:f_i^K(r)=0\}\bigr)
   =
-  \{j\in I_{K'}:f_j^{K'}(h(r))=0\}.
+  \{j\in I_{K'}^{h}:f_j^{K'}(h(r))=0\}.
 \]
 The equality therefore says that the named map
 transports the residue-bearing threshold and admissibility data used to test

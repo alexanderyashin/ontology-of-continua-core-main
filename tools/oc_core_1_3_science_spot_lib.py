@@ -5181,8 +5181,9 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
             lines.append(r"\end{itemize}")
             if omitted_binding_total:
                 omitted_ids = [binding["domain_id"] for binding in row["domain_bindings"] if binding["closure_verdict"] != "PASS"]
+                side_binding_noun = "binding" if omitted_binding_total == 1 else "bindings"
                 lines.append(
-                    f"The SPOT also tracks {tex_code(omitted_binding_total)} excluded or non-promoted side bindings for this level outside the closed synthesis summary: {tex_list(omitted_ids, wrap_code=True)}. The corresponding source rows remain in the canonical surfaces and support appendices, not in the promoted synthesis stack."
+                    f"The SPOT also tracks {tex_code(omitted_binding_total)} excluded or non-promoted side {side_binding_noun} for this level outside the closed synthesis summary: {tex_list(omitted_ids, wrap_code=True)}. The corresponding source rows remain in the canonical surfaces and support appendices, not in the promoted synthesis stack."
                 )
         else:
             lines.append("No promoted domain packets are attached to this level in the current SPOT.")
