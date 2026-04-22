@@ -24,16 +24,21 @@ the science appendices.
   \item[\(K(t)\)] Time-sliced continuum object obtained from a fixed continuum
         \(K\) at local time \(t\). If a chapter needs the internal state
         separately, it names that state as \(s(t)\in\Omega(K,t)\).
-  \item[\(\tau(K)\)] Time-order or temporal-structure component attached to
-        \(K\) when the level has temporal dynamics. If the level is atemporal
-        or the local construction does not represent time, \(\tau(K)\) is left
-        undefined rather than silently replaced by a trivial order. Namespace
-        is fixed as follows: topology is written as a paired structure such as
-        \((X_1,\tau_1)\), or as the legacy local alias \((X,\tau)\) when the
-        local \(K_1\) display binds it explicitly; temporal structure is
-        written as \(\tau(K)\); and temporal constants use decorated symbols such as
-        \(\tau_{\mathrm{spike}}\). Bare \(\tau\) has no theorem-bearing meaning
-        unless a local display explicitly binds it.
+  \item[\(\tau(K)\)] Finite ordered family of characteristic times or
+        temporal parameters attached to \(K\) when the level has temporal
+        dynamics, e.g.
+        \(\tau(K)=(\tau_1(K),\dots,\tau_m(K))\) for some finite \(m\).
+        If the level is atemporal or the local construction does not represent
+        time, \(\tau(K)\) is left undefined rather than silently replaced by a
+        trivial time object. An actual temporal order relation, when needed, is
+        written separately, for example as \(\preceq_K\), and is not denoted by
+        \(\tau(K)\). Namespace is fixed as follows: topology is written as a
+        paired structure such as \((X_1,\tau_1)\), or as the legacy local alias
+        \((X,\tau)\) when the local \(K_1\) display binds it explicitly;
+        temporal structure is written as \(\tau(K)\); and temporal constants
+        use decorated symbols such as \(\tau_{\mathrm{spike}}\). Bare \(\tau\)
+        has no theorem-bearing meaning unless a local display explicitly binds
+        it.
   \item[\(M_x\)] Embedding space for level \(K_x\).
   \item[\(M_x(t)\)] Time-indexed embedding space for \(K_x\) when the
         surrounding chapter allows the environment itself to vary.
