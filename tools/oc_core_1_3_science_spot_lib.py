@@ -4805,6 +4805,18 @@ def tex_list(items: list[Any], wrap_code: bool = False) -> str:
     return r", \allowbreak ".join(tex_escape(item) for item in items)
 
 
+def tex_domain_title(text: Any) -> str:
+    """Render domain titles with lawful breakpoints for narrow atlas columns."""
+    value = tex_escape(britishize_text(text))
+    replacements = {
+        "Systems / Civilizational projection": r"Systems /\allowbreak K8 projection",
+        "Cross-domain / unified science": r"Cross-domain /\allowbreak unified science",
+    }
+    for source, target in replacements.items():
+        value = value.replace(source, target)
+    return value
+
+
 def normalize_sentence(text: Any) -> str:
     sentence = " ".join(str(text).split()).strip()
     while sentence.endswith(".."):
@@ -5280,7 +5292,7 @@ def render_practical_utility_tex(spot: dict[str, Any]) -> str:
     )
     for row in usable_now_rows:
         lines.append(
-            f"{tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text(row['problem_class']))} & {tex_escape(britishize_text(row['what_can_be_predicted_or_done']))} & {tex_escape(britishize_text(row['support_label']))} & {tex_escape(britishize_text(row['output_or_decision']))} & {main_trace(row, 'use_case_id')} \\\\"
+            f"{tex_domain_title(row['domain_title'])} & {tex_escape(britishize_text(row['problem_class']))} & {tex_escape(britishize_text(row['what_can_be_predicted_or_done']))} & {tex_escape(britishize_text(row['support_label']))} & {tex_escape(britishize_text(row['output_or_decision']))} & {main_trace(row, 'use_case_id')} \\\\"
         )
     lines.extend([r"\bottomrule", r"\end{longtable}", r"\endgroup", "", r"\subsection{How to use OC in practice}"])
     lines.append("The playbooks below answer the operational question directly: when to use OC, what inputs are required, what procedure to run, and what the resulting decision or prediction actually is.")
@@ -5294,7 +5306,7 @@ def render_practical_utility_tex(spot: dict[str, Any]) -> str:
         lines.extend(
             [
                 "",
-                rf"\paragraph{{{tex_escape(britishize_text(playbook['domain_title']))}: {tex_escape(britishize_text(playbook['title']))}}}",
+                rf"\paragraph{{{tex_domain_title(playbook['domain_title'])}: {tex_escape(britishize_text(playbook['title']))}}}",
                 tex_escape(when_text),
                 f"Inputs: {inputs_text}.",
                 f"Procedure: {procedure_text.rstrip('.')}.",
@@ -5321,7 +5333,7 @@ def render_practical_utility_tex(spot: dict[str, Any]) -> str:
         lines.extend(
             [
                 "",
-                rf"\paragraph{{{tex_escape(britishize_text(domain['domain_title']))}.}}",
+                rf"\paragraph{{{tex_domain_title(domain['domain_title'])}.}}",
                 tex_escape(
                     normalize_sentence(
                         britishize_text(
@@ -5368,7 +5380,7 @@ def render_practical_utility_tex(spot: dict[str, Any]) -> str:
             + tex_code(row.get("complexity_budget", "NOT_DECLARED"))
         )
         lines.append(
-            f"{tex_code(row['comparison_id'])} & {tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text('; '.join(row['comparator_families'])))} & {tex_code(row['verdict'])} & {comparison_scope} & {main_trace(row, 'comparison_id')} \\\\"
+            f"{tex_code(row['comparison_id'])} & {tex_domain_title(row['domain_title'])} & {tex_escape(britishize_text('; '.join(row['comparator_families'])))} & {tex_code(row['verdict'])} & {comparison_scope} & {main_trace(row, 'comparison_id')} \\\\"
         )
     lines.extend(
         [
@@ -5404,7 +5416,7 @@ def render_practical_utility_tex(spot: dict[str, Any]) -> str:
         }
         relationship_label = relationship_labels.get(row["relationship_to_oc"], row["relationship_to_oc"].replace("_", " "))
         lines.append(
-            f"{tex_code(row['comparison_id'])} & {tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text(row['serious_model_family']))} & {tex_escape(britishize_text(row['problem_class']))} & {tex_escape(britishize_text(relationship_label))} & {tex_escape(britishize_text(row['what_oc_adds_or_unifies']))} & {tex_list(row['source_refs'][:2], wrap_code=True)} \\\\"
+            f"{tex_code(row['comparison_id'])} & {tex_domain_title(row['domain_title'])} & {tex_escape(britishize_text(row['serious_model_family']))} & {tex_escape(britishize_text(row['problem_class']))} & {tex_escape(britishize_text(relationship_label))} & {tex_escape(britishize_text(row['what_oc_adds_or_unifies']))} & {tex_list(row['source_refs'][:2], wrap_code=True)} \\\\"
         )
     lines.extend([r"\bottomrule", r"\end{longtable}", r"\endgroup", "", r"\subsection{What prior science could do, what remained fragmented, and what OC closes}"])
     lines.extend(
@@ -5429,7 +5441,7 @@ def render_practical_utility_tex(spot: dict[str, Any]) -> str:
     for row in atlas["fragmentation_closure_rows"]:
         domain_title = next((item["domain_title"] for item in atlas["serious_model_comparison_rows"] if item["comparison_id"] == row["comparison_id"]), row["domain_id"])
         lines.append(
-            f"{tex_code(row['comparison_id'])} & {tex_escape(britishize_text(domain_title))} & {tex_escape(britishize_text(row['prior_science_strength']))} & {tex_escape(britishize_text(row['fragmentation_boundary']))} & {tex_escape(britishize_text(row['oc_closure_or_gain']))} & {tex_escape(britishize_text(row['what_remains_open']))} \\\\"
+            f"{tex_code(row['comparison_id'])} & {tex_domain_title(domain_title)} & {tex_escape(britishize_text(row['prior_science_strength']))} & {tex_escape(britishize_text(row['fragmentation_boundary']))} & {tex_escape(britishize_text(row['oc_closure_or_gain']))} & {tex_escape(britishize_text(row['what_remains_open']))} \\\\"
         )
     lines.extend([r"\bottomrule", r"\end{longtable}", r"\endgroup", "", r"\subsection{What remains frontier or hypothesis}"])
     if frontier_rows or hypothesis_rows:
@@ -5454,7 +5466,7 @@ def render_practical_utility_tex(spot: dict[str, Any]) -> str:
         )
         for row in [*frontier_rows, *hypothesis_rows]:
             lines.append(
-                f"{tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text(row['problem_class']))} & {tex_escape(britishize_text(row['support_label']))} & {tex_escape(britishize_text(row['what_remains_open']))} \\\\"
+                f"{tex_domain_title(row['domain_title'])} & {tex_escape(britishize_text(row['problem_class']))} & {tex_escape(britishize_text(row['support_label']))} & {tex_escape(britishize_text(row['what_remains_open']))} \\\\"
             )
         lines.extend([r"\bottomrule", r"\end{longtable}", r"\endgroup"])
     else:
@@ -5485,7 +5497,7 @@ def render_practical_utility_appendix_tex(spot: dict[str, Any]) -> str:
     for row in atlas["use_case_rows"]:
         inputs_text = r"; \allowbreak ".join(tex_escape(britishize_text(item)) for item in row["required_inputs_or_observables"])
         lines.append(
-            f"{tex_code(row['use_case_id'])} & {tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text(row['support_label']))} & {inputs_text} & {tex_escape(britishize_text(row['output_or_decision']))} & {tex_escape(britishize_text(row['scope_boundary']))} \\\\"
+            f"{tex_code(row['use_case_id'])} & {tex_domain_title(row['domain_title'])} & {tex_escape(britishize_text(row['support_label']))} & {inputs_text} & {tex_escape(britishize_text(row['output_or_decision']))} & {tex_escape(britishize_text(row['scope_boundary']))} \\\\"
         )
     lines.extend(
         [
@@ -5542,7 +5554,7 @@ def render_practical_utility_appendix_tex(spot: dict[str, Any]) -> str:
             for index, item in enumerate(row["procedure_steps"], start=1)
         )
         lines.append(
-            f"{tex_code(row['playbook_id'])} & {tex_escape(britishize_text(row['domain_title']))} & "
+            f"{tex_code(row['playbook_id'])} & {tex_domain_title(row['domain_title'])} & "
             f"{tex_escape(normalize_sentence(britishize_text(row['when_to_use'])))} & "
             f"Procedure: {procedure_text.rstrip('.')}. \\allowbreak Failure boundary: "
             f"{tex_escape(normalize_sentence(britishize_text(row['failure_boundary'])))} \\\\"
@@ -5598,7 +5610,7 @@ def render_practical_utility_appendix_tex(spot: dict[str, Any]) -> str:
         if row.get("closure_bundle_ref"):
             trace_parts.append(f"Closure dossier {tex_code(row['closure_bundle_ref'])}")
         lines.append(
-            f"{tex_code(row['comparison_id'])} & {tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text('; '.join(row['comparator_families'])))} & {normalize_sentence('; '.join(trace_parts))} \\\\"
+            f"{tex_code(row['comparison_id'])} & {tex_domain_title(row['domain_title'])} & {tex_escape(britishize_text('; '.join(row['comparator_families'])))} & {normalize_sentence('; '.join(trace_parts))} \\\\"
         )
     lines.extend(
         [
@@ -5629,7 +5641,7 @@ def render_practical_utility_appendix_tex(spot: dict[str, Any]) -> str:
         }
         relationship_label = relationship_labels.get(row["relationship_to_oc"], row["relationship_to_oc"].replace("_", " "))
         lines.append(
-            f"{tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text(row['serious_model_family']))} & {tex_escape(britishize_text(row['problem_class']))} & {prior_strength} \\allowbreak {fragmentation} & {tex_escape(britishize_text(relationship_label))} & {tex_escape(britishize_text(row['what_oc_adds_or_unifies']))} \\\\"
+            f"{tex_domain_title(row['domain_title'])} & {tex_escape(britishize_text(row['serious_model_family']))} & {tex_escape(britishize_text(row['problem_class']))} & {prior_strength} \\allowbreak {fragmentation} & {tex_escape(britishize_text(relationship_label))} & {tex_escape(britishize_text(row['what_oc_adds_or_unifies']))} \\\\"
         )
     lines.extend(
         [
@@ -5650,7 +5662,7 @@ def render_practical_utility_appendix_tex(spot: dict[str, Any]) -> str:
     )
     for row in atlas["serious_model_comparison_rows"]:
         lines.append(
-            f"{tex_code(row['comparison_id'])} & {tex_escape(britishize_text(row['domain_title']))} & {tex_list(row['source_refs'], wrap_code=True)} & {tex_escape(britishize_text(row['scope_boundary']))} \\\\"
+            f"{tex_code(row['comparison_id'])} & {tex_domain_title(row['domain_title'])} & {tex_list(row['source_refs'], wrap_code=True)} & {tex_escape(britishize_text(row['scope_boundary']))} \\\\"
         )
     lines.extend(
         [
@@ -5671,7 +5683,7 @@ def render_practical_utility_appendix_tex(spot: dict[str, Any]) -> str:
     )
     for row in atlas["readiness_matrix_rows"]:
         lines.append(
-            f"{tex_code(row['use_case_id'])} & {tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text(row['support_label']))} & {tex_escape(britishize_text(row['what_remains_open']))} \\\\"
+            f"{tex_code(row['use_case_id'])} & {tex_domain_title(row['domain_title'])} & {tex_escape(britishize_text(row['support_label']))} & {tex_escape(britishize_text(row['what_remains_open']))} \\\\"
         )
     lines.extend(
         [
@@ -5700,7 +5712,7 @@ def render_practical_utility_appendix_tex(spot: dict[str, Any]) -> str:
             row["domain_id"],
         )
         lines.append(
-            f"{tex_code(row['comparison_id'])} & {tex_escape(britishize_text(domain_title))} & {tex_escape(britishize_text(row['prior_science_strength']))} & {tex_escape(britishize_text(row['fragmentation_boundary']))} & {tex_escape(britishize_text(row['oc_closure_or_gain']))} & {tex_escape(britishize_text(row['what_remains_open']))} \\\\"
+            f"{tex_code(row['comparison_id'])} & {tex_domain_title(domain_title)} & {tex_escape(britishize_text(row['prior_science_strength']))} & {tex_escape(britishize_text(row['fragmentation_boundary']))} & {tex_escape(britishize_text(row['oc_closure_or_gain']))} & {tex_escape(britishize_text(row['what_remains_open']))} \\\\"
         )
     lines.extend(
         [
@@ -5731,7 +5743,7 @@ def render_practical_utility_appendix_tex(spot: dict[str, Any]) -> str:
         )
         for row in frontier_rows:
             lines.append(
-                f"{tex_escape(britishize_text(row['domain_title']))} & {tex_escape(britishize_text(row['problem_class']))} & {tex_escape(britishize_text(row['support_label']))} & {tex_escape(britishize_text(row['what_remains_open']))} \\\\"
+                f"{tex_domain_title(row['domain_title'])} & {tex_escape(britishize_text(row['problem_class']))} & {tex_escape(britishize_text(row['support_label']))} & {tex_escape(britishize_text(row['what_remains_open']))} \\\\"
             )
         lines.extend([r"\bottomrule", r"\end{longtable}"])
     else:

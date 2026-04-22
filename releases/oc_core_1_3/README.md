@@ -77,20 +77,24 @@ mirror drift as a release-blocking defect.
 
 ## Bundle contents
 
-- `monograph/` contains the English master monograph built directly from the
-  public LaTeX source corpus.
-- German and Russian monograph files in the bundle are graph-complete
-  translation-candidate routes under theorem review. The fast April 22, 2026
-  trial is recorded in
+- `monograph/` contains the English, Russian, and German master monographs
+  built from the same full Core 1.3 platinum source graph. The localized
+  routes preserve formulas, labels, theorem references, numeric rows, verdicts,
+  and dedication blocks while using canonical English technical atlas surfaces
+  where the audit material is intentionally trace-dense.
+- German and Russian monograph inclusion is recorded in
   [`editorial/OC_CORE_1_3_TRANSLATION_TRIAL_latest.json`](editorial/OC_CORE_1_3_TRANSLATION_TRIAL_latest.json);
-  both localised PDFs are currently marked
-  `DEFERRED_TRANSLATION_REVIEW_REQUIRED`, so English remains the only
-  release-ready proof-bearing publication route until those gates pass.
+  both localized monograph builds now clear the release hard-warning bar with
+  zero undefined references, zero rerun warnings, zero empty bibliography
+  warnings, zero PDF-string warnings, zero missing-character warnings, and
+  zero overfull boxes.
 - `journal_core/` contains the bounded Journal Core article in English plus
-  German and Russian journal-core translation drafts.
-- `manuscripts/` contains the primary English flagship manuscript plus German
-  and Russian manuscript translation drafts as non-blocking localised overlays.
-  Each variant ships as a PDF and companion Markdown file with a shared base stem.
+  German and Russian journal-core companion translations.
+- `manuscripts/` contains the flagship manuscript PDFs and companion Markdown
+  surfaces for the same scientific version. The English PDF and master
+  monograph PDF are generated from the same accepted flagship build; Russian
+  and German PDFs are generated from the corresponding localized monograph
+  builds.
 - `assets/` contains the outward visual and table assets shared across the same scientific version.
 
 ## Science source corpus

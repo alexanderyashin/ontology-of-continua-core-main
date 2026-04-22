@@ -134,6 +134,7 @@
 \usepackage{xurl}
 \usepackage{enumitem}
 \usepackage{microtype}
+\usepackage{seqsplit}
 
 \providecommand{\ocpdftitle}{Ontology of Continua --- Core 1.3 Canonical Master Monograph}
 \providecommand{\ocpdfsubject}{Continuum ontology and closure}
@@ -244,7 +245,15 @@
 
 % --- OC editorial helpers ---------------------
 
-\newcommand{\occode}[1]{\begingroup\small\urlstyle{tt}\nolinkurl{#1}\endgroup}
+\makeatletter
+\newcommand{\occode}[1]{%
+  \begingroup
+  \small\ttfamily
+  \edef\oc@detok{\detokenize{#1}}%
+  \expandafter\seqsplit\expandafter{\oc@detok}%
+  \endgroup
+}
+\makeatother
 \newcommand{\ocvolumeblock}[2]{%
   \clearpage
   \phantomsection

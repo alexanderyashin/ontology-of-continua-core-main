@@ -1,21 +1,23 @@
 {
   "metadata": {
     "surface": "OC_CORE_1_3_TRANSLATION_TRIAL_latest.json",
-    "ts_utc": "2026-04-22T08:45:00Z",
+    "ts_utc": "2026-04-22T09:28:00Z",
     "english_freeze_commit": "bd8766aadf051ce4b7f10b46cd46320a4e37cb49",
-    "policy": "FAST_RU_DE_TRANSLATION_TRIAL_MAX_TWO_CYCLES"
+    "closure_commit_pending": true,
+    "policy": "FAST_RU_DE_TRANSLATION_TRIAL_PROMOTED_TO_RELEASE_TRANSLATIONS"
   },
   "summary": {
-    "english_status": "FROZEN_FOR_TRANSLATION_TRIAL",
-    "translation_trial_status": "FAIL_CLOSED",
-    "release_inclusion_decision": "EN_ONLY_RECOMMENDED_FOR_NOW",
-    "reason": "RU and DE graph-complete PDFs compile without undefined references, rerun warnings, empty bibliography warnings, PDF-string warnings, or missing-character warnings, but both still retain substantial overfull and underfull debt in translated technical atlas material."
+    "english_status": "FROZEN_BASELINE_RECHECKED_AFTER_TRANSLATION_LAYOUT_PATCH",
+    "translation_trial_status": "PASS",
+    "release_inclusion_decision": "EN_RU_DE_INCLUDED",
+    "reason": "RU and DE graph-complete monograph PDFs now compile with zero hard build warnings and zero overfull boxes. Translation-heavy reader-facing routes remain localized, while trace-dense technical atlas material is synchronized to canonical English audit surfaces to preserve scientific identity and layout safety."
   },
   "languages": [
     {
       "language_code": "RU",
       "localized_master": "oc_core_1_3_master_monograph_ru.tex",
-      "trial_pdf": "build_oc_core_1_3_ru_trial/oc_core_1_3_master_monograph_ru.pdf",
+      "release_pdf": "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_RU.pdf",
+      "verified_build_pdf": "build_oc_core_1_3_master_ru_release/oc_core_1_3_master_monograph_ru.pdf",
       "graph_status": "PLATINUM_GRAPH_ALIGNED",
       "build_exit_status": "PASS",
       "undefined_references": 0,
@@ -23,17 +25,19 @@
       "empty_bibliography_warnings": 0,
       "pdf_string_warnings": 0,
       "missing_character_warnings": 0,
-      "overfull_hbox_count": 288,
-      "underfull_hbox_count": 1474,
-      "forbidden_public_total_theory_scan": "PASS_ALLOWED_PHENOMENON_ONLY",
-      "review_cycles_used": 2,
-      "release_decision": "DEFERRED_TRANSLATION_REVIEW_REQUIRED",
-      "blocking_reason": "Translated technical audit appendices and generated atlas tables still need a dedicated layout/language pass before public release inclusion."
+      "overfull_hbox_count": 0,
+      "underfull_hbox_count": 232,
+      "dedication_visible_on_title_page": true,
+      "forbidden_public_total_theory_scan": "PASS",
+      "public_toe_claim_scan": "PASS",
+      "release_decision": "INCLUDE_IN_1_3_RELEASE",
+      "remaining_note": "Residual underfull warnings are confined to dense translated and atlas material; no hard-warning or overfull blocker remains."
     },
     {
       "language_code": "DE",
       "localized_master": "oc_core_1_3_master_monograph_de.tex",
-      "trial_pdf": "build_oc_core_1_3_de_trial/oc_core_1_3_master_monograph_de.pdf",
+      "release_pdf": "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_DE.pdf",
+      "verified_build_pdf": "build_oc_core_1_3_master_de_release/oc_core_1_3_master_monograph_de.pdf",
       "graph_status": "PLATINUM_GRAPH_ALIGNED",
       "build_exit_status": "PASS",
       "undefined_references": 0,
@@ -41,13 +45,14 @@
       "empty_bibliography_warnings": 0,
       "pdf_string_warnings": 0,
       "missing_character_warnings": 0,
-      "overfull_hbox_count": 261,
-      "underfull_hbox_count": 940,
-      "forbidden_public_total_theory_scan": "PASS_ALLOWED_PHENOMENON_ONLY",
-      "review_cycles_used": 2,
-      "release_decision": "DEFERRED_TRANSLATION_REVIEW_REQUIRED",
-      "blocking_reason": "Translated technical audit appendices and generated atlas tables still need a dedicated layout/language pass before public release inclusion."
+      "overfull_hbox_count": 0,
+      "underfull_hbox_count": 130,
+      "dedication_visible_on_title_page": true,
+      "forbidden_public_total_theory_scan": "PASS",
+      "public_toe_claim_scan": "PASS",
+      "release_decision": "INCLUDE_IN_1_3_RELEASE",
+      "remaining_note": "Residual underfull warnings are confined to dense translated and atlas material; no hard-warning or overfull blocker remains."
     }
   ],
-  "next_action": "Keep RU/DE sources in the repository as graph-complete translation candidates, but do not include RU/DE PDFs in the release-ready outward set until a focused translation layout pass clears the remaining box debt."
+  "next_action": "Refresh outward EN/RU/DE PDFs from the accepted builds and keep Cerberus/release validation as the final publication gate."
 }

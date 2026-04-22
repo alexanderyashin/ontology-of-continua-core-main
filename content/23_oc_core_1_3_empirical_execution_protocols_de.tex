@@ -1,84 +1,26 @@
-% GENERATED_BY: oc_core_monograph_translation_draft_pipeline_v1.py
-% AI_ASSISTED_TRANSLATION_DRAFT: TRUE
-% THEOREM_REVIEW_STATUS: PENDING
-% THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
-% THEOREM_REVIEW_REVIEWER_ID: 
-% THEOREM_REVIEW_AUTHORITY_CLASS: 
-% THEOREM_REVIEWED_AT: 
-% THEOREM_REVIEW_DOSSIER_REF: 
-% SOURCE_LANGUAGE: EN
-% TARGET_LANGUAGE: DE
-% SOURCE_EN_REF: content/23_oc_core_1_3_empirical_execution_protocols.tex
-\section{Hybrid-Escalation Evidence Bar and Execution Protocols}
+\section{Hybrid-Escalation Evidence Bar und Ausführungsprotokolle}
+\label{sec:oc-core-1-3-empirical-execution-protocols-de}
 
-The present release does not merely say that empirical closure is missing; it declares the exact operational protocol required for lawful promotion.
-The evidence bar is \emph{hybrid escalation}: pinned official or open primary data are required first, and any remaining benchmark gap escalates to an institute-run measurement or observation wave instead of being Artikeled over rhetorically.
+Dieses Kapitel stellt den empirischen execution bar des Releases dar. Es
+benennt source authorities, held-out designs, benchmark policies, tolerances
+und falsifier conditions, mit denen promovierte Pakete rechtmäßig getestet
+werden. Es ersetzt weder theorem spine noch dataset inventory; es zeigt, wie
+die Pakete tatsächlich herausgefordert werden und wo bounded empirical support
+von rhetorischer Überdehnung getrennt bleibt.
 
-\subsection{Global evidence bar}
-For empirical lanes the default statistical bar is now fixed in machine-readable form: minimum cases `30`, coverage ratio `1.0`, mean absolute normalized error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, tail breaches `0`, severe residual `1.5 sigma`, and critical residual `2.5 sigma`.
+Die wissenschaftliche Autorität dieses evidence bar bleibt der canonical
+science SPOT \occode{OC_CORE_1_3_SCIENCE_SPOT}, materialisiert in
+\occode{releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json}.
+Die folgende generated surface ist absichtlich für EN/RU/DE gemeinsam: Sie
+bewahrt numeric thresholds, replay commands, theorem refs und verdicts als
+eine einheitliche prüfbare Publikationsoberfläche.
 
-These quantities are not decorative. They are the minimum machine-checked bar that keeps broad explanatory ambition from leaking into positive outward science without replayable numerical support.
+\begingroup
+\small
+\input{content/generated/oc_core_1_3_empirical_execution_protocols_generated.tex}
+\endgroup
 
-\subsection{Execution protocol matrix}
-\begin{longtable}{p{0.14\textwidth}p{0.13\textwidth}p{0.14\textwidth}p{0.18\textwidth}p{0.15\textwidth}p{0.18\textwidth}}
-\toprule
-Domain & Wave & Evidence bar & Held-out policy & Replay & Institute-run wave \\
-\midrule
-\endfirsthead
-\toprule
-Domain & Wave & Evidence bar & Held-out policy & Replay & Institute-run wave \\
-\midrule
-\endhead
-Mathematics & WAVE\_0\_ANCHOR & HYBRID\_ESCALATION & DETERMINISTIC\_COUNTEREXAMPLE\_AND\_TRACE\_REPLAY & logion/k7/spe/orchestrator/science/run\_claim\_simulations\_v1.py & not required \\
-Physics & WAVE\_1\_PHYSICS & HYBRID\_ESCALATION & LEAVE\_ONE\_BENCHMARK\_FAMILY\_OUT & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id PHYSICS & INSTITUTE\_RUN::PHYSICS::WAVE\_1A \\
-Chemistry & WAVE\_2\_CHEMISTRY & HYBRID\_ESCALATION & HOLD\_OUT\_ONE\_COMPOUND\_OR\_REACTION\_CLASS & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id CHEMISTRY & INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A \\
-Biology & WAVE\_3\_BIOLOGY & HYBRID\_ESCALATION & RESERVE\_ONE\_DATASET\_FAMILY\_PER\_SIGNATURE\_CLASS & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id BIOLOGY & INSTITUTE\_RUN::BIOLOGY::WAVE\_3A \\
-Systems / Civilizational projection & WAVE\_4\_SYSTEMS & HYBRID\_ESCALATION & HELD\_OUT\_INTERVAL\_REPLAY\_WITH\_TURNING\_POINT\_CHECKS & logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id SYSTEMS\_CIVILIZATIONAL\_PROJECTION & INSTITUTE\_RUN::SYSTEMS::WAVE\_4A \\
-\bottomrule
-\end{longtable}
-
-\subsection{Per-domain escalation doctrine}
-\paragraph{Mathematics.}
-Protocol id: `OC13::EXECUTION::MATHEMATICS::ANCHOR\_REPLAY`. Evidence bar: `HYBRID\_ESCALATION`. Current execution readiness: `PASS`.
-Pinned route families: Clay Mathematics Institute (OFFICIAL\_PROBLEM\_CATALOG); American Institute of Mathematics (OFFICIAL\_PROBLEM\_CATALOG).
-Held-out policy: `DETERMINISTIC\_COUNTEREXAMPLE\_AND\_TRACE\_REPLAY` with minimum cases `31`.
-Quantitative gate: coverage `N/A`, mean abs error at most `N/A sigma`, `p95` at most `N/A sigma`, `max` at most `N/A sigma`, Brier at most `N/A`, ECE at most `N/A`, tail breaches `N/A`.
-Replay harness: `logion/k7/spe/orchestrator/science/run\_claim\_simulations\_v1.py` with deterministic replay required `True`.
-Institute-run trigger: `ONLY\_IF\_DETERMINISTIC\_REPLAY\_BREAKS`. Measurement wave: `NONE`.
-Escalation plan: Expand the exact-question corpus instead of broadening claims..
-
-\paragraph{Physics.}
-Protocol id: `OC13::EXECUTION::PHYSICS::CONSTANTS\_SPECTRA\_TRANSPORT`. Evidence bar: `HYBRID\_ESCALATION`. Current execution readiness: `PARTIAL\_OFFICIAL\_EXECUTION\_COMPLETE\_NOT\_PASS\_ELIGIBLE`.
-Pinned route families: NIST (OFFICIAL\_CONSTANTS\_PORTAL); NIST (OFFICIAL\_SPECTRA\_DATABASE); U.S. Department of Energy Office of Science (OFFICIAL\_CHALLENGE\_PROGRAM).
-Held-out policy: `LEAVE\_ONE\_BENCHMARK\_FAMILY\_OUT` with minimum cases `30`.
-Quantitative gate: coverage `1.0`, mean abs error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `N/A`, ECE at most `N/A`, tail breaches `0`.
-Replay harness: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id PHYSICS` with deterministic replay required `True`.
-Institute-run trigger: `OPEN\_DATA\_COVERAGE\_LT\_1\_0\_OR\_HELD\_OUT\_CASES\_LT\_30\_OR\_RESIDUAL\_BREACH\_PERSISTS`. Measurement wave: `INSTITUTE\_RUN::PHYSICS::WAVE\_1A`.
-Escalation plan: Acquire partner or institute-run measurements for the missing observable family and rerun the held-out replay packet without widening scope..
-
-\paragraph{Chemistry.}
-Protocol id: `OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY\_SPECTRA\_KINETICS`. Evidence bar: `HYBRID\_ESCALATION`. Current execution readiness: `PARTIAL\_OFFICIAL\_EXECUTION\_COMPLETE\_NOT\_PASS\_ELIGIBLE`.
-Pinned route families: NIST (OFFICIAL\_CHEMISTRY\_REFERENCE); U.S. Department of Energy Office of Science (OFFICIAL\_CHALLENGE\_PROGRAM).
-Held-out policy: `HOLD\_OUT\_ONE\_COMPOUND\_OR\_REACTION\_CLASS` with minimum cases `30`.
-Quantitative gate: coverage `1.0`, mean abs error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `N/A`, ECE at most `N/A`, tail breaches `0`.
-Replay harness: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id CHEMISTRY` with deterministic replay required `True`.
-Institute-run trigger: `OPEN\_DATA\_COVERAGE\_LT\_1\_0\_OR\_HELD\_OUT\_CASES\_LT\_30\_OR\_RESIDUAL\_BREACH\_PERSISTS`. Measurement wave: `INSTITUTE\_RUN::CHEMISTRY::WAVE\_2A`.
-Escalation plan: Acquire targeted laboratory or partner measurements for unsupported thermochemical, spectral, or kinetic families before any positive promotion..
-
-\paragraph{Biology.}
-Protocol id: `OC13::EXECUTION::BIOLOGY::STATE\_TRANSITIONS\_AND\_RESPONSE\_SIGNATURES`. Evidence bar: `HYBRID\_ESCALATION`. Current execution readiness: `PASS`.
-Pinned route families: NCBI GEO (OFFICIAL\_OPEN\_DATA\_HUB).
-Held-out policy: `RESERVE\_ONE\_DATASET\_FAMILY\_PER\_SIGNATURE\_CLASS` with minimum cases `30`.
-Quantitative gate: coverage `1.0`, mean abs error at most `1.0 sigma`, `p95` at most `2.5 sigma`, `max` at most `5.0 sigma`, Brier at most `N/A`, ECE at most `0.05`, tail breaches `0`.
-Replay harness: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id BIOLOGY` with deterministic replay required `True`.
-Institute-run trigger: `OPEN\_DATA\_COVERAGE\_LT\_1\_0\_OR\_HELD\_OUT\_CASES\_LT\_30\_OR\_SIGNATURE\_CLASS\_UNDERCONSTRAINED`. Measurement wave: `INSTITUTE\_RUN::BIOLOGY::WAVE\_3A`.
-Escalation plan: Run a bounded institute observation or assay campaign only for the explicitly declared biological lane; no widening of biological scope is allowed..
-
-\paragraph{Systems / Civilizational projection.}
-Protocol id: `OC13::EXECUTION::SYSTEMS::MACRO\_TRAJECTORIES\_AND\_REGIME\_SHIFTS`. Evidence bar: `HYBRID\_ESCALATION`. Current execution readiness: `PARTIAL\_OFFICIAL\_EXECUTION\_COMPLETE\_NOT\_PASS\_ELIGIBLE`.
-Pinned route families: World Bank (OFFICIAL\_OPEN\_DATA\_API\_DOCS); U.S. Department of Energy Office of Science (OFFICIAL\_CHALLENGE\_PROGRAM).
-Held-out policy: `HELD\_OUT\_INTERVAL\_REPLAY\_WITH\_TURNING\_POINT\_CHECKS` with minimum cases `30`.
-Quantitative gate: coverage `1.0`, mean abs error at most `N/A sigma`, `p95` at most `N/A sigma`, `max` at most `N/A sigma`, Brier at most `0.08`, ECE at most `0.05`, tail breaches `0`.
-Replay harness: `logion/k7/spe/orchestrator/science/run\_oc\_core\_domain\_hard\_closure\_replay\_v1.py --domain-id SYSTEMS\_CIVILIZATIONAL\_PROJECTION` with deterministic replay required `True`.
-Institute-run trigger: `OPEN\_DATA\_COVERAGE\_LT\_1\_0\_OR\_HELD\_OUT\_INTERVAL\_COUNT\_LT\_30\_OR\_TURNING\_POINT\_BREACH\_PERSISTS`. Measurement wave: `INSTITUTE\_RUN::SYSTEMS::WAVE\_4A`.
-Escalation plan: Acquire partner or institute-run observation programs for the missing macro-process lane and rerun the held-out interval evaluation without broadening civilizational claims..
+\paragraph{Übergang zur proof machinery.}
+Nach Fixierung des empirischen Bars schließt das nächste Kapitel die Triade:
+revision law, proof machinery, competition discipline und compression rule
+halten den öffentlichen Text synchron zum science verdict.
