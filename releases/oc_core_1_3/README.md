@@ -19,7 +19,7 @@ For public citation, use the release metadata in the bundle-local
 the bundle is deposited. Until deposition, use this provisional citation:
 
 - Author: Alexander Yashin.
-- Title: *Ontology of Continua --- Core v1.3.0*.
+- Title: *Ontology of Continua — Core v1.3.0*.
 - Repository: [`alexanderyashin/ontology-of-continua-core-main`](https://github.com/alexanderyashin/ontology-of-continua-core-main).
 - Release date: April 21, 2026.
 - Baseline witness commit: `7ceb46acfbcb4e83d6568fea3c2530bd9eb95719`.

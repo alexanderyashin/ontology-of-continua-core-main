@@ -62,7 +62,8 @@ the science appendices.
           \left\{i\in I_{\Theta}(K;M_x)\,\middle|\,
           \begin{array}{l}
           \exists s\in\overline{\Omega(K)}^{\,M_x}: f_i(s)=0,\\
-          \text{and every neighbourhood }U\ni s\text{ contains a point }u\\
+          \text{and every neighbourhood }U\ni s\text{ in }
+          \overline{\Omega(K)}^{\,M_x}\text{ contains a point }u\in U\\
           \text{with } f_j(u)\le0\text{ for all }j\ne i\text{ but }f_i(u)>0
           \end{array}\right\}.
         \]
@@ -70,21 +71,18 @@ the science appendices.
         removing that constraint would locally enlarge the admissible side.
         The same residual convention is used in the model and boundary
         chapters.
-  \item[\(\partial\Omega(K)\)] Boundary shorthand for the admissible region
-        only when the ambient space \(M_x\) is fixed, the active residual
-        thresholds are continuous on the ambient closure, and the admissible
-        set is the intersection of their closed sublevel regions:
+  \item[\(\partial\Omega(K)\)] Topological boundary shorthand for the
+        admissible region, read relative to the declared ambient space:
         \[
           \partial\Omega(K)=
-          \partial_{M_x}\Omega(K)=\Sigma_{\Omega}(K;M_x).
+          \partial_{M_x}\Omega(K).
         \]
-        No redundant saturated constraint is counted as boundary unless the
-        local section names it. Sections~\ref{sec:boundary-extended}
-        and~\ref{sec:thresholds-extended} fix the boundary and threshold
-        assumptions used by this shorthand. Without those ambient and
-        regularity hypotheses, use \(\Sigma_{\Omega}(K;M_x)\) and read the
-        statement as threshold saturation rather than as a topological
-        boundary claim.
+        The saturation locus \(\Sigma_{\Omega}(K;M_x)\) is a threshold-side
+        witness, not a synonym for this boundary. A local section may identify
+        the two only after it states the required regularity and
+        constraint-qualification assumptions; otherwise \(\Sigma_{\Omega}\)
+        records threshold saturation and \(\partial\Omega\) records the
+        topological boundary.
   \item[\(\partial\Omega(K,t)\)] Time-indexed admissible boundary of \(K\)
         at time \(t\), equivalently \(\partial_{M_x(t)}\Omega(K,t)\) under
         the threshold family active at that slice when the ambient space varies.
