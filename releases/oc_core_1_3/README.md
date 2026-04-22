@@ -38,7 +38,7 @@ Current checked-in gate state before the final release run is
 - Snapshot source:
   [`editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json`](editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json).
 - Cerberus scope: the scripted release-review authority
-  `OC_CORE_1_3_ENGLISH_FLAGSHIP_RELEASE_PACKAGE`.
+  `OC_CORE_1_3_MULTILINGUAL_FLAGSHIP_RELEASE_PACKAGE`.
 - Current inline status: this README is a pointer to the checked-in Cerberus
   surfaces; publication readiness is not claimed unless the certificate itself
   reports `status = PASS` and `llm_gate_status = PASS`.
