@@ -24,10 +24,12 @@ the science appendices.
   \item[\(K(t)\)] Time-sliced continuum object obtained from a fixed continuum
         \(K\) at local time \(t\). If a chapter needs the internal state
         separately, it names that state as \(s(t)\in\Omega(K,t)\).
-  \item[\(\tau(K)\), \(\tau\)] Time-order or temporal-structure component
-        attached to \(K\) when the level has temporal dynamics. If the level
-        is atemporal, \(\tau\) is absent or declared as the trivial order by
-        the local construction.
+  \item[\(\tau_{\mathrm{time}}(K)\)] Time-order or temporal-structure
+        component attached to \(K\) when the level has temporal dynamics. If
+        the level is atemporal, this component is absent or declared as the
+        trivial order by the local construction. Bare \(\tau\) may still name
+        a topology in local \(K_1\) constructions or a temporal constant when
+        the surrounding section declares that namespace explicitly.
   \item[\(M_x\)] Embedding space for level \(K_x\).
   \item[\(M_x(t)\)] Time-indexed embedding space for \(K_x\) when the
         surrounding chapter allows the environment itself to vary.
@@ -282,7 +284,10 @@ generated K-level archive.
         under the locally declared admissible composition, restriction, and
         threshold-respecting transport operations. Equivalently it is the
         intersection of all locally declared structurally closed subobjects
-        that contain \(A\).
+        that contain \(A\). This notation is used only in contexts where that
+        local closed-subobject family is nonempty and stable under arbitrary
+        intersections; otherwise the section must declare a replacement span
+        operation.
   \item[\(\mathrm{span}_{\mathrm{lin}}(A)\)] Ordinary linear span of a set of
         axes inside a local linearization. It is used only when a section
         states an explicit linear approximation.
