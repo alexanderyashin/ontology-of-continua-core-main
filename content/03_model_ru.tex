@@ -1,373 +1,487 @@
-% GENERATED_BY: oc_core_monograph_translation_draft_pipeline_v1.py
-% AI_ASSISTED_TRANSLATION_DRAFT: TRUE
-% THEOREM_REVIEW_STATUS: PENDING
-% THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
-% THEOREM_REVIEW_REVIEWER_ID: 
-% THEOREM_REVIEW_AUTHORITY_CLASS: 
-% THEOREM_REVIEWED_AT: 
-% THEOREM_REVIEW_DOSSIER_REF: 
-% SOURCE_LANGUAGE: EN
-% TARGET_LANGUAGE: RU
-% SOURCE_EN_REF: content/03_model.tex
 % FILE: content/03_model.tex
 
-\section{Ontological Structure of the Model}
+\section{Онтологическая структура модели}
 \label{sec:model}
 
-This section presents the formal core of the Ontology of Continua (OC).
-It consolidates the approved components from earlier internal runs into a compact and vertically consistent formulation suitable for Core~1.3.
-The material below is canonical: it restates, in unified notation, the axioms, definitions and structural theorems that have already been established, without introducing new hypotheses.
+Данный раздел излагает формальное ядро Ontology of Continua (OC). Он предоставляет читателю
+унифицированную нотацию, аксиомы, определения и структурные ограничения, необходимые для
+последующих глав о замыкании, синтезе и практическом применении.
 
-OC describes continua across multiple scientific domains using a single structural language built from
-axes, potentials, flows, thresholds, boundaries, cycles, a measure of continuumness, and their embedding into surrounding meta-spaces.
-All definitions in this section are domain–independent and apply equally to physical, chemical, biological, cognitive, social and meta–theoretical systems.
+OC описывает континуумы в различных научных областях через единый структурный язык.
+Этот язык построен из осей, потенциалов, потоков, порогов, границ, циклов и меры
+континуумности. Каждый континуум также вложен в окружающее метапространство.
+Все определения в этом разделе формально независимы от предметной области на уровне
+фактического словаря. В последующих разделах главы замыкания и верификации утверждения
+классифицируются по статусу доказательности и эмпирической поддержке; данный раздел
+задал общий языковой каркас для таких проверок.
 
-\subsection{Axiomatic foundation: Level \texorpdfstring{$K_0$}{K0}}
+\subsection{Аксоматический фундамент: уровень \texorpdfstring{$K_0$}{K\_0}}
 
-Level \(K_0\) is a purely structural substrate.
-It is not a physical space, has no time, no energy, no geometry and no dynamics.
-Its role is to provide the minimal conditions under which any higher–level continuum is logically possible.
+Уровень \(K_0\) — это чисто структурная подоснова.
+Он не является физическим пространством: на нём нет времени, энергии, геометрии или динамики.
+Его роль — задавать минимальные условия, при которых любой континуум более высокого уровня
+логически возможен.
 
-\paragraph{Data of \texorpdfstring{\(K_0\)}{K0}.}
-\(K_0\) is specified by a triple
+\paragraph{Спецификация \texorpdfstring{\(K_0\)}{K\_0}}
+Континуум \(K_0\) задаётся тройкой
 \[
     K_0 = (S,\Delta,\mathcal{C}),
 \]
-where:
+где:
 \begin{itemize}
-    \item \(S\) is a set of states;
-    \item \(\Delta : S \times S \to \mathbb{R}_{\ge 0}\) is a structural difference function;
-    \item \(\mathcal{C}\) is a structural relation (or family of relations) preserving distinguishability.
+    \item \(S\) — множество состояний;
+    \item \(\Delta : S \times S \to \mathbb{R}_{\ge 0}\) — структурная функция различий;
+    \item \(\mathcal{C}\) — структурное отношение (или семейство отношений), сохраняющее различимость.
 \end{itemize}
-There is no time parameter and no evolution operator at this level.
+На этом уровне отсутствуют параметр времени и оператор эволюции.
 
-\paragraph{Axiom 0.1 (Difference and distinguishability).}
-For all \(s_1,s_2 \in S\),
+\paragraph{Аксиома 0.1 (различимость).}
+Для любых \(s_1,s_2 \in S\):
 \[
     \Delta(s_1,s_2) = 0 \;\Rightarrow\; s_1 = s_2.
 \]
-Nonzero structural difference is the minimal condition for distinguishability.
-A continuum cannot exist without at least two distinguishable states.
+Ненулевое структурное различие — минимальное условие различимости.
+Континуум не может существовать без по крайней мере двух различимых состояний.
 
-\paragraph{Axiom 0.2 (Nontrivial threshold \texorpdfstring{$\Theta_0$}{Theta0}).}
-There exists \(\varepsilon > 0\) such that for any distinguishable pair
+\paragraph{Аксиома 0.2 (нетривиальный порог \texorpdfstring{$\Theta_0$}{Theta\_0}).}
+Существует \(\varepsilon > 0\), такое что
 \[
-    s_1 \neq s_2 \;\Rightarrow\; \Delta(s_1,s_2) \ge \varepsilon.
+    \forall s_1,s_2\in S,\qquad
+    s_1 \neq s_2 \Rightarrow \Delta(s_1,s_2) \ge \varepsilon.
 \]
-The value \(\Theta_0 = \varepsilon\) acts as a minimal structural threshold: differences smaller than \(\varepsilon\) are not resolved at the level of \(K_0\).
+Значение \(\Theta_0 = \varepsilon\) играет роль минимального структурного порога: различия меньше \(\varepsilon\) на уровне \(K_0\) не разрешаются.
 
-\paragraph{Axiom 0.3 (Logical substrate).}
-\(K_0\) carries no time parameter and no dynamical operator.
-It does not evolve and does not generate higher levels by itself.
-It specifies only logical conditions on distinguishability and the existence of nontrivial differences.
-All dynamics and all notions of energy, geometry and causality belong to levels \(K_1\) and above.
+\paragraph{Аксиома 0.3 (логическая подоснова).}
+\(K_0\) не содержит параметра времени и не обладает оператором динамики.
+Он не эволюционирует и сам по себе не порождает уровни выше.
+Он задаёт лишь логические условия различимости и существования нетривиальных различий.
+Все динамические понятия, а также все представления об энергии, геометрии и причинности
+относятся к уровням \(K_1\) и выше.
 
-In particular, no operator defined on \(K_0\) can increase dimension:
-differences at level \(K_0\) are always expressed along the existing structural axis of distinguishability.
-The dimensionality associated with \(K_0\) is fixed by the embedding meta–space \(M_0\).
+В частности, никакой оператор, определённый на \(K_0\), не может увеличивать размерность:
+различия на уровне \(K_0\) всегда выражаются вдоль существующей структурной оси различимости.
+Размерность, связанная с \(K_0\), фиксируется вложенным метапространством \(M_0\).
+Здесь \(M_0\) обозначает минимальное метапространство, в котором чисто структурная
+подоснова может быть оценена для последующего возникновения \(K_0\to K_1\); это не
+физический контейнер и не динамическая среда.
 
-\subsection{Construction of Level \texorpdfstring{$K_1$}{K1}}
+\subsection{Построение уровня \texorpdfstring{$K_1$}{K\_1}}
 
-Level \(K_1\) is the simplest genuine continuum: it introduces time, a one–dimensional axis and basic geometric structure.
+Уровень \(K_1\) — это наиболее простой подлинный континуум: он вводит время,
+одномерную ось и базовую геометрическую структуру.
 
-\paragraph{Data of \texorpdfstring{\(K_1\)}{K1}.}
-The continuum \(K_1\) is defined by:
+\paragraph{Спецификация \texorpdfstring{\(K_1\)}{K\_1}}
+Континуум \(K_1\) задаётся как
 \[
-    K_1 = \big(\Omega_1,A_1,P_1(t),J_1(t),\Theta_1,\partial\Omega_1,C_1,k_1(t)\big),
+    K_1 = \big(X_1,\tau_1,\Omega_1,A_1,P_1(t),J_1(t),\Theta_1,\partial\Omega_1,C_1,k_1(t)\big),
 \]
-where:
+где:
 \begin{itemize}
-    \item \(A_1\) is a single axis (a one–dimensional coordinate);
-    \item \((X,\tau)\) is a topological space obtained from the structural data of \(K_0\), typically an interval \(X = (a,b)\);
-    \item \(\Omega_1\) is a space of admissible configurations on \(X\), for instance
-          \(\Omega_1 = C^0(T,H^1(X,V)) \cap C^1(T,L^2(X,V))\) with appropriate regularity conditions;
-    \item \(P_1(t)\) is an energy–like potential functional on \(\Omega_1\);
-    \item \(J_1(t)\) are flows derived from the variation of \(P_1\);
-    \item \(\Theta_1\) encodes minimal conditions for classical stability;
-    \item \(\partial\Omega_1\) is the boundary where stability thresholds saturate;
-    \item \(C_1\) is the set of classical cycles (for example, periodic orbits);
-    \item \(k_1(t)\) measures one–dimensional continuumness according to the general definition below.
+    \item \(A_1\) — единичная ось (одномерная координата);
+    \item \((X_1,\tau_1)\) — топологическое пространство, получаемое из структурных данных \(K_0\), обычно интервал \(X_1 = (a,b)\);
+    \item \(\Omega_1\) — пространство допустимых конфигураций на \(X_1\) с подходящими условиями регулярности.
+          В данном временно-зависимом аналитическом примере
+          \[
+              \Omega_1 = C^0(I,H^1(X_1,V_1)) \cap C^1(I,L^2(X_1,V_1)),
+          \]
+          где \(I\) — временной интервал, а \(V_1\) — гильбертово пространство,
+          используемое в примере; частный случай с конечной размерностью —
+          конечномерное векторное пространство, применяемое когда локальная модель
+          имеет конечное число степеней свободы.
+    \item \(P_1(t)\) — функционал, аналогичный потенциальной энергии, на \(\Omega_1\);
+    \item \(J_1(t)\) — потоки, получаемые как вариации \(P_1(t)\);
+    \item \(\Theta_1\) кодирует минимальные условия для классической устойчивости;
+    \item \(\partial\Omega_1\) — граница, где насыщаются пороги устойчивости;
+    \item \(C_1\) — множество классических циклов (например, периодических орбит);
+    \item \(k_1(t)\) измеряет одномерную континуумность согласно общему определению ниже.
 \end{itemize}
 
-\paragraph{Transition \texorpdfstring{$\Psi_{0\to 1}$}{Psi 0→1}.}
-The passage \(K_0 \to K_1\) is generated by an operator
+\paragraph{Переход \texorpdfstring{$\Psi_{0\to 1}$}{Psi\_0\_to\_1}}
+Переход \(K_0 \to K_1\) задаётся оператором
 \[
-    \Psi_{0\to 1} : (S,\Delta,\mathcal{C}) \mapsto (X,\tau,A_1,\Omega_1,\Theta_1),
+    \Psi_{0\to 1} : (S,\Delta,\mathcal{C}) \mapsto (X_1,\tau_1,A_1,\Omega_1,\Theta_1),
 \]
-which:
+который строит скелетный каркас \(K_1\): энергетический функционал,
+семейство потоков, граница, циклы и скаляр континуумности задаются далее в
+спецификациях уровня \(K_1\), а не самим этим первым переходом.
+Конструкция каркаса включает:
 \begin{itemize}
-    \item identifies a family of structurally compatible states in \(S\);
-    \item equips them with an order and topology \((X,\tau)\);
-    \item defines the first axis \(A_1\);
-    \item constructs the admissible configuration space \(\Omega_1\);
-    \item induces classical thresholds \(\Theta_1\).
+    \item выделение семейства структурно совместимых состояний в \(S\);
+    \item наделение их порядком и топологией \((X_1,\tau_1)\);
+    \item задание первой оси \(A_1\);
+    \item построение допустимого конфигурационного пространства \(\Omega_1\);
+    \item индукцию классических порогов \(\Theta_1\).
 \end{itemize}
-This is the first instance of dimensional emergence: a continuous axis appears that cannot be represented within the purely structural substrate of \(K_0\).
+Это первый случай размерностного возникновения: появляется непрерывная ось, которую нельзя
+представить внутри чисто структурной подосновы \(K_0\).
 
-\subsection{General definition of a continuum}
+\subsection{Общее определение континуума}
 
-For any level \(K\) in the hierarchy, a continuum is defined as the tuple
+Для любого уровня \(K\) в иерархии континуум задаётся кортежем
 \[
     K = \big(\Omega(K), A(K), P(t), J(t), \Theta(K), \partial\Omega(K), C(K), k(K,t)\big),
 \]
-where:
+где:
 \begin{itemize}
-    \item \(\Omega(K)\) is a nonempty set of admissible states;
-    \item \(A(K) = \{A_1,\dots,A_n\}\) is a finite set of axes of incompatible differences;
-    \item \(P(t)\) is the vector of potentials on \(\Omega(K)\);
-    \item \(J(t)\) is the set of flows transforming potentials and states;
-    \item \(\Theta(K) = \{\Theta_k\}\) is the set of threshold functions;
-    \item \(\partial\Omega(K)\) is the boundary of admissible states;
-    \item \(C(K)\) is the family of structurally stable cycles;
-    \item \(k(K,t)\) is the measure of continuumness.
+    \item \(\Omega(K)\) — непустое множество допустимых состояний;
+    \item \(A(K) = \{A_1,\dots,A_n\}\) — конечное множество осей несовместимых различий;
+    \item \(P(t)\) — вектор потенциалов на \(\Omega(K)\);
+    \item \(J(t)\) — агрегированный вектор потенциалов и потоков; обновление состояния
+          задаётся оператором эволюции \(E\);
+    \item \(\Theta(K) = \{\Theta_i\}\) — множество пороговых функций;
+    \item \(\partial\Omega(K)\) — граница допустимых состояний;
+    \item \(C(K)\) — семейство структурно устойчивых циклов;
+    \item \(k(K,t)\) — мера континуумности.
 \end{itemize}
 
-Every continuum is assumed to be embedded into a surrounding meta-space \(M\) such that
+Каждый континуум предполагается вложенным в окружающее метапространство \(M\):
 \[
     \Omega(K)\subseteq\Omega(M), \qquad A(K)\subseteq A(M).
 \]
-The meta-space provides additional admissible states and axes that can host future dimensional extensions of \(K\).
+Метапространство предоставляет дополнительные допустимые состояния и оси, способные
+обеспечить будущие размерностные расширения \(K\).
 
-\paragraph{State space and boundary.}
-Thresholds are represented as functions \(f_k : \overline{\Omega(K)} \to \mathbb{R}\) with
+\paragraph{Пространство состояний и граница}
+Пороги задаются функциями \(f_i : \overline{\Omega(K)} \to \mathbb{R}\) с условием
 \[
-    f_k(s) \le 0 \quad\text{for all } s \in \Omega(K),
+    f_i(s) \le 0 \quad\text{для всех } s \in \Omega(K),
 \]
-and the boundary is defined as
+а граница определяется как
 \[
-    \partial\Omega(K) = \{ s \in \overline{\Omega(K)} \mid \exists\, k: f_k(s) = 0 \}.
+    \partial\Omega(K) = \{ s \in \overline{\Omega(K)} \mid \exists\, i: f_i(s) = 0 \}.
 \]
-This definition requires no metric and applies equally to geometric, topological, energetic, informational, or logical continua.
+Такое определение не требует метрики и одинаково применимо к геометрическим,
+топологическим, энергетическим, информационным и логическим континуумам.
 
-The boundary is dynamic and evolves under a boundary–evolution operator
+Граница динамична. Ниже показано правило обновления, а не производная
+a на объекте многозначной величины:
 \[
-    \frac{d}{dt}\,\partial\Omega(K) = R\big(\partial\Omega(K),P(t),J(t),\Theta(K)\big),
+    \partial\Omega(K,t+dt) =
+    R\big(\partial\Omega(K,t),P(t),J(t),\Theta(K)\big),
 \]
-which can contract, expand or bifurcate \(\Omega(K)\) during birth, life and death events.
+которое может сжимать, расширять или ветвить \(\Omega(K)\) в ходе рождения, жизни и смерти.
 
-\subsection{Taxonomy of thresholds}
+\subsection{Таксономия порогов}
 
-Each continuum has a structured set of thresholds \(\Theta(K)\), organized into the following types:
+Каждый континуум обладает структурированным множеством порогов \(\Theta(K)\),
+классифицируемых по следующим типам:
 
 \begin{itemize}
-    \item \textbf{Existence thresholds} \(\Theta_{\mathrm{exist}}\): conditions under which \(\Omega(K)\neq\emptyset\).
-    \item \textbf{Stability thresholds} \(\Theta_{\mathrm{stab}}\): conditions for bounded dynamics and non–divergent flows.
-    \item \textbf{Critical thresholds} \(\Theta_{\mathrm{crit}}\): hypersurfaces where qualitative changes (phase transitions, bifurcations) occur.
-    \item \textbf{Dimensional thresholds} \(\Theta_{\mathrm{dim}}\): conditions under which new axes and higher–dimensional continua can emerge.
-    \item \textbf{Death thresholds} \(\Theta_{\mathrm{death}}\): structural limits where no admissible states remain and \(\Omega(K)\) collapses.
+    \item \textbf{Пороги существования} \(\Theta_{\mathrm{exist}}\): условия, при которых \(\Omega(K)\neq\emptyset\).
+    \item \textbf{Пороги устойчивости} \(\Theta_{\mathrm{stab}}\): условия для ограниченной динамики и недивергентных потоков.
+    \item \textbf{Критические пороги} \(\Theta_{\mathrm{crit}}\): гиперповерхности, на которых происходят качественные изменения (фазовые переходы, бифуркации).
+    \item \textbf{Размерностные пороги} \(\Theta_{\mathrm{dim}}\): условия, при которых могут возникать новые оси и более высокоразмерные континуумы.
+    \item \textbf{Пороги коллапса} \(\Theta_{\mathrm{death}}\): структурные пределы, при которых не остаётся допустимых состояний и \(\Omega(K)\) коллапсирует.
 \end{itemize}
 
-The full threshold landscape of a continuum is thus a collection of inequalities:
+Полный ландшафт порогов континуума представляет собой набор неравенств:
 \[
-    f_{k}^{(\mathrm{exist})}(s) \le 0,\quad
-    f_{k}^{(\mathrm{stab})}(s) \le 0,\quad
-    f_{k}^{(\mathrm{crit})}(s) \le 0,\quad
-    f_{k}^{(\mathrm{dim})}(s) \le 0,\quad
-    f_{k}^{(\mathrm{death})}(s) \le 0,
+    f_{i}^{(\mathrm{exist})}(s) \le 0,\quad
+    f_{i}^{(\mathrm{stab})}(s) \le 0,\quad
+    f_{i}^{(\mathrm{crit})}(s) \le 0,\quad
+    f_{i}^{(\mathrm{dim})}(s) \le 0,\quad
+    f_{i}^{(\mathrm{death})}(s) \le 0,
 \]
-with corresponding boundary components given by the equalities.
+а соответствующие компоненты границы задаются равенствами.
 
-\subsection{Potentials, flows and structural tension}
+\subsection{Потенциалы, потоки и структурное натяжение}
 
-Potentials \(P(t)\) encode the internal configuration of constraints and driving forces within a continuum.
-They may correspond to energy landscapes, chemical concentrations, membrane gradients, representational or informational structures, or institutional and normative pressures.
+Потенциалы \(P(t)\) кодируют внутреннюю конфигурацию ограничений и движущих
+сил внутри континуума.
+Они могут соответствовать энергетическим ландшафтам, химическим концентрациям,
+мембранным градиентам, репрезентационным или информационным структурам, а также
+институциональному и нормативному давлению.
 
-Flows \(J(t)\) describe the rate of change of potentials and state variables:
+Агрегированный потоковый вектор \(J(t)\) описывает скорость изменения потенциалов:
 \[
     \frac{dP}{dt} = J(t),
 \]
-with \(J(t)\) decomposed into structurally distinct classes:
+а \(J(t)\) раскладывается на структурно различимые компоненты:
 \begin{itemize}
-    \item \textbf{supporting flows} \(J_{\mathrm{support}}\), which maintain cycles and stabilise \(k(K,t)\);
-    \item \textbf{critical flows} \(J_{\mathrm{critical}}\), which move the system towards or across critical thresholds \(\Theta_{\mathrm{crit}}\) and \(\Theta_{\mathrm{dim}}\);
-    \item \textbf{destructive flows} \(J_{\mathrm{kill}}\), which push the system across \(\Theta_{\mathrm{death}}\) and reduce \(k(K,t)\).
+    \item \textbf{поддерживающие потоки} \(J_{\mathrm{support}}\), которые поддерживают циклы и стабилизируют \(k(K,t)\);
+    \item \textbf{критические потоки} \(J_{\mathrm{critical}}\), которые направляют систему к
+          порогам \(\Theta_{\mathrm{crit}}\) и \(\Theta_{\mathrm{dim}}\) или через них;
+    \item \textbf{разрушающие потоки} \(J_{\mathrm{kill}}\), которые продвигают систему через
+          \(\Theta_{\mathrm{death}}\) и уменьшают \(k(K,t)\).
 \end{itemize}
 
-Structural tension \(T(K,t)\) is a functional of potentials, axes and gradients (schematically \(T=T(P,A,\nabla P)\)).
-It measures how strongly the current configuration stresses the threshold landscape.
-Dimensional transitions occur when \(T(K,t)\) exceeds \(\Theta_{\mathrm{dim}}(K)\); collapse occurs when destructive flows combined with tension drive the system across \(\Theta_{\mathrm{death}}(K)\).
+Структурное натяжение \(T(K,t)\) — это функционал потенциалов, осей и градиентов
+(схематично \(T=T(P,A,\nabla P)\)).
+Оно измеряет степень «натяжения» текущей конфигурации относительно ландшафта порогов.
+Размерностные переходы происходят при \(T(K,t) > \Theta_{\mathrm{dim}}(K)\);
+коллапс наступает, когда разрушающие потоки совместно со структурным натяжением
+приводят систему за пределы \(\Theta_{\mathrm{death}}(K)\).
 
-\subsection{Cycles and continuumness}
+\subsection{Циклы и континуумность}
 
-Cycles \(C(K)\) are closed trajectories in \(\Omega(K)\) that remain at a finite distance from the boundary and preserve continuumness.
-At a structural level, they satisfy
+Циклы \(C(K)\) — замкнутые траектории в \(\Omega(K)\), которые остаются на конечном
+расстоянии от границы и поддерживают континуумность.
+На структурном уровне циклы удовлетворяют
 \[
-    L(C) = \oint_{C} d\Omega < \infty,\qquad
-    S(C) = \min_{s \in C} d_{\partial\Omega}(s) > 0,
+    L(C) = \int_C d\ell_K < \infty,\qquad
+    S(C) = \min_{s \in C} \delta_{\partial\Omega}(s) > 0,
 \]
-where \(d_{\partial\Omega}(s)\) is the distance (in the induced structural metric) from state \(s\) to the boundary.
+где \(d\ell_K\) — выбранный структурный элемент длины для реализованного континуума,
+а \(\delta_{\partial\Omega}(s)\) — соответствующий запас до границы.
+В определении границы выше не требуется метрика; эти оценки циклов вводят
+структурную шкалу только при измерении количественного запаса или длины.
+В метрических реализациях это может быть индуцированная метрика; в неметрических
+реализациях — любой структурно допустимый функционал разделения, равный нулю
+ровно на границе и положительный во внутренних структурно допустимых состояниях.
 
-Core~1.3 adopts the unified form of continuumness encoded in the operator \(U\),
+Когда континуум эволюционирует, допустимая область трактуется как зависящая от
+времени:
+\(\Omega(K,t)\) обозначает пространство состояний, доступное \(K\) в момент \(t\),
+а \(\Omega(K)\) — базовую относительную к уровню допустимую область при отсутствии указания
+времени.
+Когда в более старых формулах встречается \(\Omega(K(t))\), это следует понимать как тот же
+объект временного среза: \(\Omega(K,t)\).
+Модель вводит следующую единую формулу континуумности:
 \[
     k(K,t)
-    = \chi_{\Omega}(K,t)\;
+    = \chi_{\Omega}(s_K(t);K,t)\;
       S_{\mathrm{axes}}(K,t)\;
       S_{\mathrm{cycles}}(K,t)\;
       S_{\mathrm{flows}}(K,t)\;
       S_{\mathrm{coh}}(K,t),
 \]
-where:
+где:
 \begin{itemize}
-    \item \(\chi_{\Omega}(K,t)\) is the existence indicator:
-          \(\chi_{\Omega}(K,t)=1\) if the current state belongs to \(\Omega(K)\), and \(0\) otherwise;
-    \item \(S_{\mathrm{axes}}(K,t)\) quantifies effective axis saturation, e.g.\ the ratio of the effective rank of working axes to the maximal possible rank for that level;
-    \item \(S_{\mathrm{cycles}}(K,t)\) measures the strength and efficiency of stable cycles, such as a weighted sum of cycle efficiencies normalised by their maximal values;
-    \item \(S_{\mathrm{flows}}(K,t)\) captures flow stability, for instance
+    \item \(s_K(t)\) — текущее состояние \(K\) в момент \(t\), а
+          \(\chi_{\Omega}(s_K(t);K,t)\) — индикатор существования:
+          он равен \(1\), если \(s_K(t)\in\Omega(K,t)\), и \(0\) иначе;
+    \item \(S_{\mathrm{axes}}(K,t)\) оценивает эффективность насыщения осей, например,
+          отношение эффективного ранга рабочих осей к максимальному возможному рангу для данного уровня;
+    \item \(S_{\mathrm{cycles}}(K,t)\) измеряет силу и эффективность устойчивых циклов,
+          например взвешенную сумму эффективностей циклов, нормированную на их максимальные значения;
+    \item \(S_{\mathrm{flows}}(K,t)\) описывает устойчивость потоков. Для агрегированных
+          величин поддерживающих и разрушающих потоков
+          \(\Phi_{\mathrm{support}}\) и \(\Phi_{\mathrm{kill}}\) даётся локальное правило:
           \[
-              S_{\mathrm{flows}}(K,t)
-              = \frac{\Phi_{\mathrm{support}}(t)}
-                     {\Phi_{\mathrm{support}}(t)+\Phi_{\mathrm{kill}}(t)},
+              S_{\mathrm{flows}}(K,t)=
+              \begin{cases}
+              \dfrac{\Phi_{\mathrm{support}}(t)}
+                    {\Phi_{\mathrm{support}}(t)+\Phi_{\mathrm{kill}}(t)},
+                    & \Phi_{\mathrm{support}}(t)+\Phi_{\mathrm{kill}}(t)>0,\\[0.7em]
+              1, & \Phi_{\mathrm{support}}(t)=\Phi_{\mathrm{kill}}(t)=0.
+              \end{cases}
           \]
-          where \(\Phi_{\mathrm{support}}\) and \(\Phi_{\mathrm{kill}}\) are aggregated magnitudes of supporting and destructive flows;
-    \item \(S_{\mathrm{coh}}(K,t)\) encodes global structural coherence, which may include connectedness of the relevant graphs, compatibility of thresholds and flows, and absence of contradictory constraints.
+          Если поддержка исчезает, а разрушающий поток остаётся положительным, то
+          \(S_{\mathrm{flows}}=0\);
+    \item \(S_{\mathrm{coh}}(K,t)\in[0,1]\) кодирует глобальную структурную согласованность,
+          включая связность релевантных графов, совместимость порогов и потоков и отсутствие
+          противоречивых ограничений.
 \end{itemize}
+Все мультипликативные факторы в данной формуле нормируются к диапазону \([0,1]\) на локальной модели
+перед перемножением.
+Оператор обновления континуумности \(U\), формализованный далее в Разделе~\ref{sec:operators-full},
+переводит \(k(K,t)\) на следующий допустимый временной срез с использованием этих факторов.
 
-By construction \(0 \le k(K,t) \le 1\).
-A continuum exists as a live continuum if and only if \(k(K,t) > 0\).
-Death corresponds to \(k(K,t)\to 0\) in combination with the collapse of \(\Omega(K)\).
+По построению \(0 \le k(K,t) \le 1\).
+Положительное значение \(k(K,t)\) служит индикатором живого состояния.
+Оно фиксирует одновременно четыре факта: текущее состояние допустимо,
+активные оси поддерживаются, факторы цикла и устойчивости потоков положительны,
+а фактор когерентности не коллапсировал. Полный статус живого состояния
+требует также условий допустимого состояния, порогов и тождества,
+указанных в Разделе~\ref{sec:collapse-rebirth}.
+Смерть соответствует \(k(K,t)\to 0\) в сочетании с коллапсом \(\Omega(K)\).
 
-\subsection{Evolution operator}
+\subsection{Оператор эволюции}
 
-The evolution of a continuum is described at the structural level by an operator
+Эволюция континуума на структурном уровне описывается оператором
 \[
     E: K(t) \mapsto K(t+dt),
 \]
-or, in expanded form,
+или в развернутом виде:
 \[
     E:\ (\Omega,A,P,J,\Theta,\partial\Omega,C,k)
     \longrightarrow (\Omega',A',P',J',\Theta',\partial\Omega',C',k').
 \]
+Здесь \(A'\) обозначает множество осей после эволюции того же континуума в расширенном кортеже.
+Это унарный оператор эволюции для временного среза \(K\).
+Активное метапространство относится к окружению. Когда его требуется указать локально,
+оно появляется как параметр с индексом, а не как второй аргумент оператора \(E\),
+чтобы арность оператора оставалась фиксированной.
 
-In earlier internal runs, the evolution is decomposed into a family of operators \(F,G,H,Q,R,S,U\) acting on different components (for example, flows, thresholds, cycles, axes and interactions).
-Core~1.3 does not expand these into explicit differential equations, but treats them as an abstract evolution machinery subject to the following constraints:
+Модель не сводит обновление потоков, проверку порогов, структуру циклов,
+движение границы, расширение осей и обновление континуумности в одну
+дифференциальную систему. Она рассматривает эти компоненты как связанные части
+ограниченной структурной эволюционной схемы с требованиями:
 
 \begin{itemize}
-    \item \textbf{Consistency:} if \(s(t) \in \Omega(K(t))\), then either \(s(t+dt) \in \Omega(K(t+dt))\) or the transition is associated with a threshold crossing.
-    \item \textbf{Threshold–respecting:} flows obey the inequality structure encoded in \(\Theta(K)\), except when explicitly crossing critical or death thresholds.
-    \item \textbf{Monotonicity of dimension:} if \(A'(K)\) contains a new axis not representable as a combination of previous axes, then \(\dim(K(t+dt)) > \dim(K(t))\); dimension cannot decrease.
+    \item \textbf{Согласованность:} если \(s(t) \in \Omega(K(t))\), то либо
+          \(s(t+dt) \in \Omega(K(t+dt))\), либо переход связан с пересечением порога;
+    \item \textbf{Соблюдение порогов:} потоки подчиняются неравенствам, закодированным в \(\Theta(K)\),
+          за исключением случаев явного пересечения критических или порогов смерти;
+    \item \textbf{Монотонность размерности:} если \(A'\) содержит новую ось, не представляющуюся
+          комбинацией прежних осей, то \(\dim(K(t+dt)) > \dim(K(t))\); размерность не уменьшается.
 \end{itemize}
 
-Dynamics continues as long as \(\Omega(K(t)) \neq \emptyset\).
-Once \(\Omega(K(t^\ast)) = \emptyset\), the continuum is dead and \(E\) can no longer act meaningfully on it.
+Динамика продолжается, пока \(\Omega(K(t)) \neq \emptyset\).
+Как только \(\Omega(K(t^\ast)) = \emptyset\), континуум умер, и оператор \(E\)
+больше не может содержательно действовать на нём.
 
-\subsection{Embedding into meta-spaces}
+\subsection{Встраивание в метапространства}
 
-Each level \(K_x\) is embedded into a meta-space \(M_x\) that provides additional admissible states and axes.
-At the structural level this is captured by the conditions
+Каждый уровень \(K_x\) вложен в метапространство \(M_x\), которое даёт
+дополнительные допустимые состояния и оси.
+На структурном уровне это фиксируется условиями
 \[
     \Omega(K_x(t)) \subseteq \Omega(M_x(t)), \qquad
     A(K_x) \subseteq A(M_x).
 \]
-The universal evolution axiom can then be stated schematically as
+Универсальную эволюционную аксиому можно записать схематически как
 \[
-    K_x(t+dt) = E\big(K_x(t), M_x(t)\big),
+    K_x(t+dt) = E_{M_x(t)}\big(K_x(t)\big),
 \]
-with the additional requirement that if the embedding condition fails (\(\Omega(K_x)\not\subseteq\Omega(M_x)\)), the continuum \(K_x\) ceases to exist.
-Dimensional growth of \(K_x\) is only possible if the meta-space contains an axis \(A_{\mathrm{new}}\in A(M_x)\setminus A(K_x)\) and structural tension exceeds the corresponding dimensional threshold.
-This is the content of the general theorems on monotonicity of dimension and the impossibility of self-generated axes.
+дополнительно требуя: если условие временного вложения не выполняется,
+\(\Omega(K_x(t))\not\subseteq\Omega(M_x(t))\), то континуум \(K_x\)
+прекращает существование. Если временной параметр ясен, сокращённые обозначения
+\(K_x\) и \(M_x\) опускают аргумент \(t\).
+Размерностной рост \(K_x\) возможен только если метапространство содержит ось
+\(A_{\mathrm{new}}\in A(M_x)\setminus A(K_x)\) и структурное натяжение превышает
+соответствующий размерностный порог. Ниже это формулируется как ограничение происхождения
+оси: новые оси не могут возникать только из самого \(K_x\).
 
-\subsection{Birth of continua}
+\subsection{Возникновение континуумов}
 
-The emergence of a new continuum \(K_{x+1}\) from \(K_x\) is a threshold–induced phase transition.
-Structurally, birth occurs when the following conditions are met:
+Возникновение нового континуума \(K_{x+1}\) из \(K_x\) есть фазовый переход,
+индуцированный порогами.
+Структурно рождение происходит при выполнении условий:
 
 \begin{enumerate}
-    \item A new class of differences appears that cannot be represented using the existing axes \(A(K_x)\).
-    \item Structural tension associated with these differences satisfies
+    \item Появляется новый класс различий, который нельзя представить через существующие оси \(A(K_x)\).
+    \item Структурное натяжение, связанное с этими различиями, удовлетворяет
           \[
               T(K_x,t) > \Theta_{\mathrm{dim}}(K_x).
           \]
-    \item The embedding space \(M_x\) contains at least one axis that can host the new differences (i.e.\ \(A_{\mathrm{new}} \in A(M_x) \setminus A(K_x)\)).
-    \item There exists a nonempty set of admissible states \(\Omega(K_{x+1})\) compatible with the new axis and thresholds.
+    \item Метапространство \(M_x\) содержит по крайней мере одну ось, способную принять новые различия,
+          то есть \(A_{\mathrm{new}} \in A(M_x) \setminus A(K_x)\).
+    \item Существует непустое множество допустимых состояний \(\Omega(K_{x+1})\), совместимое с новой осью и порогами.
 \end{enumerate}
 
-The operator of dimensional birth
+Оператор размерностного рождения
 \[
     \Psi_{x\to x+1}: K_x \to K_{x+1}
 \]
-is minimal and irreversible: any nonzero emergence of the new axis constitutes the new continuum \(K_{x+1}\), and the dimension of \(K_{x+1}\) cannot revert to that of \(K_x\) without destroying \(\Omega(K_{x+1})\).
-This is the structural content of the monotonicity of dimension and of the теорему on the impossibility of self-produced axes.
+минимален и необратим: любое ненулевое становление новой оси даёт новый континуум \(K_{x+1}\),
+и размерность \(K_{x+1}\) не может вернуться к размерности \(K_x\) без разрушения
+\(\Omega(K_{x+1})\).
+Локальная модель таким образом реализует размерностную монотонность. Отдельно формулируется
+результат об отсутствии спонтанного создания размерности в
+Разделе~\ref{sec:theorem-spontaneous-dimension-creation}.
 
-\subsection{Life of continua}
+\subsection{Жизнь континуумов}
 
-A continuum \(K\) is alive on an interval of time if
+Континуум \(K\) считается живым на интервале времени, если
 \[
     \Omega(K(t)) \neq \emptyset,\qquad
     k(K,t) > 0,\qquad
     C(K(t)) \neq \emptyset,
 \]
-and if supporting flows \(J_{\mathrm{support}}\) dominate destructive flows \(J_{\mathrm{kill}}\) when integrated over relevant cycles.
+и если поддерживающие потоки \(J_{\mathrm{support}}\) доминируют над
+разрушающими потоками \(J_{\mathrm{kill}}\) после интегрирования по релевантным циклам.
 
-Life thus corresponds to the persistent existence of:
+Жизнь соответствует персистирующему существованию:
 \begin{itemize}
-    \item stable cycles separated from the boundary by a finite structural distance;
-    \item sufficient supporting flows to maintain these cycles;
-    \item coherence between potentials, axes and thresholds;
-    \item controlled critical behaviour that does not cross \(\Theta_{\mathrm{death}}\).
+    \item устойчивых циклов на конечном структурном расстоянии от границы;
+    \item достаточных поддерживающих потоков для поддержания этих циклов;
+    \item когерентности между потенциалами, осями и порогами;
+    \item контролируемого критического поведения, не пересекающего \(\Theta_{\mathrm{death}}\).
 \end{itemize}
 
-These conditions are interpreted differently at each level \(K_x\), but the structural pattern is the same from protocells to institutions.
+Эти условия по-разному интерпретируются на каждом уровне \(K_x\), но структурный
+шаблон одинаков от протоцелей до институтов.
 
-\subsection{Death of continua}
+\subsection{Смерть континуумов}
 
-A continuum \(K\) dies at time \(t^\ast\) when
+Континуум \(K\) умирает в момент \(t^\ast\), когда
 \[
     \Omega(K(t^\ast)) = \emptyset,
 \]
-which implies \(\chi_{\Omega}(K,t^\ast)=0\) and hence \(k(K,t^\ast)=0\).
-Equivalently:
+что влечёт \(\chi_{\Omega}(s_K(t^\ast);K,t^\ast)=0\) и, следовательно, \(k(K,t^\ast)=0\).
+Эквивалентно:
 \begin{itemize}
-    \item all stable cycles vanish, \(C(K(t^\ast)) = \emptyset\);
-    \item no state satisfies the threshold inequalities concurrently;
-    \item any attempted continuation of dynamics would violate at least one existence threshold \(\Theta_{\mathrm{exist}}\).
+    \item все устойчивые циклы исчезают, \(C(K(t^\ast)) = \emptyset\);
+    \item нет состояния, одновременно удовлетворяющего всем неравенствам порогов;
+    \item любая попытка продолжить динамику нарушила бы хотя бы один порог существования \(\Theta_{\mathrm{exist}}\).
 \end{itemize}
 
-\paragraph{Irreversibility of death.}
-Once \(\Omega(K(t^\ast)) = \emptyset\), there is no structural operator acting within the same level that can reconstruct a nonempty \(\Omega(K)\).
-Any apparent resurrection would correspond to the birth of a new continuum \(K'\) with its own thresholds and state space, not the continuation of the original \(K\).
-Thus death is structurally irreversible.
+\paragraph{Необратимость смерти}
+После того как \(\Omega(K(t^\ast)) = \emptyset\), не существует структурного оператора в пределах
+того же уровня, который может восстановить непустое \(\Omega(K)\).
+Любая кажущаяся «реанимация» соответствовала бы рождению нового континуума \(K'\) со своими
+порогами и пространством состояний, но не продолжением исходного \(K\).
+Следовательно, смерть структурно необратима.
 
-\subsection{Interaction of continua}
+\subsection{Взаимодействие континуумов}
 
-Two continua \(K_a\) and \(K_b\) interact via an interaction operator
+Два континуума \(K_a\) и \(K_b\) взаимодействуют через оператор
 \[
     E_{\mathrm{int}} : (K_a,K_b) \mapsto (K_a',K_b'),
 \]
-acting on their combined potentials, flows, thresholds and axes.
-Structurally, several regimes are distinguished:
+который действует на их совместные потенциалы, потоки, пороги и оси.
+Структурно выделяются следующие режимы:
 
 \begin{itemize}
-    \item \textbf{Competition:} flows of one continuum hinder the maintenance of cycles in the other; typically \(k_a(t)\) and \(k_b(t)\) cannot both increase indefinitely.
-    \item \textbf{Parasitism:} one continuum harvests supporting flows from another, increasing its own \(k\) at the expense of the host.
-    \item \textbf{Symbiosis:} supporting flows are coupled such that both continua increase their continuumness and extend their admissible regions.
-    \item \textbf{Fusion:} axes and potentials combine to form a new continuum \(K_{\mathrm{fusion}}\) with merged axes and a new state space \(\Omega_{\mathrm{fusion}}\).
+    \item \textbf{Конкуренция:} потоки одного континуума мешают поддержанию циклов в другом;
+          как правило, \(k_a(t)\) и \(k_b(t)\) не могут неограниченно возрастать одновременно.
+    \item \textbf{Паразитизм:} один континуум использует поддерживающие потоки другого,
+          повышая собственную \(k\) за счёт другого континуума;
+    \item \textbf{Симбиоз:} поддерживающие потоки сопрягаются так, что оба континуума
+          увеличивают континуумность и расширяют допустимые области;
+    \item \textbf{Слияние:} оси и потенциалы объединяются в новый континуум
+          \(K_{\mathrm{fusion}}\) с объединёнными осями и новым пространством состояний
+          \(\Omega_{\mathrm{fusion}}\).
 \end{itemize}
 
-Interaction can itself induce dimensional transitions when mixed differences create new, previously unused axes and drive tension above \(\Theta_{\mathrm{dim}}\).
+Взаимодействие может само по себе индуцировать размерностные переходы,
+когда смешанные различия создают ранее неиспользуемые оси и повышают натяжение выше
+\(\Theta_{\mathrm{dim}}\).
 
-\subsection{Vertical hierarchy \texorpdfstring{$K_0$–$K_{12}$}{K0–K12}}
+\subsection{Вертикальная иерархия \texorpdfstring{$K_0$--$K_{12}$}{K0--K12}}
 
-Within this formal scheme, the OC hierarchy \(K_0,\dots,K_{10}\) can be summarised as follows:
+В рамках данной формальной схемы иерархия OC \(K_0,\dots,K_{12}\) сводится к следующему:
 
 \begin{itemize}
-    \item \(K_0\): purely structural substrate of distinguishable states and differences, no time, no dynamics.
-    \item \(K_1\): one–dimensional classical continuum with energy functionals and basic stability thresholds.
-    \item \(K_2\): physical continua, including fields, phase transitions, percolation, BKT–type transitions and mass structure in field theory.
-    \item \(K_3\): chemical continua, including reaction networks, RAF–structures, concentrations and environmental parameters.
-    \item \(K_4\): protocellular continua with membranes, osmotic and curvature thresholds, internal/external gradients and metabolic subspaces.
-    \item \(K_5\): early neural and bioelectrical continua with ion channels, excitation thresholds, gradient–driven flows and protospikes.
-    \item \(K_6\): cognitive continua with representational axes, binding, internal models, memory thresholds and prediction thresholds.
-    \item \(K_7\): social continua with trust thresholds, institutional cycles, communication and coordination flows.
-    \item \(K_8\): civilizational continua with large–scale infrastructures, systemic thresholds and long–range cycles.
-    \item \(K_9\): meta–theoretical continua comprising theories, paradigms, ontologies and formal languages, with consistency and coherence thresholds.
-    \item \(K_{10}\): recursive meta–level structures acting on the space of continua and their embedding spaces.
+    \item \(K_0\): чисто структурная подоснова различимых состояний и различий, без времени и без динамики.
+    \item \(K_1\): одномерный классический континуум с энергетическими функционалами и базовыми порогами устойчивости.
+    \item \(K_2\): физические континуумы, включая поля, фазовые переходы, перколяцию,
+          переходы Berezinskii--Kosterlitz--Thouless и массовые структуры в теории поля.
+    \item \(K_3\): химические континуумы, включая реакционные сети, отражательно-автокаталитические
+          и энергетически обусловленные структуры, концентрации и параметры среды.
+    \item \(K_4\): протоцелльные континуумы с мембранами, осмотическими и кривизными порогами,
+          внутренними и внешними градиентами и метаболическими подсистемами.
+    \item \(K_5\): ранние нейронные и биоэлектрические континуумы с ионными каналами,
+          порогами возбудимости, градиентными потоками и протоспайками.
+    \item \(K_6\): когнитивные континуумы с репрезентационными осями, связыванием,
+          внутренними моделями, порогами памяти и порогами предсказания.
+    \item \(K_7\): социальные континуумы с порогами доверия, институциональными циклами,
+          коммуникацией и потоками координации.
+    \item \(K_8\): цивилизационные континуумы с крупномасштабной инфраструктурой,
+          системными порогами и дальнодействующими циклами.
+    \item \(K_9\): теоретические континуумы: теории, парадигмы, онтологии и семьи моделей,
+          с порогами согласованности и когерентности.
+    \item \(K_{10}\): метатеоретические континуумы, определяющие сравнение, оценку и трансформацию между классами теорий.
+    \item \(K_{11}\): рекурсивные метатеоретические континуумы, управляющие семействами операторов,
+          металогическим обновлением и рекурсией пространства моделей.
+    \item \(K_{12}\): континуумы глобальной когерентности, ограничивающие совместимость между
+          семьями структур на уровне \(K_{11}\).
 \end{itemize}
 
-Each level inherits the general continuum structure and adds new axes, potentials, thresholds and cycles specific to its domain.
-Core~1.3 does not expand the domain–specific representation theorems in detail; it records that such representations exist and are compatible with the formal core presented here.
+Каждый уровень наследует общее определение континуума и добавляет новые оси,
+потенциалы, пороги и циклы, специфичные для данного домена.
+Эта глава не переописывает все доменно-специфические представления в деталях;
+она фиксирует общий структурный каркас, которому все такие реализации должны соответствовать.
 
-\subsection{Summary}
+\subsection{Итоги}
 
-This section has presented the ontological backbone of OC:
-the axioms of \(K_0\), the construction of \(K_1\), the general definition of a continuum, the taxonomy of thresholds, the roles of potentials, flows and structural tension, the definition of cycles and continuumness, the evolution operator and embedding into meta-spaces, the structural conditions for birth, life and death, the interaction operator and the vertical hierarchy \(K_0\)–\(K_{10}\).
-All further developments in the Core and in extension работуs rely on this structure as their common foundation.
+В этом разделе изложен онтологический каркас OC:
+аксиомы \(K_0\), построение \(K_1\), общее определение континуума,
+таксономия порогов, роли потенциалов, потоков и структурного натяжения,
+а также определение циклов и континуумности.
+Также здесь установлены оператор эволюции, встраивание в метапространства,
+структурные условия рождения, жизни и смерти, оператор взаимодействия и
+вертикальная иерархия \(K_0\)–\(K_{12}\).
+Все дальнейшие разработки в Core и в расширениях опираются на эту структуру
+как на общий фундамент.

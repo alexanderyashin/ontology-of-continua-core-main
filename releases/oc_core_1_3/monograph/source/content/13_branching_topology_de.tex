@@ -1,397 +1,411 @@
-% GENERATED_BY: oc_core_monograph_translation_draft_pipeline_v1.py
-% AI_ASSISTED_TRANSLATION_DRAFT: TRUE
-% THEOREM_REVIEW_STATUS: PENDING
-% THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
-% THEOREM_REVIEW_REVIEWER_ID: 
-% THEOREM_REVIEW_AUTHORITY_CLASS: 
-% THEOREM_REVIEWED_AT: 
-% THEOREM_REVIEW_DOSSIER_REF: 
-% SOURCE_LANGUAGE: EN
-% TARGET_LANGUAGE: DE
-% SOURCE_EN_REF: content/13_branching_topology.tex
 % ====================================================================
-% FILE: content/13_branching_topology.tex
-% Ontological Branching and Global Topology
-% Restored Full Version for Core 1.3
+% FILE: content/13_branching_topology_de.tex
+% Ontologische Verzweigung und globale Topologie
+% Vollversion fuer Core 1.3 wiederhergestellt
 % ====================================================================
 
-\section{Ontological Branching and Global Topology}
+\section{Ontologische Verzweigung und globale Topologie}
 \label{sec:branching-topology}
 
-This section reconstructs the theory of ontological branches and the global
-topology of continua. It explicates Axiom~21 (Ontological Branching) and
-integrates it with the dimensional hierarchy \(K_0\)–\(K_{10}\), the birth
-operators \(\Psi_{x\to x+1}\) (Section~\ref{sec:operators-full}) and the
-collapse–rebirth structure (Section~\ref{sec:collapse-rebirth}).
+Dieser Abschnitt rekonstruiert die Theorie der ontologischen Verzweigung und der
+globalen Topologie von Kontinua. Er elaboriert Axiom~21 (Ontologische Verzweigung)
+und integriert es mit der dimensionsbezogenen Hierarchie \(K_0\)–\(K_{10}\), den
+Geburtsoperatoren \(\Psi_{x\to x+1}\) (Abschnitt~\ref{sec:operators-full}) und der
+Kollaps--Wiedergeburt-Struktur (Abschnitt~\ref{sec:collapse-rebirth}).
 
-Informally, a \emph{branch} is a maximal development path along which a
-continuum undergoes successive dimensional births consistent with a given set
-of axes and embedding spaces. The collection of such branches carries a natural
-directed topology, providing a global view of all admissible ontogenic
-trajectories compatible with the OC axioms.
+Informell ist eine \emph{Verzweigung} ein maximaler Entwicklungspfad, auf dem ein
+Kontinuum sukzessive dimensionale Geburten vollzieht, die mit einer gegebenen
+Menge von Achsen und Einbettungsraeumen konsistent sind. Die Gesamtheit
+solcher Verzweigungen besitzt eine natuerliche gerichtete Topologie, die eine
+globale Sicht auf alle im Rahmen der OC-Axiome zulaessigen ontogenen Trajektorien
+liefert.
 
-\subsection{Definition of Ontological Branches}
+\subsection{Definition ontologischer Verzweigungen}
 
-A continuum level \(K_x\) is specified by
+Ein Kontinuumsniveau \(K_x\) ist durch
 \[
   K_x =
   \big(
     \Omega_x, A_x, P_x(t), J_x(t),
     \Theta_x, \partial\Omega_x, C_x, k_x(t)
-  \big),
+  \big)
 \]
-embedded in a space \(M_x\) with axis set \(A(M_x)\). Dimensional birth from
-\(K_x\) to \(K_{x+1}\) is mediated by a birth operator
-\(\Psi_{x\to x+1}\) (Section~\ref{sec:operators-full}).
+eingebettet in einen Raum \(M_x\) mit Achsenmenge \(A(M_x)\). Dimensionale Geburt
+von \(K_x\) zu \(K_{x+1}\) wird vermittels eines Geburtsoperators
+\(\Psi_{x\to x+1}\) (Abschnitt~\ref{sec:operators-full}).
 
-\paragraph{Definition 13.1 (Ontological branch).}
-An \emph{ontological branch} \(B\) is a finite or countable sequence of continua
+\paragraph{Definition 13.1 (Ontologische Verzweigung).}
+Eine \emph{ontologische Verzweigung} \(B\) ist eine endliche oder abzählbare
+Sequenz von Kontinua
 \[
   B = (K_{x_0}, K_{x_1}, K_{x_2}, \dots),
 \]
-together with embedding spaces \((M_{x_0}, M_{x_1}, \dots)\), such that:
+zusammen mit Einbettungsraeumen \((M_{x_0}, M_{x_1}, \dots)\), so dass gilt:
 \begin{enumerate}
-  \item \textbf{Monotone levels.}\quad
-        \(x_0 < x_1 < x_2 < \dots\) and each step
-        \(K_{x_i} \to K_{x_{i+1}}\) is a dimensional transition
-        (no purely parametric evolution);
-  \item \textbf{Birth compatibility.}\quad
-        For each \(i\) there exists a birth operator
-        \(\Psi_{x_i\to x_{i+1}}\) such that
+  \item \textbf{Monotone Niveaus.}\quad
+        \(x_0 < x_1 < x_2 < \dots\) und jeder Schritt
+        \(K_{x_i} \to K_{x_{i+1}}\) ist ein dimensionaler Übergang
+        (keine rein parametrische Evolution);
+  \item \textbf{Geburt-Kompatibilitaet.}\quad
+ae
+        Für jedes \(i\) gibt es einen Geburtsoperator
+        \(\Psi_{x_i\to x_{i+1}}\) mit
         \[
           (K_{x_{i+1}}, M_{x_{i+1}}) =
             \Psi_{x_i\to x_{i+1}}(K_{x_i}, M_{x_i}),
         \]
-        with \(\Psi_{x_i\to x_{i+1}}\) satisfying the general birth
-        conditions of Section~\ref{sec:operators-full};
-  \item \textbf{Axis monotonicity.}\quad
-        The axis sets grow monotonically:
+        wobei \(\Psi_{x_i\to x_{i+1}}\) die allgemeinen Geburtbedingungen aus
+        Abschnitt~\ref{sec:operators-full} erfuellt;
+  \item \textbf{Achsen-Monotonie.}\quad
+        Die Achsenmengen wachsen monoton:
         \[
           A_{x_i} \subset A_{x_{i+1}}
           \subseteq A(M_{x_{i+1}}),
         \]
-        and each new axis is not representable in the span of previous axes;
-  \item \textbf{Embedding monotonicity.}\quad
-        Embedding spaces form an inclusion chain
+        und jede neue Achse ist nicht im strukturellen Spannungsraum der
+        vorherigen Achsen darstellbar;
+  \item \textbf{Einbettungs-Monotonie.}\quad
+        Einbettungsraeume bilden eine Inklusionskette
         \[
           M_{x_0} \subset M_{x_1} \subset M_{x_2} \subset \dots
         \]
-        with \(A(M_{x_i}) \subseteq A(M_{x_{i+1}})\);
-  \item \textbf{Maximality.}\quad
-        The branch is maximal with respect to extension in the direction
-        of increasing level: there is no continuum \(K_{x^{\ast}}\) with
-        \(x^{\ast} > \sup_i x_i\) such that the sequence can be strictly
-        extended while preserving the above conditions.
+        mit \(A(M_{x_i}) \subseteq A(M_{x_{i+1}})\);
+  \item \textbf{Maximalitaet.}\quad
+        Die Verzweigung ist maximal mit Blick auf Erweiterung in steigender
+        Niveau-Richtung: Es gibt kein Kontinuum \(K_{x^{\ast}}\) mit
+        \(x^{\ast} > \sup_i x_i\), fuer das die Sequenz strikt erweitert werden
+        kann unter Erhaltung der obigen Bedingungen.
 \end{enumerate}
 
-When \(x_0 = 0\), the branch is \emph{rooted} at the structural substrate
-\(K_0\). More generally, branches may be defined relative to any starting level
-\(K_{x_0}\) that acts as an effective root for a restricted domain
-(e.g.\ chemistry, cognition, social systems).
+Wenn \(x_0 = 0\), ist die Verzweigung \emph{verwurzelt} im strukturellen
+Substrat \(K_0\). Allgemeiner können Verzweigungen bezogen auf ein beliebiges
+Ausgangsniveau \(K_{x_0}\) definiert werden, das als wirksame Wurzel fuer ein
+restraines Bereichsgebiet dient (z. B. Chemie, Kognition, soziale Systeme).
 
-\paragraph{Remark 13.2 (Branch identity).}
-Two branches \(B\) and \(B'\) are considered distinct if they differ in at
-least one of:
+\paragraph{Bemerkung 13.2 (Verzweigungs-Identitaet).}
+Zwei Verzweigungen \(B\) und \(B'\) gelten als verschieden, wenn sie in
+mindestens einem Punkt differieren:
 \begin{itemize}
-  \item the sequence of levels \(x_i\) (e.g.\ skipping or inserting levels);
-  \item the axis sets \(A_{x_i}\) (different emergent degrees of freedom);
-  \item the threshold families \(\Theta_{x_i}\) or embedding spaces \(M_{x_i}\).
+  \item in der Niveaereihe \(x_i\) (z. B. ausgelassene oder eingefuegte
+        Ebenen),
+  \item in den Achsenmengen \(A_{x_i}\) (verschiedene emergente Freiheitsgrade),
+  \item in den Schwellenfamilien \(\Theta_{x_i}\) oder Einbettungsraeumen
+        \(M_{x_i}\).
 \end{itemize}
-Branches thus encode \emph{developmental histories} in the space of continua,
-not just static collections of levels.
+Verzweigungen kodieren daher \emph{Entwicklungsgeschichte(n)} im Raum der
+Kontinua, nicht bloss statische Ebenensammlungen.
 
-\subsection{Branch Topology}
+\subsection{Verzweigungstopologie}
 
-The set of all branches carries a natural directed structure.
+Die Menge aller Verzweigungen ist mit einer natuerlichen gerichteten Struktur
+versehen.
 
-\paragraph{Definition 13.3 (Branch graph).}
-Let \(\mathcal{K}\) be the class of all continua admissible under the OC
-axioms and let \(\mathcal{B}\) be the set of all branches. The
-\emph{branch graph} \(\mathcal{G}\) is the directed graph whose:
+\paragraph{Definition 13.3 (Verzweigungsgraph).}
+Sei \(\mathcal{K}\) die Klasse aller unter den OC-Axiomen zulaessigen
+Kontinua und sei \(\mathcal{B}\) die Menge aller Verzweigungen. Der
+\emph{Verzweigungsgraph} \(\mathcal{G}\) ist der gerichtete Graph, dessen:
 \begin{itemize}
-  \item vertices are continua \(K_x\in\mathcal{K}\);
-  \item directed edges \(K_x \to K_y\) correspond to birth operators
-        \(\Psi_{x\to y}\) with \(y > x\).
+  \item Knoten Kontinua \(K_x\in\mathcal{K}\) sind,
+  \item gerichtete Kanten \(K_x \to K_y\) den Geburtsoperatoren
+        \(\Psi_{x\to y}\) mit \(y > x\) entsprechen.
 \end{itemize}
-A branch \(B\) is then a directed path in \(\mathcal{G}\) that is maximal
-with respect to extension.
+Eine Verzweigung \(B\) ist dann ein gerichteter Pfad in \(\mathcal{G}\), der
+bezueglich Erweiterung maximal ist.
 
-Because birth operators cannot reduce dimensionality (monotonicity of
-dimension), \(\mathcal{G}\) is a directed acyclic graph (DAG). Cycles may
-exist in the \emph{state dynamics} of a given continuum \(K_x\) (through
-internal cycles \(C_x\)), but not in the vertical birth graph.
+Da Geburtsoperatoren die Dimensionalitaet nicht reduzieren koennen (Monotonie
+der Dimension), ist \(\mathcal{G}\) ein gerichteter azyklischer Graph (DAG).
+In der \emph{Zustandsdynamik} eines gegebenen Kontinuums \(K_x\) (uber interne
+Zyklen \(C_x\)) koennen zwar Zyklen existieren, nicht jedoch in der
+vertikalen Geburtstruktur.
 
-\paragraph{Global topology.}
-The global topological structure of \(\mathcal{G}\) is constrained by:
+\paragraph{Globale Topologie.}
+Die globale topologische Struktur von \(\mathcal{G}\) ist eingeschraenkt durch:
 \begin{itemize}
-  \item \textbf{Shared prefixes.}\quad
-        Different branches share common initial segments whenever they
-        coincide on lower levels (e.g.\ all physical, chemical and
-        biological branches share \(K_0\)–\(K_2\));
-  \item \textbf{Branch divergence.}\quad
-        Branches diverge when birth operators at some level \(K_x\) select
-        different new axes or threshold structures, leading to distinct
-        continua \(K_{x+1}^{(a)}\), \(K_{x+1}^{(b)}\), etc.;
-  \item \textbf{Possible fusion.}\quad
-        Through interaction operators \(E_{\mathrm{int}}\), different
-        branches may later generate continua that lie on a common extension,
-        producing DAG-like rather than purely tree-like topology;
-  \item \textbf{Hypergraph structure.}\quad
-        When birth operators take multiple continua as input (e.g.\ fusion
-        events), the branch graph can be extended to a directed hypergraph
-        with hyperedges
+  \item \textbf{Gemeinsame Praefixe.}\quad
+        Unterschiedliche Verzweigungen teilen gemeinsame Anfangssegmente, wenn sie
+        in tieferen Ebenen uebereinstimmen (z. B. teilen alle physikalischen,
+        chemischen und biologischen Verzweigungen \(K_0\)–\(K_2\));
+  \item \textbf{Verzweigungs-Divergenz.}\quad
+        Verzweigungen divergieren, wenn Geburtsoperatoren auf einem Niveau \(K_x\)
+        verschiedene neue Achsen oder Schwellenstrukturen waehlen, was zu
+distincten Weiterbildungen \(K_{x+1}^{(a)}\), \(K_{x+1}^{(b)}\), usw. führt;
+  \item \textbf{Moegliche Fusionen.}\quad
+        Durch Interaktionsoperatoren \(E_{\mathrm{int}}\) koennen unterschiedliche
+        Verzweigungen spaeter Kontinua auf einer gemeinsamen Erweiterung erzeugen,
+        wodurch eine DAG-artige statt rein baumartige Topologie entsteht;
+  \item \textbf{Hypergraph-Struktur.}\quad
+        Wenn Geburtsoperatoren mehrere Kontinua als Eingang erhalten (z. B.
+        Fusionsereignisse), kann der Verzweigungsgraph zu einem gerichteten
+        Hypergraphen erweitert werden mit Hyperkanten
         \((K_{x}^{(a)}, K_{x}^{(b)},\dots) \to K_{y}\).
 \end{itemize}
 
-The global topology of branches thus interpolates between tree-like structures
-(pure fission, no fusion) and hypergraph-like structures (branch fusion and
-collective birth). OC does not fix a single global shape but constrains all
-admissible shapes by dimensional monotonicity, embedding compatibility and
-threshold conditions.
+Die Topologie der Verzweigungen interpoliert damit zwischen baumartigen
+Strukturen (reine Spaltung, keine Fusion) und hypergraph-artigen Strukturen
+(Verzweigungsfusion und kollektive Geburt). OC fixiert nicht eine einzige
+globale Form, sondern beschraenkt alle zulaessigen Formen durch
+Dimensions-Monotonie, Einbettungs-Kompatibilitaet und
+Schwellenwertbedingungen.
 
-\subsection{Branching Conditions}
+\subsection{Verzweigungsbedingungen}
 
-Branching does not occur at arbitrary points; it is structurally triggered by
-specific threshold and embedding conditions.
+Verzweigung ist nicht an beliebiger Stelle moeglich; sie wird strukturell durch
+spezifische Schwellen- und Einbettungsbedingungen ausgeloest.
 
-\paragraph{Axiom 21 (Ontological Branching).}
-Let \(K_x\) be a continuum at level \(x\) with embedding space \(M_x\). A
-branching event at \(K_x\) is permitted when there exist two or more distinct
-birth operators
+\paragraph{Axiom 21 (Ontologische Verzweigung).}
+Sei \(K_x\) ein Kontinuum auf Niveau \(x\) mit Einbettungsraum \(M_x\). Ein
+Verzweigungsereignis in \(K_x\) ist erlaubt, wenn mindestens zwei unterschiedliche
+Geburtsoperatoren
 \[
   \Psi_{x\to x+1}^{(a)},\ \Psi_{x\to x+1}^{(b)},\dots
 \]
-such that:
+existieren, so dass:
 \begin{enumerate}
-  \item \textbf{Distinct new axes.}\quad
-        Each birth operator selects a structurally distinct new axis
+  \item \textbf{Unterscheidbare neue Achsen.}\quad
+        Jeder Geburtsoperator waehlt eine strukturell verschiedene neue Achse
         \(A_{\mathrm{new}}^{(a)}\), \(A_{\mathrm{new}}^{(b)}\), \dots,
-        not mutually representable in the span of one another, i.e.
+        die sich gegenseitig nicht im strukturellen Spannungsraum repräsentieren
+        lassen, d. h.
         \[
-          A_{\mathrm{new}}^{(a)} \notin \mathrm{span}
+          A_{\mathrm{new}}^{(a)} \notin \mathrm{span}_{\mathrm{str}}
             \big(A_x \cup \{A_{\mathrm{new}}^{(b)}\}\big), \ \text{etc.};
         \]
-  \item \textbf{Dimensional tension.}\quad
-        Structural tension exceeds the dimensional threshold along multiple,
-        non-equivalent directions of difference:
+  \item \textbf{Dimensionale Spannung.}\quad
+        Strukturelle Spannung ueberschreitet den dimensionalen Schwellenwert entlang
+        mehrerer nicht-aequivalenter Unterschiedsrichtungen:
         \[
           T(K_x,t) > \Theta_{\mathrm{dim}}^{(a)}(K_x)
-          \quad\text{and}\quad
+          \quad\text{and}
           T(K_x,t) > \Theta_{\mathrm{dim}}^{(b)}(K_x),
         \]
-        where the superscripts denote distinct dimensional channels;
-  \item \textbf{Embedding capacity.}\quad
-        The embedding space \(M_x\) supports all candidate axes, i.e.
+        wobei die Hochstellungen die unterschiedlichen dimensionalen Kanaele bezeichnen;
+  \item \textbf{Einbettungs-Kapazitaet.}\quad
+        Der Einbettungsraum \(M_x\) stuetzt alle Kandidatenachsen, d. h.
         \[
           A_{\mathrm{new}}^{(a)}, A_{\mathrm{new}}^{(b)}, \dots
           \in A(M_x);
         \]
-  \item \textbf{Nonempty admissible regions.}\quad
-        Each candidate continuum
-        \(K_{x+1}^{(a)} = \Psi_{x\to x+1}^{(a)}(K_x, M_x)\), etc., has
-        a nonempty admissible set \(\Omega_{x+1}^{(a)}\neq\emptyset\).
+  \item \textbf{Nichtleere zulaessige Regionen.}\quad
+        Jedes Kandidatenkontinuum
+        \(K_{x+1}^{(a)} = \Psi_{x\to x+1}^{(a)}(K_x, M_x)\), usw., besitzt ein
+        nichtleeres zulaessiges Set \(\Omega_{x+1}^{(a)}\neq\emptyset\).
 \end{enumerate}
 
-In many concrete systems these conditions are realised through:
+In vielen konkreten Systemen werden diese Bedingungen realisiert durch:
 \begin{itemize}
-  \item incompatibilities in potentials \(P_x(t)\) that cannot be reconciled
-        within a single extension;
-  \item competition between cycle complexes \(C_x^{(a)}\), \(C_x^{(b)}\)
-        whose joint stabilisation would violate stability thresholds;
-  \item boundary geometries that admit distinct, mutually exclusive
-        re-closures (e.g.\ alternative membrane architectures or
-        institutional structures).
+  \item Inkonsistenzen in Potenzialen \(P_x(t)\), die in einer einzelnen
+        Erweiterung nicht vereinbar sind;
+  \item Konkurrenz zwischen Zykluskomplexen \(C_x^{(a)}\), \(C_x^{(b)}\), deren
+        gleichzeitige Stabilisierung die Stabilitaetsschwelle verletzen wuerde;
+  \item Randgeometrien, die unterschiedliche, wechselseitig ausschliessende
+        Wieder-Schliessungen zulassen (z. B. alternative Membranarchitekturen
+        oder institutionelle Strukturen).
 \end{itemize}
 
-\paragraph{Branching thresholds.}
-For convenience one may define a \emph{branching threshold}
-\(\Theta_{\mathrm{branch}}(K_x)\) as an effective composite of dimensional
-and embedding thresholds, such that
+\paragraph{Schwellenwert der Verzweigung.}
+Zur Bequemlichkeit kann ein \emph{Verzweigungs-Schwellenwert}
+\(\Theta_{\mathrm{branch}}(K_x)\) als effektive Kombination aus dimensionalen und
+Einbettungs-Schwellen eingefuehrt werden, so dass
 \[
   T_{\mathrm{branch}}(K_x,t) > \Theta_{\mathrm{branch}}(K_x)
   \quad\Rightarrow\quad
-  \text{branching event possible.}
+  \text{Verzweigungsereignis moeglich.}
 \]
-Core~1.3 treats \(\Theta_{\mathrm{branch}}\) as a derived quantity rather
-than a new primitive threshold class: it encodes simultaneous satisfaction of
-the conditions for multiple birth operators.
+Core~1.3 behandelt \(\Theta_{\mathrm{branch}}\) als abgeleitete Grösse statt als neue
+primitive Schwellenklasse: Sie kodiert die gleichzeitige Erfuellung der Bedingungen
+mehrerer Geburtsoperatoren.
 
-\subsection{Branch Interaction}
+\subsection{Verzweigungsinteraktion}
 
-Branches do not generally evolve in isolation. When continua belonging to
-different branches coexist in a shared embedding space, they may interact
-through the interaction operator \(E_{\mathrm{int}}\)
-(Section~\ref{sec:operators-full}).
+Verzweigungen entwickeln sich im Allgemeinen nicht isoliert. Wenn Kontinua aus
+unterschiedlichen Verzweigungen in einem gemeinsamen Einbettungsraum koexistieren,
+dann koennen sie durch den Interaktionsoperator \(E_{\mathrm{int}}\)
+(Abschnitt~\ref{sec:operators-full}) wechselwirken.
 
-\paragraph{Definition 13.4 (Branch interaction).}
-Let \(B^{(a)}\) and \(B^{(b)}\) be two branches with continua
-\(\{K_x^{(a)}\}\) and \(\{K_y^{(b)}\}\), respectively, embedded in a common or
-overlapping space \(M\). A \emph{branch interaction} is a family of interaction
-operators
+\paragraph{Definition 13.4 (Verzweigungsinteraktion).}
+Seien \(B^{(a)}\) und \(B^{(b)}\) zwei Verzweigungen mit Kontinua
+\(\{K_x^{(a)}\}\) und \(\{K_y^{(b)}\}\), jeweils eingebettet in einen gemeinsamen
+oder ueberlappenden Raum \(M\). Eine \emph{Verzweigungsinteraktion} ist eine
+Familie von Interaktionsoperatoren
 \[
-  E_{\mathrm{int}}^{x,y} :
-    (K_x^{(a)}, K_y^{(b)}, M)
-    \longrightarrow (K_x^{(a)\prime}, K_y^{(b)\prime}, M'),
+\begin{aligned}
+  E_{\mathrm{int}}^{x,y}:\quad
+    &(K_x^{(a)}, K_y^{(b)}, M)\
+    &\longrightarrow (K_x^{(a)\prime}, K_y^{(b)\prime}, M'),
+\end{aligned}
 \]
-defined for relevant pairs of levels \((x,y)\).
+definiert fuer relevante Ebenenpaare \((x,y)\).
 
-The following regimes are typical:
+Typische Regime sind:
 
 \begin{itemize}
-  \item \textbf{Coexistence.}\quad
-        Flows are weakly coupled and allow both branches to maintain or
-        increase their continuumness:
+  \item \textbf{Koexistenz.}\quad
+        Fluesse sind schwach gekoppelt und erlauben beiden Verzweigungen, ihre
+        Continuumness zu erhalten oder zu erhoehen:
         \[
           k^{(a)}(t+dt) \ge k^{(a)}(t),\quad
           k^{(b)}(t+dt) \ge k^{(b)}(t).
         \]
-  \item \textbf{Interference.}\quad
-        Cross-branch flows \(J^{(a\leftrightarrow b)}\) create structural
-        tension that pushes one or both branches closer to their death
-        thresholds without immediate collapse.
+  \item \textbf{Interferenz.}\quad
+        Querverzweigungs-Fluesse \(J^{(a\leftrightarrow b)}\) erzeugen
+        strukturelle Spannung, die eine oder beide Verzweigungen naeher an die
+        Todes-Schwellen dringt, ohne sofortigen Kollaps.
   \item \textbf{Suppression.}\quad
-        One branch drives the other below its viability thresholds, leading
-        to collapse of the suppressed branch while the suppressor remains
-        viable or even strengthens.
-  \item \textbf{Parasitism.}\quad
-        One branch harvests supporting flows from another, increasing its own
-        continuumness while eroding the other's cycle complexes.
+        Eine Verzweigung treibt die andere unter ihre Viabilitaetsschwellen,
+        was zum Kollaps der unterdrueckten Verzweigung fuehrt, waehrend der
+        Unterdruecker lebensfaehig bleibt oder sogar staerker wird.
+  \item \textbf{Parasitismus.}\quad
+a
+        Eine Verzweigung entnimmt unterstuetzende Fluesse von einer anderen und
+        steigert ihre eigene Continuumness, waehrend die Zykluskomplexe der
+        anderen ausgehöhlt werden.
   \item \textbf{Fusion.}\quad
-        Through strong coupling and shared boundary structures
-        (e.g.\ overlapping \(\partial\Omega\) components), two branches
-        can generate a new continuum that lies on a common extension branch.
-        Formally this corresponds to a composite birth operator taking
-        inputs from both \(B^{(a)}\) and \(B^{(b)}\).
+        Durch starke Kopplung und gemeinsame Randstrukturen koennen zwei
+        Verzweigungen ein neues Kontinuum erzeugen, das auf einer gemeinsamen
+        Erweiterungs-Verzweigung liegt. Formal entspricht dies einem
+        zusammengesetzten Geburtsoperator, gespeist aus sowohl \(B^{(a)}\) als auch
+        \(B^{(b)}\).
 \end{itemize}
 
-Shared boundary structures are particularly important. If
-\(\partial\Omega^{(a)}\cap\partial\Omega^{(b)}\neq\emptyset\), then:
+Gemeinsame Randstrukturen sind besonders wichtig. Wenn
+\(\partial\Omega^{(a)}\cap\partial\Omega^{(b)}\neq\emptyset\), dann:
 \begin{itemize}
-  \item cross-branch flows restricted to the intersection can mediate coupling;
-  \item patch states at the shared boundary can synchronise or destabilise
-        both branches simultaneously;
-  \item new continua may nucleate at the shared boundary, initiating new
-        branches or branch fusions.
+  \item Querverzweigungs-Fluesse, begrenzt auf die Schnittmenge, koennen
+        Kopplung vermitteln;
+  \item Teilzustände auf dem gemeinsamen Rand koennen beide Verzweigungen
+        synchronisieren oder destabilisieren;
+  \item neue Kontinua koennen am gemeinsamen Rand entstehen und neue
+        Verzweigungen oder Verzweigungsfusionszustaende initiieren.
 \end{itemize}
 
-\subsection{Branch Collapse}
+\subsection{Kollaps von Verzweigungen}
 
-Branches can terminate in several ways, extending the notion of collapse from
-individual continua (Section~\ref{sec:collapse-rebirth}) to whole development
-paths.
+Verzweigungen koennen in mehreren Varianten enden; so wird der Kollapsbegriff von
+individuellen Kontinua (Abschnitt~\ref{sec:collapse-rebirth}) auf ganze
+Entwicklungspfade erweitert.
 
-\paragraph{Definition 13.5 (Branch collapse).}
-A branch \(B = (K_{x_0}, K_{x_1}, \dots)\) \emph{collapses} at level
-\(x_n\) if:
+\paragraph{Definition 13.5 (Verzweigungs-Kollaps).}
+Eine Verzweigung \(B = (K_{x_0}, K_{x_1}, \dots)\) \emph{kollabiert} auf Niveau
+\(x_n\), wenn:
 \begin{enumerate}
-  \item the continuum \(K_{x_n}\) collapses in the sense of
-        Definition~12.1 (empty admissible set, \(k\to 0\), threshold
-        violation);
-  \item there exists no continuum \(K_{x_{n+1}}\) with \(x_{n+1}>x_n\)
-        such that a birth operator \(\Psi_{x_n\to x_{n+1}}\) can be
-        defined on any residue of \(K_{x_n}\) (Section~\ref{sec:collapse-rebirth});
-  \item the branch cannot be extended fürther while respecting the axioms
-        of dimensional monotonicity and embedding compatibility.
+  \item das Kontinuum \(K_{x_n}\) im Sinn von Definition~12.1 kollabiert
+        (leere zulaessige Menge, \(k\to 0\), Schwellenverletzung);
+  \item es kein Kontinuum \(K_{x_{n+1}}\) mit \(x_{n+1}>x_n\) gibt, auf
+        dem ein Geburtsoperator \(\Psi_{x_n\to x_{n+1}}\) auf irgendeiner Restmenge
+        von \(K_{x_n}\) definiert werden kann
+        (Abschnitt~\ref{sec:collapse-rebirth});
+  \item die Verzweigung nicht weiter erweitert werden kann, wobei die Axiome der
+        dimensionalen Monotonie und der Einbettungs-Kompatibilitaet eingehalten
+        bleiben.
 \end{enumerate}
 
-Three structurally distinct scenarios are relevant:
+Drei strukturell unterschiedliche Szenarien sind relevant:
 
 \begin{itemize}
-  \item \textbf{Terminal collapse.}\quad
-        The last continuum on the branch collapses and no rebirth at any
-        higher level is possible. The branch is finite and ends at \(x_n\).
-  \item \textbf{Fusion collapse.}\quad
-        The branch is absorbed into a more stable branch via fusion:
-        continua on \(B\) lose their identity as independent vertices in
-        the branch graph and become internal structure of a continuum on
-        another branch. From the perspective of \(B\), this is collapse by
-        loss of branch identity.
-  \item \textbf{Asymptotic thinning.}\quad
-        The branch does not end at a single dramatic collapse but enters a
-        regime where higher levels become increasingly marginal
-        (\(k_{x_i}\to 0\) as \(i\to\infty\)) and cannot support fürther
-        dimensional births. The branch is infinite in index but finite in
-        effective complexity.
+  \item \textbf{Terminaler Kollaps.}\quad
+        Das letzte Kontinuum auf der Verzweigung kollabiert und kein
+        Wiederaufbau auf höheren Niveaus ist moeglich. Die Verzweigung ist
+        endlich und endet bei \(x_n\).
+  \item \textbf{Fusions-Kollaps.}\quad
+        Die Verzweigung wird über Fusion in eine stabilere Verzweigung absorbiert:
+        Kontinua in \(B\) verlieren ihre Identitaet als unabhängige Knoten im
+        Verzweigungsgraph und werden Teilstruktur eines Kontinuums in einer
+        anderen Verzweigung. Aus der Perspektive von \(B\) ist dies ein
+        Kollaps durch Verlust der Verzweigungs-Identitaet.
+  \item \textbf{Asymptotisches Ausdünnen.}\quad
+        Die Verzweigung endet nicht in einem einzelnen dramatischen Kollaps,
+        sondern geht in ein Regime ueber, in dem die höheren Niveaus zunehmend
+        marginal sind (\(k_{x_i}\to 0\) fuer \(i\to\infty\)) und keine
+        weiteren dimensionalen Geburten stützen. Die Verzweigung ist im Index
+        unendlich, aber in effektiver Komplexitaet endlich.
 \end{itemize}
 
-\paragraph{Global constraints.}
-The OC axioms impose constraints that prevent uncontrolled infinite branching
-cascades at finite levels:
+\paragraph{Globale Restriktionen.}
+Die OC-Axiome erzwingen Restriktionen, die unkontrollierte unendliche
+Verzweigungs-Kaskaden auf endlichen Niveaus verhindern:
 \begin{itemize}
-  \item the embedding space at each level has finite axis capacity relevant
-        to a given domain, limiting the number of distinct birth channels;
-  \item dimensional thresholds require nontrivial structural tension; repeated
-        branching without sufficient supporting flows would drive branches
-        toward collapse;
-  \item monotonic complexity theorems constrain viable branches to those
-        whose complexity growth is compatible with available cycles and
-        thresholds.
+  \item der Einbettungsraum auf jedem Niveau hat eine endliche Achsenkapazität
+        je nach Domäne, wodurch die Zahl unterschiedlicher Geburtskanäle
+        eingeschraenkt ist;
+  \item dimensionsbezogene Schwellen erfordern nichttriviale strukturelle
+        Spannung; wiederholte Verzweigung ohne ausreichend starke stützende
+        Fluesse wuerde Verzweigungen in Richtung Kollaps bewegen;
+  \item Monotonie-Saetze der Komplexitaet beschraenken viable Verzweigungen auf
+        solche, deren Komplexitaetswachstum zu Verfuegung stehenden Zyklen und
+        Schwellen kompatibel ist.
 \end{itemize}
 
-\subsection{Consequences for the K-Level Hierarchy}
+\subsection{Konsequenzen fuer die K-Level-Hierarchie}
 
-The branch structure refines the vertical hierarchy \(K_0\)–\(K_{10}\) by
-identifying which sequences of levels and axes are actually realisable.
+Die Verzweigungsstruktur verfeinert die vertikale Hierarchie \(K_0\)–\(K_{10}\),
+indem sie festlegt, welche Sequenzen von Ebenen und Achsen wirklich
+realisierbar sind.
 
-\paragraph{Ontogenic development paths.}
-Each branch defines an \emph{ontogenic development path}:
+\paragraph{Ontogenetische Entwicklungspfade.}
+Jede Verzweigung definiert einen \emph{ontogenetischen Entwicklungspfad}:
 \begin{itemize}
-  \item in physical domains, branches describe ways in which field-theoretic
-        continua at \(K_2\) give rise to chemical, protocellular and
-        biological continua at \(K_3\)–\(K_5\);
-  \item in cognitive and social domains, branches describe how neural
-        continua \(K_5\) can support cognitive continua \(K_6\), which in
-        turn support social and civilizational continua \(K_7\)–\(K_8\);
-  \item in theoretical domains, branches connect empirical continua to
-        theoretical and meta-theoretical continua \(K_9\)–\(K_{10}\).
+  \item in physikalischen Domänen beschreiben Verzweigungen Wege, in denen feldtheoretische
+        Kontinua auf \(K_2\) chemische, protocellulaere und biologische
+        Kontinua auf \(K_3\)–\(K_5\) hervorbringen;
+  \item in kognitiven und sozialen Domänen beschreiben Verzweigungen wie neuronale
+        Kontinua \(K_5\) kognitive Kontinua \(K_6\) unterstuetzen koennen,
+        die wiederum soziale und zivilisatorische Kontinua auf \(K_7\)–\(K_8\)
+        stützen;
+  \item in theoretischen Domänen verbinden Verzweigungen empirische Kontinua mit
+        theoretischen und meta-theoretischen Kontinua \(K_9\)–\(K_{10}\).
 \end{itemize}
-The diversity of observed physical, chemical, biological and social systems
-corresponds to the multiplicity of branches compatible with a shared
-substrate.
+Die Vielfalt beobachteter physikalischer, chemischer, biologischer und sozialer
+Systeme entspricht der Vielzahl von Verzweigungen, die mit einem gemeinsamen
+Substrat vereinbar sind.
 
-\paragraph{Allowed vs forbidden transitions.}
-The branch topology codifies which transitions between levels are allowed:
+\paragraph{Zulaessige vs. verbotene Übergänge.}
+Die Verzweigungstopologie kodifiziert, welche Übergange zwischen Niveaus
+erlaubt sind:
 \begin{itemize}
-  \item edges in the branch graph \(\mathcal{G}\) correspond to admissible
-        dimensional birth operators;
-  \item absence of an edge \(K_x \to K_y\) (with \(y>x\)) expresses a
-        structural impossibility: no embedding space and threshold landscape
-        can support that direct transition without passing through required
-        intermediate levels;
-  \item forbidden transitions typically violate either dimensional
-        monotonicity (attempted simplification of axes) or embedding
-        thresholds (attempted realisation of axes unsupported by \(M_x\)).
+  \item Kanten im Verzweigungsgraphen \(\mathcal{G}\) entsprechen zulaessigen
+dimensionalen Geburtsoperatoren;
+  \item das Fehlen einer Kante \(K_x \to K_y\) (mit \(y>x\)) drückt eine
+        strukturelle Unmoeglichkeit aus: Kein Einbettungsraum und keine
+        Schwellenlandschaft kann diesen direkten Übergang tragen, sofern nicht
+        die erforderlichen Zwischenebenen durchlaufen werden;
+  \item verbotene Übergänge verletzen typischerweise entweder die dimensionsbezogene
+        Monotonie (versuchte Vereinfachung von Achsen) oder Einbettungs-Schwellen
+        (versuchte Realisierung von Achsen ohne Stuetze in \(M_x\)).
 \end{itemize}
 
-\paragraph{Vertical coherence.}
-Because branches must reduce to lower levels when additional axes are frozen
-(Section~\ref{sec:operators-full}), the branch structure enforces vertical
-coherence:
+\paragraph{Vertikale Kohärenz.}
+Da Verzweigungen auf tiefere Niveaus reduzierbar sein muessen, wenn
+zusätzliche Achsen eingefroren sind (Abschnitt~\ref{sec:operators-full}), erzwingt
+die Verzweigungsstruktur vertikale Kohärenz:
 \begin{itemize}
-  \item each higher-level continuum \(K_y\) restricts to a lower-level
-        continuum \(K_x\) along a branch when additional axes are held
-        constant;
-  \item conversely, lower levels act as necessary substrata for higher levels;
-  \item branches record this coherence as shared prefixes across domains
-        (e.g.\ all biological branches must contain physical and chemical
-        levels).
+  \item jedes hoehere Kontinuum \(K_y\) reduziert zu einem niederen Kontinuum
+        \(K_x\) entlang einer Verzweigung, wenn zusätzliche Achsen konstant
+        gehalten werden;
+  \item umgekehrt wirken untere Niveaus als notwendige Schichten fuer hoehere;
+  \item Verzweigungen dokumentieren diese Kohärenz als gemeinsame Praefixe
+        ueber Domänen (z. B. muessen alle biologischen Verzweigungen
+        physikalische und chemische Ebenen enthalten).
 \end{itemize}
 
-\paragraph{Global picture.}
-Taken together, the vertical hierarchy \(K_0\)–\(K_{10}\), the operator
-family \((F,G,H,Q,R,S,U,\Psi,E_{\mathrm{int}})\), the threshold landscape
-and the branch topology form the global structural picture of OC:
+\paragraph{Globales Bild.}
+Zusammen mit der verticalen Hierarchie \(K_0\)–\(K_{10}\), der
+Schwellenlandschaft und der Verzweigungstopologie bildet sich das globale
+strukturelle Bild von OC.
+Die operative Struktur wird von \(F\), \(G\), \(H\), \(Q\), \(R\),\
+\(S\), \(U\), \(\Psi\) und \(E_{\mathrm{int}}\) getragen:
 \begin{itemize}
-  \item continua are local objects with internal dynamics;
-  \item branches are global development paths threading through levels;
-  \item the branch graph encodes which paths are structurally allowed;
-  \item collapse and rebirth prune and reconfigure branches over time.
+  \item Kontinua sind lokale Objekte mit interner Dynamik;
+  \item Verzweigungen sind globale Entwicklungspfade durch die Ebenen;
+  \item der Verzweigungsgraph kodiert, welche Pfade strukturell erlaubt sind;
+  \item Kollaps und Wiedergeburt schneiden und rekonfigurieren Verzweigungen
+        ueber die Zeit.
 \end{itemize}
 
-Core~1.3 fixes this global picture at the structural level. Subsequent
-extensions (Core~1.2 and domain-specific runs) will quantify branch
-probabilities, explore explicit examples of branching in concrete systems and
-develop empirical criteria for identifying branch structure in real-world
-data.
+Core~1.3 fixiert dieses globale Bild auf strukturellem Niveau. Spätere Erweiterungen
+und domänenspezifische Studien können Verzweidigungswahrscheinlichkeiten
+quantifizieren, konkrete Beispiele von Verzweigung in konkreten Systemen explizit
+untersuchen und empirische Kriterien zur Identifikation von Verzweigungsstruktur
+in Realwelt-Daten entwickeln.
 
 % END OF FILE
+

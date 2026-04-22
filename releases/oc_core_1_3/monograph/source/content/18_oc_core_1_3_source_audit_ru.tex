@@ -9,146 +9,164 @@
 % SOURCE_LANGUAGE: EN
 % TARGET_LANGUAGE: RU
 % SOURCE_EN_REF: content/18_oc_core_1_3_source_audit.tex
-\section{Core 1.3 Source-First Revalidation and Publication Boundary}
+\section{Засвидетельствование источника, судьба теорем и публикационная граница}
+\label{sec:oc13-publication-boundary}
 
-Core 1.3 is the first OC release in which the публичный-facing публичныйation shell is forced to answer
-two questions separately.
-The first question is scientific: what does the inherited corpus actually say, how is it
-structured, and which теорему-bearing rows remain legitimate once they are bound back to exact
-свидетельство источникаes?
-The second question is editorial: what should be shown to the owner, to a reviewer, and to the
-публичный as the final artifact, and what should remain in the supporting layer rather than being
-mistaken for the artifact itself?
+Эта глава фиксирует публикационную границу Core~1.3. Ее задача состоит в том,
+чтобы определить, какая научная инстанция является канонической, как
+обеспечивается засвидетельствование источника, как судьба теорем
+распределяется по внешним артефактам и как последующие каналы должны
+оставаться согласованными с корпусом источника, SPOT и флагманской
+монографией. Она не пересматривает заново формальную доктрину или теоремный
+остов; эти задачи относятся к смежным главам и приложениям.
 
-Those questions are related, but they are not the same.
-If they are collapsed into one short packet, the reader loses both the monograph and the audit
-discipline.
-If they are separated only in internal ledgers, the owner sees clutter instead of a real
-manuscript.
-The purpose of the present section is therefore to make the 1.3 release logic explicit inside the
-monograph itself.
+\subsection{Каноническая научная инстанция}
 
-\subsection{Inherited corpus and present release}
+Канонической научной инстанцией выпуска является SPOT-проекция
+\occode{releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json}
+(идентификатор поверхности \occode{OC_CORE_1_3_SCIENCE_SPOT}; текущий SHA
+зафиксирован в поле \occode{metadata.repo_sha}). Научный корпус источника в
+\occode{releases/oc_core_1_3/editorial/science_sources/} является локусом
+авторства и засвидетельствования, из которого проецируется этот SPOT.
+Исторические свидетельства источника, включая более ранние базовые линии
+исправления Core~1.2/Core~1.3, остаются опорами происхождения; они не являются
+текущей инстанцией проекции. Нынешняя основная монография -- это флагманская
+читательская проекция и сводный справочный том, полученный из этих записей.
+Она держит вместе лестницу ориентации, формальную доктрину, теоремный маршрут,
+эмпирическую дисциплину, синтез, практическую полезность и слои аудита, но не
+подменяет SPOT как конечную инстанцию по объему утверждений, статусу
+продвижения или границе доказательства.
 
-The inherited Core 1.2 corpus already contains a full monograph-grade scientific body.
-It has a title shell, a large chapter tree, теорему-bearing sections, appendices, bibliography,
-and figures covering levels, transitions, operators, thresholds, cycles, falsifiability, and the
-observed-universe module.
-That source tree is not merely an archive; it is the canonical scientific substrate from which the
-present release begins.
+Это правило важно потому, что фундаментальные программы со временем накапливают
+несколько разных текстовых слоев: исходно-авторские определения и теоремы,
+пояснительную прозу, заметки по исправлениям и выпуску, сжатые публичные пакеты
+и более поздние операционные проекции. Core~1.3 рассматривает эти слои как
+различимые, а не взаимозаменяемые.
 
-What Core 1.3 changes is not the decision to become a large work.
-What it changes is the rule by which the work is published.
-Instead of treating a short outward статья as the de facto флагманского and leaving the monograph in
-the shadows, the 1.3 release restores the large scientific volume as the canonical object and then
-derives narrower публичныйation artifacts from it.
+\subsection{Засвидетельствование источника}
 
-\subsection{Source witnessing}
-
-The monograph-level release is source-first in a precise sense.
-Claims that matter to the present публичныйation contour are not allowed to float free from the
-публичный LaTeX sources and their compiled archival witness.
-This rule matters because a foundational framework accumulates multiple kinds of material over
-time:
+Core~1.3 в строгом смысле строится с приоритетом источника: флагманские
+утверждения, используемые в публичном выпуске, должны оставаться привязанными
+к публичным свидетельствам источника, а не только к поздней сводной прозе.
+Речь не в архивном фетишизме. Речь в том, чтобы остановить дрейф между пятью
+вещами, которые в крупных исследовательских программах часто размываются:
 
 \begin{itemize}
-\item stable axioms and definitions,
-\item теорему statements and their proof environment,
-\item explanatory prose,
-\item historical reformulations,
-\item later summaries,
-\item and outward-facing packets meant for specific channels.
+\item теоремоносные утверждения,
+\item структурное и интерпретационное объяснение,
+\item заметки по исправлениям и выпуску,
+\item сжатые публичные пакеты,
+\item и более поздние операционные проекции.
 \end{itemize}
 
-Without a source-first rule, those layers start to masquerade as one another.
-A late сводках sentence can be mistaken for the теорему itself.
-A helpful editorial restatement can be mistaken for исходно-авторские canon.
-A dashboard packet can begin to displace the actual manuscript.
-The 1.3 release blocks that drift by making the monograph and the свидетельство источника discipline live
-together.
+Когда эта граница размывается, сводное предложение может начать выдавать себя
+за саму теорему, а выпускной дашборд -- подменять собой подлинную научную
+запись. Core~1.3 предотвращает такой сдвиг, удерживая засвидетельствование
+источника привязанным к научному корпусу источника и канонической
+SPOT-проекции, а не сводя его к скрытым управляющим файлам.
 
-\subsection{Theorem fate and scope discipline}
+\subsection{Судьба теорем и дисциплина области действия}
 
-Core 1.3 also requires explicit теорему-fate separation.
-Not every inherited line serves the same role in every outward artifact.
-Some rows survive unchanged as part of the formal backbone.
-Some rows are retained but must be read with explicit scope notes.
-Some rows become part of appendical explanation rather than the positive body of a narrower
-journal-core статья.
-Some rows remain promising but are not allowed to silently migrate into the main claim of a
-review-facing работу until their support chain is externally defensible in the same strict sense as
-the исходно-авторские rows already used.
+Core~1.3 также требует явного разделения судьбы теорем. Не каждая унаследованная
+строка выполняет одну и ту же роль в каждом внешнем артефакте.
 
-That rule should not be read as retreat.
-It is a discipline of clarity.
-The monograph stays large because it continues to carry the broader framework.
-The narrower статья stays honest because it is extracted from the monograph with an explicit
-positive boundary instead of pretending that the full body and the short работу are identical.
+\begin{itemize}
+\item \occode{THEOREM_NATIVE} строки могут нести положительные
+      теоремно-нативные утверждения, когда их цепочка доказательства и
+      зависимостей остается точной.
+\item \occode{BRIDGE_ONLY} строки могут оставаться научно полезными при явных
+      примечаниях об области действия, но их нельзя повышать до
+      теоремно-нативного статуса.
+\item \occode{FRAME_ONLY} и \occode{EXTENSION} строки принадлежат
+      поддерживающим слоям, приложениям, более узким сопутствующим артефактам
+      или будущей работе, а не положительному корпусу каждого внешнего текста.
+\item \occode{REFUTED} строки исключаются из положительного пути доказательства.
+      Их можно упоминать только как отрицательную историю аудита или как запись
+      фальсификации, но не как живую поддержку.
+\item Материал фронтира или гипотез можно обсуждать только в явно помеченном
+      фронтирном языке; его нельзя молча повышать через сводную прозу.
+\end{itemize}
 
-\subsection{Why the volume must remain larger than a short статья}
+Публичное положительное утверждение о замыкании строго ограничено
+\occode{CORE_1_3_SCIENCE_ONLY}. Строки \occode{FRAME_ONLY} могут по-прежнему
+замыкаться как строки PASS на уровне каркаса внутри поверхности синтеза, но
+они не становятся самостоятельными эмпирическими повышениями до
+теоремно-нативного статуса. Строки \occode{EXTENSION} и \occode{REFUTED}
+остаются вне публичной области PASS по разным причинам: строки
+\occode{EXTENSION} -- это фронтирные или поддерживающие линии, ожидающие
+более позднего продвижения или отклонения, тогда как строки \occode{REFUTED}
+-- это линии отрицательного аудита. Ни один из этих классов не может нести в
+этом выпуске положительные утверждения о замыкании.
+Во избежание недоразумений строка \occode{FRAME_ONLY} с вердиктом
+\occode{PASS} исключается из публичного положительного утверждения о
+замыкании, если только более поздний релиз не продвинет ее в
+\occode{CORE_1_3_SCIENCE_ONLY} с требуемой теоремно-нативной поддержкой.
 
-The theory presented in OC is not a one-теорему note.
-Even when a journal-core extraction focuses on a particular result class, the scientific life of
-the framework depends on the larger architecture:
-axioms, operators, thresholds, admissible-state geometry, K-level hierarchy, embedding spaces,
-transition mechanisms, cycles, falsifiability routes, and domain modules.
-Removing that body from the primary scientific release would make the framework look smaller,
-cleaner, and easier to package, but it would also make it less teachable and less auditable.
+Это не отступление. Это условие честной публикации. Монография может оставаться
+объемной без риторической инфляции только в том случае, если читатель может
+различить, какие строки несут теоремы, какие ограничены, а какие относятся к
+поддержке или фронтиру.
 
-For that reason Core 1.3 intentionally remains monograph-scale.
-The journal-core статья is a derivative scientific product.
-The master volume is the place where the theory can still be read as a coherent whole.
+\subsection{Связь с журнальным ядром и сопутствующими артефактами}
 
-\subsection{Publication architecture}
+Поэтому Core~1.3 принимает однонаправленную логику публикации, ориентированной
+на читателя:
+\[
+\begin{gathered}
+\text{Научный корпус источника}\\
+\text{плюс канонический SPOT}\\
+\Downarrow\\
+\text{Основная монография}\\
+\Downarrow\\
+\text{Производные внешние артефакты}
+\end{gathered}
+\]
+Эта диаграмма описывает порядок публикации, а не полный граф происхождения
+релизного пакета. Несколько редакторских JSON-поверхностей, сгенерированных
+научных глав и матриц выпуска являются прямыми SPOT-проекциями или зеркалами
+других управляющих канонических поверхностей. Они не становятся истинными лишь
+потому, что основная монография на них ссылается, и они не являются потомками
+одной только монографии. Монография является флагманским объектом чтения;
+научный корпус источника остается локусом авторства и засвидетельствования, а
+SPOT остается канонической инстанцией проекции для релизных поверхностей.
 
-The 1.3 release therefore adopts a dual-track architecture.
+Статья журнального ядра по замыслу уже. Сопроводительные досье, матрицы и
+релизные поверхности по замыслу еще уже либо более операциональны. Эти
+артефакты могут сжимать, сокращать до подмножества или переорганизовывать
+флагманский материал для конкретной задачи, но они не могут расширять научное
+утверждение, раздвигать нотацию или выходить за пределы закрепленной здесь
+дисциплины судьбы теорем.
 
-\begin{enumerate}
-\item \textbf{Master Monograph.}
-      This is the present volume.
-      It is the authoritative scientific source, the didactic spine of the framework, and the
-      place where inherited corpus, 1.3 repair logic, and публичныйation boundary are held together
-      in one readable object.
-\item \textbf{Journal Core.}
-      This is a narrower статья extracted from the master.
-      It is the artifact intended for journal-style review, fast inspection, and outward channel
-      packaging.
-\item \textbf{Companion Packet Set.}
-      These materials expose witness matrices, chronology, теорему support, figures, release
-      manifests, and other supporting structures without forcing the owner or the публичный to treat
-      internal control surfaces as the scientific work itself.
-\end{enumerate}
+Практическое следствие простое. Если какой-либо внешний артефакт,
+ориентированный на читателя, утверждает нечто более сильное, чем разрешают
+корпус источника и SPOT, то внешний артефакт ошибочен, даже если он короче,
+чище или проще в продвижении. Флагманская граница -- это правило публикации,
+которое и удерживает этот потолок; она не является дополнительным источником
+научного авторитета.
 
-This architecture is not cosmetic.
-It is what allows the system to remain truthful both scientifically and operationally.
+\subsection{Правило последующих проекций}
 
-\subsection{Author identity and scholarly format}
+Та же граница стабилизирует и более позднее использование в рецензировании,
+сотрудничестве, продуктовых, деловых и публичных каналах. Разные каналы могут
+правомерно цитировать разные части флагманского тома:
 
-The present release also corrects the outward scholarly identity shell.
-ORCID is the primary публичный scholarly identifier because it is the stable, citable identity anchor
-appropriate for scientific публичныйation.
-Private correspondence coordinates may still exist as operational metadata, but they are no longer
-allowed to dominate the публичный title block of the scientific artifact.
+\begin{itemize}
+\item теоремный маршрут, когда речь идет об ограниченном доказательстве,
+\item эмпирический маршрут, когда речь идет о дисциплине продвижения,
+\item практический маршрут, когда речь идет об использовании и сравнении,
+\item аудиторские приложения, когда речь идет об оспаривании и
+      трассируемости.
+\end{itemize}
 
-Format discipline follows the same logic.
-The volume must open like a real manuscript:
-title page, abstract, table of contents, figures, tables, appendices, references, and reader
-guidance.
-If a release packet fails to provide that structure, it should be treated as a derived support
-artifact rather than as the monograph itself.
+Но они не вправе изобретать вторую научную инстанцию. Засвидетельствование
+источника, судьба теорем и публикационная граница существуют для того, чтобы
+внешнее использование могло оставаться кратким, не превращаясь в
+интерпретативный произвол.
 
-\subsection{Implications for later projections}
-
-The same separation between master monograph, journal-core статья, and companion packets also
-stabilizes later projections into ESTRA, toolkit, product, business, and публичный channels.
-Those projections should derive from the correct scientific source:
-the large volume when the goal is teaching, canonical explanation, or deep diligence;
-the journal core when the goal is a bounded statement for editorial or публичный review;
-and the companion layer when the goal is auditability, provenance, or operational proof.
-
-This matters because later outward channels should not be forced to reverse-engineer which text is
-the real scientific artifact.
-The architecture of 1.3 exists precisely so that downstream channels can stay honest without
-manual reinterpretation every time the core evolves.
+\paragraph{Переход к следующей главе.}
+С установленной публикационной границей следующая задача -- внутренняя
+согласованность: какие классы утверждений использует флагманский том, почему
+иерархия проходит через \(K_{12}\) и как верхние уровни остаются правомерными
+без риторической инфляции.
 
 \clearpage

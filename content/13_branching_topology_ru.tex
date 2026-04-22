@@ -1,38 +1,28 @@
-% GENERATED_BY: oc_core_monograph_translation_draft_pipeline_v1.py
-% AI_ASSISTED_TRANSLATION_DRAFT: TRUE
-% THEOREM_REVIEW_STATUS: PENDING
-% THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
-% THEOREM_REVIEW_REVIEWER_ID: 
-% THEOREM_REVIEW_AUTHORITY_CLASS: 
-% THEOREM_REVIEWED_AT: 
-% THEOREM_REVIEW_DOSSIER_REF: 
-% SOURCE_LANGUAGE: EN
-% TARGET_LANGUAGE: RU
-% SOURCE_EN_REF: content/13_branching_topology.tex
 % ====================================================================
 % FILE: content/13_branching_topology.tex
-% Ontological Branching and Global Topology
+% Онтологическое ветвление и глобальная топология
 % Restored Full Version for Core 1.3
 % ====================================================================
 
-\section{Ontological Branching and Global Topology}
+\section{Онтологическое ветвление и глобальная топология}
 \label{sec:branching-topology}
 
-This section reconstructs the theory of ontological branches and the global
-topology of continua. It explicates Axiom~21 (Ontological Branching) and
-integrates it with the dimensional hierarchy \(K_0\)–\(K_{10}\), the birth
-operators \(\Psi_{x\to x+1}\) (Section~\ref{sec:operators-full}) and the
-collapse–rebirth structure (Section~\ref{sec:collapse-rebirth}).
+В этом разделе реконструируется теория онтологических ветвей и глобальной
+топологии континуумов. Он раскрывает аксиому~21 (онтологическое
+ветвление) и связывает её с размерностной иерархией
+\(K_0\)–\(K_{10}\), операторами рождения
+\(\Psi_{x\to x+1}\) (раздел~\ref{sec:operators-full}) и структурой
+схлопывания\textendash возрождения (раздел~\ref{sec:collapse-rebirth}).
 
-Informally, a \emph{branch} is a maximal development path along which a
-continuum undergoes successive dimensional births consistent with a given set
-of axes and embedding spaces. The collection of such branches carries a natural
-directed topology, providing a global view of all admissible ontogenic
-trajectories compatible with the OC axioms.
+Неформально, \emph{ветвь} — это максимальный путь развития, вдоль которого
+континуум последовательно подвергается размерностным рождениям, совместимым с
+заданным набором осей и пространств вложения. Множество таких ветвей
+несет естественную направленную топологию и даёт глобальный обзор всех
+допустимых онтогенетических траекторий, совместимых с аксиомами OC.
 
-\subsection{Definition of Ontological Branches}
+\subsection{Определение онтологических ветвей}
 
-A continuum level \(K_x\) is specified by
+Уровень континуума \(K_x\) задается:
 \[
   K_x =
   \big(
@@ -40,358 +30,365 @@ A continuum level \(K_x\) is specified by
     \Theta_x, \partial\Omega_x, C_x, k_x(t)
   \big),
 \]
-embedded in a space \(M_x\) with axis set \(A(M_x)\). Dimensional birth from
-\(K_x\) to \(K_{x+1}\) is mediated by a birth operator
-\(\Psi_{x\to x+1}\) (Section~\ref{sec:operators-full}).
+вложенный в пространство \(M_x\) с множеством осей \(A(M_x)\). Размерностное
+рождение из \(K_x\) в \(K_{x+1}\) опосредуется оператором рождения
+\(\Psi_{x\to x+1}\) (раздел~\ref{sec:operators-full}).
 
-\paragraph{Definition 13.1 (Ontological branch).}
-An \emph{ontological branch} \(B\) is a finite or countable sequence of continua
+\paragraph{Определение 13.1 (Онтологическая ветвь).}
+Онтологическая ветвь \(B\) — это конечная или счётная последовательность
+континуумов
 \[
   B = (K_{x_0}, K_{x_1}, K_{x_2}, \dots),
 \]
-together with embedding spaces \((M_{x_0}, M_{x_1}, \dots)\), such that:
+вместе с пространствами вложения \((M_{x_0}, M_{x_1}, \dots)\), такая что:
 \begin{enumerate}
-  \item \textbf{Monotone levels.}\quad
-        \(x_0 < x_1 < x_2 < \dots\) and each step
-        \(K_{x_i} \to K_{x_{i+1}}\) is a dimensional transition
-        (no purely parametric evolution);
-  \item \textbf{Birth compatibility.}\quad
-        For each \(i\) there exists a birth operator
-        \(\Psi_{x_i\to x_{i+1}}\) such that
+  \item \textbf{Монотонность уровней.}\quad
+        \(x_0 < x_1 < x_2 < \dots\) и каждый шаг
+        \(K_{x_i} \to K_{x_{i+1}}\) представляет собой размерностный
+        переход (не чисто параметрическую эволюцию);
+  \item \textbf{Совместимость рождения.}\quad
+        Для каждого \(i\) существует оператор рождения
+        \(\Psi_{x_i\to x_{i+1}}\) такой, что
         \[
           (K_{x_{i+1}}, M_{x_{i+1}}) =
             \Psi_{x_i\to x_{i+1}}(K_{x_i}, M_{x_i}),
         \]
-        with \(\Psi_{x_i\to x_{i+1}}\) satisfying the general birth
-        conditions of Section~\ref{sec:operators-full};
-  \item \textbf{Axis monotonicity.}\quad
-        The axis sets grow monotonically:
+        где \(\Psi_{x_i\to x_{i+1}}\) удовлетворяет общим условиям рождения
+        из раздела~\ref{sec:operators-full};
+  \item \textbf{Монотонность осей.}\quad
+        Множества осей растут монотонно:
         \[
           A_{x_i} \subset A_{x_{i+1}}
           \subseteq A(M_{x_{i+1}}),
         \]
-        and each new axis is not representable in the span of previous axes;
-  \item \textbf{Embedding monotonicity.}\quad
-        Embedding spaces form an inclusion chain
+        и каждая новая ось не представима в структурном спане предыдущих осей;
+  \item \textbf{Монотонность вложения.}\quad
+        Пространства вложения образуют цепочку включения
         \[
           M_{x_0} \subset M_{x_1} \subset M_{x_2} \subset \dots
         \]
-        with \(A(M_{x_i}) \subseteq A(M_{x_{i+1}})\);
-  \item \textbf{Maximality.}\quad
-        The branch is maximal with respect to extension in the direction
-        of increasing level: there is no continuum \(K_{x^{\ast}}\) with
-        \(x^{\ast} > \sup_i x_i\) such that the sequence can be strictly
-        extended while preserving the above conditions.
+        с \(A(M_{x_i}) \subseteq A(M_{x_{i+1}})\);
+  \item \textbf{Максимальность.}\quad
+        Ветвь максимальна относительно расширения в направлении увеличения
+        уровня: не существует такого континуума \(K_{x^{\ast}}\) с
+        \(x^{\ast} > \sup_i x_i\), для которого последовательность можно
+        строго продолжить, сохраняя указанные выше условия.
 \end{enumerate}
 
-When \(x_0 = 0\), the branch is \emph{rooted} at the structural substrate
-\(K_0\). More generally, branches may be defined relative to any starting level
-\(K_{x_0}\) that acts as an effective root for a restricted domain
-(e.g.\ chemistry, cognition, social systems).
+Если \(x_0 = 0\), ветвь имеет корень в структурном субстрате \(K_0\). Более
+общо ветви могут определяться относительно любого исходного уровня
+\(K_{x_0}\), выполняющего роль эффективного корня для ограниченной
+предметной области (например, химии, когниции, социальных систем).
 
-\paragraph{Remark 13.2 (Branch identity).}
-Two branches \(B\) and \(B'\) are considered distinct if they differ in at
-least one of:
+\paragraph{Замечание 13.2 (Идентичность ветвей).}
+Две ветви \(B\) и \(B'\) считаются различными, если они различаются хотя бы
+по одному из параметров:
 \begin{itemize}
-  \item the sequence of levels \(x_i\) (e.g.\ skipping or inserting levels);
-  \item the axis sets \(A_{x_i}\) (different emergent degrees of freedom);
-  \item the threshold families \(\Theta_{x_i}\) or embedding spaces \(M_{x_i}\).
+  \item последовательности уровней \(x_i\) (например, пропуск или вставка
+        уровней);
+  \item наборов осей \(A_{x_i}\) (разным возникшим степеням свободы);
+  \item семейств порогов \(\Theta_{x_i}\) или пространств вложения \(M_{x_i}\).
 \end{itemize}
-Branches thus encode \emph{developmental histories} in the space of continua,
-not just static collections of levels.
+Ветви таким образом кодируют \emph{истории развития} в пространстве
+континуумов, а не просто статические наборы уровней.
 
-\subsection{Branch Topology}
+\subsection{Топология ветвей}
 
-The set of all branches carries a natural directed structure.
+Множество всех ветвей имеет естественную направленную структуру.
 
-\paragraph{Definition 13.3 (Branch graph).}
-Let \(\mathcal{K}\) be the class of all continua admissible under the OC
-axioms and let \(\mathcal{B}\) be the set of all branches. The
-\emph{branch graph} \(\mathcal{G}\) is the directed graph whose:
+\paragraph{Определение 13.3 (Граф ветвей).}
+Пусть \(\mathcal{K}\) — класс всех континуумов, допускаемых аксиомами OC, а
+\(\mathcal{B}\) — множество всех ветвей. Тогда
+\emph{граф ветвей} \(\mathcal{G}\) — это ориентированный граф, у которого:
 \begin{itemize}
-  \item vertices are continua \(K_x\in\mathcal{K}\);
-  \item directed edges \(K_x \to K_y\) correspond to birth operators
-        \(\Psi_{x\to y}\) with \(y > x\).
+  \item вершины — континуумы \(K_x\in\mathcal{K}\);
+  \item ориентированные рёбра \(K_x \to K_y\) соответствуют операторам
+        рождения \(\Psi_{x\to y}\) с \(y > x\).
 \end{itemize}
-A branch \(B\) is then a directed path in \(\mathcal{G}\) that is maximal
-with respect to extension.
+Ветвь \(B\) тогда является ориентированным путём в \(\mathcal{G}\),
+максимальным относительно расширения.
 
-Because birth operators cannot reduce dimensionality (monotonicity of
-dimension), \(\mathcal{G}\) is a directed acyclic graph (DAG). Cycles may
-exist in the \emph{state dynamics} of a given continuum \(K_x\) (through
-internal cycles \(C_x\)), but not in the vertical birth graph.
+Так как операторы рождения не уменьшают размерность (монотонность размерности),
+\(\mathcal{G}\) является ацикличным ориентированным графом (DAG). Циклы
+могут существовать в \emph{динамике состояний} данного континуума \(K_x\)
+(через внутренние циклы \(C_x\)), но не в вертикальном графе рождения.
 
-\paragraph{Global topology.}
-The global topological structure of \(\mathcal{G}\) is constrained by:
+\paragraph{Глобальная топология.}
+Глобальная топология \(\mathcal{G}\) ограничивается:
 \begin{itemize}
-  \item \textbf{Shared prefixes.}\quad
-        Different branches share common initial segments whenever they
-        coincide on lower levels (e.g.\ all physical, chemical and
-        biological branches share \(K_0\)–\(K_2\));
-  \item \textbf{Branch divergence.}\quad
-        Branches diverge when birth operators at some level \(K_x\) select
-        different new axes or threshold structures, leading to distinct
-        continua \(K_{x+1}^{(a)}\), \(K_{x+1}^{(b)}\), etc.;
-  \item \textbf{Possible fusion.}\quad
-        Through interaction operators \(E_{\mathrm{int}}\), different
-        branches may later generate continua that lie on a common extension,
-        producing DAG-like rather than purely tree-like topology;
-  \item \textbf{Hypergraph structure.}\quad
-        When birth operators take multiple continua as input (e.g.\ fusion
-        events), the branch graph can be extended to a directed hypergraph
-        with hyperedges
+  \item \textbf{Общими префиксами.}\quad
+        Разные ветви имеют общие начальные сегменты, когда они совпадают на
+        нижних уровнях (например, все физические, химические и
+        биологические ветви разделяют \(K_0\)–\(K_2\));
+  \item \textbf{Расхождением ветвей.}\quad
+        Ветви расходятся, когда операторы рождения на некотором уровне
+        \(K_x\) выбирают различные новые оси или пороговые структуры,
+        приводящие к разным континуумам \(K_{x+1}^{(a)}\),
+        \(K_{x+1}^{(b)}\) и т.п.;
+  \item \textbf{Возможным слиянием.}\quad
+        Через операторы взаимодействия \(E_{\mathrm{int}}\) разные ветви позже могут
+        порождать континуумы, лежащие на общей расширенной траектории,
+        что создает DAG-подобную, а не только древовидную топологию;
+  \item \textbf{Гиперграфовой структурой.}\quad
+        Когда операторы рождения принимают на вход несколько континуумов
+        (например, события слияния), граф ветвей можно расширить до
+        ориентированного гиперграфа с гиперрёбрами
         \((K_{x}^{(a)}, K_{x}^{(b)},\dots) \to K_{y}\).
 \end{itemize}
 
-The global topology of branches thus interpolates between tree-like structures
-(pure fission, no fusion) and hypergraph-like structures (branch fusion and
-collective birth). OC does not fix a single global shape but constrains all
-admissible shapes by dimensional monotonicity, embedding compatibility and
-threshold conditions.
+Глобальная топология ветвей таким образом интерполирует между деревоподобными
+структурами (чистая фиссия без слияний) и гиперграфоподобными структурами
+(слияние ветвей и коллективное рождение). OC не фиксирует единую глобальную
+форму, но ограничивает все допустимые формы с помощью монотонности
+размерности, совместимости вложения и пороговых условий.
 
-\subsection{Branching Conditions}
+\subsection{Условия ветвления}
 
-Branching does not occur at arbitrary points; it is structurally triggered by
-specific threshold and embedding conditions.
+Ветвление не возникает в произвольных точках; оно структурно инициируется
+специфическими пороговыми и вложенными условиями.
 
-\paragraph{Axiom 21 (Ontological Branching).}
-Let \(K_x\) be a continuum at level \(x\) with embedding space \(M_x\). A
-branching event at \(K_x\) is permitted when there exist two or more distinct
-birth operators
+\paragraph{Аксиома 21 (онтологическое ветвление).}
+Пусть \(K_x\) — континуум на уровне \(x\) со сферой вложения \(M_x\). Событие
+ветвления в \(K_x\) допускается, если существуют два или более различных
+оператора рождения
 \[
   \Psi_{x\to x+1}^{(a)},\ \Psi_{x\to x+1}^{(b)},\dots
 \]
-such that:
+таких, что:
 \begin{enumerate}
-  \item \textbf{Distinct new axes.}\quad
-        Each birth operator selects a structurally distinct new axis
+  \item \textbf{Различные новые оси.}\quad
+        Каждый оператор рождения выбирает структурно различную новую ось
         \(A_{\mathrm{new}}^{(a)}\), \(A_{\mathrm{new}}^{(b)}\), \dots,
-        not mutually representable in the span of one another, i.e.
+        взаимно непредставимые в структурном спане, то есть
         \[
-          A_{\mathrm{new}}^{(a)} \notin \mathrm{span}
-            \big(A_x \cup \{A_{\mathrm{new}}^{(b)}\}\big), \ \text{etc.};
+          A_{\mathrm{new}}^{(a)} \notin \mathrm{span}_{\mathrm{str}}
+            \big(A_x \cup \{A_{\mathrm{new}}^{(b)}\}\big), \ \text{и т.д.};
         \]
-  \item \textbf{Dimensional tension.}\quad
-        Structural tension exceeds the dimensional threshold along multiple,
-        non-equivalent directions of difference:
+  \item \textbf{Размерностное напряжение.}\quad
+        Структурное напряжение превосходит размерностный порог
+        по нескольким неэквивалентным направлениям различий:
         \[
           T(K_x,t) > \Theta_{\mathrm{dim}}^{(a)}(K_x)
-          \quad\text{and}\quad
+          \quad\text{и}\quad
           T(K_x,t) > \Theta_{\mathrm{dim}}^{(b)}(K_x),
         \]
-        where the superscripts denote distinct dimensional channels;
-  \item \textbf{Embedding capacity.}\quad
-        The embedding space \(M_x\) supports all candidate axes, i.e.
+        где верхние индексы обозначают различные размерностные каналы;
+  \item \textbf{Емкость вложения.}\quad
+        Пространство вложения \(M_x\) поддерживает все кандидатные оси, то
+        есть
         \[
           A_{\mathrm{new}}^{(a)}, A_{\mathrm{new}}^{(b)}, \dots
           \in A(M_x);
         \]
-  \item \textbf{Nonempty admissible regions.}\quad
-        Each candidate continuum
-        \(K_{x+1}^{(a)} = \Psi_{x\to x+1}^{(a)}(K_x, M_x)\), etc., has
-        a nonempty admissible set \(\Omega_{x+1}^{(a)}\neq\emptyset\).
+  \item \textbf{Непустые допустимые области.}\quad
+        Для каждого кандидатного континуума
+        \(K_{x+1}^{(a)} = \Psi_{x\to x+1}^{(a)}(K_x, M_x)\), и т.д.,
+        допустимое множество непусто: \(\Omega_{x+1}^{(a)}\neq\emptyset\).
 \end{enumerate}
 
-In many concrete systems these conditions are realised through:
+Во многих конкретных системах данные условия реализуются через:
 \begin{itemize}
-  \item incompatibilities in potentials \(P_x(t)\) that cannot be reconciled
-        within a single extension;
-  \item competition between cycle complexes \(C_x^{(a)}\), \(C_x^{(b)}\)
-        whose joint stabilisation would violate stability thresholds;
-  \item boundary geometries that admit distinct, mutually exclusive
-        re-closures (e.g.\ alternative membrane architectures or
-        institutional structures).
+  \item несогласованности в потенциалах \(P_x(t)\), которые нельзя
+        устранить внутри одного продолжения;
+  \item конкуренцию между комплексами циклов \(C_x^{(a)}\), \(C_x^{(b)}\),
+        чья совместная стабилизация нарушила бы пороги устойчивости;
+  \item геометрии границы, допускающей различные взаимно исключающие
+        повторные замыкания (например, альтернативные архитектуры
+        мембран или институциональные структуры).
 \end{itemize}
 
-\paragraph{Branching thresholds.}
-For convenience one may define a \emph{branching threshold}
-\(\Theta_{\mathrm{branch}}(K_x)\) as an effective composite of dimensional
-and embedding thresholds, such that
+\paragraph{Пороги ветвления.}
+Для удобства можно определить \emph{порог ветвления}
+\(\Theta_{\mathrm{branch}}(K_x)\) как эффективную композицию
+размерностных и вложенных порогов, такую, что
 \[
   T_{\mathrm{branch}}(K_x,t) > \Theta_{\mathrm{branch}}(K_x)
   \quad\Rightarrow\quad
-  \text{branching event possible.}
+  \text{ветвление возможно.}
 \]
-Core~1.3 treats \(\Theta_{\mathrm{branch}}\) as a derived quantity rather
-than a new primitive threshold class: it encodes simultaneous satisfaction of
-the conditions for multiple birth operators.
+Core~1.3 рассматривает \(\Theta_{\mathrm{branch}}\) как производную величину,
+а не как новый первичный класс порогов: она кодирует одновременную
+выполнимость условий нескольких операторов рождения.
 
-\subsection{Branch Interaction}
+\subsection{Взаимодействие ветвей}
 
-Branches do not generally evolve in isolation. When continua belonging to
-different branches coexist in a shared embedding space, they may interact
-through the interaction operator \(E_{\mathrm{int}}\)
-(Section~\ref{sec:operators-full}).
+Ветви обычно не эволюционируют изолированно. Если континуумы из разных
+ветвей сосуществуют в общем пространстве вложения, они могут взаимодействовать
+через оператор взаимодействия \(E_{\mathrm{int}}\)
+(раздел~\ref{sec:operators-full}).
 
-\paragraph{Definition 13.4 (Branch interaction).}
-Let \(B^{(a)}\) and \(B^{(b)}\) be two branches with continua
-\(\{K_x^{(a)}\}\) and \(\{K_y^{(b)}\}\), respectively, embedded in a common or
-overlapping space \(M\). A \emph{branch interaction} is a family of interaction
-operators
+\paragraph{Определение 13.4 (Взаимодействие ветвей).}
+Пусть \(B^{(a)}\) и \(B^{(b)}\) две ветви с континуумами
+\(\{K_x^{(a)}\}\) и \(\{K_y^{(b)}\}\), соответственно, вложенные в
+общее или пересекающееся пространство \(M\). \emph{Взаимодействие ветвей} —
+семейство операторов взаимодействия
 \[
-  E_{\mathrm{int}}^{x,y} :
-    (K_x^{(a)}, K_y^{(b)}, M)
-    \longrightarrow (K_x^{(a)\prime}, K_y^{(b)\prime}, M'),
+\begin{aligned}
+  E_{\mathrm{int}}^{x,y}:\quad
+    &(K_x^{(a)}, K_y^{(b)}, M)\\
+    &\longrightarrow (K_x^{(a)\prime}, K_y^{(b)\prime}, M'),
+\end{aligned}
 \]
-defined for relevant pairs of levels \((x,y)\).
+определенное для релевантных пар уровней \((x,y)\).
 
-The following regimes are typical:
+Далее перечислены типичные режимы:
 
 \begin{itemize}
-  \item \textbf{Coexistence.}\quad
-        Flows are weakly coupled and allow both branches to maintain or
-        increase their continuumness:
+  \item \textbf{Сосуществование.}\quad
+        Потоки слабо связаны и позволяют обеим ветвям удерживать или увеличивать
+        свою континуумичность:
         \[
           k^{(a)}(t+dt) \ge k^{(a)}(t),\quad
           k^{(b)}(t+dt) \ge k^{(b)}(t).
         \]
-  \item \textbf{Interference.}\quad
-        Cross-branch flows \(J^{(a\leftrightarrow b)}\) create structural
-        tension that pushes one or both branches closer to their death
-        thresholds without immediate collapse.
-  \item \textbf{Suppression.}\quad
-        One branch drives the other below its viability thresholds, leading
-        to collapse of the suppressed branch while the suppressor remains
-        viable or even strengthens.
-  \item \textbf{Parasitism.}\quad
-        One branch harvests supporting flows from another, increasing its own
-        continuumness while eroding the other's cycle complexes.
-  \item \textbf{Fusion.}\quad
-        Through strong coupling and shared boundary structures
-        (e.g.\ overlapping \(\partial\Omega\) components), two branches
-        can generate a new continuum that lies on a common extension branch.
-        Formally this corresponds to a composite birth operator taking
-        inputs from both \(B^{(a)}\) and \(B^{(b)}\).
+  \item \textbf{Интерференция.}\quad
+        Межветвевые потоки \(J^{(a\leftrightarrow b)}\) создают
+        структурное напряжение, которое подталкивает одну или обе ветви
+        ближе к порогам гибели без немедленного схлопывания.
+  \item \textbf{Подавление.}\quad
+        Одна ветвь переводит другую ниже её порогов жизнеспособности,
+        в результате чего подавляемая ветвь схлопывается, тогда как
+        подавитель остаётся жизнеспособным или даже усиливается.
+  \item \textbf{Паразитизм.}\quad
+        Одна ветвь выкачивает поддерживающие потоки у другой, повышая свою
+        континуумичность и снижая циклы другой ветви.
+  \item \textbf{Слияние.}\quad
+        Через сильную связь и общие граничные структуры две ветви могут
+        породить новый континуум на общей расширенной ветви. Формально это
+        соответствует составному оператору рождения, питающемуся из
+        \(B^{(a)}\) и \(B^{(b)}\).
 \end{itemize}
 
-Shared boundary structures are particularly important. If
-\(\partial\Omega^{(a)}\cap\partial\Omega^{(b)}\neq\emptyset\), then:
+Общие граничные структуры особенно важны. Если
+\(\partial\Omega^{(a)}\cap\partial\Omega^{(b)}\neq\emptyset\), тогда:
 \begin{itemize}
-  \item cross-branch flows restricted to the intersection can mediate coupling;
-  \item patch states at the shared boundary can synchronise or destabilise
-        both branches simultaneously;
-  \item new continua may nucleate at the shared boundary, initiating new
-        branches or branch fusions.
+  \item межветвевые потоки, ограниченные пересечением, могут опосредовать
+        связь;
+  \item состояния на общей границе могут синхронизировать или
+        дестабилизировать одновременно обе ветви;
+  \item новые континуумы могут зарождаться на общей границе, инициируя новые
+        ветви или слияния ветвей.
 \end{itemize}
 
-\subsection{Branch Collapse}
+\subsection{Схлопывание ветвей}
 
-Branches can terminate in several ways, extending the notion of collapse from
-individual continua (Section~\ref{sec:collapse-rebirth}) to whole development
-paths.
+Ветви могут завершаться несколькими способами, расширяя понятие
+схлопывания от отдельных континуумов
+(раздел~\ref{sec:collapse-rebirth}) до целых траекторий развития.
 
-\paragraph{Definition 13.5 (Branch collapse).}
-A branch \(B = (K_{x_0}, K_{x_1}, \dots)\) \emph{collapses} at level
-\(x_n\) if:
+\paragraph{Определение 13.5 (Схлопывание ветви).}
+Ветвь \(B = (K_{x_0}, K_{x_1}, \dots)\) \emph{схлопывается} на уровне
+\(x_n\), если:
 \begin{enumerate}
-  \item the continuum \(K_{x_n}\) collapses in the sense of
-        Definition~12.1 (empty admissible set, \(k\to 0\), threshold
-        violation);
-  \item there exists no continuum \(K_{x_{n+1}}\) with \(x_{n+1}>x_n\)
-        such that a birth operator \(\Psi_{x_n\to x_{n+1}}\) can be
-        defined on any residue of \(K_{x_n}\) (Section~\ref{sec:collapse-rebirth});
-  \item the branch cannot be extended further while respecting the axioms
-        of dimensional monotonicity and embedding compatibility.
+  \item континуум \(K_{x_n}\) схлопывается в смысле
+        определения~12.1 (пустое допустимое множество, \(k\to 0\),
+        нарушение порога);
+  \item не существует континуума \(K_{x_{n+1}}\) с \(x_{n+1}>x_n\), на
+        котором мог бы быть определён оператор рождения
+        \(\Psi_{x_n\to x_{n+1}}\) для какого-либо остатка \(K_{x_n}\)
+        (раздел~\ref{sec:collapse-rebirth});
+  \item ветвь нельзя продолжить дальше при сохранении аксиом размерностной
+        монотонности и совместимости вложения.
 \end{enumerate}
 
-Three structurally distinct scenarios are relevant:
-
+Структурно различаются три сценария:
 \begin{itemize}
-  \item \textbf{Terminal collapse.}\quad
-        The last continuum on the branch collapses and no rebirth at any
-        higher level is possible. The branch is finite and ends at \(x_n\).
-  \item \textbf{Fusion collapse.}\quad
-        The branch is absorbed into a more stable branch via fusion:
-        continua on \(B\) lose their identity as independent vertices in
-        the branch graph and become internal structure of a continuum on
-        another branch. From the perspective of \(B\), this is collapse by
-        loss of branch identity.
-  \item \textbf{Asymptotic thinning.}\quad
-        The branch does not end at a single dramatic collapse but enters a
-        regime where higher levels become increasingly marginal
-        (\(k_{x_i}\to 0\) as \(i\to\infty\)) and cannot support further
-        dimensional births. The branch is infinite in index but finite in
-        effective complexity.
+  \item \textbf{Терминальное схлопывание.}\quad
+        Последний континуум ветви схлопывается и никакого возрождения на более
+        высоком уровне не существует. Ветвь конечна и завершается на \(x_n\).
+  \item \textbf{Схлопывание через слияние.}\quad
+        Ветвь поглощается более устойчивой ветвью через слияние:
+        континуумы на \(B\) теряют идентичность как независимые вершины
+        графа ветвей и становятся внутренней структурой континуума другой
+        ветви. С точки зрения \(B\) это схлопывание через утрату
+        идентичности ветви.
+  \item \textbf{Асимптотическое истончение.}\quad
+        Ветвь не завершается одним резким схлопыванием, а переходит в режим,
+        где более высокие уровни становятся всё более предельными
+        (\(k_{x_i}\to 0\) при \(i\to\infty\)) и не способны поддерживать
+        дальнейшие размерностные рождения. Ветвь бесконечна по индексу,
+        но конечна по эффективной сложности.
 \end{itemize}
 
-\paragraph{Global constraints.}
-The OC axioms impose constraints that prevent uncontrolled infinite branching
-cascades at finite levels:
+\paragraph{Глобальные ограничения.}
+Аксиомы OC накладывают ограничения, предотвращающие неконтролируемые
+каскады бесконечного ветвления на конечных уровнях:
 \begin{itemize}
-  \item the embedding space at each level has finite axis capacity relevant
-        to a given domain, limiting the number of distinct birth channels;
-  \item dimensional thresholds require nontrivial structural tension; repeated
-        branching without sufficient supporting flows would drive branches
-        toward collapse;
-  \item monotonic complexity theorems constrain viable branches to those
-        whose complexity growth is compatible with available cycles and
-        thresholds.
+  \item пространство вложения на каждом уровне имеет конечную осевую ёмкость для
+        данной области, ограничивая число различных каналов рождения;
+  \item размерностные пороги требуют нетривиального структурного
+        напряжения; многократное ветвление без достаточной опоры потоков
+        ведёт ветви к схлопыванию;
+  \item теоремы монотонности сложности ограничивают жизнеспособные ветви теми,
+        для которых рост сложности совместим с доступными циклами и порогами.
 \end{itemize}
 
-\subsection{Consequences for the K-Level Hierarchy}
+\subsection{Последствия для иерархии уровней K}
 
-The branch structure refines the vertical hierarchy \(K_0\)–\(K_{10}\) by
-identifying which sequences of levels and axes are actually realisable.
+Структура ветвей уточняет вертикальную иерархию \(K_0\)–\(K_{10}\), определяя,
+какие последовательности уровней и осей действительно реализуемы.
 
-\paragraph{Ontogenic development paths.}
-Each branch defines an \emph{ontogenic development path}:
+\paragraph{Онтогенетические пути развития.}
+Каждая ветвь задает \emph{онтогенетический путь развития}:
 \begin{itemize}
-  \item in physical domains, branches describe ways in which field-theoretic
-        continua at \(K_2\) give rise to chemical, protocellular and
-        biological continua at \(K_3\)–\(K_5\);
-  \item in cognitive and social domains, branches describe how neural
-        continua \(K_5\) can support cognitive continua \(K_6\), which in
-        turn support social and civilizational continua \(K_7\)–\(K_8\);
-  \item in theoretical domains, branches connect empirical continua to
-        theoretical and meta-theoretical continua \(K_9\)–\(K_{10}\).
+  \item в физических областях ветви описывают, каким образом континуумы
+        теории поля на \(K_2\) порождают химические, протоцеллюлярные и
+        биологические континуумы на \(K_3\)–\(K_5\);
+  \item в когнитивных и социальных областях ветви описывают, как
+        нейроконтинуумы \(K_5\) поддерживают когнитивные континуумы\,
+        \(K_6\), которые, в свою очередь, поддерживают социальные и
+        цивилизационные континуумы \(K_7\)–\(K_8\);
+  \item в теоретических областях ветви соединяют эмпирические континуумы
+        с теоретическими и метатеоретическими на уровнях \(K_9\)–\(K_{10}\).
 \end{itemize}
-The diversity of observed physical, chemical, biological and social systems
-corresponds to the multiplicity of branches compatible with a shared
-substrate.
+Многообразие наблюдаемых физических, химических, биологических и социальных
+систем соответствует множественности ветвей, совместимых с общим субстратом.
 
-\paragraph{Allowed vs forbidden transitions.}
-The branch topology codifies which transitions between levels are allowed:
+\paragraph{Допустимые и запрещённые переходы.}
+Топология ветвей кодирует, какие переходы между уровнями допустимы:
 \begin{itemize}
-  \item edges in the branch graph \(\mathcal{G}\) correspond to admissible
-        dimensional birth operators;
-  \item absence of an edge \(K_x \to K_y\) (with \(y>x\)) expresses a
-        structural impossibility: no embedding space and threshold landscape
-        can support that direct transition without passing through required
-        intermediate levels;
-  \item forbidden transitions typically violate either dimensional
-        monotonicity (attempted simplification of axes) or embedding
-        thresholds (attempted realisation of axes unsupported by \(M_x\)).
-\end{itemize}
-
-\paragraph{Vertical coherence.}
-Because branches must reduce to lower levels when additional axes are frozen
-(Section~\ref{sec:operators-full}), the branch structure enforces vertical
-coherence:
-\begin{itemize}
-  \item each higher-level continuum \(K_y\) restricts to a lower-level
-        continuum \(K_x\) along a branch when additional axes are held
-        constant;
-  \item conversely, lower levels act as necessary substrata for higher levels;
-  \item branches record this coherence as shared prefixes across domains
-        (e.g.\ all biological branches must contain physical and chemical
-        levels).
+  \item рёбра графа ветвей \(\mathcal{G}\) соответствуют допустимым
+        размерностным операторам рождения;
+  \item отсутствие ребра \(K_x \to K_y\) (при \(y>x\)) означает
+        структурную невозможность: ни одно пространство вложения и пороговый
+        ландшафт не может поддержать такой прямой переход без прохождения
+        обязательных промежуточных уровней;
+  \item запрещенные переходы обычно нарушают либо размерностную монотонность
+        (попытка упрощения осей), либо пороги вложения
+        (попытка реализовать оси, неподдерживаемые \(M_x\)).
 \end{itemize}
 
-\paragraph{Global picture.}
-Taken together, the vertical hierarchy \(K_0\)–\(K_{10}\), the operator
-family \((F,G,H,Q,R,S,U,\Psi,E_{\mathrm{int}})\), the threshold landscape
-and the branch topology form the global structural picture of OC:
+\paragraph{Вертикальная согласованность.}
+Поскольку ветви должны редуцироваться к нижним уровням при замораживании
+дополнительных осей (раздел~\ref{sec:operators-full}), структура ветвей
+обеспечивает вертикальную согласованность:
 \begin{itemize}
-  \item continua are local objects with internal dynamics;
-  \item branches are global development paths threading through levels;
-  \item the branch graph encodes which paths are structurally allowed;
-  \item collapse and rebirth prune and reconfigure branches over time.
+  \item каждый континуум более высокого уровня \(K_y\) редуцируется к
+        континууму нижнего уровня \(K_x\) на ветви при постоянных
+        дополнительных осях;
+  \item наоборот, нижние уровни выступают необходимыми подструктурами для
+        более высоких уровней;
+  \item ветви фиксируют эту согласованность как общие префиксы между
+        доменами (например, все биологические ветви должны содержать
+        физические и химические уровни).
 \end{itemize}
 
-Core~1.3 fixes this global picture at the structural level. Subsequent
-extensions (Core~1.2 and domain-specific runs) will quantify branch
-probabilities, explore explicit examples of branching in concrete systems and
-develop empirical criteria for identifying branch structure in real-world
-data.
+\paragraph{Глобальная картина.}
+В совокупности вертикальная иерархия \(K_0\)–\(K_{10}\), пороговый
+ландшафт и топология ветвей формируют глобальную структурную картину OC.
+Операционный аппарат задают объекты \(F\), \(G\), \(H\), \(Q\), \(R\),
+\(S\), \(\Psi\), и \(E_{\mathrm{int}}\):
+\begin{itemize}
+  \item континуумы — локальные объекты с внутренней динамикой;
+  \item ветви — глобальные пути развития, проходящие через уровни;
+  \item граф ветвей кодирует, какие пути структурно допустимы;
+  \item схлопывание и возрождение обрезают и перестраивают ветви со временем.
+\end{itemize}
+
+Core~1.3 фиксирует эту глобальную картину на структурном уровне. Последующие
+расширения и предметно-ориентированные исследования могут квантифицировать
+вероятности ветвления, разбирать явные примеры ветвления в конкретных
+системах и разрабатывать эмпирические критерии для выделения структуры
+ветвей в данных реального мира.
 
 % END OF FILE

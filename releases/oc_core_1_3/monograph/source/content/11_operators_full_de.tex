@@ -1,29 +1,20 @@
-% GENERATED_BY: oc_core_monograph_translation_draft_pipeline_v1.py
-% AI_ASSISTED_TRANSLATION_DRAFT: TRUE
-% THEOREM_REVIEW_STATUS: PENDING
-% THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
-% THEOREM_REVIEW_REVIEWER_ID: 
-% THEOREM_REVIEW_AUTHORITY_CLASS: 
-% THEOREM_REVIEWED_AT: 
-% THEOREM_REVIEW_DOSSIER_REF: 
-% SOURCE_LANGUAGE: EN
-% TARGET_LANGUAGE: DE
-% SOURCE_EN_REF: content/11_operators_full.tex
 % ====================================================================
-% FILE: content/11_operators_full.tex
-% Full Operator Family F, G, H, Q, R, S, U, Psi, E_int
-% Core 1.3 — canonical version
+% DATEI: content/11_operators_full_de.tex
+% Vollständige Operatorfamilie F, G, H, Q, R, S, U, Psi, E_int
+% Core 1.3 — kanonische Version
 % ====================================================================
 
-\section{Evolution and Interaction Operators}
+\section{Evolution und Interaktionsoperatoren}
 \label{sec:operators-full}
 
-This chapter expands the abstract evolution operator introduced in
-Section~\ref{sec:model} into the full operator family used in the Ontology of
-Continua (OC). It consolidates the definitions developed in Core~2.x and
-presents them in a compact, vertically consistent form suitable for Core~1.3.
+Dieses Kapitel erweitert den in
+Abschnitt~\ref{sec:model} eingeführten abstrakten Evolutionsoperator
+zu der vollständigen Operatorfamilie, die in der Ontology of
+Continua (OC) verwendet wird. Es fasst die Definitionen aus Core~2.x
+zusammen und stellt sie in einer kompakten, vertikal konsistenten Form dar,
+die für Core~1.3 geeignet ist.
 
-Throughout this section a continuum is written as
+Während dieses Abschnitts wird ein Kontinuum als
 \[
   K(t) =
   \big(
@@ -31,35 +22,36 @@ Throughout this section a continuum is written as
     \Theta(t), \partial\Omega(t), C(t), k(t)
   \big),
 \]
-with the components defined in Section~\ref{sec:model}. The embedding space is
-denoted by \(M\), with axes \(A(M)\) and constraints that restrict admissible
-states of \(K\).
+mit den in Abschnitt~\ref{sec:model} definierten Komponenten geschrieben.
+Der Einbettungsraum sei \(M\), mit Achsen \(A(M)\) und Beschränkungen,
+die die zulässigen Zustände von \(K\) einschränken.
 
-\subsection{Decomposition of the Evolution Operator}
+\subsection{Zerlegung des Evolutionsoperators}
 
-The structural evolution of a continuum over an infinitesimal time step is
-described by an operator
+Die strukturelle Evolution eines Kontinuums über einen infinitesimalen
+Zeitschritt ist durch einen Operator beschrieben
 \[
   E : K(t) \longrightarrow K(t+dt).
 \]
-Rather than specifying a single monolithic map, OC factorises \(E\) into a
-family of operators acting on different components of the continuum:
+Statt einen einzelnen monolithischen Operator anzugeben, zerlegt OC \(E\)
+in eine Familie von Operatoren, die auf unterschiedliche Komponenten des
+Kontinuums wirken:
 \[
   E = (F, G, H, Q, R, S, U),
 \]
-where
+wobei
 \begin{itemize}
-  \item \(F\) governs the dynamics of flows \(J\);
-  \item \(G\) governs the dynamics of potentials \(P\);
-  \item \(H\) governs the dynamics of thresholds \(\Theta\);
-  \item \(Q\) governs the dynamics of cycles \(C\);
-  \item \(R\) governs the dynamics of the boundary \(\partial\Omega\);
-  \item \(S\) governs structural reconfiguration of axes \(A\) and internal
-        connectivity;
-  \item \(U\) governs the evolution of continuumness \(k(t)\).
+  \item \(F\) die Dynamik der Flüsse \(J\) steuert;
+  \item \(G\) die Dynamik der Potentiale \(P\) steuert;
+  \item \(H\) die Dynamik der Schwellwerte \(\Theta\) steuert;
+  \item \(Q\) die Dynamik der Zyklen \(C\) steuert;
+  \item \(R\) die Dynamik des Randes \(\partial\Omega\) steuert;
+  \item \(S\) die strukturelle Rekonfiguration der Achsen \(A\) und
+        der internen Konnektivität steuert;
+  \item \(U\) die Evolution der Continuumness \(k(t)\) steuert.
 \end{itemize}
 
-At the formal level this can be written as
+Formal kann dies geschrieben werden als
 \begin{align*}
   J(t+dt)              &= F\big(J(t), P(t), A(t), \Theta(t), M\big), \\
   P(t+dt)              &= G\big(P(t), A(t), J(t), \Theta(t), M\big), \\
@@ -71,34 +63,34 @@ At the formal level this can be written as
                                \Theta(t), C(t), \partial\Omega(t), M\big).
 \end{align*}
 
-The operators are constrained by the axioms of OC, in particular the
-monotonicity of dimension, the impossibility of evolution outside of the
-embedding space, and the definition of birth and death.
+Die Operatoren sind durch die Axiome von OC eingeschränkt, insbesondere die
+Monotonie der Dimension, die Unmöglichkeit einer Evolution außerhalb des
+Einbettungsraums sowie die Definition von Geburt und Tod.
 
-\subsection{Operator \texorpdfstring{\texorpdfstring{$F$}{F}}{F}: Flow Dynamics}
+\subsection{Operator \texorpdfstring{\texorpdfstring{$F$}{F}}{F}: Flussdynamik}
 
-The flow operator \(F\) governs the temporal change of flows:
+Der Flussoperator \(F\) steuert die zeitliche Änderung der Flüsse:
 \[
   J(t+dt) = F\big(J(t), P(t), A(t), \Theta(t), M\big).
 \]
 
-Conceptually, \(F\) encodes:
+Konzeptionell kodiert \(F\):
 \begin{itemize}
-  \item conservation or balance laws (e.g.\ continuity equations, Kirchhoff
-        sums, conservation of probability);
-  \item constitutive relations linking flows to gradients of potentials
-        (e.g.\ Fick, Ohm, Fourier laws, reaction kinetics);
-  \item structural classification of flows into supporting, critical and
-        destructive components.
+  \item Erhaltungs- oder Bilanzgesetze (z.\,B. Kontinuitätsgleichungen,
+        Kirchhoff-Summen, Erhaltung der Wahrscheinlichkeit);
+  \item konstitutive Beziehungen, die Flüsse mit Potentialgradienten
+        verknüpfen (z.\,B. Fick-, Ohm-, Fourier-Gesetze, Reaktionskinetik);
+  \item die strukturelle Einteilung von Flüssen in stützende, kritische und
+        destruierende Komponenten.
 \end{itemize}
 
-A generic decomposition is
+Eine generische Zerlegung lautet
 \[
   J(t) = J_{\mathrm{support}}(t)
        + J_{\mathrm{critical}}(t)
        + J_{\mathrm{kill}}(t),
 \]
-with \(F\) preserving this structure:
+wobei \(F\) diese Struktur erhält:
 \begin{align*}
   J_{\mathrm{support}}(t+dt)
     &= F_{\mathrm{support}}\big(J, P, A, \Theta, M\big), \\
@@ -108,211 +100,223 @@ with \(F\) preserving this structure:
     &= F_{\mathrm{kill}}\big(J, P, A, \Theta, M\big).
 \end{align*}
 
-At different levels \(K_x\) these classes have different realisations:
+Auf verschiedenen Ebenen \(K_x\) haben diese Klassen unterschiedliche
+Ausprägungen:
 \begin{itemize}
-  \item in \(K_2\) (physical continua), flows include diffusive, convective and
-        field-mediated currents;
-  \item in \(K_3\) (chemical continua), flows correspond to reaction and
-        transport rates;
-  \item in \(K_4\)–\(K_5\) (protocellular and bioelectrical continua), flows
-        include ion currents, osmotic fluxes and metabolic fluxes;
-  \item in \(K_6\)–\(K_8\) (cognitive and social continua), flows become flows
-        of information, attention, resources and commitments.
+  \item in \(K_2\) (physikalische Kontinua) sind Flüsse diffusive, konvektive
+        und feldvermittelte Ströme;
+  \item in \(K_3\) (chemische Kontinua) entsprechen Flüsse Reaktions- und
+        Transportraten;
+  \item in \(K_4\)–\(K_5\) (protokelluläre und bioelektrische Kontinua) sind
+        Flüsse Ionenströme, osmotische Flüsse und Stoffwechsel-Flüsse;
+  \item in \(K_6\)–\(K_8\) (kognitive und soziale Kontinua) werden Flüsse zu
+        Flüssen von Information, Aufmerksamkeit, Ressourcen und Verpflichtungen.
 \end{itemize}
 
-\subsection{Operator \texorpdfstring{\texorpdfstring{$G$}{G}}{G}: Potential Dynamics}
+\subsection{Operator \texorpdfstring{\texorpdfstring{$G$}{G}}{G}: Potentialdynamik}
 
-The potential operator \(G\) controls how potentials change:
+Der Potentialoperator \(G\) steuert die Änderung der Potentiale:
 \[
   P(t+dt) = G\big(P(t), A(t), J(t), \Theta(t), M\big).
 \]
 
-In many concrete models \(G\) is expressed as a differential relation
+In vielen konkreten Modellen wird \(G\) als Differentialrelation geschrieben
 \[
   \frac{dP}{dt} = J,
 \]
-possibly with additional nonlinear terms for dissipation, driving and coupling.
-At the structural level OC requires only that:
+gegebenenfalls mit zusätzlichen nichtlinearen Termen für Dissipation,
+Antrieb und Kopplung.
+Auf struktureller Ebene verlangt OC nur:
 \begin{itemize}
-  \item potentials respond to flows and may in turn constrain them;
-  \item changes in potentials respect the sign and inequality structure
-        imposed by thresholds \(\Theta\);
-  \item in the absence of flows \(J = 0\), potentials tend to approach
-        threshold surfaces or relax towards internally preferred configurations.
+  \item Potentiale reagieren auf Flüsse und können diese wiederum einschränken;
+  \item Änderungen der Potentiale respektieren die Vorzeichen- und
+        Ungleichungsstruktur, die durch \(\Theta\) vorgegeben ist;
+  \item bei Abwesenheit von Flüssen \(J = 0\) streben Potentiale gegen
+        Schwellflächen oder relaxieren in intern bevorzugte Konfigurationen.
 \end{itemize}
 
-Different classes of potentials (energetic, chemical, electrochemical,
-informational, normative) are instances of a single structural role:
-encoding constraints and driving forces on \(\Omega(K)\).
+Unterschiedliche Klassen von Potentialen (energetisch, chemisch, elektrochemisch,
+informational, normativ) sind Beispiele derselben strukturellen Rolle:
+Einschränkungen und antreibende Kräfte auf \(\Omega(K)\) zu kodieren.
 
-\subsection{Operator \texorpdfstring{\texorpdfstring{$H$}{H}}{H}: Threshold Dynamics}
+\subsection{Operator \texorpdfstring{\texorpdfstring{$H$}{H}}{H}: Schwellenwertdynamik}
 
-Thresholds are not static; they can adapt, drift or reorganise under the
-influence of potentials, flows and embedding constraints. The threshold
-operator \(H\) is defined by
+Schwellwerte sind nicht statisch; sie können sich unter dem Einfluss von
+Potentialen, Flüssen und Einbettungsrestriktionen anpassen, driften oder
+rekonfigurieren. Der Schwellwertoperator \(H\) ist definiert durch
 \[
   \Theta(t+dt) = H\big(\Theta(t), P(t), J(t), M\big).
 \]
 
-Examples include:
+Beispiele sind:
 \begin{itemize}
-  \item adaptation of ion channel activation curves in neural tissue;
-  \item plasticity of viability ranges for protocells in changing environments;
-  \item shifting norms and institutional thresholds in social systems;
-  \item changes in coherence or consistency thresholds in theoretical systems.
+  \item Anpassung von Aktivierungskurven ionischer Kanäle im Nervengewebe;
+  \item Plastizität der Existenzbereiche von Protokellen in wechselnden
+        Umgebungen;
+  \item Verschiebung von Normen und institutionellen Schwellwerten in
+        sozialen Systemen;
+  \item Änderungen von Kohärenz- oder Konsistenzschwellwerten in
+        theoretischen Systemen.
 \end{itemize}
 
-Formally, \(H\) must satisfy:
+Formal muss \(H\) erfüllen:
 \begin{itemize}
-  \item compatibility with embedding constraints: threshold changes cannot
-        require configurations forbidden by \(M\);
-  \item preservation of the taxonomy of thresholds
+  \item Kompatibilität mit den Einbettungsrestriktionen: Schwellwertänderungen
+        dürfen keine Konfigurationen verlangen, die durch \(M\) verboten sind;
+  \item Erhaltung der Taxonomie der Schwellwerte
         (\(\Theta_{\mathrm{exist}}, \Theta_{\mathrm{stab}},
         \Theta_{\mathrm{crit}}, \Theta_{\mathrm{dim}},
         \Theta_{\mathrm{death}}, \Theta_{\mathrm{expr}}, \Theta_{\mathrm{embed}}\));
-  \item local continuity: small changes in potentials or flows may induce small
-        changes in thresholds, except at critical points where bifürcations are
-        allowed.
+  \item lokale Stetigkeit: kleine Änderungen in Potentialen oder Flüssen dürfen
+        zu kleinen Schwellwertänderungen führen, außer an kritischen Punkten,
+        an denen Bifurkationen erlaubt sind.
 \end{itemize}
 
-\subsection{Operator \texorpdfstring{\texorpdfstring{$Q$}{Q}}{Q}: Cycle Dynamics}
+\subsection{Operator \texorpdfstring{\texorpdfstring{$Q$}{Q}}{Q}: Zyklische Dynamik}
 
-Cycles \(C(t)\) represent closed trajectories that maintain the organisation of
-the continuum. Their evolution is governed by
+Zyklen \(C(t)\) repräsentieren geschlossene Trajektorien, die die
+Organisation des Kontinuums aufrechterhalten. Ihre Evolution wird gesteuert durch
 \[
   C(t+dt) = Q\big(C(t), P(t), J(t), \Theta(t)\big).
 \]
 
-Structurally, \(Q\) accounts for:
+Strukturell behandelt \(Q\):
 \begin{itemize}
-  \item \emph{birth} of new cycles when flows close in state space away from
-        \(\partial\Omega\);
-  \item \emph{stabilisation} or \emph{strengthening} of existing cycles when
-        supporting flows dominate;
-  \item \emph{weakening} and \emph{destruction} of cycles under destructive
-        flows or threshold violations.
+  \item \emph{Geburt} neuer Zyklen, wenn sich Flüsse im Zustandsraum fern von
+        \(\partial\Omega\) schließen;
+  \item \emph{Stabilisierung} oder \emph{Verstärkung} vorhandener Zyklen,
+        wenn stützende Flüsse dominieren;
+  \item \emph{Abschwächung} und \emph{Zerstörung} von Zyklen bei destruierenden
+        Flüssen oder Schwellwertverletzungen.
 \end{itemize}
 
-Cycle complexes are particularly important. Let \(C_{\max}(t)\) denote the
-maximal set of mutually compatible cycles supporting the continuum. Then
-Theorem~9 in Section~\ref{sec:results} states that death coincides with
-\(C_{\max}(t) = \emptyset\). The operator \(Q\) therefore directly participates
-in life–death transitions.
+Zykluskomplexe sind besonders wichtig. Sei \(C_{\max}(t)\) die maximale Menge
+paarweise kompatibler Zyklen, die das Kontinuum stützen. Dann besagt Satz~9 in
+Abschnitt~\ref{sec:results}, dass der Tod mit \(C_{\max}(t) = \emptyset\)
+zusammenfällt. Der Operator \(Q\) beteiligt sich daher direkt an
+Leben--Tod-Übergängen.
 
-\subsection{Operator \texorpdfstring{\texorpdfstring{$R$}{R}}{R}: Boundary Evolution}
+\subsection{Operator \texorpdfstring{\texorpdfstring{$R$}{R}}{R}: Randdynamik}
 
-The boundary operator \(R\) controls the geometry and position of the boundary
+Der Randoperator \(R\) steuert die Geometrie und Position des Randes
 \(\partial\Omega\):
 \[
   \partial\Omega(t+dt) =
     R\big(\partial\Omega(t), P(t), J(t), \Theta(t), M\big).
 \]
 
-At a structural level \(R\) must:
+Auf struktureller Ebene muss \(R\):
 \begin{itemize}
-  \item be consistent with threshold definitions:
+  \item mit den Schwellwertdefinitionen konsistent sein:
         \(\partial\Omega = \{ s \mid \exists k: f_k(s) = 0 \}\);
-  \item allow for expansion, contraction and bifürcation of \(\Omega\);
-  \item encode the effects of flows and threshold shifts on accessible regions.
+  \item Expansion, Kontraktion und Bifurkation von \(\Omega\) zulassen;
+  \item die Effekte von Flüssen und Schwellwertverschiebungen auf
+        zugängliche Regionen kodieren.
 \end{itemize}
 
-In concrete implementations \(R\) can take many forms:
+In konkreten Implementierungen kann \(R\) viele Formen annehmen:
 \begin{itemize}
-  \item in \(K_2\) it may correspond to movement of phase boundaries,
-        percolation thresholds or coherence surfaces;
-  \item in \(K_3\)–\(K_4\) it includes the dynamics of membranes, interfaces
-        and compartment boundaries;
-  \item in \(K_5\) it corresponds to thresholds of excitability and refractory
-        regions in conductance space;
-  \item in \(K_7\)–\(K_8\) it can represent institutional and legal
-        boundaries.
+  \item in \(K_2\) kann es der Bewegung von Phasengrenzen,
+        Perkolationsschwellwerten oder Kohärenzoberflächen entsprechen;
+  \item in \(K_3\)–\(K_4\) umfasst es die Dynamik von Membranen,
+        Schnittstellen und Kompartiment-Grenzen;
+  \item in \(K_5\) beschreibt es Schwellwerte der Erregbarkeit und
+        refraktären Regionen im Leitfähigkeitsraum;
+  \item in \(K_7\)–\(K_8\) kann es institutionelle und rechtliche
+        Grenzen repräsentieren.
 \end{itemize}
 
-Section~\ref{sec:boundary-extended} provides an extended treatment of boundary
-geometry and patch models.
+Abschnitt~\ref{sec:boundary-extended} enthält eine erweiterte Darstellung der
+Randgeometrie und Patch-Modelle.
 
-\subsection{Operator \texorpdfstring{\texorpdfstring{$S$}{S}}{S}: Structural Reconfiguration}
+\subsection{Operator \texorpdfstring{\texorpdfstring{$S$}{S}}{S}: Strukturelle
+Rekonfiguration}
 
-The structural operator \(S\) governs changes in axes and internal
-configuration:
+Der Strukturoperator \(S\) steuert Änderungen an Achsen und interner
+Konfiguration:
 \[
   A(t+dt) = S\big(A(t), P(t), J(t), \Theta(t), M\big).
 \]
 
-Typical roles of \(S\) include:
+Typische Rollen von \(S\) sind:
 \begin{itemize}
-  \item activation or deactivation of axes (e.g.\ turning on latent degrees of
-        freedom);
-  \item re-wiring of connectivity patterns within the continuum;
-  \item coarse-graining or refinement of effective axes under renormalisation
-        or abstraction.
+  \item Aktivierung oder Deaktivierung von Achsen (z.\,B. Freischalten latenter
+        Freiheitsgrade);
+  \item Neuverkabelung von Konnektivitätsmustern innerhalb des Kontinuums;
+  \item Grobkörnige Abbildung oder Verfeinerung effektiver Achsen unter
+        Renormierung oder Abstraktion.
 \end{itemize}
 
-Crucially, \(S\) is subject to the monotonicity of dimension:
+Wesentlich ist, dass \(S\) der Monotonie der Dimension unterliegt:
 \[
   \dim A(t+dt) \ge \dim A(t).
 \]
-If a new axis \(A_{\mathrm{new}}\) is added such that
-\(A_{\mathrm{new}} \notin \mathrm{span}(A(t))\), then a dimensional transition
-occurs and the continuum becomes \(K_{x+1}\) rather than remaining at the same
-level. This is formalised through the birth operators in
-Section~\ref{sec:birth-operators} below.
+Wird eine neue Achse \(A_{\mathrm{new}}\) hinzugefügt, so dass
+\(A_{\mathrm{new}} \notin \mathrm{span}_{\mathrm{str}}(A(t))\), tritt ein
+Dimensionswechsel ein und das Kontinuum wird zu \(K_{x+1}\), anstatt auf demselben
+Niveau zu bleiben. Dies wird im Folgenden durch die Geburtsoperatoren in
+Abschnitt~\ref{sec:birth-operators} formalisiert.
 
-\subsection{Operator \texorpdfstring{\texorpdfstring{$U$}{U}}{U}: Continuumness Dynamics}
+\subsection{Operator \texorpdfstring{\texorpdfstring{$U$}{U}}{U}: Continuumness-Dynamik}
 
-The operator \(U\) governs the evolution of continuumness \(k(t)\):
+Der Operator \(U\) steuert die Evolution der Continuumness \(k(t)\):
 \[
   k(t+dt) =
   U\big(k(t), \Omega(t), A(t), P(t), J(t),
         \Theta(t), C(t), \partial\Omega(t), M\big).
 \]
 
-Using the unified definition of \(k(t)\) from Section~\ref{sec:model}, \(U\)
-evaluates how changes in state space, axes, flows, thresholds, cycles and
-boundary affect the viability of the continuum. Qualitatively:
+Mit der vereinheitlichten Definition von \(k(t)\) aus Abschnitt~\ref{sec:model}
+bewertet \(U\), wie Änderungen im Zustandsraum, in Achsen, Flüssen,
+Schwellwerten, Zyklen und Rand die Viabilität des Kontinuums beeinflussen.
+Qualitativ gilt:
 \begin{itemize}
-  \item supporting flows and stable cycles increase or maintain \(k(t)\);
-  \item destructive flows and loss of cycles decrease \(k(t)\);
-  \item approach to \(\partial\Omega\) reduces \(k(t)\);
-  \item expansion of \(\Omega\) and enrichment of cycle complexes increase
+  \item stützende Flüsse und stabile Zyklen erhöhen oder erhalten \(k(t)\);
+  \item destruierende Flüsse und Zyklusverlust senken \(k(t)\);
+  \item Annäherung an \(\partial\Omega\) reduziert \(k(t)\);
+  \item Expansion von \(\Omega\) und Anreicherung von Zykluskomplexen erhöhen
         \(k(t)\).
 \end{itemize}
 
-Death corresponds to \(k(t) \to 0\) together with \(\Omega = \emptyset\).
-Birth corresponds to the appearance of a new continuum with
-\(k(t) > 0\) in a previously empty region of the space of possibilities.
+Der Tod entspricht \(k(t) \to 0\) zusammen mit \(\Omega = \emptyset\).
+Geburt entspricht dem Auftreten eines neuen Kontinuums mit \(k(t) > 0\) in einer
+zuvor leeren Region des Möglichkeitsraums.
 
-\subsection{Birth Operators \texorpdfstring{$\Psi_{x\to x+1}$}{Psi\_x→x+1}}
+\subsection{Geburtsoperatoren \texorpdfstring{$\Psi_{x\to x+1}$}{Psi\_x→x+1}}
 \label{sec:birth-operators}
 
-Dimensional transitions between levels are mediated by birth operators
+Dimensionswechsel zwischen Ebenen werden durch Geburtsoperatoren vermittelt
 \[
   \Psi_{x\to x+1} : (K_x, M_x) \longrightarrow (K_{x+1}, M_{x+1}).
 \]
 
-Structurally, \(\Psi_{x\to x+1}\) is defined whenever the following conditions
-are satisfied:
+Strukturell ist \(\Psi_{x\to x+1}\) definiert, sobald die folgenden Bedingungen
+erfüllt sind:
 \begin{enumerate}
-  \item \textbf{New differences.}\ 
-        There exists a class of differences that cannot be represented within
-        \(\mathrm{span}(A(K_x))\).
-  \item \textbf{Tension above dimensional threshold.}\ 
-        The structural tension exceeds the dimensional threshold:
+  \item \textbf{Neue Unterschiede.}\
+        Es gibt eine Klasse von Unterschieden außerhalb des aktuellen
+        strukturellen Spanns:
+        \[
+          D_{\mathrm{new}}\not\subseteq
+          \mathrm{span}_{\mathrm{str}}(A(K_x)).
+        \]
+  \item \textbf{Spannung oberhalb der Dimensionsschwelle.}\
+        Die strukturelle Spannung überschreitet die Dimensionsschwelle:
         \[
           T(K_x,t) > \Theta_{\mathrm{dim}}(K_x).
         \]
-  \item \textbf{Available axis in embedding space.}\ 
-        The embedding space \(M_x\) contains at least one axis suitable for
-        hosting the new differences:
+  \item \textbf{Verfügbare Achse im Einbettungsraum.}\
+        Der Einbettungsraum \(M_x\) enthält mindestens eine Achse, die zur
+        Aufnahme der neuen Unterschiede geeignet ist:
         \[
           A_{\mathrm{new}} \in A(M_x) \setminus A(K_x).
         \]
-  \item \textbf{Nonempty admissible region.}\ 
-        There exists a nonempty set of states \(\Omega(K_{x+1})\) compatible
-        with the new axis and thresholds.
+  \item \textbf{Nicht-leere zulässige Region.}\
+        Es gibt eine nichtleere Menge von Zuständen \(\Omega(K_{x+1})\), die mit
+        der neuen Achse und den Schwellwerten kompatibel ist.
 \end{enumerate}
 
-The action of \(\Psi_{x\to x+1}\) can then be summarised as
+Die Wirkung von \(\Psi_{x\to x+1}\) lässt sich zusammenfassen als
 \begin{align*}
   A(K_{x+1})      &= A(K_x) \cup \{A_{\mathrm{new}}\}, \\
   \Omega(K_{x+1}) &\subseteq
@@ -320,99 +324,106 @@ The action of \(\Psi_{x\to x+1}\) can then be summarised as
      \big\{ s \mid \Theta(K_{x+1})(s) \le 0 \big\}, \\
   M_{x+1}         &\supset M_x,
 \end{align*}
-with all other components of \(K_{x+1}\) (flows, potentials, cycles,
-continuumness) determined by the general structural machinery.
+mit allen anderen Komponenten von \(K_{x+1}\) (Flüsse, Potentiale, Zyklen,
+Continuumness) durch das allgemeine strukturelle Gerüst bestimmt.
 
-Birth operators are \emph{minimal} and \emph{irreversible}:
-any nonzero utilisation of \(A_{\mathrm{new}}\) constitutes the new continuum
-\(K_{x+1}\); returning to the previous dimensionality would require destroying
-\(\Omega(K_{x+1})\), which is interpreted as death rather than reversible
-simplification.
+Geburtsoperatoren sind \emph{minimal} und \emph{irreversibel}:
+jede nichttriviale Nutzung von \(A_{\mathrm{new}}\) konstituiert das neue
+Kontinuum \(K_{x+1}\); eine Rückkehr zur vorherigen Dimensionalität würde die
+Zerstörung von \(\Omega(K_{x+1})\) erfordern, was als Tod und nicht als
+reversible Vereinfachung interpretiert wird.
 
-\subsection{Interaction Operator \texorpdfstring{$E_{\mathrm{int}}$}{E\_int}}
+\subsection{Interaktionsoperator \texorpdfstring{$E_{\mathrm{int}}$}{E\_int}}
 
-When two continua \(K_a\) and \(K_b\) interact, their joint dynamics are
-governed by an interaction operator
+Wenn zwei Kontinua \(K_a\) und \(K_b\) interagieren, wird deren gemeinsame
+Dynamik durch einen Interaktionsoperator beschrieben
 \[
   E_{\mathrm{int}} : (K_a, K_b, M)
     \longrightarrow (K_a', K_b', M'),
 \]
-where \(M'\) is the updated embedding space for the combined system.
+wobei \(M'\) den aktualisierten Einbettungsraum für das kombinierte System
+bezeichnet.
 
-At a structural level \(E_{\mathrm{int}}\) modifies potentials, flows,
-thresholds, cycles and possibly axes of each continuum. Several regimes are
-distinguished:
+Auf struktureller Ebene modifiziert \(E_{\mathrm{int}}\) Potentiale, Flüsse,
+Schwellwerte, Zyklen und gegebenenfalls Achsen jedes Kontinuums. Es werden
+mehrere Regime unterschieden:
 
 \begin{itemize}
-  \item \textbf{Competition.}\ 
-        Flows of one continuum hinder the maintenance of cycles in the other.
-        Typically \(k_a\) and \(k_b\) cannot both increase indefinitely.
-  \item \textbf{Parasitism.}\ 
-        One continuum harvests supporting flows from another, increasing its
-        own continuumness at the expense of its host.
-  \item \textbf{Symbiosis.}\ 
-        Coupled flows increase continuumness for both continua; shared cycles
-        may emerge that stabilise the pair.
-  \item \textbf{Fusion.}\ 
-        Axes and potentials combine into a new continuum
-        \(K_{\mathrm{fusion}}\) with merged state space and thresholds.
-        Formally, fusion corresponds to the birth of a higher-dimensional
-        continuum via a composite birth operator.
+  \item \textbf{Konkurrenz.}\
+        Flüsse eines Kontinuums behindern die Aufrechterhaltung von Zyklen im
+        anderen. Typischerweise können \(k_a\) und \(k_b\) nicht beide unbegrenzt
+        wachsen.
+  \item \textbf{Parasitismus.}\
+        Ein Kontinuum entzieht einem anderen stützende Flüsse und erhöht dadurch
+        die eigene Continuumness auf Kosten seines Wirts.
+  \item \textbf{Symbiose.}\
+        Gekoppelte Flüsse erhöhen die Continuumness beider Kontinua; gemeinsame
+        Zyklen können entstehen, die das Paar stabilisieren.
+  \item \textbf{Fusion.}\
+        Achsen und Potentiale vereinen sich zu einem neuen Kontinuum
+        \(K_{\mathrm{fusion}}\) mit zusammengeführtenden Zustandsraum und
+        Schwellwerten. Formal entspricht die Fusion der Geburt eines
+        höherdimensionalen Kontinuums über einen zusammengesetzten Geburtsoperator.
 \end{itemize}
 
-Interaction can itself trigger dimensional transitions when mixed differences
-create new axes not available to the continua in isolation and when tension
-exceeds relevant thresholds.
+Interaktion kann selbst Dimensionswechsel auslösen, wenn gemischte Unterschiede
+neue Achsen erzeugen, die den Kontinua isoliert nicht zur Verfügung stehen, und
+wenn die Spannung die relevanten Schwellwerte überschreitet.
 
-\subsection{Operator Algebra and Constraints}
+\subsection{Operatoralgebra und Nebenbedingungen}
 
-Although OC does not postulate a full algebra of operators, several structural
-constraints are required to maintain internal consistency:
+Obwohl OC keine vollständige Operatoralgebra postuliert, sind mehrere
+strukturelle Nebenbedingungen für innere Konsistenz erforderlich:
 
-\paragraph{Compatibility with embedding spaces.}
-All operators must respect the inclusion
-\(A(K(t)) \subseteq A(M(t))\) and cannot generate evolution along axes not
-present in \(M\). Birth operators are defined only when \(M\) already contains
-the relevant axes.
+\paragraph{Kompatibilität mit Einbettungsräumen.}
+Alle Operatoren müssen die Inklusion
+\(A(K(t)) \subseteq A(M(t))\) respektieren und keine Entwicklung entlang von
+Achsen erzeugen, die im \(M\) nicht vorhanden sind. Geburtsoperatoren sind nur
+definiert, wenn \(M\) die relevanten Achsen bereits enthält.
 
-\paragraph{Monotonicity of dimension.}
-The structural operator \(S\) and birth operators \(\Psi_{x\to x+1}\) must
-satisfy
+\paragraph{Monotonie der Dimension.}
+Der Strukturoperator \(S\) und die Geburtsoperatoren \(\Psi_{x\to x+1}\) müssen
+erfüllen
 \[
   \dim A(t+dt) \ge \dim A(t),
 \]
-with strict inequality only at dimensional transitions.
+mit strikter Ungleichheit nur bei Dimensionswechseln.
 
-\paragraph{Threshold-respecting dynamics.}
-Operators \(F, G, H, Q, R\) must preserve the inequality structure imposed by
-thresholds except at authorised crossings of critical or death thresholds.
-Violations of \(\Theta_{\mathrm{exist}}\) are interpreted as death events.
+\paragraph{Schwellwertkonforme Dynamik.}
+Operatoren \(F, G, H, Q, R\) müssen die durch Schwellwerte vorgegebene
+Ungleichungsstruktur erhalten, außer bei autorisierten Überschreitungen von
+kritischen oder Todesschwellwerten. Verletzungen von
+\(\Theta_{\mathrm{exist}}\) werden als Todesereignisse interpretiert.
 
-\paragraph{Continuumness as viability indicator.}
-The operator \(U\) couples all other components; in particular:
+\paragraph{Continuumness als Viabilitätsindikator.}
+Der Operator \(U\) koppelt alle anderen Komponenten; im Einzelnen:
 \begin{itemize}
-  \item if \(k(t) = 0\) and \(\Omega = \emptyset\), the continuum is dead and
-        subsequent applications of \(E\) have no effect within that level;
-  \item if \(k(t) > 0\), then at least one supporting cycle exists and flows
-        must satisfy the balance conditions encoded in \(F\) and \(Q\).
+  \item wenn \(k(t) = 0\) und \(\Omega = \emptyset\), ist das Kontinuum tot und
+        weitere Anwendungen von \(E\) haben auf dieser Ebene keine Wirkung;
+  \item wenn \(k(t) > 0\), existiert mindestens ein stützender Zyklus und die
+        Flüsse müssen die in \(F\) und \(Q\) kodierten Ausgleichsbedingungen
+        erfüllen.
 \end{itemize}
 
-\paragraph{Cross-level consistency.}
-For transitions \(K_x \to K_{x+1}\), the operator family for the higher level
-must reduce to that of the lower level when the new axis is held constant and
-the additional degrees of freedom are frozen. This ensures that lower levels
-are recoverable as special cases of higher ones, maintaining vertical
-coherence of the hierarchy.
+\paragraph{Kreuzebenen-Konsistenz.}
+Für Übergänge \(K_x \to K_{x+1}\) muss die Operatorfamilie der höheren Ebene auf
+die der niedrigeren Ebene zurückführen, wenn die neue Achse festgehalten und die
+zusätzlichen Freiheitsgrade eingefroren werden. Damit sind die unteren Ebenen
+als Spezialfälle höherer Ebenen wieder auffindbar, und die vertikale
+Kohärenz der Hierarchie bleibt erhalten.
 
-\subsection{Summary}
+\subsection{Zusammenfassung}
 
-The operator family \((F, G, H, Q, R, S, U, \Psi, E_{\mathrm{int}})\) provides
-the dynamical backbone of the Ontology of Continua. Instead of a single
-highly specific equation of motion, OC employs a modular set of operators that
-act on flows, potentials, thresholds, cycles, boundaries, axes and
-continuumness. Their combined action governs birth, life, interaction and
-death of continua across all levels \(K_0\)–\(K_{10}\).
+Die Operatorfamilie \((F, G, H, Q, R, S, U, \Psi, E_{\mathrm{int}})\) stellt
+das dynamische Rückgrat der Ontology of Continua dar. Statt einer einzelnen
+hoche spezifischen Bewegungsgleichung verwendet OC ein modulares Satz von
+Operatoren, die auf Flüsse, Potentiale, Schwellwerte, Zyklen, Grenzen, Achsen
+und Continuumness wirken. Ihre kombinierte Wirkung regelt Geburt, Leben,
+Interaktion und Tod von Kontinua über alle Ebenen \(K_0\)–\(K_{10}\).
 
-This chapter completes the formal core of Core~1.3 by making explicit the
-structural dynamics that were only implicit in earlier drafts and by preparing
-the ground for fully quantitative models in subsequent extension Artikels.
+Dieses Kapitel vervollständigt den formalen Kern von Core~1.3, indem es die
+strukturelle Dynamik explizit macht, die in früheren Entwürfen nur implizit
+vorkam, und den Boden für vollständig quantitative Modelle in nachfolgenden
+Erweiterungspapieren bereitet.
+
+

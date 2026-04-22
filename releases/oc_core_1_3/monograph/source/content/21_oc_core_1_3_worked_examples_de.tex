@@ -1,171 +1,366 @@
-% GENERATED_BY: oc_core_monograph_translation_draft_pipeline_v1.py
-% AI_ASSISTED_TRANSLATION_DRAFT: TRUE
-% THEOREM_REVIEW_STATUS: PENDING
-% THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
-% THEOREM_REVIEW_REVIEWER_ID: 
-% THEOREM_REVIEW_AUTHORITY_CLASS: 
-% THEOREM_REVIEWED_AT: 
-% THEOREM_REVIEW_DOSSIER_REF: 
-% SOURCE_LANGUAGE: EN
-% TARGET_LANGUAGE: DE
-% SOURCE_EN_REF: content/21_oc_core_1_3_worked_examples.tex
-\section{Worked Examples, Counterexamples, and Reader-Oriented Interpretive Checks}
+\section{Ausgearbeitete Beispiele, Gegenbeispiele und leseorientierte interpretative Prüfungen}
 \label{sec:oc13-worked-examples}
 
-The framework becomes easier to trust when the reader is shown not only the formal statements but
-also the kinds of concrete reading moves that those statements license and prohibit. The examples
-in this section are therefore not ornamental. They show how the formal grammar should be read, why
-the K-level doctrine is not an arbitrary count, and how the master volume disciplines the shorter
-journal-core extraction.
+Dieses Kapitel transformiert die formale Grammatik in begrenzte Lesevorgänge. Sein Zweck ist es zu zeigen, was der Theoremweg erlaubt, was er verbietet und was an der Release-Grenze als echter Gegenbeleg zählt. Es ersetzt den Beweisweg nicht durch Erzählung; es prüft, ob der Leser den Beweisweg ohne unbegründete Annahmen anwenden kann. Die Beispiele zeigen daher, wie die formale Grammatik zu lesen ist, warum die K-Level-Lehre kein willkürliches Zählen ist und wie der Hauptband die kürzere Journal-Core-Extraktion diszipliniert.
+In diesen Beispielen bedeutet „deklarierte“, dass ein Objekt innerhalb der lokalen Beispieldaten oder in einer zitierten Unterstützungsroute benannt ist, bevor der Klassifikations- oder Reduktionstest angewendet wird; es bedeutet nicht, dass etwas nachträglich ergänzt wird, um eine gewünschte Lesart zu stützen.
 
-\subsection{Worked Example 1: collapse, residue, and rebirth in a minimal admissible-state model}
+\subsection{Ausgearbeitetes Beispiel 1: Kollaps, Rest und Wiedergeburt in einem minimalen zulässigen Zustandsmodell}
 
-Consider a continuum \(K\) whose admissible realization at time \(t\) is described by
+Betrachten wir ein Kontinuum \(K\), dessen zulässige Realisierung zur Zeit \(t\) beschrieben wird durch
 \[
-\Omega(K,t) = \{x \in [0,1] \mid \phi(x,t) \le \Theta(t)\},
+\Omega(K,t) = \{x \in [0,1] \mid \phi(x,t) \le \vartheta(t)\},
 \]
-where \(\phi(x,t)\) is an incompatibility load and \(\Theta(t)\) is the currently lawful
-threshold. Suppose that at an earlier stage \(t_0\) the set is nonempty, for example because
-\(\phi(x,t_0)\) is below threshold on a compact interval \([a,b]\subseteq [0,1]\).
+wobei \(\phi(x,t)\) die Inkompatibilitätsbelastung und \(\vartheta(t)\) der aktuell rechtmäßige skalare
+Schwellenwert ist. Nehmen wir an, zu einem früheren Zeitpunkt \(t_0\) ist die Menge nicht leer, etwa weil
+\(\phi(x,t_0)\) auf einem kompakten Intervall \([a,b]\subseteq [0,1]\) unterhalb der Schwelle liegt.
 
-Now assume that the embedding regime changes, the threshold tightens, or the internal evolution
-operator drives the incompatibility load upward so that at time \(t_1\),
+Nehmen wir nun an, das Einbettungsregime ändert sich, die Schwelle verengt sich oder der interne Evolutionsoperator treibt die Inkompatibilitätsbelastung nach oben, so dass die deklarierte Kollapszeit \(t_1=t^\ast\), der Annäherungspfad die einseitige Quellbedingung
+\(\lim_{t\nearrow t^\ast} k(K,t)=0\) erfüllt, und zum Zeitpunkt \(t_1\) gilt
 \[
-\forall x \in [0,1] \qquad \phi(x,t_1) > \Theta(t_1).
+\forall x \in [0,1] \qquad \phi(x,t_1) > \vartheta(t_1).
 \]
-Then \(\Omega(K,t_1)=\emptyset\). In the language of the quellnative death condition, that is
-not merely a bad regime or a temporarily unproductive phase. It is the lawful death of the
-continuum under the current admissibility regime.
+Dann ist \(\Omega(K,t_1)=\emptyset\). In der Sprache der quellseitigen Todesbedingung ist dieses vollständige
+Zeugenpaket nicht bloß ein schlechtes Regime oder eine nur vorübergehend unproduktive Phase. Weil der
+Existenzindikator \(\chi_{\Omega}(s_K(t_1);K,t_1)\) dann null ist, kollabiert auch das
+Kontinuitätsmaß gemäß der vereinheitlichten Core~1.3-Definition zu \(k(K,t_1)=0\). Die Schlussfolgerung ist
+unmittelbar, da \(k\) als Produkt definiert ist, dessen erster Faktor der Existenzindikator ist. Es ist daher
+der rechtmäßige Tod des Kontinuums unter dem aktuellen Zulässigkeitsregime.
 
-The important interpretive point is what follows next. Suppose that after collapse, the embedding
-space still preserves some structured trace: constraints, marks, gradients, memory residues, or
-other inherited structure that a later continuum can exploit. That trace is not the original live
-continuum, because the admissible realization has already become empty. It is residue: a überlebenden
-structural aftermath without live identity.
+Der wichtige interpretative Punkt ist, was als Nächstes folgt. Nehmen wir an, nach dem Kollaps bewahrt der Einbettungsraum weiterhin
+eine strukturierte Spur: Restriktionen, Markierungen, Gradienten, Gedächtnisreste oder andere vererbte Struktur,
+die ein späteres Kontinuum nutzen kann. Diese Spur ist nicht das ursprüngliche aktive Kontinuum, weil die
+zulässige Realisierung bereits leer geworden ist. Es ist Residuum: ein überdauerndes strukturelles Nachspiel
+ohne lebendige Identität.
 
-Finally suppose that at time \(t_2>t_1\), after changes in thresholds, embedding, or generative
-conditions, a new nonempty admissible realization appears for some later object \(K'\). The
-lawful classification is not that the original continuum has revived. The irreversibility rule
-forbids that reading. The correct classification is rebirth: a later live continuum grounded in
-residue but not identical with the original continuum.
+Schließlich nehmen wir an, bei einem Zeitpunkt \(t_2>t_1\), nach Änderungen von Schwellen, Einbettung oder
+generativen Bedingungen, erscheine für ein späteres Objekt \(K'\) eine neue nichtleere zulässige Realisierung.
+Die rechtmäßige Klassifikation ist nicht, dass das ursprüngliche Kontinuum wiederaufgetreten ist. Die
+Irreversibilitätsregel verbietet diese Lesart. Die korrekte Klassifikation ist Wiedergeburt nur dann, wenn
+vollständig die Vorraussetzung aus Definition~12.6 erfüllt ist: das spätere aktive Kontinuum erscheint im
+gleichen oder einem verwandten Einbettungsraum, übernimmt mindestens ein strukturelles Element aus dem
+Residuum und erfüllt die relevanten Geburtsbedingungen. Die separate Identitätsregel in
+Abschnitt~\ref{sec:collapse-rebirth} erklärt dann, warum das spätere aktive Kontinuum numerisch neu ist,
+statt eine Wiederherstellung des ursprünglichen Originals.
+Wenn eine Route die Option des verwandten Einbettungsraums statt desselben Einbettungsraums nutzt, muss die
+Relation anhand der Residuum- und Schwellenklauseln geprüft werden und darf nicht im Nachhinein aus der
+gewünschten Wiedergeburtslesart abgeleitet werden. Auf Artefaktebene ist ein prüfbarer Kompatibilitätsbeleg
+für „verwandt“ die explizit abgegrenzte Bedingung. Sei \(\Omega_{\mathrm{amb}}(\mathcal{M}')\) die
+umgebende zulässige Region, die für den vorgeschlagenen Einbettungsraum deklariert ist, und sei der
+quantifizierte \(K'\) über spätere Kandidatenkontinua in \(\mathcal{M}'\) bestimmt:
+\[
+  \begin{aligned}
+  &\exists K'\ \exists h:\mathcal{M}\to\mathcal{M}'\ \exists r\in R_{\mathrm{res}}(K)\\
+  &\qquad h(r)\in\Omega(K')\subseteq\Omega_{\mathrm{amb}}(\mathcal{M}')\ \text{and}\\
+  &\operatorname{Pres}_{\Theta,\Omega}(h,r;K,K').
+  \end{aligned}
+\]
+Für dieses ausgearbeitete Beispiel bedeutet
+\(\mathcal{M}\sim_{\mathrm{res}}\mathcal{M}'\), dass die angezeigte Zeile genau die Kurzform des vollständigen
+Zeugenpakets ist, das unten beschrieben wird. Dieses Paket enthält die Residuum tragende Unterstruktur, das
+aktive Residuum und die Zielindexfamilien, die Indexbijection und den induzierten Transportoperator; ohne diese
+Daten ist die angezeigte Formel kein eigenständiges formales Prädikat.
+Hier bezeichnet \(K'\) den deklarierten späteren Kandidaten, der auf aktive Zulässigkeit geprüft wird,
+\(\mathcal{M}\) den Einbettungsraum des kollabierten Kontinuums,
+\(\mathcal{M}'\) den Einbettungsraum, der für das spätere Kontinuum vorgeschlagen wird,
+\(R_{\mathrm{res}}(K)\) die Restmenge des kollabierten Kontinuums, und
+\(\mathcal{R}_K(r)\subseteq R_{\mathrm{res}}(K)\) die deklarierten resttragenden Unterstrukturen, die
+\(r\) enthalten. Ist keine solche Unterstruktur deklariert, steht der Verwandtschaftszweig in diesem
+Beispiel nicht zur Verfügung.
+\(\operatorname{Pres}_{\Theta,\Omega}\) bedeutet, dass die benannte Abbildung \(h\) die
+\(\mathcal{R}_K(r)\) und die für den Test des späteren aktiven Kontinuums verwendeten Schwellen- und
+Zulässigkeitsprädikate bewahrt. Dieses Zeugenpaket ist nicht allein das vollständige Wiedergeburtsprädikat;
+es liefert nur die Klausel zum verwandten Einbettungsraum innerhalb dieses Prädikats. Das ist die
+beispielspezifische Relation
+\(\mathcal{M}\sim_{\mathrm{res}}\mathcal{M}'\). Das formale Wiedergeburtsprädikat bleibt
+Definition~12.6; das Quellprädikat kann weitere korrekt deklarierte verwandte Einbettungszeugnisse
+zulassen; dieses ausgearbeitete Beispiel verwendet das strengere Zeugnis \(\sim_{\mathrm{res}}\), damit der
+verwandte Zweig prüfbar statt unterstellt ist.
+Die Zeugenangaben enthalten weiterhin die aktive Residuum-Schwellenindexfamilie
+\(I_K^{\mathrm{res}}\), die entsprechende aktive Zielteilfamilie
+\(I_{K'}^{h}\subseteq I_{K'}\) und eine deklarierte Bijektion
+\(\eta_h:I_K^{\mathrm{res}}\xrightarrow{\sim}I_{K'}^{h}\). Der induzierte Pushforward \(h_\ast\)wendet
+\(h\) auf den Restzustand an und transportiert jede benannte residuale Schwelle über \(\eta_h\).
+Für dieses Beispiel ist \(\operatorname{Pres}_{\Theta,\Omega}\) das folgende deklarierte Prädikat:
+\[
+\begin{aligned}
+&\operatorname{Pres}_{\Theta,\Omega}(h,r;K,K')
+  \text{ gilt genau dann, wenn}\\
+&h \text{ bewahrt } \mathcal{R}_K(r),\\
+&h(r)\in\Omega(K')\subseteq\Omega_{\mathrm{amb}}(\mathcal{M}'),\\
+&\mathcal{D}^{h}_{\Theta,\Omega}(K';h(r))
+  =h_{\ast}\mathcal{D}^{\mathrm{res}}_{\Theta,\Omega}(K;r).
+\end{aligned}
+\]
+Hier bezeichnet \(\mathcal{D}_{\Theta,\Omega}\) die lokalen Zulässigkeitsdaten: den punktweisen
+Zulässigkeits-Mitgliedschaftsindikator zusammen mit den Vorzeichen der aktiven Residualschwellen und
+gesättigten Restriktionen. Der Ausdruck
+\(\mathcal{D}^{\mathrm{res}}_{\Theta,\Omega}(K;r)\) bezeichnet dieselben Daten, eingeschränkt auf die
+Residual-Schwellenindexfamilie \(I_K^{\mathrm{res}}\), während
+\(\mathcal{D}^{h}_{\Theta,\Omega}(K';h(r))\) den zielseitigen Datensatz darstellt, eingeschränkt auf
+\(I_{K'}^{h}\). Genauer gesagt ist für eine endliche aktive Schwellen-Subfamilie
+\(J\subseteq I_Y\) von
+\(\Theta_Y=\{f_i^Y\}_{i\in I_Y}\) an einem getesteten Objekt \(Y\) und Punkt \(y\) der eingeschränkte
+typisierte Datensatz
+\[
+  \mathcal{D}^{J}_{\Theta,\Omega}(Y;y)=
+  \big(
+    \mathbf{1}_{\Omega(Y)}(y),
+    (\operatorname{sgn} f_i^Y(y))_{i\in J},
+    \{i\in J:f_i^Y(y)=0\}
+  \big).
+\]
+Das ungekürzte Symbol \(\mathcal{D}_{\Theta,\Omega}(Y;y)\) ist die Abkürzung des Spezialfalls
+\(J=I_Y\); es ist nicht der im verwandschaftlichen Einbettungszeugnis zu vergleichende Datensatz.
+Hier ist \(I_K^{\mathrm{res}}\) die Subfamilie aktiver Schwellen, die auf der Residuum-tragenden
+Unterstruktur deklariert ist, und \(I_{K'}^{h}\) die entsprechende aktive Zielsubfamilie, die zur Prüfung von
+\(\Omega(K')\) entlang dieses Zeugnisses genutzt wird. Der Transport erfüllt
+\(f_{\eta_h(i)}^{K'}\circ h=f_i^K\) auf \(\mathcal{R}_K(r)\).
+Folglich wird die gesättigte Menge transportiert als
+\[
+  \eta_h\bigl(\{i\in I_K^{\mathrm{res}}:f_i^K(r)=0\}\bigr)
+  =
+  \{j\in I_{K'}^{h}:f_j^{K'}(h(r))=0\}.
+\]
+Die Gleichung sagt daher, dass die benannte Abbildung die Residual-Schwellen- und Zulässigkeitsdaten,
+die zur Prüfung des späteren aktiven Kontinuums verwendet werden, transportiert; sie ist keine informelle
+Ähnlichkeitsklausel. Der Pushforward \(h_{\ast}\) ist ein zeugnislokaler Transport- und Zielbewertungsoperator
+statt eines reinen Quellen-Pushforwards: Er wendet \(h\) auf den Restzustand an, trägt jede benannte
+Residualschwelle \(f_i\) auf die entsprechende deklarierte Residualschwelle \(f_{\eta_h(i)}'\) über, bewahrt
+die Vorzeichenbeziehung \(\le 0\), bewahrt die transportierte gesättigte Teilmenge und bewertet die
+Ziel-Mitgliedschaftskomponente mit dem separaten Prädikat
+\(h(r)\in\Omega(K')\).
 
 \begin{figure}[htbp]
 \centering
 \input{figures/birth_life_death.tex}
-\caption{Minimal life-cycle schematic for the bounded collapse grammar. The point of the figure is
-not to offer a domain-specific simulation but to show the exact interpretive burden of the formal
-rules: positive continuumness keeps the object live; admissible-state collapse kills it; any later
-continuation must be classified under rebirth rather than persistence.}
+\caption{Minimale Lebenszyklus-Skizze für die begrenzte Kollapsgrammatik. Der Zweck der Abbildung ist nicht,
+eine domänenspezifische Simulation zu bieten, sondern die genaue interpretative Belastung der formalen Regeln zu
+demonstrieren: In diesem Minimalmodell bleibt das Objekt nur solange aktiv, wie die zulässige Region nicht leer,
+die geforderten Zyklen vorhanden sind und \(k(K,t)>0\) gilt, wobei unterstützende Flüsse nicht durch
+zerstörende Flüsse auf den relevanten Zyklen dominiert werden. Ein Zulässigkeitszustandskollaps beendet es,
+und jedes spätere aktive Kontinuum wird als Wiedergeburt klassifiziert und nicht als Persistenz, und zwar nur,
+wenn die Residuum-, Einbettungsraum- und Geburtsbedingungen aus Definition~12.6 erfüllt sind und die
+Identitätsregel die Wiederherstellung des toten Originals ausschließt.}
 \label{fig:oc13-birth-life-death}
 \end{figure}
 
-This example is deliberately modest. It does not claim that every physically, biologically, or
-socially interesting regime can already be reduced to such a scalar picture. What it does show is
-how the theorem grammar should be read once the support chain is accepted. A hostile reviewer may
-reject the premises or the admissibility logic. What the reviewer should not be allowed to say is
-that the release leaves the post-collapse identity consequences undefined.
+Dieses Beispiel ist bewusst bescheiden. Es behauptet nicht, dass jedes physikalisch,
+biologisch oder sozial interessante Regime bereits auf ein solches Skalarbild reduziert werden kann. Was es
+zeigt, ist, wie die Theoremgrammatik zu lesen ist, sobald die Unterstützungsroute akzeptiert wird. Ein
+kritischer Gutachter kann die Voraussetzungen oder die Zulässigkeitslogik zurückweisen. Was der Gutachter
+aber nicht behaupten darf, ist, dass das Release die Identitätsfolgen nach dem Kollaps undefiniert läßt.
 
-\subsection{Worked Example 2: why \texorpdfstring{$K_{11}$}{K11} and \texorpdfstring{$K_{12}$}{K12} are not decorative}
+\subsection{Ausgearbeitetes Beispiel 2: Warum \texorpdfstring{$K_{11}$}{K11} und \texorpdfstring{$K_{12}$}{K12} nicht dekorativ sind}
 
-One of the easiest ways to make a foundational framework look more sophisticated than it is would
-be to keep extending its hierarchy labels without necessity. Core 1.3 blocks that temptation by
-forcing the reader to ask what would break if the hierarchy stopped at \(K_{10}\).
+Eine der einfachsten Möglichkeiten, ein grundlegendes Framework ausgeklügelter erscheinen zu lassen, als es
+ist, wäre, seine Hierarchieebenen ohne Notwendigkeit fortwährend zu erweitern. Core 1.3 blockiert diese
+Verführung, indem es den Leser dazu zwingt zu prüfen, was zusammenbricht, wenn die Hierarchie bei
+\(K_{10}\) endete.
 
-At the level of \(K_9\), the theory already treats theories, paradigms, and ontological schemes as
-structured objects. At \(K_{10}\), it treats model-of-models recursion and self-reference as part
-of the formal landscape. That still leaves two scientific problems open.
+Auf der Ebene von \(K_9\) behandelt die Theorie bereits Theorien, Paradigmen und ontologische Schemata als
+strukturierte Objekte. Auf der Ebene \(K_{10}\) behandelt sie Rekursionen von Modell-über-Modell und
+Selbstbezug als Teil der formalen Landschaft. Dadurch bleiben zwei wissenschaftliche Probleme offen.
 
 \begin{enumerate}
-\item How do operator families, meta-logics, and model-spaces themselves evolve as structured
-      continua rather than as static meta-language?
-\item How are global coherence conditions expressed once multiple such higher-order objects coexist
-      and partially constrain one another?
+\item Wie entwickeln sich Operatorfamilien, Meta-Logiken und Modellräume selbst als strukturierte
+      Kontinua statt als statische Metasprache?
+\item Wie werden globale Kohärenzbedingungen ausgedrückt, sobald mehrere solcher höherstufigen Objekte koexistieren
+      und sich teilweise gegenseitig beschränken?
 \end{enumerate}
 
-Stopping at \(K_{10}\) would force those problems back into informal commentary. The öffentlich source
-corpus, however, already contains the beginnings of explicit treatment for both. That is why
-\(K_{11}\) and \(K_{12}\) are retained: not because bigger counts sound grander, but because the
-framework has already crossed the line at which the evolution of theory-space and the coherence of
-higher-order structures have to be represented formally.
+Ein Abbruch bei \(K_{10}\) würde diese Probleme wieder in informelle Anmerkungen zurückführen. Der
+öffentliche Quellenkorpus enthält jedoch bereits den Beginn einer expliziten Behandlung beider Themen. Deshalb
+bleiben \(K_{11}\) und \(K_{12}\) erhalten: nicht, weil höhere Zahlen eindrucksvoller klingen, sondern
+weil das Framework die Grenze bereits überschritten hat, an der die Entwicklung des Theorieraums und die
+Kohärenz höherstufiger Strukturen formal darzustellen ist.
 
 \begin{figure}[htbp]
 \centering
 \input{figures/levels_hierarchy_k12.tex}
-\caption{Extended vertical hierarchy through \(K_{12}\). The added upper levels are justified by
-the need to represent evolving meta-theoretical spaces and their global coherence conditions rather
-than by decorative level inflation.}
+\caption{Erweiterte vertikale Hierarchie bis zu \(K_{12}\). Die hinzugefügten oberen Ebenen sind durch den
+Bedarf begründet, sich entwickelnde meta-theoretische Räume und ihre globalen Kohärenzbedingungen darzustellen,
+statt durch dekorative Ebenenaufblähung.}
 \label{fig:oc13-levels-k12}
 \end{figure}
 
-The scientific test here is straightforward. If a critic can show that every purported \(K_{11}\)
-and \(K_{12}\) role is reducible without loss to the structures already present at \(K_{10}\),
-then the upper levels should be demoted. If, however, the framework genuinely needs one stratum
-for evolving meta-theoretical objects and another for cross-framework coherence conditions, then
-the upper levels are not optional. Core 1.3 takes the second position and, crucially, states why.
+Die leseorientierte Reduktionsprüfung ist hier explizit und begrenzt. Sie ist eine Auditheuristik dafür,
+was eine Reduktion nur auf \(K_{10}\) hätte bewahren müssen, nicht Ersatz für das quellseitige
+Unumkehrbarkeitsdossier. In diesem Absatz bezeichnet \(\mathrm{Car}(K_n)\) die Trägermenge der dem Level
+\(K_n\) zugeordneten Objekte, nicht das Ebenenetikett. Sei
+\(\mathcal{U}_{11,12}=\mathrm{Car}(K_{11})\sqcup \mathrm{Car}(K_{12})\) die disjunkte Vereinigung der
+Objekte, die den beiden geprüften oberen Rollen zugeordnet werden. Eine \(K_{10}\)-nur Reduktion ist ein
+Tupel \((\rho,\equiv_{\rho},\rho_{\ast},\lambda)\), wann immer zeitsensitive Anforderungen bestehen, wobei
+\(\rho:\mathcal{U}_{11,12}\to \mathrm{Car}(K_{10})\),
+\(\equiv_{\rho}\subseteq\mathcal{U}_{11,12}\times\mathcal{U}_{11,12}\) die durch die Übersetzung induzierte
+deklarierte Kompatibilitätsrelation ist und \(\rho_{\ast}\) die Kurzbezeichnung der Familie der Transporte
+\(\{\rho_{\ast,X}\}_X\) ist, die Anforderungen höherer Ebenen auf ihre vorgeschlagenen
+\(K_{10}\)-Gegenstücke abbildet. Die Komponente \(\lambda\) ist die Familie ordnungs-erhaltender
+Intervalltransporte \(\{\lambda_X:I_X\to I_{\rho(X)}\}_X\). Gibt es keine zeitsensitive Anforderung,
+ist \(\lambda\) die leere Hilfsfamilie. Trotz des Zeichens ist \(\equiv_{\rho}\) in diesem Test nicht als Äquivalenzrelation
+vorausgesetzt; es ist nur ein typisierter Kompatibilitätsprädikat, sofern Reflexivität, Symmetrie und
+Transitivität separat vorliegen. Für jedes Objekt \(X\) sei \(\mathcal{B}(X)\subseteq\mathcal{L}_{\mathrm{OC}}(X)\)
+eine endliche typisierte Menge lokaler OC-Anforderungen und \(\mathcal{B}^{\wedge}(X)\) ihre endliche Konjunktions-
+abschließung. Die erlaubten Atomkonstrukte sind \(\mathsf{Adm}\), \(\mathsf{Cont}\), \(\mathsf{Op}\),
+\(\mathsf{Id}\) und \(\mathsf{Fals}\), die für Zulässigkeit, positive Kontinuität, Operator-Verpflichtung,
+Identitätsbewahrung und Falsifier-Anforderungen stehen. Die Notation \(\mathcal{L}_{\mathrm{OC}}(X)\) bezeichnet
+die finit parametrisierte Anforderungssprache, die von diesen Atomtypen für \(X\) erzeugt wird, während die
+getestete Menge \(\mathcal{B}(X)\) endlich bleibt. Die Notation \(\mathcal{L}_{10}(\rho(X))\) bezeichnet
+die entsprechende vorgeschlagene Ziel-Sprache auf der Ebene \(K_{10}\). Der Transport
+\(\rho_{\ast,X}:\mathcal{L}_{\mathrm{OC}}(X)\to\mathcal{L}_{10}(\rho(X))\) bildet jedes typisierte
+Atom auf das vorgeschlagene Gegenstück in der \(K_{10}\)-Sprache ab und erweitert sich auf endliche
+Konjunktionen durch Erhalt der typisierten Klauseln. Für den Reduktionstest sind die folgenden
+begrenzt formulierten Erfüllungsklauseln:
+\[
+\begin{aligned}
+X\models\mathsf{Adm}(\omega) &\Longleftrightarrow
+  \omega\in\Omega(X),\\
+X\models\mathsf{Cont}(\varepsilon) &\Longleftrightarrow
+  \forall t\in I_X,\ k(X,t)>\varepsilon,\\
+X\models\mathsf{Op}(O:S\to T) &\Longleftrightarrow
+  S\subseteq\operatorname{Dom}_X(O),\ O(S)\subseteq T,\text{ and }\
+  \mathsf{Guard}_X(O,S,T)=1,\\
+X\models\mathsf{Id}(\iota) &\Longleftrightarrow
+  \mathsf{IdPres}_X(\iota)=1,\\
+X\models\mathsf{Fals}(\varphi) &\Longleftrightarrow
+  \mathsf{Kill}_X(\varphi)=0.
+\end{aligned}
+\]
+Endliche Konjunktionen sind genau dann erfüllt, wenn jede typisierte Klausel in der Konjunktion erfüllt ist.
+Hier bedeutet \(X\models r\), dass die typisierte Anforderung unter den Zulässigkeits-, Kontinuitäts-,
+Operator-Verpflichtungs-, Identitäts- und Falsifier-Klauseln der umgebenden Beweiskette erfüllt wird. Eine
+Operator-Verpflichtungs-Atom wird nur erfüllt, wenn der betreffende Operator auf den deklarierten Quell- und
+Zielobjekten definiert ist und die zugehörige Verpflichtung die genannte Domäne, den Zielbereich und den
+Zulässigkeits-Guard bewahrt; andernfalls schlägt sie fehl. Der Ausdruck
+\(\rho(X)\models\rho_{\ast,X}(r)\) bedeutet Erfüllung der übersetzten Anforderung in der Zielsprache, unter
+Verwendung von \(I_{\rho(X)}=\lambda_X(I_X)\) für zeitsensitive Atome. Die Relation
+\(\equiv_{\rho}\) ist eine typisierte Kompatibilitätsrelation auf getesteten Objekten; wird sie als Quotient
+verwendet, müssen Reflexivität, Symmetrie und Transitivität explizit bereitgestellt werden. In diesem
+Abschnitt dient sie nur einer Belastungserhaltung als Kompatibilitätsprüfung, nicht als dekorativer
+Quotient. Die Reduktion ist verlustfrei nur dann,
+\[
+  \forall X\in\mathcal{U}_{11,12}\ \forall r\in\mathcal{B}^{\wedge}(X):
+  \qquad X\models r \Longleftrightarrow \rho(X)\models \rho_{\ast,X}(r),
+\]
+und nur dann, wenn \(X\equiv_{\rho}Y\) niemals zwei Objekte als kompatibel deklariert, deren
+Zulässigkeitszustands-, Kontinuitäts-, Operator-Verpflichtungs-, Identitäts- oder Falsifier-Belastung
+unterschiedlich ist. Dadurch ist die Kompatibilitätsrelation eine Erhaltungsvorgabe statt eines reinen
+Dekorationsquotienten. Im Reduktionstest sind Quell-Objekt-Kompatibilität und
+Quell-Ziel-Erhaltung separate Prüfungen. Die Relation \(\equiv_{\rho}\) begrenzt die Kompatibilität nur unter
+Quellobjekten; das Paar \(X,\rho(X)\) bewahrt die Identität nur, wenn die Zulässigkeitszustands-,
+Kontinuitäts-, Operator-Verpflichtungs-, Identitätsbewahrungs- und Falsifier-Belastungen von \(X\) mit den
+durch \(\rho_{\ast,X}\) übersetzten Gegenstücken in \(K_{10}\) übereinstimmen. Die Residualsprache ist hier
+nur eine Analogie und nicht das Identitätskriterium für die Reduktion. Die angezeigte Bedingung ist der
+lokale, formal quantifizierte Erhaltungstest. Sie ist notwendig für jede Reduktionsbehauptung, aber dieses
+ausgearbeitete Beispiel hält darüber hinaus ein separates nicht-definitorisches Kohärenz-Audit fest. Für eine
+endliche Familie getesteter Objekte \(F\subseteq\mathcal{U}_{11,12}\), gewählte Anforderungen
+\(r_X\in\mathcal{B}^{\wedge}(X)\) und eine deklarierte gemeinsame Metasprache \(\mathcal{L}_F\), muss das
+Audit Übersetzungen\(\iota_{F,X}:
+\mathcal{B}^{\wedge}(X)\to\mathcal{L}_F\)
+angeben. Der familienbezogene Test ist die endliche Konjunktion
+\(\bigwedge_{X\in F}\iota_{F,X}(r_X)\) in \(\mathcal{L}_F\) zusammen mit allen
+objektübergreifenden Kohärenzklauseln, die für diese Familie behauptet werden. In diesem heuristischen
+Check ist eine \(K_{10}\)-nur Reduktion so markiert, wenn sie jedes Objekt lokal erhält, aber ein
+klassifiziertes kohärenzbehaftetes Verpflichtungsbündel, das von \(K_{12}\) getragen wird, verliert. Daher
+würde „reduzierbar ohne Verlust“ in diesem Audit-Sinn bedeuten, innerhalb von \(K_{10}\) allein alle drei
+Belastungen zu bewahren, die dem Release den oberen Ebenen zuweist:
+\begin{enumerate}
+\item explizite Evolution meta-theoretischer Objekte als rechtmäßige strukturierte Zustände,
+\item die Trennung zwischen lokaler Meta-Modell-Rekursion und globalen Rahmenkohärenzbedingungen,
+\item und die Zulässigkeits- oder Kollapsbedingungen der betreffenden höherstufigen Objekte.
+\end{enumerate}
+Daher müsste ein Kritiker eine explizite \(K_{10}\)-nur Reduktionsabbildung liefern, die diese Belastungen
+gleichzeitig bewahrt. Existiert eine solche Abbildung, sollten die oberen Ebenen herabgestuft werden. Wenn
+aber das Framework tatsächlich eine Schicht für die Entwicklung meta-theoretischer Objekte und eine weitere
+für übergreifende Kohärenzbedingungen benötigt, sind die oberen Ebenen nicht optional. Core 1.3 nimmt die
+zweite Position ein und gibt insbesondere die Erhaltungsklausel an, unter der diese Position scheitern
+könnte.
+Die Rollenaufteilung ist ausdrücklich: \(K_{11}\) trägt die Entwicklung meta-theoretischer Objekte sowie
+Operator-/Modellräume, während \(K_{12}\) globale rahmenübergreifende Kohärenz-, Beschränkungs- und
+Integrierbarkeitbedingungen trägt. Dasselbe Erhaltungskriterium wird unten verwendet, sobald die Tabelle
+davon spricht, dass ein späteres Kontinuum numerisch identisch mit dem toten Original ist. In diesem
+Abschnitt bedeutet es die Bewahrung der ursprünglichen lebendigen Identität: die ursprünglichen
+Zulässigkeitszustands- und Kontinuitätsbedingungen müssen aktiv bleiben, nicht bloß dass ein späteres Objekt
+zum Residuum in Beziehung gesetzt werden kann.
 
-\subsection{Worked Example 3: how the journal core is lawfully extracted from the monograph}
+\subsection{Interpretative Prüfung 3: wie der Journal-Core rechtmäßig aus der Monographie extrahiert wird}
 
-Readers often distrust large monographs because they have seen too many cases in which a short
-Artikel quietly says something stronger than the full technical work behind it. Core 1.3 is
-designed to make that drift visible and prevent it.
+Leserinnen und Leser misstrauen oft großen Monographien, weil sie zu viele Fälle erlebt haben, in denen ein
+kurzer Artikel stillschweigend etwas Stärkeres behauptet als die zugrunde liegende vollständige
+Technikarbeit. Core 1.3 ist so konstruiert, dass diese Drift sichtbar wird und verhindert wird.
 
-The lawful extraction rule is asymmetric:
+Die rechtmäßige Extraktionsregel ist asymmetrisch:
 \[
 \text{Master Monograph} \longrightarrow \text{Journal Core}.
 \]
-The journal core may compress, but it may not enlarge. That principle has several operational
-consequences.
+Der Journal Core kann komprimieren, aber nicht erweitern. Dieses Prinzip hat mehrere operationale
+Konsequenzen.
 
 \begin{enumerate}
-\item The journal core can suppress much of the didactic shell, but it must preserve the exact
-      positive theorem scope.
-\item It can omit broad projection discussions, but it may not promote any projection into
-      accomplished proof.
-\item It can shorten the literature screen, but it may not falsify the priority or comparator
-      boundary set in the master.
-\item It can move quickly through notation once the master has fixed it, but it may not invent a
-      second notation universe.
+\item Der Journal Core kann viel von der didaktischen Hülle unterdrücken, muss aber den exakten positiven
+      Theoremumfang bewahren.
+\item Er kann breit gefasste Projektionsdiskussionen auslassen, aber keine Projektion in einen erledigten
+      Beweis überführen.
+\item Er kann den Literaturüberblick kürzen, darf aber die im Master festgelegte Prioritäts- oder
+      Vergleichsgrenze nicht verfälschen.
+\item Er kann nach der Festlegung im Master schnell durch Notation gehen, darf aber kein zweites
+      Notationsuniversum erfinden.
 \end{enumerate}
 
-This is not only an editorial convenience. It is part of the scientific claim discipline. The
-monograph is where the broader framework is taught, bounded, and audited. The journal core is
-where one narrower result is exposed for fast hostile inspection. If the two diverge, the release
-should be treated as broken.
+Dies ist keine zusätzliche wissenschaftliche Annahme. Es ist eine Regel der Release-Governance für Paketierung
+und Begutachtung. Der Hauptband lehrt, begrenzt und prüft den weiteren Rahmen. Der Journal Core stellt ein
+engeres Ergebnis für schnelle konträre Prüfung bereit. Wenn beide auseinandergehen, ist das Release als
+fehlerhaft zu behandeln.
 
-\subsection{What would count as a real counterexample}
+\subsection{Was als echter Gegenbeleg zählen würde}
 
-To keep the examples falsifiable, it is useful to state what kind of observation or formal result
-would genuinely pressure the present release.
+Damit die Beispiele falsifizierbar bleiben, ist es sinnvoll festzulegen, welche Art von Beobachtung oder
+formellem Resultat die vorliegende Release tatsächlich unter Druck setzen würde.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{p{4.6cm} p{4.9cm} p{4.0cm}}
+\begingroup
+\footnotesize
+\RaggedRight
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}L{0.27\textwidth}L{0.36\textwidth}L{0.22\textwidth}@{}}
 \toprule
-\textbf{Observation or formal result} & \textbf{Immediate scientific consequence} & \textbf{Release-level implication} \\
+\textbf{Beobachtung oder formales Ergebnis} & \textbf{Unmittelbare wissenschaftliche Konsequenz} & \textbf{Release-Ebene Implikation} \\
 \midrule
-A nonempty admissible realization remains after the alleged collapse event. & The death classification is not yet lawful. & Recheck threshold logic, collapse statement, and Quellenzeugenschaft used in the positive body. \\
-The same continuum is restored as numerically identical after lawful death without violating Axiom 3.3. & The irreversibility corollary is undermined. & The bounded post-collapse identity theorem must be revised or withdrawn. \\
-Residue can be shown to preserve full live identity rather than only structural aftermath. & The residue class is too weak or too broad as stated. & Rewrite the classification boundary before öffentlichen Release. \\
-The journal core requires an excluded lift theorem to sustain its main claim. & The extraction is illegitimate. & Narrow the Artikel or restore support explicitly in the master first. \\
-\(K_{11}\) and \(K_{12}\) are shown reducible without loss to \(K_{10}\). & The upper-level doctrine is overstated. & Demote the hierarchy or re-prove the necessity of the upper layers. \\
+Eine nichtleere zulässige Realisierung bleibt nach dem behaupteten Kollapsereignis bestehen. & Die Todesklassifikation nach Definition~12.1, Axiom~3.2 und Source Theorem~3 in Abschnitt~\ref{sec:oc13-theorem-roadmap} ist noch nicht rechtmäßig. & Überprüfen Sie Schwellenlogik, Kollapsaussage und das Quellenzeugnis im positiven Teil erneut. \\
+Ein späteres aktives Kontinuum erscheint nach rechtmäßigem Tod und kann dennoch numerisch als identisch mit dem toten Original beweisbar werden. & Die durch Axiom~3.3, Definition~12.6, Source Corollary~3.2 und Lemma~3 in Abschnitt~\ref{sec:oc13-theorem-roadmap} fixierte Irreversibilitätsroute wird unterlaufen. & Überarbeiten oder ziehen Sie den Irreversibilitäts- und Wiedergeburtskontrollast ab; revidieren Sie Theorem~A nur, wenn auch der Lemma~2-Weg betroffen ist. \\
+Das Residuum lässt sich nachweisen als Träger vollständiger lebendiger Identität statt nur strukturellen Nachwirkens. & Die durch Definition~12.5, Lemma~2 und Theorem~A in Abschnitt~\ref{sec:oc13-theorem-roadmap} gesetzte
+Klassifikationsgrenze ist in der vorliegenden Form zu schwach oder zu breit. & Redefinieren Sie die Residuumsgrenze vor der Veröffentlichung. \\
+Der Journal Core benötigt eine ausgeschlossen lift-intensive Theoremfamilie, um seine Hauptaussage zu
+stützen. & Diese schematische familiebezogene Einwendung zielt auf die in
+Abbildung~\ref{fig:oc13-theorem-spine} markierte ausgeschlossen lift-intensive Theoremfamilie; falls diese
+Familie erforderlich ist, verletzt die Extraktion die in diesem Abschnitt festgelegte Unterstützungsgrenze. & Den Artikel einschränken oder die Unterstützung zuerst explizit im Master wiederherstellen. \\
+\(K_{11}\) und \(K_{12}\) werden als ohne Verlust auf \(K_{10}\) reduzierbar gezeigt. & Die in diesem Abschnitt und in Abschnitt~\ref{sec:oc13-foundational-consistency} formulierte Lehre der oberen Ebenen ist
+unter ihrem eigenen Erhaltungstest überschätzt. & Die Hierarchie herabstufen oder die Notwendigkeit der oberen Schichten neu beweisen. \\
 \bottomrule
 \end{tabular}
-\caption{Examples of observations or formal objections that would genuinely change the scientific
-status of the present release. The table is meant to preserve falsifiability, not to immunize the
-framework against criticism.}
+\endgroup
+\caption{Beispiele für Beobachtungen oder formale Einwände, die den wissenschaftlichen Status der
+vorliegenden Release tatsächlich ändern würden. Die Tabelle soll die Falsifizierbarkeit sichern und den Rahmen
+nicht gegen Kritik immunisieren.}
 \label{tab:oc13-counterexamples}
 \end{table}
 
-\subsection{Why examples belong in a strict scientific monograph}
+\subsection{Warum Beispiele zu einer strengen wissenschaftlichen Monographie gehören}
 
-Examples are often treated as a concession to weaker readers. In foundational work that is a
-mistake. A disciplined example does at least three scientific jobs at once. It tests whether the
-formal grammar can be applied without hand-waving. It reveals where an apparent theorem is only an
-interpretive gloss. And it gives editors and reviewers a compact way to see what would count as a
-counterexample before they invest in line-by-line reconstruction.
+Beispiele werden oft als Zugeständnis an weniger versierte Leserinnen und Leser behandelt. In Grundlagen-
+arbeit ist das ein Fehler. Ein diszipliniertes Beispiel erfüllt mindestens drei wissenschaftliche Aufgaben.
+Es prüft, ob die formale Grammatik ohne vage Hilfskonstruktionen angewendet werden kann. Es zeigt, wo ein
+scheinbarer Satz nur interpretative Fassade ist. Und es gibt Herausgebern und Gutachtern eine kompakte
+Möglichkeit, zu erkennen, was als Gegenbeleg gelten würde, bevor sie in eine zeilenweise Rekonstruktion
+eintauchen.
 
-That is why the present section is included inside the master monograph rather than hidden in an
-outreach note. A large theory becomes more reliable when the examples are good enough to expose
-its failure modes, not when the examples are removed in the name of austerity.
+Darum ist der Abschnitt im Hauptband enthalten, nicht versteckt in einer Begleitnotiz. Eine große Theorie wird
+dann verlässlicher, wenn die Beispiele stark genug sind, ihre Fehlerquellen offenzulegen, nicht wenn die
+Beispiele aus Gründen der Nüchternheit entfernt werden.
+
+\paragraph{Übergang zum nächsten Kapitel.}
+Die nächsten drei Kapitel wechseln von interpretativen Prüfungen zur Abschlussdisziplinierung: wie
+promovierte Pakete operationalisiert werden, wie empirisches Reenactment begrenzt ist und wie Beweis-
+maschinen, Vergleich und Kompression mit dem wissenschaftlichen Urteil synchronisiert bleiben.
 
 \clearpage

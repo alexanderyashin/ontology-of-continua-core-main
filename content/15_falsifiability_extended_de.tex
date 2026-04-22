@@ -1,446 +1,438 @@
-% GENERATED_BY: oc_core_monograph_translation_draft_pipeline_v1.py
-% AI_ASSISTED_TRANSLATION_DRAFT: TRUE
-% THEOREM_REVIEW_STATUS: PENDING
-% THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
-% THEOREM_REVIEW_REVIEWER_ID: 
-% THEOREM_REVIEW_AUTHORITY_CLASS: 
-% THEOREM_REVIEWED_AT: 
-% THEOREM_REVIEW_DOSSIER_REF: 
-% SOURCE_LANGUAGE: EN
-% TARGET_LANGUAGE: DE
-% SOURCE_EN_REF: content/15_falsifiability_extended.tex
 % ====================================================================
-% FILE: content/15_falsifiability_extended.tex
-% Extended Falsifiability and Experimental Programme
-% Core 1.3 — canonical extended version
+% DATEI: content/15_falsifiability_extended.tex
+% Erweiterte Falsifizierbarkeit und experimentelles Programm
+% Kern 1.3 — kanonische erweiterte Version
 % ====================================================================
 
-\section{Extended Falsifiability and Experimental Programme}
+\section{Erweiterte Falsifizierbarkeit und experimentelles Programm}
 \label{sec:falsifiability-extended}
 
-This section restores and expands the falsifiability framework for the
-Ontology of Continua (OC).  It formulates explicit structural predictions,
-falsification criteria and experimental programmes across the hierarchy
-\(K_2\)–\(K_{10}\), using only the axioms and definitions of Core~1.3.
+Dieser Abschnitt stellt den Falsifizierbarkeitsrahmen für die
+Ontology of Continua (OC) wieder her und erweitert ihn.
+Er formuliert explizite strukturelle Vorhersagen,
+Falsifikationskriterien und experimentelle Programme über die Hierarchie
+\(K_2\)–\(K_{10}\), ausschließlich auf Basis der Axiome und Definitionen von Core~1.3.
 
-The goal is not to provide a full catalogue of experiments but to show that
-OC is structurally falsifiable: it makes domänenübergreifend commitments about
-thresholds, cycles, dimensional transitions and boundary behaviour that can
-in principle be contradicted by empirical and theoretical data.
+Das Ziel ist nicht, ein vollständiges Katalog von Experimenten bereitzustellen, sondern zu zeigen,
+dass OC strukturfalsifizierbar ist: Es werden domänenübergreifende Verpflichtungen zu
+Schwellenwerten, Zyklen, dimensionalen Übergängen und Randverhalten formuliert,
+die prinzipiell durch empirische und theoretische Daten widerlegt werden können.
 
 % ====================================================================
-\subsection{Meaning of Falsifiability for Structural Theories}
+\subsection{Bedeutung der Falsifizierbarkeit für strukturelle Theorien}
 % ====================================================================
 
-For a structural theory, falsifiability is not limited to individual
-numerical predictions.  Instead, falsification occurs when the structural
-relations between
+Für eine strukturelle Theorie ist Falsifizierbarkeit nicht auf einzelne
+numerische Vorhersagen beschränkt. Stattdessen tritt Falsifikation ein,
+wenn die strukturellen Relationen zwischen
 \[
   (\Omega, A, P(t), J(t),
    \Theta, \partial\Omega, C, k(t))
 \]
-are violated in ways incompatible with the axioms and theorems of OC.
+in einer Weise verletzt werden, die mit den Axiomen und Sätzen von OC unvereinbar ist.
 
-\paragraph{Structural vs phenomenological falsifiability.}
+\paragraph{Strukturelle vs. phänomenologische Falsifizierbarkeit.}
 \begin{itemize}
-  \item \emph{Phenomenological falsifiability} concerns direct mismatches
-        between model outputs and observations (e.g.\ wrong phase diagram,
-        incorrect scaling exponent).
-  \item \emph{Structural falsifiability} concerns violations of the universal
-        constraints on continua: thresholds, cycles, dimensional monotonicity,
-        embedding-compatibility, collapse and rebirth conditions.
+  \item \emph{Phänomenologische Falsifizierbarkeit} betrifft direkte Abweichungen
+        zwischen Modellausgaben und Beobachtungen (z.\,B. falsches Phasendiagramm,
+        falscher Skalierungsexponent).
+  \item \emph{Strukturelle Falsifizierbarkeit} betrifft Verletzungen universeller
+        Restriktionen auf Kontinua: Schwellenwerte, Zyklen, monotone Dimension,
+        Einbettungskompatibilität, Kollaps- und Wiederbelebungsbedingungen.
 \end{itemize}
-OC primarily lives at the structural level; phenomenological models must
-factor through OC’s structural requirements to be considered proper
-instantiations.
+OC operiert primär auf der strukturellen Ebene; phänomenologische Modelle müssen
+OCs strukturelle Anforderungen erfüllen, um als korrekte Instanziierungen zu gelten.
 
-\paragraph{Structural falsification channels.}
-A continuum model claiming to instantiate OC can be falsified if:
+\paragraph{Kanäle der strukturellen Falsifikation.}
+Ein Kontinuumsmodell, das Anspruch auf Instanziierung von OC erhebt, ist falsifizierbar, wenn:
 \begin{enumerate}
-  \item \textbf{Threshold violations} occur systematically:
-        observed systems remain viable while violating putative
+  \item \textbf{Schwellenwertverletzungen} systematisch auftreten:
+        beobachtete Systeme bleiben vital, obwohl sie angebliche
         \(\Theta_{\mathrm{exist}}\), \(\Theta_{\mathrm{stab}}\),
-        \(\Theta_{\mathrm{crit}}\) or \(\Theta_{\mathrm{death}}\).
-  \item \textbf{Cycle disappearance} contradicts viability:
-        systems maintain long-term organisation without any identifiable
-        cycle complex \(C\) that satisfies the OC conditions.
-  \item \textbf{Forbidden dimensional transitions} are observed:
-        dimension appears to increase without new axes in the embedding
-        space or without crossing a dimensional threshold
+        \(\Theta_{\mathrm{crit}}\) oder \(\Theta_{\mathrm{death}}\) verletzen.
+  \item \textbf{Verschwinden von Zyklen} der Vitalität widerspricht:
+        Systeme erhalten über lange Zeit eine Organisation ohne irgendein
+        identifizierbares Zykluskomplexesystem \(C\), das die Bedingungen von OC erfüllt.
+  \item \textbf{Verbotene dimensionsabhängige Übergänge} beobachtet werden:
+        Dimension scheint zu steigen, ohne neue Achsen im Einbettungsraum
+        zu aktivieren oder ohne Überschreiten eines Dimensionsschwellenwertes
         \(\Theta_{\mathrm{dim}}\).
-  \item \textbf{Inconsistent tuples} are required:
-        successful models force incompatible definitions of
-        \(\Omega, A, P, J, \Theta, \partial\Omega, C\) for the same system.
+  \item \textbf{Inkompatible Tupel} notwendig werden:
+        erfolgreiche Modelle erfordern für dasselbe System inkompatible Varianten
+        des kanonischen OC-Zustandstupels.
 \end{enumerate}
 
-\paragraph{Structural vs empirical failure.}
-Empirical failure of a specific domain model does not immediately falsify OC;
-the structural theory is challenged only when the empirical success of
-alternative models requires violations of OC’s structural constraints.
-Conversely, if a domain repeatedly exhibits structures that OC forbids
-(e.g.\ stable continua without supporting cycles), OC is directly falsified.
+\paragraph{Strukturelles vs. empirisches Scheitern.}
+Das empirische Scheitern eines konkreten Domänenmodells führt nicht sofort zur Falsifikation von OC;
+die strukturelle Theorie ist erst dann in Frage gestellt, wenn der empirische Erfolg
+alternativer Modelle Verstöße gegen OCs strukturelle Restriktionen erfordert.
+Umgekehrt wird OC direkt falsifiziert, wenn eine Domäne wiederholt Strukturen aufweist,
+die OC verbietet (z. B. stabile Kontinua ohne stützende Zyklen).
 
-\paragraph{Cross-domain falsification logic.}
-Because OC claims universality, a structural falsification in one domain
-(propely established) propagates across all domains that rely on the same
-axioms.  This makes OC \emph{more} falsifiable than narrow theories:
+\paragraph{Cross-domain-Falsifikationslogik.}
+Da OC Universalität beansprucht, propagiert eine strukturale Falsifikation in einer Domäne
+(wirksam nachgewiesen) auf alle Domänen, die dieselben Axiome verwenden.
+Dadurch ist OC \\emph{falsifizierbarer} als eng gefasste Theorien:
 \begin{itemize}
-  \item if monotonicity of dimension fails in a controlled physical system,
-        it must also be reconsidered for cognitive and social continua;
-  \item if viable protocells are demonstrated without any boundary structure
-        compatible with \(\partial\Omega\), the entire K-level hierarchy is
-        affected.
+  \item Falls die Monotonie der Dimension in einem kontrollierten physischen System versagt,
+muss sie auch für kognitive und soziale Kontinua neu bewertet werden;
+  \item Falls lebensfähige Protozellen ohne irgendeine Randstruktur nachgewiesen werden,
+die mit \(\partial\Omega\) kompatibel ist, ist die gesamte K-Level-Hierarchie betroffen.
 \end{itemize}
 
-The remainder of this chapter formulates explicit predictions and tests.
+Der Rest dieses Kapitels formuliert explizite Vorhersagen und Tests.
 
 % ====================================================================
-\subsection{Predictions and Tests in Physics (K2)}
+\subsection{Vorhersagen und Tests in der Physik (\texorpdfstring{$K_2$}{K\_2})
 % ====================================================================
 
-Physical continua provide the most classical testing ground for OC at level
+Physikalische Kontinua bieten den klassischsten Testkontext für OC auf Niveau
 \(K_2\).
 
-\paragraph{Structural predictions.}
+\paragraph{Strukturelle Vorhersagen.}
 \begin{itemize}
-  \item \textbf{P2.1 (Critical thresholds).}
-        Phase transitions correspond to structural crossings of
-        \(\Theta_{\mathrm{crit}}\).  No sharp long-range ordering transition
-        may occur without a corresponding threshold surface in \(\Omega_2\).
-  \item \textbf{P2.2 (Percolation monotonicity).}
-        For connectivity-based systems with control parameter \(p\),
-        global viability (\(k_2>0\)) requires \(p \ge p_c\);
-        for \(p<p_c\) no infinite cluster compatible with \(\Omega_2\)
-        can exist.
-  \item \textbf{P2.3 (Dimensional monotonicity).}
-        No physical continuum can increase its effective dimension without
-        the activation of at least one new axis in the embedding space \(M_2\)
-        and crossing a dimensional threshold \(\Theta_{\mathrm{dim}}\).
-  \item \textbf{P2.4 (Boundary-driven collapse).}
-        Collapse of ordered phases occurs via destruction of supporting
-        cycles (e.g.\ vortex pairs, domain structures) and loss of
-        well-defined \(\partial\Omega_2\), not via spontaneous disappearance
-        of order in the interior alone.
+  \item \textbf{P2.1 (Kritische Schwellenwerte).}
+        Phasenübergänge entsprechen strukturellen Durchtritten von
+        \(\Theta_{\mathrm{crit}}\). Kein scharfer Langstrecken-Ordnungsübergang
+        kann ohne entsprechende Schwellenfläch in \(\Omega_2\) auftreten.
+  \item \textbf{P2.2 (Perkolationsmonotonie).}
+        Für konnektivitätsbasierte Systeme mit Steuerparameter \(p\)
+erfordert globale Vitalität (\(k_2>0\)) \(p \ge p_c\);
+        für \(p<p_c\) kann kein unendlicher Cluster, der zu \(\Omega_2\) kompatibel ist,
+        existieren.
+  \item \textbf{P2.3 (Monotonie der Dimension).}
+        Kein physikalisches Kontinuum kann seine effektive Dimension erhöhen,
+        ohne mindestens eine neue Achse im Einbettungsraum \(M_2\)
+        zu aktivieren und einen Dimensionsschwellenwert \(\Theta_{\mathrm{dim}}\) zu überschreiten.
+  \item \textbf{P2.4 (Randgesteuerter Kollaps).}
+        Der Kollaps geordneter Phasen erfolgt über Zerstörung stützender Zyklen
+        (z.\,B. Wirbelpaare, Domänenstrukturen) und den Verlust
+        eines wohldefinierten \(\partial\Omega_2\), nicht über das spontane
+        Verschwinden der Ordnung im Inneren allein.
 \end{itemize}
 
-\paragraph{Falsification criteria and tests.}
+\paragraph{Falsifikationskriterien und Tests.}
 \begin{itemize}
   \item \textbf{F2.1.}
-        A robust, reproducible phase transition with no structural
-        thresholds in the order-parameter geometry would falsify P2.1.
+        Ein robuster, reproduzierbarer Phasenübergang ohne strukturelle
+        Schwellenwerte in der Geometrie des Ordnungsparameters würde P2.1 falsifizieren.
   \item \textbf{F2.2.}
-        Observation of stable infinite clusters for \(p<p_c\) across
-        well-controlled percolation-like systems would contradict P2.2.
+        Die Beobachtung stabiler unendlicher Cluster für \(p<p_c\) in
+        gut kontrollierten perkolationsähnlichen Systemen würde P2.2 widersprechen.
   \item \textbf{F2.3.}
-        Demonstration of a continuum whose effective dimensionality increases
-        (e.g.\ from 2D to 3D behaviour) while all axes of \(M_2\) remain
-        fixed and no new degrees of freedom are activated would falsify
-        P2.3 and the general dimensional monotonicity theorem.
-  \item \textbf{Experimental programme.}
-        Precision experiments on coherence destruction, vortex unbinding,
-        and percolation thresholds can be used to map empirical
-        \(\Theta_{\mathrm{crit}}\) and test whether the associated
-        \(\partial\Omega_2\) behaves as OC predicts (critical slowing down,
-        boundary localisation of collapse).
+        Der Nachweis eines Kontinuums, dessen effektive Dimensionalität steigt
+        (z.\,B. von 2D- zu 3D-Verhalten), während alle Achsen von \(M_2\) fixiert bleiben
+        und keine neuen Freiheitsgrade aktiviert werden, würde P2.3 sowie den allgemeinen
+        Satz zur Monotonie der Dimension falsifizieren.
+  \item \textbf{Experimentelles Programm.}
+        Präzisionsversuche zur Zerstörung von Kohärenz, Wirbelentfaltung
+        und Perkolationsschwellen können genutzt werden, um empirische
+        \(\Theta_{\mathrm{crit}}\) zu kartieren und zu prüfen, ob das zugehörige
+        \(\partial\Omega_2\) wie von OC vorhergesagt wirkt
+        (kritische Verlangsamung, Randlokalisierung des Kollapses).
 \end{itemize}
 
 % ====================================================================
-\subsection{Predictions and Tests in Origins of Life
+\subsection{Vorhersagen und Tests bei Ursprungsfragen des Lebens
             (\texorpdfstring{$K_3$}{K\_3}--\texorpdfstring{$K_4$}{K\_4})}
 % ====================================================================
 
-For origins-of-life scenarios OC makes explicit claims about catalytic
-closure, membrane structure and protocell viability.
+Für Szenarien zum Ursprung des Lebens macht OC explizite Aussagen zur
+katalytischen Geschlossenheit, Membranstruktur und Protocell-Vitalität.
 
-\paragraph{Structural predictions.}
+\paragraph{Strukturelle Vorhersagen.}
 \begin{itemize}
-  \item \textbf{P3.1 (Catalytic closure).}
-        Long-term stable chemical organisations at \(K_3\) require at least
-        one RAF-like cycle complex; systems without catalytic closure cannot
-        maintain \(k_3>0\).
-  \item \textbf{P3.2 (Osmotic collapse threshold).}
-        Protocells with fixed membrane composition exhibit a radius–tension–
-        permeability relation: beyond a critical combination of osmotic
-        gradient, curvature and permeability
+  \item \textbf{P3.1 (Katalytische Geschlossenheit).}
+        Langfristig stabile chemische Organisationen auf \(K_3\) benötigen mindestens
+        einen RAF-ähnlichen Zykluskomplex; Systeme ohne katalytische Geschlossenheit
+        können nicht \(k_3>0\) aufrechterhalten.
+  \item \textbf{P3.2 (osmotischer Kollapsschwellenwert).}
+        Protocells mit fixer Membranzusammensetzung zeigen eine Radius\-Spannungs\-
+        Permeabilitätsbeziehung: Überschreitet die Kombination aus osmotischem
+        Gradienten, Krümmung und Permeabilität
         (\(\Theta_{\mathrm{grad}}, \Theta_{\mathrm{perm}}, \Theta_{\mathrm{mem}}\))
-        collapse is inevitable.
-  \item \textbf{P3.3 (Boundary necessity).}
-        Protocells lacking a structurally identifiable boundary
-        \(\partial\Omega_4\) (membrane or equivalent compartment structure)
-        cannot sustain nontrivial metabolic flows \(J_{\mathrm{metabolic}}\)
-        over timescales defining \(k_4>0\).
-  \item \textbf{P3.4 (Patch-localised failure).}
-        Membrane collapse initiates on boundary patches where local thresholds
-        are first crossed, not uniformly across the surface.
+        einen kritischen Bereich, ist Kollaps unvermeidlich.
+  \item \textbf{P3.3 (Randnotwendigkeit).}
+        Protocells, denen eine strukturell identifizierbare Grenze
+        \(\partial\Omega_4\) (Membran oder äquivalente Kompartimentstruktur)
+        fehlt, können über Zeitfenster, in denen \(k_4>0\) definiert ist,
+nicht nichttriviale metabolische Flüsse \(J_{\mathrm{metabolic}}\) aufrechterhalten.
+  \item \textbf{P3.4 (Patch- lokalisierter Ausfall).}
+        Membran-Kollaps initiiert auf Randbereichen, auf denen lokale Schwellenwerte
+        zuerst überschritten werden, nicht gleichmäßig über die gesamte Oberfläche.
 \end{itemize}
 
-\paragraph{Falsification criteria and tests.}
+\paragraph{Falsifikationskriterien und Tests.}
 \begin{itemize}
   \item \textbf{F3.1.}
-        Demonstration of chemically self-sustaining organisations with
-        \(k_3>0\) and no identifiable catalytic closure or cycle complex
-        would falsify P3.1.
+        Der Nachweis chemisch autopoetisch sich erhaltender Organisationen mit
+        \(k_3>0\) und ohne identifizierbare katalytische Geschlossenheit oder
+        Zykluskomplex würde P3.1 falsifizieren.
   \item \textbf{F3.2.}
-        Systematic violation of predicted osmotic-collapse relations (e.g.\
-        arbitrary gradients sustained without structural adjustment) would
-        contradict P3.2.
+        Systematische Verletzung der vorhergesagten osmotischen
+        Kollapsbeziehungen (z.\,B. beliebige Gradienten ohne strukturelle Anpassung)
+        würde P3.2 widerlegen.
   \item \textbf{F3.3.}
-        Observation of long-lived protocell-like systems with robust
-        metabolic fluxes but no boundary structure compatible with
-        \(\partial\Omega_4\) would falsify P3.3 and weaken the role of
-        boundaries in OC.
-  \item \textbf{Experimental programme.}
-        Controlled protocell leakage and bursting experiments, combined
-        with quantitative measurements of gradients and membrane properties,
-        can test the structural status of \(\Theta_{\mathrm{grad}}\),
-        \(\Theta_{\mathrm{perm}}\), \(\Theta_{\mathrm{mem}}\) and patch
-        dynamics.
+        Beobachtungen langlebiger protocell-ähnlicher Systeme mit robusten
+        metabolischen Flüssen, aber ohne mit \(\partial\Omega_4\) kompatible
+        Grenzstruktur, würden P3.3 falsifizieren und die Rolle der Grenzen in
+        OC abschwächen.
+  \item \textbf{Experimentelles Programm.}
+        Kontrollierte Experimente zu Protocell-Leckage und -Ruptur in Verbindung mit
+        quantitativen Messungen von Gradienten und Membraneigenschaften können den
+        strukturellen Status von \(\Theta_{\mathrm{grad}}\),
+        \(\Theta_{\mathrm{perm}}\), \(\Theta_{\mathrm{mem}}\) und Patch-Dynamik prüfen.
 \end{itemize}
 
 % ====================================================================
-\subsection{Predictions and Tests in Biological Systems
+\subsection{Vorhersagen und Tests in biologischen Systemen
             (\texorpdfstring{$K_4$}{K\_4}--\texorpdfstring{$K_5$}{K\_5})}
 % ====================================================================
 
-At the biological level, OC focuses on excitability, proto-spikes and the
-transition \(K_4 \to K_5\).
+Auf biologischer Ebene konzentriert sich OC auf Erregbarkeit, Proto-Spikes und den
+Übergang \(K_4 \to K_5\).
 
-\paragraph{Structural predictions.}
+\paragraph{Strukturelle Vorhersagen.}
 \begin{itemize}
-  \item \textbf{P4.1 (Minimal excitability threshold).}
-        The transition from purely metabolic protocells to excitable continua
-        requires a minimal excitability threshold \(\Theta_{\mathrm{exc}}\);
-        no stable \(K_5\) behaviour can exist without nontrivial
-        \(\Delta V\)-axes and a well-defined spike threshold.
-  \item \textbf{P4.2 (Proto-spike invariants).}
-        Across early excitable systems there exist minimal invariants for
-        spike-like cycles (e.g.\ minimal amplitude of \(\Delta V\),
-        refractory period \(\tau\)) corresponding to structural constraints
-        of \(C_{\mathrm{spike}}\).
-  \item \textbf{P4.3 (Excitability precedes complex inheritance).}
-        Long-term inheritance of complex regulatory structures requires
-        prior establishment of \(K_5\)-like channels and excitability
-        cycles; purely \(K_4\) systems cannot indefinitely sustain
-        inherited regulatory complexity without transitioning to a higher
-        level.
+  \item \textbf{P4.1 (Minimale Erregbarkeitsschwelle).}
+        Der Übergang von rein metabolischen Protocells zu erregbaren Kontinua
+        erfordert eine minimale Erregbarkeitsschwelle \(\Theta_{\mathrm{exc}}\);
+        kein stabiles Verhalten auf \(K_5\) kann ohne nichttriviale
+        \(\Delta V\)-Achsen und eine wohldefinierte Spike-Schwelle existieren.
+  \item \textbf{P4.2 (Proto-Spike-Invarianten).}
+        In frühen erregbaren Systemen existieren minimale Invarianten für spike-
+        ähnliche Zyklen (z.\,B. minimale Amplitude von \(\Delta V\),
+        Erholungszeit \(\tau\)), die den strukturellen Restriktionen von
+        \(C_{\mathrm{spike}}\) entsprechen.
+  \item \textbf{P4.3 (Erregbarkeit vor komplexer Vererbung).}
+        Langfristige Vererbung komplexer Regulationsstrukturen erfordert
+        die vorherige Etablierung \(K_5\)-ähnlicher Kanäle und
+        Erregbarkeitzyklen; rein \(K_4\)-Systeme können dauerhaft keine
+        vererbte regulatorische Komplexität aufrechterhalten,
+        ohne auf ein höheres Niveau zu wechseln.
 \end{itemize}
 
-\paragraph{Falsification criteria and tests.}
+\paragraph{Falsifikationskriterien und Tests.}
 \begin{itemize}
   \item \textbf{F4.1.}
-        Demonstration of genuinely \(K_5\)-like signalling (spike trains,
-        excitable waves) in systems with no identifiable excitability axes
-        or thresholds would falsify P4.1.
+        Der Nachweis echter \(K_5\)-ähnlicher Signalübertragung (Spike-Züge,
+        erregbare Wellen) in Systemen ohne identifizierbare Erregbarkeitachsen
+        oder Schwellen würde P4.1 falsifizieren.
   \item \textbf{F4.2.}
-        Discovery of stable, complex inheritance mechanisms in protocell
-        systems strictly confined to \(K_4\) (no excitability, no spike-like
-        cycles) would challenge P4.3.
-  \item \textbf{Experimental programme.}
-        Minimal ion-channel sets, synthetic excitable membranes and
-        controlled \(\Delta V\) instability tests can be used to map
-        the structural space of \(\Theta_{\mathrm{exc}}\),
-        \(\Theta_{\mathrm{refr}}\) and the resulting \(C_{\mathrm{spike}}\).
+        Das Auffinden stabiler, komplexer Vererbungsmechanismen in Protocell-
+        Systemen, die strikt auf \(K_4\) beschränkt sind (keine Erregbarkeit,
+        keine spike-ähnlichen Zyklen), würde P4.3 herausfordern.
+  \item \textbf{Experimentelles Programm.}
+        Minimale Ionenkanalsätze, synthetische erregbare Membranen und
+        kontrollierte \(\Delta V\)-Instabilitätstests können genutzt werden,
+um die strukturelle Landschaft von
+        \(\Theta_{\mathrm{exc}}\),\(
+        \(\Theta_{\mathrm{refr}}\) und dem resultierenden \(C_{\mathrm{spike}}\) abzutasten.
 \end{itemize}
 
 % ====================================================================
-\subsection{Predictions and Tests in Cognitive Continua
+\subsection{Vorhersagen und Tests in kognitiven Kontinua
             (\texorpdfstring{$K_6$}{K\_6})}
 % ====================================================================
 
-For cognitive systems OC emphasises binding capacity, prediction error and
-cycle-based maintenance of internal models.
+Für kognitive Systeme betont OC Bindungskapazität, Vorhersagefehler und
+aus zyklischer Stabilisierung interner Modelle.
 
-\paragraph{Structural predictions.}
+\paragraph{Strukturelle Vorhersagen.}
 \begin{itemize}
-  \item \textbf{P6.1 (Binding capacity limit).}
-        For any cognitive continuum there is a finite binding capacity
-        threshold \(\Theta_{\mathrm{bind}}\) beyond which additional
-        features cannot be integrated into coherent representations
-        without collapse of \(k_6\).
-  \item \textbf{P6.2 (Prediction-error collapse).}
-        There exists a prediction-error threshold \(\Theta_{\mathrm{pred}}\)
-        beyond which no coherent internal model can be maintained; cognitive
-        collapse occurs when prediction error cannot be reduced by any
-        flows \(J_6\) within current axes.
-  \item \textbf{P6.3 (Cycle-based collapse).}
-        Cognitive collapse always involves destruction of key cycles
-        (attention, prediction, memory); there is no collapse scenario
-        with \(C_{\max}(K_6)\) intact.
+  \item \textbf{P6.1 (Bindungskapazitätsgrenze).}
+        Für jedes kognitive Kontinuum gibt es einen endlichen Schwellenwert der
+        Bindungskapazität \(\Theta_{\mathrm{bind}}\), oberhalb dessen zusätzliche
+        Merkmale nicht mehr in kohärente Repräsentationen integriert werden können,
+        ohne dass \(k_6\) kollabiert.
+  \item \textbf{P6.2 (Kollaps durch Vorhersagefehler).}
+        Es existiert ein Schwellenwert für den Vorhersagefehler
+        \(\Theta_{\mathrm{pred}}\), oberhalb dessen kein kohärentes internes
+        Modell aufrechterhalten werden kann; kognitiver Kollaps tritt ein,
+wenn Vorhersagefehler innerhalb der aktuellen Achsen durch keine Flüsse \(J_6\)
+mehr reduziert werden kann.
+  \item \textbf{P6.3 (Zyklusbasiertes Kollapsmodell).}
+        Kognitiver Kollaps beinhaltet stets die Zerstörung zentraler Zyklen
+        (Aufmerksamkeit, Vorhersage, Gedächtnis); es gibt kein Kollaps-Szenario
+        mit intaktem \(C_{\max}(K_6)\).
 \end{itemize}
 
-\paragraph{Falsification criteria and tests.}
+\paragraph{Falsifikationskriterien und Tests.}
 \begin{itemize}
   \item \textbf{F6.1.}
-        Robust evidence for unbounded binding capacity in finite systems
-        (no observable thresholds, no degradation) would falsify P6.1.
+        Robuste Evidenz für unbeschränkte Bindungskapazität in endlichen Systemen
+        (keine beobachtbaren Schwellen, keine Degradierung) würde P6.1 falsifizieren.
   \item \textbf{F6.2.}
-        Empirical regimes where prediction error diverges yet stable,
-        coherent internal models persist indefinitely would contradict P6.2.
+        Empirische Regime, in denen Vorhersagefehler divergiert,
+doch stabile, kohärente interne Modelle unendlich lange bestehen, widersprechen
+        P6.2.
   \item \textbf{F6.3.}
-        Demonstration of cognitive collapse in which attention, prediction
-        and memory cycles remain fully intact would falsify P6.3 and the
-        cycle-based definition of collapse.
-  \item \textbf{Experimental programme.}
-        Behavioural and neurophysiological studies of binding degradation
-        under load, prediction-error saturation, and memory reconsolidation
-        can probe the empirical counterparts of
+        Der Nachweis eines kognitiven Kollapses, bei dem Aufmerksamkeit-,
+        Vorhersage- und Gedächtniszyklen vollständig intakt bleiben,
+würde P6.3 und die zyklische Definition des Kollapses widerlegen.
+  \item \textbf{Experimentelles Programm.}
+        Verhaltens- und neurophysiologische Studien zu Bindungsdegradation
+        unter Last, Sättigung von Vorhersagefehlern und Gedächtnisrekonsolidierung
+        können die empirischen Gegenstücke von
         \(\Theta_{\mathrm{bind}}\),
-        \(\Theta_{\mathrm{pred}}\),
-        and \(C_{\mathrm{memory}}\).
+        \(\Theta_{\mathrm{pred}}\) und
+        \(C_{\mathrm{memory}}\) prüfen.
 \end{itemize}
 
 % ====================================================================
-\subsection{Predictions and Tests in Social/Civilisational Continua
+\subsection{Vorhersagen und Tests in sozialen/gesellschaftlichen Kontinua
             (\texorpdfstring{$K_7$}{K\_7}--\texorpdfstring{$K_8$}{K\_8})}
 % ====================================================================
 
-At higher social levels OC proposes structural constraints on trust,
-institutional cycles and infrastructural stability.
+Auf höheren sozialen Ebenen formuliert OC strukturelle Restriktionen zu Vertrauen,
+institutionellen Zyklen und infrastruktureller Stabilität.
 
-\paragraph{Structural predictions.}
+\paragraph{Strukturelle Vorhersagen.}
 \begin{itemize}
-  \item \textbf{P7.1 (Trust threshold).}
-        Stable social continua at \(K_7\) require trust above a threshold
-        \(\Theta_{\mathrm{trust}}\); below this threshold institutional
-        cycles cannot maintain \(k_7>0\).
-  \item \textbf{P7.2 (Institutional cycle closure).}
-        No stable \(K_7\) continuum exists without at least one closed
-        institutional cycle (e.g.\ taxation–service–legitimacy loop)
-        compatible with OC’s definition of \(C_7\).
-  \item \textbf{P8.1 (Infrastructure cycle thresholds).}
-        Civilisational continua \(K_8\) require stable infrastructural
-        cycles; collapse at \(K_8\) involves boundary failure in
-        \(\partial\Omega_8\) and percolation of failure across key
-        infrastructural layers.
+  \item \textbf{P7.1 (Vertrauensschwelle).}
+        Stabile soziale Kontinua auf \(K_7\) erfordern Vertrauen oberhalb eines
+        Schwellenwertes \(\Theta_{\mathrm{trust}}\); unterhalb dieses Wertes können
+        institutionelle Zyklen \(k_7>0\) nicht erhalten bleiben.
+  \item \textbf{P7.2 (Verschluss institutioneller Zyklen).}
+        Es gibt kein stabiles \(K_7\)-Kontinuum ohne zumindest einen geschlossenen
+        institutionellen Zyklus (z.\,B. Steuern–Dienstleistungen–Legitimitäts-Schleife),
+der mit OCs Definition von \(C_7\) kompatibel ist.
+  \item \textbf{P8.1 (Infrastrukturzyklus-Schwellen).}
+        Zivilisationskontinua \(K_8\) benötigen stabile infrastrukturelle Zyklen;
+        Kollaps auf \(K_8\) involviert Randversagen in
+        \(\partial\Omega_8\) und Perkolation des Versagens über zentrale
+        Infrastrukturebenen.
 \end{itemize}
 
-\paragraph{Falsification criteria and tests.}
+\paragraph{Falsifikationskriterien und Tests.}
 \begin{itemize}
   \item \textbf{F7.1.}
-        Historical or simulated examples of long-term stable institutions
-        with trust consistently below any plausible
-        \(\Theta_{\mathrm{trust}}\) would challenge P7.1.
+        Historische oder simulierte Beispiele langfristig stabiler Institutionen
+        mit Vertrauen, das dauerhaft unter jedem plausiblen
+        \(\Theta_{\mathrm{trust}}\) liegt, würden P7.1 in Frage stellen.
   \item \textbf{F7.2.}
-        Demonstration of durable, high-complexity societies without any
-        identifiable closed governance or resource cycles would falsify
-        P7.2.
+        Der Nachweis dauerhafter, hochkomplexer Gesellschaften ohne irgendeinen
+        identifizierbaren geschlossenen Regierungs- oder Ressourcenzyklus würde
+        P7.2 falsifizieren.
   \item \textbf{F8.1.}
-        Robust models of civilisational collapse that do not involve
-        breakdown of infrastructural cycles or boundary failures in
-        \(\partial\Omega_8\) would contradict P8.1.
-  \item \textbf{Experimental programme.}
-        Quantitative analyses of historical data, network fragility models,
-        and large-scale simulations of trust dynamics and infrastructure
-        percolation can be used to test the structural role of
-        \(\Theta_{\mathrm{trust}}\), \(C_{\mathrm{inst}}\) and
-        \(\partial\Omega_8\).
+        Robuste Modelle zivilisatorischen Kollapses, die keine Auflösung
+        infrastruktureller Zyklen oder Randversagen in
+        \(\partial\Omega_8\) involvieren, würden P8.1 widersprechen.
+  \item \textbf{Experimentelles Programm.}
+        Quantitative Analysen historischer Daten, Modelle zur Netzwerkanfälligkeit
+        und großskalige Simulationen von Vertrauensdynamik und Perkolation der
+        Infrastruktur können die strukturelle Rolle von
+        \(\Theta_{\mathrm{trust}}\),\(C_{\mathrm{inst}}\) und
+        \(\partial\Omega_8\) prüfen.
 \end{itemize}
 
 % ====================================================================
-\subsection{Theoretical and Meta-Theoretical Predictions (K9-K10)}
+\subsection{Theoretische und metatheoretische Vorhersagen
+            (\texorpdfstring{$K_9$}{K\_9}--\texorpdfstring{$K_{10}$}{K\_{10}})}
 % ====================================================================
 
-OC itself, and other high-level frameworks, can be tested at the theoretical
-and meta-theoretical levels.
+OC selbst und andere hochrangige Rahmenwerke können auf theoretischer und
+metatheoretischer Ebene getestet werden.
 
-\paragraph{Structural predictions.}
+\paragraph{Strukturelle Vorhersagen.}
 \begin{itemize}
-  \item \textbf{P9.1 (Coherence thresholds).}
-        Any long-lived theoretical continuum \(K_9\) must satisfy coherence
-        and expressivity thresholds
-        \(\Theta_{\mathrm{coh}}, \Theta_{\mathrm{expr}}\); persistent
-        success of theories that explicitly violate internal coherence
-        would contradict the OC framework.
-  \item \textbf{P9.2 (Inconsistency cascades).}
-        Accumulated inconsistencies in a theoretical framework must lead to
-        collapse of its cycle complex (research programmes, paradigm loops);
-        sustained progress in the presence of arbitrarily large incoherence
-        is incompatible with OC.
-  \item \textbf{P10.1 (Meta-incompleteness).}
-        Any meta-theoretical continuum \(K_{10}\) is structurally incomplete:
-        as bodies of models grow, structural tension at \(K_{10}\) must
-        eventually exceed some \(\Theta_{\mathrm{dim}}\), forcing either
-        expansion of axes or collapse.
+  \item \textbf{P9.1 (Kohärenzschwellen).}
+        Jedes langlebige theoretische Kontinuum \(K_9\) muss Kohärenz- und
+        Ausdrucksfähigkeitsschwellen \(\Theta_{\mathrm{coh}}, \Theta_{\mathrm{expr}}\)
+erfüllen; anhaltender Erfolg von Theorien, die explizit interne Kohärenz verletzen,
+        würde den OC-Rahmen widersprechen.
+  \item \textbf{P9.2 (Kaskaden der Inkohärenz).}
+        Akkumulierte Inkohärenzen in einem theoretischen Rahmen müssen zu einem
+        Kollaps seines Zykluskomplexes führen (Forschungsprogramme, Paradigmen
+        Schleifen); anhaltender Fortschritt bei beliebig hoher Inkohärenz ist
+        mit OC unvereinbar.
+  \item \textbf{P10.1 (Meta-Unvollständigkeit).}
+        Jedes metatheoretische Kontinuum \(K_{10}\) ist strukturell unvollständig:
+        Mit wachsender Modellmenge muss der strukturelle Spannungswert auf
+        \(K_{10}\) schließlich einen \(\Theta_{\mathrm{dim}}\) überschreiten,
+        was entweder eine Erweiterung der Achsen oder Kollaps erzwingt.
 \end{itemize}
 
-\paragraph{Falsification criteria and tests.}
+\paragraph{Falsifikationskriterien und Tests.}
 \begin{itemize}
   \item \textbf{F9.1.}
-        A fully self-consistent, closed theoretical system that captures
-        all relevant models while never requiring expansion or revision and
-        yet continues to support unbounded empirical progress would
-        challenge P9.2 and P10.1.
+        Ein vollständig intern konsistentes, abgeschlossenes Theoriemodell,
+das alle relevanten Modelle erfasst, ohne je Expansion oder Revision zu verlangen,
+um dennoch unbegrenzten empirischen Fortschritt zu stützen, würde
+        P9.2 und P10.1 herausfordern.
   \item \textbf{F9.2.}
-        Demonstration of theoretical frameworks that remain incoherent
-        by OC standards but nonetheless exhibit stable, cumulative,
-        domänenübergreifend predictive success would falsify the structural link
-        between coherence and \(k_9\).
-  \item \textbf{Experimental programme.}
-        Formal analyses of model families, logical consistency checks,
-        and meta-level studies of theory change can be used to test the
-        existence and behaviour of \(\Theta_{\mathrm{expr}}\),
-        \(\Theta_{\mathrm{coh}}\) and associated cycles at \(K_9\)–\(K_{10}\).
+        Der Nachweis von theoretischen Rahmenwerken, die nach OC-Standards
+        inkohärent bleiben, aber dennoch stabile, kumulative,
+domänenübergreifende prädiktive Erfolge zeigen, würde die strukturelle Verbindung
+        zwischen Kohärenz und \(k_9\) falsifizieren.
+  \item \textbf{Experimentelles Programm.}
+        Formale Analysen von Modellfamilien, logische Konsistenzprüfungen und
+        metatheoretische Untersuchungen des Theorienwandels können zur Prüfung der
+        Existenz und des Verhaltens von
+        \(\Theta_{\mathrm{expr}}\), \(\Theta_{\mathrm{coh}}\) und zugehörigen
+        Zyklen auf \(K_9\)–\(K_{10}\) genutzt werden.
 \end{itemize}
 
 % ====================================================================
-\subsection{Meta-Criteria and Cross-Domain Validation}
+\subsection{Meta-Kriterien und domänenübergreifende Validierung}
 % ====================================================================
 
-Finally, OC proposes meta-level criteria that couple falsifiability across
-domains and K-levels.
+Schließlich formuliert OC metathematische Kriterien, die Falsifizierbarkeit über
+Domänen und K-Ebenen koppeln.
 
-\paragraph{Predictive invariants across K-levels.}
-Several structural relations are predicted to hold uniformly:
+\paragraph{Prädiktive Invarianten über K-Ebenen hinweg.}
+Mehrere strukturelle Relationen werden als universell vorhergesagt:
 \begin{itemize}
-  \item existence of at least one supporting cycle \(C_{\mathrm{support}}\)
-        for any live continuum;
-  \item monotonicity of dimension under birth operators;
-  \item necessity of embedding-space compatibility
-        \(A(K_x)\subseteq A(M_x)\) and threshold compatibility with \(M_x\);
-  \item collapse signatures: critical slowing, boundary localisation,
-        cycle breakdown, divergence of structural tension.
+  \item Existenz mindestens eines stützenden Zyklus \(C_{\mathrm{support}}\)
+        für jedes aktive Kontinuum;
+  \item Monotonie der Dimension unter Geburtsoperatoren;
+  \item Notwendigkeit der Kompatibilität des Einbettungsraums
+        \(A(K_x)\subseteq A(M_x)\) und der Schwellenwertkompatibilität mit \(M_x\);
+  \item Kollapssignaturen: kritische Verlangsamung, Randlokalisierung,
+        Zykluszerfall, Divergenz der strukturellen Spannung.
 \end{itemize}
-Violation of these invariants at any well-understood K-level would
-propagate upward and downward in the hierarchy.
+Das Auftreten von Verletzungen dieser Invarianten auf irgendeiner gut
+verstandenenen K-Ebene würde sowohl aufwärts als auch abwärts in der Hierarchie
+propagieren.
 
-\paragraph{Algorithmic structural tests.}
-Core~1.2 and subsequent work are expected to develop algorithmic tests for:
+\paragraph{Algorithmische Strukturtests.}
+Core~1.2 und nachfolgende Arbeiten sollen algorithmische Tests entwickeln für:
 \begin{itemize}
-  \item \(\Omega\)-consistency (nonempty admissible region given thresholds),
-  \item cycle viability (existence of cycle complexes \(C\) under given
-        flows),
-  \item embedding compatibility (axes and thresholds vs.\ \(M_x\)).
+  \item \(\Omega\)-Konsistenz (nichtleerer zulässiger Bereich gegeben Schwellenwerte),
+  \item Zyklenvitalität (Existenz von Zykluskomplexen \(C\) bei gegebenen
+        Flüssen),
+  \item Einbettungskompatibilität (Achsen und Schwellenwerte vs. \(M_x\)).
 \end{itemize}
-These tests can be applied to concrete models in physics, chemistry,
-biology, cognition and social sciences to check whether they are legitimate
-OC instantiations.
+Diese Tests können auf konkrete Modelle in Physik, Chemie,
+Biologie, Kognition und Sozialwissenschaften angewendet werden, um zu prüfen,
+ob sie legitime OC-Instanziierungen sind.
 
-\paragraph{Cross-domain falsification logic.}
-Because axioms are shared across K-levels, falsification has a
-\emph{domänenübergreifend} structure:
+\paragraph{Cross-domain-Falsifikationslogik.}
+Weil Axiome auf den K-Ebenen geteilt werden, besitzt Falsifikation eine
+\emph{cross-domain}-Struktur:
 \begin{itemize}
-  \item if one structural axiom fails in a tightly controlled physical
-        context, all higher-level predictions derived from it must be
-        reconsidered;
-  \item conversely, consistent validation of the same structural motif
-        (e.g.\ boundary-driven collapse) in multiple domains increases
-        confidence in the corresponding OC axiom.
+  \item Fällt ein strukturelles Axiom in einem streng kontrollierten physischen
+        Kontext aus, müssen alle daraus abgeleiteten höherstufigen Vorhersagen
+        neu bewertet werden;
+  \item umgekehrt erhöht eine konsistente Bestätigung desselben strukturellen
+        Motivs (z.\,B. randgesteuerter Kollaps) in mehreren Domänen das Vertrauen
+        in das zugehörige OC-Axiom.
 \end{itemize}
 
-\paragraph{Unified validation pipeline.}
-Core~1.3 provides the structural basis for an explicit validation pipeline
-in Core~1.2:
+\paragraph{Integrierte Validierungspipeline.}
+Core~1.3 liefert die strukturelle Grundlage für eine explizite
+Validierungspipeline in Core~1.2:
 \begin{enumerate}
-  \item select domain models and identify their continuum components
+  \item Domänenmodelle auswählen und ihre Kontinuumskomponenten identifizieren
         \((\Omega, A, P, J, \Theta, \partial\Omega, C, k)\);
-  \item test local structural predictions (thresholds, cycles, boundaries);
-  \item test cross-level invariants (dimensional monotonicity,
-        embedding compatibility);
-  \item update the mapping between domain theories and K-levels.
+  \item lokale strukturelle Vorhersagen testen (Schwellen, Zyklen, Grenzen);
+  \item invarianten über Ebenen hinweg testen (dimensinale Monotonie,
+        Kompatibilität von Einbettungen);
+  \item Abbildung zwischen Domänentheorien und K-Ebenen aktualisieren.
 \end{enumerate}
 
-OC is therefore not a purely conceptual framework: it is designed to be
-empirically constrained and~— in principle~— structurally falsifiable across
-the full hierarchy \(K_0\)–\(K_{10}\).
+OC ist daher kein rein konzeptionelles Framework: Es ist darauf ausgelegt,
+empirisch beschränkt und~— im Prinzip~— strukturfalsifizierbar über die gesamte
+Hierarchie \(K_0\)–\(K_{10}\).
 
 % END OF FILE

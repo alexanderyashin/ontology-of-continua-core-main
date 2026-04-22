@@ -1,242 +1,240 @@
-% GENERATED_BY: oc_core_monograph_translation_draft_pipeline_v1.py
-% AI_ASSISTED_TRANSLATION_DRAFT: TRUE
-% THEOREM_REVIEW_STATUS: PENDING
-% THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
-% THEOREM_REVIEW_REVIEWER_ID: 
-% THEOREM_REVIEW_AUTHORITY_CLASS: 
-% THEOREM_REVIEWED_AT: 
-% THEOREM_REVIEW_DOSSIER_REF: 
-% SOURCE_LANGUAGE: EN
-% TARGET_LANGUAGE: RU
-% SOURCE_EN_REF: content/08_boundary.tex
 % ====================================================================
-% FILE: content/08_boundary.tex
-% Extended Boundary and Patch Geometry — Core 1.3 (Final Version)
+% FILE: content/08_boundary_ru.tex
+% Расширенная граница и геометрия патчей — Core 1.3
 % ====================================================================
 
-\section{Extended Boundary and Patch Geometry}
+\section{Расширенная граница и геометрия патчей}
 \label{sec:boundary-extended}
 
-This chapter restores the full theory of boundaries and patch geometry.
-Boundaries constitute one of the most universal structures in the OC framework:
-they govern phase separation in \(K_2\), membrane formation in \(K_3\)--\(K_4\),
-excitability in \(K_5\), and representational or institutional limits in
+Эта глава восстанавливает полную теорию границ и геометрии патчей.
+Границы составляют одну из самых универсальных структур в рамках OC:
+они управляют фазовым разделением в \(K_2\), формированием мембран в \(K_3\)--\(K_4\),
+возбудимостью в \(K_5\), а также представительными или институциональными пределами в
 \(K_6\)--\(K_8\).  
-The present version consolidates the complete structure needed for Core~1.3:
-threshold–defined boundaries, patch discretisation, local threshold classes,
-and boundary–driven transitions.
+Текущая версия консолидирует полный набор конструкций, необходимый для Core~1.3:
+пороги, задаваемые границей, дискретизация патчей, локальные классы порогов
+и переходы, инициируемые границей.
 
-\subsection{Formal Definition of \texorpdfstring{$\partial\Omega(K)$}{boundary}}
+\subsection{Формальное определение \texorpdfstring{$\partial\Omega(K)$}{границы}}
 
-For any continuum \(K\) with admissible state space \(\Omega(K)\) and threshold
-landscape \(\Theta(K)\), the boundary is defined as the set of states at which
-at least one threshold is exactly saturated:
+Для любого континуума \(K\) с допустимым пространством состояний \(\Omega(K)\) и
+пороговым ландшафтом \(\Theta(K)\) граница определяется как множество состояний, на которых
+по крайней мере один порог достигает точного насыщения:
 \[
   \partial\Omega(K)
   =
   \big\{\, s \in \overline{\Omega(K)} :
-          \exists k\ \text{such that}\ f_k(s) = \Theta_k \big\}.
+          \exists k\ \text{с таким, что}\ g_k(s) = \Theta_k \big\}.
 \]
+Эквивалентно, если \(f_k(s)=g_k(s)-\Theta_k\) обозначает сдвинутую остаточную форму,
+используемую в приложении обозначений и главе модели, то внутренние состояния
+удовлетворяют \(f_k(s)<0\), состояния допустимой стороны — \(f_k(s)\le0\),
+а эта же граница есть нулевое множество \(f_k(s)=0\) для хотя бы одного
+активного порога.
 
-Thus:
+Итак:
 \begin{itemize}
-    \item interior states satisfy \(f_k(s) < \Theta_k\) for all thresholds;
-    \item exterior states violate at least one threshold;
-    \item the boundary is a \emph{threshold–defined surface}, not a geometric
-          primitive.
+    \item внутренние состояния удовлетворяют \(f_k(s) < \Theta_k\) для всех порогов;
+    \item внешние состояния нарушают по крайней мере один порог;
+    \item граница — это \emph{поверхность, определяемая порогом}, а не геометрический
+          примитив.
 \end{itemize}
 
-This definition unifies classical surfaces, membranes, vesicles,
-percolation fronts, excitable boundaries, logical limits and institutional
-thresholds under one structure.
+Эта формулировка объединяет классические поверхности, мембраны, везикулы,
+перколяционные фронты, возбудимые границы, логические пределы и институциональные
+пороги в единой структуре.
 
-\subsection{Boundary Geometry}
+\subsection{Геометрия границы}
 
-Boundary geometry emerges from the local structure of thresholds, potentials
-and flows.  
-If the active threshold at a point \(s \in \partial\Omega(K)\) is \(f_k\), the
-outward normal is aligned with the gradient:
+Геометрия границы возникает из локальной структуры порогов, потенциалов и потоков.
+Если активный порог в точке \(s \in \partial\Omega(K)\) есть \(g_k\), то внешняя
+нормаль ориентирована по градиенту:
 \[
-  n(s) \propto \nabla f_k(s).
+  n(s) \propto \nabla g_k(s).
 \]
 
-Multiple active thresholds create corners, ridges and high–curvature regions.
-Curvature becomes dynamically relevant whenever bending or surface–energy
-terms enter the potential:
+Несколько активных порогов создают углы, ребра и области высокой кривизны.
+Кривизна становится динамически значимой всякий раз, когда в потенциал входят
+члены изгиба или поверхностной энергии:
 \[
   P_{\mathrm{bend}}(s) = \tfrac{1}{2}\,\kappa(s)^2\,\kappa_b,
 \]
-with bending rigidity \(\kappa_b\).
+с жесткостью изгиба \(\kappa_b\).
 
-This connects:
+Это связывает:
 \begin{itemize}
-    \item \(K_2\): classical surface tension,
-    \item \(K_3\)–\(K_4\): membrane curvature and vesicle energetics,
-    \item \(K_5\): excitable boundary geometry.
+    \item \(K_2\): классическое поверхностное натяжение,
+    \item \(K_3\)--\(K_4\): кривизна мембраны и энергетика везикул,
+    \item \(K_5\): геометрию возбудимых границ.
 \end{itemize}
 
-\subsection{Patch Model of Boundaries}
+\subsection{Модель патчей для границ}
 
-OC models boundaries not as continuous uniform surfaces but as collections of
-dynamic \emph{patches}:
+OC рассматривает границы не как непрерывные однородные поверхности, а как
+наборы динамических \emph{патчей}:
 \[
   \partial\Omega(K) = \bigcup_i \partial\Omega_i.
 \]
 
-Each patch \(P_i\) carries:
+Каждый патч \(P_i\) несет:
 \[
   (\sigma_i,\Theta_i,P_i(t),J_i(t)),
 \]
-representing its local state, thresholds, potentials and flows.
+в котором отражаются его локальное состояние, пороги, потенциалы и потоки.
 
-\paragraph{Local states.}
-Patches take symbolic states:
+\paragraph{Локальные состояния.}
+Патчи принимают символические состояния:
 \[
   \sigma_i \in \{L_\alpha, L_\beta, L_o, L_f, L_b\},
 \]
-encoding local packing or structural regimes:
+кодирующие локальные упаковочные или структурные режимы:
 \begin{itemize}
-    \item \(L_\alpha\): fluid–disordered,
-    \item \(L_\beta\): ordered/gel,
-    \item \(L_o\): liquid–ordered,
-    \item \(L_f\): fragile/thin (pre–rupture),
-    \item \(L_b\): broken boundary state.
+    \item \(L_\alpha\): жидко-неупорядоченный,
+    \item \(L_\beta\): упорядоченный/гелевый,
+    \item \(L_o\): жидко-упорядоченный,
+    \item \(L_f\): хрупкий/тонкий (предразрывной),
+    \item \(L_b\): разрушенное граничное состояние.
 \end{itemize}
 
-This alphabet generalises beyond biological membranes to percolation edges,
-fracture fronts, fluctuating interfaces and even symbolic/cognitive boundaries.
+Этот алфавит обобщается за пределы биологических мембран до перколяционных краев,
+линий разрушения, флуктуирующих интерфейсов и даже символических/когнитивных
+границ.
 
-\paragraph{Local thresholds.}
-Each patch has a vector:
+\paragraph{Локальные пороги.}
+Каждый патч имеет вектор:
 \[
   \Theta_i = (\Theta^{\rm perm}_i, \Theta^{\rm grad}_i, \Theta^{\rm mem}_i,
               \Theta^{\rm bend}_i, \ldots ),
 \]
-with corresponding local potentials \(P_i(t)\) and flows \(J_i(t)\).
+с соответствующими локальными потенциалами \(P_i(t)\) и потоками \(J_i(t)\).
 
-\subsection{Boundary Threshold System}
+\subsection{Система порогов границы}
 
-Across \(K_2\)--\(K_5\) three threshold classes appear universally.
+Для диапазона \(K_2\)--\(K_5\) универсально возникают три класса порогов.
 
-\paragraph{1. Permeability threshold \(\Theta_{\rm perm}\).}
-A patch becomes permeable when:
+\paragraph{1. Порог проницаемости \(\Theta_{\rm perm}\).}
+Патч становится проницаемым, когда:
 \[
   |\nabla P_i| > \Theta^{\rm perm}_i.
 \]
-Examples:
+Примеры:
 \begin{itemize}
-    \item osmotic permeability (\(K_3\)--\(K_4\)),
-    \item ion leak onset (\(K_5\)),
-    \item phase–front penetration (\(K_2\)).
+    \item осмотическая проницаемость (\(K_3\)--\(K_4\)),
+    \item начало ионного утечки (\(K_5\)),
+    \item проникновение фазового фронта (\(K_2\)).
 \end{itemize}
 
-\paragraph{2. Gradient threshold \(\Theta_{\rm grad}\).}
-If a gradient is unsustainable:
+\paragraph{2. Порог градиента \(\Theta_{\rm grad}\).}
+Если градиент неустойчив:
 \[
   |\nabla P_i| > \Theta^{\rm grad}_i
   \quad\Rightarrow\quad \sigma_i \to L_f.
 \]
-This governs:
+Это объясняет:
 \begin{itemize}
-    \item vesicle rupture at high osmotic pressure (\(K_4\)),
-    \item action–potential initiation at axon initial segments (\(K_5\)),
-    \item accelerated phase fronts and crack propagation (\(K_2\)).
+    \item разрыв везикул при высоком осмотическом давлении (\(K_4\)),
+    \item инициацию потенциала действия в начальных сегментах аксона (\(K_5\)),
+    \item ускоренные фронты фаз и распространение трещин (\(K_2\)).
 \end{itemize}
 
-\paragraph{3. Membrane integrity threshold \(\Theta_{\rm mem}\).}
-If membrane tension or curvature exceeds limits:
+\paragraph{3. Порог целостности мембраны \(\Theta_{\rm mem}\).}
+Если натяжение мембраны или кривизна превышают пределы:
 \[
   \gamma_i > \Theta^{\rm mem}_i
-  \qquad\text{or}\qquad
+  \qquad\text{или}\qquad
   \kappa(s) > \Theta^{\rm bend}_i,
 \]
-then:
+то:
 \[
   \sigma_i \to L_b.
 \]
 
-This yields a unified understanding of rupture, buckling, pore formation,
-boundary breakdown and surface collapse.
+Это дает единое понимание разрыва, потери устойчивости, образования пор,
+разрушения границы и коллапса поверхности.
 
-\subsection{Boundary–Driven Dynamics}
+\subsection{Динамика, задаваемая границей}
 
-Neighbouring patches interact via flows:
+Соседние патчи взаимодействуют через потоки:
 \[
   J_{ij} = F(P_i, P_j, \sigma_i, \sigma_j).
 \]
 
-This produces:
+Это приводит к:
 \begin{itemize}
-    \item stabilisation and rearrangement of patch mosaics,
-    \item propagation of rupture fronts,
-    \item curvature–driven migration,
-    \item pore initiation,
-    \item excitable–medium behaviour in \(K_5\).
+    \item стабилизации и перестройке мозаики патчей,
+    \item распространению фронтов разрыва,
+    \item миграции, управляемой кривизной,
+    \item запуску пор,
+    \item поведению возбудимой среды в \(K_5\).
 \end{itemize}
 
-Patch evolution follows:
+Эволюция патчей описывается:
 \[
   \frac{d\sigma_i}{dt}
   = S(\sigma_i, P_i, J_i, \Theta_i),
 \]
-where \(S\) is a structural update operator independent of domain.
+где \(S\) — оператор структурного обновления, не зависящий от области.
 
 \medskip
-\textbf{Boundary Localisation Principle.}
-\emph{All \(K_3\)--\(K_5\) dimensional transitions initiate on boundary patches.}
+\textbf{Принцип локализации границы.}
+\emph{Все переходы размерностей \(K_3\)--\(K_5\) запускаются на граничных патчах.}
 
-This explains:
+Это объясняет:
 \begin{itemize}
-    \item protocell bursting beginning at high–curvature points,
-    \item action potentials initiating at axon initial segments,
-    \item phase transitions nucleating at defects or surfaces.
+    \item разрушение протоклеток, начинающееся в точках высокой кривизны,
+    \item запуск потенциалов действия в начальных сегментах аксона,
+    \item нуклеацию фазовых переходов на дефектах или поверхностях.
 \end{itemize}
 
-\subsection{Boundary Failure and Collapse}
+\subsection{Провал и коллапс границы}
 
-Boundary collapse occurs when a connected set of patches becomes broken:
+Коллапс границы происходит, когда связанный набор патчей становится разрушенным:
 \[
   \sigma_i = L_b
   \qquad \forall\, i \in \mathcal{C},
 \]
-and the cluster \(\mathcal{C}\) percolates across the boundary.
+и кластер \(\mathcal{C}\) перколирует через всю границу.
 
-By Theorem~3 (Results chapter),
+По Теореме~3 (раздел Результаты):
 \[
-  \partial\Omega(K)\ \text{collapses}
+  \partial\Omega(K)\ \text{коллапсирует}
   \quad\Longrightarrow\quad
   \Omega(K) = \emptyset,
 \]
-and the continuum dies.
+и континуум гибнет.
 
-We distinguish:
+Мы различаем:
 \begin{itemize}
-    \item \textbf{local failure}: isolated \(L_b\) patches, reversible;
-    \item \textbf{cluster collapse}: percolating \(L_b\) network, irreversible;
-    \item \textbf{global boundary loss}: disappearance of the boundary, implying
-          death or transition to a new continuum.
+    \item \textbf{локальный отказ}: изолированные патчи \(L_b\), обратимые;
+    \item \textbf{коллапс кластера}: перколирующая сеть \(L_b\), необратимая;
+    \item \textbf{глобальная потеря границы}: исчезновение границы, влекущее
+          смерть или переход в новый континуум.
 \end{itemize}
 
-\subsection{Boundary and Rebirth}
+\subsection{Граница и возрождение}
 
-Birth of a new continuum \(K_{x+1}\) typically requires:
+Рождение нового континуума \(K_{x+1}\) обычно требует:
 \begin{itemize}
-    \item formation or rupture of boundary patches,
-    \item creation of new patch types,
-    \item emergence of new threshold classes on boundary regions,
-    \item establishment of a new global boundary geometry.
+    \item формирования или разрыва граничных патчей,
+    \item создания новых типов патчей,
+    \item появления новых классов порогов в граничных областях,
+    \item установления новой глобальной геометрии границы.
 \end{itemize}
 
-\textbf{Boundary Rebirth Principle.}
-\emph{New continua emerge from new boundary geometries.}
+\textbf{Принцип возрождения границы.}
+\emph{Новые континуумы возникают из новых геометрий границ.}
 
-Examples:
+Примеры:
 \begin{itemize}
-    \item membrane closure in the \(K_3 \to K_4\) transition,
-    \item appearance of excitable boundaries in \(K_4 \to K_5\),
-    \item formation of institutional boundaries in \(K_6 \to K_7\),
-    \item emergence of representational boundaries in \(K_9 \to K_{10}\).
+    \item замыкание мембраны при переходе \(K_3 \to K_4\),
+    \item появление возбудимых границ при переходе \(K_4 \to K_5\),
+    \item формирование институциональных границ при переходе \(K_6 \to K_7\),
+    \item возникновение представительных границ при переходе \(K_9 \to K_{10}\).
 \end{itemize}
 
-Boundaries are therefore not merely limits:  
-they are generative surfaces where new axes, constraints and cycles are born.
+Следовательно, границы — не просто пределы:
+они — генеративные поверхности, на которых возникают новые оси, ограничения и
+циклы.
+
+
+

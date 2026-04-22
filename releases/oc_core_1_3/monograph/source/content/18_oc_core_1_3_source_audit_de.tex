@@ -9,146 +9,169 @@
 % SOURCE_LANGUAGE: EN
 % TARGET_LANGUAGE: DE
 % SOURCE_EN_REF: content/18_oc_core_1_3_source_audit.tex
-\section{Core 1.3 Source-First Revalidation and Publication Boundary}
+\section{Quellenzeugenschaft, Theorem-Schicksal und Publikationsgrenze}
+\label{sec:oc13-publication-boundary}
 
-Core 1.3 is the first OC release in which the öffentlich-facing öffentlichation shell is forced to answer
-two questions separately.
-The first question is scientific: what does the inherited corpus actually say, how is it
-structured, and which theorem-bearing rows remain legitimate once they are bound back to exact
-Quellenzeugenschaftes?
-The second question is editorial: what should be shown to the owner, to a reviewer, and to the
-öffentlich as the final artifact, and what should remain in the supporting layer rather than being
-mistaken for the artifact itself?
+Dieses Kapitel fixiert die Publikationsgrenze von Core~1.3. Seine Aufgabe ist
+es, festzulegen, welche wissenschaftliche Autorität kanonisch ist, wie
+Quellenzeugenschaft durchgesetzt wird, wie sich das Theorem-Schicksal über die
+äußeren Artefakte hinweg trennt und wie spätere Kanäle mit dem Quellkorpus,
+SPOT und der Flaggschiff-Monographie ausgerichtet bleiben müssen. Es geht
+nicht darum, die formale Lehre oder das Theorem-Gefüge erneut zu begründen;
+diese Lasten gehören in die umliegenden Kapitel und Anhänge.
 
-Those questions are related, but they are not the same.
-If they are collapsed into one short packet, the reader loses both the monograph and the audit
-discipline.
-If they are separated only in internal ledgers, the owner sees clutter instead of a real
-manuscript.
-The purpose of the present section is therefore to make the 1.3 release logic explicit inside the
-monograph itself.
+\subsection{Kanonische wissenschaftliche Autorität}
 
-\subsection{Inherited corpus and present release}
+Die kanonische wissenschaftliche Autorität der Veröffentlichung ist die
+SPOT-Projektion
+\occode{releases/oc_core_1_3/editorial/OC_CORE_1_3_SCIENCE_SPOT_latest.json}
+(surface id \occode{OC_CORE_1_3_SCIENCE_SPOT}; current SHA recorded in its
+\occode{metadata.repo_sha} field). Das quellenbesitzende wissenschaftliche
+Korpus unter
+\occode{releases/oc_core_1_3/editorial/science_sources/} ist der Ort des
+Verfassens und der Zeugenschaft, aus dem diese SPOT-Projektion abgeleitet wird.
+Historische Quellenzeugnisse, einschließlich früherer Core~1.2/Core~1.3-
+Reparatur-Baselines, bleiben Provenienzanker; sie sind nicht die aktuelle
+Projektionsautorität. Die gegenwärtige Master-Monographie ist die
+reader-facing Flaggschiff-Projektion und der zusammengestellte Referenzband,
+der aus diesen Aufzeichnungen abgeleitet ist. Sie hält Orientierungsskala,
+formale Lehre, Theorem-Pfad, empirische Disziplin, Synthese, praktische
+Nutzbarkeit und Audit-Lagen gemeinsam sichtbar, verdrängt aber SPOT nicht als
+endgültige Autorität für Anspruchsumfang, Promotionsstatus oder Beweisgrenze.
 
-The inherited Core 1.2 corpus already contains a full monograph-grade scientific body.
-It has a title shell, a large chapter tree, theorem-bearing sections, appendices, bibliography,
-and figures covering levels, transitions, operators, thresholds, cycles, falsifiability, and the
-observed-universe module.
-That source tree is not merely an archive; it is the canonical scientific substrate from which the
-present release begins.
+Diese Regel ist wichtig, weil grundlagentheoretische Programme im Zeitverlauf
+mehrere unterschiedliche Textschichten ansammeln: quellennahe Definitionen und
+Theoreme, erläuternde Prosa, Reparaturvermerke, kanalspezifische
+Zusammenfassungen und spätere operative Pakete. Core~1.3 behandelt diese
+Schichten als unterscheidbar, nicht als austauschbar.
 
-What Core 1.3 changes is not the decision to become a large work.
-What it changes is the rule by which the work is published.
-Instead of treating a short outward Artikel as the de facto Flaggschiff and leaving the monograph in
-the shadows, the 1.3 release restores the large scientific volume as the canonical object and then
-derives narrower öffentlichation artifacts from it.
+\subsection{Quellenzeugenschaft}
 
-\subsection{Source witnessing}
-
-The monograph-level release is source-first in a precise sense.
-Claims that matter to the present öffentlichation contour are not allowed to float free from the
-öffentlich LaTeX sources and their compiled archival witness.
-This rule matters because a foundational framework accumulates multiple kinds of material over
-time:
+Core~1.3 ist streng quellenfirst im Sinn, dass die im öffentlichen Release
+verwendeten Flaggschiff-Ansprüche an öffentliche Quellzeugnisse gebunden
+bleiben müssen und nicht allein an späte Zusammenfassungsprosa. Der Punkt ist
+nicht archivalischer Fetischismus. Der Punkt ist, die Drift zwischen fünf
+Dingen zu verhindern, die in großen Forschungsprogrammen oft ineinander
+verwaschen:
 
 \begin{itemize}
-\item stable axioms and definitions,
-\item theorem statements and their proof environment,
-\item explanatory prose,
-\item historical reformulations,
-\item later summaries,
-\item and outward-facing packets meant for specific channels.
+\item theoremtragende Aussagen,
+\item strukturelle und interpretative Erläuterung,
+\item Reparatur- und Release-Notizen,
+\item verdichtete öffentliche Pakete,
+\item und spätere operative Projektionen.
 \end{itemize}
 
-Without a source-first rule, those layers start to masquerade as one another.
-A late Zusammenfassung sentence can be mistaken for the theorem itself.
-A helpful editorial restatement can be mistaken for quellnative canon.
-A dashboard packet can begin to displace the actual manuscript.
-The 1.3 release blocks that drift by making the monograph and the Quellenzeugenschaft discipline live
-together.
+Wenn diese Grenze verschwimmt, kann ein Zusammenfassungssatz beginnen, sich als
+das Theorem selbst auszugeben, oder ein Release-Dashboard kann das eigentliche
+wissenschaftliche Protokoll zu ersetzen beginnen. Core~1.3 verhindert diesen
+Fehler, indem es die Quellenzeugenschaft an das quellenbesitzende
+wissenschaftliche Korpus und die kanonische SPOT-Projektion bindet, statt sie
+in verborgene Steuerdateien auszulagern.
 
-\subsection{Theorem fate and scope discipline}
+\subsection{Theorem-Schicksal und Umfangsdisziplin}
 
-Core 1.3 also requires explicit theorem-fate separation.
-Not every inherited line serves the same role in every outward artifact.
-Some rows survive unchanged as part of the formal backbone.
-Some rows are retained but must be read with explicit scope notes.
-Some rows become part of appendical explanation rather than the positive body of a narrower
-journal-core Artikel.
-Some rows remain promising but are not allowed to silently migrate into the main claim of a
-review-facing Artikel until their support chain is externally defensible in the same strict sense as
-the quellnative rows already used.
+Auch die vorliegende Veröffentlichung trennt das Theorem-Schicksal explizit.
+Nicht jede geerbte Zeile erfüllt in jedem äußeren Artefakt dieselbe Rolle.
 
-That rule should not be read as retreat.
-It is a discipline of clarity.
-The monograph stays large because it continues to carry the broader framework.
-The narrower Artikel stays honest because it is extracted from the monograph with an explicit
-positive boundary instead of pretending that the full body and the short Artikel are identical.
+\begin{itemize}
+\item \occode{THEOREM_NATIVE}-Zeilen dürfen positive theorem-native
+      Aussagen tragen, wenn ihre Beweis- und Abhängigkeitsroute exakt bleibt.
+\item \occode{BRIDGE_ONLY}-Zeilen können unter expliziten Umfangsnotizen
+      wissenschaftlich nützlich bleiben, dürfen aber nicht als theorem-native
+      aufgestuft werden.
+\item \occode{FRAME_ONLY}- und \occode{EXTENSION}-Zeilen gehören in
+      Stützschichten, Anhänge, engere Begleitartefakte oder künftige Arbeit
+      statt in den positiven Kern jedes äußeren Papiers.
+\item \occode{REFUTED}-Zeilen sind vom positiven Beweisweg ausgeschlossen.
+      Sie dürfen nur als negative Audit-Historie oder als Falsifikator-Record
+      erwähnt werden, nicht als lebende Unterstützung.
+\item Frontier- oder Hypothesenmaterial darf nur unter sichtbar markierter
+      Frontier-Sprache diskutiert werden und darf nicht durch
+      Zusammenfassungsprosa stillschweigend aufgestuft werden.
+\end{itemize}
 
-\subsection{Why the volume must remain larger than a short Artikel}
+Der öffentliche positive Schlussbehauptungsraum ist genau auf
+\occode{CORE_1_3_SCIENCE_ONLY} beschränkt. \occode{FRAME_ONLY}-Zeilen können
+innerhalb der Syntheseoberfläche weiterhin als Frame-Level-\texttt{PASS}-Zeilen
+schließen, werden dadurch aber nicht zu eigenständigen theorem-native
+empirischen Promotions. \occode{EXTENSION}- und \occode{REFUTED}-Zeilen
+bleiben aus unterschiedlichen Gründen außerhalb des öffentlichen
+\texttt{PASS}-Umfangs: \occode{EXTENSION}-Zeilen sind Front-/Support-Lanes, die
+auf spätere Promotion oder Ablehnung warten, während
+\occode{REFUTED}-Zeilen negative Audit-Lanes sind. Keine der beiden Klassen
+kann in dieser Veröffentlichung positive Schlussbehauptungen tragen.
+Zur Vermeidung von Missverständnissen ist eine \occode{FRAME_ONLY}
+\occode{PASS}-Zeile vom öffentlichen positiven Schlussbehauptungsraum
+ausgeschlossen, sofern sie nicht in einer späteren Veröffentlichung mit der
+erforderlichen theorem-native Unterstützung in \occode{CORE_1_3_SCIENCE_ONLY}
+aufgestuft wird.
 
-The theory presented in OC is not a one-theorem note.
-Even when a journal-core extraction focuses on a particular result class, the scientific life of
-the framework depends on the larger architecture:
-axioms, operators, thresholds, admissible-state geometry, K-level hierarchy, embedding spaces,
-transition mechanisms, cycles, falsifiability routes, and domain modules.
-Removing that body from the primary scientific release would make the framework look smaller,
-cleaner, and easier to package, but it would also make it less teachable and less auditable.
+Das ist kein Rückzug. Es ist eine Bedingung ehrlicher Veröffentlichung. Die
+Monographie kann groß bleiben, ohne rhetorisch aufzublähen, nur wenn die
+Leserschaft erkennen kann, welche Zeilen theoremtragend, welche begrenzt und
+welche Stütz- oder Frontier-Material sind.
 
-For that reason Core 1.3 intentionally remains monograph-scale.
-The journal-core Artikel is a derivative scientific product.
-The master volume is the place where the theory can still be read as a coherent whole.
+\subsection{Bezug zu Journal-Kern und Begleitartefakten}
 
-\subsection{Publication architecture}
+Core~1.3 übernimmt daher eine einseitige, reader-facing Publikationslogik:
+\[
+\begin{gathered}
+\text{quellenbesitzendes wissenschaftliches Korpus}\\
+\text{plus kanonisches SPOT}\\
+\Downarrow\\
+\text{Master-Monographie}\\
+\Downarrow\\
+\text{abgeleitete äußere Artefakte}
+\end{gathered}
+\]
+Dieses Diagramm beschreibt die Publikationsreihenfolge, nicht den gesamten
+Provenienzgraphen des Release-Pakets. Mehrere redaktionelle JSON-Oberflächen,
+generierte Wissenschaftskapitel und Release-Matrizen sind direkte
+SPOT-Projektionen oder Spiegel anderer maßgeblicher kanonischer Oberflächen.
+Sie werden nicht dadurch wahr, dass die Master-Monographie sie zitiert, und
+sie sind nicht allein Nachfahren der Monographie. Die Monographie ist das
+Flaggschiff-Leseartefakt; das quellenbesitzende wissenschaftliche Korpus bleibt
+der Ort des Verfassens und der Zeugenschaft, und SPOT bleibt die kanonische
+Projektionsautorität für Release-Oberflächen.
 
-The 1.3 release therefore adopts a dual-track architecture.
+Der Journal-Core-Artikel ist bewusst enger gefasst. Begleit-Dossiers,
+Matrizen und Release-Oberflächen sind bewusst enger oder operativer gefasst.
+Diese Artefakte dürfen das Flaggschiff-Material für einen bestimmten Zweck
+komprimieren, auswählen oder umorganisieren, aber sie dürfen den
+wissenschaftlichen Anspruch nicht vergrößern, die Notation nicht ausweiten und
+die hier festgelegte Theorem-Schicksalsdisziplin nicht überholen.
 
-\begin{enumerate}
-\item \textbf{Master Monograph.}
-      This is the present volume.
-      It is the authoritative scientific source, the didactic spine of the framework, and the
-      place where inherited corpus, 1.3 repair logic, and öffentlichation boundary are held together
-      in one readable object.
-\item \textbf{Journal Core.}
-      This is a narrower Artikel extracted from the master.
-      It is the artifact intended for journal-style review, fast inspection, and outward channel
-      packaging.
-\item \textbf{Companion Packet Set.}
-      These materials expose witness matrices, chronology, theorem support, figures, release
-      manifests, and other supporting structures without forcing the owner or the öffentlich to treat
-      internal control surfaces as the scientific work itself.
-\end{enumerate}
+Die praktische Konsequenz ist einfach. Wenn ein äußeres,
+reader-facing Artefakt etwas Stärkeres behauptet, als Quellkorpus und SPOT
+autorisiert haben, dann ist das äußere Artefakt falsch, auch wenn es kürzer,
+sauberer oder leichter vermarktbar ist. Die Flaggschiff-Grenze ist die
+Publikationsregel, die diese Obergrenze durchsetzt; sie ist keine zusätzliche
+wissenschaftliche Autorität.
 
-This architecture is not cosmetic.
-It is what allows the system to remain truthful both scientifically and operationally.
+\subsection{Downstream-Projektionsregel}
 
-\subsection{Author identity and scholarly format}
+Dieselbe Grenze stabilisiert auch die spätere Verwendung in Review,
+Zusammenarbeit, Produkt, Business und öffentlicher Kommunikation.
+Verschiedene Kanäle dürfen legitimerweise verschiedene Teile des
+Flaggschiff-Bandes zitieren:
 
-The present release also corrects the outward scholarly identity shell.
-ORCID is the primary öffentlich scholarly identifier because it is the stable, citable identity anchor
-appropriate for scientific öffentlichation.
-Private correspondence coordinates may still exist as operational metadata, but they are no longer
-allowed to dominate the öffentlich title block of the scientific artifact.
+\begin{itemize}
+\item den Theorem-Pfad, wenn begrenzter Beweis das Thema ist,
+\item den empirischen Pfad, wenn Promotionsdisziplin das Thema ist,
+\item den praktischen Pfad, wenn Nutzung und Vergleich das Thema sind,
+\item die Audit-Anhänge, wenn Anfechtung und Nachverfolgbarkeit das Thema sind.
+\end{itemize}
 
-Format discipline follows the same logic.
-The volume must open like a real manuscript:
-title page, abstract, table of contents, figures, tables, appendices, references, and reader
-guidance.
-If a release packet fails to provide that structure, it should be treated as a derived support
-artifact rather than as the monograph itself.
+Was sie nicht dürfen, ist eine zweite wissenschaftliche Autorität zu erfinden.
+Quellenzeugenschaft, Theorem-Schicksal und Publikationsgrenze existieren
+deshalb, damit die externe Nutzung knapp bleiben kann, ohne interpretativ
+gesetzlos zu werden.
 
-\subsection{Implications for later projections}
-
-The same separation between master monograph, journal-core Artikel, and Begleit packets also
-stabilizes later projections into ESTRA, toolkit, product, business, and öffentlich channels.
-Those projections should derive from the correct scientific source:
-the large volume when the goal is teaching, canonical explanation, or deep diligence;
-the journal core when the goal is a bounded statement for editorial or öffentlich review;
-and the Begleit layer when the goal is auditability, provenance, or operational proof.
-
-This matters because later outward channels should not be forced to reverse-engineer which text is
-the real scientific artifact.
-The architecture of 1.3 exists precisely so that downstream channels can stay honest without
-manual reinterpretation every time the core evolves.
+\paragraph{Brücke zum nächsten Kapitel.}
+Mit der fixierten Publikationsgrenze ist die nächste Aufgabe die innere
+Konsistenz: welche Aussagenklassen der Flaggschiff-Band verwendet, warum die
+Hierarchie durch \(K_{12}\) läuft und wie die oberen Ebenen gesetzmäßig
+bleiben, ohne rhetorisch aufzublähen.
 
 \clearpage

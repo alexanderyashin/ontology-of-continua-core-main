@@ -1,172 +1,100 @@
-% GENERATED_BY: oc_core_monograph_translation_draft_pipeline_v1.py
-% AI_ASSISTED_TRANSLATION_DRAFT: TRUE
-% THEOREM_REVIEW_STATUS: PENDING
-% THEOREM_REVIEW_MODE: FORMAL_AI_GATE__CODEX_CLI_CHATGPT
-% THEOREM_REVIEW_REVIEWER_ID: 
-% THEOREM_REVIEW_AUTHORITY_CLASS: 
-% THEOREM_REVIEWED_AT: 
-% THEOREM_REVIEW_DOSSIER_REF: 
-% SOURCE_LANGUAGE: EN
-% TARGET_LANGUAGE: RU
-% SOURCE_EN_REF: content/20_oc_core_1_3_theorem_roadmap.tex
-\section{Theorem Roadmap, Proof Navigation, and Reader Entry Paths}
+\section{Карта теорем и навигация по доказательствам}
 \label{sec:oc13-theorem-roadmap}
 
-One persistent weakness of large foundational manuscripts is that they force every reader to
-discover the proof architecture by brute force. That is acceptable for an internal draft but not
-for a публичныйation-grade monograph whose stated ambition is to be both auditable and teachable.
-Core 1.3 therefore adds an explicit теорему roadmap inside the master volume itself. The purpose
-is not to replace the formal chapters with commentary. The purpose is to let the reader see, in
-one place, what the shortest lawful route through the theory is, which rows carry the actual
-burden of proof, and how the larger monograph body surrounds and stabilizes that core.
+Эта глава представляет собой наиболее ясную и компактную карту доказательного маршрута. Её задача — показать, где проходит опорный скелет теорем, какие классы утверждений несут какую научную нагрузку и какие участки следует в первую очередь проверять враждебному рецензенту. Она не заменяет формальные главы и руководство по чтению. Руководство по чтению отвечает за пути входа; эта глава — за навигацию в доказательстве.
 
-\subsection{Three lawful entry paths into the same scientific object}
+\subsection{Опорный скелет теорем}
 
-The monograph is one scientific object, but it should not pretend that every serious reader
-enters it in the same order. The публичныйation architecture is easier to trust when those entry
-paths are stated explicitly.
+На уровне обоснования bounded journal-core текущий релиз опирается на относительно небольшой опорный скелет, хотя сама монография существенно объёмнее. Схема ниже является компактной, а не минимальной в строгом теоретико-доказательном смысле: в ней оставлена заметной ветвь остаток--возрождение, поскольку защищаемая theorem-уровневая теорема классифицирует post-collapse идентичность, а не только смерть. Поэтому скелет можно задавать в виде схемы зависимостей, а не объектно-языкового импликационного правила. Чтобы маршрут не выглядел как исчисление доказательств, карта опоры записана как помеченные review-edges:
 
 \begin{enumerate}
-\item \textbf{Editorial route.}
-      A journal editor or hostile reviewer should be able to inspect the abstract, the present
-      теорему roadmap, the main теорему chain in Section~\ref{sec:results}, the collapse and
-      rebirth material, the 1.3 source-audit layer, and the reviewer-navigation appendix. This
-      route is designed to answer the first two hard questions quickly: what exactly is being
-      defended, and where does the support boundary stop?
-\item \textbf{Formal route.}
-      A reader interested primarily in correctness should move through the axioms, the operator
-      shell, the теорему-bearing chapters, the K-level doctrine, the appendices, and the explicit
-      1.3 consistency dossier. This route keeps the dependency chain visible and makes it harder
-      for explanatory prose to masquerade as proof.
-\item \textbf{Didactic route.}
-      A scientifically serious non-specialist should be able to read the introduction, background,
-      model, present roadmap, the worked examples in
-      Section~\ref{sec:oc13-worked-examples}, and then return to the denser теорему-bearing
-      chapters with a more stable map in hand. This route is slower, but it is honest: it does
-      not ask the reader to infer the whole architecture from compressed теорему names alone.
+\item \textbf{Ребро 1.} Axiom~3.2 вместе с Definitions~12.1, 12.3 и 12.4 поддерживает Source Theorem~3, а Source Theorem~3 поддерживает Lemma~1.
+\item \textbf{Ребро 2.} Axiom~3.3 вместе с Definition~12.6 поддерживает Source Corollary~3.2, а Source Corollary~3.2 поддерживает Lemma~3.
+\item \textbf{Ребро 3.} Lemma~1 вместе с Definition~12.5 поддерживает Lemma~2.
+\item \textbf{Ребро 4.} Lemma~2 является единственной посылкой, зафиксированной для Theorem~A в canonical proof-obligation registry.
 \end{enumerate}
 
-The existence of these routes is not editorial indulgence. It is part of scientific rigor. A
-foundational manuscript that cannot be entered cleanly by multiple serious readers becomes easier
-to misread and easier to oversell.
+В этом перечне определения играют роль узлов-предпосылок, а не самостоятельных теоремных посылок. Слово ``supports'' обозначает принятый шаг поддержки релиза, а не примитивный оператор импликации OC.
 
-\subsection{Load-bearing теорему spine}
+В этой дорожной карте Lemma~3 остаётся принятый обязанностью по контролю возрождения, но не является посылкой Theorem~A в canonical proof-obligation registry. Её нагрузочная роль иная: оно поддерживает сопутствующее контрольное утверждение, Proposition~B. Когда сжатое доказательство статьи обсуждает блок death--residue--rebirth в одном абзаце, Lemma~3 следует читать как поддерживающее Proposition~B, в то время как Theorem~A остаётся классификацией death-and-residue через Lemma~2.
 
-At the level of the bounded journal-core claim, the present release depends on a relatively small
-несущего spine even though the monograph itself remains much larger. That spine can be stated
-schematically as
-\[
-\bigl(\text{Axiom 3.2} + \text{Definitions 12.1, 12.3, 12.4}\bigr)
-\Longrightarrow
-\text{Source Theorem 3}
-\Longrightarrow
-\text{Lemma 1},
-\]
-\[
-\bigl(\text{Axiom 3.3} + \text{Definition 12.6}\bigr)
-\Longrightarrow
-\text{Source Corollary 3.2}
-\Longrightarrow
-\text{Lemma 3},
-\]
-\[
-\bigl(\text{Lemma 1} + \text{Definition 12.5}\bigr)
-\Longrightarrow
-\text{Lemma 2}
-\Longrightarrow
-\text{Theorem A}.
-\]
+\paragraph{Proposition B (article-local rebirth control).}
+\label{prop:oc13-rebirth-control}
+В рамках article-level-извлечения после того, как \(K\) надлежащим образом схлопнулся так, что \(\Omega(K)=\emptyset\) и \(k(K,t)=0\), более поздний объект \(K'\) классифицируется как возрождение тогда и только тогда, когда \(K'\) жив, численно отличается от исходного мёртвого контура \(K\), находится либо в той же ветви вложения, либо в явно подтверждённой связанной ветви вложения, наследует хотя бы один объявленный элемент резидуальной опоры и удовлетворяет соответствующим условиям рождения. Правило тождества объясняет, почему условие неидентичности здесь обязательно, а не факультативно. Это утверждение — сопутствующее контрольное для ветви возрождения; оно не является посылкой Theorem~A.
 
-The point of making that chain explicit is not to reduce the theory to one diagram. The point is
-to let the reader see that the present ограниченный результат is neither a free-floating slogan nor an
-arbitrary editorial condensation. It is a controlled extraction from a larger formal corpus whose
-positive body can be inspected step by step.
+В этой roadmap приставка \emph{Source} обозначает свидетельскую проекцию из аудируемого публичного корпуса LaTeX-исходников и архивного скомпилированного PDF, описанного в приложении source-audit. Такие строки переносятся в Core~1.3 как источником подтверждённые узлы поддержки и рассматриваются через canonical proof-obligation registry; они не являются новыми примитивными теоремами article-level-извлечения. Немаркированные леммы, Theorem~A и Proposition~B представляют собой производные строки article-level, собранные из этой источниковой поддержки. Theorem~A использует скелет death-and-residue; Proposition~B использует ветвь rebirth-control.
+
+Аксиоматические утверждения, теоремы и следствия источника, леммы и Theorem~A несут proof-force-узлы; определения фиксируют термины, используемые в этих узлах.
+
+Смысл явного построения этой цепочки не в том, чтобы выдавать, будто вся рамка сводится к одной диаграмме. Цель — показать, что ограниченное утверждение имеет проверяемое позитивное ядро, а не сводится к облаку мотивационной прозы. Рисунок~\ref{fig:oc13-theorem-spine} также отмечает один исключённый lift-heavy маршрут как грань враждебного рецензирования; он рассматривается именно для того, чтобы его нельзя было спутать с принятой поддержкой в позитивной цепочке. Ветвь Corollary~3.2 / Lemma~3 показана как принятая ветвь rebirth-control для Proposition~B рядом с теоремным маршрутом, а не как предпосылка Theorem~A. В этой roadmap ветвь related-embedding представлена одним проверяемым article-level-свидетелем, а не исчерпывающим перечнем всех допустимых source-level-свидетелей related-embedding. Это та же ветвь, обозначаемая \(\mathcal{M}\sim_{\mathrm{res}}\mathcal{M}'\) в Section~\ref{sec:oc13-worked-examples}: именованное структуросохраняющее отображение \(h:\mathcal{M}\to\mathcal{M}'\), резидуальный элемент \(r\in R_{\mathrm{res}}(K)\), принадлежность к допустимой области \(h(r)\in\Omega(K')\subseteq\Omega_{\mathrm{amb}}(\mathcal{M}')\) и сохранение пороговых и допустимых предикатов на резидуально-насыщенной подструктуре. Section~\ref{sec:oc13-worked-examples} и journal core явно формулируют это тестирование свидетеля.
 
 \begin{figure}[htbp]
 \centering
 \input{figures/oc_core_1_3_theorem_spine.tex}
-\caption{The несущего теорему spine of the Core 1.3 bounded claim. The monograph remains
-larger than this diagram because the surrounding chapters explain the formal setting, the K-level
-hierarchy, the operator shell, the domain modules, the falsifiability routes, and the 1.3 repair
-discipline. But the bounded editorial route becomes lawful only because this smaller spine is
-visible and auditable.}
+\caption{Опорный скелет теорем ограниченного утверждения Core~1.3. Сплошные стрелки обозначают принятую поддержку. Позитивный путь Theorem~A заканчивается на Lemma~2; ветвь Lemma~3 остаётся видимой как принятая поддержка rebirth-control рядом с этим путём. Пунктирная ветвь обозначает исключённый lift-heavy маршрут, рассматриваемый как граничное условие рецензирования, а не как включённый элемент позитивного доказательства. Более объёмная монография остаётся необходимой, потому что окружающие главы задают онтологию, операторный каркас, доктрину уровней K, грамматику коллапса, эмпирический порог и аудит-слои, благодаря чему этот скелет остаётся научно интерпретируемым и внешне цитируемым.}
 \label{fig:oc13-theorem-spine}
 \end{figure}
 
-\subsection{Which statements carry which burden}
+\subsection{Что окружает скелет}
 
-The volume is easier to read once each statement class is attached to a reader task rather than
-presented as one undifferentiated flow of prose.
+У опорного скелета теорем небольшой объём доказательной зависимости, но он интерпретируется и контролируется внутри более широкого корпуса рукописи по пяти направлениям:
+
+\begin{enumerate}
+\item формальные главы доктрины фиксируют admissibility, пороги, операторы, уровни, ветвление и опровержимость;
+\item главы consistency и source-boundary фиксируют класс утверждений, судьбу теорем и рамки публикации;
+\item глава proof-machinery и приложение фиксируют revision, comparator, compression и дисциплину proof-obligation;
+\item главы operational и empirical фиксируют promotion, replay и дисциплину falsifier;
+\item приложения удерживают аудитную нагрузку и атлас внутри того же тома.
+\end{enumerate}
+
+Поэтому монография может быть больше defended article, не становясь риторически размытою. Окружающие главы — это publication- и audit-среда, а не дополнительные посылки Theorem~A.
+
+\subsection{Классы утверждений и нагрузка}
+
+Таблица ниже — это карта proof-navigation для рецензента. Она следует таксономии классов утверждений из Section~\ref{sec:oc13-foundational-consistency}. Строка proposition — это только навигационное подразделение производных утверждений, а не новый класс proof-status. Operational rules остаются последующей нагрузкой контроля, а не отдельным class proof-status.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{p{3.1cm} p{4.7cm} p{5.0cm}}
+\begingroup
+\footnotesize
+\RaggedRight
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}L{0.21\textwidth}L{0.28\textwidth}L{0.39\textwidth}@{}}
 \toprule
-\textbf{Statement class} & \textbf{Scientific burden} & \textbf{Where the reader should check it} \\
+\textbf{Класс утверждений} & \textbf{Научная нагрузка} & \textbf{Где проверять} \\
 \midrule
-Axiomatic statements & Fix primitive admissibility, identity, or threshold conditions. & Axiomatics, notation appendix, source-audit chapter. \\
-Derived theorems and lemmas & Carry the proof-bearing positive body. & Results chapter, collapse/rebirth chapter, теорему roadmap, reviewer appendix. \\
-Structural statements & Explain the hierarchy, module layout, and relation between artifacts. & K-level chapter, modules, foundational consistency dossier. \\
-Interpretive statements & Explain meaning, не-утверждениеs, and downstream projection boundaries. & Discussion, source-audit, worked examples, междоменной mapping. \\
-Editorial bridge statements & Explain how the monograph, journal core, and companion packets fit together. & Reader guide, journal-core bridge appendix, release bundle notes. \\
+Аксоматические утверждения & Фиксируют примитивные условия admissibility, идентичности или порогов. & Appendices Axioms, Appendices Notation и Sections~\ref{sec:boundary-extended}--\ref{sec:collapse-rebirth}. \\
+Производные теоремы и леммы & Несут основное доказательное позитивное тело. & Sections~\ref{sec:results}, \ref{sec:collapse-rebirth}, \ref{sec:oc13-theorem-roadmap}, Reviewer Navigation Matrix и Proof Machinery Appendix. \\
+Утверждения article-level & Несут сопутствующие контрольные утверждения, выведенные из той же аудируемой опоры, но не являющиеся посылками Theorem~A. Примером является Proposition~B (rebirth-control). & Sections~\ref{sec:oc13-theorem-roadmap}, \ref{sec:oc13-worked-examples} и Journal Core Bridge Appendix. \\
+Структурные утверждения & Объясняют иерархию, структуру модулей и связи между уровнями или артефактами. & Sections~\ref{sec:klevels-full}--\ref{sec:falsifiability-extended}, Section~\ref{sec:modules_master}, Section~\ref{sec:oc13-publication-boundary} и Section~\ref{sec:oc13-foundational-consistency}. \\
+Интерпретирующие утверждения & Объясняют смысл, неформальные акценты и последующие границы. & Sections~\ref{sec:discussion}, \ref{sec:oc13-worked-examples}, \ref{sec:oc-core-1-3-practical-utility}, Source Audit Appendix и Reviewer Navigation Matrix. \\
+Эмпирические утверждения & Требуют source-owned domain packet, theorem-native trace, численного закона параметров, наблюдаемой фиксации, закреплённого маршрута данных, held-out replay, аудита comparator и falsifier перед promotion. & Sections~\ref{sec:oc-core-1-3-operationalization-program}--\ref{sec:oc-core-1-3-empirical-execution-protocols} и Appendices~\ref{sec:oc-core-1-3-empirical-validation-matrix}--\ref{sec:oc-core-1-3-domain-execution-board}. \\
+Фронтирные утверждения & Отмечают допустимое продолжение работы в будущем без права позитивного релиза. & Section~\ref{sec:oc-core-1-3-practical-utility}, Appendix~\ref{sec:oc-core-1-3-practical-utility-atlas} и frontier-строки в source-owned science corpus. \\
 \bottomrule
 \end{tabular}
-\caption{Statement classes and reader tasks in Core 1.3. This table is a navigation aid, not a
-substitute for the formal chapters themselves.}
+\endgroup
+\caption{Классы утверждений и их нагрузка проверки в Core~1.3. Таблица не заменяет формальные главы; она лишь предотвращает перемещение ролей между доказательством, интерпретацией, эмпирическим promotion и frontier-языком. Replay, comparator, falsifier и escalation rules — это последующие контрольные обязанности, прикреплённые к этим классам.}
 \label{tab:oc13-statement-classes}
 \end{table}
 
-This classification matters because a hostile review often begins by testing whether a работу is
-quietly shifting from one statement class to another. A formal теорему may be defensible while
-the surrounding interpretive prose is too wide. Conversely, a structural or didactic sentence may
-be perfectly helpful while still being inadmissible as proof. The roadmap makes that separation
-inspectable.
+Все цели проверки в Table~\ref{tab:oc13-statement-classes} сверяются по меткам с английским мастер-источником. Если release-оболочка меняет одну из этих меток, таблицу нужно регенерировать или откорректировать прежде, чем roadmap будет считаться механически воспроизводимым маршрутом аудита.
 
-\subsection{Why the master volume must remain larger than the defended статья}
+\subsection{Самый короткий hostile-review checklist}
 
-The bounded journal-core claim is not the whole scientific content of the monograph. It is the
-most defensible публичный теорему route at the present release boundary. The master volume remains
-larger because it carries at least five scientific burdens that the short работу alone should not
-be forced to bear.
+Если рецензент хочет наиболее эффективную последовательность проверки, наиболее логически сложные проверки остаются следующими:
 
 \begin{enumerate}
-\item It preserves the inherited axiomatic and operator shell in one readable object.
-\item It carries the full K-level doctrine and explains why the hierarchy is fixed as
-      \(K_0,\dots,K_{12}\) rather than cut short by editorial convenience.
-\item It keeps the broader domain-facing modules, falsifiability routes, and projection
-      boundaries available for scrutiny instead of hiding them behind internal registries.
-\item It holds the 1.3 source-audit, chronology, and consistency apparatus inside the scientific
-      object itself.
-\item It teaches the reader how later artifacts are derived so that journal-core, outreach, and
-      owner-facing channels do not become separate interpretive universes.
+\item проверьте, что коллапс действительно связан с потерей допустимой реализации, а не с свободной метафорой;
+\item проверьте, что правило необратимости запрещает восстановление исходного континуума как численно тождественной сущности;
+\item проверьте, что residue и rebirth выступают управляемыми классификациями, а не повествовательными ярлыками;
+\item проверьте, что исключённая семья lift-heavy теорем не подмешана обратно в bounded позитивный маршрут;
+\item проверьте, что journal-core-извлечение не утверждает ничего более сильного, чем source-owned science corpus и canonical SPOT-разрешение; тогда флагманская монография проверяется только как производная сравнительная поверхность;
+\item проверьте, что доктрина уровней K, в особенности \(K_{11}\) и \(K_{12}\), обоснована структурно, а не раздута риторически.
 \end{enumerate}
 
-In other words, the master monograph is not larger than the статья because the release lacks
-discipline. It is larger because a serious foundational framework needs one place where its
-vocabulary, proof routes, reader guidance, figures, appendices, and limitations still coexist.
+Если на этом этапе релиз терпит неудачу, более поздняя проза его не спасёт. Если он проходит этот этап, более медленное полное прочтение становится оправданным.
 
-\subsection{The shortest hostile-review checklist}
-
-If a reviewer wishes to challenge the release at its most vulnerable points, the logically
-efficient order is the following.
-
-\begin{enumerate}
-\item Check whether collapse is tied to the loss of admissible realization rather than to loose
-      metaphor.
-\item Check whether the irreversibility rule really forbids restoration of the original
-      continuum as numerically the same entity.
-\item Check whether residue and rebirth are used as controlled classifications rather than as
-      decorative narrative labels.
-\item Check whether any excluded lift-heavy теорему family is smuggled back into the positive
-      ограниченного аргумента.
-\item Check whether the journal-core extraction says anything stronger than the master monograph.
-\item Check whether the K-level doctrine is structurally justified or merely counted upward by
-      enthusiasm.
-\end{enumerate}
-
-If the manuscript survives those checks, it deserves a slower and fuller reading. If it fails
-them, no amount of later prose can repair the result. Making that sequence explicit is part of
-the 1.3 improvement: the monograph now teaches the reviewer where the real risk lies instead of
-burying it inside a vast undifferentiated shell.
+\paragraph{Переход к следующей главе.}
+После построения карты доказательного маршрута следующая глава сознательно меняет режим. Она перестаёт абстрактно навигировать по скелету и показывает, как формальную грамматику следует читать через worked examples, counterexamples и bounded проверочные интерпретации.
 
 \clearpage
