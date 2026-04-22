@@ -6,6 +6,7 @@
 - **Release version:** OC Core 1.3
 - **Release state:** Public release candidate
 - **Release date:** 2026-04-21
+- **Source witness:** v1.2.1 source commit `2c61b7879ed36cd8366d87892a066082b6418ce8`; archival PDF DOI `10.5281/zenodo.17903912`
 
 ## Abstract
 This article proves a bounded post-collapse identity classification inside the audited Ontology of Continua kernel. When a continuum loses every admissible realisation, the original continuum is dead and any surviving structure is residue rather than continuing live identity. A later live continuum is counted as rebirth only in the same-embedding branch, or in a related-embedding branch with an explicit map-and-residue witness; otherwise this article withholds the rebirth claim.
@@ -91,7 +92,7 @@ Representative support inventory used directly in the present bounded argument i
 - Definition 12.3 (Internal collapse): Internal collapse occurs when collapse is caused solely by the internal evolution operator E = (F, G, H, Q, R, S, U) acting on K while the embedding space M remains structurally static over the relevant interval.
 - Definition 12.4 (External collapse): External collapse occurs when the embedding space M changes so that no configuration of K remains compatible with the new constraints, even though the prior internal evolution stayed within the previously admissible region.
 - Definition 12.5 (Residue): The residue of a collapsed continuum K is the set of structures in the embedding space that remain after $\Omega(K)=\emptyset$; residues may persist without preserving the original live identity.
-- Definition 12.6 (Rebirth): A rebirth event occurs when, after the collapse of K, a new live continuum K' appears in the same or a related-embedding space while $\Omega(K)=\emptyset$, $k(K,t)=0$, and $\Omega(K')\neq\emptyset$; the new continuum inherits at least one structural element from residue, satisfies the birth conditions for some level, and is not identical with the original continuum.
+- Definition 12.6 (Rebirth): A rebirth event occurs when, after the collapse of K, a new live continuum K' appears in a same-embedding or related-embedding space while $\Omega(K)=\emptyset$, $k(K,t)=0$, and $\Omega(K')\neq\emptyset$; the new continuum inherits at least one structural element from residue, satisfies the birth conditions for some level, and is not identical with the original continuum.
 - Axiom 3.1 (Life conditions): A continuum is live only while its admissible realisation is nonempty and its continuumness conditions remain satisfied.
 - Axiom 3.2 (Death condition): A continuum dies at time $t^\ast$ when $\Omega(K(t^\ast))=\emptyset$; after death the operators F, G, H, Q, R, S, and U are no longer defined for that continuum.
 - Axiom 3.3 (Irreversibility of death): No operator acting within the same level can restore a dead continuum; any new live continuum is considered a new entity.
