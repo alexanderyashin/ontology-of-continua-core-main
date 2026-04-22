@@ -26,10 +26,12 @@ and the baseline witness listed above.
   [`editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json`](editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json).
 - Cerberus scope: the scripted release-review authority
   `OC_CORE_1_3_ENGLISH_FLAGSHIP_RELEASE_PACKAGE`.
-- Checked-in Cerberus verdict at this snapshot: `FAIL_CLOSED`; the latest
-  full LLM panel completed, and open findings remain tracked in
-  [`editorial/OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json`](editorial/OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json).
-- Final publication readiness requires regenerating
+- Checked-in Cerberus verdict: inspect
+  [`editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json`](editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json)
+  and
+  [`editorial/OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json`](editorial/OC_CORE_1_3_CERBERUS_REVIEW_FINDINGS_latest.json)
+  for the current gate state and open findings.
+- Publication readiness requires regenerating
   [`editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json`](editorial/OC_CORE_1_3_CERBERUS_ACCEPTANCE_CERT_latest.json)
   with `status = PASS` and `llm_gate_status = PASS`.
 - The public synthesis title is `Unified Science Synthesis`. Compatibility

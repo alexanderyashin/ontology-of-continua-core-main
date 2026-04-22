@@ -89,7 +89,7 @@ h(r)\in\Omega(K')\subseteq\Omega(\mathcal{M}'),\ \text{and the threshold/admissi
 \end{gathered}
 \]
 Here \(\mathcal{D}_{\Theta,\Omega}\) denotes the local admissibility data:
-the nonemptiness indicator together with the active residual-threshold signs
+the pointwise admissible-membership indicator together with the active residual-threshold signs
 and saturated constraints. The term
 \(\mathcal{D}^{\mathrm{res}}_{\Theta,\Omega}(K;r)\) is the same data restricted
 to the residue-bearing substructure containing \(r\). More explicitly, for a
@@ -122,7 +122,7 @@ pushforward \(h_{\ast}\) is componentwise: it applies \(h\) to the residue
 state, carries each named residual threshold \(f_i\) to the corresponding
 declared residual threshold \(f_{\eta_h(i)}'\), preserves the sign relation
 \(\le 0\), preserves the transported saturated subset, and transports the
-nonemptiness indicator by the rule that the image component is live exactly
+membership indicator by the rule that the image component is live exactly
 when \(h(r)\in\Omega(K')\).
 
 \begin{figure}[htbp]
@@ -207,12 +207,13 @@ names the corresponding proposed \(K_{10}\) target language. The transport
 maps each typed atom to its proposed \(K_{10}\)-language counterpart and
 extends to finite conjunctions by preserving their typed clauses. For the
 reduction test, the satisfaction clauses are the following bounded clauses:
+where \(I_X\) is the declared finite test interval for \(X\):
 \[
 \begin{aligned}
 X\models\mathsf{Adm}(\omega) &\Longleftrightarrow
   \omega\in\Omega(X),\\
 X\models\mathsf{Cont}(\varepsilon) &\Longleftrightarrow
-  k(X,t)>\varepsilon \text{ on the declared test interval},\\
+  \forall t\in I_X,\ k(X,t)>\varepsilon,\\
 X\models\mathsf{Op}(O:S\to T) &\Longleftrightarrow
   O \text{ is defined on } S,\ O(S)\subseteq T,\text{ and its admissibility guard holds},\\
 X\models\mathsf{Id}(\iota) &\Longleftrightarrow

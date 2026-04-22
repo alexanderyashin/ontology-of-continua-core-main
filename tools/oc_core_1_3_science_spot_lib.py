@@ -699,7 +699,7 @@ COMPRESSION_ROWS = [
         "axis": "COVERAGE_PER_COMPLEXITY_VS_COMPETITORS",
         "complexity_units": 5,
         "performance_value": 0.384615,
-        "interpretation": "Bounded coverage-per-complexity metric awaiting same-claim-class and domain-baseline competition closure.",
+        "interpretation": "Computed as 5 validated lanes divided by 13 declared same-claim and domain-baseline comparator units; source row: alternative-model competition matrix.",
     },
 ]
 
@@ -2167,7 +2167,7 @@ def toe_branding_payload(status: str) -> dict[str, Any]:
             "including explicit K0--K12 parameter laws, numerical rows, falsifiers, and empirical held-out prediction summaries."
         ),
         "public_empirical_summary_text": (
-            "The following summary keeps the empirical closure lanes explicit. Final promotion remains blocked until every row below is theorem-native and pass-closed."
+            "The following summary keeps the empirical closure lanes explicit. Final promotion remains blocked until every row below is theorem-native and reports PASS under the canonical SPOT vocabulary."
         ),
         "optimistic_toe_naming_allowed": False,
     }
@@ -6027,12 +6027,12 @@ def render_appendix_proof_tex(spot: dict[str, Any]) -> str:
     hostile_rows: list[str] = []
     for row in spot["hostile_review_backlog"]:
         hostile_rows.append(
-            f"{tex_code(row['review_id'])} & {tex_escape(row['challenge'])} & {tex_code(row['current_status'])} & {tex_escape(row['exit_criterion'])} \\\\"
+            f"{tex_code(row['review_id'])} & {tex_escape(row['challenge'])} & {tex_code(row['current_status'])} & {tex_code(row.get('current_resolution_state', 'NOT_RECORDED'))} & {tex_escape(row['exit_criterion'])} \\\\"
         )
     lines.extend(
         render_centered_tabular(
-            r"@{}L{0.20\textwidth}L{0.28\textwidth}L{0.12\textwidth}L{0.30\textwidth}@{}",
-            r"Review id & Challenge & Status & Exit criterion \\",
+            r"@{}L{0.18\textwidth}L{0.25\textwidth}L{0.11\textwidth}L{0.15\textwidth}L{0.23\textwidth}@{}",
+            r"Review id & Challenge & Status & Lock state & Exit criterion \\",
             hostile_rows,
         )
     )

@@ -19,13 +19,13 @@ The manuscript does not claim a generally defended axis-state lift theorem or fu
 Accordingly, the problem is solved only if the main theorem chain can be reconstructed from source-native material that remains canon-clean after repair, if the argument exposes where the defended case ends, and if the paper remains falsifiable in the precise sense that renewed audit or contrary formal analysis could overturn it.
 
 ## Main Result
-The main result is a bounded classification theorem about lawful post-collapse identity, not a universal completion of the inherited ontology. Its death-and-residue route is source-native. The related-space rebirth material is handled separately through the article-local related-space witness branch rather than as a claim that every source-admissible related-space branch has been promoted.
+The main result is a bounded classification theorem about lawful post-collapse identity, not a universal completion of the inherited ontology. Its death-and-residue route is source-native. The related-space rebirth material is a narrower article-local strengthening of the source rebirth predicate: this article promotes only the same-space case and the explicitly witnessed related-space subclass, not every source-admissible related-space branch.
 
 **Theorem A (post-collapse identity classification).** Let K be a continuum in the audited OC Core kernel. If K loses every admissible realisation under its current threshold and embedding regime, then the classification is as follows:
 1. the original continuum is dead;
 2. any surviving post-collapse structure is residue rather than a still-live instance of K.
 
-**Proposition B (article-local related-space rebirth control).** A later live continuum is counted as rebirth only in the audited case where all of the following hold:
+**Proposition B (article-local rebirth control).** Within this article, a later live continuum is promoted as rebirth if and only if the audited case satisfies all of the following conditions:
 1. it appears while $\Omega(K)=\emptyset$ and $k(K,t)=0$;
 2. it appears either in the same embedding space or in a related embedding space $M'$ with $M\sim_{\mathrm{res}}M'$;
 3. for the related-space branch, $M\sim_{\mathrm{res}}M'$ means that the following witness data are supplied:
@@ -59,6 +59,7 @@ The required conditions are:
 - viable cycle or operator support;
 - identity distinction from the dead original;
 - the level-specific axes required for the proposed new continuum.
+Proposition B is therefore not a revalidation of every related-space branch allowed by the broader source Definition 12.6. It is a tightened article-local subclass: cases without the same-space condition or the explicit map-and-residue witness remain outside the promoted rebirth branch of this paper.
 The article also keeps a small operational vocabulary for later projections. These observables are not used to inflate the present argument into a full universal law; they are included because they specify what later mathematical or domain-level projections would have to measure if the bounded theorem grammar is taken seriously.
 These observables matter because they turn the argument from an ontological slogan into a falsifiable grammar. They tell the reader what kind of counterexample would matter, what kind of terminal loss counts as death, and what kind of post-collapse persistence claim is prohibited by the manuscript.
 - `contradiction_load`: Minimal mismatch between required differences and currently expressible axes and admissible coordinates.
@@ -163,7 +164,7 @@ The table is the novelty summary for this section. It separates external trigger
 ## Cross-Domain Interpretation and Scope Discipline
 The manuscript has implications beyond a single formal kernel, but it does not claim that those implications are already proved as a universal cross-domain theorem. The wider Core 1.3 release separately contains a [practical-utility atlas](../editorial/OC_CORE_1_3_PRACTICAL_UTILITY_ATLAS_latest.json) with bounded usable-now operational routing rows for the promoted release lanes. Those rows are release guidance, not premises in the present journal-core theorem. The supplementary cross-domain projection map is different: it lists frontier and hypothesis projection targets whose admissibility depends on separate theorem programs and empirical or formal validation routes.
 This distinction is important for editorial honesty. A generalist venue needs to understand why the work matters beyond one notation system, but it also needs to see that the manuscript does not inflate projection potential into accomplished proof. The paper therefore uses cross-domain language only to identify where the collapse-residue-rebirth grammar should be tested next and what would count as a failed projection.
-Tier 1 mathematics remains outside the main theorem chain in the present article, but it is a usable supporting-evidence lane for bounded route selection in the practical-utility atlas. Frontier projection families remain projection targets whose admissibility depends on separate theorem programs and empirical or formal validation. None of these lanes is silently promoted into proof support for the journal-core theorem.
+Tier 1 mathematics remains outside the main theorem chain in the present article. In the cross-domain projection map it functions as a supporting-evidence testbed rather than as an operational route-selection lane; route selection is handled separately by the release practical-utility atlas. Frontier projection families remain projection targets whose admissibility depends on separate theorem programs and empirical or formal validation. None of these lanes is silently promoted into proof support for the journal-core theorem.
 In that sense the paper offers a kernel-local collapse, residue, and rebirth grammar together with a disciplined research agenda. It does not confuse the one with the other.
 
 ## Reviewer Objections and Resolutions

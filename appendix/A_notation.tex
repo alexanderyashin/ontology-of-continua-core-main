@@ -24,6 +24,10 @@ the science appendices.
   \item[\(K(t)\)] Time-sliced continuum object obtained from a fixed continuum
         \(K\) at local time \(t\). If a chapter needs the internal state
         separately, it names that state as \(s(t)\in\Omega(K,t)\).
+  \item[\(\tau(K)\), \(\tau\)] Time-order or temporal-structure component
+        attached to \(K\) when the level has temporal dynamics. If the level
+        is atemporal, \(\tau\) is absent or declared as the trivial order by
+        the local construction.
   \item[\(M_x\)] Embedding space for level \(K_x\).
   \item[\(M_x(t)\)] Time-indexed embedding space for \(K_x\) when the
         surrounding chapter allows the environment itself to vary.
@@ -44,18 +48,28 @@ the science appendices.
           \{s\in\overline{\Omega(K)}^{\,M_x}\mid
           \exists i\in I_{\mathrm{act}}(K;M_x):\,f_i(s)=0\}.
         \]
-        The index set \(I_{\mathrm{act}}(K;M_x)\) contains exactly those
-        declared threshold constraints whose residual functions can vanish on
-        \(\overline{\Omega(K)}^{\,M_x}\) and are not implied there by the
-        remaining declared threshold inequalities.
         Here \(g_i,\Theta_i:\overline{\Omega(K)}^{\,M_x}\to\mathbb{R}\) are
         evaluated on the same local state domain and \(f_i\) is the shifted
         residual form of a raw threshold inequality:
         \(f_i(s)=g_i(s)-\Theta_i(s)\). Thus \(f_i(s)\le0\) is the
         admissible-side convention and \(f_i(s)=0\) is equivalent to the
         pointwise raw saturation equation \(g_i(s)=\Theta_i(s)\). Scalar
-        thresholds are the constant-function special case. The same residual
-        convention is used in the model and boundary chapters.
+        thresholds are the constant-function special case. Let
+        \(I_{\Theta}(K;M_x)\) be the finite threshold family declared for this
+        local boundary computation. The active set is
+        \[
+          I_{\mathrm{act}}(K;M_x)=
+          \left\{i\in I_{\Theta}(K;M_x)\,\middle|\,
+          \begin{array}{l}
+          \exists s\in\overline{\Omega(K)}^{\,M_x}: f_i(s)=0,\\
+          \text{and every neighbourhood }U\ni s\text{ contains a point }u\\
+          \text{with } f_j(u)\le0\text{ for all }j\ne i\text{ but }f_i(u)>0
+          \end{array}\right\}.
+        \]
+        Thus a constraint is active only when its equality can be reached and
+        removing that constraint would locally enlarge the admissible side.
+        The same residual convention is used in the model and boundary
+        chapters.
   \item[\(\partial\Omega(K)\)] Boundary shorthand for the admissible region
         when the ambient space \(M_x\) and the local regularity convention are
         fixed by the surrounding chapter:
