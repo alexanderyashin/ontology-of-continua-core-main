@@ -350,6 +350,20 @@ def git_head_sha(repo_root: Path) -> str:
     return result.stdout.strip()
 
 
+def git_first_parent_sha(repo_root: Path) -> str:
+    result = subprocess.run(
+        ["git", "rev-parse", "HEAD^"],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    )
+    if result.returncode != 0:
+        return ""
+    return result.stdout.strip()
+
+
 def git_optional_ref_sha(repo_root: Path, ref: str) -> str:
     result = subprocess.run(
         ["git", "rev-parse", ref],
@@ -2200,12 +2214,31 @@ def validate_existing_cerberus_bundle(repo_root: Path | None = None, *, require_
     acceptance = load_json(CERBERUS_SURFACE_TARGETS["acceptance"])
     current_sha = git_head_sha(repo_root)
     manifest_fingerprint = compute_fingerprint(targets.get("fingerprint_refs", []))
+    allowed_certificate_refs = {repo_rel(path) for path in CERBERUS_SURFACE_TARGETS.values()}
 
-    if targets.get("metadata", {}).get("repo_sha") != current_sha:
+    def matches_current_or_certificate_commit(reviewed_sha: str) -> bool:
+        if reviewed_sha == current_sha:
+            return True
+        parent_sha = git_first_parent_sha(repo_root)
+        if not parent_sha or reviewed_sha != parent_sha:
+            return False
+        result = subprocess.run(
+            ["git", "diff", "--name-only", f"{reviewed_sha}..{current_sha}"],
+            cwd=repo_root,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            check=True,
+        )
+        changed_refs = set(result.stdout.splitlines())
+        return bool(changed_refs) and changed_refs.issubset(allowed_certificate_refs)
+
+    if not matches_current_or_certificate_commit(targets.get("metadata", {}).get("repo_sha", "")):
         errors.append("Cerberus targets surface does not match the current repository HEAD.")
-    if run_payload.get("metadata", {}).get("repo_sha") != current_sha:
+    if not matches_current_or_certificate_commit(run_payload.get("metadata", {}).get("repo_sha", "")):
         errors.append("Cerberus run surface does not match the current repository HEAD.")
-    if acceptance.get("metadata", {}).get("repo_sha") != current_sha:
+    if not matches_current_or_certificate_commit(acceptance.get("metadata", {}).get("repo_sha", "")):
         errors.append("Cerberus acceptance surface does not match the current repository HEAD.")
     if run_payload.get("run_id") != findings_payload.get("run_id") or run_payload.get("run_id") != acceptance.get("run_id"):
         errors.append("Cerberus latest surfaces disagree on the active run_id.")
