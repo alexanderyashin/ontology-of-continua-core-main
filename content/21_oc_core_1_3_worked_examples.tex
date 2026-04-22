@@ -72,8 +72,13 @@ Here \(K'\) is the declared later candidate tested for live admissibility,
 \(\mathcal{M}\) is the embedding space of the collapsed continuum,
 \(\mathcal{M}'\) is the embedding space proposed for the later continuum,
 \(R_{\mathrm{res}}(K)\) is the residue set of the collapsed continuum, and
+\(\mathcal{R}_K(r)\subseteq R_{\mathrm{res}}(K)\) denotes the declared
+residue-bearing substructure containing \(r\): a local residue subobject named
+in the witness data on which the transported threshold and admissibility data
+are declared. If no such substructure is declared, the related embedding
+branch is not available in this example.
 \(\operatorname{Pres}_{\Theta,\Omega}\) means that the named map \(h\)
-preserves the residue-bearing substructure and the threshold and admissibility
+preserves \(\mathcal{R}_K(r)\) and the threshold and admissibility
 predicates used to test the later live continuum. This witness is not by
 itself the full rebirth predicate; it supplies the related-embedding clause
 inside that predicate. This is the
@@ -89,7 +94,7 @@ For this example, the predicate is explicitly:
 \operatorname{Pres}_{\Theta,\Omega}(h,r;K,K')
 \Longleftrightarrow
 \begin{gathered}
-h \text{ preserves the residue-bearing substructure containing } r,\\
+h \text{ preserves } \mathcal{R}_K(r),\\
 h(r)\in\Omega(K')\subseteq\Omega_{\mathrm{amb}}(\mathcal{M}'),\ \text{and the threshold and admissibility tests}\\
 \mathcal{D}_{\Theta,\Omega}(K';h(r))
 =h_{\ast}\mathcal{D}^{\mathrm{res}}_{\Theta,\Omega}(K;r).
@@ -99,7 +104,7 @@ Here \(\mathcal{D}_{\Theta,\Omega}\) denotes the local admissibility data:
 the pointwise admissible-membership indicator together with the active residual-threshold signs
 and saturated constraints. The term
 \(\mathcal{D}^{\mathrm{res}}_{\Theta,\Omega}(K;r)\) is the same data restricted
-to the residue-bearing substructure containing \(r\). More explicitly, for a
+to \(\mathcal{R}_K(r)\). More explicitly, for a
 finite active threshold family \(\Theta_Y=\{f_i^Y\}_{i\in I_Y}\) at a tested
 object \(Y\) and point \(y\), this local data is the typed record
 \[
@@ -115,7 +120,7 @@ thresholds declared on the residue-bearing substructure, and \(h_\ast\)
 targets the corresponding family \(I_{K'}\) used to test \(\Omega(K')\).
 The index-set transport is a declared map
 \(\eta_h:I_K^{\mathrm{res}}\to I_{K'}\) with
-\(f_{\eta_h(i)}^{K'}\circ h=f_i^K\) on the residue-bearing substructure.
+\(f_{\eta_h(i)}^{K'}\circ h=f_i^K\) on \(\mathcal{R}_K(r)\).
 Consequently the saturated set is transported as
 \[
   \eta_h\bigl(\{i\in I_K^{\mathrm{res}}:f_i^K(r)=0\}\bigr)
@@ -139,7 +144,8 @@ when \(h(r)\in\Omega(K')\).
 not to offer a domain-specific simulation but to show the exact interpretive burden of the formal
 rules: in this minimal model, the object remains live only while the
 admissible region is nonempty, the required cycles remain present, and
-\(k(K,t)>0\). Admissible-state collapse kills it, and any later live continuum
+\(k(K,t)>0\), with supporting flows not dominated by destructive flows on the
+relevant cycles. Admissible-state collapse kills it, and any later live continuum
 is classified as rebirth rather than persistence only when the residue,
 embedding-space, and birth-condition clauses of Definition~12.6 are satisfied
 and the identity rule rules out restoration of the dead original.}
@@ -221,7 +227,7 @@ maps each typed atom to its proposed \(K_{10}\)-language counterpart and
 extends to finite conjunctions by preserving their typed clauses. For the
 reduction test, the satisfaction clauses are the following bounded clauses,
 where \(I_X\) is the declared nonempty finite test interval for \(X\) and
-\(\varepsilon\in\mathbb{R}_{>0}\):
+\(\varepsilon\in(0,1]\):
 \[
 \begin{aligned}
 X\models\mathsf{Adm}(\omega) &\Longleftrightarrow

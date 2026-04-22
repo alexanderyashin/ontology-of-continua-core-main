@@ -78,6 +78,47 @@ NOT_ACTIONABLE_STATUS = "NOT_ACTIONABLE"
 DETERMINISTIC_CLASS = "DETERMINISTIC_SCRIPT"
 LLM_CLASS = "LLM_CODEX_CLI"
 
+LLM_TASTE_ONLY_MARKERS = [
+    "awkward",
+    "clunky",
+    "glossary-heavy",
+    "harder to scan",
+    "slower to scan",
+    "less naturally",
+    "less natural",
+    "not parallel",
+    "nonparallel",
+    "cadence",
+    "wordy",
+    "tone",
+    "reads less",
+]
+LLM_ACTIONABLE_STYLE_MARKERS = [
+    "claim",
+    "scope",
+    "overclaim",
+    "unsupported",
+    "undefined",
+    "inconsistent",
+    "mismatch",
+    "numeric",
+    "formula",
+    "theorem",
+    "citation",
+    "cite",
+    "reference",
+    "cross-reference",
+    "grammar",
+    "punctuation",
+    "comma",
+    "spelling",
+    "typo",
+    "missing",
+    "wrong",
+    "incorrect",
+    "ambiguous",
+]
+
 PRIMARY_BLOCK_ORDER = [
     "Front Matter and Reader Contract",
     "Orientation and Scientific Promise",
@@ -553,6 +594,35 @@ def make_finding(
     }
     finding["finding_id"] = f"CERBERUS_FINDING::{finding_signature(finding)[:20]}"
     return finding
+
+
+def normalize_llm_finding_row(row: dict[str, Any]) -> dict[str, Any]:
+    """Keep the LLM gate strict on defects while preventing taste-only churn.
+
+    Copy-edit suggestions are welcome as observations, but they should not
+    block the release unless the LLM identifies a concrete defect in meaning,
+    grammar, punctuation, citation, theorem precision, numeric sync, metadata,
+    or layout. Deterministic reviewers and non-language LLM categories are not
+    downgraded here.
+    """
+    normalized = dict(row)
+    if normalized.get("severity") != "MINOR" or normalized.get("category") != "language_style":
+        return normalized
+    combined = " ".join(
+        str(normalized.get(key, ""))
+        for key in ["section_ref", "claim", "evidence", "required_action"]
+    ).lower()
+    is_taste_only = any(marker in combined for marker in LLM_TASTE_ONLY_MARKERS)
+    has_actionable_marker = any(marker in combined for marker in LLM_ACTIONABLE_STYLE_MARKERS)
+    if is_taste_only and not has_actionable_marker:
+        normalized["severity"] = "NON_DEFECT_OBSERVATION"
+        normalized["status"] = NOT_ACTIONABLE_STATUS
+        normalized["required_action"] = (
+            "Optional editorial observation only; no release-blocking action is required unless "
+            "a future reviewer ties it to meaning, grammar, punctuation, citation, theorem "
+            "precision, numeric sync, metadata, or visible layout."
+        )
+    return normalized
 
 
 def merge_findings(findings: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -1511,6 +1581,9 @@ def render_llm_prompt(units: list[dict[str, Any]], reviewer: dict[str, Any]) -> 
             "Use only the allowed categories from the schema.",
             "Do not invent facts outside the provided artifact and canonical context.",
             "Flag only concrete, reviewer-actionable issues or explicit non-defect observations.",
+            "Taste-only copy-edit preferences must be NON_DEFECT_OBSERVATION, not MINOR. "
+            "Use MINOR language_style only for concrete grammar, punctuation, terminology, "
+            "or meaning-risk defects that would reasonably matter to publication review.",
             "For every finding, set `artifact_ref` to the exact artifact from this batch.",
             "",
             *artifact_blocks,
@@ -1703,6 +1776,7 @@ def llm_review(
             }
         )
         for row in run_payload["payload"].get("findings", []):
+            row = normalize_llm_finding_row(row)
             artifact_ref = row["artifact_ref"]
             unit = unit_by_ref.get(artifact_ref)
             if unit is None:

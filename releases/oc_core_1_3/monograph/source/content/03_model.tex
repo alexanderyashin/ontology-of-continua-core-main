@@ -123,8 +123,8 @@ where:
     \item \(\Omega(K)\) is a nonempty set of admissible states;
     \item \(A(K) = \{A_1,\dots,A_n\}\) is a finite set of axes of incompatible differences;
     \item \(P(t)\) is the vector of potentials on \(\Omega(K)\);
-    \item \(J(t)\) is the aggregate flow vector transforming potentials and
-          states;
+    \item \(J(t)\) is the aggregate potential-flow vector; state updates are
+          handled by the evolution operator \(E\);
     \item \(\Theta(K) = \{\Theta_i\}\) is the set of threshold functions;
     \item \(\partial\Omega(K)\) is the boundary of admissible states;
     \item \(C(K)\) is the family of structurally stable cycles;
@@ -237,16 +237,22 @@ where:
           it is \(1\) if \(s_K(t)\in\Omega(K,t)\), and \(0\) otherwise;
     \item \(S_{\mathrm{axes}}(K,t)\) quantifies effective axis saturation, e.g.\ the ratio of the effective rank of working axes to the maximal possible rank for that level;
     \item \(S_{\mathrm{cycles}}(K,t)\) measures the strength and efficiency of stable cycles, such as a weighted sum of cycle efficiencies normalised by their maximal values;
-    \item \(S_{\mathrm{flows}}(K,t)\) captures flow stability, for instance
+    \item \(S_{\mathrm{flows}}(K,t)\) captures flow stability. With aggregated
+          supporting and destructive magnitudes
+          \(\Phi_{\mathrm{support}}\) and \(\Phi_{\mathrm{kill}}\), one local
+          rule is
           \[
-              S_{\mathrm{flows}}(K,t)
-              = \frac{\Phi_{\mathrm{support}}(t)}
-                     {\Phi_{\mathrm{support}}(t)+\Phi_{\mathrm{kill}}(t)},
+              S_{\mathrm{flows}}(K,t)=
+              \begin{cases}
+              \dfrac{\Phi_{\mathrm{support}}(t)}
+                    {\Phi_{\mathrm{support}}(t)+\Phi_{\mathrm{kill}}(t)},
+                    & \Phi_{\mathrm{support}}(t)+\Phi_{\mathrm{kill}}(t)>0,\\[0.7em]
+              1, & \Phi_{\mathrm{support}}(t)=\Phi_{\mathrm{kill}}(t)=0
+                   \text{ and no flow claim is being made.}
+              \end{cases}
           \]
-          where \(\Phi_{\mathrm{support}}\) and \(\Phi_{\mathrm{kill}}\) are aggregated magnitudes of supporting and destructive flows. If both
-          magnitudes vanish, the no-flow convention sets \(S_{\mathrm{flows}}=1\)
-          only when no flow claim is being made; if support vanishes while
-          destructive flow is positive, \(S_{\mathrm{flows}}=0\);
+          Thus if support vanishes while destructive flow is positive,
+          \(S_{\mathrm{flows}}=0\);
     \item \(S_{\mathrm{coh}}(K,t)\) encodes global structural coherence, which may include connectedness of the relevant graphs, compatibility of thresholds and flows, and absence of contradictory constraints.
 \end{itemize}
 The continuumness-update operator \(U\), developed later in
@@ -394,7 +400,9 @@ Structurally, several regimes are distinguished:
     \item \textbf{Fusion:} axes and potentials combine to form a new continuum \(K_{\mathrm{fusion}}\) with merged axes and a new state space \(\Omega_{\mathrm{fusion}}\).
 \end{itemize}
 
-Interaction can itself induce dimensional transitions when mixed differences create new, previously unused axes, and drive tension above \(\Theta_{\mathrm{dim}}\).
+Interaction can itself induce dimensional transitions when mixed differences
+create new, previously unused axes and drive tension above
+\(\Theta_{\mathrm{dim}}\).
 
 \subsection{Vertical hierarchy \texorpdfstring{$K_0$–$K_{12}$}{K0--K12}}
 

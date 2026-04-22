@@ -24,12 +24,15 @@ the science appendices.
   \item[\(K(t)\)] Time-sliced continuum object obtained from a fixed continuum
         \(K\) at local time \(t\). If a chapter needs the internal state
         separately, it names that state as \(s(t)\in\Omega(K,t)\).
-  \item[\(\tau_{\mathrm{time}}(K)\)] Time-order or temporal-structure
-        component attached to \(K\) when the level has temporal dynamics. If
-        the level is atemporal, this component is absent or declared as the
-        trivial order by the local construction. Bare \(\tau\) may still name
-        a topology in local \(K_1\) constructions or a temporal constant when
-        the surrounding section declares that namespace explicitly.
+  \item[\(\tau(K)\)] Time-order or temporal-structure component attached to
+        \(K\) when the level has temporal dynamics. If the level is atemporal
+        or the local construction does not represent time, \(\tau(K)\) is left
+        undefined rather than silently replaced by a trivial order. Namespace
+        is fixed as follows: topology is written as a paired structure such as
+        \((X_1,\tau_1)\), temporal structure is written as \(\tau(K)\), and
+        temporal constants use decorated symbols such as
+        \(\tau_{\mathrm{spike}}\). Bare \(\tau\) has no theorem-bearing meaning
+        unless a local display explicitly binds it.
   \item[\(M_x\)] Embedding space for level \(K_x\).
   \item[\(M_x(t)\)] Time-indexed embedding space for \(K_x\) when the
         surrounding chapter allows the environment itself to vary.
@@ -43,29 +46,29 @@ the science appendices.
   \item[\(\mathbf{1}_{\{\Omega(K,t)\neq\emptyset\}}\)] Nonemptiness indicator for
         the time-slice admissible region: it is \(1\) exactly when
         \(\Omega(K,t)\neq\emptyset\) and \(0\) otherwise.
-  \item[\(\Sigma_{\Omega}(K;M_x)\)] Threshold-saturation locus of
-        \(\Omega(K)\) inside the declared ambient embedding space \(M_x\):
+  \item[\(\Sigma_{\Omega}(K_x;M_x)\)] Threshold-saturation locus of
+        \(\Omega(K_x)\) inside the declared ambient embedding space \(M_x\):
         \[
-          \Sigma_{\Omega}(K;M_x)=
-          \{s\in\overline{\Omega(K)}^{\,M_x}\mid
-          \exists i\in I_{\mathrm{act}}(K;M_x):\,f_i(s)=0\}.
+          \Sigma_{\Omega}(K_x;M_x)=
+          \{s\in\overline{\Omega(K_x)}^{\,M_x}\mid
+          \exists i\in I_{\mathrm{act}}(K_x;M_x):\,f_i(s)=0\}.
         \]
-        Here \(g_i,\Theta_i:\overline{\Omega(K)}^{\,M_x}\to\mathbb{R}\) are
+        Here \(g_i,\Theta_i:\overline{\Omega(K_x)}^{\,M_x}\to\mathbb{R}\) are
         evaluated on the same local state domain and \(f_i\) is the shifted
         residual form of a raw threshold inequality:
         \(f_i(s)=g_i(s)-\Theta_i(s)\). Thus \(f_i(s)\le0\) is the
         admissible-side convention and \(f_i(s)=0\) is equivalent to the
         pointwise raw saturation equation \(g_i(s)=\Theta_i(s)\). Scalar
         thresholds are the constant-function special case. Let
-        \(I_{\Theta}(K;M_x)\) be the finite threshold family declared for this
+        \(I_{\Theta}(K_x;M_x)\) be the finite threshold family declared for this
         local boundary computation. The active set is
         \[
-          I_{\mathrm{act}}(K;M_x)=
-          \left\{i\in I_{\Theta}(K;M_x)\,\middle|\,
+          I_{\mathrm{act}}(K_x;M_x)=
+          \left\{i\in I_{\Theta}(K_x;M_x)\,\middle|\,
           \begin{array}{l}
-          \exists s\in\overline{\Omega(K)}^{\,M_x}: f_i(s)=0,\\
+          \exists s\in\overline{\Omega(K_x)}^{\,M_x}: f_i(s)=0,\\
           \text{and every neighbourhood }U\ni s\text{ in }
-          \overline{\Omega(K)}^{\,M_x}\text{ contains a point }u\in U\\
+          \overline{\Omega(K_x)}^{\,M_x}\text{ contains a point }u\in U\\
           \text{with } f_j(u)\le0\text{ for all }j\ne i\text{ but }f_i(u)>0
           \end{array}\right\}.
         \]
@@ -73,22 +76,23 @@ the science appendices.
         removing that constraint would locally enlarge the admissible side.
         The same residual convention is used in the model and boundary
         chapters.
-  \item[\(\partial\Omega(K)\)] Topological boundary shorthand for the
-        admissible region, read relative to the declared ambient space:
+  \item[\(\partial\Omega(K_x)\)] Topological boundary shorthand for the
+        admissible region of the level-indexed continuum \(K_x\), read
+        relative to its declared ambient space:
         \[
-          \partial\Omega(K)=
-          \partial_{M_x}\Omega(K).
+          \partial\Omega(K_x)=
+          \partial_{M_x}\Omega(K_x).
         \]
-        The saturation locus \(\Sigma_{\Omega}(K;M_x)\) is a threshold-side
+        The saturation locus \(\Sigma_{\Omega}(K_x;M_x)\) is a threshold-side
         witness, not a synonym for this boundary. A local section may identify
         the two only after it states the required regularity and
         constraint-qualification assumptions; otherwise \(\Sigma_{\Omega}\)
         records threshold saturation and \(\partial\Omega\) records the
         topological boundary.
-  \item[\(\partial\Omega(K,t)\)] Time-indexed admissible boundary of \(K\)
-        at time \(t\), equivalently \(\partial_{M_x(t)}\Omega(K,t)\) under
-        the threshold family active at that slice when the ambient space varies.
-        If the surrounding chapter does not vary the ambient space, the
+  \item[\(\partial\Omega(K_x,t)\)] Time-indexed admissible boundary of \(K_x\)
+        at time \(t\), equivalently \(\partial_{M_x(t)}\Omega(K_x,t)\) under
+        the threshold family active at that slice when the ambient space
+        varies. If the surrounding chapter does not vary the ambient space, the
         shorthand is read relative to the fixed \(M_x\).
   \item[\(A(K)\)] Set of axes of incompatible differences:
         \(A(K) = \{A_1,\dots,A_n\}\).

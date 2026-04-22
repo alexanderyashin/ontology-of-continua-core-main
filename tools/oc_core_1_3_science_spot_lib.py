@@ -5075,7 +5075,9 @@ def render_toe_synthesis_tex(spot: dict[str, Any]) -> str:
         (
             "The title and scope of this chapter follow the canonical SPOT "
             "record; the opening gate paragraph states the release status, "
-            "and later K-level rows repeat only the status needed to keep each row auditable."
+            "and the K-level rows then give the theorem claims, parameter laws, "
+            "observable bindings, numerical subsets, falsifiers, and packet "
+            "bindings needed to keep the synthesis auditable."
         ),
         "",
         rf"\subsection{{{tex_escape(branding['public_gate_title'])}}}",
