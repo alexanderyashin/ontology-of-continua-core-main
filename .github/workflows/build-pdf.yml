@@ -1,9 +1,10 @@
-name: Build Core PDF
+name: Build And Validate OC Core 1.3 Public Release Surface
 
 on:
   push:
     branches: [ main ]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -16,16 +17,32 @@ jobs:
       - name: Install TeX Live
         run: |
           sudo apt-get update
-          sudo apt-get install -y texlive-full latexmk
+          sudo apt-get install -y texlive-full latexmk biber zip
 
       - name: Make build script executable
         run: chmod +x build_core.sh
 
-      - name: Build Core 1.1 PDF via build_core.sh
+      - name: Build canonical Core PDF
         run: ./build_core.sh
 
-      - name: Upload PDF artifact
+      - name: Validate Core 1.3 science bundle
+        run: python tools/validate_oc_core_1_3_science_spot.py
+
+      - name: Materialize public release-hardening surfaces
+        run: python tools/build_oc_public_repo_release_hardening_v8.py
+
+      - name: Stage English-only Zenodo package
+        run: python tools/stage_oc_core_1_3_zenodo_en_release.py --zip-path build_oc_core_1_3_zenodo_en_only.zip
+
+      - name: Stage explicit reproducibility archive
+        run: python tools/stage_oc_public_release_artifacts.py --zip-path build_oc_public_release_archive.zip
+
+      - name: Upload public build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: OK-Core-1.1-PDF
-          path: build/main.pdf
+          name: OC Public Release Surfaces
+          path: |
+            build/main.pdf
+            build_oc_core_1_3_zenodo_en_only.zip
+            build_oc_public_release_archive.zip
+            releases/oc_core_1_3/editorial/OC_PUBLIC_*

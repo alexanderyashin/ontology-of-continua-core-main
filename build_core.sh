@@ -14,14 +14,18 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT_DIR"
 
+for required_cmd in python xelatex biber; do
+    if ! command -v "$required_cmd" >/dev/null 2>&1; then
+        echo "ERROR: Required command not found in PATH: $required_cmd"
+        exit 1
+    fi
+done
+
 echo "===[1/4] Generate missing .tex from YAML ====================="
 python tools/generate_core_from_yaml.py master_core_structure.yaml
 
 echo "===[2/4] Validate structure =================================="
-if ! python tools/validate_core_structure.py; then
-    echo "[WARN] Validator reported issues (missing files)."
-    echo "       Продолжаю сборку, но лучше проверить лог."
-fi
+python tools/validate_core_structure.py
 
 echo "===[2.5/4] Fix math in headings/captions ====================="
 python tools/fix_math_in_headings.py
@@ -45,7 +49,8 @@ if ls bib/*.bib >/dev/null 2>&1; then
     cp bib/*.bib build/bib/
     echo "[bib] Copied bibliography files into build/bib/"
 else
-    echo "[bib] WARNING: No .bib files found in bib/ directory"
+    echo "ERROR: No .bib files found in bib/ directory"
+    exit 1
 fi
 
 # Clean old auxiliary files
@@ -74,7 +79,8 @@ if [ -f build/main.bcf ]; then
         biber main
     )
 else
-    echo "[WARN] build/main.bcf not found – skipping biber!"
+    echo "ERROR: build/main.bcf not found after first XeLaTeX pass"
+    exit 1
 fi
 
 
@@ -100,6 +106,11 @@ xelatex \
     -file-line-error \
     -output-directory=build \
     main.tex
+
+if [ ! -f build/main.pdf ]; then
+    echo "ERROR: build/main.pdf was not produced"
+    exit 1
+fi
 
 echo "==============================================================="
 echo " Build finished successfully!"

@@ -4,6 +4,7 @@ import argparse
 import json
 import re
 import shutil
+import zipfile
 from pathlib import Path
 from typing import Any
 
@@ -11,6 +12,7 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MANIFEST = REPO_ROOT / "releases" / "oc_core_1_3" / "OC_CORE_1_3_ZENODO_EN_ONLY_MANIFEST.json"
 DEFAULT_STAGE_DIR = REPO_ROOT / "build_oc_core_1_3_zenodo_en_only"
+ZIP_TIMESTAMP = (2026, 4, 23, 0, 0, 0)
 
 LANGUAGE_PATH_PATTERN = re.compile(
     r"(^|[/\\_-])(ru|de)(?=\.|_|-|[/\\]|$)|(^|[/\\_-])(RU|DE)(?=\.|_|-|[/\\]|$)"
@@ -105,10 +107,21 @@ def validate_staged_paths(stage_dir: Path) -> None:
         raise SystemExit(f"Staged output contains RU/DE-marked paths:\n{preview}")
 
 
+def write_zip(stage_dir: Path, zip_path: Path) -> None:
+    zip_path.parent.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+        for file_path in sorted(path for path in stage_dir.rglob("*") if path.is_file()):
+            rel_path = file_path.relative_to(stage_dir).as_posix()
+            info = zipfile.ZipInfo(rel_path, date_time=ZIP_TIMESTAMP)
+            info.compress_type = zipfile.ZIP_DEFLATED
+            archive.writestr(info, file_path.read_bytes())
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Stage the OC Core 1.3 English-only Zenodo upload package.")
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     parser.add_argument("--stage-dir", type=Path, default=DEFAULT_STAGE_DIR)
+    parser.add_argument("--zip-path", type=Path, default=None)
     return parser.parse_args()
 
 
@@ -123,9 +136,13 @@ def main() -> int:
     prepare_stage_dir(stage_dir)
     copied = copy_manifest_files(manifest, stage_dir)
     validate_staged_paths(stage_dir)
+    if args.zip_path is not None:
+        write_zip(stage_dir, args.zip_path.resolve())
 
     print(f"Staged {len(copied)} EN-only files into {repo_rel(stage_dir)}")
     print(f"Manifest: {repo_rel(manifest_path)}")
+    if args.zip_path is not None:
+        print(f"Archive: {args.zip_path.resolve()}")
     return 0
 
 

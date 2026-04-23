@@ -1,209 +1,128 @@
 # Ontology of Continua — Core public source corpus
-Canonical LaTeX source environment for the OC core releases
 
-This repository hosts the canonical, deterministic, and fully reproducible
-LaTeX environment for building the **Ontology of Continua — Core** corpus.
-It preserves the frozen **Core 1.2** baseline as the archival public source
-witness and now also carries the source-first **Core 1.3** scholarly release
-route built from that same corpus.
+This repository is the canonical public LaTeX source corpus for the
+**Ontology of Continua — Core** line and the public release bundle for
+**Core 1.3**.
 
-Core 1.2 remains the first *axiomatically closed* and *mathematically complete*
-public OC baseline. Core 1.3 rebuilds the outward publication contour on top of
-that baseline through a dual-track release architecture:
+It is no longer accurate to describe this repo as a frozen Core 1.1 shell or a
+Core 1.2 architecture-freeze witness. The repository now carries three
+distinct but connected layers:
 
-- a monograph-scale master volume built directly from the LaTeX corpus;
-- a narrower journal-core extraction derived from the master;
-- supporting release materials, figures, appendices, and publication metadata.
+1. the canonical source corpus under the root source tree (`content/`,
+   `appendix/`, `bib/`, `figures/`, `main.tex`, `preamble.tex`);
+2. the deterministic build and validation pipeline under `build_core.sh`,
+   `.github/workflows/`, and `tools/`;
+3. the outward Core 1.3 release bundle under `releases/oc_core_1_3/`,
+   including editorial `_latest` surfaces, public hostile-review packs, and
+   release metadata.
 
-Everything required to build the PDF is contained inside this repository:
+The public/private boundary matters:
 
-- `main.tex` — single master document  
-- `preamble.tex` — global LaTeX configuration  
-- modular content structure inside `content/`  
-- YAML → Python → `_auto_core_inputs.tex` pipeline  
-- GitHub Actions CI workflow  
-- Zenodo metadata integration  
-- CC BY 4.0 open-access license  
+- this repository is the public source and release surface;
+- `releases/oc_core_1_3/editorial/` contains public editorial surfaces and
+  packaged mirrors that are allowed to exist in the public bundle;
+- private Logion governance, owner, allocator, and revenue surfaces do **not**
+  belong here unless a specific public editorial file is an explicitly declared
+  packaged mirror.
 
-This repository is under **ARCHITECTURE FREEZE (Core 1.2)**.  
-Only content files (`content/*.tex`) may change;  
-pipeline, structure and LaTeX architecture are locked.
+## What the repository currently contains
 
----
+### Canonical source corpus
 
-## 1. What’s new in Core 1.2
+- `main.tex` and `preamble.tex` as the root LaTeX entrypoints
+- scientific content in `content/`
+- appendices in `appendix/`
+- bibliography in `bib/`
+- figures in `figures/`
+- section ordering in `master_core_structure.yaml`
 
-Core 1.2 extends the structural foundation introduced in Core 1.1 and turns it
-into a fully closed formal theory. Key additions:
+### Build and validation pipeline
 
-### **Axiomatics**
-- complete axiom set covering  
-  existence, admissible states, axes, potentials, flows, thresholds,  
-  boundaries, cycles, continuumness, and evolution;  
-- fully formalised dimensional transitions and death conditions.
+- `build_core.sh` as the canonical local PDF build entrypoint
+- `tools/generate_core_from_yaml.py`
+- `tools/validate_core_structure.py`
+- `tools/generate_auto_inputs.py`
+- `tools/fix_math_in_headings.py`
+- `tools/validate_oc_core_1_3_science_spot.py`
+- `tools/run_oc_core_1_3_cerberus_review.py`
+- `tools/stage_oc_core_1_3_zenodo_en_release.py`
+- `.github/workflows/build-pdf.yml`
+- `.github/workflows/core-release-on-tag.yml`
 
-### **Universal operators**
-- the operator suite  
-  **F, G, H, Q, R, S, U**  
-  governing evolution of axes, potentials, thresholds, flows, boundaries,  
-  cycles and complexity.
+### Core 1.3 release bundle
 
-### **Theorem corpus**
-- monotonicity of dimension  
-- impossibility of spontaneous dimension creation  
-- death through incompatibility with embedding space  
-- universal law of complexity growth  
-- structural landscape of admissible configurations
-
-### **Complexity measure**
-- formal definition of the OC complexity metric `S`  
-- integration with operator `U`  
-- relation to cycles, thresholds and Ω-geometry
-
-### **Hierarchy K0–K12**
-- full, vertically consistent continuum ladder  
-- transitions, operators, thresholds, cycles, admissible state geometry  
-- embedding spaces `M0 … M12`
-
-### **Observed-universe module**
-- empirical constants  
-- cosmological and field-theoretic parameters  
-- mapping of physical reality to an OC continuum instance
-
----
-
-## 2. Current release routes
-
-### Core 1.2 archival route
-
-The historical Core 1.2 PDF is built automatically on every push to `main`.
-
-Output:
-
-build/main.pdf
-
-### Core 1.3 scholarly route
-
-The Core 1.3 release bundle is materialized under:
+The outward Core 1.3 bundle lives in:
 
 `releases/oc_core_1_3/`
 
-This bundle contains:
+It contains:
 
-- the LaTeX-derived master monograph;
-- the journal-core extraction;
-- editorial and figure assets;
-- outward release metadata for the public repository and Zenodo route.
+- the master monograph and journal-core release routes;
+- public editorial `_latest` surfaces;
+- public hostile-review and dossier packages;
+- Zenodo metadata and the English-only upload manifest;
+- release-facing assets and packaged mirrors needed for public review.
 
-## 3. Local build instructions
+### Derived build and staging directories
+
+The repository also contains multiple `build_*` directories and historical
+staging folders from prior review and release passes. They are derived outputs,
+not canonical source authority. Public release packaging is controlled by
+explicit manifests and archive contracts rather than by sweeping up whatever
+happens to be present in those directories.
+
+## Current Core 1.3 release routes
+
+- **Canonical source-first route**: the root LaTeX corpus and release bundle
+  together define the public Core 1.3 surface.
+- **Bundle route**: `releases/oc_core_1_3/` materializes the outward package.
+- **Zenodo English-only route**: staged by
+  `tools/stage_oc_core_1_3_zenodo_en_release.py` from
+  `releases/oc_core_1_3/OC_CORE_1_3_ZENODO_EN_ONLY_MANIFEST.json`.
+- **Public hardening route**: materialized by
+  `tools/build_oc_public_repo_release_hardening_v8.py`, which emits the public
+  audit, artifact-map, archive-contract, parity, and critique-readiness
+  surfaces under `releases/oc_core_1_3/editorial/`.
+
+## Local build and validation
 
 Requirements:
 
-- TeX Live 2023+ (xelatex + biber)
-- latexmk (recommended)
+- TeX Live 2023+ with `xelatex`
+- `biber`
+- Python 3
 
-### One-command build (recommended):
+Recommended build:
 
+```bash
 ./build_core.sh
+```
 
-### Manual sequence:
+Public release validation:
 
-latexmk -xelatex -interaction=nonstopmode
--output-directory=build main.tex
+```bash
+python tools/validate_oc_core_1_3_science_spot.py
+python tools/build_oc_public_repo_release_hardening_v8.py
+python tools/stage_oc_core_1_3_zenodo_en_release.py --zip-path build_oc_core_1_3_zenodo_en_only.zip
+python tools/stage_oc_public_release_artifacts.py --zip-path build_oc_public_release_archive.zip
+```
 
-Cleanup:
-latexmk -C -output-directory=build
+Tag release is lawful only when
+`releases/oc_core_1_3/editorial/OC_PUBLIC_RELEASE_GATE_CERT_latest.json`
+reports `release_gate_status = RELEASE_SAFE`.
 
----
+## Structure overview
 
-## 4. Repository structure (short overview)
+- `content/` and `appendix/`: authored scientific source
+- `tools/`: generation, validation, Cerberus, staging, and public-release
+  hardening helpers
+- `.github/workflows/`: CI and tag-release execution
+- `releases/oc_core_1_3/`: outward release bundle
+- `releases/oc_core_1_3/editorial/`: public editorial surfaces and critique
+  packs
 
-### Root:
+For the authoritative repo structure and build law, see:
 
-- `main.tex` — master entry  
-- `preamble.tex` — global configuration  
-- `README.md` — this document  
-- `ARCHITECTURE.md` — repo structure specification  
-- `CONVENTIONS.md` — naming/style rules  
-- `BUILD_NOTES.md` — build system specification  
-- `master_core_structure.yaml` — source of truth for content structure  
-- `.zenodo.json` — metadata for DOI  
-- `build_core.sh` — *only allowed* build entry  
-- `.github/workflows/*.yml` — CI/CD
-
-### Content (`content/`):
-
-Core scientific text, including:
-
-- `frontmatter.tex`  
-- classical chapters (`01_intro.tex` … `06_conclusion.tex`)  
-- extended chapters (`08_boundary.tex` … `16_modules_master.tex`)  
-- new Core 1.2 modules:
-  - `axioms_full.tex`
-  - `operators_universal.tex`
-  - `theorems_master.tex`
-  - `complexity_S.tex`
-- K-levels (`k_levels/`)
-- M-spaces (`m_spaces/`)
-- cross-level transitions (`crossk/`)
-- cycles, experiments, falsifiability, predictions, processes
-- observed-universe module: `content/toe/`
-
-Automatically generated include list:
-
-content/_auto_core_inputs.tex
-
-Do not edit this file manually.
-
-### Appendix:
-
-- `A_notation.tex`
-- `B_axioms_full.tex`
-- `C_klevels_tables.tex`
-- `toe_data.tex` (observed-universe constants)
-
-### Figures:
-
-Stored only in `figures/`.
-
----
-
-## 5. Using this repository as a template
-
-To create Core 1.3 or any extension (Physics Run, Chemistry Run, K-level expansions):
-
-1. Clone this repository.  
-2. Update `content/frontmatter.tex`.  
-3. Add/modify scientific content inside `content/`.  
-4. Place all figures in `figures/`.  
-5. Add bibliography entries to `bib/references.bib`.  
-6. If publishing separately, update `.zenodo.json`.  
-
-### **Do not modify (frozen architecture):**
-
-- `main.tex`  
-- `preamble.tex`  
-- YAML → auto-input pipeline  
-- build scripts  
-- CI workflows  
-
-These components guarantee reproducibility and must remain unchanged.
-
----
-
-## 6. License and metadata
-
-License: **CC BY 4.0**
-
-Maintainer: **Alexander Yashin**  
-ORCID: **0009-0008-6166-0914**
-
----
-
-This README is the authoritative entry point for the Core 1.2 repository.  
-For architectural details, always refer to:
-
-- **ARCHITECTURE.md**  
-- **CONVENTIONS.md**  
-- **BUILD_NOTES.md**
-
+- `ARCHITECTURE.md`
+- `BUILD_NOTES.md`
+- `CONVENTIONS.md`

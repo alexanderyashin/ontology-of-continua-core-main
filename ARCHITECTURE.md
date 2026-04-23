@@ -1,274 +1,175 @@
-# Repository Architecture — Ontology of Continua Core 1.1
+# Repository Architecture — Ontology of Continua Core public source and release corpus
 
-This document defines the canonical architecture of the repository.
-It serves as the stable reference for all future Core releases and domain-specific preprints.
+This document defines the current canonical architecture of the public
+`ontology-of-continua-core-main` repository as it exists for the Core 1.3
+public source and release program.
 
-The structure described here is authoritative.
-All updates to the repository must also update this file.
+The repository is source-first, but it is not source-only. It contains:
 
-------------------------------------------------------------
-1. High-Level Repository Structure
-------------------------------------------------------------
+1. the public scientific source corpus;
+2. the deterministic build, validation, and release toolchain;
+3. the outward Core 1.3 release bundle and public editorial surfaces.
 
+## 1. Top-level architecture
+
+```text
 /
-  main.tex
-  preamble.tex
-  build_core.sh
-  README.md
-  ARCHITECTURE.md
-  CONVENTIONS.md
-  BUILD_NOTES.md
-  LICENSE
-  .gitignore
-  .zenodo.json
+  .github/
+    workflows/
+      build-pdf.yml
+      core-release-on-tag.yml
 
-  master_core_structure.yaml
-
-  content/
-    frontmatter.tex
-    _auto_core_inputs.tex        (generated automatically; do NOT edit)
-
-    01_intro.tex
-    02_background.tex
-    03_model.tex
-    04_results.tex
-    05_discussion.tex
-    06_conclusion.tex
-    07_figures.tex
-
-    placeholders/
-      fig_placeholder.pdf
-      table_placeholder.tex
-      section_template.tex
-
-  figures/
-    (all real figures go here)
-
+  appendix/
   bib/
-    references.bib
+  content/
+  figures/
+  releases/
+    oc_core_1_3/
+      assets/
+      editorial/
+      journal_core/
+      manuscripts/
+      monograph/
+      .zenodo.json
+      OC_CORE_1_3_ZENODO_EN_ONLY_MANIFEST.json
+      README.md
 
   tools/
     generate_core_from_yaml.py
     validate_core_structure.py
     generate_auto_inputs.py
+    fix_math_in_headings.py
+    validate_oc_core_1_3_science_spot.py
+    run_oc_core_1_3_cerberus_review.py
+    stage_oc_core_1_3_zenodo_en_release.py
+    stage_oc_public_release_artifacts.py
+    build_oc_public_repo_release_hardening_v8.py
+    ...
 
-  build/
-    (generated automatically)
-    logs/
-      compile.log
+  main.tex
+  preamble.tex
+  master_core_structure.yaml
+  build_core.sh
+  README.md
+  ARCHITECTURE.md
+  BUILD_NOTES.md
+  CONVENTIONS.md
+  LICENSE
+  .zenodo.json
+  VERSION
+```
 
-  .github/
-    workflows/
-      build-core.yml
+The repository may also contain many `build_*` and review/staging directories
+from prior release waves. Those are derived residues, not architectural source
+authority.
 
-------------------------------------------------------------
-2. Core Build Logic
-------------------------------------------------------------
+## 2. Canonical source-owned scientific layer
 
-Core 1.1 uses a strict, reproducible, YAML-driven build architecture.
+The canonical public science source layer consists of:
 
-The ONLY valid build entry point is:
-
-    ./build_core.sh
-
-This script performs four steps:
-
-1. Generate missing .tex files from master_core_structure.yaml  
-   (tools/generate_core_from_yaml.py)
-
-2. Validate repository structure  
-   (tools/validate_core_structure.py)
-
-3. Generate content/_auto_core_inputs.tex  
-   (tools/generate_auto_inputs.py)
-
-4. Compile main.tex via latexmk using XeLaTeX  
-   Output: build/main.pdf
-
-Users MUST NOT run latexmk directly, except for debugging.
-
-------------------------------------------------------------
-3. Main LaTeX Files
-------------------------------------------------------------
-
-### main.tex
-The single entry point that constructs the entire Core 1.1 document.
-The order is frozen:
-
-  \input{preamble}
-  \input{content/frontmatter.tex}
-  \input{content/_auto_core_inputs.tex}
-  \input{content/07_figures.tex}
-  \printbibliography
-
-Direct modification requires approval from OK Main HQ + TOC HQ.
-
-### preamble.tex
-Global configuration layer:
-- XeLaTeX engine
-- fontspec (DejaVu fonts)
-- polyglossia
-- amsmath / amsthm / mathtools
-- graphicx
-- hyperref
-- cleveref
-- csquotes
-- biblatex
-
-This file is part of the frozen architecture and must remain stable.
-
-------------------------------------------------------------
-4. YAML Structure and Auto-Generated Inputs
-------------------------------------------------------------
-
-### master_core_structure.yaml  
-Defines the ordered list of Core sections (except frontmatter and figures).
-
-### content/_auto_core_inputs.tex  
-Generated automatically from YAML.
-Contains ordered \input{…} statements for all Core sections.
+- `main.tex`
+- `preamble.tex`
+- `content/`
+- `appendix/`
+- `bib/`
+- `figures/`
+- `master_core_structure.yaml`
 
 Rules:
 
-- DO NOT edit this file manually.
-- DO NOT commit edits to this file.
-- It is always regenerated by ./build_core.sh.
+- authored science lives in `content/` and `appendix/`;
+- figures live in `figures/`;
+- bibliography lives in `bib/references.bib`;
+- generated include files such as `content/_auto_core_inputs.tex` are derived
+  outputs, even when checked in for reproducibility.
 
-------------------------------------------------------------
-5. Content Directory (content/)
-------------------------------------------------------------
+## 3. Build and validation layer
 
-Contains all scientific content:
+The canonical local build entrypoint is:
 
-- frontmatter.tex
-- numbered section files (NN_name.tex)
-- automatically generated _auto_core_inputs.tex
-- 07_figures.tex (static part of document)
-- placeholders for early drafts
+```text
+./build_core.sh
+```
 
-Only numbered sections should contain scientific text.
+The build layer includes:
 
-No figures, images, binaries, or external files are allowed here.
+- source generation and include regeneration;
+- structure validation;
+- heading math normalization;
+- XeLaTeX + biber compilation;
+- fail-closed output checks.
 
-------------------------------------------------------------
-6. Figures (figures/)
-------------------------------------------------------------
+Release-critical validation is performed by:
 
-All figures must be stored here.
+- `tools/validate_oc_core_1_3_science_spot.py`
+- `tools/build_oc_public_repo_release_hardening_v8.py`
+- `tools/stage_oc_core_1_3_zenodo_en_release.py`
+- `tools/stage_oc_public_release_artifacts.py`
 
-Allowed formats:
-- pdf (preferred)
-- png
-- jpg
+The CI and tag-release workflows must call these explicit tools rather than
+discovering artifacts ad hoc.
 
-No figures should be inside content/ except placeholders/.
+## 4. Core 1.3 release bundle layer
 
-------------------------------------------------------------
-7. Bibliography (bib/)
-------------------------------------------------------------
+`releases/oc_core_1_3/` is the outward public release bundle.
 
-references.bib is the single bibliography database.
+Its sublayers are:
 
-Controlled by:
-- biblatex
-- biber
+- `monograph/`: release-facing monograph assets and source package
+- `journal_core/`: bounded journal-core route
+- `manuscripts/`: flagship manuscript route
+- `assets/`: outward visual/table assets
+- `editorial/`: public editorial surfaces, public critique packs, and machine
+  audit artifacts
 
-Biber is invoked automatically by latexmk via build_core.sh.
+`releases/oc_core_1_3/editorial/` is the authoritative home for public
+machine-readable release hardening, safety, critique-readiness, and parity
+surfaces.
 
-------------------------------------------------------------
-8. Tools (tools/)
-------------------------------------------------------------
+## 5. Public/private boundary
 
-### generate_core_from_yaml.py
-Creates missing .tex files based on master_core_structure.yaml.
+This public repo may contain:
 
-### validate_core_structure.py
-Validates:
-- YAML correctness
-- section presence
-- missing files
-- consistency
+- source-owned science files;
+- public editorial surfaces;
+- packaged mirrors explicitly intended for public release;
+- hostile-review/public critique packs.
 
-Does NOT stop build by default.
+This public repo must not contain:
 
-### generate_auto_inputs.py
-Creates content/_auto_core_inputs.tex.
+- private Logion owner boards;
+- private allocator or revenue wedges;
+- internal-only governance queues;
+- any public artifact stronger than its source science or stronger than the
+  declared public/private parity contract.
 
-This file must never be edited manually.
+If an editorial JSON surface declares a `metadata.surface` path under
+`logion/...`, that public file is treated as a packaged mirror or declared
+mirror target, not as a blanket authorization to expose the rest of the
+private tree.
 
-------------------------------------------------------------
-9. Build Directory (build/)
-------------------------------------------------------------
+## 6. Reproducibility and release packaging
 
-Generated automatically by latexmk.
+Release packaging is explicit and deterministic:
 
-Contains:
-- main.pdf
-- main.log
-- main.aux
-- main.toc
-- main.bbl
-- main.xdv
-- logs/compile.log
+- the English-only Zenodo package is staged from
+  `OC_CORE_1_3_ZENODO_EN_ONLY_MANIFEST.json`;
+- the public reproducibility archive is staged from
+  `OC_PUBLIC_RELEASE_ARTIFACT_MAP_latest.json`;
+- tag release must read deterministic asset refs from the artifact map and
+  require `OC_PUBLIC_RELEASE_GATE_CERT_latest.json`.
 
-The entire build/ directory is ignored by Git.
+Neither CI nor tag release may use `find | head`, wildcard-only discovery, or
+implicit repo-wide zipping as release authority.
 
-------------------------------------------------------------
-10. GitHub Actions (CI Pipeline)
-------------------------------------------------------------
+## 7. Workflow provenance
 
-File:
+`.github/workflows/` is part of the reproducibility story and belongs in the
+explicit reproducibility archive. Workflow provenance is not optional metadata;
+it is part of the release contract.
 
-  .github/workflows/build-core.yml
+## 8. Drift handling
 
-Workflow steps:
-
-1. Checkout repository
-2. Install TeX Live + latexmk
-3. chmod +x build_core.sh
-4. Run ./build_core.sh
-5. Upload build/main.pdf as artifact
-
-This ensures reproducible builds for every commit to main.
-
-No CI step may call latexmk or generators directly.
-
-------------------------------------------------------------
-11. Metadata (.zenodo.json)
-------------------------------------------------------------
-
-Defines:
-- title, version
-- creators + ORCID
-- license (CC-BY-4.0)
-- description
-- DOI integration
-
-Zenodo snapshots GitHub releases automatically.
-
-------------------------------------------------------------
-12. Repository Conventions (short reference)
-------------------------------------------------------------
-
-- All section files live in content/.
-- Filenames follow NN_name.tex.
-- Figures go only into figures/.
-- build/ is not tracked.
-- master_core_structure.yaml defines section order.
-- auto-generated files must not be edited.
-- main.tex and preamble.tex are frozen.
-
-------------------------------------------------------------
-13. Purpose
-------------------------------------------------------------
-
-This architecture guarantees:
-
-- structural stability
-- reproducibility
-- CI determinism
-- clean separation of content and tooling
-- seamless Zenodo archiving
-- long-term maintainability
-
-This architecture is the foundation for all future versions of the Ontology of Continua Core.
+Docs, workflows, and release contracts must describe the repository that
+actually exists. If Core 1.3 release architecture changes, this file,
+`README.md`, and `BUILD_NOTES.md` must be updated together.

@@ -1,0 +1,68 @@
+{
+  "archive_asset_path_ref": "build_oc_public_release_archive.zip",
+  "archive_contract_id": "OC_PUBLIC_RELEASE_ARCHIVE_CONTRACT",
+  "canonical_archive_helper": "tools/stage_oc_public_release_artifacts.py",
+  "canonical_stage_helper": "tools/stage_oc_core_1_3_zenodo_en_release.py",
+  "excluded_by_omission": [
+    "$build/",
+    "build/",
+    "build_*",
+    "__pycache__/",
+    "*.aux",
+    "*.bcf",
+    "*.blg",
+    "*.bbl",
+    "*.log",
+    "*.out",
+    "*.run.xml",
+    "*.toc"
+  ],
+  "generated_at_utc": "2026-04-23T19:11:50Z",
+  "included_path_refs": [
+    ".github/workflows/build-pdf.yml",
+    ".github/workflows/core-release-on-tag.yml",
+    ".zenodo.json",
+    "ARCHITECTURE.md",
+    "BUILD_NOTES.md",
+    "CONVENTIONS.md",
+    "LICENSE",
+    "README.md",
+    "VERSION",
+    "appendix",
+    "bib",
+    "build_core.sh",
+    "content",
+    "figures",
+    "main.tex",
+    "master_core_structure.yaml",
+    "preamble.tex",
+    "releases/oc_core_1_3",
+    "tools/build_oc_core_1_3_science_spot.py",
+    "tools/build_oc_public_repo_release_hardening_v8.py",
+    "tools/fix_math_in_headings.py",
+    "tools/generate_auto_inputs.py",
+    "tools/generate_core_from_yaml.py",
+    "tools/oc_core_1_3_cerberus_lib.py",
+    "tools/oc_core_1_3_science_spot_lib.py",
+    "tools/run_oc_core_1_3_cerberus_review.py",
+    "tools/stage_oc_core_1_3_zenodo_en_release.py",
+    "tools/stage_oc_public_release_artifacts.py",
+    "tools/validate_core_structure.py",
+    "tools/validate_oc_core_1_3_science_spot.py"
+  ],
+  "notes": [
+    "The reproducibility archive is explicit rather than repo-wide. Generated build residues and scratch files are excluded by omission.",
+    "Workflow provenance is included so the public release archive can explain how CI, validation, and tag-release gates are executed."
+  ],
+  "repo_sha": "857547ef6254af052c8aad7359616a0042180057",
+  "schema_id": "OC_PUBLIC_RELEASE_ARCHIVE_CONTRACT_v1",
+  "source_zip_policy": "EXPLICIT_ARTIFACT_MAP_WITH_WORKFLOW_PROVENANCE_INCLUDED",
+  "status": "RELEASE_SAFE",
+  "workflow_provenance_policy": {
+    "required_refs": [
+      ".github/workflows/build-pdf.yml",
+      ".github/workflows/core-release-on-tag.yml"
+    ],
+    "status": "INCLUDED"
+  }
+}

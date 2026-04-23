@@ -1,0 +1,53 @@
+{
+  "board_id": "OC_PUBLIC_REPO_RELEASE_SAFETY_BOARD",
+  "generated_at_utc": "2026-04-23T19:11:50Z",
+  "repo_sha": "857547ef6254af052c8aad7359616a0042180057",
+  "rows": [
+    {
+      "check_id": "DOCS_TRUTH",
+      "detail": "Top-level docs align to actual Core 1.3 repo reality.",
+      "status": "INSTITUTE_GRADE_PUBLIC_SURFACE"
+    },
+    {
+      "check_id": "SCIENCE_BUNDLE_INTERNAL_CONSISTENCY",
+      "detail": "Existing Core 1.3 science bundle remains internally consistent.",
+      "status": "RELEASE_SAFE"
+    },
+    {
+      "check_id": "CERBERUS_HEAD_SYNC",
+      "detail": "Current Cerberus latest bundle is head-synced and clean only when the status is RELEASE_SAFE.",
+      "status": "RELEASE_SAFE"
+    },
+    {
+      "check_id": "BUILD_SCRIPT_FAIL_CLOSED",
+      "detail": "build_core.sh no longer tolerates validator or build-critical drift.",
+      "status": "RELEASE_SAFE"
+    },
+    {
+      "check_id": "BUILD_WORKFLOW_HARDENED",
+      "detail": "CI build produces validated public release artifacts.",
+      "status": "RELEASE_SAFE"
+    },
+    {
+      "check_id": "TAG_RELEASE_HARDENED",
+      "detail": "Tag release reads deterministic assets and requires a release-safe gate cert.",
+      "status": "RELEASE_SAFE"
+    },
+    {
+      "check_id": "ARCHIVE_CONTRACT",
+      "detail": "Reproducibility archive contract is explicit and includes workflow provenance.",
+      "status": "RELEASE_SAFE"
+    },
+    {
+      "check_id": "PUBLIC_PRIVATE_PARITY",
+      "detail": "Declared public/private mirror parity is machine-detectable.",
+      "status": "PARTIALLY_HARDENED"
+    }
+  ],
+  "schema_id": "OC_PUBLIC_REPO_RELEASE_SAFETY_BOARD_v1",
+  "summary": {
+    "partially_hardened_total": 1,
+    "status": "PARTIALLY_HARDENED",
+    "unsafe_total": 0
+  }
+}

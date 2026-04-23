@@ -1,0 +1,16 @@
+# OC Public Repo Audit Matrix
+
+- generated_at_utc: 2026-04-23T19:11:50Z
+- repo_sha: 857547ef6254af052c8aad7359616a0042180057
+- branch: core-1.3-public-release-hardening-v8
+
+- requirement_id=V8_REQ_001; status=IMPLEMENTED; description=README reflects Core 1.3 public-source reality instead of stale Core 1.2 freeze language.; evidence_ref=README.md; remediation=Keep the repo entrypoint aligned to the real Core 1.3 source corpus and public/private boundary.
+- requirement_id=V8_REQ_002; status=IMPLEMENTED; description=ARCHITECTURE.md reflects actual Core 1.3 repository architecture.; evidence_ref=ARCHITECTURE.md; remediation=Remove Core 1.1-only architecture claims and describe current source/build/release layers.
+- requirement_id=V8_REQ_003; status=IMPLEMENTED; description=BUILD_NOTES.md reflects the real Core 1.3 fail-closed build and release flow.; evidence_ref=BUILD_NOTES.md; remediation=Document the actual build sequence, validation path, and release gate.
+- requirement_id=V8_REQ_004; status=IMPLEMENTED; description=build_core.sh fails closed on validator/build-critical failures.; evidence_ref=build_core.sh; remediation=Remove warning-only continuation and fail on missing bibliography, missing BCF, or missing PDF.
+- requirement_id=V8_REQ_005; status=IMPLEMENTED; description=build-pdf workflow performs build plus public-release validation and staging.; evidence_ref=.github/workflows/build-pdf.yml; remediation=Use the v8 builder and stage helpers so CI produces auditable public artifacts.
+- requirement_id=V8_REQ_006; status=IMPLEMENTED; description=Tag release is deterministic, gate-aware, and no longer uses find/head selection.; evidence_ref=.github/workflows/core-release-on-tag.yml; remediation=Read deterministic asset refs from the artifact map and require a release-safe gate cert.
+- requirement_id=V8_REQ_007; status=IMPLEMENTED; description=Explicit public release artifact map and archive contract are materialized.; evidence_ref=releases/oc_core_1_3/editorial/OC_PUBLIC_RELEASE_ARTIFACT_MAP_latest.json; remediation=Keep release packaging explicit and source-first.
+- requirement_id=V8_REQ_008; status=IMPLEMENTED; description=Public/private parity drift is machine-detectable.; evidence_ref=releases/oc_core_1_3/editorial/OC_PUBLIC_PRIVATE_DRIFT_AUDIT_latest.json; remediation=Only declared packaged mirrors may track private authority; divergence must fail closed.
+- requirement_id=V8_REQ_009; status=IMPLEMENTED; description=Public critique intake, rebuttal prep, and Logion bridge surfaces are present.; evidence_ref=releases/oc_core_1_3/editorial/OC_PUBLIC_CRITIQUE_TO_LOGION_BRIDGE_SPEC.md; remediation=Keep the hostile-review public lane activation-ready and bounded.
+- requirement_id=V8_REQ_010; status=IMPLEMENTED; description=Final public control-plane family is materialized.; evidence_ref=releases/oc_core_1_3/editorial/OC_PUBLIC_REPO_CONTROL_PLANE_latest.json; remediation=

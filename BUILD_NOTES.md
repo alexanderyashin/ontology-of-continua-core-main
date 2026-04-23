@@ -1,233 +1,134 @@
-# Build System Notes — Ontology of Continua Core 1.1
+# Build Notes — Ontology of Continua Core public build and release pipeline
 
-This document describes the canonical, frozen build pipeline for the
-Ontology of Continua — Core 1.1 publication shell.  
-It defines the only supported build entry point, dependency rules,
-and CI execution model.
+This document describes the current Core 1.3 public build, validation, and
+release flow for the public source repository.
 
-Any changes to the build system must be approved by OK Main HQ and
-Core 1.1 Release HQ.
+It supersedes the older historical build description. The repository now
+supports both source compilation and outward public release hardening.
 
-------------------------------------------------------------
-1. Overview
-------------------------------------------------------------
+## 1. Canonical build entrypoint
 
-Core 1.1 uses a structured, reproducible build pipeline based on:
+The canonical local build command is:
 
-- a single entry script: build_core.sh  
-- YAML-driven generation of section inputs  
-- XeLaTeX as the only engine  
-- latexmk as the PDF orchestrator  
-- biber for bibliography  
+```bash
+./build_core.sh
+```
 
-The high-level flow is:
+This script is responsible for the PDF build itself. It is fail-closed for:
 
-1. master_core_structure.yaml → auto-generate missing .tex files  
-2. validate structure  
-3. generate content/_auto_core_inputs.tex  
-4. compile main.tex via XeLaTeX through latexmk
+- missing required executables;
+- structure validation failures;
+- missing bibliography inputs;
+- missing `build/main.bcf`;
+- XeLaTeX or biber failures;
+- missing final `build/main.pdf`.
 
-The user never edits auto-generated files.
+## 2. build_core.sh execution sequence
 
-------------------------------------------------------------
-2. The Only Supported Build Command
-------------------------------------------------------------
+`build_core.sh` performs the following deterministic steps:
 
-To build Core 1.1 you MUST use:
+1. verify required commands are available;
+2. generate missing section files from `master_core_structure.yaml`;
+3. validate repository structure with `tools/validate_core_structure.py`;
+4. normalize math in headings and captions with `tools/fix_math_in_headings.py`;
+5. regenerate `content/_auto_core_inputs.tex`;
+6. copy bibliography into the build area;
+7. run XeLaTeX, biber, XeLaTeX, XeLaTeX;
+8. fail unless `build/main.pdf` exists.
 
-    ./build_core.sh
+The script is for the canonical PDF build. Public-release hardening is layered
+on top through the explicit validators and staging tools below.
 
-This script:
+## 3. Public release validation
 
-1. Generates missing section files from master_core_structure.yaml  
-2. Validates the repository structure  
-3. Regenerates content/_auto_core_inputs.tex  
-4. Calls latexmk -xelatex with correct flags  
-5. Writes final PDF to build/main.pdf  
+After the canonical PDF build, the public release lane uses:
 
-Direct calls to:
+```bash
+python tools/validate_oc_core_1_3_science_spot.py
+python tools/build_oc_public_repo_release_hardening_v8.py
+python tools/stage_oc_core_1_3_zenodo_en_release.py --zip-path build_oc_core_1_3_zenodo_en_only.zip
+python tools/stage_oc_public_release_artifacts.py --zip-path build_oc_public_release_archive.zip
+```
 
-- latexmk
-- xelatex
-- python generators
-- manual editing of auto_core_inputs.tex
+These tools provide:
 
-are NOT supported and may break the build.
+- science bundle consistency checks;
+- public docs/workflow/governance audit;
+- deterministic artifact map and archive contract generation;
+- explicit public/private parity audit;
+- public critique-readiness surfaces;
+- deterministic staging for both the Zenodo bundle and reproducibility archive.
 
-------------------------------------------------------------
-3. Local Dependencies
-------------------------------------------------------------
+## 4. CI workflow
 
-Required:
+`.github/workflows/build-pdf.yml` is the public CI build-and-validate workflow.
 
-- TeX Live 2023 or newer (full installation recommended)
-- python3
-- latexmk
-- biber
+It must:
 
-Ubuntu / Debian:
+- build the canonical PDF;
+- validate the checked-in science bundle;
+- materialize the public release-hardening surfaces;
+- stage the Zenodo package and reproducibility archive;
+- upload the resulting public artifacts for inspection.
 
-    sudo apt-get update
-    sudo apt-get install -y texlive-full latexmk biber python3
+This workflow is allowed to produce `PARTIALLY_HARDENED` public control-plane
+state while hardening work is in progress. It still fails closed on missing
+artifacts, validator errors, or staging-contract violations.
 
-macOS:
+## 5. Tag release workflow
 
-    brew install --cask mactex
-    brew install latexmk
+`.github/workflows/core-release-on-tag.yml` is the release workflow.
 
-Windows:
+It must:
 
-- Install TeX Live (full)
-- Ensure xelatex, latexmk, biber are in PATH
-- Ensure python3 is installed
+- rebuild the PDF;
+- require a Cerberus-clean science bundle;
+- materialize the public release-hardening surfaces;
+- require `OC_PUBLIC_RELEASE_GATE_CERT_latest.json` to report
+  `release_gate_status = RELEASE_SAFE`;
+- stage release assets deterministically from the explicit contracts;
+- publish only those deterministic assets.
 
-------------------------------------------------------------
-4. What build_core.sh does
-------------------------------------------------------------
+The tag-release workflow must not:
 
-The script performs four steps:
+- select the PDF with `find | head`;
+- zip the entire repository implicitly;
+- exclude workflow provenance from the reproducibility archive;
+- outrun the Cerberus/publication gate.
 
-(1) Generate missing .tex files  
-    tools/generate_core_from_yaml.py
+## 6. Deterministic release contracts
 
-(2) Validate structure  
-    tools/validate_core_structure.py  
-    (Warnings do not stop the build.)
+The public release lane now depends on these machine-readable contracts:
 
-(3) Generate auto include file  
-    tools/generate_auto_inputs.py  
-    → writes content/_auto_core_inputs.tex
+- `releases/oc_core_1_3/editorial/OC_PUBLIC_RELEASE_ARTIFACT_MAP_latest.json`
+- `releases/oc_core_1_3/editorial/OC_PUBLIC_RELEASE_ARCHIVE_CONTRACT_latest.json`
+- `releases/oc_core_1_3/editorial/OC_PUBLIC_RELEASE_GATE_CERT_latest.json`
+- `releases/oc_core_1_3/editorial/OC_PUBLIC_PRIVATE_DRIFT_AUDIT_latest.json`
 
-(4) Build the PDF  
-    latexmk -xelatex -output-directory=build main.tex
+These are not commentary. They are the explicit release authority for
+public-release safety, parity, and archive composition.
 
-Users must not modify these scripts unless instructed.
+## 7. Zenodo staging policy
 
-------------------------------------------------------------
-5. CI Build Pipeline
-------------------------------------------------------------
+The English-only Zenodo bundle remains manifest-driven:
 
-GitHub Actions runs the build via:
+- manifest:
+  `releases/oc_core_1_3/OC_CORE_1_3_ZENODO_EN_ONLY_MANIFEST.json`
+- staging helper:
+  `tools/stage_oc_core_1_3_zenodo_en_release.py`
 
-    ./build_core.sh
+That tool is the canonical staging authority for the scientific release
+package. It may emit a deterministic zip, but it does not discover files on its
+own; it follows the manifest exactly.
 
-Workflow file:
+## 8. Reproducibility archive policy
 
-    .github/workflows/build-core.yml
+The reproducibility archive is explicit rather than repo-wide. Its membership
+is defined by:
 
-The CI performs:
+- `OC_PUBLIC_RELEASE_ARTIFACT_MAP_latest.json`
+- `OC_PUBLIC_RELEASE_ARCHIVE_CONTRACT_latest.json`
 
-1. Checkout repository  
-2. Install TeX Live + latexmk  
-3. Make build_core.sh executable  
-4. Run build_core.sh  
-5. Upload build/main.pdf as artifact  
-
-There are NO other CI pipelines.  
-All YAML generators are called only through build_core.sh.
-
-------------------------------------------------------------
-6. Generated Files
-------------------------------------------------------------
-
-The following files are auto-generated:
-
-- content/_auto_core_inputs.tex  
-- any .tex file created from YAML by tools/generate_core_from_yaml.py  
-
-Rules:
-
-- Do NOT edit these by hand  
-- Do NOT commit changes to auto_core_inputs.tex  
-- Always regenerate via ./build_core.sh
-
-------------------------------------------------------------
-7. build/ directory
-------------------------------------------------------------
-
-The build directory contains:
-
-build/main.pdf  
-build/main.log  
-build/main.aux  
-build/main.toc  
-build/main.bbl  
-build/main.xdv  
-build/logs/compile.log  
-
-The directory is ignored by git except for the placeholder in build/logs/.
-
-------------------------------------------------------------
-8. Bibliography System
-------------------------------------------------------------
-
-Core uses:
-
-- biblatex
-- biber
-
-Rules:
-
-- Edit only bib/references.bib  
-- Never modify main.bbl  
-- Biber is invoked automatically by latexmk
-
-------------------------------------------------------------
-9. Troubleshooting
-------------------------------------------------------------
-
-Undefined references:
-
-    ./build_core.sh
-    latexmk may run multiple times automatically
-
-Biber errors:
-
-- Check bib/references.bib for invalid entries
-- Ensure UTF-8 encoding
-
-Fontspec / engine errors:
-
-- Ensure XeLaTeX is used (pdflatex is not supported)
-
-Polyglossia language errors:
-
-- Ensure TeX Live is complete (texlive-full)
-
-------------------------------------------------------------
-10. Do-Not-Touch Zones
-------------------------------------------------------------
-
-The following files are protected under ARCHITECTURE FREEZE:
-
-preamble.tex  
-main.tex  
-master_core_structure.yaml  
-tools/*.py  
-build_core.sh  
-content/_auto_core_inputs.tex (generated)  
-
-Modifying these incorrectly can break:
-
-- rebuilds
-- section ordering
-- YAML integration
-- CI pipelines
-- Zenodo DOI captures
-
-------------------------------------------------------------
-11. Release Checklist
-------------------------------------------------------------
-
-Before tagging Core 1.1:
-
-- [ ] ./build_core.sh builds successfully  
-- [ ] CI pipeline is green  
-- [ ] No undefined references  
-- [ ] Biber runs cleanly  
-- [ ] PDF identical locally and in CI  
-- [ ] README.md references build_core.sh  
-- [ ] .zenodo.json metadata verified  
-- [ ] master_core_structure.yaml validated
-
-This ensures reproducibility and archival stability.
+Workflow provenance under `.github/workflows/` is included in that archive so
+reviewers can inspect the CI and tag-release rules that produced the public
+release surface.
