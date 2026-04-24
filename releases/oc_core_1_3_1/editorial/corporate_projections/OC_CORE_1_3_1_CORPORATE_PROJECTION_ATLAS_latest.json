@@ -1,0 +1,712 @@
+{
+  "schema_id": "OC_CORE_1_3_1_CORPORATE_PROJECTION_ATLAS_v1",
+  "atlas_id": "OC_CORE_1_3_1_CORPORATE_PROJECTION_ATLAS",
+  "release_id": "oc_core_1_3_1",
+  "status": "PASS",
+  "publication_mode": "TRACKED_SUPPLEMENTARY_GOVERNANCE_NOT_RELEASE_ASSET",
+  "claim_policy": "BOUNDED_HONEST_NO_PRODUCT_OR_BUSINESS_CLAIM_MAY_OUTRUN_THE_CANONICAL_SCIENCE_AND_RELEASE_GATES",
+  "canonical_publication": {
+    "github_release_url": "https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/tag/v1.3.1",
+    "zenodo_record_url": "https://zenodo.org/records/19741958",
+    "zenodo_doi": "10.5281/zenodo.19741958",
+    "zenodo_conceptdoi": "10.5281/zenodo.17899134",
+    "superseded_standalone_zenodo_record_url": "https://zenodo.org/records/19741582",
+    "superseded_standalone_zenodo_doi": "10.5281/zenodo.19741582"
+  },
+  "allowed_usable_now_support_classes": [
+    "FORMALLY_PROVED",
+    "THEOREM_NATIVE_HELD_OUT_VALIDATED",
+    "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS"
+  ],
+  "projection_classes": [
+    "INSTRUMENT",
+    "TOOLING",
+    "PRODUCT",
+    "BUSINESS",
+    "PUBLICATION"
+  ],
+  "summary": {
+    "projection_class_total": 5,
+    "row_total": 21,
+    "usable_now_row_total": 21,
+    "instrument_row_total": 3,
+    "tooling_row_total": 3,
+    "product_row_total": 4,
+    "business_row_total": 4,
+    "publication_row_total": 7
+  },
+  "rows": [
+    {
+      "row_id": "CORP::INSTRUMENT::CLOSURE_AUDITOR",
+      "projection_class": "INSTRUMENT",
+      "title": "Closure auditor",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_PRACTICAL_UTILITY_ATLAS_latest.json",
+        "releases/oc_core_1_3_1/editorial/OC_RELEASE_BUNDLE_INVENTORY_latest.json",
+        "releases/oc_core_1_3_1/editorial/OC_PUBLIC_RELEASE_GATE_CERT_latest.json"
+      ],
+      "inputs": [
+        "candidate scientific claim",
+        "declared source refs",
+        "mandatory artifact inventory row"
+      ],
+      "outputs": [
+        "closure verdict",
+        "missing evidence list",
+        "demotion or promotion recommendation"
+      ],
+      "non_claims": [
+        "not an automatic proof generator",
+        "not evidence for claims absent from the canonical surfaces"
+      ],
+      "risks": [
+        "claim wording may outrun the audited artifact class",
+        "source refs may become stale after a release rebuild"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::USABLE_ROW_SOURCE_REFS_EXIST",
+      "next_artifact": "Corporate closure-audit checklist derived from this row"
+    },
+    {
+      "row_id": "CORP::INSTRUMENT::THEOREM_TO_OBSERVABLE_ROUTER",
+      "projection_class": "INSTRUMENT",
+      "title": "Theorem-to-observable router",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "content/22_oc_core_1_3_operationalization_program.tex",
+        "content/23_oc_core_1_3_empirical_execution_protocols.tex",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_PRACTICAL_UTILITY_ATLAS_latest.json"
+      ],
+      "inputs": [
+        "bounded problem class",
+        "observable family",
+        "candidate domain packet"
+      ],
+      "outputs": [
+        "route selection decision",
+        "required replay path",
+        "domain packet boundary"
+      ],
+      "non_claims": [
+        "not an unrestricted universal predictor",
+        "not a replacement for local expert models outside their declared lane"
+      ],
+      "risks": [
+        "mixed-domain problems may be routed too broadly",
+        "operators may be treated as domain proof where only route support exists"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::TRACE_TO_OPERATIONALIZATION_AND_PRACTICAL_ATLAS",
+      "next_artifact": "Packet selection worksheet"
+    },
+    {
+      "row_id": "CORP::INSTRUMENT::REPLAY_FALSIFIER_INSTRUMENT",
+      "projection_class": "INSTRUMENT",
+      "title": "Replay and falsifier instrument",
+      "support_class": "THEOREM_NATIVE_HELD_OUT_VALIDATED",
+      "usable_now": true,
+      "source_refs": [
+        "simulations/OC_SIMULATION_MASTER_LEDGER_latest.json",
+        "simulations/OC_SIMULATION_EXECUTION_GUIDE.md",
+        "data/OC_DATASET_MANIFEST_latest.json"
+      ],
+      "inputs": [
+        "simulation or dataset lane",
+        "falsifier condition",
+        "held-out or replay route"
+      ],
+      "outputs": [
+        "pass or fail replay verdict",
+        "falsifier escalation",
+        "reproducibility trace"
+      ],
+      "non_claims": [
+        "not a guarantee of empirical truth outside the declared lane",
+        "not a substitute for new held-out evidence"
+      ],
+      "risks": [
+        "operators may reuse a passing replay beyond its source-bound scope",
+        "dataset coverage can be mistaken for universal coverage"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::SIMULATION_AND_DATA_REFS_EXIST",
+      "next_artifact": "Replay/falsifier runbook"
+    },
+    {
+      "row_id": "CORP::TOOLING::PACKET_SELECTOR",
+      "projection_class": "TOOLING",
+      "title": "Packet selector",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_PRACTICAL_UTILITY_ATLAS_latest.json",
+        "releases/oc_core_1_3/editorial/domain_packets/README.md",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_UNIFIED_SCIENCE_ATLAS_latest.json"
+      ],
+      "inputs": [
+        "problem class",
+        "domain lane",
+        "decision horizon"
+      ],
+      "outputs": [
+        "selected packet",
+        "scope boundary",
+        "fallback or frontier decision"
+      ],
+      "non_claims": [
+        "not an automated business decision engine",
+        "not a license to merge incompatible lanes"
+      ],
+      "risks": [
+        "packet boundaries may be flattened for convenience",
+        "frontier rows may be sold as closed rows"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::PACKET_SELECTOR_HAS_ATLAS_AND_DOMAIN_PACKET_REFS",
+      "next_artifact": "Command-line packet selection prototype"
+    },
+    {
+      "row_id": "CORP::TOOLING::EVIDENCE_CHECKLIST",
+      "projection_class": "TOOLING",
+      "title": "Evidence checklist",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "CLAIMS.md",
+        "REPRODUCIBILITY.md",
+        "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_RELEASE_INTEGRITY_CERT_latest.json"
+      ],
+      "inputs": [
+        "claim row",
+        "source ref list",
+        "reproducibility requirement"
+      ],
+      "outputs": [
+        "evidence checklist",
+        "missing ref warnings",
+        "reviewer-ready trace"
+      ],
+      "non_claims": [
+        "not a scientific result by itself",
+        "not a shortcut around peer review"
+      ],
+      "risks": [
+        "checklist completion can be confused with external acceptance",
+        "weak refs may be treated as strong refs"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::EVIDENCE_CHECKLIST_REFS_EXIST",
+      "next_artifact": "Evidence checklist template"
+    },
+    {
+      "row_id": "CORP::TOOLING::PUBLICATION_RELEASE_GATE_CHECKER",
+      "projection_class": "TOOLING",
+      "title": "Publication and release gate checker",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "tools/validate_oc_release_bundle_v1.py",
+        "tools/execute_oc_core_1_3_1_release_v14.py",
+        "releases/oc_core_1_3_1/editorial/OC_1_3_1_PUBLIC_RELEASE_EXECUTION_CERT_latest.json"
+      ],
+      "inputs": [
+        "release inventory",
+        "publication channel status",
+        "artifact map"
+      ],
+      "outputs": [
+        "release readiness verdict",
+        "blocked gate list",
+        "post-release audit link"
+      ],
+      "non_claims": [
+        "not a publisher acceptance claim",
+        "not a new public release when run against this supplementary pack"
+      ],
+      "risks": [
+        "operator may mutate public release channels when only validation was intended",
+        "artifact count may be quoted without media-type context"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::RELEASE_GATE_TOOL_REFS_EXIST",
+      "next_artifact": "Read-only corporate projection gate"
+    },
+    {
+      "row_id": "CORP::PRODUCT::SCIENTIFIC_CLOSURE_CONSOLE",
+      "projection_class": "PRODUCT",
+      "title": "Scientific Closure Console",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_RELEASE_CONTROL_PLANE_latest.json",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_PRACTICAL_UTILITY_ATLAS_latest.json",
+        "releases/oc_core_1_3_1/editorial/OC_RELEASE_BUNDLE_INVENTORY_latest.json"
+      ],
+      "inputs": [
+        "release control plane",
+        "practical utility rows",
+        "artifact inventory"
+      ],
+      "outputs": [
+        "closure dashboard specification",
+        "risk and blocker lanes",
+        "evidence drilldown map"
+      ],
+      "non_claims": [
+        "not a shipped SaaS product",
+        "not a guarantee that a claim is commercially valuable"
+      ],
+      "risks": [
+        "dashboard polish may be mistaken for scientific closure",
+        "summary status may hide row-level blockers"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::PRODUCT_ROWS_USE_ALLOWED_SUPPORT_CLASS",
+      "next_artifact": "Scientific Closure Console product brief"
+    },
+    {
+      "row_id": "CORP::PRODUCT::DOMAIN_PACKET_WORKBENCH",
+      "projection_class": "PRODUCT",
+      "title": "Domain Packet Workbench",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "releases/oc_core_1_3/editorial/domain_packets/README.md",
+        "releases/oc_core_1_3/editorial/dossier_packages/closure_bundles/physics/manifest.json",
+        "releases/oc_core_1_3/editorial/dossier_packages/closure_bundles/chemistry/manifest.json"
+      ],
+      "inputs": [
+        "domain packet",
+        "observable binding spec",
+        "comparator ledger"
+      ],
+      "outputs": [
+        "packet workbench specification",
+        "required evidence map",
+        "frontier demotion report"
+      ],
+      "non_claims": [
+        "not a replacement for specialized domain software",
+        "not a promise that all domains are equally closed"
+      ],
+      "risks": [
+        "domain-local superiority may be understated",
+        "frontier programs may be presented as deployable packets"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::PRODUCT_ROWS_USE_ALLOWED_SUPPORT_CLASS",
+      "next_artifact": "Domain Packet Workbench workflow spec"
+    },
+    {
+      "row_id": "CORP::PRODUCT::REVIEWER_ROUTE_BUILDER",
+      "projection_class": "PRODUCT",
+      "title": "Reviewer Route Builder",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "releases/oc_core_1_3_1/editorial/OC_FIRST_TIME_EXPERT_READER_ROUTE.md",
+        "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_READER_GUIDE_latest.md",
+        "releases/oc_core_1_3_1/editorial/OC_KILLER_CLAIM_INDEX.md"
+      ],
+      "inputs": [
+        "reviewer type",
+        "claim target",
+        "available time budget"
+      ],
+      "outputs": [
+        "review route",
+        "claim-to-evidence map",
+        "missing context warning"
+      ],
+      "non_claims": [
+        "not a way to avoid hard review",
+        "not a guarantee of reader agreement"
+      ],
+      "risks": [
+        "route simplification may hide methodological prerequisites",
+        "business readers may skip scientific gates"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::PRODUCT_ROWS_USE_ALLOWED_SUPPORT_CLASS",
+      "next_artifact": "Reviewer Route Builder requirements file"
+    },
+    {
+      "row_id": "CORP::PRODUCT::RELEASE_EVIDENCE_PACKAGER",
+      "projection_class": "PRODUCT",
+      "title": "Release Evidence Packager",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "releases/oc_core_1_3_1/editorial/OC_PUBLIC_RELEASE_ARTIFACT_MAP_latest.json",
+        "releases/oc_core_1_3_1/editorial/OC_RELEASE_CONTRACT_latest.json",
+        "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_PUBLICATION_REPAIR_AUDIT_latest.json"
+      ],
+      "inputs": [
+        "artifact map",
+        "release contract",
+        "publication audit"
+      ],
+      "outputs": [
+        "evidence package specification",
+        "channel consistency report",
+        "checksum and DOI summary"
+      ],
+      "non_claims": [
+        "not a new public release",
+        "not a modification of GitHub or Zenodo assets"
+      ],
+      "risks": [
+        "supplementary governance may be confused with released asset inventory",
+        "DOI lineage may be misquoted"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::PRODUCT_ROWS_USE_ALLOWED_SUPPORT_CLASS",
+      "next_artifact": "Evidence Packager CLI dry-run mode"
+    },
+    {
+      "row_id": "CORP::BUSINESS::R_AND_D_GOVERNANCE",
+      "projection_class": "BUSINESS",
+      "title": "R&D governance",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "content/22_oc_core_1_3_operationalization_program.tex",
+        "content/26_oc_core_1_3_practical_utility.tex",
+        "releases/oc_core_1_3/editorial/OC_CORE_1_3_PRACTICAL_UTILITY_ATLAS_latest.json"
+      ],
+      "inputs": [
+        "research portfolio",
+        "claim maturity state",
+        "evidence budget"
+      ],
+      "outputs": [
+        "governance lane",
+        "promotion or demotion rationale",
+        "next evidence requirement"
+      ],
+      "non_claims": [
+        "not financial advice",
+        "not proof that an R&D program will succeed"
+      ],
+      "risks": [
+        "executive summaries can overcompress scientific uncertainty",
+        "frontier programs can be overfunded as if closed"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::BUSINESS_ROWS_USE_ALLOWED_SUPPORT_CLASS",
+      "next_artifact": "R&D governance operating memo"
+    },
+    {
+      "row_id": "CORP::BUSINESS::SCIENTIFIC_DUE_DILIGENCE",
+      "projection_class": "BUSINESS",
+      "title": "Scientific due diligence",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "releases/oc_core_1_3_1/editorial/OC_KILLER_CLAIM_INDEX.md",
+        "releases/oc_core_1_3_1/editorial/OC_NEGATIVE_RESULTS_AND_FRONTIER_APPENDIX.md",
+        "releases/oc_core_1_3_1/editorial/OC_PUBLIC_RELEASE_GATE_CERT_latest.json"
+      ],
+      "inputs": [
+        "external claim",
+        "same-claim comparator",
+        "negative-result surface"
+      ],
+      "outputs": [
+        "due-diligence risk map",
+        "claim class comparison",
+        "go or no-go science note"
+      ],
+      "non_claims": [
+        "not investment advice",
+        "not a substitute for independent expert review"
+      ],
+      "risks": [
+        "business urgency may pressure claims beyond support class",
+        "external claims may lack comparable source surfaces"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::BUSINESS_ROWS_USE_ALLOWED_SUPPORT_CLASS",
+      "next_artifact": "Scientific due-diligence checklist"
+    },
+    {
+      "row_id": "CORP::BUSINESS::PORTFOLIO_ROADMAP_TRIAGE",
+      "projection_class": "BUSINESS",
+      "title": "Portfolio and roadmap triage",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "releases/oc_core_1_3_1/editorial/OC_ONE_CLICK_READY_PACKAGE_LEDGER_latest.json",
+        "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_RELEASE_READY_BOARD_latest.json",
+        "releases/oc_core_1_3_1/editorial/total_closure/OC_1_3_1_TOTAL_CLOSURE_PUBLIC_INDEX_latest.json"
+      ],
+      "inputs": [
+        "candidate project list",
+        "closure status",
+        "evidence gap list"
+      ],
+      "outputs": [
+        "roadmap priority",
+        "blocked lane explanation",
+        "next artifact queue"
+      ],
+      "non_claims": [
+        "not market sizing",
+        "not a revenue forecast"
+      ],
+      "risks": [
+        "portfolio status can be mistaken for commercial priority",
+        "roadmap order can drift from evidence order"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::BUSINESS_ROWS_USE_ALLOWED_SUPPORT_CLASS",
+      "next_artifact": "Corporate roadmap triage board"
+    },
+    {
+      "row_id": "CORP::BUSINESS::INSTITUTIONAL_REVIEW_SUPPORT",
+      "projection_class": "BUSINESS",
+      "title": "Institutional review support",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "releases/oc_core_1_3_1/editorial/OC_FIRST_TIME_EXPERT_READER_ROUTE.md",
+        "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_OWNER_REVIEW_PACKET.md",
+        "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_PUBLICATION_REPAIR_AUDIT_latest.json"
+      ],
+      "inputs": [
+        "review audience",
+        "release route",
+        "publication DOI lineage"
+      ],
+      "outputs": [
+        "institutional review brief",
+        "route map",
+        "publication integrity note"
+      ],
+      "non_claims": [
+        "not institutional endorsement",
+        "not a compliance certification outside the release artifacts"
+      ],
+      "risks": [
+        "review support may be read as approval",
+        "publication repair history may be omitted in summaries"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::BUSINESS_ROWS_USE_ALLOWED_SUPPORT_CLASS",
+      "next_artifact": "Institutional review support packet"
+    },
+    {
+      "row_id": "CORP::PUBLICATION::MASTER_MONOGRAPH",
+      "projection_class": "PUBLICATION",
+      "title": "Master monograph",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "releases/oc_core_1_3_1/manuscripts/OC_CORE_1_3_1_MASTER_MONOGRAPH_EN.pdf",
+        "releases/oc_core_1_3_1/editorial/OC_RELEASE_BUNDLE_INVENTORY_latest.json",
+        "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_PUBLICATION_REPAIR_AUDIT_latest.json"
+      ],
+      "inputs": [
+        "full reader route",
+        "release inventory",
+        "canonical DOI lineage"
+      ],
+      "outputs": [
+        "full publication object",
+        "source-bound evidence map",
+        "primary citation path"
+      ],
+      "non_claims": [
+        "not a journal acceptance",
+        "not a replacement for companion routes"
+      ],
+      "risks": [
+        "long form may hide which claims are operationally bounded",
+        "citation may omit the canonical Zenodo new-version record"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::PUBLICATION_ROW_POINTS_TO_1_3_1_PDF_OR_AUDIT",
+      "next_artifact": "Corporate one-page monograph brief"
+    },
+    {
+      "row_id": "CORP::PUBLICATION::JOURNAL_CORE",
+      "projection_class": "PUBLICATION",
+      "title": "Journal core",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "releases/oc_core_1_3_1/manuscripts/article_family/OC_CORE_1_3_1_JOURNAL_CORE_EN.pdf",
+        "releases/oc_core_1_3_1/editorial/OC_FIRST_TIME_EXPERT_READER_ROUTE.md",
+        "releases/oc_core_1_3_1/editorial/OC_PUBLIC_RELEASE_GATE_CERT_latest.json"
+      ],
+      "inputs": [
+        "journal-style route",
+        "core claim set",
+        "review gate"
+      ],
+      "outputs": [
+        "compact publication route",
+        "reviewable core argument",
+        "claim boundary"
+      ],
+      "non_claims": [
+        "not proof of journal acceptance",
+        "not the complete monograph evidence archive"
+      ],
+      "risks": [
+        "compact route may be quoted without appendices",
+        "journal framing may compress negative results"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::PUBLICATION_ROW_POINTS_TO_1_3_1_PDF_OR_AUDIT",
+      "next_artifact": "Journal core submission checklist"
+    },
+    {
+      "row_id": "CORP::PUBLICATION::METHODS_SIMULATION_COMPANION",
+      "projection_class": "PUBLICATION",
+      "title": "Methods and simulation companion",
+      "support_class": "THEOREM_NATIVE_HELD_OUT_VALIDATED",
+      "usable_now": true,
+      "source_refs": [
+        "releases/oc_core_1_3_1/manuscripts/article_family/OC_CORE_1_3_1_METHODS_OR_SIMULATION_COMPANION_EN.pdf",
+        "simulations/OC_SIMULATION_MASTER_LEDGER_latest.json",
+        "data/OC_DATASET_MANIFEST_latest.json"
+      ],
+      "inputs": [
+        "simulation corpus",
+        "dataset manifest",
+        "methods route"
+      ],
+      "outputs": [
+        "reproducibility companion",
+        "simulation trace",
+        "data route summary"
+      ],
+      "non_claims": [
+        "not an exhaustive empirical proof beyond declared datasets",
+        "not a benchmark expansion by itself"
+      ],
+      "risks": [
+        "simulation total can be overread as domain total",
+        "dataset manifest can be mistaken for all possible data"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::PUBLICATION_ROW_POINTS_TO_1_3_1_PDF_OR_AUDIT",
+      "next_artifact": "Methods companion reproducibility card"
+    },
+    {
+      "row_id": "CORP::PUBLICATION::CRITIQUE_CLOSURE_COMPANION",
+      "projection_class": "PUBLICATION",
+      "title": "Critique closure companion",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "releases/oc_core_1_3_1/manuscripts/article_family/OC_CORE_1_3_1_CRITIQUE_CLOSURE_COMPANION_EN.pdf",
+        "releases/oc_core_1_3_1/editorial/OC_NEGATIVE_RESULTS_AND_FRONTIER_APPENDIX.md",
+        "releases/oc_core_1_3_1/editorial/OC_1_3_1_WHITE_SPOT_AND_CRITIQUE_INDEX_latest.json"
+      ],
+      "inputs": [
+        "critique index",
+        "negative result appendix",
+        "closure companion"
+      ],
+      "outputs": [
+        "critique route",
+        "frontier boundary",
+        "known objection status"
+      ],
+      "non_claims": [
+        "not a claim that all possible objections are closed",
+        "not a suppression of open frontier rows"
+      ],
+      "risks": [
+        "critique closure may be read as universal closure",
+        "business summaries may omit known weak boundaries"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::PUBLICATION_ROW_POINTS_TO_1_3_1_PDF_OR_AUDIT",
+      "next_artifact": "Critique closure executive map"
+    },
+    {
+      "row_id": "CORP::PUBLICATION::READABLE_OVERVIEW",
+      "projection_class": "PUBLICATION",
+      "title": "Readable overview",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "releases/oc_core_1_3_1/manuscripts/article_family/OC_CORE_1_3_1_READABLE_OVERVIEW_EN.pdf",
+        "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_READER_GUIDE_latest.md",
+        "README.md"
+      ],
+      "inputs": [
+        "broad reader context",
+        "bounded support classes",
+        "reader guide"
+      ],
+      "outputs": [
+        "accessible summary",
+        "reader route",
+        "scope warning"
+      ],
+      "non_claims": [
+        "not a substitute for technical artifacts",
+        "not a pitch deck"
+      ],
+      "risks": [
+        "accessible language can blur support class boundaries",
+        "high-level readers may skip release certs"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::PUBLICATION_ROW_POINTS_TO_1_3_1_PDF_OR_AUDIT",
+      "next_artifact": "Readable overview briefing note"
+    },
+    {
+      "row_id": "CORP::PUBLICATION::UNIGNORABLE_SPINE",
+      "projection_class": "PUBLICATION",
+      "title": "Unignorable spine",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "releases/oc_core_1_3_1/manuscripts/article_family/OC_UNIGNORABLE_SPINE_EN.pdf",
+        "releases/oc_core_1_3_1/editorial/OC_UNIGNORABLE_SPINE.md",
+        "releases/oc_core_1_3_1/editorial/OC_1_3_1_UNIGNORABLE_RELEASE_READY_BOARD_latest.json"
+      ],
+      "inputs": [
+        "spine article",
+        "unignorable release board",
+        "claim trace map"
+      ],
+      "outputs": [
+        "spine argument",
+        "minimum evidence route",
+        "unignorable status"
+      ],
+      "non_claims": [
+        "not a rhetorical override of source gates",
+        "not a separate DOI lineage"
+      ],
+      "risks": [
+        "strong framing may be quoted without its route",
+        "minimum route may be mistaken for complete route"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::PUBLICATION_ROW_POINTS_TO_1_3_1_PDF_OR_AUDIT",
+      "next_artifact": "Spine argument one-pager"
+    },
+    {
+      "row_id": "CORP::PUBLICATION::REVIEWER_PACKET",
+      "projection_class": "PUBLICATION",
+      "title": "Reviewer packet",
+      "support_class": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS",
+      "usable_now": true,
+      "source_refs": [
+        "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_OWNER_REVIEW_PACKET.md",
+        "releases/oc_core_1_3_1/editorial/OC_FIRST_TIME_EXPERT_READER_ROUTE.md",
+        "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_PUBLICATION_REPAIR_AUDIT_latest.json"
+      ],
+      "inputs": [
+        "review route",
+        "owner review packet",
+        "publication repair audit"
+      ],
+      "outputs": [
+        "reviewer handoff",
+        "DOI and asset integrity note",
+        "scope boundary"
+      ],
+      "non_claims": [
+        "not an endorsement",
+        "not a published release asset unless separately released"
+      ],
+      "risks": [
+        "review packet may be treated as external acceptance",
+        "repair history may be missed if the audit is not linked"
+      ],
+      "validation_gate": "VALIDATOR::CORPORATE_PROJECTION::PUBLICATION_ROW_POINTS_TO_1_3_1_PDF_OR_AUDIT",
+      "next_artifact": "Reviewer packet corporate summary"
+    }
+  ]
+}
