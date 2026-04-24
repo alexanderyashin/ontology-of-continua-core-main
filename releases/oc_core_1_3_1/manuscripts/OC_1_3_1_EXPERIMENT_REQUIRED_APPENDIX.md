@@ -1,0 +1,5 @@
+# OC 1.3.1 Experiment Required Appendix
+
+- experiment_id=EXP::WS-07; source_gap_id=WS-07; missing_evidence=Missing real cross-coupled inter-continuum interaction measurements under dense mutual influence.; expected_outcomes=Expect bounded saturation law and interaction asymmetry envelope; failure widens the boundary note but not the theorem core.
+- experiment_id=EXP::TRACK_E; source_gap_id=TRACK_E; missing_evidence=Missing high-resolution longitudinal coordination and control-limit measurements across real multi-agent systems.; expected_outcomes=Expect lawful coordination bands, overload thresholds, and explicit no-control zones; failure demotes K6/K7 extension language.
+- experiment_id=EXP::DISC::ECOLOGY_EARTH_SYSTEMS; source_gap_id=DISC::ECOLOGY_EARTH_SYSTEMS; missing_evidence=Missing cross-scale ecological and Earth-system replay packets with enough continuity observables.; expected_outcomes=Expect bounded resilience and recovery threshold families, not a universal Earth control law.

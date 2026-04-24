@@ -101,6 +101,10 @@ def _sync_main_release_control_plane(
     refs = dict(release_control_plane.get("refs") or {})
     summary.update(
         {
+            "public_branch": _branch_name(),
+            "public_repo_sha": _head_sha(),
+            "public_repo_clean": _repo_clean(),
+            "public_repo_sha_meaning": "PRE_TOTAL_CLOSURE_MATERIALIZATION_HEAD",
             "theory_completeness_status": private_summary.get("theory_completeness_status", "UNSET"),
             "open_attack_surface_total": int(private_summary.get("open_attack_surface_total", 0) or 0),
             "data_blocked_experiment_total": int(private_summary.get("data_blocked_experiment_total", 0) or 0),
