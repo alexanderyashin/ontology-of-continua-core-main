@@ -1,0 +1,31 @@
+{
+  "claim_binding": "minimal bounded continuum threshold toy",
+  "command_to_run": "python simulations/k1_minimal_continuum/run_simulation.py",
+  "contract_ref": "simulations/k1_minimal_continuum/simulation_contract.json",
+  "domain": "mathematics",
+  "failure_boundary": "toy-model divergence or boundary-crossing remains bounded and non-promotional",
+  "input_spec": {
+    "control_parameter": "float[0,1]",
+    "seed": "integer",
+    "step_count": 48
+  },
+  "k_level_anchor": "K1",
+  "k_scope": "K1",
+  "output_spec": {
+    "boundary_crossed": "bool",
+    "stability_score": "float",
+    "trace_points": "list[float]"
+  },
+  "paper_or_release_binding": "OC Core 1.3.1 release and companion manuscripts",
+  "parameter_binding": "deterministic seeded toy parameters bound to release contract",
+  "projection_support_ref": "LANE::MATHEMATICS",
+  "reproducibility_hash_or_env": "ENV::python_seeded_release_v11",
+  "role_class": "ILLUSTRATIVE_ONLY",
+  "runner_ref": "simulations/k1_minimal_continuum/run_simulation.py",
+  "runtime_cost_class": "cheap_open_compute",
+  "schema_id": "SimulationUnit_v1",
+  "seed_policy": "fixed default seed with optional override",
+  "simulation_id": "SIM::K1_MINIMAL_CONTINUUM",
+  "source_binding": "private v11 delta ledger plus bounded public release surface",
+  "support_class": "ILLUSTRATIVE_ONLY"
+}

@@ -1,0 +1,31 @@
+{
+  "claim_binding": "binding prediction bounded toy",
+  "command_to_run": "python simulations/k6_binding_prediction/run_simulation.py",
+  "contract_ref": "simulations/k6_binding_prediction/simulation_contract.json",
+  "domain": "k6_cognition",
+  "failure_boundary": "toy-model divergence or boundary-crossing remains bounded and non-promotional",
+  "input_spec": {
+    "control_parameter": "float[0,1]",
+    "seed": "integer",
+    "step_count": 48
+  },
+  "k_level_anchor": "K6",
+  "k_scope": "K6",
+  "output_spec": {
+    "boundary_crossed": "bool",
+    "stability_score": "float",
+    "trace_points": "list[float]"
+  },
+  "paper_or_release_binding": "OC Core 1.3.1 release and companion manuscripts",
+  "parameter_binding": "deterministic seeded toy parameters bound to release contract",
+  "projection_support_ref": "LANE::COGNITION_K6",
+  "reproducibility_hash_or_env": "ENV::python_seeded_release_v11",
+  "role_class": "FRONTIER_EXPLORATION",
+  "runner_ref": "simulations/k6_binding_prediction/run_simulation.py",
+  "runtime_cost_class": "cheap_open_compute",
+  "schema_id": "SimulationUnit_v1",
+  "seed_policy": "fixed default seed with optional override",
+  "simulation_id": "SIM::K6_BINDING_PREDICTION",
+  "source_binding": "private v11 delta ledger plus bounded public release surface",
+  "support_class": "FRONTIER_EXPLORATION"
+}

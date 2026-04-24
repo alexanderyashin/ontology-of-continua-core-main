@@ -1,8 +1,8 @@
 # OC Public Repo Audit Matrix
 
-- generated_at_utc: 2026-04-23T19:11:50Z
-- repo_sha: 857547ef6254af052c8aad7359616a0042180057
-- branch: core-1.3-public-release-hardening-v8
+- generated_at_utc: 2026-04-24T01:39:05Z
+- repo_sha: 39ac6de151a8a0c45f6210ba5559a0f3031c9ea2
+- branch: core-1.3.1-release-and-scientific-strengthening-v11
 
 - requirement_id=V8_REQ_001; status=IMPLEMENTED; description=README reflects Core 1.3 public-source reality instead of stale Core 1.2 freeze language.; evidence_ref=README.md; remediation=Keep the repo entrypoint aligned to the real Core 1.3 source corpus and public/private boundary.
 - requirement_id=V8_REQ_002; status=IMPLEMENTED; description=ARCHITECTURE.md reflects actual Core 1.3 repository architecture.; evidence_ref=ARCHITECTURE.md; remediation=Remove Core 1.1-only architecture claims and describe current source/build/release layers.
