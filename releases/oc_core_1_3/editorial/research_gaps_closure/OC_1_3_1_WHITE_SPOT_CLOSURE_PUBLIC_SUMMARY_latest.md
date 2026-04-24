@@ -1,8 +1,8 @@
 # OC 1.3.1 White-Spot Closure Public Summary
 
 - run_id: oc_white_spot_closure_v9_public
-- public_branch: core-1.3.1-release-and-scientific-strengthening-v11
-- public_repo_sha: 39ac6de151a8a0c45f6210ba5559a0f3031c9ea2
+- public_branch: core-1.3.1-total-closure-staging-v12
+- public_repo_sha: 1a5ae275c1262f8142b60aa6dbf2b29b56eab09b
 - white_spot_total: 27
 - already_closed_total: 24
 - partially_closed_total: 3
