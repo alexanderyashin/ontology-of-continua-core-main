@@ -6,6 +6,8 @@
     "zenodo_staging_gate",
     "owner_approval_gate"
   ],
+  "github_release_channel": "token_backed_api_or_workflow",
+  "independent_audit_required": true,
   "mandatory_artifact_classes": [
     "master_monograph",
     "journal_core",
@@ -18,7 +20,8 @@
     "release_notes",
     "release_contract",
     "zenodo_package",
-    "one_click_ready_no_send_packages"
+    "one_click_ready_no_send_packages",
+    "unignorable_spine_article"
   ],
   "optional_artifact_classes": [
     "domain_papers",
@@ -26,7 +29,16 @@
     "skeptic_packs",
     "pilot_packages"
   ],
+  "reader_route_required": true,
+  "release_execution_authority": "tools/build_oc_core_1_3_1_independent_release_v14.py",
   "release_id": "oc_core_1_3_1",
+  "rows": [
+    {
+      "detail": "Unignorable armored tranche adds claim census, comparator war room, public reproducibility docs, and no-send owner gate staging.",
+      "lane_id": "UNIGNORABLE_ARMOR",
+      "status": "UNIGNORABLE_RELEASE_READY_NO_SEND"
+    }
+  ],
   "schema_id": "OC_RELEASE_CONTRACT_v1",
   "status_ladder": [
     "NOT_ASSEMBLED",
@@ -37,5 +49,14 @@
     "RELEASE_READY_NO_SEND",
     "OWNER_APPROVED_TO_PUBLISH",
     "PUBLISHED"
-  ]
+  ],
+  "summary": {
+    "claim_total": 20,
+    "global_no_send_lock": true,
+    "killer_ready_total": 12,
+    "owner_approval_required": true,
+    "unignorable_status": "UNIGNORABLE_RELEASE_READY_NO_SEND"
+  },
+  "tag_name": "v1.3.1",
+  "zenodo_release_channel": "token_backed_api_or_workflow"
 }

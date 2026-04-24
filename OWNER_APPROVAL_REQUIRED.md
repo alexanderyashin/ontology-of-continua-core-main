@@ -2,6 +2,5 @@
 
 - owner_approval_required: true
 - global_no_send_lock: true
-- tag creation: disabled in this tranche
-- Zenodo upload: disabled in this tranche
-- no journal, preprint, email, or public announcement action is executed here
+- publish_allowed defaults to false until the execution tool has both owner approval and channel auth
+- the requested tag for a passing release is `v1.3.1`

@@ -1,23 +1,33 @@
 {
-  "generated_at_utc": "2026-04-24T13:23:40Z",
+  "generated_at_utc": "2026-04-24T16:45:33Z",
   "refs": {
     "artifact_inventory_ref": "releases/oc_core_1_3_1/editorial/OC_RELEASE_BUNDLE_INVENTORY_latest.json",
     "critique_ref": "releases/oc_core_1_3_1/manuscripts/article_family/OC_CORE_1_3_1_CRITIQUE_CLOSURE_COMPANION_EN.pdf",
     "dataset_manifest_ref": "data/OC_DATASET_MANIFEST_latest.json",
+    "expert_reader_route_ref": "releases/oc_core_1_3_1/editorial/OC_FIRST_TIME_EXPERT_READER_ROUTE.md",
     "journal_core_ref": "releases/oc_core_1_3_1/manuscripts/article_family/OC_CORE_1_3_1_JOURNAL_CORE_EN.pdf",
+    "killer_claim_index_ref": "releases/oc_core_1_3_1/editorial/OC_KILLER_CLAIM_INDEX.md",
     "master_monograph_ref": "releases/oc_core_1_3_1/manuscripts/OC_CORE_1_3_1_MASTER_MONOGRAPH_EN.pdf",
     "methods_ref": "releases/oc_core_1_3_1/manuscripts/article_family/OC_CORE_1_3_1_METHODS_OR_SIMULATION_COMPANION_EN.pdf",
     "overview_ref": "releases/oc_core_1_3_1/manuscripts/article_family/OC_CORE_1_3_1_READABLE_OVERVIEW_EN.pdf",
     "owner_review_packet_ref": "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_OWNER_REVIEW_PACKET.md",
+    "public_release_artifact_map_ref": "releases/oc_core_1_3_1/editorial/OC_PUBLIC_RELEASE_ARTIFACT_MAP_latest.json",
     "publish_manifest_ref": "releases/oc_core_1_3_1/editorial/OC_ONE_CLICK_PUBLISH_MANIFEST_latest.json",
     "release_contract_ref": "releases/oc_core_1_3_1/editorial/OC_RELEASE_CONTRACT_latest.json",
     "release_gate_board_ref": "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_RELEASE_GATE_BOARD_latest.md",
     "release_ready_board_ref": "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_RELEASE_READY_BOARD_latest.json",
+    "root_claims_ref": "CLAIMS.md",
+    "root_readme_ref": "README.md",
+    "root_reproducibility_ref": "REPRODUCIBILITY.md",
+    "root_run_all_ref": "RUN_ALL.md",
     "simulation_ledger_ref": "simulations/OC_SIMULATION_MASTER_LEDGER_latest.json",
-    "zenodo_stage_ref": "releases/oc_core_1_3_1/editorial/OC_ZENODO_STAGING_PACKAGE_latest.json",
+    "total_closure_appendix_ref": "releases\\oc_core_1_3_1\\manuscripts\\OC_1_3_1_TOTAL_CLOSURE_APPENDIX.md",
     "total_closure_public_control_plane_ref": "releases\\oc_core_1_3_1\\editorial\\total_closure\\OC_1_3_1_TOTAL_CLOSURE_PUBLIC_CONTROL_PLANE_latest.json",
     "total_closure_public_index_ref": "releases\\oc_core_1_3_1\\editorial\\total_closure\\OC_1_3_1_TOTAL_CLOSURE_PUBLIC_INDEX_latest.json",
-    "total_closure_appendix_ref": "releases\\oc_core_1_3_1\\manuscripts\\OC_1_3_1_TOTAL_CLOSURE_APPENDIX.md"
+    "unignorable_public_gate_cert_ref": "releases/oc_core_1_3_1/editorial/OC_PUBLIC_RELEASE_GATE_CERT_latest.json",
+    "unignorable_ready_board_ref": "releases/oc_core_1_3_1/editorial/OC_1_3_1_UNIGNORABLE_RELEASE_READY_BOARD_latest.json",
+    "unignorable_spine_ref": "releases/oc_core_1_3_1/manuscripts/article_family/OC_UNIGNORABLE_SPINE_EN.pdf",
+    "zenodo_stage_ref": "releases/oc_core_1_3_1/editorial/OC_ZENODO_STAGING_PACKAGE_latest.json"
   },
   "rows": [
     {
@@ -78,37 +88,145 @@
       "severity": "INFO",
       "status": "PASS",
       "summary": "Release stays under no-send owner approval discipline."
+    },
+    {
+      "detail": "all hard scientific, comparator, critique, and public-reproducibility gates pass under no-send discipline",
+      "lane_id": "UNIGNORABLE_RELEASE",
+      "status": "UNIGNORABLE_RELEASE_READY_NO_SEND"
+    },
+    {
+      "artifact_ref": "releases/oc_core_1_3_1/editorial/OC_RELEASE_BUNDLE_INVENTORY_latest.json",
+      "category": "artifact_inventory",
+      "detail": "mandatory_row_total=6 expected=6",
+      "finding_id": "AUDIT::MANDATORY_ARTIFACT_CLASSES",
+      "status": "PASS"
+    },
+    {
+      "artifact_ref": "releases/oc_core_1_3_1/editorial/OC_RELEASE_BUNDLE_INVENTORY_latest.json",
+      "category": "artifact_inventory",
+      "detail": "source_bound_total=6 mandatory_total=6",
+      "finding_id": "AUDIT::SOURCE_BOUND_MANUSCRIPTS",
+      "status": "PASS"
+    },
+    {
+      "artifact_ref": "releases/oc_core_1_3_1/manuscripts/article_family/OC_UNIGNORABLE_SPINE_EN.tex",
+      "category": "reader_route",
+      "detail": "unignorable spine is route-bound and compiled",
+      "finding_id": "AUDIT::UNIGNORABLE_SPINE_SUBSTANCE",
+      "status": "PASS"
+    },
+    {
+      "artifact_ref": "releases/oc_core_1_3_1/editorial/OC_UNIGNORABLE_SPINE.md",
+      "category": "claim_mapping",
+      "detail": "claim_trace_total=34",
+      "finding_id": "AUDIT::CLAIM_TRACE_ROWS",
+      "status": "PASS"
+    },
+    {
+      "artifact_ref": "C:/Users/Megaport/work/worktrees/oc13-publication-clean/logion/k0/governance/status/OC_STRONG_STATEMENT_TO_CLAIM_MAP.json",
+      "category": "claim_mapping",
+      "detail": "unindexed_strong_statement_total=0",
+      "finding_id": "AUDIT::UNINDEXED_STRONG_STATEMENTS",
+      "status": "PASS"
+    },
+    {
+      "artifact_ref": "simulations/run_all.py",
+      "category": "reproducibility",
+      "detail": "simulation_total=11 failure_total=0",
+      "finding_id": "AUDIT::SIMULATION_CORPUS",
+      "status": "PASS"
+    },
+    {
+      "artifact_ref": "releases/oc_core_1_3_1/editorial/OC_RELEASE_CONTRACT_latest.json",
+      "category": "release_contract",
+      "detail": "release_execution_authority=tools/build_oc_core_1_3_1_independent_release_v14.py",
+      "finding_id": "AUDIT::RELEASE_CONTRACT_AUTHORITY",
+      "status": "PASS"
+    },
+    {
+      "artifact_ref": "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_OWNER_APPROVAL_GATE_latest.json",
+      "category": "release_contract",
+      "detail": "owner_approval_required=true",
+      "finding_id": "AUDIT::OWNER_GATE",
+      "status": "PASS"
+    },
+    {
+      "artifact_ref": "releases/oc_core_1_3_1/editorial/OC_FIRST_TIME_EXPERT_READER_ROUTE.md",
+      "category": "reader_route",
+      "detail": "all reader-route surfaces present",
+      "finding_id": "ROUTE::DOC_SURFACES",
+      "status": "PASS"
+    },
+    {
+      "artifact_ref": "releases/oc_core_1_3_1/editorial/OC_FIRST_TIME_EXPERT_READER_ROUTE.md",
+      "category": "reader_route",
+      "detail": "expert route names claims, repro path, run_all, and frontier appendix explicitly",
+      "finding_id": "ROUTE::TEN_MINUTE_EXPERT",
+      "status": "PASS"
+    },
+    {
+      "artifact_ref": "releases/oc_core_1_3_1/editorial/OC_UNIGNORABLE_SPINE.md",
+      "category": "reader_route",
+      "detail": "traceable_claim_surface_total=34",
+      "finding_id": "ROUTE::TRACEABLE_STRONG_PROSE",
+      "status": "PASS"
     }
   ],
-  "run_id": "pytest_oc_v11_public",
+  "run_id": "v14_release_v13_substrate__v11_substrate",
   "schema_id": "OC_CORE_1_3_1_RELEASE_CONTROL_PLANE_v1",
-  "status": "PASS",
+  "status": "WARN",
   "summary": {
     "cerberus_open_high_severity_total": 0,
+    "claim_total": 20,
+    "claim_trace_total_v14": 34,
+    "comparator_gate_v13": "PASS",
+    "data_blocked_experiment_total": 3,
     "dataset_manifest_total": 6,
+    "demoted_total": 3,
+    "discipline_bounded_total": 6,
+    "discipline_closed_total": 5,
+    "doebatsya_gate_v13": "PASS",
+    "external_critique_gate_v13": "PASS",
+    "formal_gate_v13": "PASS",
     "formula_strengthened_total": 4,
+    "frontier_remaining_total": 0,
+    "frontier_total": 0,
+    "github_release_status": "AUTH_MISSING",
+    "global_no_send_lock": true,
+    "independent_audit_finding_total_v14": 8,
+    "independent_audit_status": "PASS",
+    "killer_ready_total": 12,
+    "known_easy_valid_objection_total": 0,
+    "known_major_weakness_total": 0,
     "numeric_strengthened_total": 4,
+    "numerical_gate_v13": "PASS",
     "one_click_ready_no_send_total": 20,
+    "open_attack_surface_total": 0,
     "owner_approval_required": true,
-    "public_branch": "core-1.3.1-unignorable-armored-release-staging-v13",
+    "public_branch": "core-1.3.1-independent-release-execution-v14",
     "public_release_ready": true,
     "public_repo_clean": false,
-    "public_repo_sha": "72a28c60e83268f72644d2f644abe92d5f86cd60",
-    "public_repo_sha_meaning": "PRE_TOTAL_CLOSURE_MATERIALIZATION_HEAD",
+    "public_repo_sha": "55a8950c6a50f2590eada8d9f86b2b30178174ca",
+    "public_repo_sha_meaning": "PRE_V14_EXECUTION_HEAD",
     "public_repo_simulation_coverage": 1.0,
+    "reader_route_finding_total_v14": 3,
+    "reader_route_status": "PASS",
     "release_artifact_class_coverage": 1.0,
+    "release_execution_status": "BLOCKED_BY_RELEASE_CHANNEL_CREDENTIALS",
     "release_gate_status": "RELEASE_READY_NO_SEND",
+    "reproducibility_gate_v13": "PASS",
     "science_delta_total": 10,
+    "simulation_audit_failure_total_v14": 0,
+    "simulation_audit_status_v14": "PASS",
+    "simulation_gate_v13": "PASS",
     "simulation_total": 11,
+    "tag_name": "v1.3.1",
+    "theory_completeness_status": "TOTAL_CLOSURE_READY",
+    "total_closure_ready": true,
+    "unignorable_status": "UNIGNORABLE_RELEASE_READY_NO_SEND",
     "white_spot_closed_total": 24,
     "white_spot_remaining_total": 3,
-    "zenodo_staging_status": "READY_NO_SEND",
-    "theory_completeness_status": "TOTAL_CLOSURE_READY",
-    "open_attack_surface_total": 0,
-    "data_blocked_experiment_total": 3,
-    "discipline_closed_total": 5,
-    "discipline_bounded_total": 6,
-    "frontier_remaining_total": 0,
-    "total_closure_ready": true
+    "zenodo_deposit_status": "AUTH_MISSING",
+    "zenodo_staging_status": "READY_NO_SEND"
   }
 }

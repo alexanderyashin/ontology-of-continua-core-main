@@ -1,9 +1,36 @@
 # OC Unignorable Spine
 
-This note mirrors the canonical EN article-family artifact and points first-time experts to the central claim route.
-
-- claim_id=OC-CLAIM-000001; short_name=Boundary-cycle-collapse invariant; final_feasibility_status=KILLER_READY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY
-- claim_id=OC-CLAIM-000002; short_name=Physics threshold replay; final_feasibility_status=KILLER_READY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY
-- claim_id=OC-CLAIM-000003; short_name=RAF closure packet; final_feasibility_status=KILLER_READY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY
-- claim_id=OC-CLAIM-000004; short_name=Membrane viability windows; final_feasibility_status=KILLER_READY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY
-- claim_id=OC-CLAIM-000005; short_name=K6 binding collapse laws; final_feasibility_status=KILLER_READY; release_decision=PROMOTE_AS_FORMULA_ONLY_TESTABLE
+- claim_id=OC-CLAIM-000001; doc_ref=README.md; support_class=THEOREM_NATIVE; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000002; doc_ref=README.md; support_class=BRIDGE_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000003; doc_ref=README.md; support_class=BRIDGE_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000004; doc_ref=README.md; support_class=BRIDGE_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000010; doc_ref=README.md; support_class=THEOREM_NATIVE; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000012; doc_ref=README.md; support_class=FRAME_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000013; doc_ref=README.md; support_class=BRIDGE_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000014; doc_ref=README.md; support_class=THEOREM_NATIVE; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000001; doc_ref=releases/oc_core_1_3_1/editorial/OC_KILLER_CLAIM_INDEX.md; support_class=THEOREM_NATIVE; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000002; doc_ref=releases/oc_core_1_3_1/editorial/OC_KILLER_CLAIM_INDEX.md; support_class=BRIDGE_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000003; doc_ref=releases/oc_core_1_3_1/editorial/OC_KILLER_CLAIM_INDEX.md; support_class=BRIDGE_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000004; doc_ref=releases/oc_core_1_3_1/editorial/OC_KILLER_CLAIM_INDEX.md; support_class=BRIDGE_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000005; doc_ref=releases/oc_core_1_3_1/editorial/OC_KILLER_CLAIM_INDEX.md; support_class=FRAME_ONLY; release_decision=PROMOTE_AS_FORMULA_ONLY_TESTABLE; trace_status=PASS
+- claim_id=OC-CLAIM-000006; doc_ref=releases/oc_core_1_3_1/editorial/OC_KILLER_CLAIM_INDEX.md; support_class=BRIDGE_ONLY; release_decision=PROMOTE_TO_SUPPLEMENT_ONLY; trace_status=PASS
+- claim_id=OC-CLAIM-000007; doc_ref=releases/oc_core_1_3_1/editorial/OC_KILLER_CLAIM_INDEX.md; support_class=BRIDGE_ONLY; release_decision=PROMOTE_TO_SUPPLEMENT_ONLY; trace_status=PASS
+- claim_id=OC-CLAIM-000009; doc_ref=releases/oc_core_1_3_1/editorial/OC_KILLER_CLAIM_INDEX.md; support_class=THEOREM_NATIVE; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000010; doc_ref=releases/oc_core_1_3_1/editorial/OC_KILLER_CLAIM_INDEX.md; support_class=THEOREM_NATIVE; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000012; doc_ref=releases/oc_core_1_3_1/editorial/OC_KILLER_CLAIM_INDEX.md; support_class=FRAME_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000013; doc_ref=releases/oc_core_1_3_1/editorial/OC_KILLER_CLAIM_INDEX.md; support_class=BRIDGE_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000014; doc_ref=releases/oc_core_1_3_1/editorial/OC_KILLER_CLAIM_INDEX.md; support_class=THEOREM_NATIVE; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000001; doc_ref=releases/oc_core_1_3_1/editorial/OC_FIRST_TIME_EXPERT_READER_ROUTE.md; support_class=THEOREM_NATIVE; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000002; doc_ref=releases/oc_core_1_3_1/editorial/OC_FIRST_TIME_EXPERT_READER_ROUTE.md; support_class=BRIDGE_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000003; doc_ref=releases/oc_core_1_3_1/editorial/OC_FIRST_TIME_EXPERT_READER_ROUTE.md; support_class=BRIDGE_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000013; doc_ref=releases/oc_core_1_3_1/editorial/OC_FIRST_TIME_EXPERT_READER_ROUTE.md; support_class=BRIDGE_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000014; doc_ref=releases/oc_core_1_3_1/editorial/OC_FIRST_TIME_EXPERT_READER_ROUTE.md; support_class=THEOREM_NATIVE; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000001; doc_ref=releases/oc_core_1_3_1/manuscripts/article_family/OC_UNIGNORABLE_SPINE_EN.tex; support_class=THEOREM_NATIVE; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000002; doc_ref=releases/oc_core_1_3_1/manuscripts/article_family/OC_UNIGNORABLE_SPINE_EN.tex; support_class=BRIDGE_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000003; doc_ref=releases/oc_core_1_3_1/manuscripts/article_family/OC_UNIGNORABLE_SPINE_EN.tex; support_class=BRIDGE_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000004; doc_ref=releases/oc_core_1_3_1/manuscripts/article_family/OC_UNIGNORABLE_SPINE_EN.tex; support_class=BRIDGE_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000005; doc_ref=releases/oc_core_1_3_1/manuscripts/article_family/OC_UNIGNORABLE_SPINE_EN.tex; support_class=FRAME_ONLY; release_decision=PROMOTE_AS_FORMULA_ONLY_TESTABLE; trace_status=PASS
+- claim_id=OC-CLAIM-000010; doc_ref=releases/oc_core_1_3_1/manuscripts/article_family/OC_UNIGNORABLE_SPINE_EN.tex; support_class=THEOREM_NATIVE; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000012; doc_ref=releases/oc_core_1_3_1/manuscripts/article_family/OC_UNIGNORABLE_SPINE_EN.tex; support_class=FRAME_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000013; doc_ref=releases/oc_core_1_3_1/manuscripts/article_family/OC_UNIGNORABLE_SPINE_EN.tex; support_class=BRIDGE_ONLY; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
+- claim_id=OC-CLAIM-000014; doc_ref=releases/oc_core_1_3_1/manuscripts/article_family/OC_UNIGNORABLE_SPINE_EN.tex; support_class=THEOREM_NATIVE; release_decision=PROMOTE_TO_CORE_POSITIVE_BODY; trace_status=PASS
