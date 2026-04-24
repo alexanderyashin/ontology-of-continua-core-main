@@ -1,14 +1,36 @@
 {
   "rows": [
     {
-      "detail": "v14 release authority materialized",
+      "detail": "using already-materialized v14 release artifacts",
       "status": "PASS",
       "step_id": "BUILD"
     },
     {
-      "detail": "Missing GitHub or Zenodo release credentials in environment.",
-      "status": "FAIL",
-      "step_id": "CHANNEL_AUTH"
+      "detail": "TAG_CREATED",
+      "status": "PASS",
+      "step_id": "TAG_CREATE"
+    },
+    {
+      "detail": "TAG_PUSHED",
+      "status": "PASS",
+      "step_id": "TAG_PUSH"
+    },
+    {
+      "detail": "asset_total=26",
+      "status": "PASS",
+      "step_id": "ASSET_INDEX"
+    },
+    {
+      "detail": "RELEASED",
+      "status": "PASS",
+      "step_id": "GITHUB_RELEASE",
+      "url": "https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/tag/v1.3.1"
+    },
+    {
+      "detail": "PUBLISHED",
+      "status": "PASS",
+      "step_id": "ZENODO",
+      "url": "https://zenodo.org/records/19741582"
     }
   ]
 }
