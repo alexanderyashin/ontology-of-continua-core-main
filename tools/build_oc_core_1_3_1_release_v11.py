@@ -473,37 +473,44 @@ def compile_tex(tex_path: Path, pdf_path: Path) -> str:
     build_dir = BUILD_DIR / tex_path.stem
     build_dir.mkdir(parents=True, exist_ok=True)
     tex_rel = repo_rel(tex_path)
-    for engine in ["xelatex", "pdflatex"]:
-        try:
-            proc = None
-            for _ in range(2):
-                proc = subprocess.run(
-                    [
-                        engine,
-                        "-interaction=nonstopmode",
-                        "-halt-on-error",
-                        f"-output-directory={str(build_dir)}",
-                        tex_rel,
-                    ],
-                    cwd=REPO_ROOT,
-                    capture_output=True,
-                    text=True,
-                    check=False,
-                    timeout=300,
-                )
-                if proc.returncode != 0:
-                    break
-        except FileNotFoundError:
-            continue
-        candidate = build_dir / f"{tex_path.stem}.pdf"
-        if proc is not None and proc.returncode == 0 and candidate.exists():
-            shutil.copy2(candidate, pdf_path)
-            return f"COMPILED_WITH_{engine.upper()}"
-    fallback_pdf = REPO_ROOT / "main.pdf"
-    if fallback_pdf.exists():
-        shutil.copy2(fallback_pdf, pdf_path)
-        return "COPIED_MAIN_PDF_FALLBACK"
-    raise SystemExit(f"Failed to compile PDF for {repo_rel(tex_path)}")
+    for child in build_dir.iterdir():
+        if child.is_dir():
+            shutil.rmtree(child)
+        else:
+            child.unlink()
+    candidate = build_dir / f"{tex_path.stem}.pdf"
+
+    proc = None
+    try:
+        for _ in range(2):
+            proc = subprocess.run(
+                [
+                    "xelatex",
+                    "-interaction=nonstopmode",
+                    "-halt-on-error",
+                    f"-output-directory={str(build_dir)}",
+                    tex_rel,
+                ],
+                cwd=REPO_ROOT,
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=300,
+            )
+            if proc.returncode != 0:
+                break
+    except FileNotFoundError as exc:
+        raise SystemExit("Failed to compile PDF: xelatex is not available on PATH") from exc
+
+    if proc is not None and proc.returncode == 0 and candidate.exists():
+        shutil.copy2(candidate, pdf_path)
+        return "COMPILED_WITH_XELATEX"
+
+    detail = ""
+    if proc is not None:
+        detail = (proc.stderr.strip() or proc.stdout.strip()).splitlines()[-1:] or []
+        detail = f": {detail[0]}" if detail else ""
+    raise SystemExit(f"Failed to compile PDF for {repo_rel(tex_path)} with xelatex{detail}")
 
 
 def load_private_inputs() -> dict[str, Any]:

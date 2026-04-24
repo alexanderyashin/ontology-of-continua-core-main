@@ -134,6 +134,11 @@ def _bool_str(value: bool) -> str:
     return "true" if value else "false"
 
 
+def _compile_ok(status: str) -> bool:
+    status_value = compact(status)
+    return status_value == "PASS" or status_value.startswith("COMPILED_WITH_")
+
+
 def _env_token(*names: str) -> str:
     for name in names:
         value = str(os.environ.get(name, "") or "").strip()
@@ -772,7 +777,7 @@ def materialize_oc_core_1_3_1_independent_release_v14(run_id: str = "oc_core_1_3
             "mandatory": True,
             "artifact_substance_class": "SOURCE_BOUND_SUBSTANTIVE",
             "checksum": "",
-            "status": "ASSEMBLED" if spine_compile_status == "PASS" else "BLOCKED",
+            "status": "ASSEMBLED" if _compile_ok(spine_compile_status) else "BLOCKED",
             "source_corpus_root": "oc_core_1_3_master_monograph.tex",
             "source_section_refs": [
                 "content/04_results.tex",

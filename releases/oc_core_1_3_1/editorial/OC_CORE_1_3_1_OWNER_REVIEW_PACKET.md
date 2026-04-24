@@ -4,5 +4,5 @@
 - zenodo_staging_status: READY_NO_SEND
 - one_click_ready_no_send_total: 20
 - owner_approval_required: True
-- public_repo_sha: 55a8950c6a50f2590eada8d9f86b2b30178174ca
+- public_repo_sha: 1da9fe7736f7100e75d5bf8aa9ba9c60788d8656
 - public_repo_clean_pre_materialization: False

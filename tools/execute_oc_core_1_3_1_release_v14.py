@@ -4,11 +4,13 @@ import argparse
 import json
 import os
 import subprocess
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 from urllib import error, request
 
 from build_oc_core_1_3_1_independent_release_v14 import (
+    PUBLIC_ARTIFACT_INVENTORY_PATH,
     PUBLIC_CONTROL_PLANE_PATH,
     PUBLIC_GATE_CERT_PATH,
     PUBLIC_OWNER_GATE_PATH,
@@ -31,6 +33,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--tag", default="v1.3.1")
     parser.add_argument("--run-id", default="execute_oc_core_1_3_1_release_v14")
     parser.add_argument("--ci", action="store_true")
+    parser.add_argument(
+        "--from-existing",
+        action="store_true",
+        help="Publish from already-materialized committed artifacts instead of rewriting release files before tagging.",
+    )
     return parser.parse_args()
 
 
@@ -83,6 +90,51 @@ def _run(cmd: list[str], *, timeout: int = 1800) -> subprocess.CompletedProcess[
         check=False,
         timeout=timeout,
     )
+
+
+def _now_utc() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def _git_clean() -> bool:
+    proc = _run(["git", "status", "--short"], timeout=30)
+    return proc.returncode == 0 and not proc.stdout.strip()
+
+
+def _repo_path(ref: str) -> Path:
+    path = Path(str(ref))
+    return path if path.is_absolute() else REPO_ROOT / path
+
+
+def _existing_release_payload() -> dict[str, Any]:
+    return {
+        "control_plane": _read_json(PUBLIC_CONTROL_PLANE_PATH),
+        "artifact_inventory": _read_json(PUBLIC_ARTIFACT_INVENTORY_PATH),
+    }
+
+
+def _existing_release_problems(summary: dict[str, Any]) -> list[str]:
+    problems: list[str] = []
+    if summary.get("independent_audit_status") != "PASS":
+        problems.append(f"independent_audit_status={summary.get('independent_audit_status')}")
+    if summary.get("reader_route_status") != "PASS":
+        problems.append(f"reader_route_status={summary.get('reader_route_status')}")
+
+    inventory = _read_json(PUBLIC_ARTIFACT_INVENTORY_PATH)
+    rows = [row for row in inventory.get("rows", []) or [] if isinstance(row, dict)]
+    mandatory_rows = [row for row in rows if bool(row.get("mandatory"))]
+    if not mandatory_rows:
+        problems.append("mandatory_artifact_rows=0")
+    for row in mandatory_rows:
+        artifact_id = str(row.get("artifact_id", "UNKNOWN"))
+        artifact_ref = str(row.get("artifact_ref", "") or "").strip()
+        if str(row.get("status", "")).strip() != "ASSEMBLED":
+            problems.append(f"{artifact_id}: status={row.get('status')}")
+        if not artifact_ref:
+            problems.append(f"{artifact_id}: missing artifact_ref")
+        elif not _repo_path(artifact_ref).exists():
+            problems.append(f"{artifact_id}: missing artifact file {artifact_ref}")
+    return problems
 
 
 def _request_json(url: str, *, method: str, token: str, payload: dict[str, Any] | None = None, content_type: str = "application/json") -> dict[str, Any]:
@@ -213,7 +265,7 @@ def _push_tag(tag_name: str) -> str:
     return "TAG_PUSHED"
 
 
-def _github_release(repo_slug: str, tag_name: str, github_token: str, assets: list[Path]) -> str:
+def _github_release(repo_slug: str, tag_name: str, github_token: str, assets: list[Path]) -> dict[str, Any]:
     release = _request_json(
         f"https://api.github.com/repos/{repo_slug}/releases",
         method="POST",
@@ -237,10 +289,15 @@ def _github_release(repo_slug: str, tag_name: str, github_token: str, assets: li
         req.add_header("Accept", "application/json")
         with request.urlopen(req, timeout=600):
             pass
-    return "RELEASED"
+    return {
+        "status": "RELEASED",
+        "id": release.get("id"),
+        "html_url": release.get("html_url"),
+        "asset_total": len(assets),
+    }
 
 
-def _zenodo_publish(zenodo_token: str, tag_name: str) -> str:
+def _zenodo_publish(zenodo_token: str, tag_name: str) -> dict[str, Any]:
     draft = _read_json(PUBLIC_ZENODO_DRAFT_PATH)
     stage = _read_json(EDITORIAL_DIR / "OC_ZENODO_STAGING_PACKAGE_latest.json")
     zip_ref = str(stage.get("zip_ref", "") or "").strip()
@@ -277,23 +334,48 @@ def _zenodo_publish(zenodo_token: str, tag_name: str) -> str:
         token=zenodo_token,
         payload=metadata,
     )
-    _request_json(
+    published = _request_json(
         f"https://zenodo.org/api/deposit/depositions/{deposition_id}/actions/publish",
         method="POST",
         token=zenodo_token,
         payload={},
     )
-    return "PUBLISHED"
+    links = (published.get("links") or {}) if isinstance(published, dict) else {}
+    return {
+        "status": "PUBLISHED",
+        "id": deposition_id,
+        "record_url": links.get("html") or links.get("latest_html"),
+        "doi": published.get("doi") if isinstance(published, dict) else None,
+    }
 
 
-if __name__ == "__main__":
+def main() -> int:
     args = parse_args()
-    payload = materialize_oc_core_1_3_1_independent_release_v14(run_id=args.run_id)
-    summary = payload["control_plane"]["summary"]
+    if args.from_existing:
+        payload = _existing_release_payload()
+        summary = payload["control_plane"].get("summary", {})
+        steps: list[dict[str, Any]] = [
+            {"step_id": "BUILD", "status": "PASS", "detail": "using already-materialized v14 release artifacts"}
+        ]
+    else:
+        payload = materialize_oc_core_1_3_1_independent_release_v14(run_id=args.run_id)
+        summary = payload["control_plane"]["summary"]
+        steps = [
+            {"step_id": "BUILD", "status": "PASS", "detail": "v14 release authority materialized"}
+        ]
 
-    steps: list[dict[str, Any]] = [
-        {"step_id": "BUILD", "status": "PASS", "detail": "v14 release authority materialized"}
-    ]
+    existing_problems = _existing_release_problems(summary)
+    if existing_problems:
+        detail = "; ".join(existing_problems)
+        _set_blocked_state(
+            status="BLOCKED_BY_EXISTING_ARTIFACT_VALIDATION",
+            github_status=str(summary.get("github_release_status", "NOT_ATTEMPTED")),
+            zenodo_status=str(summary.get("zenodo_deposit_status", "NOT_ATTEMPTED")),
+            detail=detail,
+            tag_name=args.tag,
+        )
+        _write_json(PUBLIC_EXECUTION_STEPS_PATH, {"rows": steps + [{"step_id": "ARTIFACT_VALIDATION", "status": "FAIL", "detail": detail}]})
+        return 1
 
     if summary.get("independent_audit_status") != "PASS" or summary.get("reader_route_status") != "PASS":
         detail = "Independent audit or reader route did not pass."
@@ -305,7 +387,7 @@ if __name__ == "__main__":
             tag_name=args.tag,
         )
         _write_json(PUBLIC_EXECUTION_STEPS_PATH, {"rows": steps + [{"step_id": "EXECUTION", "status": "FAIL", "detail": detail}]})
-        raise SystemExit(1)
+        return 1
 
     github_token = _token("GITHUB_TOKEN", "GH_TOKEN")
     zenodo_token = _token("ZENODO_TOKEN", "ZENODO_SANDBOX_TOKEN")
@@ -319,7 +401,7 @@ if __name__ == "__main__":
             tag_name=args.tag,
         )
         _write_json(PUBLIC_EXECUTION_STEPS_PATH, {"rows": steps + [{"step_id": "CHANNEL_AUTH", "status": "FAIL", "detail": detail}]})
-        raise SystemExit(1)
+        return 1
 
     repo_slug = _repo_slug()
     if not repo_slug:
@@ -332,15 +414,29 @@ if __name__ == "__main__":
             tag_name=args.tag,
         )
         _write_json(PUBLIC_EXECUTION_STEPS_PATH, {"rows": steps + [{"step_id": "REMOTE", "status": "FAIL", "detail": detail}]})
-        raise SystemExit(1)
+        return 1
+
+    if args.from_existing and not _git_clean():
+        detail = "Working tree must be clean before publishing from committed release artifacts."
+        _set_blocked_state(
+            status="BLOCKED_BY_DIRTY_WORKTREE",
+            github_status="READY",
+            zenodo_status="READY",
+            detail=detail,
+            tag_name=args.tag,
+        )
+        _write_json(PUBLIC_EXECUTION_STEPS_PATH, {"rows": steps + [{"step_id": "DIRTY_WORKTREE", "status": "FAIL", "detail": detail}]})
+        return 1
 
     try:
         steps.append({"step_id": "TAG_CREATE", "status": "PASS", "detail": _create_or_verify_tag(args.tag)})
         steps.append({"step_id": "TAG_PUSH", "status": "PASS", "detail": _push_tag(args.tag)})
         assets = _asset_paths()
         steps.append({"step_id": "ASSET_INDEX", "status": "PASS", "detail": f"asset_total={len(assets)}"})
-        steps.append({"step_id": "GITHUB_RELEASE", "status": "PASS", "detail": _github_release(repo_slug, args.tag, github_token, assets)})
-        steps.append({"step_id": "ZENODO", "status": "PASS", "detail": _zenodo_publish(zenodo_token, args.tag)})
+        github_release = _github_release(repo_slug, args.tag, github_token, assets)
+        steps.append({"step_id": "GITHUB_RELEASE", "status": "PASS", "detail": github_release.get("status"), "url": github_release.get("html_url")})
+        zenodo_release = _zenodo_publish(zenodo_token, args.tag)
+        steps.append({"step_id": "ZENODO", "status": "PASS", "detail": zenodo_release.get("status"), "url": zenodo_release.get("record_url")})
     except Exception as exc:
         detail = str(exc)
         _set_blocked_state(
@@ -352,13 +448,22 @@ if __name__ == "__main__":
         )
         steps.append({"step_id": "EXECUTION", "status": "FAIL", "detail": detail})
         _write_json(PUBLIC_EXECUTION_STEPS_PATH, {"rows": steps})
-        raise SystemExit(1)
+        return 1
 
     control = _read_json(PUBLIC_CONTROL_PLANE_PATH)
     gate = _read_json(PUBLIC_GATE_CERT_PATH)
     owner_gate = _read_json(PUBLIC_OWNER_GATE_PATH)
     ready_board = _read_json(PUBLIC_RELEASE_READY_BOARD_PATH)
     publish_manifest = _read_json(PUBLIC_PUBLISH_MANIFEST_PATH)
+    release_details = {
+        "released_at_utc": _now_utc(),
+        "github_release_id": github_release.get("id"),
+        "github_release_url": github_release.get("html_url"),
+        "github_release_asset_total": github_release.get("asset_total"),
+        "zenodo_deposit_id": zenodo_release.get("id"),
+        "zenodo_record_url": zenodo_release.get("record_url"),
+        "zenodo_doi": zenodo_release.get("doi"),
+    }
 
     control_summary = control.get("summary", {})
     control_summary.update(
@@ -367,6 +472,7 @@ if __name__ == "__main__":
             "github_release_status": "RELEASED",
             "zenodo_deposit_status": "PUBLISHED",
             "tag_name": args.tag,
+            **release_details,
         }
     )
     control["summary"] = control_summary
@@ -379,11 +485,12 @@ if __name__ == "__main__":
             "zenodo_deposit_status": "PUBLISHED",
             "tag_name": args.tag,
             "publish_action_performed": True,
+            **release_details,
         }
     )
     gate["summary"] = gate_summary
     gate["status"] = "PASS"
-    owner_gate.update({"publish_allowed": True, "release_execution_status": "RELEASED"})
+    owner_gate.update({"publish_allowed": True, "release_execution_status": "RELEASED", **release_details})
     ready_board["status"] = "RELEASED"
     ready_board["summary"] = {**ready_board.get("summary", {}), **control_summary}
     publish_manifest.update(
@@ -392,6 +499,7 @@ if __name__ == "__main__":
             "github_release_status": "RELEASED",
             "zenodo_deposit_status": "PUBLISHED",
             "tag_name": args.tag,
+            **release_details,
         }
     )
 
@@ -409,7 +517,13 @@ if __name__ == "__main__":
             "github_release_status": "RELEASED",
             "zenodo_deposit_status": "PUBLISHED",
             "publish_action_performed": True,
+            **release_details,
         },
     )
     _write_json(PUBLIC_EXECUTION_STEPS_PATH, {"rows": steps})
     print("RELEASED")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
