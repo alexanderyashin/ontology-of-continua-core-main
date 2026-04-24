@@ -9,6 +9,8 @@ from pathlib import Path
 from typing import Any
 from urllib import error, request
 
+import requests
+
 from build_oc_core_1_3_1_independent_release_v14 import (
     PUBLIC_ARTIFACT_INVENTORY_PATH,
     PUBLIC_CONTROL_PLANE_PATH,
@@ -155,6 +157,24 @@ def _upload_binary(url: str, *, token: str, data: bytes, content_type: str = "ap
     req.add_header("Content-Type", content_type)
     with request.urlopen(req, timeout=300):
         return
+
+
+def _zenodo_request_json(url: str, *, method: str, token: str, payload: dict[str, Any] | None = None, timeout: int = 120) -> dict[str, Any]:
+    headers = {"Authorization": f"Bearer {token}", "Accept": "application/json"}
+    response = requests.request(method, url, headers=headers, json=payload, timeout=timeout)
+    response.raise_for_status()
+    return response.json() if response.text.strip() else {}
+
+
+def _zenodo_upload_file(bucket_url: str, *, token: str, path: Path) -> None:
+    with path.open("rb") as handle:
+        response = requests.put(
+            f"{bucket_url}/{path.name}",
+            headers={"Authorization": f"Bearer {token}"},
+            data=handle,
+            timeout=600,
+        )
+    response.raise_for_status()
 
 
 def _asset_paths() -> list[Path]:
@@ -307,7 +327,7 @@ def _zenodo_publish(zenodo_token: str, tag_name: str) -> dict[str, Any]:
     if not zip_path.exists():
         raise RuntimeError(f"Zenodo staging zip missing: {zip_path}")
 
-    deposition = _request_json(
+    deposition = _zenodo_request_json(
         "https://zenodo.org/api/deposit/depositions",
         method="POST",
         token=zenodo_token,
@@ -316,7 +336,7 @@ def _zenodo_publish(zenodo_token: str, tag_name: str) -> dict[str, Any]:
     bucket_url = str((deposition.get("links") or {}).get("bucket", "") or "").strip()
     if not bucket_url:
         raise RuntimeError("Zenodo bucket URL missing.")
-    _upload_binary(f"{bucket_url}/{zip_path.name}", token=zenodo_token, data=zip_path.read_bytes(), content_type="application/zip")
+    _zenodo_upload_file(bucket_url, token=zenodo_token, path=zip_path)
     metadata = {
         "metadata": {
             "title": draft.get("title", f"Ontology of Continua — Core {tag_name}"),
@@ -328,17 +348,17 @@ def _zenodo_publish(zenodo_token: str, tag_name: str) -> dict[str, Any]:
         }
     }
     deposition_id = deposition.get("id")
-    _request_json(
+    _zenodo_request_json(
         f"https://zenodo.org/api/deposit/depositions/{deposition_id}",
         method="PUT",
         token=zenodo_token,
         payload=metadata,
     )
-    published = _request_json(
+    published = _zenodo_request_json(
         f"https://zenodo.org/api/deposit/depositions/{deposition_id}/actions/publish",
         method="POST",
         token=zenodo_token,
-        payload={},
+        payload=None,
     )
     links = (published.get("links") or {}) if isinstance(published, dict) else {}
     return {
