@@ -1,0 +1,19 @@
+name: OC Core 1.3.2 Release Candidate Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "release/oc-core-1.3.2"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python simulations/run_all.py --write-report
+      - run: python -m release_machine package --release oc_core_1_3_2 --channel all --no-publish
+      - run: python -m release_machine shit-control --release oc_core_1_3_2 --channel all --max-iterations 5

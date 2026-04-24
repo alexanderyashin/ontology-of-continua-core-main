@@ -1,0 +1,19 @@
+name: Release Machine Dry Run
+
+on:
+  push:
+    branches:
+      - main
+      - "release/**"
+  pull_request:
+
+jobs:
+  dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m release_machine evaluate --release oc_core_1_3_2 --channel all --mode dry-run
+      - run: python -m unittest discover release_machine/tests

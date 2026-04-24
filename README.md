@@ -1,34 +1,26 @@
-# Ontology of Continua / OC Core 1.3.1
+# Ontology of Continua / OC Core 1.3.2
 
-This repository stages the canonical public OC Core 1.3.1 release surface and its release-execution authority stack.
+OC Core v1.3.2 is a canonical source-bound patch release candidate repairing release hygiene, public-surface consistency, claim accounting, reproducibility scaffolding, simulation/data support boundaries, and release-machine governance.
 
 Current public truth:
-- external version label: 1.3.1
-- release authority: `tools/build_oc_core_1_3_1_independent_release_v14.py`
-- unignorable_status: UNIGNORABLE_RELEASE_READY_NO_SEND
-- claim_total: 20
-- killer_ready_total: 12
-- owner_approval_required: true
-- global_no_send_lock: true
+- external version label: `1.3.2`
+- release state: `RELEASE_READY_NO_SEND`
+- previous canonical version: OC Core v1.3.1
+- previous canonical DOI: `10.5281/zenodo.19741958`
+- concept DOI / version chain: `10.5281/zenodo.17899134`
+- v1.3.2 DOI: `TBD_UNTIL_ZENODO_NEW_VERSION_PUBLISHED`
+- owner approval required: `true`
+- global no-send lock: `true`
+- publish allowed: `false`
 
-Shortest honest route:
-- `releases/oc_core_1_3_1/manuscripts/article_family/OC_UNIGNORABLE_SPINE_EN.pdf`
-- `releases/oc_core_1_3_1/editorial/OC_KILLER_CLAIM_INDEX.md`
-- `releases/oc_core_1_3_1/editorial/OC_FIRST_TIME_EXPERT_READER_ROUTE.md`
-- `releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_RELEASE_CONTROL_PLANE_latest.json`
+Primary release-candidate surfaces:
+- `releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_RELEASE_CONTROL_PLANE_latest.json`
+- `releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_RELEASE_SCORECARD_latest.md`
+- `claims/CLAIM_LEDGER_FULL.md`
+- `simulations/results/OC_CORE_1_3_2_SIMULATION_RESULTS_latest.md`
+- `data/OC_DATASET_MANIFEST_1_3_2.json`
+- `release_machine/`
 
-Central positive claims in the outward body:
-- OC-CLAIM-000001: Boundary-cycle-collapse invariant [PROMOTE_TO_CORE_POSITIVE_BODY]
-- OC-CLAIM-000002: Physics threshold replay [PROMOTE_TO_CORE_POSITIVE_BODY]
-- OC-CLAIM-000003: RAF closure packet [PROMOTE_TO_CORE_POSITIVE_BODY]
-- OC-CLAIM-000004: Membrane viability windows [PROMOTE_TO_CORE_POSITIVE_BODY]
-- OC-CLAIM-000005: K6 binding collapse laws [PROMOTE_AS_FORMULA_ONLY_TESTABLE]
-- OC-CLAIM-000009: K10 recursion consistency [PROMOTE_TO_CORE_POSITIVE_BODY]
-- OC-CLAIM-000010: K11 irreducibility [PROMOTE_TO_CORE_POSITIVE_BODY]
-- OC-CLAIM-000012: Comparator-aware release [PROMOTE_TO_CORE_POSITIVE_BODY]
+Simulations are deterministic and reproducibility-oriented. They illustrate and check execution surfaces; they are not empirical validation.
 
-Non-claims and boundaries:
-- toy-only simulations are not validation
-- comparator-defeated claims do not survive in the positive core
-- resource-limited claims are demoted instead of silently promoted
-- publish remains blocked until independent audit, reader route, and channel-auth gates all pass
+Public dataset routes are bounded support/discovery surfaces. They do not widen claim ceilings unless pinned snapshots, hashes, and reconstruction scripts exist.

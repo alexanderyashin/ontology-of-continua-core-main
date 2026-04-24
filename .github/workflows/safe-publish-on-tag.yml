@@ -1,0 +1,17 @@
+name: Safe Blocked Publish On Tag
+
+on:
+  push:
+    tags:
+      - "v1.3.2"
+
+jobs:
+  no-send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m release_machine publish-plan --release oc_core_1_3_2 --channel all
+      - run: echo "Publication is intentionally blocked until explicit owner approval and release instruction."

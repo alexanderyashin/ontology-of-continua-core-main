@@ -1,6 +1,5 @@
-# Release Contract
+# OC Core 1.3.2 Release Contract
 
-- release contract: `releases/oc_core_1_3_1/editorial/OC_RELEASE_CONTRACT_latest.json`
-- artifact inventory: `releases/oc_core_1_3_1/editorial/OC_RELEASE_BUNDLE_INVENTORY_latest.json`
-- public gate cert: `releases/oc_core_1_3_1/editorial/OC_PUBLIC_RELEASE_GATE_CERT_latest.json`
-- release execution stops unless independent audit, reader route, GitHub, and Zenodo gates all pass
+OC Core v1.3.2 may not be externally published unless the release machine reports zero critical findings, zero high findings, public-surface parity PASS, claim/evidence ceiling PASS, security/privacy PASS, owner approval bound to exact hashes, and a channel-specific publish manifest.
+
+Current state: `RELEASE_READY_NO_SEND`.

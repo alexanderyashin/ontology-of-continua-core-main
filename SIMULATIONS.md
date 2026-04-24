@@ -1,6 +1,7 @@
-# Simulations
+# OC Core 1.3.2 Simulations
 
-- canonical entrypoint: `python simulations/run_all.py`
-- role ledger: `simulations/OC_SIMULATION_ROLE_CLASS_LEDGER_latest.json`
-- execution guide: `simulations/OC_SIMULATION_EXECUTION_GUIDE.md`
-- no simulation may silently upgrade a claim above its role class
+The simulation corpus is strict about expected runner IDs, output schema, timeout, seed, and golden-output fields.
+
+Support ceiling: `SIMULATION_ILLUSTRATION_ONLY`.
+
+Validation claim allowed: `false`.

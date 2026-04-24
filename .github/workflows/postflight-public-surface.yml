@@ -1,0 +1,19 @@
+name: Postflight Public Surface Check
+
+on:
+  workflow_dispatch:
+    inputs:
+      public_url:
+        description: "Published public URL"
+        required: true
+        type: string
+
+jobs:
+  postflight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m release_machine postflight --release oc_core_1_3_2 --channel zenodo --public-url "${{ inputs.public_url }}"

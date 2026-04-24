@@ -1,4 +1,4 @@
-name: Core 1.3 — Deterministic Build And Release On Tag
+name: Core Release On Tag - Safe Gate
 
 on:
   push:
@@ -6,118 +6,20 @@ on:
       - "v*"
 
 jobs:
-  build-and-release:
+  safe-gate:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-
+      contents: read
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install TeX Live (full)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y texlive-full latexmk biber zip
-
-      - name: Make build_core.sh executable
-        run: chmod +x ./build_core.sh
-
-      - name: Build canonical Core 1.3.1 release authority
-        if: github.ref_name == 'v1.3.1'
-        run: python tools/build_oc_core_1_3_1_independent_release_v14.py
-
-      - name: Build canonical Core PDF
-        if: github.ref_name != 'v1.3.1'
-        run: ./build_core.sh
-
-      - name: Validate Core 1.3 science bundle and Cerberus gate
-        if: github.ref_name != 'v1.3.1'
-        run: python tools/validate_oc_core_1_3_science_spot.py --require-cerberus-clean
-
-      - name: Materialize public release-hardening surfaces
-        if: github.ref_name != 'v1.3.1'
-        run: python tools/build_oc_public_repo_release_hardening_v8.py
-
-      - name: Require release-safe public gate cert
-        if: github.ref_name != 'v1.3.1'
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          gate_path = Path("releases/oc_core_1_3/editorial/OC_PUBLIC_RELEASE_GATE_CERT_latest.json")
-          gate = json.loads(gate_path.read_text(encoding="utf-8"))
-          if gate.get("release_gate_status") != "RELEASE_SAFE":
-              raise SystemExit(f"Release gate is not safe: {gate.get('release_gate_status')}")
-          print(f"release_gate_status={gate.get('release_gate_status')}")
-          PY
-
-      - name: Stage English-only Zenodo package
-        if: github.ref_name != 'v1.3.1'
-        run: |
-          TAG="${GITHUB_REF_NAME}"
-          python tools/stage_oc_core_1_3_zenodo_en_release.py --zip-path "build_oc_core_1_3_zenodo_en_only-${TAG}.zip"
-
-      - name: Stage reproducibility archive
-        if: github.ref_name != 'v1.3.1'
-        run: |
-          TAG="${GITHUB_REF_NAME}"
-          python tools/stage_oc_public_release_artifacts.py --zip-path "build_oc_public_release_archive-${TAG}.zip"
-
-      - name: Create release asset outputs
-        if: github.ref_name != 'v1.3.1'
-        id: release_assets
-        run: |
-          TAG="${GITHUB_REF_NAME}"
-          PDF_PATH="build/main.pdf"
-          ZENODO_ZIP="build_oc_core_1_3_zenodo_en_only-${TAG}.zip"
-          REPRO_ZIP="build_oc_public_release_archive-${TAG}.zip"
-          if [ ! -f "$PDF_PATH" ]; then
-            echo "Missing deterministic PDF asset: $PDF_PATH"
-            exit 1
-          fi
-          if [ ! -f "$ZENODO_ZIP" ]; then
-            echo "Missing Zenodo release archive: $ZENODO_ZIP"
-            exit 1
-          fi
-          if [ ! -f "$REPRO_ZIP" ]; then
-            echo "Missing reproducibility archive: $REPRO_ZIP"
-            exit 1
-          fi
-          echo "pdf_path=$PDF_PATH" >> "$GITHUB_OUTPUT"
-          echo "zenodo_zip=$ZENODO_ZIP" >> "$GITHUB_OUTPUT"
-          echo "repro_zip=$REPRO_ZIP" >> "$GITHUB_OUTPUT"
-
-      - name: Validate 1.3.1 independent release bundle
-        if: github.ref_name == 'v1.3.1'
-        run: python tools/validate_oc_release_bundle_v1.py
-
-      - name: Execute 1.3.1 release authority
-        if: github.ref_name == 'v1.3.1'
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
-        run: |
-          TAG="${GITHUB_REF_NAME}"
-          python tools/execute_oc_core_1_3_1_release_v14.py --tag "$TAG" --ci
-
-      - name: Create GitHub release and upload assets
-        if: github.ref_name != 'v1.3.1'
-        uses: softprops/action-gh-release@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          tag_name: ${{ github.ref_name }}
-          name: Ontology of Continua — Core ${{ github.ref_name }}
-          draft: false
-          prerelease: false
-          body: |
-            Ontology of Continua — Core ${{ github.ref_name }}
-
-            This release was built from deterministic public-release contracts.
-            It includes:
-            - compiled PDF from `build/main.pdf`
-            - the manifest-staged English-only release package
-            - the explicit reproducibility archive including workflow provenance
-          files: |
-            ${{ steps.release_assets.outputs.pdf_path }}
-            ${{ steps.release_assets.outputs.zenodo_zip }}
-            ${{ steps.release_assets.outputs.repro_zip }}
+          python-version: "3.11"
+      - name: Run release machine dry-run
+        run: python -m release_machine evaluate --release oc_core_1_3_2 --channel all --mode dry-run
+      - name: Produce blocked publish plan
+        run: python -m release_machine publish-plan --release oc_core_1_3_2 --channel all
+      - name: Keep v1.3.2 publication locked
+        run: |
+          echo "No GitHub release or Zenodo publication is created by this workflow."
+          echo "Owner approval and a later explicit publication instruction are required."

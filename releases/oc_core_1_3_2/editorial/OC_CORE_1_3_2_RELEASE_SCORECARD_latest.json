@@ -1,0 +1,251 @@
+{
+  "release_id": "oc_core_1_3_2",
+  "version": "1.3.2",
+  "generated_at": "2026-04-25T00:00:00Z",
+  "summary": {
+    "release_id": "oc_core_1_3_2",
+    "version": "1.3.2",
+    "channel": "all",
+    "mode": "dry-run",
+    "generated_at": "2026-04-25T00:00:00Z",
+    "release_state": "RELEASE_READY_NO_SEND",
+    "gate_counts": {
+      "BLOCKED": 0,
+      "FAIL": 0,
+      "NOT_APPLICABLE": 1,
+      "NOT_RUN": 0,
+      "PASS": 14,
+      "WARN": 0
+    },
+    "critical_findings": 0,
+    "high_findings": 0,
+    "finding_total": 0,
+    "owner_approval_required": true,
+    "global_no_send_lock": true,
+    "publish_allowed": false,
+    "doi": "TBD_UNTIL_ZENODO_NEW_VERSION_PUBLISHED",
+    "previous_canonical_doi": "10.5281/zenodo.19741958",
+    "concept_doi": "10.5281/zenodo.17899134"
+  },
+  "gate_results": [
+    {
+      "gate_id": "gate_00_intake",
+      "title": "Release intake and identity",
+      "state": "PASS",
+      "severity": "INFO",
+      "summary": "Release id, version, and release directory checked.",
+      "details": {
+        "release": "oc_core_1_3_2",
+        "version": "1.3.2",
+        "release_dir_exists": true
+      },
+      "executed": true,
+      "executed_at": "2026-04-25T00:00:00Z",
+      "justification": ""
+    },
+    {
+      "gate_id": "gate_01_channel_policy",
+      "title": "Channel policy",
+      "state": "PASS",
+      "severity": "INFO",
+      "summary": "Channel policy files checked.",
+      "details": {
+        "channel": "all",
+        "expanded_channels": [
+          "zenodo",
+          "github_release",
+          "github_repo_public_surface"
+        ]
+      },
+      "executed": true,
+      "executed_at": "2026-04-25T00:00:00Z",
+      "justification": ""
+    },
+    {
+      "gate_id": "gate_02_artifact_inventory",
+      "title": "Artifact inventory",
+      "state": "PASS",
+      "severity": "INFO",
+      "summary": "Artifact inventory is present and assembled.",
+      "details": {
+        "artifact_total": 44,
+        "missing": []
+      },
+      "executed": true,
+      "executed_at": "2026-04-25T00:00:00Z",
+      "justification": ""
+    },
+    {
+      "gate_id": "gate_03_build_reproducibility",
+      "title": "Build and reproducibility",
+      "state": "PASS",
+      "severity": "INFO",
+      "summary": "Package and simulation report checked.",
+      "details": {
+        "zip": "releases/oc_core_1_3_2/artifacts/oc_core_1_3_2_zenodo_release.zip"
+      },
+      "executed": true,
+      "executed_at": "2026-04-25T00:00:00Z",
+      "justification": ""
+    },
+    {
+      "gate_id": "gate_04_pdf_document_quality",
+      "title": "PDF document quality",
+      "state": "PASS",
+      "severity": "INFO",
+      "summary": "Primary PDF artifacts are present and have a PDF header.",
+      "details": {
+        "missing": [],
+        "bad": []
+      },
+      "executed": true,
+      "executed_at": "2026-04-25T00:00:00Z",
+      "justification": ""
+    },
+    {
+      "gate_id": "gate_05_claim_evidence_ceiling",
+      "title": "Claim and evidence ceiling",
+      "state": "PASS",
+      "severity": "INFO",
+      "summary": "Full claim ledger and support ceilings checked.",
+      "details": {
+        "claim_total": 20,
+        "bad_support": [],
+        "empty_refs": []
+      },
+      "executed": true,
+      "executed_at": "2026-04-25T00:00:00Z",
+      "justification": ""
+    },
+    {
+      "gate_id": "gate_06_strong_statement_linter",
+      "title": "Strong statement linter",
+      "state": "PASS",
+      "severity": "INFO",
+      "summary": "Outward-facing surfaces checked for unsafe public rhetoric.",
+      "details": {
+        "hits": []
+      },
+      "executed": true,
+      "executed_at": "2026-04-25T00:00:00Z",
+      "justification": ""
+    },
+    {
+      "gate_id": "gate_07_simulation_data_validation",
+      "title": "Simulation and data boundary",
+      "state": "PASS",
+      "severity": "INFO",
+      "summary": "Simulation assertions and dataset claim ceilings checked.",
+      "details": {
+        "simulation_total": 11,
+        "failure_total": 0,
+        "data_route_total": 6
+      },
+      "executed": true,
+      "executed_at": "2026-04-25T00:00:00Z",
+      "justification": ""
+    },
+    {
+      "gate_id": "gate_08_citation_doi_metadata",
+      "title": "Citation and DOI metadata",
+      "state": "PASS",
+      "severity": "INFO",
+      "summary": "DOI metadata uses pending v1.3.2 DOI and historical DOI references.",
+      "details": {
+        "doi": "TBD_UNTIL_ZENODO_NEW_VERSION_PUBLISHED",
+        "previous": "10.5281/zenodo.19741958",
+        "concept": "10.5281/zenodo.17899134"
+      },
+      "executed": true,
+      "executed_at": "2026-04-25T00:00:00Z",
+      "justification": ""
+    },
+    {
+      "gate_id": "gate_09_public_surface_parity",
+      "title": "Public surface parity",
+      "state": "PASS",
+      "severity": "INFO",
+      "summary": "Tracked v1.3.2 public surfaces agree on version, DOI state, and no-send state.",
+      "details": {
+        "missing_or_stale": []
+      },
+      "executed": true,
+      "executed_at": "2026-04-25T00:00:00Z",
+      "justification": ""
+    },
+    {
+      "gate_id": "gate_10_security_privacy_secrets",
+      "title": "Security, privacy, secrets",
+      "state": "PASS",
+      "severity": "INFO",
+      "summary": "Release surfaces checked for local paths and obvious secret patterns.",
+      "details": {
+        "local_path_hits": [],
+        "secret_hits": []
+      },
+      "executed": true,
+      "executed_at": "2026-04-25T00:00:00Z",
+      "justification": ""
+    },
+    {
+      "gate_id": "gate_11_ci_release_workflow",
+      "title": "CI release workflow",
+      "state": "PASS",
+      "severity": "INFO",
+      "summary": "Dry-run, candidate, safe tag, and postflight workflows checked.",
+      "details": {
+        "workflows": [
+          ".github/workflows/release-machine-dry-run.yml",
+          ".github/workflows/release-candidate-build.yml",
+          ".github/workflows/safe-publish-on-tag.yml",
+          ".github/workflows/postflight-public-surface.yml"
+        ]
+      },
+      "executed": true,
+      "executed_at": "2026-04-25T00:00:00Z",
+      "justification": ""
+    },
+    {
+      "gate_id": "gate_12_owner_approval",
+      "title": "Owner approval no-send lock",
+      "state": "PASS",
+      "severity": "INFO",
+      "summary": "Owner approval is required and publish remains locked.",
+      "details": {
+        "owner_approval_required": true,
+        "owner_approved": false,
+        "publish_allowed": false
+      },
+      "executed": true,
+      "executed_at": "2026-04-25T00:00:00Z",
+      "justification": ""
+    },
+    {
+      "gate_id": "gate_13_publish_preflight",
+      "title": "Publish preflight",
+      "state": "PASS",
+      "severity": "INFO",
+      "summary": "No v1.3.2 tag is present and no-send publish policy is active.",
+      "details": {
+        "local_tag_v1_3_2_exists": false,
+        "publish_allowed": false
+      },
+      "executed": true,
+      "executed_at": "2026-04-25T00:00:00Z",
+      "justification": ""
+    },
+    {
+      "gate_id": "gate_14_post_release_audit",
+      "title": "Post-release audit",
+      "state": "NOT_APPLICABLE",
+      "severity": "INFO",
+      "summary": "Postflight is not applicable before publication.",
+      "details": {
+        "published": false
+      },
+      "executed": true,
+      "executed_at": "2026-04-25T00:00:00Z",
+      "justification": "v1.3.2 has not been externally published."
+    }
+  ]
+}

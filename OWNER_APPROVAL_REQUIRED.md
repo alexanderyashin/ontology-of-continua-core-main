@@ -1,6 +1,5 @@
 # Owner Approval Required
 
-- owner_approval_required: true
-- global_no_send_lock: true
-- publish_allowed defaults to false until the execution tool has both owner approval and channel auth
-- the requested tag for a passing release is `v1.3.1`
+OC Core v1.3.2 is not approved for external publication.
+
+Owner approval must cite the exact artifact freeze hash from `releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_OWNER_APPROVAL_PACKET.md` and must specify the target channel.

@@ -1,19 +1,129 @@
 from __future__ import annotations
 
+import argparse
 import json
 import subprocess
 import sys
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parent
-RESULTS = []
-for runner in sorted(ROOT.glob('*/run_simulation.py')):
-    proc = subprocess.run([sys.executable, str(runner)], capture_output=True, text=True, check=False, timeout=120)
-    payload = {'runner': str(runner.relative_to(ROOT)), 'returncode': proc.returncode}
-    try:
-        payload['stdout_json'] = json.loads(proc.stdout) if proc.stdout.strip() else {}
-    except Exception:
-        payload['stdout_json'] = {'raw_stdout': proc.stdout.strip()}
-    payload['stderr'] = proc.stderr.strip()
-    RESULTS.append(payload)
-print(json.dumps({'simulation_total': len(RESULTS), 'results': RESULTS}, ensure_ascii=False, indent=2))
+REPO = ROOT.parent
+EXPECTED_PATH = ROOT / "expected_simulations.yml"
+RESULT_JSON = ROOT / "results" / "OC_CORE_1_3_2_SIMULATION_RESULTS_latest.json"
+RESULT_MD = ROOT / "results" / "OC_CORE_1_3_2_SIMULATION_RESULTS_latest.md"
+
+
+def load_expected() -> dict[str, Any]:
+    return json.loads(EXPECTED_PATH.read_text(encoding="utf-8"))
+
+
+def validate_payload(payload: dict[str, Any], expected: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    for key in ["simulation_id", "seed", "trace_points", "stability_score", "boundary_crossed"]:
+        if key not in payload:
+            errors.append(f"missing key {key}")
+    if errors:
+        return errors
+    if payload["simulation_id"] != expected["simulation_id"]:
+        errors.append(f"simulation_id mismatch: {payload['simulation_id']} != {expected['simulation_id']}")
+    if payload["seed"] != expected["seed"]:
+        errors.append(f"seed mismatch: {payload['seed']} != {expected['seed']}")
+    exp = expected["expected"]
+    if len(payload["trace_points"]) != exp["trace_points_length"]:
+        errors.append(f"trace_points length mismatch: {len(payload['trace_points'])} != {exp['trace_points_length']}")
+    if round(float(payload["stability_score"]), 6) != round(float(exp["stability_score"]), 6):
+        errors.append(f"stability_score mismatch: {payload['stability_score']} != {exp['stability_score']}")
+    if bool(payload["boundary_crossed"]) != bool(exp["boundary_crossed"]):
+        errors.append(f"boundary_crossed mismatch: {payload['boundary_crossed']} != {exp['boundary_crossed']}")
+    return errors
+
+
+def run() -> dict[str, Any]:
+    expected = load_expected()
+    timeout = int(expected["timeout_seconds"])
+    rows = []
+    failures = []
+    actual_runners = {path.relative_to(ROOT).as_posix() for path in ROOT.glob("*/run_simulation.py")}
+    expected_runners = {row["runner"] for row in expected["simulations"]}
+    for missing in sorted(expected_runners - actual_runners):
+        failures.append({"runner": missing, "errors": ["expected runner is absent"]})
+    for extra in sorted(actual_runners - expected_runners):
+        failures.append({"runner": extra, "errors": ["unexpected runner is present"]})
+    for row in expected["simulations"]:
+        runner = ROOT / row["runner"]
+        payload: dict[str, Any] | None = None
+        errors: list[str] = []
+        if runner.exists():
+            proc = subprocess.run([sys.executable, str(runner), "--seed", str(row["seed"])], cwd=REPO, capture_output=True, text=True, timeout=timeout)
+            if proc.returncode != 0:
+                errors.append(f"returncode {proc.returncode}")
+            try:
+                payload = json.loads(proc.stdout)
+            except json.JSONDecodeError as exc:
+                errors.append(f"invalid json: {exc}")
+            if proc.stderr.strip():
+                errors.append(f"stderr not empty: {proc.stderr.strip()}")
+            if payload is not None:
+                errors.extend(validate_payload(payload, row))
+        else:
+            errors.append("runner missing")
+        result = {
+            "runner": row["runner"],
+            "expected_simulation_id": row["simulation_id"],
+            "observed_simulation_id": payload.get("simulation_id") if payload else None,
+            "returncode": 0 if not errors else 1,
+            "errors": errors,
+            "stdout_json": payload or {},
+        }
+        rows.append(result)
+        if errors:
+            failures.append({"runner": row["runner"], "errors": errors})
+    report = {
+        "release_id": expected["release_id"],
+        "version": expected["version"],
+        "support_ceiling": expected["support_ceiling"],
+        "validation_claim_allowed": expected["validation_claim_allowed"],
+        "expected_total": expected["expected_total"],
+        "simulation_total": len(rows),
+        "failure_total": len(failures),
+        "failures": failures,
+        "results": rows,
+    }
+    return report
+
+
+def write_report(report: dict[str, Any]) -> None:
+    RESULT_JSON.parent.mkdir(parents=True, exist_ok=True)
+    RESULT_JSON.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    lines = [
+        "# OC Core 1.3.2 Simulation Results",
+        "",
+        f"Support ceiling: `{report['support_ceiling']}`",
+        f"Validation claim allowed: `{str(report['validation_claim_allowed']).lower()}`",
+        f"Expected simulations: `{report['expected_total']}`",
+        f"Observed simulations: `{report['simulation_total']}`",
+        f"Failure total: `{report['failure_total']}`",
+        "",
+        "| Runner | Simulation ID | Result |",
+        "| --- | --- | --- |",
+    ]
+    for row in report["results"]:
+        state = "PASS" if not row["errors"] else "FAIL"
+        lines.append(f"| `{row['runner']}` | `{row['observed_simulation_id']}` | `{state}` |")
+    RESULT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--write-report", action="store_true")
+    args = parser.parse_args()
+    report = run()
+    if args.write_report:
+        write_report(report)
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+    return 1 if report["failure_total"] else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

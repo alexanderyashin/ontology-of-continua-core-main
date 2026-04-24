@@ -1,5 +1,7 @@
-# Data Manifest
+# OC Core 1.3.2 Data Manifest
 
-- canonical dataset manifest: `data/OC_DATASET_MANIFEST_latest.json`
-- all dataset routes are public-source and bounded
-- paid, private, or unavailable evidence remains demoted or frontier-marked
+Canonical dataset manifest: `data/OC_DATASET_MANIFEST_1_3_2.json`.
+
+Data routes are bounded public discovery surfaces. They do not widen claim ceilings unless a later release adds pinned snapshots, stable hashes, and reconstruction scripts.
+
+v1.3.2 DOI state: `TBD_UNTIL_ZENODO_NEW_VERSION_PUBLISHED`.
