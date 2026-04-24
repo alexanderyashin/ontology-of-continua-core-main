@@ -1,0 +1,12 @@
+# Tabelle 1. Domänenübergreifende Projektionskarte
+
+| wissenschaftliche_familie | beziehung_zum_artikel | aktueller_wissenschaftlicher_anspruch | nächster_wissenschaftlicher_test | grenze_der_nichtbehauptung |
+| --- | --- | --- | --- | --- |
+| Flaggschiffkern von OC Core | Hauptkette der Sätze | Der vorliegende Artikel beweist ein begrenztes Theorem über Tod, Residuum und Wiedergeburt nach dem Verlust zulässiger Realisierung. | Die Satzleiter und die Zeugenkette im aktuellen Artikel auditieren und verteidigen. | Dieser Artikel behauptet keine universelle Schließung von Widerspruch zu Lift. |
+| Tier-1-Mathematik | Pfad der Stützevidenz | Geschlossene mathematische Fragen dienen als externe Testfelder für Semantiken von Verlust zulässiger Zustände, Kollaps, Lift und Unmöglichkeit. | Nur Theoremfamilien mit expliziter quellenbasierter Brücke in spätere Begleit- oder Familienarbeiten weiterführen. | Tier-1-Mathematik ist kein Teil der Hauptkette des Flaggschiffmanuskripts. |
+| ESTRA-/EA-Erweiterungen | formale Erweiterungsebene | Erweiterungen operationalisieren Widerspruchslast, Stabilisierungskosten und Erholungsregime, ohne den Wurzelkanon zu ersetzen. | Erweiterungsarbeiten und Werkzeug-Notizen aus derselben Wurzelgrammatik mit expliziten Nichtbehauptungsgrenzen aufbauen. | Erweiterungsobservablen werden im Hauptartikel nicht als quellenbasierter OC-Kanon behandelt. |
+| Domänenprojektionen | quantitative Projektionsfamilien | Linien zu Diffusionszeit, Unterscheidbarkeitsrate und architektonischer Irreversibilität sind nachgelagerte Tests der Wurzelgrammatik in domänenspezifischen Observablen. | Jede Projektion vor stärkeren universellen Aussagen durch ihr eigenes Theorem oder empirisches Dossier validieren. | Domänenrouten bleiben Projektionsfamilien und nicht Beweise innerhalb des vorliegenden Artikels. |
+| breiteres domänenübergreifendes Programm | domänenübergreifende Forschungsagenda | Dieselbe Grammatik wird als universelles Forschungsprogramm über spätere Domänenfamilien hinweg vorgeschlagen. | Zukünftige Familienarbeiten müssen Theoremdossiers, Falsifikatoren und Messrouten Ebene für Ebene liefern. | Der Artikel behauptet nicht, dass die breitere domänenübergreifende Universalisierung bereits geschlossen sei. |
+
+- Die Tabelle ist eine begrenzte wissenschaftliche Projektionskarte und kein Dashboard für Publikationsstatus.
+- Sie zeigt, wie der bewiesene Artikelkern mit Mathematik, Erweiterungen und späteren Domänenfamilien verbunden ist, ohne aktuelle Geschlossenheit außerhalb des Theoremkörpers zu behaupten.
