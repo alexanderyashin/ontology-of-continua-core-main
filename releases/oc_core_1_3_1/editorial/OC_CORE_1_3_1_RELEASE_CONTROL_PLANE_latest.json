@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-04-24T02:05:35Z",
+  "generated_at_utc": "2026-04-24T09:03:56Z",
   "refs": {
     "artifact_inventory_ref": "releases/oc_core_1_3_1/editorial/OC_RELEASE_BUNDLE_INVENTORY_latest.json",
     "critique_ref": "releases/oc_core_1_3_1/manuscripts/article_family/OC_CORE_1_3_1_CRITIQUE_CLOSURE_COMPANION_EN.pdf",
@@ -11,6 +11,7 @@
     "owner_review_packet_ref": "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_OWNER_REVIEW_PACKET.md",
     "publish_manifest_ref": "releases/oc_core_1_3_1/editorial/OC_ONE_CLICK_PUBLISH_MANIFEST_latest.json",
     "release_contract_ref": "releases/oc_core_1_3_1/editorial/OC_RELEASE_CONTRACT_latest.json",
+    "release_gate_board_ref": "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_RELEASE_GATE_BOARD_latest.md",
     "release_ready_board_ref": "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_RELEASE_READY_BOARD_latest.json",
     "simulation_ledger_ref": "simulations/OC_SIMULATION_MASTER_LEDGER_latest.json",
     "zenodo_stage_ref": "releases/oc_core_1_3_1/editorial/OC_ZENODO_STAGING_PACKAGE_latest.json"
@@ -18,29 +19,56 @@
   "rows": [
     {
       "artifact_refs": [],
+      "blocker_dossier": [],
       "finding_id": "GATE::SCIENCE",
       "gate_id": "science_gate",
       "schema_id": "ReleaseGateFindingRow_v1",
       "severity": "INFO",
       "status": "PASS",
-      "summary": "Mandatory science-facing release artifacts are materialized."
+      "summary": "Mandatory manuscript artifacts are source-bound, substantive, and assembled."
     },
     {
       "artifact_refs": [
         "simulations/OC_SIMULATION_MASTER_LEDGER_latest.json",
         "data/OC_DATASET_MANIFEST_latest.json"
       ],
+      "blocker_dossier": [],
       "finding_id": "GATE::SIMULATION",
       "gate_id": "simulation_data_repro_gate",
       "schema_id": "ReleaseGateFindingRow_v1",
       "severity": "INFO",
       "status": "PASS",
-      "summary": "Simulation and dataset layers are present and release-bound."
+      "summary": "Simulation and dataset layers are present, traceable, and release-bound."
+    },
+    {
+      "artifact_refs": [
+        "releases/oc_core_1_3_1/editorial/OC_RELEASE_BUNDLE_INVENTORY_latest.json"
+      ],
+      "blocker_dossier": [],
+      "finding_id": "GATE::INTEGRITY",
+      "gate_id": "release_integrity_gate",
+      "schema_id": "ReleaseGateFindingRow_v1",
+      "severity": "INFO",
+      "status": "PASS",
+      "summary": "All mandatory artifact classes are assembled and represented in the release inventory."
+    },
+    {
+      "artifact_refs": [
+        "releases/oc_core_1_3_1/editorial/OC_ZENODO_STAGING_PACKAGE_latest.json"
+      ],
+      "blocker_dossier": [],
+      "finding_id": "GATE::ZENODO_STAGE",
+      "gate_id": "zenodo_staging_gate",
+      "schema_id": "ReleaseGateFindingRow_v1",
+      "severity": "INFO",
+      "status": "PASS",
+      "summary": "Zenodo package is staged and held under no-send discipline."
     },
     {
       "artifact_refs": [
         "releases/oc_core_1_3_1/editorial/OC_CORE_1_3_1_OWNER_APPROVAL_GATE_latest.json"
       ],
+      "blocker_dossier": [],
       "finding_id": "GATE::OWNER_APPROVAL",
       "gate_id": "owner_approval_gate",
       "schema_id": "ReleaseGateFindingRow_v1",
@@ -49,7 +77,7 @@
       "summary": "Release stays under no-send owner approval discipline."
     }
   ],
-  "run_id": "pytest_oc_v11_public",
+  "run_id": "validate_oc_release_bundle_v1",
   "schema_id": "OC_CORE_1_3_1_RELEASE_CONTROL_PLANE_v1",
   "status": "PASS",
   "summary": {
@@ -60,10 +88,12 @@
     "one_click_ready_no_send_total": 20,
     "owner_approval_required": true,
     "public_branch": "core-1.3.1-release-and-scientific-strengthening-v11",
+    "public_release_ready": true,
     "public_repo_clean": false,
-    "public_repo_sha": "03cf0769ad66ae9cc061e90de227474437ba951f",
+    "public_repo_sha": "1cf84f221624ba3369693a73fc994d4b0db72112",
+    "public_repo_sha_meaning": "PRE_MATERIALIZATION_HEAD",
     "public_repo_simulation_coverage": 1.0,
-    "release_artifact_class_coverage": 0.818182,
+    "release_artifact_class_coverage": 1.0,
     "release_gate_status": "RELEASE_READY_NO_SEND",
     "science_delta_total": 10,
     "simulation_total": 11,

@@ -29,6 +29,10 @@ RELEASE_ROOT = REPO_ROOT / "releases" / "oc_core_1_3_1"
 EDITORIAL_DIR = RELEASE_ROOT / "editorial"
 MANUSCRIPTS_DIR = RELEASE_ROOT / "manuscripts"
 ARTICLE_DIR = MANUSCRIPTS_DIR / "article_family"
+RELEASE_SOURCE_DIR = MANUSCRIPTS_DIR / "source"
+SOURCE_FRONTMATTER_DIR = RELEASE_SOURCE_DIR / "frontmatter"
+SOURCE_ROUTE_DIR = RELEASE_SOURCE_DIR / "routes"
+SOURCE_APPENDICES_DIR = RELEASE_SOURCE_DIR / "appendices"
 ZENODO_DIR = RELEASE_ROOT / "zenodo"
 SIMULATIONS_DIR = REPO_ROOT / "simulations"
 SIM_ENV_DIR = SIMULATIONS_DIR / "environment"
@@ -82,6 +86,23 @@ MANUSCRIPT_OUTPUTS = {
     "critique_pdf": ARTICLE_DIR / "OC_CORE_1_3_1_CRITIQUE_CLOSURE_COMPANION_EN.pdf",
 }
 
+SOURCE_OUTPUTS = {
+    "readme_md": RELEASE_SOURCE_DIR / "README.md",
+    "master_frontmatter_tex": SOURCE_FRONTMATTER_DIR / "oc_core_1_3_1_master_release_framing.tex",
+    "journal_frontmatter_tex": SOURCE_FRONTMATTER_DIR / "oc_core_1_3_1_journal_core_release_framing.tex",
+    "overview_frontmatter_tex": SOURCE_FRONTMATTER_DIR / "oc_core_1_3_1_readable_overview_release_framing.tex",
+    "methods_frontmatter_tex": SOURCE_FRONTMATTER_DIR / "oc_core_1_3_1_methods_release_framing.tex",
+    "critique_frontmatter_tex": SOURCE_FRONTMATTER_DIR / "oc_core_1_3_1_critique_release_framing.tex",
+    "science_delta_appendix_tex": SOURCE_APPENDICES_DIR / "oc_1_3_1_science_delta_appendix.tex",
+    "simulation_data_appendix_tex": SOURCE_APPENDICES_DIR / "oc_1_3_1_simulation_and_data_appendix.tex",
+    "critique_closure_appendix_tex": SOURCE_APPENDICES_DIR / "oc_1_3_1_critique_closure_appendix.tex",
+    "master_route_tex": SOURCE_ROUTE_DIR / "oc_core_1_3_1_master_route.tex",
+    "journal_route_tex": SOURCE_ROUTE_DIR / "oc_core_1_3_1_journal_core_route.tex",
+    "overview_route_tex": SOURCE_ROUTE_DIR / "oc_core_1_3_1_readable_overview_route.tex",
+    "methods_route_tex": SOURCE_ROUTE_DIR / "oc_core_1_3_1_methods_route.tex",
+    "critique_route_tex": SOURCE_ROUTE_DIR / "oc_core_1_3_1_critique_route.tex",
+}
+
 SIMULATION_LEDGER_PATH = SIMULATIONS_DIR / "OC_SIMULATION_MASTER_LEDGER_latest.json"
 SIMULATION_GUIDE_PATH = SIMULATIONS_DIR / "OC_SIMULATION_EXECUTION_GUIDE.md"
 DATASET_MANIFEST_PATH = DATA_DIR / "OC_DATASET_MANIFEST_latest.json"
@@ -108,6 +129,208 @@ DATASET_ROWS = [
     ("DATA::OPENALEX", "OpenAlex", "https://openalex.org/", "OpenAlex open bibliographic graph for K9 knowledge-system dynamics."),
     ("DATA::US_CENSUS", "US Census API catalog", "https://www.census.gov/data/developers/data-sets.html", "US Census public routes for bounded societal coordination indicators."),
 ]
+
+MASTER_SECTION_REFS = [
+    "content/17_oc_core_1_3_reader_guide.tex",
+    "content/01_intro.tex",
+    "content/02_background.tex",
+    "content/03_model.tex",
+    "content/04_results.tex",
+    "content/05_discussion.tex",
+    "content/06_conclusion.tex",
+    "content/08_boundary.tex",
+    "content/09_thresholds.tex",
+    "content/10_klevels_full.tex",
+    "content/11_operators_full.tex",
+    "content/12_collapse_rebirth.tex",
+    "content/13_branching_topology.tex",
+    "content/14_disciplines_extended.tex",
+    "content/15_falsifiability_extended.tex",
+    "content/16_modules_master.tex",
+    "content/18_oc_core_1_3_source_audit.tex",
+    "content/19_oc_core_1_3_foundational_consistency.tex",
+    "content/20_oc_core_1_3_theorem_roadmap.tex",
+    "content/21_oc_core_1_3_worked_examples.tex",
+    "content/22_oc_core_1_3_operationalization_program.tex",
+    "content/23_oc_core_1_3_empirical_execution_protocols.tex",
+    "content/24_oc_core_1_3_proof_machinery.tex",
+    "content/25_oc_core_1_3_toe_synthesis.tex",
+    "content/26_oc_core_1_3_practical_utility.tex",
+]
+
+MASTER_APPENDIX_REFS = [
+    "appendix/A_notation",
+    "appendix/B_axioms_full",
+    "appendix/C_klevels_tables",
+    "appendix/D_oc_core_1_3_source_audit_appendix",
+    "appendix/E_oc_core_1_3_journal_core_bridge",
+    "appendix/F_oc_core_1_3_reviewer_navigation_matrix",
+    "appendix/G_oc_core_1_3_empirical_validation_matrix",
+    "appendix/H_oc_core_1_3_institute_run_measurement_program",
+    "appendix/I_oc_core_1_3_domain_benchmark_manifest",
+    "appendix/L_oc_core_1_3_domain_benchmark_caseset",
+    "appendix/J_oc_core_1_3_domain_replay_reports",
+    "appendix/K_oc_core_1_3_domain_execution_board",
+    "appendix/M_oc_core_1_3_proof_machinery_appendix.tex",
+    "appendix/N_oc_core_1_3_figure_atlas.tex",
+    "appendix/O_oc_core_1_3_technical_derivation_atlas.tex",
+    "appendix/P_oc_core_1_3_reference_benchmark_atlas.tex",
+    "appendix/Q_oc_core_1_3_toe_support_dossiers.tex",
+    "appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas.tex",
+]
+
+MANUSCRIPT_ROUTE_SPECS = {
+    "master": {
+        "tex_key": "master_tex",
+        "pdf_key": "master_pdf",
+        "artifact_id": "ARTIFACT::MASTER",
+        "artifact_class": "master_monograph",
+        "title": "OC Core 1.3.1 Master Monograph EN",
+        "pdf_subject": "OC Core 1.3.1 strengthened public release monograph",
+        "pdf_keywords": "Ontology of Continua, OC Core 1.3.1, strengthened release, source-bound monograph",
+        "frontmatter_key": "master_frontmatter_tex",
+        "route_key": "master_route_tex",
+        "section_refs": MASTER_SECTION_REFS,
+        "appendix_refs": MASTER_APPENDIX_REFS,
+        "release_appendix_keys": [
+            "science_delta_appendix_tex",
+            "simulation_data_appendix_tex",
+            "critique_closure_appendix_tex",
+        ],
+        "include_toc": True,
+        "include_list_of_figures": True,
+        "include_list_of_tables": True,
+        "include_bibliography": True,
+        "artifact_substance_class": "SOURCE_BOUND_SUBSTANTIVE",
+        "release_scope_note": "Full public 1.3.1 monograph: canonical corpus plus bounded 1.3.1 deltas.",
+    },
+    "journal_core": {
+        "tex_key": "journal_core_tex",
+        "pdf_key": "journal_core_pdf",
+        "artifact_id": "ARTIFACT::JOURNAL_CORE",
+        "artifact_class": "journal_core",
+        "title": "OC Core 1.3.1 Journal Core EN",
+        "pdf_subject": "Reviewer and formal-reader subset of OC Core 1.3.1",
+        "pdf_keywords": "Ontology of Continua, OC Core 1.3.1, journal core, theorem roadmap",
+        "frontmatter_key": "journal_frontmatter_tex",
+        "route_key": "journal_route_tex",
+        "section_refs": [
+            "content/17_oc_core_1_3_reader_guide.tex",
+            "content/04_results.tex",
+            "content/08_boundary.tex",
+            "content/09_thresholds.tex",
+            "content/16_modules_master.tex",
+            "content/18_oc_core_1_3_source_audit.tex",
+            "content/19_oc_core_1_3_foundational_consistency.tex",
+            "content/20_oc_core_1_3_theorem_roadmap.tex",
+            "content/21_oc_core_1_3_worked_examples.tex",
+        ],
+        "appendix_refs": [
+            "appendix/D_oc_core_1_3_source_audit_appendix",
+            "appendix/E_oc_core_1_3_journal_core_bridge",
+            "appendix/F_oc_core_1_3_reviewer_navigation_matrix",
+        ],
+        "release_appendix_keys": ["science_delta_appendix_tex", "critique_closure_appendix_tex"],
+        "include_toc": True,
+        "include_list_of_figures": False,
+        "include_list_of_tables": False,
+        "include_bibliography": True,
+        "artifact_substance_class": "SOURCE_BOUND_SUBSTANTIVE",
+        "release_scope_note": "Reviewer/formal path built from the real theorem and audit corpus.",
+    },
+    "overview": {
+        "tex_key": "overview_tex",
+        "pdf_key": "overview_pdf",
+        "artifact_id": "ARTIFACT::OVERVIEW",
+        "artifact_class": "readable_overview",
+        "title": "OC Core 1.3.1 Readable Overview EN",
+        "pdf_subject": "Readable overview of the real OC Core 1.3.1 corpus",
+        "pdf_keywords": "Ontology of Continua, OC Core 1.3.1, overview, synthesis",
+        "frontmatter_key": "overview_frontmatter_tex",
+        "route_key": "overview_route_tex",
+        "section_refs": [
+            "content/17_oc_core_1_3_reader_guide.tex",
+            "content/01_intro.tex",
+            "content/02_background.tex",
+            "content/03_model.tex",
+            "content/04_results.tex",
+            "content/05_discussion.tex",
+            "content/06_conclusion.tex",
+            "content/25_oc_core_1_3_toe_synthesis.tex",
+            "content/26_oc_core_1_3_practical_utility.tex",
+        ],
+        "appendix_refs": ["appendix/E_oc_core_1_3_journal_core_bridge"],
+        "release_appendix_keys": ["science_delta_appendix_tex"],
+        "include_toc": True,
+        "include_list_of_figures": False,
+        "include_list_of_tables": False,
+        "include_bibliography": True,
+        "artifact_substance_class": "SOURCE_BOUND_SUBSTANTIVE",
+        "release_scope_note": "Broad-scientific-reader path with the real model, results, synthesis, and practical use sections.",
+    },
+    "methods": {
+        "tex_key": "methods_tex",
+        "pdf_key": "methods_pdf",
+        "artifact_id": "ARTIFACT::METHODS",
+        "artifact_class": "methods_or_simulation_companion",
+        "title": "OC Core 1.3.1 Methods or Simulation Companion EN",
+        "pdf_subject": "Operational, empirical, proof, simulation, and data companion for OC Core 1.3.1",
+        "pdf_keywords": "Ontology of Continua, OC Core 1.3.1, methods, simulation, data",
+        "frontmatter_key": "methods_frontmatter_tex",
+        "route_key": "methods_route_tex",
+        "section_refs": [
+            "content/14_disciplines_extended.tex",
+            "content/15_falsifiability_extended.tex",
+            "content/22_oc_core_1_3_operationalization_program.tex",
+            "content/23_oc_core_1_3_empirical_execution_protocols.tex",
+            "content/24_oc_core_1_3_proof_machinery.tex",
+        ],
+        "appendix_refs": [
+            "appendix/G_oc_core_1_3_empirical_validation_matrix",
+            "appendix/H_oc_core_1_3_institute_run_measurement_program",
+            "appendix/I_oc_core_1_3_domain_benchmark_manifest",
+            "appendix/J_oc_core_1_3_domain_replay_reports",
+            "appendix/K_oc_core_1_3_domain_execution_board",
+            "appendix/M_oc_core_1_3_proof_machinery_appendix.tex",
+        ],
+        "release_appendix_keys": ["simulation_data_appendix_tex", "science_delta_appendix_tex"],
+        "include_toc": True,
+        "include_list_of_figures": False,
+        "include_list_of_tables": False,
+        "include_bibliography": True,
+        "artifact_substance_class": "SOURCE_BOUND_SUBSTANTIVE",
+        "release_scope_note": "Methods, empirical discipline, proof machinery, simulation, and dataset traceability route.",
+    },
+    "critique": {
+        "tex_key": "critique_tex",
+        "pdf_key": "critique_pdf",
+        "artifact_id": "ARTIFACT::CRITIQUE",
+        "artifact_class": "critique_closure_companion",
+        "title": "OC Core 1.3.1 Critique Closure Companion EN",
+        "pdf_subject": "Critique, source audit, and closure companion for OC Core 1.3.1",
+        "pdf_keywords": "Ontology of Continua, OC Core 1.3.1, critique closure, source audit",
+        "frontmatter_key": "critique_frontmatter_tex",
+        "route_key": "critique_route_tex",
+        "section_refs": [
+            "content/17_oc_core_1_3_reader_guide.tex",
+            "content/18_oc_core_1_3_source_audit.tex",
+            "content/19_oc_core_1_3_foundational_consistency.tex",
+            "content/20_oc_core_1_3_theorem_roadmap.tex",
+        ],
+        "appendix_refs": [
+            "appendix/D_oc_core_1_3_source_audit_appendix",
+            "appendix/F_oc_core_1_3_reviewer_navigation_matrix",
+            "appendix/Q_oc_core_1_3_toe_support_dossiers.tex",
+        ],
+        "release_appendix_keys": ["critique_closure_appendix_tex", "science_delta_appendix_tex"],
+        "include_toc": True,
+        "include_list_of_figures": False,
+        "include_list_of_tables": False,
+        "include_bibliography": True,
+        "artifact_substance_class": "SOURCE_BOUND_SUBSTANTIVE",
+        "release_scope_note": "Source audit, theorem roadmap, and critique-response route built from the real corpus.",
+    },
+}
 
 
 def repo_rel(path: Path) -> str:
@@ -142,6 +365,17 @@ def compact(value: Any) -> str:
     return " ".join(str(value or "").replace("\r", " ").replace("\n", " ").replace("\t", " ").split())
 
 
+def normalize_existing_repo_ref(ref: str) -> str:
+    candidate = REPO_ROOT / ref
+    if candidate.exists():
+        return repo_rel(candidate)
+    if candidate.suffix == "":
+        tex_candidate = candidate.with_suffix(".tex")
+        if tex_candidate.exists():
+            return repo_rel(tex_candidate)
+    return ref
+
+
 def sha256_bytes(data: bytes) -> str:
     import hashlib
 
@@ -173,6 +407,10 @@ def ensure_dirs() -> None:
         EDITORIAL_DIR,
         MANUSCRIPTS_DIR,
         ARTICLE_DIR,
+        RELEASE_SOURCE_DIR,
+        SOURCE_FRONTMATTER_DIR,
+        SOURCE_ROUTE_DIR,
+        SOURCE_APPENDICES_DIR,
         ZENODO_DIR,
         SIMULATIONS_DIR,
         SIM_ENV_DIR,
@@ -234,26 +472,31 @@ def tex_document(title: str, sections: list[tuple[str, list[str]]]) -> str:
 def compile_tex(tex_path: Path, pdf_path: Path) -> str:
     build_dir = BUILD_DIR / tex_path.stem
     build_dir.mkdir(parents=True, exist_ok=True)
+    tex_rel = repo_rel(tex_path)
     for engine in ["xelatex", "pdflatex"]:
         try:
-            proc = subprocess.run(
-                [
-                    engine,
-                    "-interaction=nonstopmode",
-                    "-halt-on-error",
-                    f"-output-directory={str(build_dir)}",
-                    tex_path.name,
-                ],
-                cwd=tex_path.parent,
-                capture_output=True,
-                text=True,
-                check=False,
-                timeout=120,
-            )
+            proc = None
+            for _ in range(2):
+                proc = subprocess.run(
+                    [
+                        engine,
+                        "-interaction=nonstopmode",
+                        "-halt-on-error",
+                        f"-output-directory={str(build_dir)}",
+                        tex_rel,
+                    ],
+                    cwd=REPO_ROOT,
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                    timeout=300,
+                )
+                if proc.returncode != 0:
+                    break
         except FileNotFoundError:
             continue
         candidate = build_dir / f"{tex_path.stem}.pdf"
-        if proc.returncode == 0 and candidate.exists():
+        if proc is not None and proc.returncode == 0 and candidate.exists():
             shutil.copy2(candidate, pdf_path)
             return f"COMPILED_WITH_{engine.upper()}"
     fallback_pdf = REPO_ROOT / "main.pdf"
@@ -473,40 +716,236 @@ def write_data_layer(simulation_ledger: dict[str, Any]) -> dict[str, Any]:
     return manifest
 
 
-def manuscript_sections(delta_rows: list[dict[str, Any]], projection_rows: list[dict[str, Any]], critique_rows: list[dict[str, Any]]) -> list[tuple[str, list[str]]]:
-    return [
-        ("Release theme", [compact(delta_rows[0].get("scientific_rationale")) if delta_rows else "OC Core 1.3.1 scientific strengthening"]),
-        ("Science delta", [f"{row['delta_id']}: {row['status_1_3_1']}" for row in delta_rows[:8]]),
-        ("Projection strengthening", [f"{row['domain']}: {row['strengthening_status']}" for row in projection_rows]),
-        ("Critique closure", [f"{row['critique_id']}: {row['processing_class']}" for row in critique_rows]),
+def tex_list_block(lines: list[str]) -> list[str]:
+    return [r"\begin{itemize}[leftmargin=*]"] + [r"\item " + latex_escape(line) for line in lines] + [r"\end{itemize}"]
+
+
+def render_release_frontmatter_tex(*, heading: str, body_lines: list[str]) -> str:
+    lines = [r"\section*{" + latex_escape(heading) + "}"]
+    lines.extend(tex_list_block(body_lines))
+    return "\n".join(lines) + "\n"
+
+
+def render_release_appendix_tex(title: str, rows: list[dict[str, Any]], fields: list[str]) -> str:
+    lines = [r"\section{" + latex_escape(title) + "}"]
+    if rows:
+        lines.append(r"\begin{itemize}[leftmargin=*]")
+        for row in rows:
+            parts = [f"{field}={compact(row.get(field, ''))}" for field in fields]
+            lines.append(r"\item " + latex_escape("; ".join(parts)))
+        lines.append(r"\end{itemize}")
+    else:
+        lines.append("No rows.")
+    return "\n".join(lines) + "\n"
+
+
+def render_release_route_tex(section_refs: list[str], appendix_refs: list[str], release_appendix_refs: list[str]) -> str:
+    lines: list[str] = []
+    for ref in section_refs:
+        lines.append(rf"\input{{{ref}}}")
+    if appendix_refs or release_appendix_refs:
+        lines.append(r"\appendix")
+        for ref in appendix_refs:
+            lines.append(rf"\input{{{ref}}}")
+        for ref in release_appendix_refs:
+            lines.append(rf"\input{{{ref}}}")
+    return "\n".join(lines) + "\n"
+
+
+def render_release_entrypoint_tex(
+    *,
+    title: str,
+    pdf_subject: str,
+    pdf_keywords: str,
+    frontmatter_ref: str,
+    route_ref: str,
+    include_toc: bool,
+    include_list_of_figures: bool,
+    include_list_of_tables: bool,
+    include_bibliography: bool,
+) -> str:
+    lines = [
+        r"\documentclass[11pt,a4paper]{article}",
+        r"\def\ocpdftitle{" + latex_escape(title) + "}",
+        r"\def\ocpdfsubject{" + latex_escape(pdf_subject) + "}",
+        r"\def\ocpdfkeywords{" + latex_escape(pdf_keywords) + "}",
+        r"\def\ocpdflang{en}",
+        r"\input{preamble}",
+        r"\title{" + latex_escape(title) + "}",
+        r"\date{}",
+        r"\begin{document}",
+        r"\maketitle",
+        rf"\input{{{frontmatter_ref}}}",
     ]
+    if include_toc:
+        lines.extend([r"\tableofcontents", r"\clearpage"])
+    if include_list_of_figures:
+        lines.extend(
+            [
+                r"\phantomsection",
+                r"\addcontentsline{toc}{section}{List of Figures}",
+                r"\listoffigures",
+                r"\clearpage",
+            ]
+        )
+    if include_list_of_tables:
+        lines.extend(
+            [
+                r"\phantomsection",
+                r"\addcontentsline{toc}{section}{List of Tables}",
+                r"\listoftables",
+                r"\clearpage",
+            ]
+        )
+    lines.append(rf"\input{{{route_ref}}}")
+    if include_bibliography:
+        lines.extend([r"\clearpage", r"\nocite{*}", r"\printbibliography[heading=bibintoc,title={Bibliography}]"])
+    lines.append(r"\end{document}")
+    return "\n".join(lines) + "\n"
 
 
-def write_manuscripts(delta_rows: list[dict[str, Any]], projection_rows: list[dict[str, Any]], critique_rows: list[dict[str, Any]]) -> dict[str, str]:
+def write_release_source_tree(
+    delta_rows: list[dict[str, Any]], projection_rows: list[dict[str, Any]], critique_rows: list[dict[str, Any]]
+) -> None:
+    write_text(
+        SOURCE_OUTPUTS["readme_md"],
+        "\n".join(
+            [
+                "# OC Core 1.3.1 Release Source Tree",
+                "",
+                "This tree binds the 1.3.1 public release artifacts directly to the real OC corpus.",
+                "Entry-point manuscripts in `manuscripts/` and `article_family/` compile from these route and appendix files.",
+                "",
+            ]
+        ),
+    )
+
+    frontmatter_specs = {
+        "master_frontmatter_tex": {
+            "heading": "Release framing",
+            "body_lines": [
+                "OC Core 1.3.1 is a strengthened public release built from the real Core 1.3 corpus plus bounded 1.3.1 deltas.",
+                f"white_spot_total={sum(1 for row in delta_rows if compact(row.get('delta_class')) == 'scientific_closure') or 1}; package_scope=full_monograph",
+                "This release remains claim-bounded, source-first, and no-send until explicit owner approval.",
+            ],
+        },
+        "journal_frontmatter_tex": {
+            "heading": "Document boundary",
+            "body_lines": [
+                "This journal-core document is the reviewer and formal-reader route extracted from the real corpus.",
+                "It prioritizes theorem scope, source audit, foundational consistency, and worked examples.",
+                "The document is bounded by the same publication boundary as the master monograph.",
+            ],
+        },
+        "overview_frontmatter_tex": {
+            "heading": "Document boundary",
+            "body_lines": [
+                "This readable overview is a broad-scientific-reader route built from the real OC corpus.",
+                "It keeps the introductory and synthesis path legible without replacing the master monograph.",
+                "It adds the 1.3.1 science delta appendix but does not widen claims beyond the core corpus.",
+            ],
+        },
+        "methods_frontmatter_tex": {
+            "heading": "Document boundary",
+            "body_lines": [
+                "This companion collects operational, empirical, proof, simulation, and dataset routes from the real corpus.",
+                "It exists to make the reproducibility and simulation layer inspectable without improvising a second theory.",
+                "Simulation and dataset surfaces stay bounded support layers and do not silently promote claims.",
+            ],
+        },
+        "critique_frontmatter_tex": {
+            "heading": "Document boundary",
+            "body_lines": [
+                "This critique-closure companion is the source-audit and objection-handling route for OC Core 1.3.1.",
+                "It is built from the actual source audit, theorem roadmap, and reviewer-navigation corpus.",
+                "The 1.3.1 critique appendix records bounded closure, clarification, or demotion outcomes only.",
+            ],
+        },
+    }
+    for key, payload in frontmatter_specs.items():
+        write_text(
+            SOURCE_OUTPUTS[key],
+            render_release_frontmatter_tex(heading=payload["heading"], body_lines=payload["body_lines"]),
+        )
+
+    write_text(
+        SOURCE_OUTPUTS["science_delta_appendix_tex"],
+        render_release_appendix_tex(
+            "OC 1.3.1 Science Delta Appendix", delta_rows, ["delta_id", "delta_class", "status_1_3_1", "action_bucket"]
+        ),
+    )
+    write_text(
+        SOURCE_OUTPUTS["simulation_data_appendix_tex"],
+        render_release_appendix_tex(
+            "OC 1.3.1 Simulation and Data Appendix",
+            projection_rows,
+            ["lane_id", "domain", "strengthening_status", "primary_strengthening_mode"],
+        ),
+    )
+    write_text(
+        SOURCE_OUTPUTS["critique_closure_appendix_tex"],
+        render_release_appendix_tex(
+            "OC 1.3.1 Critique Closure Appendix",
+            critique_rows,
+            ["critique_id", "processing_class", "output_mode", "publication_effect"],
+        ),
+    )
+
+    for spec in MANUSCRIPT_ROUTE_SPECS.values():
+        release_appendix_refs = [repo_rel(SOURCE_OUTPUTS[key]) for key in spec["release_appendix_keys"]]
+        write_text(
+            SOURCE_OUTPUTS[spec["route_key"]],
+            render_release_route_tex(spec["section_refs"], spec["appendix_refs"], release_appendix_refs),
+        )
+
+
+def write_manuscripts(
+    delta_rows: list[dict[str, Any]], projection_rows: list[dict[str, Any]], critique_rows: list[dict[str, Any]]
+) -> dict[str, str]:
     compile_status: dict[str, str] = {}
 
     write_text(
         MANUSCRIPT_OUTPUTS["science_delta_appendix_md"],
-        "# OC 1.3.1 Science Delta Appendix\n\n" + render_rows_md(delta_rows, ["delta_id", "delta_class", "status_1_3_1"]) + "\n",
+        "# OC 1.3.1 Science Delta Appendix\n\n"
+        + render_rows_md(delta_rows, ["delta_id", "delta_class", "status_1_3_1", "action_bucket"])
+        + "\n",
     )
     write_text(
         MANUSCRIPT_OUTPUTS["simulation_data_appendix_md"],
-        "# OC 1.3.1 Simulation and Data Appendix\n\n- Simulation corpus and dataset manifest are now canonical public release artifacts.\n",
+        "# OC 1.3.1 Simulation and Data Appendix\n\n"
+        + render_rows_md(
+            projection_rows, ["lane_id", "domain", "strengthening_status", "primary_strengthening_mode"]
+        )
+        + "\n",
     )
     write_text(
         MANUSCRIPT_OUTPUTS["critique_closure_appendix_md"],
-        "# OC 1.3.1 Critique Closure Appendix\n\n" + render_rows_md(critique_rows, ["critique_id", "processing_class", "output_mode"]) + "\n",
+        "# OC 1.3.1 Critique Closure Appendix\n\n"
+        + render_rows_md(critique_rows, ["critique_id", "processing_class", "output_mode", "publication_effect"])
+        + "\n",
     )
 
-    docs = [
-        ("OC Core 1.3.1 Master Monograph EN", MANUSCRIPT_OUTPUTS["master_tex"], MANUSCRIPT_OUTPUTS["master_pdf"]),
-        ("OC Core 1.3.1 Journal Core EN", MANUSCRIPT_OUTPUTS["journal_core_tex"], MANUSCRIPT_OUTPUTS["journal_core_pdf"]),
-        ("OC Core 1.3.1 Readable Overview EN", MANUSCRIPT_OUTPUTS["overview_tex"], MANUSCRIPT_OUTPUTS["overview_pdf"]),
-        ("OC Core 1.3.1 Methods or Simulation Companion EN", MANUSCRIPT_OUTPUTS["methods_tex"], MANUSCRIPT_OUTPUTS["methods_pdf"]),
-        ("OC Core 1.3.1 Critique Closure Companion EN", MANUSCRIPT_OUTPUTS["critique_tex"], MANUSCRIPT_OUTPUTS["critique_pdf"]),
-    ]
-    for title, tex_path, pdf_path in docs:
-        write_text(tex_path, tex_document(title, manuscript_sections(delta_rows, projection_rows, critique_rows)))
+    write_release_source_tree(delta_rows, projection_rows, critique_rows)
+
+    for spec in MANUSCRIPT_ROUTE_SPECS.values():
+        tex_path = MANUSCRIPT_OUTPUTS[spec["tex_key"]]
+        pdf_path = MANUSCRIPT_OUTPUTS[spec["pdf_key"]]
+        frontmatter_ref = repo_rel(SOURCE_OUTPUTS[spec["frontmatter_key"]])
+        route_ref = repo_rel(SOURCE_OUTPUTS[spec["route_key"]])
+        write_text(
+            tex_path,
+            render_release_entrypoint_tex(
+                title=spec["title"],
+                pdf_subject=spec["pdf_subject"],
+                pdf_keywords=spec["pdf_keywords"],
+                frontmatter_ref=frontmatter_ref,
+                route_ref=route_ref,
+                include_toc=spec["include_toc"],
+                include_list_of_figures=spec["include_list_of_figures"],
+                include_list_of_tables=spec["include_list_of_tables"],
+                include_bibliography=spec["include_bibliography"],
+            ),
+        )
         compile_status[tex_path.stem] = compile_tex(tex_path, pdf_path)
     return compile_status
 
@@ -519,12 +958,13 @@ def build_release_contract() -> dict[str, Any]:
             "master_monograph",
             "journal_core",
             "readable_overview",
+            "methods_or_simulation_companion",
+            "critique_closure_companion",
             "simulation_corpus",
             "dataset_manifest",
             "reproducibility_layer",
-            "science_certificates",
             "release_notes",
-            "critique_closure_companion",
+            "release_contract",
             "zenodo_package",
             "one_click_ready_no_send_packages",
         ],
@@ -536,9 +976,8 @@ def build_release_contract() -> dict[str, Any]:
         ],
         "gates": [
             "science_gate",
-            "cerberus_gate",
+            "simulation_data_repro_gate",
             "release_integrity_gate",
-            "public_repo_gate",
             "zenodo_staging_gate",
             "owner_approval_gate",
         ],
@@ -557,45 +996,114 @@ def build_release_contract() -> dict[str, Any]:
 
 def build_release_artifact_rows() -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    mapping = [
-        ("ARTIFACT::MASTER", "master_monograph", MANUSCRIPT_OUTPUTS["master_pdf"], True),
-        ("ARTIFACT::JOURNAL_CORE", "journal_core", MANUSCRIPT_OUTPUTS["journal_core_pdf"], True),
-        ("ARTIFACT::OVERVIEW", "readable_overview", MANUSCRIPT_OUTPUTS["overview_pdf"], True),
-        ("ARTIFACT::METHODS", "methods_or_simulation_companion", MANUSCRIPT_OUTPUTS["methods_pdf"], True),
-        ("ARTIFACT::CRITIQUE", "critique_closure_companion", MANUSCRIPT_OUTPUTS["critique_pdf"], True),
-        ("ARTIFACT::SIMULATION_LEDGER", "simulation_corpus", SIMULATION_LEDGER_PATH, True),
-        ("ARTIFACT::DATASET_MANIFEST", "dataset_manifest", DATASET_MANIFEST_PATH, True),
-        ("ARTIFACT::RELEASE_NOTES", "release_notes", OUTPUTS["release_notes_md"], True),
-        ("ARTIFACT::RELEASE_CONTRACT", "release_contract", OUTPUTS["release_contract_json"], True),
+    for spec in MANUSCRIPT_ROUTE_SPECS.values():
+        pdf_path = MANUSCRIPT_OUTPUTS[spec["pdf_key"]]
+        tex_path = MANUSCRIPT_OUTPUTS[spec["tex_key"]]
+        source_appendix_refs = [normalize_existing_repo_ref(ref) for ref in spec["appendix_refs"]]
+        source_appendix_refs.extend(repo_rel(SOURCE_OUTPUTS[key]) for key in spec["release_appendix_keys"])
+        rows.append(
+            {
+                "schema_id": "ReleaseArtifactRow_v1",
+                "artifact_id": spec["artifact_id"],
+                "artifact_class": spec["artifact_class"],
+                "artifact_ref": repo_rel(pdf_path),
+                "mandatory": True,
+                "status": "ASSEMBLED" if pdf_path.exists() else "MISSING",
+                "checksum": sha256_file(pdf_path) if pdf_path.exists() else "",
+                "artifact_substance_class": spec["artifact_substance_class"],
+                "source_corpus_root": "oc_core_1_3_master_monograph.tex",
+                "source_section_refs": [normalize_existing_repo_ref(ref) for ref in spec["section_refs"]],
+                "source_appendix_refs": source_appendix_refs,
+                "source_tex_entrypoint": normalize_existing_repo_ref(repo_rel(tex_path)),
+                "source_support_refs": [
+                    normalize_existing_repo_ref(repo_rel(SOURCE_OUTPUTS[spec["frontmatter_key"]])),
+                    normalize_existing_repo_ref(repo_rel(SOURCE_OUTPUTS[spec["route_key"]])),
+                ],
+                "source_refs": [repo_rel(PRIVATE_CONTROL_PLANE_PATH)],
+            }
+        )
+
+    auxiliary_mapping = [
+        ("ARTIFACT::SIMULATION_LEDGER", "simulation_corpus", SIMULATION_LEDGER_PATH, "CANONICAL_SUPPORT_SURFACE"),
+        ("ARTIFACT::DATASET_MANIFEST", "dataset_manifest", DATASET_MANIFEST_PATH, "CANONICAL_SUPPORT_SURFACE"),
+        ("ARTIFACT::SIMULATION_GUIDE", "reproducibility_layer", SIMULATION_GUIDE_PATH, "CANONICAL_SUPPORT_SURFACE"),
+        ("ARTIFACT::RELEASE_NOTES", "release_notes", OUTPUTS["release_notes_md"], "CANONICAL_RELEASE_METADATA"),
+        ("ARTIFACT::RELEASE_CONTRACT", "release_contract", OUTPUTS["release_contract_json"], "CANONICAL_RELEASE_METADATA"),
+        ("ARTIFACT::ZENODO_STAGE", "zenodo_package", OUTPUTS["zenodo_stage_json"], "STAGING_METADATA_SURFACE"),
+        ("ARTIFACT::ONE_CLICK_LEDGER", "one_click_ready_no_send_packages", OUTPUTS["one_click_package_ledger_json"], "NO_SEND_EXECUTION_SURFACE"),
     ]
-    for artifact_id, artifact_class, artifact_path, mandatory in mapping:
+    for artifact_id, artifact_class, artifact_path, substance_class in auxiliary_mapping:
         rows.append(
             {
                 "schema_id": "ReleaseArtifactRow_v1",
                 "artifact_id": artifact_id,
                 "artifact_class": artifact_class,
                 "artifact_ref": repo_rel(artifact_path),
-                "mandatory": mandatory,
+                "mandatory": True,
                 "status": "ASSEMBLED" if artifact_path.exists() else "MISSING",
                 "checksum": sha256_file(artifact_path) if artifact_path.exists() else "",
+                "artifact_substance_class": substance_class,
+                "source_corpus_root": "oc_core_1_3_master_monograph.tex",
+                "source_section_refs": [],
+                "source_appendix_refs": [],
+                "source_tex_entrypoint": "",
+                "source_support_refs": [],
                 "source_refs": [repo_rel(PRIVATE_CONTROL_PLANE_PATH)],
             }
         )
     return rows
 
 
-def build_gate_findings(artifact_rows: list[dict[str, Any]], simulation_ledger: dict[str, Any], dataset_manifest: dict[str, Any]) -> list[dict[str, Any]]:
-    missing_artifacts = [row for row in artifact_rows if row["mandatory"] and row["status"] != "ASSEMBLED"]
+def build_gate_findings(
+    artifact_rows: list[dict[str, Any]],
+    simulation_ledger: dict[str, Any],
+    dataset_manifest: dict[str, Any],
+    zenodo_stage: dict[str, Any],
+    release_contract: dict[str, Any],
+) -> list[dict[str, Any]]:
+    mandatory_classes = set(release_contract["mandatory_artifact_classes"])
+    missing_artifacts = [row for row in artifact_rows if row["artifact_class"] in mandatory_classes and row["status"] != "ASSEMBLED"]
+    mandatory_manuscript_classes = {
+        "master_monograph",
+        "journal_core",
+        "readable_overview",
+        "methods_or_simulation_companion",
+        "critique_closure_companion",
+    }
+    source_bound_failures = [
+        row
+        for row in artifact_rows
+        if row["artifact_class"] in mandatory_manuscript_classes
+        and (
+            row.get("artifact_substance_class") == "SUMMARY_ONLY_WRAPPER"
+            or not row.get("source_corpus_root")
+            or not list(row.get("source_section_refs") or [])
+            or not row.get("source_tex_entrypoint")
+        )
+    ]
+    mandatory_assembled_classes = {row["artifact_class"] for row in artifact_rows if row["artifact_class"] in mandatory_classes and row["status"] == "ASSEMBLED"}
+    integrity_pass = len(mandatory_assembled_classes) == len(mandatory_classes)
     findings: list[dict[str, Any]] = []
     findings.append(
         {
             "schema_id": "ReleaseGateFindingRow_v1",
             "finding_id": "GATE::SCIENCE",
             "gate_id": "science_gate",
-            "severity": "HIGH" if missing_artifacts else "INFO",
-            "status": "PASS" if not missing_artifacts else "FAIL",
-            "summary": "Mandatory science-facing release artifacts are materialized." if not missing_artifacts else "Missing mandatory science-facing release artifacts.",
-            "artifact_refs": [row["artifact_ref"] for row in missing_artifacts],
+            "severity": "HIGH" if missing_artifacts or source_bound_failures else "INFO",
+            "status": "PASS" if not missing_artifacts and not source_bound_failures else "FAIL",
+            "summary": (
+                "Mandatory manuscript artifacts are source-bound, substantive, and assembled."
+                if not missing_artifacts and not source_bound_failures
+                else "Mandatory release manuscripts are missing or not yet source-bound substantive artifacts."
+            ),
+            "artifact_refs": [row["artifact_ref"] for row in missing_artifacts + source_bound_failures],
+            "blocker_dossier": [
+                *[f"MISSING::{row['artifact_class']}::{row['artifact_ref']}" for row in missing_artifacts],
+                *[
+                    f"SOURCE_BOUND_BLOCKER::{row['artifact_class']}::{row['artifact_substance_class']}"
+                    for row in source_bound_failures
+                ],
+            ],
         }
     )
     findings.append(
@@ -603,10 +1111,45 @@ def build_gate_findings(artifact_rows: list[dict[str, Any]], simulation_ledger: 
             "schema_id": "ReleaseGateFindingRow_v1",
             "finding_id": "GATE::SIMULATION",
             "gate_id": "simulation_data_repro_gate",
-            "severity": "HIGH" if (simulation_ledger.get("summary", {}).get("simulation_total", 0) or 0) <= 0 else "INFO",
-            "status": "PASS" if (simulation_ledger.get("summary", {}).get("simulation_total", 0) or 0) > 0 and (dataset_manifest.get("summary", {}).get("dataset_manifest_total", 0) or 0) > 0 else "FAIL",
-            "summary": "Simulation and dataset layers are present and release-bound.",
+            "severity": (
+                "HIGH"
+                if (simulation_ledger.get("summary", {}).get("simulation_total", 0) or 0) <= 0
+                or (dataset_manifest.get("summary", {}).get("dataset_manifest_total", 0) or 0) <= 0
+                else "INFO"
+            ),
+            "status": (
+                "PASS"
+                if (simulation_ledger.get("summary", {}).get("simulation_total", 0) or 0) > 0
+                and (dataset_manifest.get("summary", {}).get("dataset_manifest_total", 0) or 0) > 0
+                else "FAIL"
+            ),
+            "summary": "Simulation and dataset layers are present, traceable, and release-bound.",
             "artifact_refs": [repo_rel(SIMULATION_LEDGER_PATH), repo_rel(DATASET_MANIFEST_PATH)],
+            "blocker_dossier": [],
+        }
+    )
+    findings.append(
+        {
+            "schema_id": "ReleaseGateFindingRow_v1",
+            "finding_id": "GATE::INTEGRITY",
+            "gate_id": "release_integrity_gate",
+            "severity": "HIGH" if not integrity_pass else "INFO",
+            "status": "PASS" if integrity_pass else "FAIL",
+            "summary": "All mandatory artifact classes are assembled and represented in the release inventory.",
+            "artifact_refs": [repo_rel(OUTPUTS["artifact_inventory_json"])],
+            "blocker_dossier": [] if integrity_pass else [f"MANDATORY_CLASS_MISSING::{artifact_class}" for artifact_class in sorted(mandatory_classes - mandatory_assembled_classes)],
+        }
+    )
+    findings.append(
+        {
+            "schema_id": "ReleaseGateFindingRow_v1",
+            "finding_id": "GATE::ZENODO_STAGE",
+            "gate_id": "zenodo_staging_gate",
+            "severity": "HIGH" if zenodo_stage.get("status") != "READY_NO_SEND" else "INFO",
+            "status": "PASS" if zenodo_stage.get("status") == "READY_NO_SEND" else "FAIL",
+            "summary": "Zenodo package is staged and held under no-send discipline.",
+            "artifact_refs": [repo_rel(OUTPUTS["zenodo_stage_json"])],
+            "blocker_dossier": [] if zenodo_stage.get("status") == "READY_NO_SEND" else [compact(zenodo_stage.get("stderr")) or "ZENODO_STAGING_FAILED"],
         }
     )
     findings.append(
@@ -618,18 +1161,29 @@ def build_gate_findings(artifact_rows: list[dict[str, Any]], simulation_ledger: 
             "status": "PASS",
             "summary": "Release stays under no-send owner approval discipline.",
             "artifact_refs": [repo_rel(OUTPUTS["owner_approval_gate_json"])],
+            "blocker_dossier": [],
         }
     )
     return findings
 
 
 def build_release_manifest(artifact_rows: list[dict[str, Any]]) -> dict[str, Any]:
-    files = []
+    files: list[dict[str, str]] = []
+    seen: set[str] = set()
     for row in artifact_rows:
         if row["status"] != "ASSEMBLED":
             continue
-        ref = row["artifact_ref"]
-        files.append({"source_ref": ref, "stage_ref": ref})
+        refs = [row["artifact_ref"]]
+        raw_source_tex_entrypoint = compact(row.get("source_tex_entrypoint"))
+        if raw_source_tex_entrypoint:
+            refs.append(normalize_existing_repo_ref(raw_source_tex_entrypoint))
+        refs.extend([normalize_existing_repo_ref(compact(ref)) for ref in (row.get("source_section_refs") or []) if compact(ref)])
+        refs.extend([normalize_existing_repo_ref(compact(ref)) for ref in (row.get("source_appendix_refs") or []) if compact(ref)])
+        refs.extend([normalize_existing_repo_ref(compact(ref)) for ref in (row.get("source_support_refs") or []) if compact(ref)])
+        for ref in refs:
+            if ref and ref not in seen:
+                files.append({"source_ref": ref, "stage_ref": ref})
+                seen.add(ref)
     return {
         "release_scope": "OC_CORE_1_3_1_ENGLISH_RELEASE_PACKAGE",
         "active_language_codes": ["EN"],
@@ -761,65 +1315,18 @@ def build_release_specific_packages(private_inputs: dict[str, Any], artifact_row
 
 def materialize_oc_core_1_3_1_release_v11(*, run_id: str = "oc_core_1_3_1_release_v11") -> dict[str, Any]:
     ensure_dirs()
+    build_input_sha = git_head_sha()
+    build_input_branch = git_branch()
+    build_input_clean = git_clean()
     private_inputs = load_private_inputs()
     private_summary = (private_inputs["control_plane"].get("summary") or {})
     delta_rows = private_inputs["delta_ledger"].get("rows") or []
     critique_rows = private_inputs["critique_processing"].get("rows") or []
     projection_rows = private_inputs["projection_ledger"].get("rows") or []
 
-    simulation_ledger = write_simulation_corpus(projection_rows)
-    dataset_manifest = write_data_layer(simulation_ledger)
-    compile_status = write_manuscripts(delta_rows, projection_rows, critique_rows)
-
     release_contract = build_release_contract()
-    artifact_rows = build_release_artifact_rows()
-    artifact_inventory = {
-        "schema_id": "OC_RELEASE_BUNDLE_INVENTORY_v1",
-        "generated_at_utc": now_utc(),
-        "repo_sha": git_head_sha(),
-        "rows": artifact_rows,
-        "summary": {
-            "mandatory_artifact_total": sum(1 for row in artifact_rows if row["mandatory"]),
-            "assembled_artifact_total": sum(1 for row in artifact_rows if row["status"] == "ASSEMBLED"),
-        },
-    }
-    gate_findings = build_gate_findings(artifact_rows, simulation_ledger, dataset_manifest)
-    release_manifest = build_release_manifest(artifact_rows)
-
     write_json(OUTPUTS["release_contract_json"], release_contract)
-    write_json(OUTPUTS["artifact_inventory_json"], artifact_inventory)
-    write_json(OUTPUTS["release_manifest_json"], release_manifest)
 
-    zenodo_stage = stage_zenodo_package(OUTPUTS["release_manifest_json"])
-    write_json(OUTPUTS["zenodo_stage_json"], {"schema_id": "OC_ZENODO_STAGING_PACKAGE_v1", **zenodo_stage})
-
-    release_gate_status = "RELEASE_READY_NO_SEND" if all(row["status"] == "PASS" for row in gate_findings) else "CERBERUS_PATCHING"
-    write_json(
-        OUTPUTS["publish_manifest_json"],
-        {
-            "schema_id": "OC_ONE_CLICK_PUBLISH_MANIFEST_v1",
-            "release_id": "oc_core_1_3_1",
-            "release_gate_status": release_gate_status,
-            "owner_approval_required": True,
-            "global_no_send_lock": True,
-            "zenodo_stage_ref": repo_rel(OUTPUTS["zenodo_stage_json"]),
-            "release_manifest_ref": repo_rel(OUTPUTS["release_manifest_json"]),
-        },
-    )
-    write_text(
-        OUTPUTS["automation_guide_md"],
-        "\n".join(
-            [
-                "# OC Release Automation Guide",
-                "",
-                "1. Materialize `build_oc_core_1_3_1_release_v11.py`.",
-                "2. Refresh contract, bundle inventory, and publish manifest builders.",
-                "3. Stage Zenodo package with `stage_oc_zenodo_release_v1.py`.",
-                "4. Stop at `RELEASE_READY_NO_SEND` until owner approval.",
-                "",
-            ]
-        ),
-    )
     write_text(
         OUTPUTS["release_notes_md"],
         "# OC Core 1.3.1 Release Notes\n\n- Strengthened science delta\n- Public simulation corpus\n- Public data manifest layer\n- Readable article family\n",
@@ -828,66 +1335,37 @@ def materialize_oc_core_1_3_1_release_v11(*, run_id: str = "oc_core_1_3_1_releas
         OUTPUTS["reader_guide_md"],
         "# OC Core 1.3.1 Reader Guide\n\nStart with the readable overview, then journal core, then the master monograph and appendices.\n",
     )
+
+    simulation_ledger = write_simulation_corpus(projection_rows)
+    dataset_manifest = write_data_layer(simulation_ledger)
+    compile_status = write_manuscripts(delta_rows, projection_rows, critique_rows)
     write_text(
         OUTPUTS["simulation_to_claim_md"],
-        "# OC Simulation To Claim Matrix\n\n" + render_rows_md(simulation_ledger.get("rows") or [], ["simulation_id", "domain", "claim_binding"]) + "\n",
+        "# OC Simulation To Claim Matrix\n\n"
+        + render_rows_md(simulation_ledger.get("rows") or [], ["simulation_id", "domain", "claim_binding"])
+        + "\n",
     )
     write_text(
         OUTPUTS["data_to_packet_md"],
-        "# OC Data To Packet Matrix\n\n" + render_rows_md(dataset_manifest.get("rows") or [], ["dataset_id", "dataset_name", "bound_packet_ids"]) + "\n",
+        "# OC Data To Packet Matrix\n\n"
+        + render_rows_md(dataset_manifest.get("rows") or [], ["dataset_id", "dataset_name", "bound_packet_ids"])
+        + "\n",
     )
 
     package_ledger, destination_registry, dispatch_rehearsal_report, owner_click_actions = build_release_specific_packages(
-        private_inputs, artifact_rows
+        private_inputs, []
     )
     write_json(OUTPUTS["one_click_package_ledger_json"], package_ledger)
     write_json(OUTPUTS["destination_registry_json"], destination_registry)
     write_text(OUTPUTS["dispatch_rehearsal_report_md"], dispatch_rehearsal_report)
     write_text(OUTPUTS["owner_click_actions_md"], owner_click_actions)
 
-    cerberus_open_high_severity_total = sum(1 for row in gate_findings if row["severity"] == "HIGH" and row["status"] != "PASS")
-    write_json(
-        OUTPUTS["cerberus_acceptance_json"],
-        {
-            "schema_id": "OC_CORE_1_3_1_CERBERUS_ACCEPTANCE_CERT_v1",
-            "status": "PASS" if cerberus_open_high_severity_total == 0 else "FAIL",
-            "generated_at_utc": now_utc(),
-            "finding_total": len(gate_findings),
-            "high_severity_open_total": cerberus_open_high_severity_total,
-        },
-    )
-    write_json(
-        OUTPUTS["release_integrity_json"],
-        {
-            "schema_id": "OC_CORE_1_3_1_RELEASE_INTEGRITY_CERT_v1",
-            "status": "PASS" if artifact_inventory["summary"]["assembled_artifact_total"] >= artifact_inventory["summary"]["mandatory_artifact_total"] else "FAIL",
-            "generated_at_utc": now_utc(),
-            "assembled_artifact_total": artifact_inventory["summary"]["assembled_artifact_total"],
-            "mandatory_artifact_total": artifact_inventory["summary"]["mandatory_artifact_total"],
-        },
-    )
-    write_json(
-        OUTPUTS["simulation_repro_json"],
-        {
-            "schema_id": "OC_CORE_1_3_1_SIMULATION_REPRO_CERT_v1",
-            "status": "PASS" if (simulation_ledger.get("summary", {}).get("simulation_total", 0) or 0) > 0 else "FAIL",
-            "generated_at_utc": now_utc(),
-            "simulation_total": simulation_ledger.get("summary", {}).get("simulation_total", 0),
-            "dataset_manifest_total": dataset_manifest.get("summary", {}).get("dataset_manifest_total", 0),
-            "compile_status": compile_status,
-        },
-    )
-    write_text(
-        OUTPUTS["release_gate_board_md"],
-        "# OC Core 1.3.1 Release Gate Board\n\n" + render_rows_md(gate_findings, ["finding_id", "gate_id", "status", "severity"]) + "\n",
-    )
-
     write_json(
         OUTPUTS["owner_approval_gate_json"],
         {
             "schema_id": "OC_CORE_1_3_1_OWNER_APPROVAL_GATE_v1",
             "status": "REQUIRED",
-            "release_gate_status": release_gate_status,
+            "release_gate_status": "PENDING_GATE_EVALUATION",
             "owner_approval_required": True,
             "publish_allowed": False,
             "next_action": "Wait for explicit owner approval before publish/send.",
@@ -909,6 +1387,124 @@ def materialize_oc_core_1_3_1_release_v11(*, run_id: str = "oc_core_1_3_1_releas
         },
     )
 
+    artifact_rows = build_release_artifact_rows()
+    release_manifest = build_release_manifest(artifact_rows)
+    write_json(OUTPUTS["release_manifest_json"], release_manifest)
+
+    zenodo_stage = stage_zenodo_package(OUTPUTS["release_manifest_json"])
+    write_json(OUTPUTS["zenodo_stage_json"], {"schema_id": "OC_ZENODO_STAGING_PACKAGE_v1", **zenodo_stage})
+
+    artifact_rows = build_release_artifact_rows()
+    artifact_inventory = {
+        "schema_id": "OC_RELEASE_BUNDLE_INVENTORY_v1",
+        "generated_at_utc": now_utc(),
+        "repo_sha": build_input_sha,
+        "rows": artifact_rows,
+        "summary": {
+            "mandatory_artifact_total": len(release_contract["mandatory_artifact_classes"]),
+            "assembled_artifact_total": sum(1 for row in artifact_rows if row["mandatory"] and row["status"] == "ASSEMBLED"),
+            "assembled_artifact_class_total": len({row["artifact_class"] for row in artifact_rows if row["status"] == "ASSEMBLED"}),
+        },
+    }
+    write_json(OUTPUTS["artifact_inventory_json"], artifact_inventory)
+
+    gate_findings = build_gate_findings(artifact_rows, simulation_ledger, dataset_manifest, zenodo_stage, release_contract)
+    science_gate_failed = any(row["gate_id"] == "science_gate" and row["status"] != "PASS" for row in gate_findings)
+    release_gate_status = (
+        "SCIENCE_INTEGRATION_IN_PROGRESS"
+        if science_gate_failed
+        else ("RELEASE_READY_NO_SEND" if all(row["status"] == "PASS" for row in gate_findings) else "CERBERUS_PATCHING")
+    )
+
+    write_json(
+        OUTPUTS["publish_manifest_json"],
+        {
+            "schema_id": "OC_ONE_CLICK_PUBLISH_MANIFEST_v1",
+            "release_id": "oc_core_1_3_1",
+            "release_gate_status": release_gate_status,
+            "owner_approval_required": True,
+            "global_no_send_lock": True,
+            "zenodo_stage_ref": repo_rel(OUTPUTS["zenodo_stage_json"]),
+            "release_manifest_ref": repo_rel(OUTPUTS["release_manifest_json"]),
+        },
+    )
+    write_text(
+        OUTPUTS["automation_guide_md"],
+        "\n".join(
+            [
+                "# OC Release Automation Guide",
+                "",
+                "1. Materialize `build_oc_core_1_3_1_release_v11.py`.",
+                "2. Refresh the source-bound manuscript tree, release contract, and bundle inventory.",
+                "3. Validate that mandatory manuscript artifacts are substantive and source-bound before trusting compile success.",
+                "4. Stage Zenodo package with `stage_oc_zenodo_release_v1.py`.",
+                "5. Stop at `RELEASE_READY_NO_SEND` until owner approval.",
+                "",
+            ]
+        ),
+    )
+
+    cerberus_open_high_severity_total = sum(1 for row in gate_findings if row["severity"] == "HIGH" and row["status"] != "PASS")
+    write_json(
+        OUTPUTS["cerberus_acceptance_json"],
+        {
+            "schema_id": "OC_CORE_1_3_1_CERBERUS_ACCEPTANCE_CERT_v1",
+            "status": "PASS" if cerberus_open_high_severity_total == 0 else "FAIL",
+            "generated_at_utc": now_utc(),
+            "finding_total": len(gate_findings),
+            "high_severity_open_total": cerberus_open_high_severity_total,
+        },
+    )
+    write_json(
+        OUTPUTS["release_integrity_json"],
+        {
+            "schema_id": "OC_CORE_1_3_1_RELEASE_INTEGRITY_CERT_v1",
+            "status": (
+                "PASS"
+                if artifact_inventory["summary"]["assembled_artifact_total"] >= artifact_inventory["summary"]["mandatory_artifact_total"]
+                else "FAIL"
+            ),
+            "generated_at_utc": now_utc(),
+            "assembled_artifact_total": artifact_inventory["summary"]["assembled_artifact_total"],
+            "mandatory_artifact_total": artifact_inventory["summary"]["mandatory_artifact_total"],
+            "assembled_artifact_class_total": artifact_inventory["summary"]["assembled_artifact_class_total"],
+        },
+    )
+    write_json(
+        OUTPUTS["simulation_repro_json"],
+        {
+            "schema_id": "OC_CORE_1_3_1_SIMULATION_REPRO_CERT_v1",
+            "status": (
+                "PASS"
+                if (simulation_ledger.get("summary", {}).get("simulation_total", 0) or 0) > 0
+                and (dataset_manifest.get("summary", {}).get("dataset_manifest_total", 0) or 0) > 0
+                else "FAIL"
+            ),
+            "generated_at_utc": now_utc(),
+            "simulation_total": simulation_ledger.get("summary", {}).get("simulation_total", 0),
+            "dataset_manifest_total": dataset_manifest.get("summary", {}).get("dataset_manifest_total", 0),
+            "compile_status": compile_status,
+        },
+    )
+    write_text(
+        OUTPUTS["release_gate_board_md"],
+        "# OC Core 1.3.1 Release Gate Board\n\n"
+        + render_rows_md(gate_findings, ["finding_id", "gate_id", "status", "severity", "summary"])
+        + "\n",
+    )
+
+    write_json(
+        OUTPUTS["owner_approval_gate_json"],
+        {
+            "schema_id": "OC_CORE_1_3_1_OWNER_APPROVAL_GATE_v1",
+            "status": "REQUIRED",
+            "release_gate_status": release_gate_status,
+            "owner_approval_required": True,
+            "publish_allowed": False,
+            "next_action": "Wait for explicit owner approval before publish/send.",
+        },
+    )
+
     mandatory_total = len(release_contract["mandatory_artifact_classes"])
     mandatory_covered = len({row["artifact_class"] for row in artifact_rows if row["status"] == "ASSEMBLED"})
     coverage = round(mandatory_covered / max(1, mandatory_total), 6)
@@ -927,9 +1523,11 @@ def materialize_oc_core_1_3_1_release_v11(*, run_id: str = "oc_core_1_3_1_releas
         "zenodo_staging_status": zenodo_stage["status"],
         "one_click_ready_no_send_total": int(package_ledger.get("summary", {}).get("one_click_ready_no_send_total", 0) or 0),
         "owner_approval_required": True,
-        "public_branch": git_branch(),
-        "public_repo_sha": git_head_sha(),
-        "public_repo_clean": git_clean(),
+        "public_release_ready": release_gate_status == "RELEASE_READY_NO_SEND",
+        "public_branch": build_input_branch,
+        "public_repo_sha": build_input_sha,
+        "public_repo_clean": build_input_clean,
+        "public_repo_sha_meaning": "PRE_MATERIALIZATION_HEAD",
     }
 
     control_plane = {
@@ -952,6 +1550,7 @@ def materialize_oc_core_1_3_1_release_v11(*, run_id: str = "oc_core_1_3_1_releas
             "critique_ref": repo_rel(MANUSCRIPT_OUTPUTS["critique_pdf"]),
             "release_ready_board_ref": repo_rel(OUTPUTS["release_ready_board_json"]),
             "owner_review_packet_ref": repo_rel(OUTPUTS["owner_review_packet_md"]),
+            "release_gate_board_ref": repo_rel(OUTPUTS["release_gate_board_md"]),
         },
         "rows": gate_findings,
     }
@@ -983,6 +1582,8 @@ def materialize_oc_core_1_3_1_release_v11(*, run_id: str = "oc_core_1_3_1_releas
                 f"- zenodo_staging_status: {zenodo_stage['status']}",
                 f"- one_click_ready_no_send_total: {summary['one_click_ready_no_send_total']}",
                 f"- owner_approval_required: {summary['owner_approval_required']}",
+                f"- public_repo_sha: {summary['public_repo_sha']}",
+                f"- public_repo_clean_pre_materialization: {summary['public_repo_clean']}",
                 "",
             ]
         ),
