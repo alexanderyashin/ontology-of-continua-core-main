@@ -639,7 +639,7 @@ def build_release_manifest(artifact_rows: list[dict[str, Any]]) -> dict[str, Any
 
 
 def stage_zenodo_package(manifest_path: Path) -> dict[str, Any]:
-    stage_dir = REPO_ROOT / "build_oc_core_1_3_1_zenodo_release"
+    stage_dir = REPO_ROOT / "build_oc_core_1_3_zenodo_en_only"
     zip_path = BUILD_DIR / "oc_core_1_3_1_zenodo_release.zip"
     proc = subprocess.run(
         [
