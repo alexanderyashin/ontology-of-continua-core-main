@@ -1,26 +1,30 @@
 {
   "metadata": {
-    "repo_sha": "06801dcad8332c4cc8d87885be18ad44b55e962c",
+    "repo_sha": "0b3b04fd21841d686e05b66344bf35a676754df7",
     "script": "oc_core_public_release_bundle_v1.py",
     "surface": "logion/k0/governance/status/OC_CORE_1_3_SCIENCE_ARTIFACT_CONTRACT_latest.json",
-    "ts_utc": "2026-04-22T19:51:58Z"
+    "ts_utc": "2026-04-24T22:16:26Z"
   },
-  "platinum_blockers": [],
+  "platinum_blockers": [
+    "TRILINGUAL_FULL_PROOF_BEARING_MONOGRAPH_REQUIRED"
+  ],
   "rows": [
     {
       "artifact_family": "OC_CORE_1_3_MASTER_MONOGRAPH",
       "artifact_id": "SCIENCE::OC_CORE_1_3_MASTER_MONOGRAPH",
       "artifact_kind": "MASTER_MONOGRAPH",
-      "artifact_summary": "Primary LaTeX-derived source-first master monograph family for OC Core 1.3. The public Core 1.3 release lane is English-only and Zenodo-ready; Russian and German source routes remain preserved in the repository as deferred Core 1.3.1 translation draft work outside the release upload.",
+      "artifact_summary": "Primary LaTeX-derived source-first master monograph family for OC Core 1.3, larger than the Core 1.2 baseline and intended as the canonical opus magnum artifact. English is the only fully promoted proof-bearing master lane today. Russian and German now materialize as native source-first draft routes rather than English-PDF wrappers, but they remain non-platinum because the localized theorem/proof corpus is still awaiting human theorem review and canonical approval.",
       "authoritative_refs": [
         "logion/k0/governance/status/OC_CORE_1_3_SCIENCE_ARTIFACT_CONTRACT_latest.json",
         "logion/k0/governance/status/OC_CORE_1_3_RELEASE_BUNDLE_AUDIT_latest.json",
         "logion/k0/governance/status/external_llm_review_dossiers/FOUNDATION__OC_CORE_1_3_FLAGSHIP.json"
       ],
-      "baseline_page_total": 544,
+      "baseline_page_total": 546,
       "download_refs": [
         "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_EN.pdf",
         "releases/oc_core_1_3/monograph/source/oc_core_1_3_master_monograph.tex",
+        "releases/oc_core_1_3/monograph/source/oc_core_1_3_master_monograph_ru.tex",
+        "releases/oc_core_1_3/monograph/source/oc_core_1_3_master_monograph_de.tex",
         "releases/oc_core_1_3/monograph/source/preamble.tex",
         "releases/oc_core_1_3/monograph/source/content/frontmatter_oc_core_1_3_master.tex",
         "releases/oc_core_1_3/monograph/source/content/17_oc_core_1_3_reader_guide.tex",
@@ -43,20 +47,26 @@
         "releases/oc_core_1_3/monograph/source/appendix/M_oc_core_1_3_proof_machinery_appendix.tex",
         "releases/oc_core_1_3/monograph/source/figures/oc_core_1_3_theorem_spine.tex",
         "releases/oc_core_1_3/monograph/source/figures/levels_hierarchy_k12.tex",
-        "releases/oc_core_1_3/monograph/source/SOURCE_PACKAGE_README.md"
+        "releases/oc_core_1_3/monograph/source/SOURCE_PACKAGE_README.md",
+        "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_RU.pdf",
+        "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_DE.pdf"
       ],
       "external_llm_review_status": "PASS",
       "language_codes": [
-        "EN"
+        "EN",
+        "RU",
+        "DE"
       ],
       "non_blocking_overlay_variant_total": 2,
       "owner_primary_title": "OC Core 1.3 / Master Monograph",
       "owner_visibility_status": "PASS",
       "page_growth_status": "PASS",
-      "page_total": 639,
-      "platinum_blockers": [],
-      "platinum_release_status": "PASS_ENGLISH_ONLY_TRANSLATIONS_DEFERRED",
-      "policy_status": "ENGLISH_ONLY_RELEASE_READY",
+      "page_total": 641,
+      "platinum_blockers": [
+        "TRILINGUAL_FULL_PROOF_BEARING_MONOGRAPH_REQUIRED"
+      ],
+      "platinum_release_status": "FAIL_CLOSED",
+      "policy_status": "READY_BUT_NOT_ACTIVATED",
       "primary_preview_ref": "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_EN.pdf",
       "primary_ship_contour_status": "PASS",
       "primary_ship_language_code": "EN",
@@ -133,7 +143,7 @@
         "releases/oc_core_1_3/editorial/domain_packets/systems_civilizational_projection_domain_packet.md",
         "releases/oc_core_1_3/editorial/domain_packets/systems_civilizational_projection_domain_packet.pdf"
       ],
-      "translation_platinum_status": "DEFERRED_TRANSLATION_REVIEW_REQUIRED_NON_RELEASE_BLOCKING",
+      "translation_platinum_status": "FAIL_CLOSED",
       "variants": [
         {
           "document_ref": "oc_core_1_3_master_monograph.tex",
@@ -172,12 +182,26 @@
           "language_code": "EN",
           "language_label": "English",
           "owner_visibility_status": "PASS",
-          "page_total": 621,
+          "page_total": 641,
           "primary_preview_ref": "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_EN.pdf",
           "proof_input_refs": [
             "content/frontmatter_oc_core_1_3_master.tex",
             "content/17_oc_core_1_3_reader_guide.tex",
-            "content/_auto_core_inputs.tex",
+            "content/01_intro.tex",
+            "content/02_background.tex",
+            "content/03_model.tex",
+            "content/04_results.tex",
+            "content/05_discussion.tex",
+            "content/06_conclusion.tex",
+            "content/08_boundary.tex",
+            "content/09_thresholds.tex",
+            "content/10_klevels_full.tex",
+            "content/11_operators_full.tex",
+            "content/12_collapse_rebirth.tex",
+            "content/13_branching_topology.tex",
+            "content/14_disciplines_extended.tex",
+            "content/15_falsifiability_extended.tex",
+            "content/16_modules_master.tex",
             "content/18_oc_core_1_3_source_audit.tex",
             "content/19_oc_core_1_3_foundational_consistency.tex",
             "content/20_oc_core_1_3_theorem_roadmap.tex",
@@ -185,10 +209,11 @@
             "content/22_oc_core_1_3_operationalization_program.tex",
             "content/23_oc_core_1_3_empirical_execution_protocols.tex",
             "content/24_oc_core_1_3_proof_machinery.tex",
+            "content/25_oc_core_1_3_toe_synthesis.tex",
+            "content/26_oc_core_1_3_practical_utility.tex",
             "appendix/A_notation.tex",
             "appendix/B_axioms_full.tex",
             "appendix/C_klevels_tables.tex",
-            "appendix/toe_data.tex",
             "appendix/D_oc_core_1_3_source_audit_appendix.tex",
             "appendix/E_oc_core_1_3_journal_core_bridge.tex",
             "appendix/F_oc_core_1_3_reviewer_navigation_matrix.tex",
@@ -198,7 +223,12 @@
             "appendix/L_oc_core_1_3_domain_benchmark_caseset.tex",
             "appendix/J_oc_core_1_3_domain_replay_reports.tex",
             "appendix/K_oc_core_1_3_domain_execution_board.tex",
-            "appendix/M_oc_core_1_3_proof_machinery_appendix.tex"
+            "appendix/M_oc_core_1_3_proof_machinery_appendix.tex",
+            "appendix/N_oc_core_1_3_figure_atlas.tex",
+            "appendix/O_oc_core_1_3_technical_derivation_atlas.tex",
+            "appendix/P_oc_core_1_3_reference_benchmark_atlas.tex",
+            "appendix/Q_oc_core_1_3_toe_support_dossiers.tex",
+            "appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas.tex"
           ],
           "proof_route_status": "SOURCE_FIRST_PROOF_BEARING_MASTER",
           "release_bundle_ref": "releases/oc_core_1_3",
@@ -236,12 +266,26 @@
           "language_code": "RU",
           "language_label": "Русский",
           "owner_visibility_status": "FAIL",
-          "page_total": 641,
+          "page_total": 526,
           "primary_preview_ref": "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_RU.pdf",
           "proof_input_refs": [
             "content/frontmatter_oc_core_1_3_master_ru.tex",
             "content/17_oc_core_1_3_reader_guide_ru.tex",
-            "content/_auto_core_inputs_ru.tex",
+            "content/01_intro_ru.tex",
+            "content/02_background_ru.tex",
+            "content/03_model_ru.tex",
+            "content/04_results_ru.tex",
+            "content/05_discussion_ru.tex",
+            "content/06_conclusion_ru.tex",
+            "content/08_boundary_ru.tex",
+            "content/09_thresholds_ru.tex",
+            "content/10_klevels_full_ru.tex",
+            "content/11_operators_full_ru.tex",
+            "content/12_collapse_rebirth_ru.tex",
+            "content/13_branching_topology_ru.tex",
+            "content/14_disciplines_extended_ru.tex",
+            "content/15_falsifiability_extended_ru.tex",
+            "content/16_modules_master_ru.tex",
             "content/18_oc_core_1_3_source_audit_ru.tex",
             "content/19_oc_core_1_3_foundational_consistency_ru.tex",
             "content/20_oc_core_1_3_theorem_roadmap_ru.tex",
@@ -249,10 +293,11 @@
             "content/22_oc_core_1_3_operationalization_program_ru.tex",
             "content/23_oc_core_1_3_empirical_execution_protocols_ru.tex",
             "content/24_oc_core_1_3_proof_machinery_ru.tex",
+            "content/25_oc_core_1_3_toe_synthesis_ru.tex",
+            "content/26_oc_core_1_3_practical_utility_ru.tex",
             "appendix/A_notation_ru.tex",
             "appendix/B_axioms_full_ru.tex",
             "appendix/C_klevels_tables_ru.tex",
-            "appendix/toe_data_ru.tex",
             "appendix/D_oc_core_1_3_source_audit_appendix_ru.tex",
             "appendix/E_oc_core_1_3_journal_core_bridge_ru.tex",
             "appendix/F_oc_core_1_3_reviewer_navigation_matrix_ru.tex",
@@ -262,7 +307,12 @@
             "appendix/L_oc_core_1_3_domain_benchmark_caseset_ru.tex",
             "appendix/J_oc_core_1_3_domain_replay_reports_ru.tex",
             "appendix/K_oc_core_1_3_domain_execution_board_ru.tex",
-            "appendix/M_oc_core_1_3_proof_machinery_appendix_ru.tex"
+            "appendix/M_oc_core_1_3_proof_machinery_appendix_ru.tex",
+            "appendix/N_oc_core_1_3_figure_atlas_ru.tex",
+            "appendix/O_oc_core_1_3_technical_derivation_atlas_ru.tex",
+            "appendix/P_oc_core_1_3_reference_benchmark_atlas_ru.tex",
+            "appendix/Q_oc_core_1_3_toe_support_dossiers_ru.tex",
+            "appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas_ru.tex"
           ],
           "proof_route_status": "NATIVE_LOCALIZED_PROOF_BEARING_MASTER",
           "release_bundle_ref": "releases/oc_core_1_3",
@@ -300,12 +350,26 @@
           "language_code": "DE",
           "language_label": "Deutsch",
           "owner_visibility_status": "FAIL",
-          "page_total": 641,
+          "page_total": 520,
           "primary_preview_ref": "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_DE.pdf",
           "proof_input_refs": [
             "content/frontmatter_oc_core_1_3_master_de.tex",
             "content/17_oc_core_1_3_reader_guide_de.tex",
-            "content/_auto_core_inputs_de.tex",
+            "content/01_intro_de.tex",
+            "content/02_background_de.tex",
+            "content/03_model_de.tex",
+            "content/04_results_de.tex",
+            "content/05_discussion_de.tex",
+            "content/06_conclusion_de.tex",
+            "content/08_boundary_de.tex",
+            "content/09_thresholds_de.tex",
+            "content/10_klevels_full_de.tex",
+            "content/11_operators_full_de.tex",
+            "content/12_collapse_rebirth_de.tex",
+            "content/13_branching_topology_de.tex",
+            "content/14_disciplines_extended_de.tex",
+            "content/15_falsifiability_extended_de.tex",
+            "content/16_modules_master_de.tex",
             "content/18_oc_core_1_3_source_audit_de.tex",
             "content/19_oc_core_1_3_foundational_consistency_de.tex",
             "content/20_oc_core_1_3_theorem_roadmap_de.tex",
@@ -313,10 +377,11 @@
             "content/22_oc_core_1_3_operationalization_program_de.tex",
             "content/23_oc_core_1_3_empirical_execution_protocols_de.tex",
             "content/24_oc_core_1_3_proof_machinery_de.tex",
+            "content/25_oc_core_1_3_toe_synthesis_de.tex",
+            "content/26_oc_core_1_3_practical_utility_de.tex",
             "appendix/A_notation_de.tex",
             "appendix/B_axioms_full_de.tex",
             "appendix/C_klevels_tables_de.tex",
-            "appendix/toe_data_de.tex",
             "appendix/D_oc_core_1_3_source_audit_appendix_de.tex",
             "appendix/E_oc_core_1_3_journal_core_bridge_de.tex",
             "appendix/F_oc_core_1_3_reviewer_navigation_matrix_de.tex",
@@ -326,7 +391,12 @@
             "appendix/L_oc_core_1_3_domain_benchmark_caseset_de.tex",
             "appendix/J_oc_core_1_3_domain_replay_reports_de.tex",
             "appendix/K_oc_core_1_3_domain_execution_board_de.tex",
-            "appendix/M_oc_core_1_3_proof_machinery_appendix_de.tex"
+            "appendix/M_oc_core_1_3_proof_machinery_appendix_de.tex",
+            "appendix/N_oc_core_1_3_figure_atlas_de.tex",
+            "appendix/O_oc_core_1_3_technical_derivation_atlas_de.tex",
+            "appendix/P_oc_core_1_3_reference_benchmark_atlas_de.tex",
+            "appendix/Q_oc_core_1_3_toe_support_dossiers_de.tex",
+            "appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas_de.tex"
           ],
           "proof_route_status": "NATIVE_LOCALIZED_PROOF_BEARING_MASTER",
           "release_bundle_ref": "releases/oc_core_1_3",
@@ -353,15 +423,13 @@
           "variant_id": "SCIENCE::OC_CORE_1_3_MASTER_MONOGRAPH::DE",
           "variant_role": "CANONICAL_MASTER_MONOGRAPH"
         }
-      ],
-      "translation_counters_release_blocking": false,
-      "zenodo_upload_scope": "EN_ONLY_MANIFEST_LISTED_FILES"
+      ]
     },
     {
       "artifact_family": "OC_CORE_1_3_JOURNAL_CORE",
       "artifact_id": "SCIENCE::OC_CORE_1_3_JOURNAL_CORE",
       "artifact_kind": "JOURNAL_CORE",
-      "artifact_summary": "Bounded English Journal Core extraction for OC Core 1.3. The article is final for the English 1.3 release route; Russian and German companion drafts remain deferred outside the Zenodo 1.3 upload.",
+      "artifact_summary": "Shorter journal-facing extraction derived from the master monograph for editorial review and trilingual outward publication. This article track is explicitly narrower than the monograph and may compress detail without enlarging theorem scope, notation, or nonclaim boundaries.",
       "authoritative_refs": [
         "logion/k0/governance/status/OC_CORE_1_3_SCIENCE_ARTIFACT_CONTRACT_latest.json",
         "logion/k0/governance/status/OC_CORE_1_3_RELEASE_BUNDLE_AUDIT_latest.json",
@@ -371,18 +439,30 @@
         "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.pdf",
         "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.md",
         "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_EN.pdf",
-        "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_EN.md"
+        "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_EN.md",
+        "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_RU.pdf",
+        "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_RU.md",
+        "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_RU.pdf",
+        "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_RU.md",
+        "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_DE.pdf",
+        "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_DE.md",
+        "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_DE.pdf",
+        "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_DE.md"
       ],
       "external_llm_review_status": "PASS",
       "language_codes": [
-        "EN"
+        "EN",
+        "RU",
+        "DE"
       ],
       "non_blocking_overlay_variant_total": 2,
       "owner_primary_title": "OC Core 1.3 / Journal Core",
       "owner_visibility_status": "PASS",
-      "platinum_blockers": [],
-      "platinum_release_status": "PASS_ENGLISH_ONLY_TRANSLATIONS_DEFERRED",
-      "policy_status": "ENGLISH_ONLY_RELEASE_READY",
+      "platinum_blockers": [
+        "TRILINGUAL_FULL_PROOF_BEARING_MONOGRAPH_REQUIRED"
+      ],
+      "platinum_release_status": "FAIL_CLOSED",
+      "policy_status": "READY_BUT_NOT_ACTIVATED",
       "primary_preview_ref": "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.pdf",
       "primary_ship_contour_status": "PASS",
       "primary_ship_language_code": "EN",
@@ -395,7 +475,7 @@
       "review_dossier_ref": "logion/k0/governance/status/external_llm_review_dossiers/FOUNDATION__OC_CORE_1_3_FLAGSHIP.json",
       "route_test_status": "PASS",
       "ship_blocking_variant_total": 1,
-      "ship_contour_scope": "EN_JOURNAL_CORE_PRIMARY",
+      "ship_contour_scope": "EN_MONOGRAPH_PRIMARY",
       "supporting_refs": [
         "logion/k0/governance/status/OC_CORE_1_3_RELEASE_MANIFEST_latest.json",
         "logion/k0/governance/status/OC_CORE_1_3_ZENODO_METADATA_PREVIEW_latest.json",
@@ -499,9 +579,7 @@
           "ship_contour_status": "NON_BLOCKING_VISIBLE_DRAFT",
           "variant_id": "SCIENCE::OC_CORE_1_3_JOURNAL_CORE::DE"
         }
-      ],
-      "translation_counters_release_blocking": false,
-      "zenodo_upload_scope": "EN_ONLY_MANIFEST_LISTED_FILES"
+      ]
     }
   ],
   "schema_id": "OC_CORE_1_3_SCIENCE_ARTIFACT_CONTRACT_v1",
@@ -524,24 +602,24 @@
     "domains_with_cases_total": 4,
     "execution_protocol_domain_total": 5,
     "execution_protocol_ready_total": 0,
-    "foundational_platinum_status": "PASS_ENGLISH_ONLY_TRANSLATIONS_DEFERRED",
+    "foundational_platinum_status": "FAIL_CLOSED",
     "full_proof_bearing_translation_ready_total": 1,
     "institute_run_stand_by_wave_total": 0,
     "institute_run_wave_total": 4,
-    "journal_core_language_total": 1,
-    "journal_core_pdf_ready_total": 1,
+    "journal_core_language_total": 3,
+    "journal_core_pdf_ready_total": 3,
     "journal_core_primary_ship_ready_total": 1,
     "journal_core_primary_ship_status": "PASS",
-    "master_monograph_language_total": 1,
+    "master_monograph_language_total": 3,
     "master_monograph_primary_ship_ready_total": 1,
     "master_monograph_variant_ready_total": 1,
     "measurement_escalation_required_total": 0,
     "minimality_frontier_component_total": 2,
-    "monograph_baseline_page_total": 544,
-    "monograph_page_total": 639,
+    "monograph_baseline_page_total": 546,
+    "monograph_page_total": 641,
     "monograph_status": "PASS",
-    "platinum_blocking_total": 0,
-    "platinum_release_status": "PASS_ENGLISH_ONLY_TRANSLATIONS_DEFERRED",
+    "platinum_blocking_total": 1,
+    "platinum_release_status": "FAIL_CLOSED",
     "primary_science_pdf_track": "MASTER_MONOGRAPH_LATEX",
     "primary_ship_contour_status": "PASS",
     "primary_ship_language_code": "EN",
@@ -551,30 +629,20 @@
     "translation_draft_corpus_ready_total": 2,
     "translation_draft_generated_total": 0,
     "translation_draft_pipeline_status": "PASS",
-    "translation_formal_review_approved_total": 12,
+    "translation_formal_review_approved_total": 11,
     "translation_formal_review_fail_total": 0,
-    "translation_formal_review_pending_total": 328,
+    "translation_formal_review_pending_total": 359,
     "translation_human_review_approved_total": 0,
-    "translation_human_review_pending_total": 340,
-    "translation_platinum_status": "DEFERRED_TRANSLATION_REVIEW_REQUIRED_NON_RELEASE_BLOCKING",
+    "translation_human_review_pending_total": 370,
+    "translation_platinum_status": "FAIL_CLOSED",
     "translation_theorem_review_fail_total": 0,
-    "translation_theorem_review_ledger_status": "DEFERRED_TRANSLATION_REVIEW_REQUIRED_NON_RELEASE_BLOCKING",
-    "translation_theorem_review_pass_total": 12,
-    "translation_theorem_review_pending_total": 328,
+    "translation_theorem_review_ledger_status": "FAIL_CLOSED",
+    "translation_theorem_review_pass_total": 11,
+    "translation_theorem_review_pending_total": 359,
     "translation_workset_missing_total": 0,
     "translation_workset_review_required_language_total": 2,
-    "translation_workset_status": "DEFERRED_TRANSLATION_REVIEW_REQUIRED_NON_RELEASE_BLOCKING",
-    "validated_empirical_or_anchor_domain_total": 5,
-    "active_release_language_count": 1,
-    "active_release_language_codes": [
-      "EN"
-    ],
-    "deferred_translation_language_codes": [
-      "RU",
-      "DE"
-    ],
-    "translation_counters_release_blocking": false,
-    "public_release_status": "PASS_ENGLISH_ONLY_TRANSLATIONS_DEFERRED"
+    "translation_workset_status": "FAIL_CLOSED",
+    "validated_empirical_or_anchor_domain_total": 5
   },
   "supporting_status_refs": {
     "alternative_model_competition_matrix": "logion/k0/governance/status/OC_ALTERNATIVE_MODEL_COMPETITION_MATRIX_latest.json",
@@ -600,17 +668,5 @@
     "monograph_translation_workset": "logion/k0/governance/status/OC_CORE_1_3_MONOGRAPH_TRANSLATION_WORKSET_latest.json",
     "prediction_replay_ledger": "logion/k0/governance/status/PREDICTION_REPLAY_LEDGER_latest.json",
     "revision_law_authority": "logion/k0/governance/status/OC_REVISION_LAW_AUTHORITY_latest.json"
-  },
-  "release_language_policy": {
-    "active_release_language_codes": [
-      "EN"
-    ],
-    "active_release_language_count": 1,
-    "deferred_translation_language_codes": [
-      "RU",
-      "DE"
-    ],
-    "deferred_translation_status": "RU_DE_RETAINED_IN_REPOSITORY_AS_1_3_1_DRAFT_WORK_EXCLUDED_FROM_ZENODO_1_3",
-    "translation_counters_release_blocking": false
   }
 }
