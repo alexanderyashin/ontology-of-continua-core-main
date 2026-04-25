@@ -2,7 +2,7 @@
 
 Status: RELEASE_READY_NO_SEND.
 
-Artifact freeze hash: `2f69533b4945c9f115510d0ec14146f5df3b02a76377345380787d65dec256bb`
+Artifact freeze hash: `7c7a5caa85d978c9b90afcdbbb1c792f7717beea3360b44f5daecd6ac090ea5c`
 
 Owner approval required: true.
 Owner approved: false.

@@ -5,7 +5,7 @@ Status: `NO_SEND_OWNER_REVIEW_REQUIRED`.
 This queue lists sanitized research packets that may become appendix/frontier manuscript material after owner review. It does not promote canonical claims.
 
 - source session: `SESSION_LONG_REAL_20260425T143948_LOCAL`
-- queue total: `15`
+- queue total: `16`
 - publish allowed: `false`
 - canonical claim ledger change: `false`
 
@@ -25,3 +25,4 @@ This queue lists sanitized research packets that may become appendix/frontier ma
 - `institute_521542_extending_the_topos_quantum_theory_approac_415bd8e1` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_521542_extending_the_topos_quantum_theory_approac_415bd8e1` (candidate_appendix_or_frontier_note)
 - `institute_521545_lectures_on_holographic_non_fermi_liquids_6239762e` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_521545_lectures_on_holographic_non_fermi_liquids_6239762e` (candidate_appendix_or_frontier_note)
 - `institute_521548_modality_and_contextuality_in_topos_quantu_5cc03750` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_521548_modality_and_contextuality_in_topos_quantu_5cc03750` (candidate_appendix_or_frontier_note)
+- `institute_521551_phenomenology_of_mml_math_xmlns_mml_http_w_04014d38` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_521551_phenomenology_of_mml_math_xmlns_mml_http_w_04014d38` (candidate_appendix_or_frontier_note)
