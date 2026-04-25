@@ -64,6 +64,17 @@ PDF_ARTIFACTS = [
     "OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.pdf",
 ]
 ZIP_NAME = "oc_core_1_3_2_zenodo_release.zip"
+RESEARCH_PACKET_ROOT = "releases/oc_core_1_3_2/editorial/research_packets"
+RESEARCH_PACKET_FILES = [
+    "releases/oc_core_1_3_2/editorial/research_packets/k0_structural_realist_extension/README.md",
+    "releases/oc_core_1_3_2/editorial/research_packets/k0_structural_realist_extension/K0_SR_PUBLIC_DECISION_MEMO.md",
+    "releases/oc_core_1_3_2/editorial/research_packets/k0_structural_realist_extension/K0_SR_PUBLIC_CLAIM_REGISTRY.yaml",
+    "releases/oc_core_1_3_2/editorial/research_packets/k0_structural_realist_extension/K0_SR_PUBLIC_EVIDENCE_SUMMARY.ndjson",
+    "releases/oc_core_1_3_2/editorial/research_packets/k0_structural_realist_extension/K0_SR_PUBLIC_GATE_SUMMARY.yaml",
+    "releases/oc_core_1_3_2/editorial/research_packets/k0_structural_realist_extension/K0_SR_PUBLIC_SOURCE_MANIFEST.yaml",
+    "releases/oc_core_1_3_2/editorial/research_packets/k0_structural_realist_extension/K0_SR_PUBLIC_ARTIFACT_MANIFEST.yaml",
+    "releases/oc_core_1_3_2/editorial/research_packets/k0_structural_realist_extension/K0_SR_PUBLIC_REPRODUCIBILITY.md",
+]
 PUBLIC_SCAN_FILES = [
     "README.md",
     "CLAIMS.md",
@@ -100,6 +111,10 @@ FORBIDDEN_PUBLIC_TERMS = [
     re.compile(r"\bdoebatsya\b", re.IGNORECASE),
     re.compile(r"\bindependent audit\b", re.IGNORECASE),
     re.compile(r"\bempirical validation\b", re.IGNORECASE),
+    re.compile(r"\bOC\s+solves\s+quantum\s+gravity\b", re.IGNORECASE),
+    re.compile(r"\bOC\s+unifies\s+QFT\s+and\s+GR\b", re.IGNORECASE),
+    re.compile(r"\bOC\s+derives\s+all\s+physical\s+laws\b", re.IGNORECASE),
+    re.compile(r"\bK0\s+is\s+now\s+(a\s+)?(topos|gauge theory|quantum[- ]gravity theory)\b", re.IGNORECASE),
 ]
 ALLOWED_SUPPORT_CLASSES = {
     "FORMALLY_PROVED",
@@ -128,6 +143,18 @@ def artifacts_dir(root: Path) -> Path:
 
 def rel(root: Path, path: Path) -> str:
     return path.resolve().relative_to(root.resolve()).as_posix()
+
+def research_packet_files(root: Path) -> list[str]:
+    packet_root = root / RESEARCH_PACKET_ROOT
+    if not packet_root.exists():
+        return []
+    allowed_suffixes = {".md", ".json", ".ndjson", ".yaml", ".yml", ".txt"}
+    files = [
+        rel(root, path)
+        for path in packet_root.rglob("*")
+        if path.is_file() and path.suffix.lower() in allowed_suffixes
+    ]
+    return sorted(set([*RESEARCH_PACKET_FILES, *files]))
 
 def read_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -282,6 +309,7 @@ def _package_file_candidates(root: Path) -> list[Path]:
         "releases/oc_core_1_3_2/README.md",
         "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_POSTFLIGHT_CHECKLIST.md",
     ]
+    base.extend(research_packet_files(root))
     for pdf in PDF_ARTIFACTS:
         base.append(f"releases/oc_core_1_3_2/artifacts/{pdf}")
     return [root / item for item in base if (root / item).exists()]
@@ -487,7 +515,8 @@ def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list
     claim_ok = len(claims) == 20 and len(claim_ids) == len(set(claim_ids)) and not bad_support and not empty_refs
     results.append(gate_result("gate_05_claim_evidence_ceiling", "Claim and evidence ceiling", "PASS" if claim_ok else "FAIL", "HIGH" if not claim_ok else "INFO", "Full claim ledger and support ceilings checked.", {"claim_total": len(claims), "bad_support": bad_support, "empty_refs": empty_refs}))
 
-    strong_hits = _scan_text_files(root, FORBIDDEN_PUBLIC_TERMS, PUBLIC_SCAN_FILES)
+    scan_files = sorted(set([*PUBLIC_SCAN_FILES, *research_packet_files(root)]))
+    strong_hits = _scan_text_files(root, FORBIDDEN_PUBLIC_TERMS, scan_files)
     results.append(gate_result("gate_06_strong_statement_linter", "Strong statement linter", "PASS" if not strong_hits else "FAIL", "HIGH" if strong_hits else "INFO", "Outward-facing surfaces checked for unsafe public rhetoric.", {"hits": strong_hits}))
 
     sim_path = root / "simulations/results/OC_CORE_1_3_2_SIMULATION_RESULTS_latest.json"
@@ -510,7 +539,7 @@ def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list
     parity_ok = not parity_hits and manifest.get("release_state") == "RELEASE_READY_NO_SEND" and manifest.get("publish_allowed") is False
     results.append(gate_result("gate_09_public_surface_parity", "Public surface parity", "PASS" if parity_ok else "FAIL", "HIGH" if not parity_ok else "INFO", "Tracked v1.3.2 public surfaces agree on version, DOI state, and no-send state.", {"missing_or_stale": parity_hits}))
 
-    security_files = PUBLIC_SCAN_FILES + [entry["path"] for entry in inv.get("entries", []) if entry["path"].startswith("releases/oc_core_1_3_2/") and not entry["path"].endswith((".pdf", ".zip"))]
+    security_files = scan_files + [entry["path"] for entry in inv.get("entries", []) if entry["path"].startswith("releases/oc_core_1_3_2/") and not entry["path"].endswith((".pdf", ".zip"))]
     local_hits = _scan_text_files(root, LOCAL_PATH_PATTERNS, sorted(set(security_files)))
     secret_hits = _scan_text_files(root, SECRET_PATTERNS, sorted(set(security_files)))
     sec_ok = not local_hits and not secret_hits

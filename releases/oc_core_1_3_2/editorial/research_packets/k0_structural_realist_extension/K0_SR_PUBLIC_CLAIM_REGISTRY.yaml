@@ -1,0 +1,77 @@
+schema_id: k0_structural_realist_public_claim_registry_v1
+packet_id: k0_structural_realist_extension
+release_id: oc_core_1_3_2
+canonical_claim_ledger_member: false
+owner_review_required: true
+publish_allowed: false
+claims:
+  - claim_id: K0SR-PUBLIC-001
+    statement: >
+      Distinction language can be used as a non-core interpretation layer for
+      bounded distinguishability in OC.
+    classification: D2
+    support_ceiling: SIMULATION_ILLUSTRATION_ONLY
+    evidence_refs:
+      - K0SR-EVID-OC-K0
+      - K0SR-EVID-DISTINCTION
+      - K0SR-EVID-TOY-DISTINCTION
+    proof_refs:
+      - K0SR-PROOF-MINIMALITY
+      - K0SR-PROOF-CIRCULARITY
+    release_effect: appendix_support_only
+  - claim_id: K0SR-PUBLIC-002
+    statement: >
+      The research supports keeping Theta0 primitive rather than replacing it
+      with a distinction-only construction.
+    classification: D2
+    support_ceiling: FORMAL_COMPATIBILITY_ARGUMENT
+    evidence_refs:
+      - K0SR-EVID-OC-K0
+      - K0SR-EVID-INFO
+    proof_refs:
+      - K0SR-PROOF-CIRCULARITY
+    release_effect: no_core_patch
+  - claim_id: K0SR-PUBLIC-003
+    statement: >
+      Topos/contextual language can describe local admissibility and global
+      obstruction as optional appendix vocabulary.
+    classification: T3
+    support_ceiling: SIMULATION_ILLUSTRATION_ONLY
+    evidence_refs:
+      - K0SR-EVID-TOPOS
+      - K0SR-EVID-CONTEXTUAL
+      - K0SR-EVID-TOY-CONTEXT
+    proof_refs:
+      - K0SR-PROOF-READABILITY
+    release_effect: appendix_support_only
+  - claim_id: K0SR-PUBLIC-004
+    statement: >
+      Symmetry/gauge axis generation is representable as an OC-compatible
+      toy-model pattern for axis selection and projection structure.
+    classification: G3
+    support_ceiling: SIMULATION_ILLUSTRATION_ONLY
+    evidence_refs:
+      - K0SR-EVID-OC-MSPACE
+      - K0SR-EVID-SYMMETRY
+      - K0SR-EVID-TOY-SYMMETRY
+    proof_refs:
+      - K0SR-PROOF-AXIS-GENERATION
+    release_effect: appendix_support_only
+  - claim_id: K0SR-PUBLIC-005
+    statement: >
+      OC may provide bounded comparison vocabulary for quantum-gravity programs
+      without claiming to resolve their open problems.
+    classification: Q2
+    support_ceiling: COMPARISON_ONLY
+    evidence_refs:
+      - K0SR-EVID-QG-COMPARISON
+      - K0SR-EVID-FORBIDDEN-CLAIMS
+    proof_refs:
+      - K0SR-PROOF-COMMUNICATION-SAFETY
+    release_effect: communication_boundary
+forbidden_promotions:
+  - promote_as_k0_patch_without_owner_review
+  - add_to_canonical_claim_ledger_without_owner_upgrade
+  - use_as_physics_derivation
+  - use_as_qg_solution_claim
+  - use_as_qft_gr_unification_claim

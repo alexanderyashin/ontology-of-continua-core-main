@@ -1,0 +1,24 @@
+schema_id: k0_structural_realist_public_artifact_manifest_v1
+packet_id: k0_structural_realist_extension
+release_id: oc_core_1_3_2
+artifact_policy: "Sanitized packet artifacts only; no raw closed-run logs."
+artifacts:
+  - path: README.md
+    role: "Packet overview and architectural separation"
+  - path: K0_SR_PUBLIC_DECISION_MEMO.md
+    role: "Public-safe decision and integration boundary"
+  - path: K0_SR_PUBLIC_CLAIM_REGISTRY.yaml
+    role: "Bounded public claims with support ceilings"
+  - path: K0_SR_PUBLIC_EVIDENCE_SUMMARY.ndjson
+    role: "Evidence and proof trace summary"
+  - path: K0_SR_PUBLIC_GATE_SUMMARY.yaml
+    role: "Seven-gate public status summary"
+  - path: K0_SR_PUBLIC_SOURCE_MANIFEST.yaml
+    role: "Primary source anchors"
+  - path: K0_SR_PUBLIC_REPRODUCIBILITY.md
+    role: "Deterministic toy-model summary and support ceiling"
+release_machine_inclusion:
+  inventory_member: true
+  public_scan_member: true
+  canonical_claim_ledger_change: false
+  owner_approval_required: true

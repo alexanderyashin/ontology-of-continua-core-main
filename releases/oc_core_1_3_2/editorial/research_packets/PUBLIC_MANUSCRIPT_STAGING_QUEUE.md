@@ -1,0 +1,23 @@
+# Public Manuscript Staging Queue
+
+Status: `NO_SEND_OWNER_REVIEW_REQUIRED`.
+
+This queue lists sanitized research packets that may become appendix/frontier manuscript material after owner review. It does not promote canonical claims.
+
+- source session: `SESSION_LONG_REAL_20260425T143948_LOCAL`
+- queue total: `11`
+- publish allowed: `false`
+- canonical claim ledger change: `false`
+
+## Queue
+- `institute_521506_conservation_of_isotopic_spin_and_isotopic_e4906c8b` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_521506_conservation_of_isotopic_spin_and_isotopic_e4906c8b` (candidate_appendix_or_frontier_note)
+- `institute_521509_emergent_gravity_as_the_eraser_of_anomalou_9b28160e` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_521509_emergent_gravity_as_the_eraser_of_anomalou_9b28160e` (candidate_appendix_or_frontier_note)
+- `institute_521512_group_action_in_topos_quantum_theory_5d5a38c4` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_521512_group_action_in_topos_quantum_theory_5d5a38c4` (candidate_appendix_or_frontier_note)
+- `institute_521515_logic_of_propositions_in_topos_quantum_the_ef295291` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_521515_logic_of_propositions_in_topos_quantum_the_ef295291` (candidate_appendix_or_frontier_note)
+- `institute_521518_new_approach_to_nonrelativistic_diffeomorp_aeafbdbf` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_521518_new_approach_to_nonrelativistic_diffeomorp_aeafbdbf` (candidate_appendix_or_frontier_note)
+- `institute_521521_probabilities_in_topos_quantum_theory_d9bf8f79` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_521521_probabilities_in_topos_quantum_theory_d9bf8f79` (candidate_appendix_or_frontier_note)
+- `institute_521524_reality_contextuality_and_probability_in_q_089c5d7c` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_521524_reality_contextuality_and_probability_in_q_089c5d7c` (candidate_appendix_or_frontier_note)
+- `institute_521527_space_time_as_a_causal_set_99c9a9e9` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_521527_space_time_as_a_causal_set_99c9a9e9` (candidate_appendix_or_frontier_note)
+- `institute_521530_the_topology_of_the_quantum_vacuum_e915f105` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_521530_the_topology_of_the_quantum_vacuum_e915f105` (candidate_appendix_or_frontier_note)
+- `institute_521533_topos_theory_and_neo_realist_quantum_theor_3650293d` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_521533_topos_theory_and_neo_realist_quantum_theor_3650293d` (candidate_appendix_or_frontier_note)
+- `institute_521536_causal_dynamical_triangulations_and_the_qu_1f0124b4` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_521536_causal_dynamical_triangulations_and_the_qu_1f0124b4` (candidate_appendix_or_frontier_note)
