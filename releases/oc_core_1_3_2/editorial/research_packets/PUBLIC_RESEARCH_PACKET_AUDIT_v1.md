@@ -1,7 +1,7 @@
 # OC Core v1.3.2 Research Packet Release Audit
 
-Packet total: `47`
-PASS: `47`
+Packet total: `53`
+PASS: `53`
 Review needed: `0`
 
 All packets remain bounded support/frontier material. This audit does not promote canonical claims.
@@ -54,4 +54,10 @@ All packets remain bounded support/frontier material. This audit does not promot
 | `institute_521548_modality_and_contextuality_in_topos_quantu_5cc03750` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `institute_521551_phenomenology_of_mml_math_xmlns_mml_http_w_04014d38` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `institute_521554_realism_and_ontology_in_quantum_mechanics_3bd79e9d` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_805018_doering_isham_topos_theory_in_the_foundati_819ad97f` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_805021_the_large_n_limit_of_superconformal_field_b09e17ba` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_805024_the_sheaf_theoretic_structure_of_non_local_50477e50` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_805033_broken_symmetries_and_the_masses_of_gauge_1b92b632` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_805036_the_large_n_limit_of_superconformal_field_47e8403d` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_805039_the_sheaf_theoretic_structure_of_non_local_fff3d289` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `k0_structural_realist_extension` | `PASS` | 5 | bounded_support_or_frontier_material |

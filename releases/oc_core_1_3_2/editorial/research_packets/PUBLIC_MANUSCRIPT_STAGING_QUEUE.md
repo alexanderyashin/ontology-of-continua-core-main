@@ -1,6 +1,6 @@
 # Public Manuscript Staging Queue
 
-Queue total: `47`
+Queue total: `53`
 
 All rows are appendix/frontier/support candidates only. External publication remains locked.
 
@@ -52,4 +52,10 @@ All rows are appendix/frontier/support candidates only. External publication rem
 | `institute_521548_modality_and_contextuality_in_topos_quantu_5cc03750` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_521551_phenomenology_of_mml_math_xmlns_mml_http_w_04014d38` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_521554_realism_and_ontology_in_quantum_mechanics_3bd79e9d` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_805018_doering_isham_topos_theory_in_the_foundati_819ad97f` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_805021_the_large_n_limit_of_superconformal_field_b09e17ba` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_805024_the_sheaf_theoretic_structure_of_non_local_50477e50` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_805033_broken_symmetries_and_the_masses_of_gauge_1b92b632` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_805036_the_large_n_limit_of_superconformal_field_47e8403d` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_805039_the_sheaf_theoretic_structure_of_non_local_fff3d289` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `k0_structural_realist_extension` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
