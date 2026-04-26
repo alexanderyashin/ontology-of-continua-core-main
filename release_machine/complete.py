@@ -85,7 +85,7 @@ ALLOWED_SUPPORT_CLASSES = {
     "FRONTIER_WORK",
 }
 
-TEXT_SUFFIXES = {".md", ".json", ".jsonld", ".yaml", ".yml", ".txt", ".cff", ".py", ".ps1"}
+TEXT_SUFFIXES = {".md", ".json", ".jsonld", ".ndjson", ".yaml", ".yml", ".txt", ".cff", ".py", ".ps1"}
 
 
 @dataclass(frozen=True)
@@ -961,9 +961,63 @@ def write_integrity_report(root: Path, entries: list[BundleEntry], zip_hash: str
         })
 
 
+def _zip_input_manifest(root: Path, entries: list[BundleEntry]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for entry in sorted(entries, key=lambda item: item.bundle_path):
+        rows.append(
+            {
+                "bundle_path": entry.bundle_path,
+                "source_path": rel(root, entry.source_path),
+                "sha256": sha256_file(entry.source_path),
+                "bytes": entry.source_path.stat().st_size,
+            }
+        )
+    for control_name in ("manifest.json", "checksums.txt"):
+        control_path = root / control_name
+        rows.append(
+            {
+                "bundle_path": control_name,
+                "source_path": control_name,
+                "sha256": sha256_file(control_path),
+                "bytes": control_path.stat().st_size,
+            }
+        )
+    return rows
+
+
+def _zip_manifest_sha256(rows: list[dict[str, Any]]) -> str:
+    return sha256_bytes(json.dumps(rows, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8"))
+
+
+def _zip_matches_manifest(zip_path: Path, rows: list[dict[str, Any]]) -> bool:
+    if not zip_path.exists():
+        return False
+    expected = {str(row["bundle_path"]): row for row in rows}
+    try:
+        with zipfile.ZipFile(zip_path) as zf:
+            if set(zf.namelist()) != set(expected):
+                return False
+            for name, row in expected.items():
+                if sha256_bytes(zf.read(name)) != row["sha256"]:
+                    return False
+    except Exception:
+        return False
+    return True
+
+
 def build_zip(root: Path, entries: list[BundleEntry]) -> dict[str, Any]:
     zip_path = artifacts_dir(root) / ZIP_NAME
     zip_path.parent.mkdir(parents=True, exist_ok=True)
+    input_manifest = _zip_input_manifest(root, entries)
+    input_sha256 = _zip_manifest_sha256(input_manifest)
+    if _zip_matches_manifest(zip_path, input_manifest):
+        return {
+            "path": zip_path,
+            "sha256": sha256_file(zip_path),
+            "bytes": zip_path.stat().st_size,
+            "input_sha256": input_sha256,
+            "reused": True,
+        }
     with tempfile.TemporaryDirectory(prefix="oc132_bundle_") as tmp_name:
         tmp = Path(tmp_name)
         for entry in entries:
@@ -979,7 +1033,13 @@ def build_zip(root: Path, entries: list[BundleEntry]) -> dict[str, Any]:
                     info = zipfile.ZipInfo(bundle_path, date_time=(2026, 4, 26, 0, 0, 0))
                     info.compress_type = zipfile.ZIP_DEFLATED
                     zf.writestr(info, path.read_bytes())
-    return {"path": zip_path, "sha256": sha256_file(zip_path), "bytes": zip_path.stat().st_size}
+    return {
+        "path": zip_path,
+        "sha256": sha256_file(zip_path),
+        "bytes": zip_path.stat().st_size,
+        "input_sha256": input_sha256,
+        "reused": False,
+    }
 
 
 def prepare_release(root: Path) -> dict[str, Any]:
@@ -1017,6 +1077,8 @@ def build_package(root: Path, channel: str = "all", no_publish: bool = True) -> 
         "publish_allowed": False,
         "package": rel(root, prepared["zip"]["path"]),
         "package_sha256": prepared["zip"]["sha256"],
+        "package_input_sha256": prepared["zip"].get("input_sha256"),
+        "package_reused": bool(prepared["zip"].get("reused")),
         "artifact_total": prepared["inventory"]["artifact_total"],
         "research_packet_total": prepared["audit"]["packet_total"],
         "research_packet_pass_total": prepared["audit"]["pass_total"],

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 import unittest
 import zipfile
 
@@ -59,6 +60,27 @@ class ReleaseMachineTests(unittest.TestCase):
         for row in manifest["files"][:25]:
             self.assertIn(row["path"], names)
             self.assertIn(row["sha256"], checksums)
+
+    def test_package_zip_reuses_existing_content_addressed_archive(self) -> None:
+        root = Path(self._testMethodName)
+        root.mkdir(exist_ok=True)
+        try:
+            source = root / "source.txt"
+            source.write_text("alpha\n", encoding="utf-8")
+            (root / "manifest.json").write_text('{"files":[]}\n', encoding="utf-8")
+            (root / "checksums.txt").write_text("fixture\n", encoding="utf-8")
+            entry = complete.BundleEntry("payload/source.txt", source, "fixture")
+
+            first = complete.build_zip(root, [entry])
+            second = complete.build_zip(root, [entry])
+
+            self.assertFalse(first["reused"])
+            self.assertTrue(second["reused"])
+            self.assertEqual(first["sha256"], second["sha256"])
+        finally:
+            import shutil
+
+            shutil.rmtree(root, ignore_errors=True)
 
     def test_research_packets_are_bounded_no_send_material(self) -> None:
         root = complete.repo_root()

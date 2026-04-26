@@ -26,3 +26,37 @@
 механика жёстко зафиксированы под единым авторитетом, манускрипт может
 перейти к синтезу, а затем к практическому вопросу о том, что фреймворк
 позволяет на данный момент.
+
+% SOURCE_EN_REF: content/24_oc_core_1_3_proof_machinery.tex
+
+\subsection{Tuple and higher-order proof obligations after external review}
+\label{sec:oc13-tuple-higher-order-obligations-v3}
+
+The continuum tuple is now treated as an interface with primitive and derived
+roles, not as a proved canonical minimal form.
+
+\begin{longtable}{@{}p{0.16\textwidth}p{0.18\textwidth}p{0.25\textwidth}p{0.31\textwidth}@{}}
+\toprule
+Component & Current role & Ablation effect & Promotion burden \\
+\midrule
+\endfirsthead
+\toprule
+Component & Current role & Ablation effect & Promotion burden \\
+\midrule
+\endhead
+\(\Omega\) & primitive interface & Removes admissible-state semantics. & Define representation target. \\
+\(A\) & primitive interface & Removes dimensional and difference classes. & Show nonderivability from state/threshold data. \\
+\(P\) & primitive or model-supplied & Removes driving constraints. & Bind to domain model or proof route. \\
+\(J\) & often derived from \(P\), sometimes model-supplied & Removes explicit flow bookkeeping. & State when independent flow data are primitive. \\
+\(\Theta\) & primitive interface & Removes thresholds, failure, and promotion gates. & Define threshold family and falsifier. \\
+\(\partial\Omega\) & derived from \(\Omega,\Theta\) when boundary functions exist & Removes boundary shorthand. & State derived status or independent boundary data. \\
+\(C\) & primitive or derived cycle family & Removes persistence/cycle semantics. & Provide cycle existence/computation route. \\
+\(k\) & derived diagnostic functional in current release & Removes scalar viability shorthand. & Provide formula, calibration, and comparator. \\
+\bottomrule
+\end{longtable}
+
+Minimality and completeness are not promoted. They remain proof obligations:
+a representation theorem for completeness and a component-by-component
+nonderivability argument for minimality. Higher-order quantities such as
+\(S(K)\) and \(\Psi_{\mathrm{reb}}\) remain candidate or diagnostic machinery
+until their calibration, bridge lemmas, and comparator/replay obligations pass.
