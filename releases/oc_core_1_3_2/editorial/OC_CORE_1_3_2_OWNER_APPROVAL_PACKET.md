@@ -2,11 +2,10 @@
 
 Status: RELEASE_READY_NO_SEND.
 
-Artifact freeze hash: `6067cc9a2bfc1dbd5e1cbbc3eccfe24878e25a6a4967c5bf2ac7ad9c0b820ecc`
-
+Artifact freeze hash: `7ab959fe1a9fd00203cd4eb772f7bacf2485da2268f1b6f2c53bbaeeaf04fdd9`
 Owner approval required: true.
 Owner approved: false.
 Publish allowed: false.
 Global no-send lock: true.
 
-Approval must be explicit per channel and must cite the exact artifact freeze hash and publish manifest.
+Owner must review the public release dossier and approve the exact freeze hash before any tag or upload.

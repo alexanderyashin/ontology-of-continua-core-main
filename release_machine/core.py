@@ -730,3 +730,16 @@ def postflight(release: str = RELEASE_ID, channel: str = "zenodo", public_url: s
     }
     write_json(editorial_dir(root) / "OC_CORE_1_3_2_POSTFLIGHT_REPORT.json", report)
     return report
+
+
+# Release Machine v1.0 completion layer.
+#
+# The original module-level helpers above remain available for legacy tests and
+# small utility calls. The public CLI entrypoints below are intentionally
+# overridden by the completion layer so every outward-facing release path uses
+# the 24-gate no-send pipeline.
+from .complete import GATE_ORDER as GATE_ORDER  # noqa: E402,F401
+from .complete import build_package as build_package  # noqa: E402,F401
+from .complete import evaluate_release as evaluate_release  # noqa: E402,F401
+from .complete import postflight as postflight  # noqa: E402,F401
+from .complete import publish_plan as publish_plan  # noqa: E402,F401

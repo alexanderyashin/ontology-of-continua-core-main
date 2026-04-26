@@ -1,8 +1,11 @@
-# Channel Policies
+# Publication Channel Policies
 
-Channel policies live in `release_machine/config/channels/`.
+Class A scientific archival releases include Zenodo, GitHub releases, Software Heritage, DOI-linked packages, and source snapshots. They require the full Release Machine.
 
-v1.3.2 target channels:
-- Zenodo: new version under concept DOI `10.5281/zenodo.17899134`.
-- GitHub release: draft until owner approval and DOI state are explicit.
-- Public repository surface: parity, checksums, claim ledger, simulation/data boundaries, no local paths, no secrets.
+Class B preprint drafts require metadata, citation, claim-risk, and boundary checks. SWHID may be deferred only by owner exception.
+
+Class C public explanatory articles require citation links and claim-risk checks.
+
+Class D client-facing diagnostic artifacts require confidentiality and boundary checks.
+
+Class E social short-form posts require unsupported-claim and leak checks.

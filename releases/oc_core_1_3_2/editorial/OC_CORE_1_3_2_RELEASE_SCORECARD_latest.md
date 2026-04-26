@@ -1,24 +1,32 @@
 # OC Core 1.3.2 Release Scorecard
 
 Release state: `RELEASE_READY_NO_SEND`
-Critical findings: `0`
-High findings: `0`
+Finding total: `0`
 Publish allowed: `false`
 
 | Gate | State | Severity | Summary |
 | --- | --- | --- | --- |
-| `gate_00_intake` | `PASS` | `INFO` | Release id, version, and release directory checked. |
-| `gate_01_channel_policy` | `PASS` | `INFO` | Channel policy files checked. |
-| `gate_02_artifact_inventory` | `PASS` | `INFO` | Artifact inventory is present and assembled. |
-| `gate_03_build_reproducibility` | `PASS` | `INFO` | Package and simulation report checked. |
-| `gate_04_pdf_document_quality` | `PASS` | `INFO` | Primary PDF artifacts are present and have a PDF header. |
-| `gate_05_claim_evidence_ceiling` | `PASS` | `INFO` | Full claim ledger and support ceilings checked. |
-| `gate_06_strong_statement_linter` | `PASS` | `INFO` | Outward-facing surfaces checked for unsafe public rhetoric. |
-| `gate_07_simulation_data_validation` | `PASS` | `INFO` | Simulation assertions and dataset claim ceilings checked. |
-| `gate_08_citation_doi_metadata` | `PASS` | `INFO` | DOI metadata uses pending v1.3.2 DOI and historical DOI references. |
-| `gate_09_public_surface_parity` | `PASS` | `INFO` | Tracked v1.3.2 public surfaces agree on version, DOI state, and no-send state. |
-| `gate_10_security_privacy_secrets` | `PASS` | `INFO` | Release surfaces checked for local paths and obvious secret patterns. |
-| `gate_11_ci_release_workflow` | `PASS` | `INFO` | Dry-run, candidate, safe tag, and postflight workflows checked. |
-| `gate_12_owner_approval` | `PASS` | `INFO` | Owner approval is required and publish remains locked. |
-| `gate_13_publish_preflight` | `PASS` | `INFO` | No v1.3.2 tag is present and no-send publish policy is active. |
-| `gate_14_post_release_audit` | `NOT_APPLICABLE` | `INFO` | Postflight is not applicable before publication. |
+| `G00` release_identity | `PASS` | `CRITICAL` | Release id, version file, and release directory checked. |
+| `G01` source_tree_cleanliness | `PASS` | `INFO` | Worktree dirt is allowed during local no-send preparation only when generated release files are explicit. |
+| `G02` version_consistency | `PASS` | `HIGH` | Version fields checked across manifest, publish manifest, and Zenodo metadata. |
+| `G03` doi_consistency | `PASS` | `HIGH` | v1.3.2 DOI remains pending; previous canonical and concept DOI are explicit. |
+| `G04` citation_cff | `PASS` | `HIGH` | CITATION.cff parsed by strict field checks. |
+| `G05` codemeta | `PASS` | `HIGH` | CodeMeta metadata checked. |
+| `G06` zenodo_metadata | `PASS` | `HIGH` | Zenodo metadata targets a new version under the concept DOI. |
+| `G07` ro_crate | `PASS` | `HIGH` | RO-Crate JSON-LD structure checked. |
+| `G08` software_heritage | `PASS` | `HIGH` | SWHID policy is Existing Only; missing SWHID is recorded as owner action and publish remains locked. |
+| `G09` license | `PASS` | `HIGH` | License file checked. |
+| `G10` manifest | `PASS` | `HIGH` | Bundle manifest source paths checked. |
+| `G11` checksums | `PASS` | `HIGH` | Checksums file checked against manifest sample and control hash. |
+| `G12` pdf_integrity | `PASS` | `HIGH` | Primary PDFs exist and have PDF headers. |
+| `G13` zip_integrity | `PASS` | `HIGH` | Release ZIP contents checked against manifest. |
+| `G14` reproducibility_route | `PASS` | `HIGH` | Simulation and data reproducibility routes checked. |
+| `G15` reviewer_route | `PASS` | `HIGH` | Reviewer route sections checked. |
+| `G16` contribution_ledger | `PASS` | `HIGH` | Contribution ledger checked. |
+| `G17` acknowledgements | `PASS` | `HIGH` | Acknowledgements checked. |
+| `G18` boundary_leak_protection | `PASS` | `CRITICAL` | Public text, research packets, and claim ceilings scanned. |
+| `G19` readme_completeness | `PASS` | `HIGH` | README release identity and reproducibility markers checked. |
+| `G20` release_notes_changelog | `PASS` | `HIGH` | Release notes and changelog checked. |
+| `G21` github_release_readiness | `PASS` | `CRITICAL` | GitHub readiness is dry-run only; tag must not exist. |
+| `G22` zenodo_upload_readiness | `PASS` | `CRITICAL` | Zenodo package is ready for owner review only; upload remains locked. |
+| `G23` post_release_verification | `PASS` | `HIGH` | Post-release verification is not applicable before publication and is recorded. |

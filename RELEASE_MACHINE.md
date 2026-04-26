@@ -1,5 +1,5 @@
 # Logion Release Machine
 
-The Logion Release Machine is a repo-local external release quality system. Every outward release unit must pass channel policy, artifact inventory, build/reproducibility, document quality, claim/evidence ceilings, public-surface parity, security/privacy, owner approval, publish preflight, and postflight gates.
+The Logion Release Machine is the mandatory quality-control capability for outward-facing OC artifacts. It runs build, audit, repair planning, re-audit, freeze, package, owner approval, publication planning, and post-release verification.
 
-The hard rule is no false PASS. A gate that did not run cannot be PASS. A credential or channel blockage is BLOCKED, not PASS. Critical or high findings make publication impossible.
+For OC Core v1.3.2, the machine prepares a release-ready no-send package. It does not create a tag, GitHub release, Zenodo upload, or Software Heritage archive without owner approval.
