@@ -1,7 +1,7 @@
 # OC Core v1.3.2 Research Packet Release Audit
 
-Packet total: `53`
-PASS: `53`
+Packet total: `55`
+PASS: `55`
 Review needed: `0`
 
 All packets remain bounded support/frontier material. This audit does not promote canonical claims.
@@ -11,6 +11,8 @@ All packets remain bounded support/frontier material. This audit does not promot
 | `autopilot_feature_candidates_r3_mechanism_candid_60a60195` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `autopilot_feature_candidates_r3_mechanism_candid_72f9f899` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `autopilot_feature_candidates_r3_mechanism_candid_bdd8de38` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `domain_projection_completion_oc_extensions_v1` | `PASS` | 13 | bounded_support_or_frontier_material |
+| `drt_strict_salvage_no_send` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `external_criticism_stanislav_tsukrov_claude_feedback` | `PASS` | 17 | bounded_support_or_frontier_material |
 | `institute_01_alternative_group_action_in_topos_quantum_d0ed03ee` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `institute_01_broken_symmetries_and_the_masses_of_gauge_35bfce67` | `PASS` | 1 | bounded_support_or_frontier_material |

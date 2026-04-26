@@ -1,6 +1,6 @@
 # Public Manuscript Staging Queue
 
-Queue total: `53`
+Queue total: `55`
 
 All rows are appendix/frontier/support candidates only. External publication remains locked.
 
@@ -9,6 +9,8 @@ All rows are appendix/frontier/support candidates only. External publication rem
 | `autopilot_feature_candidates_r3_mechanism_candid_60a60195` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `autopilot_feature_candidates_r3_mechanism_candid_72f9f899` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `autopilot_feature_candidates_r3_mechanism_candid_bdd8de38` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `domain_projection_completion_oc_extensions_v1` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `drt_strict_salvage_no_send` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `external_criticism_stanislav_tsukrov_claude_feedback` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_01_alternative_group_action_in_topos_quantum_d0ed03ee` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_01_broken_symmetries_and_the_masses_of_gauge_35bfce67` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
