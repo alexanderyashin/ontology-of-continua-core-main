@@ -1,6 +1,6 @@
 # Public Manuscript Staging Queue
 
-Queue total: `55`
+Queue total: `100`
 
 All rows are appendix/frontier/support candidates only. External publication remains locked.
 
@@ -23,6 +23,20 @@ All rows are appendix/frontier/support candidates only. External publication rem
 | `institute_190906_causal_dynamical_triangulations_and_the_qu_5601c7b3` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_19_quantum_bayesianism_a_study_5d9c3891` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_22_relational_quantum_dynamics_rqd_an_informa_4bf99cb7` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_259807_determinism_and_indeterminism_as_model_art_9ab3c162` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_259810_realism_and_ontology_in_quantum_mechanics_6d964bb4` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_259813_realism_and_ontology_in_quantum_mechanics_b2b3ea87` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_259816_remarks_on_the_sachdev_ye_kitaev_model_3d6d46ff` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_259819_no_categorial_support_for_radical_ontic_st_db09f95d` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_259825_remarks_on_the_sachdev_ye_kitaev_model_c62bd542` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_259828_how_to_account_for_quantum_non_locality_on_b419e554` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_259840_quantum_bayesianism_a_study_525ef4b5` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_259846_relational_quantum_dynamics_rqd_an_informa_42be71b5` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_259852_the_bundle_theory_approach_to_relational_q_5e15c949` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_259864_causal_dynamical_triangulations_and_the_qu_a8e24415` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_259870_broken_symmetries_and_the_masses_of_gauge_beb19937` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_259873_space_time_as_a_causal_set_2f315f50` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_259876_encoding_curved_tetrahedra_in_face_holonom_ace466bd` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_298294_determinism_and_indeterminism_as_model_art_b07d8cf1` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_298297_lectures_on_holographic_non_fermi_liquids_dd9e0d83` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_298300_realism_and_ontology_in_quantum_mechanics_f4eff7f3` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
@@ -54,6 +68,37 @@ All rows are appendix/frontier/support candidates only. External publication rem
 | `institute_521548_modality_and_contextuality_in_topos_quantu_5cc03750` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_521551_phenomenology_of_mml_math_xmlns_mml_http_w_04014d38` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_521554_realism_and_ontology_in_quantum_mechanics_3bd79e9d` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772798_determinism_and_indeterminism_as_model_art_aea0c022` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772801_lectures_on_holographic_non_fermi_liquids_b0533555` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772804_realism_and_ontology_in_quantum_mechanics_b63ad5c0` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772807_emergent_gravity_as_the_eraser_of_anomalou_fc57289f` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772810_no_categorial_support_for_radical_ontic_st_039f0caf` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772813_no_categorial_support_for_radical_ontic_st_c71ee288` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772816_remarks_on_the_sachdev_ye_kitaev_model_d8e9ea5c` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772828_how_to_account_for_quantum_non_locality_on_b63ab303` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772831_how_to_account_for_quantum_non_locality_on_9448ac96` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772840_quantum_bayesianism_a_study_375bd440` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772843_quantum_bayesianism_a_study_89f46689` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772849_relational_quantum_dynamics_rqd_an_informa_57f7acf0` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772858_the_bundle_theory_approach_to_relational_q_b26d83e6` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772861_the_bundle_theory_approach_to_relational_q_a5e2c96d` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772870_wave_function_realism_and_the_mathematizat_8efcdba5` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772873_wave_function_realism_and_the_mathematizat_c5b26fcb` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772876_the_sheaf_theoretic_structure_of_non_local_7d07e821` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772882_causal_dynamical_triangulations_and_the_qu_fd53eac0` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772885_conservation_of_isotopic_spin_and_isotopic_1c0c2351` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772888_phenomenology_of_mml_math_xmlns_mml_http_w_4def8f1f` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772891_the_sheaf_theoretic_structure_of_non_local_b91256f5` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772894_emergent_gravity_as_the_eraser_of_anomalou_f4696a02` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772897_determinism_and_indeterminism_as_model_art_52855eb5` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772900_determinism_and_indeterminism_as_model_art_d6781e9b` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772903_determinism_and_indeterminism_as_model_art_cea69384` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772906_determinism_and_indeterminism_as_model_art_318c0e45` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772909_determinism_and_indeterminism_as_model_art_287b9ba6` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772912_determinism_and_indeterminism_as_model_art_52ce0e8e` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772915_determinism_and_indeterminism_as_model_art_2e219e02` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772918_determinism_and_indeterminism_as_model_art_48058973` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `institute_772921_determinism_and_indeterminism_as_model_art_a1d17b64` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_805018_doering_isham_topos_theory_in_the_foundati_819ad97f` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_805021_the_large_n_limit_of_superconformal_field_b09e17ba` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_805024_the_sheaf_theoretic_structure_of_non_local_50477e50` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |

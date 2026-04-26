@@ -1,7 +1,7 @@
 # OC Core v1.3.2 Research Packet Release Audit
 
-Packet total: `55`
-PASS: `55`
+Packet total: `100`
+PASS: `100`
 Review needed: `0`
 
 All packets remain bounded support/frontier material. This audit does not promote canonical claims.
@@ -25,6 +25,20 @@ All packets remain bounded support/frontier material. This audit does not promot
 | `institute_190906_causal_dynamical_triangulations_and_the_qu_5601c7b3` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `institute_19_quantum_bayesianism_a_study_5d9c3891` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `institute_22_relational_quantum_dynamics_rqd_an_informa_4bf99cb7` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_259807_determinism_and_indeterminism_as_model_art_9ab3c162` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_259810_realism_and_ontology_in_quantum_mechanics_6d964bb4` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_259813_realism_and_ontology_in_quantum_mechanics_b2b3ea87` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_259816_remarks_on_the_sachdev_ye_kitaev_model_3d6d46ff` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_259819_no_categorial_support_for_radical_ontic_st_db09f95d` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_259825_remarks_on_the_sachdev_ye_kitaev_model_c62bd542` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_259828_how_to_account_for_quantum_non_locality_on_b419e554` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_259840_quantum_bayesianism_a_study_525ef4b5` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_259846_relational_quantum_dynamics_rqd_an_informa_42be71b5` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_259852_the_bundle_theory_approach_to_relational_q_5e15c949` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_259864_causal_dynamical_triangulations_and_the_qu_a8e24415` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_259870_broken_symmetries_and_the_masses_of_gauge_beb19937` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_259873_space_time_as_a_causal_set_2f315f50` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_259876_encoding_curved_tetrahedra_in_face_holonom_ace466bd` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `institute_298294_determinism_and_indeterminism_as_model_art_b07d8cf1` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `institute_298297_lectures_on_holographic_non_fermi_liquids_dd9e0d83` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `institute_298300_realism_and_ontology_in_quantum_mechanics_f4eff7f3` | `PASS` | 1 | bounded_support_or_frontier_material |
@@ -56,6 +70,37 @@ All packets remain bounded support/frontier material. This audit does not promot
 | `institute_521548_modality_and_contextuality_in_topos_quantu_5cc03750` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `institute_521551_phenomenology_of_mml_math_xmlns_mml_http_w_04014d38` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `institute_521554_realism_and_ontology_in_quantum_mechanics_3bd79e9d` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772798_determinism_and_indeterminism_as_model_art_aea0c022` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772801_lectures_on_holographic_non_fermi_liquids_b0533555` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772804_realism_and_ontology_in_quantum_mechanics_b63ad5c0` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772807_emergent_gravity_as_the_eraser_of_anomalou_fc57289f` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772810_no_categorial_support_for_radical_ontic_st_039f0caf` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772813_no_categorial_support_for_radical_ontic_st_c71ee288` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772816_remarks_on_the_sachdev_ye_kitaev_model_d8e9ea5c` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772828_how_to_account_for_quantum_non_locality_on_b63ab303` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772831_how_to_account_for_quantum_non_locality_on_9448ac96` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772840_quantum_bayesianism_a_study_375bd440` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772843_quantum_bayesianism_a_study_89f46689` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772849_relational_quantum_dynamics_rqd_an_informa_57f7acf0` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772858_the_bundle_theory_approach_to_relational_q_b26d83e6` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772861_the_bundle_theory_approach_to_relational_q_a5e2c96d` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772870_wave_function_realism_and_the_mathematizat_8efcdba5` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772873_wave_function_realism_and_the_mathematizat_c5b26fcb` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772876_the_sheaf_theoretic_structure_of_non_local_7d07e821` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772882_causal_dynamical_triangulations_and_the_qu_fd53eac0` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772885_conservation_of_isotopic_spin_and_isotopic_1c0c2351` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772888_phenomenology_of_mml_math_xmlns_mml_http_w_4def8f1f` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772891_the_sheaf_theoretic_structure_of_non_local_b91256f5` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772894_emergent_gravity_as_the_eraser_of_anomalou_f4696a02` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772897_determinism_and_indeterminism_as_model_art_52855eb5` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772900_determinism_and_indeterminism_as_model_art_d6781e9b` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772903_determinism_and_indeterminism_as_model_art_cea69384` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772906_determinism_and_indeterminism_as_model_art_318c0e45` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772909_determinism_and_indeterminism_as_model_art_287b9ba6` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772912_determinism_and_indeterminism_as_model_art_52ce0e8e` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772915_determinism_and_indeterminism_as_model_art_2e219e02` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772918_determinism_and_indeterminism_as_model_art_48058973` | `PASS` | 1 | bounded_support_or_frontier_material |
+| `institute_772921_determinism_and_indeterminism_as_model_art_a1d17b64` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `institute_805018_doering_isham_topos_theory_in_the_foundati_819ad97f` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `institute_805021_the_large_n_limit_of_superconformal_field_b09e17ba` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `institute_805024_the_sheaf_theoretic_structure_of_non_local_50477e50` | `PASS` | 1 | bounded_support_or_frontier_material |

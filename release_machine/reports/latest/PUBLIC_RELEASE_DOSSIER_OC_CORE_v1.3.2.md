@@ -11,8 +11,8 @@
 - GitHub tag: v1.3.2 prepared, not created
 
 ## Artifact inventory
-- Artifacts: 524
-- Research packets audited: 55
+- Artifacts: 929
+- Research packets audited: 100
 
 ## Metadata status
 - CITATION.cff, CodeMeta, Zenodo metadata, and RO-Crate pass local validation.
