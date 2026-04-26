@@ -5,7 +5,7 @@ Status: `NO_SEND_OWNER_REVIEW_REQUIRED`.
 This queue lists sanitized research packets that may become appendix/frontier manuscript material after owner review. It does not promote canonical claims.
 
 - source session: `SESSION_LONG_REAL_TRIVECTOR_20260426T002700_LOCAL`
-- queue total: `7`
+- queue total: `8`
 - publish allowed: `false`
 - canonical claim ledger change: `false`
 
@@ -17,3 +17,4 @@ This queue lists sanitized research packets that may become appendix/frontier ma
 - `institute_298306_no_categorial_support_for_radical_ontic_st_18d45d56` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_298306_no_categorial_support_for_radical_ontic_st_18d45d56` (candidate_appendix_or_frontier_note)
 - `institute_298309_no_categorial_support_for_radical_ontic_st_0c7d2563` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_298309_no_categorial_support_for_radical_ontic_st_0c7d2563` (candidate_appendix_or_frontier_note)
 - `institute_298312_remarks_on_the_sachdev_ye_kitaev_model_d8d0bbc7` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_298312_remarks_on_the_sachdev_ye_kitaev_model_d8d0bbc7` (candidate_appendix_or_frontier_note)
+- `institute_298330_how_to_account_for_quantum_non_locality_on_609fc719` -> `releases/oc_core_1_3_2/editorial/research_packets/institute_298330_how_to_account_for_quantum_non_locality_on_609fc719` (candidate_appendix_or_frontier_note)
