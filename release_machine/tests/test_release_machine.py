@@ -36,7 +36,7 @@ class ReleaseMachineTests(unittest.TestCase):
     def test_completed_gate_set_has_24_hard_gates(self) -> None:
         summary = core.evaluate_release("oc_core_1_3_2", "all", "pre_publish", write=True)
         self.assertEqual(summary["master_verdict"], "PASS")
-        self.assertEqual(summary["gate_counts"]["PASS"], 24)
+        self.assertEqual(summary["gate_counts"]["PASS"], 27)
         self.assertEqual(summary["finding_total"], 0)
 
     def test_missing_swhid_is_owner_action_not_invented_identifier(self) -> None:
@@ -95,6 +95,32 @@ class ReleaseMachineTests(unittest.TestCase):
         manifest = json.loads((root / "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PUBLISH_MANIFEST_DRAFT.json").read_text(encoding="utf-8"))
         self.assertFalse(manifest["publish_allowed"])
         self.assertTrue(manifest["global_no_send_lock"])
+
+    def test_primary_pdfs_are_substantive_bound_artifacts_not_placeholders(self) -> None:
+        root = complete.repo_root()
+        core.evaluate_release("oc_core_1_3_2", "all", "dry-run", write=True)
+        quality = json.loads((root / "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PDF_QUALITY_latest.json").read_text(encoding="utf-8"))
+        self.assertEqual(quality["summary"]["pdf_total"], 6)
+        self.assertEqual(quality["summary"]["placeholder_or_bad_total"], 0)
+        for row in quality["rows"]:
+            self.assertGreaterEqual(row["bytes"], complete.MIN_SUBSTANTIVE_PDF_BYTES)
+            self.assertTrue(row["starts_with_pdf_header"])
+            self.assertTrue(row["source"].startswith("releases/oc_core_1_3/"))
+
+    def test_lrgef_state_records_no_send_external_blockers(self) -> None:
+        root = complete.repo_root()
+        summary = core.evaluate_release("oc_core_1_3_2", "all", "dry-run", write=True)
+        state_text = (root / "releases/oc_core_1_3_2/editorial/LRGEF_RELEASE_STATE_latest.json").read_text(encoding="utf-8")
+        state = json.loads(state_text)
+        self.assertEqual(state["schema_id"], "LRGEF_RELEASE_STATE_v1")
+        self.assertEqual(state["release_machine_state"], summary["release_state"])
+        self.assertFalse(state["publish_allowed"])
+        self.assertFalse(state["hard_green_external"])
+        self.assertIn("OWNER_APPROVAL_REQUIRED", state["external_publication_blockers"])
+        self.assertGreaterEqual(state["k_R"], 0.98)
+        self.assertNotIn("C:\\", state_text)
+        self.assertNotIn("/Users/", state_text)
+        self.assertTrue(all("path" not in row for row in state["toolchain"]["tools"].values()))
 
 
 if __name__ == "__main__":

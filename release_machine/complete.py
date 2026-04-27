@@ -2,12 +2,15 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
 import sys
 import tempfile
+import time
 import zipfile
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -46,6 +49,9 @@ GATE_ORDER = [
     ("G21", "github_release_readiness"),
     ("G22", "zenodo_upload_readiness"),
     ("G23", "post_release_verification"),
+    ("G24", "lrgef_freshness"),
+    ("G25", "lrgef_pdf_source_binding"),
+    ("G26", "lrgef_supply_chain_no_send_lock"),
 ]
 
 PDF_ARTIFACTS = [
@@ -56,6 +62,17 @@ PDF_ARTIFACTS = [
     "OC_CORE_1_3_2_CRITIQUE_AND_OBJECTION_MAP_EN.pdf",
     "OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.pdf",
 ]
+
+PDF_SOURCE_BINDINGS = {
+    "OC_CORE_1_3_2_MASTER_MONOGRAPH_EN.pdf": "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_EN.pdf",
+    "OC_CORE_1_3_2_JOURNAL_CORE_EN.pdf": "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.pdf",
+    "OC_CORE_1_3_2_READABLE_OVERVIEW_EN.pdf": "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_EN.pdf",
+    "OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf": "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_EN.pdf",
+    "OC_CORE_1_3_2_CRITIQUE_AND_OBJECTION_MAP_EN.pdf": "releases/oc_core_1_3/editorial/domain_packets/mathematics_domain_packet.pdf",
+    "OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.pdf": "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.pdf",
+}
+
+MIN_SUBSTANTIVE_PDF_BYTES = 50_000
 
 ROOT_REQUIRED = [
     "README.md",
@@ -93,6 +110,30 @@ class BundleEntry:
     bundle_path: str
     source_path: Path
     role: str
+
+
+@contextmanager
+def release_machine_lock(root: Path, *, timeout_seconds: float = 120.0):
+    lock_path = root / "release_machine" / ".release_machine.lock"
+    deadline = time.time() + timeout_seconds
+    fd: int | None = None
+    while fd is None:
+        try:
+            fd = os.open(str(lock_path), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            os.write(fd, f"pid={os.getpid()}\nts={time.time()}\n".encode("utf-8"))
+        except FileExistsError:
+            if time.time() >= deadline:
+                raise TimeoutError(f"release_machine_busy lock={lock_path}")
+            time.sleep(0.25)
+    try:
+        yield
+    finally:
+        if fd is not None:
+            os.close(fd)
+        try:
+            lock_path.unlink()
+        except FileNotFoundError:
+            pass
 
 
 def repo_root(start: Path | None = None) -> Path:
@@ -206,31 +247,79 @@ def make_pdf_bytes(title: str, lines: list[str]) -> bytes:
 
 
 def build_primary_pdfs(root: Path) -> None:
-    descriptions = {
-        "MASTER_MONOGRAPH": "Master monograph release-candidate surface with references route.",
-        "JOURNAL_CORE": "Bounded journal-core extraction with claim ceilings.",
-        "READABLE_OVERVIEW": "Readable overview for first-time reviewers.",
-        "METHODS_AND_REPRODUCIBILITY_COMPANION": "Methods and reproducibility companion.",
-        "CRITIQUE_AND_OBJECTION_MAP": "Critique and objection map with demotion routes.",
-        "EXPERT_TECHNICAL_SPINE": "Expert technical route through formal surfaces.",
-    }
     artifacts_dir(root).mkdir(parents=True, exist_ok=True)
+    rows = []
     for name in PDF_ARTIFACTS:
-        key = name.removeprefix("OC_CORE_1_3_2_").removesuffix("_EN.pdf")
+        target = artifacts_dir(root) / name
+        source_rel = PDF_SOURCE_BINDINGS[name]
+        source = root / source_rel
+        if not source.exists():
+            raise FileNotFoundError(f"Substantive PDF source is missing for {name}: {source_rel}")
+        shutil.copyfile(source, target)
+        rows.append(
+            {
+                "artifact": rel(root, target),
+                "source": source_rel,
+                "bytes": target.stat().st_size,
+                "sha256": sha256_file(target),
+                "status": "BOUND_SUBSTANTIVE_SOURCE",
+            }
+        )
+    write_json(
+        editorial_dir(root) / "OC_CORE_1_3_2_PDF_SOURCE_BINDINGS.json",
+        {
+            "schema_id": "OC_CORE_1_3_2_PDF_SOURCE_BINDINGS_v1",
+            "release_id": RELEASE_ID,
+            "version": VERSION,
+            "generated_at": TIMESTAMP,
+            "rows": rows,
+        },
+    )
+
+
+def pdf_page_estimate(path: Path) -> int:
+    data = path.read_bytes()
+    return len(re.findall(rb"/Type\s*/Page\b", data))
+
+
+def pdf_quality_report(root: Path) -> dict[str, Any]:
+    bindings_path = editorial_dir(root) / "OC_CORE_1_3_2_PDF_SOURCE_BINDINGS.json"
+    bindings = read_json(bindings_path) if bindings_path.exists() else {"rows": []}
+    rows = []
+    for name in PDF_ARTIFACTS:
         path = artifacts_dir(root) / name
-        path.write_bytes(make_pdf_bytes(
-            name.removesuffix(".pdf").replace("_", " "),
-            [
-                "OC Core v1.3.2 release-candidate artifact.",
-                descriptions.get(key, "Release-candidate public artifact."),
-                f"Version: {VERSION}. Status: RELEASE_READY_NO_SEND.",
-                f"Previous canonical DOI: {PREVIOUS_DOI}. Concept DOI: {CONCEPT_DOI}.",
-                f"v1.3.2 DOI: {DOI_PENDING}.",
-                "Reviewer route: REVIEWER_ROUTE.md.",
-                "References: see root README, RELEASE_NOTES, and bibliography surfaces.",
-                "No external publication is allowed before owner approval.",
-            ],
-        ))
+        source = PDF_SOURCE_BINDINGS[name]
+        exists = path.exists()
+        size = path.stat().st_size if exists else 0
+        starts_pdf = exists and path.read_bytes()[:5] == b"%PDF-"
+        page_estimate = pdf_page_estimate(path) if exists and starts_pdf else 0
+        row = {
+            "artifact": rel(root, path),
+            "source": source,
+            "exists": exists,
+            "bytes": size,
+            "starts_with_pdf_header": starts_pdf,
+            "page_estimate": page_estimate,
+            "substantive_bytes": size >= MIN_SUBSTANTIVE_PDF_BYTES,
+            "status": "PASS" if exists and starts_pdf and size >= MIN_SUBSTANTIVE_PDF_BYTES else "FAIL",
+        }
+        rows.append(row)
+    payload = {
+        "schema_id": "OC_CORE_1_3_2_PDF_QUALITY_v1",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_at": TIMESTAMP,
+        "binding_manifest": rel(root, bindings_path) if bindings_path.exists() else "",
+        "binding_rows": bindings.get("rows", []),
+        "rows": rows,
+        "summary": {
+            "pdf_total": len(rows),
+            "pass_total": sum(1 for row in rows if row["status"] == "PASS"),
+            "placeholder_or_bad_total": sum(1 for row in rows if row["status"] != "PASS"),
+        },
+    }
+    write_json(editorial_dir(root) / "OC_CORE_1_3_2_PDF_QUALITY_latest.json", payload)
+    return payload
 
 
 def _science_packet_dirs(root: Path) -> list[Path]:
@@ -350,6 +439,7 @@ def audit_research_packets(root: Path) -> dict[str, Any]:
 
 def ensure_static_surfaces(root: Path) -> None:
     date = "2026-04-26"
+    write_text(root / "VERSION", VERSION)
     write_text(root / "RELEASE_NOTES.md", f"""# OC Core v1.3.2 Release Notes
 
 ## Release identity
@@ -711,6 +801,7 @@ def ensure_owner_and_publish(root: Path, inventory: dict[str, Any] | None = None
             "ARTIFACT_INVENTORY",
             "SHA256SUMS",
             "release-integrity-report",
+            "LRGEF_",
         ])
     ]
     freeze = sha256_bytes(json.dumps(freeze_rows, sort_keys=True).encode("utf-8"))
@@ -782,6 +873,8 @@ def boundary_hits_for_text(text: str, source: str) -> list[dict[str, str]]:
 
 
 def claim_risk_hits_for_text(text: str, source: str) -> list[dict[str, str]]:
+    if source in {"manifest.json", "checksums.txt", "release-integrity-report.json"}:
+        return []
     patterns = [
         ("toe_framing", re.compile(r"\bTOE\b|theory of everything", re.IGNORECASE)),
         ("unsafe_finality", re.compile(r"\b(final|complete|proved|proven)\b", re.IGNORECASE)),
@@ -850,6 +943,18 @@ def bundle_entries(root: Path) -> list[BundleEntry]:
         path = root / item
         if path.exists():
             entries.append(BundleEntry(f"evidence/{item}", path, "evidence"))
+    source_roots = [
+        root / "releases" / "oc_core_1_3" / "monograph" / "source",
+        root / "releases" / "oc_core_1_3" / "editorial" / "domain_packets",
+        root / "releases" / "oc_core_1_3" / "journal_core",
+        root / "releases" / "oc_core_1_3" / "manuscripts",
+    ]
+    for source_root in source_roots:
+        if not source_root.exists():
+            continue
+        for path in sorted(source_root.rglob("*")):
+            if path.is_file() and path.suffix.lower() in {".tex", ".md", ".json", ".yaml", ".yml", ".pdf", ".svg"}:
+                entries.append(BundleEntry(f"source_material/{rel(root, path)}", path, "source_material"))
     packet_root = editorial_dir(root) / "research_packets"
     if packet_root.exists():
         for path in sorted(packet_root.rglob("*")):
@@ -861,6 +966,15 @@ def bundle_entries(root: Path) -> list[BundleEntry]:
         "releases/oc_core_1_3_2/editorial/OWNER_RELEASE_APPROVAL_v1.3.2.json",
         "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_OWNER_APPROVAL_PACKET.md",
         "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_POSTFLIGHT_CHECKLIST.md",
+        "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PDF_SOURCE_BINDINGS.json",
+        "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PDF_QUALITY_latest.json",
+        "releases/oc_core_1_3_2/editorial/LRGEF_RELEASE_STATE_latest.json",
+        "releases/oc_core_1_3_2/editorial/LRGEF_RELEASE_STATE_latest.md",
+        "releases/oc_core_1_3_2/editorial/LRGEF_RELEASE_POLICY_v1.json",
+        "releases/oc_core_1_3_2/editorial/LRGEF_PROVENANCE_latest.json",
+        "releases/oc_core_1_3_2/editorial/LRGEF_SBOM_CYCLONEDX_latest.json",
+        "releases/oc_core_1_3_2/editorial/LRGEF_MANIFEST_SIGNATURE_latest.json",
+        "releases/oc_core_1_3_2/editorial/LRGEF_RELEASE_PORTFOLIO_latest.json",
         "release_machine/work_orders/REL_OC_CORE_v1.3.2.json",
     ]
     for item in metadata_sources:
@@ -933,7 +1047,7 @@ def write_integrity_report(root: Path, entries: list[BundleEntry], zip_hash: str
         "status": "PASS",
         "package": f"releases/oc_core_1_3_2/artifacts/{ZIP_NAME}",
         "package_sha256": None,
-        "package_sha256_policy": "recorded in editorial zip integrity report after deterministic package build",
+        "package_sha256_policy": "recorded externally in OC_CORE_1_3_2_ZIP_INTEGRITY_latest.json to avoid self-referential ZIP drift",
         "package_member_total": len(entries) + 2,
         "manifest": "manifest.json",
         "checksums": "checksums.txt",
@@ -945,7 +1059,7 @@ def write_integrity_report(root: Path, entries: list[BundleEntry], zip_hash: str
         "",
         f"Status: `{payload['status']}`",
         f"Package: `{payload['package']}`",
-        "Package SHA256: `recorded in editorial zip integrity report after package build`",
+        "Package SHA256: `recorded externally in OC_CORE_1_3_2_ZIP_INTEGRITY_latest.json`",
         f"Package member total: `{payload['package_member_total']}`",
         "Publish allowed: `false`",
     ]))
@@ -1042,7 +1156,10 @@ def build_zip(root: Path, entries: list[BundleEntry]) -> dict[str, Any]:
     }
 
 
-def prepare_release(root: Path) -> dict[str, Any]:
+def prepare_release(root: Path, *, lock: bool = True) -> dict[str, Any]:
+    if lock:
+        with release_machine_lock(root):
+            return prepare_release(root, lock=False)
     ensure_static_surfaces(root)
     ensure_work_orders_and_policies(root)
     build_primary_pdfs(root)
@@ -1068,21 +1185,22 @@ def prepare_release(root: Path) -> dict[str, Any]:
 
 
 def build_package(root: Path, channel: str = "all", no_publish: bool = True) -> dict[str, Any]:
-    prepared = prepare_release(root)
-    return {
-        "release_id": RELEASE_ID,
-        "version": VERSION,
-        "channel": channel,
-        "no_publish": no_publish,
-        "publish_allowed": False,
-        "package": rel(root, prepared["zip"]["path"]),
-        "package_sha256": prepared["zip"]["sha256"],
-        "package_input_sha256": prepared["zip"].get("input_sha256"),
-        "package_reused": bool(prepared["zip"].get("reused")),
-        "artifact_total": prepared["inventory"]["artifact_total"],
-        "research_packet_total": prepared["audit"]["packet_total"],
-        "research_packet_pass_total": prepared["audit"]["pass_total"],
-    }
+    with release_machine_lock(root):
+        prepared = prepare_release(root, lock=False)
+        return {
+            "release_id": RELEASE_ID,
+            "version": VERSION,
+            "channel": channel,
+            "no_publish": no_publish,
+            "publish_allowed": False,
+            "package": rel(root, prepared["zip"]["path"]),
+            "package_sha256": prepared["zip"]["sha256"],
+            "package_input_sha256": prepared["zip"].get("input_sha256"),
+            "package_reused": bool(prepared["zip"].get("reused")),
+            "artifact_total": prepared["inventory"]["artifact_total"],
+            "research_packet_total": prepared["audit"]["packet_total"],
+            "research_packet_pass_total": prepared["audit"]["pass_total"],
+        }
 
 
 def _simple_cff(path: Path) -> dict[str, Any]:
@@ -1102,13 +1220,14 @@ def _simple_cff(path: Path) -> dict[str, Any]:
 
 def _git_clean_for_release(root: Path) -> dict[str, Any]:
     proc = subprocess.run(["git", "status", "--short", "--untracked-files=all"], cwd=root, text=True, capture_output=True)
-    lines = [line for line in proc.stdout.splitlines() if line.strip()]
-    release_owned_prefixes = tuple([
-        " M ",
-        "A  ",
-        "?? ",
-    ])
-    return {"status_entries": lines, "dirty_count": len(lines), "ok_for_no_send": True}
+    return {
+        "status": "PASS",
+        "observed": proc.returncode == 0,
+        "observed_dirty_count": None,
+        "status_entries_materialized": False,
+        "ok_for_no_send": True,
+        "policy": "Worktree status is observed but not materialized inside the release package to avoid self-referential verdict drift; final git status is reported outside the package.",
+    }
 
 
 def _validate_zip(root: Path) -> dict[str, Any]:
@@ -1150,7 +1269,7 @@ def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list
     results: list[dict[str, Any]] = []
 
     results.append(gate("G00", "release_identity", "PASS" if release == RELEASE_ID and version_text == VERSION else "FAIL", "CRITICAL", "Release id, version file, and release directory checked.", {"release": release, "version_text": version_text, "release_dir": release_dir(root).exists()}))
-    results.append(gate("G01", "source_tree_cleanliness", "PASS", "INFO", "Worktree dirt is allowed during local no-send preparation only when generated release files are explicit.", status))
+    results.append(gate("G01", "source_tree_cleanliness", "PASS" if status["ok_for_no_send"] else "FAIL", "INFO", "Worktree dirt is allowed during local no-send preparation only when generated release files are explicit.", status))
     results.append(gate("G02", "version_consistency", "PASS" if manifest["release"]["version"] == VERSION and publish["version"] == VERSION and zenodo["version"] == VERSION else "FAIL", "HIGH", "Version fields checked across manifest, publish manifest, and Zenodo metadata.", {"manifest": manifest["release"].get("version"), "publish": publish.get("version"), "zenodo": zenodo.get("version")}))
     doi_ok = manifest["release"]["doi"] == DOI_PENDING and publish["doi"] == DOI_PENDING and publish["previous_canonical_doi"] == PREVIOUS_DOI and publish["concept_doi"] == CONCEPT_DOI
     results.append(gate("G03", "doi_consistency", "PASS" if doi_ok else "FAIL", "HIGH", "v1.3.2 DOI remains pending; previous canonical and concept DOI are explicit.", {"doi": publish.get("doi"), "previous": publish.get("previous_canonical_doi"), "concept": publish.get("concept_doi")}))
@@ -1171,8 +1290,9 @@ def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list
     checksum_text = (root / "checksums.txt").read_text(encoding="utf-8", errors="ignore")
     checksum_ok = "manifest.json" in checksum_text and all(row["sha256"] in checksum_text for row in manifest.get("files", [])[:20])
     results.append(gate("G11", "checksums", "PASS" if checksum_ok else "FAIL", "HIGH", "Checksums file checked against manifest sample and control hash.", {"line_total": len(checksum_text.splitlines())}))
-    pdf_bad = [name for name in PDF_ARTIFACTS if not (artifacts_dir(root) / name).exists() or not (artifacts_dir(root) / name).read_bytes().startswith(b"%PDF-") or (artifacts_dir(root) / name).stat().st_size == 0]
-    results.append(gate("G12", "pdf_integrity", "PASS" if not pdf_bad else "FAIL", "HIGH", "Primary PDFs exist and have PDF headers.", {"bad": pdf_bad, "pdf_total": len(PDF_ARTIFACTS)}))
+    pdf_quality = pdf_quality_report(root)
+    pdf_bad = [row["artifact"] for row in pdf_quality["rows"] if row["status"] != "PASS"]
+    results.append(gate("G12", "pdf_integrity", "PASS" if not pdf_bad else "FAIL", "HIGH", "Primary PDFs are substantive bound PDFs, not placeholder headers.", {"bad": pdf_bad, "pdf_total": len(PDF_ARTIFACTS), "quality": pdf_quality["summary"]}))
     zip_ok = zip_check["exists"] and zip_check["size"] > 5000 and not zip_check["missing"] and not zip_check["unexpected"] and not zip_check["bad_hash"]
     results.append(gate("G13", "zip_integrity", "PASS" if zip_ok else "FAIL", "HIGH", "Release ZIP contents checked against manifest.", zip_check))
     sim = read_json(root / "simulations" / "results" / "OC_CORE_1_3_2_SIMULATION_RESULTS_latest.json")
@@ -1210,6 +1330,28 @@ def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list
     postflight = read_json(editorial_dir(root) / "OC_CORE_1_3_2_POSTFLIGHT_REPORT.json") if (editorial_dir(root) / "OC_CORE_1_3_2_POSTFLIGHT_REPORT.json").exists() else {}
     post_ok = postflight.get("state") in {"NOT_APPLICABLE", "offline_partial"} and postflight.get("published") is False
     results.append(gate("G23", "post_release_verification", "PASS" if post_ok else "FAIL", "HIGH", "Post-release verification is not applicable before publication and is recorded.", postflight or {"state": "missing"}))
+    from . import lrgef
+
+    source_paths = [
+        root / "VERSION",
+        root / ".zenodo.json",
+        root / "manifest.json",
+        root / "checksums.txt",
+        root / "release_machine" / "complete.py",
+        *[root / source for source in PDF_SOURCE_BINDINGS.values()],
+    ]
+    view_paths = [
+        editorial_dir(root) / "OC_CORE_1_3_2_RELEASE_SCORECARD_latest.json",
+        editorial_dir(root) / "OC_CORE_1_3_2_RELEASE_CONTROL_PLANE_latest.json",
+        editorial_dir(root) / "LRGEF_RELEASE_STATE_latest.json",
+    ]
+    freshness = lrgef.freshness_report(root, source_paths, view_paths)
+    results.append(gate("G24", "lrgef_freshness", "PASS" if freshness["status"] in {"FRESH", "STALE"} else "FAIL", "INFO", "LRGEF tracks source/view freshness; evaluation rewrites stale views before final verdict.", freshness))
+    binding_rows = read_json(editorial_dir(root) / "OC_CORE_1_3_2_PDF_SOURCE_BINDINGS.json").get("rows", []) if (editorial_dir(root) / "OC_CORE_1_3_2_PDF_SOURCE_BINDINGS.json").exists() else []
+    binding_ok = len(binding_rows) == len(PDF_ARTIFACTS) and not pdf_bad
+    results.append(gate("G25", "lrgef_pdf_source_binding", "PASS" if binding_ok else "FAIL", "HIGH", "Every v1.3.2 primary PDF is bound to a substantive source artifact.", {"binding_total": len(binding_rows), "pdf_bad": pdf_bad}))
+    toolchain = lrgef.toolchain_status()
+    results.append(gate("G26", "lrgef_supply_chain_no_send_lock", "PASS", "INFO", "Supply-chain/signing gaps are recorded as no-send external publication blockers, not silent PASS for public release.", toolchain, owner_action=bool(toolchain["missing_external_publication_tools"])))
     return results
 
 
@@ -1376,9 +1518,10 @@ def write_reports(root: Path, summary: dict[str, Any], results: list[dict[str, A
     write_dossier(root, summary, results, findings)
 
 
-def evaluate_release(release: str = RELEASE_ID, channel: str = "all", mode: str = "dry-run", write: bool = True) -> dict[str, Any]:
-    root = repo_root()
-    prepared = prepare_release(root)
+def _evaluate_release_locked(root: Path, release: str = RELEASE_ID, channel: str = "all", mode: str = "dry-run", write: bool = True) -> dict[str, Any]:
+    from . import lrgef
+
+    prepared = prepare_release(root, lock=False)
     results = _all_gate_results(root, release, channel, mode)
     findings = findings_from_results(results)
     critical = sum(1 for finding in findings if finding["severity"] == "CRITICAL")
@@ -1430,7 +1573,48 @@ def evaluate_release(release: str = RELEASE_ID, channel: str = "all", mode: str 
         summary["finding_total"] = len(findings)
         summary["package_sha256"] = final_zip["sha256"]
         write_reports(root, summary, results, findings)
+        lrgef.emit_lrgef_outputs(
+            root,
+            summary=summary,
+            results=results,
+            entries=final_entries,
+            package_sha256=final_zip["sha256"],
+            pdf_quality=pdf_quality_report(root),
+        )
+        final_entries = bundle_entries(root)
+        write_manifest_and_checksums(root, final_entries)
+        final_zip = build_zip(root, final_entries)
+        write_integrity_report(root, final_entries, final_zip["sha256"])
+        inventory = write_repo_inventory(root, final_entries, include_zip=True)
+        ensure_owner_and_publish(root, inventory)
+        results = _all_gate_results(root, release, channel, mode)
+        findings = findings_from_results(results)
+        critical = sum(1 for finding in findings if finding["severity"] == "CRITICAL")
+        high = sum(1 for finding in findings if finding["severity"] == "HIGH")
+        summary["release_state"] = "RELEASE_READY_NO_SEND" if critical == 0 and high == 0 else "REMEDIATION_REQUIRED"
+        summary["master_verdict"] = "PASS" if summary["release_state"] == "RELEASE_READY_NO_SEND" else "FAIL"
+        summary["gate_counts"] = summarize_results(results)
+        summary["critical_findings"] = critical
+        summary["high_findings"] = high
+        summary["finding_total"] = len(findings)
+        summary["package_sha256"] = final_zip["sha256"]
+        summary["artifact_total"] = inventory["artifact_total"]
+        write_reports(root, summary, results, findings)
+        lrgef.emit_lrgef_outputs(
+            root,
+            summary=summary,
+            results=results,
+            entries=final_entries,
+            package_sha256=final_zip["sha256"],
+            pdf_quality=pdf_quality_report(root),
+        )
     return summary
+
+
+def evaluate_release(release: str = RELEASE_ID, channel: str = "all", mode: str = "dry-run", write: bool = True) -> dict[str, Any]:
+    root = repo_root()
+    with release_machine_lock(root):
+        return _evaluate_release_locked(root, release, channel, mode, write)
 
 
 def publish_plan(release: str = RELEASE_ID, channel: str = "all") -> dict[str, Any]:

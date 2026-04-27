@@ -1,0 +1,53 @@
+{
+  "schema_id": "LRGEF_RELEASE_POLICY_v1",
+  "version": "1.0",
+  "release_classes": {
+    "draft_internal": {
+      "minimum_k_R": 0.7,
+      "external_publication_allowed": false
+    },
+    "internal": {
+      "minimum_k_R": 0.85,
+      "external_publication_allowed": false
+    },
+    "scientific_public": {
+      "minimum_k_R": 0.98,
+      "external_publication_allowed": true
+    },
+    "platinum_public": {
+      "minimum_k_R": 1.0,
+      "external_publication_allowed": true
+    },
+    "hotfix_internal": {
+      "minimum_k_R": 0.9,
+      "external_publication_allowed": false
+    }
+  },
+  "hard_rules": [
+    "NO_SIGNED_PASS_NO_PUBLICATION",
+    "NO_MANIFEST_NO_RELEASE",
+    "NO_EVIDENCE_NO_SCIENTIFIC_RELEASE",
+    "NO_REPRODUCIBILITY_NO_SCIENTIFIC_OR_PLATINUM_RELEASE",
+    "NO_HARD_GREEN_NO_EXTERNAL_TRANSITION",
+    "NO_SILENT_REPAIR",
+    "NO_OVERWRITE_PUBLISHED_ARTIFACTS",
+    "NO_MANUAL_BYPASS_WITHOUT_BLACK_INCIDENT",
+    "NO_GATE_WEAKENING_WITHOUT_K0_AND_K10_PASS"
+  ],
+  "qg_gate_ids": [
+    "QG-00_RELEASE_IDENTITY",
+    "QG-01_POLICY_AND_CLASS",
+    "QG-02_FREEZE_AND_MANIFEST",
+    "QG-03_REPRODUCIBLE_BUILD_ROUTE",
+    "QG-04_DOCUMENT_SUBSTANCE",
+    "QG-05_CLAIM_EVIDENCE_FIREWALL",
+    "QG-06_PUBLIC_BOUNDARY_LEAK_SCAN",
+    "QG-07_METADATA_AND_DOI_LINEAGE",
+    "QG-08_SBOM_AND_PROVENANCE",
+    "QG-09_SIGNATURE_OR_NO_SEND_BLOCKER",
+    "QG-10_OWNER_APPROVAL_LOCK",
+    "QG-11_STALE_SOURCE_DETECTION",
+    "QG-12_PUBLICATION_DRY_RUN_ONLY",
+    "QG-13_K10_OBSERVER_NO_BYPASS"
+  ]
+}

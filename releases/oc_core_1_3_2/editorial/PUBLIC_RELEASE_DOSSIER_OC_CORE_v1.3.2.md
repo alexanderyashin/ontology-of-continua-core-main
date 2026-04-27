@@ -11,7 +11,7 @@
 - GitHub tag: v1.3.2 prepared, not created
 
 ## Artifact inventory
-- Artifacts: 929
+- Artifacts: 1573
 - Research packets audited: 100
 
 ## Metadata status

@@ -18,7 +18,7 @@ Publish allowed: `false`
 | `G09` license | `PASS` | `HIGH` | License file checked. |
 | `G10` manifest | `PASS` | `HIGH` | Bundle manifest source paths checked. |
 | `G11` checksums | `PASS` | `HIGH` | Checksums file checked against manifest sample and control hash. |
-| `G12` pdf_integrity | `PASS` | `HIGH` | Primary PDFs exist and have PDF headers. |
+| `G12` pdf_integrity | `PASS` | `HIGH` | Primary PDFs are substantive bound PDFs, not placeholder headers. |
 | `G13` zip_integrity | `PASS` | `HIGH` | Release ZIP contents checked against manifest. |
 | `G14` reproducibility_route | `PASS` | `HIGH` | Simulation and data reproducibility routes checked. |
 | `G15` reviewer_route | `PASS` | `HIGH` | Reviewer route sections checked. |
@@ -30,3 +30,6 @@ Publish allowed: `false`
 | `G21` github_release_readiness | `PASS` | `CRITICAL` | GitHub readiness is dry-run only; tag must not exist. |
 | `G22` zenodo_upload_readiness | `PASS` | `CRITICAL` | Zenodo package is ready for owner review only; upload remains locked. |
 | `G23` post_release_verification | `PASS` | `HIGH` | Post-release verification is not applicable before publication and is recorded. |
+| `G24` lrgef_freshness | `PASS` | `INFO` | LRGEF tracks source/view freshness; evaluation rewrites stale views before final verdict. |
+| `G25` lrgef_pdf_source_binding | `PASS` | `HIGH` | Every v1.3.2 primary PDF is bound to a substantive source artifact. |
+| `G26` lrgef_supply_chain_no_send_lock | `PASS` | `INFO` | Supply-chain/signing gaps are recorded as no-send external publication blockers, not silent PASS for public release. |
