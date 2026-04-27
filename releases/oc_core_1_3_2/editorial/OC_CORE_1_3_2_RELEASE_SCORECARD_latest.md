@@ -19,12 +19,12 @@ Publish allowed: `false`
 | `G10` manifest | `PASS` | `HIGH` | Bundle manifest source paths checked. |
 | `G11` checksums | `PASS` | `HIGH` | Checksums file checked against manifest sample and control hash. |
 | `G12` pdf_integrity | `PASS` | `HIGH` | Primary PDFs are substantive bound PDFs with clean extracted text, current identity, and required dedication. |
-| `G13` zip_integrity | `PASS` | `HIGH` | Release ZIP contents checked against manifest and placeholder payload policy. |
+| `G13` zip_integrity | `PASS` | `HIGH` | Release ZIP contents checked against manifest and nonpublic template payload policy. |
 | `G14` reproducibility_route | `PASS` | `HIGH` | Simulation and data reproducibility routes checked. |
 | `G15` reviewer_route | `PASS` | `HIGH` | Reviewer route sections checked. |
 | `G16` contribution_ledger | `PASS` | `HIGH` | Contribution ledger checked. |
 | `G17` acknowledgements | `PASS` | `HIGH` | Acknowledgements checked. |
-| `G18` boundary_leak_protection | `PASS` | `CRITICAL` | Public text, research packets, and claim ceilings scanned. |
+| `G18` boundary_leak_protection | `PASS` | `CRITICAL` | Public text, research packets, claim support boundaries, and prediction/promotion support routes scanned. |
 | `G19` readme_completeness | `PASS` | `HIGH` | README release identity and reproducibility markers checked. |
 | `G20` release_notes_changelog | `PASS` | `HIGH` | Release notes and changelog checked. |
 | `G21` github_release_readiness | `PASS` | `CRITICAL` | GitHub readiness is dry-run only; tag must not exist. |

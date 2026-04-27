@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.3.2] - 2026-04-26
+## [1.3.2] - 2026-04-28
 
 ### Added
 - Release Machine v1 gates for public archival release readiness.

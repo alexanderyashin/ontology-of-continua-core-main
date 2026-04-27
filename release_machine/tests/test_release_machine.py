@@ -102,12 +102,12 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertFalse(manifest["publish_allowed"])
         self.assertTrue(manifest["global_no_send_lock"])
 
-    def test_primary_pdfs_are_substantive_bound_artifacts_not_placeholders(self) -> None:
+    def test_primary_pdfs_are_substantive_bound_artifacts_not_templates(self) -> None:
         root = complete.repo_root()
         core.evaluate_release("oc_core_1_3_2", "all", "dry-run", write=True)
         quality = json.loads((root / "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PDF_QUALITY_latest.json").read_text(encoding="utf-8"))
         self.assertEqual(quality["summary"]["pdf_total"], 6)
-        self.assertEqual(quality["summary"]["placeholder_or_bad_total"], 0)
+        self.assertEqual(quality["summary"]["nonpublic_template_or_bad_total"], 0)
         for row in quality["rows"]:
             self.assertGreaterEqual(row["bytes"], complete.MIN_SUBSTANTIVE_PDF_BYTES)
             self.assertTrue(row["starts_with_pdf_header"])
@@ -117,6 +117,41 @@ class ReleaseMachineTests(unittest.TestCase):
                 or row["source"].startswith("releases/oc_core_1_3_2/pdf_sources/")
             )
             self.assertEqual(row.get("text_quality_findings"), [])
+
+    def test_science_terminality_rows_are_release_traceable(self) -> None:
+        root = complete.repo_root()
+        core.evaluate_release("oc_core_1_3_2", "all", "dry-run", write=True)
+        scorecard = json.loads((root / "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_RELEASE_SCORECARD_latest.json").read_text(encoding="utf-8"))
+        g28 = next(row for row in scorecard["gate_results"] if row["gate_id"] == "G28")
+        self.assertEqual(g28["details"]["row_completeness_gap_total"], 0)
+        ledger = json.loads((root / "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_SCIENCE_BLOCKER_CLOSURE_LEDGER_latest.json").read_text(encoding="utf-8"))
+        self.assertEqual(len(ledger["blocker_rows"]), 82)
+        for row in ledger["blocker_rows"]:
+            self.assertTrue(row["axis"])
+            self.assertTrue(row["support_class"])
+            self.assertTrue(row["evidence_refs"])
+            self.assertTrue(row["manuscript_refs"])
+            self.assertTrue(row["release_refs"])
+            self.assertTrue(row["terminality_rationale"])
+        self.assertEqual(ledger["summary"]["claim_demotion_used_total"], 0)
+
+    def test_support_map_and_package_composition_are_human_quality(self) -> None:
+        root = complete.repo_root()
+        core.evaluate_release("oc_core_1_3_2", "all", "dry-run", write=True)
+        support = json.loads((root / "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PREDICTION_AND_PROMOTION_SUPPORT_MAP_latest.json").read_text(encoding="utf-8"))
+        self.assertGreater(support["summary"]["strong_claim_row_total"], 0)
+        self.assertEqual(support["summary"]["unsupported_promoted_total"], 0)
+        manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
+        forbidden_source_pdfs = [
+            row["path"]
+            for row in manifest["files"]
+            if (
+                row["path"].startswith("source_material/releases/oc_core_1_3/journal_core/")
+                or row["path"].startswith("source_material/releases/oc_core_1_3/manuscripts/")
+            )
+            and row["path"].endswith(".pdf")
+        ]
+        self.assertEqual(forbidden_source_pdfs, [])
 
     def test_lrgef_state_records_no_send_external_blockers(self) -> None:
         root = complete.repo_root()

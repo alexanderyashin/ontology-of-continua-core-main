@@ -7,11 +7,11 @@
 - Concept DOI: 10.5281/zenodo.17899134
 - GitHub tag: v1.3.2 prepared, not created
 - Zenodo record: 19741958 is the previous canonical record; v1.3.2 requires owner-approved new version
-- Date: 2026-04-26
+- Date: 2026-04-28
 - Status: RELEASE_READY_NO_SEND
 
 ## What changed since v1.3.1
-OC Core v1.3.2 is a release-quality and reviewer-route release candidate. It tightens public metadata, claim ceilings, reproducibility surfaces, research packet routing, and release governance.
+OC Core v1.3.2 is a release-quality and reviewer-route release candidate. It tightens public metadata, claim support boundaries, reproducibility surfaces, research packet routing, and release governance.
 
 ## Fixed release-quality issues
 The release now carries explicit no-send owner approval, deterministic package integrity, public boundary checks, DOI lineage, and release-machine gates.

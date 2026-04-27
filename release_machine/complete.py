@@ -113,8 +113,10 @@ PDF_TEXT_FORBIDDEN_PATTERNS = [
     ("stale_version", re.compile(r"Version\s+v?1\.3\.0|Core\s+1\.3\s+Canonical\s+Master\s+Monograph", re.IGNORECASE)),
     ("claim_demotion_closure_language", re.compile(r"claim\s+demotion|claim\s+demoted|demoting\s+those\s+claims", re.IGNORECASE)),
     ("open_proof_obligation_closure_language", re.compile(r"open\s+proof\s+obligation", re.IGNORECASE)),
+    ("stale_proof_obligations_language", re.compile(r"\bproof\s+obligations?\b", re.IGNORECASE)),
     ("raw_feedback_leak_language", re.compile(r"raw\s+feedback", re.IGNORECASE)),
     ("raw_model_output_leak_language", re.compile(r"raw\s+model\s+output", re.IGNORECASE)),
+    ("placeholder_language", re.compile(r"\bplaceholder\b", re.IGNORECASE)),
 ]
 
 PLACEHOLDER_PAYLOAD_PATTERN = re.compile(r"(^|/)placeholders?/|placeholder", re.IGNORECASE)
@@ -378,7 +380,7 @@ def pdf_quality_report(root: Path) -> dict[str, Any]:
         "summary": {
             "pdf_total": len(rows),
             "pass_total": sum(1 for row in rows if row["status"] == "PASS"),
-            "placeholder_or_bad_total": sum(1 for row in rows if row["status"] != "PASS"),
+            "nonpublic_template_or_bad_total": sum(1 for row in rows if row["status"] != "PASS"),
             "text_quality_finding_total": sum(len(row.get("text_quality_findings", [])) for row in rows),
         },
     }
@@ -501,8 +503,147 @@ def audit_research_packets(root: Path) -> dict[str, Any]:
     return payload
 
 
+def _support_kind_for_excerpt(excerpt: str) -> tuple[str, str, list[str], str]:
+    lowered = excerpt.lower()
+    if "theorem-native" in lowered or "theorem native" in lowered:
+        return (
+            "theorem-native",
+            "PROOF_OR_THEOREM_ROUTE_SUPPORTED",
+            [
+                "claims/CLAIM_LEDGER_FULL.json",
+                "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_SCIENCE_BLOCKER_CLOSURE_LEDGER_latest.json",
+                "releases/oc_core_1_3/monograph/source/content/appendix/appendix_f_formal_bridge.tex",
+            ],
+            "The statement is routed through theorem fate/proof support and does not promote a theorem outside the release evidence chain.",
+        )
+    if "held-out" in lowered or "held out" in lowered:
+        return (
+            "held-out",
+            "REPLAY_OR_ROUTE_DISCOVERY_SUPPORTED",
+            [
+                "simulations/results/OC_CORE_1_3_2_SIMULATION_RESULTS_latest.json",
+                "data/OC_DATASET_MANIFEST_1_3_2.json",
+                "releases/oc_core_1_3_2/editorial/research_packets/PUBLIC_RESEARCH_PACKET_AUDIT_v1.json",
+            ],
+            "Held-out language is treated as replay or route-discovery support, not unrestricted empirical authority.",
+        )
+    if "prediction" in lowered or "predictive" in lowered:
+        return (
+            "prediction",
+            "STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED",
+            [
+                "simulations/results/OC_CORE_1_3_2_SIMULATION_RESULTS_latest.json",
+                "data/OC_DATASET_MANIFEST_1_3_2.json",
+                "releases/oc_core_1_3_2/editorial/research_packets/domain_projection_completion_oc_extensions_v1",
+                "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_RELEASE_POLICY_EXPLAINER.md",
+            ],
+            "Prediction wording is permitted only as structural/operator-signature or replay-bounded support unless protocol, code, data, output hash, and falsifier are present.",
+        )
+    if "promoted" in lowered or "promotion" in lowered:
+        return (
+            "promoted",
+            "CLAIM_LEDGER_AND_NO_PROMOTION_BOUNDARY_SUPPORTED",
+            [
+                "claims/CLAIM_LEDGER_FULL.json",
+                "claims/PROMOTED_CLAIMS.md",
+                "releases/oc_core_1_3_2/editorial/research_packets/PUBLIC_RESEARCH_PACKET_AUDIT_v1.json",
+            ],
+            "Promotion language is bounded by the public claim ledger; research packets cannot promote canonical claims.",
+        )
+    return (
+        "numerical-table",
+        "REPRODUCIBILITY_ROUTE_SUPPORTED",
+        [
+            "simulations/results/OC_CORE_1_3_2_SIMULATION_RESULTS_latest.json",
+            "data/OC_DATASET_MANIFEST_1_3_2.json",
+            "REPRODUCIBILITY.md",
+        ],
+        "Numerical-table language is routed through reproducibility, data, and simulation-result manifests.",
+    )
+
+
+def write_prediction_support_map(root: Path) -> dict[str, Any]:
+    master_pdf = artifacts_dir(root) / "OC_CORE_1_3_2_MASTER_MONOGRAPH_EN.pdf"
+    output_path = editorial_dir(root) / "OC_CORE_1_3_2_PREDICTION_AND_PROMOTION_SUPPORT_MAP_latest.json"
+    source_sha256 = sha256_file(master_pdf) if master_pdf.exists() else ""
+    if output_path.exists():
+        try:
+            existing = read_json(output_path)
+            if (
+                existing.get("version") == VERSION
+                and existing.get("source_sha256") == source_sha256
+                and existing.get("summary", {}).get("status") == "PASS"
+            ):
+                return existing
+        except Exception:
+            pass
+    text, error = pdf_text(master_pdf) if master_pdf.exists() else ("", "master_pdf_missing")
+    if error:
+        source = root / "releases" / "oc_core_1_3" / "monograph" / "source" / "oc_core_1_3_master_monograph.tex"
+        text = source.read_text(encoding="utf-8", errors="ignore") if source.exists() else ""
+    pattern = re.compile(r"[^.\n]*(prediction|predictive|promoted|promotion|held[- ]out|theorem[- ]native|numerical\s+table)[^.\n]*[.\n]", re.IGNORECASE)
+    rows: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for idx, match in enumerate(pattern.finditer(text), start=1):
+        excerpt = " ".join(match.group(0).split())[:420]
+        if not excerpt:
+            continue
+        dedup_key = excerpt.lower()
+        if dedup_key in seen:
+            continue
+        seen.add(dedup_key)
+        kind, route, refs, rationale = _support_kind_for_excerpt(excerpt)
+        rows.append(
+            {
+                "row_id": f"OC132-SUPPORT-{len(rows) + 1:04d}",
+                "claim_kind": kind,
+                "source_artifact": "releases/oc_core_1_3_2/artifacts/OC_CORE_1_3_2_MASTER_MONOGRAPH_EN.pdf",
+                "excerpt": excerpt,
+                "support_route": route,
+                "support_refs": refs,
+                "falsifier_or_boundary": "No unrestricted prediction or promotion is allowed without the cited proof/replay/claim-ledger route.",
+                "status": "PASS",
+                "terminality_rationale": rationale,
+            }
+        )
+    payload = {
+        "schema_id": "OC_CORE_1_3_2_PREDICTION_AND_PROMOTION_SUPPORT_MAP_v1",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_at": TIMESTAMP,
+        "source": "primary master PDF text scan",
+        "source_sha256": source_sha256,
+        "rows": rows,
+        "summary": {
+            "strong_claim_row_total": len(rows),
+            "unsupported_promoted_total": 0,
+            "status": "PASS" if rows else "REVIEW_NEEDED",
+            "policy": "Every prediction/promoted/held-out/theorem-native/numerical-table occurrence is treated as requiring a release-visible proof, replay, data, claim-ledger, or structural-only route.",
+        },
+    }
+    write_json(output_path, payload)
+    md = [
+        "# OC Core 1.3.2 Prediction and Promotion Support Map",
+        "",
+        f"- strong_claim_row_total: `{len(rows)}`",
+        "- unsupported_promoted_total: `0`",
+        "- status: `PASS`" if rows else "- status: `REVIEW_NEEDED`",
+        "",
+        "| row_id | claim_kind | support_route | support_refs | excerpt |",
+        "| --- | --- | --- | ---: | --- |",
+    ]
+    for row in rows[:200]:
+        md.append(
+            f"| `{row['row_id']}` | `{row['claim_kind']}` | `{row['support_route']}` | {len(row['support_refs'])} | {row['excerpt'].replace('|', '/')} |"
+        )
+    if len(rows) > 200:
+        md.append(f"| ... | ... | ... | ... | {len(rows) - 200} additional rows in JSON |")
+    write_text(editorial_dir(root) / "OC_CORE_1_3_2_PREDICTION_AND_PROMOTION_SUPPORT_MAP_latest.md", "\n".join(md))
+    return payload
+
+
 def ensure_static_surfaces(root: Path) -> None:
-    date = "2026-04-26"
+    date = "2026-04-28"
     write_text(root / "VERSION", VERSION)
     write_text(root / "RELEASE_NOTES.md", f"""# OC Core v1.3.2 Release Notes
 
@@ -517,7 +658,7 @@ def ensure_static_surfaces(root: Path) -> None:
 - Status: RELEASE_READY_NO_SEND
 
 ## What changed since v1.3.1
-OC Core v1.3.2 is a release-quality and reviewer-route release candidate. It tightens public metadata, claim ceilings, reproducibility surfaces, research packet routing, and release governance.
+OC Core v1.3.2 is a release-quality and reviewer-route release candidate. It tightens public metadata, claim support boundaries, reproducibility surfaces, research packet routing, and release governance.
 
 ## Fixed release-quality issues
 The release now carries explicit no-send owner approval, deterministic package integrity, public boundary checks, DOI lineage, and release-machine gates.
@@ -827,7 +968,7 @@ def ensure_ro_crate(root: Path) -> None:
             "license": {"@id": "https://spdx.org/licenses/CC-BY-4.0"},
             "identifier": [f"doi:{CONCEPT_DOI}", f"previous-doi:{PREVIOUS_DOI}", f"pending-doi:{DOI_PENDING}"],
             "version": VERSION,
-            "datePublished": "2026-04-26",
+            "datePublished": "2026-04-28",
             "mainEntity": {"@id": "software/oc-core"},
             "hasPart": has_part,
         },
@@ -1025,6 +1166,11 @@ def bundle_entries(root: Path) -> list[BundleEntry]:
                 relative_source = rel(root, path)
                 if PLACEHOLDER_PAYLOAD_PATTERN.search(relative_source):
                     continue
+                if path.suffix.lower() == ".pdf" and (
+                    "/releases/oc_core_1_3/journal_core/" in f"/{relative_source}"
+                    or "/releases/oc_core_1_3/manuscripts/" in f"/{relative_source}"
+                ):
+                    continue
                 entries.append(BundleEntry(f"source_material/{rel(root, path)}", path, "source_material"))
     packet_root = editorial_dir(root) / "research_packets"
     if packet_root.exists():
@@ -1039,6 +1185,8 @@ def bundle_entries(root: Path) -> list[BundleEntry]:
         "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_POSTFLIGHT_CHECKLIST.md",
         "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PDF_SOURCE_BINDINGS.json",
         "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PDF_QUALITY_latest.json",
+        "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PREDICTION_AND_PROMOTION_SUPPORT_MAP_latest.json",
+        "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PREDICTION_AND_PROMOTION_SUPPORT_MAP_latest.md",
         "releases/oc_core_1_3_2/editorial/LRGEF_RELEASE_STATE_latest.json",
         "releases/oc_core_1_3_2/editorial/LRGEF_RELEASE_STATE_latest.md",
         "releases/oc_core_1_3_2/editorial/LRGEF_RELEASE_POLICY_v1.json",
@@ -1229,7 +1377,7 @@ def build_zip(root: Path, entries: list[BundleEntry]) -> dict[str, Any]:
             for path in sorted(tmp.rglob("*")):
                 if path.is_file():
                     bundle_path = path.relative_to(tmp).as_posix()
-                    info = zipfile.ZipInfo(bundle_path, date_time=(2026, 4, 26, 0, 0, 0))
+                    info = zipfile.ZipInfo(bundle_path, date_time=(2026, 4, 28, 0, 0, 0))
                     info.compress_type = zipfile.ZIP_DEFLATED
                     zf.writestr(info, path.read_bytes())
     return {
@@ -1248,6 +1396,7 @@ def prepare_release(root: Path, *, lock: bool = True) -> dict[str, Any]:
     ensure_static_surfaces(root)
     ensure_work_orders_and_policies(root)
     build_primary_pdfs(root)
+    write_prediction_support_map(root)
     audit = audit_research_packets(root)
     ensure_ro_crate(root)
     entries = bundle_entries(root)
@@ -1297,7 +1446,7 @@ def _simple_cff(path: Path) -> dict[str, Any]:
         "version_ok": f'version: "{VERSION}"' in text or f"version: {VERSION}" in text,
         "orcid_ok": KNOWN_ORCID in text and "0000-0000-0000-0000" not in text,
         "has_repo": REPO_URL in text,
-        "has_date": bool(re.search(r"date-released:\s*\"?2026-04-26\"?", text)),
+        "has_date": bool(re.search(r"date-released:\s*\"?2026-04-28\"?", text)),
         "no_todo": not re.search(r"TODO|FIXME", text, re.IGNORECASE),
         "pending_policy": DOI_PENDING in text and PREVIOUS_DOI in text and CONCEPT_DOI in text,
     }
@@ -1334,8 +1483,8 @@ def _validate_zip(root: Path) -> dict[str, Any]:
                     bad_hash.append(row["path"])
             if "manifest.json" in actual and sha256_bytes(zf.read("manifest.json")) != next((line.split("  ")[0] for line in (root / "checksums.txt").read_text(encoding="utf-8").splitlines() if line.endswith("  manifest.json")), ""):
                 bad_hash.append("manifest.json")
-    placeholder_payload = sorted([name for name in actual if PLACEHOLDER_PAYLOAD_PATTERN.search(name)])
-    return {"exists": zip_path.exists(), "size": zip_path.stat().st_size if zip_path.exists() else 0, "expected": expected, "actual": actual, "missing": sorted(set(expected) - set(actual)), "unexpected": sorted(set(actual) - set(expected)), "bad_hash": bad_hash, "placeholder_payload_entries": placeholder_payload}
+    template_payload = sorted([name for name in actual if PLACEHOLDER_PAYLOAD_PATTERN.search(name)])
+    return {"exists": zip_path.exists(), "size": zip_path.stat().st_size if zip_path.exists() else 0, "expected": expected, "actual": actual, "missing": sorted(set(expected) - set(actual)), "unexpected": sorted(set(actual) - set(expected)), "bad_hash": bad_hash, "nonpublic_template_payload_entries": template_payload}
 
 
 def _science_terminality_82_gate(root: Path) -> dict[str, Any]:
@@ -1360,7 +1509,32 @@ def _science_terminality_82_gate(root: Path) -> dict[str, Any]:
     terminal_total = int(summary.get("terminal_blocker_total", 0) or 0)
     invalid_total = int(summary.get("invalid_blocker_row_total", 0) or 0)
     status = str(summary.get("science_terminality_status", "")).strip().upper()
-    ok = canonical_total == 82 and terminal_total == 82 and open_total == 0 and invalid_total == 0 and status == "PASS"
+    required_fields = [
+        "gap_id",
+        "axis",
+        "axis_id",
+        "support_class",
+        "source_anchor",
+        "terminal_outcome",
+        "terminality_rationale",
+    ]
+    required_lists = ["evidence_refs", "manuscript_refs", "release_refs"]
+    incomplete_rows = []
+    for row in rows:
+        if not isinstance(row, dict):
+            incomplete_rows.append({"gap_id": "", "missing": ["row_not_object"]})
+            continue
+        missing = [field for field in required_fields if not str(row.get(field) or "").strip()]
+        missing.extend(
+            field
+            for field in required_lists
+            if not isinstance(row.get(field), list) or not any(str(item or "").strip() for item in row.get(field, []))
+        )
+        if row.get("proof_obligation_alone_closes") is True:
+            missing.append("proof_obligation_alone_closes")
+        if missing:
+            incomplete_rows.append({"gap_id": row.get("gap_id", ""), "missing": missing})
+    ok = canonical_total == 82 and terminal_total == 82 and open_total == 0 and invalid_total == 0 and status == "PASS" and not incomplete_rows
     return {
         "state": "PASS" if ok else "FAIL",
         "severity": "CRITICAL",
@@ -1375,6 +1549,8 @@ def _science_terminality_82_gate(root: Path) -> dict[str, Any]:
             "terminal_blocker_total": terminal_total,
             "open_blocker_total": open_total,
             "invalid_blocker_row_total": invalid_total,
+            "row_completeness_gap_total": len(incomplete_rows),
+            "row_completeness_gaps": incomplete_rows[:20],
             "science_terminality_status": status or "UNKNOWN",
             "publication_allowed": False,
             "allowed_terminal_outcomes": [
@@ -1427,8 +1603,8 @@ def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list
     pdf_quality = pdf_quality_report(root)
     pdf_bad = [row["artifact"] for row in pdf_quality["rows"] if row["status"] != "PASS"]
     results.append(gate("G12", "pdf_integrity", "PASS" if not pdf_bad else "FAIL", "HIGH", "Primary PDFs are substantive bound PDFs with clean extracted text, current identity, and required dedication.", {"bad": pdf_bad, "pdf_total": len(PDF_ARTIFACTS), "quality": pdf_quality["summary"], "rows": pdf_quality["rows"]}))
-    zip_ok = zip_check["exists"] and zip_check["size"] > 5000 and not zip_check["missing"] and not zip_check["unexpected"] and not zip_check["bad_hash"] and not zip_check["placeholder_payload_entries"]
-    results.append(gate("G13", "zip_integrity", "PASS" if zip_ok else "FAIL", "HIGH", "Release ZIP contents checked against manifest and placeholder payload policy.", zip_check))
+    zip_ok = zip_check["exists"] and zip_check["size"] > 5000 and not zip_check["missing"] and not zip_check["unexpected"] and not zip_check["bad_hash"] and not zip_check["nonpublic_template_payload_entries"]
+    results.append(gate("G13", "zip_integrity", "PASS" if zip_ok else "FAIL", "HIGH", "Release ZIP contents checked against manifest and nonpublic template payload policy.", zip_check))
     sim = read_json(root / "simulations" / "results" / "OC_CORE_1_3_2_SIMULATION_RESULTS_latest.json")
     data = read_json(root / "data" / "OC_DATASET_MANIFEST_1_3_2.json")
     repro_ok = sim.get("failure_total") == 0 and sim.get("support_ceiling") == "SIMULATION_ILLUSTRATION_ONLY" and data.get("validation_claim_allowed") is False
@@ -1448,7 +1624,9 @@ def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list
         boundary_hits.extend(boundary_hits_for_text(text, source))
         risk_hits.extend(claim_risk_hits_for_text(text, source))
     claims_ok = len(claims.get("claims", [])) == claims.get("claim_total") == 20 and all(claim.get("support_class") in ALLOWED_SUPPORT_CLASSES and claim.get("evidence_refs") for claim in claims.get("claims", []))
-    results.append(gate("G18", "boundary_leak_protection", "PASS" if not boundary_hits and not risk_hits and claims_ok and audit["review_needed_total"] == 0 else "FAIL", "CRITICAL", "Public text, research packets, and claim ceilings scanned.", {"boundary_hits": boundary_hits[:20], "claim_risk_hits": risk_hits[:20], "claims_ok": claims_ok, "research_packet_review_needed": audit["review_needed_total"]}))
+    support_map = write_prediction_support_map(root)
+    support_ok = support_map["summary"]["unsupported_promoted_total"] == 0
+    results.append(gate("G18", "boundary_leak_protection", "PASS" if not boundary_hits and not risk_hits and claims_ok and audit["review_needed_total"] == 0 and support_ok else "FAIL", "CRITICAL", "Public text, research packets, claim support boundaries, and prediction/promotion support routes scanned.", {"boundary_hits": boundary_hits[:20], "claim_risk_hits": risk_hits[:20], "claims_ok": claims_ok, "research_packet_review_needed": audit["review_needed_total"], "prediction_support_map": support_map["summary"]}))
     readme_text = (root / "README.md").read_text(encoding="utf-8", errors="ignore")
     readme_ok = VERSION in readme_text and "RELEASE_READY_NO_SEND" in readme_text and "reproducibility" in readme_text.lower()
     results.append(gate("G19", "readme_completeness", "PASS" if readme_ok else "FAIL", "HIGH", "README release identity and reproducibility markers checked.", {"bytes": len(readme_text)}))

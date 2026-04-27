@@ -1,19 +1,19 @@
 # OC Core Release Policy Explainer
 
 - canonical_authority: `ontology-of-continua-core-main`
-- release_unit: `no-send staging baseline plus bounded support/frontier packets until science terminality passes`
+- release_unit: `owner-review no-send baseline plus bounded support/frontier packets with all 82 release blockers terminal for 1.3.2`
 
 ## Policy
 
-OC releases are scientific publication units, not dumps of every internal artifact. A release contains the stable baseline, curated reproducible artifacts, bounded support/frontier packets, gate verdicts and visible obligations.
+OC releases are scientific publication units, not dumps of every internal artifact. A release contains the stable baseline, curated reproducible artifacts, bounded support/frontier packets, gate verdicts and visible proof tasks.
 
 ## Why OC Core 1.3.2 Has This Shape
 
-It preserves the current stable OC Core baseline while exposing reviewed frontier material as bounded, no-send support, but external publication is blocked until all 82 science gaps are terminal.
+It preserves the current stable OC Core baseline while exposing reviewed frontier material as bounded, no-send support; the 82 release blockers are terminal for 1.3.2 and external publication remains locked only by owner/channel actions.
 
-## Claim Promotion Rule
+## Claim Support Rule
 
-support/frontier packets may create obligations, demotions and replay requirements; they cannot promote canonical claims without proof/evidence gates
+support/frontier packets may create proof tasks, replay requirements and evidence-boundary records; they cannot promote canonical claims without proof/evidence gates
 
 ## Excluded From Public Release
 
