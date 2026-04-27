@@ -25,7 +25,7 @@
 - `PASS` `NIGHT_DELTA_PACKET_MERGED` observed=`8`
 - `PASS` `PARFIT_CURRENT_AND_FORWARD_PASS` observed=`PASS`
 - `PASS` `NO_SEND_LOCK` observed=`{'lrgef_publish_allowed': False, 'release_publish_allowed': False}`
-- `PASS` `PACKAGE_ZIP_PRESENT` observed=`8594778`
+- `PASS` `PACKAGE_ZIP_PRESENT` observed=`True`
 - `PASS` `NIGHT_PACKET_LEAK_SCAN` observed=`0`
 
 ## External Publication Blockers

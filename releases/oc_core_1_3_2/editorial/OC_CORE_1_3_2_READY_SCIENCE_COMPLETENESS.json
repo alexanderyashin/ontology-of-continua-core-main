@@ -1,0 +1,202 @@
+{
+  "schema_id": "OC_CORE_1_3_2_OWNER_REVIEW_READY_v1",
+  "generated_at_utc": "2026-04-27T19:57:19Z",
+  "status": "PASS",
+  "summary": {
+    "status": "PASS",
+    "release_id": "oc_core_1_3_2",
+    "release_machine_state": "RELEASE_READY_NO_SEND",
+    "owner_review_status": "OWNER_REVIEW_READY_NO_SEND",
+    "publication_verdict": "PUBLISHABLE_AS_BASELINE_AFTER_OWNER_APPROVAL",
+    "publish_now": false,
+    "publish_after_owner_approval": true,
+    "publication_allowed": false,
+    "outbound_allowed": false,
+    "public_push_allowed": false,
+    "substantive_pdf_total": 6,
+    "research_packet_total": 101,
+    "research_packet_pass_total": 101,
+    "night_delta_work_order_total": 8,
+    "night_delta_unique_work_item_total": 8849,
+    "science_backlog_total": 82,
+    "science_backlog_not_p0_connectedness": true,
+    "next_lawful_action": "OWNER_DECISION_ON_OC_CORE_1_3_2_NO_SEND_RELEASE_PACKET"
+  },
+  "publication_verdict": {
+    "verdict": "PUBLISHABLE_AS_BASELINE_AFTER_OWNER_APPROVAL",
+    "recommended_public_framing": "stable intermediate baseline with bounded support/frontier packets",
+    "forbidden_framings": [
+      "TOE complete",
+      "all gaps solved",
+      "final theory",
+      "quantitative prediction without reproducible protocol/code/data/output hash/falsifier",
+      "canonical promotion from support/frontier packets"
+    ],
+    "publish_now": false,
+    "publish_after_owner_approval": true,
+    "reason": "The release is technically green as no-send and useful as a baseline, but remaining science gaps and owner/toolchain gates require conservative framing."
+  },
+  "release_policy": {
+    "canonical_authority": "ontology-of-continua-core-main",
+    "release_unit": "stable baseline plus bounded support/frontier packets",
+    "not_a_release_unit": "raw private feedback, raw model transcripts, unadjudicated theorem promotion, unsupported prediction wording",
+    "claim_promotion_rule": "support/frontier packets may create obligations, demotions and replay requirements; they cannot promote canonical claims without proof/evidence gates",
+    "why_1_3_2_is_built_this_way": "It preserves the current stable OC Core baseline while exposing reviewed frontier material as bounded, no-send support instead of hiding it or overstating it."
+  },
+  "science_inclusion_rows": [
+    {
+      "science_unit": "OC Core 1.3.x canonical baseline",
+      "release_treatment": "primary substantive artifacts",
+      "included": true,
+      "claim_effect": "stable baseline only",
+      "refs": [
+        "releases/oc_core_1_3_2/artifacts"
+      ]
+    },
+    {
+      "science_unit": "Tsukrov criticism v3",
+      "release_treatment": "bounded external-criticism research packet and reviewer acknowledgement without endorsement",
+      "included": true,
+      "claim_effect": "claim ceilings and proof obligations preserved",
+      "refs": [
+        "releases/oc_core_1_3_2/editorial/research_packets/external_criticism_stanislav_tsukrov_claude_feedback"
+      ]
+    },
+    {
+      "science_unit": "K0-K12 domain projections",
+      "release_treatment": "Core-gated derived support packet",
+      "included": true,
+      "claim_effect": "domain lines are support/frontier material unless replay gates close",
+      "refs": [
+        "releases/oc_core_1_3_2/editorial/research_packets/domain_projection_completion_oc_extensions_v1"
+      ]
+    },
+    {
+      "science_unit": "DRT strict salvage",
+      "release_treatment": "strict salvage no-send packet",
+      "included": true,
+      "claim_effect": "no Core promotion while refutation scope remains governed",
+      "refs": [
+        "releases/oc_core_1_3_2/editorial/research_packets/drt_strict_salvage_no_send"
+      ]
+    },
+    {
+      "science_unit": "Night science deltas",
+      "release_treatment": "8 bounded manuscript/release patch-plan groups",
+      "included": true,
+      "claim_effect": "demotions, proof obligations and replay requirements only",
+      "refs": [
+        "releases/oc_core_1_3_2/editorial/research_packets/night_science_delta_integration"
+      ]
+    },
+    {
+      "science_unit": "Parfitian Cerberus",
+      "release_treatment": "blocking governance gate and reports",
+      "included": true,
+      "claim_effect": "prevents High+ self-defeat/Relation-R/no-send violations",
+      "refs": [
+        "releases/oc_core_1_3_2/editorial/parfit",
+        "reports/parfit/oc_core_1_3_2.json"
+      ]
+    }
+  ],
+  "science_backlog_rows": [
+    {
+      "axis_id": "METAMODEL_BASELINE",
+      "gap_total": 75,
+      "scientific_meaning": "The canonical metamodel still has reopenable seams: interface, level, domain and translation joints must be terminalized or explicitly demoted.",
+      "why_not_closed": "Current evidence marks the active executor as grouped seam repair, not completed theorem/proof closure.",
+      "closure_requirement": "Terminalize each seam by proof, counterexample, claim demotion, replay evidence, or explicit release-visible obligation.",
+      "release_effect": "Does not block 1.3.2 as a baseline; blocks claims that OC is TOE-complete or final."
+    },
+    {
+      "axis_id": "ROOT_TOE_CLAIM",
+      "gap_total": 2,
+      "scientific_meaning": "Root claim families remain under proof/refutation work, including K0 substrate and K9 theory-construction obligations.",
+      "why_not_closed": "They are in progress and cannot be treated as terminal root claims without further proof.",
+      "closure_requirement": "Provide bounded proof support or demote the affected root claim ceiling.",
+      "release_effect": "1.3.2 may publish the current core only as bounded ontology, not as completed TOE proof."
+    },
+    {
+      "axis_id": "PROOF_REFUTATION",
+      "gap_total": 1,
+      "scientific_meaning": "The proof/refutation discipline itself has an open family, so theorem fate and refutation bookkeeping remain active.",
+      "why_not_closed": "Unsupported theorem labels must remain conjectures or proof obligations.",
+      "closure_requirement": "Close the proof/refutation discipline gap with a verified theorem-fate ledger and red-team counterexample pass.",
+      "release_effect": "Requires conservative theorem language in 1.3.2."
+    },
+    {
+      "axis_id": "EMPIRICAL_FIT_AND_DOMAIN_PROJECTION",
+      "gap_total": 2,
+      "scientific_meaning": "Some empirical/domain bridge rows still need replay protocols or domain-specific evidence.",
+      "why_not_closed": "Quantitative and prediction wording is not allowed without protocol, code, data or fixture, output hash and falsifier.",
+      "closure_requirement": "Run or specify reproducible replay protocols, or keep the claim at structural/operator-signature level.",
+      "release_effect": "Domain packets remain bounded support/frontier material."
+    },
+    {
+      "axis_id": "PUBLICATION_AND_EXTERNAL_REVIEW",
+      "gap_total": 1,
+      "scientific_meaning": "Publication/external-review closure is not terminal until owner review and final public wording are approved.",
+      "why_not_closed": "No outbound publication, DOI minting or submission is currently authorized.",
+      "closure_requirement": "Owner-approved publication wording, release tag/upload plan and post-release verification.",
+      "release_effect": "1.3.2 is owner-review ready, not published."
+    },
+    {
+      "axis_id": "VALUE_EXTERNALIZATION",
+      "gap_total": 1,
+      "scientific_meaning": "Market/value externalization remains science-locked until release and claim boundaries are stable.",
+      "why_not_closed": "External value actions must not outrun scientific and publication governance.",
+      "closure_requirement": "Owner-approved no-send review pack and separate release/publication unlock.",
+      "release_effect": "No revenue/client/outbound action is part of this release preparation."
+    }
+  ],
+  "checks": [
+    {
+      "check_id": "FINAL_QA_PASS",
+      "status": "PASS"
+    },
+    {
+      "check_id": "LRGEF_READY_NO_SEND",
+      "status": "PASS"
+    },
+    {
+      "check_id": "RESEARCH_PACKETS_PASS",
+      "status": "PASS",
+      "observed": {
+        "packet_total": 101,
+        "pass_total": 101
+      }
+    },
+    {
+      "check_id": "NO_CANONICAL_PACKET_PROMOTION",
+      "status": "PASS",
+      "observed": 0
+    },
+    {
+      "check_id": "NIGHT_DELTAS_INCLUDED_AS_PATCH_PLANS",
+      "status": "PASS"
+    },
+    {
+      "check_id": "SCIENCE_BACKLOG_VISIBLE",
+      "status": "PASS",
+      "observed": 82
+    },
+    {
+      "check_id": "NO_SEND_BOUNDARY",
+      "status": "PASS"
+    }
+  ],
+  "source_refs": {
+    "final_qa": "logion/k0/governance/status/OC_CORE_1_3_2_RELEASE_FINAL_QA_latest.json",
+    "lrgef": "logion/k0/governance/status/LRGEF_RELEASE_GOVERNANCE_latest.json",
+    "night_delta_merge": "logion/k0/governance/status/OC_CORE_1_3_2_NIGHT_DELTA_RELEASE_PACKET_MERGE_latest.json",
+    "toe_program_closure": "logion/k0/governance/status/TOE_PROGRAM_CLOSURE_AUTHORITY_latest.json",
+    "research_packet_audit": "releases/oc_core_1_3_2/editorial/research_packets/PUBLIC_RESEARCH_PACKET_AUDIT_v1.json"
+  },
+  "public_files": {
+    "owner_decision_memo": "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_OWNER_DECISION_MEMO.md",
+    "release_policy_explainer": "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_RELEASE_POLICY_EXPLAINER.md",
+    "science_backlog_map": "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_SCIENCE_BACKLOG_82_GAPS.md",
+    "ready_science_completeness": "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_READY_SCIENCE_COMPLETENESS.md"
+  }
+}
