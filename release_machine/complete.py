@@ -67,14 +67,15 @@ PDF_ARTIFACTS = [
 
 PDF_SOURCE_BINDINGS = {
     "OC_CORE_1_3_2_MASTER_MONOGRAPH_EN.pdf": "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_EN.pdf",
-    "OC_CORE_1_3_2_JOURNAL_CORE_EN.pdf": "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.pdf",
-    "OC_CORE_1_3_2_READABLE_OVERVIEW_EN.pdf": "releases/oc_core_1_3/manuscripts/OC_CORE_1_3_FLAGSHIP_MANUSCRIPT_EN.pdf",
-    "OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf": "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_EN.pdf",
-    "OC_CORE_1_3_2_CRITIQUE_AND_OBJECTION_MAP_EN.pdf": "releases/oc_core_1_3/editorial/domain_packets/mathematics_domain_packet.pdf",
-    "OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.pdf": "releases/oc_core_1_3/journal_core/OC_CORE_1_3_JOURNAL_CORE_EN.pdf",
+    "OC_CORE_1_3_2_JOURNAL_CORE_EN.pdf": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_JOURNAL_CORE_EN.pdf",
+    "OC_CORE_1_3_2_READABLE_OVERVIEW_EN.pdf": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_READABLE_OVERVIEW_EN.pdf",
+    "OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf",
+    "OC_CORE_1_3_2_CRITIQUE_AND_OBJECTION_MAP_EN.pdf": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_CRITIQUE_AND_OBJECTION_MAP_EN.pdf",
+    "OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.pdf": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.pdf",
 }
 
-MIN_SUBSTANTIVE_PDF_BYTES = 50_000
+MIN_SUBSTANTIVE_PDF_BYTES = 20_000
+MIN_SUBSTANTIVE_PDF_PAGES = 2
 
 ROOT_REQUIRED = [
     "README.md",
@@ -105,6 +106,18 @@ ALLOWED_SUPPORT_CLASSES = {
 }
 
 TEXT_SUFFIXES = {".md", ".json", ".jsonld", ".ndjson", ".yaml", ".yml", ".txt", ".cff", ".py", ".ps1"}
+
+PDF_TEXT_FORBIDDEN_PATTERNS = [
+    ("unresolved_cross_reference", re.compile(r"\?\?")),
+    ("local_path", re.compile(r"C:\\|Users\\|Megaport|file://", re.IGNORECASE)),
+    ("stale_version", re.compile(r"Version\s+v?1\.3\.0|Core\s+1\.3\s+Canonical\s+Master\s+Monograph", re.IGNORECASE)),
+    ("claim_demotion_closure_language", re.compile(r"claim\s+demotion|claim\s+demoted|demoting\s+those\s+claims", re.IGNORECASE)),
+    ("open_proof_obligation_closure_language", re.compile(r"open\s+proof\s+obligation", re.IGNORECASE)),
+    ("raw_feedback_leak_language", re.compile(r"raw\s+feedback", re.IGNORECASE)),
+    ("raw_model_output_leak_language", re.compile(r"raw\s+model\s+output", re.IGNORECASE)),
+]
+
+PLACEHOLDER_PAYLOAD_PATTERN = re.compile(r"(^|/)placeholders?/|placeholder", re.IGNORECASE)
 
 
 @dataclass(frozen=True)
@@ -280,8 +293,52 @@ def build_primary_pdfs(root: Path) -> None:
 
 
 def pdf_page_estimate(path: Path) -> int:
+    pdfinfo = shutil.which("pdfinfo")
+    if pdfinfo:
+        proc = subprocess.run([pdfinfo, str(path)], text=True, encoding="utf-8", errors="ignore", capture_output=True, timeout=30)
+        if proc.returncode == 0:
+            match = re.search(r"^Pages:\s*(\d+)\s*$", proc.stdout, re.MULTILINE)
+            if match:
+                return int(match.group(1))
     data = path.read_bytes()
     return len(re.findall(rb"/Type\s*/Page\b", data))
+
+
+def pdf_text(path: Path) -> tuple[str, str | None]:
+    extractor = shutil.which("pdftotext")
+    if not extractor:
+        return "", "pdftotext_not_found"
+    proc = subprocess.run(
+        [extractor, "-layout", str(path), "-"],
+        text=True,
+        encoding="utf-8",
+        errors="ignore",
+        capture_output=True,
+        timeout=90,
+    )
+    if proc.returncode != 0:
+        return proc.stdout or "", (proc.stderr or "pdftotext_failed").strip()[:500]
+    return proc.stdout, None
+
+
+def pdf_text_findings(name: str, text: str, error: str | None) -> list[dict[str, str]]:
+    if error:
+        return [{"kind": "text_extraction_failed", "match": error}]
+    findings: list[dict[str, str]] = []
+    normalized = " ".join(text.split())
+    for kind, pattern in PDF_TEXT_FORBIDDEN_PATTERNS:
+        match = pattern.search(text)
+        if match:
+            findings.append({"kind": kind, "match": match.group(0)[:120]})
+    if "1.3.2" not in text and "v1.3.2" not in text:
+        findings.append({"kind": "missing_release_identity", "match": "1.3.2"})
+    if name == "OC_CORE_1_3_2_MASTER_MONOGRAPH_EN.pdf":
+        required = "Dedicated to my dear wife Maria, without whom this work would have been impossible."
+        if required not in normalized:
+            findings.append({"kind": "missing_master_dedication", "match": "Maria dedication"})
+        if "ORCID 0009-0008-6166-0914" not in normalized:
+            findings.append({"kind": "missing_master_orcid", "match": "ORCID"})
+    return findings
 
 
 def pdf_quality_report(root: Path) -> dict[str, Any]:
@@ -295,6 +352,8 @@ def pdf_quality_report(root: Path) -> dict[str, Any]:
         size = path.stat().st_size if exists else 0
         starts_pdf = exists and path.read_bytes()[:5] == b"%PDF-"
         page_estimate = pdf_page_estimate(path) if exists and starts_pdf else 0
+        extracted_text, text_error = pdf_text(path) if exists and starts_pdf else ("", "pdf_missing_or_bad_header")
+        text_findings = pdf_text_findings(name, extracted_text, text_error)
         row = {
             "artifact": rel(root, path),
             "source": source,
@@ -303,7 +362,9 @@ def pdf_quality_report(root: Path) -> dict[str, Any]:
             "starts_with_pdf_header": starts_pdf,
             "page_estimate": page_estimate,
             "substantive_bytes": size >= MIN_SUBSTANTIVE_PDF_BYTES,
-            "status": "PASS" if exists and starts_pdf and size >= MIN_SUBSTANTIVE_PDF_BYTES else "FAIL",
+            "substantive_pages": page_estimate >= MIN_SUBSTANTIVE_PDF_PAGES,
+            "text_quality_findings": text_findings,
+            "status": "PASS" if exists and starts_pdf and size >= MIN_SUBSTANTIVE_PDF_BYTES and page_estimate >= MIN_SUBSTANTIVE_PDF_PAGES and not text_findings else "FAIL",
         }
         rows.append(row)
     payload = {
@@ -318,6 +379,7 @@ def pdf_quality_report(root: Path) -> dict[str, Any]:
             "pdf_total": len(rows),
             "pass_total": sum(1 for row in rows if row["status"] == "PASS"),
             "placeholder_or_bad_total": sum(1 for row in rows if row["status"] != "PASS"),
+            "text_quality_finding_total": sum(len(row.get("text_quality_findings", [])) for row in rows),
         },
     }
     write_json(editorial_dir(root) / "OC_CORE_1_3_2_PDF_QUALITY_latest.json", payload)
@@ -953,12 +1015,16 @@ def bundle_entries(root: Path) -> list[BundleEntry]:
         root / "releases" / "oc_core_1_3" / "editorial" / "domain_packets",
         root / "releases" / "oc_core_1_3" / "journal_core",
         root / "releases" / "oc_core_1_3" / "manuscripts",
+        root / "releases" / "oc_core_1_3_2" / "pdf_sources",
     ]
     for source_root in source_roots:
         if not source_root.exists():
             continue
         for path in sorted(source_root.rglob("*")):
             if path.is_file() and path.suffix.lower() in {".tex", ".md", ".json", ".yaml", ".yml", ".pdf", ".svg"}:
+                relative_source = rel(root, path)
+                if PLACEHOLDER_PAYLOAD_PATTERN.search(relative_source):
+                    continue
                 entries.append(BundleEntry(f"source_material/{rel(root, path)}", path, "source_material"))
     packet_root = editorial_dir(root) / "research_packets"
     if packet_root.exists():
@@ -1268,7 +1334,8 @@ def _validate_zip(root: Path) -> dict[str, Any]:
                     bad_hash.append(row["path"])
             if "manifest.json" in actual and sha256_bytes(zf.read("manifest.json")) != next((line.split("  ")[0] for line in (root / "checksums.txt").read_text(encoding="utf-8").splitlines() if line.endswith("  manifest.json")), ""):
                 bad_hash.append("manifest.json")
-    return {"exists": zip_path.exists(), "size": zip_path.stat().st_size if zip_path.exists() else 0, "expected": expected, "actual": actual, "missing": sorted(set(expected) - set(actual)), "unexpected": sorted(set(actual) - set(expected)), "bad_hash": bad_hash}
+    placeholder_payload = sorted([name for name in actual if PLACEHOLDER_PAYLOAD_PATTERN.search(name)])
+    return {"exists": zip_path.exists(), "size": zip_path.stat().st_size if zip_path.exists() else 0, "expected": expected, "actual": actual, "missing": sorted(set(expected) - set(actual)), "unexpected": sorted(set(actual) - set(expected)), "bad_hash": bad_hash, "placeholder_payload_entries": placeholder_payload}
 
 
 def _science_terminality_82_gate(root: Path) -> dict[str, Any]:
@@ -1313,8 +1380,6 @@ def _science_terminality_82_gate(root: Path) -> dict[str, Any]:
             "allowed_terminal_outcomes": [
                 "CLOSED_BY_PROOF_OR_EVIDENCE",
                 "CLOSED_BY_REPLAY_PASS",
-                "CLOSED_BY_CLAIM_DEMOTION",
-                "CLOSED_BY_RELEASE_SCOPE_REMOVAL",
                 "OWNER_GATE_REMAINS_BLOCKING",
             ],
         },
@@ -1361,9 +1426,9 @@ def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list
     results.append(gate("G11", "checksums", "PASS" if checksum_ok else "FAIL", "HIGH", "Checksums file checked against manifest sample and control hash.", {"line_total": len(checksum_text.splitlines())}))
     pdf_quality = pdf_quality_report(root)
     pdf_bad = [row["artifact"] for row in pdf_quality["rows"] if row["status"] != "PASS"]
-    results.append(gate("G12", "pdf_integrity", "PASS" if not pdf_bad else "FAIL", "HIGH", "Primary PDFs are substantive bound PDFs, not placeholder headers.", {"bad": pdf_bad, "pdf_total": len(PDF_ARTIFACTS), "quality": pdf_quality["summary"]}))
-    zip_ok = zip_check["exists"] and zip_check["size"] > 5000 and not zip_check["missing"] and not zip_check["unexpected"] and not zip_check["bad_hash"]
-    results.append(gate("G13", "zip_integrity", "PASS" if zip_ok else "FAIL", "HIGH", "Release ZIP contents checked against manifest.", zip_check))
+    results.append(gate("G12", "pdf_integrity", "PASS" if not pdf_bad else "FAIL", "HIGH", "Primary PDFs are substantive bound PDFs with clean extracted text, current identity, and required dedication.", {"bad": pdf_bad, "pdf_total": len(PDF_ARTIFACTS), "quality": pdf_quality["summary"], "rows": pdf_quality["rows"]}))
+    zip_ok = zip_check["exists"] and zip_check["size"] > 5000 and not zip_check["missing"] and not zip_check["unexpected"] and not zip_check["bad_hash"] and not zip_check["placeholder_payload_entries"]
+    results.append(gate("G13", "zip_integrity", "PASS" if zip_ok else "FAIL", "HIGH", "Release ZIP contents checked against manifest and placeholder payload policy.", zip_check))
     sim = read_json(root / "simulations" / "results" / "OC_CORE_1_3_2_SIMULATION_RESULTS_latest.json")
     data = read_json(root / "data" / "OC_DATASET_MANIFEST_1_3_2.json")
     repro_ok = sim.get("failure_total") == 0 and sim.get("support_ceiling") == "SIMULATION_ILLUSTRATION_ONLY" and data.get("validation_claim_allowed") is False

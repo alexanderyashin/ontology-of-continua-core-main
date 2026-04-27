@@ -3,7 +3,7 @@
 This no-send research packet binds the overnight science deltas to OC Core 1.3.2 release governance.
 It contains bounded summaries, group counts, source-status hashes, manuscript/release patch plans, and claim-ceiling effects.
 
-Raw model outputs, private reviewer material, external publication actions, DOI minting, Zenodo publication, GitHub push and outbound sending are not included or authorized.
+Model transcript material, private reviewer material, external publication actions, DOI minting, Zenodo publication, GitHub push and outbound sending are not included or authorized.
 
 ## Integration Groups
 

@@ -111,7 +111,12 @@ class ReleaseMachineTests(unittest.TestCase):
         for row in quality["rows"]:
             self.assertGreaterEqual(row["bytes"], complete.MIN_SUBSTANTIVE_PDF_BYTES)
             self.assertTrue(row["starts_with_pdf_header"])
-            self.assertTrue(row["source"].startswith("releases/oc_core_1_3/"))
+            self.assertGreaterEqual(row["page_estimate"], complete.MIN_SUBSTANTIVE_PDF_PAGES)
+            self.assertTrue(
+                row["source"].startswith("releases/oc_core_1_3/")
+                or row["source"].startswith("releases/oc_core_1_3_2/pdf_sources/")
+            )
+            self.assertEqual(row.get("text_quality_findings"), [])
 
     def test_lrgef_state_records_no_send_external_blockers(self) -> None:
         root = complete.repo_root()

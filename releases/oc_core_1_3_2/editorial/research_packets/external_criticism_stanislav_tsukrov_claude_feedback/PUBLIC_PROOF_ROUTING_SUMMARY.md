@@ -9,6 +9,6 @@ This packet creates scientific obligations only where the review item has a rati
 | Theorem wording | Demote weak labels or supply strict obligations | Reviewer material only |
 | Tuple obligations | Map minimality/completeness obligations | Research backlog |
 | Bibliography | Add GST, complexity, and tipping-point source audit | Release support |
-| Domain claims | Keep physics/civilization statements bounded by evidence | Claim ceiling |
+| Domain claims | Keep physics/civilization statements bounded by evidence | Evidence boundary |
 
 Evidence rows: 17

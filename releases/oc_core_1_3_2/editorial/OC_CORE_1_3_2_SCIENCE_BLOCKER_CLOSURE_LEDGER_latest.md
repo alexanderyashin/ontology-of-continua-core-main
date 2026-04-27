@@ -21,7 +21,7 @@
 
 ## Closure Rule
 
-A gap closes only by proof/evidence, replay pass, claim demotion, release-scope removal, or an explicitly owner-gated terminal verdict. A proof obligation alone does not close a gap while the affected claim remains strong.
+A gap closes only by proof/evidence, replay pass, theorem-fate discipline, release-visible evidence boundary, or an explicitly owner-gated terminal verdict. A proof task alone does not close a gap while the affected claim remains strong.
 
 ## Canonical Rows
 

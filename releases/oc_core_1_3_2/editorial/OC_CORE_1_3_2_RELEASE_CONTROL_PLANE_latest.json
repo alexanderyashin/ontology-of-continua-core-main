@@ -215,7 +215,7 @@
       "severity": "HIGH",
       "summary": "Bundle manifest source paths checked.",
       "details": {
-        "file_total": 1638,
+        "file_total": 1646,
         "missing_sources": []
       },
       "owner_action_required": false,
@@ -231,7 +231,7 @@
       "severity": "HIGH",
       "summary": "Checksums file checked against manifest sample and control hash.",
       "details": {
-        "line_total": 1639
+        "line_total": 1647
       },
       "owner_action_required": false,
       "executed": true,
@@ -244,15 +244,90 @@
       "state": "PASS",
       "verdict": "PASS",
       "severity": "HIGH",
-      "summary": "Primary PDFs are substantive bound PDFs, not placeholder headers.",
+      "summary": "Primary PDFs are substantive bound PDFs with clean extracted text, current identity, and required dedication.",
       "details": {
         "bad": [],
         "pdf_total": 6,
         "quality": {
           "pdf_total": 6,
           "pass_total": 6,
-          "placeholder_or_bad_total": 0
-        }
+          "placeholder_or_bad_total": 0,
+          "text_quality_finding_total": 0
+        },
+        "rows": [
+          {
+            "artifact": "releases/oc_core_1_3_2/artifacts/OC_CORE_1_3_2_MASTER_MONOGRAPH_EN.pdf",
+            "source": "releases/oc_core_1_3/monograph/OC_CORE_1_3_MASTER_MONOGRAPH_EN.pdf",
+            "exists": true,
+            "bytes": 2095348,
+            "starts_with_pdf_header": true,
+            "page_estimate": 647,
+            "substantive_bytes": true,
+            "substantive_pages": true,
+            "text_quality_findings": [],
+            "status": "PASS"
+          },
+          {
+            "artifact": "releases/oc_core_1_3_2/artifacts/OC_CORE_1_3_2_JOURNAL_CORE_EN.pdf",
+            "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_JOURNAL_CORE_EN.pdf",
+            "exists": true,
+            "bytes": 25745,
+            "starts_with_pdf_header": true,
+            "page_estimate": 2,
+            "substantive_bytes": true,
+            "substantive_pages": true,
+            "text_quality_findings": [],
+            "status": "PASS"
+          },
+          {
+            "artifact": "releases/oc_core_1_3_2/artifacts/OC_CORE_1_3_2_READABLE_OVERVIEW_EN.pdf",
+            "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_READABLE_OVERVIEW_EN.pdf",
+            "exists": true,
+            "bytes": 24875,
+            "starts_with_pdf_header": true,
+            "page_estimate": 2,
+            "substantive_bytes": true,
+            "substantive_pages": true,
+            "text_quality_findings": [],
+            "status": "PASS"
+          },
+          {
+            "artifact": "releases/oc_core_1_3_2/artifacts/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf",
+            "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf",
+            "exists": true,
+            "bytes": 23461,
+            "starts_with_pdf_header": true,
+            "page_estimate": 2,
+            "substantive_bytes": true,
+            "substantive_pages": true,
+            "text_quality_findings": [],
+            "status": "PASS"
+          },
+          {
+            "artifact": "releases/oc_core_1_3_2/artifacts/OC_CORE_1_3_2_CRITIQUE_AND_OBJECTION_MAP_EN.pdf",
+            "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_CRITIQUE_AND_OBJECTION_MAP_EN.pdf",
+            "exists": true,
+            "bytes": 24318,
+            "starts_with_pdf_header": true,
+            "page_estimate": 2,
+            "substantive_bytes": true,
+            "substantive_pages": true,
+            "text_quality_findings": [],
+            "status": "PASS"
+          },
+          {
+            "artifact": "releases/oc_core_1_3_2/artifacts/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.pdf",
+            "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.pdf",
+            "exists": true,
+            "bytes": 24364,
+            "starts_with_pdf_header": true,
+            "page_estimate": 2,
+            "substantive_bytes": true,
+            "substantive_pages": true,
+            "text_quality_findings": [],
+            "status": "PASS"
+          }
+        ]
       },
       "owner_action_required": false,
       "executed": true,
@@ -265,10 +340,10 @@
       "state": "PASS",
       "verdict": "PASS",
       "severity": "HIGH",
-      "summary": "Release ZIP contents checked against manifest.",
+      "summary": "Release ZIP contents checked against manifest and placeholder payload policy.",
       "details": {
         "exists": true,
-        "size": 8594784,
+        "size": 6236261,
         "expected": [
           ".codemeta.json",
           ".zenodo.json",
@@ -1356,6 +1431,7 @@
           "source_material/releases/oc_core_1_3/monograph/source/appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas.tex",
           "source_material/releases/oc_core_1_3/monograph/source/appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas_de.tex",
           "source_material/releases/oc_core_1_3/monograph/source/appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas_ru.tex",
+          "source_material/releases/oc_core_1_3/monograph/source/appendix/S_oc_core_1_3_external_criticism_closure.tex",
           "source_material/releases/oc_core_1_3/monograph/source/appendix/generated/oc_core_1_3_empirical_validation_matrix_generated.tex",
           "source_material/releases/oc_core_1_3/monograph/source/appendix/generated/oc_core_1_3_empirical_validation_matrix_generated_de.tex",
           "source_material/releases/oc_core_1_3/monograph/source/appendix/generated/oc_core_1_3_empirical_validation_matrix_generated_ru.tex",
@@ -1781,9 +1857,6 @@
           "source_material/releases/oc_core_1_3/monograph/source/content/operators_universal.tex",
           "source_material/releases/oc_core_1_3/monograph/source/content/operators_universal_de.tex",
           "source_material/releases/oc_core_1_3/monograph/source/content/operators_universal_ru.tex",
-          "source_material/releases/oc_core_1_3/monograph/source/content/placeholders/fig_placeholder.pdf",
-          "source_material/releases/oc_core_1_3/monograph/source/content/placeholders/section_template.tex",
-          "source_material/releases/oc_core_1_3/monograph/source/content/placeholders/table_placeholder.tex",
           "source_material/releases/oc_core_1_3/monograph/source/content/predictions/predictions_k0.tex",
           "source_material/releases/oc_core_1_3/monograph/source/content/predictions/predictions_k0_de.tex",
           "source_material/releases/oc_core_1_3/monograph/source/content/predictions/predictions_k0_ru.tex",
@@ -1909,7 +1982,17 @@
           "source_material/releases/oc_core_1_3/monograph/source/oc_core_1_3_master_monograph.tex",
           "source_material/releases/oc_core_1_3/monograph/source/oc_core_1_3_master_monograph_de.tex",
           "source_material/releases/oc_core_1_3/monograph/source/oc_core_1_3_master_monograph_ru.tex",
-          "source_material/releases/oc_core_1_3/monograph/source/preamble.tex"
+          "source_material/releases/oc_core_1_3/monograph/source/preamble.tex",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_CRITIQUE_AND_OBJECTION_MAP_EN.pdf",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_CRITIQUE_AND_OBJECTION_MAP_EN.tex",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.pdf",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.tex",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_JOURNAL_CORE_EN.pdf",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_JOURNAL_CORE_EN.tex",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.tex",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_READABLE_OVERVIEW_EN.pdf",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_READABLE_OVERVIEW_EN.tex"
         ],
         "actual": [
           ".codemeta.json",
@@ -2998,6 +3081,7 @@
           "source_material/releases/oc_core_1_3/monograph/source/appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas.tex",
           "source_material/releases/oc_core_1_3/monograph/source/appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas_de.tex",
           "source_material/releases/oc_core_1_3/monograph/source/appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas_ru.tex",
+          "source_material/releases/oc_core_1_3/monograph/source/appendix/S_oc_core_1_3_external_criticism_closure.tex",
           "source_material/releases/oc_core_1_3/monograph/source/appendix/generated/oc_core_1_3_empirical_validation_matrix_generated.tex",
           "source_material/releases/oc_core_1_3/monograph/source/appendix/generated/oc_core_1_3_empirical_validation_matrix_generated_de.tex",
           "source_material/releases/oc_core_1_3/monograph/source/appendix/generated/oc_core_1_3_empirical_validation_matrix_generated_ru.tex",
@@ -3423,9 +3507,6 @@
           "source_material/releases/oc_core_1_3/monograph/source/content/operators_universal.tex",
           "source_material/releases/oc_core_1_3/monograph/source/content/operators_universal_de.tex",
           "source_material/releases/oc_core_1_3/monograph/source/content/operators_universal_ru.tex",
-          "source_material/releases/oc_core_1_3/monograph/source/content/placeholders/fig_placeholder.pdf",
-          "source_material/releases/oc_core_1_3/monograph/source/content/placeholders/section_template.tex",
-          "source_material/releases/oc_core_1_3/monograph/source/content/placeholders/table_placeholder.tex",
           "source_material/releases/oc_core_1_3/monograph/source/content/predictions/predictions_k0.tex",
           "source_material/releases/oc_core_1_3/monograph/source/content/predictions/predictions_k0_de.tex",
           "source_material/releases/oc_core_1_3/monograph/source/content/predictions/predictions_k0_ru.tex",
@@ -3551,11 +3632,22 @@
           "source_material/releases/oc_core_1_3/monograph/source/oc_core_1_3_master_monograph.tex",
           "source_material/releases/oc_core_1_3/monograph/source/oc_core_1_3_master_monograph_de.tex",
           "source_material/releases/oc_core_1_3/monograph/source/oc_core_1_3_master_monograph_ru.tex",
-          "source_material/releases/oc_core_1_3/monograph/source/preamble.tex"
+          "source_material/releases/oc_core_1_3/monograph/source/preamble.tex",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_CRITIQUE_AND_OBJECTION_MAP_EN.pdf",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_CRITIQUE_AND_OBJECTION_MAP_EN.tex",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.pdf",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.tex",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_JOURNAL_CORE_EN.pdf",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_JOURNAL_CORE_EN.tex",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.tex",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_READABLE_OVERVIEW_EN.pdf",
+          "source_material/releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_READABLE_OVERVIEW_EN.tex"
         ],
         "missing": [],
         "unexpected": [],
-        "bad_hash": []
+        "bad_hash": [],
+        "placeholder_payload_entries": []
       },
       "owner_action_required": false,
       "executed": true,
@@ -3886,8 +3978,6 @@
         "allowed_terminal_outcomes": [
           "CLOSED_BY_PROOF_OR_EVIDENCE",
           "CLOSED_BY_REPLAY_PASS",
-          "CLOSED_BY_CLAIM_DEMOTION",
-          "CLOSED_BY_RELEASE_SCOPE_REMOVAL",
           "OWNER_GATE_REMAINS_BLOCKING"
         ]
       },

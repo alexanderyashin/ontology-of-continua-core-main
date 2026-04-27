@@ -2,7 +2,7 @@
 
 State: `NO_SEND_OWNER_REVIEW`.
 
-This packet contains a sanitized response to an externally supplied critical review package. Raw feedback files remain private evidence. The public packet records only bounded summaries, routing decisions, source hashes, response status, and acknowledgement text.
+This packet contains a sanitized response to an externally supplied critical review package. Reviewer-source files remain private evidence. The public packet records only bounded summaries, routing decisions, source hashes, response status, and acknowledgement text.
 
 Contributor: Stanislav Tsukrov
 Received: 2026-04-26

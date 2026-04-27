@@ -16,4 +16,4 @@
 
 ## Completion Rule
 
-Release-eligible science is included when it can be represented as a stable artifact, bounded support packet, reviewer navigation, source/replay checklist, proof obligation or claim demotion. Under the current policy, public publication remains blocked until the 82-gap closure ledger is terminal.
+Release-eligible science is included when it can be represented as a stable artifact, bounded support packet, reviewer navigation, source/replay checklist, proof/evidence row, replay pass, theorem-fate table, or release-visible evidence boundary. Under the current policy, public publication remains blocked until the 82-gap closure ledger is terminal.

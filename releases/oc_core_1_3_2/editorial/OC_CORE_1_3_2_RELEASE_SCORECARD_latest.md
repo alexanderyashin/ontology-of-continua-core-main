@@ -18,8 +18,8 @@ Publish allowed: `false`
 | `G09` license | `PASS` | `HIGH` | License file checked. |
 | `G10` manifest | `PASS` | `HIGH` | Bundle manifest source paths checked. |
 | `G11` checksums | `PASS` | `HIGH` | Checksums file checked against manifest sample and control hash. |
-| `G12` pdf_integrity | `PASS` | `HIGH` | Primary PDFs are substantive bound PDFs, not placeholder headers. |
-| `G13` zip_integrity | `PASS` | `HIGH` | Release ZIP contents checked against manifest. |
+| `G12` pdf_integrity | `PASS` | `HIGH` | Primary PDFs are substantive bound PDFs with clean extracted text, current identity, and required dedication. |
+| `G13` zip_integrity | `PASS` | `HIGH` | Release ZIP contents checked against manifest and placeholder payload policy. |
 | `G14` reproducibility_route | `PASS` | `HIGH` | Simulation and data reproducibility routes checked. |
 | `G15` reviewer_route | `PASS` | `HIGH` | Reviewer route sections checked. |
 | `G16` contribution_ledger | `PASS` | `HIGH` | Contribution ledger checked. |
