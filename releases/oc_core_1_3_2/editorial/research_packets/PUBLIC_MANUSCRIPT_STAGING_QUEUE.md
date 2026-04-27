@@ -1,6 +1,6 @@
 # Public Manuscript Staging Queue
 
-Queue total: `100`
+Queue total: `101`
 
 All rows are appendix/frontier/support candidates only. External publication remains locked.
 
@@ -106,3 +106,4 @@ All rows are appendix/frontier/support candidates only. External publication rem
 | `institute_805036_the_large_n_limit_of_superconformal_field_47e8403d` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_805039_the_sheaf_theoretic_structure_of_non_local_fff3d289` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `k0_structural_realist_extension` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `night_science_delta_integration` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |

@@ -102,11 +102,12 @@ class ParfitianCerberusTests(unittest.TestCase):
             )
             self.assertEqual(run.returncode, 3, run.stderr)
 
-    def test_release_gate_blocks_forward_rc_until_bundle_complete(self) -> None:
+    def test_release_gate_accepts_forward_candidate_bundle_without_publication_unlock(self) -> None:
         result = release_gate_result(ROOT, "oc_core_1_4_0_rc1")
-        self.assertEqual(result["state"], "FAIL")
-        self.assertGreaterEqual(result["details"]["high_plus_total"], 1)
-        self.assertFalse(result["details"]["release_ready_no_send_allowed"])
+        self.assertEqual(result["state"], "PASS")
+        self.assertEqual(result["details"]["high_plus_total"], 0)
+        self.assertTrue(result["details"]["release_ready_no_send_allowed"])
+        self.assertFalse(result["details"]["no_send_release_gate"]["publish_allowed"])
 
 
 if __name__ == "__main__":
