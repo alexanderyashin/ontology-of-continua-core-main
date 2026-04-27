@@ -1,7 +1,7 @@
 # OC Core 1.3.2 Release Scorecard
 
-Release state: `RELEASE_READY_NO_SEND`
-Finding total: `0`
+Release state: `REMEDIATION_REQUIRED`
+Finding total: `1`
 Publish allowed: `false`
 
 | Gate | State | Severity | Summary |
@@ -34,3 +34,4 @@ Publish allowed: `false`
 | `G25` lrgef_pdf_source_binding | `PASS` | `HIGH` | Every v1.3.2 primary PDF is bound to a substantive source artifact. |
 | `G26` lrgef_supply_chain_no_send_lock | `PASS` | `INFO` | Supply-chain/signing gaps are recorded as no-send external publication blockers, not silent PASS for public release. |
 | `G27` parfitian_cerberus | `PASS` | `HIGH` | Parfitian Cerberus release-critical gate checked self-defeat, moral mathematics, Relation R, future stakeholders, transparency and evidence burden. |
+| `G28` science_terminality_82 | `FAIL` | `CRITICAL` | OC Core 1.3.2 external publication is blocked until all 82 science gaps are terminal. |

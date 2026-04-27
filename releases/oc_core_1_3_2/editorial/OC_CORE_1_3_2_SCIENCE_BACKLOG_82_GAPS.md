@@ -1,6 +1,6 @@
 # OC Core 1.3.2 Science Backlog: 82 Gaps
 
-These gaps are scientific closure gaps, not P0 connectedness failures. They do not make the release package incoherent, but they prevent any honest claim that OC is a final or complete TOE.
+These gaps are scientific closure gaps, not P0 connectedness failures. Under the current owner-selected standard they block external publication of OC Core 1.3.2 until each gap is terminally closed.
 
 | axis_id | gap_total | scientific_meaning | closure_requirement | release_effect |
 | --- | --- | --- | --- | --- |

@@ -53,6 +53,7 @@ GATE_ORDER = [
     ("G25", "lrgef_pdf_source_binding"),
     ("G26", "lrgef_supply_chain_no_send_lock"),
     ("G27", "parfitian_cerberus"),
+    ("G28", "science_terminality_82"),
 ]
 
 PDF_ARTIFACTS = [
@@ -1270,6 +1271,56 @@ def _validate_zip(root: Path) -> dict[str, Any]:
     return {"exists": zip_path.exists(), "size": zip_path.stat().st_size if zip_path.exists() else 0, "expected": expected, "actual": actual, "missing": sorted(set(expected) - set(actual)), "unexpected": sorted(set(actual) - set(expected)), "bad_hash": bad_hash}
 
 
+def _science_terminality_82_gate(root: Path) -> dict[str, Any]:
+    ledger_path = editorial_dir(root) / "OC_CORE_1_3_2_SCIENCE_BLOCKER_CLOSURE_LEDGER_latest.json"
+    if not ledger_path.exists():
+        return {
+            "state": "FAIL",
+            "severity": "CRITICAL",
+            "summary": "Science terminality ledger is missing; external publication is blocked.",
+            "details": {
+                "ledger_ref": rel(root, ledger_path),
+                "expected_canonical_blocker_total": 82,
+                "open_blocker_total": 82,
+                "publication_allowed": False,
+            },
+        }
+    ledger = read_json(ledger_path)
+    summary = ledger.get("summary") if isinstance(ledger.get("summary"), dict) else {}
+    rows = ledger.get("blocker_rows") if isinstance(ledger.get("blocker_rows"), list) else []
+    canonical_total = int(summary.get("canonical_blocker_total", len(rows)) or 0)
+    open_total = int(summary.get("open_blocker_total", 0) or 0)
+    terminal_total = int(summary.get("terminal_blocker_total", 0) or 0)
+    invalid_total = int(summary.get("invalid_blocker_row_total", 0) or 0)
+    status = str(summary.get("science_terminality_status", "")).strip().upper()
+    ok = canonical_total == 82 and terminal_total == 82 and open_total == 0 and invalid_total == 0 and status == "PASS"
+    return {
+        "state": "PASS" if ok else "FAIL",
+        "severity": "CRITICAL",
+        "summary": (
+            "All 82 OC Core 1.3.2 science blockers are terminal."
+            if ok
+            else "OC Core 1.3.2 external publication is blocked until all 82 science gaps are terminal."
+        ),
+        "details": {
+            "ledger_ref": rel(root, ledger_path),
+            "canonical_blocker_total": canonical_total,
+            "terminal_blocker_total": terminal_total,
+            "open_blocker_total": open_total,
+            "invalid_blocker_row_total": invalid_total,
+            "science_terminality_status": status or "UNKNOWN",
+            "publication_allowed": False,
+            "allowed_terminal_outcomes": [
+                "CLOSED_BY_PROOF_OR_EVIDENCE",
+                "CLOSED_BY_REPLAY_PASS",
+                "CLOSED_BY_CLAIM_DEMOTION",
+                "CLOSED_BY_RELEASE_SCOPE_REMOVAL",
+                "OWNER_GATE_REMAINS_BLOCKING",
+            ],
+        },
+    }
+
+
 def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list[dict[str, Any]]:
     manifest = read_json(root / "manifest.json")
     publish = read_json(editorial_dir(root) / "OC_CORE_1_3_2_PUBLISH_MANIFEST_DRAFT.json")
@@ -1374,6 +1425,8 @@ def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list
 
     parfit_gate = parfit.release_gate_result(root, release)
     results.append(gate("G27", "parfitian_cerberus", parfit_gate["state"], parfit_gate["severity"], parfit_gate["summary"], parfit_gate["details"]))
+    science_gate = _science_terminality_82_gate(root)
+    results.append(gate("G28", "science_terminality_82", science_gate["state"], science_gate["severity"], science_gate["summary"], science_gate["details"]))
     return results
 
 

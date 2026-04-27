@@ -167,6 +167,10 @@ def emit_lrgef_outputs(
     owner_approved = False
     k_R = compute_k_R(results, owner_approved=owner_approved, external_tools_green=external_tools_green)
     hard_green_external = bool(k_R >= 1.0 and owner_approved and external_tools_green)
+    science_terminality_blocked = any(
+        row.get("gate_id") == "G28" and row.get("state") in {"FAIL", "BLOCKED"}
+        for row in results
+    )
     lrgef_state = {
         "schema_id": "LRGEF_RELEASE_STATE_v1",
         "release_id": RELEASE_ID,
@@ -187,6 +191,7 @@ def emit_lrgef_outputs(
         "owner_approved": False,
         "external_publication_blockers": [
             *toolchain["missing_external_publication_tools"],
+            *(["SCIENCE_TERMINALITY_82_OPEN"] if science_terminality_blocked else []),
             "OWNER_APPROVAL_REQUIRED",
             "ZENODO_DOI_PENDING_UNTIL_PUBLICATION",
         ],

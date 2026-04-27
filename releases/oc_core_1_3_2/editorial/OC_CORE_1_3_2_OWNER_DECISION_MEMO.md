@@ -1,12 +1,12 @@
 # OC Core 1.3.2 Owner Decision Memo
 
 - release_id: `oc_core_1_3_2`
-- owner_review_status: `OWNER_REVIEW_READY_NO_SEND`
-- publication_verdict: `PUBLISHABLE_AS_BASELINE_AFTER_OWNER_APPROVAL`
+- owner_review_status: `OWNER_REVIEW_STAGING_NO_SEND_PUBLICATION_BLOCKED`
+- publication_verdict: `PUBLICATION_BLOCKED_UNTIL_82_GAPS_TERMINAL`
 - publish_now: `false`
-- publish_after_owner_approval: `true`
+- publish_after_owner_approval: `false`
 - publication_allowed: `false`
-- next_lawful_action: `OWNER_DECISION_ON_OC_CORE_1_3_2_NO_SEND_RELEASE_PACKET`
+- next_lawful_action: `CLOSE_82_SCIENCE_BLOCKERS_BEFORE_PUBLICATION`
 
 ## What This Release Is
 
@@ -18,9 +18,9 @@ It is not a claim that the full TOE program is complete, not a claim that all sc
 
 ## Should We Publish?
 
-Verdict: `PUBLISHABLE_AS_BASELINE_AFTER_OWNER_APPROVAL`.
+Verdict: `PUBLICATION_BLOCKED_UNTIL_82_GAPS_TERMINAL`.
 
-Recommendation: publish later only if the public framing is conservative: stable baseline, bounded support packets, visible proof obligations, no final-theory language.
+Recommendation: do not publish externally while `science_backlog_total > 0`. Keep this as a no-send staging/owner-review packet until all 82 gaps have terminal closure.
 
 Forbidden framings:
 - `TOE complete`
@@ -39,4 +39,4 @@ Forbidden framings:
 
 - Readers may overread research packets as canonical claims unless the bounded-support language is preserved.
 - The 82 science gaps must remain visible; hiding them would make the release scientifically misleading.
-- External publication still needs owner approval, signing/SBOM toolchain closure and Zenodo DOI assignment.
+- External publication still needs science terminality for all 82 gaps, owner approval, signing/SBOM toolchain closure and Zenodo DOI assignment.

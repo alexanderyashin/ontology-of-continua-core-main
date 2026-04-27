@@ -1,7 +1,7 @@
 # OC Core Release Policy Explainer
 
 - canonical_authority: `ontology-of-continua-core-main`
-- release_unit: `stable baseline plus bounded support/frontier packets`
+- release_unit: `no-send staging baseline plus bounded support/frontier packets until science terminality passes`
 
 ## Policy
 
@@ -9,7 +9,7 @@ OC releases are scientific publication units, not dumps of every internal artifa
 
 ## Why OC Core 1.3.2 Has This Shape
 
-It preserves the current stable OC Core baseline while exposing reviewed frontier material as bounded, no-send support instead of hiding it or overstating it.
+It preserves the current stable OC Core baseline while exposing reviewed frontier material as bounded, no-send support, but external publication is blocked until all 82 science gaps are terminal.
 
 ## Claim Promotion Rule
 

@@ -2,37 +2,41 @@
 
 - status: `PASS`
 - release_id: `oc_core_1_3_2`
-- release_machine_state: `RELEASE_READY_NO_SEND`
-- master_verdict: `PASS`
-- release_focus_status: `READY_FOR_OWNER_REVIEW_NO_SEND`
+- release_machine_state: `REMEDIATION_REQUIRED`
+- master_verdict: `FAIL`
+- release_focus_status: `OWNER_REVIEW_STAGING_PUBLICATION_BLOCKED`
 - next_24h_compute_policy: `RELEASE_FIRST_NO_LONG_RESEARCH`
 - publication_allowed: `false`
 - owner_approval_required: `true`
 - substantive_pdf_total: `6`
 - research_packet_total: `101`
 - night_delta_work_order_total: `8`
+- science_backlog_total: `82`
+- science_terminality_gate: `FAIL_CLOSED`
 - package_zip_present: `true`
 - package_integrity_ref: `releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_ZIP_INTEGRITY_latest.json`
 - package_hash_policy: `recorded in the release-machine ZIP integrity surface after package build to avoid final-QA self-reference drift`
-- next_lawful_action: `OWNER_REVIEW_NO_SEND_RELEASE_PACKET`
+- next_lawful_action: `CLOSE_82_SCIENCE_BLOCKERS_BEFORE_PUBLICATION`
 
 ## Checks
 
 - `PASS` `VERSION_IS_1_3_2` observed=`1.3.2`
 - `PASS` `ZENODO_VERSION_IS_1_3_2` observed=`1.3.2`
-- `PASS` `LRGEF_RELEASE_READY_NO_SEND` observed=`RELEASE_READY_NO_SEND`
+- `PASS` `LRGEF_ALIGNED_WITH_SCIENCE_TERMINALITY` observed=`{'release_machine_state': 'REMEDIATION_REQUIRED', 'master_verdict': 'FAIL', 'expected': 'REMEDIATION_REQUIRED'}`
 - `PASS` `SUBSTANTIVE_PDFS` observed=`6`
 - `PASS` `NIGHT_DELTA_PACKET_MERGED` observed=`8`
 - `PASS` `PARFIT_CURRENT_AND_FORWARD_PASS` observed=`PASS`
 - `PASS` `NO_SEND_LOCK` observed=`{'lrgef_publish_allowed': False, 'release_publish_allowed': False}`
 - `PASS` `PACKAGE_ZIP_PRESENT` observed=`True`
 - `PASS` `NIGHT_PACKET_LEAK_SCAN` observed=`0`
+- `PASS` `SCIENCE_TERMINALITY_82_PUBLICATION_GATE` observed=`{'open_blocker_total': 82, 'science_terminality_status': 'FAIL_CLOSED'}`
 
 ## External Publication Blockers
 
 - `cosign`
 - `syft`
 - `slsa-verifier`
+- `SCIENCE_TERMINALITY_82_OPEN`
 - `OWNER_APPROVAL_REQUIRED`
 - `ZENODO_DOI_PENDING_UNTIL_PUBLICATION`
 
