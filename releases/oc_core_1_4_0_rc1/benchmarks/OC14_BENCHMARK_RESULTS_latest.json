@@ -1,0 +1,116 @@
+{
+  "accepted_baseline_total": 5,
+  "baseline_total": 9,
+  "failure_total": 0,
+  "generated_at_utc": "2026-04-27T12:23:51Z",
+  "no_signalling_violation_score_max": 0.0,
+  "runnable_task_total": 5,
+  "schema_id": "OC14_BENCHMARK_RESULTS_v1",
+  "seed": 140,
+  "support_ceiling": "S3_NUMERICAL_OR_SIMULATION_EVIDENCE",
+  "task_total": 5,
+  "tasks": [
+    {
+      "baselines": {
+        "bayesian_update": [
+          0.38888888888888884,
+          0.2777777777777778,
+          0.3333333333333333
+        ],
+        "imn_power_sharpening": [
+          0.07896990261202051,
+          0.7120616941741487,
+          0.20896840321383087
+        ],
+        "softmax_annealing": [
+          0.15415221585741004,
+          0.5707363040605473,
+          0.27511148008204267
+        ]
+      },
+      "claim_effect": "IMN is retained only as a sharpening heuristic baseline.",
+      "metrics": {
+        "baseline_advantage_delta": 0.0,
+        "entropy_reduction": 0.198,
+        "parameter_overfit_score": 0.31
+      },
+      "task_id": "toy_sharpening"
+    },
+    {
+      "baselines": {
+        "oc_stabilization": [
+          0.5,
+          0.5
+        ],
+        "quantum_instrument_update": [
+          0.5,
+          0.5
+        ]
+      },
+      "claim_effect": "OC claims operational framing only, not replacement physics.",
+      "metrics": {
+        "baseline_advantage_delta": 0.0,
+        "calibration_error": 0.0,
+        "predictive_log_loss": 0.693
+      },
+      "task_id": "double_slit_toy"
+    },
+    {
+      "baselines": {
+        "quantum_instrument_update": [
+          0.5,
+          0.5
+        ],
+        "sprt_evidence_accumulation": [
+          0.51,
+          0.49
+        ]
+      },
+      "claim_effect": "Support ceiling remains S2/S3 formal toy.",
+      "metrics": {
+        "baseline_advantage_delta": -0.01,
+        "calibration_error": 0.01,
+        "stability_score": 0.74
+      },
+      "task_id": "stern_gerlach_toy"
+    },
+    {
+      "baselines": {
+        "oc_stabilization": [
+          0.62,
+          0.38
+        ],
+        "quantum_instrument_update": [
+          0.62,
+          0.38
+        ]
+      },
+      "claim_effect": "Physical branch must be instrument-compatible.",
+      "metrics": {
+        "baseline_advantage_delta": 0.0,
+        "no_signalling_violation_score": 0.0,
+        "robustness_score": 0.81
+      },
+      "task_id": "povm_instrument"
+    },
+    {
+      "baselines": {
+        "imn_power_sharpening": [
+          0.5,
+          0.5
+        ],
+        "quantum_instrument_update": [
+          0.5,
+          0.5
+        ]
+      },
+      "claim_effect": "No forbidden signalling effect is claimed or produced.",
+      "metrics": {
+        "baseline_advantage_delta": 0.0,
+        "falsifier_fail_rate": 0.0,
+        "no_signalling_violation_score": 0.0
+      },
+      "task_id": "entanglement_no_signalling"
+    }
+  ]
+}
