@@ -36,7 +36,7 @@ class ReleaseMachineTests(unittest.TestCase):
     def test_completed_gate_set_has_24_hard_gates(self) -> None:
         summary = core.evaluate_release("oc_core_1_3_2", "all", "pre_publish", write=True)
         self.assertEqual(summary["master_verdict"], "PASS")
-        self.assertEqual(summary["gate_counts"]["PASS"], 27)
+        self.assertEqual(summary["gate_counts"]["PASS"], 28)
         self.assertEqual(summary["finding_total"], 0)
 
     def test_missing_swhid_is_owner_action_not_invented_identifier(self) -> None:

@@ -52,6 +52,7 @@ GATE_ORDER = [
     ("G24", "lrgef_freshness"),
     ("G25", "lrgef_pdf_source_binding"),
     ("G26", "lrgef_supply_chain_no_send_lock"),
+    ("G27", "parfitian_cerberus"),
 ]
 
 PDF_ARTIFACTS = [
@@ -902,6 +903,9 @@ def claim_risk_hits_for_text(text: str, source: str) -> list[dict[str, str]]:
 def collect_public_text_files(root: Path) -> list[Path]:
     files = [root / item for item in ROOT_REQUIRED if (root / item).exists()]
     files += [root / item for item in ["CLAIMS.md", "DATA_MANIFEST.md", "REPRODUCIBILITY.md", "RUN_ALL.md", "SIMULATIONS.md", "RELEASE_CONTRACT.md", "OWNER_APPROVAL_REQUIRED.md", "RELEASE_MACHINE.md", "RELEASE_STANDARDS.md", "CHANNEL_POLICIES.md"] if (root / item).exists()]
+    parfit_root = root / "docs" / "core" / "parfit"
+    if parfit_root.exists():
+        files += [path for path in parfit_root.rglob("*") if path.is_file() and path.suffix.lower() in TEXT_SUFFIXES]
     packet_root = editorial_dir(root) / "research_packets"
     if packet_root.exists():
         files += [path for path in packet_root.rglob("*") if path.is_file() and path.suffix.lower() in TEXT_SUFFIXES]
@@ -981,6 +985,20 @@ def bundle_entries(root: Path) -> list[BundleEntry]:
         path = root / item
         if path.exists():
             entries.append(BundleEntry(f"metadata/{Path(item).name}", path, "metadata"))
+    parfit_sources = [
+        root / "docs" / "core" / "parfit",
+        root / "configs" / "parfit",
+        root / "schemas" / "parfit",
+        root / "benchmarks" / "parfit",
+        root / "reports" / "parfit",
+        root / "releases" / "oc_core_1_3_2" / "editorial" / "parfit",
+    ]
+    for parfit_root in parfit_sources:
+        if not parfit_root.exists():
+            continue
+        for path in sorted(parfit_root.rglob("*")):
+            if path.is_file() and path.suffix.lower() in TEXT_SUFFIXES | {".json"}:
+                entries.append(BundleEntry(f"parfit/{rel(root, path)}", path, "parfitian_cerberus"))
     dedup: dict[str, BundleEntry] = {}
     for entry in entries:
         if entry.source_path.exists():
@@ -1352,6 +1370,10 @@ def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list
     results.append(gate("G25", "lrgef_pdf_source_binding", "PASS" if binding_ok else "FAIL", "HIGH", "Every v1.3.2 primary PDF is bound to a substantive source artifact.", {"binding_total": len(binding_rows), "pdf_bad": pdf_bad}))
     toolchain = lrgef.toolchain_status()
     results.append(gate("G26", "lrgef_supply_chain_no_send_lock", "PASS", "INFO", "Supply-chain/signing gaps are recorded as no-send external publication blockers, not silent PASS for public release.", toolchain, owner_action=bool(toolchain["missing_external_publication_tools"])))
+    from . import parfit
+
+    parfit_gate = parfit.release_gate_result(root, release)
+    results.append(gate("G27", "parfitian_cerberus", parfit_gate["state"], parfit_gate["severity"], parfit_gate["summary"], parfit_gate["details"]))
     return results
 
 

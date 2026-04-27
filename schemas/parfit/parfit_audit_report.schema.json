@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontology-of-continua.example/schemas/parfit/parfit_audit_report.schema.json",
+  "title": "ParfitAuditReport",
+  "type": "object",
+  "required": ["schema_id", "program_id", "candidate_id", "generated_at", "status", "release_ready_no_send_allowed", "no_send_release_gate", "summary", "findings"],
+  "properties": {
+    "schema_id": {"const": "ParfitAuditReport_v1"},
+    "program_id": {"const": "OC_PARFITIAN_CERBERUS_20260427"},
+    "candidate_id": {"type": "string", "minLength": 1},
+    "generated_at": {"type": "string"},
+    "mode": {"type": "string"},
+    "status": {"enum": ["PASS", "PASS_WITH_WARNINGS", "FAIL_BLOCKING"]},
+    "release_ready_no_send_allowed": {"type": "boolean"},
+    "no_send_release_gate": {
+      "type": "object",
+      "required": ["publish_allowed", "outbound_send_allowed", "zenodo_allowed", "github_push_allowed", "doi_minting_allowed", "owner_unlock_required"],
+      "properties": {
+        "publish_allowed": {"const": false},
+        "outbound_send_allowed": {"const": false},
+        "zenodo_allowed": {"const": false},
+        "github_push_allowed": {"const": false},
+        "doi_minting_allowed": {"const": false},
+        "owner_unlock_required": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "summary": {"type": "object"},
+    "findings": {
+      "type": "array",
+      "items": {"$ref": "parfit_audit_finding.schema.json"}
+    },
+    "waiver_policy": {"type": "object"}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,62 @@
+{
+  "candidate_id": "oc_core_1_4_0_rc1",
+  "findings": [
+    {
+      "affected_refs": [
+        "releases/oc_core_1_4_0_rc1/artifacts"
+      ],
+      "blocking": true,
+      "category": "missing_candidate_bundle",
+      "details": {},
+      "finding_id": "candidate_bundle_missing_candidate_bundle_970647",
+      "owner_waiver_required": true,
+      "pass_id": "candidate_bundle",
+      "required_fixes": [
+        "Materialize a complete candidate bundle before claiming release-ready no-send."
+      ],
+      "severity": "high",
+      "summary": "The release candidate lacks the artifacts or claim inputs required for blocking Parfitian release review.",
+      "title": "Candidate bundle is incomplete",
+      "waiver_eligible": true
+    }
+  ],
+  "generated_at": "2026-04-27T13:23:49Z",
+  "mode": "release_critical",
+  "no_send_release_gate": {
+    "doi_minting_allowed": false,
+    "github_push_allowed": false,
+    "outbound_send_allowed": false,
+    "owner_unlock_required": true,
+    "publish_allowed": false,
+    "zenodo_allowed": false
+  },
+  "program_id": "OC_PARFITIAN_CERBERUS_20260427",
+  "release_ready_no_send_allowed": false,
+  "schema_id": "ParfitAuditReport_v1",
+  "status": "FAIL_BLOCKING",
+  "summary": {
+    "blocker_total": 0,
+    "finding_total": 1,
+    "high_plus_total": 1,
+    "relation_r": {
+      "hard_break": false,
+      "label": "OC_CONTINUATION_WEAK",
+      "missing_hard_invariants": [],
+      "score": 74,
+      "violated_hard_invariants": []
+    },
+    "severity_counts": {
+      "blocker": 0,
+      "critical": 0,
+      "high": 1,
+      "info": 0,
+      "low": 0,
+      "medium": 0
+    }
+  },
+  "waiver_policy": {
+    "blocker_waivable": false,
+    "high_or_critical_requires_owner": true,
+    "publication_outbound_waivable_by_audit": false
+  }
+}

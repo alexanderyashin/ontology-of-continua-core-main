@@ -33,3 +33,4 @@ Publish allowed: `false`
 | `G24` lrgef_freshness | `PASS` | `INFO` | LRGEF tracks source/view freshness; evaluation rewrites stale views before final verdict. |
 | `G25` lrgef_pdf_source_binding | `PASS` | `HIGH` | Every v1.3.2 primary PDF is bound to a substantive source artifact. |
 | `G26` lrgef_supply_chain_no_send_lock | `PASS` | `INFO` | Supply-chain/signing gaps are recorded as no-send external publication blockers, not silent PASS for public release. |
+| `G27` parfitian_cerberus | `PASS` | `HIGH` | Parfitian Cerberus release-critical gate checked self-defeat, moral mathematics, Relation R, future stakeholders, transparency and evidence burden. |

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FivePartDecisionMatrix",
+  "type": "object",
+  "required": ["beneficiaries", "burden_bearers", "alternatives", "reversibility", "evidence"],
+  "properties": {
+    "beneficiaries": {"type": "array", "items": {"type": "string"}},
+    "burden_bearers": {"type": "array", "items": {"type": "string"}},
+    "alternatives": {"type": "array", "items": {"type": "string"}},
+    "reversibility": {"type": "string"},
+    "evidence": {"type": "array", "items": {"type": "string"}}
+  }
+}

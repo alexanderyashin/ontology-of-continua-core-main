@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FutureStakeholderManifest",
+  "type": "object",
+  "required": ["stakeholder_classes", "pure_time_discounting_allowed", "depletion_risk"],
+  "properties": {
+    "stakeholder_classes": {"type": "array", "items": {"type": "string"}},
+    "pure_time_discounting_allowed": {"type": "boolean"},
+    "depletion_risk": {"enum": ["none", "low", "medium", "high", "severe", "catastrophic"]},
+    "mitigations": {"type": "array", "items": {"type": "string"}}
+  }
+}

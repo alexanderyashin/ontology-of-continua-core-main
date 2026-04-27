@@ -1,0 +1,9 @@
+case_id: P018_owner_waiver_transparency
+source_theme: owner_waiver
+oc_domain: release_contract
+scenario: Owner waives High risk but waiver lacks public boundary note and expiry
+  issue.
+expected_findings:
+- category: invalid_owner_waiver
+  min_severity: high
+  blocking: true

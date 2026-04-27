@@ -1,0 +1,86 @@
+parfit_audit:
+  version: 1
+  mode: blocking
+  blocking_threshold: high
+  fail_closed_if_manifest_missing: true
+  no_send_invariant: true
+
+passes:
+  self_defeat:
+    enabled: true
+    blocking_threshold: high
+  moral_math:
+    enabled: true
+    blocking_threshold: high
+  five_part_matrix:
+    enabled: true
+    blocking_threshold: high
+  relation_r:
+    enabled: true
+    blocking_threshold: high
+  future_stakeholders:
+    enabled: true
+    blocking_threshold: high
+  repugnant_output:
+    enabled: true
+    blocking_threshold: high
+  transparency:
+    enabled: true
+    blocking_threshold: high
+  evidence_burden:
+    enabled: true
+    blocking_threshold: high
+
+risk_scoring:
+  probability_bucket:
+    very_low: 0.01
+    low: 0.05
+    medium: 0.2
+    high: 0.5
+    very_high: 0.8
+  damage_bucket:
+    minor: 1
+    moderate: 3
+    major: 7
+    severe: 12
+    catastrophic: 25
+  exposure_bucket:
+    internal: 1
+    reviewer: 2
+    public: 4
+    institutional: 8
+  propagation_bucket:
+    none: 1
+    local: 2
+    repo_wide: 4
+    external_reuse: 8
+    citation_chain: 12
+  irreversibility_bucket:
+    reversible: 1
+    costly: 2
+    hard: 4
+    irreversible: 8
+
+thresholds:
+  expected_risk:
+    medium: 20
+    high: 75
+    critical: 200
+    blocker: 500
+  minor_issue_aggregation:
+    warning_count: 5
+    high_count: 15
+    critical_count: 30
+  duplication_ratio_max: 0.25
+  generic_outbound_ratio_max: 0.10
+
+owner_waiver:
+  allowed_for: [high, critical]
+  forbidden_for: [blocker]
+  requires:
+    - owner
+    - rationale
+    - accepted_risk
+    - expiry_condition
+    - followup_issue
+    - no_send_invariant_preserved

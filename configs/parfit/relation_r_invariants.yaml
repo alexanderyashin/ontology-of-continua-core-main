@@ -1,0 +1,44 @@
+relation_r_invariants:
+  core_invariants:
+    weight: 15
+    hard_block_if_missing: true
+  publication_boundary:
+    weight: 12
+    hard_block_if_violated: true
+  support_classes:
+    weight: 12
+    hard_block_if_missing: true
+  evidence_discipline:
+    weight: 12
+    hard_block_if_missing: true
+  runtime_router_logic:
+    weight: 8
+  release_contract:
+    weight: 10
+    hard_block_if_missing: true
+  simulation_corpus:
+    weight: 8
+  data_manifests:
+    weight: 8
+  causal_lineage:
+    weight: 12
+    hard_block_if_missing: true
+  owner_approved_commitments:
+    weight: 8
+  external_critique_trace:
+    weight: 6
+  public_claim_compatibility:
+    weight: 12
+    hard_block_if_contradicted: true
+  correction_history:
+    weight: 5
+
+continuity_labels:
+  OC_CONTINUATION_STRONG:
+    min_score: 85
+  OC_CONTINUATION_WEAK:
+    min_score: 70
+  OC_FORK_REQUIRES_MIGRATION_MAP:
+    min_score: 50
+  OC_IDENTITY_BREAK_DO_NOT_RELEASE_AS_OC:
+    max_score: 49

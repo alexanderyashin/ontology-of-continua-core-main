@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RelationRManifest",
+  "type": "object",
+  "required": ["relation_r_label", "continuity_score", "invariants"],
+  "properties": {
+    "relation_r_label": {"enum": ["OC_CONTINUATION_STRONG", "OC_CONTINUATION_WEAK", "OC_FORK_REQUIRES_MIGRATION_MAP", "OC_IDENTITY_BREAK_DO_NOT_RELEASE_AS_OC"]},
+    "continuity_score": {"type": "integer", "minimum": 0, "maximum": 100},
+    "invariants": {"type": "object"}
+  }
+}

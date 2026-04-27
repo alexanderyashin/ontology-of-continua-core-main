@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RepugnantOutputAssessment",
+  "type": "object",
+  "required": ["output_count", "average_quality_score", "duplication_ratio", "minor_unsupported_strengthening_count"],
+  "properties": {
+    "output_count": {"type": "integer", "minimum": 0},
+    "average_quality_score": {"type": "number", "minimum": 0, "maximum": 1},
+    "duplication_ratio": {"type": "number", "minimum": 0, "maximum": 1},
+    "minor_unsupported_strengthening_count": {"type": "integer", "minimum": 0}
+  }
+}

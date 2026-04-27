@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ontology-of-continua.example/schemas/parfit/parfit_audit_finding.schema.json",
+  "title": "ParfitAuditFinding",
+  "type": "object",
+  "required": ["finding_id", "pass_id", "category", "severity", "blocking", "summary", "affected_refs", "required_fixes", "waiver_eligible"],
+  "properties": {
+    "finding_id": {"type": "string", "minLength": 1},
+    "pass_id": {"type": "string", "minLength": 1},
+    "category": {"type": "string", "minLength": 1},
+    "severity": {"enum": ["info", "low", "medium", "high", "critical", "blocker"]},
+    "blocking": {"type": "boolean"},
+    "title": {"type": "string"},
+    "summary": {"type": "string", "minLength": 1},
+    "affected_refs": {"type": "array", "items": {"type": "string"}},
+    "required_fixes": {"type": "array", "items": {"type": "string"}},
+    "waiver_eligible": {"type": "boolean"},
+    "owner_waiver_required": {"type": "boolean"},
+    "details": {"type": "object"}
+  },
+  "additionalProperties": false
+}
