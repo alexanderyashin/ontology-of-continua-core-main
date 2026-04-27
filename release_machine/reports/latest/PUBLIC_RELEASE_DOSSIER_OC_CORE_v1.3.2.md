@@ -1,7 +1,7 @@
 # Public Release Dossier: OC Core v1.3.2
 
 ## Final verdict
-`REMEDIATION_REQUIRED`; publish_allowed=`false`; owner_approval_required=`true`.
+`RELEASE_READY_NO_SEND`; publish_allowed=`false`; owner_approval_required=`true`.
 
 ## Release identity
 - Version: 1.3.2

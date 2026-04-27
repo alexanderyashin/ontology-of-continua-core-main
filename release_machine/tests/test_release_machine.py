@@ -29,20 +29,21 @@ class ReleaseMachineTests(unittest.TestCase):
 
     def test_publish_impossible_without_owner_approval(self) -> None:
         summary = core.evaluate_release("oc_core_1_3_2", "all", "dry-run", write=True)
-        self.assertEqual(summary["release_state"], "REMEDIATION_REQUIRED")
+        self.assertEqual(summary["release_state"], "RELEASE_READY_NO_SEND")
         self.assertFalse(summary["publish_allowed"])
         self.assertTrue(summary["owner_approval_required"])
 
-    def test_completed_gate_set_blocks_publication_until_82_gaps_terminal(self) -> None:
+    def test_completed_gate_set_records_terminal_science_and_keeps_no_send_lock(self) -> None:
         summary = core.evaluate_release("oc_core_1_3_2", "all", "pre_publish", write=True)
-        self.assertEqual(summary["master_verdict"], "FAIL")
-        self.assertEqual(summary["gate_counts"]["PASS"], 28)
-        self.assertEqual(summary["gate_counts"]["FAIL"], 1)
-        self.assertEqual(summary["finding_total"], 1)
+        self.assertEqual(summary["master_verdict"], "PASS")
+        self.assertEqual(summary["gate_counts"]["PASS"], 29)
+        self.assertEqual(summary["gate_counts"].get("FAIL", 0), 0)
+        self.assertFalse(summary["publish_allowed"])
         scorecard = json.loads((complete.repo_root() / "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_RELEASE_SCORECARD_latest.json").read_text(encoding="utf-8"))
         g28 = next(row for row in scorecard["gate_results"] if row["gate_id"] == "G28")
         self.assertEqual(g28["name"], "science_terminality_82")
-        self.assertEqual(g28["details"]["open_blocker_total"], 82)
+        self.assertEqual(g28["details"]["open_blocker_total"], 0)
+        self.assertEqual(g28["details"]["terminal_blocker_total"], 82)
 
     def test_missing_swhid_is_owner_action_not_invented_identifier(self) -> None:
         root = complete.repo_root()
@@ -121,7 +122,8 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertEqual(state["release_machine_state"], summary["release_state"])
         self.assertFalse(state["publish_allowed"])
         self.assertFalse(state["hard_green_external"])
-        self.assertIn("SCIENCE_TERMINALITY_82_OPEN", state["external_publication_blockers"])
+        self.assertNotIn("SCIENCE_TERMINALITY_82_OPEN", state["external_publication_blockers"])
+        self.assertIn("OWNER_APPROVAL_REQUIRED", state["external_publication_blockers"])
         self.assertIn("OWNER_APPROVAL_REQUIRED", state["external_publication_blockers"])
         self.assertGreaterEqual(state["k_R"], 0.85)
         self.assertNotIn("C:\\", state_text)

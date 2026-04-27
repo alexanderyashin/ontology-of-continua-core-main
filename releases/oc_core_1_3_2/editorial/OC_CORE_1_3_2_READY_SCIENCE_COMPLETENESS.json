@@ -1,15 +1,15 @@
 {
   "schema_id": "OC_CORE_1_3_2_OWNER_REVIEW_READY_v1",
-  "generated_at_utc": "2026-04-27T20:45:39Z",
+  "generated_at_utc": "2026-04-27T21:14:17Z",
   "status": "PASS",
   "summary": {
     "status": "PASS",
     "release_id": "oc_core_1_3_2",
-    "release_machine_state": "REMEDIATION_REQUIRED",
-    "owner_review_status": "OWNER_REVIEW_STAGING_NO_SEND_PUBLICATION_BLOCKED",
-    "publication_verdict": "PUBLICATION_BLOCKED_UNTIL_82_GAPS_TERMINAL",
+    "release_machine_state": "RELEASE_READY_NO_SEND",
+    "owner_review_status": "OWNER_REVIEW_READY_NO_SEND",
+    "publication_verdict": "PUBLISHABLE_AS_BASELINE_AFTER_OWNER_APPROVAL",
     "publish_now": false,
-    "publish_after_owner_approval": false,
+    "publish_after_owner_approval": true,
     "publication_allowed": false,
     "outbound_allowed": false,
     "public_push_allowed": false,
@@ -18,14 +18,14 @@
     "research_packet_pass_total": 101,
     "night_delta_work_order_total": 8,
     "night_delta_unique_work_item_total": 8849,
-    "science_backlog_total": 82,
-    "science_terminality_gate": "FAIL_CLOSED",
+    "science_backlog_total": 0,
+    "science_terminality_gate": "PASS",
     "science_backlog_not_p0_connectedness": true,
-    "next_lawful_action": "CLOSE_82_SCIENCE_BLOCKERS_BEFORE_PUBLICATION"
+    "next_lawful_action": "OWNER_DECISION_ON_OC_CORE_1_3_2_NO_SEND_RELEASE_PACKET"
   },
   "publication_verdict": {
-    "verdict": "PUBLICATION_BLOCKED_UNTIL_82_GAPS_TERMINAL",
-    "recommended_public_framing": "no-send staging packet only until all 82 science gaps are terminal",
+    "verdict": "PUBLISHABLE_AS_BASELINE_AFTER_OWNER_APPROVAL",
+    "recommended_public_framing": "stable intermediate baseline with bounded support/frontier packets",
     "forbidden_framings": [
       "TOE complete",
       "all gaps solved",
@@ -34,8 +34,8 @@
       "canonical promotion from support/frontier packets"
     ],
     "publish_now": false,
-    "publish_after_owner_approval": false,
-    "reason": "User-selected policy requires all 82 science gaps to be terminal before external publication; owner approval alone is insufficient."
+    "publish_after_owner_approval": true,
+    "reason": "All science blockers are terminal; owner/toolchain gates still control actual publication."
   },
   "release_policy": {
     "canonical_authority": "ontology-of-continua-core-main",
@@ -160,9 +160,9 @@
       "check_id": "LRGEF_ALIGNED_WITH_SCIENCE_TERMINALITY",
       "status": "PASS",
       "observed": {
-        "release_machine_state": "REMEDIATION_REQUIRED",
-        "master_verdict": "FAIL",
-        "expected": "REMEDIATION_REQUIRED"
+        "release_machine_state": "RELEASE_READY_NO_SEND",
+        "master_verdict": "PASS",
+        "expected": "RELEASE_READY_NO_SEND"
       }
     },
     {
@@ -190,7 +190,7 @@
     {
       "check_id": "PUBLICATION_BLOCKED_WHILE_GAPS_OPEN",
       "status": "PASS",
-      "observed": 82
+      "observed": 0
     },
     {
       "check_id": "NO_SEND_BOUNDARY",

@@ -3,7 +3,7 @@
 - research_packet_total: `101`
 - research_packet_pass_total: `101`
 - night_delta_work_order_total: `8`
-- science_backlog_total: `82`
+- science_backlog_total: `0`
 
 | science_unit | included | release_treatment | claim_effect |
 | --- | --- | --- | --- |

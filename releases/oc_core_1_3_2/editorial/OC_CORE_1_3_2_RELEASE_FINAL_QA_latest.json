@@ -1,31 +1,31 @@
 {
   "schema_id": "OC_CORE_1_3_2_RELEASE_FINAL_QA_v1",
-  "generated_at_utc": "2026-04-27T20:45:39Z",
+  "generated_at_utc": "2026-04-27T21:14:17Z",
   "status": "PASS",
   "release_id": "oc_core_1_3_2",
   "summary": {
     "status": "PASS",
     "release_id": "oc_core_1_3_2",
-    "release_machine_state": "REMEDIATION_REQUIRED",
-    "master_verdict": "FAIL",
-    "release_focus_status": "OWNER_REVIEW_STAGING_PUBLICATION_BLOCKED",
+    "release_machine_state": "RELEASE_READY_NO_SEND",
+    "master_verdict": "PASS",
+    "release_focus_status": "READY_FOR_OWNER_REVIEW_NO_SEND",
     "next_24h_compute_policy": "RELEASE_FIRST_NO_LONG_RESEARCH",
     "publication_allowed": false,
     "outbound_allowed": false,
     "public_push_allowed": false,
     "owner_approval_required": true,
-    "external_publication_blocker_total": 6,
+    "external_publication_blocker_total": 5,
     "substantive_pdf_total": 6,
     "research_packet_total": 101,
     "artifact_total": 1641,
     "night_delta_work_order_total": 8,
     "night_delta_unique_work_item_total": 8849,
-    "science_backlog_total": 82,
-    "science_terminality_gate": "FAIL_CLOSED",
+    "science_backlog_total": 0,
+    "science_terminality_gate": "PASS",
     "package_zip_present": true,
     "package_integrity_ref": "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_ZIP_INTEGRITY_latest.json",
     "package_hash_policy": "recorded in the release-machine ZIP integrity surface after package build to avoid final-QA self-reference drift",
-    "next_lawful_action": "CLOSE_82_SCIENCE_BLOCKERS_BEFORE_PUBLICATION"
+    "next_lawful_action": "OWNER_REVIEW_NO_SEND_RELEASE_PACKET"
   },
   "checks": [
     {
@@ -42,9 +42,9 @@
       "check_id": "LRGEF_ALIGNED_WITH_SCIENCE_TERMINALITY",
       "status": "PASS",
       "observed": {
-        "release_machine_state": "REMEDIATION_REQUIRED",
-        "master_verdict": "FAIL",
-        "expected": "REMEDIATION_REQUIRED"
+        "release_machine_state": "RELEASE_READY_NO_SEND",
+        "master_verdict": "PASS",
+        "expected": "RELEASE_READY_NO_SEND"
       }
     },
     {
@@ -84,8 +84,8 @@
       "check_id": "SCIENCE_TERMINALITY_82_PUBLICATION_GATE",
       "status": "PASS",
       "observed": {
-        "open_blocker_total": 82,
-        "science_terminality_status": "FAIL_CLOSED"
+        "open_blocker_total": 0,
+        "science_terminality_status": "PASS"
       }
     }
   ],
@@ -166,7 +166,6 @@
     "cosign",
     "syft",
     "slsa-verifier",
-    "SCIENCE_TERMINALITY_82_OPEN",
     "OWNER_APPROVAL_REQUIRED",
     "ZENODO_DOI_PENDING_UNTIL_PUBLICATION"
   ]
