@@ -1,0 +1,83 @@
+{
+  "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
+  "role": "clarity_didactic_reviewer",
+  "execution_status": "EXECUTED",
+  "critical_open_total": 3,
+  "high_open_total": 6,
+  "finding_total": 9,
+  "findings": [
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "unsupported_promoted_total is 0 and all promoted bounded v12 theorem claims have adequate Lean, proof, finite-witness, and falsifier support.",
+      "failure_mode": "The support labels point to artifacts that mostly certify existence of rows, not the substance of the claims. Lean proofs are largely definitional tautologies, finite checks are label-driven, proof sheets are prose templates, and comparator/numeric rows are mostly bounded assertions without executable falsifier evidence. The ledger therefore greenlights promoted claims whose evidence does not yet carry the public claim text.",
+      "required_repair": "Recompute promotion status after content-level evidence review. Demote or block every claim whose cited Lean theorem, finite checker, proof sheet, comparator, or numeric replay does not prove the exact public claim under stated assumptions.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+      "claim": "failure_total=0 and the 43 finite model rows provide executable positive witnesses, negative controls, component witnesses, and K-transition witnesses.",
+      "failure_mode": "The directly referenced runner assigns observed verdicts from case_type constants rather than evaluating structured models, Lean predicates, or falsifiers. Positive witnesses always become ACCEPT, negative controls always become REJECT, component cases always become PASS/FAIL, and K-transition cases always become FAILS_WITH_WITNESS. This is self-fulfilling verification, not a finite model check.",
+      "required_repair": "Replace prose rows with structured finite models and theorem-specific evaluators. Remove observed verdicts from inputs, recompute them from model data only, add tamper-failing negative controls, and archive executable logs/digests. Until then, demote this artifact to a non-evidential registry.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "The Lean subset supports all 10 public promoted theorem rows in proofs/THEOREM_INVENTORY_1_3_3.json.",
+      "failure_mode": "Most Lean items prove projections, enum disequality, hand-constructed examples, or booleans defined as true for every case. They do not formalize the release-level OC semantics, proof-sheet assumptions, finite witness corpus, falsifier boundaries, or evidence bindings. Calling this a machine-checked subset materially overstates what Lean checked.",
+      "required_repair": "For each promoted theorem, formalize the exact claim-level objects, assumptions, and conclusion, then prove the theorem against those definitions. Otherwise relabel the Lean file as illustrative sanity checks and remove it from load-bearing promotion support.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
+      "failure_mode": "The theorem every_component_has_witness proves componentHasWitness c = true after defining componentHasWitness to return true for every enum case. It does not produce a ComponentWitness for each component, does not connect keep/drop cases to an OC verdict function, and does not prove one-component-only deltas.",
+      "required_repair": "Instantiate a real VerdictClass for the promoted tuple, provide a ComponentWitness for each component, prove the keep/drop cases differ only by that component, and prove verdict change from the actual verdict function. Demote T133-MIN until that exists.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
+      "failure_mode": "The theorem every_adjacent_transition_has_witness proves a boolean lookup that is hard-coded true for each AdjacentK constructor. It does not encode the witness pair, reduction relation, reduction-failure proof, demotion criterion, or the large K11->K12 civilizational-closure claim present in the finite checks.",
+      "required_repair": "Represent each adjacent transition as structured data with a witness pair, reduction map, failure proof, and demotion condition, then prove all 12 cases against those structures. Remove or demote unsupported K-level hierarchy language until proved.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
+      "claim": "Numeric replay QA includes baseline negative controls and falsifiers for physics, chemistry, biology, systems, and mathematics rows.",
+      "failure_mode": "The table contains prose negative_control and falsifier strings but no executable replay script reference, raw snapshot hashes, parser outputs, or negative-control run results. Several rows are direct official-snapshot replays where predicted_value equals observed_value by construction. The artifact is scoped away from empirical promotion, but its support label still overclaims executed negative-control/falsifier plumbing.",
+      "required_repair": "Add executable numeric replay scripts, immutable raw-data hashes, parser logs, and actual negative-control outputs for each row. Rename prediction rows that are snapshot replays, and demote any row whose falsifier is only prose.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "OC133-NOVELTY-001 is source-backed and BOUNDED_DELTA_SUPPORTED rather than prior-art relabeling.",
+      "failure_mode": "Each comparator row uses broad single-source references and a repeated residual_delta_test. The register does not provide dated priority evidence, feature-by-feature comparison, search scope, exclusion of matching prior bundles, or concrete support that the claimed governance/evidence/falsifier/no-send bundle is absent from prior art.",
+      "required_repair": "Build a dated prior-art matrix with primary sources, exact overlap/delta fields, search method, and explicit downgrade rules. Until then, demote novelty to integration/positioning and remove BOUNDED_DELTA_SUPPORTED.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "unsupported_closed_total=0 and all 14 phenomena are BOUNDED_INSTANCE_REPLAYED_V12.",
+      "failure_mode": "Rows are mostly boilerplate: generic explanation route, generic observable, generic negative control, and generic falsifier. High-scope phenomena such as biological organization, origin of life, social institutions, theory change, recursive self-application, and release governance are not backed by phenomenon-specific models, data, or measurements.",
+      "required_repair": "Replace template rows with phenomenon-specific model definitions, observables, datasets or finite structures, executed negative controls, and falsifiers. Mark rows as uncovered or illustrative where only a minimal analogy exists.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 because all 210 attacks are CLOSED_BY_V12_EVIDENCE.",
+      "failure_mode": "The attack rows are repetitive templates whose closure_evidence mostly states that an artifact binds the claim and is cross-checked by unspecified G32-G70 gates. The matrix does not demonstrate row-specific closure, and several closure artifacts point to the same weak proof, finite-check, comparator, or coverage artifacts attacked above.",
+      "required_repair": "Reopen attacks whose closure depends on label-driven finite checks, tautological Lean items, prose-only falsifiers, or boilerplate comparator/coverage rows. Require row-specific closure evidence with concrete artifact fields and executable or formal checks.",
+      "status": "OPEN"
+    }
+  ],
+  "raw_output_ref": "reviews/oc133_llm_cerberus/raw_v12/clarity_didactic_reviewer.txt"
+}

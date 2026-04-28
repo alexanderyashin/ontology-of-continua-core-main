@@ -1,0 +1,51 @@
+{
+  "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
+  "role": "not_novel_attacker",
+  "execution_status": "EXECUTED",
+  "critical_open_total": 2,
+  "high_open_total": 3,
+  "finding_total": 5,
+  "findings": [
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+      "claim": "Finite positive/negative cases and component/K-transition witness rows provide executable evidence for public promotion of the v12 theorem rows.",
+      "failure_mode": "The directly referenced runner assigns observed verdicts from case_type and expected fields; it does not parse input_model, evaluate OC semantics, or independently compute negative controls. failure_total=0 is therefore circular replay of labels, not finite-model evidence.",
+      "required_repair": "Replace the runner with a real evaluator over structured finite models, compute observed verdicts independently of expected verdicts, make negative controls fail by semantics rather than labels, regenerate the ledger, and demote all theorem rows depending on finite checks until this exists.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "The promoted theorem inventory has a machine-checked Lean subset for all 10 public theorem rows.",
+      "failure_mode": "Several load-bearing Lean declarations prove only tautological stubs: every_component_has_witness proves a hardcoded all-true function, every_adjacent_transition_has_witness proves a hardcoded all-true enum mapping, metric_boundary_is_classifier and smooth_operator_is_update_special_case are definitional equalities, and historical_axis_survives_rank_drop only constructs {historical=2,effective=1}. These do not prove the advertised witness, reduction-failure, lawful demotion, minimality, or broad representation claims.",
+      "required_repair": "Either demote these to Lean sanity checks with exact proposition wording, or formalize the claimed structures and prove actual existence/irreducibility/minimality obligations tied to structured witness data.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "critical_unresolved_total and high_unresolved_total are both zero because all severe objections are closed by v12 evidence.",
+      "failure_mode": "The matrix repeatedly closes severe objections with generic text pointing back to broad ledgers. It does not show row-specific discharge of the attacked obligation, and it treats the finite-check ledger as closure evidence even though that ledger is label replay. This is review-theater rather than an adversarial closure record.",
+      "required_repair": "Reopen severe rows whose closure depends on generic ledger references; require each closure to cite the exact theorem proposition, executable check, source-backed comparator evidence, and falsifier that discharges that row.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "Novelty is bounded but supported as a residual OC delta over prior-art traditions.",
+      "failure_mode": "The register admits prior art for the component traditions, then repeats a generic residual delta test without dated source excerpts or an actual search showing that the combined governance/proof/data/falsifier/no-send bundle is absent from systems engineering, formal methods, release governance, or adjacent traditions. This supports positioning at best, not a novelty or priority claim.",
+      "required_repair": "Demote OC133-NOVELTY-001 to integration/positioning unless the register adds dated, source-backed prior-art comparisons with explicit absence tests for the claimed bundle and clear non-novelty boundaries.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "Phenomenon rows are BOUNDED_INSTANCE_REPLAYED_V12 explanations for biology, origin-of-life framing, social institutions, theory change, recursion, and related domains.",
+      "failure_mode": "Most rows reuse the same template: generic observable, generic falsifier, generic negative control, and a prose 'minimal typed instance' rather than a phenomenon-specific model or empirical/replay test. This closes coverage gaps by relabeling theorem pointers as explanations.",
+      "required_repair": "Demote these rows to scoped illustrative mappings, or add phenomenon-specific structured models, observables, negative controls, datasets/replay artifacts, and falsifiers for each covered phenomenon.",
+      "status": "OPEN"
+    }
+  ],
+  "raw_output_ref": "reviews/oc133_llm_cerberus/raw_v12/not_novel_attacker.txt"
+}

@@ -1,0 +1,89 @@
+{
+  "schema_id": "OC133_DOMAIN_SEMANTICS_MATRIX_v12",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "row_total": 10,
+  "untyped_domain_total": 0,
+  "rows": [
+    {
+      "domain": "finite_transition",
+      "carrier": "finite state set",
+      "realization": "typed transition system",
+      "boundary": "classifier over admissible states",
+      "operator": "successor function or relation",
+      "falsifier": "declared rejected state is accepted"
+    },
+    {
+      "domain": "smooth_physical",
+      "carrier": "smooth state chart where declared",
+      "realization": "flow as typed update specialization",
+      "boundary": "numeric threshold only with measurement rule",
+      "operator": "differentiable flow-induced update",
+      "falsifier": "non-smooth domain is differentiated without assumptions"
+    },
+    {
+      "domain": "hybrid_automaton",
+      "carrier": "discrete modes plus continuous charts",
+      "realization": "jump and flow transition system",
+      "boundary": "guards and invariants",
+      "operator": "hybrid update relation",
+      "falsifier": "jump guard ignored in live verdict"
+    },
+    {
+      "domain": "proof_theoretic",
+      "carrier": "proof state graph",
+      "realization": "rewrite and replay semantics",
+      "boundary": "consistency classifier",
+      "operator": "rewrite step",
+      "falsifier": "invalid proof state accepted"
+    },
+    {
+      "domain": "institutional",
+      "carrier": "roles, norms, actions, records",
+      "realization": "governed action system",
+      "boundary": "role and permission classifier",
+      "operator": "policy update",
+      "falsifier": "forbidden public action marked allowed"
+    },
+    {
+      "domain": "chemical_closure",
+      "carrier": "reaction/species set",
+      "realization": "closure and boundary maintenance",
+      "boundary": "reaction admissibility classifier",
+      "operator": "reaction update",
+      "falsifier": "non-producing set accepted as closure"
+    },
+    {
+      "domain": "biological_liveness",
+      "carrier": "official snapshot observable plus typed protocol",
+      "realization": "bounded liveness evidence row",
+      "boundary": "measurement and protocol classifier",
+      "operator": "protocol replay",
+      "falsifier": "snapshot parser cannot recover pinned observable"
+    },
+    {
+      "domain": "systems_time_series",
+      "carrier": "official WDI time series",
+      "realization": "held-out replay row",
+      "boundary": "split policy and residual tolerance",
+      "operator": "one-step prediction rule",
+      "falsifier": "held-out residual exceeds uncertainty"
+    },
+    {
+      "domain": "category_structural",
+      "carrier": "typed objects and morphisms",
+      "realization": "identity/residue/rebirth classifier",
+      "boundary": "invariant preservation predicate",
+      "operator": "morphism composition",
+      "falsifier": "residue morphism accepted as identity"
+    },
+    {
+      "domain": "release_governance",
+      "carrier": "owner approval and package state",
+      "realization": "no-send release control plane",
+      "boundary": "publish_allowed boolean lock",
+      "operator": "owner approval transition",
+      "falsifier": "public action allowed while owner_approved=false"
+    }
+  ]
+}

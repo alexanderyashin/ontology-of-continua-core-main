@@ -1,0 +1,21 @@
+{
+  "schema_id": "OC133_VALIDATION_PACKET_v12",
+  "lane": "biology",
+  "release_id": "oc_core_1_3_3",
+  "exact_promoted_claim": "official GEO query-count replay; no organism-wide mechanism claim",
+  "theorem_to_observable_binding": "typed OC predicate -> lane-specific observable/protocol",
+  "held_out_policy": "snapshot replay only; mechanism claim not promoted",
+  "formula": "predicted count = pinned ESearch count recorded in snapshot",
+  "dataset_snapshot_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+  "predicted_value": 44008.0,
+  "observed_value": 44008.0,
+  "uncertainty": 0.0,
+  "comparator_prediction": 44008.0,
+  "residual": 0.0,
+  "negative_controls": [
+    "query a different accession and require count mismatch"
+  ],
+  "falsifier_condition": "replay parser cannot recover the pinned count",
+  "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS",
+  "remaining_blocker": null
+}

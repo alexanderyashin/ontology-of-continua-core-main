@@ -5,6 +5,7 @@ import json
 
 from . import core
 from . import lrgef
+from . import oc133
 from . import publication
 
 
@@ -89,12 +90,18 @@ def main(argv: list[str] | None = None) -> int:
 
     args = parser.parse_args(argv)
     if args.command == "evaluate":
-        payload = core.evaluate_release(args.release, args.channel, args.mode, write=True)
+        if args.release == oc133.RELEASE_ID:
+            payload = oc133.evaluate_release(args.release, args.channel, args.mode, write=True)
+        else:
+            payload = core.evaluate_release(args.release, args.channel, args.mode, write=True)
     elif args.command == "shit-control":
         from .engines.shit_control_loop import run
         payload = run(args.release, args.channel, args.max_iterations)
     elif args.command == "package":
-        payload = core.build_package(core.repo_root(), channel=args.channel, no_publish=args.no_publish)
+        if args.release == oc133.RELEASE_ID:
+            payload = oc133.build_package(oc133.repo_root(), channel=args.channel, no_publish=args.no_publish)
+        else:
+            payload = core.build_package(core.repo_root(), channel=args.channel, no_publish=args.no_publish)
         payload["release"] = args.release
     elif args.command == "publish-plan":
         payload = core.publish_plan(args.release, args.channel)
@@ -117,15 +124,24 @@ def main(argv: list[str] | None = None) -> int:
         payload["release_id"] = args.release_id
         payload["freeze_status"] = "FROZEN_NO_SEND"
     elif args.command == "build":
-        payload = core.build_package(core.repo_root(), channel="all", no_publish=True)
+        if args.release_id == oc133.RELEASE_ID:
+            payload = oc133.build_package(oc133.repo_root(), channel="all", no_publish=True)
+        else:
+            payload = core.build_package(core.repo_root(), channel="all", no_publish=True)
         payload["release_id"] = args.release_id
         payload["clean_requested"] = bool(args.clean)
     elif args.command == "gates":
-        payload = core.evaluate_release(args.release_id, "all", "pre_publish", write=True)
+        if args.release_id == oc133.RELEASE_ID:
+            payload = oc133.evaluate_release(args.release_id, "all", "pre_publish", write=True)
+        else:
+            payload = core.evaluate_release(args.release_id, "all", "pre_publish", write=True)
         payload["gates_command"] = args.gates_command
         payload["all"] = bool(args.all)
     elif args.command == "verdict":
-        payload = core.evaluate_release(args.release_id, "all", "dry-run", write=True)
+        if args.release_id == oc133.RELEASE_ID:
+            payload = oc133.evaluate_release(args.release_id, "all", "dry-run", write=True)
+        else:
+            payload = core.evaluate_release(args.release_id, "all", "dry-run", write=True)
     elif args.command == "sign":
         summary = core.evaluate_release(args.release_id, "all", "dry-run", write=True)
         root = core.repo_root()
@@ -148,7 +164,11 @@ def main(argv: list[str] | None = None) -> int:
         payload = publication.generate_submission_packages(core.repo_root())
     elif args.command == "publication-presentation":
         root = core.repo_root()
-        if args.sync:
+        if args.release_id == oc133.RELEASE_ID:
+            payload = oc133.publication_presentation_verify(oc133.repo_root())
+            payload["sync_requested"] = bool(args.sync)
+            payload["verify_requested"] = bool(args.verify)
+        elif args.sync:
             payload = publication.sync_public_release_presentation(root)
             if args.verify:
                 payload = {"sync": payload, "verify": publication.verify_public_release_presentation(root)}

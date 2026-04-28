@@ -1,0 +1,80 @@
+{
+  "schema_id": "OC133_ADVERSARIAL_SIMULATION_REPORT_v12",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "case_total": 10,
+  "failure_total": 0,
+  "rows": [
+    {
+      "case_id": "ADV-K0-RAW-DISCRETENESS",
+      "attack": "continuous raw states share rho-cell",
+      "expected_verdict": "REJECT_RAW_DISCRETENESS_LEAK",
+      "observed_verdict": "REJECT_RAW_DISCRETENESS_LEAK",
+      "passed": true
+    },
+    {
+      "case_id": "ADV-LIVE-STATIC-LABEL",
+      "attack": "static label without cycle",
+      "expected_verdict": "REJECT_LIVE_STATUS",
+      "observed_verdict": "REJECT_LIVE_STATUS",
+      "passed": true
+    },
+    {
+      "case_id": "ADV-KZERO-NO-CAUSE",
+      "attack": "k zero asserted without zero-cause",
+      "expected_verdict": "REJECT_K_ZERO",
+      "observed_verdict": "REJECT_K_ZERO",
+      "passed": true
+    },
+    {
+      "case_id": "ADV-BOUNDARY-FAKE-METRIC",
+      "attack": "logical boundary forced into metric",
+      "expected_verdict": "REJECT_FAKE_METRIC",
+      "observed_verdict": "REJECT_FAKE_METRIC",
+      "passed": true
+    },
+    {
+      "case_id": "ADV-HYBRID-UNIVERSAL-DERIVATIVE",
+      "attack": "rewrite state differentiated",
+      "expected_verdict": "REJECT_SMOOTH_OVERREACH",
+      "observed_verdict": "REJECT_SMOOTH_OVERREACH",
+      "passed": true
+    },
+    {
+      "case_id": "ADV-DIM-RANK-CONFLATION",
+      "attack": "historical axis erased by rank drop",
+      "expected_verdict": "REJECT_AXIS_ERASURE",
+      "observed_verdict": "REJECT_AXIS_ERASURE",
+      "passed": true
+    },
+    {
+      "case_id": "ADV-ID-REBIRTH-AS-IDENTITY",
+      "attack": "rebirth called same identity",
+      "expected_verdict": "REJECT_IDENTITY_EQUIVOCATION",
+      "observed_verdict": "REJECT_IDENTITY_EQUIVOCATION",
+      "passed": true
+    },
+    {
+      "case_id": "ADV-MIN-REMOVE-BOUNDARY",
+      "attack": "boundary component removed",
+      "expected_verdict": "VERDICT_CHANGE_DETECTED",
+      "observed_verdict": "VERDICT_CHANGE_DETECTED",
+      "passed": true
+    },
+    {
+      "case_id": "ADV-KLEVEL-COLLAPSE",
+      "attack": "K3 reduced to K2 despite closure witness",
+      "expected_verdict": "REDUCTION_FAILS_WITH_WITNESS",
+      "observed_verdict": "REDUCTION_FAILS_WITH_WITNESS",
+      "passed": true
+    },
+    {
+      "case_id": "ADV-NOSEND-PUBLISH",
+      "attack": "publish_allowed true with owner_approved false",
+      "expected_verdict": "REJECT_PUBLIC_ACTION",
+      "observed_verdict": "REJECT_PUBLIC_ACTION",
+      "passed": true
+    }
+  ],
+  "verdict": "PASS"
+}

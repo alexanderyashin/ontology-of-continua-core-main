@@ -1,0 +1,93 @@
+{
+  "role": "category_type_theory_reviewer",
+  "findings": [
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "All 10 public promoted theorem rows are supported by a machine-checked Lean subset, structured proof, and finite witness.",
+      "failure_mode": "The Lean refs do not match the advertised theorem strength. Several are field projections, enum inequalities, existential toy witnesses, or tables returning true by definition, while the public claims assert classification, minimality, irreducibility, boundary representation, and operator semantics.",
+      "required_repair": "Demote affected theorem rows or rewrite public claims to the exact Lean lemmas; restore promotion only after the formal theorem statements encode the advertised assumptions, witnesses, and conclusions.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+      "claim": "failure_total=0 and the finite witness corpus supports all promoted v12 theorem rows.",
+      "failure_mode": "The directly referenced runner assigns observed verdicts from case_type constants rather than evaluating model semantics; inputs already contain expected labels. This is self-confirming replay, not an independent finite model check.",
+      "required_repair": "Replace the runner with a semantic checker for each theorem family, remove prefilled observed verdicts from inputs, and rerun with adversarial negative controls that can actually fail.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "Residue preservation and rebirth are not identity continuation unless declared identity invariants are preserved.",
+      "failure_mode": "The Lean subset only proves enum inequalities such as residue != identity. It contains no category, objects, hom-sets, composition, identity laws, invariant-preservation predicate, or proof that residue/rebirth morphisms compose without becoming identities.",
+      "required_repair": "Either demote the claim to enum-label separation or formalize the advertised category/morphism structure and prove the invariant-preservation classification theorem.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
+      "failure_mode": "The referenced Lean theorem only proves eligibleLive implies a cycle witness because eligibleLive is defined as a conjunction. The Lifecycle fields for death, residueOf, rebirthOf, and identityInvariant are not used in any theorem.",
+      "required_repair": "Add formal predicates and disjointness/classification theorems for live, death, residue, and rebirth, or reduce the public claim to the existing cycle-witness lemma.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
+      "failure_mode": "adjacentTransitionHasWitness is a total table returning true for every constructor. No K-level semantics, reduction map, equivalence relation, witness pair, or demotion criterion is formalized.",
+      "required_repair": "Formalize K-level classifiers, reduction attempts, retained witnesses, and demotion criteria, then prove each adjacent transition instead of encoding all answers as true.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
+      "failure_mode": "componentHasWitness returns true for every component by definition. The Lean theorem does not prove one-component delta, minimality, or coverage of the actual promoted tuple.",
+      "required_repair": "Formalize tuple removal/weakenings, require keep/drop cases that differ only in the targeted component, and prove verdict change for each component.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "Differential operator notation is a smooth-realization specialization of typed update semantics.",
+      "failure_mode": "SmoothSystem only adds a Bool charted field, and the theorem is a projection equality for step. There is no differentiability, flow, derivative, smooth chart structure, or hybrid transition semantics.",
+      "required_repair": "Demote to a record-projection lemma or formalize smooth realizations and prove that differential/time-flow operators embed as typed updates under stated smoothness assumptions.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "Metric thresholds are a specialization of typed classifier boundaries.",
+      "failure_mode": "metric_boundary_is_classifier only proves that the constructed classifier field equals m.measure. It does not prove threshold-failure equivalence, conservative extension, non-metric classifier validity, or any categorical classifier property.",
+      "required_repair": "Prove the full embedding of metric threshold boundaries into classifier boundaries, including the failure predicate and preservation of verdicts, or narrow the public theorem.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "Novelty is bounded to typed OC release governance, not to invention of the prior-art traditions.",
+      "failure_mode": "The register uses broad generic source links and repeats the same residual_delta_test across traditions. It does not provide dated, row-specific feature comparison showing that the claimed OC bundle is absent from prior art.",
+      "required_repair": "Demote novelty to an integration/positioning claim or add dated source-backed comparisons with explicit feature presence/absence and row-specific residual deltas.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "unsupported_closed_total=0 and all listed phenomena are bounded instances replayed by v12.",
+      "failure_mode": "Rows reuse generic observables, generic falsifiers, and proof-sheet references. Domain phenomena such as biological organization, origin-of-life framing, social institutions, and theory change are not given phenomenon-specific models or empirical tests.",
+      "required_repair": "Demote these rows to toy formal exemplars or provide phenomenon-specific models, observables, negative controls, and falsifiers that are not merely proof-ledger references.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "critical_unresolved_total=0 and high_unresolved_total=0.",
+      "failure_mode": "Critical objections are closed by boilerplate path references and a claimed G32-G70 cross-check rather than by demonstrated repairs. The matrix closes attacks that remain open in the theorem, finite-check, novelty, and coverage artifacts.",
+      "required_repair": "Reopen closure rows whose evidence is only path presence; require closure-specific proof that the attacked failure mode is repaired before setting unresolved totals to zero.",
+      "status": "OPEN"
+    }
+  ]
+}

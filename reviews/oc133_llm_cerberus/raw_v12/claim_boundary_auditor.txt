@@ -1,0 +1,85 @@
+{
+  "role": "claim_boundary_auditor",
+  "findings": [
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+      "claim": "Finite positive, negative, component, and K-transition rows machine-check the promoted theorem witnesses.",
+      "failure_mode": "The referenced runner assigns observed verdicts from case_type constants and expected labels; it does not evaluate input_model semantics, Lean refs, witness pairs, reduction criteria, or demotion criteria. failure_total=0 is therefore expectation replay, not finite model checking.",
+      "required_repair": "Replace the runner with semantic validators over structured models, compute observed verdicts independently of expected labels, rerun, and demote all claims depending on the current finite witness corpus until non-tautological checks pass.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-MIN: each promoted tuple component is required by a verdict-changing witness pair.",
+      "failure_mode": "The Lean theorem every_component_has_witness proves a hardcoded Boolean table returns true for each enum case. It does not construct ComponentWitness values for each component, does not bind to a VerdictClass, and does not prove one-component verdict-changing minimality.",
+      "required_repair": "Formalize the promoted tuple, verdict class, one-component deltas, and a Component -> ComponentWitness mapping; prove verdict change for each component or demote the minimality theorem.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-KLEVEL: every adjacent K-level transition K0->K12 has a witness, reduction-failure criterion, and lawful demotion criterion.",
+      "failure_mode": "The Lean theorem every_adjacent_transition_has_witness proves another hardcoded Boolean enum table. It contains no witness pair, no reduction predicate, no lawful demotion predicate, and no proof that the listed transitions are irreducible.",
+      "required_repair": "Represent each adjacent transition as structured data with witness, reduction-failure predicate, and demotion predicate; prove the criteria or demote K-level irreducibility to an illustrative registry.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-K-ZERO: continuumness zero follows from a declared zero-cause family and is not only empty admissibility or empty cycles.",
+      "failure_mode": "The Lean theorem zero_cause_has_cause only proves flow=true implies membership in a disjunction. It defines no continuumness score k, no k=0 semantics, no empty-admissibility or empty-cycle contrast, and no equivalence with declared zero causes.",
+      "required_repair": "Formalize k, admissibility, cycles, zero-cause constructors, and the exact iff or one-way theorem actually claimed; otherwise narrow the public claim to the proven disjunction fact.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-HYBRID: differential operator notation is a smooth-realization specialization of typed update semantics.",
+      "failure_mode": "The Lean theorem smooth_operator_is_update_special_case is rfl over a projection from SmoothSystem to UpdateSystem. It has no derivative, differential notation, smoothness condition beyond a Bool field, typed operator family, or proof that non-smooth updates block differential overreach.",
+      "required_repair": "Formalize smooth charts, differentiability, update semantics, and the specialization theorem; demote the current Lean item to a trivial projection check.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-OMEGA-STATUS: live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
+      "failure_mode": "The referenced Lean theorem eligible_live_requires_cycle only projects the cycle conjunct from eligibleLive. It does not prove death, residue, rebirth, identity invariants, or non-interchangeability of the status and morphism classes.",
+      "required_repair": "Add formal lifecycle predicates and morphism classes with disjointness and invariant-preservation theorems, then bind the theorem inventory to those stronger Lean refs.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "OC133-NOVELTY-001: novelty is bounded to typed OC release governance and is source-backed against prior art.",
+      "failure_mode": "The comparator rows rely on generic URLs or search pages and repeat the same residual_delta_test boilerplate. They do not provide dated passages, feature-by-feature prior-art comparison, or evidence that the claimed governance bundle is absent from prior sources.",
+      "required_repair": "Add dated bibliographic sources, quoted or pinpointed prior-art features, and a row-specific residual delta analysis; otherwise demote novelty to unpromoted positioning.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "All listed phenomena are bounded-instance replayed by v12 evidence.",
+      "failure_mode": "The coverage rows are templated and mostly point to proof sheets, with generic observables and falsifiers. Origin-of-life, social institutions, theory change, recursive self-application, and governance coverage are not supported by phenomenon-specific models or data.",
+      "required_repair": "Separate formal toy examples from phenomenon coverage, add domain-specific models and falsifiers for each phenomenon, or mark the unsupported rows OPEN/ILLUSTRATIVE.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "critical_unresolved_total and high_unresolved_total are zero because all attacks are closed by v12 evidence.",
+      "failure_mode": "The 210 attack closures are boilerplate and depend on artifacts that do not actually prove the claimed closures. Several closure_artifact refs point to narrative or tautological evidence, and the matrix gives no independent G32-G70 closure audit.",
+      "required_repair": "Reopen attacks whose closure depends on the finite runner, tautological Lean subset, generic coverage matrix, or comparator boilerplate; close only after row-specific evidence is attached.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
+      "claim": "OC133-NUM-MATH-FINITE: finite witness acceptance count for all promoted v12 theorem rows.",
+      "failure_mode": "The mathematics numeric row inherits the invalid finite-model runner: observed accepted cases equal the hardcoded replay count, not independently checked theorem witnesses.",
+      "required_repair": "Regenerate the numeric table only after semantic finite model checks exist; until then, mark the mathematics replay row unsupported for promotion support.",
+      "status": "OPEN"
+    }
+  ]
+}

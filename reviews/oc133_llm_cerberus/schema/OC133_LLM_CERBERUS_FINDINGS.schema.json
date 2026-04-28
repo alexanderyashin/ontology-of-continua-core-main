@@ -1,0 +1,220 @@
+{
+  "type": "object",
+  "required": [
+    "role",
+    "verdict",
+    "critical_findings",
+    "high_findings",
+    "medium_findings",
+    "closed_by_existing_artifact",
+    "claim_demotions_required",
+    "summary"
+  ],
+  "properties": {
+    "role": {
+      "type": "string"
+    },
+    "verdict": {
+      "type": "string"
+    },
+    "critical_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "severity",
+          "artifact",
+          "claim",
+          "failure_mode",
+          "required_repair",
+          "closure_status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string"
+          },
+          "artifact": {
+            "type": "string"
+          },
+          "claim": {
+            "type": "string"
+          },
+          "failure_mode": {
+            "type": "string"
+          },
+          "required_repair": {
+            "type": "string"
+          },
+          "closure_status": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "high_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "severity",
+          "artifact",
+          "claim",
+          "failure_mode",
+          "required_repair",
+          "closure_status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string"
+          },
+          "artifact": {
+            "type": "string"
+          },
+          "claim": {
+            "type": "string"
+          },
+          "failure_mode": {
+            "type": "string"
+          },
+          "required_repair": {
+            "type": "string"
+          },
+          "closure_status": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "medium_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "severity",
+          "artifact",
+          "claim",
+          "failure_mode",
+          "required_repair",
+          "closure_status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string"
+          },
+          "artifact": {
+            "type": "string"
+          },
+          "claim": {
+            "type": "string"
+          },
+          "failure_mode": {
+            "type": "string"
+          },
+          "required_repair": {
+            "type": "string"
+          },
+          "closure_status": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "closed_by_existing_artifact": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "severity",
+          "artifact",
+          "claim",
+          "failure_mode",
+          "required_repair",
+          "closure_status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string"
+          },
+          "artifact": {
+            "type": "string"
+          },
+          "claim": {
+            "type": "string"
+          },
+          "failure_mode": {
+            "type": "string"
+          },
+          "required_repair": {
+            "type": "string"
+          },
+          "closure_status": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "claim_demotions_required": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "severity",
+          "artifact",
+          "claim",
+          "failure_mode",
+          "required_repair",
+          "closure_status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string"
+          },
+          "artifact": {
+            "type": "string"
+          },
+          "claim": {
+            "type": "string"
+          },
+          "failure_mode": {
+            "type": "string"
+          },
+          "required_repair": {
+            "type": "string"
+          },
+          "closure_status": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "summary": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

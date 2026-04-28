@@ -1,0 +1,21 @@
+{
+  "schema_id": "OC133_VALIDATION_PACKET_v12",
+  "lane": "systems",
+  "release_id": "oc_core_1_3_3",
+  "exact_promoted_claim": "one-step GDP replay with comparator, no superiority claim",
+  "theorem_to_observable_binding": "typed OC predicate -> lane-specific observable/protocol",
+  "held_out_policy": "train on two previous non-null years, hold out latest non-null year",
+  "formula": "predict latest non-null WDI value by previous-year growth carry-forward",
+  "dataset_snapshot_ref": "validation/_raw/systems_world_bank_gdp.txt",
+  "predicted_value": 111428943579470.81,
+  "observed_value": 110982661180013.0,
+  "uncertainty": 4241013358949.0,
+  "comparator_prediction": 106741647821064.0,
+  "residual": 446282399457.81,
+  "negative_controls": [
+    "reverse time order and require split-policy failure"
+  ],
+  "falsifier_condition": "residual exceeds declared previous-year-change uncertainty",
+  "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS",
+  "remaining_blocker": null
+}

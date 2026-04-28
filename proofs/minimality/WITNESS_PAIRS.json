@@ -1,0 +1,361 @@
+{
+  "schema_id": "OC133_MINIMALITY_WITNESS_PAIRS_v2_HARDENED",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "witness_total": 11,
+  "failure_total": 0,
+  "rows": [
+    {
+      "component": "Omega",
+      "witness_pair": "WIT-133-01",
+      "H_a": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "candidate_state=s_bad"
+      },
+      "H_b": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "candidate_state=s_bad plus admissibility classifier rejects it"
+      },
+      "agreement_on_other_components": true,
+      "component_difference_count": 1,
+      "forgetful_map": "forget_Omega",
+      "verdict_map": "V_OC133",
+      "verdict_H_a": "ACCEPTS_NONADMISSIBLE_STATE",
+      "verdict_H_b": "REJECTS_NONADMISSIBLE_STATE",
+      "verdict_changed": true,
+      "status": "READY_NO_SEND"
+    },
+    {
+      "component": "A",
+      "witness_pair": "WIT-133-02",
+      "H_a": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "two histories differ by an unrepresented axis"
+      },
+      "H_b": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "axis witness A_new retained"
+      },
+      "agreement_on_other_components": true,
+      "component_difference_count": 1,
+      "forgetful_map": "forget_A",
+      "verdict_map": "V_OC133",
+      "verdict_H_a": "MERGES_DISTINCT_AXIS_HISTORIES",
+      "verdict_H_b": "SEPARATES_AXIS_HISTORIES",
+      "verdict_changed": true,
+      "status": "READY_NO_SEND"
+    },
+    {
+      "component": "P",
+      "witness_pair": "WIT-133-03",
+      "H_a": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "same states with no potential ordering"
+      },
+      "H_b": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "potential order P(s1)<P(s2) retained"
+      },
+      "agreement_on_other_components": true,
+      "component_difference_count": 1,
+      "forgetful_map": "forget_P",
+      "verdict_map": "V_OC133",
+      "verdict_H_a": "CANNOT_ORDER_TENSION",
+      "verdict_H_b": "ORDERS_TENSION",
+      "verdict_changed": true,
+      "status": "READY_NO_SEND"
+    },
+    {
+      "component": "J",
+      "witness_pair": "WIT-133-04",
+      "H_a": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "same potentials with no update direction"
+      },
+      "H_b": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "support/destructive update component retained"
+      },
+      "agreement_on_other_components": true,
+      "component_difference_count": 1,
+      "forgetful_map": "forget_J",
+      "verdict_map": "V_OC133",
+      "verdict_H_a": "CANNOT_CLASSIFY_FLOW_COLLAPSE",
+      "verdict_H_b": "CLASSIFIES_FLOW_COLLAPSE",
+      "verdict_changed": true,
+      "status": "READY_NO_SEND"
+    },
+    {
+      "component": "Theta",
+      "witness_pair": "WIT-133-05",
+      "H_a": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "state has no threshold test"
+      },
+      "H_b": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "death threshold rejects state"
+      },
+      "agreement_on_other_components": true,
+      "component_difference_count": 1,
+      "forgetful_map": "forget_Theta",
+      "verdict_map": "V_OC133",
+      "verdict_H_a": "ACCEPTS_THRESHOLD_VIOLATION",
+      "verdict_H_b": "REJECTS_THRESHOLD_VIOLATION",
+      "verdict_changed": true,
+      "status": "READY_NO_SEND"
+    },
+    {
+      "component": "boundary",
+      "witness_pair": "WIT-133-06",
+      "H_a": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "inside/outside classifier removed"
+      },
+      "H_b": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "boundary classifier retained"
+      },
+      "agreement_on_other_components": true,
+      "component_difference_count": 1,
+      "forgetful_map": "forget_boundary",
+      "verdict_map": "V_OC133",
+      "verdict_H_a": "MERGES_INTERIOR_AND_FAILED_STATE",
+      "verdict_H_b": "SEPARATES_INTERIOR_AND_FAILED_STATE",
+      "verdict_changed": true,
+      "status": "READY_NO_SEND"
+    },
+    {
+      "component": "C",
+      "witness_pair": "WIT-133-07",
+      "H_a": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "static persistence with no cycle mode"
+      },
+      "H_b": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "maintenance cycle mode retained"
+      },
+      "agreement_on_other_components": true,
+      "component_difference_count": 1,
+      "forgetful_map": "forget_C",
+      "verdict_map": "V_OC133",
+      "verdict_H_a": "ACCEPTS_STATIC_NONLIVE_OBJECT",
+      "verdict_H_b": "REJECTS_STATIC_NONLIVE_OBJECT",
+      "verdict_changed": true,
+      "status": "READY_NO_SEND"
+    },
+    {
+      "component": "k",
+      "witness_pair": "WIT-133-08",
+      "H_a": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "diagnostic scalar removed"
+      },
+      "H_b": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "zero-cause diagnostic retained"
+      },
+      "agreement_on_other_components": true,
+      "component_difference_count": 1,
+      "forgetful_map": "forget_k",
+      "verdict_map": "V_OC133",
+      "verdict_H_a": "CANNOT_RANK_COLLAPSE_CAUSE",
+      "verdict_H_b": "RANKS_COLLAPSE_CAUSE",
+      "verdict_changed": true,
+      "status": "READY_NO_SEND"
+    },
+    {
+      "component": "carrier",
+      "witness_pair": "WIT-133-09",
+      "H_a": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "two realizations share labels but not carrier identity"
+      },
+      "H_b": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "carrier identity invariant retained"
+      },
+      "agreement_on_other_components": true,
+      "component_difference_count": 1,
+      "forgetful_map": "forget_carrier",
+      "verdict_map": "V_OC133",
+      "verdict_H_a": "MERGES_NONIDENTICAL_CARRIERS",
+      "verdict_H_b": "SEPARATES_NONIDENTICAL_CARRIERS",
+      "verdict_changed": true,
+      "status": "READY_NO_SEND"
+    },
+    {
+      "component": "residue",
+      "witness_pair": "WIT-133-10",
+      "H_a": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "post-death structure ignored"
+      },
+      "H_b": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "residue morphism retained"
+      },
+      "agreement_on_other_components": true,
+      "component_difference_count": 1,
+      "forgetful_map": "forget_residue",
+      "verdict_map": "V_OC133",
+      "verdict_H_a": "LOSES_REBIRTH_EVIDENCE_ROUTE",
+      "verdict_H_b": "PRESERVES_REBIRTH_EVIDENCE_ROUTE",
+      "verdict_changed": true,
+      "status": "READY_NO_SEND"
+    },
+    {
+      "component": "morphism",
+      "witness_pair": "WIT-133-11",
+      "H_a": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "restart treated as same identity"
+      },
+      "H_b": {
+        "carrier": "two_state_fixture",
+        "shared_components": [
+          "carrier",
+          "other_axes",
+          "other_thresholds",
+          "other_cycles"
+        ],
+        "target_component_value": "identity/residue/rebirth morphism class retained"
+      },
+      "agreement_on_other_components": true,
+      "component_difference_count": 1,
+      "forgetful_map": "forget_morphism",
+      "verdict_map": "V_OC133",
+      "verdict_H_a": "MISCLASSIFIES_REBIRTH_AS_IDENTITY",
+      "verdict_H_b": "CLASSIFIES_REBIRTH",
+      "verdict_changed": true,
+      "status": "READY_NO_SEND"
+    }
+  ]
+}

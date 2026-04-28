@@ -1,0 +1,61 @@
+{
+  "role": "formal_mathematician",
+  "findings": [
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+      "claim": "All 43 finite model checks executed with failure_total 0 and support the promoted theorem rows.",
+      "failure_mode": "The directly referenced runner assigns observed verdicts from case_type and compares them to expected strings. It does not evaluate input_model semantics, Lean theorems, witness pairs, reductions, or counterexamples. The finite checks are self-fulfilling fixtures, not finite model verification.",
+      "required_repair": "Replace the runner with an independent semantic evaluator that computes verdicts without reading expected verdict fields; rerun positive and negative controls; demote all FINITE_WITNESS-dependent claims until this exists.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-MIN: each promoted tuple component is required by a verdict-changing witness pair.",
+      "failure_mode": "The Lean theorem every_component_has_witness proves only that componentHasWitness returns true for each enum case. It encodes no keep/drop cases, no one-component delta, no verdict function tied to OC semantics, and no minimality theorem.",
+      "required_repair": "Formalize the promoted tuple, component deletion, verdict preservation, and witness pairs in Lean; prove each component changes verdict under a typed model; otherwise demote T133-MIN from theorem to informal ledger assertion.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-KLEVEL: every adjacent K-level transition K0->K12 has a witness, reduction-failure criterion, and lawful demotion criterion.",
+      "failure_mode": "The Lean theorem every_adjacent_transition_has_witness proves a hardcoded true table over AdjacentK. It does not encode K-level semantics, reduction maps, witness retention, failure criteria, or demotion criteria.",
+      "required_repair": "Formalize K-level structures, adjacent reductions, witness observability, and demotion conditions; prove each transition from those definitions; otherwise demote the KLEVEL claim.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "10 public promoted theorems are supported by Lean subset and finite witnesses.",
+      "failure_mode": "Several Lean refs do not match the advertised theorem strength: OMEGA-STATUS is only a projection from eligibleLive to cycleWitnessed; K-ZERO is a tautological zero-cause disjunction; ID is enum inequality; HYBRID is record projection; DIM is one existential example. The inventory promotes theorem labels beyond the checked statements.",
+      "required_repair": "For each promoted theorem, publish the exact formal statement, map each public sentence to a checked lemma, and demote any theorem whose Lean item proves only a definition, projection, enum inequality, or isolated example.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "Novelty is bounded to typed OC release governance and each comparator row is BOUNDED_DELTA_SUPPORTED.",
+      "failure_mode": "The register uses broad reference links and a repeated residual_delta_test but does not show dated, source-specific absence of the claimed bundle in prior art. This supports at most a candidate integration claim, not a supported novelty/priority conclusion.",
+      "required_repair": "Replace boilerplate with dated prior-art comparisons for each tradition, cite specific source passages or feature matrices, and demote uniqueness_claim_status to candidate/integration until the residual delta is actually tested.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "unsupported_closed_total is 0 and all phenomenon rows are BOUNDED_INSTANCE_REPLAYED_V12.",
+      "failure_mode": "Coverage rows are template-level closures: generic observables, generic negative controls, and proof-sheet references stand in for phenomenon-specific models. Origin of life, social institutions, theory change, and recursive self-application are not actually modeled by the cited formal artifacts.",
+      "required_repair": "Add phenomenon-specific typed models, explicit observables, executable checks, and falsifiers per row; otherwise mark those rows open or limited to illustrative examples.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "critical_unresolved_total and high_unresolved_total are 0.",
+      "failure_mode": "Closure evidence is mostly repetitive pointer text and depends on the compromised Lean and finite-check artifacts above. The matrix declares attacks closed without row-specific proof that the attacked failure mode has been repaired.",
+      "required_repair": "Reopen affected critical/high rows, require row-specific closure evidence, and recompute unresolved totals after the formal and finite-model repairs are complete.",
+      "status": "OPEN"
+    }
+  ]
+}

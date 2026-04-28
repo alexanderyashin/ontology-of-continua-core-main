@@ -1,0 +1,91 @@
+{
+  "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
+  "role": "dynamical_systems_reviewer",
+  "execution_status": "EXECUTED",
+  "critical_open_total": 3,
+  "high_open_total": 6,
+  "finding_total": 10,
+  "findings": [
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "Finite positive cases, negative controls, component witnesses, and K-transition witnesses are executable evidence for the promoted theorem rows.",
+      "failure_mode": "The runner does not evaluate model semantics. It assigns ACCEPT, REJECT, PASS/FAIL, or FAILS_WITH_WITNESS directly from case_type and then compares those hardcoded labels to expected fields. This makes proofs/FINITE_MODEL_CHECKS_1_3_3.json a self-certifying label replay, not an executable finite-model check.",
+      "required_repair": "Replace the case_type oracle with an evaluator that parses typed finite models, computes verdicts independently of expected_verdict, and makes negative controls fail because evaluated assumptions or verdicts fail. Regenerate the finite-model ledger from that evaluator.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
+      "failure_mode": "The Lean theorem every_adjacent_transition_has_witness proves only that adjacentTransitionHasWitness returns true for each enum constructor. The witness pair, reduction-failure criterion, demotion criterion, and irreducibility relation are not represented in Lean; they exist only as prose/JSON labels.",
+      "required_repair": "Formalize each K transition with typed witness pairs, reduction maps, verdict functions, and demotion predicates; prove that removing the added axis changes an independently computed verdict for each retained transition; demote any transition without such a proof.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
+      "failure_mode": "The Lean theorem every_component_has_witness proves a hardcoded Boolean function that returns true for every Component constructor. It does not bind promoted tuple components to actual keep/drop cases, does not prove one-component deltas, and does not quantify over the witness ledger.",
+      "required_repair": "Represent the promoted tuple and witness ledger in Lean or an independently checked executable model; require a ComponentWitness for each promoted component; prove keep/drop verdict inequality from the declared verdict function rather than from hardcoded true fields.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "Differential operator notation is a smooth-realization specialization of typed update semantics.",
+      "failure_mode": "The Lean support smooth_operator_is_update_special_case is only a record projection equality. SmoothSystem has charted : Bool but no differentiability, vector field, flow, time-t map, manifold/chart compatibility, hybrid jump semantics, or proof that differential notation specializes typed updates.",
+      "required_repair": "Either demote the public claim to a trivial record-projection claim or formalize actual smooth/hybrid dynamics: state space, differentiability assumptions, flow/update relation, and a theorem embedding smooth flows into typed update semantics.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "Live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
+      "failure_mode": "eligibleLive is defined as live = true and cycleWitnessed, so eligible_live_requires_cycle and cycle_mode_required_for_eligible_live are definitional tautologies. There is no non-vacuous maintenance predicate, no death/residue transition semantics, and no theorem excluding vacuous or inert cycles.",
+      "required_repair": "Define liveness independently of cycle support, add non-vacuity/maintenance semantics, and prove that eligible live status entails an explicit non-vacuous cycle or maintenance witness under stated assumptions.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "Historical axis activation may be monotone while effective working rank decreases.",
+      "failure_mode": "historical_axis_survives_rank_drop only constructs one AxisRecord with historical = 2 and effective = 1. It contains no temporal evolution, activation history, monotonicity condition, rank function, or decrease proof.",
+      "required_repair": "Formalize a time-indexed system with historical-axis activation, effective rank, monotonicity of historical activation, and a transition where effective rank strictly decreases while the historical axis count is preserved.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "The release explains the listed phenomena as bounded formal or replay QA instances.",
+      "failure_mode": "The coverage rows are template closures. Biological organization, origin-of-life framing, social institutions, theory change, recursive self-application, and K-level collapse are marked BOUNDED_INSTANCE_REPLAYED_V12 while pointing mostly to generic proof sheets and finite-witness labels, not phenomenon-specific models, observables, or falsifiers.",
+      "required_repair": "Split true coverage from non-coverage. For each phenomenon, provide a domain-specific model, observable, independent negative control, and falsifier, or mark the row as not covered by this release.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "Novelty is bounded to typed OC release governance, not to invention of the prior-art traditions.",
+      "failure_mode": "The comparator register is not source-backed at the level needed for priority review. Several sources are broad landing/search/reference pages, the residual_delta_test text is boilerplate across rows, and the register does not quote or map dated prior-art claims against the alleged OC delta. This cannot rule out prior-art relabeling.",
+      "required_repair": "Replace generic comparator rows with dated primary sources, precise claim charts, source-backed overlap/delta analysis, and explicit demotion rules when the same governance/evidence/falsifier bundle appears in prior art.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "critical_unresolved_total and high_unresolved_total are zero because all attacks are CLOSED_BY_V12_EVIDENCE.",
+      "failure_mode": "The attack matrix closes critical/high objections with repetitive boilerplate pointers such as 'binds claim to the v12 evidence path' and 'cross-checked by G32-G70'. It does not record the actual evidence check, and the referenced proof/finite-model artifacts contain the hardcoded and tautological failures above.",
+      "required_repair": "Reopen attacks whose closure depends on hardcoded finite checks, tautological Lean subsets, or generic proof-sheet prose. Require each closure row to cite the exact executable or formal obligation that discharges the stated failure mode.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
+      "claim": "Numeric replay supports row-level bounded claims.",
+      "failure_mode": "The table is labeled as numeric predictions but consists mostly of official constant/count replay or formula replay, with promotion_status already saying not empirical promotion. The systems GDP row lacks enough dataset/year/series metadata in the reviewed artifact to audit the split or comparator. As-is, this is QA plumbing, not empirical prediction evidence.",
+      "required_repair": "Rename or segregate replay QA from prediction artifacts, add dataset hashes and exact split metadata for every row, and prohibit these rows from supporting empirical or phenomenon-coverage claims beyond parser/replay verification.",
+      "status": "OPEN"
+    }
+  ],
+  "raw_output_ref": "reviews/oc133_llm_cerberus/raw_v12/dynamical_systems_reviewer.txt"
+}

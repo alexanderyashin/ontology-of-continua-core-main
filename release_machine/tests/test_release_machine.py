@@ -7,6 +7,7 @@ import zipfile
 
 from release_machine import core
 from release_machine import complete
+from release_machine import oc133
 from release_machine import publication
 
 
@@ -313,6 +314,59 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertNotIn("C:\\", state_text)
         self.assertNotIn("/Users/", state_text)
         self.assertTrue(all("path" not in row for row in state["toolchain"]["tools"].values()))
+
+    def test_oc133_scientific_closure_gates_are_no_send(self) -> None:
+        root = complete.repo_root()
+        summary = oc133.evaluate_release("oc_core_1_3_3", "all", "dry-run", write=True)
+        self.assertIn(summary["release_state"], {"OC_CORE_1_3_3_10_10_READY_NO_SEND", "SCIENTIFIC_BLOCKERS_REMAIN"})
+        self.assertIn(summary["master_verdict"], {"PASS", "FAIL"})
+        self.assertFalse(summary["publish_allowed"])
+        self.assertFalse(summary["journal_submissions_allowed"])
+
+        scorecard = json.loads((root / "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json").read_text(encoding="utf-8"))
+        gates = {row["gate_id"]: row for row in scorecard["gate_results"]}
+        for gate_id in [f"G{idx}" for idx in range(32, 58)] + [f"G{idx}" for idx in range(59, 70)]:
+            self.assertEqual(gates[gate_id]["state"], "PASS", gate_id)
+        if summary["master_verdict"] == "PASS":
+            self.assertEqual(gates["G58"]["state"], "PASS")
+            self.assertEqual(gates["G70"]["state"], "PASS")
+            self.assertEqual(summary["gate_counts"]["PASS"], 71)
+        else:
+            self.assertEqual(gates["G58"]["state"], "BLOCKED")
+            self.assertEqual(gates["G70"]["state"], "FAIL")
+            self.assertEqual(summary["release_state"], "SCIENTIFIC_BLOCKERS_REMAIN")
+        self.assertEqual(gates["G36"]["details"]["theorem_total"], 10)
+        self.assertEqual(gates["G46"]["details"]["unwitnessed_component_total"], 0)
+        self.assertEqual(gates["G47"]["details"]["machine_checked_subset_total"], 10)
+        self.assertEqual(gates["G58"]["details"]["role_total"], 14)
+        self.assertEqual(gates["G60"]["details"]["hit_total"], 0)
+        self.assertEqual(gates["G64"]["details"]["scope_hit_total"], 0)
+
+        validation = json.loads((root / "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json").read_text(encoding="utf-8"))
+        self.assertEqual(validation["unsupported_promoted_total"], 0)
+        self.assertEqual(validation["hash_failure_total"], 0)
+        self.assertEqual(validation["lane_total"], 5)
+        self.assertEqual(validation["numeric_replay_lane_total"], 5)
+        self.assertGreaterEqual(validation["numeric_replay_row_total"], 5)
+        self.assertTrue(all(row["result_verdict"] == "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS" for row in validation["lanes"]))
+
+        numeric = json.loads((root / "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json").read_text(encoding="utf-8"))
+        self.assertEqual(numeric["unsupported_promoted_total"], 0)
+        self.assertEqual(numeric["blocked_for_promotion_total"], 0)
+
+        red_team = json.loads((root / "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json").read_text(encoding="utf-8"))
+        self.assertEqual(red_team["generic_row_total"], 0)
+        self.assertGreaterEqual(red_team["objection_total"], 200)
+        self.assertTrue(all(row.get("attacked_claim") and row.get("failure_mode") and row.get("closure_evidence") for row in red_team["rows"]))
+
+        theorem_inventory = json.loads((root / "proofs/THEOREM_INVENTORY_1_3_3.json").read_text(encoding="utf-8"))
+        self.assertEqual(theorem_inventory["demoted_route_total"], 0)
+        self.assertEqual(theorem_inventory["machine_checked_subset_total"], theorem_inventory["theorem_total"])
+
+        approval = json.loads((root / "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json").read_text(encoding="utf-8"))
+        self.assertEqual(approval["decision"], "PENDING")
+        self.assertFalse(approval["publish_allowed"])
+        self.assertFalse(approval["journal_submissions_allowed"])
 
 
 if __name__ == "__main__":

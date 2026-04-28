@@ -1,0 +1,20 @@
+{
+  "schema_id": "OC133_LLM_CERBERUS_CONTEXT_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "no_send": true,
+  "critical_artifacts": [
+    "proofs/THEOREM_REGISTRY_1_3_3.json",
+    "proofs/proof_sheets/*.md",
+    "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+    "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
+    "claims/CLAIM_LEDGER_1_3_3.json",
+    "docs/OC_1_3_3_PRIOR_ART_COMPARATOR_MATRIX.json",
+    "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+    "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
+    "reviews/OC_CORE_1_3_3_REVIEWER_RESPONSE_MATRIX.json",
+    "reports/OC_CORE_1_3_3_SCIENTIFIC_CLOSURE_REPORT.md"
+  ],
+  "review_standard": "Find open critical/high weaknesses. Absolute truth, irrefutability, final-theory, or all-domain numerical-prediction claims are blockers unless directly proven in artifacts.",
+  "transient_llm_gate_rule": "Do not count the temporary missing-role status of G46 as a role finding while producing an individual role output. G46 is evaluated after all role JSON files are collected."
+}

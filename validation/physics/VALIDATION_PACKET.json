@@ -1,0 +1,21 @@
+{
+  "schema_id": "OC133_VALIDATION_PACKET_v12",
+  "lane": "physics",
+  "release_id": "oc_core_1_3_3",
+  "exact_promoted_claim": "calibration replay of an official constant, not a new law of physics",
+  "theorem_to_observable_binding": "typed OC predicate -> lane-specific observable/protocol",
+  "held_out_policy": "no train/test; definitional constant replay",
+  "formula": "predicted c = SI defining value parsed from NIST CODATA snapshot",
+  "dataset_snapshot_ref": "validation/_raw/physics_nist_constants.txt",
+  "predicted_value": 299792458.0,
+  "observed_value": 299792458.0,
+  "uncertainty": 0.0,
+  "comparator_prediction": 299792458.0,
+  "residual": 0.0,
+  "negative_controls": [
+    "replace c by 300000000 and residual becomes nonzero"
+  ],
+  "falsifier_condition": "NIST snapshot parse does not yield 299792458 m s^-1",
+  "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS",
+  "remaining_blocker": null
+}

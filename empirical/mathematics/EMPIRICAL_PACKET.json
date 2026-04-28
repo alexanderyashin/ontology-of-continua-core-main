@@ -1,0 +1,21 @@
+{
+  "schema_id": "OC133_VALIDATION_PACKET_v12",
+  "lane": "mathematics",
+  "release_id": "oc_core_1_3_3",
+  "exact_promoted_claim": "finite witness acceptance count for all promoted v12 theorem rows",
+  "theorem_to_observable_binding": "typed OC predicate -> lane-specific observable/protocol",
+  "held_out_policy": "finite replay split generated from theorem registry; negative controls paired per theorem",
+  "formula": "predicted accepted cases = theorem inventory rows when finite runner failure_total=0",
+  "dataset_snapshot_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+  "predicted_value": 10.0,
+  "observed_value": 10.0,
+  "uncertainty": 0.0,
+  "comparator_prediction": 9.0,
+  "residual": 0.0,
+  "negative_controls": [
+    "remove a required tuple component and observe rejected stronger reading"
+  ],
+  "falsifier_condition": "any finite model case has observed verdict different from expected",
+  "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS",
+  "remaining_blocker": null
+}

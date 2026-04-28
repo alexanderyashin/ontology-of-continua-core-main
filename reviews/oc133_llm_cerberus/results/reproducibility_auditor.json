@@ -1,0 +1,75 @@
+{
+  "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
+  "role": "reproducibility_auditor",
+  "execution_status": "EXECUTED",
+  "critical_open_total": 2,
+  "high_open_total": 5,
+  "finding_total": 8,
+  "findings": [
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "All 10 public promoted theorem rows are supported by a machine-checked Lean subset.",
+      "failure_mode": "The Lean file proves much weaker tautologies or hardcoded predicates, not the promoted public claims. Examples: every_component_has_witness and every_adjacent_transition_has_witness are true by definition; zero_cause_has_cause proves only flow=true implies a disjunction, not k=0 equivalence; boundary and hybrid theorems reduce to rfl-style projections. The public theorem scope is therefore not reproduced by Lean.",
+      "required_repair": "Demote the machine-checked status for affected claims or formalize the exact public theorem statements, assumptions, witness objects, and counterexample boundaries in Lean without hardcoded true predicates.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+      "claim": "43 finite model checks were executed with failure_total=0 and support the promoted theorem rows.",
+      "failure_mode": "The directly referenced runner assigns observed verdicts solely from case_type and expected labels, rather than evaluating input_model semantics or invoking Lean. Negative controls pass because the runner stamps REJECT for every negative_control row. The zero-failure result is therefore non-informative.",
+      "required_repair": "Replace the runner with an actual semantic checker, remove observed verdicts from inputs, evaluate positive and negative models independently, invoke or cross-check the Lean predicates, and regenerate the ledger with environment and command provenance.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "All promoted theorem rows have PROMOTED_BOUNDED_WITH_LEAN_SUBSET_AND_FINITE_WITNESS proof status.",
+      "failure_mode": "The inventory maps broad theorem titles to narrow Lean refs that do not cover the asserted content: OMEGA-STATUS does not formalize death, residue, rebirth, or identity invariants; K-ZERO does not formalize k or equivalence; BOUNDARY does not prove conservative extension; HYBRID does not prove differentiability constraints; DIM proves only existence of one record.",
+      "required_repair": "Split each theorem into exact machine-checked fragments versus unformalized narrative claims, then demote broad promoted rows until the formal and finite evidence covers every asserted clause.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "unsupported_promoted_total is 0 and all theorem claims are safely PROMOTED_BOUNDED_V12.",
+      "failure_mode": "The ledger accepts generic support labels and evidence refs without verifying that the referenced evidence proves the exact claim. Strong clauses such as never, every adjacent K-level transition, and each promoted tuple component remain promoted despite the Lean and finite-model evidence being only schematic.",
+      "required_repair": "Add per-claim support ceilings tied to exact evidence coverage, demote unsupported clauses to formal-fragment or structured-conjecture status, and recompute unsupported_promoted_total from those ceilings.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "14 phenomena have explanation_status BOUNDED_INSTANCE_REPLAYED_V12.",
+      "failure_mode": "Rows use a repeated generic observable, falsifier, and limitation template. Broad phenomena such as origin-of-life framing, social institutions, theory change, recursive self-application, and K-level collapse are routed through T133-KLEVEL without phenomenon-specific executable models, data, or observables. This is coverage theater.",
+      "required_repair": "Demote unsupported phenomenon rows to open coverage gaps or add per-phenomenon executable models, concrete observables, negative controls, replay data, and falsifiers.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 across 210 objections.",
+      "failure_mode": "The attack rows are formulaic repeats with generic closure text. They close objections because a named artifact exists, not because the specific objection has independent row-level evidence. This self-closes the audit and masks unresolved proof, empirical, novelty, and coverage attacks.",
+      "required_repair": "Reopen CRITICAL and HIGH rows until each has unique evidence, exact artifact locations, independent pass/fail criteria, and reviewer-verifiable closure; collapse duplicate generated rows.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "OC133-NOVELTY-001 is source-backed and bounded novelty is supported.",
+      "failure_mode": "The register uses broad tradition links or search pages, lacks pinned snapshots, publication dates, page or section references, and does not test whether prior art already contains the claimed release-governance/evidence/falsifier/no-send bundle. The residual_delta_test is repeated across traditions rather than source-specific.",
+      "required_repair": "Provide dated pinpoint prior-art comparisons with source-specific delta analysis, or demote the novelty claim to integration/positioning without supported novelty status.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
+      "claim": "The numeric prediction table supports five numeric lanes.",
+      "failure_mode": "The rows are mostly calibration or official snapshot replay: physics and biology set predicted=observed=comparator, and the mathematics lane self-counts finite-model acceptance. The rows mostly admit this is not empirical promotion, but the artifact path and table name still invite prediction overread.",
+      "required_repair": "Rename and classify the artifact as replay QA, add runnable provenance and dataset hashes, and prohibit citing it as empirical prediction evidence.",
+      "status": "OPEN"
+    }
+  ],
+  "raw_output_ref": "reviews/oc133_llm_cerberus/raw_v12/reproducibility_auditor.txt"
+}
