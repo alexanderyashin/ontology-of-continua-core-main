@@ -409,7 +409,8 @@ def grant_owner_approval(root: Path, owner_identity: str = "Alexander Yashin") -
 
 def publication_preflight(root: Path) -> dict[str, Any]:
     approval = _read_json(editorial_root(root) / "OWNER_APPROVAL_GRANTED_v1.3.2.json")
-    scorecard = _read_json(editorial_root(root) / "OC_CORE_1_3_2_RELEASE_SCORECARD_latest.json")
+    scorecard_doc = _read_json(editorial_root(root) / "OC_CORE_1_3_2_RELEASE_SCORECARD_latest.json")
+    scorecard = scorecard_doc.get("summary", scorecard_doc)
     manifest = _read_json(editorial_root(root) / "OC_CORE_1_3_2_PUBLISH_MANIFEST_DRAFT.json")
     git_status = _run(root, ["git", "status", "--short", "-uall"], check=False).stdout.strip()
     branch = _run(root, ["git", "branch", "--show-current"], check=False).stdout.strip()
@@ -426,7 +427,8 @@ def publication_preflight(root: Path) -> dict[str, Any]:
         problems.append("owner approval artifact missing")
     if approval and approval.get("artifact_freeze_hash") != manifest.get("artifact_freeze_hash"):
         problems.append("owner approval freeze hash does not match publish manifest")
-    if scorecard.get("master_verdict") != "PASS" or scorecard.get("gate_counts", {}).get("FAIL", 1) != 0 or scorecard.get("gate_counts", {}).get("BLOCKED", 1) != 0:
+    gate_counts = scorecard.get("gate_counts", {})
+    if scorecard.get("master_verdict") != "PASS" or gate_counts.get("FAIL", 1) != 0 or gate_counts.get("BLOCKED", 1) != 0:
         problems.append("release scorecard is not green")
     if not os.environ.get("GITHUB_TOKEN", "").strip():
         problems.append("GITHUB_TOKEN missing")
