@@ -3,66 +3,58 @@
   "findings": [
     {
       "severity": "CRITICAL",
-      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "claim": "failure_total=0 and machine_checked_subset_total=10 show executable finite witnesses close the promoted theorem rows.",
-      "failure_mode": "The directly referenced runner derives observed verdicts only from case_type and compares them to expected values. It does not evaluate input_model, the Lean reference, a verdict function, component removal, K-level reduction, or falsifier logic. The finite ledger is an expected-outcome echo, not an independent check.",
-      "required_repair": "Replace the finite runner with executable semantics for each theorem family and make observed verdicts depend on the model content. Until then, demote these rows to curated examples and reopen all claims relying on them.",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
+      "failure_mode": "The component witness evaluator is self-confirming: inputs carry keep_verdict/drop_verdict labels, and the runner passes the case by checking those labels rather than computing verdicts from an independent OC verdict class. The Lean subset only proves a toy present/absent component schema, not minimality of the promoted tuple.",
+      "required_repair": "Remove verdict labels from input model facts, compute keep/drop verdicts from the declared OC tuple semantics, enumerate the promoted tuple from a canonical source, add adversarial negative controls per component, and demote T133-MIN until that exists.",
       "status": "OPEN"
     },
     {
       "severity": "CRITICAL",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "The ten promoted theorem rows have machine-checked Lean subset support.",
-      "failure_mode": "The Lean file proves much narrower or tautological facts than the public theorem titles. T133-MIN and T133-KLEVEL are hardcoded enum-to-true checks; T133-OMEGA-STATUS does not prove death/residue/rebirth consistency; T133-K-ZERO does not prove a K functional collapse; T133-DIM is only an existential example. This is theorem theater if surfaced as theorem support.",
-      "required_repair": "For each theorem, publish the exact formal statement and prove the public claim or explicitly mark the Lean item as a sanity-check subset. Demote theorem titles whose load-bearing content is not formalized.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "CRITICAL",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "unsupported_promoted_total=0 while T133-MIN, T133-KLEVEL, and OC133-NOVELTY-001 are promoted.",
-      "failure_mode": "The zero unsupported count is inconsistent with the non-executing finite checks, tautological Lean support, and weak novelty register. The ledger is treating referenced artifacts as support without auditing whether they actually prove or validate the promoted claims.",
-      "required_repair": "Set affected theorem and novelty rows to demoted or support-ceiling status, update unsupported_promoted_total, and block promotion until non-tautological proof and evidence artifacts exist.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
-      "claim": "The numeric prediction table provides five cross-domain prediction lanes for v12.",
-      "failure_mode": "The rows are mostly replay QA: an SI defining constant, a known H2O formula, a pinned GEO count, a GDP replay with no OC-specific superiority claim, and a finite acceptance count derived from the theorem registry. The artifact name and predicted/comparator fields create an empirical prediction surface even though the rows admit they are not empirical promotion.",
-      "required_repair": "Rename and surface this as replay QA only, or add preregistered out-of-sample prediction protocols with independent datasets. Mark non-predictive rows blocked for empirical promotion.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-      "claim": "OC133-NOVELTY-001 is BOUNDED_DELTA_SUPPORTED.",
-      "failure_mode": "Every row admits prior art predates OC, while the asserted OC delta is supported by broad reference links and a repeated residual_delta_test. There is no dated feature-by-feature survey showing that the claimed bundle was absent from prior art rather than a relabeling or integration.",
-      "required_repair": "Demote novelty to integration/positioning unless a dated primary-source comparator proves the bounded delta. Add source dates, feature columns, and explicit negative prior-art searches.",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
+      "failure_mode": "The K-level checks pass by reading witness_retained, added_axis_observable, demotion_allowed, and reduction_verdict from the input row. Lean similarly constructs retainedTransitionEvidence for any AdjacentK, so no actual reduction relation, demotion condition, or transition-specific irreducibility is established.",
+      "required_repair": "Implement an independent K-level reduction/demotion evaluator over the atlas, remove pre-baked reduction verdicts from inputs, add per-transition counterexamples, and demote T133-KLEVEL until the computed checks support the public claim.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "unsupported_closed_total=0 and all 14 phenomena are BOUNDED_INSTANCE_REPLAYED_V12.",
-      "failure_mode": "The rows reuse generic template language: proof-sheet evidence, placeholder observables, identical negative-control text, and a generic falsifier. P008-P011 route very different domains through T133-KLEVEL without phenomenon-specific executable models or data.",
-      "required_repair": "Replace template closure with per-phenomenon model, data or proof artifacts, concrete observables, and domain falsifiers. Otherwise demote these rows to illustrative scoped examples and increment unsupported_closed_total.",
+      "claim": "OC133-NOSEND-001: Publication and journal submission remain locked until separate owner approval.",
+      "failure_mode": "P012 claims a formal owner-approval state machine and semantic finite replay case ADV-NOSEND-PUBLISH, but that case is absent from the finite inputs, finite output, runner, and Lean file. The actual support is manifest-field only, so the public coverage route overstates no-send formal/replay evidence.",
+      "required_repair": "Either downgrade P012 to manifest-only governance evidence and remove ADV-NOSEND-PUBLISH/Lean route language, or add a real owner-approval state machine with finite positive/negative cases for blocked and approved public actions.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 across 210 attacks.",
-      "failure_mode": "The matrix mass-closes objections with repeated boilerplate closure_evidence and references to artifacts that are themselves tautological or replay-only. It is not an independent adversarial adjudication of the listed critical/high attack classes.",
-      "required_repair": "Reopen affected attack rows, collapse duplicates, require concrete challenge-specific evidence for closure, and recompute unresolved totals from the repaired proof, empirical, novelty, and coverage artifacts.",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
+      "failure_mode": "The promoted Lean reference is eligible_live_requires_cycle, which proves only that eligible liveness requires a cycle witness. The finite case likewise checks live/cycle and residue_class != identity_class, but does not establish death, residue, rebirth, or identity-invariant separation.",
+      "required_repair": "Add Lean theorems and finite positive/negative cases that explicitly cover death, residue, rebirth, and identity-invariant non-interchangeability, then point the inventory to those artifacts; otherwise demote the claim.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "claim": "K11_to_K12 establishes release-governed civilizational closure as an adjacent K-level witness.",
-      "failure_mode": "The TOE-adjacent civilizational closure language is supported only by string labels and a canned observed_reduction_verdict. No formal semantics or empirical model distinguishes it from ordinary local release governance.",
-      "required_repair": "Demote or rename K12 language to local release-governance control-plane behavior, or formalize and validate the civilizational closure construct before using it in public K-level claims.",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-CYCLE: Live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
+      "failure_mode": "Lean eligibleLive requires cycleWitnessed only and has no maintenance predicate branch. The finite positive case uses both a non-none cycle_mode and maintenance_predicate=true, so the maintenance-only alternative in the public claim is never supported.",
+      "required_repair": "Model maintenance predicates in Lean, prove the cycle-or-nonvacuous-maintenance theorem, and add a finite positive case with cycle_mode=none plus maintenance support, or remove the maintenance-branch from the public claim.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "T133-K-ZERO: Continuumness zero follows from a declared zero-cause family, not only from empty admissibility or empty cycles.",
+      "failure_mode": "The inventory cites zero_cause_has_cause, which only proves flow=true implies hasZeroCause. The finite checks cite a different tautological Lean item, k_zero_iff_declared_zero_cause, and neither artifact models continuumness score, nonempty admissibility, or nonempty cycles.",
+      "required_repair": "Introduce a real k-score relation with admissibility/cycle facts, prove the zero-cause equivalence or weaken it to the proven one-way rule, align Lean refs across inventory and finite checks, and add finite cases with nonempty admissibility/cycles.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+      "claim": "OC133-NOSEND-001: Publication and journal submission remain locked until separate owner approval.",
+      "failure_mode": "The manifest blocks journal, GitHub, Zenodo, and Software Heritage actions, but it has no explicit DOI/preprint/public-indexing gate. For a public-surface no-send contract, DOI minting and public indexing remain implicit under global_no_send_lock rather than audited as first-class actions.",
+      "required_repair": "Add explicit fields such as doi_mint_allowed, preprint_upload_allowed, public_indexing_allowed, and public_announcement_allowed, set them false until owner approval, and cross-link them from the no-send claim.",
       "status": "OPEN"
     }
   ]

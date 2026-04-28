@@ -2,7 +2,7 @@
 
 Status: `PROMOTED_BOUNDED_THEOREM_V12`
 Primary artifact: `content/OC_1_3_3_OPERATOR_SEMANTICS.tex`
-Machine-checked subset: `formal/lean/OC133V12.lean::smooth_operator_is_update_special_case`
+Machine-checked subset: `formal/lean/OC133V12.lean::differential_notation_requires_chart`
 Attacked claim: Differential operator notation is a smooth-realization specialization of typed update semantics.
 
 ## Assumptions

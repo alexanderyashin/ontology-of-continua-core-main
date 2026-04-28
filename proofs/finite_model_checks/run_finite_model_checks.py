@@ -28,7 +28,7 @@ def observed(row: dict) -> str:
         if theorem_id == "T133-K0-RES":
             ok = model.get("rho_cell_a") == model.get("rho_cell_b") and model.get("claims_raw_separation") is False
         elif theorem_id == "T133-OMEGA-STATUS":
-            ok = model.get("admissible") is True and model.get("live") is True and model.get("cycle_mode") not in {None, "", "none"} and model.get("residue_class") != model.get("identity_class")
+            ok = model.get("admissible") is True and model.get("live") is True and model.get("death") is False and model.get("cycle_mode") not in {None, "", "none"} and model.get("residue_class") != model.get("identity_class")
         elif theorem_id == "T133-K-ZERO":
             causes = model.get("zero_causes", {})
             ok = bool(causes) and model.get("k_value") == 0 and any(bool(value) for value in causes.values())
@@ -50,24 +50,43 @@ def observed(row: dict) -> str:
             ok = False
         return "ACCEPT" if ok else "REJECT"
     if case_type == "component_keep_drop_witness":
+        required = set(model.get("required_components", []))
         ok = (
             model.get("component") == row.get("component")
             and model.get("keep_present") is True
             and model.get("drop_present") is False
             and model.get("changed_fields") == [row.get("component")]
-            and model.get("keep_verdict") == "PASS"
-            and model.get("drop_verdict") == "FAIL"
+            and row.get("component") in required
+            and model.get("dropped_component") == row.get("component")
         )
         return "FAIL" if ok else "PASS"
     if case_type == "adjacent_k_transition_witness":
-        ok = (
+        if (
             model.get("transition_id") == row.get("transition_id")
             and model.get("witness_retained") is True
             and model.get("added_axis_observable") is True
             and model.get("demotion_allowed") is False
-            and model.get("reduction_verdict") == "FAILS_WITH_WITNESS"
-        )
-        return "FAILS_WITH_WITNESS" if ok else "REDUCTION_UNCHECKED"
+            and model.get("reduction_attempt") == "remove_added_axis"
+        ):
+            return "FAILS_WITH_WITNESS"
+        if (
+            model.get("transition_id") == row.get("transition_id")
+            and model.get("witness_retained") is False
+            and model.get("added_axis_observable") is False
+            and model.get("demotion_allowed") is True
+            and model.get("lawful_demotion_condition") == "witness_unobservable"
+        ):
+            return "DEMOTABLE_WITH_LOST_WITNESS"
+        return "REDUCTION_UNCHECKED"
+    if case_type == "no_send_state_machine":
+        owner_approved = model.get("owner_approved") is True
+        publish_requested = model.get("publish_requested") is True
+        publish_allowed = model.get("publish_allowed") is True
+        if publish_requested and not owner_approved and not publish_allowed:
+            return "REJECT_PUBLIC_ACTION"
+        if publish_requested and owner_approved and publish_allowed:
+            return "ALLOW_AFTER_OWNER_APPROVAL"
+        return "NO_ACTION"
     return "UNKNOWN"
 
 
@@ -110,7 +129,9 @@ def main() -> int:
         "positive_case_total": sum(1 for row in rows if row.get("case_type") == "theorem_case" and row.get("expected_verdict") == "ACCEPT"),
         "negative_case_total": sum(1 for row in rows if row.get("case_type") == "theorem_case" and row.get("expected_verdict") == "REJECT"),
         "component_witness_total": sum(1 for row in rows if row.get("case_type") == "component_keep_drop_witness"),
-        "k_transition_witness_total": sum(1 for row in rows if row.get("case_type") == "adjacent_k_transition_witness"),
+        "k_transition_witness_total": sum(1 for row in rows if row.get("case_type") == "adjacent_k_transition_witness" and row.get("expected_reduction_verdict") == "FAILS_WITH_WITNESS"),
+        "k_transition_negative_total": sum(1 for row in rows if row.get("case_type") == "adjacent_k_transition_witness" and row.get("expected_reduction_verdict") == "DEMOTABLE_WITH_LOST_WITNESS"),
+        "no_send_state_machine_total": sum(1 for row in rows if row.get("case_type") == "no_send_state_machine"),
         "failure_total": len(failures),
         "machine_checked_subset_total": 10,
         "rows": rows,

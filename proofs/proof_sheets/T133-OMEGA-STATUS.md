@@ -2,7 +2,7 @@
 
 Status: `PROMOTED_BOUNDED_THEOREM_V12`
 Primary artifact: `content/OC_1_3_3_TYPED_FOUNDATION.tex`
-Machine-checked subset: `formal/lean/OC133V12.lean::eligible_live_requires_cycle`
+Machine-checked subset: `formal/lean/OC133V12.lean::declared_death_blocks_live`
 Attacked claim: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.
 
 ## Assumptions

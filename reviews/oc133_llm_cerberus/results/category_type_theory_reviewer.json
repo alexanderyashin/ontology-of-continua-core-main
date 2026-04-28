@@ -3,95 +3,71 @@
   "role": "category_type_theory_reviewer",
   "execution_status": "EXECUTED",
   "critical_open_total": 2,
-  "high_open_total": 9,
-  "finding_total": 11,
+  "high_open_total": 6,
+  "finding_total": 8,
   "findings": [
     {
       "severity": "CRITICAL",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "All 10 public promoted theorem rows are supported by a machine-checked Lean subset, structured proof, and finite witness.",
-      "failure_mode": "The Lean refs do not match the advertised theorem strength. Several are field projections, enum inequalities, existential toy witnesses, or tables returning true by definition, while the public claims assert classification, minimality, irreducibility, boundary representation, and operator semantics.",
-      "required_repair": "Demote affected theorem rows or rewrite public claims to the exact Lean lemmas; restore promotion only after the formal theorem statements encode the advertised assumptions, witnesses, and conclusions.",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "T133-ID: Residue preservation and rebirth are not identity continuation unless declared identity invariants are preserved.",
+      "failure_mode": "The promoted claim depends on declared identity-invariant preservation, but the Lean subset only proves constructor inequality (`residue != identity`, `rebirth != identity`). `formal/lean/OC133V12.lean` defines `identityInvariant` but never uses it in a theorem, and `proofs/FINITE_MODEL_CHECKS_1_3_3.json` has both T133-ID cases with `identity_invariant_preserved=false`. The 'unless invariants are preserved' branch is unsupported.",
+      "required_repair": "Demote/reword T133-ID to the proved enum separation only, or add a Lean classifier theorem connecting `identityInvariant` to identity continuation plus finite cases covering invariant-preserved identity and invariant-broken residue/rebirth.",
       "status": "OPEN"
     },
     {
       "severity": "CRITICAL",
-      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "claim": "failure_total=0 and the finite witness corpus supports all promoted v12 theorem rows.",
-      "failure_mode": "The directly referenced runner assigns observed verdicts from case_type constants rather than evaluating model semantics; inputs already contain expected labels. This is self-confirming replay, not an independent finite model check.",
-      "required_repair": "Replace the runner with a semantic checker for each theorem family, remove prefilled observed verdicts from inputs, and rerun with adversarial negative controls that can actually fail.",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "T133-OMEGA-STATUS: Typed liveness, death, residue, and rebirth consistency theorem.",
+      "failure_mode": "The inventory maps this theorem to `eligible_live_requires_cycle`, which proves only that eligible live status has a cycle witness. Death, residue, and rebirth appear as fields in `Lifecycle` but are not related by any Lean theorem, and the finite checks do not exercise `death`, `residueOf`, or `rebirthOf`. The claimed typed separation is therefore theorem theater beyond the Lean subset.",
+      "required_repair": "Add Lean theorems and finite positive/negative cases that explicitly separate live/death/residue/rebirth predicates and morphism classes, or narrow the public theorem to live eligibility requiring a cycle witness.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "Residue preservation and rebirth are not identity continuation unless declared identity invariants are preserved.",
-      "failure_mode": "The Lean subset only proves enum inequalities such as residue != identity. It contains no category, objects, hom-sets, composition, identity laws, invariant-preservation predicate, or proof that residue/rebirth morphisms compose without becoming identities.",
-      "required_repair": "Either demote the claim to enum-label separation or formalize the advertised category/morphism structure and prove the invariant-preservation classification theorem.",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "T133-CYCLE: Live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
+      "failure_mode": "The Lean theorem `cycle_mode_required_for_eligible_live` supports only `R.cycle x != none`; `Realization` has no maintenance predicate. The runner independently accepts `maintenance_predicate=true` as an OR branch, but that branch is not represented in Lean and is not covered by a maintenance-only finite case.",
+      "required_repair": "Either remove the maintenance-predicate alternative from the claim and runner, or add a typed maintenance field, Lean theorem, and finite cases proving the maintenance-only branch and its negative control.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-      "failure_mode": "The referenced Lean theorem only proves eligibleLive implies a cycle witness because eligibleLive is defined as a conjunction. The Lifecycle fields for death, residueOf, rebirthOf, and identityInvariant are not used in any theorem.",
-      "required_repair": "Add formal predicates and disjointness/classification theorems for live, death, residue, and rebirth, or reduce the public claim to the existing cycle-witness lemma.",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "T133-HYBRID: Differential operator notation is a smooth-realization specialization of typed update semantics.",
+      "failure_mode": "The Lean subset has `SmoothSystem extends UpdateSystem` with a `Nat`-indexed `flow` and proves only projection of `step`; it contains no differential operator, no derivative semantics, and no substantive chart condition beyond a Boolean. The finite runner checks declarative booleans, not differential notation or smooth-carrier adequacy.",
+      "required_repair": "Reword the claim to the proved smooth/hybrid update projection, or formalize differentiable carriers/charts and a theorem that differential notation is valid only for those smooth realizations.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
-      "failure_mode": "adjacentTransitionHasWitness is a total table returning true for every constructor. No K-level semantics, reduction map, equivalence relation, witness pair, or demotion criterion is formalized.",
-      "required_repair": "Formalize K-level classifiers, reduction attempts, retained witnesses, and demotion criteria, then prove each adjacent transition instead of encoding all answers as true.",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
+      "failure_mode": "`formal/lean/OC133V12.lean` proves this by defining `componentVerdict` as pass iff `present=true`, then constructing keep/drop rows that flip that flag. The finite runner similarly checks `changed_fields == [component]` and expected pass/fail labels. This does not prove necessity of the actual OC tuple components or their typed carrier/morphism semantics.",
+      "required_repair": "Formalize the real OC verdict predicate and prove each component deletion breaks a concrete theorem/model obligation, or demote the claim to a synthetic presence-flag witness inside the toy verdict class.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
-      "failure_mode": "componentHasWitness returns true for every component by definition. The Lean theorem does not prove one-component delta, minimality, or coverage of the actual promoted tuple.",
-      "required_repair": "Formalize tuple removal/weakenings, require keep/drop cases that differ only in the targeted component, and prove verdict change for each component.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "Differential operator notation is a smooth-realization specialization of typed update semantics.",
-      "failure_mode": "SmoothSystem only adds a Bool charted field, and the theorem is a projection equality for step. There is no differentiability, flow, derivative, smooth chart structure, or hybrid transition semantics.",
-      "required_repair": "Demote to a record-projection lemma or formalize smooth realizations and prove that differential/time-flow operators embed as typed updates under stated smoothness assumptions.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "Metric thresholds are a specialization of typed classifier boundaries.",
-      "failure_mode": "metric_boundary_is_classifier only proves that the constructed classifier field equals m.measure. It does not prove threshold-failure equivalence, conservative extension, non-metric classifier validity, or any categorical classifier property.",
-      "required_repair": "Prove the full embedding of metric threshold boundaries into classifier boundaries, including the failure predicate and preservation of verdicts, or narrow the public theorem.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-      "claim": "Novelty is bounded to typed OC release governance, not to invention of the prior-art traditions.",
-      "failure_mode": "The register uses broad generic source links and repeats the same residual_delta_test across traditions. It does not provide dated, row-specific feature comparison showing that the claimed OC bundle is absent from prior art.",
-      "required_repair": "Demote novelty to an integration/positioning claim or add dated source-backed comparisons with explicit feature presence/absence and row-specific residual deltas.",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
+      "failure_mode": "The runner does not validate the semantic content of `added_axis`, `witness_pair`, `reduction_failure_criterion`, or `lawful_demotion_criterion`; it checks only canned booleans and verdict labels. The Lean theorem also constructs the same `retainedTransitionEvidence` for any `AdjacentK` enum value. Domain-specific adjacent-transition witnesses are declared, not proved.",
+      "required_repair": "Encode per-transition witness and demotion predicates as structured data and Lean theorems, make the runner validate those predicates, or demote the claim to declared atlas enumeration.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "unsupported_closed_total=0 and all listed phenomena are bounded instances replayed by v12.",
-      "failure_mode": "Rows reuse generic observables, generic falsifiers, and proof-sheet references. Domain phenomena such as biological organization, origin-of-life framing, social institutions, and theory change are not given phenomenon-specific models or empirical tests.",
-      "required_repair": "Demote these rows to toy formal exemplars or provide phenomenon-specific models, observables, negative controls, and falsifiers that are not merely proof-ledger references.",
+      "claim": "P012 / OC133-NOSEND-001: owner approval state machine with replay `ADV-NOSEND-PUBLISH`.",
+      "failure_mode": "The coverage matrix cites a finite replay/model-card route through `ADV-NOSEND-PUBLISH`, but neither `proofs/FINITE_MODEL_CHECKS_1_3_3.json` nor `proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json` contains that case, and the Lean subset has no no-send state machine. The manifest supports the lock fields, but not the claimed replay route.",
+      "required_repair": "Add an executable no-send finite model row and corresponding state-machine check, or remove the finite/Lean replay claim and restrict P012 to the publish-manifest lock.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "critical_unresolved_total=0 and high_unresolved_total=0.",
-      "failure_mode": "Critical objections are closed by boilerplate path references and a claimed G32-G70 cross-check rather than by demonstrated repairs. The matrix closes attacks that remain open in the theorem, finite-check, novelty, and coverage artifacts.",
-      "required_repair": "Reopen closure rows whose evidence is only path presence; require closure-specific proof that the attacked failure mode is repaired before setting unresolved totals to zero.",
+      "claim": "critical_unresolved_total=0, high_unresolved_total=0, and generic_row_total=0 for the v12 attack matrix.",
+      "failure_mode": "The matrix closes formal/category attacks by citing theorem-name presence such as `eligible_live_requires_cycle`, `residue_is_not_identity`, and `every_adjacent_transition_has_witness`, but those cited theorems do not cover the promoted claim scopes above. Current rows are templated closures rather than claim-specific verification, so the release review suppresses open category/type defects.",
+      "required_repair": "Reopen the affected T133-OMEGA-STATUS, T133-ID, T133-CYCLE, T133-HYBRID, T133-MIN, and T133-KLEVEL rows; replace generic closure evidence with claim-specific Lean/finite acceptance criteria; recompute unresolved and generic totals.",
       "status": "OPEN"
     }
   ],

@@ -2,72 +2,72 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "hostile_journal_reviewer",
   "execution_status": "EXECUTED",
-  "critical_open_total": 2,
-  "high_open_total": 6,
+  "critical_open_total": 3,
+  "high_open_total": 5,
   "finding_total": 8,
   "findings": [
     {
       "severity": "CRITICAL",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "unsupported_promoted_total = 0 for all promoted theorem claims",
-      "failure_mode": "The ledger promotes theorem claims as supported by Lean subset plus finite witnesses, but the referenced Lean items and finite rows do not prove the advertised theorem content. This converts bounded promotion into support inflation.",
-      "required_repair": "Demote promoted theorem claims until each has a formal statement matching the public claim, a nontrivial proof, executable witness data, and an explicit weaker-claim boundary.",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
+      "failure_mode": "The finite checker is self-confirming for the minimality claim: component verdicts are accepted from input fields such as keep_verdict/drop_verdict, and the theorem-case check only tests booleans such as witness_pair_count, all_one_component_deltas, and all_verdict_changes. This does not independently compute an OC verdict from tuple semantics, so failure_total=0 in proofs/FINITE_MODEL_CHECKS_1_3_3.json is not evidence of global minimality.",
+      "required_repair": "Replace input-declared verdicts with an independent evaluator that computes the verdict from formal tuple semantics after removing exactly one component; add adversarial cases that preserve the input labels but violate the semantic rule, and demote T133-MIN until those cases fail for the right reason.",
       "status": "OPEN"
     },
     {
       "severity": "CRITICAL",
       "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "machine_checked_subset_total = 10",
-      "failure_mode": "The Lean file mostly proves definitional facts or hardcoded truths: componentHasWitness and adjacentTransitionHasWitness return true by construction, zero_cause_has_cause proves only flow -> hasZeroCause, and several theorem claims are far stronger than their Lean references.",
-      "required_repair": "Replace theorem theater with Lean statements that encode the actual assumptions, witness records, verdict changes, demotion criteria, and claimed conclusions; otherwise mark the Lean column as illustrative only.",
+      "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
+      "failure_mode": "The Lean theorem every_adjacent_transition_has_witness fabricates retainedTransitionEvidence for any AdjacentK with the same hard-coded booleans. It does not formalize the twelve transition-specific axes, witness pairs, reduction criteria, or demotion criteria recorded in the finite-model rows, so the promoted K-level irreducibility result is theorem theater.",
+      "required_repair": "Formalize each adjacent K transition as data with its own witness relation, reduction map, and demotion predicate; prove each row by referencing those transition-specific definitions, and make the finite runner validate those same definitions instead of copied flags.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "claim": "failure_total = 0 and executed finite model checks support promoted theorems",
-      "failure_mode": "The rows are prose scenarios with expected_verdict and observed_verdict self-reported as equal. The artifact does not expose machine-readable cases, assertion logic, runner output, timestamps, or result-log hashes sufficient to distinguish execution from a checklist.",
-      "required_repair": "Publish executable inputs, parsed outputs, CI or local run logs, result hashes, and negative-control assertions; classify the current artifact as manual QA until reproducible execution is shown.",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-CYCLE: Live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
+      "failure_mode": "The Lean Realization structure has cycle but no maintenance predicate, and eligibleLive requires cycleWitnessed only. The finite runner accepts a maintenance_predicate field, but the formal theorem cycle_mode_required_for_eligible_live cannot support the advertised disjunction.",
+      "required_repair": "Add a maintenance predicate to the formal liveness model, prove the exact cycle-or-non-vacuous-maintenance theorem, and add finite positive and negative cases where cycle_mode is absent so maintenance is actually tested.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
-      "claim": "numeric prediction table supports five bounded numeric lanes",
-      "failure_mode": "Most rows replay known constants or official snapshots, not predictions. Split policies and comparator baselines are asserted inside the artifact rather than independently preregistered or audited, so the table remains empirical theater if cited as predictive evidence.",
-      "required_repair": "Rename as replay QA, block empirical-promotion use, and add preregistered holdouts, independent baselines, raw-data hashes, and prospective evaluation records before using any row as prediction evidence.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-      "claim": "OC133-NOVELTY-001: bounded novelty is supported",
-      "failure_mode": "The comparator rows use the same generic residual_delta_test across traditions and provide broad source URLs without dated, element-wise priority analysis. The claimed delta relies on packaging/governance features rather than demonstrating scientific novelty over prior art.",
-      "required_repair": "Provide source-specific dated comparisons with quoted elements, show which exact OC bundle is absent from each prior source, and demote to integration/governance positioning if that cannot be proven.",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
+      "failure_mode": "The inventory points this promoted theorem to formal/lean/OC133V12.lean::eligible_live_requires_cycle, which proves only that eligibleLive implies a cycle witness. It does not prove death/residue/rebirth distinctness or morphism-class separation for this claim.",
+      "required_repair": "Split the claim or retarget it to actual theorems proving the advertised distinctions, with finite witnesses for death, residue, rebirth, and identity non-equivocation.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "14 phenomena are BOUNDED_INSTANCE_REPLAYED_V12",
-      "failure_mode": "The coverage rows are templated: generic observable, generic negative control, generic falsifier, and repeated routing to proof sheets. Broad phenomena such as origin-of-life framing, social institutions, theory change, and recursive self-application are not given phenomenon-specific models or empirical discriminators.",
-      "required_repair": "Replace template coverage with domain-specific models, observables, datasets or formal instances, and falsifiers; mark broad phenomena unsupported until such rows exist.",
+      "claim": "P012 / OC133-NOSEND-001: release governance is replayed as an owner approval state machine with ADV-NOSEND-PUBLISH.",
+      "failure_mode": "The coverage matrix claims a semantic replay ADV-NOSEND-PUBLISH with Lean and finite-check evidence, but proofs/FINITE_MODEL_CHECKS_1_3_3.json contains no ADV-NOSEND-PUBLISH row and formal/lean/OC133V12.lean contains no owner-approval state machine. The current manifest supports only an administrative lock, not the claimed replayed phenomenon model.",
+      "required_repair": "Either add an executable no-send finite model case and formal owner-approval state machine, or demote P012 to a manifest-only administrative control and remove the replay/Lean evidence claims.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "OC133-NOVELTY-001: Novelty is bounded to typed OC release governance.",
+      "failure_mode": "The register promotes BOUNDED_DELTA_SUPPORTED_BY_SOURCE_COMPARISON while many absence tests are only NOT_FOUND_IN_SOURCE_PAGE against one source page or reference anchor per broad tradition. That is not a defensible prior-art search for release governance, proof/data/falsifier bundling, reproducibility workflows, registered reports, model cards, or proof-carrying artifacts.",
+      "required_repair": "Demote the novelty status to an unestablished packaging hypothesis or add a systematic search protocol with databases, search strings, inclusion criteria, and direct comparators from adjacent governance and reproducibility practices.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-HYBRID: Differential operator notation is a smooth-realization specialization of typed update semantics.",
+      "failure_mode": "The Lean support is smooth_operator_is_update_special_case, an rfl projection that (smoothAsUpdate s).step = s.step. The file has no differential operator semantics, no differentiability condition, and charted is only a Bool, so the promoted operator claim is not materially proved.",
+      "required_repair": "Formalize the smooth realization layer with actual operator/differentiability assumptions or demote the claim to the trivial statement that a SmoothSystem extends UpdateSystem.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
       "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "critical_unresolved_total = 0 and high_unresolved_total = 0",
-      "failure_mode": "All 210 attacks are closed by repetitive boilerplate that says an artifact binds the claim to evidence, but the matrix does not show per-attack gate outputs or demonstrate that the cited closure artifact actually resolves the stated failure mode.",
-      "required_repair": "Reopen critical/high rows until each closure cites a specific theorem, executable check, comparator result, or manifest gate with verifiable evidence rather than a generic closure sentence.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "claim": "K11_to_K12: coherence -> release-governed civilizational closure",
-      "failure_mode": "The K12 transition uses grand civilizational language while the witness is only an owner-gated public action state. That is an absolute-TOE-adjacent overclaim relative to the evidence supplied.",
-      "required_repair": "Rename and narrow K12 to the actual release-governance state transition, or provide a formal and empirical account of the claimed civilizational closure before retaining that label.",
+      "claim": "Total attack matrix: critical_unresolved_total=0 and high_unresolved_total=0.",
+      "failure_mode": "The matrix closes load-bearing objections by token checks such as semantic_evaluator=true, every_adjacent_transition_has_witness, and PHENOMENON_SPECIFIC_MODEL_REPLAYED. Current inspected artifacts show those closures do not resolve the underlying self-confirming finite verdicts, K-level theorem theater, or missing no-send replay row.",
+      "required_repair": "Recompute the attack matrix with validators that dereference the cited artifact and test the specific objection; reopen rows whose closure evidence is tautological, generic, or missing.",
       "status": "OPEN"
     }
   ],

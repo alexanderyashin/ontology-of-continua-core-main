@@ -230,6 +230,11 @@ def audit(root: Path) -> dict[str, Any]:
         "reductionFails",
         "lawfulDemotion",
         "hybrid_guard_uses_reset",
+        "differential_notation_requires_chart",
+        "eligible_live_requires_cycle_or_maintenance",
+        "invariant_lost_blocks_identity",
+        "invariant_preserved_classifies_identity",
+        "declared_death_blocks_live",
         "metric_boundary_failure_equiv",
         "k_zero_iff_declared_zero_cause",
     ]
@@ -240,17 +245,29 @@ def audit(root: Path) -> dict[str, Any]:
         for key in row
         if key.startswith("observed_")
     ]
+    finite_input_answer_key_fields = [
+        {"case_id": row.get("case_id"), "field": key}
+        for row in finite_inputs.get("rows", [])
+        for key in row.get("model", {})
+        if key in {"keep_verdict", "drop_verdict", "reduction_verdict", "observed_verdict"}
+    ]
     finite_semantic_failures = []
     if finite.get("semantic_evaluator") is not True:
         finite_semantic_failures.append("semantic_evaluator flag missing")
     if finite.get("input_observed_field_total", 0) != 0 or finite_inputs.get("observed_field_total", 0) != 0 or finite_input_observed_fields:
         finite_semantic_failures.append("finite inputs contain observed verdict fields")
+    if finite_input_answer_key_fields:
+        finite_semantic_failures.append("finite inputs contain answer-key verdict fields")
+    if finite.get("k_transition_negative_total", 0) < 12:
+        finite_semantic_failures.append("missing per-transition K-level negative/demotion controls")
+    if finite.get("no_send_state_machine_total", 0) < 2:
+        finite_semantic_failures.append("missing no-send state-machine finite controls")
     if "case_type" in text(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py") and "model.get" not in text(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py"):
         finite_semantic_failures.append("finite runner does not inspect model facts")
     comparator_failures = [
         row.get("tradition")
         for row in comparator.get("rows", [])
-        if not row.get("source_refs") or not row.get("feature_tests") or not row.get("absence_test") or row.get("uniqueness_claim_status") != "BOUNDED_DELTA_SUPPORTED_BY_SOURCE_COMPARISON"
+        if not row.get("source_refs") or not row.get("feature_tests") or not row.get("absence_test") or row.get("uniqueness_claim_status") != "NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY"
     ]
     phenomenon_failures = [
         row.get("phenomenon_id")
@@ -258,6 +275,13 @@ def audit(root: Path) -> dict[str, Any]:
         if not row.get("model_card")
         or "finite witness or replay row" in str(row.get("observable", "")).lower()
         or row.get("explanation_status") != "PHENOMENON_SPECIFIC_MODEL_REPLAYED"
+    ]
+    finite_case_ids = {row.get("case_id") for row in finite.get("rows", [])}
+    phenomenon_missing_controls = [
+        row.get("phenomenon_id")
+        for row in phenomenon.get("rows", [])
+        if row.get("model_card", {}).get("prediction_or_replay") not in finite_case_ids
+        or row.get("model_card", {}).get("negative_control") not in finite_case_ids
     ]
     attack_closure_failures = [
         row.get("objection_id")
@@ -328,7 +352,7 @@ def audit(root: Path) -> dict[str, Any]:
         "reproducibility": {"state": "PASS" if (root / "lakefile.lean").exists() and (root / "validation" / "run_all.py").exists() and (root / "simulations" / "adversarial" / "run_all.py").exists() else "FAIL"},
         "no_local_paths_secrets": {"state": "PASS" if not secret_hits else "FAIL", "hit_total": len(secret_hits), "hits": secret_hits[:20]},
         "surface_parity": {"state": "PASS" if all(path.exists() for path in surface_paths) and text(root / "releases" / "oc_core_1_3_3" / "VERSION").strip() == VERSION else "FAIL", "missing": [rel(root, path) for path in surface_paths if not path.exists()]},
-        "llm_schema_claim_boundary": {"state": "PASS" if not absolute_hits and phenomenon.get("unsupported_closed_total") == 0 and not phenomenon_failures else "FAIL", "absolute_hit_total": len(absolute_hits), "absolute_hits": absolute_hits[:20], "phenomenon_rows": phenomenon.get("row_total"), "phenomenon_failures": phenomenon_failures},
+        "llm_schema_claim_boundary": {"state": "PASS" if not absolute_hits and phenomenon.get("unsupported_closed_total") == 0 and not phenomenon_failures and not phenomenon_missing_controls else "FAIL", "absolute_hit_total": len(absolute_hits), "absolute_hits": absolute_hits[:20], "phenomenon_rows": phenomenon.get("row_total"), "phenomenon_failures": phenomenon_failures, "phenomenon_missing_controls": phenomenon_missing_controls},
         "no_empirical_discovery_only": {"state": "PASS" if numeric.get("unsupported_promoted_total") == 0 and numeric.get("blocked_for_promotion_total") == 0 and not numeric_missing else "FAIL", "unsupported_promoted_total": numeric.get("unsupported_promoted_total"), "blocked_for_promotion_total": numeric.get("blocked_for_promotion_total")},
         "no_scope_narrowing": {"state": "PASS" if not scope_hits and claims.get("demoted_public_claim_total") == 0 else "FAIL", "scope_hit_total": len(scope_hits), "hits": scope_hits[:20]},
         "owner_packet": {"state": "PASS" if approval.get("decision") == "PENDING" and (root / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_OWNER_APPROVAL_PACKET.json").exists() else "FAIL"},

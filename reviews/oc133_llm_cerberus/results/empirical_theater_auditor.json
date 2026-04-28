@@ -2,64 +2,40 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "empirical_theater_auditor",
   "execution_status": "EXECUTED",
-  "critical_open_total": 4,
-  "high_open_total": 3,
-  "finding_total": 7,
+  "critical_open_total": 2,
+  "high_open_total": 2,
+  "finding_total": 4,
   "findings": [
     {
       "severity": "CRITICAL",
-      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "claim": "FINITE_MODEL_CHECKS_v12_EXECUTED with failure_total=0 supports promoted theorem rows.",
-      "failure_mode": "The directly referenced runner assigns verdicts from case_type and expected fields rather than evaluating model semantics: positive_witness always becomes ACCEPT, negative_control always becomes REJECT, and component/K-level witnesses pass by declared flags. The finite checks are self-certifying, not executable falsifiers.",
-      "required_repair": "Replace the runner with independent validators over structured inputs, compute verdicts from model data, execute negative controls, store traces/hashes, and regenerate the ledger; demote all finite-witness support until then.",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "OC133-NUM-PHYS-C empirical attack closure: official snapshot mistaken for prediction is closed via NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS",
+      "failure_mode": "The closure token is not present in the current numeric table, and the referenced row explicitly says NUMERIC_REPLAY_QA_NOT_EMPIRICAL_PROMOTION. The attack matrix repeatedly closes an empirical-theater objection by citing a replay/definitional snapshot artifact as if it supplied prediction support.",
+      "required_repair": "Reopen these empirical attack rows or close them only by explicit demotion/non-promotion; replace the closure query with the actual numeric_replay=true and promotion_status=...NOT_EMPIRICAL_PROMOTION fields; add a release gate that fails if replay rows are used as empirical-prediction closure evidence.",
       "status": "OPEN"
     },
     {
       "severity": "CRITICAL",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "The promoted theorem rows have Lean subset support.",
-      "failure_mode": "The Lean file proves mostly definitional tautologies or tiny projections, not the public theorem claims. every_component_has_witness and every_adjacent_transition_has_witness prove functions that return true by cases; boundary and hybrid claims are rfl equalities; zero_cause only proves one disjunct introduction. There is no formal bridge from the public claims to these lemmas.",
-      "required_repair": "Formalize the actual public predicates, witnesses, reduction failures, demotion criteria, and claim assumptions in Lean, then prove those statements; otherwise relabel the Lean artifacts as illustrative stubs and demote proof_status.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "CRITICAL",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "public_promoted_theorem_total=10 and every load-bearing theorem is PROMOTED_BOUNDED_WITH_LEAN_SUBSET_AND_FINITE_WITNESS.",
-      "failure_mode": "The inventory promotes load-bearing theorem status while the cited Lean subset is too weak and the finite model ledger is self-certifying. The proof sheets are narrative summaries, so the inventory is overstating proof maturity.",
-      "required_repair": "Reopen the theorem inventory, require a claim-to-proof mapping for each row, and mark rows PENDING or DEMOTED unless the Lean theorem and executable witness actually establish the advertised theorem.",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "T133-MIN finite witness acceptance supports the promoted minimality claim",
+      "failure_mode": "For component_keep_drop_witness rows, the runner derives observed verdicts from model.keep_verdict and model.drop_verdict, which are already embedded in OC133_FINITE_MODEL_INPUTS.json. This validates an answer key, not independent semantics, while FINITE_MODEL_CHECKS_1_3_3.json presents the result as semantic executed evidence.",
+      "required_repair": "Remove keep_verdict/drop_verdict from finite-model inputs, compute keep/drop verdicts from component-specific facts in the runner or Lean model, regenerate FINITE_MODEL_CHECKS_1_3_3.json, and invalidate the current T133-MIN finite witness result until rerun.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
-      "claim": "Numeric replay QA rows have baseline negative controls and falsifiers.",
-      "failure_mode": "The table is declarative: it has formulas and values but no runner, raw snapshot hashes, parse traces, or executed negative-control outputs. Several rows replay official constants or pinned snapshot counts, and the mathematics row inherits the broken finite-model runner.",
-      "required_repair": "Add reproducible numeric scripts, immutable input hashes, generated outputs, and actual negative-control results; until then classify these as illustrative sanity checks, not replay QA support.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-      "claim": "BOUNDED_DELTA_SUPPORTED with unsupported_uniqueness_total=0.",
-      "failure_mode": "The comparator rows use generic or undated source references and repeat the same residual_delta_test boilerplate. They do not establish that the claimed OC delta is absent from prior art, and much of the delta is governance/no-send relabeling rather than technical novelty.",
-      "required_repair": "Provide dated source-by-source feature comparisons for each claimed delta, separate integration/packaging from technical novelty, and demote unsupported uniqueness/delta rows.",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "T133-KLEVEL adjacent K-level transition witnesses show every adjacent transition has a reduction-failure witness",
+      "failure_mode": "For adjacent_k_transition_witness rows, the runner requires model.reduction_verdict == FAILS_WITH_WITNESS and returns that as observed_reduction_verdict. All transition inputs carry the expected verdict, so the finite check replays the asserted conclusion and lacks per-transition negative controls.",
+      "required_repair": "Remove reduction_verdict from inputs, compute reduction failure from independent transition facts, add paired negative controls for each K0->K12 adjacent transition, and regenerate the finite-model output before using it as support.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "unsupported_closed_total=0 and all 14 phenomena are BOUNDED_INSTANCE_REPLAYED_V12.",
-      "failure_mode": "The coverage rows reuse generic routes, observables, negative controls, and falsifiers. Broad items such as origin-of-life framing, social institutions, theory change, and recursive self-application are closed by theorem-sheet pointers and the defective finite runner, not by phenomenon-specific executable models.",
-      "required_repair": "Replace template closures with phenomenon-specific models, observables, datasets or formal instances, and executable falsifiers; otherwise mark those rows as framing-only gaps and increment unsupported_closed_total.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "CRITICAL",
-      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "critical_unresolved_total=0 and high_unresolved_total=0.",
-      "failure_mode": "The attack matrix auto-closes 210 repeated template attacks by pointing at other artifacts and asserting G32-G70 cross-checks. The closures are not row-specific evidence and depend on the defective proof, finite-check, numeric, novelty, and coverage artifacts.",
-      "required_repair": "Reopen the proof, empirical, novelty, coverage, minimality, and K-level attacks; remove generated duplicate closures; require independent evidence per attack before setting CLOSED_BY_V12_EVIDENCE.",
+      "claim": "unsupported_closed_total=0 and PHENOMENON_SPECIFIC_MODEL_REPLAYED close broad phenomenon coverage questions",
+      "failure_mode": "Rows close broad questions such as biological organization, origin-of-life framing, social institutions, and release governance using scoped replay cards while their own limitation says they are not full empirical solutions. Several K-level rows cite the same positive case as the negative_control, and P012 cites ADV-NOSEND-PUBLISH, which is absent from the inspected finite-model checks.",
+      "required_repair": "Separate toy/formal replay coverage from empirical phenomenon explanation; mark broad coverage rows unsupported or demoted unless external validation and real negative controls exist; remove ADV-NOSEND-PUBLISH or add an executed finite-model row for it.",
       "status": "OPEN"
     }
   ],

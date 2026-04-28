@@ -35,6 +35,8 @@ CONTEXT_REFS = [
     "proofs/THEOREM_INVENTORY_1_3_3.json",
     "proofs/PROOF_LEDGER_1_3_3.md",
     "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+    "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+    "proofs/finite_model_checks/run_finite_model_checks.py",
     "formal/lean/OC133V12.lean",
     "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
     "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
@@ -42,6 +44,23 @@ CONTEXT_REFS = [
     "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
     "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
 ]
+
+ROLE_FOCUS = {
+    "formal_mathematician": "Check whether each Lean theorem proves the proposition the public ledger claims, especially minimality, K-level irreducibility, k=0, boundary, and hybrid semantics.",
+    "dynamical_systems_reviewer": "Attack universal-dynamics overreach, smoothness assumptions, hybrid guard/reset semantics, and any hidden ODE claim.",
+    "category_type_theory_reviewer": "Attack typed-carrier/morphism claims, identity/residue/rebirth separation, and any categorical wording not supported by the Lean subset.",
+    "empirical_statistician": "Attack numeric prediction language, heldout/comparator/residual claims, and any empirical PASS based only on official snapshots.",
+    "prior_art_historian": "Attack novelty and priority using the exact source-backed comparator rows and their absence tests.",
+    "hostile_journal_reviewer": "Attack whether a skeptical journal could reject the package for theorem theater, empirical theater, novelty inflation, or didactic opacity.",
+    "not_novel_attacker": "Try to reduce OC to GST, autopoiesis, dynamical systems, category/topos formalisms, RAF, complexity measures, identity theory, systems engineering, hybrid systems, or formal methods.",
+    "phenomenon_x_attacker": "Attack the phenomenon coverage model cards: each broad phenomenon must have a specific model, observable, negative control, and falsifier.",
+    "clarity_didactic_reviewer": "Attack whether a hostile reader can follow tuple -> theorem -> semantic finite case -> falsifier without author help.",
+    "reproducibility_auditor": "Attack whether a clean checkout can regenerate current artifacts without hidden local state or cached .lake files.",
+    "theorem_theater_auditor": "Attack any theorem whose Lean/formal/finite evidence is only definitional, circular, or weaker than the promoted claim.",
+    "empirical_theater_auditor": "Attack any numeric/validation row that is snapshot replay while being used as empirical prediction support.",
+    "claim_boundary_auditor": "Attack absolute TOE/truth/irrefutability/public-promotion overclaims and any claim boundary that relies on wording instead of evidence.",
+    "public_surface_auditor": "Attack no-send, owner approval, DOI/public action, local paths, and public-surface parity.",
+}
 
 
 def extract_json(text: str) -> dict[str, Any]:
@@ -82,13 +101,19 @@ def normalize(role: str, payload: dict[str, Any], output_path: Path) -> dict[str
 
 def prompt_for(role: str) -> str:
     refs = "\n".join(f"- `{path}`" for path in CONTEXT_REFS)
+    focus = ROLE_FOCUS.get(role, "Attack unsupported critical/high release claims.")
     return f"""You are the OC Core 1.3.3 v12 adversarial reviewer role `{role}`.
 
 Work read-only. Inspect only these release-critical artifacts unless a directly referenced file is needed:
 {refs}
 
+Role focus: {focus}
+
 Attack the release hard. Focus on unsupported critical/high claims, theorem theater, empirical theater,
 prior-art relabeling, phenomenon coverage gaps, no-send violations, and absolute TOE overclaims.
+Use the current artifacts exactly. Do not repeat a stale finding unless the current file still contains
+the defect after inspection. A valid critical/high finding must cite a current path, attacked claim,
+specific failure mode, and specific repair.
 
 Return exactly one JSON object with this shape:
 {{

@@ -5,6 +5,8 @@ Work read-only. Inspect only these release-critical artifacts unless a directly 
 - `proofs/THEOREM_INVENTORY_1_3_3.json`
 - `proofs/PROOF_LEDGER_1_3_3.md`
 - `proofs/FINITE_MODEL_CHECKS_1_3_3.json`
+- `proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json`
+- `proofs/finite_model_checks/run_finite_model_checks.py`
 - `formal/lean/OC133V12.lean`
 - `validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json`
 - `comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json`
@@ -12,8 +14,13 @@ Work read-only. Inspect only these release-critical artifacts unless a directly 
 - `review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json`
 - `releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json`
 
+Role focus: Attack typed-carrier/morphism claims, identity/residue/rebirth separation, and any categorical wording not supported by the Lean subset.
+
 Attack the release hard. Focus on unsupported critical/high claims, theorem theater, empirical theater,
 prior-art relabeling, phenomenon coverage gaps, no-send violations, and absolute TOE overclaims.
+Use the current artifacts exactly. Do not repeat a stale finding unless the current file still contains
+the defect after inspection. A valid critical/high finding must cite a current path, attacked claim,
+specific failure mode, and specific repair.
 
 Return exactly one JSON object with this shape:
 {

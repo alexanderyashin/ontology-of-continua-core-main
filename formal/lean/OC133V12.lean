@@ -75,6 +75,7 @@ structure Realization where
   admissible : Carrier -> Bool
   live : Carrier -> Bool
   cycle : Carrier -> Option CycleMode
+  maintenance : Carrier -> Bool
 
 structure Lifecycle (S Residue NewLive : Type) where
   admissible : S -> Bool
@@ -87,11 +88,19 @@ structure Lifecycle (S Residue NewLive : Type) where
 def cycleWitnessed (R : Realization) (x : R.Carrier) : Prop :=
   R.cycle x != none
 
+def supportWitnessed (R : Realization) (x : R.Carrier) : Prop :=
+  cycleWitnessed R x \/ R.maintenance x = true
+
 def eligibleLive (R : Realization) (x : R.Carrier) : Prop :=
-  R.admissible x = true /\ R.live x = true /\ cycleWitnessed R x
+  R.admissible x = true /\ R.live x = true /\ supportWitnessed R x
 
 theorem eligible_live_requires_cycle (R : Realization) (x : R.Carrier) :
-    eligibleLive R x -> cycleWitnessed R x := by
+    eligibleLive R x -> supportWitnessed R x := by
+  intro h
+  exact h.right.right
+
+theorem eligible_live_requires_cycle_or_maintenance (R : Realization) (x : R.Carrier) :
+    eligibleLive R x -> cycleWitnessed R x \/ R.maintenance x = true := by
   intro h
   exact h.right.right
 
@@ -101,9 +110,14 @@ theorem eligible_live_requires_admissible (R : Realization) (x : R.Carrier) :
   exact h.left
 
 theorem cycle_mode_required_for_eligible_live (R : Realization) (x : R.Carrier) :
-    eligibleLive R x -> R.cycle x != none := by
+    eligibleLive R x -> R.maintenance x = false -> R.cycle x != none := by
   intro h
-  exact h.right.right
+  intro hm
+  cases h.right.right with
+  | inl hc => exact hc
+  | inr hmaint =>
+      rw [hm] at hmaint
+      cases hmaint
 
 structure ZeroCause where
   flow : Bool
@@ -157,6 +171,8 @@ structure SmoothSystem extends UpdateSystem where
   charted : Bool
   flow : Nat -> State -> State
   flow_zero : forall x : State, flow 0 x = x
+  derivativeAvailable : Bool
+  derivative_requires_chart : derivativeAvailable = true -> charted = true
 
 def smoothAsUpdate (s : SmoothSystem) : UpdateSystem :=
   { State := s.State, step := s.step, admissible := s.admissible }
@@ -164,6 +180,11 @@ def smoothAsUpdate (s : SmoothSystem) : UpdateSystem :=
 theorem smooth_operator_is_update_special_case (s : SmoothSystem) :
     (smoothAsUpdate s).step = s.step := by
   rfl
+
+theorem differential_notation_requires_chart (s : SmoothSystem) :
+    s.derivativeAvailable = true -> s.charted = true := by
+  intro h
+  exact s.derivative_requires_chart h
 
 structure HybridSystem extends UpdateSystem where
   Mode : Type
@@ -211,6 +232,31 @@ theorem residue_is_not_identity :
 theorem rebirth_is_not_identity :
     MorphismClass.rebirth != MorphismClass.identity := by
   decide
+
+def restartClass {S Residue NewLive : Type} (L : Lifecycle S Residue NewLive) (x : S) (y : NewLive) : MorphismClass :=
+  if L.identityInvariant x y then MorphismClass.identity else MorphismClass.rebirth
+
+theorem invariant_preserved_classifies_identity {S Residue NewLive : Type}
+    (L : Lifecycle S Residue NewLive) (x : S) (y : NewLive) :
+    L.identityInvariant x y = true -> restartClass L x y = MorphismClass.identity := by
+  intro h
+  unfold restartClass
+  rw [h]
+
+theorem invariant_lost_blocks_identity {S Residue NewLive : Type}
+    (L : Lifecycle S Residue NewLive) (x : S) (y : NewLive) :
+    L.identityInvariant x y = false -> restartClass L x y != MorphismClass.identity := by
+  intro h
+  unfold restartClass
+  rw [h]
+  decide
+
+theorem declared_death_blocks_live {S Residue NewLive : Type}
+    (L : Lifecycle S Residue NewLive) (x : S) :
+    L.death x = true -> L.live x = false -> L.live x = true -> False := by
+  intro _ hnot hlive
+  rw [hnot] at hlive
+  cases hlive
 
 structure VerdictClass where
   Case : Type

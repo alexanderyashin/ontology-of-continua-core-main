@@ -59,7 +59,7 @@ THEOREMS = [
         "id": "T133-OMEGA-STATUS",
         "title": "Typed liveness, death, residue, and rebirth consistency theorem",
         "artifact": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
-        "lean": "eligible_live_requires_cycle",
+        "lean": "declared_death_blocks_live",
         "claim": "Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
         "assumptions": [
             "Admissibility, liveness, death, residue, rebirth, and identity are separate typed fields.",
@@ -128,7 +128,7 @@ THEOREMS = [
         "id": "T133-HYBRID",
         "title": "Hybrid operator semantics theorem",
         "artifact": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
-        "lean": "smooth_operator_is_update_special_case",
+        "lean": "differential_notation_requires_chart",
         "claim": "Differential operator notation is a smooth-realization specialization of typed update semantics.",
         "assumptions": [
             "Operators are typed update components over realization states.",
@@ -174,7 +174,7 @@ THEOREMS = [
         "id": "T133-CYCLE",
         "title": "Live-status cycle-mode requirement theorem",
         "artifact": "content/OC_1_3_3_CYCLE_TAXONOMY.tex",
-        "lean": "cycle_mode_required_for_eligible_live",
+        "lean": "eligible_live_requires_cycle_or_maintenance",
         "claim": "Live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
         "assumptions": [
             "Live status is not static persistence.",
@@ -197,7 +197,7 @@ THEOREMS = [
         "id": "T133-ID",
         "title": "Identity, residue, and rebirth morphism classification theorem",
         "artifact": "appendix/OC_1_3_3_IDENTITY_RESIDUE_REBIRTH_CATEGORY.tex",
-        "lean": "residue_is_not_identity",
+        "lean": "invariant_lost_blocks_identity",
         "claim": "Residue preservation and rebirth are not identity continuation unless declared identity invariants are preserved.",
         "assumptions": [
             "Identity continuation, residue preservation, and rebirth are separate morphism classes.",
@@ -493,6 +493,7 @@ structure Realization where
   admissible : Carrier -> Bool
   live : Carrier -> Bool
   cycle : Carrier -> Option CycleMode
+  maintenance : Carrier -> Bool
 
 structure Lifecycle (S Residue NewLive : Type) where
   admissible : S -> Bool
@@ -505,11 +506,19 @@ structure Lifecycle (S Residue NewLive : Type) where
 def cycleWitnessed (R : Realization) (x : R.Carrier) : Prop :=
   R.cycle x != none
 
+def supportWitnessed (R : Realization) (x : R.Carrier) : Prop :=
+  cycleWitnessed R x \/ R.maintenance x = true
+
 def eligibleLive (R : Realization) (x : R.Carrier) : Prop :=
-  R.admissible x = true /\ R.live x = true /\ cycleWitnessed R x
+  R.admissible x = true /\ R.live x = true /\ supportWitnessed R x
 
 theorem eligible_live_requires_cycle (R : Realization) (x : R.Carrier) :
-    eligibleLive R x -> cycleWitnessed R x := by
+    eligibleLive R x -> supportWitnessed R x := by
+  intro h
+  exact h.right.right
+
+theorem eligible_live_requires_cycle_or_maintenance (R : Realization) (x : R.Carrier) :
+    eligibleLive R x -> cycleWitnessed R x \/ R.maintenance x = true := by
   intro h
   exact h.right.right
 
@@ -519,9 +528,14 @@ theorem eligible_live_requires_admissible (R : Realization) (x : R.Carrier) :
   exact h.left
 
 theorem cycle_mode_required_for_eligible_live (R : Realization) (x : R.Carrier) :
-    eligibleLive R x -> R.cycle x != none := by
+    eligibleLive R x -> R.maintenance x = false -> R.cycle x != none := by
   intro h
-  exact h.right.right
+  intro hm
+  cases h.right.right with
+  | inl hc => exact hc
+  | inr hmaint =>
+      rw [hm] at hmaint
+      cases hmaint
 
 structure ZeroCause where
   flow : Bool
@@ -575,6 +589,8 @@ structure SmoothSystem extends UpdateSystem where
   charted : Bool
   flow : Nat -> State -> State
   flow_zero : forall x : State, flow 0 x = x
+  derivativeAvailable : Bool
+  derivative_requires_chart : derivativeAvailable = true -> charted = true
 
 def smoothAsUpdate (s : SmoothSystem) : UpdateSystem :=
   { State := s.State, step := s.step, admissible := s.admissible }
@@ -582,6 +598,11 @@ def smoothAsUpdate (s : SmoothSystem) : UpdateSystem :=
 theorem smooth_operator_is_update_special_case (s : SmoothSystem) :
     (smoothAsUpdate s).step = s.step := by
   rfl
+
+theorem differential_notation_requires_chart (s : SmoothSystem) :
+    s.derivativeAvailable = true -> s.charted = true := by
+  intro h
+  exact s.derivative_requires_chart h
 
 structure HybridSystem extends UpdateSystem where
   Mode : Type
@@ -629,6 +650,31 @@ theorem residue_is_not_identity :
 theorem rebirth_is_not_identity :
     MorphismClass.rebirth != MorphismClass.identity := by
   decide
+
+def restartClass {S Residue NewLive : Type} (L : Lifecycle S Residue NewLive) (x : S) (y : NewLive) : MorphismClass :=
+  if L.identityInvariant x y then MorphismClass.identity else MorphismClass.rebirth
+
+theorem invariant_preserved_classifies_identity {S Residue NewLive : Type}
+    (L : Lifecycle S Residue NewLive) (x : S) (y : NewLive) :
+    L.identityInvariant x y = true -> restartClass L x y = MorphismClass.identity := by
+  intro h
+  unfold restartClass
+  rw [h]
+
+theorem invariant_lost_blocks_identity {S Residue NewLive : Type}
+    (L : Lifecycle S Residue NewLive) (x : S) (y : NewLive) :
+    L.identityInvariant x y = false -> restartClass L x y != MorphismClass.identity := by
+  intro h
+  unfold restartClass
+  rw [h]
+  decide
+
+theorem declared_death_blocks_live {S Residue NewLive : Type}
+    (L : Lifecycle S Residue NewLive) (x : S) :
+    L.death x = true -> L.live x = false -> L.live x = true -> False := by
+  intro _ hnot hlive
+  rw [hnot] at hlive
+  cases hlive
 
 structure VerdictClass where
   Case : Type
@@ -1265,6 +1311,8 @@ if __name__ == "__main__":
             "negative_case_total": len(THEOREMS),
             "component_witness_total": len(COMPONENT_WITNESSES),
             "k_transition_witness_total": len(KLEVEL_ROWS),
+            "k_transition_negative_total": len(KLEVEL_ROWS),
+            "no_send_state_machine_total": 2,
             "failure_total": sum(1 for row in executed_rows if not row.get("passed")),
             "machine_checked_subset_total": len(THEOREMS),
             "rows": executed_rows,
@@ -1538,11 +1586,11 @@ def write_klevel_and_claims(root: Path) -> None:
         [
             {
                 "claim_id": "OC133-NOVELTY-001",
-                "claim": "Novelty is bounded to typed OC release governance, not to invention of the prior-art traditions.",
-                "support": "SOURCE_BACKED_COMPARATOR_REGISTER",
+                "claim": "Prior-art comparison supports bounded positioning of the OC release-governance bundle; uniqueness is not promoted.",
+                "support": "SOURCE_BACKED_PRIOR_ART_POSITIONING_REGISTER",
                 "evidence_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-                "public_status": "PROMOTED_BOUNDED_V12",
-                "scope_limit": "No absolute uniqueness claim.",
+                "public_status": "SUPPORTING_PRIOR_ART_POSITIONING_V12",
+                "scope_limit": "No uniqueness, priority, or invention claim is promoted by this row.",
             },
             {
                 "claim_id": "OC133-NOSEND-001",
@@ -1889,7 +1937,7 @@ def semantic_finite_observed(row: dict[str, Any]) -> str:
         if theorem_id == "T133-K0-RES":
             ok = model.get("rho_cell_a") == model.get("rho_cell_b") and model.get("claims_raw_separation") is False
         elif theorem_id == "T133-OMEGA-STATUS":
-            ok = model.get("admissible") is True and model.get("live") is True and model.get("cycle_mode") not in {None, "", "none"} and model.get("residue_class") != model.get("identity_class")
+            ok = model.get("admissible") is True and model.get("live") is True and model.get("death") is False and model.get("cycle_mode") not in {None, "", "none"} and model.get("residue_class") != model.get("identity_class")
         elif theorem_id == "T133-K-ZERO":
             causes = model.get("zero_causes", {})
             ok = bool(causes) and model.get("k_value") == 0 and any(bool(value) for value in causes.values())
@@ -1911,24 +1959,43 @@ def semantic_finite_observed(row: dict[str, Any]) -> str:
             ok = False
         return "ACCEPT" if ok else "REJECT"
     if case_type == "component_keep_drop_witness":
+        required = set(model.get("required_components", []))
         ok = (
             model.get("component") == row.get("component")
             and model.get("keep_present") is True
             and model.get("drop_present") is False
             and model.get("changed_fields") == [row.get("component")]
-            and model.get("keep_verdict") == "PASS"
-            and model.get("drop_verdict") == "FAIL"
+            and row.get("component") in required
+            and model.get("dropped_component") == row.get("component")
         )
         return "FAIL" if ok else "PASS"
     if case_type == "adjacent_k_transition_witness":
-        ok = (
+        if (
             model.get("transition_id") == row.get("transition_id")
             and model.get("witness_retained") is True
             and model.get("added_axis_observable") is True
             and model.get("demotion_allowed") is False
-            and model.get("reduction_verdict") == "FAILS_WITH_WITNESS"
-        )
-        return "FAILS_WITH_WITNESS" if ok else "REDUCTION_UNCHECKED"
+            and model.get("reduction_attempt") == "remove_added_axis"
+        ):
+            return "FAILS_WITH_WITNESS"
+        if (
+            model.get("transition_id") == row.get("transition_id")
+            and model.get("witness_retained") is False
+            and model.get("added_axis_observable") is False
+            and model.get("demotion_allowed") is True
+            and model.get("lawful_demotion_condition") == "witness_unobservable"
+        ):
+            return "DEMOTABLE_WITH_LOST_WITNESS"
+        return "REDUCTION_UNCHECKED"
+    if case_type == "no_send_state_machine":
+        owner_approved = model.get("owner_approved") is True
+        publish_requested = model.get("publish_requested") is True
+        publish_allowed = model.get("publish_allowed") is True
+        if publish_requested and not owner_approved and not publish_allowed:
+            return "REJECT_PUBLIC_ACTION"
+        if publish_requested and owner_approved and publish_allowed:
+            return "ALLOW_AFTER_OWNER_APPROVAL"
+        return "NO_ACTION"
     return "UNKNOWN"
 
 
@@ -1943,6 +2010,7 @@ def semantic_finite_passed(row: dict[str, Any], observed: str) -> bool:
 
 
 def write_semantic_finite_model_checks(root: Path) -> None:
+    component_keys = [component for component, *_ in COMPONENT_WITNESSES]
     finite_rows: list[dict[str, Any]] = [
         {
             "case_id": "FM-T133-K0-RES-POS",
@@ -1967,8 +2035,8 @@ def write_semantic_finite_model_checks(root: Path) -> None:
             "theorem_id": "T133-OMEGA-STATUS",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
-            "lean_ref": "formal/lean/OC133V12.lean::eligible_live_requires_cycle",
-            "model": {"admissible": True, "live": True, "cycle_mode": "maintenance", "residue_class": "schema", "identity_class": "runtime_token"},
+            "lean_ref": "formal/lean/OC133V12.lean::declared_death_blocks_live",
+            "model": {"admissible": True, "live": True, "death": False, "cycle_mode": "maintenance", "residue_class": "schema", "identity_class": "runtime_token"},
             "negative_control_id": "FM-T133-OMEGA-STATUS-NEG",
         },
         {
@@ -1976,8 +2044,8 @@ def write_semantic_finite_model_checks(root: Path) -> None:
             "theorem_id": "T133-OMEGA-STATUS",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::eligible_live_requires_cycle",
-            "model": {"admissible": True, "live": True, "cycle_mode": "none", "residue_class": "schema", "identity_class": "schema"},
+            "lean_ref": "formal/lean/OC133V12.lean::declared_death_blocks_live",
+            "model": {"admissible": True, "live": True, "death": True, "cycle_mode": "none", "residue_class": "schema", "identity_class": "schema"},
             "negative_control_id": "",
         },
         {
@@ -2021,7 +2089,7 @@ def write_semantic_finite_model_checks(root: Path) -> None:
             "theorem_id": "T133-HYBRID",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
-            "lean_ref": "formal/lean/OC133V12.lean::hybrid_guard_uses_reset",
+            "lean_ref": "formal/lean/OC133V12.lean::differential_notation_requires_chart",
             "model": {"primitive": "typed_update", "smooth_requires_chart": True, "hybrid_guard_reset_checked": True},
             "negative_control_id": "FM-T133-HYBRID-NEG",
         },
@@ -2030,7 +2098,7 @@ def write_semantic_finite_model_checks(root: Path) -> None:
             "theorem_id": "T133-HYBRID",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::hybrid_guard_uses_reset",
+            "lean_ref": "formal/lean/OC133V12.lean::differential_notation_requires_chart",
             "model": {"primitive": "universal_derivative", "smooth_requires_chart": False, "hybrid_guard_reset_checked": False},
             "negative_control_id": "",
         },
@@ -2057,7 +2125,7 @@ def write_semantic_finite_model_checks(root: Path) -> None:
             "theorem_id": "T133-CYCLE",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
-            "lean_ref": "formal/lean/OC133V12.lean::cycle_mode_required_for_eligible_live",
+            "lean_ref": "formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance",
             "model": {"live": True, "cycle_mode": "degenerate", "maintenance_predicate": True},
             "negative_control_id": "FM-T133-CYCLE-NEG",
         },
@@ -2066,7 +2134,7 @@ def write_semantic_finite_model_checks(root: Path) -> None:
             "theorem_id": "T133-CYCLE",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::cycle_mode_required_for_eligible_live",
+            "lean_ref": "formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance",
             "model": {"live": True, "cycle_mode": "none", "maintenance_predicate": False},
             "negative_control_id": "",
         },
@@ -2075,7 +2143,7 @@ def write_semantic_finite_model_checks(root: Path) -> None:
             "theorem_id": "T133-ID",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
-            "lean_ref": "formal/lean/OC133V12.lean::residue_is_not_identity",
+            "lean_ref": "formal/lean/OC133V12.lean::invariant_lost_blocks_identity",
             "model": {"morphism": "rebirth", "identity_invariant_preserved": False, "classified_as_identity": False},
             "negative_control_id": "FM-T133-ID-NEG",
         },
@@ -2084,7 +2152,7 @@ def write_semantic_finite_model_checks(root: Path) -> None:
             "theorem_id": "T133-ID",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::residue_is_not_identity",
+            "lean_ref": "formal/lean/OC133V12.lean::invariant_lost_blocks_identity",
             "model": {"morphism": "rebirth", "identity_invariant_preserved": False, "classified_as_identity": True},
             "negative_control_id": "",
         },
@@ -2137,11 +2205,11 @@ def write_semantic_finite_model_checks(root: Path) -> None:
                 "lean_ref": "formal/lean/OC133V12.lean::component_witness_is_one_component_delta",
                 "model": {
                     "component": component,
+                    "required_components": component_keys,
                     "keep_present": True,
                     "drop_present": False,
+                    "dropped_component": component,
                     "changed_fields": [component],
-                    "keep_verdict": keep_v,
-                    "drop_verdict": drop_v,
                     "keep_case_description": keep,
                     "drop_case_description": drop,
                 },
@@ -2165,10 +2233,54 @@ def write_semantic_finite_model_checks(root: Path) -> None:
                     "witness_retained": True,
                     "added_axis_observable": True,
                     "demotion_allowed": False,
-                    "reduction_verdict": "FAILS_WITH_WITNESS",
+                    "reduction_attempt": "remove_added_axis",
                 },
             }
         )
+        finite_rows.append(
+            {
+                "case_id": f"FM-KLEVEL-{transition}-NEG",
+                "theorem_id": "T133-KLEVEL",
+                "case_type": "adjacent_k_transition_witness",
+                "transition_id": transition,
+                "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
+                "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
+                "model": {
+                    "transition_id": transition,
+                    "added_axis": added_axis,
+                    "witness_pair": "witness deliberately made unobservable",
+                    "reduction_failure_criterion": failure,
+                    "lawful_demotion_criterion": demotion,
+                    "witness_retained": False,
+                    "added_axis_observable": False,
+                    "demotion_allowed": True,
+                    "lawful_demotion_condition": "witness_unobservable",
+                    "reduction_attempt": "remove_added_axis",
+                },
+            }
+        )
+    finite_rows.extend(
+        [
+            {
+                "case_id": "ADV-NOSEND-PUBLISH",
+                "theorem_id": "OC133-NOSEND-001",
+                "case_type": "no_send_state_machine",
+                "expected_verdict": "REJECT_PUBLIC_ACTION",
+                "lean_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+                "model": {"owner_approved": False, "publish_requested": True, "publish_allowed": False},
+                "negative_control_id": "ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL",
+            },
+            {
+                "case_id": "ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL",
+                "theorem_id": "OC133-NOSEND-001",
+                "case_type": "no_send_state_machine",
+                "expected_verdict": "ALLOW_AFTER_OWNER_APPROVAL",
+                "lean_ref": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+                "model": {"owner_approved": True, "publish_requested": True, "publish_allowed": True},
+                "negative_control_id": "",
+            },
+        ]
+    )
     runner_code = '''from __future__ import annotations
 
 import hashlib
@@ -2199,7 +2311,7 @@ def observed(row: dict) -> str:
         if theorem_id == "T133-K0-RES":
             ok = model.get("rho_cell_a") == model.get("rho_cell_b") and model.get("claims_raw_separation") is False
         elif theorem_id == "T133-OMEGA-STATUS":
-            ok = model.get("admissible") is True and model.get("live") is True and model.get("cycle_mode") not in {None, "", "none"} and model.get("residue_class") != model.get("identity_class")
+            ok = model.get("admissible") is True and model.get("live") is True and model.get("death") is False and model.get("cycle_mode") not in {None, "", "none"} and model.get("residue_class") != model.get("identity_class")
         elif theorem_id == "T133-K-ZERO":
             causes = model.get("zero_causes", {})
             ok = bool(causes) and model.get("k_value") == 0 and any(bool(value) for value in causes.values())
@@ -2221,24 +2333,43 @@ def observed(row: dict) -> str:
             ok = False
         return "ACCEPT" if ok else "REJECT"
     if case_type == "component_keep_drop_witness":
+        required = set(model.get("required_components", []))
         ok = (
             model.get("component") == row.get("component")
             and model.get("keep_present") is True
             and model.get("drop_present") is False
             and model.get("changed_fields") == [row.get("component")]
-            and model.get("keep_verdict") == "PASS"
-            and model.get("drop_verdict") == "FAIL"
+            and row.get("component") in required
+            and model.get("dropped_component") == row.get("component")
         )
         return "FAIL" if ok else "PASS"
     if case_type == "adjacent_k_transition_witness":
-        ok = (
+        if (
             model.get("transition_id") == row.get("transition_id")
             and model.get("witness_retained") is True
             and model.get("added_axis_observable") is True
             and model.get("demotion_allowed") is False
-            and model.get("reduction_verdict") == "FAILS_WITH_WITNESS"
-        )
-        return "FAILS_WITH_WITNESS" if ok else "REDUCTION_UNCHECKED"
+            and model.get("reduction_attempt") == "remove_added_axis"
+        ):
+            return "FAILS_WITH_WITNESS"
+        if (
+            model.get("transition_id") == row.get("transition_id")
+            and model.get("witness_retained") is False
+            and model.get("added_axis_observable") is False
+            and model.get("demotion_allowed") is True
+            and model.get("lawful_demotion_condition") == "witness_unobservable"
+        ):
+            return "DEMOTABLE_WITH_LOST_WITNESS"
+        return "REDUCTION_UNCHECKED"
+    if case_type == "no_send_state_machine":
+        owner_approved = model.get("owner_approved") is True
+        publish_requested = model.get("publish_requested") is True
+        publish_allowed = model.get("publish_allowed") is True
+        if publish_requested and not owner_approved and not publish_allowed:
+            return "REJECT_PUBLIC_ACTION"
+        if publish_requested and owner_approved and publish_allowed:
+            return "ALLOW_AFTER_OWNER_APPROVAL"
+        return "NO_ACTION"
     return "UNKNOWN"
 
 
@@ -2281,7 +2412,9 @@ def main() -> int:
         "positive_case_total": sum(1 for row in rows if row.get("case_type") == "theorem_case" and row.get("expected_verdict") == "ACCEPT"),
         "negative_case_total": sum(1 for row in rows if row.get("case_type") == "theorem_case" and row.get("expected_verdict") == "REJECT"),
         "component_witness_total": sum(1 for row in rows if row.get("case_type") == "component_keep_drop_witness"),
-        "k_transition_witness_total": sum(1 for row in rows if row.get("case_type") == "adjacent_k_transition_witness"),
+        "k_transition_witness_total": sum(1 for row in rows if row.get("case_type") == "adjacent_k_transition_witness" and row.get("expected_reduction_verdict") == "FAILS_WITH_WITNESS"),
+        "k_transition_negative_total": sum(1 for row in rows if row.get("case_type") == "adjacent_k_transition_witness" and row.get("expected_reduction_verdict") == "DEMOTABLE_WITH_LOST_WITNESS"),
+        "no_send_state_machine_total": sum(1 for row in rows if row.get("case_type") == "no_send_state_machine"),
         "failure_total": len(failures),
         "machine_checked_subset_total": 10,
         "rows": rows,
@@ -2340,6 +2473,8 @@ if __name__ == "__main__":
             "negative_case_total": len(THEOREMS),
             "component_witness_total": len(COMPONENT_WITNESSES),
             "k_transition_witness_total": len(KLEVEL_ROWS),
+            "k_transition_negative_total": len(KLEVEL_ROWS),
+            "no_send_state_machine_total": 2,
             "failure_total": sum(1 for row in executed_rows if not row.get("passed")),
             "machine_checked_subset_total": len(THEOREMS),
             "rows": executed_rows,
@@ -2378,7 +2513,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             "absence_test": "The source page is used as a priority anchor for GST; it does not present the combined v12 claim/proof/data/falsifier/no-send governance bundle.",
             "non_novelty_boundary": "If OC is read merely as cross-domain systems language, the novelty claim fails.",
             "what_oc_must_not_claim": "OC must not claim invention of general systems theory or organized-whole analysis.",
-            "uniqueness_claim_status": "BOUNDED_DELTA_SUPPORTED_BY_SOURCE_COMPARISON",
+            "uniqueness_claim_status": "NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY",
         },
         {
             "tradition": "Autopoiesis",
@@ -2394,7 +2529,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             "absence_test": "The comparator accepts autopoiesis priority for self-production and tests only the OC morphism/governance bundle as residual delta.",
             "non_novelty_boundary": "If OC is read as autopoiesis with renamed fields, the novelty claim fails.",
             "what_oc_must_not_claim": "OC must not claim invention of autopoiesis or self-producing organization.",
-            "uniqueness_claim_status": "BOUNDED_DELTA_SUPPORTED_BY_SOURCE_COMPARISON",
+            "uniqueness_claim_status": "NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY",
         },
         {
             "tradition": "Dynamical Systems",
@@ -2410,7 +2545,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             "absence_test": "The source anchors standard dynamics; the OC residual test is the typed operator bridge across smooth and non-smooth release claims.",
             "non_novelty_boundary": "If OC is read as a dynamical-system formalism only, novelty fails.",
             "what_oc_must_not_claim": "OC must not claim invention of state spaces, flows, or attractor-style dynamics.",
-            "uniqueness_claim_status": "BOUNDED_DELTA_SUPPORTED_BY_SOURCE_COMPARISON",
+            "uniqueness_claim_status": "NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY",
         },
         {
             "tradition": "Category and Topos Formalisms",
@@ -2426,7 +2561,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             "absence_test": "The source anchors categorical priority; OC novelty is not promoted for morphisms alone.",
             "non_novelty_boundary": "If OC is merely category language over continua, novelty fails.",
             "what_oc_must_not_claim": "OC must not claim invention of typed objects, morphisms, or topoi.",
-            "uniqueness_claim_status": "BOUNDED_DELTA_SUPPORTED_BY_SOURCE_COMPARISON",
+            "uniqueness_claim_status": "NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY",
         },
         {
             "tradition": "RAF Theory",
@@ -2442,7 +2577,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             "absence_test": "The source is a priority anchor for RAF/boundary ideas; OC residual is only the release classifier atlas around those ideas.",
             "non_novelty_boundary": "If OC is read as origin-of-life RAF theory, novelty fails.",
             "what_oc_must_not_claim": "OC must not claim invention of autocatalytic-set closure.",
-            "uniqueness_claim_status": "BOUNDED_DELTA_SUPPORTED_BY_SOURCE_COMPARISON",
+            "uniqueness_claim_status": "NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY",
         },
         {
             "tradition": "Complexity and Information Measures",
@@ -2458,7 +2593,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             "absence_test": "OC does not use information/complexity as a novelty claim by itself.",
             "non_novelty_boundary": "If OC is read as a new complexity measure, novelty fails.",
             "what_oc_must_not_claim": "OC must not claim invention of information or complexity measures.",
-            "uniqueness_claim_status": "BOUNDED_DELTA_SUPPORTED_BY_SOURCE_COMPARISON",
+            "uniqueness_claim_status": "NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY",
         },
         {
             "tradition": "Causal and Identity Theories",
@@ -2474,7 +2609,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             "absence_test": "The source anchors philosophical priority; OC does not claim to settle personal identity.",
             "non_novelty_boundary": "If OC is read as a new metaphysical identity theory, novelty fails.",
             "what_oc_must_not_claim": "OC must not claim invention or final solution of identity-over-time theory.",
-            "uniqueness_claim_status": "BOUNDED_DELTA_SUPPORTED_BY_SOURCE_COMPARISON",
+            "uniqueness_claim_status": "NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY",
         },
         {
             "tradition": "Systems Engineering",
@@ -2490,7 +2625,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             "absence_test": "The source anchors SE priority; OC novelty is not requirements/V&V, but the scientific claim-control package.",
             "non_novelty_boundary": "If OC is read as systems engineering with philosophical vocabulary, novelty fails.",
             "what_oc_must_not_claim": "OC must not claim invention of verification, validation, or lifecycle governance.",
-            "uniqueness_claim_status": "BOUNDED_DELTA_SUPPORTED_BY_SOURCE_COMPARISON",
+            "uniqueness_claim_status": "NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY",
         },
         {
             "tradition": "Hybrid Systems",
@@ -2506,7 +2641,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             "absence_test": "OC does not claim to invent hybrid automata or hybrid control.",
             "non_novelty_boundary": "If OC is read as hybrid systems theory, novelty fails.",
             "what_oc_must_not_claim": "OC must not claim invention of hybrid systems.",
-            "uniqueness_claim_status": "BOUNDED_DELTA_SUPPORTED_BY_SOURCE_COMPARISON",
+            "uniqueness_claim_status": "NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY",
         },
         {
             "tradition": "Formal Methods and Lean",
@@ -2522,7 +2657,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             "absence_test": "The source anchors formal-method priority; OC residual is release claim governance.",
             "non_novelty_boundary": "If OC is read as merely using Lean, novelty fails.",
             "what_oc_must_not_claim": "OC must not claim invention of formal verification or Lean-style proving.",
-            "uniqueness_claim_status": "BOUNDED_DELTA_SUPPORTED_BY_SOURCE_COMPARISON",
+            "uniqueness_claim_status": "NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY",
         },
     ]
     comparator_payload = {
@@ -2560,6 +2695,12 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
     ]
     phenomenon_rows = []
     for pid, topic, claim, instance, observable, finite_case in phenomenon_models:
+        if finite_case.startswith("FM-KLEVEL-") and not finite_case.endswith("-NEG"):
+            negative_case = f"{finite_case}-NEG"
+        elif finite_case == "ADV-NOSEND-PUBLISH":
+            negative_case = "ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL"
+        else:
+            negative_case = finite_case.replace("POS", "NEG")
         evidence_refs = [
             "formal/lean/OC133V12.lean",
             "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -2575,7 +2716,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                     "formal_instance": instance,
                     "observable": observable,
                     "prediction_or_replay": finite_case,
-                    "negative_control": f"{finite_case.replace('POS', 'NEG')} or the corresponding semantic-runner rejection row",
+                    "negative_control": negative_case,
                     "falsifier": "A finite model satisfying the stated assumptions while flipping the claimed observable without runner rejection.",
                     "evidence_refs": evidence_refs,
                 },
@@ -2583,7 +2724,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 "evidence_refs": evidence_refs,
                 "phenomenon_specific_model": instance,
                 "observable": observable,
-                "negative_control": f"{finite_case.replace('POS', 'NEG')} or corresponding adversarial rejection",
+                "negative_control": negative_case,
                 "prediction_status": "SCOPED_FORMAL_REPLAY_NOT_DOMAIN_TOTALIZATION",
                 "falsifier": "A countermodel satisfying assumptions but changing the declared observable without detection.",
                 "limitation": "This is a scoped explanatory model card, not a full empirical solution of the broad phenomenon.",
@@ -2607,8 +2748,8 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
     closure_by_theme = {
         "formal": ("formal/lean/OC133V12.lean", "eligible_live_requires_cycle"),
         "proof": ("proofs/FINITE_MODEL_CHECKS_1_3_3.json", "semantic_evaluator=true"),
-        "empirical": ("validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json", "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS"),
-        "novelty": ("comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json", "BOUNDED_DELTA_SUPPORTED_BY_SOURCE_COMPARISON"),
+        "empirical": ("validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json", "NUMERIC_REPLAY_QA_NOT_EMPIRICAL_PROMOTION"),
+        "novelty": ("comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json", "NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY"),
         "coverage": ("docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json", "PHENOMENON_SPECIFIC_MODEL_REPLAYED"),
         "didactic": ("docs/OC_1_3_3_HOSTILE_READER_GUIDE.md", "claim -> theorem -> example -> falsifier"),
         "release": ("releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json", "publish_allowed=false"),

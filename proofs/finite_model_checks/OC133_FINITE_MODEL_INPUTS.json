@@ -3,7 +3,7 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "input_contract": "inputs contain model facts and expected verdicts only; observed verdicts are runner outputs",
-  "row_total": 43,
+  "row_total": 57,
   "observed_field_total": 0,
   "rows": [
     {
@@ -37,10 +37,11 @@
       "theorem_id": "T133-OMEGA-STATUS",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::eligible_live_requires_cycle",
+      "lean_ref": "formal/lean/OC133V12.lean::declared_death_blocks_live",
       "model": {
         "admissible": true,
         "live": true,
+        "death": false,
         "cycle_mode": "maintenance",
         "residue_class": "schema",
         "identity_class": "runtime_token"
@@ -52,10 +53,11 @@
       "theorem_id": "T133-OMEGA-STATUS",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::eligible_live_requires_cycle",
+      "lean_ref": "formal/lean/OC133V12.lean::declared_death_blocks_live",
       "model": {
         "admissible": true,
         "live": true,
+        "death": true,
         "cycle_mode": "none",
         "residue_class": "schema",
         "identity_class": "schema"
@@ -127,7 +129,7 @@
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::hybrid_guard_uses_reset",
+      "lean_ref": "formal/lean/OC133V12.lean::differential_notation_requires_chart",
       "model": {
         "primitive": "typed_update",
         "smooth_requires_chart": true,
@@ -140,7 +142,7 @@
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::hybrid_guard_uses_reset",
+      "lean_ref": "formal/lean/OC133V12.lean::differential_notation_requires_chart",
       "model": {
         "primitive": "universal_derivative",
         "smooth_requires_chart": false,
@@ -179,7 +181,7 @@
       "theorem_id": "T133-CYCLE",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::cycle_mode_required_for_eligible_live",
+      "lean_ref": "formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance",
       "model": {
         "live": true,
         "cycle_mode": "degenerate",
@@ -192,7 +194,7 @@
       "theorem_id": "T133-CYCLE",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::cycle_mode_required_for_eligible_live",
+      "lean_ref": "formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance",
       "model": {
         "live": true,
         "cycle_mode": "none",
@@ -205,7 +207,7 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::residue_is_not_identity",
+      "lean_ref": "formal/lean/OC133V12.lean::invariant_lost_blocks_identity",
       "model": {
         "morphism": "rebirth",
         "identity_invariant_preserved": false,
@@ -218,7 +220,7 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::residue_is_not_identity",
+      "lean_ref": "formal/lean/OC133V12.lean::invariant_lost_blocks_identity",
       "model": {
         "morphism": "rebirth",
         "identity_invariant_preserved": false,
@@ -288,13 +290,25 @@
       "lean_ref": "formal/lean/OC133V12.lean::component_witness_is_one_component_delta",
       "model": {
         "component": "carrier",
+        "required_components": [
+          "carrier",
+          "realization",
+          "lawful_possibility",
+          "liveness",
+          "residue",
+          "morphisms",
+          "boundaries",
+          "operators",
+          "cycles",
+          "dimension",
+          "k"
+        ],
         "keep_present": true,
         "drop_present": false,
+        "dropped_component": "carrier",
         "changed_fields": [
           "carrier"
         ],
-        "keep_verdict": "PASS",
-        "drop_verdict": "FAIL",
         "keep_case_description": "typed raw carrier present",
         "drop_case_description": "carrier erased into untyped token"
       }
@@ -309,13 +323,25 @@
       "lean_ref": "formal/lean/OC133V12.lean::component_witness_is_one_component_delta",
       "model": {
         "component": "realization",
+        "required_components": [
+          "carrier",
+          "realization",
+          "lawful_possibility",
+          "liveness",
+          "residue",
+          "morphisms",
+          "boundaries",
+          "operators",
+          "cycles",
+          "dimension",
+          "k"
+        ],
         "keep_present": true,
         "drop_present": false,
+        "dropped_component": "realization",
         "changed_fields": [
           "realization"
         ],
-        "keep_verdict": "PASS",
-        "drop_verdict": "FAIL",
         "keep_case_description": "realization binds symbols to domain semantics",
         "drop_case_description": "symbols float without interpretation"
       }
@@ -330,13 +356,25 @@
       "lean_ref": "formal/lean/OC133V12.lean::component_witness_is_one_component_delta",
       "model": {
         "component": "lawful_possibility",
+        "required_components": [
+          "carrier",
+          "realization",
+          "lawful_possibility",
+          "liveness",
+          "residue",
+          "morphisms",
+          "boundaries",
+          "operators",
+          "cycles",
+          "dimension",
+          "k"
+        ],
         "keep_present": true,
         "drop_present": false,
+        "dropped_component": "lawful_possibility",
         "changed_fields": [
           "lawful_possibility"
         ],
-        "keep_verdict": "PASS",
-        "drop_verdict": "FAIL",
         "keep_case_description": "admissible transitions are checked",
         "drop_case_description": "forbidden transition admitted"
       }
@@ -351,13 +389,25 @@
       "lean_ref": "formal/lean/OC133V12.lean::component_witness_is_one_component_delta",
       "model": {
         "component": "liveness",
+        "required_components": [
+          "carrier",
+          "realization",
+          "lawful_possibility",
+          "liveness",
+          "residue",
+          "morphisms",
+          "boundaries",
+          "operators",
+          "cycles",
+          "dimension",
+          "k"
+        ],
         "keep_present": true,
         "drop_present": false,
+        "dropped_component": "liveness",
         "changed_fields": [
           "liveness"
         ],
-        "keep_verdict": "PASS",
-        "drop_verdict": "FAIL",
         "keep_case_description": "live predicate requires active support",
         "drop_case_description": "static label called live"
       }
@@ -372,13 +422,25 @@
       "lean_ref": "formal/lean/OC133V12.lean::component_witness_is_one_component_delta",
       "model": {
         "component": "residue",
+        "required_components": [
+          "carrier",
+          "realization",
+          "lawful_possibility",
+          "liveness",
+          "residue",
+          "morphisms",
+          "boundaries",
+          "operators",
+          "cycles",
+          "dimension",
+          "k"
+        ],
         "keep_present": true,
         "drop_present": false,
+        "dropped_component": "residue",
         "changed_fields": [
           "residue"
         ],
-        "keep_verdict": "PASS",
-        "drop_verdict": "FAIL",
         "keep_case_description": "post-death residue is classified",
         "drop_case_description": "residue erased"
       }
@@ -393,13 +455,25 @@
       "lean_ref": "formal/lean/OC133V12.lean::component_witness_is_one_component_delta",
       "model": {
         "component": "morphisms",
+        "required_components": [
+          "carrier",
+          "realization",
+          "lawful_possibility",
+          "liveness",
+          "residue",
+          "morphisms",
+          "boundaries",
+          "operators",
+          "cycles",
+          "dimension",
+          "k"
+        ],
         "keep_present": true,
         "drop_present": false,
+        "dropped_component": "morphisms",
         "changed_fields": [
           "morphisms"
         ],
-        "keep_verdict": "PASS",
-        "drop_verdict": "FAIL",
         "keep_case_description": "identity/residue/rebirth morphisms separated",
         "drop_case_description": "rebirth read as identity"
       }
@@ -414,13 +488,25 @@
       "lean_ref": "formal/lean/OC133V12.lean::component_witness_is_one_component_delta",
       "model": {
         "component": "boundaries",
+        "required_components": [
+          "carrier",
+          "realization",
+          "lawful_possibility",
+          "liveness",
+          "residue",
+          "morphisms",
+          "boundaries",
+          "operators",
+          "cycles",
+          "dimension",
+          "k"
+        ],
         "keep_present": true,
         "drop_present": false,
+        "dropped_component": "boundaries",
         "changed_fields": [
           "boundaries"
         ],
-        "keep_verdict": "PASS",
-        "drop_verdict": "FAIL",
         "keep_case_description": "classifier boundary rejects bad state",
         "drop_case_description": "boundary removed"
       }
@@ -435,13 +521,25 @@
       "lean_ref": "formal/lean/OC133V12.lean::component_witness_is_one_component_delta",
       "model": {
         "component": "operators",
+        "required_components": [
+          "carrier",
+          "realization",
+          "lawful_possibility",
+          "liveness",
+          "residue",
+          "morphisms",
+          "boundaries",
+          "operators",
+          "cycles",
+          "dimension",
+          "k"
+        ],
         "keep_present": true,
         "drop_present": false,
+        "dropped_component": "operators",
         "changed_fields": [
           "operators"
         ],
-        "keep_verdict": "PASS",
-        "drop_verdict": "FAIL",
         "keep_case_description": "typed update relation declared",
         "drop_case_description": "derivative imposed on rewrite state"
       }
@@ -456,13 +554,25 @@
       "lean_ref": "formal/lean/OC133V12.lean::component_witness_is_one_component_delta",
       "model": {
         "component": "cycles",
+        "required_components": [
+          "carrier",
+          "realization",
+          "lawful_possibility",
+          "liveness",
+          "residue",
+          "morphisms",
+          "boundaries",
+          "operators",
+          "cycles",
+          "dimension",
+          "k"
+        ],
         "keep_present": true,
         "drop_present": false,
+        "dropped_component": "cycles",
         "changed_fields": [
           "cycles"
         ],
-        "keep_verdict": "PASS",
-        "drop_verdict": "FAIL",
         "keep_case_description": "cycle mode or maintenance predicate present",
         "drop_case_description": "frozen object accepted as live"
       }
@@ -477,13 +587,25 @@
       "lean_ref": "formal/lean/OC133V12.lean::component_witness_is_one_component_delta",
       "model": {
         "component": "dimension",
+        "required_components": [
+          "carrier",
+          "realization",
+          "lawful_possibility",
+          "liveness",
+          "residue",
+          "morphisms",
+          "boundaries",
+          "operators",
+          "cycles",
+          "dimension",
+          "k"
+        ],
         "keep_present": true,
         "drop_present": false,
+        "dropped_component": "dimension",
         "changed_fields": [
           "dimension"
         ],
-        "keep_verdict": "PASS",
-        "drop_verdict": "FAIL",
         "keep_case_description": "historical axis separated from effective rank",
         "drop_case_description": "axes conflated"
       }
@@ -498,13 +620,25 @@
       "lean_ref": "formal/lean/OC133V12.lean::component_witness_is_one_component_delta",
       "model": {
         "component": "k",
+        "required_components": [
+          "carrier",
+          "realization",
+          "lawful_possibility",
+          "liveness",
+          "residue",
+          "morphisms",
+          "boundaries",
+          "operators",
+          "cycles",
+          "dimension",
+          "k"
+        ],
         "keep_present": true,
         "drop_present": false,
+        "dropped_component": "k",
         "changed_fields": [
           "k"
         ],
-        "keep_verdict": "PASS",
-        "drop_verdict": "FAIL",
         "keep_case_description": "zero-cause family explains score zero",
         "drop_case_description": "k=0 asserted without cause"
       }
@@ -525,7 +659,27 @@
         "witness_retained": true,
         "added_axis_observable": true,
         "demotion_allowed": false,
-        "reduction_verdict": "FAILS_WITH_WITNESS"
+        "reduction_attempt": "remove_added_axis"
+      }
+    },
+    {
+      "case_id": "FM-KLEVEL-K0_to_K1-NEG",
+      "theorem_id": "T133-KLEVEL",
+      "case_type": "adjacent_k_transition_witness",
+      "transition_id": "K0_to_K1",
+      "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
+      "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
+      "model": {
+        "transition_id": "K0_to_K1",
+        "added_axis": "distinguishable state -> minimal continuum",
+        "witness_pair": "witness deliberately made unobservable",
+        "reduction_failure_criterion": "remove continuity and frozen label passes",
+        "lawful_demotion_criterion": "demote if no continuity obligation is observed",
+        "witness_retained": false,
+        "added_axis_observable": false,
+        "demotion_allowed": true,
+        "lawful_demotion_condition": "witness_unobservable",
+        "reduction_attempt": "remove_added_axis"
       }
     },
     {
@@ -544,7 +698,27 @@
         "witness_retained": true,
         "added_axis_observable": true,
         "demotion_allowed": false,
-        "reduction_verdict": "FAILS_WITH_WITNESS"
+        "reduction_attempt": "remove_added_axis"
+      }
+    },
+    {
+      "case_id": "FM-KLEVEL-K1_to_K2-NEG",
+      "theorem_id": "T133-KLEVEL",
+      "case_type": "adjacent_k_transition_witness",
+      "transition_id": "K1_to_K2",
+      "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
+      "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
+      "model": {
+        "transition_id": "K1_to_K2",
+        "added_axis": "minimal continuum -> phase threshold",
+        "witness_pair": "witness deliberately made unobservable",
+        "reduction_failure_criterion": "encode as K1 and miss crossing",
+        "lawful_demotion_criterion": "demote if threshold never affects verdict",
+        "witness_retained": false,
+        "added_axis_observable": false,
+        "demotion_allowed": true,
+        "lawful_demotion_condition": "witness_unobservable",
+        "reduction_attempt": "remove_added_axis"
       }
     },
     {
@@ -563,7 +737,27 @@
         "witness_retained": true,
         "added_axis_observable": true,
         "demotion_allowed": false,
-        "reduction_verdict": "FAILS_WITH_WITNESS"
+        "reduction_attempt": "remove_added_axis"
+      }
+    },
+    {
+      "case_id": "FM-KLEVEL-K2_to_K3-NEG",
+      "theorem_id": "T133-KLEVEL",
+      "case_type": "adjacent_k_transition_witness",
+      "transition_id": "K2_to_K3",
+      "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
+      "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
+      "model": {
+        "transition_id": "K2_to_K3",
+        "added_axis": "phase threshold -> autocatalytic closure",
+        "witness_pair": "witness deliberately made unobservable",
+        "reduction_failure_criterion": "phase-only model accepts non-producing set",
+        "lawful_demotion_criterion": "demote if closure production is irrelevant",
+        "witness_retained": false,
+        "added_axis_observable": false,
+        "demotion_allowed": true,
+        "lawful_demotion_condition": "witness_unobservable",
+        "reduction_attempt": "remove_added_axis"
       }
     },
     {
@@ -582,7 +776,27 @@
         "witness_retained": true,
         "added_axis_observable": true,
         "demotion_allowed": false,
-        "reduction_verdict": "FAILS_WITH_WITNESS"
+        "reduction_attempt": "remove_added_axis"
+      }
+    },
+    {
+      "case_id": "FM-KLEVEL-K3_to_K4-NEG",
+      "theorem_id": "T133-KLEVEL",
+      "case_type": "adjacent_k_transition_witness",
+      "transition_id": "K3_to_K4",
+      "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
+      "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
+      "model": {
+        "transition_id": "K3_to_K4",
+        "added_axis": "closure -> membrane boundary",
+        "witness_pair": "witness deliberately made unobservable",
+        "reduction_failure_criterion": "closure-only model admits leaking state",
+        "lawful_demotion_criterion": "demote if boundary classifier has no observable effect",
+        "witness_retained": false,
+        "added_axis_observable": false,
+        "demotion_allowed": true,
+        "lawful_demotion_condition": "witness_unobservable",
+        "reduction_attempt": "remove_added_axis"
       }
     },
     {
@@ -601,7 +815,27 @@
         "witness_retained": true,
         "added_axis_observable": true,
         "demotion_allowed": false,
-        "reduction_verdict": "FAILS_WITH_WITNESS"
+        "reduction_attempt": "remove_added_axis"
+      }
+    },
+    {
+      "case_id": "FM-KLEVEL-K4_to_K5-NEG",
+      "theorem_id": "T133-KLEVEL",
+      "case_type": "adjacent_k_transition_witness",
+      "transition_id": "K4_to_K5",
+      "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
+      "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
+      "model": {
+        "transition_id": "K4_to_K5",
+        "added_axis": "boundary -> excitable regulation",
+        "witness_pair": "witness deliberately made unobservable",
+        "reduction_failure_criterion": "membrane-only model misses excitation",
+        "lawful_demotion_criterion": "demote if excitation never affects status",
+        "witness_retained": false,
+        "added_axis_observable": false,
+        "demotion_allowed": true,
+        "lawful_demotion_condition": "witness_unobservable",
+        "reduction_attempt": "remove_added_axis"
       }
     },
     {
@@ -620,7 +854,27 @@
         "witness_retained": true,
         "added_axis_observable": true,
         "demotion_allowed": false,
-        "reduction_verdict": "FAILS_WITH_WITNESS"
+        "reduction_attempt": "remove_added_axis"
+      }
+    },
+    {
+      "case_id": "FM-KLEVEL-K5_to_K6-NEG",
+      "theorem_id": "T133-KLEVEL",
+      "case_type": "adjacent_k_transition_witness",
+      "transition_id": "K5_to_K6",
+      "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
+      "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
+      "model": {
+        "transition_id": "K5_to_K6",
+        "added_axis": "regulation -> binding prediction",
+        "witness_pair": "witness deliberately made unobservable",
+        "reduction_failure_criterion": "regulation-only model misses binding",
+        "lawful_demotion_criterion": "demote if binding is observationally inert",
+        "witness_retained": false,
+        "added_axis_observable": false,
+        "demotion_allowed": true,
+        "lawful_demotion_condition": "witness_unobservable",
+        "reduction_attempt": "remove_added_axis"
       }
     },
     {
@@ -639,7 +893,27 @@
         "witness_retained": true,
         "added_axis_observable": true,
         "demotion_allowed": false,
-        "reduction_verdict": "FAILS_WITH_WITNESS"
+        "reduction_attempt": "remove_added_axis"
+      }
+    },
+    {
+      "case_id": "FM-KLEVEL-K6_to_K7-NEG",
+      "theorem_id": "T133-KLEVEL",
+      "case_type": "adjacent_k_transition_witness",
+      "transition_id": "K6_to_K7",
+      "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
+      "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
+      "model": {
+        "transition_id": "K6_to_K7",
+        "added_axis": "binding -> trust coordination",
+        "witness_pair": "witness deliberately made unobservable",
+        "reduction_failure_criterion": "binding-only model admits norm violation",
+        "lawful_demotion_criterion": "demote if roles do not change allowed actions",
+        "witness_retained": false,
+        "added_axis_observable": false,
+        "demotion_allowed": true,
+        "lawful_demotion_condition": "witness_unobservable",
+        "reduction_attempt": "remove_added_axis"
       }
     },
     {
@@ -658,7 +932,27 @@
         "witness_retained": true,
         "added_axis_observable": true,
         "demotion_allowed": false,
-        "reduction_verdict": "FAILS_WITH_WITNESS"
+        "reduction_attempt": "remove_added_axis"
+      }
+    },
+    {
+      "case_id": "FM-KLEVEL-K7_to_K8-NEG",
+      "theorem_id": "T133-KLEVEL",
+      "case_type": "adjacent_k_transition_witness",
+      "transition_id": "K7_to_K8",
+      "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
+      "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
+      "model": {
+        "transition_id": "K7_to_K8",
+        "added_axis": "coordination -> regime shift",
+        "witness_pair": "witness deliberately made unobservable",
+        "reduction_failure_criterion": "coordination-only model freezes rules",
+        "lawful_demotion_criterion": "demote if regime state is constant",
+        "witness_retained": false,
+        "added_axis_observable": false,
+        "demotion_allowed": true,
+        "lawful_demotion_condition": "witness_unobservable",
+        "reduction_attempt": "remove_added_axis"
       }
     },
     {
@@ -677,7 +971,27 @@
         "witness_retained": true,
         "added_axis_observable": true,
         "demotion_allowed": false,
-        "reduction_verdict": "FAILS_WITH_WITNESS"
+        "reduction_attempt": "remove_added_axis"
+      }
+    },
+    {
+      "case_id": "FM-KLEVEL-K8_to_K9-NEG",
+      "theorem_id": "T133-KLEVEL",
+      "case_type": "adjacent_k_transition_witness",
+      "transition_id": "K8_to_K9",
+      "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
+      "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
+      "model": {
+        "transition_id": "K8_to_K9",
+        "added_axis": "regime -> theory dynamics",
+        "witness_pair": "witness deliberately made unobservable",
+        "reduction_failure_criterion": "regime-only model lacks claim revision",
+        "lawful_demotion_criterion": "demote if claim revision is disabled",
+        "witness_retained": false,
+        "added_axis_observable": false,
+        "demotion_allowed": true,
+        "lawful_demotion_condition": "witness_unobservable",
+        "reduction_attempt": "remove_added_axis"
       }
     },
     {
@@ -696,7 +1010,27 @@
         "witness_retained": true,
         "added_axis_observable": true,
         "demotion_allowed": false,
-        "reduction_verdict": "FAILS_WITH_WITNESS"
+        "reduction_attempt": "remove_added_axis"
+      }
+    },
+    {
+      "case_id": "FM-KLEVEL-K9_to_K10-NEG",
+      "theorem_id": "T133-KLEVEL",
+      "case_type": "adjacent_k_transition_witness",
+      "transition_id": "K9_to_K10",
+      "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
+      "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
+      "model": {
+        "transition_id": "K9_to_K10",
+        "added_axis": "theory dynamics -> recursive self-application",
+        "witness_pair": "witness deliberately made unobservable",
+        "reduction_failure_criterion": "K9 model cannot type self-update",
+        "lawful_demotion_criterion": "demote if self-reference is absent",
+        "witness_retained": false,
+        "added_axis_observable": false,
+        "demotion_allowed": true,
+        "lawful_demotion_condition": "witness_unobservable",
+        "reduction_attempt": "remove_added_axis"
       }
     },
     {
@@ -715,7 +1049,27 @@
         "witness_retained": true,
         "added_axis_observable": true,
         "demotion_allowed": false,
-        "reduction_verdict": "FAILS_WITH_WITNESS"
+        "reduction_attempt": "remove_added_axis"
+      }
+    },
+    {
+      "case_id": "FM-KLEVEL-K10_to_K11-NEG",
+      "theorem_id": "T133-KLEVEL",
+      "case_type": "adjacent_k_transition_witness",
+      "transition_id": "K10_to_K11",
+      "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
+      "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
+      "model": {
+        "transition_id": "K10_to_K11",
+        "added_axis": "recursion -> cross-domain coherence",
+        "witness_pair": "witness deliberately made unobservable",
+        "reduction_failure_criterion": "recursive single-domain model passes incoherent translation",
+        "lawful_demotion_criterion": "demote if no cross-domain bridge exists",
+        "witness_retained": false,
+        "added_axis_observable": false,
+        "demotion_allowed": true,
+        "lawful_demotion_condition": "witness_unobservable",
+        "reduction_attempt": "remove_added_axis"
       }
     },
     {
@@ -734,8 +1088,54 @@
         "witness_retained": true,
         "added_axis_observable": true,
         "demotion_allowed": false,
-        "reduction_verdict": "FAILS_WITH_WITNESS"
+        "reduction_attempt": "remove_added_axis"
       }
+    },
+    {
+      "case_id": "FM-KLEVEL-K11_to_K12-NEG",
+      "theorem_id": "T133-KLEVEL",
+      "case_type": "adjacent_k_transition_witness",
+      "transition_id": "K11_to_K12",
+      "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
+      "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
+      "model": {
+        "transition_id": "K11_to_K12",
+        "added_axis": "coherence -> release-governed civilizational closure",
+        "witness_pair": "witness deliberately made unobservable",
+        "reduction_failure_criterion": "K11 model cannot represent no-send governance",
+        "lawful_demotion_criterion": "demote if no release-governed action exists",
+        "witness_retained": false,
+        "added_axis_observable": false,
+        "demotion_allowed": true,
+        "lawful_demotion_condition": "witness_unobservable",
+        "reduction_attempt": "remove_added_axis"
+      }
+    },
+    {
+      "case_id": "ADV-NOSEND-PUBLISH",
+      "theorem_id": "OC133-NOSEND-001",
+      "case_type": "no_send_state_machine",
+      "expected_verdict": "REJECT_PUBLIC_ACTION",
+      "lean_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+      "model": {
+        "owner_approved": false,
+        "publish_requested": true,
+        "publish_allowed": false
+      },
+      "negative_control_id": "ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL"
+    },
+    {
+      "case_id": "ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL",
+      "theorem_id": "OC133-NOSEND-001",
+      "case_type": "no_send_state_machine",
+      "expected_verdict": "ALLOW_AFTER_OWNER_APPROVAL",
+      "lean_ref": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+      "model": {
+        "owner_approved": true,
+        "publish_requested": true,
+        "publish_allowed": true
+      },
+      "negative_control_id": ""
     }
   ]
 }

@@ -2,7 +2,7 @@
 
 Status: `PROMOTED_BOUNDED_THEOREM_V12`
 Primary artifact: `content/OC_1_3_3_CYCLE_TAXONOMY.tex`
-Machine-checked subset: `formal/lean/OC133V12.lean::cycle_mode_required_for_eligible_live`
+Machine-checked subset: `formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance`
 Attacked claim: Live status requires an explicit cycle mode or non-vacuous maintenance predicate.
 
 ## Assumptions
