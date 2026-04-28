@@ -1187,6 +1187,8 @@ def bundle_entries(root: Path) -> list[BundleEntry]:
         "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PDF_QUALITY_latest.json",
         "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PREDICTION_AND_PROMOTION_SUPPORT_MAP_latest.json",
         "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PREDICTION_AND_PROMOTION_SUPPORT_MAP_latest.md",
+        "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_FINAL_CRITICAL_REVIEW_REPORT.json",
+        "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_FINAL_CRITICAL_REVIEW_REPORT.md",
         "releases/oc_core_1_3_2/editorial/LRGEF_RELEASE_STATE_latest.json",
         "releases/oc_core_1_3_2/editorial/LRGEF_RELEASE_STATE_latest.md",
         "releases/oc_core_1_3_2/editorial/LRGEF_RELEASE_POLICY_v1.json",
