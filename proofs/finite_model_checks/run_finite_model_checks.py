@@ -43,9 +43,37 @@ def observed(row: dict) -> str:
         elif theorem_id == "T133-ID":
             ok = model.get("morphism") in {"residue", "rebirth"} and model.get("identity_invariant_preserved") is False and model.get("classified_as_identity") is False
         elif theorem_id == "T133-MIN":
-            ok = model.get("witness_pair_count") == COMPONENT_TOTAL and model.get("all_one_component_deltas") is True and model.get("all_verdict_changes") is True
+            required = set(model.get("required_components", []))
+            drops = model.get("drop_cases", [])
+            ok = (
+                len(required) == COMPONENT_TOTAL
+                and len(drops) == COMPONENT_TOTAL
+                and all(
+                    row.get("component") in required
+                    and row.get("dropped_component") == row.get("component")
+                    and row.get("changed_fields") == [row.get("component")]
+                    for row in drops
+                )
+            )
         elif theorem_id == "T133-KLEVEL":
-            ok = model.get("transition_count") == KLEVEL_TOTAL and model.get("all_reductions_fail_with_retained_witness") is True and model.get("lawful_demotion_rule_present") is True
+            transitions = model.get("transitions", [])
+            ok = (
+                len(transitions) == KLEVEL_TOTAL
+                and all(
+                    isinstance(row.get("lower_code"), int)
+                    and isinstance(row.get("upper_code"), int)
+                    and row.get("upper_code") == row.get("lower_code") + 1
+                    and row.get("added_axis_code") == row.get("upper_code")
+                    and row.get("witness_code") == row.get("upper_code") * 100 + 7
+                    and row.get("retained", {}).get("witness_retained") is True
+                    and row.get("retained", {}).get("added_axis_observable") is True
+                    and row.get("retained", {}).get("demotion_allowed") is False
+                    and row.get("demotion", {}).get("witness_retained") is False
+                    and row.get("demotion", {}).get("added_axis_observable") is False
+                    and row.get("demotion", {}).get("demotion_allowed") is True
+                    for row in transitions
+                )
+            )
         else:
             ok = False
         return "ACCEPT" if ok else "REJECT"
@@ -61,8 +89,16 @@ def observed(row: dict) -> str:
         )
         return "FAIL" if ok else "PASS"
     if case_type == "adjacent_k_transition_witness":
+        codes_ok = (
+            isinstance(model.get("lower_code"), int)
+            and isinstance(model.get("upper_code"), int)
+            and model.get("upper_code") == model.get("lower_code") + 1
+            and model.get("added_axis_code") == model.get("upper_code")
+            and model.get("witness_code") == model.get("upper_code") * 100 + 7
+        )
         if (
-            model.get("transition_id") == row.get("transition_id")
+            codes_ok
+            and model.get("transition_id") == row.get("transition_id")
             and model.get("witness_retained") is True
             and model.get("added_axis_observable") is True
             and model.get("demotion_allowed") is False
@@ -70,7 +106,8 @@ def observed(row: dict) -> str:
         ):
             return "FAILS_WITH_WITNESS"
         if (
-            model.get("transition_id") == row.get("transition_id")
+            codes_ok
+            and model.get("transition_id") == row.get("transition_id")
             and model.get("witness_retained") is False
             and model.get("added_axis_observable") is False
             and model.get("demotion_allowed") is True

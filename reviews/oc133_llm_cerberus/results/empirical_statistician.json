@@ -2,64 +2,48 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "empirical_statistician",
   "execution_status": "EXECUTED",
-  "critical_open_total": 2,
-  "high_open_total": 5,
-  "finding_total": 7,
+  "critical_open_total": 1,
+  "high_open_total": 4,
+  "finding_total": 5,
   "findings": [
     {
+      "severity": "HIGH",
+      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
+      "claim": "OC133-NUM-SYS-WDI-GDP: one-step GDP replay with comparator under a split_policy that trains on two previous non-null years and holds out the latest non-null year.",
+      "failure_mode": "The heldout residual PASS is contaminated by the heldout target: uncertainty 4241013358949.0 equals observed_value 110982661180013.0 minus comparator_prediction 106741647821064.0 from the referenced WDI snapshot, so the falsifier threshold is derived from the heldout year. The comparator is also not scored with its own residual/error, so the comparator language is not an independent comparator test.",
+      "required_repair": "Recompute uncertainty from pre-heldout training years only or from a predeclared external uncertainty, add an explicit comparator method and comparator residual/error, rerun from frozen inputs, and demote the row to non-heldout arithmetic replay if any target-derived quantity remains.",
+      "status": "OPEN"
+    },
+    {
       "severity": "CRITICAL",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "T133-MIN / OC133-NUM-MATH-FINITE: finite witness acceptance count for all promoted v12 theorem rows",
-      "failure_mode": "The semantic evaluator is still self-confirming for component witnesses: it accepts rows by reading verdict labels embedded in the input model (`keep_verdict`, `drop_verdict`) and then reports matching observed verdicts. The aggregate T133-MIN check likewise trusts input booleans such as `all_one_component_deltas` and `all_verdict_changes` instead of deriving them from an independent verdict rule.",
-      "required_repair": "Remove verdict-output labels from finite-model inputs, derive keep/drop verdicts from a declared evaluator or Lean-backed verdict function, add adversarial rows where supplied labels lie, regenerate `proofs/FINITE_MODEL_CHECKS_1_3_3.json`, and block OC133-NUM-MATH-FINITE until the new runner rejects label leakage.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "CRITICAL",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "T133-KLEVEL: every adjacent K-level transition K0->K12 has a witness, reduction-failure criterion, and lawful demotion criterion",
-      "failure_mode": "The adjacent-transition checks are asserted rather than tested: the runner accepts each row when the input already declares `witness_retained=true`, `added_axis_observable=true`, `demotion_allowed=false`, and `reduction_verdict=FAILS_WITH_WITNESS`. There is no independent computation of reduction failure, and the 12 transition rows have no per-transition negative/demotion controls.",
-      "required_repair": "Remove `reduction_verdict` as an input fact, derive the reduction verdict from explicit transition semantics, add paired negative/demotion cases for every K0->K1 through K11->K12 transition, and demote the T133-KLEVEL public claim until those cases are executable and failing controls are observed.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-MIN: within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair",
-      "failure_mode": "The Lean proof does not model the declared OC verdict class. `componentVerdict` depends only on a generic `present` Boolean, so `every_component_has_witness` proves that deleting any placeholder component flips pass/fail by construction, not that each actual promoted tuple component is empirically or semantically necessary.",
-      "required_repair": "Replace the generic `present` Boolean witness with the actual promoted OC tuple verdict predicate, prove one-component deltas against that predicate, and link each Lean component to the corresponding finite-model row before calling the theorem promoted.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-KLEVEL: every adjacent K-level transition has a witness and reduction-failure criterion",
-      "failure_mode": "`every_adjacent_transition_has_witness` constructs `retainedTransitionEvidence` for any transition with `witnessRetained=true`, `addedAxisObservable=true`, and `reduction=losesWitness`. This proves that a record can be filled with favorable flags, not that each K-level transition has a non-reducible witness derived from domain semantics.",
-      "required_repair": "Define transition-specific semantics and evidence obligations for each adjacent K-level, prove reduction failure from those obligations rather than from freely constructed flags, and demote KLEVEL coverage rows that only cite the synthetic constructor.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "P012 / OC133-NOSEND-001: release governance is replayed as an owner approval state machine with `ADV-NOSEND-PUBLISH`",
-      "failure_mode": "The coverage matrix claims a semantic finite case `ADV-NOSEND-PUBLISH`, but `proofs/FINITE_MODEL_CHECKS_1_3_3.json` contains no such case and `formal/lean/OC133V12.lean` contains no owner-approval state machine. The manifest supports `publish_allowed=false`, but the claimed formal/replay route is nonexistent.",
-      "required_repair": "Either add an executable no-send state-machine case with positive and negative controls, or demote P012 from `PHENOMENON_SPECIFIC_MODEL_REPLAYED` to a manifest-only governance check and remove the nonexistent `ADV-NOSEND-PUBLISH` references.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "P008-P011 / T133-KLEVEL: phenomenon-specific K-level model cards have negative controls",
-      "failure_mode": "The matrix lists the same positive transition case as both `prediction_or_replay` and `negative_control` for K2->K3, K6->K7, K8->K9, and K9->K10. In the finite checks these transition rows are positive-only `adjacent_k_transition_witness` cases, so the phenomenon-specific negative-control claim is false.",
-      "required_repair": "Create distinct negative-control case IDs for each phenomenon-specific K transition, wire them into `proofs/FINITE_MODEL_CHECKS_1_3_3.json`, and downgrade these coverage rows until the controls exist and reject the attacked readings.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
       "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "All self-confirming finite-model objections are `CLOSED_BY_SPECIFIC_V12_EVIDENCE` via `semantic_evaluator=true`",
-      "failure_mode": "The attack matrix closes the exact objection `self-confirming finite model verdicts` using only the presence of `semantic_evaluator=true`, but the current runner and input schema still allow verdict labels and reduction verdicts to be supplied as input facts. The closure is therefore not supported by the official snapshots.",
-      "required_repair": "Reopen the affected proof/theorem-theater rows, require closure evidence that demonstrates adversarial label-leakage rejection, and update the attack matrix only after regenerated finite checks show independent derived verdicts.",
+      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 for 210 objections.",
+      "failure_mode": "The matrix closes release-critical empirical, coverage, and proof attacks by detecting closure tokens rather than validating the evidence. Current examples include V12-ATTACK-003 closed by NUMERIC_REPLAY_QA_NOT_EMPIRICAL_PROMOTION despite the GDP heldout leakage, V12-ATTACK-002 closed by semantic_evaluator=true although the runner accepts self-declared model flags, and V12-ATTACK-005 closed by PHENOMENON_SPECIFIC_MODEL_REPLAYED despite no domain empirical coverage.",
+      "required_repair": "Replace token-based closure with per-attack acceptance tests; reopen affected critical/high rows until numeric heldout replay is target-clean, finite checks compute from raw model semantics rather than self-asserted flags, and phenomenon coverage has domain evidence or is explicitly unresolved.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "OC133-NOVELTY-001: source-backed prior-art positioning supports the bounded OC release-governance residual delta.",
+      "failure_mode": "The residual-delta test relies on one anchor page per tradition and absence labels such as NOT_FOUND_IN_SOURCE_PAGE. Absence from a single source page is not a prior-art search and does not support a residual positioning claim for release governance, formal-method governance, or systems-engineering overlap.",
+      "required_repair": "Demote to illustrative comparator notes or add a real prior-art protocol: search queries, inclusion/exclusion rules, archived source snapshots, quote/extract anchors, multiple sources per tradition, and a negative-search log for the claimed residual bundle.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "unsupported_closed_total=0 with explanation_status=PHENOMENON_SPECIFIC_MODEL_REPLAYED across broad hostile questions including biological organization, origin-of-life framing, social institutions, and theory change.",
+      "failure_mode": "The rows answer broad empirical or cross-domain phenomena using only formal toy model cards, Lean/proof-sheet refs, and finite replay IDs, while also admitting each row is not a full empirical solution. This converts scoped examples into apparent coverage closure without domain data, comparator baselines, residual analysis, or external falsification.",
+      "required_repair": "Rename the artifact to formal model-card examples or add an explicit unresolved broad-phenomenon status. Only mark coverage closed after adding domain datasets, preregistered observable mappings, comparator baselines, residual criteria, and falsifiers for each phenomenon.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "T133-KLEVEL is promoted as PROMOTED_BOUNDED_WITH_LEAN_SUBSET_AND_FINITE_WITNESS for every adjacent K-level transition K0->K12.",
+      "failure_mode": "The cited Lean subset formal/lean/OC133V12.lean::every_adjacent_transition_has_witness constructs retainedTransitionEvidence with fixed booleans for any AdjacentK enum value; the finite runner then accepts rows whose input flags assert witness_retained=true and added_axis_observable=true. This checks a schema constructor and declared flags, not the actual K-level atlas semantics or verdict-changing witnesses.",
+      "required_repair": "Formalize the K-level atlas and concrete witness predicates in Lean or in a separately verified data model, prove each transition from concrete keep/drop state pairs, make the finite runner recompute verdict changes from raw model fields, and demote T133-KLEVEL until that proof path exists.",
       "status": "OPEN"
     }
   ],

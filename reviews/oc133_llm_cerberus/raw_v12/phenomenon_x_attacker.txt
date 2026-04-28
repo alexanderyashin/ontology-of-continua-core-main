@@ -1,1 +1,61 @@
-{"role":"phenomenon_x_attacker","findings":[{"severity":"CRITICAL","artifact_ref":"docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json","claim":"P008-P011 claim `PHENOMENON_SPECIFIC_MODEL_REPLAYED` for `T133-KLEVEL` using `FM-KLEVEL-K2_to_K3`, `FM-KLEVEL-K6_to_K7`, `FM-KLEVEL-K8_to_K9`, and `FM-KLEVEL-K9_to_K10` as both replay and negative control.","failure_mode":"The cited negative controls are not negative controls. In `proofs/FINITE_MODEL_CHECKS_1_3_3.json` and `proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json`, those IDs are positive `adjacent_k_transition_witness` rows with expected verdict `FAILS_WITH_WITNESS`; they have no paired rejection/demotion rows and no `negative_control_id`. The model cards therefore fail the release requirement that each broad phenomenon have a specific negative control.","required_repair":"Add distinct adversarial finite-model cases for each covered transition, e.g. `FM-KLEVEL-K2_to_K3-NEG`, `FM-KLEVEL-K6_to_K7-NEG`, `FM-KLEVEL-K8_to_K9-NEG`, and `FM-KLEVEL-K9_to_K10-NEG`, with runner logic that rejects/permits demotion when the claimed observable witness is removed or inert. Update the coverage matrix to cite those negative IDs, or demote these rows from `PHENOMENON_SPECIFIC_MODEL_REPLAYED`.","status":"OPEN"},{"severity":"CRITICAL","artifact_ref":"docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json","claim":"P012 claims `OC133-NOSEND-001` is replayed through semantic finite case `ADV-NOSEND-PUBLISH` with a negative control.","failure_mode":"`ADV-NOSEND-PUBLISH` is not present in `proofs/FINITE_MODEL_CHECKS_1_3_3.json` or `proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json`, and `proofs/finite_model_checks/run_finite_model_checks.py` has no evaluator branch for `OC133-NOSEND-001` or `ADV-NOSEND-PUBLISH`. The publish manifest does show `publish_allowed=false`, but the coverage model card falsely promotes a non-existent replay/negative-control path.","required_repair":"Either demote P012 to a manifest-only governance row, or add executable no-send model cases to the finite-model inputs and runner: one locked state that rejects publish, one owner-approved state that changes the verdict, and a falsifier that fails if publishing is allowed while `owner_approved=false`. Then update P012 to cite the actual case IDs.","status":"OPEN"},{"severity":"HIGH","artifact_ref":"docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json","claim":"All P001-P014 rows claim phenomenon-specific model-card coverage with a falsifier.","failure_mode":"The `model_card.falsifier` text is boilerplate across every row: `A finite model satisfying the stated assumptions while flipping the claimed observable without runner rejection.` The top-level `falsifier` field is likewise generic. That is not a phenomenon-specific falsifier for raw continuity, identity/rebirth, liveness, origin-of-life closure, institutions, theory change, no-send governance, or minimality; it gives no row-specific countermodel variables, observable flip, threshold, expected runner rejection, or linked adversarial case.","required_repair":"Replace the boilerplate falsifier in every row with a row-specific falsifier that names the formal instance, the exact observable to flip, the model fields/values that constitute the counterexample, the expected rejection verdict, and the finite-model/adversarial case ID that executes it.","status":"OPEN"},{"severity":"HIGH","artifact_ref":"formal/lean/OC133V12.lean","claim":"`T133-KLEVEL`: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.","failure_mode":"The Lean theorem `every_adjacent_transition_has_witness` proves the claim by constructing `retainedTransitionEvidence k`, whose fields are definitionally set to `witnessRetained=true`, `addedAxisObservable=true`, `demotionAllowed=false`, and `reduction=losesWitness`. It does not encode the phenomenon-specific semantics used in P008-P011, such as closure production, role/norm action changes, claim/evidence revision, or typed self-application. This is theorem theater for the phenomenon coverage rows: the proof establishes that the record constructor was filled, not that the broad phenomena have non-relabelable witnesses.","required_repair":"Encode each K-transition's domain predicate and observable in Lean or demote the theorem to an artifact registry claim. For promoted coverage rows, prove the witness from nontrivial assumptions tied to the specific model, and pair each proof with executable positive and negative finite-model cases.","status":"OPEN"}]}
+{
+  "role": "phenomenon_x_attacker",
+  "findings": [
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "P001-P014 explanation_status=PHENOMENON_SPECIFIC_MODEL_REPLAYED with model-card falsifiers",
+      "failure_mode": "The model cards declare falsifiers as countermodels satisfying assumptions while flipping observables, but the executed runner only evaluates listed fixtures through hand-coded predicates in proofs/finite_model_checks/run_finite_model_checks.py. There is no bounded countermodel search and no per-card assumption schema, so the advertised falsifier boundary is not actually tested.",
+      "required_repair": "For every phenomenon row, encode assumptions and observables as executable predicates, add bounded enumeration or explicit adversarial countermodel fixtures that attempt the observable flip, and block PHENOMENON_SPECIFIC_MODEL_REPLAYED unless those falsifier checks run.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "P001 / T133-K0-RES: resolution quotient over four cells of [0,1] with same-cell and cross-cell observables",
+      "failure_mode": "FM-T133-K0-RES-POS and NEG only contain rho_cell_a=0, rho_cell_b=0, and a claims_raw_separation flip. They do not encode [0,1], four cells, or the cross-cell quotient-pair distinction that the model card advertises. The checked Lean theorem covers same-cell non-distinguishability, not the full two-part observable.",
+      "required_repair": "Add finite cases with raw coordinates, four quotient cells, a positive cross-cell distinction case, and a raw-discreteness negative control; add or cite a Lean theorem that distinct resolution cells imply quotient distinguishability under the declared regime.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "P002 / T133-ID: checkpoint loses runtime token but preserves schema residue; rebirth is accepted only outside identity",
+      "failure_mode": "FM-T133-ID-POS/NEG only test morphism, identity_invariant_preserved, and classified_as_identity. They omit checkpoint state, runtime token loss, schema residue preservation, death, residueOf, and rebirthOf. The referenced Lean theorem only blocks identity when an invariant is false; it does not execute the advertised residue/rebirth model.",
+      "required_repair": "Extend the formal and finite model to include lifecycle state, residueOf, rebirthOf, runtime-token and schema invariants; add negative controls for missing residue, preserved identity invariant, and rebirth misclassified as identity.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "P008-P011 / T133-KLEVEL: RAF closure, social role/norm, theory-change, and recursive self-application model cards are replayed by FM-KLEVEL-* cases",
+      "failure_mode": "The adjacent_k_transition_witness evaluator ignores the domain content fields added_axis, witness_pair, reduction_failure_criterion, and lawful_demotion_criterion. Any row passes if witness_retained, added_axis_observable, demotion_allowed, and reduction_attempt have the expected generic values. The phenomenon cards are therefore labels on a transition toggle, not specific executable models with domain observables and negative controls.",
+      "required_repair": "Implement separate evaluators or schemas for the domain mechanisms: RAF reactions/catalysis/closure, role-norm allowed-action classification, claim/evidence ledger update, and typed self-application. Negative controls must break the domain mechanism, not merely set witness_retained=false.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "T133-K-ZERO / P007: continuumness zero follows from a declared zero-cause family",
+      "failure_mode": "The theorem inventory and proof ledger point to zero_cause_has_cause, which only proves flow=true implies hasZeroCause. The finite checks point to k_zero_iff_declared_zero_cause, an Iff.rfl over kZeroLicensed and hasZeroCause with no k value, admissible state, or cycle fields. The finite input's k_value is not connected to the Lean theorem, and the P007 single-admissible-state model is not formally represented.",
+      "required_repair": "Define a continuumness record with k value, admissible set or cycles, and zero-cause family; prove k=0 iff declared zero-cause under the stated assumptions; align inventory, proof ledger, finite inputs, and phenomenon matrix to that theorem.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "P012 / OC133-NOSEND-001: release governance explanation route includes Lean theorem/proof sheet to ADV-NOSEND-PUBLISH",
+      "failure_mode": "No no-send theorem appears in proofs/THEOREM_INVENTORY_1_3_3.json or formal/lean/OC133V12.lean, and the no-send finite rows cite JSON manifests as lean_ref. The manifest supports publish_allowed=false, but the model card overstates this as a Lean/proof-sheet-backed phenomenon route.",
+      "required_repair": "Either demote P012 to JSON state-machine replay only, or add a Lean no-send state-machine definition, theorem, proof sheet, theorem-inventory row, and finite refs that point to that theorem.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "critical_unresolved_total=0 and high_unresolved_total=0",
+      "failure_mode": "Coverage attacks are closed by the status string PHENOMENON_SPECIFIC_MODEL_REPLAYED, but current artifacts leave executable gaps in P001, P002, P007, P008-P011, and P012. The total attack matrix therefore closes critical/high coverage objections without validating the model-card observables, negative controls, and falsifiers.",
+      "required_repair": "Reopen the affected coverage and proof-theater attack rows until closure checks inspect the actual finite schemas, runner predicates, Lean refs, and per-phenomenon falsifier executions rather than status strings.",
+      "status": "OPEN"
+    }
+  ]
+}

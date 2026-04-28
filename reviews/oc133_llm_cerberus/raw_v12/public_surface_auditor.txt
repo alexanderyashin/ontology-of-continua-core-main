@@ -2,59 +2,51 @@
   "role": "public_surface_auditor",
   "findings": [
     {
-      "severity": "CRITICAL",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
-      "failure_mode": "The component witness evaluator is self-confirming: inputs carry keep_verdict/drop_verdict labels, and the runner passes the case by checking those labels rather than computing verdicts from an independent OC verdict class. The Lean subset only proves a toy present/absent component schema, not minimality of the promoted tuple.",
-      "required_repair": "Remove verdict labels from input model facts, compute keep/drop verdicts from the declared OC tuple semantics, enumerate the promoted tuple from a canonical source, add adversarial negative controls per component, and demote T133-MIN until that exists.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "CRITICAL",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
-      "failure_mode": "The K-level checks pass by reading witness_retained, added_axis_observable, demotion_allowed, and reduction_verdict from the input row. Lean similarly constructs retainedTransitionEvidence for any AdjacentK, so no actual reduction relation, demotion condition, or transition-specific irreducibility is established.",
-      "required_repair": "Implement an independent K-level reduction/demotion evaluator over the atlas, remove pre-baked reduction verdicts from inputs, add per-transition counterexamples, and demote T133-KLEVEL until the computed checks support the public claim.",
-      "status": "OPEN"
-    },
-    {
       "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "OC133-NOSEND-001: Publication and journal submission remain locked until separate owner approval.",
-      "failure_mode": "P012 claims a formal owner-approval state machine and semantic finite replay case ADV-NOSEND-PUBLISH, but that case is absent from the finite inputs, finite output, runner, and Lean file. The actual support is manifest-field only, so the public coverage route overstates no-send formal/replay evidence.",
-      "required_repair": "Either downgrade P012 to manifest-only governance evidence and remove ADV-NOSEND-PUBLISH/Lean route language, or add a real owner-approval state machine with finite positive/negative cases for blocked and approved public actions.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "artifact_ref": "formal/lean/OC133V12.lean",
       "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-      "failure_mode": "The promoted Lean reference is eligible_live_requires_cycle, which proves only that eligible liveness requires a cycle witness. The finite case likewise checks live/cycle and residue_class != identity_class, but does not establish death, residue, rebirth, or identity-invariant separation.",
-      "required_repair": "Add Lean theorems and finite positive/negative cases that explicitly cover death, residue, rebirth, and identity-invariant non-interchangeability, then point the inventory to those artifacts; otherwise demote the claim.",
+      "failure_mode": "The promoted Lean reference declared_death_blocks_live does not prove that declared death blocks live status; it assumes both L.live x = false and L.live x = true, then derives contradiction. The Lifecycle structure permits death=true and live=true with no well-formedness invariant, so the public claim is stronger than the checked theorem.",
+      "required_repair": "Add a lifecycle validity invariant and prove death=true implies live=false under that invariant, then update the theorem inventory/proof ledger and finite checks to cite that theorem; otherwise demote/reword the public claim to the weaker contradiction lemma.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-CYCLE: Live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
-      "failure_mode": "Lean eligibleLive requires cycleWitnessed only and has no maintenance predicate branch. The finite positive case uses both a non-none cycle_mode and maintenance_predicate=true, so the maintenance-only alternative in the public claim is never supported.",
-      "required_repair": "Model maintenance predicates in Lean, prove the cycle-or-nonvacuous-maintenance theorem, and add a finite positive case with cycle_mode=none plus maintenance support, or remove the maintenance-branch from the public claim.",
+      "claim": "T133-K-ZERO: Continuumness zero follows from a declared zero-cause family, not only from empty admissibility or empty cycles.",
+      "failure_mode": "The cited Lean support is trivial: zero_cause_has_cause proves only that flow=true is one zero-cause disjunct, and k_zero_iff_declared_zero_cause is an alias equivalence. No Lean object represents continuumness, K=0, admissibility, cycles, or the claimed exclusion of empty-set explanations.",
+      "required_repair": "Formalize the K/continuumness functional, declared zero-cause family, admissibility and cycle alternatives, then prove the stated K=0 licensing theorem; otherwise demote the claim to a bounded zero-cause predicate sanity check.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-K-ZERO: Continuumness zero follows from a declared zero-cause family, not only from empty admissibility or empty cycles.",
-      "failure_mode": "The inventory cites zero_cause_has_cause, which only proves flow=true implies hasZeroCause. The finite checks cite a different tautological Lean item, k_zero_iff_declared_zero_cause, and neither artifact models continuumness score, nonempty admissibility, or nonempty cycles.",
-      "required_repair": "Introduce a real k-score relation with admissibility/cycle facts, prove the zero-cause equivalence or weaken it to the proven one-way rule, align Lean refs across inventory and finite checks, and add finite cases with nonempty admissibility/cycles.",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
+      "failure_mode": "The minimality theorem uses a synthetic ComponentCase where verdict is pass iff present=true. That makes every component verdict-changing by construction and does not encode the actual OC tuple, promoted components, or domain verdict semantics. The finite runner mirrors this presence-bit test rather than testing real component removal.",
+      "required_repair": "Encode the actual OC verdict function and promoted tuple schema, require keep/drop pairs to differ only in the removed component, and prove/evaluate verdict change under that real semantics; otherwise demote the claim to a toy component-enum witness.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
+      "failure_mode": "The K-level finite evaluator validates only transition_id and a few booleans; witness_pair, added_axis, reduction_failure_criterion, and lawful_demotion_criterion are unchecked strings. The Lean theorem similarly manufactures a generic retainedTransitionEvidence for any AdjacentK, so transition-specific irreducibility is not actually established.",
+      "required_repair": "Replace string/boolean witness rows with structured per-transition evidence that the runner semantically checks, and formalize distinct transition-specific witnesses or demote the claim to a registry-completeness check.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
-      "artifact_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
       "claim": "OC133-NOSEND-001: Publication and journal submission remain locked until separate owner approval.",
-      "failure_mode": "The manifest blocks journal, GitHub, Zenodo, and Software Heritage actions, but it has no explicit DOI/preprint/public-indexing gate. For a public-surface no-send contract, DOI minting and public indexing remain implicit under global_no_send_lock rather than audited as first-class actions.",
-      "required_repair": "Add explicit fields such as doi_mint_allowed, preprint_upload_allowed, public_indexing_allowed, and public_announcement_allowed, set them false until owner approval, and cross-link them from the no-send claim.",
+      "failure_mode": "The P012 public explanation route says the no-send claim goes through a Lean theorem/proof sheet and lists formal/lean/OC133V12.lean, but OC133V12.lean contains no no-send theorem and no proof sheet is referenced for this claim. The actual support is the owner/manifest control plane, so the public-surface route overstates formal proof parity.",
+      "required_repair": "Change P012 evidence and explanation route to cite the publish manifest and owner approval artifact only, or add an actual no-send Lean formalization and proof sheet before presenting it as a Lean-backed route.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "OC133-NOSEND-001: Publication and journal submission remain locked until separate owner approval.",
+      "failure_mode": "The no_send_state_machine evaluator reads owner_approved and publish_allowed from the finite-model input row, not from the referenced publish manifest or owner approval JSON. The current manifest is locked, but the finite check itself can pass fabricated or stale no-send inputs.",
+      "required_repair": "Have the runner load the referenced manifest/owner-approval JSON and assert the live fields global_no_send_lock=true, owner_approved=false, publish_allowed=false, journal submissions false, and deposit actions false.",
       "status": "OPEN"
     }
   ]

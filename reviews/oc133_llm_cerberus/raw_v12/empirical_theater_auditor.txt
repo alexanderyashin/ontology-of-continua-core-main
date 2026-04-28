@@ -2,35 +2,43 @@
   "role": "empirical_theater_auditor",
   "findings": [
     {
-      "severity": "CRITICAL",
+      "severity": "HIGH",
       "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "OC133-NUM-PHYS-C empirical attack closure: official snapshot mistaken for prediction is closed via NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS",
-      "failure_mode": "The closure token is not present in the current numeric table, and the referenced row explicitly says NUMERIC_REPLAY_QA_NOT_EMPIRICAL_PROMOTION. The attack matrix repeatedly closes an empirical-theater objection by citing a replay/definitional snapshot artifact as if it supplied prediction support.",
-      "required_repair": "Reopen these empirical attack rows or close them only by explicit demotion/non-promotion; replace the closure query with the actual numeric_replay=true and promotion_status=...NOT_EMPIRICAL_PROMOTION fields; add a release gate that fails if replay rows are used as empirical-prediction closure evidence.",
+      "claim": "Empirical snapshot-replay attacks are fully closed with critical_unresolved_total=0 and high_unresolved_total=0.",
+      "failure_mode": "The current total attack matrix repeatedly closes the empirical snapshot attack only for OC133-NUM-PHYS-C. It never attacks OC133-NUM-CHEM-H2O, OC133-NUM-BIO-GEO-COUNT, OC133-NUM-SYS-WDI-GDP, or OC133-NUM-MATH-FINITE, even though those four current claim IDs are present in claims/CLAIM_LEDGER_1_3_3.json and validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json as numeric_replay snapshot rows with predicted_value, observed_value, and comparator_prediction fields. A total attack matrix cannot close empirical theater risk for numeric claims it never names.",
+      "required_repair": "Add per-claim empirical attack rows for all five OC133-NUM-* rows, with explicit empirical_support=false or equivalent replay-only closure checks and row-specific negative-control evidence; otherwise set unresolved totals nonzero and remove total-closure status.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
+      "claim": "OC133 numeric rows have NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER support.",
+      "failure_mode": "The numeric table records negative_control and falsifier as prose only. It does not include executed negative-control predicted values, observed values, residuals, pass/fail verdicts, comparator definitions, generator hash, or run artifact per row. This is insufficient for the claim-ledger support label that says the replay QA includes a baseline negative-control falsifier.",
+      "required_repair": "Add executed negative-control result fields or separate rows for each numeric claim, including input snapshot hash, comparator definition, observed negative-control residual or verdict, and pass/fail status; otherwise demote the support label to prose-only falsifier plumbing and block it from validation support.",
       "status": "OPEN"
     },
     {
       "severity": "CRITICAL",
       "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "T133-MIN finite witness acceptance supports the promoted minimality claim",
-      "failure_mode": "For component_keep_drop_witness rows, the runner derives observed verdicts from model.keep_verdict and model.drop_verdict, which are already embedded in OC133_FINITE_MODEL_INPUTS.json. This validates an answer key, not independent semantics, while FINITE_MODEL_CHECKS_1_3_3.json presents the result as semantic executed evidence.",
-      "required_repair": "Remove keep_verdict/drop_verdict from finite-model inputs, compute keep/drop verdicts from component-specific facts in the runner or Lean model, regenerate FINITE_MODEL_CHECKS_1_3_3.json, and invalidate the current T133-MIN finite witness result until rerun.",
+      "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
+      "failure_mode": "The finite-model evaluator makes minimality self-confirming. T133-MIN accepts when the model asserts witness_pair_count == 11, all_one_component_deltas is true, and all_verdict_changes is true; component rows pass when required_components already contains the component and changed_fields equals that component. The runner does not compute the actual promoted OC verdict with and without each component. The review matrix then closes the self-confirming finite-model attack solely via semantic_evaluator=true, which this runner sets itself.",
+      "required_repair": "Replace asserted boolean/count acceptance with executable keep/drop tests against the actual OC verdict function and promoted theorem instances. Persist independently computed observed verdict deltas and keep T133-MIN unpromoted until every component has a real verdict-changing witness.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
+      "failure_mode": "The Lean theorem every_adjacent_transition_has_witness constructs retainedTransitionEvidence k for any AdjacentK enum value, with witnessRetained, addedAxisObservable, and reduction fixed to the desired result. This proves the evidence record can be populated, not that the twelve named K transitions have non-relabeling witnesses. The finite runner compounds this by accepting summary booleans rather than proving transition-specific irreducibility.",
+      "required_repair": "Encode each K0->K1 through K11->K12 transition with concrete source-bound witness data, a reduction map, and a theorem that the reduction fails for that instance. Require finite rows to reference those exact witnesses and add demotion cases where witness observability is independently lost.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "T133-KLEVEL adjacent K-level transition witnesses show every adjacent transition has a reduction-failure witness",
-      "failure_mode": "For adjacent_k_transition_witness rows, the runner requires model.reduction_verdict == FAILS_WITH_WITNESS and returns that as observed_reduction_verdict. All transition inputs carry the expected verdict, so the finite check replays the asserted conclusion and lacks per-transition negative controls.",
-      "required_repair": "Remove reduction_verdict from inputs, compute reduction failure from independent transition facts, add paired negative controls for each K0->K12 adjacent transition, and regenerate the finite-model output before using it as support.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "unsupported_closed_total=0 and PHENOMENON_SPECIFIC_MODEL_REPLAYED close broad phenomenon coverage questions",
-      "failure_mode": "Rows close broad questions such as biological organization, origin-of-life framing, social institutions, and release governance using scoped replay cards while their own limitation says they are not full empirical solutions. Several K-level rows cite the same positive case as the negative_control, and P012 cites ADV-NOSEND-PUBLISH, which is absent from the inspected finite-model checks.",
-      "required_repair": "Separate toy/formal replay coverage from empirical phenomenon explanation; mark broad coverage rows unsupported or demoted unless external validation and real negative controls exist; remove ADV-NOSEND-PUBLISH or add an executed finite-model row for it.",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
+      "failure_mode": "The theorem inventory and proof ledger promote this claim with Lean ref formal/lean/OC133V12.lean::declared_death_blocks_live, but that theorem only derives contradiction from supplied premises live=false and live=true; it does not prove death implies non-live, nor does it establish live/death/residue/rebirth typed distinctness. The total attack matrix also closes hidden type ambiguity for this claim via eligible_live_requires_cycle, which is a cycle-support theorem and does not cover death, residue, or rebirth distinctness.",
+      "required_repair": "Add separate Lean theorems and finite witnesses for death/live incompatibility, residue/rebirth/identity class separation, and rebirth or residue non-identity under declared invariants. Update theorem inventory and proof ledger refs to those theorems or demote the public claim.",
       "status": "OPEN"
     }
   ]

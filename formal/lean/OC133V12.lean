@@ -258,51 +258,94 @@ theorem declared_death_blocks_live {S Residue NewLive : Type}
   rw [hnot] at hlive
   cases hlive
 
-structure VerdictClass where
-  Case : Type
-  verdict : Case -> Status
-
-structure ComponentCase where
-  component : Component
-  present : Bool
+structure OCTupleFlags where
+  carrier : Bool
+  realization : Bool
+  lawfulPossibility : Bool
+  liveness : Bool
+  residue : Bool
+  morphisms : Bool
+  boundaries : Bool
+  operators : Bool
+  cycles : Bool
+  dimension : Bool
+  kFunctional : Bool
 deriving Repr
 
-def componentVerdict (x : ComponentCase) : Status :=
-  if x.present then Status.pass else Status.fail
-
-def componentVerdictClass : VerdictClass :=
-  { Case := ComponentCase, verdict := componentVerdict }
-
-structure ComponentWitness (VC : VerdictClass) where
-  keep : VC.Case
-  drop : VC.Case
-  keep_pass : VC.verdict keep = Status.pass
-  drop_fail : VC.verdict drop = Status.fail
-
-def witnessForComponent (c : Component) : ComponentWitness componentVerdictClass :=
+def fullOCTuple : OCTupleFlags :=
   {
-    keep := { component := c, present := true },
-    drop := { component := c, present := false },
-    keep_pass := by rfl,
-    drop_fail := by rfl
+    carrier := true,
+    realization := true,
+    lawfulPossibility := true,
+    liveness := true,
+    residue := true,
+    morphisms := true,
+    boundaries := true,
+    operators := true,
+    cycles := true,
+    dimension := true,
+    kFunctional := true
   }
 
-theorem component_witness_changes_verdict (VC : VerdictClass) (w : ComponentWitness VC) :
-    VC.verdict w.keep != VC.verdict w.drop := by
-  rw [w.keep_pass, w.drop_fail]
-  decide
+def componentPresent (s : OCTupleFlags) : Component -> Bool
+  | Component.carrier => s.carrier
+  | Component.realization => s.realization
+  | Component.lawfulPossibility => s.lawfulPossibility
+  | Component.liveness => s.liveness
+  | Component.residue => s.residue
+  | Component.morphisms => s.morphisms
+  | Component.boundaries => s.boundaries
+  | Component.operators => s.operators
+  | Component.cycles => s.cycles
+  | Component.dimension => s.dimension
+  | Component.kFunctional => s.kFunctional
+
+def dropComponent (s : OCTupleFlags) : Component -> OCTupleFlags
+  | Component.carrier => { s with carrier := false }
+  | Component.realization => { s with realization := false }
+  | Component.lawfulPossibility => { s with lawfulPossibility := false }
+  | Component.liveness => { s with liveness := false }
+  | Component.residue => { s with residue := false }
+  | Component.morphisms => { s with morphisms := false }
+  | Component.boundaries => { s with boundaries := false }
+  | Component.operators => { s with operators := false }
+  | Component.cycles => { s with cycles := false }
+  | Component.dimension => { s with dimension := false }
+  | Component.kFunctional => { s with kFunctional := false }
+
+def allComponentsPresent (s : OCTupleFlags) : Bool :=
+  s.carrier
+    && s.realization
+    && s.lawfulPossibility
+    && s.liveness
+    && s.residue
+    && s.morphisms
+    && s.boundaries
+    && s.operators
+    && s.cycles
+    && s.dimension
+    && s.kFunctional
+
+def ocTupleVerdict (s : OCTupleFlags) : Status :=
+  if allComponentsPresent s then Status.pass else Status.fail
+
+theorem full_oc_tuple_passes :
+    ocTupleVerdict fullOCTuple = Status.pass := by
+  rfl
+
+theorem dropped_component_fails (c : Component) :
+    ocTupleVerdict (dropComponent fullOCTuple c) = Status.fail := by
+  cases c <;> rfl
 
 theorem every_component_has_witness (c : Component) :
-    exists w : ComponentWitness componentVerdictClass,
-      component_witness_changes_verdict componentVerdictClass w := by
-  exact Exists.intro (witnessForComponent c) (component_witness_changes_verdict componentVerdictClass (witnessForComponent c))
+    ocTupleVerdict fullOCTuple = Status.pass /\
+    ocTupleVerdict (dropComponent fullOCTuple c) = Status.fail := by
+  exact And.intro full_oc_tuple_passes (dropped_component_fails c)
 
 theorem component_witness_is_one_component_delta (c : Component) :
-    (witnessForComponent c).keep.component = c /\
-    (witnessForComponent c).drop.component = c /\
-    (witnessForComponent c).keep.present = true /\
-    (witnessForComponent c).drop.present = false := by
-  exact And.intro rfl (And.intro rfl (And.intro rfl rfl))
+    componentPresent fullOCTuple c = true /\
+    componentPresent (dropComponent fullOCTuple c) c = false := by
+  cases c <;> exact And.intro rfl rfl
 
 inductive ReductionVerdict where
   | preserves
@@ -311,43 +354,111 @@ deriving DecidableEq, Repr
 
 structure TransitionEvidence where
   transition : AdjacentK
+  lowerCode : Nat
+  upperCode : Nat
+  addedAxisCode : Nat
+  witnessCode : Nat
   witnessRetained : Bool
   addedAxisObservable : Bool
   demotionAllowed : Bool
   reduction : ReductionVerdict
 
+def lowerCode : AdjacentK -> Nat
+  | AdjacentK.k0_k1 => 0
+  | AdjacentK.k1_k2 => 1
+  | AdjacentK.k2_k3 => 2
+  | AdjacentK.k3_k4 => 3
+  | AdjacentK.k4_k5 => 4
+  | AdjacentK.k5_k6 => 5
+  | AdjacentK.k6_k7 => 6
+  | AdjacentK.k7_k8 => 7
+  | AdjacentK.k8_k9 => 8
+  | AdjacentK.k9_k10 => 9
+  | AdjacentK.k10_k11 => 10
+  | AdjacentK.k11_k12 => 11
+
+def upperCode (k : AdjacentK) : Nat :=
+  lowerCode k + 1
+
+def witnessCode (k : AdjacentK) : Nat :=
+  upperCode k * 100 + 7
+
+def transitionCodesAlign (w : TransitionEvidence) : Prop :=
+  w.upperCode = w.lowerCode + 1 /\
+  w.addedAxisCode = w.upperCode /\
+  w.witnessCode = w.upperCode * 100 + 7
+
 def reductionFails (w : TransitionEvidence) : Prop :=
-  w.witnessRetained = true /\ w.addedAxisObservable = true /\ w.reduction = ReductionVerdict.losesWitness
+  transitionCodesAlign w /\
+  w.witnessRetained = true /\
+  w.addedAxisObservable = true /\
+  w.reduction = ReductionVerdict.losesWitness
 
 def lawfulDemotion (w : TransitionEvidence) : Prop :=
-  w.witnessRetained = false /\ w.demotionAllowed = true /\ w.reduction = ReductionVerdict.preserves
+  transitionCodesAlign w /\
+  w.witnessRetained = false /\
+  w.addedAxisObservable = false /\
+  w.demotionAllowed = true /\
+  w.reduction = ReductionVerdict.preserves
 
 def retainedTransitionEvidence (k : AdjacentK) : TransitionEvidence :=
   {
     transition := k,
+    lowerCode := lowerCode k,
+    upperCode := upperCode k,
+    addedAxisCode := upperCode k,
+    witnessCode := witnessCode k,
     witnessRetained := true,
     addedAxisObservable := true,
     demotionAllowed := false,
     reduction := ReductionVerdict.losesWitness
   }
 
+def demotedTransitionEvidence (k : AdjacentK) : TransitionEvidence :=
+  {
+    transition := k,
+    lowerCode := lowerCode k,
+    upperCode := upperCode k,
+    addedAxisCode := upperCode k,
+    witnessCode := witnessCode k,
+    witnessRetained := false,
+    addedAxisObservable := false,
+    demotionAllowed := true,
+    reduction := ReductionVerdict.preserves
+  }
+
+theorem retained_transition_codes_align (k : AdjacentK) :
+    transitionCodesAlign (retainedTransitionEvidence k) := by
+  cases k <;> decide
+
+theorem demoted_transition_codes_align (k : AdjacentK) :
+    transitionCodesAlign (demotedTransitionEvidence k) := by
+  cases k <;> decide
+
 theorem adjacent_witness_blocks_reduction (w : TransitionEvidence) :
+    transitionCodesAlign w ->
     w.witnessRetained = true ->
     w.addedAxisObservable = true ->
     w.reduction = ReductionVerdict.losesWitness ->
     reductionFails w := by
-  intro hr ho hl
-  exact And.intro hr (And.intro ho hl)
+  intro hc hr ho hl
+  exact And.intro hc (And.intro hr (And.intro ho hl))
 
 theorem every_adjacent_transition_has_witness (k : AdjacentK) :
     exists w : TransitionEvidence,
       w.transition = k /\ reductionFails w /\ w.demotionAllowed = false := by
   refine Exists.intro (retainedTransitionEvidence k) ?_
-  exact And.intro rfl (And.intro (And.intro rfl (And.intro rfl rfl)) rfl)
+  exact And.intro rfl (And.intro (And.intro (retained_transition_codes_align k) (And.intro rfl (And.intro rfl rfl))) rfl)
 
 theorem demotion_requires_lost_witness (w : TransitionEvidence) :
     lawfulDemotion w -> w.witnessRetained = false := by
   intro h
-  exact h.left
+  exact h.right.left
+
+theorem every_adjacent_transition_has_lawful_demotion_case (k : AdjacentK) :
+    exists w : TransitionEvidence,
+      w.transition = k /\ lawfulDemotion w := by
+  refine Exists.intro (demotedTransitionEvidence k) ?_
+  exact And.intro rfl (And.intro (demoted_transition_codes_align k) (And.intro rfl (And.intro rfl (And.intro rfl rfl))))
 
 end OC133V12

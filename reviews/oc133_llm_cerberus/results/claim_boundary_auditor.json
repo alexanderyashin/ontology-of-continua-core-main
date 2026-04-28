@@ -2,64 +2,32 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "claim_boundary_auditor",
   "execution_status": "EXECUTED",
-  "critical_open_total": 2,
-  "high_open_total": 5,
-  "finding_total": 7,
+  "critical_open_total": 0,
+  "high_open_total": 2,
+  "finding_total": 3,
   "findings": [
     {
-      "severity": "CRITICAL",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "severity": "HIGH",
+      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
       "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
-      "failure_mode": "The public promotion rests on theorem theater. The current Lean support in formal/lean/OC133V12.lean constructs a witness by toggling a synthetic present Bool in componentVerdictClass, while proofs/finite_model_checks/run_finite_model_checks.py accepts component witnesses by checking declared input labels such as keep_verdict=PASS and drop_verdict=FAIL. This does not prove necessity of each promoted OC tuple component in the declared release verdict class.",
-      "required_repair": "Demote T133-MIN or replace the toy present-Bool harness with executable OC verdict functions over the actual promoted tuple. Finite checks must recompute keep/drop verdicts from model facts and include adversarial mislabel controls; Lean must quantify over the real promoted components and verdict semantics.",
+      "failure_mode": "The promoted minimality claim is stronger than the current evidence. The finite checker accepts declared flags such as witness_pair_count, all_one_component_deltas, and all_verdict_changes; the Lean subset reduces the verdict to a toy present boolean over ComponentCase. This does not prove that removing each actual OC tuple component changes the declared OC release verdict class rather than a self-declared surrogate verdict.",
+      "required_repair": "Replace the flag-based minimality witness with executable component-specific keep/drop models evaluated by the real declared OC verdict function, or demote the public claim to a toy witness-schema claim.",
       "status": "OPEN"
     },
     {
-      "severity": "CRITICAL",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
       "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
-      "failure_mode": "The evidence is declarative rather than validating. formal/lean/OC133V12.lean proves every transition has a witness by constructing retainedTransitionEvidence with witnessRetained=true, addedAxisObservable=true, demotionAllowed=false for any AdjacentK. The finite runner then accepts rows when those same flags are present. This does not establish real adjacent-transition irreducibility, reduction failure, or lawful demotion, especially for broad rows such as K11_to_K12 civilizational/no-send closure.",
-      "required_repair": "Demote T133-KLEVEL or provide transition-specific executable models with independently computed reduction and demotion verdicts. Add negative controls per adjacent transition, not only a global KLEVEL negative row, and make Lean encode the actual transition semantics rather than a universally retained witness constructor.",
+      "failure_mode": "The Lean proof constructs retainedTransitionEvidence for each AdjacentK and proves properties of those constructed flags; it does not connect any transition to independent K-level semantics. The finite checks likewise verify boolean fields such as witness_retained, added_axis_observable, and demotion_allowed. This supports a declared witness schema, not the public claim that every adjacent K-level transition is semantically irreducible under the stated criteria.",
+      "required_repair": "Provide per-transition executable K_n/K_n+1 models with actual verdict functions and reduction attempts, or demote the claim to bounded declared-transition bookkeeping.",
       "status": "OPEN"
     },
     {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-      "failure_mode": "The listed machine-checked subset is eligible_live_requires_cycle, which only extracts the cycle conjunct from eligibleLive. It does not prove death, residue, rebirth, or morphism-class distinctness. The finite model row checks a single residue_class != identity_class condition, not the claimed four-status typed consistency theorem.",
-      "required_repair": "Restrict the public claim to the proven liveness/cycle obligation or add formal lifecycle definitions and theorems proving death, residue, rebirth, identity, and morphism-class separation, with finite positive and negative cases covering each distinction.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-ID: Residue preservation and rebirth are not identity continuation unless declared identity invariants are preserved.",
-      "failure_mode": "The Lean reference residue_is_not_identity proves only that two enum constructors differ. It does not prove the conditional boundary involving declared identity invariants, residue preservation, rebirth, or the unless branch where invariants are preserved. The finite row covers only identity_invariant_preserved=false and classified_as_identity=false.",
-      "required_repair": "Demote to constructor inequality or formalize identity invariants, residue/rebirth morphisms, and the conditional classification rule. Add finite cases for invariant-preserved and invariant-lost branches, including a negative case where rebirth is wrongly classified as identity.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-      "claim": "OC133-NOVELTY-001: Novelty is bounded to typed OC release governance, not to invention of the prior-art traditions.",
-      "failure_mode": "The register marks unsupported_uniqueness_total=0 and BOUNDED_DELTA_SUPPORTED_BY_SOURCE_COMPARISON, but the evidence is mostly one source page per tradition plus absence tests such as NOT_FOUND_IN_SOURCE_PAGE. Absence from a selected source page is not evidence that the bounded release-governance delta is novel against the relevant prior-art field.",
-      "required_repair": "Downgrade novelty status to prior-art screen incomplete, or add a reproducible comparator protocol with search strings, source corpus, exact passages, exclusion criteria, and explicit unresolved-overlap rows. Do not count page-level absence as supported novelty.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "PHENOMENON_SPECIFIC_MODEL_REPLAYED coverage for K-level phenomena and no-send governance.",
-      "failure_mode": "Several KLEVEL coverage rows use the same finite case as both prediction_or_replay and negative_control, e.g. FM-KLEVEL-K2_to_K3, FM-KLEVEL-K6_to_K7, FM-KLEVEL-K8_to_K9, and FM-KLEVEL-K9_to_K10. The no-send row cites ADV-NOSEND-PUBLISH, but that case is absent from proofs/FINITE_MODEL_CHECKS_1_3_3.json. These rows therefore label illustrative or nonexistent checks as replayed phenomenon coverage.",
-      "required_repair": "Add real adversarial finite cases for each coverage row and add an executable ADV-NOSEND-PUBLISH case, or downgrade these rows to illustrative model cards with explanation_status not replayed.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 for v12 attack closure.",
-      "failure_mode": "The attack matrix closes critical/high objections by pointing to marker strings such as semantic_evaluator=true, BOUNDED_DELTA_SUPPORTED_BY_SOURCE_COMPARISON, or PHENOMENON_SPECIFIC_MODEL_REPLAYED. Current artifacts show those markers do not substantively close the corresponding attacks: the finite evaluator is self-confirming for MIN/KLEVEL, comparator novelty rests on page-level absence, and coverage includes missing or non-adversarial replay cases.",
-      "required_repair": "Reopen the affected critical/high rows and require closure evidence to demonstrate the attacked semantics directly, not merely cite a status token or artifact existence. Recompute unresolved totals after the repairs above are complete.",
+      "claim": "OC133-NOSEND-001 / P012: claim -> Lean theorem/proof sheet -> semantic finite case ADV-NOSEND-PUBLISH -> negative control -> falsifier.",
+      "failure_mode": "The no-send row advertises a Lean theorem/proof-sheet route, but the theorem inventory and Lean file contain no OC133-NOSEND theorem or no-send proof sheet. The real evidence is the publish/owner manifest plus the Python finite state-machine check, so the current coverage route is theorem theater even though the manifest itself is locked.",
+      "required_repair": "Change P012 to cite only the publish manifest, owner approval file, and finite no-send state-machine rows, or add and inventory an actual Lean theorem/proof sheet for OC133-NOSEND-001.",
       "status": "OPEN"
     }
   ],

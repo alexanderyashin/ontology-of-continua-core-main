@@ -223,10 +223,13 @@ def audit(root: Path) -> dict[str, Any]:
     ]
     lean_body = text(root / "formal" / "lean" / "OC133V12.lean")
     lean_semantic_markers = [
-        "ComponentCase",
-        "witnessForComponent",
+        "OCTupleFlags",
+        "ocTupleVerdict",
+        "dropComponent",
         "component_witness_is_one_component_delta",
         "TransitionEvidence",
+        "transitionCodesAlign",
+        "every_adjacent_transition_has_lawful_demotion_case",
         "reductionFails",
         "lawfulDemotion",
         "hybrid_guard_uses_reset",

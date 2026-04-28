@@ -3,9 +3,9 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "runner": "proofs/finite_model_checks/run_finite_model_checks.py",
-  "runner_sha256": "7ed6868bbe8c674141af73c2a0b18a1ebfe2555a5135c0ff6501fd81a4845f71",
+  "runner_sha256": "082db8e933a01fb9b04c99a5bd9db6dd247fbd1c2247240dddf827ee090e060c",
   "input_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
-  "input_sha256": "8e6dc06420bc2dfecb385debb0ea83248f109136e09778c5fc0fbe03460469d4",
+  "input_sha256": "a6bffac414344dddcb9e99879e440e8ce2488def62d8cbc41d54898195ee468b",
   "command": "python proofs/finite_model_checks/run_finite_model_checks.py",
   "semantic_evaluator": true,
   "input_observed_field_total": 0,
@@ -280,9 +280,98 @@
       "expected_verdict": "ACCEPT",
       "lean_ref": "formal/lean/OC133V12.lean::every_component_has_witness",
       "model": {
-        "witness_pair_count": 11,
-        "all_one_component_deltas": true,
-        "all_verdict_changes": true
+        "required_components": [
+          "carrier",
+          "realization",
+          "lawful_possibility",
+          "liveness",
+          "residue",
+          "morphisms",
+          "boundaries",
+          "operators",
+          "cycles",
+          "dimension",
+          "k"
+        ],
+        "drop_cases": [
+          {
+            "component": "carrier",
+            "dropped_component": "carrier",
+            "changed_fields": [
+              "carrier"
+            ]
+          },
+          {
+            "component": "realization",
+            "dropped_component": "realization",
+            "changed_fields": [
+              "realization"
+            ]
+          },
+          {
+            "component": "lawful_possibility",
+            "dropped_component": "lawful_possibility",
+            "changed_fields": [
+              "lawful_possibility"
+            ]
+          },
+          {
+            "component": "liveness",
+            "dropped_component": "liveness",
+            "changed_fields": [
+              "liveness"
+            ]
+          },
+          {
+            "component": "residue",
+            "dropped_component": "residue",
+            "changed_fields": [
+              "residue"
+            ]
+          },
+          {
+            "component": "morphisms",
+            "dropped_component": "morphisms",
+            "changed_fields": [
+              "morphisms"
+            ]
+          },
+          {
+            "component": "boundaries",
+            "dropped_component": "boundaries",
+            "changed_fields": [
+              "boundaries"
+            ]
+          },
+          {
+            "component": "operators",
+            "dropped_component": "operators",
+            "changed_fields": [
+              "operators"
+            ]
+          },
+          {
+            "component": "cycles",
+            "dropped_component": "cycles",
+            "changed_fields": [
+              "cycles"
+            ]
+          },
+          {
+            "component": "dimension",
+            "dropped_component": "dimension",
+            "changed_fields": [
+              "dimension"
+            ]
+          },
+          {
+            "component": "k",
+            "dropped_component": "k",
+            "changed_fields": [
+              "k"
+            ]
+          }
+        ]
       },
       "negative_control_id": "FM-T133-MIN-NEG",
       "observed_verdict": "ACCEPT",
@@ -295,9 +384,98 @@
       "expected_verdict": "REJECT",
       "lean_ref": "formal/lean/OC133V12.lean::component_witness_is_one_component_delta",
       "model": {
-        "witness_pair_count": 11,
-        "all_one_component_deltas": false,
-        "all_verdict_changes": true
+        "required_components": [
+          "carrier",
+          "realization",
+          "lawful_possibility",
+          "liveness",
+          "residue",
+          "morphisms",
+          "boundaries",
+          "operators",
+          "cycles",
+          "dimension",
+          "k"
+        ],
+        "drop_cases": [
+          {
+            "component": "carrier",
+            "dropped_component": "carrier",
+            "changed_fields": [
+              "carrier"
+            ]
+          },
+          {
+            "component": "realization",
+            "dropped_component": "realization",
+            "changed_fields": [
+              "realization"
+            ]
+          },
+          {
+            "component": "lawful_possibility",
+            "dropped_component": "lawful_possibility",
+            "changed_fields": [
+              "lawful_possibility"
+            ]
+          },
+          {
+            "component": "liveness",
+            "dropped_component": "liveness",
+            "changed_fields": [
+              "liveness"
+            ]
+          },
+          {
+            "component": "residue",
+            "dropped_component": "residue",
+            "changed_fields": [
+              "residue"
+            ]
+          },
+          {
+            "component": "morphisms",
+            "dropped_component": "morphisms",
+            "changed_fields": [
+              "morphisms"
+            ]
+          },
+          {
+            "component": "boundaries",
+            "dropped_component": "boundaries",
+            "changed_fields": [
+              "boundaries"
+            ]
+          },
+          {
+            "component": "operators",
+            "dropped_component": "operators",
+            "changed_fields": [
+              "operators"
+            ]
+          },
+          {
+            "component": "cycles",
+            "dropped_component": "cycles",
+            "changed_fields": [
+              "cycles"
+            ]
+          },
+          {
+            "component": "dimension",
+            "dropped_component": "dimension",
+            "changed_fields": [
+              "dimension"
+            ]
+          },
+          {
+            "component": "k",
+            "dropped_component": "dimension",
+            "changed_fields": [
+              "dimension"
+            ]
+          }
+        ]
       },
       "negative_control_id": "",
       "observed_verdict": "REJECT",
@@ -310,9 +488,212 @@
       "expected_verdict": "ACCEPT",
       "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_has_witness",
       "model": {
-        "transition_count": 12,
-        "all_reductions_fail_with_retained_witness": true,
-        "lawful_demotion_rule_present": true
+        "transitions": [
+          {
+            "transition_id": "K0_to_K1",
+            "lower_code": 0,
+            "upper_code": 1,
+            "added_axis_code": 1,
+            "witness_code": 107,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K1_to_K2",
+            "lower_code": 1,
+            "upper_code": 2,
+            "added_axis_code": 2,
+            "witness_code": 207,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K2_to_K3",
+            "lower_code": 2,
+            "upper_code": 3,
+            "added_axis_code": 3,
+            "witness_code": 307,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K3_to_K4",
+            "lower_code": 3,
+            "upper_code": 4,
+            "added_axis_code": 4,
+            "witness_code": 407,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K4_to_K5",
+            "lower_code": 4,
+            "upper_code": 5,
+            "added_axis_code": 5,
+            "witness_code": 507,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K5_to_K6",
+            "lower_code": 5,
+            "upper_code": 6,
+            "added_axis_code": 6,
+            "witness_code": 607,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K6_to_K7",
+            "lower_code": 6,
+            "upper_code": 7,
+            "added_axis_code": 7,
+            "witness_code": 707,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K7_to_K8",
+            "lower_code": 7,
+            "upper_code": 8,
+            "added_axis_code": 8,
+            "witness_code": 807,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K8_to_K9",
+            "lower_code": 8,
+            "upper_code": 9,
+            "added_axis_code": 9,
+            "witness_code": 907,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K9_to_K10",
+            "lower_code": 9,
+            "upper_code": 10,
+            "added_axis_code": 10,
+            "witness_code": 1007,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K10_to_K11",
+            "lower_code": 10,
+            "upper_code": 11,
+            "added_axis_code": 11,
+            "witness_code": 1107,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K11_to_K12",
+            "lower_code": 11,
+            "upper_code": 12,
+            "added_axis_code": 12,
+            "witness_code": 1207,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          }
+        ]
       },
       "negative_control_id": "FM-T133-KLEVEL-NEG",
       "observed_verdict": "ACCEPT",
@@ -325,9 +706,212 @@
       "expected_verdict": "REJECT",
       "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
       "model": {
-        "transition_count": 12,
-        "all_reductions_fail_with_retained_witness": false,
-        "lawful_demotion_rule_present": false
+        "transitions": [
+          {
+            "transition_id": "K0_to_K1",
+            "lower_code": 0,
+            "upper_code": 1,
+            "added_axis_code": 1,
+            "witness_code": 107,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K1_to_K2",
+            "lower_code": 1,
+            "upper_code": 2,
+            "added_axis_code": 2,
+            "witness_code": 207,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K2_to_K3",
+            "lower_code": 2,
+            "upper_code": 3,
+            "added_axis_code": 3,
+            "witness_code": 307,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K3_to_K4",
+            "lower_code": 3,
+            "upper_code": 4,
+            "added_axis_code": 4,
+            "witness_code": 407,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K4_to_K5",
+            "lower_code": 4,
+            "upper_code": 5,
+            "added_axis_code": 5,
+            "witness_code": 507,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K5_to_K6",
+            "lower_code": 5,
+            "upper_code": 6,
+            "added_axis_code": 6,
+            "witness_code": 607,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K6_to_K7",
+            "lower_code": 6,
+            "upper_code": 7,
+            "added_axis_code": 7,
+            "witness_code": 707,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K7_to_K8",
+            "lower_code": 7,
+            "upper_code": 8,
+            "added_axis_code": 8,
+            "witness_code": 807,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K8_to_K9",
+            "lower_code": 8,
+            "upper_code": 9,
+            "added_axis_code": 9,
+            "witness_code": 907,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K9_to_K10",
+            "lower_code": 9,
+            "upper_code": 10,
+            "added_axis_code": 10,
+            "witness_code": 1007,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K10_to_K11",
+            "lower_code": 10,
+            "upper_code": 11,
+            "added_axis_code": 11,
+            "witness_code": 1107,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": false,
+              "added_axis_observable": false,
+              "demotion_allowed": true
+            }
+          },
+          {
+            "transition_id": "K11_to_K12",
+            "lower_code": 11,
+            "upper_code": 12,
+            "added_axis_code": 12,
+            "witness_code": 1207,
+            "retained": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            },
+            "demotion": {
+              "witness_retained": true,
+              "added_axis_observable": true,
+              "demotion_allowed": false
+            }
+          }
+        ]
       },
       "negative_control_id": "",
       "observed_verdict": "REJECT",
@@ -738,6 +1322,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_has_witness",
       "model": {
         "transition_id": "K0_to_K1",
+        "lower_code": 0,
+        "upper_code": 1,
+        "added_axis_code": 1,
+        "witness_code": 107,
         "added_axis": "distinguishable state -> minimal continuum",
         "witness_pair": "continuity obligation changes verdict",
         "reduction_failure_criterion": "remove continuity and frozen label passes",
@@ -759,6 +1347,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
       "model": {
         "transition_id": "K0_to_K1",
+        "lower_code": 0,
+        "upper_code": 1,
+        "added_axis_code": 1,
+        "witness_code": 107,
         "added_axis": "distinguishable state -> minimal continuum",
         "witness_pair": "witness deliberately made unobservable",
         "reduction_failure_criterion": "remove continuity and frozen label passes",
@@ -781,6 +1373,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_has_witness",
       "model": {
         "transition_id": "K1_to_K2",
+        "lower_code": 1,
+        "upper_code": 2,
+        "added_axis_code": 2,
+        "witness_code": 207,
         "added_axis": "minimal continuum -> phase threshold",
         "witness_pair": "threshold crossing changes admissibility",
         "reduction_failure_criterion": "encode as K1 and miss crossing",
@@ -802,6 +1398,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
       "model": {
         "transition_id": "K1_to_K2",
+        "lower_code": 1,
+        "upper_code": 2,
+        "added_axis_code": 2,
+        "witness_code": 207,
         "added_axis": "minimal continuum -> phase threshold",
         "witness_pair": "witness deliberately made unobservable",
         "reduction_failure_criterion": "encode as K1 and miss crossing",
@@ -824,6 +1424,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_has_witness",
       "model": {
         "transition_id": "K2_to_K3",
+        "lower_code": 2,
+        "upper_code": 3,
+        "added_axis_code": 3,
+        "witness_code": 307,
         "added_axis": "phase threshold -> autocatalytic closure",
         "witness_pair": "closure production is required",
         "reduction_failure_criterion": "phase-only model accepts non-producing set",
@@ -845,6 +1449,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
       "model": {
         "transition_id": "K2_to_K3",
+        "lower_code": 2,
+        "upper_code": 3,
+        "added_axis_code": 3,
+        "witness_code": 307,
         "added_axis": "phase threshold -> autocatalytic closure",
         "witness_pair": "witness deliberately made unobservable",
         "reduction_failure_criterion": "phase-only model accepts non-producing set",
@@ -867,6 +1475,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_has_witness",
       "model": {
         "transition_id": "K3_to_K4",
+        "lower_code": 3,
+        "upper_code": 4,
+        "added_axis_code": 4,
+        "witness_code": 407,
         "added_axis": "closure -> membrane boundary",
         "witness_pair": "inside/outside classifier changes verdict",
         "reduction_failure_criterion": "closure-only model admits leaking state",
@@ -888,6 +1500,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
       "model": {
         "transition_id": "K3_to_K4",
+        "lower_code": 3,
+        "upper_code": 4,
+        "added_axis_code": 4,
+        "witness_code": 407,
         "added_axis": "closure -> membrane boundary",
         "witness_pair": "witness deliberately made unobservable",
         "reduction_failure_criterion": "closure-only model admits leaking state",
@@ -910,6 +1526,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_has_witness",
       "model": {
         "transition_id": "K4_to_K5",
+        "lower_code": 4,
+        "upper_code": 5,
+        "added_axis_code": 5,
+        "witness_code": 507,
         "added_axis": "boundary -> excitable regulation",
         "witness_pair": "signal-triggered update changes verdict",
         "reduction_failure_criterion": "membrane-only model misses excitation",
@@ -931,6 +1551,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
       "model": {
         "transition_id": "K4_to_K5",
+        "lower_code": 4,
+        "upper_code": 5,
+        "added_axis_code": 5,
+        "witness_code": 507,
         "added_axis": "boundary -> excitable regulation",
         "witness_pair": "witness deliberately made unobservable",
         "reduction_failure_criterion": "membrane-only model misses excitation",
@@ -953,6 +1577,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_has_witness",
       "model": {
         "transition_id": "K5_to_K6",
+        "lower_code": 5,
+        "upper_code": 6,
+        "added_axis_code": 6,
+        "witness_code": 607,
         "added_axis": "regulation -> binding prediction",
         "witness_pair": "binding relation changes next-state prediction",
         "reduction_failure_criterion": "regulation-only model misses binding",
@@ -974,6 +1602,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
       "model": {
         "transition_id": "K5_to_K6",
+        "lower_code": 5,
+        "upper_code": 6,
+        "added_axis_code": 6,
+        "witness_code": 607,
         "added_axis": "regulation -> binding prediction",
         "witness_pair": "witness deliberately made unobservable",
         "reduction_failure_criterion": "regulation-only model misses binding",
@@ -996,6 +1628,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_has_witness",
       "model": {
         "transition_id": "K6_to_K7",
+        "lower_code": 6,
+        "upper_code": 7,
+        "added_axis_code": 7,
+        "witness_code": 707,
         "added_axis": "binding -> trust coordination",
         "witness_pair": "norm/role classifier changes allowed action",
         "reduction_failure_criterion": "binding-only model admits norm violation",
@@ -1017,6 +1653,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
       "model": {
         "transition_id": "K6_to_K7",
+        "lower_code": 6,
+        "upper_code": 7,
+        "added_axis_code": 7,
+        "witness_code": 707,
         "added_axis": "binding -> trust coordination",
         "witness_pair": "witness deliberately made unobservable",
         "reduction_failure_criterion": "binding-only model admits norm violation",
@@ -1039,6 +1679,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_has_witness",
       "model": {
         "transition_id": "K7_to_K8",
+        "lower_code": 7,
+        "upper_code": 8,
+        "added_axis_code": 8,
+        "witness_code": 807,
         "added_axis": "coordination -> regime shift",
         "witness_pair": "meta-state transition changes future rules",
         "reduction_failure_criterion": "coordination-only model freezes rules",
@@ -1060,6 +1704,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
       "model": {
         "transition_id": "K7_to_K8",
+        "lower_code": 7,
+        "upper_code": 8,
+        "added_axis_code": 8,
+        "witness_code": 807,
         "added_axis": "coordination -> regime shift",
         "witness_pair": "witness deliberately made unobservable",
         "reduction_failure_criterion": "coordination-only model freezes rules",
@@ -1082,6 +1730,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_has_witness",
       "model": {
         "transition_id": "K8_to_K9",
+        "lower_code": 8,
+        "upper_code": 9,
+        "added_axis_code": 9,
+        "witness_code": 907,
         "added_axis": "regime -> theory dynamics",
         "witness_pair": "claim/evidence update changes theory verdict",
         "reduction_failure_criterion": "regime-only model lacks claim revision",
@@ -1103,6 +1755,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
       "model": {
         "transition_id": "K8_to_K9",
+        "lower_code": 8,
+        "upper_code": 9,
+        "added_axis_code": 9,
+        "witness_code": 907,
         "added_axis": "regime -> theory dynamics",
         "witness_pair": "witness deliberately made unobservable",
         "reduction_failure_criterion": "regime-only model lacks claim revision",
@@ -1125,6 +1781,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_has_witness",
       "model": {
         "transition_id": "K9_to_K10",
+        "lower_code": 9,
+        "upper_code": 10,
+        "added_axis_code": 10,
+        "witness_code": 1007,
         "added_axis": "theory dynamics -> recursive self-application",
         "witness_pair": "model applies to its own updates",
         "reduction_failure_criterion": "K9 model cannot type self-update",
@@ -1146,6 +1806,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
       "model": {
         "transition_id": "K9_to_K10",
+        "lower_code": 9,
+        "upper_code": 10,
+        "added_axis_code": 10,
+        "witness_code": 1007,
         "added_axis": "theory dynamics -> recursive self-application",
         "witness_pair": "witness deliberately made unobservable",
         "reduction_failure_criterion": "K9 model cannot type self-update",
@@ -1168,6 +1832,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_has_witness",
       "model": {
         "transition_id": "K10_to_K11",
+        "lower_code": 10,
+        "upper_code": 11,
+        "added_axis_code": 11,
+        "witness_code": 1107,
         "added_axis": "recursion -> cross-domain coherence",
         "witness_pair": "translation invariant changes verdict",
         "reduction_failure_criterion": "recursive single-domain model passes incoherent translation",
@@ -1189,6 +1857,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
       "model": {
         "transition_id": "K10_to_K11",
+        "lower_code": 10,
+        "upper_code": 11,
+        "added_axis_code": 11,
+        "witness_code": 1107,
         "added_axis": "recursion -> cross-domain coherence",
         "witness_pair": "witness deliberately made unobservable",
         "reduction_failure_criterion": "recursive single-domain model passes incoherent translation",
@@ -1211,6 +1883,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_has_witness",
       "model": {
         "transition_id": "K11_to_K12",
+        "lower_code": 11,
+        "upper_code": 12,
+        "added_axis_code": 12,
+        "witness_code": 1207,
         "added_axis": "coherence -> release-governed civilizational closure",
         "witness_pair": "owner-gated public action state changes verdict",
         "reduction_failure_criterion": "K11 model cannot represent no-send governance",
@@ -1232,6 +1908,10 @@
       "lean_ref": "formal/lean/OC133V12.lean::demotion_requires_lost_witness",
       "model": {
         "transition_id": "K11_to_K12",
+        "lower_code": 11,
+        "upper_code": 12,
+        "added_axis_code": 12,
+        "witness_code": 1207,
         "added_axis": "coherence -> release-governed civilizational closure",
         "witness_pair": "witness deliberately made unobservable",
         "reduction_failure_criterion": "K11 model cannot represent no-send governance",

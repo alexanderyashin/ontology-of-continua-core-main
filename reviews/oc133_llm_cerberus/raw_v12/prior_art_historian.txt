@@ -2,35 +2,35 @@
   "role": "prior_art_historian",
   "findings": [
     {
-      "severity": "CRITICAL",
+      "severity": "HIGH",
       "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-      "claim": "OC133-NOVELTY-001: Novelty is bounded to typed OC release governance, not to invention of the prior-art traditions.",
-      "failure_mode": "The register declares unsupported_uniqueness_total=0 and marks rows BOUNDED_DELTA_SUPPORTED_BY_SOURCE_COMPARISON, but the absence tests are only page-local checks such as NOT_FOUND_IN_SOURCE_PAGE or 'does not present the combined v12 bundle.' A one-source anchor per tradition does not establish absence from prior art for the residual proof/data/falsifier/no-send governance bundle, and the rows contain no source excerpts, snapshots, search strings, negative-result logs, or comparator rows for adjacent release-governance, preregistration, traceability, or open-science control-plane prior art.",
-      "required_repair": "Demote OC133-NOVELTY-001 to non-exhaustive comparator positioning, or add archived/source-quoted evidence, exact search protocol, negative-result logs, and explicit comparator rows for adjacent governance traditions before restoring any source-backed novelty status.",
+      "claim": "OC133-NOVELTY-001: Prior-art comparison supports bounded positioning of the OC release-governance bundle; uniqueness is not promoted.",
+      "failure_mode": "The register asserts PRIOR_ART_PREDATES_OC while several source_date fields are only \"reference\" and one is \"2026\". Those rows do not establish dated priority before the OC 1.3.3 release date, so the priority portion of the source-backed comparator is not actually source-backed.",
+      "required_repair": "Replace every undated or same-year priority anchor with exact pre-OC publication or revision dates and source excerpts, or change those rows to an undated-reference status and demote OC133-NOVELTY-001 until dated priority is established.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "OC133-NOVELTY-001: Prior-art comparison supports bounded positioning of the OC release-governance bundle; uniqueness is not promoted.",
+      "failure_mode": "The absence tests are mostly assertions such as NOT_FOUND_IN_SOURCE_PAGE or prose statements that a single source page does not present the combined bundle. They include no exact inspected text, query terms, source snapshots, hashes, or element-level negative checks, so they support only a narrow page-level note, not a release-critical source-backed residual delta across the named traditions.",
+      "required_repair": "Add per-row source excerpts for overlap, explicit searched terms/sections for absence, archived source snapshots or hashes, and an element-by-element comparison for the claim/proof/data/falsifier/no-send bundle; otherwise demote the claim to cited-page positioning only.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
       "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
-      "failure_mode": "The Lean theorem every_adjacent_transition_has_witness constructs retainedTransitionEvidence k with witnessRetained=true, addedAxisObservable=true, demotionAllowed=false, and reduction=losesWitness for any AdjacentK. That proves the shape of a manufactured record, not irreducibility of actual K-level transitions. The finite model runner likewise accepts asserted transition fields rather than computing a reduction, so the K-level atlas remains vulnerable to prior-art relabeling and inflation.",
-      "required_repair": "Replace the constructed witness theorem with concrete K-level semantics, an independent reduction/demotion evaluator, computed keep/drop transition checks, and negative controls where reduction succeeds; demote T133-KLEVEL until those checks exist.",
+      "failure_mode": "The finite-model evaluator accepts K-level witnesses from row booleans such as witness_retained, added_axis_observable, demotion_allowed, and reduction_attempt. It does not independently verify added_axis, witness_pair, reduction_failure_criterion, or lawful_demotion_criterion against the atlas or prior-art sources, so the passing result is self-confirming theorem theater rather than evidence of irreducibility.",
+      "required_repair": "Make the runner load and cross-check the K-level atlas against every finite row, require executable countermodels for each transition, and demote T133-KLEVEL to a declared synthetic witness schema until the transition evidence is independently validated.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
-      "failure_mode": "The Lean verdict model is componentVerdict x := if x.present then pass else fail, so every_component_has_witness makes each component necessary by definition. The finite witness rows also carry keep_verdict/drop_verdict as input facts. This does not test whether the OC tuple is minimal against relabeling, compression, or prior-art reformulation.",
-      "required_repair": "Use an independent OC verdict evaluator over real tuple semantics, compute keep/drop outcomes rather than reading them from inputs, and add prior-art compression controls; demote T133-MIN until minimality is not definitionally forced.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "OC133-NOSEND-001: Publication and journal submission remain locked until separate owner approval.",
-      "failure_mode": "P012 claims a replayed no-send model card with prediction_or_replay ADV-NOSEND-PUBLISH and evidence refs to Lean and finite checks, but proofs/FINITE_MODEL_CHECKS_1_3_3.json contains no ADV-NOSEND-PUBLISH row and formal/lean/OC133V12.lean contains no owner-approval state machine. The manifest supports a lock, but the coverage matrix overstates it as a replayed formal/finite model.",
-      "required_repair": "Either add an executable no-send finite case plus Lean owner-approval state semantics, or revise P012 to manifest-only governance evidence and remove PHENOMENON_SPECIFIC_MODEL_REPLAYED for that row.",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
+      "failure_mode": "The promoted Lean reference for this theorem is declared_death_blocks_live, which only proves inconsistency between live=true and live=false under declared death assumptions. It does not cover residue/rebirth separation, typed predicate non-interchangeability, or morphism-class distinctness for the full public claim.",
+      "required_repair": "Split the claim into separately promoted subclaims with matching Lean refs and finite cases, or add a theorem and finite witnesses that explicitly cover live, death, residue, rebirth, and identity/morphism separation before promoting the combined claim.",
       "status": "OPEN"
     }
   ]
