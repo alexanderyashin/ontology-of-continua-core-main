@@ -36,7 +36,7 @@ class ReleaseMachineTests(unittest.TestCase):
     def test_completed_gate_set_records_terminal_science_and_keeps_no_send_lock(self) -> None:
         summary = core.evaluate_release("oc_core_1_3_2", "all", "pre_publish", write=True)
         self.assertEqual(summary["master_verdict"], "PASS")
-        self.assertEqual(summary["gate_counts"]["PASS"], 29)
+        self.assertEqual(summary["gate_counts"]["PASS"], 31)
         self.assertEqual(summary["gate_counts"].get("FAIL", 0), 0)
         self.assertFalse(summary["publish_allowed"])
         scorecard = json.loads((complete.repo_root() / "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_RELEASE_SCORECARD_latest.json").read_text(encoding="utf-8"))
@@ -44,6 +44,14 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertEqual(g28["name"], "science_terminality_82")
         self.assertEqual(g28["details"]["open_blocker_total"], 0)
         self.assertEqual(g28["details"]["terminal_blocker_total"], 82)
+        g29 = next(row for row in scorecard["gate_results"] if row["gate_id"] == "G29")
+        self.assertEqual(g29["name"], "release_human_quality")
+        self.assertEqual(g29["state"], "PASS")
+        g30 = next(row for row in scorecard["gate_results"] if row["gate_id"] == "G30")
+        self.assertEqual(g30["name"], "platinum_science_readiness")
+        self.assertEqual(g30["state"], "PASS")
+        self.assertEqual(g30["details"]["benchmark_failure_total"], 0)
+        self.assertEqual(g30["details"]["minimality_witness_row_total"], 8)
 
     def test_missing_swhid_is_owner_action_not_invented_identifier(self) -> None:
         root = complete.repo_root()
@@ -152,6 +160,64 @@ class ReleaseMachineTests(unittest.TestCase):
             and row["path"].endswith(".pdf")
         ]
         self.assertEqual(forbidden_source_pdfs, [])
+
+    def test_release_human_quality_blocks_overclaim_and_unqualified_ceiling(self) -> None:
+        findings = complete.human_quality_findings_for_text(
+            "What It Proves\nThis release widens claim ceilings and says all gaps solved.",
+            "primary_pdfs/fixture.pdf",
+            role="primary_pdf",
+        )
+        self.assertEqual({row["kind"] for row in findings}, {"overclaim_title", "unqualified_claim_ceiling_language", "all_gaps_solved_language"})
+
+    def test_release_human_quality_allows_negated_or_diagnostic_context(self) -> None:
+        negated = complete.human_quality_findings_for_text(
+            "This package does not claim unrestricted prediction and must not be framed as TOE-complete or final theory.",
+            "releases/oc_core_1_3_2/editorial/fixture.md",
+        )
+        diagnostic = complete.human_quality_findings_for_text(
+            "Replaced 'What It Proves' and old claim ceiling wording.",
+            "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_RELEASE_QUALITY_FAILURE_ANALYSIS.md",
+        )
+        self.assertEqual(negated, [])
+        self.assertEqual(diagnostic, [])
+
+    def test_boundary_gate_blocks_private_review_archive_labels(self) -> None:
+        hits = complete.boundary_hits_for_text(
+            "source_filename: claude_feedback/predictive.md",
+            "releases/oc_core_1_3_2/editorial/research_packets/fixture/PUBLIC_SOURCE_MANIFEST.yaml",
+        )
+        self.assertIn("private_review_archive_label", {row["kind"] for row in hits})
+
+    def test_acknowledgement_registry_sorted_and_no_endorsement(self) -> None:
+        root = complete.repo_root()
+        core.evaluate_release("oc_core_1_3_2", "all", "dry-run", write=True)
+        details = complete.acknowledgement_gate_details(root)
+        self.assertTrue(details["ok"])
+        self.assertEqual(details["observed_names"], [
+            "G. V. Apostolov",
+            "Eduard Fadeev",
+            "Gennady Alekseevich Nosov",
+            "Sergey Shpadyrev",
+            "Stanislav Tsukrov",
+        ])
+        self.assertTrue(details["author_owner_separate"])
+        self.assertEqual(details["endorsement_violation_names"], [])
+
+    def test_legacy_placeholder_pdf_generation_is_disabled_for_v132(self) -> None:
+        self.assertTrue(core.LEGACY_PLACEHOLDER_PDF_GENERATION_DISABLED)
+
+    def test_platinum_science_gate_tracks_benchmarks_and_minimality(self) -> None:
+        root = complete.repo_root()
+        core.evaluate_release("oc_core_1_3_2", "all", "dry-run", write=True)
+        scorecard = json.loads((root / "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_RELEASE_SCORECARD_latest.json").read_text(encoding="utf-8"))
+        g30 = next(row for row in scorecard["gate_results"] if row["gate_id"] == "G30")
+        self.assertEqual(g30["state"], "PASS")
+        self.assertEqual(g30["details"]["benchmark_task_total"], 10)
+        self.assertEqual(g30["details"]["benchmark_failure_total"], 0)
+        self.assertEqual(g30["details"]["benchmark_accepted_baseline_total"], 9)
+        self.assertEqual(g30["details"]["no_signalling_violation_score_max"], 0.0)
+        self.assertEqual(g30["details"]["minimality_theorem_status"], "PROVED_FOR_OC_VERDICT_CLASS")
+        self.assertEqual(g30["details"]["unsafe_direct_promotion_total"], 0)
 
     def test_lrgef_state_records_no_send_external_blockers(self) -> None:
         root = complete.repo_root()

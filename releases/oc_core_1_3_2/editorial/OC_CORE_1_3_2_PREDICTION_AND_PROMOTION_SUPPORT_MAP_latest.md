@@ -8,7 +8,7 @@
 | --- | --- | --- | ---: | --- |
 | `OC132-SUPPORT-0001` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | without turning shared vocabulary into an unrestricted predictive claim. |
 | `OC132-SUPPORT-0002` | `theorem-native` | `PROOF_OR_THEOREM_ROUTE_SUPPORTED` | 3 | _3_SCIENCE_ONLY; it keeps theorem-native claims, bounded empirical claims, and practical or |
-| `OC132-SUPPORT-0003` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | This volume does not claim unrestricted prediction or replacement of local |
+| `OC132-SUPPORT-0003` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | This volume does not claim unbounded predictive authority or replacement |
 | `OC132-SUPPORT-0004` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | 2 Predictions and Tests in Physics (K2 ) . |
 | `OC132-SUPPORT-0005` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | 3 Predictions and Tests in Origins of Life (K3 –K4 ) . |
 | `OC132-SUPPORT-0006` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | 4 Predictions and Tests in Biological Systems (K4 –K5 ) . |
@@ -55,7 +55,7 @@
 | `OC132-SUPPORT-0047` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | • potentials measuring prediction error, value and confidence; |
 | `OC132-SUPPORT-0048` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | • cycles representing attention loops, prediction–correction cycles and learning cycles. |
 | `OC132-SUPPORT-0049` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | • prediction error and internal tension exceed expressive capacity thresholds (Θexpr ); |
-| `OC132-SUPPORT-0050` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | Cognitive systems arise when representations, bindings, and predictive models become the dominant |
+| `OC132-SUPPORT-0050` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | Cognitive systems arise when representations, bindings, and predictive models become the domi- |
 | `OC132-SUPPORT-0051` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | The discussion is anchored to classical work on the organisation of behaviour and predictive- |
 | `OC132-SUPPORT-0052` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | • Ω6 : representational configurations, activated conceptual states, prediction states. |
 | `OC132-SUPPORT-0053` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | • A6 : representational axes, binding axes, predictive axes. |
@@ -94,7 +94,7 @@
 | `OC132-SUPPORT-0086` | `promoted` | `CLAIM_LEDGER_AND_NO_PROMOTION_BOUNDARY_SUPPORTED` | 3 | PASS scope for different reasons: EXTENSION rows are frontier/support lanes awaiting later promotion or |
 | `OC132-SUPPORT-0087` | `theorem-native` | `PROOF_OR_THEOREM_ROUTE_SUPPORTED` | 3 | theorem-native support. |
 | `OC132-SUPPORT-0088` | `promoted` | `CLAIM_LEDGER_AND_NO_PROMOTION_BOUNDARY_SUPPORTED` | 3 | • the empirical route when promotion discipline is the issue, |
-| `OC132-SUPPORT-0089` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | read against effective complexity, predictive information, integrated information, and critical-transition lit- |
+| `OC132-SUPPORT-0089` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | The complexity and early-warning route is read against effective complexity, predictive information, inte- |
 | `OC132-SUPPORT-0090` | `theorem-native` | `PROOF_OR_THEOREM_ROUTE_SUPPORTED` | 3 | • Empirical statements require a standalone source-owned domain packet, canonical theorem-native |
 | `OC132-SUPPORT-0091` | `held-out` | `REPLAY_OR_ROUTE_DISCOVERY_SUPPORTED` | 3 | trace, pinned data route, numerical parameter law, observable binding, locked held-out replay proce- |
 | `OC132-SUPPORT-0092` | `promoted` | `CLAIM_LEDGER_AND_NO_PROMOTION_BOUNDARY_SUPPORTED` | 3 | dure, comparator audit, and explicit falsifier before promotion. |
@@ -192,7 +192,7 @@
 | `OC132-SUPPORT-0184` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | result into prediction tasks, decision rules, and operational procedures. |
 | `OC132-SUPPORT-0185` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | ual prediction, perform anomaly screening, audit a state transition, monitor a regime shift, or compare |
 | `OC132-SUPPORT-0186` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | It does not present OC as an unrestricted universal prediction |
-| `OC132-SUPPORT-0187` | `theorem-native` | `PROOF_OR_THEOREM_ROUTE_SUPPORTED` | 3 | The canonical utility atlas also carries theorem-native math- |
+| `OC132-SUPPORT-0187` | `theorem-native` | `PROOF_OR_THEOREM_ROUTE_SUPPORTED` | 3 | also carries theorem-native mathematics and one cross-domain unified-science row; the opening para- |
 | `OC132-SUPPORT-0188` | `theorem-native` | `PROOF_OR_THEOREM_ROUTE_SUPPORTED` | 3 | The theorem-native domain lanes are usable under explicit theorem, data-route, and falsifier discipline; the cross- |
 | `OC132-SUPPORT-0189` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | Its closed practical value is not unrestricted universal prediction; it is lawful packet |
 | `OC132-SUPPORT-0190` | `prediction` | `STRUCTURAL_OR_REPLAY_BOUNDARY_SUPPORTED` | 4 | selection, bounded residual prediction, anomaly screening, state-transition auditing, regime-shift monitoring, and |

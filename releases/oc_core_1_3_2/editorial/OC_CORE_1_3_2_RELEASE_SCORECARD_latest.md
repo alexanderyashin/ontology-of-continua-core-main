@@ -23,7 +23,7 @@ Publish allowed: `false`
 | `G14` reproducibility_route | `PASS` | `HIGH` | Simulation and data reproducibility routes checked. |
 | `G15` reviewer_route | `PASS` | `HIGH` | Reviewer route sections checked. |
 | `G16` contribution_ledger | `PASS` | `HIGH` | Contribution ledger checked. |
-| `G17` acknowledgements | `PASS` | `HIGH` | Acknowledgements checked. |
+| `G17` acknowledgements | `PASS` | `HIGH` | Acknowledgement registry, public names, surname sorting, and no-endorsement policy checked. |
 | `G18` boundary_leak_protection | `PASS` | `CRITICAL` | Public text, research packets, claim support boundaries, and prediction/promotion support routes scanned. |
 | `G19` readme_completeness | `PASS` | `HIGH` | README release identity and reproducibility markers checked. |
 | `G20` release_notes_changelog | `PASS` | `HIGH` | Release notes and changelog checked. |
@@ -35,3 +35,5 @@ Publish allowed: `false`
 | `G26` lrgef_supply_chain_no_send_lock | `PASS` | `INFO` | Supply-chain/signing gaps are recorded as no-send external publication blockers, not silent PASS for public release. |
 | `G27` parfitian_cerberus | `PASS` | `HIGH` | Parfitian Cerberus release-critical gate checked self-defeat, moral mathematics, Relation R, future stakeholders, transparency and evidence burden. |
 | `G28` science_terminality_82 | `PASS` | `CRITICAL` | All 82 OC Core 1.3.2 science blockers are terminal. |
+| `G29` release_human_quality | `PASS` | `HIGH` | Human-facing release prose, acknowledgement order, and package role classification checked. |
+| `G30` platinum_science_readiness | `PASS` | `HIGH` | OC 1.4 forward science admitted into 1.3.2 has benchmark, minimality-witness, and no-unsafe-promotion support. |

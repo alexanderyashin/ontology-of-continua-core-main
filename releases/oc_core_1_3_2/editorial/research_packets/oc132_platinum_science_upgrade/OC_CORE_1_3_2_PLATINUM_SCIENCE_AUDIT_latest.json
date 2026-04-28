@@ -1,0 +1,415 @@
+{
+  "schema_id": "OC_CORE_1_3_2_PLATINUM_SCIENCE_AUDIT_v1",
+  "release_id": "oc_core_1_3_2",
+  "status": "PASS_FOR_1_3_2_RELEASE_SCIENCE",
+  "global_theory_completion_claimed": false,
+  "platinum_definition": "All release-visible 1.3.2 strong claims must be backed by proof, replay, deterministic benchmark support, source audit, or explicit release governance. The global minimality theorem is admitted for the OC-compatible verdict-preserving class, and no stronger unrelated-domain claim is smuggled into the release.",
+  "formal_results": {
+    "minimality_theorem": {
+      "theorem_id": "OC132-GLOBAL-VERDICT-INVARIANT-MINIMALITY",
+      "statement": "For the class of OC-compatible verdict-preserving representations, each primitive distinction in the eight-row witness matrix is globally necessary up to definitional equivalence: any representation that removes the distinction must re-encode functionally equivalent information or it cannot preserve the required OC verdicts.",
+      "proof_method": "separating-pair / quotient-kernel argument over the OC verdict algebra",
+      "proof_status": "PROVED_FOR_OC_VERDICT_CLASS",
+      "assumption_set": [
+        "The representation must preserve the release-visible OC verdict distinctions.",
+        "Two histories that are equal under all retained information are indistinguishable for the downstream verdict map.",
+        "For each primitive distinction there exists a separating witness pair equal on all other primitive distinctions and unequal in the required OC verdict."
+      ],
+      "proof_sketch": "Let pi_p be one primitive distinction and let H_a,H_b be its separating witness pair. If a representation R removes pi_p and does not carry any functionally equivalent invariant, then R(H_a)=R(H_b) while the OC verdict map requires V(H_a) != V(H_b). Any decoder D from R to verdicts therefore gives D(R(H_a))=D(R(H_b)), contradiction. Hence every verdict-preserving OC representation must preserve pi_p up to definitional equivalence. Applying the argument to all eight independent witness axes proves the global lower bound.",
+      "not_claimed": "The theorem is global for OC-compatible verdict-preserving representations; it does not assert authority over unrelated problem classes that do not ask the OC verdict questions."
+    },
+    "fact_contract": "Fact_{A,R}(E,t) iff S_{A,R}(E|H_t) >= tau_{A,R} and no active falsifier phi_i(E,H_t)=1.",
+    "objectivity_metric": "C_R(E)=1-mean_{i<j} JS(P_i(E),P_j(E)); the OC14 benchmark records C_R=0.999895 for the deterministic multi-observer fixture.",
+    "no_signalling_result": "The deterministic entanglement fixture records no_signalling_violation_score_max=0.0 under the declared operational update rules."
+  },
+  "oc14_forward_elements": {
+    "candidate_patch_total": 10,
+    "unsafe_direct_promotion_total": 0,
+    "import_rows": [
+      {
+        "patch_id": "PATCH_OBSERVATION_ARCHITECTURE",
+        "recommended_action": "adapt",
+        "source_state": "INTEGRATED_PRIVATE_PUBLIC_SKELETON",
+        "oc132_treatment": "INCLUDED_IN_1_3_2_AS_FORMAL_SUPPORT_AND_RELEASE_GOVERNANCE",
+        "evidence_refs": [
+          "docs/core/OC_Core_1_4_Formal_Spec.md",
+          "docs/core/OC_Core_1_4_Support_Classes.md"
+        ],
+        "canonical_promotion_allowed": false,
+        "claim_effect": "support/governance/benchmark strengthening only; no universal theorem promotion"
+      },
+      {
+        "patch_id": "PATCH_EVENT_STABILIZATION_CONTRACT",
+        "recommended_action": "implement",
+        "source_state": "INTEGRATED_PRIVATE_PUBLIC_SKELETON",
+        "oc132_treatment": "INCLUDED_IN_1_3_2_AS_FORMAL_SUPPORT_AND_RELEASE_GOVERNANCE",
+        "evidence_refs": [
+          "docs/core/OC_Core_1_4_Formal_Spec.md",
+          "docs/core/OC_Core_1_4_Support_Classes.md"
+        ],
+        "canonical_promotion_allowed": false,
+        "claim_effect": "support/governance/benchmark strengthening only; no universal theorem promotion"
+      },
+      {
+        "patch_id": "PATCH_SUPPORT_CLASS_DISCIPLINE",
+        "recommended_action": "implement",
+        "source_state": "INTEGRATED_PRIVATE_PUBLIC_SKELETON",
+        "oc132_treatment": "INCLUDED_IN_1_3_2_AS_FORMAL_SUPPORT_AND_RELEASE_GOVERNANCE",
+        "evidence_refs": [
+          "docs/core/OC_Core_1_4_Formal_Spec.md",
+          "docs/core/OC_Core_1_4_Support_Classes.md"
+        ],
+        "canonical_promotion_allowed": false,
+        "claim_effect": "support/governance/benchmark strengthening only; no universal theorem promotion"
+      },
+      {
+        "patch_id": "PATCH_QUANTUM_BOUNDARY",
+        "recommended_action": "implement",
+        "source_state": "INTEGRATED_PRIVATE_PUBLIC_SKELETON",
+        "oc132_treatment": "INCLUDED_IN_1_3_2_AS_FORMAL_SUPPORT_AND_RELEASE_GOVERNANCE",
+        "evidence_refs": [
+          "docs/core/OC_Core_1_4_Formal_Spec.md",
+          "docs/core/OC_Core_1_4_Support_Classes.md"
+        ],
+        "canonical_promotion_allowed": false,
+        "claim_effect": "support/governance/benchmark strengthening only; no universal theorem promotion"
+      },
+      {
+        "patch_id": "PATCH_IMN_BASELINE",
+        "recommended_action": "implement",
+        "source_state": "INTEGRATED_PRIVATE_PUBLIC_SKELETON",
+        "oc132_treatment": "INCLUDED_IN_1_3_2_AS_DETERMINISTIC_BENCHMARK_SUPPORT",
+        "evidence_refs": [
+          "benchmarks/reports/OC14_BENCHMARK_RESULTS.json",
+          "benchmarks/reports/OC14_BENCHMARK_RESULTS.md"
+        ],
+        "canonical_promotion_allowed": false,
+        "claim_effect": "support/governance/benchmark strengthening only; no universal theorem promotion"
+      },
+      {
+        "patch_id": "PATCH_NO_SIGNALLING_GATE",
+        "recommended_action": "implement",
+        "source_state": "READY_FOR_BENCHMARK",
+        "oc132_treatment": "INCLUDED_IN_1_3_2_AS_DETERMINISTIC_BENCHMARK_SUPPORT",
+        "evidence_refs": [
+          "benchmarks/reports/OC14_BENCHMARK_RESULTS.json",
+          "benchmarks/reports/OC14_BENCHMARK_RESULTS.md"
+        ],
+        "canonical_promotion_allowed": false,
+        "claim_effect": "support/governance/benchmark strengthening only; no universal theorem promotion"
+      },
+      {
+        "patch_id": "PATCH_BENCHMARK_SUITE",
+        "recommended_action": "implement",
+        "source_state": "READY_FOR_BENCHMARK",
+        "oc132_treatment": "INCLUDED_IN_1_3_2_AS_DETERMINISTIC_BENCHMARK_SUPPORT",
+        "evidence_refs": [
+          "benchmarks/reports/OC14_BENCHMARK_RESULTS.json",
+          "benchmarks/reports/OC14_BENCHMARK_RESULTS.md"
+        ],
+        "canonical_promotion_allowed": false,
+        "claim_effect": "support/governance/benchmark strengthening only; no universal theorem promotion"
+      },
+      {
+        "patch_id": "PATCH_IP_HOLD_RULES",
+        "recommended_action": "patent_screen",
+        "source_state": "OWNER_REVIEW_REQUIRED",
+        "oc132_treatment": "EXCLUDED_FROM_PUBLIC_1_3_2_EXCEPT_NO_SEND_BOUNDARY",
+        "evidence_refs": [
+          "releases/oc_core_1_4_0_rc1/editorial/OC_CORE_1_4_0_RC1_OWNER_REVIEW_PACKET.md"
+        ],
+        "canonical_promotion_allowed": false,
+        "claim_effect": "support/governance/benchmark strengthening only; no universal theorem promotion"
+      },
+      {
+        "patch_id": "PATCH_PUBLICATION_FAMILY",
+        "recommended_action": "adapt",
+        "source_state": "READY_NO_SEND",
+        "oc132_treatment": "INCLUDED_IN_1_3_2_AS_NO_SEND_PUBLICATION_STRUCTURE_ONLY",
+        "evidence_refs": [
+          "docs/publication/OC14_PUBLICATION_SEQUENCE_NO_SEND.md"
+        ],
+        "canonical_promotion_allowed": false,
+        "claim_effect": "support/governance/benchmark strengthening only; no universal theorem promotion"
+      },
+      {
+        "patch_id": "PATCH_COMPETITOR_RHETORIC_REJECT",
+        "recommended_action": "reject",
+        "source_state": "REJECTED_WITH_REASON",
+        "oc132_treatment": "NOT_IMPORTED_AS_SCIENCE_CLAIM",
+        "evidence_refs": [
+          "releases/oc_core_1_4_0_rc1/editorial/candidate_patches_public_index.ndjson"
+        ],
+        "canonical_promotion_allowed": false,
+        "claim_effect": "support/governance/benchmark strengthening only; no universal theorem promotion"
+      }
+    ]
+  },
+  "benchmark_summary": {
+    "task_total": 10,
+    "runnable_task_total": 10,
+    "failure_total": 0,
+    "baseline_total": 9,
+    "accepted_baseline_total": 9,
+    "output_hash": "9381f1b2df7b14792cfc307d647aa57938583f7e94c56bd5acc345b76bb01262",
+    "support_ceiling": "S3_NUMERICAL_OR_SIMULATION_EVIDENCE",
+    "no_signalling_violation_score_max": 0.0
+  },
+  "minimality_witness_matrix": {
+    "status": "CONDITIONAL_MINIMALITY_WITNESS_PASS",
+    "contract": "minimality under the current OC 1.3.2 classification and release-quality contract",
+    "global_verdict_invariant_minimality_proved": true,
+    "rows": [
+      {
+        "axis_id": "MIN-AXIS-01",
+        "primitive": "identity_carrier",
+        "removed_primitive": "identity relation / continuity predicate",
+        "witness_pair": "live continuation vs unrelated new live structure with matching observable state",
+        "collapse_when_removed": "persistence and replacement become indistinguishable",
+        "formal_witness_rule": "There exist two histories H_a,H_b with equal current observable state and different identity verdicts; without an identity carrier every classifier preserving the remaining observables assigns the same verdict.",
+        "terminal_result": "NECESSARY_FOR_OC_CLASSIFICATION_CONTRACT"
+      },
+      {
+        "axis_id": "MIN-AXIS-02",
+        "primitive": "admissible_realization",
+        "removed_primitive": "non-empty admissible realization set",
+        "witness_pair": "dead continuum with residue vs live continuum with constrained realization",
+        "collapse_when_removed": "death/collapse cannot be distinguished from constrained survival",
+        "formal_witness_rule": "There exist H_a,H_b with identical residue but different admissible-realization non-emptiness; removing R_A makes live/dead verdicts non-identifiable.",
+        "terminal_result": "NECESSARY_FOR_DEATH_RESIDUE_REBIRTH_THEOREM_ROUTE"
+      },
+      {
+        "axis_id": "MIN-AXIS-03",
+        "primitive": "collapse_threshold",
+        "removed_primitive": "explicit threshold or failure boundary",
+        "witness_pair": "below-threshold perturbation vs transition-causing collapse",
+        "collapse_when_removed": "falsifiable transition boundary disappears",
+        "formal_witness_rule": "There exist perturbation values epsilon_1 < tau <= epsilon_2; without tau every monotone classifier compatible with remaining data admits both verdicts.",
+        "terminal_result": "NECESSARY_FOR_FALSIFIABLE_COLLAPSE_LANGUAGE"
+      },
+      {
+        "axis_id": "MIN-AXIS-04",
+        "primitive": "residue_relation",
+        "removed_primitive": "post-collapse trace relation",
+        "witness_pair": "rebirth from residue vs independent new birth",
+        "collapse_when_removed": "residue-supported rebirth becomes observationally identical to unrelated birth",
+        "formal_witness_rule": "There exist later live structures L_a,L_b with matching current form and different relation to a prior residue; without rho_res their rebirth labels collapse.",
+        "terminal_result": "NECESSARY_FOR_REBIRTH_CLASSIFICATION"
+      },
+      {
+        "axis_id": "MIN-AXIS-05",
+        "primitive": "rebirth_predicate",
+        "removed_primitive": "new-live-from-residue classifier",
+        "witness_pair": "residue-supported new continuum vs persistence of the original",
+        "collapse_when_removed": "rebirth and persistence collapse into one label",
+        "formal_witness_rule": "There exist histories with residue support but no preserved identity; without B(H_t,H_s) the classifier cannot separate new-from-residue from old-persistent.",
+        "terminal_result": "NECESSARY_FOR_NUMERICAL_NEWNESS_AFTER_COLLAPSE"
+      },
+      {
+        "axis_id": "MIN-AXIS-06",
+        "primitive": "k_level_boundary",
+        "removed_primitive": "typed K-domain boundary",
+        "witness_pair": "same formal operator used in mathematics and biology under different admissibility conditions",
+        "collapse_when_removed": "domain projection loses typed falsifier and support-class discipline",
+        "formal_witness_rule": "There exist isomorphic operator signatures with non-isomorphic admissibility/falsifier classes; without K typing the domain verdict is underdetermined.",
+        "terminal_result": "NECESSARY_FOR_CROSS_DOMAIN_NON_RUBBERIZING_USE"
+      },
+      {
+        "axis_id": "MIN-AXIS-07",
+        "primitive": "support_class",
+        "removed_primitive": "S0-S5 / release support class constraint",
+        "witness_pair": "toy simulation result vs externally reproduced empirical result",
+        "collapse_when_removed": "weak and strong evidence become public-worded at the same level",
+        "formal_witness_rule": "There exist evidence routes E_1,E_2 with equal narrative conclusion and different verification strength; without S(E) the release gate cannot preserve evidential order.",
+        "terminal_result": "NECESSARY_FOR_RELEASE_QUALITY_AND_OVERCLAIM_CONTROL"
+      },
+      {
+        "axis_id": "MIN-AXIS-08",
+        "primitive": "falsifier",
+        "removed_primitive": "claim-specific breaking condition",
+        "witness_pair": "benchmark pass under declared tolerance vs out-of-band residual",
+        "collapse_when_removed": "prediction-like language becomes unfalsifiable",
+        "formal_witness_rule": "There exist outputs y,y' with equal claim text and different tolerance status; without phi the pass/fail relation is not definable.",
+        "terminal_result": "NECESSARY_FOR_PROOF_AND_REPLAY_DISCIPLINE"
+      }
+    ]
+  },
+  "limitation_scan": {
+    "source_total": 4,
+    "hit_total": 33,
+    "policy": "Hits are reviewed for conversion into proof, replay, numeric benchmark support, or explicit non-claim boundary. They are not silently promoted.",
+    "sample_rows": [
+      {
+        "source": "content/03_model.tex",
+        "line": 23,
+        "text": "Its role is to provide the minimal conditions under which any higher-level continuum is logically possible."
+      },
+      {
+        "source": "content/03_model.tex",
+        "line": 43,
+        "text": "Nonzero structural difference is the minimal condition for distinguishability."
+      },
+      {
+        "source": "content/03_model.tex",
+        "line": 52,
+        "text": "The value \\(\\Theta_0 = \\varepsilon\\) acts as a minimal structural threshold: differences smaller than \\(\\varepsilon\\) are not resolved at the level of \\(K_0\\)."
+      },
+      {
+        "source": "content/03_model.tex",
+        "line": 63,
+        "text": "Here \\(M_0\\) denotes the minimal meta-space in which the purely structural"
+      },
+      {
+        "source": "content/03_model.tex",
+        "line": 91,
+        "text": "\\item \\(\\Theta_1\\) encodes minimal conditions for classical stability;"
+      },
+      {
+        "source": "content/03_model.tex",
+        "line": 350,
+        "text": "is minimal and irreversible: any nonzero emergence of the new axis constitutes the new continuum \\(K_{x+1}\\), and the dimension of \\(K_{x+1}\\) cannot revert to that of \\(K_x\\) without destroying \\(\\Omega(K_{x+1})\\)."
+      },
+      {
+        "source": "content/03_model.tex",
+        "line": 425,
+        "text": "\\item \\(K_6\\): cognitive continua with representational axes, binding, internal models, memory thresholds, and prediction thresholds."
+      },
+      {
+        "source": "content/03_model.tex",
+        "line": 451,
+        "text": "\\subsection{Global minimality of the OC verdict interface}"
+      },
+      {
+        "source": "content/03_model.tex",
+        "line": 452,
+        "text": "\\label{sec:oc13-global-verdict-minimality}"
+      },
+      {
+        "source": "content/03_model.tex",
+        "line": 455,
+        "text": "used by this release. Its minimality is understood verdict-invariantly rather"
+      },
+      {
+        "source": "content/03_model.tex",
+        "line": 461,
+        "text": "\\paragraph{Theorem (global verdict-invariant minimality).}"
+      },
+      {
+        "source": "content/20_oc_core_1_3_theorem_roadmap.tex",
+        "line": 15,
+        "text": "minimality in the strict sense: it keeps the residue and rebirth branch visible"
+      },
+      {
+        "source": "content/20_oc_core_1_3_theorem_roadmap.tex",
+        "line": 151,
+        "text": "Frontier statements & Mark lawful future work without positive release authority. & Section~\\ref{sec:oc-core-1-3-practical-utility}, Appendix~\\ref{sec:oc-core-1-3-practical-utility-atlas}, and the frontier rows in the source-owned science corpus. \\\\"
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.tex",
+        "line": 54,
+        "text": "\\item No prediction claim is accepted without replay protocol, code, fixture or data, output hash, tolerance envelope, and falsifier."
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.tex",
+        "line": 92,
+        "text": "Future work & The item is deliberately outside 1.3.2 authority and may only become stronger through a later release gate.\\\\"
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.tex",
+        "line": 96,
+        "text": "The expert reader should use the prediction and promotion support map as a guardrail. It does not make weak statements strong. It binds risky words to their allowed support route: proof, replay, claim ledger, structural-only boundary, or future-work route. Any statement that cannot be bound must be rewritten before rel"
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.tex",
+        "line": 99,
+        "text": "The release imports the parts of the OC 1.4 forward layer that are already formal, benchmarked, and public-safe. They are not treated as a separate authority; they strengthen the 1.3.2 evidence contract."
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.tex",
+        "line": 124,
+        "text": "with $JS$ the Jensen--Shannon divergence. In the deterministic 1.4-to-1.3.2 benchmark fixture, the multi-observer objectivity task records $C_{\\mathcal{R}}=0.999895$ and mean $JS=0.000105$."
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.tex",
+        "line": 126,
+        "text": "\\section*{Global Verdict-Invariant Minimality Theorem}"
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.tex",
+        "line": 141,
+        "text": "MIN-AXIS-08 & falsifier & Pass/fail status for prediction-like language is not definable.\\\\"
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.tex",
+        "line": 144,
+        "text": "\\section*{Deterministic Benchmark Suite}"
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.tex",
+        "line": 149,
+        "text": "The no-signalling maximum in the entanglement/instrument fixtures is $0.0$. These numbers support the operational architecture and benchmark discipline; they do not by themselves assert replacement physics."
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.tex",
+        "line": 156,
+        "text": "\\item every strong prediction or promoted-claim occurrence is represented in the support map;"
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.tex",
+        "line": 53,
+        "text": "\\section*{Prediction and Quantitative Language}"
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.tex",
+        "line": 54,
+        "text": "The word ``prediction'' is release-permitted only when the corresponding artifact includes protocol, code, data or fixture, output hash, tolerance envelope, and falsifier. Without those components, OC Core 1.3.2 uses structural or operator-signature language."
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.tex",
+        "line": 76,
+        "text": "Future work & Stronger OC 1.4 formalization, new empirical wins, IP-sensitive race-hardening material, and new domain publication lines.\\\\"
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.tex",
+        "line": 80,
+        "text": "Each release-visible assertion must name its support surface. If the support is a proof route, the route must bind to a theorem or definition in the master monograph. If the support is replay, the package must expose fixed input, code route, result hash, tolerance, and falsifier. If the support is structural only, the "
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.tex",
+        "line": 93,
+        "text": "\\section*{Global Minimality Reproducibility Rule}"
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.tex",
+        "line": 94,
+        "text": "The global verdict-invariant minimality theorem is checked by finite ablation plus a quotient-kernel argument. For each primitive distinction $\\pi_p$ in the classification vocabulary, a witness pair $(H_a,H_b)$ is recorded such that the required verdicts differ with $\\pi_p$ present and collapse when $\\pi_p$ is removed "
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.tex",
+        "line": 104,
+        "text": "\\section*{Benchmark Result Table}"
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.tex",
+        "line": 119,
+        "text": "The benchmark run uses seed $140$, accepts nine baselines, reports zero failures, and has output hash \\texttt{9381f1b2df7b14792cfc307d647aa57938583f7e94c56bd5acc345b76bb01262}. The no-signalling maximum is $0.0$."
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.tex",
+        "line": 124,
+        "text": "\\item a numerical statement without replay support becomes structural context, not a prediction;"
+      },
+      {
+        "source": "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.tex",
+        "line": 136,
+        "text": "Generate support map & Risky words such as prediction, promoted, held-out, theorem-native, and numerical-table receive release-visible support rows.\\\\"
+      }
+    ]
+  },
+  "release_action": {
+    "include_in_1_3_2": true,
+    "public_safe": true,
+    "publication_allowed": false,
+    "next_action": "Integrate the proof-backed/replayed elements into 1.3.2 and keep unrelated-domain claims outside canonical language unless they have their own proof route."
+  }
+}

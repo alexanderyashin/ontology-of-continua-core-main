@@ -6,6 +6,8 @@
 \usepackage{hyperref}
 \usepackage{array}
 \usepackage{longtable}
+\usepackage{amsmath}
+\usepackage{amssymb}
 \hypersetup{
   colorlinks=true,
   linkcolor=black,
@@ -77,9 +79,48 @@ Future work & Stronger OC 1.4 formalization, new empirical wins, IP-sensitive ra
 \section*{Evidence Ledger Contract}
 Each release-visible assertion must name its support surface. If the support is a proof route, the route must bind to a theorem or definition in the master monograph. If the support is replay, the package must expose fixed input, code route, result hash, tolerance, and falsifier. If the support is structural only, the text must say so and must not borrow authority from quantitative prediction language.
 
+\section*{Formal Evidence Contract}
+OC Core 1.3.2 now treats the release-evidence relation as an explicit contract:
+\[
+  \operatorname{Fact}_{A,\mathcal{R}}(E,t)
+  \Longleftrightarrow
+  S_{A,\mathcal{R}}(E\mid H_t)\geq \tau_{A,\mathcal{R}}
+  \land
+  \forall \varphi_i \in \Phi,\;\varphi_i(E,H_t)=0.
+\]
+The method is deliberately strict. A claim is not release-admissible unless it states its architecture $A$, reference class $\mathcal{R}$, stabilization score $S$, threshold $\tau$, and falsifier family $\Phi$, or else points to a proof/source route that supplies the equivalent information.
+
+\section*{Global Minimality Reproducibility Rule}
+The global verdict-invariant minimality theorem is checked by finite ablation plus a quotient-kernel argument. For each primitive distinction $\pi_p$ in the classification vocabulary, a witness pair $(H_a,H_b)$ is recorded such that the required verdicts differ with $\pi_p$ present and collapse when $\pi_p$ is removed without equivalent re-encoding. A minimality row is reproducible when it names:
+\begin{itemize}
+  \item the removed primitive;
+  \item the verdict distinction that must be preserved;
+  \item the witness pair;
+  \item the collapse mode under ablation;
+  \item the release surface that uses the distinction.
+\end{itemize}
+The 1.3.2 platinum science audit records eight such rows and classifies the result as proved for the class of OC-compatible verdict-preserving representations. Equivalent axiomatisations are allowed only when they preserve the same information under another encoding.
+
+\section*{Benchmark Result Table}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.25\linewidth}>{\raggedright\arraybackslash}p{0.20\linewidth}>{\raggedright\arraybackslash}p{0.42\linewidth}}
+\textbf{Task} & \textbf{Failure} & \textbf{Release role}\\
+\hline
+toy sharpening & false & IMN retained as a sharpening heuristic baseline.\\
+double-slit toy & false & Operational framing only, not replacement physics.\\
+Stern--Gerlach toy & false & S2/S3 formal toy support.\\
+POVM instrument & false & Physical branch remains instrument-compatible.\\
+continuous measurement & false & Stabilization traces encoded without new physical dynamics.\\
+decoherence pointer basis & false & Pointer-basis language aligned operationally.\\
+entanglement no-signalling & false & No forbidden signalling effect is produced.\\
+multi-observer objectivity & false & $C_{\mathcal{R}}=0.999895$ under the deterministic fixture.\\
+architecture perturbation & false & Robustness test for architecture sensitivity.\\
+cognitive order effect & false & Bounded architecture-sensitive update traces.\\
+\end{longtable}
+The benchmark run uses seed $140$, accepts nine baselines, reports zero failures, and has output hash \texttt{9381f1b2df7b14792cfc307d647aa57938583f7e94c56bd5acc345b76bb01262}. The no-signalling maximum is $0.0$.
+
 \section*{Failure Modes That Must Remain Visible}
 \begin{itemize}
-  \item a theorem label without a proof route becomes a future theorem task, not a release fact;
+  \item a theorem label without a proof route is excluded from release authority until the proof is supplied;
   \item a numerical statement without replay support becomes structural context, not a prediction;
   \item a domain bridge without protocol remains bounded support, not domain replacement;
   \item a reviewer response without release-visible evidence remains private process, not public science;

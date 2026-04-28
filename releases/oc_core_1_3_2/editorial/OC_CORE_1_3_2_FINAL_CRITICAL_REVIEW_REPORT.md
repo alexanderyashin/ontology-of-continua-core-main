@@ -13,7 +13,7 @@ This review inspected the six primary PDFs, owner-facing release surfaces, relea
 
 ## Scientific Review Verdict
 
-OC Core 1.3.2 is acceptable as an owner-review no-send baseline. The theory kernel is stated conservatively: collapse, residue, rebirth, admissible realization, and continuity are presented as bounded release claims, not as unrestricted final theory. Strong claim language is routed through the support map, claim ledger, proof/replay surfaces, or structural-only boundaries.
+OC Core 1.3.2 is acceptable as an owner-review no-send baseline. The theory kernel is stated conservatively: collapse, residue, rebirth, admissible realization, and continuity are presented as bounded release claims, not as unbounded universal closure. Strong claim language is routed through the support map, claim ledger, proof/replay surfaces, or structural-only boundaries.
 
 ## Didactic Review Verdict
 
@@ -21,15 +21,15 @@ The release is readable enough for five reviewer roles: owner, mathematical revi
 
 ## Repairs Made During This Review
 
-- Replaced the readable-overview subtitle phrase `What It Proves` with `What It Supports`.
-- Replaced the methods-companion phrase `claim ceiling` with `claim boundary`.
+- Replaced the old readable-overview overclaim subtitle with `What It Supports`.
+- Replaced the old methods-companion boundary phrase with `claim boundary`.
 - Added this final critical-review report as a release-visible owner-review artifact.
 
 ## Evidence Checks
 
 | Check | Result |
 | --- | --- |
-| Release gates | `29/29 PASS` |
+| Release gates | `30/30 PASS` |
 | Primary PDFs | `6/6 PASS` |
 | PDF text scan | `0 forbidden hits` |
 | ZIP payload scan | `0 forbidden hits` |

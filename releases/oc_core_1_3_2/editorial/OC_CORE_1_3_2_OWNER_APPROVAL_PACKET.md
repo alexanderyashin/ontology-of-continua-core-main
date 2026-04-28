@@ -2,10 +2,13 @@
 
 Status: RELEASE_READY_NO_SEND.
 
-Artifact freeze hash: `1e9a27d860f6270127299842818602fe98e91e3fc8d52f602a8b98953ff66a3d`
+Artifact freeze hash: `3ce6db71d9bb1273b2b28dfe926012d710915371c3f07f4dc45c295f94dc1e7b`
 Owner approval required: true.
 Owner approved: false.
 Publish allowed: false.
 Global no-send lock: true.
+
+Release quality failure analysis: `releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_RELEASE_QUALITY_FAILURE_ANALYSIS.md`.
+Acknowledgement registry: `releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_ACKNOWLEDGEMENT_REGISTRY.md`.
 
 Owner must review the public release dossier and approve the exact freeze hash before any tag or upload.

@@ -10,4 +10,4 @@ Summary:
 - frontier/future-work claims: `1`
 - demoted claims: `0`
 
-Public claim ceilings are explicit. Simulations have the ceiling `SIMULATION_ILLUSTRATION_ONLY`. Public data routes have the ceiling `PUBLIC_ROUTE_DISCOVERY_ONLY`.
+Public claim boundaries are explicit. Simulations carry the boundary `SIMULATION_ILLUSTRATION_ONLY`. Public data routes carry the boundary `PUBLIC_ROUTE_DISCOVERY_ONLY`.

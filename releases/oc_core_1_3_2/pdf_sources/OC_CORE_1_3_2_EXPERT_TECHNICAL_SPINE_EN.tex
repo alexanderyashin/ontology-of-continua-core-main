@@ -6,6 +6,8 @@
 \usepackage{hyperref}
 \usepackage{array}
 \usepackage{longtable}
+\usepackage{amsmath}
+\usepackage{amssymb}
 \hypersetup{
   colorlinks=true,
   linkcolor=black,
@@ -93,6 +95,59 @@ Future work & The item is deliberately outside 1.3.2 authority and may only beco
 \section*{Support-Map Discipline}
 The expert reader should use the prediction and promotion support map as a guardrail. It does not make weak statements strong. It binds risky words to their allowed support route: proof, replay, claim ledger, structural-only boundary, or future-work route. Any statement that cannot be bound must be rewritten before release.
 
+\section*{Admitted 1.4 Formal Layer in 1.3.2}
+The release imports the parts of the OC 1.4 forward layer that are already formal, benchmarked, and public-safe. They are not treated as a separate authority; they strengthen the 1.3.2 evidence contract.
+
+\paragraph{Observation architecture.}
+An observation architecture is represented as
+\[
+  A=(\Omega,\mathcal{E},\mathcal{O},\mathcal{R},\Theta,\Phi),
+\]
+where $\Omega$ is the event space, $\mathcal{E}$ the admissible evidence surface, $\mathcal{O}$ the observer or instrument family, $\mathcal{R}$ the reference class, $\Theta$ the threshold and tolerance parameters, and $\Phi$ the declared falsifier family.
+
+\paragraph{Fact contract.}
+For event $E$ and history $H_t$, the release-admissible fact relation is:
+\[
+  \operatorname{Fact}_{A,\mathcal{R}}(E,t)
+  \Longleftrightarrow
+  S_{A,\mathcal{R}}(E\mid H_t) \geq \tau_{A,\mathcal{R}}
+  \land
+  \forall \varphi_i \in \Phi,\; \varphi_i(E,H_t)=0.
+\]
+This gives reviewers an explicit support/falsifier form: a fact is not merely asserted; it must cross the declared stabilization threshold and survive the active falsifier set.
+
+\paragraph{Objectivity metric.}
+For observer or instrument posteriors $P_i(E)$ in a reference class $\mathcal{R}$:
+\[
+  C_{\mathcal{R}}(E)=1-\frac{2}{n(n-1)}\sum_{i<j}JS(P_i(E),P_j(E)),
+\]
+with $JS$ the Jensen--Shannon divergence. In the deterministic 1.4-to-1.3.2 benchmark fixture, the multi-observer objectivity task records $C_{\mathcal{R}}=0.999895$ and mean $JS=0.000105$.
+
+\section*{Global Verdict-Invariant Minimality Theorem}
+\textbf{Theorem.} For the class of OC-compatible verdict-preserving representations, each primitive distinction in the eight-row witness matrix below is globally necessary up to definitional equivalence: any representation that removes the distinction must re-encode functionally equivalent information or it cannot preserve the required OC verdicts.
+
+\textbf{Proof.} Let $\pi_p$ be one primitive distinction and let $(H_a,H_b)$ be its separating witness pair. By construction, $H_a$ and $H_b$ agree on all primitive distinctions except $\pi_p$, while the OC verdict map requires $V(H_a)\neq V(H_b)$. Suppose a representation $R$ removes $\pi_p$ and carries no functionally equivalent invariant. Then $R(H_a)=R(H_b)$. Any downstream verdict decoder $D$ therefore gives $D(R(H_a))=D(R(H_b))$, contradicting $V(H_a)\neq V(H_b)$. Hence every verdict-preserving OC representation must preserve $\pi_p$ up to definitional equivalence. Applying the argument to the eight independent witness axes proves the global lower bound for the OC verdict class.
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.17\linewidth}>{\raggedright\arraybackslash}p{0.23\linewidth}>{\raggedright\arraybackslash}p{0.44\linewidth}}
+\textbf{Axis} & \textbf{Primitive} & \textbf{Witness collapse if removed}\\
+\hline
+MIN-AXIS-01 & identity carrier & Live continuation and unrelated replacement with matching observable state become indistinguishable.\\
+MIN-AXIS-02 & admissible realization & Death/collapse cannot be separated from constrained survival.\\
+MIN-AXIS-03 & collapse threshold & Below-threshold perturbation and transition-causing collapse lose a falsifiable boundary.\\
+MIN-AXIS-04 & residue relation & Residue-supported rebirth and unrelated birth become observationally identical.\\
+MIN-AXIS-05 & rebirth predicate & Rebirth and persistence collapse into one label.\\
+MIN-AXIS-06 & K-level boundary & Isomorphic operators in different domains lose typed falsifier discipline.\\
+MIN-AXIS-07 & support class & Toy support and independently reproduced support become public-worded at the same strength.\\
+MIN-AXIS-08 & falsifier & Pass/fail status for prediction-like language is not definable.\\
+\end{longtable}
+
+\section*{Deterministic Benchmark Suite}
+The admitted numerical layer is deterministic and reproducible. It consists of ten fixed-seed tasks: toy sharpening, double-slit toy, Stern--Gerlach toy, POVM instrument, continuous measurement, decoherence pointer basis, entanglement no-signalling, multi-observer objectivity, architecture perturbation, and cognitive order effect. The current run records ten runnable tasks, nine accepted baselines, zero failures, and output hash
+\[
+  \texttt{9381f1b2df7b14792cfc307d647aa57938583f7e94c56bd5acc345b76bb01262}.
+\]
+The no-signalling maximum in the entanglement/instrument fixtures is $0.0$. These numbers support the operational architecture and benchmark discipline; they do not by themselves assert replacement physics.
+
 \section*{Technical Acceptance Criteria}
 \begin{itemize}
   \item six primary PDFs have current identity, adequate page count, and clean extracted text;
@@ -128,6 +183,6 @@ Owner gate & Explicit no-send terminal state and no outbound action.\\
 
 \clearpage
 \section*{Technical Appendix C: Decision Boundary}
-The release is technically strong when its evidence topology is inspectable. It does not need to solve every future theorem to be a good 1.3.2 baseline. It does need to prevent every unsupported strong phrase from becoming public authority. That is the purpose of the claim ledger, support map, closure ledger, and release gates working together.
+The release is technically strong when its evidence topology is inspectable and every release-admissible strong claim has a proof, replay, or explicit source route. Unsupported strong phrases cannot become public authority. That is the purpose of the claim ledger, support map, closure ledger, platinum science audit, and release gates working together.
 
 \end{document}

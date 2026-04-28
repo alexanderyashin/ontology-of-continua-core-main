@@ -1,6 +1,6 @@
 # Public Manuscript Staging Queue
 
-Queue total: `101`
+Queue total: `102`
 
 All rows are appendix/frontier/support candidates only. External publication remains locked.
 
@@ -11,7 +11,7 @@ All rows are appendix/frontier/support candidates only. External publication rem
 | `autopilot_feature_candidates_r3_mechanism_candid_bdd8de38` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `domain_projection_completion_oc_extensions_v1` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `drt_strict_salvage_no_send` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
-| `external_criticism_stanislav_tsukrov_claude_feedback` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `external_criticism_stanislav_tsukrov_external_review` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_01_alternative_group_action_in_topos_quantum_d0ed03ee` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_01_broken_symmetries_and_the_masses_of_gauge_35bfce67` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `institute_04_conservation_of_isotopic_spin_and_isotopic_c0ed10e9` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
@@ -107,3 +107,4 @@ All rows are appendix/frontier/support candidates only. External publication rem
 | `institute_805039_the_sheaf_theoretic_structure_of_non_local_fff3d289` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `k0_structural_realist_extension` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
 | `night_science_delta_integration` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |
+| `oc132_platinum_science_upgrade` | appendix/frontier/support | `NO_SEND_OWNER_REVIEW` |

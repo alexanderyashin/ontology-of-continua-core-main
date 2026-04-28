@@ -54,6 +54,8 @@ GATE_ORDER = [
     ("G26", "lrgef_supply_chain_no_send_lock"),
     ("G27", "parfitian_cerberus"),
     ("G28", "science_terminality_82"),
+    ("G29", "release_human_quality"),
+    ("G30", "platinum_science_readiness"),
 ]
 
 PDF_ARTIFACTS = [
@@ -106,6 +108,7 @@ ALLOWED_SUPPORT_CLASSES = {
 }
 
 TEXT_SUFFIXES = {".md", ".json", ".jsonld", ".ndjson", ".yaml", ".yml", ".txt", ".cff", ".py", ".ps1"}
+SOURCE_MATERIAL_SUFFIXES = {".tex", ".md", ".json", ".yaml", ".yml", ".pdf", ".svg", ".bib"}
 
 PDF_TEXT_FORBIDDEN_PATTERNS = [
     ("unresolved_cross_reference", re.compile(r"\?\?")),
@@ -120,6 +123,57 @@ PDF_TEXT_FORBIDDEN_PATTERNS = [
 ]
 
 PLACEHOLDER_PAYLOAD_PATTERN = re.compile(r"(^|/)placeholders?/|placeholder", re.IGNORECASE)
+
+ACKNOWLEDGED_REVIEWERS = [
+    {
+        "display_name": "G. V. Apostolov",
+        "sort_surname": "Apostolov",
+        "contribution_class": "substantive_review_and_idea_input",
+        "public_note": "Substantive review and idea input.",
+    },
+    {
+        "display_name": "Eduard Fadeev",
+        "sort_surname": "Fadeev",
+        "contribution_class": "parfit_idea_and_release_governance_pressure",
+        "public_note": "Parfit idea and release-governance pressure.",
+    },
+    {
+        "display_name": "Gennady Alekseevich Nosov",
+        "sort_surname": "Nosov",
+        "contribution_class": "substantive_review_and_idea_input",
+        "public_note": "Substantive review and idea input.",
+    },
+    {
+        "display_name": "Sergey Shpadyrev",
+        "sort_surname": "Shpadyrev",
+        "contribution_class": "substantive_review_and_idea_input",
+        "public_note": "Substantive review and idea input.",
+    },
+    {
+        "display_name": "Stanislav Tsukrov",
+        "sort_surname": "Tsukrov",
+        "contribution_class": "substantive_external_criticism",
+        "public_note": "Substantive external criticism and Core 1.3 criticism-response pressure.",
+    },
+]
+
+HUMAN_QUALITY_PATTERNS = [
+    ("overclaim_title", re.compile(r"\bWhat\s+It\s+Proves\b", re.IGNORECASE)),
+    ("toe_complete_language", re.compile(r"\bTOE[-\s]?complete\b", re.IGNORECASE)),
+    ("universal_closure_complete_language", re.compile(r"\buniversal[-\s]+closure[-\s]+complete\b", re.IGNORECASE)),
+    ("all_gaps_solved_language", re.compile(r"\ball\s+gaps\s+solved\b", re.IGNORECASE)),
+    ("completed_universal_theory_language", re.compile(r"\bcompleted\s+universal\s+theory\b", re.IGNORECASE)),
+    ("final_theory_language", re.compile(r"\bfinal\s+theory\b", re.IGNORECASE)),
+    ("unrestricted_prediction_language", re.compile(r"\bunrestricted\s+prediction\b", re.IGNORECASE)),
+    ("claim_demotion_closure_language", re.compile(r"claim\s+demotions?|claim\s+demoted|demoting\s+those\s+claims", re.IGNORECASE)),
+    ("open_proof_obligation_closure_language", re.compile(r"open\s+proof\s+obligation", re.IGNORECASE)),
+    ("unqualified_claim_ceiling_language", re.compile(r"\bclaim\s+ceilings?\b", re.IGNORECASE)),
+]
+
+HUMAN_QUALITY_DIAGNOSTIC_SOURCES = {
+    "OC_CORE_1_3_2_FINAL_CRITICAL_REVIEW_REPORT",
+    "OC_CORE_1_3_2_RELEASE_QUALITY_FAILURE_ANALYSIS",
+}
 
 
 @dataclass(frozen=True)
@@ -199,6 +253,420 @@ def write_text(path: Path, text: str) -> None:
     if not text.endswith("\n"):
         text += "\n"
     path.write_text(text, encoding="utf-8")
+
+
+def acknowledgement_registry_payload() -> dict[str, Any]:
+    reviewers = sorted(
+        [
+            {
+                **row,
+                "endorsement_implied": False,
+                "publication_approval_implied": False,
+                "authorship_implied": False,
+                "agreement_with_release_theory_implied": False,
+            }
+            for row in ACKNOWLEDGED_REVIEWERS
+        ],
+        key=lambda row: (row["sort_surname"].lower(), row["display_name"].lower()),
+    )
+    return {
+        "schema_id": "OC_CORE_1_3_2_ACKNOWLEDGEMENT_REGISTRY_v1",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_at": TIMESTAMP,
+        "author_owner": {
+            "display_name": "Alexander Yashin",
+            "role": "author_owner",
+            "public_note": "Author and owner of OC Core.",
+            "thanked_reviewer": False,
+        },
+        "review_and_idea_acknowledgements": reviewers,
+        "policy": {
+            "no_endorsement": True,
+            "no_publication_approval": True,
+            "no_authorship_transfer": True,
+            "no_agreement_with_release_theory_implied": True,
+            "sort_rule": "Review and idea acknowledgements are sorted by surname in English transcription.",
+        },
+    }
+
+
+def acknowledgement_registry_markdown(payload: dict[str, Any]) -> str:
+    rows = [
+        "# OC Core 1.3.2 Acknowledgement Registry",
+        "",
+        "This registry is public-safe release metadata. It records review pressure, ideas, or criticism that improved the release route. It does not imply endorsement, publication approval, authorship, or agreement with the theory's release form.",
+        "",
+        "## Author and owner",
+        "",
+        f"- {payload['author_owner']['display_name']} - {payload['author_owner']['public_note']}",
+        "",
+        "## Substantive review and idea acknowledgements",
+        "",
+        "| Name | Contribution class | Public note | Endorsement implied |",
+        "| --- | --- | --- | --- |",
+    ]
+    for row in payload["review_and_idea_acknowledgements"]:
+        rows.append(f"| {row['display_name']} | `{row['contribution_class']}` | {row['public_note']} | `{str(row['endorsement_implied']).lower()}` |")
+    rows.extend([
+        "",
+        "## Policy",
+        "",
+        "- Acknowledgement is not endorsement.",
+        "- Acknowledgement is not publication approval.",
+        "- Acknowledgement is not authorship.",
+        "- Acknowledgement is not agreement with the theory's release form.",
+    ])
+    return "\n".join(rows)
+
+
+def acknowledgement_public_markdown(payload: dict[str, Any]) -> str:
+    rows = [
+        "# Acknowledgements",
+        "",
+        "## Author and owner",
+        "",
+        "Alexander Yashin is recorded separately as author and owner of OC Core.",
+        "",
+        "## Substantive review and idea acknowledgements",
+        "",
+        "The following public acknowledgements record review pressure, ideas, or criticism that improved the release route. They are sorted by surname in English transcription.",
+        "",
+        "| Name | Public note |",
+        "| --- | --- |",
+    ]
+    for row in payload["review_and_idea_acknowledgements"]:
+        rows.append(f"| {row['display_name']} | {row['public_note']} |")
+    rows.extend([
+        "",
+        "Acknowledgement does not imply endorsement, publication approval, authorship, or agreement with the theory's release form.",
+        "",
+        "## Anonymized or non-public contributions",
+        "",
+        "Tool-assisted release preparation, verification, and bounded research-packet routing supported this release candidate. No non-public contributor names are disclosed here.",
+    ])
+    return "\n".join(rows)
+
+
+def contribution_ledger_markdown(payload: dict[str, Any]) -> str:
+    rows = [
+        "# Contribution Ledger",
+        "",
+        "## Author and owner",
+        "",
+        "| Contributor | Role | Public acknowledgement status |",
+        "| --- | --- | --- |",
+        "| Alexander Yashin | Author and owner | Public |",
+        "",
+        "## Substantive review and idea acknowledgements",
+        "",
+        "| Contributor | Role note | Endorsement/publication approval/authorship implied |",
+        "| --- | --- | --- |",
+    ]
+    for row in payload["review_and_idea_acknowledgements"]:
+        rows.append(f"| {row['display_name']} | {row['public_note']} | false |")
+    rows.extend([
+        "",
+        "## Anonymized or tool-assisted contributions",
+        "",
+        "Release-machine preparation, research-packet staging, and automated checks are recorded as tool-assisted editorial and verification work. No private names are exposed by this ledger.",
+        "",
+        "## Rules",
+        "",
+        "- Do not expose non-public names without consent.",
+        "- Do not infer contributors from internal logs.",
+        "- Owner review is required before adding new public contributor identities.",
+        "- Acknowledgement is not endorsement, publication approval, authorship, or agreement with the theory's release form.",
+    ])
+    return "\n".join(rows)
+
+
+def write_acknowledgement_surfaces(root: Path) -> dict[str, Any]:
+    payload = acknowledgement_registry_payload()
+    write_json(editorial_dir(root) / "OC_CORE_1_3_2_ACKNOWLEDGEMENT_REGISTRY.json", payload)
+    write_text(editorial_dir(root) / "OC_CORE_1_3_2_ACKNOWLEDGEMENT_REGISTRY.md", acknowledgement_registry_markdown(payload))
+    write_text(root / "ACKNOWLEDGEMENTS.md", acknowledgement_public_markdown(payload))
+    write_text(root / "CONTRIBUTION_LEDGER.md", contribution_ledger_markdown(payload))
+    return payload
+
+
+def write_release_quality_failure_analysis(root: Path) -> dict[str, Any]:
+    rows = [
+        {
+            "issue": "Human-facing overclaim or stale release wording could survive a mechanically green package.",
+            "why_previous_gate_missed_it": "G12 scanned only known PDF text patterns; G18 focused on leaks and claim-risk patterns; neither was a role-aware prose-quality gate.",
+            "previous_gate": "G12/G18",
+            "new_prevention": "G29 release_human_quality scans primary PDFs, release-spine sources, owner/release memos, PDF sources, and manifest roles for overclaiming and stale closure language.",
+        },
+        {
+            "issue": "Acknowledgements could be present but weak, incomplete, or unsorted.",
+            "why_previous_gate_missed_it": "G17 only checked that ACKNOWLEDGEMENTS.md existed and mentioned Alexander Yashin.",
+            "previous_gate": "G17",
+            "new_prevention": "G17 now validates the acknowledgement registry, exact requested public names, surname sorting, role notes, and no-endorsement/no-authorship flags.",
+        },
+        {
+            "issue": "Parfitian Cerberus passed while prose-quality defects remained.",
+            "why_previous_gate_missed_it": "G27 is an ethics/governance/no-send risk gate; it is not intended to judge release prose, acknowledgement order, or didactic polish.",
+            "previous_gate": "G27",
+            "new_prevention": "G29 is placed after Parfit/science terminality and before final verdict to block human-facing release-quality regressions.",
+        },
+        {
+            "issue": "Legacy source PDFs or thin synthetic-PDF generation paths could re-enter a release package.",
+            "why_previous_gate_missed_it": "Package composition excluded known journal/manuscript legacy PDFs but did not require explicit source-witness roles for all remaining legacy PDFs; legacy core.py still had thin synthetic PDF generation code.",
+            "previous_gate": "G13/package composition and legacy core.py",
+            "new_prevention": "Manifest role checks require source_witness_domain_packet for legacy/domain witness PDFs, and legacy core.py delegates primary PDF building to the complete release builder.",
+        },
+    ]
+    payload = {
+        "schema_id": "OC_CORE_1_3_2_RELEASE_QUALITY_FAILURE_ANALYSIS_v1",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_at": TIMESTAMP,
+        "root_cause": "The previous green release state was mechanically strong but semantically under-gated: package integrity, no-send governance, Parfit/Cerberus, terminality and support-map checks passed, while human-facing prose and acknowledgement quality were not yet blocking release gates.",
+        "parfit_scope": "Parfitian Cerberus G27 checks release ethics, no-send invariants, owner-waiver semantics, and Parfitian risk categories. It is not a prose-quality or acknowledgement-order checker.",
+        "failure_rows": rows,
+        "recurrence_controls": [
+            "G29 release_human_quality",
+            "Upgraded G17 acknowledgement registry validation",
+            "Role-aware source-witness PDF manifest classification",
+            "Deprecated legacy synthetic primary-PDF generation path",
+        ],
+    }
+    write_json(editorial_dir(root) / "OC_CORE_1_3_2_RELEASE_QUALITY_FAILURE_ANALYSIS.json", payload)
+    md = [
+        "# OC Core 1.3.2 Release Quality Failure Analysis",
+        "",
+        "## Root Cause",
+        "",
+        payload["root_cause"],
+        "",
+        "## Parfit/Cerberus Scope",
+        "",
+        payload["parfit_scope"],
+        "",
+        "## Failure Rows",
+        "",
+        "| Issue | Why It Passed Before | Previous Gate | New Prevention |",
+        "| --- | --- | --- | --- |",
+    ]
+    for row in rows:
+        md.append(f"| {row['issue']} | {row['why_previous_gate_missed_it']} | `{row['previous_gate']}` | {row['new_prevention']} |")
+    md.extend([
+        "",
+        "## Recurrence Controls",
+        "",
+        *[f"- {item}" for item in payload["recurrence_controls"]],
+    ])
+    write_text(editorial_dir(root) / "OC_CORE_1_3_2_RELEASE_QUALITY_FAILURE_ANALYSIS.md", "\n".join(md))
+    return payload
+
+
+def acknowledgement_gate_details(root: Path) -> dict[str, Any]:
+    registry_path = editorial_dir(root) / "OC_CORE_1_3_2_ACKNOWLEDGEMENT_REGISTRY.json"
+    payload = read_json(registry_path) if registry_path.exists() else acknowledgement_registry_payload()
+    rows = payload.get("review_and_idea_acknowledgements", [])
+    required_names = [row["display_name"] for row in ACKNOWLEDGED_REVIEWERS]
+    observed_names = [row.get("display_name", "") for row in rows]
+    sorted_names = [
+        row.get("display_name", "")
+        for row in sorted(rows, key=lambda row: (str(row.get("sort_surname", "")).lower(), str(row.get("display_name", "")).lower()))
+    ]
+    missing = [name for name in required_names if name not in observed_names]
+    unsorted = observed_names != sorted_names
+    endorsement_violations = [
+        row.get("display_name", "")
+        for row in rows
+        if row.get("endorsement_implied") or row.get("publication_approval_implied") or row.get("authorship_implied") or row.get("agreement_with_release_theory_implied") or row.get("agreement_with_final_theory_implied")
+    ]
+    note_gaps = [row.get("display_name", "") for row in rows if not row.get("public_note") or not row.get("contribution_class")]
+    ack_text = (root / "ACKNOWLEDGEMENTS.md").read_text(encoding="utf-8", errors="ignore") if (root / "ACKNOWLEDGEMENTS.md").exists() else ""
+    contribution_text = (root / "CONTRIBUTION_LEDGER.md").read_text(encoding="utf-8", errors="ignore") if (root / "CONTRIBUTION_LEDGER.md").exists() else ""
+    text_missing = [name for name in required_names if name not in ack_text or name not in contribution_text]
+    return {
+        "registry_ref": rel(root, registry_path) if registry_path.exists() else "",
+        "required_names": required_names,
+        "observed_names": observed_names,
+        "missing_names": missing,
+        "text_missing_names": text_missing,
+        "sorted_by_surname": not unsorted,
+        "endorsement_violation_names": endorsement_violations,
+        "note_gap_names": note_gaps,
+        "author_owner_separate": payload.get("author_owner", {}).get("display_name") == "Alexander Yashin" and "Alexander Yashin" not in observed_names,
+        "ok": not missing and not text_missing and not unsorted and not endorsement_violations and not note_gaps and payload.get("author_owner", {}).get("display_name") == "Alexander Yashin",
+    }
+
+
+def _snippet(text: str, start: int, end: int, radius: int = 120) -> str:
+    return " ".join(text[max(0, start - radius): min(len(text), end + radius)].split())
+
+
+def _human_quality_match_allowed(kind: str, source: str, snippet: str) -> bool:
+    lowered = snippet.lower()
+    if any(token in source for token in HUMAN_QUALITY_DIAGNOSTIC_SOURCES):
+        return True
+    if kind in {
+        "toe_complete_language",
+        "universal_closure_complete_language",
+        "all_gaps_solved_language",
+        "completed_universal_theory_language",
+        "final_theory_language",
+        "unrestricted_prediction_language",
+    }:
+        allowed_markers = [
+            "do not",
+            "does not",
+            "must not",
+            "not as",
+            "is not",
+            "not agreement",
+            "not claim",
+            "no unrestricted",
+            "forbidden",
+            "prohibited",
+            "misleading",
+            "reject publication language",
+            "inflated framing",
+            "blocked only inflated",
+        ]
+        if any(marker in lowered for marker in allowed_markers):
+            return True
+    if kind == "unqualified_claim_ceiling_language" and "claim boundary" in lowered:
+        return True
+    return False
+
+
+def human_quality_findings_for_text(text: str, source: str, *, role: str = "release_spine") -> list[dict[str, str]]:
+    findings: list[dict[str, str]] = []
+    for kind, pattern in HUMAN_QUALITY_PATTERNS:
+        for match in pattern.finditer(text):
+            snippet = _snippet(text, match.start(), match.end())
+            if _human_quality_match_allowed(kind, source, snippet):
+                continue
+            findings.append({"source": source, "role": role, "kind": kind, "match": match.group(0)[:120], "snippet": snippet[:260]})
+            break
+    return findings
+
+
+def release_human_quality_source_paths(root: Path) -> list[Path]:
+    paths: list[Path] = []
+    names = [
+        *ROOT_REQUIRED,
+        "CLAIMS.md",
+        "RELEASE_NOTES.md",
+        "REVIEWER_ROUTE.md",
+        "RELEASE_CONTRACT.md",
+        "OWNER_APPROVAL_REQUIRED.md",
+        "RELEASE_MACHINE.md",
+        "RELEASE_STANDARDS.md",
+        "CHANNEL_POLICIES.md",
+        "README.md",
+    ]
+    paths.extend(root / name for name in names if (root / name).exists())
+    ed = editorial_dir(root)
+    direct_editorial_names = {
+        "OC_CORE_1_3_2_OWNER_DECISION_MEMO.md",
+        "OC_CORE_1_3_2_OWNER_DECISION_MEMO.json",
+        "OC_CORE_1_3_2_RELEASE_POLICY_EXPLAINER.md",
+        "OC_CORE_1_3_2_RELEASE_POLICY_EXPLAINER.json",
+        "OC_CORE_1_3_2_READY_SCIENCE_COMPLETENESS.md",
+        "OC_CORE_1_3_2_READY_SCIENCE_COMPLETENESS.json",
+        "OC_CORE_1_3_2_SCIENCE_BACKLOG_82_GAPS.md",
+        "OC_CORE_1_3_2_SCIENCE_BACKLOG_82_GAPS.json",
+        "OC_CORE_1_3_2_OWNER_APPROVAL_PACKET.md",
+        "OC_CORE_1_3_2_RELEASE_QUALITY_FAILURE_ANALYSIS.md",
+        "OC_CORE_1_3_2_RELEASE_QUALITY_FAILURE_ANALYSIS.json",
+        "OC_CORE_1_3_2_ACKNOWLEDGEMENT_REGISTRY.md",
+        "OC_CORE_1_3_2_ACKNOWLEDGEMENT_REGISTRY.json",
+    }
+    if ed.exists():
+        paths.extend(path for path in ed.glob("*") if path.is_file() and path.name in direct_editorial_names)
+    pdf_sources = release_dir(root) / "pdf_sources"
+    if pdf_sources.exists():
+        paths.extend(path for path in pdf_sources.glob("*") if path.is_file() and path.suffix.lower() in {".tex", ".md"})
+    for path in [
+        root / "content" / "frontmatter_oc_core_1_3_master.tex",
+        root / "releases" / "oc_core_1_3" / "monograph" / "source" / "content" / "frontmatter_oc_core_1_3_master.tex",
+    ]:
+        if path.exists():
+            paths.append(path)
+    return sorted(set(paths), key=lambda p: rel(root, p))
+
+
+def unclassified_legacy_pdf_entries(root: Path) -> list[dict[str, str]]:
+    manifest_path = root / "manifest.json"
+    rows = read_json(manifest_path).get("files", []) if manifest_path.exists() else []
+    bad = []
+    for row in rows:
+        path = row.get("path", "")
+        if not path.endswith(".pdf"):
+            continue
+        if "source_material/releases/oc_core_1_3/" not in path:
+            continue
+        if row.get("role") != "source_witness_domain_packet":
+            bad.append({"path": path, "role": row.get("role", "")})
+    return bad
+
+
+def release_human_quality_report(root: Path) -> dict[str, Any]:
+    findings: list[dict[str, str]] = []
+    for path in release_human_quality_source_paths(root):
+        source = rel(root, path)
+        findings.extend(human_quality_findings_for_text(path.read_text(encoding="utf-8", errors="ignore"), source, role="release_spine"))
+    for name in PDF_ARTIFACTS:
+        path = artifacts_dir(root) / name
+        if path.exists():
+            text, error = pdf_text(path)
+            if error:
+                findings.append({"source": f"primary_pdfs/{name}", "role": "primary_pdf", "kind": "text_extraction_failed", "match": error[:120], "snippet": error[:260]})
+            else:
+                findings.extend(human_quality_findings_for_text(text, f"primary_pdfs/{name}", role="primary_pdf"))
+                if name == "OC_CORE_1_3_2_MASTER_MONOGRAPH_EN.pdf":
+                    normalized = " ".join(text.split())
+                    for reviewer in ACKNOWLEDGED_REVIEWERS:
+                        display_name = reviewer["display_name"]
+                        pdf_name = display_name.replace("G. V.", "G. V.")
+                        if pdf_name not in normalized and display_name.replace("G. V.", "G. V.") not in normalized:
+                            findings.append({
+                                "source": f"primary_pdfs/{name}",
+                                "role": "primary_pdf",
+                                "kind": "master_acknowledgement_missing",
+                                "match": display_name,
+                                "snippet": "Master monograph must expose the public-safe sorted substantive review and idea acknowledgements.",
+                            })
+    ack = acknowledgement_gate_details(root)
+    legacy = unclassified_legacy_pdf_entries(root)
+    if not ack["ok"]:
+        findings.append({"source": ack.get("registry_ref", ""), "role": "acknowledgement_registry", "kind": "acknowledgement_registry_invalid", "match": "acknowledgement registry", "snippet": json.dumps({k: ack[k] for k in ["missing_names", "text_missing_names", "sorted_by_surname", "endorsement_violation_names", "note_gap_names", "author_owner_separate"]}, ensure_ascii=False)})
+    for row in legacy:
+        findings.append({"source": row["path"], "role": row.get("role", ""), "kind": "unclassified_legacy_pdf", "match": row["path"], "snippet": "Legacy/source-witness PDFs must carry explicit source_witness_domain_packet role or be excluded."})
+    payload = {
+        "schema_id": "OC_CORE_1_3_2_RELEASE_HUMAN_QUALITY_v1",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_at": TIMESTAMP,
+        "status": "PASS" if not findings else "FAIL",
+        "finding_total": len(findings),
+        "findings": findings[:200],
+        "acknowledgement_registry": ack,
+        "unclassified_legacy_pdf_total": len(legacy),
+        "unclassified_legacy_pdfs": legacy[:50],
+        "scanned_surface_total": len(release_human_quality_source_paths(root)) + len(PDF_ARTIFACTS),
+    }
+    write_json(editorial_dir(root) / "OC_CORE_1_3_2_HUMAN_QUALITY_REPORT_latest.json", payload)
+    md = [
+        "# OC Core 1.3.2 Human-Quality Gate Report",
+        "",
+        f"Status: `{payload['status']}`",
+        f"Findings: `{payload['finding_total']}`",
+        f"Acknowledgement registry OK: `{str(ack['ok']).lower()}`",
+        f"Unclassified legacy PDFs: `{len(legacy)}`",
+    ]
+    if findings:
+        md.extend(["", "| Source | Kind | Snippet |", "| --- | --- | --- |"])
+        for row in findings[:50]:
+            md.append(f"| `{row['source']}` | `{row['kind']}` | {row['snippet'].replace('|', '/')} |")
+    write_text(editorial_dir(root) / "OC_CORE_1_3_2_HUMAN_QUALITY_REPORT_latest.md", "\n".join(md))
+    return payload
 
 
 def sha256_bytes(data: bytes) -> str:
@@ -340,6 +808,8 @@ def pdf_text_findings(name: str, text: str, error: str | None) -> list[dict[str,
             findings.append({"kind": "missing_master_dedication", "match": "Maria dedication"})
         if "ORCID 0009-0008-6166-0914" not in normalized:
             findings.append({"kind": "missing_master_orcid", "match": "ORCID"})
+    for finding in human_quality_findings_for_text(text, f"primary_pdfs/{name}", role="primary_pdf"):
+        findings.append({"kind": finding["kind"], "match": finding["match"]})
     return findings
 
 
@@ -601,7 +1071,7 @@ def write_prediction_support_map(root: Path) -> dict[str, Any]:
                 "excerpt": excerpt,
                 "support_route": route,
                 "support_refs": refs,
-                "falsifier_or_boundary": "No unrestricted prediction or promotion is allowed without the cited proof/replay/claim-ledger route.",
+                "falsifier_or_boundary": "No unbounded predictive authority or promotion is allowed without the cited proof/replay/claim-ledger route.",
                 "status": "PASS",
                 "terminality_rationale": rationale,
             }
@@ -746,34 +1216,8 @@ v1.3.2 is prepared for owner review only. Publication is locked until owner appr
 ## How to report issues
 Open a GitHub issue or use the owner review route. Do not treat the no-send package as an externally published release.
 """)
-    write_text(root / "CONTRIBUTION_LEDGER.md", """# Contribution Ledger
-
-## Publicly acknowledged contributors
-
-| Contributor | Role | Public acknowledgement status |
-| --- | --- | --- |
-| Alexander Yashin | Author and owner | Public |
-
-## Anonymized or tool-assisted contributions
-
-Release-machine preparation, research-packet staging, and automated checks are recorded as tool-assisted editorial and verification work. No private names are exposed by this ledger.
-
-## Rules
-
-- Do not expose non-public names without consent.
-- Do not infer contributors from internal logs.
-- Owner review is required before adding new public contributor identities.
-""")
-    write_text(root / "ACKNOWLEDGEMENTS.md", """# Acknowledgements
-
-## Publicly acknowledged contributors
-
-Alexander Yashin is acknowledged as author and owner of OC Core.
-
-## Anonymized or non-public contributions
-
-Tool-assisted release preparation, verification, and bounded research-packet routing supported this release candidate. No non-public contributor names are disclosed here.
-""")
+    write_acknowledgement_surfaces(root)
+    write_release_quality_failure_analysis(root)
     write_text(root / "SECURITY.md", """# Security Policy
 
 ## Supported release
@@ -1054,6 +1498,9 @@ def ensure_owner_and_publish(root: Path, inventory: dict[str, Any] | None = None
         "Publish allowed: false.",
         "Global no-send lock: true.",
         "",
+        "Release quality failure analysis: `releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_RELEASE_QUALITY_FAILURE_ANALYSIS.md`.",
+        "Acknowledgement registry: `releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_ACKNOWLEDGEMENT_REGISTRY.md`.",
+        "",
         "Owner must review the public release dossier and approve the exact freeze hash before any tag or upload.",
     ]))
     return manifest
@@ -1063,6 +1510,7 @@ def boundary_hits_for_text(text: str, source: str) -> list[dict[str, str]]:
     patterns = [
         ("local_path", re.compile(r"[A-Za-z]:\\Users\\|/home/|estra-private-work|logion-private", re.IGNORECASE)),
         ("credential", re.compile(r"(OPENAI_API_KEY|GITHUB_TOKEN|ZENODO_TOKEN|api_key\s*=|password\s*=|secret\s*=|token\s*=)", re.IGNORECASE)),
+        ("private_review_archive_label", re.compile(r"\bclaude_feedback\b", re.IGNORECASE)),
         ("unsafe_qg", re.compile(r"OC\s+(solves\s+quantum\s+gravity|unifies\s+QFT\s+and\s+GR|derives\s+all\s+physical\s+laws)", re.IGNORECASE)),
         ("raw_publish_todo", re.compile(r"TODO publish|FIXME", re.IGNORECASE)),
     ]
@@ -1096,6 +1544,12 @@ def claim_risk_hits_for_text(text: str, source: str) -> list[dict[str, str]]:
                 or "final verdict" in snippet
                 or "final dossier" in snippet
                 or "final score" in snippet
+                or "not endorsement" in snippet
+                or "does not imply endorsement" in snippet
+                or "not agreement" in snippet
+                or "agreement with the final theory" in snippet
+                or "agreement with the theory's release form" in snippet
+                or (kind == "unsafe_finality" and "oc132_platinum_science_upgrade" in source and ("proof" in snippet or "theorem" in snippet or "benchmark" in snippet))
                 or "complete" in match.group(0).lower() and "release-machine completion" in snippet
             )
             if not allowed:
@@ -1162,8 +1616,10 @@ def bundle_entries(root: Path) -> list[BundleEntry]:
         if not source_root.exists():
             continue
         for path in sorted(source_root.rglob("*")):
-            if path.is_file() and path.suffix.lower() in {".tex", ".md", ".json", ".yaml", ".yml", ".pdf", ".svg"}:
+            if path.is_file() and path.suffix.lower() in SOURCE_MATERIAL_SUFFIXES:
                 relative_source = rel(root, path)
+                if relative_source == "releases/oc_core_1_3/monograph/source/oc_core_1_3_master_monograph.pdf":
+                    continue
                 if PLACEHOLDER_PAYLOAD_PATTERN.search(relative_source):
                     continue
                 if path.suffix.lower() == ".pdf" and (
@@ -1171,7 +1627,11 @@ def bundle_entries(root: Path) -> list[BundleEntry]:
                     or "/releases/oc_core_1_3/manuscripts/" in f"/{relative_source}"
                 ):
                     continue
-                entries.append(BundleEntry(f"source_material/{rel(root, path)}", path, "source_material"))
+                role = "source_witness_domain_packet" if (
+                    path.suffix.lower() == ".pdf"
+                    and "/releases/oc_core_1_3/editorial/domain_packets/" in f"/{relative_source}"
+                ) else "source_material"
+                entries.append(BundleEntry(f"source_material/{rel(root, path)}", path, role))
     packet_root = editorial_dir(root) / "research_packets"
     if packet_root.exists():
         for path in sorted(packet_root.rglob("*")):
@@ -1189,6 +1649,14 @@ def bundle_entries(root: Path) -> list[BundleEntry]:
         "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PREDICTION_AND_PROMOTION_SUPPORT_MAP_latest.md",
         "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_FINAL_CRITICAL_REVIEW_REPORT.json",
         "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_FINAL_CRITICAL_REVIEW_REPORT.md",
+        "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_RELEASE_QUALITY_FAILURE_ANALYSIS.json",
+        "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_RELEASE_QUALITY_FAILURE_ANALYSIS.md",
+        "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_ACKNOWLEDGEMENT_REGISTRY.json",
+        "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_ACKNOWLEDGEMENT_REGISTRY.md",
+        "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_HUMAN_QUALITY_REPORT_latest.json",
+        "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_HUMAN_QUALITY_REPORT_latest.md",
+        "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PLATINUM_SCIENCE_AUDIT_latest.json",
+        "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PLATINUM_SCIENCE_AUDIT_latest.md",
         "releases/oc_core_1_3_2/editorial/LRGEF_RELEASE_STATE_latest.json",
         "releases/oc_core_1_3_2/editorial/LRGEF_RELEASE_STATE_latest.md",
         "releases/oc_core_1_3_2/editorial/LRGEF_RELEASE_POLICY_v1.json",
@@ -1564,6 +2032,92 @@ def _science_terminality_82_gate(root: Path) -> dict[str, Any]:
     }
 
 
+def _platinum_science_readiness_gate(root: Path) -> dict[str, Any]:
+    audit_path = editorial_dir(root) / "OC_CORE_1_3_2_PLATINUM_SCIENCE_AUDIT_latest.json"
+    benchmark_path = root / "benchmarks" / "reports" / "OC14_BENCHMARK_RESULTS.json"
+    if not audit_path.exists() or not benchmark_path.exists():
+        return {
+            "state": "FAIL",
+            "severity": "HIGH",
+            "summary": "Platinum science audit or OC14 benchmark results are missing.",
+            "details": {
+                "audit_ref": rel(root, audit_path),
+                "audit_exists": audit_path.exists(),
+                "benchmark_ref": rel(root, benchmark_path),
+                "benchmark_exists": benchmark_path.exists(),
+            },
+        }
+    audit = read_json(audit_path)
+    benchmark = read_json(benchmark_path)
+    minimality = audit.get("minimality_witness_matrix") if isinstance(audit.get("minimality_witness_matrix"), dict) else {}
+    formal = audit.get("formal_results") if isinstance(audit.get("formal_results"), dict) else {}
+    theorem = formal.get("minimality_theorem") if isinstance(formal.get("minimality_theorem"), dict) else {}
+    rows = minimality.get("rows") if isinstance(minimality.get("rows"), list) else []
+    no_signalling_raw = benchmark.get("no_signalling_violation_score_max")
+    no_signalling_value = float(no_signalling_raw) if no_signalling_raw is not None else 1.0
+    required_benchmark_ok = (
+        benchmark.get("task_total") == 10
+        and benchmark.get("runnable_task_total") == 10
+        and benchmark.get("failure_total") == 0
+        and benchmark.get("accepted_baseline_total", 0) >= 9
+        and str(benchmark.get("output_hash") or "").strip()
+        and no_signalling_value == 0.0
+    )
+    row_gaps = []
+    for row in rows:
+        missing = [
+            field
+            for field in ["axis_id", "primitive", "removed_primitive", "witness_pair", "collapse_when_removed", "formal_witness_rule", "terminal_result"]
+            if not str(row.get(field) or "").strip()
+        ]
+        if missing:
+            row_gaps.append({"primitive": row.get("primitive", ""), "missing": missing})
+    theorem_ok = theorem.get("proof_status") == "PROVED_FOR_OC_VERDICT_CLASS" and str(theorem.get("statement") or "").strip() and str(theorem.get("proof_sketch") or "").strip()
+    import_rows = (
+        audit.get("oc14_forward_elements", {}).get("import_rows", [])
+        if isinstance(audit.get("oc14_forward_elements"), dict)
+        else []
+    )
+    unsafe_promotions = int(audit.get("oc14_forward_elements", {}).get("unsafe_direct_promotion_total", 999) or 0) if isinstance(audit.get("oc14_forward_elements"), dict) else 999
+    ok = (
+        audit.get("status") == "PASS_FOR_1_3_2_RELEASE_SCIENCE"
+        and required_benchmark_ok
+        and minimality.get("status") == "CONDITIONAL_MINIMALITY_WITNESS_PASS"
+        and len(rows) >= 8
+        and not row_gaps
+        and theorem_ok
+        and unsafe_promotions == 0
+        and len(import_rows) >= 10
+        and audit.get("global_theory_completion_claimed") is False
+    )
+    return {
+        "state": "PASS" if ok else "FAIL",
+        "severity": "HIGH",
+        "summary": (
+            "OC 1.4 forward science admitted into 1.3.2 has benchmark, minimality-witness, and no-unsafe-promotion support."
+            if ok
+            else "OC 1.4 forward science support is incomplete or unsafe for the 1.3.2 release."
+        ),
+        "details": {
+            "audit_ref": rel(root, audit_path),
+            "benchmark_ref": rel(root, benchmark_path),
+            "audit_status": audit.get("status"),
+            "benchmark_task_total": benchmark.get("task_total"),
+            "benchmark_runnable_task_total": benchmark.get("runnable_task_total"),
+            "benchmark_failure_total": benchmark.get("failure_total"),
+            "benchmark_accepted_baseline_total": benchmark.get("accepted_baseline_total"),
+            "benchmark_output_hash": benchmark.get("output_hash"),
+            "no_signalling_violation_score_max": benchmark.get("no_signalling_violation_score_max"),
+            "minimality_witness_row_total": len(rows),
+            "minimality_row_gaps": row_gaps[:20],
+            "minimality_theorem_status": theorem.get("proof_status"),
+            "unsafe_direct_promotion_total": unsafe_promotions,
+            "import_row_total": len(import_rows),
+            "global_theory_completion_claimed": audit.get("global_theory_completion_claimed"),
+        },
+    }
+
+
 def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list[dict[str, Any]]:
     manifest = read_json(root / "manifest.json")
     publish = read_json(editorial_dir(root) / "OC_CORE_1_3_2_PUBLISH_MANIFEST_DRAFT.json")
@@ -1616,8 +2170,8 @@ def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list
     results.append(gate("G15", "reviewer_route", "PASS" if reviewer_ok else "FAIL", "HIGH", "Reviewer route sections checked.", {"bytes": len(reviewer_text)}))
     contrib_ok = (root / "CONTRIBUTION_LEDGER.md").exists() and "Alexander Yashin" in (root / "CONTRIBUTION_LEDGER.md").read_text(encoding="utf-8", errors="ignore")
     results.append(gate("G16", "contribution_ledger", "PASS" if contrib_ok else "FAIL", "HIGH", "Contribution ledger checked.", {"exists": (root / "CONTRIBUTION_LEDGER.md").exists()}))
-    ack_ok = (root / "ACKNOWLEDGEMENTS.md").exists() and "Alexander Yashin" in (root / "ACKNOWLEDGEMENTS.md").read_text(encoding="utf-8", errors="ignore")
-    results.append(gate("G17", "acknowledgements", "PASS" if ack_ok else "FAIL", "HIGH", "Acknowledgements checked.", {"exists": (root / "ACKNOWLEDGEMENTS.md").exists()}))
+    ack_details = acknowledgement_gate_details(root)
+    results.append(gate("G17", "acknowledgements", "PASS" if ack_details["ok"] else "FAIL", "HIGH", "Acknowledgement registry, public names, surname sorting, and no-endorsement policy checked.", ack_details))
     boundary_hits = []
     risk_hits = []
     for path in collect_public_text_files(root):
@@ -1672,6 +2226,10 @@ def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list
     results.append(gate("G27", "parfitian_cerberus", parfit_gate["state"], parfit_gate["severity"], parfit_gate["summary"], parfit_gate["details"]))
     science_gate = _science_terminality_82_gate(root)
     results.append(gate("G28", "science_terminality_82", science_gate["state"], science_gate["severity"], science_gate["summary"], science_gate["details"]))
+    human_quality = release_human_quality_report(root)
+    results.append(gate("G29", "release_human_quality", "PASS" if human_quality["status"] == "PASS" else "FAIL", "HIGH", "Human-facing release prose, acknowledgement order, and package role classification checked.", human_quality))
+    platinum_science = _platinum_science_readiness_gate(root)
+    results.append(gate("G30", "platinum_science_readiness", platinum_science["state"], platinum_science["severity"], platinum_science["summary"], platinum_science["details"]))
     return results
 
 

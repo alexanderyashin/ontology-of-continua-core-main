@@ -1,7 +1,7 @@
 # OC Core v1.3.2 Research Packet Release Audit
 
-Packet total: `101`
-PASS: `101`
+Packet total: `102`
+PASS: `102`
 Review needed: `0`
 
 All packets remain bounded support/frontier material. This audit does not promote canonical claims.
@@ -13,7 +13,7 @@ All packets remain bounded support/frontier material. This audit does not promot
 | `autopilot_feature_candidates_r3_mechanism_candid_bdd8de38` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `domain_projection_completion_oc_extensions_v1` | `PASS` | 13 | bounded_support_or_frontier_material |
 | `drt_strict_salvage_no_send` | `PASS` | 1 | bounded_support_or_frontier_material |
-| `external_criticism_stanislav_tsukrov_claude_feedback` | `PASS` | 17 | bounded_support_or_frontier_material |
+| `external_criticism_stanislav_tsukrov_external_review` | `PASS` | 17 | bounded_support_or_frontier_material |
 | `institute_01_alternative_group_action_in_topos_quantum_d0ed03ee` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `institute_01_broken_symmetries_and_the_masses_of_gauge_35bfce67` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `institute_04_conservation_of_isotopic_spin_and_isotopic_c0ed10e9` | `PASS` | 1 | bounded_support_or_frontier_material |
@@ -109,3 +109,4 @@ All packets remain bounded support/frontier material. This audit does not promot
 | `institute_805039_the_sheaf_theoretic_structure_of_non_local_fff3d289` | `PASS` | 1 | bounded_support_or_frontier_material |
 | `k0_structural_realist_extension` | `PASS` | 5 | bounded_support_or_frontier_material |
 | `night_science_delta_integration` | `PASS` | 8 | bounded_support_or_frontier_material |
+| `oc132_platinum_science_upgrade` | `PASS` | 25 | bounded_support_or_frontier_material |

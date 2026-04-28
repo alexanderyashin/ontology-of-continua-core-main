@@ -6,7 +6,7 @@ This packet contains a sanitized response to an externally supplied critical rev
 
 Contributor: Stanislav Tsukrov
 Received: 2026-04-26
-Channel: direct_external_review_claude_feedback_zip
+Channel: direct_external_review_packet
 
 No canonical claims are promoted by this packet. Model-impacting items are routed as research tasks or patch-proposal candidates only.
 

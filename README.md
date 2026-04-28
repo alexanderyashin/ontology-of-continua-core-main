@@ -23,4 +23,4 @@ Primary release-candidate surfaces:
 
 Simulations are deterministic and reproducibility-oriented. They illustrate and check execution surfaces; they are not empirical validation.
 
-Public dataset routes are bounded support/discovery surfaces. They do not widen claim ceilings unless pinned snapshots, hashes, and reconstruction scripts exist.
+Public dataset routes are bounded support/discovery surfaces. They do not widen claim boundaries unless pinned snapshots, hashes, and reconstruction scripts exist.

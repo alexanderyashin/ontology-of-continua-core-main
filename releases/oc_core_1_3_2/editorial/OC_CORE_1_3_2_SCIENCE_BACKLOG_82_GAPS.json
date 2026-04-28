@@ -7,9 +7,9 @@
     "release_id": "oc_core_1_3_2",
     "release_machine_state": "RELEASE_READY_NO_SEND",
     "owner_review_status": "OWNER_REVIEW_READY_NO_SEND",
-    "publication_verdict": "PUBLISHABLE_AS_BASELINE_AFTER_OWNER_APPROVAL",
+    "publication_verdict": "OWNER_REVIEW_READY_NO_SEND_BASELINE",
     "publish_now": false,
-    "publish_after_owner_approval": true,
+    "publish_after_owner_approval": false,
     "publication_allowed": false,
     "outbound_allowed": false,
     "public_push_allowed": false,
@@ -26,17 +26,17 @@
     "next_lawful_action": "OWNER_DECISION_ON_OC_CORE_1_3_2_NO_SEND_RELEASE_PACKET"
   },
   "publication_verdict": {
-    "verdict": "PUBLISHABLE_AS_BASELINE_AFTER_OWNER_APPROVAL",
+    "verdict": "OWNER_REVIEW_READY_NO_SEND_BASELINE",
     "recommended_public_framing": "stable intermediate baseline with bounded support/frontier packets",
     "forbidden_framings": [
-      "TOE complete",
-      "all gaps solved",
-      "final theory",
+      "inflated universal-completion framing",
+      "unqualified gap-free framing",
+      "completed-all-science framing",
       "quantitative prediction without reproducible protocol/code/data/output hash/falsifier",
       "canonical promotion from support/frontier packets"
     ],
     "publish_now": false,
-    "publish_after_owner_approval": true,
+    "publish_after_owner_approval": false,
     "reason": "All science blockers are terminal; owner/toolchain gates still control actual publication."
   },
   "release_policy": {
@@ -62,7 +62,7 @@
       "included": true,
       "claim_effect": "evidence boundaries and reviewer-response routes preserved",
       "refs": [
-        "releases/oc_core_1_3_2/editorial/research_packets/external_criticism_stanislav_tsukrov_claude_feedback"
+        "releases/oc_core_1_3_2/editorial/research_packets/external_criticism_stanislav_tsukrov_external_review"
       ]
     },
     {
@@ -110,7 +110,7 @@
       "scientific_meaning": "The canonical metamodel had tracked interface, level, domain and translation seams that required release-visible terminal support.",
       "terminal_closure": "Closed for 1.3.2 by row-level proof/evidence, replay, theorem-fate discipline, or release-visible owner-gate evidence in the 82-row ledger.",
       "future_work": "Future OC 1.4 work may reopen stronger metamodel extensions, but those are outside the 1.3.2 publication scope.",
-      "release_effect": "Does not block 1.3.2 publication after owner approval; blocks only inflated framings such as TOE-complete or final theory."
+      "release_effect": "Does not block 1.3.2 owner-review packaging; external publication still requires owner/channel unlock and must avoid inflated universal-completion framing."
     },
     {
       "axis_id": "ROOT_TOE_CLAIM",
@@ -215,3 +215,4 @@
     "science_blocker_closure_ledger": "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_SCIENCE_BLOCKER_CLOSURE_LEDGER_latest.md"
   }
 }
+

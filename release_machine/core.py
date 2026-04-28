@@ -239,35 +239,15 @@ def make_pdf_bytes(title: str, lines: list[str]) -> bytes:
     body.extend(f"trailer << /Size {len(objects) + 1} /Root 1 0 R >>\nstartxref\n{xref_at}\n%%EOF\n".encode("ascii"))
     return bytes(body)
 
+LEGACY_PLACEHOLDER_PDF_GENERATION_DISABLED = True
+
+
 def build_primary_pdfs(root: Path) -> list[Path]:
-    artifacts_dir(root).mkdir(parents=True, exist_ok=True)
-    docs = []
-    descriptions = {
-        "MASTER_MONOGRAPH": "Master monograph release-candidate surface.",
-        "JOURNAL_CORE": "Bounded journal core extraction.",
-        "READABLE_OVERVIEW": "Readable overview for first-time reviewers.",
-        "METHODS_AND_REPRODUCIBILITY_COMPANION": "Methods, reproducibility, simulations, and data boundaries.",
-        "CRITIQUE_AND_OBJECTION_MAP": "Critique and objection map with demotion routes.",
-        "EXPERT_TECHNICAL_SPINE": "Expert technical route through formal and operational surfaces.",
-    }
-    for name in PDF_ARTIFACTS:
-        key = name.removeprefix("OC_CORE_1_3_2_").removesuffix("_EN.pdf")
-        path = artifacts_dir(root) / name
-        pdf = make_pdf_bytes(
-            name.removesuffix(".pdf").replace("_", " "),
-            [
-                "OC Core v1.3.2 release-candidate artifact.",
-                descriptions.get(key, "Release-candidate public artifact."),
-                f"Previous canonical DOI: {PREVIOUS_DOI}.",
-                f"Concept DOI: {CONCEPT_DOI}.",
-                f"v1.3.2 DOI: {DOI_PENDING}.",
-                "Simulations are deterministic illustration and reproducibility checks only.",
-                "Public dataset routes do not widen claim ceilings without pinned snapshots.",
-            ],
-        )
-        path.write_bytes(pdf)
-        docs.append(path)
-    return docs
+    """Delegate v1.3.2 primary PDF materialization to the substantive release builder."""
+    from . import complete
+
+    complete.build_primary_pdfs(root)
+    return [complete.artifacts_dir(root) / name for name in complete.PDF_ARTIFACTS]
 
 def _package_file_candidates(root: Path) -> list[Path]:
     base = [

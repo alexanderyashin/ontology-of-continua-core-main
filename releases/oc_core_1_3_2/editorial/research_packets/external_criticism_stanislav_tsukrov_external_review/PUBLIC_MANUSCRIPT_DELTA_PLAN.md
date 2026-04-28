@@ -2,7 +2,7 @@
 
 The external criticism closure is represented in manuscript source and in this no-send research packet.
 
-- case_id: `EXTCRIT_20260426_STANISLAV_TSUKROV_CLAUDE_FEEDBACK`
+- case_id: `EXTCRIT_20260426_STANISLAV_TSUKROV_EXTERNAL_REVIEW`
 - canonical_claim_promotion: `false`
 - raw_feedback_public: `false`
 

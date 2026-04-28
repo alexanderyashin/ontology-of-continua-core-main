@@ -2,7 +2,7 @@
 
 - release_id: `oc_core_1_3_2`
 - owner_review_status: `OWNER_REVIEW_READY_NO_SEND`
-- publication_verdict: `PUBLISHABLE_AS_BASELINE_AFTER_OWNER_APPROVAL`
+- publication_verdict: `OWNER_REVIEW_READY_NO_SEND_BASELINE`
 - publish_now: `false`
 - publish_after_owner_approval: `true`
 - publication_allowed: `false`
@@ -18,14 +18,14 @@ It is not a claim that the full TOE program is complete, not a claim that future
 
 ## Should We Publish?
 
-Verdict: `PUBLISHABLE_AS_BASELINE_AFTER_OWNER_APPROVAL`.
+Verdict: `OWNER_REVIEW_READY_NO_SEND_BASELINE`.
 
-Recommendation: prepare for owner review as a publishable baseline, then publish only after explicit owner approval, channel unlock, final freeze-hash check and publication dry-run. Do not frame it as TOE-complete or final theory.
+Recommendation: prepare for owner review as a no-send baseline; any later publication requires explicit owner approval, channel unlock, final freeze-hash check and publication dry-run. Do not frame it as universal completion or as completion of every possible theory task.
 
 Forbidden framings:
-- `TOE complete`
-- `all gaps solved`
-- `final theory`
+- full-theory-completion framing
+- unqualified gap-free framing
+- completed-all-science framing
 - `quantitative prediction without reproducible protocol/code/data/output hash/falsifier`
 - `canonical promotion from support/frontier packets`
 

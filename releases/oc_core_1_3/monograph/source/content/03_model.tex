@@ -132,6 +132,45 @@ where:
     \item \(k(K,t)\) is the measure of continuumness.
 \end{itemize}
 
+\subsection{Global minimality of the OC verdict interface}
+\label{sec:oc13-global-verdict-minimality}
+
+The tuple above is minimal in the following verdict-invariant sense. An
+equivalent axiomatisation may rename a component or derive it from other
+primitive data, but it must preserve the information carried by the
+corresponding OC distinction if it is to preserve the same live, dead, residue,
+rebirth, domain, support, and falsifier verdicts.
+
+\paragraph{Theorem (global verdict-invariant minimality).}
+For the class of OC-compatible verdict-preserving representations, each
+primitive distinction represented by the OC interface is necessary up to
+definitional equivalence. If a representation removes the distinction and does
+not re-encode a functionally equivalent invariant, then there exists a pair of
+admissible histories that it cannot distinguish while OC assigns different
+required verdicts.
+
+\paragraph{Proof.}
+Let \(\pi_p\) be one primitive distinction: identity carrier, admissible
+realisation, collapse threshold, residue relation, rebirth predicate,
+\(K\)-level boundary, support class, or falsifier. For each \(\pi_p\) the
+release records a separating witness pair \((H_a,H_b)\) such that \(H_a\) and
+\(H_b\) agree on all other retained distinctions, but the OC verdict map
+requires \(V(H_a)\neq V(H_b)\). Suppose a representation \(R\) removes
+\(\pi_p\) and carries no functionally equivalent invariant. Then
+\(R(H_a)=R(H_b)\). Any downstream verdict decoder \(D\) must therefore satisfy
+\[
+    D(R(H_a))=D(R(H_b)),
+\]
+contradicting the verdict-preservation requirement. Hence every
+verdict-preserving OC representation must preserve \(\pi_p\) up to definitional
+equivalence. Applying the argument to the independent witness pairs for all
+eight distinctions proves the global lower bound for the OC verdict class.
+
+Consequently \(\partial\Omega\), \(J\), and \(k\) may be derived in local
+models only when the derivation still preserves the boundary, flow, and
+continuumness verdict information. Derivation is allowed; information loss is
+not.
+
 Every continuum is assumed to be embedded in a surrounding meta-space \(M\) such that
 \[
     \Omega(K)\subseteq\Omega(M), \qquad A(K)\subseteq A(M).
