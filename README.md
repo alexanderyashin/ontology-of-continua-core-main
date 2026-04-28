@@ -8,7 +8,7 @@ Current public truth:
 - previous canonical version: OC Core v1.3.1
 - previous canonical DOI: `10.5281/zenodo.19741958`
 - concept DOI / version chain: `10.5281/zenodo.17899134`
-- v1.3.2 DOI: `TBD_UNTIL_ZENODO_NEW_VERSION_PUBLISHED`
+- v1.3.2 DOI: `10.5281/zenodo.19850169`
 - owner approval required: `true`
 - global no-send lock: `true`
 - publish allowed: `false`

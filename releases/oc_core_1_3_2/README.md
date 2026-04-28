@@ -8,7 +8,7 @@ Previous canonical DOI: `10.5281/zenodo.19741958`.
 
 Concept DOI: `10.5281/zenodo.17899134`.
 
-v1.3.2 DOI: `TBD_UNTIL_ZENODO_NEW_VERSION_PUBLISHED`.
+v1.3.2 DOI: `10.5281/zenodo.19850169`.
 
 This folder contains the release-candidate artifacts, editorial control plane, release-machine scorecards, findings, checksums, owner approval packet, publish manifest draft, public release dossier, and postflight checklist for a later owner-approved publication pass.
 

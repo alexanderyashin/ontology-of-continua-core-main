@@ -9,7 +9,7 @@ Publish allowed: `false`
 | `G00` release_identity | `PASS` | `CRITICAL` | Release id, version file, and release directory checked. |
 | `G01` source_tree_cleanliness | `PASS` | `INFO` | Worktree dirt is allowed during local no-send preparation only when generated release files are explicit. |
 | `G02` version_consistency | `PASS` | `HIGH` | Version fields checked across manifest, publish manifest, and Zenodo metadata. |
-| `G03` doi_consistency | `PASS` | `HIGH` | v1.3.2 DOI remains pending; previous canonical and concept DOI are explicit. |
+| `G03` doi_consistency | `PASS` | `HIGH` | v1.3.2 DOI is assigned; previous canonical and concept DOI are explicit. |
 | `G04` citation_cff | `PASS` | `HIGH` | CITATION.cff parsed by strict field checks. |
 | `G05` codemeta | `PASS` | `HIGH` | CodeMeta metadata checked. |
 | `G06` zenodo_metadata | `PASS` | `HIGH` | Zenodo metadata targets a new version under the concept DOI. |
@@ -27,7 +27,7 @@ Publish allowed: `false`
 | `G18` boundary_leak_protection | `PASS` | `CRITICAL` | Public text, research packets, claim support boundaries, and prediction/promotion support routes scanned. |
 | `G19` readme_completeness | `PASS` | `HIGH` | README release identity and reproducibility markers checked. |
 | `G20` release_notes_changelog | `PASS` | `HIGH` | Release notes and changelog checked. |
-| `G21` github_release_readiness | `PASS` | `CRITICAL` | GitHub readiness is dry-run only; tag must not exist. |
+| `G21` github_release_readiness | `PASS` | `CRITICAL` | GitHub readiness is dry-run before publication; after publication the tag must be backed by a publication execution report. |
 | `G22` zenodo_upload_readiness | `PASS` | `CRITICAL` | Zenodo package is ready for owner review only; upload remains locked. |
 | `G23` post_release_verification | `PASS` | `HIGH` | Post-release verification is not applicable before publication and is recorded. |
 | `G24` lrgef_freshness | `PASS` | `INFO` | LRGEF tracks source/view freshness; evaluation rewrites stale views before final verdict. |

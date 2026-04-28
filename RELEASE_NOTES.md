@@ -2,7 +2,7 @@
 
 ## Release identity
 - Version: 1.3.2
-- DOI: TBD_UNTIL_ZENODO_NEW_VERSION_PUBLISHED
+- DOI: 10.5281/zenodo.19850169
 - Previous canonical DOI: 10.5281/zenodo.19741958
 - Concept DOI: 10.5281/zenodo.17899134
 - GitHub tag: v1.3.2 prepared, not created
@@ -17,7 +17,7 @@ OC Core v1.3.2 is a release-quality and reviewer-route release candidate. It tig
 The release now carries explicit no-send owner approval, deterministic package integrity, public boundary checks, DOI lineage, and release-machine gates.
 
 ## Metadata improvements
-- CITATION.cff records version 1.3.2 and the pending DOI policy.
+- CITATION.cff records version 1.3.2 and the published DOI policy.
 - RO-Crate describes the release bundle and bounded research packet evidence.
 - CodeMeta records the repository, license, language, and version.
 - Zenodo metadata targets a new version under the existing concept DOI.
@@ -30,7 +30,7 @@ The bundle includes simulation reports, dataset manifests, checksums, and reprod
 Use REVIEWER_ROUTE.md for 30-minute, 2-hour, and technical-audit reading paths.
 
 ## Known limitations
-The v1.3.2 DOI is pending until owner-approved Zenodo publication. Research packets are support/frontier material and do not widen canonical claims.
+The v1.3.2 DOI is 10.5281/zenodo.19850169. Research packets are support/frontier material and do not widen canonical claims.
 
 ## Superseded records and version lineage
 v1.3.2 is prepared as a new version in the concept DOI chain 10.5281/zenodo.17899134; the existing record 10.5281/zenodo.19741958 remains the previous canonical public record until publication.

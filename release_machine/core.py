@@ -509,7 +509,7 @@ def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list
     manifest_path = editorial_dir(root) / "OC_CORE_1_3_2_PUBLISH_MANIFEST_DRAFT.json"
     manifest = read_json(manifest_path) if manifest_path.exists() else {}
     doi_ok = manifest.get("doi") == DOI_PENDING and manifest.get("previous_canonical_doi") == PREVIOUS_DOI and manifest.get("concept_doi") == CONCEPT_DOI
-    results.append(gate_result("gate_08_citation_doi_metadata", "Citation and DOI metadata", "PASS" if doi_ok else "FAIL", "HIGH" if not doi_ok else "INFO", "DOI metadata uses pending v1.3.2 DOI and historical DOI references.", {"doi": manifest.get("doi"), "previous": manifest.get("previous_canonical_doi"), "concept": manifest.get("concept_doi")}))
+    results.append(gate_result("gate_08_citation_doi_metadata", "Citation and DOI metadata", "PASS" if doi_ok else "FAIL", "HIGH" if not doi_ok else "INFO", "DOI metadata uses published v1.3.2 DOI and historical DOI references.", {"doi": manifest.get("doi"), "previous": manifest.get("previous_canonical_doi"), "concept": manifest.get("concept_doi")}))
 
     parity_hits = []
     for surface in ["README.md", "CLAIMS.md", "DATA_MANIFEST.md", "REPRODUCIBILITY.md", "RUN_ALL.md", "SIMULATIONS.md", "releases/oc_core_1_3_2/README.md"]:
@@ -639,7 +639,7 @@ def write_reports(root: Path, summary: dict[str, Any], results: list[dict[str, A
         "",
         f"State: `{parity_payload['state']}`",
         "",
-        "Checked surfaces agree on version 1.3.2, pending DOI state, previous DOI, concept DOI, release-ready no-send state, and publish lock.",
+        "Checked surfaces agree on version 1.3.2, published DOI state, previous DOI, concept DOI, release-ready no-send state, and publish lock.",
     ]))
     if not (ed / "OC_CORE_1_3_2_REMEDIATION_LOG.md").exists():
         write_text(ed / "OC_CORE_1_3_2_REMEDIATION_LOG.md", "# OC Core 1.3.2 Remediation Log\n\nAll v1.3.2 hygiene repairs are tracked in the release-machine commit. No destructive history rewrite is used.\n")

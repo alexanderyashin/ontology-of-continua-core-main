@@ -5,7 +5,7 @@
 
 ## Release identity
 - Version: 1.3.2
-- DOI: TBD_UNTIL_ZENODO_NEW_VERSION_PUBLISHED
+- DOI: 10.5281/zenodo.19850169
 - Previous canonical DOI: 10.5281/zenodo.19741958
 - Concept DOI: 10.5281/zenodo.17899134
 - GitHub tag: v1.3.2 prepared, not created
@@ -19,7 +19,7 @@
 - Software Heritage: `owner_action_required`.
 
 ## Citation status
-CITATION.cff records the pending v1.3.2 DOI policy and existing DOI lineage.
+CITATION.cff records the published v1.3.2 DOI policy and existing DOI lineage.
 
 ## Archival status
 No external archive action has been performed. SWHID is owner-action gated unless already present.

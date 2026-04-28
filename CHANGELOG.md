@@ -8,7 +8,7 @@
 - Research packet audit and manuscript staging queue for bounded scientific appendix material.
 
 ### Changed
-- Metadata now distinguishes the previous canonical DOI from the pending v1.3.2 DOI.
+- Metadata now distinguishes the previous canonical DOI from the published v1.3.2 DOI.
 - Release packaging now uses deterministic manifest and checksum conventions.
 
 ### Fixed

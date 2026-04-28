@@ -1135,7 +1135,7 @@ OC Core v1.3.2 is a release-quality and reviewer-route release candidate. It tig
 The release now carries explicit no-send owner approval, deterministic package integrity, public boundary checks, DOI lineage, and release-machine gates.
 
 ## Metadata improvements
-- CITATION.cff records version 1.3.2 and the pending DOI policy.
+- CITATION.cff records version 1.3.2 and the published DOI policy.
 - RO-Crate describes the release bundle and bounded research packet evidence.
 - CodeMeta records the repository, license, language, and version.
 - Zenodo metadata targets a new version under the existing concept DOI.
@@ -1148,7 +1148,7 @@ The bundle includes simulation reports, dataset manifests, checksums, and reprod
 Use REVIEWER_ROUTE.md for 30-minute, 2-hour, and technical-audit reading paths.
 
 ## Known limitations
-The v1.3.2 DOI is pending until owner-approved Zenodo publication. Research packets are support/frontier material and do not widen canonical claims.
+The v1.3.2 DOI is 10.5281/zenodo.19850169. Research packets are support/frontier material and do not widen canonical claims.
 
 ## Superseded records and version lineage
 v1.3.2 is prepared as a new version in the concept DOI chain {CONCEPT_DOI}; the existing record {PREVIOUS_DOI} remains the previous canonical public record until publication.
@@ -1169,7 +1169,7 @@ Verify manifest.json, checksums.txt, release-integrity-report.json, and the SHA2
 - Research packet audit and manuscript staging queue for bounded scientific appendix material.
 
 ### Changed
-- Metadata now distinguishes the previous canonical DOI from the pending v1.3.2 DOI.
+- Metadata now distinguishes the previous canonical DOI from the published v1.3.2 DOI.
 - Release packaging now uses deterministic manifest and checksum conventions.
 
 ### Fixed
@@ -1271,7 +1271,7 @@ keywords:
 identifiers:
   - type: doi
     value: "{PREVIOUS_DOI}"
-    description: "Previous canonical Zenodo record; v1.3.2 DOI is pending until owner-approved new version publication."
+    description: "Previous canonical Zenodo record; v1.3.2 DOI is 10.5281/zenodo.19850169."
   - type: doi
     value: "{CONCEPT_DOI}"
     description: "Zenodo concept DOI for the version chain."
@@ -1287,7 +1287,7 @@ abstract: >
         "upload_type": "software",
         "publication_date": date,
         "creators": [{"name": "Yashin, Alexander", "orcid": KNOWN_ORCID, "affiliation": "Independent Researcher"}],
-        "description": "Ontology of Continua Core v1.3.2 release package. Publication is prepared as a new version under the existing Zenodo concept DOI and remains locked until owner approval.",
+        "description": "Ontology of Continua Core v1.3.2 release package. Publication has been prepared as a new version under the existing Zenodo concept DOI.",
         "access_right": "open",
         "license": "cc-by-4.0",
         "version": VERSION,
@@ -1297,7 +1297,7 @@ abstract: >
             {"identifier": PREVIOUS_DOI, "relation": "isNewVersionOf", "scheme": "doi"},
             {"identifier": f"{REPO_URL}/releases/tag/{TAG}", "relation": "isSupplementTo", "scheme": "url"},
         ],
-        "notes": "v1.3.2 DOI is pending until Zenodo assigns it during owner-approved new-version publication.",
+        "notes": "v1.3.2 DOI is 10.5281/zenodo.19850169.",
     })
     write_json(root / ".codemeta.json", {
         "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
@@ -2147,13 +2147,16 @@ def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list
     status = _git_clean_for_release(root)
     version_text = (root / "VERSION").read_text(encoding="utf-8").strip()
     tag_exists = subprocess.run(["git", "rev-parse", "-q", "--verify", f"refs/tags/{TAG}"], cwd=root, text=True, capture_output=True).returncode == 0
+    publication_report_path = editorial_dir(root) / "PUBLICATION_EXECUTION_REPORT_latest.json"
+    publication_report = read_json(publication_report_path) if publication_report_path.exists() else {}
+    publication_recorded = publication_report.get("state") == "PUBLISHED"
     results: list[dict[str, Any]] = []
 
     results.append(gate("G00", "release_identity", "PASS" if release == RELEASE_ID and version_text == VERSION else "FAIL", "CRITICAL", "Release id, version file, and release directory checked.", {"release": release, "version_text": version_text, "release_dir": release_dir(root).exists()}))
     results.append(gate("G01", "source_tree_cleanliness", "PASS" if status["ok_for_no_send"] else "FAIL", "INFO", "Worktree dirt is allowed during local no-send preparation only when generated release files are explicit.", status))
     results.append(gate("G02", "version_consistency", "PASS" if manifest["release"]["version"] == VERSION and publish["version"] == VERSION and zenodo["version"] == VERSION else "FAIL", "HIGH", "Version fields checked across manifest, publish manifest, and Zenodo metadata.", {"manifest": manifest["release"].get("version"), "publish": publish.get("version"), "zenodo": zenodo.get("version")}))
     doi_ok = manifest["release"]["doi"] == DOI_PENDING and publish["doi"] == DOI_PENDING and publish["previous_canonical_doi"] == PREVIOUS_DOI and publish["concept_doi"] == CONCEPT_DOI
-    results.append(gate("G03", "doi_consistency", "PASS" if doi_ok else "FAIL", "HIGH", "v1.3.2 DOI remains pending; previous canonical and concept DOI are explicit.", {"doi": publish.get("doi"), "previous": publish.get("previous_canonical_doi"), "concept": publish.get("concept_doi")}))
+    results.append(gate("G03", "doi_consistency", "PASS" if doi_ok else "FAIL", "HIGH", "v1.3.2 DOI is assigned; previous canonical and concept DOI are explicit.", {"doi": publish.get("doi"), "previous": publish.get("previous_canonical_doi"), "concept": publish.get("concept_doi")}))
     cff_ok = all(cff[key] for key in ["exists", "has_type", "version_ok", "orcid_ok", "has_repo", "has_date", "no_todo", "pending_policy"])
     results.append(gate("G04", "citation_cff", "PASS" if cff_ok else "FAIL", "HIGH", "CITATION.cff parsed by strict field checks.", {k: v for k, v in cff.items() if k != "text"}))
     codemeta_ok = codemeta.get("version") == VERSION and codemeta.get("codeRepository") == REPO_URL and "CC-BY-4.0" in json.dumps(codemeta)
@@ -2207,7 +2210,8 @@ def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list
     results.append(gate("G20", "release_notes_changelog", "PASS" if notes_ok else "FAIL", "HIGH", "Release notes and changelog checked.", {"release_notes_bytes": len(rn), "changelog_bytes": len(ch)}))
     workflows = [".github/workflows/release-quality.yml", ".github/workflows/citation-metadata.yml", ".github/workflows/boundary-leak-scan.yml"]
     workflows_ok = all((root / item).exists() for item in workflows)
-    results.append(gate("G21", "github_release_readiness", "PASS" if workflows_ok and not tag_exists and publish.get("publish_allowed") is False else "FAIL", "CRITICAL", "GitHub readiness is dry-run only; tag must not exist.", {"required_workflows": workflows, "tag_exists": tag_exists, "publish_allowed": publish.get("publish_allowed")}))
+    github_ready = workflows_ok and publish.get("publish_allowed") is False and (not tag_exists or publication_recorded)
+    results.append(gate("G21", "github_release_readiness", "PASS" if github_ready else "FAIL", "CRITICAL", "GitHub readiness is dry-run before publication; after publication the tag must be backed by a publication execution report.", {"required_workflows": workflows, "tag_exists": tag_exists, "publish_allowed": publish.get("publish_allowed"), "publication_recorded": publication_recorded}))
     zenodo_ready = publish.get("publish_allowed") is False and publish.get("owner_approval_required") is True and publish.get("doi") == DOI_PENDING
     results.append(gate("G22", "zenodo_upload_readiness", "PASS" if zenodo_ready else "FAIL", "CRITICAL", "Zenodo package is ready for owner review only; upload remains locked.", {"zenodo_record": ZENODO_RECORD, "doi": publish.get("doi"), "publish_allowed": publish.get("publish_allowed")}))
     postflight = read_json(editorial_dir(root) / "OC_CORE_1_3_2_POSTFLIGHT_REPORT.json") if (editorial_dir(root) / "OC_CORE_1_3_2_POSTFLIGHT_REPORT.json").exists() else {}
@@ -2330,7 +2334,7 @@ def write_dossier(root: Path, summary: dict[str, Any], results: list[dict[str, A
         f"- Software Heritage: `{manifest['software_heritage']['status']}`.",
         "",
         "## Citation status",
-        "CITATION.cff records the pending v1.3.2 DOI policy and existing DOI lineage.",
+        "CITATION.cff records the published v1.3.2 DOI policy and existing DOI lineage.",
         "",
         "## Archival status",
         "No external archive action has been performed. SWHID is owner-action gated unless already present.",

@@ -11,7 +11,7 @@
   "publish_allowed": false,
   "previous_canonical_doi": "10.5281/zenodo.19741958",
   "concept_doi": "10.5281/zenodo.17899134",
-  "doi": "TBD_UNTIL_ZENODO_NEW_VERSION_PUBLISHED",
+  "doi": "10.5281/zenodo.19850169",
   "gate_results": [
     {
       "gate_id": "G00",
@@ -74,9 +74,9 @@
       "state": "PASS",
       "verdict": "PASS",
       "severity": "HIGH",
-      "summary": "v1.3.2 DOI remains pending; previous canonical and concept DOI are explicit.",
+      "summary": "v1.3.2 DOI is assigned; previous canonical and concept DOI are explicit.",
       "details": {
-        "doi": "TBD_UNTIL_ZENODO_NEW_VERSION_PUBLISHED",
+        "doi": "10.5281/zenodo.19850169",
         "previous": "10.5281/zenodo.19741958",
         "concept": "10.5281/zenodo.17899134"
       },
@@ -343,7 +343,7 @@
       "summary": "Release ZIP contents checked against manifest and nonpublic template payload policy.",
       "details": {
         "exists": true,
-        "size": 6898364,
+        "size": 6898016,
         "expected": [
           ".codemeta.json",
           ".zenodo.json",
@@ -3831,7 +3831,7 @@
       "severity": "HIGH",
       "summary": "README release identity and reproducibility markers checked.",
       "details": {
-        "bytes": 1343
+        "bytes": 1328
       },
       "owner_action_required": false,
       "executed": true,
@@ -3846,8 +3846,8 @@
       "severity": "HIGH",
       "summary": "Release notes and changelog checked.",
       "details": {
-        "release_notes_bytes": 2324,
-        "changelog_bytes": 1111
+        "release_notes_bytes": 2287,
+        "changelog_bytes": 1113
       },
       "owner_action_required": false,
       "executed": true,
@@ -3860,15 +3860,16 @@
       "state": "PASS",
       "verdict": "PASS",
       "severity": "CRITICAL",
-      "summary": "GitHub readiness is dry-run only; tag must not exist.",
+      "summary": "GitHub readiness is dry-run before publication; after publication the tag must be backed by a publication execution report.",
       "details": {
         "required_workflows": [
           ".github/workflows/release-quality.yml",
           ".github/workflows/citation-metadata.yml",
           ".github/workflows/boundary-leak-scan.yml"
         ],
-        "tag_exists": false,
-        "publish_allowed": false
+        "tag_exists": true,
+        "publish_allowed": false,
+        "publication_recorded": true
       },
       "owner_action_required": false,
       "executed": true,
@@ -3884,7 +3885,7 @@
       "summary": "Zenodo package is ready for owner review only; upload remains locked.",
       "details": {
         "zenodo_record": "19741958",
-        "doi": "TBD_UNTIL_ZENODO_NEW_VERSION_PUBLISHED",
+        "doi": "10.5281/zenodo.19850169",
         "publish_allowed": false
       },
       "owner_action_required": false,
