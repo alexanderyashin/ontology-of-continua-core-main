@@ -5,6 +5,7 @@ import json
 
 from . import core
 from . import lrgef
+from . import publication
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -65,7 +66,18 @@ def main(argv: list[str] | None = None) -> int:
     publish = sub.add_parser("publish")
     publish.add_argument("--release-id", default=core.RELEASE_ID)
     publish.add_argument("--dry-run", action="store_true")
+    publish.add_argument("--execute", action="store_true")
     publish.add_argument("--channel", action="append", default=[])
+
+    approve = sub.add_parser("owner-approve")
+    approve.add_argument("--release-id", default=core.RELEASE_ID)
+    approve.add_argument("--owner-identity", default="Alexander Yashin")
+
+    preflight = sub.add_parser("publication-preflight")
+    preflight.add_argument("--release-id", default=core.RELEASE_ID)
+
+    submissions = sub.add_parser("submission-packages")
+    submissions.add_argument("--release-id", default=core.RELEASE_ID)
 
     repair = sub.add_parser("repair")
     repair.add_argument("--release-id", default=core.RELEASE_ID)
@@ -116,9 +128,19 @@ def main(argv: list[str] | None = None) -> int:
         payload = {"release_id": args.release_id, "summary": summary, "signature": signature}
     elif args.command == "publish":
         channel = args.channel[0] if len(args.channel) == 1 else "all"
-        payload = core.publish_plan(args.release_id, channel)
-        payload["dry_run"] = bool(args.dry_run)
-        payload["publish_allowed"] = False
+        if args.execute and not args.dry_run:
+            payload = publication.publish_execute(core.repo_root())
+        else:
+            payload = core.publish_plan(args.release_id, channel)
+            payload["dry_run"] = bool(args.dry_run)
+            payload["execute_requested"] = bool(args.execute)
+            payload["publish_allowed"] = False
+    elif args.command == "owner-approve":
+        payload = publication.grant_owner_approval(core.repo_root(), owner_identity=args.owner_identity)
+    elif args.command == "publication-preflight":
+        payload = publication.publication_preflight(core.repo_root())
+    elif args.command == "submission-packages":
+        payload = publication.generate_submission_packages(core.repo_root())
     elif args.command == "repair":
         payload = core.evaluate_release(args.release_id, "all", "pre_publish", write=True)
         payload["repair_status"] = "REPAIRED_OR_CONFIRMED_NO_SEND"

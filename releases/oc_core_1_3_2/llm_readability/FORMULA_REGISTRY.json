@@ -1,0 +1,22 @@
+{
+  "schema_id": "OC_LLM_FORMULA_REGISTRY_v1",
+  "release_id": "oc_core_1_3_2",
+  "formulas": [
+    {
+      "formula_id": "OC132-FACT-CONTRACT",
+      "latex_or_ascii": "Fact_{A,R}(E,t) iff S_{A,R}(E|H_t) >= tau_{A,R} and no active falsifier phi_i(E,H_t)=1.",
+      "meaning": "A release-visible fact is accepted only when stabilization is above threshold and active falsifiers are absent.",
+      "human_refs": [
+        "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.tex"
+      ]
+    },
+    {
+      "formula_id": "OC132-OBJECTIVITY-METRIC",
+      "latex_or_ascii": "C_R(E)=1-mean_{i<j} JS(P_i(E),P_j(E)); the OC14 benchmark records C_R=0.999895 for the deterministic multi-observer fixture.",
+      "meaning": "Observer agreement is measured by one minus mean pairwise Jensen-Shannon divergence.",
+      "human_refs": [
+        "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.tex"
+      ]
+    }
+  ]
+}

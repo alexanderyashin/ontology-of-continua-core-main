@@ -1,0 +1,1 @@
+The release package includes checksum-bound source material, benchmark scripts, benchmark output hashes, claim/evidence maps, and release-machine scorecards. No private raw feedback or raw model output is included.

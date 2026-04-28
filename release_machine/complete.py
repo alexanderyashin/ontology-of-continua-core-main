@@ -56,6 +56,7 @@ GATE_ORDER = [
     ("G28", "science_terminality_82"),
     ("G29", "release_human_quality"),
     ("G30", "platinum_science_readiness"),
+    ("G31", "llm_readability_integrity"),
 ]
 
 PDF_ARTIFACTS = [
@@ -1637,6 +1638,11 @@ def bundle_entries(root: Path) -> list[BundleEntry]:
         for path in sorted(packet_root.rglob("*")):
             if path.is_file() and path.suffix.lower() in TEXT_SUFFIXES:
                 entries.append(BundleEntry(f"evidence/research_packets/{path.relative_to(packet_root).as_posix()}", path, "research_packet"))
+    llm_root = release_dir(root) / "llm_readability"
+    if llm_root.exists():
+        for path in sorted(llm_root.rglob("*")):
+            if path.is_file() and path.suffix.lower() in TEXT_SUFFIXES:
+                entries.append(BundleEntry(f"llm_readability/{path.relative_to(llm_root).as_posix()}", path, "llm_readability"))
     metadata_sources = [
         "releases/oc_core_1_3_2/README.md",
         "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PUBLISH_MANIFEST_DRAFT.json",
@@ -1657,6 +1663,8 @@ def bundle_entries(root: Path) -> list[BundleEntry]:
         "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_HUMAN_QUALITY_REPORT_latest.md",
         "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PLATINUM_SCIENCE_AUDIT_latest.json",
         "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PLATINUM_SCIENCE_AUDIT_latest.md",
+        "releases/oc_core_1_3_2/editorial/OWNER_REVIEW_PUBLICATION_READINESS_latest.json",
+        "releases/oc_core_1_3_2/editorial/OWNER_REVIEW_PUBLICATION_READINESS_latest.md",
         "releases/oc_core_1_3_2/editorial/LRGEF_RELEASE_STATE_latest.json",
         "releases/oc_core_1_3_2/editorial/LRGEF_RELEASE_STATE_latest.md",
         "releases/oc_core_1_3_2/editorial/LRGEF_RELEASE_POLICY_v1.json",
@@ -1863,10 +1871,15 @@ def prepare_release(root: Path, *, lock: bool = True) -> dict[str, Any]:
     if lock:
         with release_machine_lock(root):
             return prepare_release(root, lock=False)
+    from . import publication
+
     ensure_static_surfaces(root)
     ensure_work_orders_and_policies(root)
     build_primary_pdfs(root)
     write_prediction_support_map(root)
+    publication.generate_llm_readability(root)
+    publication.generate_submission_packages(root)
+    publication.generate_owner_review(root)
     audit = audit_research_packets(root)
     ensure_ro_crate(root)
     entries = bundle_entries(root)
@@ -1885,6 +1898,8 @@ def prepare_release(root: Path, *, lock: bool = True) -> dict[str, Any]:
     zip_info = build_zip(root, entries)
     inventory = write_repo_inventory(root, entries, include_zip=True)
     publish_manifest = ensure_owner_and_publish(root, inventory)
+    publication.generate_llm_readability(root)
+    publication.generate_owner_review(root)
     return {"audit": audit, "manifest": manifest, "inventory": inventory, "publish_manifest": publish_manifest, "zip": zip_info, "entries": entries}
 
 
@@ -2230,6 +2245,11 @@ def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list
     results.append(gate("G29", "release_human_quality", "PASS" if human_quality["status"] == "PASS" else "FAIL", "HIGH", "Human-facing release prose, acknowledgement order, and package role classification checked.", human_quality))
     platinum_science = _platinum_science_readiness_gate(root)
     results.append(gate("G30", "platinum_science_readiness", platinum_science["state"], platinum_science["severity"], platinum_science["summary"], platinum_science["details"]))
+    from . import publication
+
+    publication.generate_llm_readability(root)
+    llm_gate = publication.llm_readability_gate(root)
+    results.append(gate("G31", "llm_readability_integrity", llm_gate["state"], llm_gate["severity"], llm_gate["summary"], llm_gate["details"]))
     return results
 
 

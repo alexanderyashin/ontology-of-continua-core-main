@@ -7,6 +7,7 @@ import zipfile
 
 from release_machine import core
 from release_machine import complete
+from release_machine import publication
 
 
 class ReleaseMachineTests(unittest.TestCase):
@@ -36,7 +37,7 @@ class ReleaseMachineTests(unittest.TestCase):
     def test_completed_gate_set_records_terminal_science_and_keeps_no_send_lock(self) -> None:
         summary = core.evaluate_release("oc_core_1_3_2", "all", "pre_publish", write=True)
         self.assertEqual(summary["master_verdict"], "PASS")
-        self.assertEqual(summary["gate_counts"]["PASS"], 31)
+        self.assertEqual(summary["gate_counts"]["PASS"], 32)
         self.assertEqual(summary["gate_counts"].get("FAIL", 0), 0)
         self.assertFalse(summary["publish_allowed"])
         scorecard = json.loads((complete.repo_root() / "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_RELEASE_SCORECARD_latest.json").read_text(encoding="utf-8"))
@@ -52,6 +53,9 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertEqual(g30["state"], "PASS")
         self.assertEqual(g30["details"]["benchmark_failure_total"], 0)
         self.assertEqual(g30["details"]["minimality_witness_row_total"], 8)
+        g31 = next(row for row in scorecard["gate_results"] if row["gate_id"] == "G31")
+        self.assertEqual(g31["name"], "llm_readability_integrity")
+        self.assertEqual(g31["state"], "PASS")
 
     def test_missing_swhid_is_owner_action_not_invented_identifier(self) -> None:
         root = complete.repo_root()
@@ -218,6 +222,13 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertEqual(g30["details"]["no_signalling_violation_score_max"], 0.0)
         self.assertEqual(g30["details"]["minimality_theorem_status"], "PROVED_FOR_OC_VERDICT_CLASS")
         self.assertEqual(g30["details"]["unsafe_direct_promotion_total"], 0)
+
+    def test_llm_readability_gate_is_claim_bounded(self) -> None:
+        root = complete.repo_root()
+        publication.generate_llm_readability(root)
+        gate = publication.llm_readability_gate(root)
+        self.assertEqual(gate["state"], "PASS")
+        self.assertEqual(gate["details"]["unsupported_promoted_total"], 0)
 
     def test_lrgef_state_records_no_send_external_blockers(self) -> None:
         root = complete.repo_root()

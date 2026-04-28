@@ -11,7 +11,7 @@
     "release_state": "RELEASE_READY_NO_SEND",
     "master_verdict": "PASS",
     "gate_counts": {
-      "PASS": 31,
+      "PASS": 32,
       "WARN": 0,
       "FAIL": 0,
       "BLOCKED": 0,
@@ -28,10 +28,10 @@
     "previous_canonical_doi": "10.5281/zenodo.19741958",
     "concept_doi": "10.5281/zenodo.17899134",
     "package": "releases/oc_core_1_3_2/artifacts/oc_core_1_3_2_zenodo_release.zip",
-    "package_sha256": "7b7609f0b1a93e0b12138b46920ac404636ef9600cd1b6068a37aa5482274706",
+    "package_sha256": "850cff7544e2494e15242aaffe8fd976ffa75224ebd0b718473603b99a2a087f",
     "research_packet_total": 102,
     "research_packet_pass_total": 102,
-    "artifact_total": 1670
+    "artifact_total": 1680
   },
   "gate_results": [
     {
@@ -236,7 +236,7 @@
       "severity": "HIGH",
       "summary": "Bundle manifest source paths checked.",
       "details": {
-        "file_total": 1667,
+        "file_total": 1677,
         "missing_sources": []
       },
       "owner_action_required": false,
@@ -252,7 +252,7 @@
       "severity": "HIGH",
       "summary": "Checksums file checked against manifest sample and control hash.",
       "details": {
-        "line_total": 1668
+        "line_total": 1678
       },
       "owner_action_required": false,
       "executed": true,
@@ -364,7 +364,7 @@
       "summary": "Release ZIP contents checked against manifest and nonpublic template payload policy.",
       "details": {
         "exists": true,
-        "size": 6850934,
+        "size": 6898364,
         "expected": [
           ".codemeta.json",
           ".zenodo.json",
@@ -1297,6 +1297,14 @@
           "evidence/research_packets/oc132_platinum_science_upgrade/README.md",
           "evidence/research_packets/oc132_platinum_science_upgrade/REPRODUCIBILITY.json",
           "evidence/research_packets/oc132_platinum_science_upgrade/SOURCE_MANIFEST.json",
+          "llm_readability/BENCHMARK_CARDS.json",
+          "llm_readability/CLAIM_GRAPH.jsonld",
+          "llm_readability/EVIDENCE_ROUTE_MAP.json",
+          "llm_readability/FORMULA_REGISTRY.json",
+          "llm_readability/GLOSSARY_MACHINE_READABLE.json",
+          "llm_readability/LLM_READABILITY_SUMMARY.json",
+          "llm_readability/LLM_READER_GUIDE.md",
+          "llm_readability/THEOREM_CARDS.json",
           "manifest.json",
           "metadata/LRGEF_MANIFEST_SIGNATURE_latest.json",
           "metadata/LRGEF_PROVENANCE_latest.json",
@@ -1323,6 +1331,8 @@
           "metadata/OC_CORE_1_3_2_RELEASE_QUALITY_FAILURE_ANALYSIS.json",
           "metadata/OC_CORE_1_3_2_RELEASE_QUALITY_FAILURE_ANALYSIS.md",
           "metadata/OWNER_RELEASE_APPROVAL_v1.3.2.json",
+          "metadata/OWNER_REVIEW_PUBLICATION_READINESS_latest.json",
+          "metadata/OWNER_REVIEW_PUBLICATION_READINESS_latest.md",
           "metadata/README.md",
           "metadata/REL_OC_CORE_v1.3.2.json",
           "parfit/benchmarks/parfit/cases/P001_direct_collective_self_defeat_release_rush.yaml",
@@ -2968,6 +2978,14 @@
           "evidence/research_packets/oc132_platinum_science_upgrade/README.md",
           "evidence/research_packets/oc132_platinum_science_upgrade/REPRODUCIBILITY.json",
           "evidence/research_packets/oc132_platinum_science_upgrade/SOURCE_MANIFEST.json",
+          "llm_readability/BENCHMARK_CARDS.json",
+          "llm_readability/CLAIM_GRAPH.jsonld",
+          "llm_readability/EVIDENCE_ROUTE_MAP.json",
+          "llm_readability/FORMULA_REGISTRY.json",
+          "llm_readability/GLOSSARY_MACHINE_READABLE.json",
+          "llm_readability/LLM_READABILITY_SUMMARY.json",
+          "llm_readability/LLM_READER_GUIDE.md",
+          "llm_readability/THEOREM_CARDS.json",
           "manifest.json",
           "metadata/LRGEF_MANIFEST_SIGNATURE_latest.json",
           "metadata/LRGEF_PROVENANCE_latest.json",
@@ -2994,6 +3012,8 @@
           "metadata/OC_CORE_1_3_2_RELEASE_QUALITY_FAILURE_ANALYSIS.json",
           "metadata/OC_CORE_1_3_2_RELEASE_QUALITY_FAILURE_ANALYSIS.md",
           "metadata/OWNER_RELEASE_APPROVAL_v1.3.2.json",
+          "metadata/OWNER_REVIEW_PUBLICATION_READINESS_latest.json",
+          "metadata/OWNER_REVIEW_PUBLICATION_READINESS_latest.md",
           "metadata/README.md",
           "metadata/REL_OC_CORE_v1.3.2.json",
           "parfit/benchmarks/parfit/cases/P001_direct_collective_self_defeat_release_rush.yaml",
@@ -4149,6 +4169,27 @@
         "unsafe_direct_promotion_total": 0,
         "import_row_total": 10,
         "global_theory_completion_claimed": false
+      },
+      "owner_action_required": false,
+      "executed": true,
+      "executed_at": "2026-04-28T00:00:00Z"
+    },
+    {
+      "gate_id": "G31",
+      "name": "llm_readability_integrity",
+      "title": "Llm Readability Integrity",
+      "state": "PASS",
+      "verdict": "PASS",
+      "severity": "HIGH",
+      "summary": "LLM-readable release companion is schema-readable and claim-bounded.",
+      "details": {
+        "missing": [],
+        "parse_errors": [],
+        "leak_hits": [],
+        "support_routes_missing": [],
+        "theorem_gaps": [],
+        "unsupported_promoted_total": 0,
+        "file_total": 8
       },
       "owner_action_required": false,
       "executed": true,

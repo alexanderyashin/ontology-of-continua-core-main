@@ -1,0 +1,25 @@
+{
+  "schema_id": "OC_LLM_THEOREM_CARDS_v1",
+  "release_id": "oc_core_1_3_2",
+  "cards": [
+    {
+      "theorem_id": "OC132-GLOBAL-VERDICT-INVARIANT-MINIMALITY",
+      "title": "Global verdict-invariant minimality theorem",
+      "statement": "For the class of OC-compatible verdict-preserving representations, each primitive distinction in the eight-row witness matrix is globally necessary up to definitional equivalence: any representation that removes the distinction must re-encode functionally equivalent information or it cannot preserve the required OC verdicts.",
+      "proof_status": "PROVED_FOR_OC_VERDICT_CLASS",
+      "proof_method": "separating-pair / quotient-kernel argument over the OC verdict algebra",
+      "assumptions": [
+        "The representation must preserve the release-visible OC verdict distinctions.",
+        "Two histories that are equal under all retained information are indistinguishable for the downstream verdict map.",
+        "For each primitive distinction there exists a separating witness pair equal on all other primitive distinctions and unequal in the required OC verdict."
+      ],
+      "proof_sketch": "Let pi_p be one primitive distinction and let H_a,H_b be its separating witness pair. If a representation R removes pi_p and does not carry any functionally equivalent invariant, then R(H_a)=R(H_b) while the OC verdict map requires V(H_a) != V(H_b). Any decoder D from R to verdicts therefore gives D(R(H_a))=D(R(H_b)), contradiction. Hence every verdict-preserving OC representation must preserve pi_p up to definitional equivalence. Applying the argument to all eight independent witness axes proves the global lower bound.",
+      "not_claimed": "The theorem is global for OC-compatible verdict-preserving representations; it does not assert authority over unrelated problem classes that do not ask the OC verdict questions.",
+      "human_refs": [
+        "content/03_model.tex",
+        "releases/oc_core_1_3_2/pdf_sources/OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.tex",
+        "releases/oc_core_1_3_2/editorial/research_packets/oc132_platinum_science_upgrade/MINIMALITY_WITNESS_MATRIX.json"
+      ]
+    }
+  ]
+}

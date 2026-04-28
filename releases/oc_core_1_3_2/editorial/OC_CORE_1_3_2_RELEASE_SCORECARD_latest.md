@@ -37,3 +37,4 @@ Publish allowed: `false`
 | `G28` science_terminality_82 | `PASS` | `CRITICAL` | All 82 OC Core 1.3.2 science blockers are terminal. |
 | `G29` release_human_quality | `PASS` | `HIGH` | Human-facing release prose, acknowledgement order, and package role classification checked. |
 | `G30` platinum_science_readiness | `PASS` | `HIGH` | OC 1.4 forward science admitted into 1.3.2 has benchmark, minimality-witness, and no-unsafe-promotion support. |
+| `G31` llm_readability_integrity | `PASS` | `HIGH` | LLM-readable release companion is schema-readable and claim-bounded. |
