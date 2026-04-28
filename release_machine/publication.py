@@ -412,12 +412,20 @@ def publication_preflight(root: Path) -> dict[str, Any]:
     scorecard_doc = _read_json(editorial_root(root) / "OC_CORE_1_3_2_RELEASE_SCORECARD_latest.json")
     scorecard = scorecard_doc.get("summary", scorecard_doc)
     manifest = _read_json(editorial_root(root) / "OC_CORE_1_3_2_PUBLISH_MANIFEST_DRAFT.json")
-    git_status = _run(root, ["git", "status", "--short", "-uall"], check=False).stdout.strip()
+    raw_status = _run(root, ["git", "status", "--short", "-uall"], check=False).stdout.splitlines()
+    allowed_dirty_suffixes = {
+        "releases/oc_core_1_3_2/editorial/PUBLICATION_PREFLIGHT_latest.json",
+        "releases/oc_core_1_3_2/editorial/PUBLICATION_EXECUTION_REPORT_latest.json",
+    }
+    dirty_rows = [
+        row for row in raw_status
+        if row[3:].replace("\\", "/") not in allowed_dirty_suffixes
+    ]
     branch = _run(root, ["git", "branch", "--show-current"], check=False).stdout.strip()
     tag_check = _run(root, ["git", "rev-parse", "-q", "--verify", f"refs/tags/{TAG}"], check=False)
     package = release_root(root) / "artifacts" / "oc_core_1_3_2_zenodo_release.zip"
     problems = []
-    if git_status:
+    if dirty_rows:
         problems.append("working tree is not clean")
     if branch != BRANCH:
         problems.append(f"wrong branch: {branch}")
