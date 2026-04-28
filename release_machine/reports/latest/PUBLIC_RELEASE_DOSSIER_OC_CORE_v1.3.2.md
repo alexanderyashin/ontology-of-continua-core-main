@@ -5,8 +5,8 @@
 
 ## Release identity
 - Version: 1.3.2
-- DOI: 10.5281/zenodo.19850169
-- Previous canonical DOI: 10.5281/zenodo.19741958
+- DOI: 10.5281/zenodo.19851694
+- Previous canonical DOI: 10.5281/zenodo.19851601
 - Concept DOI: 10.5281/zenodo.17899134
 - GitHub tag: v1.3.2 prepared, not created
 

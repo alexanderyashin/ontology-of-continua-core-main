@@ -2,11 +2,11 @@
 
 ## Release identity
 - Version: 1.3.2
-- DOI: 10.5281/zenodo.19850169
-- Previous canonical DOI: 10.5281/zenodo.19741958
+- DOI: 10.5281/zenodo.19851694
+- Previous canonical DOI: 10.5281/zenodo.19851601
 - Concept DOI: 10.5281/zenodo.17899134
 - GitHub tag: v1.3.2 prepared, not created
-- Zenodo record: 19741958 is the previous canonical record; v1.3.2 requires owner-approved new version
+- Zenodo record: 19851694 is the public v1.3.2 record
 - Date: 2026-04-28
 - Status: RELEASE_READY_NO_SEND
 
@@ -30,10 +30,10 @@ The bundle includes simulation reports, dataset manifests, checksums, and reprod
 Use REVIEWER_ROUTE.md for 30-minute, 2-hour, and technical-audit reading paths.
 
 ## Known limitations
-The v1.3.2 DOI is 10.5281/zenodo.19850169. Research packets are support/frontier material and do not widen canonical claims.
+The v1.3.2 DOI is 10.5281/zenodo.19851694. Research packets are support/frontier material and do not widen canonical claims.
 
 ## Superseded records and version lineage
-v1.3.2 is prepared as a new version in the concept DOI chain 10.5281/zenodo.17899134; the existing record 10.5281/zenodo.19741958 remains the previous canonical public record until publication.
+v1.3.2 is published in the concept DOI chain 10.5281/zenodo.17899134; the record 10.5281/zenodo.19851601 is the immediate previous Zenodo version superseded by this corrected public surface.
 
 ## How to cite
 Before publication, cite the current canonical Zenodo record and mention that v1.3.2 is a no-send release candidate. After owner-approved publication, use the DOI assigned by Zenodo for v1.3.2.

@@ -19,7 +19,7 @@ from .constants import CONCEPT_DOI, DOI_PENDING, PREVIOUS_DOI, PREVIOUS_VERSION,
 
 REPO_URL = "https://github.com/alexanderyashin/ontology-of-continua-core-main"
 TAG = "v1.3.2"
-ZENODO_RECORD = "19741958"
+ZENODO_RECORD = "19851694"
 ZIP_NAME = "oc_core_1_3_2_zenodo_release.zip"
 SWHID_POLICY = "EXISTING_ONLY"
 KNOWN_ORCID = "0009-0008-6166-0914"
@@ -1124,7 +1124,7 @@ def ensure_static_surfaces(root: Path) -> None:
 - Previous canonical DOI: {PREVIOUS_DOI}
 - Concept DOI: {CONCEPT_DOI}
 - GitHub tag: {TAG} prepared, not created
-- Zenodo record: {ZENODO_RECORD} is the previous canonical record; v1.3.2 requires owner-approved new version
+- Zenodo record: {ZENODO_RECORD} is the public v1.3.2 record
 - Date: {date}
 - Status: RELEASE_READY_NO_SEND
 
@@ -1148,10 +1148,10 @@ The bundle includes simulation reports, dataset manifests, checksums, and reprod
 Use REVIEWER_ROUTE.md for 30-minute, 2-hour, and technical-audit reading paths.
 
 ## Known limitations
-The v1.3.2 DOI is 10.5281/zenodo.19850169. Research packets are support/frontier material and do not widen canonical claims.
+The v1.3.2 DOI is {DOI_PENDING}. Research packets are support/frontier material and do not widen canonical claims.
 
 ## Superseded records and version lineage
-v1.3.2 is prepared as a new version in the concept DOI chain {CONCEPT_DOI}; the existing record {PREVIOUS_DOI} remains the previous canonical public record until publication.
+v1.3.2 is published in the concept DOI chain {CONCEPT_DOI}; the record {PREVIOUS_DOI} is the immediate previous Zenodo version superseded by this corrected public surface.
 
 ## How to cite
 Before publication, cite the current canonical Zenodo record and mention that v1.3.2 is a no-send release candidate. After owner-approved publication, use the DOI assigned by Zenodo for v1.3.2.
@@ -1271,7 +1271,7 @@ keywords:
 identifiers:
   - type: doi
     value: "{PREVIOUS_DOI}"
-    description: "Previous canonical Zenodo record; v1.3.2 DOI is 10.5281/zenodo.19850169."
+    description: "Previous canonical Zenodo record; v1.3.2 DOI is {DOI_PENDING}."
   - type: doi
     value: "{CONCEPT_DOI}"
     description: "Zenodo concept DOI for the version chain."
@@ -1297,7 +1297,7 @@ abstract: >
             {"identifier": PREVIOUS_DOI, "relation": "isNewVersionOf", "scheme": "doi"},
             {"identifier": f"{REPO_URL}/releases/tag/{TAG}", "relation": "isSupplementTo", "scheme": "url"},
         ],
-        "notes": "v1.3.2 DOI is 10.5281/zenodo.19850169.",
+        "notes": f"v1.3.2 DOI is {DOI_PENDING}.",
     })
     write_json(root / ".codemeta.json", {
         "@context": "https://doi.org/10.5063/schema/codemeta-2.0",

@@ -4,11 +4,11 @@ State: `RELEASE_READY_NO_SEND`.
 
 Previous canonical version: OC Core v1.3.1.
 
-Previous canonical DOI: `10.5281/zenodo.19741958`.
+Previous canonical DOI: `10.5281/zenodo.19851601`.
 
 Concept DOI: `10.5281/zenodo.17899134`.
 
-v1.3.2 DOI: `10.5281/zenodo.19850169`.
+v1.3.2 DOI: `10.5281/zenodo.19851694`.
 
 This folder contains the release-candidate artifacts, editorial control plane, release-machine scorecards, findings, checksums, owner approval packet, publish manifest draft, public release dossier, and postflight checklist for a later owner-approved publication pass.
 

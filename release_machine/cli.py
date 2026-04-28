@@ -79,6 +79,11 @@ def main(argv: list[str] | None = None) -> int:
     submissions = sub.add_parser("submission-packages")
     submissions.add_argument("--release-id", default=core.RELEASE_ID)
 
+    presentation = sub.add_parser("publication-presentation")
+    presentation.add_argument("--release-id", default=core.RELEASE_ID)
+    presentation.add_argument("--sync", action="store_true")
+    presentation.add_argument("--verify", action="store_true")
+
     repair = sub.add_parser("repair")
     repair.add_argument("--release-id", default=core.RELEASE_ID)
 
@@ -141,6 +146,16 @@ def main(argv: list[str] | None = None) -> int:
         payload = publication.publication_preflight(core.repo_root())
     elif args.command == "submission-packages":
         payload = publication.generate_submission_packages(core.repo_root())
+    elif args.command == "publication-presentation":
+        root = core.repo_root()
+        if args.sync:
+            payload = publication.sync_public_release_presentation(root)
+            if args.verify:
+                payload = {"sync": payload, "verify": publication.verify_public_release_presentation(root)}
+        elif args.verify:
+            payload = publication.verify_public_release_presentation(root)
+        else:
+            payload = publication.build_public_release_presentation(root)
     elif args.command == "repair":
         payload = core.evaluate_release(args.release_id, "all", "pre_publish", write=True)
         payload["repair_status"] = "REPAIRED_OR_CONFIRMED_NO_SEND"

@@ -107,9 +107,13 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertEqual(audit["packet_total"], audit["pass_total"])
         self.assertFalse(audit["canonical_claim_ledger_change"])
 
-    def test_v132_tag_absent_and_publish_locked(self) -> None:
+    def test_v132_tag_is_backed_by_publication_report_and_publish_lock(self) -> None:
         root = complete.repo_root()
-        self.assertFalse((root / ".git/refs/tags/v1.3.2").exists())
+        self.assertTrue((root / ".git/refs/tags/v1.3.2").exists())
+        report = json.loads((root / "releases/oc_core_1_3_2/editorial/PUBLICATION_EXECUTION_REPORT_latest.json").read_text(encoding="utf-8"))
+        self.assertEqual(report["state"], "PUBLISHED")
+        self.assertIn("github.com", report["github_release_url"])
+        self.assertIn("zenodo.org", report["zenodo_record_url"])
         manifest = json.loads((root / "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PUBLISH_MANIFEST_DRAFT.json").read_text(encoding="utf-8"))
         self.assertFalse(manifest["publish_allowed"])
         self.assertTrue(manifest["global_no_send_lock"])
@@ -229,6 +233,69 @@ class ReleaseMachineTests(unittest.TestCase):
         gate = publication.llm_readability_gate(root)
         self.assertEqual(gate["state"], "PASS")
         self.assertEqual(gate["details"]["unsupported_promoted_total"], 0)
+
+    def test_public_release_presentation_has_navigation_metadata_and_assets(self) -> None:
+        root = complete.repo_root()
+        payload = publication.build_public_release_presentation(root)
+        body = payload["github_release_body"]
+        self.assertIn("## Table Of Contents", body)
+        self.assertIn("## Separate PDF Files", body)
+        self.assertIn("OC_CORE_1_3_2_MASTER_MONOGRAPH_EN.pdf", body)
+        self.assertIn("oc_core_1_3_2_zenodo_release.zip", body)
+        self.assertIn("#OntologyOfContinua", body)
+        self.assertIn("LLM-readable science", payload["groups"])
+        self.assertIn("reproducible research", payload["keywords"])
+        self.assertTrue(all(row["exists"] for row in payload["assets"]))
+
+    def test_journal_submission_packages_are_review_ready_no_send(self) -> None:
+        root = complete.repo_root()
+        index = publication.generate_submission_packages(root)
+        self.assertTrue(index["no_send"])
+        self.assertFalse(index["submission_allowed"])
+        self.assertTrue(index["owner_approval_required"])
+        self.assertFalse(index["journal_submissions_allowed"])
+        self.assertEqual(index["package_total"], 8)
+        self.assertEqual(index["recommended_package_total"], 2)
+        self.assertEqual(index["package_status_counts"], {"OWNER_REVIEW_READY_NO_SEND": 8})
+
+        recommended = [row["venue_id"] for row in index["rows"] if row["submit_recommended"]]
+        self.assertEqual(recommended, ["FOUNDATIONS_OF_SCIENCE", "SYNTHESE"])
+        expected_artifact_roles = {"primary_manuscript", "supporting_monograph", "release_archive", "reader_guide"}
+        expected_component_files = {
+            "SUBMISSION_PACKAGE.json",
+            "REQUIRED_COMPONENT_MANIFEST.json",
+            "REQUIRED_COMPONENT_MANIFEST.md",
+            "COVER_LETTER_DRAFT.md",
+            "CHECKLIST.md",
+            "REPRODUCIBILITY_AND_DATA_STATEMENT.md",
+            "AI_ASSISTANCE_DISCLOSURE.md",
+            "CONFLICT_AND_FUNDING_STATEMENT.md",
+            "VENUE_FIT_VERDICT.md",
+        }
+
+        for row in index["rows"]:
+            self.assertEqual(row["package_status"], "OWNER_REVIEW_READY_NO_SEND")
+            self.assertTrue(row["no_send"])
+            self.assertFalse(row["submission_allowed"])
+            self.assertTrue(row["owner_approval_required"])
+            self.assertFalse(row["journal_submissions_allowed"])
+            self.assertEqual(row["doi_policy"]["status"], "PENDING_PUBLIC_RELEASE_AND_SEPARATE_OWNER_SUBMISSION_APPROVAL")
+            self.assertFalse(row["doi_policy"]["journal_submission_doi_insert_allowed"])
+            self.assertEqual({artifact["role"] for artifact in row["artifact_refs"]}, expected_artifact_roles)
+            for artifact in row["artifact_refs"]:
+                self.assertTrue(artifact["exists"], artifact["path"])
+                self.assertTrue((root / artifact["path"]).exists(), artifact["path"])
+                if artifact["role"] == "release_archive":
+                    self.assertEqual(artifact["sha256"], "")
+                    self.assertEqual(artifact["checksum_ref"], "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_ZIP_INTEGRITY_latest.json")
+                    self.assertEqual(artifact["checksum_status"], "RECORDED_AFTER_PACKAGE_BUILD_TO_AVOID_SELF_REFERENCE")
+                else:
+                    self.assertEqual(len(artifact["sha256"]), 64)
+            component_files = {Path(component["path"]).name for component in row["required_components"]}
+            self.assertEqual(component_files, expected_component_files)
+            for component in row["required_components"]:
+                self.assertEqual(component["status"], "READY_NO_SEND")
+                self.assertTrue((root / component["path"]).exists(), component["path"])
 
     def test_lrgef_state_records_no_send_external_blockers(self) -> None:
         root = complete.repo_root()

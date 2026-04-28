@@ -18,7 +18,7 @@ VERSION = "1.3.2"
 TAG = "v1.3.2"
 REPO = "alexanderyashin/ontology-of-continua-core-main"
 BRANCH = "release/oc-core-1.3.2"
-ZENODO_PREVIOUS_RECORD = "19741958"
+ZENODO_PREVIOUS_RECORD = "19851601"
 TIMESTAMP = "2026-04-28T00:00:00Z"
 
 TEXT_SUFFIXES = {".md", ".json", ".jsonld", ".ndjson", ".yaml", ".yml", ".txt", ".cff", ".tex", ".bib"}
@@ -27,6 +27,117 @@ LEAK_PATTERN = re.compile(
     r"OPENAI_API_KEY|GITHUB_TOKEN|ZENODO_TOKEN|password\s*=|secret\s*=|token\s*=",
     re.IGNORECASE,
 )
+
+GITHUB_RELEASE_URL = f"https://github.com/{REPO}/releases/tag/{TAG}"
+ZENODO_RECORD_ID = "19851694"
+ZENODO_RECORD_URL = f"https://zenodo.org/records/{ZENODO_RECORD_ID}"
+ZENODO_DOI = "10.5281/zenodo.19851694"
+CONCEPT_DOI = "10.5281/zenodo.17899134"
+PREVIOUS_DOI = "10.5281/zenodo.19851601"
+
+PRIMARY_RELEASE_ASSETS = [
+    {
+        "filename": "OC_CORE_1_3_2_MASTER_MONOGRAPH_EN.pdf",
+        "role": "Master monograph",
+        "reader_group": "full scientific reference",
+        "description": "The canonical long-form OC Core 1.3.2 text with theorem, formula, evidence and release-governance context.",
+    },
+    {
+        "filename": "OC_CORE_1_3_2_JOURNAL_CORE_EN.pdf",
+        "role": "Journal core",
+        "reader_group": "journal editor or first reviewer",
+        "description": "A compact article-style spine for scientific review and later journal-package refactoring.",
+    },
+    {
+        "filename": "OC_CORE_1_3_2_READABLE_OVERVIEW_EN.pdf",
+        "role": "Readable overview",
+        "reader_group": "new human reader",
+        "description": "A shorter conceptual entry point before the monograph or technical spine.",
+    },
+    {
+        "filename": "OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf",
+        "role": "Methods and reproducibility companion",
+        "reader_group": "reproducibility reviewer",
+        "description": "Build, benchmark, evidence-route and reproducibility navigation.",
+    },
+    {
+        "filename": "OC_CORE_1_3_2_CRITIQUE_AND_OBJECTION_MAP_EN.pdf",
+        "role": "Critique and objection map",
+        "reader_group": "critical or adversarial reviewer",
+        "description": "Known criticism, objection routes, repair history and bounded release responses.",
+    },
+    {
+        "filename": "OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.pdf",
+        "role": "Expert technical spine",
+        "reader_group": "mathematical or technical reviewer",
+        "description": "Formal kernel, theorem cards, formulas and technical support routes.",
+    },
+    {
+        "filename": "oc_core_1_3_2_zenodo_release.zip",
+        "role": "Full reproducibility package",
+        "reader_group": "archival and machine reproducibility",
+        "description": "Complete release bundle with source material, manifests, checksums, LLM-readable companion and no-send journal packages.",
+    },
+    {
+        "filename": "manifest.json",
+        "role": "Artifact manifest",
+        "reader_group": "release auditor",
+        "description": "Machine-readable package inventory.",
+    },
+    {
+        "filename": "checksums.txt",
+        "role": "Checksums",
+        "reader_group": "release auditor",
+        "description": "Checksum list for verifying the published assets.",
+    },
+]
+
+RELEASE_GROUPS = [
+    "Core theory",
+    "Reviewer entry points",
+    "Reproducibility",
+    "LLM-readable science",
+    "Release governance",
+]
+
+RELEASE_KEYWORDS = [
+    "Ontology of Continua",
+    "OC Core",
+    "systems theory",
+    "formal methods",
+    "reproducible research",
+    "mathematical modeling",
+    "AI-readable science",
+    "LLM-readable science",
+    "release engineering",
+    "benchmarking",
+    "proof governance",
+    "Parfitian Cerberus",
+]
+
+GITHUB_TOPICS = [
+    "ontology-of-continua",
+    "oc-core",
+    "systems-theory",
+    "formal-methods",
+    "reproducible-research",
+    "mathematical-modeling",
+    "ai-readable-science",
+    "release-engineering",
+    "benchmarking",
+]
+
+RELEASE_HASHTAGS = [
+    "#OntologyOfContinua",
+    "#OCCore",
+    "#SystemsTheory",
+    "#FormalMethods",
+    "#ReproducibleResearch",
+    "#MathematicalModeling",
+    "#AIReadableScience",
+    "#LLMReadableScience",
+    "#ReleaseEngineering",
+]
 
 
 def _read_json(path: Path, default: Any | None = None) -> Any:
@@ -344,19 +455,86 @@ VENUES = [
     ("GLOBAL_JOURNAL_OF_FLEXIBLE_SYSTEMS_MANAGEMENT", "https://link.springer.com/journal/40171/aims-and-scope", "Conditional target: systems management translation, not primary theory paper.", False),
 ]
 
+SUBMISSION_ARTIFACT_REFS = [
+    ("primary_manuscript", "releases/oc_core_1_3_2/artifacts/OC_CORE_1_3_2_JOURNAL_CORE_EN.pdf"),
+    ("supporting_monograph", "releases/oc_core_1_3_2/artifacts/OC_CORE_1_3_2_MASTER_MONOGRAPH_EN.pdf"),
+    ("release_archive", "releases/oc_core_1_3_2/artifacts/oc_core_1_3_2_zenodo_release.zip"),
+    ("reader_guide", "releases/oc_core_1_3_2/llm_readability/LLM_READER_GUIDE.md"),
+]
+
+SUBMISSION_COMPONENTS = [
+    ("submission_package_json", "SUBMISSION_PACKAGE.json", "Machine-readable package metadata and no-send governance."),
+    ("required_component_manifest_json", "REQUIRED_COMPONENT_MANIFEST.json", "Machine-readable required component status list."),
+    ("required_component_manifest_md", "REQUIRED_COMPONENT_MANIFEST.md", "Human-readable required component status list."),
+    ("cover_letter", "COVER_LETTER_DRAFT.md", "Owner-review-only cover letter draft."),
+    ("checklist", "CHECKLIST.md", "Submission checklist with no-send locks and pending owner actions."),
+    ("reproducibility_and_data", "REPRODUCIBILITY_AND_DATA_STATEMENT.md", "Data, code and reproducibility statement."),
+    ("ai_assistance", "AI_ASSISTANCE_DISCLOSURE.md", "AI assistance disclosure for editorial review."),
+    ("conflict_and_funding", "CONFLICT_AND_FUNDING_STATEMENT.md", "Conflict-of-interest and funding statement."),
+    ("venue_fit", "VENUE_FIT_VERDICT.md", "Venue fit verdict and recommendation state."),
+]
+
+
+def _submission_artifact_rows(root: Path) -> list[dict[str, Any]]:
+    rows = []
+    for role, rel_path in SUBMISSION_ARTIFACT_REFS:
+        path = root / rel_path
+        row = {
+            "role": role,
+            "path": rel_path,
+            "exists": path.exists(),
+            "size_bytes": path.stat().st_size if path.exists() else 0,
+            "sha256": _sha256(path) if path.exists() else "",
+            "checksum_algorithm": "sha256",
+        }
+        if role == "release_archive":
+            # The submission package is included in the release archive, so a
+            # live archive hash here would create self-reference drift.
+            row.update({
+                "size_bytes": 0,
+                "sha256": "",
+                "checksum_ref": "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_ZIP_INTEGRITY_latest.json",
+                "checksum_status": "RECORDED_AFTER_PACKAGE_BUILD_TO_AVOID_SELF_REFERENCE",
+            })
+        rows.append(row)
+    return rows
+
+
+def _submission_component_rows(venue_id: str) -> list[dict[str, Any]]:
+    base = f"releases/oc_core_1_3_2/submission_packages/{venue_id}"
+    return [
+        {
+            "component_id": component_id,
+            "filename": filename,
+            "path": f"{base}/{filename}",
+            "required": True,
+            "status": "READY_NO_SEND",
+            "description": description,
+        }
+        for component_id, filename, description in SUBMISSION_COMPONENTS
+    ]
+
 
 def generate_submission_packages(root: Path) -> dict[str, Any]:
     base = release_root(root) / "submission_packages"
     rows = []
     for venue_id, official_url, fit_note, recommended in VENUES:
         d = base / venue_id
+        artifact_refs = _submission_artifact_rows(root)
+        component_rows = _submission_component_rows(venue_id)
+        artifact_missing_total = sum(1 for row in artifact_refs if not row["exists"])
+        package_status = "OWNER_REVIEW_READY_NO_SEND" if artifact_missing_total == 0 else "BLOCKED_MISSING_ARTIFACTS_NO_SEND"
         payload = {
             "schema_id": "OC132_JOURNAL_SUBMISSION_PACKAGE_v1",
             "release_id": RELEASE_ID,
             "venue_id": venue_id,
             "official_url": official_url,
             "official_snapshot_date": "2026-04-28",
+            "package_status": package_status,
             "no_send": True,
+            "submission_allowed": False,
+            "owner_approval_required": True,
+            "journal_submissions_allowed": False,
             "submit_recommended": bool(recommended),
             "venue_fit_note": fit_note,
             "primary_manuscript": "releases/oc_core_1_3_2/artifacts/OC_CORE_1_3_2_JOURNAL_CORE_EN.pdf",
@@ -365,28 +543,496 @@ def generate_submission_packages(root: Path) -> dict[str, Any]:
                 "releases/oc_core_1_3_2/artifacts/oc_core_1_3_2_zenodo_release.zip",
                 "releases/oc_core_1_3_2/llm_readability/LLM_READER_GUIDE.md",
             ],
+            "artifact_refs": artifact_refs,
+            "artifact_missing_total": artifact_missing_total,
+            "required_components": component_rows,
+            "required_component_total": len(component_rows),
+            "required_component_ready_total": len(component_rows),
+            "doi_policy": {
+                "release_doi": ZENODO_DOI,
+                "concept_doi": CONCEPT_DOI,
+                "status": "PENDING_PUBLIC_RELEASE_AND_SEPARATE_OWNER_SUBMISSION_APPROVAL",
+                "journal_submission_doi_insert_allowed": False,
+            },
+            "submission_policy": {
+                "outbound": "NO_SEND",
+                "email_allowed": False,
+                "portal_upload_allowed": False,
+                "external_submission_allowed": False,
+                "next_required_action": "OWNER_REVIEW_AFTER_PUBLIC_RELEASE_DECISION",
+            },
         }
         _write_json(d / "SUBMISSION_PACKAGE.json", payload)
-        _write_text(d / "COVER_LETTER_DRAFT.md", f"# Cover Letter Draft: {venue_id}\n\nNO_SEND: true\n\nDear Editors,\n\nPlease consider the attached OC Core 1.3.2 journal-core manuscript and reproducibility package. This draft is prepared for owner review only and must not be submitted automatically.\n")
+        component_manifest = {
+            "schema_id": "OC132_JOURNAL_SUBMISSION_COMPONENT_MANIFEST_v1",
+            "release_id": RELEASE_ID,
+            "venue_id": venue_id,
+            "package_status": package_status,
+            "no_send": True,
+            "submission_allowed": False,
+            "required_component_total": len(component_rows),
+            "required_component_ready_total": len(component_rows),
+            "rows": component_rows,
+        }
+        _write_json(d / "REQUIRED_COMPONENT_MANIFEST.json", component_manifest)
+        _write_text(d / "REQUIRED_COMPONENT_MANIFEST.md", "\n".join([
+            f"# Required Component Manifest: {venue_id}",
+            "",
+            f"- package_status: `{package_status}`",
+            "- no_send: `true`",
+            "- submission_allowed: `false`",
+            "",
+            "## Components",
+            "",
+            *[f"- `{row['component_id']}`: `{row['status']}` - `{row['path']}`" for row in component_rows],
+        ]))
+        _write_text(d / "COVER_LETTER_DRAFT.md", "\n".join([
+            f"# Cover Letter Draft: {venue_id}",
+            "",
+            "NO_SEND: true",
+            "Submission allowed: false",
+            "Owner approval required: true",
+            "",
+            "Dear Editors,",
+            "",
+            "Please consider the attached OC Core 1.3.2 journal-core manuscript and reproducibility package. This draft is prepared for owner review only and must not be submitted automatically.",
+            "",
+            f"Venue fit note: {fit_note}",
+            "",
+            "Release DOI/reference insertion remains pending until public release and a separate owner-approved journal submission decision.",
+        ]))
         _write_text(d / "CHECKLIST.md", "\n".join([
             f"# Submission Checklist: {venue_id}",
             "",
             "- NO_SEND: true",
+            "- Submission allowed: false",
+            "- Owner approval required: true",
             "- Manuscript PDF selected.",
-            "- Release DOI/reference to be inserted after public release.",
+            "- Release DOI/reference to be inserted only after public release and separate owner approval.",
             "- Data/code/reproducibility statement included.",
             "- AI assistance disclosure included.",
             "- Conflict/funding statements included.",
+            "- Required component manifest included.",
+            "- Artifact checksum references included in `SUBMISSION_PACKAGE.json`.",
             "- Owner must approve submission separately.",
         ]))
-        _write_text(d / "REPRODUCIBILITY_AND_DATA_STATEMENT.md", "The release package includes checksum-bound source material, benchmark scripts, benchmark output hashes, claim/evidence maps, and release-machine scorecards. No private raw feedback or raw model output is included.")
-        _write_text(d / "AI_ASSISTANCE_DISCLOSURE.md", "AI tools assisted with editorial checking, release-machine automation, and structured review. The author remains responsible for claims, proofs, data, and final submission decisions.")
-        _write_text(d / "VENUE_FIT_VERDICT.md", f"# Venue Fit Verdict: {venue_id}\n\nSubmit recommended: `{str(bool(recommended)).lower()}`\n\n{fit_note}\n")
+        _write_text(d / "REPRODUCIBILITY_AND_DATA_STATEMENT.md", "\n".join([
+            f"# Reproducibility And Data Statement: {venue_id}",
+            "",
+            "The release package includes checksum-bound source material, benchmark scripts, benchmark output hashes, claim/evidence maps, and release-machine scorecards. No private raw feedback or raw model output is included.",
+            "",
+            "Primary reproducibility artifact: `releases/oc_core_1_3_2/artifacts/oc_core_1_3_2_zenodo_release.zip`.",
+            "Journal submission remains `NO_SEND` until a separate owner-approved submission decision.",
+        ]))
+        _write_text(d / "AI_ASSISTANCE_DISCLOSURE.md", "\n".join([
+            f"# AI Assistance Disclosure: {venue_id}",
+            "",
+            "AI tools assisted with editorial checking, release-machine automation, and structured review. The author remains responsible for claims, proofs, data, and final submission decisions.",
+        ]))
+        _write_text(d / "CONFLICT_AND_FUNDING_STATEMENT.md", "\n".join([
+            f"# Conflict And Funding Statement: {venue_id}",
+            "",
+            "Conflict-of-interest and funding declarations are owner-review placeholders for the no-send package. They must be confirmed by the author before any journal submission.",
+            "",
+            "Submission allowed: false.",
+        ]))
+        _write_text(d / "VENUE_FIT_VERDICT.md", "\n".join([
+            f"# Venue Fit Verdict: {venue_id}",
+            "",
+            f"Submit recommended: `{str(bool(recommended)).lower()}`",
+            "Submission allowed: `false`",
+            "",
+            fit_note,
+        ]))
         rows.append(payload)
-    index = {"schema_id": "OC132_JOURNAL_SUBMISSION_PACKAGE_INDEX_v1", "release_id": RELEASE_ID, "no_send": True, "package_total": len(rows), "rows": rows}
+    status_counts = {status: sum(1 for row in rows if row["package_status"] == status) for status in sorted({row["package_status"] for row in rows})}
+    index = {
+        "schema_id": "OC132_JOURNAL_SUBMISSION_PACKAGE_INDEX_v1",
+        "release_id": RELEASE_ID,
+        "no_send": True,
+        "submission_allowed": False,
+        "owner_approval_required": True,
+        "journal_submissions_allowed": False,
+        "package_total": len(rows),
+        "recommended_package_total": sum(1 for row in rows if row["submit_recommended"]),
+        "package_status_counts": status_counts,
+        "artifact_checksum_policy": "sha256 refs are recorded inside each no-send venue package.",
+        "rows": rows,
+    }
     _write_json(base / "SUBMISSION_PACKAGE_INDEX.json", index)
-    _write_text(base / "README.md", "# OC Core 1.3.2 Journal Submission Packages\n\nAll packages are prepared as `NO_SEND`. They are not submitted, emailed, uploaded, or released to journals by this process.\n")
+    _write_text(base / "README.md", "\n".join([
+        "# OC Core 1.3.2 Journal Submission Packages",
+        "",
+        "All packages are prepared as `NO_SEND`. They are not submitted, emailed, uploaded, or released to journals by this process.",
+        "",
+        f"- Package total: `{len(rows)}`",
+        f"- Recommended primary targets: `{index['recommended_package_total']}`",
+        "- Submission allowed: `false`",
+        "- Owner approval required: `true`",
+    ]))
     return index
+
+
+def build_public_release_presentation(root: Path) -> dict[str, Any]:
+    """Generate the human-facing public release body and metadata.
+
+    This is intentionally separate from package construction: a release can have
+    correct files but still look unfinished if the public surface lacks
+    navigation, asset roles, keywords and citation instructions.
+    """
+    asset_rows = []
+    for asset in PRIMARY_RELEASE_ASSETS:
+        path = _public_asset_path(root, asset["filename"])
+        asset_rows.append({
+            **asset,
+            "size_bytes": path.stat().st_size if path.exists() else 0,
+            "exists": path.exists(),
+        })
+    asset_md = "\n".join(
+        f"- **{row['role']}** - `{row['filename']}`: {row['description']} "
+        f"Reader group: {row['reader_group']}."
+        for row in asset_rows
+    )
+    group_md = ", ".join(f"`{group}`" for group in RELEASE_GROUPS)
+    keyword_md = ", ".join(RELEASE_KEYWORDS)
+    hashtag_md = " ".join(RELEASE_HASHTAGS)
+    github_body = f"""# OC Core {VERSION} - Platinum Public Release
+
+DOI: [{ZENODO_DOI}](https://doi.org/{ZENODO_DOI})
+
+Zenodo record: {ZENODO_RECORD_URL}
+
+Concept DOI: [{CONCEPT_DOI}](https://doi.org/{CONCEPT_DOI})
+
+## Table Of Contents
+
+1. What This Release Is
+2. Start Here
+3. Separate PDF Files
+4. Full Package And Verification
+5. Scientific Highlights
+6. Release Groups, Keywords And Hashtags
+7. Citation
+8. Boundaries
+
+## What This Release Is
+
+OC Core {VERSION} is the current public release of the Ontology of Continua core line. It packages the canonical monograph, reviewer-specific PDF entry points, reproducibility material, benchmark/evidence routes, LLM-readable companion files, and release governance manifests.
+
+## Start Here
+
+- New reader: open `OC_CORE_1_3_2_READABLE_OVERVIEW_EN.pdf`.
+- Scientific reviewer: open `OC_CORE_1_3_2_JOURNAL_CORE_EN.pdf`, then the master monograph.
+- Mathematical or technical reviewer: open `OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.pdf`.
+- Reproducibility reviewer: open `OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf`.
+- Critical reviewer: open `OC_CORE_1_3_2_CRITIQUE_AND_OBJECTION_MAP_EN.pdf`.
+- Machine reader: use the `llm_readability/` directory inside the ZIP.
+
+## Separate PDF Files
+
+The main PDFs are attached individually for direct reading, not only inside the ZIP.
+
+{asset_md}
+
+## Full Package And Verification
+
+Download `oc_core_1_3_2_zenodo_release.zip` for the complete reproducibility package. Use `manifest.json` and `checksums.txt` to verify package contents and checksums.
+
+Zenodo may additionally display a GitHub source snapshot archive generated from the repository tag. Treat that archive as a source mirror; the curated release package is `oc_core_1_3_2_zenodo_release.zip`.
+
+## Scientific Highlights
+
+- Release-level theorem support, including the global verdict-invariant minimality theorem for the OC-compatible verdict-preserving representation class.
+- Deterministic benchmark suite with fixed seeds, output hashes, baseline comparisons and no-signalling checks.
+- Terminal release blocker ledger with 82/82 rows closed for the 1.3.2 release scope.
+- K0-K12/domain projection state, DRT strict salvage state, Tsukrov criticism-response integration, Parfitian Cerberus pass and LRGEF release governance.
+- LLM-readable companion: claim graph, theorem cards, formula registry, evidence route map, benchmark cards and machine-readable glossary.
+
+## Release Groups, Keywords And Hashtags
+
+Groups: {group_md}
+
+Keywords: {keyword_md}
+
+Hashtags: {hashtag_md}
+
+## Citation
+
+Yashin, Alexander. *Ontology of Continua - Core v{VERSION}*. Zenodo. {ZENODO_DOI}. {ZENODO_RECORD_URL}
+
+## Boundaries
+
+This public release contains public-safe scientific and release-governance artifacts. It does not include private raw feedback, raw model outputs, private paths, secrets, or journal submissions. Journal submission packages are prepared separately as `NO_SEND` materials and are not submitted by this release process.
+"""
+    zenodo_description = f"""
+<p><strong>OC Core {VERSION}</strong> is the current public release of the Ontology of Continua core line. It contains the canonical monograph, reviewer-specific PDF entry points, reproducibility material, benchmark and evidence routes, LLM-readable companion files, and release governance manifests.</p>
+<h2>Table Of Contents</h2>
+<ol>
+<li>Start here</li>
+<li>Separate PDF files</li>
+<li>Full package and verification</li>
+<li>Scientific highlights</li>
+<li>Release groups, keywords and hashtags</li>
+<li>Citation and boundaries</li>
+</ol>
+<h2>Start Here</h2>
+<ul>
+<li>New reader: <code>OC_CORE_1_3_2_READABLE_OVERVIEW_EN.pdf</code>.</li>
+<li>Scientific reviewer: <code>OC_CORE_1_3_2_JOURNAL_CORE_EN.pdf</code>, then the master monograph.</li>
+<li>Mathematical or technical reviewer: <code>OC_CORE_1_3_2_EXPERT_TECHNICAL_SPINE_EN.pdf</code>.</li>
+<li>Reproducibility reviewer: <code>OC_CORE_1_3_2_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf</code>.</li>
+<li>Critical reviewer: <code>OC_CORE_1_3_2_CRITIQUE_AND_OBJECTION_MAP_EN.pdf</code>.</li>
+<li>Machine reader: use the <code>llm_readability/</code> directory inside the ZIP.</li>
+</ul>
+<h2>Separate PDF Files</h2>
+<p>The primary PDFs are attached individually for direct reading, not only inside the ZIP.</p>
+<ul>
+{''.join(f"<li><strong>{row['role']}</strong>: <code>{row['filename']}</code> - {row['description']}</li>" for row in asset_rows if row['filename'].lower().endswith('.pdf'))}
+</ul>
+<h2>Full Package And Verification</h2>
+<p>Download <code>oc_core_1_3_2_zenodo_release.zip</code> for the complete package. Use <code>manifest.json</code> and <code>checksums.txt</code> to verify contents and checksums.</p>
+<p>Zenodo may additionally display a GitHub source snapshot archive generated from the repository tag. Treat that archive as a source mirror; the curated release package is <code>oc_core_1_3_2_zenodo_release.zip</code>.</p>
+<h2>Scientific Highlights</h2>
+<ul>
+<li>Release-level theorem support, including the global verdict-invariant minimality theorem for the OC-compatible verdict-preserving representation class.</li>
+<li>Deterministic benchmark suite with fixed seeds, output hashes, baseline comparisons and no-signalling checks.</li>
+<li>Terminal release blocker ledger with 82/82 rows closed for the 1.3.2 release scope.</li>
+<li>K0-K12/domain projection state, DRT strict salvage state, Tsukrov criticism-response integration, Parfitian Cerberus pass and LRGEF release governance.</li>
+<li>LLM-readable companion: claim graph, theorem cards, formula registry, evidence route map, benchmark cards and glossary.</li>
+</ul>
+<h2>Release Groups, Keywords And Hashtags</h2>
+<p>Groups: {', '.join(RELEASE_GROUPS)}</p>
+<p>Keywords: {keyword_md}</p>
+<p>Hashtags: {hashtag_md}</p>
+<h2>Boundaries</h2>
+<p>This public release contains public-safe scientific and release-governance artifacts. It does not include private raw feedback, raw model outputs, private paths, secrets, or journal submissions. Journal submission packages remain <code>NO_SEND</code>.</p>
+"""
+    payload = {
+        "schema_id": "OC132_PUBLIC_RELEASE_PRESENTATION_v1",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_at": TIMESTAMP,
+        "github_release_url": GITHUB_RELEASE_URL,
+        "zenodo_record_url": ZENODO_RECORD_URL,
+        "doi": ZENODO_DOI,
+        "concept_doi": CONCEPT_DOI,
+        "previous_doi": PREVIOUS_DOI,
+        "groups": RELEASE_GROUPS,
+        "keywords": RELEASE_KEYWORDS,
+        "github_topics": GITHUB_TOPICS,
+        "hashtags": RELEASE_HASHTAGS,
+        "assets": asset_rows,
+        "github_release_body": github_body,
+        "zenodo_description": zenodo_description,
+    }
+    _write_json(editorial_root(root) / "PUBLIC_RELEASE_PRESENTATION_latest.json", payload)
+    _write_text(editorial_root(root) / "PUBLIC_RELEASE_PRESENTATION_latest.md", github_body)
+    return payload
+
+
+def sync_public_release_presentation(root: Path) -> dict[str, Any]:
+    presentation = build_public_release_presentation(root)
+    actions: dict[str, Any] = {"github_release": {}, "github_topics": {}, "zenodo_record": {}}
+    expected_asset_names = [row["filename"] for row in PRIMARY_RELEASE_ASSETS]
+
+    release = _github_request(f"/repos/{REPO}/releases/tags/{TAG}")
+    patched = _github_request(
+        f"/repos/{REPO}/releases/{release['id']}",
+        method="PATCH",
+        data={
+            "name": f"OC Core {VERSION} - Platinum Public Release",
+            "body": presentation["github_release_body"],
+            "draft": False,
+            "prerelease": False,
+        },
+    )
+    deleted_github_assets = []
+    uploaded_github_assets = []
+    current_assets = {row.get("name"): row for row in patched.get("assets", [])}
+    for name in expected_asset_names:
+        if name in current_assets:
+            _github_request(f"/repos/{REPO}/releases/assets/{current_assets[name]['id']}", method="DELETE")
+            deleted_github_assets.append(name)
+    for name in expected_asset_names:
+        path = _public_asset_path(root, name)
+        uploaded = _github_upload_asset(patched["id"], path)
+        uploaded_github_assets.append({"name": uploaded.get("name", name), "size": uploaded.get("size", path.stat().st_size)})
+    actions["github_release"] = {
+        "id": patched.get("id"),
+        "html_url": patched.get("html_url"),
+        "body_length": len(patched.get("body") or ""),
+        "asset_count": len(expected_asset_names),
+        "assets_replaced": deleted_github_assets,
+        "assets_uploaded": uploaded_github_assets,
+    }
+    try:
+        topics = _github_request(f"/repos/{REPO}/topics", method="PUT", data={"names": GITHUB_TOPICS})
+        actions["github_topics"] = {"state": "PASS", "names": topics.get("names", [])}
+    except urllib.error.HTTPError as exc:
+        actions["github_topics"] = {"state": "WARN", "reason": f"GitHub topics update failed with HTTP {exc.code}"}
+
+    try:
+        _zenodo_request(f"/deposit/depositions/{ZENODO_RECORD_ID}/actions/edit", method="POST")
+    except urllib.error.HTTPError as exc:
+        if exc.code not in {400, 403, 405}:
+            raise
+    deposition = _zenodo_request(f"/deposit/depositions/{ZENODO_RECORD_ID}")
+    metadata = dict(deposition.get("metadata", {}))
+    metadata.update({
+        "title": f"Ontology of Continua - Core v{VERSION}",
+        "upload_type": metadata.get("upload_type") or "software",
+        "publication_date": metadata.get("publication_date") or "2026-04-28",
+        "creators": metadata.get("creators") or [{"name": "Yashin, Alexander", "orcid": "0009-0008-6166-0914", "affiliation": "Independent Researcher"}],
+        "description": presentation["zenodo_description"],
+        "access_right": metadata.get("access_right") or "open",
+        "license": metadata.get("license") or "cc-by-4.0",
+        "version": VERSION,
+        "keywords": RELEASE_KEYWORDS,
+        "related_identifiers": [
+            {"identifier": CONCEPT_DOI, "relation": "isVersionOf", "scheme": "doi"},
+            {"identifier": PREVIOUS_DOI, "relation": "isNewVersionOf", "scheme": "doi"},
+            {"identifier": GITHUB_RELEASE_URL, "relation": "isSupplementTo", "scheme": "url"},
+        ],
+    })
+    updated = _zenodo_request(f"/deposit/depositions/{ZENODO_RECORD_ID}", method="PUT", data={"metadata": metadata})
+    zenodo_file_delete_failures = []
+    files = _zenodo_request(f"/deposit/depositions/{ZENODO_RECORD_ID}/files")
+    for row in files if isinstance(files, list) else []:
+        filename = row.get("filename") or row.get("key")
+        try:
+            _zenodo_request(f"/deposit/depositions/{ZENODO_RECORD_ID}/files/{row['id']}", method="DELETE")
+        except urllib.error.HTTPError as exc:
+            zenodo_file_delete_failures.append({"name": filename, "http_status": exc.code})
+    bucket_url = updated.get("links", {}).get("bucket") or deposition.get("links", {}).get("bucket")
+    uploaded_zenodo_files = []
+    if not bucket_url:
+        raise RuntimeError("Zenodo deposition did not expose a file bucket for release asset synchronization.")
+    for name in expected_asset_names:
+        path = _public_asset_path(root, name)
+        _zenodo_bucket_upload_file(bucket_url, path)
+        uploaded_zenodo_files.append({"name": name, "size": path.stat().st_size})
+    try:
+        published = _zenodo_request(f"/deposit/depositions/{ZENODO_RECORD_ID}/actions/publish", method="POST")
+    except urllib.error.HTTPError as exc:
+        if exc.code not in {400, 403, 405}:
+            raise
+        published = updated
+    actions["zenodo_record"] = {
+        "id": published.get("id", updated.get("id")),
+        "doi": published.get("doi", updated.get("doi")),
+        "description_length": len(metadata.get("description") or ""),
+        "keyword_count": len(metadata.get("keywords") or []),
+        "files_uploaded": uploaded_zenodo_files,
+        "upload_method": "zenodo_bucket_put",
+        "file_delete_failures": zenodo_file_delete_failures,
+    }
+    package = release_root(root) / "artifacts" / "oc_core_1_3_2_zenodo_release.zip"
+    execution_report = _read_json(editorial_root(root) / "PUBLICATION_EXECUTION_REPORT_latest.json")
+    execution_report.update({
+        "schema_id": "OC132_PUBLICATION_EXECUTION_REPORT_v1",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "state": "PUBLISHED",
+        "github_release_url": actions["github_release"].get("html_url", GITHUB_RELEASE_URL),
+        "zenodo_record_url": ZENODO_RECORD_URL,
+        "zenodo_doi": ZENODO_DOI,
+        "package_sha256": _sha256(package) if package.exists() else "",
+        "presentation_sync_state": "PASS",
+        "presentation_sync_at": TIMESTAMP,
+        "supersedes_zenodo_record": "https://zenodo.org/records/19851601",
+    })
+    _write_json(editorial_root(root) / "PUBLICATION_EXECUTION_REPORT_latest.json", execution_report)
+    report = {
+        "schema_id": "OC132_PUBLIC_RELEASE_PRESENTATION_SYNC_v1",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_at": TIMESTAMP,
+        "state": "PASS",
+        "actions": actions,
+    }
+    _write_json(editorial_root(root) / "PUBLIC_RELEASE_PRESENTATION_SYNC_latest.json", report)
+    return report
+
+
+def verify_public_release_presentation(root: Path) -> dict[str, Any]:
+    import hashlib
+
+    presentation = build_public_release_presentation(root)
+    gh = _github_request(f"/repos/{REPO}/releases/tags/{TAG}")
+    with urllib.request.urlopen(f"https://zenodo.org/api/records/{ZENODO_RECORD_ID}", timeout=60) as resp:
+        zenodo = json.loads(resp.read().decode("utf-8"))
+
+    expected_names = {row["filename"] for row in PRIMARY_RELEASE_ASSETS}
+    github_assets = {row.get("name"): row for row in gh.get("assets", [])}
+    zenodo_files = {row.get("key"): row for row in zenodo.get("files", [])}
+    github_missing = sorted(expected_names - set(github_assets))
+    zenodo_missing = sorted(expected_names - set(zenodo_files))
+    zenodo_extra_files = sorted(set(zenodo_files) - expected_names)
+    zenodo_checksum_mismatches = []
+    for name, row in zenodo_files.items():
+        if name not in expected_names:
+            continue
+        path = (release_root(root) / "artifacts" / name) if name.lower().endswith((".pdf", ".zip")) else root / name
+        if not path.exists():
+            continue
+        local_md5 = hashlib.md5(path.read_bytes()).hexdigest()
+        remote_md5 = str(row.get("checksum", "")).replace("md5:", "")
+        if remote_md5 and local_md5 != remote_md5:
+            zenodo_checksum_mismatches.append({"name": name, "local_md5": local_md5, "remote_md5": remote_md5})
+    gh_body = gh.get("body") or ""
+    zen_desc = zenodo.get("metadata", {}).get("description") or ""
+    zen_keywords = set(zenodo.get("metadata", {}).get("keywords") or [])
+    checks = {
+        "github_has_toc": "## Table Of Contents" in gh_body,
+        "github_has_asset_guide": "## Separate PDF Files" in gh_body and "OC_CORE_1_3_2_MASTER_MONOGRAPH_EN.pdf" in gh_body,
+        "github_has_hashtags": all(tag in gh_body for tag in RELEASE_HASHTAGS[:3]),
+        "zenodo_has_toc": "Table Of Contents" in zen_desc,
+        "zenodo_has_asset_guide": "Separate PDF Files" in zen_desc,
+        "zenodo_has_keywords": set(RELEASE_KEYWORDS[:6]).issubset(zen_keywords),
+        "github_assets_complete": not github_missing,
+        "zenodo_files_complete": not zenodo_missing,
+        "zenodo_checksums_match": not zenodo_checksum_mismatches,
+    }
+    state = "PASS" if all(checks.values()) else "FAIL"
+    report = {
+        "schema_id": "OC132_PUBLIC_RELEASE_PRESENTATION_POSTFLIGHT_v1",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_at": TIMESTAMP,
+        "state": state,
+        "github_release_url": gh.get("html_url"),
+        "zenodo_record_url": ZENODO_RECORD_URL,
+        "doi": zenodo.get("doi"),
+        "checks": checks,
+        "github_body_length": len(gh_body),
+        "zenodo_description_length": len(zen_desc),
+        "github_asset_count": len(github_assets),
+        "zenodo_file_count": len(zenodo_files),
+        "github_missing_assets": github_missing,
+        "zenodo_missing_files": zenodo_missing,
+        "zenodo_extra_files": zenodo_extra_files,
+        "zenodo_checksum_mismatches": zenodo_checksum_mismatches,
+        "groups": presentation["groups"],
+        "hashtags": presentation["hashtags"],
+        "keywords": presentation["keywords"],
+    }
+    _write_json(editorial_root(root) / "PUBLIC_RELEASE_PRESENTATION_POSTFLIGHT_latest.json", report)
+    md = [
+        "# Public Release Presentation Postflight",
+        "",
+        f"State: `{state}`",
+        f"GitHub: {gh.get('html_url')}",
+        f"Zenodo: {ZENODO_RECORD_URL}",
+        f"DOI: `{zenodo.get('doi')}`",
+        "",
+        "## Checks",
+        "",
+        *[f"- {key}: `{str(value).lower()}`" for key, value in checks.items()],
+    ]
+    if zenodo_checksum_mismatches:
+        md.extend(["", "## Zenodo Checksum Mismatches", "", *[f"- `{row['name']}`" for row in zenodo_checksum_mismatches]])
+    _write_text(editorial_root(root) / "PUBLIC_RELEASE_PRESENTATION_POSTFLIGHT_latest.md", "\n".join(md))
+    return report
 
 
 def grant_owner_approval(root: Path, owner_identity: str = "Alexander Yashin") -> dict[str, Any]:
@@ -486,6 +1132,45 @@ def _zenodo_request(path: str, method: str = "GET", data: Any | None = None) -> 
     return json.loads(raw.decode("utf-8")) if raw else {}
 
 
+def _public_asset_path(root: Path, name: str) -> Path:
+    return (release_root(root) / "artifacts" / name) if name.lower().endswith((".pdf", ".zip")) else root / name
+
+
+def _github_upload_asset(release_id: int | str, path: Path) -> Any:
+    token = os.environ["GITHUB_TOKEN"].strip()
+    upload_path = f"/repos/{REPO}/releases/{release_id}/assets?{urllib.parse.urlencode({'name': path.name})}"
+    req = urllib.request.Request("https://uploads.github.com" + upload_path, data=path.read_bytes(), method="POST")
+    req.add_header("Authorization", "Bearer " + token)
+    req.add_header("Accept", "application/vnd.github+json")
+    req.add_header("Content-Type", "application/octet-stream")
+    with urllib.request.urlopen(req, timeout=300) as resp:
+        raw = resp.read()
+    return json.loads(raw.decode("utf-8")) if raw else {}
+
+
+def _zenodo_upload_file(deposition_id: str, path: Path) -> None:
+    token = os.environ["ZENODO_ACCESS_TOKEN"].strip()
+    upload_url = f"https://zenodo.org/api/deposit/depositions/{deposition_id}/files?{urllib.parse.urlencode({'access_token': token})}"
+    boundary = "----OC132Boundary"
+    body = (
+        f"--{boundary}\r\nContent-Disposition: form-data; name=\"file\"; filename=\"{path.name}\"\r\n"
+        "Content-Type: application/octet-stream\r\n\r\n"
+    ).encode("utf-8") + path.read_bytes() + f"\r\n--{boundary}--\r\n".encode("utf-8")
+    req = urllib.request.Request(upload_url, data=body, method="POST")
+    req.add_header("Content-Type", f"multipart/form-data; boundary={boundary}")
+    with urllib.request.urlopen(req, timeout=300) as resp:
+        resp.read()
+
+
+def _zenodo_bucket_upload_file(bucket_url: str, path: Path) -> None:
+    token = os.environ["ZENODO_ACCESS_TOKEN"].strip()
+    upload_url = bucket_url.rstrip("/") + "/" + urllib.parse.quote(path.name) + "?" + urllib.parse.urlencode({"access_token": token})
+    req = urllib.request.Request(upload_url, data=path.read_bytes(), method="PUT")
+    req.add_header("Content-Type", "application/octet-stream")
+    with urllib.request.urlopen(req, timeout=300) as resp:
+        resp.read()
+
+
 def publish_execute(root: Path) -> dict[str, Any]:
     preflight = publication_preflight(root)
     if preflight["state"] != "PASS":
@@ -520,7 +1205,7 @@ def publish_execute(root: Path) -> dict[str, Any]:
             "keywords": ["ontology", "continua", "systems theory", "structural dynamics", "reproducibility", "release governance"],
             "related_identifiers": [
                 {"identifier": "10.5281/zenodo.17899134", "relation": "isVersionOf", "scheme": "doi"},
-                {"identifier": "10.5281/zenodo.19741958", "relation": "isNewVersionOf", "scheme": "doi"},
+                {"identifier": PREVIOUS_DOI, "relation": "isNewVersionOf", "scheme": "doi"},
                 {"identifier": f"https://github.com/{REPO}/releases/tag/{TAG}", "relation": "isSupplementTo", "scheme": "url"},
             ],
         }
