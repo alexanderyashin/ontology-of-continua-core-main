@@ -7,51 +7,51 @@
   "finding_total": 6,
   "findings": [
     {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-      "failure_mode": "The promoted claim is wider than the current Lean subset. `proofs/PROOF_LEDGER_1_3_3.md` binds this row only to `declared_death_blocks_live`, and `formal/lean/OC133V12.lean` proves only a live/death contradiction under explicit hypotheses. The proof does not use `residueOf` or `rebirthOf`, proves no residue/rebirth typed-predicate separation, and establishes no morphism-class structure for this theorem. The finite runner likewise checks boolean death/live/cycle fields and `residue_class != identity_class`, but no rebirth separation.",
-      "required_repair": "Split the claim into the actually proved live/death consistency row, or add Lean definitions and theorems using `residueOf`, `rebirthOf`, and explicit morphism classes with paired finite positive/negative cases for live/death/residue/rebirth separation.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-ID: Residue preservation and rebirth are not identity continuation unless declared identity invariants are preserved.",
-      "failure_mode": "`formal/lean/OC133V12.lean::invariant_lost_blocks_identity` only proves that `restartClass` returns non-identity when `identityInvariant x y = false`; `restartClass` ignores `residueOf` and `rebirthOf`. The current proof therefore does not cover residue preservation, does not require a residue-to-new-live rebirth path, and does not separately classify residue versus rebirth. The finite runner reduces the theorem to string/boolean checks on `morphism`, `identity_invariant_preserved`, and `classified_as_identity`.",
-      "required_repair": "Formalize residue-preservation and rebirth relations with domains/codomains and identity-invariant preservation conditions, prove residue and rebirth cases separately in Lean, and add finite controls where preserved residue without invariant and rebirth with/without invariant are independently tested.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-ID title: Identity, residue, and rebirth morphism classification theorem; comparator wording: typed objects, morphisms, categorical semantics / typed morphism discipline.",
-      "failure_mode": "The categorical wording is not supported by the Lean subset. `formal/lean/OC133V12.lean` defines only an enum `MorphismClass` and a classifier function; it has no morphism record, source/target typing, identity morphisms, composition, associativity, identity laws, category instance, functoriality, or categorical semantics. Calling this a morphism classification/category result is theorem theater relative to the machine-checked artifact.",
-      "required_repair": "Either rename the public wording to non-categorical tag/classification language, or add an explicit category/morphism formalization in Lean with source/target, identities, composition, and laws, then bind the theorem inventory and finite checks to those formal objects.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-CYCLE: Live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
-      "failure_mode": "The Lean theorem proves only `eligibleLive R x -> supportWitnessed R x`, but `eligibleLive` is defined to include `supportWitnessed`; it does not constrain raw `R.live x = true`. A model can set `live = true` with no cycle and no maintenance unless it is also classified as `eligibleLive`. The public claim says live status itself requires support, which the current Lean subset does not prove.",
-      "required_repair": "Change the promoted claim to eligible-live classification requires cycle or maintenance, or strengthen `Realization` with a live-support invariant and prove `R.live x = true -> cycleWitnessed R x / R.maintenance x = true`, with finite controls matching that stronger invariant.",
-      "status": "OPEN"
-    },
-    {
       "severity": "CRITICAL",
       "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
       "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
-      "failure_mode": "The proof is tautological rather than a minimality proof for the OC tuple. `formal/lean/OC133V12.lean` defines `componentVerdict` as pass iff `present = true`, and `witnessForComponent` sets keep present/drop absent, so every component changes verdict by construction. The finite runner repeats the same self-confirming pattern by accepting component rows when `keep_present` is true, `drop_present` is false, and `changed_fields` names the component. This does not test the actual OC verdict semantics or independence of carrier, residue, morphisms, boundaries, etc.",
-      "required_repair": "Replace the toy present/absent verdict with the actual OC verdict classifier over the promoted tuple, and provide one-component countermodels whose verdict changes for semantic reasons. Otherwise demote the claim from global minimality to illustrative component toggles.",
+      "failure_mode": "The Lean subset defines `ocTupleVerdict` as `allComponentsPresent` over boolean flags, so dropping any component fails by construction. The finite runner mirrors the same flag-drop rule and does not independently validate the semantic necessity of carrier, residue, morphisms, boundaries, operators, cycles, dimension, or K. This is theorem theater for minimality, not a non-circular verdict-changing witness proof.",
+      "required_repair": "Demote T133-MIN to a schema sanity check, or replace the boolean-presence verdict with independent per-component OC verdict semantics and finite witnesses whose pass/fail does not mechanically follow from the component-present bit; also align finite `k` with Lean `kFunctional`.",
       "status": "OPEN"
     },
     {
       "severity": "CRITICAL",
       "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
       "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
-      "failure_mode": "The Lean proof constructs the same generic `retainedTransitionEvidence` for every `AdjacentK`; it does not encode transition-specific added axes, witness pairs, or reduction criteria. `every_adjacent_transition_has_witness` proves `demotionAllowed = false`, while the only demotion theorem proves `lawfulDemotion w -> witnessRetained = false`; it does not prove a lawful demotion criterion exists for every adjacent transition. The finite runner checks flags such as `witness_retained`, `added_axis_observable`, and `demotion_allowed`, but does not evaluate the textual witness or criterion content.",
-      "required_repair": "Formalize transition-specific witnesses and reduction/demotion predicates for each adjacent K transition, prove both retained-witness reduction failure and lost-witness lawful demotion cases per transition, and make the finite runner evaluate those structured predicates rather than flags and descriptions.",
+      "failure_mode": "The Lean subset only enumerates `AdjacentK` constructors and generates numeric witness codes. `reductionFails` and `lawfulDemotion` are defined by retained/unretained boolean fields, and the finite runner checks code arithmetic plus booleans. There is no typed definition of the K-level carriers, morphisms, reduction maps, equivalences, or demotion semantics claimed by the theorem.",
+      "required_repair": "Demote the claim to an executable atlas bookkeeping claim, or formalize K0-K12 semantics with typed source/target carriers, reduction morphisms, retained-witness predicates, and lawful demotion conditions, then prove each adjacent case against those definitions rather than code alignment.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
+      "failure_mode": "The cited Lean theorem `declared_death_blocks_live` only proves inconsistency from the supplied assumptions `live = false` and `live = true`; it does not prove death implies not-live, does not type residue or rebirth as disjoint morphism classes, and does not establish categorical source/target or composition structure. The finite check uses a single ad hoc model with `residue_class != identity_class`, not a proof of the promoted separation claim.",
+      "required_repair": "Narrow the claim to the exact Lean theorem, or add Lean definitions and theorems tying death, live, residue, rebirth, and identity to disjoint typed predicates/morphism classes with finite positive and negative cases for each separation.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "T133-ID: Residue preservation and rebirth are not identity continuation unless declared identity invariants are preserved.",
+      "failure_mode": "The cited Lean theorem only says `restartClass` is not `identity` when `identityInvariant` is false, by definition. It does not model residue preservation, does not prove residue morphism composition with rebirth, does not provide categorical morphism laws, and the finite model checks only a rebirth case with invariant false, not residue or invariant-preserved identity cases.",
+      "required_repair": "Either demote the claim to the exact `restartClass` boolean classifier theorem, or formalize residue, rebirth, identity invariants, source/target typing, and composition, then add Lean and finite cases for residue, rebirth, invariant-loss, and invariant-preserved identity.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "P012/OC133-NOSEND-001 route: claim -> Lean theorem/proof sheet -> semantic finite case `ADV-NOSEND-PUBLISH` -> negative control -> falsifier.",
+      "failure_mode": "The theorem inventory contains no `OC133-NOSEND-001` theorem, and the finite no-send row's `lean_ref` points to JSON manifest/approval artifacts rather than Lean. The no-send lock itself is present, but the coverage matrix falsely routes it through a Lean theorem/proof-sheet chain.",
+      "required_repair": "Rewrite P012 as a manifest-backed owner-gated state-machine check, or add an actual theorem inventory row, proof sheet, and Lean theorem for the no-send state machine.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "`critical_unresolved_total`: 0 and `high_unresolved_total`: 0.",
+      "failure_mode": "The attack matrix closes current critical/high objections by citing weak evidence such as `semantic_evaluator=true` for T133-MIN and generated Lean witnesses for T133-KLEVEL. The current Lean and finite artifacts still leave the minimality, K-level, and morphism-separation claims unsupported at their promoted wording.",
+      "required_repair": "Reopen the affected attack rows, set unresolved totals nonzero, and only close them after the underlying claims are narrowed or the missing typed/categorical Lean and finite evidence is added.",
       "status": "OPEN"
     }
   ],

@@ -2,43 +2,59 @@
   "role": "empirical_statistician",
   "findings": [
     {
-      "severity": "HIGH",
-      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
-      "claim": "OC133-NUM-SYS-WDI-GDP: one-step GDP replay with comparator under a split_policy that trains on two previous non-null years and holds out the latest non-null year.",
-      "failure_mode": "The heldout residual PASS is contaminated by the heldout target: uncertainty 4241013358949.0 equals observed_value 110982661180013.0 minus comparator_prediction 106741647821064.0 from the referenced WDI snapshot, so the falsifier threshold is derived from the heldout year. The comparator is also not scored with its own residual/error, so the comparator language is not an independent comparator test.",
-      "required_repair": "Recompute uncertainty from pre-heldout training years only or from a predeclared external uncertainty, add an explicit comparator method and comparator residual/error, rerun from frozen inputs, and demote the row to non-heldout arithmetic replay if any target-derived quantity remains.",
-      "status": "OPEN"
-    },
-    {
       "severity": "CRITICAL",
       "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 for 210 objections.",
-      "failure_mode": "The matrix closes release-critical empirical, coverage, and proof attacks by detecting closure tokens rather than validating the evidence. Current examples include V12-ATTACK-003 closed by NUMERIC_REPLAY_QA_NOT_EMPIRICAL_PROMOTION despite the GDP heldout leakage, V12-ATTACK-002 closed by semantic_evaluator=true although the runner accepts self-declared model flags, and V12-ATTACK-005 closed by PHENOMENON_SPECIFIC_MODEL_REPLAYED despite no domain empirical coverage.",
-      "required_repair": "Replace token-based closure with per-attack acceptance tests; reopen affected critical/high rows until numeric heldout replay is target-clean, finite checks compute from raw model semantics rather than self-asserted flags, and phenomenon coverage has domain evidence or is explicitly unresolved.",
+      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 for the v12 attack matrix",
+      "failure_mode": "The matrix self-closes 210 objections by repeated generic rows and token-level closure evidence such as status strings or theorem names. It does not adjudicate the specific numeric, heldout, comparator, prior-art, or finite-witness failures still present in the current artifacts, so the zero unresolved critical/high totals are not supported.",
+      "required_repair": "Recompute the attack matrix from unique objection-specific reviews; keep any row OPEN until the cited artifact directly repairs the failure mode, and remove aggregate zero-unresolved totals until all current reviewer findings are actually closed.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-      "claim": "OC133-NOVELTY-001: source-backed prior-art positioning supports the bounded OC release-governance residual delta.",
-      "failure_mode": "The residual-delta test relies on one anchor page per tradition and absence labels such as NOT_FOUND_IN_SOURCE_PAGE. Absence from a single source page is not a prior-art search and does not support a residual positioning claim for release governance, formal-method governance, or systems-engineering overlap.",
-      "required_repair": "Demote to illustrative comparator notes or add a real prior-art protocol: search queries, inclusion/exclusion rules, archived source snapshots, quote/extract anchors, multiple sources per tradition, and a negative-search log for the claimed residual bundle.",
+      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
+      "claim": "OC133-NUM-SYS-WDI-GDP: one-step GDP replay with comparator, no superiority claim",
+      "failure_mode": "The row calls the 2024 WDI value held out, but its declared uncertainty equals the heldout 2024 value minus the 2023 comparator, so the pass threshold uses the observed holdout. That turns the residual check into post-hoc replay rather than a valid heldout test.",
+      "required_repair": "Compute prediction, comparator, and tolerance only from pre-holdout training years with a frozen protocol and exact formula, or demote the row to non-heldout snapshot replay and remove heldout/residual-pass language.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "unsupported_closed_total=0 with explanation_status=PHENOMENON_SPECIFIC_MODEL_REPLAYED across broad hostile questions including biological organization, origin-of-life framing, social institutions, and theory change.",
-      "failure_mode": "The rows answer broad empirical or cross-domain phenomena using only formal toy model cards, Lean/proof-sheet refs, and finite replay IDs, while also admitting each row is not a full empirical solution. This converts scoped examples into apparent coverage closure without domain data, comparator baselines, residual analysis, or external falsification.",
-      "required_repair": "Rename the artifact to formal model-card examples or add an explicit unresolved broad-phenomenon status. Only mark coverage closed after adding domain datasets, preregistered observable mappings, comparator baselines, residual criteria, and falsifiers for each phenomenon.",
+      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
+      "claim": "OC133-NUM-CHEM-H2O: formula-to-molecular-weight replay for water only",
+      "failure_mode": "The official PubChem snapshot supplies H2O and MolecularWeight=18.015, but the table's predicted_value=18.01528 depends on unstated atomic weights. The claimed formula replay is therefore not reproducible from the cited official snapshot alone, and the 'predeclared formula split' is not evidenced.",
+      "required_repair": "Add pinned atomic-weight source data and a replay script/hash that derives 18.01528 before reading the observed molecular weight, or change the claim to a PubChem molecular-weight field replay and remove unsupported formula/split language.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "T133-KLEVEL: every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion",
+      "failure_mode": "The evaluator checks only numeric code alignment and Boolean flags for adjacent K transitions. The substantive fields in the finite inputs, including added_axis, witness_pair, reduction_failure_criterion, and lawful_demotion_criterion, are not semantically evaluated, so arbitrary relabeled transition stories can still pass.",
+      "required_repair": "Either demote the claim to synthetic code/flag alignment, or implement transition-specific semantic predicates and adversarial negative controls that mutate the witness and reduction/demotion criteria and fail for the right reason.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-MIN: each promoted tuple component is required by a verdict-changing witness pair",
+      "failure_mode": "The Lean proof defines ocTupleVerdict to pass exactly when all component booleans are true, then proves by cases that dropping any one Boolean fails. This establishes a tautology of the chosen encoding, not empirical or formal irreducibility against relabeling or alternative equivalent encodings.",
+      "required_repair": "Demote the theorem to 'under this Boolean all-components-present encoding', or add a non-tautological minimality specification with adversarial alternative encodings and executable witnesses showing each component changes an independently defined verdict.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-KLEVEL is promoted as PROMOTED_BOUNDED_WITH_LEAN_SUBSET_AND_FINITE_WITNESS for every adjacent K-level transition K0->K12.",
-      "failure_mode": "The cited Lean subset formal/lean/OC133V12.lean::every_adjacent_transition_has_witness constructs retainedTransitionEvidence with fixed booleans for any AdjacentK enum value; the finite runner then accepts rows whose input flags assert witness_retained=true and added_axis_observable=true. This checks a schema constructor and declared flags, not the actual K-level atlas semantics or verdict-changing witnesses.",
-      "required_repair": "Formalize the K-level atlas and concrete witness predicates in Lean or in a separately verified data model, prove each transition from concrete keep/drop state pairs, make the finite runner recompute verdict changes from raw model fields, and demote T133-KLEVEL until that proof path exists.",
+      "claim": "T133-OMEGA-STATUS: live status, death, residue, and rebirth are distinct typed predicates and morphism classes",
+      "failure_mode": "The inventory cites formal/lean/OC133V12.lean::declared_death_blocks_live, but that theorem only derives a contradiction from live=false and live=true under a death premise. It does not prove distinct residue/rebirth morphism classes or a death-to-not-live rule without assuming not-live separately.",
+      "required_repair": "Replace the cited theorem with machine-checked statements that explicitly type and separate live, death, residue, rebirth, and identity invariants, or narrow the public claim to the contradiction actually proved.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "OC133-NOVELTY-001: prior-art comparison supports bounded positioning of the OC release-governance bundle",
+      "failure_mode": "The register uses single source pages and NOT_FOUND_IN_SOURCE_PAGE/PARTIAL labels as residual-delta evidence. That is not a sufficient prior-art protocol for positioning the release-governance bundle, especially against adjacent traditions such as formal methods, registered reports, reproducibility tooling, CI gates, and publication governance.",
+      "required_repair": "Demote the register to illustrative overlap notes, or add a systematic prior-art search protocol with query strings, databases, inclusion/exclusion criteria, dated captures, and explicit residual-delta tests before using it to support bounded positioning.",
       "status": "OPEN"
     }
   ]

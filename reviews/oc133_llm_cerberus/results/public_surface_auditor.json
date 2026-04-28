@@ -2,56 +2,48 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "public_surface_auditor",
   "execution_status": "EXECUTED",
-  "critical_open_total": 0,
+  "critical_open_total": 1,
   "high_open_total": 4,
-  "finding_total": 6,
+  "finding_total": 5,
   "findings": [
     {
-      "severity": "HIGH",
+      "severity": "CRITICAL",
       "artifact_ref": "formal/lean/OC133V12.lean",
       "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-      "failure_mode": "The promoted Lean reference declared_death_blocks_live does not prove that declared death blocks live status; it assumes both L.live x = false and L.live x = true, then derives contradiction. The Lifecycle structure permits death=true and live=true with no well-formedness invariant, so the public claim is stronger than the checked theorem.",
-      "required_repair": "Add a lifecycle validity invariant and prove death=true implies live=false under that invariant, then update the theorem inventory/proof ledger and finite checks to cite that theorem; otherwise demote/reword the public claim to the weaker contradiction lemma.",
+      "failure_mode": "The promoted claim is mapped to Lean support that does not prove the claim. `declared_death_blocks_live` assumes both `L.live x = false` and `L.live x = true` and derives contradiction; it does not derive death -> not live, and it does not prove residue/rebirth/type non-interchangeability. The attack matrix also closes T133-OMEGA-STATUS via `eligible_live_requires_cycle`, which contains no death, residue, or rebirth content.",
+      "required_repair": "Strengthen the Lean surface to prove death-implies-not-live and separate residue/rebirth/identity morphism classes under explicit assumptions, then update theorem inventory, proof ledger, and attack-matrix closures to those exact theorem refs; otherwise demote or narrow the public claim to the tautology actually checked.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-K-ZERO: Continuumness zero follows from a declared zero-cause family, not only from empty admissibility or empty cycles.",
-      "failure_mode": "The cited Lean support is trivial: zero_cause_has_cause proves only that flow=true is one zero-cause disjunct, and k_zero_iff_declared_zero_cause is an alias equivalence. No Lean object represents continuumness, K=0, admissibility, cycles, or the claimed exclusion of empty-set explanations.",
-      "required_repair": "Formalize the K/continuumness functional, declared zero-cause family, admissibility and cycle alternatives, then prove the stated K=0 licensing theorem; otherwise demote the claim to a bounded zero-cause predicate sanity check.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
-      "failure_mode": "The minimality theorem uses a synthetic ComponentCase where verdict is pass iff present=true. That makes every component verdict-changing by construction and does not encode the actual OC tuple, promoted components, or domain verdict semantics. The finite runner mirrors this presence-bit test rather than testing real component removal.",
-      "required_repair": "Encode the actual OC verdict function and promoted tuple schema, require keep/drop pairs to differ only in the removed component, and prove/evaluate verdict change under that real semantics; otherwise demote the claim to a toy component-enum witness.",
+      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+      "claim": "OC133-NOSEND-001: Publication and journal submission remain locked until separate owner approval.",
+      "failure_mode": "The `ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL` row reports `ALLOW_AFTER_OWNER_APPROVAL` and points `lean_ref` at `releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json`, but the current referenced owner artifact has `decision: PENDING`, `owner_approved: false`, and `publish_allowed: false`. The finite result hard-codes an approved model that contradicts its own current reference.",
+      "required_repair": "Either replace the `lean_ref` with an explicit hypothetical approved-control fixture, or remove the allow-control row until a real owner-approved artifact exists. The runner should validate no-send model fields against the referenced manifest/approval file instead of trusting row-local booleans.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
-      "failure_mode": "The K-level finite evaluator validates only transition_id and a few booleans; witness_pair, added_axis, reduction_failure_criterion, and lawful_demotion_criterion are unchecked strings. The Lean theorem similarly manufactures a generic retainedTransitionEvidence for any AdjacentK, so transition-specific irreducibility is not actually established.",
-      "required_repair": "Replace string/boolean witness rows with structured per-transition evidence that the runner semantically checks, and formalize distinct transition-specific witnesses or demote the claim to a registry-completeness check.",
+      "claim": "OC133-NOSEND-001 DOI/public-action lock coverage.",
+      "failure_mode": "The no-send evaluator checks only `owner_approved`, `publish_requested`, and `publish_allowed`. It does not model or validate `journal_submissions_allowed`, `github_release_allowed`, `zenodo_deposit_allowed`, `software_heritage_deposit_allowed`, or DOI/deposit public actions present in the publish manifest. The finite checks would still pass if those public-action channels drifted open while `publish_allowed` stayed false.",
+      "required_repair": "Add channel-specific no-send cases and runner validation for journal submission, GitHub release, Zenodo DOI/deposit, Software Heritage deposit, and generic publish action; require all channels to be false when `global_no_send_lock` is true and owner approval is absent.",
       "status": "OPEN"
     },
     {
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "OC133-NOSEND-001: Publication and journal submission remain locked until separate owner approval.",
-      "failure_mode": "The P012 public explanation route says the no-send claim goes through a Lean theorem/proof sheet and lists formal/lean/OC133V12.lean, but OC133V12.lean contains no no-send theorem and no proof sheet is referenced for this claim. The actual support is the owner/manifest control plane, so the public-surface route overstates formal proof parity.",
-      "required_repair": "Change P012 evidence and explanation route to cite the publish manifest and owner approval artifact only, or add an actual no-send Lean formalization and proof sheet before presenting it as a Lean-backed route.",
+      "claim": "OC133-NOSEND-001 public-surface route: claim -> Lean theorem/proof sheet -> semantic finite case -> control -> falsifier.",
+      "failure_mode": "P012 presents no-send governance as passing through a Lean theorem/proof-sheet route and lists `formal/lean/OC133V12.lean` as evidence, but the Lean file, theorem inventory, and proof ledger contain no no-send theorem or proof-sheet row. This is public-surface parity failure: the coverage matrix advertises formal evidence that the current formal surface does not contain.",
+      "required_repair": "Either add a real no-send theorem/proof sheet and inventory/proof-ledger row, or rewrite P012 so the evidence route is manifest/owner-approval artifact plus finite state-machine only, with no Lean/proof-sheet wording.",
       "status": "OPEN"
     },
     {
-      "severity": "MEDIUM",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "OC133-NOSEND-001: Publication and journal submission remain locked until separate owner approval.",
-      "failure_mode": "The no_send_state_machine evaluator reads owner_approved and publish_allowed from the finite-model input row, not from the referenced publish manifest or owner approval JSON. The current manifest is locked, but the finite check itself can pass fabricated or stale no-send inputs.",
-      "required_repair": "Have the runner load the referenced manifest/owner-approval JSON and assert the live fields global_no_send_lock=true, owner_approved=false, publish_allowed=false, journal submissions false, and deposit actions false.",
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "T133-OMEGA-STATUS promoted theorem coverage.",
+      "failure_mode": "The claim ledger promotes T133-OMEGA-STATUS, but the phenomenon coverage matrix has no row whose `attacked_claim` is `T133-OMEGA-STATUS`; the death/residue/rebirth question is instead routed to T133-ID. This leaves a promoted theorem without direct phenomenon coverage while the matrix reports `unsupported_closed_total: 0`.",
+      "required_repair": "Add a dedicated T133-OMEGA-STATUS phenomenon row with model card, positive/negative finite cases, falsifier, and exact Lean/proof-sheet refs, or demote the claim from public promotion until the coverage surface matches it.",
       "status": "OPEN"
     }
   ],

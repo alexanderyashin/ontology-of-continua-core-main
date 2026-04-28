@@ -2,64 +2,56 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "not_novel_attacker",
   "execution_status": "EXECUTED",
-  "critical_open_total": 2,
+  "critical_open_total": 0,
   "high_open_total": 5,
-  "finding_total": 7,
+  "finding_total": 6,
   "findings": [
     {
-      "severity": "CRITICAL",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
-      "failure_mode": "The Lean subset makes minimality true by construction: componentVerdict is only present -> pass / absent -> fail, and every_component_has_witness ranges over enum labels without modeling the actual OC verdict semantics or any reduction to GST, systems engineering, category/topos, formal-methods, or other prior-art encodings. This proves a schema tautology, not irreducibility of the promoted tuple.",
-      "required_repair": "Replace the present/absent toy verdict with a formal OC verdict relation over the real tuple components and declared tests; prove each component changes an independently specified verdict under one-component deletion, and add explicit failed-reduction witnesses against the listed prior-art formalisms, or demote T133-MIN to a finite schema sanity check.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "CRITICAL",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
-      "failure_mode": "The theorem every_adjacent_transition_has_witness manufactures retainedTransitionEvidence for any AdjacentK with witnessRetained=true, addedAxisObservable=true, demotionAllowed=false, and reduction=losesWitness. No K-level semantics, axis interpretation, prior-art reduction map, or observational equivalence is formalized. The current proof therefore cannot block reduction of the K-level atlas to relabeled systems engineering, hybrid systems, RAF, category/topos, or formal-methods lifecycle layers.",
-      "required_repair": "Formalize each K-level as a typed state/observation theory with explicit translations to lower K and to the relevant prior-art comparators; prove concrete countermodels where each translation preserves assumptions but loses the declared observable, and prove lawful demotion when observability is absent, or demote the claim to an asserted atlas table.",
-      "status": "OPEN"
-    },
-    {
       "severity": "HIGH",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "Finite model checks provide semantic executable witnesses for all promoted v12 theorem rows.",
-      "failure_mode": "The runner is not an independent finite-model checker. It hard-codes one Boolean recognizer per theorem and accepts rows whose fields mirror the expected verdicts; component and K-level cases are checked by flags such as keep_present/drop_present, witness_retained, added_axis_observable, and demotion_allowed rather than by enumerating models satisfying formal assumptions. This leaves the finite corpus self-confirming and unable to falsify relabeling into GST, RAF, hybrid systems, formal methods, or systems engineering.",
-      "required_repair": "Implement a real enumerative or solver-backed checker over independently specified structures and assumptions, generate positive and negative verdicts from the semantics rather than row labels, include mutation tests that should fail, and bind the runner predicates to the Lean definitions or demote finite checks to QA fixtures only.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 for the total attack matrix.",
-      "failure_mode": "The matrix closes release-critical attacks by citing labels rather than demonstrating closure. For example, the self-confirming finite-model attack is closed by semantic_evaluator=true, but the current runner still uses hard-coded verdict recognizers; novelty attacks are closed by NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY, but the comparator performs only bounded source-page absence tests. The closure ledger therefore masks live proof-theater and prior-art-relabeling risks.",
-      "required_repair": "Reopen the affected critical/high rows, require each closure to cite an independently checkable semantic repair rather than a status label, and recalculate unresolved totals after the finite-model and novelty repairs are actually present.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-      "claim": "OC133-NOVELTY-001: Prior-art comparison supports bounded positioning of the OC release-governance bundle; uniqueness is not promoted.",
-      "failure_mode": "The register avoids explicit uniqueness claims, but still treats the residual OC bundle as a bounded delta based on single-source or source-page absence tests such as NOT_FOUND_IN_SOURCE_PAGE. That is too weak for the not-novelty attack: release governance, V&V, claim ledgers, falsifier registries, formal proofs, and no-send gates are all natural systems-engineering/formal-methods control-plane concepts, and the artifact does not test combined prior-art bundles or workflow/governance literature.",
-      "required_repair": "Demote the novelty row to non-evaluative positioning, or replace the source-page absence tests with a systematic comparator search over systems engineering, formal methods, scientific workflow governance, proof-carrying artifacts, reproducibility checklists, and release-gating prior art, with explicit overlap scoring for the combined bundle.",
+      "artifact_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+      "claim": "OC133-NOSEND-001: Publication and journal submission remain locked until separate owner approval.",
+      "failure_mode": "The no-send negative control ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL cites releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json but hard-codes owner_approved=true and publish_allowed=true, while the directly referenced approval artifact and publish manifest both have owner_approved=false and publish_allowed=false. The runner evaluates the supplied model, not the referenced artifact, so the no-send state-machine evidence can pass on a fabricated approved state.",
+      "required_repair": "Make the finite runner load and verify the actual owner approval and publish manifest files for no-send cases, or mark the owner-approved row as a synthetic fixture that does not cite the current owner approval artifact; keep real publication channels blocked until a separate real approval artifact exists.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "PHENOMENON_SPECIFIC_MODEL_REPLAYED coverage for broad phenomena including biological organization, origin-of-life framing, social institutions, theory change, recursive self-application, and K-level collapse objections.",
-      "failure_mode": "The coverage rows answer broad hostile questions with toy model cards and finite replay IDs while preserving labels like explanation_status=PHENOMENON_SPECIFIC_MODEL_REPLAYED and unsupported_closed_total=0. The limitations say these are not full empirical solutions, but the matrix still presents them as phenomenon coverage/closure. That is empirical and coverage theater: it does not establish explanation beyond scoped formal examples and remains reducible to prior-art toy encodings.",
-      "required_repair": "Rename these rows as toy model-card smoke tests, remove closure language for broad phenomena, add explicit unsupported/open coverage status where no domain evidence exists, and require phenomenon-specific empirical or formal comparator baselines before marking any broad phenomenon as covered.",
+      "claim": "T133-KLEVEL coverage rows P008-P011: OC explains origin-of-life closure, social institutions, theory change, and recursive self-application through replayed phenomenon-specific models.",
+      "failure_mode": "The matrix marks these rows PHENOMENON_SPECIFIC_MODEL_REPLAYED, but the referenced K-level finite checks only validate transition codes, witness_retained, added_axis_observable, demotion_allowed, and reduction_attempt. Domain phrases such as autocatalytic closure, norm/role classifier, claim/evidence update, and self-application are labels in the input, not semantics parsed or checked by run_finite_model_checks.py. This is phenomenon coverage by relabeling.",
+      "required_repair": "Demote P008-P011 to scoped label-only examples, or add executable domain models and runner predicates for RAF closure, role/norm action changes, claim-revision dynamics, and typed self-application before marking them replayed.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-      "failure_mode": "The promoted Lean reference is declared_death_blocks_live, which only proves inconsistency from death=true, live=false, and live=true. It does not prove the advertised distinct typed predicate/morphism separation for residue and rebirth, nor a non-equivocation theorem connecting live/death/residue/rebirth across lifecycle transitions.",
-      "required_repair": "Replace the cited Lean reference with a theorem that formalizes the four predicates/classes and proves their separation plus transition constraints, add finite cases covering residue and rebirth specifically, or narrow the public claim to the death/live contradiction actually proved.",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
+      "failure_mode": "The Lean proof makes minimality true by definition: ocTupleVerdict passes exactly when all component flags are true, and dropped_component_fails follows by case reduction over that conjunction. The finite runner mirrors the same keep/drop flag schema. This proves the release checklist requires its own flags, not that the OC tuple components are independently minimal against GST, systems engineering, category/topos, RAF, or formal-method reductions.",
+      "required_repair": "Replace the self-referential pass/fail predicate with independently specified verdict tasks or external falsifier cases, then show each component changes at least one independent verdict; otherwise demote T133-MIN to an internal schema sanity check.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
+      "failure_mode": "The Lean witness theorem constructs retainedTransitionEvidence with witnessRetained=true, addedAxisObservable=true, demotionAllowed=false, and reduction=losesWitness by definition; the runner checks numeric code alignment and booleans. It does not prove irreducibility against lower-level GST, dynamical-systems, RAF, hybrid-systems, or formal-method encodings.",
+      "required_repair": "Provide independent semantics for each K transition plus real reduction maps and countermodels showing non-preservation under the lower level, or demote T133-KLEVEL from irreducibility theorem to declared atlas consistency check.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "OC133-NOVELTY-001: Prior-art comparison supports bounded positioning of the OC release-governance bundle; uniqueness is not promoted.",
+      "failure_mode": "The Causal and Identity Theories row marks priority_date_status=PRIOR_ART_PREDATES_OC while its source_date is only 2026 and the register was inspected on 2026-04-28. That does not establish a pre-OC priority anchor for this comparator row, even if older identity literature exists elsewhere.",
+      "required_repair": "Replace the row source with a dated pre-OC primary/reference source or record the exact source revision date proving priority; otherwise mark that row priority status unresolved while retaining the no-uniqueness boundary.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 for v12 attacks.",
+      "failure_mode": "The matrix closes repeated critical coverage, novelty, proof, and release attacks by citing artifact-field labels such as PHENOMENON_SPECIFIC_MODEL_REPLAYED, semantic_evaluator=true, and NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY. Current artifacts still contain open high issues: self-confirming MIN/KLEVEL proofs, label-only phenomenon coverage, and a no-send control that cites an unapproved artifact while hard-coding approval.",
+      "required_repair": "Reopen the affected attack rows and require closures to reference executable checks that verify the actual semantic content, prior-art date support, and live no-send artifacts rather than status labels.",
       "status": "OPEN"
     }
   ],

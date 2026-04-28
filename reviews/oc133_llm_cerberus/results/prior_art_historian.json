@@ -4,38 +4,54 @@
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
   "high_open_total": 4,
-  "finding_total": 4,
+  "finding_total": 6,
   "findings": [
     {
       "severity": "HIGH",
       "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
       "claim": "OC133-NOVELTY-001: Prior-art comparison supports bounded positioning of the OC release-governance bundle; uniqueness is not promoted.",
-      "failure_mode": "The register asserts PRIOR_ART_PREDATES_OC while several source_date fields are only \"reference\" and one is \"2026\". Those rows do not establish dated priority before the OC 1.3.3 release date, so the priority portion of the source-backed comparator is not actually source-backed.",
-      "required_repair": "Replace every undated or same-year priority anchor with exact pre-OC publication or revision dates and source excerpts, or change those rows to an undated-reference status and demote OC133-NOVELTY-001 until dated priority is established.",
+      "failure_mode": "The comparator register does not yet support the advertised source-backed absence test. Most rows test absence only against a single source page or broad reference anchor, while several residual deltas are marked PARTIAL against systems engineering, formal methods, hybrid systems, RAF, identity, and complexity traditions. That is adequate as illustrative positioning, but not as a release-critical absence test for the combined proof/data/falsifier/no-send governance bundle.",
+      "required_repair": "Demote OC133-NOVELTY-001 to illustrative prior-art positioning, or add source-backed per-component and combined-bundle absence tests across formal methods, systems engineering, scientific workflow/release governance, reproducibility, and publication-control prior art; each row must distinguish overlap, partial overlap, and true residual delta with concrete source support.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-      "claim": "OC133-NOVELTY-001: Prior-art comparison supports bounded positioning of the OC release-governance bundle; uniqueness is not promoted.",
-      "failure_mode": "The absence tests are mostly assertions such as NOT_FOUND_IN_SOURCE_PAGE or prose statements that a single source page does not present the combined bundle. They include no exact inspected text, query terms, source snapshots, hashes, or element-level negative checks, so they support only a narrow page-level note, not a release-critical source-backed residual delta across the named traditions.",
-      "required_repair": "Add per-row source excerpts for overlap, explicit searched terms/sections for absence, archived source snapshots or hashes, and an element-by-element comparison for the claim/proof/data/falsifier/no-send bundle; otherwise demote the claim to cited-page positioning only.",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "T133-K-ZERO: Continuumness zero follows from a declared zero-cause family, not only from empty admissibility or empty cycles.",
+      "failure_mode": "The promoted claim contains a nonempty-admissibility/empty-cycle contrast, but the cited current formal and finite artifacts do not prove or test that contrast. The theorem inventory points to zero_cause_has_cause, the finite model checks use k_zero_iff_declared_zero_cause, and the K-ZERO finite rows only check k_value=0 plus any zero_causes=true/false; they do not encode admissible-set nonemptiness, empty admissibility, or empty cycles.",
+      "required_repair": "Either narrow the public claim to only declared zero-cause licensing, or add Lean and finite-model obligations that explicitly represent admissible-set cardinality and cycle state, including positive nonempty-admissible zero-cause cases and negative empty-admissibility/empty-cycle controls.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
+      "failure_mode": "The Lean proof is definitional rather than substantive: ocTupleVerdict is defined to pass only when all component booleans are true, so every_component_has_witness follows because dropComponent flips one required boolean. This does not establish independent minimality or a prior-art-resistant irreducibility result; it proves that a hand-defined all-fields-required predicate rejects missing fields.",
+      "required_repair": "Replace or supplement the tautological verdict predicate with independent witness models for each component, where removal changes a domain-relevant verdict not hard-coded as allComponentsPresent. Tie each witness to a proof sheet and finite negative control that cannot pass by restating the component list.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
       "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
-      "failure_mode": "The finite-model evaluator accepts K-level witnesses from row booleans such as witness_retained, added_axis_observable, demotion_allowed, and reduction_attempt. It does not independently verify added_axis, witness_pair, reduction_failure_criterion, or lawful_demotion_criterion against the atlas or prior-art sources, so the passing result is self-confirming theorem theater rather than evidence of irreducibility.",
-      "required_repair": "Make the runner load and cross-check the K-level atlas against every finite row, require executable countermodels for each transition, and demote T133-KLEVEL to a declared synthetic witness schema until the transition evidence is independently validated.",
+      "failure_mode": "The K-level theorem constructs witnesses from synthetic codes and booleans: witnessCode is upperCode*100+7, retainedTransitionEvidence sets witnessRetained=true, and every_adjacent_transition_has_witness then proves existence from those declarations. This does not discharge the prior-art relabeling attack for RAF, hybrid systems, systems engineering, formal methods, or social/theory-change rows; it shows an internally labeled ladder, not irreducible adjacent transitions.",
+      "required_repair": "For each K transition, add an independently specified model and reduction attempt whose verdict changes for semantic reasons, not because a retained flag is preset. Cross-reference comparator overlap rows and demote any K-level whose residual delta is only a relabeling of prior art.",
       "status": "OPEN"
     },
     {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-      "failure_mode": "The promoted Lean reference for this theorem is declared_death_blocks_live, which only proves inconsistency between live=true and live=false under declared death assumptions. It does not cover residue/rebirth separation, typed predicate non-interchangeability, or morphism-class distinctness for the full public claim.",
-      "required_repair": "Split the claim into separately promoted subclaims with matching Lean refs and finite cases, or add a theorem and finite witnesses that explicitly cover live, death, residue, rebirth, and identity/morphism separation before promoting the combined claim.",
+      "severity": "MEDIUM",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "OC133-NOSEND-001: Publication and journal submission remain locked until separate owner approval.",
+      "failure_mode": "The no-send lock itself is supported by the manifest, but the coverage row overstates the evidence route by saying the claim goes through a Lean theorem/proof sheet and by listing formal/lean/OC133V12.lean as evidence. The current Lean file has no owner-approval, publish, journal, or no-send formalization, and the finite no-send row uses a JSON manifest path as its lean_ref.",
+      "required_repair": "Classify OC133-NOSEND-001 as a control-plane JSON/state-machine check only, or add an actual Lean no-send structure and theorem with matching proof-sheet and finite-model references. Remove the false Lean/proof-sheet route until that exists.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "OC133-NOVELTY-001 priority positioning across comparator traditions.",
+      "failure_mode": "At least one priority row is internally weak as a date-backed priority claim: the Causal and Identity Theories row lists source_date=2026 while also marking priority_date_status=PRIOR_ART_PREDATES_OC. Several other rows use source_date=reference. That may be historically true, but the current artifact does not source the actual pre-OC priority dates needed for a release-critical priority register.",
+      "required_repair": "Replace reference/2026 anchors with dated primary or canonical historical sources predating OC for each tradition, or mark those priority_date_status fields as SOURCE_DATE_NOT_ESTABLISHED and keep them out of priority-support totals.",
       "status": "OPEN"
     }
   ],

@@ -2,96 +2,96 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "theorem_theater_auditor",
   "execution_status": "EXECUTED",
-  "critical_open_total": 3,
+  "critical_open_total": 4,
   "high_open_total": 7,
   "finding_total": 11,
   "findings": [
     {
       "severity": "CRITICAL",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-MIN - Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
-      "failure_mode": "The Lean theorem proves a toy verdict class where `componentVerdict` passes exactly when `present=true`, then constructs `keep` and `drop` by flipping that same Boolean for any component. This is circular and does not prove minimality of the promoted OC tuple under the declared OC verdict class. The finite runner mirrors the same weakness by checking presence flags and `changed_fields`, not executing real OC verdict semantics.",
-      "required_repair": "Formalize the actual declared OC verdict function and component-removal maps; prove one real keep/drop witness per promoted component against that function; make the finite runner compute those verdicts instead of accepting self-declared flags. Demote T133-MIN until this exists.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "CRITICAL",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-KLEVEL - Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
-      "failure_mode": "`every_adjacent_transition_has_witness` uses one generic constructor for every `AdjacentK`; `retainedTransitionEvidence` simply sets `witnessRetained=true`, `addedAxisObservable=true`, and `reduction=losesWitness`. The transition-specific added axes, witness pairs, reduction-failure criteria, and demotion criteria are not formalized. The finite runner only checks booleans and `transition_count=12`, so the promoted K-level irreducibility claim is stronger than the evidence.",
-      "required_repair": "Formalize each K0->K1 through K11->K12 transition with its own witness pair, reduction relation, and lawful demotion condition; prove the twelve cases individually and make the runner validate transition-specific predicates. Demote T133-KLEVEL until then.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "CRITICAL",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-K-ZERO - Continuumness zero follows from a declared zero-cause family, not only from empty admissibility or empty cycles.",
-      "failure_mode": "`kZeroLicensed` is defined as `hasZeroCause`, and `k_zero_iff_declared_zero_cause` is `Iff.rfl`. The Lean file does not model a continuumness score, admissibility, cycles, empty/nonempty cases, or the advertised distinction from the old empty-set biconditional. The finite model accepts `k_value=0` plus any zero-cause Boolean instead of computing k.",
-      "required_repair": "Define the continuumness functional, admissibility and cycle structures, zero-cause semantics, and nonempty counterexamples; prove zero-cause licensing as a substantive theorem and make the finite runner compute k from the model. Demote T133-K-ZERO until this is done.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-OMEGA-STATUS - Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-      "failure_mode": "`declared_death_blocks_live` proves a contradiction only after assuming both `L.live x=false` and `L.live x=true`; the death predicate itself does no work. The file does not prove death excludes live, nor does it prove the advertised residue/rebirth/status non-interchangeability beyond separate fields and enums.",
-      "required_repair": "Add lifecycle consistency invariants such as death -> not live, typed residue and rebirth existence/compatibility rules, and disjointness theorems for the promoted status and morphism classes; update finite negatives to test those invariants rather than hard-coded Boolean conflicts.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-CYCLE - Live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
-      "failure_mode": "`eligibleLive` includes `supportWitnessed` by definition, and `eligible_live_requires_cycle_or_maintenance` merely projects that conjunct. Raw `R.live x=true` can still hold with no cycle or maintenance support, and non-vacuous maintenance is not formalized.",
-      "required_repair": "Either define public live status as `eligibleLive` or add a theorem-level invariant `live -> supportWitnessed`; formalize non-vacuous maintenance with an executable support obligation and add finite cases that reject vacuous maintenance.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-ID - Residue preservation and rebirth are not identity continuation unless declared identity invariants are preserved.",
-      "failure_mode": "`restartClass` is defined as identity iff `identityInvariant` is true and rebirth otherwise; `invariant_lost_blocks_identity` is just unfolding that definition. Residue preservation, rebirth construction, identity-invariant preservation, and composition are not modeled, so the promoted morphism-class theorem is mostly definitional.",
-      "required_repair": "Formalize residue morphisms, rebirth morphisms, identity morphisms, invariant preservation, and their composition laws; prove disjointness and the no-identity-continuation result from those structures rather than from an if-then classifier.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-DIM - Historical axis activation may be monotone while effective working rank decreases.",
-      "failure_mode": "`historical_axis_survives_rank_drop` only exhibits one record with `historical=2` and `effective=1`. There is no time-indexed activation history, monotonicity property, transition, effective working-rank decrease, or demotion criterion in the formal evidence.",
-      "required_repair": "Formalize time-indexed historical axes and effective rank, prove historical monotonicity plus a genuine rank-drop transition, and add finite witnesses that compute both quantities across states.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
       "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "T133-BOUNDARY - Metric thresholds are a specialization of typed classifier boundaries.",
-      "failure_mode": "The boundary evaluator accepts `metric_specialization` whether it is true or false (`in {True, False}`), so a case can pass without the metric-specialization condition. The Lean evidence is also only an `rfl` embedding of a Nat threshold into a classifier, not the advertised typed boundary representation with measurement-rule safeguards.",
-      "required_repair": "Require an actual metric-specialization and measurement rule for metric-threshold cases, add a negative case for metric-without-measure, and formalize the classifier embedding theorem beyond definitional equality.",
+      "claim": "All promoted theorem rows have semantic finite-model evidence with semantic_evaluator=true and failure_total=0.",
+      "failure_mode": "The runner decides theorem cases from input fields that already encode the desired conclusion, not from independent model semantics. Examples include T133-BOUNDARY accepting failure_equivalence_checked=true, T133-HYBRID accepting hybrid_guard_reset_checked=true, and T133-KLEVEL validating arithmetic codes plus witness_retained/added_axis_observable/demotion_allowed flags while ignoring the semantic content of witness_pair, reduction_failure_criterion, and lawful_demotion_criterion.",
+      "required_repair": "Replace flag-oracle checks with executable theorem-specific model semantics that compute observables from model structure; make negative controls mutate the semantic model rather than only expected flags; remove semantic_evaluator=true and demote finite-model support until adversarial relabel/flag-only cases fail.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
+      "failure_mode": "every_adjacent_transition_has_witness constructs witnesses from the AdjacentK enum by formulaic codes, and reductionFails is defined as aligned codes plus witnessRetained=true, addedAxisObservable=true, and reduction=losesWitness. The directly referenced k_level_irreducibility_matrix provides narrative strings, while the finite runner checks only codes and booleans. This proves generated witness records exist, not adjacent K-level irreducibility.",
+      "required_repair": "Formalize each K-level axis, reduction map, verdict predicate, witness pair, and demotion criterion as executable/Lean semantics; prove each transition changes verdict under reduction and that demotion is lawful only under an independently defined lost-witness equivalence; otherwise demote T133-KLEVEL to an atlas bookkeeping check.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
+      "failure_mode": "every_component_has_witness is circular: ocTupleVerdict passes exactly when every component Bool is true, and dropComponent sets one Bool false, so the verdict change follows by construction. The directly referenced minimality witness data is only keep/drop prose plus PASS/FAIL flags, and the finite runner checks changed_fields == [component]. No independent OC verdict semantics or actual witness pair is proved.",
+      "required_repair": "Define the OC verdict independently of component-presence booleans, encode concrete keep/drop models for each component, and prove in Lean plus finite execution that removal changes a semantic verdict while all other fields are held fixed; otherwise demote T133-MIN to a schema sanity check.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 for all v12 attacks.",
+      "failure_mode": "The attack matrix closes critical objections by pointing to weak closure tokens rather than repaired substance. For example, self-confirming finite model verdicts are closed by semantic_evaluator=true, and K-level inflation is closed by every_adjacent_transition_has_witness + demotion_requires_lost_witness, even though those artifacts are flag/code schemas. The matrix therefore masks still-open theorem-theater failures as closed.",
+      "required_repair": "Reopen closure rows whose evidence is only definitional or flag-based; require each CLOSED status to cite an adversarial semantic test or non-circular Lean theorem that directly addresses the recorded failure_mode; recompute critical_unresolved_total and high_unresolved_total from those validated closures.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-HYBRID - Differential operator notation is a smooth-realization specialization of typed update semantics.",
-      "failure_mode": "`differential_notation_requires_chart` simply returns the `derivative_requires_chart` field assumed inside `SmoothSystem`, and `smooth_operator_is_update_special_case` is projection by `rfl`. This does not prove that differential notation is a smooth-realization specialization of typed update semantics or that non-smooth proof/rewrite domains are blocked.",
-      "required_repair": "Formalize typed update semantics, smooth realization maps, chart witnesses, derivative availability, and non-smooth rejection; prove the specialization and blocking results from those definitions rather than assuming them as fields.",
+      "claim": "T133-K-ZERO: Continuumness zero follows from a declared zero-cause family, not only from empty admissibility or empty cycles.",
+      "failure_mode": "zero_cause_has_cause proves only that the flow constructor implies hasZeroCause, and k_zero_iff_declared_zero_cause is Iff.rfl because kZeroLicensed is defined as hasZeroCause. There is no formal continuumness score, no k=0 computation, and no treatment of nonempty admissibility or cycles. The finite runner merely checks k_value==0 and any zero_causes flag.",
+      "required_repair": "Formalize the continuumness functional k, admissibility, cycle support, and zero-cause constructors; prove both directions between k=0 and active declared causes under stated assumptions; include nonempty admissibility/cycle witnesses and negative controls where k_value is asserted without a computed cause.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "All critical/high theorem-theater attacks are closed (`critical_unresolved_total=0`, `high_unresolved_total=0`).",
-      "failure_mode": "The attack matrix closes critical proof objections with weak tokens such as `semantic_evaluator=true` for T133-MIN and theorem-name references for T133-KLEVEL, even though the inspected Lean and finite evidence are definitional or self-confirming. The unresolved totals therefore mask current release-blocking theorem-theater defects.",
-      "required_repair": "Reopen every closure whose cited theorem or finite check is only definitional, circular, or weaker than the promoted claim; require each closure row to cite a substantive formal theorem or executable semantic witness that directly covers the attacked claim.",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
+      "failure_mode": "declared_death_blocks_live does not prove death blocks live; it assumes death=true, live=false, and live=true, then derives contradiction. It does not prove distinctness or non-interchangeability of live, death, residue, and rebirth. The finite runner rejects a row by checking death is false and residue_class != identity_class, which is weaker than the promoted status/morphism separation claim.",
+      "required_repair": "Add Lean definitions and theorems for lifecycle predicate disjointness, residue carrier separation, rebirth source/target typing, and death-implies-not-live under declared transition rules; make finite controls compute those predicates instead of comparing label strings.",
       "status": "OPEN"
     },
     {
-      "severity": "MEDIUM",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "OC133-NOSEND-001 - Publication and journal submission remain locked until separate owner approval.",
-      "failure_mode": "The no-send coverage row routes evidence through `formal/lean/OC133V12.lean` and says `claim -> Lean theorem/proof sheet -> semantic finite case`, but the inspected Lean file contains no no-send theorem and the theorem inventory has no no-send proof sheet. The manifest lock itself is present, so this is an evidence-route overclaim rather than an observed send violation.",
-      "required_repair": "Remove the Lean/proof-sheet route from the no-send coverage row or add a named no-send theorem, inventory entry, and proof sheet; keep the manifest fields as the load-bearing no-send evidence until then.",
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-CYCLE: Live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
+      "failure_mode": "eligible_live_requires_cycle_or_maintenance is just a projection from eligibleLive, which is defined to include supportWitnessed. Non-vacuity is not formalized: maintenance is a Bool, and the finite runner accepts maintenance_predicate=true or any non-none cycle_mode without proving an active support obligation.",
+      "required_repair": "Define liveness independently of the support requirement, formalize non-vacuous maintenance as an executable obligation over state/update evidence, and prove eligible live states satisfy that obligation; add negative controls for vacuous maintenance=true labels.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-HYBRID: Differential operator notation is a smooth-realization specialization of typed update semantics.",
+      "failure_mode": "differential_notation_requires_chart merely applies the SmoothSystem field derivative_requires_chart, and smooth_operator_is_update_special_case is rfl. The finite check accepts primitive=typed_update, smooth_requires_chart=true, and hybrid_guard_reset_checked=true. This does not prove the promoted operator semantics for smooth, discrete, rewrite, proof-replay, graph, and hybrid updates.",
+      "required_repair": "Formalize a common typed update/operator interface and smooth chart specialization; prove derivative availability follows from charted smooth semantics and is blocked for non-smooth update classes; compute hybrid guard/reset behavior from transition data rather than boolean attestations.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-DIM: Historical axis activation may be monotone while effective working rank decreases.",
+      "failure_mode": "historical_axis_survives_rank_drop proves only the existence of one hard-coded AxisRecord with historical=2 and effective=1. There is no time-indexed activation relation, no monotonicity theorem, no effective-rank function over active support, and no demotion criterion. The finite row mirrors the same single example.",
+      "required_repair": "Introduce time-indexed historical axis sets and effective-rank semantics; prove historical activation is monotone while effective rank can decrease in an explicit transition system; add controls where historical erasure is incorrectly inferred from rank drop.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-BOUNDARY: Metric thresholds are a specialization of typed classifier boundaries.",
+      "failure_mode": "metric_boundary_is_classifier and metric_boundary_failure_equiv are constructor/rfl facts for metricAsClassifier. The finite runner accepts a boundary row because failure_equivalence_checked is true. This supports a definitional embedding only, not the proof-sheet theorem that the boundary formalism conservatively extends metric thresholds while blocking fake metrics in logical, social, graph, and proof-state boundaries.",
+      "required_repair": "Formalize classifier boundary semantics, metric measurement prerequisites, and non-metric boundary cases; prove a conservative embedding theorem plus rejection of metric_without_measure cases using computed predicates rather than an asserted failure_equivalence_checked flag.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-ID: Residue preservation and rebirth are not identity continuation unless declared identity invariants are preserved.",
+      "failure_mode": "invariant_lost_blocks_identity unfolds restartClass, which is defined to return identity iff identityInvariant is true and rebirth otherwise. Residue preservation, rebirth construction, source/target typing, and invariant preservation across morphisms are not modeled. The finite runner checks morphism strings and identity_invariant_preserved/classified_as_identity booleans.",
+      "required_repair": "Formalize residue, identity, and rebirth morphisms with source/target objects, preserved invariants, and composition rules; prove disjointness and non-identity continuation from those semantics; replace string/boolean finite checks with executable morphism classification.",
       "status": "OPEN"
     }
   ],

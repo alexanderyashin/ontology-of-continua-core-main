@@ -2,48 +2,48 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "empirical_theater_auditor",
   "execution_status": "EXECUTED",
-  "critical_open_total": 2,
-  "high_open_total": 3,
+  "critical_open_total": 0,
+  "high_open_total": 5,
   "finding_total": 5,
   "findings": [
     {
       "severity": "HIGH",
-      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "Empirical snapshot-replay attacks are fully closed with critical_unresolved_total=0 and high_unresolved_total=0.",
-      "failure_mode": "The current total attack matrix repeatedly closes the empirical snapshot attack only for OC133-NUM-PHYS-C. It never attacks OC133-NUM-CHEM-H2O, OC133-NUM-BIO-GEO-COUNT, OC133-NUM-SYS-WDI-GDP, or OC133-NUM-MATH-FINITE, even though those four current claim IDs are present in claims/CLAIM_LEDGER_1_3_3.json and validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json as numeric_replay snapshot rows with predicted_value, observed_value, and comparator_prediction fields. A total attack matrix cannot close empirical theater risk for numeric claims it never names.",
-      "required_repair": "Add per-claim empirical attack rows for all five OC133-NUM-* rows, with explicit empirical_support=false or equivalent replay-only closure checks and row-specific negative-control evidence; otherwise set unresolved totals nonzero and remove total-closure status.",
+      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
+      "claim": "OC133-NUM-PHYS-C and OC133-NUM-BIO-GEO-COUNT numeric replay rows",
+      "failure_mode": "Both rows are snapshot replay: physics computes predicted c by parsing the SI defining value from the same NIST snapshot used as observed, and biology computes predicted count as the pinned ESearch count recorded in the snapshot. Each row has numeric_replay=true and comparator_prediction equal to observed_value, but the table still carries them in a numeric prediction table with predicted_value/residual fields and blocked_for_promotion_total=0. Exact replay remains structurally available as prediction support instead of being quarantined as non-predictive QA.",
+      "required_repair": "Move exact snapshot rows to a separate replay-QA ledger or add per-row empirical_support_allowed=false/promotion_block=true and make blocked_for_promotion_total count them for prediction use; leave only genuinely predeclared held-out predictions in this table.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
-      "claim": "OC133 numeric rows have NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER support.",
-      "failure_mode": "The numeric table records negative_control and falsifier as prose only. It does not include executed negative-control predicted values, observed values, residuals, pass/fail verdicts, comparator definitions, generator hash, or run artifact per row. This is insufficient for the claim-ledger support label that says the replay QA includes a baseline negative-control falsifier.",
-      "required_repair": "Add executed negative-control result fields or separate rows for each numeric claim, including input snapshot hash, comparator definition, observed negative-control residual or verdict, and pass/fail status; otherwise demote the support label to prose-only falsifier plumbing and block it from validation support.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "CRITICAL",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
-      "failure_mode": "The finite-model evaluator makes minimality self-confirming. T133-MIN accepts when the model asserts witness_pair_count == 11, all_one_component_deltas is true, and all_verdict_changes is true; component rows pass when required_components already contains the component and changed_fields equals that component. The runner does not compute the actual promoted OC verdict with and without each component. The review matrix then closes the self-confirming finite-model attack solely via semantic_evaluator=true, which this runner sets itself.",
-      "required_repair": "Replace asserted boolean/count acceptance with executable keep/drop tests against the actual OC verdict function and promoted theorem instances. Persist independently computed observed verdict deltas and keep T133-MIN unpromoted until every component has a real verdict-changing witness.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "CRITICAL",
       "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
-      "failure_mode": "The Lean theorem every_adjacent_transition_has_witness constructs retainedTransitionEvidence k for any AdjacentK enum value, with witnessRetained, addedAxisObservable, and reduction fixed to the desired result. This proves the evidence record can be populated, not that the twelve named K transitions have non-relabeling witnesses. The finite runner compounds this by accepting summary booleans rather than proving transition-specific irreducibility.",
-      "required_repair": "Encode each K0->K1 through K11->K12 transition with concrete source-bound witness data, a reduction map, and a theorem that the reduction fails for that instance. Require finite rows to reference those exact witnesses and add demotion cases where witness observability is independently lost.",
+      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
+      "failure_mode": "The load-bearing Lean item declared_death_blocks_live proves only an inconsistency after assuming both L.live x=false and L.live x=true; it does not encode death -> not live or a mutual-exclusion invariant. It also does not prove residue/rebirth/status class non-interchangeability. The promoted claim outruns the machine-checked theorem.",
+      "required_repair": "Add explicit lifecycle invariants and Lean theorems for death/live exclusion and residue/rebirth/identity separation, then update the theorem inventory, proof ledger, and finite witnesses to cite those stronger theorem names; otherwise demote the public claim to the narrow contradiction theorem actually proved.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-      "failure_mode": "The theorem inventory and proof ledger promote this claim with Lean ref formal/lean/OC133V12.lean::declared_death_blocks_live, but that theorem only derives contradiction from supplied premises live=false and live=true; it does not prove death implies non-live, nor does it establish live/death/residue/rebirth typed distinctness. The total attack matrix also closes hidden type ambiguity for this claim via eligible_live_requires_cycle, which is a cycle-support theorem and does not cover death, residue, or rebirth distinctness.",
-      "required_repair": "Add separate Lean theorems and finite witnesses for death/live incompatibility, residue/rebirth/identity class separation, and rebirth or residue non-identity under declared invariants. Update theorem inventory and proof ledger refs to those theorems or demote the public claim.",
+      "claim": "T133-K-ZERO: Continuumness zero follows from a declared zero-cause family, not only from empty admissibility or empty cycles.",
+      "failure_mode": "The promoted load-bearing row cites formal/lean/OC133V12.lean::zero_cause_has_cause, but that Lean theorem only proves flow=true implies hasZeroCause. It omits k=0, admissibility, cycle non-emptiness, and the advertised rejection of the empty-set biconditional. Other artifacts point to k_zero_iff_declared_zero_cause instead, so the release-critical Lean support is both inconsistent and too weak.",
+      "required_repair": "Replace the Lean target with a theorem that models the continuumness score, declared zero-cause family, and nonempty admissibility/cycle counterexample; align all ledger references to that theorem and rerun the finite checks, or demote T133-K-ZERO.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
+      "failure_mode": "The adjacent_k_transition_witness evaluator accepts rows by integer pattern and booleans. It ignores semantic fields such as added_axis, witness_pair, reduction_failure_criterion, and lawful_demotion_criterion, and the theorem_case path does not require unique coverage of K0->K1 through K11->K12. Arbitrary or duplicated witness text can still pass as an executed witness atlas.",
+      "required_repair": "Validate transition rows against a controlled K-level atlas, require unique transition coverage, and make malformed witness/reduction/demotion criteria fail negative controls before keeping T133-KLEVEL promoted.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 for OC Core 1.3.3 v12",
+      "failure_mode": "The matrix closes critical empirical snapshot attacks by the presence of the label NUMERIC_REPLAY_QA_NOT_EMPIRICAL_PROMOTION and closes formal ambiguity attacks by citing narrow theorem names such as eligible_live_requires_cycle. That is label matching, not adversarial verification; current numeric, Lean, and finite-runner artifacts still leave release-critical gaps open.",
+      "required_repair": "Recompute the attack matrix from checks that prove exact replay cannot be consumed as prediction support, Lean targets cover the full promoted claim, and finite runners execute semantic witnesses; reopen the affected rows until those checks pass.",
       "status": "OPEN"
     }
   ],
