@@ -64,12 +64,20 @@ theorem k0_same_cell_not_distinguished {S : Type} (rho : Resolution S) (a b : S)
   rw [h]
   simp
 
+theorem k0_distinguished_requires_resolved_delta {S : Type} (rho : Resolution S) (a b : S) :
+    distinguished rho a b -> sameCell rho a b -> False := by
+  intro hd hs
+  rw [k0_same_cell_not_distinguished rho a b hs] at hd
+  exact hd
+
 structure Realization where
   Carrier : Type
+  admissible : Carrier -> Bool
   live : Carrier -> Bool
   cycle : Carrier -> Option CycleMode
 
 structure Lifecycle (S Residue NewLive : Type) where
+  admissible : S -> Bool
   live : S -> Bool
   death : S -> Bool
   residueOf : S -> Option Residue
@@ -80,17 +88,22 @@ def cycleWitnessed (R : Realization) (x : R.Carrier) : Prop :=
   R.cycle x != none
 
 def eligibleLive (R : Realization) (x : R.Carrier) : Prop :=
-  R.live x = true /\ cycleWitnessed R x
+  R.admissible x = true /\ R.live x = true /\ cycleWitnessed R x
 
 theorem eligible_live_requires_cycle (R : Realization) (x : R.Carrier) :
     eligibleLive R x -> cycleWitnessed R x := by
   intro h
-  exact h.right
+  exact h.right.right
+
+theorem eligible_live_requires_admissible (R : Realization) (x : R.Carrier) :
+    eligibleLive R x -> R.admissible x = true := by
+  intro h
+  exact h.left
 
 theorem cycle_mode_required_for_eligible_live (R : Realization) (x : R.Carrier) :
     eligibleLive R x -> R.cycle x != none := by
   intro h
-  exact h.right
+  exact h.right.right
 
 structure ZeroCause where
   flow : Bool
@@ -101,14 +114,24 @@ structure ZeroCause where
 def hasZeroCause (z : ZeroCause) : Prop :=
   z.flow = true \/ z.coherence = true \/ z.identity = true \/ z.embedding = true
 
+def kZeroLicensed (z : ZeroCause) : Prop :=
+  hasZeroCause z
+
 theorem zero_cause_has_cause (z : ZeroCause) :
     z.flow = true -> hasZeroCause z := by
   intro h
   exact Or.inl h
 
+theorem k_zero_iff_declared_zero_cause (z : ZeroCause) :
+    kZeroLicensed z <-> hasZeroCause z := by
+  exact Iff.rfl
+
 structure BoundaryClassifier (S StatusType : Type) where
   classify : S -> StatusType
   fails : StatusType -> Bool
+
+def boundaryFails {S StatusType : Type} (b : BoundaryClassifier S StatusType) (x : S) : Bool :=
+  b.fails (b.classify x)
 
 structure MetricBoundary (S : Type) where
   measure : S -> Nat
@@ -121,27 +144,65 @@ theorem metric_boundary_is_classifier {S : Type} (m : MetricBoundary S) :
     (metricAsClassifier m).classify = m.measure := by
   rfl
 
+theorem metric_boundary_failure_equiv {S : Type} (m : MetricBoundary S) (x : S) :
+    boundaryFails (metricAsClassifier m) x = decide (m.measure x > m.threshold) := by
+  rfl
+
 structure UpdateSystem where
   State : Type
   step : State -> State
+  admissible : State -> Bool
 
 structure SmoothSystem extends UpdateSystem where
   charted : Bool
+  flow : Nat -> State -> State
+  flow_zero : forall x : State, flow 0 x = x
 
 def smoothAsUpdate (s : SmoothSystem) : UpdateSystem :=
-  { State := s.State, step := s.step }
+  { State := s.State, step := s.step, admissible := s.admissible }
 
 theorem smooth_operator_is_update_special_case (s : SmoothSystem) :
     (smoothAsUpdate s).step = s.step := by
   rfl
 
+structure HybridSystem extends UpdateSystem where
+  Mode : Type
+  mode : State -> Mode
+  guard : State -> Bool
+  reset : State -> State
+
+def hybridStep (h : HybridSystem) (x : h.State) : h.State :=
+  if h.guard x then h.reset x else h.step x
+
+theorem hybrid_guard_uses_reset (h : HybridSystem) (x : h.State) :
+    h.guard x = true -> hybridStep h x = h.reset x := by
+  intro hg
+  unfold hybridStep
+  rw [hg]
+
+theorem hybrid_no_guard_uses_update (h : HybridSystem) (x : h.State) :
+    h.guard x = false -> hybridStep h x = h.step x := by
+  intro hg
+  unfold hybridStep
+  rw [hg]
+
 structure AxisRecord where
   historical : Nat
   effective : Nat
 
+def rankDropped (r : AxisRecord) : Prop :=
+  r.effective < r.historical
+
 theorem historical_axis_survives_rank_drop :
-    exists r : AxisRecord, r.historical = 2 /\ r.effective = 1 := by
-  exact Exists.intro { historical := 2, effective := 1 } (And.intro rfl rfl)
+    exists r : AxisRecord, r.historical = 2 /\ r.effective = 1 /\ rankDropped r := by
+  exact Exists.intro { historical := 2, effective := 1 } (And.intro rfl (And.intro rfl (by decide)))
+
+theorem rank_drop_not_historical_erasure (r : AxisRecord) :
+    rankDropped r -> r.historical = 0 -> False := by
+  intro h hz
+  unfold rankDropped at h
+  rw [hz] at h
+  exact Nat.not_lt_zero r.effective h
 
 theorem residue_is_not_identity :
     MorphismClass.residue != MorphismClass.identity := by
@@ -155,60 +216,92 @@ structure VerdictClass where
   Case : Type
   verdict : Case -> Status
 
+structure ComponentCase where
+  component : Component
+  present : Bool
+deriving Repr
+
+def componentVerdict (x : ComponentCase) : Status :=
+  if x.present then Status.pass else Status.fail
+
+def componentVerdictClass : VerdictClass :=
+  { Case := ComponentCase, verdict := componentVerdict }
+
 structure ComponentWitness (VC : VerdictClass) where
   keep : VC.Case
   drop : VC.Case
   keep_pass : VC.verdict keep = Status.pass
   drop_fail : VC.verdict drop = Status.fail
 
+def witnessForComponent (c : Component) : ComponentWitness componentVerdictClass :=
+  {
+    keep := { component := c, present := true },
+    drop := { component := c, present := false },
+    keep_pass := by rfl,
+    drop_fail := by rfl
+  }
+
 theorem component_witness_changes_verdict (VC : VerdictClass) (w : ComponentWitness VC) :
     VC.verdict w.keep != VC.verdict w.drop := by
   rw [w.keep_pass, w.drop_fail]
   decide
 
-def componentHasWitness : Component -> Bool
-  | Component.carrier => true
-  | Component.realization => true
-  | Component.lawfulPossibility => true
-  | Component.liveness => true
-  | Component.residue => true
-  | Component.morphisms => true
-  | Component.boundaries => true
-  | Component.operators => true
-  | Component.cycles => true
-  | Component.dimension => true
-  | Component.kFunctional => true
-
 theorem every_component_has_witness (c : Component) :
-    componentHasWitness c = true := by
-  cases c <;> rfl
+    exists w : ComponentWitness componentVerdictClass,
+      component_witness_changes_verdict componentVerdictClass w := by
+  exact Exists.intro (witnessForComponent c) (component_witness_changes_verdict componentVerdictClass (witnessForComponent c))
 
-structure AdjacentWitness where
-  retained : Bool
-  reductionLoss : Bool
+theorem component_witness_is_one_component_delta (c : Component) :
+    (witnessForComponent c).keep.component = c /\
+    (witnessForComponent c).drop.component = c /\
+    (witnessForComponent c).keep.present = true /\
+    (witnessForComponent c).drop.present = false := by
+  exact And.intro rfl (And.intro rfl (And.intro rfl rfl))
 
-theorem adjacent_witness_blocks_reduction (w : AdjacentWitness) :
-    w.retained = true -> w.reductionLoss = true -> w.retained && w.reductionLoss = true := by
-  intro h1 h2
-  rw [h1, h2]
-  rfl
+inductive ReductionVerdict where
+  | preserves
+  | losesWitness
+deriving DecidableEq, Repr
 
-def adjacentTransitionHasWitness : AdjacentK -> Bool
-  | AdjacentK.k0_k1 => true
-  | AdjacentK.k1_k2 => true
-  | AdjacentK.k2_k3 => true
-  | AdjacentK.k3_k4 => true
-  | AdjacentK.k4_k5 => true
-  | AdjacentK.k5_k6 => true
-  | AdjacentK.k6_k7 => true
-  | AdjacentK.k7_k8 => true
-  | AdjacentK.k8_k9 => true
-  | AdjacentK.k9_k10 => true
-  | AdjacentK.k10_k11 => true
-  | AdjacentK.k11_k12 => true
+structure TransitionEvidence where
+  transition : AdjacentK
+  witnessRetained : Bool
+  addedAxisObservable : Bool
+  demotionAllowed : Bool
+  reduction : ReductionVerdict
+
+def reductionFails (w : TransitionEvidence) : Prop :=
+  w.witnessRetained = true /\ w.addedAxisObservable = true /\ w.reduction = ReductionVerdict.losesWitness
+
+def lawfulDemotion (w : TransitionEvidence) : Prop :=
+  w.witnessRetained = false /\ w.demotionAllowed = true /\ w.reduction = ReductionVerdict.preserves
+
+def retainedTransitionEvidence (k : AdjacentK) : TransitionEvidence :=
+  {
+    transition := k,
+    witnessRetained := true,
+    addedAxisObservable := true,
+    demotionAllowed := false,
+    reduction := ReductionVerdict.losesWitness
+  }
+
+theorem adjacent_witness_blocks_reduction (w : TransitionEvidence) :
+    w.witnessRetained = true ->
+    w.addedAxisObservable = true ->
+    w.reduction = ReductionVerdict.losesWitness ->
+    reductionFails w := by
+  intro hr ho hl
+  exact And.intro hr (And.intro ho hl)
 
 theorem every_adjacent_transition_has_witness (k : AdjacentK) :
-    adjacentTransitionHasWitness k = true := by
-  cases k <;> rfl
+    exists w : TransitionEvidence,
+      w.transition = k /\ reductionFails w /\ w.demotionAllowed = false := by
+  refine Exists.intro (retainedTransitionEvidence k) ?_
+  exact And.intro rfl (And.intro (And.intro rfl (And.intro rfl rfl)) rfl)
+
+theorem demotion_requires_lost_witness (w : TransitionEvidence) :
+    lawfulDemotion w -> w.witnessRetained = false := by
+  intro h
+  exact h.left
 
 end OC133V12

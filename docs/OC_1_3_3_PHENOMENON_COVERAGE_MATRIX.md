@@ -1,18 +1,18 @@
 # OC Core 1.3.3 Phenomenon Coverage Matrix
 
-| ID | Question | Status | Limitation |
-| --- | --- | --- | --- |
-| `P001` | Does OC actually explain raw continuity versus K0 distinguishability? | `BOUNDED_INSTANCE_REPLAYED_V12` | The release explains the bounded OC claim, not every possible empirical detail of the phenomenon. |
-| `P002` | Does OC actually explain death, residue, and rebirth without identity equivocation? | `BOUNDED_INSTANCE_REPLAYED_V12` | The release explains the bounded OC claim, not every possible empirical detail of the phenomenon. |
-| `P003` | Does OC actually explain biological organization as typed liveness and cycles? | `BOUNDED_INSTANCE_REPLAYED_V12` | The release explains the bounded OC claim, not every possible empirical detail of the phenomenon. |
-| `P004` | Does OC actually explain logical and social boundaries without fake metrics? | `BOUNDED_INSTANCE_REPLAYED_V12` | The release explains the bounded OC claim, not every possible empirical detail of the phenomenon. |
-| `P005` | Does OC actually explain operators in non-smooth proof and rewrite domains? | `BOUNDED_INSTANCE_REPLAYED_V12` | The release explains the bounded OC claim, not every possible empirical detail of the phenomenon. |
-| `P006` | Does OC actually explain dimension drop after historical axis activation? | `BOUNDED_INSTANCE_REPLAYED_V12` | The release explains the bounded OC claim, not every possible empirical detail of the phenomenon. |
-| `P007` | Does OC actually explain continuumness collapse with nonempty admissible set? | `BOUNDED_INSTANCE_REPLAYED_V12` | The release explains the bounded OC claim, not every possible empirical detail of the phenomenon. |
-| `P008` | Does OC actually explain origin-of-life framing as closure/cycle/falsifier conditions? | `BOUNDED_INSTANCE_REPLAYED_V12` | The release explains the bounded OC claim, not every possible empirical detail of the phenomenon. |
-| `P009` | Does OC actually explain social institutions as role-boundary and maintenance cycles? | `BOUNDED_INSTANCE_REPLAYED_V12` | The release explains the bounded OC claim, not every possible empirical detail of the phenomenon. |
-| `P010` | Does OC actually explain theory change as live claim/evidence update? | `BOUNDED_INSTANCE_REPLAYED_V12` | The release explains the bounded OC claim, not every possible empirical detail of the phenomenon. |
-| `P011` | Does OC actually explain recursive self-application without paradox by typed levels? | `BOUNDED_INSTANCE_REPLAYED_V12` | The release explains the bounded OC claim, not every possible empirical detail of the phenomenon. |
-| `P012` | Does OC actually explain release governance as part of public scientific action? | `BOUNDED_INSTANCE_REPLAYED_V12` | The release explains the bounded OC claim, not every possible empirical detail of the phenomenon. |
-| `P013` | Does OC actually explain K-level collapse objections? | `BOUNDED_INSTANCE_REPLAYED_V12` | The release explains the bounded OC claim, not every possible empirical detail of the phenomenon. |
-| `P014` | Does OC actually explain minimality versus relabeling attack? | `BOUNDED_INSTANCE_REPLAYED_V12` | The release explains the bounded OC claim, not every possible empirical detail of the phenomenon. |
+| ID | Question | Model | Observable | Status |
+| --- | --- | --- | --- | --- |
+| `P001` | Does OC actually explain raw continuity versus K0 distinguishability? | resolution quotient over four cells of [0,1] | same-cell raw pair is not distinguished; cross-cell quotient pair is distinguished | `PHENOMENON_SPECIFIC_MODEL_REPLAYED` |
+| `P002` | Does OC actually explain death, residue, and rebirth without identity equivocation? | checkpoint loses runtime token but preserves schema residue | rebirth is accepted only when classified outside identity | `PHENOMENON_SPECIFIC_MODEL_REPLAYED` |
+| `P003` | Does OC actually explain biological organization as typed liveness and cycles? | minimal live cell-state surrogate with maintenance predicate | live label fails without cycle or maintenance support | `PHENOMENON_SPECIFIC_MODEL_REPLAYED` |
+| `P004` | Does OC actually explain logical and social boundaries without fake metrics? | boolean proof-state classifier and optional metric specialization | classifier failure equals declared failure predicate | `PHENOMENON_SPECIFIC_MODEL_REPLAYED` |
+| `P005` | Does OC actually explain operators in non-smooth proof and rewrite domains? | typed update with smooth chart optional and hybrid guard/reset | guarded hybrid step uses reset; smooth derivative requires chart | `PHENOMENON_SPECIFIC_MODEL_REPLAYED` |
+| `P006` | Does OC actually explain dimension drop after historical axis activation? | two-axis record with frozen historical axis and active rank one | historical activation remains while effective rank drops | `PHENOMENON_SPECIFIC_MODEL_REPLAYED` |
+| `P007` | Does OC actually explain continuumness collapse with nonempty admissible set? | single admissible state with active flow zero-cause | k=0 is licensed by declared zero-cause, not empty state set | `PHENOMENON_SPECIFIC_MODEL_REPLAYED` |
+| `P008` | Does OC actually explain origin-of-life framing as closure/cycle/falsifier conditions? | RAF-like K2->K3 closure witness plus boundary successor row | closure cannot be reduced when production witness remains observable | `PHENOMENON_SPECIFIC_MODEL_REPLAYED` |
+| `P009` | Does OC actually explain social institutions as role-boundary and maintenance cycles? | role/norm classifier that changes allowed action | K6->K7 transition fails reduction when role witness changes verdict | `PHENOMENON_SPECIFIC_MODEL_REPLAYED` |
+| `P010` | Does OC actually explain theory change as live claim/evidence update? | claim ledger update state with evidence-bound verdict change | K8->K9 transition fails reduction when claim revision is enabled | `PHENOMENON_SPECIFIC_MODEL_REPLAYED` |
+| `P011` | Does OC actually explain recursive self-application without paradox by typed levels? | model-update object separated from object-level model by K9->K10 typing | self-application is accepted only through typed transition witness | `PHENOMENON_SPECIFIC_MODEL_REPLAYED` |
+| `P012` | Does OC actually explain release governance as part of public scientific action? | owner approval state machine with publish_allowed false | public action is rejected until owner approval changes the state | `PHENOMENON_SPECIFIC_MODEL_REPLAYED` |
+| `P013` | Does OC actually explain K-level collapse objections? | adjacent transition atlas with retained witness and demotion criterion | reduction fails exactly when retained witness stays observable | `PHENOMENON_SPECIFIC_MODEL_REPLAYED` |
+| `P014` | Does OC actually explain minimality versus relabeling attack? | one-component keep/drop witness pair per promoted tuple component | component removal changes declared verdict in semantic finite runner | `PHENOMENON_SPECIFIC_MODEL_REPLAYED` |

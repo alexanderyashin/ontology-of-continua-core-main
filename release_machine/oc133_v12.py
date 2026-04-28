@@ -197,6 +197,7 @@ def audit(root: Path) -> dict[str, Any]:
     inv = read_json(root / "proofs" / "THEOREM_INVENTORY_1_3_3.json")
     registry = read_json(root / "proofs" / "THEOREM_REGISTRY_1_3_3.json")
     finite = read_json(root / "proofs" / "FINITE_MODEL_CHECKS_1_3_3.json")
+    finite_inputs = read_json(root / "proofs" / "finite_model_checks" / "OC133_FINITE_MODEL_INPUTS.json")
     claims = read_json(root / "claims" / "CLAIM_LEDGER_1_3_3.json")
     numeric = read_json(root / "validation" / "numeric_predictions" / "OC133_NUMERIC_PREDICTION_TABLE.json")
     domain = read_json(root / "data" / "domain_semantics_matrix.json")
@@ -219,6 +220,51 @@ def audit(root: Path) -> dict[str, Any]:
         row for row in promoted_claims
         if row.get("evidence_ref", "").startswith("proofs/")
         and not (root / row["evidence_ref"]).exists()
+    ]
+    lean_body = text(root / "formal" / "lean" / "OC133V12.lean")
+    lean_semantic_markers = [
+        "ComponentCase",
+        "witnessForComponent",
+        "component_witness_is_one_component_delta",
+        "TransitionEvidence",
+        "reductionFails",
+        "lawfulDemotion",
+        "hybrid_guard_uses_reset",
+        "metric_boundary_failure_equiv",
+        "k_zero_iff_declared_zero_cause",
+    ]
+    missing_lean_semantic_markers = [marker for marker in lean_semantic_markers if marker not in lean_body]
+    finite_input_observed_fields = [
+        {"case_id": row.get("case_id"), "field": key}
+        for row in finite_inputs.get("rows", [])
+        for key in row
+        if key.startswith("observed_")
+    ]
+    finite_semantic_failures = []
+    if finite.get("semantic_evaluator") is not True:
+        finite_semantic_failures.append("semantic_evaluator flag missing")
+    if finite.get("input_observed_field_total", 0) != 0 or finite_inputs.get("observed_field_total", 0) != 0 or finite_input_observed_fields:
+        finite_semantic_failures.append("finite inputs contain observed verdict fields")
+    if "case_type" in text(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py") and "model.get" not in text(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py"):
+        finite_semantic_failures.append("finite runner does not inspect model facts")
+    comparator_failures = [
+        row.get("tradition")
+        for row in comparator.get("rows", [])
+        if not row.get("source_refs") or not row.get("feature_tests") or not row.get("absence_test") or row.get("uniqueness_claim_status") != "BOUNDED_DELTA_SUPPORTED_BY_SOURCE_COMPARISON"
+    ]
+    phenomenon_failures = [
+        row.get("phenomenon_id")
+        for row in phenomenon.get("rows", [])
+        if not row.get("model_card")
+        or "finite witness or replay row" in str(row.get("observable", "")).lower()
+        or row.get("explanation_status") != "PHENOMENON_SPECIFIC_MODEL_REPLAYED"
+    ]
+    attack_closure_failures = [
+        row.get("objection_id")
+        for row in attack.get("rows", [])
+        if not row.get("closure_evidence_refs")
+        or not row.get("closure_verification_query")
+        or row.get("status") != "CLOSED_BY_SPECIFIC_V12_EVIDENCE"
     ]
     numeric_missing = [
         row.get("claim_id")
@@ -255,7 +301,7 @@ def audit(root: Path) -> dict[str, Any]:
         },
         "k0": {"state": "PASS" if "S/\\rho" in text(root / "appendix" / "OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex") else "FAIL"},
         "semantic_models": {"state": "PASS" if domain.get("row_total", 0) >= 10 and domain.get("untyped_domain_total") == 0 else "FAIL", **domain},
-        "axiom_consistency": {"state": "PASS" if lake["state"] == "PASS" and finite.get("failure_total") == 0 else "FAIL", "lake": lake, "finite_failure_total": finite.get("failure_total")},
+        "axiom_consistency": {"state": "PASS" if lake["state"] == "PASS" and finite.get("failure_total") == 0 and not finite_semantic_failures else "FAIL", "lake": lake, "finite_failure_total": finite.get("failure_total"), "finite_semantic_failures": finite_semantic_failures},
         "theorem_inventory": {"state": "PASS" if inv.get("theorem_total") == 10 and inv.get("demoted_route_total") == 0 else "FAIL", **{k: inv.get(k) for k in ["theorem_total", "demoted_route_total", "scope_repair_total"]}},
         "proof_sheets": {"state": "PASS" if not proof_failures else "FAIL", "failure_total": len(proof_failures), "failures": proof_failures},
         "no_theorem_theater": {"state": "PASS" if not proof_failures and not scope_hits else "FAIL", "proof_failure_total": len(proof_failures), "scope_hit_total": len(scope_hits), "scope_hits": scope_hits[:20]},
@@ -267,22 +313,22 @@ def audit(root: Path) -> dict[str, Any]:
         "identity": {"state": "PASS" if "identity" in text(root / "appendix" / "OC_1_3_3_IDENTITY_RESIDUE_REBIRTH_CATEGORY.tex").lower() else "FAIL"},
         "klevel": {"state": "PASS" if klevel.get("transition_total") == 12 and klevel.get("unresolved_total") == 0 and klevel.get("inflated_without_witness_total") == 0 else "FAIL", **{k: klevel.get(k) for k in ["transition_total", "unresolved_total", "inflated_without_witness_total"]}},
         "minimality": {"state": "PASS" if minimality.get("unwitnessed_component_total") == 0 and minimality.get("component_total", 0) >= 10 else "FAIL", **{k: minimality.get(k) for k in ["component_total", "unwitnessed_component_total"]}},
-        "machine_checked": {"state": "PASS" if lake["state"] == "PASS" and inv.get("machine_checked_subset_total") == inv.get("theorem_total") else "FAIL", "lake": lake, "machine_checked_subset_total": inv.get("machine_checked_subset_total")},
+        "machine_checked": {"state": "PASS" if lake["state"] == "PASS" and inv.get("machine_checked_subset_total") == inv.get("theorem_total") and not missing_lean_semantic_markers and not finite_semantic_failures else "FAIL", "lake": lake, "machine_checked_subset_total": inv.get("machine_checked_subset_total"), "missing_lean_semantic_markers": missing_lean_semantic_markers, "finite_semantic_failures": finite_semantic_failures},
         "empirical_packets": {"state": "PASS" if numeric.get("lane_total") >= 5 and not packet_missing and not numeric_missing else "FAIL", "lane_total": numeric.get("lane_total"), "packet_missing": packet_missing, "numeric_missing": numeric_missing},
         "heldout": {"state": "PASS" if not numeric_missing and all("split" in str(row.get("split_policy", "")).lower() or "train" in str(row.get("split_policy", "")).lower() or "replay" in str(row.get("split_policy", "")).lower() for row in numeric.get("rows", [])) else "FAIL"},
         "negative_controls": {"state": "PASS" if all(row.get("negative_control") for row in numeric.get("rows", [])) else "FAIL"},
         "baseline_comparators": {"state": "PASS" if all(row.get("comparator_prediction") is not None for row in numeric.get("rows", [])) else "FAIL"},
         "adversarial": {"state": "PASS" if adversarial.get("failure_total") == 0 and adversarial.get("case_total", 0) >= 10 else "FAIL", **{k: adversarial.get(k) for k in ["case_total", "failure_total"]}},
         "counterexample": {"state": "PASS" if counter.get("open_counterexample_total") == 0 and counter.get("case_total", 0) >= 10 else "FAIL", **{k: counter.get(k) for k in ["case_total", "open_counterexample_total"]}},
-        "comparator": {"state": "PASS" if comparator.get("row_total", 0) >= 10 and comparator.get("unsupported_uniqueness_total") == 0 else "FAIL", **{k: comparator.get(k) for k in ["row_total", "unsupported_uniqueness_total"]}},
-        "novelty": {"state": "PASS" if comparator.get("unsupported_uniqueness_total") == 0 else "FAIL"},
+        "comparator": {"state": "PASS" if comparator.get("row_total", 0) >= 10 and comparator.get("unsupported_uniqueness_total") == 0 and not comparator_failures else "FAIL", **{k: comparator.get(k) for k in ["row_total", "unsupported_uniqueness_total"]}, "comparator_failures": comparator_failures},
+        "novelty": {"state": "PASS" if comparator.get("unsupported_uniqueness_total") == 0 and not comparator_failures else "FAIL", "comparator_failures": comparator_failures},
         "claim_binding": {"state": "PASS" if claims.get("unsupported_promoted_total") == 0 and claims.get("demoted_public_claim_total") == 0 and not proof_bound_failures else "FAIL", "claim_total": claims.get("claim_total"), "proof_bound_failure_total": len(proof_bound_failures)},
-        "attack_matrix": {"state": "PASS" if attack.get("critical_unresolved_total") == 0 and attack.get("high_unresolved_total") == 0 and attack.get("objection_total", 0) >= 200 else "FAIL", **{k: attack.get(k) for k in ["objection_total", "critical_unresolved_total", "high_unresolved_total"]}},
+        "attack_matrix": {"state": "PASS" if attack.get("critical_unresolved_total") == 0 and attack.get("high_unresolved_total") == 0 and attack.get("objection_total", 0) >= 200 and not attack_closure_failures else "FAIL", **{k: attack.get(k) for k in ["objection_total", "critical_unresolved_total", "high_unresolved_total"]}, "attack_closure_failures": attack_closure_failures[:20]},
         "llm": {"state": "PASS" if llm.get("execution_status") == "EXECUTED_WITH_FINDINGS_CLOSED" and llm.get("role_total") == 14 and not llm_result_bad else "BLOCKED", "execution_status": llm.get("execution_status"), "role_total": llm.get("role_total"), "bad_results": llm_result_bad[:20], "pending_role_total": llm.get("pending_role_total", 0), "critical_open_total": llm.get("critical_open_total"), "high_open_total": llm.get("high_open_total"), "parse_failure_total": llm.get("parse_failure_total")},
         "reproducibility": {"state": "PASS" if (root / "lakefile.lean").exists() and (root / "validation" / "run_all.py").exists() and (root / "simulations" / "adversarial" / "run_all.py").exists() else "FAIL"},
         "no_local_paths_secrets": {"state": "PASS" if not secret_hits else "FAIL", "hit_total": len(secret_hits), "hits": secret_hits[:20]},
         "surface_parity": {"state": "PASS" if all(path.exists() for path in surface_paths) and text(root / "releases" / "oc_core_1_3_3" / "VERSION").strip() == VERSION else "FAIL", "missing": [rel(root, path) for path in surface_paths if not path.exists()]},
-        "llm_schema_claim_boundary": {"state": "PASS" if not absolute_hits and phenomenon.get("unsupported_closed_total") == 0 else "FAIL", "absolute_hit_total": len(absolute_hits), "absolute_hits": absolute_hits[:20], "phenomenon_rows": phenomenon.get("row_total")},
+        "llm_schema_claim_boundary": {"state": "PASS" if not absolute_hits and phenomenon.get("unsupported_closed_total") == 0 and not phenomenon_failures else "FAIL", "absolute_hit_total": len(absolute_hits), "absolute_hits": absolute_hits[:20], "phenomenon_rows": phenomenon.get("row_total"), "phenomenon_failures": phenomenon_failures},
         "no_empirical_discovery_only": {"state": "PASS" if numeric.get("unsupported_promoted_total") == 0 and numeric.get("blocked_for_promotion_total") == 0 and not numeric_missing else "FAIL", "unsupported_promoted_total": numeric.get("unsupported_promoted_total"), "blocked_for_promotion_total": numeric.get("blocked_for_promotion_total")},
         "no_scope_narrowing": {"state": "PASS" if not scope_hits and claims.get("demoted_public_claim_total") == 0 else "FAIL", "scope_hit_total": len(scope_hits), "hits": scope_hits[:20]},
         "owner_packet": {"state": "PASS" if approval.get("decision") == "PENDING" and (root / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_OWNER_APPROVAL_PACKET.json").exists() else "FAIL"},

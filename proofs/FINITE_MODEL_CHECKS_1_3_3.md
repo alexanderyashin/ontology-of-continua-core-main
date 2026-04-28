@@ -1,3 +1,3 @@
-# OC Core 1.3.3 v12 Finite Model Checks
+# OC Core 1.3.3 v12 Semantic Finite Model Checks
 
-All promoted theorem rows have a finite acceptance case and a negative-control boundary.
+Inputs contain structured model facts only. The runner computes observed verdicts from theorem-specific evaluators and rejects any input row that tries to predeclare `observed_*` fields.
