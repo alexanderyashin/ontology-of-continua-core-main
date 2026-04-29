@@ -2,16 +2,18 @@
   "schema_id": "OC133_VALIDATION_PACKET_v12",
   "lane": "mathematics",
   "release_id": "oc_core_1_3_3",
-  "exact_promoted_claim": "finite witness acceptance count for all promoted v12 theorem rows",
+  "exact_promoted_claim": "finite witness acceptance count for machine-checked v12 theorem inventory rows; not a public-promotion count while Cerberus blockers remain",
   "theorem_to_observable_binding": "typed OC predicate -> lane-specific observable/protocol",
   "held_out_policy": "finite replay split generated from theorem registry; negative controls paired per theorem",
-  "formula": "predicted accepted cases = theorem inventory rows when finite runner failure_total=0",
+  "replay_rule": "replay accepted cases from theorem inventory rows when finite runner failure_total=0",
   "dataset_snapshot_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-  "predicted_value": 10.0,
-  "observed_value": 10.0,
+  "replay_value": 10.0,
+  "parsed_snapshot_value": 10.0,
   "uncertainty": 0.0,
-  "comparator_prediction": 9.0,
-  "residual": 0.0,
+  "baseline_control_value": 9.0,
+  "replay_residual": 0.0,
+  "comparator_residual": 1.0,
+  "residual_kind": "replay_residual_not_comparator_performance",
   "negative_controls": [
     "remove a required tuple component and observe rejected stronger reading"
   ],
@@ -20,5 +22,5 @@
   "empirical_support_allowed": false,
   "quarantine_reason": "finite proof-corpus consistency check; not empirical support",
   "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS",
-  "remaining_blocker": null
+  "remaining_blocker": "NOT_EMPIRICAL_PROMOTION_NUMERIC_REPLAY_QA_ONLY"
 }

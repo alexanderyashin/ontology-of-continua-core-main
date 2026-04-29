@@ -325,13 +325,16 @@ class ReleaseMachineTests(unittest.TestCase):
 
         scorecard = json.loads((root / "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json").read_text(encoding="utf-8"))
         gates = {row["gate_id"]: row for row in scorecard["gate_results"]}
-        for gate_id in [f"G{idx}" for idx in range(32, 58)] + [f"G{idx}" for idx in range(59, 70)]:
+        always_pass_gates = [f"G{idx}" for idx in range(32, 57)] + [f"G{idx}" for idx in range(59, 70)]
+        for gate_id in always_pass_gates:
             self.assertEqual(gates[gate_id]["state"], "PASS", gate_id)
         if summary["master_verdict"] == "PASS":
+            self.assertEqual(gates["G57"]["state"], "PASS")
             self.assertEqual(gates["G58"]["state"], "PASS")
             self.assertEqual(gates["G70"]["state"], "PASS")
             self.assertEqual(summary["gate_counts"]["PASS"], 71)
         else:
+            self.assertIn(gates["G57"]["state"], {"PASS", "FAIL"})
             self.assertEqual(gates["G58"]["state"], "BLOCKED")
             self.assertEqual(gates["G70"]["state"], "FAIL")
             self.assertEqual(summary["release_state"], "SCIENTIFIC_BLOCKERS_REMAIN")

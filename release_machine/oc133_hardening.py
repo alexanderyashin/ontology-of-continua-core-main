@@ -246,13 +246,13 @@ def empirical_numeric_audit(root: Path) -> dict[str, Any]:
     required = {
         "lane",
         "claim_id",
-        "formula",
+        "replay_rule",
         "dataset_snapshot_ref",
         "split_policy",
-        "predicted_value",
+        "replay_value",
         "observed_value",
         "uncertainty",
-        "comparator_prediction",
+        "baseline_control_value",
         "residual",
         "negative_control",
         "falsifier",
@@ -263,7 +263,7 @@ def empirical_numeric_audit(root: Path) -> dict[str, Any]:
         row.get("claim_id")
         for row in rows
         if str(row.get("promotion_status", "")).startswith("PROMOTED")
-        and (row.get("predicted_value") is None or row.get("observed_value") is None)
+        and (row.get("replay_value") is None or row.get("observed_value") is None)
     ]
     fake_pass = [
         row.get("claim_id")
@@ -300,7 +300,7 @@ def novelty_competitor_audit(root: Path) -> dict[str, Any]:
         return {"state": "FAIL", "missing": True}
     payload = read_json(path)
     rows = payload.get("rows", [])
-    required = {"tradition", "source_refs", "prior_art_has", "oc_bounded_delta", "what_oc_must_not_claim", "uniqueness_claim_status"}
+    required = {"tradition", "source_refs", "prior_art_has", "bounded_positioning_note", "what_oc_must_not_claim", "uniqueness_claim_status"}
     complete = _required_field_total(rows, required)
     unsupported = [
         row.get("tradition")

@@ -233,7 +233,7 @@ def run_cycle(args: argparse.Namespace) -> list[dict[str, Any]]:
     commands.append(command([sys.executable, "-m", "py_compile", "tools/materialize_oc_core_1_3_3_v12_closure.py", "tools/oc133_autonomous_research_loop.py", "tools/oc133_strategy_hq_bridge.py", "tools/run_oc133_v12_cerberus.py", "proofs/finite_model_checks/run_finite_model_checks.py"], timeout=120))
     commands.append(command([sys.executable, "proofs/finite_model_checks/run_finite_model_checks.py"], timeout=120))
     commands.append(command(["lake", "build"], timeout=240))
-    commands.append(command([sys.executable, "validation/run_all.py"], timeout=240))
+    commands.append(command([sys.executable, "validation/run_all.py", "--qa-only"], timeout=240))
     if args.cerberus:
         commands.append(command([sys.executable, "tools/run_oc133_v12_cerberus.py", "--max-workers", str(args.max_workers)], timeout=args.cerberus_timeout))
     if cerberus_state()["open_findings"]:

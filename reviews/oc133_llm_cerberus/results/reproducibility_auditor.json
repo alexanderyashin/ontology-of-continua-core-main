@@ -1,18 +1,43 @@
 {
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "reproducibility_auditor",
-  "execution_status": "EXECUTION_TIMEOUT",
+  "execution_status": "EXECUTED",
   "critical_open_total": 1,
-  "high_open_total": 0,
-  "finding_total": 1,
+  "high_open_total": 3,
+  "finding_total": 4,
   "findings": [
     {
       "severity": "CRITICAL",
-      "artifact_ref": "tools/run_oc133_v12_cerberus.py",
-      "claim": "LLM adversarial review must execute.",
-      "failure_mode": "Role `reproducibility_auditor` exceeded timeout_seconds=360: Command '['codex', 'exec', '-s', 'read-only', '-c', \"approval_policy='never'\", '-C', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main', '-o', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\reviews\\\\oc133_llm_cerberus\\\\raw_v12\\\\reproducibility_auditor.txt', '-']' timed out after 360 seconds",
-      "required_repair": "Rerun role with smaller context or repair Codex CLI latency; stale prior JSON must not be reused.",
+      "artifact_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+      "claim": "Current release-critical artifacts can be regenerated from a clean checkout.",
+      "failure_mode": "The current checkout is dirty for multiple inspected release-critical artifacts and direct regeneration inputs, including formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json, proofs/finite_model_checks/run_finite_model_checks.py, validation/run_all.py, simulations/run_all.py, simulations/adversarial/run_all.py, formal/lean/OC133V12.lean, proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json, simulations/expected_simulations.yml, and tools/materialize_oc_core_1_3_3_v12_closure.py. A clean checkout of the recorded repository state will not contain these exact current bytes, so the release certificate is not currently reproducible from checkout alone.",
+      "required_repair": "Commit or tag the exact current artifact set, or publish an immutable source archive containing these exact bytes; add a release gate that fails certificate generation when git status is dirty or when required generated outputs are untracked.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+      "claim": "\"clean_source_archive_kind\": \"release-critical source manifest copy without .git or .lake\"",
+      "failure_mode": "The certificate clean_source_manifest omits inspected release-critical entrypoints proofs/finite_model_checks/run_finite_model_checks.py and simulations/run_all.py. The same manifest logic also omits direct simulation inputs such as simulations/expected_simulations.yml and child simulation runners. A clean source copy can therefore pass lake build while being insufficient to regenerate the current finite-model and simulation artifacts, and edits to omitted files do not invalidate the certificate.",
+      "required_repair": "Make the release-critical manifest complete for all regeneration entrypoints and their direct inputs, including the finite runner, simulation runner, expected simulation file, simulation child runners, validation replay scripts, and numeric replay script; fail if any required ref is absent and record an expected manifest count plus hashes.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "The finite-model runner binds current checks to a clean Lean build certificate and reports LEAN_CERTIFICATE_NOT_CLEAN_OR_NOT_BOUND_TO_CURRENT_SOURCE only on drift.",
+      "failure_mode": "lean_cert_ok checks certificate returncode, theorem counts, current Lean source hash, cache flags, and only that build_transcript_sha256 is nonempty. It does not compare live_lean_build_transcript_sha256, clean_source_manifest_sha256, lakefile_sha256, lean_toolchain_sha256, or generator/template hashes against formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json. A stale certificate can survive whenever OC133V12.lean still matches and a fresh lake build succeeds.",
+      "required_repair": "During the finite-model run, recompute and compare all certificate-bound hashes and the live normalized build transcript hash against the certificate, or regenerate the normalized certificate in the temporary checkout and field-compare it with formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json; fail on any drift.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+      "claim": "\"isolated temp checkout without .lake && lake build OC133V12\" demonstrates cache-free reproducibility.",
+      "failure_mode": "The certificate proves absence of a copied repo .lake directory, but the recorded stderr_tail says the toolchain was already up to date. The build was not isolated from host toolchain state, ELAN_HOME, PATH, or Lake/Lean executable provenance. This supports a no-.lake-cache claim, not a clean-checkout-without-hidden-local-state claim.",
+      "required_repair": "Run the certificate build in a pinned container or with sanitized toolchain/cache environment, record lean and lake versions plus executable or image digest, and make the certificate distinguish repo-.lake isolation from host toolchain prerequisites.",
       "status": "OPEN"
     }
-  ]
+  ],
+  "raw_output_ref": "reviews/oc133_llm_cerberus/raw_v12/reproducibility_auditor.txt"
 }

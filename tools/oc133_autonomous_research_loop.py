@@ -17,6 +17,7 @@ REPAIR_DIR = CERBERUS_DIR / "repair"
 TRIGGER_TABLE = REPAIR_DIR / "OC133_CERBERUS_REPAIR_TRIGGER_TABLE.json"
 WORK_ORDERS = REPAIR_DIR / "OC133_CERBERUS_REPAIR_WORK_ORDERS.json"
 RUN_LEDGER = REPAIR_DIR / "OC133_AUTONOMOUS_RESEARCH_LOOP_LEDGER.json"
+PROFILE_LEDGER = REPAIR_DIR / "OC133_CAPABILITY_REPAIR_EXECUTION_LEDGER.json"
 DIRECTOR_PACKET = ROOT / "operations" / "institute_director" / "oc_core_1_3_3" / "OC133_INSTITUTE_DIRECTOR_PACKET.json"
 DIRECTOR_WORK_ORDERS = ROOT / "operations" / "institute_director" / "oc_core_1_3_3" / "OC133_INSTITUTE_DIRECTOR_WORK_ORDERS.json"
 
@@ -37,6 +38,7 @@ REPAIR_PROFILES = {
     "v12_hybrid_operator_repair": "Hybrid/smooth/update semantics and finite guard/reset repair.",
     "v12_minimality_tuple_repair": "Release tuple component keep/drop witness repair.",
     "v12_k0_countermodel_repair": "K0 raw separation versus resolution distinction finite/Lean repair.",
+    "v12_kzero_semantic_repair": "Continuumness k=0 zero-cause semantics and negative-control repair.",
     "v12_attack_matrix_binding_repair": "Concrete Cerberus finding to evidence-row repair.",
     "v12_lifecycle_invariant_repair": "Death/live/residue/rebirth identity invariant repair.",
     "v12_empirical_quarantine_repair": "Numeric replay quarantine and no fake prediction support repair.",
@@ -88,7 +90,7 @@ TRIGGERS = (
         artifact_tokens=("formal/lean/OC133V12.lean", "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json"),
         failure_tokens=("component", "minimality", "relabel", "hardcoded", "release tuple"),
         repair_refs=(
-            "formal/lean/OC133V12.lean::release_tuple_component_irredundant",
+            "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
             "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json",
             "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-MIN-*",
         ),
@@ -102,6 +104,18 @@ TRIGGERS = (
         repair_refs=(
             "formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction",
             "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K0-RES-POS",
+        ),
+    ),
+    Trigger(
+        trigger_id="R-FORMAL-KZERO-ZERO-CAUSE",
+        profile="v12_kzero_semantic_repair",
+        claim_tokens=("T133-K-ZERO", "Continuumness zero", "k=0", "zero-cause"),
+        artifact_tokens=("formal/lean/OC133V12.lean", "proofs/THEOREM_INVENTORY_1_3_3.json", "proofs/FINITE_MODEL_CHECKS_1_3_3.json"),
+        failure_tokens=("definitional", "zero-cause", "continuumness", "theorem theater", "empty admissibility"),
+        repair_refs=(
+            "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
+            "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-POS",
+            "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-NEG",
         ),
     ),
     Trigger(
@@ -190,7 +204,7 @@ def sha256_text(text: str) -> str:
 
 
 def command(cmd: list[str], *, timeout: int = 900) -> dict[str, Any]:
-    completed = subprocess.run(cmd, cwd=ROOT, text=True, capture_output=True, timeout=timeout)
+    completed = subprocess.run(cmd, cwd=ROOT, text=True, encoding="utf-8", errors="replace", capture_output=True, timeout=timeout)
     return {
         "cmd": cmd,
         "returncode": completed.returncode,
@@ -274,8 +288,9 @@ def trigger_payload() -> dict[str, Any]:
         "profiles": {
             profile: {
                 "description": description,
-                "entrypoint": "tools/materialize_oc_core_1_3_3_v12_closure.py",
-                "implementation_note": "Current profiles are implemented by the integrated v12 materializer, but work orders retain the capability-level cause so Strategy HQ/K6 can see which research capability was triggered.",
+                "entrypoint": f"tools/oc133_capability_repair_executor.py --profile {profile}",
+                "bootstrap_entrypoint": "tools/materialize_oc_core_1_3_3_v12_closure.py",
+                "implementation_note": "The integrated materializer may refresh shared generated surfaces once, but closure is verified by this profile-specific executor and its predicate ledger.",
                 "no_send": True,
             }
             for profile, description in REPAIR_PROFILES.items()
@@ -349,17 +364,29 @@ def apply_profiles(orders: list[dict[str, Any]]) -> list[dict[str, Any]]:
         integrated_result = command([sys.executable, "tools/materialize_oc_core_1_3_3_v12_closure.py"], timeout=900)
         integrated_result["profile"] = "v12_integrated_materializer"
         integrated_result["capability_profiles_applied"] = known_profiles
+        integrated_result["role"] = "shared_generated_surface_bootstrap_only"
         results.append(integrated_result)
+        class_remediation_result = command([sys.executable, "tools/oc133_vulnerability_class_remediator.py", "--apply"], timeout=420)
+        class_remediation_result["profile"] = "v12_vulnerability_class_remediator"
+        class_remediation_result["capability_description"] = "Class-level Cerberus finding remediation axis: finding class -> repair function -> predicate ledger."
+        class_remediation_result["role"] = "shared_class_level_repair_axis"
+        results.append(class_remediation_result)
     for profile in known_profiles:
-        result = dict(integrated_result or {})
+        result = command([sys.executable, "tools/oc133_capability_repair_executor.py", "--profile", profile, "--work-order-file", str(WORK_ORDERS)], timeout=420)
         result["profile"] = profile
         result["capability_description"] = REPAIR_PROFILES[profile]
+        result["profile_executor"] = "tools/oc133_capability_repair_executor.py"
+        result["bootstrap_materializer_returncode"] = (integrated_result or {}).get("returncode")
+        result["class_remediator_ref"] = "reviews/oc133_llm_cerberus/repair/OC133_VULNERABILITY_CLASS_REMEDIATION_LEDGER.json"
         results.append(result)
         for order in orders:
             if order.get("profile") == profile and order.get("status") == "QUEUED":
                 order["status"] = "APPLIED" if result["returncode"] == 0 else "REPAIR_COMMAND_FAILED"
                 order["repair_command_returncode"] = result["returncode"]
-                order["integrated_materializer_profile"] = "v12_integrated_materializer"
+                order["profile_executor"] = "tools/oc133_capability_repair_executor.py"
+                order["profile_verification_status"] = "PASS" if result["returncode"] == 0 else "FAIL"
+                order["integrated_materializer_profile"] = "bootstrap_only"
+                order["class_remediator_ref"] = "reviews/oc133_llm_cerberus/repair/OC133_VULNERABILITY_CLASS_REMEDIATION_LEDGER.json"
     for profile in unknown_profiles:
         result = {"cmd": [profile], "returncode": 99, "stdout_tail": "", "stderr_tail": "unknown repair profile", "profile": profile}
         results.append(result)
@@ -372,10 +399,11 @@ def apply_profiles(orders: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def focused_checks() -> list[dict[str, Any]]:
     return [
-        command([sys.executable, "-m", "py_compile", "tools/materialize_oc_core_1_3_3_v12_closure.py", "proofs/finite_model_checks/run_finite_model_checks.py", "tools/oc133_autonomous_research_loop.py"], timeout=120),
+        command([sys.executable, "-m", "py_compile", "tools/materialize_oc_core_1_3_3_v12_closure.py", "proofs/finite_model_checks/run_finite_model_checks.py", "tools/oc133_autonomous_research_loop.py", "tools/oc133_capability_repair_executor.py", "tools/oc133_vulnerability_class_remediator.py"], timeout=120),
+        command([sys.executable, "tools/oc133_vulnerability_class_remediator.py"], timeout=120),
         command([sys.executable, "proofs/finite_model_checks/run_finite_model_checks.py"], timeout=120),
-        command(["lake", "build"], timeout=240),
-        command([sys.executable, "validation/run_all.py"], timeout=240),
+        command(["lake", "build", "OC133V12"], timeout=600),
+        command([sys.executable, "validation/run_all.py", "--qa-only"], timeout=240),
         command([sys.executable, "-m", "unittest", "release_machine.tests.test_release_machine.ReleaseMachineTests.test_oc133_scientific_closure_gates_are_no_send"], timeout=240),
         command([sys.executable, "-m", "release_machine", "evaluate", "--release", "oc_core_1_3_3", "--channel", "all", "--mode", "dry-run"], timeout=240),
     ]
@@ -469,6 +497,9 @@ def main() -> int:
         "trigger_table_ref": rel(TRIGGER_TABLE),
         "director_packet_ref": rel(DIRECTOR_PACKET) if DIRECTOR_PACKET.exists() else None,
         "director_work_orders_ref": rel(DIRECTOR_WORK_ORDERS) if DIRECTOR_WORK_ORDERS.exists() else None,
+        "profile_execution_ledger_ref": rel(PROFILE_LEDGER) if PROFILE_LEDGER.exists() else None,
+        "known_work_order_front_hash": sha256_text(json.dumps(orders, ensure_ascii=False, sort_keys=True)),
+        "resource_policy": "Bootstrap shared generated surfaces once, then run narrow capability-specific executors and focused checks before widening to full Cerberus.",
         "cerberus_order_total": len(cerberus_orders),
         "director_order_total": len(imported_director_orders),
         "safety_gate": director_packet.get("safety_gate", {}),

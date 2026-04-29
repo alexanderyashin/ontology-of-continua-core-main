@@ -1,6 +1,6 @@
 # OC Core 1.3.3 Source-Backed Comparator Matrix
 
-| Prior art | Accepted overlap | Bounded OC delta | Non-novelty boundary |
+| Prior art | Accepted overlap | Bounded positioning note | Non-novelty boundary |
 | --- | --- | --- | --- |
 | General System Theory | general systems framing and cross-domain system concepts | release-bound typed theorem ledger plus executable finite witnesses, numeric replay QA, falsifier registry, and owner-gated no-send publication controls | If OC is read merely as cross-domain systems language, the novelty claim fails. |
 | Autopoiesis | autopoietic organization of living systems | typed distinction between liveness, death, residue, rebirth, and identity invariants | If OC is read as autopoiesis with renamed fields, the novelty claim fails. |

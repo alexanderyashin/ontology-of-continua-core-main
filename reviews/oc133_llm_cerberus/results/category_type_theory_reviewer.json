@@ -2,56 +2,32 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "category_type_theory_reviewer",
   "execution_status": "EXECUTED",
-  "critical_open_total": 1,
-  "high_open_total": 3,
-  "finding_total": 6,
+  "critical_open_total": 0,
+  "high_open_total": 0,
+  "finding_total": 3,
   "findings": [
     {
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-OMEGA-STATUS: \"Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.\"",
-      "failure_mode": "The cited Lean subset proves death blocks live and proves enum inequalities among MorphismClass.residue, MorphismClass.rebirth, and MorphismClass.identity. It does not connect Lifecycle.residueOf/rebirthOf source-target relations to MorphismEvidence, and the finite case checks JSON tokens rather than a typed carrier/morphism relation.",
-      "required_repair": "Demote or rewrite the claim to the exact supported statement, or add a Lean theorem tying Lifecycle live/death/residueOf/rebirthOf fields to MorphismEvidence with matching finite source-target cases.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-ID: \"Identity, residue, and rebirth morphism classification theorem\" with CATEGORY evidence route.",
-      "failure_mode": "The Lean subset has only an enum MorphismClass plus invariantPreserved Bool. It has no category structure: no objects, hom-sets, source/target laws, composition, identity law, associativity, or categorical equivalence, while the proof route still uses category/morphism-class wording.",
-      "required_repair": "Rename the result as an enum/tag identity-boundary theorem and remove categorical implications, or formalize the needed category/morphism structure in Lean and prove the residue/rebirth/identity laws against it.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "T133-ID finite checks support the identity/residue/rebirth boundary.",
-      "failure_mode": "The evaluator accepts only residue/rebirth with identity_invariant_preserved=false and claimed_identity_continuation=false, or identity with invariant=true and claimed continuation=true. The current inputs omit the full class x invariant x claimed-continuation table, especially residue/rebirth with invariant preserved and identity with invariant not preserved, so the finite witness does not test the claimed boundary.",
-      "required_repair": "Add exhaustive finite cases for identity, residue, and rebirth across invariantPreserved true/false and claimedIdentity true/false, then align the evaluator and proof ledger with the actual Lean definition or a new restartClass theorem.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "CRITICAL",
-      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 with category_type_theory_reviewer rows CLOSED_BY_SPECIFIC_V12_EVIDENCE.",
-      "failure_mode": "The matrix closes current category/type-theory defects by generic bounded-claim closure text, but the present claim ledger, theorem inventory, Lean subset, and finite checker still contain the unsupported morphism/category and incomplete identity-boundary issues above.",
-      "required_repair": "Reopen the affected critical/high rows, recompute unresolved totals from the current artifacts, and close them only after the public claims are demoted or the missing Lean and finite evidence is added.",
+      "claim": "T133-ID: Identity continuation requires endpoint-bound identity evidence, including typed source/target binding.",
+      "failure_mode": "The Lean subset supports Nat-token equality predicates around an unindexed MorphismEvidence record, not a genuinely type-indexed morphism/Hom object. Source and target carrier typing is imposed by endpointBoundIdentity/typedResidueMorphism/typedRebirthMorphism as external Props, while the morphism evidence itself can exist independently of S, Residue, and NewLive. This is acceptable as token-bound finite evidence, but the current wording overstates type-theoretic morphism typing.",
+      "required_repair": "Either reword the claim to 'token-bound source/target predicates under declared lifecycle parameters' or strengthen formal/lean/OC133V12.lean with an indexed/dependent morphism evidence type whose source, residue, and target endpoints are carried at the type level, then update the theorem inventory and finite checks to reference that stronger theorem.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "P002 explains death, residue, and rebirth without identity equivocation via FM-T133-ID-POS/FM-T133-ID-NEG.",
-      "failure_mode": "The model card uses a single rebirth positive/negative pair and a generic falsifier template. It does not bind the phenomenon to residue, identity-positive, invariant-preserved, and invariant-lost edge cases, so the coverage row is narrower than the hostile question it marks replayed.",
-      "required_repair": "Bind P002 to the exhaustive identity/residue/rebirth finite matrix and state concrete falsifier values for each edge case, or narrow the hostile question and coverage status to the single rebirth case.",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "T133-OMEGA-STATUS: residue and rebirth are token-bound evidence relations with distinct class-specific endpoint rules.",
+      "failure_mode": "The promoted row mixes residue endpoint wording into an OMEGA theorem path whose named Lean reference, lifecycle_residue_rebirth_morphism_boundary, proves the rebirth boundary case. Residue endpoint behavior exists in the Lean definition typedResidueMorphism and is used by T133-ID classification, but the T133-OMEGA finite case shown in proofs/FINITE_MODEL_CHECKS_1_3_3.json exercises rebirth only. The row therefore blurs which theorem/case actually supports the residue branch.",
+      "required_repair": "Split the residue endpoint sentence out of T133-OMEGA and leave it under T133-ID, or add a dedicated lifecycle_residue_morphism_boundary theorem plus T133-OMEGA residue positive/negative finite rows and update proofs/THEOREM_INVENTORY_1_3_3.json accordingly.",
       "status": "OPEN"
     },
     {
-      "severity": "MEDIUM",
-      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
-      "claim": "OC133-NUM-MATH-FINITE: finite witness acceptance count for all promoted v12 theorem rows is 10.",
-      "failure_mode": "The finite model artifact reports positive_case_total=12, while this numeric row reports 10 by counting theorem inventory rows. That is an inventory-count replay, not a finite witness acceptance count.",
-      "required_repair": "Rename the row to theorem-inventory count, or change the formula and observed value to match the finite model accepted theorem cases and document why extra T133-ID positives are counted.",
+      "severity": "LOW",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "T133-OMEGA-STATUS: Rebirth is non-identity unless endpoint-bound identity evidence has identity class, declared invariant preservation, no residue token, and equal source/target endpoint evidence.",
+      "failure_mode": "The wording leaves an apparent exception path for rebirth becoming identity, but the Lean subset proves a rebirth-class typed morphism is not endpointBoundIdentity because MorphismClass.rebirth is not MorphismClass.identity. Identity is a separate identity-class case, not an exception to rebirth.",
+      "required_repair": "Rewrite to: 'Rebirth-class evidence is non-identity; identity continuation is a separate endpoint-bound identity-class case requiring declared invariant preservation, no residue token, equal endpoint evidence, and lifecycle identity-invariant truth.'",
       "status": "OPEN"
     }
   ],

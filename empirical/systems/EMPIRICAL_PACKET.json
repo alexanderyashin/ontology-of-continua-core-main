@@ -5,13 +5,15 @@
   "exact_promoted_claim": "retrospective WDI GDP snapshot replay QA with descriptive comparator, no prediction or superiority claim",
   "theorem_to_observable_binding": "typed OC predicate -> lane-specific observable/protocol",
   "held_out_policy": "retrospective snapshot replay only; no train/test or held-out prediction because the snapshot contains the target field",
-  "formula": "replay latest non-null WDI value from pinned World Bank snapshot and compute residual against the same parsed value",
+  "replay_rule": "replay latest non-null WDI value from pinned World Bank snapshot and compute residual against the same parsed value",
   "dataset_snapshot_ref": "validation/_raw/systems_world_bank_gdp.txt",
-  "predicted_value": 110982661180013.0,
-  "observed_value": 110982661180013.0,
+  "replay_value": 110982661180013.0,
+  "parsed_snapshot_value": 110982661180013.0,
   "uncertainty": 0.0,
-  "comparator_prediction": 106741647821064.0,
-  "residual": 0.0,
+  "baseline_control_value": 106741647821064.0,
+  "replay_residual": 0.0,
+  "comparator_residual": 4241013358949.0,
+  "residual_kind": "replay_residual_not_comparator_performance",
   "negative_controls": [
     "remove or corrupt the latest WDI value and require replay parser failure"
   ],
@@ -20,5 +22,5 @@
   "empirical_support_allowed": false,
   "quarantine_reason": "snapshot contains the target value; retrospective replay QA only, barred from prediction support",
   "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS",
-  "remaining_blocker": null
+  "remaining_blocker": "NOT_EMPIRICAL_PROMOTION_NUMERIC_REPLAY_QA_ONLY"
 }

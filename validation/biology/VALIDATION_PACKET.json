@@ -5,20 +5,22 @@
   "exact_promoted_claim": "official GEO query-count replay; no organism-wide mechanism claim",
   "theorem_to_observable_binding": "typed OC predicate -> lane-specific observable/protocol",
   "held_out_policy": "snapshot replay only; mechanism claim not promoted",
-  "formula": "predicted count = pinned ESearch count recorded in snapshot",
+  "replay_rule": "replay count from pinned ESearch count recorded in snapshot",
   "dataset_snapshot_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
-  "predicted_value": 44008.0,
-  "observed_value": 44008.0,
+  "replay_value": 44008.0,
+  "parsed_snapshot_value": 44008.0,
   "uncertainty": 0.0,
-  "comparator_prediction": 44008.0,
-  "residual": 0.0,
+  "baseline_control_value": 44009.0,
+  "replay_residual": 0.0,
+  "comparator_residual": 1.0,
+  "residual_kind": "replay_residual_not_comparator_performance",
   "negative_controls": [
-    "query a different accession and require count mismatch"
+    "synthetic +1 count mutation against the pinned accession snapshot"
   ],
   "falsifier_condition": "replay parser cannot recover the pinned count",
   "prediction_support_allowed": false,
   "empirical_support_allowed": false,
   "quarantine_reason": "exact official query-count replay; QA only, not a biological prediction",
   "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS",
-  "remaining_blocker": null
+  "remaining_blocker": "NOT_EMPIRICAL_PROMOTION_NUMERIC_REPLAY_QA_ONLY"
 }

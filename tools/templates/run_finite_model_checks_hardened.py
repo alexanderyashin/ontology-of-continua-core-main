@@ -2,6 +2,10 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
+import shutil
+import subprocess
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -54,6 +58,36 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def normalize_build_transcript(value: str) -> str:
+    value = re.sub(r"\(\d+(?:\.\d+)?s\)", "(<elapsed>)", value or "")
+    return value.replace(str(ROOT), "<REPO_ROOT>")
+
+
+def release_critical_source_refs() -> list[str]:
+    return [
+        "lakefile.lean",
+        "lean-toolchain",
+        "formal/lean/OC133V12.lean",
+        "tools/materialize_oc_core_1_3_3_v12_closure.py",
+        "tools/templates/OC133V12_hardened.lean",
+        "tools/templates/run_finite_model_checks_hardened.py",
+        "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+        "data/k_level_irreducibility_matrix.json",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "validation/run_all.py",
+        "simulations/adversarial/run_all.py",
+    ]
+
+
+def source_manifest() -> list[dict[str, str]]:
+    rows = []
+    for ref in release_critical_source_refs():
+        path = ROOT / ref
+        if path.exists() and path.is_file():
+            rows.append({"ref": ref, "sha256": sha256_file(path)})
+    return rows
+
+
 def read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -63,6 +97,102 @@ def read_rel_json(ref: str) -> dict[str, Any]:
     if ROOT.resolve() not in path.parents and path != ROOT.resolve():
         raise ValueError(f"ref escapes repo root: {ref}")
     return read_json(path)
+
+
+def run_live_lake_build() -> dict[str, Any]:
+    try:
+        with tempfile.TemporaryDirectory(prefix="oc133_finite_lean_clean_") as tmp:
+            clean_root = Path(tmp)
+            for row in source_manifest():
+                src = ROOT / row["ref"]
+                dst = clean_root / row["ref"]
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(src, dst)
+            preexisting_lake = (clean_root / ".lake").exists()
+            completed = subprocess.run(
+                ["lake", "build", "OC133V12"],
+                cwd=clean_root,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                capture_output=True,
+                timeout=600,
+            )
+            post_build_lake = (clean_root / ".lake").exists()
+    except Exception as exc:
+        return {
+            "execution_status": "EXECUTION_FAILED",
+            "returncode": -1,
+            "clean_returncode": -1,
+            "stdout_tail": "",
+            "stderr_tail": str(exc)[-2000:],
+            "preexisting_lake_cache_detected": True,
+            "post_build_lake_cache_created": False,
+        }
+    zero_job_cached = "0 jobs" in (completed.stdout or "")
+    returncode = 0 if completed.returncode == 0 and not zero_job_cached and not preexisting_lake and post_build_lake else 2
+    return {
+        "execution_status": "EXECUTED_ISOLATED_CLEAN_BUILD" if returncode == 0 else "CLEAN_BUILD_FAILED_OR_CACHED",
+        "returncode": returncode,
+        "clean_returncode": 0,
+        "build_returncode": completed.returncode,
+        "zero_job_cached_build_detected": zero_job_cached,
+        "clean_stdout_tail": "isolated temporary checkout created without .lake",
+        "clean_stderr_tail": "",
+        "stdout_tail": normalize_build_transcript(completed.stdout[-2000:]),
+        "stderr_tail": normalize_build_transcript(completed.stderr[-2000:]),
+        "preexisting_lake_cache_detected": preexisting_lake,
+        "post_build_lake_cache_created": post_build_lake,
+        "build_transcript_sha256": hashlib.sha256(normalize_build_transcript((completed.stdout or "") + "\n" + (completed.stderr or "")).encode("utf-8")).hexdigest(),
+    }
+
+
+def declared_symbols(path: Path) -> set[str]:
+    if not path.exists():
+        return set()
+    text = path.read_text(encoding="utf-8", errors="replace")
+    return set(re.findall(r"^\s*(?:theorem|def|structure|inductive)\s+([A-Za-z0-9_'.]+)", text, flags=re.MULTILINE))
+
+
+def theorem_reference_audit(inputs: dict[str, Any], lean_cert: dict[str, Any]) -> dict[str, Any]:
+    lean_symbols = declared_symbols(ROOT / "formal" / "lean" / "OC133V12.lean")
+    runner_symbols = declared_symbols(Path(__file__))
+    refs = set()
+    for row in inputs.get("rows", []):
+        for key in ("lean_ref", "counterexample_lean_ref"):
+            value = row.get(key)
+            if value:
+                refs.add(str(value))
+    for item in lean_cert.get("theorem_refs", []) or []:
+        if isinstance(item, dict) and item.get("name"):
+            refs.add(f"formal/lean/OC133V12.lean::{item['name']}")
+    missing = []
+    bound = []
+    for ref in sorted(refs):
+        if "::" not in ref:
+            if (ROOT / ref).exists():
+                bound.append(ref)
+            else:
+                missing.append({"ref": ref, "reason": "ARTIFACT_REF_NOT_FOUND"})
+            continue
+        path_ref, symbol = ref.split("::", 1)
+        if path_ref == "formal/lean/OC133V12.lean":
+            ok = symbol in lean_symbols
+        elif path_ref == "proofs/finite_model_checks/run_finite_model_checks.py":
+            ok = symbol in runner_symbols
+        else:
+            ok = (ROOT / path_ref).exists()
+        if ok:
+            bound.append(ref)
+        else:
+            missing.append({"ref": ref, "reason": "SYMBOL_NOT_FOUND_IN_CURRENT_SOURCE"})
+    return {
+        "theorem_ref_total": len(refs),
+        "theorem_ref_bound_total": len(bound),
+        "theorem_ref_missing_total": len(missing),
+        "theorem_refs": sorted(bound),
+        "theorem_ref_missing": missing,
+    }
 
 
 def has_forbidden_key(value: Any) -> bool:
@@ -98,6 +228,76 @@ def cycle_or_maintenance(model: dict[str, Any]) -> bool:
 
 def zero_cause_active(causes: dict[str, Any]) -> bool:
     return any(bool(causes.get(name)) for name in ("flow", "coherence", "identity", "embedding"))
+
+
+def obstruction_active(obstructions: dict[str, Any]) -> bool:
+    return any(
+        bool(obstructions.get(name))
+        for name in ("flow_blocked", "coherence_broken", "identity_split", "embedding_failure")
+    )
+
+
+def unique_nonempty_values(*values: Any) -> bool:
+    if any(value in {None, ""} for value in values):
+        return False
+    return len(set(values)) == len(values)
+
+
+def hypothetical_owner_approved_control(model: dict[str, Any]) -> str:
+    owner_approved = model.get("owner_approved") is True
+    publish_requested = model.get("publish_requested") is True
+    channel_fields = {
+        "github_release": "github_release_allowed",
+        "zenodo_deposit": "zenodo_deposit_allowed",
+        "software_heritage_deposit": "software_heritage_deposit_allowed",
+        "journal_submission": "journal_submission_allowed",
+        "doi_minting": "doi_minting_allowed",
+    }
+    requested = model.get("requested_channels", [])
+    requested_channels_ok = bool(requested) and all(
+        channel in channel_fields and model.get(channel_fields[channel]) is True
+        for channel in requested
+    )
+    global_lock_open = model.get("global_no_send_lock") is False
+    common_gates_open = (
+        model.get("publish_allowed") is True
+        and model.get("journal_submissions_allowed") is True
+    )
+    if publish_requested and owner_approved and global_lock_open and common_gates_open and requested_channels_ok:
+        return "ALLOW_AFTER_OWNER_APPROVAL"
+    if publish_requested:
+        return "REJECT_PUBLIC_ACTION"
+    return "NO_ACTION"
+
+
+def endpoint_bound_identity(model: dict[str, Any]) -> bool:
+    source = model.get("source_token")
+    target = model.get("target_token")
+    return (
+        model.get("morphism_class") == "identity"
+        and model.get("identity_invariant_preserved") is True
+        and model.get("residue_token") in {None, ""}
+        and source not in {None, ""}
+        and target not in {None, ""}
+        and source == target
+        and model.get("lifecycle_identity_invariant") is True
+    )
+
+
+def morphism_shape_valid(model: dict[str, Any]) -> bool:
+    source = model.get("source_token")
+    target = model.get("target_token")
+    residue = model.get("residue_token")
+    if source in {None, ""} or target in {None, ""}:
+        return False
+    mclass = model.get("morphism_class")
+    if mclass == "identity":
+        return residue in {None, ""} and source == target
+    if mclass == "residue":
+        return residue not in {None, "", source} and source == target
+    if mclass == "rebirth":
+        return residue not in {None, "", source, target} and source != target
+    return False
 
 
 def semantic_tuple_verdict(model: dict[str, Any]) -> str:
@@ -173,24 +373,37 @@ def observed(row: dict[str, Any]) -> str:
             )
             ok = same_cell and raw_separated and same_cell_not_distinguished and cross_cell_distinguished
         elif theorem_id == "T133-OMEGA-STATUS":
+            tokens_separated = unique_nonempty_values(
+                model.get("identity_token"),
+                model.get("residue_id"),
+                model.get("rebirth_target_id"),
+            )
             ok = (
                 model.get("death") is True
                 and model.get("live") is False
                 and model.get("residue_id") not in {None, "", model.get("identity_token")}
                 and model.get("rebirth_source_residue_id") == model.get("residue_id")
                 and model.get("rebirth_target_id") not in {None, ""}
+                and tokens_separated
+                and model.get("residue_morphism_class") == "residue"
+                and model.get("residue_morphism_source_id") == model.get("identity_token")
+                and model.get("residue_morphism_residue_id") == model.get("residue_id")
+                and model.get("residue_morphism_target_id") == model.get("identity_token")
                 and model.get("morphism_class") == "rebirth"
-                and model.get("morphism_source_id") == model.get("residue_id")
+                and model.get("morphism_source_id") == model.get("identity_token")
+                and model.get("morphism_residue_id") == model.get("residue_id")
                 and model.get("morphism_target_id") == model.get("rebirth_target_id")
                 and model.get("identity_invariant_preserved") is False
                 and model.get("claimed_identity_continuation") is False
             )
         elif theorem_id == "T133-K-ZERO":
             ok = (
-                model.get("admissible_nonempty") is True
+                model.get("live_support") is True
+                and model.get("admissible_nonempty") is True
                 and model.get("cycle_witness") is True
                 and model.get("claimed_k") == 0
                 and zero_cause_active(model.get("zero_causes", {}))
+                and not obstruction_active(model.get("obstructions", {}))
             )
         elif theorem_id == "T133-BOUNDARY":
             if model.get("metric_measure_declared") is True:
@@ -203,11 +416,14 @@ def observed(row: dict[str, Any]) -> str:
         elif theorem_id == "T133-HYBRID":
             update_kind = model.get("update_kind", "hybrid_guard_reset")
             chart_declared = model.get("smooth_chart_id") not in {None, ""}
-            derivative_ok = not bool(model.get("derivative_requested")) or chart_declared
             if update_kind == "hybrid_guard_reset":
                 guard = bool(model.get("guard"))
                 expected_next = model.get("reset_target") if guard else model.get("step_target")
-                smooth_step_ok = model.get("smooth_step_target") in {None, model.get("flow_one_target")}
+                no_smooth_flow_leak = (
+                    not chart_declared
+                    and model.get("flow_one_target") in {None, ""}
+                    and model.get("smooth_step_target") in {None, ""}
+                )
                 shared_state_ok = model.get("smooth_state_type") == model.get("hybrid_state_type")
                 reset_typed_ok = (
                     model.get("reset_source_mode") == model.get("current_mode")
@@ -216,7 +432,13 @@ def observed(row: dict[str, Any]) -> str:
                     and model.get("post_reset_admissible") is True
                     and model.get("mode_invariant_preserved") is True
                 )
-                ok = model.get("actual_next") == expected_next and derivative_ok and smooth_step_ok and shared_state_ok and reset_typed_ok
+                ok = (
+                    model.get("actual_next") == expected_next
+                    and model.get("derivative_requested") is False
+                    and no_smooth_flow_leak
+                    and shared_state_ok
+                    and reset_typed_ok
+                )
             elif update_kind == "proof_rewrite":
                 ok = (
                     model.get("carrier_kind") in {"proof", "rewrite"}
@@ -225,6 +447,17 @@ def observed(row: dict[str, Any]) -> str:
                     and model.get("derivative_requested") is False
                     and not chart_declared
                     and model.get("actual_next") == model.get("step_target")
+                )
+            elif update_kind == "smooth_chart":
+                ok = (
+                    chart_declared
+                    and model.get("smooth_state_type") == model.get("source_type") == model.get("target_type")
+                    and model.get("derivative_requested") is True
+                    and model.get("flow_one_target") not in {None, ""}
+                    and model.get("smooth_step_target") == model.get("flow_one_target")
+                    and model.get("actual_next") == model.get("smooth_step_target")
+                    and model.get("local_law_declared") is True
+                    and model.get("chart_domain_contains_state") is True
                 )
             else:
                 ok = False
@@ -240,11 +473,8 @@ def observed(row: dict[str, Any]) -> str:
         elif theorem_id == "T133-CYCLE":
             ok = bool(model.get("live")) and cycle_or_maintenance(model)
         elif theorem_id == "T133-ID":
-            should_be_identity = (
-                model.get("morphism_class") == "identity"
-                and model.get("identity_invariant_preserved") is True
-            )
-            ok = model.get("claimed_identity_continuation") is should_be_identity
+            should_be_identity = endpoint_bound_identity(model)
+            ok = morphism_shape_valid(model) and model.get("claimed_identity_continuation") is should_be_identity
         elif theorem_id == "T133-MIN":
             cases = model.get("component_cases", [])
             ok = (
@@ -274,8 +504,16 @@ def observed(row: dict[str, Any]) -> str:
     if case_type == "mutation_control":
         return observed(dict(model.get("mutated_row", {})))
     if case_type == "no_send_state_machine":
-        manifest = read_rel_json(str(model.get("manifest_ref")))
-        approval = read_rel_json(str(model.get("approval_ref")))
+        manifest_ref = str(model.get("manifest_ref"))
+        approval_ref = str(model.get("approval_ref"))
+        manifest_path = ROOT / manifest_ref
+        approval_path = ROOT / approval_ref
+        manifest = read_rel_json(manifest_ref)
+        approval = read_rel_json(approval_ref)
+        digest_bound = (
+            model.get("manifest_sha256") == sha256_file(manifest_path)
+            and model.get("approval_sha256") == sha256_file(approval_path)
+        )
         publish_requested = model.get("publish_requested") is True
         locked_fields = [
             "publish_allowed",
@@ -287,18 +525,12 @@ def observed(row: dict[str, Any]) -> str:
             "doi_minting_allowed",
         ]
         all_locked = all(manifest.get(field) is False for field in locked_fields)
-        approval_locked = (
-            approval.get("decision") == "PENDING"
-            and approval.get("owner_approved") is False
-            and approval.get("publish_allowed") is False
-            and approval.get("journal_submissions_allowed") is False
+        any_common_lock = (
+            manifest.get("global_no_send_lock") is True
+            or manifest.get("owner_approved") is not True
+            or manifest.get("publish_allowed") is not True
+            or manifest.get("journal_submissions_allowed") is not True
         )
-        if publish_requested and manifest.get("global_no_send_lock") is True and approval_locked and all_locked:
-            return "REJECT_PUBLIC_ACTION"
-        return "NO_ACTION"
-    if case_type == "no_send_hypothetical_control":
-        owner_approved = model.get("owner_approved") is True
-        publish_requested = model.get("publish_requested") is True
         channel_fields = {
             "github_release": "github_release_allowed",
             "zenodo_deposit": "zenodo_deposit_allowed",
@@ -307,15 +539,28 @@ def observed(row: dict[str, Any]) -> str:
             "doi_minting": "doi_minting_allowed",
         }
         requested = model.get("requested_channels", [])
-        requested_channels_ok = bool(requested) and all(channel in channel_fields and model.get(channel_fields[channel]) is True for channel in requested)
-        global_lock_open = model.get("global_no_send_lock") is False
-        common_gates_open = (
-            model.get("publish_allowed") is True
-            and model.get("journal_submissions_allowed") is True
+        requested_channel_locked = any(
+            channel not in channel_fields or manifest.get(channel_fields[channel]) is not True
+            for channel in requested
         )
-        if publish_requested and owner_approved and global_lock_open and common_gates_open and requested_channels_ok:
-            return "ALLOW_AFTER_OWNER_APPROVAL"
+        approval_locked = (
+            approval.get("decision") == "PENDING"
+            and approval.get("owner_approved") is False
+            and approval.get("owner_approval_required") is True
+            and approval.get("no_send") is True
+            and approval.get("publish_allowed") is False
+            and approval.get("journal_submissions_allowed") is False
+            and approval.get("journal_submission_allowed") is False
+            and approval.get("github_release_allowed") is False
+            and approval.get("zenodo_deposit_allowed") is False
+            and approval.get("software_heritage_deposit_allowed") is False
+            and approval.get("doi_minting_allowed") is False
+        )
+        if digest_bound and publish_requested and (approval_locked or all_locked or any_common_lock or requested_channel_locked):
+            return "REJECT_PUBLIC_ACTION"
         return "NO_ACTION"
+    if case_type == "no_send_hypothetical_control":
+        return hypothetical_owner_approved_control(model)
     return "UNKNOWN"
 
 
@@ -326,6 +571,16 @@ def evaluate(row: dict[str, Any]) -> dict[str, Any]:
         out["passed"] = False
         return out
     obs = observed(row)
+    if row.get("theorem_id") == "OC133-NOSEND-001":
+        model = row.get("model", {})
+        if model.get("manifest_ref"):
+            out["publish_manifest_ref"] = model.get("manifest_ref")
+            out["publish_manifest_sha256"] = sha256_file(ROOT / str(model.get("manifest_ref")))
+            out["expected_publish_manifest_sha256"] = model.get("manifest_sha256")
+        if model.get("approval_ref"):
+            out["owner_release_approval_ref"] = model.get("approval_ref")
+            out["owner_release_approval_sha256"] = sha256_file(ROOT / str(model.get("approval_ref")))
+            out["expected_owner_release_approval_sha256"] = model.get("approval_sha256")
     if row.get("case_type") == "component_keep_drop_witness":
         out["observed_keep_verdict"] = semantic_tuple_verdict(row.get("model", {}).get("keep", {}))
         out["observed_drop_verdict"] = obs
@@ -344,11 +599,32 @@ def main() -> int:
     rows = [evaluate(row) for row in inputs["rows"]]
     failures = [row for row in rows if not row.get("passed")]
     lean_cert = read_json(LEAN_CERT) if LEAN_CERT.exists() else {}
+    ref_audit = theorem_reference_audit(inputs, lean_cert)
+    lean_source = ROOT / "formal" / "lean" / "OC133V12.lean"
+    current_lean_sha256 = sha256_file(lean_source) if lean_source.exists() else None
+    cert_lean_sha256_matches = lean_cert.get("lean_source_sha256") == current_lean_sha256
+    live_lean_build = run_live_lake_build()
     lean_cert_ok = (
         lean_cert.get("returncode") == 0
         and lean_cert.get("theorem_ref_missing_total") == 0
         and lean_cert.get("theorem_ref_present_total", 0) >= 10
+        and ref_audit["theorem_ref_missing_total"] == 0
+        and ref_audit["theorem_ref_bound_total"] >= 10
+        and cert_lean_sha256_matches
+        and lean_cert.get("cache_free_build_required") is True
+        and lean_cert.get("zero_job_cached_build_detected") is False
+        and lean_cert.get("isolated_clean_checkout_build") is True
+        and lean_cert.get("preexisting_lake_cache_detected") is False
+        and lean_cert.get("post_build_lake_cache_created") is True
+        and bool(lean_cert.get("build_transcript_sha256"))
     )
+    certificate_binding_failures = []
+    if not lean_cert_ok:
+        certificate_binding_failures.append("LEAN_CERTIFICATE_NOT_CLEAN_OR_NOT_BOUND_TO_CURRENT_SOURCE")
+    if live_lean_build.get("returncode") != 0:
+        certificate_binding_failures.append("LIVE_LAKE_BUILD_FAILED_DURING_FINITE_MODEL_RUN")
+    if ref_audit["theorem_ref_missing_total"] != 0:
+        certificate_binding_failures.append("FINITE_ROW_THEOREM_REFS_NOT_BOUND_TO_CURRENT_SOURCE")
     payload = {
         "schema_id": "OC133_FINITE_MODEL_CHECKS_v12_ATLAS_SEMANTIC_EXECUTED",
         "release_id": "oc_core_1_3_3",
@@ -361,9 +637,33 @@ def main() -> int:
         "atlas_sha256": sha256_file(ATLAS),
         "lean_build_certificate_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
         "lean_build_certificate_sha256": sha256_file(LEAN_CERT) if LEAN_CERT.exists() else None,
+        "lean_source_ref": "formal/lean/OC133V12.lean",
+        "current_lean_source_sha256": current_lean_sha256,
+        "certificate_lean_source_sha256": lean_cert.get("lean_source_sha256"),
+        "cert_lean_sha256_matches_current_source": cert_lean_sha256_matches,
         "lean_build_returncode": lean_cert.get("returncode"),
+        "lean_build_execution_status": lean_cert.get("execution_status"),
+        "lean_cache_free_build_required": lean_cert.get("cache_free_build_required"),
+        "lean_zero_job_cached_build_detected": lean_cert.get("zero_job_cached_build_detected"),
+        "live_lean_build_returncode": live_lean_build.get("returncode"),
+        "live_lean_build_execution_status": live_lean_build.get("execution_status"),
+        "live_lean_build_clean_returncode": live_lean_build.get("clean_returncode"),
+        "live_lean_build_zero_job_cached_build_detected": live_lean_build.get("zero_job_cached_build_detected"),
+        "live_lean_preexisting_lake_cache_detected": live_lean_build.get("preexisting_lake_cache_detected"),
+        "live_lean_post_build_lake_cache_created": live_lean_build.get("post_build_lake_cache_created"),
+        "live_lean_build_transcript_sha256": live_lean_build.get("build_transcript_sha256"),
+        "live_lean_clean_source_manifest_sha256": hashlib.sha256(json.dumps(source_manifest(), sort_keys=True).encode("utf-8")).hexdigest(),
+        "live_lean_build_stdout_tail": live_lean_build.get("stdout_tail"),
+        "live_lean_build_stderr_tail": live_lean_build.get("stderr_tail"),
         "lean_theorem_ref_present_total": lean_cert.get("theorem_ref_present_total", 0),
         "lean_theorem_ref_missing_total": lean_cert.get("theorem_ref_missing_total", 999),
+        "finite_row_theorem_ref_total": ref_audit["theorem_ref_total"],
+        "finite_row_theorem_ref_bound_total": ref_audit["theorem_ref_bound_total"],
+        "finite_row_theorem_ref_missing_total": ref_audit["theorem_ref_missing_total"],
+        "finite_row_theorem_refs": ref_audit["theorem_refs"],
+        "finite_row_theorem_ref_missing": ref_audit["theorem_ref_missing"],
+        "certificate_binding_failure_total": len(certificate_binding_failures),
+        "certificate_binding_failures": certificate_binding_failures,
         "command": "python proofs/finite_model_checks/run_finite_model_checks.py",
         "semantic_evaluator": True,
         "input_observed_field_total": sum(1 for row in inputs["rows"] for key in row if key.startswith("observed_")),
@@ -377,13 +677,14 @@ def main() -> int:
         "k_transition_negative_total": sum(1 for row in rows if row.get("case_type") == "adjacent_k_transition_witness" and row.get("expected_reduction_verdict") == "DEMOTABLE_WITH_LOST_WITNESS"),
         "mutation_control_total": sum(1 for row in rows if row.get("case_type") == "mutation_control"),
         "no_send_state_machine_total": sum(1 for row in rows if row.get("case_type") in {"no_send_state_machine", "no_send_hypothetical_control"}),
-        "failure_total": len(failures),
+        "semantic_failure_total": len(failures),
+        "failure_total": len(failures) + len(certificate_binding_failures),
         "machine_checked_subset_total": lean_cert.get("theorem_ref_present_total", 0) if lean_cert_ok else 0,
         "rows": rows,
     }
     OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(payload, ensure_ascii=False, indent=2))
-    return 0 if not failures else 1
+    return 0 if not failures and not certificate_binding_failures else 1
 
 
 if __name__ == "__main__":

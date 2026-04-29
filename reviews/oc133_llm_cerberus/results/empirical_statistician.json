@@ -2,56 +2,32 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "empirical_statistician",
   "execution_status": "EXECUTED",
-  "critical_open_total": 1,
-  "high_open_total": 5,
-  "finding_total": 6,
+  "critical_open_total": 0,
+  "high_open_total": 0,
+  "finding_total": 3,
   "findings": [
     {
-      "severity": "HIGH",
-      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
-      "claim": "OC133-NUM-SYS-WDI-GDP: one-step GDP replay QA with comparator, no prediction or superiority claim; split_policy says train on two previous non-null years and hold out latest non-null year.",
-      "failure_mode": "The row still uses prediction/heldout language while its own quarantine_reason says the snapshot contains the target. The declared uncertainty 4241013358949.0 equals observed_value 110982661180013.0 minus comparator_prediction 106741647821064.0, so the falsifier threshold is computed from the held-out observation. This cannot support heldout/comparator/residual validity.",
-      "required_repair": "Remove predict/holdout/falsifier-threshold language and report pure retrospective replay only, or provide a train-only/preregistered derivation of prediction, comparator, uncertainty, residual, and pass/fail from data locked before target availability.",
+      "severity": "MEDIUM",
+      "artifact_ref": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+      "claim": "Lane result_verdict values are \"NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS\" while heldout_prediction_support_present is false and verdict is \"QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED\".",
+      "failure_mode": "The report correctly blocks empirical/domain promotion, but the lane-level word \"SUPPORTED\" inside a domain-validation artifact still overstates official-snapshot replay as support. A downstream table or public excerpt could preserve the lane verdict while dropping the blocker fields, creating empirical-theater language from non-heldout replay rows.",
+      "required_repair": "Rename all lane and lane_replay result_verdict values to a non-support label such as \"SNAPSHOT_REPLAY_QA_WITHIN_TOLERANCE_NOT_VALIDATION\" and reserve \"supported\" for heldout/prospective empirical protocols.",
       "status": "OPEN"
     },
     {
-      "severity": "CRITICAL",
-      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 for empirical attacks closed by prediction_support_allowed_total=0 and empirical_support_allowed=false.",
-      "failure_mode": "The closure criterion does not test heldout split integrity or target-leakage in the current GDP row. It closes CERBERUS-020/021 while the numeric table still contains target-leaked uncertainty and heldout/predict language.",
-      "required_repair": "Reopen the empirical closure rows; add closure predicates for train-only split, target availability, uncertainty, comparator, residual, and pass/fail logic, then recompute unresolved totals.",
+      "severity": "MEDIUM",
+      "artifact_ref": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+      "claim": "empirical_promotion_policy is \"NO_EMPIRICAL_PASS_WITHOUT_NUMERIC_REPLAY\".",
+      "failure_mode": "This policy states only a necessary condition and can be read as allowing empirical pass once numeric replay exists, even though the same artifact says official snapshots are inputs, heldout_prediction_support_present is false, and no held-out empirical prediction support is promoted.",
+      "required_repair": "Replace with an explicit sufficiency boundary, for example \"NO_EMPIRICAL_PASS_FROM_NUMERIC_REPLAY_ONLY; HELDOUT_TARGET_BLIND_PROTOCOL_REQUIRED\", and require the same wording in validation/run_all.py so regenerated reports cannot regress.",
       "status": "OPEN"
     },
     {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "claim": "T133-KLEVEL / K11_to_K12: added_axis 'coherence -> release-governed civilizational closure' passes as FAILS_WITH_WITNESS.",
-      "failure_mode": "The actual witness is only owner-gated public action/no-send governance. The check passes declared atlas strings and booleans, not evidence for civilizational closure. This relabels release-governance plumbing as an absolute-sounding K12 axis.",
-      "required_repair": "Rename K11_to_K12 to bounded release-governance/no-send control, or demote it until independent comparator/model-card evidence and a non-circular evaluator support civilizational closure.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "P012 route: claim OC133-NOSEND-001 -> Lean theorem/proof sheet -> semantic finite case -> negative control -> falsifier.",
-      "failure_mode": "OC133-NOSEND-001 is not in the theorem inventory and OC133V12.lean has no no-send theorem. The row advertises a Lean/proof-sheet route for what is actually a publish-manifest plus finite no-send state-machine check.",
-      "required_repair": "Rewrite P012 as claim -> owner approval/publish manifest -> finite no-send state-machine check, or add and inventory an actual Lean no-send theorem and proof sheet.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-HYBRID: Differential operator notation is a smooth-realization specialization of typed update semantics.",
-      "failure_mode": "The cited Lean theorem proves only record-field routing over arbitrary State: flow-one equality, optional chart existence, and guard/reset behavior. It does not define smooth structure, derivatives, differential operators, ODEs, or analytic laws.",
-      "required_repair": "Demote to typed update plus optional chart and guard/reset routing, or formalize actual smooth/differential semantics with aligned finite/domain checks.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-      "failure_mode": "The current Lean support proves death blocks live and enum inequalities among residue/rebirth/identity. It does not make live/death morphism classes or connect Lifecycle.residueOf/rebirthOf relations to MorphismEvidence.",
-      "required_repair": "Rewrite to the exact supported theorem, or add Lean definitions/proofs connecting lifecycle predicates, residue/rebirth source-target relations, and MorphismEvidence with matching finite cases.",
+      "severity": "LOW",
+      "artifact_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+      "claim": "Rows advertise baseline_control_value, negative_control, comparator_residual, and support via baseline/negative-control/falsifier plumbing while residual_kind says \"replay_residual_not_comparator_performance\".",
+      "failure_mode": "The controls are synthetic or arbitrary single-value mutations, not empirical baselines. The quarantine flags prevent a high-severity promotion leak, but the baseline/comparator vocabulary still invites performance interpretation despite the residual_kind disclaimer.",
+      "required_repair": "Rename baseline_control_value and comparator_residual to synthetic_mutation_value and synthetic_mutation_residual, or add preregistered baseline provenance and an explicit rule that these values are excluded from all performance claims.",
       "status": "OPEN"
     }
   ],

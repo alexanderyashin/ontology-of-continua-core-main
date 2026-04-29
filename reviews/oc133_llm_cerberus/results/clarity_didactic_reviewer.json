@@ -3,47 +3,31 @@
   "role": "clarity_didactic_reviewer",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 4,
-  "finding_total": 5,
+  "high_open_total": 0,
+  "finding_total": 3,
   "findings": [
     {
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-      "failure_mode": "The promoted claim still exceeds the cited machine-checked route. The current Lean reference `formal/lean/OC133V12.lean::lifecycle_statuses_and_morphisms_separated` proves death blocks live plus enum inequalities among residue, rebirth, and identity classes; it does not connect `Lifecycle.residueOf`/`rebirthOf` typed source-target relations to `MorphismEvidence`. The finite case checks JSON token separation, not the typed morphism relation. A hostile reader cannot follow the residue/rebirth part from tuple to theorem to semantic finite case without author interpretation.",
-      "required_repair": "Rewrite the public claim to the exact supported statement, or add a Lean theorem tying `Lifecycle.residueOf`, `Lifecycle.rebirthOf`, and `MorphismEvidence` into one typed status/morphism theorem with matching finite cases that exercise those source-target relations.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "claim": "T133-ID: Residue preservation and rebirth are not identity continuation unless declared identity invariants are preserved.",
-      "failure_mode": "The current finite witness set covers residue/rebirth only with `identity_invariant_preserved=false`, plus one positive identity case with `morphism_class=identity` and invariant preserved. It does not cover residue or rebirth with invariants preserved, so the word 'unless' is ambiguous: the artifacts do not show whether invariant preservation alone can license identity continuation or whether identity class is also required.",
-      "required_repair": "Add an exhaustive finite truth table for `morphism_class in {identity,residue,rebirth}` x `identity_invariant_preserved` x `claimed_identity_continuation`, then align the claim text with the actual rule, e.g. 'identity continuation requires identity class and preserved invariants.'",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-KLEVEL: Every declared adjacent K-level transition K0->K12 has a Lean atlas witness, reduction-failure predicate, executable finite row, and lawful demotion predicate in the v12 classifier atlas.",
-      "failure_mode": "The Lean theorem constructs `retainedTransitionEvidence` and `demotedTransitionEvidence` from hard-coded enum/Bool fields and proves `reductionFails`/`lawfulDemotion` by the definitions. It does not encode the atlas text fields `witness_pair`, `reduction_failure_criterion`, or `lawful_demotion_criterion`, and it does not prove the claimed domain examples such as closure, trust coordination, or release governance. The finite runner checks string equality and flags, so the advertised semantic witness atlas collapses to registry consistency plus configured booleans.",
-      "required_repair": "Either demote the claim to 'the registry is internally consistent under the declared Boolean evaluator' or formalize per-transition semantic predicates in Lean and bind the finite rows to those predicates rather than to text equality and witness-active flags.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "P012 / OC133-NOSEND-001 route: claim -> Lean theorem/proof sheet -> semantic finite case -> negative control -> falsifier.",
-      "failure_mode": "The no-send model card says the route includes a Lean theorem/proof sheet, but the current theorem inventory and proof ledger have no `OC133-NOSEND-001` theorem row, and P012 evidence refs omit any no-send proof sheet. The actual support is an operational finite no-send state machine plus owner approval files. The matrix therefore teaches a false proof route for a release-critical no-send claim.",
-      "required_repair": "Rewrite P012 as an operational control-plane route with no Lean/proof-sheet language, or add a real theorem inventory row, proof sheet, Lean theorem reference, and finite case binding for `OC133-NOSEND-001`.",
+      "claim": "release_promotion_allowed=false with adversarial_review_blocker_total=28 and promotion gated on a fresh Cerberus summary reporting zero critical/high findings",
+      "failure_mode": "The ledger gives the gate condition and blocker count but no current blocker manifest, blocker IDs, severities, artifact bindings, or exact Cerberus summary reference. A hostile reader cannot verify which 28 blockers remain open, whether they are current, or what exact repairs would unlock promotion without author help.",
+      "required_repair": "Add or reference a current machine-readable blocker ledger for G57/G58/G70 with blocker_id, severity, affected artifact, current status, required repair, and closing evidence; bind the top-level blocker count to that artifact by hash.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
       "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "Each phenomenon model card supplies a falsifier route.",
-      "failure_mode": "The falsifier text is boilerplate across the matrix, typically 'a countermodel satisfying assumptions but changing the declared observable without detection.' That names a generic runner-failure condition, not the concrete field mutation or finite row that falsifies the specific claim. Negative-control IDs exist, but the reader still has to infer the actual falsifier from large JSON rows.",
-      "required_repair": "Add per-row falsifier contracts with the exact finite case ID, field mutation, expected rejected verdict, and observed runner condition; do not use generic falsifier prose as the terminal step in the public explanation route.",
+      "claim": "P014 / T133-MIN: one-component keep/drop witness pair per promoted tuple component, with route through FM-T133-MIN-POS and FM-T133-MIN-NEG",
+      "failure_mode": "The matrix routes minimality through only the aggregate positive and negative cases, while the falsifier depends on the per-component FM-MIN-* keep/drop cases. A hostile reader cannot trace carrier, realization, lawful_possibility, liveness, residue, morphisms, boundaries, operators, cycles, dimension, and k to their specific semantic finite falsifiers from this artifact.",
+      "required_repair": "In P014, enumerate every FM-MIN-{component} case ID and map each tuple component to its keep field, drop field, expected/observed verdicts, and falsifier condition.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "LOW",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "The theorem inventory supplies the machine-checked, load-bearing theorem route for the 10 v12 theorem rows",
+      "failure_mode": "Each row lists titles and refs, but not the theorem statement, assumptions, finite positive case, negative control case, or falsifier boundary. The hostile reader must triangulate across other artifacts to understand what each Lean ref is supposed to prove and how it is falsified.",
+      "required_repair": "Add statement, assumptions, finite_positive_case_ids, negative_control_case_ids, and falsifier_boundary fields to every theorem row, reusing the exact IDs from FINITE_MODEL_CHECKS and the guide.",
       "status": "OPEN"
     }
   ],

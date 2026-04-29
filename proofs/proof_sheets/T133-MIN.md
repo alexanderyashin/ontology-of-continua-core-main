@@ -1,8 +1,8 @@
 # T133-MIN - Declared semantic-verdict component independence theorem
 
-Status: `PROMOTED_BOUNDED_THEOREM_V12`
+Status: `BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12`
 Primary artifact: `appendix/OC_1_3_3_GLOBAL_MINIMALITY_WITNESSES.tex`
-Machine-checked subset: `formal/lean/OC133V12.lean::release_tuple_component_irredundant`
+Machine-checked subset: `formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant`
 Attacked claim: Within the declared v12 release tuple semantics, each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.
 
 ## Assumptions
@@ -27,12 +27,12 @@ The promoted v12 tuple has component-wise independence for the declared semantic
 ## Proof
 For each component c, the witness ledger gives keep_c and drop_c cases whose semantic records differ only in c's obligation field and whose verdicts differ. Lemma 1 proves that c is required for the release verdict suite. Lemma 2 ranges over the full promoted tuple. Therefore no promoted component can be removed while preserving this declared v12 verdict suite.
 
-The proof is promoted only with the stated assumptions. It is linked to the finite witness corpus and
+This is a candidate proof sheet and is not release-promoted while G57/G58/G70 remain open. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the
 finite corpus checks the release verdict behavior used by the public claim ledger.
 
 ## Counterexample Boundary
-The theorem does not claim OC is the only possible scientific framework; novelty is handled by the comparator register.
+If any promoted tuple component can be removed while `FM-MIN-*` still returns PASS for the declared semantic verdict suite, the minimality card fails.
 
 ## Machine-Checkable Finite Example
 Removing boundary admits a state rejected by the full tuple; removing cycle mode admits a frozen non-live object.

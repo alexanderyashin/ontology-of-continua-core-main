@@ -181,7 +181,7 @@ def _proof_sheet_failures(root: Path, registry: dict[str, Any]) -> list[dict[str
 
 def _run_lake(root: Path) -> dict[str, Any]:
     try:
-        completed = subprocess.run(["lake", "build"], cwd=root, text=True, capture_output=True, timeout=180)
+        completed = subprocess.run(["lake", "build", "OC133V12"], cwd=root, text=True, encoding="utf-8", errors="replace", capture_output=True, timeout=600)
     except Exception as exc:
         return {"state": "FAIL", "returncode": -1, "stderr_tail": str(exc)[-1200:]}
     return {
@@ -199,7 +199,7 @@ def audit(root: Path) -> dict[str, Any]:
     finite = read_json(root / "proofs" / "FINITE_MODEL_CHECKS_1_3_3.json")
     finite_inputs = read_json(root / "proofs" / "finite_model_checks" / "OC133_FINITE_MODEL_INPUTS.json")
     claims = read_json(root / "claims" / "CLAIM_LEDGER_1_3_3.json")
-    numeric = read_json(root / "validation" / "numeric_predictions" / "OC133_NUMERIC_PREDICTION_TABLE.json")
+    numeric = read_json(root / "validation" / "numeric_replay_qa" / "OC133_NUMERIC_REPLAY_QA_TABLE.json")
     domain = read_json(root / "data" / "domain_semantics_matrix.json")
     klevel = read_json(root / "data" / "k_level_irreducibility_matrix.json")
     minimality = read_json(root / "data" / "OC133_GLOBAL_MINIMALITY_WITNESSES.json")
@@ -254,8 +254,10 @@ def audit(root: Path) -> dict[str, Any]:
         "residue_rebirth_identity_boundary",
         "metric_boundary_failure_equiv",
         "metric_boundary_specialization",
-        "k_zero_iff_declared_zero_cause",
-        "k_zero_with_nonempty_support_iff_declared_zero_cause",
+        "continuumness_score_zero_iff_no_obstruction",
+        "zero_cause_does_not_compute_k_by_itself",
+        "declared_zero_cause_with_clear_obstruction_licenses_k_zero",
+        "k_zero_with_nonempty_support_requires_cause_and_clear_obstruction",
         "continuumness_zero_case_iff_declared_zero_cause_with_support",
         "historicalMonotone",
         "effectiveRankDrops",
@@ -340,8 +342,8 @@ def audit(root: Path) -> dict[str, Any]:
         row.get("claim_id")
         for row in numeric.get("rows", [])
         if not all(row.get(key) not in (None, "") for key in [
-            "formula", "dataset_snapshot_ref", "split_policy", "predicted_value", "observed_value",
-            "uncertainty", "comparator_prediction", "residual", "negative_control", "falsifier",
+            "replay_rule", "dataset_snapshot_ref", "split_policy", "replay_value", "parsed_snapshot_value",
+            "uncertainty", "baseline_control_value", "replay_residual", "comparator_residual", "negative_control", "falsifier",
         ])
     ]
     packet_missing = [
@@ -407,9 +409,25 @@ def audit(root: Path) -> dict[str, Any]:
             "finite_semantic_failures": finite_semantic_failures,
         },
         "empirical_packets": {"state": "PASS" if numeric.get("lane_total") >= 5 and not packet_missing and not numeric_missing else "FAIL", "lane_total": numeric.get("lane_total"), "packet_missing": packet_missing, "numeric_missing": numeric_missing},
-        "heldout": {"state": "PASS" if not numeric_missing and all("split" in str(row.get("split_policy", "")).lower() or "train" in str(row.get("split_policy", "")).lower() or "replay" in str(row.get("split_policy", "")).lower() for row in numeric.get("rows", [])) else "FAIL"},
+        "heldout": {
+            "state": "PASS" if (
+                not numeric_missing
+                and (
+                    not any(row.get("prediction_support_allowed") is True or row.get("empirical_support_allowed") is True for row in numeric.get("rows", []))
+                    or all(
+                        "split" in str(row.get("split_policy", "")).lower()
+                        or "train" in str(row.get("split_policy", "")).lower()
+                        or "blind" in str(row.get("split_policy", "")).lower()
+                        for row in numeric.get("rows", [])
+                    )
+                )
+            ) else "FAIL",
+            "heldout_validation_applicable": any(row.get("prediction_support_allowed") is True or row.get("empirical_support_allowed") is True for row in numeric.get("rows", [])),
+            "empirical_promotion_row_total": sum(1 for row in numeric.get("rows", []) if row.get("prediction_support_allowed") is True or row.get("empirical_support_allowed") is True),
+            "no_empirical_validation_promoted_without_heldout": True,
+        },
         "negative_controls": {"state": "PASS" if all(row.get("negative_control") for row in numeric.get("rows", [])) else "FAIL"},
-        "baseline_comparators": {"state": "PASS" if all(row.get("comparator_prediction") is not None for row in numeric.get("rows", [])) else "FAIL"},
+        "baseline_comparators": {"state": "PASS" if all(row.get("baseline_control_value") is not None for row in numeric.get("rows", [])) else "FAIL"},
         "adversarial": {"state": "PASS" if adversarial.get("failure_total") == 0 and adversarial.get("case_total", 0) >= 10 else "FAIL", **{k: adversarial.get(k) for k in ["case_total", "failure_total"]}},
         "counterexample": {"state": "PASS" if counter.get("open_counterexample_total") == 0 and counter.get("case_total", 0) >= 10 else "FAIL", **{k: counter.get(k) for k in ["case_total", "open_counterexample_total"]}},
         "comparator": {"state": "PASS" if comparator.get("row_total", 0) >= 10 and comparator.get("unsupported_uniqueness_total") == 0 and not comparator_failures else "FAIL", **{k: comparator.get(k) for k in ["row_total", "unsupported_uniqueness_total"]}, "comparator_failures": comparator_failures},

@@ -1,18 +1,67 @@
 {
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "hostile_journal_reviewer",
-  "execution_status": "EXECUTION_TIMEOUT",
-  "critical_open_total": 1,
-  "high_open_total": 0,
-  "finding_total": 1,
+  "execution_status": "EXECUTED",
+  "critical_open_total": 3,
+  "high_open_total": 4,
+  "finding_total": 7,
   "findings": [
     {
       "severity": "CRITICAL",
-      "artifact_ref": "tools/run_oc133_v12_cerberus.py",
-      "claim": "LLM adversarial review must execute.",
-      "failure_mode": "Role `hostile_journal_reviewer` exceeded timeout_seconds=360: Command '['codex', 'exec', '-s', 'read-only', '-c', \"approval_policy='never'\", '-C', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main', '-o', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\reviews\\\\oc133_llm_cerberus\\\\raw_v12\\\\hostile_journal_reviewer.txt', '-']' timed out after 360 seconds",
-      "required_repair": "Rerun role with smaller context or repair Codex CLI latency; stale prior JSON must not be reused.",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "The v12 attack surface is closed enough for journal release.",
+      "failure_mode": "The current matrix reports critical_unresolved_total=4, high_unresolved_total=9, and 13 Cerberus-sourced OPEN_PENDING_REPAIR rows. A skeptical journal can reject immediately because the package has not passed its own adversarial gate.",
+      "required_repair": "Run fresh Cerberus for the bound roles, repair or formally demote every critical/high row against current artifacts, regenerate the matrix with critical_unresolved_total=0 and high_unresolved_total=0, then propagate zero-blocker counters to the claim ledger and theorem inventory.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations",
+      "failure_mode": "CERBERUS-008 remains CRITICAL OPEN_PENDING_REPAIR. Several open Cerberus rows preserve stale source hashes and generic failure text rather than a current, independently intelligible defect narrative, so the rejection surface is not auditable enough for a hostile reader.",
+      "required_repair": "Regenerate the attack matrix from current Cerberus outputs and current deterministic checks; for each retained open row, replace stale generic prose with a current artifact-specific failure and closure predicate, or close the row with current evidence.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "OC133-NOSEND-001: Publication, DOI minting, repository release, deposit, and journal submission remain locked until both separate owner approval and an explicit manifest/channel unlock are present.",
+      "failure_mode": "The claim remains BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12 with release_promotion_allowed=false, and the referenced manifest/owner approval state remains no-send locked. Any journal submission or public release now would violate the current no-send control plane; the attack matrix also keeps no_send_parity CRITICAL open.",
+      "required_repair": "Do not send. Obtain separate owner approval, explicitly unlock all manifest/channel gates including DOI minting, rerun the finite no-send checks, and close the no_send_parity Cerberus row before changing public status.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "The ten load-bearing theorem rows provide release-ready theorem support.",
+      "failure_mode": "The inventory has theorem_total=10 and machine_checked_subset_total=10, but public_promoted_theorem_total=0; every row has public_promotion=false and proof_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_WITH_LEAN_SUBSET_AND_FINITE_WITNESS. Presented as theorem results, this is theorem theater.",
+      "required_repair": "Keep theorem claims non-promoted until fresh adversarial review closes the 13 blockers; then update each proof_status, public_promotion flag, and claim-ledger scope ceiling only for the actually machine-checked theorem surface.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+      "claim": "Numeric replay QA supplies empirical or predictive support for OC.",
+      "failure_mode": "All six numeric rows are quarantined replay QA: prediction_support_allowed=false, empirical_support_allowed=false, and the split policies are exact snapshot replay or no train/test. This cannot support empirical theory, superiority, or prediction claims.",
+      "required_repair": "Add a future prospective target-blind empirical protocol with held-out targets, predeclared baselines, executable falsifiers, and explicit promotion criteria; keep the current rows labeled replay QA only.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "OC133-NOVELTY-001 supports novelty, uniqueness, priority, or absence of prior art.",
+      "failure_mode": "The register states systematic_priority_search_status=NOT_COMPLETED_NO_UNIQUENESS_PROMOTION and repeatedly marks absence tests as illustrative single-source positioning only. A journal novelty claim would be unsupported and vulnerable to prior-art relabeling rejection.",
+      "required_repair": "Run and document a systematic source-backed priority search with databases, queries, inclusion/exclusion criteria, dated hits, overlap mapping, and explicit residual claims; keep uniqueness and priority disabled until that exists.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "The phenomenon coverage matrix demonstrates actual explanatory coverage across the listed phenomena.",
+      "failure_mode": "Every row is a scoped candidate model card with upstream_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12, public_promotion=false, blocker_count=13, and prediction_status=SCOPED_FORMAL_REPLAY_NOT_DOMAIN_TOTALIZATION. This is not broad phenomenon coverage; it is a formal replay index.",
+      "required_repair": "Either retitle/recast the file as non-promoted candidate model cards, or add domain-specific evidence, negative controls, and falsifiers that remain valid after upstream blockers are closed.",
       "status": "OPEN"
     }
-  ]
+  ],
+  "raw_output_ref": "reviews/oc133_llm_cerberus/raw_v12/hostile_journal_reviewer.txt"
 }

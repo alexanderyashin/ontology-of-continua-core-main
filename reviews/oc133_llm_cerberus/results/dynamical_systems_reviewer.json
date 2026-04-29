@@ -2,40 +2,24 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "dynamical_systems_reviewer",
   "execution_status": "EXECUTED",
-  "critical_open_total": 1,
-  "high_open_total": 3,
-  "finding_total": 4,
+  "critical_open_total": 0,
+  "high_open_total": 0,
+  "finding_total": 2,
   "findings": [
     {
-      "severity": "HIGH",
+      "severity": "MEDIUM",
+      "artifact_ref": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+      "claim": "A smooth differential equation is one realization: the update relation is represented by a differentiable flow only in a declared local chart.",
+      "failure_mode": "The current formal subset only records a declared chart and a Nat-indexed flow-one update; it does not formalize differentiability, continuous-time flow, semigroup laws, ODE existence/uniqueness, or that the chart law is actually satisfied. The wording still reads as an ODE/differentiable-flow realization rather than an externally supplied assumption boundary.",
+      "required_repair": "Rewrite this as an external-realization boundary: v12 only tracks chart declaration and flow-one notation. Either remove ODE/differentiable-flow language from the promoted semantics or add formal smooth/ODE semantics plus finite checks that bind the chart, local law, and flow properties.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
       "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-HYBRID: Differential operator notation is a smooth-realization specialization of typed update semantics.",
-      "failure_mode": "The current Lean theorem `smooth_hybrid_operator_semantics` proves record-field routing only: `SmoothChart.derivative` is unconstrained, `localLaw` is unused, `flow` is `Nat -> State -> State`, and there is no real-time flow, differentiability, vector field, ODE, existence/uniqueness, or chart-compatibility theorem. The promoted wording still invites a hidden smooth/ODE reading that the formal artifact does not support.",
-      "required_repair": "Demote/rename T133-HYBRID to a token-level typed-update and guard/reset lemma, or add formal smooth-structure assumptions and Lean theorems for real-time flow, differentiable charts, vector-field/local-law compatibility, and derivative/ODE interpretation, then regenerate the finite checks with negative controls for bogus chart tokens.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "T133-HYBRID / P005: guarded hybrid step uses reset and smooth derivative requires chart.",
-      "failure_mode": "The executable hybrid check accepts by string equality over `actual_next`, `reset_target`, `step_target`, nonempty `smooth_chart_id`, `smooth_step_target`, and matching state-type labels. It does not check guard domains, source/target modes, reset relation typing, post-reset admissibility, invariant preservation, or reset codomain obligations, so it supports only a toy next-state selector rather than hybrid guard/reset semantics.",
-      "required_repair": "Formalize guards and resets as typed relations with source mode, target mode, admissibility, invariant preservation, and reset codomain obligations; add finite cases rejecting wrong-mode resets, inadmissible reset targets, guard/flow conflicts, and guard-false reset misuse.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "P005: Does OC actually explain operators in non-smooth proof and rewrite domains?",
-      "failure_mode": "P005 is marked `PHENOMENON_SPECIFIC_MODEL_REPLAYED` through `FM-T133-HYBRID-POS`, but that case is a smooth `HybridState` with `derivative_requested=true` and `smooth_chart_id=chart_R1`. It does not instantiate a non-smooth proof, rewrite, graph, stochastic, or proof-replay carrier, so the coverage row overstates the checked phenomenon.",
-      "required_repair": "Add explicit checked finite cases for proof/rewrite carriers accepted as typed updates with no derivative requested, plus negative controls rejecting differentiation of those carriers without a smooth chart; otherwise narrow P005 to smooth hybrid-state replay only.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "CRITICAL",
-      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "`critical_unresolved_total=0` and `high_unresolved_total=0` while universal-ODE and hybrid-operator attacks are closed by `smooth_hybrid_operator_semantics` and `FM-T133-HYBRID-POS`.",
-      "failure_mode": "The attack matrix contains the same dynamical-systems defects as closed rows, but the cited closure evidence is just the underpowered Lean theorem and finite string-equality witness. That does not repair the missing smooth/ODE semantics or full hybrid reset semantics, so the zero unresolved counts are release-gate theater for this role.",
-      "required_repair": "Reopen the T133-HYBRID, P005, and fake-universal-differential-equation rows until the claim is demoted to token-level update semantics or backed by strengthened smooth and hybrid semantics; then recompute critical/high unresolved totals from the repaired closure criteria.",
+      "claim": "T133-HYBRID: OC operators are typed update semantics; proof/rewrite and guard/reset updates remain first-class non-smooth cases.",
+      "failure_mode": "Hybrid typing/admission is split across unconnected definitions. `HybridSystem` only has `guard : State -> Bool` and `reset : State -> State`; `operatorAdmitted` carries derivative and typed-source-target flags but is not part of `HybridSystem` and is not used by `smooth_hybrid_operator_semantics`. The theorem proves the if-guard-then-reset branch, not that a hybrid reset is admitted only under the declared non-smooth operator policy.",
+      "required_repair": "Connect the admission predicate to the hybrid theorem, or add fields/invariants to `HybridSystem` for source/target mode, reset codomain/admissibility, derivative rejection, and prove `hybridStep` is admitted under those constraints. Otherwise narrow T133-HYBRID to the finite-runner replay cases only.",
       "status": "OPEN"
     }
   ],

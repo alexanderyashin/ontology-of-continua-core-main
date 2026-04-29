@@ -1,18 +1,27 @@
 {
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "claim_boundary_auditor",
-  "execution_status": "EXECUTION_TIMEOUT",
-  "critical_open_total": 1,
+  "execution_status": "EXECUTED",
+  "critical_open_total": 0,
   "high_open_total": 0,
-  "finding_total": 1,
+  "finding_total": 2,
   "findings": [
     {
-      "severity": "CRITICAL",
-      "artifact_ref": "tools/run_oc133_v12_cerberus.py",
-      "claim": "LLM adversarial review must execute.",
-      "failure_mode": "Role `claim_boundary_auditor` exceeded timeout_seconds=360: Command '['codex', 'exec', '-s', 'read-only', '-c', \"approval_policy='never'\", '-C', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main', '-o', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\reviews\\\\oc133_llm_cerberus\\\\raw_v12\\\\claim_boundary_auditor.txt', '-']' timed out after 360 seconds",
-      "required_repair": "Rerun role with smaller context or repair Codex CLI latency; stale prior JSON must not be reused.",
+      "severity": "MEDIUM",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "`critical_unresolved_total=4`, `high_unresolved_total=9`, and CERBERUS-001 through CERBERUS-013 remain `OPEN_PENDING_REPAIR` while their attacked claims describe stale source hashes retained only as audit keys.",
+      "failure_mode": "The matrix still encodes release-blocking critical/high status via stale Cerberus hashes and a fresh-run condition rather than a current evidence-derived failing field. Current inspected closure surfaces for empirical quarantine, no-send locking, Lean certificate presence, and phenomenon model-card required fields are bounded/closed in the referenced artifacts, so the matrix cannot distinguish an actual current defect from a stale audit blocker.",
+      "required_repair": "Regenerate the attack matrix from the fresh current role outputs; for each CERBERUS row either close it with current artifact hashes and the satisfied closure predicate, or replace it with a new current failing field. Recompute `critical_unresolved_total` and `high_unresolved_total` from those current statuses only.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "LOW",
+      "artifact_ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
+      "claim": "A route becomes promoted only when the claim ledger reports `release_promotion_allowed=true`.",
+      "failure_mode": "The public-promotion boundary is underspecified because it names a generic ledger flag rather than the row-level claim status plus the attack-matrix zero-critical/high condition. This is not a current promotion leak because the current ledger blocks promotion, but it leaves a future wording hole where a top-level flag could be read as sufficient for all routes.",
+      "required_repair": "Rewrite the guide condition to require the specific claim row to have `release_promotion_allowed=true`, promoted public status, and zero current critical/high attack-matrix findings; keep no-send/channel unlock as an additional requirement for any public action.",
       "status": "OPEN"
     }
-  ]
+  ],
+  "raw_output_ref": "reviews/oc133_llm_cerberus/raw_v12/claim_boundary_auditor.txt"
 }

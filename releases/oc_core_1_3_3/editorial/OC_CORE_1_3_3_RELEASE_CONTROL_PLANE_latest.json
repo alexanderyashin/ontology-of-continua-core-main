@@ -526,7 +526,7 @@
         "lake": {
           "state": "PASS",
           "returncode": 0,
-          "stdout_tail": "Build completed successfully (0 jobs).\n",
+          "stdout_tail": "Build completed successfully (3 jobs).\n",
           "stderr_tail": ""
         },
         "finite_failure_total": 0,
@@ -679,7 +679,7 @@
         "lake": {
           "state": "PASS",
           "returncode": 0,
-          "stdout_tail": "Build completed successfully (0 jobs).\n",
+          "stdout_tail": "Build completed successfully (3 jobs).\n",
           "stderr_tail": ""
         },
         "lean_build_certificate": {
@@ -716,7 +716,10 @@
       "severity": "HIGH",
       "summary": "G49_HELDOUT_VALIDATION_PASS checked by v12 no-compromise release profile.",
       "details": {
-        "state": "PASS"
+        "state": "PASS",
+        "heldout_validation_applicable": false,
+        "empirical_promotion_row_total": 0,
+        "no_empirical_validation_promoted_without_heldout": true
       },
       "executed": true
     },
@@ -802,7 +805,7 @@
       "summary": "G56_CLAIM_LEDGER_PROOF_BINDING_PASS checked by v12 no-compromise release profile.",
       "details": {
         "state": "PASS",
-        "claim_total": 17,
+        "claim_total": 18,
         "proof_bound_failure_total": 0
       },
       "executed": true
@@ -815,10 +818,25 @@
       "summary": "G57_ATTACK_MATRIX_ZERO_CRITICAL_HIGH checked by v12 no-compromise release profile.",
       "details": {
         "state": "FAIL",
-        "objection_total": 194,
-        "critical_unresolved_total": 0,
-        "high_unresolved_total": 0,
-        "attack_closure_failures": []
+        "objection_total": 200,
+        "critical_unresolved_total": 3,
+        "high_unresolved_total": 11,
+        "attack_closure_failures": [
+          "CERBERUS-001-claim_boundary_auditor",
+          "CERBERUS-002-empirical_statistician",
+          "CERBERUS-003-formal_mathematician",
+          "CERBERUS-004-formal_mathematician",
+          "CERBERUS-005-formal_mathematician",
+          "CERBERUS-006-hostile_journal_reviewer",
+          "CERBERUS-007-hostile_journal_reviewer",
+          "CERBERUS-008-hostile_journal_reviewer",
+          "CERBERUS-009-hostile_journal_reviewer",
+          "CERBERUS-010-hostile_journal_reviewer",
+          "CERBERUS-011-reproducibility_auditor",
+          "CERBERUS-012-reproducibility_auditor",
+          "CERBERUS-013-reproducibility_auditor",
+          "CERBERUS-014-reproducibility_auditor"
+        ]
       },
       "executed": true
     },
@@ -834,23 +852,14 @@
         "role_total": 14,
         "bad_results": [
           "reviews/oc133_llm_cerberus/results/formal_mathematician.json",
-          "reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json",
-          "reviews/oc133_llm_cerberus/results/category_type_theory_reviewer.json",
           "reviews/oc133_llm_cerberus/results/empirical_statistician.json",
-          "reviews/oc133_llm_cerberus/results/prior_art_historian.json",
           "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
-          "reviews/oc133_llm_cerberus/results/not_novel_attacker.json",
-          "reviews/oc133_llm_cerberus/results/phenomenon_x_attacker.json",
-          "reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json",
           "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json",
-          "reviews/oc133_llm_cerberus/results/theorem_theater_auditor.json",
-          "reviews/oc133_llm_cerberus/results/empirical_theater_auditor.json",
-          "reviews/oc133_llm_cerberus/results/claim_boundary_auditor.json",
-          "reviews/oc133_llm_cerberus/results/public_surface_auditor.json"
+          "reviews/oc133_llm_cerberus/results/claim_boundary_auditor.json"
         ],
         "pending_role_total": 0,
-        "critical_open_total": 11,
-        "high_open_total": 34,
+        "critical_open_total": 3,
+        "high_open_total": 11,
         "parse_failure_total": 0
       },
       "executed": true
@@ -901,7 +910,7 @@
         "state": "PASS",
         "absolute_hit_total": 0,
         "absolute_hits": [],
-        "phenomenon_rows": 14,
+        "phenomenon_rows": 15,
         "phenomenon_failures": [],
         "phenomenon_missing_controls": []
       },

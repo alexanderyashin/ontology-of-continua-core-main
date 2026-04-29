@@ -2,64 +2,48 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "theorem_theater_auditor",
   "execution_status": "EXECUTED",
-  "critical_open_total": 1,
-  "high_open_total": 6,
-  "finding_total": 7,
+  "critical_open_total": 0,
+  "high_open_total": 0,
+  "finding_total": 5,
   "findings": [
     {
-      "severity": "CRITICAL",
-      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "critical_unresolved_total=0, high_unresolved_total=0, and CLOSED_BY_SPECIFIC_V12_EVIDENCE for all critical/high attacks",
-      "failure_mode": "The matrix still contains current high-severity theorem-theater objections that are marked closed without repairing the stated defects: the universal-ODE objection is closed by the same underpowered T133-HYBRID Lean theorem, the P012 no-send route still advertises a missing Lean/proof-sheet path, and the K11_to_K12 civilizational-closure overclaim remains in finite/K-level evidence. The zero unresolved totals are therefore status-token closure, not evidence closure.",
-      "required_repair": "Reopen these rows, recompute critical_unresolved_total and high_unresolved_total from actual repaired artifacts, and only close each row after the cited public claim, Lean theorem, finite witness, and coverage route are changed or demoted.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-HYBRID: Differential operator notation is a smooth-realization specialization of typed update semantics.",
-      "failure_mode": "The Lean evidence models smoothness as an optional chart field over an arbitrary State type, with derivative an unconstrained function and flow indexed by Nat. The theorem proves chart-field existence, step_eq_flow_one, and guard/reset routing; it does not prove differential, smooth-realization, ODE, or analytic semantics. The finite checker mirrors this with string/flag checks such as smooth_chart_id and shared state type.",
-      "required_repair": "Demote T133-HYBRID to a typed update/guard-reset record lemma, or formalize actual smooth structure, derivative laws, and hybrid-system semantics in Lean with matching finite cases.",
+      "claim": "T133-MIN: Within the declared v12 release tuple semantics, each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.",
+      "failure_mode": "The Lean evidence is circular classifier checking: fullSemanticCase is defined with all component flags true, dropSemanticComponent is defined to set the selected flag false, releaseTupleVerdict is defined as a conjunction over those flags, and release_tuple_component_irredundant closes by cases/native_decide. This proves the hand-authored verdict function, not independent component necessity.",
+      "required_repair": "Keep this as a declared classifier sanity check, or bind each component to non-tautological obligations/data and prove verdict dependence without hard-coded one-field drops; retain mutation controls where labels cannot force pass/fail.",
       "status": "OPEN"
     },
     {
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-CYCLE: Live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
-      "failure_mode": "The Lean theorem proves only that eligibleLive implies cycleWitnessed or maintenanceWitnessed, because eligibleLive is defined as admissible plus live plus supportWitnessed. The raw Realization.live field is unconstrained and can be true without any cycle or maintenance evidence. The promoted claim says live status itself requires support, which is stronger than the formal theorem.",
-      "required_repair": "Rewrite the public claim to eligible/promotable live status only, or add a Lean invariant tying Realization.live to supportWitnessed and update finite cases to test that invariant.",
+      "claim": "T133-KLEVEL: Every declared adjacent K-level transition K0->K12 has a release-atlas row, retained-witness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release classifier.",
+      "failure_mode": "The Lean theorem manufactures retained/demoted witnesses from lowerCode/upperCode and proves reductionFails/lawfulDemotion by equality over synthetic Nat observations. It does not formally import or verify the external atlas rows named by the proof ledger; the finite JSON checks exercise the release classifier but do not establish semantic irreducibility beyond that classifier.",
+      "required_repair": "Either demote the Lean support label to release-classifier coverage only, or bind the theorem to an audited atlas representation and prove each retained witness/demotion criterion from that representation rather than from generated Nat equalities.",
       "status": "OPEN"
     },
     {
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-K-ZERO: Continuumness zero follows from a declared zero-cause family, not only from empty admissibility or empty cycles.",
-      "failure_mode": "computedK is defined as 0 exactly when hasZeroCauseBool is true, and continuumness_zero_case_iff_declared_zero_cause_with_support unfolds that definition. The finite evaluator also accepts claimed_k=0 when any zero_cause flag is active. This is circular definitional replay, not an independent continuumness-zero theorem.",
-      "required_repair": "Demote this to a definition consistency check, or introduce an independent continuumness functional/collapse semantics and prove zero follows from declared causes without defining K that way.",
+      "claim": "T133-HYBRID: OC operators are typed update semantics; chart-labelled flow-one notation is admitted only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth cases.",
+      "failure_mode": "smooth_hybrid_operator_semantics is mostly projection and definitional reduction: step_eq_flow_one is a structure field, derivative availability is chart.isSome, guard/reset is an if-branch, and proof rewrite derivative is constantly false. The finite smooth-chart rows include local_law_declared and chart_domain_contains_state, but the Lean theorem never consumes SmoothChart.localLaw or a chart-domain predicate.",
+      "required_repair": "Move chart-domain and local-law obligations into the Lean admission predicate and prove flow-one notation only under those obligations, with finite negatives for chart label present but domain/local-law missing.",
       "status": "OPEN"
     },
     {
-      "severity": "HIGH",
+      "severity": "LOW",
       "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-      "failure_mode": "The cited theorem proves death blocks live by using the deathBlocksLive field already supplied in Lifecycle, plus enum inequalities among MorphismClass.residue, rebirth, and identity. It does not connect residueOf/rebirthOf source-target relations to MorphismEvidence, and it does not prove live/death are morphism classes. The promoted claim is broader than the formal evidence.",
-      "required_repair": "Narrow the claim to the exact Lean statement, or add Lean definitions and theorems tying lifecycle predicates, residue/rebirth relations, and morphism evidence into one typed classification theorem with matching finite cases.",
+      "claim": "T133-CYCLE: Promoted eligible-live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
+      "failure_mode": "eligible_live_requires_cycle_or_maintenance is a direct projection from eligibleLive, which is defined to include supportWitnessed; the proof is exact h.right.right. This is definitional policy encoding, not an independent liveness theorem.",
+      "required_repair": "Keep the row scoped as a promotion-rule lemma, or split raw live/admissible state from promoted eligible-live status and prove the evaluator rejects raw live without independent cycle or non-vacuous maintenance evidence.",
       "status": "OPEN"
     },
     {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "claim": "T133-KLEVEL / K11_to_K12: coherence -> release-governed civilizational closure",
-      "failure_mode": "The K11_to_K12 finite evidence labels the added axis as civilizational closure, but the witness is only owner-gated public action state changes verdict and the reduction criterion is no-send governance. The Lean reduction predicate is just retainedWitnessActive=true and reducedWitnessActive=false over declared enum rows. This inflates release-governance plumbing into an absolute-sounding K12 axis.",
-      "required_repair": "Replace civilizational closure with bounded release-governance/no-send wording, or demote the K11_to_K12 portion until independent source-backed coverage and non-circular reduction evidence support the stronger axis.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "P012 route: claim OC133-NOSEND-001 -> Lean theorem/proof sheet -> semantic finite case -> negative control -> falsifier",
-      "failure_mode": "OC133-NOSEND-001 is not in the theorem inventory, and OC133V12.lean contains no no-send theorem. The actual support is the publish manifest, owner approval state, and finite no-send state-machine row. The coverage route therefore advertises a Lean/proof-sheet evidence path that does not exist.",
-      "required_repair": "Rewrite P012 as claim -> publish manifest/owner approval -> finite no-send state-machine check, or add and inventory a real Lean no-send theorem plus proof sheet.",
+      "severity": "LOW",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "T133-BOUNDARY: Generalized boundary representation theorem / Metric thresholds are a specialization of typed classifier boundaries.",
+      "failure_mode": "The current Lean evidence metric_boundary_specialization only wraps a metric measure and threshold into a classifier and proves rfl-level equalities. The claim ledger wording is narrow, but the inventory title still reads like a generalized representation theorem.",
+      "required_repair": "Retitle the inventory/proof-ledger entry to a metric-classifier specialization lemma, or add a genuine representation theorem with assumptions covering non-metric typed boundaries and its finite counterexample boundary.",
       "status": "OPEN"
     }
   ],

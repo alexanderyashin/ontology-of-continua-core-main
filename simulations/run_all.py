@@ -10,8 +10,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent
 REPO = ROOT.parent
 EXPECTED_PATH = ROOT / "expected_simulations.yml"
-RESULT_JSON = ROOT / "results" / "OC_CORE_1_3_2_SIMULATION_RESULTS_latest.json"
-RESULT_MD = ROOT / "results" / "OC_CORE_1_3_2_SIMULATION_RESULTS_latest.md"
+RESULT_JSON = ROOT / "results" / "OC_CORE_1_3_3_SIMULATION_RESULTS_latest.json"
+RESULT_MD = ROOT / "results" / "OC_CORE_1_3_3_SIMULATION_RESULTS_latest.md"
 
 
 def load_expected() -> dict[str, Any]:
@@ -82,6 +82,8 @@ def run() -> dict[str, Any]:
     report = {
         "release_id": expected["release_id"],
         "version": expected["version"],
+        "runner": "simulations/run_all.py",
+        "runner_claim": "current OC Core 1.3.3 simulation reproducibility entrypoint",
         "support_ceiling": expected["support_ceiling"],
         "validation_claim_allowed": expected["validation_claim_allowed"],
         "expected_total": expected["expected_total"],
@@ -97,7 +99,7 @@ def write_report(report: dict[str, Any]) -> None:
     RESULT_JSON.parent.mkdir(parents=True, exist_ok=True)
     RESULT_JSON.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     lines = [
-        "# OC Core 1.3.2 Simulation Results",
+        "# OC Core 1.3.3 Simulation Results",
         "",
         f"Support ceiling: `{report['support_ceiling']}`",
         f"Validation claim allowed: `{str(report['validation_claim_allowed']).lower()}`",

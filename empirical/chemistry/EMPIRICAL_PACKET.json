@@ -5,13 +5,15 @@
   "exact_promoted_claim": "PubChem molecular-weight field replay for water only",
   "theorem_to_observable_binding": "typed OC predicate -> lane-specific observable/protocol",
   "held_out_policy": "snapshot field replay only; no held-out formula-derived chemistry claim",
-  "formula": "predicted molecular weight = pinned PubChem MolecularWeight field parsed from official snapshot",
+  "replay_rule": "replay molecular weight from pinned PubChem MolecularWeight field parsed from official snapshot",
   "dataset_snapshot_ref": "validation/_raw/chemistry_pubchem_water.txt",
-  "predicted_value": 18.015,
-  "observed_value": 18.015,
+  "replay_value": 18.015,
+  "parsed_snapshot_value": 18.015,
   "uncertainty": 0.02,
-  "comparator_prediction": 18.0,
-  "residual": 0.0,
+  "baseline_control_value": 44.0095,
+  "replay_residual": 0.0,
+  "comparator_residual": 25.994500000000002,
+  "residual_kind": "replay_residual_not_comparator_performance",
   "negative_controls": [
     "use CO2 molecular-weight field against water snapshot and require mismatch"
   ],
@@ -20,5 +22,5 @@
   "empirical_support_allowed": false,
   "quarantine_reason": "official field replay; QA only, not a formula-derived prediction",
   "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS",
-  "remaining_blocker": null
+  "remaining_blocker": "NOT_EMPIRICAL_PROMOTION_NUMERIC_REPLAY_QA_ONLY"
 }

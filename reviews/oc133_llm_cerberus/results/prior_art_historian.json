@@ -1,18 +1,35 @@
 {
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "prior_art_historian",
-  "execution_status": "EXECUTION_TIMEOUT",
-  "critical_open_total": 1,
+  "execution_status": "EXECUTED",
+  "critical_open_total": 0,
   "high_open_total": 0,
-  "finding_total": 1,
+  "finding_total": 3,
   "findings": [
     {
-      "severity": "CRITICAL",
-      "artifact_ref": "tools/run_oc133_v12_cerberus.py",
-      "claim": "LLM adversarial review must execute.",
-      "failure_mode": "Role `prior_art_historian` exceeded timeout_seconds=360: Command '['codex', 'exec', '-s', 'read-only', '-c', \"approval_policy='never'\", '-C', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main', '-o', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\reviews\\\\oc133_llm_cerberus\\\\raw_v12\\\\prior_art_historian.txt', '-']' timed out after 360 seconds",
-      "required_repair": "Rerun role with smaller context or repair Codex CLI latency; stale prior JSON must not be reused.",
+      "severity": "MEDIUM",
+      "artifact_ref": "comparators/source_snapshots",
+      "claim": "The novelty register is source-backed through bundled local protocol snapshots.",
+      "failure_mode": "The bundled snapshots are bibliographic/search-protocol capsules only: they list title, URL, query, accepted_overlap, and non_novelty_boundary, but contain no captured source text, page-level locator, excerpt, DOI/ISBN/page citation, or source-content hash. This is acceptable for positioning, but the current artifacts do not let a reviewer independently audit even the positive overlap statements from the snapshot directory itself.",
+      "required_repair": "Either relabel the register/snapshots as protocol-only bibliographic anchors, or add audit-grade source evidence for each row: stable bibliographic identifiers, page/section locators, short compliant excerpts or archived capture metadata, and a hash over the captured source evidence rather than only the local capsule.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "Bounded positioning notes repeatedly frame OC as a release-governed theorem/evidence/falsifier/no-send control plane.",
+      "failure_mode": "The comparator matrix uses one illustrative source per broad intellectual tradition, but has no dedicated comparator row for the closest governance prior art: release management, publication embargo/workflow controls, DOI/deposit gating, evidence/claim traceability, safety cases, V&V assurance cases, CI quality gates, or reproducibility/preregistration frameworks. Because uniqueness is not promoted this is not a high-severity novelty defect, but the distinctive governance positioning is under-covered bibliographically.",
+      "required_repair": "Add dedicated comparator rows for scientific publication governance and software/safety release-control traditions, mark all overlaps explicitly, and downgrade governance positioning language to internal implementation framing until those rows exist.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "LOW",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "Prior-art comparison is an illustrative bounded positioning note; uniqueness, priority, and absence are not promoted until a systematic search exists.",
+      "failure_mode": "This claim is correctly demoted, but the ledger does not carry forward the concrete comparator coverage gaps into a machine-readable future-work obligation. The risk is procedural: later release readers may see unsupported_uniqueness_total: 0 without seeing which high-proximity comparator families remain unsearched.",
+      "required_repair": "Add a required_future_search_topics or residual_prior_art_gap field naming the missing comparator families, especially release governance, assurance cases, claim-evidence traceability, publication embargo/deposit workflows, and reproducibility/preregistration controls.",
       "status": "OPEN"
     }
-  ]
+  ],
+  "raw_output_ref": "reviews/oc133_llm_cerberus/raw_v12/prior_art_historian.txt"
 }

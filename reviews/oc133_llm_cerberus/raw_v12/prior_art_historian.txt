@@ -2,27 +2,27 @@
   "role": "prior_art_historian",
   "findings": [
     {
-      "severity": "HIGH",
-      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "OC133-NOVELTY-001 / critical novelty relabeling attacks are CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "failure_mode": "The matrix closes critical novelty attacks by citing systematic_priority_search_status=NOT_COMPLETED_NO_UNIQUENESS_PROMOTION plus local_protocol_snapshot_sha256. That establishes only non-promotion of uniqueness/absence and hashing of local protocol capsules; it does not resolve relabeling prior art or provide a source-backed absence/priority test. The comparator itself says no systematic priority search and no absence promotion.",
-      "required_repair": "Reopen or downgrade the novelty attack closures and set unresolved totals accordingly, or supply a systematic prior-art search with exact source excerpts/archives, inclusion/exclusion protocol, and explicit negative tests before closing relabeling/priority attacks.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "claim": "T133-KLEVEL / K11_to_K12 declared axis 'coherence -> release-governed civilizational closure'",
-      "failure_mode": "The promoted K-level evidence uses a civilizational-closure label, but the finite witness only tests an owner-gated public-action/no-send state. No listed comparator row or phenomenon model supports 'civilizational closure'; this inflates release-governance plumbing into an absolute-sounding K12/TOE axis.",
-      "required_repair": "Replace 'civilizational closure' with the bounded no-send/release-governance axis actually tested, or demote the K11_to_K12 portion of T133-KLEVEL until source-backed comparator coverage and a scoped model card support the stronger wording.",
+      "severity": "MEDIUM",
+      "artifact_ref": "comparators/source_snapshots",
+      "claim": "The novelty register is source-backed through bundled local protocol snapshots.",
+      "failure_mode": "The bundled snapshots are bibliographic/search-protocol capsules only: they list title, URL, query, accepted_overlap, and non_novelty_boundary, but contain no captured source text, page-level locator, excerpt, DOI/ISBN/page citation, or source-content hash. This is acceptable for positioning, but the current artifacts do not let a reviewer independently audit even the positive overlap statements from the snapshot directory itself.",
+      "required_repair": "Either relabel the register/snapshots as protocol-only bibliographic anchors, or add audit-grade source evidence for each row: stable bibliographic identifiers, page/section locators, short compliant excerpts or archived capture metadata, and a hash over the captured source evidence rather than only the local capsule.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
       "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-      "claim": "OC133-NOVELTY-001 / source-backed comparator rows",
-      "failure_mode": "The register schema labels the matrix SOURCE_BACKED while the bundled snapshots state they are local bibliographic/search-protocol capsules, not full web archives. Rows also contain NOT_FOUND_IN_SOURCE_PAGE absence notes, but the register correctly says these are not promoted. The remaining defect is the 'source-backed' framing itself, which can be misused as stronger evidence than the artifact contains.",
-      "required_repair": "Rename the comparator/register status to bibliographic-protocol-only, or attach archived source excerpts/full-page captures with hashes and keep absence tests explicitly non-promotional until systematic search exists.",
+      "claim": "Bounded positioning notes repeatedly frame OC as a release-governed theorem/evidence/falsifier/no-send control plane.",
+      "failure_mode": "The comparator matrix uses one illustrative source per broad intellectual tradition, but has no dedicated comparator row for the closest governance prior art: release management, publication embargo/workflow controls, DOI/deposit gating, evidence/claim traceability, safety cases, V&V assurance cases, CI quality gates, or reproducibility/preregistration frameworks. Because uniqueness is not promoted this is not a high-severity novelty defect, but the distinctive governance positioning is under-covered bibliographically.",
+      "required_repair": "Add dedicated comparator rows for scientific publication governance and software/safety release-control traditions, mark all overlaps explicitly, and downgrade governance positioning language to internal implementation framing until those rows exist.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "LOW",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "Prior-art comparison is an illustrative bounded positioning note; uniqueness, priority, and absence are not promoted until a systematic search exists.",
+      "failure_mode": "This claim is correctly demoted, but the ledger does not carry forward the concrete comparator coverage gaps into a machine-readable future-work obligation. The risk is procedural: later release readers may see unsupported_uniqueness_total: 0 without seeing which high-proximity comparator families remain unsearched.",
+      "required_repair": "Add a required_future_search_topics or residual_prior_art_gap field naming the missing comparator families, especially release governance, assurance cases, claim-evidence traceability, publication embargo/deposit workflows, and reproducibility/preregistration controls.",
       "status": "OPEN"
     }
   ]

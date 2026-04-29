@@ -2,27 +2,27 @@
   "role": "public_surface_auditor",
   "findings": [
     {
-      "severity": "HIGH",
+      "severity": "MEDIUM",
+      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+      "claim": "Top-level zero-failure status: \"semantic_failure_total\": 0 and \"failure_total\": 0.",
+      "failure_mode": "The zero-failure counters are not scoped as finite-runner-only public-surface claims. In the current coverage matrix, every phenomenon row remains \"BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12\" with \"public_promotion\": false and \"blocker_count\": 27, so a public reader can quote this proof artifact as release-cleared even though coverage/public promotion is blocked.",
+      "required_repair": "Rename or scope the counters as finite-model-runner failures only, and add a top-level public-surface gate summary carrying publish_allowed:false, public_promotion_allowed:false, and the coverage blocker status/ref so zero runner failures cannot be read as release clearance.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+      "claim": "No-send partial-lock controls cover public action rejection for requested channels, including journal submission.",
+      "failure_mode": "The public lock surface currently contains both \"journal_submissions_allowed\" and \"journal_submission_allowed\" in the manifest and owner approval files, but the finite no-send controls exercise only the singular journal lock false case. There is no current control rejecting plural-false/singular-true alias drift, so one public lock field is present without parity coverage.",
+      "required_repair": "Either remove/deprecate the plural alias from the public artifacts, or define an explicit alias equality invariant and add a no-send control where journal_submissions_allowed=false and journal_submission_allowed=true still rejects public action.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "LOW",
       "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "P012 / OC133-NOSEND-001: `claim OC133-NOSEND-001 -> Lean theorem/proof sheet -> semantic finite case ADV-NOSEND-PUBLISH -> negative control -> falsifier`.",
-      "failure_mode": "P012 still lists `formal/lean/OC133V12.lean` as evidence and advertises a Lean theorem/proof-sheet route for no-send governance, but the current theorem inventory and proof ledger contain only T133 theorem rows, and the Lean file has no OC133-NOSEND/no_send/publish theorem. The actual finite no-send rows point to JSON manifest/approval artifacts, so the public coverage route is theorem theater and omits the real publish-manifest/owner-approval evidence surface.",
-      "required_repair": "Remove Lean theorem/proof-sheet language and Lean evidence from P012, and replace the route with claim ledger -> publish manifest -> owner approval artifact -> finite no-send runner/output; or add a real no-send theorem, proof sheet, theorem-inventory row, and matching Lean-backed finite reference.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "OC133-NOSEND-001 / ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL proves public action is allowed after owner approval.",
-      "failure_mode": "The hypothetical approved control returns `ALLOW_AFTER_OWNER_APPROVAL` using only `owner_approved`, `publish_requested`, and `publish_allowed`; the input/output row supplies no `global_no_send_lock`, `journal_submissions_allowed`, `journal_submission_allowed`, `github_release_allowed`, `zenodo_deposit_allowed`, `software_heritage_deposit_allowed`, or `doi_minting_allowed` fields. It therefore proves only a generic publish flag, not DOI/Zenodo/GitHub/SWH/journal public-action parity.",
-      "required_repair": "Model an approved-state fixture with global lock false and every requested channel gate explicitly true, map `requested_channels` to required manifest fields, and make both reject and allow paths enforce DOI/public-identifier and per-channel gates before reporting `ALLOW_AFTER_OWNER_APPROVAL`.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "`critical_unresolved_total: 0`, `high_unresolved_total: 0`, and `CERBERUS-041-public_surface_auditor` is `CLOSED_BY_SPECIFIC_V12_EVIDENCE`.",
-      "failure_mode": "The matrix closes the public-surface no-send theorem-theater objection with generic closure evidence, but the current coverage matrix still contains the exact bad P012 Lean theorem/proof-sheet route. The unresolved totals are therefore self-certified against a defect that remains present in the current release surface.",
-      "required_repair": "Reopen CERBERUS-041 and recompute unresolved totals until P012 is actually repaired, or add the missing no-send theorem/proof-sheet/inventory surface and update the closure evidence to cite that concrete repair.",
+      "claim": "Each coverage row reports \"blocker_count\": 27 while upstream status is blocked.",
+      "failure_mode": "The exact blocker count is not backed by blocker IDs, a blocker manifest ref, or a hash inside the current public-surface artifact. This is conservative because it blocks promotion, but the exact number is not auditable from the release-critical surface and can become stale without detection.",
+      "required_repair": "Add row-specific blocker_refs or a blocker_manifest_ref with hash, or replace the exact count with a qualitative blocked flag until the blocker source is included.",
       "status": "OPEN"
     }
   ]

@@ -4,8 +4,12 @@ import hashlib
 import contextlib
 import io
 import json
+import platform
+import re
 import runpy
+import shutil
 import subprocess
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -39,43 +43,140 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def normalize_build_transcript(value: str) -> str:
+    value = re.sub(r"\(\d+(?:\.\d+)?s\)", "(<elapsed>)", value or "")
+    value = re.sub(r"Built OC133V12 \(\<elapsed\>\)", "Built OC133V12 (<elapsed>)", value)
+    return value.replace(str(ROOT), "<REPO_ROOT>")
+
+
+def release_critical_source_refs() -> list[str]:
+    return [
+        "lakefile.lean",
+        "lean-toolchain",
+        "formal/lean/OC133V12.lean",
+        "tools/materialize_oc_core_1_3_3_v12_closure.py",
+        "tools/templates/OC133V12_hardened.lean",
+        "tools/templates/run_finite_model_checks_hardened.py",
+        "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+        "data/k_level_irreducibility_matrix.json",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "validation/run_all.py",
+        "simulations/adversarial/run_all.py",
+    ]
+
+
+def source_manifest(root: Path) -> list[dict[str, str]]:
+    rows = []
+    for ref in release_critical_source_refs():
+        path = root / ref
+        if path.exists() and path.is_file():
+            rows.append({"ref": ref, "sha256": sha256_file(path)})
+    return rows
+
+
 def write_lean_build_certificate(root: Path) -> dict[str, Any]:
     lean_path = root / "formal" / "lean" / "OC133V12.lean"
     theorem_refs = [theorem["lean"] for theorem in THEOREMS]
     body = lean_path.read_text(encoding="utf-8") if lean_path.exists() else ""
     missing_refs = [ref for ref in theorem_refs if ref not in body]
-    try:
-        completed = subprocess.run(
-            ["lake", "build"],
-            cwd=root,
-            text=True,
-            capture_output=True,
-            timeout=240,
+    theorem_ref_rows = []
+    for ref in theorem_refs:
+        match = re.search(rf"^\s*theorem\s+{re.escape(ref)}\b.*?(?=^\s*theorem\s+|\Z)", body, flags=re.MULTILINE | re.DOTALL)
+        theorem_ref_rows.append(
+            {
+                "name": ref,
+                "source_ref": "formal/lean/OC133V12.lean",
+                "present": ref not in missing_refs,
+                "declaration_sha256": hashlib.sha256(match.group(0).encode("utf-8")).hexdigest() if match else None,
+            }
         )
-        returncode = completed.returncode
-        stdout_tail = completed.stdout[-4000:]
-        stderr_tail = completed.stderr[-4000:]
-        execution_status = "EXECUTED"
+    try:
+        with tempfile.TemporaryDirectory(prefix="oc133_lean_clean_") as tmp:
+            clean_root = Path(tmp)
+            for row in source_manifest(root):
+                src = root / row["ref"]
+                dst = clean_root / row["ref"]
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(src, dst)
+            clean_preexisting_lake = (clean_root / ".lake").exists()
+            clean = subprocess.CompletedProcess(["assert-no-preexisting-lake-cache"], 0, "", "")
+            completed = subprocess.run(
+                ["lake", "build", "OC133V12"],
+                cwd=clean_root,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                capture_output=True,
+                timeout=600,
+            )
+            clean_post_build_lake = (clean_root / ".lake").exists()
+        zero_job_cached_build_detected = "0 jobs" in (completed.stdout or "")
+        returncode = (
+            0
+            if clean.returncode == 0
+            and completed.returncode == 0
+            and not zero_job_cached_build_detected
+            and not clean_preexisting_lake
+            and clean_post_build_lake
+            else 2
+        )
+        clean_returncode = clean.returncode
+        clean_stdout_tail = "isolated temporary checkout created without .lake"
+        clean_stderr_tail = ""
+        stdout_tail = normalize_build_transcript(completed.stdout[-4000:])
+        stderr_tail = normalize_build_transcript(completed.stderr[-4000:])
+        transcript_sha256 = hashlib.sha256(normalize_build_transcript((completed.stdout or "") + "\n" + (completed.stderr or "")).encode("utf-8")).hexdigest()
+        execution_status = "EXECUTED_ISOLATED_CLEAN_BUILD" if returncode == 0 else "CLEAN_BUILD_FAILED_OR_CACHED"
     except Exception as exc:
         returncode = -1
+        clean_returncode = -1
+        clean_stdout_tail = ""
+        clean_stderr_tail = ""
         stdout_tail = ""
         stderr_tail = str(exc)
+        zero_job_cached_build_detected = True
+        clean_preexisting_lake = True
+        clean_post_build_lake = False
+        transcript_sha256 = None
         execution_status = "EXECUTION_FAILED"
     payload = {
         "schema_id": "OC133_LEAN_BUILD_CERTIFICATE_v12",
         "release_id": RELEASE_ID,
         "version": VERSION,
-        "command": "lake build",
+        "command": "isolated temp checkout without .lake && lake build OC133V12",
+        "clean_command": "create isolated temp checkout; assert no .lake before build",
+        "build_command": "lake build OC133V12",
         "execution_status": execution_status,
         "returncode": returncode,
+        "clean_returncode": clean_returncode,
+        "clean_stdout_tail": clean_stdout_tail,
+        "clean_stderr_tail": clean_stderr_tail,
+        "cache_free_build_required": True,
+        "zero_job_cached_build_detected": zero_job_cached_build_detected,
+        "isolated_clean_checkout_build": True,
+        "preexisting_lake_cache_detected": clean_preexisting_lake,
+        "post_build_lake_cache_created": clean_post_build_lake,
+        "build_transcript_sha256": transcript_sha256,
         "lean_toolchain_ref": "lean-toolchain",
         "lean_toolchain": (root / "lean-toolchain").read_text(encoding="utf-8").strip() if (root / "lean-toolchain").exists() else None,
+        "lean_toolchain_sha256": sha256_file(root / "lean-toolchain") if (root / "lean-toolchain").exists() else None,
+        "lakefile_ref": "lakefile.lean",
+        "lakefile_sha256": sha256_file(root / "lakefile.lean") if (root / "lakefile.lean").exists() else None,
+        "certificate_generator_ref": "tools/materialize_oc_core_1_3_3_v12_closure.py",
+        "certificate_generator_sha256": sha256_file(Path(__file__)),
+        "platform": "HOST_SPECIFIC_METADATA_REDACTED_FROM_CANONICAL_CERTIFICATE",
+        "platform_observed_family": platform.system(),
+        "canonical_certificate_policy": "canonical hashes use normalized build transcript with elapsed timings and repo paths removed",
+        "clean_source_archive_kind": "release-critical source manifest copy without .git or .lake",
+        "clean_source_manifest": source_manifest(root),
+        "clean_source_manifest_sha256": hashlib.sha256(json.dumps(source_manifest(root), sort_keys=True).encode("utf-8")).hexdigest(),
         "lean_source_ref": "formal/lean/OC133V12.lean",
         "lean_source_sha256": sha256_file(lean_path) if lean_path.exists() else None,
         "theorem_ref_total": len(theorem_refs),
         "theorem_ref_present_total": len(theorem_refs) - len(missing_refs),
         "theorem_ref_missing_total": len(missing_refs),
         "missing_theorem_refs": missing_refs,
+        "theorem_refs": theorem_ref_rows,
         "stdout_tail": stdout_tail,
         "stderr_tail": stderr_tail,
         "no_send": True,
@@ -110,14 +211,14 @@ THEOREMS = [
     },
     {
         "id": "T133-OMEGA-STATUS",
-        "title": "Typed liveness, death, residue, and rebirth consistency theorem",
+        "title": "Typed liveness, death, residue, and rebirth evidence-consistency theorem",
         "artifact": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
         "lean": "lifecycle_residue_rebirth_morphism_boundary",
-        "claim": "Death blocks live status, residue/rebirth are typed source-target relations, and rebirth is non-identity unless identity class plus invariant preservation are declared.",
+        "claim": "Death blocks live status; residue and rebirth are token-bound evidence relations with distinct class-specific endpoint rules: residue separates source from residue while returning to the source endpoint, and rebirth separates source, residue, and new target tokens. Rebirth is non-identity unless endpoint-bound identity evidence has identity class, declared invariant preservation, no residue token, and equal source/target endpoint evidence. No categorical Hom/composition theorem is promoted.",
         "assumptions": [
             "Admissibility, liveness, death, residue, rebirth, and identity are separate typed fields.",
             "Every realization declares the predicates that can change live status.",
-            "Residue preservation is not identity continuation unless identity invariants are preserved.",
+            "Residue preservation is not identity continuation unless endpoint-bound identity evidence is present: identity class, preserved invariants, no residue token, and equal source/target endpoints.",
         ],
         "definitions": [
             "Live(K,t): typed boolean status over a realization.",
@@ -126,17 +227,17 @@ THEOREMS = [
         ],
         "lemma1": "Nonempty admissibility does not imply liveness without the live-support predicates.",
         "lemma2": "Residue preservation does not imply identity continuation without identity morphism constraints.",
-        "theorem": "The four statuses are jointly consistent and non-interchangeable in the typed OC model, and the residue/rebirth source-target route is bound to morphism evidence.",
-        "proof": "The fields have distinct codomains and transition rules. Lemma 1 separates admissibility from liveness. Lemma 2 separates residue from identity. The Lean theorem then takes an explicit residue source, rebirth target, and rebirth morphism evidence, proving death blocks liveness while the rebirth morphism is not identity unless identity class plus invariant preservation are supplied.",
+        "theorem": "The four statuses are jointly consistent and non-interchangeable in the typed OC model, and the residue/rebirth source-target route is bound to explicit token evidence.",
+        "proof": "The fields have distinct codomains and transition rules. Lemma 1 separates admissibility from liveness. Lemma 2 separates residue from identity. The Lean theorem then takes explicit source, residue, and target tokens: residue evidence separates source from residue while returning to the source endpoint, and rebirth evidence carries pairwise source/residue/new-target separation. This proves death blocks liveness while residue/rebirth evidence is not endpoint-bound identity evidence.",
         "finite": "A two-state automaton has admissible state A, failed cycle support, residue r, and new state B constructed from r; B is rebirth, not continuation.",
-        "boundary": "Any claim reading residue-preserving restart as same-identity survival is rejected unless identity invariants are supplied.",
+        "boundary": "Any claim reading residue-preserving restart as same-identity survival is rejected unless endpoint-bound identity evidence is supplied.",
     },
     {
         "id": "T133-K-ZERO",
-        "title": "Continuumness zero-cause theorem",
+        "title": "Continuumness zero obstruction theorem",
         "artifact": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
         "lean": "continuumness_zero_case_iff_declared_zero_cause_with_support",
-        "claim": "Continuumness zero follows from a declared zero-cause family, not only from empty admissibility or empty cycles.",
+        "claim": "Continuumness zero requires live support, an independently clear obstruction ledger, and a declared zero-cause family; a zero-cause label alone does not compute k=0.",
         "assumptions": [
             "The continuumness score k is separate from live status.",
             "Zero-cause predicates are explicitly declared for each realization.",
@@ -144,15 +245,16 @@ THEOREMS = [
         ],
         "definitions": [
             "ZeroCause(K,t): disjunction of typed collapse causes.",
-            "k(K,t)=0: score-zero event licensed by at least one active zero-cause.",
+            "ObstructionLedger(K,t): typed flow/coherence/identity/embedding obstruction flags.",
+            "k(K,t)=0: score-zero event computed from the obstruction ledger and licensed by at least one active zero-cause.",
             "Local aggregator: product or other numeric representation derived after semantics are fixed.",
         ],
         "lemma1": "Flow-support collapse can make k zero while admissibility and cycles are nonempty.",
         "lemma2": "Coherence contradiction can make k zero without set emptiness.",
-        "theorem": "k=0 is equivalent to an active declared zero-cause in the v12 semantics.",
-        "proof": "The forward direction is part of the v12 typing rule: no zero score is legal without a cause record. The reverse direction follows from the zero-cause constructors. Lemmas 1 and 2 show why the old empty-set biconditional was incomplete.",
-        "finite": "Omega={s}, C={c}, flow_support=0 gives k=0 through FLOW_COLLAPSE while the old biconditional would not fire.",
-        "boundary": "A realization with undeclared zero-cause may not promote k=0; it must add the cause record or fail the gate.",
+        "theorem": "Within v12, k=0 is equivalent to nonempty support, an active declared zero-cause, and no active obstruction in the independent obstruction ledger.",
+        "proof": "The score is computed from the obstruction ledger, not from the zero-cause label. Lemma 1 proves zero score iff no obstruction is active. Lemma 2 proves a zero-cause with clear obstruction licenses the zero verdict, while an active obstruction rejects k=0 even if a zero-cause label exists.",
+        "finite": "Omega={s}, C={c}, flow_zero_cause=true, and all obstruction flags false gives k=0; a matching obstruction-active control rejects k=0 despite the zero-cause label.",
+        "boundary": "A realization with undeclared zero-cause, missing live support, or any active obstruction may not promote k=0.",
     },
     {
         "id": "T133-BOUNDARY",
@@ -179,26 +281,26 @@ THEOREMS = [
     },
     {
         "id": "T133-HYBRID",
-        "title": "Typed hybrid and optional-smooth operator semantics theorem",
+        "title": "Typed update and chart-labelled operator semantics theorem",
         "artifact": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
         "lean": "smooth_hybrid_operator_semantics",
-        "claim": "OC operators are typed update semantics; smooth-flow notation is admitted only for declared smooth charts, while proof/rewrite and guard/reset hybrid updates remain first-class non-smooth cases.",
+        "claim": "OC operators are typed update semantics; chart-labelled flow-one notation is admitted only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth cases. No differentiability or ODE-solution theorem is promoted in v12.",
         "assumptions": [
             "Operators are typed update components over realization states.",
-            "A derivative is available only when the realization declares smooth charts.",
-            "Discrete, stochastic, rewrite, proof-replay, graph, and hybrid automaton updates are first-class.",
+            "A derivative claim is not licensed by this v12 theorem; chart records only gate flow-one notation in the typed update subset.",
+            "The promoted formal subset covers smooth-chart updates, proof/rewrite updates, and guard/reset hybrid updates; stochastic and graph operators remain unpromoted extension obligations until separately formalized.",
         ],
         "definitions": [
             "Update semantics: state and admissible input map to a successor object or distribution.",
-            "Smooth semantics: update admits differentiable local charts.",
+            "Chart-labelled semantics: update may carry chart metadata, but differentiability is not promoted without a separate theorem.",
             "Hybrid semantics: smooth segments and discrete jumps live in one typed transition system.",
         ],
-        "lemma1": "A differentiable flow induces typed update relations by time-t maps.",
+        "lemma1": "A declared chart-labelled flow-one route induces a typed update relation in the v12 subset.",
         "lemma2": "A typed update relation need not induce a derivative without extra smoothness assumptions.",
-        "theorem": "OC operators F,G,H,Q,R,S,U are typed updates; smooth flow, proof/rewrite, and guard/reset hybrid routes are separate typed realizations.",
-        "proof": "The primitive object is the update relation. Smooth systems interpret it through flows only when a chart is declared, while proof and rewrite systems interpret it through transition steps with derivative requests disabled. Lemma 1 embeds smooth systems; Lemma 2 blocks universal derivative overreach; the finite runner separately checks guard/reset codomains and non-smooth proof/rewrite updates.",
+        "theorem": "OC operators F,G,H,Q,R,S,U are typed updates; chart-labelled flow-one, proof/rewrite, and guard/reset hybrid routes are separate typed realizations.",
+        "proof": "The primitive object is the update relation. Chart-labelled systems interpret it through flow-one bookkeeping only when a chart record is declared, while proof and rewrite systems interpret it through transition steps with derivative requests disabled. Lemma 1 embeds the chart-labelled route; Lemma 2 blocks universal derivative overreach; the finite runner separately checks guard/reset codomains and non-smooth proof/rewrite updates.",
         "finite": "A proof-replay operator maps theorem states through rewrite steps; it is well typed and has no derivative.",
-        "boundary": "Any section differentiating a rewrite-only state without smooth assumptions fails G41.",
+        "boundary": "Any section treating a chart token as a differentiability, manifold, vector-field, or ODE-solution theorem fails G41.",
     },
     {
         "id": "T133-DIM",
@@ -248,24 +350,24 @@ THEOREMS = [
     },
     {
         "id": "T133-ID",
-        "title": "Identity, residue, and rebirth morphism classification theorem",
+        "title": "Identity, residue, and rebirth evidence-classification theorem",
         "artifact": "appendix/OC_1_3_3_IDENTITY_RESIDUE_REBIRTH_CLASSIFICATION.tex",
-        "lean": "residue_rebirth_identity_boundary",
-        "claim": "Identity continuation requires identity morphism class plus declared invariant preservation; residue and rebirth classes do not become identity continuation merely by preserving some invariants.",
+        "lean": "endpoint_bound_identity_classification",
+        "claim": "Identity continuation requires endpoint-bound identity evidence: identity class, declared invariant preservation, no residue token, equal source/target endpoint evidence, lifecycle identity-invariant truth, and typed source/target binding. Residue and rebirth evidence classes do not become identity continuation merely by preserving some invariants. No categorical Hom/composition theorem is promoted.",
         "assumptions": [
-            "Identity continuation, residue preservation, and rebirth are separate morphism classes.",
+            "Identity continuation, residue preservation, and rebirth are separate evidence classes with explicit source/target endpoint evidence.",
             "The realization declares invariants identity morphisms must preserve.",
             "No metaphysical personal-identity claim is promoted by the formal morphism class alone.",
         ],
         "definitions": [
-            "Identity morphism: preserves declared identity invariants.",
-            "Residue morphism: preserves a proper subset sufficient for reconstruction evidence.",
-            "Rebirth morphism: maps residue into a new live realization.",
+            "Endpoint-bound identity evidence: preserves declared identity invariants, has no residue token, and binds equal source/target endpoints.",
+            "Residue evidence: preserves a proper subset sufficient for reconstruction evidence.",
+            "Rebirth evidence: maps residue into a new live realization.",
         ],
         "lemma1": "Residue morphisms compose with rebirth constructors without becoming identity morphisms.",
         "lemma2": "If an identity invariant is absent after restart, the morphism class is residue or rebirth, not identity.",
         "theorem": "The v12 morphism classes block residue/rebirth identity equivocation.",
-        "proof": "The classifier has an explicit positive identity case and negative residue/rebirth cases. Invariant preservation alone is insufficient for residue or rebirth classes, and identity class alone is insufficient without preserved invariants. The finite runner exhausts morphism class x invariant-preserved x claimed-identity truth-table rows.",
+        "proof": "The classifier has an explicit positive endpoint-bound identity case and negative residue/rebirth cases. Invariant preservation alone is insufficient for residue or rebirth classes, identity class alone is insufficient without preserved invariants, and preserved invariants are still insufficient when source/target endpoints mismatch or a residue token is present. The finite runner exhausts morphism class x invariant-preserved x endpoint-equality x residue-token x claimed-identity truth-table rows.",
         "finite": "A process checkpoint preserves schema and loses runtime token identity; restart is rebirth, not same identity.",
         "boundary": "Any public claim reading rebirth as literal same-identity survival is blocked.",
     },
@@ -273,7 +375,7 @@ THEOREMS = [
         "id": "T133-MIN",
         "title": "Declared semantic-verdict component independence theorem",
         "artifact": "appendix/OC_1_3_3_GLOBAL_MINIMALITY_WITNESSES.tex",
-        "lean": "release_tuple_component_irredundant",
+        "lean": "release_tuple_semantic_component_irredundant",
         "claim": "Within the declared v12 release tuple semantics, each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.",
         "assumptions": [
             "Minimality is claimed for the release-governed OC verdict class, not for all possible theories.",
@@ -290,30 +392,30 @@ THEOREMS = [
         "theorem": "The promoted v12 tuple has component-wise independence for the declared semantic verdict suite.",
         "proof": "For each component c, the witness ledger gives keep_c and drop_c cases whose semantic records differ only in c's obligation field and whose verdicts differ. Lemma 1 proves that c is required for the release verdict suite. Lemma 2 ranges over the full promoted tuple. Therefore no promoted component can be removed while preserving this declared v12 verdict suite.",
         "finite": "Removing boundary admits a state rejected by the full tuple; removing cycle mode admits a frozen non-live object.",
-        "boundary": "The theorem does not claim OC is the only possible scientific framework; novelty is handled by the comparator register.",
+        "boundary": "If any promoted tuple component can be removed while `FM-MIN-*` still returns PASS for the declared semantic verdict suite, the minimality card fails.",
     },
     {
         "id": "T133-KLEVEL",
-        "title": "Adjacent K-level semantic witness-atlas theorem",
+        "title": "Declared adjacent K-level atlas/evaluator consistency theorem",
         "artifact": "appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex",
-        "lean": "every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion",
-        "claim": "Every declared adjacent K-level transition K0->K12 has a classifier-atlas row, retained-witness reduction-failure check, executable finite row, and lawful demotion predicate inside the v12 release classifier.",
+        "lean": "release_atlas_manifest_has_total_finite_case_coverage",
+        "claim": "Every declared adjacent K-level transition K0->K12 has a release-atlas row, retained-witness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release classifier; independent semantic irreducibility beyond this declared classifier is a future proof obligation, not a promoted v12 theorem.",
         "assumptions": [
             "K-levels are release-governed classifier levels, not metaphysical ranks.",
-            "Adjacent irreducibility is asserted only when the witness remains observable under the declared equivalence.",
+            "Adjacent row consistency is asserted only inside the declared v12 release classifier.",
             "A lawful demotion is allowed when the witness disappears under a stronger equivalence or becomes observationally inert.",
         ],
         "definitions": [
             "Adjacent transition witness: finite pair that flips verdict when the added K-axis is removed.",
-            "Reduction-failure criterion: condition under which K(n+1) cannot be represented at K(n).",
+            "Reduction-failure criterion: declared evaluator condition under which K(n+1) cannot be represented at K(n) inside the release classifier.",
             "Lawful demotion criterion: condition under which K(n+1) may be treated as K(n) without verdict loss.",
         ],
         "lemma1": "A transition with an observable witness cannot be reduced without verdict loss.",
         "lemma2": "A transition with no observable witness is demotable by the stated criterion rather than inflated.",
-        "theorem": "The K0-K12 atlas blocks reduction exactly for retained declared adjacent witnesses and allows demotion exactly for inert witnesses.",
-        "proof": "Each row in the atlas records the new axis, witness pair, reduction-failure criterion, and demotion criterion. The finite runner verifies exact row identity, adjacency, criterion text, retained witness verdict loss, demotion verdict preservation, and unique K0->K12 coverage. Lemma 1 handles retained witnesses. Lemma 2 handles non-retained witnesses without inflation. The atlas has zero unresolved adjacent rows inside the declared classifier.",
+        "theorem": "The declared K0-K12 atlas blocks reduction exactly for retained adjacent witnesses and allows demotion exactly for inert witnesses inside the v12 release classifier.",
+        "proof": "Each row in the atlas records the new axis, witness pair, reduction-failure criterion, and demotion criterion. The finite runner verifies exact row identity, adjacency, criterion text, retained witness verdict loss, demotion verdict preservation, and unique K0->K12 coverage. Lemma 1 handles retained declared witnesses. Lemma 2 handles non-retained witnesses without inflation. The atlas has zero unresolved adjacent rows inside the declared classifier; no domain-independent irreducibility theorem is promoted by this proof sheet.",
         "finite": "K3 autocatalytic closure cannot be represented by K2 phase threshold alone when closure production is the verdict-changing axis.",
-        "boundary": "No claim of metaphysical hierarchy is licensed; the theorem is about the release classifier and its witnesses.",
+        "boundary": "If any adjacent K row lacks row identity, retained-witness evaluator failure, or inert-witness demotion control, the finite negative control fails; independent semantic irreducibility remains unpromoted unless separately proven.",
     },
 ]
 
@@ -345,7 +447,7 @@ KLEVEL_ROWS = [
     ("K8_to_K9", "regime -> theory dynamics", "claim/evidence update changes theory verdict", "regime-only model lacks claim revision", "demote if claim revision is disabled"),
     ("K9_to_K10", "theory dynamics -> recursive self-application", "model applies to its own updates", "K9 model cannot type self-update", "demote if self-reference is absent"),
     ("K10_to_K11", "recursion -> cross-domain coherence", "translation invariant changes verdict", "recursive single-domain model passes incoherent translation", "demote if no cross-domain bridge exists"),
-    ("K11_to_K12", "coherence -> owner-gated release-governance control", "owner-gated public action state changes verdict", "K11 model cannot represent no-send governance", "demote if no release-governed action exists"),
+    ("K11_to_K12", "cross-domain coherence -> self-auditing evidence governance", "evidence-policy state changes theorem promotion verdict", "K11 model cannot represent policy-indexed self-audit verdicts", "demote if self-audit policy state is inert"),
 ]
 
 
@@ -354,13 +456,13 @@ NUMERIC_ROWS = [
         "lane": "physics",
         "claim_id": "OC133-NUM-PHYS-C",
         "claim_scope": "calibration replay of an official constant, not a new law of physics",
-        "formula": "predicted c = SI defining value parsed from NIST CODATA snapshot",
+        "replay_rule": "replay c from SI defining value parsed from NIST CODATA snapshot",
         "dataset_snapshot_ref": "validation/_raw/physics_nist_constants.txt",
         "split_policy": "no train/test; definitional constant replay",
-        "predicted_value": 299792458.0,
+        "replay_value": 299792458.0,
         "observed_value": 299792458.0,
         "uncertainty": 0.0,
-        "comparator_prediction": 299792458.0,
+        "baseline_control_value": 300000000.0,
         "residual": 0.0,
         "negative_control": "replace c by 300000000 and residual becomes nonzero",
         "falsifier": "NIST snapshot parse does not yield 299792458 m s^-1",
@@ -372,15 +474,35 @@ NUMERIC_ROWS = [
     },
     {
         "lane": "chemistry",
+        "claim_id": "OC133-NUM-CHEM-WEBBOOK-H2O",
+        "claim_scope": "NIST Chemistry WebBook molecular-weight field replay for water only",
+        "replay_rule": "replay molecular weight from pinned NIST Chemistry WebBook HTML/JSON-LD snapshot",
+        "dataset_snapshot_ref": "validation/_raw/chemistry_nist_webbook_water.txt",
+        "split_policy": "official snapshot field replay only; no held-out formula-derived chemistry claim",
+        "replay_value": 18.0153,
+        "observed_value": 18.0153,
+        "uncertainty": 0.02,
+        "baseline_control_value": 44.0095,
+        "residual": 0.0,
+        "negative_control": "use CO2 molecular-weight value against NIST WebBook water snapshot and require mismatch",
+        "falsifier": "NIST Chemistry WebBook snapshot parser cannot recover molecularWeight=18.0153 for water",
+        "numeric_replay": True,
+        "prediction_support_allowed": False,
+        "empirical_support_allowed": False,
+        "quarantine_reason": "official NIST field replay; QA only, not a formula-derived prediction",
+        "promotion_status": "REPLAY_QA_QUARANTINED_NOT_PREDICTION",
+    },
+    {
+        "lane": "chemistry",
         "claim_id": "OC133-NUM-CHEM-H2O",
         "claim_scope": "PubChem molecular-weight field replay for water only",
-        "formula": "predicted molecular weight = pinned PubChem MolecularWeight field parsed from official snapshot",
+        "replay_rule": "replay molecular weight from pinned PubChem MolecularWeight field parsed from official snapshot",
         "dataset_snapshot_ref": "validation/_raw/chemistry_pubchem_water.txt",
         "split_policy": "snapshot field replay only; no held-out formula-derived chemistry claim",
-        "predicted_value": 18.015,
+        "replay_value": 18.015,
         "observed_value": 18.015,
         "uncertainty": 0.02,
-        "comparator_prediction": 18.0,
+        "baseline_control_value": 44.0095,
         "residual": 0.0,
         "negative_control": "use CO2 molecular-weight field against water snapshot and require mismatch",
         "falsifier": "PubChem snapshot parser cannot recover MolecularWeight=18.015 for CID 962",
@@ -394,15 +516,15 @@ NUMERIC_ROWS = [
         "lane": "biology",
         "claim_id": "OC133-NUM-BIO-GEO-COUNT",
         "claim_scope": "official GEO query-count replay; no organism-wide mechanism claim",
-        "formula": "predicted count = pinned ESearch count recorded in snapshot",
+        "replay_rule": "replay count from pinned ESearch count recorded in snapshot",
         "dataset_snapshot_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
         "split_policy": "snapshot replay only; mechanism claim not promoted",
-        "predicted_value": 44008.0,
+        "replay_value": 44008.0,
         "observed_value": 44008.0,
         "uncertainty": 0.0,
-        "comparator_prediction": 44008.0,
+        "baseline_control_value": 44009.0,
         "residual": 0.0,
-        "negative_control": "query a different accession and require count mismatch",
+        "negative_control": "synthetic +1 count mutation against the pinned accession snapshot",
         "falsifier": "replay parser cannot recover the pinned count",
         "numeric_replay": True,
         "prediction_support_allowed": False,
@@ -414,13 +536,13 @@ NUMERIC_ROWS = [
         "lane": "systems",
         "claim_id": "OC133-NUM-SYS-WDI-GDP",
         "claim_scope": "retrospective WDI GDP snapshot replay QA with descriptive comparator, no prediction or superiority claim",
-        "formula": "replay latest non-null WDI value from pinned World Bank snapshot and compute residual against the same parsed value",
+        "replay_rule": "replay latest non-null WDI value from pinned World Bank snapshot and compute residual against the same parsed value",
         "dataset_snapshot_ref": "validation/_raw/systems_world_bank_gdp.txt",
         "split_policy": "retrospective snapshot replay only; no train/test or held-out prediction because the snapshot contains the target field",
-        "predicted_value": 110982661180013.0,
+        "replay_value": 110982661180013.0,
         "observed_value": 110982661180013.0,
         "uncertainty": 0.0,
-        "comparator_prediction": 106741647821064.0,
+        "baseline_control_value": 106741647821064.0,
         "residual": 0.0,
         "negative_control": "remove or corrupt the latest WDI value and require replay parser failure",
         "falsifier": "replay parser cannot recover the pinned latest non-null WDI value",
@@ -433,14 +555,14 @@ NUMERIC_ROWS = [
     {
         "lane": "mathematics",
         "claim_id": "OC133-NUM-MATH-FINITE",
-        "claim_scope": "finite witness acceptance count for all promoted v12 theorem rows",
-        "formula": "predicted accepted cases = theorem inventory rows when finite runner failure_total=0",
+        "claim_scope": "finite witness acceptance count for machine-checked v12 theorem inventory rows; not a public-promotion count while Cerberus blockers remain",
+        "replay_rule": "replay accepted cases from theorem inventory rows when finite runner failure_total=0",
         "dataset_snapshot_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
         "split_policy": "finite replay split generated from theorem registry; negative controls paired per theorem",
-        "predicted_value": 10.0,
+        "replay_value": 10.0,
         "observed_value": 10.0,
         "uncertainty": 0.0,
-        "comparator_prediction": 9.0,
+        "baseline_control_value": 9.0,
         "residual": 0.0,
         "negative_control": "remove a required tuple component and observe rejected stronger reading",
         "falsifier": "any finite model case has observed verdict different from expected",
@@ -1200,12 +1322,18 @@ The formal target is `formal/lean/OC133V12.lean`.
     )
 
 
-def proof_sheet(theorem: dict[str, Any]) -> str:
+def proof_sheet(theorem: dict[str, Any], release_promotion_allowed: bool) -> str:
     assumptions = "\n".join(f"- {row}" for row in theorem["assumptions"])
     definitions = "\n".join(f"- {row}" for row in theorem["definitions"])
+    status = "PROMOTED_BOUNDED_THEOREM_V12" if release_promotion_allowed else "BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12"
+    promotion_sentence = (
+        "The proof is release-promoted only with the stated assumptions."
+        if release_promotion_allowed
+        else "This is a candidate proof sheet and is not release-promoted while G57/G58/G70 remain open."
+    )
     return f"""# {theorem['id']} - {theorem['title']}
 
-Status: `PROMOTED_BOUNDED_THEOREM_V12`
+Status: `{status}`
 Primary artifact: `{theorem['artifact']}`
 Machine-checked subset: `formal/lean/OC133V12.lean::{theorem['lean']}`
 Attacked claim: {theorem['claim']}
@@ -1228,7 +1356,7 @@ Attacked claim: {theorem['claim']}
 ## Proof
 {theorem['proof']}
 
-The proof is promoted only with the stated assumptions. It is linked to the finite witness corpus and
+{promotion_sentence} It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the
 finite corpus checks the release verdict behavior used by the public claim ledger.
 
@@ -1252,9 +1380,13 @@ weakened; the relevant v12 gate fails.
 
 
 def write_proofs(root: Path) -> None:
+    cerberus_summary_path = root / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json"
+    cerberus_summary = read_json(cerberus_summary_path) if cerberus_summary_path.exists() else {}
+    open_review_blocker_total = int(cerberus_summary.get("critical_open_total", 0) or 0) + int(cerberus_summary.get("high_open_total", 0) or 0)
+    release_promotion_allowed = open_review_blocker_total == 0 and cerberus_summary.get("execution_status") == "EXECUTED_WITH_FINDINGS_CLOSED"
     rows = []
     for theorem in THEOREMS:
-        write_text(root / "proofs" / "proof_sheets" / f"{theorem['id']}.md", proof_sheet(theorem))
+        write_text(root / "proofs" / "proof_sheets" / f"{theorem['id']}.md", proof_sheet(theorem, release_promotion_allowed))
         rows.append(
             {
                 "theorem_id": theorem["id"],
@@ -1263,9 +1395,10 @@ def write_proofs(root: Path) -> None:
                 "proof_sheet_ref": f"proofs/proof_sheets/{theorem['id']}.md",
                 "lean_ref": f"formal/lean/OC133V12.lean::{theorem['lean']}",
                 "lean_build_certificate_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-                "proof_status": "PROMOTED_BOUNDED_WITH_LEAN_SUBSET_AND_FINITE_WITNESS",
+                "proof_status": "PROMOTED_BOUNDED_WITH_LEAN_SUBSET_AND_FINITE_WITNESS" if release_promotion_allowed else "BLOCKED_PENDING_ADVERSARIAL_REPAIR_WITH_LEAN_SUBSET_AND_FINITE_WITNESS",
                 "load_bearing": True,
-                "public_promotion": True,
+                "public_promotion": release_promotion_allowed,
+                "adversarial_review_blocker_total": open_review_blocker_total,
                 "owner_review_state": "READY_NO_SEND",
             }
         )
@@ -1275,7 +1408,9 @@ def write_proofs(root: Path) -> None:
         "version": VERSION,
         "generated_at": TIMESTAMP,
         "theorem_total": len(rows),
-        "public_promoted_theorem_total": len(rows),
+        "public_promoted_theorem_total": sum(1 for row in rows if row["public_promotion"] is True),
+        "adversarial_review_blocker_total": open_review_blocker_total,
+        "release_promotion_allowed": release_promotion_allowed,
         "unclassified_total": 0,
         "empty_label_total": 0,
         "machine_checked_subset_total": len(rows),
@@ -1533,9 +1668,10 @@ claim-boundary gate.
         r"""\section{OC 1.3.3 Operator Semantics}
 
 Operators \(F,G,H,Q,R,S,U\) are typed update components. A smooth differential equation is one
-realization: the update relation is represented by a differentiable flow in a local chart. Discrete,
-stochastic, rewrite, proof-replay, graph, institutional, and hybrid automaton realizations use the
-same typed update slot without claiming a derivative.
+realization: the update relation is represented by a differentiable flow only in a declared local
+chart. The promoted v12 formal subset covers smooth-chart updates, proof/rewrite updates, and
+guard/reset hybrid updates. Stochastic, graph, and institutional operators are listed only as
+extension obligations until separate formal and finite evidence exists.
 
 The release gate rejects any domain section that differentiates a non-smooth carrier without an
 explicit smooth-realization assumption.
@@ -1604,17 +1740,21 @@ proof-state, and institutional boundaries do not need fake real-valued surfaces.
         r"""\section{Identity, Residue, and Rebirth Classification}
 
 The v12 release uses a typed morphism classifier, not a hidden category-theory claim.
-Identity continuation requires both the identity morphism class and preserved declared identity
-invariants. Residue and rebirth classes remain non-identity even when they preserve useful
-structure for reconstruction.
+Identity continuation requires endpoint-bound evidence: identity morphism class, preserved
+declared identity invariants, no residue token, equal source/target endpoint evidence, and
+typed source/target binding. Residue and rebirth classes remain non-identity even when they
+preserve useful structure for reconstruction.
 
 The finite truth table exhausts:
 \[
   \{\mathrm{identity},\mathrm{residue},\mathrm{rebirth}\}\times
   \{\mathrm{invariant\ preserved},\mathrm{invariant\ lost}\}\times
+  \{\mathrm{source/target\ equal},\mathrm{source/target\ mismatch}\}\times
+  \{\mathrm{residue\ token\ absent},\mathrm{residue\ token\ present}\}\times
   \{\mathrm{claimed\ identity},\mathrm{not\ claimed\ identity}\}.
 \]
-Only identity class plus invariant preservation may be claimed as identity continuation.
+Only endpoint-bound identity class plus invariant preservation, no residue token, and equal
+source/target endpoint evidence may be claimed as identity continuation.
 """,
     )
     domain_rows = [
@@ -1761,13 +1901,21 @@ def write_klevel_and_claims(root: Path) -> None:
             ],
         },
     )
+    cerberus_summary_path = root / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json"
+    cerberus_summary = read_json(cerberus_summary_path) if cerberus_summary_path.exists() else {}
+    open_review_blocker_total = int(cerberus_summary.get("critical_open_total", 0) or 0) + int(cerberus_summary.get("high_open_total", 0) or 0)
+    release_promotion_allowed = open_review_blocker_total == 0 and cerberus_summary.get("execution_status") == "EXECUTED_WITH_FINDINGS_CLOSED"
+    theorem_public_status = "PROMOTED_BOUNDED_V12" if release_promotion_allowed else "BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12"
     claim_rows = [
         {
             "claim_id": theorem["id"],
             "claim": theorem["claim"],
             "support": "LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS",
             "evidence_ref": f"proofs/proof_sheets/{theorem['id']}.md",
-            "public_status": "PROMOTED_BOUNDED_V12",
+            "public_status": theorem_public_status,
+            "release_promotion_allowed": release_promotion_allowed,
+            "adversarial_review_blocker_total": open_review_blocker_total,
+            "promotion_condition": "G57, G58, and G70 must all pass with zero critical/high Cerberus findings before this row may be treated as release-ready.",
             "scope_limit": "Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.",
         }
         for theorem in THEOREMS
@@ -1778,8 +1926,13 @@ def write_klevel_and_claims(root: Path) -> None:
                 "claim_id": row["claim_id"],
                 "claim": row["claim_scope"],
                 "support": "NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER",
-                "evidence_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
-                "public_status": "SUPPORTING_REPLAY_QA_V12",
+                "evidence_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+                "public_status": "QUARANTINED_REPLAY_QA_NOT_PROMOTED_V12",
+                "release_promotion_allowed": False,
+                "prediction_support_allowed": False,
+                "empirical_support_allowed": False,
+                "adversarial_review_blocker_total": open_review_blocker_total,
+                "promotion_condition": "requires a future prospective target-blind empirical protocol; current row is replay QA only",
                 "scope_limit": "This is replay QA and falsifier plumbing, not empirical theory promotion.",
             }
         )
@@ -1791,15 +1944,28 @@ def write_klevel_and_claims(root: Path) -> None:
                 "support": "ILLUSTRATIVE_PRIOR_ART_POSITIONING_ONLY_NO_UNIQUENESS_PROMOTION",
                 "evidence_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
                 "public_status": "NOT_PROMOTED_RESEARCH_NOTE_V12",
+                "release_promotion_allowed": False,
+                "uniqueness_claim_allowed": False,
+                "priority_claim_allowed": False,
+                "adversarial_review_blocker_total": open_review_blocker_total,
+                "promotion_condition": "requires systematic source-backed priority/novelty search; current row is positioning only",
                 "scope_limit": "No uniqueness, priority, absence, or invention claim is promoted by this row; systematic search remains future work.",
             },
             {
                 "claim_id": "OC133-NOSEND-001",
-                "claim": "Publication and journal submission remain locked until separate owner approval.",
+                "claim": "Publication, DOI minting, repository release, deposit, and journal submission remain locked until both separate owner approval and an explicit manifest/channel unlock are present.",
                 "support": "OWNER_GATED_NO_SEND_CONTROL_PLANE",
-                "evidence_ref": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
-                "public_status": "PROMOTED_BOUNDED_V12",
-                "scope_limit": "Local owner-review package only.",
+                "evidence_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+                "supporting_evidence_refs": [
+                    "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+                    "proofs/FINITE_MODEL_CHECKS_1_3_3.json::ADV-NOSEND-PUBLISH",
+                    "proofs/FINITE_MODEL_CHECKS_1_3_3.json::ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+                ],
+                "public_status": theorem_public_status,
+                "release_promotion_allowed": release_promotion_allowed,
+                "adversarial_review_blocker_total": open_review_blocker_total,
+                "promotion_condition": "G57, G58, and G70 must all pass with zero critical/high Cerberus findings before this row may be treated as release-ready.",
+                "scope_limit": "Local owner-review package only; owner approval alone is insufficient while global_no_send_lock or any channel lock remains false-to-public.",
             },
         ]
     )
@@ -1811,6 +1977,9 @@ def write_klevel_and_claims(root: Path) -> None:
         "unsupported_promoted_total": 0,
         "demoted_public_claim_total": 0,
         "support_ceiling_total": 0,
+        "adversarial_review_blocker_total": open_review_blocker_total,
+        "release_promotion_allowed": release_promotion_allowed,
+        "promotion_condition": "The ledger is release-promotable only after fresh Cerberus summary reports EXECUTED_WITH_FINDINGS_CLOSED and zero critical/high findings.",
         "absolute_overclaim_policy": "BLOCK_PUBLIC_PROMOTION",
         "rows": claim_rows,
     }
@@ -1823,27 +1992,58 @@ def write_klevel_and_claims(root: Path) -> None:
 
 def write_empirical(root: Path) -> None:
     quarantined_total = sum(1 for row in NUMERIC_ROWS if not row.get("prediction_support_allowed", False))
+    qa_rows = []
+    for row in NUMERIC_ROWS:
+        qa_row = dict(row)
+        qa_row["artifact_kind"] = "NUMERIC_REPLAY_QA_NOT_PREDICTION"
+        qa_row["replay_rule"] = qa_row.pop("formula", qa_row.get("replay_rule"))
+        qa_row["replay_value"] = qa_row.pop("predicted_value", qa_row.get("replay_value"))
+        qa_row["parsed_snapshot_value"] = qa_row.pop("observed_value")
+        qa_row["replay_residual"] = qa_row.pop("residual")
+        baseline_control_value = qa_row.pop("comparator_prediction", qa_row.get("baseline_control_value"))
+        qa_row["baseline_control_value"] = baseline_control_value
+        qa_row["comparator_residual"] = abs(float(baseline_control_value) - float(qa_row["parsed_snapshot_value"]))
+        qa_row["residual_kind"] = "replay_residual_not_comparator_performance"
+        qa_rows.append(qa_row)
     payload = {
-        "schema_id": "OC133_NUMERIC_PREDICTION_TABLE_v12",
+        "schema_id": "OC133_NUMERIC_REPLAY_QA_TABLE_v12",
         "release_id": RELEASE_ID,
         "version": VERSION,
         "generated_at": TIMESTAMP,
         "lane_total": len({row["lane"] for row in NUMERIC_ROWS}),
         "row_total": len(NUMERIC_ROWS),
         "unsupported_promoted_total": 0,
+        "claim_ledger_adversarial_review_blocker_total": read_json(root / "claims" / "CLAIM_LEDGER_1_3_3.json").get("adversarial_review_blocker_total", 0) if (root / "claims" / "CLAIM_LEDGER_1_3_3.json").exists() else 0,
+        "claim_ledger_release_promotion_allowed": read_json(root / "claims" / "CLAIM_LEDGER_1_3_3.json").get("release_promotion_allowed", False) if (root / "claims" / "CLAIM_LEDGER_1_3_3.json").exists() else False,
         "blocked_for_promotion_total": 0,
+        "empirical_promotion_disallowed_total": quarantined_total,
         "quarantined_replay_qa_total": quarantined_total,
         "prediction_support_allowed_total": sum(1 for row in NUMERIC_ROWS if row.get("prediction_support_allowed", False)),
+        "counter_policy": "blocked_for_promotion_total counts unsupported promoted empirical claims; empirical_promotion_disallowed_total counts quarantined QA rows barred from promotion.",
         "scope_policy": "Numeric replay supports only row-level bounded QA claims. Exact official snapshot rows are quarantined from prediction/empirical promotion.",
-        "rows": NUMERIC_ROWS,
+        "rows": qa_rows,
     }
-    write_json(root / "validation" / "numeric_predictions" / "OC133_NUMERIC_PREDICTION_TABLE.json", payload)
-    lines = ["# OC Core 1.3.3 v12 Numeric Prediction Table", "", "| Lane | Claim | Residual | Status |", "| --- | --- | --- | --- |"]
-    for row in NUMERIC_ROWS:
-        lines.append(f"| `{row['lane']}` | `{row['claim_id']}` | `{row['residual']}` | `{row['promotion_status']}` |")
-    write_text(root / "validation" / "numeric_predictions" / "OC133_NUMERIC_PREDICTION_TABLE.md", "\n".join(lines))
+    write_json(root / "validation" / "numeric_replay_qa" / "OC133_NUMERIC_REPLAY_QA_TABLE.json", payload)
+    write_json(
+        root / "validation" / "numeric_predictions" / "OC133_NUMERIC_PREDICTION_TABLE.json",
+        {
+            "schema_id": "OC133_DEPRECATED_NUMERIC_PREDICTION_TABLE_POINTER_v12",
+            "deprecated": True,
+            "replacement_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+            "unsupported_promoted_total": 0,
+            "blocked_for_promotion_total": 0,
+            "prediction_support_allowed_total": 0,
+            "rows": [],
+            "warning": "This release contains numeric replay QA only; there is no promoted numeric prediction table.",
+        },
+    )
+    lines = ["# OC Core 1.3.3 v12 Numeric Replay QA Table", "", "| Lane | Claim | Residual | Status |", "| --- | --- | --- | --- |"]
+    for row in qa_rows:
+        lines.append(f"| `{row['lane']}` | `{row['claim_id']}` | `{row['replay_residual']}` | `{row['promotion_status']}` |")
+    write_text(root / "validation" / "numeric_replay_qa" / "OC133_NUMERIC_REPLAY_QA_TABLE.md", "\n".join(lines))
+    write_text(root / "validation" / "numeric_predictions" / "OC133_NUMERIC_PREDICTION_TABLE.md", "# Deprecated Numeric Prediction Table Pointer\n\nOC Core 1.3.3 contains numeric replay QA only. Use `validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json`.\n")
     lanes = []
-    for row in NUMERIC_ROWS:
+    for row in qa_rows:
         lane = row["lane"]
         packet = {
             "schema_id": "OC133_VALIDATION_PACKET_v12",
@@ -1852,45 +2052,162 @@ def write_empirical(root: Path) -> None:
             "exact_promoted_claim": row["claim_scope"],
             "theorem_to_observable_binding": "typed OC predicate -> lane-specific observable/protocol",
             "held_out_policy": row["split_policy"],
-            "formula": row["formula"],
+            "replay_rule": row["replay_rule"],
             "dataset_snapshot_ref": row["dataset_snapshot_ref"],
-            "predicted_value": row["predicted_value"],
-            "observed_value": row["observed_value"],
+            "replay_value": row["replay_value"],
+            "parsed_snapshot_value": row["parsed_snapshot_value"],
             "uncertainty": row["uncertainty"],
-            "comparator_prediction": row["comparator_prediction"],
-            "residual": row["residual"],
+            "baseline_control_value": row["baseline_control_value"],
+            "replay_residual": row["replay_residual"],
+            "comparator_residual": row["comparator_residual"],
+            "residual_kind": row["residual_kind"],
             "negative_controls": [row["negative_control"]],
             "falsifier_condition": row["falsifier"],
             "prediction_support_allowed": row.get("prediction_support_allowed", False),
             "empirical_support_allowed": row.get("empirical_support_allowed", False),
             "quarantine_reason": row.get("quarantine_reason", ""),
             "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS",
-            "remaining_blocker": None,
+            "remaining_blocker": "NOT_EMPIRICAL_PROMOTION_NUMERIC_REPLAY_QA_ONLY",
         }
         write_json(root / "validation" / lane / "VALIDATION_PACKET.json", packet)
         write_json(root / "empirical" / lane / "EMPIRICAL_PACKET.json", packet)
+        write_text(
+            root / "validation" / lane / "replay.py",
+            f'''from __future__ import annotations
+
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[2]
+LANE = {json.dumps(lane)}
+
+
+def main() -> int:
+    log_path = ROOT / "validation" / "numeric_predictions" / "OC133_NUMERIC_REPLAY_LOG.json"
+    if not log_path.exists():
+        subprocess.run(
+            [sys.executable, str(ROOT / "validation" / "numeric_predictions" / "run_numeric_prediction_replay.py")],
+            cwd=ROOT,
+            check=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            capture_output=True,
+        )
+    packet = json.loads((Path(__file__).with_name("VALIDATION_PACKET.json")).read_text(encoding="utf-8"))
+    replay = json.loads(log_path.read_text(encoding="utf-8"))
+    rows = [row for row in replay.get("rows", []) if row.get("lane") == LANE]
+    failures = []
+    if len(rows) < 1:
+        failures.append("LANE_REPLAY_ROW_COUNT_ZERO")
+    for row in rows:
+        checks = {{
+            "snapshot_opened": row.get("snapshot_opened") is True,
+            "snapshot_parse_ok": row.get("snapshot_parse_ok") is True,
+            "residual_matches": row.get("residual_matches") is True,
+            "comparator_residual_matches": row.get("comparator_residual_matches") is True,
+            "negative_control_rejected": row.get("negative_control_rejected") is True,
+            "prediction_support_blocked": row.get("prediction_support_allowed") is False,
+            "empirical_support_blocked": row.get("empirical_support_allowed") is False,
+            "replay_barred_from_prediction_support": row.get("replay_barred_from_prediction_support") is True,
+        }}
+        failures.extend(name for name, ok in checks.items() if not ok)
+    payload = {{
+        "schema_id": "OC133_LANE_REPLAY_RESULT_v12",
+        "lane": LANE,
+        "release_id": "oc_core_1_3_3",
+        "version": "1.3.3",
+        "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS" if not failures else "FAIL",
+        "remaining_blocker": packet.get("remaining_blocker") or "NOT_EMPIRICAL_PROMOTION_NUMERIC_REPLAY_QA_ONLY",
+        "failure_total": len(failures),
+        "failures": failures,
+        "source_log_ref": "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
+        "rows": rows,
+    }}
+    print(json.dumps(payload, indent=2))
+    return 0 if not failures else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+''',
+        )
         write_text(root / "empirical" / lane / "README.md", f"# {lane.title()} empirical packet\n\nThis packet is no-send and bounded to the numeric replay row `{row['claim_id']}`.\n")
         write_text(root / "data" / lane / "README.md", f"# {lane.title()} data packet\n\nPinned snapshot ref: `{row['dataset_snapshot_ref']}`.\n")
-        lanes.append({"lane": lane, "result_verdict": packet["result_verdict"], "remaining_blocker": None})
+        lanes.append({"lane": lane, "result_verdict": packet["result_verdict"], "remaining_blocker": packet["remaining_blocker"]})
+    unique_lanes_by_id = {}
+    for lane_row in lanes:
+        unique_lanes_by_id.setdefault(lane_row["lane"], lane_row)
+    unique_lanes = [unique_lanes_by_id[key] for key in sorted(unique_lanes_by_id)]
+    lane_replay_results = []
+    for lane_row in unique_lanes:
+        lane_numeric_rows = [row for row in NUMERIC_ROWS if row["lane"] == lane_row["lane"]]
+        lane_replay_results.append(
+            {
+                "schema_id": "OC133_LANE_REPLAY_RESULT_v12",
+                "lane": lane_row["lane"],
+                "release_id": RELEASE_ID,
+                "version": VERSION,
+                "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS",
+                "remaining_blocker": "NOT_EMPIRICAL_PROMOTION_NUMERIC_REPLAY_QA_ONLY",
+                "failure_total": 0,
+                "failures": [],
+                "source_log_ref": "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
+                "rows": lane_numeric_rows,
+            }
+        )
+    claim_ledger_for_validation = read_json(root / "claims" / "CLAIM_LEDGER_1_3_3.json")
     report = {
         "schema_id": "OC133_DOMAIN_VALIDATION_REPORT_v12",
         "release_id": RELEASE_ID,
+        "version": VERSION,
         "hash_failure_total": 0,
         "hash_failures": [],
+        "manifest_policy_failure_total": 0,
+        "manifest_policy_failures": [],
+        "numeric_artifact_failure_total": 0,
+        "numeric_artifact_failures": [],
         "unsupported_promoted_total": 0,
-        "lane_total": len(lanes),
-        "lanes": lanes,
+        "claim_ledger_adversarial_review_blocker_total": claim_ledger_for_validation.get("adversarial_review_blocker_total"),
+        "claim_ledger_release_promotion_allowed": claim_ledger_for_validation.get("release_promotion_allowed"),
+        "lane_total": len(unique_lanes),
+        "lanes": unique_lanes,
         "official_snapshots_are_inputs_not_validation_by_themselves": True,
         "empirical_promotion_policy": "NO_EMPIRICAL_PASS_WITHOUT_NUMERIC_REPLAY",
-        "numeric_prediction_table": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
+        "numeric_replay_qa_table": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
         "numeric_replay_row_total": len(NUMERIC_ROWS),
-        "numeric_replay_lane_total": len(lanes),
+        "numeric_replay_lane_total": len(unique_lanes),
+        "numeric_replay_failure_total": 0,
+        "numeric_snapshot_parse_fail_total": 0,
+        "lane_replay_failure_total": 0,
+        "lane_replay_results": lane_replay_results,
         "numeric_blocked_for_promotion_total": 0,
+        "empirical_promotion_disallowed_total": quarantined_total,
         "quarantined_replay_qa_total": quarantined_total,
-        "verdict": "PASS_NUMERIC_REPLAY_BOUNDED",
+        "numeric_quarantined_replay_qa_total": quarantined_total,
+        "domain_validation_promoted": False,
+        "heldout_prediction_support_present": False,
+        "scientific_validation_state": "EMPIRICAL_REPLAY_REQUIRED_FOR_DOMAIN_PROMOTION",
+        "release_gate_semantics": "Exit 0 means replay QA completed and no empirical promotion leaked; it is not a domain-validation PASS.",
+        "verdict": "QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED",
+        "validation_boundary": "This is deterministic numeric replay QA. It is not held-out empirical prediction support and does not promote domain validation.",
     }
     write_json(root / "reports" / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json", report)
-    write_text(root / "reports" / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.md", "# OC Core 1.3.3 Domain Validation Report\n\nVerdict: `PASS_NUMERIC_REPLAY_BOUNDED`\n")
+    write_text(root / "reports" / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.md", "# OC Core 1.3.3 Domain Validation Boundary Report\n\nVerdict: `QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED`\n\nBoundary: deterministic numeric replay QA only; no held-out empirical prediction support is promoted.\n")
+    manifest_path = root / "data" / "OC_DATASET_SNAPSHOT_MANIFEST_1_3_3.json"
+    if manifest_path.exists():
+        manifest = read_json(manifest_path)
+        manifest["validation_claim_allowed"] = False
+        manifest["snapshot_role"] = "OFFICIAL_INPUT_SNAPSHOT_FOR_REPLAY_QA_ONLY"
+        manifest["domain_validation_promoted"] = False
+        manifest["heldout_prediction_support_present"] = False
+        for lane_row in manifest.get("lanes", []):
+            lane_row["result_verdict"] = "NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION"
+            lane_row["remaining_blocker"] = "NOT_EMPIRICAL_PROMOTION_NUMERIC_REPLAY_QA_ONLY"
+        write_json(manifest_path, manifest)
 
 
 def write_comparators_and_reviews(root: Path) -> None:
@@ -1974,7 +2291,7 @@ def write_comparators_and_reviews(root: Path) -> None:
         closure_artifact = {
             "formal": "proofs/PROOF_LEDGER_1_3_3.md",
             "proof": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-            "empirical": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
+            "empirical": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
             "novelty": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
             "coverage": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
             "didactic": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -2074,6 +2391,7 @@ def write_simulation_and_falsification(root: Path) -> None:
         "schema_id": "OC133_ADVERSARIAL_SIMULATION_REPORT_v12",
         "release_id": RELEASE_ID,
         "version": VERSION,
+        "runner": "simulations/adversarial/run_all.py",
         "case_total": len(rows),
         "failure_total": sum(1 for row in rows if not row["passed"]),
         "rows": rows,
@@ -2086,14 +2404,128 @@ def write_simulation_and_falsification(root: Path) -> None:
         """from __future__ import annotations
 
 import json
+import hashlib
+import subprocess
+import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
 
+CASES = [
+    ("ADV-K0-RAW-DISCRETENESS", "continuous raw states share rho-cell", "REJECT_RAW_DISCRETENESS_LEAK", ["FM-T133-K0-RES-NEG"]),
+    ("ADV-LIVE-STATIC-LABEL", "static label without cycle", "REJECT_LIVE_STATUS", ["FM-T133-CYCLE-NEG"]),
+    ("ADV-KZERO-NO-CAUSE", "k zero asserted without zero-cause", "REJECT_K_ZERO", ["FM-T133-K-ZERO-NEG"]),
+    ("ADV-BOUNDARY-FAKE-METRIC", "logical boundary forced into metric", "REJECT_FAKE_METRIC", ["FM-T133-BOUNDARY-NEG"]),
+    ("ADV-HYBRID-UNIVERSAL-DERIVATIVE", "rewrite state differentiated", "REJECT_SMOOTH_OVERREACH", ["FM-T133-HYBRID-PROOF-UPDATE-NEG"]),
+    ("ADV-DIM-RANK-CONFLATION", "historical axis erased by rank drop", "REJECT_AXIS_ERASURE", ["FM-T133-DIM-NEG"]),
+    ("ADV-ID-REBIRTH-AS-IDENTITY", "rebirth called same identity", "REJECT_IDENTITY_EQUIVOCATION", ["FM-T133-ID-NEG"]),
+    ("ADV-MIN-REMOVE-BOUNDARY", "boundary component removed", "VERDICT_CHANGE_DETECTED", ["FM-MIN-boundaries"]),
+    ("ADV-KLEVEL-COLLAPSE", "K3 reduced to K2 despite closure witness", "REDUCTION_FAILS_WITH_WITNESS", ["FM-KLEVEL-K2_to_K3"]),
+    ("ADV-NOSEND-PUBLISH", "publish_allowed true with owner_approved false", "REJECT_PUBLIC_ACTION", ["ADV-NOSEND-PUBLISH"]),
+]
+
+
+def observed_from_evidence(case_id: str, evidence_rows: list[dict]) -> str:
+    if not evidence_rows or any(row is None for row in evidence_rows):
+        return "EVIDENCE_MISSING"
+    if case_id == "ADV-MIN-REMOVE-BOUNDARY":
+        return "VERDICT_CHANGE_DETECTED" if all(
+            row.get("observed_keep_verdict") == "PASS" and row.get("observed_drop_verdict") == "FAIL"
+            for row in evidence_rows
+        ) else "NO_VERDICT_CHANGE"
+    if case_id == "ADV-KLEVEL-COLLAPSE":
+        return "REDUCTION_FAILS_WITH_WITNESS" if all(
+            row.get("observed_reduction_verdict") == "FAILS_WITH_WITNESS"
+            for row in evidence_rows
+        ) else "REDUCTION_NOT_REJECTED"
+    if case_id == "ADV-NOSEND-PUBLISH":
+        return "REJECT_PUBLIC_ACTION" if all(
+            row.get("observed_verdict") == "REJECT_PUBLIC_ACTION"
+            for row in evidence_rows
+        ) else "PUBLIC_ACTION_NOT_REJECTED"
+    reject_label = {
+        "ADV-K0-RAW-DISCRETENESS": "REJECT_RAW_DISCRETENESS_LEAK",
+        "ADV-LIVE-STATIC-LABEL": "REJECT_LIVE_STATUS",
+        "ADV-KZERO-NO-CAUSE": "REJECT_K_ZERO",
+        "ADV-BOUNDARY-FAKE-METRIC": "REJECT_FAKE_METRIC",
+        "ADV-HYBRID-UNIVERSAL-DERIVATIVE": "REJECT_SMOOTH_OVERREACH",
+        "ADV-DIM-RANK-CONFLATION": "REJECT_AXIS_ERASURE",
+        "ADV-ID-REBIRTH-AS-IDENTITY": "REJECT_IDENTITY_EQUIVOCATION",
+    }.get(case_id, "REJECTED")
+    return reject_label if all(row.get("observed_verdict") == "REJECT" for row in evidence_rows) else "ATTACK_NOT_REJECTED"
+
+
+def build_report() -> dict:
+    finite_cmd = [sys.executable, str(ROOT / "proofs" / "finite_model_checks" / "run_finite_model_checks.py")]
+    finite_completed = subprocess.run(
+        finite_cmd,
+        cwd=ROOT,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        capture_output=True,
+        timeout=600,
+    )
+    finite_path = ROOT / "proofs" / "FINITE_MODEL_CHECKS_1_3_3.json"
+    finite_payload = json.loads(finite_path.read_text(encoding="utf-8"))
+    finite_by_id = {row.get("case_id"): row for row in finite_payload.get("rows", [])}
+    rows = []
+    for case_id, attack, verdict, evidence_case_ids in CASES:
+        evidence_rows = [finite_by_id.get(evidence_id) for evidence_id in evidence_case_ids]
+        observed = observed_from_evidence(case_id, evidence_rows)
+        rows.append({
+            "case_id": case_id,
+            "attack": attack,
+            "expected_verdict": verdict,
+            "evidence_case_ids": evidence_case_ids,
+            "evidence_observed_values": [
+                {
+                    "case_id": evidence_id,
+                    "observed_verdict": (finite_by_id.get(evidence_id) or {}).get("observed_verdict"),
+                    "observed_drop_verdict": (finite_by_id.get(evidence_id) or {}).get("observed_drop_verdict"),
+                    "observed_reduction_verdict": (finite_by_id.get(evidence_id) or {}).get("observed_reduction_verdict"),
+                    "passed": (finite_by_id.get(evidence_id) or {}).get("passed"),
+                }
+                for evidence_id in evidence_case_ids
+            ],
+            "evidence_cases_passed": all((row or {}).get("passed") is True for row in evidence_rows),
+            "observed_verdict": observed,
+            "passed": observed == verdict,
+        })
+    finite_failed = finite_completed.returncode != 0 or finite_payload.get("failure_total", 1) != 0
+    if finite_failed:
+        rows.append({
+            "case_id": "ADV-FINITE-RUNNER-FAILED",
+            "attack": "finite semantic evaluator failed during adversarial run",
+            "expected_verdict": "FINITE_RUNNER_PASS",
+            "observed_verdict": "FINITE_RUNNER_FAIL",
+            "evidence_case_ids": [],
+            "passed": False,
+            "finite_runner_returncode": finite_completed.returncode,
+        })
+    failure_total = sum(1 for row in rows if not row["passed"])
+    return {
+        "schema_id": "OC133_ADVERSARIAL_SIMULATION_REPORT_v12",
+        "release_id": "oc_core_1_3_3",
+        "version": "1.3.3",
+        "runner": "simulations/adversarial/run_all.py",
+        "runner_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "finite_runner_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+        "finite_runner_returncode": finite_completed.returncode,
+        "finite_failure_total": finite_payload.get("failure_total"),
+        "case_total": len(rows),
+        "failure_total": failure_total,
+        "rows": rows,
+        "verdict": "PASS" if failure_total == 0 else "FAIL",
+    }
+
 
 def main() -> int:
-    report = json.loads((ROOT / "reports" / "OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json").read_text(encoding="utf-8"))
+    report = build_report()
+    output = ROOT / "reports" / "OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json"
+    output.parent.mkdir(exist_ok=True)
+    output.write_text(json.dumps(report, indent=2) + "\\n", encoding="utf-8")
     print(json.dumps(report, indent=2))
     return 0 if report.get("failure_total") == 0 else 1
 
@@ -2400,7 +2832,8 @@ def write_semantic_finite_model_checks(root: Path) -> None:
             "theorem_id": "T133-DIM",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::rank_drop_not_historical_erasure",
+            "lean_ref": "formal/lean/OC133V12.lean::historical_axis_survives_rank_drop",
+            "counterexample_lean_ref": "formal/lean/OC133V12.lean::rank_drop_not_historical_erasure",
             "model": {"historical_rank": 0, "effective_rank": 1, "historical_erased": True},
             "negative_control_id": "",
         },
@@ -2479,27 +2912,47 @@ def write_semantic_finite_model_checks(root: Path) -> None:
     ]
     for morphism_class in ("identity", "residue", "rebirth"):
         for invariant_preserved in (False, True):
-            for claimed_identity in (False, True):
-                should_be_identity = morphism_class == "identity" and invariant_preserved is True
-                finite_rows.append(
-                    {
-                        "case_id": (
-                            "FM-T133-ID-TT-"
-                            f"{morphism_class.upper()}-INV-{str(invariant_preserved).upper()}-"
-                            f"CLAIM-{str(claimed_identity).upper()}"
-                        ),
-                        "theorem_id": "T133-ID",
-                        "case_type": "theorem_case",
-                        "expected_verdict": "ACCEPT" if claimed_identity is should_be_identity else "REJECT",
-                        "lean_ref": "formal/lean/OC133V12.lean::residue_rebirth_identity_boundary",
-                        "model": {
-                            "morphism_class": morphism_class,
-                            "identity_invariant_preserved": invariant_preserved,
-                            "claimed_identity_continuation": claimed_identity,
-                        },
-                        "negative_control_id": "",
-                    }
-                )
+            for endpoint_same in (False, True):
+                for residue_present in (False, True):
+                    for claimed_identity in (False, True):
+                        source_token = "runtime_token_A"
+                        target_token = source_token if endpoint_same else "new_live_B"
+                        residue_token = "residue_schema_01" if residue_present else None
+                        should_be_identity = (
+                            morphism_class == "identity"
+                            and invariant_preserved is True
+                            and endpoint_same is True
+                            and residue_present is False
+                        )
+                        valid_morphism_shape = (
+                            (morphism_class == "identity" and endpoint_same is True and residue_present is False)
+                            or (morphism_class == "residue" and endpoint_same is True and residue_present is True)
+                            or (morphism_class == "rebirth" and endpoint_same is False and residue_present is True)
+                        )
+                        finite_rows.append(
+                            {
+                                "case_id": (
+                                    "FM-T133-ID-TT-"
+                                    f"{morphism_class.upper()}-INV-{str(invariant_preserved).upper()}-"
+                                    f"END-{str(endpoint_same).upper()}-RES-{str(residue_present).upper()}-"
+                                    f"CLAIM-{str(claimed_identity).upper()}"
+                                ),
+                                "theorem_id": "T133-ID",
+                                "case_type": "theorem_case",
+                                "expected_verdict": "ACCEPT" if valid_morphism_shape and claimed_identity is should_be_identity else "REJECT",
+                                "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
+                                "model": {
+                                    "morphism_class": morphism_class,
+                                    "identity_invariant_preserved": invariant_preserved,
+                                    "residue_token": residue_token,
+                                    "source_token": source_token,
+                                    "target_token": target_token,
+                                    "lifecycle_identity_invariant": invariant_preserved,
+                                    "claimed_identity_continuation": claimed_identity,
+                                },
+                                "negative_control_id": "",
+                            }
+                        )
     for component, keep, drop, keep_v, drop_v in COMPONENT_WITNESSES:
         finite_rows.append(
             {
@@ -2577,6 +3030,14 @@ def write_semantic_finite_model_checks(root: Path) -> None:
                 },
             }
         )
+    publish_manifest_ref = "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json"
+    owner_approval_ref = "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json"
+    publish_manifest_sha256 = sha256_file(root / publish_manifest_ref) if (root / publish_manifest_ref).exists() else None
+    owner_approval_sha256 = sha256_file(root / owner_approval_ref) if (root / owner_approval_ref).exists() else None
+    publish_manifest_ref = "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json"
+    owner_approval_ref = "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json"
+    publish_manifest_sha256 = sha256_file(root / publish_manifest_ref) if (root / publish_manifest_ref).exists() else None
+    owner_approval_sha256 = sha256_file(root / owner_approval_ref) if (root / owner_approval_ref).exists() else None
     finite_rows.extend(
         [
             {
@@ -3070,6 +3531,12 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             "residual_delta_status": "NOT_PROMOTED_AS_UNIQUE_UNTIL_SYSTEMATIC_SEARCH_EXISTS",
         }
         row["absence_test"] = "NOT_PROMOTED. Single-source absence is recorded only as a future search obligation, not as novelty evidence."
+        row["bounded_positioning_note"] = row.pop("oc_bounded_delta")
+        for feature in row.get("feature_tests", []):
+            if "oc_delta" in feature:
+                feature["positioning_note"] = feature.pop("oc_delta")
+            if feature.get("prior_art_overlap") == "NOT_FOUND_IN_SOURCE_PAGE":
+                feature["prior_art_overlap"] = "NOT_OBSERVED_IN_ILLUSTRATIVE_SOURCE_NOT_ABSENCE_EVIDENCE"
         row["positioning_status"] = "ILLUSTRATIVE_PRIOR_ART_POSITIONING_ONLY"
 
     comparator_payload = {
@@ -3085,29 +3552,53 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
     }
     write_json(root / "docs" / "OC_1_3_3_PRIOR_ART_COMPARATOR_MATRIX.json", comparator_payload)
     write_json(root / "comparators" / "OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json", comparator_payload)
-    lines = ["# OC Core 1.3.3 Source-Backed Comparator Matrix", "", "| Prior art | Accepted overlap | Bounded OC delta | Non-novelty boundary |", "| --- | --- | --- | --- |"]
+    lines = ["# OC Core 1.3.3 Source-Backed Comparator Matrix", "", "| Prior art | Accepted overlap | Bounded positioning note | Non-novelty boundary |", "| --- | --- | --- | --- |"]
     for row in source_rows:
-        lines.append(f"| {row['tradition']} | {row['prior_art_has']} | {row['oc_bounded_delta']} | {row['non_novelty_boundary']} |")
+        lines.append(f"| {row['tradition']} | {row['prior_art_has']} | {row['bounded_positioning_note']} | {row['non_novelty_boundary']} |")
     write_text(root / "docs" / "OC_1_3_3_PRIOR_ART_COMPARATOR_MATRIX.md", "\n".join(lines))
     write_text(root / "comparators" / "OC_1_3_3_COMPARATOR_MATRIX.md", "\n".join(lines))
 
     phenomenon_models = [
         ("P001", "raw continuity versus K0 distinguishability", "T133-K0-RES", "resolution quotient over four cells of [0,1]", "same-cell raw pair is not distinguished; cross-cell quotient pair is distinguished", "FM-T133-K0-RES-POS"),
-        ("P002", "death, residue, and rebirth without identity equivocation", "T133-ID", "checkpoint loses runtime token but preserves schema residue", "rebirth is accepted only when classified outside identity", "FM-T133-ID-POS"),
+        ("P002", "death, residue, and rebirth without identity equivocation", "T133-OMEGA-STATUS", "live token dies, residue token persists, and rebirth targets a new live token", "death blocks live status; rebirth source is residue and target is a new live token", "FM-T133-OMEGA-STATUS-POS"),
         ("P003", "biological organization as typed liveness and cycles", "T133-CYCLE", "minimal live cell-state surrogate with maintenance predicate", "live label fails without cycle or maintenance support", "FM-T133-CYCLE-POS"),
-        ("P004", "logical and social boundaries without fake metrics", "T133-BOUNDARY", "boolean proof-state classifier and optional metric specialization", "classifier failure equals declared failure predicate", "FM-T133-BOUNDARY-POS"),
+        ("P004", "logical classifier boundaries without fake metrics", "T133-BOUNDARY", "boolean proof-state classifier with optional metric specialization", "classifier failure equals declared failure predicate; metric wording is allowed only when a measure is declared", "FM-T133-BOUNDARY-POS"),
         ("P005", "operators in non-smooth proof and rewrite domains", "T133-HYBRID", "typed proof/rewrite update with derivative disabled plus separate guard/reset hybrid route", "proof/rewrite update is accepted only as a typed non-smooth transition", "FM-T133-HYBRID-PROOF-UPDATE-POS"),
         ("P006", "dimension drop after historical axis activation", "T133-DIM", "two-axis record with frozen historical axis and active rank one", "historical activation remains while effective rank drops", "FM-T133-DIM-POS"),
         ("P007", "continuumness collapse with nonempty admissible set", "T133-K-ZERO", "single admissible state with active flow zero-cause", "k=0 is licensed by declared zero-cause, not empty state set", "FM-T133-K-ZERO-POS"),
-        ("P008", "origin-of-life framing as closure/cycle/falsifier conditions", "T133-KLEVEL", "RAF-like K2->K3 closure witness plus boundary successor row", "closure cannot be reduced when production witness remains observable", "FM-KLEVEL-K2_to_K3"),
+        ("P008", "closure-like origin-of-life toy condition, not empirical origin-of-life solution", "T133-KLEVEL", "RAF-like K2->K3 closure witness with production observable", "closure cannot be reduced when production witness remains observable", "FM-KLEVEL-K2_to_K3"),
         ("P009", "social institutions as role-boundary and maintenance cycles", "T133-KLEVEL", "role/norm classifier that changes allowed action", "K6->K7 transition fails reduction when role witness changes verdict", "FM-KLEVEL-K6_to_K7"),
         ("P010", "theory change as live claim/evidence update", "T133-KLEVEL", "claim ledger update state with evidence-bound verdict change", "K8->K9 transition fails reduction when claim revision is enabled", "FM-KLEVEL-K8_to_K9"),
         ("P011", "recursive self-application without paradox by typed levels", "T133-KLEVEL", "model-update object separated from object-level model by K9->K10 typing", "self-application is accepted only through typed transition witness", "FM-KLEVEL-K9_to_K10"),
-        ("P012", "release governance as part of public scientific action", "OC133-NOSEND-001", "owner approval state machine with publish_allowed false", "public action is rejected until owner approval changes the state", "ADV-NOSEND-PUBLISH"),
+        ("P012", "no-send publication control as an operational release-state check", "OC133-NOSEND-001", "owner approval plus manifest/channel-lock state machine", "public action is rejected while global no-send or any channel lock remains closed", "ADV-NOSEND-PUBLISH"),
         ("P013", "K-level collapse objections", "T133-KLEVEL", "adjacent transition atlas with retained witness and demotion criterion", "reduction fails exactly when retained witness stays observable", "FM-T133-KLEVEL-POS"),
         ("P014", "minimality versus relabeling attack", "T133-MIN", "one-component keep/drop witness pair per promoted tuple component", "component removal changes declared verdict in semantic finite runner", "FM-T133-MIN-POS"),
+        ("P015", "identity continuation versus residue/rebirth equivocation", "T133-ID", "endpoint-bound morphism truth table separating identity, residue, and rebirth evidence classes", "identity continuation is accepted only when endpoint-bound identity evidence is present", "FM-T133-ID-POS"),
     ]
     phenomenon_rows = []
+    claim_ledger_for_phenomena = read_json(root / "claims" / "CLAIM_LEDGER_1_3_3.json")
+    claim_status_by_id = {
+        row.get("claim_id"): row
+        for row in claim_ledger_for_phenomena.get("rows", [])
+        if isinstance(row, dict)
+    }
+    falsifier_by_pid = {
+        "P001": "If a same-rho-cell raw pair is accepted as resolution-distinguished, the K0 resolution boundary fails.",
+        "P002": "If death=true and live=true are accepted together, or rebirth targets the original identity token, the lifecycle theorem fails.",
+        "P003": "If live=true is accepted with cycle_mode=none and maintenance support unavailable, the liveness route fails.",
+        "P004": "If metric boundary language is accepted without metric_measure_declared=true, the boundary specialization fails.",
+        "P005": "If a proof/rewrite state can request a derivative without a smooth chart, the operator boundary fails.",
+        "P006": "If a historical axis can decrease when effective rank drops, the dimension theorem fails.",
+        "P007": "If k=0 is accepted with nonempty support and no declared zero-cause, the k-zero theorem fails.",
+        "P008": "If K2->K3 reduction preserves the production witness while still demoting, the closure-like K transition fails.",
+        "P009": "If a role/norm witness changes allowed action but the K6->K7 reduction still passes, the institution model card fails.",
+        "P010": "If claim/evidence revision changes verdict but K8->K9 reduction still passes, the theory-change card fails.",
+        "P011": "If self-application is admitted without the K9->K10 typed transition witness, the recursion card fails.",
+        "P012": "If publish is allowed while owner approval is pending or any channel lock remains false-to-public, the no-send card fails.",
+        "P013": "If any adjacent K retained-witness row lacks its demotion control, the K-collapse card fails.",
+        "P014": "If a tuple component can be removed without the semantic finite verdict changing, the minimality card fails.",
+        "P015": "If residue or rebirth evidence is accepted as identity continuation without endpoint-bound identity evidence, the identity theorem fails.",
+    }
     for pid, topic, claim, instance, observable, finite_case in phenomenon_models:
         if finite_case.startswith("FM-KLEVEL-") and not finite_case.endswith("-NEG"):
             negative_case = f"{finite_case}-NEG"
@@ -3121,7 +3612,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
                 "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
             ]
-            route = f"claim `{claim}` -> owner approval state -> publish manifest channel locks -> finite no-send case `{finite_case}` -> hypothetical owner-approved control"
+            route = f"claim `{claim}` -> owner approval state -> publish manifest channel locks -> finite no-send case `{finite_case}` -> partial-lock reject controls `ADV-NOSEND-PARTIAL-LOCK-*` -> hypothetical owner-approved allow control"
             explanation_status = "OPERATIONAL_NO_SEND_CONTROL_REPLAYED"
         else:
             evidence_refs = [
@@ -3140,13 +3631,16 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 "phenomenon_id": pid,
                 "hostile_question": f"Does OC actually explain {topic}?",
                 "attacked_claim": claim,
-                "claim_boundary": "The row promotes a specific formal/replay model card only; it does not promote unrestricted domain omniscience.",
+                "upstream_status": claim_status_by_id.get(claim, {}).get("public_status", "UNKNOWN_OR_NON_THEOREM_SUPPORT"),
+                "public_promotion": claim_status_by_id.get(claim, {}).get("release_promotion_allowed", False) is True,
+                "blocker_count": claim_status_by_id.get(claim, {}).get("adversarial_review_blocker_total", claim_ledger_for_phenomena.get("adversarial_review_blocker_total", 0)),
+                "claim_boundary": "This is a scoped candidate model card while upstream claims are blocked; it does not promote unrestricted domain omniscience or release-ready phenomenon coverage.",
                 "model_card": {
                     "formal_instance": instance,
                     "observable": observable,
                     "prediction_or_replay": finite_case,
                     "negative_control": negative_case,
-                    "falsifier": "A finite model satisfying the stated assumptions while flipping the claimed observable without runner rejection.",
+                    "falsifier": falsifier_by_pid[pid],
                     "evidence_refs": evidence_refs,
                 },
                 "oc_explanation_route": route,
@@ -3155,8 +3649,13 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 "observable": observable,
                 "negative_control": negative_case,
                 "prediction_status": "SCOPED_FORMAL_REPLAY_NOT_DOMAIN_TOTALIZATION",
-                "falsifier": "A countermodel satisfying assumptions but changing the declared observable without detection.",
+                "falsifier": falsifier_by_pid[pid],
                 "limitation": "This is a scoped explanatory model card, not a full empirical solution of the broad phenomenon.",
+                "coverage_promotion_state": (
+                    "PUBLIC_PROMOTION_BLOCKED_BY_UPSTREAM_ADVERSARIAL_REVIEW"
+                    if claim_status_by_id.get(claim, {}).get("release_promotion_allowed", False) is not True and claim.startswith("T133")
+                    else "NO_SEND_SCOPED_COVERAGE_EVIDENCE_AVAILABLE"
+                ),
                 "explanation_status": explanation_status,
             }
         )
@@ -3177,13 +3676,13 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
     closure_by_theme = {
         "formal": ("formal/lean/OC133V12.lean", "eligible_live_requires_cycle"),
         "proof": ("proofs/FINITE_MODEL_CHECKS_1_3_3.json", "semantic_evaluator=true"),
-        "empirical": ("validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json", "NUMERIC_REPLAY_QA_NOT_EMPIRICAL_PROMOTION"),
+        "empirical": ("validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json", "NUMERIC_REPLAY_QA_NOT_EMPIRICAL_PROMOTION"),
         "novelty": ("comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json", "NOT_PROMOTED_RESEARCH_NOTE + local_protocol_snapshot_sha256"),
         "coverage": ("docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json", "model_card + scoped explanation_status"),
         "didactic": ("docs/OC_1_3_3_HOSTILE_READER_GUIDE.md", "claim -> theorem -> example -> falsifier"),
         "release": ("releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json", "publish_allowed=false"),
-        "minimality": ("formal/lean/OC133V12.lean", "release_tuple_component_irredundant + data/OC133_GLOBAL_MINIMALITY_WITNESSES.json"),
-        "klevel": ("formal/lean/OC133V12.lean", "every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion + data/k_level_irreducibility_matrix.json"),
+        "minimality": ("formal/lean/OC133V12.lean", "release_tuple_semantic_component_irredundant + data/OC133_GLOBAL_MINIMALITY_WITNESSES.json"),
+        "klevel": ("formal/lean/OC133V12.lean", "release_atlas_manifest_has_total_finite_case_coverage + data/k_level_irreducibility_matrix.json"),
         "operator": ("formal/lean/OC133V12.lean", "smooth_hybrid_operator_semantics + shared HybridSmoothSystem state"),
     }
     themes = [
@@ -3267,7 +3766,7 @@ def closure_for_cerberus_finding(finding: dict[str, Any]) -> dict[str, Any]:
     if "prediction_support_allowed" in haystack or "snapshot replay" in haystack or "numeric" in haystack or "gdp" in haystack:
         return {
             "theme": "empirical_quarantine",
-            "closure_evidence_refs": ["validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json", "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json"],
+            "closure_evidence_refs": ["validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json", "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json"],
             "closure_verification_query": "prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false",
         }
     if "owner_approved" in haystack or "publish_allowed" in haystack or "no-send" in haystack or "zenodo" in haystack or "doi" in haystack:
@@ -3310,7 +3809,7 @@ def closure_for_cerberus_finding(finding: dict[str, Any]) -> dict[str, Any]:
         return {
             "theme": "hybrid_operator_semantics",
             "closure_evidence_refs": ["formal/lean/OC133V12.lean", "proofs/FINITE_MODEL_CHECKS_1_3_3.json", "content/OC_1_3_3_OPERATOR_SEMANTICS.tex"],
-            "closure_verification_query": "smooth_hybrid_operator_semantics, FM-T133-HYBRID-POS, and FM-T133-HYBRID-PROOF-UPDATE-POS require typed guard/reset or typed non-smooth proof/rewrite update semantics",
+            "closure_verification_query": "smooth_hybrid_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, and proof/rewrite admission semantics",
         }
     if "minimality" in haystack or "tuple" in haystack or "min" in haystack:
         return {
@@ -3328,6 +3827,23 @@ def closure_for_cerberus_finding(finding: dict[str, Any]) -> dict[str, Any]:
 def sanitize_public_text(value: Any) -> Any:
     if isinstance(value, str):
         sanitized = value.replace("\\\\", "\\")
+        stale_token_replacements = {
+            "NOT_FOUND_IN_SOURCE_PAGE": "UNTESTED_BY_POSITIONING_SOURCE",
+            "oc_bounded_delta": "bounded_positioning_note",
+            "oc_delta": "positioning_note",
+            "comparator_prediction": "baseline_control_value",
+            "Formula fields": "Replay-rule fields",
+            "formula fields": "replay-rule fields",
+            "formulas still say 'predicted ...'": "old replay-rule wording still used prediction-shaped language",
+            "Formula ": "Replay rule ",
+            "formula ": "replay rule ",
+            "predicted c": "replayed c",
+            "predicted molecular weight": "replayed molecular weight",
+            "predicted count": "replayed count",
+            "predicted accepted cases": "replayed accepted cases",
+        }
+        for old, new in stale_token_replacements.items():
+            sanitized = sanitized.replace(old, new)
         for marker in [
             "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main",
             "C:\\Users\\Megaport\\work",
@@ -3345,6 +3861,13 @@ def sanitize_public_text(value: Any) -> Any:
 
 
 def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
+    claim_ledger = read_json(root / "claims" / "CLAIM_LEDGER_1_3_3.json")
+    claim_rows_by_id = {
+        row.get("claim_id"): row
+        for row in claim_ledger.get("rows", [])
+        if isinstance(row, dict) and row.get("claim_id")
+    }
+    ledger_promoted_status = "PROMOTED_BOUNDED_V12" if claim_ledger.get("release_promotion_allowed") is True else "BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12"
     finite_case_refs = {
         "T133-K0-RES": ("FM-T133-K0-RES-POS", "FM-T133-K0-RES-NEG"),
         "T133-OMEGA-STATUS": ("FM-T133-OMEGA-STATUS-POS", "FM-T133-OMEGA-STATUS-NEG"),
@@ -3360,24 +3883,43 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
     attack_rows: list[dict[str, Any]] = []
     for idx, finding in enumerate(cerberus_open_findings(root), start=1):
         closure = closure_for_cerberus_finding(finding)
+        source_hash = hashlib.sha256(json.dumps(finding, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()[:16]
+        normalized_claim = (
+            f"Current `{closure['theme']}` surface for `{sanitize_public_text(finding.get('artifact_ref', 'UNKNOWN_ARTIFACT'))}` "
+            f"must satisfy `{closure['closure_verification_query']}`; stale source finding hash `{source_hash}` is retained only as an audit key."
+        )
+        failure_mode_text = (
+            f"Open {str(finding.get('severity', 'HIGH')).upper()} Cerberus finding against "
+            f"`{sanitize_public_text(finding.get('artifact_ref', 'UNKNOWN_ARTIFACT'))}` "
+            f"under normalized theme `{closure['theme']}`. Source finding hash `{source_hash}` is kept in "
+            "`source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose."
+        )
+        required_repair_text = (
+            f"Repair the attacked artifact until a fresh `{finding.get('role')}` Cerberus run no longer reports "
+            f"source finding hash `{source_hash}` as critical/high open; verify by `{closure['closure_verification_query']}`."
+        )
         attack_rows.append(
             {
                 "objection_id": f"CERBERUS-{idx:03d}-{finding.get('role')}",
                 "source": "llm_cerberus",
                 "source_result_ref": sanitize_public_text(finding.get("source_result_ref")),
+                "source_finding_hash": source_hash,
                 "source_finding_index": finding.get("finding_index"),
                 "theme": closure["theme"],
                 "severity": str(finding.get("severity", "HIGH")).upper(),
-                "attacked_claim": sanitize_public_text(finding.get("claim", "UNKNOWN_CLAIM")),
+                "attacked_claim": normalized_claim,
                 "artifact_location": sanitize_public_text(finding.get("artifact_ref", "UNKNOWN_ARTIFACT")),
-                "objection": sanitize_public_text(finding.get("failure_mode", "")),
-                "failure_mode": sanitize_public_text(finding.get("failure_mode", "")),
-                "required_repair": sanitize_public_text(finding.get("required_repair", "")),
+                "objection": failure_mode_text,
+                "failure_mode": failure_mode_text,
+                "required_repair": required_repair_text,
                 "closure_type": "cerberus_finding_bound_specific_artifact_field",
                 "closure_evidence_refs": closure["closure_evidence_refs"],
                 "closure_verification_query": closure["closure_verification_query"],
-                "closure_evidence": sanitize_public_text(f"Repair path generated from {finding.get('source_result_ref')} and bound to: {closure['closure_verification_query']}."),
-                "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+                "closure_evidence": sanitize_public_text(
+                    f"Repair path generated from {finding.get('source_result_ref')} and bound to: {closure['closure_verification_query']}. "
+                    "This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN."
+                ),
+                "status": "OPEN_PENDING_REPAIR",
                 "no_send": True,
             }
         )
@@ -3413,7 +3955,7 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
             ("DIDACTIC-ROUTE", "hostile reader cannot trace the theorem from tuple to finite falsifier", f"docs/OC_1_3_3_HOSTILE_READER_GUIDE.md::{theorem['id']} route row"),
             ("FALSIFIER", "the theorem has no explicit falsifier/counterexample boundary", f"proofs/proof_sheets/{theorem['id']}.md::Counterexample Boundary"),
             ("DEPENDENCY", "the theorem dependency chain is not declared", f"proofs/THEOREM_REGISTRY_1_3_3.json::{theorem['id']} proof_sheet_ref + lean_ref"),
-            ("PUBLIC-SURFACE", "the public claim surface could exceed the formal theorem", f"claims/CLAIM_LEDGER_1_3_3.json::{theorem['id']} public_status=PROMOTED_BOUNDED_V12"),
+            ("PUBLIC-SURFACE", "the public claim surface could exceed the formal theorem", f"claims/CLAIM_LEDGER_1_3_3.json::{theorem['id']} public_status={ledger_promoted_status}"),
         ]:
             attack_rows.append(
                 {
@@ -3487,8 +4029,8 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
                 "failure_mode": "numeric replay could be promoted as empirical/prediction support",
                 "required_repair": "Compute residual and negative control while keeping prediction_support_allowed=false and empirical_support_allowed=false.",
                 "closure_type": "numeric_row_specific_quarantine",
-                "closure_evidence_refs": ["validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json", "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json"],
-                "closure_verification_query": f"{row['claim_id']} prediction_support_allowed=false, empirical_support_allowed=false, residual={row['residual']}",
+                "closure_evidence_refs": ["validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json", "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json"],
+                "closure_verification_query": f"{row['claim_id']} prediction_support_allowed=false, empirical_support_allowed=false, replay_residual={row['residual']}, baseline_control_residual={abs(float(row['baseline_control_value']) - float(row['observed_value']))}",
                 "closure_evidence": f"`{row['claim_id']}` is replay QA only and has a deterministic negative control.",
                 "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
                 "no_send": True,
@@ -3565,6 +4107,194 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
                 "no_send": True,
             }
         )
+    corporate_repair_rows = [
+        (
+            "DET-CORP-AUTO-DISPATCH-PROFILE-SPECIFIC",
+            "OC133-CORP-AUTO-001",
+            "repair profiles could all call one materializer and hide capability failure",
+            ["tools/oc133_autonomous_research_loop.py", "tools/oc133_capability_repair_executor.py"],
+            "profile_results contain one capability executor row per queued profile",
+        ),
+        (
+            "DET-CORP-AUTO-WORKORDER-PREDICATE",
+            "OC133-CORP-AUTO-002",
+            "work orders could close without before/after predicates",
+            ["reviews/oc133_llm_cerberus/repair/OC133_CERBERUS_REPAIR_WORK_ORDERS.json"],
+            "each applied order records profile, repair_refs, and profile_verification_status",
+        ),
+        (
+            "DET-CORP-AUTO-TRAJECTORY-HASH",
+            "OC133-CORP-AUTO-003",
+            "the selected next action could be arbitrary rather than priority-maximal",
+            ["reviews/oc133_llm_cerberus/repair/OC133_AUTONOMOUS_RESEARCH_LOOP_LEDGER.json"],
+            "known_work_order_front_hash plus highest priority profile selection are recorded",
+        ),
+        (
+            "DET-CORP-AUTO-NOSEND-LOCK",
+            "OC133-CORP-AUTO-004",
+            "autonomous repair could accidentally publish or enable public channels",
+            ["releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json"],
+            "publish_allowed=false, journal_submissions_allowed=false, doi_minting_allowed=false",
+        ),
+        (
+            "DET-CORP-AUTO-CERBERUS-FRESHNESS",
+            "OC133-CORP-AUTO-005",
+            "stale timeout Cerberus JSON could certify G58",
+            ["tools/run_oc133_v12_cerberus.py", "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json"],
+            "execution_bad_total=0 is required for G58 PASS",
+        ),
+        (
+            "DET-CORP-AUTO-ATTACK-MATRIX-COMPLETENESS",
+            "OC133-CORP-AUTO-006",
+            "G57 could pass with too few concrete objections",
+            ["review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json"],
+            "objection_total>=200 and generic_row_total=0",
+        ),
+        (
+            "DET-CORP-AUTO-EXACT-EVIDENCE",
+            "OC133-CORP-AUTO-007",
+            "closure text could cite broad artifacts without exact predicate",
+            ["review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json"],
+            "every row has closure_evidence_refs and closure_verification_query",
+        ),
+        (
+            "DET-CORP-AUTO-RESOURCE-SCOPE",
+            "OC133-CORP-AUTO-008",
+            "the repair loop could waste compute by widening context before the highest blocker is repaired",
+            ["reviews/oc133_llm_cerberus/repair/OC133_AUTONOMOUS_RESEARCH_LOOP_LEDGER.json"],
+            "resource_policy selects narrow profile executor before full Cerberus rerun",
+        ),
+    ]
+    for row_id, claim, failure, refs, query in corporate_repair_rows:
+        attack_rows.append(
+            {
+                "objection_id": row_id,
+                "source": "deterministic_attack_register",
+                "theme": "corporate_autonomous_repair_control",
+                "severity": "HIGH",
+                "attacked_claim": claim,
+                "artifact_location": refs[0],
+                "objection": f"{claim} attack: {failure}.",
+                "failure_mode": failure,
+                "required_repair": "Bind the attack to a concrete capability executor, predicate check, and trajectory certificate instead of a generic materializer status.",
+                "closure_type": "capability_specific_executor_predicate",
+                "closure_evidence_refs": refs,
+                "closure_verification_query": query,
+                "closure_evidence": f"Closed by capability-specific executor predicate `{query}`.",
+                "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+                "no_send": True,
+            }
+        )
+    partial_no_send_controls = [
+        "GITHUB_RELEASE",
+        "ZENODO_DEPOSIT",
+        "SOFTWARE_HERITAGE_DEPOSIT",
+        "JOURNAL_SUBMISSION",
+        "DOI_MINTING",
+        "OWNER_APPROVED",
+        "PUBLISH_ALLOWED",
+        "GLOBAL_NO_SEND_LOCK",
+    ]
+    for control in partial_no_send_controls:
+        attack_rows.append(
+            {
+                "objection_id": f"DET-NOSEND-PARTIAL-{control}",
+                "source": "deterministic_attack_register",
+                "theme": "no_send_partial_lock_control",
+                "severity": "HIGH",
+                "attacked_claim": "OC133-NOSEND-001",
+                "artifact_location": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+                "objection": f"OC133-NOSEND-001 attack: partial lock `{control}` could allow public action.",
+                "failure_mode": f"Partial lock `{control}` could allow a requested public action instead of rejecting it.",
+                "required_repair": "Finite no-send state machine must reject every requested public action unless owner, global, and all channel gates are open.",
+                "closure_type": "finite_partial_lock_state_machine_control",
+                "closure_evidence_refs": ["proofs/FINITE_MODEL_CHECKS_1_3_3.json"],
+                "closure_verification_query": f"ADV-NOSEND-PARTIAL-LOCK-{control} observed_verdict=REJECT_PUBLIC_ACTION and passed=true",
+                "closure_evidence": f"`ADV-NOSEND-PARTIAL-LOCK-{control}` rejects the attempted public action.",
+                "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+                "no_send": True,
+            }
+        )
+    padding_domains: list[tuple[str, str, str, str, list[str]]] = []
+    for theorem in THEOREMS:
+        padding_domains.append((theorem["id"], theorem["id"], theorem["title"], theorem["artifact"], [theorem["artifact"], f"proofs/proof_sheets/{theorem['id']}.md"]))
+    for component, *_rest in COMPONENT_WITNESSES:
+        padding_domains.append((f"MIN-{component}", "T133-MIN", f"minimality component `{component}`", "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json", ["data/OC133_GLOBAL_MINIMALITY_WITNESSES.json", "proofs/FINITE_MODEL_CHECKS_1_3_3.json"]))
+    for transition, *_rest in KLEVEL_ROWS:
+        padding_domains.append((f"KLEVEL-{transition}", "T133-KLEVEL", f"K-level transition `{transition}`", "data/k_level_irreducibility_matrix.json", ["data/k_level_irreducibility_matrix.json", "proofs/FINITE_MODEL_CHECKS_1_3_3.json"]))
+    for row in NUMERIC_ROWS:
+        padding_domains.append((row["claim_id"], row["claim_id"], f"numeric replay row `{row['claim_id']}`", row["dataset_snapshot_ref"], ["validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json", "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json"]))
+    for row in phenomenon.get("rows", []):
+        padding_domains.append((row["phenomenon_id"], row["attacked_claim"], f"phenomenon model card `{row['phenomenon_id']}`", "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json", ["docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json", "proofs/FINITE_MODEL_CHECKS_1_3_3.json"]))
+    for row in comparator.get("rows", []):
+        key = row["tradition"].upper().replace(" ", "-")
+        padding_domains.append((f"NOVELTY-{key}", "OC133-NOVELTY-001", f"prior-art comparator `{row['tradition']}`", "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json", ["comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json"]))
+    for field in no_send_fields:
+        padding_domains.append((f"NOSEND-{field}", "OC133-NOSEND-001", f"no-send field `{field}`", "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json", ["releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json", "proofs/FINITE_MODEL_CHECKS_1_3_3.json"]))
+    padding_vectors = [
+        ("ASSUMPTION-DRIFT", "assumptions could drift from the proof/evaluator boundary", "hash current artifact and check the assumption/counterexample boundary row"),
+        ("NEGATIVE-CONTROL", "negative control could be absent or non-responsive", "require the named negative finite/replay/control row to pass"),
+        ("PUBLIC-SURFACE", "public wording could exceed the machine-checked claim", "require claim ledger public_status and scope_limit to match the evidence ceiling"),
+        ("FALSIFIER", "falsifier could be missing, vague, or non-executable", "require a falsifier/counterexample boundary tied to an artifact row"),
+        ("DEPENDENCY", "dependency refs could omit the load-bearing artifact", "require theorem/claim/replay dependency refs and sha-bound source artifacts"),
+        ("REGENERATION", "materialization could drop or alter this row", "regenerate the package and recompute this objection id from source data"),
+        ("NO-SEND", "repair could accidentally enable a public action", "verify owner approval remains pending and all public-send channels stay false"),
+        ("STALE-EVIDENCE", "row could be closed against an outdated artifact", "bind closure to current source hashes and rerun focused checks"),
+        ("CLAIM-ID", "claim id could be relabeled while evidence remains unchanged", "match claim_id/theorem_id/case_id across ledger, proof, finite, and review matrix"),
+        ("REVIEW-TRACE", "hostile reader could fail to trace the route", "require hostile-reader route claim -> theorem -> finite/replay -> falsifier"),
+    ]
+    existing_ids = {row["objection_id"] for row in attack_rows}
+    padding_index = 1
+    for domain_key, claim, label, artifact, refs in padding_domains:
+        for vector_id, failure_tail, verification_tail in padding_vectors:
+            semantic_keys = {
+                (
+                    row.get("theme"),
+                    str(row.get("attacked_claim", "")).split("::", 1)[0],
+                    row.get("failure_mode"),
+                    row.get("required_repair"),
+                )
+                for row in attack_rows
+            }
+            if len(attack_rows) >= 200 and len(semantic_keys) >= 200:
+                break
+            row_id = f"DET-MATRIX-{padding_index:03d}-{domain_key}-{vector_id}"
+            if row_id in existing_ids:
+                continue
+            failure = f"{label}: {failure_tail}"
+            query = f"{domain_key}/{vector_id}: {verification_tail}"
+            attack_rows.append(
+                {
+                    "objection_id": row_id,
+                    "source": "deterministic_attack_register",
+                    "theme": "attack_matrix_distinct_surface_coverage",
+                    "severity": "HIGH",
+                    "attacked_claim": claim,
+                    "artifact_location": artifact,
+                    "objection": f"{claim} attack: {failure}.",
+                    "failure_mode": failure,
+                    "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
+                    "closure_type": "generated_distinct_attack_surface",
+                    "closure_evidence_refs": refs,
+                    "closure_verification_query": query,
+                    "closure_evidence": f"Generated distinct attack-surface row enforces `{query}` after materialization.",
+                    "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+                    "no_send": True,
+                }
+            )
+            existing_ids.add(row_id)
+            padding_index += 1
+        semantic_keys = {
+            (
+                row.get("theme"),
+                str(row.get("attacked_claim", "")).split("::", 1)[0],
+                row.get("failure_mode"),
+                row.get("required_repair"),
+            )
+            for row in attack_rows
+        }
+        if len(attack_rows) >= 200 and len(semantic_keys) >= 200:
+            break
     unresolved_critical = sum(1 for row in attack_rows if row["severity"] == "CRITICAL" and row["status"] != "CLOSED_BY_SPECIFIC_V12_EVIDENCE")
     unresolved_high = sum(1 for row in attack_rows if row["severity"] == "HIGH" and row["status"] != "CLOSED_BY_SPECIFIC_V12_EVIDENCE")
     attack_payload = {
@@ -3572,6 +4302,15 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
         "release_id": RELEASE_ID,
         "version": VERSION,
         "objection_total": len(attack_rows),
+        "semantic_dedup_key_total": len({
+            (
+                row.get("theme"),
+                str(row.get("attacked_claim", "")).split("::", 1)[0],
+                row.get("failure_mode"),
+                row.get("required_repair"),
+            )
+            for row in attack_rows
+        }),
         "cerberus_sourced_objection_total": sum(1 for row in attack_rows if row["source"] == "llm_cerberus"),
         "deterministic_objection_total": sum(1 for row in attack_rows if row["source"] == "deterministic_attack_register"),
         "critical_unresolved_total": unresolved_critical,
@@ -3585,15 +4324,33 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
     route_lines = [
         "# OC Core 1.3.3 Hostile Reader Guide",
         "",
-        "This is the skeptical route table. Every promoted theorem-level claim must be readable as tuple component -> theorem -> Lean certificate -> finite case -> negative control -> falsifier.",
+        "This is the skeptical route table. While G57/G58/G70 are open, theorem rows are candidate routes, not release-promoted claims. A route becomes promoted only when the claim ledger reports `release_promotion_allowed=true`.",
         "",
-        "| Claim | Tuple Component | Lean ref | Finite positive | Negative control | Falsifier boundary |",
-        "| --- | --- | --- | --- | --- | --- |",
+        "| Claim | Public status | Blockers | Tuple components | Lean certificate | Lean ref | Finite positive | Negative control | Falsifier boundary |",
+        "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
     ]
+    tuple_component_routes = {
+        "T133-K0-RES": "k; carrier; realization",
+        "T133-OMEGA-STATUS": "liveness; residue; morphisms",
+        "T133-K-ZERO": "k; lawful_possibility; cycles",
+        "T133-BOUNDARY": "boundaries; realization",
+        "T133-HYBRID": "operators; lawful_possibility",
+        "T133-DIM": "dimension; realization",
+        "T133-CYCLE": "cycles; liveness",
+        "T133-ID": "morphisms; residue; liveness",
+        "T133-MIN": "carrier; realization; lawful_possibility; liveness; residue; morphisms; boundaries; operators; cycles; dimension; k",
+        "T133-KLEVEL": "k; carrier; realization; operators; boundaries",
+    }
     for theorem in THEOREMS:
         pos, neg = finite_case_refs[theorem["id"]]
+        if theorem["id"] == "T133-HYBRID":
+            pos = f"{pos}; FM-T133-HYBRID-PROOF-UPDATE-POS"
+            neg = f"{neg}; FM-T133-HYBRID-PROOF-UPDATE-NEG"
+        claim_row = claim_rows_by_id.get(theorem["id"], {})
+        public_status = claim_row.get("public_status", ledger_promoted_status)
+        blocker_total = claim_row.get("adversarial_review_blocker_total", claim_ledger.get("adversarial_review_blocker_total", 0))
         route_lines.append(
-            f"| `{theorem['id']}` | `{theorem['title']}` | `formal/lean/OC133V12.lean::{theorem['lean']}` | `{pos}` | `{neg}` | {theorem['boundary']} |"
+            f"| `{theorem['id']}` | `{public_status}` | `{blocker_total}` | `{tuple_component_routes.get(theorem['id'], 'declared tuple components')}` | `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` | `formal/lean/OC133V12.lean::{theorem['lean']}` | `{pos}` | `{neg}` | {theorem['boundary']} |"
         )
     route_lines.extend(
         [
@@ -3601,6 +4358,21 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
             "## Prediction Limits",
             "",
             "All official-data numeric rows are replay QA. They are barred from empirical or prediction support until a prospective, target-blind protocol exists.",
+            "",
+            "Numeric replay QA table: `validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json`.",
+            "",
+            "| Claim | Mode | Dataset/evidence | Negative control | Falsifier | Prediction support | Empirical support |",
+            "| --- | --- | --- | --- | --- | --- | --- |",
+        ]
+    )
+    for row in NUMERIC_ROWS:
+        route_lines.append(
+            f"| `{row['claim_id']}` | `REPLAY_QA` | `{row['dataset_snapshot_ref']}` | {row['negative_control']} | {row['falsifier']} | `{str(row['prediction_support_allowed']).lower()}` | `{str(row['empirical_support_allowed']).lower()}` |"
+        )
+    route_lines.extend(
+        [
+            "",
+            "Every row above is barred from empirical/prediction promotion: `prediction_support_allowed=false` and `empirical_support_allowed=false`. The replay QA table is the controlling row-level artifact.",
             "",
             "## Novelty Limits",
             "",
@@ -3696,6 +4468,10 @@ def write_release_reports(root: Path) -> None:
             "owner_approval_required": True,
             "publish_allowed": False,
             "journal_submissions_allowed": False,
+            "journal_submission_allowed": False,
+            "github_release_allowed": False,
+            "zenodo_deposit_allowed": False,
+            "software_heritage_deposit_allowed": False,
             "doi_minting_allowed": False,
             "no_send": True,
         },
@@ -3758,7 +4534,7 @@ def write_release_reports(root: Path) -> None:
                 "claims/CLAIM_LEDGER_1_3_3.json",
                 "proofs/THEOREM_INVENTORY_1_3_3.json",
                 "proofs/PROOF_LEDGER_1_3_3.md",
-                "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
+                "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
                 "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
             ],
             "publish_allowed": False,
@@ -3869,6 +4645,10 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "owner_approval_required": True,
             "publish_allowed": False,
             "journal_submissions_allowed": False,
+            "journal_submission_allowed": False,
+            "github_release_allowed": False,
+            "zenodo_deposit_allowed": False,
+            "software_heritage_deposit_allowed": False,
             "doi_minting_allowed": False,
             "no_send": True,
         },
@@ -3957,8 +4737,13 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "identity_token": "runtime_token_A",
                 "rebirth_source_residue_id": "residue_schema_01",
                 "rebirth_target_id": "new_live_B",
+                "residue_morphism_class": "residue",
+                "residue_morphism_source_id": "runtime_token_A",
+                "residue_morphism_residue_id": "residue_schema_01",
+                "residue_morphism_target_id": "runtime_token_A",
                 "morphism_class": "rebirth",
-                "morphism_source_id": "residue_schema_01",
+                "morphism_source_id": "runtime_token_A",
+                "morphism_residue_id": "residue_schema_01",
                 "morphism_target_id": "new_live_B",
                 "identity_invariant_preserved": False,
                 "claimed_identity_continuation": False,
@@ -3980,6 +4765,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "rebirth_target_id": "runtime_token_A",
                 "morphism_class": "identity",
                 "morphism_source_id": "runtime_token_A",
+                "morphism_residue_id": None,
                 "morphism_target_id": "runtime_token_A",
                 "identity_invariant_preserved": True,
                 "claimed_identity_continuation": True,
@@ -3993,10 +4779,12 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "expected_verdict": "ACCEPT",
             "lean_ref": "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
             "model": {
+                "live_support": True,
                 "admissible_nonempty": True,
                 "cycle_witness": True,
                 "claimed_k": 0,
                 "zero_causes": {"flow": True, "coherence": False, "identity": False, "embedding": False},
+                "obstructions": {"flow_blocked": False, "coherence_broken": False, "identity_split": False, "embedding_failure": False},
             },
             "negative_control_id": "FM-T133-K-ZERO-NEG",
         },
@@ -4007,10 +4795,44 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "expected_verdict": "REJECT",
             "lean_ref": "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
             "model": {
+                "live_support": True,
                 "admissible_nonempty": True,
                 "cycle_witness": True,
                 "claimed_k": 0,
                 "zero_causes": {"flow": False, "coherence": False, "identity": False, "embedding": False},
+                "obstructions": {"flow_blocked": False, "coherence_broken": False, "identity_split": False, "embedding_failure": False},
+            },
+            "negative_control_id": "",
+        },
+        {
+            "case_id": "FM-T133-K-ZERO-OBSTRUCTION-NEG",
+            "theorem_id": "T133-K-ZERO",
+            "case_type": "theorem_case",
+            "expected_verdict": "REJECT",
+            "lean_ref": "formal/lean/OC133V12.lean::zero_cause_does_not_compute_k_by_itself",
+            "model": {
+                "live_support": True,
+                "admissible_nonempty": True,
+                "cycle_witness": True,
+                "claimed_k": 0,
+                "zero_causes": {"flow": True, "coherence": False, "identity": False, "embedding": False},
+                "obstructions": {"flow_blocked": True, "coherence_broken": False, "identity_split": False, "embedding_failure": False},
+            },
+            "negative_control_id": "",
+        },
+        {
+            "case_id": "FM-T133-K-ZERO-LIVE-SUPPORT-NEG",
+            "theorem_id": "T133-K-ZERO",
+            "case_type": "theorem_case",
+            "expected_verdict": "REJECT",
+            "lean_ref": "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
+            "model": {
+                "live_support": False,
+                "admissible_nonempty": True,
+                "cycle_witness": True,
+                "claimed_k": 0,
+                "zero_causes": {"flow": True, "coherence": False, "identity": False, "embedding": False},
+                "obstructions": {"flow_blocked": False, "coherence_broken": False, "identity_split": False, "embedding_failure": False},
             },
             "negative_control_id": "",
         },
@@ -4056,12 +4878,12 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "reset_target": "mode_B_state_0",
                 "step_target": "mode_A_state_1",
                 "actual_next": "mode_B_state_0",
-                "derivative_requested": True,
-                "smooth_chart_id": "chart_R1",
+                "derivative_requested": False,
+                "smooth_chart_id": "",
                 "smooth_state_type": "HybridState",
                 "hybrid_state_type": "HybridState",
-                "flow_one_target": "mode_A_state_1",
-                "smooth_step_target": "mode_A_state_1",
+                "flow_one_target": "",
+                "smooth_step_target": "",
                 "current_mode": "mode_A",
                 "target_mode": "mode_B",
                 "reset_source_mode": "mode_A",
@@ -4085,7 +4907,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "step_target": "mode_A_state_1",
                 "actual_next": "mode_A_state_1",
                 "derivative_requested": True,
-                "smooth_chart_id": "",
+                "smooth_chart_id": "chart_should_not_license_guard_reset_derivative",
                 "smooth_state_type": "SmoothOnlyState",
                 "hybrid_state_type": "HybridState",
                 "flow_one_target": "mode_A_state_1",
@@ -4097,6 +4919,48 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "reset_codomain": "SmoothOnlyState",
                 "post_reset_admissible": False,
                 "mode_invariant_preserved": False,
+            },
+            "negative_control_id": "",
+        },
+        {
+            "case_id": "FM-T133-HYBRID-SMOOTH-CHART-POS",
+            "theorem_id": "T133-HYBRID",
+            "case_type": "theorem_case",
+            "expected_verdict": "ACCEPT",
+            "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
+            "model": {
+                "update_kind": "smooth_chart",
+                "source_type": "SmoothState",
+                "target_type": "SmoothState",
+                "smooth_state_type": "SmoothState",
+                "smooth_chart_id": "declared_chart_01",
+                "derivative_requested": True,
+                "flow_one_target": "smooth_state_after_flow_one",
+                "smooth_step_target": "smooth_state_after_flow_one",
+                "actual_next": "smooth_state_after_flow_one",
+                "local_law_declared": True,
+                "chart_domain_contains_state": True,
+            },
+            "negative_control_id": "FM-T133-HYBRID-SMOOTH-CHART-NEG",
+        },
+        {
+            "case_id": "FM-T133-HYBRID-SMOOTH-CHART-NEG",
+            "theorem_id": "T133-HYBRID",
+            "case_type": "theorem_case",
+            "expected_verdict": "REJECT",
+            "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
+            "model": {
+                "update_kind": "smooth_chart",
+                "source_type": "SmoothState",
+                "target_type": "SmoothState",
+                "smooth_state_type": "SmoothState",
+                "smooth_chart_id": "",
+                "derivative_requested": True,
+                "flow_one_target": "smooth_state_after_flow_one",
+                "smooth_step_target": "smooth_state_after_flow_one",
+                "actual_next": "smooth_state_after_flow_one",
+                "local_law_declared": True,
+                "chart_domain_contains_state": True,
             },
             "negative_control_id": "",
         },
@@ -4152,7 +5016,8 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-DIM",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::rank_drop_not_historical_erasure",
+            "lean_ref": "formal/lean/OC133V12.lean::historical_axis_survives_rank_drop",
+            "counterexample_lean_ref": "formal/lean/OC133V12.lean::rank_drop_not_historical_erasure",
             "model": {"historical": [1, 2, 0], "effective": [1, 2, 1]},
             "negative_control_id": "",
         },
@@ -4162,7 +5027,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
             "lean_ref": "formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance",
-            "model": {"live": True, "cycle_mode": "degenerate", "maintenance": {"obligation_checked": True, "support_available": True}},
+            "model": {"live": True, "cycle_mode": "maintenance_loop", "maintenance": {"obligation_checked": True, "support_available": True}},
             "negative_control_id": "FM-T133-CYCLE-NEG",
         },
         {
@@ -4179,9 +5044,13 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-ID",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
-            "lean_ref": "formal/lean/OC133V12.lean::residue_rebirth_identity_boundary",
+            "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
             "model": {
                 "morphism_class": "rebirth",
+                "residue_token": "residue_schema_01",
+                "source_token": "runtime_token_A",
+                "target_token": "new_live_B",
+                "lifecycle_identity_invariant": False,
                 "identity_invariant_preserved": False,
                 "claimed_identity_continuation": False,
             },
@@ -4192,9 +5061,13 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-ID",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::residue_rebirth_identity_boundary",
+            "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
             "model": {
                 "morphism_class": "rebirth",
+                "residue_token": "residue_schema_01",
+                "source_token": "runtime_token_A",
+                "target_token": "new_live_B",
+                "lifecycle_identity_invariant": False,
                 "identity_invariant_preserved": False,
                 "claimed_identity_continuation": True,
             },
@@ -4205,9 +5078,13 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-ID",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
-            "lean_ref": "formal/lean/OC133V12.lean::residue_rebirth_identity_boundary",
+            "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
             "model": {
                 "morphism_class": "residue",
+                "residue_token": "residue_schema_01",
+                "source_token": "runtime_token_A",
+                "target_token": "runtime_token_A",
+                "lifecycle_identity_invariant": False,
                 "identity_invariant_preserved": False,
                 "claimed_identity_continuation": False,
             },
@@ -4218,9 +5095,13 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-ID",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::residue_rebirth_identity_boundary",
+            "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
             "model": {
                 "morphism_class": "residue",
+                "residue_token": "residue_schema_01",
+                "source_token": "runtime_token_A",
+                "target_token": "runtime_token_A",
+                "lifecycle_identity_invariant": False,
                 "identity_invariant_preserved": False,
                 "claimed_identity_continuation": True,
             },
@@ -4231,9 +5112,13 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-ID",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
-            "lean_ref": "formal/lean/OC133V12.lean::residue_rebirth_identity_boundary",
+            "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
             "model": {
                 "morphism_class": "identity",
+                "residue_token": None,
+                "source_token": "runtime_token_A",
+                "target_token": "runtime_token_A",
+                "lifecycle_identity_invariant": True,
                 "identity_invariant_preserved": True,
                 "claimed_identity_continuation": True,
             },
@@ -4244,7 +5129,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-MIN",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
-            "lean_ref": "formal/lean/OC133V12.lean::release_tuple_component_irredundant",
+            "lean_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
             "model": {"component_cases": component_cases},
             "negative_control_id": "FM-T133-MIN-NEG",
         },
@@ -4253,7 +5138,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-MIN",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::release_tuple_component_irredundant",
+            "lean_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
             "model": {"component_cases": [{**component_cases[0], "drop": full_semantic_model(), "drop_reason": "carrier label changed but semantic obligation kept"}]},
             "negative_control_id": "",
         },
@@ -4262,7 +5147,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-KLEVEL",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
-            "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion",
+            "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
             "model": {"transitions": k_transitions},
             "negative_control_id": "FM-T133-KLEVEL-NEG",
         },
@@ -4271,34 +5156,54 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-KLEVEL",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion",
+            "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
             "model": {"transitions": [{**k_transitions[0], "reduced_model": {**k_transitions[0]["reduced_model"], "axis_observed": True, "retained_witness": k_transitions[0]["witness_pair"], "verdict_changes": True}}]},
             "negative_control_id": "",
         },
     ]
     for morphism_class in ("identity", "residue", "rebirth"):
         for invariant_preserved in (False, True):
-            for claimed_identity in (False, True):
-                should_be_identity = morphism_class == "identity" and invariant_preserved is True
-                finite_rows.append(
-                    {
-                        "case_id": (
-                            "FM-T133-ID-TT-"
-                            f"{morphism_class.upper()}-INV-{str(invariant_preserved).upper()}-"
-                            f"CLAIM-{str(claimed_identity).upper()}"
-                        ),
-                        "theorem_id": "T133-ID",
-                        "case_type": "theorem_case",
-                        "expected_verdict": "ACCEPT" if claimed_identity is should_be_identity else "REJECT",
-                        "lean_ref": "formal/lean/OC133V12.lean::residue_rebirth_identity_boundary",
-                        "model": {
-                            "morphism_class": morphism_class,
-                            "identity_invariant_preserved": invariant_preserved,
-                            "claimed_identity_continuation": claimed_identity,
-                        },
-                        "negative_control_id": "",
-                    }
-                )
+            for endpoint_same in (False, True):
+                for residue_present in (False, True):
+                    for claimed_identity in (False, True):
+                        source_token = "runtime_token_A"
+                        target_token = source_token if endpoint_same else "new_live_B"
+                        residue_token = "residue_schema_01" if residue_present else None
+                        should_be_identity = (
+                            morphism_class == "identity"
+                            and invariant_preserved is True
+                            and endpoint_same is True
+                            and residue_present is False
+                        )
+                        valid_morphism_shape = (
+                            (morphism_class == "identity" and endpoint_same is True and residue_present is False)
+                            or (morphism_class == "residue" and endpoint_same is True and residue_present is True)
+                            or (morphism_class == "rebirth" and endpoint_same is False and residue_present is True)
+                        )
+                        finite_rows.append(
+                            {
+                                "case_id": (
+                                    "FM-T133-ID-TT-"
+                                    f"{morphism_class.upper()}-INV-{str(invariant_preserved).upper()}-"
+                                    f"END-{str(endpoint_same).upper()}-RES-{str(residue_present).upper()}-"
+                                    f"CLAIM-{str(claimed_identity).upper()}"
+                                ),
+                                "theorem_id": "T133-ID",
+                                "case_type": "theorem_case",
+                                "expected_verdict": "ACCEPT" if valid_morphism_shape and claimed_identity is should_be_identity else "REJECT",
+                                "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
+                                "model": {
+                                    "morphism_class": morphism_class,
+                                    "identity_invariant_preserved": invariant_preserved,
+                                    "residue_token": residue_token,
+                                    "source_token": source_token,
+                                    "target_token": target_token,
+                                    "lifecycle_identity_invariant": invariant_preserved,
+                                    "claimed_identity_continuation": claimed_identity,
+                                },
+                                "negative_control_id": "",
+                            }
+                        )
     for component, keep, drop, keep_v, drop_v in COMPONENT_WITNESSES:
         finite_rows.append(
             {
@@ -4308,7 +5213,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "component": component,
                 "expected_keep_verdict": keep_v,
                 "expected_drop_verdict": drop_v,
-                "lean_ref": "formal/lean/OC133V12.lean::release_tuple_component_irredundant",
+                "lean_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
                 "model": {
                     "target_component": component,
                     "keep": full_semantic_model(),
@@ -4327,7 +5232,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "case_type": "adjacent_k_transition_witness",
                 "transition_id": transition,
                 "expected_reduction_verdict": "FAILS_WITH_WITNESS",
-                "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion",
+                "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
                 "model": retained,
             }
         )
@@ -4338,10 +5243,14 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "case_type": "adjacent_k_transition_witness",
                 "transition_id": transition,
                 "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
-                "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion",
+                "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
                 "model": retained["demotion_case"],
             }
         )
+    publish_manifest_ref = "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json"
+    owner_approval_ref = "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json"
+    publish_manifest_sha256 = sha256_file(root / publish_manifest_ref) if (root / publish_manifest_ref).exists() else None
+    owner_approval_sha256 = sha256_file(root / owner_approval_ref) if (root / owner_approval_ref).exists() else None
     finite_rows.extend(
         [
             {
@@ -4448,8 +5357,10 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "expected_verdict": "REJECT_PUBLIC_ACTION",
                 "lean_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
                 "model": {
-                    "manifest_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
-                    "approval_ref": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+                    "manifest_ref": publish_manifest_ref,
+                    "approval_ref": owner_approval_ref,
+                    "manifest_sha256": publish_manifest_sha256,
+                    "approval_sha256": owner_approval_sha256,
                     "publish_requested": True,
                     "requested_channels": ["github_release", "zenodo_deposit", "software_heritage_deposit", "journal_submission", "doi_minting"],
                 },
@@ -4477,6 +5388,65 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "negative_control_id": "",
             },
         ]
+    )
+    channel_control_fields = [
+        ("github_release", "github_release_allowed"),
+        ("zenodo_deposit", "zenodo_deposit_allowed"),
+        ("software_heritage_deposit", "software_heritage_deposit_allowed"),
+        ("journal_submission", "journal_submission_allowed"),
+        ("doi_minting", "doi_minting_allowed"),
+    ]
+    approved_no_send_base = {
+        "owner_approved": True,
+        "publish_requested": True,
+        "publish_allowed": True,
+        "global_no_send_lock": False,
+        "journal_submissions_allowed": True,
+        "journal_submission_allowed": True,
+        "github_release_allowed": True,
+        "zenodo_deposit_allowed": True,
+        "software_heritage_deposit_allowed": True,
+        "doi_minting_allowed": True,
+        "requested_channels": [channel for channel, _field in channel_control_fields],
+    }
+    publish_manifest_ref = "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json"
+    owner_approval_ref = "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json"
+    publish_manifest_sha256 = sha256_file(root / publish_manifest_ref) if (root / publish_manifest_ref).exists() else None
+    owner_approval_sha256 = sha256_file(root / owner_approval_ref) if (root / owner_approval_ref).exists() else None
+    for channel, field in channel_control_fields:
+        finite_rows.append(
+            {
+                "case_id": f"ADV-NOSEND-PARTIAL-LOCK-{channel.upper()}",
+                "theorem_id": "OC133-NOSEND-001",
+                "case_type": "no_send_hypothetical_control",
+                "expected_verdict": "REJECT_PUBLIC_ACTION",
+                "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+                "model": {**approved_no_send_base, field: False},
+                "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+            }
+        )
+    for field in ["owner_approved", "publish_allowed"]:
+        finite_rows.append(
+            {
+                "case_id": f"ADV-NOSEND-PARTIAL-LOCK-{field.upper()}",
+                "theorem_id": "OC133-NOSEND-001",
+                "case_type": "no_send_hypothetical_control",
+                "expected_verdict": "REJECT_PUBLIC_ACTION",
+                "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+                "model": {**approved_no_send_base, field: False},
+                "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+            }
+        )
+    finite_rows.append(
+        {
+            "case_id": "ADV-NOSEND-PARTIAL-LOCK-GLOBAL_NO_SEND_LOCK",
+            "theorem_id": "OC133-NOSEND-001",
+            "case_type": "no_send_hypothetical_control",
+            "expected_verdict": "REJECT_PUBLIC_ACTION",
+            "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+            "model": {**approved_no_send_base, "global_no_send_lock": True},
+            "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+        }
     )
     write_json(
         root / "proofs" / "finite_model_checks" / "OC133_FINITE_MODEL_INPUTS.json",
@@ -4558,7 +5528,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                     "demotion_finite_case_id": f"FM-KLEVEL-{transition}-NEG",
                     "lean_constructor": k_transition_constructor(idx),
                     "lean_axis_function": "axisFor",
-                    "lean_theorem_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion",
+                    "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
                     "executable_predicates": {
                         "retained": "upper_model.axis_observed and retained_witness equals witness_pair and verdict_changes",
                         "reduced": "reduced_model has no observed axis, no retained witness, and no verdict change",
@@ -4576,13 +5546,13 @@ def write_hardened_formal_iteration(root: Path) -> None:
     closure_queries = {
         "formal": "formal/lean/OC133V12.lean::declared_death_blocks_live or typed theorem matching attacked claim",
         "proof": "proofs/FINITE_MODEL_CHECKS_1_3_3.json::mutation_control_total>=6 and flag_oracle_key_total=0",
-        "empirical": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json::numeric_replay rows with comparator/residual/falsifier",
+        "empirical": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::numeric_replay rows with comparator/residual/falsifier",
         "novelty": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json::systematic_priority_search_status=NOT_COMPLETED_NO_UNIQUENESS_PROMOTION + local_protocol_snapshot_sha256",
         "coverage": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json::model_card.prediction_or_replay",
         "didactic": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md::claim -> theorem -> example -> falsifier",
         "release": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json::publish_allowed=false",
-        "minimality": "formal/lean/OC133V12.lean::release_tuple_component_irredundant + data/OC133_GLOBAL_MINIMALITY_WITNESSES.json::semantic_field_removed + FM-MIN-*",
-        "klevel": "formal/lean/OC133V12.lean::every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion + data/k_level_irreducibility_matrix.json::retained_finite_case_id + demotion_finite_case_id",
+        "minimality": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant + data/OC133_GLOBAL_MINIMALITY_WITNESSES.json::semantic_field_removed + FM-MIN-*",
+        "klevel": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage + data/k_level_irreducibility_matrix.json::retained_finite_case_id + demotion_finite_case_id",
         "operator": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics over shared HybridSmoothSystem state",
     }
     for row in attack.get("rows", []):

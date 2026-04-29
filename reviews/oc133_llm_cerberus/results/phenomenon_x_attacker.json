@@ -1,18 +1,35 @@
 {
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "phenomenon_x_attacker",
-  "execution_status": "EXECUTION_TIMEOUT",
-  "critical_open_total": 1,
+  "execution_status": "EXECUTED",
+  "critical_open_total": 0,
   "high_open_total": 0,
-  "finding_total": 1,
+  "finding_total": 3,
   "findings": [
     {
-      "severity": "CRITICAL",
-      "artifact_ref": "tools/run_oc133_v12_cerberus.py",
-      "claim": "LLM adversarial review must execute.",
-      "failure_mode": "Role `phenomenon_x_attacker` exceeded timeout_seconds=360: Command '['codex', 'exec', '-s', 'read-only', '-c', \"approval_policy='never'\", '-C', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main', '-o', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\reviews\\\\oc133_llm_cerberus\\\\raw_v12\\\\phenomenon_x_attacker.txt', '-']' timed out after 360 seconds",
-      "required_repair": "Rerun role with smaller context or repair Codex CLI latency; stale prior JSON must not be reused.",
+      "severity": "MEDIUM",
+      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+      "claim": "The phenomenon coverage observables are replayed as executable model-card evidence.",
+      "failure_mode": "The finite-model artifact reports semantic_evaluator=true but input_observed_field_total=0, so the observables declared in the phenomenon coverage matrix are not machine-bound as an observed-field inventory. The negative controls pass over model fields/classifier verdicts, but the artifact does not prove that each broad phenomenon observable is actually registered as an executable observable rather than narrative coverage text.",
+      "required_repair": "Add per-row observable bindings from docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json to concrete finite-model fields/case IDs, require nonzero per-row observed-field accounting, and add a mutation/control that fails when an observable binding is removed or mismatched.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "P008 / T133-KLEVEL: \"RAF-like K2->K3 closure witness with production observable\" explains a closure-like origin-of-life toy condition.",
+      "failure_mode": "The referenced finite case is only a K2_to_K3 retained-witness classifier with strings such as \"closure production is required\"; it does not encode a RAF-style reaction system, food set, catalysis relation, closure computation, or production observable. The card is scoped as non-empirical, but the \"RAF-like\" wording still relabels prior-art terminology without a specific RAF-like model instance.",
+      "required_repair": "Either replace the wording with \"single K2->K3 closure-production classifier witness\" and keep it explicitly toy-scoped, or add an executable RAF-like schema with food/reaction/catalysis/closure fields, positive and negative controls, and a falsifier that breaks production closure.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "P015 / T133-ID: \"endpoint-bound morphism truth table separating identity, residue, and rebirth evidence classes\".",
+      "failure_mode": "The model card binds prediction_or_replay and negative_control only to FM-T133-ID-POS and FM-T133-ID-NEG, which exercise rebirth accepted as non-identity and rebirth wrongly claimed as identity. The card does not bind the residue and identity finite rows in its own evidence route, so the advertised truth-table separation is under-specified at the model-card level.",
+      "required_repair": "Enumerate the residue and identity finite cases in the model card, including FM-T133-ID-RESIDUE-POS, FM-T133-ID-RESIDUE-NEG, and FM-T133-ID-IDENTITY-POS, and extend the falsifier to all misclassification cells; otherwise narrow the formal_instance to the rebirth non-identity check actually cited.",
       "status": "OPEN"
     }
-  ]
+  ],
+  "raw_output_ref": "reviews/oc133_llm_cerberus/raw_v12/phenomenon_x_attacker.txt"
 }

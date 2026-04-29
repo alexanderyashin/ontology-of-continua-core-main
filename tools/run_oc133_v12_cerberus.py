@@ -40,19 +40,116 @@ CONTEXT_REFS = [
     "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
     "proofs/finite_model_checks/run_finite_model_checks.py",
     "formal/lean/OC133V12.lean",
-    "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
+    "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
     "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
     "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
     "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
     "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
 ]
 
+ROLE_CONTEXT_REFS = {
+    "formal_mathematician": [
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+        "proofs/PROOF_LEDGER_1_3_3.md",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "formal/lean/OC133V12.lean",
+        "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+    ],
+    "dynamical_systems_reviewer": [
+        "formal/lean/OC133V12.lean",
+        "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "proofs/finite_model_checks/run_finite_model_checks.py",
+        "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+    ],
+    "category_type_theory_reviewer": [
+        "formal/lean/OC133V12.lean",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "proofs/finite_model_checks/run_finite_model_checks.py",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+    ],
+    "empirical_statistician": [
+        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+        "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
+        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+        "validation/run_all.py",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+    ],
+    "prior_art_historian": [
+        "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+        "comparators/source_snapshots",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+    ],
+    "hostile_journal_reviewer": [
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+        "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+        "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+        "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+    ],
+    "not_novel_attacker": [
+        "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
+    ],
+    "phenomenon_x_attacker": [
+        "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+    ],
+    "clarity_didactic_reviewer": [
+        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
+        "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+    ],
+    "reproducibility_auditor": [
+        "lakefile.lean",
+        "lean-toolchain",
+        "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+        "proofs/finite_model_checks/run_finite_model_checks.py",
+        "validation/run_all.py",
+        "simulations/run_all.py",
+        "simulations/adversarial/run_all.py",
+    ],
+    "theorem_theater_auditor": [
+        "formal/lean/OC133V12.lean",
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+        "proofs/PROOF_LEDGER_1_3_3.md",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+    ],
+    "empirical_theater_auditor": [
+        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+        "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
+        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+        "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+    ],
+    "claim_boundary_auditor": [
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
+        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+    ],
+    "public_surface_auditor": [
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+        "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+    ],
+}
+
 ROLE_FOCUS = {
     "formal_mathematician": "Check whether each Lean theorem proves the proposition the public ledger claims, especially minimality, K-level irreducibility, k=0, boundary, and hybrid semantics.",
     "dynamical_systems_reviewer": "Attack universal-dynamics overreach, smoothness assumptions, hybrid guard/reset semantics, and any hidden ODE claim.",
     "category_type_theory_reviewer": "Attack typed-carrier/morphism claims, identity/residue/rebirth separation, and any categorical wording not supported by the Lean subset.",
-    "empirical_statistician": "Attack numeric prediction language, heldout/comparator/residual claims, and any empirical PASS based only on official snapshots.",
-    "prior_art_historian": "Attack novelty and priority using the exact source-backed comparator rows and their absence tests.",
+    "empirical_statistician": "Attack numeric replay language, heldout/baseline-control/residual claims, and any empirical PASS based only on official snapshots.",
+    "prior_art_historian": "Attack novelty and priority using the comparator rows as bibliographic positioning only. Do not treat single-source non-observation as absence evidence unless the current row promotes it.",
     "hostile_journal_reviewer": "Attack whether a skeptical journal could reject the package for theorem theater, empirical theater, novelty inflation, or didactic opacity.",
     "not_novel_attacker": "Try to reduce OC to GST, autopoiesis, dynamical systems, category/topos formalisms, RAF, complexity measures, identity theory, systems engineering, hybrid systems, or formal methods.",
     "phenomenon_x_attacker": "Attack the phenomenon coverage model cards: each broad phenomenon must have a specific model, observable, negative control, and falsifier.",
@@ -102,7 +199,7 @@ def normalize(role: str, payload: dict[str, Any], output_path: Path) -> dict[str
 
 
 def prompt_for(role: str) -> str:
-    refs = "\n".join(f"- `{path}`" for path in CONTEXT_REFS)
+    refs = "\n".join(f"- `{path}`" for path in ROLE_CONTEXT_REFS.get(role, CONTEXT_REFS))
     focus = ROLE_FOCUS.get(role, "Attack unsupported critical/high release claims.")
     return f"""You are the OC Core 1.3.3 v12 adversarial reviewer role `{role}`.
 
@@ -157,7 +254,16 @@ def run_role(role: str, timeout_seconds: int = 420) -> dict[str, Any]:
     ]
     result_path = RESULT_DIR / f"{role}.json"
     try:
-        completed = subprocess.run(cmd, input=prompt, cwd=ROOT, text=True, capture_output=True, timeout=timeout_seconds)
+        completed = subprocess.run(
+            cmd,
+            input=prompt,
+            cwd=ROOT,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            capture_output=True,
+            timeout=timeout_seconds,
+        )
     except subprocess.TimeoutExpired as exc:
         payload = {
             "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
@@ -253,6 +359,7 @@ def main() -> int:
     LAST_DIR.mkdir(parents=True, exist_ok=True)
     result_refs = []
     parse_failures = []
+    execution_bad = []
     critical_total = 0
     high_total = 0
 
@@ -295,6 +402,8 @@ def main() -> int:
             result_refs.append(result["result_ref"])
             if result["parse_failed"] or result["execution_failed"]:
                 parse_failures.append(role)
+            if payload.get("execution_status") != "EXECUTED":
+                execution_bad.append(role)
             critical_total += int(payload.get("critical_open_total", 0))
             high_total += int(payload.get("high_open_total", 0))
     aggregate_refs = []
@@ -302,6 +411,7 @@ def main() -> int:
     critical_total = 0
     high_total = 0
     parse_failures = []
+    execution_bad = []
     for role in ROLES:
         result_path = RESULT_DIR / f"{role}.json"
         if not result_path.exists():
@@ -311,8 +421,10 @@ def main() -> int:
         payload = json.loads(result_path.read_text(encoding="utf-8"))
         critical_total += int(payload.get("critical_open_total", 0))
         high_total += int(payload.get("high_open_total", 0))
-        if payload.get("execution_status") in {"PARSE_FAILED", "EXECUTION_FAILED"}:
+        if payload.get("execution_status") in {"PARSE_FAILED", "EXECUTION_FAILED", "EXECUTION_TIMEOUT", "RUNNER_EXCEPTION"}:
             parse_failures.append(role)
+        if payload.get("execution_status") != "EXECUTED":
+            execution_bad.append(role)
 
     summary = {
         "schema_id": "OC133_LLM_CERBERUS_SUMMARY_v12",
@@ -323,11 +435,13 @@ def main() -> int:
         "role_total": len(ROLES),
         "configured_role_total": len(ROLES),
         "max_workers": max_workers,
-        "execution_status": "EXECUTED_WITH_FINDINGS_CLOSED" if critical_total == 0 and high_total == 0 and not parse_failures and not pending_roles else "EXECUTED_WITH_OPEN_FINDINGS",
+        "execution_status": "EXECUTED_WITH_FINDINGS_CLOSED" if critical_total == 0 and high_total == 0 and not parse_failures and not pending_roles and not execution_bad else "EXECUTED_WITH_OPEN_FINDINGS",
         "critical_open_total": critical_total,
         "high_open_total": high_total,
         "parse_failure_total": len(parse_failures),
         "parse_failures": parse_failures,
+        "execution_bad_total": len(execution_bad),
+        "execution_bad_roles": execution_bad,
         "pending_role_total": len(pending_roles),
         "pending_roles": pending_roles,
         "result_refs": aggregate_refs,

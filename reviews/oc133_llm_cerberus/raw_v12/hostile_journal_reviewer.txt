@@ -1,1 +1,61 @@
-{"role":"hostile_journal_reviewer","findings":[{"severity":"HIGH","artifact_ref":"formal/lean/OC133V12.lean","claim":"T133-MIN: each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.","failure_mode":"The theorem is definitional minimality, not substantive irredundancy: `semanticVerdict` is a conjunction of all component booleans, `dropSemanticComponent` flips exactly one boolean to false, and `release_tuple_component_irredundant` follows by case split/rfl. This is theorem theater if presented as evidence that the tuple is non-bloated rather than as a schema sanity check.","required_repair":"Demote T133-MIN to a definitional consistency lemma, or supply independent semantics for each component plus keep/drop witnesses whose verdict change is not hard-coded by the same conjunction that defines acceptance.","status":"OPEN"},{"severity":"HIGH","artifact_ref":"formal/lean/OC133V12.lean","claim":"T133-KLEVEL: every adjacent K-level transition K0->K12 has a Lean atlas witness, reduction-failure predicate, executable finite row, and lawful demotion predicate.","failure_mode":"The Lean construction encodes `axisFor`, retained evidence, and demoted evidence by enumeration, then proves the atlas by `cases`/`decide`. The finite checks similarly validate row identity and hand-authored boolean witness fields, not an independent reduction relation. This supports registry conformance, not K-level irreducibility.","required_repair":"Demote the claim to atlas-consistency unless a formal reduction semantics is added for lower and upper models, with proofs that retained upper witnesses cannot be represented by the lower model and executable countermodels generated independently of the atlas rows.","status":"OPEN"},{"severity":"HIGH","artifact_ref":"validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json","claim":"OC133-NUM-SYS-WDI-GDP and numeric replay rows have baseline negative controls, comparators, residuals, and falsifiers.","failure_mode":"The table records negative controls and falsifiers as prose strings only. No executable validation command, raw parse transcript, negative-control observed verdict, or failure artifact is present in this table, while `prediction_support_allowed_total` is 1 for the GDP row. That still reads as empirical/prediction theater despite the quarantine language.","required_repair":"Add an executable numeric validation ledger with scripts, pinned input hashes, observed outputs for each positive and negative control, and pass/fail results; otherwise set `prediction_support_allowed` to false and downgrade these rows to descriptive QA notes.","status":"OPEN"},{"severity":"HIGH","artifact_ref":"review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json","claim":"The total attack matrix has `critical_unresolved_total: 0` and `high_unresolved_total: 0` across 210 objections.","failure_mode":"The matrix closes repeated boilerplate attacks by pointing to artifact names and generic verification-query strings. It does not show evaluated checks or independent closure evidence for each objection, so it functions as self-certifying review theater rather than a hostile attack record a journal can audit.","required_repair":"Collapse duplicate template rows into unique objections, attach machine-evaluated or reviewer-verifiable closure evidence per objection, and reopen any row whose closure is only a status token, artifact pointer, or generic query string.","status":"OPEN"},{"severity":"MEDIUM","artifact_ref":"docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json","claim":"The coverage matrix explains broad phenomena through phenomenon-specific model cards.","failure_mode":"Most rows reuse the same generic falsifier language and map broad phenomena such as origin-of-life framing, social institutions, theory change, and recursive self-application to toy finite replay rows. P012 also routes `OC133-NOSEND-001` through a Lean theorem/proof-sheet path even though the no-send claim is manifest/control-plane evidence, not a theorem inventory row.","required_repair":"Rename the matrix as toy-model coverage, replace template falsifiers with phenomenon-specific falsifiable observables, and remove the false Lean/proof-sheet route for no-send unless a corresponding theorem and proof sheet are added.","status":"OPEN"}]}
+{
+  "role": "hostile_journal_reviewer",
+  "findings": [
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "The v12 attack surface is closed enough for journal release.",
+      "failure_mode": "The current matrix reports critical_unresolved_total=4, high_unresolved_total=9, and 13 Cerberus-sourced OPEN_PENDING_REPAIR rows. A skeptical journal can reject immediately because the package has not passed its own adversarial gate.",
+      "required_repair": "Run fresh Cerberus for the bound roles, repair or formally demote every critical/high row against current artifacts, regenerate the matrix with critical_unresolved_total=0 and high_unresolved_total=0, then propagate zero-blocker counters to the claim ledger and theorem inventory.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations",
+      "failure_mode": "CERBERUS-008 remains CRITICAL OPEN_PENDING_REPAIR. Several open Cerberus rows preserve stale source hashes and generic failure text rather than a current, independently intelligible defect narrative, so the rejection surface is not auditable enough for a hostile reader.",
+      "required_repair": "Regenerate the attack matrix from current Cerberus outputs and current deterministic checks; for each retained open row, replace stale generic prose with a current artifact-specific failure and closure predicate, or close the row with current evidence.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "OC133-NOSEND-001: Publication, DOI minting, repository release, deposit, and journal submission remain locked until both separate owner approval and an explicit manifest/channel unlock are present.",
+      "failure_mode": "The claim remains BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12 with release_promotion_allowed=false, and the referenced manifest/owner approval state remains no-send locked. Any journal submission or public release now would violate the current no-send control plane; the attack matrix also keeps no_send_parity CRITICAL open.",
+      "required_repair": "Do not send. Obtain separate owner approval, explicitly unlock all manifest/channel gates including DOI minting, rerun the finite no-send checks, and close the no_send_parity Cerberus row before changing public status.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "The ten load-bearing theorem rows provide release-ready theorem support.",
+      "failure_mode": "The inventory has theorem_total=10 and machine_checked_subset_total=10, but public_promoted_theorem_total=0; every row has public_promotion=false and proof_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_WITH_LEAN_SUBSET_AND_FINITE_WITNESS. Presented as theorem results, this is theorem theater.",
+      "required_repair": "Keep theorem claims non-promoted until fresh adversarial review closes the 13 blockers; then update each proof_status, public_promotion flag, and claim-ledger scope ceiling only for the actually machine-checked theorem surface.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+      "claim": "Numeric replay QA supplies empirical or predictive support for OC.",
+      "failure_mode": "All six numeric rows are quarantined replay QA: prediction_support_allowed=false, empirical_support_allowed=false, and the split policies are exact snapshot replay or no train/test. This cannot support empirical theory, superiority, or prediction claims.",
+      "required_repair": "Add a future prospective target-blind empirical protocol with held-out targets, predeclared baselines, executable falsifiers, and explicit promotion criteria; keep the current rows labeled replay QA only.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "OC133-NOVELTY-001 supports novelty, uniqueness, priority, or absence of prior art.",
+      "failure_mode": "The register states systematic_priority_search_status=NOT_COMPLETED_NO_UNIQUENESS_PROMOTION and repeatedly marks absence tests as illustrative single-source positioning only. A journal novelty claim would be unsupported and vulnerable to prior-art relabeling rejection.",
+      "required_repair": "Run and document a systematic source-backed priority search with databases, queries, inclusion/exclusion criteria, dated hits, overlap mapping, and explicit residual claims; keep uniqueness and priority disabled until that exists.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "The phenomenon coverage matrix demonstrates actual explanatory coverage across the listed phenomena.",
+      "failure_mode": "Every row is a scoped candidate model card with upstream_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12, public_promotion=false, blocker_count=13, and prediction_status=SCOPED_FORMAL_REPLAY_NOT_DOMAIN_TOTALIZATION. This is not broad phenomenon coverage; it is a formal replay index.",
+      "required_repair": "Either retitle/recast the file as non-promoted candidate model cards, or add domain-specific evidence, negative controls, and falsifiers that remain valid after upstream blockers are closed.",
+      "status": "OPEN"
+    }
+  ]
+}

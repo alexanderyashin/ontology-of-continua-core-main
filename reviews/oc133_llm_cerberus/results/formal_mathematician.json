@@ -1,18 +1,51 @@
 {
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "formal_mathematician",
-  "execution_status": "EXECUTION_TIMEOUT",
-  "critical_open_total": 1,
-  "high_open_total": 0,
-  "finding_total": 1,
+  "execution_status": "EXECUTED",
+  "critical_open_total": 0,
+  "high_open_total": 3,
+  "finding_total": 5,
   "findings": [
     {
-      "severity": "CRITICAL",
-      "artifact_ref": "tools/run_oc133_v12_cerberus.py",
-      "claim": "LLM adversarial review must execute.",
-      "failure_mode": "Role `formal_mathematician` exceeded timeout_seconds=360: Command '['codex', 'exec', '-s', 'read-only', '-c', \"approval_policy='never'\", '-C', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main', '-o', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\reviews\\\\oc133_llm_cerberus\\\\raw_v12\\\\formal_mathematician.txt', '-']' timed out after 360 seconds",
-      "required_repair": "Rerun role with smaller context or repair Codex CLI latency; stale prior JSON must not be reused.",
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-KLEVEL: every declared adjacent K-level transition K0->K12 has a release-atlas row, retained-witness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release classifier.",
+      "failure_mode": "The cited theorem release_atlas_manifest_has_total_finite_case_coverage proves only properties of Lean-internal constructors releaseAtlasManifestRow k, retainedClassifierEvidence k, and demotedClassifierEvidence k. Those records are generated with the desired strings and booleans already set; the theorem never checks the rows in proofs/FINITE_MODEL_CHECKS_1_3_3.json and never imports or verifies data/k_level_irreducibility_matrix.json. Thus the Lean theorem does not prove executable finite-row coverage or actual release-atlas coverage.",
+      "required_repair": "Materialize the current atlas and finite-check manifest as checked data with hashes, prove no-missing/no-duplicate coverage for all AdjacentK constructors and retained/demotion case IDs, and cite that theorem; otherwise narrow the claim to Lean-internal generated-row sanity checking.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+      "claim": "The Lean/finite evidence bundle is a clean source-bound LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS support package.",
+      "failure_mode": "The build certificate clean_source_manifest records proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json at sha256 35137853786772b7592d70edda2c21589815ef6d3169fb2b11432744dc000d8b and data/k_level_irreducibility_matrix.json at 8e6cc5754e86f2cc09de062cfded930855b3665895781c3830d42f7c56f0b424. proofs/FINITE_MODEL_CHECKS_1_3_3.json declares the same refs at 5563eea00a64d2d4d4dae24f8d2805e82b0bb7a684ec3ae74ec643cd10620afb and 2ff38a6f3500daa19ce3ce9abbe1a72c3bd6dcb73a64fe89348ad920813a3708, while certificate_binding_failure_total remains 0. The current evidence artifacts are not bound to one source manifest.",
+      "required_repair": "Regenerate the Lean build certificate and finite model checks from the same manifest, require exact hash equality for shared refs, and make the finite checker fail on any cross-artifact hash mismatch.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "proofs/PROOF_LEDGER_1_3_3.md",
+      "claim": "T133-MIN is bound to data/OC133_GLOBAL_MINIMALITY_WITNESSES.json and to one executable keep/drop row per promoted tuple component.",
+      "failure_mode": "The proof ledger asserts a binding to data/OC133_GLOBAL_MINIMALITY_WITNESSES.json, but the release-critical certificate and finite-check artifact do not list or hash that file. The cited Lean theorem release_tuple_semantic_component_irredundant operates over hard-coded OCSemanticCase booleans, so it cannot prove that the current external minimality witness file or the actual promoted tuple list is covered.",
+      "required_repair": "Add data/OC133_GLOBAL_MINIMALITY_WITNESSES.json to the certified source manifest, hash it in the finite checks, cross-check every promoted component against the executable keep/drop rows, and cite a theorem or checker result that proves that binding; otherwise remove the binding claim.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-K0-RES: K0 support is resolution-relative, same-resolution states are not distinguished, and a finite countermodel shows raw separation need not induce resolution distinction.",
+      "failure_mode": "The release-critical lean_ref points to k0_countermodel_raw_separation_not_resolution_distinction, which proves only the two-point countermodel for K0CounterPoint.a and K0CounterPoint.b. It does not state the universal same-resolution theorem for arbitrary S, rho, a, and b, even though that is part of the public claim.",
+      "required_repair": "Promote a composite Lean theorem that includes the universal sameCell -> not distinguished statement and the finite raw-separation countermodel, then update the theorem inventory and build certificate to cite it.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-ID: identity continuation requires endpoint-bound identity evidence with identity class, invariant preservation, no residue token, equal endpoint evidence, lifecycle identity-invariant truth, and typed source/target binding.",
+      "failure_mode": "endpoint_bound_identity_classification proves that typed residue/rebirth morphisms are not endpoint-bound identity and gives sufficient conditions for endpointBoundIdentity. The necessity side of the public requires claim is only implicit in the definition, not exposed by the cited theorem as an iff or projection theorem.",
+      "required_repair": "Add and cite an iff theorem for endpointBoundIdentity exactly equivalent to all required fields, plus the residue/rebirth exclusion lemmas, so the public requires wording is theorem-backed rather than definition-hidden.",
       "status": "OPEN"
     }
-  ]
+  ],
+  "raw_output_ref": "reviews/oc133_llm_cerberus/raw_v12/formal_mathematician.txt"
 }
