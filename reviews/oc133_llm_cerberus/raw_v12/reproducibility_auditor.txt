@@ -3,26 +3,34 @@
   "findings": [
     {
       "severity": "HIGH",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "The Lean build certificate is bound to a regenerated isolated clean checkout build, including the canonical build transcript hash.",
-      "failure_mode": "The runner computes live_lean_build_transcript_sha256 from a fresh temp lake build, but lean_cert_ok only checks that the certificate build_transcript_sha256 is nonempty. It never requires equality with formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json::build_transcript_sha256, so a stale or forged transcript hash can pass while the source hashes and return code pass.",
-      "required_repair": "Use one shared transcript normalizer and fail unless the live clean-build transcript hash exactly equals the certificate build_transcript_sha256; include the full normalized transcript or a stable transcript artifact in the regenerated report.",
+      "artifact_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+      "claim": "The Lean build certificate represents a clean release-critical source manifest copy without .git or .lake.",
+      "failure_mode": "The certificate and finite runner classify generated replay artifacts as clean source inputs: validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json and validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json are included in the Lean clean_source_manifest, and run_finite_model_checks.py hard-fails if the current manifest hash differs. A source-only clean regeneration therefore depends on preexisting generated JSON state, and stale generated outputs can be canonized as Lean-build inputs even though the Lean build does not need them.",
+      "required_repair": "Split source inputs from generated outputs. Remove generated replay logs/tables from the Lean build certificate source manifest, regenerate numeric replay artifacts in an explicit DAG step, and validate their hashes in a separate generated-artifact manifest after regeneration.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-      "claim": "canonical_certificate_policy makes the build_transcript_sha256 reproducible from a clean checkout by normalizing elapsed timings and repo paths.",
-      "failure_mode": "The recorded stderr_tail contains 'toolchain not updated; already up-to-date', which is local Lean/elan toolchain cache state outside the checkout and outside .lake. A clean host that installs or updates the pinned toolchain can produce different transcript text and therefore a different build_transcript_sha256 despite identical source.",
-      "required_repair": "Make toolchain provisioning an explicit precondition outside the hashed transcript, or normalize/remove elan/toolchain update messages before hashing; record Lean/Lake binary identity separately and regenerate the certificate under that policy.",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "The clean build is pinned to leanprover/lean4:v4.28.0 and can be reproduced from a clean checkout without hidden local state.",
+      "failure_mode": "The runner invokes plain lake from inherited PATH and records the lean-toolchain file contents, but it does not attest the actual lake/lean executable, version, or binary provenance used for the build. A host-local lake, elan cache, or PATH difference can determine whether the certificate regenerates while the artifact still claims leanprover/lean4:v4.28.0.",
+      "required_repair": "Invoke an explicit pinned toolchain command such as elan run leanprover/lean4:v4.28.0 lake build OC133V12 or a pinned container, capture lean --version and lake --version from the exact executable, record executable provenance, and fail on mismatch.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
-      "artifact_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-      "claim": "clean_source_archive_kind is a release-critical source manifest copy sufficient to support reproducible regeneration without hidden local state.",
-      "failure_mode": "The clean_source_manifest includes generated or replay-output artifacts such as validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json, validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json, and editorial latest/scorecard/zip-integrity JSONs as inputs. That demonstrates a build from a copy of current generated artifacts, not a source-only regeneration path.",
-      "required_repair": "Split immutable source inputs from generated outputs; in the clean temp checkout delete generated reports/logs, run the finite, validation, simulation, and adversarial generators, and compare regenerated output hashes in a separate output manifest.",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "The build_transcript_sha256 is a canonical reproducibility check for the clean Lean build.",
+      "failure_mode": "The runner makes exact normalized stdout/stderr transcript equality a hard certificate gate, but the normalization only removes elapsed timings, repo paths, and selected toolchain lines. Lake diagnostic wording, job labels, platform-specific output, and provisioning noise can change without changing the compiled theorem set, causing clean rebuilds to fail for non-semantic reasons.",
+      "required_repair": "Either make transcript hashing advisory and gate on source hashes, toolchain attestation, theorem declaration hashes, and successful clean build return code, or archive the full normalized transcript plus a complete cross-platform normalization specification.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "validation/run_all.py",
+      "claim": "Dataset snapshot manifest metadata supports deterministic replay of current validation inputs.",
+      "failure_mode": "validation/run_all.py verifies only sha256 for data/OC_DATASET_SNAPSHOT_MANIFEST_1_3_3.json rows and ignores the manifest bytes field. Current local snapshot sizes differ from the manifest bytes metadata, so stale or ambiguous byte-count provenance survives validation even though the hashes pass.",
+      "required_repair": "Validate declared byte counts against the current local snapshots, or replace the single bytes field with explicit source_bytes and local_snapshot_bytes fields and check both according to the intended normalization policy.",
       "status": "OPEN"
     }
   ]

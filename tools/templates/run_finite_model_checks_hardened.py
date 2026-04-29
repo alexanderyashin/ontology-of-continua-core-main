@@ -81,8 +81,6 @@ def release_critical_source_refs() -> list[str]:
         "claims/CLAIM_LEDGER_1_3_3.json",
         "validation/run_all.py",
         "validation/numeric_predictions/run_numeric_prediction_replay.py",
-        "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
-        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
         "simulations/adversarial/run_all.py",
         "simulations/run_all.py",
         "simulations/expected_simulations.yml",
@@ -110,6 +108,22 @@ def source_manifest() -> list[dict[str, str]]:
     return rows
 
 
+def generated_artifact_manifest() -> list[dict[str, str]]:
+    refs = [
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
+        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+        "reports/OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json",
+    ]
+    rows = []
+    for ref in refs:
+        path = ROOT / ref
+        if path.exists() and path.is_file():
+            rows.append({"ref": ref, "sha256": sha256_file(path)})
+    return rows
+
+
 def read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -131,8 +145,27 @@ def run_live_lake_build() -> dict[str, Any]:
                 dst.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(src, dst)
             preexisting_lake = (clean_root / ".lake").exists()
+            toolchain = (ROOT / "lean-toolchain").read_text(encoding="utf-8").strip()
+            lean_version = subprocess.run(
+                ["elan", "run", toolchain, "lean", "--version"],
+                cwd=clean_root,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                capture_output=True,
+                timeout=120,
+            )
+            lake_version = subprocess.run(
+                ["elan", "run", toolchain, "lake", "--version"],
+                cwd=clean_root,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                capture_output=True,
+                timeout=120,
+            )
             completed = subprocess.run(
-                ["lake", "build", "OC133V12"],
+                ["elan", "run", toolchain, "lake", "build", "OC133V12"],
                 cwd=clean_root,
                 text=True,
                 encoding="utf-8",
@@ -152,7 +185,7 @@ def run_live_lake_build() -> dict[str, Any]:
             "post_build_lake_cache_created": False,
         }
     zero_job_cached = "0 jobs" in (completed.stdout or "")
-    returncode = 0 if completed.returncode == 0 and not zero_job_cached and not preexisting_lake and post_build_lake else 2
+    returncode = 0 if completed.returncode == 0 and lean_version.returncode == 0 and lake_version.returncode == 0 and not zero_job_cached and not preexisting_lake and post_build_lake else 2
     return {
         "execution_status": "EXECUTED_ISOLATED_CLEAN_BUILD" if returncode == 0 else "CLEAN_BUILD_FAILED_OR_CACHED",
         "returncode": returncode,
@@ -166,6 +199,8 @@ def run_live_lake_build() -> dict[str, Any]:
         "preexisting_lake_cache_detected": preexisting_lake,
         "post_build_lake_cache_created": post_build_lake,
         "build_transcript_sha256": hashlib.sha256(normalize_build_transcript((completed.stdout or "") + "\n" + (completed.stderr or "")).encode("utf-8")).hexdigest(),
+        "lean_version_observed": (lean_version.stdout + lean_version.stderr).strip(),
+        "lake_version_observed": (lake_version.stdout + lake_version.stderr).strip(),
     }
 
 
@@ -650,6 +685,8 @@ def main() -> int:
         and lean_cert.get("clean_source_manifest_sha256") == current_source_manifest_sha256
         and not shared_manifest_mismatches
         and lean_cert.get("build_transcript_sha256") == live_lean_build.get("build_transcript_sha256")
+        and lean_cert.get("lean_version_observed") == live_lean_build.get("lean_version_observed")
+        and lean_cert.get("lake_version_observed") == live_lean_build.get("lake_version_observed")
     )
     certificate_binding_failures = []
     if not lean_cert_ok:
@@ -662,6 +699,8 @@ def main() -> int:
         certificate_binding_failures.append("LEAN_CERTIFICATE_SOURCE_MANIFEST_HASH_MISMATCH")
     if lean_cert.get("build_transcript_sha256") != live_lean_build.get("build_transcript_sha256"):
         certificate_binding_failures.append("LEAN_CERTIFICATE_BUILD_TRANSCRIPT_HASH_MISMATCH")
+    if lean_cert.get("lean_version_observed") != live_lean_build.get("lean_version_observed") or lean_cert.get("lake_version_observed") != live_lean_build.get("lake_version_observed"):
+        certificate_binding_failures.append("LEAN_CERTIFICATE_TOOLCHAIN_VERSION_MISMATCH")
     payload = {
         "schema_id": "OC133_FINITE_MODEL_CHECKS_v12_ATLAS_SEMANTIC_EXECUTED",
         "release_id": "oc_core_1_3_3",
@@ -689,8 +728,12 @@ def main() -> int:
         "live_lean_preexisting_lake_cache_detected": live_lean_build.get("preexisting_lake_cache_detected"),
         "live_lean_post_build_lake_cache_created": live_lean_build.get("post_build_lake_cache_created"),
         "live_lean_build_transcript_sha256": live_lean_build.get("build_transcript_sha256"),
+        "live_lean_version_observed": live_lean_build.get("lean_version_observed"),
+        "live_lake_version_observed": live_lean_build.get("lake_version_observed"),
         "live_lean_clean_source_manifest_sha256": current_source_manifest_sha256,
         "certificate_clean_source_manifest_sha256": lean_cert.get("clean_source_manifest_sha256"),
+        "generated_artifact_manifest_sha256": hashlib.sha256(json.dumps(generated_artifact_manifest(), sort_keys=True).encode("utf-8")).hexdigest(),
+        "certificate_generated_artifact_manifest_sha256": lean_cert.get("generated_artifact_manifest_sha256"),
         "source_manifest_mismatch_total": len(shared_manifest_mismatches),
         "source_manifest_mismatches": shared_manifest_mismatches[:20],
         "live_lean_build_stdout_tail": live_lean_build.get("stdout_tail"),

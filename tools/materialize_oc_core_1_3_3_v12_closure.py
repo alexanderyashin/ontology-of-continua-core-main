@@ -66,8 +66,6 @@ def release_critical_source_refs() -> list[str]:
         "claims/CLAIM_LEDGER_1_3_3.json",
         "validation/run_all.py",
         "validation/numeric_predictions/run_numeric_prediction_replay.py",
-        "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
-        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
         "simulations/adversarial/run_all.py",
         "simulations/run_all.py",
         "simulations/expected_simulations.yml",
@@ -89,6 +87,22 @@ def source_manifest(root: Path) -> list[dict[str, str]]:
     ]:
         refs.update(path.relative_to(root).as_posix() for path in root.glob(pattern) if path.is_file())
     for ref in sorted(refs):
+        path = root / ref
+        if path.exists() and path.is_file():
+            rows.append({"ref": ref, "sha256": sha256_file(path)})
+    return rows
+
+
+def generated_artifact_manifest(root: Path) -> list[dict[str, str]]:
+    refs = [
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
+        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+        "reports/OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json",
+    ]
+    rows = []
+    for ref in refs:
         path = root / ref
         if path.exists() and path.is_file():
             rows.append({"ref": ref, "sha256": sha256_file(path)})
@@ -121,8 +135,27 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
                 shutil.copy2(src, dst)
             clean_preexisting_lake = (clean_root / ".lake").exists()
             clean = subprocess.CompletedProcess(["assert-no-preexisting-lake-cache"], 0, "", "")
+            toolchain = (root / "lean-toolchain").read_text(encoding="utf-8").strip()
+            lean_version = subprocess.run(
+                ["elan", "run", toolchain, "lean", "--version"],
+                cwd=clean_root,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                capture_output=True,
+                timeout=120,
+            )
+            lake_version = subprocess.run(
+                ["elan", "run", toolchain, "lake", "--version"],
+                cwd=clean_root,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                capture_output=True,
+                timeout=120,
+            )
             completed = subprocess.run(
-                ["lake", "build", "OC133V12"],
+                ["elan", "run", toolchain, "lake", "build", "OC133V12"],
                 cwd=clean_root,
                 text=True,
                 encoding="utf-8",
@@ -135,6 +168,8 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
         returncode = (
             0
             if clean.returncode == 0
+            and lean_version.returncode == 0
+            and lake_version.returncode == 0
             and completed.returncode == 0
             and not zero_job_cached_build_detected
             and not clean_preexisting_lake
@@ -147,6 +182,8 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
         stdout_tail = normalize_build_transcript(completed.stdout[-4000:])
         stderr_tail = normalize_build_transcript(completed.stderr[-4000:])
         transcript_sha256 = hashlib.sha256(normalize_build_transcript((completed.stdout or "") + "\n" + (completed.stderr or "")).encode("utf-8")).hexdigest()
+        lean_version_text = (lean_version.stdout + lean_version.stderr).strip()
+        lake_version_text = (lake_version.stdout + lake_version.stderr).strip()
         execution_status = "EXECUTED_ISOLATED_CLEAN_BUILD" if returncode == 0 else "CLEAN_BUILD_FAILED_OR_CACHED"
     except Exception as exc:
         returncode = -1
@@ -159,14 +196,19 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
         clean_preexisting_lake = True
         clean_post_build_lake = False
         transcript_sha256 = None
+        lean_version_text = ""
+        lake_version_text = ""
         execution_status = "EXECUTION_FAILED"
     payload = {
         "schema_id": "OC133_LEAN_BUILD_CERTIFICATE_v12",
         "release_id": RELEASE_ID,
         "version": VERSION,
-        "command": "isolated temp checkout without .lake && lake build OC133V12",
+        "command": "isolated source manifest without .lake && elan run leanprover/lean4:v4.28.0 lake build OC133V12",
         "clean_command": "create isolated temp checkout; assert no .lake before build",
         "build_command": "lake build OC133V12",
+        "toolchain_command": "elan run leanprover/lean4:v4.28.0",
+        "lean_version_observed": lean_version_text,
+        "lake_version_observed": lake_version_text,
         "execution_status": execution_status,
         "returncode": returncode,
         "clean_returncode": clean_returncode,
@@ -191,6 +233,8 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
         "clean_source_archive_kind": "release-critical source manifest copy without .git or .lake",
         "clean_source_manifest": source_manifest(root),
         "clean_source_manifest_sha256": hashlib.sha256(json.dumps(source_manifest(root), sort_keys=True).encode("utf-8")).hexdigest(),
+        "generated_artifact_manifest": generated_artifact_manifest(root),
+        "generated_artifact_manifest_sha256": hashlib.sha256(json.dumps(generated_artifact_manifest(root), sort_keys=True).encode("utf-8")).hexdigest(),
         "lean_source_ref": "formal/lean/OC133V12.lean",
         "lean_source_sha256": sha256_file(lean_path) if lean_path.exists() else None,
         "theorem_ref_total": len(theorem_refs),
