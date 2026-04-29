@@ -61,6 +61,7 @@ def sha256_file(path: Path) -> str:
 
 def normalize_build_transcript(value: str) -> str:
     value = re.sub(r"\(\d+(?:\.\d+)?s\)", "(<elapsed>)", value or "")
+    value = re.sub(r".*toolchain.*(?:already up-to-date|not updated|updated).*", "<toolchain provisioning outside canonical transcript>", value, flags=re.IGNORECASE)
     return value.replace(str(ROOT), "<REPO_ROOT>")
 
 
@@ -648,6 +649,7 @@ def main() -> int:
         and bool(lean_cert.get("build_transcript_sha256"))
         and lean_cert.get("clean_source_manifest_sha256") == current_source_manifest_sha256
         and not shared_manifest_mismatches
+        and lean_cert.get("build_transcript_sha256") == live_lean_build.get("build_transcript_sha256")
     )
     certificate_binding_failures = []
     if not lean_cert_ok:
@@ -658,6 +660,8 @@ def main() -> int:
         certificate_binding_failures.append("FINITE_ROW_THEOREM_REFS_NOT_BOUND_TO_CURRENT_SOURCE")
     if shared_manifest_mismatches:
         certificate_binding_failures.append("LEAN_CERTIFICATE_SOURCE_MANIFEST_HASH_MISMATCH")
+    if lean_cert.get("build_transcript_sha256") != live_lean_build.get("build_transcript_sha256"):
+        certificate_binding_failures.append("LEAN_CERTIFICATE_BUILD_TRANSCRIPT_HASH_MISMATCH")
     payload = {
         "schema_id": "OC133_FINITE_MODEL_CHECKS_v12_ATLAS_SEMANTIC_EXECUTED",
         "release_id": "oc_core_1_3_3",

@@ -46,6 +46,7 @@ def sha256_file(path: Path) -> str:
 def normalize_build_transcript(value: str) -> str:
     value = re.sub(r"\(\d+(?:\.\d+)?s\)", "(<elapsed>)", value or "")
     value = re.sub(r"Built OC133V12 \(\<elapsed\>\)", "Built OC133V12 (<elapsed>)", value)
+    value = re.sub(r".*toolchain.*(?:already up-to-date|not updated|updated).*", "<toolchain provisioning outside canonical transcript>", value, flags=re.IGNORECASE)
     return value.replace(str(ROOT), "<REPO_ROOT>")
 
 

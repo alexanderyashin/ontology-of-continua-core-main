@@ -1,1 +1,53 @@
-{"role":"hostile_journal_reviewer","findings":[{"severity":"CRITICAL","artifact_ref":"review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json","claim":"The v12 package has passed adversarial closure and can be treated as release-ready.","failure_mode":"The current matrix self-reports critical_unresolved_total=4 and high_unresolved_total=10, with CERBERUS-001 through CERBERUS-014 still status OPEN_PENDING_REPAIR and no_send=true. This directly contradicts the claim-ledger promotion condition requiring fresh Cerberus closure and zero critical/high findings.","required_repair":"Do not promote or submit. Run fresh role-specific Cerberus/closure on the current artifacts, close or rewrite every OPEN_PENDING_REPAIR row with current evidence, and set critical_unresolved_total=0 and high_unresolved_total=0 only after all critical/high rows are closed.","status":"OPEN"},{"severity":"CRITICAL","artifact_ref":"review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json","claim":"OC133-NOSEND-001 has no remaining no-send parity blocker.","failure_mode":"CERBERUS-006-hostile_journal_reviewer remains CRITICAL and OPEN_PENDING_REPAIR for no_send_parity against claims/CLAIM_LEDGER_1_3_3.json. Even if the directly referenced manifest and approval files are locked, the release-critical attack matrix still records an open critical no-send finding.","required_repair":"Rerun the no-send parity evaluator/Cerberus against the current manifest and approval hashes, close CERBERUS-006 with explicit evidence, and keep DOI minting, deposits, releases, and journal submission locked until the critical row is closed.","status":"OPEN"},{"severity":"CRITICAL","artifact_ref":"review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json","claim":"The empirical replay quarantine has been adversarially closed.","failure_mode":"CERBERUS-005 remains CRITICAL OPEN_PENDING_REPAIR and CERBERUS-008/CERBERUS-012 remain HIGH for empirical_quarantine. The numeric QA table itself says prediction_support_allowed_total=0 and empirical_support_allowed=false for all replay rows, so the package now has an unresolved closure contradiction: either the empirical-theater attack remains open, or the attack matrix is stale.","required_repair":"Rerun hostile_journal_reviewer and reproducibility_auditor against the current numeric replay QA table, close or update the empirical_quarantine rows, and keep all numeric rows quarantined from prediction or empirical support until the matrix counters are zero.","status":"OPEN"},{"severity":"HIGH","artifact_ref":"proofs/THEOREM_INVENTORY_1_3_3.json","claim":"The theorem inventory supplies public theorem support for the release.","failure_mode":"The inventory lists theorem_total=10 and machine_checked_subset_total=10, but public_promoted_theorem_total=0, release_promotion_allowed=false, and every theorem row has public_promotion=false with proof_status BLOCKED_PENDING_ADVERSARIAL_REPAIR_WITH_LEAN_SUBSET_AND_FINITE_WITNESS. A skeptical journal can reject this as theorem theater if these are presented as release results rather than blocked candidates.","required_repair":"Either rename/demote the inventory to a non-promoted candidate theorem register, or close each theorem row with current Lean certificate, proof sheet, finite witness, negative control, and fresh Cerberus evidence before claiming theorem support.","status":"OPEN"},{"severity":"HIGH","artifact_ref":"comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json","claim":"OC133-NOVELTY-001 supports novelty, priority, or uniqueness beyond bounded positioning.","failure_mode":"The register states systematic_priority_search_status=NOT_COMPLETED_NO_UNIQUENESS_PROMOTION and repeatedly marks uniqueness and priority as NOT_PROMOTED/POSITIONING_ONLY. This blocks novelty inflation, but it also means no journal-grade novelty or priority claim is currently supported; the attack matrix still carries CERBERUS-009 as HIGH until fresh closure.","required_repair":"Remove novelty/priority language from public release claims, or perform a systematic source-backed prior-art search with dated priority comparisons, explicit inclusion/exclusion criteria, and then rerun/close the novelty Cerberus row.","status":"OPEN"},{"severity":"HIGH","artifact_ref":"docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json","claim":"The phenomenon coverage matrix provides release-ready explanations of the listed broad phenomena.","failure_mode":"All 15 rows set public_promotion=false and state that upstream claims are blocked. Several broad questions are answered only by scoped formal replay or toy model cards with the limitation that they are not full empirical solutions. If journal-facing text treats this as phenomenon coverage, it is coverage theater rather than supported coverage.","required_repair":"Rename the artifact as a non-promoted scoped model-card index, or add domain-specific evidence, executable falsifiers, and closed upstream claim support for each phenomenon before promoting coverage.","status":"OPEN"},{"severity":"MEDIUM","artifact_ref":"claims/CLAIM_LEDGER_1_3_3.json","claim":"The promotion condition is transparent to a hostile reader.","failure_mode":"The ledger repeatedly requires G57, G58, and G70 to pass, but the claim rows do not define those gates or provide row-level references to the exact gate artifacts. This creates didactic opacity around the central release condition.","required_repair":"Add a gate glossary or explicit artifact refs for G57, G58, and G70, and map each claim row to the exact closure evidence and verification query needed for promotion.","status":"OPEN"}]}
+{
+  "role": "hostile_journal_reviewer",
+  "findings": [
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "OC Core 1.3.3 v12 is release-promotable as a public or journal package.",
+      "failure_mode": "The current ledger sets release_promotion_allowed=false, adversarial_review_blocker_total=10, and every load-bearing theorem/no-send row has public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12. The package self-declares a no-go state.",
+      "required_repair": "Do not promote or submit from this ledger; repair and close the G57/G58/G70 Cerberus blockers, rerun the adversarial review, then update release_promotion_allowed and every affected public_status only after zero critical/high findings remain.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "CRITICAL",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "The current attack surface is closed enough for journal review.",
+      "failure_mode": "The matrix reports critical_unresolved_total=3 and high_unresolved_total=7, with the Cerberus rows still OPEN_PENDING_REPAIR. A skeptical journal can reject on the release's own unresolved critical/high attack ledger.",
+      "required_repair": "Run a fresh Cerberus pass on the current artifacts, repair or demote every OPEN_PENDING_REPAIR critical/high row with concrete closure evidence, set unresolved totals to zero only after verification, and propagate the zero-blocker state to the claim ledger.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "The 10 listed theorems provide promoted theorem support for the release.",
+      "failure_mode": "The inventory reports public_promoted_theorem_total=0 and every theorem row has public_promotion=false with proof_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_WITH_LEAN_SUBSET_AND_FINITE_WITNESS. This reads as theorem theater if any public argument treats the rows as promoted theorems.",
+      "required_repair": "Either demote the theorem inventory everywhere to blocked proof obligations, or close the Lean/proof-sheet/finite-witness blockers and update proof_status, public_promotion, and public_promoted_theorem_total accordingly.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "The phenomenon coverage matrix establishes coverage or explanation of the listed phenomena.",
+      "failure_mode": "All 15 rows have public_promotion=false, upstream_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12, blocker_count=10, and limitations saying the card is not a full empirical solution. The file title and explanation_status fields over-read scoped toy replays as coverage.",
+      "required_repair": "Reframe the artifact as blocked candidate model cards, add a top-level promoted_coverage_total=0, separate toy formal instances from phenomenon-level coverage, and only restore coverage language after upstream claims are unblocked.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+      "claim": "Numeric replay rows provide empirical or predictive support.",
+      "failure_mode": "Every row is a target-in-snapshot replay with no held-out split, and the table correctly sets prediction_support_allowed=false and empirical_support_allowed=false. Any journal-facing use beyond QA would be empirical theater.",
+      "required_repair": "Keep these rows quarantined as QA only; for empirical support, add a prospective target-blind protocol with pre-registered targets, held-out evaluation, and real baseline comparison.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "The novelty register supports uniqueness, priority, or absence over prior art.",
+      "failure_mode": "The register says systematic_priority_search_status=NOT_COMPLETED_NO_UNIQUENESS_PROMOTION and repeatedly uses illustrative single-source positioning. It cannot support novelty beyond bounded positioning.",
+      "required_repair": "Keep uniqueness and priority claims disallowed, or replace the illustrative register with a systematic source-backed search protocol, inclusion/exclusion criteria, dated query logs, and reviewed negative/overlap findings.",
+      "status": "OPEN"
+    }
+  ]
+}
