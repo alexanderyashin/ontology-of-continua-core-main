@@ -1,0 +1,129 @@
+{
+  "schema_id": "OC133_CAPABILITY_LINK_GRAPH_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "authority_note": "Strategy HQ/K6 remains the governing layer under LOGI. The institute director is a subordinate scientific decision module, not a competing corporate authority.",
+  "authority_chain": [
+    "Safety Directive",
+    "LOGI corporate director",
+    "K6 Strategy HQ",
+    "OC133 institute director",
+    "capability workers"
+  ],
+  "no_send": true,
+  "capabilities": [
+    {
+      "capability_id": "oc133_institute_director",
+      "hq_owner_ref": "LOGI -> K6 Strategy HQ",
+      "role": "subordinate scientific director: enforces Safety Directive, corporate/Strategy HQ authority, and capability work-order routing",
+      "entrypoint": "tools/oc133_institute_director.py --run-cycle",
+      "outputs": [
+        "operations/institute_director/oc_core_1_3_3/OC133_INSTITUTE_DIRECTOR_PACKET.json"
+      ]
+    },
+    {
+      "capability_id": "oc133_research_corpus",
+      "hq_owner_ref": "logion/k7/spe/orchestrator/k6",
+      "role": "materialize bounded release science artifacts",
+      "entrypoint": "tools/materialize_oc_core_1_3_3_v12_closure.py",
+      "outputs": [
+        "formal/lean/OC133V12.lean",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json"
+      ]
+    },
+    {
+      "capability_id": "oc133_cerberus_review",
+      "hq_owner_ref": "logion/k7/roles/formal_methods_validation_hq",
+      "role": "parallel read-only hostile LLM review",
+      "entrypoint": "tools/run_oc133_v12_cerberus.py --max-workers N",
+      "outputs": [
+        "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json"
+      ]
+    },
+    {
+      "capability_id": "oc133_autonomous_repair",
+      "hq_owner_ref": "logion/k7/spe/orchestrator/k6",
+      "role": "convert Cerberus findings into deterministic repair work orders",
+      "entrypoint": "tools/oc133_autonomous_research_loop.py --apply --checks",
+      "outputs": [
+        "reviews/oc133_llm_cerberus/repair/OC133_CERBERUS_REPAIR_WORK_ORDERS.json"
+      ]
+    },
+    {
+      "capability_id": "oc133_release_machine",
+      "hq_owner_ref": "logion/k6/science/architecture",
+      "role": "G32-G70 dry-run release gate evaluation under no-send",
+      "entrypoint": "python -m release_machine evaluate --release oc_core_1_3_3 --channel all --mode dry-run",
+      "outputs": [
+        "releases/oc_core_1_3_3/release_machine"
+      ]
+    },
+    {
+      "capability_id": "oc133_publication_governor",
+      "hq_owner_ref": "logion/k0/governance/status",
+      "role": "owner-gated no-send state; no push/public/doi/journal action",
+      "entrypoint": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+      "outputs": [
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "oc133_institute_director",
+      "to": "oc133_research_corpus",
+      "trigger": "director issues repair-scoped scientific work orders under Safety Directive and Strategy HQ/K6"
+    },
+    {
+      "from": "oc133_institute_director",
+      "to": "oc133_cerberus_review",
+      "trigger": "director selects targeted adversarial reruns and blocks stale review certification"
+    },
+    {
+      "from": "oc133_institute_director",
+      "to": "oc133_release_machine",
+      "trigger": "director requires G32-G70 evidence before owner review"
+    },
+    {
+      "from": "oc133_research_corpus",
+      "to": "oc133_cerberus_review",
+      "trigger": "research artifacts become adversarial review context"
+    },
+    {
+      "from": "oc133_cerberus_review",
+      "to": "oc133_autonomous_repair",
+      "trigger": "critical/high findings become repair work orders"
+    },
+    {
+      "from": "oc133_cerberus_review",
+      "to": "oc133_institute_director",
+      "trigger": "critical/high findings are escalated to the subordinate institute director"
+    },
+    {
+      "from": "oc133_autonomous_repair",
+      "to": "oc133_research_corpus",
+      "trigger": "repair profiles regenerate scientific artifacts"
+    },
+    {
+      "from": "oc133_autonomous_repair",
+      "to": "oc133_institute_director",
+      "trigger": "repair results return to director for gate and authority checks"
+    },
+    {
+      "from": "oc133_research_corpus",
+      "to": "oc133_release_machine",
+      "trigger": "formal/finite/validation artifacts feed G32-G70"
+    },
+    {
+      "from": "oc133_release_machine",
+      "to": "oc133_publication_governor",
+      "trigger": "ready state remains no-send until owner approval"
+    },
+    {
+      "from": "oc133_publication_governor",
+      "to": "oc133_cerberus_review",
+      "trigger": "public-surface/no-send locks are reviewed as claims"
+    }
+  ]
+}

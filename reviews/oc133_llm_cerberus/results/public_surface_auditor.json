@@ -2,48 +2,32 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "public_surface_auditor",
   "execution_status": "EXECUTED",
-  "critical_open_total": 1,
-  "high_open_total": 4,
-  "finding_total": 5,
+  "critical_open_total": 0,
+  "high_open_total": 3,
+  "finding_total": 3,
   "findings": [
     {
-      "severity": "CRITICAL",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-      "failure_mode": "The promoted claim is mapped to Lean support that does not prove the claim. `declared_death_blocks_live` assumes both `L.live x = false` and `L.live x = true` and derives contradiction; it does not derive death -> not live, and it does not prove residue/rebirth/type non-interchangeability. The attack matrix also closes T133-OMEGA-STATUS via `eligible_live_requires_cycle`, which contains no death, residue, or rebirth content.",
-      "required_repair": "Strengthen the Lean surface to prove death-implies-not-live and separate residue/rebirth/identity morphism classes under explicit assumptions, then update theorem inventory, proof ledger, and attack-matrix closures to those exact theorem refs; otherwise demote or narrow the public claim to the tautology actually checked.",
-      "status": "OPEN"
-    },
-    {
       "severity": "HIGH",
-      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "claim": "OC133-NOSEND-001: Publication and journal submission remain locked until separate owner approval.",
-      "failure_mode": "The `ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL` row reports `ALLOW_AFTER_OWNER_APPROVAL` and points `lean_ref` at `releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json`, but the current referenced owner artifact has `decision: PENDING`, `owner_approved: false`, and `publish_allowed: false`. The finite result hard-codes an approved model that contradicts its own current reference.",
-      "required_repair": "Either replace the `lean_ref` with an explicit hypothetical approved-control fixture, or remove the allow-control row until a real owner-approved artifact exists. The runner should validate no-send model fields against the referenced manifest/approval file instead of trusting row-local booleans.",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "P012 / OC133-NOSEND-001: `claim OC133-NOSEND-001 -> Lean theorem/proof sheet -> semantic finite case ADV-NOSEND-PUBLISH -> negative control -> falsifier`.",
+      "failure_mode": "P012 still lists `formal/lean/OC133V12.lean` as evidence and advertises a Lean theorem/proof-sheet route for no-send governance, but the current theorem inventory and proof ledger contain only T133 theorem rows, and the Lean file has no OC133-NOSEND/no_send/publish theorem. The actual finite no-send rows point to JSON manifest/approval artifacts, so the public coverage route is theorem theater and omits the real publish-manifest/owner-approval evidence surface.",
+      "required_repair": "Remove Lean theorem/proof-sheet language and Lean evidence from P012, and replace the route with claim ledger -> publish manifest -> owner approval artifact -> finite no-send runner/output; or add a real no-send theorem, proof sheet, theorem-inventory row, and matching Lean-backed finite reference.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "OC133-NOSEND-001 DOI/public-action lock coverage.",
-      "failure_mode": "The no-send evaluator checks only `owner_approved`, `publish_requested`, and `publish_allowed`. It does not model or validate `journal_submissions_allowed`, `github_release_allowed`, `zenodo_deposit_allowed`, `software_heritage_deposit_allowed`, or DOI/deposit public actions present in the publish manifest. The finite checks would still pass if those public-action channels drifted open while `publish_allowed` stayed false.",
-      "required_repair": "Add channel-specific no-send cases and runner validation for journal submission, GitHub release, Zenodo DOI/deposit, Software Heritage deposit, and generic publish action; require all channels to be false when `global_no_send_lock` is true and owner approval is absent.",
+      "claim": "OC133-NOSEND-001 / ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL proves public action is allowed after owner approval.",
+      "failure_mode": "The hypothetical approved control returns `ALLOW_AFTER_OWNER_APPROVAL` using only `owner_approved`, `publish_requested`, and `publish_allowed`; the input/output row supplies no `global_no_send_lock`, `journal_submissions_allowed`, `journal_submission_allowed`, `github_release_allowed`, `zenodo_deposit_allowed`, `software_heritage_deposit_allowed`, or `doi_minting_allowed` fields. It therefore proves only a generic publish flag, not DOI/Zenodo/GitHub/SWH/journal public-action parity.",
+      "required_repair": "Model an approved-state fixture with global lock false and every requested channel gate explicitly true, map `requested_channels` to required manifest fields, and make both reject and allow paths enforce DOI/public-identifier and per-channel gates before reporting `ALLOW_AFTER_OWNER_APPROVAL`.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "OC133-NOSEND-001 public-surface route: claim -> Lean theorem/proof sheet -> semantic finite case -> control -> falsifier.",
-      "failure_mode": "P012 presents no-send governance as passing through a Lean theorem/proof-sheet route and lists `formal/lean/OC133V12.lean` as evidence, but the Lean file, theorem inventory, and proof ledger contain no no-send theorem or proof-sheet row. This is public-surface parity failure: the coverage matrix advertises formal evidence that the current formal surface does not contain.",
-      "required_repair": "Either add a real no-send theorem/proof sheet and inventory/proof-ledger row, or rewrite P012 so the evidence route is manifest/owner-approval artifact plus finite state-machine only, with no Lean/proof-sheet wording.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "T133-OMEGA-STATUS promoted theorem coverage.",
-      "failure_mode": "The claim ledger promotes T133-OMEGA-STATUS, but the phenomenon coverage matrix has no row whose `attacked_claim` is `T133-OMEGA-STATUS`; the death/residue/rebirth question is instead routed to T133-ID. This leaves a promoted theorem without direct phenomenon coverage while the matrix reports `unsupported_closed_total: 0`.",
-      "required_repair": "Add a dedicated T133-OMEGA-STATUS phenomenon row with model card, positive/negative finite cases, falsifier, and exact Lean/proof-sheet refs, or demote the claim from public promotion until the coverage surface matches it.",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "`critical_unresolved_total: 0`, `high_unresolved_total: 0`, and `CERBERUS-041-public_surface_auditor` is `CLOSED_BY_SPECIFIC_V12_EVIDENCE`.",
+      "failure_mode": "The matrix closes the public-surface no-send theorem-theater objection with generic closure evidence, but the current coverage matrix still contains the exact bad P012 Lean theorem/proof-sheet route. The unresolved totals are therefore self-certified against a defect that remains present in the current release surface.",
+      "required_repair": "Reopen CERBERUS-041 and recompute unresolved totals until P012 is actually repaired, or add the missing no-send theorem/proof-sheet/inventory surface and update the closure evidence to cite that concrete repair.",
       "status": "OPEN"
     }
   ],

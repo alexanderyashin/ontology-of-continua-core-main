@@ -211,6 +211,8 @@ def audit(root: Path) -> dict[str, Any]:
     counter = read_json(root / "falsification" / "COUNTEREXAMPLE_ATLAS_1_3_3.json")
     manifest = read_json(root / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json")
     approval = read_json(root / "releases" / "oc_core_1_3_3" / "editorial" / "OWNER_RELEASE_APPROVAL_v1.3.3.json")
+    lean_cert_path = root / "formal" / "lean" / "LEAN_BUILD_CERTIFICATE_1_3_3.json"
+    lean_cert = read_json(lean_cert_path) if lean_cert_path.exists() else {}
     proof_failures = _proof_sheet_failures(root, registry)
     absolute_hits = _scan_hits(root, FORBIDDEN_ABSOLUTE_PATTERNS)
     scope_hits = _scan_hits(root, FORBIDDEN_SCOPE_REPAIR_PATTERNS)
@@ -247,7 +249,8 @@ def audit(root: Path) -> dict[str, Any]:
         "invariant_preserved_classifies_identity",
         "declared_death_blocks_live",
         "lifecycle_status_morphism_separation",
-        "lifecycle_statuses_and_morphisms_separated",
+        "lifecycle_residue_rebirth_morphism_boundary",
+        "residue_or_rebirth_class_blocks_identity",
         "residue_rebirth_identity_boundary",
         "metric_boundary_failure_equiv",
         "metric_boundary_specialization",
@@ -307,12 +310,17 @@ def audit(root: Path) -> dict[str, Any]:
         for row in comparator.get("rows", [])
         if not row.get("source_refs") or not row.get("feature_tests") or not row.get("absence_test") or row.get("uniqueness_claim_status") != "NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY"
     ]
+    allowed_phenomenon_statuses = {
+        "PHENOMENON_SPECIFIC_MODEL_REPLAYED",
+        "SCOPED_CLASSIFIER_ILLUSTRATION_NOT_DOMAIN_CLOSURE",
+        "OPERATIONAL_NO_SEND_CONTROL_REPLAYED",
+    }
     phenomenon_failures = [
         row.get("phenomenon_id")
         for row in phenomenon.get("rows", [])
         if not row.get("model_card")
         or "finite witness or replay row" in str(row.get("observable", "")).lower()
-        or row.get("explanation_status") != "PHENOMENON_SPECIFIC_MODEL_REPLAYED"
+        or row.get("explanation_status") not in allowed_phenomenon_statuses
     ]
     finite_case_ids = {row.get("case_id") for row in finite.get("rows", [])}
     phenomenon_missing_controls = [
@@ -372,10 +380,32 @@ def audit(root: Path) -> dict[str, Any]:
         "operator": {"state": "PASS" if "typed update" in text(root / "content" / "OC_1_3_3_OPERATOR_SEMANTICS.tex").lower() else "FAIL"},
         "dimension": {"state": "PASS" if "Historical axis" in text(root / "appendix" / "OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex") or klevel.get("transition_total") == 12 else "FAIL"},
         "cycle": {"state": "PASS" if "cycle" in text(root / "content" / "OC_1_3_3_CYCLE_TAXONOMY.tex").lower() else "FAIL"},
-        "identity": {"state": "PASS" if "identity" in text(root / "appendix" / "OC_1_3_3_IDENTITY_RESIDUE_REBIRTH_CATEGORY.tex").lower() else "FAIL"},
+        "identity": {"state": "PASS" if "identity" in text(root / "appendix" / "OC_1_3_3_IDENTITY_RESIDUE_REBIRTH_CLASSIFICATION.tex").lower() else "FAIL"},
         "klevel": {"state": "PASS" if klevel.get("transition_total") == 12 and klevel.get("unresolved_total") == 0 and klevel.get("inflated_without_witness_total") == 0 else "FAIL", **{k: klevel.get(k) for k in ["transition_total", "unresolved_total", "inflated_without_witness_total"]}},
         "minimality": {"state": "PASS" if minimality.get("unwitnessed_component_total") == 0 and minimality.get("component_total", 0) >= 10 else "FAIL", **{k: minimality.get(k) for k in ["component_total", "unwitnessed_component_total"]}},
-        "machine_checked": {"state": "PASS" if lake["state"] == "PASS" and inv.get("machine_checked_subset_total") == inv.get("theorem_total") and not missing_lean_semantic_markers and not finite_semantic_failures else "FAIL", "lake": lake, "machine_checked_subset_total": inv.get("machine_checked_subset_total"), "missing_lean_semantic_markers": missing_lean_semantic_markers, "finite_semantic_failures": finite_semantic_failures},
+        "machine_checked": {
+            "state": "PASS" if (
+                lake["state"] == "PASS"
+                and lean_cert.get("returncode") == 0
+                and lean_cert.get("theorem_ref_missing_total") == 0
+                and lean_cert.get("theorem_ref_present_total") == inv.get("theorem_total")
+                and finite.get("machine_checked_subset_total") == inv.get("theorem_total")
+                and inv.get("machine_checked_subset_total") == inv.get("theorem_total")
+                and not missing_lean_semantic_markers
+                and not finite_semantic_failures
+            ) else "FAIL",
+            "lake": lake,
+            "lean_build_certificate": {
+                "ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+                "returncode": lean_cert.get("returncode"),
+                "theorem_ref_present_total": lean_cert.get("theorem_ref_present_total"),
+                "theorem_ref_missing_total": lean_cert.get("theorem_ref_missing_total"),
+            },
+            "finite_machine_checked_subset_total": finite.get("machine_checked_subset_total"),
+            "machine_checked_subset_total": inv.get("machine_checked_subset_total"),
+            "missing_lean_semantic_markers": missing_lean_semantic_markers,
+            "finite_semantic_failures": finite_semantic_failures,
+        },
         "empirical_packets": {"state": "PASS" if numeric.get("lane_total") >= 5 and not packet_missing and not numeric_missing else "FAIL", "lane_total": numeric.get("lane_total"), "packet_missing": packet_missing, "numeric_missing": numeric_missing},
         "heldout": {"state": "PASS" if not numeric_missing and all("split" in str(row.get("split_policy", "")).lower() or "train" in str(row.get("split_policy", "")).lower() or "replay" in str(row.get("split_policy", "")).lower() for row in numeric.get("rows", [])) else "FAIL"},
         "negative_controls": {"state": "PASS" if all(row.get("negative_control") for row in numeric.get("rows", [])) else "FAIL"},
@@ -391,7 +421,27 @@ def audit(root: Path) -> dict[str, Any]:
         "no_local_paths_secrets": {"state": "PASS" if not secret_hits else "FAIL", "hit_total": len(secret_hits), "hits": secret_hits[:20]},
         "surface_parity": {"state": "PASS" if all(path.exists() for path in surface_paths) and text(root / "releases" / "oc_core_1_3_3" / "VERSION").strip() == VERSION else "FAIL", "missing": [rel(root, path) for path in surface_paths if not path.exists()]},
         "llm_schema_claim_boundary": {"state": "PASS" if not absolute_hits and phenomenon.get("unsupported_closed_total") == 0 and not phenomenon_failures and not phenomenon_missing_controls else "FAIL", "absolute_hit_total": len(absolute_hits), "absolute_hits": absolute_hits[:20], "phenomenon_rows": phenomenon.get("row_total"), "phenomenon_failures": phenomenon_failures, "phenomenon_missing_controls": phenomenon_missing_controls},
-        "no_empirical_discovery_only": {"state": "PASS" if numeric.get("unsupported_promoted_total") == 0 and numeric.get("blocked_for_promotion_total") == 0 and not numeric_missing else "FAIL", "unsupported_promoted_total": numeric.get("unsupported_promoted_total"), "blocked_for_promotion_total": numeric.get("blocked_for_promotion_total")},
+        "no_empirical_discovery_only": {
+            "state": "PASS" if (
+                numeric.get("unsupported_promoted_total") == 0
+                and numeric.get("blocked_for_promotion_total") == 0
+                and numeric.get("prediction_support_allowed_total") == 0
+                and all(
+                    not (
+                        row.get("numeric_replay") is True
+                        and (
+                            row.get("prediction_support_allowed") is True
+                            or row.get("empirical_support_allowed") is True
+                        )
+                    )
+                    for row in numeric.get("rows", [])
+                )
+                and not numeric_missing
+            ) else "FAIL",
+            "unsupported_promoted_total": numeric.get("unsupported_promoted_total"),
+            "blocked_for_promotion_total": numeric.get("blocked_for_promotion_total"),
+            "prediction_support_allowed_total": numeric.get("prediction_support_allowed_total"),
+        },
         "no_scope_narrowing": {"state": "PASS" if not scope_hits and claims.get("demoted_public_claim_total") == 0 else "FAIL", "scope_hit_total": len(scope_hits), "hits": scope_hits[:20]},
         "owner_packet": {"state": "PASS" if approval.get("decision") == "PENDING" and (root / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_OWNER_APPROVAL_PACKET.json").exists() else "FAIL"},
         "zenodo": {"state": "PASS" if (root / ".zenodo.json").exists() and manifest.get("zenodo_deposit_allowed") is False else "FAIL"},

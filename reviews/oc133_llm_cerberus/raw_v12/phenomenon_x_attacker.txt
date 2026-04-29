@@ -2,43 +2,43 @@
   "role": "phenomenon_x_attacker",
   "findings": [
     {
-      "severity": "CRITICAL",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "All 14 phenomenon rows are PHENOMENON_SPECIFIC_MODEL_REPLAYED with a specific model, observable, negative control, and falsifier.",
-      "failure_mode": "The falsifier text is boilerplate repeated across every row: a finite model flips the claimed observable without runner rejection. That is a harness-level schema, not a phenomenon-specific falsifier. The matrix therefore closes broad phenomenon coverage without naming row-specific countermodel conditions, state changes, or executable falsifier cases.",
-      "required_repair": "Replace the generic falsifier fields with row-specific falsifier conditions tied to each model_card observable and runner case IDs; keep PHENOMENON_SPECIFIC_MODEL_REPLAYED only where the row has a concrete executable falsifier or an explicitly scoped non-executable falsifier boundary.",
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json:10",
+      "claim": "P001 / T133-K0-RES claims a phenomenon-specific model for raw continuity versus K0 distinguishability with observable \"same-cell raw pair is not distinguished; cross-cell quotient pair is distinguished\".",
+      "failure_mode": "The cited finite row FM-T133-K0-RES-POS only has rho_cell_a=0, rho_cell_b=0, raw_distance=0.01, and claims_raw_separation=false, while the runner accepts solely on same cell plus claims_raw_separation is false. It does not check raw_distance>0 as raw separation and contains no cross-cell quotient pair at all, so the advertised observable is not actually replayed.",
+      "required_repair": "Add explicit finite-model fields for a raw-separated same-cell pair and a cross-cell pair, make the runner validate both same-cell non-distinction and cross-cell distinction, and make the negative control flip one of those observables.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "P012 / OC133-NOSEND-001: release governance is explained through claim -> Lean theorem/proof sheet -> semantic finite case -> negative control -> falsifier.",
-      "failure_mode": "The no-send model card cites formal/lean/OC133V12.lean and describes a Lean theorem/proof-sheet route, but the theorem inventory and proof ledger contain only T133-* theorem rows, and OC133V12.lean contains no no-send theorem. The finite no-send checks point at JSON manifests, not Lean. This is theorem-route theater for a governance state machine.",
-      "required_repair": "Either add an OC133-NOSEND theorem inventory row, proof sheet, and Lean lemma over the owner-approval state machine, or reclassify P012 as manifest-only governance evidence with a manifest-specific negative control and falsifier.",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json:226",
+      "claim": "P008-P011 claim PHENOMENON_SPECIFIC_MODEL_REPLAYED for origin-of-life framing, social institutions, theory change, and recursive self-application under T133-KLEVEL.",
+      "failure_mode": "The cited replays FM-KLEVEL-K2_to_K3, FM-KLEVEL-K6_to_K7, FM-KLEVEL-K8_to_K9, and FM-KLEVEL-K9_to_K10 are generic adjacent-K rows. Their executable payload is transition_id/from_k/to_k, string witness text, axis_observed, retained_witness, and verdict_changes; the runner only checks atlas string equality and booleans. No RAF reaction/food/catalysis model, role-norm-action model, claim/evidence update state, or object/meta-level self-application model is encoded.",
+      "required_repair": "Demote these rows to generic K-level examples, or add per-phenomenon finite schemas and runner validators with concrete state variables, observables, negative controls, and falsifiers for each broad phenomenon.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "P005 / T133-HYBRID: OC explains operators in non-smooth proof and rewrite domains.",
-      "failure_mode": "The model card says typed update with smooth chart optional and hybrid guard/reset, while the executable finite cases only check primitive=typed_update, smooth_requires_chart, and hybrid_guard_reset_checked. There is no proof-state carrier, rewrite transition, chart-absence derivative request, or proof/rewrite observable, despite the proof sheet claiming a proof-replay rewrite example.",
-      "required_repair": "Add an executable proof/rewrite model case with theorem states, rewrite steps, no smooth chart, derivative-request rejection, and a smooth-chart negative/control comparison; wire the runner to those fields instead of the primitive string.",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json:18",
+      "claim": "Each broad phenomenon model card has a specific falsifier.",
+      "failure_mode": "The model_card.falsifier text is copy-pasted generic language across the matrix, and the top-level falsifier repeats the same generic countermodel wording. It does not identify the concrete field mutation, finite case ID, observable flip, or acceptance boundary for the specific phenomenon.",
+      "required_repair": "Replace each generic falsifier with a phenomenon-specific falsifier tied to a concrete executable finite row or mutation control, naming the exact model fields to change and the expected runner rejection.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "P002 / T133-ID: OC explains death, residue, and rebirth without identity equivocation.",
-      "failure_mode": "The row is bound only to T133-ID and FM-T133-ID-POS, whose executable model contains morphism=rebirth, identity_invariant_preserved=false, and classified_as_identity=false. It does not encode a death event, residue production/preservation, or a residue-to-new-live rebirth construction. Death coverage exists under T133-OMEGA-STATUS but is not part of this model card route.",
-      "required_repair": "Split P002 into identity/rebirth and death/residue model cards, or bind it to both T133-OMEGA-STATUS and T133-ID with one executable lifecycle model containing death, residueOf, rebirthOf, new live state, identity invariant, and paired negative controls.",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py:114",
+      "claim": "T133-KLEVEL claims every declared adjacent K-level transition has a Lean atlas witness and executable finite row.",
+      "failure_mode": "K-level rows carry lean_constructor values, but klevel_schema_valid only compares transition_id, from_k, to_k, added_axis, witness_pair, reduction_failure_criterion, and lawful_demotion_criterion against the atlas. A row with the wrong Lean constructor could still pass, so the finite runner does not actually bind the executable row to the advertised Lean witness.",
+      "required_repair": "Include lean_constructor in the atlas contract, validate transition_id-to-AdjacentK mapping in klevel_schema_valid, and add a mutation control that proves a wrong lean_constructor is rejected.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-OMEGA-STATUS: live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-      "failure_mode": "The promoted Lean subset declared_death_blocks_live has the shape death=true -> live=false -> live=true -> False. It assumes live=false instead of deriving it from death or a lifecycle consistency invariant, and it does not machine-check residue/rebirth non-interchangeability. The theorem inventory promotes this as the machine-checked subset for the broader status claim.",
-      "required_repair": "Define and prove a lifecycle consistency invariant that derives death=true -> live=false and separately proves residue/rebirth/identity separation, then update the theorem inventory and finite model checks to point at the strengthened theorem or demote the claim scope.",
+      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json:3626",
+      "claim": "P012 / OC133-NOSEND-001 uses ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL as a valid owner-approved negative control.",
+      "failure_mode": "The negative-control row asserts owner_approved=true and publish_allowed=true while its lean_ref points to releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json, whose current contents say decision=PENDING, owner_approved=false, and publish_allowed=false. The control is therefore not source-backed by the referenced owner artifact.",
+      "required_repair": "Either reference a separate explicit hypothetical approved-control fixture, clearly outside the live no-send control plane, or align the row with the current owner approval artifact and remove the allow-after-approval control from release evidence.",
       "status": "OPEN"
     }
   ]

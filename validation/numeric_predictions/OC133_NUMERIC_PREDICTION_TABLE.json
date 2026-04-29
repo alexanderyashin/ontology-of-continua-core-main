@@ -7,7 +7,9 @@
   "row_total": 5,
   "unsupported_promoted_total": 0,
   "blocked_for_promotion_total": 0,
-  "scope_policy": "Numeric replay supports only row-level bounded claims. Official snapshots alone never count as empirical promotion.",
+  "quarantined_replay_qa_total": 5,
+  "prediction_support_allowed_total": 0,
+  "scope_policy": "Numeric replay supports only row-level bounded QA claims. Exact official snapshot rows are quarantined from prediction/empirical promotion.",
   "rows": [
     {
       "lane": "physics",
@@ -24,24 +26,30 @@
       "negative_control": "replace c by 300000000 and residual becomes nonzero",
       "falsifier": "NIST snapshot parse does not yield 299792458 m s^-1",
       "numeric_replay": true,
-      "promotion_status": "NUMERIC_REPLAY_QA_NOT_EMPIRICAL_PROMOTION"
+      "prediction_support_allowed": false,
+      "empirical_support_allowed": false,
+      "quarantine_reason": "exact definitional snapshot replay; QA only, not a prediction",
+      "promotion_status": "REPLAY_QA_QUARANTINED_NOT_PREDICTION"
     },
     {
       "lane": "chemistry",
       "claim_id": "OC133-NUM-CHEM-H2O",
-      "claim_scope": "formula-to-molecular-weight replay for water only",
-      "formula": "2*atomic_weight(H)+atomic_weight(O) using conventional rounded masses",
+      "claim_scope": "PubChem molecular-weight field replay for water only",
+      "formula": "predicted molecular weight = pinned PubChem MolecularWeight field parsed from official snapshot",
       "dataset_snapshot_ref": "validation/_raw/chemistry_pubchem_water.txt",
-      "split_policy": "predeclared formula split fixed before reading PubChem observed field",
-      "predicted_value": 18.01528,
+      "split_policy": "snapshot field replay only; no held-out formula-derived chemistry claim",
+      "predicted_value": 18.015,
       "observed_value": 18.015,
       "uncertainty": 0.02,
       "comparator_prediction": 18.0,
-      "residual": 0.00028,
-      "negative_control": "use CO2 formula against water snapshot; formula and residual fail",
-      "falsifier": "absolute residual exceeds 0.02 u or formula is not H2O",
+      "residual": 0.0,
+      "negative_control": "use CO2 molecular-weight field against water snapshot and require mismatch",
+      "falsifier": "PubChem snapshot parser cannot recover MolecularWeight=18.015 for CID 962",
       "numeric_replay": true,
-      "promotion_status": "NUMERIC_REPLAY_QA_NOT_EMPIRICAL_PROMOTION"
+      "prediction_support_allowed": false,
+      "empirical_support_allowed": false,
+      "quarantine_reason": "official field replay; QA only, not a formula-derived prediction",
+      "promotion_status": "REPLAY_QA_QUARANTINED_NOT_PREDICTION"
     },
     {
       "lane": "biology",
@@ -58,24 +66,30 @@
       "negative_control": "query a different accession and require count mismatch",
       "falsifier": "replay parser cannot recover the pinned count",
       "numeric_replay": true,
-      "promotion_status": "NUMERIC_REPLAY_QA_NOT_EMPIRICAL_PROMOTION"
+      "prediction_support_allowed": false,
+      "empirical_support_allowed": false,
+      "quarantine_reason": "exact official query-count replay; QA only, not a biological prediction",
+      "promotion_status": "REPLAY_QA_QUARANTINED_NOT_PREDICTION"
     },
     {
       "lane": "systems",
       "claim_id": "OC133-NUM-SYS-WDI-GDP",
-      "claim_scope": "one-step GDP replay with comparator, no superiority claim",
-      "formula": "predict latest non-null WDI value by previous-year growth carry-forward",
+      "claim_scope": "retrospective WDI GDP snapshot replay QA with descriptive comparator, no prediction or superiority claim",
+      "formula": "replay latest non-null WDI value from pinned World Bank snapshot and compute residual against the same parsed value",
       "dataset_snapshot_ref": "validation/_raw/systems_world_bank_gdp.txt",
-      "split_policy": "train on two previous non-null years, hold out latest non-null year",
-      "predicted_value": 111428943579470.81,
+      "split_policy": "retrospective snapshot replay only; no train/test or held-out prediction because the snapshot contains the target field",
+      "predicted_value": 110982661180013.0,
       "observed_value": 110982661180013.0,
-      "uncertainty": 4241013358949.0,
+      "uncertainty": 0.0,
       "comparator_prediction": 106741647821064.0,
-      "residual": 446282399457.81,
-      "negative_control": "reverse time order and require split-policy failure",
-      "falsifier": "residual exceeds declared previous-year-change uncertainty",
+      "residual": 0.0,
+      "negative_control": "remove or corrupt the latest WDI value and require replay parser failure",
+      "falsifier": "replay parser cannot recover the pinned latest non-null WDI value",
       "numeric_replay": true,
-      "promotion_status": "HELDOUT_REPLAY_QA_NOT_GENERAL_EMPIRICAL_PROMOTION"
+      "prediction_support_allowed": false,
+      "empirical_support_allowed": false,
+      "quarantine_reason": "snapshot contains the target value; retrospective replay QA only, barred from prediction support",
+      "promotion_status": "REPLAY_QA_QUARANTINED_NOT_PREDICTION"
     },
     {
       "lane": "mathematics",
@@ -92,6 +106,9 @@
       "negative_control": "remove a required tuple component and observe rejected stronger reading",
       "falsifier": "any finite model case has observed verdict different from expected",
       "numeric_replay": true,
+      "prediction_support_allowed": false,
+      "empirical_support_allowed": false,
+      "quarantine_reason": "finite proof-corpus consistency check; not empirical support",
       "promotion_status": "FINITE_MODEL_REPLAY_QA_NOT_EMPIRICAL_PROMOTION"
     }
   ]

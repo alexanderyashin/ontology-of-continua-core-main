@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import argparse
+import concurrent.futures
 import json
 import re
 import subprocess
@@ -135,35 +137,47 @@ Do not include markdown outside the JSON object.
 """
 
 
-def main() -> int:
-    RESULT_DIR.mkdir(parents=True, exist_ok=True)
-    PROMPT_DIR.mkdir(parents=True, exist_ok=True)
-    LAST_DIR.mkdir(parents=True, exist_ok=True)
-    result_refs = []
-    parse_failures = []
-    critical_total = 0
-    high_total = 0
-    for role in ROLES:
-        prompt = prompt_for(role)
-        prompt_path = PROMPT_DIR / f"{role}.txt"
-        output_path = LAST_DIR / f"{role}.txt"
-        prompt_path.write_text(prompt, encoding="utf-8")
-        cmd = [
-            "codex",
-            "exec",
-            "-s",
-            "read-only",
-            "-c",
-            "approval_policy='never'",
-            "-C",
-            str(ROOT),
-            "-o",
-            str(output_path),
-            "-",
-        ]
-        completed = subprocess.run(cmd, input=prompt, cwd=ROOT, text=True, capture_output=True, timeout=420)
-        result_path = RESULT_DIR / f"{role}.json"
-        result_refs.append(result_path.resolve().relative_to(ROOT.resolve()).as_posix())
+def run_role(role: str, timeout_seconds: int = 420) -> dict[str, Any]:
+    prompt = prompt_for(role)
+    prompt_path = PROMPT_DIR / f"{role}.txt"
+    output_path = LAST_DIR / f"{role}.txt"
+    prompt_path.write_text(prompt, encoding="utf-8")
+    cmd = [
+        "codex",
+        "exec",
+        "-s",
+        "read-only",
+        "-c",
+        "approval_policy='never'",
+        "-C",
+        str(ROOT),
+        "-o",
+        str(output_path),
+        "-",
+    ]
+    result_path = RESULT_DIR / f"{role}.json"
+    try:
+        completed = subprocess.run(cmd, input=prompt, cwd=ROOT, text=True, capture_output=True, timeout=timeout_seconds)
+    except subprocess.TimeoutExpired as exc:
+        payload = {
+            "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
+            "role": role,
+            "execution_status": "EXECUTION_TIMEOUT",
+            "critical_open_total": 1,
+            "high_open_total": 0,
+            "finding_total": 1,
+            "findings": [
+                {
+                    "severity": "CRITICAL",
+                    "artifact_ref": "tools/run_oc133_v12_cerberus.py",
+                    "claim": "LLM adversarial review must execute.",
+                    "failure_mode": f"Role `{role}` exceeded timeout_seconds={timeout_seconds}: {exc}",
+                    "required_repair": "Rerun role with smaller context or repair Codex CLI latency; stale prior JSON must not be reused.",
+                    "status": "OPEN",
+                }
+            ],
+        }
+    else:
         if completed.returncode != 0:
             payload = {
                 "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
@@ -183,7 +197,6 @@ def main() -> int:
                     }
                 ],
             }
-            parse_failures.append(role)
         else:
             try:
                 raw = output_path.read_text(encoding="utf-8")
@@ -207,24 +220,118 @@ def main() -> int:
                         }
                     ],
                 }
+    result_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return {
+        "role": role,
+        "payload": payload,
+        "result_ref": result_path.resolve().relative_to(ROOT.resolve()).as_posix(),
+        "parse_failed": payload.get("execution_status") == "PARSE_FAILED",
+        "execution_failed": payload.get("execution_status") in {"EXECUTION_FAILED", "EXECUTION_TIMEOUT"},
+    }
+
+
+def selected_roles(raw_roles: str) -> list[str]:
+    if not raw_roles:
+        return list(ROLES)
+    requested = [role.strip() for role in raw_roles.split(",") if role.strip()]
+    unknown = sorted(set(requested) - set(ROLES))
+    if unknown:
+        raise SystemExit(f"Unknown Cerberus roles: {', '.join(unknown)}")
+    return requested
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Run OC Core 1.3.3 v12 Cerberus review roles.")
+    parser.add_argument("--roles", default="", help="Comma-separated role names. Empty means all roles.")
+    parser.add_argument("--max-workers", type=int, default=1, help="Parallel role workers.")
+    parser.add_argument("--role-timeout", type=int, default=420, help="Per-role Codex CLI timeout seconds.")
+    args = parser.parse_args()
+    roles = selected_roles(args.roles)
+    max_workers = max(1, min(int(args.max_workers), len(roles) or 1))
+    RESULT_DIR.mkdir(parents=True, exist_ok=True)
+    PROMPT_DIR.mkdir(parents=True, exist_ok=True)
+    LAST_DIR.mkdir(parents=True, exist_ok=True)
+    result_refs = []
+    parse_failures = []
+    critical_total = 0
+    high_total = 0
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as pool:
+        futures = {pool.submit(run_role, role, int(args.role_timeout)): role for role in roles}
+        for future in concurrent.futures.as_completed(futures):
+            role_for_future = futures[future]
+            try:
+                result = future.result()
+            except Exception as exc:
+                result_path = RESULT_DIR / f"{role_for_future}.json"
+                payload = {
+                    "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
+                    "role": role_for_future,
+                    "execution_status": "RUNNER_EXCEPTION",
+                    "critical_open_total": 1,
+                    "high_open_total": 0,
+                    "finding_total": 1,
+                    "findings": [
+                        {
+                            "severity": "CRITICAL",
+                            "artifact_ref": "tools/run_oc133_v12_cerberus.py",
+                            "claim": "LLM adversarial review runner must not leave stale role results.",
+                            "failure_mode": repr(exc),
+                            "required_repair": "Fix runner exception handling and rerun the role.",
+                            "status": "OPEN",
+                        }
+                    ],
+                }
+                result_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+                result = {
+                    "role": role_for_future,
+                    "payload": payload,
+                    "result_ref": result_path.resolve().relative_to(ROOT.resolve()).as_posix(),
+                    "parse_failed": False,
+                    "execution_failed": True,
+                }
+            role = result["role"]
+            payload = result["payload"]
+            result_refs.append(result["result_ref"])
+            if result["parse_failed"] or result["execution_failed"]:
                 parse_failures.append(role)
+            critical_total += int(payload.get("critical_open_total", 0))
+            high_total += int(payload.get("high_open_total", 0))
+    aggregate_refs = []
+    pending_roles = []
+    critical_total = 0
+    high_total = 0
+    parse_failures = []
+    for role in ROLES:
+        result_path = RESULT_DIR / f"{role}.json"
+        if not result_path.exists():
+            pending_roles.append(role)
+            continue
+        aggregate_refs.append(result_path.resolve().relative_to(ROOT.resolve()).as_posix())
+        payload = json.loads(result_path.read_text(encoding="utf-8"))
         critical_total += int(payload.get("critical_open_total", 0))
         high_total += int(payload.get("high_open_total", 0))
-        result_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        if payload.get("execution_status") in {"PARSE_FAILED", "EXECUTION_FAILED"}:
+            parse_failures.append(role)
+
     summary = {
         "schema_id": "OC133_LLM_CERBERUS_SUMMARY_v12",
         "release_id": "oc_core_1_3_3",
         "version": "1.3.3",
         "roles": ROLES,
+        "executed_roles_this_run": roles,
         "role_total": len(ROLES),
-        "execution_status": "EXECUTED_WITH_FINDINGS_CLOSED" if critical_total == 0 and high_total == 0 and not parse_failures else "EXECUTED_WITH_OPEN_FINDINGS",
+        "configured_role_total": len(ROLES),
+        "max_workers": max_workers,
+        "execution_status": "EXECUTED_WITH_FINDINGS_CLOSED" if critical_total == 0 and high_total == 0 and not parse_failures and not pending_roles else "EXECUTED_WITH_OPEN_FINDINGS",
         "critical_open_total": critical_total,
         "high_open_total": high_total,
         "parse_failure_total": len(parse_failures),
         "parse_failures": parse_failures,
-        "pending_role_total": 0,
-        "pending_roles": [],
-        "result_refs": result_refs,
+        "pending_role_total": len(pending_roles),
+        "pending_roles": pending_roles,
+        "result_refs": aggregate_refs,
+        "result_refs_this_run": result_refs,
     }
     (ROOT / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=2))

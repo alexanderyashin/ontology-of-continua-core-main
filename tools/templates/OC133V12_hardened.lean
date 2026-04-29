@@ -82,6 +82,23 @@ theorem k0_resolution_does_not_force_raw_separation {S : Type}
   intro hs _
   exact k0_same_cell_not_distinguished rho a b hs
 
+inductive K0CounterPoint where
+  | a
+  | b
+deriving DecidableEq, Repr
+
+def k0CounterResolution : Resolution K0CounterPoint :=
+  { cell := fun _ => 0 }
+
+def k0CounterRawSeparation : RawSeparation K0CounterPoint :=
+  { separated := fun x y => decide (x != y) }
+
+theorem k0_countermodel_raw_separation_not_resolution_distinction :
+    sameCell k0CounterResolution K0CounterPoint.a K0CounterPoint.b /\
+    k0CounterRawSeparation.separated K0CounterPoint.a K0CounterPoint.b = true /\
+    distinguished k0CounterResolution K0CounterPoint.a K0CounterPoint.b = False := by
+  exact And.intro rfl (And.intro (by decide) (k0_same_cell_not_distinguished k0CounterResolution K0CounterPoint.a K0CounterPoint.b rfl))
+
 structure MaintenanceEvidence where
   obligationChecked : Bool
   supportAvailable : Bool
@@ -148,6 +165,21 @@ theorem declared_death_blocks_live {S Residue NewLive : Type}
   intro h
   exact L.deathBlocksLive x h
 
+theorem death_live_conflict_impossible {S Residue NewLive : Type}
+    (L : Lifecycle S Residue NewLive) (x : S) :
+    L.death x = true -> L.live x = true -> False := by
+  intro hdeath hlive
+  have hblocked : L.live x = false := L.deathBlocksLive x hdeath
+  rw [hlive] at hblocked
+  cases hblocked
+
+theorem residue_rebirth_are_typed_source_target_relations {S Residue NewLive : Type}
+    (L : Lifecycle S Residue NewLive) (x : S) (r : Residue) (y : NewLive) :
+    L.residueOf x = some r -> L.rebirthOf r = some y -> L.death x = true ->
+    L.live x = false /\ L.residueOf x = some r /\ L.rebirthOf r = some y := by
+  intro hres hreb hdeath
+  exact And.intro (declared_death_blocks_live L x hdeath) (And.intro hres hreb)
+
 structure MorphismEvidence where
   class : MorphismClass
   invariantPreserved : Bool
@@ -190,17 +222,33 @@ theorem lifecycle_status_morphism_separation {S Residue NewLive : Type}
   intro hdeath hclass hinv
   exact And.intro (declared_death_blocks_live L x hdeath) (rebirth_not_identity_without_invariant m hclass hinv)
 
+theorem lifecycle_residue_rebirth_morphism_boundary {S Residue NewLive : Type}
+    (L : Lifecycle S Residue NewLive) (x : S) (r : Residue) (y : NewLive) (m : MorphismEvidence) :
+    L.death x = true ->
+    L.residueOf x = some r ->
+    L.rebirthOf r = some y ->
+    m.class = MorphismClass.rebirth ->
+    m.invariantPreserved = false ->
+    L.live x = false /\ L.residueOf x = some r /\ L.rebirthOf r = some y /\ Not (isIdentityMorphism m) := by
+  intro hdeath hres hreb hclass hinv
+  exact And.intro
+    (declared_death_blocks_live L x hdeath)
+    (And.intro hres (And.intro hreb (rebirth_not_identity_without_invariant m hclass hinv)))
+
 theorem lifecycle_statuses_and_morphisms_separated {S Residue NewLive : Type}
     (L : Lifecycle S Residue NewLive) (x : S) :
     L.death x = true ->
     L.live x = false /\
+    (L.live x = true -> False) /\
     MorphismClass.residue != MorphismClass.identity /\
     MorphismClass.rebirth != MorphismClass.identity /\
     MorphismClass.residue != MorphismClass.rebirth := by
   intro hdeath
   exact And.intro
     (declared_death_blocks_live L x hdeath)
-    (And.intro residue_is_not_identity (And.intro rebirth_is_not_identity residue_is_not_rebirth))
+    (And.intro
+      (death_live_conflict_impossible L x hdeath)
+      (And.intro residue_is_not_identity (And.intro rebirth_is_not_identity residue_is_not_rebirth)))
 
 theorem residue_or_rebirth_not_identity_without_invariant (m : MorphismEvidence) :
     (m.class = MorphismClass.residue \/ m.class = MorphismClass.rebirth) ->
@@ -211,6 +259,18 @@ theorem residue_or_rebirth_not_identity_without_invariant (m : MorphismEvidence)
   | inl hres => exact residue_preservation_not_identity_without_invariant m hres hinv
   | inr hreb => exact rebirth_not_identity_without_invariant m hreb hinv
 
+theorem residue_or_rebirth_class_blocks_identity (m : MorphismEvidence) :
+    (m.class = MorphismClass.residue \/ m.class = MorphismClass.rebirth) ->
+    Not (isIdentityMorphism m) := by
+  intro hclass hid
+  cases hclass with
+  | inl hres =>
+      rw [hres] at hid
+      exact residue_is_not_identity hid.left
+  | inr hreb =>
+      rw [hreb] at hid
+      exact rebirth_is_not_identity hid.left
+
 theorem identity_positive_case_when_invariant_preserved (m : MorphismEvidence) :
     m.class = MorphismClass.identity -> m.invariantPreserved = true -> isIdentityMorphism m := by
   intro hc hi
@@ -218,10 +278,10 @@ theorem identity_positive_case_when_invariant_preserved (m : MorphismEvidence) :
 
 theorem residue_rebirth_identity_boundary (m : MorphismEvidence) :
     (((m.class = MorphismClass.residue \/ m.class = MorphismClass.rebirth) ->
-      m.invariantPreserved = false -> Not (isIdentityMorphism m)) /\
+      Not (isIdentityMorphism m)) /\
     (m.class = MorphismClass.identity -> m.invariantPreserved = true -> isIdentityMorphism m)) := by
   exact And.intro
-    (residue_or_rebirth_not_identity_without_invariant m)
+    (residue_or_rebirth_class_blocks_identity m)
     (identity_positive_case_when_invariant_preserved m)
 
 def restartClass {S Residue NewLive : Type} (L : Lifecycle S Residue NewLive) (x : S) (y : NewLive) : MorphismClass :=
@@ -337,13 +397,18 @@ structure UpdateSystem where
   step : State -> State
   admissible : State -> Bool
 
+structure SmoothChart (State : Type) where
+  derivative : (State -> State) -> State -> State
+  localLaw : (State -> State) -> State -> Prop
+
 structure SmoothSystem extends UpdateSystem where
-  charted : Bool
+  chart : Option (SmoothChart State)
   flow : Nat -> State -> State
   flow_zero : forall x : State, flow 0 x = x
   step_eq_flow_one : forall x : State, step x = flow 1 x
-  derivativeAvailable : Bool
-  derivative_requires_chart : derivativeAvailable = true -> charted = true
+
+def derivativeAvailable (s : SmoothSystem) : Bool :=
+  s.chart.isSome
 
 def smoothAsUpdate (s : SmoothSystem) : UpdateSystem :=
   { State := s.State, step := s.step, admissible := s.admissible }
@@ -353,42 +418,47 @@ theorem smooth_operator_is_update_special_case (s : SmoothSystem) (x : s.State) 
   exact s.step_eq_flow_one x
 
 theorem differential_notation_requires_chart (s : SmoothSystem) :
-    s.derivativeAvailable = true -> s.charted = true := by
+    derivativeAvailable s = true -> exists c : SmoothChart s.State, s.chart = some c := by
   intro h
-  exact s.derivative_requires_chart h
+  cases hchart : s.chart with
+  | none =>
+      unfold derivativeAvailable at h
+      rw [hchart] at h
+      simp at h
+  | some c =>
+      exact Exists.intro c hchart
 
-structure HybridSystem extends UpdateSystem where
+structure HybridSmoothSystem extends SmoothSystem where
   Mode : Type
   mode : State -> Mode
   guard : State -> Bool
   reset : State -> State
 
-def hybridStep (h : HybridSystem) (x : h.State) : h.State :=
+def hybridStep (h : HybridSmoothSystem) (x : h.State) : h.State :=
   if h.guard x then h.reset x else h.step x
 
-theorem hybrid_guard_uses_reset (h : HybridSystem) (x : h.State) :
+theorem hybrid_guard_uses_reset (h : HybridSmoothSystem) (x : h.State) :
     h.guard x = true -> hybridStep h x = h.reset x := by
   intro hg
   unfold hybridStep
   rw [hg]
 
-theorem hybrid_no_guard_uses_update (h : HybridSystem) (x : h.State) :
+theorem hybrid_no_guard_uses_update (h : HybridSmoothSystem) (x : h.State) :
     h.guard x = false -> hybridStep h x = h.step x := by
   intro hg
   unfold hybridStep
   rw [hg]
 
-theorem smooth_hybrid_operator_semantics (s : SmoothSystem) (h : HybridSystem)
-    (xs : s.State) (xh : h.State) :
-    (smoothAsUpdate s).step xs = s.flow 1 xs /\
-    (s.derivativeAvailable = true -> s.charted = true) /\
-    (h.guard xh = true -> hybridStep h xh = h.reset xh) /\
-    (h.guard xh = false -> hybridStep h xh = h.step xh) := by
+theorem smooth_hybrid_operator_semantics (h : HybridSmoothSystem) (x : h.State) :
+    (smoothAsUpdate h.toSmoothSystem).step x = h.flow 1 x /\
+    (derivativeAvailable h.toSmoothSystem = true -> exists c : SmoothChart h.State, h.chart = some c) /\
+    (h.guard x = true -> hybridStep h x = h.reset x) /\
+    (h.guard x = false -> hybridStep h x = h.step x) := by
   exact And.intro
-    (smooth_operator_is_update_special_case s xs)
+    (smooth_operator_is_update_special_case h.toSmoothSystem x)
     (And.intro
-      (differential_notation_requires_chart s)
-      (And.intro (hybrid_guard_uses_reset h xh) (hybrid_no_guard_uses_update h xh)))
+      (differential_notation_requires_chart h.toSmoothSystem)
+      (And.intro (hybrid_guard_uses_reset h x) (hybrid_no_guard_uses_update h x)))
 
 structure AxisRecord where
   historical : Nat
@@ -535,6 +605,52 @@ theorem component_registry_complete_and_witnessed (c : Component) :
     semanticObligation (dropSemanticComponent fullSemanticCase c) c = false := by
   cases c <;> exact And.intro (by decide) (And.intro rfl (And.intro rfl (And.intro rfl rfl)))
 
+structure ReleaseTuple where
+  semanticCase : OCSemanticCase
+  componentActive : Component -> Bool
+  componentObligation : Component -> Bool
+
+def promotedReleaseTuple : ReleaseTuple :=
+  {
+    semanticCase := fullSemanticCase,
+    componentActive := fun _ => true,
+    componentObligation := semanticObligation fullSemanticCase
+  }
+
+def eraseReleaseTupleComponent (c : Component) : ReleaseTuple :=
+  {
+    semanticCase := dropSemanticComponent fullSemanticCase c,
+    componentActive := fun d => if d = c then false else true,
+    componentObligation := semanticObligation (dropSemanticComponent fullSemanticCase c)
+  }
+
+def releaseTupleVerdict (t : ReleaseTuple) : Status :=
+  semanticVerdict t.semanticCase
+
+theorem release_tuple_component_irredundant (c : Component) :
+    promotedReleaseTuple.componentActive c = true /\
+    promotedReleaseTuple.componentObligation c = true /\
+    releaseTupleVerdict promotedReleaseTuple = Status.pass /\
+    releaseTupleVerdict (eraseReleaseTupleComponent c) = Status.fail /\
+    (eraseReleaseTupleComponent c).componentActive c = false /\
+    (eraseReleaseTupleComponent c).componentObligation c = false := by
+  cases c <;> exact And.intro rfl (And.intro rfl (And.intro rfl (And.intro rfl (And.intro (by decide) rfl))))
+
+inductive KAxis where
+  | continuity
+  | phaseThreshold
+  | autocatalyticClosure
+  | membraneBoundary
+  | excitableRegulation
+  | bindingPrediction
+  | trustCoordination
+  | regimeShift
+  | theoryDynamics
+  | recursiveSelfApplication
+  | crossDomainCoherence
+  | releaseGovernance
+deriving DecidableEq, Repr
+
 inductive ReductionVerdict where
   | preserves
   | losesWitness
@@ -544,9 +660,9 @@ structure KTransitionModel where
   transition : AdjacentK
   lowerLevel : Nat
   upperLevel : Nat
-  upperAxisValue : Nat
-  reducedAxisValue : Nat
-  threshold : Nat
+  axis : KAxis
+  retainedWitnessActive : Bool
+  reducedWitnessActive : Bool
 deriving Repr
 
 def lowerCode : AdjacentK -> Nat
@@ -566,29 +682,45 @@ def lowerCode : AdjacentK -> Nat
 def upperCode (k : AdjacentK) : Nat :=
   lowerCode k + 1
 
-def axisVerdict (value threshold : Nat) : Bool :=
-  decide (value > threshold)
+def axisFor : AdjacentK -> KAxis
+  | AdjacentK.k0_k1 => KAxis.continuity
+  | AdjacentK.k1_k2 => KAxis.phaseThreshold
+  | AdjacentK.k2_k3 => KAxis.autocatalyticClosure
+  | AdjacentK.k3_k4 => KAxis.membraneBoundary
+  | AdjacentK.k4_k5 => KAxis.excitableRegulation
+  | AdjacentK.k5_k6 => KAxis.bindingPrediction
+  | AdjacentK.k6_k7 => KAxis.trustCoordination
+  | AdjacentK.k7_k8 => KAxis.regimeShift
+  | AdjacentK.k8_k9 => KAxis.theoryDynamics
+  | AdjacentK.k9_k10 => KAxis.recursiveSelfApplication
+  | AdjacentK.k10_k11 => KAxis.crossDomainCoherence
+  | AdjacentK.k11_k12 => KAxis.releaseGovernance
+
+def transitionMatchesAtlas (m : KTransitionModel) : Prop :=
+  m.lowerLevel = lowerCode m.transition /\
+  m.upperLevel = upperCode m.transition /\
+  m.axis = axisFor m.transition
 
 def upperKVerdict (m : KTransitionModel) : Bool :=
-  axisVerdict m.upperAxisValue m.threshold
+  m.retainedWitnessActive
 
 def reducedKVerdict (m : KTransitionModel) : Bool :=
-  axisVerdict m.reducedAxisValue m.threshold
+  m.reducedWitnessActive
 
 def reductionFails (m : KTransitionModel) : Prop :=
-  upperKVerdict m = true /\ reducedKVerdict m = false
+  transitionMatchesAtlas m /\ upperKVerdict m = true /\ reducedKVerdict m = false
 
 def lawfulDemotion (m : KTransitionModel) : Prop :=
-  upperKVerdict m = reducedKVerdict m
+  transitionMatchesAtlas m /\ upperKVerdict m = false /\ reducedKVerdict m = false
 
 def retainedTransitionEvidence (k : AdjacentK) : KTransitionModel :=
   {
     transition := k,
     lowerLevel := lowerCode k,
     upperLevel := upperCode k,
-    upperAxisValue := upperCode k,
-    reducedAxisValue := 0,
-    threshold := 0
+    axis := axisFor k,
+    retainedWitnessActive := true,
+    reducedWitnessActive := false
   }
 
 def demotedTransitionEvidence (k : AdjacentK) : KTransitionModel :=
@@ -596,9 +728,9 @@ def demotedTransitionEvidence (k : AdjacentK) : KTransitionModel :=
     transition := k,
     lowerLevel := lowerCode k,
     upperLevel := upperCode k,
-    upperAxisValue := 0,
-    reducedAxisValue := 0,
-    threshold := 0
+    axis := axisFor k,
+    retainedWitnessActive := false,
+    reducedWitnessActive := false
   }
 
 theorem retained_transition_reduction_fails (k : AdjacentK) :
@@ -610,9 +742,9 @@ theorem demoted_transition_is_lawful (k : AdjacentK) :
   cases k <;> decide
 
 theorem adjacent_witness_blocks_reduction (m : KTransitionModel) :
-    upperKVerdict m = true -> reducedKVerdict m = false -> reductionFails m := by
-  intro hu hr
-  exact And.intro hu hr
+    transitionMatchesAtlas m -> upperKVerdict m = true -> reducedKVerdict m = false -> reductionFails m := by
+  intro hmatch hu hr
+  exact And.intro hmatch (And.intro hu hr)
 
 theorem every_adjacent_transition_has_witness (k : AdjacentK) :
     exists m : KTransitionModel, m.transition = k /\ reductionFails m := by
@@ -620,9 +752,9 @@ theorem every_adjacent_transition_has_witness (k : AdjacentK) :
   exact And.intro rfl (retained_transition_reduction_fails k)
 
 theorem demotion_requires_lost_witness (m : KTransitionModel) :
-    lawfulDemotion m -> upperKVerdict m = reducedKVerdict m := by
+    lawfulDemotion m -> upperKVerdict m = false /\ reducedKVerdict m = false := by
   intro h
-  exact h
+  exact And.intro h.right.left h.right.right
 
 theorem every_adjacent_transition_has_lawful_demotion_case (k : AdjacentK) :
     exists m : KTransitionModel, m.transition = k /\ lawfulDemotion m := by
@@ -633,10 +765,36 @@ theorem every_adjacent_transition_has_witness_and_demotion (k : AdjacentK) :
     exists retained demoted : KTransitionModel,
       retained.transition = k /\
       demoted.transition = k /\
+      retained.axis = axisFor k /\
+      demoted.axis = axisFor k /\
       reductionFails retained /\
       lawfulDemotion demoted := by
   refine Exists.intro (retainedTransitionEvidence k) ?_
   refine Exists.intro (demotedTransitionEvidence k) ?_
-  exact And.intro rfl (And.intro rfl (And.intro (retained_transition_reduction_fails k) (demoted_transition_is_lawful k)))
+  exact And.intro rfl (And.intro rfl (And.intro rfl (And.intro rfl (And.intro (retained_transition_reduction_fails k) (demoted_transition_is_lawful k)))))
+
+theorem every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion (k : AdjacentK) :
+    exists retained demoted : KTransitionModel,
+      retained.transition = k /\
+      demoted.transition = k /\
+      transitionMatchesAtlas retained /\
+      transitionMatchesAtlas demoted /\
+      reductionFails retained /\
+      lawfulDemotion demoted /\
+      upperKVerdict retained = true /\
+      reducedKVerdict retained = false /\
+      upperKVerdict demoted = false /\
+      reducedKVerdict demoted = false := by
+  refine Exists.intro (retainedTransitionEvidence k) ?_
+  refine Exists.intro (demotedTransitionEvidence k) ?_
+  exact And.intro rfl
+    (And.intro rfl
+      (And.intro (by cases k <;> exact And.intro rfl (And.intro rfl rfl))
+        (And.intro (by cases k <;> exact And.intro rfl (And.intro rfl rfl))
+          (And.intro (retained_transition_reduction_fails k)
+            (And.intro (demoted_transition_is_lawful k)
+              (And.intro rfl
+                (And.intro rfl
+                  (And.intro rfl rfl))))))))
 
 end OC133V12

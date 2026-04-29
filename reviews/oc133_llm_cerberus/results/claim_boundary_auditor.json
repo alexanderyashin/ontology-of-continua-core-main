@@ -1,51 +1,18 @@
 {
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "claim_boundary_auditor",
-  "execution_status": "EXECUTED",
-  "critical_open_total": 0,
-  "high_open_total": 5,
-  "finding_total": 5,
+  "execution_status": "EXECUTION_TIMEOUT",
+  "critical_open_total": 1,
+  "high_open_total": 0,
+  "finding_total": 1,
   "findings": [
     {
-      "severity": "HIGH",
-      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "critical_unresolved_total=0, high_unresolved_total=0, generic_row_total=0 for the v12 attack matrix",
-      "failure_mode": "The matrix closes repeated critical/high attacks with templated closure text and weak verification queries rather than claim-specific evidence. Example: hidden type ambiguity for T133-OMEGA-STATUS is closed by eligible_live_requires_cycle, which is about eligible live support and does not establish death/residue/rebirth type separation. This makes the zero-unresolved summary a review-theater overclaim.",
-      "required_repair": "Reopen each critical/high row whose closure query is not semantically entailed by the attacked claim; require a claim-specific theorem, executable check, or source-backed artifact field that directly discharges the named failure mode; then recompute unresolved totals.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-K-ZERO: Continuumness zero follows from a declared zero-cause family, not only from empty admissibility or empty cycles.",
-      "failure_mode": "The promoted claim is stronger than the current evidence. formal/lean/OC133V12.lean defines kZeroLicensed as hasZeroCause and proves zero_cause_has_cause / k_zero_iff_declared_zero_cause definitionally; the finite runner accepts k_value=0 plus any true zero_cause. No artifact proves a continuumness score, nonempty admissibility/cycle contrast, or the forward no-zero-without-cause direction.",
-      "required_repair": "Either formalize the continuumness score, admissibility, cycles, and zero-cause relation and prove the actual iff with finite positive/negative rows for both directions, or demote the claim to a declared zero-cause flag replay in toy release semantics.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-      "failure_mode": "The Lean support does not prove the advertised boundary. declared_death_blocks_live requires L.live x = false and L.live x = true, while the death premise is not what derives non-liveness; Lifecycle still permits death=true and live=true. The finite cases avoid or reject a hand-picked conflict but do not establish typed separation of live/death/residue/rebirth beyond field naming.",
-      "required_repair": "Add explicit lifecycle invariants and theorems such as death_implies_not_live plus residue/rebirth/non-identity separation, with finite cases that fail when death and live coexist; otherwise demote the claim to syntactic field separation only.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
-      "failure_mode": "The minimality result is self-confirming. formal/lean/OC133V12.lean defines ocTupleVerdict as pass exactly when all component flags are true, so dropping any component fails by construction; the finite runner checks the same keep/drop flag pattern. This does not independently show that the components are required by OC semantics rather than by the checklist definition.",
-      "required_repair": "Replace the flag-conjunction verdict with independent release tests tied to the theorem semantics and show each component changes at least one pre-existing verdict; or demote to by-construction tuple checklist coverage.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
-      "failure_mode": "The witness and reduction evidence are declared rather than demonstrated. formal/lean/OC133V12.lean constructs retainedTransitionEvidence and demotedTransitionEvidence with witnessRetained, addedAxisObservable, demotionAllowed, and reduction already set; the runner validates code arithmetic and those booleans. It does not provide executable lower-vs-upper semantic models proving irreducibility for each transition.",
-      "required_repair": "For each adjacent transition, add executable lower/upper model pairs where removing the added axis changes an independently defined verdict, plus demotion controls where the witness is observationally inert; otherwise demote to a declared transition registry.",
+      "severity": "CRITICAL",
+      "artifact_ref": "tools/run_oc133_v12_cerberus.py",
+      "claim": "LLM adversarial review must execute.",
+      "failure_mode": "Role `claim_boundary_auditor` exceeded timeout_seconds=360: Command '['codex', 'exec', '-s', 'read-only', '-c', \"approval_policy='never'\", '-C', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main', '-o', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\reviews\\\\oc133_llm_cerberus\\\\raw_v12\\\\claim_boundary_auditor.txt', '-']' timed out after 360 seconds",
+      "required_repair": "Rerun role with smaller context or repair Codex CLI latency; stale prior JSON must not be reused.",
       "status": "OPEN"
     }
-  ],
-  "raw_output_ref": "reviews/oc133_llm_cerberus/raw_v12/claim_boundary_auditor.txt"
+  ]
 }

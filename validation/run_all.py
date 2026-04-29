@@ -53,6 +53,7 @@ def main() -> int:
         "numeric_replay_row_total": numeric_payload.get("row_total", 0),
         "numeric_replay_lane_total": numeric_payload.get("lane_total", 0),
         "numeric_blocked_for_promotion_total": numeric_payload.get("blocked_for_promotion_total", 0),
+        "numeric_quarantined_replay_qa_total": numeric_payload.get("quarantined_replay_qa_total", 0),
         "verdict": "PASS_NO_FAKE_EMPIRICAL_PASS" if not hash_failures and unsupported_promoted_total == 0 else "FAIL",
     }
     reports = ROOT / "reports"
@@ -66,6 +67,7 @@ def main() -> int:
         f"Unsupported promoted empirical rows: `{payload['unsupported_promoted_total']}`",
         f"Numeric replay rows: `{payload['numeric_replay_row_total']}`",
         f"Numeric blocked-for-promotion rows: `{payload['numeric_blocked_for_promotion_total']}`",
+        f"Numeric quarantined replay-QA rows: `{payload['numeric_quarantined_replay_qa_total']}`",
         "",
         "| Lane | Verdict | Blocker |",
         "| --- | --- | --- |",

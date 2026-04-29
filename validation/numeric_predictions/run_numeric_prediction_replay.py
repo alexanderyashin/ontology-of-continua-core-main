@@ -38,8 +38,23 @@ def main() -> int:
             "residual_matches": abs(residual - declared) <= max(1e-6, abs(declared) * 1e-9),
             "negative_control_residual": negative_residual,
             "negative_control_rejected": negative_residual > tolerance,
+            "prediction_support_allowed": row.get("prediction_support_allowed", False),
+            "empirical_support_allowed": row.get("empirical_support_allowed", False),
+            "replay_barred_from_prediction_support": not (
+                row.get("numeric_replay") is True
+                and (
+                    row.get("prediction_support_allowed") is True
+                    or row.get("empirical_support_allowed") is True
+                )
+            ),
+            "quarantine_reason": row.get("quarantine_reason", ""),
         })
-    failures = [row for row in rows if not row["residual_matches"] or not row["negative_control_rejected"]]
+    failures = [
+        row for row in rows
+        if not row["residual_matches"]
+        or not row["negative_control_rejected"]
+        or not row["replay_barred_from_prediction_support"]
+    ]
     h = hashlib.sha256()
     h.update(table_path.read_bytes())
     log = {

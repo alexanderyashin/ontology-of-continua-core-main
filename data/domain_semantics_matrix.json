@@ -64,18 +64,18 @@
     {
       "domain": "systems_time_series",
       "carrier": "official WDI time series",
-      "realization": "held-out replay row",
-      "boundary": "split policy and residual tolerance",
-      "operator": "one-step prediction rule",
-      "falsifier": "held-out residual exceeds uncertainty"
+      "realization": "retrospective snapshot replay row",
+      "boundary": "parser recovery and replay residual check",
+      "operator": "pinned-field replay rule",
+      "falsifier": "latest pinned WDI value cannot be recovered"
     },
     {
-      "domain": "category_structural",
-      "carrier": "typed objects and morphisms",
+      "domain": "typed_morphism_classification",
+      "carrier": "typed source, residue, and target records",
       "realization": "identity/residue/rebirth classifier",
-      "boundary": "invariant preservation predicate",
-      "operator": "morphism composition",
-      "falsifier": "residue morphism accepted as identity"
+      "boundary": "morphism class plus invariant preservation predicate",
+      "operator": "typed source-target classification",
+      "falsifier": "residue or rebirth class accepted as identity continuation"
     },
     {
       "domain": "release_governance",

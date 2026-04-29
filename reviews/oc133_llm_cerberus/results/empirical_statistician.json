@@ -3,63 +3,55 @@
   "role": "empirical_statistician",
   "execution_status": "EXECUTED",
   "critical_open_total": 1,
-  "high_open_total": 6,
-  "finding_total": 7,
+  "high_open_total": 5,
+  "finding_total": 6,
   "findings": [
+    {
+      "severity": "HIGH",
+      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
+      "claim": "OC133-NUM-SYS-WDI-GDP: one-step GDP replay QA with comparator, no prediction or superiority claim; split_policy says train on two previous non-null years and hold out latest non-null year.",
+      "failure_mode": "The row still uses prediction/heldout language while its own quarantine_reason says the snapshot contains the target. The declared uncertainty 4241013358949.0 equals observed_value 110982661180013.0 minus comparator_prediction 106741647821064.0, so the falsifier threshold is computed from the held-out observation. This cannot support heldout/comparator/residual validity.",
+      "required_repair": "Remove predict/holdout/falsifier-threshold language and report pure retrospective replay only, or provide a train-only/preregistered derivation of prediction, comparator, uncertainty, residual, and pass/fail from data locked before target availability.",
+      "status": "OPEN"
+    },
     {
       "severity": "CRITICAL",
       "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 for the v12 attack matrix",
-      "failure_mode": "The matrix self-closes 210 objections by repeated generic rows and token-level closure evidence such as status strings or theorem names. It does not adjudicate the specific numeric, heldout, comparator, prior-art, or finite-witness failures still present in the current artifacts, so the zero unresolved critical/high totals are not supported.",
-      "required_repair": "Recompute the attack matrix from unique objection-specific reviews; keep any row OPEN until the cited artifact directly repairs the failure mode, and remove aggregate zero-unresolved totals until all current reviewer findings are actually closed.",
+      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 for empirical attacks closed by prediction_support_allowed_total=0 and empirical_support_allowed=false.",
+      "failure_mode": "The closure criterion does not test heldout split integrity or target-leakage in the current GDP row. It closes CERBERUS-020/021 while the numeric table still contains target-leaked uncertainty and heldout/predict language.",
+      "required_repair": "Reopen the empirical closure rows; add closure predicates for train-only split, target availability, uncertainty, comparator, residual, and pass/fail logic, then recompute unresolved totals.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
-      "claim": "OC133-NUM-SYS-WDI-GDP: one-step GDP replay with comparator, no superiority claim",
-      "failure_mode": "The row calls the 2024 WDI value held out, but its declared uncertainty equals the heldout 2024 value minus the 2023 comparator, so the pass threshold uses the observed holdout. That turns the residual check into post-hoc replay rather than a valid heldout test.",
-      "required_repair": "Compute prediction, comparator, and tolerance only from pre-holdout training years with a frozen protocol and exact formula, or demote the row to non-heldout snapshot replay and remove heldout/residual-pass language.",
+      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+      "claim": "T133-KLEVEL / K11_to_K12: added_axis 'coherence -> release-governed civilizational closure' passes as FAILS_WITH_WITNESS.",
+      "failure_mode": "The actual witness is only owner-gated public action/no-send governance. The check passes declared atlas strings and booleans, not evidence for civilizational closure. This relabels release-governance plumbing as an absolute-sounding K12 axis.",
+      "required_repair": "Rename K11_to_K12 to bounded release-governance/no-send control, or demote it until independent comparator/model-card evidence and a non-circular evaluator support civilizational closure.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
-      "claim": "OC133-NUM-CHEM-H2O: formula-to-molecular-weight replay for water only",
-      "failure_mode": "The official PubChem snapshot supplies H2O and MolecularWeight=18.015, but the table's predicted_value=18.01528 depends on unstated atomic weights. The claimed formula replay is therefore not reproducible from the cited official snapshot alone, and the 'predeclared formula split' is not evidenced.",
-      "required_repair": "Add pinned atomic-weight source data and a replay script/hash that derives 18.01528 before reading the observed molecular weight, or change the claim to a PubChem molecular-weight field replay and remove unsupported formula/split language.",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "P012 route: claim OC133-NOSEND-001 -> Lean theorem/proof sheet -> semantic finite case -> negative control -> falsifier.",
+      "failure_mode": "OC133-NOSEND-001 is not in the theorem inventory and OC133V12.lean has no no-send theorem. The row advertises a Lean/proof-sheet route for what is actually a publish-manifest plus finite no-send state-machine check.",
+      "required_repair": "Rewrite P012 as claim -> owner approval/publish manifest -> finite no-send state-machine check, or add and inventory an actual Lean no-send theorem and proof sheet.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "T133-KLEVEL: every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion",
-      "failure_mode": "The evaluator checks only numeric code alignment and Boolean flags for adjacent K transitions. The substantive fields in the finite inputs, including added_axis, witness_pair, reduction_failure_criterion, and lawful_demotion_criterion, are not semantically evaluated, so arbitrary relabeled transition stories can still pass.",
-      "required_repair": "Either demote the claim to synthetic code/flag alignment, or implement transition-specific semantic predicates and adversarial negative controls that mutate the witness and reduction/demotion criteria and fail for the right reason.",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "T133-HYBRID: Differential operator notation is a smooth-realization specialization of typed update semantics.",
+      "failure_mode": "The cited Lean theorem proves only record-field routing over arbitrary State: flow-one equality, optional chart existence, and guard/reset behavior. It does not define smooth structure, derivatives, differential operators, ODEs, or analytic laws.",
+      "required_repair": "Demote to typed update plus optional chart and guard/reset routing, or formalize actual smooth/differential semantics with aligned finite/domain checks.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-MIN: each promoted tuple component is required by a verdict-changing witness pair",
-      "failure_mode": "The Lean proof defines ocTupleVerdict to pass exactly when all component booleans are true, then proves by cases that dropping any one Boolean fails. This establishes a tautology of the chosen encoding, not empirical or formal irreducibility against relabeling or alternative equivalent encodings.",
-      "required_repair": "Demote the theorem to 'under this Boolean all-components-present encoding', or add a non-tautological minimality specification with adversarial alternative encodings and executable witnesses showing each component changes an independently defined verdict.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-OMEGA-STATUS: live status, death, residue, and rebirth are distinct typed predicates and morphism classes",
-      "failure_mode": "The inventory cites formal/lean/OC133V12.lean::declared_death_blocks_live, but that theorem only derives a contradiction from live=false and live=true under a death premise. It does not prove distinct residue/rebirth morphism classes or a death-to-not-live rule without assuming not-live separately.",
-      "required_repair": "Replace the cited theorem with machine-checked statements that explicitly type and separate live, death, residue, rebirth, and identity invariants, or narrow the public claim to the contradiction actually proved.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-      "claim": "OC133-NOVELTY-001: prior-art comparison supports bounded positioning of the OC release-governance bundle",
-      "failure_mode": "The register uses single source pages and NOT_FOUND_IN_SOURCE_PAGE/PARTIAL labels as residual-delta evidence. That is not a sufficient prior-art protocol for positioning the release-governance bundle, especially against adjacent traditions such as formal methods, registered reports, reproducibility tooling, CI gates, and publication governance.",
-      "required_repair": "Demote the register to illustrative overlap notes, or add a systematic prior-art search protocol with query strings, databases, inclusion/exclusion criteria, dated captures, and explicit residual-delta tests before using it to support bounded positioning.",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
+      "failure_mode": "The current Lean support proves death blocks live and enum inequalities among residue/rebirth/identity. It does not make live/death morphism classes or connect Lifecycle.residueOf/rebirthOf relations to MorphismEvidence.",
+      "required_repair": "Rewrite to the exact supported theorem, or add Lean definitions/proofs connecting lifecycle predicates, residue/rebirth source-target relations, and MorphismEvidence with matching finite cases.",
       "status": "OPEN"
     }
   ],

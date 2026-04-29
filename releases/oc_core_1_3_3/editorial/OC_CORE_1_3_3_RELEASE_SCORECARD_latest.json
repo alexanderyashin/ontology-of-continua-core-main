@@ -13,22 +13,22 @@
     "master_verdict": "FAIL",
     "gate_counts": {
       "BLOCKED": 1,
-      "FAIL": 1,
+      "FAIL": 2,
       "NOT_APPLICABLE": 0,
       "NOT_RUN": 0,
-      "PASS": 69,
+      "PASS": 68,
       "WARN": 0
     },
-    "critical_findings": 2,
+    "critical_findings": 3,
     "high_findings": 0,
-    "finding_total": 2,
+    "finding_total": 3,
     "owner_approval_required": true,
     "global_no_send_lock": true,
     "publish_allowed": false,
     "journal_submissions_allowed": false,
     "package": "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip",
-    "package_sha256": "82efb42bb18e68a8d321f4f5ffea4719598a9d2fd769670591a53c3f9cd9f5bc",
-    "artifact_total": 205
+    "package_sha256": "344bde61b2cf37dd9c611c6674566dc1258dee876cd7a2299ae8974e9366f005",
+    "artifact_total": 213
   },
   "gate_results": [
     {
@@ -511,18 +511,18 @@
           {
             "domain": "systems_time_series",
             "carrier": "official WDI time series",
-            "realization": "held-out replay row",
-            "boundary": "split policy and residual tolerance",
-            "operator": "one-step prediction rule",
-            "falsifier": "held-out residual exceeds uncertainty"
+            "realization": "retrospective snapshot replay row",
+            "boundary": "parser recovery and replay residual check",
+            "operator": "pinned-field replay rule",
+            "falsifier": "latest pinned WDI value cannot be recovered"
           },
           {
-            "domain": "category_structural",
-            "carrier": "typed objects and morphisms",
+            "domain": "typed_morphism_classification",
+            "carrier": "typed source, residue, and target records",
             "realization": "identity/residue/rebirth classifier",
-            "boundary": "invariant preservation predicate",
-            "operator": "morphism composition",
-            "falsifier": "residue morphism accepted as identity"
+            "boundary": "morphism class plus invariant preservation predicate",
+            "operator": "typed source-target classification",
+            "falsifier": "residue or rebirth class accepted as identity continuation"
           },
           {
             "domain": "release_governance",
@@ -703,6 +703,13 @@
           "stdout_tail": "Build completed successfully (0 jobs).\n",
           "stderr_tail": ""
         },
+        "lean_build_certificate": {
+          "ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+          "returncode": 0,
+          "theorem_ref_present_total": 10,
+          "theorem_ref_missing_total": 0
+        },
+        "finite_machine_checked_subset_total": 10,
         "machine_checked_subset_total": 10,
         "missing_lean_semantic_markers": [],
         "finite_semantic_failures": []
@@ -824,12 +831,12 @@
     {
       "gate_id": "G57",
       "name": "G57_ATTACK_MATRIX_ZERO_CRITICAL_HIGH",
-      "state": "PASS",
+      "state": "FAIL",
       "severity": "CRITICAL",
       "summary": "G57_ATTACK_MATRIX_ZERO_CRITICAL_HIGH checked by v12 no-compromise release profile.",
       "details": {
-        "state": "PASS",
-        "objection_total": 210,
+        "state": "FAIL",
+        "objection_total": 194,
         "critical_unresolved_total": 0,
         "high_unresolved_total": 0,
         "attack_closure_failures": []
@@ -863,8 +870,8 @@
           "reviews/oc133_llm_cerberus/results/public_surface_auditor.json"
         ],
         "pending_role_total": 0,
-        "critical_open_total": 18,
-        "high_open_total": 66,
+        "critical_open_total": 11,
+        "high_open_total": 34,
         "parse_failure_total": 0
       },
       "executed": true
@@ -930,7 +937,8 @@
       "details": {
         "state": "PASS",
         "unsupported_promoted_total": 0,
-        "blocked_for_promotion_total": 0
+        "blocked_for_promotion_total": 0,
+        "prediction_support_allowed_total": 0
       },
       "executed": true
     },
@@ -1009,7 +1017,7 @@
       "severity": "CRITICAL",
       "summary": "G70_10_10_SCIENTIFIC_CLOSURE_VERDICT checked by v12 no-compromise release profile.",
       "details": {
-        "prior_critical_high_bad_total": 1,
+        "prior_critical_high_bad_total": 2,
         "release_state_on_pass": "OC_CORE_1_3_3_10_10_READY_NO_SEND"
       },
       "executed": true

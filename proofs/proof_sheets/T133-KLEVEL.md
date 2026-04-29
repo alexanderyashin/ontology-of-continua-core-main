@@ -2,8 +2,8 @@
 
 Status: `PROMOTED_BOUNDED_THEOREM_V12`
 Primary artifact: `appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex`
-Machine-checked subset: `formal/lean/OC133V12.lean::every_adjacent_transition_has_witness_and_demotion`
-Attacked claim: Every declared adjacent K-level transition K0->K12 has a table-bound witness, reduction-failure criterion, and lawful demotion criterion in the v12 classifier atlas.
+Machine-checked subset: `formal/lean/OC133V12.lean::every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion`
+Attacked claim: Every declared adjacent K-level transition K0->K12 has a classifier-atlas row, retained-witness reduction-failure check, executable finite row, and lawful demotion predicate inside the v12 release classifier.
 
 ## Assumptions
 - K-levels are release-governed classifier levels, not metaphysical ranks.

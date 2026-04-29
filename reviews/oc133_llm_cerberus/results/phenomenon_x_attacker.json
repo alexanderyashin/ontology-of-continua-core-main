@@ -1,51 +1,18 @@
 {
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "phenomenon_x_attacker",
-  "execution_status": "EXECUTED",
+  "execution_status": "EXECUTION_TIMEOUT",
   "critical_open_total": 1,
-  "high_open_total": 4,
-  "finding_total": 5,
+  "high_open_total": 0,
+  "finding_total": 1,
   "findings": [
     {
       "severity": "CRITICAL",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "All 14 phenomenon rows are PHENOMENON_SPECIFIC_MODEL_REPLAYED with a specific model, observable, negative control, and falsifier.",
-      "failure_mode": "The falsifier text is boilerplate repeated across every row: a finite model flips the claimed observable without runner rejection. That is a harness-level schema, not a phenomenon-specific falsifier. The matrix therefore closes broad phenomenon coverage without naming row-specific countermodel conditions, state changes, or executable falsifier cases.",
-      "required_repair": "Replace the generic falsifier fields with row-specific falsifier conditions tied to each model_card observable and runner case IDs; keep PHENOMENON_SPECIFIC_MODEL_REPLAYED only where the row has a concrete executable falsifier or an explicitly scoped non-executable falsifier boundary.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "P012 / OC133-NOSEND-001: release governance is explained through claim -> Lean theorem/proof sheet -> semantic finite case -> negative control -> falsifier.",
-      "failure_mode": "The no-send model card cites formal/lean/OC133V12.lean and describes a Lean theorem/proof-sheet route, but the theorem inventory and proof ledger contain only T133-* theorem rows, and OC133V12.lean contains no no-send theorem. The finite no-send checks point at JSON manifests, not Lean. This is theorem-route theater for a governance state machine.",
-      "required_repair": "Either add an OC133-NOSEND theorem inventory row, proof sheet, and Lean lemma over the owner-approval state machine, or reclassify P012 as manifest-only governance evidence with a manifest-specific negative control and falsifier.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "P005 / T133-HYBRID: OC explains operators in non-smooth proof and rewrite domains.",
-      "failure_mode": "The model card says typed update with smooth chart optional and hybrid guard/reset, while the executable finite cases only check primitive=typed_update, smooth_requires_chart, and hybrid_guard_reset_checked. There is no proof-state carrier, rewrite transition, chart-absence derivative request, or proof/rewrite observable, despite the proof sheet claiming a proof-replay rewrite example.",
-      "required_repair": "Add an executable proof/rewrite model case with theorem states, rewrite steps, no smooth chart, derivative-request rejection, and a smooth-chart negative/control comparison; wire the runner to those fields instead of the primitive string.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "P002 / T133-ID: OC explains death, residue, and rebirth without identity equivocation.",
-      "failure_mode": "The row is bound only to T133-ID and FM-T133-ID-POS, whose executable model contains morphism=rebirth, identity_invariant_preserved=false, and classified_as_identity=false. It does not encode a death event, residue production/preservation, or a residue-to-new-live rebirth construction. Death coverage exists under T133-OMEGA-STATUS but is not part of this model card route.",
-      "required_repair": "Split P002 into identity/rebirth and death/residue model cards, or bind it to both T133-OMEGA-STATUS and T133-ID with one executable lifecycle model containing death, residueOf, rebirthOf, new live state, identity invariant, and paired negative controls.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-OMEGA-STATUS: live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-      "failure_mode": "The promoted Lean subset declared_death_blocks_live has the shape death=true -> live=false -> live=true -> False. It assumes live=false instead of deriving it from death or a lifecycle consistency invariant, and it does not machine-check residue/rebirth non-interchangeability. The theorem inventory promotes this as the machine-checked subset for the broader status claim.",
-      "required_repair": "Define and prove a lifecycle consistency invariant that derives death=true -> live=false and separately proves residue/rebirth/identity separation, then update the theorem inventory and finite model checks to point at the strengthened theorem or demote the claim scope.",
+      "artifact_ref": "tools/run_oc133_v12_cerberus.py",
+      "claim": "LLM adversarial review must execute.",
+      "failure_mode": "Role `phenomenon_x_attacker` exceeded timeout_seconds=360: Command '['codex', 'exec', '-s', 'read-only', '-c', \"approval_policy='never'\", '-C', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main', '-o', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\reviews\\\\oc133_llm_cerberus\\\\raw_v12\\\\phenomenon_x_attacker.txt', '-']' timed out after 360 seconds",
+      "required_repair": "Rerun role with smaller context or repair Codex CLI latency; stale prior JSON must not be reused.",
       "status": "OPEN"
     }
-  ],
-  "raw_output_ref": "reviews/oc133_llm_cerberus/raw_v12/phenomenon_x_attacker.txt"
+  ]
 }

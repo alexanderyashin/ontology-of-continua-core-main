@@ -2,20 +2,23 @@
   "schema_id": "OC133_VALIDATION_PACKET_v12",
   "lane": "systems",
   "release_id": "oc_core_1_3_3",
-  "exact_promoted_claim": "one-step GDP replay with comparator, no superiority claim",
+  "exact_promoted_claim": "retrospective WDI GDP snapshot replay QA with descriptive comparator, no prediction or superiority claim",
   "theorem_to_observable_binding": "typed OC predicate -> lane-specific observable/protocol",
-  "held_out_policy": "train on two previous non-null years, hold out latest non-null year",
-  "formula": "predict latest non-null WDI value by previous-year growth carry-forward",
+  "held_out_policy": "retrospective snapshot replay only; no train/test or held-out prediction because the snapshot contains the target field",
+  "formula": "replay latest non-null WDI value from pinned World Bank snapshot and compute residual against the same parsed value",
   "dataset_snapshot_ref": "validation/_raw/systems_world_bank_gdp.txt",
-  "predicted_value": 111428943579470.81,
+  "predicted_value": 110982661180013.0,
   "observed_value": 110982661180013.0,
-  "uncertainty": 4241013358949.0,
+  "uncertainty": 0.0,
   "comparator_prediction": 106741647821064.0,
-  "residual": 446282399457.81,
+  "residual": 0.0,
   "negative_controls": [
-    "reverse time order and require split-policy failure"
+    "remove or corrupt the latest WDI value and require replay parser failure"
   ],
-  "falsifier_condition": "residual exceeds declared previous-year-change uncertainty",
+  "falsifier_condition": "replay parser cannot recover the pinned latest non-null WDI value",
+  "prediction_support_allowed": false,
+  "empirical_support_allowed": false,
+  "quarantine_reason": "snapshot contains the target value; retrospective replay QA only, barred from prediction support",
   "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS",
   "remaining_blocker": null
 }

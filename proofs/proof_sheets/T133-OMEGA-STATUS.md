@@ -2,8 +2,8 @@
 
 Status: `PROMOTED_BOUNDED_THEOREM_V12`
 Primary artifact: `content/OC_1_3_3_TYPED_FOUNDATION.tex`
-Machine-checked subset: `formal/lean/OC133V12.lean::lifecycle_statuses_and_morphisms_separated`
-Attacked claim: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.
+Machine-checked subset: `formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary`
+Attacked claim: Death blocks live status, residue/rebirth are typed source-target relations, and rebirth is non-identity unless identity class plus invariant preservation are declared.
 
 ## Assumptions
 - Admissibility, liveness, death, residue, rebirth, and identity are separate typed fields.
@@ -22,10 +22,10 @@ Nonempty admissibility does not imply liveness without the live-support predicat
 Residue preservation does not imply identity continuation without identity morphism constraints.
 
 ## Theorem
-The four statuses are jointly consistent and non-interchangeable in the typed OC model.
+The four statuses are jointly consistent and non-interchangeable in the typed OC model, and the residue/rebirth source-target route is bound to morphism evidence.
 
 ## Proof
-The fields have distinct codomains and transition rules. Lemma 1 separates admissibility from liveness. Lemma 2 separates residue from identity. Rebirth is then a typed morphism from residue to a new realization, so no equivocation remains.
+The fields have distinct codomains and transition rules. Lemma 1 separates admissibility from liveness. Lemma 2 separates residue from identity. The Lean theorem then takes an explicit residue source, rebirth target, and rebirth morphism evidence, proving death blocks liveness while the rebirth morphism is not identity unless identity class plus invariant preservation are supplied.
 
 The proof is promoted only with the stated assumptions. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the

@@ -1,59 +1,18 @@
 {
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "reproducibility_auditor",
-  "execution_status": "EXECUTED",
+  "execution_status": "EXECUTION_TIMEOUT",
   "critical_open_total": 1,
-  "high_open_total": 5,
-  "finding_total": 6,
+  "high_open_total": 0,
+  "finding_total": 1,
   "findings": [
     {
       "severity": "CRITICAL",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-      "failure_mode": "The promoted Lean subset `declared_death_blocks_live` is theorem theater: it proves contradiction only after both `L.live x = false` and `L.live x = true` are supplied. It does not prove that declared death blocks liveness, and it does not cover residue/rebirth/morphism-class separation. A clean replay can therefore pass Lean while the public claim remains unproved.",
-      "required_repair": "Formalize the actual lifecycle invariant, for example `L.death x = true -> L.live x != true`, and add Lean obligations covering residue, rebirth, and identity-class separation; otherwise demote this claim below machine-checked support.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "machine_checked_subset_total=10 and proof_status=PROMOTED_BOUNDED_WITH_LEAN_SUBSET_AND_FINITE_WITNESS for all promoted theorem rows.",
-      "failure_mode": "The inventory records Lean symbol names but no reproducible clean-checkout proof replay contract: no Lean version, lakefile/toolchain hash, cache-purge requirement, command transcript, or evidence that `.lake` was not reused. A reviewer cannot distinguish a fresh Lean replay from a cached local pass using only the release-critical artifacts listed here.",
-      "required_repair": "Add a proof replay manifest that records exact Lean/Lake versions, toolchain and lakefile hashes, a fresh-workspace or `.lake` deletion command, the exact replay command, and captured stdout/stderr for the current `formal/lean/OC133V12.lean`.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
-      "failure_mode": "The runner accepts K-level rows by checking numeric code alignment and booleans only. It ignores the substantive `added_axis`, `witness_pair`, `reduction_failure_criterion`, and `lawful_demotion_criterion` fields, so arbitrary or relabeled witness text can still regenerate PASS. The inventory also points only to `every_adjacent_transition_has_witness`, not to the lawful-demotion existence theorem.",
-      "required_repair": "Bind each K-level finite row to a pinned transition matrix or formal data extraction, validate nonempty and transition-specific witness and criterion fields, and list the demotion Lean theorem refs in the theorem inventory and proof ledger.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
-      "claim": "OC133-NOSEND-001: Publication and journal submission remain locked until separate owner approval.",
-      "failure_mode": "The no-send negative control `ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL` cites `releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json` but embeds `owner_approved=true` and `publish_allowed=true`; the current referenced approval file is pending with `owner_approved=false` and `publish_allowed=false`. The runner never loads the referenced JSON, so the pass is a hard-coded hypothetical state, not a verification of current release state.",
-      "required_repair": "Either point the control to an explicit owner-approved fixture file, or change the current-control expectation to rejection; in both cases make the runner load and compare the referenced manifest/approval files instead of trusting embedded model booleans.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
-      "claim": "OC133-NUM-* numeric replay QA rows are reproducible bounded replay evidence.",
-      "failure_mode": "The table marks rows as `numeric_replay=true` but contains no generator command, runner hash, raw snapshot hashes, environment pin, or deterministic replay transcript. The values can be manually edited while still appearing as replay QA, and a clean checkout cannot regenerate or diff the table from the artifact itself.",
-      "required_repair": "Add a numeric replay manifest with exact command, script path and sha256, raw snapshot sha256 values, Python/runtime version, output hash, and failure policy; demote numeric support until the table is generated from that manifest.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-      "claim": "OC133-NOVELTY-001: source-backed prior-art comparison supports bounded positioning without uniqueness promotion.",
-      "failure_mode": "The register relies on mutable web URLs and `NOT_FOUND_IN_SOURCE_PAGE` absence tests, but includes no archived snapshots, hashes, exact search queries, quote anchors, or local source extracts. A clean checkout cannot reproduce the prior-art absence claims or detect source drift/paywall changes.",
-      "required_repair": "Bundle or archive source snapshots with hashes, record exact search queries and dates, include minimal anchored extracts for overlap/absence decisions, and demote the novelty row to unaudited positioning until those artifacts exist.",
+      "artifact_ref": "tools/run_oc133_v12_cerberus.py",
+      "claim": "LLM adversarial review must execute.",
+      "failure_mode": "Role `reproducibility_auditor` exceeded timeout_seconds=360: Command '['codex', 'exec', '-s', 'read-only', '-c', \"approval_policy='never'\", '-C', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main', '-o', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\reviews\\\\oc133_llm_cerberus\\\\raw_v12\\\\reproducibility_auditor.txt', '-']' timed out after 360 seconds",
+      "required_repair": "Rerun role with smaller context or repair Codex CLI latency; stale prior JSON must not be reused.",
       "status": "OPEN"
     }
-  ],
-  "raw_output_ref": "reviews/oc133_llm_cerberus/raw_v12/reproducibility_auditor.txt"
+  ]
 }

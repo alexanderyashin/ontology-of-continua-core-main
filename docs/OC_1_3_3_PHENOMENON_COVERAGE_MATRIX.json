@@ -135,10 +135,10 @@
       "attacked_claim": "T133-HYBRID",
       "claim_boundary": "The row promotes a specific formal/replay model card only; it does not promote unrestricted domain omniscience.",
       "model_card": {
-        "formal_instance": "typed update with smooth chart optional and hybrid guard/reset",
-        "observable": "guarded hybrid step uses reset; smooth derivative requires chart",
-        "prediction_or_replay": "FM-T133-HYBRID-POS",
-        "negative_control": "FM-T133-HYBRID-NEG",
+        "formal_instance": "typed proof/rewrite update with derivative disabled plus separate guard/reset hybrid route",
+        "observable": "proof/rewrite update is accepted only as a typed non-smooth transition",
+        "prediction_or_replay": "FM-T133-HYBRID-PROOF-UPDATE-POS",
+        "negative_control": "FM-T133-HYBRID-PROOF-UPDATE-NEG",
         "falsifier": "A finite model satisfying the stated assumptions while flipping the claimed observable without runner rejection.",
         "evidence_refs": [
           "formal/lean/OC133V12.lean",
@@ -146,15 +146,15 @@
           "proofs/proof_sheets/T133-HYBRID.md"
         ]
       },
-      "oc_explanation_route": "claim `T133-HYBRID` -> Lean theorem/proof sheet -> semantic finite case `FM-T133-HYBRID-POS` -> negative control -> falsifier",
+      "oc_explanation_route": "claim `T133-HYBRID` -> Lean theorem/proof sheet -> semantic finite case `FM-T133-HYBRID-PROOF-UPDATE-POS` -> negative control -> falsifier",
       "evidence_refs": [
         "formal/lean/OC133V12.lean",
         "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
         "proofs/proof_sheets/T133-HYBRID.md"
       ],
-      "phenomenon_specific_model": "typed update with smooth chart optional and hybrid guard/reset",
-      "observable": "guarded hybrid step uses reset; smooth derivative requires chart",
-      "negative_control": "FM-T133-HYBRID-NEG",
+      "phenomenon_specific_model": "typed proof/rewrite update with derivative disabled plus separate guard/reset hybrid route",
+      "observable": "proof/rewrite update is accepted only as a typed non-smooth transition",
+      "negative_control": "FM-T133-HYBRID-PROOF-UPDATE-NEG",
       "prediction_status": "SCOPED_FORMAL_REPLAY_NOT_DOMAIN_TOTALIZATION",
       "falsifier": "A countermodel satisfying assumptions but changing the declared observable without detection.",
       "limitation": "This is a scoped explanatory model card, not a full empirical solution of the broad phenomenon.",
@@ -251,7 +251,7 @@
       "prediction_status": "SCOPED_FORMAL_REPLAY_NOT_DOMAIN_TOTALIZATION",
       "falsifier": "A countermodel satisfying assumptions but changing the declared observable without detection.",
       "limitation": "This is a scoped explanatory model card, not a full empirical solution of the broad phenomenon.",
-      "explanation_status": "PHENOMENON_SPECIFIC_MODEL_REPLAYED"
+      "explanation_status": "SCOPED_CLASSIFIER_ILLUSTRATION_NOT_DOMAIN_CLOSURE"
     },
     {
       "phenomenon_id": "P009",
@@ -282,7 +282,7 @@
       "prediction_status": "SCOPED_FORMAL_REPLAY_NOT_DOMAIN_TOTALIZATION",
       "falsifier": "A countermodel satisfying assumptions but changing the declared observable without detection.",
       "limitation": "This is a scoped explanatory model card, not a full empirical solution of the broad phenomenon.",
-      "explanation_status": "PHENOMENON_SPECIFIC_MODEL_REPLAYED"
+      "explanation_status": "SCOPED_CLASSIFIER_ILLUSTRATION_NOT_DOMAIN_CLOSURE"
     },
     {
       "phenomenon_id": "P010",
@@ -313,7 +313,7 @@
       "prediction_status": "SCOPED_FORMAL_REPLAY_NOT_DOMAIN_TOTALIZATION",
       "falsifier": "A countermodel satisfying assumptions but changing the declared observable without detection.",
       "limitation": "This is a scoped explanatory model card, not a full empirical solution of the broad phenomenon.",
-      "explanation_status": "PHENOMENON_SPECIFIC_MODEL_REPLAYED"
+      "explanation_status": "SCOPED_CLASSIFIER_ILLUSTRATION_NOT_DOMAIN_CLOSURE"
     },
     {
       "phenomenon_id": "P011",
@@ -344,7 +344,7 @@
       "prediction_status": "SCOPED_FORMAL_REPLAY_NOT_DOMAIN_TOTALIZATION",
       "falsifier": "A countermodel satisfying assumptions but changing the declared observable without detection.",
       "limitation": "This is a scoped explanatory model card, not a full empirical solution of the broad phenomenon.",
-      "explanation_status": "PHENOMENON_SPECIFIC_MODEL_REPLAYED"
+      "explanation_status": "SCOPED_CLASSIFIER_ILLUSTRATION_NOT_DOMAIN_CLOSURE"
     },
     {
       "phenomenon_id": "P012",
@@ -355,27 +355,27 @@
         "formal_instance": "owner approval state machine with publish_allowed false",
         "observable": "public action is rejected until owner approval changes the state",
         "prediction_or_replay": "ADV-NOSEND-PUBLISH",
-        "negative_control": "ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL",
+        "negative_control": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
         "falsifier": "A finite model satisfying the stated assumptions while flipping the claimed observable without runner rejection.",
         "evidence_refs": [
-          "formal/lean/OC133V12.lean",
-          "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "claims/CLAIM_LEDGER_1_3_3.json"
+          "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+          "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
         ]
       },
-      "oc_explanation_route": "claim `OC133-NOSEND-001` -> Lean theorem/proof sheet -> semantic finite case `ADV-NOSEND-PUBLISH` -> negative control -> falsifier",
+      "oc_explanation_route": "claim `OC133-NOSEND-001` -> owner approval state -> publish manifest channel locks -> finite no-send case `ADV-NOSEND-PUBLISH` -> hypothetical owner-approved control",
       "evidence_refs": [
-        "formal/lean/OC133V12.lean",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-        "claims/CLAIM_LEDGER_1_3_3.json"
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+        "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
       ],
       "phenomenon_specific_model": "owner approval state machine with publish_allowed false",
       "observable": "public action is rejected until owner approval changes the state",
-      "negative_control": "ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL",
+      "negative_control": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
       "prediction_status": "SCOPED_FORMAL_REPLAY_NOT_DOMAIN_TOTALIZATION",
       "falsifier": "A countermodel satisfying assumptions but changing the declared observable without detection.",
       "limitation": "This is a scoped explanatory model card, not a full empirical solution of the broad phenomenon.",
-      "explanation_status": "PHENOMENON_SPECIFIC_MODEL_REPLAYED"
+      "explanation_status": "OPERATIONAL_NO_SEND_CONTROL_REPLAYED"
     },
     {
       "phenomenon_id": "P013",
@@ -406,7 +406,7 @@
       "prediction_status": "SCOPED_FORMAL_REPLAY_NOT_DOMAIN_TOTALIZATION",
       "falsifier": "A countermodel satisfying assumptions but changing the declared observable without detection.",
       "limitation": "This is a scoped explanatory model card, not a full empirical solution of the broad phenomenon.",
-      "explanation_status": "PHENOMENON_SPECIFIC_MODEL_REPLAYED"
+      "explanation_status": "SCOPED_CLASSIFIER_ILLUSTRATION_NOT_DOMAIN_CLOSURE"
     },
     {
       "phenomenon_id": "P014",

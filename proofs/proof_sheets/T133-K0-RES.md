@@ -2,8 +2,8 @@
 
 Status: `PROMOTED_BOUNDED_THEOREM_V12`
 Primary artifact: `appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex`
-Machine-checked subset: `formal/lean/OC133V12.lean::k0_same_cell_not_distinguished`
-Attacked claim: K0 support is resolution-relative and never imposes raw global discreteness.
+Machine-checked subset: `formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction`
+Attacked claim: K0 support is resolution-relative: same-resolution states are not distinguished, and a finite countermodel shows raw separation need not induce resolution distinction.
 
 ## Assumptions
 - A raw carrier may be continuous, finite, countable, graph-like, proof-theoretic, or typed-combinatorial.

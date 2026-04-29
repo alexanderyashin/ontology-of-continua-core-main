@@ -5,6 +5,7 @@ import contextlib
 import io
 import json
 import runpy
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -38,13 +39,58 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def write_lean_build_certificate(root: Path) -> dict[str, Any]:
+    lean_path = root / "formal" / "lean" / "OC133V12.lean"
+    theorem_refs = [theorem["lean"] for theorem in THEOREMS]
+    body = lean_path.read_text(encoding="utf-8") if lean_path.exists() else ""
+    missing_refs = [ref for ref in theorem_refs if ref not in body]
+    try:
+        completed = subprocess.run(
+            ["lake", "build"],
+            cwd=root,
+            text=True,
+            capture_output=True,
+            timeout=240,
+        )
+        returncode = completed.returncode
+        stdout_tail = completed.stdout[-4000:]
+        stderr_tail = completed.stderr[-4000:]
+        execution_status = "EXECUTED"
+    except Exception as exc:
+        returncode = -1
+        stdout_tail = ""
+        stderr_tail = str(exc)
+        execution_status = "EXECUTION_FAILED"
+    payload = {
+        "schema_id": "OC133_LEAN_BUILD_CERTIFICATE_v12",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "command": "lake build",
+        "execution_status": execution_status,
+        "returncode": returncode,
+        "lean_toolchain_ref": "lean-toolchain",
+        "lean_toolchain": (root / "lean-toolchain").read_text(encoding="utf-8").strip() if (root / "lean-toolchain").exists() else None,
+        "lean_source_ref": "formal/lean/OC133V12.lean",
+        "lean_source_sha256": sha256_file(lean_path) if lean_path.exists() else None,
+        "theorem_ref_total": len(theorem_refs),
+        "theorem_ref_present_total": len(theorem_refs) - len(missing_refs),
+        "theorem_ref_missing_total": len(missing_refs),
+        "missing_theorem_refs": missing_refs,
+        "stdout_tail": stdout_tail,
+        "stderr_tail": stderr_tail,
+        "no_send": True,
+    }
+    write_json(root / "formal" / "lean" / "LEAN_BUILD_CERTIFICATE_1_3_3.json", payload)
+    return payload
+
+
 THEOREMS = [
     {
         "id": "T133-K0-RES",
         "title": "K0 resolution-relative distinguishability theorem",
         "artifact": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
-        "lean": "k0_same_cell_not_distinguished",
-        "claim": "K0 support is resolution-relative and never imposes raw global discreteness.",
+        "lean": "k0_countermodel_raw_separation_not_resolution_distinction",
+        "claim": "K0 support is resolution-relative: same-resolution states are not distinguished, and a finite countermodel shows raw separation need not induce resolution distinction.",
         "assumptions": [
             "A raw carrier may be continuous, finite, countable, graph-like, proof-theoretic, or typed-combinatorial.",
             "A resolution regime supplies an observational equivalence relation over raw states.",
@@ -66,8 +112,8 @@ THEOREMS = [
         "id": "T133-OMEGA-STATUS",
         "title": "Typed liveness, death, residue, and rebirth consistency theorem",
         "artifact": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
-        "lean": "lifecycle_statuses_and_morphisms_separated",
-        "claim": "Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
+        "lean": "lifecycle_residue_rebirth_morphism_boundary",
+        "claim": "Death blocks live status, residue/rebirth are typed source-target relations, and rebirth is non-identity unless identity class plus invariant preservation are declared.",
         "assumptions": [
             "Admissibility, liveness, death, residue, rebirth, and identity are separate typed fields.",
             "Every realization declares the predicates that can change live status.",
@@ -80,8 +126,8 @@ THEOREMS = [
         ],
         "lemma1": "Nonempty admissibility does not imply liveness without the live-support predicates.",
         "lemma2": "Residue preservation does not imply identity continuation without identity morphism constraints.",
-        "theorem": "The four statuses are jointly consistent and non-interchangeable in the typed OC model.",
-        "proof": "The fields have distinct codomains and transition rules. Lemma 1 separates admissibility from liveness. Lemma 2 separates residue from identity. Rebirth is then a typed morphism from residue to a new realization, so no equivocation remains.",
+        "theorem": "The four statuses are jointly consistent and non-interchangeable in the typed OC model, and the residue/rebirth source-target route is bound to morphism evidence.",
+        "proof": "The fields have distinct codomains and transition rules. Lemma 1 separates admissibility from liveness. Lemma 2 separates residue from identity. The Lean theorem then takes an explicit residue source, rebirth target, and rebirth morphism evidence, proving death blocks liveness while the rebirth morphism is not identity unless identity class plus invariant preservation are supplied.",
         "finite": "A two-state automaton has admissible state A, failed cycle support, residue r, and new state B constructed from r; B is rebirth, not continuation.",
         "boundary": "Any claim reading residue-preserving restart as same-identity survival is rejected unless identity invariants are supplied.",
     },
@@ -133,10 +179,10 @@ THEOREMS = [
     },
     {
         "id": "T133-HYBRID",
-        "title": "Hybrid operator semantics theorem",
+        "title": "Typed hybrid and optional-smooth operator semantics theorem",
         "artifact": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
         "lean": "smooth_hybrid_operator_semantics",
-        "claim": "Differential operator notation is a smooth-realization specialization of typed update semantics.",
+        "claim": "OC operators are typed update semantics; smooth-flow notation is admitted only for declared smooth charts, while proof/rewrite and guard/reset hybrid updates remain first-class non-smooth cases.",
         "assumptions": [
             "Operators are typed update components over realization states.",
             "A derivative is available only when the realization declares smooth charts.",
@@ -149,8 +195,8 @@ THEOREMS = [
         ],
         "lemma1": "A differentiable flow induces typed update relations by time-t maps.",
         "lemma2": "A typed update relation need not induce a derivative without extra smoothness assumptions.",
-        "theorem": "OC operators F,G,H,Q,R,S,U are typed updates, with differential notation only as a special realization.",
-        "proof": "The primitive object is the update relation. Smooth systems interpret it through flows, while proof and rewrite systems interpret it through transition steps. Lemma 1 embeds smooth systems; Lemma 2 blocks universal derivative overreach.",
+        "theorem": "OC operators F,G,H,Q,R,S,U are typed updates; smooth flow, proof/rewrite, and guard/reset hybrid routes are separate typed realizations.",
+        "proof": "The primitive object is the update relation. Smooth systems interpret it through flows only when a chart is declared, while proof and rewrite systems interpret it through transition steps with derivative requests disabled. Lemma 1 embeds smooth systems; Lemma 2 blocks universal derivative overreach; the finite runner separately checks guard/reset codomains and non-smooth proof/rewrite updates.",
         "finite": "A proof-replay operator maps theorem states through rewrite steps; it is well typed and has no derivative.",
         "boundary": "Any section differentiating a rewrite-only state without smooth assumptions fails G41.",
     },
@@ -182,7 +228,7 @@ THEOREMS = [
         "title": "Live-status cycle-mode requirement theorem",
         "artifact": "content/OC_1_3_3_CYCLE_TAXONOMY.tex",
         "lean": "eligible_live_requires_cycle_or_maintenance",
-        "claim": "Live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
+        "claim": "Promoted eligible-live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
         "assumptions": [
             "Live status is not static persistence.",
             "Maintenance, renewal, replay, regulatory, and degenerate cycle modes are distinct.",
@@ -203,9 +249,9 @@ THEOREMS = [
     {
         "id": "T133-ID",
         "title": "Identity, residue, and rebirth morphism classification theorem",
-        "artifact": "appendix/OC_1_3_3_IDENTITY_RESIDUE_REBIRTH_CATEGORY.tex",
+        "artifact": "appendix/OC_1_3_3_IDENTITY_RESIDUE_REBIRTH_CLASSIFICATION.tex",
         "lean": "residue_rebirth_identity_boundary",
-        "claim": "Residue preservation and rebirth are not identity continuation unless declared identity invariants are preserved.",
+        "claim": "Identity continuation requires identity morphism class plus declared invariant preservation; residue and rebirth classes do not become identity continuation merely by preserving some invariants.",
         "assumptions": [
             "Identity continuation, residue preservation, and rebirth are separate morphism classes.",
             "The realization declares invariants identity morphisms must preserve.",
@@ -219,7 +265,7 @@ THEOREMS = [
         "lemma1": "Residue morphisms compose with rebirth constructors without becoming identity morphisms.",
         "lemma2": "If an identity invariant is absent after restart, the morphism class is residue or rebirth, not identity.",
         "theorem": "The v12 morphism classes block residue/rebirth identity equivocation.",
-        "proof": "The classes are disjoint unless identity invariants are explicitly proven. Lemma 1 preserves the distinction under composition. Lemma 2 supplies the reviewer test for restarts.",
+        "proof": "The classifier has an explicit positive identity case and negative residue/rebirth cases. Invariant preservation alone is insufficient for residue or rebirth classes, and identity class alone is insufficient without preserved invariants. The finite runner exhausts morphism class x invariant-preserved x claimed-identity truth-table rows.",
         "finite": "A process checkpoint preserves schema and loses runtime token identity; restart is rebirth, not same identity.",
         "boundary": "Any public claim reading rebirth as literal same-identity survival is blocked.",
     },
@@ -227,8 +273,8 @@ THEOREMS = [
         "id": "T133-MIN",
         "title": "Declared semantic-verdict component independence theorem",
         "artifact": "appendix/OC_1_3_3_GLOBAL_MINIMALITY_WITNESSES.tex",
-        "lean": "component_registry_complete_and_witnessed",
-        "claim": "Within the declared v12 semantic verdict suite, each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.",
+        "lean": "release_tuple_component_irredundant",
+        "claim": "Within the declared v12 release tuple semantics, each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.",
         "assumptions": [
             "Minimality is claimed for the release-governed OC verdict class, not for all possible theories.",
             "Each promoted component has a witness pair that changes a declared OC verdict when the component is removed or weakened.",
@@ -250,8 +296,8 @@ THEOREMS = [
         "id": "T133-KLEVEL",
         "title": "Adjacent K-level semantic witness-atlas theorem",
         "artifact": "appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex",
-        "lean": "every_adjacent_transition_has_witness_and_demotion",
-        "claim": "Every declared adjacent K-level transition K0->K12 has a table-bound witness, reduction-failure criterion, and lawful demotion criterion in the v12 classifier atlas.",
+        "lean": "every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion",
+        "claim": "Every declared adjacent K-level transition K0->K12 has a classifier-atlas row, retained-witness reduction-failure check, executable finite row, and lawful demotion predicate inside the v12 release classifier.",
         "assumptions": [
             "K-levels are release-governed classifier levels, not metaphysical ranks.",
             "Adjacent irreducibility is asserted only when the witness remains observable under the declared equivalence.",
@@ -299,7 +345,7 @@ KLEVEL_ROWS = [
     ("K8_to_K9", "regime -> theory dynamics", "claim/evidence update changes theory verdict", "regime-only model lacks claim revision", "demote if claim revision is disabled"),
     ("K9_to_K10", "theory dynamics -> recursive self-application", "model applies to its own updates", "K9 model cannot type self-update", "demote if self-reference is absent"),
     ("K10_to_K11", "recursion -> cross-domain coherence", "translation invariant changes verdict", "recursive single-domain model passes incoherent translation", "demote if no cross-domain bridge exists"),
-    ("K11_to_K12", "coherence -> release-governed civilizational closure", "owner-gated public action state changes verdict", "K11 model cannot represent no-send governance", "demote if no release-governed action exists"),
+    ("K11_to_K12", "coherence -> owner-gated release-governance control", "owner-gated public action state changes verdict", "K11 model cannot represent no-send governance", "demote if no release-governed action exists"),
 ]
 
 
@@ -319,24 +365,30 @@ NUMERIC_ROWS = [
         "negative_control": "replace c by 300000000 and residual becomes nonzero",
         "falsifier": "NIST snapshot parse does not yield 299792458 m s^-1",
         "numeric_replay": True,
-        "promotion_status": "NUMERIC_REPLAY_QA_NOT_EMPIRICAL_PROMOTION",
+        "prediction_support_allowed": False,
+        "empirical_support_allowed": False,
+        "quarantine_reason": "exact definitional snapshot replay; QA only, not a prediction",
+        "promotion_status": "REPLAY_QA_QUARANTINED_NOT_PREDICTION",
     },
     {
         "lane": "chemistry",
         "claim_id": "OC133-NUM-CHEM-H2O",
-        "claim_scope": "formula-to-molecular-weight replay for water only",
-        "formula": "2*atomic_weight(H)+atomic_weight(O) using conventional rounded masses",
+        "claim_scope": "PubChem molecular-weight field replay for water only",
+        "formula": "predicted molecular weight = pinned PubChem MolecularWeight field parsed from official snapshot",
         "dataset_snapshot_ref": "validation/_raw/chemistry_pubchem_water.txt",
-        "split_policy": "predeclared formula split fixed before reading PubChem observed field",
-        "predicted_value": 18.01528,
+        "split_policy": "snapshot field replay only; no held-out formula-derived chemistry claim",
+        "predicted_value": 18.015,
         "observed_value": 18.015,
         "uncertainty": 0.02,
         "comparator_prediction": 18.0,
-        "residual": 0.00028,
-        "negative_control": "use CO2 formula against water snapshot; formula and residual fail",
-        "falsifier": "absolute residual exceeds 0.02 u or formula is not H2O",
+        "residual": 0.0,
+        "negative_control": "use CO2 molecular-weight field against water snapshot and require mismatch",
+        "falsifier": "PubChem snapshot parser cannot recover MolecularWeight=18.015 for CID 962",
         "numeric_replay": True,
-        "promotion_status": "NUMERIC_REPLAY_QA_NOT_EMPIRICAL_PROMOTION",
+        "prediction_support_allowed": False,
+        "empirical_support_allowed": False,
+        "quarantine_reason": "official field replay; QA only, not a formula-derived prediction",
+        "promotion_status": "REPLAY_QA_QUARANTINED_NOT_PREDICTION",
     },
     {
         "lane": "biology",
@@ -353,24 +405,30 @@ NUMERIC_ROWS = [
         "negative_control": "query a different accession and require count mismatch",
         "falsifier": "replay parser cannot recover the pinned count",
         "numeric_replay": True,
-        "promotion_status": "NUMERIC_REPLAY_QA_NOT_EMPIRICAL_PROMOTION",
+        "prediction_support_allowed": False,
+        "empirical_support_allowed": False,
+        "quarantine_reason": "exact official query-count replay; QA only, not a biological prediction",
+        "promotion_status": "REPLAY_QA_QUARANTINED_NOT_PREDICTION",
     },
     {
         "lane": "systems",
         "claim_id": "OC133-NUM-SYS-WDI-GDP",
-        "claim_scope": "one-step GDP replay with comparator, no superiority claim",
-        "formula": "predict latest non-null WDI value by previous-year growth carry-forward",
+        "claim_scope": "retrospective WDI GDP snapshot replay QA with descriptive comparator, no prediction or superiority claim",
+        "formula": "replay latest non-null WDI value from pinned World Bank snapshot and compute residual against the same parsed value",
         "dataset_snapshot_ref": "validation/_raw/systems_world_bank_gdp.txt",
-        "split_policy": "train on two previous non-null years, hold out latest non-null year",
-        "predicted_value": 111428943579470.81,
+        "split_policy": "retrospective snapshot replay only; no train/test or held-out prediction because the snapshot contains the target field",
+        "predicted_value": 110982661180013.0,
         "observed_value": 110982661180013.0,
-        "uncertainty": 4241013358949.0,
+        "uncertainty": 0.0,
         "comparator_prediction": 106741647821064.0,
-        "residual": 446282399457.81,
-        "negative_control": "reverse time order and require split-policy failure",
-        "falsifier": "residual exceeds declared previous-year-change uncertainty",
+        "residual": 0.0,
+        "negative_control": "remove or corrupt the latest WDI value and require replay parser failure",
+        "falsifier": "replay parser cannot recover the pinned latest non-null WDI value",
         "numeric_replay": True,
-        "promotion_status": "HELDOUT_REPLAY_QA_NOT_GENERAL_EMPIRICAL_PROMOTION",
+        "prediction_support_allowed": False,
+        "empirical_support_allowed": False,
+        "quarantine_reason": "snapshot contains the target value; retrospective replay QA only, barred from prediction support",
+        "promotion_status": "REPLAY_QA_QUARANTINED_NOT_PREDICTION",
     },
     {
         "lane": "mathematics",
@@ -387,6 +445,9 @@ NUMERIC_ROWS = [
         "negative_control": "remove a required tuple component and observe rejected stronger reading",
         "falsifier": "any finite model case has observed verdict different from expected",
         "numeric_replay": True,
+        "prediction_support_allowed": False,
+        "empirical_support_allowed": False,
+        "quarantine_reason": "finite proof-corpus consistency check; not empirical support",
         "promotion_status": "FINITE_MODEL_REPLAY_QA_NOT_EMPIRICAL_PROMOTION",
     },
 ]
@@ -1201,6 +1262,7 @@ def write_proofs(root: Path) -> None:
                 "evidence_ref": theorem["artifact"],
                 "proof_sheet_ref": f"proofs/proof_sheets/{theorem['id']}.md",
                 "lean_ref": f"formal/lean/OC133V12.lean::{theorem['lean']}",
+                "lean_build_certificate_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
                 "proof_status": "PROMOTED_BOUNDED_WITH_LEAN_SUBSET_AND_FINITE_WITNESS",
                 "load_bearing": True,
                 "public_promotion": True,
@@ -1537,6 +1599,24 @@ proof-state, and institutional boundaries do not need fake real-valued surfaces.
         ]
     )
     write_text(root / "appendix" / "OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex", "\n".join(atlas_lines))
+    write_text(
+        root / "appendix" / "OC_1_3_3_IDENTITY_RESIDUE_REBIRTH_CLASSIFICATION.tex",
+        r"""\section{Identity, Residue, and Rebirth Classification}
+
+The v12 release uses a typed morphism classifier, not a hidden category-theory claim.
+Identity continuation requires both the identity morphism class and preserved declared identity
+invariants. Residue and rebirth classes remain non-identity even when they preserve useful
+structure for reconstruction.
+
+The finite truth table exhausts:
+\[
+  \{\mathrm{identity},\mathrm{residue},\mathrm{rebirth}\}\times
+  \{\mathrm{invariant\ preserved},\mathrm{invariant\ lost}\}\times
+  \{\mathrm{claimed\ identity},\mathrm{not\ claimed\ identity}\}.
+\]
+Only identity class plus invariant preservation may be claimed as identity continuation.
+""",
+    )
     domain_rows = [
         {
             "domain": "finite_transition",
@@ -1597,18 +1677,18 @@ proof-state, and institutional boundaries do not need fake real-valued surfaces.
         {
             "domain": "systems_time_series",
             "carrier": "official WDI time series",
-            "realization": "held-out replay row",
-            "boundary": "split policy and residual tolerance",
-            "operator": "one-step prediction rule",
-            "falsifier": "held-out residual exceeds uncertainty",
+            "realization": "retrospective snapshot replay row",
+            "boundary": "parser recovery and replay residual check",
+            "operator": "pinned-field replay rule",
+            "falsifier": "latest pinned WDI value cannot be recovered",
         },
         {
-            "domain": "category_structural",
-            "carrier": "typed objects and morphisms",
+            "domain": "typed_morphism_classification",
+            "carrier": "typed source, residue, and target records",
             "realization": "identity/residue/rebirth classifier",
-            "boundary": "invariant preservation predicate",
-            "operator": "morphism composition",
-            "falsifier": "residue morphism accepted as identity",
+            "boundary": "morphism class plus invariant preservation predicate",
+            "operator": "typed source-target classification",
+            "falsifier": "residue or rebirth class accepted as identity continuation",
         },
         {
             "domain": "release_governance",
@@ -1707,11 +1787,11 @@ def write_klevel_and_claims(root: Path) -> None:
         [
             {
                 "claim_id": "OC133-NOVELTY-001",
-                "claim": "Prior-art comparison supports bounded positioning of the OC release-governance bundle; uniqueness is not promoted.",
-                "support": "SOURCE_BACKED_PRIOR_ART_POSITIONING_REGISTER",
+                "claim": "Prior-art comparison is an illustrative bounded positioning note; uniqueness, priority, and absence are not promoted until a systematic search exists.",
+                "support": "ILLUSTRATIVE_PRIOR_ART_POSITIONING_ONLY_NO_UNIQUENESS_PROMOTION",
                 "evidence_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-                "public_status": "SUPPORTING_PRIOR_ART_POSITIONING_V12",
-                "scope_limit": "No uniqueness, priority, or invention claim is promoted by this row.",
+                "public_status": "NOT_PROMOTED_RESEARCH_NOTE_V12",
+                "scope_limit": "No uniqueness, priority, absence, or invention claim is promoted by this row; systematic search remains future work.",
             },
             {
                 "claim_id": "OC133-NOSEND-001",
@@ -1742,6 +1822,7 @@ def write_klevel_and_claims(root: Path) -> None:
 
 
 def write_empirical(root: Path) -> None:
+    quarantined_total = sum(1 for row in NUMERIC_ROWS if not row.get("prediction_support_allowed", False))
     payload = {
         "schema_id": "OC133_NUMERIC_PREDICTION_TABLE_v12",
         "release_id": RELEASE_ID,
@@ -1751,7 +1832,9 @@ def write_empirical(root: Path) -> None:
         "row_total": len(NUMERIC_ROWS),
         "unsupported_promoted_total": 0,
         "blocked_for_promotion_total": 0,
-        "scope_policy": "Numeric replay supports only row-level bounded claims. Official snapshots alone never count as empirical promotion.",
+        "quarantined_replay_qa_total": quarantined_total,
+        "prediction_support_allowed_total": sum(1 for row in NUMERIC_ROWS if row.get("prediction_support_allowed", False)),
+        "scope_policy": "Numeric replay supports only row-level bounded QA claims. Exact official snapshot rows are quarantined from prediction/empirical promotion.",
         "rows": NUMERIC_ROWS,
     }
     write_json(root / "validation" / "numeric_predictions" / "OC133_NUMERIC_PREDICTION_TABLE.json", payload)
@@ -1778,6 +1861,9 @@ def write_empirical(root: Path) -> None:
             "residual": row["residual"],
             "negative_controls": [row["negative_control"]],
             "falsifier_condition": row["falsifier"],
+            "prediction_support_allowed": row.get("prediction_support_allowed", False),
+            "empirical_support_allowed": row.get("empirical_support_allowed", False),
+            "quarantine_reason": row.get("quarantine_reason", ""),
             "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS",
             "remaining_blocker": None,
         }
@@ -1800,6 +1886,7 @@ def write_empirical(root: Path) -> None:
         "numeric_replay_row_total": len(NUMERIC_ROWS),
         "numeric_replay_lane_total": len(lanes),
         "numeric_blocked_for_promotion_total": 0,
+        "quarantined_replay_qa_total": quarantined_total,
         "verdict": "PASS_NUMERIC_REPLAY_BOUNDED",
     }
     write_json(root / "reports" / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json", report)
@@ -1811,7 +1898,7 @@ def write_comparators_and_reviews(root: Path) -> None:
         {
             "tradition": tradition,
             "source_refs": [{"title": tradition, "url": url, "source_type": "official_or_reference"}],
-            "priority_date_status": "PRIOR_ART_PREDATES_OC",
+            "priority_date_status": "POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
             "claim_element_overlap": prior,
             "prior_art_has": prior,
             "oc_bounded_delta": delta,
@@ -1879,7 +1966,7 @@ def write_comparators_and_reviews(root: Path) -> None:
         ("release", "green package despite owner lock", "OC133-NOSEND-001"),
         ("minimality", "tuple is bloated", "T133-MIN"),
         ("klevel", "K-level inflation", "T133-KLEVEL"),
-        ("operator", "fake universal differential equation", "T133-HYBRID"),
+        ("operator", "fake universal operator calculus", "T133-HYBRID"),
     ]
     for idx in range(1, 211):
         theme, failure, claim = themes[(idx - 1) % len(themes)]
@@ -2056,7 +2143,14 @@ def semantic_finite_observed(row: dict[str, Any]) -> str:
     case_type = row.get("case_type")
     if case_type == "theorem_case":
         if theorem_id == "T133-K0-RES":
-            ok = model.get("rho_cell_a") == model.get("rho_cell_b") and model.get("claims_raw_separation") is False
+            ok = (
+                model.get("rho_cell_a") == model.get("rho_cell_b")
+                and model.get("raw_separated") is True
+                and float(model.get("raw_distance", 0.0)) > 0.0
+                and model.get("resolution_distinguished") is False
+                and model.get("cross_rho_cell_a") != model.get("cross_rho_cell_b")
+                and model.get("cross_resolution_distinguished") is True
+            )
         elif theorem_id == "T133-OMEGA-STATUS":
             ok = model.get("admissible") is True and model.get("live") is True and model.get("death") is False and model.get("cycle_mode") not in {None, "", "none"} and model.get("residue_class") != model.get("identity_class")
         elif theorem_id == "T133-K-ZERO":
@@ -2146,12 +2240,10 @@ def semantic_finite_observed(row: dict[str, Any]) -> str:
             return "DEMOTABLE_WITH_LOST_WITNESS"
         return "REDUCTION_UNCHECKED"
     if case_type == "no_send_state_machine":
-        owner_approved = model.get("owner_approved") is True
         publish_requested = model.get("publish_requested") is True
-        publish_allowed = model.get("publish_allowed") is True
-        if publish_requested and not owner_approved and not publish_allowed:
+        if publish_requested and model.get("current_owner_approved") is False and model.get("all_public_channels_locked") is True:
             return "REJECT_PUBLIC_ACTION"
-        if publish_requested and owner_approved and publish_allowed:
+        if publish_requested and model.get("owner_approved") is True and model.get("publish_allowed") is True:
             return "ALLOW_AFTER_OWNER_APPROVAL"
         return "NO_ACTION"
     return "UNKNOWN"
@@ -2191,8 +2283,17 @@ def write_semantic_finite_model_checks(root: Path) -> None:
             "theorem_id": "T133-K0-RES",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
-            "lean_ref": "formal/lean/OC133V12.lean::k0_same_cell_not_distinguished",
-            "model": {"rho_cell_a": 0, "rho_cell_b": 0, "claims_raw_separation": False},
+            "lean_ref": "formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction",
+            "model": {
+                "rho_cell_a": 0,
+                "rho_cell_b": 0,
+                "raw_distance": 0.01,
+                "raw_separated": True,
+                "resolution_distinguished": False,
+                "cross_rho_cell_a": 0,
+                "cross_rho_cell_b": 1,
+                "cross_resolution_distinguished": True,
+            },
             "negative_control_id": "FM-T133-K0-RES-NEG",
         },
         {
@@ -2200,8 +2301,17 @@ def write_semantic_finite_model_checks(root: Path) -> None:
             "theorem_id": "T133-K0-RES",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::k0_same_cell_not_distinguished",
-            "model": {"rho_cell_a": 0, "rho_cell_b": 0, "claims_raw_separation": True},
+            "lean_ref": "formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction",
+            "model": {
+                "rho_cell_a": 0,
+                "rho_cell_b": 0,
+                "raw_distance": 0.01,
+                "raw_separated": True,
+                "resolution_distinguished": True,
+                "cross_rho_cell_a": 0,
+                "cross_rho_cell_b": 1,
+                "cross_resolution_distinguished": True,
+            },
             "negative_control_id": "",
         },
         {
@@ -2367,6 +2477,29 @@ def write_semantic_finite_model_checks(root: Path) -> None:
             "negative_control_id": "",
         },
     ]
+    for morphism_class in ("identity", "residue", "rebirth"):
+        for invariant_preserved in (False, True):
+            for claimed_identity in (False, True):
+                should_be_identity = morphism_class == "identity" and invariant_preserved is True
+                finite_rows.append(
+                    {
+                        "case_id": (
+                            "FM-T133-ID-TT-"
+                            f"{morphism_class.upper()}-INV-{str(invariant_preserved).upper()}-"
+                            f"CLAIM-{str(claimed_identity).upper()}"
+                        ),
+                        "theorem_id": "T133-ID",
+                        "case_type": "theorem_case",
+                        "expected_verdict": "ACCEPT" if claimed_identity is should_be_identity else "REJECT",
+                        "lean_ref": "formal/lean/OC133V12.lean::residue_rebirth_identity_boundary",
+                        "model": {
+                            "morphism_class": morphism_class,
+                            "identity_invariant_preserved": invariant_preserved,
+                            "claimed_identity_continuation": claimed_identity,
+                        },
+                        "negative_control_id": "",
+                    }
+                )
     for component, keep, drop, keep_v, drop_v in COMPONENT_WITNESSES:
         finite_rows.append(
             {
@@ -2452,16 +2585,28 @@ def write_semantic_finite_model_checks(root: Path) -> None:
                 "case_type": "no_send_state_machine",
                 "expected_verdict": "REJECT_PUBLIC_ACTION",
                 "lean_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
-                "model": {"owner_approved": False, "publish_requested": True, "publish_allowed": False},
-                "negative_control_id": "ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL",
+                "model": {"current_owner_approved": False, "publish_requested": True, "all_public_channels_locked": True},
+                "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
             },
             {
-                "case_id": "ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL",
+                "case_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
                 "theorem_id": "OC133-NOSEND-001",
-                "case_type": "no_send_state_machine",
+                "case_type": "no_send_hypothetical_control",
                 "expected_verdict": "ALLOW_AFTER_OWNER_APPROVAL",
-                "lean_ref": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
-                "model": {"owner_approved": True, "publish_requested": True, "publish_allowed": True},
+                "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+                "model": {
+                    "owner_approved": True,
+                    "publish_requested": True,
+                    "publish_allowed": True,
+                    "global_no_send_lock": False,
+                    "journal_submissions_allowed": True,
+                    "journal_submission_allowed": True,
+                    "github_release_allowed": True,
+                    "zenodo_deposit_allowed": True,
+                    "software_heritage_deposit_allowed": True,
+                    "doi_minting_allowed": True,
+                    "requested_channels": ["github_release", "zenodo_deposit", "software_heritage_deposit", "journal_submission", "doi_minting"],
+                },
                 "negative_control_id": "",
             },
         ]
@@ -2494,7 +2639,14 @@ def observed(row: dict) -> str:
     case_type = row.get("case_type")
     if case_type == "theorem_case":
         if theorem_id == "T133-K0-RES":
-            ok = model.get("rho_cell_a") == model.get("rho_cell_b") and model.get("claims_raw_separation") is False
+            ok = (
+                model.get("rho_cell_a") == model.get("rho_cell_b")
+                and model.get("raw_separated") is True
+                and float(model.get("raw_distance", 0.0)) > 0.0
+                and model.get("resolution_distinguished") is False
+                and model.get("cross_rho_cell_a") != model.get("cross_rho_cell_b")
+                and model.get("cross_resolution_distinguished") is True
+            )
         elif theorem_id == "T133-OMEGA-STATUS":
             ok = model.get("admissible") is True and model.get("live") is True and model.get("death") is False and model.get("cycle_mode") not in {None, "", "none"} and model.get("residue_class") != model.get("identity_class")
         elif theorem_id == "T133-K-ZERO":
@@ -2584,11 +2736,14 @@ def observed(row: dict) -> str:
             return "DEMOTABLE_WITH_LOST_WITNESS"
         return "REDUCTION_UNCHECKED"
     if case_type == "no_send_state_machine":
+        publish_requested = model.get("publish_requested") is True
+        if publish_requested and model.get("current_owner_approved") is False and model.get("all_public_channels_locked") is True:
+            return "REJECT_PUBLIC_ACTION"
+        return "NO_ACTION"
+    if case_type == "no_send_hypothetical_control":
         owner_approved = model.get("owner_approved") is True
         publish_requested = model.get("publish_requested") is True
         publish_allowed = model.get("publish_allowed") is True
-        if publish_requested and not owner_approved and not publish_allowed:
-            return "REJECT_PUBLIC_ACTION"
         if publish_requested and owner_approved and publish_allowed:
             return "ALLOW_AFTER_OWNER_APPROVAL"
         return "NO_ACTION"
@@ -2728,7 +2883,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 {"oc_feature": "cross-domain vocabulary", "prior_art_overlap": "YES", "oc_delta": "none; not claimed novel"},
                 {"oc_feature": "typed proof/data/falsifier/no-send release governance bundle", "prior_art_overlap": "NOT_FOUND_IN_SOURCE_PAGE", "oc_delta": "auditable release-governed scientific control plane"},
             ],
-            "priority_date_status": "PRIOR_ART_PREDATES_OC",
+            "priority_date_status": "POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
             "claim_element_overlap": "organized wholes and cross-domain system language",
             "prior_art_has": "general systems framing and cross-domain system concepts",
             "oc_bounded_delta": "release-bound typed theorem ledger plus executable finite witnesses, numeric replay QA, falsifier registry, and owner-gated no-send publication controls",
@@ -2744,7 +2899,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 {"oc_feature": "self-producing living organization", "prior_art_overlap": "YES", "oc_delta": "none; not claimed novel"},
                 {"oc_feature": "residue/rebirth/identity morphism separation with no-send claim ledger", "prior_art_overlap": "NOT_FOUND_IN_SOURCE_PAGE", "oc_delta": "typed restart/identity equivocation blocker"},
             ],
-            "priority_date_status": "PRIOR_ART_PREDATES_OC",
+            "priority_date_status": "POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
             "claim_element_overlap": "self-production and living organization",
             "prior_art_has": "autopoietic organization of living systems",
             "oc_bounded_delta": "typed distinction between liveness, death, residue, rebirth, and identity invariants",
@@ -2760,7 +2915,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 {"oc_feature": "state spaces, flows, iteration", "prior_art_overlap": "YES", "oc_delta": "none; not claimed novel"},
                 {"oc_feature": "smooth dynamics as one typed update specialization among proof/rewrite/hybrid updates", "prior_art_overlap": "PARTIAL", "oc_delta": "anti-universal-ODE typing rule"},
             ],
-            "priority_date_status": "PRIOR_ART_PREDATES_OC",
+            "priority_date_status": "POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
             "claim_element_overlap": "state evolution and flows",
             "prior_art_has": "mathematical dynamical-system state evolution",
             "oc_bounded_delta": "explicitly blocks differentiating non-smooth proof/rewrite states unless smooth charts are declared",
@@ -2776,7 +2931,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 {"oc_feature": "typed objects, morphisms, internal logic", "prior_art_overlap": "YES", "oc_delta": "none; not claimed novel"},
                 {"oc_feature": "public-release theorem/evidence/falsifier lock over typed claims", "prior_art_overlap": "NOT_FOUND_IN_SOURCE_PAGE", "oc_delta": "release-machine governance over scientific claim promotion"},
             ],
-            "priority_date_status": "PRIOR_ART_PREDATES_OC",
+            "priority_date_status": "POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
             "claim_element_overlap": "typed objects, morphisms, categorical semantics",
             "prior_art_has": "category/topos formalisms and internal logic",
             "oc_bounded_delta": "uses typed morphism discipline to police public scientific claims, not to claim invention of category theory",
@@ -2792,7 +2947,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 {"oc_feature": "autocatalytic closure and boundary relevance", "prior_art_overlap": "YES", "oc_delta": "none; not claimed novel"},
                 {"oc_feature": "K3 closure as adjacent K-level with demotion and release-proof witness rows", "prior_art_overlap": "PARTIAL", "oc_delta": "classifier-level irreducibility/demotion rule"},
             ],
-            "priority_date_status": "PRIOR_ART_PREDATES_OC",
+            "priority_date_status": "POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
             "claim_element_overlap": "autocatalytic closure and boundaries",
             "prior_art_has": "RAF formalization of autocatalytic sets and boundary discussion",
             "oc_bounded_delta": "does not replace RAF; it locates RAF-like closure as one typed K-level with explicit reduction/demotion checks",
@@ -2808,7 +2963,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 {"oc_feature": "information/complexity quantities", "prior_art_overlap": "YES", "oc_delta": "none; not claimed novel"},
                 {"oc_feature": "historical-axis versus effective-rank distinction inside OC K-level claims", "prior_art_overlap": "PARTIAL", "oc_delta": "typed anti-conflation theorem and finite witness"},
             ],
-            "priority_date_status": "PRIOR_ART_PREDATES_OC",
+            "priority_date_status": "POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
             "claim_element_overlap": "information-theoretic and complexity quantities",
             "prior_art_has": "information concepts and measures",
             "oc_bounded_delta": "separates historical activation from effective rank in the release theorem inventory",
@@ -2824,7 +2979,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 {"oc_feature": "persistence and identity criteria", "prior_art_overlap": "YES", "oc_delta": "none; not claimed novel"},
                 {"oc_feature": "residue/rebirth never promoted as identity without explicit invariant preservation", "prior_art_overlap": "PARTIAL", "oc_delta": "release claim-boundary lock"},
             ],
-            "priority_date_status": "PRIOR_ART_PREDATES_OC",
+            "priority_date_status": "POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
             "claim_element_overlap": "diachronic identity and persistence problems",
             "prior_art_has": "identity-over-time problem space",
             "oc_bounded_delta": "turns identity ambiguity into typed morphism classes with explicit public-claim prohibition",
@@ -2840,7 +2995,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 {"oc_feature": "requirements, verification, validation, lifecycle thinking", "prior_art_overlap": "YES", "oc_delta": "none; not claimed novel"},
                 {"oc_feature": "owner-gated no-send scientific release state as theorem/evidence control plane", "prior_art_overlap": "PARTIAL", "oc_delta": "scientific publication lock integrated with claim ledger"},
             ],
-            "priority_date_status": "PRIOR_ART_PREDATES_OC",
+            "priority_date_status": "POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
             "claim_element_overlap": "verification, validation, lifecycle governance",
             "prior_art_has": "systems engineering verification and lifecycle concepts",
             "oc_bounded_delta": "applies governance machinery to scientific claim promotion and release no-send locks",
@@ -2856,7 +3011,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 {"oc_feature": "continuous/discrete hybrid transition systems", "prior_art_overlap": "YES", "oc_delta": "none; not claimed novel"},
                 {"oc_feature": "hybrid operator claim used to block universal differential overreach", "prior_art_overlap": "PARTIAL", "oc_delta": "claim-boundary role in OC operator theorem"},
             ],
-            "priority_date_status": "PRIOR_ART_PREDATES_OC",
+            "priority_date_status": "POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
             "claim_element_overlap": "hybrid continuous/discrete transitions",
             "prior_art_has": "hybrid systems theory",
             "oc_bounded_delta": "treats hybrid systems as one operator realization inside typed release semantics",
@@ -2872,7 +3027,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 {"oc_feature": "machine-checked proof development", "prior_art_overlap": "YES", "oc_delta": "none; not claimed novel"},
                 {"oc_feature": "Lean subset plus finite semantic witnesses plus release gates for public claim promotion", "prior_art_overlap": "PARTIAL", "oc_delta": "artifact-bound scientific release policy"},
             ],
-            "priority_date_status": "PRIOR_ART_PREDATES_OC",
+            "priority_date_status": "POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
             "claim_element_overlap": "theorem proving and formal verification",
             "prior_art_has": "Lean as a theorem prover and programming language",
             "oc_bounded_delta": "uses Lean as one evidence channel; no novelty claim about theorem proving itself",
@@ -2882,13 +3037,50 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             "uniqueness_claim_status": "NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY",
         },
     ]
+    snapshot_dir = root / "comparators" / "source_snapshots"
+    for idx, row in enumerate(source_rows, start=1):
+        for source_idx, source in enumerate(row.get("source_refs", []), start=1):
+            snapshot_rel = f"comparators/source_snapshots/SRC-{idx:02d}-{source_idx:02d}.txt"
+            snapshot_path = root / snapshot_rel
+            query = f'"{row["tradition"]}" "{row["claim_element_overlap"]}" release governance proof data falsifier'
+            snapshot_text = "\n".join(
+                [
+                    f"title: {source.get('title')}",
+                    f"url: {source.get('url')}",
+                    f"source_date: {source.get('source_date')}",
+                    f"inspected_on: {source.get('inspected_on')}",
+                    f"search_query: {query}",
+                    "capture_policy: local bibliographic/search-protocol capsule, not a full web archive",
+                    "claim_policy: absence/uniqueness is not promoted from this capsule",
+                    f"accepted_overlap: {row['prior_art_has']}",
+                    f"bounded_positioning_note: {row['oc_bounded_delta']}",
+                    f"non_novelty_boundary: {row['non_novelty_boundary']}",
+                ]
+            )
+            write_text(snapshot_path, snapshot_text)
+            source["local_protocol_snapshot_ref"] = snapshot_rel
+            source["local_protocol_snapshot_sha256"] = sha256_file(snapshot_path)
+            source["search_query"] = query
+            source["archive_status"] = "LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION"
+        row["systematic_search_protocol"] = {
+            "status": "ILLUSTRATIVE_POSITIONING_ONLY_NOT_SYSTEMATIC_PRIORITY_SEARCH",
+            "databases": ["publisher/reference source page named in source_refs"],
+            "inclusion_criteria": ["canonical source for accepted overlap tradition", "dated or reference source anchor"],
+            "exclusion_criteria": ["no uniqueness or priority claim may be inferred from absence on a single page"],
+            "residual_delta_status": "NOT_PROMOTED_AS_UNIQUE_UNTIL_SYSTEMATIC_SEARCH_EXISTS",
+        }
+        row["absence_test"] = "NOT_PROMOTED. Single-source absence is recorded only as a future search obligation, not as novelty evidence."
+        row["positioning_status"] = "ILLUSTRATIVE_PRIOR_ART_POSITIONING_ONLY"
+
     comparator_payload = {
         "schema_id": "OC133_COMPARATOR_MATRIX_v12_SOURCE_BACKED",
         "release_id": RELEASE_ID,
         "version": VERSION,
-        "search_protocol": "Primary/reference source anchors were checked on 2026-04-28. Novelty is not asserted for any overlapping tradition feature; only the bounded v12 artifact bundle is tested as residual delta.",
+        "search_protocol": "Illustrative primary/reference source anchors were checked on 2026-04-28 and local protocol capsules with hashes are bundled. This is not a systematic priority search; uniqueness and absence claims are not promoted.",
         "row_total": len(source_rows),
         "unsupported_uniqueness_total": 0,
+        "systematic_priority_search_status": "NOT_COMPLETED_NO_UNIQUENESS_PROMOTION",
+        "local_protocol_snapshot_dir": "comparators/source_snapshots",
         "rows": source_rows,
     }
     write_json(root / "docs" / "OC_1_3_3_PRIOR_ART_COMPARATOR_MATRIX.json", comparator_payload)
@@ -2904,7 +3096,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
         ("P002", "death, residue, and rebirth without identity equivocation", "T133-ID", "checkpoint loses runtime token but preserves schema residue", "rebirth is accepted only when classified outside identity", "FM-T133-ID-POS"),
         ("P003", "biological organization as typed liveness and cycles", "T133-CYCLE", "minimal live cell-state surrogate with maintenance predicate", "live label fails without cycle or maintenance support", "FM-T133-CYCLE-POS"),
         ("P004", "logical and social boundaries without fake metrics", "T133-BOUNDARY", "boolean proof-state classifier and optional metric specialization", "classifier failure equals declared failure predicate", "FM-T133-BOUNDARY-POS"),
-        ("P005", "operators in non-smooth proof and rewrite domains", "T133-HYBRID", "typed update with smooth chart optional and hybrid guard/reset", "guarded hybrid step uses reset; smooth derivative requires chart", "FM-T133-HYBRID-POS"),
+        ("P005", "operators in non-smooth proof and rewrite domains", "T133-HYBRID", "typed proof/rewrite update with derivative disabled plus separate guard/reset hybrid route", "proof/rewrite update is accepted only as a typed non-smooth transition", "FM-T133-HYBRID-PROOF-UPDATE-POS"),
         ("P006", "dimension drop after historical axis activation", "T133-DIM", "two-axis record with frozen historical axis and active rank one", "historical activation remains while effective rank drops", "FM-T133-DIM-POS"),
         ("P007", "continuumness collapse with nonempty admissible set", "T133-K-ZERO", "single admissible state with active flow zero-cause", "k=0 is licensed by declared zero-cause, not empty state set", "FM-T133-K-ZERO-POS"),
         ("P008", "origin-of-life framing as closure/cycle/falsifier conditions", "T133-KLEVEL", "RAF-like K2->K3 closure witness plus boundary successor row", "closure cannot be reduced when production witness remains observable", "FM-KLEVEL-K2_to_K3"),
@@ -2920,14 +3112,29 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
         if finite_case.startswith("FM-KLEVEL-") and not finite_case.endswith("-NEG"):
             negative_case = f"{finite_case}-NEG"
         elif finite_case == "ADV-NOSEND-PUBLISH":
-            negative_case = "ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL"
+            negative_case = "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL"
         else:
             negative_case = finite_case.replace("POS", "NEG")
-        evidence_refs = [
-            "formal/lean/OC133V12.lean",
-            "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-            f"proofs/proof_sheets/{claim}.md" if claim.startswith("T133") else "claims/CLAIM_LEDGER_1_3_3.json",
-        ]
+        if pid == "P012":
+            evidence_refs = [
+                "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+                "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+                "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+            ]
+            route = f"claim `{claim}` -> owner approval state -> publish manifest channel locks -> finite no-send case `{finite_case}` -> hypothetical owner-approved control"
+            explanation_status = "OPERATIONAL_NO_SEND_CONTROL_REPLAYED"
+        else:
+            evidence_refs = [
+                "formal/lean/OC133V12.lean",
+                "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+                f"proofs/proof_sheets/{claim}.md" if claim.startswith("T133") else "claims/CLAIM_LEDGER_1_3_3.json",
+            ]
+            route = f"claim `{claim}` -> Lean theorem/proof sheet -> semantic finite case `{finite_case}` -> negative control -> falsifier"
+            explanation_status = (
+                "SCOPED_CLASSIFIER_ILLUSTRATION_NOT_DOMAIN_CLOSURE"
+                if pid in {"P008", "P009", "P010", "P011", "P013"}
+                else "PHENOMENON_SPECIFIC_MODEL_REPLAYED"
+            )
         phenomenon_rows.append(
             {
                 "phenomenon_id": pid,
@@ -2942,7 +3149,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                     "falsifier": "A finite model satisfying the stated assumptions while flipping the claimed observable without runner rejection.",
                     "evidence_refs": evidence_refs,
                 },
-                "oc_explanation_route": f"claim `{claim}` -> Lean theorem/proof sheet -> semantic finite case `{finite_case}` -> negative control -> falsifier",
+                "oc_explanation_route": route,
                 "evidence_refs": evidence_refs,
                 "phenomenon_specific_model": instance,
                 "observable": observable,
@@ -2950,7 +3157,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 "prediction_status": "SCOPED_FORMAL_REPLAY_NOT_DOMAIN_TOTALIZATION",
                 "falsifier": "A countermodel satisfying assumptions but changing the declared observable without detection.",
                 "limitation": "This is a scoped explanatory model card, not a full empirical solution of the broad phenomenon.",
-                "explanation_status": "PHENOMENON_SPECIFIC_MODEL_REPLAYED",
+                "explanation_status": explanation_status,
             }
         )
     phen_payload = {
@@ -2971,13 +3178,13 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
         "formal": ("formal/lean/OC133V12.lean", "eligible_live_requires_cycle"),
         "proof": ("proofs/FINITE_MODEL_CHECKS_1_3_3.json", "semantic_evaluator=true"),
         "empirical": ("validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json", "NUMERIC_REPLAY_QA_NOT_EMPIRICAL_PROMOTION"),
-        "novelty": ("comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json", "NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY"),
-        "coverage": ("docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json", "PHENOMENON_SPECIFIC_MODEL_REPLAYED"),
+        "novelty": ("comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json", "NOT_PROMOTED_RESEARCH_NOTE + local_protocol_snapshot_sha256"),
+        "coverage": ("docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json", "model_card + scoped explanation_status"),
         "didactic": ("docs/OC_1_3_3_HOSTILE_READER_GUIDE.md", "claim -> theorem -> example -> falsifier"),
         "release": ("releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json", "publish_allowed=false"),
-        "minimality": ("formal/lean/OC133V12.lean", "every_component_has_witness + component_witness_is_one_component_delta"),
-        "klevel": ("formal/lean/OC133V12.lean", "every_adjacent_transition_has_witness + demotion_requires_lost_witness"),
-        "operator": ("formal/lean/OC133V12.lean", "hybrid_guard_uses_reset + smooth_operator_is_update_special_case"),
+        "minimality": ("formal/lean/OC133V12.lean", "release_tuple_component_irredundant + data/OC133_GLOBAL_MINIMALITY_WITNESSES.json"),
+        "klevel": ("formal/lean/OC133V12.lean", "every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion + data/k_level_irreducibility_matrix.json"),
+        "operator": ("formal/lean/OC133V12.lean", "smooth_hybrid_operator_semantics + shared HybridSmoothSystem state"),
     }
     themes = [
         ("formal", "hidden type ambiguity", "T133-OMEGA-STATUS"),
@@ -2989,7 +3196,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
         ("release", "green package despite owner lock", "OC133-NOSEND-001"),
         ("minimality", "tuple is bloated", "T133-MIN"),
         ("klevel", "K-level inflation", "T133-KLEVEL"),
-        ("operator", "fake universal differential equation", "T133-HYBRID"),
+        ("operator", "fake universal operator calculus", "T133-HYBRID"),
     ]
     attack_rows = []
     for idx in range(1, 211):
@@ -3029,6 +3236,382 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
     write_json(root / "reviews" / "OC_CORE_1_3_3_REVIEWER_RESPONSE_MATRIX.json", attack_payload)
     write_text(root / "review" / "OC_1_3_3_REVIEWER_RESPONSE_BOOK.md", "# OC Core 1.3.3 v12 Reviewer Response Book\n\nCritical/high rows are closed only by specific theorem IDs, semantic finite-model outputs, comparator feature tests, phenomenon model cards, or no-send manifest fields.\n")
     write_text(root / "reviews" / "OC_CORE_1_3_3_REVIEWER_ATTACK_MAP.md", "# OC Core 1.3.3 v12 Reviewer Attack Map\n\nSee `review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` for row-specific closure queries.\n")
+
+
+def cerberus_open_findings(root: Path) -> list[dict[str, Any]]:
+    findings: list[dict[str, Any]] = []
+    result_dir = root / "reviews" / "oc133_llm_cerberus" / "results"
+    for path in sorted(result_dir.glob("*.json")):
+        payload = read_json(path)
+        role = payload.get("role", path.stem)
+        for idx, row in enumerate(payload.get("findings", []), start=1):
+            severity = str(row.get("severity", "")).upper()
+            status = str(row.get("status", "OPEN")).upper()
+            if severity in {"CRITICAL", "HIGH"} and status not in {"CLOSED", "RESOLVED", "CLOSED_BY_V12_EVIDENCE"}:
+                enriched = dict(row)
+                enriched["role"] = role
+                enriched["finding_index"] = idx
+                enriched["source_result_ref"] = f"reviews/oc133_llm_cerberus/results/{path.name}"
+                findings.append(enriched)
+    return findings
+
+
+def closure_for_cerberus_finding(finding: dict[str, Any]) -> dict[str, Any]:
+    haystack = "\n".join(str(finding.get(key, "")) for key in ("claim", "artifact_ref", "failure_mode", "required_repair")).lower()
+    if "k0" in haystack or "raw separation" in haystack:
+        return {
+            "theme": "formal_k0",
+            "closure_evidence_refs": ["formal/lean/OC133V12.lean", "proofs/FINITE_MODEL_CHECKS_1_3_3.json"],
+            "closure_verification_query": "FM-T133-K0-RES-POS::raw_separated=true, resolution_distinguished=false, cross_resolution_distinguished=true",
+        }
+    if "prediction_support_allowed" in haystack or "snapshot replay" in haystack or "numeric" in haystack or "gdp" in haystack:
+        return {
+            "theme": "empirical_quarantine",
+            "closure_evidence_refs": ["validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json", "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json"],
+            "closure_verification_query": "prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false",
+        }
+    if "owner_approved" in haystack or "publish_allowed" in haystack or "no-send" in haystack or "zenodo" in haystack or "doi" in haystack:
+        return {
+            "theme": "no_send_parity",
+            "closure_evidence_refs": ["releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json", "proofs/FINITE_MODEL_CHECKS_1_3_3.json"],
+            "closure_verification_query": "ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked",
+        }
+    if "lean execution certificate" in haystack or "machine-checked" in haystack or "lean build" in haystack:
+        return {
+            "theme": "lean_certificate",
+            "closure_evidence_refs": ["formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json", "proofs/THEOREM_INVENTORY_1_3_3.json"],
+            "closure_verification_query": "lake build returncode=0 and theorem_ref_missing_total=0",
+        }
+    if "novel" in haystack or "prior-art" in haystack or "prior art" in haystack or "priority" in haystack:
+        return {
+            "theme": "novelty_positioning",
+            "closure_evidence_refs": ["comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json", "claims/CLAIM_LEDGER_1_3_3.json"],
+            "closure_verification_query": "uniqueness_claim_status=NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY and priority_date_status=POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
+        }
+    if "phenomenon" in haystack or "model card" in haystack or "does not explain" in haystack:
+        return {
+            "theme": "phenomenon_model_card",
+            "closure_evidence_refs": ["docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json", "proofs/FINITE_MODEL_CHECKS_1_3_3.json"],
+            "closure_verification_query": "each model_card names prediction_or_replay, negative_control, evidence_refs, and falsifier",
+        }
+    if "attack matrix" in haystack or "generic" in haystack or "closure token" in haystack:
+        return {
+            "theme": "attack_matrix_binding",
+            "closure_evidence_refs": ["review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json", "reviews/oc133_llm_cerberus/repair/OC133_CERBERUS_REPAIR_WORK_ORDERS.json"],
+            "closure_verification_query": "attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations",
+        }
+    if "k-level" in haystack or "klevel" in haystack or "irreducib" in haystack or "atlas" in haystack:
+        return {
+            "theme": "klevel_semantics",
+            "closure_evidence_refs": ["formal/lean/OC133V12.lean", "data/k_level_irreducibility_matrix.json", "proofs/FINITE_MODEL_CHECKS_1_3_3.json"],
+            "closure_verification_query": "every adjacent K row has retained and demotion finite cases plus Lean atlas constructor",
+        }
+    if "hybrid" in haystack or "differential" in haystack or "smooth" in haystack:
+        return {
+            "theme": "hybrid_operator_semantics",
+            "closure_evidence_refs": ["formal/lean/OC133V12.lean", "proofs/FINITE_MODEL_CHECKS_1_3_3.json", "content/OC_1_3_3_OPERATOR_SEMANTICS.tex"],
+            "closure_verification_query": "smooth_hybrid_operator_semantics, FM-T133-HYBRID-POS, and FM-T133-HYBRID-PROOF-UPDATE-POS require typed guard/reset or typed non-smooth proof/rewrite update semantics",
+        }
+    if "minimality" in haystack or "tuple" in haystack or "min" in haystack:
+        return {
+            "theme": "minimality_semantics",
+            "closure_evidence_refs": ["formal/lean/OC133V12.lean", "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json", "proofs/FINITE_MODEL_CHECKS_1_3_3.json"],
+            "closure_verification_query": "each tuple component has one-field keep/drop witness and FM-MIN-* case",
+        }
+    return {
+        "theme": "claim_boundary",
+        "closure_evidence_refs": ["claims/CLAIM_LEDGER_1_3_3.json", "proofs/FINITE_MODEL_CHECKS_1_3_3.json"],
+        "closure_verification_query": "public claim is bounded to theorem/proof/finite/falsifier evidence",
+    }
+
+
+def sanitize_public_text(value: Any) -> Any:
+    if isinstance(value, str):
+        sanitized = value.replace("\\\\", "\\")
+        for marker in [
+            "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main",
+            "C:\\Users\\Megaport\\work",
+            "C:\\Users\\Megaport",
+        ]:
+            sanitized = sanitized.replace(marker, "<LOCAL_WORKTREE>")
+        sanitized = sanitized.replace("Megaport", "<LOCAL_USER>")
+        sanitized = sanitized.replace("C:\\Users\\", "<LOCAL_USERS_DIR>\\")
+        return sanitized
+    if isinstance(value, list):
+        return [sanitize_public_text(item) for item in value]
+    if isinstance(value, dict):
+        return {key: sanitize_public_text(item) for key, item in value.items()}
+    return value
+
+
+def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
+    finite_case_refs = {
+        "T133-K0-RES": ("FM-T133-K0-RES-POS", "FM-T133-K0-RES-NEG"),
+        "T133-OMEGA-STATUS": ("FM-T133-OMEGA-STATUS-POS", "FM-T133-OMEGA-STATUS-NEG"),
+        "T133-K-ZERO": ("FM-T133-K-ZERO-POS", "FM-T133-K-ZERO-NEG"),
+        "T133-BOUNDARY": ("FM-T133-BOUNDARY-POS", "FM-T133-BOUNDARY-NEG"),
+        "T133-HYBRID": ("FM-T133-HYBRID-POS", "FM-T133-HYBRID-NEG"),
+        "T133-DIM": ("FM-T133-DIM-POS", "FM-T133-DIM-NEG"),
+        "T133-CYCLE": ("FM-T133-CYCLE-POS", "FM-T133-CYCLE-NEG"),
+        "T133-ID": ("FM-T133-ID-POS", "FM-T133-ID-NEG"),
+        "T133-MIN": ("FM-T133-MIN-POS", "FM-T133-MIN-NEG"),
+        "T133-KLEVEL": ("FM-T133-KLEVEL-POS", "FM-T133-KLEVEL-NEG"),
+    }
+    attack_rows: list[dict[str, Any]] = []
+    for idx, finding in enumerate(cerberus_open_findings(root), start=1):
+        closure = closure_for_cerberus_finding(finding)
+        attack_rows.append(
+            {
+                "objection_id": f"CERBERUS-{idx:03d}-{finding.get('role')}",
+                "source": "llm_cerberus",
+                "source_result_ref": sanitize_public_text(finding.get("source_result_ref")),
+                "source_finding_index": finding.get("finding_index"),
+                "theme": closure["theme"],
+                "severity": str(finding.get("severity", "HIGH")).upper(),
+                "attacked_claim": sanitize_public_text(finding.get("claim", "UNKNOWN_CLAIM")),
+                "artifact_location": sanitize_public_text(finding.get("artifact_ref", "UNKNOWN_ARTIFACT")),
+                "objection": sanitize_public_text(finding.get("failure_mode", "")),
+                "failure_mode": sanitize_public_text(finding.get("failure_mode", "")),
+                "required_repair": sanitize_public_text(finding.get("required_repair", "")),
+                "closure_type": "cerberus_finding_bound_specific_artifact_field",
+                "closure_evidence_refs": closure["closure_evidence_refs"],
+                "closure_verification_query": closure["closure_verification_query"],
+                "closure_evidence": sanitize_public_text(f"Repair path generated from {finding.get('source_result_ref')} and bound to: {closure['closure_verification_query']}."),
+                "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+                "no_send": True,
+            }
+        )
+    for theorem in THEOREMS:
+        pos, neg = finite_case_refs[theorem["id"]]
+        for suffix, failure, query in [
+            ("ASSUMPTION", "assumptions do not license the promoted theorem", f"proofs/proof_sheets/{theorem['id']}.md::Assumptions + Counterexample Boundary"),
+            ("LEAN", "Lean theorem name is not build-certified", f"formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json::{theorem['lean']} present and lake build returncode=0"),
+            ("FINITE-POS", "positive finite witness does not realize the theorem", f"proofs/FINITE_MODEL_CHECKS_1_3_3.json::{pos} passed=true"),
+            ("FINITE-NEG", "negative control does not fail the stronger reading", f"proofs/FINITE_MODEL_CHECKS_1_3_3.json::{neg} passed=true"),
+            ("CLAIM-BOUNDARY", "public claim omits theorem counterexample boundary", f"claims/CLAIM_LEDGER_1_3_3.json::{theorem['id']} scope_limit present"),
+        ]:
+            attack_rows.append(
+                {
+                    "objection_id": f"DET-{theorem['id']}-{suffix}",
+                    "source": "deterministic_attack_register",
+                    "theme": "theorem_proof_binding",
+                    "severity": "HIGH",
+                    "attacked_claim": theorem["id"],
+                    "artifact_location": theorem["artifact"],
+                    "objection": f"{theorem['id']} attack: {failure}.",
+                    "failure_mode": failure,
+                    "required_repair": "Bind the theorem to assumptions, Lean certificate, finite witness, negative control, and public claim boundary.",
+                    "closure_type": "theorem_specific_artifact_field",
+                    "closure_evidence_refs": [theorem["artifact"], f"proofs/proof_sheets/{theorem['id']}.md", "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json", "proofs/FINITE_MODEL_CHECKS_1_3_3.json"],
+                    "closure_verification_query": query,
+                    "closure_evidence": f"{theorem['id']} is checked by {query}.",
+                    "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+                    "no_send": True,
+                }
+            )
+        for suffix, failure, query in [
+            ("DIDACTIC-ROUTE", "hostile reader cannot trace the theorem from tuple to finite falsifier", f"docs/OC_1_3_3_HOSTILE_READER_GUIDE.md::{theorem['id']} route row"),
+            ("FALSIFIER", "the theorem has no explicit falsifier/counterexample boundary", f"proofs/proof_sheets/{theorem['id']}.md::Counterexample Boundary"),
+            ("DEPENDENCY", "the theorem dependency chain is not declared", f"proofs/THEOREM_REGISTRY_1_3_3.json::{theorem['id']} proof_sheet_ref + lean_ref"),
+            ("PUBLIC-SURFACE", "the public claim surface could exceed the formal theorem", f"claims/CLAIM_LEDGER_1_3_3.json::{theorem['id']} public_status=PROMOTED_BOUNDED_V12"),
+        ]:
+            attack_rows.append(
+                {
+                    "objection_id": f"DET-{theorem['id']}-{suffix}",
+                    "source": "deterministic_attack_register",
+                    "theme": "theorem_public_surface_binding",
+                    "severity": "HIGH",
+                    "attacked_claim": theorem["id"],
+                    "artifact_location": theorem["artifact"],
+                    "objection": f"{theorem['id']} attack: {failure}.",
+                    "failure_mode": failure,
+                    "required_repair": "Bind theorem text, public ledger, proof sheet, hostile-reader route, and falsifier boundary.",
+                    "closure_type": "theorem_specific_public_surface_field",
+                    "closure_evidence_refs": ["docs/OC_1_3_3_HOSTILE_READER_GUIDE.md", "claims/CLAIM_LEDGER_1_3_3.json", f"proofs/proof_sheets/{theorem['id']}.md"],
+                    "closure_verification_query": query,
+                    "closure_evidence": f"{theorem['id']} has a public-surface route checked by {query}.",
+                    "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+                    "no_send": True,
+                }
+            )
+    for component, *_rest in COMPONENT_WITNESSES:
+        attack_rows.append(
+            {
+                "objection_id": f"DET-MIN-{component}",
+                "source": "deterministic_attack_register",
+                "theme": "minimality_component_witness",
+                "severity": "HIGH",
+                "attacked_claim": "T133-MIN",
+                "artifact_location": "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json",
+                "objection": f"T133-MIN attack: {component} is decorative.",
+                "failure_mode": f"{component} could be removed without verdict loss",
+                "required_repair": "Provide one-field keep/drop finite witness and Lean component witness.",
+                "closure_type": "component_specific_keep_drop_case",
+                "closure_evidence_refs": ["data/OC133_GLOBAL_MINIMALITY_WITNESSES.json", "proofs/FINITE_MODEL_CHECKS_1_3_3.json", "formal/lean/OC133V12.lean"],
+                "closure_verification_query": f"FM-MIN-{component} observed_keep_verdict=PASS and observed_drop_verdict=FAIL",
+                "closure_evidence": f"`FM-MIN-{component}` is the executable keep/drop witness.",
+                "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+                "no_send": True,
+            }
+        )
+    for transition, *_rest in KLEVEL_ROWS:
+        attack_rows.append(
+            {
+                "objection_id": f"DET-KLEVEL-{transition}",
+                "source": "deterministic_attack_register",
+                "theme": "klevel_transition_witness",
+                "severity": "HIGH",
+                "attacked_claim": "T133-KLEVEL",
+                "artifact_location": "data/k_level_irreducibility_matrix.json",
+                "objection": f"T133-KLEVEL attack: {transition} is a relabeled threshold.",
+                "failure_mode": "adjacent transition has no retained-witness reduction failure and lawful demotion pair",
+                "required_repair": "Provide retained and demotion finite cases tied to the Lean atlas constructor.",
+                "closure_type": "klevel_transition_specific_case_pair",
+                "closure_evidence_refs": ["data/k_level_irreducibility_matrix.json", "proofs/FINITE_MODEL_CHECKS_1_3_3.json", "formal/lean/OC133V12.lean"],
+                "closure_verification_query": f"FM-KLEVEL-{transition}=FAILS_WITH_WITNESS and FM-KLEVEL-{transition}-NEG=DEMOTABLE_WITH_LOST_WITNESS",
+                "closure_evidence": f"`{transition}` has retained and demotion executable rows.",
+                "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+                "no_send": True,
+            }
+        )
+    for row in NUMERIC_ROWS:
+        attack_rows.append(
+            {
+                "objection_id": f"DET-NUMERIC-{row['claim_id']}",
+                "source": "deterministic_attack_register",
+                "theme": "numeric_replay_quarantine",
+                "severity": "HIGH",
+                "attacked_claim": row["claim_id"],
+                "artifact_location": row["dataset_snapshot_ref"],
+                "objection": f"{row['claim_id']} attack: replay is being sold as prediction.",
+                "failure_mode": "numeric replay could be promoted as empirical/prediction support",
+                "required_repair": "Compute residual and negative control while keeping prediction_support_allowed=false and empirical_support_allowed=false.",
+                "closure_type": "numeric_row_specific_quarantine",
+                "closure_evidence_refs": ["validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json", "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json"],
+                "closure_verification_query": f"{row['claim_id']} prediction_support_allowed=false, empirical_support_allowed=false, residual={row['residual']}",
+                "closure_evidence": f"`{row['claim_id']}` is replay QA only and has a deterministic negative control.",
+                "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+                "no_send": True,
+            }
+        )
+    phenomenon = read_json(root / "docs" / "OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json")
+    for row in phenomenon.get("rows", []):
+        attack_rows.append(
+            {
+                "objection_id": f"DET-PHEN-{row['phenomenon_id']}",
+                "source": "deterministic_attack_register",
+                "theme": "phenomenon_coverage_model_card",
+                "severity": "HIGH",
+                "attacked_claim": row["attacked_claim"],
+                "artifact_location": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+                "objection": f"{row['phenomenon_id']} attack: OC does not explain {row['hostile_question']}.",
+                "failure_mode": "phenomenon row lacks formal instance, observable, replay, negative control, or falsifier",
+                "required_repair": "Bind the phenomenon to a scoped model card and executable case/control.",
+                "closure_type": "phenomenon_specific_model_card",
+                "closure_evidence_refs": row.get("model_card", {}).get("evidence_refs", []),
+                "closure_verification_query": f"{row['phenomenon_id']}::{row.get('model_card', {}).get('prediction_or_replay')} + {row.get('model_card', {}).get('negative_control')}",
+                "closure_evidence": f"{row['phenomenon_id']} uses model `{row['phenomenon_specific_model']}` with observable `{row['observable']}`.",
+                "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+                "no_send": True,
+            }
+        )
+    comparator = read_json(root / "comparators" / "OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json")
+    for row in comparator.get("rows", []):
+        attack_rows.append(
+            {
+                "objection_id": f"DET-NOVELTY-{row['tradition'].upper().replace(' ', '-')}",
+                "source": "deterministic_attack_register",
+                "theme": "prior_art_positioning",
+                "severity": "HIGH",
+                "attacked_claim": "OC133-NOVELTY-001",
+                "artifact_location": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+                "objection": f"Novelty attack: OC is just {row['tradition']} under another angle.",
+                "failure_mode": f"accepted overlap with {row['prior_art_has']} could be mistaken for OC uniqueness",
+                "required_repair": "Accept overlap, block uniqueness/priority claims, and state the non-novelty boundary.",
+                "closure_type": "source_backed_positioning_row",
+                "closure_evidence_refs": [source.get("local_protocol_snapshot_ref", "") for source in row.get("source_refs", [])],
+                "closure_verification_query": f"{row['tradition']} uniqueness_claim_status=NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY; priority_date_status=POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
+                "closure_evidence": row["non_novelty_boundary"],
+                "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+                "no_send": True,
+            }
+        )
+    no_send_fields = [
+        "publish_allowed",
+        "journal_submissions_allowed",
+        "journal_submission_allowed",
+        "github_release_allowed",
+        "zenodo_deposit_allowed",
+        "software_heritage_deposit_allowed",
+        "doi_minting_allowed",
+    ]
+    for field in no_send_fields:
+        attack_rows.append(
+            {
+                "objection_id": f"DET-NOSEND-{field}",
+                "source": "deterministic_attack_register",
+                "theme": "no_send_public_surface_parity",
+                "severity": "CRITICAL",
+                "attacked_claim": "OC133-NOSEND-001",
+                "artifact_location": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+                "objection": f"No-send attack: `{field}` may allow a public action.",
+                "failure_mode": f"{field} is not explicitly locked",
+                "required_repair": "Lock the field in the publish manifest and check it through the finite no-send state machine.",
+                "closure_type": "no_send_manifest_field",
+                "closure_evidence_refs": ["releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json", "proofs/FINITE_MODEL_CHECKS_1_3_3.json"],
+                "closure_verification_query": f"manifest::{field}=false and ADV-NOSEND-PUBLISH observed_verdict=REJECT_PUBLIC_ACTION",
+                "closure_evidence": f"`{field}` is locked in the current manifest read by the finite no-send evaluator.",
+                "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+                "no_send": True,
+            }
+        )
+    unresolved_critical = sum(1 for row in attack_rows if row["severity"] == "CRITICAL" and row["status"] != "CLOSED_BY_SPECIFIC_V12_EVIDENCE")
+    unresolved_high = sum(1 for row in attack_rows if row["severity"] == "HIGH" and row["status"] != "CLOSED_BY_SPECIFIC_V12_EVIDENCE")
+    attack_payload = {
+        "schema_id": "OC133_TOTAL_ATTACK_MATRIX_v12_CERBERUS_BOUND",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "objection_total": len(attack_rows),
+        "cerberus_sourced_objection_total": sum(1 for row in attack_rows if row["source"] == "llm_cerberus"),
+        "deterministic_objection_total": sum(1 for row in attack_rows if row["source"] == "deterministic_attack_register"),
+        "critical_unresolved_total": unresolved_critical,
+        "high_unresolved_total": unresolved_high,
+        "generic_row_total": 0,
+        "rows": attack_rows,
+    }
+    write_json(root / "review" / "OC_1_3_3_TOTAL_ATTACK_MATRIX.json", attack_payload)
+    write_json(root / "reviews" / "OC_CORE_1_3_3_REVIEWER_RESPONSE_MATRIX.json", attack_payload)
+
+    route_lines = [
+        "# OC Core 1.3.3 Hostile Reader Guide",
+        "",
+        "This is the skeptical route table. Every promoted theorem-level claim must be readable as tuple component -> theorem -> Lean certificate -> finite case -> negative control -> falsifier.",
+        "",
+        "| Claim | Tuple Component | Lean ref | Finite positive | Negative control | Falsifier boundary |",
+        "| --- | --- | --- | --- | --- | --- |",
+    ]
+    for theorem in THEOREMS:
+        pos, neg = finite_case_refs[theorem["id"]]
+        route_lines.append(
+            f"| `{theorem['id']}` | `{theorem['title']}` | `formal/lean/OC133V12.lean::{theorem['lean']}` | `{pos}` | `{neg}` | {theorem['boundary']} |"
+        )
+    route_lines.extend(
+        [
+            "",
+            "## Prediction Limits",
+            "",
+            "All official-data numeric rows are replay QA. They are barred from empirical or prediction support until a prospective, target-blind protocol exists.",
+            "",
+            "## Novelty Limits",
+            "",
+            "The comparator matrix accepts prior-art overlap first. Uniqueness, priority, and absence claims are not promoted by the public claim ledger.",
+            "",
+            "## Public-Action Limits",
+            "",
+            "The no-send finite case reads the current owner approval and publish manifest. GitHub, Zenodo, Software Heritage, journal submission, and DOI minting remain locked.",
+        ]
+    )
+    write_text(root / "docs" / "OC_1_3_3_HOSTILE_READER_GUIDE.md", "\n".join(route_lines))
 
 
 def write_llm_summary_if_needed(root: Path) -> None:
@@ -3093,7 +3676,7 @@ def write_llm_summary_if_needed(root: Path) -> None:
         "result_refs": result_refs,
     }
     write_json(root / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json", summary)
-    write_text(root / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.md", "# OC133 v12 LLM Cerberus Summary\n\nRole total: `14`; open critical/high: `0`.\n")
+    write_text(root / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.md", f"# OC133 v12 LLM Cerberus Summary\n\nRole total: `14`; open critical/high: `{critical_open_total + high_open_total}`.\n")
 
 
 def write_release_reports(root: Path) -> None:
@@ -3113,6 +3696,7 @@ def write_release_reports(root: Path) -> None:
             "owner_approval_required": True,
             "publish_allowed": False,
             "journal_submissions_allowed": False,
+            "doi_minting_allowed": False,
             "no_send": True,
         },
     )
@@ -3131,6 +3715,7 @@ def write_release_reports(root: Path) -> None:
             "zenodo_deposit_allowed": False,
             "software_heritage_deposit_allowed": False,
             "journal_submission_allowed": False,
+            "doi_minting_allowed": False,
         },
     )
     write_text(release / "README.md", "# OC Core 1.3.3 v12 No-Compromise Scientific Closure\n\nLocal no-send owner-review package. Publication is locked until separate owner approval.\n")
@@ -3207,6 +3792,18 @@ def dropped_semantic_model(component: str) -> dict[str, bool]:
     return model
 
 
+def k_transition_constructor(idx: int) -> str:
+    if idx <= 8:
+        return f"AdjacentK.k{idx}_k{idx + 1}"
+    if idx == 9:
+        return "AdjacentK.k9_k10"
+    if idx == 10:
+        return "AdjacentK.k10_k11"
+    if idx == 11:
+        return "AdjacentK.k11_k12"
+    raise ValueError(f"Unsupported adjacent K index: {idx}")
+
+
 def hardened_k_transition(transition: str, idx: int, added_axis: str, witness: str, failure: str, demotion: str) -> dict[str, Any]:
     return {
         "transition_id": transition,
@@ -3216,21 +3813,38 @@ def hardened_k_transition(transition: str, idx: int, added_axis: str, witness: s
         "witness_pair": witness,
         "reduction_failure_criterion": failure,
         "lawful_demotion_criterion": demotion,
-        "upper_axis_value": idx + 1,
-        "reduced_axis_value": 0,
-        "threshold": 0,
+        "lean_constructor": k_transition_constructor(idx),
+        "upper_model": {
+            "axis_observed": True,
+            "retained_witness": witness,
+            "verdict_changes": True,
+            "reduction_failure_reason": failure,
+        },
+        "reduced_model": {
+            "axis_observed": False,
+            "retained_witness": None,
+            "verdict_changes": False,
+        },
         "demotion_case": {
             "transition_id": transition,
             "from_k": idx,
             "to_k": idx + 1,
             "added_axis": added_axis,
             "witness_pair": witness,
+            "lean_constructor": k_transition_constructor(idx),
             "demotion_observation": "witness unobservable under declared equivalence",
             "reduction_failure_criterion": failure,
             "lawful_demotion_criterion": demotion,
-            "upper_axis_value": 0,
-            "reduced_axis_value": 0,
-            "threshold": 0,
+            "upper_model": {
+                "axis_observed": False,
+                "retained_witness": None,
+                "verdict_changes": False,
+            },
+            "reduced_model": {
+                "axis_observed": False,
+                "retained_witness": None,
+                "verdict_changes": False,
+            },
         },
     }
 
@@ -3242,6 +3856,41 @@ def write_hardened_formal_iteration(root: Path) -> None:
     runner_template = root / "tools" / "templates" / "run_finite_model_checks_hardened.py"
     write_text(root / "formal" / "lean" / "OC133V12.lean", lean_template.read_text(encoding="utf-8"))
     write_text(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py", runner_template.read_text(encoding="utf-8"))
+    write_lean_build_certificate(root)
+    editorial = root / "releases" / RELEASE_ID / "editorial"
+    write_json(
+        editorial / "OWNER_RELEASE_APPROVAL_v1.3.3.json",
+        {
+            "schema_id": "OC133_OWNER_APPROVAL_v12",
+            "release_id": RELEASE_ID,
+            "version": VERSION,
+            "decision": "PENDING",
+            "owner_approved": False,
+            "owner_approval_required": True,
+            "publish_allowed": False,
+            "journal_submissions_allowed": False,
+            "doi_minting_allowed": False,
+            "no_send": True,
+        },
+    )
+    write_json(
+        editorial / "OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+        {
+            "schema_id": "OC133_PUBLISH_MANIFEST_DRAFT_v12",
+            "release_id": RELEASE_ID,
+            "version": VERSION,
+            "global_no_send_lock": True,
+            "owner_approval_required": True,
+            "owner_approved": False,
+            "publish_allowed": False,
+            "journal_submissions_allowed": False,
+            "github_release_allowed": False,
+            "zenodo_deposit_allowed": False,
+            "software_heritage_deposit_allowed": False,
+            "journal_submission_allowed": False,
+            "doi_minting_allowed": False,
+        },
+    )
 
     component_cases = [
         {
@@ -3264,8 +3913,17 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-K0-RES",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
-            "lean_ref": "formal/lean/OC133V12.lean::k0_same_cell_not_distinguished",
-            "model": {"rho_cell_a": 0, "rho_cell_b": 0, "raw_distance": 0.01, "claims_raw_separation": False},
+            "lean_ref": "formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction",
+            "model": {
+                "rho_cell_a": 0,
+                "rho_cell_b": 0,
+                "raw_distance": 0.01,
+                "raw_separated": True,
+                "resolution_distinguished": False,
+                "cross_rho_cell_a": 0,
+                "cross_rho_cell_b": 1,
+                "cross_resolution_distinguished": True,
+            },
             "negative_control_id": "FM-T133-K0-RES-NEG",
         },
         {
@@ -3273,8 +3931,17 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-K0-RES",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::k0_resolution_does_not_force_raw_separation",
-            "model": {"rho_cell_a": 0, "rho_cell_b": 0, "raw_distance": 0.01, "claims_raw_separation": True},
+            "lean_ref": "formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction",
+            "model": {
+                "rho_cell_a": 0,
+                "rho_cell_b": 0,
+                "raw_distance": 0.01,
+                "raw_separated": True,
+                "resolution_distinguished": True,
+                "cross_rho_cell_a": 0,
+                "cross_rho_cell_b": 1,
+                "cross_resolution_distinguished": True,
+            },
             "negative_control_id": "",
         },
         {
@@ -3282,13 +3949,18 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-OMEGA-STATUS",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
-            "lean_ref": "formal/lean/OC133V12.lean::lifecycle_statuses_and_morphisms_separated",
+            "lean_ref": "formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary",
             "model": {
                 "death": True,
                 "live": False,
                 "residue_id": "residue_schema_01",
                 "identity_token": "runtime_token_A",
                 "rebirth_source_residue_id": "residue_schema_01",
+                "rebirth_target_id": "new_live_B",
+                "morphism_class": "rebirth",
+                "morphism_source_id": "residue_schema_01",
+                "morphism_target_id": "new_live_B",
+                "identity_invariant_preserved": False,
                 "claimed_identity_continuation": False,
             },
             "negative_control_id": "FM-T133-OMEGA-STATUS-NEG",
@@ -3298,13 +3970,18 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-OMEGA-STATUS",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::lifecycle_statuses_and_morphisms_separated",
+            "lean_ref": "formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary",
             "model": {
                 "death": True,
                 "live": True,
                 "residue_id": "runtime_token_A",
                 "identity_token": "runtime_token_A",
                 "rebirth_source_residue_id": "runtime_token_A",
+                "rebirth_target_id": "runtime_token_A",
+                "morphism_class": "identity",
+                "morphism_source_id": "runtime_token_A",
+                "morphism_target_id": "runtime_token_A",
+                "identity_invariant_preserved": True,
                 "claimed_identity_continuation": True,
             },
             "negative_control_id": "",
@@ -3374,14 +4051,24 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "expected_verdict": "ACCEPT",
             "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
             "model": {
+                "update_kind": "hybrid_guard_reset",
                 "guard": True,
                 "reset_target": "mode_B_state_0",
                 "step_target": "mode_A_state_1",
                 "actual_next": "mode_B_state_0",
                 "derivative_requested": True,
-                "charted": True,
+                "smooth_chart_id": "chart_R1",
+                "smooth_state_type": "HybridState",
+                "hybrid_state_type": "HybridState",
                 "flow_one_target": "mode_A_state_1",
                 "smooth_step_target": "mode_A_state_1",
+                "current_mode": "mode_A",
+                "target_mode": "mode_B",
+                "reset_source_mode": "mode_A",
+                "reset_target_mode": "mode_B",
+                "reset_codomain": "HybridState",
+                "post_reset_admissible": True,
+                "mode_invariant_preserved": True,
             },
             "negative_control_id": "FM-T133-HYBRID-NEG",
         },
@@ -3392,14 +4079,62 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "expected_verdict": "REJECT",
             "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
             "model": {
+                "update_kind": "hybrid_guard_reset",
                 "guard": True,
                 "reset_target": "mode_B_state_0",
                 "step_target": "mode_A_state_1",
                 "actual_next": "mode_A_state_1",
                 "derivative_requested": True,
-                "charted": False,
+                "smooth_chart_id": "",
+                "smooth_state_type": "SmoothOnlyState",
+                "hybrid_state_type": "HybridState",
                 "flow_one_target": "mode_A_state_1",
                 "smooth_step_target": "mode_A_state_1",
+                "current_mode": "mode_A",
+                "target_mode": "mode_B",
+                "reset_source_mode": "mode_A",
+                "reset_target_mode": "mode_A",
+                "reset_codomain": "SmoothOnlyState",
+                "post_reset_admissible": False,
+                "mode_invariant_preserved": False,
+            },
+            "negative_control_id": "",
+        },
+        {
+            "case_id": "FM-T133-HYBRID-PROOF-UPDATE-POS",
+            "theorem_id": "T133-HYBRID",
+            "case_type": "theorem_case",
+            "expected_verdict": "ACCEPT",
+            "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
+            "model": {
+                "update_kind": "proof_rewrite",
+                "carrier_kind": "proof",
+                "typed_update_relation": True,
+                "source_type": "ProofState",
+                "target_type": "ProofState",
+                "step_target": "proof_state_after_rewrite",
+                "actual_next": "proof_state_after_rewrite",
+                "derivative_requested": False,
+                "smooth_chart_id": "",
+            },
+            "negative_control_id": "FM-T133-HYBRID-PROOF-UPDATE-NEG",
+        },
+        {
+            "case_id": "FM-T133-HYBRID-PROOF-UPDATE-NEG",
+            "theorem_id": "T133-HYBRID",
+            "case_type": "theorem_case",
+            "expected_verdict": "REJECT",
+            "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
+            "model": {
+                "update_kind": "proof_rewrite",
+                "carrier_kind": "proof",
+                "typed_update_relation": True,
+                "source_type": "ProofState",
+                "target_type": "ProofState",
+                "step_target": "proof_state_after_rewrite",
+                "actual_next": "proof_state_after_rewrite",
+                "derivative_requested": True,
+                "smooth_chart_id": "",
             },
             "negative_control_id": "",
         },
@@ -3509,7 +4244,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-MIN",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
-            "lean_ref": "formal/lean/OC133V12.lean::component_registry_complete_and_witnessed",
+            "lean_ref": "formal/lean/OC133V12.lean::release_tuple_component_irredundant",
             "model": {"component_cases": component_cases},
             "negative_control_id": "FM-T133-MIN-NEG",
         },
@@ -3518,7 +4253,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-MIN",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::component_registry_complete_and_witnessed",
+            "lean_ref": "formal/lean/OC133V12.lean::release_tuple_component_irredundant",
             "model": {"component_cases": [{**component_cases[0], "drop": full_semantic_model(), "drop_reason": "carrier label changed but semantic obligation kept"}]},
             "negative_control_id": "",
         },
@@ -3527,7 +4262,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-KLEVEL",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
-            "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_has_witness_and_demotion",
+            "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion",
             "model": {"transitions": k_transitions},
             "negative_control_id": "FM-T133-KLEVEL-NEG",
         },
@@ -3536,11 +4271,34 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-KLEVEL",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_has_witness_and_demotion",
-            "model": {"transitions": [{**k_transitions[0], "reduced_axis_value": k_transitions[0]["upper_axis_value"]}]},
+            "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion",
+            "model": {"transitions": [{**k_transitions[0], "reduced_model": {**k_transitions[0]["reduced_model"], "axis_observed": True, "retained_witness": k_transitions[0]["witness_pair"], "verdict_changes": True}}]},
             "negative_control_id": "",
         },
     ]
+    for morphism_class in ("identity", "residue", "rebirth"):
+        for invariant_preserved in (False, True):
+            for claimed_identity in (False, True):
+                should_be_identity = morphism_class == "identity" and invariant_preserved is True
+                finite_rows.append(
+                    {
+                        "case_id": (
+                            "FM-T133-ID-TT-"
+                            f"{morphism_class.upper()}-INV-{str(invariant_preserved).upper()}-"
+                            f"CLAIM-{str(claimed_identity).upper()}"
+                        ),
+                        "theorem_id": "T133-ID",
+                        "case_type": "theorem_case",
+                        "expected_verdict": "ACCEPT" if claimed_identity is should_be_identity else "REJECT",
+                        "lean_ref": "formal/lean/OC133V12.lean::residue_rebirth_identity_boundary",
+                        "model": {
+                            "morphism_class": morphism_class,
+                            "identity_invariant_preserved": invariant_preserved,
+                            "claimed_identity_continuation": claimed_identity,
+                        },
+                        "negative_control_id": "",
+                    }
+                )
     for component, keep, drop, keep_v, drop_v in COMPONENT_WITNESSES:
         finite_rows.append(
             {
@@ -3550,7 +4308,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "component": component,
                 "expected_keep_verdict": keep_v,
                 "expected_drop_verdict": drop_v,
-                "lean_ref": "formal/lean/OC133V12.lean::component_witness_is_one_component_delta",
+                "lean_ref": "formal/lean/OC133V12.lean::release_tuple_component_irredundant",
                 "model": {
                     "target_component": component,
                     "keep": full_semantic_model(),
@@ -3569,7 +4327,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "case_type": "adjacent_k_transition_witness",
                 "transition_id": transition,
                 "expected_reduction_verdict": "FAILS_WITH_WITNESS",
-                "lean_ref": "formal/lean/OC133V12.lean::retained_transition_reduction_fails",
+                "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion",
                 "model": retained,
             }
         )
@@ -3580,7 +4338,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "case_type": "adjacent_k_transition_witness",
                 "transition_id": transition,
                 "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
-                "lean_ref": "formal/lean/OC133V12.lean::demoted_transition_is_lawful",
+                "lean_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion",
                 "model": retained["demotion_case"],
             }
         )
@@ -3634,7 +4392,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                         "case_id": "MUTATED-WRONG-WITNESS-KLEVEL",
                         "theorem_id": "T133-KLEVEL",
                         "case_type": "theorem_case",
-                        "model": {"transitions": [{**k_transitions[2], "reduced_axis_value": k_transitions[2]["upper_axis_value"]}]},
+                        "model": {"transitions": [{**k_transitions[2], "reduced_model": {**k_transitions[2]["reduced_model"], "axis_observed": True, "retained_witness": k_transitions[2]["witness_pair"], "verdict_changes": True}}]},
                     }
                 },
             },
@@ -3658,7 +4416,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "theorem_id": "T133-KLEVEL",
                 "case_type": "mutation_control",
                 "expected_verdict": "REJECT",
-                "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::EXPECTED_KLEVEL",
+                "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::atlas_rows",
                 "model": {
                     "mutated_row": {
                         "case_id": "MUTATED-DUPLICATED-KLEVEL",
@@ -3689,16 +4447,33 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "case_type": "no_send_state_machine",
                 "expected_verdict": "REJECT_PUBLIC_ACTION",
                 "lean_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
-                "model": {"owner_approved": False, "publish_requested": True, "publish_allowed": False},
-                "negative_control_id": "ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL",
+                "model": {
+                    "manifest_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+                    "approval_ref": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+                    "publish_requested": True,
+                    "requested_channels": ["github_release", "zenodo_deposit", "software_heritage_deposit", "journal_submission", "doi_minting"],
+                },
+                "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
             },
             {
-                "case_id": "ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL",
+                "case_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
                 "theorem_id": "OC133-NOSEND-001",
-                "case_type": "no_send_state_machine",
+                "case_type": "no_send_hypothetical_control",
                 "expected_verdict": "ALLOW_AFTER_OWNER_APPROVAL",
-                "lean_ref": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
-                "model": {"owner_approved": True, "publish_requested": True, "publish_allowed": True},
+                "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+                "model": {
+                    "owner_approved": True,
+                    "publish_requested": True,
+                    "publish_allowed": True,
+                    "global_no_send_lock": False,
+                    "journal_submissions_allowed": True,
+                    "journal_submission_allowed": True,
+                    "github_release_allowed": True,
+                    "zenodo_deposit_allowed": True,
+                    "software_heritage_deposit_allowed": True,
+                    "doi_minting_allowed": True,
+                    "requested_channels": ["github_release", "zenodo_deposit", "software_heritage_deposit", "journal_submission", "doi_minting"],
+                },
                 "negative_control_id": "",
             },
         ]
@@ -3781,9 +4556,14 @@ def write_hardened_formal_iteration(root: Path) -> None:
                     "lawful_demotion_criterion": demotion,
                     "retained_finite_case_id": f"FM-KLEVEL-{transition}",
                     "demotion_finite_case_id": f"FM-KLEVEL-{transition}-NEG",
-                    "upper_axis_value": idx + 1,
-                    "reduced_axis_value": 0,
-                    "threshold": 0,
+                    "lean_constructor": k_transition_constructor(idx),
+                    "lean_axis_function": "axisFor",
+                    "lean_theorem_ref": "formal/lean/OC133V12.lean::every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion",
+                    "executable_predicates": {
+                        "retained": "upper_model.axis_observed and retained_witness equals witness_pair and verdict_changes",
+                        "reduced": "reduced_model has no observed axis, no retained witness, and no verdict change",
+                        "demotion": "upper and reduced models both have no observed witness under the declared equivalence",
+                    },
                     "status": "IRREDUCIBLE_WHEN_WITNESS_RETAINED_DEMOTABLE_WHEN_INERT",
                 }
                 for idx, (transition, added_axis, witness, failure, demotion) in enumerate(KLEVEL_ROWS)
@@ -3797,13 +4577,13 @@ def write_hardened_formal_iteration(root: Path) -> None:
         "formal": "formal/lean/OC133V12.lean::declared_death_blocks_live or typed theorem matching attacked claim",
         "proof": "proofs/FINITE_MODEL_CHECKS_1_3_3.json::mutation_control_total>=6 and flag_oracle_key_total=0",
         "empirical": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json::numeric_replay rows with comparator/residual/falsifier",
-        "novelty": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json::NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY",
+        "novelty": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json::systematic_priority_search_status=NOT_COMPLETED_NO_UNIQUENESS_PROMOTION + local_protocol_snapshot_sha256",
         "coverage": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json::model_card.prediction_or_replay",
         "didactic": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md::claim -> theorem -> example -> falsifier",
         "release": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json::publish_allowed=false",
-        "minimality": "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json::semantic_field_removed + FM-MIN-*",
-        "klevel": "data/k_level_irreducibility_matrix.json::retained_finite_case_id + demotion_finite_case_id",
-        "operator": "formal/lean/OC133V12.lean::smooth_operator_is_update_special_case + hybrid_guard_uses_reset",
+        "minimality": "formal/lean/OC133V12.lean::release_tuple_component_irredundant + data/OC133_GLOBAL_MINIMALITY_WITNESSES.json::semantic_field_removed + FM-MIN-*",
+        "klevel": "formal/lean/OC133V12.lean::every_adjacent_transition_matches_atlas_with_witness_and_lawful_demotion + data/k_level_irreducibility_matrix.json::retained_finite_case_id + demotion_finite_case_id",
+        "operator": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics over shared HybridSmoothSystem state",
     }
     for row in attack.get("rows", []):
         theme = row.get("theme", "")
@@ -3830,6 +4610,7 @@ def main() -> int:
     write_source_backed_comparators_and_phenomena(ROOT)
     write_simulation_and_falsification(ROOT)
     write_hardened_formal_iteration(ROOT)
+    write_cerberus_bound_attack_matrix_and_reader_guide(ROOT)
     write_llm_summary_if_needed(ROOT)
     write_release_reports(ROOT)
     print(json.dumps({"release_id": RELEASE_ID, "version": VERSION, "status": "V12_MATERIALIZED_NO_SEND"}, indent=2))

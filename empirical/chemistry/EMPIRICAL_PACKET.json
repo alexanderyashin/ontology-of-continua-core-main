@@ -2,20 +2,23 @@
   "schema_id": "OC133_VALIDATION_PACKET_v12",
   "lane": "chemistry",
   "release_id": "oc_core_1_3_3",
-  "exact_promoted_claim": "formula-to-molecular-weight replay for water only",
+  "exact_promoted_claim": "PubChem molecular-weight field replay for water only",
   "theorem_to_observable_binding": "typed OC predicate -> lane-specific observable/protocol",
-  "held_out_policy": "predeclared formula split fixed before reading PubChem observed field",
-  "formula": "2*atomic_weight(H)+atomic_weight(O) using conventional rounded masses",
+  "held_out_policy": "snapshot field replay only; no held-out formula-derived chemistry claim",
+  "formula": "predicted molecular weight = pinned PubChem MolecularWeight field parsed from official snapshot",
   "dataset_snapshot_ref": "validation/_raw/chemistry_pubchem_water.txt",
-  "predicted_value": 18.01528,
+  "predicted_value": 18.015,
   "observed_value": 18.015,
   "uncertainty": 0.02,
   "comparator_prediction": 18.0,
-  "residual": 0.00028,
+  "residual": 0.0,
   "negative_controls": [
-    "use CO2 formula against water snapshot; formula and residual fail"
+    "use CO2 molecular-weight field against water snapshot and require mismatch"
   ],
-  "falsifier_condition": "absolute residual exceeds 0.02 u or formula is not H2O",
+  "falsifier_condition": "PubChem snapshot parser cannot recover MolecularWeight=18.015 for CID 962",
+  "prediction_support_allowed": false,
+  "empirical_support_allowed": false,
+  "quarantine_reason": "official field replay; QA only, not a formula-derived prediction",
   "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS",
   "remaining_blocker": null
 }

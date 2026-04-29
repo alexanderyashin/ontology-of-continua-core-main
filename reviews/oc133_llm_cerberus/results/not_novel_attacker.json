@@ -2,56 +2,56 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "not_novel_attacker",
   "execution_status": "EXECUTED",
-  "critical_open_total": 0,
+  "critical_open_total": 1,
   "high_open_total": 5,
   "finding_total": 6,
   "findings": [
     {
+      "severity": "CRITICAL",
+      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "critical_unresolved_total=0 and high_unresolved_total=0; critical/high objections are CLOSED_BY_SPECIFIC_V12_EVIDENCE.",
+      "failure_mode": "The matrix still closes current high/critical objections with non-responsive closure checks. Examples in the current file include T133-HYBRID closed by proving only chart/flow/guard/reset fields, P012 no-send route closed by manifest locking despite the false Lean/proof-sheet route, and T133-KLEVEL closed with a K0 resolution query unrelated to K-level irreducibility. This is attack-matrix theater: the closure evidence records bounded artifacts but does not repair the attacked claim.",
+      "required_repair": "Reopen each critical/high row whose closure query does not directly prove the repaired claim, require claim-specific closure evidence, remove non-responsive closures, and recompute critical_unresolved_total and high_unresolved_total from the actual row statuses.",
+      "status": "OPEN"
+    },
+    {
       "severity": "HIGH",
-      "artifact_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
-      "claim": "OC133-NOSEND-001: Publication and journal submission remain locked until separate owner approval.",
-      "failure_mode": "The no-send negative control ADV-NOSEND-PUBLISH-OWNER-APPROVED-CONTROL cites releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json but hard-codes owner_approved=true and publish_allowed=true, while the directly referenced approval artifact and publish manifest both have owner_approved=false and publish_allowed=false. The runner evaluates the supplied model, not the referenced artifact, so the no-send state-machine evidence can pass on a fabricated approved state.",
-      "required_repair": "Make the finite runner load and verify the actual owner approval and publish manifest files for no-send cases, or mark the owner-approved row as a synthetic fixture that does not cite the current owner approval artifact; keep real publication channels blocked until a separate real approval artifact exists.",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-HYBRID: Differential operator notation is a smooth-realization specialization of typed update semantics.",
+      "failure_mode": "The Lean artifact models SmoothChart.derivative as an unconstrained record field over arbitrary State and flow as Nat -> State -> State. The theorem smooth_hybrid_operator_semantics proves step_eq_flow_one, chart existence, and guard/reset routing, not differentiability, smooth realization, ODE semantics, or differential-operator laws. The current support reduces the claim to ordinary hybrid-system/update bookkeeping with mathematical labels.",
+      "required_repair": "Demote the claim to a typed update plus optional chart and guard/reset record lemma, or formalize an actual smooth/analytic setting with derivative laws and rerun matching Lean and finite checks.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-ID: Residue preservation and rebirth are not identity continuation unless declared identity invariants are preserved.",
+      "failure_mode": "isIdentityMorphism requires both class = identity and invariantPreserved = true. The promoted theorem only rules out residue/rebirth when invariantPreserved = false and accepts identity when both fields are true; the finite checks only exercise rebirth with invariant false versus claimed identity. The 'unless invariants are preserved' wording is unsupported because invariant preservation alone does not classify residue/rebirth as identity in the current formalism.",
+      "required_repair": "Either rewrite the public claim to say identity requires the identity morphism class plus invariant preservation, or add formal and finite cases covering identity/residue/rebirth across invariantPreserved true/false and claimed continuation true/false.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "T133-KLEVEL: Every declared adjacent K-level transition K0->K12 has a Lean atlas witness, reduction-failure predicate, executable finite row, and lawful demotion predicate in the v12 classifier atlas.",
+      "failure_mode": "The Lean and finite support construct the K-level witnesses from declared enum labels and boolean retained/reduced witness fields. That proves internal atlas bookkeeping, not non-circular reduction failure, irreducibility, or a novel hierarchy over GST, RAF, complexity, systems engineering, or formal-methods framings. The promoted wording still reads as substantive K-level irreducibility despite being declared-classifier replay.",
+      "required_repair": "Narrow the claim to declared atlas bookkeeping, remove irreducibility/reduction language that suggests substantive novelty, or add independent semantic criteria and comparator failures for each adjacent K transition.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "T133-KLEVEL coverage rows P008-P011: OC explains origin-of-life closure, social institutions, theory change, and recursive self-application through replayed phenomenon-specific models.",
-      "failure_mode": "The matrix marks these rows PHENOMENON_SPECIFIC_MODEL_REPLAYED, but the referenced K-level finite checks only validate transition codes, witness_retained, added_axis_observable, demotion_allowed, and reduction_attempt. Domain phrases such as autocatalytic closure, norm/role classifier, claim/evidence update, and self-application are labels in the input, not semantics parsed or checked by run_finite_model_checks.py. This is phenomenon coverage by relabeling.",
-      "required_repair": "Demote P008-P011 to scoped label-only examples, or add executable domain models and runner predicates for RAF closure, role/norm action changes, claim-revision dynamics, and typed self-application before marking them replayed.",
+      "claim": "P003/P008/P009/P010/P011 explanation_status=PHENOMENON_SPECIFIC_MODEL_REPLAYED for biological organization, origin-of-life framing, social institutions, theory change, and recursive self-application.",
+      "failure_mode": "The coverage rows close broad phenomenon questions using toy formal instances and finite replay rows such as a minimal live cell-state surrogate, RAF-like K2->K3 closure witness, role/norm classifier, and claim-ledger update state. The limitations disclaim domain totalization, but the matrix still records the phenomena as replayed explanations without domain data, comparator discrimination, or evidence that OC adds anything beyond autopoiesis, RAF, GST, systems engineering, or formal-methods relabeling.",
+      "required_repair": "Mark these rows as illustrative analogies/not closed coverage, or provide phenomenon-specific models with external data or source-grounded comparator baselines, negative controls, and falsifiers that distinguish OC from the prior-art traditions.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-MIN: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.",
-      "failure_mode": "The Lean proof makes minimality true by definition: ocTupleVerdict passes exactly when all component flags are true, and dropped_component_fails follows by case reduction over that conjunction. The finite runner mirrors the same keep/drop flag schema. This proves the release checklist requires its own flags, not that the OC tuple components are independently minimal against GST, systems engineering, category/topos, RAF, or formal-method reductions.",
-      "required_repair": "Replace the self-referential pass/fail predicate with independently specified verdict tasks or external falsifier cases, then show each component changes at least one independent verdict; otherwise demote T133-MIN to an internal schema sanity check.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-KLEVEL: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.",
-      "failure_mode": "The Lean witness theorem constructs retainedTransitionEvidence with witnessRetained=true, addedAxisObservable=true, demotionAllowed=false, and reduction=losesWitness by definition; the runner checks numeric code alignment and booleans. It does not prove irreducibility against lower-level GST, dynamical-systems, RAF, hybrid-systems, or formal-method encodings.",
-      "required_repair": "Provide independent semantics for each K transition plus real reduction maps and countermodels showing non-preservation under the lower level, or demote T133-KLEVEL from irreducibility theorem to declared atlas consistency check.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "MEDIUM",
-      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-      "claim": "OC133-NOVELTY-001: Prior-art comparison supports bounded positioning of the OC release-governance bundle; uniqueness is not promoted.",
-      "failure_mode": "The Causal and Identity Theories row marks priority_date_status=PRIOR_ART_PREDATES_OC while its source_date is only 2026 and the register was inspected on 2026-04-28. That does not establish a pre-OC priority anchor for this comparator row, even if older identity literature exists elsewhere.",
-      "required_repair": "Replace the row source with a dated pre-OC primary/reference source or record the exact source revision date proving priority; otherwise mark that row priority status unresolved while retaining the no-uniqueness boundary.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 for v12 attacks.",
-      "failure_mode": "The matrix closes repeated critical coverage, novelty, proof, and release attacks by citing artifact-field labels such as PHENOMENON_SPECIFIC_MODEL_REPLAYED, semantic_evaluator=true, and NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY. Current artifacts still contain open high issues: self-confirming MIN/KLEVEL proofs, label-only phenomenon coverage, and a no-send control that cites an unapproved artifact while hard-coding approval.",
-      "required_repair": "Reopen the affected attack rows and require closures to reference executable checks that verify the actual semantic content, prior-art date support, and live no-send artifacts rather than status labels.",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "P012 route: claim OC133-NOSEND-001 -> Lean theorem/proof sheet -> semantic finite case ADV-NOSEND-PUBLISH -> negative control -> falsifier.",
+      "failure_mode": "The current theorem inventory has no OC133-NOSEND-001 theorem and OC133V12.lean contains no no-send theorem; the finite no-send row is manifest/owner-approval state-machine evidence. P012 therefore advertises a Lean/proof-sheet route that does not exist in the inspected release artifacts, even though the manifest lock itself is present.",
+      "required_repair": "Rewrite P012 as claim -> publish manifest/owner approval -> finite no-send state-machine check, remove Lean/proof-sheet evidence from that row, or add and inventory an actual Lean no-send theorem before using that route.",
       "status": "OPEN"
     }
   ],

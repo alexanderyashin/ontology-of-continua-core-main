@@ -2,8 +2,8 @@
 
 Status: `PROMOTED_BOUNDED_THEOREM_V12`
 Primary artifact: `appendix/OC_1_3_3_GLOBAL_MINIMALITY_WITNESSES.tex`
-Machine-checked subset: `formal/lean/OC133V12.lean::component_registry_complete_and_witnessed`
-Attacked claim: Within the declared v12 semantic verdict suite, each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.
+Machine-checked subset: `formal/lean/OC133V12.lean::release_tuple_component_irredundant`
+Attacked claim: Within the declared v12 release tuple semantics, each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.
 
 ## Assumptions
 - Minimality is claimed for the release-governed OC verdict class, not for all possible theories.
