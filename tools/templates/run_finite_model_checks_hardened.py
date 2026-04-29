@@ -9,7 +9,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[2]
 INPUT = ROOT / "proofs" / "finite_model_checks" / "OC133_FINITE_MODEL_INPUTS.json"
 OUTPUT = ROOT / "proofs" / "FINITE_MODEL_CHECKS_1_3_3.json"
-
+ATLAS = ROOT / "data" / "k_level_irreducibility_matrix.json"
 
 FORBIDDEN_MODEL_KEYS = {
     "observed_verdict",
@@ -42,105 +42,6 @@ COMPONENT_FIELDS = {
     "k": "k_zero_cause_declared",
 }
 
-EXPECTED_KLEVEL = {
-    "K0_to_K1": {
-        "from_k": 0,
-        "to_k": 1,
-        "added_axis": "distinguishable state -> minimal continuum",
-        "witness_pair": "continuity obligation changes verdict",
-        "reduction_failure_criterion": "remove continuity and frozen label passes",
-        "lawful_demotion_criterion": "demote if no continuity obligation is observed",
-    },
-    "K1_to_K2": {
-        "from_k": 1,
-        "to_k": 2,
-        "added_axis": "minimal continuum -> phase threshold",
-        "witness_pair": "threshold crossing changes admissibility",
-        "reduction_failure_criterion": "encode as K1 and miss crossing",
-        "lawful_demotion_criterion": "demote if threshold never affects verdict",
-    },
-    "K2_to_K3": {
-        "from_k": 2,
-        "to_k": 3,
-        "added_axis": "phase threshold -> autocatalytic closure",
-        "witness_pair": "closure production is required",
-        "reduction_failure_criterion": "phase-only model accepts non-producing set",
-        "lawful_demotion_criterion": "demote if closure production is irrelevant",
-    },
-    "K3_to_K4": {
-        "from_k": 3,
-        "to_k": 4,
-        "added_axis": "closure -> membrane boundary",
-        "witness_pair": "inside/outside classifier changes verdict",
-        "reduction_failure_criterion": "closure-only model admits leaking state",
-        "lawful_demotion_criterion": "demote if boundary classifier has no observable effect",
-    },
-    "K4_to_K5": {
-        "from_k": 4,
-        "to_k": 5,
-        "added_axis": "boundary -> excitable regulation",
-        "witness_pair": "signal-triggered update changes verdict",
-        "reduction_failure_criterion": "membrane-only model misses excitation",
-        "lawful_demotion_criterion": "demote if excitation never affects status",
-    },
-    "K5_to_K6": {
-        "from_k": 5,
-        "to_k": 6,
-        "added_axis": "regulation -> binding prediction",
-        "witness_pair": "binding relation changes next-state prediction",
-        "reduction_failure_criterion": "regulation-only model misses binding",
-        "lawful_demotion_criterion": "demote if binding is observationally inert",
-    },
-    "K6_to_K7": {
-        "from_k": 6,
-        "to_k": 7,
-        "added_axis": "binding -> trust coordination",
-        "witness_pair": "norm/role classifier changes allowed action",
-        "reduction_failure_criterion": "binding-only model admits norm violation",
-        "lawful_demotion_criterion": "demote if roles do not change allowed actions",
-    },
-    "K7_to_K8": {
-        "from_k": 7,
-        "to_k": 8,
-        "added_axis": "coordination -> regime shift",
-        "witness_pair": "meta-state transition changes future rules",
-        "reduction_failure_criterion": "coordination-only model freezes rules",
-        "lawful_demotion_criterion": "demote if regime state is constant",
-    },
-    "K8_to_K9": {
-        "from_k": 8,
-        "to_k": 9,
-        "added_axis": "regime -> theory dynamics",
-        "witness_pair": "claim/evidence update changes theory verdict",
-        "reduction_failure_criterion": "regime-only model lacks claim revision",
-        "lawful_demotion_criterion": "demote if claim revision is disabled",
-    },
-    "K9_to_K10": {
-        "from_k": 9,
-        "to_k": 10,
-        "added_axis": "theory dynamics -> recursive self-application",
-        "witness_pair": "model applies to its own updates",
-        "reduction_failure_criterion": "K9 model cannot type self-update",
-        "lawful_demotion_criterion": "demote if self-reference is absent",
-    },
-    "K10_to_K11": {
-        "from_k": 10,
-        "to_k": 11,
-        "added_axis": "recursion -> cross-domain coherence",
-        "witness_pair": "translation invariant changes verdict",
-        "reduction_failure_criterion": "recursive single-domain model passes incoherent translation",
-        "lawful_demotion_criterion": "demote if no cross-domain bridge exists",
-    },
-    "K11_to_K12": {
-        "from_k": 11,
-        "to_k": 12,
-        "added_axis": "coherence -> release-governed civilizational closure",
-        "witness_pair": "owner-gated public action state changes verdict",
-        "reduction_failure_criterion": "K11 model cannot represent no-send governance",
-        "lawful_demotion_criterion": "demote if no release-governed action exists",
-    },
-}
-
 
 def sha256_file(path: Path) -> str:
     h = hashlib.sha256()
@@ -158,6 +59,21 @@ def has_forbidden_key(value: Any) -> bool:
     return False
 
 
+def atlas_rows() -> dict[str, dict[str, Any]]:
+    payload = json.loads(ATLAS.read_text(encoding="utf-8"))
+    rows = {}
+    for row in payload.get("rows", []):
+        rows[row["transition_id"]] = {
+            "from_k": row["from_k"],
+            "to_k": row["to_k"],
+            "added_axis": row["added_axis"],
+            "witness_pair": row["adjacent_transition_witness"],
+            "reduction_failure_criterion": row["reduction_failure_criterion"],
+            "lawful_demotion_criterion": row["lawful_demotion_criterion"],
+        }
+    return rows
+
+
 def cycle_or_maintenance(model: dict[str, Any]) -> bool:
     cycle = model.get("cycle_mode")
     maintenance = model.get("maintenance", {})
@@ -171,29 +87,16 @@ def zero_cause_active(causes: dict[str, Any]) -> bool:
 
 
 def semantic_tuple_verdict(model: dict[str, Any]) -> str:
-    checks = [
-        bool(model.get("carrier_witness")),
-        bool(model.get("realization_interprets")),
-        bool(model.get("lawful_transition_only")),
-        bool(model.get("live_support_witness")),
-        bool(model.get("residue_separated")),
-        bool(model.get("morphism_invariant_checked")),
-        bool(model.get("boundary_rejects_bad_state")),
-        bool(model.get("typed_operator_update")),
-        bool(model.get("cycle_or_maintenance")),
-        bool(model.get("dimension_axes_separated")),
-        bool(model.get("k_zero_cause_declared")),
-    ]
-    return "PASS" if all(checks) else "FAIL"
+    return "PASS" if all(bool(model.get(field)) for field in COMPONENT_FIELDS.values()) else "FAIL"
 
 
 def semantic_delta_fields(keep: dict[str, Any], drop: dict[str, Any]) -> list[str]:
-    return sorted(key for key in COMPONENT_FIELDS.values() if bool(keep.get(key)) != bool(drop.get(key)))
+    return sorted(field for field in COMPONENT_FIELDS.values() if bool(keep.get(field)) != bool(drop.get(field)))
 
 
 def component_case_valid(case: dict[str, Any]) -> bool:
-    target = case.get("target_component")
-    target_field = COMPONENT_FIELDS.get(str(target))
+    target = str(case.get("target_component"))
+    target_field = COMPONENT_FIELDS.get(target)
     if not target_field:
         return False
     keep = case.get("keep", {})
@@ -202,12 +105,12 @@ def component_case_valid(case: dict[str, Any]) -> bool:
         semantic_tuple_verdict(keep) == "PASS"
         and semantic_tuple_verdict(drop) == "FAIL"
         and semantic_delta_fields(keep, drop) == [target_field]
-        and str(target) in str(case.get("drop_reason", ""))
+        and target in str(case.get("drop_reason", ""))
     )
 
 
 def klevel_schema_valid(model: dict[str, Any]) -> bool:
-    expected = EXPECTED_KLEVEL.get(str(model.get("transition_id")))
+    expected = atlas_rows().get(str(model.get("transition_id")))
     if not expected:
         return False
     return all(model.get(key) == value for key, value in expected.items())
@@ -252,14 +155,11 @@ def observed(row: dict[str, Any]) -> str:
             )
         elif theorem_id == "T133-BOUNDARY":
             if model.get("metric_measure_declared") is True:
-                threshold = float(model.get("threshold"))
-                value = float(model.get("state_value"))
-                metric_failure = value > threshold
+                metric_failure = float(model.get("state_value")) > float(model.get("threshold"))
             else:
                 metric_failure = None
-            classifier_failure = bool(model.get("classifier_failure"))
             ok = model.get("boundary_kind") == "classifier" and (
-                metric_failure is None or metric_failure == classifier_failure
+                metric_failure is None or metric_failure == bool(model.get("classifier_failure"))
             )
         elif theorem_id == "T133-HYBRID":
             guard = bool(model.get("guard"))
@@ -283,6 +183,10 @@ def observed(row: dict[str, Any]) -> str:
                 model.get("morphism_class") in {"residue", "rebirth"}
                 and model.get("identity_invariant_preserved") is False
                 and model.get("claimed_identity_continuation") is False
+            ) or (
+                model.get("morphism_class") == "identity"
+                and model.get("identity_invariant_preserved") is True
+                and model.get("claimed_identity_continuation") is True
             )
         elif theorem_id == "T133-MIN":
             cases = model.get("component_cases", [])
@@ -293,13 +197,14 @@ def observed(row: dict[str, Any]) -> str:
             )
         elif theorem_id == "T133-KLEVEL":
             transitions = model.get("transitions", [])
+            expected_ids = set(atlas_rows())
             ok = (
-                len(transitions) == len(EXPECTED_KLEVEL)
-                and {transition.get("transition_id") for transition in transitions} == set(EXPECTED_KLEVEL)
+                len(transitions) == len(expected_ids)
+                and {transition.get("transition_id") for transition in transitions} == expected_ids
                 and all(
-                klevel_reduction_verdict(transition) == "FAILS_WITH_WITNESS"
-                and klevel_reduction_verdict(transition.get("demotion_case", {})) == "DEMOTABLE_WITH_LOST_WITNESS"
-                for transition in transitions
+                    klevel_reduction_verdict(transition) == "FAILS_WITH_WITNESS"
+                    and klevel_reduction_verdict(transition.get("demotion_case", {})) == "DEMOTABLE_WITH_LOST_WITNESS"
+                    for transition in transitions
                 )
             )
         else:
@@ -310,8 +215,7 @@ def observed(row: dict[str, Any]) -> str:
     if case_type == "adjacent_k_transition_witness":
         return klevel_reduction_verdict(model)
     if case_type == "mutation_control":
-        mutated = dict(model.get("mutated_row", {}))
-        return observed(mutated)
+        return observed(dict(model.get("mutated_row", {})))
     if case_type == "no_send_state_machine":
         owner_approved = model.get("owner_approved") is True
         publish_requested = model.get("publish_requested") is True
@@ -349,24 +253,20 @@ def main() -> int:
     rows = [evaluate(row) for row in inputs["rows"]]
     failures = [row for row in rows if not row.get("passed")]
     payload = {
-        "schema_id": "OC133_FINITE_MODEL_CHECKS_v12_HARDENED_SEMANTIC_EXECUTED",
+        "schema_id": "OC133_FINITE_MODEL_CHECKS_v12_ATLAS_SEMANTIC_EXECUTED",
         "release_id": "oc_core_1_3_3",
         "version": "1.3.3",
         "runner": "proofs/finite_model_checks/run_finite_model_checks.py",
         "runner_sha256": sha256_file(Path(__file__)),
         "input_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
         "input_sha256": sha256_file(INPUT),
+        "atlas_ref": "data/k_level_irreducibility_matrix.json",
+        "atlas_sha256": sha256_file(ATLAS),
         "command": "python proofs/finite_model_checks/run_finite_model_checks.py",
         "semantic_evaluator": True,
         "input_observed_field_total": sum(1 for row in inputs["rows"] for key in row if key.startswith("observed_")),
-        "flag_oracle_key_total": sum(
-            1 for row in inputs["rows"]
-            if row.get("case_type") != "mutation_control" and has_forbidden_key(row.get("model", {}))
-        ),
-        "flag_oracle_mutation_total": sum(
-            1 for row in inputs["rows"]
-            if row.get("case_type") == "mutation_control" and has_forbidden_key(row.get("model", {}))
-        ),
+        "flag_oracle_key_total": sum(1 for row in inputs["rows"] if row.get("case_type") != "mutation_control" and has_forbidden_key(row.get("model", {}))),
+        "flag_oracle_mutation_total": sum(1 for row in inputs["rows"] if row.get("case_type") == "mutation_control" and has_forbidden_key(row.get("model", {}))),
         "case_total": len(rows),
         "positive_case_total": sum(1 for row in rows if row.get("case_type") == "theorem_case" and row.get("expected_verdict") == "ACCEPT"),
         "negative_case_total": sum(1 for row in rows if row.get("case_type") == "theorem_case" and row.get("expected_verdict") == "REJECT"),

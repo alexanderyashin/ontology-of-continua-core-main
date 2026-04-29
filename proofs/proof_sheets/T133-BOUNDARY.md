@@ -2,7 +2,7 @@
 
 Status: `PROMOTED_BOUNDED_THEOREM_V12`
 Primary artifact: `appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex`
-Machine-checked subset: `formal/lean/OC133V12.lean::metric_boundary_is_classifier`
+Machine-checked subset: `formal/lean/OC133V12.lean::metric_boundary_specialization`
 Attacked claim: Metric thresholds are a specialization of typed classifier boundaries.
 
 ## Assumptions

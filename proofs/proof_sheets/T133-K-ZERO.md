@@ -2,7 +2,7 @@
 
 Status: `PROMOTED_BOUNDED_THEOREM_V12`
 Primary artifact: `appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex`
-Machine-checked subset: `formal/lean/OC133V12.lean::k_zero_with_nonempty_support_iff_declared_zero_cause`
+Machine-checked subset: `formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support`
 Attacked claim: Continuumness zero follows from a declared zero-cause family, not only from empty admissibility or empty cycles.
 
 ## Assumptions

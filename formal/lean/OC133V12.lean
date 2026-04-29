@@ -163,6 +163,10 @@ theorem rebirth_is_not_identity :
     MorphismClass.rebirth != MorphismClass.identity := by
   decide
 
+theorem residue_is_not_rebirth :
+    MorphismClass.residue != MorphismClass.rebirth := by
+  decide
+
 theorem residue_preservation_not_identity_without_invariant (m : MorphismEvidence) :
     m.class = MorphismClass.residue -> m.invariantPreserved = false -> Not (isIdentityMorphism m) := by
   intro hc _
@@ -185,6 +189,40 @@ theorem lifecycle_status_morphism_separation {S Residue NewLive : Type}
     L.live x = false /\ Not (isIdentityMorphism m) := by
   intro hdeath hclass hinv
   exact And.intro (declared_death_blocks_live L x hdeath) (rebirth_not_identity_without_invariant m hclass hinv)
+
+theorem lifecycle_statuses_and_morphisms_separated {S Residue NewLive : Type}
+    (L : Lifecycle S Residue NewLive) (x : S) :
+    L.death x = true ->
+    L.live x = false /\
+    MorphismClass.residue != MorphismClass.identity /\
+    MorphismClass.rebirth != MorphismClass.identity /\
+    MorphismClass.residue != MorphismClass.rebirth := by
+  intro hdeath
+  exact And.intro
+    (declared_death_blocks_live L x hdeath)
+    (And.intro residue_is_not_identity (And.intro rebirth_is_not_identity residue_is_not_rebirth))
+
+theorem residue_or_rebirth_not_identity_without_invariant (m : MorphismEvidence) :
+    (m.class = MorphismClass.residue \/ m.class = MorphismClass.rebirth) ->
+    m.invariantPreserved = false ->
+    Not (isIdentityMorphism m) := by
+  intro hclass hinv
+  cases hclass with
+  | inl hres => exact residue_preservation_not_identity_without_invariant m hres hinv
+  | inr hreb => exact rebirth_not_identity_without_invariant m hreb hinv
+
+theorem identity_positive_case_when_invariant_preserved (m : MorphismEvidence) :
+    m.class = MorphismClass.identity -> m.invariantPreserved = true -> isIdentityMorphism m := by
+  intro hc hi
+  exact And.intro hc hi
+
+theorem residue_rebirth_identity_boundary (m : MorphismEvidence) :
+    (((m.class = MorphismClass.residue \/ m.class = MorphismClass.rebirth) ->
+      m.invariantPreserved = false -> Not (isIdentityMorphism m)) /\
+    (m.class = MorphismClass.identity -> m.invariantPreserved = true -> isIdentityMorphism m)) := by
+  exact And.intro
+    (residue_or_rebirth_not_identity_without_invariant m)
+    (identity_positive_case_when_invariant_preserved m)
 
 def restartClass {S Residue NewLive : Type} (L : Lifecycle S Residue NewLive) (x : S) (y : NewLive) : MorphismClass :=
   if L.identityInvariant x y then MorphismClass.identity else MorphismClass.rebirth
@@ -254,6 +292,19 @@ theorem k_zero_with_nonempty_support_iff_declared_zero_cause (c : ContinuumnessC
   intro _ _
   exact k_zero_iff_declared_zero_cause c.causes
 
+def continuumnessCaseZero (c : ContinuumnessCase) : Prop :=
+  c.admissibleNonempty = true /\ c.cycleWitness = true /\ computedK c.causes = 0
+
+theorem continuumness_zero_case_iff_declared_zero_cause_with_support (c : ContinuumnessCase) :
+    continuumnessCaseZero c <->
+      (c.admissibleNonempty = true /\ c.cycleWitness = true /\ hasZeroCause c.causes) := by
+  unfold continuumnessCaseZero
+  constructor
+  · intro h
+    exact And.intro h.left (And.intro h.right.left ((k_zero_iff_declared_zero_cause c.causes).mp h.right.right))
+  · intro h
+    exact And.intro h.left (And.intro h.right.left ((k_zero_iff_declared_zero_cause c.causes).mpr h.right.right))
+
 structure BoundaryClassifier (S StatusType : Type) where
   classify : S -> StatusType
   fails : StatusType -> Bool
@@ -275,6 +326,11 @@ theorem metric_boundary_is_classifier {S : Type} (m : MetricBoundary S) :
 theorem metric_boundary_failure_equiv {S : Type} (m : MetricBoundary S) (x : S) :
     boundaryFails (metricAsClassifier m) x = decide (m.measure x > m.threshold) := by
   rfl
+
+theorem metric_boundary_specialization {S : Type} (m : MetricBoundary S) (x : S) :
+    (metricAsClassifier m).classify = m.measure /\
+    boundaryFails (metricAsClassifier m) x = decide (m.measure x > m.threshold) := by
+  exact And.intro (metric_boundary_is_classifier m) (metric_boundary_failure_equiv m x)
 
 structure UpdateSystem where
   State : Type
@@ -455,6 +511,30 @@ theorem component_witness_is_one_component_delta (c : Component) :
     semanticObligation (dropSemanticComponent fullSemanticCase c) c = false := by
   cases c <;> exact And.intro rfl rfl
 
+def componentRegistryCode : Component -> Nat
+  | Component.carrier => 0
+  | Component.realization => 1
+  | Component.lawfulPossibility => 2
+  | Component.liveness => 3
+  | Component.residue => 4
+  | Component.morphisms => 5
+  | Component.boundaries => 6
+  | Component.operators => 7
+  | Component.cycles => 8
+  | Component.dimension => 9
+  | Component.kFunctional => 10
+
+def componentRegistryComplete (c : Component) : Prop :=
+  componentRegistryCode c <= 10
+
+theorem component_registry_complete_and_witnessed (c : Component) :
+    componentRegistryComplete c /\
+    semanticVerdict fullSemanticCase = Status.pass /\
+    semanticVerdict (dropSemanticComponent fullSemanticCase c) = Status.fail /\
+    semanticObligation fullSemanticCase c = true /\
+    semanticObligation (dropSemanticComponent fullSemanticCase c) c = false := by
+  cases c <;> exact And.intro (by decide) (And.intro rfl (And.intro rfl (And.intro rfl rfl)))
+
 inductive ReductionVerdict where
   | preserves
   | losesWitness
@@ -548,5 +628,15 @@ theorem every_adjacent_transition_has_lawful_demotion_case (k : AdjacentK) :
     exists m : KTransitionModel, m.transition = k /\ lawfulDemotion m := by
   refine Exists.intro (demotedTransitionEvidence k) ?_
   exact And.intro rfl (demoted_transition_is_lawful k)
+
+theorem every_adjacent_transition_has_witness_and_demotion (k : AdjacentK) :
+    exists retained demoted : KTransitionModel,
+      retained.transition = k /\
+      demoted.transition = k /\
+      reductionFails retained /\
+      lawfulDemotion demoted := by
+  refine Exists.intro (retainedTransitionEvidence k) ?_
+  refine Exists.intro (demotedTransitionEvidence k) ?_
+  exact And.intro rfl (And.intro rfl (And.intro (retained_transition_reduction_fails k) (demoted_transition_is_lawful k)))
 
 end OC133V12
