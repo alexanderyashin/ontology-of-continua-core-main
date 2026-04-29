@@ -71,17 +71,25 @@ def release_critical_source_refs() -> list[str]:
         "tools/materialize_oc_core_1_3_3_v12_closure.py",
         "tools/templates/OC133V12_hardened.lean",
         "tools/templates/run_finite_model_checks_hardened.py",
+        "proofs/finite_model_checks/run_finite_model_checks.py",
         "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+        "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json",
         "data/k_level_irreducibility_matrix.json",
         "claims/CLAIM_LEDGER_1_3_3.json",
         "validation/run_all.py",
+        "validation/numeric_predictions/run_numeric_prediction_replay.py",
         "simulations/adversarial/run_all.py",
+        "simulations/run_all.py",
+        "simulations/expected_simulations.yml",
     ]
 
 
 def source_manifest() -> list[dict[str, str]]:
     rows = []
-    for ref in release_critical_source_refs():
+    refs = set(release_critical_source_refs())
+    for pattern in ["validation/*/replay.py", "validation/*/VALIDATION_PACKET.json", "simulations/*/run_simulation.py"]:
+        refs.update(path.relative_to(ROOT).as_posix() for path in ROOT.glob(pattern) if path.is_file())
+    for ref in sorted(refs):
         path = ROOT / ref
         if path.exists() and path.is_file():
             rows.append({"ref": ref, "sha256": sha256_file(path)})
@@ -604,6 +612,14 @@ def main() -> int:
     current_lean_sha256 = sha256_file(lean_source) if lean_source.exists() else None
     cert_lean_sha256_matches = lean_cert.get("lean_source_sha256") == current_lean_sha256
     live_lean_build = run_live_lake_build()
+    current_source_manifest = source_manifest()
+    current_source_manifest_sha256 = hashlib.sha256(json.dumps(current_source_manifest, sort_keys=True).encode("utf-8")).hexdigest()
+    cert_manifest_hashes = {row.get("ref"): row.get("sha256") for row in lean_cert.get("clean_source_manifest", []) if isinstance(row, dict)}
+    current_manifest_hashes = {row.get("ref"): row.get("sha256") for row in current_source_manifest}
+    shared_manifest_mismatches = [
+        ref for ref, digest in current_manifest_hashes.items()
+        if cert_manifest_hashes.get(ref) != digest
+    ]
     lean_cert_ok = (
         lean_cert.get("returncode") == 0
         and lean_cert.get("theorem_ref_missing_total") == 0
@@ -617,6 +633,8 @@ def main() -> int:
         and lean_cert.get("preexisting_lake_cache_detected") is False
         and lean_cert.get("post_build_lake_cache_created") is True
         and bool(lean_cert.get("build_transcript_sha256"))
+        and lean_cert.get("clean_source_manifest_sha256") == current_source_manifest_sha256
+        and not shared_manifest_mismatches
     )
     certificate_binding_failures = []
     if not lean_cert_ok:
@@ -625,6 +643,8 @@ def main() -> int:
         certificate_binding_failures.append("LIVE_LAKE_BUILD_FAILED_DURING_FINITE_MODEL_RUN")
     if ref_audit["theorem_ref_missing_total"] != 0:
         certificate_binding_failures.append("FINITE_ROW_THEOREM_REFS_NOT_BOUND_TO_CURRENT_SOURCE")
+    if shared_manifest_mismatches:
+        certificate_binding_failures.append("LEAN_CERTIFICATE_SOURCE_MANIFEST_HASH_MISMATCH")
     payload = {
         "schema_id": "OC133_FINITE_MODEL_CHECKS_v12_ATLAS_SEMANTIC_EXECUTED",
         "release_id": "oc_core_1_3_3",
@@ -652,7 +672,10 @@ def main() -> int:
         "live_lean_preexisting_lake_cache_detected": live_lean_build.get("preexisting_lake_cache_detected"),
         "live_lean_post_build_lake_cache_created": live_lean_build.get("post_build_lake_cache_created"),
         "live_lean_build_transcript_sha256": live_lean_build.get("build_transcript_sha256"),
-        "live_lean_clean_source_manifest_sha256": hashlib.sha256(json.dumps(source_manifest(), sort_keys=True).encode("utf-8")).hexdigest(),
+        "live_lean_clean_source_manifest_sha256": current_source_manifest_sha256,
+        "certificate_clean_source_manifest_sha256": lean_cert.get("clean_source_manifest_sha256"),
+        "source_manifest_mismatch_total": len(shared_manifest_mismatches),
+        "source_manifest_mismatches": shared_manifest_mismatches[:20],
         "live_lean_build_stdout_tail": live_lean_build.get("stdout_tail"),
         "live_lean_build_stderr_tail": live_lean_build.get("stderr_tail"),
         "lean_theorem_ref_present_total": lean_cert.get("theorem_ref_present_total", 0),

@@ -121,7 +121,7 @@ def ensure_materialized(root: Path) -> None:
 
 
 def run_local_replays(root: Path) -> None:
-    subprocess.run([sys.executable, str(root / "validation" / "run_all.py")], cwd=root, check=True, text=True, capture_output=True)
+    subprocess.run([sys.executable, str(root / "validation" / "run_all.py"), "--qa-only"], cwd=root, check=True, text=True, capture_output=True)
     subprocess.run([sys.executable, str(root / "falsification" / "counterexample_search" / "run_counterexample_search.py")], cwd=root, check=True, text=True, capture_output=True)
 
 

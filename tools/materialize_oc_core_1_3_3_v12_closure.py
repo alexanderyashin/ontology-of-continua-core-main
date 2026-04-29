@@ -57,17 +57,25 @@ def release_critical_source_refs() -> list[str]:
         "tools/materialize_oc_core_1_3_3_v12_closure.py",
         "tools/templates/OC133V12_hardened.lean",
         "tools/templates/run_finite_model_checks_hardened.py",
+        "proofs/finite_model_checks/run_finite_model_checks.py",
         "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+        "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json",
         "data/k_level_irreducibility_matrix.json",
         "claims/CLAIM_LEDGER_1_3_3.json",
         "validation/run_all.py",
+        "validation/numeric_predictions/run_numeric_prediction_replay.py",
         "simulations/adversarial/run_all.py",
+        "simulations/run_all.py",
+        "simulations/expected_simulations.yml",
     ]
 
 
 def source_manifest(root: Path) -> list[dict[str, str]]:
     rows = []
-    for ref in release_critical_source_refs():
+    refs = set(release_critical_source_refs())
+    for pattern in ["validation/*/replay.py", "validation/*/VALIDATION_PACKET.json", "simulations/*/run_simulation.py"]:
+        refs.update(path.relative_to(root).as_posix() for path in root.glob(pattern) if path.is_file())
+    for ref in sorted(refs):
         path = root / ref
         if path.exists() and path.is_file():
             rows.append({"ref": ref, "sha256": sha256_file(path)})
@@ -5461,6 +5469,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "rows": finite_rows,
         },
     )
+    write_lean_build_certificate(root)
     try:
         with contextlib.redirect_stdout(io.StringIO()):
             runpy.run_path(str(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py"), run_name="__main__")
@@ -5566,6 +5575,15 @@ def write_hardened_formal_iteration(root: Path) -> None:
             )
     write_json(attack_path, attack)
     write_json(root / "reviews" / "OC_CORE_1_3_3_REVIEWER_RESPONSE_MATRIX.json", attack)
+    # The certificate must bind the final generated atlas/minimality/input files, so
+    # regenerate it after those files exist and then rerun finite checks against it.
+    write_lean_build_certificate(root)
+    try:
+        with contextlib.redirect_stdout(io.StringIO()):
+            runpy.run_path(str(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py"), run_name="__main__")
+    except SystemExit as exc:
+        if int(exc.code or 0) != 0:
+            raise
 
 
 def main() -> int:
