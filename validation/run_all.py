@@ -59,6 +59,18 @@ def main() -> int:
     finite_report_path = ROOT / "proofs" / "FINITE_MODEL_CHECKS_1_3_3.json"
     finite_report = json.loads(finite_report_path.read_text(encoding="utf-8")) if finite_report_path.exists() else {}
     numeric_script = ROOT / "validation" / "numeric_predictions" / "run_numeric_prediction_replay.py"
+    qa_table = ROOT / "validation" / "numeric_replay_qa" / "OC133_NUMERIC_REPLAY_QA_TABLE.json"
+    if not qa_table.exists():
+        subprocess.run(
+            [sys.executable, str(ROOT / "tools" / "materialize_oc_core_1_3_3_v12_closure.py")],
+            cwd=ROOT,
+            check=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            capture_output=True,
+            timeout=900,
+        )
     if numeric_script.exists():
         subprocess.run(
             [sys.executable, str(numeric_script)],

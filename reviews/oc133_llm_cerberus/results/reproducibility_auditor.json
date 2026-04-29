@@ -2,40 +2,32 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "reproducibility_auditor",
   "execution_status": "EXECUTED",
-  "critical_open_total": 0,
+  "critical_open_total": 1,
   "high_open_total": 2,
-  "finding_total": 4,
+  "finding_total": 3,
   "findings": [
     {
-      "severity": "HIGH",
+      "severity": "CRITICAL",
       "artifact_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-      "claim": "The Lean build certificate represents a clean release-critical source manifest copy without .git or .lake.",
-      "failure_mode": "The certificate and finite runner classify generated replay artifacts as clean source inputs: validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json and validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json are included in the Lean clean_source_manifest, and run_finite_model_checks.py hard-fails if the current manifest hash differs. A source-only clean regeneration therefore depends on preexisting generated JSON state, and stale generated outputs can be canonized as Lean-build inputs even though the Lean build does not need them.",
-      "required_repair": "Split source inputs from generated outputs. Remove generated replay logs/tables from the Lean build certificate source manifest, regenerate numeric replay artifacts in an explicit DAG step, and validate their hashes in a separate generated-artifact manifest after regeneration.",
+      "claim": "generated_artifact_manifest and generated_artifact_manifest_sha256 certify the current generated reports as reproducible from the current source closure",
+      "failure_mode": "The certificate binds generated reports, but the current generators are newer than the current generated artifacts. validation/run_all.py now always emits fields such as expected_lanes, missing_lane_total, finite_model_checks_ref, and cli_mode that are absent from the current domain validation report. simulations/adversarial/run_all.py now always emits runner_sha256, finite_runner_ref, finite_runner_returncode, and evidence_observed_values that are absent from the current adversarial simulation report. A clean rerun from current sources will change report bytes and invalidate the certificate's generated artifact hashes.",
+      "required_repair": "Regenerate all generated artifacts from the current runners in a fresh checkout, then regenerate LEAN_BUILD_CERTIFICATE_1_3_3.json after those outputs exist. Add a release gate that reruns the clean materialization workflow and byte-compares every generated_artifact_manifest entry before certification.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "validation/run_all.py",
+      "claim": "validation/run_all.py is the OC133 domain validation/replay entrypoint that can regenerate the validation artifacts",
+      "failure_mode": "validation/run_all.py calls validation/numeric_predictions/run_numeric_prediction_replay.py without --materialize-first, while that replay script raises FileNotFoundError if validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json is absent. The Lean certificate classifies that QA table as a generated artifact, not a clean-source input. A clean checkout containing only the certified source manifest cannot run validation/run_all.py to regenerate the validation report unless a pre-existing generated table is already present.",
+      "required_repair": "Either make validation/run_all.py deterministically generate OC133_NUMERIC_REPLAY_QA_TABLE.json from certified source inputs before replay, or reclassify the QA table as a source input and include it in the clean_source_manifest. Add a clean-checkout test that deletes generated artifacts and proves validation/run_all.py can rebuild them without hidden local state.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "The clean build is pinned to leanprover/lean4:v4.28.0 and can be reproduced from a clean checkout without hidden local state.",
-      "failure_mode": "The runner invokes plain lake from inherited PATH and records the lean-toolchain file contents, but it does not attest the actual lake/lean executable, version, or binary provenance used for the build. A host-local lake, elan cache, or PATH difference can determine whether the certificate regenerates while the artifact still claims leanprover/lean4:v4.28.0.",
-      "required_repair": "Invoke an explicit pinned toolchain command such as elan run leanprover/lean4:v4.28.0 lake build OC133V12 or a pinned container, capture lean --version and lake --version from the exact executable, record executable provenance, and fail on mismatch.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "MEDIUM",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "The build_transcript_sha256 is a canonical reproducibility check for the clean Lean build.",
-      "failure_mode": "The runner makes exact normalized stdout/stderr transcript equality a hard certificate gate, but the normalization only removes elapsed timings, repo paths, and selected toolchain lines. Lake diagnostic wording, job labels, platform-specific output, and provisioning noise can change without changing the compiled theorem set, causing clean rebuilds to fail for non-semantic reasons.",
-      "required_repair": "Either make transcript hashing advisory and gate on source hashes, toolchain attestation, theorem declaration hashes, and successful clean build return code, or archive the full normalized transcript plus a complete cross-platform normalization specification.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "MEDIUM",
-      "artifact_ref": "validation/run_all.py",
-      "claim": "Dataset snapshot manifest metadata supports deterministic replay of current validation inputs.",
-      "failure_mode": "validation/run_all.py verifies only sha256 for data/OC_DATASET_SNAPSHOT_MANIFEST_1_3_3.json rows and ignores the manifest bytes field. Current local snapshot sizes differ from the manifest bytes metadata, so stale or ambiguous byte-count provenance survives validation even though the hashes pass.",
-      "required_repair": "Validate declared byte counts against the current local snapshots, or replace the single bytes field with explicit source_bytes and local_snapshot_bytes fields and check both according to the intended normalization policy.",
+      "claim": "the finite-model runner binds the Lean certificate and generated artifact state strongly enough to detect stale or hidden generated outputs",
+      "failure_mode": "The runner records generated_artifact_manifest_sha256 and certificate_generated_artifact_manifest_sha256 in its payload, but lean_cert_ok and certificate_binding_failures never compare them. Generated artifact drift can therefore be visible in the JSON output while failure_total remains zero, allowing stale reports or locally cached generated outputs to survive the release gate.",
+      "required_repair": "Compute the generated artifact manifest after regeneration, compare it to the certificate value, and append a hard certificate_binding_failure such as GENERATED_ARTIFACT_MANIFEST_HASH_MISMATCH on any difference. The runner must return nonzero when certified generated artifacts are missing, stale, or byte-different.",
       "status": "OPEN"
     }
   ],

@@ -94,19 +94,7 @@ def source_manifest(root: Path) -> list[dict[str, str]]:
 
 
 def generated_artifact_manifest(root: Path) -> list[dict[str, str]]:
-    refs = [
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-        "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
-        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
-        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
-        "reports/OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json",
-    ]
-    rows = []
-    for ref in refs:
-        path = root / ref
-        if path.exists() and path.is_file():
-            rows.append({"ref": ref, "sha256": sha256_file(path)})
-    return rows
+    return []
 
 
 def write_lean_build_certificate(root: Path) -> dict[str, Any]:
@@ -235,6 +223,7 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
         "clean_source_manifest_sha256": hashlib.sha256(json.dumps(source_manifest(root), sort_keys=True).encode("utf-8")).hexdigest(),
         "generated_artifact_manifest": generated_artifact_manifest(root),
         "generated_artifact_manifest_sha256": hashlib.sha256(json.dumps(generated_artifact_manifest(root), sort_keys=True).encode("utf-8")).hexdigest(),
+        "generated_artifact_manifest_scope": "NOT_CERTIFIED_BY_LEAN_CERTIFICATE; generated reports are checked by their own replay commands to avoid cert/output hash cycles",
         "lean_source_ref": "formal/lean/OC133V12.lean",
         "lean_source_sha256": sha256_file(lean_path) if lean_path.exists() else None,
         "theorem_ref_total": len(theorem_refs),

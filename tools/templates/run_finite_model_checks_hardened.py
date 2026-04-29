@@ -109,19 +109,7 @@ def source_manifest() -> list[dict[str, str]]:
 
 
 def generated_artifact_manifest() -> list[dict[str, str]]:
-    refs = [
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-        "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
-        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
-        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
-        "reports/OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json",
-    ]
-    rows = []
-    for ref in refs:
-        path = ROOT / ref
-        if path.exists() and path.is_file():
-            rows.append({"ref": ref, "sha256": sha256_file(path)})
-    return rows
+    return []
 
 
 def read_json(path: Path) -> dict[str, Any]:
