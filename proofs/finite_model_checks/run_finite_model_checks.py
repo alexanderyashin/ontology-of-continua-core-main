@@ -28,6 +28,119 @@ FORBIDDEN_MODEL_KEYS = {
     "changed_fields",
 }
 
+COMPONENT_FIELDS = {
+    "carrier": "carrier_witness",
+    "realization": "realization_interprets",
+    "lawful_possibility": "lawful_transition_only",
+    "liveness": "live_support_witness",
+    "residue": "residue_separated",
+    "morphisms": "morphism_invariant_checked",
+    "boundaries": "boundary_rejects_bad_state",
+    "operators": "typed_operator_update",
+    "cycles": "cycle_or_maintenance",
+    "dimension": "dimension_axes_separated",
+    "k": "k_zero_cause_declared",
+}
+
+EXPECTED_KLEVEL = {
+    "K0_to_K1": {
+        "from_k": 0,
+        "to_k": 1,
+        "added_axis": "distinguishable state -> minimal continuum",
+        "witness_pair": "continuity obligation changes verdict",
+        "reduction_failure_criterion": "remove continuity and frozen label passes",
+        "lawful_demotion_criterion": "demote if no continuity obligation is observed",
+    },
+    "K1_to_K2": {
+        "from_k": 1,
+        "to_k": 2,
+        "added_axis": "minimal continuum -> phase threshold",
+        "witness_pair": "threshold crossing changes admissibility",
+        "reduction_failure_criterion": "encode as K1 and miss crossing",
+        "lawful_demotion_criterion": "demote if threshold never affects verdict",
+    },
+    "K2_to_K3": {
+        "from_k": 2,
+        "to_k": 3,
+        "added_axis": "phase threshold -> autocatalytic closure",
+        "witness_pair": "closure production is required",
+        "reduction_failure_criterion": "phase-only model accepts non-producing set",
+        "lawful_demotion_criterion": "demote if closure production is irrelevant",
+    },
+    "K3_to_K4": {
+        "from_k": 3,
+        "to_k": 4,
+        "added_axis": "closure -> membrane boundary",
+        "witness_pair": "inside/outside classifier changes verdict",
+        "reduction_failure_criterion": "closure-only model admits leaking state",
+        "lawful_demotion_criterion": "demote if boundary classifier has no observable effect",
+    },
+    "K4_to_K5": {
+        "from_k": 4,
+        "to_k": 5,
+        "added_axis": "boundary -> excitable regulation",
+        "witness_pair": "signal-triggered update changes verdict",
+        "reduction_failure_criterion": "membrane-only model misses excitation",
+        "lawful_demotion_criterion": "demote if excitation never affects status",
+    },
+    "K5_to_K6": {
+        "from_k": 5,
+        "to_k": 6,
+        "added_axis": "regulation -> binding prediction",
+        "witness_pair": "binding relation changes next-state prediction",
+        "reduction_failure_criterion": "regulation-only model misses binding",
+        "lawful_demotion_criterion": "demote if binding is observationally inert",
+    },
+    "K6_to_K7": {
+        "from_k": 6,
+        "to_k": 7,
+        "added_axis": "binding -> trust coordination",
+        "witness_pair": "norm/role classifier changes allowed action",
+        "reduction_failure_criterion": "binding-only model admits norm violation",
+        "lawful_demotion_criterion": "demote if roles do not change allowed actions",
+    },
+    "K7_to_K8": {
+        "from_k": 7,
+        "to_k": 8,
+        "added_axis": "coordination -> regime shift",
+        "witness_pair": "meta-state transition changes future rules",
+        "reduction_failure_criterion": "coordination-only model freezes rules",
+        "lawful_demotion_criterion": "demote if regime state is constant",
+    },
+    "K8_to_K9": {
+        "from_k": 8,
+        "to_k": 9,
+        "added_axis": "regime -> theory dynamics",
+        "witness_pair": "claim/evidence update changes theory verdict",
+        "reduction_failure_criterion": "regime-only model lacks claim revision",
+        "lawful_demotion_criterion": "demote if claim revision is disabled",
+    },
+    "K9_to_K10": {
+        "from_k": 9,
+        "to_k": 10,
+        "added_axis": "theory dynamics -> recursive self-application",
+        "witness_pair": "model applies to its own updates",
+        "reduction_failure_criterion": "K9 model cannot type self-update",
+        "lawful_demotion_criterion": "demote if self-reference is absent",
+    },
+    "K10_to_K11": {
+        "from_k": 10,
+        "to_k": 11,
+        "added_axis": "recursion -> cross-domain coherence",
+        "witness_pair": "translation invariant changes verdict",
+        "reduction_failure_criterion": "recursive single-domain model passes incoherent translation",
+        "lawful_demotion_criterion": "demote if no cross-domain bridge exists",
+    },
+    "K11_to_K12": {
+        "from_k": 11,
+        "to_k": 12,
+        "added_axis": "coherence -> release-governed civilizational closure",
+        "witness_pair": "owner-gated public action state changes verdict",
+        "reduction_failure_criterion": "K11 model cannot represent no-send governance",
+        "lawful_demotion_criterion": "demote if no release-governed action exists",
+    },
+}
+
 
 def sha256_file(path: Path) -> str:
     h = hashlib.sha256()
@@ -74,7 +187,35 @@ def semantic_tuple_verdict(model: dict[str, Any]) -> str:
     return "PASS" if all(checks) else "FAIL"
 
 
+def semantic_delta_fields(keep: dict[str, Any], drop: dict[str, Any]) -> list[str]:
+    return sorted(key for key in COMPONENT_FIELDS.values() if bool(keep.get(key)) != bool(drop.get(key)))
+
+
+def component_case_valid(case: dict[str, Any]) -> bool:
+    target = case.get("target_component")
+    target_field = COMPONENT_FIELDS.get(str(target))
+    if not target_field:
+        return False
+    keep = case.get("keep", {})
+    drop = case.get("drop", {})
+    return (
+        semantic_tuple_verdict(keep) == "PASS"
+        and semantic_tuple_verdict(drop) == "FAIL"
+        and semantic_delta_fields(keep, drop) == [target_field]
+        and str(target) in str(case.get("drop_reason", ""))
+    )
+
+
+def klevel_schema_valid(model: dict[str, Any]) -> bool:
+    expected = EXPECTED_KLEVEL.get(str(model.get("transition_id")))
+    if not expected:
+        return False
+    return all(model.get(key) == value for key, value in expected.items())
+
+
 def klevel_reduction_verdict(model: dict[str, Any]) -> str:
+    if not klevel_schema_valid(model):
+        return "REDUCTION_UNCHECKED"
     threshold = int(model.get("threshold", 0))
     upper = int(model.get("upper_axis_value", 0)) > threshold
     reduced = int(model.get("reduced_axis_value", 0)) > threshold
@@ -145,18 +286,21 @@ def observed(row: dict[str, Any]) -> str:
             )
         elif theorem_id == "T133-MIN":
             cases = model.get("component_cases", [])
-            ok = bool(cases) and all(
-                semantic_tuple_verdict(case.get("keep", {})) == "PASS"
-                and semantic_tuple_verdict(case.get("drop", {})) == "FAIL"
-                and case.get("target_component") in case.get("drop_reason", "")
-                for case in cases
+            ok = (
+                len(cases) == len(COMPONENT_FIELDS)
+                and {case.get("target_component") for case in cases} == set(COMPONENT_FIELDS)
+                and all(component_case_valid(case) for case in cases)
             )
         elif theorem_id == "T133-KLEVEL":
             transitions = model.get("transitions", [])
-            ok = bool(transitions) and all(
+            ok = (
+                len(transitions) == len(EXPECTED_KLEVEL)
+                and {transition.get("transition_id") for transition in transitions} == set(EXPECTED_KLEVEL)
+                and all(
                 klevel_reduction_verdict(transition) == "FAILS_WITH_WITNESS"
                 and klevel_reduction_verdict(transition.get("demotion_case", {})) == "DEMOTABLE_WITH_LOST_WITNESS"
                 for transition in transitions
+                )
             )
         else:
             ok = False

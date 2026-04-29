@@ -1,9 +1,9 @@
-# T133-KLEVEL - Adjacent K-level irreducibility witness theorem
+# T133-KLEVEL - Adjacent K-level semantic witness-atlas theorem
 
 Status: `PROMOTED_BOUNDED_THEOREM_V12`
 Primary artifact: `appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex`
 Machine-checked subset: `formal/lean/OC133V12.lean::every_adjacent_transition_has_witness`
-Attacked claim: Every adjacent K-level transition K0->K12 has a witness, a reduction-failure criterion, and a lawful demotion criterion.
+Attacked claim: Every declared adjacent K-level transition K0->K12 has a table-bound witness, reduction-failure criterion, and lawful demotion criterion in the v12 classifier atlas.
 
 ## Assumptions
 - K-levels are release-governed classifier levels, not metaphysical ranks.
@@ -22,10 +22,10 @@ A transition with an observable witness cannot be reduced without verdict loss.
 A transition with no observable witness is demotable by the stated criterion rather than inflated.
 
 ## Theorem
-The K0-K12 atlas is irreducible exactly at transitions with retained adjacent witnesses.
+The K0-K12 atlas blocks reduction exactly for retained declared adjacent witnesses and allows demotion exactly for inert witnesses.
 
 ## Proof
-Each row in the atlas records the new axis, witness pair, reduction-failure criterion, and demotion criterion. Lemma 1 handles retained witnesses. Lemma 2 handles non-retained witnesses without inflation. The atlas has zero unresolved adjacent transitions.
+Each row in the atlas records the new axis, witness pair, reduction-failure criterion, and demotion criterion. The finite runner verifies exact row identity, adjacency, criterion text, retained witness verdict loss, demotion verdict preservation, and unique K0->K12 coverage. Lemma 1 handles retained witnesses. Lemma 2 handles non-retained witnesses without inflation. The atlas has zero unresolved adjacent rows inside the declared classifier.
 
 The proof is promoted only with the stated assumptions. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the

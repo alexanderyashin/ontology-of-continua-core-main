@@ -177,6 +177,15 @@ theorem rebirth_not_identity_without_invariant (m : MorphismEvidence) :
   rw [hc] at hid
   exact rebirth_is_not_identity hid.left
 
+theorem lifecycle_status_morphism_separation {S Residue NewLive : Type}
+    (L : Lifecycle S Residue NewLive) (x : S) (m : MorphismEvidence) :
+    L.death x = true ->
+    m.class = MorphismClass.rebirth ->
+    m.invariantPreserved = false ->
+    L.live x = false /\ Not (isIdentityMorphism m) := by
+  intro hdeath hclass hinv
+  exact And.intro (declared_death_blocks_live L x hdeath) (rebirth_not_identity_without_invariant m hclass hinv)
+
 def restartClass {S Residue NewLive : Type} (L : Lifecycle S Residue NewLive) (x : S) (y : NewLive) : MorphismClass :=
   if L.identityInvariant x y then MorphismClass.identity else MorphismClass.rebirth
 
@@ -237,6 +246,13 @@ theorem k_zero_can_have_nonempty_support (c : ContinuumnessCase) :
     continuumnessZeroAccepted c -> c.admissibleNonempty = true /\ c.cycleWitness = true := by
   intro h
   exact And.intro h.left h.right.left
+
+theorem k_zero_with_nonempty_support_iff_declared_zero_cause (c : ContinuumnessCase) :
+    c.admissibleNonempty = true ->
+    c.cycleWitness = true ->
+    (computedK c.causes = 0 <-> hasZeroCause c.causes) := by
+  intro _ _
+  exact k_zero_iff_declared_zero_cause c.causes
 
 structure BoundaryClassifier (S StatusType : Type) where
   classify : S -> StatusType
@@ -305,6 +321,18 @@ theorem hybrid_no_guard_uses_update (h : HybridSystem) (x : h.State) :
   intro hg
   unfold hybridStep
   rw [hg]
+
+theorem smooth_hybrid_operator_semantics (s : SmoothSystem) (h : HybridSystem)
+    (xs : s.State) (xh : h.State) :
+    (smoothAsUpdate s).step xs = s.flow 1 xs /\
+    (s.derivativeAvailable = true -> s.charted = true) /\
+    (h.guard xh = true -> hybridStep h xh = h.reset xh) /\
+    (h.guard xh = false -> hybridStep h xh = h.step xh) := by
+  exact And.intro
+    (smooth_operator_is_update_special_case s xs)
+    (And.intro
+      (differential_notation_requires_chart s)
+      (And.intro (hybrid_guard_uses_reset h xh) (hybrid_no_guard_uses_update h xh)))
 
 structure AxisRecord where
   historical : Nat

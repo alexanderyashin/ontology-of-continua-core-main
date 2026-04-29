@@ -1,9 +1,9 @@
-# T133-MIN - Global verdict-invariant minimality theorem
+# T133-MIN - Declared semantic-verdict component independence theorem
 
 Status: `PROMOTED_BOUNDED_THEOREM_V12`
 Primary artifact: `appendix/OC_1_3_3_GLOBAL_MINIMALITY_WITNESSES.tex`
 Machine-checked subset: `formal/lean/OC133V12.lean::every_component_has_witness`
-Attacked claim: Within the declared OC verdict class, each promoted tuple component is required by a verdict-changing witness pair.
+Attacked claim: Within the declared v12 semantic verdict suite, each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.
 
 ## Assumptions
 - Minimality is claimed for the release-governed OC verdict class, not for all possible theories.
@@ -22,10 +22,10 @@ A component with a verdict-changing witness cannot be removed verdict-invariantl
 The v12 witness ledger covers every promoted tuple component.
 
 ## Theorem
-The promoted v12 tuple is minimal for the declared OC verdict class.
+The promoted v12 tuple has component-wise independence for the declared semantic verdict suite.
 
 ## Proof
-For each component c, the witness ledger gives keep_c and drop_c cases with different verdicts. Lemma 1 proves that c is required. Lemma 2 ranges over the full promoted tuple. Therefore no promoted component can be removed while preserving all declared v12 verdicts.
+For each component c, the witness ledger gives keep_c and drop_c cases whose semantic records differ only in c's obligation field and whose verdicts differ. Lemma 1 proves that c is required for the release verdict suite. Lemma 2 ranges over the full promoted tuple. Therefore no promoted component can be removed while preserving this declared v12 verdict suite.
 
 The proof is promoted only with the stated assumptions. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the

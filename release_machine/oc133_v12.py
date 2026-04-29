@@ -236,6 +236,7 @@ def audit(root: Path) -> dict[str, Any]:
         "lawfulDemotion",
         "hybrid_guard_uses_reset",
         "smooth_operator_is_update_special_case",
+        "smooth_hybrid_operator_semantics",
         "differential_notation_requires_chart",
         "eligible_live_requires_cycle_or_maintenance",
         "residue_preservation_not_identity_without_invariant",
@@ -243,8 +244,10 @@ def audit(root: Path) -> dict[str, Any]:
         "invariant_lost_blocks_identity",
         "invariant_preserved_classifies_identity",
         "declared_death_blocks_live",
+        "lifecycle_status_morphism_separation",
         "metric_boundary_failure_equiv",
         "k_zero_iff_declared_zero_cause",
+        "k_zero_with_nonempty_support_iff_declared_zero_cause",
         "historicalMonotone",
         "effectiveRankDrops",
     ]
