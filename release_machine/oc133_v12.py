@@ -223,23 +223,30 @@ def audit(root: Path) -> dict[str, Any]:
     ]
     lean_body = text(root / "formal" / "lean" / "OC133V12.lean")
     lean_semantic_markers = [
-        "OCTupleFlags",
-        "ocTupleVerdict",
-        "dropComponent",
+        "OCSemanticCase",
+        "semanticVerdict",
+        "dropSemanticComponent",
         "component_witness_is_one_component_delta",
-        "TransitionEvidence",
-        "transitionCodesAlign",
+        "KTransitionModel",
+        "upperKVerdict",
+        "reducedKVerdict",
+        "retained_transition_reduction_fails",
         "every_adjacent_transition_has_lawful_demotion_case",
         "reductionFails",
         "lawfulDemotion",
         "hybrid_guard_uses_reset",
+        "smooth_operator_is_update_special_case",
         "differential_notation_requires_chart",
         "eligible_live_requires_cycle_or_maintenance",
+        "residue_preservation_not_identity_without_invariant",
+        "rebirth_not_identity_without_invariant",
         "invariant_lost_blocks_identity",
         "invariant_preserved_classifies_identity",
         "declared_death_blocks_live",
         "metric_boundary_failure_equiv",
         "k_zero_iff_declared_zero_cause",
+        "historicalMonotone",
+        "effectiveRankDrops",
     ]
     missing_lean_semantic_markers = [marker for marker in lean_semantic_markers if marker not in lean_body]
     finite_input_observed_fields = [
@@ -248,11 +255,26 @@ def audit(root: Path) -> dict[str, Any]:
         for key in row
         if key.startswith("observed_")
     ]
+    forbidden_model_oracle_fields = {
+        "keep_verdict",
+        "drop_verdict",
+        "reduction_verdict",
+        "observed_verdict",
+        "failure_equivalence_checked",
+        "hybrid_guard_reset_checked",
+        "oracle_attestation",
+        "witness_retained",
+        "added_axis_observable",
+        "demotion_allowed",
+        "keep_present",
+        "drop_present",
+        "changed_fields",
+    }
     finite_input_answer_key_fields = [
         {"case_id": row.get("case_id"), "field": key}
         for row in finite_inputs.get("rows", [])
         for key in row.get("model", {})
-        if key in {"keep_verdict", "drop_verdict", "reduction_verdict", "observed_verdict"}
+        if key in forbidden_model_oracle_fields
     ]
     finite_semantic_failures = []
     if finite.get("semantic_evaluator") is not True:
@@ -261,6 +283,10 @@ def audit(root: Path) -> dict[str, Any]:
         finite_semantic_failures.append("finite inputs contain observed verdict fields")
     if finite_input_answer_key_fields:
         finite_semantic_failures.append("finite inputs contain answer-key verdict fields")
+    if finite.get("flag_oracle_key_total", 0) != 0:
+        finite_semantic_failures.append("finite runner detected flag-oracle model keys")
+    if finite.get("mutation_control_total", 0) < 3:
+        finite_semantic_failures.append("missing label-only, flag-only, and wrong-witness mutation controls")
     if finite.get("k_transition_negative_total", 0) < 12:
         finite_semantic_failures.append("missing per-transition K-level negative/demotion controls")
     if finite.get("no_send_state_machine_total", 0) < 2:

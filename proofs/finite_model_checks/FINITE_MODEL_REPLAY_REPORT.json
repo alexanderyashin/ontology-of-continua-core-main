@@ -1,8 +1,10 @@
 {
-  "schema_id": "OC133_FINITE_MODEL_REPLAY_REPORT_v12_SEMANTIC",
+  "schema_id": "OC133_FINITE_MODEL_REPLAY_REPORT_v12_HARDENED_SEMANTIC",
   "semantic_evaluator": true,
   "input_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
   "output_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-  "tamper_policy": "changing model facts without matching theorem semantics changes observed verdict and fails expected comparison",
-  "failure_total": 0
+  "tamper_policy": "label-only, flag-oracle, and wrong-witness rows are explicit mutation controls and must reject",
+  "failure_total": 0,
+  "mutation_control_total": 3,
+  "flag_oracle_key_total": 0
 }
