@@ -61,19 +61,31 @@ def release_critical_source_refs() -> list[str]:
         "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
         "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json",
         "data/k_level_irreducibility_matrix.json",
+        "data/OC_DATASET_SNAPSHOT_MANIFEST_1_3_3.json",
         "claims/CLAIM_LEDGER_1_3_3.json",
         "validation/run_all.py",
         "validation/numeric_predictions/run_numeric_prediction_replay.py",
+        "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
+        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
         "simulations/adversarial/run_all.py",
         "simulations/run_all.py",
         "simulations/expected_simulations.yml",
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+        "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
     ]
 
 
 def source_manifest(root: Path) -> list[dict[str, str]]:
     rows = []
     refs = set(release_critical_source_refs())
-    for pattern in ["validation/*/replay.py", "validation/*/VALIDATION_PACKET.json", "simulations/*/run_simulation.py"]:
+    for pattern in [
+        "validation/*/replay.py",
+        "validation/*/VALIDATION_PACKET.json",
+        "validation/_raw/*",
+        "simulations/*/run_simulation.py",
+        "simulations/*/simulation_contract.json",
+        "releases/oc_core_1_3_3/editorial/*.json",
+    ]:
         refs.update(path.relative_to(root).as_posix() for path in root.glob(pattern) if path.is_file())
     for ref in sorted(refs):
         path = root / ref

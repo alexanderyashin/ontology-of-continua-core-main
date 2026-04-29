@@ -45,6 +45,19 @@ def main() -> int:
     numeric_payload = {}
     numeric_log = {}
     numeric_artifact_failures = []
+    finite_check = subprocess.run(
+        [sys.executable, str(ROOT / "proofs" / "finite_model_checks" / "run_finite_model_checks.py")],
+        cwd=ROOT,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        capture_output=True,
+        timeout=600,
+    )
+    if finite_check.returncode != 0:
+        numeric_artifact_failures.append("FINITE_MODEL_CHECKS_FAILED_BEFORE_NUMERIC_REPLAY")
+    finite_report_path = ROOT / "proofs" / "FINITE_MODEL_CHECKS_1_3_3.json"
+    finite_report = json.loads(finite_report_path.read_text(encoding="utf-8")) if finite_report_path.exists() else {}
     numeric_script = ROOT / "validation" / "numeric_predictions" / "run_numeric_prediction_replay.py"
     if numeric_script.exists():
         subprocess.run(
@@ -124,6 +137,8 @@ def main() -> int:
         and unsupported_promoted_total == 0
         and lane_replay_failure_total == 0
         and numeric_log.get("failure_total", 0) == 0
+        and finite_check.returncode == 0
+        and finite_report.get("failure_total", 1) == 0
     )
     payload = {
         "schema_id": "OC133_DOMAIN_VALIDATION_REPORT_v12",
@@ -148,6 +163,10 @@ def main() -> int:
         "official_snapshots_are_inputs_not_validation_by_themselves": True,
         "empirical_promotion_policy": "NO_EMPIRICAL_PASS_WITHOUT_NUMERIC_REPLAY",
         "numeric_replay_qa_table": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json" if numeric_payload else "",
+        "finite_model_checks_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "finite_model_checks_sha256": sha256_file(finite_report_path) if finite_report_path.exists() else None,
+        "finite_model_checks_failure_total": finite_report.get("failure_total"),
+        "finite_model_checks_certificate_binding_failure_total": finite_report.get("certificate_binding_failure_total"),
         "numeric_replay_row_total": numeric_payload.get("row_total", 0),
         "numeric_replay_lane_total": numeric_payload.get("lane_total", 0),
         "numeric_replay_failure_total": numeric_log.get("failure_total", 0),

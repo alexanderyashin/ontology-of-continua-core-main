@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import subprocess
 import sys
@@ -16,6 +17,14 @@ RESULT_MD = ROOT / "results" / "OC_CORE_1_3_3_SIMULATION_RESULTS_latest.md"
 
 def load_expected() -> dict[str, Any]:
     return json.loads(EXPECTED_PATH.read_text(encoding="utf-8"))
+
+
+def sha256_file(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
 
 
 def validate_payload(payload: dict[str, Any], expected: dict[str, Any]) -> list[str]:
@@ -55,6 +64,9 @@ def run() -> dict[str, Any]:
         payload: dict[str, Any] | None = None
         errors: list[str] = []
         if runner.exists():
+            contract = runner.with_name("simulation_contract.json")
+            if not contract.exists():
+                errors.append("simulation_contract.json missing")
             proc = subprocess.run([sys.executable, str(runner), "--seed", str(row["seed"])], cwd=REPO, capture_output=True, text=True, timeout=timeout)
             if proc.returncode != 0:
                 errors.append(f"returncode {proc.returncode}")
@@ -74,6 +86,9 @@ def run() -> dict[str, Any]:
             "observed_simulation_id": payload.get("simulation_id") if payload else None,
             "returncode": 0 if not errors else 1,
             "errors": errors,
+            "runner_sha256": sha256_file(runner) if runner.exists() else None,
+            "contract_ref": runner.with_name("simulation_contract.json").relative_to(ROOT).as_posix() if runner.with_name("simulation_contract.json").exists() else None,
+            "contract_sha256": sha256_file(runner.with_name("simulation_contract.json")) if runner.with_name("simulation_contract.json").exists() else None,
             "stdout_json": payload or {},
         }
         rows.append(result)
@@ -86,6 +101,8 @@ def run() -> dict[str, Any]:
         "runner_claim": "current OC Core 1.3.3 simulation reproducibility entrypoint",
         "support_ceiling": expected["support_ceiling"],
         "validation_claim_allowed": expected["validation_claim_allowed"],
+        "expected_manifest_sha256": sha256_file(EXPECTED_PATH),
+        "contract_hash_bound_total": sum(1 for row in rows if row.get("contract_sha256")),
         "expected_total": expected["expected_total"],
         "simulation_total": len(rows),
         "failure_total": len(failures),
