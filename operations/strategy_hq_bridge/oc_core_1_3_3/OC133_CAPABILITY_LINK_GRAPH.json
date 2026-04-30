@@ -13,6 +13,15 @@
   "no_send": true,
   "capabilities": [
     {
+      "capability_id": "oc133_platinum_release_mission",
+      "hq_owner_ref": "LOGI -> K6 Strategy HQ -> OC133 institute director",
+      "role": "mission contract, content-closure scorecard, live dispatch queue, and platinum cockpit",
+      "entrypoint": "tools/oc133_logion_release_mission.py --write",
+      "outputs": [
+        "operations/logion_release_mission/oc_core_1_3_3/OC133_CONTENT_CLOSURE_SCORECARD.json"
+      ]
+    },
+    {
       "capability_id": "oc133_institute_director",
       "hq_owner_ref": "LOGI -> K6 Strategy HQ",
       "role": "subordinate scientific director: enforces Safety Directive, corporate/Strategy HQ authority, and capability work-order routing",
@@ -67,9 +76,28 @@
       "outputs": [
         "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json"
       ]
+    },
+    {
+      "capability_id": "oc133_journal_package_factory",
+      "hq_owner_ref": "LOGI -> K6 Strategy HQ -> Publication capability",
+      "role": "version-aware 1.3.3 owner-review no-send journal package generator",
+      "entrypoint": "python -m release_machine submission-packages --release-id oc_core_1_3_3",
+      "outputs": [
+        "releases/oc_core_1_3_3/submission_packages/SUBMISSION_PACKAGE_INDEX.json"
+      ]
     }
   ],
   "edges": [
+    {
+      "from": "oc133_platinum_release_mission",
+      "to": "oc133_institute_director",
+      "trigger": "mission contract gives the director content blockers and capability work orders"
+    },
+    {
+      "from": "oc133_platinum_release_mission",
+      "to": "oc133_journal_package_factory",
+      "trigger": "publication blocker dispatches to version-aware no-send package generator"
+    },
     {
       "from": "oc133_institute_director",
       "to": "oc133_research_corpus",
@@ -124,6 +152,16 @@
       "from": "oc133_publication_governor",
       "to": "oc133_cerberus_review",
       "trigger": "public-surface/no-send locks are reviewed as claims"
+    },
+    {
+      "from": "oc133_journal_package_factory",
+      "to": "oc133_release_machine",
+      "trigger": "1.3.3 submission package inventory becomes tracked package input"
+    },
+    {
+      "from": "oc133_release_machine",
+      "to": "oc133_platinum_release_mission",
+      "trigger": "technical G32-G70 state is subordinated to scientific content-closure readiness"
     }
   ]
 }

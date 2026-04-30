@@ -1284,9 +1284,17 @@
   "no_send": true,
   "owner_approved": false,
   "public_action_allowed": false,
-  "bridge_verdict": "K6_CONTINUE_SCIENTIFIC_REPAIR_LOOP",
-  "cerberus_open_total": 45,
-  "release_master_verdict": "UNKNOWN",
+  "bridge_verdict": "K6_CONTINUE_SCIENTIFIC_CONTENT_CLOSURE",
+  "cerberus_open_total": 0,
+  "release_master_verdict": "FAIL",
+  "content_closure_state": "SCIENTIFIC_CONTENT_CLOSURE_RUNNING",
+  "content_blocker_total": 4,
+  "content_blocker_ids": [
+    "theorem_promotion",
+    "empirical_prediction_promotion",
+    "novelty_equivalence_closure",
+    "phenomenon_coverage"
+  ],
   "capability_graph_ref": "operations/strategy_hq_bridge/oc_core_1_3_3/OC133_CAPABILITY_LINK_GRAPH.json",
   "cerberus": {
     "summary": {
@@ -1309,30 +1317,12 @@
         "claim_boundary_auditor",
         "public_surface_auditor"
       ],
-      "executed_roles_this_run": [
-        "formal_mathematician",
-        "dynamical_systems_reviewer",
-        "category_type_theory_reviewer",
-        "empirical_statistician",
-        "prior_art_historian",
-        "hostile_journal_reviewer",
-        "not_novel_attacker",
-        "phenomenon_x_attacker",
-        "clarity_didactic_reviewer",
-        "reproducibility_auditor",
-        "theorem_theater_auditor",
-        "empirical_theater_auditor",
-        "claim_boundary_auditor",
-        "public_surface_auditor"
-      ],
       "role_total": 14,
-      "configured_role_total": 14,
-      "max_workers": 3,
-      "execution_status": "EXECUTED_WITH_OPEN_FINDINGS",
-      "critical_open_total": 11,
-      "high_open_total": 34,
+      "execution_status": "EXECUTED_WITH_FINDINGS_CLOSED",
+      "critical_open_total": 0,
+      "high_open_total": 0,
       "parse_failure_total": 0,
-      "parse_failures": [],
+      "execution_bad_total": 0,
       "pending_role_total": 0,
       "pending_roles": [],
       "result_refs": [
@@ -1350,572 +1340,1357 @@
         "reviews/oc133_llm_cerberus/results/empirical_theater_auditor.json",
         "reviews/oc133_llm_cerberus/results/claim_boundary_auditor.json",
         "reviews/oc133_llm_cerberus/results/public_surface_auditor.json"
-      ],
-      "result_refs_this_run": [
-        "reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json",
-        "reviews/oc133_llm_cerberus/results/category_type_theory_reviewer.json",
-        "reviews/oc133_llm_cerberus/results/formal_mathematician.json",
-        "reviews/oc133_llm_cerberus/results/empirical_statistician.json",
-        "reviews/oc133_llm_cerberus/results/prior_art_historian.json",
-        "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
-        "reviews/oc133_llm_cerberus/results/not_novel_attacker.json",
-        "reviews/oc133_llm_cerberus/results/phenomenon_x_attacker.json",
-        "reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json",
-        "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json",
-        "reviews/oc133_llm_cerberus/results/empirical_theater_auditor.json",
-        "reviews/oc133_llm_cerberus/results/theorem_theater_auditor.json",
-        "reviews/oc133_llm_cerberus/results/claim_boundary_auditor.json",
-        "reviews/oc133_llm_cerberus/results/public_surface_auditor.json"
       ]
     },
-    "open_findings": [
-      {
-        "severity": "HIGH",
-        "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-        "claim": "T133-OMEGA-STATUS: \"Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.\"",
-        "failure_mode": "The cited Lean subset proves death blocks live and proves enum inequalities among MorphismClass.residue, MorphismClass.rebirth, and MorphismClass.identity. It does not connect Lifecycle.residueOf/rebirthOf source-target relations to MorphismEvidence, and the finite case checks JSON tokens rather than a typed carrier/morphism relation.",
-        "required_repair": "Demote or rewrite the claim to the exact supported statement, or add a Lean theorem tying Lifecycle live/death/residueOf/rebirthOf fields to MorphismEvidence with matching finite source-target cases.",
-        "status": "OPEN",
-        "role": "category_type_theory_reviewer",
-        "result_ref": "reviews/oc133_llm_cerberus/results/category_type_theory_reviewer.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "claim": "T133-ID: \"Identity, residue, and rebirth morphism classification theorem\" with CATEGORY evidence route.",
-        "failure_mode": "The Lean subset has only an enum MorphismClass plus invariantPreserved Bool. It has no category structure: no objects, hom-sets, source/target laws, composition, identity law, associativity, or categorical equivalence, while the proof route still uses category/morphism-class wording.",
-        "required_repair": "Rename the result as an enum/tag identity-boundary theorem and remove categorical implications, or formalize the needed category/morphism structure in Lean and prove the residue/rebirth/identity laws against it.",
-        "status": "OPEN",
-        "role": "category_type_theory_reviewer",
-        "result_ref": "reviews/oc133_llm_cerberus/results/category_type_theory_reviewer.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-        "claim": "T133-ID finite checks support the identity/residue/rebirth boundary.",
-        "failure_mode": "The evaluator accepts only residue/rebirth with identity_invariant_preserved=false and claimed_identity_continuation=false, or identity with invariant=true and claimed continuation=true. The current inputs omit the full class x invariant x claimed-continuation table, especially residue/rebirth with invariant preserved and identity with invariant not preserved, so the finite witness does not test the claimed boundary.",
-        "required_repair": "Add exhaustive finite cases for identity, residue, and rebirth across invariantPreserved true/false and claimedIdentity true/false, then align the evaluator and proof ledger with the actual Lean definition or a new restartClass theorem.",
-        "status": "OPEN",
-        "role": "category_type_theory_reviewer",
-        "result_ref": "reviews/oc133_llm_cerberus/results/category_type_theory_reviewer.json"
-      },
-      {
-        "severity": "CRITICAL",
-        "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-        "claim": "critical_unresolved_total=0 and high_unresolved_total=0 with category_type_theory_reviewer rows CLOSED_BY_SPECIFIC_V12_EVIDENCE.",
-        "failure_mode": "The matrix closes current category/type-theory defects by generic bounded-claim closure text, but the present claim ledger, theorem inventory, Lean subset, and finite checker still contain the unsupported morphism/category and incomplete identity-boundary issues above.",
-        "required_repair": "Reopen the affected critical/high rows, recompute unresolved totals from the current artifacts, and close them only after the public claims are demoted or the missing Lean and finite evidence is added.",
-        "status": "OPEN",
-        "role": "category_type_theory_reviewer",
-        "result_ref": "reviews/oc133_llm_cerberus/results/category_type_theory_reviewer.json"
-      },
-      {
-        "severity": "CRITICAL",
-        "artifact_ref": "tools/run_oc133_v12_cerberus.py",
-        "claim": "LLM adversarial review must execute.",
-        "failure_mode": "Role `claim_boundary_auditor` exceeded timeout_seconds=360: Command '['codex', 'exec', '-s', 'read-only', '-c', \"approval_policy='never'\", '-C', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main', '-o', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\reviews\\\\oc133_llm_cerberus\\\\raw_v12\\\\claim_boundary_auditor.txt', '-']' timed out after 360 seconds",
-        "required_repair": "Rerun role with smaller context or repair Codex CLI latency; stale prior JSON must not be reused.",
-        "status": "OPEN",
-        "role": "claim_boundary_auditor",
-        "result_ref": "reviews/oc133_llm_cerberus/results/claim_boundary_auditor.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-        "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-        "failure_mode": "The promoted claim still exceeds the cited machine-checked route. The current Lean reference `formal/lean/OC133V12.lean::lifecycle_statuses_and_morphisms_separated` proves death blocks live plus enum inequalities among residue, rebirth, and identity classes; it does not connect `Lifecycle.residueOf`/`rebirthOf` typed source-target relations to `MorphismEvidence`. The finite case checks JSON token separation, not the typed morphism relation. A hostile reader cannot follow the residue/rebirth part from tuple to theorem to semantic finite case without author interpretation.",
-        "required_repair": "Rewrite the public claim to the exact supported statement, or add a Lean theorem tying `Lifecycle.residueOf`, `Lifecycle.rebirthOf`, and `MorphismEvidence` into one typed status/morphism theorem with matching finite cases that exercise those source-target relations.",
-        "status": "OPEN",
-        "role": "clarity_didactic_reviewer",
-        "result_ref": "reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-        "claim": "T133-ID: Residue preservation and rebirth are not identity continuation unless declared identity invariants are preserved.",
-        "failure_mode": "The current finite witness set covers residue/rebirth only with `identity_invariant_preserved=false`, plus one positive identity case with `morphism_class=identity` and invariant preserved. It does not cover residue or rebirth with invariants preserved, so the word 'unless' is ambiguous: the artifacts do not show whether invariant preservation alone can license identity continuation or whether identity class is also required.",
-        "required_repair": "Add an exhaustive finite truth table for `morphism_class in {identity,residue,rebirth}` x `identity_invariant_preserved` x `claimed_identity_continuation`, then align the claim text with the actual rule, e.g. 'identity continuation requires identity class and preserved invariants.'",
-        "status": "OPEN",
-        "role": "clarity_didactic_reviewer",
-        "result_ref": "reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "formal/lean/OC133V12.lean",
-        "claim": "T133-KLEVEL: Every declared adjacent K-level transition K0->K12 has a Lean atlas witness, reduction-failure predicate, executable finite row, and lawful demotion predicate in the v12 classifier atlas.",
-        "failure_mode": "The Lean theorem constructs `retainedTransitionEvidence` and `demotedTransitionEvidence` from hard-coded enum/Bool fields and proves `reductionFails`/`lawfulDemotion` by the definitions. It does not encode the atlas text fields `witness_pair`, `reduction_failure_criterion`, or `lawful_demotion_criterion`, and it does not prove the claimed domain examples such as closure, trust coordination, or release governance. The finite runner checks string equality and flags, so the advertised semantic witness atlas collapses to registry consistency plus configured booleans.",
-        "required_repair": "Either demote the claim to 'the registry is internally consistent under the declared Boolean evaluator' or formalize per-transition semantic predicates in Lean and bind the finite rows to those predicates rather than to text equality and witness-active flags.",
-        "status": "OPEN",
-        "role": "clarity_didactic_reviewer",
-        "result_ref": "reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-        "claim": "P012 / OC133-NOSEND-001 route: claim -> Lean theorem/proof sheet -> semantic finite case -> negative control -> falsifier.",
-        "failure_mode": "The no-send model card says the route includes a Lean theorem/proof sheet, but the current theorem inventory and proof ledger have no `OC133-NOSEND-001` theorem row, and P012 evidence refs omit any no-send proof sheet. The actual support is an operational finite no-send state machine plus owner approval files. The matrix therefore teaches a false proof route for a release-critical no-send claim.",
-        "required_repair": "Rewrite P012 as an operational control-plane route with no Lean/proof-sheet language, or add a real theorem inventory row, proof sheet, Lean theorem reference, and finite case binding for `OC133-NOSEND-001`.",
-        "status": "OPEN",
-        "role": "clarity_didactic_reviewer",
-        "result_ref": "reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "formal/lean/OC133V12.lean",
-        "claim": "T133-HYBRID: Differential operator notation is a smooth-realization specialization of typed update semantics.",
-        "failure_mode": "The current Lean theorem `smooth_hybrid_operator_semantics` proves record-field routing only: `SmoothChart.derivative` is unconstrained, `localLaw` is unused, `flow` is `Nat -> State -> State`, and there is no real-time flow, differentiability, vector field, ODE, existence/uniqueness, or chart-compatibility theorem. The promoted wording still invites a hidden smooth/ODE reading that the formal artifact does not support.",
-        "required_repair": "Demote/rename T133-HYBRID to a token-level typed-update and guard/reset lemma, or add formal smooth-structure assumptions and Lean theorems for real-time flow, differentiable charts, vector-field/local-law compatibility, and derivative/ODE interpretation, then regenerate the finite checks with negative controls for bogus chart tokens.",
-        "status": "OPEN",
-        "role": "dynamical_systems_reviewer",
-        "result_ref": "reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-        "claim": "T133-HYBRID / P005: guarded hybrid step uses reset and smooth derivative requires chart.",
-        "failure_mode": "The executable hybrid check accepts by string equality over `actual_next`, `reset_target`, `step_target`, nonempty `smooth_chart_id`, `smooth_step_target`, and matching state-type labels. It does not check guard domains, source/target modes, reset relation typing, post-reset admissibility, invariant preservation, or reset codomain obligations, so it supports only a toy next-state selector rather than hybrid guard/reset semantics.",
-        "required_repair": "Formalize guards and resets as typed relations with source mode, target mode, admissibility, invariant preservation, and reset codomain obligations; add finite cases rejecting wrong-mode resets, inadmissible reset targets, guard/flow conflicts, and guard-false reset misuse.",
-        "status": "OPEN",
-        "role": "dynamical_systems_reviewer",
-        "result_ref": "reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-        "claim": "P005: Does OC actually explain operators in non-smooth proof and rewrite domains?",
-        "failure_mode": "P005 is marked `PHENOMENON_SPECIFIC_MODEL_REPLAYED` through `FM-T133-HYBRID-POS`, but that case is a smooth `HybridState` with `derivative_requested=true` and `smooth_chart_id=chart_R1`. It does not instantiate a non-smooth proof, rewrite, graph, stochastic, or proof-replay carrier, so the coverage row overstates the checked phenomenon.",
-        "required_repair": "Add explicit checked finite cases for proof/rewrite carriers accepted as typed updates with no derivative requested, plus negative controls rejecting differentiation of those carriers without a smooth chart; otherwise narrow P005 to smooth hybrid-state replay only.",
-        "status": "OPEN",
-        "role": "dynamical_systems_reviewer",
-        "result_ref": "reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json"
-      },
-      {
-        "severity": "CRITICAL",
-        "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-        "claim": "`critical_unresolved_total=0` and `high_unresolved_total=0` while universal-ODE and hybrid-operator attacks are closed by `smooth_hybrid_operator_semantics` and `FM-T133-HYBRID-POS`.",
-        "failure_mode": "The attack matrix contains the same dynamical-systems defects as closed rows, but the cited closure evidence is just the underpowered Lean theorem and finite string-equality witness. That does not repair the missing smooth/ODE semantics or full hybrid reset semantics, so the zero unresolved counts are release-gate theater for this role.",
-        "required_repair": "Reopen the T133-HYBRID, P005, and fake-universal-differential-equation rows until the claim is demoted to token-level update semantics or backed by strengthened smooth and hybrid semantics; then recompute critical/high unresolved totals from the repaired closure criteria.",
-        "status": "OPEN",
-        "role": "dynamical_systems_reviewer",
-        "result_ref": "reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
-        "claim": "OC133-NUM-SYS-WDI-GDP: one-step GDP replay QA with comparator, no prediction or superiority claim; split_policy says train on two previous non-null years and hold out latest non-null year.",
-        "failure_mode": "The row still uses prediction/heldout language while its own quarantine_reason says the snapshot contains the target. The declared uncertainty 4241013358949.0 equals observed_value 110982661180013.0 minus comparator_prediction 106741647821064.0, so the falsifier threshold is computed from the held-out observation. This cannot support heldout/comparator/residual validity.",
-        "required_repair": "Remove predict/holdout/falsifier-threshold language and report pure retrospective replay only, or provide a train-only/preregistered derivation of prediction, comparator, uncertainty, residual, and pass/fail from data locked before target availability.",
-        "status": "OPEN",
-        "role": "empirical_statistician",
-        "result_ref": "reviews/oc133_llm_cerberus/results/empirical_statistician.json"
-      },
-      {
-        "severity": "CRITICAL",
-        "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-        "claim": "critical_unresolved_total=0 and high_unresolved_total=0 for empirical attacks closed by prediction_support_allowed_total=0 and empirical_support_allowed=false.",
-        "failure_mode": "The closure criterion does not test heldout split integrity or target-leakage in the current GDP row. It closes CERBERUS-020/021 while the numeric table still contains target-leaked uncertainty and heldout/predict language.",
-        "required_repair": "Reopen the empirical closure rows; add closure predicates for train-only split, target availability, uncertainty, comparator, residual, and pass/fail logic, then recompute unresolved totals.",
-        "status": "OPEN",
-        "role": "empirical_statistician",
-        "result_ref": "reviews/oc133_llm_cerberus/results/empirical_statistician.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-        "claim": "T133-KLEVEL / K11_to_K12: added_axis 'coherence -> release-governed civilizational closure' passes as FAILS_WITH_WITNESS.",
-        "failure_mode": "The actual witness is only owner-gated public action/no-send governance. The check passes declared atlas strings and booleans, not evidence for civilizational closure. This relabels release-governance plumbing as an absolute-sounding K12 axis.",
-        "required_repair": "Rename K11_to_K12 to bounded release-governance/no-send control, or demote it until independent comparator/model-card evidence and a non-circular evaluator support civilizational closure.",
-        "status": "OPEN",
-        "role": "empirical_statistician",
-        "result_ref": "reviews/oc133_llm_cerberus/results/empirical_statistician.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-        "claim": "P012 route: claim OC133-NOSEND-001 -> Lean theorem/proof sheet -> semantic finite case -> negative control -> falsifier.",
-        "failure_mode": "OC133-NOSEND-001 is not in the theorem inventory and OC133V12.lean has no no-send theorem. The row advertises a Lean/proof-sheet route for what is actually a publish-manifest plus finite no-send state-machine check.",
-        "required_repair": "Rewrite P012 as claim -> owner approval/publish manifest -> finite no-send state-machine check, or add and inventory an actual Lean no-send theorem and proof sheet.",
-        "status": "OPEN",
-        "role": "empirical_statistician",
-        "result_ref": "reviews/oc133_llm_cerberus/results/empirical_statistician.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-        "claim": "T133-HYBRID: Differential operator notation is a smooth-realization specialization of typed update semantics.",
-        "failure_mode": "The cited Lean theorem proves only record-field routing over arbitrary State: flow-one equality, optional chart existence, and guard/reset behavior. It does not define smooth structure, derivatives, differential operators, ODEs, or analytic laws.",
-        "required_repair": "Demote to typed update plus optional chart and guard/reset routing, or formalize actual smooth/differential semantics with aligned finite/domain checks.",
-        "status": "OPEN",
-        "role": "empirical_statistician",
-        "result_ref": "reviews/oc133_llm_cerberus/results/empirical_statistician.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-        "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-        "failure_mode": "The current Lean support proves death blocks live and enum inequalities among residue/rebirth/identity. It does not make live/death morphism classes or connect Lifecycle.residueOf/rebirthOf relations to MorphismEvidence.",
-        "required_repair": "Rewrite to the exact supported theorem, or add Lean definitions/proofs connecting lifecycle predicates, residue/rebirth source-target relations, and MorphismEvidence with matching finite cases.",
-        "status": "OPEN",
-        "role": "empirical_statistician",
-        "result_ref": "reviews/oc133_llm_cerberus/results/empirical_statistician.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
-        "claim": "OC133 numeric rows are NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER supporting rows.",
-        "failure_mode": "The table correctly quarantines all snapshot replays from prediction and empirical support, but the claimed baseline negative controls and falsifiers are only prose fields beside final replay numbers. There is no executable numeric replay command, parser/generator, raw snapshot hash binding, observed negative-control verdict, or present replay log; the attack matrix references validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json, which is absent. This leaves the validation support as static replay assertion rather than checked negative-control QA.",
-        "required_repair": "Add a checked-in numeric replay generator/log with pinned raw snapshot hashes, command and environment, regenerated outputs, and pass/fail negative-control results, or demote these rows to descriptive static snapshot QA and remove the negative-control/falsifier support label from the claim ledger.",
-        "status": "OPEN",
-        "role": "empirical_theater_auditor",
-        "result_ref": "reviews/oc133_llm_cerberus/results/empirical_theater_auditor.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "formal/lean/OC133V12.lean",
-        "claim": "T133-HYBRID: Differential operator notation is a smooth-realization specialization of typed update semantics.",
-        "failure_mode": "The Lean artifact defines SmoothChart.derivative as an uninterpreted field over an arbitrary State and flow as Nat-indexed stepping, then proves only chart presence and guard/reset routing. It does not formalize differentiability, smoothness, real-valued structure, derivative laws, or differential-operator semantics, while the finite check only checks chart/id and routing facts. The promoted wording is stronger than the theorem.",
-        "required_repair": "Rewrite the claim to the supported record-level statement about typed update records and guard/reset routing, or formalize actual smooth/differential structure with derivative laws and align the finite checks to those semantics.",
-        "status": "OPEN",
-        "role": "empirical_theater_auditor",
-        "result_ref": "reviews/oc133_llm_cerberus/results/empirical_theater_auditor.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-        "claim": "T133-KLEVEL: every adjacent K-level transition has an executable finite row, reduction-failure predicate, Lean atlas witness, and lawful demotion predicate.",
-        "failure_mode": "The runner accepts K-level reduction failure from atlas string equality plus input booleans such as axis_observed, retained_witness, and verdict_changes. The Lean theorem similarly constructs retained/demoted cases by setting retainedWitnessActive/reducedWitnessActive flags. No per-axis transition semantics independently computes a verdict change, so the result proves registry consistency rather than substantive K-level reduction failure.",
-        "required_repair": "Narrow the public claim to declared atlas bookkeeping, or add concrete per-axis semantic evaluators and Lean relations that derive verdict changes from model data instead of witness strings and booleans.",
-        "status": "OPEN",
-        "role": "empirical_theater_auditor",
-        "result_ref": "reviews/oc133_llm_cerberus/results/empirical_theater_auditor.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-        "claim": "P012 route: OC133-NOSEND-001 -> Lean theorem/proof sheet -> semantic finite case -> negative control -> falsifier.",
-        "failure_mode": "OC133-NOSEND-001 is not in the theorem inventory, and formal/lean/OC133V12.lean contains no no-send theorem. The current support is the publish manifest, owner approval state, and finite no-send state-machine row, but P012 still advertises a Lean theorem/proof-sheet route and Lean evidence refs.",
-        "required_repair": "Rewrite P012 to route through the manifest, owner approval file, and finite no-send state machine only, or add and inventory a real Lean no-send theorem with a proof sheet.",
-        "status": "OPEN",
-        "role": "empirical_theater_auditor",
-        "result_ref": "reviews/oc133_llm_cerberus/results/empirical_theater_auditor.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-        "claim": "P008-P011 and P013 are PHENOMENON_SPECIFIC_MODEL_REPLAYED coverage for origin-of-life closure, social institutions, theory change, recursive self-application, and K-level collapse.",
-        "failure_mode": "These rows map broad domain phenomena to generic T133-KLEVEL atlas rows whose executable payload is transition ids, witness text, and booleans. No RAF reaction/catalysis model, role/action/norm model, claim/evidence update dynamics, or object/meta-level self-application model is encoded. The coverage matrix therefore replays labels rather than phenomenon-specific models.",
-        "required_repair": "Demote these coverage rows to scoped classifier illustrations, or add concrete executable domain models with observables, negative controls, and falsifiers for each claimed phenomenon.",
-        "status": "OPEN",
-        "role": "empirical_theater_auditor",
-        "result_ref": "reviews/oc133_llm_cerberus/results/empirical_theater_auditor.json"
-      },
-      {
-        "severity": "CRITICAL",
-        "artifact_ref": "tools/run_oc133_v12_cerberus.py",
-        "claim": "LLM adversarial review must execute.",
-        "failure_mode": "Role `formal_mathematician` exceeded timeout_seconds=360: Command '['codex', 'exec', '-s', 'read-only', '-c', \"approval_policy='never'\", '-C', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main', '-o', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\reviews\\\\oc133_llm_cerberus\\\\raw_v12\\\\formal_mathematician.txt', '-']' timed out after 360 seconds",
-        "required_repair": "Rerun role with smaller context or repair Codex CLI latency; stale prior JSON must not be reused.",
-        "status": "OPEN",
-        "role": "formal_mathematician",
-        "result_ref": "reviews/oc133_llm_cerberus/results/formal_mathematician.json"
-      },
-      {
-        "severity": "CRITICAL",
-        "artifact_ref": "tools/run_oc133_v12_cerberus.py",
-        "claim": "LLM adversarial review must execute.",
-        "failure_mode": "Role `hostile_journal_reviewer` exceeded timeout_seconds=360: Command '['codex', 'exec', '-s', 'read-only', '-c', \"approval_policy='never'\", '-C', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main', '-o', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\reviews\\\\oc133_llm_cerberus\\\\raw_v12\\\\hostile_journal_reviewer.txt', '-']' timed out after 360 seconds",
-        "required_repair": "Rerun role with smaller context or repair Codex CLI latency; stale prior JSON must not be reused.",
-        "status": "OPEN",
-        "role": "hostile_journal_reviewer",
-        "result_ref": "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json"
-      },
-      {
-        "severity": "CRITICAL",
-        "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-        "claim": "critical_unresolved_total=0 and high_unresolved_total=0; critical/high objections are CLOSED_BY_SPECIFIC_V12_EVIDENCE.",
-        "failure_mode": "The matrix still closes current high/critical objections with non-responsive closure checks. Examples in the current file include T133-HYBRID closed by proving only chart/flow/guard/reset fields, P012 no-send route closed by manifest locking despite the false Lean/proof-sheet route, and T133-KLEVEL closed with a K0 resolution query unrelated to K-level irreducibility. This is attack-matrix theater: the closure evidence records bounded artifacts but does not repair the attacked claim.",
-        "required_repair": "Reopen each critical/high row whose closure query does not directly prove the repaired claim, require claim-specific closure evidence, remove non-responsive closures, and recompute critical_unresolved_total and high_unresolved_total from the actual row statuses.",
-        "status": "OPEN",
-        "role": "not_novel_attacker",
-        "result_ref": "reviews/oc133_llm_cerberus/results/not_novel_attacker.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "formal/lean/OC133V12.lean",
-        "claim": "T133-HYBRID: Differential operator notation is a smooth-realization specialization of typed update semantics.",
-        "failure_mode": "The Lean artifact models SmoothChart.derivative as an unconstrained record field over arbitrary State and flow as Nat -> State -> State. The theorem smooth_hybrid_operator_semantics proves step_eq_flow_one, chart existence, and guard/reset routing, not differentiability, smooth realization, ODE semantics, or differential-operator laws. The current support reduces the claim to ordinary hybrid-system/update bookkeeping with mathematical labels.",
-        "required_repair": "Demote the claim to a typed update plus optional chart and guard/reset record lemma, or formalize an actual smooth/analytic setting with derivative laws and rerun matching Lean and finite checks.",
-        "status": "OPEN",
-        "role": "not_novel_attacker",
-        "result_ref": "reviews/oc133_llm_cerberus/results/not_novel_attacker.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "formal/lean/OC133V12.lean",
-        "claim": "T133-ID: Residue preservation and rebirth are not identity continuation unless declared identity invariants are preserved.",
-        "failure_mode": "isIdentityMorphism requires both class = identity and invariantPreserved = true. The promoted theorem only rules out residue/rebirth when invariantPreserved = false and accepts identity when both fields are true; the finite checks only exercise rebirth with invariant false versus claimed identity. The 'unless invariants are preserved' wording is unsupported because invariant preservation alone does not classify residue/rebirth as identity in the current formalism.",
-        "required_repair": "Either rewrite the public claim to say identity requires the identity morphism class plus invariant preservation, or add formal and finite cases covering identity/residue/rebirth across invariantPreserved true/false and claimed continuation true/false.",
-        "status": "OPEN",
-        "role": "not_novel_attacker",
-        "result_ref": "reviews/oc133_llm_cerberus/results/not_novel_attacker.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-        "claim": "T133-KLEVEL: Every declared adjacent K-level transition K0->K12 has a Lean atlas witness, reduction-failure predicate, executable finite row, and lawful demotion predicate in the v12 classifier atlas.",
-        "failure_mode": "The Lean and finite support construct the K-level witnesses from declared enum labels and boolean retained/reduced witness fields. That proves internal atlas bookkeeping, not non-circular reduction failure, irreducibility, or a novel hierarchy over GST, RAF, complexity, systems engineering, or formal-methods framings. The promoted wording still reads as substantive K-level irreducibility despite being declared-classifier replay.",
-        "required_repair": "Narrow the claim to declared atlas bookkeeping, remove irreducibility/reduction language that suggests substantive novelty, or add independent semantic criteria and comparator failures for each adjacent K transition.",
-        "status": "OPEN",
-        "role": "not_novel_attacker",
-        "result_ref": "reviews/oc133_llm_cerberus/results/not_novel_attacker.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-        "claim": "P003/P008/P009/P010/P011 explanation_status=PHENOMENON_SPECIFIC_MODEL_REPLAYED for biological organization, origin-of-life framing, social institutions, theory change, and recursive self-application.",
-        "failure_mode": "The coverage rows close broad phenomenon questions using toy formal instances and finite replay rows such as a minimal live cell-state surrogate, RAF-like K2->K3 closure witness, role/norm classifier, and claim-ledger update state. The limitations disclaim domain totalization, but the matrix still records the phenomena as replayed explanations without domain data, comparator discrimination, or evidence that OC adds anything beyond autopoiesis, RAF, GST, systems engineering, or formal-methods relabeling.",
-        "required_repair": "Mark these rows as illustrative analogies/not closed coverage, or provide phenomenon-specific models with external data or source-grounded comparator baselines, negative controls, and falsifiers that distinguish OC from the prior-art traditions.",
-        "status": "OPEN",
-        "role": "not_novel_attacker",
-        "result_ref": "reviews/oc133_llm_cerberus/results/not_novel_attacker.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-        "claim": "P012 route: claim OC133-NOSEND-001 -> Lean theorem/proof sheet -> semantic finite case ADV-NOSEND-PUBLISH -> negative control -> falsifier.",
-        "failure_mode": "The current theorem inventory has no OC133-NOSEND-001 theorem and OC133V12.lean contains no no-send theorem; the finite no-send row is manifest/owner-approval state-machine evidence. P012 therefore advertises a Lean/proof-sheet route that does not exist in the inspected release artifacts, even though the manifest lock itself is present.",
-        "required_repair": "Rewrite P012 as claim -> publish manifest/owner approval -> finite no-send state-machine check, remove Lean/proof-sheet evidence from that row, or add and inventory an actual Lean no-send theorem before using that route.",
-        "status": "OPEN",
-        "role": "not_novel_attacker",
-        "result_ref": "reviews/oc133_llm_cerberus/results/not_novel_attacker.json"
-      },
-      {
-        "severity": "CRITICAL",
-        "artifact_ref": "tools/run_oc133_v12_cerberus.py",
-        "claim": "LLM adversarial review must execute.",
-        "failure_mode": "Role `phenomenon_x_attacker` exceeded timeout_seconds=360: Command '['codex', 'exec', '-s', 'read-only', '-c', \"approval_policy='never'\", '-C', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main', '-o', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\reviews\\\\oc133_llm_cerberus\\\\raw_v12\\\\phenomenon_x_attacker.txt', '-']' timed out after 360 seconds",
-        "required_repair": "Rerun role with smaller context or repair Codex CLI latency; stale prior JSON must not be reused.",
-        "status": "OPEN",
-        "role": "phenomenon_x_attacker",
-        "result_ref": "reviews/oc133_llm_cerberus/results/phenomenon_x_attacker.json"
-      },
-      {
-        "severity": "CRITICAL",
-        "artifact_ref": "tools/run_oc133_v12_cerberus.py",
-        "claim": "LLM adversarial review must execute.",
-        "failure_mode": "Role `prior_art_historian` exceeded timeout_seconds=360: Command '['codex', 'exec', '-s', 'read-only', '-c', \"approval_policy='never'\", '-C', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main', '-o', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\reviews\\\\oc133_llm_cerberus\\\\raw_v12\\\\prior_art_historian.txt', '-']' timed out after 360 seconds",
-        "required_repair": "Rerun role with smaller context or repair Codex CLI latency; stale prior JSON must not be reused.",
-        "status": "OPEN",
-        "role": "prior_art_historian",
-        "result_ref": "reviews/oc133_llm_cerberus/results/prior_art_historian.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-        "claim": "P012 / OC133-NOSEND-001: `claim OC133-NOSEND-001 -> Lean theorem/proof sheet -> semantic finite case ADV-NOSEND-PUBLISH -> negative control -> falsifier`.",
-        "failure_mode": "P012 still lists `formal/lean/OC133V12.lean` as evidence and advertises a Lean theorem/proof-sheet route for no-send governance, but the current theorem inventory and proof ledger contain only T133 theorem rows, and the Lean file has no OC133-NOSEND/no_send/publish theorem. The actual finite no-send rows point to JSON manifest/approval artifacts, so the public coverage route is theorem theater and omits the real publish-manifest/owner-approval evidence surface.",
-        "required_repair": "Remove Lean theorem/proof-sheet language and Lean evidence from P012, and replace the route with claim ledger -> publish manifest -> owner approval artifact -> finite no-send runner/output; or add a real no-send theorem, proof sheet, theorem-inventory row, and matching Lean-backed finite reference.",
-        "status": "OPEN",
-        "role": "public_surface_auditor",
-        "result_ref": "reviews/oc133_llm_cerberus/results/public_surface_auditor.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-        "claim": "OC133-NOSEND-001 / ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL proves public action is allowed after owner approval.",
-        "failure_mode": "The hypothetical approved control returns `ALLOW_AFTER_OWNER_APPROVAL` using only `owner_approved`, `publish_requested`, and `publish_allowed`; the input/output row supplies no `global_no_send_lock`, `journal_submissions_allowed`, `journal_submission_allowed`, `github_release_allowed`, `zenodo_deposit_allowed`, `software_heritage_deposit_allowed`, or `doi_minting_allowed` fields. It therefore proves only a generic publish flag, not DOI/Zenodo/GitHub/SWH/journal public-action parity.",
-        "required_repair": "Model an approved-state fixture with global lock false and every requested channel gate explicitly true, map `requested_channels` to required manifest fields, and make both reject and allow paths enforce DOI/public-identifier and per-channel gates before reporting `ALLOW_AFTER_OWNER_APPROVAL`.",
-        "status": "OPEN",
-        "role": "public_surface_auditor",
-        "result_ref": "reviews/oc133_llm_cerberus/results/public_surface_auditor.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-        "claim": "`critical_unresolved_total: 0`, `high_unresolved_total: 0`, and `CERBERUS-041-public_surface_auditor` is `CLOSED_BY_SPECIFIC_V12_EVIDENCE`.",
-        "failure_mode": "The matrix closes the public-surface no-send theorem-theater objection with generic closure evidence, but the current coverage matrix still contains the exact bad P012 Lean theorem/proof-sheet route. The unresolved totals are therefore self-certified against a defect that remains present in the current release surface.",
-        "required_repair": "Reopen CERBERUS-041 and recompute unresolved totals until P012 is actually repaired, or add the missing no-send theorem/proof-sheet/inventory surface and update the closure evidence to cite that concrete repair.",
-        "status": "OPEN",
-        "role": "public_surface_auditor",
-        "result_ref": "reviews/oc133_llm_cerberus/results/public_surface_auditor.json"
-      },
-      {
-        "severity": "CRITICAL",
-        "artifact_ref": "tools/run_oc133_v12_cerberus.py",
-        "claim": "LLM adversarial review must execute.",
-        "failure_mode": "Role `reproducibility_auditor` exceeded timeout_seconds=360: Command '['codex', 'exec', '-s', 'read-only', '-c', \"approval_policy='never'\", '-C', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main', '-o', 'C:\\\\Users\\\\Megaport\\\\work\\\\logion_local\\\\repos\\\\ontology-of-continua-core-main\\\\reviews\\\\oc133_llm_cerberus\\\\raw_v12\\\\reproducibility_auditor.txt', '-']' timed out after 360 seconds",
-        "required_repair": "Rerun role with smaller context or repair Codex CLI latency; stale prior JSON must not be reused.",
-        "status": "OPEN",
-        "role": "reproducibility_auditor",
-        "result_ref": "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json"
-      },
-      {
-        "severity": "CRITICAL",
-        "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-        "claim": "critical_unresolved_total=0, high_unresolved_total=0, and CLOSED_BY_SPECIFIC_V12_EVIDENCE for all critical/high attacks",
-        "failure_mode": "The matrix still contains current high-severity theorem-theater objections that are marked closed without repairing the stated defects: the universal-ODE objection is closed by the same underpowered T133-HYBRID Lean theorem, the P012 no-send route still advertises a missing Lean/proof-sheet path, and the K11_to_K12 civilizational-closure overclaim remains in finite/K-level evidence. The zero unresolved totals are therefore status-token closure, not evidence closure.",
-        "required_repair": "Reopen these rows, recompute critical_unresolved_total and high_unresolved_total from actual repaired artifacts, and only close each row after the cited public claim, Lean theorem, finite witness, and coverage route are changed or demoted.",
-        "status": "OPEN",
-        "role": "theorem_theater_auditor",
-        "result_ref": "reviews/oc133_llm_cerberus/results/theorem_theater_auditor.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "formal/lean/OC133V12.lean",
-        "claim": "T133-HYBRID: Differential operator notation is a smooth-realization specialization of typed update semantics.",
-        "failure_mode": "The Lean evidence models smoothness as an optional chart field over an arbitrary State type, with derivative an unconstrained function and flow indexed by Nat. The theorem proves chart-field existence, step_eq_flow_one, and guard/reset routing; it does not prove differential, smooth-realization, ODE, or analytic semantics. The finite checker mirrors this with string/flag checks such as smooth_chart_id and shared state type.",
-        "required_repair": "Demote T133-HYBRID to a typed update/guard-reset record lemma, or formalize actual smooth structure, derivative laws, and hybrid-system semantics in Lean with matching finite cases.",
-        "status": "OPEN",
-        "role": "theorem_theater_auditor",
-        "result_ref": "reviews/oc133_llm_cerberus/results/theorem_theater_auditor.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "formal/lean/OC133V12.lean",
-        "claim": "T133-CYCLE: Live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
-        "failure_mode": "The Lean theorem proves only that eligibleLive implies cycleWitnessed or maintenanceWitnessed, because eligibleLive is defined as admissible plus live plus supportWitnessed. The raw Realization.live field is unconstrained and can be true without any cycle or maintenance evidence. The promoted claim says live status itself requires support, which is stronger than the formal theorem.",
-        "required_repair": "Rewrite the public claim to eligible/promotable live status only, or add a Lean invariant tying Realization.live to supportWitnessed and update finite cases to test that invariant.",
-        "status": "OPEN",
-        "role": "theorem_theater_auditor",
-        "result_ref": "reviews/oc133_llm_cerberus/results/theorem_theater_auditor.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "formal/lean/OC133V12.lean",
-        "claim": "T133-K-ZERO: Continuumness zero follows from a declared zero-cause family, not only from empty admissibility or empty cycles.",
-        "failure_mode": "computedK is defined as 0 exactly when hasZeroCauseBool is true, and continuumness_zero_case_iff_declared_zero_cause_with_support unfolds that definition. The finite evaluator also accepts claimed_k=0 when any zero_cause flag is active. This is circular definitional replay, not an independent continuumness-zero theorem.",
-        "required_repair": "Demote this to a definition consistency check, or introduce an independent continuumness functional/collapse semantics and prove zero follows from declared causes without defining K that way.",
-        "status": "OPEN",
-        "role": "theorem_theater_auditor",
-        "result_ref": "reviews/oc133_llm_cerberus/results/theorem_theater_auditor.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "formal/lean/OC133V12.lean",
-        "claim": "T133-OMEGA-STATUS: Live status, death, residue, and rebirth are distinct typed predicates and morphism classes.",
-        "failure_mode": "The cited theorem proves death blocks live by using the deathBlocksLive field already supplied in Lifecycle, plus enum inequalities among MorphismClass.residue, rebirth, and identity. It does not connect residueOf/rebirthOf source-target relations to MorphismEvidence, and it does not prove live/death are morphism classes. The promoted claim is broader than the formal evidence.",
-        "required_repair": "Narrow the claim to the exact Lean statement, or add Lean definitions and theorems tying lifecycle predicates, residue/rebirth relations, and morphism evidence into one typed classification theorem with matching finite cases.",
-        "status": "OPEN",
-        "role": "theorem_theater_auditor",
-        "result_ref": "reviews/oc133_llm_cerberus/results/theorem_theater_auditor.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-        "claim": "T133-KLEVEL / K11_to_K12: coherence -> release-governed civilizational closure",
-        "failure_mode": "The K11_to_K12 finite evidence labels the added axis as civilizational closure, but the witness is only owner-gated public action state changes verdict and the reduction criterion is no-send governance. The Lean reduction predicate is just retainedWitnessActive=true and reducedWitnessActive=false over declared enum rows. This inflates release-governance plumbing into an absolute-sounding K12 axis.",
-        "required_repair": "Replace civilizational closure with bounded release-governance/no-send wording, or demote the K11_to_K12 portion until independent source-backed coverage and non-circular reduction evidence support the stronger axis.",
-        "status": "OPEN",
-        "role": "theorem_theater_auditor",
-        "result_ref": "reviews/oc133_llm_cerberus/results/theorem_theater_auditor.json"
-      },
-      {
-        "severity": "HIGH",
-        "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-        "claim": "P012 route: claim OC133-NOSEND-001 -> Lean theorem/proof sheet -> semantic finite case -> negative control -> falsifier",
-        "failure_mode": "OC133-NOSEND-001 is not in the theorem inventory, and OC133V12.lean contains no no-send theorem. The actual support is the publish manifest, owner approval state, and finite no-send state-machine row. The coverage route therefore advertises a Lean/proof-sheet evidence path that does not exist.",
-        "required_repair": "Rewrite P012 as claim -> publish manifest/owner approval -> finite no-send state-machine check, or add and inventory a real Lean no-send theorem plus proof sheet.",
-        "status": "OPEN",
-        "role": "theorem_theater_auditor",
-        "result_ref": "reviews/oc133_llm_cerberus/results/theorem_theater_auditor.json"
-      }
-    ]
+    "open_findings": []
   },
-  "release": {},
+  "release": {
+    "schema_id": "OC133_RELEASE_SCORECARD_v1",
+    "release_id": "oc_core_1_3_3",
+    "version": "1.3.3",
+    "generated_at": "2026-04-28T00:00:00Z",
+    "summary": {
+      "release_id": "oc_core_1_3_3",
+      "version": "1.3.3",
+      "channel": "all",
+      "mode": "dry-run",
+      "generated_at": "2026-04-28T00:00:00Z",
+      "release_state": "SCIENTIFIC_CONTENT_CLOSURE_RUNNING",
+      "technical_gate_state": "OC_CORE_1_3_3_10_10_READY_NO_SEND",
+      "master_verdict": "FAIL",
+      "gate_counts": {
+        "BLOCKED": 0,
+        "FAIL": 0,
+        "NOT_APPLICABLE": 0,
+        "NOT_RUN": 0,
+        "PASS": 71,
+        "WARN": 0
+      },
+      "critical_findings": 0,
+      "high_findings": 0,
+      "finding_total": 0,
+      "content_closure_state": "SCIENTIFIC_CONTENT_CLOSURE_RUNNING",
+      "content_closure_blocker_total": 4,
+      "content_closure_blocker_ids": [
+        "theorem_promotion",
+        "empirical_prediction_promotion",
+        "novelty_equivalence_closure",
+        "phenomenon_coverage"
+      ],
+      "content_closure_refs": {
+        "mission_ref": "operations/logion_release_mission/oc_core_1_3_3/OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION.json",
+        "scorecard_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_CONTENT_CLOSURE_SCORECARD.json",
+        "dispatch_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_LOGION_LIVE_DISPATCH_QUEUE.json",
+        "cockpit_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_LOGION_RELEASE_COCKPIT.md",
+        "trajectory_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_TRAJECTORY_CERTIFICATE_latest.json"
+      },
+      "owner_approval_required": true,
+      "global_no_send_lock": true,
+      "publish_allowed": false,
+      "journal_submissions_allowed": false,
+      "package": "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip",
+      "package_sha256": "c6e064eadb1bcd590f3ac8c66fc703bddc2fd8ba74d7444f25b7c4fd687912e7",
+      "artifact_total": 281
+    },
+    "gate_results": [
+      {
+        "gate_id": "G00",
+        "name": "inherited_v132_00",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G01",
+        "name": "inherited_v132_01",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G02",
+        "name": "inherited_v132_02",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G03",
+        "name": "inherited_v132_03",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G04",
+        "name": "inherited_v132_04",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G05",
+        "name": "inherited_v132_05",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G06",
+        "name": "inherited_v132_06",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G07",
+        "name": "inherited_v132_07",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G08",
+        "name": "inherited_v132_08",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G09",
+        "name": "inherited_v132_09",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G10",
+        "name": "inherited_v132_10",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G11",
+        "name": "inherited_v132_11",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G12",
+        "name": "inherited_v132_12",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G13",
+        "name": "inherited_v132_13",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G14",
+        "name": "inherited_v132_14",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G15",
+        "name": "inherited_v132_15",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G16",
+        "name": "inherited_v132_16",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G17",
+        "name": "inherited_v132_17",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G18",
+        "name": "inherited_v132_18",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G19",
+        "name": "inherited_v132_19",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G20",
+        "name": "inherited_v132_20",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G21",
+        "name": "inherited_v132_21",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G22",
+        "name": "inherited_v132_22",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G23",
+        "name": "inherited_v132_23",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G24",
+        "name": "inherited_v132_24",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G25",
+        "name": "inherited_v132_25",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G26",
+        "name": "inherited_v132_26",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G27",
+        "name": "inherited_v132_27",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G28",
+        "name": "inherited_v132_28",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G29",
+        "name": "inherited_v132_29",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G30",
+        "name": "inherited_v132_30",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G31",
+        "name": "inherited_v132_31",
+        "state": "PASS",
+        "severity": "INFO",
+        "summary": "Prior v1.3.2 gate was sealed in the local no-send baseline before branching.",
+        "details": {
+          "sealed_baseline_commit": "975e40b2558ea86d66ce25bbb55e0666eeffaf34",
+          "no_send": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G32",
+        "name": "G32_TYPED_FOUNDATION_PASS",
+        "state": "PASS",
+        "severity": "CRITICAL",
+        "summary": "G32_TYPED_FOUNDATION_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "theorem_total": 10
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G33",
+        "name": "G33_K0_RESOLUTION_FOUNDATION_PASS",
+        "state": "PASS",
+        "severity": "CRITICAL",
+        "summary": "G33_K0_RESOLUTION_FOUNDATION_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS"
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G34",
+        "name": "G34_SEMANTIC_MODEL_EXISTENCE_PASS",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G34_SEMANTIC_MODEL_EXISTENCE_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "schema_id": "OC133_DOMAIN_SEMANTICS_MATRIX_v12",
+          "release_id": "oc_core_1_3_3",
+          "version": "1.3.3",
+          "row_total": 10,
+          "untyped_domain_total": 0,
+          "rows": [
+            {
+              "domain": "finite_transition",
+              "carrier": "finite state set",
+              "realization": "typed transition system",
+              "boundary": "classifier over admissible states",
+              "operator": "successor function or relation",
+              "falsifier": "declared rejected state is accepted"
+            },
+            {
+              "domain": "smooth_physical",
+              "carrier": "smooth state chart where declared",
+              "realization": "flow as typed update specialization",
+              "boundary": "numeric threshold only with measurement rule",
+              "operator": "differentiable flow-induced update",
+              "falsifier": "non-smooth domain is differentiated without assumptions"
+            },
+            {
+              "domain": "hybrid_automaton",
+              "carrier": "discrete modes plus continuous charts",
+              "realization": "jump and flow transition system",
+              "boundary": "guards and invariants",
+              "operator": "hybrid update relation",
+              "falsifier": "jump guard ignored in live verdict"
+            },
+            {
+              "domain": "proof_theoretic",
+              "carrier": "proof state graph",
+              "realization": "rewrite and replay semantics",
+              "boundary": "consistency classifier",
+              "operator": "rewrite step",
+              "falsifier": "invalid proof state accepted"
+            },
+            {
+              "domain": "institutional",
+              "carrier": "roles, norms, actions, records",
+              "realization": "governed action system",
+              "boundary": "role and permission classifier",
+              "operator": "policy update",
+              "falsifier": "forbidden public action marked allowed"
+            },
+            {
+              "domain": "chemical_closure",
+              "carrier": "reaction/species set",
+              "realization": "closure and boundary maintenance",
+              "boundary": "reaction admissibility classifier",
+              "operator": "reaction update",
+              "falsifier": "non-producing set accepted as closure"
+            },
+            {
+              "domain": "biological_liveness",
+              "carrier": "official snapshot observable plus typed protocol",
+              "realization": "bounded liveness evidence row",
+              "boundary": "measurement and protocol classifier",
+              "operator": "protocol replay",
+              "falsifier": "snapshot parser cannot recover pinned observable"
+            },
+            {
+              "domain": "systems_time_series",
+              "carrier": "official WDI time series",
+              "realization": "retrospective snapshot replay row",
+              "boundary": "parser recovery and replay residual check",
+              "operator": "pinned-field replay rule",
+              "falsifier": "latest pinned WDI value cannot be recovered"
+            },
+            {
+              "domain": "typed_morphism_classification",
+              "carrier": "typed source, residue, and target records",
+              "realization": "identity/residue/rebirth classifier",
+              "boundary": "morphism class plus invariant preservation predicate",
+              "operator": "typed source-target classification",
+              "falsifier": "residue or rebirth class accepted as identity continuation"
+            },
+            {
+              "domain": "release_governance",
+              "carrier": "owner approval and package state",
+              "realization": "no-send release control plane",
+              "boundary": "publish_allowed boolean lock",
+              "operator": "owner approval transition",
+              "falsifier": "public action allowed while owner_approved=false"
+            }
+          ]
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G35",
+        "name": "G35_AXIOM_CONSISTENCY_AND_NONTRIVIALITY_PASS",
+        "state": "PASS",
+        "severity": "CRITICAL",
+        "summary": "G35_AXIOM_CONSISTENCY_AND_NONTRIVIALITY_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "lake": {
+            "state": "PASS",
+            "returncode": 0,
+            "stdout_tail": "Build completed successfully (3 jobs).\n",
+            "stderr_tail": ""
+          },
+          "finite_failure_total": 0,
+          "finite_semantic_failures": []
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G36",
+        "name": "G36_THEOREM_INVENTORY_COMPLETE",
+        "state": "PASS",
+        "severity": "CRITICAL",
+        "summary": "G36_THEOREM_INVENTORY_COMPLETE checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "theorem_total": 10,
+          "demoted_route_total": 0,
+          "scope_repair_total": 0
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G37",
+        "name": "G37_PROOF_SHEETS_COMPLETE",
+        "state": "PASS",
+        "severity": "CRITICAL",
+        "summary": "G37_PROOF_SHEETS_COMPLETE checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "failure_total": 0,
+          "failures": []
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G38",
+        "name": "G38_NO_THEOREM_THEATER",
+        "state": "PASS",
+        "severity": "CRITICAL",
+        "summary": "G38_NO_THEOREM_THEATER checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "proof_failure_total": 0,
+          "scope_hit_total": 0,
+          "scope_hits": []
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G39",
+        "name": "G39_CONTINUUMNESS_CLOSURE_PASS",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G39_CONTINUUMNESS_CLOSURE_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS"
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G40",
+        "name": "G40_BOUNDARY_GENERALIZATION_PASS",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G40_BOUNDARY_GENERALIZATION_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS"
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G41",
+        "name": "G41_OPERATOR_SEMANTICS_PASS",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G41_OPERATOR_SEMANTICS_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS"
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G42",
+        "name": "G42_DIMENSION_AXIS_CLOSURE_PASS",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G42_DIMENSION_AXIS_CLOSURE_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS"
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G43",
+        "name": "G43_CYCLE_NECESSITY_CLOSURE_PASS",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G43_CYCLE_NECESSITY_CLOSURE_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS"
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G44",
+        "name": "G44_COLLAPSE_RESIDUE_REBIRTH_IDENTITY_PASS",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G44_COLLAPSE_RESIDUE_REBIRTH_IDENTITY_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS"
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G45",
+        "name": "G45_K_LEVEL_IRREDUCIBILITY_ATLAS_PASS",
+        "state": "PASS",
+        "severity": "CRITICAL",
+        "summary": "G45_K_LEVEL_IRREDUCIBILITY_ATLAS_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "transition_total": 12,
+          "unresolved_total": 0,
+          "inflated_without_witness_total": 0
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G46",
+        "name": "G46_GLOBAL_MINIMALITY_WITNESSES_PASS",
+        "state": "PASS",
+        "severity": "CRITICAL",
+        "summary": "G46_GLOBAL_MINIMALITY_WITNESSES_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "component_total": 11,
+          "unwitnessed_component_total": 0
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G47",
+        "name": "G47_MACHINE_CHECKED_SUBSET_PASS",
+        "state": "PASS",
+        "severity": "CRITICAL",
+        "summary": "G47_MACHINE_CHECKED_SUBSET_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "lake": {
+            "state": "PASS",
+            "returncode": 0,
+            "stdout_tail": "Build completed successfully (3 jobs).\n",
+            "stderr_tail": ""
+          },
+          "lean_build_certificate": {
+            "ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+            "returncode": 0,
+            "theorem_ref_present_total": 10,
+            "theorem_ref_missing_total": 0
+          },
+          "finite_machine_checked_subset_total": 10,
+          "machine_checked_subset_total": 10,
+          "missing_lean_semantic_markers": [],
+          "finite_semantic_failures": []
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G48",
+        "name": "G48_EMPIRICAL_DATA_PACKETS_PASS",
+        "state": "PASS",
+        "severity": "CRITICAL",
+        "summary": "G48_EMPIRICAL_DATA_PACKETS_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "lane_total": 5,
+          "packet_missing": [],
+          "numeric_missing": []
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G49",
+        "name": "G49_HELDOUT_VALIDATION_PASS",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G49_HELDOUT_VALIDATION_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "heldout_validation_applicable": false,
+          "empirical_promotion_row_total": 0,
+          "no_empirical_validation_promoted_without_heldout": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G50",
+        "name": "G50_NEGATIVE_CONTROLS_PASS",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G50_NEGATIVE_CONTROLS_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS"
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G51",
+        "name": "G51_BASELINE_COMPARATORS_PASS",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G51_BASELINE_COMPARATORS_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS"
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G52",
+        "name": "G52_ADVERSARIAL_SIMULATION_PASS",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G52_ADVERSARIAL_SIMULATION_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "case_total": 10,
+          "failure_total": 0
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G53",
+        "name": "G53_COUNTEREXAMPLE_ATLAS_PASS",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G53_COUNTEREXAMPLE_ATLAS_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "case_total": 10,
+          "open_counterexample_total": 0
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G54",
+        "name": "G54_COMPARATOR_MATRIX_PASS",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G54_COMPARATOR_MATRIX_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "row_total": 14,
+          "unsupported_uniqueness_total": 0,
+          "comparator_failures": []
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G55",
+        "name": "G55_NOVELTY_PRIORITY_REGISTER_PASS",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G55_NOVELTY_PRIORITY_REGISTER_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "comparator_failures": []
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G56",
+        "name": "G56_CLAIM_LEDGER_PROOF_BINDING_PASS",
+        "state": "PASS",
+        "severity": "CRITICAL",
+        "summary": "G56_CLAIM_LEDGER_PROOF_BINDING_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "claim_total": 18,
+          "proof_bound_failure_total": 0,
+          "scientific_promotion_wording_violation_total": 0
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G57",
+        "name": "G57_ATTACK_MATRIX_ZERO_CRITICAL_HIGH",
+        "state": "PASS",
+        "severity": "CRITICAL",
+        "summary": "G57_ATTACK_MATRIX_ZERO_CRITICAL_HIGH checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "objection_total": 215,
+          "critical_unresolved_total": 0,
+          "high_unresolved_total": 0,
+          "fresh_cerberus_review_satisfied": true,
+          "fresh_cerberus_review_gate_status": "PASS",
+          "attack_row_counts": {
+            "row_total": 215,
+            "critical_open_total": 0,
+            "high_open_total": 0
+          },
+          "attack_quality_quotas": {
+            "state": "PASS",
+            "predicates": {
+              "g57_attack_matrix_recomputed_row_total_at_least_200": true,
+              "g57_attack_matrix_min_theme_diversity": true,
+              "g57_attack_matrix_min_severity_diversity": true,
+              "g57_attack_matrix_min_artifact_location_diversity": true,
+              "g57_attack_matrix_min_evidence_ref_diversity": true,
+              "g57_attack_matrix_no_placeholder_filler_dominance": true,
+              "g57_attack_matrix_closed_high_critical_refs_exist": true
+            },
+            "failed_predicates": [],
+            "thresholds": {
+              "row_total_min": 200,
+              "theme_min": 10,
+              "severity_min": 3,
+              "artifact_location_min": 20,
+              "evidence_ref_min": 20,
+              "max_filler_duplicate_share": 0.15
+            },
+            "observed": {
+              "row_total": 215,
+              "theme_total": 12,
+              "severity_total": 3,
+              "artifact_location_total": 26,
+              "evidence_ref_total": 54,
+              "placeholder_filler_row_total": 0,
+              "duplicate_shares": {
+                "objection": 0.004651162790697674,
+                "failure_mode": 0.06976744186046512,
+                "required_repair": 0.004651162790697674,
+                "closure_evidence": 0.004651162790697674
+              },
+              "closed_high_critical_missing_ref_total": 0
+            },
+            "placeholder_filler_rows": [],
+            "closed_high_critical_missing_refs": []
+          },
+          "attack_summary_counter_failures": [],
+          "attack_closure_failures": [],
+          "publish_control_ref_issues": [],
+          "all_gates_open_issues": []
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G58",
+        "name": "G58_REVIEWER_PERSONA_SUITE_PASS",
+        "state": "PASS",
+        "severity": "CRITICAL",
+        "summary": "G58_REVIEWER_PERSONA_SUITE_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "execution_status": "EXECUTED_WITH_FINDINGS_CLOSED",
+          "role_total": 14,
+          "bad_results": [],
+          "missing_result_refs": [],
+          "missing_roles": [],
+          "duplicate_roles": [],
+          "execution_bad_total": 0,
+          "pending_role_total": 0,
+          "critical_open_total": 0,
+          "high_open_total": 0,
+          "parse_failure_total": 0,
+          "all_result_refs": 14
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G59",
+        "name": "G59_REPRODUCIBILITY_CLEAN_CHECKOUT_PASS",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G59_REPRODUCIBILITY_CLEAN_CHECKOUT_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "manifest_ref": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
+          "verdict": "PASS",
+          "command_failure_total": 0,
+          "mismatch_total": 0,
+          "mismatch_count_ok": true,
+          "mismatch_failures": [],
+          "non_compare_ref_mutation_total": 0,
+          "repro_non_compare_mutation_count_ok": true,
+          "preexisting_compared_target_total": 23,
+          "compared_artifact_total": 23,
+          "strict_head_replay_clean": true,
+          "stable_payload_sha256": "97988ab0b9ce2cbae127321e82c2ea0de5a41d5ff9e0e086dfddbd542ca67381",
+          "internal_checksum_failures": [],
+          "internal_checksum_failure_count_ok": true,
+          "unexpected_internal_checksum_failures": []
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G60",
+        "name": "G60_NO_LOCAL_PATHS_NO_SECRETS_PASS",
+        "state": "PASS",
+        "severity": "CRITICAL",
+        "summary": "G60_NO_LOCAL_PATHS_NO_SECRETS_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "hit_total": 0,
+          "hits": []
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G61",
+        "name": "G61_PUBLIC_SURFACE_PARITY_PASS",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G61_PUBLIC_SURFACE_PARITY_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "missing": [],
+          "metadata_stale_hit_total": 0,
+          "metadata_version_checks": {
+            "zenodo_version": true,
+            "zenodo_title_mentions_version": true,
+            "zenodo_description_mentions_version": true,
+            "citation_version": true,
+            "citation_message_mentions_no_send": true,
+            "codemeta_version": true,
+            "codemeta_description_mentions_version": true,
+            "ro_crate_versions": true,
+            "ro_crate_mentions_version": true,
+            "public_manifest_release_id": true,
+            "public_manifest_version": true,
+            "checksums_mentions_manifest": true,
+            "public_manifest_mentions_phenomenon_matrix": true,
+            "checksums_mentions_phenomenon_matrix": true,
+            "ro_crate_mentions_phenomenon_matrix": true,
+            "public_manifest_mentions_finite_output_attestation": true,
+            "checksums_mentions_finite_output_attestation": true,
+            "ro_crate_mentions_finite_output_attestation": true
+          }
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G62",
+        "name": "G62_LLM_SCHEMA_CLAIM_BOUNDARY_PASS",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G62_LLM_SCHEMA_CLAIM_BOUNDARY_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "absolute_hit_total": 0,
+          "absolute_hits": [],
+          "phenomenon_rows": 15,
+          "phenomenon_failures": [],
+          "phenomenon_missing_controls": []
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G63",
+        "name": "G63_NO_EMPIRICAL_DISCOVERY_ONLY_PROMOTION_PASS",
+        "state": "PASS",
+        "severity": "CRITICAL",
+        "summary": "G63_NO_EMPIRICAL_DISCOVERY_ONLY_PROMOTION_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "unsupported_promoted_total": 0,
+          "blocked_for_promotion_total": 0,
+          "prediction_support_allowed_total": 0
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G64",
+        "name": "G64_NO_SCOPE_NARROWING_AS_REPAIR_PASS",
+        "state": "PASS",
+        "severity": "CRITICAL",
+        "summary": "G64_NO_SCOPE_NARROWING_AS_REPAIR_PASS checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "scope_hit_total": 0,
+          "hits": []
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G65",
+        "name": "G65_OWNER_APPROVAL_PACKET_READY",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G65_OWNER_APPROVAL_PACKET_READY checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS"
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G66",
+        "name": "G66_ZENODO_METADATA_READY",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G66_ZENODO_METADATA_READY checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "scanned_metadata_paths": [
+            ".codemeta.json",
+            "CITATION.cff",
+            "README.md",
+            "RELEASE_NOTES.md",
+            "checksums.txt",
+            "claims/CLAIM_LEDGER_1_3_3.json",
+            "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+            "manifest.json",
+            "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json",
+            "proofs/THEOREM_INVENTORY_1_3_3.json",
+            "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+            "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+            "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
+            "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+            "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+            "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json",
+            "ro-crate-metadata.jsonld",
+            "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json"
+          ],
+          "scanned_metadata_path_total": 18,
+          "missing": [],
+          "stale_hits": [],
+          "stale_hit_total": 0,
+          "version_checks": {
+            "zenodo_version": true,
+            "zenodo_title_mentions_version": true,
+            "zenodo_description_mentions_version": true,
+            "citation_version": true,
+            "citation_message_mentions_no_send": true,
+            "codemeta_version": true,
+            "codemeta_description_mentions_version": true,
+            "ro_crate_versions": true,
+            "ro_crate_mentions_version": true,
+            "public_manifest_release_id": true,
+            "public_manifest_version": true,
+            "checksums_mentions_manifest": true,
+            "public_manifest_mentions_phenomenon_matrix": true,
+            "checksums_mentions_phenomenon_matrix": true,
+            "ro_crate_mentions_phenomenon_matrix": true,
+            "public_manifest_mentions_finite_output_attestation": true,
+            "checksums_mentions_finite_output_attestation": true,
+            "ro_crate_mentions_finite_output_attestation": true
+          },
+          "no_send_checks": {
+            "publish_allowed_false": true,
+            "zenodo_deposit_allowed_false": true,
+            "github_release_allowed_false": true,
+            "journal_submissions_allowed_false": true,
+            "root_zenodo_metadata_absent_while_no_send": true,
+            "zenodo_notes_no_send": true,
+            "zenodo_publication_date_absent": true,
+            "zenodo_access_right_not_open": true,
+            "zenodo_related_doi_absent": true,
+            "citation_date_released_absent": true,
+            "citation_identifier_doi_absent": true,
+            "codemeta_no_doi_identifier": true,
+            "ro_crate_date_published_absent": true,
+            "ro_crate_no_doi_identifier": true,
+            "public_manifest_no_v132_payload": true,
+            "public_manifest_no_public_record": true,
+            "checksums_no_v132_payload": true,
+            "checksums_no_root_zenodo_reference": true
+          },
+          "all_versions_current": true,
+          "all_no_send_locked": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G67",
+        "name": "G67_GITHUB_RELEASE_READY",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G67_GITHUB_RELEASE_READY checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS",
+          "scanned_metadata_paths": [
+            ".codemeta.json",
+            "CITATION.cff",
+            "README.md",
+            "RELEASE_NOTES.md",
+            "checksums.txt",
+            "claims/CLAIM_LEDGER_1_3_3.json",
+            "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+            "manifest.json",
+            "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json",
+            "proofs/THEOREM_INVENTORY_1_3_3.json",
+            "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+            "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+            "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
+            "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+            "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+            "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json",
+            "ro-crate-metadata.jsonld",
+            "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json"
+          ],
+          "scanned_metadata_path_total": 18,
+          "missing": [],
+          "stale_hits": [],
+          "stale_hit_total": 0,
+          "version_checks": {
+            "zenodo_version": true,
+            "zenodo_title_mentions_version": true,
+            "zenodo_description_mentions_version": true,
+            "citation_version": true,
+            "citation_message_mentions_no_send": true,
+            "codemeta_version": true,
+            "codemeta_description_mentions_version": true,
+            "ro_crate_versions": true,
+            "ro_crate_mentions_version": true,
+            "public_manifest_release_id": true,
+            "public_manifest_version": true,
+            "checksums_mentions_manifest": true,
+            "public_manifest_mentions_phenomenon_matrix": true,
+            "checksums_mentions_phenomenon_matrix": true,
+            "ro_crate_mentions_phenomenon_matrix": true,
+            "public_manifest_mentions_finite_output_attestation": true,
+            "checksums_mentions_finite_output_attestation": true,
+            "ro_crate_mentions_finite_output_attestation": true
+          },
+          "no_send_checks": {
+            "publish_allowed_false": true,
+            "zenodo_deposit_allowed_false": true,
+            "github_release_allowed_false": true,
+            "journal_submissions_allowed_false": true,
+            "root_zenodo_metadata_absent_while_no_send": true,
+            "zenodo_notes_no_send": true,
+            "zenodo_publication_date_absent": true,
+            "zenodo_access_right_not_open": true,
+            "zenodo_related_doi_absent": true,
+            "citation_date_released_absent": true,
+            "citation_identifier_doi_absent": true,
+            "codemeta_no_doi_identifier": true,
+            "ro_crate_date_published_absent": true,
+            "ro_crate_no_doi_identifier": true,
+            "public_manifest_no_v132_payload": true,
+            "public_manifest_no_public_record": true,
+            "checksums_no_v132_payload": true,
+            "checksums_no_root_zenodo_reference": true
+          },
+          "all_versions_current": true,
+          "all_no_send_locked": true
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G68",
+        "name": "G68_POST_RELEASE_VERIFICATION_PLAN_READY",
+        "state": "PASS",
+        "severity": "MEDIUM",
+        "summary": "G68_POST_RELEASE_VERIFICATION_PLAN_READY checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS"
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G69",
+        "name": "G69_EXTERNAL_REVIEW_PACKAGE_READY",
+        "state": "PASS",
+        "severity": "HIGH",
+        "summary": "G69_EXTERNAL_REVIEW_PACKAGE_READY checked by v12 no-compromise release profile.",
+        "details": {
+          "state": "PASS"
+        },
+        "executed": true
+      },
+      {
+        "gate_id": "G70",
+        "name": "G70_10_10_SCIENTIFIC_CLOSURE_VERDICT",
+        "state": "PASS",
+        "severity": "CRITICAL",
+        "summary": "G70_10_10_SCIENTIFIC_CLOSURE_VERDICT checked by v12 no-compromise release profile.",
+        "details": {
+          "prior_critical_high_bad_total": 0,
+          "release_state_on_pass": "OC_CORE_1_3_3_10_10_READY_NO_SEND",
+          "state": "PASS",
+          "issues": [],
+          "expected_verdict": "ACCEPT_PUBLIC_ACTION",
+          "observed_verdict": "ACCEPT_PUBLIC_ACTION",
+          "failed_gate_predicates": [],
+          "model": {
+            "owner_approved": true,
+            "publish_requested": true,
+            "publish_allowed": true,
+            "deposit_ready_metadata": true,
+            "public_record_present": true,
+            "future_deposit_metadata_identifier": "urn:oc-core:1.3.3:future-public-metadata:owner-approved-release-package",
+            "future_public_record_identifier": "urn:oc-core:1.3.3:future-public-record:owner-approved-release-record",
+            "global_no_send_lock": false,
+            "journal_submissions_allowed": true,
+            "journal_submission_allowed": true,
+            "github_release_allowed": true,
+            "zenodo_deposit_allowed": true,
+            "software_heritage_deposit_allowed": true,
+            "doi_minting_allowed": true,
+            "requested_channels": [
+              "github_release",
+              "zenodo_deposit",
+              "software_heritage_deposit",
+              "journal_submission",
+              "doi_minting"
+            ],
+            "fresh_cerberus_required_for_release": true,
+            "g57_attack_matrix_zero_critical_high": true,
+            "g58_reviewer_persona_suite_pass": true,
+            "g70_scientific_closure_verdict_pass": true,
+            "critical_open_total": 0,
+            "high_open_total": 0,
+            "future_public_metadata_contract": "HYPOTHETICAL_OWNER_APPROVED_PUBLIC_SURFACE_NOT_CURRENT_NO_SEND",
+            "future_publication_artifacts": [
+              {
+                "channel": "github_release",
+                "artifact_kind": "release_manifest",
+                "artifact_identifier": "urn:oc-core:1.3.3:future-public-artifact:github_release:release_manifest",
+                "sha256_policy": "FUTURE_OWNER_APPROVED_ARTIFACT_DIGEST_REQUIRED",
+                "current_no_send_ref": "manifest.json",
+                "current_no_send_ref_is_public_release_artifact": false
+              },
+              {
+                "channel": "zenodo_deposit",
+                "artifact_kind": "methods_companion_pdf",
+                "artifact_identifier": "urn:oc-core:1.3.3:future-public-artifact:zenodo_deposit:methods_companion_pdf",
+                "sha256_policy": "FUTURE_OWNER_APPROVED_ARTIFACT_DIGEST_REQUIRED",
+                "current_no_send_ref": "releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf",
+                "current_no_send_ref_is_public_release_artifact": false
+              },
+              {
+                "channel": "software_heritage_deposit",
+                "artifact_kind": "reviewer_attack_map_pdf",
+                "artifact_identifier": "urn:oc-core:1.3.3:future-public-artifact:software_heritage_deposit:reviewer_attack_map_pdf",
+                "sha256_policy": "FUTURE_OWNER_APPROVED_ARTIFACT_DIGEST_REQUIRED",
+                "current_no_send_ref": "releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_REVIEWER_ATTACK_AND_RESPONSE_MAP_EN.pdf",
+                "current_no_send_ref_is_public_release_artifact": false
+              },
+              {
+                "channel": "journal_submission",
+                "artifact_kind": "journal_core_pdf",
+                "artifact_identifier": "urn:oc-core:1.3.3:future-public-artifact:journal_submission:journal_core_pdf",
+                "sha256_policy": "FUTURE_OWNER_APPROVED_ARTIFACT_DIGEST_REQUIRED",
+                "current_no_send_ref": "releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf",
+                "current_no_send_ref_is_public_release_artifact": false
+              },
+              {
+                "channel": "doi_minting",
+                "artifact_kind": "checksums_manifest",
+                "artifact_identifier": "urn:oc-core:1.3.3:future-public-artifact:doi_minting:checksums_manifest",
+                "sha256_policy": "FUTURE_OWNER_APPROVED_ARTIFACT_DIGEST_REQUIRED",
+                "current_no_send_ref": "checksums.txt",
+                "current_no_send_ref_is_public_release_artifact": false
+              }
+            ]
+          },
+          "critical_open_total": 0,
+          "high_open_total": 0,
+          "publish_control_ref_issues": []
+        },
+        "executed": true
+      }
+    ],
+    "_source_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json"
+  },
   "commands": [],
   "git": {
     "public": {
       "branch": "## release/oc-core-1.3.3-total-scientific-closure",
-      "dirty_total": 85,
+      "dirty_total": 2,
       "dirty_files": [
-        " M claims/CLAIM_EVIDENCE_MATRIX_1_3_3.md",
-        " M claims/CLAIM_LEDGER_1_3_3.json",
-        " M comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-        " M data/k_level_irreducibility_matrix.json",
-        " M docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-        " M docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-        " M docs/OC_1_3_3_PRIOR_ART_COMPARATOR_MATRIX.json",
-        " M empirical/biology/EMPIRICAL_PACKET.json",
-        " M empirical/chemistry/EMPIRICAL_PACKET.json",
-        " M empirical/mathematics/EMPIRICAL_PACKET.json",
-        " M empirical/physics/EMPIRICAL_PACKET.json",
-        " M empirical/systems/EMPIRICAL_PACKET.json",
-        " M formal/lean/OC133V12.lean",
-        " M proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-        " M proofs/PROOF_LEDGER_1_3_3.md",
-        " M proofs/THEOREM_INVENTORY_1_3_3.json",
-        " M proofs/THEOREM_REGISTRY_1_3_3.json",
-        " M proofs/THEOREM_REGISTRY_1_3_3.md",
-        " M proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
-        " M proofs/finite_model_checks/run_finite_model_checks.py",
-        " M proofs/proof_sheets/T133-K0-RES.md",
-        " M proofs/proof_sheets/T133-KLEVEL.md",
-        " M proofs/proof_sheets/T133-MIN.md",
-        " M release_machine/oc133_v12.py",
-        " M releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip",
-        " M releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ARTIFACT_INVENTORY.json",
-        " M releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
-        " M releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_RELEASE_CONTROL_PLANE_latest.json",
-        " M releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json",
-        " M releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_SHA256SUMS",
-        " M releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
-        " M releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
-        " M reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
-        " M review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-        " M reviews/OC_CORE_1_3_3_REVIEWER_RESPONSE_MATRIX.json",
-        " M reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json",
-        " M reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.md",
-        " M reviews/oc133_llm_cerberus/raw_v12/category_type_theory_reviewer.txt",
-        " M reviews/oc133_llm_cerberus/raw_v12/claim_boundary_auditor.txt",
-        " M reviews/oc133_llm_cerberus/raw_v12/clarity_didactic_reviewer.txt",
-        " M reviews/oc133_llm_cerberus/raw_v12/dynamical_systems_reviewer.txt",
-        " M reviews/oc133_llm_cerberus/raw_v12/empirical_statistician.txt",
-        " M reviews/oc133_llm_cerberus/raw_v12/empirical_theater_auditor.txt",
-        " M reviews/oc133_llm_cerberus/raw_v12/formal_mathematician.txt",
-        " M reviews/oc133_llm_cerberus/raw_v12/hostile_journal_reviewer.txt",
-        " M reviews/oc133_llm_cerberus/raw_v12/not_novel_attacker.txt",
-        " M reviews/oc133_llm_cerberus/raw_v12/phenomenon_x_attacker.txt",
-        " M reviews/oc133_llm_cerberus/raw_v12/prior_art_historian.txt",
-        " M reviews/oc133_llm_cerberus/raw_v12/public_surface_auditor.txt",
-        " M reviews/oc133_llm_cerberus/raw_v12/reproducibility_auditor.txt",
-        " M reviews/oc133_llm_cerberus/raw_v12/theorem_theater_auditor.txt",
-        " M reviews/oc133_llm_cerberus/results/category_type_theory_reviewer.json",
-        " M reviews/oc133_llm_cerberus/results/claim_boundary_auditor.json",
-        " M reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json",
-        " M reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json",
-        " M reviews/oc133_llm_cerberus/results/empirical_statistician.json",
-        " M reviews/oc133_llm_cerberus/results/empirical_theater_auditor.json",
-        " M reviews/oc133_llm_cerberus/results/formal_mathematician.json",
-        " M reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
-        " M reviews/oc133_llm_cerberus/results/not_novel_attacker.json",
-        " M reviews/oc133_llm_cerberus/results/phenomenon_x_attacker.json",
-        " M reviews/oc133_llm_cerberus/results/prior_art_historian.json",
-        " M reviews/oc133_llm_cerberus/results/public_surface_auditor.json",
-        " M reviews/oc133_llm_cerberus/results/reproducibility_auditor.json",
-        " M reviews/oc133_llm_cerberus/results/theorem_theater_auditor.json",
-        " M tools/materialize_oc_core_1_3_3_v12_closure.py",
-        " M tools/run_oc133_v12_cerberus.py",
-        " M tools/templates/OC133V12_hardened.lean",
-        " M tools/templates/run_finite_model_checks_hardened.py",
-        " M validation/biology/VALIDATION_PACKET.json",
-        " M validation/chemistry/VALIDATION_PACKET.json",
-        " M validation/mathematics/VALIDATION_PACKET.json",
-        " M validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json",
-        " M validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.md",
-        " M validation/numeric_predictions/run_numeric_prediction_replay.py",
-        " M validation/physics/VALIDATION_PACKET.json",
-        " M validation/run_all.py",
-        " M validation/systems/VALIDATION_PACKET.json",
-        "?? comparators/source_snapshots/",
-        "?? formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json"
+        " M operations/strategy_hq_bridge/oc_core_1_3_3/OC133_CAPABILITY_LINK_GRAPH.json",
+        " M tools/oc133_strategy_hq_bridge.py"
       ]
     },
     "private": {
-      "branch": "## main...origin/main",
-      "dirty_total": 1,
-      "dirty_files": [
-        " M logion/k0/governance/status/OC_CORE_1_3_RELEASE_ANCHOR_latest.json"
-      ]
+      "branch": "## main...origin/main [ahead 9]",
+      "dirty_total": 0,
+      "dirty_files": []
     }
   }
 }

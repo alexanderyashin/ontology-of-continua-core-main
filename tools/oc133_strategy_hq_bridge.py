@@ -21,6 +21,13 @@ CAPABILITY_GRAPH = BRIDGE_DIR / "OC133_CAPABILITY_LINK_GRAPH.json"
 
 CAPABILITIES = [
     {
+        "capability_id": "oc133_platinum_release_mission",
+        "hq_owner_ref": "LOGI -> K6 Strategy HQ -> OC133 institute director",
+        "role": "mission contract, content-closure scorecard, live dispatch queue, and platinum cockpit",
+        "entrypoint": "tools/oc133_logion_release_mission.py --write",
+        "outputs": ["operations/logion_release_mission/oc_core_1_3_3/OC133_CONTENT_CLOSURE_SCORECARD.json"],
+    },
+    {
         "capability_id": "oc133_institute_director",
         "hq_owner_ref": "LOGI -> K6 Strategy HQ",
         "role": "subordinate scientific director: enforces Safety Directive, corporate/Strategy HQ authority, and capability work-order routing",
@@ -62,9 +69,18 @@ CAPABILITIES = [
         "entrypoint": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
         "outputs": ["releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json"],
     },
+    {
+        "capability_id": "oc133_journal_package_factory",
+        "hq_owner_ref": "LOGI -> K6 Strategy HQ -> Publication capability",
+        "role": "version-aware 1.3.3 owner-review no-send journal package generator",
+        "entrypoint": "python -m release_machine submission-packages --release-id oc_core_1_3_3",
+        "outputs": ["releases/oc_core_1_3_3/submission_packages/SUBMISSION_PACKAGE_INDEX.json"],
+    },
 ]
 
 EDGES = [
+    ("oc133_platinum_release_mission", "oc133_institute_director", "mission contract gives the director content blockers and capability work orders"),
+    ("oc133_platinum_release_mission", "oc133_journal_package_factory", "publication blocker dispatches to version-aware no-send package generator"),
     ("oc133_institute_director", "oc133_research_corpus", "director issues repair-scoped scientific work orders under Safety Directive and Strategy HQ/K6"),
     ("oc133_institute_director", "oc133_cerberus_review", "director selects targeted adversarial reruns and blocks stale review certification"),
     ("oc133_institute_director", "oc133_release_machine", "director requires G32-G70 evidence before owner review"),
@@ -76,6 +92,8 @@ EDGES = [
     ("oc133_research_corpus", "oc133_release_machine", "formal/finite/validation artifacts feed G32-G70"),
     ("oc133_release_machine", "oc133_publication_governor", "ready state remains no-send until owner approval"),
     ("oc133_publication_governor", "oc133_cerberus_review", "public-surface/no-send locks are reviewed as claims"),
+    ("oc133_journal_package_factory", "oc133_release_machine", "1.3.3 submission package inventory becomes tracked package input"),
+    ("oc133_release_machine", "oc133_platinum_release_mission", "technical G32-G70 state is subordinated to scientific content-closure readiness"),
 ]
 
 
@@ -135,6 +153,7 @@ def cerberus_state() -> dict[str, Any]:
 
 def release_state() -> dict[str, Any]:
     candidates = [
+        ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json",
         ROOT / "releases" / "oc_core_1_3_3" / "release_machine" / "OC_CORE_1_3_3_RELEASE_MACHINE_EVALUATION.json",
         ROOT / "releases" / "oc_core_1_3_3" / "release_machine" / "OC_CORE_1_3_3_V12_GATE_SCORECARD.json",
     ]
@@ -169,6 +188,8 @@ def render_cockpit(packet: dict[str, Any]) -> str:
         f"Public action allowed: `{packet['public_action_allowed']}`",
         f"Cerberus open critical/high: `{packet['cerberus_open_total']}`",
         f"Release state: `{packet['release_master_verdict']}`",
+        f"Content closure: `{packet['content_closure_state']}`",
+        f"Content blockers: `{packet['content_blocker_total']}`",
         "",
         "## Capability Links",
         "",
@@ -183,6 +204,11 @@ def render_cockpit(packet: dict[str, Any]) -> str:
         lines.append(f"- `{finding.get('severity')}` `{finding.get('role')}` `{finding.get('artifact_ref')}`: {finding.get('claim')}")
     if not packet["cerberus"]["open_findings"]:
         lines.append("- none")
+    lines.extend(["", "## Content Blockers", ""])
+    for blocker in packet.get("content_blocker_ids", []):
+        lines.append(f"- `{blocker}`")
+    if not packet.get("content_blocker_ids"):
+        lines.append("- none")
     return "\n".join(lines) + "\n"
 
 
@@ -191,9 +217,15 @@ def build_packet(commands: list[dict[str, Any]]) -> dict[str, Any]:
     director = read_json(ROOT / "operations" / "institute_director" / "oc_core_1_3_3" / "OC133_INSTITUTE_DIRECTOR_PACKET.json")
     cerb = cerberus_state()
     rel_state = release_state()
-    release_master = str(rel_state.get("master_verdict") or rel_state.get("release_state") or "UNKNOWN")
+    score_summary = rel_state.get("summary", {}) if isinstance(rel_state.get("summary"), dict) else {}
+    release_master = str(score_summary.get("master_verdict") or rel_state.get("master_verdict") or rel_state.get("release_state") or "UNKNOWN")
+    content = read_json(ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "OC133_CONTENT_CLOSURE_SCORECARD.json")
+    content_state = str(content.get("state") or score_summary.get("content_closure_state") or "UNKNOWN")
+    content_blockers = content.get("blocker_ids") or score_summary.get("content_closure_blocker_ids") or []
+    if not isinstance(content_blockers, list):
+        content_blockers = []
     open_total = len(cerb["open_findings"])
-    ready = open_total == 0 and release_master in {"PASS", "OC_CORE_1_3_3_10_10_READY_NO_SEND"}
+    ready = open_total == 0 and release_master == "PASS" and content_state == "PASS"
     packet = {
         "schema_id": "OC133_STRATEGY_HQ_BRIDGE_PACKET_v1",
         "release_id": "oc_core_1_3_3",
@@ -207,9 +239,12 @@ def build_packet(commands: list[dict[str, Any]]) -> dict[str, Any]:
         "no_send": True,
         "owner_approved": False,
         "public_action_allowed": False,
-        "bridge_verdict": "READY_FOR_K6_OWNER_REVIEW_NO_SEND" if ready else "K6_CONTINUE_SCIENTIFIC_REPAIR_LOOP",
+        "bridge_verdict": "READY_FOR_K6_OWNER_REVIEW_NO_SEND" if ready else "K6_CONTINUE_SCIENTIFIC_CONTENT_CLOSURE",
         "cerberus_open_total": open_total,
         "release_master_verdict": release_master,
+        "content_closure_state": content_state,
+        "content_blocker_total": len(content_blockers),
+        "content_blocker_ids": content_blockers,
         "capability_graph_ref": rel(CAPABILITY_GRAPH),
         "cerberus": cerb,
         "release": rel_state,
@@ -240,6 +275,7 @@ def run_cycle(args: argparse.Namespace) -> list[dict[str, Any]]:
         commands.append(command([sys.executable, "tools/oc133_institute_director.py"], timeout=180))
         commands.append(command([sys.executable, "tools/oc133_autonomous_research_loop.py", "--apply", "--checks"], timeout=1800))
     commands.append(command([sys.executable, "-m", "release_machine", "evaluate", "--release", "oc_core_1_3_3", "--channel", "all", "--mode", "dry-run"], timeout=240))
+    commands.append(command([sys.executable, "tools/oc133_logion_release_mission.py", "--write"], timeout=180))
     return commands
 
 
