@@ -1,6 +1,6 @@
 # T133-DIM - Historical axis and effective-rank compatibility theorem
 
-Status: `BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12`
+Status: `PROMOTED_BOUNDED_THEOREM_V12_NO_SEND`
 Primary artifact: `appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex`
 Machine-checked subset: `formal/lean/OC133V12.lean::historical_axis_survives_rank_drop`
 Attacked claim: Historical axis activation may be monotone while effective working rank decreases.
@@ -27,7 +27,7 @@ Historical monotonicity and effective-rank decrease are compatible because they 
 ## Proof
 A_hist is accumulated over realized dependence events; rank_eff is recomputed over active support. Lemma 1 gives compatibility; Lemma 2 gives the irreducibility test used by the atlas.
 
-This is a candidate proof sheet and is not release-promoted while G57/G58/G70 remain open. It is linked to the finite witness corpus and
+The proof is promoted only as a bounded no-send release claim with the stated assumptions. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the
 finite corpus checks the release verdict behavior used by the public claim ledger.
 

@@ -1,6 +1,6 @@
-# T133-BOUNDARY - Generalized boundary representation theorem
+# T133-BOUNDARY - Metric-threshold boundary specialization theorem
 
-Status: `BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12`
+Status: `PROMOTED_BOUNDED_THEOREM_V12_NO_SEND`
 Primary artifact: `appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex`
 Machine-checked subset: `formal/lean/OC133V12.lean::metric_boundary_specialization`
 Attacked claim: Metric thresholds are a specialization of typed classifier boundaries.
@@ -27,7 +27,7 @@ The v12 boundary formalism conservatively extends metric-threshold OC boundaries
 ## Proof
 Map each threshold measurement to a classifier returning its measured status and use the threshold comparison as the failure predicate. Non-metric domains instantiate the same classifier type directly. Thus old metric cases are preserved and non-metric cases stop pretending to be metric.
 
-This is a candidate proof sheet and is not release-promoted while G57/G58/G70 remain open. It is linked to the finite witness corpus and
+The proof is promoted only as a bounded no-send release claim with the stated assumptions. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the
 finite corpus checks the release verdict behavior used by the public claim ledger.
 

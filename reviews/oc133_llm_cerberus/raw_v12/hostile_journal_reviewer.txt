@@ -2,51 +2,43 @@
   "role": "hostile_journal_reviewer",
   "findings": [
     {
-      "severity": "CRITICAL",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "OC Core 1.3.3 v12 is release-promotable as a public or journal package.",
-      "failure_mode": "The current ledger sets release_promotion_allowed=false, adversarial_review_blocker_total=10, and every load-bearing theorem/no-send row has public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12. The package self-declares a no-go state.",
-      "required_repair": "Do not promote or submit from this ledger; repair and close the G57/G58/G70 Cerberus blockers, rerun the adversarial review, then update release_promotion_allowed and every affected public_status only after zero critical/high findings remain.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "CRITICAL",
-      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "The current attack surface is closed enough for journal review.",
-      "failure_mode": "The matrix reports critical_unresolved_total=3 and high_unresolved_total=7, with the Cerberus rows still OPEN_PENDING_REPAIR. A skeptical journal can reject on the release's own unresolved critical/high attack ledger.",
-      "required_repair": "Run a fresh Cerberus pass on the current artifacts, repair or demote every OPEN_PENDING_REPAIR critical/high row with concrete closure evidence, set unresolved totals to zero only after verification, and propagate the zero-blocker state to the claim ledger.",
+      "severity": "HIGH",
+      "artifact_ref": "reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "critical_unresolved_total=0 and high_unresolved_total=0",
+      "failure_mode": "The matrix reports zero unresolved critical/high issues while the same header says fresh_cerberus_review_satisfied=PENDING_THIS_ROLE_RERUN_NOT_ASSERTED_IN_CONTEXT_VIEW, fresh_cerberus_review_gate_status=PENDING_THIS_ROLE_RERUN, and fresh Cerberus open totals are EXCLUDED_FROM_FRESH_CONTEXT_VIEW. A skeptical reviewer cannot treat the zero totals as current release closure.",
+      "required_repair": "Replace the zero unresolved totals with PENDING/null until this fresh role rerun is integrated, or split them explicitly into deterministic_context_unresolved_total and fresh_cerberus_unresolved_total; propagate the pending state into the claim ledger blocker totals.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "The 10 listed theorems provide promoted theorem support for the release.",
-      "failure_mode": "The inventory reports public_promoted_theorem_total=0 and every theorem row has public_promotion=false with proof_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_WITH_LEAN_SUBSET_AND_FINITE_WITNESS. This reads as theorem theater if any public argument treats the rows as promoted theorems.",
-      "required_repair": "Either demote the theorem inventory everywhere to blocked proof obligations, or close the Lean/proof-sheet/finite-witness blockers and update proof_status, public_promotion, and public_promoted_theorem_total accordingly.",
+      "artifact_ref": "reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "Generated DET-MATRIX rows are CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+      "failure_mode": "Multiple generated attack-surface rows close by restating a verification query, e.g. closure_evidence says the row 'enforces' a check 'after materialization' rather than recording an observed current artifact hash, concrete finite-case result, or executed verification output. This is closure theater, not specific v12 evidence.",
+      "required_repair": "For every generated DET-MATRIX closure row, store the actual current artifact hash, exact checked row/case ID, observed pass/fail output, and command or verifier identity; mark rows OPEN/PENDING when only a closure_verification_query exists.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "The phenomenon coverage matrix establishes coverage or explanation of the listed phenomena.",
-      "failure_mode": "All 15 rows have public_promotion=false, upstream_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12, blocker_count=10, and limitations saying the card is not a full empirical solution. The file title and explanation_status fields over-read scoped toy replays as coverage.",
-      "required_repair": "Reframe the artifact as blocked candidate model cards, add a top-level promoted_coverage_total=0, separate toy formal instances from phenomenon-level coverage, and only restore coverage language after upstream claims are unblocked.",
+      "claim": "P008-P011/P013/P014 scoped model cards count as phenomenon coverage for T133-KLEVEL and T133-MIN",
+      "failure_mode": "These rows use upstream claims explicitly marked FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM with upstream_scientific_promotion_allowed=false, yet the coverage matrix still presents them as explanatory model cards with blocker_count=0. That lets internal release-consistency checks masquerade as coverage of origin-of-life, social institutions, theory change, recursion, K-collapse, and minimality phenomena.",
+      "required_repair": "Demote these rows to ILLUSTRATIVE_INTERNAL_MODEL_NOT_PHENOMENON_COVERAGE or exclude them from coverage totals until each has an independent scientific theorem or empirical/domain model with its own falsifier and support boundary.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "OC133-NOSEND-001 is counted under scientific_promotion_allowed_total=9",
+      "failure_mode": "The no-send publication-control row is operational governance, but it has scientific_promotion_allowed=true and appears to inflate the ledger's scientific_promotion_allowed_total beyond the 8 scientific theorem rows in the theorem inventory. This makes governance plumbing look like scientific support.",
+      "required_repair": "Set OC133-NOSEND-001 scientific_promotion_allowed=false, recalculate scientific_promotion_allowed_total to exclude governance controls, add a separate governance_control_allowed/control_plane_total field, and update dependent coverage rows such as P012.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
       "artifact_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
-      "claim": "Numeric replay rows provide empirical or predictive support.",
-      "failure_mode": "Every row is a target-in-snapshot replay with no held-out split, and the table correctly sets prediction_support_allowed=false and empirical_support_allowed=false. Any journal-facing use beyond QA would be empirical theater.",
-      "required_repair": "Keep these rows quarantined as QA only; for empirical support, add a prospective target-blind protocol with pre-registered targets, held-out evaluation, and real baseline comparison.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "MEDIUM",
-      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-      "claim": "The novelty register supports uniqueness, priority, or absence over prior art.",
-      "failure_mode": "The register says systematic_priority_search_status=NOT_COMPLETED_NO_UNIQUENESS_PROMOTION and repeatedly uses illustrative single-source positioning. It cannot support novelty beyond bounded positioning.",
-      "required_repair": "Keep uniqueness and priority claims disallowed, or replace the illustrative register with a systematic source-backed search protocol, inclusion/exclusion criteria, dated query logs, and reviewed negative/overlap findings.",
+      "claim": "NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER",
+      "failure_mode": "The table correctly bars empirical and prediction support, but its 'falsifier' and 'negative_control' language describes parser/snapshot mismatch checks and arbitrary wrong-value controls, not scientific falsification. This still invites empirical-theater readings if cited outside the quarantine language.",
+      "required_repair": "Rename these fields to parser_negative_control and qa_failure_condition, keep empirical_support_allowed=false and prediction_support_allowed=false, and reserve 'falsifier' for future prospective target-blind empirical protocols.",
       "status": "OPEN"
     }
   ]

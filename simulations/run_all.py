@@ -13,6 +13,15 @@ REPO = ROOT.parent
 EXPECTED_PATH = ROOT / "expected_simulations.yml"
 RESULT_JSON = ROOT / "results" / "OC_CORE_1_3_3_SIMULATION_RESULTS_latest.json"
 RESULT_MD = ROOT / "results" / "OC_CORE_1_3_3_SIMULATION_RESULTS_latest.md"
+CONTRACT_SCHEMA_ID = "OC133_SIMULATION_CONTRACT_v12"
+FORBIDDEN_CONTRACT_TOKEN_PARTS = (
+    ("1", "3", "1"),
+    ("release", "v11"),
+    ("python_seeded", "release", "v11"),
+    ("private", "v11"),
+    ("private", "delta"),
+    ("delta", "ledger"),
+)
 
 
 def load_expected() -> dict[str, Any]:
@@ -48,6 +57,42 @@ def validate_payload(payload: dict[str, Any], expected: dict[str, Any]) -> list[
     return errors
 
 
+def validate_contract(contract: dict[str, Any], expected_row: dict[str, Any], expected_manifest: dict[str, Any], contract_text: str) -> list[str]:
+    errors: list[str] = []
+    if contract.get("schema_id") != CONTRACT_SCHEMA_ID:
+        errors.append(f"contract schema_id mismatch: {contract.get('schema_id')} != {CONTRACT_SCHEMA_ID}")
+    for key in ["release_id", "version", "simulation_id", "support_ceiling", "validation_claim_allowed"]:
+        if key not in contract:
+            errors.append(f"contract missing key {key}")
+    if contract.get("release_id") != expected_manifest["release_id"]:
+        errors.append(f"contract release_id mismatch: {contract.get('release_id')} != {expected_manifest['release_id']}")
+    if contract.get("version") != expected_manifest["version"]:
+        errors.append(f"contract version mismatch: {contract.get('version')} != {expected_manifest['version']}")
+    if contract.get("simulation_id") != expected_row["simulation_id"]:
+        errors.append(f"contract simulation_id mismatch: {contract.get('simulation_id')} != {expected_row['simulation_id']}")
+    if contract.get("support_ceiling") != expected_manifest["support_ceiling"]:
+        errors.append(
+            f"contract support_ceiling mismatch: {contract.get('support_ceiling')} != {expected_manifest['support_ceiling']}"
+        )
+    if contract.get("validation_claim_allowed") is not expected_manifest["validation_claim_allowed"]:
+        errors.append("contract validation_claim_allowed mismatch")
+    if contract.get("empirical_support_allowed") is not False:
+        errors.append("contract empirical_support_allowed must be false")
+    if contract.get("prediction_support_allowed") is not False:
+        errors.append("contract prediction_support_allowed must be false")
+    if contract.get("source_binding") != "public oc_core_1_3_3 v12 no-send release surface":
+        errors.append("contract source_binding must bind only to public oc_core_1_3_3 v12 no-send surface")
+    if contract.get("paper_or_release_binding") != "OC Core 1.3.3 v12 no-send release package":
+        errors.append("contract paper_or_release_binding must target OC Core 1.3.3 v12")
+    lower_text = contract_text.lower()
+    for parts in FORBIDDEN_CONTRACT_TOKEN_PARTS:
+        token = ".".join(parts) if parts == ("1", "3", "1") else "_".join(parts)
+        spaced = " ".join(parts)
+        if token.lower() in lower_text or spaced.lower() in lower_text:
+            errors.append(f"contract contains forbidden stale/private token class: {'/'.join(parts)}")
+    return errors
+
+
 def run() -> dict[str, Any]:
     expected = load_expected()
     timeout = int(expected["timeout_seconds"])
@@ -67,6 +112,17 @@ def run() -> dict[str, Any]:
             contract = runner.with_name("simulation_contract.json")
             if not contract.exists():
                 errors.append("simulation_contract.json missing")
+                contract_payload = {}
+                contract_text = ""
+            else:
+                contract_text = contract.read_text(encoding="utf-8")
+                try:
+                    contract_payload = json.loads(contract_text)
+                except json.JSONDecodeError as exc:
+                    contract_payload = {}
+                    errors.append(f"invalid contract json: {exc}")
+                if contract_payload:
+                    errors.extend(validate_contract(contract_payload, row, expected, contract_text))
             proc = subprocess.run([sys.executable, str(runner), "--seed", str(row["seed"])], cwd=REPO, capture_output=True, text=True, timeout=timeout)
             if proc.returncode != 0:
                 errors.append(f"returncode {proc.returncode}")

@@ -4,32 +4,40 @@
   "version": "1.3.3",
   "objection_total": 215,
   "semantic_dedup_key_total": 200,
-  "cerberus_sourced_objection_total": 7,
-  "deterministic_objection_total": 208,
-  "critical_unresolved_total": 3,
-  "high_unresolved_total": 4,
+  "cerberus_sourced_objection_total": 6,
+  "deterministic_objection_total": 209,
+  "critical_unresolved_total": 0,
+  "high_unresolved_total": 6,
+  "fresh_cerberus_review_satisfied": false,
+  "fresh_cerberus_review_gate_status": "BLOCKED_PENDING_FRESH_ZERO_CRITICAL_HIGH_REVIEW",
+  "fresh_cerberus_summary_ref": "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json",
+  "fresh_cerberus_execution_status": "EXECUTED_WITH_OPEN_FINDINGS",
+  "fresh_cerberus_critical_open_total": 0,
+  "fresh_cerberus_high_open_total": 6,
+  "release_pass_badge_allowed": false,
   "generic_row_total": 0,
   "rows": [
     {
       "objection_id": "CERBERUS-001-hostile_journal_reviewer",
       "source": "llm_cerberus",
       "source_result_ref": "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
-      "source_finding_hash": "27a6f1c469bfe89f",
+      "source_finding_hash": "ebef48402c8a1ba7",
       "source_finding_index": 1,
-      "theme": "no_send_parity",
-      "severity": "CRITICAL",
-      "attacked_claim": "Current `no_send_parity` surface for `claims/CLAIM_LEDGER_1_3_3.json` must satisfy `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`; stale source finding hash `27a6f1c469bfe89f` is retained only as an audit key.",
-      "artifact_location": "claims/CLAIM_LEDGER_1_3_3.json",
-      "objection": "Open CRITICAL Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `no_send_parity`. Source finding hash `27a6f1c469bfe89f` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open CRITICAL Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `no_send_parity`. Source finding hash `27a6f1c469bfe89f` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `27a6f1c469bfe89f` as critical/high open; verify by `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`.",
+      "theme": "minimality_semantics",
+      "severity": "HIGH",
+      "attacked_claim": "Current `minimality_semantics` surface for `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` must satisfy `each tuple component has one-field keep/drop witness and FM-MIN-* case`; stale source finding hash `ebef48402c8a1ba7` is retained only as an audit key.",
+      "artifact_location": "reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "objection": "Open HIGH Cerberus finding against `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` under normalized theme `minimality_semantics`. Source finding hash `ebef48402c8a1ba7` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` under normalized theme `minimality_semantics`. Source finding hash `ebef48402c8a1ba7` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `ebef48402c8a1ba7` as critical/high open; verify by `each tuple component has one-field keep/drop witness and FM-MIN-* case`.",
       "closure_type": "cerberus_finding_bound_specific_artifact_field",
       "closure_evidence_refs": [
-        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+        "formal/lean/OC133V12.lean",
+        "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json",
         "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
       ],
-      "closure_verification_query": "ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json and bound to: ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "closure_verification_query": "each tuple component has one-field keep/drop witness and FM-MIN-* case",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json and bound to: each tuple component has one-field keep/drop witness and FM-MIN-* case. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
       "status": "OPEN_PENDING_REPAIR",
       "no_send": true
     },
@@ -37,15 +45,15 @@
       "objection_id": "CERBERUS-002-hostile_journal_reviewer",
       "source": "llm_cerberus",
       "source_result_ref": "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
-      "source_finding_hash": "833b5634c4ba1a39",
+      "source_finding_hash": "9e7f7f7425f998a5",
       "source_finding_index": 2,
       "theme": "claim_boundary",
-      "severity": "CRITICAL",
-      "attacked_claim": "Current `claim_boundary` surface for `review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` must satisfy `public claim is bounded to theorem/proof/finite/falsifier evidence`; stale source finding hash `833b5634c4ba1a39` is retained only as an audit key.",
-      "artifact_location": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "objection": "Open CRITICAL Cerberus finding against `review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` under normalized theme `claim_boundary`. Source finding hash `833b5634c4ba1a39` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open CRITICAL Cerberus finding against `review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` under normalized theme `claim_boundary`. Source finding hash `833b5634c4ba1a39` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `833b5634c4ba1a39` as critical/high open; verify by `public claim is bounded to theorem/proof/finite/falsifier evidence`.",
+      "severity": "HIGH",
+      "attacked_claim": "Current `claim_boundary` surface for `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` must satisfy `public claim is bounded to theorem/proof/finite/falsifier evidence`; stale source finding hash `9e7f7f7425f998a5` is retained only as an audit key.",
+      "artifact_location": "reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "objection": "Open HIGH Cerberus finding against `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` under normalized theme `claim_boundary`. Source finding hash `9e7f7f7425f998a5` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` under normalized theme `claim_boundary`. Source finding hash `9e7f7f7425f998a5` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `9e7f7f7425f998a5` as critical/high open; verify by `public claim is bounded to theorem/proof/finite/falsifier evidence`.",
       "closure_type": "cerberus_finding_bound_specific_artifact_field",
       "closure_evidence_refs": [
         "claims/CLAIM_LEDGER_1_3_3.json",
@@ -60,38 +68,15 @@
       "objection_id": "CERBERUS-003-hostile_journal_reviewer",
       "source": "llm_cerberus",
       "source_result_ref": "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
-      "source_finding_hash": "8de0aef94b9823f4",
+      "source_finding_hash": "5d63207ae9bdc28b",
       "source_finding_index": 3,
-      "theme": "claim_boundary",
-      "severity": "HIGH",
-      "attacked_claim": "Current `claim_boundary` surface for `proofs/THEOREM_INVENTORY_1_3_3.json` must satisfy `public claim is bounded to theorem/proof/finite/falsifier evidence`; stale source finding hash `8de0aef94b9823f4` is retained only as an audit key.",
-      "artifact_location": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "objection": "Open HIGH Cerberus finding against `proofs/THEOREM_INVENTORY_1_3_3.json` under normalized theme `claim_boundary`. Source finding hash `8de0aef94b9823f4` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `proofs/THEOREM_INVENTORY_1_3_3.json` under normalized theme `claim_boundary`. Source finding hash `8de0aef94b9823f4` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `8de0aef94b9823f4` as critical/high open; verify by `public claim is bounded to theorem/proof/finite/falsifier evidence`.",
-      "closure_type": "cerberus_finding_bound_specific_artifact_field",
-      "closure_evidence_refs": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "closure_verification_query": "public claim is bounded to theorem/proof/finite/falsifier evidence",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json and bound to: public claim is bounded to theorem/proof/finite/falsifier evidence. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
-      "status": "OPEN_PENDING_REPAIR",
-      "no_send": true
-    },
-    {
-      "objection_id": "CERBERUS-004-hostile_journal_reviewer",
-      "source": "llm_cerberus",
-      "source_result_ref": "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
-      "source_finding_hash": "74ee9400b974a973",
-      "source_finding_index": 4,
       "theme": "phenomenon_model_card",
       "severity": "HIGH",
-      "attacked_claim": "Current `phenomenon_model_card` surface for `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` must satisfy `each model_card names prediction_or_replay, negative_control, evidence_refs, and falsifier`; stale source finding hash `74ee9400b974a973` is retained only as an audit key.",
+      "attacked_claim": "Current `phenomenon_model_card` surface for `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` must satisfy `each model_card names prediction_or_replay, negative_control, evidence_refs, and falsifier`; stale source finding hash `5d63207ae9bdc28b` is retained only as an audit key.",
       "artifact_location": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "objection": "Open HIGH Cerberus finding against `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` under normalized theme `phenomenon_model_card`. Source finding hash `74ee9400b974a973` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` under normalized theme `phenomenon_model_card`. Source finding hash `74ee9400b974a973` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `74ee9400b974a973` as critical/high open; verify by `each model_card names prediction_or_replay, negative_control, evidence_refs, and falsifier`.",
+      "objection": "Open HIGH Cerberus finding against `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` under normalized theme `phenomenon_model_card`. Source finding hash `5d63207ae9bdc28b` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` under normalized theme `phenomenon_model_card`. Source finding hash `5d63207ae9bdc28b` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `5d63207ae9bdc28b` as critical/high open; verify by `each model_card names prediction_or_replay, negative_control, evidence_refs, and falsifier`.",
       "closure_type": "cerberus_finding_bound_specific_artifact_field",
       "closure_evidence_refs": [
         "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
@@ -103,18 +88,41 @@
       "no_send": true
     },
     {
+      "objection_id": "CERBERUS-004-hostile_journal_reviewer",
+      "source": "llm_cerberus",
+      "source_result_ref": "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
+      "source_finding_hash": "249c5b2ee37f2173",
+      "source_finding_index": 4,
+      "theme": "no_send_parity",
+      "severity": "HIGH",
+      "attacked_claim": "Current `no_send_parity` surface for `claims/CLAIM_LEDGER_1_3_3.json` must satisfy `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`; stale source finding hash `249c5b2ee37f2173` is retained only as an audit key.",
+      "artifact_location": "claims/CLAIM_LEDGER_1_3_3.json",
+      "objection": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `no_send_parity`. Source finding hash `249c5b2ee37f2173` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `no_send_parity`. Source finding hash `249c5b2ee37f2173` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `249c5b2ee37f2173` as critical/high open; verify by `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`.",
+      "closure_type": "cerberus_finding_bound_specific_artifact_field",
+      "closure_evidence_refs": [
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
+      ],
+      "closure_verification_query": "ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json and bound to: ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "status": "OPEN_PENDING_REPAIR",
+      "no_send": true
+    },
+    {
       "objection_id": "CERBERUS-005-reproducibility_auditor",
       "source": "llm_cerberus",
       "source_result_ref": "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json",
-      "source_finding_hash": "297f3bd9fdbf940f",
+      "source_finding_hash": "1fc3a902cf5ff002",
       "source_finding_index": 1,
       "theme": "claim_boundary",
-      "severity": "CRITICAL",
-      "attacked_claim": "Current `claim_boundary` surface for `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` must satisfy `public claim is bounded to theorem/proof/finite/falsifier evidence`; stale source finding hash `297f3bd9fdbf940f` is retained only as an audit key.",
-      "artifact_location": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-      "objection": "Open CRITICAL Cerberus finding against `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` under normalized theme `claim_boundary`. Source finding hash `297f3bd9fdbf940f` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open CRITICAL Cerberus finding against `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` under normalized theme `claim_boundary`. Source finding hash `297f3bd9fdbf940f` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `reproducibility_auditor` Cerberus run no longer reports source finding hash `297f3bd9fdbf940f` as critical/high open; verify by `public claim is bounded to theorem/proof/finite/falsifier evidence`.",
+      "severity": "HIGH",
+      "attacked_claim": "Current `claim_boundary` surface for `tools/verify_oc133_reproducible_temp_tree.py` must satisfy `public claim is bounded to theorem/proof/finite/falsifier evidence`; stale source finding hash `1fc3a902cf5ff002` is retained only as an audit key.",
+      "artifact_location": "tools/verify_oc133_reproducible_temp_tree.py",
+      "objection": "Open HIGH Cerberus finding against `tools/verify_oc133_reproducible_temp_tree.py` under normalized theme `claim_boundary`. Source finding hash `1fc3a902cf5ff002` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `tools/verify_oc133_reproducible_temp_tree.py` under normalized theme `claim_boundary`. Source finding hash `1fc3a902cf5ff002` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `reproducibility_auditor` Cerberus run no longer reports source finding hash `1fc3a902cf5ff002` as critical/high open; verify by `public claim is bounded to theorem/proof/finite/falsifier evidence`.",
       "closure_type": "cerberus_finding_bound_specific_artifact_field",
       "closure_evidence_refs": [
         "claims/CLAIM_LEDGER_1_3_3.json",
@@ -129,45 +137,22 @@
       "objection_id": "CERBERUS-006-reproducibility_auditor",
       "source": "llm_cerberus",
       "source_result_ref": "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json",
-      "source_finding_hash": "6cdf3093bfb09286",
+      "source_finding_hash": "304e062182f7c0c2",
       "source_finding_index": 2,
-      "theme": "empirical_quarantine",
+      "theme": "lean_certificate",
       "severity": "HIGH",
-      "attacked_claim": "Current `empirical_quarantine` surface for `validation/run_all.py` must satisfy `prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false`; stale source finding hash `6cdf3093bfb09286` is retained only as an audit key.",
-      "artifact_location": "validation/run_all.py",
-      "objection": "Open HIGH Cerberus finding against `validation/run_all.py` under normalized theme `empirical_quarantine`. Source finding hash `6cdf3093bfb09286` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `validation/run_all.py` under normalized theme `empirical_quarantine`. Source finding hash `6cdf3093bfb09286` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `reproducibility_auditor` Cerberus run no longer reports source finding hash `6cdf3093bfb09286` as critical/high open; verify by `prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false`.",
+      "attacked_claim": "Current `lean_certificate` surface for `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` must satisfy `lake build returncode=0 and theorem_ref_missing_total=0`; stale source finding hash `304e062182f7c0c2` is retained only as an audit key.",
+      "artifact_location": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
+      "objection": "Open HIGH Cerberus finding against `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` under normalized theme `lean_certificate`. Source finding hash `304e062182f7c0c2` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` under normalized theme `lean_certificate`. Source finding hash `304e062182f7c0c2` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `reproducibility_auditor` Cerberus run no longer reports source finding hash `304e062182f7c0c2` as critical/high open; verify by `lake build returncode=0 and theorem_ref_missing_total=0`.",
       "closure_type": "cerberus_finding_bound_specific_artifact_field",
       "closure_evidence_refs": [
-        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
-        "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json"
+        "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+        "proofs/THEOREM_INVENTORY_1_3_3.json"
       ],
-      "closure_verification_query": "prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/reproducibility_auditor.json and bound to: prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
-      "status": "OPEN_PENDING_REPAIR",
-      "no_send": true
-    },
-    {
-      "objection_id": "CERBERUS-007-reproducibility_auditor",
-      "source": "llm_cerberus",
-      "source_result_ref": "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json",
-      "source_finding_hash": "b28e1fbc72d35b9e",
-      "source_finding_index": 3,
-      "theme": "claim_boundary",
-      "severity": "HIGH",
-      "attacked_claim": "Current `claim_boundary` surface for `proofs/finite_model_checks/run_finite_model_checks.py` must satisfy `public claim is bounded to theorem/proof/finite/falsifier evidence`; stale source finding hash `b28e1fbc72d35b9e` is retained only as an audit key.",
-      "artifact_location": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "objection": "Open HIGH Cerberus finding against `proofs/finite_model_checks/run_finite_model_checks.py` under normalized theme `claim_boundary`. Source finding hash `b28e1fbc72d35b9e` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `proofs/finite_model_checks/run_finite_model_checks.py` under normalized theme `claim_boundary`. Source finding hash `b28e1fbc72d35b9e` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `reproducibility_auditor` Cerberus run no longer reports source finding hash `b28e1fbc72d35b9e` as critical/high open; verify by `public claim is bounded to theorem/proof/finite/falsifier evidence`.",
-      "closure_type": "cerberus_finding_bound_specific_artifact_field",
-      "closure_evidence_refs": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "closure_verification_query": "public claim is bounded to theorem/proof/finite/falsifier evidence",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/reproducibility_auditor.json and bound to: public claim is bounded to theorem/proof/finite/falsifier evidence. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "closure_verification_query": "lake build returncode=0 and theorem_ref_missing_total=0",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/reproducibility_auditor.json and bound to: lake build returncode=0 and theorem_ref_missing_total=0. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
       "status": "OPEN_PENDING_REPAIR",
       "no_send": true
     },
@@ -360,8 +345,8 @@
         "claims/CLAIM_LEDGER_1_3_3.json",
         "proofs/proof_sheets/T133-K0-RES.md"
       ],
-      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-K0-RES public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12",
-      "closure_evidence": "T133-K0-RES has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-K0-RES public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12.",
+      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-K0-RES public_status=PROMOTED_BOUNDED_NO_SEND_V12",
+      "closure_evidence": "T133-K0-RES has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-K0-RES public_status=PROMOTED_BOUNDED_NO_SEND_V12.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -554,8 +539,8 @@
         "claims/CLAIM_LEDGER_1_3_3.json",
         "proofs/proof_sheets/T133-OMEGA-STATUS.md"
       ],
-      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-OMEGA-STATUS public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12",
-      "closure_evidence": "T133-OMEGA-STATUS has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-OMEGA-STATUS public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12.",
+      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-OMEGA-STATUS public_status=PROMOTED_BOUNDED_NO_SEND_V12",
+      "closure_evidence": "T133-OMEGA-STATUS has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-OMEGA-STATUS public_status=PROMOTED_BOUNDED_NO_SEND_V12.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -748,8 +733,8 @@
         "claims/CLAIM_LEDGER_1_3_3.json",
         "proofs/proof_sheets/T133-K-ZERO.md"
       ],
-      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-K-ZERO public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12",
-      "closure_evidence": "T133-K-ZERO has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-K-ZERO public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12.",
+      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-K-ZERO public_status=PROMOTED_BOUNDED_NO_SEND_V12",
+      "closure_evidence": "T133-K-ZERO has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-K-ZERO public_status=PROMOTED_BOUNDED_NO_SEND_V12.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -942,8 +927,8 @@
         "claims/CLAIM_LEDGER_1_3_3.json",
         "proofs/proof_sheets/T133-BOUNDARY.md"
       ],
-      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-BOUNDARY public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12",
-      "closure_evidence": "T133-BOUNDARY has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-BOUNDARY public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12.",
+      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-BOUNDARY public_status=PROMOTED_BOUNDED_NO_SEND_V12",
+      "closure_evidence": "T133-BOUNDARY has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-BOUNDARY public_status=PROMOTED_BOUNDED_NO_SEND_V12.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -1136,8 +1121,8 @@
         "claims/CLAIM_LEDGER_1_3_3.json",
         "proofs/proof_sheets/T133-HYBRID.md"
       ],
-      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-HYBRID public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12",
-      "closure_evidence": "T133-HYBRID has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-HYBRID public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12.",
+      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-HYBRID public_status=PROMOTED_BOUNDED_NO_SEND_V12",
+      "closure_evidence": "T133-HYBRID has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-HYBRID public_status=PROMOTED_BOUNDED_NO_SEND_V12.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -1330,8 +1315,8 @@
         "claims/CLAIM_LEDGER_1_3_3.json",
         "proofs/proof_sheets/T133-DIM.md"
       ],
-      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-DIM public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12",
-      "closure_evidence": "T133-DIM has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-DIM public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12.",
+      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-DIM public_status=PROMOTED_BOUNDED_NO_SEND_V12",
+      "closure_evidence": "T133-DIM has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-DIM public_status=PROMOTED_BOUNDED_NO_SEND_V12.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -1524,8 +1509,8 @@
         "claims/CLAIM_LEDGER_1_3_3.json",
         "proofs/proof_sheets/T133-CYCLE.md"
       ],
-      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-CYCLE public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12",
-      "closure_evidence": "T133-CYCLE has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-CYCLE public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12.",
+      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-CYCLE public_status=PROMOTED_BOUNDED_NO_SEND_V12",
+      "closure_evidence": "T133-CYCLE has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-CYCLE public_status=PROMOTED_BOUNDED_NO_SEND_V12.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -1718,8 +1703,8 @@
         "claims/CLAIM_LEDGER_1_3_3.json",
         "proofs/proof_sheets/T133-ID.md"
       ],
-      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-ID public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12",
-      "closure_evidence": "T133-ID has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-ID public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12.",
+      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-ID public_status=PROMOTED_BOUNDED_NO_SEND_V12",
+      "closure_evidence": "T133-ID has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-ID public_status=PROMOTED_BOUNDED_NO_SEND_V12.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -1912,8 +1897,8 @@
         "claims/CLAIM_LEDGER_1_3_3.json",
         "proofs/proof_sheets/T133-MIN.md"
       ],
-      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-MIN public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12",
-      "closure_evidence": "T133-MIN has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-MIN public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12.",
+      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-MIN public_status=PROMOTED_BOUNDED_NO_SEND_V12",
+      "closure_evidence": "T133-MIN has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-MIN public_status=PROMOTED_BOUNDED_NO_SEND_V12.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -2106,8 +2091,30 @@
         "claims/CLAIM_LEDGER_1_3_3.json",
         "proofs/proof_sheets/T133-KLEVEL.md"
       ],
-      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-KLEVEL public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12",
-      "closure_evidence": "T133-KLEVEL has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-KLEVEL public_status=BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12.",
+      "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-KLEVEL public_status=PROMOTED_BOUNDED_NO_SEND_V12",
+      "closure_evidence": "T133-KLEVEL has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-KLEVEL public_status=PROMOTED_BOUNDED_NO_SEND_V12.",
+      "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+      "no_send": true
+    },
+    {
+      "objection_id": "DET-CROSS-ARTIFACT-PROMOTION-CONSISTENCY",
+      "source": "deterministic_attack_register",
+      "theme": "cross_artifact_release_permission_consistency",
+      "severity": "CRITICAL",
+      "attacked_claim": "No-send scientific promotion and package release permission must not be conflated.",
+      "artifact_location": "claims/CLAIM_LEDGER_1_3_3.json + proofs/THEOREM_INVENTORY_1_3_3.json + docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json + releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+      "objection": "A theorem row could appear publicly/release promoted while the package ledger and no-send manifest still lock release.",
+      "failure_mode": "public_promotion/release_promotion_allowed fields drift across claim ledger, theorem inventory, phenomenon coverage, and no-send manifest",
+      "required_repair": "The ledger and theorem inventory must keep package release_promotion_allowed=false while using scientific_promotion_allowed for bounded no-send theorem evidence; phenomenon coverage must stay scoped and no-send; publish_allowed must remain false.",
+      "closure_type": "cross_artifact_consistency_predicate",
+      "closure_evidence_refs": [
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+        "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json"
+      ],
+      "closure_verification_query": "claim_ledger.release_promotion_allowed=false; theorem_inventory.release_promotion_allowed=false; theorem rows public_promotion=false and scientific_promotion_allowed=true; phenomenon coverage_promotion_status=SCOPED_MODEL_CARD_NO_SEND_NOT_BROAD_DOMAIN_PROMOTION; publish_manifest.publish_allowed=false",
+      "closure_evidence": "Materialized by v12 cross-artifact promotion consistency policy; release permission and bounded no-send scientific evidence are separate fields.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -2868,7 +2875,7 @@
       "severity": "HIGH",
       "attacked_claim": "T133-KLEVEL",
       "artifact_location": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "objection": "P008 attack: OC does not explain Does OC actually explain closure-like origin-of-life toy condition, not empirical origin-of-life solution?.",
+      "objection": "P008 attack: OC does not explain Does OC actually explain closure-like classifier toy condition, not empirical origin-of-life solution?.",
       "failure_mode": "phenomenon row lacks formal instance, observable, replay, negative control, or falsifier",
       "required_repair": "Bind the phenomenon to a scoped model card and executable case/control.",
       "closure_type": "phenomenon_specific_model_card",
@@ -2878,7 +2885,7 @@
         "proofs/proof_sheets/T133-KLEVEL.md"
       ],
       "closure_verification_query": "P008::FM-KLEVEL-K2_to_K3 + FM-KLEVEL-K2_to_K3-NEG",
-      "closure_evidence": "P008 uses model `RAF-like K2->K3 closure witness with production observable` with observable `closure cannot be reduced when production witness remains observable`.",
+      "closure_evidence": "P008 uses model `single K2->K3 closure-production classifier witness with no RAF-system claim` with observable `closure cannot be reduced when production witness remains observable`.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3681,7 +3688,21 @@
         "proofs/proof_sheets/T133-K0-RES.md"
       ],
       "closure_verification_query": "T133-K0-RES/ASSUMPTION-DRIFT: hash current artifact and check the assumption/counterexample boundary row",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K0-RES/ASSUMPTION-DRIFT: hash current artifact and check the assumption/counterexample boundary row` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K0-RES/ASSUMPTION-DRIFT: hash current artifact and check the assumption/counterexample boundary row`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
+          "sha256": "50c179b132a0565f5a2cc2e099796744353f015ca38fb7815914ff6e8d4cfd55"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K0-RES.md",
+          "sha256": "41611a6e24f53ed54f14c2eef2ea4dbe47ec4df660d1b8e27b98eecdaadcd8a2"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3701,7 +3722,21 @@
         "proofs/proof_sheets/T133-K0-RES.md"
       ],
       "closure_verification_query": "T133-K0-RES/NEGATIVE-CONTROL: require the named negative finite/replay/control row to pass",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K0-RES/NEGATIVE-CONTROL: require the named negative finite/replay/control row to pass` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K0-RES/NEGATIVE-CONTROL: require the named negative finite/replay/control row to pass`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
+          "sha256": "50c179b132a0565f5a2cc2e099796744353f015ca38fb7815914ff6e8d4cfd55"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K0-RES.md",
+          "sha256": "41611a6e24f53ed54f14c2eef2ea4dbe47ec4df660d1b8e27b98eecdaadcd8a2"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3721,7 +3756,21 @@
         "proofs/proof_sheets/T133-K0-RES.md"
       ],
       "closure_verification_query": "T133-K0-RES/PUBLIC-SURFACE: require claim ledger public_status and scope_limit to match the evidence ceiling",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K0-RES/PUBLIC-SURFACE: require claim ledger public_status and scope_limit to match the evidence ceiling` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K0-RES/PUBLIC-SURFACE: require claim ledger public_status and scope_limit to match the evidence ceiling`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
+          "sha256": "50c179b132a0565f5a2cc2e099796744353f015ca38fb7815914ff6e8d4cfd55"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K0-RES.md",
+          "sha256": "41611a6e24f53ed54f14c2eef2ea4dbe47ec4df660d1b8e27b98eecdaadcd8a2"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3741,7 +3790,21 @@
         "proofs/proof_sheets/T133-K0-RES.md"
       ],
       "closure_verification_query": "T133-K0-RES/FALSIFIER: require a falsifier/counterexample boundary tied to an artifact row",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K0-RES/FALSIFIER: require a falsifier/counterexample boundary tied to an artifact row` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K0-RES/FALSIFIER: require a falsifier/counterexample boundary tied to an artifact row`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
+          "sha256": "50c179b132a0565f5a2cc2e099796744353f015ca38fb7815914ff6e8d4cfd55"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K0-RES.md",
+          "sha256": "41611a6e24f53ed54f14c2eef2ea4dbe47ec4df660d1b8e27b98eecdaadcd8a2"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3761,7 +3824,21 @@
         "proofs/proof_sheets/T133-K0-RES.md"
       ],
       "closure_verification_query": "T133-K0-RES/DEPENDENCY: require theorem/claim/replay dependency refs and sha-bound source artifacts",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K0-RES/DEPENDENCY: require theorem/claim/replay dependency refs and sha-bound source artifacts` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K0-RES/DEPENDENCY: require theorem/claim/replay dependency refs and sha-bound source artifacts`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
+          "sha256": "50c179b132a0565f5a2cc2e099796744353f015ca38fb7815914ff6e8d4cfd55"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K0-RES.md",
+          "sha256": "41611a6e24f53ed54f14c2eef2ea4dbe47ec4df660d1b8e27b98eecdaadcd8a2"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3781,7 +3858,21 @@
         "proofs/proof_sheets/T133-K0-RES.md"
       ],
       "closure_verification_query": "T133-K0-RES/REGENERATION: regenerate the package and recompute this objection id from source data",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K0-RES/REGENERATION: regenerate the package and recompute this objection id from source data` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K0-RES/REGENERATION: regenerate the package and recompute this objection id from source data`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
+          "sha256": "50c179b132a0565f5a2cc2e099796744353f015ca38fb7815914ff6e8d4cfd55"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K0-RES.md",
+          "sha256": "41611a6e24f53ed54f14c2eef2ea4dbe47ec4df660d1b8e27b98eecdaadcd8a2"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3798,10 +3889,48 @@
       "closure_type": "generated_distinct_attack_surface",
       "closure_evidence_refs": [
         "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
-        "proofs/proof_sheets/T133-K0-RES.md"
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::ADV-NOSEND-PUBLISH",
+        "proofs/proof_sheets/T133-K0-RES.md",
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+        "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json"
       ],
       "closure_verification_query": "T133-K0-RES/NO-SEND: verify owner approval remains pending and all public-send channels stay false",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K0-RES/NO-SEND: verify owner approval remains pending and all public-send channels stay false` after materialization.",
+      "closure_evidence": "No-send closure for `T133-K0-RES/NO-SEND: verify owner approval remains pending and all public-send channels stay false` is bound to owner approval decision=PENDING, publish_manifest.publish_allowed=false, and finite case ADV-NOSEND-PUBLISH passed=true.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
+          "sha256": "50c179b132a0565f5a2cc2e099796744353f015ca38fb7815914ff6e8d4cfd55"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "e36c9f54ea346f735d8505228cc44b0401091303c0291e9edc646bbdf34d881b"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K0-RES.md",
+          "sha256": "41611a6e24f53ed54f14c2eef2ea4dbe47ec4df660d1b8e27b98eecdaadcd8a2"
+        },
+        {
+          "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+          "sha256": "62a254222ee8aa3591291d256aeb1b9f9860ce20fb65ef2c23e3696d791a65aa"
+        },
+        {
+          "ref": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+          "sha256": "f6f4ae1d93633fed4935cb6b439d6ae034435e8d76179ef9e69946cc1e4198a3"
+        }
+      ],
+      "closure_observed_case_results": [
+        {
+          "case_id": "ADV-NOSEND-PUBLISH",
+          "passed": true,
+          "observed_verdict": "REJECT_PUBLIC_ACTION",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        }
+      ],
+      "closure_current_artifact_hash_total": 5,
+      "closure_observed_case_result_total": 1,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3821,7 +3950,21 @@
         "proofs/proof_sheets/T133-K0-RES.md"
       ],
       "closure_verification_query": "T133-K0-RES/STALE-EVIDENCE: bind closure to current source hashes and rerun focused checks",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K0-RES/STALE-EVIDENCE: bind closure to current source hashes and rerun focused checks` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K0-RES/STALE-EVIDENCE: bind closure to current source hashes and rerun focused checks`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
+          "sha256": "50c179b132a0565f5a2cc2e099796744353f015ca38fb7815914ff6e8d4cfd55"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K0-RES.md",
+          "sha256": "41611a6e24f53ed54f14c2eef2ea4dbe47ec4df660d1b8e27b98eecdaadcd8a2"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3841,7 +3984,21 @@
         "proofs/proof_sheets/T133-K0-RES.md"
       ],
       "closure_verification_query": "T133-K0-RES/CLAIM-ID: match claim_id/theorem_id/case_id across ledger, proof, finite, and review matrix",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K0-RES/CLAIM-ID: match claim_id/theorem_id/case_id across ledger, proof, finite, and review matrix` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K0-RES/CLAIM-ID: match claim_id/theorem_id/case_id across ledger, proof, finite, and review matrix`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
+          "sha256": "50c179b132a0565f5a2cc2e099796744353f015ca38fb7815914ff6e8d4cfd55"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K0-RES.md",
+          "sha256": "41611a6e24f53ed54f14c2eef2ea4dbe47ec4df660d1b8e27b98eecdaadcd8a2"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3861,7 +4018,21 @@
         "proofs/proof_sheets/T133-K0-RES.md"
       ],
       "closure_verification_query": "T133-K0-RES/REVIEW-TRACE: require hostile-reader route claim -> theorem -> finite/replay -> falsifier",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K0-RES/REVIEW-TRACE: require hostile-reader route claim -> theorem -> finite/replay -> falsifier` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K0-RES/REVIEW-TRACE: require hostile-reader route claim -> theorem -> finite/replay -> falsifier`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
+          "sha256": "50c179b132a0565f5a2cc2e099796744353f015ca38fb7815914ff6e8d4cfd55"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K0-RES.md",
+          "sha256": "41611a6e24f53ed54f14c2eef2ea4dbe47ec4df660d1b8e27b98eecdaadcd8a2"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3881,7 +4052,21 @@
         "proofs/proof_sheets/T133-OMEGA-STATUS.md"
       ],
       "closure_verification_query": "T133-OMEGA-STATUS/ASSUMPTION-DRIFT: hash current artifact and check the assumption/counterexample boundary row",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-OMEGA-STATUS/ASSUMPTION-DRIFT: hash current artifact and check the assumption/counterexample boundary row` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-OMEGA-STATUS/ASSUMPTION-DRIFT: hash current artifact and check the assumption/counterexample boundary row`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
+          "sha256": "fd286365c73d5e9d26fa66e16285d1f629d163d9ccd521de736d1b4589b121db"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-OMEGA-STATUS.md",
+          "sha256": "2ec683104939420bcff0cd2833433847fb76c41bdd60cb610c24eccb13ed360e"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3901,7 +4086,21 @@
         "proofs/proof_sheets/T133-OMEGA-STATUS.md"
       ],
       "closure_verification_query": "T133-OMEGA-STATUS/NEGATIVE-CONTROL: require the named negative finite/replay/control row to pass",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-OMEGA-STATUS/NEGATIVE-CONTROL: require the named negative finite/replay/control row to pass` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-OMEGA-STATUS/NEGATIVE-CONTROL: require the named negative finite/replay/control row to pass`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
+          "sha256": "fd286365c73d5e9d26fa66e16285d1f629d163d9ccd521de736d1b4589b121db"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-OMEGA-STATUS.md",
+          "sha256": "2ec683104939420bcff0cd2833433847fb76c41bdd60cb610c24eccb13ed360e"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3921,7 +4120,21 @@
         "proofs/proof_sheets/T133-OMEGA-STATUS.md"
       ],
       "closure_verification_query": "T133-OMEGA-STATUS/PUBLIC-SURFACE: require claim ledger public_status and scope_limit to match the evidence ceiling",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-OMEGA-STATUS/PUBLIC-SURFACE: require claim ledger public_status and scope_limit to match the evidence ceiling` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-OMEGA-STATUS/PUBLIC-SURFACE: require claim ledger public_status and scope_limit to match the evidence ceiling`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
+          "sha256": "fd286365c73d5e9d26fa66e16285d1f629d163d9ccd521de736d1b4589b121db"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-OMEGA-STATUS.md",
+          "sha256": "2ec683104939420bcff0cd2833433847fb76c41bdd60cb610c24eccb13ed360e"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3941,7 +4154,21 @@
         "proofs/proof_sheets/T133-OMEGA-STATUS.md"
       ],
       "closure_verification_query": "T133-OMEGA-STATUS/FALSIFIER: require a falsifier/counterexample boundary tied to an artifact row",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-OMEGA-STATUS/FALSIFIER: require a falsifier/counterexample boundary tied to an artifact row` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-OMEGA-STATUS/FALSIFIER: require a falsifier/counterexample boundary tied to an artifact row`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
+          "sha256": "fd286365c73d5e9d26fa66e16285d1f629d163d9ccd521de736d1b4589b121db"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-OMEGA-STATUS.md",
+          "sha256": "2ec683104939420bcff0cd2833433847fb76c41bdd60cb610c24eccb13ed360e"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3961,7 +4188,21 @@
         "proofs/proof_sheets/T133-OMEGA-STATUS.md"
       ],
       "closure_verification_query": "T133-OMEGA-STATUS/DEPENDENCY: require theorem/claim/replay dependency refs and sha-bound source artifacts",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-OMEGA-STATUS/DEPENDENCY: require theorem/claim/replay dependency refs and sha-bound source artifacts` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-OMEGA-STATUS/DEPENDENCY: require theorem/claim/replay dependency refs and sha-bound source artifacts`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
+          "sha256": "fd286365c73d5e9d26fa66e16285d1f629d163d9ccd521de736d1b4589b121db"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-OMEGA-STATUS.md",
+          "sha256": "2ec683104939420bcff0cd2833433847fb76c41bdd60cb610c24eccb13ed360e"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3981,7 +4222,21 @@
         "proofs/proof_sheets/T133-OMEGA-STATUS.md"
       ],
       "closure_verification_query": "T133-OMEGA-STATUS/REGENERATION: regenerate the package and recompute this objection id from source data",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-OMEGA-STATUS/REGENERATION: regenerate the package and recompute this objection id from source data` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-OMEGA-STATUS/REGENERATION: regenerate the package and recompute this objection id from source data`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
+          "sha256": "fd286365c73d5e9d26fa66e16285d1f629d163d9ccd521de736d1b4589b121db"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-OMEGA-STATUS.md",
+          "sha256": "2ec683104939420bcff0cd2833433847fb76c41bdd60cb610c24eccb13ed360e"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3998,10 +4253,48 @@
       "closure_type": "generated_distinct_attack_surface",
       "closure_evidence_refs": [
         "content/OC_1_3_3_TYPED_FOUNDATION.tex",
-        "proofs/proof_sheets/T133-OMEGA-STATUS.md"
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::ADV-NOSEND-PUBLISH",
+        "proofs/proof_sheets/T133-OMEGA-STATUS.md",
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+        "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json"
       ],
       "closure_verification_query": "T133-OMEGA-STATUS/NO-SEND: verify owner approval remains pending and all public-send channels stay false",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-OMEGA-STATUS/NO-SEND: verify owner approval remains pending and all public-send channels stay false` after materialization.",
+      "closure_evidence": "No-send closure for `T133-OMEGA-STATUS/NO-SEND: verify owner approval remains pending and all public-send channels stay false` is bound to owner approval decision=PENDING, publish_manifest.publish_allowed=false, and finite case ADV-NOSEND-PUBLISH passed=true.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
+          "sha256": "fd286365c73d5e9d26fa66e16285d1f629d163d9ccd521de736d1b4589b121db"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "e36c9f54ea346f735d8505228cc44b0401091303c0291e9edc646bbdf34d881b"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-OMEGA-STATUS.md",
+          "sha256": "2ec683104939420bcff0cd2833433847fb76c41bdd60cb610c24eccb13ed360e"
+        },
+        {
+          "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+          "sha256": "62a254222ee8aa3591291d256aeb1b9f9860ce20fb65ef2c23e3696d791a65aa"
+        },
+        {
+          "ref": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+          "sha256": "f6f4ae1d93633fed4935cb6b439d6ae034435e8d76179ef9e69946cc1e4198a3"
+        }
+      ],
+      "closure_observed_case_results": [
+        {
+          "case_id": "ADV-NOSEND-PUBLISH",
+          "passed": true,
+          "observed_verdict": "REJECT_PUBLIC_ACTION",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        }
+      ],
+      "closure_current_artifact_hash_total": 5,
+      "closure_observed_case_result_total": 1,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4021,7 +4314,21 @@
         "proofs/proof_sheets/T133-OMEGA-STATUS.md"
       ],
       "closure_verification_query": "T133-OMEGA-STATUS/STALE-EVIDENCE: bind closure to current source hashes and rerun focused checks",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-OMEGA-STATUS/STALE-EVIDENCE: bind closure to current source hashes and rerun focused checks` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-OMEGA-STATUS/STALE-EVIDENCE: bind closure to current source hashes and rerun focused checks`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
+          "sha256": "fd286365c73d5e9d26fa66e16285d1f629d163d9ccd521de736d1b4589b121db"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-OMEGA-STATUS.md",
+          "sha256": "2ec683104939420bcff0cd2833433847fb76c41bdd60cb610c24eccb13ed360e"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4041,7 +4348,21 @@
         "proofs/proof_sheets/T133-OMEGA-STATUS.md"
       ],
       "closure_verification_query": "T133-OMEGA-STATUS/CLAIM-ID: match claim_id/theorem_id/case_id across ledger, proof, finite, and review matrix",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-OMEGA-STATUS/CLAIM-ID: match claim_id/theorem_id/case_id across ledger, proof, finite, and review matrix` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-OMEGA-STATUS/CLAIM-ID: match claim_id/theorem_id/case_id across ledger, proof, finite, and review matrix`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
+          "sha256": "fd286365c73d5e9d26fa66e16285d1f629d163d9ccd521de736d1b4589b121db"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-OMEGA-STATUS.md",
+          "sha256": "2ec683104939420bcff0cd2833433847fb76c41bdd60cb610c24eccb13ed360e"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4061,7 +4382,21 @@
         "proofs/proof_sheets/T133-OMEGA-STATUS.md"
       ],
       "closure_verification_query": "T133-OMEGA-STATUS/REVIEW-TRACE: require hostile-reader route claim -> theorem -> finite/replay -> falsifier",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-OMEGA-STATUS/REVIEW-TRACE: require hostile-reader route claim -> theorem -> finite/replay -> falsifier` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-OMEGA-STATUS/REVIEW-TRACE: require hostile-reader route claim -> theorem -> finite/replay -> falsifier`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
+          "sha256": "fd286365c73d5e9d26fa66e16285d1f629d163d9ccd521de736d1b4589b121db"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-OMEGA-STATUS.md",
+          "sha256": "2ec683104939420bcff0cd2833433847fb76c41bdd60cb610c24eccb13ed360e"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4081,7 +4416,21 @@
         "proofs/proof_sheets/T133-K-ZERO.md"
       ],
       "closure_verification_query": "T133-K-ZERO/ASSUMPTION-DRIFT: hash current artifact and check the assumption/counterexample boundary row",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K-ZERO/ASSUMPTION-DRIFT: hash current artifact and check the assumption/counterexample boundary row` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K-ZERO/ASSUMPTION-DRIFT: hash current artifact and check the assumption/counterexample boundary row`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
+          "sha256": "2b0ab884e14b1f65c2a28495b90d568a9926c2dc13f665402a9905562d867cb3"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K-ZERO.md",
+          "sha256": "01e4524f55febebe92d36a172e40a882d265585a5c600ba0277d8b4aa1c27fa6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4101,7 +4450,21 @@
         "proofs/proof_sheets/T133-K-ZERO.md"
       ],
       "closure_verification_query": "T133-K-ZERO/NEGATIVE-CONTROL: require the named negative finite/replay/control row to pass",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K-ZERO/NEGATIVE-CONTROL: require the named negative finite/replay/control row to pass` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K-ZERO/NEGATIVE-CONTROL: require the named negative finite/replay/control row to pass`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
+          "sha256": "2b0ab884e14b1f65c2a28495b90d568a9926c2dc13f665402a9905562d867cb3"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K-ZERO.md",
+          "sha256": "01e4524f55febebe92d36a172e40a882d265585a5c600ba0277d8b4aa1c27fa6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4121,7 +4484,21 @@
         "proofs/proof_sheets/T133-K-ZERO.md"
       ],
       "closure_verification_query": "T133-K-ZERO/PUBLIC-SURFACE: require claim ledger public_status and scope_limit to match the evidence ceiling",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K-ZERO/PUBLIC-SURFACE: require claim ledger public_status and scope_limit to match the evidence ceiling` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K-ZERO/PUBLIC-SURFACE: require claim ledger public_status and scope_limit to match the evidence ceiling`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
+          "sha256": "2b0ab884e14b1f65c2a28495b90d568a9926c2dc13f665402a9905562d867cb3"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K-ZERO.md",
+          "sha256": "01e4524f55febebe92d36a172e40a882d265585a5c600ba0277d8b4aa1c27fa6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4141,7 +4518,21 @@
         "proofs/proof_sheets/T133-K-ZERO.md"
       ],
       "closure_verification_query": "T133-K-ZERO/FALSIFIER: require a falsifier/counterexample boundary tied to an artifact row",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K-ZERO/FALSIFIER: require a falsifier/counterexample boundary tied to an artifact row` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K-ZERO/FALSIFIER: require a falsifier/counterexample boundary tied to an artifact row`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
+          "sha256": "2b0ab884e14b1f65c2a28495b90d568a9926c2dc13f665402a9905562d867cb3"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K-ZERO.md",
+          "sha256": "01e4524f55febebe92d36a172e40a882d265585a5c600ba0277d8b4aa1c27fa6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4161,7 +4552,21 @@
         "proofs/proof_sheets/T133-K-ZERO.md"
       ],
       "closure_verification_query": "T133-K-ZERO/DEPENDENCY: require theorem/claim/replay dependency refs and sha-bound source artifacts",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K-ZERO/DEPENDENCY: require theorem/claim/replay dependency refs and sha-bound source artifacts` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K-ZERO/DEPENDENCY: require theorem/claim/replay dependency refs and sha-bound source artifacts`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
+          "sha256": "2b0ab884e14b1f65c2a28495b90d568a9926c2dc13f665402a9905562d867cb3"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K-ZERO.md",
+          "sha256": "01e4524f55febebe92d36a172e40a882d265585a5c600ba0277d8b4aa1c27fa6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4181,7 +4586,21 @@
         "proofs/proof_sheets/T133-K-ZERO.md"
       ],
       "closure_verification_query": "T133-K-ZERO/REGENERATION: regenerate the package and recompute this objection id from source data",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K-ZERO/REGENERATION: regenerate the package and recompute this objection id from source data` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K-ZERO/REGENERATION: regenerate the package and recompute this objection id from source data`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
+          "sha256": "2b0ab884e14b1f65c2a28495b90d568a9926c2dc13f665402a9905562d867cb3"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K-ZERO.md",
+          "sha256": "01e4524f55febebe92d36a172e40a882d265585a5c600ba0277d8b4aa1c27fa6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4198,10 +4617,48 @@
       "closure_type": "generated_distinct_attack_surface",
       "closure_evidence_refs": [
         "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-        "proofs/proof_sheets/T133-K-ZERO.md"
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::ADV-NOSEND-PUBLISH",
+        "proofs/proof_sheets/T133-K-ZERO.md",
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+        "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json"
       ],
       "closure_verification_query": "T133-K-ZERO/NO-SEND: verify owner approval remains pending and all public-send channels stay false",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K-ZERO/NO-SEND: verify owner approval remains pending and all public-send channels stay false` after materialization.",
+      "closure_evidence": "No-send closure for `T133-K-ZERO/NO-SEND: verify owner approval remains pending and all public-send channels stay false` is bound to owner approval decision=PENDING, publish_manifest.publish_allowed=false, and finite case ADV-NOSEND-PUBLISH passed=true.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
+          "sha256": "2b0ab884e14b1f65c2a28495b90d568a9926c2dc13f665402a9905562d867cb3"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "e36c9f54ea346f735d8505228cc44b0401091303c0291e9edc646bbdf34d881b"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K-ZERO.md",
+          "sha256": "01e4524f55febebe92d36a172e40a882d265585a5c600ba0277d8b4aa1c27fa6"
+        },
+        {
+          "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+          "sha256": "62a254222ee8aa3591291d256aeb1b9f9860ce20fb65ef2c23e3696d791a65aa"
+        },
+        {
+          "ref": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+          "sha256": "f6f4ae1d93633fed4935cb6b439d6ae034435e8d76179ef9e69946cc1e4198a3"
+        }
+      ],
+      "closure_observed_case_results": [
+        {
+          "case_id": "ADV-NOSEND-PUBLISH",
+          "passed": true,
+          "observed_verdict": "REJECT_PUBLIC_ACTION",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        }
+      ],
+      "closure_current_artifact_hash_total": 5,
+      "closure_observed_case_result_total": 1,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4221,7 +4678,21 @@
         "proofs/proof_sheets/T133-K-ZERO.md"
       ],
       "closure_verification_query": "T133-K-ZERO/STALE-EVIDENCE: bind closure to current source hashes and rerun focused checks",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K-ZERO/STALE-EVIDENCE: bind closure to current source hashes and rerun focused checks` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K-ZERO/STALE-EVIDENCE: bind closure to current source hashes and rerun focused checks`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
+          "sha256": "2b0ab884e14b1f65c2a28495b90d568a9926c2dc13f665402a9905562d867cb3"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K-ZERO.md",
+          "sha256": "01e4524f55febebe92d36a172e40a882d265585a5c600ba0277d8b4aa1c27fa6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4241,7 +4712,21 @@
         "proofs/proof_sheets/T133-K-ZERO.md"
       ],
       "closure_verification_query": "T133-K-ZERO/CLAIM-ID: match claim_id/theorem_id/case_id across ledger, proof, finite, and review matrix",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K-ZERO/CLAIM-ID: match claim_id/theorem_id/case_id across ledger, proof, finite, and review matrix` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K-ZERO/CLAIM-ID: match claim_id/theorem_id/case_id across ledger, proof, finite, and review matrix`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
+          "sha256": "2b0ab884e14b1f65c2a28495b90d568a9926c2dc13f665402a9905562d867cb3"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K-ZERO.md",
+          "sha256": "01e4524f55febebe92d36a172e40a882d265585a5c600ba0277d8b4aa1c27fa6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4261,7 +4746,21 @@
         "proofs/proof_sheets/T133-K-ZERO.md"
       ],
       "closure_verification_query": "T133-K-ZERO/REVIEW-TRACE: require hostile-reader route claim -> theorem -> finite/replay -> falsifier",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-K-ZERO/REVIEW-TRACE: require hostile-reader route claim -> theorem -> finite/replay -> falsifier` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-K-ZERO/REVIEW-TRACE: require hostile-reader route claim -> theorem -> finite/replay -> falsifier`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
+          "sha256": "2b0ab884e14b1f65c2a28495b90d568a9926c2dc13f665402a9905562d867cb3"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-K-ZERO.md",
+          "sha256": "01e4524f55febebe92d36a172e40a882d265585a5c600ba0277d8b4aa1c27fa6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4272,8 +4771,8 @@
       "severity": "HIGH",
       "attacked_claim": "T133-BOUNDARY",
       "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
-      "objection": "T133-BOUNDARY attack: Generalized boundary representation theorem: assumptions could drift from the proof/evaluator boundary.",
-      "failure_mode": "Generalized boundary representation theorem: assumptions could drift from the proof/evaluator boundary",
+      "objection": "T133-BOUNDARY attack: Metric-threshold boundary specialization theorem: assumptions could drift from the proof/evaluator boundary.",
+      "failure_mode": "Metric-threshold boundary specialization theorem: assumptions could drift from the proof/evaluator boundary",
       "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
       "closure_type": "generated_distinct_attack_surface",
       "closure_evidence_refs": [
@@ -4281,7 +4780,21 @@
         "proofs/proof_sheets/T133-BOUNDARY.md"
       ],
       "closure_verification_query": "T133-BOUNDARY/ASSUMPTION-DRIFT: hash current artifact and check the assumption/counterexample boundary row",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-BOUNDARY/ASSUMPTION-DRIFT: hash current artifact and check the assumption/counterexample boundary row` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-BOUNDARY/ASSUMPTION-DRIFT: hash current artifact and check the assumption/counterexample boundary row`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+          "sha256": "c4a58efdf8fd298454b3bd6b8e1d7323e2793af090de560fc48104713ff986dc"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-BOUNDARY.md",
+          "sha256": "cca20268bc844ee26ed8a5f70d8878c489c9b61bd7ad4e8d7acf5260569b2bb6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4292,8 +4805,8 @@
       "severity": "HIGH",
       "attacked_claim": "T133-BOUNDARY",
       "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
-      "objection": "T133-BOUNDARY attack: Generalized boundary representation theorem: negative control could be absent or non-responsive.",
-      "failure_mode": "Generalized boundary representation theorem: negative control could be absent or non-responsive",
+      "objection": "T133-BOUNDARY attack: Metric-threshold boundary specialization theorem: negative control could be absent or non-responsive.",
+      "failure_mode": "Metric-threshold boundary specialization theorem: negative control could be absent or non-responsive",
       "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
       "closure_type": "generated_distinct_attack_surface",
       "closure_evidence_refs": [
@@ -4301,7 +4814,21 @@
         "proofs/proof_sheets/T133-BOUNDARY.md"
       ],
       "closure_verification_query": "T133-BOUNDARY/NEGATIVE-CONTROL: require the named negative finite/replay/control row to pass",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-BOUNDARY/NEGATIVE-CONTROL: require the named negative finite/replay/control row to pass` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-BOUNDARY/NEGATIVE-CONTROL: require the named negative finite/replay/control row to pass`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+          "sha256": "c4a58efdf8fd298454b3bd6b8e1d7323e2793af090de560fc48104713ff986dc"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-BOUNDARY.md",
+          "sha256": "cca20268bc844ee26ed8a5f70d8878c489c9b61bd7ad4e8d7acf5260569b2bb6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4312,8 +4839,8 @@
       "severity": "HIGH",
       "attacked_claim": "T133-BOUNDARY",
       "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
-      "objection": "T133-BOUNDARY attack: Generalized boundary representation theorem: public wording could exceed the machine-checked claim.",
-      "failure_mode": "Generalized boundary representation theorem: public wording could exceed the machine-checked claim",
+      "objection": "T133-BOUNDARY attack: Metric-threshold boundary specialization theorem: public wording could exceed the machine-checked claim.",
+      "failure_mode": "Metric-threshold boundary specialization theorem: public wording could exceed the machine-checked claim",
       "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
       "closure_type": "generated_distinct_attack_surface",
       "closure_evidence_refs": [
@@ -4321,7 +4848,21 @@
         "proofs/proof_sheets/T133-BOUNDARY.md"
       ],
       "closure_verification_query": "T133-BOUNDARY/PUBLIC-SURFACE: require claim ledger public_status and scope_limit to match the evidence ceiling",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-BOUNDARY/PUBLIC-SURFACE: require claim ledger public_status and scope_limit to match the evidence ceiling` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-BOUNDARY/PUBLIC-SURFACE: require claim ledger public_status and scope_limit to match the evidence ceiling`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+          "sha256": "c4a58efdf8fd298454b3bd6b8e1d7323e2793af090de560fc48104713ff986dc"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-BOUNDARY.md",
+          "sha256": "cca20268bc844ee26ed8a5f70d8878c489c9b61bd7ad4e8d7acf5260569b2bb6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4332,8 +4873,8 @@
       "severity": "HIGH",
       "attacked_claim": "T133-BOUNDARY",
       "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
-      "objection": "T133-BOUNDARY attack: Generalized boundary representation theorem: falsifier could be missing, vague, or non-executable.",
-      "failure_mode": "Generalized boundary representation theorem: falsifier could be missing, vague, or non-executable",
+      "objection": "T133-BOUNDARY attack: Metric-threshold boundary specialization theorem: falsifier could be missing, vague, or non-executable.",
+      "failure_mode": "Metric-threshold boundary specialization theorem: falsifier could be missing, vague, or non-executable",
       "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
       "closure_type": "generated_distinct_attack_surface",
       "closure_evidence_refs": [
@@ -4341,7 +4882,21 @@
         "proofs/proof_sheets/T133-BOUNDARY.md"
       ],
       "closure_verification_query": "T133-BOUNDARY/FALSIFIER: require a falsifier/counterexample boundary tied to an artifact row",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-BOUNDARY/FALSIFIER: require a falsifier/counterexample boundary tied to an artifact row` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-BOUNDARY/FALSIFIER: require a falsifier/counterexample boundary tied to an artifact row`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+          "sha256": "c4a58efdf8fd298454b3bd6b8e1d7323e2793af090de560fc48104713ff986dc"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-BOUNDARY.md",
+          "sha256": "cca20268bc844ee26ed8a5f70d8878c489c9b61bd7ad4e8d7acf5260569b2bb6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4352,8 +4907,8 @@
       "severity": "HIGH",
       "attacked_claim": "T133-BOUNDARY",
       "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
-      "objection": "T133-BOUNDARY attack: Generalized boundary representation theorem: dependency refs could omit the load-bearing artifact.",
-      "failure_mode": "Generalized boundary representation theorem: dependency refs could omit the load-bearing artifact",
+      "objection": "T133-BOUNDARY attack: Metric-threshold boundary specialization theorem: dependency refs could omit the load-bearing artifact.",
+      "failure_mode": "Metric-threshold boundary specialization theorem: dependency refs could omit the load-bearing artifact",
       "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
       "closure_type": "generated_distinct_attack_surface",
       "closure_evidence_refs": [
@@ -4361,7 +4916,21 @@
         "proofs/proof_sheets/T133-BOUNDARY.md"
       ],
       "closure_verification_query": "T133-BOUNDARY/DEPENDENCY: require theorem/claim/replay dependency refs and sha-bound source artifacts",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-BOUNDARY/DEPENDENCY: require theorem/claim/replay dependency refs and sha-bound source artifacts` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-BOUNDARY/DEPENDENCY: require theorem/claim/replay dependency refs and sha-bound source artifacts`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+          "sha256": "c4a58efdf8fd298454b3bd6b8e1d7323e2793af090de560fc48104713ff986dc"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-BOUNDARY.md",
+          "sha256": "cca20268bc844ee26ed8a5f70d8878c489c9b61bd7ad4e8d7acf5260569b2bb6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4372,8 +4941,8 @@
       "severity": "HIGH",
       "attacked_claim": "T133-BOUNDARY",
       "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
-      "objection": "T133-BOUNDARY attack: Generalized boundary representation theorem: materialization could drop or alter this row.",
-      "failure_mode": "Generalized boundary representation theorem: materialization could drop or alter this row",
+      "objection": "T133-BOUNDARY attack: Metric-threshold boundary specialization theorem: materialization could drop or alter this row.",
+      "failure_mode": "Metric-threshold boundary specialization theorem: materialization could drop or alter this row",
       "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
       "closure_type": "generated_distinct_attack_surface",
       "closure_evidence_refs": [
@@ -4381,7 +4950,21 @@
         "proofs/proof_sheets/T133-BOUNDARY.md"
       ],
       "closure_verification_query": "T133-BOUNDARY/REGENERATION: regenerate the package and recompute this objection id from source data",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-BOUNDARY/REGENERATION: regenerate the package and recompute this objection id from source data` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-BOUNDARY/REGENERATION: regenerate the package and recompute this objection id from source data`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+          "sha256": "c4a58efdf8fd298454b3bd6b8e1d7323e2793af090de560fc48104713ff986dc"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-BOUNDARY.md",
+          "sha256": "cca20268bc844ee26ed8a5f70d8878c489c9b61bd7ad4e8d7acf5260569b2bb6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4392,16 +4975,54 @@
       "severity": "HIGH",
       "attacked_claim": "T133-BOUNDARY",
       "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
-      "objection": "T133-BOUNDARY attack: Generalized boundary representation theorem: repair could accidentally enable a public action.",
-      "failure_mode": "Generalized boundary representation theorem: repair could accidentally enable a public action",
+      "objection": "T133-BOUNDARY attack: Metric-threshold boundary specialization theorem: repair could accidentally enable a public action.",
+      "failure_mode": "Metric-threshold boundary specialization theorem: repair could accidentally enable a public action",
       "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
       "closure_type": "generated_distinct_attack_surface",
       "closure_evidence_refs": [
         "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
-        "proofs/proof_sheets/T133-BOUNDARY.md"
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::ADV-NOSEND-PUBLISH",
+        "proofs/proof_sheets/T133-BOUNDARY.md",
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+        "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json"
       ],
       "closure_verification_query": "T133-BOUNDARY/NO-SEND: verify owner approval remains pending and all public-send channels stay false",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-BOUNDARY/NO-SEND: verify owner approval remains pending and all public-send channels stay false` after materialization.",
+      "closure_evidence": "No-send closure for `T133-BOUNDARY/NO-SEND: verify owner approval remains pending and all public-send channels stay false` is bound to owner approval decision=PENDING, publish_manifest.publish_allowed=false, and finite case ADV-NOSEND-PUBLISH passed=true.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+          "sha256": "c4a58efdf8fd298454b3bd6b8e1d7323e2793af090de560fc48104713ff986dc"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "e36c9f54ea346f735d8505228cc44b0401091303c0291e9edc646bbdf34d881b"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-BOUNDARY.md",
+          "sha256": "cca20268bc844ee26ed8a5f70d8878c489c9b61bd7ad4e8d7acf5260569b2bb6"
+        },
+        {
+          "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+          "sha256": "62a254222ee8aa3591291d256aeb1b9f9860ce20fb65ef2c23e3696d791a65aa"
+        },
+        {
+          "ref": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+          "sha256": "f6f4ae1d93633fed4935cb6b439d6ae034435e8d76179ef9e69946cc1e4198a3"
+        }
+      ],
+      "closure_observed_case_results": [
+        {
+          "case_id": "ADV-NOSEND-PUBLISH",
+          "passed": true,
+          "observed_verdict": "REJECT_PUBLIC_ACTION",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        }
+      ],
+      "closure_current_artifact_hash_total": 5,
+      "closure_observed_case_result_total": 1,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4412,8 +5033,8 @@
       "severity": "HIGH",
       "attacked_claim": "T133-BOUNDARY",
       "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
-      "objection": "T133-BOUNDARY attack: Generalized boundary representation theorem: row could be closed against an outdated artifact.",
-      "failure_mode": "Generalized boundary representation theorem: row could be closed against an outdated artifact",
+      "objection": "T133-BOUNDARY attack: Metric-threshold boundary specialization theorem: row could be closed against an outdated artifact.",
+      "failure_mode": "Metric-threshold boundary specialization theorem: row could be closed against an outdated artifact",
       "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
       "closure_type": "generated_distinct_attack_surface",
       "closure_evidence_refs": [
@@ -4421,7 +5042,21 @@
         "proofs/proof_sheets/T133-BOUNDARY.md"
       ],
       "closure_verification_query": "T133-BOUNDARY/STALE-EVIDENCE: bind closure to current source hashes and rerun focused checks",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-BOUNDARY/STALE-EVIDENCE: bind closure to current source hashes and rerun focused checks` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-BOUNDARY/STALE-EVIDENCE: bind closure to current source hashes and rerun focused checks`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+          "sha256": "c4a58efdf8fd298454b3bd6b8e1d7323e2793af090de560fc48104713ff986dc"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-BOUNDARY.md",
+          "sha256": "cca20268bc844ee26ed8a5f70d8878c489c9b61bd7ad4e8d7acf5260569b2bb6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4432,8 +5067,8 @@
       "severity": "HIGH",
       "attacked_claim": "T133-BOUNDARY",
       "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
-      "objection": "T133-BOUNDARY attack: Generalized boundary representation theorem: claim id could be relabeled while evidence remains unchanged.",
-      "failure_mode": "Generalized boundary representation theorem: claim id could be relabeled while evidence remains unchanged",
+      "objection": "T133-BOUNDARY attack: Metric-threshold boundary specialization theorem: claim id could be relabeled while evidence remains unchanged.",
+      "failure_mode": "Metric-threshold boundary specialization theorem: claim id could be relabeled while evidence remains unchanged",
       "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
       "closure_type": "generated_distinct_attack_surface",
       "closure_evidence_refs": [
@@ -4441,7 +5076,21 @@
         "proofs/proof_sheets/T133-BOUNDARY.md"
       ],
       "closure_verification_query": "T133-BOUNDARY/CLAIM-ID: match claim_id/theorem_id/case_id across ledger, proof, finite, and review matrix",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-BOUNDARY/CLAIM-ID: match claim_id/theorem_id/case_id across ledger, proof, finite, and review matrix` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-BOUNDARY/CLAIM-ID: match claim_id/theorem_id/case_id across ledger, proof, finite, and review matrix`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+          "sha256": "c4a58efdf8fd298454b3bd6b8e1d7323e2793af090de560fc48104713ff986dc"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-BOUNDARY.md",
+          "sha256": "cca20268bc844ee26ed8a5f70d8878c489c9b61bd7ad4e8d7acf5260569b2bb6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4452,8 +5101,8 @@
       "severity": "HIGH",
       "attacked_claim": "T133-BOUNDARY",
       "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
-      "objection": "T133-BOUNDARY attack: Generalized boundary representation theorem: hostile reader could fail to trace the route.",
-      "failure_mode": "Generalized boundary representation theorem: hostile reader could fail to trace the route",
+      "objection": "T133-BOUNDARY attack: Metric-threshold boundary specialization theorem: hostile reader could fail to trace the route.",
+      "failure_mode": "Metric-threshold boundary specialization theorem: hostile reader could fail to trace the route",
       "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
       "closure_type": "generated_distinct_attack_surface",
       "closure_evidence_refs": [
@@ -4461,7 +5110,21 @@
         "proofs/proof_sheets/T133-BOUNDARY.md"
       ],
       "closure_verification_query": "T133-BOUNDARY/REVIEW-TRACE: require hostile-reader route claim -> theorem -> finite/replay -> falsifier",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-BOUNDARY/REVIEW-TRACE: require hostile-reader route claim -> theorem -> finite/replay -> falsifier` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-BOUNDARY/REVIEW-TRACE: require hostile-reader route claim -> theorem -> finite/replay -> falsifier`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+          "sha256": "c4a58efdf8fd298454b3bd6b8e1d7323e2793af090de560fc48104713ff986dc"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-BOUNDARY.md",
+          "sha256": "cca20268bc844ee26ed8a5f70d8878c489c9b61bd7ad4e8d7acf5260569b2bb6"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -4481,7 +5144,21 @@
         "proofs/proof_sheets/T133-HYBRID.md"
       ],
       "closure_verification_query": "T133-HYBRID/ASSUMPTION-DRIFT: hash current artifact and check the assumption/counterexample boundary row",
-      "closure_evidence": "Generated distinct attack-surface row enforces `T133-HYBRID/ASSUMPTION-DRIFT: hash current artifact and check the assumption/counterexample boundary row` after materialization.",
+      "closure_evidence": "Observed current closure for `T133-HYBRID/ASSUMPTION-DRIFT: hash current artifact and check the assumption/counterexample boundary row`: 2 artifact hash(es), 0 finite/control case result(s), verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+          "sha256": "809808828cb75f2cea6e5e588c4655c986755916ba2af3ca2234a6faaa7a431f"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-HYBRID.md",
+          "sha256": "8e045af8044642484cce6f6aabbd6b9bcb8210b457aacd474b495a09d77cb1f8"
+        }
+      ],
+      "closure_observed_case_results": [],
+      "closure_current_artifact_hash_total": 2,
+      "closure_observed_case_result_total": 0,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     }

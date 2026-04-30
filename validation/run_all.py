@@ -19,6 +19,18 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def certified_generated_artifact_hashes() -> dict[str, str]:
+    cert_path = ROOT / "formal" / "lean" / "LEAN_BUILD_CERTIFICATE_1_3_3.json"
+    if not cert_path.exists():
+        return {}
+    cert = json.loads(cert_path.read_text(encoding="utf-8"))
+    return {
+        row.get("ref"): row.get("sha256")
+        for row in cert.get("generated_artifact_manifest", [])
+        if isinstance(row, dict) and row.get("ref") and row.get("sha256")
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run OC133 domain validation or explicit replay-QA mode.")
     parser.add_argument(
@@ -26,7 +38,28 @@ def main() -> int:
         action="store_true",
         help="Allow zero exit for deterministic official-snapshot replay QA that is explicitly barred from empirical promotion.",
     )
+    parser.add_argument(
+        "--materialize-first",
+        action="store_true",
+        help="Explicitly regenerate deterministic no-send artifacts before replay and then verify their certified hashes.",
+    )
     args = parser.parse_args()
+    materialize_first_returncode = None
+    if args.materialize_first:
+        materialize = subprocess.run(
+            [sys.executable, str(ROOT / "tools" / "materialize_oc_core_1_3_3_v12_closure.py")],
+            cwd=ROOT,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            capture_output=True,
+            timeout=900,
+        )
+        materialize_first_returncode = materialize.returncode
+        if materialize.returncode != 0:
+            print(materialize.stdout[-2000:])
+            print(materialize.stderr[-2000:])
+            return materialize.returncode
     manifest = json.loads((ROOT / "data/OC_DATASET_SNAPSHOT_MANIFEST_1_3_3.json").read_text(encoding="utf-8"))
     claim_ledger_path = ROOT / "claims" / "CLAIM_LEDGER_1_3_3.json"
     claim_ledger = json.loads(claim_ledger_path.read_text(encoding="utf-8")) if claim_ledger_path.exists() else {}
@@ -60,29 +93,38 @@ def main() -> int:
     finite_report = json.loads(finite_report_path.read_text(encoding="utf-8")) if finite_report_path.exists() else {}
     numeric_script = ROOT / "validation" / "numeric_predictions" / "run_numeric_prediction_replay.py"
     qa_table = ROOT / "validation" / "numeric_replay_qa" / "OC133_NUMERIC_REPLAY_QA_TABLE.json"
+    qa_table_ref = "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json"
     if not qa_table.exists():
-        subprocess.run(
-            [sys.executable, str(ROOT / "tools" / "materialize_oc_core_1_3_3_v12_closure.py")],
-            cwd=ROOT,
-            check=True,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-            capture_output=True,
-            timeout=900,
-        )
+        numeric_artifact_failures.append("NUMERIC_REPLAY_QA_TABLE_MISSING_RUN_MATERIALIZER_EXPLICITLY")
+    cert_generated_hashes = certified_generated_artifact_hashes()
+    if qa_table.exists():
+        certified_qa_sha = cert_generated_hashes.get(qa_table_ref)
+        actual_qa_sha = sha256_file(qa_table)
+        if not certified_qa_sha:
+            numeric_artifact_failures.append("NUMERIC_REPLAY_QA_TABLE_NOT_IN_CERTIFIED_GENERATED_ARTIFACT_MANIFEST")
+        elif certified_qa_sha != actual_qa_sha:
+            numeric_artifact_failures.append("NUMERIC_REPLAY_QA_TABLE_CERTIFIED_HASH_MISMATCH")
     if numeric_script.exists():
-        subprocess.run(
+        numeric_proc = subprocess.run(
             [sys.executable, str(numeric_script)],
             cwd=ROOT,
-            check=True,
             text=True,
             encoding="utf-8",
             errors="replace",
             capture_output=True,
         )
-        numeric_payload = json.loads((ROOT / "validation" / "numeric_replay_qa" / "OC133_NUMERIC_REPLAY_QA_TABLE.json").read_text(encoding="utf-8"))
-        numeric_log = json.loads((ROOT / "validation" / "numeric_predictions" / "OC133_NUMERIC_REPLAY_LOG.json").read_text(encoding="utf-8"))
+        if numeric_proc.returncode != 0:
+            numeric_artifact_failures.append(f"NUMERIC_REPLAY_RETURNCODE::{numeric_proc.returncode}")
+        numeric_payload_path = ROOT / "validation" / "numeric_replay_qa" / "OC133_NUMERIC_REPLAY_QA_TABLE.json"
+        numeric_log_path = ROOT / "validation" / "numeric_predictions" / "OC133_NUMERIC_REPLAY_LOG.json"
+        if numeric_payload_path.exists():
+            numeric_payload = json.loads(numeric_payload_path.read_text(encoding="utf-8"))
+        else:
+            numeric_artifact_failures.append("NUMERIC_REPLAY_QA_TABLE_NOT_WRITTEN")
+        if numeric_log_path.exists():
+            numeric_log = json.loads(numeric_log_path.read_text(encoding="utf-8"))
+        else:
+            numeric_artifact_failures.append("NUMERIC_REPLAY_LOG_NOT_WRITTEN")
     else:
         numeric_artifact_failures.append("NUMERIC_REPLAY_SCRIPT_MISSING")
     if numeric_payload.get("row_total", 0) < 5 or numeric_payload.get("lane_total", 0) < 5:
@@ -193,6 +235,12 @@ def main() -> int:
         "scientific_validation_state": "EMPIRICAL_REPLAY_REQUIRED_FOR_DOMAIN_PROMOTION",
         "release_gate_semantics": "Exit 0 means replay QA completed and no empirical promotion leaked; it is not a domain-validation PASS.",
         "cli_mode": "QA_ONLY" if args.qa_only else "DOMAIN_VALIDATION_GATE",
+        "materialize_first_explicit": bool(args.materialize_first),
+        "materialize_first_returncode": materialize_first_returncode,
+        "canonical_clean_checkout_command_sequence": [
+            "python tools/materialize_oc_core_1_3_3_v12_closure.py",
+            "python validation/run_all.py --qa-only",
+        ],
         "qa_only_zero_exit_allowed": bool(args.qa_only),
         "validation_boundary": "Deterministic numeric replay QA only; no held-out empirical prediction support is promoted.",
         "verdict": "QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED" if qa_clear else "FAIL",

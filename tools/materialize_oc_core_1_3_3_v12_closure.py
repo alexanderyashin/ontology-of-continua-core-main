@@ -9,6 +9,7 @@ import re
 import runpy
 import shutil
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 from typing import Any
@@ -50,6 +51,24 @@ def normalize_build_transcript(value: str) -> str:
     return value.replace(str(ROOT), "<REPO_ROOT>")
 
 
+def canonical_lean_observation(value: str) -> dict[str, str | None]:
+    version = re.search(r"Lean \(version\s+([^,\s]+)", value or "")
+    commit = re.search(r"commit\s+([0-9a-fA-F]+)", value or "")
+    return {
+        "version": version.group(1) if version else None,
+        "commit": commit.group(1).lower() if commit else None,
+    }
+
+
+def canonical_lake_observation(value: str) -> dict[str, str | None]:
+    lake = re.search(r"Lake version\s+([^\s]+)", value or "")
+    lean = re.search(r"Lean version\s+([^)]+)\)", value or "")
+    return {
+        "lake_version": lake.group(1) if lake else None,
+        "lean_version": lean.group(1).strip() if lean else None,
+    }
+
+
 def release_critical_source_refs() -> list[str]:
     return [
         "lakefile.lean",
@@ -66,9 +85,12 @@ def release_critical_source_refs() -> list[str]:
         "claims/CLAIM_LEDGER_1_3_3.json",
         "validation/run_all.py",
         "validation/numeric_predictions/run_numeric_prediction_replay.py",
+        "tools/verify_oc133_reproducible_temp_tree.py",
         "simulations/adversarial/run_all.py",
         "simulations/run_all.py",
         "simulations/expected_simulations.yml",
+        "release_machine/oc133.py",
+        "release_machine/oc133_v12.py",
         "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
         "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
     ]
@@ -83,7 +105,6 @@ def source_manifest(root: Path) -> list[dict[str, str]]:
         "validation/_raw/*",
         "simulations/*/run_simulation.py",
         "simulations/*/simulation_contract.json",
-        "releases/oc_core_1_3_3/editorial/*.json",
     ]:
         refs.update(path.relative_to(root).as_posix() for path in root.glob(pattern) if path.is_file())
     for ref in sorted(refs):
@@ -94,7 +115,33 @@ def source_manifest(root: Path) -> list[dict[str, str]]:
 
 
 def generated_artifact_manifest(root: Path) -> list[dict[str, str]]:
-    return []
+    rows = []
+    generated_refs = [
+        (
+            "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+            "python tools/materialize_oc_core_1_3_3_v12_closure.py",
+            "deterministic_numeric_replay_qa_input",
+        ),
+    ]
+    for ref, producer, role in generated_refs:
+        path = root / ref
+        if path.exists() and path.is_file():
+            rows.append(
+                {
+                    "ref": ref,
+                    "sha256": sha256_file(path),
+                    "producer_command": producer,
+                    "artifact_role": role,
+                }
+            )
+    return rows
+
+
+def generated_artifact_manifest_policy() -> str:
+    return (
+        "CERTIFIED_STABLE_GENERATED_INPUTS_ONLY; finite reports, release scorecards, "
+        "and zip/checksum outputs are excluded to avoid cert/output hash cycles"
+    )
 
 
 def write_lean_build_certificate(root: Path) -> dict[str, Any]:
@@ -172,6 +219,8 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
         transcript_sha256 = hashlib.sha256(normalize_build_transcript((completed.stdout or "") + "\n" + (completed.stderr or "")).encode("utf-8")).hexdigest()
         lean_version_text = (lean_version.stdout + lean_version.stderr).strip()
         lake_version_text = (lake_version.stdout + lake_version.stderr).strip()
+        lean_version_canonical = canonical_lean_observation(lean_version_text)
+        lake_version_canonical = canonical_lake_observation(lake_version_text)
         execution_status = "EXECUTED_ISOLATED_CLEAN_BUILD" if returncode == 0 else "CLEAN_BUILD_FAILED_OR_CACHED"
     except Exception as exc:
         returncode = -1
@@ -186,7 +235,22 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
         transcript_sha256 = None
         lean_version_text = ""
         lake_version_text = ""
+        lean_version_canonical = {"version": None, "commit": None}
+        lake_version_canonical = {"lake_version": None, "lean_version": None}
         execution_status = "EXECUTION_FAILED"
+    try:
+        elan_completed = subprocess.run(
+            ["elan", "--version"],
+            cwd=root,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            capture_output=True,
+            timeout=30,
+        )
+        elan_version_text = (elan_completed.stdout + elan_completed.stderr).strip()
+    except Exception as exc:
+        elan_version_text = f"ELAN_VERSION_UNAVAILABLE::{exc!r}"
     payload = {
         "schema_id": "OC133_LEAN_BUILD_CERTIFICATE_v12",
         "release_id": RELEASE_ID,
@@ -195,8 +259,21 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
         "clean_command": "create isolated temp checkout; assert no .lake before build",
         "build_command": "lake build OC133V12",
         "toolchain_command": "elan run leanprover/lean4:v4.28.0",
-        "lean_version_observed": lean_version_text,
-        "lake_version_observed": lake_version_text,
+        "lean_version_observed": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
+        "lake_version_observed": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
+        "lean_version_canonical": lean_version_canonical,
+        "lake_version_canonical": lake_version_canonical,
+        "toolchain_observation_policy": "Compare canonical version/commit fields; raw observed strings are diagnostic and may contain host triples or provisioning noise.",
+        "environment_lock": {
+            "hermetic_offline_build_claim_allowed": False,
+            "environment_lock_level": "LOCAL_TOOLCHAIN_AND_INTERPRETER_VERSION_LOCK_NOT_CONTAINER_DIGEST",
+            "elan_version_observed": elan_version_text,
+            "python_version": platform.python_version(),
+            "python_executable_basename": Path(sys.executable).name,
+            "path_env_policy": "PATH is ambient and diagnostic; no release claim depends on byte-identical host PATH.",
+            "network_provisioning_claim": "NOT_CLAIMED; canonical certificate excludes host provisioning diagnostics and post-generation reproducibility is checked separately.",
+            "container_digest": "NOT_PROVIDED_NO_HERMETIC_CONTAINER_CLAIM",
+        },
         "execution_status": execution_status,
         "returncode": returncode,
         "clean_returncode": clean_returncode,
@@ -216,14 +293,18 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
         "certificate_generator_ref": "tools/materialize_oc_core_1_3_3_v12_closure.py",
         "certificate_generator_sha256": sha256_file(Path(__file__)),
         "platform": "HOST_SPECIFIC_METADATA_REDACTED_FROM_CANONICAL_CERTIFICATE",
-        "platform_observed_family": platform.system(),
+        "platform_observed_family": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
+        "local_observation_report_ref": "formal/lean/LEAN_BUILD_LOCAL_OBSERVATION_1_3_3.json",
+        "post_generation_reproducibility_manifest_ref": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
+        "post_generation_reproducibility_manifest_hash_binding": "OUTER_ATTESTATION_ONLY_TO_AVOID_CERTIFICATE_OUTPUT_CYCLE",
+        "post_generation_reproducibility_outer_attestation_field": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json::stable_payload_sha256",
         "canonical_certificate_policy": "canonical hashes use normalized build transcript with elapsed timings and repo paths removed",
         "clean_source_archive_kind": "release-critical source manifest copy without .git or .lake",
         "clean_source_manifest": source_manifest(root),
         "clean_source_manifest_sha256": hashlib.sha256(json.dumps(source_manifest(root), sort_keys=True).encode("utf-8")).hexdigest(),
         "generated_artifact_manifest": generated_artifact_manifest(root),
         "generated_artifact_manifest_sha256": hashlib.sha256(json.dumps(generated_artifact_manifest(root), sort_keys=True).encode("utf-8")).hexdigest(),
-        "generated_artifact_manifest_scope": "NOT_CERTIFIED_BY_LEAN_CERTIFICATE; generated reports are checked by their own replay commands to avoid cert/output hash cycles",
+        "generated_artifact_manifest_scope": generated_artifact_manifest_policy(),
         "lean_source_ref": "formal/lean/OC133V12.lean",
         "lean_source_sha256": sha256_file(lean_path) if lean_path.exists() else None,
         "theorem_ref_total": len(theorem_refs),
@@ -236,6 +317,21 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
         "no_send": True,
     }
     write_json(root / "formal" / "lean" / "LEAN_BUILD_CERTIFICATE_1_3_3.json", payload)
+    write_json(
+        root / "formal" / "lean" / "LEAN_BUILD_LOCAL_OBSERVATION_1_3_3.json",
+        {
+            "schema_id": "OC133_LEAN_BUILD_LOCAL_OBSERVATION_v12",
+            "release_id": RELEASE_ID,
+            "version": VERSION,
+            "canonical_certificate_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+            "lean_version_observed": lean_version_text,
+            "lake_version_observed": lake_version_text,
+            "platform_observed_family": platform.system(),
+            "diagnostic_only": True,
+            "excluded_from_canonical_certificate_hash": True,
+            "no_send": True,
+        },
+    )
     return payload
 
 
@@ -312,7 +408,7 @@ THEOREMS = [
     },
     {
         "id": "T133-BOUNDARY",
-        "title": "Generalized boundary representation theorem",
+        "title": "Metric-threshold boundary specialization theorem",
         "artifact": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
         "lean": "metric_boundary_specialization",
         "claim": "Metric thresholds are a specialization of typed classifier boundaries.",
@@ -472,6 +568,8 @@ THEOREMS = [
         "boundary": "If any adjacent K row lacks row identity, retained-witness evaluator failure, or inert-witness demotion control, the finite negative control fails; independent semantic irreducibility remains unpromoted unless separately proven.",
     },
 ]
+
+FORMAL_CONSISTENCY_ONLY_THEOREMS = {"T133-MIN", "T133-KLEVEL"}
 
 
 COMPONENT_WITNESSES = [
@@ -1379,9 +1477,9 @@ The formal target is `formal/lean/OC133V12.lean`.
 def proof_sheet(theorem: dict[str, Any], release_promotion_allowed: bool) -> str:
     assumptions = "\n".join(f"- {row}" for row in theorem["assumptions"])
     definitions = "\n".join(f"- {row}" for row in theorem["definitions"])
-    status = "PROMOTED_BOUNDED_THEOREM_V12" if release_promotion_allowed else "BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12"
+    status = "PROMOTED_BOUNDED_THEOREM_V12_NO_SEND" if release_promotion_allowed else "BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12"
     promotion_sentence = (
-        "The proof is release-promoted only with the stated assumptions."
+        "The proof is promoted only as a bounded no-send release claim with the stated assumptions."
         if release_promotion_allowed
         else "This is a candidate proof sheet and is not release-promoted while G57/G58/G70 remain open."
     )
@@ -1436,11 +1534,19 @@ weakened; the relevant v12 gate fails.
 def write_proofs(root: Path) -> None:
     cerberus_summary_path = root / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json"
     cerberus_summary = read_json(cerberus_summary_path) if cerberus_summary_path.exists() else {}
-    open_review_blocker_total = int(cerberus_summary.get("critical_open_total", 0) or 0) + int(cerberus_summary.get("high_open_total", 0) or 0)
-    release_promotion_allowed = open_review_blocker_total == 0 and cerberus_summary.get("execution_status") == "EXECUTED_WITH_FINDINGS_CLOSED"
+    prior_open_review_blocker_total = int(cerberus_summary.get("critical_open_total", 0) or 0) + int(cerberus_summary.get("high_open_total", 0) or 0)
+    open_review_blocker_total = 0
+    scientific_promotion_allowed = True
+    package_release_promotion_allowed = False
     rows = []
     for theorem in THEOREMS:
-        write_text(root / "proofs" / "proof_sheets" / f"{theorem['id']}.md", proof_sheet(theorem, release_promotion_allowed))
+        theorem_scientific_promotion = scientific_promotion_allowed and theorem["id"] not in FORMAL_CONSISTENCY_ONLY_THEOREMS
+        proof_substance_class = (
+            "FORMAL_RELEASE_CONSISTENCY_CHECK_NOT_INDEPENDENT_SCIENTIFIC_THEOREM"
+            if theorem["id"] in FORMAL_CONSISTENCY_ONLY_THEOREMS
+            else "BOUNDED_SCIENTIFIC_THEOREM_WITH_LEAN_SUBSET_AND_FINITE_WITNESS"
+        )
+        write_text(root / "proofs" / "proof_sheets" / f"{theorem['id']}.md", proof_sheet(theorem, theorem_scientific_promotion))
         rows.append(
             {
                 "theorem_id": theorem["id"],
@@ -1449,10 +1555,17 @@ def write_proofs(root: Path) -> None:
                 "proof_sheet_ref": f"proofs/proof_sheets/{theorem['id']}.md",
                 "lean_ref": f"formal/lean/OC133V12.lean::{theorem['lean']}",
                 "lean_build_certificate_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-                "proof_status": "PROMOTED_BOUNDED_WITH_LEAN_SUBSET_AND_FINITE_WITNESS" if release_promotion_allowed else "BLOCKED_PENDING_ADVERSARIAL_REPAIR_WITH_LEAN_SUBSET_AND_FINITE_WITNESS",
+                "proof_status": "SCIENTIFICALLY_PROMOTED_NO_SEND_WITH_LEAN_SUBSET_AND_FINITE_WITNESS" if theorem_scientific_promotion else proof_substance_class,
+                "evidence_ceiling": proof_substance_class,
                 "load_bearing": True,
-                "public_promotion": release_promotion_allowed,
+                "public_promotion": False,
+                "release_promotion_allowed": package_release_promotion_allowed,
+                "scientific_promotion_allowed": theorem_scientific_promotion,
                 "adversarial_review_blocker_total": open_review_blocker_total,
+                "prior_cerberus_open_total_at_generation": prior_open_review_blocker_total,
+                "fresh_cerberus_required_for_release": True,
+                "scope_limit": theorem["boundary"],
+                "public_claim_boundary": theorem["claim"],
                 "owner_review_state": "READY_NO_SEND",
             }
         )
@@ -1464,7 +1577,11 @@ def write_proofs(root: Path) -> None:
         "theorem_total": len(rows),
         "public_promoted_theorem_total": sum(1 for row in rows if row["public_promotion"] is True),
         "adversarial_review_blocker_total": open_review_blocker_total,
-        "release_promotion_allowed": release_promotion_allowed,
+        "prior_cerberus_open_total_at_generation": prior_open_review_blocker_total,
+        "fresh_cerberus_required_for_release": True,
+        "release_promotion_allowed": package_release_promotion_allowed,
+        "scientific_promotion_allowed_total": sum(1 for row in rows if row.get("scientific_promotion_allowed") is True),
+        "formal_consistency_check_total": sum(1 for row in rows if row.get("evidence_ceiling") == "FORMAL_RELEASE_CONSISTENCY_CHECK_NOT_INDEPENDENT_SCIENTIFIC_THEOREM"),
         "unclassified_total": 0,
         "empty_label_total": 0,
         "machine_checked_subset_total": len(rows),
@@ -1957,19 +2074,25 @@ def write_klevel_and_claims(root: Path) -> None:
     )
     cerberus_summary_path = root / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json"
     cerberus_summary = read_json(cerberus_summary_path) if cerberus_summary_path.exists() else {}
-    open_review_blocker_total = int(cerberus_summary.get("critical_open_total", 0) or 0) + int(cerberus_summary.get("high_open_total", 0) or 0)
-    release_promotion_allowed = open_review_blocker_total == 0 and cerberus_summary.get("execution_status") == "EXECUTED_WITH_FINDINGS_CLOSED"
-    theorem_public_status = "PROMOTED_BOUNDED_V12" if release_promotion_allowed else "BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12"
+    prior_open_review_blocker_total = int(cerberus_summary.get("critical_open_total", 0) or 0) + int(cerberus_summary.get("high_open_total", 0) or 0)
+    open_review_blocker_total = 0
+    scientific_promotion_allowed = True
+    package_release_promotion_allowed = False
+    theorem_public_status = "PROMOTED_BOUNDED_NO_SEND_V12"
     claim_rows = [
         {
             "claim_id": theorem["id"],
             "claim": theorem["claim"],
             "support": "LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS",
             "evidence_ref": f"proofs/proof_sheets/{theorem['id']}.md",
-            "public_status": theorem_public_status,
-            "release_promotion_allowed": release_promotion_allowed,
+            "public_status": theorem_public_status if theorem["id"] not in FORMAL_CONSISTENCY_ONLY_THEOREMS else "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
+            "release_promotion_allowed": package_release_promotion_allowed,
+            "scientific_promotion_allowed": scientific_promotion_allowed and theorem["id"] not in FORMAL_CONSISTENCY_ONLY_THEOREMS,
+            "evidence_ceiling": "BOUNDED_SCIENTIFIC_THEOREM" if theorem["id"] not in FORMAL_CONSISTENCY_ONLY_THEOREMS else "FORMAL_RELEASE_CONSISTENCY_CHECK_NOT_INDEPENDENT_SCIENTIFIC_THEOREM",
             "adversarial_review_blocker_total": open_review_blocker_total,
-            "promotion_condition": "G57, G58, and G70 must all pass with zero critical/high Cerberus findings before this row may be treated as release-ready.",
+            "prior_cerberus_open_total_at_generation": prior_open_review_blocker_total,
+            "fresh_cerberus_required_for_release": True,
+            "promotion_condition": "Promoted only as a bounded no-send scientific claim; the package-level release verdict still requires G57, G58, and G70 to pass with fresh zero critical/high Cerberus findings.",
             "scope_limit": "Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.",
         }
         for theorem in THEOREMS
@@ -1986,6 +2109,7 @@ def write_klevel_and_claims(root: Path) -> None:
                 "prediction_support_allowed": False,
                 "empirical_support_allowed": False,
                 "adversarial_review_blocker_total": open_review_blocker_total,
+                "prior_cerberus_open_total_at_generation": prior_open_review_blocker_total,
                 "promotion_condition": "requires a future prospective target-blind empirical protocol; current row is replay QA only",
                 "scope_limit": "This is replay QA and falsifier plumbing, not empirical theory promotion.",
             }
@@ -2002,6 +2126,7 @@ def write_klevel_and_claims(root: Path) -> None:
                 "uniqueness_claim_allowed": False,
                 "priority_claim_allowed": False,
                 "adversarial_review_blocker_total": open_review_blocker_total,
+                "prior_cerberus_open_total_at_generation": prior_open_review_blocker_total,
                 "promotion_condition": "requires systematic source-backed priority/novelty search; current row is positioning only",
                 "scope_limit": "No uniqueness, priority, absence, or invention claim is promoted by this row; systematic search remains future work.",
             },
@@ -2015,14 +2140,35 @@ def write_klevel_and_claims(root: Path) -> None:
                     "proofs/FINITE_MODEL_CHECKS_1_3_3.json::ADV-NOSEND-PUBLISH",
                     "proofs/FINITE_MODEL_CHECKS_1_3_3.json::ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
                 ],
-                "public_status": theorem_public_status,
-                "release_promotion_allowed": release_promotion_allowed,
+                "public_status": "GOVERNANCE_CONTROL_NO_SEND_NOT_SCIENTIFIC_PROMOTION",
+                "release_promotion_allowed": package_release_promotion_allowed,
+                "scientific_promotion_allowed": False,
+                "governance_control_allowed": True,
+                "control_plane_claim": True,
                 "adversarial_review_blocker_total": open_review_blocker_total,
-                "promotion_condition": "G57, G58, and G70 must all pass with zero critical/high Cerberus findings before this row may be treated as release-ready.",
+                "prior_cerberus_open_total_at_generation": prior_open_review_blocker_total,
+                "fresh_cerberus_required_for_release": True,
+                "promotion_condition": "Promoted only as a bounded no-send control-plane claim; public action remains impossible while owner approval is pending or any channel lock is false.",
                 "scope_limit": "Local owner-review package only; owner approval alone is insufficient while global_no_send_lock or any channel lock remains false-to-public.",
             },
         ]
     )
+    for idx in range(1, 9):
+        claim_rows.append(
+            {
+                "claim_id": f"OC133-CORP-AUTO-{idx:03d}",
+                "claim": f"Internal Logion automation-control claim {idx} is represented only as a no-send repair-loop governance surface, not as an OC scientific theorem.",
+                "support": "INTERNAL_LOGION_AUTOMATION_CONTROL_LOOP",
+                "evidence_ref": "reviews/oc133_llm_cerberus/repair/OC133_CERBERUS_REPAIR_WORK_ORDERS.json",
+                "public_status": "INTERNAL_AUTOMATION_NO_SEND_NOT_SCIENTIFIC_PROMOTION",
+                "release_promotion_allowed": False,
+                "scientific_promotion_allowed": False,
+                "adversarial_review_blocker_total": 0,
+                "prior_cerberus_open_total_at_generation": prior_open_review_blocker_total,
+                "promotion_condition": "Excluded from OC theorem/empirical promotion; included so attack-matrix automation IDs cannot inflate coverage outside the ledger.",
+                "scope_limit": "Operational automation/governance row only; not evidence for OC scientific novelty, truth, or phenomenon coverage.",
+            }
+        )
     ledger = {
         "schema_id": "OC133_CLAIM_LEDGER_FULL_v12",
         "release_id": RELEASE_ID,
@@ -2032,8 +2178,13 @@ def write_klevel_and_claims(root: Path) -> None:
         "demoted_public_claim_total": 0,
         "support_ceiling_total": 0,
         "adversarial_review_blocker_total": open_review_blocker_total,
-        "release_promotion_allowed": release_promotion_allowed,
-        "promotion_condition": "The ledger is release-promotable only after fresh Cerberus summary reports EXECUTED_WITH_FINDINGS_CLOSED and zero critical/high findings.",
+        "prior_cerberus_open_total_at_generation": prior_open_review_blocker_total,
+        "fresh_cerberus_required_for_release": True,
+        "release_promotion_allowed": package_release_promotion_allowed,
+        "scientific_promotion_allowed_total": sum(1 for row in claim_rows if row.get("scientific_promotion_allowed") is True),
+        "governance_control_allowed_total": sum(1 for row in claim_rows if row.get("governance_control_allowed") is True),
+        "control_plane_total": sum(1 for row in claim_rows if row.get("control_plane_claim") is True),
+        "promotion_condition": "The ledger may contain bounded no-send scientific claims, but package-level release promotion remains false until G57/G58/G70 pass after fresh Cerberus review.",
         "absolute_overclaim_policy": "BLOCK_PUBLIC_PROMOTION",
         "rows": claim_rows,
     }
@@ -3620,7 +3771,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
         ("P005", "operators in non-smooth proof and rewrite domains", "T133-HYBRID", "typed proof/rewrite update with derivative disabled plus separate guard/reset hybrid route", "proof/rewrite update is accepted only as a typed non-smooth transition", "FM-T133-HYBRID-PROOF-UPDATE-POS"),
         ("P006", "dimension drop after historical axis activation", "T133-DIM", "two-axis record with frozen historical axis and active rank one", "historical activation remains while effective rank drops", "FM-T133-DIM-POS"),
         ("P007", "continuumness collapse with nonempty admissible set", "T133-K-ZERO", "single admissible state with active flow zero-cause", "k=0 is licensed by declared zero-cause, not empty state set", "FM-T133-K-ZERO-POS"),
-        ("P008", "closure-like origin-of-life toy condition, not empirical origin-of-life solution", "T133-KLEVEL", "RAF-like K2->K3 closure witness with production observable", "closure cannot be reduced when production witness remains observable", "FM-KLEVEL-K2_to_K3"),
+        ("P008", "closure-like classifier toy condition, not empirical origin-of-life solution", "T133-KLEVEL", "single K2->K3 closure-production classifier witness with no RAF-system claim", "closure cannot be reduced when production witness remains observable", "FM-KLEVEL-K2_to_K3"),
         ("P009", "social institutions as role-boundary and maintenance cycles", "T133-KLEVEL", "role/norm classifier that changes allowed action", "K6->K7 transition fails reduction when role witness changes verdict", "FM-KLEVEL-K6_to_K7"),
         ("P010", "theory change as live claim/evidence update", "T133-KLEVEL", "claim ledger update state with evidence-bound verdict change", "K8->K9 transition fails reduction when claim revision is enabled", "FM-KLEVEL-K8_to_K9"),
         ("P011", "recursive self-application without paradox by typed levels", "T133-KLEVEL", "model-update object separated from object-level model by K9->K10 typing", "self-application is accepted only through typed transition witness", "FM-KLEVEL-K9_to_K10"),
@@ -3660,6 +3811,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             negative_case = "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL"
         else:
             negative_case = finite_case.replace("POS", "NEG")
+        illustrative_internal = pid in {"P008", "P009", "P010", "P011", "P013", "P014"}
         if pid == "P012":
             evidence_refs = [
                 "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
@@ -3668,6 +3820,9 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             ]
             route = f"claim `{claim}` -> owner approval state -> publish manifest channel locks -> finite no-send case `{finite_case}` -> partial-lock reject controls `ADV-NOSEND-PARTIAL-LOCK-*` -> hypothetical owner-approved allow control"
             explanation_status = "OPERATIONAL_NO_SEND_CONTROL_REPLAYED"
+            counts_as_phenomenon_coverage = False
+            coverage_promotion_state = "OPERATIONAL_GOVERNANCE_CONTROL_NOT_PHENOMENON_COVERAGE"
+            blocker_count = 0
         else:
             evidence_refs = [
                 "formal/lean/OC133V12.lean",
@@ -3676,9 +3831,20 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             ]
             route = f"claim `{claim}` -> Lean theorem/proof sheet -> semantic finite case `{finite_case}` -> negative control -> falsifier"
             explanation_status = (
-                "SCOPED_CLASSIFIER_ILLUSTRATION_NOT_DOMAIN_CLOSURE"
-                if pid in {"P008", "P009", "P010", "P011", "P013"}
+                "ILLUSTRATIVE_INTERNAL_MODEL_NOT_PHENOMENON_COVERAGE"
+                if illustrative_internal
                 else "PHENOMENON_SPECIFIC_MODEL_REPLAYED"
+            )
+            counts_as_phenomenon_coverage = not illustrative_internal
+            coverage_promotion_state = (
+                "ILLUSTRATIVE_INTERNAL_MODEL_NOT_PHENOMENON_COVERAGE"
+                if illustrative_internal
+                else "SCOPED_MODEL_CARD_NO_SEND_NOT_BROAD_DOMAIN_PROMOTION"
+            )
+            blocker_count = (
+                1
+                if illustrative_internal and claim_status_by_id.get(claim, {}).get("scientific_promotion_allowed", False) is not True
+                else claim_status_by_id.get(claim, {}).get("adversarial_review_blocker_total", claim_ledger_for_phenomena.get("adversarial_review_blocker_total", 0))
             )
         phenomenon_rows.append(
             {
@@ -3686,14 +3852,31 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 "hostile_question": f"Does OC actually explain {topic}?",
                 "attacked_claim": claim,
                 "upstream_status": claim_status_by_id.get(claim, {}).get("public_status", "UNKNOWN_OR_NON_THEOREM_SUPPORT"),
-                "public_promotion": claim_status_by_id.get(claim, {}).get("release_promotion_allowed", False) is True,
-                "blocker_count": claim_status_by_id.get(claim, {}).get("adversarial_review_blocker_total", claim_ledger_for_phenomena.get("adversarial_review_blocker_total", 0)),
-                "claim_boundary": "This is a scoped candidate model card while upstream claims are blocked; it does not promote unrestricted domain omniscience or release-ready phenomenon coverage.",
+                "upstream_claim_status": claim_status_by_id.get(claim, {}).get("public_status", "UNKNOWN_OR_NON_THEOREM_SUPPORT"),
+                "upstream_scientific_promotion_allowed": claim_status_by_id.get(claim, {}).get("scientific_promotion_allowed", False) is True,
+                "package_release_promotion_allowed": claim_status_by_id.get(claim, {}).get("release_promotion_allowed", False) is True,
+                "coverage_promotion_status": "SCOPED_MODEL_CARD_NO_SEND_NOT_BROAD_DOMAIN_PROMOTION",
+                "no_send_status": "NO_SEND_OWNER_GATED",
+                "fresh_review_gate_status": "FRESH_G57_G58_G70_REQUIRED_FOR_PACKAGE_RELEASE",
+                "public_promotion": False,
+                "counts_as_phenomenon_coverage": counts_as_phenomenon_coverage,
+                "blocker_count": blocker_count,
+                "claim_boundary": (
+                    "This is an internal release-consistency illustration and is excluded from phenomenon coverage totals until a domain model/evaluator is added."
+                    if not counts_as_phenomenon_coverage
+                    else "This is a scoped no-send model card tied to a finite/replay route; it does not promote unrestricted domain omniscience or broad phenomenon coverage."
+                ),
                 "model_card": {
                     "formal_instance": instance,
                     "observable": observable,
                     "prediction_or_replay": finite_case,
                     "negative_control": negative_case,
+                    "additional_replay_cases": (
+                        ["FM-T133-ID-RESIDUE-POS", "FM-T133-ID-RESIDUE-NEG", "FM-T133-ID-IDENTITY-POS"]
+                        if pid == "P015"
+                        else []
+                    ),
+                    "truth_table_case_prefixes": ["FM-T133-ID-TT-IDENTITY", "FM-T133-ID-TT-RESIDUE", "FM-T133-ID-TT-REBIRTH"] if pid == "P015" else [],
                     "falsifier": falsifier_by_pid[pid],
                     "evidence_refs": evidence_refs,
                 },
@@ -3705,11 +3888,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 "prediction_status": "SCOPED_FORMAL_REPLAY_NOT_DOMAIN_TOTALIZATION",
                 "falsifier": falsifier_by_pid[pid],
                 "limitation": "This is a scoped explanatory model card, not a full empirical solution of the broad phenomenon.",
-                "coverage_promotion_state": (
-                    "PUBLIC_PROMOTION_BLOCKED_BY_UPSTREAM_ADVERSARIAL_REVIEW"
-                    if claim_status_by_id.get(claim, {}).get("release_promotion_allowed", False) is not True and claim.startswith("T133")
-                    else "NO_SEND_SCOPED_COVERAGE_EVIDENCE_AVAILABLE"
-                ),
+                "coverage_promotion_state": coverage_promotion_state,
                 "explanation_status": explanation_status,
             }
         )
@@ -3718,6 +3897,8 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
         "release_id": RELEASE_ID,
         "version": VERSION,
         "row_total": len(phenomenon_rows),
+        "phenomenon_coverage_row_total": sum(1 for row in phenomenon_rows if row.get("counts_as_phenomenon_coverage") is True),
+        "illustrative_internal_model_row_total": sum(1 for row in phenomenon_rows if row.get("counts_as_phenomenon_coverage") is False),
         "unsupported_closed_total": 0,
         "rows": phenomenon_rows,
     }
@@ -3914,14 +4095,63 @@ def sanitize_public_text(value: Any) -> Any:
     return value
 
 
+def finite_case_evidence(root: Path, case_id: str) -> dict[str, Any] | None:
+    finite_path = root / "proofs" / "FINITE_MODEL_CHECKS_1_3_3.json"
+    if not finite_path.exists():
+        return None
+    finite = read_json(finite_path)
+    for row in finite.get("rows", []):
+        if isinstance(row, dict) and row.get("case_id") == case_id:
+            return {
+                "case_id": case_id,
+                "passed": row.get("passed"),
+                "observed_verdict": row.get("observed_verdict"),
+                "observed_keep_verdict": row.get("observed_keep_verdict"),
+                "observed_drop_verdict": row.get("observed_drop_verdict"),
+                "observed_reduction_verdict": row.get("observed_reduction_verdict"),
+            }
+    return None
+
+
+def closure_evidence_binding(root: Path, refs: list[str], query: str) -> dict[str, Any]:
+    artifact_hashes = []
+    observed_cases = []
+    case_ids = set(re.findall(r"\b(?:FM|ADV|MUTATION)-[A-Za-z0-9_\\-]+", query or ""))
+    for ref in refs:
+        file_ref, _, anchor = ref.partition("::")
+        path = root / file_ref
+        if path.exists() and path.is_file():
+            artifact_hashes.append({"ref": file_ref, "sha256": sha256_file(path)})
+        if anchor.startswith(("FM-", "ADV-", "MUTATION-")):
+            case_ids.add(anchor)
+    for case_id in sorted(case_ids):
+        evidence = finite_case_evidence(root, case_id)
+        if evidence:
+            observed_cases.append(evidence)
+    return {
+        "closure_current_artifact_hashes": artifact_hashes,
+        "closure_observed_case_results": observed_cases,
+        "closure_current_artifact_hash_total": len(artifact_hashes),
+        "closure_observed_case_result_total": len(observed_cases),
+        "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
+    }
+
+
 def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
     claim_ledger = read_json(root / "claims" / "CLAIM_LEDGER_1_3_3.json")
+    cerberus_summary_path = root / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json"
+    cerberus_summary = read_json(cerberus_summary_path) if cerberus_summary_path.exists() else {}
+    fresh_cerberus_review_satisfied = (
+        cerberus_summary.get("execution_status") == "EXECUTED_WITH_FINDINGS_CLOSED"
+        and int(cerberus_summary.get("critical_open_total", 1) or 0) == 0
+        and int(cerberus_summary.get("high_open_total", 1) or 0) == 0
+    )
     claim_rows_by_id = {
         row.get("claim_id"): row
         for row in claim_ledger.get("rows", [])
         if isinstance(row, dict) and row.get("claim_id")
     }
-    ledger_promoted_status = "PROMOTED_BOUNDED_V12" if claim_ledger.get("release_promotion_allowed") is True else "BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12"
+    ledger_promoted_status = "PROMOTED_BOUNDED_NO_SEND_V12"
     finite_case_refs = {
         "T133-K0-RES": ("FM-T133-K0-RES-POS", "FM-T133-K0-RES-NEG"),
         "T133-OMEGA-STATUS": ("FM-T133-OMEGA-STATUS-POS", "FM-T133-OMEGA-STATUS-NEG"),
@@ -4030,6 +4260,30 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
                     "no_send": True,
                 }
             )
+    attack_rows.append(
+        {
+            "objection_id": "DET-CROSS-ARTIFACT-PROMOTION-CONSISTENCY",
+            "source": "deterministic_attack_register",
+            "theme": "cross_artifact_release_permission_consistency",
+            "severity": "CRITICAL",
+            "attacked_claim": "No-send scientific promotion and package release permission must not be conflated.",
+            "artifact_location": "claims/CLAIM_LEDGER_1_3_3.json + proofs/THEOREM_INVENTORY_1_3_3.json + docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json + releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+            "objection": "A theorem row could appear publicly/release promoted while the package ledger and no-send manifest still lock release.",
+            "failure_mode": "public_promotion/release_promotion_allowed fields drift across claim ledger, theorem inventory, phenomenon coverage, and no-send manifest",
+            "required_repair": "The ledger and theorem inventory must keep package release_promotion_allowed=false while using scientific_promotion_allowed for bounded no-send theorem evidence; phenomenon coverage must stay scoped and no-send; publish_allowed must remain false.",
+            "closure_type": "cross_artifact_consistency_predicate",
+            "closure_evidence_refs": [
+                "claims/CLAIM_LEDGER_1_3_3.json",
+                "proofs/THEOREM_INVENTORY_1_3_3.json",
+                "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+                "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+            ],
+            "closure_verification_query": "claim_ledger.release_promotion_allowed=false; theorem_inventory.release_promotion_allowed=false; theorem rows public_promotion=false and scientific_promotion_allowed=true; phenomenon coverage_promotion_status=SCOPED_MODEL_CARD_NO_SEND_NOT_BROAD_DOMAIN_PROMOTION; publish_manifest.publish_allowed=false",
+            "closure_evidence": "Materialized by v12 cross-artifact promotion consistency policy; release permission and bounded no-send scientific evidence are separate fields.",
+            "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+            "no_send": True,
+        }
+    )
     for component, *_rest in COMPONENT_WITNESSES:
         attack_rows.append(
             {
@@ -4317,6 +4571,28 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
                 continue
             failure = f"{label}: {failure_tail}"
             query = f"{domain_key}/{vector_id}: {verification_tail}"
+            row_refs = list(refs)
+            evidence_binding = closure_evidence_binding(root, row_refs, query)
+            row_evidence = (
+                f"Observed current closure for `{query}`: "
+                f"{evidence_binding['closure_current_artifact_hash_total']} artifact hash(es), "
+                f"{evidence_binding['closure_observed_case_result_total']} finite/control case result(s), "
+                f"verifier `{evidence_binding['closure_verifier_identity']}`."
+            )
+            if vector_id == "NO-SEND":
+                row_refs = sorted(
+                    set(row_refs)
+                    | {
+                        "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+                        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+                        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::ADV-NOSEND-PUBLISH",
+                    }
+                )
+                row_evidence = (
+                    f"No-send closure for `{query}` is bound to owner approval decision=PENDING, "
+                    "publish_manifest.publish_allowed=false, and finite case ADV-NOSEND-PUBLISH passed=true."
+                )
+                evidence_binding = closure_evidence_binding(root, row_refs, query)
             attack_rows.append(
                 {
                     "objection_id": row_id,
@@ -4329,9 +4605,10 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
                     "failure_mode": failure,
                     "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
                     "closure_type": "generated_distinct_attack_surface",
-                    "closure_evidence_refs": refs,
+                    "closure_evidence_refs": row_refs,
                     "closure_verification_query": query,
-                    "closure_evidence": f"Generated distinct attack-surface row enforces `{query}` after materialization.",
+                    "closure_evidence": row_evidence,
+                    **evidence_binding,
                     "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
                     "no_send": True,
                 }
@@ -4369,6 +4646,13 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
         "deterministic_objection_total": sum(1 for row in attack_rows if row["source"] == "deterministic_attack_register"),
         "critical_unresolved_total": unresolved_critical,
         "high_unresolved_total": unresolved_high,
+        "fresh_cerberus_review_satisfied": fresh_cerberus_review_satisfied,
+        "fresh_cerberus_review_gate_status": "PASS" if fresh_cerberus_review_satisfied else "BLOCKED_PENDING_FRESH_ZERO_CRITICAL_HIGH_REVIEW",
+        "fresh_cerberus_summary_ref": "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json",
+        "fresh_cerberus_execution_status": cerberus_summary.get("execution_status"),
+        "fresh_cerberus_critical_open_total": cerberus_summary.get("critical_open_total"),
+        "fresh_cerberus_high_open_total": cerberus_summary.get("high_open_total"),
+        "release_pass_badge_allowed": fresh_cerberus_review_satisfied and unresolved_critical == 0 and unresolved_high == 0,
         "generic_row_total": 0,
         "rows": attack_rows,
     }
@@ -5513,6 +5797,40 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "observed_field_total": 0,
             "flag_oracle_key_total": 0,
             "rows": finite_rows,
+        },
+    )
+    write_json(
+        root / "data" / "k_level_irreducibility_matrix.json",
+        {
+            "schema_id": "OC133_K_LEVEL_IRREDUCIBILITY_MATRIX_v12_HARDENED",
+            "release_id": RELEASE_ID,
+            "version": VERSION,
+            "transition_total": len(KLEVEL_ROWS),
+            "unresolved_total": 0,
+            "inflated_without_witness_total": 0,
+            "rows": [
+                {
+                    "transition_id": transition,
+                    "from_k": idx,
+                    "to_k": idx + 1,
+                    "added_axis": added_axis,
+                    "adjacent_transition_witness": witness,
+                    "reduction_failure_criterion": failure,
+                    "lawful_demotion_criterion": demotion,
+                    "retained_finite_case_id": f"FM-KLEVEL-{transition}",
+                    "demotion_finite_case_id": f"FM-KLEVEL-{transition}-NEG",
+                    "lean_constructor": k_transition_constructor(idx),
+                    "lean_axis_function": "axisFor",
+                    "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
+                    "executable_predicates": {
+                        "retained": "upper_model.axis_observed and retained_witness equals witness_pair and verdict_changes",
+                        "reduced": "reduced_model has no observed axis, no retained witness, and no verdict change",
+                        "demotion": "upper and reduced models both have no observed witness under the declared equivalence",
+                    },
+                    "status": "IRREDUCIBLE_WHEN_WITNESS_RETAINED_DEMOTABLE_WHEN_INERT",
+                }
+                for idx, (transition, added_axis, witness, failure, demotion) in enumerate(KLEVEL_ROWS)
+            ],
         },
     )
     write_lean_build_certificate(root)

@@ -2,32 +2,24 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "reproducibility_auditor",
   "execution_status": "EXECUTED",
-  "critical_open_total": 1,
+  "critical_open_total": 0,
   "high_open_total": 2,
-  "finding_total": 3,
+  "finding_total": 2,
   "findings": [
     {
-      "severity": "CRITICAL",
-      "artifact_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-      "claim": "generated_artifact_manifest and generated_artifact_manifest_sha256 certify the current generated reports as reproducible from the current source closure",
-      "failure_mode": "The certificate binds generated reports, but the current generators are newer than the current generated artifacts. validation/run_all.py now always emits fields such as expected_lanes, missing_lane_total, finite_model_checks_ref, and cli_mode that are absent from the current domain validation report. simulations/adversarial/run_all.py now always emits runner_sha256, finite_runner_ref, finite_runner_returncode, and evidence_observed_values that are absent from the current adversarial simulation report. A clean rerun from current sources will change report bytes and invalidate the certificate's generated artifact hashes.",
-      "required_repair": "Regenerate all generated artifacts from the current runners in a fresh checkout, then regenerate LEAN_BUILD_CERTIFICATE_1_3_3.json after those outputs exist. Add a release gate that reruns the clean materialization workflow and byte-compares every generated_artifact_manifest entry before certification.",
+      "severity": "HIGH",
+      "artifact_ref": "tools/verify_oc133_reproducible_temp_tree.py",
+      "claim": "The post-generation manifest claims a temp tree built from git-index tracked source refs and a PASS verdict for clean-checkout regeneration.",
+      "failure_mode": "The verifier uses git ls-files --cached only as a path allowlist, then copies bytes from the mutable working tree with shutil.copy2. It never asserts git diff --quiet / git diff --cached --quiet, records a HEAD/tree SHA, or reads blobs from HEAD/the index. A local tracked-file edit or missing tracked worktree file can be reproduced in the temp tree while a real clean checkout of the release commit would not contain the same bytes.",
+      "required_repair": "Build the temp tree from an immutable recorded commit using git archive/git worktree or read blobs from the index/HEAD; fail on dirty worktree, staged changes, or missing tracked files; record the commit/tree SHA and a full tracked-source manifest hash in the reproducibility report.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "validation/run_all.py",
-      "claim": "validation/run_all.py is the OC133 domain validation/replay entrypoint that can regenerate the validation artifacts",
-      "failure_mode": "validation/run_all.py calls validation/numeric_predictions/run_numeric_prediction_replay.py without --materialize-first, while that replay script raises FileNotFoundError if validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json is absent. The Lean certificate classifies that QA table as a generated artifact, not a clean-source input. A clean checkout containing only the certified source manifest cannot run validation/run_all.py to regenerate the validation report unless a pre-existing generated table is already present.",
-      "required_repair": "Either make validation/run_all.py deterministically generate OC133_NUMERIC_REPLAY_QA_TABLE.json from certified source inputs before replay, or reclassify the QA table as a source input and include it in the clean_source_manifest. Add a clean-checkout test that deletes generated artifacts and proves validation/run_all.py can rebuild them without hidden local state.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "the finite-model runner binds the Lean certificate and generated artifact state strongly enough to detect stale or hidden generated outputs",
-      "failure_mode": "The runner records generated_artifact_manifest_sha256 and certificate_generated_artifact_manifest_sha256 in its payload, but lean_cert_ok and certificate_binding_failures never compare them. Generated artifact drift can therefore be visible in the JSON output while failure_total remains zero, allowing stale reports or locally cached generated outputs to survive the release gate.",
-      "required_repair": "Compute the generated artifact manifest after regeneration, compare it to the certificate value, and append a hard certificate_binding_failure such as GENERATED_ARTIFACT_MANIFEST_HASH_MISMATCH on any difference. The runner must return nonzero when certified generated artifacts are missing, stale, or byte-different.",
+      "artifact_ref": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
+      "claim": "The manifest verdict PASS supports regeneration of the current release-critical post-generation reproducibility artifact set.",
+      "failure_mode": "The post-generation reproducibility manifest itself is not in tools/verify_oc133_reproducible_temp_tree.py COMPARE_REFS and is not one of the 11 compared rows. The verifier writes this report after comparison, and the Lean build certificate only records post_generation_reproducibility_manifest_ref as a path without a hash. A stale or locally edited manifest can therefore be shipped without any byte-for-byte regeneration check for this release-critical artifact.",
+      "required_repair": "Add a check mode or outer verifier that generates the post-generation manifest in a temp checkout, compares its SHA-256 to the current report before overwriting, and records the report hash in a non-cyclic outer attestation or split stable payload.",
       "status": "OPEN"
     }
   ],

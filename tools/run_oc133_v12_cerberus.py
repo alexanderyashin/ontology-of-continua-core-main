@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RESULT_DIR = ROOT / "reviews" / "oc133_llm_cerberus" / "results"
 PROMPT_DIR = ROOT / "reviews" / "oc133_llm_cerberus" / "prompts_v12"
 LAST_DIR = ROOT / "reviews" / "oc133_llm_cerberus" / "raw_v12"
+CONTEXT_DIR = ROOT / "reviews" / "oc133_llm_cerberus" / "context_v12"
 
 ROLES = [
     "formal_mathematician",
@@ -112,6 +113,8 @@ ROLE_CONTEXT_REFS = {
         "lakefile.lean",
         "lean-toolchain",
         "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+        "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
+        "tools/verify_oc133_reproducible_temp_tree.py",
         "proofs/finite_model_checks/run_finite_model_checks.py",
         "validation/run_all.py",
         "simulations/run_all.py",
@@ -199,7 +202,7 @@ def normalize(role: str, payload: dict[str, Any], output_path: Path) -> dict[str
 
 
 def prompt_for(role: str) -> str:
-    refs = "\n".join(f"- `{path}`" for path in ROLE_CONTEXT_REFS.get(role, CONTEXT_REFS))
+    refs = "\n".join(f"- `{path}`" for path in role_context_refs(role))
     focus = ROLE_FOCUS.get(role, "Attack unsupported critical/high release claims.")
     return f"""You are the OC Core 1.3.3 v12 adversarial reviewer role `{role}`.
 
@@ -344,6 +347,62 @@ def selected_roles(raw_roles: str) -> list[str]:
     if unknown:
         raise SystemExit(f"Unknown Cerberus roles: {', '.join(unknown)}")
     return requested
+
+
+def fresh_context_ref(role: str, ref: str) -> str:
+    if ref != "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json":
+        return ref
+    source_path = ROOT / ref
+    if not source_path.exists():
+        return ref
+    payload = json.loads(source_path.read_text(encoding="utf-8"))
+    rows = payload.get("rows", [])
+    deterministic_rows = [row for row in rows if row.get("source") != "llm_cerberus"]
+    excluded_rows = [row for row in rows if row.get("source") == "llm_cerberus"]
+    view = dict(payload)
+    view["fresh_cerberus_context_view"] = True
+    view["source_attack_matrix_ref"] = ref
+    view["excluded_prior_llm_cerberus_row_total"] = len(excluded_rows)
+    view["fresh_context_policy"] = (
+        "Prior LLM-derived rows are excluded from this reviewer context so a fresh role rerun "
+        "does not self-repeat stale open findings. The reviewer must inspect underlying current "
+        "artifacts and report only defects still present now."
+    )
+    view["rows"] = deterministic_rows
+    deterministic_critical = sum(
+        1 for row in deterministic_rows
+        if row.get("severity") == "CRITICAL" and row.get("status") != "CLOSED_BY_SPECIFIC_V12_EVIDENCE"
+    )
+    deterministic_high = sum(
+        1 for row in deterministic_rows
+        if row.get("severity") == "HIGH" and row.get("status") != "CLOSED_BY_SPECIFIC_V12_EVIDENCE"
+    )
+    view["deterministic_context_critical_unresolved_total"] = deterministic_critical
+    view["deterministic_context_high_unresolved_total"] = deterministic_high
+    view["critical_unresolved_total"] = None
+    view["high_unresolved_total"] = None
+    view["release_closure_claim_asserted"] = False
+    view["fresh_context_counter_policy"] = (
+        "This role-specific context is intentionally not a release-closure matrix. "
+        "critical_unresolved_total/high_unresolved_total are null until the fresh role result is integrated; "
+        "only deterministic_context_* counters describe the filtered context view."
+    )
+    view["objection_total"] = len(deterministic_rows)
+    view["cerberus_sourced_objection_total"] = 0
+    view["fresh_cerberus_review_satisfied"] = "PENDING_THIS_ROLE_RERUN_NOT_ASSERTED_IN_CONTEXT_VIEW"
+    view["fresh_cerberus_review_gate_status"] = "PENDING_THIS_ROLE_RERUN"
+    view["fresh_cerberus_execution_status"] = "EXCLUDED_FROM_FRESH_CONTEXT_VIEW"
+    view["fresh_cerberus_critical_open_total"] = "EXCLUDED_FROM_FRESH_CONTEXT_VIEW"
+    view["fresh_cerberus_high_open_total"] = "EXCLUDED_FROM_FRESH_CONTEXT_VIEW"
+    view["release_pass_badge_allowed"] = False
+    view_path = CONTEXT_DIR / role / ref
+    view_path.parent.mkdir(parents=True, exist_ok=True)
+    view_path.write_text(json.dumps(view, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return view_path.resolve().relative_to(ROOT.resolve()).as_posix()
+
+
+def role_context_refs(role: str) -> list[str]:
+    return [fresh_context_ref(role, ref) for ref in ROLE_CONTEXT_REFS.get(role, CONTEXT_REFS)]
 
 
 def main() -> int:

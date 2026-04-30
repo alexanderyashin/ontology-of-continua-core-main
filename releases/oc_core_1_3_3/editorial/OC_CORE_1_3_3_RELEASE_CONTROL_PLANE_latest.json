@@ -805,7 +805,7 @@
       "summary": "G56_CLAIM_LEDGER_PROOF_BINDING_PASS checked by v12 no-compromise release profile.",
       "details": {
         "state": "PASS",
-        "claim_total": 18,
+        "claim_total": 26,
         "proof_bound_failure_total": 0
       },
       "executed": true
@@ -819,23 +819,21 @@
       "details": {
         "state": "FAIL",
         "objection_total": 215,
-        "critical_unresolved_total": 4,
-        "high_unresolved_total": 10,
+        "critical_unresolved_total": 0,
+        "high_unresolved_total": 6,
+        "fresh_cerberus_review_satisfied": false,
+        "fresh_cerberus_review_gate_status": "BLOCKED_PENDING_FRESH_ZERO_CRITICAL_HIGH_REVIEW",
         "attack_closure_failures": [
-          "CERBERUS-001-formal_mathematician",
-          "CERBERUS-002-formal_mathematician",
-          "CERBERUS-003-formal_mathematician",
+          "CERBERUS-001-hostile_journal_reviewer",
+          "CERBERUS-002-hostile_journal_reviewer",
+          "CERBERUS-003-hostile_journal_reviewer",
           "CERBERUS-004-hostile_journal_reviewer",
-          "CERBERUS-005-hostile_journal_reviewer",
-          "CERBERUS-006-hostile_journal_reviewer",
-          "CERBERUS-007-hostile_journal_reviewer",
-          "CERBERUS-008-hostile_journal_reviewer",
-          "CERBERUS-009-hostile_journal_reviewer",
-          "CERBERUS-010-hostile_journal_reviewer",
-          "CERBERUS-011-reproducibility_auditor",
-          "CERBERUS-012-reproducibility_auditor",
-          "CERBERUS-013-reproducibility_auditor",
-          "CERBERUS-014-reproducibility_auditor"
+          "CERBERUS-005-reproducibility_auditor",
+          "CERBERUS-006-reproducibility_auditor",
+          "DET-MATRIX-007-T133-K0-RES-NO-SEND",
+          "DET-MATRIX-017-T133-OMEGA-STATUS-NO-SEND",
+          "DET-MATRIX-027-T133-K-ZERO-NO-SEND",
+          "DET-MATRIX-037-T133-BOUNDARY-NO-SEND"
         ]
       },
       "executed": true
@@ -851,13 +849,12 @@
         "execution_status": "EXECUTED_WITH_OPEN_FINDINGS",
         "role_total": 14,
         "bad_results": [
-          "reviews/oc133_llm_cerberus/results/formal_mathematician.json",
           "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
           "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json"
         ],
         "pending_role_total": 0,
-        "critical_open_total": 4,
-        "high_open_total": 10,
+        "critical_open_total": 0,
+        "high_open_total": 6,
         "parse_failure_total": 0
       },
       "executed": true
@@ -865,11 +862,19 @@
     {
       "gate_id": "G59",
       "name": "G59_REPRODUCIBILITY_CLEAN_CHECKOUT_PASS",
-      "state": "PASS",
+      "state": "FAIL",
       "severity": "HIGH",
       "summary": "G59_REPRODUCIBILITY_CLEAN_CHECKOUT_PASS checked by v12 no-compromise release profile.",
       "details": {
-        "state": "PASS"
+        "state": "FAIL",
+        "manifest_ref": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
+        "verdict": "PASS",
+        "command_failure_total": 0,
+        "mismatch_total": 0,
+        "preexisting_compared_target_total": 11,
+        "compared_artifact_total": 11,
+        "strict_head_replay_clean": null,
+        "stable_payload_sha256": null
       },
       "executed": true
     },
@@ -1003,7 +1008,7 @@
       "severity": "CRITICAL",
       "summary": "G70_10_10_SCIENTIFIC_CLOSURE_VERDICT checked by v12 no-compromise release profile.",
       "details": {
-        "prior_critical_high_bad_total": 2,
+        "prior_critical_high_bad_total": 3,
         "release_state_on_pass": "OC_CORE_1_3_3_10_10_READY_NO_SEND"
       },
       "executed": true

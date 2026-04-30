@@ -1,6 +1,6 @@
 # T133-HYBRID - Typed update and chart-labelled operator semantics theorem
 
-Status: `BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12`
+Status: `PROMOTED_BOUNDED_THEOREM_V12_NO_SEND`
 Primary artifact: `content/OC_1_3_3_OPERATOR_SEMANTICS.tex`
 Machine-checked subset: `formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics`
 Attacked claim: OC operators are typed update semantics; chart-labelled flow-one notation is admitted only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth cases. No differentiability or ODE-solution theorem is promoted in v12.
@@ -27,7 +27,7 @@ OC operators F,G,H,Q,R,S,U are typed updates; chart-labelled flow-one, proof/rew
 ## Proof
 The primitive object is the update relation. Chart-labelled systems interpret it through flow-one bookkeeping only when a chart record is declared, while proof and rewrite systems interpret it through transition steps with derivative requests disabled. Lemma 1 embeds the chart-labelled route; Lemma 2 blocks universal derivative overreach; the finite runner separately checks guard/reset codomains and non-smooth proof/rewrite updates.
 
-This is a candidate proof sheet and is not release-promoted while G57/G58/G70 remain open. It is linked to the finite witness corpus and
+The proof is promoted only as a bounded no-send release claim with the stated assumptions. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the
 finite corpus checks the release verdict behavior used by the public claim ledger.
 

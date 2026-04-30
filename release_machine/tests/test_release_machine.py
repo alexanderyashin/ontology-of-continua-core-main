@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import subprocess
 import unittest
 import zipfile
 
@@ -110,7 +111,14 @@ class ReleaseMachineTests(unittest.TestCase):
 
     def test_v132_tag_is_backed_by_publication_report_and_publish_lock(self) -> None:
         root = complete.repo_root()
-        self.assertTrue((root / ".git/refs/tags/v1.3.2").exists())
+        tag = subprocess.run(
+            ["git", "show-ref", "--verify", "--quiet", "refs/tags/v1.3.2"],
+            cwd=root,
+            text=True,
+            capture_output=True,
+            timeout=30,
+        )
+        self.assertEqual(tag.returncode, 0)
         report = json.loads((root / "releases/oc_core_1_3_2/editorial/PUBLICATION_EXECUTION_REPORT_latest.json").read_text(encoding="utf-8"))
         self.assertEqual(report["state"], "PUBLISHED")
         self.assertIn("github.com", report["github_release_url"])
@@ -325,9 +333,15 @@ class ReleaseMachineTests(unittest.TestCase):
 
         scorecard = json.loads((root / "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json").read_text(encoding="utf-8"))
         gates = {row["gate_id"]: row for row in scorecard["gate_results"]}
-        always_pass_gates = [f"G{idx}" for idx in range(32, 57)] + [f"G{idx}" for idx in range(59, 70)]
+        always_pass_gates = [f"G{idx}" for idx in range(32, 57)] + [f"G{idx}" for idx in range(60, 70)]
         for gate_id in always_pass_gates:
             self.assertEqual(gates[gate_id]["state"], "PASS", gate_id)
+        repro_manifest_path = root / "reports" / "OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json"
+        repro_manifest = json.loads(repro_manifest_path.read_text(encoding="utf-8")) if repro_manifest_path.exists() else {}
+        if repro_manifest.get("git_state", {}).get("strict_head_replay_clean") is True and repro_manifest.get("verdict") == "PASS":
+            self.assertEqual(gates["G59"]["state"], "PASS")
+        else:
+            self.assertEqual(gates["G59"]["state"], "FAIL")
         if summary["master_verdict"] == "PASS":
             self.assertEqual(gates["G57"]["state"], "PASS")
             self.assertEqual(gates["G58"]["state"], "PASS")

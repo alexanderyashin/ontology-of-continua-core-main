@@ -208,6 +208,8 @@ def audit(root: Path) -> dict[str, Any]:
     comparator = read_json(root / "comparators" / "OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json")
     phenomenon = read_json(root / "docs" / "OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json")
     adversarial = read_json(root / "reports" / "OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json")
+    repro_manifest_path = root / "reports" / "OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json"
+    repro_manifest = read_json(repro_manifest_path) if repro_manifest_path.exists() else {}
     counter = read_json(root / "falsification" / "COUNTEREXAMPLE_ATLAS_1_3_3.json")
     manifest = read_json(root / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json")
     approval = read_json(root / "releases" / "oc_core_1_3_3" / "editorial" / "OWNER_RELEASE_APPROVAL_v1.3.3.json")
@@ -315,6 +317,7 @@ def audit(root: Path) -> dict[str, Any]:
     allowed_phenomenon_statuses = {
         "PHENOMENON_SPECIFIC_MODEL_REPLAYED",
         "SCOPED_CLASSIFIER_ILLUSTRATION_NOT_DOMAIN_CLOSURE",
+        "ILLUSTRATIVE_INTERNAL_MODEL_NOT_PHENOMENON_COVERAGE",
         "OPERATIONAL_NO_SEND_CONTROL_REPLAYED",
     }
     phenomenon_failures = [
@@ -337,6 +340,13 @@ def audit(root: Path) -> dict[str, Any]:
         if not row.get("closure_evidence_refs")
         or not row.get("closure_verification_query")
         or row.get("status") != "CLOSED_BY_SPECIFIC_V12_EVIDENCE"
+        or (
+            row.get("closure_type") == "generated_distinct_attack_surface"
+            and (
+                row.get("closure_current_artifact_hash_total", 0) < 1
+                or "Observed current closure" not in str(row.get("closure_evidence", ""))
+            )
+        )
     ]
     numeric_missing = [
         row.get("claim_id")
@@ -433,9 +443,31 @@ def audit(root: Path) -> dict[str, Any]:
         "comparator": {"state": "PASS" if comparator.get("row_total", 0) >= 10 and comparator.get("unsupported_uniqueness_total") == 0 and not comparator_failures else "FAIL", **{k: comparator.get(k) for k in ["row_total", "unsupported_uniqueness_total"]}, "comparator_failures": comparator_failures},
         "novelty": {"state": "PASS" if comparator.get("unsupported_uniqueness_total") == 0 and not comparator_failures else "FAIL", "comparator_failures": comparator_failures},
         "claim_binding": {"state": "PASS" if claims.get("unsupported_promoted_total") == 0 and claims.get("demoted_public_claim_total") == 0 and not proof_bound_failures else "FAIL", "claim_total": claims.get("claim_total"), "proof_bound_failure_total": len(proof_bound_failures)},
-        "attack_matrix": {"state": "PASS" if attack.get("critical_unresolved_total") == 0 and attack.get("high_unresolved_total") == 0 and attack.get("objection_total", 0) >= 200 and not attack_closure_failures else "FAIL", **{k: attack.get(k) for k in ["objection_total", "critical_unresolved_total", "high_unresolved_total"]}, "attack_closure_failures": attack_closure_failures[:20]},
+        "attack_matrix": {"state": "PASS" if attack.get("critical_unresolved_total") == 0 and attack.get("high_unresolved_total") == 0 and attack.get("objection_total", 0) >= 200 and attack.get("fresh_cerberus_review_satisfied") is True and not attack_closure_failures else "FAIL", **{k: attack.get(k) for k in ["objection_total", "critical_unresolved_total", "high_unresolved_total", "fresh_cerberus_review_satisfied", "fresh_cerberus_review_gate_status"]}, "attack_closure_failures": attack_closure_failures[:20]},
         "llm": {"state": "PASS" if llm.get("execution_status") == "EXECUTED_WITH_FINDINGS_CLOSED" and llm.get("role_total") == 14 and not llm_result_bad else "BLOCKED", "execution_status": llm.get("execution_status"), "role_total": llm.get("role_total"), "bad_results": llm_result_bad[:20], "pending_role_total": llm.get("pending_role_total", 0), "critical_open_total": llm.get("critical_open_total"), "high_open_total": llm.get("high_open_total"), "parse_failure_total": llm.get("parse_failure_total")},
-        "reproducibility": {"state": "PASS" if (root / "lakefile.lean").exists() and (root / "validation" / "run_all.py").exists() and (root / "simulations" / "adversarial" / "run_all.py").exists() else "FAIL"},
+        "reproducibility": {
+            "state": "PASS" if (
+                (root / "lakefile.lean").exists()
+                and (root / "validation" / "run_all.py").exists()
+                and (root / "simulations" / "adversarial" / "run_all.py").exists()
+                and (root / "tools" / "verify_oc133_reproducible_temp_tree.py").exists()
+                and repro_manifest.get("verdict") == "PASS"
+                and repro_manifest.get("command_failure_total") == 0
+                and repro_manifest.get("mismatch_total") == 0
+                and repro_manifest.get("preexisting_compared_target_total", 0) >= repro_manifest.get("compared_artifact_total", 1)
+                and repro_manifest.get("git_state", {}).get("strict_head_replay_clean") is True
+                and repro_manifest.get("stable_payload_sha256")
+                and repro_manifest.get("previous_manifest_self_check", {}).get("current_stable_payload_sha256") == repro_manifest.get("stable_payload_sha256")
+            ) else "FAIL",
+            "manifest_ref": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
+            "verdict": repro_manifest.get("verdict"),
+            "command_failure_total": repro_manifest.get("command_failure_total"),
+            "mismatch_total": repro_manifest.get("mismatch_total"),
+            "preexisting_compared_target_total": repro_manifest.get("preexisting_compared_target_total"),
+            "compared_artifact_total": repro_manifest.get("compared_artifact_total"),
+            "strict_head_replay_clean": repro_manifest.get("git_state", {}).get("strict_head_replay_clean"),
+            "stable_payload_sha256": repro_manifest.get("stable_payload_sha256"),
+        },
         "no_local_paths_secrets": {"state": "PASS" if not secret_hits else "FAIL", "hit_total": len(secret_hits), "hits": secret_hits[:20]},
         "surface_parity": {"state": "PASS" if all(path.exists() for path in surface_paths) and text(root / "releases" / "oc_core_1_3_3" / "VERSION").strip() == VERSION else "FAIL", "missing": [rel(root, path) for path in surface_paths if not path.exists()]},
         "llm_schema_claim_boundary": {"state": "PASS" if not absolute_hits and phenomenon.get("unsupported_closed_total") == 0 and not phenomenon_failures and not phenomenon_missing_controls else "FAIL", "absolute_hit_total": len(absolute_hits), "absolute_hits": absolute_hits[:20], "phenomenon_rows": phenomenon.get("row_total"), "phenomenon_failures": phenomenon_failures, "phenomenon_missing_controls": phenomenon_missing_controls},

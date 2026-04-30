@@ -89,6 +89,21 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def tracked_ref_set(root: Path) -> set[str]:
+    completed = subprocess.run(
+        ["git", "ls-files", "--cached"],
+        cwd=root,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        capture_output=True,
+        timeout=60,
+    )
+    if completed.returncode != 0:
+        return set()
+    return {line.strip().replace("\\", "/") for line in completed.stdout.splitlines() if line.strip()}
+
+
 def gate(gate_id: str, name: str, state: str, severity: str, summary: str, details: dict[str, Any] | None = None) -> dict[str, Any]:
     if state not in GATE_STATES:
         raise ValueError(f"Unknown gate state: {state}")
@@ -126,6 +141,7 @@ def run_local_replays(root: Path) -> None:
 
 
 def package_file_paths(root: Path) -> list[Path]:
+    tracked_refs = tracked_ref_set(root)
     include_roots = [
         release_dir(root),
         root / "proofs",
@@ -137,7 +153,7 @@ def package_file_paths(root: Path) -> list[Path]:
     for base in include_roots:
         if base.exists():
             for path in base.rglob("*"):
-                if path.is_file() and path.name != ZIP_NAME:
+                if path.is_file() and path.name != ZIP_NAME and "__pycache__" not in path.parts and path.suffix != ".pyc":
                     files.add(path)
     for pattern in [
         "appendix/OC_1_3_3_*.tex",
@@ -172,8 +188,15 @@ def package_file_paths(root: Path) -> list[Path]:
         "OC_CORE_1_3_3_RELEASE_SCORECARD_latest.md",
         "OC_CORE_1_3_3_SHA256SUMS",
         "OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
+        "OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
     }
-    return sorted(path for path in files if path.name not in excluded_names)
+    return sorted(
+        path for path in files
+        if path.name not in excluded_names
+        and "__pycache__" not in path.parts
+        and path.suffix != ".pyc"
+        and rel(root, path) in tracked_refs
+    )
 
 
 def write_inventory_and_checksums(root: Path) -> list[Path]:

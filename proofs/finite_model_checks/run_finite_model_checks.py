@@ -65,6 +65,24 @@ def normalize_build_transcript(value: str) -> str:
     return value.replace(str(ROOT), "<REPO_ROOT>")
 
 
+def canonical_lean_observation(value: str) -> dict[str, str | None]:
+    version = re.search(r"Lean \(version\s+([^,\s]+)", value or "")
+    commit = re.search(r"commit\s+([0-9a-fA-F]+)", value or "")
+    return {
+        "version": version.group(1) if version else None,
+        "commit": commit.group(1).lower() if commit else None,
+    }
+
+
+def canonical_lake_observation(value: str) -> dict[str, str | None]:
+    lake = re.search(r"Lake version\s+([^\s]+)", value or "")
+    lean = re.search(r"Lean version\s+([^)]+)\)", value or "")
+    return {
+        "lake_version": lake.group(1) if lake else None,
+        "lean_version": lean.group(1).strip() if lean else None,
+    }
+
+
 def release_critical_source_refs() -> list[str]:
     return [
         "lakefile.lean",
@@ -81,9 +99,12 @@ def release_critical_source_refs() -> list[str]:
         "claims/CLAIM_LEDGER_1_3_3.json",
         "validation/run_all.py",
         "validation/numeric_predictions/run_numeric_prediction_replay.py",
+        "tools/verify_oc133_reproducible_temp_tree.py",
         "simulations/adversarial/run_all.py",
         "simulations/run_all.py",
         "simulations/expected_simulations.yml",
+        "release_machine/oc133.py",
+        "release_machine/oc133_v12.py",
         "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
         "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
     ]
@@ -98,7 +119,6 @@ def source_manifest() -> list[dict[str, str]]:
         "validation/_raw/*",
         "simulations/*/run_simulation.py",
         "simulations/*/simulation_contract.json",
-        "releases/oc_core_1_3_3/editorial/*.json",
     ]:
         refs.update(path.relative_to(ROOT).as_posix() for path in ROOT.glob(pattern) if path.is_file())
     for ref in sorted(refs):
@@ -109,7 +129,26 @@ def source_manifest() -> list[dict[str, str]]:
 
 
 def generated_artifact_manifest() -> list[dict[str, str]]:
-    return []
+    rows = []
+    generated_refs = [
+        (
+            "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+            "python tools/materialize_oc_core_1_3_3_v12_closure.py",
+            "deterministic_numeric_replay_qa_input",
+        ),
+    ]
+    for ref, producer, role in generated_refs:
+        path = ROOT / ref
+        if path.exists() and path.is_file():
+            rows.append(
+                {
+                    "ref": ref,
+                    "sha256": sha256_file(path),
+                    "producer_command": producer,
+                    "artifact_role": role,
+                }
+            )
+    return rows
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -189,6 +228,8 @@ def run_live_lake_build() -> dict[str, Any]:
         "build_transcript_sha256": hashlib.sha256(normalize_build_transcript((completed.stdout or "") + "\n" + (completed.stderr or "")).encode("utf-8")).hexdigest(),
         "lean_version_observed": (lean_version.stdout + lean_version.stderr).strip(),
         "lake_version_observed": (lake_version.stdout + lake_version.stderr).strip(),
+        "lean_version_canonical": canonical_lean_observation((lean_version.stdout + lean_version.stderr).strip()),
+        "lake_version_canonical": canonical_lake_observation((lake_version.stdout + lake_version.stderr).strip()),
     }
 
 
@@ -237,6 +278,82 @@ def theorem_reference_audit(inputs: dict[str, Any], lean_cert: dict[str, Any]) -
         "theorem_ref_missing_total": len(missing),
         "theorem_refs": sorted(bound),
         "theorem_ref_missing": missing,
+    }
+
+
+def atlas_external_binding_audit(inputs: dict[str, Any], atlas: dict[str, Any], lean_cert: dict[str, Any]) -> dict[str, Any]:
+    finite_by_id = {row.get("case_id"): row for row in inputs.get("rows", [])}
+    theorem_names = {
+        row.get("name")
+        for row in lean_cert.get("theorem_refs", [])
+        if isinstance(row, dict) and row.get("present") is True
+    }
+    failures: list[dict[str, str]] = []
+    if "release_atlas_manifest_has_total_finite_case_coverage" not in theorem_names:
+        failures.append({"ref": "formal/lean/OC133V12.lean", "reason": "ATLAS_LEAN_THEOREM_NOT_CERTIFIED"})
+    transition_ids = set()
+    for row in atlas.get("rows", []):
+        transition_id = str(row.get("transition_id", ""))
+        transition_ids.add(transition_id)
+        if row.get("lean_theorem_ref") != "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage":
+            failures.append({"ref": transition_id, "reason": "ATLAS_ROW_NOT_BOUND_TO_EXPECTED_LEAN_THEOREM"})
+        if not str(row.get("lean_constructor", "")).startswith("AdjacentK."):
+            failures.append({"ref": transition_id, "reason": "ATLAS_ROW_MISSING_ADJACENTK_CONSTRUCTOR"})
+        retained_id = row.get("retained_finite_case_id")
+        demotion_id = row.get("demotion_finite_case_id")
+        retained = finite_by_id.get(retained_id)
+        demotion = finite_by_id.get(demotion_id)
+        if not retained:
+            failures.append({"ref": str(retained_id), "reason": "RETAINED_FINITE_CASE_MISSING"})
+        else:
+            retained_model = retained.get("model", {})
+            retained_transitions = retained_model.get("transitions", [])
+            retained_transition_id = (
+                retained_model.get("transition_id")
+                or (retained_transitions[0].get("transition_id") if retained_transitions else None)
+            )
+            if retained.get("case_type") != "adjacent_k_transition_witness":
+                failures.append({"ref": str(retained_id), "reason": "RETAINED_CASE_WRONG_TYPE"})
+            if retained.get("expected_reduction_verdict") != "FAILS_WITH_WITNESS":
+                failures.append({"ref": str(retained_id), "reason": "RETAINED_CASE_WRONG_EXPECTED_VERDICT"})
+            if retained_transition_id != transition_id:
+                failures.append({"ref": str(retained_id), "reason": "RETAINED_CASE_TRANSITION_ID_MISMATCH"})
+        if not demotion:
+            failures.append({"ref": str(demotion_id), "reason": "DEMOTION_FINITE_CASE_MISSING"})
+        else:
+            demotion_model = demotion.get("model", {})
+            demotion_transitions = demotion_model.get("transitions", [])
+            demotion_transition_id = (
+                demotion_model.get("transition_id")
+                or (demotion_transitions[0].get("transition_id") if demotion_transitions else None)
+            )
+            if demotion.get("case_type") != "adjacent_k_transition_witness":
+                failures.append({"ref": str(demotion_id), "reason": "DEMOTION_CASE_WRONG_TYPE"})
+            if demotion.get("expected_reduction_verdict") != "DEMOTABLE_WITH_LOST_WITNESS":
+                failures.append({"ref": str(demotion_id), "reason": "DEMOTION_CASE_WRONG_EXPECTED_VERDICT"})
+            if demotion_transition_id != transition_id:
+                failures.append({"ref": str(demotion_id), "reason": "DEMOTION_CASE_TRANSITION_ID_MISMATCH"})
+    finite_transition_ids = set()
+    for row in inputs.get("rows", []):
+        if row.get("case_type") != "adjacent_k_transition_witness":
+            continue
+        model = row.get("model", {})
+        if model.get("transition_id"):
+            finite_transition_ids.add(model.get("transition_id"))
+            continue
+        transitions = model.get("transitions", [])
+        if transitions:
+            finite_transition_ids.add(transitions[0].get("transition_id"))
+    missing_from_atlas = sorted(tid for tid in finite_transition_ids if tid and tid not in transition_ids)
+    for transition_id in missing_from_atlas:
+        failures.append({"ref": str(transition_id), "reason": "FINITE_TRANSITION_NOT_DECLARED_IN_ATLAS"})
+    return {
+        "state": "PASS" if not failures else "FAIL",
+        "atlas_transition_total": len(atlas.get("rows", [])),
+        "finite_transition_total": len(finite_transition_ids),
+        "failure_total": len(failures),
+        "failures": failures[:50],
+        "binding_policy": "External K-level JSON rows must name retained/demotion finite case IDs and the certified Lean atlas theorem.",
     }
 
 
@@ -641,21 +758,31 @@ def evaluate(row: dict[str, Any]) -> dict[str, Any]:
 
 def main() -> int:
     inputs = json.loads(INPUT.read_text(encoding="utf-8"))
+    atlas_payload = json.loads(ATLAS.read_text(encoding="utf-8"))
     rows = [evaluate(row) for row in inputs["rows"]]
     failures = [row for row in rows if not row.get("passed")]
     lean_cert = read_json(LEAN_CERT) if LEAN_CERT.exists() else {}
     ref_audit = theorem_reference_audit(inputs, lean_cert)
+    atlas_audit = atlas_external_binding_audit(inputs, atlas_payload, lean_cert)
     lean_source = ROOT / "formal" / "lean" / "OC133V12.lean"
     current_lean_sha256 = sha256_file(lean_source) if lean_source.exists() else None
     cert_lean_sha256_matches = lean_cert.get("lean_source_sha256") == current_lean_sha256
     live_lean_build = run_live_lake_build()
     current_source_manifest = source_manifest()
     current_source_manifest_sha256 = hashlib.sha256(json.dumps(current_source_manifest, sort_keys=True).encode("utf-8")).hexdigest()
+    current_generated_artifact_manifest = generated_artifact_manifest()
+    current_generated_artifact_manifest_sha256 = hashlib.sha256(json.dumps(current_generated_artifact_manifest, sort_keys=True).encode("utf-8")).hexdigest()
     cert_manifest_hashes = {row.get("ref"): row.get("sha256") for row in lean_cert.get("clean_source_manifest", []) if isinstance(row, dict)}
     current_manifest_hashes = {row.get("ref"): row.get("sha256") for row in current_source_manifest}
+    cert_generated_hashes = {row.get("ref"): row.get("sha256") for row in lean_cert.get("generated_artifact_manifest", []) if isinstance(row, dict)}
+    current_generated_hashes = {row.get("ref"): row.get("sha256") for row in current_generated_artifact_manifest}
     shared_manifest_mismatches = [
         ref for ref, digest in current_manifest_hashes.items()
         if cert_manifest_hashes.get(ref) != digest
+    ]
+    generated_manifest_mismatches = [
+        ref for ref, digest in current_generated_hashes.items()
+        if cert_generated_hashes.get(ref) != digest
     ]
     lean_cert_ok = (
         lean_cert.get("returncode") == 0
@@ -663,6 +790,7 @@ def main() -> int:
         and lean_cert.get("theorem_ref_present_total", 0) >= 10
         and ref_audit["theorem_ref_missing_total"] == 0
         and ref_audit["theorem_ref_bound_total"] >= 10
+        and atlas_audit["failure_total"] == 0
         and cert_lean_sha256_matches
         and lean_cert.get("cache_free_build_required") is True
         and lean_cert.get("zero_job_cached_build_detected") is False
@@ -671,10 +799,12 @@ def main() -> int:
         and lean_cert.get("post_build_lake_cache_created") is True
         and bool(lean_cert.get("build_transcript_sha256"))
         and lean_cert.get("clean_source_manifest_sha256") == current_source_manifest_sha256
+        and lean_cert.get("generated_artifact_manifest_sha256") == current_generated_artifact_manifest_sha256
         and not shared_manifest_mismatches
+        and not generated_manifest_mismatches
         and lean_cert.get("build_transcript_sha256") == live_lean_build.get("build_transcript_sha256")
-        and lean_cert.get("lean_version_observed") == live_lean_build.get("lean_version_observed")
-        and lean_cert.get("lake_version_observed") == live_lean_build.get("lake_version_observed")
+        and lean_cert.get("lean_version_canonical") == live_lean_build.get("lean_version_canonical")
+        and lean_cert.get("lake_version_canonical") == live_lean_build.get("lake_version_canonical")
     )
     certificate_binding_failures = []
     if not lean_cert_ok:
@@ -685,9 +815,13 @@ def main() -> int:
         certificate_binding_failures.append("FINITE_ROW_THEOREM_REFS_NOT_BOUND_TO_CURRENT_SOURCE")
     if shared_manifest_mismatches:
         certificate_binding_failures.append("LEAN_CERTIFICATE_SOURCE_MANIFEST_HASH_MISMATCH")
+    if generated_manifest_mismatches or lean_cert.get("generated_artifact_manifest_sha256") != current_generated_artifact_manifest_sha256:
+        certificate_binding_failures.append("LEAN_CERTIFICATE_GENERATED_ARTIFACT_MANIFEST_HASH_MISMATCH")
+    if atlas_audit["failure_total"] != 0:
+        certificate_binding_failures.append("LEAN_ATLAS_EXTERNAL_JSON_BINDING_FAILED")
     if lean_cert.get("build_transcript_sha256") != live_lean_build.get("build_transcript_sha256"):
         certificate_binding_failures.append("LEAN_CERTIFICATE_BUILD_TRANSCRIPT_HASH_MISMATCH")
-    if lean_cert.get("lean_version_observed") != live_lean_build.get("lean_version_observed") or lean_cert.get("lake_version_observed") != live_lean_build.get("lake_version_observed"):
+    if lean_cert.get("lean_version_canonical") != live_lean_build.get("lean_version_canonical") or lean_cert.get("lake_version_canonical") != live_lean_build.get("lake_version_canonical"):
         certificate_binding_failures.append("LEAN_CERTIFICATE_TOOLCHAIN_VERSION_MISMATCH")
     payload = {
         "schema_id": "OC133_FINITE_MODEL_CHECKS_v12_ATLAS_SEMANTIC_EXECUTED",
@@ -718,12 +852,19 @@ def main() -> int:
         "live_lean_build_transcript_sha256": live_lean_build.get("build_transcript_sha256"),
         "live_lean_version_observed": live_lean_build.get("lean_version_observed"),
         "live_lake_version_observed": live_lean_build.get("lake_version_observed"),
+        "live_lean_version_canonical": live_lean_build.get("lean_version_canonical"),
+        "live_lake_version_canonical": live_lean_build.get("lake_version_canonical"),
+        "certificate_lean_version_canonical": lean_cert.get("lean_version_canonical"),
+        "certificate_lake_version_canonical": lean_cert.get("lake_version_canonical"),
         "live_lean_clean_source_manifest_sha256": current_source_manifest_sha256,
         "certificate_clean_source_manifest_sha256": lean_cert.get("clean_source_manifest_sha256"),
-        "generated_artifact_manifest_sha256": hashlib.sha256(json.dumps(generated_artifact_manifest(), sort_keys=True).encode("utf-8")).hexdigest(),
+        "generated_artifact_manifest_sha256": current_generated_artifact_manifest_sha256,
         "certificate_generated_artifact_manifest_sha256": lean_cert.get("generated_artifact_manifest_sha256"),
         "source_manifest_mismatch_total": len(shared_manifest_mismatches),
         "source_manifest_mismatches": shared_manifest_mismatches[:20],
+        "generated_artifact_manifest_mismatch_total": len(generated_manifest_mismatches),
+        "generated_artifact_manifest_mismatches": generated_manifest_mismatches[:20],
+        "atlas_external_binding_audit": atlas_audit,
         "live_lean_build_stdout_tail": live_lean_build.get("stdout_tail"),
         "live_lean_build_stderr_tail": live_lean_build.get("stderr_tail"),
         "lean_theorem_ref_present_total": lean_cert.get("theorem_ref_present_total", 0),

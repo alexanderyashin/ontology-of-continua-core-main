@@ -7,7 +7,7 @@ from pathlib import Path
 CONTRACT_PATH = Path(__file__).with_name('simulation_contract.json')
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description='Run deterministic OC Core 1.3.1 toy simulation.')
+    parser = argparse.ArgumentParser(description='Run deterministic OC Core 1.3.3 v12 no-send toy simulation.')
     parser.add_argument('--seed', type=int, default=1103)
     parser.add_argument('--step-count', type=int, default=48)
     return parser.parse_args()

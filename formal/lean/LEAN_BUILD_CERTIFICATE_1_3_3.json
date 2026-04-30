@@ -6,8 +6,27 @@
   "clean_command": "create isolated temp checkout; assert no .lake before build",
   "build_command": "lake build OC133V12",
   "toolchain_command": "elan run leanprover/lean4:v4.28.0",
-  "lean_version_observed": "Lean (version 4.28.0, x86_64-w64-windows-gnu, commit 7e01a1bf5c70fc6167d49c345d3bf80596e9a79b, Release)",
-  "lake_version_observed": "Lake version 5.0.0-src+7e01a1b (Lean version 4.28.0)",
+  "lean_version_observed": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
+  "lake_version_observed": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
+  "lean_version_canonical": {
+    "version": "4.28.0",
+    "commit": "7e01a1bf5c70fc6167d49c345d3bf80596e9a79b"
+  },
+  "lake_version_canonical": {
+    "lake_version": "5.0.0-src+7e01a1b",
+    "lean_version": "4.28.0"
+  },
+  "toolchain_observation_policy": "Compare canonical version/commit fields; raw observed strings are diagnostic and may contain host triples or provisioning noise.",
+  "environment_lock": {
+    "hermetic_offline_build_claim_allowed": false,
+    "environment_lock_level": "LOCAL_TOOLCHAIN_AND_INTERPRETER_VERSION_LOCK_NOT_CONTAINER_DIGEST",
+    "elan_version_observed": "elan 4.2.1 (3d5138e15 2026-03-18)",
+    "python_version": "3.14.3",
+    "python_executable_basename": "python.exe",
+    "path_env_policy": "PATH is ambient and diagnostic; no release claim depends on byte-identical host PATH.",
+    "network_provisioning_claim": "NOT_CLAIMED; canonical certificate excludes host provisioning diagnostics and post-generation reproducibility is checked separately.",
+    "container_digest": "NOT_PROVIDED_NO_HERMETIC_CONTAINER_CLAIM"
+  },
   "execution_status": "EXECUTED_ISOLATED_CLEAN_BUILD",
   "returncode": 0,
   "clean_returncode": 0,
@@ -25,15 +44,19 @@
   "lakefile_ref": "lakefile.lean",
   "lakefile_sha256": "8fafb5c2541950face49cb3ef2c123e4508ad6b73b8506dd011e9c172bbd43d8",
   "certificate_generator_ref": "tools/materialize_oc_core_1_3_3_v12_closure.py",
-  "certificate_generator_sha256": "d77130c94254a08b5b589036763f39480f4e1641a1f948be009fcb094ac042e9",
+  "certificate_generator_sha256": "07e35299bcab73e67cc7c6aa3835b99233a07d6f3379ec4c6f9be6cc0fb8ac01",
   "platform": "HOST_SPECIFIC_METADATA_REDACTED_FROM_CANONICAL_CERTIFICATE",
-  "platform_observed_family": "Windows",
+  "platform_observed_family": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
+  "local_observation_report_ref": "formal/lean/LEAN_BUILD_LOCAL_OBSERVATION_1_3_3.json",
+  "post_generation_reproducibility_manifest_ref": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
+  "post_generation_reproducibility_manifest_hash_binding": "OUTER_ATTESTATION_ONLY_TO_AVOID_CERTIFICATE_OUTPUT_CYCLE",
+  "post_generation_reproducibility_outer_attestation_field": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json::stable_payload_sha256",
   "canonical_certificate_policy": "canonical hashes use normalized build transcript with elapsed timings and repo paths removed",
   "clean_source_archive_kind": "release-critical source manifest copy without .git or .lake",
   "clean_source_manifest": [
     {
       "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "sha256": "c0ffa27a9e8f78b8fb291f941ff0c0928b67aecca198a3eb7909ae3bc6c014e2"
+      "sha256": "44ad72abd4cfc73571774e6551ff3e0e4aec42f47b15c47f568c317f58f98ee5"
     },
     {
       "ref": "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json",
@@ -65,35 +88,19 @@
     },
     {
       "ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "sha256": "3d80e02d2c13c15d53b24b9882fde237682cfb100bf9978c9d53bf90f7ce7628"
+      "sha256": "d348c41b5ad99c70d25c5d50d45023f5074c67d12c54466fcd1e6e75e22ad1f2"
     },
     {
-      "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ARTIFACT_INVENTORY.json",
-      "sha256": "b3fd52233072fb8beb940c35797c9b4aaf565770836b76ce1dde818fbd293bf5"
+      "ref": "release_machine/oc133.py",
+      "sha256": "17f5e8a928ea6905b9020cb6705676ff8337a7dc6acf1768f631c52b4f5e1f80"
     },
     {
-      "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_EXTERNAL_REVIEW_PACKAGE.json",
-      "sha256": "ced25be74cce889b34d48cd02a40adc41d390779bb68cf86c332f4a7595cc0bf"
-    },
-    {
-      "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_OWNER_APPROVAL_PACKET.json",
-      "sha256": "9bb043196350b59c75958eb846208354894b78036fef7bd2da6af1e218a6ee3c"
+      "ref": "release_machine/oc133_v12.py",
+      "sha256": "f5374127e999fe81cbaadc45af674e9c8fc36f72338282a32f934230be98d9c9"
     },
     {
       "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
       "sha256": "62a254222ee8aa3591291d256aeb1b9f9860ce20fb65ef2c23e3696d791a65aa"
-    },
-    {
-      "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_RELEASE_CONTROL_PLANE_latest.json",
-      "sha256": "4c98be2470a7522444031e19d6969590d9c73ccd76a2160635cadd06c8097186"
-    },
-    {
-      "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json",
-      "sha256": "c5dbb97552fa59814dd593296a81a7dda13c42bfb0b18ab08c2ed17cf9cd373f"
-    },
-    {
-      "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
-      "sha256": "b685025931544069f77e1973d28f2cdd262445f252b151189ec317dcc106fd9c"
     },
     {
       "ref": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
@@ -109,107 +116,111 @@
     },
     {
       "ref": "simulations/k10_recursion_consistency/run_simulation.py",
-      "sha256": "e1088f558ff7c453a2d124d6a2822a1e7d61d8283729d16ed5bfcd3d023ad73c"
+      "sha256": "59f277593daf5e5c0c52a24bfb552a689fcb559aed7169547e97240faa0504ba"
     },
     {
       "ref": "simulations/k10_recursion_consistency/simulation_contract.json",
-      "sha256": "5e9c3c35fc9255727610f2eb5b73fd48a4214a642e06a86810a6dd247996e626"
+      "sha256": "da596b89ba3eb7b5fe4bd98e4b0139815f0eac3d222f7e57c51dc5ad4058f7d2"
     },
     {
       "ref": "simulations/k11_k12_coherence_toys/run_simulation.py",
-      "sha256": "e1088f558ff7c453a2d124d6a2822a1e7d61d8283729d16ed5bfcd3d023ad73c"
+      "sha256": "59f277593daf5e5c0c52a24bfb552a689fcb559aed7169547e97240faa0504ba"
     },
     {
       "ref": "simulations/k11_k12_coherence_toys/simulation_contract.json",
-      "sha256": "a360af40148fafae99dd2773e44a0cdd41a4887360b1ce004ea016be84224d25"
+      "sha256": "125ca2660842f938736a25ee4f07c56b5f1581c4654148f5cf1fc7357d9ffc6c"
     },
     {
       "ref": "simulations/k1_minimal_continuum/run_simulation.py",
-      "sha256": "e1088f558ff7c453a2d124d6a2822a1e7d61d8283729d16ed5bfcd3d023ad73c"
+      "sha256": "59f277593daf5e5c0c52a24bfb552a689fcb559aed7169547e97240faa0504ba"
     },
     {
       "ref": "simulations/k1_minimal_continuum/simulation_contract.json",
-      "sha256": "1560ec38ed1dd8443c20d3b42c00455834f5ddbfd07c09d484099ca5227a3847"
+      "sha256": "c9e132c5bb6edaac518f3b798851b1fff5f75e56827f44e327f7ff81ef0bbd23"
     },
     {
       "ref": "simulations/k2_phase_thresholds/run_simulation.py",
-      "sha256": "e1088f558ff7c453a2d124d6a2822a1e7d61d8283729d16ed5bfcd3d023ad73c"
+      "sha256": "59f277593daf5e5c0c52a24bfb552a689fcb559aed7169547e97240faa0504ba"
     },
     {
       "ref": "simulations/k2_phase_thresholds/simulation_contract.json",
-      "sha256": "b12d10ea3f951c92eee71554aabd787530204eafb264925e72225294ba5d52fa"
+      "sha256": "2b60d9123b0ab865f92124daf077addaca919514081ada6361cf7b99389e1a90"
     },
     {
       "ref": "simulations/k3_raf_closure/run_simulation.py",
-      "sha256": "e1088f558ff7c453a2d124d6a2822a1e7d61d8283729d16ed5bfcd3d023ad73c"
+      "sha256": "59f277593daf5e5c0c52a24bfb552a689fcb559aed7169547e97240faa0504ba"
     },
     {
       "ref": "simulations/k3_raf_closure/simulation_contract.json",
-      "sha256": "ffd0d78d884e04f47bf27312fa89f0504c8cd9fcbdde09d5dcfec98aa14ed9f6"
+      "sha256": "ce9d5f7d1ab74a9db70af4529b9e395aa6cda7b2105e4ef50111e819db8f9efc"
     },
     {
       "ref": "simulations/k4_membrane_thresholds/run_simulation.py",
-      "sha256": "e1088f558ff7c453a2d124d6a2822a1e7d61d8283729d16ed5bfcd3d023ad73c"
+      "sha256": "59f277593daf5e5c0c52a24bfb552a689fcb559aed7169547e97240faa0504ba"
     },
     {
       "ref": "simulations/k4_membrane_thresholds/simulation_contract.json",
-      "sha256": "8d15b7646878712d10da32472616e17e23ef69718fba0e322d8c9169add76c39"
+      "sha256": "e1cdb418fe0b334a4d343ccfe1a805ecdc323ee67099e45a15a2946e6aae4d37"
     },
     {
       "ref": "simulations/k5_excitable_boundary/run_simulation.py",
-      "sha256": "e1088f558ff7c453a2d124d6a2822a1e7d61d8283729d16ed5bfcd3d023ad73c"
+      "sha256": "59f277593daf5e5c0c52a24bfb552a689fcb559aed7169547e97240faa0504ba"
     },
     {
       "ref": "simulations/k5_excitable_boundary/simulation_contract.json",
-      "sha256": "d4e1ebb713a50f0c44bf5a2c91ff25236d8954f13e21a9dc4a70f9ca5a1a14fb"
+      "sha256": "f4cd74b394e7cab9b9d819c77f4cf13aab9199d57fffa13e710dd142da4b894e"
     },
     {
       "ref": "simulations/k6_binding_prediction/run_simulation.py",
-      "sha256": "e1088f558ff7c453a2d124d6a2822a1e7d61d8283729d16ed5bfcd3d023ad73c"
+      "sha256": "59f277593daf5e5c0c52a24bfb552a689fcb559aed7169547e97240faa0504ba"
     },
     {
       "ref": "simulations/k6_binding_prediction/simulation_contract.json",
-      "sha256": "170cc701365e34e6844900a4cb899cf8811f3ec578e86d03a0d18b88456c800d"
+      "sha256": "b9ac02ab3e6f91205bc072a858c5e31d2801b3ae086ad719e22828bf53529a48"
     },
     {
       "ref": "simulations/k7_trust_coordination/run_simulation.py",
-      "sha256": "e1088f558ff7c453a2d124d6a2822a1e7d61d8283729d16ed5bfcd3d023ad73c"
+      "sha256": "59f277593daf5e5c0c52a24bfb552a689fcb559aed7169547e97240faa0504ba"
     },
     {
       "ref": "simulations/k7_trust_coordination/simulation_contract.json",
-      "sha256": "ee41ba8770b2a03e773fc8bfbf1303058d9e73e97732d9a4e435f58356f1b7e2"
+      "sha256": "a9474ddac074eedcb66660feb003711e39ce4c62652bf46964b40597417c9228"
     },
     {
       "ref": "simulations/k8_regime_shift/run_simulation.py",
-      "sha256": "e1088f558ff7c453a2d124d6a2822a1e7d61d8283729d16ed5bfcd3d023ad73c"
+      "sha256": "59f277593daf5e5c0c52a24bfb552a689fcb559aed7169547e97240faa0504ba"
     },
     {
       "ref": "simulations/k8_regime_shift/simulation_contract.json",
-      "sha256": "79388895983c60df2566786822c4a71edffd6d64093a5937bd939913bf85141a"
+      "sha256": "a51a6c31c9a973555a7a4ba071f54a6424980c97f4fe59a997b06ffe65df3497"
     },
     {
       "ref": "simulations/k9_theory_dynamics/run_simulation.py",
-      "sha256": "e1088f558ff7c453a2d124d6a2822a1e7d61d8283729d16ed5bfcd3d023ad73c"
+      "sha256": "59f277593daf5e5c0c52a24bfb552a689fcb559aed7169547e97240faa0504ba"
     },
     {
       "ref": "simulations/k9_theory_dynamics/simulation_contract.json",
-      "sha256": "073d73f950e282c130558709deece108e7fa370d91d1a5e36d65241265cda41a"
+      "sha256": "6ccd7a7a4644e3f586023f04593970dfe05aabd2d1b24a96f059de311dae4da6"
     },
     {
       "ref": "simulations/run_all.py",
-      "sha256": "db21478208fe42d624292e46626a99c24e3443bc341a639cb9473cfd433bbfee"
+      "sha256": "a80c0d9b057f25f7eec3ad871b6ed220f560c5adc3a185a26850ef3d5a8d3588"
     },
     {
       "ref": "tools/materialize_oc_core_1_3_3_v12_closure.py",
-      "sha256": "d77130c94254a08b5b589036763f39480f4e1641a1f948be009fcb094ac042e9"
+      "sha256": "07e35299bcab73e67cc7c6aa3835b99233a07d6f3379ec4c6f9be6cc0fb8ac01"
     },
     {
       "ref": "tools/templates/OC133V12_hardened.lean",
-      "sha256": "fa856a9691aba575fac5fe220e666c0b83bd38d494eb5c991fa922358f07c4b0"
+      "sha256": "4022f4d27f0768fd48508b00ead919d03352789134eac96f93149734b9394228"
     },
     {
       "ref": "tools/templates/run_finite_model_checks_hardened.py",
-      "sha256": "8571ccd6c0201627d51bcc2b4a9f131d161fd94e5b35bd2956a7a29d44ebf19c"
+      "sha256": "85088d280383ac887543419cf40f371942a67dbde7dde5bfae927cb6b656efb8"
+    },
+    {
+      "ref": "tools/verify_oc133_reproducible_temp_tree.py",
+      "sha256": "154f148f2b22774e693d0e4e014a8f49eabee38883baae36447ad1f2e62f98dc"
     },
     {
       "ref": "validation/_raw/biology_ncbi_geo_platform.txt",
@@ -269,7 +280,7 @@
     },
     {
       "ref": "validation/run_all.py",
-      "sha256": "b82763f406bb0778191e04b32b1355bdb430595c78f834b949181c8818e04727"
+      "sha256": "3daecbf25e1c6d500bdf3808b8211c471c75586e57441abe85f51f4ede11b3fe"
     },
     {
       "ref": "validation/systems/VALIDATION_PACKET.json",
@@ -280,10 +291,17 @@
       "sha256": "2ee383e2a8477d5840ceb74d5e1bb7a602830675b044bef9d31766cd642b63d7"
     }
   ],
-  "clean_source_manifest_sha256": "662c666ffdfdd6404e454697697eb70502ed4ea77549111a477ce36d3953d117",
-  "generated_artifact_manifest": [],
-  "generated_artifact_manifest_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
-  "generated_artifact_manifest_scope": "NOT_CERTIFIED_BY_LEAN_CERTIFICATE; generated reports are checked by their own replay commands to avoid cert/output hash cycles",
+  "clean_source_manifest_sha256": "55e3fe9c075e8642cd9a9e6ab31084467d3af51a4e62347bac4834203b09b29b",
+  "generated_artifact_manifest": [
+    {
+      "ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+      "sha256": "33fbb14c9fe91e83cf332d9d35be1be0fd7a8ee33de6b98ac7258376678befa4",
+      "producer_command": "python tools/materialize_oc_core_1_3_3_v12_closure.py",
+      "artifact_role": "deterministic_numeric_replay_qa_input"
+    }
+  ],
+  "generated_artifact_manifest_sha256": "39f2d40022cf8e459aa50ddd19f1964bcbbb0f9eba8f93405eeed2d371ac70fb",
+  "generated_artifact_manifest_scope": "CERTIFIED_STABLE_GENERATED_INPUTS_ONLY; finite reports, release scorecards, and zip/checksum outputs are excluded to avoid cert/output hash cycles",
   "lean_source_ref": "formal/lean/OC133V12.lean",
   "lean_source_sha256": "4022f4d27f0768fd48508b00ead919d03352789134eac96f93149734b9394228",
   "theorem_ref_total": 10,
