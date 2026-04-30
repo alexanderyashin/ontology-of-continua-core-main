@@ -29,11 +29,10 @@ def load_expected() -> dict[str, Any]:
 
 
 def sha256_file(path: Path) -> str:
-    h = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            h.update(chunk)
-    return h.hexdigest()
+    data = path.read_bytes()
+    if path.suffix.lower() in {".py", ".json", ".yml", ".yaml", ".md", ".txt"}:
+        data = data.replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
 
 
 def validate_payload(payload: dict[str, Any], expected: dict[str, Any]) -> list[str]:
