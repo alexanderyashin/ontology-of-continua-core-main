@@ -1,6 +1,6 @@
 # T133-K-ZERO - Continuumness zero obstruction theorem
 
-Status: `BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12`
+Status: `FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM`
 Primary artifact: `appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex`
 Machine-checked subset: `formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support`
 Attacked claim: Continuumness zero requires live support, an independently clear obstruction ledger, and a declared zero-cause family; a zero-cause label alone does not compute k=0.
@@ -28,7 +28,7 @@ Within v12, k=0 is equivalent to nonempty support, an active declared zero-cause
 ## Proof
 The score is computed from the obstruction ledger, not from the zero-cause label. Lemma 1 proves zero score iff no obstruction is active. Lemma 2 proves a zero-cause with clear obstruction licenses the zero verdict, while an active obstruction rejects k=0 even if a zero-cause label exists.
 
-This is a candidate proof sheet and is not release-promoted while G57/G58/G70 remain open. It is linked to the finite witness corpus and
+This proof sheet is a formal release-consistency check only; it is not promoted as an independent scientific theorem and remains no-send while G57/G58/G70 remain open. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the
 finite corpus checks the release verdict behavior used by the public claim ledger.
 

@@ -7,6 +7,7 @@ from . import core
 from . import lrgef
 from . import oc133
 from . import publication
+from . import versioning
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -14,145 +15,150 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="command", required=True)
 
     evaluate = sub.add_parser("evaluate")
-    evaluate.add_argument("--release", default=core.RELEASE_ID)
+    evaluate.add_argument("--release", default=None)
     evaluate.add_argument("--channel", default="all")
     evaluate.add_argument("--mode", default="dry-run")
 
     sc = sub.add_parser("shit-control")
-    sc.add_argument("--release", default=core.RELEASE_ID)
+    sc.add_argument("--release", default=None)
     sc.add_argument("--channel", default="all")
     sc.add_argument("--max-iterations", type=int, default=5)
 
     package = sub.add_parser("package")
-    package.add_argument("--release", default=core.RELEASE_ID)
+    package.add_argument("--release", default=None)
     package.add_argument("--channel", default="all")
     package.add_argument("--no-publish", action="store_true")
 
     plan = sub.add_parser("publish-plan")
-    plan.add_argument("--release", default=core.RELEASE_ID)
+    plan.add_argument("--release", default=None)
     plan.add_argument("--channel", default="all")
 
     postflight = sub.add_parser("postflight")
-    postflight.add_argument("--release", default=core.RELEASE_ID)
+    postflight.add_argument("--release", default=None)
     postflight.add_argument("--channel", default="zenodo")
     postflight.add_argument("--public-url", default="")
 
     init = sub.add_parser("init")
     init.add_argument("--project", default="logion")
-    init.add_argument("--version", default=core.VERSION)
+    init.add_argument("--version", default=None)
     init.add_argument("--class", dest="release_class", default="scientific")
-    init.add_argument("--root-task", default="oc_core_1_3_2")
+    init.add_argument("--root-task", default=None)
     init.add_argument("--source-ref", default="main")
-    init.add_argument("--release-id", default=core.RELEASE_ID)
+    init.add_argument("--release-id", default=None)
 
     freeze = sub.add_parser("freeze")
-    freeze.add_argument("--release-id", default=core.RELEASE_ID)
+    freeze.add_argument("--release-id", default=None)
 
     build = sub.add_parser("build")
-    build.add_argument("--release-id", default=core.RELEASE_ID)
+    build.add_argument("--release-id", default=None)
     build.add_argument("--clean", action="store_true")
 
     gates = sub.add_parser("gates")
     gates_sub = gates.add_subparsers(dest="gates_command", required=True)
     gates_run = gates_sub.add_parser("run")
-    gates_run.add_argument("--release-id", default=core.RELEASE_ID)
+    gates_run.add_argument("--release-id", default=None)
     gates_run.add_argument("--all", action="store_true")
 
     verdict = sub.add_parser("verdict")
-    verdict.add_argument("--release-id", default=core.RELEASE_ID)
+    verdict.add_argument("--release-id", default=None)
 
     sign = sub.add_parser("sign")
-    sign.add_argument("--release-id", default=core.RELEASE_ID)
+    sign.add_argument("--release-id", default=None)
 
     publish = sub.add_parser("publish")
-    publish.add_argument("--release-id", default=core.RELEASE_ID)
+    publish.add_argument("--release-id", default=None)
     publish.add_argument("--dry-run", action="store_true")
     publish.add_argument("--execute", action="store_true")
     publish.add_argument("--channel", action="append", default=[])
 
     approve = sub.add_parser("owner-approve")
-    approve.add_argument("--release-id", default=core.RELEASE_ID)
+    approve.add_argument("--release-id", default=None)
     approve.add_argument("--owner-identity", default="Alexander Yashin")
 
     preflight = sub.add_parser("publication-preflight")
-    preflight.add_argument("--release-id", default=core.RELEASE_ID)
+    preflight.add_argument("--release-id", default=None)
 
     submissions = sub.add_parser("submission-packages")
-    submissions.add_argument("--release-id", default=core.RELEASE_ID)
+    submissions.add_argument("--release-id", default=None)
 
     presentation = sub.add_parser("publication-presentation")
-    presentation.add_argument("--release-id", default=core.RELEASE_ID)
+    presentation.add_argument("--release-id", default=None)
     presentation.add_argument("--sync", action="store_true")
     presentation.add_argument("--verify", action="store_true")
 
     repair = sub.add_parser("repair")
-    repair.add_argument("--release-id", default=core.RELEASE_ID)
+    repair.add_argument("--release-id", default=None)
 
     args = parser.parse_args(argv)
+    current = versioning.current_release()
+    release = getattr(args, "release", None) or getattr(args, "release_id", None) or current.release_id
+    release_id = getattr(args, "release_id", None) or release
+    version = getattr(args, "version", None) or current.version
+    root_task = getattr(args, "root_task", None) or release_id
     if args.command == "evaluate":
-        if args.release == oc133.RELEASE_ID:
-            payload = oc133.evaluate_release(args.release, args.channel, args.mode, write=True)
+        if release == oc133.RELEASE_ID:
+            payload = oc133.evaluate_release(release, args.channel, args.mode, write=True)
         else:
-            payload = core.evaluate_release(args.release, args.channel, args.mode, write=True)
+            payload = core.evaluate_release(release, args.channel, args.mode, write=True)
     elif args.command == "shit-control":
         from .engines.shit_control_loop import run
-        payload = run(args.release, args.channel, args.max_iterations)
+        payload = run(release, args.channel, args.max_iterations)
     elif args.command == "package":
-        if args.release == oc133.RELEASE_ID:
+        if release == oc133.RELEASE_ID:
             payload = oc133.build_package(oc133.repo_root(), channel=args.channel, no_publish=args.no_publish)
         else:
             payload = core.build_package(core.repo_root(), channel=args.channel, no_publish=args.no_publish)
-        payload["release"] = args.release
+        payload["release"] = release
     elif args.command == "publish-plan":
-        payload = core.publish_plan(args.release, args.channel)
+        payload = core.publish_plan(release, args.channel)
     elif args.command == "postflight":
-        payload = core.postflight(args.release, args.channel, args.public_url)
+        payload = core.postflight(release, args.channel, args.public_url)
     elif args.command == "init":
         payload = {
             "schema_id": "LRGEF_RELEASE_INIT_v1",
             "project": args.project,
-            "release_id": args.release_id,
-            "version": args.version,
+            "release_id": release_id,
+            "version": version,
             "release_class": args.release_class,
-            "root_task": args.root_task,
+            "root_task": root_task,
             "source_ref": args.source_ref,
             "policy": lrgef.RELEASE_CLASSES,
             "publish_allowed": False,
         }
     elif args.command == "freeze":
         payload = core.build_package(core.repo_root(), channel="all", no_publish=True)
-        payload["release_id"] = args.release_id
+        payload["release_id"] = release_id
         payload["freeze_status"] = "FROZEN_NO_SEND"
     elif args.command == "build":
-        if args.release_id == oc133.RELEASE_ID:
+        if release_id == oc133.RELEASE_ID:
             payload = oc133.build_package(oc133.repo_root(), channel="all", no_publish=True)
         else:
             payload = core.build_package(core.repo_root(), channel="all", no_publish=True)
-        payload["release_id"] = args.release_id
+        payload["release_id"] = release_id
         payload["clean_requested"] = bool(args.clean)
     elif args.command == "gates":
-        if args.release_id == oc133.RELEASE_ID:
-            payload = oc133.evaluate_release(args.release_id, "all", "pre_publish", write=True)
+        if release_id == oc133.RELEASE_ID:
+            payload = oc133.evaluate_release(release_id, "all", "pre_publish", write=True)
         else:
-            payload = core.evaluate_release(args.release_id, "all", "pre_publish", write=True)
+            payload = core.evaluate_release(release_id, "all", "pre_publish", write=True)
         payload["gates_command"] = args.gates_command
         payload["all"] = bool(args.all)
     elif args.command == "verdict":
-        if args.release_id == oc133.RELEASE_ID:
-            payload = oc133.evaluate_release(args.release_id, "all", "dry-run", write=True)
+        if release_id == oc133.RELEASE_ID:
+            payload = oc133.evaluate_release(release_id, "all", "dry-run", write=True)
         else:
-            payload = core.evaluate_release(args.release_id, "all", "dry-run", write=True)
+            payload = core.evaluate_release(release_id, "all", "dry-run", write=True)
     elif args.command == "sign":
-        summary = core.evaluate_release(args.release_id, "all", "dry-run", write=True)
+        summary = core.evaluate_release(release_id, "all", "dry-run", write=True)
         root = core.repo_root()
         signature = core.read_json(root / "releases" / core.RELEASE_ID / "editorial" / "LRGEF_MANIFEST_SIGNATURE_latest.json")
-        payload = {"release_id": args.release_id, "summary": summary, "signature": signature}
+        payload = {"release_id": release_id, "summary": summary, "signature": signature}
     elif args.command == "publish":
         channel = args.channel[0] if len(args.channel) == 1 else "all"
         if args.execute and not args.dry_run:
             payload = publication.publish_execute(core.repo_root())
         else:
-            payload = core.publish_plan(args.release_id, channel)
+            payload = core.publish_plan(release_id, channel)
             payload["dry_run"] = bool(args.dry_run)
             payload["execute_requested"] = bool(args.execute)
             payload["publish_allowed"] = False
@@ -164,7 +170,7 @@ def main(argv: list[str] | None = None) -> int:
         payload = publication.generate_submission_packages(core.repo_root())
     elif args.command == "publication-presentation":
         root = core.repo_root()
-        if args.release_id == oc133.RELEASE_ID:
+        if release_id == oc133.RELEASE_ID:
             payload = oc133.publication_presentation_verify(oc133.repo_root())
             payload["sync_requested"] = bool(args.sync)
             payload["verify_requested"] = bool(args.verify)
@@ -177,7 +183,7 @@ def main(argv: list[str] | None = None) -> int:
         else:
             payload = publication.build_public_release_presentation(root)
     elif args.command == "repair":
-        payload = core.evaluate_release(args.release_id, "all", "pre_publish", write=True)
+        payload = oc133.evaluate_release(release_id, "all", "pre_publish", write=True) if release_id == oc133.RELEASE_ID else core.evaluate_release(release_id, "all", "pre_publish", write=True)
         payload["repair_status"] = "REPAIRED_OR_CONFIRMED_NO_SEND"
     else:
         raise AssertionError(args.command)

@@ -146,30 +146,61 @@ def text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore") if path.exists() else ""
 
 
+def _public_surface_metadata_paths(root: Path, public_manifest: dict[str, Any], ro_crate: dict[str, Any]) -> list[Path]:
+    refs: set[str] = {
+        "manifest.json",
+        "checksums.txt",
+        "CITATION.cff",
+        ".codemeta.json",
+        "ro-crate-metadata.jsonld",
+    }
+    for row in public_manifest.get("files", []):
+        if isinstance(row, dict) and isinstance(row.get("path"), str):
+            refs.add(row["path"])
+    for node in ro_crate.get("@graph", []) if isinstance(ro_crate, dict) else []:
+        if not isinstance(node, dict):
+            continue
+        for part in node.get("hasPart", []):
+            if isinstance(part, dict) and isinstance(part.get("@id"), str):
+                refs.add(part["@id"])
+    return [
+        root / ref
+        for ref in sorted(refs)
+        if not ref.endswith("/") and (root / ref).exists() and (root / ref).is_file()
+    ]
+
+
 def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, Any]:
     """Check publication metadata for v1.3.3 no-send consistency."""
     root_zenodo = root / ".zenodo.json"
     zenodo_draft = root / "releases" / RELEASE_ID / "editorial" / "metadata_drafts" / "zenodo.no_send.draft.json"
-    metadata_paths = [
+    zenodo = read_json(zenodo_draft) if zenodo_draft.exists() else {}
+    codemeta = read_json(root / ".codemeta.json") if (root / ".codemeta.json").exists() else {}
+    ro_crate = read_json(root / "ro-crate-metadata.jsonld") if (root / "ro-crate-metadata.jsonld").exists() else {}
+    public_manifest = read_json(root / "manifest.json") if (root / "manifest.json").exists() else {}
+    metadata_paths = _public_surface_metadata_paths(root, public_manifest, ro_crate)
+    required_metadata_paths = [
         root / "manifest.json",
         root / "checksums.txt",
         zenodo_draft,
         root / "CITATION.cff",
         root / ".codemeta.json",
         root / "ro-crate-metadata.jsonld",
+        root / "README.md",
+        root / "RELEASE_NOTES.md",
         root / "docs" / "OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
     ]
-    missing = [rel(root, path) for path in metadata_paths if not path.exists()]
+    for path in required_metadata_paths:
+        if path.exists() and path.is_file() and path not in metadata_paths:
+            metadata_paths.append(path)
+    missing = [rel(root, path) for path in required_metadata_paths if not path.exists()]
     stale_hits: list[dict[str, str]] = []
     for path in metadata_paths:
         body = text(path)
-        for token in ("v1.3.2", "1.3.2"):
+        for token in ("v1.3.2", "1.3.2", "oc_core_1_3_2"):
             if token in body:
                 stale_hits.append({"path": rel(root, path), "token": token})
 
-    zenodo = read_json(zenodo_draft) if zenodo_draft.exists() else {}
-    codemeta = read_json(root / ".codemeta.json") if (root / ".codemeta.json").exists() else {}
-    ro_crate = read_json(root / "ro-crate-metadata.jsonld") if (root / "ro-crate-metadata.jsonld").exists() else {}
     citation = text(root / "CITATION.cff")
     ro_nodes = ro_crate.get("@graph", []) if isinstance(ro_crate, dict) else []
     ro_versions = [node.get("version") for node in ro_nodes if isinstance(node, dict) and node.get("version")]
@@ -177,9 +208,9 @@ def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, A
     zenodo_related = zenodo.get("related_identifiers", []) if isinstance(zenodo, dict) else []
     ro_body = json.dumps(ro_crate, sort_keys=True)
     codemeta_body = json.dumps(codemeta, sort_keys=True)
-    public_manifest = read_json(root / "manifest.json") if (root / "manifest.json").exists() else {}
     checksums_body = text(root / "checksums.txt")
     public_manifest_body = json.dumps(public_manifest, sort_keys=True)
+    finite_output_attestation_ref = "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json"
     public_manifest_file_paths = [
         str(row.get("path", ""))
         for row in public_manifest.get("files", [])
@@ -202,6 +233,9 @@ def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, A
         "public_manifest_mentions_phenomenon_matrix": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json" in public_manifest_body,
         "checksums_mentions_phenomenon_matrix": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json" in checksums_body,
         "ro_crate_mentions_phenomenon_matrix": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json" in ro_body,
+        "public_manifest_mentions_finite_output_attestation": finite_output_attestation_ref in public_manifest_body,
+        "checksums_mentions_finite_output_attestation": finite_output_attestation_ref in checksums_body,
+        "ro_crate_mentions_finite_output_attestation": finite_output_attestation_ref in ro_body,
     }
     no_send_checks = {
         "publish_allowed_false": manifest.get("publish_allowed") is False,
@@ -224,6 +258,8 @@ def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, A
         "checksums_no_root_zenodo_reference": ".zenodo.json" not in checksums_body,
     }
     return {
+        "scanned_metadata_paths": [rel(root, path) for path in metadata_paths],
+        "scanned_metadata_path_total": len(metadata_paths),
         "missing": missing,
         "stale_hits": stale_hits,
         "stale_hit_total": len(stale_hits),

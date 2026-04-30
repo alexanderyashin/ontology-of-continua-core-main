@@ -1,6 +1,6 @@
 # T133-CYCLE - Live-status cycle-mode requirement theorem
 
-Status: `BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12`
+Status: `FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM`
 Primary artifact: `content/OC_1_3_3_CYCLE_TAXONOMY.tex`
 Machine-checked subset: `formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance`
 Attacked claim: Declared eligible-live status requires an explicit cycle mode or non-vacuous maintenance predicate.
@@ -27,7 +27,7 @@ OC live status requires explicit cycle evidence; static labels are residue or in
 ## Proof
 Liveness is defined through support that can fail or be maintained. Lemma 1 rejects unsupported static labels. Lemma 2 admits legitimate fixed points. The theorem follows by the typed live predicate.
 
-This is a candidate proof sheet and is not release-promoted while G57/G58/G70 remain open. It is linked to the finite witness corpus and
+This proof sheet is a formal release-consistency check only; it is not promoted as an independent scientific theorem and remains no-send while G57/G58/G70 remain open. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the
 finite corpus checks the release verdict behavior used by the public claim ledger.
 

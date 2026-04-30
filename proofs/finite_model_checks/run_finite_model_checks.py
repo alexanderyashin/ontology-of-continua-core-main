@@ -211,7 +211,22 @@ def public_metadata_surface_check(ref_rows: list[dict[str, Any]]) -> dict[str, A
         if not path.is_file():
             continue
         checked += 1
-        observed_refs.append({"ref": ref, "exists": True, "sha256": sha256_file(path)})
+        suppress_runtime_hash = (
+            row.get("sha256_binding_policy")
+            == "runtime_observed_not_input_bound_to_avoid_generated_metadata_cycles"
+        )
+        observed_refs.append(
+            {
+                "ref": ref,
+                "exists": True,
+                "sha256": None if suppress_runtime_hash else sha256_file(path),
+                "sha256_observation_policy": (
+                    "TOKEN_AND_SCHEMA_CHECKED_HASH_ATTESTED_SEPARATELY"
+                    if suppress_runtime_hash
+                    else "OBSERVED_RUNTIME_SHA256"
+                ),
+            }
+        )
         body = path.read_text(encoding="utf-8", errors="ignore")
         expected_hash = row.get("sha256")
         if expected_hash and sha256_file(path) != expected_hash:
@@ -268,6 +283,55 @@ def public_metadata_surface_check(ref_rows: list[dict[str, Any]]) -> dict[str, A
         "failures": failures[:50],
         "observed_refs": observed_refs,
     }
+
+
+def concrete_publication_artifacts_ready(model: dict[str, Any]) -> bool:
+    requested = model.get("requested_channels", [])
+    if model.get("future_public_metadata_contract") == "HYPOTHETICAL_OWNER_APPROVED_PUBLIC_SURFACE_NOT_CURRENT_NO_SEND":
+        artifacts = model.get("future_publication_artifacts", [])
+        if not requested or not isinstance(artifacts, list):
+            return False
+        by_channel = {
+            row.get("channel"): row
+            for row in artifacts
+            if isinstance(row, dict) and row.get("channel") not in {None, ""}
+        }
+        for channel in requested:
+            row = by_channel.get(channel)
+            if not isinstance(row, dict):
+                return False
+            expected_identifier = f"urn:oc-core:1.3.3:future-public-artifact:{channel}:"
+            if not str(row.get("artifact_identifier", "")).startswith(expected_identifier):
+                return False
+            if row.get("sha256_policy") != "FUTURE_OWNER_APPROVED_ARTIFACT_DIGEST_REQUIRED":
+                return False
+        return True
+    artifacts = model.get("publication_artifacts", [])
+    if not requested or not isinstance(artifacts, list):
+        return False
+    by_channel = {
+        row.get("channel"): row
+        for row in artifacts
+        if isinstance(row, dict) and row.get("channel") not in {None, ""}
+    }
+    placeholder_tokens = ("TBD", "TODO", "PLACEHOLDER", "PENDING")
+    for channel in requested:
+        row = by_channel.get(channel)
+        if not isinstance(row, dict):
+            return False
+        ref = str(row.get("ref", "")).strip()
+        artifact_kind = str(row.get("artifact_kind", "")).strip()
+        expected_hash = str(row.get("sha256", "")).strip()
+        if not ref or not artifact_kind or not expected_hash:
+            return False
+        if any(token in ref.upper() or token in artifact_kind.upper() for token in placeholder_tokens):
+            return False
+        path = (ROOT / ref).resolve()
+        if ROOT.resolve() not in path.parents and path != ROOT.resolve():
+            return False
+        if not path.is_file() or sha256_file(path) != expected_hash:
+            return False
+    return True
 
 
 def run_live_lake_build() -> dict[str, Any]:
@@ -592,8 +656,16 @@ def unique_nonempty_values(*values: Any) -> bool:
 def hypothetical_owner_approved_control(model: dict[str, Any]) -> str:
     owner_approved = model.get("owner_approved") is True
     publish_requested = model.get("publish_requested") is True
-    deposit_metadata_ready = model.get("deposit_ready_metadata") is True
-    public_record_ready = model.get("public_record_present") is True
+    future_deposit_metadata_identifier = str(model.get("future_deposit_metadata_identifier", "")).strip()
+    future_public_record_identifier = str(model.get("future_public_record_identifier", "")).strip()
+    deposit_metadata_ready = (
+        model.get("deposit_ready_metadata") is True
+        and future_deposit_metadata_identifier.startswith("urn:oc-core:1.3.3:future-public-metadata:")
+    )
+    public_record_ready = (
+        model.get("public_record_present") is True
+        and future_public_record_identifier.startswith("urn:oc-core:1.3.3:future-public-record:")
+    )
     channel_fields = {
         "github_release": "github_release_allowed",
         "zenodo_deposit": "zenodo_deposit_allowed",
@@ -611,6 +683,7 @@ def hypothetical_owner_approved_control(model: dict[str, Any]) -> str:
         model.get("publish_allowed") is True
         and model.get("journal_submissions_allowed") is True
     )
+    publication_artifacts_ready = concrete_publication_artifacts_ready(model)
     if "fresh_cerberus_required_for_release" in model:
         fresh_review_open = (
             model.get("fresh_cerberus_required_for_release") is True
@@ -631,6 +704,7 @@ def hypothetical_owner_approved_control(model: dict[str, Any]) -> str:
         and common_gates_open
         and requested_channels_ok
         and fresh_review_open
+        and publication_artifacts_ready
     ):
         return "ACCEPT_PUBLIC_ACTION"
     if publish_requested:

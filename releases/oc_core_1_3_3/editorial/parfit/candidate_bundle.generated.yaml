@@ -1,0 +1,263 @@
+schema_id: ReleaseCandidateBundle_v1
+candidate_id: oc_core_1_3_3
+program_id: OC_PARFITIAN_CERBERUS_20260427
+release_target: oc_core_1_3_3
+publication_state: NO_SEND
+publish_allowed: false
+outbound_send_allowed: false
+owner_gate:
+  approval_status: pending
+  publication_owner_unlock: false
+  owner_approval_packet: releases/oc_core_1_3_3/editorial
+claims:
+- claim_id: OC-CLAIM-000001
+  short_name: Boundary cycle invariant
+  support_class: FORMALLY_PROVED
+  public_status: PROMOTED
+  evidence_refs:
+  - content/03_model.tex
+  - appendix/B_axioms_full.tex
+  claim_ceiling: formal model statement
+  non_claims:
+  - Not an empirical universal law.
+  id: OC-CLAIM-000001
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000002
+  short_name: Threshold replay in formal examples
+  support_class: THEOREM_NATIVE_HELD_OUT_VALIDATED
+  public_status: PROMOTED
+  evidence_refs:
+  - content/20_oc_core_1_3_theorem_roadmap.tex
+  claim_ceiling: theorem-native replay within named assumptions
+  non_claims:
+  - Not a claim that all physical thresholds are already validated.
+  id: OC-CLAIM-000002
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000003
+  short_name: RAF closure packet mapping
+  support_class: OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS
+  public_status: PROMOTED
+  evidence_refs:
+  - content/21_oc_core_1_3_worked_examples.tex
+  - simulations/k3_raf_closure/run_simulation.py
+  claim_ceiling: bounded worked example and deterministic replay
+  non_claims:
+  - Not empirical biochemical validation.
+  id: OC-CLAIM-000003
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000004
+  short_name: Membrane viability windows
+  support_class: OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS
+  public_status: PROMOTED
+  evidence_refs:
+  - content/21_oc_core_1_3_worked_examples.tex
+  - simulations/k4_membrane_thresholds/run_simulation.py
+  claim_ceiling: bounded operational example
+  non_claims:
+  - Not a replacement for domain-specific membrane measurements.
+  id: OC-CLAIM-000004
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000005
+  short_name: Binding collapse formula route
+  support_class: THEOREM_NATIVE_HELD_OUT_VALIDATED
+  public_status: PROMOTED
+  evidence_refs:
+  - content/20_oc_core_1_3_theorem_roadmap.tex
+  - simulations/k6_binding_prediction/run_simulation.py
+  claim_ceiling: formula route under stated assumptions
+  non_claims:
+  - Not a deployed prediction service.
+  id: OC-CLAIM-000005
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000006
+  short_name: Institutional cycle metrics
+  support_class: SIMULATION_ILLUSTRATION_ONLY
+  public_status: SUPPORT_ONLY
+  evidence_refs:
+  - simulations/k7_trust_coordination/run_simulation.py
+  claim_ceiling: illustrative deterministic simulation only
+  non_claims:
+  - Not validation of institutional outcomes.
+  id: OC-CLAIM-000006
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000007
+  short_name: Regime-shift monitoring scaffold
+  support_class: SIMULATION_ILLUSTRATION_ONLY
+  public_status: SUPPORT_ONLY
+  evidence_refs:
+  - simulations/k8_regime_shift/run_simulation.py
+  claim_ceiling: illustrative deterministic simulation only
+  non_claims:
+  - Not an empirical early-warning benchmark.
+  id: OC-CLAIM-000007
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000008
+  short_name: Theory dynamics scaffold
+  support_class: SIMULATION_ILLUSTRATION_ONLY
+  public_status: SUPPORT_ONLY
+  evidence_refs:
+  - simulations/k9_theory_dynamics/run_simulation.py
+  claim_ceiling: illustrative deterministic simulation only
+  non_claims:
+  - Not proof of historical theory dynamics.
+  id: OC-CLAIM-000008
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000009
+  short_name: Recursion consistency
+  support_class: FORMALLY_PROVED
+  public_status: PROMOTED
+  evidence_refs:
+  - content/20_oc_core_1_3_theorem_roadmap.tex
+  - simulations/k10_recursion_consistency/run_simulation.py
+  claim_ceiling: formal consistency route plus deterministic replay
+  non_claims:
+  - Not exhaustive metatheory closure.
+  id: OC-CLAIM-000009
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000010
+  short_name: Irreducibility route
+  support_class: THEOREM_NATIVE_HELD_OUT_VALIDATED
+  public_status: PROMOTED
+  evidence_refs:
+  - content/20_oc_core_1_3_theorem_roadmap.tex
+  claim_ceiling: theorem-native statement under assumptions
+  non_claims:
+  - Not a universal impossibility theorem outside the formal scope.
+  id: OC-CLAIM-000010
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000011
+  short_name: K11/K12 coherence toy route
+  support_class: SIMULATION_ILLUSTRATION_ONLY
+  public_status: SUPPORT_ONLY
+  evidence_refs:
+  - simulations/k11_k12_coherence_toys/run_simulation.py
+  claim_ceiling: illustrative deterministic simulation only
+  non_claims:
+  - Not empirical validation of cross-level coherence.
+  id: OC-CLAIM-000011
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000012
+  short_name: Comparator-aware release discipline
+  support_class: OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS
+  public_status: PROMOTED
+  evidence_refs:
+  - RELEASE_CONTRACT.md
+  - release_machine/config/channels/github_release.yaml
+  claim_ceiling: release-process guarantee inside this repository
+  non_claims:
+  - Not an external certification.
+  id: OC-CLAIM-000012
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000013
+  short_name: Public reproducibility route
+  support_class: OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS
+  public_status: PROMOTED
+  evidence_refs:
+  - REPRODUCIBILITY.md
+  - release_machine/cli.py
+  claim_ceiling: local deterministic package route
+  non_claims:
+  - Not a guarantee that external services are available.
+  id: OC-CLAIM-000013
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000014
+  short_name: Falsifiability discipline
+  support_class: OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS
+  public_status: PROMOTED
+  evidence_refs:
+  - content/15_falsifiability_extended.tex
+  - claims/CLAIM_EVIDENCE_MATRIX.md
+  claim_ceiling: documented critique and demotion route
+  non_claims:
+  - Not proof that every future claim is correct.
+  id: OC-CLAIM-000014
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000015
+  short_name: Dataset route discoverability
+  support_class: PUBLIC_ROUTE_DISCOVERY_ONLY
+  public_status: SUPPORT_ONLY
+  evidence_refs:
+  - data/OC_DATASET_MANIFEST_1_3_2.json
+  claim_ceiling: bounded public-route discovery only
+  non_claims:
+  - Not validation-grade dataset evidence.
+  id: OC-CLAIM-000015
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000016
+  short_name: Pinned dataset snapshot readiness
+  support_class: FRONTIER_WORK
+  public_status: FRONTIER
+  evidence_refs:
+  - data/OC_DATASET_SNAPSHOT_MANIFEST_1_3_2.json
+  claim_ceiling: future work until snapshots and hashes exist
+  non_claims:
+  - No empirical claim is promoted from unpinned routes.
+  id: OC-CLAIM-000016
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000017
+  short_name: Release-machine gate enforceability
+  support_class: OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS
+  public_status: PROMOTED
+  evidence_refs:
+  - release_machine/core.py
+  - release_machine/tests/test_release_machine.py
+  claim_ceiling: repository-local gate enforcement
+  non_claims:
+  - Not a legal compliance certification.
+  id: OC-CLAIM-000017
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000018
+  short_name: Public-surface parity
+  support_class: OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS
+  public_status: PROMOTED
+  evidence_refs:
+  - releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_PUBLIC_SURFACE_PARITY_REPORT.json
+  claim_ceiling: checked parity across tracked v1.3.2 surfaces
+  non_claims:
+  - Does not rewrite historical v1.3.1 evidence.
+  id: OC-CLAIM-000018
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000019
+  short_name: External release unit principle
+  support_class: OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS
+  public_status: PROMOTED
+  evidence_refs:
+  - RELEASE_STANDARDS.md
+  - CHANNEL_POLICIES.md
+  claim_ceiling: governance rule implemented for tracked routes
+  non_claims:
+  - Does not publish without owner approval.
+  id: OC-CLAIM-000019
+  burden_owner: OC science/release steward
+- claim_id: OC-CLAIM-000020
+  short_name: OC Core v1.3.2 hygiene patch
+  support_class: OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS
+  public_status: PROMOTED
+  evidence_refs:
+  - releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_RELEASE_CONTROL_PLANE_latest.json
+  claim_ceiling: release-candidate hygiene repair
+  non_claims:
+  - Not a public v1.3.2 DOI until Zenodo publishes a new version.
+  id: OC-CLAIM-000020
+  burden_owner: OC science/release steward
+manifests:
+  relation_r_manifest: releases/oc_core_1_3_3/editorial/parfit/relation_r_manifest.yaml
+  future_stakeholder_manifest: releases/oc_core_1_3_3/editorial/parfit/future_stakeholder_manifest.yaml
+  five_part_decision_matrix: releases/oc_core_1_3_3/editorial/parfit/five_part_decision_matrix.yaml
+  repugnant_output_assessment: releases/oc_core_1_3_3/editorial/parfit/repugnant_output_assessment.yaml
+publication_boundary_refs:
+- RELEASE_CONTRACT.md
+- releases/oc_core_1_3_3/README.md
+- releases/oc_core_1_3_3/editorial
+evidence_manifest_refs:
+- claims/CLAIM_LEDGER_FULL.json
+- claims/CLAIM_EVIDENCE_MATRIX.md
+- manifest.json
+- checksums.txt
+transparency:
+  hidden_strategy_required: false
+  uncertainty_visible: true
+  claim_ceiling_visible: true
+release_machine_refs:
+  publish_manifest: oc_core_1_3_2
+  global_no_send_lock: true

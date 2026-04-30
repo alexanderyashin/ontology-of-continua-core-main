@@ -293,14 +293,18 @@ def build_zip(root: Path, paths: list[Path]) -> dict[str, Any]:
 
 def build_package(root: Path | None = None, channel: str = "all", no_publish: bool = True) -> dict[str, Any]:
     root = root or repo_root()
+    # The v1.3.3 package must always replay from the v12 no-send surface.
+    # Legacy 1.3.2 builders can still touch root metadata through shared
+    # release-machine helpers; running v12 before the finite/validation replays
+    # prevents stale DOI/public-record metadata from becoming canonical again.
+    ensure_materialized(root)
+    oc133_hardening.ensure_hardened(root)
+    oc133_v12.ensure_v12(root)
+    run_local_replays(root)
     fingerprint = _package_input_fingerprint(root)
     cached = _cached_package(root, channel, no_publish, fingerprint)
     if cached is not None:
         return cached
-    ensure_materialized(root)
-    oc133_hardening.ensure_hardened(root)
-    run_local_replays(root)
-    oc133_v12.ensure_v12(root)
     paths = write_inventory_and_checksums(root)
     zip_payload = build_zip(root, paths)
     payload = {
@@ -488,6 +492,7 @@ def evaluate_release(release: str = RELEASE_ID, channel: str = "all", mode: str 
 def publication_presentation_verify(root: Path | None = None) -> dict[str, Any]:
     root = root or repo_root()
     ensure_materialized(root)
+    oc133_v12.ensure_v12(root)
     manifest = read_json(editorial_dir(root) / "OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json")
     assets = [artifacts_dir(root) / name for name in PDF_ARTIFACTS]
     return {

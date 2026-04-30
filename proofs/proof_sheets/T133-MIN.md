@@ -1,6 +1,6 @@
 # T133-MIN - Declared semantic-verdict component independence theorem
 
-Status: `BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12`
+Status: `FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM`
 Primary artifact: `appendix/OC_1_3_3_GLOBAL_MINIMALITY_WITNESSES.tex`
 Machine-checked subset: `formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant`
 Attacked claim: Within the declared v12 release tuple semantics, each tuple component has a one-field semantic keep/drop witness that changes the release verdict.
@@ -27,7 +27,7 @@ The declared v12 tuple has component-wise independence for the declared semantic
 ## Proof
 For each component c, the witness ledger gives keep_c and drop_c cases whose semantic records differ only in c's obligation field and whose verdicts differ. Lemma 1 proves that c is required for the release verdict suite. Lemma 2 ranges over the full declared tuple. Therefore no declared component can be removed while preserving this declared v12 verdict suite.
 
-This is a candidate proof sheet and is not release-promoted while G57/G58/G70 remain open. It is linked to the finite witness corpus and
+This proof sheet is a formal release-consistency check only; it is not promoted as an independent scientific theorem and remains no-send while G57/G58/G70 remain open. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the
 finite corpus checks the release verdict behavior used by the public claim ledger.
 

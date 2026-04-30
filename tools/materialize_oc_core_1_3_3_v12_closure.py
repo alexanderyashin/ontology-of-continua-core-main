@@ -16,6 +16,10 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from release_machine import versioning
+
 RELEASE_ID = "oc_core_1_3_3"
 VERSION = "1.3.3"
 TIMESTAMP = "2026-04-28T00:00:00Z"
@@ -615,6 +619,51 @@ FORMAL_CONSISTENCY_ONLY_THEOREMS = {
     "T133-HYBRID",
     "T133-DIM",
 }
+
+NO_SEND_GATE_PREDICATES = [
+    "owner_approved",
+    "publish_allowed",
+    "deposit_ready_metadata",
+    "public_record_present",
+    "global_no_send_lock=false",
+    "g57_attack_matrix_zero_critical_high",
+    "g58_reviewer_persona_suite_pass",
+    "g70_scientific_closure_verdict_pass",
+    "critical_open_total=0",
+    "high_open_total=0",
+    "github_release_allowed",
+    "zenodo_deposit_allowed",
+    "software_heritage_deposit_allowed",
+    "journal_submission_allowed",
+    "doi_minting_allowed",
+]
+NO_SEND_CURRENT_GATE_VECTOR = {predicate: False for predicate in NO_SEND_GATE_PREDICATES}
+NO_SEND_CURRENT_FAILED_GATE_PREDICATES = list(NO_SEND_GATE_PREDICATES)
+NO_SEND_CURRENT_REJECT_CASE = "ADV-NOSEND-PUBLISH"
+NO_SEND_POSITIVE_HYPOTHETICAL_ACCEPT_CASE = "ADV-NOSEND-PUBLISH-ALL-GATES-OPEN-CONTROL"
+NO_SEND_EVALUATOR_REF = "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control"
+NO_SEND_PARTIAL_LOCK_CASE_IDS = [
+    "ADV-NOSEND-PARTIAL-LOCK-OWNER_APPROVED",
+    "ADV-NOSEND-PARTIAL-LOCK-PUBLISH_ALLOWED",
+    "ADV-NOSEND-PARTIAL-LOCK-DEPOSIT_READY_METADATA",
+    "ADV-NOSEND-PARTIAL-LOCK-PUBLIC_RECORD_PRESENT",
+    "ADV-NOSEND-PARTIAL-LOCK-GLOBAL_NO_SEND_LOCK",
+    "ADV-NOSEND-PARTIAL-LOCK-GITHUB_RELEASE",
+    "ADV-NOSEND-PARTIAL-LOCK-ZENODO_DEPOSIT",
+    "ADV-NOSEND-PARTIAL-LOCK-SOFTWARE_HERITAGE_DEPOSIT",
+    "ADV-NOSEND-PARTIAL-LOCK-JOURNAL_SUBMISSION",
+    "ADV-NOSEND-PARTIAL-LOCK-DOI_MINTING",
+    "ADV-NOSEND-PARTIAL-LOCK-G57",
+    "ADV-NOSEND-PARTIAL-LOCK-G58",
+    "ADV-NOSEND-PARTIAL-LOCK-G70",
+    "ADV-NOSEND-PARTIAL-LOCK-CRITICAL_OPEN_TOTAL",
+    "ADV-NOSEND-PARTIAL-LOCK-HIGH_OPEN_TOTAL",
+]
+NO_SEND_NEGATIVE_CONTROL_CASES = [
+    NO_SEND_CURRENT_REJECT_CASE,
+    "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+    *NO_SEND_PARTIAL_LOCK_CASE_IDS,
+]
 
 
 COMPONENT_WITNESSES = [
@@ -1522,11 +1571,20 @@ The formal target is `formal/lean/OC133V12.lean`.
 def proof_sheet(theorem: dict[str, Any], release_promotion_allowed: bool) -> str:
     assumptions = "\n".join(f"- {row}" for row in theorem["assumptions"])
     definitions = "\n".join(f"- {row}" for row in theorem["definitions"])
-    status = "PROMOTED_BOUNDED_THEOREM_V12_NO_SEND" if release_promotion_allowed else "BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12"
+    if release_promotion_allowed:
+        status = "PROMOTED_BOUNDED_THEOREM_V12_NO_SEND"
+    elif theorem["id"] in FORMAL_CONSISTENCY_ONLY_THEOREMS:
+        status = "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM"
+    else:
+        status = "OWNER_REVIEW_PROOF_OBLIGATION_NO_SEND_NOT_RELEASE_PROMOTED_V12"
     promotion_sentence = (
         "The proof is promoted only as a bounded no-send release claim with the stated assumptions."
         if release_promotion_allowed
-        else "This is a candidate proof sheet and is not release-promoted while G57/G58/G70 remain open."
+        else (
+            "This proof sheet is a formal release-consistency check only; it is not promoted as an independent scientific theorem and remains no-send while G57/G58/G70 remain open."
+            if theorem["id"] in FORMAL_CONSISTENCY_ONLY_THEOREMS
+            else "This is an owner-review proof obligation and is not release-promoted while G57/G58/G70 remain open."
+        )
     )
     return f"""# {theorem['id']} - {theorem['title']}
 
@@ -2198,7 +2256,14 @@ def write_klevel_and_claims(root: Path) -> None:
                     "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
                     "proofs/FINITE_MODEL_CHECKS_1_3_3.json::ADV-NOSEND-PUBLISH",
                     "proofs/FINITE_MODEL_CHECKS_1_3_3.json::ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+                    "proofs/FINITE_MODEL_CHECKS_1_3_3.json::ADV-NOSEND-PUBLISH-ALL-GATES-OPEN-CONTROL",
                 ],
+                "current_reject_case": NO_SEND_CURRENT_REJECT_CASE,
+                "positive_hypothetical_accept_case": NO_SEND_POSITIVE_HYPOTHETICAL_ACCEPT_CASE,
+                "negative_control_cases": NO_SEND_NEGATIVE_CONTROL_CASES,
+                "evaluator_ref": NO_SEND_EVALUATOR_REF,
+                "gate_vector": NO_SEND_CURRENT_GATE_VECTOR,
+                "failed_gate_predicates": NO_SEND_CURRENT_FAILED_GATE_PREDICATES,
                 "public_status": "GOVERNANCE_CONTROL_NO_SEND_NOT_SCIENTIFIC_PROMOTION",
                 "release_promotion_allowed": package_release_promotion_allowed,
                 "scientific_promotion_allowed": False,
@@ -3376,6 +3441,8 @@ def write_semantic_finite_model_checks(root: Path) -> None:
                     "publish_allowed": True,
                     "deposit_ready_metadata": True,
                     "public_record_present": True,
+                    "future_deposit_metadata_identifier": "urn:oc-core:1.3.3:future-public-metadata:owner-approved-release-package",
+                    "future_public_record_identifier": "urn:oc-core:1.3.3:future-public-record:owner-approved-release-record",
                     "global_no_send_lock": False,
                     "journal_submissions_allowed": True,
                     "journal_submission_allowed": True,
@@ -4076,6 +4143,12 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                     "observable": observable,
                     "prediction_or_replay": finite_case,
                     "negative_control": negative_case,
+                    "current_reject_case": NO_SEND_CURRENT_REJECT_CASE if pid == "P012" else "",
+                    "positive_hypothetical_accept_case": NO_SEND_POSITIVE_HYPOTHETICAL_ACCEPT_CASE if pid == "P012" else "",
+                    "negative_control_cases": NO_SEND_NEGATIVE_CONTROL_CASES if pid == "P012" else [],
+                    "evaluator_ref": NO_SEND_EVALUATOR_REF if pid == "P012" else "",
+                    "gate_vector": NO_SEND_CURRENT_GATE_VECTOR if pid == "P012" else {},
+                    "failed_gate_predicates": NO_SEND_CURRENT_FAILED_GATE_PREDICATES if pid == "P012" else [],
                     "additional_replay_cases": (
                         ["FM-T133-OMEGA-IDENTITY-EQUIVOCATION-NEG"]
                         if pid == "P002"
@@ -4109,21 +4182,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                     ),
                     "truth_table_case_prefixes": ["FM-T133-ID-TT-IDENTITY", "FM-T133-ID-TT-RESIDUE", "FM-T133-ID-TT-REBIRTH"] if pid == "P015" else [],
                     "no_send_gate_predicates": (
-                        [
-                            "owner_approved",
-                            "publish_allowed",
-                            "deposit_ready_metadata",
-                            "public_record_present",
-                            "global_no_send_lock=false",
-                            "g57_attack_matrix_zero_critical_high",
-                            "g58_reviewer_persona_suite_pass",
-                            "g70_scientific_closure_verdict_pass",
-                            "github_release_allowed",
-                            "zenodo_deposit_allowed",
-                            "software_heritage_deposit_allowed",
-                            "journal_submission_allowed",
-                            "doi_minting_allowed",
-                        ]
+                        NO_SEND_GATE_PREDICATES
                         if pid == "P012"
                         else []
                     ),
@@ -4153,6 +4212,12 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 "phenomenon_specific_model": instance,
                 "observable": observable,
                 "negative_control": negative_case,
+                "current_reject_case": NO_SEND_CURRENT_REJECT_CASE if pid == "P012" else "",
+                "positive_hypothetical_accept_case": NO_SEND_POSITIVE_HYPOTHETICAL_ACCEPT_CASE if pid == "P012" else "",
+                "negative_control_cases": NO_SEND_NEGATIVE_CONTROL_CASES if pid == "P012" else [],
+                "evaluator_ref": NO_SEND_EVALUATOR_REF if pid == "P012" else "",
+                "gate_vector": NO_SEND_CURRENT_GATE_VECTOR if pid == "P012" else {},
+                "failed_gate_predicates": NO_SEND_CURRENT_FAILED_GATE_PREDICATES if pid == "P012" else [],
                 "prediction_status": "SCOPED_FORMAL_REPLAY_NOT_DOMAIN_TOTALIZATION",
                 "falsifier": falsifier_by_pid[pid],
                 "limitation": "This is a scoped explanatory model card, not a full empirical solution of the broad phenomenon.",
@@ -5163,41 +5228,10 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
         f"fresh_satisfied={attack_payload['fresh_cerberus_review_satisfied']}"
     )
 
-    no_send_gate_predicates = [
-        "owner_approved",
-        "publish_allowed",
-        "deposit_ready_metadata",
-        "public_record_present",
-        "global_no_send_lock=false",
-        "g57_attack_matrix_zero_critical_high",
-        "g58_reviewer_persona_suite_pass",
-        "g70_scientific_closure_verdict_pass",
-        "critical_open_total=0",
-        "high_open_total=0",
-        "github_release_allowed",
-        "zenodo_deposit_allowed",
-        "software_heritage_deposit_allowed",
-        "journal_submission_allowed",
-        "doi_minting_allowed",
-    ]
-    no_send_partial_lock_case_ids = [
-        "ADV-NOSEND-PARTIAL-LOCK-OWNER_APPROVED",
-        "ADV-NOSEND-PARTIAL-LOCK-PUBLISH_ALLOWED",
-        "ADV-NOSEND-PARTIAL-LOCK-DEPOSIT_READY_METADATA",
-        "ADV-NOSEND-PARTIAL-LOCK-PUBLIC_RECORD_PRESENT",
-        "ADV-NOSEND-PARTIAL-LOCK-GLOBAL_NO_SEND_LOCK",
-        "ADV-NOSEND-PARTIAL-LOCK-GITHUB_RELEASE",
-        "ADV-NOSEND-PARTIAL-LOCK-ZENODO_DEPOSIT",
-        "ADV-NOSEND-PARTIAL-LOCK-SOFTWARE_HERITAGE_DEPOSIT",
-        "ADV-NOSEND-PARTIAL-LOCK-JOURNAL_SUBMISSION",
-        "ADV-NOSEND-PARTIAL-LOCK-DOI_MINTING",
-    ]
-    no_send_negative_case_ids = [
-        "ADV-NOSEND-PUBLISH",
-        "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
-        *no_send_partial_lock_case_ids,
-    ]
-    no_send_positive_case_ids = ["ADV-NOSEND-PUBLISH-ALL-GATES-OPEN-CONTROL"]
+    no_send_gate_predicates = NO_SEND_GATE_PREDICATES
+    no_send_partial_lock_case_ids = NO_SEND_PARTIAL_LOCK_CASE_IDS
+    no_send_negative_case_ids = NO_SEND_NEGATIVE_CONTROL_CASES
+    no_send_positive_case_ids = [NO_SEND_POSITIVE_HYPOTHETICAL_ACCEPT_CASE]
     no_send_falsifier_route = (
         "claim OC133-NOSEND-001 -> predicate-level gates "
         f"{', '.join(no_send_gate_predicates)} -> current finite no-send case ADV-NOSEND-PUBLISH "
@@ -5418,9 +5452,15 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
             ],
             "lean_theorem_ref": "N/A: control-plane finite state row",
             "proof_sheet_ref": "claims/CLAIM_LEDGER_1_3_3.json::OC133-NOSEND-001",
+            "current_reject_case": NO_SEND_CURRENT_REJECT_CASE,
+            "positive_hypothetical_accept_case": NO_SEND_POSITIVE_HYPOTHETICAL_ACCEPT_CASE,
+            "negative_control_cases": NO_SEND_NEGATIVE_CONTROL_CASES,
+            "evaluator_ref": NO_SEND_EVALUATOR_REF,
+            "gate_vector": NO_SEND_CURRENT_GATE_VECTOR,
+            "failed_gate_predicates": NO_SEND_CURRENT_FAILED_GATE_PREDICATES,
             "positive_case_ids": no_send_positive_case_ids,
             "negative_case_ids": no_send_negative_case_ids,
-            "finite_runner_predicate_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+            "finite_runner_predicate_ref": NO_SEND_EVALUATOR_REF,
             "no_send_gate_predicates": no_send_gate_predicates,
             "channel_lock_fields": [
                 "github_release_allowed",
@@ -5563,8 +5603,79 @@ def write_no_send_root_metadata(root: Path) -> None:
     root_zenodo = root / ".zenodo.json"
     if root_zenodo.exists():
         root_zenodo.unlink()
+    write_text(root / "VERSION", VERSION)
+    versioning.write_current_release_marker(root, RELEASE_ID, VERSION, source="oc133_v12_materializer")
     draft_dir = root / "releases" / RELEASE_ID / "editorial" / "metadata_drafts"
     zenodo_draft_ref = f"releases/{RELEASE_ID}/editorial/metadata_drafts/zenodo.no_send.draft.json"
+    write_text(
+        root / "README.md",
+        """# Ontology of Continua / OC Core 1.3.3
+
+OC Core v1.3.3 is a no-send owner-review package for the Ontology of Continua core line. It hardens the v12 scientific closure surface, public metadata, claim boundaries, reproducibility checks, and release governance controls.
+
+Current public truth:
+- external version label: `1.3.3`
+- release state: `OWNER_REVIEW_READY_NO_SEND`
+- public release record: none
+- release DOI: none assigned in this no-send pass
+- owner approval required: `true`
+- owner approved: `false`
+- global no-send lock: `true`
+- publish allowed: `false`
+- GitHub release, Zenodo deposit, Software Heritage deposit, journal submission, and DOI minting: locked
+
+Primary no-send review surfaces:
+- `manifest.json`
+- `checksums.txt`
+- `ro-crate-metadata.jsonld`
+- `CITATION.cff`
+- `.codemeta.json`
+- `claims/CLAIM_LEDGER_1_3_3.json`
+- `proofs/THEOREM_INVENTORY_1_3_3.json`
+- `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json`
+- `review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json`
+- `releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json`
+- `releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json`
+
+This root surface asserts review readiness only. It is no public release and does not assert publication, a public release record, a DOI, a Zenodo deposit, a GitHub release, or journal submission.
+
+Simulations, finite checks, numeric replay packets, and dataset routes are bounded reproducibility and review surfaces. They do not widen claim boundaries unless a claim-ledger row explicitly permits that route.
+""",
+    )
+    write_text(
+        root / "RELEASE_NOTES.md",
+        """# OC Core v1.3.3 Release Notes
+
+## Release identity
+- Version: 1.3.3
+- Release state: OWNER_REVIEW_READY_NO_SEND
+- Public release record: none
+- Release DOI: none assigned in this no-send pass
+- GitHub tag: not created
+- Zenodo deposit: not performed
+- Date: 2026-04-28
+
+## What changed
+OC Core v1.3.3 hardens the v12 scientific-closure package: typed foundation, Lean subset, finite no-send controls, numeric replay QA, comparator and phenomenon matrices, attack-matrix closure, LLM Cerberus review accounting, and public metadata parity.
+
+## Public-action locks
+Publication remains blocked. Owner approval, deposit-ready metadata, a public-record target, cleared no-send lock, zero critical/high review blockers, and every requested channel unlock are required before any public action.
+
+## Metadata policy
+- `CITATION.cff`, `.codemeta.json`, `ro-crate-metadata.jsonld`, `manifest.json`, and the Zenodo draft describe a no-send review package.
+- No publication date, DOI identifier, public record, open Zenodo access-right, or release tag is asserted.
+- `checksums.txt` signs `manifest.json` plus the manifest-listed public review surfaces.
+
+## Reproducibility package
+The package includes theorem inventory, finite checks, numeric replay QA, comparator artifacts, claim ledger, public-surface manifest, checksums, and release-local owner/control-plane files.
+
+## Known limitations
+This is no public release. Research packets, simulations, and numeric replay outputs are support and review material unless explicitly promoted by the bounded claim ledger.
+
+## Integrity verification
+Verify `manifest.json`, `checksums.txt`, and each manifest-listed file. Root public-surface metadata must remain v1.3.3 no-send and must not contain previous-version payload, DOI, tag, or public-record claims.
+""",
+    )
     write_json(
         root / zenodo_draft_ref,
         {
@@ -5672,6 +5783,7 @@ abstract: >
         "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
         "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
         "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json",
+        "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json",
         "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
         "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
         zenodo_draft_ref,
@@ -5755,7 +5867,8 @@ abstract: >
         "git_tag": None,
         "public_record": None,
         "stale_v132_surface_allowed": False,
-        "inventory_policy": "Manifest lists no-send review-surface files. checksums.txt is the nonrecursive signing file for manifest.json plus manifest-listed files and is intentionally excluded from files to avoid a self-referential checksum cycle. Finite outputs and replay reports are output-side attestations and are bound by the Lean certificate, finite inputs, and runner identity rather than recursively embedded in root public-surface metadata.",
+        "inventory_policy": "Manifest lists no-send review-surface files. checksums.txt is the nonrecursive signing file for manifest.json plus manifest-listed files and is intentionally excluded from files to avoid a self-referential checksum cycle. Runtime finite outputs are signed through proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json, which is itself listed in manifest.json, checksums.txt, and RO-Crate when present.",
+        "runtime_output_attestation_ref": "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json",
         "checksum_file_ref": "checksums.txt",
         "nonrecursive_manifest_exceptions": [
             {
@@ -5766,12 +5879,12 @@ abstract: >
             {
                 "path": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
                 "reason": "finite-model output embeds runtime public-surface observations; including it in manifest files creates a generation-order checksum cycle",
-                "covered_by": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json plus proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json and the finite runner certificate",
+                "covered_by": "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json records sha256/size/schema/verdict fields for this output and is signed by manifest.json/checksums.txt/RO-Crate",
             },
             {
                 "path": "proofs/finite_model_checks/FINITE_MODEL_REPLAY_REPORT.json",
                 "reason": "finite replay report is an output-side attestation written after finite execution; recursive root metadata inclusion would create generation-order churn",
-                "covered_by": "proofs/FINITE_MODEL_CHECKS_1_3_3.json plus proofs/finite_model_checks/run_finite_model_checks.py",
+                "covered_by": "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json records sha256/size/schema/verdict fields for this replay report and is signed by manifest.json/checksums.txt/RO-Crate",
             }
         ],
         "files": manifest_rows,
@@ -5890,6 +6003,9 @@ def sync_public_surface_refs_into_finite_inputs(root: Path) -> None:
         "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
         f"releases/{RELEASE_ID}/editorial/metadata_drafts/zenodo.no_send.draft.json",
     ]
+    finite_output_attestation_ref = "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json"
+    if (root / finite_output_attestation_ref).is_file():
+        public_refs.append(finite_output_attestation_ref)
     public_ref_rows = []
     public_ref_rows.append(
         {
@@ -5915,6 +6031,34 @@ def sync_public_surface_refs_into_finite_inputs(root: Path) -> None:
                 "require_tokens": ["1.3.3"],
             }
         )
+    publication_artifact_refs = [
+        ("github_release", "release_manifest", "manifest.json"),
+        ("zenodo_deposit", "methods_companion_pdf", f"releases/{RELEASE_ID}/artifacts/OC_CORE_1_3_3_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf"),
+        ("software_heritage_deposit", "reviewer_attack_map_pdf", f"releases/{RELEASE_ID}/artifacts/OC_CORE_1_3_3_REVIEWER_ATTACK_AND_RESPONSE_MAP_EN.pdf"),
+        ("journal_submission", "journal_core_pdf", f"releases/{RELEASE_ID}/artifacts/OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf"),
+        ("doi_minting", "checksums_manifest", "checksums.txt"),
+    ]
+    publication_artifact_rows = [
+        {
+            "channel": channel,
+            "artifact_kind": artifact_kind,
+            "ref": ref,
+            "sha256": sha256_file(root / ref) if (root / ref).is_file() else "",
+            "concrete_publication_artifact": True,
+        }
+        for channel, artifact_kind, ref in publication_artifact_refs
+    ]
+    future_publication_artifact_rows = [
+        {
+            "channel": channel,
+            "artifact_kind": artifact_kind,
+            "artifact_identifier": f"urn:oc-core:1.3.3:future-public-artifact:{channel}:{artifact_kind}",
+            "sha256_policy": "FUTURE_OWNER_APPROVED_ARTIFACT_DIGEST_REQUIRED",
+            "current_no_send_ref": ref,
+            "current_no_send_ref_is_public_release_artifact": False,
+        }
+        for channel, artifact_kind, ref in publication_artifact_refs
+    ]
     cerberus_summary_path = root / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json"
     cerberus_summary = read_json(cerberus_summary_path) if cerberus_summary_path.exists() else {}
     current_critical = int(cerberus_summary.get("critical_open_total", 1) or 0)
@@ -5936,14 +6080,21 @@ def sync_public_surface_refs_into_finite_inputs(root: Path) -> None:
             model["critical_open_total"] = current_critical
             model["high_open_total"] = current_high
             model["current_review_state"] = "BLOCKED_BY_CURRENT_CERBERUS_OPEN_FINDINGS" if not current_review_green else "CURRENT_REVIEW_GREEN"
+            model["public_metadata_refs"] = public_ref_rows
+            model.pop("publication_artifacts", None)
+            model["current_no_send_publication_artifact_policy"] = "NO_CONCRETE_PUBLIC_ARTIFACT_DIGESTS_ON_CURRENT_REJECT_ROW"
         else:
             model.setdefault("g57_attack_matrix_zero_critical_high", True)
             model.setdefault("g58_reviewer_persona_suite_pass", True)
             model.setdefault("g70_scientific_closure_verdict_pass", True)
             model.setdefault("critical_open_total", 0)
             model.setdefault("high_open_total", 0)
-        model["public_metadata_refs"] = public_ref_rows
+            model.pop("public_metadata_refs", None)
+            model.pop("publication_artifacts", None)
+            model.setdefault("future_public_metadata_contract", "HYPOTHETICAL_OWNER_APPROVED_PUBLIC_SURFACE_NOT_CURRENT_NO_SEND")
+            model["future_publication_artifacts"] = future_publication_artifact_rows
     payload["public_metadata_ref_total"] = len(public_ref_rows)
+    payload["publication_artifact_ref_total"] = len(publication_artifact_rows)
     payload["fresh_review_gate_bound"] = True
     write_json(input_path, payload)
 
@@ -7030,6 +7181,9 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "case_type": "no_send_state_machine",
                 "expected_verdict": "REJECT_PUBLIC_ACTION",
                 "lean_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+                "evaluator_ref": NO_SEND_EVALUATOR_REF,
+                "gate_vector": NO_SEND_CURRENT_GATE_VECTOR,
+                "failed_gate_predicates": NO_SEND_CURRENT_FAILED_GATE_PREDICATES,
                 "model": {
                     "manifest_ref": publish_manifest_ref,
                     "approval_ref": owner_approval_ref,
@@ -7079,6 +7233,8 @@ def write_hardened_formal_iteration(root: Path) -> None:
                     "publish_allowed": True,
                     "deposit_ready_metadata": True,
                     "public_record_present": True,
+                    "future_deposit_metadata_identifier": "urn:oc-core:1.3.3:future-public-metadata:owner-approved-release-package",
+                    "future_public_record_identifier": "urn:oc-core:1.3.3:future-public-record:owner-approved-release-record",
                     "global_no_send_lock": False,
                     "journal_submissions_allowed": True,
                     "journal_submission_allowed": True,
@@ -7111,6 +7267,8 @@ def write_hardened_formal_iteration(root: Path) -> None:
         "publish_allowed": True,
         "deposit_ready_metadata": True,
         "public_record_present": True,
+        "future_deposit_metadata_identifier": "urn:oc-core:1.3.3:future-public-metadata:owner-approved-release-package",
+        "future_public_record_identifier": "urn:oc-core:1.3.3:future-public-record:owner-approved-release-record",
         "global_no_send_lock": False,
         "journal_submissions_allowed": True,
         "journal_submission_allowed": True,
@@ -7119,6 +7277,12 @@ def write_hardened_formal_iteration(root: Path) -> None:
         "software_heritage_deposit_allowed": True,
         "doi_minting_allowed": True,
         "requested_channels": [channel for channel, _field in channel_control_fields],
+        "fresh_cerberus_required_for_release": True,
+        "g57_attack_matrix_zero_critical_high": True,
+        "g58_reviewer_persona_suite_pass": True,
+        "g70_scientific_closure_verdict_pass": True,
+        "critical_open_total": 0,
+        "high_open_total": 0,
     }
     publish_manifest_ref = "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json"
     owner_approval_ref = "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json"
@@ -7162,6 +7326,26 @@ def write_hardened_formal_iteration(root: Path) -> None:
         "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
         }
     )
+    review_gate_control_fields = [
+        ("G57", "g57_attack_matrix_zero_critical_high", False),
+        ("G58", "g58_reviewer_persona_suite_pass", False),
+        ("G70", "g70_scientific_closure_verdict_pass", False),
+        ("CRITICAL_OPEN_TOTAL", "critical_open_total", 1),
+        ("HIGH_OPEN_TOTAL", "high_open_total", 1),
+    ]
+    for suffix, field, locked_value in review_gate_control_fields:
+        finite_rows.append(
+            {
+                "case_id": f"ADV-NOSEND-PARTIAL-LOCK-{suffix}",
+                "theorem_id": "OC133-NOSEND-001",
+                "case_type": "no_send_hypothetical_control",
+                "expected_verdict": "REJECT_PUBLIC_ACTION",
+                "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+                "failed_gate_predicates": [field],
+                "model": {**approved_no_send_base, field: locked_value},
+                "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+            }
+        )
     write_json(
         root / "proofs" / "finite_model_checks" / "OC133_FINITE_MODEL_INPUTS.json",
         {
@@ -7293,9 +7477,14 @@ def write_hardened_formal_iteration(root: Path) -> None:
             )
     write_json(attack_path, attack)
     write_json(root / "reviews" / "OC_CORE_1_3_3_REVIEWER_RESPONSE_MATRIX.json", attack)
-    # The certificate must bind the final generated atlas/minimality/input files, so
-    # regenerate it after those files exist and then rerun finite checks against it.
-    write_lean_build_certificate(root)
+    # Do not execute the finite runner here. This layer writes the hardened
+    # Lean/finite source artifacts, but public-surface metadata is still written
+    # later in the materialization pipeline. Executing now would bind the
+    # no-send checker to stale root metadata and abort before the final
+    # v1.3.3 no-send surface can be generated.
+
+
+def run_finite_checks_and_write_replay(root: Path) -> dict[str, Any]:
     try:
         with contextlib.redirect_stdout(io.StringIO()):
             runpy.run_path(str(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py"), run_name="__main__")
@@ -7307,15 +7496,91 @@ def write_hardened_formal_iteration(root: Path) -> None:
         root / "proofs" / "finite_model_checks" / "FINITE_MODEL_REPLAY_REPORT.json",
         {
             "schema_id": "OC133_FINITE_MODEL_REPLAY_REPORT_v12_HARDENED_SEMANTIC",
+            "release_id": RELEASE_ID,
+            "version": VERSION,
             "semantic_evaluator": True,
             "input_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+            "input_sha256": sha256_file(root / "proofs" / "finite_model_checks" / "OC133_FINITE_MODEL_INPUTS.json"),
+            "runner_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+            "runner_sha256": sha256_file(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py"),
             "output_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+            "output_sha256": sha256_file(root / "proofs" / "FINITE_MODEL_CHECKS_1_3_3.json"),
             "tamper_policy": "label-only, flag-oracle, and wrong-witness rows are explicit mutation controls and must reject",
             "failure_total": finite.get("failure_total"),
+            "semantic_failure_total": finite.get("semantic_failure_total"),
             "mutation_control_total": finite.get("mutation_control_total"),
             "flag_oracle_key_total": finite.get("flag_oracle_key_total"),
+            "no_send_state_machine_total": finite.get("no_send_state_machine_total"),
         },
     )
+    return finite
+
+
+def write_finite_output_attestation(root: Path) -> dict[str, Any]:
+    refs = [
+        ("proofs/FINITE_MODEL_CHECKS_1_3_3.json", "finite_model_semantic_output"),
+        ("proofs/finite_model_checks/FINITE_MODEL_REPLAY_REPORT.json", "finite_model_replay_report"),
+        ("proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json", "finite_model_input_contract"),
+        ("proofs/finite_model_checks/run_finite_model_checks.py", "finite_model_semantic_runner"),
+        ("formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json", "lean_build_certificate"),
+        ("formal/lean/OC133V12.lean", "lean_source_subset"),
+    ]
+    rows: list[dict[str, Any]] = []
+    for ref, role in refs:
+        path = root / ref
+        if not path.is_file():
+            rows.append({"path": ref, "role": role, "exists": False})
+            continue
+        row: dict[str, Any] = {
+            "path": ref,
+            "role": role,
+            "exists": True,
+            "size_bytes": path.stat().st_size,
+            "sha256": sha256_file(path),
+        }
+        if path.suffix in {".json", ".jsonld"}:
+            try:
+                payload = read_json(path)
+                row["schema_id"] = payload.get("schema_id")
+                for key in [
+                    "verdict",
+                    "failure_total",
+                    "semantic_failure_total",
+                    "source_manifest_mismatch_total",
+                    "generated_artifact_manifest_mismatch_total",
+                    "certificate_binding_failure_total",
+                    "no_send_byte_binding_failure_total",
+                    "case_total",
+                ]:
+                    if key in payload:
+                        row[key] = payload.get(key)
+            except Exception as exc:
+                row["json_parse_error"] = str(exc)
+        rows.append(row)
+    missing = [row["path"] for row in rows if not row.get("exists")]
+    finite_row = next((row for row in rows if row["path"] == "proofs/FINITE_MODEL_CHECKS_1_3_3.json"), {})
+    replay_row = next((row for row in rows if row["path"] == "proofs/finite_model_checks/FINITE_MODEL_REPLAY_REPORT.json"), {})
+    payload = {
+        "schema_id": "OC133_FINITE_MODEL_OUTPUT_ATTESTATION_v12",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "attestation_kind": "POST_RUN_OUTPUT_ATTESTATION_SIGNED_BY_PUBLIC_SURFACE_MANIFEST",
+        "no_send": True,
+        "publication_claim": "NONE; attests local no-send finite/replay output bytes only",
+        "cycle_policy": "Root manifest/checksums/RO-Crate sign this attestation; this attestation signs runtime finite outputs. Runtime public-surface hashes inside finite output are intentionally token/schema checked and hash-attested here to avoid recursive checksum cycles.",
+        "output_total": len(rows),
+        "missing_total": len(missing),
+        "missing": missing,
+        "failure_total": int(finite_row.get("failure_total", 1) or 0),
+        "semantic_failure_total": int(finite_row.get("semantic_failure_total", 1) or 0),
+        "replay_failure_total": int(replay_row.get("failure_total", 1) or 0),
+        "rows": rows,
+    }
+    payload["attested_payload_sha256"] = hashlib.sha256(
+        json.dumps({k: v for k, v in payload.items() if k != "attested_payload_sha256"}, sort_keys=True).encode("utf-8")
+    ).hexdigest()
+    write_json(root / "proofs" / "FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json", payload)
+    return payload
 
 
 def main() -> int:
@@ -7336,26 +7601,14 @@ def main() -> int:
     write_no_send_root_metadata(ROOT)
     sync_public_surface_refs_into_finite_inputs(ROOT)
     write_lean_build_certificate(ROOT)
-    try:
-        with contextlib.redirect_stdout(io.StringIO()):
-            runpy.run_path(str(ROOT / "proofs" / "finite_model_checks" / "run_finite_model_checks.py"), run_name="__main__")
-    except SystemExit as exc:
-        if int(exc.code or 0) != 0:
-            raise
-    finite = read_json(ROOT / "proofs" / "FINITE_MODEL_CHECKS_1_3_3.json")
-    write_json(
-        ROOT / "proofs" / "finite_model_checks" / "FINITE_MODEL_REPLAY_REPORT.json",
-        {
-            "schema_id": "OC133_FINITE_MODEL_REPLAY_REPORT_v12_HARDENED_SEMANTIC",
-            "semantic_evaluator": True,
-            "input_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
-            "output_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-            "tamper_policy": "label-only, flag-oracle, and wrong-witness rows are explicit mutation controls and must reject",
-            "failure_total": finite.get("failure_total"),
-            "mutation_control_total": finite.get("mutation_control_total"),
-            "flag_oracle_key_total": finite.get("flag_oracle_key_total"),
-        },
-    )
+    run_finite_checks_and_write_replay(ROOT)
+    write_finite_output_attestation(ROOT)
+    write_no_send_root_metadata(ROOT)
+    sync_public_surface_refs_into_finite_inputs(ROOT)
+    write_lean_build_certificate(ROOT)
+    run_finite_checks_and_write_replay(ROOT)
+    write_finite_output_attestation(ROOT)
+    write_no_send_root_metadata(ROOT)
     print(json.dumps({"release_id": RELEASE_ID, "version": VERSION, "status": "V12_MATERIALIZED_NO_SEND"}, indent=2))
     return 0
 

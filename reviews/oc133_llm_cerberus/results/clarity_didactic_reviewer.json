@@ -3,15 +3,31 @@
   "role": "clarity_didactic_reviewer",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 1,
-  "finding_total": 1,
+  "high_open_total": 0,
+  "finding_total": 3,
   "findings": [
     {
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "OC133-NOSEND-001 route/falsifier: public action is rejected while global no-send or any channel lock remains closed; falsifier names owner approval pending or channel lock false as the no-send failure boundary.",
-      "failure_mode": "The no-send route does not didactically bind all finite control predicates. The referenced finite negative control ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL in proofs/FINITE_MODEL_CHECKS_1_3_3.json rejects even with owner_approved=true, publish_allowed=true, global_no_send_lock=false, and all channel locks true, because deposit_ready_metadata=false and public_record_present=false. The coverage row's observable/falsifier omit those decisive predicates, while claims/CLAIM_LEDGER_1_3_3.json only exposes them in scope_limit. A hostile reader following claim -> finite case -> falsifier can therefore misread owner approval plus channel unlock as the complete boundary.",
-      "required_repair": "Rewrite the OC133-NOSEND-001 coverage row and hostile-reader public-action wording so the route explicitly enumerates every gate predicate used by the finite controls: owner approval, publish_allowed, deposit-ready metadata, public-record target, global no-send unlock, G57/G58/G70 zero-critical/high gate, and each channel lock. Add a per-negative-control explanation naming the single failing predicate for ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL and each ADV-NOSEND-PARTIAL-LOCK-* case.",
+      "claim": "The model-card rows let a hostile reader follow each attacked claim to an executed semantic finite case and negative-control falsifier.",
+      "failure_mode": "Rows P001-P011 and P013-P015 leave evaluator_ref and negative_control_cases empty, even though scalar negative_control and additional_replay_cases identify finite controls. The reader can see case IDs, but not a machine-readable executed predicate route inside this artifact; they must infer from prose or use the separate route map/runner.",
+      "required_repair": "Populate evaluator_ref or finite_runner_predicate_ref, negative_control_cases, and falsifier_case_ids for every formal model-card row, with exact finite case IDs and runner predicate/hash; alternatively make docs/OC_1_3_3_HOSTILE_ROUTE_MAP.json an explicitly hashed controlling evidence_ref for each row.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "The phenomenon coverage matrix cannot be mistaken for broad empirical or domain coverage.",
+      "failure_mode": "The top-level counters correctly set phenomenon_coverage_row_total=0, but rows such as P003 and P008-P011 still ask broad 'Does OC actually explain ...' questions while reusing internal formal cards, mostly T133-KLEVEL, with no domain evaluator or external observable. This creates coverage-theater risk even though counts_as_phenomenon_coverage=false.",
+      "required_repair": "Reword those hostile questions as explicit gap-register prompts or move them to a noncoverage appendix; for any retained domain row, add a domain-specific evaluator/external-observable protocol before using 'explain' framing.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "LOW",
+      "artifact_ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
+      "claim": "The guide's compact table plus machine-readable route map give a stable hostile-reader route.",
+      "failure_mode": "The guide depends on docs/OC_1_3_3_HOSTILE_ROUTE_MAP.json for field-level tuple bindings but does not show its row_total, sha256, or binding status in the release-critical table. A reader can open the referenced map, but cannot verify from the guide that the map is the same route artifact used by the finite checks and ledger.",
+      "required_repair": "Add route_map_sha256, row_total, and generated/bound source fields to the guide, or include the route map hash in FINITE_MODEL_CHECKS_1_3_3.json and the claim-ledger support refs.",
       "status": "OPEN"
     }
   ],

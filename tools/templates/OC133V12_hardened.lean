@@ -649,6 +649,8 @@ theorem smooth_chart_has_domain_and_local_law
 structure HybridSystem extends UpdateSystem where
   Mode : Type
   mode : State -> Mode
+  resetSourceModeTyped : Mode -> Bool
+  resetTargetModeTyped : Mode -> Bool
   guard : State -> Bool
   reset : State -> State
 
@@ -832,8 +834,8 @@ structure BoundHybridAdmission (h : HybridSystem) (x : h.State) where
   route_bound : admission.route = OperatorRoute.guardResetHybrid
   guard_observed_bound : admission.guardEvaluated = true
   guard_value_bound : admission.guardValue = h.guard x
-  reset_source_mode_bound : admission.resetSourceTyped = true
-  reset_target_mode_bound : admission.resetTargetTyped = true
+  reset_source_mode_bound : admission.resetSourceTyped = h.resetSourceModeTyped (h.mode x)
+  reset_target_mode_bound : admission.resetTargetTyped = h.resetTargetModeTyped (h.mode (h.reset x))
   codomain_bound : admission.typedSourceTarget = true
   reset_admissible_value : admission.resetAdmissible = true
   reset_admissible_bound : admission.resetAdmissible = h.admissible (h.reset x)
@@ -844,6 +846,10 @@ theorem bound_hybrid_admission_obligations
     b.admission.route = OperatorRoute.guardResetHybrid /\
     b.admission.guardEvaluated = true /\
     b.admission.guardValue = h.guard x /\
+    b.admission.resetSourceTyped = h.resetSourceModeTyped (h.mode x) /\
+    h.resetSourceModeTyped (h.mode x) = true /\
+    b.admission.resetTargetTyped = h.resetTargetModeTyped (h.mode (h.reset x)) /\
+    h.resetTargetModeTyped (h.mode (h.reset x)) = true /\
     b.admission.resetSourceTyped = true /\
     b.admission.resetTargetTyped = true /\
     b.admission.typedSourceTarget = true /\
@@ -852,15 +858,31 @@ theorem bound_hybrid_admission_obligations
   have hadmissTrue : h.admissible (h.reset x) = true := by
     rw [<- b.reset_admissible_bound]
     exact b.reset_admissible_value
+  have hsourceTrue : b.admission.resetSourceTyped = true := by
+    have hob := admitted_guard_reset_has_typed_reset_obligations b.admission b.route_bound b.admitted_bound
+    exact hob.right.left
+  have htargetTrue : b.admission.resetTargetTyped = true := by
+    have hob := admitted_guard_reset_has_typed_reset_obligations b.admission b.route_bound b.admitted_bound
+    exact hob.right.right.left
+  have hsourceModeTrue : h.resetSourceModeTyped (h.mode x) = true := by
+    rw [<- b.reset_source_mode_bound]
+    exact hsourceTrue
+  have htargetModeTrue : h.resetTargetModeTyped (h.mode (h.reset x)) = true := by
+    rw [<- b.reset_target_mode_bound]
+    exact htargetTrue
   exact And.intro b.route_bound
     (And.intro b.guard_observed_bound
       (And.intro b.guard_value_bound
         (And.intro b.reset_source_mode_bound
-          (And.intro b.reset_target_mode_bound
-            (And.intro b.codomain_bound
-              (And.intro
-                (fun htrue => And.intro hadmissTrue (hybrid_guard_uses_reset h x htrue))
-                (fun hfalse => hybrid_no_guard_uses_update h x hfalse)))))))
+          (And.intro hsourceModeTrue
+            (And.intro b.reset_target_mode_bound
+              (And.intro htargetModeTrue
+                (And.intro hsourceTrue
+                  (And.intro htargetTrue
+                    (And.intro b.codomain_bound
+                      (And.intro
+                        (fun htrue => And.intro hadmissTrue (hybrid_guard_uses_reset h x htrue))
+                        (fun hfalse => hybrid_no_guard_uses_update h x hfalse)))))))))))
 
 theorem proof_rewrite_update_has_no_derivative (p : ProofRewriteSystem) :
     proofRewriteDerivativeAllowed p = false := by
@@ -871,22 +893,40 @@ theorem guard_reset_binding_obligations
     a.route = OperatorRoute.guardResetHybrid ->
     a.guardEvaluated = true ->
     a.guardValue = h.guard xh ->
-    a.resetSourceTyped = true ->
-    a.resetTargetTyped = true ->
+    a.resetSourceTyped = h.resetSourceModeTyped (h.mode xh) ->
+    a.resetTargetTyped = h.resetTargetModeTyped (h.mode (h.reset xh)) ->
     a.resetAdmissible = h.admissible (h.reset xh) ->
     operatorAdmitted a = true ->
     a.guardEvaluated = true /\
+    a.resetSourceTyped = h.resetSourceModeTyped (h.mode xh) /\
+    h.resetSourceModeTyped (h.mode xh) = true /\
+    a.resetTargetTyped = h.resetTargetModeTyped (h.mode (h.reset xh)) /\
+    h.resetTargetModeTyped (h.mode (h.reset xh)) = true /\
     (h.guard xh = true -> h.admissible (h.reset xh) = true /\ hybridStep h xh = h.reset xh) /\
     (h.guard xh = false -> hybridStep h xh = h.step xh) := by
-  intro hroute hobserved _ _ _ hadmiss hadmit
+  intro hroute hobserved _ hsource htarget hadmiss hadmit
   have hob := admitted_guard_reset_has_typed_reset_obligations a hroute hadmit
+  have hsourceModeTrue : h.resetSourceModeTyped (h.mode xh) = true := by
+    rw [<- hsource]
+    exact hob.right.left
+  have htargetModeTrue : h.resetTargetModeTyped (h.mode (h.reset xh)) = true := by
+    rw [<- htarget]
+    exact hob.right.right.left
   have hadmissTrue : h.admissible (h.reset xh) = true := by
     rw [<- hadmiss]
     exact hob.right.right.right
   exact And.intro hob.left
     (And.intro
-      (fun htrue => And.intro hadmissTrue (hybrid_guard_uses_reset h xh htrue))
-      (fun hfalse => hybrid_no_guard_uses_update h xh hfalse))
+      hsource
+      (And.intro
+        hsourceModeTrue
+        (And.intro
+          htarget
+          (And.intro
+            htargetModeTrue
+            (And.intro
+              (fun htrue => And.intro hadmissTrue (hybrid_guard_uses_reset h xh htrue))
+              (fun hfalse => hybrid_no_guard_uses_update h xh hfalse))))))
 
 theorem proof_rewrite_binding_obligations
     (p : ProofRewriteSystem) (a : OperatorAdmission) :
@@ -963,8 +1003,8 @@ theorem integrated_operator_semantics
     aHybrid.route = OperatorRoute.guardResetHybrid ->
     aHybrid.guardEvaluated = true ->
     aHybrid.guardValue = h.guard xh ->
-    aHybrid.resetSourceTyped = true ->
-    aHybrid.resetTargetTyped = true ->
+    aHybrid.resetSourceTyped = h.resetSourceModeTyped (h.mode xh) ->
+    aHybrid.resetTargetTyped = h.resetTargetModeTyped (h.mode (h.reset xh)) ->
     aHybrid.resetAdmissible = h.admissible (h.reset xh) ->
     aProof.route = OperatorRoute.proofRewrite ->
     aProof.rewriteRulePresent = p.rewriteRulePresent ->
@@ -978,6 +1018,8 @@ theorem integrated_operator_semantics
     aSmooth.chartDomainContainsSource = true /\
     aSmooth.chartLocalLawDeclared = true /\
     aHybrid.guardEvaluated = true /\
+    h.resetSourceModeTyped (h.mode xh) = true /\
+    h.resetTargetModeTyped (h.mode (h.reset xh)) = true /\
     (h.guard xh = true -> h.admissible (h.reset xh) = true /\ hybridStep h xh = h.reset xh) /\
     (h.guard xh = false -> hybridStep h xh = h.step xh) /\
     p.rewriteRulePresent = true /\
@@ -1003,9 +1045,13 @@ theorem integrated_operator_semantics
   constructor
   · exact hhybridBinding.left
   constructor
-  · exact hhybridBinding.right.left
+  · exact hhybridBinding.right.right.left
   constructor
-  · exact hhybridBinding.right.right
+  · exact hhybridBinding.right.right.right.right.left
+  constructor
+  · exact hhybridBinding.right.right.right.right.right.left
+  constructor
+  · exact hhybridBinding.right.right.right.right.right.right
   constructor
   · exact hproofBinding.left
   constructor

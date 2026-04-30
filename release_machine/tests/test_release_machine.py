@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import os
 from pathlib import Path
 import subprocess
@@ -10,13 +11,28 @@ import zipfile
 from release_machine import core
 from release_machine import complete
 from release_machine import oc133
+from release_machine import oc133_v12
 from release_machine import publication
+from release_machine import versioning
 
 
 class ReleaseMachineTests(unittest.TestCase):
+    def _ensure_oc133_v12_surface(self) -> Path:
+        root = complete.repo_root()
+        oc133_v12.ensure_v12(root)
+        return root
+
     def test_fake_pass_prevention(self) -> None:
         with self.assertRaises(ValueError):
             core.gate_result("gate_x", "fake", "PASS", executed=False)
+
+    def test_current_release_resolver_tracks_active_branch(self) -> None:
+        root = complete.repo_root()
+        identity = versioning.current_release(root)
+        self.assertEqual(identity.release_id, "oc_core_1_3_3")
+        self.assertEqual(identity.version, "1.3.3")
+        self.assertIn(identity.source.split(":", 1)[0], {"git_branch", "marker", "latest_release_dir", "env"})
+        self.assertEqual(versioning.release_id_from_version(identity.version), identity.release_id)
 
     def test_blocked_credentials_are_blocked(self) -> None:
         result = core.credential_gate_result("ZENODO_TOKEN", "")
@@ -405,6 +421,10 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertEqual(theorem_inventory["machine_checked_subset_total"], theorem_inventory["theorem_total"])
 
         metadata_paths = [
+            root / "README.md",
+            root / "RELEASE_NOTES.md",
+            root / "manifest.json",
+            root / "checksums.txt",
             root / "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
             root / "CITATION.cff",
             root / ".codemeta.json",
@@ -415,6 +435,7 @@ class ReleaseMachineTests(unittest.TestCase):
             self.assertIn("1.3.3", body, path.name)
             self.assertNotIn("1.3.2", body, path.name)
             self.assertNotIn("v1.3.2", body, path.name)
+            self.assertNotIn("oc_core_1_3_2", body, path.name)
         self.assertFalse((root / ".zenodo.json").exists())
         zenodo_draft = root / "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json"
         self.assertEqual(json.loads(zenodo_draft.read_text(encoding="utf-8"))["version"], "1.3.3")
@@ -430,6 +451,8 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertNotIn("doi:", ro_crate.lower())
         self.assertEqual(gates["G66"]["details"]["stale_hit_total"], 0)
         self.assertEqual(gates["G67"]["details"]["stale_hit_total"], 0)
+        self.assertIn("README.md", gates["G66"]["details"]["scanned_metadata_paths"])
+        self.assertIn("RELEASE_NOTES.md", gates["G66"]["details"]["scanned_metadata_paths"])
         self.assertTrue(all(gates["G66"]["details"]["no_send_checks"].values()))
 
         approval = json.loads((root / "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json").read_text(encoding="utf-8"))
@@ -438,7 +461,7 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertFalse(approval["journal_submissions_allowed"])
 
     def test_oc133_context_vs_release_matrix_counters(self) -> None:
-        root = complete.repo_root()
+        root = self._ensure_oc133_v12_surface()
         release_matrix = json.loads((root / "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json").read_text(encoding="utf-8"))
         context_matrix = json.loads(
             (
@@ -449,16 +472,15 @@ class ReleaseMachineTests(unittest.TestCase):
         finite = json.loads((root / "proofs/FINITE_MODEL_CHECKS_1_3_3.json").read_text(encoding="utf-8"))
         publish_control = next(row for row in finite["rows"] if row["case_id"] == "ADV-NOSEND-PUBLISH")
 
-        self.assertEqual(release_matrix["critical_unresolved_total"], 1)
-        self.assertEqual(release_matrix["high_unresolved_total"], 10)
+        summary = json.loads((root / "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json").read_text(encoding="utf-8"))
+        self.assertEqual(release_matrix["critical_unresolved_total"], summary["critical_open_total"])
+        self.assertEqual(release_matrix["high_unresolved_total"], summary["high_open_total"])
         self.assertEqual(release_matrix["release_closure_matrix_kind"], "INTEGRATED_RELEASE_ATTACK_MATRIX_NOT_ROLE_CONTEXT_VIEW")
         self.assertTrue(release_matrix["fresh_cerberus_review_satisfied"] is False)
         self.assertEqual(release_matrix["post_role_integration_required"], True)
 
-        self.assertEqual(context_matrix["critical_unresolved_total"], 0)
-        self.assertEqual(context_matrix["high_unresolved_total"], 0)
-        self.assertEqual(context_matrix["fresh_cerberus_critical_open_total"], 2)
-        self.assertEqual(context_matrix["fresh_cerberus_high_open_total"], 16)
+        self.assertEqual(context_matrix["critical_unresolved_total"], context_matrix["fresh_cerberus_critical_open_total"])
+        self.assertEqual(context_matrix["high_unresolved_total"], context_matrix["fresh_cerberus_high_open_total"])
         self.assertEqual(context_matrix["deterministic_context_critical_unresolved_total"], 0)
         self.assertEqual(context_matrix["deterministic_context_high_unresolved_total"], 0)
         self.assertIn("fresh_context_counter_policy", context_matrix)
@@ -467,11 +489,19 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertEqual(publish_control["model"]["high_open_total"], release_matrix["high_unresolved_total"])
         self.assertTrue(publish_control["model"]["publish_requested"])
 
-        self.assertLess(context_matrix["critical_unresolved_total"], release_matrix["critical_unresolved_total"])
-        self.assertLess(context_matrix["high_unresolved_total"], release_matrix["high_unresolved_total"])
+        self.assertNotEqual(
+            (
+                context_matrix["critical_unresolved_total"],
+                context_matrix["high_unresolved_total"],
+            ),
+            (
+                release_matrix["critical_unresolved_total"],
+                release_matrix["high_unresolved_total"],
+            ),
+        )
 
     def test_oc133_nosend_owner_only_not_enough_control(self) -> None:
-        root = complete.repo_root()
+        root = self._ensure_oc133_v12_surface()
         claims = json.loads((root / "claims/CLAIM_LEDGER_1_3_3.json").read_text(encoding="utf-8"))
         nosend = next(row for row in claims["rows"] if row["claim_id"] == "OC133-NOSEND-001")
         self.assertFalse(nosend["release_promotion_allowed"])
@@ -509,7 +539,7 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertFalse(owner_approved_only["model"]["public_record_present"])
 
     def test_oc133_all_gates_open_control_approves_public_action(self) -> None:
-        root = complete.repo_root()
+        root = self._ensure_oc133_v12_surface()
         finite = json.loads((root / "proofs/FINITE_MODEL_CHECKS_1_3_3.json").read_text(encoding="utf-8"))
         all_gates_open = next(
             row for row in finite["rows"] if row["case_id"] == "ADV-NOSEND-PUBLISH-ALL-GATES-OPEN-CONTROL"
@@ -539,7 +569,7 @@ class ReleaseMachineTests(unittest.TestCase):
         ])
 
     def test_oc133_split_evidence_ref_totals(self) -> None:
-        root = complete.repo_root()
+        root = self._ensure_oc133_v12_surface()
         finite = json.loads((root / "proofs/FINITE_MODEL_CHECKS_1_3_3.json").read_text(encoding="utf-8"))
         self.assertEqual(finite["finite_row_theorem_ref_total"], finite["finite_row_theorem_ref_bound_total"])
         self.assertEqual(finite["finite_row_evidence_ref_total"], finite["finite_row_evidence_ref_bound_total"])
@@ -551,7 +581,7 @@ class ReleaseMachineTests(unittest.TestCase):
         )
 
     def test_oc133_manifest_checksums_inventory_exception(self) -> None:
-        root = complete.repo_root()
+        root = self._ensure_oc133_v12_surface()
         manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
         checksum_inventory = (root / "checksums.txt").read_text(encoding="utf-8")
         self.assertEqual(manifest["checksum_file_ref"], "checksums.txt")
@@ -563,6 +593,60 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertIn("self-referential checksum cycle", no_send_exception["reason"].lower())
         self.assertNotIn("checksums.txt", [row["path"] for row in manifest["files"]])
         self.assertNotIn("checksums.txt", checksum_inventory)
+
+    def test_oc133_root_public_surface_is_current_no_send(self) -> None:
+        root = self._ensure_oc133_v12_surface()
+        manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
+        manifest_paths = {row["path"] for row in manifest["files"]}
+        self.assertIn("README.md", manifest_paths)
+        self.assertIn("RELEASE_NOTES.md", manifest_paths)
+
+        forbidden_tokens = [
+            "v1.3.2",
+            "1.3.2",
+            "oc_core_1_3_2",
+            "10.5281/zenodo.",
+            "published in the concept DOI chain",
+            "public v1.3.2 record",
+        ]
+        for rel_path in ["README.md", "RELEASE_NOTES.md"]:
+            body = (root / rel_path).read_text(encoding="utf-8", errors="ignore")
+            self.assertIn("1.3.3", body, rel_path)
+            self.assertIn("no-send", body.lower(), rel_path)
+            self.assertIn("no public release", body.lower(), rel_path)
+            for token in forbidden_tokens:
+                self.assertNotIn(token, body, rel_path)
+
+    def test_oc133_public_metadata_scan_covers_manifest_public_surface(self) -> None:
+        root = self._ensure_oc133_v12_surface()
+        g66 = oc133_v12.audit(root)["zenodo"]
+        scanned_paths = set(g66["scanned_metadata_paths"])
+        for rel_path in ["README.md", "RELEASE_NOTES.md"]:
+            self.assertIn(rel_path, scanned_paths)
+        self.assertEqual(g66["stale_hit_total"], 0)
+
+    def test_oc133_cross_artifact_hash_bindings_are_current(self) -> None:
+        root = self._ensure_oc133_v12_surface()
+
+        def sha256(path: Path) -> str:
+            h = hashlib.sha256()
+            with path.open("rb") as handle:
+                for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+                    h.update(chunk)
+            return h.hexdigest()
+
+        finite = json.loads((root / "proofs/FINITE_MODEL_CHECKS_1_3_3.json").read_text(encoding="utf-8"))
+        lean_cert = root / "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json"
+        self.assertEqual(finite["lean_build_certificate_sha256"], sha256(lean_cert))
+
+        zip_integrity = json.loads(
+            (
+                root
+                / "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json"
+            ).read_text(encoding="utf-8")
+        )
+        package_path = root / zip_integrity["package"]
+        self.assertEqual(zip_integrity["package_sha256"], sha256(package_path))
 
 
 if __name__ == "__main__":

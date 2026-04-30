@@ -1,42 +1,30 @@
-# OC Core v1.3.2 Release Notes
+# OC Core v1.3.3 Release Notes
 
 ## Release identity
-- Version: 1.3.2
-- DOI: 10.5281/zenodo.19851694
-- Previous canonical DOI: 10.5281/zenodo.19851601
-- Concept DOI: 10.5281/zenodo.17899134
-- GitHub tag: v1.3.2 prepared, not created
-- Zenodo record: 19851694 is the public v1.3.2 record
+- Version: 1.3.3
+- Release state: OWNER_REVIEW_READY_NO_SEND
+- Public release record: none
+- Release DOI: none assigned in this no-send pass
+- GitHub tag: not created
+- Zenodo deposit: not performed
 - Date: 2026-04-28
-- Status: RELEASE_READY_NO_SEND
 
-## What changed since v1.3.1
-OC Core v1.3.2 is a release-quality and reviewer-route release candidate. It tightens public metadata, claim support boundaries, reproducibility surfaces, research packet routing, and release governance.
+## What changed
+OC Core v1.3.3 hardens the v12 scientific-closure package: typed foundation, Lean subset, finite no-send controls, numeric replay QA, comparator and phenomenon matrices, attack-matrix closure, LLM Cerberus review accounting, and public metadata parity.
 
-## Fixed release-quality issues
-The release now carries explicit no-send owner approval, deterministic package integrity, public boundary checks, DOI lineage, and release-machine gates.
+## Public-action locks
+Publication remains blocked. Owner approval, deposit-ready metadata, a public-record target, cleared no-send lock, zero critical/high review blockers, and every requested channel unlock are required before any public action.
 
-## Metadata improvements
-- CITATION.cff records version 1.3.2 and the published DOI policy.
-- RO-Crate describes the release bundle and bounded research packet evidence.
-- CodeMeta records the repository, license, language, and version.
-- Zenodo metadata targets a new version under the existing concept DOI.
-- SWHID is an owner action unless an existing resolvable identifier is supplied.
+## Metadata policy
+- `CITATION.cff`, `.codemeta.json`, `ro-crate-metadata.jsonld`, `manifest.json`, and the Zenodo draft describe a no-send review package.
+- No publication date, DOI identifier, public record, open Zenodo access-right, or release tag is asserted.
+- `checksums.txt` signs `manifest.json` plus the manifest-listed public review surfaces.
 
 ## Reproducibility package
-The bundle includes simulation reports, dataset manifests, checksums, and reproducibility instructions. Simulations remain illustration and replay checks, not empirical validation.
-
-## Reviewer route
-Use REVIEWER_ROUTE.md for 30-minute, 2-hour, and technical-audit reading paths.
+The package includes theorem inventory, finite checks, numeric replay QA, comparator artifacts, claim ledger, public-surface manifest, checksums, and release-local owner/control-plane files.
 
 ## Known limitations
-The v1.3.2 DOI is 10.5281/zenodo.19851694. Research packets are support/frontier material and do not widen canonical claims.
-
-## Superseded records and version lineage
-v1.3.2 is published in the concept DOI chain 10.5281/zenodo.17899134; the record 10.5281/zenodo.19851601 is the immediate previous Zenodo version superseded by this corrected public surface.
-
-## How to cite
-Before publication, cite the current canonical Zenodo record and mention that v1.3.2 is a no-send release candidate. After owner-approved publication, use the DOI assigned by Zenodo for v1.3.2.
+This is no public release. Research packets, simulations, and numeric replay outputs are support and review material unless explicitly promoted by the bounded claim ledger.
 
 ## Integrity verification
-Verify manifest.json, checksums.txt, release-integrity-report.json, and the SHA256 entry for releases/oc_core_1_3_2/artifacts/oc_core_1_3_2_zenodo_release.zip.
+Verify `manifest.json`, `checksums.txt`, and each manifest-listed file. Root public-surface metadata must remain v1.3.3 no-send and must not contain previous-version payload, DOI, tag, or public-record claims.

@@ -2260,9 +2260,13 @@ def _all_gate_results(root: Path, release: str, channel: str, mode: str) -> list
     support_map = write_prediction_support_map(root)
     support_ok = support_map["summary"]["unsupported_promoted_total"] == 0
     results.append(gate("G18", "boundary_leak_protection", "PASS" if not boundary_hits and not risk_hits and claims_ok and audit["review_needed_total"] == 0 and support_ok else "FAIL", "CRITICAL", "Public text, research packets, claim support boundaries, and prediction/promotion support routes scanned.", {"boundary_hits": boundary_hits[:20], "claim_risk_hits": risk_hits[:20], "claims_ok": claims_ok, "research_packet_review_needed": audit["review_needed_total"], "prediction_support_map": support_map["summary"]}))
-    readme_text = (root / "README.md").read_text(encoding="utf-8", errors="ignore")
+    root_readme_text = (root / "README.md").read_text(encoding="utf-8", errors="ignore")
+    release_readme_path = release_dir(root) / "README.md"
+    release_readme_text = release_readme_path.read_text(encoding="utf-8", errors="ignore") if release_readme_path.exists() else ""
+    readme_text = root_readme_text if VERSION in root_readme_text else release_readme_text
+    readme_source = "README.md" if VERSION in root_readme_text else rel(root, release_readme_path)
     readme_ok = VERSION in readme_text and "RELEASE_READY_NO_SEND" in readme_text and "reproducibility" in readme_text.lower()
-    results.append(gate("G19", "readme_completeness", "PASS" if readme_ok else "FAIL", "HIGH", "README release identity and reproducibility markers checked.", {"bytes": len(readme_text)}))
+    results.append(gate("G19", "readme_completeness", "PASS" if readme_ok else "FAIL", "HIGH", "README release identity and reproducibility markers checked.", {"bytes": len(readme_text), "source": readme_source}))
     rn = (root / "RELEASE_NOTES.md").read_text(encoding="utf-8", errors="ignore")
     ch = (root / "CHANGELOG.md").read_text(encoding="utf-8", errors="ignore")
     notes_ok = all(section in rn for section in ["Release identity", "What changed since", "Metadata improvements", "Reviewer route", "How to cite", "Integrity verification"]) and f"[{VERSION}]" in ch

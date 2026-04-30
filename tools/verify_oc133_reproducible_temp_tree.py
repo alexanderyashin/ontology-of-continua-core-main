@@ -15,11 +15,15 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 RELEASE_ID = "oc_core_1_3_3"
 VERSION = "1.3.3"
+LEAN_CERT_REF = "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json"
+FINITE_MODEL_REPORT_REF = "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
+ZIP_INTEGRITY_REF = "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json"
+PACKAGE_REF = "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip"
 
 COMPARE_REFS = [
-    "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+    LEAN_CERT_REF,
     "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
-    "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+    FINITE_MODEL_REPORT_REF,
     "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
     "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
     "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
@@ -36,8 +40,8 @@ COMPARE_REFS = [
     "reviews/OC_CORE_1_3_3_REVIEWER_RESPONSE_MATRIX.json",
     "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ARTIFACT_INVENTORY.json",
     "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_SHA256SUMS",
-    "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
-    "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip",
+    ZIP_INTEGRITY_REF,
+    PACKAGE_REF,
 ]
 
 COMMANDS = [
@@ -51,7 +55,7 @@ COMMANDS = [
 
 COMMAND_OUTPUT_TAIL_LIMIT = 1200
 SYNC_REASON_COMMAND_FAILURE = "sync_regenerated_artifacts_refused_due_command_failure"
-SYNC_REASON_REQUESTED = "sync_regenerated_artifacts_executed_after_successful_commands"
+SYNC_REASON_REQUESTED = "sync_regenerated_artifacts_refused_release_verifier_is_read_only"
 SYNC_REASON_FLAG_NOT_SET = "sync_regenerated_artifacts_not_requested"
 
 PORTABLE_COMMANDS = [
@@ -215,6 +219,102 @@ def internal_checksum_failures(repo: Path) -> tuple[list[dict[str, Any]], set[st
                         "actual": actual_member_total,
                     })
     return failures, manifest_nonrecursive_exceptions
+
+
+def load_json_for_cross_check(repo: Path, ref: str, failures: list[dict[str, Any]]) -> dict[str, Any] | None:
+    path = repo / ref
+    if not path.is_file():
+        failures.append({"source_ref": ref, "reason": "MISSING_CROSS_ARTIFACT_SOURCE"})
+        return None
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        failures.append({"source_ref": ref, "reason": "JSON_PARSE_FAILED", "error": str(exc)})
+        return None
+    if not isinstance(payload, dict):
+        failures.append({"source_ref": ref, "reason": "JSON_ROOT_NOT_OBJECT"})
+        return None
+    return payload
+
+
+def regenerated_row_sha256(rows_by_ref: dict[str, dict[str, Any]], repo: Path, ref: str) -> str | None:
+    row = rows_by_ref.get(ref)
+    if row and row.get("regenerated_sha256"):
+        return str(row["regenerated_sha256"])
+    path = repo / ref
+    if path.is_file():
+        return sha256_file(path)
+    return None
+
+
+def cross_artifact_binding_failures(repo: Path, rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Bind generated reports to the regenerated artifact bytes used in the compare table."""
+    failures: list[dict[str, Any]] = []
+    rows_by_ref = {str(row.get("ref", "")): row for row in rows if isinstance(row, dict) and row.get("ref")}
+
+    zip_integrity = load_json_for_cross_check(repo, ZIP_INTEGRITY_REF, failures)
+    if zip_integrity is not None:
+        package_ref = str(zip_integrity.get("package", ""))
+        if package_ref != PACKAGE_REF:
+            failures.append(
+                {
+                    "source_ref": ZIP_INTEGRITY_REF,
+                    "path": package_ref,
+                    "reason": "ZIP_INTEGRITY_PACKAGE_REF_MISMATCH",
+                    "expected": PACKAGE_REF,
+                    "actual": package_ref,
+                }
+            )
+        expected_sha = zip_integrity.get("package_sha256")
+        actual_sha = regenerated_row_sha256(rows_by_ref, repo, package_ref or PACKAGE_REF)
+        if not expected_sha:
+            failures.append({"source_ref": ZIP_INTEGRITY_REF, "path": package_ref, "reason": "ZIP_INTEGRITY_PACKAGE_SHA256_MISSING"})
+        elif actual_sha is None:
+            failures.append({"source_ref": ZIP_INTEGRITY_REF, "path": package_ref, "reason": "ZIP_INTEGRITY_PACKAGE_FILE_MISSING"})
+        elif str(expected_sha) != actual_sha:
+            failures.append(
+                {
+                    "source_ref": ZIP_INTEGRITY_REF,
+                    "path": package_ref,
+                    "reason": "ZIP_INTEGRITY_PACKAGE_SHA256_MISMATCH",
+                    "expected": expected_sha,
+                    "actual": actual_sha,
+                    "actual_source": "regenerated_compare_row_sha256",
+                }
+            )
+
+    finite_report = load_json_for_cross_check(repo, FINITE_MODEL_REPORT_REF, failures)
+    if finite_report is not None:
+        cert_ref = str(finite_report.get("lean_build_certificate_ref", ""))
+        if cert_ref != LEAN_CERT_REF:
+            failures.append(
+                {
+                    "source_ref": FINITE_MODEL_REPORT_REF,
+                    "path": cert_ref,
+                    "reason": "FINITE_REPORT_LEAN_CERTIFICATE_REF_MISMATCH",
+                    "expected": LEAN_CERT_REF,
+                    "actual": cert_ref,
+                }
+            )
+        expected_sha = finite_report.get("lean_build_certificate_sha256")
+        actual_sha = regenerated_row_sha256(rows_by_ref, repo, cert_ref or LEAN_CERT_REF)
+        if not expected_sha:
+            failures.append({"source_ref": FINITE_MODEL_REPORT_REF, "path": cert_ref, "reason": "FINITE_REPORT_LEAN_CERTIFICATE_SHA256_MISSING"})
+        elif actual_sha is None:
+            failures.append({"source_ref": FINITE_MODEL_REPORT_REF, "path": cert_ref, "reason": "FINITE_REPORT_LEAN_CERTIFICATE_FILE_MISSING"})
+        elif str(expected_sha) != actual_sha:
+            failures.append(
+                {
+                    "source_ref": FINITE_MODEL_REPORT_REF,
+                    "path": cert_ref,
+                    "reason": "FINITE_REPORT_LEAN_CERTIFICATE_SHA256_MISMATCH",
+                    "expected": expected_sha,
+                    "actual": actual_sha,
+                    "actual_source": "regenerated_compare_row_sha256",
+                }
+            )
+
+    return failures
 
 
 def summarize_internal_checksum_failures(
@@ -476,7 +576,7 @@ def sync_plan(sync_requested: bool, bad_commands: list[dict[str, Any]]) -> tuple
         return False, SYNC_REASON_FLAG_NOT_SET
     if bad_commands:
         return False, SYNC_REASON_COMMAND_FAILURE
-    return True, SYNC_REASON_REQUESTED
+    return False, SYNC_REASON_REQUESTED
 
 
 def main() -> int:
@@ -490,8 +590,8 @@ def main() -> int:
         "--sync-regenerated-artifacts",
         action="store_true",
         help=(
-            "Copy regenerated compared artifacts from the detached clean worktree back to the main tree only after "
-            "all commands finish with returncode 0."
+            "Deprecated compatibility flag. The release verifier is read-only and records a refused sync reason; "
+            "development artifact refresh must be performed before release verification and then committed."
         ),
     )
     parser.add_argument(
@@ -521,6 +621,7 @@ def main() -> int:
     non_compare_mutations: list[dict[str, Any]] = []
     internal_hash_failures: list[dict[str, Any]] = []
     internal_checksum_exceptioned_paths: set[str] = set()
+    cross_binding_failures: list[dict[str, Any]] = []
     sync_executed = False
     sync_reason = SYNC_REASON_FLAG_NOT_SET
     if not state["strict_head_replay_clean"] and not args.allow_dirty_worktree:
@@ -611,6 +712,7 @@ def main() -> int:
                 internal_hash_failures,
                 internal_checksum_exceptioned_paths,
             )
+            cross_binding_failures = cross_artifact_binding_failures(temp_root, rows)
             non_compare_mutations = []
             for ref, before_sha in sorted(pre_run_non_compare_hashes.items()):
                 path = temp_root / ref
@@ -697,6 +799,9 @@ def main() -> int:
         "internal_checksum_failure_summary": internal_checksum_summary,
         "internal_checksum_control_file_cycle_candidate_total": len(internal_checksum_summary["control_file_cycle_candidates"]),
         "internal_checksum_control_file_cycle_candidates": internal_checksum_summary["control_file_cycle_candidates"][:200],
+        "cross_artifact_binding_failure_total": len(cross_binding_failures),
+        "cross_artifact_binding_failures": cross_binding_failures[:200],
+        "cross_artifact_binding_policy": "ZIP integrity package_sha256 and finite report Lean certificate hash must equal the regenerated compare-row sha256 values from the same temp replay.",
         "rows": rows,
         "no_send": True,
     }
@@ -730,6 +835,7 @@ def main() -> int:
             and not failures
             and not non_compare_mutations
             and not internal_hash_failures
+            and not cross_binding_failures
             and (
                 previous_manifest is None
                 or (

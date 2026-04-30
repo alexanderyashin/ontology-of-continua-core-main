@@ -14,7 +14,8 @@
   "git_tag": null,
   "public_record": null,
   "stale_v132_surface_allowed": false,
-  "inventory_policy": "Manifest lists no-send review-surface files. checksums.txt is the nonrecursive signing file for manifest.json plus manifest-listed files and is intentionally excluded from files to avoid a self-referential checksum cycle. Finite outputs and replay reports are output-side attestations and are bound by the Lean certificate, finite inputs, and runner identity rather than recursively embedded in root public-surface metadata.",
+  "inventory_policy": "Manifest lists no-send review-surface files. checksums.txt is the nonrecursive signing file for manifest.json plus manifest-listed files and is intentionally excluded from files to avoid a self-referential checksum cycle. Runtime finite outputs are signed through proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json, which is itself listed in manifest.json, checksums.txt, and RO-Crate when present.",
+  "runtime_output_attestation_ref": "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json",
   "checksum_file_ref": "checksums.txt",
   "nonrecursive_manifest_exceptions": [
     {
@@ -25,12 +26,12 @@
     {
       "path": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
       "reason": "finite-model output embeds runtime public-surface observations; including it in manifest files creates a generation-order checksum cycle",
-      "covered_by": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json plus proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json and the finite runner certificate"
+      "covered_by": "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json records sha256/size/schema/verdict fields for this output and is signed by manifest.json/checksums.txt/RO-Crate"
     },
     {
       "path": "proofs/finite_model_checks/FINITE_MODEL_REPLAY_REPORT.json",
       "reason": "finite replay report is an output-side attestation written after finite execution; recursive root metadata inclusion would create generation-order churn",
-      "covered_by": "proofs/FINITE_MODEL_CHECKS_1_3_3.json plus proofs/finite_model_checks/run_finite_model_checks.py"
+      "covered_by": "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json records sha256/size/schema/verdict fields for this replay report and is signed by manifest.json/checksums.txt/RO-Crate"
     }
   ],
   "files": [
@@ -48,32 +49,38 @@
     },
     {
       "path": "README.md",
-      "size_bytes": 1354,
-      "sha256": "200fd25eb6e20ac12847d1b36c5f80f68688355b635785e4483500ce4c0a1705",
+      "size_bytes": 1578,
+      "sha256": "12ff0087ba942679935c02218b53cdea5056a23fb2c6d50f0ca9cd5491a49db7",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
       "path": "RELEASE_NOTES.md",
-      "size_bytes": 2277,
-      "sha256": "83fdb879e018946a0676078ce43697c1d752b9217b31f47935a2a04a70d88037",
+      "size_bytes": 1824,
+      "sha256": "aadcc58cfe7e12b8a8103c5dc4d145648f00f0cb33ee9457828f9889d2f0c074",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
       "path": "claims/CLAIM_LEDGER_1_3_3.json",
-      "size_bytes": 21417,
-      "sha256": "71e27a50452d7bddff284a469a1f16b8e00fd8b3f822f66c98b9d4c926792b85",
+      "size_bytes": 23934,
+      "sha256": "039af3cdb27c9654b3a4b7c4b8df7ee0e2f1fcc467d3825068e1bca778a5b23a",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
       "path": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "size_bytes": 54059,
-      "sha256": "4187229bc689f3117dfe9948d2129f983e188826edc880840ea116dcbfa95681",
+      "size_bytes": 65184,
+      "sha256": "2a743c78178bfd114b91b9b31bcb89bbfb22eb33435bcf12018037c97947897e",
+      "role": "NO_SEND_REVIEW_SURFACE"
+    },
+    {
+      "path": "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json",
+      "size_bytes": 3037,
+      "sha256": "5f036a1d497f4f62eafe49a3a5581a134d4dc2d03581c276b366e4d0dac2fd8f",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
       "path": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "size_bytes": 14969,
-      "sha256": "7ff602fb92be2b45393a772065192e65e60e8b561b75e5be6c4092c250f2e6fa",
+      "size_bytes": 14947,
+      "sha256": "35f926d766627f61fac018ee1f156be139cd53720023ce7c4e9a49a67478f977",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
@@ -96,32 +103,32 @@
     },
     {
       "path": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
-      "size_bytes": 12404,
-      "sha256": "0842cd9eef928858953173155c7cbccd822e2fa0896da59ef9edc370d803d0d3",
+      "size_bytes": 12403,
+      "sha256": "4c9bd1a88a5289686ee0b6bf849f5885f91159f1bf03d8c25ae75413ea94469a",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
       "path": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "size_bytes": 510114,
-      "sha256": "69cd34647b39f5ae05e1ccaaa5c6f6567d80e4ea4e3dbb221a28a3e72a1ae683",
+      "size_bytes": 534000,
+      "sha256": "8e582aa4a9e0043edf1a808eaddc215fa6f24a39275cdcd7eafdcb926715bc3b",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
       "path": "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json",
-      "size_bytes": 1846,
-      "sha256": "95985d26726ab9142504148c41c406c861f0bb112662663b0d5ea790c3b6012a",
+      "size_bytes": 1845,
+      "sha256": "a554b5bda1dd7441fa8b3fbd15f7f519c585b367f8d84f84ace12d7cae0532f0",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
       "path": "ro-crate-metadata.jsonld",
-      "size_bytes": 2950,
-      "sha256": "22ee7bbe3ddb0bcbcea31f5b2a0de477c350495623e8a27353b2d26ae2f2afe0",
+      "size_bytes": 3043,
+      "sha256": "766ffb8bf2f14001032df6c88acf82a9c5822af176c7b5f2488aa2c817224924",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
       "path": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
-      "size_bytes": 11830,
-      "sha256": "74b9a0e1ece5ec2a74a250a077e9d85818276fb7586c9f11e2e2af116bff1206",
+      "size_bytes": 11829,
+      "sha256": "94df0171412cb012b11b227ae1656723d734192189e02585b64825d2acd66e92",
       "role": "NO_SEND_REVIEW_SURFACE"
     }
   ]
