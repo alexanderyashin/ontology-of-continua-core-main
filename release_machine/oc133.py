@@ -20,6 +20,8 @@ VERSION = "1.3.3"
 BRANCH = "release/oc-core-1.3.3-total-scientific-closure"
 ZIP_NAME = "oc_core_1_3_3_no_send_release.zip"
 
+_BUILD_PACKAGE_CACHE: dict[tuple[str, str, str, bool], dict[str, Any]] = {}
+
 PDF_ARTIFACTS = [
     "OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf",
     "OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf",
@@ -200,6 +202,45 @@ def package_file_paths(root: Path) -> list[Path]:
     )
 
 
+def _package_input_fingerprint(root: Path) -> str:
+    h = hashlib.sha256()
+    for path in package_file_paths(root):
+        stat = path.stat()
+        h.update(rel(root, path).encode("utf-8"))
+        h.update(b"\0")
+        h.update(str(stat.st_size).encode("ascii"))
+        h.update(b"\0")
+        h.update(str(stat.st_mtime_ns).encode("ascii"))
+        h.update(b"\0")
+    return h.hexdigest()
+
+
+def _cached_package(root: Path, channel: str, no_publish: bool, fingerprint: str) -> dict[str, Any] | None:
+    key = (str(root.resolve()), RELEASE_ID, channel, bool(no_publish))
+    cached = _BUILD_PACKAGE_CACHE.get(key)
+    if not cached or cached.get("fingerprint") != fingerprint:
+        return None
+    payload = cached.get("payload")
+    if not isinstance(payload, dict):
+        return None
+    required_outputs = [
+        editorial_dir(root) / "OC_CORE_1_3_3_ARTIFACT_INVENTORY.json",
+        editorial_dir(root) / "OC_CORE_1_3_3_SHA256SUMS",
+        editorial_dir(root) / "OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
+    ]
+    if not all(path.exists() for path in required_outputs):
+        return None
+    zip_path = root / payload.get("package", "")
+    if not zip_path.exists() or sha256_file(zip_path) != payload.get("package_sha256"):
+        return None
+    return dict(payload)
+
+
+def _remember_package(root: Path, channel: str, no_publish: bool, fingerprint: str, payload: dict[str, Any]) -> None:
+    key = (str(root.resolve()), RELEASE_ID, channel, bool(no_publish))
+    _BUILD_PACKAGE_CACHE[key] = {"fingerprint": fingerprint, "payload": dict(payload)}
+
+
 def write_inventory_and_checksums(root: Path) -> list[Path]:
     paths = package_file_paths(root)
     rows = []
@@ -252,13 +293,17 @@ def build_zip(root: Path, paths: list[Path]) -> dict[str, Any]:
 
 def build_package(root: Path | None = None, channel: str = "all", no_publish: bool = True) -> dict[str, Any]:
     root = root or repo_root()
+    fingerprint = _package_input_fingerprint(root)
+    cached = _cached_package(root, channel, no_publish, fingerprint)
+    if cached is not None:
+        return cached
     ensure_materialized(root)
     oc133_hardening.ensure_hardened(root)
     run_local_replays(root)
     oc133_v12.ensure_v12(root)
     paths = write_inventory_and_checksums(root)
     zip_payload = build_zip(root, paths)
-    return {
+    payload = {
         "release_id": RELEASE_ID,
         "version": VERSION,
         "channel": channel,
@@ -269,6 +314,8 @@ def build_package(root: Path | None = None, channel: str = "all", no_publish: bo
         "artifact_total": len(paths),
         "package_member_total": zip_payload["member_total"],
     }
+    _remember_package(root, channel, no_publish, _package_input_fingerprint(root), payload)
+    return payload
 
 
 def _text(path: Path) -> str:

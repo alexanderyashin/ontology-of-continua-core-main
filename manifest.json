@@ -14,13 +14,23 @@
   "git_tag": null,
   "public_record": null,
   "stale_v132_surface_allowed": false,
-  "inventory_policy": "Manifest lists no-send review-surface files. checksums.txt is the nonrecursive signing file for manifest.json plus manifest-listed files and is intentionally excluded from files to avoid a self-referential checksum cycle.",
+  "inventory_policy": "Manifest lists no-send review-surface files. checksums.txt is the nonrecursive signing file for manifest.json plus manifest-listed files and is intentionally excluded from files to avoid a self-referential checksum cycle. Finite outputs and replay reports are output-side attestations and are bound by the Lean certificate, finite inputs, and runner identity rather than recursively embedded in root public-surface metadata.",
   "checksum_file_ref": "checksums.txt",
   "nonrecursive_manifest_exceptions": [
     {
       "path": "checksums.txt",
       "reason": "self-referential checksum cycle if included in manifest files",
       "covered_by": "root checksum row signs manifest.json and each manifest-listed file"
+    },
+    {
+      "path": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+      "reason": "finite-model output embeds runtime public-surface observations; including it in manifest files creates a generation-order checksum cycle",
+      "covered_by": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json plus proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json and the finite runner certificate"
+    },
+    {
+      "path": "proofs/finite_model_checks/FINITE_MODEL_REPLAY_REPORT.json",
+      "reason": "finite replay report is an output-side attestation written after finite execution; recursive root metadata inclusion would create generation-order churn",
+      "covered_by": "proofs/FINITE_MODEL_CHECKS_1_3_3.json plus proofs/finite_model_checks/run_finite_model_checks.py"
     }
   ],
   "files": [
@@ -61,12 +71,6 @@
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
-      "path": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "size_bytes": 240844,
-      "sha256": "f8aab390dbdcdb3a905b4042e419f4368390364d3654ae644de82791abebc00a",
-      "role": "NO_SEND_REVIEW_SURFACE"
-    },
-    {
       "path": "proofs/THEOREM_INVENTORY_1_3_3.json",
       "size_bytes": 14969,
       "sha256": "7ff602fb92be2b45393a772065192e65e60e8b561b75e5be6c4092c250f2e6fa",
@@ -98,8 +102,8 @@
     },
     {
       "path": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "size_bytes": 458760,
-      "sha256": "4d25346386d556a69574beebf2e84a7ebf42aeaa90b08d14cf1485be82771a19",
+      "size_bytes": 448904,
+      "sha256": "679019ed58e4a68cc54712d23bc8f9b7a91399e77aef1db5535228fcea7527ec",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
@@ -110,8 +114,8 @@
     },
     {
       "path": "ro-crate-metadata.jsonld",
-      "size_bytes": 3099,
-      "sha256": "999f30ffab4c424f7752466555e7b48e094ad6ab5591985cdbc74d27c38cea16",
+      "size_bytes": 2950,
+      "sha256": "22ee7bbe3ddb0bcbcea31f5b2a0de477c350495623e8a27353b2d26ae2f2afe0",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {

@@ -437,6 +437,133 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertFalse(approval["publish_allowed"])
         self.assertFalse(approval["journal_submissions_allowed"])
 
+    def test_oc133_context_vs_release_matrix_counters(self) -> None:
+        root = complete.repo_root()
+        release_matrix = json.loads((root / "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json").read_text(encoding="utf-8"))
+        context_matrix = json.loads(
+            (
+                root
+                / "reviews/oc133_llm_cerberus/context_v12/claim_boundary_auditor/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json"
+            ).read_text(encoding="utf-8")
+        )
+        finite = json.loads((root / "proofs/FINITE_MODEL_CHECKS_1_3_3.json").read_text(encoding="utf-8"))
+        publish_control = next(row for row in finite["rows"] if row["case_id"] == "ADV-NOSEND-PUBLISH")
+
+        self.assertEqual(release_matrix["critical_unresolved_total"], 1)
+        self.assertEqual(release_matrix["high_unresolved_total"], 10)
+        self.assertEqual(release_matrix["release_closure_matrix_kind"], "INTEGRATED_RELEASE_ATTACK_MATRIX_NOT_ROLE_CONTEXT_VIEW")
+        self.assertTrue(release_matrix["fresh_cerberus_review_satisfied"] is False)
+        self.assertEqual(release_matrix["post_role_integration_required"], True)
+
+        self.assertEqual(context_matrix["critical_unresolved_total"], 0)
+        self.assertEqual(context_matrix["high_unresolved_total"], 0)
+        self.assertEqual(context_matrix["fresh_cerberus_critical_open_total"], 2)
+        self.assertEqual(context_matrix["fresh_cerberus_high_open_total"], 16)
+        self.assertEqual(context_matrix["deterministic_context_critical_unresolved_total"], 0)
+        self.assertEqual(context_matrix["deterministic_context_high_unresolved_total"], 0)
+        self.assertIn("fresh_context_counter_policy", context_matrix)
+
+        self.assertEqual(publish_control["model"]["critical_open_total"], release_matrix["critical_unresolved_total"])
+        self.assertEqual(publish_control["model"]["high_open_total"], release_matrix["high_unresolved_total"])
+        self.assertTrue(publish_control["model"]["publish_requested"])
+
+        self.assertLess(context_matrix["critical_unresolved_total"], release_matrix["critical_unresolved_total"])
+        self.assertLess(context_matrix["high_unresolved_total"], release_matrix["high_unresolved_total"])
+
+    def test_oc133_nosend_owner_only_not_enough_control(self) -> None:
+        root = complete.repo_root()
+        claims = json.loads((root / "claims/CLAIM_LEDGER_1_3_3.json").read_text(encoding="utf-8"))
+        nosend = next(row for row in claims["rows"] if row["claim_id"] == "OC133-NOSEND-001")
+        self.assertFalse(nosend["release_promotion_allowed"])
+        self.assertFalse(nosend["scientific_promotion_allowed"])
+        self.assertTrue(nosend["governance_control_allowed"])
+        self.assertEqual(nosend["public_status"], "GOVERNANCE_CONTROL_NO_SEND_NOT_SCIENTIFIC_PROMOTION")
+        scope_limit = nosend["scope_limit"].lower()
+        self.assertIn("owner approval alone is insufficient", scope_limit)
+        self.assertIn("deposit-ready metadata", scope_limit)
+        self.assertIn("public-record", scope_limit)
+        self.assertIn("every channel lock", scope_limit)
+        self.assertEqual(nosend["evidence_ref"], "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json")
+        self.assertIn("releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json", nosend["supporting_evidence_refs"])
+        self.assertIn(
+            "proofs/FINITE_MODEL_CHECKS_1_3_3.json::ADV-NOSEND-PUBLISH",
+            nosend["supporting_evidence_refs"],
+        )
+        self.assertIn(
+            "proofs/FINITE_MODEL_CHECKS_1_3_3.json::ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+            nosend["supporting_evidence_refs"],
+        )
+
+        finite = json.loads((root / "proofs/FINITE_MODEL_CHECKS_1_3_3.json").read_text(encoding="utf-8"))
+        owner_approved_only = next(
+            row
+            for row in finite["rows"]
+            if row["case_id"] == "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL"
+        )
+        self.assertEqual(owner_approved_only["expected_verdict"], "REJECT_PUBLIC_ACTION")
+        self.assertEqual(owner_approved_only["observed_verdict"], "REJECT_PUBLIC_ACTION")
+        self.assertIn("deposit_ready_metadata", owner_approved_only["failed_gate_predicates"])
+        self.assertIn("public_record_present", owner_approved_only["failed_gate_predicates"])
+        self.assertTrue(owner_approved_only["model"]["owner_approved"])
+        self.assertFalse(owner_approved_only["model"]["deposit_ready_metadata"])
+        self.assertFalse(owner_approved_only["model"]["public_record_present"])
+
+    def test_oc133_all_gates_open_control_approves_public_action(self) -> None:
+        root = complete.repo_root()
+        finite = json.loads((root / "proofs/FINITE_MODEL_CHECKS_1_3_3.json").read_text(encoding="utf-8"))
+        all_gates_open = next(
+            row for row in finite["rows"] if row["case_id"] == "ADV-NOSEND-PUBLISH-ALL-GATES-OPEN-CONTROL"
+        )
+        self.assertEqual(all_gates_open["expected_verdict"], "ACCEPT_PUBLIC_ACTION")
+        self.assertEqual(all_gates_open["observed_verdict"], "ACCEPT_PUBLIC_ACTION")
+        self.assertEqual(all_gates_open["failed_gate_predicates"], [])
+        self.assertEqual(all_gates_open["control_label"], "ALL_OWNER_METADATA_RECORD_REVIEW_AND_CHANNEL_GATES_OPEN_HYPOTHETICAL_ACCEPT")
+
+        self.assertTrue(all(all_gates_open["model"].get(flag) is True for flag in [
+            "github_release_allowed",
+            "zenodo_deposit_allowed",
+            "software_heritage_deposit_allowed",
+            "journal_submission_allowed",
+            "doi_minting_allowed",
+            "publish_allowed",
+            "deposit_ready_metadata",
+            "public_record_present",
+        ]))
+        self.assertFalse(all_gates_open["model"]["global_no_send_lock"])
+        self.assertEqual(all_gates_open["model"]["requested_channels"], [
+            "github_release",
+            "zenodo_deposit",
+            "software_heritage_deposit",
+            "journal_submission",
+            "doi_minting",
+        ])
+
+    def test_oc133_split_evidence_ref_totals(self) -> None:
+        root = complete.repo_root()
+        finite = json.loads((root / "proofs/FINITE_MODEL_CHECKS_1_3_3.json").read_text(encoding="utf-8"))
+        self.assertEqual(finite["finite_row_theorem_ref_total"], finite["finite_row_theorem_ref_bound_total"])
+        self.assertEqual(finite["finite_row_evidence_ref_total"], finite["finite_row_evidence_ref_bound_total"])
+        self.assertEqual(finite["finite_row_theorem_ref_missing_total"], 0)
+        self.assertEqual(finite["finite_row_evidence_ref_missing_total"], 0)
+        self.assertEqual(
+            finite["lean_theorem_ref_total"] + finite["semantic_evaluator_ref_total"] + finite["governance_or_artifact_ref_total"],
+            finite["finite_row_theorem_ref_total"],
+        )
+
+    def test_oc133_manifest_checksums_inventory_exception(self) -> None:
+        root = complete.repo_root()
+        manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
+        checksum_inventory = (root / "checksums.txt").read_text(encoding="utf-8")
+        self.assertEqual(manifest["checksum_file_ref"], "checksums.txt")
+        self.assertIn("checksums.txt", manifest["inventory_policy"])
+        self.assertIn("nonrecursive_manifest_exceptions", manifest)
+        no_send_exception = next(
+            row for row in manifest["nonrecursive_manifest_exceptions"] if row["path"] == "checksums.txt"
+        )
+        self.assertIn("self-referential checksum cycle", no_send_exception["reason"].lower())
+        self.assertNotIn("checksums.txt", [row["path"] for row in manifest["files"]])
+        self.assertNotIn("checksums.txt", checksum_inventory)
+
 
 if __name__ == "__main__":
     unittest.main()

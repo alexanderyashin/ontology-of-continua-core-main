@@ -190,6 +190,7 @@ def read_rel_json(ref: str) -> dict[str, Any]:
 
 def public_metadata_surface_check(ref_rows: list[dict[str, Any]]) -> dict[str, Any]:
     failures: list[str] = []
+    observed_refs: list[dict[str, Any]] = []
     checked = 0
     for row in ref_rows or []:
         ref = str(row.get("ref", ""))
@@ -202,6 +203,7 @@ def public_metadata_surface_check(ref_rows: list[dict[str, Any]]) -> dict[str, A
                 failures.append(f"{ref}::MUST_BE_ABSENT_BUT_EXISTS")
             else:
                 checked += 1
+                observed_refs.append({"ref": ref, "exists": False, "sha256": None})
             continue
         if row.get("must_exist") is True and not path.is_file():
             failures.append(f"{ref}::MISSING")
@@ -209,6 +211,7 @@ def public_metadata_surface_check(ref_rows: list[dict[str, Any]]) -> dict[str, A
         if not path.is_file():
             continue
         checked += 1
+        observed_refs.append({"ref": ref, "exists": True, "sha256": sha256_file(path)})
         body = path.read_text(encoding="utf-8", errors="ignore")
         expected_hash = row.get("sha256")
         if expected_hash and sha256_file(path) != expected_hash:
@@ -263,6 +266,7 @@ def public_metadata_surface_check(ref_rows: list[dict[str, Any]]) -> dict[str, A
         "expected_ref_total": len(ref_rows or []),
         "failure_total": len(failures),
         "failures": failures[:50],
+        "observed_refs": observed_refs,
     }
 
 

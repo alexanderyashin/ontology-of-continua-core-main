@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures
+import hashlib
 import json
 import re
 import subprocess
@@ -174,6 +175,15 @@ ROLE_FOCUS = {
     "public_surface_auditor": "Attack no-send, owner approval, DOI/public action, stale release metadata, local paths, and public-surface parity.",
 }
 
+G58_INPUT_REFS = sorted(
+    {
+        "tools/run_oc133_v12_cerberus.py",
+        *CONTEXT_REFS,
+        *[ref for refs in ROLE_CONTEXT_REFS.values() for ref in refs],
+    }
+)
+G58_FRONTIER_REFS = sorted({*G58_INPUT_REFS, "reviews/oc133_llm_cerberus/results"})
+
 
 def extract_json(text: str) -> dict[str, Any]:
     stripped = text.strip()
@@ -183,6 +193,118 @@ def extract_json(text: str) -> dict[str, Any]:
     if not match:
         raise ValueError("No JSON object found")
     return json.loads(match.group(0))
+
+
+def canonical_sha256(payload: Any) -> str:
+    digest = hashlib.sha256()
+    digest.update(
+        json.dumps(
+            payload,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    )
+    return digest.hexdigest()
+
+
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def rel(path: Path) -> str:
+    return path.resolve().relative_to(ROOT.resolve()).as_posix()
+
+
+def ref_path(ref: str) -> Path:
+    return ROOT / ref
+
+
+def directory_sha256(path: Path) -> tuple[str, int]:
+    child_hashes = []
+    for child in sorted(path.rglob("*")):
+        if child.is_file() and ".git" not in child.parts:
+            child_hashes.append(f"{rel(child)}:{file_sha256(child)}")
+    return hashlib.sha256("\n".join(child_hashes).encode("utf-8")).hexdigest(), len(child_hashes)
+
+
+def artifact_hash_row(ref: str) -> dict[str, Any]:
+    path = ref_path(ref)
+    row: dict[str, Any] = {"ref": ref}
+    if path.is_file():
+        row.update({"kind": "file", "sha256": file_sha256(path)})
+    elif path.is_dir():
+        digest, child_total = directory_sha256(path)
+        row.update({"kind": "directory", "sha256": digest, "child_file_total": child_total})
+    else:
+        row.update({"kind": "missing", "sha256": None})
+    return row
+
+
+def artifact_hashes(refs: list[str]) -> list[dict[str, Any]]:
+    return [artifact_hash_row(ref) for ref in sorted(dict.fromkeys(refs))]
+
+
+def artifact_hash_map(refs: list[str]) -> dict[str, str | None]:
+    return {row["ref"]: row["sha256"] for row in artifact_hashes(refs)}
+
+
+def artifacts_manifest_hash(refs: list[str]) -> str:
+    return canonical_sha256(artifact_hashes(refs))
+
+
+def g58_frontier_hash() -> str:
+    return artifacts_manifest_hash(G58_FRONTIER_REFS)
+
+
+def existing_role_context_refs(role: str) -> list[str]:
+    refs = []
+    for source_ref in ROLE_CONTEXT_REFS.get(role, CONTEXT_REFS):
+        if source_ref == "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json":
+            context_ref = (CONTEXT_DIR / role / source_ref).resolve().relative_to(ROOT.resolve()).as_posix()
+            refs.append(context_ref if (ROOT / context_ref).exists() else source_ref)
+        else:
+            refs.append(source_ref)
+    return refs
+
+
+def is_cerberus_row(row: dict[str, Any]) -> bool:
+    source = str(row.get("source", "")).strip().lower()
+    if source == "llm_cerberus" or source == "llm_cerberus_sourced":
+        return True
+    source_ref = str(row.get("source_result_ref", "")).strip()
+    return source_ref.startswith("reviews/oc133_llm_cerberus/results/")
+
+
+def row_is_closed(row: dict[str, Any]) -> bool:
+    status = str(row.get("status", "OPEN")).upper()
+    return status in {"CLOSED", "RESOLVED", "CLOSED_BY_V12_EVIDENCE", "CLOSED_BY_SPECIFIC_V12_EVIDENCE"}
+
+
+def compact_attack_row(row: dict[str, Any]) -> dict[str, Any]:
+    keep = {
+        "objection_id",
+        "source",
+        "source_result_ref",
+        "source_finding_hash",
+        "theme",
+        "severity",
+        "attacked_claim",
+        "artifact_location",
+        "objection",
+        "failure_mode",
+        "required_repair",
+        "closure_verification_query",
+        "status",
+        "no_send",
+    }
+    compact = {key: row[key] for key in keep if key in row}
+    compact["row_context_hash"] = canonical_sha256(compact)
+    return compact
 
 
 def normalize(role: str, payload: dict[str, Any], output_path: Path) -> dict[str, Any]:
@@ -211,8 +333,8 @@ def normalize(role: str, payload: dict[str, Any], output_path: Path) -> dict[str
     }
 
 
-def prompt_for(role: str) -> str:
-    refs = "\n".join(f"- `{path}`" for path in role_context_refs(role))
+def prompt_for(role: str, context_refs: list[str] | None = None) -> str:
+    refs = "\n".join(f"- `{path}`" for path in (context_refs or role_context_refs(role)))
     focus = ROLE_FOCUS.get(role, "Attack unsupported critical/high release claims.")
     return f"""You are the OC Core 1.3.3 v12 adversarial reviewer role `{role}`.
 
@@ -223,9 +345,8 @@ Role focus: {focus}
 
 Attack the release hard. Focus on unsupported critical/high claims, theorem theater, empirical theater,
 prior-art relabeling, phenomenon coverage gaps, no-send violations, and absolute TOE overclaims.
-Use the current artifacts exactly. Do not repeat a stale finding unless the current file still contains
-the defect after inspection. A valid critical/high finding must cite a current path, attacked claim,
-specific failure mode, and specific repair.
+Use the current artifacts exactly. Context references include role-scoped attack-matrix hashes and
+fresh totals; do not re-report findings from stale LLM rows.
 
 Return exactly one JSON object with this shape:
 {{
@@ -248,7 +369,8 @@ Do not include markdown outside the JSON object.
 
 
 def run_role(role: str, timeout_seconds: int = 420) -> dict[str, Any]:
-    prompt = prompt_for(role)
+    context_refs = role_context_refs(role)
+    prompt = prompt_for(role, context_refs)
     prompt_path = PROMPT_DIR / f"{role}.txt"
     output_path = LAST_DIR / f"{role}.txt"
     prompt_path.write_text(prompt, encoding="utf-8")
@@ -344,6 +466,13 @@ def run_role(role: str, timeout_seconds: int = 420) -> dict[str, Any]:
         "role": role,
         "payload": payload,
         "result_ref": result_path.resolve().relative_to(ROOT.resolve()).as_posix(),
+        "role_context_refs": context_refs,
+        "role_context_sha256": artifacts_manifest_hash(context_refs),
+        "prompt_ref": prompt_path.resolve().relative_to(ROOT.resolve()).as_posix(),
+        "prompt_sha256": file_sha256(prompt_path),
+        "raw_output_ref": output_path.resolve().relative_to(ROOT.resolve()).as_posix(),
+        "raw_output_sha256": file_sha256(output_path) if output_path.exists() else None,
+        "result_sha256": file_sha256(result_path),
         "parse_failed": payload.get("execution_status") == "PARSE_FAILED",
         "execution_failed": payload.get("execution_status") in {"EXECUTION_FAILED", "EXECUTION_TIMEOUT"},
     }
@@ -367,26 +496,44 @@ def fresh_context_ref(role: str, ref: str) -> str:
         return ref
     payload = json.loads(source_path.read_text(encoding="utf-8"))
     rows = payload.get("rows", [])
-    deterministic_rows = [row for row in rows if row.get("source") != "llm_cerberus"]
-    excluded_rows = [row for row in rows if row.get("source") == "llm_cerberus"]
+    if not isinstance(rows, list):
+        rows = []
+    source_attack_matrix_rows = [row for row in rows if isinstance(row, dict)]
+    deterministic_rows = [row for row in source_attack_matrix_rows if not is_cerberus_row(row)]
+    excluded_rows = [row for row in source_attack_matrix_rows if is_cerberus_row(row)]
+    deterministic_open_rows = [row for row in deterministic_rows if not row_is_closed(row)]
+    compacted_rows = [compact_attack_row(row) for row in deterministic_rows]
+
     view = dict(payload)
     view["fresh_cerberus_context_view"] = True
     view["release_closure_matrix_kind"] = "ROLE_CONTEXT_VIEW_NOT_RELEASE_MATRIX"
     view["source_attack_matrix_ref"] = ref
+    view["source_attack_matrix_sha256"] = file_sha256(source_path)
     view["excluded_prior_llm_cerberus_row_total"] = len(excluded_rows)
     view["fresh_context_policy"] = (
         "Prior LLM-derived rows are excluded from this reviewer context so a fresh role rerun "
         "does not self-repeat stale open findings. The reviewer must inspect underlying current "
         "artifacts and report only defects still present now."
     )
-    view["rows"] = deterministic_rows
+    view["rows"] = compacted_rows
     deterministic_critical = sum(
         1 for row in deterministic_rows
-        if row.get("severity") == "CRITICAL" and row.get("status") != "CLOSED_BY_SPECIFIC_V12_EVIDENCE"
+        if str(row.get("severity", "")).upper() == "CRITICAL" and not row_is_closed(row)
     )
     deterministic_high = sum(
         1 for row in deterministic_rows
-        if row.get("severity") == "HIGH" and row.get("status") != "CLOSED_BY_SPECIFIC_V12_EVIDENCE"
+        if str(row.get("severity", "")).upper() == "HIGH" and not row_is_closed(row)
+    )
+    view["critical_context_row_total"] = len(deterministic_rows)
+    view["high_context_row_total"] = sum(
+        1 for row in deterministic_rows
+        if str(row.get("severity", "")).upper() == "HIGH"
+    )
+    view["critical_context_open_row_total"] = sum(
+        1 for row in deterministic_open_rows if str(row.get("severity", "")).upper() == "CRITICAL"
+    )
+    view["high_context_open_row_total"] = sum(
+        1 for row in deterministic_open_rows if str(row.get("severity", "")).upper() == "HIGH"
     )
     view["deterministic_context_critical_unresolved_total"] = deterministic_critical
     view["deterministic_context_high_unresolved_total"] = deterministic_high
@@ -394,6 +541,8 @@ def fresh_context_ref(role: str, ref: str) -> str:
     summary = json.loads(summary_path.read_text(encoding="utf-8")) if summary_path.exists() else {}
     fresh_critical = int(summary.get("critical_open_total", 0) or 0)
     fresh_high = int(summary.get("high_open_total", 0) or 0)
+    view["fresh_context_critical_open_total"] = fresh_critical
+    view["fresh_context_high_open_total"] = fresh_high
     view["critical_unresolved_total"] = deterministic_critical + fresh_critical
     view["high_unresolved_total"] = deterministic_high + fresh_high
     view["release_closure_claim_asserted"] = False
@@ -404,6 +553,7 @@ def fresh_context_ref(role: str, ref: str) -> str:
         "fresh_cerberus_* fields copy the latest integrated summary and the release matrix must be regenerated after this role result."
     )
     view["objection_total"] = len(deterministic_rows)
+    view["open_objection_total"] = len(deterministic_open_rows)
     view["cerberus_sourced_objection_total"] = 0
     view["fresh_cerberus_review_satisfied"] = False
     view["fresh_cerberus_review_gate_status"] = "CONTEXT_VIEW_NOT_RELEASE_GATE"
@@ -414,6 +564,15 @@ def fresh_context_ref(role: str, ref: str) -> str:
     view["fresh_cerberus_high_open_total"] = fresh_high
     view["post_role_integration_required"] = True
     view["release_pass_badge_allowed"] = False
+    view["context_row_hashes"] = [
+        {
+            "objection_id": row.get("objection_id", f"row-{index}"),
+            "source": row.get("source"),
+            "row_hash": canonical_sha256(row),
+        }
+        for index, row in enumerate(compacted_rows)
+    ]
+    view["context_view_sha256"] = canonical_sha256({k: v for k, v in view.items() if k != "context_view_sha256"})
     view_path = CONTEXT_DIR / role / ref
     view_path.parent.mkdir(parents=True, exist_ok=True)
     view_path.write_text(json.dumps(view, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -504,6 +663,20 @@ def main() -> int:
         if payload.get("execution_status") != "EXECUTED":
             execution_bad.append(role)
 
+    role_context_refs_by_role = {role: existing_role_context_refs(role) for role in ROLES}
+    prompt_hashes = artifact_hash_map(
+        [
+            (PROMPT_DIR / f"{role}.txt").resolve().relative_to(ROOT.resolve()).as_posix()
+            for role in ROLES
+        ]
+    )
+    raw_output_hashes = artifact_hash_map(
+        [
+            (LAST_DIR / f"{role}.txt").resolve().relative_to(ROOT.resolve()).as_posix()
+            for role in ROLES
+        ]
+    )
+    result_hashes = artifact_hash_map(aggregate_refs)
     summary = {
         "schema_id": "OC133_LLM_CERBERUS_SUMMARY_v12",
         "release_id": "oc_core_1_3_3",
@@ -524,6 +697,26 @@ def main() -> int:
         "pending_roles": pending_roles,
         "result_refs": aggregate_refs,
         "result_refs_this_run": result_refs,
+        "freshness_hash_binding_policy": (
+            "G58 summary is bound to current role context files, current release-critical input artifacts, "
+            "generated prompts, raw role outputs, and normalized result JSON files. These hashes are audit "
+            "bindings only; critical/high open-finding counters remain authoritative for pass/block semantics."
+        ),
+        "role_context_refs": role_context_refs_by_role,
+        "role_context_hashes": {
+            role: artifacts_manifest_hash(refs)
+            for role, refs in role_context_refs_by_role.items()
+        },
+        "role_context_artifact_hashes": {
+            role: artifact_hash_map(refs)
+            for role, refs in role_context_refs_by_role.items()
+        },
+        "input_artifact_hashes": artifact_hash_map(G58_INPUT_REFS),
+        "prompt_hashes": prompt_hashes,
+        "raw_output_hashes": raw_output_hashes,
+        "result_hashes": result_hashes,
+        "g58_frontier_refs": G58_FRONTIER_REFS,
+        "g58_frontier_hash": g58_frontier_hash(),
     }
     (ROOT / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=2))

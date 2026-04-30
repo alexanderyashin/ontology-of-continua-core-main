@@ -49,6 +49,11 @@ COMMANDS = [
     [sys.executable, "-m", "release_machine", "package", "--release", "oc_core_1_3_3", "--channel", "all", "--no-publish"],
 ]
 
+COMMAND_OUTPUT_TAIL_LIMIT = 1200
+SYNC_REASON_COMMAND_FAILURE = "sync_regenerated_artifacts_refused_due_command_failure"
+SYNC_REASON_REQUESTED = "sync_regenerated_artifacts_executed_after_successful_commands"
+SYNC_REASON_FLAG_NOT_SET = "sync_regenerated_artifacts_not_requested"
+
 PORTABLE_COMMANDS = [
     ["python", "tools/materialize_oc_core_1_3_3_v12_closure.py"],
     ["python", "proofs/finite_model_checks/run_finite_model_checks.py"],
@@ -57,6 +62,14 @@ PORTABLE_COMMANDS = [
     ["python", "simulations/adversarial/run_all.py"],
     ["python", "-m", "release_machine", "package", "--release", "oc_core_1_3_3", "--channel", "all", "--no-publish"],
 ]
+
+
+def tail_text(value: str | None, max_chars: int = COMMAND_OUTPUT_TAIL_LIMIT) -> str:
+    if not value:
+        return ""
+    if len(value) <= max_chars:
+        return value
+    return value[-max_chars:]
 
 
 def sha256_file(path: Path) -> str:
@@ -113,9 +126,10 @@ def parse_checksum_lines(path: Path) -> list[dict[str, str]]:
     return rows
 
 
-def internal_checksum_failures(repo: Path) -> list[dict[str, Any]]:
+def internal_checksum_failures(repo: Path) -> tuple[list[dict[str, Any]], set[str]]:
     """Validate hashes declared inside regenerated manifests/checksum files."""
     failures: list[dict[str, Any]] = []
+    manifest_nonrecursive_exceptions: set[str] = set()
 
     def check_file_ref(source_ref: str, ref: str, expected_sha: str | None, expected_size: int | None = None) -> None:
         if not ref:
@@ -138,6 +152,11 @@ def internal_checksum_failures(repo: Path) -> list[dict[str, Any]]:
         except Exception as exc:
             failures.append({"source_ref": "manifest.json", "reason": "JSON_PARSE_FAILED", "error": str(exc)})
         else:
+            manifest_nonrecursive_exceptions = {
+                str(row.get("path", ""))
+                for row in manifest.get("nonrecursive_manifest_exceptions", [])
+                if isinstance(row, dict) and row.get("path")
+            }
             for row in manifest.get("files", []):
                 if isinstance(row, dict):
                     check_file_ref("manifest.json", str(row.get("path", "")), row.get("sha256"), row.get("size_bytes"))
@@ -195,7 +214,47 @@ def internal_checksum_failures(repo: Path) -> list[dict[str, Any]]:
                         "expected": zip_integrity.get("package_member_total"),
                         "actual": actual_member_total,
                     })
-    return failures
+    return failures, manifest_nonrecursive_exceptions
+
+
+def summarize_internal_checksum_failures(
+    failures: list[dict[str, Any]],
+    declared_manifest_exceptions: set[str],
+) -> dict[str, Any]:
+    reason_counts: dict[str, int] = {}
+    path_sources: dict[str, set[str]] = {}
+    parse_error_total = 0
+    for failure in failures:
+        reason = str(failure.get("reason", "UNKNOWN"))
+        reason_counts[reason] = reason_counts.get(reason, 0) + 1
+        if reason == "CHECKSUM_LINE_PARSE_FAILED":
+            parse_error_total += 1
+        path = str(failure.get("path", ""))
+        if not path:
+            continue
+        path_sources.setdefault(path, set()).add(str(failure.get("source_ref", "")))
+
+    cycle_candidates: list[dict[str, Any]] = []
+    for path, sources in sorted(path_sources.items()):
+        source_list = sorted(source for source in sources if source)
+        if len(source_list) < 2:
+            continue
+        if "manifest.json" in source_list or "checksums.txt" in source_list:
+            cycle_candidates.append(
+                {
+                    "path": path,
+                    "source_refs": source_list,
+                    "manifest_declares_nonrecursive_exception": path in declared_manifest_exceptions,
+                    "likely_cross_file_cycle": set(source_list).issuperset({"manifest.json", "checksums.txt"}),
+                }
+            )
+
+    return {
+        "total": len(failures),
+        "parse_error_total": parse_error_total,
+        "reason_totals": dict(sorted(reason_counts.items())),
+        "control_file_cycle_candidates": cycle_candidates,
+    }
 
 
 def recompute_manifest_stable_payload_hash(manifest: dict[str, Any] | None) -> str | None:
@@ -339,7 +398,12 @@ def initialize_temp_git_index(temp_root: Path, refs: list[str]) -> dict[str, Any
     }
 
 
-def run_command(repo: Path, command: list[str], portable_command: list[str]) -> dict[str, Any]:
+def run_command(
+    repo: Path,
+    command: list[str],
+    portable_command: list[str],
+    capture_success_output: bool,
+) -> dict[str, Any]:
     completed = subprocess.run(
         command,
         cwd=repo,
@@ -349,13 +413,70 @@ def run_command(repo: Path, command: list[str], portable_command: list[str]) -> 
         capture_output=True,
         timeout=1200,
     )
-    return {
+    row = {
         "command": " ".join(portable_command),
         "executed_with_current_python": True,
         "returncode": completed.returncode,
-        "stdout_tail": completed.stdout[-1200:],
-        "stderr_tail": completed.stderr[-1200:],
     }
+    if capture_success_output or completed.returncode != 0:
+        row["stdout_tail"] = tail_text(completed.stdout, COMMAND_OUTPUT_TAIL_LIMIT)
+        row["stderr_tail"] = tail_text(completed.stderr, COMMAND_OUTPUT_TAIL_LIMIT)
+    return row
+
+
+def compare_ref_row(
+    ref: str,
+    baseline_exists: bool,
+    baseline_sha: str | None,
+    regenerated_exists: bool,
+    regenerated_sha: str | None,
+    baseline_zip_manifest: dict[str, Any] | None = None,
+    regenerated_zip_manifest: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    mismatch_reasons: list[str] = []
+    if not baseline_exists:
+        mismatch_reasons.append("MISSING_BASELINE_REF")
+    if not regenerated_exists:
+        mismatch_reasons.append("MISSING_REGENERATED_FILE")
+    elif baseline_sha is None:
+        mismatch_reasons.append("BASELINE_HASH_UNKNOWN")
+    elif regenerated_sha is None:
+        mismatch_reasons.append("REGENERATED_HASH_UNKNOWN")
+    elif baseline_sha != regenerated_sha:
+        mismatch_reasons.append("SHA256_MISMATCH")
+
+    row = {
+        "ref": ref,
+        "committed_clean_checkout_baseline_exists": baseline_exists,
+        "regenerated_exists": regenerated_exists,
+        "committed_clean_checkout_baseline_sha256": baseline_sha,
+        "regenerated_sha256": regenerated_sha,
+        "mismatch_reasons": mismatch_reasons,
+    }
+    matches = not mismatch_reasons
+    if ref.endswith(".zip"):
+        row.update(
+            {
+                "zip_member_manifest_compared": True,
+                "committed_clean_checkout_baseline_zip_member_manifest": baseline_zip_manifest,
+                "regenerated_zip_member_manifest": regenerated_zip_manifest,
+            }
+        )
+        manifest_match = baseline_zip_manifest == regenerated_zip_manifest
+        if not manifest_match:
+            mismatch_reasons.append("ZIP_MEMBER_MANIFEST_MISMATCH")
+            matches = False
+        row["zip_member_manifest_matches"] = manifest_match
+    row["matches"] = matches
+    return row
+
+
+def sync_plan(sync_requested: bool, bad_commands: list[dict[str, Any]]) -> tuple[bool, str]:
+    if not sync_requested:
+        return False, SYNC_REASON_FLAG_NOT_SET
+    if bad_commands:
+        return False, SYNC_REASON_COMMAND_FAILURE
+    return True, SYNC_REASON_REQUESTED
 
 
 def main() -> int:
@@ -368,7 +489,18 @@ def main() -> int:
     parser.add_argument(
         "--sync-regenerated-artifacts",
         action="store_true",
-        help="Copy regenerated compared artifacts from the detached clean worktree back to the main tree when commands succeed.",
+        help=(
+            "Copy regenerated compared artifacts from the detached clean worktree back to the main tree only after "
+            "all commands finish with returncode 0."
+        ),
+    )
+    parser.add_argument(
+        "--include-command-output",
+        action="store_true",
+        help=(
+            "Keep stdout/stderr tails for successful commands in the manifest payload. "
+            "Without this flag, only command failures keep tails."
+        ),
     )
     args = parser.parse_args()
     state = git_state()
@@ -388,6 +520,9 @@ def main() -> int:
     synced_refs: list[str] = []
     non_compare_mutations: list[dict[str, Any]] = []
     internal_hash_failures: list[dict[str, Any]] = []
+    internal_checksum_exceptioned_paths: set[str] = set()
+    sync_executed = False
+    sync_reason = SYNC_REASON_FLAG_NOT_SET
     if not state["strict_head_replay_clean"] and not args.allow_dirty_worktree:
         payload = {
             "schema_id": "OC133_POST_GENERATION_REPRODUCIBILITY_MANIFEST_v12",
@@ -433,7 +568,12 @@ def main() -> int:
                             preexisting_zip_manifests[ref] = zip_member_manifest(target)
                     target.unlink()
             command_rows = [
-                run_command(temp_root, command, portable)
+                run_command(
+                    temp_root,
+                    command,
+                    portable,
+                    capture_success_output=args.include_command_output,
+                )
                 for command, portable in zip(COMMANDS, PORTABLE_COMMANDS)
             ]
             rows = []
@@ -444,31 +584,33 @@ def main() -> int:
                 regenerated_exists = regenerated.exists()
                 baseline_sha = preexisting_target_sha256.get(ref)
                 regenerated_sha = sha256_file(regenerated) if regenerated_exists and regenerated.is_file() else None
-                matches = baseline_sha == regenerated_sha and baseline_exists and regenerated_exists
-                row = {
-                    "ref": ref,
-                    "committed_clean_checkout_baseline_exists": baseline_exists,
-                    "regenerated_exists": regenerated_exists,
-                    "committed_clean_checkout_baseline_sha256": baseline_sha,
-                    "regenerated_sha256": regenerated_sha,
-                    "matches": matches,
-                }
+                baseline_zip_manifest: dict[str, Any] | None = None
+                regenerated_zip_manifest: dict[str, Any] | None = None
                 if ref.endswith(".zip"):
                     baseline_zip_manifest = preexisting_zip_manifests.get(ref)
-                    regenerated_zip_manifest = zip_member_manifest(regenerated) if regenerated_exists and regenerated.exists() else None
-                    row.update(
-                        {
-                            "zip_member_manifest_compared": True,
-                            "committed_clean_checkout_baseline_zip_member_manifest": baseline_zip_manifest,
-                            "regenerated_zip_member_manifest": regenerated_zip_manifest,
-                            "zip_member_manifest_matches": baseline_zip_manifest == regenerated_zip_manifest,
-                        }
+                    regenerated_zip_manifest = (
+                        zip_member_manifest(regenerated)
+                        if regenerated_exists and regenerated.exists()
+                        else None
                     )
+                row = compare_ref_row(
+                    ref=ref,
+                    baseline_exists=baseline_exists,
+                    baseline_sha=baseline_sha,
+                    regenerated_exists=regenerated_exists,
+                    regenerated_sha=regenerated_sha,
+                    baseline_zip_manifest=baseline_zip_manifest,
+                    regenerated_zip_manifest=regenerated_zip_manifest,
+                )
                 rows.append(row)
-                if not matches:
+                if not row["matches"]:
                     failures.append(row)
             bad_commands = [row for row in command_rows if row["returncode"] != 0]
-            internal_hash_failures = internal_checksum_failures(temp_root)
+            internal_hash_failures, internal_checksum_exceptioned_paths = internal_checksum_failures(temp_root)
+            internal_checksum_summary = summarize_internal_checksum_failures(
+                internal_hash_failures,
+                internal_checksum_exceptioned_paths,
+            )
             non_compare_mutations = []
             for ref, before_sha in sorted(pre_run_non_compare_hashes.items()):
                 path = temp_root / ref
@@ -492,7 +634,8 @@ def main() -> int:
                             "mutation": "NON_COMPARE_REF_CHANGED_BY_REPRODUCIBILITY_COMMANDS",
                         }
                     )
-            if args.sync_regenerated_artifacts and not bad_commands:
+            sync_executed, sync_reason = sync_plan(bad_commands=bad_commands, sync_requested=args.sync_regenerated_artifacts)
+            if sync_executed:
                 for row in failures:
                     ref = row["ref"]
                     regenerated = temp_root / ref
@@ -535,7 +678,13 @@ def main() -> int:
         "command_total": len(command_rows),
         "command_failure_total": len(bad_commands),
         "commands": command_rows,
+        "command_output_capture_policy": {
+            "capture_success_output": args.include_command_output,
+            "stdout_stderr_tail_limit": COMMAND_OUTPUT_TAIL_LIMIT,
+        },
         "sync_regenerated_artifacts_requested": args.sync_regenerated_artifacts,
+        "sync_regenerated_artifacts_executed": sync_executed,
+        "sync_regenerated_artifacts_execution_reason": sync_reason,
         "synced_regenerated_artifact_total": len(synced_refs),
         "synced_regenerated_artifacts": synced_refs,
         "compared_artifact_total": len(rows),
@@ -545,6 +694,9 @@ def main() -> int:
         "non_compare_ref_mutations": non_compare_mutations[:200],
         "internal_checksum_failure_total": len(internal_hash_failures),
         "internal_checksum_failures": internal_hash_failures[:200],
+        "internal_checksum_failure_summary": internal_checksum_summary,
+        "internal_checksum_control_file_cycle_candidate_total": len(internal_checksum_summary["control_file_cycle_candidates"]),
+        "internal_checksum_control_file_cycle_candidates": internal_checksum_summary["control_file_cycle_candidates"][:200],
         "rows": rows,
         "no_send": True,
     }

@@ -4870,6 +4870,8 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
         "DOI_MINTING",
         "OWNER_APPROVED",
         "PUBLISH_ALLOWED",
+        "DEPOSIT_READY_METADATA",
+        "PUBLIC_RECORD_PRESENT",
         "GLOBAL_NO_SEND_LOCK",
     ]
     for control in partial_no_send_controls:
@@ -4907,7 +4909,7 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
     route_prewrite_lines = [
         "# OC Core 1.3.3 Hostile Reader Guide",
         "",
-        "This is the skeptical route table. While G57/G58/G70 are open, theorem rows are candidate routes, not release-promoted claims. A route becomes release-promoted only from the integrated matrix `review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` when `release_closure_claim_asserted=true`, `post_role_integration_required=false`, zero critical/high findings are present, and the specific claim-ledger row has an explicit promotion allowance; role-specific Cerberus context views are never release evidence. Public action still additionally requires separate owner approval and channel unlock.",
+        "This is the skeptical route table. While G57/G58/G70 are open, theorem rows are release-candidate/no-send scoped routes, not release-promoted claims. A route becomes release-promoted only from the integrated matrix `review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` when `release_closure_claim_asserted=true`, `post_role_integration_required=false`, zero critical/high findings are present, and the specific claim-ledger row has an explicit promotion allowance; role-specific Cerberus context views are never release evidence. Public action still additionally requires separate owner approval, deposit/public-record readiness, a cleared global no-send lock, and every channel unlock.",
         "",
         "| Claim | Public status | Integrated review gate | Tuple components | Lean certificate | Lean ref | Finite positive | Negative control | Falsifier boundary |",
         "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
@@ -4928,6 +4930,17 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
         route_prewrite_lines.append(
             f"| `{theorem['id']}` | `{public_status}` | `{fresh_review_gate_display}` | `{tuple_component_routes_prewrite.get(theorem['id'], 'declared tuple components')}` | `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` | `formal/lean/OC133V12.lean::{lean_ref_display}` | `{pos}` | `{neg}` | {theorem['boundary']} |"
         )
+    nosend_status = claim_rows_by_id.get("OC133-NOSEND-001", {}).get("public_status", "GOVERNANCE_CONTROL_NO_SEND_NOT_SCIENTIFIC_PROMOTION")
+    route_prewrite_lines.append(
+        "| `OC133-NOSEND-001` | "
+        f"`{nosend_status}` | `{fresh_review_gate_display}` | "
+        "`release_governance; owner_approval; public_channels` | "
+        "`N/A: control-plane finite state row` | "
+        "`proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control` | "
+        "`ADV-NOSEND-PUBLISH-ALL-GATES-OPEN-CONTROL` | "
+        "`ADV-NOSEND-PUBLISH; ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL; ADV-NOSEND-PARTIAL-LOCK-*` | "
+        "Public action is rejected unless owner approval, publish allowance, deposit-ready metadata, public-record target, cleared global no-send lock, G57/G58/G70 zero critical/high review state, and every requested channel lock are all open. |"
+    )
     write_text(root / "docs" / "OC_1_3_3_HOSTILE_READER_GUIDE.md", "\n".join(route_prewrite_lines))
     padding_domains: list[tuple[str, str, str, str, list[str]]] = []
     for theorem in THEOREMS:
@@ -5135,10 +5148,50 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
         f"fresh_satisfied={attack_payload['fresh_cerberus_review_satisfied']}"
     )
 
+    no_send_gate_predicates = [
+        "owner_approved",
+        "publish_allowed",
+        "deposit_ready_metadata",
+        "public_record_present",
+        "global_no_send_lock=false",
+        "g57_attack_matrix_zero_critical_high",
+        "g58_reviewer_persona_suite_pass",
+        "g70_scientific_closure_verdict_pass",
+        "critical_open_total=0",
+        "high_open_total=0",
+        "github_release_allowed",
+        "zenodo_deposit_allowed",
+        "software_heritage_deposit_allowed",
+        "journal_submission_allowed",
+        "doi_minting_allowed",
+    ]
+    no_send_partial_lock_case_ids = [
+        "ADV-NOSEND-PARTIAL-LOCK-OWNER_APPROVED",
+        "ADV-NOSEND-PARTIAL-LOCK-PUBLISH_ALLOWED",
+        "ADV-NOSEND-PARTIAL-LOCK-DEPOSIT_READY_METADATA",
+        "ADV-NOSEND-PARTIAL-LOCK-PUBLIC_RECORD_PRESENT",
+        "ADV-NOSEND-PARTIAL-LOCK-GLOBAL_NO_SEND_LOCK",
+        "ADV-NOSEND-PARTIAL-LOCK-GITHUB_RELEASE",
+        "ADV-NOSEND-PARTIAL-LOCK-ZENODO_DEPOSIT",
+        "ADV-NOSEND-PARTIAL-LOCK-SOFTWARE_HERITAGE_DEPOSIT",
+        "ADV-NOSEND-PARTIAL-LOCK-JOURNAL_SUBMISSION",
+        "ADV-NOSEND-PARTIAL-LOCK-DOI_MINTING",
+    ]
+    no_send_negative_case_ids = [
+        "ADV-NOSEND-PUBLISH",
+        "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+        *no_send_partial_lock_case_ids,
+    ]
+    no_send_positive_case_ids = ["ADV-NOSEND-PUBLISH-ALL-GATES-OPEN-CONTROL"]
+    no_send_falsifier_route = (
+        "claim OC133-NOSEND-001 -> predicate-level gates "
+        f"{', '.join(no_send_gate_predicates)} -> current finite no-send case ADV-NOSEND-PUBLISH "
+        "and partial-lock controls -> public action remains rejected unless every predicate is open."
+    )
     route_lines = [
         "# OC Core 1.3.3 Hostile Reader Guide",
         "",
-        "This is the skeptical route table. While G57/G58/G70 are open, theorem rows are candidate routes, not release-promoted claims. A route becomes release-promoted only from the integrated matrix `review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` when `release_closure_claim_asserted=true`, `post_role_integration_required=false`, zero critical/high findings are present, and the specific claim-ledger row has an explicit promotion allowance; role-specific Cerberus context views are never release evidence. Public action still additionally requires separate owner approval and channel unlock.",
+        "This is the skeptical route table. While G57/G58/G70 are open, theorem rows are release-candidate/no-send scoped routes, not release-promoted claims. A route becomes release-promoted only from the integrated matrix `review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` when `release_closure_claim_asserted=true`, `post_role_integration_required=false`, zero critical/high findings are present, and the specific claim-ledger row has an explicit promotion allowance; role-specific Cerberus context views are never release evidence. Public action still additionally requires separate owner approval, deposit/public-record readiness, a cleared global no-send lock, and every channel unlock.",
         "",
         "| Claim | Public status | Integrated review gate | Tuple components | Lean certificate | Lean ref | Finite positive | Negative control | Falsifier boundary |",
         "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
@@ -5171,6 +5224,17 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
         route_lines.append(
             f"| `{theorem['id']}` | `{public_status}` | `{matrix_review_gate_display}` | `{tuple_component_routes.get(theorem['id'], 'declared tuple components')}` | `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` | `formal/lean/OC133V12.lean::{lean_ref_display}` | `{pos}` | `{neg}` | {theorem['boundary']} |"
         )
+    nosend_status = claim_rows_by_id.get("OC133-NOSEND-001", {}).get("public_status", "GOVERNANCE_CONTROL_NO_SEND_NOT_SCIENTIFIC_PROMOTION")
+    route_lines.append(
+        "| `OC133-NOSEND-001` | "
+        f"`{nosend_status}` | `{matrix_review_gate_display}` | "
+        "`release_governance; owner_approval; public_channels` | "
+        "`N/A: control-plane finite state row` | "
+        "`proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control` | "
+        f"`{'; '.join(no_send_positive_case_ids)}` | "
+        f"`{'; '.join(no_send_negative_case_ids)}` | "
+        "Public action is rejected unless owner approval, publish allowance, deposit-ready metadata, public-record target, cleared global no-send lock, G57/G58/G70 zero critical/high review state, and every requested channel lock are all open. |"
+    )
     route_bindings: dict[str, dict[str, Any]] = {
         "T133-K0-RES": {
             "tuple_component_bindings": [
@@ -5262,6 +5326,8 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
     for theorem in THEOREMS:
         pos, neg = finite_case_refs[theorem["id"]]
         specific = route_bindings.get(theorem["id"], {})
+        positive_case_ids = [pos, *specific.get("additional_positive_case_ids", [])]
+        negative_case_ids = [neg, *specific.get("additional_negative_case_ids", [])]
         route_rows.append(
             {
                 "claim_id": theorem["id"],
@@ -5280,13 +5346,80 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
                 ),
                 "lean_theorem_ref": f"formal/lean/OC133V12.lean::{theorem['lean']}",
                 "proof_sheet_ref": f"proofs/proof_sheets/{theorem['id']}.md",
-                "positive_case_ids": [pos, *specific.get("additional_positive_case_ids", [])],
-                "negative_case_ids": [neg, *specific.get("additional_negative_case_ids", [])],
+                "positive_case_ids": positive_case_ids,
+                "negative_case_ids": negative_case_ids,
                 "finite_runner_predicate_ref": "proofs/finite_model_checks/run_finite_model_checks.py::observed",
                 "falsifier_boundary": theorem["boundary"],
+                "falsifier_case_ids": negative_case_ids,
+                "falsifier_route": (
+                    f"claim {theorem['id']} -> proof sheet assumptions -> Lean ref {theorem['lean']} "
+                    f"-> positive finite case(s) {', '.join(positive_case_ids)} "
+                    f"-> falsifier/negative control case(s) {', '.join(negative_case_ids)} "
+                    "-> counterexample boundary rejects the stronger reading."
+                ),
                 "release_gate_binding": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json::release_closure_claim_asserted=true and post_role_integration_required=false",
             }
         )
+    route_rows.append(
+        {
+            "claim_id": "OC133-NOSEND-001",
+            "tuple_components": ["release_governance", "owner_approval", "public_channels"],
+            "tuple_component_bindings": [
+                {
+                    "tuple_component": "owner_approval",
+                    "theorem_assumptions": ["separate owner approval is required before any public action"],
+                    "finite_model_fields": ["owner_approved"],
+                    "evaluator_predicate": "owner_approved must be true; ADV-NOSEND-PARTIAL-LOCK-OWNER_APPROVED rejects when it is false",
+                },
+                {
+                    "tuple_component": "release_governance",
+                    "theorem_assumptions": ["publication requires manifest allowance, deposit metadata, public record target, no-send unlock, and fresh zero critical/high review gates"],
+                    "finite_model_fields": [
+                        "publish_allowed",
+                        "deposit_ready_metadata",
+                        "public_record_present",
+                        "global_no_send_lock",
+                        "g57_attack_matrix_zero_critical_high",
+                        "g58_reviewer_persona_suite_pass",
+                        "g70_scientific_closure_verdict_pass",
+                        "critical_open_total",
+                        "high_open_total",
+                    ],
+                    "evaluator_predicate": "publish_allowed, deposit_ready_metadata, public_record_present, G57/G58/G70 zero critical/high must be true; global_no_send_lock must be false",
+                },
+                {
+                    "tuple_component": "public_channels",
+                    "theorem_assumptions": ["each requested public channel must be separately unlocked"],
+                    "finite_model_fields": [
+                        "github_release_allowed",
+                        "zenodo_deposit_allowed",
+                        "software_heritage_deposit_allowed",
+                        "journal_submission_allowed",
+                        "doi_minting_allowed",
+                        "requested_channels",
+                    ],
+                    "evaluator_predicate": "requested GitHub, Zenodo, Software Heritage, journal submission, and DOI minting channels must each have their channel lock open",
+                },
+            ],
+            "lean_theorem_ref": "N/A: control-plane finite state row",
+            "proof_sheet_ref": "claims/CLAIM_LEDGER_1_3_3.json::OC133-NOSEND-001",
+            "positive_case_ids": no_send_positive_case_ids,
+            "negative_case_ids": no_send_negative_case_ids,
+            "finite_runner_predicate_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+            "no_send_gate_predicates": no_send_gate_predicates,
+            "channel_lock_fields": [
+                "github_release_allowed",
+                "zenodo_deposit_allowed",
+                "software_heritage_deposit_allowed",
+                "journal_submission_allowed",
+                "doi_minting_allowed",
+            ],
+            "falsifier_boundary": "Any attempted public action is rejected while owner approval, publish allowance, deposit/public-record readiness, fresh zero critical/high G57/G58/G70 review state, cleared global no-send lock, or any requested channel unlock is absent.",
+            "falsifier_case_ids": no_send_negative_case_ids,
+            "falsifier_route": no_send_falsifier_route,
+            "release_gate_binding": "claims/CLAIM_LEDGER_1_3_3.json::OC133-NOSEND-001 control-plane claim; current package remains no-send unless every predicate-level gate is open",
+        }
+    )
     write_json(
         root / "docs" / "OC_1_3_3_HOSTILE_ROUTE_MAP.json",
         {
@@ -5294,7 +5427,7 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
             "release_id": RELEASE_ID,
             "version": VERSION,
             "row_total": len(route_rows),
-            "route_policy": "Machine-readable claim route from tuple component to theorem assumptions, finite fields, evaluator predicate, positive/negative cases, and falsifier boundary.",
+            "route_policy": "Machine-readable claim route from tuple component to theorem assumptions, finite fields, evaluator predicate, positive/negative cases, falsifier case ids, and falsifier boundary. Rows are release-candidate/no-send scoped unless the integrated release matrix and claim ledger explicitly allow promotion.",
             "rows": route_rows,
         },
     )
@@ -5331,6 +5464,10 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
             "## Public-Action Limits",
             "",
             "The no-send finite case reads the current owner approval and publish manifest. GitHub, Zenodo, Software Heritage, journal submission, and DOI minting remain locked.",
+            "",
+            "`OC133-NOSEND-001` is a release-candidate/no-send scoped governance row, not a scientific theorem. Its predicate route is: `owner_approved`, `publish_allowed`, `deposit_ready_metadata`, `public_record_present`, `global_no_send_lock=false`, `g57_attack_matrix_zero_critical_high`, `g58_reviewer_persona_suite_pass`, `g70_scientific_closure_verdict_pass`, `critical_open_total=0`, `high_open_total=0`, `github_release_allowed`, `zenodo_deposit_allowed`, `software_heritage_deposit_allowed`, `journal_submission_allowed`, and `doi_minting_allowed`.",
+            "",
+            "Finite no-send controls: `ADV-NOSEND-PUBLISH`, `ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL`, `ADV-NOSEND-PUBLISH-ALL-GATES-OPEN-CONTROL`, and every `ADV-NOSEND-PARTIAL-LOCK-*` case. The all-gates-open case is hypothetical only; it does not describe the current no-send package state.",
         ]
     )
     write_text(root / "docs" / "OC_1_3_3_HOSTILE_READER_GUIDE.md", "\n".join(route_lines))
@@ -5515,7 +5652,6 @@ abstract: >
         ".codemeta.json",
         "claims/CLAIM_LEDGER_1_3_3.json",
         "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
         "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
         "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
         "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
@@ -5532,6 +5668,7 @@ abstract: >
     ]
     ro_has_part = [{"@id": "manifest.json"}, {"@id": "checksums.txt"}] + [
         {"@id": ref} for ref in existing_public_surface_refs
+        if ref != "ro-crate-metadata.jsonld"
     ]
     write_json(
         root / "ro-crate-metadata.jsonld",
@@ -5603,13 +5740,23 @@ abstract: >
         "git_tag": None,
         "public_record": None,
         "stale_v132_surface_allowed": False,
-        "inventory_policy": "Manifest lists no-send review-surface files. checksums.txt is the nonrecursive signing file for manifest.json plus manifest-listed files and is intentionally excluded from files to avoid a self-referential checksum cycle.",
+        "inventory_policy": "Manifest lists no-send review-surface files. checksums.txt is the nonrecursive signing file for manifest.json plus manifest-listed files and is intentionally excluded from files to avoid a self-referential checksum cycle. Finite outputs and replay reports are output-side attestations and are bound by the Lean certificate, finite inputs, and runner identity rather than recursively embedded in root public-surface metadata.",
         "checksum_file_ref": "checksums.txt",
         "nonrecursive_manifest_exceptions": [
             {
                 "path": "checksums.txt",
                 "reason": "self-referential checksum cycle if included in manifest files",
                 "covered_by": "root checksum row signs manifest.json and each manifest-listed file",
+            },
+            {
+                "path": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+                "reason": "finite-model output embeds runtime public-surface observations; including it in manifest files creates a generation-order checksum cycle",
+                "covered_by": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json plus proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json and the finite runner certificate",
+            },
+            {
+                "path": "proofs/finite_model_checks/FINITE_MODEL_REPLAY_REPORT.json",
+                "reason": "finite replay report is an output-side attestation written after finite execution; recursive root metadata inclusion would create generation-order churn",
+                "covered_by": "proofs/FINITE_MODEL_CHECKS_1_3_3.json plus proofs/finite_model_checks/run_finite_model_checks.py",
             }
         ],
         "files": manifest_rows,
@@ -5745,7 +5892,8 @@ def sync_public_surface_refs_into_finite_inputs(root: Path) -> None:
             {
                 "ref": ref,
                 "must_exist": True,
-                "sha256": sha256_file(path) if path.exists() and path.is_file() else None,
+                "sha256": None,
+                "sha256_binding_policy": "runtime_observed_not_input_bound_to_avoid_generated_metadata_cycles",
                 "expected_release_id": RELEASE_ID,
                 "expected_version": VERSION,
                 "forbid_tokens": ["1.3.2", "v1.3.2", "10.5281/zenodo.", "oc_core_1_3_2", ".zenodo.json"],
@@ -5874,7 +6022,6 @@ def write_hardened_formal_iteration(root: Path) -> None:
     runner_template = root / "tools" / "templates" / "run_finite_model_checks_hardened.py"
     write_text(root / "formal" / "lean" / "OC133V12.lean", lean_template.read_text(encoding="utf-8"))
     write_text(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py", runner_template.read_text(encoding="utf-8"))
-    write_lean_build_certificate(root)
     editorial = root / "releases" / RELEASE_ID / "editorial"
     write_json(
         editorial / "OWNER_RELEASE_APPROVAL_v1.3.3.json",
@@ -7047,28 +7194,6 @@ def write_hardened_formal_iteration(root: Path) -> None:
             ],
         },
     )
-    write_lean_build_certificate(root)
-    try:
-        with contextlib.redirect_stdout(io.StringIO()):
-            runpy.run_path(str(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py"), run_name="__main__")
-    except SystemExit as exc:
-        if int(exc.code or 0) != 0:
-            raise
-    finite = read_json(root / "proofs" / "FINITE_MODEL_CHECKS_1_3_3.json")
-    write_json(
-        root / "proofs" / "finite_model_checks" / "FINITE_MODEL_REPLAY_REPORT.json",
-        {
-            "schema_id": "OC133_FINITE_MODEL_REPLAY_REPORT_v12_HARDENED_SEMANTIC",
-            "semantic_evaluator": True,
-            "input_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
-            "output_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-            "tamper_policy": "label-only, flag-oracle, and wrong-witness rows are explicit mutation controls and must reject",
-            "failure_total": finite.get("failure_total"),
-            "mutation_control_total": finite.get("mutation_control_total"),
-            "flag_oracle_key_total": finite.get("flag_oracle_key_total"),
-        },
-    )
-
     write_json(
         root / "data" / "OC133_GLOBAL_MINIMALITY_WITNESSES.json",
         {
@@ -7162,6 +7287,20 @@ def write_hardened_formal_iteration(root: Path) -> None:
     except SystemExit as exc:
         if int(exc.code or 0) != 0:
             raise
+    finite = read_json(root / "proofs" / "FINITE_MODEL_CHECKS_1_3_3.json")
+    write_json(
+        root / "proofs" / "finite_model_checks" / "FINITE_MODEL_REPLAY_REPORT.json",
+        {
+            "schema_id": "OC133_FINITE_MODEL_REPLAY_REPORT_v12_HARDENED_SEMANTIC",
+            "semantic_evaluator": True,
+            "input_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+            "output_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+            "tamper_policy": "label-only, flag-oracle, and wrong-witness rows are explicit mutation controls and must reject",
+            "failure_total": finite.get("failure_total"),
+            "mutation_control_total": finite.get("mutation_control_total"),
+            "flag_oracle_key_total": finite.get("flag_oracle_key_total"),
+        },
+    )
 
 
 def main() -> int:
@@ -7188,6 +7327,20 @@ def main() -> int:
     except SystemExit as exc:
         if int(exc.code or 0) != 0:
             raise
+    finite = read_json(ROOT / "proofs" / "FINITE_MODEL_CHECKS_1_3_3.json")
+    write_json(
+        ROOT / "proofs" / "finite_model_checks" / "FINITE_MODEL_REPLAY_REPORT.json",
+        {
+            "schema_id": "OC133_FINITE_MODEL_REPLAY_REPORT_v12_HARDENED_SEMANTIC",
+            "semantic_evaluator": True,
+            "input_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+            "output_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+            "tamper_policy": "label-only, flag-oracle, and wrong-witness rows are explicit mutation controls and must reject",
+            "failure_total": finite.get("failure_total"),
+            "mutation_control_total": finite.get("mutation_control_total"),
+            "flag_oracle_key_total": finite.get("flag_oracle_key_total"),
+        },
+    )
     print(json.dumps({"release_id": RELEASE_ID, "version": VERSION, "status": "V12_MATERIALIZED_NO_SEND"}, indent=2))
     return 0
 

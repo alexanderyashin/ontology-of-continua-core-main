@@ -13,6 +13,52 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 
 
+def finite_math_replay_value(payload: dict) -> float | None:
+    """Return the theorem-inventory QA count only when finite rows parse semantically."""
+    rows = payload.get("rows", [])
+    if not isinstance(rows, list):
+        return None
+    theorem_rows = [row for row in rows if isinstance(row, dict) and row.get("case_type") == "theorem_case"]
+    if not theorem_rows:
+        return None
+    by_id = {row.get("case_id"): row for row in theorem_rows if row.get("case_id")}
+    theorem_ids = set()
+    paired_positive_total = 0
+    for row in theorem_rows:
+        expected = row.get("expected_verdict")
+        observed = row.get("observed_verdict")
+        if row.get("passed") is not True or expected not in {"ACCEPT", "REJECT"} or observed != expected:
+            return None
+        if expected == "ACCEPT":
+            theorem_id = row.get("theorem_id")
+            negative_id = row.get("negative_control_id")
+            if theorem_id:
+                theorem_ids.add(theorem_id)
+            if negative_id:
+                negative = by_id.get(negative_id)
+                if not negative or negative.get("expected_verdict") != "REJECT" or negative.get("observed_verdict") != "REJECT" or negative.get("passed") is not True:
+                    return None
+                paired_positive_total += 1
+    if paired_positive_total < len(theorem_ids):
+        return None
+    return float(len(theorem_ids))
+
+
+def finite_math_negative_control_rejected(payload: dict) -> bool:
+    rows = payload.get("rows", [])
+    if not isinstance(rows, list):
+        return False
+    for idx, row in enumerate(rows):
+        if not isinstance(row, dict):
+            continue
+        if row.get("case_type") == "theorem_case" and row.get("expected_verdict") == "ACCEPT":
+            mutated = json.loads(json.dumps(payload))
+            mutated["rows"][idx]["observed_verdict"] = "REJECT"
+            mutated["rows"][idx]["passed"] = False
+            return finite_math_replay_value(mutated) is None
+    return False
+
+
 def parse_snapshot_value(row: dict, snapshot_bytes: bytes):
     text = snapshot_bytes.decode("utf-8", errors="replace")
     claim_id = row["claim_id"]
@@ -41,9 +87,7 @@ def parse_snapshot_value(row: dict, snapshot_bytes: bytes):
         return None
     if claim_id == "OC133-NUM-MATH-FINITE":
         payload = json.loads(text)
-        if payload.get("failure_total") == 0:
-            return float(payload.get("machine_checked_subset_total", 0))
-        return None
+        return finite_math_replay_value(payload)
     return None
 
 
@@ -68,7 +112,11 @@ def negative_control_rejected(row: dict, snapshot_bytes: bytes, observed_value) 
         return corrupted_value is None, None, "corrupted WDI payload parser failure"
     if claim_id == "OC133-NUM-MATH-FINITE":
         finite = json.loads(snapshot_bytes.decode("utf-8", errors="replace"))
-        return int(finite.get("mutation_control_total", 0)) > 0 and finite.get("failure_total") == 0, 1.0, "finite mutation controls reject tampered rows"
+        return (
+            finite_math_negative_control_rejected(finite),
+            1.0,
+            "mutated theorem-case verdict rejected by semantic finite-corpus parser",
+        )
     return False, None, "no negative control"
 
 

@@ -18,6 +18,37 @@ EVALUATE_LATEST = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1
 RUN_LEDGER = REPAIR_DIR / "OC133_AUTONOMOUS_RESEARCH_LOOP_LEDGER.json"
 FINITE_REPORT = ROOT / "proofs" / "FINITE_MODEL_CHECKS_1_3_3.json"
 VALIDATION_REPORT = ROOT / "reports" / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json"
+PRIVATE_BRIDGE_PACKET = REPAIR_DIR / "OC133_PRIVATE_BRIDGE_PACKET.sanitized.json"
+PRIVATE_BRIDGE_SCHEMA = REPAIR_DIR / "OC133_PRIVATE_BRIDGE_PACKET_SCHEMA.json"
+
+
+PRIVATE_BRIDGE_PACKET_SCHEMA_ID = "OC133_PUBLIC_PRIVATE_BRIDGE_PACKET_v1"
+PRIVATE_BRIDGE_SCHEMA_ID = "OC133_PUBLIC_PRIVATE_BRIDGE_PACKET_SCHEMA_v1"
+PRIVATE_BRIDGE_ALLOWED_HINT_FIELDS = [
+    "hint_id",
+    "profile",
+    "role",
+    "severity",
+    "artifact_ref",
+    "claim",
+    "failure_mode",
+    "required_repair",
+    "rationale",
+    "tags",
+    "source_label",
+]
+PRIVATE_BRIDGE_FORBIDDEN_HINT_FIELDS = [
+    "evidence",
+    "evidence_ref",
+    "evidence_refs",
+    "release_evidence",
+    "closure_evidence",
+    "raw_output",
+    "raw_output_ref",
+    "private_ref",
+    "private_path",
+    "private_payload",
+]
 
 
 FRONTIER_REFS = [
@@ -122,6 +153,171 @@ def write_json(path: Path, payload: Any) -> None:
 
 def rel(path: Path) -> str:
     return path.resolve().relative_to(ROOT.resolve()).as_posix()
+
+
+def private_bridge_packet_schema() -> dict[str, Any]:
+    hint_properties = {
+        key: {"type": "string", "maxLength": 1200}
+        for key in PRIVATE_BRIDGE_ALLOWED_HINT_FIELDS
+        if key != "tags"
+    }
+    hint_properties["tags"] = {
+        "type": "array",
+        "maxItems": 20,
+        "items": {"type": "string", "maxLength": 120},
+    }
+    return {
+        "schema_id": PRIVATE_BRIDGE_SCHEMA_ID,
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "OC133 public-side sanitized private bridge packet",
+        "description": "Public inbox contract for deterministic hint-only bridge ingest. The public accelerator never reads private roots or private scripts, and accepted rows are cockpit metadata only.",
+        "type": "object",
+        "additionalProperties": False,
+        "required": [
+            "schema_id",
+            "release_id",
+            "version",
+            "sanitized",
+            "evidence_included",
+            "candidate_work_order_hints",
+        ],
+        "properties": {
+            "schema_id": {"const": PRIVATE_BRIDGE_PACKET_SCHEMA_ID},
+            "release_id": {"const": "oc_core_1_3_3"},
+            "version": {"const": "1.3.3"},
+            "sanitized": {"const": True},
+            "evidence_included": {"const": False},
+            "producer": {"type": "string", "maxLength": 160},
+            "packet_id": {"type": "string", "maxLength": 160},
+            "candidate_work_order_hints": {
+                "type": "array",
+                "maxItems": 100,
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "properties": hint_properties,
+                },
+            },
+        },
+        "public_ingest_policy": {
+            "packet_ref": rel(PRIVATE_BRIDGE_PACKET),
+            "schema_ref": rel(PRIVATE_BRIDGE_SCHEMA),
+            "accepted_surface": "candidate_work_order_hints only",
+            "merge_target": "OC133_PLATINUM_ACCELERATOR_COCKPIT.json::private_bridge.candidate_work_order_hints",
+            "release_evidence_policy": "NEVER_IMPORT_PRIVATE_RELEASE_EVIDENCE",
+            "private_repo_policy": "NO_PRIVATE_ROOT_READS_NO_PRIVATE_SCRIPT_CALLS",
+            "allowed_hint_fields": PRIVATE_BRIDGE_ALLOWED_HINT_FIELDS,
+            "forbidden_hint_fields": PRIVATE_BRIDGE_FORBIDDEN_HINT_FIELDS,
+        },
+    }
+
+
+def write_private_bridge_schema() -> None:
+    write_json(PRIVATE_BRIDGE_SCHEMA, private_bridge_packet_schema())
+
+
+def private_marker_present(value: Any) -> bool:
+    if isinstance(value, str):
+        lowered = value.replace("\\", "/").lower()
+        return (
+            ":/" in lowered
+            or "estra-private-work" in lowered
+            or "/logion/k" in lowered
+        )
+    if isinstance(value, list):
+        return any(private_marker_present(item) for item in value)
+    if isinstance(value, dict):
+        return any(private_marker_present(item) for item in value.values())
+    return False
+
+
+def sanitize_bridge_hint(row: Any) -> tuple[dict[str, Any] | None, str | None]:
+    if not isinstance(row, dict):
+        return None, "hint_not_object"
+    if any(key in row for key in PRIVATE_BRIDGE_FORBIDDEN_HINT_FIELDS):
+        return None, "forbidden_evidence_field_present"
+    sanitized: dict[str, Any] = {}
+    for key in PRIVATE_BRIDGE_ALLOWED_HINT_FIELDS:
+        value = row.get(key)
+        if value is None:
+            continue
+        if key == "tags":
+            if not isinstance(value, list):
+                return None, "tags_not_list"
+            tags = [str(item)[:120] for item in value if isinstance(item, (str, int, float))]
+            if private_marker_present(tags):
+                return None, "private_marker_present"
+            sanitized[key] = tags[:20]
+        elif isinstance(value, (str, int, float, bool)):
+            text = str(value)[:1200]
+            if private_marker_present(text):
+                return None, "private_marker_present"
+            sanitized[key] = text
+        else:
+            return None, f"{key}_not_scalar"
+    if not sanitized:
+        return None, "empty_hint"
+    return sanitized, None
+
+
+def private_bridge_metadata() -> dict[str, Any]:
+    metadata: dict[str, Any] = {
+        "schema_id": "OC133_PUBLIC_PRIVATE_BRIDGE_INGEST_METADATA_v1",
+        "request_stub": {
+            "status": "PUBLIC_PACKET_INBOX_READY",
+            "packet_ref": rel(PRIVATE_BRIDGE_PACKET),
+            "schema_ref": rel(PRIVATE_BRIDGE_SCHEMA),
+            "required_packet_schema_id": PRIVATE_BRIDGE_PACKET_SCHEMA_ID,
+            "allowed_hint_fields": PRIVATE_BRIDGE_ALLOWED_HINT_FIELDS,
+            "release_evidence_policy": "NEVER_IMPORT_PRIVATE_RELEASE_EVIDENCE",
+            "private_repo_policy": "NO_PRIVATE_ROOT_READS_NO_PRIVATE_SCRIPT_CALLS",
+        },
+        "ingest_status": "PACKET_ABSENT",
+        "candidate_work_order_hints": [],
+        "accepted_hint_total": 0,
+        "rejected_hint_total": 0,
+        "rejection_reasons": {},
+    }
+    write_private_bridge_schema()
+    if not PRIVATE_BRIDGE_PACKET.exists():
+        return metadata
+    metadata["packet_ref"] = rel(PRIVATE_BRIDGE_PACKET)
+    metadata["packet_sha256"] = sha256_file(PRIVATE_BRIDGE_PACKET)
+    packet = read_json(PRIVATE_BRIDGE_PACKET)
+    if not packet:
+        metadata["ingest_status"] = "PACKET_UNREADABLE_OR_NOT_OBJECT"
+        return metadata
+    if (
+        packet.get("schema_id") != PRIVATE_BRIDGE_PACKET_SCHEMA_ID
+        or packet.get("release_id") != "oc_core_1_3_3"
+        or packet.get("version") != "1.3.3"
+        or packet.get("sanitized") is not True
+        or packet.get("evidence_included") is not False
+    ):
+        metadata["ingest_status"] = "PACKET_REJECTED_HEADER_POLICY"
+        return metadata
+    hints = packet.get("candidate_work_order_hints")
+    if not isinstance(hints, list):
+        metadata["ingest_status"] = "PACKET_REJECTED_HINTS_NOT_LIST"
+        return metadata
+    accepted = []
+    rejection_reasons: dict[str, int] = {}
+    for row in hints[:100]:
+        sanitized, reason = sanitize_bridge_hint(row)
+        if sanitized is None:
+            reason = reason or "rejected"
+            rejection_reasons[reason] = rejection_reasons.get(reason, 0) + 1
+        else:
+            accepted.append(sanitized)
+    accepted.sort(key=lambda item: json.dumps(item, ensure_ascii=True, sort_keys=True))
+    metadata["candidate_work_order_hints"] = accepted
+    metadata["accepted_hint_total"] = len(accepted)
+    metadata["rejected_hint_total"] = sum(rejection_reasons.values()) + max(0, len(hints) - 100)
+    if len(hints) > 100:
+        rejection_reasons["hint_limit_exceeded"] = len(hints) - 100
+    metadata["rejection_reasons"] = dict(sorted(rejection_reasons.items()))
+    metadata["ingest_status"] = "PACKET_INGESTED_HINTS_ONLY" if accepted else "PACKET_PRESENT_NO_ACCEPTED_HINTS"
+    return metadata
 
 
 def sha256_file(path: Path) -> str:
@@ -455,6 +651,7 @@ def main() -> int:
     parser.add_argument("--always-evaluate", action="store_true", help="Deprecated alias for --force-evaluate.")
     parser.add_argument("--force-evaluate", action="store_true", help="Run release evaluation even when the frontier hash did not change.")
     parser.add_argument("--print-full", action="store_true", help="Print the full cockpit JSON instead of a compact run summary.")
+    parser.add_argument("--write-private-bridge-schema", action="store_true", help="Write the public sanitized private bridge packet schema and exit.")
     parser.add_argument("--compile-timeout", type=int, default=120)
     parser.add_argument("--finite-timeout", type=int, default=180)
     parser.add_argument("--lean-timeout", type=int, default=600)
@@ -464,6 +661,14 @@ def main() -> int:
     parser.add_argument("--cerberus-timeout", type=int, default=7200)
     parser.add_argument("--evaluate-timeout", type=int, default=600)
     args = parser.parse_args()
+    if args.write_private_bridge_schema:
+        write_private_bridge_schema()
+        print(json.dumps({
+            "schema_id": PRIVATE_BRIDGE_SCHEMA_ID,
+            "schema_ref": rel(PRIVATE_BRIDGE_SCHEMA),
+            "packet_ref": rel(PRIVATE_BRIDGE_PACKET),
+        }, ensure_ascii=False, indent=2))
+        return 0
 
     iterations = []
     start = open_counts()
@@ -495,6 +700,7 @@ def main() -> int:
         "iteration_total": len(iterations),
         "iterations": iterations,
         "gate_state": current_gate_state(),
+        "private_bridge": private_bridge_metadata(),
     }
     payload["verdict"] = (
         "PLATINUM_READY_NO_SEND"
@@ -518,6 +724,8 @@ def main() -> int:
             "iteration_total": payload["iteration_total"],
             "end_counts": payload["end_counts"],
             "gate_state": payload["gate_state"],
+            "private_bridge_ingest_status": payload["private_bridge"]["ingest_status"],
+            "private_bridge_accepted_hint_total": payload["private_bridge"]["accepted_hint_total"],
             "cockpit_ref": rel(COCKPIT),
             "last_iteration_command_failure_total": iterations[-1].get("command_failure_total") if iterations else None,
         }

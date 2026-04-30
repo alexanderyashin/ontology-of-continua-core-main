@@ -6,12 +6,29 @@ import runpy
 import subprocess
 import contextlib
 import io
+from collections import Counter
 from pathlib import Path
 from typing import Any, Callable
 
 
 RELEASE_ID = "oc_core_1_3_3"
 VERSION = "1.3.3"
+
+G57_ATTACK_MATRIX_MIN_ROWS = 200
+G57_ATTACK_MATRIX_MIN_THEMES = 10
+G57_ATTACK_MATRIX_MIN_SEVERITIES = 3
+G57_ATTACK_MATRIX_MIN_ARTIFACT_LOCATIONS = 20
+G57_ATTACK_MATRIX_MIN_EVIDENCE_REFS = 20
+G57_ATTACK_MATRIX_MAX_FILLER_DUPLICATE_SHARE = 0.15
+G57_ATTACK_MATRIX_PLACEHOLDER_TERMS = {
+    "fixme",
+    "filler",
+    "lorem",
+    "placeholder",
+    "stub",
+    "tbd",
+    "todo",
+}
 
 V12_RELEASE_STATES = {
     "SCIENTIFIC_CLOSURE_RUNNING",
@@ -119,6 +136,10 @@ def read_json(path: Path) -> Any:
 
 def rel(root: Path, path: Path) -> str:
     return path.resolve().relative_to(root.resolve()).as_posix()
+
+
+def _portable_path(value: Any) -> str:
+    return str(Path(value).as_posix()) if isinstance(value, str) else ""
 
 
 def text(path: Path) -> str:
@@ -280,6 +301,157 @@ def _run_lake(root: Path) -> dict[str, Any]:
     }
 
 
+def _attack_matrix_counts(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    closed_status = "CLOSED_BY_SPECIFIC_V12_EVIDENCE"
+    return {
+        "row_total": len(rows),
+        "critical_open_total": sum(1 for row in rows if row.get("severity") == "CRITICAL" and row.get("status") != closed_status),
+        "high_open_total": sum(1 for row in rows if row.get("severity") == "HIGH" and row.get("status") != closed_status),
+    }
+
+
+def _attack_matrix_quality_quotas(root: Path, rows: list[dict[str, Any]]) -> dict[str, Any]:
+    closed_status = "CLOSED_BY_SPECIFIC_V12_EVIDENCE"
+
+    def clean(value: Any) -> str:
+        return str(value).strip() if value not in (None, "") else ""
+
+    def normalized(value: Any) -> str:
+        return re.sub(r"\s+", " ", clean(value).lower())
+
+    def closure_refs(row: dict[str, Any]) -> list[str]:
+        refs = row.get("closure_evidence_refs")
+        if not isinstance(refs, list):
+            return []
+        return [clean(ref) for ref in refs if clean(ref)]
+
+    def closure_ref_path(ref: str) -> str:
+        return ref.split("::", 1)[0].strip()
+
+    def ref_exists(ref: str) -> bool:
+        ref_path = closure_ref_path(ref)
+        path = Path(ref_path)
+        if path.is_absolute():
+            return False
+        try:
+            resolved = (root / path).resolve()
+            resolved.relative_to(root.resolve())
+        except ValueError:
+            return False
+        return resolved.exists()
+
+    def dominant_duplicate_share(field: str) -> float:
+        values = [normalized(row.get(field)) for row in rows if normalized(row.get(field))]
+        if not values:
+            return 1.0
+        return Counter(values).most_common(1)[0][1] / len(rows)
+
+    themes = {normalized(row.get("theme")) for row in rows if normalized(row.get("theme"))}
+    severities = {normalized(row.get("severity")) for row in rows if normalized(row.get("severity"))}
+    artifact_locations = {normalized(row.get("artifact_location")) for row in rows if normalized(row.get("artifact_location"))}
+    evidence_refs = {closure_ref_path(ref) for row in rows for ref in closure_refs(row)}
+    placeholder_rows = [
+        row.get("objection_id")
+        for row in rows
+        if any(
+            term in " ".join(
+                [
+                    normalized(row.get("objection")),
+                    normalized(row.get("failure_mode")),
+                    normalized(row.get("required_repair")),
+                    normalized(row.get("closure_evidence")),
+                ]
+            )
+            for term in G57_ATTACK_MATRIX_PLACEHOLDER_TERMS
+        )
+    ]
+    duplicate_shares = {
+        field: dominant_duplicate_share(field)
+        for field in ["objection", "failure_mode", "required_repair", "closure_evidence"]
+    }
+    closed_high_critical_missing_refs = [
+        row.get("objection_id")
+        for row in rows
+        if row.get("severity") in {"CRITICAL", "HIGH"}
+        and row.get("status") == closed_status
+        and (not closure_refs(row) or any(not ref_exists(ref) for ref in closure_refs(row)))
+    ]
+
+    predicates = {
+        "g57_attack_matrix_recomputed_row_total_at_least_200": len(rows) >= G57_ATTACK_MATRIX_MIN_ROWS,
+        "g57_attack_matrix_min_theme_diversity": len(themes) >= G57_ATTACK_MATRIX_MIN_THEMES,
+        "g57_attack_matrix_min_severity_diversity": len(severities) >= G57_ATTACK_MATRIX_MIN_SEVERITIES,
+        "g57_attack_matrix_min_artifact_location_diversity": len(artifact_locations) >= G57_ATTACK_MATRIX_MIN_ARTIFACT_LOCATIONS,
+        "g57_attack_matrix_min_evidence_ref_diversity": len(evidence_refs) >= G57_ATTACK_MATRIX_MIN_EVIDENCE_REFS,
+        "g57_attack_matrix_no_placeholder_filler_dominance": not placeholder_rows
+        and all(share <= G57_ATTACK_MATRIX_MAX_FILLER_DUPLICATE_SHARE for share in duplicate_shares.values()),
+        "g57_attack_matrix_closed_high_critical_refs_exist": not closed_high_critical_missing_refs,
+    }
+    return {
+        "state": "PASS" if all(predicates.values()) else "FAIL",
+        "predicates": predicates,
+        "failed_predicates": [name for name, passed in predicates.items() if not passed],
+        "thresholds": {
+            "row_total_min": G57_ATTACK_MATRIX_MIN_ROWS,
+            "theme_min": G57_ATTACK_MATRIX_MIN_THEMES,
+            "severity_min": G57_ATTACK_MATRIX_MIN_SEVERITIES,
+            "artifact_location_min": G57_ATTACK_MATRIX_MIN_ARTIFACT_LOCATIONS,
+            "evidence_ref_min": G57_ATTACK_MATRIX_MIN_EVIDENCE_REFS,
+            "max_filler_duplicate_share": G57_ATTACK_MATRIX_MAX_FILLER_DUPLICATE_SHARE,
+        },
+        "observed": {
+            "row_total": len(rows),
+            "theme_total": len(themes),
+            "severity_total": len(severities),
+            "artifact_location_total": len(artifact_locations),
+            "evidence_ref_total": len(evidence_refs),
+            "placeholder_filler_row_total": len(placeholder_rows),
+            "duplicate_shares": duplicate_shares,
+            "closed_high_critical_missing_ref_total": len(closed_high_critical_missing_refs),
+        },
+        "placeholder_filler_rows": placeholder_rows[:20],
+        "closed_high_critical_missing_refs": closed_high_critical_missing_refs[:20],
+    }
+
+
+def _llm_result_audit(root: Path, summary: dict[str, Any]) -> tuple[list[dict[str, Any]], list[str], list[str], list[str]]:
+    result_refs = summary.get("result_refs", [])
+    seen_roles: list[str] = []
+    missing_roles: list[str] = []
+    role_refs: list[dict[str, Any]] = []
+    malformed_refs: list[str] = []
+
+    required_roles = set(summary.get("roles", []))
+
+    for ref in result_refs:
+        path = root / ref
+        if not path.exists():
+            malformed_refs.append(ref)
+            continue
+        row = read_json(path)
+        role = str(row.get("role", "")).strip()
+        if role:
+            seen_roles.append(role)
+        if row.get("execution_status") != "EXECUTED" or row.get("critical_open_total", 0) or row.get("high_open_total", 0):
+            role_refs.append({
+                "ref": ref,
+                "execution_status": row.get("execution_status"),
+                "critical_open_total": row.get("critical_open_total", 0),
+                "high_open_total": row.get("high_open_total", 0),
+            })
+
+    if required_roles:
+        missing_roles = sorted(required_roles - set(seen_roles))
+    role_counts = Counter(seen_roles)
+    duplicate_roles = sorted([role for role, count in role_counts.items() if count > 1])
+    return (
+        role_refs,
+        malformed_refs,
+        missing_roles,
+        duplicate_roles,
+    )
+
+
 def audit(root: Path) -> dict[str, Any]:
     ensure_v12(root)
     inv = read_json(root / "proofs" / "THEOREM_INVENTORY_1_3_3.json")
@@ -300,6 +472,7 @@ def audit(root: Path) -> dict[str, Any]:
     repro_manifest = read_json(repro_manifest_path) if repro_manifest_path.exists() else {}
     counter = read_json(root / "falsification" / "COUNTEREXAMPLE_ATLAS_1_3_3.json")
     manifest = read_json(root / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json")
+    public_manifest = read_json(root / "manifest.json")
     approval = read_json(root / "releases" / "oc_core_1_3_3" / "editorial" / "OWNER_RELEASE_APPROVAL_v1.3.3.json")
     lean_cert_path = root / "formal" / "lean" / "LEAN_BUILD_CERTIFICATE_1_3_3.json"
     lean_cert = read_json(lean_cert_path) if lean_cert_path.exists() else {}
@@ -399,6 +572,92 @@ def audit(root: Path) -> dict[str, Any]:
         finite_semantic_failures.append("no-send control file byte hashes are not bound to the clean source manifest")
     if "case_type" in text(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py") and "model.get" not in text(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py"):
         finite_semantic_failures.append("finite runner does not inspect model facts")
+    finite_rows = [row for row in finite.get("rows", []) if isinstance(row, dict)]
+    publish_state_row = next(
+        (row for row in finite_rows if row.get("case_id") == "ADV-NOSEND-PUBLISH" and row.get("case_type") == "no_send_state_machine"),
+        None,
+    )
+    publish_control_ref_issues = []
+    if publish_state_row is None:
+        finite_semantic_failures.append("missing ADV-NOSEND-PUBLISH no_send_state_machine finite control")
+    else:
+        publish_state_model = publish_state_row.get("model", {})
+        if not isinstance(publish_state_model, dict):
+            finite_semantic_failures.append("ADV-NOSEND-PUBLISH model payload missing or malformed")
+        else:
+            publish_manifest_ref = publish_state_row["model"].get("manifest_ref", publish_state_row["model"].get("publish_manifest_ref"))
+            publish_manifest_legacy_ref = publish_state_row["model"].get("publish_manifest_ref")
+            if publish_manifest_ref and publish_manifest_legacy_ref and publish_manifest_ref != publish_manifest_legacy_ref:
+                publish_control_ref_issues.append(
+                    f"publish manifest ref split fields disagree: manifest_ref={publish_manifest_ref}, publish_manifest_ref={publish_manifest_legacy_ref}"
+                )
+            approval_manifest_ref = publish_state_row["model"].get("approval_ref", publish_state_row["model"].get("owner_release_approval_ref"))
+            approval_manifest_legacy_ref = publish_state_row["model"].get("owner_release_approval_ref")
+            if approval_manifest_ref and approval_manifest_legacy_ref and approval_manifest_ref != approval_manifest_legacy_ref:
+                publish_control_ref_issues.append(
+                    f"approval ref split fields disagree: approval_ref={approval_manifest_ref}, owner_release_approval_ref={approval_manifest_legacy_ref}"
+                )
+            expected_publish_manifest_ref = "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json"
+            expected_approval_ref = "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json"
+            if publish_manifest_ref != expected_publish_manifest_ref:
+                publish_control_ref_issues.append(f"publish manifest ref mismatch: {publish_manifest_ref}")
+            if approval_manifest_ref != expected_approval_ref:
+                publish_control_ref_issues.append(f"approval ref mismatch: {approval_manifest_ref}")
+            if publish_manifest_ref and not (root / publish_manifest_ref).exists():
+                publish_control_ref_issues.append(f"publish manifest ref does not exist: {publish_manifest_ref}")
+            if approval_manifest_ref and not (root / approval_manifest_ref).exists():
+                publish_control_ref_issues.append(f"approval ref does not exist: {approval_manifest_ref}")
+            if publish_control_ref_issues:
+                finite_semantic_failures.append(f"ADV-NOSEND-PUBLISH control refs invalid ({'; '.join(publish_control_ref_issues)})")
+    all_gates_open_row = next(
+        (row for row in finite_rows if row.get("case_id") == "ADV-NOSEND-PUBLISH-ALL-GATES-OPEN-CONTROL"),
+        None,
+    )
+    all_gates_open_issues: list[str] = []
+    all_gates_open_model: dict[str, Any] = {}
+    if all_gates_open_row is None:
+        all_gates_open_issues.append("missing ADV-NOSEND-PUBLISH-ALL-GATES-OPEN-CONTROL finite case")
+    else:
+        if all_gates_open_row.get("case_type") != "no_send_hypothetical_control":
+            all_gates_open_issues.append(
+                f"all-gates-open case_type mismatch: {all_gates_open_row.get('case_type')}"
+            )
+        all_gates_open_model = all_gates_open_row.get("model", {}) if isinstance(all_gates_open_row.get("model"), dict) else {}
+        expected_gates = {
+            "owner_approved",
+            "publish_allowed",
+            "deposit_ready_metadata",
+            "public_record_present",
+            "github_release_allowed",
+            "zenodo_deposit_allowed",
+            "software_heritage_deposit_allowed",
+            "journal_submission_allowed",
+            "doi_minting_allowed",
+            "g57_attack_matrix_zero_critical_high",
+            "g58_reviewer_persona_suite_pass",
+            "g70_scientific_closure_verdict_pass",
+            "fresh_cerberus_required_for_release",
+        }
+        for gate in expected_gates:
+            if all_gates_open_model.get(gate) is not True:
+                all_gates_open_issues.append(f"all-gates-open control gate false: {gate}")
+        expected_channels = {"github_release", "zenodo_deposit", "software_heritage_deposit", "journal_submission", "doi_minting"}
+        if set(all_gates_open_model.get("requested_channels", [])) != expected_channels:
+            all_gates_open_issues.append(f"all-gates-open control channels mismatch: {sorted(set(all_gates_open_model.get('requested_channels', [])))}")
+        if all_gates_open_row.get("expected_verdict") != "ACCEPT_PUBLIC_ACTION":
+            all_gates_open_issues.append(f"all-gates-open control expected verdict mismatch: {all_gates_open_row.get('expected_verdict')}")
+        if all_gates_open_row.get("observed_verdict") != "ACCEPT_PUBLIC_ACTION":
+            all_gates_open_issues.append(f"all-gates-open control observed verdict mismatch: {all_gates_open_row.get('observed_verdict')}")
+        if all_gates_open_row.get("failed_gate_predicates"):
+            all_gates_open_issues.append(f"all-gates-open failed predicates: {all_gates_open_row.get('failed_gate_predicates')}")
+        if all_gates_open_model.get("global_no_send_lock") is not False:
+            all_gates_open_issues.append("global_no_send_lock must be False in all-gates-open control")
+        if all_gates_open_model.get("critical_open_total", 0) != 0 or all_gates_open_model.get("high_open_total", 0) != 0:
+            all_gates_open_issues.append(
+                f"all-gates-open non-zero open totals: critical={all_gates_open_model.get('critical_open_total')}, high={all_gates_open_model.get('high_open_total')}"
+            )
+        if all_gates_open_model.get("publish_requested") is not True:
+            all_gates_open_issues.append("all-gates-open control requires publish_requested=True")
     comparator_failures = [
         row.get("tradition")
         for row in comparator.get("rows", [])
@@ -440,6 +699,20 @@ def audit(root: Path) -> dict[str, Any]:
             )
         )
     ]
+    attack_rows = [row for row in attack.get("rows", []) if isinstance(row, dict)]
+    attack_row_counts = _attack_matrix_counts(attack_rows)
+    attack_quality_quotas = _attack_matrix_quality_quotas(root, attack_rows)
+    attack_summary_counter_failures = []
+    if attack_row_counts["row_total"] != attack.get("objection_total", 0):
+        attack_summary_counter_failures.append(f"objection_total mismatch: declared={attack.get('objection_total', 0)} observed={attack_row_counts['row_total']}")
+    if attack_row_counts["critical_open_total"] != attack.get("critical_unresolved_total", 0):
+        attack_summary_counter_failures.append(
+            f"critical_unresolved_total mismatch: declared={attack.get('critical_unresolved_total', 0)} observed={attack_row_counts['critical_open_total']}"
+        )
+    if attack_row_counts["high_open_total"] != attack.get("high_unresolved_total", 0):
+        attack_summary_counter_failures.append(
+            f"high_unresolved_total mismatch: declared={attack.get('high_unresolved_total', 0)} observed={attack_row_counts['high_open_total']}"
+        )
     numeric_missing = [
         row.get("claim_id")
         for row in numeric.get("rows", [])
@@ -452,11 +725,22 @@ def audit(root: Path) -> dict[str, Any]:
         lane for lane in {row["lane"] for row in numeric.get("rows", [])}
         if not (root / "empirical" / lane / "EMPIRICAL_PACKET.json").exists()
     ]
-    llm_result_bad = []
-    for ref in llm.get("result_refs", []):
-        row = read_json(root / ref)
-        if row.get("execution_status") != "EXECUTED" or row.get("critical_open_total", 0) or row.get("high_open_total", 0):
-            llm_result_bad.append(ref)
+    llm_result_bad, llm_missing_refs, llm_missing_roles, llm_duplicate_roles = _llm_result_audit(root, llm)
+    manifest_exception_paths = {
+        _portable_path(row.get("path"))
+        for row in public_manifest.get("nonrecursive_manifest_exceptions", [])
+        if isinstance(row, dict)
+    }
+    internal_checksum_failures = repro_manifest.get("internal_checksum_failures", [])
+    internal_checksum_failure_count_ok = repro_manifest.get("internal_checksum_failure_total", 0) == len(internal_checksum_failures)
+    mismatch_failures = repro_manifest.get("mismatches", [])
+    mismatch_count_ok = repro_manifest.get("mismatch_total", 0) == len(mismatch_failures)
+    unexpected_internal_checksum_failures = [
+        failure
+        for failure in internal_checksum_failures
+        if isinstance(failure, dict) and _portable_path(failure.get("path")) not in manifest_exception_paths
+    ]
+    repro_non_compare_mutation_count_ok = repro_manifest.get("non_compare_ref_mutation_total", 0) == len(repro_manifest.get("non_compare_ref_mutations", []))
     lake = _run_lake(root)
     surface_paths = [
         root / "releases" / "oc_core_1_3_3" / "README.md",
@@ -536,8 +820,62 @@ def audit(root: Path) -> dict[str, Any]:
         "comparator": {"state": "PASS" if comparator.get("row_total", 0) >= 10 and comparator.get("unsupported_uniqueness_total") == 0 and not comparator_failures else "FAIL", **{k: comparator.get(k) for k in ["row_total", "unsupported_uniqueness_total"]}, "comparator_failures": comparator_failures},
         "novelty": {"state": "PASS" if comparator.get("unsupported_uniqueness_total") == 0 and not comparator_failures else "FAIL", "comparator_failures": comparator_failures},
         "claim_binding": {"state": "PASS" if claims.get("unsupported_promoted_total") == 0 and claims.get("demoted_public_claim_total") == 0 and claims.get("scientific_promotion_wording_violation_total", 0) == 0 and not proof_bound_failures else "FAIL", "claim_total": claims.get("claim_total"), "proof_bound_failure_total": len(proof_bound_failures), "scientific_promotion_wording_violation_total": claims.get("scientific_promotion_wording_violation_total", 0)},
-        "attack_matrix": {"state": "PASS" if attack.get("critical_unresolved_total") == 0 and attack.get("high_unresolved_total") == 0 and attack.get("objection_total", 0) >= 200 and attack.get("fresh_cerberus_review_satisfied") is True and not attack_closure_failures else "FAIL", **{k: attack.get(k) for k in ["objection_total", "critical_unresolved_total", "high_unresolved_total", "fresh_cerberus_review_satisfied", "fresh_cerberus_review_gate_status"]}, "attack_closure_failures": attack_closure_failures[:20]},
-        "llm": {"state": "PASS" if llm.get("execution_status") == "EXECUTED_WITH_FINDINGS_CLOSED" and llm.get("role_total") == 14 and not llm_result_bad else "BLOCKED", "execution_status": llm.get("execution_status"), "role_total": llm.get("role_total"), "bad_results": llm_result_bad[:20], "pending_role_total": llm.get("pending_role_total", 0), "critical_open_total": llm.get("critical_open_total"), "high_open_total": llm.get("high_open_total"), "parse_failure_total": llm.get("parse_failure_total")},
+        "attack_matrix": {
+            "state": "PASS"
+            if (
+                attack.get("critical_unresolved_total") == 0
+                and attack.get("high_unresolved_total") == 0
+                and attack.get("objection_total", 0) >= 200
+                and attack.get("fresh_cerberus_review_satisfied") is True
+                and not attack_closure_failures
+                and not attack_summary_counter_failures
+                and attack_quality_quotas["state"] == "PASS"
+            )
+            else "FAIL",
+            **{k: attack.get(k) for k in ["objection_total", "critical_unresolved_total", "high_unresolved_total", "fresh_cerberus_review_satisfied", "fresh_cerberus_review_gate_status"]},
+            "attack_row_counts": attack_row_counts,
+            "attack_quality_quotas": attack_quality_quotas,
+            "attack_summary_counter_failures": attack_summary_counter_failures,
+            "attack_closure_failures": attack_closure_failures[:20],
+            "publish_control_ref_issues": publish_control_ref_issues[:20],
+            "all_gates_open_issues": all_gates_open_issues[:20],
+        },
+        "llm": {
+            "state": "PASS"
+            if (
+                llm.get("execution_status") == "EXECUTED_WITH_FINDINGS_CLOSED"
+                and llm.get("role_total") == 14
+                and not llm_result_bad
+                and not llm_missing_refs
+                and not llm_missing_roles
+                and not llm_duplicate_roles
+                and llm.get("parse_failure_total", 0) == 0
+            )
+            else "BLOCKED",
+            "execution_status": llm.get("execution_status"),
+            "role_total": llm.get("role_total"),
+            "bad_results": llm_result_bad[:20],
+            "missing_result_refs": llm_missing_refs,
+            "missing_roles": llm_missing_roles,
+            "duplicate_roles": llm_duplicate_roles,
+            "execution_bad_total": llm.get("execution_bad_total", 0),
+            "pending_role_total": llm.get("pending_role_total", 0),
+            "critical_open_total": llm.get("critical_open_total"),
+            "high_open_total": llm.get("high_open_total"),
+            "parse_failure_total": llm.get("parse_failure_total"),
+            "all_result_refs": len(llm.get("result_refs", [])),
+        },
+        "all_gates_open_control": {
+            "state": "PASS" if not all_gates_open_issues else "FAIL",
+            "issues": all_gates_open_issues[:20],
+            "expected_verdict": "ACCEPT_PUBLIC_ACTION",
+            "observed_verdict": all_gates_open_row.get("observed_verdict") if all_gates_open_row else None,
+            "failed_gate_predicates": all_gates_open_row.get("failed_gate_predicates", []) if all_gates_open_row else [],
+            "model": all_gates_open_model,
+            "critical_open_total": all_gates_open_model.get("critical_open_total", 0),
+            "high_open_total": all_gates_open_model.get("high_open_total", 0),
+            "publish_control_ref_issues": publish_control_ref_issues[:20],
+        },
         "reproducibility": {
             "state": "PASS" if (
                 (root / "lakefile.lean").exists()
@@ -547,7 +885,12 @@ def audit(root: Path) -> dict[str, Any]:
                 and repro_manifest.get("verdict") == "PASS"
                 and repro_manifest.get("command_failure_total") == 0
                 and repro_manifest.get("mismatch_total") == 0
+                and mismatch_count_ok
                 and repro_manifest.get("non_compare_ref_mutation_total", 0) == 0
+                and repro_non_compare_mutation_count_ok
+                and repro_manifest.get("internal_checksum_failure_total", 0) == 0
+                and internal_checksum_failure_count_ok
+                and not unexpected_internal_checksum_failures
                 and repro_manifest.get("preexisting_compared_target_total", 0) >= repro_manifest.get("compared_artifact_total", 1)
                 and repro_manifest.get("git_state", {}).get("strict_head_replay_clean") is True
                 and repro_manifest.get("stable_payload_sha256")
@@ -557,11 +900,17 @@ def audit(root: Path) -> dict[str, Any]:
             "verdict": repro_manifest.get("verdict"),
             "command_failure_total": repro_manifest.get("command_failure_total"),
             "mismatch_total": repro_manifest.get("mismatch_total"),
+            "mismatch_count_ok": mismatch_count_ok,
+            "mismatch_failures": mismatch_failures[:20],
             "non_compare_ref_mutation_total": repro_manifest.get("non_compare_ref_mutation_total"),
+            "repro_non_compare_mutation_count_ok": repro_non_compare_mutation_count_ok,
             "preexisting_compared_target_total": repro_manifest.get("preexisting_compared_target_total"),
             "compared_artifact_total": repro_manifest.get("compared_artifact_total"),
             "strict_head_replay_clean": repro_manifest.get("git_state", {}).get("strict_head_replay_clean"),
             "stable_payload_sha256": repro_manifest.get("stable_payload_sha256"),
+            "internal_checksum_failures": internal_checksum_failures[:20],
+            "internal_checksum_failure_count_ok": internal_checksum_failure_count_ok,
+            "unexpected_internal_checksum_failures": unexpected_internal_checksum_failures[:20],
         },
         "no_local_paths_secrets": {"state": "PASS" if not secret_hits else "FAIL", "hit_total": len(secret_hits), "hits": secret_hits[:20]},
         "surface_parity": {
@@ -675,8 +1024,12 @@ def v12_gate_results(root: Path, gate_fn: Callable[[str, str, str, str, str, dic
     for gate_id, name, severity in V12_GATE_SPECS:
         if gate_id == "G70":
             prior_bad = [row for row in rows if row["state"] in {"FAIL", "BLOCKED"} and row["severity"] in {"CRITICAL", "HIGH"}]
-            details = {"prior_critical_high_bad_total": len(prior_bad), "release_state_on_pass": "OC_CORE_1_3_3_10_10_READY_NO_SEND"}
-            state = "PASS" if not prior_bad else "FAIL"
+            details = {
+                "prior_critical_high_bad_total": len(prior_bad),
+                "release_state_on_pass": "OC_CORE_1_3_3_10_10_READY_NO_SEND",
+                **audits["all_gates_open_control"],
+            }
+            state = "PASS" if not prior_bad and audits["all_gates_open_control"]["state"] == "PASS" else "FAIL"
         else:
             details = audits[key_by_gate[gate_id]]
             state = details["state"]
