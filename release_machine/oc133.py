@@ -91,6 +91,17 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def package_bytes(path: Path) -> bytes:
+    data = path.read_bytes()
+    if path.suffix.lower() in {".py", ".lean", ".yml", ".yaml", ".json", ".md", ".tex", ".txt", ".cff", ".jsonld"}:
+        data = data.replace(b"\r\n", b"\n")
+    return data
+
+
+def sha256_package_bytes(path: Path) -> str:
+    return hashlib.sha256(package_bytes(path)).hexdigest()
+
+
 def tracked_ref_set(root: Path) -> set[str]:
     completed = subprocess.run(
         ["git", "ls-files", "--cached"],
@@ -205,12 +216,12 @@ def package_file_paths(root: Path) -> list[Path]:
 def _package_input_fingerprint(root: Path) -> str:
     h = hashlib.sha256()
     for path in package_file_paths(root):
-        size = path.stat().st_size
+        payload = package_bytes(path)
         h.update(rel(root, path).encode("utf-8"))
         h.update(b"\0")
-        h.update(str(size).encode("ascii"))
+        h.update(str(len(payload)).encode("ascii"))
         h.update(b"\0")
-        h.update(sha256_file(path).encode("ascii"))
+        h.update(hashlib.sha256(payload).hexdigest().encode("ascii"))
         h.update(b"\0")
     return h.hexdigest()
 
@@ -245,10 +256,12 @@ def write_inventory_and_checksums(root: Path) -> list[Path]:
     paths = package_file_paths(root)
     rows = []
     for path in paths:
+        payload = package_bytes(path)
         rows.append({
             "path": rel(root, path),
-            "size_bytes": path.stat().st_size,
-            "sha256": sha256_file(path),
+            "size_bytes": len(payload),
+            "sha256": hashlib.sha256(payload).hexdigest(),
+            "package_hash_policy": "TEXT_MEMBERS_LF_NORMALIZED_BEFORE_ARCHIVE",
             "status": "ASSEMBLED",
         })
     inventory = {
@@ -272,7 +285,7 @@ def build_zip(root: Path, paths: list[Path]) -> dict[str, Any]:
             info = zipfile.ZipInfo(rel(root, path), date_time=(2026, 4, 28, 0, 0, 0))
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o644 << 16
-            zf.writestr(info, path.read_bytes())
+            zf.writestr(info, package_bytes(path))
     payload = {
         "path": rel(root, zip_path),
         "sha256": sha256_file(zip_path),
