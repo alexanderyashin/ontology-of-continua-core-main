@@ -59,6 +59,13 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def sha256_source_ref(path: Path) -> str:
+    data = path.read_bytes()
+    if path.suffix.lower() in {".py", ".lean", ".yml", ".yaml", ".json", ".md", ".tex", ".txt", ".cff", ".jsonld"}:
+        data = data.replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
+
+
 def normalize_build_transcript(value: str) -> str:
     value = re.sub(r"\(\d+(?:\.\d+)?s\)", "(<elapsed>)", value or "")
     value = re.sub(r".*toolchain.*(?:already up-to-date|not updated|updated).*", "<toolchain provisioning outside canonical transcript>", value, flags=re.IGNORECASE)
@@ -124,7 +131,7 @@ def source_manifest() -> list[dict[str, str]]:
     for ref in sorted(refs):
         path = ROOT / ref
         if path.exists() and path.is_file():
-            rows.append({"ref": ref, "sha256": sha256_file(path)})
+            rows.append({"ref": ref, "sha256": sha256_source_ref(path)})
     return rows
 
 
