@@ -18,6 +18,7 @@ VERSION = "1.3.3"
 
 COMPARE_REFS = [
     "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+    "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
     "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
     "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
     "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
