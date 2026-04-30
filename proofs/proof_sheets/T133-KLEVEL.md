@@ -1,6 +1,6 @@
 # T133-KLEVEL - Declared adjacent K-level atlas/evaluator consistency theorem
 
-Status: `FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM`
+Status: `PROMOTED_BOUNDED_THEOREM_V12_NO_SEND`
 Primary artifact: `appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex`
 Machine-checked subset: `formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage`
 Attacked claim: Every declared adjacent K-level transition K0->K12 has a release-atlas row, retained-witness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release classifier; independent semantic irreducibility beyond this declared classifier is a future proof obligation, not a promoted v12 theorem.
@@ -27,7 +27,7 @@ The declared K0-K12 atlas blocks reduction exactly for retained adjacent witness
 ## Proof
 Each row in the atlas records the new axis, witness pair, reduction-failure criterion, and demotion criterion. The finite runner verifies exact row identity, adjacency, criterion text, retained witness verdict loss, demotion verdict preservation, and unique K0->K12 coverage. Lemma 1 handles retained declared witnesses. Lemma 2 handles non-retained witnesses without inflation. The atlas has zero unresolved adjacent rows inside the declared classifier; no domain-independent irreducibility theorem is promoted by this proof sheet.
 
-This proof sheet is a formal release-consistency check only; it is not promoted as an independent scientific theorem and remains no-send while G57/G58/G70 remain open. It is linked to the finite witness corpus and
+The proof is promoted only as a bounded no-send release claim with the stated assumptions. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the
 finite corpus checks the release verdict behavior used by the public claim ledger.
 

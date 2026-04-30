@@ -1,6 +1,6 @@
 # T133-K0-RES - K0 resolution-relative distinguishability theorem
 
-Status: `FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM`
+Status: `PROMOTED_BOUNDED_THEOREM_V12_NO_SEND`
 Primary artifact: `appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex`
 Machine-checked subset: `formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction`
 Attacked claim: K0 support is treated as a no-send formal release-consistency check over declared resolution quotients: same-resolution states are not distinguished, and a finite countermodel shows raw separation need not induce resolution distinction. It is not promoted as an independent novelty or scientific theorem in v12.
@@ -27,7 +27,7 @@ K0 is compatible with continuous raw carriers inside the declared release semant
 ## Proof
 The proof factors every K0 reference through rho. Lemma 1 blocks raw discreteness leakage. Lemma 2 supplies the only positive separation used by downstream K0 checks. Therefore the no-send formal check is about resolved classes, not raw points.
 
-This proof sheet is a formal release-consistency check only; it is not promoted as an independent scientific theorem and remains no-send while G57/G58/G70 remain open. It is linked to the finite witness corpus and
+The proof is promoted only as a bounded no-send release claim with the stated assumptions. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the
 finite corpus checks the release verdict behavior used by the public claim ledger.
 

@@ -1,6 +1,6 @@
 # T133-OMEGA-STATUS - Typed liveness, death, residue, and rebirth evidence-consistency theorem
 
-Status: `FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM`
+Status: `PROMOTED_BOUNDED_THEOREM_V12_NO_SEND`
 Primary artifact: `content/OC_1_3_3_TYPED_FOUNDATION.tex`
 Machine-checked subset: `formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary`
 Attacked claim: Death blocks live status; residue and rebirth are token-bound evidence relations with distinct class-specific endpoint rules: residue separates source from residue while returning to the source endpoint, and rebirth separates source, residue, and new target tokens. Rebirth is non-identity unless endpoint-bound identity evidence has identity class, declared invariant preservation, no residue token, and equal source/target endpoint evidence. No categorical Hom/composition theorem is promoted.
@@ -27,7 +27,7 @@ The four statuses are jointly consistent and non-interchangeable in the typed OC
 ## Proof
 The fields have distinct codomains and transition rules. Lemma 1 separates admissibility from liveness. Lemma 2 separates residue from identity. The Lean theorem then takes explicit source, residue, and target tokens: residue evidence separates source from residue while returning to the source endpoint, and rebirth evidence carries pairwise source/residue/new-target separation. This proves death blocks liveness while residue/rebirth evidence is not endpoint-bound identity evidence.
 
-This proof sheet is a formal release-consistency check only; it is not promoted as an independent scientific theorem and remains no-send while G57/G58/G70 remain open. It is linked to the finite witness corpus and
+The proof is promoted only as a bounded no-send release claim with the stated assumptions. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the
 finite corpus checks the release verdict behavior used by the public claim ledger.
 

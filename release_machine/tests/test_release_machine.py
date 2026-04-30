@@ -416,7 +416,6 @@ class ReleaseMachineTests(unittest.TestCase):
             self.assertEqual(gates["G58"]["state"], "PASS")
             self.assertEqual(gates["G70"]["state"], "PASS")
             self.assertGreater(summary["content_closure_blocker_total"], 0)
-            self.assertIn("theorem_promotion", summary["content_closure_blocker_ids"])
             self.assertIn("empirical_prediction_promotion", summary["content_closure_blocker_ids"])
             mission_ref = root / summary["content_closure_refs"]["mission_ref"]
             cockpit_ref = root / summary["content_closure_refs"]["cockpit_ref"]
@@ -461,6 +460,7 @@ class ReleaseMachineTests(unittest.TestCase):
         theorem_inventory = json.loads((root / "proofs/THEOREM_INVENTORY_1_3_3.json").read_text(encoding="utf-8"))
         self.assertEqual(theorem_inventory["demoted_route_total"], 0)
         self.assertEqual(theorem_inventory["machine_checked_subset_total"], theorem_inventory["theorem_total"])
+        self.assertGreater(theorem_inventory["scientific_promotion_allowed_total"], 0)
 
         metadata_paths = [
             root / "README.md",

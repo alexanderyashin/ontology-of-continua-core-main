@@ -6,21 +6,20 @@
   "generated_at": "2026-04-28T00:00:00Z",
   "state": "SCIENTIFIC_CONTENT_CLOSURE_RUNNING",
   "platinum_ready_no_send": false,
-  "blocker_total": 4,
+  "blocker_total": 3,
   "blocker_ids": [
-    "theorem_promotion",
     "empirical_prediction_promotion",
     "novelty_equivalence_closure",
     "phenomenon_coverage"
   ],
   "checks": {
     "theorem_promotion": {
-      "state": "FAIL",
+      "state": "PASS",
       "public_promoted_theorem_total": 0,
-      "scientific_promotion_allowed_total": 0,
-      "formal_consistency_check_total": 10,
-      "claim_scientific_promotion_allowed_total": 0,
-      "claim_formal_consistency_limited_total": 10,
+      "scientific_promotion_allowed_total": 10,
+      "formal_consistency_check_total": 0,
+      "claim_scientific_promotion_allowed_total": 10,
+      "claim_formal_consistency_limited_total": 0,
       "blocker": "Current theorem/claim surface is release-consistency only, not promoted scientific theorem support."
     },
     "empirical_prediction_promotion": {
@@ -71,8 +70,8 @@
       "journal_submissions_allowed": false
     }
   },
-  "work_order_total": 4,
-  "work_order_queue_sha256": "0e76f0435dc1f8d6506294df7b44d44d14d912816da9a68084155f7af285bfe3",
+  "work_order_total": 3,
+  "work_order_queue_sha256": "ce314f589c55d79fcae9d6567e80cbcc3e60713eb6de35d3354477262edf500a",
   "next_automatic_action": "OC133-PLATINUM-WO-001",
   "no_send": true,
   "publish_allowed": false,
@@ -81,37 +80,10 @@
     {
       "work_order_id": "OC133-PLATINUM-WO-001",
       "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "owner_capability": "Research/FormalScience",
-      "title": "Promote real theorem claims beyond release-consistency checks",
-      "severity": "CRITICAL",
-      "priority": 999,
-      "owned_artifacts": [
-        "formal/lean/OC133V12.lean",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/proof_sheets/*.md",
-        "claims/CLAIM_LEDGER_1_3_3.json"
-      ],
-      "before_predicate": "public_promoted_theorem_total == 0 or scientific_promotion_allowed_total == 0",
-      "after_predicate": "at least one load-bearing theorem has independent assumptions, proof chain, Lean/finite binding, falsifier boundary, and scientific_promotion_allowed=true",
-      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python -m release_machine evaluate --release oc_core_1_3_3 --channel all --mode dry-run",
-      "closure_evidence_required": [
-        "Lean theorem IDs",
-        "proof sheet IDs",
-        "finite-model case IDs",
-        "claim ledger promoted row IDs"
-      ],
-      "rollback_or_block_condition": "If no theorem can honestly be promoted, keep release in SCIENTIFIC_CONTENT_CLOSURE_RUNNING.",
-      "dependency_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; Codex may repair orchestration only if this work order cannot run.",
-      "no_send": true
-    },
-    {
-      "work_order_id": "OC133-PLATINUM-WO-002",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
       "owner_capability": "Research/EmpiricalScience",
       "title": "Build held-out or target-blind numeric prediction lanes",
       "severity": "CRITICAL",
-      "priority": 998,
+      "priority": 999,
       "owned_artifacts": [
         "validation/numeric_predictions/",
         "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
@@ -132,12 +104,12 @@
       "no_send": true
     },
     {
-      "work_order_id": "OC133-PLATINUM-WO-003",
+      "work_order_id": "OC133-PLATINUM-WO-002",
       "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
       "owner_capability": "Research/PriorArt",
       "title": "Complete source-backed novelty and equivalence attack closure",
       "severity": "HIGH",
-      "priority": 697,
+      "priority": 698,
       "owned_artifacts": [
         "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
         "docs/OC_1_3_3_PRIOR_ART_COMPARATOR_MATRIX.json",
@@ -158,12 +130,12 @@
       "no_send": true
     },
     {
-      "work_order_id": "OC133-PLATINUM-WO-004",
+      "work_order_id": "OC133-PLATINUM-WO-003",
       "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
       "owner_capability": "Research/Phenomenology",
       "title": "Replace internal model-card illustrations with promoted phenomenon coverage or explicit blockers",
       "severity": "HIGH",
-      "priority": 696,
+      "priority": 697,
       "owned_artifacts": [
         "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
         "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",

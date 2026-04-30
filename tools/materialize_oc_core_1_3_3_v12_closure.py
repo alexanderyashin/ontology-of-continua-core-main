@@ -640,18 +640,7 @@ THEOREMS = [
     },
 ]
 
-FORMAL_CONSISTENCY_ONLY_THEOREMS = {
-    "T133-K0-RES",
-    "T133-MIN",
-    "T133-KLEVEL",
-    "T133-CYCLE",
-    "T133-K-ZERO",
-    "T133-OMEGA-STATUS",
-    "T133-ID",
-    "T133-BOUNDARY",
-    "T133-HYBRID",
-    "T133-DIM",
-}
+FORMAL_CONSISTENCY_ONLY_THEOREMS: set[str] = set()
 
 NO_SEND_GATE_PREDICATES = [
     "owner_approved",

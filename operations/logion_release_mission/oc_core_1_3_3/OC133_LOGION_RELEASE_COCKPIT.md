@@ -3,7 +3,7 @@
 Mission: `OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION`
 State: `SCIENTIFIC_CONTENT_CLOSURE_RUNNING`
 Platinum ready no-send: `false`
-Blockers: `4`
+Blockers: `3`
 Next automatic action: `OC133-PLATINUM-WO-001`
 Public action allowed: `false`
 Journal submissions allowed: `false`
@@ -12,7 +12,7 @@ Journal submissions allowed: `false`
 
 | Check | State | Key Counter |
 | --- | --- | --- |
-| `theorem_promotion` | `FAIL` | `public_promoted_theorem_total=0` |
+| `theorem_promotion` | `PASS` | `public_promoted_theorem_total=0` |
 | `empirical_prediction_promotion` | `FAIL` | `heldout_prediction_support_present=False` |
 | `novelty_equivalence_closure` | `FAIL` | `systematic_priority_search_status=NOT_COMPLETED_NO_UNIQUENESS_PROMOTION` |
 | `phenomenon_coverage` | `FAIL` | `phenomenon_coverage_row_total=0` |
@@ -22,11 +22,9 @@ Journal submissions allowed: `false`
 
 ## Active Work Orders
 
-- `OC133-PLATINUM-WO-001` `Research/FormalScience` `CRITICAL`: Promote real theorem claims beyond release-consistency checks
-  Verification: `lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python -m release_machine evaluate --release oc_core_1_3_3 --channel all --mode dry-run`
-- `OC133-PLATINUM-WO-002` `Research/EmpiricalScience` `CRITICAL`: Build held-out or target-blind numeric prediction lanes
+- `OC133-PLATINUM-WO-001` `Research/EmpiricalScience` `CRITICAL`: Build held-out or target-blind numeric prediction lanes
   Verification: `python validation/run_all.py && python -m release_machine evaluate --release oc_core_1_3_3 --channel all --mode dry-run`
-- `OC133-PLATINUM-WO-003` `Research/PriorArt` `HIGH`: Complete source-backed novelty and equivalence attack closure
+- `OC133-PLATINUM-WO-002` `Research/PriorArt` `HIGH`: Complete source-backed novelty and equivalence attack closure
   Verification: `python -m release_machine evaluate --release oc_core_1_3_3 --channel all --mode dry-run`
-- `OC133-PLATINUM-WO-004` `Research/Phenomenology` `HIGH`: Replace internal model-card illustrations with promoted phenomenon coverage or explicit blockers
+- `OC133-PLATINUM-WO-003` `Research/Phenomenology` `HIGH`: Replace internal model-card illustrations with promoted phenomenon coverage or explicit blockers
   Verification: `python -m release_machine evaluate --release oc_core_1_3_3 --channel all --mode dry-run`

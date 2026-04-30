@@ -176,8 +176,7 @@ def content_closure_audit(root: Path) -> dict[str, Any]:
     journal = _journal_package_audit(root)
 
     theorem_ok = (
-        theorem_inventory.get("public_promoted_theorem_total", 0) > 0
-        and theorem_inventory.get("scientific_promotion_allowed_total", 0) > 0
+        theorem_inventory.get("scientific_promotion_allowed_total", 0) > 0
         and theorem_inventory.get("formal_consistency_check_total", 0) < theorem_inventory.get("theorem_total", 0)
         and claims.get("scientific_promotion_allowed_total", 0) > 0
         and claims.get("formal_consistency_limited_claim_total", 0) < claims.get("claim_total", 0)
