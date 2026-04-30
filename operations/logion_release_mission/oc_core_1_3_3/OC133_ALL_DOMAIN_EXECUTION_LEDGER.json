@@ -3,8 +3,8 @@
   "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
-  "row_total": 4,
-  "pass_total": 3,
+  "row_total": 5,
+  "pass_total": 4,
   "fail_total": 1,
   "latest_work_order_id": "OC133-PLATINUM-WO-001",
   "latest_execution_state": "PASS",
@@ -34,6 +34,38 @@
         ],
         "returncode": 1,
         "stdout_tail": "{\n  \"profile\": \"v12_all_domain_empirical_readiness_repair\",\n  \"state\": \"FAIL\",\n  \"ledger_ref\": \"reviews/oc133_llm_cerberus/repair/OC133_CAPABILITY_REPAIR_EXECUTION_LEDGER.json\",\n  \"work_order_total\": 0\n}\n",
+        "stderr_tail": ""
+      },
+      "refs": {
+        "all_domain_scorecard_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_READINESS_SCORECARD.json",
+        "all_domain_dispatch_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_WORK_ORDERS.json",
+        "all_domain_cockpit_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_READINESS_COCKPIT.md"
+      },
+      "artifact_exists_is_not_closure": true,
+      "no_send": true,
+      "publish_allowed": false,
+      "journal_submissions_allowed": false
+    },
+    {
+      "schema_id": "OC133_ALL_DOMAIN_EXECUTION_ROW_v1",
+      "work_order_id": "OC133-PLATINUM-WO-001",
+      "owner_capability": "Research/EmpiricalScience",
+      "profile": "v12_all_domain_empirical_readiness_repair",
+      "execution_state": "PASS",
+      "before_state": "OC_CORE_1_3_3_ALL_DOMAIN_SCIENTIFIC_READINESS_RUNNING",
+      "before_final_readiness_state": "SCIENTIFIC_BLOCKERS_REMAIN",
+      "after_state": "ALL_DOMAIN_READY_NO_SEND",
+      "after_final_readiness_state": "ALL_DOMAIN_READY_NO_SEND",
+      "after_blocker_ids": [],
+      "command": {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_capability_repair_executor.py",
+          "--profile",
+          "v12_all_domain_empirical_readiness_repair"
+        ],
+        "returncode": 0,
+        "stdout_tail": "{\n  \"profile\": \"v12_all_domain_empirical_readiness_repair\",\n  \"state\": \"PASS\",\n  \"ledger_ref\": \"reviews/oc133_llm_cerberus/repair/OC133_CAPABILITY_REPAIR_EXECUTION_LEDGER.json\",\n  \"work_order_total\": 0\n}\n",
         "stderr_tail": ""
       },
       "refs": {

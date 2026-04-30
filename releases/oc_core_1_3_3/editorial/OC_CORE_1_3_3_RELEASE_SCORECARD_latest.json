@@ -9,20 +9,20 @@
     "channel": "all",
     "mode": "dry-run",
     "generated_at": "2026-04-28T00:00:00Z",
-    "release_state": "ALL_DOMAIN_READY_NO_SEND",
-    "technical_gate_state": "OC_CORE_1_3_3_10_10_READY_NO_SEND",
-    "master_verdict": "PASS",
+    "release_state": "SCIENTIFIC_BLOCKERS_REMAIN",
+    "technical_gate_state": "SCIENTIFIC_BLOCKERS_REMAIN",
+    "master_verdict": "FAIL",
     "gate_counts": {
       "BLOCKED": 0,
-      "FAIL": 0,
+      "FAIL": 2,
       "NOT_APPLICABLE": 0,
       "NOT_RUN": 0,
-      "PASS": 71,
+      "PASS": 69,
       "WARN": 0
     },
-    "critical_findings": 0,
-    "high_findings": 0,
-    "finding_total": 0,
+    "critical_findings": 1,
+    "high_findings": 1,
+    "finding_total": 2,
     "content_closure_state": "PASS",
     "content_closure_blocker_total": 0,
     "content_closure_blocker_ids": [],
@@ -47,7 +47,7 @@
     "publish_allowed": false,
     "journal_submissions_allowed": false,
     "package": "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip",
-    "package_sha256": "d351ed0d4e16ace98884390ab0f53cceb7e46ee232122ca2232dbb655a355386",
+    "package_sha256": "12b6ec18fd72ab04c4cb7bbc927d518ebe4ec6796c13d50141e60977cdf2a2f5",
     "artifact_total": 283
   },
   "gate_results": [
@@ -941,13 +941,13 @@
     {
       "gate_id": "G59",
       "name": "G59_REPRODUCIBILITY_CLEAN_CHECKOUT_PASS",
-      "state": "PASS",
+      "state": "FAIL",
       "severity": "HIGH",
       "summary": "G59_REPRODUCIBILITY_CLEAN_CHECKOUT_PASS checked by v12 no-compromise release profile.",
       "details": {
-        "state": "PASS",
+        "state": "FAIL",
         "manifest_ref": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
-        "verdict": "PASS",
+        "verdict": "FAIL",
         "command_failure_total": 0,
         "mismatch_total": 0,
         "mismatch_count_ok": true,
@@ -957,10 +957,54 @@
         "preexisting_compared_target_total": 23,
         "compared_artifact_total": 23,
         "strict_head_replay_clean": true,
-        "stable_payload_sha256": "97988ab0b9ce2cbae127321e82c2ea0de5a41d5ff9e0e086dfddbd542ca67381",
-        "internal_checksum_failures": [],
+        "stable_payload_sha256": "2eb040247ae7215d26baf04679f8417662d3454ba308bb07c17fe13d3129bbda",
+        "internal_checksum_failures": [
+          {
+            "source_ref": "manifest.json",
+            "path": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+            "reason": "SHA256_MISMATCH",
+            "expected": "0a48d7d1a9f3cd0fb79d45d92ecce5f19b9e99c045d57d8a48de255038883fdb",
+            "actual": "f9c64e72e38ffa467df78fa60b83947e9a07e4ea31bb0aa9323d553700a8a02b"
+          },
+          {
+            "source_ref": "manifest.json",
+            "path": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+            "reason": "SIZE_MISMATCH",
+            "expected": 12156,
+            "actual": 16352
+          },
+          {
+            "source_ref": "checksums.txt",
+            "path": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+            "reason": "SHA256_MISMATCH",
+            "expected": "0a48d7d1a9f3cd0fb79d45d92ecce5f19b9e99c045d57d8a48de255038883fdb",
+            "actual": "f9c64e72e38ffa467df78fa60b83947e9a07e4ea31bb0aa9323d553700a8a02b"
+          }
+        ],
         "internal_checksum_failure_count_ok": true,
-        "unexpected_internal_checksum_failures": []
+        "unexpected_internal_checksum_failures": [
+          {
+            "source_ref": "manifest.json",
+            "path": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+            "reason": "SHA256_MISMATCH",
+            "expected": "0a48d7d1a9f3cd0fb79d45d92ecce5f19b9e99c045d57d8a48de255038883fdb",
+            "actual": "f9c64e72e38ffa467df78fa60b83947e9a07e4ea31bb0aa9323d553700a8a02b"
+          },
+          {
+            "source_ref": "manifest.json",
+            "path": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+            "reason": "SIZE_MISMATCH",
+            "expected": 12156,
+            "actual": 16352
+          },
+          {
+            "source_ref": "checksums.txt",
+            "path": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+            "reason": "SHA256_MISMATCH",
+            "expected": "0a48d7d1a9f3cd0fb79d45d92ecce5f19b9e99c045d57d8a48de255038883fdb",
+            "actual": "f9c64e72e38ffa467df78fa60b83947e9a07e4ea31bb0aa9323d553700a8a02b"
+          }
+        ]
       },
       "executed": true
     },
@@ -1243,11 +1287,11 @@
     {
       "gate_id": "G70",
       "name": "G70_10_10_SCIENTIFIC_CLOSURE_VERDICT",
-      "state": "PASS",
+      "state": "FAIL",
       "severity": "CRITICAL",
       "summary": "G70_10_10_SCIENTIFIC_CLOSURE_VERDICT checked by v12 no-compromise release profile.",
       "details": {
-        "prior_critical_high_bad_total": 0,
+        "prior_critical_high_bad_total": 1,
         "release_state_on_pass": "OC_CORE_1_3_3_10_10_READY_NO_SEND",
         "state": "PASS",
         "issues": [],

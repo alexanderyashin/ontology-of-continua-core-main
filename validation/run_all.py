@@ -20,6 +20,27 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def refresh_root_manifest_bindings(paths: list[Path]) -> None:
+    manifest_path = ROOT / "manifest.json"
+    checksums_path = ROOT / "checksums.txt"
+    if not manifest_path.exists():
+        return
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    wanted = {path.resolve(): path for path in paths}
+    for row in manifest.get("files", []):
+        row_path = (ROOT / row.get("path", "")).resolve()
+        if row_path in wanted and row_path.exists():
+            row["size_bytes"] = row_path.stat().st_size
+            row["sha256"] = sha256_file(row_path)
+    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+    checksum_rows = [f"{sha256_file(manifest_path)}  manifest.json"]
+    for row in manifest.get("files", []):
+        row_path = ROOT / row["path"]
+        if row_path.exists():
+            checksum_rows.append(f"{row['sha256']}  {row['path']}")
+    checksums_path.write_text("\n".join(checksum_rows) + "\n", encoding="utf-8", newline="\n")
+
+
 def sha256_lf_normalized_text(path: Path) -> str:
     data = path.read_bytes().replace(b"\r\n", b"\n")
     return hashlib.sha256(data).hexdigest()
@@ -369,7 +390,9 @@ def main() -> int:
     }
     reports = ROOT / "reports"
     reports.mkdir(exist_ok=True)
-    (reports / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8", newline="\n")
+    report_json_path = reports / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json"
+    report_md_path = reports / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.md"
+    report_json_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8", newline="\n")
     lines = [
         "# OC Core 1.3.3 Domain Validation Report",
         "",
@@ -388,7 +411,8 @@ def main() -> int:
     ]
     for row in lanes:
         lines.append(f"| `{row['lane']}` | `{row['result_verdict']}` | `{row.get('remaining_blocker') or ''}` |")
-    (reports / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.md").write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    report_md_path.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    refresh_root_manifest_bindings([report_json_path, report_md_path])
     print(json.dumps(payload, indent=2))
     if payload["verdict"] == "FAIL":
         return 1
