@@ -22,6 +22,14 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def lf_normalized_bytes(path: Path) -> bytes:
+    return path.read_bytes().replace(b"\r\n", b"\n")
+
+
+def sha256_lf_normalized_text(path: Path) -> str:
+    return hashlib.sha256(lf_normalized_bytes(path)).hexdigest()
+
+
 def read_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -78,8 +86,10 @@ def build_log() -> dict[str, Any]:
             "lane": row.get("lane"),
             "dataset_snapshot_ref": snapshot_ref,
             "snapshot_opened": snapshot_opened,
-            "snapshot_sha256": sha256_file(snapshot_path) if snapshot_opened else None,
-            "snapshot_byte_count": snapshot_path.stat().st_size if snapshot_opened else 0,
+            "snapshot_sha256": sha256_lf_normalized_text(snapshot_path) if snapshot_opened else None,
+            "snapshot_sha256_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+            "snapshot_byte_count": len(lf_normalized_bytes(snapshot_path)) if snapshot_opened else 0,
+            "snapshot_byte_count_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_BYTES",
             "snapshot_parser": "lane_specific_official_snapshot_parser",
             "snapshot_parse_ok": snapshot_parse_ok,
             "snapshot_parsed_observed_value": observed_value,

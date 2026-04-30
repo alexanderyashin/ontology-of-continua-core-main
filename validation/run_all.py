@@ -20,6 +20,11 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def sha256_lf_normalized_text(path: Path) -> str:
+    data = path.read_bytes().replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
+
+
 def certified_generated_artifact_hashes() -> dict[str, str]:
     cert_path = ROOT / "formal" / "lean" / "LEAN_BUILD_CERTIFICATE_1_3_3.json"
     if not cert_path.exists():
@@ -110,9 +115,10 @@ def main() -> int:
             manifest_policy_failures.append(f"MANIFEST_LANE_PROMOTES_VALIDATION::{lane_row.get('lane')}")
     for row in manifest["rows"]:
         path = ROOT / row["local_snapshot"]
-        actual = sha256_file(path)
+        policy = str(row.get("sha256_policy", ""))
+        actual = sha256_lf_normalized_text(path) if "LF_NORMALIZED" in policy else sha256_file(path)
         if row["sha256"] and actual != row["sha256"]:
-            hash_failures.append({"source_id": row["source_id"], "expected": row["sha256"], "actual": actual})
+            hash_failures.append({"source_id": row["source_id"], "expected": row["sha256"], "actual": actual, "sha256_policy": policy})
     numeric_payload = {}
     numeric_log = {}
     numeric_artifact_failures = []

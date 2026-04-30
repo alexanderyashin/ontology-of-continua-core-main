@@ -134,12 +134,14 @@ def source_manifest() -> list[dict[str, str]]:
     for ref in sorted(refs):
         path = ROOT / ref
         if path.exists() and path.is_file():
+            normalized_sha = sha256_source_ref(path)
             rows.append(
                 {
                     "ref": ref,
-                    "sha256": sha256_source_ref(path),
+                    "sha256": normalized_sha,
                     "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
-                    "byte_sha256": sha256_file(path),
+                    "byte_sha256": normalized_sha,
+                    "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT",
                 }
             )
     return rows
@@ -1157,7 +1159,7 @@ def main() -> int:
         "certificate_lean_source_sha256": lean_cert.get("lean_source_sha256"),
         "current_lean_source_byte_sha256": current_lean_byte_sha256,
         "certificate_lean_source_byte_sha256": lean_cert.get("lean_source_byte_sha256"),
-        "source_hash_policy": "sha256 is LF-normalized for source binding; byte_sha256 records archive bytes.",
+        "source_hash_policy": "sha256 and byte_sha256 are LF-normalized for text source binding so clean checkout filters cannot change certificate semantics.",
         "cert_lean_sha256_matches_current_source": cert_lean_sha256_matches,
         "lean_build_returncode": lean_cert.get("returncode"),
         "lean_build_execution_status": lean_cert.get("execution_status"),

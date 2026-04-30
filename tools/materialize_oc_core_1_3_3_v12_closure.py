@@ -152,12 +152,14 @@ def source_manifest(root: Path) -> list[dict[str, str]]:
     for ref in sorted(refs):
         path = root / ref
         if path.exists() and path.is_file():
+            normalized_sha = sha256_source_ref(path)
             rows.append(
                 {
                     "ref": ref,
-                    "sha256": sha256_source_ref(path),
+                    "sha256": normalized_sha,
                     "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
-                    "byte_sha256": sha256_file(path),
+                    "byte_sha256": normalized_sha,
+                    "byte_sha256_policy": "TEXT_REFS_LF_NORMALIZED_TO_AVOID_CHECKOUT_FILTER_DRIFT",
                 }
             )
     return rows
@@ -365,7 +367,7 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
         "clean_source_archive_kind": "release-critical source manifest copy without .git or .lake",
         "clean_source_manifest": source_manifest(root),
         "clean_source_manifest_sha256": source_manifest_binding_sha256(source_manifest(root)),
-        "clean_source_manifest_hash_policy": "sha256 is LF-normalized for text source refs and is the only field used for source binding; byte_sha256 records package/archive bytes when they differ.",
+        "clean_source_manifest_hash_policy": "sha256 and byte_sha256 are LF-normalized for text source refs so clean checkout filters cannot change source binding.",
         "generated_artifact_manifest": generated_artifact_manifest(root),
         "generated_artifact_manifest_sha256": hashlib.sha256(json.dumps(generated_artifact_manifest(root), sort_keys=True).encode("utf-8")).hexdigest(),
         "generated_artifact_manifest_scope": generated_artifact_manifest_policy(),
@@ -2579,6 +2581,14 @@ if __name__ == "__main__":
         manifest["snapshot_role"] = "OFFICIAL_INPUT_SNAPSHOT_FOR_REPLAY_QA_ONLY"
         manifest["domain_validation_promoted"] = False
         manifest["heldout_prediction_support_present"] = False
+        for row in manifest.get("rows", []):
+            snapshot = root / str(row.get("local_snapshot", ""))
+            if snapshot.is_file():
+                row["sha256"] = sha256_source_ref(snapshot)
+                row["sha256_policy"] = "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
+                row["byte_sha256"] = sha256_source_ref(snapshot)
+                row["byte_sha256_policy"] = "LF_NORMALIZED_TEXT_SNAPSHOT_BYTES"
+                row["bytes"] = len(snapshot.read_bytes().replace(b"\r\n", b"\n"))
         for lane_row in manifest.get("lanes", []):
             lane_row["result_verdict"] = "NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION"
             lane_row["remaining_blocker"] = "NOT_EMPIRICAL_PROMOTION_NUMERIC_REPLAY_QA_ONLY"
