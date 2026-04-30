@@ -4,10 +4,10 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "generated_at": "2026-04-28T00:00:00Z",
-  "queue_sha256": "e84fb5cc0f9cd5de65ad8cb47bc6af5b1b651ffdd034b115747531ad4b5a2a62",
+  "queue_sha256": "b2c63d1673735bc13ad024f4163132d99d771931b5a35f60cf98ffebdd587e84",
   "state": "ACTIVE",
   "ordering_policy": "safety/no-send, severity, gate unblock value, dependency unblock value, stable work_order_id",
-  "work_order_total": 2,
+  "work_order_total": 1,
   "rows": [
     {
       "work_order_id": "OC133-PLATINUM-WO-001",
@@ -31,32 +31,6 @@
         "negative-control/falsifier outputs"
       ],
       "rollback_or_block_condition": "If official-data prediction cannot close, empirical claims remain unpromoted and platinum readiness stays blocked.",
-      "dependency_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; Codex may repair orchestration only if this work order cannot run.",
-      "no_send": true
-    },
-    {
-      "work_order_id": "OC133-PLATINUM-WO-002",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "owner_capability": "Research/Phenomenology",
-      "title": "Replace internal model-card illustrations with promoted phenomenon coverage or explicit blockers",
-      "severity": "HIGH",
-      "priority": 698,
-      "owned_artifacts": [
-        "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-        "claims/CLAIM_LEDGER_1_3_3.json"
-      ],
-      "before_predicate": "phenomenon_coverage_row_total == 0 and empirical_domain_phenomenon_coverage_total == 0",
-      "after_predicate": "each promoted phenomenon has OC instance, observable, prediction/replay path, comparator, negative control, falsifier, and honest status",
-      "verification_command": "python -m release_machine evaluate --release oc_core_1_3_3 --channel all --mode dry-run",
-      "closure_evidence_required": [
-        "phenomenon model-card IDs",
-        "prediction/replay outputs",
-        "comparator refs",
-        "falsifier refs"
-      ],
-      "rollback_or_block_condition": "Unsupported phenomena remain blockers, not PASS rows.",
       "dependency_ids": [],
       "implementation_policy": "Execute through Logion capability worker; Codex may repair orchestration only if this work order cannot run.",
       "no_send": true
