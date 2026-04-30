@@ -13,6 +13,9 @@ RELEASE_ID = "oc_core_1_3_3"
 VERSION = "1.3.3"
 MISSION_ID = "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION"
 MISSION_DIR_REL = "operations/logion_release_mission/oc_core_1_3_3"
+ALL_DOMAIN_STATE_RUNNING = "OC_CORE_1_3_3_ALL_DOMAIN_SCIENTIFIC_READINESS_RUNNING"
+ALL_DOMAIN_READY_STATE = "ALL_DOMAIN_READY_NO_SEND"
+REQUIRED_EMPIRICAL_DOMAINS = ("physics", "chemistry", "biology", "systems", "mathematics")
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -162,6 +165,241 @@ def _journal_package_audit(root: Path) -> dict[str, Any]:
         "missing_components": missing[:40],
         "stale_132_ref_total": len(stale_refs),
         "stale_132_ref_venues": stale_refs[:20],
+    }
+
+
+def _package_surface_overclaim_audit(root: Path) -> dict[str, Any]:
+    patterns = [
+        "README.md",
+        "reports/OC_CORE_1_3_3_*.md",
+        "reports/OC_CORE_1_3_3_*.json",
+        "releases/oc_core_1_3_3/**/*.md",
+        "releases/oc_core_1_3_3/**/*.json",
+        "claims/*1_3_3*.json",
+        "docs/OC_1_3_3_*.md",
+        "docs/OC_1_3_3_*.json",
+    ]
+    forbidden = {
+        "theory of everything": "TOE-level claim",
+        "irrefutable": "irrefutability claim",
+        "final truth": "final-truth claim",
+        "universal numerical prediction": "universal numerical prediction claim",
+        "all-domain numerical prediction": "all-domain numerical prediction claim",
+        "ready to submit": "send-readiness claim",
+        "submission ready": "send-readiness claim",
+        "ready for submission": "send-readiness claim",
+    }
+    allowed_context = (
+        "not ",
+        "no ",
+        "false",
+        "forbidden",
+        "blocked",
+        "no-send",
+        "owner approval",
+        "owner-review",
+        "owner review",
+        "required",
+        "pending",
+    )
+    hits: list[dict[str, Any]] = []
+    seen: set[Path] = set()
+    for pattern in patterns:
+        for path in root.glob(pattern):
+            if not path.is_file() or path in seen or "__pycache__" in path.parts:
+                continue
+            seen.add(path)
+            body = path.read_text(encoding="utf-8", errors="ignore")
+            lower = body.lower()
+            for phrase, reason in forbidden.items():
+                start = 0
+                while True:
+                    idx = lower.find(phrase, start)
+                    if idx < 0:
+                        break
+                    ctx = lower[max(0, idx - 120): idx + len(phrase) + 120].replace("\n", " ")
+                    if not any(token in ctx for token in allowed_context):
+                        hits.append({
+                            "path": rel(root, path),
+                            "phrase": phrase,
+                            "reason": reason,
+                            "context": ctx[:240],
+                        })
+                    start = idx + len(phrase)
+    return {
+        "state": _state(not hits),
+        "hit_total": len(hits),
+        "hits": hits[:40],
+        "scan_policy": "Blocks unsupported TOE, all-domain prediction, irrefutability, final truth, and actual send-readiness claims unless context explicitly negates or owner-gates them.",
+    }
+
+
+def _all_domain_empirical_audit(root: Path) -> dict[str, Any]:
+    target = read_json(root / "validation" / "target_blind" / "OC133_TARGET_BLIND_PREDICTION_TABLE.json")
+    validation = read_json(root / "reports" / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json")
+    rows = target.get("rows", []) if isinstance(target.get("rows"), list) else []
+    passed_domains = sorted({
+        str(row.get("lane"))
+        for row in rows
+        if row.get("prediction_support_allowed") is True
+        and row.get("empirical_support_allowed") is True
+        and row.get("negative_control_rejected") is True
+        and row.get("residual") is not None
+        and row.get("uncertainty") is not None
+        and row.get("comparator_residual") is not None
+        and row.get("dataset_snapshot_ref")
+        and (root / str(row.get("dataset_snapshot_ref"))).exists()
+    })
+    missing = [domain for domain in REQUIRED_EMPIRICAL_DOMAINS if domain not in passed_domains]
+    row_field_failures = []
+    required_fields = (
+        "claim_id",
+        "lane",
+        "dataset_snapshot_ref",
+        "target_blind_split",
+        "formula",
+        "predicted_value",
+        "observed_value",
+        "uncertainty",
+        "comparator_baseline",
+        "comparator_prediction",
+        "residual",
+        "comparator_residual",
+        "negative_control",
+        "negative_control_rejected",
+        "falsifier",
+        "support_scope",
+    )
+    for row in rows:
+        missing_fields = [field for field in required_fields if row.get(field) in {None, ""}]
+        if missing_fields:
+            row_field_failures.append({"claim_id": row.get("claim_id"), "missing_fields": missing_fields})
+    ok = (
+        not missing
+        and not row_field_failures
+        and target.get("generated_by") == "LOGION_CAPABILITY_WORKER"
+        and target.get("capability_owner") == "Research/EmpiricalScience"
+        and target.get("failure_total") == 0
+        and validation.get("broad_domain_validation_promoted") is False
+        and validation.get("domain_validation_promoted") is False
+    )
+    return {
+        "state": _state(ok),
+        "required_domains": list(REQUIRED_EMPIRICAL_DOMAINS),
+        "passed_domains": passed_domains,
+        "passed_domain_total": len(passed_domains),
+        "missing_domains": missing,
+        "missing_domain_total": len(missing),
+        "target_blind_row_total": len(rows),
+        "target_blind_failure_total": target.get("failure_total"),
+        "target_blind_generated_by": target.get("generated_by"),
+        "target_blind_capability_owner": target.get("capability_owner"),
+        "row_field_failure_total": len(row_field_failures),
+        "row_field_failures": row_field_failures[:20],
+        "broad_domain_validation_promoted": validation.get("broad_domain_validation_promoted"),
+        "domain_validation_promoted": validation.get("domain_validation_promoted"),
+        "blocker": "All-domain readiness requires held-out or target-blind numeric evidence for every required domain. Partial target-blind support cannot certify all-domain readiness.",
+    }
+
+
+def _journal_send_readiness_audit(root: Path, journal: dict[str, Any]) -> dict[str, Any]:
+    base = root / "releases" / RELEASE_ID / "submission_packages"
+    index = read_json(base / "SUBMISSION_PACKAGE_INDEX.json")
+    rows = index.get("rows", []) if isinstance(index.get("rows"), list) else []
+    bad_send_unlocks = []
+    for row in rows:
+        venue_id = row.get("venue_id")
+        if row.get("submission_allowed") is not False or row.get("journal_submissions_allowed") is not False:
+            bad_send_unlocks.append(venue_id)
+    ok = (
+        journal.get("state") == "PASS"
+        and index.get("submission_allowed") is False
+        and index.get("journal_submissions_allowed") is False
+        and not bad_send_unlocks
+    )
+    return {
+        "state": _state(ok),
+        "owner_review_package_ready": journal.get("state") == "PASS",
+        "send_allowed_now": False,
+        "submission_allowed": index.get("submission_allowed"),
+        "journal_submissions_allowed": index.get("journal_submissions_allowed"),
+        "bad_send_unlock_total": len(bad_send_unlocks),
+        "bad_send_unlock_venues": bad_send_unlocks,
+        "package_total": journal.get("package_total", 0),
+        "recommended_package_total": journal.get("recommended_package_total", 0),
+        "blocker": "Journal packages may be owner-review-ready, but actual send readiness remains locked until owner approval and scientific all-domain evidence pass.",
+    }
+
+
+def all_domain_readiness_audit(root: Path, base_audit: dict[str, Any] | None = None) -> dict[str, Any]:
+    base_audit = base_audit or {}
+    journal = _journal_package_audit(root)
+    empirical = _all_domain_empirical_audit(root)
+    overclaim = _package_surface_overclaim_audit(root)
+    journal_send = _journal_send_readiness_audit(root, journal)
+    claims = read_json(root / "claims" / "CLAIM_LEDGER_1_3_3.json")
+    cerberus = read_json(root / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json")
+    theorem_inventory = read_json(root / "proofs" / "THEOREM_INVENTORY_1_3_3.json")
+    theorem_ok = (
+        claims.get("unsupported_promoted_total") == 0
+        and theorem_inventory.get("machine_checked_subset_total") == theorem_inventory.get("theorem_total")
+        and theorem_inventory.get("scientific_promotion_allowed_total", 0) > 0
+    )
+    cerberus_ok = (
+        cerberus.get("critical_open_total", 1) == 0
+        and cerberus.get("high_open_total", 1) == 0
+        and cerberus.get("parse_failure_total", 1) == 0
+        and cerberus.get("execution_bad_total", 1) == 0
+    )
+    checks = {
+        "all_domain_empirical_predictions": empirical,
+        "claim_boundary_no_overclaim": overclaim,
+        "journal_owner_review_packages": journal,
+        "journal_send_readiness_minus_owner_lock": journal_send,
+        "formal_theorem_evidence": {
+            "state": _state(theorem_ok),
+            "theorem_total": theorem_inventory.get("theorem_total"),
+            "machine_checked_subset_total": theorem_inventory.get("machine_checked_subset_total"),
+            "scientific_promotion_allowed_total": theorem_inventory.get("scientific_promotion_allowed_total"),
+            "unsupported_promoted_total": claims.get("unsupported_promoted_total"),
+        },
+        "cerberus_critical_high": {
+            "state": _state(cerberus_ok),
+            "critical_open_total": cerberus.get("critical_open_total"),
+            "high_open_total": cerberus.get("high_open_total"),
+            "parse_failure_total": cerberus.get("parse_failure_total"),
+            "execution_bad_total": cerberus.get("execution_bad_total"),
+        },
+    }
+    blockers = {key: row for key, row in checks.items() if row.get("state") != "PASS"}
+    if "journal_owner_review_packages" in blockers or "journal_send_readiness_minus_owner_lock" in blockers:
+        final_state = "JOURNAL_PACKAGE_REPAIR_REQUIRED"
+    elif blockers:
+        final_state = "SCIENTIFIC_BLOCKERS_REMAIN"
+    else:
+        final_state = ALL_DOMAIN_READY_STATE
+    work_orders = build_all_domain_work_orders(blockers)
+    return {
+        "schema_id": "OC133_ALL_DOMAIN_SCIENTIFIC_READINESS_AUDIT_v1",
+        "mission_id": MISSION_ID,
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_at": TIMESTAMP,
+        "state": ALL_DOMAIN_READY_STATE if not blockers else ALL_DOMAIN_STATE_RUNNING,
+        "final_readiness_state": final_state,
+        "all_domain_ready_no_send": not blockers,
+        "blocker_total": len(blockers),
+        "blocker_ids": list(blockers),
+        "checks": checks,
+        "work_order_total": len(work_orders),
+        "work_order_queue_sha256": sha256_object(work_orders),
+        "next_automatic_action": work_orders[0]["work_order_id"] if work_orders else "OWNER_REVIEW_NO_SEND",
+        "base_content_closure_state": base_audit.get("state"),
+        "base_content_closure_blocker_total": base_audit.get("blocker_total"),
+        "no_send": True,
+        "publish_allowed": False,
+        "journal_submissions_allowed": False,
+        "work_orders": work_orders,
     }
 
 
@@ -429,6 +667,68 @@ def build_work_orders(blocker_checks: dict[str, dict[str, Any]]) -> list[dict[st
     return sorted(orders, key=lambda row: (-int(row["priority"]), row["work_order_id"]))
 
 
+def build_all_domain_work_orders(blocker_checks: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    orders: list[dict[str, Any]] = []
+    idx = 1
+    if "all_domain_empirical_predictions" in blocker_checks:
+        row = blocker_checks["all_domain_empirical_predictions"]
+        orders.append(_work_order(
+            idx=idx,
+            capability="Research/EmpiricalScience",
+            title="Close all-domain held-out or target-blind numeric prediction evidence",
+            severity="CRITICAL",
+            artifacts=[
+                "validation/target_blind/",
+                "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+                "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_READINESS_SCORECARD.json",
+            ],
+            before_predicate=f"missing_domains == {row.get('missing_domains', [])}",
+            after_predicate="each required domain has formula, pinned snapshot, split policy, numeric prediction, uncertainty, comparator, residual, negative control, falsifier, and replay hash",
+            verification_command="python tools/oc133_logion_all_domain_readiness.py --execute-next --write",
+            closure_evidence_required=[
+                "per-domain target-blind or held-out prediction rows",
+                "dataset snapshot refs and hashes",
+                "negative-control/falsifier outputs",
+                "Logion capability execution ledger row",
+            ],
+            block_condition="If a domain cannot honestly close, keep ALL_DOMAIN_SCIENTIFIC_READINESS_RUNNING and do not claim TOE/all-domain prediction readiness.",
+        ))
+        idx += 1
+    if "claim_boundary_no_overclaim" in blocker_checks:
+        orders.append(_work_order(
+            idx=idx,
+            capability="Review/ClaimBoundary",
+            title="Remove or block unsupported TOE/all-domain/send-readiness overclaims",
+            severity="CRITICAL",
+            artifacts=[
+                "README.md",
+                "reports/OC_CORE_1_3_3_*.md",
+                "releases/oc_core_1_3_3/submission_packages/",
+                "claims/CLAIM_LEDGER_1_3_3.json",
+            ],
+            before_predicate="overclaim hit_total > 0",
+            after_predicate="no unsupported TOE, irrefutable, final-truth, all-domain prediction, or send-readiness wording appears outside explicit negation/owner-gated context",
+            verification_command="python tools/oc133_logion_all_domain_readiness.py --write",
+            closure_evidence_required=["overclaim scan hit_total=0", "claim-boundary correction refs"],
+            block_condition="Unsupported ambitious claims remain blockers until proven or removed from promoted surfaces.",
+        ))
+        idx += 1
+    if "journal_owner_review_packages" in blocker_checks or "journal_send_readiness_minus_owner_lock" in blocker_checks:
+        orders.append(_work_order(
+            idx=idx,
+            capability="Publication/JournalPackages",
+            title="Verify journal package completeness without unlocking submission",
+            severity="HIGH",
+            artifacts=["releases/oc_core_1_3_3/submission_packages/"],
+            before_predicate="package missing, stale, overclaiming, or submission_allowed not false",
+            after_predicate="8 complete owner-review no-send packages exist; actual submission remains locked by owner approval and scientific all-domain gates",
+            verification_command="python tools/oc133_logion_all_domain_readiness.py --write",
+            closure_evidence_required=["SUBMISSION_PACKAGE_INDEX.json", "venue manifests", "NO_SEND/OWNER_APPROVAL_REQUIRED fields"],
+            block_condition="No journal package may claim actual send readiness while owner approval is pending.",
+        ))
+    return sorted(orders, key=lambda row: (-int(row["priority"]), row["work_order_id"]))
+
+
 def render_cockpit(audit: dict[str, Any]) -> str:
     lines = [
         "# OC Core 1.3.3 Platinum Release Mission Cockpit",
@@ -469,8 +769,59 @@ def render_cockpit(audit: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def render_all_domain_cockpit(audit: dict[str, Any]) -> str:
+    empirical = audit["checks"].get("all_domain_empirical_predictions", {})
+    journal = audit["checks"].get("journal_owner_review_packages", {})
+    lines = [
+        "# OC Core 1.3.3 All-Domain Scientific Readiness Cockpit",
+        "",
+        f"Mission: `{MISSION_ID}`",
+        f"State: `{audit['state']}`",
+        f"Final readiness state: `{audit['final_readiness_state']}`",
+        f"All-domain ready no-send: `{str(audit['all_domain_ready_no_send']).lower()}`",
+        f"Blockers: `{audit['blocker_total']}`",
+        f"Next automatic action: `{audit['next_automatic_action']}`",
+        "Public action allowed: `false`",
+        "Journal submissions allowed: `false`",
+        "",
+        "## Counters",
+        "",
+        f"- Required empirical domains: `{len(REQUIRED_EMPIRICAL_DOMAINS)}`",
+        f"- Passed empirical domains: `{empirical.get('passed_domain_total', 0)}`",
+        f"- Missing empirical domains: `{empirical.get('missing_domain_total', 0)}`",
+        f"- Journal owner-review packages: `{journal.get('package_total', 0)}`",
+        "",
+        "## Capability Checks",
+        "",
+        "| Check | State | Key Counter |",
+        "| --- | --- | --- |",
+    ]
+    for key, row in audit["checks"].items():
+        counter = ""
+        for candidate in (
+            "missing_domain_total",
+            "hit_total",
+            "package_total",
+            "bad_send_unlock_total",
+            "theorem_total",
+            "critical_open_total",
+        ):
+            if candidate in row:
+                counter = f"`{candidate}={row[candidate]}`"
+                break
+        lines.append(f"| `{key}` | `{row.get('state')}` | {counter} |")
+    lines.extend(["", "## Active Work Orders", ""])
+    if not audit["work_orders"]:
+        lines.append("- none")
+    for row in audit["work_orders"]:
+        lines.append(f"- `{row['work_order_id']}` `{row['owner_capability']}` `{row['severity']}`: {row['title']}")
+        lines.append(f"  Verification: `{row['verification_command']}`")
+    return "\n".join(lines) + "\n"
+
+
 def write_mission_outputs(root: Path, audit: dict[str, Any] | None = None) -> dict[str, str]:
     audit = audit or content_closure_audit(root)
+    all_domain_audit = all_domain_readiness_audit(root, audit)
     base = mission_dir(root)
     mission_packet = {
         "schema_id": "OC133_PLATINUM_RELEASE_MISSION_CONTRACT_v1",
@@ -486,6 +837,8 @@ def write_mission_outputs(root: Path, audit: dict[str, Any] | None = None) -> di
             "Research/IT/Publication/Review capability workers",
         ],
         "mission_state": audit["state"],
+        "all_domain_scientific_readiness_state": all_domain_audit["state"],
+        "final_readiness_state": all_domain_audit["final_readiness_state"],
         "codex_role": "controller_auditor_orchestration_repair_only",
         "no_send": True,
         "owner_approval_required": True,
@@ -493,8 +846,11 @@ def write_mission_outputs(root: Path, audit: dict[str, Any] | None = None) -> di
         "publish_allowed": False,
         "journal_submissions_allowed": False,
         "content_closure_audit_ref": f"{MISSION_DIR_REL}/OC133_CONTENT_CLOSURE_SCORECARD.json",
+        "all_domain_readiness_audit_ref": f"{MISSION_DIR_REL}/OC133_ALL_DOMAIN_READINESS_SCORECARD.json",
         "dispatch_queue_ref": f"{MISSION_DIR_REL}/OC133_LOGION_LIVE_DISPATCH_QUEUE.json",
+        "all_domain_dispatch_queue_ref": f"{MISSION_DIR_REL}/OC133_ALL_DOMAIN_WORK_ORDERS.json",
         "cockpit_ref": f"{MISSION_DIR_REL}/OC133_LOGION_RELEASE_COCKPIT.md",
+        "all_domain_cockpit_ref": f"{MISSION_DIR_REL}/OC133_ALL_DOMAIN_READINESS_COCKPIT.md",
         "historical_intent_preflight_policy": "Run/reuse K6 historical-intent preflight before creating duplicate factory/factory-of-factories infrastructure; extend existing Logion capabilities where possible.",
     }
     dispatch = {
@@ -523,15 +879,33 @@ def write_mission_outputs(root: Path, audit: dict[str, Any] | None = None) -> di
         "git_status_policy": "Full dirty-file listing is intentionally excluded from this certificate to avoid self-referential staging drift; use external git status for closeout.",
         "no_send": True,
     }
+    all_domain_dispatch = {
+        "schema_id": "OC133_ALL_DOMAIN_WORK_ORDERS_v1",
+        "mission_id": MISSION_ID,
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_at": TIMESTAMP,
+        "queue_sha256": all_domain_audit["work_order_queue_sha256"],
+        "state": "ACTIVE" if all_domain_audit["work_orders"] else "EMPTY_OWNER_REVIEW_NO_SEND",
+        "ordering_policy": "safety/no-send, all-domain evidence blocker, claim-boundary blocker, journal-package blocker, stable work_order_id",
+        "work_order_total": all_domain_audit["work_order_total"],
+        "rows": all_domain_audit["work_orders"],
+    }
     write_json(base / "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION.json", mission_packet)
     write_json(base / "OC133_CONTENT_CLOSURE_SCORECARD.json", audit)
+    write_json(base / "OC133_ALL_DOMAIN_READINESS_SCORECARD.json", all_domain_audit)
     write_json(base / "OC133_LOGION_LIVE_DISPATCH_QUEUE.json", dispatch)
+    write_json(base / "OC133_ALL_DOMAIN_WORK_ORDERS.json", all_domain_dispatch)
     write_json(base / "OC133_TRAJECTORY_CERTIFICATE_latest.json", trajectory)
     write_text(base / "OC133_LOGION_RELEASE_COCKPIT.md", render_cockpit(audit))
+    write_text(base / "OC133_ALL_DOMAIN_READINESS_COCKPIT.md", render_all_domain_cockpit(all_domain_audit))
     return {
         "mission_ref": f"{MISSION_DIR_REL}/OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION.json",
         "scorecard_ref": f"{MISSION_DIR_REL}/OC133_CONTENT_CLOSURE_SCORECARD.json",
+        "all_domain_scorecard_ref": f"{MISSION_DIR_REL}/OC133_ALL_DOMAIN_READINESS_SCORECARD.json",
         "dispatch_ref": f"{MISSION_DIR_REL}/OC133_LOGION_LIVE_DISPATCH_QUEUE.json",
+        "all_domain_dispatch_ref": f"{MISSION_DIR_REL}/OC133_ALL_DOMAIN_WORK_ORDERS.json",
         "cockpit_ref": f"{MISSION_DIR_REL}/OC133_LOGION_RELEASE_COCKPIT.md",
+        "all_domain_cockpit_ref": f"{MISSION_DIR_REL}/OC133_ALL_DOMAIN_READINESS_COCKPIT.md",
         "trajectory_ref": f"{MISSION_DIR_REL}/OC133_TRAJECTORY_CERTIFICATE_latest.json",
     }

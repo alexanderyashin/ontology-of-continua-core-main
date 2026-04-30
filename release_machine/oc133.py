@@ -483,15 +483,19 @@ def evaluate_release(release: str = RELEASE_ID, channel: str = "all", mode: str 
     findings = [row for row in results if row["state"] in {"FAIL", "BLOCKED", "WARN"}]
     hard_bad = [row for row in findings if row["severity"] in {"CRITICAL", "HIGH"} and row["state"] in {"FAIL", "BLOCKED"}]
     platinum_audit = oc133_platinum.content_closure_audit(root)
+    all_domain_audit = oc133_platinum.all_domain_readiness_audit(root, platinum_audit)
     platinum_refs = oc133_platinum.write_mission_outputs(root, platinum_audit) if write else {}
     content_blocked = platinum_audit.get("state") != "PASS"
+    all_domain_blocked = all_domain_audit.get("all_domain_ready_no_send") is not True
     technical_state = "SCIENTIFIC_BLOCKERS_REMAIN" if hard_bad else "OC_CORE_1_3_3_10_10_READY_NO_SEND"
     if hard_bad:
         release_state = "SCIENTIFIC_BLOCKERS_REMAIN"
     elif content_blocked:
         release_state = "SCIENTIFIC_CONTENT_CLOSURE_RUNNING"
+    elif all_domain_blocked:
+        release_state = all_domain_audit.get("final_readiness_state", "SCIENTIFIC_BLOCKERS_REMAIN")
     else:
-        release_state = "OC_CORE_1_3_3_PLATINUM_READY_NO_SEND"
+        release_state = "ALL_DOMAIN_READY_NO_SEND"
     summary = {
         "release_id": RELEASE_ID,
         "version": VERSION,
@@ -500,7 +504,7 @@ def evaluate_release(release: str = RELEASE_ID, channel: str = "all", mode: str 
         "generated_at": TIMESTAMP,
         "release_state": release_state,
         "technical_gate_state": technical_state,
-        "master_verdict": "FAIL" if hard_bad or content_blocked else "PASS",
+        "master_verdict": "FAIL" if hard_bad or content_blocked or all_domain_blocked else "PASS",
         "gate_counts": summarize_results(results),
         "critical_findings": sum(1 for row in findings if row["severity"] == "CRITICAL"),
         "high_findings": sum(1 for row in findings if row["severity"] == "HIGH"),
@@ -509,6 +513,12 @@ def evaluate_release(release: str = RELEASE_ID, channel: str = "all", mode: str 
         "content_closure_blocker_total": platinum_audit.get("blocker_total"),
         "content_closure_blocker_ids": platinum_audit.get("blocker_ids"),
         "content_closure_refs": platinum_refs,
+        "all_domain_scientific_readiness_state": all_domain_audit.get("state"),
+        "all_domain_final_readiness_state": all_domain_audit.get("final_readiness_state"),
+        "all_domain_ready_no_send": all_domain_audit.get("all_domain_ready_no_send"),
+        "all_domain_blocker_total": all_domain_audit.get("blocker_total"),
+        "all_domain_blocker_ids": all_domain_audit.get("blocker_ids"),
+        "all_domain_missing_empirical_domains": all_domain_audit.get("checks", {}).get("all_domain_empirical_predictions", {}).get("missing_domains", []),
         "owner_approval_required": True,
         "global_no_send_lock": True,
         "publish_allowed": False,

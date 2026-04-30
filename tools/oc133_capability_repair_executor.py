@@ -14,6 +14,11 @@ REPAIR_DIR = ROOT / "reviews" / "oc133_llm_cerberus" / "repair"
 DEFAULT_WORK_ORDERS = REPAIR_DIR / "OC133_CERBERUS_REPAIR_WORK_ORDERS.json"
 PROFILE_LEDGER = REPAIR_DIR / "OC133_CAPABILITY_REPAIR_EXECUTION_LEDGER.json"
 
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from release_machine import oc133_platinum  # noqa: E402
+
 
 def read_json(path: Path) -> dict[str, Any]:
     if not path.exists():
@@ -293,6 +298,50 @@ def check_target_blind_empirical_repair() -> dict[str, Any]:
     }
 
 
+def check_all_domain_empirical_readiness() -> dict[str, Any]:
+    audit = oc133_platinum.all_domain_readiness_audit(ROOT)
+    empirical = audit.get("checks", {}).get("all_domain_empirical_predictions", {})
+    return {
+        "profile": "v12_all_domain_empirical_readiness_repair",
+        "audit_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_READINESS_SCORECARD.json",
+        "required_domains": empirical.get("required_domains", []),
+        "passed_domains": empirical.get("passed_domains", []),
+        "missing_domains": empirical.get("missing_domains", []),
+        "missing_domain_total": empirical.get("missing_domain_total", 0),
+        "state": "PASS" if empirical.get("state") == "PASS" else "FAIL",
+        "block_condition": "Missing domains are not auto-filled. Research/EmpiricalScience must produce honest held-out or target-blind evidence before this profile passes.",
+    }
+
+
+def check_claim_boundary_overclaim() -> dict[str, Any]:
+    audit = oc133_platinum.all_domain_readiness_audit(ROOT)
+    row = audit.get("checks", {}).get("claim_boundary_no_overclaim", {})
+    return {
+        "profile": "v12_claim_boundary_overclaim_repair",
+        "hit_total": row.get("hit_total", 0),
+        "hits": row.get("hits", []),
+        "state": row.get("state"),
+    }
+
+
+def check_journal_package_readiness() -> dict[str, Any]:
+    audit = oc133_platinum.all_domain_readiness_audit(ROOT)
+    package = audit.get("checks", {}).get("journal_owner_review_packages", {})
+    send = audit.get("checks", {}).get("journal_send_readiness_minus_owner_lock", {})
+    state = "PASS" if package.get("state") == "PASS" and send.get("state") == "PASS" else "FAIL"
+    return {
+        "profile": "v12_journal_package_readiness_repair",
+        "owner_review_package_ready": package.get("state") == "PASS",
+        "send_allowed_now": send.get("send_allowed_now"),
+        "submission_allowed": send.get("submission_allowed"),
+        "journal_submissions_allowed": send.get("journal_submissions_allowed"),
+        "bad_send_unlock_total": send.get("bad_send_unlock_total"),
+        "package_total": package.get("package_total"),
+        "recommended_package_total": package.get("recommended_package_total"),
+        "state": state,
+    }
+
+
 def check_no_send_public_surface() -> dict[str, Any]:
     manifest = read_json(ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json")
     phenomenon = read_json(ROOT / "docs" / "OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json")
@@ -374,6 +423,15 @@ def check_profile(profile: str) -> dict[str, Any]:
         return {"profile": profile, "audit": audit, "state": audit["state"]}
     if profile == "v12_target_blind_empirical_repair":
         audit = check_target_blind_empirical_repair()
+        return {"profile": profile, "audit": audit, "state": audit["state"]}
+    if profile == "v12_all_domain_empirical_readiness_repair":
+        audit = check_all_domain_empirical_readiness()
+        return {"profile": profile, "audit": audit, "state": audit["state"]}
+    if profile == "v12_claim_boundary_overclaim_repair":
+        audit = check_claim_boundary_overclaim()
+        return {"profile": profile, "audit": audit, "state": audit["state"]}
+    if profile == "v12_journal_package_readiness_repair":
+        audit = check_journal_package_readiness()
         return {"profile": profile, "audit": audit, "state": audit["state"]}
     if profile == "v12_no_send_public_surface_repair":
         audit = check_no_send_public_surface()

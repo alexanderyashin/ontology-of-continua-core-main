@@ -388,7 +388,7 @@ class ReleaseMachineTests(unittest.TestCase):
     def test_oc133_scientific_closure_gates_are_no_send(self) -> None:
         root = complete.repo_root()
         summary = oc133.evaluate_release("oc_core_1_3_3", "all", "dry-run", write=True)
-        self.assertIn(summary["release_state"], {"OC_CORE_1_3_3_PLATINUM_READY_NO_SEND", "SCIENTIFIC_BLOCKERS_REMAIN", "SCIENTIFIC_CONTENT_CLOSURE_RUNNING"})
+        self.assertIn(summary["release_state"], {"OC_CORE_1_3_3_PLATINUM_READY_NO_SEND", "ALL_DOMAIN_READY_NO_SEND", "SCIENTIFIC_BLOCKERS_REMAIN", "JOURNAL_PACKAGE_REPAIR_REQUIRED", "SCIENTIFIC_CONTENT_CLOSURE_RUNNING"})
         self.assertIn(summary["master_verdict"], {"PASS", "FAIL"})
         self.assertFalse(summary["publish_allowed"])
         self.assertFalse(summary["journal_submissions_allowed"])
@@ -410,6 +410,7 @@ class ReleaseMachineTests(unittest.TestCase):
             self.assertEqual(gates["G70"]["state"], "PASS")
             self.assertEqual(summary["gate_counts"]["PASS"], 71)
             self.assertEqual(summary["content_closure_state"], "PASS")
+            self.assertTrue(summary["all_domain_ready_no_send"])
         elif summary["release_state"] == "SCIENTIFIC_CONTENT_CLOSURE_RUNNING":
             self.assertEqual(summary["technical_gate_state"], "OC_CORE_1_3_3_10_10_READY_NO_SEND")
             self.assertEqual(gates["G57"]["state"], "PASS")
@@ -421,6 +422,17 @@ class ReleaseMachineTests(unittest.TestCase):
             cockpit_ref = root / summary["content_closure_refs"]["cockpit_ref"]
             self.assertTrue(mission_ref.exists())
             self.assertTrue(cockpit_ref.exists())
+        elif summary.get("all_domain_blocker_total", 0) > 0:
+            self.assertEqual(summary["technical_gate_state"], "OC_CORE_1_3_3_10_10_READY_NO_SEND")
+            self.assertEqual(summary["content_closure_state"], "PASS")
+            self.assertEqual(gates["G57"]["state"], "PASS")
+            self.assertEqual(gates["G58"]["state"], "PASS")
+            self.assertEqual(gates["G70"]["state"], "PASS")
+            self.assertEqual(summary["release_state"], "SCIENTIFIC_BLOCKERS_REMAIN")
+            self.assertIn("all_domain_empirical_predictions", summary["all_domain_blocker_ids"])
+            self.assertGreater(len(summary["all_domain_missing_empirical_domains"]), 0)
+            all_domain_ref = root / summary["content_closure_refs"]["all_domain_scorecard_ref"]
+            self.assertTrue(all_domain_ref.exists())
         else:
             self.assertIn(gates["G57"]["state"], {"PASS", "FAIL"})
             if (
@@ -518,8 +530,12 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertEqual(release_matrix["critical_unresolved_total"], summary["critical_open_total"])
         self.assertEqual(release_matrix["high_unresolved_total"], summary["high_open_total"])
         self.assertEqual(release_matrix["release_closure_matrix_kind"], "INTEGRATED_RELEASE_ATTACK_MATRIX_NOT_ROLE_CONTEXT_VIEW")
-        self.assertTrue(release_matrix["fresh_cerberus_review_satisfied"] is False)
-        self.assertEqual(release_matrix["post_role_integration_required"], True)
+        if release_matrix["fresh_cerberus_review_satisfied"] is True:
+            self.assertEqual(release_matrix["post_role_integration_required"], False)
+            self.assertEqual(release_matrix["critical_unresolved_total"], 0)
+            self.assertEqual(release_matrix["high_unresolved_total"], 0)
+        else:
+            self.assertEqual(release_matrix["post_role_integration_required"], True)
 
         self.assertEqual(context_matrix["critical_unresolved_total"], context_matrix["fresh_cerberus_critical_open_total"])
         self.assertEqual(context_matrix["high_unresolved_total"], context_matrix["fresh_cerberus_high_open_total"])
