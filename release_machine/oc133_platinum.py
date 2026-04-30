@@ -169,7 +169,8 @@ def content_closure_audit(root: Path) -> dict[str, Any]:
     claims = read_json(root / "claims" / "CLAIM_LEDGER_1_3_3.json")
     theorem_inventory = read_json(root / "proofs" / "THEOREM_INVENTORY_1_3_3.json")
     validation = read_json(root / "reports" / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json")
-    numeric = read_json(root / "validation" / "numeric_predictions" / "OC133_NUMERIC_PREDICTION_TABLE.json")
+    target_blind = read_json(root / "validation" / "target_blind" / "OC133_TARGET_BLIND_PREDICTION_TABLE.json")
+    numeric = target_blind or read_json(root / "validation" / "numeric_predictions" / "OC133_NUMERIC_PREDICTION_TABLE.json")
     novelty = read_json(root / "comparators" / "OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json")
     phenomenon = read_json(root / "docs" / "OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json")
     cerberus = read_json(root / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json")
@@ -183,9 +184,16 @@ def content_closure_audit(root: Path) -> dict[str, Any]:
     )
     empirical_ok = (
         validation.get("heldout_prediction_support_present") is True
-        and validation.get("domain_validation_promoted") is True
+        and validation.get("target_blind_bounded_reconstruction_support_present") is True
+        and validation.get("broad_domain_validation_promoted") is False
+        and validation.get("domain_validation_support_allowed") is False
         and numeric.get("prediction_support_allowed_total", 0) > 0
+        and numeric.get("failure_total", 0) == 0
         and numeric.get("unsupported_promoted_total", 0) == 0
+        and target_blind.get("generated_by") == "LOGION_CAPABILITY_WORKER"
+        and target_blind.get("capability_owner") == "Research/EmpiricalScience"
+        and target_blind.get("closure_predicates", {}).get("all_rows_have_formula_snapshot_split_uncertainty_comparator_residual_negative_control_falsifier") is True
+        and target_blind.get("closure_predicates", {}).get("scope_is_bounded_not_domain_validation") is True
     )
     novelty_ok = (
         (
@@ -223,7 +231,13 @@ def content_closure_audit(root: Path) -> dict[str, Any]:
             "state": _state(empirical_ok),
             "heldout_prediction_support_present": validation.get("heldout_prediction_support_present", False),
             "domain_validation_promoted": validation.get("domain_validation_promoted", False),
+            "broad_domain_validation_promoted": validation.get("broad_domain_validation_promoted"),
+            "target_blind_bounded_reconstruction_support_present": validation.get("target_blind_bounded_reconstruction_support_present"),
             "prediction_support_allowed_total": numeric.get("prediction_support_allowed_total", 0),
+            "target_blind_prediction_support_allowed_total": validation.get("target_blind_prediction_support_allowed_total", 0),
+            "target_blind_generated_by": target_blind.get("generated_by"),
+            "target_blind_capability_owner": target_blind.get("capability_owner"),
+            "target_blind_required_predicates_ok": target_blind.get("closure_predicates", {}).get("all_rows_have_formula_snapshot_split_uncertainty_comparator_residual_negative_control_falsifier"),
             "validation_verdict": validation.get("verdict"),
             "blocker": "Current numeric lanes are QA replay quarantine, not held-out or target-blind empirical prediction evidence.",
         },
@@ -315,17 +329,19 @@ def build_work_orders(blocker_checks: dict[str, dict[str, Any]]) -> list[dict[st
             severity="CRITICAL",
             artifacts=[
                 "validation/numeric_predictions/",
+                "validation/target_blind/",
                 "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
                 "claims/CLAIM_LEDGER_1_3_3.json",
             ],
             before_predicate="heldout_prediction_support_present=false and numeric replay rows are QA-only",
             after_predicate="formula, dataset snapshot, split policy, prediction, uncertainty, comparator, residuals, negative control, and falsifier are present for each promoted empirical claim",
-            verification_command="python validation/run_all.py && python -m release_machine evaluate --release oc_core_1_3_3 --channel all --mode dry-run",
+            verification_command="python tools/oc133_logion_release_mission.py --execute-next --write",
             closure_evidence_required=[
                 "dataset manifest hashes",
                 "train/test or target-blind replay logs",
                 "numeric prediction table rows",
                 "negative-control/falsifier outputs",
+                "Logion capability execution ledger row",
             ],
             block_condition="If official-data prediction cannot close, empirical claims remain unpromoted and platinum readiness stays blocked.",
         ))

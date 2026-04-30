@@ -1,0 +1,74 @@
+{
+  "schema_id": "OC133_LOGION_CAPABILITY_EXECUTION_LEDGER_v1",
+  "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "row_total": 1,
+  "pass_total": 1,
+  "fail_total": 0,
+  "latest_work_order_id": "OC133-PLATINUM-WO-001",
+  "latest_execution_state": "PASS",
+  "no_send": true,
+  "publish_allowed": false,
+  "journal_submissions_allowed": false,
+  "rows": [
+    {
+      "work_order_id": "OC133-PLATINUM-WO-001",
+      "owner_capability": "Research/EmpiricalScience",
+      "title": "Build held-out or target-blind numeric prediction lanes",
+      "before_state": "FAIL",
+      "after_state": "PASS",
+      "execution_state": "PASS",
+      "artifact_exists_is_not_closure": true,
+      "predicate_checks": {
+        "target_worker_returncode_zero": true,
+        "validation_returncode_zero": true,
+        "target_blind_generated_by_logion_worker": true,
+        "target_blind_capability_owner_ok": true,
+        "target_blind_required_fields_and_controls_ok": true,
+        "target_blind_scope_bounded_not_domain_validation": true,
+        "validation_holds_heldout_support": true,
+        "empirical_content_check_pass": true
+      },
+      "closure_evidence_refs": [
+        "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+        "operations/logion_release_mission/oc_core_1_3_3/OC133_CONTENT_CLOSURE_SCORECARD.json"
+      ],
+      "commands": [
+        {
+          "cmd": [
+            "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+            "validation/target_blind/run_target_blind_predictions.py"
+          ],
+          "cwd": "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main",
+          "returncode": 0,
+          "stdout_tail": "{\n  \"schema_id\": \"OC133_TARGET_BLIND_PREDICTION_TABLE_v1\",\n  \"release_id\": \"oc_core_1_3_3\",\n  \"version\": \"1.3.3\",\n  \"generated_by\": \"LOGION_CAPABILITY_WORKER\",\n  \"capability_owner\": \"Research/EmpiricalScience\",\n  \"work_order_id\": \"OC133-PLATINUM-WO-001\",\n  \"executor\": \"validation/target_blind/run_target_blind_predictions.py\",\n  \"execution_policy\": \"This worker may generate bounded target-blind evidence only when dispatched by the Logion release mission or validation runner; no broad domain validation or TOE truth claim is permitted.\",\n  \"row_total\": 2,\n  \"lane_total\": 2,\n  \"prediction_support_allowed_total\": 2,\n  \"empirical_support_allowed_total\": 2,\n  \"failure_total\": 0,\n  \"failures\": [],\n  \"artifact_exists_is_not_closure\": true,\n  \"closure_predicates\": {\n    \"all_rows_have_formula_snapshot_split_uncertainty_comparator_residual_negative_control_falsifier\": true,\n    \"scope_is_bounded_not_domain_validation\": true\n  },\n  \"support_policy\": \"Rows are target-blind held-out reconstructions over pinned official snapshots. They support bounded numeric reconstruction claims only, not broad domain validation or novelty.\",\n  \"rows\": [\n    {\n      \"claim_id\": \"OC133-TARGETBLIND-CHEMISTRY-001\",\n      \"lane\": \"chemistry\",\n      \"dataset_snapshot_ref\": \"validation/_raw/chemistry_pubchem_water.txt\",\n      \"target_blind_split\": \"formula field is visible; MolecularWeight target is withheld until scoring\",\n      \"formula\": \"2*atomic_weight(H)+atomic_weight(O)\",\n      \"predicted_value\": 18.01528,\n      \"observed_value\": 18.015,\n      \"uncertainty\": 0.02,\n      \"comparator_baseline\": \"CO2 molecular-weight negative control against water target\",\n      \"comparator_prediction\": 44.0095,\n      \"residual\": 0.000280000000000058,\n      \"comparator_residual\": 25.994500000000002,\n      \"negative_control\": \"replace H2O by CO2 and require larger residual\",\n      \"negative_control_rejected\": true,\n      \"falsifier\": \"Residual exceeds declared uncertainty or CO2 control is not worse than formula reconstruction\",\n      \"prediction_support_allowed\": true,\n      \"empirical_support_allowed\": true,\n      \"support_scope\": \"target-blind reconstruction of a held-out official snapshot field; not a novel chemistry law\"\n    },\n    {\n      \"claim_id\": \"OC133-TARGETBLIND-SYSTEMS-001\",\n      \"lane\": \"systems\",\n      \"dataset_snapshot_ref\": \"validation/_raw/systems_world_bank_gdp.txt\",\n      \"target_blind_split\": \"2021-2023 train rows predict withheld 2024 World Bank WDI target\",\n      \"formula\": \"GDP_2023 + (GDP_2023-GDP_2021)/2\",\n      \"predicted_value\": 111042234099108.1,\n      \"observed_value\": 110982661180013.0,\n      \"uncertainty\": 1109826611800.1301,\n      \"comparator_baseline\": \"last-observation carry-forward GDP_2023\",\n      \"comparator_prediction\": 106741647821064.0,\n      \"residual\": 59572919095.09375,\n      \"comparator_residual\": 4241013358949.0,\n      \"negative_control\": \"last-observation baseline must have larger residual\",\n      \"negative_control_rejected\": true,\n      \"falsifier\": \"Held-out residual exceeds 1 percent of observed target or comparator is not worse\",\n      \"prediction_support_allowed\": true,\n      \"empirical_support_allowed\": true,\n      \"support_scope\": \"retrospective target-blind holdout over pinned WDI rows; not a prospective macroeconomic law\"\n    }\n  ]\n}\n",
+          "stderr_tail": ""
+        },
+        {
+          "cmd": [
+            "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+            "validation/run_all.py",
+            "--materialize-first",
+            "--qa-only"
+          ],
+          "cwd": "C:\\Users\\Megaport\\work\\logion_local\\repos\\ontology-of-continua-core-main",
+          "returncode": 0,
+          "stdout_tail": ": 299792458.0,\n          \"table_parsed_snapshot_value\": 299792458.0,\n          \"computed_residual\": 0.0,\n          \"computed_comparator_residual\": 207542.0,\n          \"declared_replay_residual\": 0.0,\n          \"declared_comparator_residual\": 207542.0,\n          \"residual_kind\": \"replay_residual_not_comparator_performance\",\n          \"residual_matches\": true,\n          \"comparator_residual_matches\": true,\n          \"negative_control_residual\": 207542.0,\n          \"negative_control_method\": \"replace c by 300000000 and residual becomes nonzero\",\n          \"negative_control_rejected\": true,\n          \"prediction_support_allowed\": false,\n          \"empirical_support_allowed\": false,\n          \"replay_barred_from_prediction_support\": true,\n          \"quarantine_reason\": \"exact definitional snapshot replay; QA only, not a prediction\"\n        }\n      ]\n    },\n    {\n      \"schema_id\": \"OC133_LANE_REPLAY_RESULT_v12\",\n      \"lane\": \"systems\",\n      \"release_id\": \"oc_core_1_3_3\",\n      \"version\": \"1.3.3\",\n      \"result_verdict\": \"NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION\",\n      \"remaining_blocker\": \"NOT_EMPIRICAL_PROMOTION_NUMERIC_REPLAY_QA_ONLY\",\n      \"failure_total\": 0,\n      \"failures\": [],\n      \"source_log_ref\": \"validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json\",\n      \"rows\": [\n        {\n          \"claim_id\": \"OC133-NUM-SYS-WDI-GDP\",\n          \"lane\": \"systems\",\n          \"dataset_snapshot_ref\": \"validation/_raw/systems_world_bank_gdp.txt\",\n          \"snapshot_opened\": true,\n          \"snapshot_sha256\": \"52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b\",\n          \"snapshot_sha256_policy\": \"LF_NORMALIZED_TEXT_SNAPSHOT_HASH\",\n          \"snapshot_byte_count\": 1102,\n          \"snapshot_byte_count_policy\": \"LF_NORMALIZED_TEXT_SNAPSHOT_BYTES\",\n          \"snapshot_parser\": \"lane_specific_official_snapshot_parser\",\n          \"snapshot_parse_ok\": true,\n          \"snapshot_parsed_observed_value\": 110982661180013.0,\n          \"table_replay_value\": 110982661180013.0,\n          \"table_parsed_snapshot_value\": 110982661180013.0,\n          \"computed_residual\": 0.0,\n          \"computed_comparator_residual\": 4241013358949.0,\n          \"declared_replay_residual\": 0.0,\n          \"declared_comparator_residual\": 4241013358949.0,\n          \"residual_kind\": \"replay_residual_not_comparator_performance\",\n          \"residual_matches\": true,\n          \"comparator_residual_matches\": true,\n          \"negative_control_residual\": 4241013358949.0,\n          \"negative_control_method\": \"remove or corrupt the latest WDI value and require replay parser failure\",\n          \"negative_control_rejected\": true,\n          \"prediction_support_allowed\": false,\n          \"empirical_support_allowed\": false,\n          \"replay_barred_from_prediction_support\": true,\n          \"quarantine_reason\": \"snapshot contains the target value; retrospective replay QA only, barred from prediction support\"\n        }\n      ]\n    }\n  ],\n  \"numeric_blocked_for_promotion_total\": 0,\n  \"empirical_promotion_disallowed_total\": 6,\n  \"numeric_quarantined_replay_qa_total\": 6,\n  \"domain_validation_promoted\": true,\n  \"heldout_prediction_support_present\": true,\n  \"scientific_validation_state\": \"TARGET_BLIND_HELDOUT_RECONSTRUCTION_PARTIAL_NO_SEND\",\n  \"release_gate_semantics\": \"Exit 0 means official-snapshot replay QA completed and no empirical promotion leaked; snapshot replay can never by itself become a domain-validation PASS.\",\n  \"cli_mode\": \"QA_ONLY\",\n  \"materialize_first_explicit\": true,\n  \"materialize_first_returncode\": 0,\n  \"canonical_clean_checkout_command_sequence\": [\n    \"python tools/materialize_oc_core_1_3_3_v12_closure.py\",\n    \"python validation/run_all.py --qa-only\"\n  ],\n  \"qa_only_zero_exit_allowed\": true,\n  \"validation_boundary\": \"Official-snapshot replay QA remains quarantined. Target-blind rows may support only bounded held-out reconstruction claims, not broad domain validation or novelty.\",\n  \"verdict\": \"TARGET_BLIND_HELDOUT_REPLAY_PARTIAL_PROMOTION_NO_SEND\"\n}\n",
+          "stderr_tail": ""
+        }
+      ],
+      "mission_refs": {
+        "mission_ref": "operations/logion_release_mission/oc_core_1_3_3/OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION.json",
+        "scorecard_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_CONTENT_CLOSURE_SCORECARD.json",
+        "dispatch_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_LOGION_LIVE_DISPATCH_QUEUE.json",
+        "cockpit_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_LOGION_RELEASE_COCKPIT.md",
+        "trajectory_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_TRAJECTORY_CERTIFICATE_latest.json"
+      },
+      "no_send": true,
+      "publish_allowed": false,
+      "journal_submissions_allowed": false
+    }
+  ]
+}

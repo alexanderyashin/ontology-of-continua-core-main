@@ -1,6 +1,6 @@
 # OC Core 1.3.3 Release Scorecard
 
-Release state: `SCIENTIFIC_CONTENT_CLOSURE_RUNNING`
+Release state: `OC_CORE_1_3_3_PLATINUM_READY_NO_SEND`
 Publish allowed: `false`
 
 | Gate | Name | State | Severity |

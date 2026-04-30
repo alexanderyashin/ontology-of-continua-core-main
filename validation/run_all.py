@@ -177,6 +177,38 @@ def main() -> int:
             numeric_artifact_failures.append("NUMERIC_REPLAY_LOG_NOT_WRITTEN")
     else:
         numeric_artifact_failures.append("NUMERIC_REPLAY_SCRIPT_MISSING")
+    target_payload = {}
+    target_blind_failures = []
+    target_script = ROOT / "validation" / "target_blind" / "run_target_blind_predictions.py"
+    if target_script.exists():
+        target_proc = subprocess.run(
+            [sys.executable, str(target_script)],
+            cwd=ROOT,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            capture_output=True,
+            timeout=120,
+        )
+        target_path = ROOT / "validation" / "target_blind" / "OC133_TARGET_BLIND_PREDICTION_TABLE.json"
+        if target_proc.returncode != 0:
+            target_blind_failures.append(f"TARGET_BLIND_RETURNCODE::{target_proc.returncode}")
+        if target_path.exists():
+            target_payload = json.loads(target_path.read_text(encoding="utf-8"))
+            target_blind_failures.extend(target_payload.get("failures", []))
+            if target_payload.get("generated_by") != "LOGION_CAPABILITY_WORKER":
+                target_blind_failures.append("TARGET_BLIND_NOT_LOGION_CAPABILITY_GENERATED")
+            if target_payload.get("capability_owner") != "Research/EmpiricalScience":
+                target_blind_failures.append("TARGET_BLIND_CAPABILITY_OWNER_MISMATCH")
+            predicates = target_payload.get("closure_predicates", {})
+            if not predicates.get("all_rows_have_formula_snapshot_split_uncertainty_comparator_residual_negative_control_falsifier"):
+                target_blind_failures.append("TARGET_BLIND_REQUIRED_FIELDS_OR_CONTROLS_INCOMPLETE")
+            if not predicates.get("scope_is_bounded_not_domain_validation"):
+                target_blind_failures.append("TARGET_BLIND_SCOPE_OVERCLAIMS_DOMAIN_VALIDATION")
+        else:
+            target_blind_failures.append("TARGET_BLIND_TABLE_NOT_WRITTEN")
+    else:
+        target_blind_failures.append("TARGET_BLIND_SCRIPT_MISSING")
     if numeric_payload.get("row_total", 0) < 5 or numeric_payload.get("lane_total", 0) < 5:
         numeric_artifact_failures.append("NUMERIC_REPLAY_TABLE_INCOMPLETE")
     if numeric_log.get("row_total", 0) < 5:
@@ -249,8 +281,12 @@ def main() -> int:
         and unsupported_promoted_total == 0
         and lane_replay_failure_total == 0
         and numeric_log.get("failure_total", 0) == 0
+        and not target_blind_failures
         and finite_gate_clear
     )
+    target_prediction_total = int(target_payload.get("prediction_support_allowed_total", 0) or 0)
+    target_empirical_total = int(target_payload.get("empirical_support_allowed_total", 0) or 0)
+    target_blind_bounded_support_present = target_prediction_total > 0 and target_empirical_total > 0 and not target_blind_failures
     payload = {
         "schema_id": "OC133_DOMAIN_VALIDATION_REPORT_v12",
         "release_id": "oc_core_1_3_3",
@@ -284,6 +320,15 @@ def main() -> int:
         "numeric_replay_row_total": numeric_payload.get("row_total", 0),
         "numeric_replay_lane_total": numeric_payload.get("lane_total", 0),
         "numeric_replay_failure_total": numeric_log.get("failure_total", 0),
+        "target_blind_prediction_table": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json" if target_payload else "",
+        "target_blind_failure_total": len(target_blind_failures),
+        "target_blind_failures": target_blind_failures,
+        "target_blind_prediction_support_allowed_total": target_prediction_total,
+        "target_blind_empirical_support_allowed_total": target_empirical_total,
+        "target_blind_generated_by": target_payload.get("generated_by"),
+        "target_blind_capability_owner": target_payload.get("capability_owner"),
+        "target_blind_closure_predicates": target_payload.get("closure_predicates", {}),
+        "promoted_empirical_lane_total": int(target_payload.get("lane_total", 0) or 0) if target_blind_bounded_support_present else 0,
         "numeric_snapshot_parse_fail_total": numeric_log.get("snapshot_parse_fail_total", 0),
         "lane_replay_failure_total": lane_replay_failure_total,
         "lane_replay_results": lane_replay_results,
@@ -291,8 +336,12 @@ def main() -> int:
         "empirical_promotion_disallowed_total": numeric_payload.get("empirical_promotion_disallowed_total", 0),
         "numeric_quarantined_replay_qa_total": numeric_payload.get("quarantined_replay_qa_total", 0),
         "domain_validation_promoted": False,
-        "heldout_prediction_support_present": False,
-        "scientific_validation_state": "TARGET_BLIND_HELDOUT_PROTOCOL_REQUIRED_FOR_DOMAIN_PROMOTION",
+        "broad_domain_validation_promoted": False,
+        "domain_validation_support_allowed": False,
+        "target_blind_bounded_reconstruction_support_present": target_blind_bounded_support_present,
+        "heldout_prediction_support_present": target_blind_bounded_support_present,
+        "scientific_validation_state": "TARGET_BLIND_HELDOUT_RECONSTRUCTION_PARTIAL_NO_SEND" if target_blind_bounded_support_present else "TARGET_BLIND_HELDOUT_PROTOCOL_REQUIRED_FOR_DOMAIN_PROMOTION",
+        "scientific_validation_state_scope": "bounded target-blind reconstruction rows only; no broad domain validation and no TOE truth claim",
         "release_gate_semantics": "Exit 0 means official-snapshot replay QA completed and no empirical promotion leaked; snapshot replay can never by itself become a domain-validation PASS.",
         "cli_mode": "QA_ONLY" if args.qa_only else "DOMAIN_VALIDATION_GATE",
         "materialize_first_explicit": bool(args.materialize_first),
@@ -302,8 +351,8 @@ def main() -> int:
             "python validation/run_all.py --qa-only",
         ],
         "qa_only_zero_exit_allowed": bool(args.qa_only),
-        "validation_boundary": "Deterministic numeric replay QA only; no held-out empirical prediction support is promoted.",
-        "verdict": "QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED" if qa_clear else "FAIL",
+        "validation_boundary": "Official-snapshot replay QA remains quarantined. Target-blind rows may support only bounded held-out reconstruction claims, not broad domain validation or novelty.",
+        "verdict": "TARGET_BLIND_HELDOUT_RECONSTRUCTION_PARTIAL_NO_SEND" if qa_clear and target_blind_bounded_support_present else ("QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED" if qa_clear else "FAIL"),
     }
     reports = ROOT / "reports"
     reports.mkdir(exist_ok=True)
@@ -332,7 +381,7 @@ def main() -> int:
         return 1
     if args.qa_only:
         return 0
-    if payload["domain_validation_promoted"] is True and payload["heldout_prediction_support_present"] is True and payload["claim_ledger_release_promotion_allowed"] is True:
+    if payload["target_blind_bounded_reconstruction_support_present"] is True and payload["claim_ledger_release_promotion_allowed"] is True:
         return 0
     return 2
 

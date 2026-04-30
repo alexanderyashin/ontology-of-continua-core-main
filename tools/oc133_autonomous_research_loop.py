@@ -42,6 +42,7 @@ REPAIR_PROFILES = {
     "v12_attack_matrix_binding_repair": "Concrete Cerberus finding to evidence-row repair.",
     "v12_lifecycle_invariant_repair": "Death/live/residue/rebirth identity invariant repair.",
     "v12_empirical_quarantine_repair": "Numeric replay quarantine and no fake prediction support repair.",
+    "v12_target_blind_empirical_repair": "Bounded target-blind empirical reconstruction repair with row-level predicates and no broad domain-validation promotion.",
     "v12_novelty_positioning_repair": "Prior-art positioning, no uniqueness/priority promotion repair.",
     "v12_no_send_public_surface_repair": "Owner approval and public-channel no-send parity repair.",
     "v12_lean_certificate_repair": "Lean build certificate and theorem-ref binding repair.",

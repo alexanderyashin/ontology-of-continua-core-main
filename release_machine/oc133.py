@@ -151,8 +151,11 @@ def ensure_materialized(root: Path) -> None:
 
 def run_local_replays(root: Path) -> None:
     subprocess.run([sys.executable, str(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py")], cwd=root, check=True, text=True, capture_output=True)
-    subprocess.run([sys.executable, str(root / "validation" / "run_all.py"), "--qa-only"], cwd=root, check=True, text=True, capture_output=True)
     subprocess.run([sys.executable, str(root / "falsification" / "counterexample_search" / "run_counterexample_search.py")], cwd=root, check=True, text=True, capture_output=True)
+    # Counterexample search currently syncs v12 generated surfaces internally.
+    # Validation must therefore run last, otherwise materializer defaults can
+    # erase capability-produced target-blind evidence before content closure.
+    subprocess.run([sys.executable, str(root / "validation" / "run_all.py"), "--qa-only"], cwd=root, check=True, text=True, capture_output=True)
 
 
 def package_file_paths(root: Path) -> list[Path]:
@@ -473,6 +476,10 @@ def evaluate_release(release: str = RELEASE_ID, channel: str = "all", mode: str 
     root = repo_root()
     package = build_package(root, channel=channel, no_publish=True)
     results = [*_inherited_gate_results(root), *oc133_v12.v12_gate_results(root, gate)]
+    # The v12 audit re-materializes generated surfaces. Logion validation
+    # capability replays must run after that sync so content-closure evidence
+    # is computed by executors rather than inherited from materializer defaults.
+    run_local_replays(root)
     findings = [row for row in results if row["state"] in {"FAIL", "BLOCKED", "WARN"}]
     hard_bad = [row for row in findings if row["severity"] in {"CRITICAL", "HIGH"} and row["state"] in {"FAIL", "BLOCKED"}]
     platinum_audit = oc133_platinum.content_closure_audit(root)

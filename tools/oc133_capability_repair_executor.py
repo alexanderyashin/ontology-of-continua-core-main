@@ -228,6 +228,71 @@ def check_numeric_quarantine() -> dict[str, Any]:
     }
 
 
+def check_target_blind_empirical_repair() -> dict[str, Any]:
+    target_cmd = command([sys.executable, "validation/target_blind/run_target_blind_predictions.py"], timeout=180)
+    validation_cmd = command([sys.executable, "validation/run_all.py", "--materialize-first", "--qa-only"], timeout=1200)
+    target = read_json(ROOT / "validation" / "target_blind" / "OC133_TARGET_BLIND_PREDICTION_TABLE.json")
+    report = read_json(ROOT / "reports" / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json")
+    numeric = read_json(ROOT / "validation" / "numeric_replay_qa" / "OC133_NUMERIC_REPLAY_QA_TABLE.json")
+    required_row_fields = {
+        "claim_id",
+        "lane",
+        "dataset_snapshot_ref",
+        "target_blind_split",
+        "formula",
+        "predicted_value",
+        "observed_value",
+        "uncertainty",
+        "comparator_baseline",
+        "comparator_prediction",
+        "residual",
+        "comparator_residual",
+        "negative_control",
+        "negative_control_rejected",
+        "falsifier",
+        "prediction_support_allowed",
+        "empirical_support_allowed",
+        "support_scope",
+    }
+    row_failures = []
+    for row in target.get("rows", []):
+        missing = sorted(field for field in required_row_fields if row.get(field) in {None, ""})
+        if missing:
+            row_failures.append({"claim_id": row.get("claim_id"), "missing": missing})
+        snapshot_ref = row.get("dataset_snapshot_ref")
+        if not snapshot_ref or not (ROOT / snapshot_ref).exists():
+            row_failures.append({"claim_id": row.get("claim_id"), "missing_snapshot_ref": snapshot_ref})
+        if row.get("negative_control_rejected") is not True:
+            row_failures.append({"claim_id": row.get("claim_id"), "negative_control_rejected": row.get("negative_control_rejected")})
+        if row.get("prediction_support_allowed") is not True or row.get("empirical_support_allowed") is not True:
+            row_failures.append({"claim_id": row.get("claim_id"), "support_flags": "not both true"})
+        if "not a" not in str(row.get("support_scope", "")).lower():
+            row_failures.append({"claim_id": row.get("claim_id"), "support_scope_overclaim": row.get("support_scope")})
+    predicate_checks = {
+        "target_command_passed": target_cmd["returncode"] == 0,
+        "validation_command_passed": validation_cmd["returncode"] == 0,
+        "target_generated_by_logion": target.get("generated_by") == "LOGION_CAPABILITY_WORKER",
+        "target_capability_owner_ok": target.get("capability_owner") == "Research/EmpiricalScience",
+        "target_failure_total_zero": target.get("failure_total") == 0,
+        "target_support_rows_present": target.get("prediction_support_allowed_total", 0) >= 2 and target.get("empirical_support_allowed_total", 0) >= 2,
+        "target_row_predicates_complete": not row_failures,
+        "numeric_replay_remains_quarantined": numeric.get("prediction_support_allowed_total", 0) == 0 and numeric.get("empirical_support_allowed_total", 0) == 0,
+        "report_bounded_support_present": report.get("target_blind_bounded_reconstruction_support_present") is True,
+        "report_broad_domain_promotion_false": report.get("broad_domain_validation_promoted") is False and report.get("domain_validation_support_allowed") is False,
+    }
+    return {
+        "profile": "v12_target_blind_empirical_repair",
+        "target_command": target_cmd,
+        "validation_command": validation_cmd,
+        "predicate_checks": predicate_checks,
+        "row_failures": row_failures[:20],
+        "target_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+        "validation_report_ref": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+        "numeric_replay_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+        "state": "PASS" if all(predicate_checks.values()) else "FAIL",
+    }
+
+
 def check_no_send_public_surface() -> dict[str, Any]:
     manifest = read_json(ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json")
     phenomenon = read_json(ROOT / "docs" / "OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json")
@@ -306,6 +371,9 @@ def check_profile(profile: str) -> dict[str, Any]:
         return {"profile": profile, "repair": repair, "audit": audit, "state": "PASS" if repair["state"] == "PASS" and audit["state"] == "PASS" else "FAIL"}
     if profile == "v12_empirical_quarantine_repair":
         audit = check_numeric_quarantine()
+        return {"profile": profile, "audit": audit, "state": audit["state"]}
+    if profile == "v12_target_blind_empirical_repair":
+        audit = check_target_blind_empirical_repair()
         return {"profile": profile, "audit": audit, "state": audit["state"]}
     if profile == "v12_no_send_public_surface_repair":
         audit = check_no_send_public_surface()

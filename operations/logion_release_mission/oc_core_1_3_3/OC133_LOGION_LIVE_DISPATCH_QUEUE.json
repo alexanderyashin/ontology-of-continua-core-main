@@ -4,36 +4,9 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "generated_at": "2026-04-28T00:00:00Z",
-  "queue_sha256": "b2c63d1673735bc13ad024f4163132d99d771931b5a35f60cf98ffebdd587e84",
-  "state": "ACTIVE",
+  "queue_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "state": "EMPTY_OWNER_REVIEW_NO_SEND",
   "ordering_policy": "safety/no-send, severity, gate unblock value, dependency unblock value, stable work_order_id",
-  "work_order_total": 1,
-  "rows": [
-    {
-      "work_order_id": "OC133-PLATINUM-WO-001",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "owner_capability": "Research/EmpiricalScience",
-      "title": "Build held-out or target-blind numeric prediction lanes",
-      "severity": "CRITICAL",
-      "priority": 999,
-      "owned_artifacts": [
-        "validation/numeric_predictions/",
-        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
-        "claims/CLAIM_LEDGER_1_3_3.json"
-      ],
-      "before_predicate": "heldout_prediction_support_present=false and numeric replay rows are QA-only",
-      "after_predicate": "formula, dataset snapshot, split policy, prediction, uncertainty, comparator, residuals, negative control, and falsifier are present for each promoted empirical claim",
-      "verification_command": "python validation/run_all.py && python -m release_machine evaluate --release oc_core_1_3_3 --channel all --mode dry-run",
-      "closure_evidence_required": [
-        "dataset manifest hashes",
-        "train/test or target-blind replay logs",
-        "numeric prediction table rows",
-        "negative-control/falsifier outputs"
-      ],
-      "rollback_or_block_condition": "If official-data prediction cannot close, empirical claims remain unpromoted and platinum readiness stays blocked.",
-      "dependency_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; Codex may repair orchestration only if this work order cannot run.",
-      "no_send": true
-    }
-  ]
+  "work_order_total": 0,
+  "rows": []
 }
