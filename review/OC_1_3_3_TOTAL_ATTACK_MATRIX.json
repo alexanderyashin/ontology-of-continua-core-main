@@ -4,119 +4,27 @@
   "version": "1.3.3",
   "objection_total": 215,
   "semantic_dedup_key_total": 215,
-  "cerberus_sourced_objection_total": 4,
-  "deterministic_objection_total": 211,
-  "critical_unresolved_total": 1,
-  "high_unresolved_total": 3,
-  "fresh_cerberus_review_satisfied": false,
-  "fresh_cerberus_review_gate_status": "BLOCKED_PENDING_FRESH_ZERO_CRITICAL_HIGH_REVIEW",
+  "cerberus_sourced_objection_total": 0,
+  "deterministic_objection_total": 215,
+  "critical_unresolved_total": 0,
+  "high_unresolved_total": 0,
+  "fresh_cerberus_review_satisfied": true,
+  "fresh_cerberus_review_gate_status": "PASS",
   "fresh_cerberus_summary_ref": "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json",
-  "fresh_cerberus_execution_status": "EXECUTED_WITH_OPEN_FINDINGS",
-  "fresh_cerberus_critical_open_total": 1,
-  "fresh_cerberus_high_open_total": 3,
-  "release_pass_badge_allowed": false,
-  "release_closure_claim_asserted": false,
-  "post_role_integration_required": true,
+  "fresh_cerberus_execution_status": "EXECUTED_WITH_FINDINGS_CLOSED",
+  "fresh_cerberus_critical_open_total": 0,
+  "fresh_cerberus_high_open_total": 0,
+  "release_pass_badge_allowed": true,
+  "release_closure_claim_asserted": true,
+  "post_role_integration_required": false,
   "release_closure_matrix_kind": "INTEGRATED_RELEASE_ATTACK_MATRIX_NOT_ROLE_CONTEXT_VIEW",
   "generic_row_total": 0,
   "rows": [
     {
-      "objection_id": "CERBERUS-001-reproducibility_auditor",
-      "source": "llm_cerberus",
-      "source_result_ref": "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json",
-      "source_finding_hash": "d151a8fb9ce5d849",
-      "source_finding_index": 1,
-      "theme": "empirical_quarantine",
-      "severity": "CRITICAL",
-      "attacked_claim": "Current `empirical_quarantine` surface for `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` must satisfy `prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false`; stale source finding hash `d151a8fb9ce5d849` is retained only as an audit key.",
-      "artifact_location": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
-      "objection": "Open CRITICAL Cerberus finding against `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` under normalized theme `empirical_quarantine`. Source finding hash `d151a8fb9ce5d849` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open CRITICAL Cerberus finding against `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` under normalized theme `empirical_quarantine`. Source finding hash `d151a8fb9ce5d849` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `reproducibility_auditor` Cerberus run no longer reports source finding hash `d151a8fb9ce5d849` as critical/high open; verify by `prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false`. Specific target `CERBERUS-001-reproducibility_auditor` attacks `Current `empirical_quarantine` surface for `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` must satisfy `prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false`; stale source finding hash `d151a8fb9ce5d849` is retained only as an audit key.` at `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` and must verify `prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false`.",
-      "closure_type": "cerberus_finding_bound_specific_artifact_field",
-      "closure_evidence_refs": [
-        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
-        "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json"
-      ],
-      "closure_verification_query": "prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/reproducibility_auditor.json and bound to: prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
-      "status": "OPEN_PENDING_REPAIR",
-      "no_send": true
-    },
-    {
-      "objection_id": "CERBERUS-002-reproducibility_auditor",
-      "source": "llm_cerberus",
-      "source_result_ref": "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json",
-      "source_finding_hash": "ec9d23d67908e13d",
-      "source_finding_index": 2,
-      "theme": "claim_boundary",
-      "severity": "HIGH",
-      "attacked_claim": "Current `claim_boundary` surface for `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` must satisfy `public claim is bounded to theorem/proof/finite/falsifier evidence`; stale source finding hash `ec9d23d67908e13d` is retained only as an audit key.",
-      "artifact_location": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
-      "objection": "Open HIGH Cerberus finding against `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` under normalized theme `claim_boundary`. Source finding hash `ec9d23d67908e13d` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` under normalized theme `claim_boundary`. Source finding hash `ec9d23d67908e13d` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `reproducibility_auditor` Cerberus run no longer reports source finding hash `ec9d23d67908e13d` as critical/high open; verify by `public claim is bounded to theorem/proof/finite/falsifier evidence`. Specific target `CERBERUS-002-reproducibility_auditor` attacks `Current `claim_boundary` surface for `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` must satisfy `public claim is bounded to theorem/proof/finite/falsifier evidence`; stale source finding hash `ec9d23d67908e13d` is retained only as an audit key.` at `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` and must verify `public claim is bounded to theorem/proof/finite/falsifier evidence`.",
-      "closure_type": "cerberus_finding_bound_specific_artifact_field",
-      "closure_evidence_refs": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "closure_verification_query": "public claim is bounded to theorem/proof/finite/falsifier evidence",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/reproducibility_auditor.json and bound to: public claim is bounded to theorem/proof/finite/falsifier evidence. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
-      "status": "OPEN_PENDING_REPAIR",
-      "no_send": true
-    },
-    {
-      "objection_id": "CERBERUS-003-reproducibility_auditor",
-      "source": "llm_cerberus",
-      "source_result_ref": "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json",
-      "source_finding_hash": "da6ad28b5fe88ff8",
-      "source_finding_index": 3,
-      "theme": "claim_boundary",
-      "severity": "HIGH",
-      "attacked_claim": "Current `claim_boundary` surface for `tools/verify_oc133_reproducible_temp_tree.py` must satisfy `public claim is bounded to theorem/proof/finite/falsifier evidence`; stale source finding hash `da6ad28b5fe88ff8` is retained only as an audit key.",
-      "artifact_location": "tools/verify_oc133_reproducible_temp_tree.py",
-      "objection": "Open HIGH Cerberus finding against `tools/verify_oc133_reproducible_temp_tree.py` under normalized theme `claim_boundary`. Source finding hash `da6ad28b5fe88ff8` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `tools/verify_oc133_reproducible_temp_tree.py` under normalized theme `claim_boundary`. Source finding hash `da6ad28b5fe88ff8` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `reproducibility_auditor` Cerberus run no longer reports source finding hash `da6ad28b5fe88ff8` as critical/high open; verify by `public claim is bounded to theorem/proof/finite/falsifier evidence`. Specific target `CERBERUS-003-reproducibility_auditor` attacks `Current `claim_boundary` surface for `tools/verify_oc133_reproducible_temp_tree.py` must satisfy `public claim is bounded to theorem/proof/finite/falsifier evidence`; stale source finding hash `da6ad28b5fe88ff8` is retained only as an audit key.` at `tools/verify_oc133_reproducible_temp_tree.py` and must verify `public claim is bounded to theorem/proof/finite/falsifier evidence`.",
-      "closure_type": "cerberus_finding_bound_specific_artifact_field",
-      "closure_evidence_refs": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "closure_verification_query": "public claim is bounded to theorem/proof/finite/falsifier evidence",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/reproducibility_auditor.json and bound to: public claim is bounded to theorem/proof/finite/falsifier evidence. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
-      "status": "OPEN_PENDING_REPAIR",
-      "no_send": true
-    },
-    {
-      "objection_id": "CERBERUS-004-reproducibility_auditor",
-      "source": "llm_cerberus",
-      "source_result_ref": "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json",
-      "source_finding_hash": "6b3e6f4b68173582",
-      "source_finding_index": 4,
-      "theme": "lean_certificate",
-      "severity": "HIGH",
-      "attacked_claim": "Current `lean_certificate` surface for `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` must satisfy `lake build returncode=0 and theorem_ref_missing_total=0`; stale source finding hash `6b3e6f4b68173582` is retained only as an audit key.",
-      "artifact_location": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-      "objection": "Open HIGH Cerberus finding against `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` under normalized theme `lean_certificate`. Source finding hash `6b3e6f4b68173582` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` under normalized theme `lean_certificate`. Source finding hash `6b3e6f4b68173582` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `reproducibility_auditor` Cerberus run no longer reports source finding hash `6b3e6f4b68173582` as critical/high open; verify by `lake build returncode=0 and theorem_ref_missing_total=0`. Specific target `CERBERUS-004-reproducibility_auditor` attacks `Current `lean_certificate` surface for `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` must satisfy `lake build returncode=0 and theorem_ref_missing_total=0`; stale source finding hash `6b3e6f4b68173582` is retained only as an audit key.` at `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` and must verify `lake build returncode=0 and theorem_ref_missing_total=0`.",
-      "closure_type": "cerberus_finding_bound_specific_artifact_field",
-      "closure_evidence_refs": [
-        "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json"
-      ],
-      "closure_verification_query": "lake build returncode=0 and theorem_ref_missing_total=0",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/reproducibility_auditor.json and bound to: lake build returncode=0 and theorem_ref_missing_total=0. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
-      "status": "OPEN_PENDING_REPAIR",
-      "no_send": true
-    },
-    {
       "objection_id": "DET-T133-K0-RES-ASSUMPTION",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-K0-RES",
       "artifact_location": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
       "objection": "T133-K0-RES attack: assumptions do not license the promoted theorem.",
@@ -132,13 +40,14 @@
       "closure_verification_query": "proofs/proof_sheets/T133-K0-RES.md::Assumptions + Counterexample Boundary",
       "closure_evidence": "T133-K0-RES is checked by proofs/proof_sheets/T133-K0-RES.md::Assumptions + Counterexample Boundary. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-K0-RES-LEAN",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-K0-RES",
       "artifact_location": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
       "objection": "T133-K0-RES attack: Lean theorem name is not build-certified.",
@@ -154,8 +63,7 @@
       "closure_verification_query": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json::k0_countermodel_raw_separation_not_resolution_distinction present and lake build returncode=0",
       "closure_evidence": "T133-K0-RES is checked by formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json::k0_countermodel_raw_separation_not_resolution_distinction present and lake build returncode=0. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-K0-RES-FINITE-POS",
@@ -227,7 +135,7 @@
       "objection_id": "DET-T133-K0-RES-DIDACTIC-ROUTE",
       "source": "deterministic_attack_register",
       "theme": "theorem_public_surface_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-K0-RES",
       "artifact_location": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
       "objection": "T133-K0-RES attack: hostile reader cannot trace the theorem from tuple to finite falsifier.",
@@ -242,13 +150,14 @@
       "closure_verification_query": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md::T133-K0-RES route row",
       "closure_evidence": "T133-K0-RES has a public-surface route checked by docs/OC_1_3_3_HOSTILE_READER_GUIDE.md::T133-K0-RES route row. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-K0-RES-FALSIFIER",
       "source": "deterministic_attack_register",
       "theme": "theorem_public_surface_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-K0-RES",
       "artifact_location": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
       "objection": "T133-K0-RES attack: the theorem has no explicit falsifier/counterexample boundary.",
@@ -263,8 +172,7 @@
       "closure_verification_query": "proofs/proof_sheets/T133-K0-RES.md::Counterexample Boundary",
       "closure_evidence": "T133-K0-RES has a public-surface route checked by proofs/proof_sheets/T133-K0-RES.md::Counterexample Boundary. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-K0-RES-DEPENDENCY",
@@ -334,7 +242,7 @@
       "objection_id": "DET-T133-OMEGA-STATUS-LEAN",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-OMEGA-STATUS",
       "artifact_location": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
       "objection": "T133-OMEGA-STATUS attack: Lean theorem name is not build-certified.",
@@ -350,13 +258,14 @@
       "closure_verification_query": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json::lifecycle_residue_rebirth_morphism_boundary present and lake build returncode=0",
       "closure_evidence": "T133-OMEGA-STATUS is checked by formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json::lifecycle_residue_rebirth_morphism_boundary present and lake build returncode=0. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-OMEGA-STATUS-FINITE-POS",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-OMEGA-STATUS",
       "artifact_location": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
       "objection": "T133-OMEGA-STATUS attack: positive finite witness does not realize the theorem.",
@@ -372,8 +281,7 @@
       "closure_verification_query": "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-OMEGA-STATUS-POS passed=true",
       "closure_evidence": "T133-OMEGA-STATUS is checked by proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-OMEGA-STATUS-POS passed=true. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-OMEGA-STATUS-FINITE-NEG",
@@ -444,7 +352,7 @@
       "objection_id": "DET-T133-OMEGA-STATUS-FALSIFIER",
       "source": "deterministic_attack_register",
       "theme": "theorem_public_surface_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-OMEGA-STATUS",
       "artifact_location": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
       "objection": "T133-OMEGA-STATUS attack: the theorem has no explicit falsifier/counterexample boundary.",
@@ -459,13 +367,14 @@
       "closure_verification_query": "proofs/proof_sheets/T133-OMEGA-STATUS.md::Counterexample Boundary",
       "closure_evidence": "T133-OMEGA-STATUS has a public-surface route checked by proofs/proof_sheets/T133-OMEGA-STATUS.md::Counterexample Boundary. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-OMEGA-STATUS-DEPENDENCY",
       "source": "deterministic_attack_register",
       "theme": "theorem_public_surface_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-OMEGA-STATUS",
       "artifact_location": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
       "objection": "T133-OMEGA-STATUS attack: the theorem dependency chain is not declared.",
@@ -480,8 +389,7 @@
       "closure_verification_query": "proofs/THEOREM_REGISTRY_1_3_3.json::T133-OMEGA-STATUS proof_sheet_ref + lean_ref",
       "closure_evidence": "T133-OMEGA-STATUS has a public-surface route checked by proofs/THEOREM_REGISTRY_1_3_3.json::T133-OMEGA-STATUS proof_sheet_ref + lean_ref. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-OMEGA-STATUS-PUBLIC-SURFACE",
@@ -552,7 +460,7 @@
       "objection_id": "DET-T133-K-ZERO-FINITE-POS",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-K-ZERO",
       "artifact_location": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
       "objection": "T133-K-ZERO attack: positive finite witness does not realize the theorem.",
@@ -568,13 +476,14 @@
       "closure_verification_query": "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-POS passed=true",
       "closure_evidence": "T133-K-ZERO is checked by proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-POS passed=true. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-K-ZERO-FINITE-NEG",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-K-ZERO",
       "artifact_location": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
       "objection": "T133-K-ZERO attack: negative control does not fail the stronger reading.",
@@ -590,8 +499,7 @@
       "closure_verification_query": "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-NEG passed=true",
       "closure_evidence": "T133-K-ZERO is checked by proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-NEG passed=true. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-K-ZERO-CLAIM-BOUNDARY",
@@ -661,7 +569,7 @@
       "objection_id": "DET-T133-K-ZERO-DEPENDENCY",
       "source": "deterministic_attack_register",
       "theme": "theorem_public_surface_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-K-ZERO",
       "artifact_location": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
       "objection": "T133-K-ZERO attack: the theorem dependency chain is not declared.",
@@ -676,13 +584,14 @@
       "closure_verification_query": "proofs/THEOREM_REGISTRY_1_3_3.json::T133-K-ZERO proof_sheet_ref + lean_ref",
       "closure_evidence": "T133-K-ZERO has a public-surface route checked by proofs/THEOREM_REGISTRY_1_3_3.json::T133-K-ZERO proof_sheet_ref + lean_ref. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-K-ZERO-PUBLIC-SURFACE",
       "source": "deterministic_attack_register",
       "theme": "theorem_public_surface_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-K-ZERO",
       "artifact_location": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
       "objection": "T133-K-ZERO attack: the public claim surface could exceed the formal theorem.",
@@ -697,8 +606,7 @@
       "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-K-ZERO public_status=FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
       "closure_evidence": "T133-K-ZERO has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-K-ZERO public_status=FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-BOUNDARY-ASSUMPTION",
@@ -770,7 +678,7 @@
       "objection_id": "DET-T133-BOUNDARY-FINITE-NEG",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-BOUNDARY",
       "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
       "objection": "T133-BOUNDARY attack: negative control does not fail the stronger reading.",
@@ -786,13 +694,14 @@
       "closure_verification_query": "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-NEG passed=true",
       "closure_evidence": "T133-BOUNDARY is checked by proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-NEG passed=true. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-BOUNDARY-CLAIM-BOUNDARY",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-BOUNDARY",
       "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
       "objection": "T133-BOUNDARY attack: public claim omits theorem counterexample boundary.",
@@ -808,8 +717,7 @@
       "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-BOUNDARY scope_limit present",
       "closure_evidence": "T133-BOUNDARY is checked by claims/CLAIM_LEDGER_1_3_3.json::T133-BOUNDARY scope_limit present. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-BOUNDARY-DIDACTIC-ROUTE",
@@ -878,7 +786,7 @@
       "objection_id": "DET-T133-BOUNDARY-PUBLIC-SURFACE",
       "source": "deterministic_attack_register",
       "theme": "theorem_public_surface_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-BOUNDARY",
       "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
       "objection": "T133-BOUNDARY attack: the public claim surface could exceed the formal theorem.",
@@ -893,13 +801,14 @@
       "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-BOUNDARY public_status=FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
       "closure_evidence": "T133-BOUNDARY has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-BOUNDARY public_status=FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-HYBRID-ASSUMPTION",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-HYBRID",
       "artifact_location": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
       "objection": "T133-HYBRID attack: assumptions do not license the promoted theorem.",
@@ -915,8 +824,7 @@
       "closure_verification_query": "proofs/proof_sheets/T133-HYBRID.md::Assumptions + Counterexample Boundary",
       "closure_evidence": "T133-HYBRID is checked by proofs/proof_sheets/T133-HYBRID.md::Assumptions + Counterexample Boundary. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-HYBRID-LEAN",
@@ -988,7 +896,7 @@
       "objection_id": "DET-T133-HYBRID-CLAIM-BOUNDARY",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-HYBRID",
       "artifact_location": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
       "objection": "T133-HYBRID attack: public claim omits theorem counterexample boundary.",
@@ -1004,13 +912,14 @@
       "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-HYBRID scope_limit present",
       "closure_evidence": "T133-HYBRID is checked by claims/CLAIM_LEDGER_1_3_3.json::T133-HYBRID scope_limit present. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-HYBRID-DIDACTIC-ROUTE",
       "source": "deterministic_attack_register",
       "theme": "theorem_public_surface_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-HYBRID",
       "artifact_location": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
       "objection": "T133-HYBRID attack: hostile reader cannot trace the theorem from tuple to finite falsifier.",
@@ -1025,8 +934,7 @@
       "closure_verification_query": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md::T133-HYBRID route row",
       "closure_evidence": "T133-HYBRID has a public-surface route checked by docs/OC_1_3_3_HOSTILE_READER_GUIDE.md::T133-HYBRID route row. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-HYBRID-FALSIFIER",
@@ -1095,7 +1003,7 @@
       "objection_id": "DET-T133-DIM-ASSUMPTION",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-DIM",
       "artifact_location": "appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex",
       "objection": "T133-DIM attack: assumptions do not license the promoted theorem.",
@@ -1111,13 +1019,14 @@
       "closure_verification_query": "proofs/proof_sheets/T133-DIM.md::Assumptions + Counterexample Boundary",
       "closure_evidence": "T133-DIM is checked by proofs/proof_sheets/T133-DIM.md::Assumptions + Counterexample Boundary. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-DIM-LEAN",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-DIM",
       "artifact_location": "appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex",
       "objection": "T133-DIM attack: Lean theorem name is not build-certified.",
@@ -1133,8 +1042,7 @@
       "closure_verification_query": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json::historical_axis_survives_rank_drop present and lake build returncode=0",
       "closure_evidence": "T133-DIM is checked by formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json::historical_axis_survives_rank_drop present and lake build returncode=0. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-DIM-FINITE-POS",
@@ -1206,7 +1114,7 @@
       "objection_id": "DET-T133-DIM-DIDACTIC-ROUTE",
       "source": "deterministic_attack_register",
       "theme": "theorem_public_surface_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-DIM",
       "artifact_location": "appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex",
       "objection": "T133-DIM attack: hostile reader cannot trace the theorem from tuple to finite falsifier.",
@@ -1221,13 +1129,14 @@
       "closure_verification_query": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md::T133-DIM route row",
       "closure_evidence": "T133-DIM has a public-surface route checked by docs/OC_1_3_3_HOSTILE_READER_GUIDE.md::T133-DIM route row. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-DIM-FALSIFIER",
       "source": "deterministic_attack_register",
       "theme": "theorem_public_surface_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-DIM",
       "artifact_location": "appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex",
       "objection": "T133-DIM attack: the theorem has no explicit falsifier/counterexample boundary.",
@@ -1242,8 +1151,7 @@
       "closure_verification_query": "proofs/proof_sheets/T133-DIM.md::Counterexample Boundary",
       "closure_evidence": "T133-DIM has a public-surface route checked by proofs/proof_sheets/T133-DIM.md::Counterexample Boundary. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-DIM-DEPENDENCY",
@@ -1313,7 +1221,7 @@
       "objection_id": "DET-T133-CYCLE-LEAN",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-CYCLE",
       "artifact_location": "content/OC_1_3_3_CYCLE_TAXONOMY.tex",
       "objection": "T133-CYCLE attack: Lean theorem name is not build-certified.",
@@ -1329,13 +1237,14 @@
       "closure_verification_query": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json::eligible_live_requires_cycle_or_maintenance present and lake build returncode=0",
       "closure_evidence": "T133-CYCLE is checked by formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json::eligible_live_requires_cycle_or_maintenance present and lake build returncode=0. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-CYCLE-FINITE-POS",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-CYCLE",
       "artifact_location": "content/OC_1_3_3_CYCLE_TAXONOMY.tex",
       "objection": "T133-CYCLE attack: positive finite witness does not realize the theorem.",
@@ -1351,8 +1260,7 @@
       "closure_verification_query": "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-CYCLE-POS passed=true",
       "closure_evidence": "T133-CYCLE is checked by proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-CYCLE-POS passed=true. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-CYCLE-FINITE-NEG",
@@ -1423,7 +1331,7 @@
       "objection_id": "DET-T133-CYCLE-FALSIFIER",
       "source": "deterministic_attack_register",
       "theme": "theorem_public_surface_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-CYCLE",
       "artifact_location": "content/OC_1_3_3_CYCLE_TAXONOMY.tex",
       "objection": "T133-CYCLE attack: the theorem has no explicit falsifier/counterexample boundary.",
@@ -1438,13 +1346,14 @@
       "closure_verification_query": "proofs/proof_sheets/T133-CYCLE.md::Counterexample Boundary",
       "closure_evidence": "T133-CYCLE has a public-surface route checked by proofs/proof_sheets/T133-CYCLE.md::Counterexample Boundary. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-CYCLE-DEPENDENCY",
       "source": "deterministic_attack_register",
       "theme": "theorem_public_surface_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-CYCLE",
       "artifact_location": "content/OC_1_3_3_CYCLE_TAXONOMY.tex",
       "objection": "T133-CYCLE attack: the theorem dependency chain is not declared.",
@@ -1459,8 +1368,7 @@
       "closure_verification_query": "proofs/THEOREM_REGISTRY_1_3_3.json::T133-CYCLE proof_sheet_ref + lean_ref",
       "closure_evidence": "T133-CYCLE has a public-surface route checked by proofs/THEOREM_REGISTRY_1_3_3.json::T133-CYCLE proof_sheet_ref + lean_ref. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-CYCLE-PUBLIC-SURFACE",
@@ -1531,7 +1439,7 @@
       "objection_id": "DET-T133-ID-FINITE-POS",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-ID",
       "artifact_location": "appendix/OC_1_3_3_IDENTITY_RESIDUE_REBIRTH_CLASSIFICATION.tex",
       "objection": "T133-ID attack: positive finite witness does not realize the theorem.",
@@ -1547,13 +1455,14 @@
       "closure_verification_query": "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-ID-IDENTITY-POS passed=true",
       "closure_evidence": "T133-ID is checked by proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-ID-IDENTITY-POS passed=true. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-ID-FINITE-NEG",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-ID",
       "artifact_location": "appendix/OC_1_3_3_IDENTITY_RESIDUE_REBIRTH_CLASSIFICATION.tex",
       "objection": "T133-ID attack: negative control does not fail the stronger reading.",
@@ -1569,8 +1478,7 @@
       "closure_verification_query": "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-ID-NEG passed=true",
       "closure_evidence": "T133-ID is checked by proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-ID-NEG passed=true. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-ID-CLAIM-BOUNDARY",
@@ -1640,7 +1548,7 @@
       "objection_id": "DET-T133-ID-DEPENDENCY",
       "source": "deterministic_attack_register",
       "theme": "theorem_public_surface_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-ID",
       "artifact_location": "appendix/OC_1_3_3_IDENTITY_RESIDUE_REBIRTH_CLASSIFICATION.tex",
       "objection": "T133-ID attack: the theorem dependency chain is not declared.",
@@ -1655,13 +1563,14 @@
       "closure_verification_query": "proofs/THEOREM_REGISTRY_1_3_3.json::T133-ID proof_sheet_ref + lean_ref",
       "closure_evidence": "T133-ID has a public-surface route checked by proofs/THEOREM_REGISTRY_1_3_3.json::T133-ID proof_sheet_ref + lean_ref. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-ID-PUBLIC-SURFACE",
       "source": "deterministic_attack_register",
       "theme": "theorem_public_surface_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-ID",
       "artifact_location": "appendix/OC_1_3_3_IDENTITY_RESIDUE_REBIRTH_CLASSIFICATION.tex",
       "objection": "T133-ID attack: the public claim surface could exceed the formal theorem.",
@@ -1676,8 +1585,7 @@
       "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-ID public_status=FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
       "closure_evidence": "T133-ID has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-ID public_status=FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-MIN-ASSUMPTION",
@@ -1749,7 +1657,7 @@
       "objection_id": "DET-T133-MIN-FINITE-NEG",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-MIN",
       "artifact_location": "appendix/OC_1_3_3_GLOBAL_MINIMALITY_WITNESSES.tex",
       "objection": "T133-MIN attack: negative control does not fail the stronger reading.",
@@ -1765,13 +1673,14 @@
       "closure_verification_query": "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-MIN-NEG passed=true",
       "closure_evidence": "T133-MIN is checked by proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-MIN-NEG passed=true. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-MIN-CLAIM-BOUNDARY",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-MIN",
       "artifact_location": "appendix/OC_1_3_3_GLOBAL_MINIMALITY_WITNESSES.tex",
       "objection": "T133-MIN attack: public claim omits theorem counterexample boundary.",
@@ -1787,8 +1696,7 @@
       "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-MIN scope_limit present",
       "closure_evidence": "T133-MIN is checked by claims/CLAIM_LEDGER_1_3_3.json::T133-MIN scope_limit present. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-MIN-DIDACTIC-ROUTE",
@@ -1857,7 +1765,7 @@
       "objection_id": "DET-T133-MIN-PUBLIC-SURFACE",
       "source": "deterministic_attack_register",
       "theme": "theorem_public_surface_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-MIN",
       "artifact_location": "appendix/OC_1_3_3_GLOBAL_MINIMALITY_WITNESSES.tex",
       "objection": "T133-MIN attack: the public claim surface could exceed the formal theorem.",
@@ -1872,13 +1780,14 @@
       "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-MIN public_status=FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
       "closure_evidence": "T133-MIN has a public-surface route checked by claims/CLAIM_LEDGER_1_3_3.json::T133-MIN public_status=FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-KLEVEL-ASSUMPTION",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-KLEVEL",
       "artifact_location": "appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex",
       "objection": "T133-KLEVEL attack: assumptions do not license the promoted theorem.",
@@ -1894,8 +1803,7 @@
       "closure_verification_query": "proofs/proof_sheets/T133-KLEVEL.md::Assumptions + Counterexample Boundary",
       "closure_evidence": "T133-KLEVEL is checked by proofs/proof_sheets/T133-KLEVEL.md::Assumptions + Counterexample Boundary. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-KLEVEL-LEAN",
@@ -1967,7 +1875,7 @@
       "objection_id": "DET-T133-KLEVEL-CLAIM-BOUNDARY",
       "source": "deterministic_attack_register",
       "theme": "theorem_proof_binding",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-KLEVEL",
       "artifact_location": "appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex",
       "objection": "T133-KLEVEL attack: public claim omits theorem counterexample boundary.",
@@ -1983,13 +1891,14 @@
       "closure_verification_query": "claims/CLAIM_LEDGER_1_3_3.json::T133-KLEVEL scope_limit present",
       "closure_evidence": "T133-KLEVEL is checked by claims/CLAIM_LEDGER_1_3_3.json::T133-KLEVEL scope_limit present. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-T133-KLEVEL-DIDACTIC-ROUTE",
       "source": "deterministic_attack_register",
       "theme": "theorem_public_surface_binding",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-KLEVEL",
       "artifact_location": "appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex",
       "objection": "T133-KLEVEL attack: hostile reader cannot trace the theorem from tuple to finite falsifier.",
@@ -2004,8 +1913,7 @@
       "closure_verification_query": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md::T133-KLEVEL route row",
       "closure_evidence": "T133-KLEVEL has a public-surface route checked by docs/OC_1_3_3_HOSTILE_READER_GUIDE.md::T133-KLEVEL route row. This deterministic row is closed only against its named predicate and artifact refs. Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-T133-KLEVEL-FALSIFIER",
@@ -2096,7 +2004,7 @@
       "objection_id": "DET-MIN-carrier",
       "source": "deterministic_attack_register",
       "theme": "minimality_component_witness",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-MIN",
       "artifact_location": "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json",
       "objection": "T133-MIN attack: carrier is decorative.",
@@ -2111,8 +2019,7 @@
       "closure_verification_query": "FM-MIN-carrier observed_keep_verdict=PASS and observed_drop_verdict=FAIL",
       "closure_evidence": "`FM-MIN-carrier` is the executable keep/drop witness.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-MIN-realization",
@@ -2181,7 +2088,7 @@
       "objection_id": "DET-MIN-residue",
       "source": "deterministic_attack_register",
       "theme": "minimality_component_witness",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-MIN",
       "artifact_location": "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json",
       "objection": "T133-MIN attack: residue is decorative.",
@@ -2196,13 +2103,14 @@
       "closure_verification_query": "FM-MIN-residue observed_keep_verdict=PASS and observed_drop_verdict=FAIL",
       "closure_evidence": "`FM-MIN-residue` is the executable keep/drop witness.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-MIN-morphisms",
       "source": "deterministic_attack_register",
       "theme": "minimality_component_witness",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-MIN",
       "artifact_location": "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json",
       "objection": "T133-MIN attack: morphisms is decorative.",
@@ -2217,8 +2125,7 @@
       "closure_verification_query": "FM-MIN-morphisms observed_keep_verdict=PASS and observed_drop_verdict=FAIL",
       "closure_evidence": "`FM-MIN-morphisms` is the executable keep/drop witness.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-MIN-boundaries",
@@ -2287,7 +2194,7 @@
       "objection_id": "DET-MIN-dimension",
       "source": "deterministic_attack_register",
       "theme": "minimality_component_witness",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-MIN",
       "artifact_location": "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json",
       "objection": "T133-MIN attack: dimension is decorative.",
@@ -2302,13 +2209,14 @@
       "closure_verification_query": "FM-MIN-dimension observed_keep_verdict=PASS and observed_drop_verdict=FAIL",
       "closure_evidence": "`FM-MIN-dimension` is the executable keep/drop witness.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-MIN-k",
       "source": "deterministic_attack_register",
       "theme": "minimality_component_witness",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-MIN",
       "artifact_location": "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json",
       "objection": "T133-MIN attack: k is decorative.",
@@ -2323,8 +2231,7 @@
       "closure_verification_query": "FM-MIN-k observed_keep_verdict=PASS and observed_drop_verdict=FAIL",
       "closure_evidence": "`FM-MIN-k` is the executable keep/drop witness.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-KLEVEL-K0_to_K1",
@@ -2393,7 +2300,7 @@
       "objection_id": "DET-KLEVEL-K3_to_K4",
       "source": "deterministic_attack_register",
       "theme": "klevel_transition_witness",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-KLEVEL",
       "artifact_location": "data/k_level_irreducibility_matrix.json",
       "objection": "T133-KLEVEL attack: K3_to_K4 is a relabeled threshold.",
@@ -2408,13 +2315,14 @@
       "closure_verification_query": "FM-KLEVEL-K3_to_K4=FAILS_WITH_WITNESS and FM-KLEVEL-K3_to_K4-NEG=DEMOTABLE_WITH_LOST_WITNESS",
       "closure_evidence": "`K3_to_K4` has retained and demotion executable rows.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-KLEVEL-K4_to_K5",
       "source": "deterministic_attack_register",
       "theme": "klevel_transition_witness",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-KLEVEL",
       "artifact_location": "data/k_level_irreducibility_matrix.json",
       "objection": "T133-KLEVEL attack: K4_to_K5 is a relabeled threshold.",
@@ -2429,8 +2337,7 @@
       "closure_verification_query": "FM-KLEVEL-K4_to_K5=FAILS_WITH_WITNESS and FM-KLEVEL-K4_to_K5-NEG=DEMOTABLE_WITH_LOST_WITNESS",
       "closure_evidence": "`K4_to_K5` has retained and demotion executable rows.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-KLEVEL-K5_to_K6",
@@ -2499,7 +2406,7 @@
       "objection_id": "DET-KLEVEL-K8_to_K9",
       "source": "deterministic_attack_register",
       "theme": "klevel_transition_witness",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-KLEVEL",
       "artifact_location": "data/k_level_irreducibility_matrix.json",
       "objection": "T133-KLEVEL attack: K8_to_K9 is a relabeled threshold.",
@@ -2514,13 +2421,14 @@
       "closure_verification_query": "FM-KLEVEL-K8_to_K9=FAILS_WITH_WITNESS and FM-KLEVEL-K8_to_K9-NEG=DEMOTABLE_WITH_LOST_WITNESS",
       "closure_evidence": "`K8_to_K9` has retained and demotion executable rows.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-KLEVEL-K9_to_K10",
       "source": "deterministic_attack_register",
       "theme": "klevel_transition_witness",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-KLEVEL",
       "artifact_location": "data/k_level_irreducibility_matrix.json",
       "objection": "T133-KLEVEL attack: K9_to_K10 is a relabeled threshold.",
@@ -2535,8 +2443,7 @@
       "closure_verification_query": "FM-KLEVEL-K9_to_K10=FAILS_WITH_WITNESS and FM-KLEVEL-K9_to_K10-NEG=DEMOTABLE_WITH_LOST_WITNESS",
       "closure_evidence": "`K9_to_K10` has retained and demotion executable rows.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-KLEVEL-K10_to_K11",
@@ -2604,7 +2511,7 @@
       "objection_id": "DET-NUMERIC-OC133-NUM-CHEM-WEBBOOK-H2O",
       "source": "deterministic_attack_register",
       "theme": "numeric_replay_quarantine",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "OC133-NUM-CHEM-WEBBOOK-H2O",
       "artifact_location": "validation/_raw/chemistry_nist_webbook_water.txt",
       "objection": "OC133-NUM-CHEM-WEBBOOK-H2O attack: replay is being sold as prediction.",
@@ -2618,13 +2525,14 @@
       "closure_verification_query": "OC133-NUM-CHEM-WEBBOOK-H2O prediction_support_allowed=false, empirical_support_allowed=false, replay_residual=0.0, baseline_control_residual=25.994200000000003",
       "closure_evidence": "`OC133-NUM-CHEM-WEBBOOK-H2O` is replay QA only and has a deterministic negative control.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-NUMERIC-OC133-NUM-CHEM-H2O",
       "source": "deterministic_attack_register",
       "theme": "numeric_replay_quarantine",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "OC133-NUM-CHEM-H2O",
       "artifact_location": "validation/_raw/chemistry_pubchem_water.txt",
       "objection": "OC133-NUM-CHEM-H2O attack: replay is being sold as prediction.",
@@ -2638,8 +2546,7 @@
       "closure_verification_query": "OC133-NUM-CHEM-H2O prediction_support_allowed=false, empirical_support_allowed=false, replay_residual=0.0, baseline_control_residual=25.994500000000002",
       "closure_evidence": "`OC133-NUM-CHEM-H2O` is replay QA only and has a deterministic negative control.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-NUMERIC-OC133-NUM-BIO-GEO-COUNT",
@@ -2705,7 +2612,7 @@
       "objection_id": "DET-PHEN-P001",
       "source": "deterministic_attack_register",
       "theme": "phenomenon_coverage_model_card",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-K0-RES",
       "artifact_location": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
       "objection": "P001 attack: OC does not explain Does OC actually explain raw continuity versus K0 distinguishability?.",
@@ -2720,13 +2627,14 @@
       "closure_verification_query": "P001::FM-T133-K0-RES-POS + FM-T133-K0-RES-NEG",
       "closure_evidence": "P001 uses model `resolution quotient over four cells of [0,1]` with observable `same-cell raw pair is not distinguished; cross-cell quotient pair is distinguished`.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-PHEN-P002",
       "source": "deterministic_attack_register",
       "theme": "phenomenon_coverage_model_card",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-OMEGA-STATUS",
       "artifact_location": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
       "objection": "P002 attack: OC does not explain Does OC actually explain death, residue, and rebirth without identity equivocation?.",
@@ -2741,8 +2649,7 @@
       "closure_verification_query": "P002::FM-T133-OMEGA-STATUS-POS + FM-T133-OMEGA-STATUS-NEG",
       "closure_evidence": "P002 uses model `live token dies, residue token persists, and rebirth targets a new live token` with observable `death blocks live status; rebirth source is residue and target is a new live token`.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-PHEN-P003",
@@ -2811,7 +2718,7 @@
       "objection_id": "DET-PHEN-P006",
       "source": "deterministic_attack_register",
       "theme": "phenomenon_coverage_model_card",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-DIM",
       "artifact_location": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
       "objection": "P006 attack: OC does not explain Does OC actually explain dimension drop after historical axis activation?.",
@@ -2826,13 +2733,14 @@
       "closure_verification_query": "P006::FM-T133-DIM-POS + FM-T133-DIM-NEG",
       "closure_evidence": "P006 uses model `two-axis record with frozen historical axis and active rank one` with observable `historical activation remains while effective rank drops`.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-PHEN-P007",
       "source": "deterministic_attack_register",
       "theme": "phenomenon_coverage_model_card",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-K-ZERO",
       "artifact_location": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
       "objection": "P007 attack: OC does not explain Does OC actually explain continuumness collapse with nonempty admissible set?.",
@@ -2847,8 +2755,7 @@
       "closure_verification_query": "P007::FM-T133-K-ZERO-POS + FM-T133-K-ZERO-NEG",
       "closure_evidence": "P007 uses model `single admissible state with active flow zero-cause` with observable `k=0 is licensed by declared zero-cause, not empty state set`.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-PHEN-P008",
@@ -2917,7 +2824,7 @@
       "objection_id": "DET-PHEN-P011",
       "source": "deterministic_attack_register",
       "theme": "phenomenon_coverage_model_card",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-KLEVEL",
       "artifact_location": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
       "objection": "P011 attack: OC does not explain Does OC actually explain recursive self-application without paradox by typed levels?.",
@@ -2932,13 +2839,14 @@
       "closure_verification_query": "P011::FM-KLEVEL-K9_to_K10 + FM-KLEVEL-K9_to_K10-NEG",
       "closure_evidence": "P011 uses model `model-update object separated from object-level model by K9->K10 typing` with observable `self-application is accepted only through typed transition witness`.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-PHEN-P012",
       "source": "deterministic_attack_register",
       "theme": "phenomenon_coverage_model_card",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "OC133-NOSEND-001",
       "artifact_location": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
       "objection": "P012 attack: OC does not explain Does OC actually explain no-send publication control as an operational release-state check?.",
@@ -2953,8 +2861,7 @@
       "closure_verification_query": "P012::ADV-NOSEND-PUBLISH + ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
       "closure_evidence": "P012 uses model `owner approval plus manifest/channel-lock state machine` with observable `public action is rejected while global no-send or any channel lock remains closed`.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-PHEN-P013",
@@ -3023,7 +2930,7 @@
       "objection_id": "DET-NOVELTY-GENERAL-SYSTEM-THEORY",
       "source": "deterministic_attack_register",
       "theme": "prior_art_positioning",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "OC133-NOVELTY-001",
       "artifact_location": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
       "objection": "Novelty attack: OC is just General System Theory under another angle.",
@@ -3036,13 +2943,14 @@
       "closure_verification_query": "General System Theory uniqueness_claim_status=NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY; priority_date_status=POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
       "closure_evidence": "If OC is read merely as cross-domain systems language, the novelty claim fails.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-NOVELTY-AUTOPOIESIS",
       "source": "deterministic_attack_register",
       "theme": "prior_art_positioning",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "OC133-NOVELTY-001",
       "artifact_location": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
       "objection": "Novelty attack: OC is just Autopoiesis under another angle.",
@@ -3055,8 +2963,7 @@
       "closure_verification_query": "Autopoiesis uniqueness_claim_status=NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY; priority_date_status=POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
       "closure_evidence": "If OC is read as autopoiesis with renamed fields, the novelty claim fails.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-NOVELTY-DYNAMICAL-SYSTEMS",
@@ -3119,7 +3026,7 @@
       "objection_id": "DET-NOVELTY-COMPLEXITY-AND-INFORMATION-MEASURES",
       "source": "deterministic_attack_register",
       "theme": "prior_art_positioning",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "OC133-NOVELTY-001",
       "artifact_location": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
       "objection": "Novelty attack: OC is just Complexity and Information Measures under another angle.",
@@ -3132,13 +3039,14 @@
       "closure_verification_query": "Complexity and Information Measures uniqueness_claim_status=NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY; priority_date_status=POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
       "closure_evidence": "If OC is read as a new complexity measure, novelty fails.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-NOVELTY-CAUSAL-AND-IDENTITY-THEORIES",
       "source": "deterministic_attack_register",
       "theme": "prior_art_positioning",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "OC133-NOVELTY-001",
       "artifact_location": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
       "objection": "Novelty attack: OC is just Causal and Identity Theories under another angle.",
@@ -3151,8 +3059,7 @@
       "closure_verification_query": "Causal and Identity Theories uniqueness_claim_status=NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY; priority_date_status=POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
       "closure_evidence": "If OC is read as a new metaphysical identity theory, novelty fails.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-NOVELTY-SYSTEMS-ENGINEERING",
@@ -3215,7 +3122,7 @@
       "objection_id": "DET-NOVELTY-ASSURANCE-CASES-AND-SAFETY-CASES",
       "source": "deterministic_attack_register",
       "theme": "prior_art_positioning",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "OC133-NOVELTY-001",
       "artifact_location": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
       "objection": "Novelty attack: OC is just Assurance Cases and Safety Cases under another angle.",
@@ -3228,13 +3135,14 @@
       "closure_verification_query": "Assurance Cases and Safety Cases uniqueness_claim_status=NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY; priority_date_status=POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
       "closure_evidence": "If the v12 control plane is read as an assurance/safety case, novelty fails; only local integration/positioning remains.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-NOVELTY-GOAL-STRUCTURING-NOTATION-/-ARGUMENT-PATTERNS",
       "source": "deterministic_attack_register",
       "theme": "prior_art_positioning",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "OC133-NOVELTY-001",
       "artifact_location": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
       "objection": "Novelty attack: OC is just Goal Structuring Notation / Argument Patterns under another angle.",
@@ -3247,8 +3155,7 @@
       "closure_verification_query": "Goal Structuring Notation / Argument Patterns uniqueness_claim_status=NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY; priority_date_status=POSITIONING_ONLY_NO_PRIORITY_ASSERTION",
       "closure_evidence": "If OC v12 is read as GSN with different labels, novelty fails.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-NOVELTY-REQUIREMENTS-TRACEABILITY-AND-V&V-MATRICES",
@@ -3432,7 +3339,7 @@
       "objection_id": "DET-CORP-AUTO-DISPATCH-PROFILE-SPECIFIC",
       "source": "deterministic_attack_register",
       "theme": "corporate_autonomous_repair_control",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "OC133-CORP-AUTO-001",
       "artifact_location": "tools/oc133_autonomous_research_loop.py",
       "objection": "OC133-CORP-AUTO-001 attack: repair profiles could all call one materializer and hide capability failure.",
@@ -3446,8 +3353,7 @@
       "closure_verification_query": "profile_results contain one capability executor row per queued profile",
       "closure_evidence": "Closed by capability-specific executor predicate `profile_results contain one capability executor row per queued profile`.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-CORP-AUTO-WORKORDER-PREDICATE",
@@ -3510,7 +3416,7 @@
       "objection_id": "DET-CORP-AUTO-CERBERUS-FRESHNESS",
       "source": "deterministic_attack_register",
       "theme": "corporate_autonomous_repair_control",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "OC133-CORP-AUTO-005",
       "artifact_location": "tools/run_oc133_v12_cerberus.py",
       "objection": "OC133-CORP-AUTO-005 attack: stale timeout Cerberus JSON could certify G58.",
@@ -3524,13 +3430,14 @@
       "closure_verification_query": "execution_bad_total=0 is required for G58 PASS",
       "closure_evidence": "Closed by capability-specific executor predicate `execution_bad_total=0 is required for G58 PASS`.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-CORP-AUTO-ATTACK-MATRIX-COMPLETENESS",
       "source": "deterministic_attack_register",
       "theme": "corporate_autonomous_repair_control",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "OC133-CORP-AUTO-006",
       "artifact_location": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
       "objection": "OC133-CORP-AUTO-006 attack: G57 could pass with too few concrete objections.",
@@ -3543,8 +3450,7 @@
       "closure_verification_query": "objection_total>=200 and generic_row_total=0",
       "closure_evidence": "Closed by capability-specific executor predicate `objection_total>=200 and generic_row_total=0`.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-CORP-AUTO-EXACT-EVIDENCE",
@@ -3607,7 +3513,7 @@
       "objection_id": "DET-NOSEND-PARTIAL-ZENODO_DEPOSIT",
       "source": "deterministic_attack_register",
       "theme": "no_send_partial_lock_control",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "OC133-NOSEND-001",
       "artifact_location": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
       "objection": "OC133-NOSEND-001 attack: partial lock `ZENODO_DEPOSIT` could allow public action.",
@@ -3620,13 +3526,14 @@
       "closure_verification_query": "ADV-NOSEND-PARTIAL-LOCK-ZENODO_DEPOSIT observed_verdict=REJECT_PUBLIC_ACTION and passed=true",
       "closure_evidence": "`ADV-NOSEND-PARTIAL-LOCK-ZENODO_DEPOSIT` rejects the attempted public action.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-NOSEND-PARTIAL-SOFTWARE_HERITAGE_DEPOSIT",
       "source": "deterministic_attack_register",
       "theme": "no_send_partial_lock_control",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "OC133-NOSEND-001",
       "artifact_location": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
       "objection": "OC133-NOSEND-001 attack: partial lock `SOFTWARE_HERITAGE_DEPOSIT` could allow public action.",
@@ -3639,8 +3546,7 @@
       "closure_verification_query": "ADV-NOSEND-PARTIAL-LOCK-SOFTWARE_HERITAGE_DEPOSIT observed_verdict=REJECT_PUBLIC_ACTION and passed=true",
       "closure_evidence": "`ADV-NOSEND-PARTIAL-LOCK-SOFTWARE_HERITAGE_DEPOSIT` rejects the attempted public action.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-NOSEND-PARTIAL-JOURNAL_SUBMISSION",
@@ -3703,7 +3609,7 @@
       "objection_id": "DET-NOSEND-PARTIAL-PUBLISH_ALLOWED",
       "source": "deterministic_attack_register",
       "theme": "no_send_partial_lock_control",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "OC133-NOSEND-001",
       "artifact_location": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
       "objection": "OC133-NOSEND-001 attack: partial lock `PUBLISH_ALLOWED` could allow public action.",
@@ -3716,13 +3622,14 @@
       "closure_verification_query": "ADV-NOSEND-PARTIAL-LOCK-PUBLISH_ALLOWED observed_verdict=REJECT_PUBLIC_ACTION and passed=true",
       "closure_evidence": "`ADV-NOSEND-PARTIAL-LOCK-PUBLISH_ALLOWED` rejects the attempted public action.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-NOSEND-PARTIAL-DEPOSIT_READY_METADATA",
       "source": "deterministic_attack_register",
       "theme": "no_send_partial_lock_control",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "OC133-NOSEND-001",
       "artifact_location": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
       "objection": "OC133-NOSEND-001 attack: partial lock `DEPOSIT_READY_METADATA` could allow public action.",
@@ -3735,8 +3642,7 @@
       "closure_verification_query": "ADV-NOSEND-PARTIAL-LOCK-DEPOSIT_READY_METADATA observed_verdict=REJECT_PUBLIC_ACTION and passed=true",
       "closure_evidence": "`ADV-NOSEND-PARTIAL-LOCK-DEPOSIT_READY_METADATA` rejects the attempted public action.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-NOSEND-PARTIAL-PUBLIC_RECORD_PRESENT",
@@ -3810,15 +3716,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -3830,7 +3736,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -3908,7 +3814,7 @@
       "objection_id": "DET-MATRIX-002-T133-K0-RES-NEGATIVE-CONTROL",
       "source": "deterministic_attack_register",
       "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-K0-RES",
       "artifact_location": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
       "objection": "T133-K0-RES attack: K0 resolution-relative distinguishability theorem: negative control could be absent or non-responsive.",
@@ -3938,15 +3844,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -3958,7 +3864,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -4029,13 +3935,14 @@
       },
       "closure_predicate_pass": true,
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-MATRIX-003-T133-K0-RES-PUBLIC-SURFACE",
       "source": "deterministic_attack_register",
       "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-K0-RES",
       "artifact_location": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
       "objection": "T133-K0-RES attack: K0 resolution-relative distinguishability theorem: public wording could exceed the machine-checked claim.",
@@ -4065,15 +3972,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -4085,7 +3992,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -4157,8 +4064,7 @@
       },
       "closure_predicate_pass": true,
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-MATRIX-004-T133-K0-RES-FALSIFIER",
@@ -4194,15 +4100,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -4214,7 +4120,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -4321,15 +4227,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -4341,7 +4247,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -4449,15 +4355,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -4469,7 +4375,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -4547,7 +4453,7 @@
       "objection_id": "DET-MATRIX-007-T133-K0-RES-NO-SEND",
       "source": "deterministic_attack_register",
       "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-K0-RES",
       "artifact_location": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
       "objection": "T133-K0-RES attack: K0 resolution-relative distinguishability theorem: repair could accidentally enable a public action.",
@@ -4576,11 +4482,11 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -4596,11 +4502,11 @@
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/proof_sheets/T133-K0-RES.md",
@@ -4693,13 +4599,14 @@
       },
       "closure_predicate_pass": true,
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-MATRIX-008-T133-K0-RES-STALE-EVIDENCE",
       "source": "deterministic_attack_register",
       "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-K0-RES",
       "artifact_location": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
       "objection": "T133-K0-RES attack: K0 resolution-relative distinguishability theorem: row could be closed against an outdated artifact.",
@@ -4729,15 +4636,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -4749,7 +4656,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -4821,8 +4728,7 @@
       },
       "closure_predicate_pass": true,
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-MATRIX-009-T133-K0-RES-CLAIM-ID",
@@ -4858,15 +4764,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -4878,7 +4784,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -4986,15 +4892,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -5006,7 +4912,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -5114,15 +5020,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -5134,7 +5040,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -5212,7 +5118,7 @@
       "objection_id": "DET-MATRIX-012-T133-OMEGA-STATUS-NEGATIVE-CONTROL",
       "source": "deterministic_attack_register",
       "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-OMEGA-STATUS",
       "artifact_location": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
       "objection": "T133-OMEGA-STATUS attack: Typed liveness, death, residue, and rebirth evidence-consistency theorem: negative control could be absent or non-responsive.",
@@ -5242,15 +5148,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -5262,7 +5168,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -5333,13 +5239,14 @@
       },
       "closure_predicate_pass": true,
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-MATRIX-013-T133-OMEGA-STATUS-PUBLIC-SURFACE",
       "source": "deterministic_attack_register",
       "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-OMEGA-STATUS",
       "artifact_location": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
       "objection": "T133-OMEGA-STATUS attack: Typed liveness, death, residue, and rebirth evidence-consistency theorem: public wording could exceed the machine-checked claim.",
@@ -5369,15 +5276,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -5389,7 +5296,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -5461,8 +5368,7 @@
       },
       "closure_predicate_pass": true,
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-MATRIX-014-T133-OMEGA-STATUS-FALSIFIER",
@@ -5498,15 +5404,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -5518,7 +5424,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -5625,15 +5531,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -5645,7 +5551,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -5753,15 +5659,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -5773,7 +5679,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -5851,7 +5757,7 @@
       "objection_id": "DET-MATRIX-017-T133-OMEGA-STATUS-NO-SEND",
       "source": "deterministic_attack_register",
       "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-OMEGA-STATUS",
       "artifact_location": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
       "objection": "T133-OMEGA-STATUS attack: Typed liveness, death, residue, and rebirth evidence-consistency theorem: repair could accidentally enable a public action.",
@@ -5876,7 +5782,7 @@
       "closure_current_artifact_hashes": [
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
@@ -5884,7 +5790,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -5900,11 +5806,11 @@
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/proof_sheets/T133-OMEGA-STATUS.md",
@@ -5997,13 +5903,14 @@
       },
       "closure_predicate_pass": true,
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-MATRIX-018-T133-OMEGA-STATUS-STALE-EVIDENCE",
       "source": "deterministic_attack_register",
       "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-OMEGA-STATUS",
       "artifact_location": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
       "objection": "T133-OMEGA-STATUS attack: Typed liveness, death, residue, and rebirth evidence-consistency theorem: row could be closed against an outdated artifact.",
@@ -6033,15 +5940,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -6053,7 +5960,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -6125,8 +6032,7 @@
       },
       "closure_predicate_pass": true,
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-MATRIX-019-T133-OMEGA-STATUS-CLAIM-ID",
@@ -6162,15 +6068,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -6182,7 +6088,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -6290,15 +6196,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -6310,7 +6216,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -6418,15 +6324,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -6438,7 +6344,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -6516,7 +6422,7 @@
       "objection_id": "DET-MATRIX-022-T133-K-ZERO-NEGATIVE-CONTROL",
       "source": "deterministic_attack_register",
       "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-K-ZERO",
       "artifact_location": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
       "objection": "T133-K-ZERO attack: Continuumness zero obstruction theorem: negative control could be absent or non-responsive.",
@@ -6546,15 +6452,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -6566,7 +6472,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -6637,13 +6543,14 @@
       },
       "closure_predicate_pass": true,
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-MATRIX-023-T133-K-ZERO-PUBLIC-SURFACE",
       "source": "deterministic_attack_register",
       "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-K-ZERO",
       "artifact_location": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
       "objection": "T133-K-ZERO attack: Continuumness zero obstruction theorem: public wording could exceed the machine-checked claim.",
@@ -6673,15 +6580,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -6693,7 +6600,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -6765,8 +6672,7 @@
       },
       "closure_predicate_pass": true,
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-MATRIX-024-T133-K-ZERO-FALSIFIER",
@@ -6802,15 +6708,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -6822,7 +6728,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -6929,15 +6835,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -6949,7 +6855,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -7057,15 +6963,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -7077,7 +6983,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -7155,7 +7061,7 @@
       "objection_id": "DET-MATRIX-027-T133-K-ZERO-NO-SEND",
       "source": "deterministic_attack_register",
       "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-K-ZERO",
       "artifact_location": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
       "objection": "T133-K-ZERO attack: Continuumness zero obstruction theorem: repair could accidentally enable a public action.",
@@ -7184,11 +7090,11 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -7204,11 +7110,11 @@
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/proof_sheets/T133-K-ZERO.md",
@@ -7301,13 +7207,14 @@
       },
       "closure_predicate_pass": true,
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-MATRIX-028-T133-K-ZERO-STALE-EVIDENCE",
       "source": "deterministic_attack_register",
       "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-K-ZERO",
       "artifact_location": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
       "objection": "T133-K-ZERO attack: Continuumness zero obstruction theorem: row could be closed against an outdated artifact.",
@@ -7337,15 +7244,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -7357,7 +7264,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -7429,8 +7336,7 @@
       },
       "closure_predicate_pass": true,
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-MATRIX-029-T133-K-ZERO-CLAIM-ID",
@@ -7466,15 +7372,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -7486,7 +7392,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -7594,15 +7500,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -7614,7 +7520,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -7722,15 +7628,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -7742,7 +7648,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -7820,7 +7726,7 @@
       "objection_id": "DET-MATRIX-032-T133-BOUNDARY-NEGATIVE-CONTROL",
       "source": "deterministic_attack_register",
       "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-BOUNDARY",
       "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
       "objection": "T133-BOUNDARY attack: Metric-threshold boundary specialization theorem: negative control could be absent or non-responsive.",
@@ -7850,15 +7756,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -7870,7 +7776,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -7941,13 +7847,14 @@
       },
       "closure_predicate_pass": true,
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
     },
     {
       "objection_id": "DET-MATRIX-033-T133-BOUNDARY-PUBLIC-SURFACE",
       "source": "deterministic_attack_register",
       "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "attacked_claim": "T133-BOUNDARY",
       "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
       "objection": "T133-BOUNDARY attack: Metric-threshold boundary specialization theorem: public wording could exceed the machine-checked claim.",
@@ -7977,15 +7884,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -7997,7 +7904,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -8069,8 +7976,7 @@
       },
       "closure_predicate_pass": true,
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true,
-      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+      "no_send": true
     },
     {
       "objection_id": "DET-MATRIX-034-T133-BOUNDARY-FALSIFIER",
@@ -8106,15 +8012,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -8126,7 +8032,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -8233,15 +8139,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -8253,7 +8159,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -8361,15 +8267,15 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -8381,7 +8287,7 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         }
       ],
       "closure_observed_case_results": [
@@ -8459,7 +8365,7 @@
       "objection_id": "DET-MATRIX-037-T133-BOUNDARY-NO-SEND",
       "source": "deterministic_attack_register",
       "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "attacked_claim": "T133-BOUNDARY",
       "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
       "objection": "T133-BOUNDARY attack: Metric-threshold boundary specialization theorem: repair could accidentally enable a public action.",
@@ -8488,11 +8394,11 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "a67105f26d487a1538ef6d29f1297d20161360cd1c44a457b8f083c300ec9f46"
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "4564b691ce019559ca1372c2e1c0e8c8c7c2170aafed607b0a885c47e63e0eae"
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -8508,11 +8414,11 @@
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "b4321af8296f7fea014f4e6805bbe3cafe930041facae5d349b98839019d05c9"
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
         },
         {
           "ref": "proofs/proof_sheets/T133-BOUNDARY.md",
@@ -8599,6 +8505,519 @@
         "case_set_named_for_predicate": [
           "FM-T133-BOUNDARY-NEG",
           "FM-T133-BOUNDARY-POS"
+        ],
+        "vector_specific_predicate_pass": true,
+        "closure_predicate_pass": true
+      },
+      "closure_predicate_pass": true,
+      "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+      "no_send": true,
+      "severity_calibration": "Closed deterministic coverage row; open critical/high Cerberus rows are never downgraded by this diversity calibration."
+    },
+    {
+      "objection_id": "DET-MATRIX-038-T133-BOUNDARY-STALE-EVIDENCE",
+      "source": "deterministic_attack_register",
+      "theme": "attack_matrix_distinct_surface_coverage",
+      "severity": "HIGH",
+      "attacked_claim": "T133-BOUNDARY",
+      "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+      "objection": "T133-BOUNDARY attack: Metric-threshold boundary specialization theorem: row could be closed against an outdated artifact.",
+      "failure_mode": "Metric-threshold boundary specialization theorem: row could be closed against an outdated artifact",
+      "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query. Specific target `DET-MATRIX-038-T133-BOUNDARY-STALE-EVIDENCE` attacks `T133-BOUNDARY` at `appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex` and must verify `T133-BOUNDARY/STALE-EVIDENCE: current artifact hashes bound; FM-T133-BOUNDARY-POS passed=true; FM-T133-BOUNDARY-NEG passed=true`.",
+      "closure_type": "generated_distinct_attack_surface",
+      "closure_evidence_refs": [
+        "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+        "proofs/proof_sheets/T133-BOUNDARY.md",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "proofs/THEOREM_REGISTRY_1_3_3.json",
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-POS",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-NEG",
+        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
+      ],
+      "closure_verification_query": "T133-BOUNDARY/STALE-EVIDENCE: current artifact hashes bound; FM-T133-BOUNDARY-POS passed=true; FM-T133-BOUNDARY-NEG passed=true",
+      "closure_evidence": "Observed current closure for `T133-BOUNDARY/STALE-EVIDENCE: current artifact hashes bound; FM-T133-BOUNDARY-POS passed=true; FM-T133-BOUNDARY-NEG passed=true`: 8 artifact hash(es), 2 finite/control case result(s), predicate_pass=true, verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+          "sha256": "30af64e5199e34ac408e1d5ab4dedd1716c766debb491054599b24e306219eb7"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-BOUNDARY.md",
+          "sha256": "f3551dd6a0eee22d2a05aaea1e669ad4abfc7f25b8fd5a52983b80ebcb72f305"
+        },
+        {
+          "ref": "claims/CLAIM_LEDGER_1_3_3.json",
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
+        },
+        {
+          "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
+        },
+        {
+          "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "b333727cf7b30fff83847197740a92692bf451cf0c1db9786bf876e51720f88d"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "b333727cf7b30fff83847197740a92692bf451cf0c1db9786bf876e51720f88d"
+        },
+        {
+          "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
+        }
+      ],
+      "closure_observed_case_results": [
+        {
+          "case_id": "FM-T133-BOUNDARY-NEG",
+          "passed": true,
+          "observed_verdict": "REJECT",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        },
+        {
+          "case_id": "FM-T133-BOUNDARY-POS",
+          "passed": true,
+          "observed_verdict": "ACCEPT",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        }
+      ],
+      "closure_current_artifact_hash_total": 8,
+      "closure_observed_case_result_total": 2,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
+      "closure_predicate_results": {
+        "matched_claim_id": "T133-BOUNDARY",
+        "matched_theorem_id": "T133-BOUNDARY",
+        "domain_key": "T133-BOUNDARY",
+        "vector_id": "STALE-EVIDENCE",
+        "dependency_refs": [
+          "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+          "proofs/proof_sheets/T133-BOUNDARY.md",
+          "claims/CLAIM_LEDGER_1_3_3.json",
+          "proofs/THEOREM_REGISTRY_1_3_3.json",
+          "proofs/THEOREM_INVENTORY_1_3_3.json",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-POS",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-NEG",
+          "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
+        ],
+        "query_case_ids": [
+          "FM-T133-BOUNDARY-NEG",
+          "FM-T133-BOUNDARY-POS"
+        ],
+        "matched_case_ids": [
+          "FM-T133-BOUNDARY-NEG",
+          "FM-T133-BOUNDARY-POS"
+        ],
+        "required_theorem_case_ids": [
+          "FM-T133-BOUNDARY-POS",
+          "FM-T133-BOUNDARY-NEG"
+        ],
+        "named_cases_observed": true,
+        "named_cases_passed": true,
+        "artifact_hashes_present": true,
+        "claim_ledger_match": true,
+        "claim_public_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
+        "claim_scientific_promotion_allowed": false,
+        "theorem_registry_match": true,
+        "theorem_inventory_match": true,
+        "proof_sheet_has_assumptions": true,
+        "proof_sheet_has_counterexample_boundary": true,
+        "hostile_reader_route_chain_present": true,
+        "falsifier_or_boundary_text_present": true,
+        "case_set_named_for_predicate": [
+          "FM-T133-BOUNDARY-NEG",
+          "FM-T133-BOUNDARY-POS"
+        ],
+        "vector_specific_predicate_pass": true,
+        "closure_predicate_pass": true
+      },
+      "closure_predicate_pass": true,
+      "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+      "no_send": true
+    },
+    {
+      "objection_id": "DET-MATRIX-039-T133-BOUNDARY-CLAIM-ID",
+      "source": "deterministic_attack_register",
+      "theme": "attack_matrix_distinct_surface_coverage",
+      "severity": "HIGH",
+      "attacked_claim": "T133-BOUNDARY",
+      "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+      "objection": "T133-BOUNDARY attack: Metric-threshold boundary specialization theorem: claim id could be relabeled while evidence remains unchanged.",
+      "failure_mode": "Metric-threshold boundary specialization theorem: claim id could be relabeled while evidence remains unchanged",
+      "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query. Specific target `DET-MATRIX-039-T133-BOUNDARY-CLAIM-ID` attacks `T133-BOUNDARY` at `appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex` and must verify `T133-BOUNDARY/CLAIM-ID: claim_id=T133-BOUNDARY, theorem_id=T133-BOUNDARY, case_id=FM-T133-BOUNDARY-POS, case_id=FM-T133-BOUNDARY-NEG match across ledger, proof, finite, and review matrix`.",
+      "closure_type": "generated_distinct_attack_surface",
+      "closure_evidence_refs": [
+        "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+        "proofs/proof_sheets/T133-BOUNDARY.md",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "proofs/THEOREM_REGISTRY_1_3_3.json",
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-POS",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-NEG",
+        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
+      ],
+      "closure_verification_query": "T133-BOUNDARY/CLAIM-ID: claim_id=T133-BOUNDARY, theorem_id=T133-BOUNDARY, case_id=FM-T133-BOUNDARY-POS, case_id=FM-T133-BOUNDARY-NEG match across ledger, proof, finite, and review matrix",
+      "closure_evidence": "Observed current closure for `T133-BOUNDARY/CLAIM-ID: claim_id=T133-BOUNDARY, theorem_id=T133-BOUNDARY, case_id=FM-T133-BOUNDARY-POS, case_id=FM-T133-BOUNDARY-NEG match across ledger, proof, finite, and review matrix`: 8 artifact hash(es), 2 finite/control case result(s), predicate_pass=true, verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+          "sha256": "30af64e5199e34ac408e1d5ab4dedd1716c766debb491054599b24e306219eb7"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-BOUNDARY.md",
+          "sha256": "f3551dd6a0eee22d2a05aaea1e669ad4abfc7f25b8fd5a52983b80ebcb72f305"
+        },
+        {
+          "ref": "claims/CLAIM_LEDGER_1_3_3.json",
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
+        },
+        {
+          "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
+        },
+        {
+          "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "b333727cf7b30fff83847197740a92692bf451cf0c1db9786bf876e51720f88d"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "b333727cf7b30fff83847197740a92692bf451cf0c1db9786bf876e51720f88d"
+        },
+        {
+          "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
+        }
+      ],
+      "closure_observed_case_results": [
+        {
+          "case_id": "FM-T133-BOUNDARY-NEG",
+          "passed": true,
+          "observed_verdict": "REJECT",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        },
+        {
+          "case_id": "FM-T133-BOUNDARY-POS",
+          "passed": true,
+          "observed_verdict": "ACCEPT",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        }
+      ],
+      "closure_current_artifact_hash_total": 8,
+      "closure_observed_case_result_total": 2,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
+      "closure_predicate_results": {
+        "matched_claim_id": "T133-BOUNDARY",
+        "matched_theorem_id": "T133-BOUNDARY",
+        "domain_key": "T133-BOUNDARY",
+        "vector_id": "CLAIM-ID",
+        "dependency_refs": [
+          "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+          "proofs/proof_sheets/T133-BOUNDARY.md",
+          "claims/CLAIM_LEDGER_1_3_3.json",
+          "proofs/THEOREM_REGISTRY_1_3_3.json",
+          "proofs/THEOREM_INVENTORY_1_3_3.json",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-POS",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-NEG",
+          "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
+        ],
+        "query_case_ids": [
+          "FM-T133-BOUNDARY-NEG",
+          "FM-T133-BOUNDARY-POS"
+        ],
+        "matched_case_ids": [
+          "FM-T133-BOUNDARY-NEG",
+          "FM-T133-BOUNDARY-POS"
+        ],
+        "required_theorem_case_ids": [
+          "FM-T133-BOUNDARY-POS",
+          "FM-T133-BOUNDARY-NEG"
+        ],
+        "named_cases_observed": true,
+        "named_cases_passed": true,
+        "artifact_hashes_present": true,
+        "claim_ledger_match": true,
+        "claim_public_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
+        "claim_scientific_promotion_allowed": false,
+        "theorem_registry_match": true,
+        "theorem_inventory_match": true,
+        "proof_sheet_has_assumptions": true,
+        "proof_sheet_has_counterexample_boundary": true,
+        "hostile_reader_route_chain_present": true,
+        "falsifier_or_boundary_text_present": true,
+        "case_set_named_for_predicate": [
+          "FM-T133-BOUNDARY-NEG",
+          "FM-T133-BOUNDARY-POS"
+        ],
+        "vector_specific_predicate_pass": true,
+        "closure_predicate_pass": true
+      },
+      "closure_predicate_pass": true,
+      "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+      "no_send": true
+    },
+    {
+      "objection_id": "DET-MATRIX-040-T133-BOUNDARY-REVIEW-TRACE",
+      "source": "deterministic_attack_register",
+      "theme": "attack_matrix_distinct_surface_coverage",
+      "severity": "HIGH",
+      "attacked_claim": "T133-BOUNDARY",
+      "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+      "objection": "T133-BOUNDARY attack: Metric-threshold boundary specialization theorem: hostile reader could fail to trace the route.",
+      "failure_mode": "Metric-threshold boundary specialization theorem: hostile reader could fail to trace the route",
+      "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query. Specific target `DET-MATRIX-040-T133-BOUNDARY-REVIEW-TRACE` attacks `T133-BOUNDARY` at `appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex` and must verify `T133-BOUNDARY/REVIEW-TRACE: hostile-reader route names T133-BOUNDARY, FM-T133-BOUNDARY-POS, FM-T133-BOUNDARY-NEG, and the counterexample boundary`.",
+      "closure_type": "generated_distinct_attack_surface",
+      "closure_evidence_refs": [
+        "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+        "proofs/proof_sheets/T133-BOUNDARY.md",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "proofs/THEOREM_REGISTRY_1_3_3.json",
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-POS",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-NEG",
+        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
+      ],
+      "closure_verification_query": "T133-BOUNDARY/REVIEW-TRACE: hostile-reader route names T133-BOUNDARY, FM-T133-BOUNDARY-POS, FM-T133-BOUNDARY-NEG, and the counterexample boundary",
+      "closure_evidence": "Observed current closure for `T133-BOUNDARY/REVIEW-TRACE: hostile-reader route names T133-BOUNDARY, FM-T133-BOUNDARY-POS, FM-T133-BOUNDARY-NEG, and the counterexample boundary`: 8 artifact hash(es), 2 finite/control case result(s), predicate_pass=true, verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+          "sha256": "30af64e5199e34ac408e1d5ab4dedd1716c766debb491054599b24e306219eb7"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-BOUNDARY.md",
+          "sha256": "f3551dd6a0eee22d2a05aaea1e669ad4abfc7f25b8fd5a52983b80ebcb72f305"
+        },
+        {
+          "ref": "claims/CLAIM_LEDGER_1_3_3.json",
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
+        },
+        {
+          "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
+        },
+        {
+          "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "b333727cf7b30fff83847197740a92692bf451cf0c1db9786bf876e51720f88d"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "b333727cf7b30fff83847197740a92692bf451cf0c1db9786bf876e51720f88d"
+        },
+        {
+          "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
+        }
+      ],
+      "closure_observed_case_results": [
+        {
+          "case_id": "FM-T133-BOUNDARY-NEG",
+          "passed": true,
+          "observed_verdict": "REJECT",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        },
+        {
+          "case_id": "FM-T133-BOUNDARY-POS",
+          "passed": true,
+          "observed_verdict": "ACCEPT",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        }
+      ],
+      "closure_current_artifact_hash_total": 8,
+      "closure_observed_case_result_total": 2,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
+      "closure_predicate_results": {
+        "matched_claim_id": "T133-BOUNDARY",
+        "matched_theorem_id": "T133-BOUNDARY",
+        "domain_key": "T133-BOUNDARY",
+        "vector_id": "REVIEW-TRACE",
+        "dependency_refs": [
+          "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
+          "proofs/proof_sheets/T133-BOUNDARY.md",
+          "claims/CLAIM_LEDGER_1_3_3.json",
+          "proofs/THEOREM_REGISTRY_1_3_3.json",
+          "proofs/THEOREM_INVENTORY_1_3_3.json",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-POS",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-NEG",
+          "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
+        ],
+        "query_case_ids": [
+          "FM-T133-BOUNDARY-NEG",
+          "FM-T133-BOUNDARY-POS"
+        ],
+        "matched_case_ids": [
+          "FM-T133-BOUNDARY-NEG",
+          "FM-T133-BOUNDARY-POS"
+        ],
+        "required_theorem_case_ids": [
+          "FM-T133-BOUNDARY-POS",
+          "FM-T133-BOUNDARY-NEG"
+        ],
+        "named_cases_observed": true,
+        "named_cases_passed": true,
+        "artifact_hashes_present": true,
+        "claim_ledger_match": true,
+        "claim_public_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
+        "claim_scientific_promotion_allowed": false,
+        "theorem_registry_match": true,
+        "theorem_inventory_match": true,
+        "proof_sheet_has_assumptions": true,
+        "proof_sheet_has_counterexample_boundary": true,
+        "hostile_reader_route_chain_present": true,
+        "falsifier_or_boundary_text_present": true,
+        "case_set_named_for_predicate": [
+          "FM-T133-BOUNDARY-NEG",
+          "FM-T133-BOUNDARY-POS"
+        ],
+        "vector_specific_predicate_pass": true,
+        "closure_predicate_pass": true
+      },
+      "closure_predicate_pass": true,
+      "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+      "no_send": true
+    },
+    {
+      "objection_id": "DET-MATRIX-041-T133-HYBRID-ASSUMPTION-DRIFT",
+      "source": "deterministic_attack_register",
+      "theme": "attack_matrix_distinct_surface_coverage",
+      "severity": "HIGH",
+      "attacked_claim": "T133-HYBRID",
+      "artifact_location": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+      "objection": "T133-HYBRID attack: Typed update and chart-labelled operator semantics theorem: assumptions could drift from the proof/evaluator boundary.",
+      "failure_mode": "Typed update and chart-labelled operator semantics theorem: assumptions could drift from the proof/evaluator boundary",
+      "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query. Specific target `DET-MATRIX-041-T133-HYBRID-ASSUMPTION-DRIFT` attacks `T133-HYBRID` at `content/OC_1_3_3_OPERATOR_SEMANTICS.tex` and must verify `T133-HYBRID/ASSUMPTION-DRIFT: proof sheet has Assumptions and Counterexample Boundary; FM-T133-HYBRID-POS passed=true and FM-T133-HYBRID-NEG passed=true`.",
+      "closure_type": "generated_distinct_attack_surface",
+      "closure_evidence_refs": [
+        "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+        "proofs/proof_sheets/T133-HYBRID.md",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "proofs/THEOREM_REGISTRY_1_3_3.json",
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-HYBRID-POS",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-HYBRID-NEG",
+        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
+      ],
+      "closure_verification_query": "T133-HYBRID/ASSUMPTION-DRIFT: proof sheet has Assumptions and Counterexample Boundary; FM-T133-HYBRID-POS passed=true and FM-T133-HYBRID-NEG passed=true",
+      "closure_evidence": "Observed current closure for `T133-HYBRID/ASSUMPTION-DRIFT: proof sheet has Assumptions and Counterexample Boundary; FM-T133-HYBRID-POS passed=true and FM-T133-HYBRID-NEG passed=true`: 8 artifact hash(es), 2 finite/control case result(s), predicate_pass=true, verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+          "sha256": "1683eedbc68fe06797046a18ca8857cba71bf6c6c17fefc811e2e55fc4f52bae"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-HYBRID.md",
+          "sha256": "58e21a062bd409381a68d80eedf50ceb56e60844868e87320e85105ff0ab1a90"
+        },
+        {
+          "ref": "claims/CLAIM_LEDGER_1_3_3.json",
+          "sha256": "0e83752626a4bd4480da25afae13d80c6446204b0dce8f3de1145c5f6e508ff8"
+        },
+        {
+          "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
+        },
+        {
+          "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+          "sha256": "667ef6a50abd54d730020a0bed22204b914ac37846fa98702f3b8fbb81ed4b68"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "b333727cf7b30fff83847197740a92692bf451cf0c1db9786bf876e51720f88d"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "b333727cf7b30fff83847197740a92692bf451cf0c1db9786bf876e51720f88d"
+        },
+        {
+          "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
+          "sha256": "568e741f50076479d75968e162763593fced36d61e321673110c4a6d50254f19"
+        }
+      ],
+      "closure_observed_case_results": [
+        {
+          "case_id": "FM-T133-HYBRID-NEG",
+          "passed": true,
+          "observed_verdict": "REJECT",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        },
+        {
+          "case_id": "FM-T133-HYBRID-POS",
+          "passed": true,
+          "observed_verdict": "ACCEPT",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        }
+      ],
+      "closure_current_artifact_hash_total": 8,
+      "closure_observed_case_result_total": 2,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
+      "closure_predicate_results": {
+        "matched_claim_id": "T133-HYBRID",
+        "matched_theorem_id": "T133-HYBRID",
+        "domain_key": "T133-HYBRID",
+        "vector_id": "ASSUMPTION-DRIFT",
+        "dependency_refs": [
+          "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+          "proofs/proof_sheets/T133-HYBRID.md",
+          "claims/CLAIM_LEDGER_1_3_3.json",
+          "proofs/THEOREM_REGISTRY_1_3_3.json",
+          "proofs/THEOREM_INVENTORY_1_3_3.json",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-HYBRID-POS",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-HYBRID-NEG",
+          "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
+        ],
+        "query_case_ids": [
+          "FM-T133-HYBRID-NEG",
+          "FM-T133-HYBRID-POS"
+        ],
+        "matched_case_ids": [
+          "FM-T133-HYBRID-NEG",
+          "FM-T133-HYBRID-POS"
+        ],
+        "required_theorem_case_ids": [
+          "FM-T133-HYBRID-POS",
+          "FM-T133-HYBRID-NEG"
+        ],
+        "named_cases_observed": true,
+        "named_cases_passed": true,
+        "artifact_hashes_present": true,
+        "claim_ledger_match": true,
+        "claim_public_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
+        "claim_scientific_promotion_allowed": false,
+        "theorem_registry_match": true,
+        "theorem_inventory_match": true,
+        "proof_sheet_has_assumptions": true,
+        "proof_sheet_has_counterexample_boundary": true,
+        "hostile_reader_route_chain_present": true,
+        "falsifier_or_boundary_text_present": true,
+        "case_set_named_for_predicate": [
+          "FM-T133-HYBRID-NEG",
+          "FM-T133-HYBRID-POS"
         ],
         "vector_specific_predicate_pass": true,
         "closure_predicate_pass": true

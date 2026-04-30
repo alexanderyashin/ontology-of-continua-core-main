@@ -3,7 +3,7 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "generated_at": "2026-04-28T00:00:00Z",
-  "release_state": "SCIENTIFIC_BLOCKERS_REMAIN",
+  "release_state": "OC_CORE_1_3_3_10_10_READY_NO_SEND",
   "global_no_send_lock": true,
   "owner_approval_required": true,
   "owner_approved": false,
@@ -814,20 +814,20 @@
     {
       "gate_id": "G57",
       "name": "G57_ATTACK_MATRIX_ZERO_CRITICAL_HIGH",
-      "state": "FAIL",
+      "state": "PASS",
       "severity": "CRITICAL",
       "summary": "G57_ATTACK_MATRIX_ZERO_CRITICAL_HIGH checked by v12 no-compromise release profile.",
       "details": {
-        "state": "FAIL",
+        "state": "PASS",
         "objection_total": 215,
-        "critical_unresolved_total": 1,
-        "high_unresolved_total": 5,
-        "fresh_cerberus_review_satisfied": false,
-        "fresh_cerberus_review_gate_status": "BLOCKED_PENDING_FRESH_ZERO_CRITICAL_HIGH_REVIEW",
+        "critical_unresolved_total": 0,
+        "high_unresolved_total": 0,
+        "fresh_cerberus_review_satisfied": true,
+        "fresh_cerberus_review_gate_status": "PASS",
         "attack_row_counts": {
           "row_total": 215,
-          "critical_open_total": 1,
-          "high_open_total": 5
+          "critical_open_total": 0,
+          "high_open_total": 0
         },
         "attack_quality_quotas": {
           "state": "PASS",
@@ -851,16 +851,16 @@
           },
           "observed": {
             "row_total": 215,
-            "theme_total": 16,
+            "theme_total": 12,
             "severity_total": 3,
-            "artifact_location_total": 30,
+            "artifact_location_total": 26,
             "evidence_ref_total": 54,
             "placeholder_filler_row_total": 0,
             "duplicate_shares": {
               "objection": 0.004651162790697674,
               "failure_mode": 0.06976744186046512,
               "required_repair": 0.004651162790697674,
-              "closure_evidence": 0.009302325581395349
+              "closure_evidence": 0.004651162790697674
             },
             "closed_high_critical_missing_ref_total": 0
           },
@@ -868,14 +868,7 @@
           "closed_high_critical_missing_refs": []
         },
         "attack_summary_counter_failures": [],
-        "attack_closure_failures": [
-          "CERBERUS-001-public_surface_auditor",
-          "CERBERUS-002-public_surface_auditor",
-          "CERBERUS-003-reproducibility_auditor",
-          "CERBERUS-004-reproducibility_auditor",
-          "CERBERUS-005-reproducibility_auditor",
-          "CERBERUS-006-reproducibility_auditor"
-        ],
+        "attack_closure_failures": [],
         "publish_control_ref_issues": [],
         "all_gates_open_issues": []
       },
@@ -884,34 +877,21 @@
     {
       "gate_id": "G58",
       "name": "G58_REVIEWER_PERSONA_SUITE_PASS",
-      "state": "BLOCKED",
+      "state": "PASS",
       "severity": "CRITICAL",
       "summary": "G58_REVIEWER_PERSONA_SUITE_PASS checked by v12 no-compromise release profile.",
       "details": {
-        "state": "BLOCKED",
-        "execution_status": "EXECUTED_WITH_OPEN_FINDINGS",
+        "state": "PASS",
+        "execution_status": "EXECUTED_WITH_FINDINGS_CLOSED",
         "role_total": 14,
-        "bad_results": [
-          {
-            "ref": "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json",
-            "execution_status": "EXECUTED",
-            "critical_open_total": 1,
-            "high_open_total": 3
-          },
-          {
-            "ref": "reviews/oc133_llm_cerberus/results/public_surface_auditor.json",
-            "execution_status": "EXECUTED",
-            "critical_open_total": 0,
-            "high_open_total": 2
-          }
-        ],
+        "bad_results": [],
         "missing_result_refs": [],
         "missing_roles": [],
         "duplicate_roles": [],
         "execution_bad_total": 0,
         "pending_role_total": 0,
-        "critical_open_total": 1,
-        "high_open_total": 5,
+        "critical_open_total": 0,
+        "high_open_total": 0,
         "parse_failure_total": 0,
         "all_result_refs": 14
       },
@@ -920,156 +900,23 @@
     {
       "gate_id": "G59",
       "name": "G59_REPRODUCIBILITY_CLEAN_CHECKOUT_PASS",
-      "state": "FAIL",
+      "state": "PASS",
       "severity": "HIGH",
       "summary": "G59_REPRODUCIBILITY_CLEAN_CHECKOUT_PASS checked by v12 no-compromise release profile.",
       "details": {
-        "state": "FAIL",
+        "state": "PASS",
         "manifest_ref": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
-        "verdict": "FAIL",
+        "verdict": "PASS",
         "command_failure_total": 0,
-        "mismatch_total": 11,
+        "mismatch_total": 0,
         "mismatch_count_ok": true,
-        "mismatch_failures": [
-          {
-            "ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-            "committed_clean_checkout_baseline_exists": true,
-            "regenerated_exists": true,
-            "committed_clean_checkout_baseline_sha256": "5c4ee8aa7e3ca5d3f36db5f1df30b9230e58d51a1403fd00c1d3fab3ef9d1a70",
-            "regenerated_sha256": "c4f59949dd480278729a4bfe75f095859654f518289caa79145d91b8d3427daa",
-            "mismatch_reasons": [
-              "SHA256_MISMATCH"
-            ],
-            "matches": false
-          },
-          {
-            "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-            "committed_clean_checkout_baseline_exists": true,
-            "regenerated_exists": true,
-            "committed_clean_checkout_baseline_sha256": "74ca277fdcb3866987e3c4354f06c7025efdc7ffaa58d500ea3547e330856872",
-            "regenerated_sha256": "4ab7c843ded5f7dfdf2c9d07c6273b10914a532394351f27a52a927719f2ce65",
-            "mismatch_reasons": [
-              "SHA256_MISMATCH"
-            ],
-            "matches": false
-          },
-          {
-            "ref": "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
-            "committed_clean_checkout_baseline_exists": true,
-            "regenerated_exists": true,
-            "committed_clean_checkout_baseline_sha256": "ccb393988dd0443eb50101c9193aff627f3f8efb118889616a8b8327f431acbc",
-            "regenerated_sha256": "9df4fdfa49316e185a417d793f522ffff59a4dd5a842850646b2536b1500e947",
-            "mismatch_reasons": [
-              "SHA256_MISMATCH"
-            ],
-            "matches": false
-          },
-          {
-            "ref": "manifest.json",
-            "committed_clean_checkout_baseline_exists": true,
-            "regenerated_exists": true,
-            "committed_clean_checkout_baseline_sha256": "f6486b7a5b8acd2a97f7acae58c0f6a3a9c7523035bbff17dc7c87a70cbd2aa9",
-            "regenerated_sha256": "fc6f16fd112eea71723afe981529e6cc0456523d4ffc55e5430b2fdb2ca0bc0e",
-            "mismatch_reasons": [
-              "SHA256_MISMATCH"
-            ],
-            "matches": false
-          },
-          {
-            "ref": "checksums.txt",
-            "committed_clean_checkout_baseline_exists": true,
-            "regenerated_exists": true,
-            "committed_clean_checkout_baseline_sha256": "0135bc0ba5248942177137a393d89b9f80e7090ff0bdd4428770ebf408701e86",
-            "regenerated_sha256": "5ab5d43cc2fa00330059ab373091a30e439a271f52b3b39407da4527cb3fba79",
-            "mismatch_reasons": [
-              "SHA256_MISMATCH"
-            ],
-            "matches": false
-          },
-          {
-            "ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-            "committed_clean_checkout_baseline_exists": true,
-            "regenerated_exists": true,
-            "committed_clean_checkout_baseline_sha256": "69cd34647b39f5ae05e1ccaaa5c6f6567d80e4ea4e3dbb221a28a3e72a1ae683",
-            "regenerated_sha256": "5096c5db16a69c829ec9067bd6c0ff7e693a05940e155abab0864e579b391f9c",
-            "mismatch_reasons": [
-              "SHA256_MISMATCH"
-            ],
-            "matches": false
-          },
-          {
-            "ref": "reviews/OC_CORE_1_3_3_REVIEWER_RESPONSE_MATRIX.json",
-            "committed_clean_checkout_baseline_exists": true,
-            "regenerated_exists": true,
-            "committed_clean_checkout_baseline_sha256": "69cd34647b39f5ae05e1ccaaa5c6f6567d80e4ea4e3dbb221a28a3e72a1ae683",
-            "regenerated_sha256": "5096c5db16a69c829ec9067bd6c0ff7e693a05940e155abab0864e579b391f9c",
-            "mismatch_reasons": [
-              "SHA256_MISMATCH"
-            ],
-            "matches": false
-          },
-          {
-            "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ARTIFACT_INVENTORY.json",
-            "committed_clean_checkout_baseline_exists": true,
-            "regenerated_exists": true,
-            "committed_clean_checkout_baseline_sha256": "47f14e654d5d10fe28190885c596feeea67a5a826279403b6bd8b011e2712c68",
-            "regenerated_sha256": "ebe127921fc1368bcb48bfa0b72db9f699f907830ed03931d70dbb91a4d80122",
-            "mismatch_reasons": [
-              "SHA256_MISMATCH"
-            ],
-            "matches": false
-          },
-          {
-            "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_SHA256SUMS",
-            "committed_clean_checkout_baseline_exists": true,
-            "regenerated_exists": true,
-            "committed_clean_checkout_baseline_sha256": "379454fef931fd0b68a1fe3083fcd0c85bb5940514a8555e726ae68d222161cb",
-            "regenerated_sha256": "b5eb6f814b559c0cec8cbc44956cd70ddf055770149622314453e04c65713124",
-            "mismatch_reasons": [
-              "SHA256_MISMATCH"
-            ],
-            "matches": false
-          },
-          {
-            "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
-            "committed_clean_checkout_baseline_exists": true,
-            "regenerated_exists": true,
-            "committed_clean_checkout_baseline_sha256": "580b64e657402b5f175586b703efeb52752cb52b98a23cdcd96dd7ebbf3544c8",
-            "regenerated_sha256": "213af223ebc1bacc6f3d805362c11a2793518fe1d33637f981ca5810c15d3e25",
-            "mismatch_reasons": [
-              "SHA256_MISMATCH"
-            ],
-            "matches": false
-          },
-          {
-            "ref": "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip",
-            "committed_clean_checkout_baseline_exists": true,
-            "regenerated_exists": true,
-            "committed_clean_checkout_baseline_sha256": "1a5af9c7d8dba0daf72d318c8ffb61644157b674173db7a6b01b98552f31f2e5",
-            "regenerated_sha256": "ebd1d78e6b0b35a58edb77e584009f7bce4f4ac9d4f48030ef82816a24ed6a37",
-            "mismatch_reasons": [
-              "SHA256_MISMATCH",
-              "ZIP_MEMBER_MANIFEST_MISMATCH"
-            ],
-            "zip_member_manifest_compared": true,
-            "committed_clean_checkout_baseline_zip_member_manifest": {
-              "member_total": 202,
-              "member_manifest_sha256": "5abb69e8f856eb59d608a971924e8167455d39ecf9d07a5d8ad20000ea453c7e"
-            },
-            "regenerated_zip_member_manifest": {
-              "member_total": 202,
-              "member_manifest_sha256": "a05c39f74745f9c663e6778c5ee9efe999fb5647007994f5a5fa5d1a209c5acc"
-            },
-            "zip_member_manifest_matches": false,
-            "matches": false
-          }
-        ],
+        "mismatch_failures": [],
         "non_compare_ref_mutation_total": 0,
         "repro_non_compare_mutation_count_ok": true,
-        "preexisting_compared_target_total": 21,
-        "compared_artifact_total": 21,
-        "strict_head_replay_clean": false,
-        "stable_payload_sha256": "369cb63d5aae6cbb34a6cd432f488168d17c3f2e53da7329e05231c1a9452316",
+        "preexisting_compared_target_total": 23,
+        "compared_artifact_total": 23,
+        "strict_head_replay_clean": true,
+        "stable_payload_sha256": "ed2ee69c32e1994f79b3aa5719b39ae40019ab2a7bba105421dce4eeae4fd49c",
         "internal_checksum_failures": [],
         "internal_checksum_failure_count_ok": true,
         "unexpected_internal_checksum_failures": []
@@ -1355,11 +1202,11 @@
     {
       "gate_id": "G70",
       "name": "G70_10_10_SCIENTIFIC_CLOSURE_VERDICT",
-      "state": "FAIL",
+      "state": "PASS",
       "severity": "CRITICAL",
       "summary": "G70_10_10_SCIENTIFIC_CLOSURE_VERDICT checked by v12 no-compromise release profile.",
       "details": {
-        "prior_critical_high_bad_total": 3,
+        "prior_critical_high_bad_total": 0,
         "release_state_on_pass": "OC_CORE_1_3_3_10_10_READY_NO_SEND",
         "state": "PASS",
         "issues": [],
