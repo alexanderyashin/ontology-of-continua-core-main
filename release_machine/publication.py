@@ -13,6 +13,8 @@ import zipfile
 from pathlib import Path
 from typing import Any
 
+from . import versioning
+
 RELEASE_ID = "oc_core_1_3_2"
 VERSION = "1.3.2"
 TAG = "v1.3.2"
@@ -475,9 +477,44 @@ SUBMISSION_COMPONENTS = [
 ]
 
 
-def _submission_artifact_rows(root: Path) -> list[dict[str, Any]]:
+def _submission_identity(root: Path, release_id: str | None = None) -> tuple[str, str, str]:
+    if release_id:
+        version = versioning.version_from_release_id(release_id)
+        source = "explicit_release_id"
+    else:
+        identity = versioning.current_release(root)
+        release_id = identity.release_id
+        version = identity.version
+        source = identity.source
+    return release_id, version, source
+
+
+def _submission_artifact_refs(release_id: str) -> list[tuple[str, str]]:
+    if release_id == "oc_core_1_3_3":
+        return [
+            ("primary_manuscript", "releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf"),
+            ("supporting_monograph", "releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf"),
+            ("release_archive", "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip"),
+            ("reader_guide", "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"),
+        ]
+    return SUBMISSION_ARTIFACT_REFS
+
+
+def _submission_zip_integrity_ref(release_id: str) -> str:
+    if release_id == "oc_core_1_3_3":
+        return "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json"
+    return "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_ZIP_INTEGRITY_latest.json"
+
+
+def _submission_schema(prefix_release_id: str, name: str) -> str:
+    if prefix_release_id == "oc_core_1_3_3":
+        return f"OC133_{name}_v1"
+    return f"OC132_{name}_v1"
+
+
+def _submission_artifact_rows(root: Path, release_id: str) -> list[dict[str, Any]]:
     rows = []
-    for role, rel_path in SUBMISSION_ARTIFACT_REFS:
+    for role, rel_path in _submission_artifact_refs(release_id):
         path = root / rel_path
         row = {
             "role": role,
@@ -493,15 +530,15 @@ def _submission_artifact_rows(root: Path) -> list[dict[str, Any]]:
             row.update({
                 "size_bytes": 0,
                 "sha256": "",
-                "checksum_ref": "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_ZIP_INTEGRITY_latest.json",
+                "checksum_ref": _submission_zip_integrity_ref(release_id),
                 "checksum_status": "RECORDED_AFTER_PACKAGE_BUILD_TO_AVOID_SELF_REFERENCE",
             })
         rows.append(row)
     return rows
 
 
-def _submission_component_rows(venue_id: str) -> list[dict[str, Any]]:
-    base = f"releases/oc_core_1_3_2/submission_packages/{venue_id}"
+def _submission_component_rows(venue_id: str, release_id: str) -> list[dict[str, Any]]:
+    base = f"releases/{release_id}/submission_packages/{venue_id}"
     return [
         {
             "component_id": component_id,
@@ -515,18 +552,24 @@ def _submission_component_rows(venue_id: str) -> list[dict[str, Any]]:
     ]
 
 
-def generate_submission_packages(root: Path) -> dict[str, Any]:
-    base = release_root(root) / "submission_packages"
+def generate_submission_packages(root: Path, release_id: str | None = None) -> dict[str, Any]:
+    release_id, version, identity_source = _submission_identity(root, release_id)
+    base = root / "releases" / release_id / "submission_packages"
+    artifact_refs_template = _submission_artifact_refs(release_id)
+    primary_manuscript = next(path for role, path in artifact_refs_template if role == "primary_manuscript")
+    supporting_artifacts = [path for role, path in artifact_refs_template if role != "primary_manuscript"]
     rows = []
     for venue_id, official_url, fit_note, recommended in VENUES:
         d = base / venue_id
-        artifact_refs = _submission_artifact_rows(root)
-        component_rows = _submission_component_rows(venue_id)
+        artifact_refs = _submission_artifact_rows(root, release_id)
+        component_rows = _submission_component_rows(venue_id, release_id)
         artifact_missing_total = sum(1 for row in artifact_refs if not row["exists"])
         package_status = "OWNER_REVIEW_READY_NO_SEND" if artifact_missing_total == 0 else "BLOCKED_MISSING_ARTIFACTS_NO_SEND"
         payload = {
-            "schema_id": "OC132_JOURNAL_SUBMISSION_PACKAGE_v1",
-            "release_id": RELEASE_ID,
+            "schema_id": _submission_schema(release_id, "JOURNAL_SUBMISSION_PACKAGE"),
+            "release_id": release_id,
+            "version": version,
+            "identity_source": identity_source,
             "venue_id": venue_id,
             "official_url": official_url,
             "official_snapshot_date": "2026-04-28",
@@ -537,20 +580,16 @@ def generate_submission_packages(root: Path) -> dict[str, Any]:
             "journal_submissions_allowed": False,
             "submit_recommended": bool(recommended),
             "venue_fit_note": fit_note,
-            "primary_manuscript": "releases/oc_core_1_3_2/artifacts/OC_CORE_1_3_2_JOURNAL_CORE_EN.pdf",
-            "supporting_artifacts": [
-                "releases/oc_core_1_3_2/artifacts/OC_CORE_1_3_2_MASTER_MONOGRAPH_EN.pdf",
-                "releases/oc_core_1_3_2/artifacts/oc_core_1_3_2_zenodo_release.zip",
-                "releases/oc_core_1_3_2/llm_readability/LLM_READER_GUIDE.md",
-            ],
+            "primary_manuscript": primary_manuscript,
+            "supporting_artifacts": supporting_artifacts,
             "artifact_refs": artifact_refs,
             "artifact_missing_total": artifact_missing_total,
             "required_components": component_rows,
             "required_component_total": len(component_rows),
             "required_component_ready_total": len(component_rows),
             "doi_policy": {
-                "release_doi": ZENODO_DOI,
-                "concept_doi": CONCEPT_DOI,
+                "release_doi": ZENODO_DOI if release_id == RELEASE_ID else "",
+                "concept_doi": CONCEPT_DOI if release_id == RELEASE_ID else "",
                 "status": "PENDING_PUBLIC_RELEASE_AND_SEPARATE_OWNER_SUBMISSION_APPROVAL",
                 "journal_submission_doi_insert_allowed": False,
             },
@@ -564,8 +603,9 @@ def generate_submission_packages(root: Path) -> dict[str, Any]:
         }
         _write_json(d / "SUBMISSION_PACKAGE.json", payload)
         component_manifest = {
-            "schema_id": "OC132_JOURNAL_SUBMISSION_COMPONENT_MANIFEST_v1",
-            "release_id": RELEASE_ID,
+            "schema_id": _submission_schema(release_id, "JOURNAL_SUBMISSION_COMPONENT_MANIFEST"),
+            "release_id": release_id,
+            "version": version,
             "venue_id": venue_id,
             "package_status": package_status,
             "no_send": True,
@@ -595,7 +635,7 @@ def generate_submission_packages(root: Path) -> dict[str, Any]:
             "",
             "Dear Editors,",
             "",
-            "Please consider the attached OC Core 1.3.2 journal-core manuscript and reproducibility package. This draft is prepared for owner review only and must not be submitted automatically.",
+            f"Please consider the attached OC Core {version} journal-core manuscript and reproducibility package. This draft is prepared for owner review only and must not be submitted automatically.",
             "",
             f"Venue fit note: {fit_note}",
             "",
@@ -621,7 +661,7 @@ def generate_submission_packages(root: Path) -> dict[str, Any]:
             "",
             "The release package includes checksum-bound source material, benchmark scripts, benchmark output hashes, claim/evidence maps, and release-machine scorecards. No private raw feedback or raw model output is included.",
             "",
-            "Primary reproducibility artifact: `releases/oc_core_1_3_2/artifacts/oc_core_1_3_2_zenodo_release.zip`.",
+            f"Primary reproducibility artifact: `{next(path for role, path in artifact_refs_template if role == 'release_archive')}`.",
             "Journal submission remains `NO_SEND` until a separate owner-approved submission decision.",
         ]))
         _write_text(d / "AI_ASSISTANCE_DISCLOSURE.md", "\n".join([
@@ -647,8 +687,10 @@ def generate_submission_packages(root: Path) -> dict[str, Any]:
         rows.append(payload)
     status_counts = {status: sum(1 for row in rows if row["package_status"] == status) for status in sorted({row["package_status"] for row in rows})}
     index = {
-        "schema_id": "OC132_JOURNAL_SUBMISSION_PACKAGE_INDEX_v1",
-        "release_id": RELEASE_ID,
+        "schema_id": _submission_schema(release_id, "JOURNAL_SUBMISSION_PACKAGE_INDEX"),
+        "release_id": release_id,
+        "version": version,
+        "identity_source": identity_source,
         "no_send": True,
         "submission_allowed": False,
         "owner_approval_required": True,
@@ -661,7 +703,7 @@ def generate_submission_packages(root: Path) -> dict[str, Any]:
     }
     _write_json(base / "SUBMISSION_PACKAGE_INDEX.json", index)
     _write_text(base / "README.md", "\n".join([
-        "# OC Core 1.3.2 Journal Submission Packages",
+        f"# OC Core {version} Journal Submission Packages",
         "",
         "All packages are prepared as `NO_SEND`. They are not submitted, emailed, uploaded, or released to journals by this process.",
         "",

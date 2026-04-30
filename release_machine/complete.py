@@ -1937,7 +1937,7 @@ def prepare_release(root: Path, *, lock: bool = True) -> dict[str, Any]:
     build_primary_pdfs(root)
     write_prediction_support_map(root)
     publication.generate_llm_readability(root)
-    publication.generate_submission_packages(root)
+    publication.generate_submission_packages(root, release_id=RELEASE_ID)
     publication.generate_owner_review(root)
     audit = audit_research_packets(root)
     ensure_ro_crate(root)

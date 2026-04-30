@@ -9,8 +9,9 @@
     "channel": "all",
     "mode": "dry-run",
     "generated_at": "2026-04-28T00:00:00Z",
-    "release_state": "OC_CORE_1_3_3_10_10_READY_NO_SEND",
-    "master_verdict": "PASS",
+    "release_state": "SCIENTIFIC_CONTENT_CLOSURE_RUNNING",
+    "technical_gate_state": "OC_CORE_1_3_3_10_10_READY_NO_SEND",
+    "master_verdict": "FAIL",
     "gate_counts": {
       "BLOCKED": 0,
       "FAIL": 0,
@@ -22,13 +23,28 @@
     "critical_findings": 0,
     "high_findings": 0,
     "finding_total": 0,
+    "content_closure_state": "SCIENTIFIC_CONTENT_CLOSURE_RUNNING",
+    "content_closure_blocker_total": 4,
+    "content_closure_blocker_ids": [
+      "theorem_promotion",
+      "empirical_prediction_promotion",
+      "novelty_equivalence_closure",
+      "phenomenon_coverage"
+    ],
+    "content_closure_refs": {
+      "mission_ref": "operations/logion_release_mission/oc_core_1_3_3/OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION.json",
+      "scorecard_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_CONTENT_CLOSURE_SCORECARD.json",
+      "dispatch_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_LOGION_LIVE_DISPATCH_QUEUE.json",
+      "cockpit_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_LOGION_RELEASE_COCKPIT.md",
+      "trajectory_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_TRAJECTORY_CERTIFICATE_latest.json"
+    },
     "owner_approval_required": true,
     "global_no_send_lock": true,
     "publish_allowed": false,
     "journal_submissions_allowed": false,
     "package": "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip",
-    "package_sha256": "813b9367ab1992409aa700d9fb92dda0a5a4f6c769e208eab3665f5b7789713f",
-    "artifact_total": 207
+    "package_sha256": "c6e064eadb1bcd590f3ac8c66fc703bddc2fd8ba74d7444f25b7c4fd687912e7",
+    "artifact_total": 281
   },
   "gate_results": [
     {
@@ -937,7 +953,7 @@
         "preexisting_compared_target_total": 23,
         "compared_artifact_total": 23,
         "strict_head_replay_clean": true,
-        "stable_payload_sha256": "ed2ee69c32e1994f79b3aa5719b39ae40019ab2a7bba105421dce4eeae4fd49c",
+        "stable_payload_sha256": "97988ab0b9ce2cbae127321e82c2ea0de5a41d5ff9e0e086dfddbd542ca67381",
         "internal_checksum_failures": [],
         "internal_checksum_failure_count_ok": true,
         "unexpected_internal_checksum_failures": []

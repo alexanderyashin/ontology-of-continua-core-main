@@ -316,7 +316,9 @@ class ReleaseMachineTests(unittest.TestCase):
 
     def test_journal_submission_packages_are_review_ready_no_send(self) -> None:
         root = complete.repo_root()
-        index = publication.generate_submission_packages(root)
+        index = publication.generate_submission_packages(root, release_id=oc133.RELEASE_ID)
+        self.assertEqual(index["release_id"], "oc_core_1_3_3")
+        self.assertEqual(index["version"], "1.3.3")
         self.assertTrue(index["no_send"])
         self.assertFalse(index["submission_allowed"])
         self.assertTrue(index["owner_approval_required"])
@@ -352,9 +354,11 @@ class ReleaseMachineTests(unittest.TestCase):
             for artifact in row["artifact_refs"]:
                 self.assertTrue(artifact["exists"], artifact["path"])
                 self.assertTrue((root / artifact["path"]).exists(), artifact["path"])
+                self.assertNotIn("oc_core_1_3_2", artifact["path"])
+                self.assertNotIn("1_3_2", artifact["path"])
                 if artifact["role"] == "release_archive":
                     self.assertEqual(artifact["sha256"], "")
-                    self.assertEqual(artifact["checksum_ref"], "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_ZIP_INTEGRITY_latest.json")
+                    self.assertEqual(artifact["checksum_ref"], "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json")
                     self.assertEqual(artifact["checksum_status"], "RECORDED_AFTER_PACKAGE_BUILD_TO_AVOID_SELF_REFERENCE")
                 else:
                     self.assertEqual(len(artifact["sha256"]), 64)
@@ -384,7 +388,7 @@ class ReleaseMachineTests(unittest.TestCase):
     def test_oc133_scientific_closure_gates_are_no_send(self) -> None:
         root = complete.repo_root()
         summary = oc133.evaluate_release("oc_core_1_3_3", "all", "dry-run", write=True)
-        self.assertIn(summary["release_state"], {"OC_CORE_1_3_3_10_10_READY_NO_SEND", "SCIENTIFIC_BLOCKERS_REMAIN"})
+        self.assertIn(summary["release_state"], {"OC_CORE_1_3_3_PLATINUM_READY_NO_SEND", "SCIENTIFIC_BLOCKERS_REMAIN", "SCIENTIFIC_CONTENT_CLOSURE_RUNNING"})
         self.assertIn(summary["master_verdict"], {"PASS", "FAIL"})
         self.assertFalse(summary["publish_allowed"])
         self.assertFalse(summary["journal_submissions_allowed"])
@@ -405,6 +409,19 @@ class ReleaseMachineTests(unittest.TestCase):
             self.assertEqual(gates["G58"]["state"], "PASS")
             self.assertEqual(gates["G70"]["state"], "PASS")
             self.assertEqual(summary["gate_counts"]["PASS"], 71)
+            self.assertEqual(summary["content_closure_state"], "PASS")
+        elif summary["release_state"] == "SCIENTIFIC_CONTENT_CLOSURE_RUNNING":
+            self.assertEqual(summary["technical_gate_state"], "OC_CORE_1_3_3_10_10_READY_NO_SEND")
+            self.assertEqual(gates["G57"]["state"], "PASS")
+            self.assertEqual(gates["G58"]["state"], "PASS")
+            self.assertEqual(gates["G70"]["state"], "PASS")
+            self.assertGreater(summary["content_closure_blocker_total"], 0)
+            self.assertIn("theorem_promotion", summary["content_closure_blocker_ids"])
+            self.assertIn("empirical_prediction_promotion", summary["content_closure_blocker_ids"])
+            mission_ref = root / summary["content_closure_refs"]["mission_ref"]
+            cockpit_ref = root / summary["content_closure_refs"]["cockpit_ref"]
+            self.assertTrue(mission_ref.exists())
+            self.assertTrue(cockpit_ref.exists())
         else:
             self.assertIn(gates["G57"]["state"], {"PASS", "FAIL"})
             if (

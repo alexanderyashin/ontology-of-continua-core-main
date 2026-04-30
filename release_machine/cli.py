@@ -167,7 +167,7 @@ def main(argv: list[str] | None = None) -> int:
     elif args.command == "publication-preflight":
         payload = publication.publication_preflight(core.repo_root())
     elif args.command == "submission-packages":
-        payload = publication.generate_submission_packages(core.repo_root())
+        payload = publication.generate_submission_packages(core.repo_root(), release_id=release_id)
     elif args.command == "publication-presentation":
         root = core.repo_root()
         if release_id == oc133.RELEASE_ID:

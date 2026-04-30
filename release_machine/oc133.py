@@ -11,6 +11,7 @@ from typing import Any
 
 from . import complete
 from . import oc133_hardening
+from . import oc133_platinum
 from . import oc133_v12
 from .constants import GATE_STATES, SEVERITIES, TIMESTAMP
 
@@ -474,18 +475,33 @@ def evaluate_release(release: str = RELEASE_ID, channel: str = "all", mode: str 
     results = [*_inherited_gate_results(root), *oc133_v12.v12_gate_results(root, gate)]
     findings = [row for row in results if row["state"] in {"FAIL", "BLOCKED", "WARN"}]
     hard_bad = [row for row in findings if row["severity"] in {"CRITICAL", "HIGH"} and row["state"] in {"FAIL", "BLOCKED"}]
+    platinum_audit = oc133_platinum.content_closure_audit(root)
+    platinum_refs = oc133_platinum.write_mission_outputs(root, platinum_audit) if write else {}
+    content_blocked = platinum_audit.get("state") != "PASS"
+    technical_state = "SCIENTIFIC_BLOCKERS_REMAIN" if hard_bad else "OC_CORE_1_3_3_10_10_READY_NO_SEND"
+    if hard_bad:
+        release_state = "SCIENTIFIC_BLOCKERS_REMAIN"
+    elif content_blocked:
+        release_state = "SCIENTIFIC_CONTENT_CLOSURE_RUNNING"
+    else:
+        release_state = "OC_CORE_1_3_3_PLATINUM_READY_NO_SEND"
     summary = {
         "release_id": RELEASE_ID,
         "version": VERSION,
         "channel": channel,
         "mode": mode,
         "generated_at": TIMESTAMP,
-        "release_state": "SCIENTIFIC_BLOCKERS_REMAIN" if hard_bad else "OC_CORE_1_3_3_10_10_READY_NO_SEND",
-        "master_verdict": "FAIL" if hard_bad else "PASS",
+        "release_state": release_state,
+        "technical_gate_state": technical_state,
+        "master_verdict": "FAIL" if hard_bad or content_blocked else "PASS",
         "gate_counts": summarize_results(results),
         "critical_findings": sum(1 for row in findings if row["severity"] == "CRITICAL"),
         "high_findings": sum(1 for row in findings if row["severity"] == "HIGH"),
         "finding_total": len(findings),
+        "content_closure_state": platinum_audit.get("state"),
+        "content_closure_blocker_total": platinum_audit.get("blocker_total"),
+        "content_closure_blocker_ids": platinum_audit.get("blocker_ids"),
+        "content_closure_refs": platinum_refs,
         "owner_approval_required": True,
         "global_no_send_lock": True,
         "publish_allowed": False,
