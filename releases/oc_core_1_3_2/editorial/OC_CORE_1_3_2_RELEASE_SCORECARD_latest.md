@@ -1,7 +1,7 @@
 # OC Core 1.3.2 Release Scorecard
 
-Release state: `RELEASE_READY_NO_SEND`
-Finding total: `0`
+Release state: `REMEDIATION_REQUIRED`
+Finding total: `1`
 Publish allowed: `false`
 
 | Gate | State | Severity | Summary |
@@ -25,7 +25,7 @@ Publish allowed: `false`
 | `G16` contribution_ledger | `PASS` | `HIGH` | Contribution ledger checked. |
 | `G17` acknowledgements | `PASS` | `HIGH` | Acknowledgement registry, public names, surname sorting, and no-endorsement policy checked. |
 | `G18` boundary_leak_protection | `PASS` | `CRITICAL` | Public text, research packets, claim support boundaries, and prediction/promotion support routes scanned. |
-| `G19` readme_completeness | `PASS` | `HIGH` | README release identity and reproducibility markers checked. |
+| `G19` readme_completeness | `FAIL` | `HIGH` | README release identity and reproducibility markers checked. |
 | `G20` release_notes_changelog | `PASS` | `HIGH` | Release notes and changelog checked. |
 | `G21` github_release_readiness | `PASS` | `CRITICAL` | GitHub readiness is dry-run before publication; after publication the tag must be backed by a publication execution report. |
 | `G22` zenodo_upload_readiness | `PASS` | `CRITICAL` | Zenodo package is ready for owner review only; upload remains locked. |
