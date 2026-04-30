@@ -7,6 +7,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import zipfile
 from pathlib import Path
 from typing import Any
 
@@ -58,6 +59,38 @@ def sha256_file(path: Path) -> str:
 
 def sha256_json(payload: Any) -> str:
     return hashlib.sha256(json.dumps(payload, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
+
+
+def zip_member_manifest(path: Path) -> dict[str, Any]:
+    rows = []
+    with zipfile.ZipFile(path) as zf:
+        for info in sorted(zf.infolist(), key=lambda item: item.filename):
+            if info.is_dir():
+                continue
+            rows.append(
+                {
+                    "filename": info.filename,
+                    "file_size": info.file_size,
+                    "compress_size": info.compress_size,
+                    "crc": info.CRC,
+                    "sha256": hashlib.sha256(zf.read(info.filename)).hexdigest(),
+                }
+            )
+    return {
+        "member_total": len(rows),
+        "member_manifest_sha256": sha256_json(rows),
+    }
+
+
+def recompute_manifest_stable_payload_hash(manifest: dict[str, Any] | None) -> str | None:
+    if not isinstance(manifest, dict):
+        return None
+    stable = {
+        key: value
+        for key, value in manifest.items()
+        if key not in {"schema_id", "stable_payload_sha256", "previous_manifest_self_check", "verdict"}
+    }
+    return sha256_json(stable)
 
 
 def git_run(args: list[str], *, timeout: int = 60, check: bool = True) -> subprocess.CompletedProcess[str]:
@@ -243,7 +276,7 @@ def main() -> int:
             "release_id": RELEASE_ID,
             "version": VERSION,
             "verification_mode": "IMMUTABLE_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE",
-            "source_tree_policy": "Verifier uses git archive HEAD and refuses tracked worktree/staged/missing drift in strict release mode.",
+            "source_tree_policy": "Verifier uses a detached clean git worktree at HEAD and refuses tracked worktree/staged/missing drift in strict release mode.",
             "git_state": state,
             "head_source_manifest_sha256": sha256_json(source_manifest),
             "command_total": 0,
@@ -264,12 +297,15 @@ def main() -> int:
             copied_source_refs = extract_head_sources(temp_root)
             temp_git_index = initialize_temp_git_index(temp_root, copied_source_refs)
             preexisting_target_sha256: dict[str, str] = {}
+            preexisting_zip_manifests: dict[str, dict[str, Any]] = {}
             for ref in COMPARE_REFS:
                 target = temp_root / ref
                 if target.exists():
                     preexisting_targets.append(ref)
                     if target.is_file():
                         preexisting_target_sha256[ref] = sha256_file(target)
+                        if ref.endswith(".zip"):
+                            preexisting_zip_manifests[ref] = zip_member_manifest(target)
                     target.unlink()
             command_rows = [
                 run_command(temp_root, command, portable)
@@ -292,6 +328,17 @@ def main() -> int:
                     "regenerated_sha256": regenerated_sha,
                     "matches": matches,
                 }
+                if ref.endswith(".zip"):
+                    baseline_zip_manifest = preexisting_zip_manifests.get(ref)
+                    regenerated_zip_manifest = zip_member_manifest(regenerated) if regenerated_exists and regenerated.exists() else None
+                    row.update(
+                        {
+                            "zip_member_manifest_compared": True,
+                            "committed_clean_checkout_baseline_zip_member_manifest": baseline_zip_manifest,
+                            "regenerated_zip_member_manifest": regenerated_zip_manifest,
+                            "zip_member_manifest_matches": baseline_zip_manifest == regenerated_zip_manifest,
+                        }
+                    )
                 rows.append(row)
                 if not matches:
                     failures.append(row)
@@ -320,12 +367,17 @@ def main() -> int:
         "version": VERSION,
         "verification_mode": "IMMUTABLE_HEAD_TEMP_TREE_VERIFY_ONLY_NO_CURRENT_ARTIFACT_OVERWRITE_BEFORE_COMPARISON",
         "source_tree_policy": "Temp tree is built from a detached clean git worktree at HEAD, preserving checkout filters while refusing tracked worktree/staged drift in strict mode.",
+        "source_only_package_generation_claimed": False,
+        "package_reproducibility_scope": "BYTE_REPRODUCIBILITY_OF_COMMITTED_PACKAGE_INPUT_SET_PLUS_REGENERATED_COMPARE_REFS",
+        "package_member_regeneration_policy": "The verifier deletes and regenerates COMPARE_REFS, then compares package bytes and zip-member hashes. It does not claim every package member was regenerated from primitive sources unless that member is listed in COMPARE_REFS or a future generated-output inventory.",
+        "cross_environment_byte_identity_claimed": False,
+        "packaging_stack_policy": "Byte identity is a same-stack local release check unless a future container/provisioning digest is supplied; canonical artifacts must not promote cross-Python/zlib byte identity.",
         "git_state": state,
         "head_source_manifest_sha256": sha256_json(source_manifest),
         "head_source_ref_total": len(source_manifest),
         "copied_source_ref_total": len(copied_source_refs),
         "temp_git_index": temp_git_index,
-        "source_only_target_policy": "All compared generated targets are deleted from the tracked-source temp tree before producers run; any regenerated target must be newly produced by the command sequence.",
+        "source_only_target_policy": "All COMPARE_REFS are deleted from the tracked-source temp tree before producers run. Package byte identity is claimed for the committed package input set plus regenerated COMPARE_REFS, not for full source-only regeneration of every package member.",
         "comparison_baseline_policy": "Byte comparison is against the preexisting committed files in the same detached clean worktree before deletion, not against ambient current worktree bytes.",
         "preexisting_compared_target_total": len(preexisting_targets),
         "preexisting_compared_targets_deleted_before_generation": preexisting_targets,
@@ -344,12 +396,20 @@ def main() -> int:
     }
     stable_payload_sha256 = sha256_json(stable_payload)
     previous_stable_sha = previous_manifest.get("stable_payload_sha256") if isinstance(previous_manifest, dict) else None
+    previous_recomputed_stable_sha = recompute_manifest_stable_payload_hash(previous_manifest)
+    previous_declared_hash_valid = (
+        previous_recomputed_stable_sha == previous_stable_sha
+        if previous_stable_sha and previous_recomputed_stable_sha
+        else None
+    )
     previous_self_check = {
         "previous_manifest_existed": isinstance(previous_manifest, dict),
         "previous_manifest_stable_payload_sha256": previous_stable_sha,
+        "previous_manifest_recomputed_stable_payload_sha256": previous_recomputed_stable_sha,
+        "previous_manifest_declared_hash_valid": previous_declared_hash_valid,
         "current_stable_payload_sha256": stable_payload_sha256,
-        "previous_manifest_matches_current_stable_payload": (previous_stable_sha == stable_payload_sha256) if previous_stable_sha else None,
-        "self_check_policy": "The outer manifest is non-cyclic: stable_payload_sha256 excludes this self-check wrapper. A rerun detects stale or locally edited manifest payloads before overwriting.",
+        "previous_manifest_matches_current_stable_payload": (previous_recomputed_stable_sha == stable_payload_sha256) if previous_recomputed_stable_sha else None,
+        "self_check_policy": "The outer manifest is non-cyclic: stable_payload_sha256 excludes this self-check wrapper. Before overwriting, the verifier recomputes the previous stable payload hash from previous manifest fields, rejects edited payloads whose declared hash no longer matches, and then compares the recomputed previous hash to the current stable payload.",
     }
     payload = {
         "schema_id": "OC133_POST_GENERATION_REPRODUCIBILITY_MANIFEST_v12",
@@ -362,7 +422,13 @@ def main() -> int:
             and preexisting_targets
             and not bad_commands
             and not failures
-            and (previous_stable_sha in {None, stable_payload_sha256})
+            and (
+                previous_manifest is None
+                or (
+                    previous_declared_hash_valid is True
+                    and previous_recomputed_stable_sha == stable_payload_sha256
+                )
+            )
         )
         else "FAIL",
     }

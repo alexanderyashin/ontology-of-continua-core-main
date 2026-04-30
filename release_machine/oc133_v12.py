@@ -345,6 +345,7 @@ def audit(root: Path) -> dict[str, Any]:
             and (
                 row.get("closure_current_artifact_hash_total", 0) < 1
                 or "Observed current closure" not in str(row.get("closure_evidence", ""))
+                or row.get("closure_predicate_pass") is not True
             )
         )
     ]

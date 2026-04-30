@@ -4,46 +4,38 @@
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
   "high_open_total": 4,
-  "finding_total": 5,
+  "finding_total": 4,
   "findings": [
     {
       "severity": "HIGH",
       "artifact_ref": "reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "critical_unresolved_total=0 and high_unresolved_total=0",
-      "failure_mode": "The matrix reports zero unresolved critical/high issues while the same header says fresh_cerberus_review_satisfied=PENDING_THIS_ROLE_RERUN_NOT_ASSERTED_IN_CONTEXT_VIEW, fresh_cerberus_review_gate_status=PENDING_THIS_ROLE_RERUN, and fresh Cerberus open totals are EXCLUDED_FROM_FRESH_CONTEXT_VIEW. A skeptical reviewer cannot treat the zero totals as current release closure.",
-      "required_repair": "Replace the zero unresolved totals with PENDING/null until this fresh role rerun is integrated, or split them explicitly into deterministic_context_unresolved_total and fresh_cerberus_unresolved_total; propagate the pending state into the claim ledger blocker totals.",
+      "claim": "High attack rows such as DET-MATRIX-034/035/038/039/040 against T133-BOUNDARY and DET-MATRIX-041 against T133-HYBRID are CLOSED_BY_SPECIFIC_V12_EVIDENCE.",
+      "failure_mode": "The rows require exact predicate closure, but the current closure evidence often records only current artifact hashes with closure_observed_case_results=[] and closure_observed_case_result_total=0. Hash binding is not proof that the requested falsifier, dependency, stale-evidence, claim-id, review-trace, or assumption-boundary predicate was actually satisfied, so the matrix closes high attacks by provenance theater rather than reviewer-verifiable closure.",
+      "required_repair": "Reopen every high row whose closure evidence lacks an explicit predicate result. Emit per-row verifier fields showing the matched claim_id/theorem_id/case_id refs, falsifier text, dependency refs, route chain, and boolean predicate pass, then close only rows with current hashes plus the exact requested predicate evidence.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "Generated DET-MATRIX rows are CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "failure_mode": "Multiple generated attack-surface rows close by restating a verification query, e.g. closure_evidence says the row 'enforces' a check 'after materialization' rather than recording an observed current artifact hash, concrete finite-case result, or executed verification output. This is closure theater, not specific v12 evidence.",
-      "required_repair": "For every generated DET-MATRIX closure row, store the actual current artifact hash, exact checked row/case ID, observed pass/fail output, and command or verifier identity; mark rows OPEN/PENDING when only a closure_verification_query exists.",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "T133-CYCLE: Promoted eligible-live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
+      "failure_mode": "The inventory promotes this as SCIENTIFICALLY_PROMOTED_NO_SEND_WITH_LEAN_SUBSET_AND_FINITE_WITNESS, but the directly referenced Lean item only unpacks definitions: eligibleLive already includes supportWitnessed, and supportWitnessed is cycleWitnessed or maintenanceWitnessed. The finite cases test the same release predicate. This is definitional consistency, not independent scientific theorem evidence.",
+      "required_repair": "Demote T133-CYCLE to a formal release-consistency check, or replace it with a non-definitional theorem where the liveness requirement follows from independently stated axioms and countermodels. Update the claim ledger, theorem inventory, coverage matrix, and attack matrix wording accordingly.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "T133-K-ZERO: Continuumness zero requires live support, an independently clear obstruction ledger, and a declared zero-cause family; a zero-cause label alone does not compute k=0.",
+      "failure_mode": "The promoted Lean theorem is an iff obtained by unfolding continuumnessCaseZero and kZeroLicensed, whose definitions already contain the live-support, admissible, cycle, zero-cause, and no-obstruction requirements. The artifact proves bookkeeping equivalence rather than a substantive continuumness result.",
+      "required_repair": "Demote T133-K-ZERO to formal consistency, or add an independent semantics for k and obstruction ledgers where the zero-cause/no-obstruction condition is derived rather than stipulated. Add independent nonzero and obstruction-active countermodels before restoring scientific promotion.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "P008-P011/P013/P014 scoped model cards count as phenomenon coverage for T133-KLEVEL and T133-MIN",
-      "failure_mode": "These rows use upstream claims explicitly marked FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM with upstream_scientific_promotion_allowed=false, yet the coverage matrix still presents them as explanatory model cards with blocker_count=0. That lets internal release-consistency checks masquerade as coverage of origin-of-life, social institutions, theory change, recursion, K-collapse, and minimality phenomena.",
-      "required_repair": "Demote these rows to ILLUSTRATIVE_INTERNAL_MODEL_NOT_PHENOMENON_COVERAGE or exclude them from coverage totals until each has an independent scientific theorem or empirical/domain model with its own falsifier and support boundary.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "OC133-NOSEND-001 is counted under scientific_promotion_allowed_total=9",
-      "failure_mode": "The no-send publication-control row is operational governance, but it has scientific_promotion_allowed=true and appears to inflate the ledger's scientific_promotion_allowed_total beyond the 8 scientific theorem rows in the theorem inventory. This makes governance plumbing look like scientific support.",
-      "required_repair": "Set OC133-NOSEND-001 scientific_promotion_allowed=false, recalculate scientific_promotion_allowed_total to exclude governance controls, add a separate governance_control_allowed/control_plane_total field, and update dependent coverage rows such as P012.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "MEDIUM",
-      "artifact_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
-      "claim": "NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER",
-      "failure_mode": "The table correctly bars empirical and prediction support, but its 'falsifier' and 'negative_control' language describes parser/snapshot mismatch checks and arbitrary wrong-value controls, not scientific falsification. This still invites empirical-theater readings if cited outside the quarantine language.",
-      "required_repair": "Rename these fields to parser_negative_control and qa_failure_condition, keep empirical_support_allowed=false and prediction_support_allowed=false, and reserve 'falsifier' for future prospective target-blind empirical protocols.",
+      "claim": "P003/T133-CYCLE counts as phenomenon coverage for biological organization as typed liveness and cycles.",
+      "failure_mode": "The row counts as phenomenon coverage while relying only on a minimal live cell-state surrogate and formal replay cases FM-T133-CYCLE-POS/NEG, and it simultaneously admits it is not a full empirical solution. Counting this as phenomenon coverage inflates a toy classifier check into broad biological explanation.",
+      "required_repair": "Set P003 counts_as_phenomenon_coverage=false and mark it as an illustrative internal model, or add a domain-specific biological model card with measurement rules, data, baseline comparators, held-out or prospective tests, and falsifiers before including it in phenomenon_coverage_row_total.",
       "status": "OPEN"
     }
   ],

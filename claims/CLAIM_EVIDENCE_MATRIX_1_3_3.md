@@ -4,11 +4,11 @@
 | --- | --- | --- |
 | `T133-K0-RES` | `PROMOTED_BOUNDED_NO_SEND_V12` | `proofs/proof_sheets/T133-K0-RES.md` |
 | `T133-OMEGA-STATUS` | `PROMOTED_BOUNDED_NO_SEND_V12` | `proofs/proof_sheets/T133-OMEGA-STATUS.md` |
-| `T133-K-ZERO` | `PROMOTED_BOUNDED_NO_SEND_V12` | `proofs/proof_sheets/T133-K-ZERO.md` |
+| `T133-K-ZERO` | `FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM` | `proofs/proof_sheets/T133-K-ZERO.md` |
 | `T133-BOUNDARY` | `PROMOTED_BOUNDED_NO_SEND_V12` | `proofs/proof_sheets/T133-BOUNDARY.md` |
 | `T133-HYBRID` | `PROMOTED_BOUNDED_NO_SEND_V12` | `proofs/proof_sheets/T133-HYBRID.md` |
 | `T133-DIM` | `PROMOTED_BOUNDED_NO_SEND_V12` | `proofs/proof_sheets/T133-DIM.md` |
-| `T133-CYCLE` | `PROMOTED_BOUNDED_NO_SEND_V12` | `proofs/proof_sheets/T133-CYCLE.md` |
+| `T133-CYCLE` | `FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM` | `proofs/proof_sheets/T133-CYCLE.md` |
 | `T133-ID` | `PROMOTED_BOUNDED_NO_SEND_V12` | `proofs/proof_sheets/T133-ID.md` |
 | `T133-MIN` | `FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM` | `proofs/proof_sheets/T133-MIN.md` |
 | `T133-KLEVEL` | `FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM` | `proofs/proof_sheets/T133-KLEVEL.md` |

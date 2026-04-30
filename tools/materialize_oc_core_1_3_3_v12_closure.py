@@ -266,13 +266,15 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
         "toolchain_observation_policy": "Compare canonical version/commit fields; raw observed strings are diagnostic and may contain host triples or provisioning noise.",
         "environment_lock": {
             "hermetic_offline_build_claim_allowed": False,
-            "environment_lock_level": "LOCAL_TOOLCHAIN_AND_INTERPRETER_VERSION_LOCK_NOT_CONTAINER_DIGEST",
-            "elan_version_observed": elan_version_text,
-            "python_version": platform.python_version(),
-            "python_executable_basename": Path(sys.executable).name,
+            "environment_lock_level": "CANONICAL_LEAN_TOOLCHAIN_LOCK_WITH_LOCAL_OBSERVATION_SIDE_REPORT",
+            "elan_version_observed": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
+            "python_version": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
+            "python_executable_basename": "HOST_SPECIFIC_DIAGNOSTIC_REDACTED_SEE_LOCAL_OBSERVATION_REPORT",
             "path_env_policy": "PATH is ambient and diagnostic; no release claim depends on byte-identical host PATH.",
             "network_provisioning_claim": "NOT_CLAIMED; canonical certificate excludes host provisioning diagnostics and post-generation reproducibility is checked separately.",
             "container_digest": "NOT_PROVIDED_NO_HERMETIC_CONTAINER_CLAIM",
+            "cross_host_byte_identical_package_claim_allowed": False,
+            "local_packaging_stack_lock_ref": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
         },
         "execution_status": execution_status,
         "returncode": returncode,
@@ -326,6 +328,9 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
             "canonical_certificate_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
             "lean_version_observed": lean_version_text,
             "lake_version_observed": lake_version_text,
+            "elan_version_observed": elan_version_text,
+            "python_version": platform.python_version(),
+            "python_executable_basename": Path(sys.executable).name,
             "platform_observed_family": platform.system(),
             "diagnostic_only": True,
             "excluded_from_canonical_certificate_hash": True,
@@ -569,7 +574,7 @@ THEOREMS = [
     },
 ]
 
-FORMAL_CONSISTENCY_ONLY_THEOREMS = {"T133-MIN", "T133-KLEVEL"}
+FORMAL_CONSISTENCY_ONLY_THEOREMS = {"T133-MIN", "T133-KLEVEL", "T133-CYCLE", "T133-K-ZERO"}
 
 
 COMPONENT_WITNESSES = [
@@ -3811,7 +3816,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             negative_case = "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL"
         else:
             negative_case = finite_case.replace("POS", "NEG")
-        illustrative_internal = pid in {"P008", "P009", "P010", "P011", "P013", "P014"}
+        illustrative_internal = pid in {"P003", "P007", "P008", "P009", "P010", "P011", "P013", "P014"}
         if pid == "P012":
             evidence_refs = [
                 "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
@@ -4135,6 +4140,91 @@ def closure_evidence_binding(root: Path, refs: list[str], query: str) -> dict[st
         "closure_observed_case_result_total": len(observed_cases),
         "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
     }
+
+
+def attack_closure_predicate_results(
+    root: Path,
+    *,
+    claim: str,
+    domain_key: str,
+    vector_id: str,
+    refs: list[str],
+    query: str,
+    evidence_binding: dict[str, Any],
+    finite_case_refs: dict[str, tuple[str, str]],
+    claim_rows_by_id: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    proof_sheet_path = root / "proofs" / "proof_sheets" / f"{claim}.md"
+    proof_sheet_text = proof_sheet_path.read_text(encoding="utf-8") if proof_sheet_path.exists() else ""
+    guide_path = root / "docs" / "OC_1_3_3_HOSTILE_READER_GUIDE.md"
+    guide_text = guide_path.read_text(encoding="utf-8") if guide_path.exists() else ""
+    registry = read_json(root / "proofs" / "THEOREM_REGISTRY_1_3_3.json") if (root / "proofs" / "THEOREM_REGISTRY_1_3_3.json").exists() else {}
+    inventory = read_json(root / "proofs" / "THEOREM_INVENTORY_1_3_3.json") if (root / "proofs" / "THEOREM_INVENTORY_1_3_3.json").exists() else {}
+    registry_rows = registry.get("rows", [])
+    inventory_rows = inventory.get("rows", [])
+    observed_cases = evidence_binding.get("closure_observed_case_results", [])
+    observed_case_ids = [row.get("case_id") for row in observed_cases if isinstance(row, dict)]
+    theorem_case_pair = finite_case_refs.get(claim)
+    theorem_pos = theorem_case_pair[0] if theorem_case_pair else None
+    theorem_neg = theorem_case_pair[1] if theorem_case_pair else None
+    claim_row = claim_rows_by_id.get(claim, {})
+    required_case_ids = [case_id for case_id in [theorem_pos, theorem_neg] if case_id]
+    query_case_ids = sorted(set(re.findall(r"\b(?:FM|ADV|MUTATION)-[A-Za-z0-9_\\-]+", query or "")))
+    cases_named = sorted(set(required_case_ids + query_case_ids))
+    named_cases_observed = all(case_id in observed_case_ids for case_id in query_case_ids) if query_case_ids else True
+    named_cases_passed = all(
+        row.get("passed") is True
+        for row in observed_cases
+        if isinstance(row, dict) and row.get("case_id") in set(query_case_ids)
+    ) if query_case_ids else True
+    proof_sheet_has_boundary = "## Counterexample Boundary" in proof_sheet_text
+    proof_sheet_has_assumptions = "## Assumptions" in proof_sheet_text
+    theorem_registry_match = any(row.get("theorem_id") == claim for row in registry_rows if isinstance(row, dict))
+    theorem_inventory_match = any(row.get("theorem_id") == claim for row in inventory_rows if isinstance(row, dict))
+    guide_route_match = claim in guide_text and all(case_id in guide_text for case_id in required_case_ids)
+    claim_ledger_match = bool(claim_row)
+    public_status = claim_row.get("public_status")
+    predicate_results = {
+        "matched_claim_id": claim if claim_ledger_match else None,
+        "matched_theorem_id": claim if theorem_registry_match or theorem_inventory_match else None,
+        "domain_key": domain_key,
+        "vector_id": vector_id,
+        "dependency_refs": refs,
+        "query_case_ids": query_case_ids,
+        "matched_case_ids": observed_case_ids,
+        "required_theorem_case_ids": required_case_ids,
+        "named_cases_observed": named_cases_observed,
+        "named_cases_passed": named_cases_passed,
+        "artifact_hashes_present": evidence_binding.get("closure_current_artifact_hash_total", 0) >= 1,
+        "claim_ledger_match": claim_ledger_match,
+        "claim_public_status": public_status,
+        "claim_scientific_promotion_allowed": claim_row.get("scientific_promotion_allowed"),
+        "theorem_registry_match": theorem_registry_match,
+        "theorem_inventory_match": theorem_inventory_match,
+        "proof_sheet_has_assumptions": proof_sheet_has_assumptions,
+        "proof_sheet_has_counterexample_boundary": proof_sheet_has_boundary,
+        "hostile_reader_route_chain_present": guide_route_match,
+        "falsifier_or_boundary_text_present": proof_sheet_has_boundary,
+        "case_set_named_for_predicate": cases_named,
+    }
+    vector_required = {
+        "ASSUMPTION-DRIFT": proof_sheet_has_assumptions and proof_sheet_has_boundary,
+        "NEGATIVE-CONTROL": bool(query_case_ids) and named_cases_observed and named_cases_passed,
+        "PUBLIC-SURFACE": claim_ledger_match and public_status not in (None, ""),
+        "FALSIFIER": proof_sheet_has_boundary and (named_cases_passed if query_case_ids else True),
+        "DEPENDENCY": theorem_registry_match and theorem_inventory_match,
+        "REGENERATION": evidence_binding.get("closure_current_artifact_hash_total", 0) >= 1 and (named_cases_passed if query_case_ids else True),
+        "NO-SEND": named_cases_observed and named_cases_passed,
+        "STALE-EVIDENCE": evidence_binding.get("closure_current_artifact_hash_total", 0) >= 1 and (named_cases_passed if query_case_ids else True),
+        "CLAIM-ID": claim_ledger_match and (theorem_registry_match or not claim.startswith("T133")) and (named_cases_observed if query_case_ids else True),
+        "REVIEW-TRACE": guide_route_match if claim.startswith("T133") else evidence_binding.get("closure_current_artifact_hash_total", 0) >= 1,
+    }
+    predicate_results["vector_specific_predicate_pass"] = vector_required.get(vector_id, True)
+    predicate_results["closure_predicate_pass"] = (
+        predicate_results["artifact_hashes_present"]
+        and predicate_results["vector_specific_predicate_pass"]
+    )
+    return predicate_results
 
 
 def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
@@ -4523,9 +4613,59 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
                 "no_send": True,
             }
         )
+    tuple_component_routes_prewrite = {
+        "T133-K0-RES": "k; carrier; realization",
+        "T133-OMEGA-STATUS": "liveness; residue; morphisms",
+        "T133-K-ZERO": "k; lawful_possibility; cycles",
+        "T133-BOUNDARY": "boundaries; realization",
+        "T133-HYBRID": "operators; lawful_possibility",
+        "T133-DIM": "dimension; realization",
+        "T133-CYCLE": "cycles; liveness",
+        "T133-ID": "morphisms; residue; liveness",
+        "T133-MIN": "carrier; realization; lawful_possibility; liveness; residue; morphisms; boundaries; operators; cycles; dimension; k",
+        "T133-KLEVEL": "k; carrier; realization; operators; boundaries",
+    }
+    route_prewrite_lines = [
+        "# OC Core 1.3.3 Hostile Reader Guide",
+        "",
+        "This is the skeptical route table. While G57/G58/G70 are open, theorem rows are candidate routes, not release-promoted claims. A route becomes promoted only when its specific claim-ledger row has `release_promotion_allowed=true`, a promoted public status, and the current attack matrix reports zero critical/high findings; public action still additionally requires separate owner approval and channel unlock.",
+        "",
+        "| Claim | Public status | Blockers | Tuple components | Lean certificate | Lean ref | Finite positive | Negative control | Falsifier boundary |",
+        "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+    ]
+    for theorem in THEOREMS:
+        pos, neg = finite_case_refs[theorem["id"]]
+        if theorem["id"] == "T133-HYBRID":
+            pos = f"{pos}; FM-T133-HYBRID-PROOF-UPDATE-POS"
+            neg = f"{neg}; FM-T133-HYBRID-PROOF-UPDATE-NEG"
+        claim_row = claim_rows_by_id.get(theorem["id"], {})
+        public_status = claim_row.get("public_status", ledger_promoted_status)
+        blocker_total = claim_row.get("adversarial_review_blocker_total", claim_ledger.get("adversarial_review_blocker_total", 0))
+        route_prewrite_lines.append(
+            f"| `{theorem['id']}` | `{public_status}` | `{blocker_total}` | `{tuple_component_routes_prewrite.get(theorem['id'], 'declared tuple components')}` | `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` | `formal/lean/OC133V12.lean::{theorem['lean']}` | `{pos}` | `{neg}` | {theorem['boundary']} |"
+        )
+    write_text(root / "docs" / "OC_1_3_3_HOSTILE_READER_GUIDE.md", "\n".join(route_prewrite_lines))
     padding_domains: list[tuple[str, str, str, str, list[str]]] = []
     for theorem in THEOREMS:
-        padding_domains.append((theorem["id"], theorem["id"], theorem["title"], theorem["artifact"], [theorem["artifact"], f"proofs/proof_sheets/{theorem['id']}.md"]))
+        pos, neg = finite_case_refs[theorem["id"]]
+        padding_domains.append(
+            (
+                theorem["id"],
+                theorem["id"],
+                theorem["title"],
+                theorem["artifact"],
+                [
+                    theorem["artifact"],
+                    f"proofs/proof_sheets/{theorem['id']}.md",
+                    "claims/CLAIM_LEDGER_1_3_3.json",
+                    "proofs/THEOREM_REGISTRY_1_3_3.json",
+                    "proofs/THEOREM_INVENTORY_1_3_3.json",
+                    f"proofs/FINITE_MODEL_CHECKS_1_3_3.json::{pos}",
+                    f"proofs/FINITE_MODEL_CHECKS_1_3_3.json::{neg}",
+                    "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
+                ],
+            )
+        )
     for component, *_rest in COMPONENT_WITNESSES:
         padding_domains.append((f"MIN-{component}", "T133-MIN", f"minimality component `{component}`", "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json", ["data/OC133_GLOBAL_MINIMALITY_WITNESSES.json", "proofs/FINITE_MODEL_CHECKS_1_3_3.json"]))
     for transition, *_rest in KLEVEL_ROWS:
@@ -4571,12 +4711,39 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
                 continue
             failure = f"{label}: {failure_tail}"
             query = f"{domain_key}/{vector_id}: {verification_tail}"
+            if claim in finite_case_refs:
+                pos, neg = finite_case_refs[claim]
+                public_status = claim_rows_by_id.get(claim, {}).get("public_status", "UNKNOWN_PUBLIC_STATUS")
+                theorem_queries = {
+                    "ASSUMPTION-DRIFT": f"{domain_key}/{vector_id}: proof sheet has Assumptions and Counterexample Boundary; {pos} passed=true and {neg} passed=true",
+                    "NEGATIVE-CONTROL": f"{domain_key}/{vector_id}: {neg} passed=true and rejects the stronger reading",
+                    "PUBLIC-SURFACE": f"{domain_key}/{vector_id}: claim ledger public_status={public_status}; {pos} passed=true; {neg} passed=true",
+                    "FALSIFIER": f"{domain_key}/{vector_id}: proof sheet Counterexample Boundary present and {neg} passed=true",
+                    "DEPENDENCY": f"{domain_key}/{vector_id}: theorem registry and theorem inventory contain {claim}; {pos} passed=true; {neg} passed=true",
+                    "REGENERATION": f"{domain_key}/{vector_id}: post-generation reproducibility manifest verdict=PASS; {pos} passed=true; {neg} passed=true",
+                    "STALE-EVIDENCE": f"{domain_key}/{vector_id}: current artifact hashes bound; {pos} passed=true; {neg} passed=true",
+                    "CLAIM-ID": f"{domain_key}/{vector_id}: claim_id={claim}, theorem_id={claim}, case_id={pos}, case_id={neg} match across ledger, proof, finite, and review matrix",
+                    "REVIEW-TRACE": f"{domain_key}/{vector_id}: hostile-reader route names {claim}, {pos}, {neg}, and the counterexample boundary",
+                }
+                query = theorem_queries.get(vector_id, query)
             row_refs = list(refs)
             evidence_binding = closure_evidence_binding(root, row_refs, query)
+            predicate_results = attack_closure_predicate_results(
+                root,
+                claim=claim,
+                domain_key=domain_key,
+                vector_id=vector_id,
+                refs=row_refs,
+                query=query,
+                evidence_binding=evidence_binding,
+                finite_case_refs=finite_case_refs,
+                claim_rows_by_id=claim_rows_by_id,
+            )
             row_evidence = (
                 f"Observed current closure for `{query}`: "
                 f"{evidence_binding['closure_current_artifact_hash_total']} artifact hash(es), "
                 f"{evidence_binding['closure_observed_case_result_total']} finite/control case result(s), "
+                f"predicate_pass={str(predicate_results['closure_predicate_pass']).lower()}, "
                 f"verifier `{evidence_binding['closure_verifier_identity']}`."
             )
             if vector_id == "NO-SEND":
@@ -4593,6 +4760,17 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
                     "publish_manifest.publish_allowed=false, and finite case ADV-NOSEND-PUBLISH passed=true."
                 )
                 evidence_binding = closure_evidence_binding(root, row_refs, query)
+                predicate_results = attack_closure_predicate_results(
+                    root,
+                    claim=claim,
+                    domain_key=domain_key,
+                    vector_id=vector_id,
+                    refs=row_refs,
+                    query=query,
+                    evidence_binding=evidence_binding,
+                    finite_case_refs=finite_case_refs,
+                    claim_rows_by_id=claim_rows_by_id,
+                )
             attack_rows.append(
                 {
                     "objection_id": row_id,
@@ -4609,7 +4787,9 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
                     "closure_verification_query": query,
                     "closure_evidence": row_evidence,
                     **evidence_binding,
-                    "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+                    "closure_predicate_results": predicate_results,
+                    "closure_predicate_pass": predicate_results["closure_predicate_pass"],
+                    "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE" if predicate_results["closure_predicate_pass"] else "OPEN_PREDICATE_EVIDENCE_REQUIRED",
                     "no_send": True,
                 }
             )
@@ -4662,7 +4842,7 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
     route_lines = [
         "# OC Core 1.3.3 Hostile Reader Guide",
         "",
-        "This is the skeptical route table. While G57/G58/G70 are open, theorem rows are candidate routes, not release-promoted claims. A route becomes promoted only when the claim ledger reports `release_promotion_allowed=true`.",
+        "This is the skeptical route table. While G57/G58/G70 are open, theorem rows are candidate routes, not release-promoted claims. A route becomes promoted only when its specific claim-ledger row has `release_promotion_allowed=true`, a promoted public status, and the current attack matrix reports zero critical/high findings; public action still additionally requires separate owner approval and channel unlock.",
         "",
         "| Claim | Public status | Blockers | Tuple components | Lean certificate | Lean ref | Finite positive | Negative control | Falsifier boundary |",
         "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
