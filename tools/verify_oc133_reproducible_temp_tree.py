@@ -5,7 +5,6 @@ import hashlib
 import json
 import subprocess
 import sys
-import tarfile
 import tempfile
 from pathlib import Path
 from typing import Any
@@ -113,17 +112,34 @@ def head_source_manifest() -> list[dict[str, str]]:
 
 def extract_head_sources(temp_root: Path) -> list[str]:
     refs = head_tracked_source_refs()
-    archive_path = temp_root.parent / "source_HEAD.tar"
-    archive = git_run(["archive", "--format=tar", "--output", str(archive_path), "HEAD"], timeout=180)
-    if archive.returncode != 0:
-        raise RuntimeError(archive.stderr[-1000:])
-    with tarfile.open(archive_path, "r") as handle:
-        handle.extractall(temp_root)
+    checkout = git_run(["worktree", "add", "--detach", "--quiet", str(temp_root), "HEAD"], timeout=180)
+    if checkout.returncode != 0:
+        raise RuntimeError(checkout.stderr[-1000:])
     return refs
 
 
 def initialize_temp_git_index(temp_root: Path, refs: list[str]) -> dict[str, Any]:
     """Recreate the tracked-source index expected by release package filters."""
+    if (temp_root / ".git").exists():
+        indexed = subprocess.run(
+            ["git", "ls-files", "--cached"],
+            cwd=temp_root,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            capture_output=True,
+            timeout=60,
+        )
+        if indexed.returncode != 0:
+            raise RuntimeError(indexed.stderr[-1000:])
+        indexed_refs = [line.strip() for line in indexed.stdout.splitlines() if line.strip()]
+        return {
+            "temp_git_index_initialized": True,
+            "temp_git_checkout_mode": "DETACHED_CLEAN_GIT_WORKTREE_FROM_HEAD",
+            "temp_git_add_batch_total": 0,
+            "temp_git_index_ref_total": len(indexed_refs),
+            "temp_git_index_matches_copied_refs": set(indexed_refs) == set(refs),
+        }
     init = subprocess.run(
         ["git", "init", "-q"],
         cwd=temp_root,
@@ -227,46 +243,56 @@ def main() -> int:
         return 1
     with tempfile.TemporaryDirectory(prefix="oc133_repro_verify_") as tmp:
         temp_root = Path(tmp) / "repo"
-        temp_root.mkdir(parents=True)
-        copied_source_refs = extract_head_sources(temp_root)
-        temp_git_index = initialize_temp_git_index(temp_root, copied_source_refs)
-        preexisting_targets = []
-        for ref in COMPARE_REFS:
-            target = temp_root / ref
-            if target.exists():
-                preexisting_targets.append(ref)
-                target.unlink()
-        command_rows = [
-            run_command(temp_root, command, portable)
-            for command, portable in zip(COMMANDS, PORTABLE_COMMANDS)
-        ]
-        rows = []
-        failures = []
-        for ref in COMPARE_REFS:
-            current = ROOT / ref
-            regenerated = temp_root / ref
-            current_exists = current.exists()
-            regenerated_exists = regenerated.exists()
-            current_sha = sha256_file(current) if current_exists and current.is_file() else None
-            regenerated_sha = sha256_file(regenerated) if regenerated_exists and regenerated.is_file() else None
-            matches = current_sha == regenerated_sha and current_exists and regenerated_exists
-            row = {
-                "ref": ref,
-                "current_exists": current_exists,
-                "regenerated_exists": regenerated_exists,
-                "current_sha256": current_sha,
-                "regenerated_sha256": regenerated_sha,
-                "matches": matches,
-            }
-            rows.append(row)
-            if not matches:
-                failures.append(row)
-        bad_commands = [row for row in command_rows if row["returncode"] != 0]
+        try:
+            copied_source_refs = extract_head_sources(temp_root)
+            temp_git_index = initialize_temp_git_index(temp_root, copied_source_refs)
+            preexisting_targets = []
+            for ref in COMPARE_REFS:
+                target = temp_root / ref
+                if target.exists():
+                    preexisting_targets.append(ref)
+                    target.unlink()
+            command_rows = [
+                run_command(temp_root, command, portable)
+                for command, portable in zip(COMMANDS, PORTABLE_COMMANDS)
+            ]
+            rows = []
+            failures = []
+            for ref in COMPARE_REFS:
+                current = ROOT / ref
+                regenerated = temp_root / ref
+                current_exists = current.exists()
+                regenerated_exists = regenerated.exists()
+                current_sha = sha256_file(current) if current_exists and current.is_file() else None
+                regenerated_sha = sha256_file(regenerated) if regenerated_exists and regenerated.is_file() else None
+                matches = current_sha == regenerated_sha and current_exists and regenerated_exists
+                row = {
+                    "ref": ref,
+                    "current_exists": current_exists,
+                    "regenerated_exists": regenerated_exists,
+                    "current_sha256": current_sha,
+                    "regenerated_sha256": regenerated_sha,
+                    "matches": matches,
+                }
+                rows.append(row)
+                if not matches:
+                    failures.append(row)
+            bad_commands = [row for row in command_rows if row["returncode"] != 0]
+        finally:
+            subprocess.run(
+                ["git", "worktree", "remove", "--force", str(temp_root)],
+                cwd=ROOT,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                capture_output=True,
+                timeout=120,
+            )
     stable_payload = {
         "release_id": RELEASE_ID,
         "version": VERSION,
         "verification_mode": "IMMUTABLE_HEAD_TEMP_TREE_VERIFY_ONLY_NO_CURRENT_ARTIFACT_OVERWRITE_BEFORE_COMPARISON",
-        "source_tree_policy": "Temp tree is built from git archive HEAD, then a temporary git index is initialized so tracked-only package filters see the same immutable source set.",
+        "source_tree_policy": "Temp tree is built from a detached clean git worktree at HEAD, preserving checkout filters while refusing tracked worktree/staged drift in strict mode.",
         "git_state": state,
         "head_source_manifest_sha256": sha256_json(source_manifest),
         "head_source_ref_total": len(source_manifest),
