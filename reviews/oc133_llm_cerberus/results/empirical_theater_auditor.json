@@ -4,38 +4,30 @@
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
   "high_open_total": 0,
-  "finding_total": 4,
+  "finding_total": 3,
   "findings": [
     {
       "severity": "MEDIUM",
-      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
-      "claim": "The release-critical replay log lives under validation/numeric_predictions while every row has prediction_support_allowed=false, empirical_support_allowed=false, and replay_barred_from_prediction_support=true.",
-      "failure_mode": "The row-level quarantine is correct, so this is not a current critical/high promotion leak. The failure is artifact placement: a replay-only QA log is still published from a numeric_predictions namespace, which lets downstream automation or release prose harvest snapshot replay as prediction evidence despite the row flags.",
-      "required_repair": "Move this artifact to a replay-only namespace such as validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_LOG.json, or add a machine-readable deprecation/redirect manifest proving validation/numeric_predictions contains no prediction-support artifacts and is excluded from empirical-support indexing.",
+      "artifact_ref": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+      "claim": "Lane verdicts report NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS while the overall verdict is QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED.",
+      "failure_mode": "The artifact correctly blocks empirical promotion, but the lane-level word SUPPORTED can still be misread as empirical/domain support for snapshot replay rows. This is residual empirical-theater surface because every row is replay-only, prediction_support_allowed=false, empirical_support_allowed=false, and heldout_prediction_support_present=false.",
+      "required_repair": "Rename lane result_verdict values to an unambiguous QA-only status such as NUMERIC_REPLAY_QA_MATCHED_WITHIN_BOUNDS_NOT_EMPIRICAL_SUPPORT, or add a machine-readable lane field support_kind=QA_ONLY_NOT_EMPIRICAL and require downstream consumers to use it.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
       "artifact_ref": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
-      "claim": "Each lane reports result_verdict=NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS and empirical_promotion_policy=NO_EMPIRICAL_PASS_WITHOUT_NUMERIC_REPLAY.",
-      "failure_mode": "The report also sets heldout_prediction_support_present=false, domain_validation_promoted=false, and validation_boundary says replay is not held-out support, so no critical/high empirical promotion remains. However the machine-readable lane verdict still uses SUPPORTED and the policy only states numeric replay is required, not that replay-only evidence is categorically insufficient; this is residual empirical-theater wording.",
-      "required_repair": "Rename lane verdicts to NUMERIC_REPLAY_QA_COMPLETE_NOT_DOMAIN_VALIDATION and replace the policy with a conjunctive gate such as HELDOUT_PREDICTION_REQUIRED_AND_REPLAY_QA_ALONE_DISALLOWED; prohibit any SUPPORTED/PASS token unless heldout_prediction_support_present=true.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "MEDIUM",
-      "artifact_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
-      "claim": "OC133-NUM-CHEM-H2O declares negative_control='use CO2 molecular-weight field against water snapshot' but baseline_control_value=18.0 and comparator_residual=0.015000000000000568.",
-      "failure_mode": "The table's machine-readable comparator is not the named CO2 negative control; the replay log separately shows the CO2 negative_control_residual as 25.994500000000002. This leaves the QA table internally under-specified and allows the near-target 18.0 comparator to masquerade as the negative-control evidence.",
-      "required_repair": "Separate baseline comparator fields from negative-control fields. Add explicit negative_control_value and negative_control_residual for the CO2 control, or set the existing control value/residual to the CO2 values and move 18.0 into a clearly named rough-rounding-comparator field.",
+      "claim": "scientific_validation_state is EMPIRICAL_REPLAY_REQUIRED_FOR_DOMAIN_PROMOTION.",
+      "failure_mode": "The phrase EMPIRICAL_REPLAY conflates replay with empirical validation. The surrounding fields correctly say heldout_prediction_support_present=false and validation_boundary excludes held-out empirical prediction support, but this state label creates a downstream relabeling path where replay can be treated as the empirical requirement.",
+      "required_repair": "Change the state label to HELDOUT_EMPIRICAL_PREDICTION_REQUIRED_FOR_DOMAIN_PROMOTION or EMPIRICAL_VALIDATION_ABSENT_REPLAY_QA_ONLY, and reserve any EMPIRICAL_* pass state for non-replay external-observable validation.",
       "status": "OPEN"
     },
     {
       "severity": "LOW",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "Model-card rows use prediction_or_replay identifiers while prediction_status=SCOPED_FORMAL_REPLAY_NOT_DOMAIN_TOTALIZATION and public_promotion=false.",
-      "failure_mode": "The current rows are bounded and blocked from public promotion, but the field name still mixes prediction with formal replay. That creates theorem-theater leakage risk if downstream summaries count prediction_or_replay entries as prediction coverage rather than formal model-card replay.",
-      "required_repair": "Split prediction_or_replay into formal_replay_case_id and empirical_prediction_id, set empirical_prediction_id=null and empirical_support_allowed=false for these rows, and require separate held-out empirical evidence before any phenomenon row can be counted as prediction coverage.",
+      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
+      "claim": "independent_replay=true for OC133_NUMERIC_REPLAY_LOG_v12.",
+      "failure_mode": "The replay appears independent of the materializer, but not independent in the empirical/statistical sense: the rows parse the same pinned snapshots that contain the target values. The artifact later bars prediction support, so this is not a promotion leak, but the field name is ambiguous.",
+      "required_repair": "Replace independent_replay with independent_parser_replay=true plus empirical_independence=false, or add a note that independence means independent recomputation of QA diagnostics only and not independent empirical evidence.",
       "status": "OPEN"
     }
   ],

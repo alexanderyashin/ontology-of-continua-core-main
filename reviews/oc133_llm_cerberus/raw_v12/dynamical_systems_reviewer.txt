@@ -1,1 +1,21 @@
-{"role":"dynamical_systems_reviewer","findings":[{"severity":"MEDIUM","artifact_ref":"content/OC_1_3_3_OPERATOR_SEMANTICS.tex","claim":"A smooth differential equation is one realization: the update relation is represented by a differentiable flow only in a declared local chart.","failure_mode":"The current formal subset only records a declared chart and a Nat-indexed flow-one update; it does not formalize differentiability, continuous-time flow, semigroup laws, ODE existence/uniqueness, or that the chart law is actually satisfied. The wording still reads as an ODE/differentiable-flow realization rather than an externally supplied assumption boundary.","required_repair":"Rewrite this as an external-realization boundary: v12 only tracks chart declaration and flow-one notation. Either remove ODE/differentiable-flow language from the promoted semantics or add formal smooth/ODE semantics plus finite checks that bind the chart, local law, and flow properties.","status":"OPEN"},{"severity":"MEDIUM","artifact_ref":"formal/lean/OC133V12.lean","claim":"T133-HYBRID: OC operators are typed update semantics; proof/rewrite and guard/reset updates remain first-class non-smooth cases.","failure_mode":"Hybrid typing/admission is split across unconnected definitions. `HybridSystem` only has `guard : State -> Bool` and `reset : State -> State`; `operatorAdmitted` carries derivative and typed-source-target flags but is not part of `HybridSystem` and is not used by `smooth_hybrid_operator_semantics`. The theorem proves the if-guard-then-reset branch, not that a hybrid reset is admitted only under the declared non-smooth operator policy.","required_repair":"Connect the admission predicate to the hybrid theorem, or add fields/invariants to `HybridSystem` for source/target mode, reset codomain/admissibility, derivative rejection, and prove `hybridStep` is admitted under those constraints. Otherwise narrow T133-HYBRID to the finite-runner replay cases only.","status":"OPEN"}]}
+{
+  "role": "dynamical_systems_reviewer",
+  "findings": [
+    {
+      "severity": "HIGH",
+      "artifact_ref": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+      "claim": "A smooth differential equation is one realization: the update relation is represented by a differentiable flow only in a declared local chart.",
+      "failure_mode": "The current formal/finite artifacts do not establish a differentiable flow or ODE realization. In formal/lean/OC133V12.lean, SmoothSystem.flow is only Nat -> State -> State, SmoothChart.derivative and localLaw are uninterpreted fields, and the finite checks only compare chart flags and flow_one_target/smooth_step_target tokens. This is a hidden smoothness/ODE overclaim relative to the ledger statement that no differentiability or ODE-solution theorem is promoted.",
+      "required_repair": "Reword this as chart-labelled flow-one update notation with an explicit no-differentiability/no-ODE-support boundary, or add real formal obligations for continuous-time flow, differentiability, local law binding, and ODE solution semantics with matching finite/formal evidence before using differential-equation or differentiable-flow language.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-HYBRID: proof/rewrite and guard/reset updates remain first-class non-smooth cases.",
+      "failure_mode": "The integrated guard/reset semantics only covers the firing guard branch. operatorAdmitted for OperatorRoute.guardResetHybrid requires guardObserved=true, guard_reset_binding_obligations then forces h.guard xh=true and hybridStep h xh=h.reset xh, and integrated_operator_semantics returns only that reset branch. Although hybrid_no_guard_uses_update exists, it is not admitted in the integrated route. proofs/FINITE_MODEL_CHECKS_1_3_3.json has only guard=true hybrid_guard_reset cases, so the no-guard update branch of a hybrid system is not covered by the promoted claim.",
+      "required_repair": "Either narrow T133-HYBRID to the fired guard/reset branch only, or extend OperatorAdmission/operatorAdmitted and integrated_operator_semantics to admit and prove both guard=true reset and guard=false step branches with typed source/target and derivative rejection; add finite positive and negative cases with guard=false and actual_next=step_target.",
+      "status": "OPEN"
+    }
+  ]
+}

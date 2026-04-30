@@ -57,6 +57,13 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def stable_ref_sha256(path: Path) -> str:
+    data = path.read_bytes()
+    if path.suffix.lower() in {".py", ".lean", ".yml", ".yaml", ".json", ".md", ".tex", ".txt", ".cff", ".jsonld"}:
+        data = data.replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
+
+
 def sha256_json(payload: Any) -> str:
     return hashlib.sha256(json.dumps(payload, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
 
@@ -270,6 +277,7 @@ def main() -> int:
     failures: list[dict[str, Any]] = []
     bad_commands: list[dict[str, Any]] = []
     synced_refs: list[str] = []
+    non_compare_mutations: list[dict[str, Any]] = []
     if not state["strict_head_replay_clean"] and not args.allow_dirty_worktree:
         payload = {
             "schema_id": "OC133_POST_GENERATION_REPRODUCIBILITY_MANIFEST_v12",
@@ -284,6 +292,8 @@ def main() -> int:
             "compared_artifact_total": len(COMPARE_REFS),
             "mismatch_total": len(COMPARE_REFS),
             "mismatches": [{"ref": ref, "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"} for ref in COMPARE_REFS],
+            "non_compare_ref_mutation_total": 0,
+            "non_compare_ref_mutations": [],
             "no_send": True,
             "verdict": "FAIL",
         }
@@ -298,6 +308,11 @@ def main() -> int:
             temp_git_index = initialize_temp_git_index(temp_root, copied_source_refs)
             preexisting_target_sha256: dict[str, str] = {}
             preexisting_zip_manifests: dict[str, dict[str, Any]] = {}
+            pre_run_non_compare_hashes: dict[str, str] = {
+                ref: stable_ref_sha256(temp_root / ref)
+                for ref in copied_source_refs
+                if ref not in set(COMPARE_REFS) and (temp_root / ref).is_file()
+            }
             for ref in COMPARE_REFS:
                 target = temp_root / ref
                 if target.exists():
@@ -343,6 +358,29 @@ def main() -> int:
                 if not matches:
                     failures.append(row)
             bad_commands = [row for row in command_rows if row["returncode"] != 0]
+            non_compare_mutations = []
+            for ref, before_sha in sorted(pre_run_non_compare_hashes.items()):
+                path = temp_root / ref
+                if not path.exists() or not path.is_file():
+                    non_compare_mutations.append(
+                        {
+                            "ref": ref,
+                            "before_sha256": before_sha,
+                            "after_sha256": None,
+                            "mutation": "DELETED_OR_NON_FILE",
+                        }
+                    )
+                    continue
+                after_sha = stable_ref_sha256(path)
+                if after_sha != before_sha:
+                    non_compare_mutations.append(
+                        {
+                            "ref": ref,
+                            "before_sha256": before_sha,
+                            "after_sha256": after_sha,
+                            "mutation": "NON_COMPARE_REF_CHANGED_BY_REPRODUCIBILITY_COMMANDS",
+                        }
+                    )
             if args.sync_regenerated_artifacts and not bad_commands:
                 for row in failures:
                     ref = row["ref"]
@@ -378,6 +416,7 @@ def main() -> int:
         "copied_source_ref_total": len(copied_source_refs),
         "temp_git_index": temp_git_index,
         "source_only_target_policy": "All COMPARE_REFS are deleted from the tracked-source temp tree before producers run. Package byte identity is claimed for the committed package input set plus regenerated COMPARE_REFS, not for full source-only regeneration of every package member.",
+        "non_compare_ref_mutation_policy": "All tracked refs outside COMPARE_REFS are snapshotted before producers and must remain stable by normalized text hash or byte hash. Source-generator mutations outside the compared artifact set fail this verifier.",
         "comparison_baseline_policy": "Byte comparison is against the preexisting committed files in the same detached clean worktree before deletion, not against ambient current worktree bytes.",
         "preexisting_compared_target_total": len(preexisting_targets),
         "preexisting_compared_targets_deleted_before_generation": preexisting_targets,
@@ -391,6 +430,8 @@ def main() -> int:
         "compared_artifact_total": len(rows),
         "mismatch_total": len(failures),
         "mismatches": failures,
+        "non_compare_ref_mutation_total": len(non_compare_mutations),
+        "non_compare_ref_mutations": non_compare_mutations[:200],
         "rows": rows,
         "no_send": True,
     }
@@ -422,6 +463,7 @@ def main() -> int:
             and preexisting_targets
             and not bad_commands
             and not failures
+            and not non_compare_mutations
             and (
                 previous_manifest is None
                 or (

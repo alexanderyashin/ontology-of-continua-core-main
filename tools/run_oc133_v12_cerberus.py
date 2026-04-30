@@ -397,8 +397,10 @@ def fresh_context_ref(role: str, ref: str) -> str:
     )
     view["objection_total"] = len(deterministic_rows)
     view["cerberus_sourced_objection_total"] = 0
-    view["fresh_cerberus_review_satisfied"] = summary.get("execution_status") == "EXECUTED_WITH_FINDINGS_CLOSED" and fresh_critical == 0 and fresh_high == 0
-    view["fresh_cerberus_review_gate_status"] = "PASS_IN_LATEST_INTEGRATED_SUMMARY" if view["fresh_cerberus_review_satisfied"] else "BLOCKED_UNTIL_THIS_ROLE_RESULT_IS_INTEGRATED_AND_ZERO"
+    view["fresh_cerberus_review_satisfied"] = False
+    view["fresh_cerberus_review_gate_status"] = "CONTEXT_VIEW_NOT_RELEASE_GATE"
+    view["fresh_context_not_release_evidence"] = True
+    view["fresh_context_pass_fields_suppressed"] = True
     view["fresh_cerberus_execution_status"] = summary.get("execution_status", "NO_PRIOR_SUMMARY")
     view["fresh_cerberus_critical_open_total"] = fresh_critical
     view["fresh_cerberus_high_open_total"] = fresh_high

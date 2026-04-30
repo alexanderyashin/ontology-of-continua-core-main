@@ -3,23 +3,31 @@
   "role": "claim_boundary_auditor",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 0,
-  "finding_total": 2,
+  "high_open_total": 2,
+  "finding_total": 3,
   "findings": [
     {
-      "severity": "MEDIUM",
-      "artifact_ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "`critical_unresolved_total=4`, `high_unresolved_total=9`, and CERBERUS-001 through CERBERUS-013 remain `OPEN_PENDING_REPAIR` while their attacked claims describe stale source hashes retained only as audit keys.",
-      "failure_mode": "The matrix still encodes release-blocking critical/high status via stale Cerberus hashes and a fresh-run condition rather than a current evidence-derived failing field. Current inspected closure surfaces for empirical quarantine, no-send locking, Lean certificate presence, and phenomenon model-card required fields are bounded/closed in the referenced artifacts, so the matrix cannot distinguish an actual current defect from a stale audit blocker.",
-      "required_repair": "Regenerate the attack matrix from the fresh current role outputs; for each CERBERUS row either close it with current artifact hashes and the satisfied closure predicate, or replace it with a new current failing field. Recompute `critical_unresolved_total` and `high_unresolved_total` from those current statuses only.",
+      "severity": "HIGH",
+      "artifact_ref": "reviews/oc133_llm_cerberus/context_v12/claim_boundary_auditor/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "DET-T133-K-ZERO-PUBLIC-SURFACE, DET-T133-CYCLE-PUBLIC-SURFACE, DET-T133-MIN-PUBLIC-SURFACE, and DET-T133-KLEVEL-PUBLIC-SURFACE are closed because the claim ledger supposedly has public_status=PROMOTED_BOUNDED_NO_SEND_V12.",
+      "failure_mode": "The current claim ledger gives those four rows public_status=FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM and scientific_promotion_allowed=false. The matrix closes high public-surface overclaim attacks using a false/stale predicate, masking formal release-consistency checks as promoted theorem surfaces and making the zero high-unresolved counter unreliable.",
+      "required_repair": "Regenerate the attack matrix so these closures verify the actual demoted public_status and non-scientific evidence ceiling, or reopen the public-surface objections if the closure predicate requires PROMOTED_BOUNDED_NO_SEND_V12. Recompute critical/high counters after regeneration.",
       "status": "OPEN"
     },
     {
-      "severity": "LOW",
-      "artifact_ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-      "claim": "A route becomes promoted only when the claim ledger reports `release_promotion_allowed=true`.",
-      "failure_mode": "The public-promotion boundary is underspecified because it names a generic ledger flag rather than the row-level claim status plus the attack-matrix zero-critical/high condition. This is not a current promotion leak because the current ledger blocks promotion, but it leaves a future wording hole where a top-level flag could be read as sufficient for all routes.",
-      "required_repair": "Rewrite the guide condition to require the specific claim row to have `release_promotion_allowed=true`, promoted public status, and zero current critical/high attack-matrix findings; keep no-send/channel unlock as an additional requirement for any public action.",
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md + reviews/oc133_llm_cerberus/context_v12/claim_boundary_auditor/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "A route becomes promoted when the current attack matrix reports zero critical/high findings, and the current matrix reports critical_unresolved_total=0, high_unresolved_total=0, and fresh_cerberus_review_satisfied=true.",
+      "failure_mode": "The same matrix also states release_closure_claim_asserted=false, post_role_integration_required=true, and that this role-specific context is intentionally not a release-closure matrix. The guide's promotion gate can therefore be satisfied by a non-final context view, relying on wording rather than a machine-distinct integrated release-closure artifact.",
+      "required_repair": "Change the guide and matrix gating to require an integrated release matrix with release_closure_claim_asserted=true and post_role_integration_required=false. Context-view matrices should not expose PASS-style fresh review fields or zero counters usable as release-promotion evidence.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json + claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "OC133-NUM-MATH-FINITE is a finite witness acceptance count, not a public-promotion count while Cerberus blockers remain.",
+      "failure_mode": "The boundary is conditional on blockers remaining, while the current attack matrix reports zero critical/high unresolved findings and fresh review satisfaction. Even though other flags still quarantine the row, this wording creates an expired/ambiguous empirical-theater boundary for a public-promotion count.",
+      "required_repair": "Make the boundary unconditional: state that the finite witness count is never public-promotion, empirical, or prediction support in v12 unless a future row flips explicit release_promotion_allowed, prediction_support_allowed, and empirical_support_allowed gates after a prospective protocol/review.",
       "status": "OPEN"
     }
   ],

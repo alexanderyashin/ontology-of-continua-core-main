@@ -2,27 +2,35 @@
   "role": "empirical_statistician",
   "findings": [
     {
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "artifact_ref": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
-      "claim": "Lane result_verdict values are \"NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS\" while heldout_prediction_support_present is false and verdict is \"QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED\".",
-      "failure_mode": "The report correctly blocks empirical/domain promotion, but the lane-level word \"SUPPORTED\" inside a domain-validation artifact still overstates official-snapshot replay as support. A downstream table or public excerpt could preserve the lane verdict while dropping the blocker fields, creating empirical-theater language from non-heldout replay rows.",
-      "required_repair": "Rename all lane and lane_replay result_verdict values to a non-support label such as \"SNAPSHOT_REPLAY_QA_WITHIN_TOLERANCE_NOT_VALIDATION\" and reserve \"supported\" for heldout/prospective empirical protocols.",
+      "claim": "OC133_DOMAIN_VALIDATION_REPORT_v12 with verdict QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED and zero replay/hash/policy failures",
+      "failure_mode": "The checked-in report does not match the current report shape emitted by validation/run_all.py for the same schema. Current run_all.py emits expected_lanes, missing/extra lane counts, finite_model_checks_* fields, cli_mode, materialize_first flags, canonical clean-checkout commands, and qa_only_zero_exit_allowed, but the official JSON report lacks them. This makes the release-critical validation snapshot stale or partially generated, so its zero-failure/no-promotion claims are not auditable against the current gate.",
+      "required_repair": "Regenerate and commit the domain validation report from the current validation/run_all.py on a clean materialized checkout, or version the schema and gate on exact required-field parity between run_all.py and the checked-in report before release.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
       "artifact_ref": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
-      "claim": "empirical_promotion_policy is \"NO_EMPIRICAL_PASS_WITHOUT_NUMERIC_REPLAY\".",
-      "failure_mode": "This policy states only a necessary condition and can be read as allowing empirical pass once numeric replay exists, even though the same artifact says official snapshots are inputs, heldout_prediction_support_present is false, and no held-out empirical prediction support is promoted.",
-      "required_repair": "Replace with an explicit sufficiency boundary, for example \"NO_EMPIRICAL_PASS_FROM_NUMERIC_REPLAY_ONLY; HELDOUT_TARGET_BLIND_PROTOCOL_REQUIRED\", and require the same wording in validation/run_all.py so regenerated reports cannot regress.",
+      "claim": "Lane result_verdict NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS with residual 0.0 and baseline_control_value rows",
+      "failure_mode": "The primary domain report carries PASS-like support wording and residual/baseline fields while dropping the stronger guard fields present in the QA table and replay log, including residual_kind, performance_metric_allowed, and residual_public_interpretation. Even though other fields say prediction_support_allowed=false and empirical_support_allowed=false, the report remains vulnerable to empirical-theater reuse of zero residuals as model-performance language.",
+      "required_repair": "In the domain report, rename lane verdicts and row metrics to parser-QA terms, preserve residual_kind/performance_metric_allowed/residual_public_interpretation on every copied row, and avoid SUPPORT/PASS-like wording for official snapshot replays.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "Numeric rows are supported by NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER",
+      "failure_mode": "The support label overstates the evidentiary content. The rows are quarantined, but the label still advertises baseline negative-control falsifier support even though the controls are row-level parser/replay checks against official snapshots, synthetic substitutions, or parser-failure controls, not target-blind baselines or empirical falsifiers.",
+      "required_repair": "Relabel the numeric support ceiling to parser/replay QA only, separate control_type values such as wrong_constant, synthetic_mutation, and parser_corruption, and reserve baseline/falsifier language for future target-blind heldout protocols.",
       "status": "OPEN"
     },
     {
       "severity": "LOW",
-      "artifact_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
-      "claim": "Rows advertise baseline_control_value, negative_control, comparator_residual, and support via baseline/negative-control/falsifier plumbing while residual_kind says \"replay_residual_not_comparator_performance\".",
-      "failure_mode": "The controls are synthetic or arbitrary single-value mutations, not empirical baselines. The quarantine flags prevent a high-severity promotion leak, but the baseline/comparator vocabulary still invites performance interpretation despite the residual_kind disclaimer.",
-      "required_repair": "Rename baseline_control_value and comparator_residual to synthetic_mutation_value and synthetic_mutation_residual, or add preregistered baseline provenance and an explicit rule that these values are excluded from all performance claims.",
+      "artifact_ref": "validation/run_all.py",
+      "claim": "empirical_promotion_policy is NO_EMPIRICAL_PASS_WITHOUT_NUMERIC_REPLAY",
+      "failure_mode": "The policy phrase is logically too weak for the stated boundary: it says numeric replay is required for an empirical pass, not that official-snapshot numeric replay can never constitute an empirical pass. Other fields currently block promotion, so this is not a high-severity leak, but the wording leaves a reusable ambiguity.",
+      "required_repair": "Change the policy string to an explicit non-promotion rule such as NO_EMPIRICAL_PASS_FROM_OFFICIAL_SNAPSHOT_REPLAY and require prospective target-blind heldout evidence for any future empirical pass.",
       "status": "OPEN"
     }
   ]

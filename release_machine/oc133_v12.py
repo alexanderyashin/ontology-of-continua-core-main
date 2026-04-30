@@ -148,6 +148,9 @@ def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, A
     ro_nodes = ro_crate.get("@graph", []) if isinstance(ro_crate, dict) else []
     ro_versions = [node.get("version") for node in ro_nodes if isinstance(node, dict) and node.get("version")]
     zenodo_body = json.dumps(zenodo, sort_keys=True)
+    zenodo_related = zenodo.get("related_identifiers", []) if isinstance(zenodo, dict) else []
+    ro_body = json.dumps(ro_crate, sort_keys=True)
+    codemeta_body = json.dumps(codemeta, sort_keys=True)
 
     version_checks = {
         "zenodo_version": zenodo.get("version") == VERSION,
@@ -166,6 +169,14 @@ def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, A
         "github_release_allowed_false": manifest.get("github_release_allowed") is False,
         "journal_submissions_allowed_false": manifest.get("journal_submissions_allowed") is False,
         "zenodo_notes_no_send": "no-send" in zenodo_body.lower() or "pending" in zenodo_body.lower(),
+        "zenodo_publication_date_absent": "publication_date" not in zenodo,
+        "zenodo_access_right_not_open": zenodo.get("access_right") not in {"open", "embargoed", "restricted"},
+        "zenodo_related_doi_absent": not any(isinstance(row, dict) and str(row.get("scheme", "")).lower() == "doi" for row in zenodo_related),
+        "citation_date_released_absent": "date-released:" not in citation.lower(),
+        "citation_identifier_doi_absent": "type: doi" not in citation.lower(),
+        "codemeta_no_doi_identifier": "zenodo concept doi" not in codemeta_body.lower() and "doi:" not in codemeta_body.lower(),
+        "ro_crate_date_published_absent": "datePublished" not in ro_body,
+        "ro_crate_no_doi_identifier": "doi:" not in ro_body.lower(),
     }
     return {
         "missing": missing,
@@ -360,6 +371,8 @@ def audit(root: Path) -> dict[str, Any]:
         finite_semantic_failures.append("missing per-transition K-level negative/demotion controls")
     if finite.get("no_send_state_machine_total", 0) < 2:
         finite_semantic_failures.append("missing no-send state-machine finite controls")
+    if finite.get("no_send_byte_binding_failure_total", 0) != 0:
+        finite_semantic_failures.append("no-send control file byte hashes are not bound to the clean source manifest")
     if "case_type" in text(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py") and "model.get" not in text(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py"):
         finite_semantic_failures.append("finite runner does not inspect model facts")
     comparator_failures = [
@@ -510,6 +523,7 @@ def audit(root: Path) -> dict[str, Any]:
                 and repro_manifest.get("verdict") == "PASS"
                 and repro_manifest.get("command_failure_total") == 0
                 and repro_manifest.get("mismatch_total") == 0
+                and repro_manifest.get("non_compare_ref_mutation_total", 0) == 0
                 and repro_manifest.get("preexisting_compared_target_total", 0) >= repro_manifest.get("compared_artifact_total", 1)
                 and repro_manifest.get("git_state", {}).get("strict_head_replay_clean") is True
                 and repro_manifest.get("stable_payload_sha256")
@@ -519,6 +533,7 @@ def audit(root: Path) -> dict[str, Any]:
             "verdict": repro_manifest.get("verdict"),
             "command_failure_total": repro_manifest.get("command_failure_total"),
             "mismatch_total": repro_manifest.get("mismatch_total"),
+            "non_compare_ref_mutation_total": repro_manifest.get("non_compare_ref_mutation_total"),
             "preexisting_compared_target_total": repro_manifest.get("preexisting_compared_target_total"),
             "compared_artifact_total": repro_manifest.get("compared_artifact_total"),
             "strict_head_replay_clean": repro_manifest.get("git_state", {}).get("strict_head_replay_clean"),

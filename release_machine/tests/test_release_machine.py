@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import subprocess
 import unittest
@@ -97,6 +98,22 @@ class ReleaseMachineTests(unittest.TestCase):
             self.assertFalse(first["reused"])
             self.assertTrue(second["reused"])
             self.assertEqual(first["sha256"], second["sha256"])
+        finally:
+            import shutil
+
+            shutil.rmtree(root, ignore_errors=True)
+
+    def test_release_machine_lock_recovers_from_stale_pid(self) -> None:
+        root = Path(self._testMethodName)
+        lock_dir = root / "release_machine"
+        lock_dir.mkdir(parents=True, exist_ok=True)
+        lock_path = lock_dir / ".release_machine.lock"
+        lock_path.write_text("pid=999999999\nts=0\n", encoding="utf-8")
+        try:
+            with complete.release_machine_lock(root, timeout_seconds=1.0):
+                self.assertTrue(lock_path.exists())
+                self.assertIn(f"pid={os.getpid()}", lock_path.read_text(encoding="utf-8"))
+            self.assertFalse(lock_path.exists())
         finally:
             import shutil
 
@@ -400,8 +417,18 @@ class ReleaseMachineTests(unittest.TestCase):
             self.assertNotIn("v1.3.2", body, path.name)
         self.assertEqual(json.loads((root / ".zenodo.json").read_text(encoding="utf-8"))["version"], "1.3.3")
         self.assertEqual(json.loads((root / ".codemeta.json").read_text(encoding="utf-8"))["version"], "1.3.3")
+        zenodo = json.loads((root / ".zenodo.json").read_text(encoding="utf-8"))
+        citation = (root / "CITATION.cff").read_text(encoding="utf-8")
+        ro_crate = (root / "ro-crate-metadata.jsonld").read_text(encoding="utf-8")
+        self.assertNotIn("publication_date", zenodo)
+        self.assertNotEqual(zenodo.get("access_right"), "open")
+        self.assertNotIn("date-released:", citation.lower())
+        self.assertNotIn("type: doi", citation.lower())
+        self.assertNotIn("datePublished", ro_crate)
+        self.assertNotIn("doi:", ro_crate.lower())
         self.assertEqual(gates["G66"]["details"]["stale_hit_total"], 0)
         self.assertEqual(gates["G67"]["details"]["stale_hit_total"], 0)
+        self.assertTrue(all(gates["G66"]["details"]["no_send_checks"].values()))
 
         approval = json.loads((root / "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json").read_text(encoding="utf-8"))
         self.assertEqual(approval["decision"], "PENDING")

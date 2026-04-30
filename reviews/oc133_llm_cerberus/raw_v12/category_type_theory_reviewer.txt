@@ -2,27 +2,27 @@
   "role": "category_type_theory_reviewer",
   "findings": [
     {
-      "severity": "MEDIUM",
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "Identity continuation requires endpoint-bound identity evidence, including lifecycle identity-invariant truth and typed source/target binding; residue and rebirth are token-bound evidence relations with distinct endpoint rules.",
+      "failure_mode": "The Lean subset does not actually bind morphisms to typed carrier endpoints. `MorphismEvidence` stores only `Nat` tokens, while `typedResidueMorphism`, `typedRebirthMorphism`, and `endpointBoundIdentity` compare those tokens against `Lifecycle` token functions. The `Lifecycle` token maps are not required to be injective, so different source, residue, or target carrier elements can alias to the same token. This supports token equality checks, not carrier-level typed morphism binding or categorical source/target discipline.",
+      "required_repair": "Either weaken the public/inventory wording to 'token-level classifier checks only' or strengthen the Lean model with dependent morphism evidence carrying typed endpoints, e.g. source : S, residue : Option Residue, target : NewLive, plus proved endpoint laws; alternatively add explicit injectivity/separation assumptions for all token maps and prove alias-free binding. Add finite alias/collision negative controls.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
       "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-ID: Identity continuation requires endpoint-bound identity evidence, including typed source/target binding.",
-      "failure_mode": "The Lean subset supports Nat-token equality predicates around an unindexed MorphismEvidence record, not a genuinely type-indexed morphism/Hom object. Source and target carrier typing is imposed by endpointBoundIdentity/typedResidueMorphism/typedRebirthMorphism as external Props, while the morphism evidence itself can exist independently of S, Residue, and NewLive. This is acceptable as token-bound finite evidence, but the current wording overstates type-theoretic morphism typing.",
-      "required_repair": "Either reword the claim to 'token-bound source/target predicates under declared lifecycle parameters' or strengthen formal/lean/OC133V12.lean with an indexed/dependent morphism evidence type whose source, residue, and target endpoints are carried at the type level, then update the theorem inventory and finite checks to reference that stronger theorem.",
+      "claim": "T133-OMEGA-STATUS and T133-ID are marked as `PROMOTED_BOUNDED_NO_SEND_V12` / `BOUNDED_SCIENTIFIC_THEOREM` with Lean subset and finite witness support.",
+      "failure_mode": "The promoted identity/residue/rebirth material is mostly definitional theorem theater. `death blocks live` is supplied as the `deathBlocksLive` field of `Lifecycle`; identity/residue/rebirth separation is primarily enum inequality over `MorphismClass`; and the positive identity case constructs `endpointBoundIdentity` from the same fields named in its definition. This is a release-consistency encoding, not an independent scientific theorem about lifecycle identity or morphisms.",
+      "required_repair": "Demote these rows to `FORMAL_RELEASE_CONSISTENCY_CHECK_NOT_INDEPENDENT_SCIENTIFIC_THEOREM`, or add independent Lean semantics for death/live, identity invariants, residue, rebirth, and morphism typing, then prove the promoted claims from those semantics rather than by record projection and constructor inequality.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-OMEGA-STATUS: residue and rebirth are token-bound evidence relations with distinct class-specific endpoint rules.",
-      "failure_mode": "The promoted row mixes residue endpoint wording into an OMEGA theorem path whose named Lean reference, lifecycle_residue_rebirth_morphism_boundary, proves the rebirth boundary case. Residue endpoint behavior exists in the Lean definition typedResidueMorphism and is used by T133-ID classification, but the T133-OMEGA finite case shown in proofs/FINITE_MODEL_CHECKS_1_3_3.json exercises rebirth only. The row therefore blurs which theorem/case actually supports the residue branch.",
-      "required_repair": "Split the residue endpoint sentence out of T133-OMEGA and leave it under T133-ID, or add a dedicated lifecycle_residue_morphism_boundary theorem plus T133-OMEGA residue positive/negative finite rows and update proofs/THEOREM_INVENTORY_1_3_3.json accordingly.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "LOW",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-OMEGA-STATUS: Rebirth is non-identity unless endpoint-bound identity evidence has identity class, declared invariant preservation, no residue token, and equal source/target endpoint evidence.",
-      "failure_mode": "The wording leaves an apparent exception path for rebirth becoming identity, but the Lean subset proves a rebirth-class typed morphism is not endpointBoundIdentity because MorphismClass.rebirth is not MorphismClass.identity. Identity is a separate identity-class case, not an exception to rebirth.",
-      "required_repair": "Rewrite to: 'Rebirth-class evidence is non-identity; identity continuation is a separate endpoint-bound identity-class case requiring declared invariant preservation, no residue token, equal endpoint evidence, and lifecycle identity-invariant truth.'",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "Finite model checks provide bound theorem-reference coverage for the v12 theorem inventory and release classifier.",
+      "failure_mode": "The reference audit treats any existing non-Lean/non-runner path as a bound reference without validating a theorem symbol, JSON pointer, case id, or semantic target. This allows theorem coverage accounting to mix Lean theorems, Python helper functions, and plain artifacts under the same `finite_row_theorem_refs`/bound totals, which weakens the claimed machine-checking boundary.",
+      "required_repair": "Separate Lean theorem refs, executable evaluator refs, and artifact refs into distinct audited fields. For artifact refs, validate an explicit JSON pointer or case id; for theorem refs, require an actual Lean symbol from `OC133V12.lean`; fail the audit on untyped cross-artifact references.",
       "status": "OPEN"
     }
   ]

@@ -3,39 +3,31 @@
   "role": "formal_mathematician",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 0,
-  "finding_total": 4,
+  "high_open_total": 2,
+  "finding_total": 3,
   "findings": [
     {
-      "severity": "MEDIUM",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-K0-RES: K0 support is resolution-relative: same-resolution states are not distinguished, and a finite countermodel shows raw separation need not induce resolution distinction.",
-      "failure_mode": "The advertised Lean ref is only `k0_countermodel_raw_separation_not_resolution_distinction`, which proves the finite two-point countermodel. The general same-resolution proposition is proved by a separate helper theorem in the Lean file but is not bound in the theorem inventory or build-certificate theorem_refs.",
-      "required_repair": "Add `k0_same_cell_not_distinguished` or an equivalent combined theorem to the T133-K0-RES theorem refs, proof ledger, and build certificate; alternatively narrow the public claim to the countermodel only.",
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+      "claim": "The Lean build certificate binds the clean isolated build to the current Lean source used by the theorem ledger.",
+      "failure_mode": "The certificate gives two different SHA256 values for the same ref `formal/lean/OC133V12.lean`: `clean_source_manifest` records `5345407b...`, while `lean_source_sha256` records `783fb562...`; `proofs/FINITE_MODEL_CHECKS_1_3_3.json` also treats `783fb562...` as the current/certificate Lean hash. This makes the formal evidence chain ambiguous about which Lean source was actually certified.",
+      "required_repair": "Regenerate the Lean build certificate so every occurrence of `formal/lean/OC133V12.lean` has one consistent source hash, or split the refs into explicitly named normalized/archive/current-source fields and make the finite manifest mismatch check fail on unexplained divergence.",
       "status": "OPEN"
     },
     {
-      "severity": "MEDIUM",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-K-ZERO: Continuumness zero requires live support, an independently clear obstruction ledger, and a declared zero-cause family; a zero-cause label alone does not compute k=0.",
-      "failure_mode": "The advertised Lean ref `continuumness_zero_case_iff_declared_zero_cause_with_support` proves the positive iff condition, but the negative boundary that a zero-cause label alone does not compute k=0 is in `zero_cause_does_not_compute_k_by_itself`, which is not listed as the theorem inventory/build-certificate theorem ref for this public claim.",
-      "required_repair": "Bind `zero_cause_does_not_compute_k_by_itself` as an explicit T133-K-ZERO theorem ref or split the public claim into positive k=0 licensing and zero-cause-alone boundary rows.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "MEDIUM",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-OMEGA-STATUS: Death blocks live status; residue and rebirth are token-bound evidence relations with distinct class-specific endpoint rules, and rebirth is non-identity unless endpoint-bound identity evidence has the listed identity conditions.",
-      "failure_mode": "The advertised Lean ref `lifecycle_residue_rebirth_morphism_boundary` proves death blocking, typed residue/rebirth separation, and non-identity for typed residue/rebirth morphisms. The positive endpoint-bound identity classification in the claim is supplied by a different theorem under T133-ID, not by the T133-OMEGA-STATUS Lean ref.",
-      "required_repair": "Move the endpoint-bound identity exception text entirely to T133-ID, or add the identity-classification theorem as an explicit supporting Lean ref for T133-OMEGA-STATUS.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "LOW",
+      "severity": "HIGH",
       "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-KLEVEL: Every declared adjacent K-level transition K0->K12 has a release-atlas row, retained-witness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release classifier.",
-      "failure_mode": "`release_atlas_manifest_has_total_finite_case_coverage` proves internal Lean manifest-row validity and synthetic classifier evidence for an arbitrary `AdjacentK`, but it does not itself bind to the executed JSON finite rows in `proofs/FINITE_MODEL_CHECKS_1_3_3.json`. The finite artifact supplies that evidence separately, so this is a traceability gap rather than an unsupported high claim.",
-      "required_repair": "Either weaken the Lean-theorem wording to internal manifest/classifier consistency, or generate a Lean-side certificate theorem that enumerates the finite case IDs and binds them to the executed finite-check manifest hash.",
+      "claim": "T133-HYBRID: OC operators are typed update semantics; chart-labelled flow-one, proof/rewrite, and guard/reset hybrid routes are separate first-class typed realizations.",
+      "failure_mode": "The cited theorem `integrated_operator_semantics` is not a route-complete theorem over an arbitrary admitted operator route. It requires simultaneous admitted smooth, hybrid, and proof systems as assumptions and then unpacks obligations from those assumptions. The finite rows are single-route cases, but all cite this integrated theorem; a hybrid-only or proof-rewrite-only public claim is therefore not directly the proposition proved by the cited Lean theorem.",
+      "required_repair": "Add and ledger-bind a route-disjunction theorem such as `forall a, operatorAdmitted a = true -> route-specific typed obligations`, with separate smooth-chart, guard/reset, and proof/rewrite cases; bind each finite row to the matching route theorem or make `integrated_operator_semantics` a corollary only.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "T133-K-ZERO, T133-CYCLE, T133-MIN, and T133-KLEVEL have zero adversarial blockers and are in a ready no-send/formal-consistency state.",
+      "failure_mode": "The directly referenced proof sheets for these rows still state `Status: BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12`, while the inventory records `adversarial_review_blocker_total: 0` and `owner_review_state: READY_NO_SEND`. The ledger state and the proof-obligation source state disagree.",
+      "required_repair": "Either update the proof sheets to the current formal-consistency/no-send status, or propagate the blocked status back into the theorem inventory and claim ledger blocker counts before release gating.",
       "status": "OPEN"
     }
   ],

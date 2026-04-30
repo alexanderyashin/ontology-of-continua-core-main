@@ -131,7 +131,14 @@ def source_manifest() -> list[dict[str, str]]:
     for ref in sorted(refs):
         path = ROOT / ref
         if path.exists() and path.is_file():
-            rows.append({"ref": ref, "sha256": sha256_source_ref(path)})
+            rows.append(
+                {
+                    "ref": ref,
+                    "sha256": sha256_source_ref(path),
+                    "sha256_policy": "TEXT_REFS_LF_NORMALIZED_FOR_SOURCE_BINDING",
+                    "byte_sha256": sha256_file(path),
+                }
+            )
     return rows
 
 
@@ -385,10 +392,11 @@ def operator_admission_evidence(model: dict[str, Any]) -> dict[str, Any]:
         )
     elif route == "hybrid_guard_reset":
         typed_source_target = model.get("smooth_state_type") == model.get("hybrid_state_type")
+        guard_observed = isinstance(model.get("guard"), bool)
         route_admitted = (
             typed_source_target
             and model.get("derivative_requested") is False
-            and model.get("guard") is True
+            and guard_observed
             and model.get("reset_source_mode") == model.get("current_mode")
             and model.get("reset_target_mode") == model.get("target_mode")
             and model.get("reset_codomain") == model.get("hybrid_state_type")
@@ -415,7 +423,7 @@ def operator_admission_evidence(model: dict[str, Any]) -> dict[str, Any]:
         "chart_domain_contains_source": model.get("chart_domain_contains_state") is True,
         "chart_local_law_declared": model.get("local_law_declared") is True,
         "derivative_requested": model.get("derivative_requested") is True,
-        "guard_observed": model.get("guard") is True,
+        "guard_observed": isinstance(model.get("guard"), bool),
         "reset_source_typed": model.get("reset_source_mode") == model.get("current_mode"),
         "reset_target_typed": model.get("reset_target_mode") == model.get("target_mode"),
         "reset_admissible": model.get("post_reset_admissible") is True,
@@ -827,7 +835,8 @@ def main() -> int:
     ref_audit = theorem_reference_audit(inputs, lean_cert)
     atlas_audit = atlas_external_binding_audit(inputs, atlas_payload, lean_cert)
     lean_source = ROOT / "formal" / "lean" / "OC133V12.lean"
-    current_lean_sha256 = sha256_file(lean_source) if lean_source.exists() else None
+    current_lean_sha256 = sha256_source_ref(lean_source) if lean_source.exists() else None
+    current_lean_byte_sha256 = sha256_file(lean_source) if lean_source.exists() else None
     cert_lean_sha256_matches = lean_cert.get("lean_source_sha256") == current_lean_sha256
     live_lean_build = run_live_lake_build()
     current_source_manifest = source_manifest()
@@ -835,6 +844,7 @@ def main() -> int:
     current_generated_artifact_manifest = generated_artifact_manifest()
     current_generated_artifact_manifest_sha256 = hashlib.sha256(json.dumps(current_generated_artifact_manifest, sort_keys=True).encode("utf-8")).hexdigest()
     cert_manifest_hashes = {row.get("ref"): row.get("sha256") for row in lean_cert.get("clean_source_manifest", []) if isinstance(row, dict)}
+    cert_manifest_byte_hashes = {row.get("ref"): row.get("byte_sha256") for row in lean_cert.get("clean_source_manifest", []) if isinstance(row, dict)}
     current_manifest_hashes = {row.get("ref"): row.get("sha256") for row in current_source_manifest}
     cert_generated_hashes = {row.get("ref"): row.get("sha256") for row in lean_cert.get("generated_artifact_manifest", []) if isinstance(row, dict)}
     current_generated_hashes = {row.get("ref"): row.get("sha256") for row in current_generated_artifact_manifest}
@@ -846,6 +856,18 @@ def main() -> int:
         ref for ref, digest in current_generated_hashes.items()
         if cert_generated_hashes.get(ref) != digest
     ]
+    no_send_byte_binding_failures = []
+    for row in rows:
+        if row.get("case_type") == "no_send_state_machine":
+            manifest_ref = row.get("publish_manifest_ref")
+            approval_ref = row.get("owner_release_approval_ref")
+            row["no_send_control_hash_policy"] = "BYTE_HASH_FOR_CONTROL_FILES_MATCHES_CLEAN_SOURCE_MANIFEST_BYTE_SHA256"
+            row["publish_manifest_clean_source_byte_sha256"] = cert_manifest_byte_hashes.get(manifest_ref)
+            row["owner_release_approval_clean_source_byte_sha256"] = cert_manifest_byte_hashes.get(approval_ref)
+            if row.get("publish_manifest_sha256") != cert_manifest_byte_hashes.get(manifest_ref):
+                no_send_byte_binding_failures.append(f"{row.get('case_id')}::{manifest_ref}")
+            if row.get("owner_release_approval_sha256") != cert_manifest_byte_hashes.get(approval_ref):
+                no_send_byte_binding_failures.append(f"{row.get('case_id')}::{approval_ref}")
     lean_cert_ok = (
         lean_cert.get("returncode") == 0
         and lean_cert.get("theorem_ref_missing_total") == 0
@@ -864,6 +886,7 @@ def main() -> int:
         and lean_cert.get("generated_artifact_manifest_sha256") == current_generated_artifact_manifest_sha256
         and not shared_manifest_mismatches
         and not generated_manifest_mismatches
+        and not no_send_byte_binding_failures
         and lean_cert.get("build_transcript_sha256") == live_lean_build.get("build_transcript_sha256")
         and lean_cert.get("lean_version_canonical") == live_lean_build.get("lean_version_canonical")
         and lean_cert.get("lake_version_canonical") == live_lean_build.get("lake_version_canonical")
@@ -879,6 +902,8 @@ def main() -> int:
         certificate_binding_failures.append("LEAN_CERTIFICATE_SOURCE_MANIFEST_HASH_MISMATCH")
     if generated_manifest_mismatches or lean_cert.get("generated_artifact_manifest_sha256") != current_generated_artifact_manifest_sha256:
         certificate_binding_failures.append("LEAN_CERTIFICATE_GENERATED_ARTIFACT_MANIFEST_HASH_MISMATCH")
+    if no_send_byte_binding_failures:
+        certificate_binding_failures.append("NO_SEND_CONTROL_BYTE_HASH_NOT_BOUND_TO_CLEAN_SOURCE_MANIFEST")
     if atlas_audit["failure_total"] != 0:
         certificate_binding_failures.append("LEAN_ATLAS_EXTERNAL_JSON_BINDING_FAILED")
     if lean_cert.get("build_transcript_sha256") != live_lean_build.get("build_transcript_sha256"):
@@ -900,6 +925,9 @@ def main() -> int:
         "lean_source_ref": "formal/lean/OC133V12.lean",
         "current_lean_source_sha256": current_lean_sha256,
         "certificate_lean_source_sha256": lean_cert.get("lean_source_sha256"),
+        "current_lean_source_byte_sha256": current_lean_byte_sha256,
+        "certificate_lean_source_byte_sha256": lean_cert.get("lean_source_byte_sha256"),
+        "source_hash_policy": "sha256 is LF-normalized for source binding; byte_sha256 records archive bytes.",
         "cert_lean_sha256_matches_current_source": cert_lean_sha256_matches,
         "lean_build_returncode": lean_cert.get("returncode"),
         "lean_build_execution_status": lean_cert.get("execution_status"),
@@ -926,6 +954,8 @@ def main() -> int:
         "source_manifest_mismatches": shared_manifest_mismatches[:20],
         "generated_artifact_manifest_mismatch_total": len(generated_manifest_mismatches),
         "generated_artifact_manifest_mismatches": generated_manifest_mismatches[:20],
+        "no_send_byte_binding_failure_total": len(no_send_byte_binding_failures),
+        "no_send_byte_binding_failures": no_send_byte_binding_failures[:20],
         "atlas_external_binding_audit": atlas_audit,
         "live_lean_build_stdout_tail": live_lean_build.get("stdout_tail"),
         "live_lean_build_stderr_tail": live_lean_build.get("stderr_tail"),

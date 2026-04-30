@@ -171,6 +171,9 @@ structure Lifecycle (S Residue NewLive : Type) where
   sourceToken : S -> Nat
   residueToken : Residue -> Nat
   newLiveToken : NewLive -> Nat
+  sourceTokenInjective : forall x y : S, sourceToken x = sourceToken y -> x = y
+  residueTokenInjective : forall x y : Residue, residueToken x = residueToken y -> x = y
+  newLiveTokenInjective : forall x y : NewLive, newLiveToken x = newLiveToken y -> x = y
 
 theorem declared_death_blocks_live {S Residue NewLive : Type}
     (L : Lifecycle S Residue NewLive) (x : S) :
@@ -192,6 +195,16 @@ theorem residue_rebirth_are_typed_source_target_relations {S Residue NewLive : T
     L.live x = false /\ L.residueOf x = some r /\ L.rebirthOf r = some y := by
   intro hres hreb hdeath
   exact And.intro (declared_death_blocks_live L x hdeath) (And.intro hres hreb)
+
+theorem lifecycle_source_tokens_bind_carrier_endpoint {S Residue NewLive : Type}
+    (L : Lifecycle S Residue NewLive) (x y : S) :
+    L.sourceToken x = L.sourceToken y -> x = y := by
+  exact L.sourceTokenInjective x y
+
+theorem lifecycle_rebirth_tokens_bind_target_endpoint {S Residue NewLive : Type}
+    (L : Lifecycle S Residue NewLive) (x y : NewLive) :
+    L.newLiveToken x = L.newLiveToken y -> x = y := by
+  exact L.newLiveTokenInjective x y
 
 structure MorphismEvidence where
   sourceToken : Nat
@@ -758,6 +771,32 @@ theorem admitted_proof_rewrite_has_rule (a : OperatorAdmission) :
       · cases hroute
       · simp [operatorAdmitted] at hadmit
         exact hadmit.right.right
+
+theorem operator_admission_route_obligations (a : OperatorAdmission) :
+    operatorAdmitted a = true ->
+    (a.route = OperatorRoute.smoothChart ->
+      a.chartDeclared = true /\ a.chartDomainContainsSource = true /\ a.chartLocalLawDeclared = true) /\
+    (a.route = OperatorRoute.guardResetHybrid ->
+      a.derivativeRequested = false /\ a.guardObserved = true /\
+      a.resetSourceTyped = true /\ a.resetTargetTyped = true /\ a.resetAdmissible = true) /\
+    (a.route = OperatorRoute.proofRewrite ->
+      a.derivativeRequested = false /\ a.rewriteRulePresent = true) := by
+  intro hadmit
+  constructor
+  · intro hroute
+    exact And.intro
+      (admitted_smooth_chart_requires_chart a hroute hadmit)
+      (admitted_smooth_chart_requires_domain_and_law a hroute hadmit)
+  constructor
+  · intro hroute
+    have hguard := admitted_guard_reset_has_typed_reset_obligations a hroute hadmit
+    exact And.intro
+      (admitted_guard_reset_rejects_derivative a hroute hadmit)
+      hguard
+  · intro hroute
+    exact And.intro
+      (admitted_proof_rewrite_rejects_derivative a hroute hadmit)
+      (admitted_proof_rewrite_has_rule a hroute hadmit)
 
 theorem derivative_request_requires_chart_or_rewrite_rejection (a : OperatorAdmission) :
     operatorAdmitted a = true -> a.derivativeRequested = true ->

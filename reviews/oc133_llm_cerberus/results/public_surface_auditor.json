@@ -3,31 +3,39 @@
   "role": "public_surface_auditor",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 0,
-  "finding_total": 3,
+  "high_open_total": 3,
+  "finding_total": 4,
   "findings": [
     {
-      "severity": "MEDIUM",
-      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "claim": "Top-level zero-failure status: \"semantic_failure_total\": 0 and \"failure_total\": 0.",
-      "failure_mode": "The zero-failure counters are not scoped as finite-runner-only public-surface claims. In the current coverage matrix, every phenomenon row remains \"BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12\" with \"public_promotion\": false and \"blocker_count\": 27, so a public reader can quote this proof artifact as release-cleared even though coverage/public promotion is blocked.",
-      "required_repair": "Rename or scope the counters as finite-model-runner failures only, and add a top-level public-surface gate summary carrying publish_allowed:false, public_promotion_allowed:false, and the coverage blocker status/ref so zero runner failures cannot be read as release clearance.",
+      "severity": "HIGH",
+      "artifact_ref": ".zenodo.json",
+      "claim": "`publication_date` is `2026-04-30` and `access_right` is `open` for OC Core v1.3.3 while the notes say public release, Zenodo deposit, DOI assignment, and journal submission are pending owner approval.",
+      "failure_mode": "This is an actionable Zenodo public-deposit surface: it encodes an open publication date for v1.3.3 even though `OWNER_RELEASE_APPROVAL_v1.3.3.json` has `decision: PENDING` and `owner_approved: false`, and the publish manifest has `publish_allowed`, `zenodo_deposit_allowed`, and `doi_minting_allowed` all false. A human or automated Zenodo upload would publish contradictory no-send metadata.",
+      "required_repair": "Before owner approval, remove `.zenodo.json` from the actionable public/release surface or move it to a non-actionable draft path; do not expose `publication_date`, `access_right: open`, or DOI/deposit-ready metadata in the canonical Zenodo file until owner approval and all relevant channel locks are true.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "CITATION.cff",
+      "claim": "`date-released: \"2026-04-30\"` is present while the citation message and abstract state that v1.3.3 is only a no-send review-ready package until owner-approved publication assigns a public release record.",
+      "failure_mode": "CFF consumers treat `date-released` as an actual software release date. That creates a public-surface release claim while owner approval remains pending and publication is locked, so the citation surface contradicts the no-send state.",
+      "required_repair": "Remove `date-released` until `owner_approved=true` and `publish_allowed=true`; after approval, regenerate the CFF from the approved manifest and include only the approved public release date and release DOI/public-record identifiers.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "ro-crate-metadata.jsonld",
+      "claim": "The RO-Crate Dataset has `datePublished: \"2026-04-30\"` and both Dataset and SoftwareSourceCode identifiers include `doi:10.5281/zenodo.17899134` alongside `pending-public-release-record`.",
+      "failure_mode": "The RO-Crate simultaneously asserts a published DOI-identified public object and a pending public-release record. For a no-send bundle with owner approval pending, that is a public-surface parity failure: downstream RO-Crate consumers can read the package as already published and DOI-backed.",
+      "required_repair": "Until owner approval, remove `datePublished` and do not use the Zenodo DOI as the Dataset/SoftwareSourceCode identifier; keep only an explicit pending/no-send marker or encode the concept DOI as a non-release relation after approval with clear concept-vs-release DOI semantics.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
       "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "claim": "No-send partial-lock controls cover public action rejection for requested channels, including journal submission.",
-      "failure_mode": "The public lock surface currently contains both \"journal_submissions_allowed\" and \"journal_submission_allowed\" in the manifest and owner approval files, but the finite no-send controls exercise only the singular journal lock false case. There is no current control rejecting plural-false/singular-true alias drift, so one public lock field is present without parity coverage.",
-      "required_repair": "Either remove/deprecate the plural alias from the public artifacts, or define an explicit alias equality invariant and add a no-send control where journal_submissions_allowed=false and journal_submission_allowed=true still rejects public action.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "LOW",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "Each coverage row reports \"blocker_count\": 27 while upstream status is blocked.",
-      "failure_mode": "The exact blocker count is not backed by blocker IDs, a blocker manifest ref, or a hash inside the current public-surface artifact. This is conservative because it blocks promotion, but the exact number is not auditable from the release-critical surface and can become stale without detection.",
-      "required_repair": "Add row-specific blocker_refs or a blocker_manifest_ref with hash, or replace the exact count with a qualitative blocked flag until the blocker source is included.",
+      "claim": "No-send rows use `theorem_id: \"OC133-NOSEND-001\"` and `lean_ref` fields while the support for the no-send controls is the draft manifest/Python evaluator, not a Lean theorem.",
+      "failure_mode": "The current coverage matrix mitigates this by labeling P012 as an operational governance control, but the finite-model artifact still presents the no-send check in theorem-shaped fields. That is theorem-labeling theater on a release-critical public action gate.",
+      "required_repair": "Rename the no-send row fields to operational control terminology such as `control_id` and `evaluator_ref`, or add an actual formal theorem binding for the no-send policy and cite that theorem instead of the manifest/Python function.",
       "status": "OPEN"
     }
   ],

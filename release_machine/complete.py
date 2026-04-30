@@ -23,6 +23,9 @@ ZENODO_RECORD = "19851694"
 ZIP_NAME = "oc_core_1_3_2_zenodo_release.zip"
 SWHID_POLICY = "EXISTING_ONLY"
 KNOWN_ORCID = "0009-0008-6166-0914"
+_FILE_SHA256_CACHE: dict[tuple[str, int, int], str] = {}
+_PDF_TEXT_CACHE: dict[tuple[str, int, int], tuple[str, str | None]] = {}
+_PDF_PAGE_CACHE: dict[tuple[str, int, int], int] = {}
 
 GATE_ORDER = [
     ("G00", "release_identity"),
@@ -184,6 +187,26 @@ class BundleEntry:
     role: str
 
 
+def _read_lock_pid(lock_path: Path) -> int | None:
+    try:
+        for line in lock_path.read_text(encoding="utf-8", errors="replace").splitlines():
+            if line.startswith("pid="):
+                return int(line.split("=", 1)[1])
+    except (OSError, ValueError):
+        return None
+    return None
+
+
+def _process_is_running(pid: int) -> bool:
+    if pid <= 0:
+        return False
+    try:
+        os.kill(pid, 0)
+    except OSError:
+        return False
+    return True
+
+
 @contextmanager
 def release_machine_lock(root: Path, *, timeout_seconds: float = 120.0):
     lock_path = root / "release_machine" / ".release_machine.lock"
@@ -194,6 +217,15 @@ def release_machine_lock(root: Path, *, timeout_seconds: float = 120.0):
             fd = os.open(str(lock_path), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
             os.write(fd, f"pid={os.getpid()}\nts={time.time()}\n".encode("utf-8"))
         except FileExistsError:
+            lock_pid = _read_lock_pid(lock_path)
+            if lock_pid is not None and not _process_is_running(lock_pid):
+                try:
+                    lock_path.unlink()
+                    continue
+                except FileNotFoundError:
+                    continue
+                except OSError:
+                    pass
             if time.time() >= deadline:
                 raise TimeoutError(f"release_machine_busy lock={lock_path}")
             time.sleep(0.25)
@@ -237,7 +269,12 @@ def work_order_dir(root: Path) -> Path:
 
 
 def rel(root: Path, path: Path) -> str:
-    return path.resolve().relative_to(root.resolve()).as_posix()
+    return Path(os.path.relpath(path, root)).as_posix()
+
+
+def _stat_cache_key(path: Path) -> tuple[str, int, int]:
+    stat = path.stat()
+    return (str(path.absolute()), stat.st_mtime_ns, stat.st_size)
 
 
 def read_json(path: Path) -> Any:
@@ -675,11 +712,17 @@ def sha256_bytes(data: bytes) -> str:
 
 
 def sha256_file(path: Path) -> str:
+    cache_key = _stat_cache_key(path)
+    cached = _FILE_SHA256_CACHE.get(cache_key)
+    if cached is not None:
+        return cached
     h = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             h.update(chunk)
-    return h.hexdigest()
+    digest = h.hexdigest()
+    _FILE_SHA256_CACHE[cache_key] = digest
+    return digest
 
 
 def gate(gate_id: str, name: str, verdict: str, severity: str = "INFO", summary: str = "", details: dict[str, Any] | None = None, owner_action: bool = False) -> dict[str, Any]:
@@ -764,18 +807,30 @@ def build_primary_pdfs(root: Path) -> None:
 
 
 def pdf_page_estimate(path: Path) -> int:
+    cache_key = _stat_cache_key(path)
+    cached = _PDF_PAGE_CACHE.get(cache_key)
+    if cached is not None:
+        return cached
     pdfinfo = shutil.which("pdfinfo")
     if pdfinfo:
         proc = subprocess.run([pdfinfo, str(path)], text=True, encoding="utf-8", errors="ignore", capture_output=True, timeout=30)
         if proc.returncode == 0:
             match = re.search(r"^Pages:\s*(\d+)\s*$", proc.stdout, re.MULTILINE)
             if match:
-                return int(match.group(1))
+                pages = int(match.group(1))
+                _PDF_PAGE_CACHE[cache_key] = pages
+                return pages
     data = path.read_bytes()
-    return len(re.findall(rb"/Type\s*/Page\b", data))
+    pages = len(re.findall(rb"/Type\s*/Page\b", data))
+    _PDF_PAGE_CACHE[cache_key] = pages
+    return pages
 
 
 def pdf_text(path: Path) -> tuple[str, str | None]:
+    cache_key = _stat_cache_key(path)
+    cached = _PDF_TEXT_CACHE.get(cache_key)
+    if cached is not None:
+        return cached
     extractor = shutil.which("pdftotext")
     if not extractor:
         return "", "pdftotext_not_found"
@@ -788,8 +843,12 @@ def pdf_text(path: Path) -> tuple[str, str | None]:
         timeout=90,
     )
     if proc.returncode != 0:
-        return proc.stdout or "", (proc.stderr or "pdftotext_failed").strip()[:500]
-    return proc.stdout, None
+        result = (proc.stdout or "", (proc.stderr or "pdftotext_failed").strip()[:500])
+        _PDF_TEXT_CACHE[cache_key] = result
+        return result
+    result = (proc.stdout, None)
+    _PDF_TEXT_CACHE[cache_key] = result
+    return result
 
 
 def pdf_text_findings(name: str, text: str, error: str | None) -> list[dict[str, str]]:

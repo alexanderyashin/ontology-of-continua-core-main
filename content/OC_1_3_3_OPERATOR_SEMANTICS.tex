@@ -1,10 +1,11 @@
 \section{OC 1.3.3 Operator Semantics}
 
-Operators \(F,G,H,Q,R,S,U\) are typed update components. A smooth differential equation is one
-realization: the update relation is represented by a differentiable flow only in a declared local
-chart. The promoted v12 formal subset covers smooth-chart updates, proof/rewrite updates, and
-guard/reset hybrid updates. Stochastic, graph, and institutional operators are listed only as
-extension obligations until separate formal and finite evidence exists.
+Operators \(F,G,H,Q,R,S,U\) are typed update components. In v12, a chart-labelled route is only
+flow-one notation over a declared chart/domain/local-law record; it is not an ODE solution theorem,
+not a vector-field theorem, and not a differentiability theorem. Proof/rewrite and guard/reset
+routes are first-class non-smooth update routes. Stochastic, graph, and institutional operators are
+listed only as extension obligations until separate formal and finite evidence exists.
 
-The release gate rejects any domain section that differentiates a non-smooth carrier without an
-explicit smooth-realization assumption.
+The release gate rejects any domain section that treats a chart token as differentiability,
+manifold structure, vector-field semantics, or an ODE-solution claim. Those stronger claims require
+future route-specific mathematics and are not promoted by v12.

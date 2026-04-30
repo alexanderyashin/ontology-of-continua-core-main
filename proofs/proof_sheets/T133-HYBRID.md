@@ -1,8 +1,8 @@
 # T133-HYBRID - Typed update and chart-labelled operator semantics theorem
 
-Status: `PROMOTED_BOUNDED_THEOREM_V12_NO_SEND`
+Status: `BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12`
 Primary artifact: `content/OC_1_3_3_OPERATOR_SEMANTICS.tex`
-Machine-checked subset: `formal/lean/OC133V12.lean::integrated_operator_semantics`
+Machine-checked subset: `formal/lean/OC133V12.lean::operator_admission_route_obligations`
 Attacked claim: OC operators are typed update semantics; chart-labelled flow-one notation is admitted only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth cases. No differentiability or ODE-solution theorem is promoted in v12.
 
 ## Assumptions
@@ -25,9 +25,9 @@ A typed update relation need not induce a derivative without extra smoothness as
 OC operators F,G,H,Q,R,S,U are typed updates; chart-labelled flow-one, proof/rewrite, and guard/reset hybrid routes are separate typed realizations.
 
 ## Proof
-The primitive object is a route-specific operator-admission record. The Lean theorem `integrated_operator_semantics` makes the chart domain and local-law obligations load-bearing for smooth-chart routes, makes guard/reset admission depend on observed guard truth, typed reset source/target, and post-reset admissibility, and makes proof/rewrite admission depend on a declared rewrite rule with derivative requests rejected. The finite runner independently evaluates the same fields and fails if labels are correct but obligations are missing.
+The primitive object is a route-specific operator-admission record. The Lean theorem `operator_admission_route_obligations` proves route-specific obligations rather than one monolithic all-routes witness: smooth-chart routes require chart, domain, and local-law declarations; guard/reset routes reject derivatives and require typed reset source/target plus post-reset admissibility; proof/rewrite routes reject derivatives and require a declared rewrite rule. Separate hybrid-step theorems cover both guard=true reset and guard=false step behavior. The finite runner independently evaluates the same fields and fails if labels are correct but obligations are missing.
 
-The proof is promoted only as a bounded no-send release claim with the stated assumptions. It is linked to the finite witness corpus and
+This is a candidate proof sheet and is not release-promoted while G57/G58/G70 remain open. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the
 finite corpus checks the release verdict behavior used by the public claim ledger.
 

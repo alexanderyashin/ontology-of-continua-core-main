@@ -2,43 +2,43 @@
   "role": "theorem_theater_auditor",
   "findings": [
     {
-      "severity": "MEDIUM",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-MIN: Within the declared v12 release tuple semantics, each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.",
-      "failure_mode": "The Lean evidence is circular classifier checking: fullSemanticCase is defined with all component flags true, dropSemanticComponent is defined to set the selected flag false, releaseTupleVerdict is defined as a conjunction over those flags, and release_tuple_component_irredundant closes by cases/native_decide. This proves the hand-authored verdict function, not independent component necessity.",
-      "required_repair": "Keep this as a declared classifier sanity check, or bind each component to non-tautological obligations/data and prove verdict dependence without hard-coded one-field drops; retain mutation controls where labels cannot force pass/fail.",
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary; claims/CLAIM_LEDGER_1_3_3.json::T133-OMEGA-STATUS",
+      "claim": "Death blocks live status; residue and rebirth are token-bound evidence relations with distinct class-specific endpoint rules.",
+      "failure_mode": "The Lean evidence is circular for the promoted scientific claim: `Lifecycle` carries `deathBlocksLive` as a structure field, and the theorem merely returns that assumed field. Residue/rebirth separation is also mostly by enum constructor inequality and token predicates already embedded in `typedResidueMorphism`/`typedRebirthMorphism`; the finite rows only replay matching labels and tokens.",
+      "required_repair": "Demote this row to a formal release-consistency check, or replace it with an independent lifecycle transition semantics where death/live/residue/rebirth are computed and the blocking/non-identity result is derived rather than assumed.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics; proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-HYBRID-*; claims/CLAIM_LEDGER_1_3_3.json::T133-HYBRID",
+      "claim": "OC operators are typed update semantics; chart-labelled flow-one notation is admitted only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth cases.",
+      "failure_mode": "`operatorAdmitted` is a boolean gate over declared flags, and `integrated_operator_semantics` assumes the same route/admission facts it reports. The finite checks likewise evaluate JSON booleans such as `chart_declared`, `reset_admissible`, and `rewrite_rule_present`; they do not derive update semantics from a typed transition system.",
+      "required_repair": "Either demote the claim to an admission-rule consistency check, or formalize actual smooth, hybrid, and proof-rewrite transition relations and prove route admission from those structures; finite cases must derive verdicts from that evaluator instead of declared route flags.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "formal/lean/OC133V12.lean::metric_boundary_specialization; proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-POS; claims/CLAIM_LEDGER_1_3_3.json::T133-BOUNDARY",
+      "claim": "Metric thresholds are a specialization of typed classifier boundaries.",
+      "failure_mode": "The Lean theorem is only a definitional adapter: `MetricBoundary` is `measure : S -> Nat` plus `threshold`, `metricAsClassifier` is constructed from those fields, and `metric_boundary_specialization` proves `rfl` equalities. The finite positive/negative rows only toggle whether a metric measure is declared, so the promoted scientific-theorem status exceeds the evidence.",
+      "required_repair": "Demote to a definition/adapter lemma, or add independent typed boundary semantics with a measurement-rule obligation and finite controls whose verdict depends on that semantics rather than a declaration flag.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-KLEVEL: Every declared adjacent K-level transition K0->K12 has a release-atlas row, retained-witness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release classifier.",
-      "failure_mode": "The Lean theorem manufactures retained/demoted witnesses from lowerCode/upperCode and proves reductionFails/lawfulDemotion by equality over synthetic Nat observations. It does not formally import or verify the external atlas rows named by the proof ledger; the finite JSON checks exercise the release classifier but do not establish semantic irreducibility beyond that classifier.",
-      "required_repair": "Either demote the Lean support label to release-classifier coverage only, or bind the theorem to an audited atlas representation and prove each retained witness/demotion criterion from that representation rather than from generated Nat equalities.",
+      "artifact_ref": "formal/lean/OC133V12.lean::historical_axis_survives_rank_drop; proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-DIM-POS; claims/CLAIM_LEDGER_1_3_3.json::T133-DIM",
+      "claim": "Historical axis activation may be monotone while effective working rank decreases.",
+      "failure_mode": "The Lean proof supplies one hand-coded `AxisTrajectory` with Nat fields satisfying `1 <= 2 <= 2` and `1 < 2`; the finite check replays the same tuple. No semantics are supplied for historical axis activation or effective working rank, so this is an arithmetic consistency witness, not evidence for the promoted domain claim.",
+      "required_repair": "Demote to a toy consistency witness, or define historical activation and effective rank from an observation/model semantics and prove the rank-drop compatibility over that semantics with nontrivial finite witnesses.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-HYBRID: OC operators are typed update semantics; chart-labelled flow-one notation is admitted only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth cases.",
-      "failure_mode": "smooth_hybrid_operator_semantics is mostly projection and definitional reduction: step_eq_flow_one is a structure field, derivative availability is chart.isSome, guard/reset is an if-branch, and proof rewrite derivative is constantly false. The finite smooth-chart rows include local_law_declared and chart_domain_contains_state, but the Lean theorem never consumes SmoothChart.localLaw or a chart-domain predicate.",
-      "required_repair": "Move chart-domain and local-law obligations into the Lean admission predicate and prove flow-one notation only under those obligations, with finite negatives for chart label present but domain/local-law missing.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "LOW",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-CYCLE: Promoted eligible-live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
-      "failure_mode": "eligible_live_requires_cycle_or_maintenance is a direct projection from eligibleLive, which is defined to include supportWitnessed; the proof is exact h.right.right. This is definitional policy encoding, not an independent liveness theorem.",
-      "required_repair": "Keep the row scoped as a promotion-rule lemma, or split raw live/admissible state from promoted eligible-live status and prove the evaluator rejects raw live without independent cycle or non-vacuous maintenance evidence.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "LOW",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-BOUNDARY: Generalized boundary representation theorem / Metric thresholds are a specialization of typed classifier boundaries.",
-      "failure_mode": "The current Lean evidence metric_boundary_specialization only wraps a metric measure and threshold into a classifier and proves rfl-level equalities. The claim ledger wording is narrow, but the inventory title still reads like a generalized representation theorem.",
-      "required_repair": "Retitle the inventory/proof-ledger entry to a metric-classifier specialization lemma, or add a genuine representation theorem with assumptions covering non-metric typed boundaries and its finite counterexample boundary.",
+      "artifact_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage; claims/CLAIM_LEDGER_1_3_3.json::T133-KLEVEL",
+      "claim": "Every declared adjacent K-level transition K0->K12 has a release-atlas row, retained-witness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release classifier.",
+      "failure_mode": "The Lean theorem manufactures `releaseAtlasManifestRow k`, `retainedClassifierEvidence k`, and `demotedClassifierEvidence k` internally, with coverage booleans set to true by construction. It does not formally bind the external finite rows or atlas file; the finite JSON has an audit, but the advertised Lean theorem is weaker than the coverage wording.",
+      "required_repair": "Rename/demote the Lean theorem to generated-manifest sanity checking, or encode the external atlas/case IDs as checked data with hash/case binding so the theorem actually depends on the release artifacts it claims to cover.",
       "status": "OPEN"
     }
   ]

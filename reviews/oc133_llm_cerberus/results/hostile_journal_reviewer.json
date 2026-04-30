@@ -4,46 +4,38 @@
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
   "high_open_total": 0,
-  "finding_total": 5,
+  "finding_total": 4,
   "findings": [
     {
       "severity": "MEDIUM",
-      "artifact_ref": "reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 while fresh_cerberus_review_satisfied=false, fresh_cerberus_execution_status=EXECUTED_WITH_OPEN_FINDINGS, fresh_cerberus_high_open_total=1, and release_pass_badge_allowed=false.",
-      "failure_mode": "The matrix distinguishes deterministic closure from fresh Cerberus state, but the release-critical surface still exposes a zero-unresolved matrix beside an open fresh-review high count. A skeptical reviewer cannot tell from this artifact whether the remaining high finding is current, stale, or already repaired.",
-      "required_repair": "Regenerate/integrate this role result into the matrix and summary; either embed the remaining high finding with blocker ID, artifact ref, current failure, and repair, or reduce fresh_cerberus_high_open_total to 0 with closure evidence. Propagate the same scoped counter semantics into the claim ledger and theorem inventory.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "MEDIUM",
       "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "The artifact is a phenomenon coverage matrix with 15 rows, but phenomenon_coverage_row_total=0 and empirical_domain_phenomenon_coverage_total=0; rows are formal model-card replays or internal illustrations only.",
-      "failure_mode": "The matrix is candidly scoped, so this is not a current public promotion leak, but the repeated 'Does OC actually explain...' framing can still read like phenomenon coverage while every row is excluded from phenomenon coverage totals. A journal could reject any coverage/explanation reading as formal-model-card theater.",
-      "required_repair": "Rename the surface to formal model-card/replay matrix, or add domain-specific evaluator rows with external observables, non-replay validation, negative controls, and clear counts_as_phenomenon_coverage=true criteria.",
+      "claim": "The artifact is a phenomenon coverage matrix with row_total=15, phenomenon_coverage_row_total=0, empirical_domain_phenomenon_coverage_total=0, and all rows excluded from phenomenon coverage totals.",
+      "failure_mode": "The current file is candidly scoped, so this is not a critical public-promotion leak, but the repeated 'Does OC actually explain...' framing plus formal model-card routes can still read as phenomenon coverage while no row provides domain-specific evaluator, external observable, or non-replay validation. A skeptical journal could reject this as formal model-card theater rather than phenomenon coverage.",
+      "required_repair": "Rename the surface to a formal model-card/replay matrix, or add domain-specific evaluator rows with external observables, non-replay validation, negative controls, and explicit counts_as_phenomenon_coverage=true criteria.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
       "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
       "claim": "P014 / T133-MIN: one-component keep/drop witness pair per promoted tuple component.",
-      "failure_mode": "The row routes the minimality model card through aggregate FM-T133-MIN-POS and FM-T133-MIN-NEG identifiers, while the falsifier depends on per-component keep/drop witnesses. The component-level case IDs and verdict mappings are not exposed in this artifact.",
+      "failure_mode": "The P014 row routes the minimality/relabeling attack through aggregate identifiers FM-T133-MIN-POS and FM-T133-MIN-NEG, while the falsifier depends on per-component keep/drop witnesses. The artifact does not expose the component-level case IDs, tuple components, drop fields, expected verdicts, or observed verdict mappings needed for hostile-reader audit.",
       "required_repair": "In P014, enumerate every FM-MIN component case ID and map each tuple component to its keep field, drop field, expected verdict, observed verdict, and falsifier condition.",
       "status": "OPEN"
     },
     {
-      "severity": "MEDIUM",
+      "severity": "LOW",
       "artifact_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
-      "claim": "Rows carry baseline_control_value, negative_control, and comparator_residual while residual_kind and performance_metric_allowed say replay residuals are not model performance.",
-      "failure_mode": "The quarantine flags prevent a high-severity empirical promotion leak, but baseline/comparator vocabulary still invites performance interpretation if the row is excerpted outside its disclaimers.",
-      "required_repair": "Rename baseline_control_value and comparator_residual to synthetic_mutation_value and synthetic_mutation_residual, or add a machine-readable rule that these fields are excluded from all empirical performance and validation claims.",
+      "claim": "Rows carry baseline_control_value and comparator_residual while residual_kind and performance_metric_allowed state that replay residuals are not model performance.",
+      "failure_mode": "The quarantine flags prevent a high-severity empirical promotion leak, but baseline/comparator vocabulary still invites performance interpretation if rows are excerpted outside the disclaimers.",
+      "required_repair": "Rename baseline_control_value and comparator_residual to synthetic_mutation_value and synthetic_mutation_residual, and add a table-level machine-readable rule that these fields are excluded from empirical performance, prediction, and validation claims.",
       "status": "OPEN"
     },
     {
       "severity": "LOW",
       "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-      "claim": "The novelty register is source-backed while uniqueness, priority, and absence claims are not promoted.",
-      "failure_mode": "The demotion is correct, but the SOURCE_BACKED framing rests on illustrative one-source anchors and local protocol capsule hashes rather than audit-grade source locators or captured source evidence. This weakens prior-art auditability without currently inflating novelty.",
-      "required_repair": "Rename the register as protocol-anchored positioning only, or add stable bibliographic identifiers, page or section locators, short compliant excerpts or capture metadata, and hashes over captured source evidence for each comparator row.",
+      "claim": "The novelty register is labeled SOURCE_BACKED while uniqueness, priority, and absence claims are not promoted.",
+      "failure_mode": "The demotion is correct, so this is not novelty inflation at high severity, but the SOURCE_BACKED framing rests on illustrative one-source anchors and local protocol capsule hashes rather than audit-grade source locators or captured source evidence. This weakens prior-art auditability.",
+      "required_repair": "Rename the register as protocol-anchored positioning only, or add stable bibliographic identifiers, page or section locators, compliant captured-source excerpts or metadata, and hashes over captured source evidence for each comparator row.",
       "status": "OPEN"
     }
   ],
