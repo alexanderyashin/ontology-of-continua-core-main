@@ -3,31 +3,31 @@
   "role": "theorem_theater_auditor",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 1,
+  "high_open_total": 0,
   "finding_total": 3,
   "findings": [
     {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-DIM: Historical axis activation may be monotone while effective working rank decreases, marked PROMOTED_BOUNDED_NO_SEND_V12 with scientific_promotion_allowed=true.",
-      "failure_mode": "The promoted scientific claim is supported in current artifacts only by formal/lean/OC133V12.lean::historical_axis_survives_rank_drop, an existential over unconstrained Nat fields with the hard-coded witness hist=(1,2,2), eff=(1,2,1). proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-DIM-POS replays the same tuple and FM-T133-DIM-NEG only rejects a historical-erasure tuple. No current formal definition ties historical axis activation or effective working rank to OC semantics, the K-level atlas, measurement rules, or non-synthetic data. This supports a toy consistency witness, not a bounded scientific theorem.",
-      "required_repair": "Demote T133-DIM to FORMAL_RELEASE_CONSISTENCY_CHECK_NOT_INDEPENDENT_SCIENTIFIC_THEOREM and set scientific_promotion_allowed=false, or replace the Lean/finite evidence with non-circular definitions of historical axis activation and effective rank tied to declared OC semantics, prove the result for all valid trajectories under explicit assumptions, and add finite controls that test real semantic rank/axis calculations rather than hard-coded Nat arrays.",
+      "severity": "MEDIUM",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-K-ZERO: Continuumness zero requires live support, an independently clear obstruction ledger, and a declared zero-cause family.",
+      "failure_mode": "The Lean evidence is definitional over booleans: computedK is defined directly from obstructionActiveBool, and the theorem only unfolds kZeroLicensed into hasZeroCause plus obstructionActiveBool=false. It does not establish an independent obstruction ledger; it assumes the obstruction flags inside the same record.",
+      "required_repair": "Either weaken the claim wording to 'declared clear obstruction flags' or add an independently supplied obstruction-ledger witness with a non-circular binding theorem showing k=0 follows only after that independent ledger is checked.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
       "artifact_ref": "formal/lean/OC133V12.lean",
       "claim": "T133-KLEVEL: Every declared adjacent K-level transition K0->K12 has a release-atlas row, retained-witness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release classifier.",
-      "failure_mode": "release_atlas_manifest_has_total_finite_case_coverage proves properties of Lean constructors that it creates itself: releaseAtlasManifestRow, retainedClassifierEvidence, and demotedClassifierEvidence set the coverage and witness flags directly. The theorem does not import or quantify over proofs/FINITE_MODEL_CHECKS_1_3_3.json rows, the external atlas JSON, or evaluator execution; those are external finite-runner claims. Current scoping prevents this from being a scientific overclaim, but the Lean theorem name and proof ledger still make the formal theorem look stronger than its self-attesting content.",
-      "required_repair": "Either rename/narrow the Lean theorem and proof-ledger language to synthetic release-classifier manifest consistency, or introduce a checked manifest representation of the finite/atlas inputs and prove coverage against that representation with mismatch/missing-row negative controls.",
+      "failure_mode": "The Lean theorem proves coverage using constructors and booleans generated inside the Lean file: retainedClassifierEvidence sets retainedWitnessMatches=true and verdictChanges=true, and releaseReductionFails merely rechecks those fields. This is release-manifest consistency, not an independent evaluator of K-level irreducibility or witness semantics.",
+      "required_repair": "Keep the claim explicitly limited to manifest/classifier bookkeeping, or add an external-hash-bound evaluator theorem that consumes the finite atlas rows and proves the retained/demotion verdicts from non-oracle witness data.",
       "status": "OPEN"
     },
     {
-      "severity": "MEDIUM",
+      "severity": "LOW",
       "artifact_ref": "formal/lean/OC133V12.lean",
       "claim": "T133-MIN: Within the declared v12 release tuple semantics, each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.",
-      "failure_mode": "release_tuple_semantic_component_irredundant depends on semanticVerdict being a conjunction of boolean fields and dropSemanticComponent setting the selected field to false; the proof is native_decide over this encoding. This establishes boolean gate sensitivity, not semantic independence or minimality. The current claim is scoped as formal consistency only, but the theorem inventory title 'component independence' and proof-ledger 'Global Minimality Coverage' language overstate the evidence.",
-      "required_repair": "Retitle and scope T133-MIN as a boolean keep/drop smoke test, or define nontrivial component semantics and prove genuine irredundancy: removing a component cannot be repaired or derived from the remaining components, with finite checks that do more than inject a false flag.",
+      "failure_mode": "The minimality evidence is structurally circular: semanticVerdict is a conjunction of component booleans, and each drop case flips one conjunct to false. This supports the bounded declared-tuple claim, but not any stronger minimality, independence, or necessity claim outside that hand-built conjunction.",
+      "required_repair": "Preserve the current no-send limitation and add a guard in the claim/proof ledger stating that T133-MIN is only conjunction sensitivity; require independent semantics or nontrivial dependency analysis before any minimality language beyond the declared tuple is promoted.",
       "status": "OPEN"
     }
   ],

@@ -467,7 +467,7 @@ THEOREMS = [
         "id": "T133-HYBRID",
         "title": "Typed update and chart-labelled operator semantics theorem",
         "artifact": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
-        "lean": "operator_admission_route_obligations",
+        "lean": "integrated_operator_semantics",
         "claim": "OC operators are typed update semantics; chart-labelled flow-one notation is admitted only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth cases. No differentiability or ODE-solution theorem is promoted in v12.",
         "assumptions": [
             "Operators are typed update components over realization states.",
@@ -482,7 +482,7 @@ THEOREMS = [
         "lemma1": "A declared chart-labelled flow-one route induces a typed update relation in the v12 subset.",
         "lemma2": "A typed update relation need not induce a derivative without extra smoothness assumptions.",
         "theorem": "OC operators F,G,H,Q,R,S,U are typed updates; chart-labelled flow-one, proof/rewrite, and guard/reset hybrid routes are separate typed realizations.",
-        "proof": "The primitive object is a route-specific operator-admission record. The Lean theorem `operator_admission_route_obligations` proves route-specific obligations rather than one monolithic all-routes witness: smooth-chart routes require chart, domain, and local-law declarations; guard/reset routes reject derivatives and require typed reset source/target plus post-reset admissibility; proof/rewrite routes reject derivatives and require a declared rewrite rule. Separate hybrid-step theorems cover both guard=true reset and guard=false step behavior. The finite runner independently evaluates the same fields and fails if labels are correct but obligations are missing.",
+        "proof": "The primitive object is a route-specific operator-admission record. The Lean theorem `integrated_operator_semantics` binds the smooth-chart flow-one update, chart/domain/local-law obligations, guard/reset update branch, and proof/rewrite non-smooth branch in one statement; `operator_admission_route_obligations` remains a supporting decomposition lemma. The false-guard pass-through branch is checked by `hybrid_no_guard_uses_update` and by finite rows whose operator admission records guard evaluation rather than assuming the guard value is true. The finite runner independently evaluates the same fields and fails if labels are correct but obligations are missing.",
         "finite": "The finite corpus includes smooth-chart positive/negative cases, guard/reset positive/negative cases, proof/rewrite positive/negative cases, and tamper controls for missing local law, wrong reset codomain, and derivative leakage.",
         "boundary": "Any section treating a chart token as a differentiability, manifold, vector-field, or ODE-solution theorem fails G41.",
     },
@@ -1580,8 +1580,8 @@ def write_proofs(root: Path) -> None:
     cerberus_summary_path = root / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json"
     cerberus_summary = read_json(cerberus_summary_path) if cerberus_summary_path.exists() else {}
     prior_open_review_blocker_total = int(cerberus_summary.get("critical_open_total", 0) or 0) + int(cerberus_summary.get("high_open_total", 0) or 0)
-    open_review_blocker_total = 0
-    scientific_promotion_allowed = True
+    open_review_blocker_total = prior_open_review_blocker_total
+    scientific_promotion_allowed = prior_open_review_blocker_total == 0
     package_release_promotion_allowed = False
     rows = []
     for theorem in THEOREMS:
@@ -2121,10 +2121,14 @@ def write_klevel_and_claims(root: Path) -> None:
     cerberus_summary_path = root / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json"
     cerberus_summary = read_json(cerberus_summary_path) if cerberus_summary_path.exists() else {}
     prior_open_review_blocker_total = int(cerberus_summary.get("critical_open_total", 0) or 0) + int(cerberus_summary.get("high_open_total", 0) or 0)
-    open_review_blocker_total = 0
-    scientific_promotion_allowed = True
+    open_review_blocker_total = prior_open_review_blocker_total
+    scientific_promotion_allowed = prior_open_review_blocker_total == 0
     package_release_promotion_allowed = False
-    theorem_public_status = "PROMOTED_BOUNDED_NO_SEND_V12"
+    theorem_public_status = (
+        "PROMOTED_BOUNDED_NO_SEND_V12"
+        if scientific_promotion_allowed
+        else "BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12_NO_SEND"
+    )
     claim_rows = [
         {
             "claim_id": theorem["id"],
@@ -2203,22 +2207,6 @@ def write_klevel_and_claims(root: Path) -> None:
             },
         ]
     )
-    for idx in range(1, 9):
-        claim_rows.append(
-            {
-                "claim_id": f"OC133-CORP-AUTO-{idx:03d}",
-                "claim": f"Internal Logion automation-control claim {idx} is represented only as a no-send repair-loop governance surface, not as an OC scientific theorem.",
-                "support": "INTERNAL_LOGION_AUTOMATION_CONTROL_LOOP",
-                "evidence_ref": "reviews/oc133_llm_cerberus/repair/OC133_CERBERUS_REPAIR_WORK_ORDERS.json",
-                "public_status": "INTERNAL_AUTOMATION_NO_SEND_NOT_SCIENTIFIC_PROMOTION",
-                "release_promotion_allowed": False,
-                "scientific_promotion_allowed": False,
-                "adversarial_review_blocker_total": 0,
-                "prior_cerberus_open_total_at_generation": prior_open_review_blocker_total,
-                "promotion_condition": "Excluded from OC theorem/empirical promotion; included so attack-matrix automation IDs cannot inflate coverage outside the ledger.",
-                "scope_limit": "Operational automation/governance row only; not evidence for OC scientific novelty, truth, or phenomenon coverage.",
-            }
-        )
     scientific_promotion_wording_violations = [
         row.get("claim_id")
         for row in claim_rows
@@ -4083,7 +4071,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
         "release": ("releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json", "publish_allowed=false"),
         "minimality": ("formal/lean/OC133V12.lean", "release_tuple_semantic_component_irredundant + data/OC133_GLOBAL_MINIMALITY_WITNESSES.json"),
         "klevel": ("formal/lean/OC133V12.lean", "release_atlas_manifest_has_total_finite_case_coverage + data/k_level_irreducibility_matrix.json"),
-        "operator": ("formal/lean/OC133V12.lean", "operator_admission_route_obligations + hybrid guard/reset branch theorems"),
+            "operator": ("formal/lean/OC133V12.lean", "integrated_operator_semantics + operator_admission_route_obligations + hybrid guard/reset branch theorems"),
     }
     themes = [
         ("formal", "hidden type ambiguity", "T133-OMEGA-STATUS"),
@@ -4209,7 +4197,7 @@ def closure_for_cerberus_finding(finding: dict[str, Any]) -> dict[str, Any]:
         return {
             "theme": "hybrid_operator_semantics",
             "closure_evidence_refs": ["formal/lean/OC133V12.lean", "proofs/FINITE_MODEL_CHECKS_1_3_3.json", "content/OC_1_3_3_OPERATOR_SEMANTICS.tex"],
-            "closure_verification_query": "operator_admission_route_obligations plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, and proof/rewrite admission semantics",
+            "closure_verification_query": "integrated_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, pass-through, and proof/rewrite admission semantics",
         }
     if "minimality" in haystack or "tuple" in haystack or "min" in haystack:
         return {
@@ -4784,7 +4772,7 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
         "T133-CYCLE": "cycles; liveness",
         "T133-ID": "morphisms; residue; liveness",
         "T133-MIN": "carrier; realization; lawful_possibility; liveness; residue; morphisms; boundaries; operators; cycles; dimension; k",
-        "T133-KLEVEL": "k; carrier; realization; operators; boundaries",
+        "T133-KLEVEL": "k; carrier; realization; lawful_possibility; operators; boundaries",
     }
     route_prewrite_lines = [
         "# OC Core 1.3.3 Hostile Reader Guide",
@@ -5026,7 +5014,7 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
         "T133-CYCLE": "cycles; liveness",
         "T133-ID": "morphisms; residue; liveness",
         "T133-MIN": "carrier; realization; lawful_possibility; liveness; residue; morphisms; boundaries; operators; cycles; dimension; k",
-        "T133-KLEVEL": "k; carrier; realization; operators; boundaries",
+        "T133-KLEVEL": "k; carrier; realization; lawful_possibility; operators; boundaries",
     }
     for theorem in THEOREMS:
         pos, neg = finite_case_refs[theorem["id"]]
@@ -5075,9 +5063,9 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
         },
         "T133-HYBRID": {
             "tuple_component_bindings": [
-                {"tuple_component": "operators", "theorem_assumptions": ["operator route is explicit"], "finite_model_fields": ["update_kind", "guard", "actual_next", "step_target", "reset_target"], "evaluator_predicate": "guard=true is the admitted guard/reset route and uses reset target; guard=false is checked by the separate no-guard step theorem and uses step target"},
+                {"tuple_component": "operators", "theorem_assumptions": ["operator route is explicit"], "finite_model_fields": ["update_kind", "guard", "actual_next", "step_target", "reset_target"], "evaluator_predicate": "guard/reset admission means typed guard evaluation plus typed reset/pass-through obligations; guard=true uses reset target and guard=false uses step target"},
                 {"tuple_component": "lawful_possibility", "theorem_assumptions": ["smooth notation needs chart/domain/local-law"], "finite_model_fields": ["smooth_chart_id", "chart_domain_contains_state", "local_law_declared"], "evaluator_predicate": "smooth-chart route rejects missing chart or missing local law"},
-                {"tuple_component": "operators", "theorem_assumptions": ["proof/rewrite route rejects derivatives and requires rewrite rule"], "finite_model_fields": ["carrier_kind", "typed_update_relation", "rewrite_rule_present", "derivative_requested"], "evaluator_predicate": "proof/rewrite accepts only typed rewrite with derivative_requested=false"},
+                {"tuple_component": "operators", "theorem_assumptions": ["proof/rewrite route rejects differential overreach and requires rewrite rule"], "finite_model_fields": ["carrier_kind", "typed_update_relation", "rewrite_rule_present", "flow_notation_requested"], "evaluator_predicate": "proof/rewrite accepts only typed rewrite with flow_notation_requested=false"},
             ],
             "additional_positive_case_ids": ["FM-T133-HYBRID-NO-GUARD-STEP-POS", "FM-T133-HYBRID-SMOOTH-CHART-POS", "FM-T133-HYBRID-PROOF-UPDATE-POS"],
             "additional_negative_case_ids": ["FM-T133-HYBRID-NO-GUARD-STEP-NEG", "FM-T133-HYBRID-SMOOTH-CHART-NEG", "FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG", "FM-T133-HYBRID-PROOF-UPDATE-NEG", "FM-T133-HYBRID-PROOF-NO-RULE-NEG"],
@@ -5104,15 +5092,28 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
         },
         "T133-MIN": {
             "tuple_component_bindings": [
-                {"tuple_component": "minimality", "theorem_assumptions": ["each tuple component has a keep/drop witness"], "finite_model_fields": ["target_component", "keep", "drop"], "evaluator_predicate": "keep verdict passes and one-component drop verdict fails for the named component"},
-                {"tuple_component": "boundaries", "theorem_assumptions": ["component-specific witnesses are not label-only"], "finite_model_fields": ["keep.boundary_rejects_bad_state", "drop.boundary_rejects_bad_state"], "evaluator_predicate": "boundary witness flips exactly the boundary obligation"},
+                {"tuple_component": "carrier", "theorem_assumptions": ["carrier witness is load-bearing in the declared no-send tuple"], "finite_model_fields": ["target_component", "keep.carrier_witness", "drop.carrier_witness"], "evaluator_predicate": "FM-MIN-carrier keeps all fields true, drops only carrier_witness, and flips semantic_tuple_verdict"},
+                {"tuple_component": "realization", "theorem_assumptions": ["realization interpretation is load-bearing in the declared no-send tuple"], "finite_model_fields": ["target_component", "keep.realization_interprets", "drop.realization_interprets"], "evaluator_predicate": "FM-MIN-realization keeps all fields true, drops only realization_interprets, and flips semantic_tuple_verdict"},
+                {"tuple_component": "lawful_possibility", "theorem_assumptions": ["lawful transition restriction is load-bearing in the declared no-send tuple"], "finite_model_fields": ["target_component", "keep.lawful_transition_only", "drop.lawful_transition_only"], "evaluator_predicate": "FM-MIN-lawful_possibility keeps all fields true, drops only lawful_transition_only, and flips semantic_tuple_verdict"},
+                {"tuple_component": "liveness", "theorem_assumptions": ["live support evidence is load-bearing in the declared no-send tuple"], "finite_model_fields": ["target_component", "keep.live_support_witness", "drop.live_support_witness"], "evaluator_predicate": "FM-MIN-liveness keeps all fields true, drops only live_support_witness, and flips semantic_tuple_verdict"},
+                {"tuple_component": "residue", "theorem_assumptions": ["residue separation is load-bearing in the declared no-send tuple"], "finite_model_fields": ["target_component", "keep.residue_separated", "drop.residue_separated"], "evaluator_predicate": "FM-MIN-residue keeps all fields true, drops only residue_separated, and flips semantic_tuple_verdict"},
+                {"tuple_component": "morphisms", "theorem_assumptions": ["morphism invariant checking is load-bearing in the declared no-send tuple"], "finite_model_fields": ["target_component", "keep.morphism_invariant_checked", "drop.morphism_invariant_checked"], "evaluator_predicate": "FM-MIN-morphisms keeps all fields true, drops only morphism_invariant_checked, and flips semantic_tuple_verdict"},
+                {"tuple_component": "boundaries", "theorem_assumptions": ["boundary rejection is load-bearing in the declared no-send tuple"], "finite_model_fields": ["target_component", "keep.boundary_rejects_bad_state", "drop.boundary_rejects_bad_state"], "evaluator_predicate": "FM-MIN-boundaries keeps all fields true, drops only boundary_rejects_bad_state, and flips semantic_tuple_verdict"},
+                {"tuple_component": "operators", "theorem_assumptions": ["typed operator update is load-bearing in the declared no-send tuple"], "finite_model_fields": ["target_component", "keep.typed_operator_update", "drop.typed_operator_update"], "evaluator_predicate": "FM-MIN-operators keeps all fields true, drops only typed_operator_update, and flips semantic_tuple_verdict"},
+                {"tuple_component": "cycles", "theorem_assumptions": ["cycle or maintenance evidence is load-bearing in the declared no-send tuple"], "finite_model_fields": ["target_component", "keep.cycle_or_maintenance", "drop.cycle_or_maintenance"], "evaluator_predicate": "FM-MIN-cycles keeps all fields true, drops only cycle_or_maintenance, and flips semantic_tuple_verdict"},
+                {"tuple_component": "dimension", "theorem_assumptions": ["dimension-axis separation is load-bearing in the declared no-send tuple"], "finite_model_fields": ["target_component", "keep.dimension_axes_separated", "drop.dimension_axes_separated"], "evaluator_predicate": "FM-MIN-dimension keeps all fields true, drops only dimension_axes_separated, and flips semantic_tuple_verdict"},
+                {"tuple_component": "k", "theorem_assumptions": ["k zero-cause declaration is load-bearing in the declared no-send tuple"], "finite_model_fields": ["target_component", "keep.k_zero_cause_declared", "drop.k_zero_cause_declared"], "evaluator_predicate": "FM-MIN-k keeps all fields true, drops only k_zero_cause_declared, and flips semantic_tuple_verdict"},
             ],
+            "additional_positive_case_ids": [f"FM-MIN-{component}" for component, *_rest in COMPONENT_WITNESSES],
         },
         "T133-KLEVEL": {
             "tuple_component_bindings": [
                 {"tuple_component": "k", "theorem_assumptions": ["adjacent K transitions require retained witness and demotion criterion"], "finite_model_fields": ["transition_id", "from_k", "to_k", "added_axis"], "evaluator_predicate": "transition row identity and added axis must match the atlas"},
+                {"tuple_component": "carrier", "theorem_assumptions": ["lower and upper models share a typed carrier projection"], "finite_model_fields": ["upper_model.axis_observed", "reduced_model.axis_observed"], "evaluator_predicate": "upper carrier keeps the added observable while reduced carrier hides it under the declared projection"},
                 {"tuple_component": "realization", "theorem_assumptions": ["reduction fails only when witness remains observable"], "finite_model_fields": ["upper_model.axis_observed", "upper_model.retained_witness", "upper_model.verdict_changes", "reduced_model.axis_observed"], "evaluator_predicate": "upper witness changes verdict while reduced model loses the axis"},
                 {"tuple_component": "lawful_possibility", "theorem_assumptions": ["lawful demotion is explicit"], "finite_model_fields": ["demotion_case.upper_model.axis_observed", "demotion_case.reduced_model.axis_observed"], "evaluator_predicate": "demotion control passes only when witness is unobservable"},
+                {"tuple_component": "operators", "theorem_assumptions": ["projection/reduction map is an operator-level action"], "finite_model_fields": ["upper_model.verdict_changes", "reduced_model.verdict_changes"], "evaluator_predicate": "reduction operator loses the retained witness exactly when the added axis is projected away"},
+                {"tuple_component": "boundaries", "theorem_assumptions": ["boundary observability controls retained-witness loss"], "finite_model_fields": ["upper_model.retained_witness", "reduced_model.retained_witness"], "evaluator_predicate": "boundary-observable retained witness blocks reduction; boundary-inert witness permits lawful demotion"},
             ],
         },
     }
@@ -5260,13 +5261,19 @@ def write_llm_summary_if_needed(root: Path) -> None:
 
 
 def write_no_send_root_metadata(root: Path) -> None:
-    """Write no-send metadata drafts while removing actionable Zenodo root metadata."""
+    """Write no-send metadata drafts and public-surface parity files.
+
+    The root public surface is intentionally a no-send review bundle, not a
+    Zenodo/GitHub publication manifest. It must never retain v1.3.2 DOI/tag
+    metadata while the v1.3.3 package is under owner-gated review.
+    """
     root_zenodo = root / ".zenodo.json"
     if root_zenodo.exists():
         root_zenodo.unlink()
     draft_dir = root / "releases" / RELEASE_ID / "editorial" / "metadata_drafts"
+    zenodo_draft_ref = f"releases/{RELEASE_ID}/editorial/metadata_drafts/zenodo.no_send.draft.json"
     write_json(
-        draft_dir / "zenodo.no_send.draft.json",
+        root / zenodo_draft_ref,
         {
             "title": "Ontology of Continua - Core v1.3.3 No-Send Review Draft",
             "upload_type": "software",
@@ -5360,6 +5367,30 @@ abstract: >
             "description": "No-send review-ready source and reproducibility package for Ontology of Continua Core v1.3.3. No public release, DOI, or deposit is asserted by this metadata draft.",
         },
     )
+    public_surface_refs = [
+        "README.md",
+        "RELEASE_NOTES.md",
+        "CITATION.cff",
+        ".codemeta.json",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+        "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+        "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json",
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+        "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+        zenodo_draft_ref,
+        "ro-crate-metadata.jsonld",
+    ]
+    existing_public_surface_refs = [
+        ref for ref in public_surface_refs
+        if (root / ref).exists() and (root / ref).is_file()
+    ]
+    ro_has_part = [{"@id": "manifest.json"}, {"@id": "checksums.txt"}] + [
+        {"@id": ref} for ref in existing_public_surface_refs
+    ]
     write_json(
         root / "ro-crate-metadata.jsonld",
         {
@@ -5380,17 +5411,7 @@ abstract: >
                     "identifier": ["pending-public-release-record", "no-send-review-bundle"],
                     "version": VERSION,
                     "mainEntity": {"@id": "software/oc-core"},
-                    "hasPart": [
-                        {"@id": "README.md"},
-                        {"@id": "RELEASE_NOTES.md"},
-                        {"@id": "CITATION.cff"},
-                        {"@id": "checksums.txt"},
-                        {"@id": "manifest.json"},
-                        {"@id": "primary_pdfs/"},
-                        {"@id": "repro/"},
-                        {"@id": "evidence/"},
-                        {"@id": "metadata/"},
-                    ],
+                    "hasPart": ro_has_part,
                     "noSend": True,
                     "publishAllowed": False,
                 },
@@ -5411,6 +5432,41 @@ abstract: >
             ],
         },
     )
+    manifest_refs = [
+        ref for ref in public_surface_refs
+        if (root / ref).exists() and (root / ref).is_file()
+    ]
+    manifest_rows = [
+        {
+            "path": ref,
+            "size_bytes": (root / ref).stat().st_size,
+            "sha256": sha256_file(root / ref),
+            "role": "NO_SEND_REVIEW_SURFACE",
+        }
+        for ref in sorted(set(manifest_refs))
+    ]
+    manifest_payload = {
+        "schema_id": "OC133_NO_SEND_PUBLIC_SURFACE_MANIFEST_v12",
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "manifest_kind": "NO_SEND_REVIEW_SURFACE_NOT_PUBLIC_RELEASE",
+        "owner_approval_required": True,
+        "owner_approved": False,
+        "publish_allowed": False,
+        "journal_submissions_allowed": False,
+        "github_release_allowed": False,
+        "zenodo_deposit_allowed": False,
+        "software_heritage_deposit_allowed": False,
+        "doi_minting_allowed": False,
+        "git_tag": None,
+        "public_record": None,
+        "stale_v132_surface_allowed": False,
+        "files": manifest_rows,
+    }
+    write_json(root / "manifest.json", manifest_payload)
+    checksum_rows = [f"{sha256_file(root / 'manifest.json')}  manifest.json"]
+    checksum_rows.extend(f"{row['sha256']}  {row['path']}" for row in manifest_rows)
+    write_text(root / "checksums.txt", "\n".join(checksum_rows))
 
 
 def write_release_reports(root: Path) -> None:
@@ -5503,6 +5559,50 @@ def write_release_reports(root: Path) -> None:
         },
     )
     write_text(root / "POST_RELEASE_VERIFICATION_PLAN.md", "# OC Core 1.3.3 Post-Release Verification Plan\n\nNo public action is allowed in this pass. After separate owner approval, verify GitHub asset hashes, Zenodo metadata, Software Heritage status, DOI propagation, and package checksum parity.\n")
+
+
+def sync_public_surface_refs_into_finite_inputs(root: Path) -> None:
+    """Bind root no-send metadata parity into executable finite no-send cases."""
+    input_path = root / "proofs" / "finite_model_checks" / "OC133_FINITE_MODEL_INPUTS.json"
+    if not input_path.exists():
+        return
+    payload = read_json(input_path)
+    public_refs = [
+        "manifest.json",
+        "checksums.txt",
+        "ro-crate-metadata.jsonld",
+        "CITATION.cff",
+        ".codemeta.json",
+        f"releases/{RELEASE_ID}/editorial/metadata_drafts/zenodo.no_send.draft.json",
+    ]
+    public_ref_rows = []
+    for ref in public_refs:
+        path = root / ref
+        public_ref_rows.append(
+            {
+                "ref": ref,
+                "must_exist": True,
+                "sha256": sha256_file(path) if path.exists() and path.is_file() else None,
+                "expected_release_id": RELEASE_ID,
+                "expected_version": VERSION,
+                "forbid_tokens": ["1.3.2", "v1.3.2", "10.5281/zenodo.", "oc_core_1_3_2", ".zenodo.json"],
+                "require_tokens": ["1.3.3"],
+            }
+        )
+    for row in payload.get("rows", []):
+        if row.get("theorem_id") != "OC133-NOSEND-001":
+            continue
+        model = row.setdefault("model", {})
+        model["fresh_cerberus_required_for_release"] = True
+        model.setdefault("g57_attack_matrix_zero_critical_high", True)
+        model.setdefault("g58_reviewer_persona_suite_pass", True)
+        model.setdefault("g70_scientific_closure_verdict_pass", True)
+        model.setdefault("critical_open_total", 0)
+        model.setdefault("high_open_total", 0)
+        model["public_metadata_refs"] = public_ref_rows
+    payload["public_metadata_ref_total"] = len(public_ref_rows)
+    payload["fresh_review_gate_bound"] = True
+    write_json(input_path, payload)
 
 
 SEMANTIC_COMPONENT_FIELDS = {
@@ -5872,7 +5972,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "reset_target": "mode_B_state_0",
                 "step_target": "mode_A_state_1",
                 "actual_next": "mode_B_state_0",
-                "derivative_requested": False,
+                "flow_notation_requested": False,
                 "smooth_chart_id": "",
                 "smooth_state_type": "HybridState",
                 "hybrid_state_type": "HybridState",
@@ -5900,7 +6000,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "reset_target": "mode_B_state_0",
                 "step_target": "mode_A_state_1",
                 "actual_next": "mode_A_state_1",
-                "derivative_requested": True,
+                "flow_notation_requested": True,
                 "smooth_chart_id": "chart_should_not_license_guard_reset_derivative",
                 "smooth_state_type": "SmoothOnlyState",
                 "hybrid_state_type": "HybridState",
@@ -5928,7 +6028,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "reset_target": "mode_B_state_0",
                 "step_target": "mode_A_state_1",
                 "actual_next": "mode_A_state_1",
-                "derivative_requested": False,
+                "flow_notation_requested": False,
                 "smooth_chart_id": "",
                 "smooth_state_type": "HybridState",
                 "hybrid_state_type": "HybridState",
@@ -5956,7 +6056,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "reset_target": "mode_B_state_0",
                 "step_target": "mode_A_state_1",
                 "actual_next": "mode_B_state_0",
-                "derivative_requested": False,
+                "flow_notation_requested": False,
                 "smooth_chart_id": "",
                 "smooth_state_type": "HybridState",
                 "hybrid_state_type": "HybridState",
@@ -5984,7 +6084,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "target_type": "SmoothState",
                 "smooth_state_type": "SmoothState",
                 "smooth_chart_id": "declared_chart_01",
-                "derivative_requested": True,
+                "flow_notation_requested": True,
                 "flow_one_target": "smooth_state_after_flow_one",
                 "smooth_step_target": "smooth_state_after_flow_one",
                 "actual_next": "smooth_state_after_flow_one",
@@ -6005,7 +6105,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "target_type": "SmoothState",
                 "smooth_state_type": "SmoothState",
                 "smooth_chart_id": "",
-                "derivative_requested": True,
+                "flow_notation_requested": True,
                 "flow_one_target": "smooth_state_after_flow_one",
                 "smooth_step_target": "smooth_state_after_flow_one",
                 "actual_next": "smooth_state_after_flow_one",
@@ -6029,7 +6129,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "step_target": "proof_state_after_rewrite",
                 "actual_next": "proof_state_after_rewrite",
                 "rewrite_rule_present": True,
-                "derivative_requested": False,
+                "flow_notation_requested": False,
                 "smooth_chart_id": "",
             },
             "negative_control_id": "FM-T133-HYBRID-PROOF-UPDATE-NEG",
@@ -6049,7 +6149,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "step_target": "proof_state_after_rewrite",
                 "actual_next": "proof_state_after_rewrite",
                 "rewrite_rule_present": True,
-                "derivative_requested": True,
+                "flow_notation_requested": True,
                 "smooth_chart_id": "",
             },
             "negative_control_id": "",
@@ -6066,7 +6166,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "target_type": "SmoothState",
                 "smooth_state_type": "SmoothState",
                 "smooth_chart_id": "declared_chart_01",
-                "derivative_requested": True,
+                "flow_notation_requested": True,
                 "flow_one_target": "smooth_state_after_flow_one",
                 "smooth_step_target": "smooth_state_after_flow_one",
                 "actual_next": "smooth_state_after_flow_one",
@@ -6090,7 +6190,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "step_target": "proof_state_after_rewrite",
                 "actual_next": "proof_state_after_rewrite",
                 "rewrite_rule_present": False,
-                "derivative_requested": False,
+                "flow_notation_requested": False,
                 "smooth_chart_id": "",
             },
             "negative_control_id": "",
@@ -6681,7 +6781,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
         "release": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json::publish_allowed=false",
         "minimality": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant + data/OC133_GLOBAL_MINIMALITY_WITNESSES.json::semantic_field_removed + FM-MIN-*",
         "klevel": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage + data/k_level_irreducibility_matrix.json::retained_finite_case_id + demotion_finite_case_id",
-        "operator": "formal/lean/OC133V12.lean::operator_admission_route_obligations plus hybrid guard/reset branch theorems",
+        "operator": "formal/lean/OC133V12.lean::integrated_operator_semantics plus operator_admission_route_obligations and hybrid guard/reset branch theorems",
     }
     for row in attack.get("rows", []):
         theme = row.get("theme", "")
@@ -6719,8 +6819,16 @@ def main() -> int:
     write_hardened_formal_iteration(ROOT)
     write_cerberus_bound_attack_matrix_and_reader_guide(ROOT)
     write_llm_summary_if_needed(ROOT)
-    write_no_send_root_metadata(ROOT)
     write_release_reports(ROOT)
+    write_no_send_root_metadata(ROOT)
+    sync_public_surface_refs_into_finite_inputs(ROOT)
+    write_lean_build_certificate(ROOT)
+    try:
+        with contextlib.redirect_stdout(io.StringIO()):
+            runpy.run_path(str(ROOT / "proofs" / "finite_model_checks" / "run_finite_model_checks.py"), run_name="__main__")
+    except SystemExit as exc:
+        if int(exc.code or 0) != 0:
+            raise
     print(json.dumps({"release_id": RELEASE_ID, "version": VERSION, "status": "V12_MATERIALIZED_NO_SEND"}, indent=2))
     return 0
 

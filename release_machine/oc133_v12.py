@@ -130,6 +130,8 @@ def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, A
     root_zenodo = root / ".zenodo.json"
     zenodo_draft = root / "releases" / RELEASE_ID / "editorial" / "metadata_drafts" / "zenodo.no_send.draft.json"
     metadata_paths = [
+        root / "manifest.json",
+        root / "checksums.txt",
         zenodo_draft,
         root / "CITATION.cff",
         root / ".codemeta.json",
@@ -153,6 +155,14 @@ def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, A
     zenodo_related = zenodo.get("related_identifiers", []) if isinstance(zenodo, dict) else []
     ro_body = json.dumps(ro_crate, sort_keys=True)
     codemeta_body = json.dumps(codemeta, sort_keys=True)
+    public_manifest = read_json(root / "manifest.json") if (root / "manifest.json").exists() else {}
+    checksums_body = text(root / "checksums.txt")
+    public_manifest_body = json.dumps(public_manifest, sort_keys=True)
+    public_manifest_file_paths = [
+        str(row.get("path", ""))
+        for row in public_manifest.get("files", [])
+        if isinstance(row, dict)
+    ]
 
     version_checks = {
         "zenodo_version": zenodo.get("version") == VERSION,
@@ -164,6 +174,9 @@ def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, A
         "codemeta_description_mentions_version": VERSION in str(codemeta.get("description", "")),
         "ro_crate_versions": bool(ro_versions) and all(value == VERSION for value in ro_versions),
         "ro_crate_mentions_version": VERSION in json.dumps(ro_crate, sort_keys=True),
+        "public_manifest_release_id": public_manifest.get("release_id") == RELEASE_ID,
+        "public_manifest_version": public_manifest.get("version") == VERSION,
+        "checksums_mentions_manifest": "manifest.json" in checksums_body,
     }
     no_send_checks = {
         "publish_allowed_false": manifest.get("publish_allowed") is False,
@@ -180,6 +193,10 @@ def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, A
         "codemeta_no_doi_identifier": "zenodo concept doi" not in codemeta_body.lower() and "doi:" not in codemeta_body.lower(),
         "ro_crate_date_published_absent": "datePublished" not in ro_body,
         "ro_crate_no_doi_identifier": "doi:" not in ro_body.lower(),
+        "public_manifest_no_v132_payload": "oc_core_1_3_2" not in public_manifest_body and not any("oc_core_1_3_2" in path for path in public_manifest_file_paths),
+        "public_manifest_no_public_record": public_manifest.get("owner_approved") is False and public_manifest.get("publish_allowed") is False and public_manifest.get("git_tag") is None and public_manifest.get("public_record") is None,
+        "checksums_no_v132_payload": "oc_core_1_3_2" not in checksums_body and "1.3.2" not in checksums_body,
+        "checksums_no_root_zenodo_reference": ".zenodo.json" not in checksums_body,
     }
     return {
         "missing": missing,

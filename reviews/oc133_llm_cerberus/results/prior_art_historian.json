@@ -3,31 +3,39 @@
   "role": "prior_art_historian",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 0,
-  "finding_total": 3,
+  "high_open_total": 2,
+  "finding_total": 4,
   "findings": [
     {
-      "severity": "MEDIUM",
-      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-      "claim": "Illustrative primary/reference source anchors were checked on 2026-04-28 and local protocol capsules with hashes are bundled.",
-      "failure_mode": "The register-level provenance date is false for the current artifact: four row source_refs and their bundled snapshots are inspected_on 2026-04-30, not 2026-04-28. This weakens the audit trail for the novelty/priority positioning register even though uniqueness is not promoted.",
-      "required_repair": "Change the top-level search_protocol to a per-row date policy or an explicit 2026-04-28 to 2026-04-30 inspection range, then regenerate any bound hashes or downstream ledger references that depend on the register text.",
+      "severity": "HIGH",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json; proofs/proof_sheets/T133-K0-RES.md; proofs/proof_sheets/T133-OMEGA-STATUS.md; proofs/proof_sheets/T133-K-ZERO.md; proofs/proof_sheets/T133-BOUNDARY.md; proofs/proof_sheets/T133-HYBRID.md; proofs/proof_sheets/T133-DIM.md; proofs/proof_sheets/T133-CYCLE.md; proofs/proof_sheets/T133-ID.md; proofs/proof_sheets/T133-MIN.md; proofs/proof_sheets/T133-KLEVEL.md",
+      "claim": "T133-K0-RES through T133-KLEVEL are clean no-send formal release-consistency checks with adversarial_review_blocker_total=0.",
+      "failure_mode": "Each ledger row cites a proof sheet as evidence, but every current T133 proof sheet is marked Status: BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12 and states it is not release-promoted while G57/G58/G70 remain open. The ledger imports those blocked candidate theorem sheets as FORMAL_RELEASE_CONSISTENCY_CHECK support while reporting adversarial_review_blocker_total=0. This is theorem theater even though public scientific promotion remains false.",
+      "required_repair": "Regenerate the claim ledger from the current proof-sheet statuses: mark affected T133 rows blocked, set nonzero blocker totals, and exclude them from clean support totals until fresh Cerberus/G57/G58/G70 closure passes; or replace the proof sheets with passed repair-reviewed evidence and then update the ledger counters in the same release pass.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json; reviews/oc133_llm_cerberus/repair/OC133_CERBERUS_REPAIR_WORK_ORDERS.json",
+      "claim": "OC133-CORP-AUTO-001 through OC133-CORP-AUTO-008 are only no-send repair-loop governance surfaces with adversarial_review_blocker_total=0.",
+      "failure_mode": "The ledger rows are opaque placeholders named only as internal automation-control claim 1 through 8, while the referenced repair-work-order artifact still declares open_finding_total=16. Without concrete claim text and a current open/closed reconciliation, the ledger cannot prove these rows are harmless governance-only entries rather than unresolved release risks or relabeled coverage claims.",
+      "required_repair": "Remove OC133-CORP-AUTO-* from the scientific claim ledger or replace each placeholder with concrete automation claim text, work_order_ids, current closure state, and computed blocker totals. If open_finding_total is historical, rename it and add current_open_finding_total=0; if it is current, propagate it into the ledger blocker counts.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
-      "artifact_ref": "comparators/source_snapshots",
-      "claim": "Prior-art comparison is an illustrative bounded positioning note; uniqueness, priority, and absence are not promoted until a systematic search exists.",
-      "failure_mode": "The source snapshots are only bibliographic/search-protocol capsules and contain asserted accepted_overlap fields, but no source excerpts, page/section locators, archive captures, or quoted evidence tying each overlap to the cited source. This is not absence evidence, but it makes even the bounded bibliographic positioning hard to independently audit.",
-      "required_repair": "For each snapshot, add source-specific locators or short source-backed overlap evidence, plus archive or DOI/version metadata where available; keep the no-absence/no-uniqueness policy intact.",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json; comparators/source_snapshots",
+      "claim": "The comparator matrix is SOURCE_BACKED prior-art positioning with accepted overlap and bounded delta rows.",
+      "failure_mode": "The bundled source_snapshots are local bibliographic/search-protocol capsules, not archived source content, excerpts, or result logs. That is adequate for non-promoted bibliographic positioning, but it does not substantiate the SOURCE_BACKED label or the per-row prior_art_has/overlap assertions beyond self-authored capsule text.",
+      "required_repair": "Either relabel the register as bibliographic-positioning-only, or add actual archived source excerpts/result logs with hashes for each row. Keep uniqueness, priority, and single-source absence explicitly non-promoted until a systematic search exists.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
       "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-K0-RES and T133-DIM are promoted as bounded no-send scientific claims.",
-      "failure_mode": "The comparator register positions broad traditions, but it does not directly position the two promoted scientific claims against the closest obvious prior-art families: quotienting/observational equivalence/coarse-graining for K0 resolution, and dimensionality reduction/history-dependent state or rank notions for DIM. Because these are the only scientific_promotion_allowed rows, the release-facing novelty register leaves the promoted theorem surface under-positioned against adjacent prior art.",
-      "required_repair": "Add explicit comparator rows for those closest prior-art families with accepted-overlap, non-novelty boundaries, and no-uniqueness language, or demote the promoted rows to formal release checks until that bibliographic positioning exists.",
+      "claim": "scientific_promotion_wording_violation_total is 0 while the top-level promotion_condition says the ledger may contain bounded no-send scientific claims.",
+      "failure_mode": "That top-level phrase conflicts with scientific_promotion_allowed_total=0 and the row-level language that these are not scientific theorem promotions. The lint rule appears to miss top-level wording, leaving a no-send/public-surface ambiguity that can be read as retained scientific claim promotion.",
+      "required_repair": "Replace the phrase with non-promotion language such as formal consistency, governance, and replay-QA rows only; extend the wording lint to top-level ledger fields and regenerate scientific_promotion_wording_violation_total.",
       "status": "OPEN"
     }
   ],

@@ -4,41 +4,41 @@
     {
       "severity": "HIGH",
       "artifact_ref": "reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "Review closure is represented with critical_unresolved_total=0 and high_unresolved_total=0 while the same artifact reports fresh_cerberus_review_satisfied=false, fresh_cerberus_execution_status=EXECUTED_WITH_OPEN_FINDINGS, fresh_cerberus_high_open_total=23, post_role_integration_required=true, and fresh_context_not_release_evidence=true.",
-      "failure_mode": "The current matrix exposes zero unresolved deterministic counters next to an open fresh-Cerberus state. A journal can reject the package because the release gate has not integrated current high findings, and the zero counters can be mistaken for closure while 23 high findings remain open.",
-      "required_repair": "Regenerate an integrated release-closure matrix after the fresh role results; expose one unambiguous release gate counter that includes fresh_cerberus_high_open_total; propagate nonzero blocker counts into claim/theorem ledgers or keep all promotion gates hard false until the 23 highs are closed.",
+      "claim": "Total attack matrix closure reports critical_unresolved_total=0 and high_unresolved_total=0.",
+      "failure_mode": "The same artifact also states fresh_cerberus_review_satisfied=false, fresh_cerberus_execution_status=EXECUTED_WITH_OPEN_FINDINGS, fresh_cerberus_high_open_total=12, and cerberus_sourced_objection_total=0. A skeptical journal can reject this as closure theater: the matrix excludes the current fresh high findings while presenting zero unresolved integrated objections.",
+      "required_repair": "Import the 12 fresh high findings into this matrix as OPEN rows with semantic dedup keys and blocker counts, or close each one with current artifact-specific evidence; only then set fresh_cerberus_review_satisfied=true and keep unresolved totals consistent.",
       "status": "OPEN"
     },
     {
-      "severity": "MEDIUM",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "theorem_total=10 and machine_checked_subset_total=10, while public_promoted_theorem_total=0 and formal_consistency_check_total=8.",
-      "failure_mode": "The file is candid about the evidence ceiling, but it still packages eight release-consistency checks as theorem-inventory rows. That leaves a theorem-theater surface because a skeptical reader sees ten machine-checked theorem rows when only two are bounded scientific theorem claims.",
-      "required_repair": "Split independent scientific theorem rows from release-consistency checks; reserve theorem_total and machine_checked_theorem_total for scientific theorem rows, or add separate counters and rename the eight non-scientific rows as release-consistency checks.",
+      "severity": "HIGH",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "adversarial_review_blocker_total=0 and release_promotion_allowed=false until G57/G58/G70 pass after fresh Cerberus review.",
+      "failure_mode": "The ledger acknowledges prior_cerberus_open_total_at_generation=12 and fresh_cerberus_required_for_release=true, while the current attack matrix records fresh_cerberus_high_open_total=12. Keeping adversarial_review_blocker_total at 0 without row-level blocker refs underreports live review risk and makes the ledger look cleaner than the release state.",
+      "required_repair": "Regenerate the claim ledger after fresh Cerberus integration so current high open findings are represented as package or row blockers, with explicit refs to the attack-matrix rows; keep release_promotion_allowed=false until those blockers are closed.",
       "status": "OPEN"
     },
     {
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "The phenomenon coverage matrix has row_total=15, phenomenon_coverage_row_total=0, empirical_domain_phenomenon_coverage_total=0, and every row has counts_as_phenomenon_coverage=false.",
-      "failure_mode": "Rows ask whether OC explains phenomena, but all current evidence is scoped formal model-card replay or internal illustration. The artifact provides no domain phenomenon coverage and can be rejected as formal replay theater if used as a coverage surface.",
-      "required_repair": "Rename the artifact to a formal model-card replay matrix, or add domain-specific evaluator/external-observable non-replay validation rows with explicit criteria and counts_as_phenomenon_coverage=true.",
+      "claim": "OC 1.3.3 phenomenon coverage matrix.",
+      "failure_mode": "The matrix has row_total=15 but phenomenon_coverage_row_total=0 and empirical_domain_phenomenon_coverage_total=0; every inspected row sets counts_as_phenomenon_coverage=false and frames itself as scoped formal replay, not domain coverage. If cited as phenomenon coverage, this is coverage theater.",
+      "required_repair": "Rename/reframe the artifact as an internal formal model-card gap matrix, or add domain-specific evaluator/external-observable/non-replay validation rows that legitimately count as phenomenon coverage with explicit falsifiers.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "P014 / T133-MIN represents minimality versus relabeling with aggregate cases FM-T133-MIN-POS and FM-T133-MIN-NEG.",
-      "failure_mode": "The falsifier depends on per-component keep/drop witnesses, but P014 does not expose the tuple components, dropped fields, expected verdicts, observed verdicts, or per-component falsifier mappings needed for hostile audit.",
-      "required_repair": "Enumerate every FM-MIN component case in P014 and map each component to keep field, drop field, expected verdict, observed verdict, and falsifier condition.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "LOW",
       "artifact_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
-      "claim": "Numeric replay rows expose baseline_control_value and comparator_residual while performance_metric_allowed=false and empirical_support_allowed=false.",
-      "failure_mode": "The quarantine flags prevent a high empirical-promotion leak, but baseline/comparator terminology still invites performance interpretation if excerpted away from the disclaimers.",
-      "required_repair": "Rename these fields to synthetic mutation value/residual or negative_control_mutation_residual, and add a machine-readable rule excluding them from empirical performance, prediction, and validation claims.",
+      "claim": "Numeric replay supports row-level bounded QA claims.",
+      "failure_mode": "All six rows are quarantined replay QA, prediction_support_allowed_total=0, empirical_promotion_disallowed_total=6, and the split policies state no train/test or target-blind held-out prediction. This is correctly quarantined, but cannot support empirical validation if surfaced outside the QA lane.",
+      "required_repair": "Keep these rows out of empirical-support summaries, or replace them with a prospective target-blind protocol with held-out targets, preregistered metrics, baselines, and failure criteria.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "Novelty and priority register.",
+      "failure_mode": "The register states systematic_priority_search_status=NOT_COMPLETED_NO_UNIQUENESS_PROMOTION and each row is illustrative positioning only. This blocks novelty inflation, but also means the package has no systematic novelty or priority support if a journal expects a contribution claim.",
+      "required_repair": "Either remove novelty/priority framing from release-facing claims or complete a systematic source-backed search with databases, search strings, inclusion/exclusion criteria, dated source coverage, and explicit residual-delta claims.",
       "status": "OPEN"
     }
   ]

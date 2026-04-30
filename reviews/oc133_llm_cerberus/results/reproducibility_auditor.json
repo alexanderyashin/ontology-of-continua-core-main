@@ -3,8 +3,17 @@
   "role": "reproducibility_auditor",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 0,
-  "finding_total": 0,
-  "findings": [],
+  "high_open_total": 1,
+  "finding_total": 1,
+  "findings": [
+    {
+      "severity": "HIGH",
+      "artifact_ref": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
+      "claim": "The post-generation reproducibility manifest reports verdict PASS with git_state.tracked_worktree_dirty_total = 0 and strict_head_replay_clean = true, claiming a detached clean HEAD replay verifies the committed package input set plus regenerated compare refs.",
+      "failure_mode": "The current checkout is not clean: tracked reviewer raw/result files under reviews/oc133_llm_cerberus are modified. This makes the manifest stale for the current workspace; a clean checkout from HEAD can reproduce the committed package, but it does not attest the current working-tree package inputs or current local artifact state.",
+      "required_repair": "Commit or revert all tracked drift, then rerun tools/verify_oc133_reproducible_temp_tree.py in strict mode and commit the regenerated manifest. Keep the reproducibility gate failing whenever tracked worktree or staged drift is present.",
+      "status": "OPEN"
+    }
+  ],
   "raw_output_ref": "reviews/oc133_llm_cerberus/raw_v12/reproducibility_auditor.txt"
 }

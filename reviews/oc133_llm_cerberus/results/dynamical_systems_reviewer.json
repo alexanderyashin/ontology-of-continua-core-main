@@ -3,23 +3,31 @@
   "role": "dynamical_systems_reviewer",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 1,
-  "finding_total": 2,
+  "high_open_total": 3,
+  "finding_total": 3,
   "findings": [
     {
       "severity": "HIGH",
       "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-HYBRID: OC operators are typed update semantics and guard/reset updates remain first-class non-smooth cases.",
-      "failure_mode": "The Lean guard/reset admission semantics and executable finite semantics disagree on the meaning of guard observation. In formal/lean/OC133V12.lean, operatorAdmitted for OperatorRoute.guardResetHybrid requires a.guardObserved = true, and guard_reset_binding_obligations then binds a.guardObserved = h.guard xh to prove h.guard xh = true, so the integrated admitted guard/reset theorem only covers the reset branch. In proofs/finite_model_checks/run_finite_model_checks.py, guard_observed is computed as isinstance(model.get(\"guard\"), bool), so proofs/FINITE_MODEL_CHECKS_1_3_3.json accepts FM-T133-HYBRID-NO-GUARD-STEP-POS with guard=false while computed_operator_admission.route_admitted=true. That finite row is not a model of the Lean binding theorem, leaving the no-guard step branch admitted by the checker but not by the integrated formal guard/reset admission semantics.",
-      "required_repair": "Split guard evaluation from guard value in Lean and Python, e.g. guardEvaluated/guardValue or Option Bool. Update operatorAdmitted to admit evaluated false guards without forcing reset, prove one binding theorem with both reset and no-guard branches, and bind the no-guard finite positive/negative rows to that theorem instead of relying only on hybrid_no_guard_uses_update.",
+      "claim": "T133-HYBRID: guard/reset updates are first-class non-smooth typed update semantics.",
+      "failure_mode": "The admission predicate admits guard/reset only when guardObserved=true, but the same formal section proves hybrid_no_guard_uses_update and the finite model accepts FM-T133-HYBRID-NO-GUARD-STEP-POS while computed_operator_admission.route_admitted=false. This splits executable hybrid semantics from operator admission: the false-guard branch is treated as a valid update by the theorem/runner but is not an admitted operator route.",
+      "required_repair": "Unify the hybrid admission semantics: either split guard/reset into trigger and pass-through update routes, or extend operatorAdmitted with an explicitly typed/admissible false-guard step branch. Then require every ACCEPT T133-HYBRID finite row to have computed_operator_admission.route_admitted=true, and add negative controls for false-guard step typing/admissibility failures.",
       "status": "OPEN"
     },
     {
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-HYBRID: chart-labelled flow-one notation is admitted only for declared chart records, and no differentiability or ODE-solution theorem is promoted in v12.",
-      "failure_mode": "The formal surface still uses SmoothChart.derivative, derivativeAvailable, differential_notation_requires_chart, and derivativeRequested, but the only formal requirement for derivativeAvailable is chart.isSome; no differentiability, smoothness, manifold, vector-field, semigroup flow, or ODE-solution law is present. proofs/FINITE_MODEL_CHECKS_1_3_3.json also accepts FM-T133-HYBRID-SMOOTH-CHART-POS with derivative_requested=true using only a chart id, domain flag, and local_law_declared. This is not an ODE theorem, but the naming and accepted derivative request create theorem-theater risk by making a chart token look like a differentiability witness.",
-      "required_repair": "Rename the formal and finite fields to non-smooth notation terms such as chartNotationRequested/chartNotationAvailable, or add explicit differentiability/flow laws and theorem statements if derivative semantics are intended. Add a negative finite row showing that a declared chart without those laws cannot be described as differentiability or ODE evidence.",
+      "claim": "T133-HYBRID: no differentiability or ODE-solution theorem is promoted; chart-labelled flow-one notation is only a declared chart/domain/local-law record.",
+      "failure_mode": "The formal API still defines SmoothChart.derivative and derivativeAvailable as mere chart presence, while finite T133-HYBRID smooth-chart positive cases accept derivative_requested=true. A chart token plus arbitrary derivative field is enough to make derivativeAvailable=true, with no differentiability, vector-field, smoothness, flow law, or ODE obligation. This is a hidden differentiability-admission claim despite the textual demotion.",
+      "required_repair": "Remove or rename derivativeAvailable/derivativeRequested for v12 to chartRecordPresent/flowNotationRequested, require derivativeRequested=false in all no-ODE release checks, or add explicit mathematical obligations for differentiability/vector-field/flow semantics before any derivative-positive case can be accepted.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "OC133-NOSEND-001 and package-level release gate: public release remains blocked until fresh G57/G58/G70 Cerberus review plus owner approval and explicit manifest/channel unlocks.",
+      "failure_mode": "hypothetical_owner_approved_control returns ALLOW_AFTER_OWNER_APPROVAL when owner_approved, global_no_send_lock=false, publish_allowed, journal_submissions_allowed, and requested channel flags are true. It does not model the ledger's fresh_cerberus_required_for_release / G57-G58-G70 gate, yet FINITE_MODEL_CHECKS promotes this allow branch as the negative control for no-send.",
+      "required_repair": "Add explicit fresh-review gate fields to the no-send state machine and finite rows, require G57/G58/G70 pass states before ALLOW_AFTER_OWNER_APPROVAL, and change the current hypothetical allow control to REJECT_PUBLIC_ACTION unless those fresh-review fields are present and true.",
       "status": "OPEN"
     }
   ],

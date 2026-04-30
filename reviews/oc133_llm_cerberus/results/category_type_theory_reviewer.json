@@ -3,31 +3,31 @@
   "role": "category_type_theory_reviewer",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 2,
+  "high_open_total": 0,
   "finding_total": 3,
   "findings": [
     {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-ID: Identity continuation requires endpoint-bound identity evidence including typed source/target binding.",
-      "failure_mode": "The current Lean subset supports only token-label consistency, not typed source/target binding. formal/lean/OC133V12.lean defines MorphismEvidence as unparameterized Nat tokens, and endpointBoundIdentity compares sourceToken/newLiveToken values across different carriers without a cross-carrier identity/equivalence relation or typed Hom/source/target object structure. proofs/finite_model_checks/run_finite_model_checks.py mirrors this with raw string equality.",
-      "required_repair": "Either weaken the ledger/inventory wording to token-equality release-consistency only, or implement a parameterized typed morphism/evidence structure with typed source and target endpoints plus a formal cross-carrier identity/equivalence witness, then update endpointBoundIdentity and finite checks to require it.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-OMEGA-STATUS: Residue and rebirth are token-bound evidence relations with distinct class-specific endpoint rules.",
-      "failure_mode": "The endpoint rules are not invariants of Lifecycle. formal/lean/OC133V12.lean allows arbitrary residueOf and rebirthOf mappings; token separation appears only as external assumptions in typedResidueMorphism/typedRebirthMorphism. lifecycle_residue_rebirth_morphism_boundary proves separation only after those witnesses are supplied, so the claim overstates what the lifecycle/rebirth relation itself guarantees.",
-      "required_repair": "Move residue/rebirth token-separation and class constraints into the Lifecycle relation constructors, or revise the claim to say the separation holds only for supplied typedResidueMorphism/typedRebirthMorphism witnesses under the theorem assumptions.",
+      "severity": "MEDIUM",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-ID: identity continuation requires endpoint-bound identity evidence with typed source/target binding.",
+      "failure_mode": "The Lean subset binds morphism endpoints through untyped Nat tokens in MorphismEvidence and endpointBoundIdentity. Lifecycle injectivity is only intra-sort for S, Residue, and NewLive token maps; there is no type-indexed endpoint object, Hom family, or cross-sort identity/equivalence proof. The artifact therefore supports declared Nat-token binding, not type-theoretic carrier binding.",
+      "required_repair": "Either weaken the ledger/inventory wording to 'declared Nat-token source/target binding' or replace MorphismEvidence with type-indexed endpoints/morphisms and prove the endpoint identity relation over S and NewLive explicitly.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-MIN: each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.",
-      "failure_mode": "This remains theorem theater at the semantic layer: formal/lean/OC133V12.lean defines semanticVerdict as a conjunction of Boolean fields and dropSemanticComponent flips one Boolean. The finite checker repeats the same Boolean conjunction via semantic_tuple_verdict. This proves sensitivity of a declared flag tuple, not semantic irredundancy of actual OC components.",
-      "required_repair": "Rename this to a Boolean release-tuple smoke test, or replace it with component-specific witnesses tied to the actual carrier, morphism, residue, operator, cycle, and K-functional definitions rather than one-field flag drops.",
+      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "claim": "OC133-NUM-MATH-FINITE / FINITE_MODEL_CHECKS: finite witness acceptance count for machine-checked v12 theorem inventory rows.",
+      "failure_mode": "The finite evaluator hand-codes separate Python predicates for T133-ID and T133-OMEGA using string tokens, while theorem_reference_audit only regex-checks that referenced Lean symbols exist. This does not establish semantic equivalence between the finite cases and the Lean definitions, so the finite rows are executable QA witnesses, not machine-checked theorem-content coverage.",
+      "required_repair": "Add a formal equivalence/extraction bridge between the Lean predicates and finite evaluator cases, or relabel these rows as independent finite replay QA and remove machine-checked theorem-content language from the finite acceptance claim.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "LOW",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-OMEGA-STATUS / T133-ID: identity, residue, and rebirth are separated.",
+      "failure_mode": "The current separation is per MorphismEvidence class tag. endpointBoundIdentity has no lifecycle exclusion for death, residueOf, or rebirthOf, so an identity-class evidence object can coexist in the same Lifecycle with declared death/residue/rebirth facts. The public wording is mostly scoped, but it should not be read as lifecycle-path exclusivity.",
+      "required_repair": "Either state explicitly that separation is per evidence object/class only, or add Lean predicates and theorems proving lifecycle-level exclusivity between endpointBoundIdentity and declared death/residue/rebirth paths.",
       "status": "OPEN"
     }
   ],

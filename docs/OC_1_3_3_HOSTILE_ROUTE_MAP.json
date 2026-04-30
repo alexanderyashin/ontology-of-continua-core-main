@@ -237,7 +237,7 @@
             "step_target",
             "reset_target"
           ],
-          "evaluator_predicate": "guard=true is the admitted guard/reset route and uses reset target; guard=false is checked by the separate no-guard step theorem and uses step target"
+          "evaluator_predicate": "guard/reset admission means typed guard evaluation plus typed reset/pass-through obligations; guard=true uses reset target and guard=false uses step target"
         },
         {
           "tuple_component": "lawful_possibility",
@@ -254,18 +254,18 @@
         {
           "tuple_component": "operators",
           "theorem_assumptions": [
-            "proof/rewrite route rejects derivatives and requires rewrite rule"
+            "proof/rewrite route rejects differential overreach and requires rewrite rule"
           ],
           "finite_model_fields": [
             "carrier_kind",
             "typed_update_relation",
             "rewrite_rule_present",
-            "derivative_requested"
+            "flow_notation_requested"
           ],
-          "evaluator_predicate": "proof/rewrite accepts only typed rewrite with derivative_requested=false"
+          "evaluator_predicate": "proof/rewrite accepts only typed rewrite with flow_notation_requested=false"
         }
       ],
-      "lean_theorem_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
       "proof_sheet_ref": "proofs/proof_sheets/T133-HYBRID.md",
       "positive_case_ids": [
         "FM-T133-HYBRID-POS",
@@ -435,33 +435,153 @@
       ],
       "tuple_component_bindings": [
         {
-          "tuple_component": "minimality",
+          "tuple_component": "carrier",
           "theorem_assumptions": [
-            "each tuple component has a keep/drop witness"
+            "carrier witness is load-bearing in the declared no-send tuple"
           ],
           "finite_model_fields": [
             "target_component",
-            "keep",
-            "drop"
+            "keep.carrier_witness",
+            "drop.carrier_witness"
           ],
-          "evaluator_predicate": "keep verdict passes and one-component drop verdict fails for the named component"
+          "evaluator_predicate": "FM-MIN-carrier keeps all fields true, drops only carrier_witness, and flips semantic_tuple_verdict"
+        },
+        {
+          "tuple_component": "realization",
+          "theorem_assumptions": [
+            "realization interpretation is load-bearing in the declared no-send tuple"
+          ],
+          "finite_model_fields": [
+            "target_component",
+            "keep.realization_interprets",
+            "drop.realization_interprets"
+          ],
+          "evaluator_predicate": "FM-MIN-realization keeps all fields true, drops only realization_interprets, and flips semantic_tuple_verdict"
+        },
+        {
+          "tuple_component": "lawful_possibility",
+          "theorem_assumptions": [
+            "lawful transition restriction is load-bearing in the declared no-send tuple"
+          ],
+          "finite_model_fields": [
+            "target_component",
+            "keep.lawful_transition_only",
+            "drop.lawful_transition_only"
+          ],
+          "evaluator_predicate": "FM-MIN-lawful_possibility keeps all fields true, drops only lawful_transition_only, and flips semantic_tuple_verdict"
+        },
+        {
+          "tuple_component": "liveness",
+          "theorem_assumptions": [
+            "live support evidence is load-bearing in the declared no-send tuple"
+          ],
+          "finite_model_fields": [
+            "target_component",
+            "keep.live_support_witness",
+            "drop.live_support_witness"
+          ],
+          "evaluator_predicate": "FM-MIN-liveness keeps all fields true, drops only live_support_witness, and flips semantic_tuple_verdict"
+        },
+        {
+          "tuple_component": "residue",
+          "theorem_assumptions": [
+            "residue separation is load-bearing in the declared no-send tuple"
+          ],
+          "finite_model_fields": [
+            "target_component",
+            "keep.residue_separated",
+            "drop.residue_separated"
+          ],
+          "evaluator_predicate": "FM-MIN-residue keeps all fields true, drops only residue_separated, and flips semantic_tuple_verdict"
+        },
+        {
+          "tuple_component": "morphisms",
+          "theorem_assumptions": [
+            "morphism invariant checking is load-bearing in the declared no-send tuple"
+          ],
+          "finite_model_fields": [
+            "target_component",
+            "keep.morphism_invariant_checked",
+            "drop.morphism_invariant_checked"
+          ],
+          "evaluator_predicate": "FM-MIN-morphisms keeps all fields true, drops only morphism_invariant_checked, and flips semantic_tuple_verdict"
         },
         {
           "tuple_component": "boundaries",
           "theorem_assumptions": [
-            "component-specific witnesses are not label-only"
+            "boundary rejection is load-bearing in the declared no-send tuple"
           ],
           "finite_model_fields": [
+            "target_component",
             "keep.boundary_rejects_bad_state",
             "drop.boundary_rejects_bad_state"
           ],
-          "evaluator_predicate": "boundary witness flips exactly the boundary obligation"
+          "evaluator_predicate": "FM-MIN-boundaries keeps all fields true, drops only boundary_rejects_bad_state, and flips semantic_tuple_verdict"
+        },
+        {
+          "tuple_component": "operators",
+          "theorem_assumptions": [
+            "typed operator update is load-bearing in the declared no-send tuple"
+          ],
+          "finite_model_fields": [
+            "target_component",
+            "keep.typed_operator_update",
+            "drop.typed_operator_update"
+          ],
+          "evaluator_predicate": "FM-MIN-operators keeps all fields true, drops only typed_operator_update, and flips semantic_tuple_verdict"
+        },
+        {
+          "tuple_component": "cycles",
+          "theorem_assumptions": [
+            "cycle or maintenance evidence is load-bearing in the declared no-send tuple"
+          ],
+          "finite_model_fields": [
+            "target_component",
+            "keep.cycle_or_maintenance",
+            "drop.cycle_or_maintenance"
+          ],
+          "evaluator_predicate": "FM-MIN-cycles keeps all fields true, drops only cycle_or_maintenance, and flips semantic_tuple_verdict"
+        },
+        {
+          "tuple_component": "dimension",
+          "theorem_assumptions": [
+            "dimension-axis separation is load-bearing in the declared no-send tuple"
+          ],
+          "finite_model_fields": [
+            "target_component",
+            "keep.dimension_axes_separated",
+            "drop.dimension_axes_separated"
+          ],
+          "evaluator_predicate": "FM-MIN-dimension keeps all fields true, drops only dimension_axes_separated, and flips semantic_tuple_verdict"
+        },
+        {
+          "tuple_component": "k",
+          "theorem_assumptions": [
+            "k zero-cause declaration is load-bearing in the declared no-send tuple"
+          ],
+          "finite_model_fields": [
+            "target_component",
+            "keep.k_zero_cause_declared",
+            "drop.k_zero_cause_declared"
+          ],
+          "evaluator_predicate": "FM-MIN-k keeps all fields true, drops only k_zero_cause_declared, and flips semantic_tuple_verdict"
         }
       ],
       "lean_theorem_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "proof_sheet_ref": "proofs/proof_sheets/T133-MIN.md",
       "positive_case_ids": [
-        "FM-T133-MIN-POS"
+        "FM-T133-MIN-POS",
+        "FM-MIN-carrier",
+        "FM-MIN-realization",
+        "FM-MIN-lawful_possibility",
+        "FM-MIN-liveness",
+        "FM-MIN-residue",
+        "FM-MIN-morphisms",
+        "FM-MIN-boundaries",
+        "FM-MIN-operators",
+        "FM-MIN-cycles",
+        "FM-MIN-dimension",
+        "FM-MIN-k"
       ],
       "negative_case_ids": [
         "FM-T133-MIN-NEG"
@@ -476,6 +596,7 @@
         "k",
         "carrier",
         "realization",
+        "lawful_possibility",
         "operators",
         "boundaries"
       ],
@@ -492,6 +613,17 @@
             "added_axis"
           ],
           "evaluator_predicate": "transition row identity and added axis must match the atlas"
+        },
+        {
+          "tuple_component": "carrier",
+          "theorem_assumptions": [
+            "lower and upper models share a typed carrier projection"
+          ],
+          "finite_model_fields": [
+            "upper_model.axis_observed",
+            "reduced_model.axis_observed"
+          ],
+          "evaluator_predicate": "upper carrier keeps the added observable while reduced carrier hides it under the declared projection"
         },
         {
           "tuple_component": "realization",
@@ -516,6 +648,28 @@
             "demotion_case.reduced_model.axis_observed"
           ],
           "evaluator_predicate": "demotion control passes only when witness is unobservable"
+        },
+        {
+          "tuple_component": "operators",
+          "theorem_assumptions": [
+            "projection/reduction map is an operator-level action"
+          ],
+          "finite_model_fields": [
+            "upper_model.verdict_changes",
+            "reduced_model.verdict_changes"
+          ],
+          "evaluator_predicate": "reduction operator loses the retained witness exactly when the added axis is projected away"
+        },
+        {
+          "tuple_component": "boundaries",
+          "theorem_assumptions": [
+            "boundary observability controls retained-witness loss"
+          ],
+          "finite_model_fields": [
+            "upper_model.retained_witness",
+            "reduced_model.retained_witness"
+          ],
+          "evaluator_predicate": "boundary-observable retained witness blocks reduction; boundary-inert witness permits lawful demotion"
         }
       ],
       "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",

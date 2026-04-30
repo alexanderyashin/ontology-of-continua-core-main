@@ -1,1 +1,29 @@
-{"role":"clarity_didactic_reviewer","findings":[{"severity":"HIGH","artifact_ref":"docs/OC_1_3_3_HOSTILE_READER_GUIDE.md","claim":"The Machine-readable Route Map binds tuple components to theorem assumptions, finite-model JSON fields, evaluator predicates, positive cases, negative controls, and falsifier boundaries.","failure_mode":"The guide delegates the didactic binding to docs/OC_1_3_3_HOSTILE_ROUTE_MAP.json, but the current route-map rows for T133-BOUNDARY, T133-DIM, T133-CYCLE, T133-ID, T133-MIN, and T133-KLEVEL use finite_model_fields=[\"model\"] and evaluator_predicate=\"see proofs/finite_model_checks/run_finite_model_checks.py::observed\" for most or all tuple components. That is not a field-level route; a hostile reader must inspect runner internals or ask the author to know which semantic fields falsify which tuple component.","required_repair":"Expand the guide/route-map binding for every tuple component to name the actual finite JSON fields and route-specific predicate clauses; keep generic runner references only as secondary source links.","status":"OPEN"},{"severity":"HIGH","artifact_ref":"docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json","claim":"The P002 and P007 model cards give the finite negative-control route and falsifier boundary for T133-OMEGA-STATUS and T133-K-ZERO.","failure_mode":"P002 lists only FM-T133-OMEGA-STATUS-NEG even though the guide/route map and finite checks also use FM-T133-OMEGA-IDENTITY-EQUIVOCATION-NEG for the same identity-equivocation boundary. P007 lists only FM-T133-K-ZERO-NEG and a no-zero-cause falsifier, while the guide/route map and finite checks also include FM-T133-K-ZERO-LIVE-SUPPORT-NEG and FM-T133-K-ZERO-OBSTRUCTION-NEG. A hostile reader following the matrix route sees incomplete falsifier coverage for live-support, obstruction, and identity-equivocation cases.","required_repair":"Add the missing finite negative-control IDs to the affected model_card additional_replay_cases or negative_control fields, and align each falsifier text with the full guide/route-map boundary.","status":"OPEN"},{"severity":"MEDIUM","artifact_ref":"docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json","claim":"Rows with no coverage-promotion blocker are safe no-send scoped formal model-card rows, not broad domain phenomenon coverage.","failure_mode":"P001, P002, P004, P005, P006, and P015 simultaneously set counts_as_phenomenon_coverage=false and coverage_promotion_state=FORMAL_MODEL_CARD_REPLAY_NO_SEND_NOT_DOMAIN_PHENOMENON_COVERAGE, but also set coverage_promotion_blockers=0 with reason \"no coverage-promotion blocker for this no-send scoped row\". That creates coverage-theater ambiguity: zero blocker can be read as coverage clearance even though the same row says it is not domain phenomenon coverage.","required_repair":"For every row excluded from phenomenon coverage, either set coverage_promotion_blockers/blocker_count to 1 with a uniform not-domain-coverage reason, or split the fields into route_executable=true and domain_coverage_promotion_allowed=false so zero never implies phenomenon-coverage clearance.","status":"OPEN"}]}
+{
+  "role": "clarity_didactic_reviewer",
+  "findings": [
+    {
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_HOSTILE_ROUTE_MAP.json",
+      "claim": "The hostile route map binds tuple components to theorem assumptions, finite-model JSON fields, evaluator predicates, positive cases, negative controls, and falsifier boundaries for `T133-MIN`.",
+      "failure_mode": "`T133-MIN` lists 11 tuple components, but `tuple_component_bindings` binds only non-tuple `minimality` plus `boundaries`. It omits concrete field/evaluator bindings for `carrier`, `realization`, `lawful_possibility`, `liveness`, `residue`, `morphisms`, `operators`, `cycles`, `dimension`, and `k`, and it does not enumerate the executed `FM-MIN-{component}` witness cases. A hostile reader cannot follow the advertised per-component minimality route without reverse-engineering the finite-model payload.",
+      "required_repair": "Add one binding per listed tuple component, each naming theorem assumptions, exact finite-model fields, evaluator predicate, and corresponding executed `FM-MIN-{component}` case; remove or reclassify `minimality` if it is not a tuple component.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "docs/OC_1_3_3_HOSTILE_ROUTE_MAP.json",
+      "claim": "`T133-KLEVEL` maps the declared tuple components `k`, `carrier`, `realization`, `operators`, and `boundaries` through the theorem and finite K-level cases.",
+      "failure_mode": "The `T133-KLEVEL` route lists `k`, `carrier`, `realization`, `operators`, and `boundaries`, but bindings exist only for `k`, `realization`, and an extra unlisted `lawful_possibility`. There is no binding for `carrier`, `operators`, or `boundaries`, so the tuple-to-finite-case route contradicts the guide/inventory tuple declaration and leaves three claimed components untraceable.",
+      "required_repair": "Either revise the declared tuple component list to match the actual semantics, or add explicit bindings for `carrier`, `operators`, and `boundaries`; if `lawful_possibility` is load-bearing, add it consistently to the guide and theorem inventory.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "The matrix cleanly distinguishes scoped formal model cards from actual phenomenon coverage.",
+      "failure_mode": "Multiple rows set `counts_as_phenomenon_coverage=false` and say the row is excluded until a domain model/evaluator exists, yet also report `coverage_promotion_blockers=0` with `no coverage-promotion blocker`. That can be read as no remaining coverage gap even though `phenomenon_coverage_row_total` is zero.",
+      "required_repair": "Normalize blocker semantics: either set a coverage blocker whenever a row is excluded from phenomenon coverage, or rename the field to clarify it only counts attempted-promotion blockers and add an explicit `coverage_gap_reason` for every non-coverage row.",
+      "status": "OPEN"
+    }
+  ]
+}

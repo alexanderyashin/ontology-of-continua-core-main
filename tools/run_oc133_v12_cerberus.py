@@ -46,6 +46,9 @@ CONTEXT_REFS = [
     "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
     "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
     "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+    "manifest.json",
+    "checksums.txt",
+    "ro-crate-metadata.jsonld",
 ]
 
 ROLE_CONTEXT_REFS = {
@@ -143,7 +146,10 @@ ROLE_CONTEXT_REFS = {
         ".zenodo.json",
         "CITATION.cff",
         ".codemeta.json",
+        "manifest.json",
+        "checksums.txt",
         "ro-crate-metadata.jsonld",
+        "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
         "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
         "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
         "proofs/FINITE_MODEL_CHECKS_1_3_3.json",

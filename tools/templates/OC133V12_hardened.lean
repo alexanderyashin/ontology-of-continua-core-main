@@ -577,23 +577,27 @@ def boundaryFails {S StatusType : Type} (b : BoundaryClassifier S StatusType) (x
   b.fails (b.classify x)
 
 structure MetricBoundary (S : Type) where
-  measure : S -> Nat
+  distance : S -> S -> Nat
+  center : S
   threshold : Nat
 
+def metricMeasure {S : Type} (m : MetricBoundary S) : S -> Nat :=
+  fun x => m.distance x m.center
+
 def metricAsClassifier {S : Type} (m : MetricBoundary S) : BoundaryClassifier S Nat :=
-  { classify := m.measure, fails := fun n => decide (n > m.threshold) }
+  { classify := metricMeasure m, fails := fun n => decide (n > m.threshold) }
 
 theorem metric_boundary_is_classifier {S : Type} (m : MetricBoundary S) :
-    (metricAsClassifier m).classify = m.measure := by
+    (metricAsClassifier m).classify = metricMeasure m := by
   rfl
 
 theorem metric_boundary_failure_equiv {S : Type} (m : MetricBoundary S) (x : S) :
-    boundaryFails (metricAsClassifier m) x = decide (m.measure x > m.threshold) := by
+    boundaryFails (metricAsClassifier m) x = decide (m.distance x m.center > m.threshold) := by
   rfl
 
 theorem metric_boundary_specialization {S : Type} (m : MetricBoundary S) (x : S) :
-    (metricAsClassifier m).classify = m.measure /\
-    boundaryFails (metricAsClassifier m) x = decide (m.measure x > m.threshold) := by
+    (metricAsClassifier m).classify = metricMeasure m /\
+    boundaryFails (metricAsClassifier m) x = decide (m.distance x m.center > m.threshold) := by
   exact And.intro (metric_boundary_is_classifier m) (metric_boundary_failure_equiv m x)
 
 structure UpdateSystem where
@@ -612,11 +616,11 @@ structure SmoothSystem extends UpdateSystem where
   flow_zero : forall x : State, flow 0 x = x
   step_eq_flow_one : forall x : State, step x = flow 1 x
 
-def derivativeAvailable (s : SmoothSystem) : Bool :=
+def chartRecordPresent (s : SmoothSystem) : Bool :=
   s.chart.isSome
 
 def smoothFlowNotationAdmitted (s : SmoothSystem) : Bool :=
-  derivativeAvailable s
+  chartRecordPresent s
 
 def smoothAsUpdate (s : SmoothSystem) : UpdateSystem :=
   { State := s.State, step := s.step, admissible := s.admissible }
@@ -626,11 +630,11 @@ theorem smooth_operator_is_update_special_case (s : SmoothSystem) (x : s.State) 
   exact s.step_eq_flow_one x
 
 theorem differential_notation_requires_chart (s : SmoothSystem) :
-    derivativeAvailable s = true -> exists c : SmoothChart s.State, s.chart = some c := by
+    chartRecordPresent s = true -> exists c : SmoothChart s.State, s.chart = some c := by
   intro h
   cases hchart : s.chart with
   | none =>
-      unfold derivativeAvailable at h
+      unfold chartRecordPresent at h
       rw [hchart] at h
       simp at h
   | some c =>
@@ -639,7 +643,7 @@ theorem differential_notation_requires_chart (s : SmoothSystem) :
 theorem no_chart_rejects_smooth_flow_notation (s : SmoothSystem) :
     s.chart = none -> smoothFlowNotationAdmitted s = false := by
   intro h
-  unfold smoothFlowNotationAdmitted derivativeAvailable
+  unfold smoothFlowNotationAdmitted chartRecordPresent
   rw [h]
   rfl
 
@@ -660,7 +664,7 @@ structure HybridSystem extends UpdateSystem where
 
 structure ProofRewriteSystem extends UpdateSystem where
   rewriteRulePresent : Bool
-  derivativeRequested : Bool
+  flowNotationRequested : Bool
 
 def proofRewriteDerivativeAllowed (_p : ProofRewriteSystem) : Bool :=
   false
@@ -676,7 +680,7 @@ structure OperatorAdmission where
   chartDeclared : Bool
   chartDomainContainsSource : Bool
   chartLocalLawDeclared : Bool
-  derivativeRequested : Bool
+  flowNotationRequested : Bool
   typedSourceTarget : Bool
   guardObserved : Bool
   resetSourceTyped : Bool
@@ -690,9 +694,9 @@ def operatorAdmitted (a : OperatorAdmission) : Bool :=
   | OperatorRoute.smoothChart =>
       a.chartDeclared && a.chartDomainContainsSource && a.chartLocalLawDeclared
   | OperatorRoute.guardResetHybrid =>
-      (!a.derivativeRequested) && a.guardObserved && a.resetSourceTyped && a.resetTargetTyped && a.resetAdmissible
+      (!a.flowNotationRequested) && a.guardObserved && a.resetSourceTyped && a.resetTargetTyped && a.resetAdmissible
   | OperatorRoute.proofRewrite =>
-      (!a.derivativeRequested) && a.rewriteRulePresent
+      (!a.flowNotationRequested) && a.rewriteRulePresent
 
 theorem admitted_operator_has_typed_source_target (a : OperatorAdmission) :
     operatorAdmitted a = true -> a.typedSourceTarget = true := by
@@ -703,7 +707,7 @@ theorem admitted_operator_has_typed_source_target (a : OperatorAdmission) :
       exact h.left
 
 theorem admitted_guard_reset_rejects_derivative (a : OperatorAdmission) :
-    a.route = OperatorRoute.guardResetHybrid -> operatorAdmitted a = true -> a.derivativeRequested = false := by
+    a.route = OperatorRoute.guardResetHybrid -> operatorAdmitted a = true -> a.flowNotationRequested = false := by
   cases a with
   | mk route chart domain law requested typed guard resetSource resetTarget resetAdmit rewrite =>
       intro hroute hadmit
@@ -714,7 +718,7 @@ theorem admitted_guard_reset_rejects_derivative (a : OperatorAdmission) :
       · cases hroute
 
 theorem admitted_proof_rewrite_rejects_derivative (a : OperatorAdmission) :
-    a.route = OperatorRoute.proofRewrite -> operatorAdmitted a = true -> a.derivativeRequested = false := by
+    a.route = OperatorRoute.proofRewrite -> operatorAdmitted a = true -> a.flowNotationRequested = false := by
   cases a with
   | mk route chart domain law requested typed guard resetSource resetTarget resetAdmit rewrite =>
       intro hroute hadmit
@@ -777,10 +781,10 @@ theorem operator_admission_route_obligations (a : OperatorAdmission) :
     (a.route = OperatorRoute.smoothChart ->
       a.chartDeclared = true /\ a.chartDomainContainsSource = true /\ a.chartLocalLawDeclared = true) /\
     (a.route = OperatorRoute.guardResetHybrid ->
-      a.derivativeRequested = false /\ a.guardObserved = true /\
+      a.flowNotationRequested = false /\ a.guardObserved = true /\
       a.resetSourceTyped = true /\ a.resetTargetTyped = true /\ a.resetAdmissible = true) /\
     (a.route = OperatorRoute.proofRewrite ->
-      a.derivativeRequested = false /\ a.rewriteRulePresent = true) := by
+      a.flowNotationRequested = false /\ a.rewriteRulePresent = true) := by
   intro hadmit
   constructor
   · intro hroute
@@ -799,7 +803,7 @@ theorem operator_admission_route_obligations (a : OperatorAdmission) :
       (admitted_proof_rewrite_has_rule a hroute hadmit)
 
 theorem derivative_request_requires_chart_or_rewrite_rejection (a : OperatorAdmission) :
-    operatorAdmitted a = true -> a.derivativeRequested = true ->
+    operatorAdmitted a = true -> a.flowNotationRequested = true ->
     (a.route = OperatorRoute.proofRewrite \/ a.route = OperatorRoute.guardResetHybrid -> False) /\
     (a.route = OperatorRoute.smoothChart -> a.chartDeclared = true) := by
   intro hadmit hreq
@@ -860,7 +864,7 @@ theorem proof_rewrite_binding_obligations
     a.route = OperatorRoute.proofRewrite ->
     a.rewriteRulePresent = p.rewriteRulePresent ->
     operatorAdmitted a = true ->
-    p.rewriteRulePresent = true /\ proofRewriteDerivativeAllowed p = false /\ a.derivativeRequested = false := by
+    p.rewriteRulePresent = true /\ proofRewriteDerivativeAllowed p = false /\ a.flowNotationRequested = false := by
   intro hroute hrewrite hadmit
   have hrewriteA := admitted_proof_rewrite_has_rule a hroute hadmit
   have hderiv := admitted_proof_rewrite_rejects_derivative a hroute hadmit
@@ -885,9 +889,9 @@ theorem smooth_hybrid_operator_semantics
     aSmooth.chartDeclared = true /\
     aHybrid.typedSourceTarget = true /\
     aProof.typedSourceTarget = true /\
-    aHybrid.derivativeRequested = false /\
-    aProof.derivativeRequested = false /\
-    (derivativeAvailable s = true -> exists c : SmoothChart s.State, s.chart = some c) /\
+    aHybrid.flowNotationRequested = false /\
+    aProof.flowNotationRequested = false /\
+    (chartRecordPresent s = true -> exists c : SmoothChart s.State, s.chart = some c) /\
     (s.chart = none -> smoothFlowNotationAdmitted s = false) /\
     (h.guard xh = true -> hybridStep h xh = h.reset xh) /\
     (h.guard xh = false -> hybridStep h xh = h.step xh) /\
@@ -948,8 +952,8 @@ theorem integrated_operator_semantics
     hybridStep h xh = h.reset xh /\
     p.rewriteRulePresent = true /\
     proofRewriteDerivativeAllowed p = false /\
-    aHybrid.derivativeRequested = false /\
-    aProof.derivativeRequested = false := by
+    aHybrid.flowNotationRequested = false /\
+    aProof.flowNotationRequested = false := by
   intro hchart hdomain hlaw hsmooth hsmoothChart hsmoothDomain hsmoothLaw hhybrid hguard hsource htarget hadmiss hproof hrewrite hadmitSmooth hadmitHybrid hadmitProof
   have hsDomainLaw := admitted_smooth_chart_requires_domain_and_law aSmooth hsmooth hadmitSmooth
   have hhybridBinding := guard_reset_binding_obligations h xh aHybrid hhybrid hguard hsource htarget hadmiss hadmitHybrid

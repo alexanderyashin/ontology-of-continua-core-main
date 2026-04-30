@@ -4,16 +4,16 @@
   "version": "1.3.3",
   "objection_total": 215,
   "semantic_dedup_key_total": 200,
-  "cerberus_sourced_objection_total": 12,
-  "deterministic_objection_total": 203,
-  "critical_unresolved_total": 0,
-  "high_unresolved_total": 12,
+  "cerberus_sourced_objection_total": 19,
+  "deterministic_objection_total": 196,
+  "critical_unresolved_total": 1,
+  "high_unresolved_total": 18,
   "fresh_cerberus_review_satisfied": false,
   "fresh_cerberus_review_gate_status": "BLOCKED_PENDING_FRESH_ZERO_CRITICAL_HIGH_REVIEW",
   "fresh_cerberus_summary_ref": "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json",
   "fresh_cerberus_execution_status": "EXECUTED_WITH_OPEN_FINDINGS",
-  "fresh_cerberus_critical_open_total": 0,
-  "fresh_cerberus_high_open_total": 12,
+  "fresh_cerberus_critical_open_total": 1,
+  "fresh_cerberus_high_open_total": 18,
   "release_pass_badge_allowed": false,
   "release_closure_claim_asserted": false,
   "post_role_integration_required": true,
@@ -21,94 +21,98 @@
   "generic_row_total": 0,
   "rows": [
     {
-      "objection_id": "CERBERUS-001-category_type_theory_reviewer",
-      "source": "llm_cerberus",
-      "source_result_ref": "reviews/oc133_llm_cerberus/results/category_type_theory_reviewer.json",
-      "source_finding_hash": "3a1497cc1a697653",
-      "source_finding_index": 1,
-      "theme": "claim_boundary",
-      "severity": "HIGH",
-      "attacked_claim": "Current `claim_boundary` surface for `claims/CLAIM_LEDGER_1_3_3.json` must satisfy `public claim is bounded to theorem/proof/finite/falsifier evidence`; stale source finding hash `3a1497cc1a697653` is retained only as an audit key.",
-      "artifact_location": "claims/CLAIM_LEDGER_1_3_3.json",
-      "objection": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `claim_boundary`. Source finding hash `3a1497cc1a697653` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `claim_boundary`. Source finding hash `3a1497cc1a697653` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `category_type_theory_reviewer` Cerberus run no longer reports source finding hash `3a1497cc1a697653` as critical/high open; verify by `public claim is bounded to theorem/proof/finite/falsifier evidence`.",
-      "closure_type": "cerberus_finding_bound_specific_artifact_field",
-      "closure_evidence_refs": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "closure_verification_query": "public claim is bounded to theorem/proof/finite/falsifier evidence",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/category_type_theory_reviewer.json and bound to: public claim is bounded to theorem/proof/finite/falsifier evidence. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
-      "status": "OPEN_PENDING_REPAIR",
-      "no_send": true
-    },
-    {
-      "objection_id": "CERBERUS-002-category_type_theory_reviewer",
-      "source": "llm_cerberus",
-      "source_result_ref": "reviews/oc133_llm_cerberus/results/category_type_theory_reviewer.json",
-      "source_finding_hash": "3d7044c244e88288",
-      "source_finding_index": 2,
-      "theme": "claim_boundary",
-      "severity": "HIGH",
-      "attacked_claim": "Current `claim_boundary` surface for `claims/CLAIM_LEDGER_1_3_3.json` must satisfy `public claim is bounded to theorem/proof/finite/falsifier evidence`; stale source finding hash `3d7044c244e88288` is retained only as an audit key.",
-      "artifact_location": "claims/CLAIM_LEDGER_1_3_3.json",
-      "objection": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `claim_boundary`. Source finding hash `3d7044c244e88288` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `claim_boundary`. Source finding hash `3d7044c244e88288` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `category_type_theory_reviewer` Cerberus run no longer reports source finding hash `3d7044c244e88288` as critical/high open; verify by `public claim is bounded to theorem/proof/finite/falsifier evidence`.",
-      "closure_type": "cerberus_finding_bound_specific_artifact_field",
-      "closure_evidence_refs": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "closure_verification_query": "public claim is bounded to theorem/proof/finite/falsifier evidence",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/category_type_theory_reviewer.json and bound to: public claim is bounded to theorem/proof/finite/falsifier evidence. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
-      "status": "OPEN_PENDING_REPAIR",
-      "no_send": true
-    },
-    {
-      "objection_id": "CERBERUS-003-clarity_didactic_reviewer",
+      "objection_id": "CERBERUS-001-clarity_didactic_reviewer",
       "source": "llm_cerberus",
       "source_result_ref": "reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json",
-      "source_finding_hash": "8eefe29c8c81ca49",
+      "source_finding_hash": "64443db9372f2e66",
       "source_finding_index": 1,
-      "theme": "attack_matrix_binding",
+      "theme": "minimality_semantics",
       "severity": "HIGH",
-      "attacked_claim": "Current `attack_matrix_binding` surface for `docs/OC_1_3_3_HOSTILE_READER_GUIDE.md` must satisfy `attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations`; stale source finding hash `8eefe29c8c81ca49` is retained only as an audit key.",
-      "artifact_location": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-      "objection": "Open HIGH Cerberus finding against `docs/OC_1_3_3_HOSTILE_READER_GUIDE.md` under normalized theme `attack_matrix_binding`. Source finding hash `8eefe29c8c81ca49` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `docs/OC_1_3_3_HOSTILE_READER_GUIDE.md` under normalized theme `attack_matrix_binding`. Source finding hash `8eefe29c8c81ca49` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `clarity_didactic_reviewer` Cerberus run no longer reports source finding hash `8eefe29c8c81ca49` as critical/high open; verify by `attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations`.",
+      "attacked_claim": "Current `minimality_semantics` surface for `docs/OC_1_3_3_HOSTILE_ROUTE_MAP.json` must satisfy `each tuple component has one-field keep/drop witness and FM-MIN-* case`; stale source finding hash `64443db9372f2e66` is retained only as an audit key.",
+      "artifact_location": "docs/OC_1_3_3_HOSTILE_ROUTE_MAP.json",
+      "objection": "Open HIGH Cerberus finding against `docs/OC_1_3_3_HOSTILE_ROUTE_MAP.json` under normalized theme `minimality_semantics`. Source finding hash `64443db9372f2e66` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `docs/OC_1_3_3_HOSTILE_ROUTE_MAP.json` under normalized theme `minimality_semantics`. Source finding hash `64443db9372f2e66` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `clarity_didactic_reviewer` Cerberus run no longer reports source finding hash `64443db9372f2e66` as critical/high open; verify by `each tuple component has one-field keep/drop witness and FM-MIN-* case`.",
       "closure_type": "cerberus_finding_bound_specific_artifact_field",
       "closure_evidence_refs": [
-        "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-        "reviews/oc133_llm_cerberus/repair/OC133_CERBERUS_REPAIR_WORK_ORDERS.json"
+        "formal/lean/OC133V12.lean",
+        "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
       ],
-      "closure_verification_query": "attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json and bound to: attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "closure_verification_query": "each tuple component has one-field keep/drop witness and FM-MIN-* case",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json and bound to: each tuple component has one-field keep/drop witness and FM-MIN-* case. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
       "status": "OPEN_PENDING_REPAIR",
       "no_send": true
     },
     {
-      "objection_id": "CERBERUS-004-clarity_didactic_reviewer",
+      "objection_id": "CERBERUS-002-clarity_didactic_reviewer",
       "source": "llm_cerberus",
       "source_result_ref": "reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json",
-      "source_finding_hash": "296549b0e572dceb",
+      "source_finding_hash": "2b740eea072a02de",
       "source_finding_index": 2,
-      "theme": "phenomenon_model_card",
+      "theme": "klevel_semantics",
       "severity": "HIGH",
-      "attacked_claim": "Current `phenomenon_model_card` surface for `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` must satisfy `each model_card names prediction_or_replay, negative_control, evidence_refs, and falsifier`; stale source finding hash `296549b0e572dceb` is retained only as an audit key.",
-      "artifact_location": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "objection": "Open HIGH Cerberus finding against `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` under normalized theme `phenomenon_model_card`. Source finding hash `296549b0e572dceb` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` under normalized theme `phenomenon_model_card`. Source finding hash `296549b0e572dceb` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `clarity_didactic_reviewer` Cerberus run no longer reports source finding hash `296549b0e572dceb` as critical/high open; verify by `each model_card names prediction_or_replay, negative_control, evidence_refs, and falsifier`.",
+      "attacked_claim": "Current `klevel_semantics` surface for `docs/OC_1_3_3_HOSTILE_ROUTE_MAP.json` must satisfy `every adjacent K row has retained and demotion finite cases plus Lean atlas constructor`; stale source finding hash `2b740eea072a02de` is retained only as an audit key.",
+      "artifact_location": "docs/OC_1_3_3_HOSTILE_ROUTE_MAP.json",
+      "objection": "Open HIGH Cerberus finding against `docs/OC_1_3_3_HOSTILE_ROUTE_MAP.json` under normalized theme `klevel_semantics`. Source finding hash `2b740eea072a02de` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `docs/OC_1_3_3_HOSTILE_ROUTE_MAP.json` under normalized theme `klevel_semantics`. Source finding hash `2b740eea072a02de` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `clarity_didactic_reviewer` Cerberus run no longer reports source finding hash `2b740eea072a02de` as critical/high open; verify by `every adjacent K row has retained and demotion finite cases plus Lean atlas constructor`.",
       "closure_type": "cerberus_finding_bound_specific_artifact_field",
       "closure_evidence_refs": [
-        "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+        "formal/lean/OC133V12.lean",
+        "data/k_level_irreducibility_matrix.json",
         "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
       ],
-      "closure_verification_query": "each model_card names prediction_or_replay, negative_control, evidence_refs, and falsifier",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json and bound to: each model_card names prediction_or_replay, negative_control, evidence_refs, and falsifier. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "closure_verification_query": "every adjacent K row has retained and demotion finite cases plus Lean atlas constructor",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json and bound to: every adjacent K row has retained and demotion finite cases plus Lean atlas constructor. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "status": "OPEN_PENDING_REPAIR",
+      "no_send": true
+    },
+    {
+      "objection_id": "CERBERUS-003-dynamical_systems_reviewer",
+      "source": "llm_cerberus",
+      "source_result_ref": "reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json",
+      "source_finding_hash": "2a6162862b460f51",
+      "source_finding_index": 1,
+      "theme": "hybrid_operator_semantics",
+      "severity": "HIGH",
+      "attacked_claim": "Current `hybrid_operator_semantics` surface for `formal/lean/OC133V12.lean` must satisfy `integrated_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, pass-through, and proof/rewrite admission semantics`; stale source finding hash `2a6162862b460f51` is retained only as an audit key.",
+      "artifact_location": "formal/lean/OC133V12.lean",
+      "objection": "Open HIGH Cerberus finding against `formal/lean/OC133V12.lean` under normalized theme `hybrid_operator_semantics`. Source finding hash `2a6162862b460f51` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `formal/lean/OC133V12.lean` under normalized theme `hybrid_operator_semantics`. Source finding hash `2a6162862b460f51` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `dynamical_systems_reviewer` Cerberus run no longer reports source finding hash `2a6162862b460f51` as critical/high open; verify by `integrated_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, pass-through, and proof/rewrite admission semantics`.",
+      "closure_type": "cerberus_finding_bound_specific_artifact_field",
+      "closure_evidence_refs": [
+        "formal/lean/OC133V12.lean",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "content/OC_1_3_3_OPERATOR_SEMANTICS.tex"
+      ],
+      "closure_verification_query": "integrated_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, pass-through, and proof/rewrite admission semantics",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json and bound to: integrated_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, pass-through, and proof/rewrite admission semantics. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "status": "OPEN_PENDING_REPAIR",
+      "no_send": true
+    },
+    {
+      "objection_id": "CERBERUS-004-dynamical_systems_reviewer",
+      "source": "llm_cerberus",
+      "source_result_ref": "reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json",
+      "source_finding_hash": "51b8be050ef7c9c3",
+      "source_finding_index": 2,
+      "theme": "hybrid_operator_semantics",
+      "severity": "HIGH",
+      "attacked_claim": "Current `hybrid_operator_semantics` surface for `formal/lean/OC133V12.lean` must satisfy `integrated_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, pass-through, and proof/rewrite admission semantics`; stale source finding hash `51b8be050ef7c9c3` is retained only as an audit key.",
+      "artifact_location": "formal/lean/OC133V12.lean",
+      "objection": "Open HIGH Cerberus finding against `formal/lean/OC133V12.lean` under normalized theme `hybrid_operator_semantics`. Source finding hash `51b8be050ef7c9c3` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `formal/lean/OC133V12.lean` under normalized theme `hybrid_operator_semantics`. Source finding hash `51b8be050ef7c9c3` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `dynamical_systems_reviewer` Cerberus run no longer reports source finding hash `51b8be050ef7c9c3` as critical/high open; verify by `integrated_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, pass-through, and proof/rewrite admission semantics`.",
+      "closure_type": "cerberus_finding_bound_specific_artifact_field",
+      "closure_evidence_refs": [
+        "formal/lean/OC133V12.lean",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "content/OC_1_3_3_OPERATOR_SEMANTICS.tex"
+      ],
+      "closure_verification_query": "integrated_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, pass-through, and proof/rewrite admission semantics",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json and bound to: integrated_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, pass-through, and proof/rewrite admission semantics. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
       "status": "OPEN_PENDING_REPAIR",
       "no_send": true
     },
@@ -116,23 +120,22 @@
       "objection_id": "CERBERUS-005-dynamical_systems_reviewer",
       "source": "llm_cerberus",
       "source_result_ref": "reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json",
-      "source_finding_hash": "15c90dbb0a3afaa0",
-      "source_finding_index": 1,
-      "theme": "hybrid_operator_semantics",
+      "source_finding_hash": "7bda55f3fa42c924",
+      "source_finding_index": 3,
+      "theme": "no_send_parity",
       "severity": "HIGH",
-      "attacked_claim": "Current `hybrid_operator_semantics` surface for `formal/lean/OC133V12.lean` must satisfy `operator_admission_route_obligations plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, and proof/rewrite admission semantics`; stale source finding hash `15c90dbb0a3afaa0` is retained only as an audit key.",
-      "artifact_location": "formal/lean/OC133V12.lean",
-      "objection": "Open HIGH Cerberus finding against `formal/lean/OC133V12.lean` under normalized theme `hybrid_operator_semantics`. Source finding hash `15c90dbb0a3afaa0` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `formal/lean/OC133V12.lean` under normalized theme `hybrid_operator_semantics`. Source finding hash `15c90dbb0a3afaa0` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `dynamical_systems_reviewer` Cerberus run no longer reports source finding hash `15c90dbb0a3afaa0` as critical/high open; verify by `operator_admission_route_obligations plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, and proof/rewrite admission semantics`.",
+      "attacked_claim": "Current `no_send_parity` surface for `proofs/finite_model_checks/run_finite_model_checks.py` must satisfy `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`; stale source finding hash `7bda55f3fa42c924` is retained only as an audit key.",
+      "artifact_location": "proofs/finite_model_checks/run_finite_model_checks.py",
+      "objection": "Open HIGH Cerberus finding against `proofs/finite_model_checks/run_finite_model_checks.py` under normalized theme `no_send_parity`. Source finding hash `7bda55f3fa42c924` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `proofs/finite_model_checks/run_finite_model_checks.py` under normalized theme `no_send_parity`. Source finding hash `7bda55f3fa42c924` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `dynamical_systems_reviewer` Cerberus run no longer reports source finding hash `7bda55f3fa42c924` as critical/high open; verify by `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`.",
       "closure_type": "cerberus_finding_bound_specific_artifact_field",
       "closure_evidence_refs": [
-        "formal/lean/OC133V12.lean",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-        "content/OC_1_3_3_OPERATOR_SEMANTICS.tex"
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
       ],
-      "closure_verification_query": "operator_admission_route_obligations plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, and proof/rewrite admission semantics",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json and bound to: operator_admission_route_obligations plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, and proof/rewrite admission semantics. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "closure_verification_query": "ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json and bound to: ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
       "status": "OPEN_PENDING_REPAIR",
       "no_send": true
     },
@@ -140,15 +143,15 @@
       "objection_id": "CERBERUS-006-empirical_statistician",
       "source": "llm_cerberus",
       "source_result_ref": "reviews/oc133_llm_cerberus/results/empirical_statistician.json",
-      "source_finding_hash": "889fb61844057632",
+      "source_finding_hash": "a5eec09c7928adbe",
       "source_finding_index": 1,
       "theme": "claim_boundary",
       "severity": "HIGH",
-      "attacked_claim": "Current `claim_boundary` surface for `reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json` must satisfy `public claim is bounded to theorem/proof/finite/falsifier evidence`; stale source finding hash `889fb61844057632` is retained only as an audit key.",
+      "attacked_claim": "Current `claim_boundary` surface for `reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json` must satisfy `public claim is bounded to theorem/proof/finite/falsifier evidence`; stale source finding hash `a5eec09c7928adbe` is retained only as an audit key.",
       "artifact_location": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
-      "objection": "Open HIGH Cerberus finding against `reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json` under normalized theme `claim_boundary`. Source finding hash `889fb61844057632` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json` under normalized theme `claim_boundary`. Source finding hash `889fb61844057632` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `empirical_statistician` Cerberus run no longer reports source finding hash `889fb61844057632` as critical/high open; verify by `public claim is bounded to theorem/proof/finite/falsifier evidence`.",
+      "objection": "Open HIGH Cerberus finding against `reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json` under normalized theme `claim_boundary`. Source finding hash `a5eec09c7928adbe` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json` under normalized theme `claim_boundary`. Source finding hash `a5eec09c7928adbe` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `empirical_statistician` Cerberus run no longer reports source finding hash `a5eec09c7928adbe` as critical/high open; verify by `public claim is bounded to theorem/proof/finite/falsifier evidence`.",
       "closure_type": "cerberus_finding_bound_specific_artifact_field",
       "closure_evidence_refs": [
         "claims/CLAIM_LEDGER_1_3_3.json",
@@ -160,111 +163,180 @@
       "no_send": true
     },
     {
-      "objection_id": "CERBERUS-007-empirical_statistician",
+      "objection_id": "CERBERUS-007-formal_mathematician",
       "source": "llm_cerberus",
-      "source_result_ref": "reviews/oc133_llm_cerberus/results/empirical_statistician.json",
-      "source_finding_hash": "1379ee40382541e7",
-      "source_finding_index": 2,
-      "theme": "empirical_quarantine",
-      "severity": "HIGH",
-      "attacked_claim": "Current `empirical_quarantine` surface for `validation/run_all.py` must satisfy `prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false`; stale source finding hash `1379ee40382541e7` is retained only as an audit key.",
-      "artifact_location": "validation/run_all.py",
-      "objection": "Open HIGH Cerberus finding against `validation/run_all.py` under normalized theme `empirical_quarantine`. Source finding hash `1379ee40382541e7` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `validation/run_all.py` under normalized theme `empirical_quarantine`. Source finding hash `1379ee40382541e7` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `empirical_statistician` Cerberus run no longer reports source finding hash `1379ee40382541e7` as critical/high open; verify by `prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false`.",
-      "closure_type": "cerberus_finding_bound_specific_artifact_field",
-      "closure_evidence_refs": [
-        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
-        "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json"
-      ],
-      "closure_verification_query": "prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/empirical_statistician.json and bound to: prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
-      "status": "OPEN_PENDING_REPAIR",
-      "no_send": true
-    },
-    {
-      "objection_id": "CERBERUS-008-hostile_journal_reviewer",
-      "source": "llm_cerberus",
-      "source_result_ref": "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
-      "source_finding_hash": "82112e7812d5bcfe",
+      "source_result_ref": "reviews/oc133_llm_cerberus/results/formal_mathematician.json",
+      "source_finding_hash": "dc2e0050a0d92f3a",
       "source_finding_index": 1,
-      "theme": "minimality_semantics",
+      "theme": "hybrid_operator_semantics",
       "severity": "HIGH",
-      "attacked_claim": "Current `minimality_semantics` surface for `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` must satisfy `each tuple component has one-field keep/drop witness and FM-MIN-* case`; stale source finding hash `82112e7812d5bcfe` is retained only as an audit key.",
-      "artifact_location": "reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "objection": "Open HIGH Cerberus finding against `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` under normalized theme `minimality_semantics`. Source finding hash `82112e7812d5bcfe` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` under normalized theme `minimality_semantics`. Source finding hash `82112e7812d5bcfe` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `82112e7812d5bcfe` as critical/high open; verify by `each tuple component has one-field keep/drop witness and FM-MIN-* case`.",
+      "attacked_claim": "Current `hybrid_operator_semantics` surface for `formal/lean/OC133V12.lean` must satisfy `integrated_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, pass-through, and proof/rewrite admission semantics`; stale source finding hash `dc2e0050a0d92f3a` is retained only as an audit key.",
+      "artifact_location": "formal/lean/OC133V12.lean",
+      "objection": "Open HIGH Cerberus finding against `formal/lean/OC133V12.lean` under normalized theme `hybrid_operator_semantics`. Source finding hash `dc2e0050a0d92f3a` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `formal/lean/OC133V12.lean` under normalized theme `hybrid_operator_semantics`. Source finding hash `dc2e0050a0d92f3a` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `formal_mathematician` Cerberus run no longer reports source finding hash `dc2e0050a0d92f3a` as critical/high open; verify by `integrated_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, pass-through, and proof/rewrite admission semantics`.",
       "closure_type": "cerberus_finding_bound_specific_artifact_field",
       "closure_evidence_refs": [
         "formal/lean/OC133V12.lean",
-        "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "content/OC_1_3_3_OPERATOR_SEMANTICS.tex"
       ],
-      "closure_verification_query": "each tuple component has one-field keep/drop witness and FM-MIN-* case",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json and bound to: each tuple component has one-field keep/drop witness and FM-MIN-* case. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "closure_verification_query": "integrated_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, pass-through, and proof/rewrite admission semantics",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/formal_mathematician.json and bound to: integrated_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, FM-T133-HYBRID-NO-GUARD-STEP-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, pass-through, and proof/rewrite admission semantics. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
       "status": "OPEN_PENDING_REPAIR",
       "no_send": true
     },
     {
-      "objection_id": "CERBERUS-009-not_novel_attacker",
+      "objection_id": "CERBERUS-008-formal_mathematician",
       "source": "llm_cerberus",
-      "source_result_ref": "reviews/oc133_llm_cerberus/results/not_novel_attacker.json",
-      "source_finding_hash": "949548810cbdbcf5",
+      "source_result_ref": "reviews/oc133_llm_cerberus/results/formal_mathematician.json",
+      "source_finding_hash": "b0bbb37b75eaa437",
+      "source_finding_index": 2,
+      "theme": "claim_boundary",
+      "severity": "HIGH",
+      "attacked_claim": "Current `claim_boundary` surface for `formal/lean/OC133V12.lean` must satisfy `public claim is bounded to theorem/proof/finite/falsifier evidence`; stale source finding hash `b0bbb37b75eaa437` is retained only as an audit key.",
+      "artifact_location": "formal/lean/OC133V12.lean",
+      "objection": "Open HIGH Cerberus finding against `formal/lean/OC133V12.lean` under normalized theme `claim_boundary`. Source finding hash `b0bbb37b75eaa437` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `formal/lean/OC133V12.lean` under normalized theme `claim_boundary`. Source finding hash `b0bbb37b75eaa437` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `formal_mathematician` Cerberus run no longer reports source finding hash `b0bbb37b75eaa437` as critical/high open; verify by `public claim is bounded to theorem/proof/finite/falsifier evidence`.",
+      "closure_type": "cerberus_finding_bound_specific_artifact_field",
+      "closure_evidence_refs": [
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
+      ],
+      "closure_verification_query": "public claim is bounded to theorem/proof/finite/falsifier evidence",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/formal_mathematician.json and bound to: public claim is bounded to theorem/proof/finite/falsifier evidence. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "status": "OPEN_PENDING_REPAIR",
+      "no_send": true
+    },
+    {
+      "objection_id": "CERBERUS-009-hostile_journal_reviewer",
+      "source": "llm_cerberus",
+      "source_result_ref": "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
+      "source_finding_hash": "7e2b75a60806e6a2",
+      "source_finding_index": 1,
+      "theme": "attack_matrix_binding",
+      "severity": "HIGH",
+      "attacked_claim": "Current `attack_matrix_binding` surface for `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` must satisfy `attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations`; stale source finding hash `7e2b75a60806e6a2` is retained only as an audit key.",
+      "artifact_location": "reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "objection": "Open HIGH Cerberus finding against `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` under normalized theme `attack_matrix_binding`. Source finding hash `7e2b75a60806e6a2` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` under normalized theme `attack_matrix_binding`. Source finding hash `7e2b75a60806e6a2` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `7e2b75a60806e6a2` as critical/high open; verify by `attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations`.",
+      "closure_type": "cerberus_finding_bound_specific_artifact_field",
+      "closure_evidence_refs": [
+        "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+        "reviews/oc133_llm_cerberus/repair/OC133_CERBERUS_REPAIR_WORK_ORDERS.json"
+      ],
+      "closure_verification_query": "attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json and bound to: attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "status": "OPEN_PENDING_REPAIR",
+      "no_send": true
+    },
+    {
+      "objection_id": "CERBERUS-010-hostile_journal_reviewer",
+      "source": "llm_cerberus",
+      "source_result_ref": "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
+      "source_finding_hash": "7512935d0edf91d6",
+      "source_finding_index": 2,
+      "theme": "attack_matrix_binding",
+      "severity": "HIGH",
+      "attacked_claim": "Current `attack_matrix_binding` surface for `claims/CLAIM_LEDGER_1_3_3.json` must satisfy `attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations`; stale source finding hash `7512935d0edf91d6` is retained only as an audit key.",
+      "artifact_location": "claims/CLAIM_LEDGER_1_3_3.json",
+      "objection": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `attack_matrix_binding`. Source finding hash `7512935d0edf91d6` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `attack_matrix_binding`. Source finding hash `7512935d0edf91d6` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `7512935d0edf91d6` as critical/high open; verify by `attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations`.",
+      "closure_type": "cerberus_finding_bound_specific_artifact_field",
+      "closure_evidence_refs": [
+        "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+        "reviews/oc133_llm_cerberus/repair/OC133_CERBERUS_REPAIR_WORK_ORDERS.json"
+      ],
+      "closure_verification_query": "attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json and bound to: attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "status": "OPEN_PENDING_REPAIR",
+      "no_send": true
+    },
+    {
+      "objection_id": "CERBERUS-011-hostile_journal_reviewer",
+      "source": "llm_cerberus",
+      "source_result_ref": "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
+      "source_finding_hash": "136289a990841f70",
+      "source_finding_index": 3,
+      "theme": "phenomenon_model_card",
+      "severity": "HIGH",
+      "attacked_claim": "Current `phenomenon_model_card` surface for `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` must satisfy `each model_card names prediction_or_replay, negative_control, evidence_refs, and falsifier`; stale source finding hash `136289a990841f70` is retained only as an audit key.",
+      "artifact_location": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "objection": "Open HIGH Cerberus finding against `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` under normalized theme `phenomenon_model_card`. Source finding hash `136289a990841f70` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` under normalized theme `phenomenon_model_card`. Source finding hash `136289a990841f70` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `136289a990841f70` as critical/high open; verify by `each model_card names prediction_or_replay, negative_control, evidence_refs, and falsifier`.",
+      "closure_type": "cerberus_finding_bound_specific_artifact_field",
+      "closure_evidence_refs": [
+        "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
+      ],
+      "closure_verification_query": "each model_card names prediction_or_replay, negative_control, evidence_refs, and falsifier",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json and bound to: each model_card names prediction_or_replay, negative_control, evidence_refs, and falsifier. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "status": "OPEN_PENDING_REPAIR",
+      "no_send": true
+    },
+    {
+      "objection_id": "CERBERUS-012-prior_art_historian",
+      "source": "llm_cerberus",
+      "source_result_ref": "reviews/oc133_llm_cerberus/results/prior_art_historian.json",
+      "source_finding_hash": "15c74a56176a37f8",
       "source_finding_index": 1,
       "theme": "formal_k0",
       "severity": "HIGH",
-      "attacked_claim": "Current `formal_k0` surface for `claims/CLAIM_LEDGER_1_3_3.json` must satisfy `FM-T133-K0-RES-POS::raw_separated=true, resolution_distinguished=false, cross_resolution_distinguished=true`; stale source finding hash `949548810cbdbcf5` is retained only as an audit key.",
-      "artifact_location": "claims/CLAIM_LEDGER_1_3_3.json",
-      "objection": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `formal_k0`. Source finding hash `949548810cbdbcf5` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `formal_k0`. Source finding hash `949548810cbdbcf5` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `not_novel_attacker` Cerberus run no longer reports source finding hash `949548810cbdbcf5` as critical/high open; verify by `FM-T133-K0-RES-POS::raw_separated=true, resolution_distinguished=false, cross_resolution_distinguished=true`.",
+      "attacked_claim": "Current `formal_k0` surface for `claims/CLAIM_LEDGER_1_3_3.json; proofs/proof_sheets/T133-K0-RES.md; proofs/proof_sheets/T133-OMEGA-STATUS.md; proofs/proof_sheets/T133-K-ZERO.md; proofs/proof_sheets/T133-BOUNDARY.md; proofs/proof_sheets/T133-HYBRID.md; proofs/proof_sheets/T133-DIM.md; proofs/proof_sheets/T133-CYCLE.md; proofs/proof_sheets/T133-ID.md; proofs/proof_sheets/T133-MIN.md; proofs/proof_sheets/T133-KLEVEL.md` must satisfy `FM-T133-K0-RES-POS::raw_separated=true, resolution_distinguished=false, cross_resolution_distinguished=true`; stale source finding hash `15c74a56176a37f8` is retained only as an audit key.",
+      "artifact_location": "claims/CLAIM_LEDGER_1_3_3.json; proofs/proof_sheets/T133-K0-RES.md; proofs/proof_sheets/T133-OMEGA-STATUS.md; proofs/proof_sheets/T133-K-ZERO.md; proofs/proof_sheets/T133-BOUNDARY.md; proofs/proof_sheets/T133-HYBRID.md; proofs/proof_sheets/T133-DIM.md; proofs/proof_sheets/T133-CYCLE.md; proofs/proof_sheets/T133-ID.md; proofs/proof_sheets/T133-MIN.md; proofs/proof_sheets/T133-KLEVEL.md",
+      "objection": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json; proofs/proof_sheets/T133-K0-RES.md; proofs/proof_sheets/T133-OMEGA-STATUS.md; proofs/proof_sheets/T133-K-ZERO.md; proofs/proof_sheets/T133-BOUNDARY.md; proofs/proof_sheets/T133-HYBRID.md; proofs/proof_sheets/T133-DIM.md; proofs/proof_sheets/T133-CYCLE.md; proofs/proof_sheets/T133-ID.md; proofs/proof_sheets/T133-MIN.md; proofs/proof_sheets/T133-KLEVEL.md` under normalized theme `formal_k0`. Source finding hash `15c74a56176a37f8` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json; proofs/proof_sheets/T133-K0-RES.md; proofs/proof_sheets/T133-OMEGA-STATUS.md; proofs/proof_sheets/T133-K-ZERO.md; proofs/proof_sheets/T133-BOUNDARY.md; proofs/proof_sheets/T133-HYBRID.md; proofs/proof_sheets/T133-DIM.md; proofs/proof_sheets/T133-CYCLE.md; proofs/proof_sheets/T133-ID.md; proofs/proof_sheets/T133-MIN.md; proofs/proof_sheets/T133-KLEVEL.md` under normalized theme `formal_k0`. Source finding hash `15c74a56176a37f8` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `prior_art_historian` Cerberus run no longer reports source finding hash `15c74a56176a37f8` as critical/high open; verify by `FM-T133-K0-RES-POS::raw_separated=true, resolution_distinguished=false, cross_resolution_distinguished=true`.",
       "closure_type": "cerberus_finding_bound_specific_artifact_field",
       "closure_evidence_refs": [
         "formal/lean/OC133V12.lean",
         "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
       ],
       "closure_verification_query": "FM-T133-K0-RES-POS::raw_separated=true, resolution_distinguished=false, cross_resolution_distinguished=true",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/not_novel_attacker.json and bound to: FM-T133-K0-RES-POS::raw_separated=true, resolution_distinguished=false, cross_resolution_distinguished=true. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/prior_art_historian.json and bound to: FM-T133-K0-RES-POS::raw_separated=true, resolution_distinguished=false, cross_resolution_distinguished=true. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
       "status": "OPEN_PENDING_REPAIR",
       "no_send": true
     },
     {
-      "objection_id": "CERBERUS-010-not_novel_attacker",
+      "objection_id": "CERBERUS-013-prior_art_historian",
       "source": "llm_cerberus",
-      "source_result_ref": "reviews/oc133_llm_cerberus/results/not_novel_attacker.json",
-      "source_finding_hash": "cb110ca586668643",
+      "source_result_ref": "reviews/oc133_llm_cerberus/results/prior_art_historian.json",
+      "source_finding_hash": "05b7133ebb7adf4d",
       "source_finding_index": 2,
       "theme": "no_send_parity",
       "severity": "HIGH",
-      "attacked_claim": "Current `no_send_parity` surface for `claims/CLAIM_LEDGER_1_3_3.json` must satisfy `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`; stale source finding hash `cb110ca586668643` is retained only as an audit key.",
-      "artifact_location": "claims/CLAIM_LEDGER_1_3_3.json",
-      "objection": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `no_send_parity`. Source finding hash `cb110ca586668643` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `no_send_parity`. Source finding hash `cb110ca586668643` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `not_novel_attacker` Cerberus run no longer reports source finding hash `cb110ca586668643` as critical/high open; verify by `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`.",
+      "attacked_claim": "Current `no_send_parity` surface for `claims/CLAIM_LEDGER_1_3_3.json; reviews/oc133_llm_cerberus/repair/OC133_CERBERUS_REPAIR_WORK_ORDERS.json` must satisfy `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`; stale source finding hash `05b7133ebb7adf4d` is retained only as an audit key.",
+      "artifact_location": "claims/CLAIM_LEDGER_1_3_3.json; reviews/oc133_llm_cerberus/repair/OC133_CERBERUS_REPAIR_WORK_ORDERS.json",
+      "objection": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json; reviews/oc133_llm_cerberus/repair/OC133_CERBERUS_REPAIR_WORK_ORDERS.json` under normalized theme `no_send_parity`. Source finding hash `05b7133ebb7adf4d` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json; reviews/oc133_llm_cerberus/repair/OC133_CERBERUS_REPAIR_WORK_ORDERS.json` under normalized theme `no_send_parity`. Source finding hash `05b7133ebb7adf4d` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `prior_art_historian` Cerberus run no longer reports source finding hash `05b7133ebb7adf4d` as critical/high open; verify by `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`.",
       "closure_type": "cerberus_finding_bound_specific_artifact_field",
       "closure_evidence_refs": [
         "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
         "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
       ],
       "closure_verification_query": "ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/not_novel_attacker.json and bound to: ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/prior_art_historian.json and bound to: ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
       "status": "OPEN_PENDING_REPAIR",
       "no_send": true
     },
     {
-      "objection_id": "CERBERUS-011-public_surface_auditor",
+      "objection_id": "CERBERUS-014-public_surface_auditor",
       "source": "llm_cerberus",
       "source_result_ref": "reviews/oc133_llm_cerberus/results/public_surface_auditor.json",
-      "source_finding_hash": "ba5be108456ab39c",
+      "source_finding_hash": "28d71e1f1b9ec2c5",
       "source_finding_index": 1,
       "theme": "no_send_parity",
-      "severity": "HIGH",
-      "attacked_claim": "Current `no_send_parity` surface for `.zenodo.json` must satisfy `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`; stale source finding hash `ba5be108456ab39c` is retained only as an audit key.",
-      "artifact_location": ".zenodo.json",
-      "objection": "Open HIGH Cerberus finding against `.zenodo.json` under normalized theme `no_send_parity`. Source finding hash `ba5be108456ab39c` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `.zenodo.json` under normalized theme `no_send_parity`. Source finding hash `ba5be108456ab39c` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `public_surface_auditor` Cerberus run no longer reports source finding hash `ba5be108456ab39c` as critical/high open; verify by `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`.",
+      "severity": "CRITICAL",
+      "attacked_claim": "Current `no_send_parity` surface for `manifest.json` must satisfy `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`; stale source finding hash `28d71e1f1b9ec2c5` is retained only as an audit key.",
+      "artifact_location": "manifest.json",
+      "objection": "Open CRITICAL Cerberus finding against `manifest.json` under normalized theme `no_send_parity`. Source finding hash `28d71e1f1b9ec2c5` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open CRITICAL Cerberus finding against `manifest.json` under normalized theme `no_send_parity`. Source finding hash `28d71e1f1b9ec2c5` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `public_surface_auditor` Cerberus run no longer reports source finding hash `28d71e1f1b9ec2c5` as critical/high open; verify by `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`.",
       "closure_type": "cerberus_finding_bound_specific_artifact_field",
       "closure_evidence_refs": [
         "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
@@ -276,26 +348,118 @@
       "no_send": true
     },
     {
-      "objection_id": "CERBERUS-012-theorem_theater_auditor",
+      "objection_id": "CERBERUS-015-public_surface_auditor",
       "source": "llm_cerberus",
-      "source_result_ref": "reviews/oc133_llm_cerberus/results/theorem_theater_auditor.json",
-      "source_finding_hash": "b3c424e3a1236c47",
-      "source_finding_index": 1,
-      "theme": "klevel_semantics",
+      "source_result_ref": "reviews/oc133_llm_cerberus/results/public_surface_auditor.json",
+      "source_finding_hash": "a83c166d885dadaf",
+      "source_finding_index": 2,
+      "theme": "no_send_parity",
       "severity": "HIGH",
-      "attacked_claim": "Current `klevel_semantics` surface for `claims/CLAIM_LEDGER_1_3_3.json` must satisfy `every adjacent K row has retained and demotion finite cases plus Lean atlas constructor`; stale source finding hash `b3c424e3a1236c47` is retained only as an audit key.",
-      "artifact_location": "claims/CLAIM_LEDGER_1_3_3.json",
-      "objection": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `klevel_semantics`. Source finding hash `b3c424e3a1236c47` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `klevel_semantics`. Source finding hash `b3c424e3a1236c47` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `theorem_theater_auditor` Cerberus run no longer reports source finding hash `b3c424e3a1236c47` as critical/high open; verify by `every adjacent K row has retained and demotion finite cases plus Lean atlas constructor`.",
+      "attacked_claim": "Current `no_send_parity` surface for `checksums.txt` must satisfy `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`; stale source finding hash `a83c166d885dadaf` is retained only as an audit key.",
+      "artifact_location": "checksums.txt",
+      "objection": "Open HIGH Cerberus finding against `checksums.txt` under normalized theme `no_send_parity`. Source finding hash `a83c166d885dadaf` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `checksums.txt` under normalized theme `no_send_parity`. Source finding hash `a83c166d885dadaf` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `public_surface_auditor` Cerberus run no longer reports source finding hash `a83c166d885dadaf` as critical/high open; verify by `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`.",
+      "closure_type": "cerberus_finding_bound_specific_artifact_field",
+      "closure_evidence_refs": [
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
+      ],
+      "closure_verification_query": "ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/public_surface_auditor.json and bound to: ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "status": "OPEN_PENDING_REPAIR",
+      "no_send": true
+    },
+    {
+      "objection_id": "CERBERUS-016-public_surface_auditor",
+      "source": "llm_cerberus",
+      "source_result_ref": "reviews/oc133_llm_cerberus/results/public_surface_auditor.json",
+      "source_finding_hash": "c70ac866f9e0e423",
+      "source_finding_index": 3,
+      "theme": "no_send_parity",
+      "severity": "HIGH",
+      "attacked_claim": "Current `no_send_parity` surface for `.zenodo.json` must satisfy `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`; stale source finding hash `c70ac866f9e0e423` is retained only as an audit key.",
+      "artifact_location": ".zenodo.json",
+      "objection": "Open HIGH Cerberus finding against `.zenodo.json` under normalized theme `no_send_parity`. Source finding hash `c70ac866f9e0e423` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `.zenodo.json` under normalized theme `no_send_parity`. Source finding hash `c70ac866f9e0e423` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `public_surface_auditor` Cerberus run no longer reports source finding hash `c70ac866f9e0e423` as critical/high open; verify by `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`.",
+      "closure_type": "cerberus_finding_bound_specific_artifact_field",
+      "closure_evidence_refs": [
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
+      ],
+      "closure_verification_query": "ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/public_surface_auditor.json and bound to: ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "status": "OPEN_PENDING_REPAIR",
+      "no_send": true
+    },
+    {
+      "objection_id": "CERBERUS-017-public_surface_auditor",
+      "source": "llm_cerberus",
+      "source_result_ref": "reviews/oc133_llm_cerberus/results/public_surface_auditor.json",
+      "source_finding_hash": "802ae5a0b5d6c87f",
+      "source_finding_index": 4,
+      "theme": "no_send_parity",
+      "severity": "HIGH",
+      "attacked_claim": "Current `no_send_parity` surface for `ro-crate-metadata.jsonld` must satisfy `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`; stale source finding hash `802ae5a0b5d6c87f` is retained only as an audit key.",
+      "artifact_location": "ro-crate-metadata.jsonld",
+      "objection": "Open HIGH Cerberus finding against `ro-crate-metadata.jsonld` under normalized theme `no_send_parity`. Source finding hash `802ae5a0b5d6c87f` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `ro-crate-metadata.jsonld` under normalized theme `no_send_parity`. Source finding hash `802ae5a0b5d6c87f` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `public_surface_auditor` Cerberus run no longer reports source finding hash `802ae5a0b5d6c87f` as critical/high open; verify by `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`.",
+      "closure_type": "cerberus_finding_bound_specific_artifact_field",
+      "closure_evidence_refs": [
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
+      ],
+      "closure_verification_query": "ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/public_surface_auditor.json and bound to: ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "status": "OPEN_PENDING_REPAIR",
+      "no_send": true
+    },
+    {
+      "objection_id": "CERBERUS-018-public_surface_auditor",
+      "source": "llm_cerberus",
+      "source_result_ref": "reviews/oc133_llm_cerberus/results/public_surface_auditor.json",
+      "source_finding_hash": "0b32eac3bc220f59",
+      "source_finding_index": 5,
+      "theme": "no_send_parity",
+      "severity": "HIGH",
+      "attacked_claim": "Current `no_send_parity` surface for `proofs/FINITE_MODEL_CHECKS_1_3_3.json` must satisfy `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`; stale source finding hash `0b32eac3bc220f59` is retained only as an audit key.",
+      "artifact_location": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+      "objection": "Open HIGH Cerberus finding against `proofs/FINITE_MODEL_CHECKS_1_3_3.json` under normalized theme `no_send_parity`. Source finding hash `0b32eac3bc220f59` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `proofs/FINITE_MODEL_CHECKS_1_3_3.json` under normalized theme `no_send_parity`. Source finding hash `0b32eac3bc220f59` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `public_surface_auditor` Cerberus run no longer reports source finding hash `0b32eac3bc220f59` as critical/high open; verify by `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`.",
+      "closure_type": "cerberus_finding_bound_specific_artifact_field",
+      "closure_evidence_refs": [
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
+      ],
+      "closure_verification_query": "ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/public_surface_auditor.json and bound to: ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "status": "OPEN_PENDING_REPAIR",
+      "no_send": true
+    },
+    {
+      "objection_id": "CERBERUS-019-reproducibility_auditor",
+      "source": "llm_cerberus",
+      "source_result_ref": "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json",
+      "source_finding_hash": "5a90c4af08a7b4df",
+      "source_finding_index": 1,
+      "theme": "minimality_semantics",
+      "severity": "HIGH",
+      "attacked_claim": "Current `minimality_semantics` surface for `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` must satisfy `each tuple component has one-field keep/drop witness and FM-MIN-* case`; stale source finding hash `5a90c4af08a7b4df` is retained only as an audit key.",
+      "artifact_location": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
+      "objection": "Open HIGH Cerberus finding against `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` under normalized theme `minimality_semantics`. Source finding hash `5a90c4af08a7b4df` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` under normalized theme `minimality_semantics`. Source finding hash `5a90c4af08a7b4df` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `reproducibility_auditor` Cerberus run no longer reports source finding hash `5a90c4af08a7b4df` as critical/high open; verify by `each tuple component has one-field keep/drop witness and FM-MIN-* case`.",
       "closure_type": "cerberus_finding_bound_specific_artifact_field",
       "closure_evidence_refs": [
         "formal/lean/OC133V12.lean",
-        "data/k_level_irreducibility_matrix.json",
+        "data/OC133_GLOBAL_MINIMALITY_WITNESSES.json",
         "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
       ],
-      "closure_verification_query": "every adjacent K row has retained and demotion finite cases plus Lean atlas constructor",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/theorem_theater_auditor.json and bound to: every adjacent K row has retained and demotion finite cases plus Lean atlas constructor. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "closure_verification_query": "each tuple component has one-field keep/drop witness and FM-MIN-* case",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/reproducibility_auditor.json and bound to: each tuple component has one-field keep/drop witness and FM-MIN-* case. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
       "status": "OPEN_PENDING_REPAIR",
       "no_send": true
     },
@@ -1114,8 +1278,8 @@
         "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
         "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
       ],
-      "closure_verification_query": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json::operator_admission_route_obligations present and lake build returncode=0",
-      "closure_evidence": "T133-HYBRID is checked by formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json::operator_admission_route_obligations present and lake build returncode=0.",
+      "closure_verification_query": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json::integrated_operator_semantics present and lake build returncode=0",
+      "closure_evidence": "T133-HYBRID is checked by formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json::integrated_operator_semantics present and lake build returncode=0.",
       "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
       "no_send": true
     },
@@ -3925,27 +4089,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -4053,27 +4217,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -4180,27 +4344,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -4308,27 +4472,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -4435,27 +4599,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -4563,27 +4727,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -4690,31 +4854,31 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/proof_sheets/T133-K0-RES.md",
@@ -4843,27 +5007,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -4971,27 +5135,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -5099,27 +5263,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -5227,27 +5391,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -5355,27 +5519,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -5482,27 +5646,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -5610,27 +5774,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -5737,27 +5901,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -5865,27 +6029,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -5988,7 +6152,7 @@
       "closure_current_artifact_hashes": [
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
@@ -5996,27 +6160,27 @@
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/proof_sheets/T133-OMEGA-STATUS.md",
@@ -6145,27 +6309,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -6273,27 +6437,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -6401,27 +6565,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -6529,27 +6693,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -6657,27 +6821,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -6784,27 +6948,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -6912,27 +7076,27 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
+          "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
+          "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
+          "sha256": "45bed748519753a22cf258fefc681ff9b9abba2c47ad2561a608bec83b34f447"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
+          "sha256": "4f58d40a2fafcbbadedbd8659e487417ba3690af7b4a5a123db7fd54a883bcc9"
         }
       ],
       "closure_observed_case_results": [
@@ -6997,926 +7161,6 @@
         "case_set_named_for_predicate": [
           "FM-T133-K-ZERO-NEG",
           "FM-T133-K-ZERO-POS"
-        ],
-        "vector_specific_predicate_pass": true,
-        "closure_predicate_pass": true
-      },
-      "closure_predicate_pass": true,
-      "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
-    },
-    {
-      "objection_id": "DET-MATRIX-025-T133-K-ZERO-DEPENDENCY",
-      "source": "deterministic_attack_register",
-      "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "HIGH",
-      "attacked_claim": "T133-K-ZERO",
-      "artifact_location": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-      "objection": "T133-K-ZERO attack: Continuumness zero obstruction theorem: dependency refs could omit the load-bearing artifact.",
-      "failure_mode": "Continuumness zero obstruction theorem: dependency refs could omit the load-bearing artifact",
-      "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
-      "closure_type": "generated_distinct_attack_surface",
-      "closure_evidence_refs": [
-        "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-        "proofs/proof_sheets/T133-K-ZERO.md",
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "proofs/THEOREM_REGISTRY_1_3_3.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-POS",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-NEG",
-        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
-      ],
-      "closure_verification_query": "T133-K-ZERO/DEPENDENCY: theorem registry and theorem inventory contain T133-K-ZERO; FM-T133-K-ZERO-POS passed=true; FM-T133-K-ZERO-NEG passed=true",
-      "closure_evidence": "Observed current closure for `T133-K-ZERO/DEPENDENCY: theorem registry and theorem inventory contain T133-K-ZERO; FM-T133-K-ZERO-POS passed=true; FM-T133-K-ZERO-NEG passed=true`: 8 artifact hash(es), 2 finite/control case result(s), predicate_pass=true, verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
-      "closure_current_artifact_hashes": [
-        {
-          "ref": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-          "sha256": "2b0ab884e14b1f65c2a28495b90d568a9926c2dc13f665402a9905562d867cb3"
-        },
-        {
-          "ref": "proofs/proof_sheets/T133-K-ZERO.md",
-          "sha256": "be1e486982a7c1d7936b9171690972e22d4379a2610805cce481656b2d7e0950"
-        },
-        {
-          "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
-        },
-        {
-          "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
-        },
-        {
-          "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
-        },
-        {
-          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
-        },
-        {
-          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
-        },
-        {
-          "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
-        }
-      ],
-      "closure_observed_case_results": [
-        {
-          "case_id": "FM-T133-K-ZERO-NEG",
-          "passed": true,
-          "observed_verdict": "REJECT",
-          "observed_keep_verdict": null,
-          "observed_drop_verdict": null,
-          "observed_reduction_verdict": null
-        },
-        {
-          "case_id": "FM-T133-K-ZERO-POS",
-          "passed": true,
-          "observed_verdict": "ACCEPT",
-          "observed_keep_verdict": null,
-          "observed_drop_verdict": null,
-          "observed_reduction_verdict": null
-        }
-      ],
-      "closure_current_artifact_hash_total": 8,
-      "closure_observed_case_result_total": 2,
-      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
-      "closure_predicate_results": {
-        "matched_claim_id": "T133-K-ZERO",
-        "matched_theorem_id": "T133-K-ZERO",
-        "domain_key": "T133-K-ZERO",
-        "vector_id": "DEPENDENCY",
-        "dependency_refs": [
-          "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-          "proofs/proof_sheets/T133-K-ZERO.md",
-          "claims/CLAIM_LEDGER_1_3_3.json",
-          "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-POS",
-          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-NEG",
-          "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
-        ],
-        "query_case_ids": [
-          "FM-T133-K-ZERO-NEG",
-          "FM-T133-K-ZERO-POS"
-        ],
-        "matched_case_ids": [
-          "FM-T133-K-ZERO-NEG",
-          "FM-T133-K-ZERO-POS"
-        ],
-        "required_theorem_case_ids": [
-          "FM-T133-K-ZERO-POS",
-          "FM-T133-K-ZERO-NEG"
-        ],
-        "named_cases_observed": true,
-        "named_cases_passed": true,
-        "artifact_hashes_present": true,
-        "claim_ledger_match": true,
-        "claim_public_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
-        "claim_scientific_promotion_allowed": false,
-        "theorem_registry_match": true,
-        "theorem_inventory_match": true,
-        "proof_sheet_has_assumptions": true,
-        "proof_sheet_has_counterexample_boundary": true,
-        "hostile_reader_route_chain_present": true,
-        "falsifier_or_boundary_text_present": true,
-        "case_set_named_for_predicate": [
-          "FM-T133-K-ZERO-NEG",
-          "FM-T133-K-ZERO-POS"
-        ],
-        "vector_specific_predicate_pass": true,
-        "closure_predicate_pass": true
-      },
-      "closure_predicate_pass": true,
-      "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
-    },
-    {
-      "objection_id": "DET-MATRIX-026-T133-K-ZERO-REGENERATION",
-      "source": "deterministic_attack_register",
-      "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "HIGH",
-      "attacked_claim": "T133-K-ZERO",
-      "artifact_location": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-      "objection": "T133-K-ZERO attack: Continuumness zero obstruction theorem: materialization could drop or alter this row.",
-      "failure_mode": "Continuumness zero obstruction theorem: materialization could drop or alter this row",
-      "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
-      "closure_type": "generated_distinct_attack_surface",
-      "closure_evidence_refs": [
-        "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-        "proofs/proof_sheets/T133-K-ZERO.md",
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "proofs/THEOREM_REGISTRY_1_3_3.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-POS",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-NEG",
-        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
-      ],
-      "closure_verification_query": "T133-K-ZERO/REGENERATION: post-generation reproducibility manifest verdict=PASS; FM-T133-K-ZERO-POS passed=true; FM-T133-K-ZERO-NEG passed=true",
-      "closure_evidence": "Observed current closure for `T133-K-ZERO/REGENERATION: post-generation reproducibility manifest verdict=PASS; FM-T133-K-ZERO-POS passed=true; FM-T133-K-ZERO-NEG passed=true`: 8 artifact hash(es), 2 finite/control case result(s), predicate_pass=true, verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
-      "closure_current_artifact_hashes": [
-        {
-          "ref": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-          "sha256": "2b0ab884e14b1f65c2a28495b90d568a9926c2dc13f665402a9905562d867cb3"
-        },
-        {
-          "ref": "proofs/proof_sheets/T133-K-ZERO.md",
-          "sha256": "be1e486982a7c1d7936b9171690972e22d4379a2610805cce481656b2d7e0950"
-        },
-        {
-          "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
-        },
-        {
-          "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
-        },
-        {
-          "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
-        },
-        {
-          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
-        },
-        {
-          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
-        },
-        {
-          "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
-        }
-      ],
-      "closure_observed_case_results": [
-        {
-          "case_id": "FM-T133-K-ZERO-NEG",
-          "passed": true,
-          "observed_verdict": "REJECT",
-          "observed_keep_verdict": null,
-          "observed_drop_verdict": null,
-          "observed_reduction_verdict": null
-        },
-        {
-          "case_id": "FM-T133-K-ZERO-POS",
-          "passed": true,
-          "observed_verdict": "ACCEPT",
-          "observed_keep_verdict": null,
-          "observed_drop_verdict": null,
-          "observed_reduction_verdict": null
-        }
-      ],
-      "closure_current_artifact_hash_total": 8,
-      "closure_observed_case_result_total": 2,
-      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
-      "closure_predicate_results": {
-        "matched_claim_id": "T133-K-ZERO",
-        "matched_theorem_id": "T133-K-ZERO",
-        "domain_key": "T133-K-ZERO",
-        "vector_id": "REGENERATION",
-        "dependency_refs": [
-          "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-          "proofs/proof_sheets/T133-K-ZERO.md",
-          "claims/CLAIM_LEDGER_1_3_3.json",
-          "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-POS",
-          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-NEG",
-          "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
-        ],
-        "query_case_ids": [
-          "FM-T133-K-ZERO-NEG",
-          "FM-T133-K-ZERO-POS"
-        ],
-        "matched_case_ids": [
-          "FM-T133-K-ZERO-NEG",
-          "FM-T133-K-ZERO-POS"
-        ],
-        "required_theorem_case_ids": [
-          "FM-T133-K-ZERO-POS",
-          "FM-T133-K-ZERO-NEG"
-        ],
-        "named_cases_observed": true,
-        "named_cases_passed": true,
-        "artifact_hashes_present": true,
-        "claim_ledger_match": true,
-        "claim_public_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
-        "claim_scientific_promotion_allowed": false,
-        "theorem_registry_match": true,
-        "theorem_inventory_match": true,
-        "proof_sheet_has_assumptions": true,
-        "proof_sheet_has_counterexample_boundary": true,
-        "hostile_reader_route_chain_present": true,
-        "falsifier_or_boundary_text_present": true,
-        "case_set_named_for_predicate": [
-          "FM-T133-K-ZERO-NEG",
-          "FM-T133-K-ZERO-POS"
-        ],
-        "vector_specific_predicate_pass": true,
-        "closure_predicate_pass": true
-      },
-      "closure_predicate_pass": true,
-      "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
-    },
-    {
-      "objection_id": "DET-MATRIX-027-T133-K-ZERO-NO-SEND",
-      "source": "deterministic_attack_register",
-      "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "HIGH",
-      "attacked_claim": "T133-K-ZERO",
-      "artifact_location": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-      "objection": "T133-K-ZERO attack: Continuumness zero obstruction theorem: repair could accidentally enable a public action.",
-      "failure_mode": "Continuumness zero obstruction theorem: repair could accidentally enable a public action",
-      "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
-      "closure_type": "generated_distinct_attack_surface",
-      "closure_evidence_refs": [
-        "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::ADV-NOSEND-PUBLISH",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-NEG",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-POS",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/THEOREM_REGISTRY_1_3_3.json",
-        "proofs/proof_sheets/T133-K-ZERO.md",
-        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
-        "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json"
-      ],
-      "closure_verification_query": "T133-K-ZERO/NO-SEND: verify owner approval remains pending and all public-send channels stay false",
-      "closure_evidence": "Observed current closure for `T133-K-ZERO/NO-SEND: verify owner approval remains pending and all public-send channels stay false`: no-send closure is bound to owner approval decision=PENDING, publish_manifest.publish_allowed=false, and finite case ADV-NOSEND-PUBLISH passed=true.",
-      "closure_current_artifact_hashes": [
-        {
-          "ref": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-          "sha256": "2b0ab884e14b1f65c2a28495b90d568a9926c2dc13f665402a9905562d867cb3"
-        },
-        {
-          "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
-        },
-        {
-          "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
-        },
-        {
-          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
-        },
-        {
-          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
-        },
-        {
-          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
-        },
-        {
-          "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
-        },
-        {
-          "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
-        },
-        {
-          "ref": "proofs/proof_sheets/T133-K-ZERO.md",
-          "sha256": "be1e486982a7c1d7936b9171690972e22d4379a2610805cce481656b2d7e0950"
-        },
-        {
-          "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
-          "sha256": "62a254222ee8aa3591291d256aeb1b9f9860ce20fb65ef2c23e3696d791a65aa"
-        },
-        {
-          "ref": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
-          "sha256": "f6f4ae1d93633fed4935cb6b439d6ae034435e8d76179ef9e69946cc1e4198a3"
-        }
-      ],
-      "closure_observed_case_results": [
-        {
-          "case_id": "ADV-NOSEND-PUBLISH",
-          "passed": true,
-          "observed_verdict": "REJECT_PUBLIC_ACTION",
-          "observed_keep_verdict": null,
-          "observed_drop_verdict": null,
-          "observed_reduction_verdict": null
-        },
-        {
-          "case_id": "FM-T133-K-ZERO-NEG",
-          "passed": true,
-          "observed_verdict": "REJECT",
-          "observed_keep_verdict": null,
-          "observed_drop_verdict": null,
-          "observed_reduction_verdict": null
-        },
-        {
-          "case_id": "FM-T133-K-ZERO-POS",
-          "passed": true,
-          "observed_verdict": "ACCEPT",
-          "observed_keep_verdict": null,
-          "observed_drop_verdict": null,
-          "observed_reduction_verdict": null
-        }
-      ],
-      "closure_current_artifact_hash_total": 11,
-      "closure_observed_case_result_total": 3,
-      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
-      "closure_predicate_results": {
-        "matched_claim_id": "T133-K-ZERO",
-        "matched_theorem_id": "T133-K-ZERO",
-        "domain_key": "T133-K-ZERO",
-        "vector_id": "NO-SEND",
-        "dependency_refs": [
-          "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-          "claims/CLAIM_LEDGER_1_3_3.json",
-          "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::ADV-NOSEND-PUBLISH",
-          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-NEG",
-          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-POS",
-          "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "proofs/proof_sheets/T133-K-ZERO.md",
-          "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
-          "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json"
-        ],
-        "query_case_ids": [],
-        "matched_case_ids": [
-          "ADV-NOSEND-PUBLISH",
-          "FM-T133-K-ZERO-NEG",
-          "FM-T133-K-ZERO-POS"
-        ],
-        "required_theorem_case_ids": [
-          "FM-T133-K-ZERO-POS",
-          "FM-T133-K-ZERO-NEG"
-        ],
-        "named_cases_observed": true,
-        "named_cases_passed": true,
-        "artifact_hashes_present": true,
-        "claim_ledger_match": true,
-        "claim_public_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
-        "claim_scientific_promotion_allowed": false,
-        "theorem_registry_match": true,
-        "theorem_inventory_match": true,
-        "proof_sheet_has_assumptions": true,
-        "proof_sheet_has_counterexample_boundary": true,
-        "hostile_reader_route_chain_present": true,
-        "falsifier_or_boundary_text_present": true,
-        "case_set_named_for_predicate": [
-          "FM-T133-K-ZERO-NEG",
-          "FM-T133-K-ZERO-POS"
-        ],
-        "vector_specific_predicate_pass": true,
-        "closure_predicate_pass": true
-      },
-      "closure_predicate_pass": true,
-      "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
-    },
-    {
-      "objection_id": "DET-MATRIX-028-T133-K-ZERO-STALE-EVIDENCE",
-      "source": "deterministic_attack_register",
-      "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "HIGH",
-      "attacked_claim": "T133-K-ZERO",
-      "artifact_location": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-      "objection": "T133-K-ZERO attack: Continuumness zero obstruction theorem: row could be closed against an outdated artifact.",
-      "failure_mode": "Continuumness zero obstruction theorem: row could be closed against an outdated artifact",
-      "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
-      "closure_type": "generated_distinct_attack_surface",
-      "closure_evidence_refs": [
-        "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-        "proofs/proof_sheets/T133-K-ZERO.md",
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "proofs/THEOREM_REGISTRY_1_3_3.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-POS",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-NEG",
-        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
-      ],
-      "closure_verification_query": "T133-K-ZERO/STALE-EVIDENCE: current artifact hashes bound; FM-T133-K-ZERO-POS passed=true; FM-T133-K-ZERO-NEG passed=true",
-      "closure_evidence": "Observed current closure for `T133-K-ZERO/STALE-EVIDENCE: current artifact hashes bound; FM-T133-K-ZERO-POS passed=true; FM-T133-K-ZERO-NEG passed=true`: 8 artifact hash(es), 2 finite/control case result(s), predicate_pass=true, verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
-      "closure_current_artifact_hashes": [
-        {
-          "ref": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-          "sha256": "2b0ab884e14b1f65c2a28495b90d568a9926c2dc13f665402a9905562d867cb3"
-        },
-        {
-          "ref": "proofs/proof_sheets/T133-K-ZERO.md",
-          "sha256": "be1e486982a7c1d7936b9171690972e22d4379a2610805cce481656b2d7e0950"
-        },
-        {
-          "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
-        },
-        {
-          "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
-        },
-        {
-          "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
-        },
-        {
-          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
-        },
-        {
-          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
-        },
-        {
-          "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
-        }
-      ],
-      "closure_observed_case_results": [
-        {
-          "case_id": "FM-T133-K-ZERO-NEG",
-          "passed": true,
-          "observed_verdict": "REJECT",
-          "observed_keep_verdict": null,
-          "observed_drop_verdict": null,
-          "observed_reduction_verdict": null
-        },
-        {
-          "case_id": "FM-T133-K-ZERO-POS",
-          "passed": true,
-          "observed_verdict": "ACCEPT",
-          "observed_keep_verdict": null,
-          "observed_drop_verdict": null,
-          "observed_reduction_verdict": null
-        }
-      ],
-      "closure_current_artifact_hash_total": 8,
-      "closure_observed_case_result_total": 2,
-      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
-      "closure_predicate_results": {
-        "matched_claim_id": "T133-K-ZERO",
-        "matched_theorem_id": "T133-K-ZERO",
-        "domain_key": "T133-K-ZERO",
-        "vector_id": "STALE-EVIDENCE",
-        "dependency_refs": [
-          "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-          "proofs/proof_sheets/T133-K-ZERO.md",
-          "claims/CLAIM_LEDGER_1_3_3.json",
-          "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-POS",
-          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-NEG",
-          "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
-        ],
-        "query_case_ids": [
-          "FM-T133-K-ZERO-NEG",
-          "FM-T133-K-ZERO-POS"
-        ],
-        "matched_case_ids": [
-          "FM-T133-K-ZERO-NEG",
-          "FM-T133-K-ZERO-POS"
-        ],
-        "required_theorem_case_ids": [
-          "FM-T133-K-ZERO-POS",
-          "FM-T133-K-ZERO-NEG"
-        ],
-        "named_cases_observed": true,
-        "named_cases_passed": true,
-        "artifact_hashes_present": true,
-        "claim_ledger_match": true,
-        "claim_public_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
-        "claim_scientific_promotion_allowed": false,
-        "theorem_registry_match": true,
-        "theorem_inventory_match": true,
-        "proof_sheet_has_assumptions": true,
-        "proof_sheet_has_counterexample_boundary": true,
-        "hostile_reader_route_chain_present": true,
-        "falsifier_or_boundary_text_present": true,
-        "case_set_named_for_predicate": [
-          "FM-T133-K-ZERO-NEG",
-          "FM-T133-K-ZERO-POS"
-        ],
-        "vector_specific_predicate_pass": true,
-        "closure_predicate_pass": true
-      },
-      "closure_predicate_pass": true,
-      "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
-    },
-    {
-      "objection_id": "DET-MATRIX-029-T133-K-ZERO-CLAIM-ID",
-      "source": "deterministic_attack_register",
-      "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "HIGH",
-      "attacked_claim": "T133-K-ZERO",
-      "artifact_location": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-      "objection": "T133-K-ZERO attack: Continuumness zero obstruction theorem: claim id could be relabeled while evidence remains unchanged.",
-      "failure_mode": "Continuumness zero obstruction theorem: claim id could be relabeled while evidence remains unchanged",
-      "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
-      "closure_type": "generated_distinct_attack_surface",
-      "closure_evidence_refs": [
-        "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-        "proofs/proof_sheets/T133-K-ZERO.md",
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "proofs/THEOREM_REGISTRY_1_3_3.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-POS",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-NEG",
-        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
-      ],
-      "closure_verification_query": "T133-K-ZERO/CLAIM-ID: claim_id=T133-K-ZERO, theorem_id=T133-K-ZERO, case_id=FM-T133-K-ZERO-POS, case_id=FM-T133-K-ZERO-NEG match across ledger, proof, finite, and review matrix",
-      "closure_evidence": "Observed current closure for `T133-K-ZERO/CLAIM-ID: claim_id=T133-K-ZERO, theorem_id=T133-K-ZERO, case_id=FM-T133-K-ZERO-POS, case_id=FM-T133-K-ZERO-NEG match across ledger, proof, finite, and review matrix`: 8 artifact hash(es), 2 finite/control case result(s), predicate_pass=true, verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
-      "closure_current_artifact_hashes": [
-        {
-          "ref": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-          "sha256": "2b0ab884e14b1f65c2a28495b90d568a9926c2dc13f665402a9905562d867cb3"
-        },
-        {
-          "ref": "proofs/proof_sheets/T133-K-ZERO.md",
-          "sha256": "be1e486982a7c1d7936b9171690972e22d4379a2610805cce481656b2d7e0950"
-        },
-        {
-          "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
-        },
-        {
-          "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
-        },
-        {
-          "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
-        },
-        {
-          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
-        },
-        {
-          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
-        },
-        {
-          "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
-        }
-      ],
-      "closure_observed_case_results": [
-        {
-          "case_id": "FM-T133-K-ZERO-NEG",
-          "passed": true,
-          "observed_verdict": "REJECT",
-          "observed_keep_verdict": null,
-          "observed_drop_verdict": null,
-          "observed_reduction_verdict": null
-        },
-        {
-          "case_id": "FM-T133-K-ZERO-POS",
-          "passed": true,
-          "observed_verdict": "ACCEPT",
-          "observed_keep_verdict": null,
-          "observed_drop_verdict": null,
-          "observed_reduction_verdict": null
-        }
-      ],
-      "closure_current_artifact_hash_total": 8,
-      "closure_observed_case_result_total": 2,
-      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
-      "closure_predicate_results": {
-        "matched_claim_id": "T133-K-ZERO",
-        "matched_theorem_id": "T133-K-ZERO",
-        "domain_key": "T133-K-ZERO",
-        "vector_id": "CLAIM-ID",
-        "dependency_refs": [
-          "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-          "proofs/proof_sheets/T133-K-ZERO.md",
-          "claims/CLAIM_LEDGER_1_3_3.json",
-          "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-POS",
-          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-NEG",
-          "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
-        ],
-        "query_case_ids": [
-          "FM-T133-K-ZERO-NEG",
-          "FM-T133-K-ZERO-POS"
-        ],
-        "matched_case_ids": [
-          "FM-T133-K-ZERO-NEG",
-          "FM-T133-K-ZERO-POS"
-        ],
-        "required_theorem_case_ids": [
-          "FM-T133-K-ZERO-POS",
-          "FM-T133-K-ZERO-NEG"
-        ],
-        "named_cases_observed": true,
-        "named_cases_passed": true,
-        "artifact_hashes_present": true,
-        "claim_ledger_match": true,
-        "claim_public_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
-        "claim_scientific_promotion_allowed": false,
-        "theorem_registry_match": true,
-        "theorem_inventory_match": true,
-        "proof_sheet_has_assumptions": true,
-        "proof_sheet_has_counterexample_boundary": true,
-        "hostile_reader_route_chain_present": true,
-        "falsifier_or_boundary_text_present": true,
-        "case_set_named_for_predicate": [
-          "FM-T133-K-ZERO-NEG",
-          "FM-T133-K-ZERO-POS"
-        ],
-        "vector_specific_predicate_pass": true,
-        "closure_predicate_pass": true
-      },
-      "closure_predicate_pass": true,
-      "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
-    },
-    {
-      "objection_id": "DET-MATRIX-030-T133-K-ZERO-REVIEW-TRACE",
-      "source": "deterministic_attack_register",
-      "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "HIGH",
-      "attacked_claim": "T133-K-ZERO",
-      "artifact_location": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-      "objection": "T133-K-ZERO attack: Continuumness zero obstruction theorem: hostile reader could fail to trace the route.",
-      "failure_mode": "Continuumness zero obstruction theorem: hostile reader could fail to trace the route",
-      "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
-      "closure_type": "generated_distinct_attack_surface",
-      "closure_evidence_refs": [
-        "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-        "proofs/proof_sheets/T133-K-ZERO.md",
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "proofs/THEOREM_REGISTRY_1_3_3.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-POS",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-NEG",
-        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
-      ],
-      "closure_verification_query": "T133-K-ZERO/REVIEW-TRACE: hostile-reader route names T133-K-ZERO, FM-T133-K-ZERO-POS, FM-T133-K-ZERO-NEG, and the counterexample boundary",
-      "closure_evidence": "Observed current closure for `T133-K-ZERO/REVIEW-TRACE: hostile-reader route names T133-K-ZERO, FM-T133-K-ZERO-POS, FM-T133-K-ZERO-NEG, and the counterexample boundary`: 8 artifact hash(es), 2 finite/control case result(s), predicate_pass=true, verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
-      "closure_current_artifact_hashes": [
-        {
-          "ref": "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-          "sha256": "2b0ab884e14b1f65c2a28495b90d568a9926c2dc13f665402a9905562d867cb3"
-        },
-        {
-          "ref": "proofs/proof_sheets/T133-K-ZERO.md",
-          "sha256": "be1e486982a7c1d7936b9171690972e22d4379a2610805cce481656b2d7e0950"
-        },
-        {
-          "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
-        },
-        {
-          "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
-        },
-        {
-          "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
-        },
-        {
-          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
-        },
-        {
-          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
-        },
-        {
-          "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
-        }
-      ],
-      "closure_observed_case_results": [
-        {
-          "case_id": "FM-T133-K-ZERO-NEG",
-          "passed": true,
-          "observed_verdict": "REJECT",
-          "observed_keep_verdict": null,
-          "observed_drop_verdict": null,
-          "observed_reduction_verdict": null
-        },
-        {
-          "case_id": "FM-T133-K-ZERO-POS",
-          "passed": true,
-          "observed_verdict": "ACCEPT",
-          "observed_keep_verdict": null,
-          "observed_drop_verdict": null,
-          "observed_reduction_verdict": null
-        }
-      ],
-      "closure_current_artifact_hash_total": 8,
-      "closure_observed_case_result_total": 2,
-      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
-      "closure_predicate_results": {
-        "matched_claim_id": "T133-K-ZERO",
-        "matched_theorem_id": "T133-K-ZERO",
-        "domain_key": "T133-K-ZERO",
-        "vector_id": "REVIEW-TRACE",
-        "dependency_refs": [
-          "appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex",
-          "proofs/proof_sheets/T133-K-ZERO.md",
-          "claims/CLAIM_LEDGER_1_3_3.json",
-          "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-POS",
-          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-K-ZERO-NEG",
-          "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
-        ],
-        "query_case_ids": [
-          "FM-T133-K-ZERO-NEG",
-          "FM-T133-K-ZERO-POS"
-        ],
-        "matched_case_ids": [
-          "FM-T133-K-ZERO-NEG",
-          "FM-T133-K-ZERO-POS"
-        ],
-        "required_theorem_case_ids": [
-          "FM-T133-K-ZERO-POS",
-          "FM-T133-K-ZERO-NEG"
-        ],
-        "named_cases_observed": true,
-        "named_cases_passed": true,
-        "artifact_hashes_present": true,
-        "claim_ledger_match": true,
-        "claim_public_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
-        "claim_scientific_promotion_allowed": false,
-        "theorem_registry_match": true,
-        "theorem_inventory_match": true,
-        "proof_sheet_has_assumptions": true,
-        "proof_sheet_has_counterexample_boundary": true,
-        "hostile_reader_route_chain_present": true,
-        "falsifier_or_boundary_text_present": true,
-        "case_set_named_for_predicate": [
-          "FM-T133-K-ZERO-NEG",
-          "FM-T133-K-ZERO-POS"
-        ],
-        "vector_specific_predicate_pass": true,
-        "closure_predicate_pass": true
-      },
-      "closure_predicate_pass": true,
-      "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
-      "no_send": true
-    },
-    {
-      "objection_id": "DET-MATRIX-031-T133-BOUNDARY-ASSUMPTION-DRIFT",
-      "source": "deterministic_attack_register",
-      "theme": "attack_matrix_distinct_surface_coverage",
-      "severity": "HIGH",
-      "attacked_claim": "T133-BOUNDARY",
-      "artifact_location": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
-      "objection": "T133-BOUNDARY attack: Metric-threshold boundary specialization theorem: assumptions could drift from the proof/evaluator boundary.",
-      "failure_mode": "Metric-threshold boundary specialization theorem: assumptions could drift from the proof/evaluator boundary",
-      "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
-      "closure_type": "generated_distinct_attack_surface",
-      "closure_evidence_refs": [
-        "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
-        "proofs/proof_sheets/T133-BOUNDARY.md",
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "proofs/THEOREM_REGISTRY_1_3_3.json",
-        "proofs/THEOREM_INVENTORY_1_3_3.json",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-POS",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-NEG",
-        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
-      ],
-      "closure_verification_query": "T133-BOUNDARY/ASSUMPTION-DRIFT: proof sheet has Assumptions and Counterexample Boundary; FM-T133-BOUNDARY-POS passed=true and FM-T133-BOUNDARY-NEG passed=true",
-      "closure_evidence": "Observed current closure for `T133-BOUNDARY/ASSUMPTION-DRIFT: proof sheet has Assumptions and Counterexample Boundary; FM-T133-BOUNDARY-POS passed=true and FM-T133-BOUNDARY-NEG passed=true`: 8 artifact hash(es), 2 finite/control case result(s), predicate_pass=true, verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
-      "closure_current_artifact_hashes": [
-        {
-          "ref": "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
-          "sha256": "c4a58efdf8fd298454b3bd6b8e1d7323e2793af090de560fc48104713ff986dc"
-        },
-        {
-          "ref": "proofs/proof_sheets/T133-BOUNDARY.md",
-          "sha256": "1562bb714c9062d82327a4feb9a14629b586473a88812cb5561e3b6bbf628d92"
-        },
-        {
-          "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "1aef380a383e6f02d9b16983b54272faaee71817c901827d089e25532c60fa1a"
-        },
-        {
-          "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
-        },
-        {
-          "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "785d27c3b9adc84218c54bba60d46315f044c79853e451a1d1c8bedfa7a2683d"
-        },
-        {
-          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
-        },
-        {
-          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "9c55eb84cf81548d386c4dc9f39690a3520d699ebc596b6b02c0c983aa618770"
-        },
-        {
-          "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-          "sha256": "a597824aa89aec5b6a1a19f5ca0dc53aeda8a9c049b2162f61426ddfe7f0e1b2"
-        }
-      ],
-      "closure_observed_case_results": [
-        {
-          "case_id": "FM-T133-BOUNDARY-NEG",
-          "passed": true,
-          "observed_verdict": "REJECT",
-          "observed_keep_verdict": null,
-          "observed_drop_verdict": null,
-          "observed_reduction_verdict": null
-        },
-        {
-          "case_id": "FM-T133-BOUNDARY-POS",
-          "passed": true,
-          "observed_verdict": "ACCEPT",
-          "observed_keep_verdict": null,
-          "observed_drop_verdict": null,
-          "observed_reduction_verdict": null
-        }
-      ],
-      "closure_current_artifact_hash_total": 8,
-      "closure_observed_case_result_total": 2,
-      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
-      "closure_predicate_results": {
-        "matched_claim_id": "T133-BOUNDARY",
-        "matched_theorem_id": "T133-BOUNDARY",
-        "domain_key": "T133-BOUNDARY",
-        "vector_id": "ASSUMPTION-DRIFT",
-        "dependency_refs": [
-          "appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex",
-          "proofs/proof_sheets/T133-BOUNDARY.md",
-          "claims/CLAIM_LEDGER_1_3_3.json",
-          "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-POS",
-          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-BOUNDARY-NEG",
-          "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
-        ],
-        "query_case_ids": [
-          "FM-T133-BOUNDARY-NEG",
-          "FM-T133-BOUNDARY-POS"
-        ],
-        "matched_case_ids": [
-          "FM-T133-BOUNDARY-NEG",
-          "FM-T133-BOUNDARY-POS"
-        ],
-        "required_theorem_case_ids": [
-          "FM-T133-BOUNDARY-POS",
-          "FM-T133-BOUNDARY-NEG"
-        ],
-        "named_cases_observed": true,
-        "named_cases_passed": true,
-        "artifact_hashes_present": true,
-        "claim_ledger_match": true,
-        "claim_public_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
-        "claim_scientific_promotion_allowed": false,
-        "theorem_registry_match": true,
-        "theorem_inventory_match": true,
-        "proof_sheet_has_assumptions": true,
-        "proof_sheet_has_counterexample_boundary": true,
-        "hostile_reader_route_chain_present": true,
-        "falsifier_or_boundary_text_present": true,
-        "case_set_named_for_predicate": [
-          "FM-T133-BOUNDARY-NEG",
-          "FM-T133-BOUNDARY-POS"
         ],
         "vector_specific_predicate_pass": true,
         "closure_predicate_pass": true

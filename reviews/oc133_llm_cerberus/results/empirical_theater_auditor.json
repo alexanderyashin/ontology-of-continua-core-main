@@ -4,22 +4,30 @@
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
   "high_open_total": 0,
-  "finding_total": 2,
+  "finding_total": 3,
   "findings": [
     {
       "severity": "MEDIUM",
       "artifact_ref": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
-      "claim": "empirical_promotion_policy=NO_EMPIRICAL_PASS_WITHOUT_NUMERIC_REPLAY and scientific_validation_state=EMPIRICAL_REPLAY_REQUIRED_FOR_DOMAIN_PROMOTION",
-      "failure_mode": "The report correctly blocks current promotion, sets heldout_prediction_support_present=false, and states numeric replay is not held-out empirical support. However these two policy labels still make numeric replay sound like the prerequisite path to empirical/domain promotion, preserving an ambiguity that downstream consumers could convert back into empirical theater.",
-      "required_repair": "Rename the policy/state to require prospective or held-out external validation, e.g. NO_EMPIRICAL_PASS_FROM_NUMERIC_REPLAY_ONLY and PROSPECTIVE_OR_HELDOUT_EMPIRICAL_VALIDATION_REQUIRED_FOR_DOMAIN_PROMOTION; keep numeric replay explicitly confined to parser/QA checks.",
+      "claim": "Each lane has result_verdict=NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS.",
+      "failure_mode": "The report correctly states heldout_prediction_support_present=false and verdict=QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED, but the lane verdict still uses SUPPORT language in a domain-validation artifact. This is not an empirical promotion leak by itself, yet it is scrapeable as lane support from snapshot replay.",
+      "required_repair": "Rename lane result_verdict values to unambiguous QA wording such as NUMERIC_REPLAY_QA_MATCHED_PINNED_SNAPSHOT_NOT_DOMAIN_SUPPORT, and add per-lane domain_support_allowed=false.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "unsupported_closed_total=0 while rows P003, P007-P011, P013, and P014 carry coverage_promotion_blockers=1.",
+      "failure_mode": "The top-level artifact exposes no aggregate coverage_promotion_blocker_total, so a consumer can see zero unsupported_closed_total and miss the eight current row-level coverage blockers. The rows are not promoted, but the summary underreports the open coverage-gap state.",
+      "required_repair": "Add a top-level coverage_promotion_blocker_total=8 and list the blocked phenomenon_ids, or redefine unsupported_closed_total so it cannot be mistaken for a coverage blocker summary.",
       "status": "OPEN"
     },
     {
       "severity": "LOW",
       "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
-      "claim": "Numeric replay log stored under validation/numeric_predictions while every row is snapshot replay barred from prediction support.",
-      "failure_mode": "The row-level flags are correct: prediction_support_allowed=false, empirical_support_allowed=false, and replay_barred_from_prediction_support=true for all rows. The path/name still uses prediction terminology, which is not a current promotion leak but is a preventable downstream misread risk.",
-      "required_repair": "Move or alias the artifact under validation/numeric_replay_qa, or add a top-level artifact_kind=NUMERIC_REPLAY_QA_NOT_PREDICTION and deprecate the prediction-named path in all report references.",
+      "claim": "Numeric replay QA log is stored under validation/numeric_predictions.",
+      "failure_mode": "The artifact body correctly bars all rows from prediction and empirical support, but the directory namespace still says numeric_predictions. This is a low-grade empirical-theater affordance for downstream tooling or citations that classify by path rather than schema fields.",
+      "required_repair": "Move or mirror this log under a replay-QA namespace, or add a machine-readable path_deprecation/namespace_warning field stating that numeric_predictions is legacy and not prediction support.",
       "status": "OPEN"
     }
   ],

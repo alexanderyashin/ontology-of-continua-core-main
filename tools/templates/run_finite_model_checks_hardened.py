@@ -188,6 +188,78 @@ def read_rel_json(ref: str) -> dict[str, Any]:
     return read_json(path)
 
 
+def public_metadata_surface_check(ref_rows: list[dict[str, Any]]) -> dict[str, Any]:
+    failures: list[str] = []
+    checked = 0
+    for row in ref_rows or []:
+        ref = str(row.get("ref", ""))
+        path = (ROOT / ref).resolve()
+        if ROOT.resolve() not in path.parents and path != ROOT.resolve():
+            failures.append(f"{ref}::ESCAPES_REPO_ROOT")
+            continue
+        if row.get("must_exist") is True and not path.is_file():
+            failures.append(f"{ref}::MISSING")
+            continue
+        if not path.is_file():
+            continue
+        checked += 1
+        body = path.read_text(encoding="utf-8", errors="ignore")
+        expected_hash = row.get("sha256")
+        if expected_hash and sha256_file(path) != expected_hash:
+            failures.append(f"{ref}::SHA256_MISMATCH")
+        for token in row.get("forbid_tokens", []):
+            if token and token in body:
+                failures.append(f"{ref}::FORBIDDEN_TOKEN::{token}")
+        for token in row.get("require_tokens", []):
+            if token and token not in body:
+                failures.append(f"{ref}::REQUIRED_TOKEN_MISSING::{token}")
+        if ref.endswith(".json") or ref.endswith(".jsonld"):
+            try:
+                payload = json.loads(body)
+            except Exception:
+                failures.append(f"{ref}::JSON_PARSE_FAILED")
+                continue
+            if ref == "manifest.json":
+                if payload.get("release_id") != "oc_core_1_3_3":
+                    failures.append(f"{ref}::RELEASE_ID_NOT_133")
+                if payload.get("version") != "1.3.3":
+                    failures.append(f"{ref}::VERSION_NOT_133")
+                if payload.get("publish_allowed") is not False:
+                    failures.append(f"{ref}::PUBLISH_ALLOWED_NOT_FALSE")
+                stale_files = [
+                    item.get("path")
+                    for item in payload.get("files", [])
+                    if isinstance(item, dict) and "oc_core_1_3_2" in str(item.get("path", ""))
+                ]
+                if stale_files:
+                    failures.append(f"{ref}::STALE_V132_FILE_ROWS")
+            elif ref.endswith("zenodo.no_send.draft.json"):
+                if payload.get("version") != "1.3.3":
+                    failures.append(f"{ref}::ZENODO_DRAFT_VERSION_NOT_133")
+                for forbidden_public_field in ("doi", "conceptdoi", "publication_date", "record_id"):
+                    if forbidden_public_field in payload:
+                        failures.append(f"{ref}::PUBLIC_FIELD_PRESENT::{forbidden_public_field}")
+                if payload.get("publish_allowed") is not False or payload.get("zenodo_deposit_allowed") is not False:
+                    failures.append(f"{ref}::NO_SEND_LOCK_NOT_FALSE")
+            elif ref == "ro-crate-metadata.jsonld":
+                graph = payload.get("@graph", []) if isinstance(payload, dict) else []
+                dataset = next((node for node in graph if isinstance(node, dict) and node.get("@id") == "./"), {})
+                if dataset.get("version") != "1.3.3":
+                    failures.append(f"{ref}::RO_CRATE_VERSION_NOT_133")
+                for part in dataset.get("hasPart", []):
+                    part_ref = part.get("@id") if isinstance(part, dict) else None
+                    if part_ref and not part_ref.startswith(("software/", "person/")) and part_ref not in {"./"}:
+                        if not (ROOT / part_ref).exists():
+                            failures.append(f"{ref}::HAS_PART_MISSING::{part_ref}")
+    return {
+        "ok": bool(ref_rows) and checked == len(ref_rows) and not failures,
+        "checked_ref_total": checked,
+        "expected_ref_total": len(ref_rows or []),
+        "failure_total": len(failures),
+        "failures": failures[:50],
+    }
+
+
 def run_live_lake_build() -> dict[str, Any]:
     try:
         with tempfile.TemporaryDirectory(prefix="oc133_finite_lean_clean_") as tmp:
@@ -405,11 +477,10 @@ def operator_admission_evidence(model: dict[str, Any]) -> dict[str, Any]:
     elif route == "hybrid_guard_reset":
         typed_source_target = model.get("smooth_state_type") == model.get("hybrid_state_type")
         guard_evaluated = isinstance(model.get("guard"), bool)
-        guard_value = model.get("guard") is True
         route_admitted = (
             typed_source_target
-            and model.get("derivative_requested") is False
-            and guard_value
+            and model.get("flow_notation_requested") is False
+            and guard_evaluated
             and model.get("reset_source_mode") == model.get("current_mode")
             and model.get("reset_target_mode") == model.get("target_mode")
             and model.get("reset_codomain") == model.get("hybrid_state_type")
@@ -423,7 +494,7 @@ def operator_admission_evidence(model: dict[str, Any]) -> dict[str, Any]:
         )
         route_admitted = (
             typed_source_target
-            and model.get("derivative_requested") is False
+            and model.get("flow_notation_requested") is False
             and model.get("rewrite_rule_present") is True
         )
     else:
@@ -435,10 +506,10 @@ def operator_admission_evidence(model: dict[str, Any]) -> dict[str, Any]:
         "chart_declared": chart_declared,
         "chart_domain_contains_source": model.get("chart_domain_contains_state") is True,
         "chart_local_law_declared": model.get("local_law_declared") is True,
-        "derivative_requested": model.get("derivative_requested") is True,
+        "flow_notation_requested": model.get("flow_notation_requested") is True,
         "guard_evaluated": isinstance(model.get("guard"), bool),
         "guard_value": model.get("guard") is True,
-        "guard_observed": model.get("guard") is True,
+        "guard_observed": isinstance(model.get("guard"), bool),
         "reset_source_typed": model.get("reset_source_mode") == model.get("current_mode"),
         "reset_target_typed": model.get("reset_target_mode") == model.get("target_mode"),
         "reset_admissible": model.get("post_reset_admissible") is True,
@@ -507,7 +578,18 @@ def hypothetical_owner_approved_control(model: dict[str, Any]) -> str:
         model.get("publish_allowed") is True
         and model.get("journal_submissions_allowed") is True
     )
-    if publish_requested and owner_approved and global_lock_open and common_gates_open and requested_channels_ok:
+    if "fresh_cerberus_required_for_release" in model:
+        fresh_review_open = (
+            model.get("fresh_cerberus_required_for_release") is True
+            and model.get("g57_attack_matrix_zero_critical_high") is True
+            and model.get("g58_reviewer_persona_suite_pass") is True
+            and model.get("g70_scientific_closure_verdict_pass") is True
+            and int(model.get("critical_open_total", 1) or 0) == 0
+            and int(model.get("high_open_total", 1) or 0) == 0
+        )
+    else:
+        fresh_review_open = True
+    if publish_requested and owner_approved and global_lock_open and common_gates_open and requested_channels_ok and fresh_review_open:
         return "ALLOW_AFTER_OWNER_APPROVAL"
     if publish_requested:
         return "REJECT_PUBLIC_ACTION"
@@ -678,7 +760,7 @@ def observed(row: dict[str, Any]) -> str:
                 )
                 ok = (
                     model.get("actual_next") == expected_next
-                    and model.get("derivative_requested") is False
+                    and model.get("flow_notation_requested") is False
                     and no_smooth_flow_leak
                     and shared_state_ok
                     and reset_typed_ok
@@ -689,7 +771,7 @@ def observed(row: dict[str, Any]) -> str:
                     and model.get("typed_update_relation") is True
                     and model.get("source_type") == model.get("target_type")
                     and model.get("rewrite_rule_present") is True
-                    and model.get("derivative_requested") is False
+                    and model.get("flow_notation_requested") is False
                     and not chart_declared
                     and model.get("actual_next") == model.get("step_target")
                 )
@@ -697,7 +779,7 @@ def observed(row: dict[str, Any]) -> str:
                 ok = (
                     chart_declared
                     and model.get("smooth_state_type") == model.get("source_type") == model.get("target_type")
-                    and model.get("derivative_requested") is True
+                    and model.get("flow_notation_requested") is True
                     and model.get("flow_one_target") not in {None, ""}
                     and model.get("smooth_step_target") == model.get("flow_one_target")
                     and model.get("actual_next") == model.get("smooth_step_target")
@@ -801,7 +883,9 @@ def observed(row: dict[str, Any]) -> str:
             and approval.get("software_heritage_deposit_allowed") is False
             and approval.get("doi_minting_allowed") is False
         )
-        if digest_bound and publish_requested and (approval_locked or all_locked or any_common_lock or requested_channel_locked):
+        public_surface = public_metadata_surface_check(model.get("public_metadata_refs", []))
+        public_surface_ok = public_surface["ok"] if model.get("public_metadata_refs") else True
+        if digest_bound and public_surface_ok and publish_requested and (approval_locked or all_locked or any_common_lock or requested_channel_locked):
             return "REJECT_PUBLIC_ACTION"
         return "NO_ACTION"
     if case_type == "no_send_hypothetical_control":
@@ -818,6 +902,7 @@ def evaluate(row: dict[str, Any]) -> dict[str, Any]:
     obs = observed(row)
     if row.get("theorem_id") == "OC133-NOSEND-001":
         model = row.get("model", {})
+        out["public_metadata_surface"] = public_metadata_surface_check(model.get("public_metadata_refs", []))
         if model.get("manifest_ref"):
             out["publish_manifest_ref"] = model.get("manifest_ref")
             out["publish_manifest_sha256"] = sha256_file(ROOT / str(model.get("manifest_ref")))
