@@ -128,6 +128,18 @@ def source_manifest(root: Path) -> list[dict[str, str]]:
     return rows
 
 
+def source_manifest_binding_sha256(rows: list[dict[str, str]]) -> str:
+    binding_rows = [
+        {
+            "ref": row.get("ref", ""),
+            "sha256": row.get("sha256", ""),
+            "sha256_policy": row.get("sha256_policy", ""),
+        }
+        for row in rows
+    ]
+    return hashlib.sha256(json.dumps(binding_rows, sort_keys=True).encode("utf-8")).hexdigest()
+
+
 def generated_artifact_manifest(root: Path) -> list[dict[str, str]]:
     rows = []
     generated_refs = [
@@ -317,8 +329,8 @@ def write_lean_build_certificate(root: Path) -> dict[str, Any]:
         "canonical_certificate_policy": "canonical hashes use normalized build transcript with elapsed timings and repo paths removed",
         "clean_source_archive_kind": "release-critical source manifest copy without .git or .lake",
         "clean_source_manifest": source_manifest(root),
-        "clean_source_manifest_sha256": hashlib.sha256(json.dumps(source_manifest(root), sort_keys=True).encode("utf-8")).hexdigest(),
-        "clean_source_manifest_hash_policy": "sha256 is LF-normalized for text source refs; byte_sha256 records package/archive bytes when they differ.",
+        "clean_source_manifest_sha256": source_manifest_binding_sha256(source_manifest(root)),
+        "clean_source_manifest_hash_policy": "sha256 is LF-normalized for text source refs and is the only field used for source binding; byte_sha256 records package/archive bytes when they differ.",
         "generated_artifact_manifest": generated_artifact_manifest(root),
         "generated_artifact_manifest_sha256": hashlib.sha256(json.dumps(generated_artifact_manifest(root), sort_keys=True).encode("utf-8")).hexdigest(),
         "generated_artifact_manifest_scope": generated_artifact_manifest_policy(),

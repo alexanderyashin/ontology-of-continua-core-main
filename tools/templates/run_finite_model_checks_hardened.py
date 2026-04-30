@@ -142,6 +142,18 @@ def source_manifest() -> list[dict[str, str]]:
     return rows
 
 
+def source_manifest_binding_sha256(rows: list[dict[str, str]]) -> str:
+    binding_rows = [
+        {
+            "ref": row.get("ref", ""),
+            "sha256": row.get("sha256", ""),
+            "sha256_policy": row.get("sha256_policy", ""),
+        }
+        for row in rows
+    ]
+    return hashlib.sha256(json.dumps(binding_rows, sort_keys=True).encode("utf-8")).hexdigest()
+
+
 def generated_artifact_manifest() -> list[dict[str, str]]:
     rows = []
     generated_refs = [
@@ -840,7 +852,7 @@ def main() -> int:
     cert_lean_sha256_matches = lean_cert.get("lean_source_sha256") == current_lean_sha256
     live_lean_build = run_live_lake_build()
     current_source_manifest = source_manifest()
-    current_source_manifest_sha256 = hashlib.sha256(json.dumps(current_source_manifest, sort_keys=True).encode("utf-8")).hexdigest()
+    current_source_manifest_sha256 = source_manifest_binding_sha256(current_source_manifest)
     current_generated_artifact_manifest = generated_artifact_manifest()
     current_generated_artifact_manifest_sha256 = hashlib.sha256(json.dumps(current_generated_artifact_manifest, sort_keys=True).encode("utf-8")).hexdigest()
     cert_manifest_hashes = {row.get("ref"): row.get("sha256") for row in lean_cert.get("clean_source_manifest", []) if isinstance(row, dict)}
