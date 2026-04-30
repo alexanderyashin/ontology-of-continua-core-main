@@ -13,22 +13,22 @@
     "master_verdict": "FAIL",
     "gate_counts": {
       "BLOCKED": 1,
-      "FAIL": 3,
+      "FAIL": 2,
       "NOT_APPLICABLE": 0,
       "NOT_RUN": 0,
-      "PASS": 67,
+      "PASS": 68,
       "WARN": 0
     },
     "critical_findings": 3,
-    "high_findings": 1,
-    "finding_total": 4,
+    "high_findings": 0,
+    "finding_total": 3,
     "owner_approval_required": true,
     "global_no_send_lock": true,
     "publish_allowed": false,
     "journal_submissions_allowed": false,
     "package": "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip",
-    "package_sha256": "54c20dc9f5a93de10b3c23e68618028fb471503848e75785213f2e79a0fdcf33",
-    "artifact_total": 200
+    "package_sha256": "1a5af9c7d8dba0daf72d318c8ffb61644157b674173db7a6b01b98552f31f2e5",
+    "artifact_total": 202
   },
   "gate_results": [
     {
@@ -841,32 +841,69 @@
       "details": {
         "state": "FAIL",
         "objection_total": 215,
-        "critical_unresolved_total": 2,
-        "high_unresolved_total": 106,
+        "critical_unresolved_total": 1,
+        "high_unresolved_total": 10,
         "fresh_cerberus_review_satisfied": false,
         "fresh_cerberus_review_gate_status": "BLOCKED_PENDING_FRESH_ZERO_CRITICAL_HIGH_REVIEW",
+        "attack_row_counts": {
+          "row_total": 215,
+          "critical_open_total": 1,
+          "high_open_total": 10
+        },
+        "attack_quality_quotas": {
+          "state": "PASS",
+          "predicates": {
+            "g57_attack_matrix_recomputed_row_total_at_least_200": true,
+            "g57_attack_matrix_min_theme_diversity": true,
+            "g57_attack_matrix_min_severity_diversity": true,
+            "g57_attack_matrix_min_artifact_location_diversity": true,
+            "g57_attack_matrix_min_evidence_ref_diversity": true,
+            "g57_attack_matrix_no_placeholder_filler_dominance": true,
+            "g57_attack_matrix_closed_high_critical_refs_exist": true
+          },
+          "failed_predicates": [],
+          "thresholds": {
+            "row_total_min": 200,
+            "theme_min": 10,
+            "severity_min": 3,
+            "artifact_location_min": 20,
+            "evidence_ref_min": 20,
+            "max_filler_duplicate_share": 0.15
+          },
+          "observed": {
+            "row_total": 215,
+            "theme_total": 17,
+            "severity_total": 3,
+            "artifact_location_total": 34,
+            "evidence_ref_total": 54,
+            "placeholder_filler_row_total": 0,
+            "duplicate_shares": {
+              "objection": 0.004651162790697674,
+              "failure_mode": 0.06976744186046512,
+              "required_repair": 0.004651162790697674,
+              "closure_evidence": 0.009302325581395349
+            },
+            "closed_high_critical_missing_ref_total": 0
+          },
+          "placeholder_filler_rows": [],
+          "closed_high_critical_missing_refs": []
+        },
+        "attack_summary_counter_failures": [],
         "attack_closure_failures": [
           "CERBERUS-001-claim_boundary_auditor",
           "CERBERUS-002-claim_boundary_auditor",
           "CERBERUS-003-claim_boundary_auditor",
-          "CERBERUS-004-claim_boundary_auditor",
-          "CERBERUS-005-claim_boundary_auditor",
-          "CERBERUS-006-clarity_didactic_reviewer",
-          "CERBERUS-007-clarity_didactic_reviewer",
-          "CERBERUS-008-clarity_didactic_reviewer",
-          "CERBERUS-009-dynamical_systems_reviewer",
-          "CERBERUS-010-hostile_journal_reviewer",
-          "CERBERUS-011-hostile_journal_reviewer",
-          "CERBERUS-012-hostile_journal_reviewer",
-          "CERBERUS-013-hostile_journal_reviewer",
-          "CERBERUS-014-hostile_journal_reviewer",
-          "CERBERUS-015-hostile_journal_reviewer",
-          "CERBERUS-016-public_surface_auditor",
-          "CERBERUS-017-reproducibility_auditor",
-          "CERBERUS-018-reproducibility_auditor",
-          "DET-T133-K0-RES-ASSUMPTION",
-          "DET-T133-K0-RES-LEAN"
-        ]
+          "CERBERUS-004-clarity_didactic_reviewer",
+          "CERBERUS-005-dynamical_systems_reviewer",
+          "CERBERUS-006-dynamical_systems_reviewer",
+          "CERBERUS-007-public_surface_auditor",
+          "CERBERUS-008-public_surface_auditor",
+          "CERBERUS-009-public_surface_auditor",
+          "CERBERUS-010-reproducibility_auditor",
+          "CERBERUS-011-reproducibility_auditor"
+        ],
+        "publish_control_ref_issues": [],
+        "all_gates_open_issues": []
       },
       "executed": true
     },
@@ -881,17 +918,46 @@
         "execution_status": "EXECUTED_WITH_OPEN_FINDINGS",
         "role_total": 14,
         "bad_results": [
-          "reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json",
-          "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
-          "reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json",
-          "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json",
-          "reviews/oc133_llm_cerberus/results/claim_boundary_auditor.json",
-          "reviews/oc133_llm_cerberus/results/public_surface_auditor.json"
+          {
+            "ref": "reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json",
+            "execution_status": "EXECUTED",
+            "critical_open_total": 0,
+            "high_open_total": 2
+          },
+          {
+            "ref": "reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json",
+            "execution_status": "EXECUTED",
+            "critical_open_total": 0,
+            "high_open_total": 1
+          },
+          {
+            "ref": "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json",
+            "execution_status": "EXECUTED",
+            "critical_open_total": 1,
+            "high_open_total": 1
+          },
+          {
+            "ref": "reviews/oc133_llm_cerberus/results/claim_boundary_auditor.json",
+            "execution_status": "EXECUTED",
+            "critical_open_total": 0,
+            "high_open_total": 3
+          },
+          {
+            "ref": "reviews/oc133_llm_cerberus/results/public_surface_auditor.json",
+            "execution_status": "EXECUTED",
+            "critical_open_total": 0,
+            "high_open_total": 3
+          }
         ],
+        "missing_result_refs": [],
+        "missing_roles": [],
+        "duplicate_roles": [],
+        "execution_bad_total": 0,
         "pending_role_total": 0,
-        "critical_open_total": 2,
-        "high_open_total": 16,
-        "parse_failure_total": 0
+        "critical_open_total": 1,
+        "high_open_total": 10,
+        "parse_failure_total": 0,
+        "all_result_refs": 14
       },
       "executed": true
     },
@@ -907,11 +973,17 @@
         "verdict": "PASS",
         "command_failure_total": 0,
         "mismatch_total": 0,
+        "mismatch_count_ok": true,
+        "mismatch_failures": [],
         "non_compare_ref_mutation_total": 0,
+        "repro_non_compare_mutation_count_ok": true,
         "preexisting_compared_target_total": 21,
         "compared_artifact_total": 21,
         "strict_head_replay_clean": true,
-        "stable_payload_sha256": "71263a8c6e581f281f3da524a118f57fb9bd7fdff492832e5d2ab69cde24cad2"
+        "stable_payload_sha256": "f4398bbe60a473fcf73de3e7c7a5e546b508328691b035fac2bc77899624d5d9",
+        "internal_checksum_failures": [],
+        "internal_checksum_failure_count_ok": true,
+        "unexpected_internal_checksum_failures": []
       },
       "executed": true
     },
@@ -961,18 +1033,16 @@
     {
       "gate_id": "G62",
       "name": "G62_LLM_SCHEMA_CLAIM_BOUNDARY_PASS",
-      "state": "FAIL",
+      "state": "PASS",
       "severity": "HIGH",
       "summary": "G62_LLM_SCHEMA_CLAIM_BOUNDARY_PASS checked by v12 no-compromise release profile.",
       "details": {
-        "state": "FAIL",
+        "state": "PASS",
         "absolute_hit_total": 0,
         "absolute_hits": [],
         "phenomenon_rows": 15,
         "phenomenon_failures": [],
-        "phenomenon_missing_controls": [
-          "P015"
-        ]
+        "phenomenon_missing_controls": []
       },
       "executed": true
     },
@@ -1149,8 +1219,179 @@
       "severity": "CRITICAL",
       "summary": "G70_10_10_SCIENTIFIC_CLOSURE_VERDICT checked by v12 no-compromise release profile.",
       "details": {
-        "prior_critical_high_bad_total": 3,
-        "release_state_on_pass": "OC_CORE_1_3_3_10_10_READY_NO_SEND"
+        "prior_critical_high_bad_total": 2,
+        "release_state_on_pass": "OC_CORE_1_3_3_10_10_READY_NO_SEND",
+        "state": "PASS",
+        "issues": [],
+        "expected_verdict": "ACCEPT_PUBLIC_ACTION",
+        "observed_verdict": "ACCEPT_PUBLIC_ACTION",
+        "failed_gate_predicates": [],
+        "model": {
+          "owner_approved": true,
+          "publish_requested": true,
+          "publish_allowed": true,
+          "deposit_ready_metadata": true,
+          "public_record_present": true,
+          "global_no_send_lock": false,
+          "journal_submissions_allowed": true,
+          "journal_submission_allowed": true,
+          "github_release_allowed": true,
+          "zenodo_deposit_allowed": true,
+          "software_heritage_deposit_allowed": true,
+          "doi_minting_allowed": true,
+          "requested_channels": [
+            "github_release",
+            "zenodo_deposit",
+            "software_heritage_deposit",
+            "journal_submission",
+            "doi_minting"
+          ],
+          "fresh_cerberus_required_for_release": true,
+          "g57_attack_matrix_zero_critical_high": true,
+          "g58_reviewer_persona_suite_pass": true,
+          "g70_scientific_closure_verdict_pass": true,
+          "critical_open_total": 0,
+          "high_open_total": 0,
+          "public_metadata_refs": [
+            {
+              "ref": ".zenodo.json",
+              "must_absent": true,
+              "expected_release_id": "oc_core_1_3_3",
+              "expected_version": "1.3.3",
+              "forbid_tokens": [],
+              "require_tokens": []
+            },
+            {
+              "ref": "manifest.json",
+              "must_exist": true,
+              "sha256": null,
+              "sha256_binding_policy": "runtime_observed_not_input_bound_to_avoid_generated_metadata_cycles",
+              "expected_release_id": "oc_core_1_3_3",
+              "expected_version": "1.3.3",
+              "forbid_tokens": [
+                "1.3.2",
+                "v1.3.2",
+                "10.5281/zenodo.",
+                "oc_core_1_3_2",
+                ".zenodo.json"
+              ],
+              "require_tokens": [
+                "1.3.3"
+              ]
+            },
+            {
+              "ref": "checksums.txt",
+              "must_exist": true,
+              "sha256": null,
+              "sha256_binding_policy": "runtime_observed_not_input_bound_to_avoid_generated_metadata_cycles",
+              "expected_release_id": "oc_core_1_3_3",
+              "expected_version": "1.3.3",
+              "forbid_tokens": [
+                "1.3.2",
+                "v1.3.2",
+                "10.5281/zenodo.",
+                "oc_core_1_3_2",
+                ".zenodo.json"
+              ],
+              "require_tokens": [
+                "1.3.3"
+              ]
+            },
+            {
+              "ref": "ro-crate-metadata.jsonld",
+              "must_exist": true,
+              "sha256": null,
+              "sha256_binding_policy": "runtime_observed_not_input_bound_to_avoid_generated_metadata_cycles",
+              "expected_release_id": "oc_core_1_3_3",
+              "expected_version": "1.3.3",
+              "forbid_tokens": [
+                "1.3.2",
+                "v1.3.2",
+                "10.5281/zenodo.",
+                "oc_core_1_3_2",
+                ".zenodo.json"
+              ],
+              "require_tokens": [
+                "1.3.3"
+              ]
+            },
+            {
+              "ref": "CITATION.cff",
+              "must_exist": true,
+              "sha256": null,
+              "sha256_binding_policy": "runtime_observed_not_input_bound_to_avoid_generated_metadata_cycles",
+              "expected_release_id": "oc_core_1_3_3",
+              "expected_version": "1.3.3",
+              "forbid_tokens": [
+                "1.3.2",
+                "v1.3.2",
+                "10.5281/zenodo.",
+                "oc_core_1_3_2",
+                ".zenodo.json"
+              ],
+              "require_tokens": [
+                "1.3.3"
+              ]
+            },
+            {
+              "ref": ".codemeta.json",
+              "must_exist": true,
+              "sha256": null,
+              "sha256_binding_policy": "runtime_observed_not_input_bound_to_avoid_generated_metadata_cycles",
+              "expected_release_id": "oc_core_1_3_3",
+              "expected_version": "1.3.3",
+              "forbid_tokens": [
+                "1.3.2",
+                "v1.3.2",
+                "10.5281/zenodo.",
+                "oc_core_1_3_2",
+                ".zenodo.json"
+              ],
+              "require_tokens": [
+                "1.3.3"
+              ]
+            },
+            {
+              "ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+              "must_exist": true,
+              "sha256": null,
+              "sha256_binding_policy": "runtime_observed_not_input_bound_to_avoid_generated_metadata_cycles",
+              "expected_release_id": "oc_core_1_3_3",
+              "expected_version": "1.3.3",
+              "forbid_tokens": [
+                "1.3.2",
+                "v1.3.2",
+                "10.5281/zenodo.",
+                "oc_core_1_3_2",
+                ".zenodo.json"
+              ],
+              "require_tokens": [
+                "1.3.3"
+              ]
+            },
+            {
+              "ref": "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
+              "must_exist": true,
+              "sha256": null,
+              "sha256_binding_policy": "runtime_observed_not_input_bound_to_avoid_generated_metadata_cycles",
+              "expected_release_id": "oc_core_1_3_3",
+              "expected_version": "1.3.3",
+              "forbid_tokens": [
+                "1.3.2",
+                "v1.3.2",
+                "10.5281/zenodo.",
+                "oc_core_1_3_2",
+                ".zenodo.json"
+              ],
+              "require_tokens": [
+                "1.3.3"
+              ]
+            }
+          ]
+        },
+        "critical_open_total": 0,
+        "high_open_total": 0,
+        "publish_control_ref_issues": []
       },
       "executed": true
     }
