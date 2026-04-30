@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -215,11 +216,27 @@ def main() -> int:
         action="store_true",
         help="Development-only mode: records dirty state but still runs. Release verdict remains FAIL when tracked dirty state exists.",
     )
+    parser.add_argument(
+        "--sync-regenerated-artifacts",
+        action="store_true",
+        help="Copy regenerated compared artifacts from the detached clean worktree back to the main tree when commands succeed.",
+    )
     args = parser.parse_args()
     state = git_state()
     source_manifest = head_source_manifest()
     previous_manifest_path = ROOT / "reports" / "OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json"
     previous_manifest = json.loads(previous_manifest_path.read_text(encoding="utf-8")) if previous_manifest_path.exists() else None
+    copied_source_refs: list[str] = []
+    temp_git_index: dict[str, Any] = {
+        "temp_git_index_initialized": False,
+        "temp_git_checkout_mode": "NOT_STARTED",
+    }
+    preexisting_targets: list[str] = []
+    command_rows: list[dict[str, Any]] = []
+    rows: list[dict[str, Any]] = []
+    failures: list[dict[str, Any]] = []
+    bad_commands: list[dict[str, Any]] = []
+    synced_refs: list[str] = []
     if not state["strict_head_replay_clean"] and not args.allow_dirty_worktree:
         payload = {
             "schema_id": "OC133_POST_GENERATION_REPRODUCIBILITY_MANIFEST_v12",
@@ -246,7 +263,6 @@ def main() -> int:
         try:
             copied_source_refs = extract_head_sources(temp_root)
             temp_git_index = initialize_temp_git_index(temp_root, copied_source_refs)
-            preexisting_targets = []
             preexisting_target_sha256: dict[str, str] = {}
             for ref in COMPARE_REFS:
                 target = temp_root / ref
@@ -280,6 +296,15 @@ def main() -> int:
                 if not matches:
                     failures.append(row)
             bad_commands = [row for row in command_rows if row["returncode"] != 0]
+            if args.sync_regenerated_artifacts and not bad_commands:
+                for row in failures:
+                    ref = row["ref"]
+                    regenerated = temp_root / ref
+                    if regenerated.exists() and regenerated.is_file():
+                        target = ROOT / ref
+                        target.parent.mkdir(parents=True, exist_ok=True)
+                        shutil.copy2(regenerated, target)
+                        synced_refs.append(ref)
         finally:
             subprocess.run(
                 ["git", "worktree", "remove", "--force", str(temp_root)],
@@ -308,6 +333,9 @@ def main() -> int:
         "command_total": len(command_rows),
         "command_failure_total": len(bad_commands),
         "commands": command_rows,
+        "sync_regenerated_artifacts_requested": args.sync_regenerated_artifacts,
+        "synced_regenerated_artifact_total": len(synced_refs),
+        "synced_regenerated_artifacts": synced_refs,
         "compared_artifact_total": len(rows),
         "mismatch_total": len(failures),
         "mismatches": failures,
