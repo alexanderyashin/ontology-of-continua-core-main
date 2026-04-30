@@ -3,39 +3,31 @@
   "role": "prior_art_historian",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 3,
-  "finding_total": 4,
+  "high_open_total": 0,
+  "finding_total": 3,
   "findings": [
     {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-BOUNDARY: Metric thresholds are a specialization of typed classifier boundaries.",
-      "failure_mode": "The ledger promotes this as PROMOTED_BOUNDED_NO_SEND_V12 with scientific_promotion_allowed=true, but the current comparator register does not position the claim against classifier theory, decision-boundary literature, threshold models, or measurement theory. On the current artifacts it reads as generic threshold-as-classifier relabeling rather than an independently bounded scientific theorem.",
-      "required_repair": "Demote T133-BOUNDARY to FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM, or add source-backed comparator rows for classifier/decision-boundary/measurement-theory prior art and rewrite the claim as an internal v12 encoding result with explicit non-novelty boundaries.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-HYBRID: OC operators are typed update semantics; chart-labelled flow-one notation is admitted only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth cases.",
-      "failure_mode": "The comparator register already records prior-art overlap for dynamical systems and hybrid continuous/discrete transition systems. The ledger still scientifically promotes a broad typed-update/operator claim without comparator coverage for hybrid automata, statecharts, transition systems, rewriting systems, or operational semantics. This risks prior-art relabeling of known hybrid/transition machinery as OC science.",
-      "required_repair": "Narrow the claim to an internal v12 release-admission invariant, set scientific_promotion_allowed=false until the missing prior-art comparators are added, and explicitly state that no novelty is claimed for hybrid systems, transition systems, rewriting, or operational semantics.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-ID: Identity continuation requires endpoint-bound identity evidence: identity class, declared invariant preservation, no residue token, equal source/target endpoint evidence, lifecycle identity-invariant truth, and typed source/target binding.",
-      "failure_mode": "The comparator register admits overlap with identity-over-time theory and autopoiesis, but the ledger promotes this identity classifier as a bounded scientific theorem. In the current artifacts the result is a stipulated evidence-class rule, not a positioned contribution over diachronic identity, persistence, checkpoint/restart, provenance, or biological continuity literature.",
-      "required_repair": "Demote T133-ID to a formal claim-boundary/control rule, or add comparator rows for persistence/identity, checkpoint-restart, provenance, and autopoietic continuity, then rewrite the claim to say it is an OC evidence-admissibility policy rather than a scientific identity theorem.",
+      "severity": "MEDIUM",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "Illustrative primary/reference source anchors were checked on 2026-04-28 and local protocol capsules with hashes are bundled.",
+      "failure_mode": "The register-level provenance date is false for the current artifact: four row source_refs and their bundled snapshots are inspected_on 2026-04-30, not 2026-04-28. This weakens the audit trail for the novelty/priority positioning register even though uniqueness is not promoted.",
+      "required_repair": "Change the top-level search_protocol to a per-row date policy or an explicit 2026-04-28 to 2026-04-30 inspection range, then regenerate any bound hashes or downstream ledger references that depend on the register text.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
       "artifact_ref": "comparators/source_snapshots",
-      "claim": "Local protocol capsules with hashes are bundled as source-backed comparator support.",
-      "failure_mode": "The bundled files are self-authored bibliographic/search-protocol capsules, not source excerpts or archived source snapshots. The hashes validate only the local capsule text, so the accepted-overlap and bounded-positioning notes are not independently auditable from the bundled artifacts.",
-      "required_repair": "Either rename these to protocol capsules everywhere, or replace/augment each file with auditable source-backed material: stable bibliographic metadata, edition/date, source excerpt or precise paraphrase target, access date, and hash of the captured source evidence.",
+      "claim": "Prior-art comparison is an illustrative bounded positioning note; uniqueness, priority, and absence are not promoted until a systematic search exists.",
+      "failure_mode": "The source snapshots are only bibliographic/search-protocol capsules and contain asserted accepted_overlap fields, but no source excerpts, page/section locators, archive captures, or quoted evidence tying each overlap to the cited source. This is not absence evidence, but it makes even the bounded bibliographic positioning hard to independently audit.",
+      "required_repair": "For each snapshot, add source-specific locators or short source-backed overlap evidence, plus archive or DOI/version metadata where available; keep the no-absence/no-uniqueness policy intact.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "T133-K0-RES and T133-DIM are promoted as bounded no-send scientific claims.",
+      "failure_mode": "The comparator register positions broad traditions, but it does not directly position the two promoted scientific claims against the closest obvious prior-art families: quotienting/observational equivalence/coarse-graining for K0 resolution, and dimensionality reduction/history-dependent state or rank notions for DIM. Because these are the only scientific_promotion_allowed rows, the release-facing novelty register leaves the promoted theorem surface under-positioned against adjacent prior art.",
+      "required_repair": "Add explicit comparator rows for those closest prior-art families with accepted-overlap, non-novelty boundaries, and no-uniqueness language, or demote the promoted rows to formal release checks until that bibliographic positioning exists.",
       "status": "OPEN"
     }
   ],

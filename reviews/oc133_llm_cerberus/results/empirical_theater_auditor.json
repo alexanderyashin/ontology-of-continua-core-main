@@ -4,30 +4,22 @@
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
   "high_open_total": 0,
-  "finding_total": 3,
+  "finding_total": 2,
   "findings": [
     {
       "severity": "MEDIUM",
       "artifact_ref": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
-      "claim": "Lane verdicts report NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS while the overall verdict is QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED.",
-      "failure_mode": "The artifact correctly blocks empirical promotion, but the lane-level word SUPPORTED can still be misread as empirical/domain support for snapshot replay rows. This is residual empirical-theater surface because every row is replay-only, prediction_support_allowed=false, empirical_support_allowed=false, and heldout_prediction_support_present=false.",
-      "required_repair": "Rename lane result_verdict values to an unambiguous QA-only status such as NUMERIC_REPLAY_QA_MATCHED_WITHIN_BOUNDS_NOT_EMPIRICAL_SUPPORT, or add a machine-readable lane field support_kind=QA_ONLY_NOT_EMPIRICAL and require downstream consumers to use it.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "MEDIUM",
-      "artifact_ref": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
-      "claim": "scientific_validation_state is EMPIRICAL_REPLAY_REQUIRED_FOR_DOMAIN_PROMOTION.",
-      "failure_mode": "The phrase EMPIRICAL_REPLAY conflates replay with empirical validation. The surrounding fields correctly say heldout_prediction_support_present=false and validation_boundary excludes held-out empirical prediction support, but this state label creates a downstream relabeling path where replay can be treated as the empirical requirement.",
-      "required_repair": "Change the state label to HELDOUT_EMPIRICAL_PREDICTION_REQUIRED_FOR_DOMAIN_PROMOTION or EMPIRICAL_VALIDATION_ABSENT_REPLAY_QA_ONLY, and reserve any EMPIRICAL_* pass state for non-replay external-observable validation.",
+      "claim": "empirical_promotion_policy=NO_EMPIRICAL_PASS_WITHOUT_NUMERIC_REPLAY and scientific_validation_state=EMPIRICAL_REPLAY_REQUIRED_FOR_DOMAIN_PROMOTION",
+      "failure_mode": "The report correctly blocks current promotion, sets heldout_prediction_support_present=false, and states numeric replay is not held-out empirical support. However these two policy labels still make numeric replay sound like the prerequisite path to empirical/domain promotion, preserving an ambiguity that downstream consumers could convert back into empirical theater.",
+      "required_repair": "Rename the policy/state to require prospective or held-out external validation, e.g. NO_EMPIRICAL_PASS_FROM_NUMERIC_REPLAY_ONLY and PROSPECTIVE_OR_HELDOUT_EMPIRICAL_VALIDATION_REQUIRED_FOR_DOMAIN_PROMOTION; keep numeric replay explicitly confined to parser/QA checks.",
       "status": "OPEN"
     },
     {
       "severity": "LOW",
       "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
-      "claim": "independent_replay=true for OC133_NUMERIC_REPLAY_LOG_v12.",
-      "failure_mode": "The replay appears independent of the materializer, but not independent in the empirical/statistical sense: the rows parse the same pinned snapshots that contain the target values. The artifact later bars prediction support, so this is not a promotion leak, but the field name is ambiguous.",
-      "required_repair": "Replace independent_replay with independent_parser_replay=true plus empirical_independence=false, or add a note that independence means independent recomputation of QA diagnostics only and not independent empirical evidence.",
+      "claim": "Numeric replay log stored under validation/numeric_predictions while every row is snapshot replay barred from prediction support.",
+      "failure_mode": "The row-level flags are correct: prediction_support_allowed=false, empirical_support_allowed=false, and replay_barred_from_prediction_support=true for all rows. The path/name still uses prediction terminology, which is not a current promotion leak but is a preventable downstream misread risk.",
+      "required_repair": "Move or alias the artifact under validation/numeric_replay_qa, or add a top-level artifact_kind=NUMERIC_REPLAY_QA_NOT_PREDICTION and deprecate the prediction-named path in all report references.",
       "status": "OPEN"
     }
   ],

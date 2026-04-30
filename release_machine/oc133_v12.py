@@ -126,9 +126,11 @@ def text(path: Path) -> str:
 
 
 def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, Any]:
-    """Check root publication metadata for v1.3.3 no-send consistency."""
+    """Check publication metadata for v1.3.3 no-send consistency."""
+    root_zenodo = root / ".zenodo.json"
+    zenodo_draft = root / "releases" / RELEASE_ID / "editorial" / "metadata_drafts" / "zenodo.no_send.draft.json"
     metadata_paths = [
-        root / ".zenodo.json",
+        zenodo_draft,
         root / "CITATION.cff",
         root / ".codemeta.json",
         root / "ro-crate-metadata.jsonld",
@@ -141,7 +143,7 @@ def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, A
             if token in body:
                 stale_hits.append({"path": rel(root, path), "token": token})
 
-    zenodo = read_json(root / ".zenodo.json") if (root / ".zenodo.json").exists() else {}
+    zenodo = read_json(zenodo_draft) if zenodo_draft.exists() else {}
     codemeta = read_json(root / ".codemeta.json") if (root / ".codemeta.json").exists() else {}
     ro_crate = read_json(root / "ro-crate-metadata.jsonld") if (root / "ro-crate-metadata.jsonld").exists() else {}
     citation = text(root / "CITATION.cff")
@@ -168,6 +170,7 @@ def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, A
         "zenodo_deposit_allowed_false": manifest.get("zenodo_deposit_allowed") is False,
         "github_release_allowed_false": manifest.get("github_release_allowed") is False,
         "journal_submissions_allowed_false": manifest.get("journal_submissions_allowed") is False,
+        "root_zenodo_metadata_absent_while_no_send": not root_zenodo.exists(),
         "zenodo_notes_no_send": "no-send" in zenodo_body.lower() or "pending" in zenodo_body.lower(),
         "zenodo_publication_date_absent": "publication_date" not in zenodo,
         "zenodo_access_right_not_open": zenodo.get("access_right") not in {"open", "embargoed", "restricted"},
@@ -439,8 +442,8 @@ def audit(root: Path) -> dict[str, Any]:
         root / "releases" / "oc_core_1_3_3" / "VERSION",
         root / "releases" / "oc_core_1_3_3" / "RELEASE_NOTES.md",
         root / "releases" / "oc_core_1_3_3" / "CHANGELOG.md",
+        root / "releases" / RELEASE_ID / "editorial" / "metadata_drafts" / "zenodo.no_send.draft.json",
         root / "CITATION.cff",
-        root / ".zenodo.json",
         root / ".codemeta.json",
         root / "ro-crate-metadata.jsonld",
     ]
@@ -577,14 +580,16 @@ def audit(root: Path) -> dict[str, Any]:
         "owner_packet": {"state": "PASS" if approval.get("decision") == "PENDING" and (root / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_OWNER_APPROVAL_PACKET.json").exists() else "FAIL"},
         "zenodo": {
             "state": "PASS" if (
-                (root / ".zenodo.json").exists()
+                not (root / ".zenodo.json").exists()
+                and (root / "releases" / RELEASE_ID / "editorial" / "metadata_drafts" / "zenodo.no_send.draft.json").exists()
                 and manifest.get("zenodo_deposit_allowed") is False
                 and manifest.get("publish_allowed") is False
                 and metadata_surface["version_checks"].get("zenodo_version") is True
                 and metadata_surface["version_checks"].get("zenodo_title_mentions_version") is True
                 and metadata_surface["version_checks"].get("zenodo_description_mentions_version") is True
                 and metadata_surface["no_send_checks"].get("zenodo_notes_no_send") is True
-                and not [row for row in metadata_surface["stale_hits"] if row["path"] == ".zenodo.json"]
+                and metadata_surface["no_send_checks"].get("root_zenodo_metadata_absent_while_no_send") is True
+                and not [row for row in metadata_surface["stale_hits"] if row["path"].endswith("zenodo.no_send.draft.json")]
             ) else "FAIL",
             **metadata_surface,
         },

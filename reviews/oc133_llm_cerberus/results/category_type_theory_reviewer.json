@@ -8,26 +8,26 @@
   "findings": [
     {
       "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "Identity continuation requires endpoint-bound identity evidence, including lifecycle identity-invariant truth and typed source/target binding; residue and rebirth are token-bound evidence relations with distinct endpoint rules.",
-      "failure_mode": "The Lean subset does not actually bind morphisms to typed carrier endpoints. `MorphismEvidence` stores only `Nat` tokens, while `typedResidueMorphism`, `typedRebirthMorphism`, and `endpointBoundIdentity` compare those tokens against `Lifecycle` token functions. The `Lifecycle` token maps are not required to be injective, so different source, residue, or target carrier elements can alias to the same token. This supports token equality checks, not carrier-level typed morphism binding or categorical source/target discipline.",
-      "required_repair": "Either weaken the public/inventory wording to 'token-level classifier checks only' or strengthen the Lean model with dependent morphism evidence carrying typed endpoints, e.g. source : S, residue : Option Residue, target : NewLive, plus proved endpoint laws; alternatively add explicit injectivity/separation assumptions for all token maps and prove alias-free binding. Add finite alias/collision negative controls.",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "T133-ID: Identity continuation requires endpoint-bound identity evidence including typed source/target binding.",
+      "failure_mode": "The current Lean subset supports only token-label consistency, not typed source/target binding. formal/lean/OC133V12.lean defines MorphismEvidence as unparameterized Nat tokens, and endpointBoundIdentity compares sourceToken/newLiveToken values across different carriers without a cross-carrier identity/equivalence relation or typed Hom/source/target object structure. proofs/finite_model_checks/run_finite_model_checks.py mirrors this with raw string equality.",
+      "required_repair": "Either weaken the ledger/inventory wording to token-equality release-consistency only, or implement a parameterized typed morphism/evidence structure with typed source and target endpoints plus a formal cross-carrier identity/equivalence witness, then update endpointBoundIdentity and finite checks to require it.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "T133-OMEGA-STATUS and T133-ID are marked as `PROMOTED_BOUNDED_NO_SEND_V12` / `BOUNDED_SCIENTIFIC_THEOREM` with Lean subset and finite witness support.",
-      "failure_mode": "The promoted identity/residue/rebirth material is mostly definitional theorem theater. `death blocks live` is supplied as the `deathBlocksLive` field of `Lifecycle`; identity/residue/rebirth separation is primarily enum inequality over `MorphismClass`; and the positive identity case constructs `endpointBoundIdentity` from the same fields named in its definition. This is a release-consistency encoding, not an independent scientific theorem about lifecycle identity or morphisms.",
-      "required_repair": "Demote these rows to `FORMAL_RELEASE_CONSISTENCY_CHECK_NOT_INDEPENDENT_SCIENTIFIC_THEOREM`, or add independent Lean semantics for death/live, identity invariants, residue, rebirth, and morphism typing, then prove the promoted claims from those semantics rather than by record projection and constructor inequality.",
+      "claim": "T133-OMEGA-STATUS: Residue and rebirth are token-bound evidence relations with distinct class-specific endpoint rules.",
+      "failure_mode": "The endpoint rules are not invariants of Lifecycle. formal/lean/OC133V12.lean allows arbitrary residueOf and rebirthOf mappings; token separation appears only as external assumptions in typedResidueMorphism/typedRebirthMorphism. lifecycle_residue_rebirth_morphism_boundary proves separation only after those witnesses are supplied, so the claim overstates what the lifecycle/rebirth relation itself guarantees.",
+      "required_repair": "Move residue/rebirth token-separation and class constraints into the Lifecycle relation constructors, or revise the claim to say the separation holds only for supplied typedResidueMorphism/typedRebirthMorphism witnesses under the theorem assumptions.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
-      "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "Finite model checks provide bound theorem-reference coverage for the v12 theorem inventory and release classifier.",
-      "failure_mode": "The reference audit treats any existing non-Lean/non-runner path as a bound reference without validating a theorem symbol, JSON pointer, case id, or semantic target. This allows theorem coverage accounting to mix Lean theorems, Python helper functions, and plain artifacts under the same `finite_row_theorem_refs`/bound totals, which weakens the claimed machine-checking boundary.",
-      "required_repair": "Separate Lean theorem refs, executable evaluator refs, and artifact refs into distinct audited fields. For artifact refs, validate an explicit JSON pointer or case id; for theorem refs, require an actual Lean symbol from `OC133V12.lean`; fail the audit on untyped cross-artifact references.",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "T133-MIN: each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.",
+      "failure_mode": "This remains theorem theater at the semantic layer: formal/lean/OC133V12.lean defines semanticVerdict as a conjunction of Boolean fields and dropSemanticComponent flips one Boolean. The finite checker repeats the same Boolean conjunction via semantic_tuple_verdict. This proves sensitivity of a declared flag tuple, not semantic irredundancy of actual OC components.",
+      "required_repair": "Rename this to a Boolean release-tuple smoke test, or replace it with component-specific witnesses tied to the actual carrier, morphism, residue, operator, cycle, and K-functional definitions rather than one-field flag drops.",
       "status": "OPEN"
     }
   ],

@@ -3,39 +3,23 @@
   "role": "public_surface_auditor",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 3,
-  "finding_total": 4,
+  "high_open_total": 1,
+  "finding_total": 2,
   "findings": [
     {
       "severity": "HIGH",
       "artifact_ref": ".zenodo.json",
-      "claim": "`publication_date` is `2026-04-30` and `access_right` is `open` for OC Core v1.3.3 while the notes say public release, Zenodo deposit, DOI assignment, and journal submission are pending owner approval.",
-      "failure_mode": "This is an actionable Zenodo public-deposit surface: it encodes an open publication date for v1.3.3 even though `OWNER_RELEASE_APPROVAL_v1.3.3.json` has `decision: PENDING` and `owner_approved: false`, and the publish manifest has `publish_allowed`, `zenodo_deposit_allowed`, and `doi_minting_allowed` all false. A human or automated Zenodo upload would publish contradictory no-send metadata.",
-      "required_repair": "Before owner approval, remove `.zenodo.json` from the actionable public/release surface or move it to a non-actionable draft path; do not expose `publication_date`, `access_right: open`, or DOI/deposit-ready metadata in the canonical Zenodo file until owner approval and all relevant channel locks are true.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "CITATION.cff",
-      "claim": "`date-released: \"2026-04-30\"` is present while the citation message and abstract state that v1.3.3 is only a no-send review-ready package until owner-approved publication assigns a public release record.",
-      "failure_mode": "CFF consumers treat `date-released` as an actual software release date. That creates a public-surface release claim while owner approval remains pending and publication is locked, so the citation surface contradicts the no-send state.",
-      "required_repair": "Remove `date-released` until `owner_approved=true` and `publish_allowed=true`; after approval, regenerate the CFF from the approved manifest and include only the approved public release date and release DOI/public-record identifiers.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "ro-crate-metadata.jsonld",
-      "claim": "The RO-Crate Dataset has `datePublished: \"2026-04-30\"` and both Dataset and SoftwareSourceCode identifiers include `doi:10.5281/zenodo.17899134` alongside `pending-public-release-record`.",
-      "failure_mode": "The RO-Crate simultaneously asserts a published DOI-identified public object and a pending public-release record. For a no-send bundle with owner approval pending, that is a public-surface parity failure: downstream RO-Crate consumers can read the package as already published and DOI-backed.",
-      "required_repair": "Until owner approval, remove `datePublished` and do not use the Zenodo DOI as the Dataset/SoftwareSourceCode identifier; keep only an explicit pending/no-send marker or encode the concept DOI as a non-release relation after approval with clear concept-vs-release DOI semantics.",
+      "claim": "\"This metadata is a non-actionable local draft\" and \"Zenodo deposit ... remain locked\" while the file is named `.zenodo.json` at repository root.",
+      "failure_mode": "A root `.zenodo.json` is the conventional Zenodo/GitHub integration metadata surface. The no-send booleans are local custom fields and are not an enforceable Zenodo lock, so the artifact can become actionable deposit metadata if a release/deposit integration consumes it. The current artifact set does not prove the integration path is disabled or that this file is quarantined from public release automation.",
+      "required_repair": "Remove or rename the root `.zenodo.json` during no-send review, keep any draft Zenodo metadata under an editorial/non-actionable path, and regenerate the root `.zenodo.json` only after owner approval and public-release gates pass; add a release gate that fails if root Zenodo metadata exists while `zenodo_deposit_allowed` or `doi_minting_allowed` is false.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
-      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "claim": "No-send rows use `theorem_id: \"OC133-NOSEND-001\"` and `lean_ref` fields while the support for the no-send controls is the draft manifest/Python evaluator, not a Lean theorem.",
-      "failure_mode": "The current coverage matrix mitigates this by labeling P012 as an operational governance control, but the finite-model artifact still presents the no-send check in theorem-shaped fields. That is theorem-labeling theater on a release-critical public action gate.",
-      "required_repair": "Rename the no-send row fields to operational control terminology such as `control_id` and `evaluator_ref`, or add an actual formal theorem binding for the no-send policy and cite that theorem instead of the manifest/Python function.",
+      "artifact_ref": "CITATION.cff",
+      "claim": "The abstract says OC Core \"formalizes a multi-level continuum framework for structural emergence, thresholds, continuity, collapse, and cross-domain system modeling.\"",
+      "failure_mode": "The public citation surface does not carry the same boundary as `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json`, which declares `phenomenon_coverage_row_total: 0`, `empirical_domain_phenomenon_coverage_total: 0`, and no public promotion. Citation consumers can surface the abstract as broad cross-domain capability even though the release artifacts only support no-send formal/internal model-card replay.",
+      "required_repair": "Revise the CFF abstract to state that v1.3.3 is a no-send formal/reproducibility package with no empirical domain phenomenon coverage or public scientific promotion, or remove/qualify the broad cross-domain modeling language until a public-release coverage pass supports it.",
       "status": "OPEN"
     }
   ],

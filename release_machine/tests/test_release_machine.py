@@ -405,7 +405,7 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertEqual(theorem_inventory["machine_checked_subset_total"], theorem_inventory["theorem_total"])
 
         metadata_paths = [
-            root / ".zenodo.json",
+            root / "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
             root / "CITATION.cff",
             root / ".codemeta.json",
             root / "ro-crate-metadata.jsonld",
@@ -415,9 +415,11 @@ class ReleaseMachineTests(unittest.TestCase):
             self.assertIn("1.3.3", body, path.name)
             self.assertNotIn("1.3.2", body, path.name)
             self.assertNotIn("v1.3.2", body, path.name)
-        self.assertEqual(json.loads((root / ".zenodo.json").read_text(encoding="utf-8"))["version"], "1.3.3")
+        self.assertFalse((root / ".zenodo.json").exists())
+        zenodo_draft = root / "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json"
+        self.assertEqual(json.loads(zenodo_draft.read_text(encoding="utf-8"))["version"], "1.3.3")
         self.assertEqual(json.loads((root / ".codemeta.json").read_text(encoding="utf-8"))["version"], "1.3.3")
-        zenodo = json.loads((root / ".zenodo.json").read_text(encoding="utf-8"))
+        zenodo = json.loads(zenodo_draft.read_text(encoding="utf-8"))
         citation = (root / "CITATION.cff").read_text(encoding="utf-8")
         ro_crate = (root / "ro-crate-metadata.jsonld").read_text(encoding="utf-8")
         self.assertNotIn("publication_date", zenodo)

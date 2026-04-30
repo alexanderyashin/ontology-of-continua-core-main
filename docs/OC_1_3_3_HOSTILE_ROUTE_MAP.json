@@ -185,26 +185,25 @@
         {
           "tuple_component": "boundaries",
           "theorem_assumptions": [
-            "Boundary predicates are typed classifiers into status objects.",
-            "Metric thresholds are admitted only when the domain supplies a metric measurement rule.",
-            "Logical, categorical, graph, social, and proof-state boundaries may remain non-metric."
+            "boundary is a typed classifier"
           ],
           "finite_model_fields": [
-            "model"
+            "boundary_kind",
+            "classifier_failure"
           ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
+          "evaluator_predicate": "classifier boundary accepts only declared classifier failure semantics"
         },
         {
           "tuple_component": "realization",
           "theorem_assumptions": [
-            "Boundary predicates are typed classifiers into status objects.",
-            "Metric thresholds are admitted only when the domain supplies a metric measurement rule.",
-            "Logical, categorical, graph, social, and proof-state boundaries may remain non-metric."
+            "metric language requires a measurement rule"
           ],
           "finite_model_fields": [
-            "model"
+            "metric_measure_declared",
+            "state_value",
+            "threshold"
           ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
+          "evaluator_predicate": "metric comparison is evaluated only when metric_measure_declared=true"
         }
       ],
       "lean_theorem_ref": "formal/lean/OC133V12.lean::metric_boundary_specialization",
@@ -233,11 +232,12 @@
           ],
           "finite_model_fields": [
             "update_kind",
+            "guard",
             "actual_next",
             "step_target",
             "reset_target"
           ],
-          "evaluator_predicate": "guard=true uses reset target; guard=false uses step target"
+          "evaluator_predicate": "guard=true is the admitted guard/reset route and uses reset target; guard=false is checked by the separate no-guard step theorem and uses step target"
         },
         {
           "tuple_component": "lawful_possibility",
@@ -295,26 +295,24 @@
         {
           "tuple_component": "dimension",
           "theorem_assumptions": [
-            "Historical axes record realized dependence history.",
-            "Effective rank records currently active independent degrees of freedom.",
-            "A lawful demotion must prove the historical axis is unobservable under the declared equivalence."
+            "historical and effective axes are distinct bookkeeping fields"
           ],
           "finite_model_fields": [
-            "model"
+            "historical",
+            "effective"
           ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
+          "evaluator_predicate": "historical sequence must be monotone while effective rank can drop in the no-send consistency witness"
         },
         {
           "tuple_component": "realization",
           "theorem_assumptions": [
-            "Historical axes record realized dependence history.",
-            "Effective rank records currently active independent degrees of freedom.",
-            "A lawful demotion must prove the historical axis is unobservable under the declared equivalence."
+            "no independent domain-rank theorem is promoted"
           ],
           "finite_model_fields": [
-            "model"
+            "historical",
+            "effective"
           ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
+          "evaluator_predicate": "negative control rejects historical-axis erasure, not a domain-wide dimension law"
         }
       ],
       "lean_theorem_ref": "formal/lean/OC133V12.lean::historical_axis_survives_rank_drop",
@@ -339,26 +337,25 @@
         {
           "tuple_component": "cycles",
           "theorem_assumptions": [
-            "Live status is not static persistence.",
-            "Maintenance, renewal, replay, regulatory, and degenerate cycle modes are distinct.",
-            "A degenerate fixed point is live only if its maintenance predicate is non-vacuous."
+            "eligible live status requires cycle mode or maintenance"
           ],
           "finite_model_fields": [
-            "model"
+            "cycle_mode",
+            "maintenance.obligation_checked",
+            "maintenance.support_available"
           ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
+          "evaluator_predicate": "maintenance loop accepts only when obligation and support are true"
         },
         {
           "tuple_component": "liveness",
           "theorem_assumptions": [
-            "Live status is not static persistence.",
-            "Maintenance, renewal, replay, regulatory, and degenerate cycle modes are distinct.",
-            "A degenerate fixed point is live only if its maintenance predicate is non-vacuous."
+            "live label is not static persistence"
           ],
           "finite_model_fields": [
-            "model"
+            "live",
+            "cycle_mode"
           ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
+          "evaluator_predicate": "live=true with cycle_mode=none and no support is rejected"
         }
       ],
       "lean_theorem_ref": "formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance",
@@ -384,47 +381,38 @@
         {
           "tuple_component": "morphisms",
           "theorem_assumptions": [
-            "Identity continuation, residue preservation, and rebirth are separate evidence classes with explicit source/target endpoint evidence.",
-            "The realization declares invariants identity morphisms must preserve.",
-            "No metaphysical personal-identity claim is promoted by the formal morphism class alone."
+            "identity, residue, and rebirth are separated evidence classes"
           ],
           "finite_model_fields": [
-            "model"
+            "morphism_class",
+            "source_token",
+            "residue_token",
+            "target_token"
           ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
+          "evaluator_predicate": "rebirth/residue cases are rejected as identity unless endpoint-bound identity evidence is present"
         },
         {
           "tuple_component": "residue",
           "theorem_assumptions": [
-            "Identity continuation, residue preservation, and rebirth are separate evidence classes with explicit source/target endpoint evidence.",
-            "The realization declares invariants identity morphisms must preserve.",
-            "No metaphysical personal-identity claim is promoted by the formal morphism class alone."
+            "residue token blocks identity continuation"
           ],
           "finite_model_fields": [
-            "model"
+            "residue_token",
+            "claimed_identity_continuation"
           ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
-        },
-        {
-          "tuple_component": "liveness",
-          "theorem_assumptions": [
-            "Identity continuation, residue preservation, and rebirth are separate evidence classes with explicit source/target endpoint evidence.",
-            "The realization declares invariants identity morphisms must preserve.",
-            "No metaphysical personal-identity claim is promoted by the formal morphism class alone."
-          ],
-          "finite_model_fields": [
-            "model"
-          ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
+          "evaluator_predicate": "claimed identity continuation fails when residue token is present or invariant is lost"
         }
       ],
       "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "proof_sheet_ref": "proofs/proof_sheets/T133-ID.md",
       "positive_case_ids": [
-        "FM-T133-ID-POS"
+        "FM-T133-ID-POS",
+        "FM-T133-ID-RESIDUE-POS",
+        "FM-T133-ID-IDENTITY-POS"
       ],
       "negative_case_ids": [
-        "FM-T133-ID-NEG"
+        "FM-T133-ID-NEG",
+        "FM-T133-ID-RESIDUE-NEG"
       ],
       "finite_runner_predicate_ref": "proofs/finite_model_checks/run_finite_model_checks.py::observed",
       "falsifier_boundary": "Any public claim reading rebirth as literal same-identity survival is blocked.",
@@ -447,136 +435,27 @@
       ],
       "tuple_component_bindings": [
         {
-          "tuple_component": "carrier",
+          "tuple_component": "minimality",
           "theorem_assumptions": [
-            "Minimality is claimed for the release-governed OC verdict class, not for all possible theories.",
-            "Each promoted component has a witness pair that changes a declared OC verdict when the component is removed or weakened.",
-            "Witnesses are checked by the finite-model ledger and by the Lean component-witness schema."
+            "each tuple component has a keep/drop witness"
           ],
           "finite_model_fields": [
-            "model"
+            "target_component",
+            "keep",
+            "drop"
           ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
-        },
-        {
-          "tuple_component": "realization",
-          "theorem_assumptions": [
-            "Minimality is claimed for the release-governed OC verdict class, not for all possible theories.",
-            "Each promoted component has a witness pair that changes a declared OC verdict when the component is removed or weakened.",
-            "Witnesses are checked by the finite-model ledger and by the Lean component-witness schema."
-          ],
-          "finite_model_fields": [
-            "model"
-          ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
-        },
-        {
-          "tuple_component": "lawful_possibility",
-          "theorem_assumptions": [
-            "Minimality is claimed for the release-governed OC verdict class, not for all possible theories.",
-            "Each promoted component has a witness pair that changes a declared OC verdict when the component is removed or weakened.",
-            "Witnesses are checked by the finite-model ledger and by the Lean component-witness schema."
-          ],
-          "finite_model_fields": [
-            "model"
-          ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
-        },
-        {
-          "tuple_component": "liveness",
-          "theorem_assumptions": [
-            "Minimality is claimed for the release-governed OC verdict class, not for all possible theories.",
-            "Each promoted component has a witness pair that changes a declared OC verdict when the component is removed or weakened.",
-            "Witnesses are checked by the finite-model ledger and by the Lean component-witness schema."
-          ],
-          "finite_model_fields": [
-            "model"
-          ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
-        },
-        {
-          "tuple_component": "residue",
-          "theorem_assumptions": [
-            "Minimality is claimed for the release-governed OC verdict class, not for all possible theories.",
-            "Each promoted component has a witness pair that changes a declared OC verdict when the component is removed or weakened.",
-            "Witnesses are checked by the finite-model ledger and by the Lean component-witness schema."
-          ],
-          "finite_model_fields": [
-            "model"
-          ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
-        },
-        {
-          "tuple_component": "morphisms",
-          "theorem_assumptions": [
-            "Minimality is claimed for the release-governed OC verdict class, not for all possible theories.",
-            "Each promoted component has a witness pair that changes a declared OC verdict when the component is removed or weakened.",
-            "Witnesses are checked by the finite-model ledger and by the Lean component-witness schema."
-          ],
-          "finite_model_fields": [
-            "model"
-          ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
+          "evaluator_predicate": "keep verdict passes and one-component drop verdict fails for the named component"
         },
         {
           "tuple_component": "boundaries",
           "theorem_assumptions": [
-            "Minimality is claimed for the release-governed OC verdict class, not for all possible theories.",
-            "Each promoted component has a witness pair that changes a declared OC verdict when the component is removed or weakened.",
-            "Witnesses are checked by the finite-model ledger and by the Lean component-witness schema."
+            "component-specific witnesses are not label-only"
           ],
           "finite_model_fields": [
-            "model"
+            "keep.boundary_rejects_bad_state",
+            "drop.boundary_rejects_bad_state"
           ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
-        },
-        {
-          "tuple_component": "operators",
-          "theorem_assumptions": [
-            "Minimality is claimed for the release-governed OC verdict class, not for all possible theories.",
-            "Each promoted component has a witness pair that changes a declared OC verdict when the component is removed or weakened.",
-            "Witnesses are checked by the finite-model ledger and by the Lean component-witness schema."
-          ],
-          "finite_model_fields": [
-            "model"
-          ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
-        },
-        {
-          "tuple_component": "cycles",
-          "theorem_assumptions": [
-            "Minimality is claimed for the release-governed OC verdict class, not for all possible theories.",
-            "Each promoted component has a witness pair that changes a declared OC verdict when the component is removed or weakened.",
-            "Witnesses are checked by the finite-model ledger and by the Lean component-witness schema."
-          ],
-          "finite_model_fields": [
-            "model"
-          ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
-        },
-        {
-          "tuple_component": "dimension",
-          "theorem_assumptions": [
-            "Minimality is claimed for the release-governed OC verdict class, not for all possible theories.",
-            "Each promoted component has a witness pair that changes a declared OC verdict when the component is removed or weakened.",
-            "Witnesses are checked by the finite-model ledger and by the Lean component-witness schema."
-          ],
-          "finite_model_fields": [
-            "model"
-          ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
-        },
-        {
-          "tuple_component": "k",
-          "theorem_assumptions": [
-            "Minimality is claimed for the release-governed OC verdict class, not for all possible theories.",
-            "Each promoted component has a witness pair that changes a declared OC verdict when the component is removed or weakened.",
-            "Witnesses are checked by the finite-model ledger and by the Lean component-witness schema."
-          ],
-          "finite_model_fields": [
-            "model"
-          ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
+          "evaluator_predicate": "boundary witness flips exactly the boundary obligation"
         }
       ],
       "lean_theorem_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
@@ -604,62 +483,39 @@
         {
           "tuple_component": "k",
           "theorem_assumptions": [
-            "K-levels are release-governed classifier levels, not metaphysical ranks.",
-            "Adjacent row consistency is asserted only inside the declared v12 release classifier.",
-            "A lawful demotion is allowed when the witness disappears under a stronger equivalence or becomes observationally inert."
+            "adjacent K transitions require retained witness and demotion criterion"
           ],
           "finite_model_fields": [
-            "model"
+            "transition_id",
+            "from_k",
+            "to_k",
+            "added_axis"
           ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
-        },
-        {
-          "tuple_component": "carrier",
-          "theorem_assumptions": [
-            "K-levels are release-governed classifier levels, not metaphysical ranks.",
-            "Adjacent row consistency is asserted only inside the declared v12 release classifier.",
-            "A lawful demotion is allowed when the witness disappears under a stronger equivalence or becomes observationally inert."
-          ],
-          "finite_model_fields": [
-            "model"
-          ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
+          "evaluator_predicate": "transition row identity and added axis must match the atlas"
         },
         {
           "tuple_component": "realization",
           "theorem_assumptions": [
-            "K-levels are release-governed classifier levels, not metaphysical ranks.",
-            "Adjacent row consistency is asserted only inside the declared v12 release classifier.",
-            "A lawful demotion is allowed when the witness disappears under a stronger equivalence or becomes observationally inert."
+            "reduction fails only when witness remains observable"
           ],
           "finite_model_fields": [
-            "model"
+            "upper_model.axis_observed",
+            "upper_model.retained_witness",
+            "upper_model.verdict_changes",
+            "reduced_model.axis_observed"
           ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
+          "evaluator_predicate": "upper witness changes verdict while reduced model loses the axis"
         },
         {
-          "tuple_component": "operators",
+          "tuple_component": "lawful_possibility",
           "theorem_assumptions": [
-            "K-levels are release-governed classifier levels, not metaphysical ranks.",
-            "Adjacent row consistency is asserted only inside the declared v12 release classifier.",
-            "A lawful demotion is allowed when the witness disappears under a stronger equivalence or becomes observationally inert."
+            "lawful demotion is explicit"
           ],
           "finite_model_fields": [
-            "model"
+            "demotion_case.upper_model.axis_observed",
+            "demotion_case.reduced_model.axis_observed"
           ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
-        },
-        {
-          "tuple_component": "boundaries",
-          "theorem_assumptions": [
-            "K-levels are release-governed classifier levels, not metaphysical ranks.",
-            "Adjacent row consistency is asserted only inside the declared v12 release classifier.",
-            "A lawful demotion is allowed when the witness disappears under a stronger equivalence or becomes observationally inert."
-          ],
-          "finite_model_fields": [
-            "model"
-          ],
-          "evaluator_predicate": "see proofs/finite_model_checks/run_finite_model_checks.py::observed"
+          "evaluator_predicate": "demotion control passes only when witness is unobservable"
         }
       ],
       "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",

@@ -375,7 +375,7 @@ THEOREMS = [
         "title": "K0 resolution-relative distinguishability theorem",
         "artifact": "appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex",
         "lean": "k0_countermodel_raw_separation_not_resolution_distinction",
-        "claim": "K0 support is resolution-relative: same-resolution states are not distinguished, and a finite countermodel shows raw separation need not induce resolution distinction.",
+        "claim": "K0 support is treated as a no-send formal release-consistency check over declared resolution quotients: same-resolution states are not distinguished, and a finite countermodel shows raw separation need not induce resolution distinction. It is not promoted as an independent novelty or scientific theorem in v12.",
         "assumptions": [
             "A raw carrier may be continuous, finite, countable, graph-like, proof-theoretic, or typed-combinatorial.",
             "A resolution regime supplies an observational equivalence relation over raw states.",
@@ -388,8 +388,8 @@ THEOREMS = [
         ],
         "lemma1": "If two raw points are in the same rho-cell, no OC theorem may infer raw separation between them.",
         "lemma2": "If two rho-cells are distinct and the quotient metric declares positive separation, K0 distinguishability follows without a raw lower bound.",
-        "theorem": "K0 is compatible with continuous raw carriers because the required separation is a quotient property.",
-        "proof": "The proof factors every K0 reference through rho. Lemma 1 blocks raw discreteness leakage. Lemma 2 supplies the only positive separation used by downstream K0 claims. Therefore the promoted theorem is about resolved classes, not raw points.",
+        "theorem": "K0 is compatible with continuous raw carriers inside the declared release semantics because the required separation is a quotient property.",
+        "proof": "The proof factors every K0 reference through rho. Lemma 1 blocks raw discreteness leakage. Lemma 2 supplies the only positive separation used by downstream K0 checks. Therefore the no-send formal check is about resolved classes, not raw points.",
         "finite": "Partition [0,1] into four cells. Points 0.10 and 0.11 remain unresolved, while the first and second cells are separated as quotient classes.",
         "boundary": "A proof that assumes every pair of raw real states is epsilon-separated is outside v12 and fails G33.",
     },
@@ -491,7 +491,7 @@ THEOREMS = [
         "title": "Historical axis and effective-rank compatibility theorem",
         "artifact": "appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex",
         "lean": "historical_axis_survives_rank_drop",
-        "claim": "Historical axis activation may be monotone while effective working rank decreases.",
+        "claim": "Historical axis activation and effective working rank are kept as distinct no-send formal release-consistency fields; a finite/Lean witness shows compatibility of monotone historical bookkeeping with decreasing effective rank, but v12 does not promote an independent scientific dimension theorem.",
         "assumptions": [
             "Historical axes record realized dependence history.",
             "Effective rank records currently active independent degrees of freedom.",
@@ -504,7 +504,7 @@ THEOREMS = [
         ],
         "lemma1": "A frozen memory axis can remain historically present after active rank falls.",
         "lemma2": "Reduction from K(n+1) to K(n) fails when a witness remains observable.",
-        "theorem": "Historical monotonicity and effective-rank decrease are compatible because they measure different typed quantities.",
+        "theorem": "Historical monotonicity and effective-rank decrease are compatible inside the release semantics because they measure different typed quantities.",
         "proof": "A_hist is accumulated over realized dependence events; rank_eff is recomputed over active support. Lemma 1 gives compatibility; Lemma 2 gives the irreducibility test used by the atlas.",
         "finite": "A two-axis automaton activates memory and later freezes it; historical axes remain two while active rank becomes one.",
         "boundary": "A K-level is demotable only when the alleged new axis has no witness and no observable consequence.",
@@ -604,6 +604,7 @@ THEOREMS = [
 ]
 
 FORMAL_CONSISTENCY_ONLY_THEOREMS = {
+    "T133-K0-RES",
     "T133-MIN",
     "T133-KLEVEL",
     "T133-CYCLE",
@@ -612,6 +613,7 @@ FORMAL_CONSISTENCY_ONLY_THEOREMS = {
     "T133-ID",
     "T133-BOUNDARY",
     "T133-HYBRID",
+    "T133-DIM",
 }
 
 
@@ -2446,7 +2448,7 @@ if __name__ == "__main__":
         "lane_total": len(unique_lanes),
         "lanes": unique_lanes,
         "official_snapshots_are_inputs_not_validation_by_themselves": True,
-        "empirical_promotion_policy": "NO_EMPIRICAL_PASS_WITHOUT_NUMERIC_REPLAY",
+        "empirical_promotion_policy": "NO_EMPIRICAL_PASS_FROM_OFFICIAL_SNAPSHOT_REPLAY_QA",
         "numeric_replay_qa_table": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
         "numeric_replay_row_total": len(NUMERIC_ROWS),
         "numeric_replay_lane_total": len(unique_lanes),
@@ -2460,8 +2462,8 @@ if __name__ == "__main__":
         "numeric_quarantined_replay_qa_total": quarantined_total,
         "domain_validation_promoted": False,
         "heldout_prediction_support_present": False,
-        "scientific_validation_state": "EMPIRICAL_REPLAY_REQUIRED_FOR_DOMAIN_PROMOTION",
-        "release_gate_semantics": "Exit 0 means replay QA completed and no empirical promotion leaked; it is not a domain-validation PASS.",
+        "scientific_validation_state": "TARGET_BLIND_HELDOUT_PROTOCOL_REQUIRED_FOR_DOMAIN_PROMOTION",
+        "release_gate_semantics": "Exit 0 means official-snapshot replay QA completed and no empirical promotion leaked; snapshot replay can never by itself become a domain-validation PASS.",
         "verdict": "QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED",
         "validation_boundary": "This is deterministic numeric replay QA. It is not held-out empirical prediction support and does not promote domain validation.",
     }
@@ -4011,6 +4013,15 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                     "prediction_or_replay": finite_case,
                     "negative_control": negative_case,
                     "additional_replay_cases": (
+                        ["FM-T133-OMEGA-IDENTITY-EQUIVOCATION-NEG"]
+                        if pid == "P002"
+                        else
+                        [
+                            "FM-T133-K-ZERO-LIVE-SUPPORT-NEG",
+                            "FM-T133-K-ZERO-OBSTRUCTION-NEG",
+                        ]
+                        if pid == "P007"
+                        else
                         [
                             "FM-T133-HYBRID-POS",
                             "FM-T133-HYBRID-NEG",
@@ -5056,14 +5067,53 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
             ],
             "additional_negative_case_ids": ["FM-T133-K-ZERO-LIVE-SUPPORT-NEG", "FM-T133-K-ZERO-OBSTRUCTION-NEG"],
         },
+        "T133-BOUNDARY": {
+            "tuple_component_bindings": [
+                {"tuple_component": "boundaries", "theorem_assumptions": ["boundary is a typed classifier"], "finite_model_fields": ["boundary_kind", "classifier_failure"], "evaluator_predicate": "classifier boundary accepts only declared classifier failure semantics"},
+                {"tuple_component": "realization", "theorem_assumptions": ["metric language requires a measurement rule"], "finite_model_fields": ["metric_measure_declared", "state_value", "threshold"], "evaluator_predicate": "metric comparison is evaluated only when metric_measure_declared=true"},
+            ],
+        },
         "T133-HYBRID": {
             "tuple_component_bindings": [
-                {"tuple_component": "operators", "theorem_assumptions": ["operator route is explicit"], "finite_model_fields": ["update_kind", "actual_next", "step_target", "reset_target"], "evaluator_predicate": "guard=true uses reset target; guard=false uses step target"},
+                {"tuple_component": "operators", "theorem_assumptions": ["operator route is explicit"], "finite_model_fields": ["update_kind", "guard", "actual_next", "step_target", "reset_target"], "evaluator_predicate": "guard=true is the admitted guard/reset route and uses reset target; guard=false is checked by the separate no-guard step theorem and uses step target"},
                 {"tuple_component": "lawful_possibility", "theorem_assumptions": ["smooth notation needs chart/domain/local-law"], "finite_model_fields": ["smooth_chart_id", "chart_domain_contains_state", "local_law_declared"], "evaluator_predicate": "smooth-chart route rejects missing chart or missing local law"},
                 {"tuple_component": "operators", "theorem_assumptions": ["proof/rewrite route rejects derivatives and requires rewrite rule"], "finite_model_fields": ["carrier_kind", "typed_update_relation", "rewrite_rule_present", "derivative_requested"], "evaluator_predicate": "proof/rewrite accepts only typed rewrite with derivative_requested=false"},
             ],
             "additional_positive_case_ids": ["FM-T133-HYBRID-NO-GUARD-STEP-POS", "FM-T133-HYBRID-SMOOTH-CHART-POS", "FM-T133-HYBRID-PROOF-UPDATE-POS"],
             "additional_negative_case_ids": ["FM-T133-HYBRID-NO-GUARD-STEP-NEG", "FM-T133-HYBRID-SMOOTH-CHART-NEG", "FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG", "FM-T133-HYBRID-PROOF-UPDATE-NEG", "FM-T133-HYBRID-PROOF-NO-RULE-NEG"],
+        },
+        "T133-DIM": {
+            "tuple_component_bindings": [
+                {"tuple_component": "dimension", "theorem_assumptions": ["historical and effective axes are distinct bookkeeping fields"], "finite_model_fields": ["historical", "effective"], "evaluator_predicate": "historical sequence must be monotone while effective rank can drop in the no-send consistency witness"},
+                {"tuple_component": "realization", "theorem_assumptions": ["no independent domain-rank theorem is promoted"], "finite_model_fields": ["historical", "effective"], "evaluator_predicate": "negative control rejects historical-axis erasure, not a domain-wide dimension law"},
+            ],
+        },
+        "T133-CYCLE": {
+            "tuple_component_bindings": [
+                {"tuple_component": "cycles", "theorem_assumptions": ["eligible live status requires cycle mode or maintenance"], "finite_model_fields": ["cycle_mode", "maintenance.obligation_checked", "maintenance.support_available"], "evaluator_predicate": "maintenance loop accepts only when obligation and support are true"},
+                {"tuple_component": "liveness", "theorem_assumptions": ["live label is not static persistence"], "finite_model_fields": ["live", "cycle_mode"], "evaluator_predicate": "live=true with cycle_mode=none and no support is rejected"},
+            ],
+        },
+        "T133-ID": {
+            "tuple_component_bindings": [
+                {"tuple_component": "morphisms", "theorem_assumptions": ["identity, residue, and rebirth are separated evidence classes"], "finite_model_fields": ["morphism_class", "source_token", "residue_token", "target_token"], "evaluator_predicate": "rebirth/residue cases are rejected as identity unless endpoint-bound identity evidence is present"},
+                {"tuple_component": "residue", "theorem_assumptions": ["residue token blocks identity continuation"], "finite_model_fields": ["residue_token", "claimed_identity_continuation"], "evaluator_predicate": "claimed identity continuation fails when residue token is present or invariant is lost"},
+            ],
+            "additional_positive_case_ids": ["FM-T133-ID-RESIDUE-POS", "FM-T133-ID-IDENTITY-POS"],
+            "additional_negative_case_ids": ["FM-T133-ID-RESIDUE-NEG"],
+        },
+        "T133-MIN": {
+            "tuple_component_bindings": [
+                {"tuple_component": "minimality", "theorem_assumptions": ["each tuple component has a keep/drop witness"], "finite_model_fields": ["target_component", "keep", "drop"], "evaluator_predicate": "keep verdict passes and one-component drop verdict fails for the named component"},
+                {"tuple_component": "boundaries", "theorem_assumptions": ["component-specific witnesses are not label-only"], "finite_model_fields": ["keep.boundary_rejects_bad_state", "drop.boundary_rejects_bad_state"], "evaluator_predicate": "boundary witness flips exactly the boundary obligation"},
+            ],
+        },
+        "T133-KLEVEL": {
+            "tuple_component_bindings": [
+                {"tuple_component": "k", "theorem_assumptions": ["adjacent K transitions require retained witness and demotion criterion"], "finite_model_fields": ["transition_id", "from_k", "to_k", "added_axis"], "evaluator_predicate": "transition row identity and added axis must match the atlas"},
+                {"tuple_component": "realization", "theorem_assumptions": ["reduction fails only when witness remains observable"], "finite_model_fields": ["upper_model.axis_observed", "upper_model.retained_witness", "upper_model.verdict_changes", "reduced_model.axis_observed"], "evaluator_predicate": "upper witness changes verdict while reduced model loses the axis"},
+                {"tuple_component": "lawful_possibility", "theorem_assumptions": ["lawful demotion is explicit"], "finite_model_fields": ["demotion_case.upper_model.axis_observed", "demotion_case.reduced_model.axis_observed"], "evaluator_predicate": "demotion control passes only when witness is unobservable"},
+            ],
         },
     }
     route_rows = []
@@ -5210,9 +5260,13 @@ def write_llm_summary_if_needed(root: Path) -> None:
 
 
 def write_no_send_root_metadata(root: Path) -> None:
-    """Write non-actionable root metadata for owner review without public-release signals."""
+    """Write no-send metadata drafts while removing actionable Zenodo root metadata."""
+    root_zenodo = root / ".zenodo.json"
+    if root_zenodo.exists():
+        root_zenodo.unlink()
+    draft_dir = root / "releases" / RELEASE_ID / "editorial" / "metadata_drafts"
     write_json(
-        root / ".zenodo.json",
+        draft_dir / "zenodo.no_send.draft.json",
         {
             "title": "Ontology of Continua - Core v1.3.3 No-Send Review Draft",
             "upload_type": "software",
@@ -5247,7 +5301,7 @@ def write_no_send_root_metadata(root: Path) -> None:
             "publish_allowed": False,
             "zenodo_deposit_allowed": False,
             "doi_minting_allowed": False,
-            "notes": "No publication_date or open access_right is declared in this no-send draft. Public release metadata must be regenerated only after owner approval and release gates pass.",
+            "notes": "No publication-date or open access-right field is declared in this no-send draft. Public release metadata must be regenerated only after owner approval and release gates pass.",
         },
     )
     write_text(

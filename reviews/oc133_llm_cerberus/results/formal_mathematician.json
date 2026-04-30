@@ -3,31 +3,31 @@
   "role": "formal_mathematician",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 2,
+  "high_open_total": 0,
   "finding_total": 3,
   "findings": [
     {
-      "severity": "HIGH",
-      "artifact_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-      "claim": "The Lean build certificate binds the clean isolated build to the current Lean source used by the theorem ledger.",
-      "failure_mode": "The certificate gives two different SHA256 values for the same ref `formal/lean/OC133V12.lean`: `clean_source_manifest` records `5345407b...`, while `lean_source_sha256` records `783fb562...`; `proofs/FINITE_MODEL_CHECKS_1_3_3.json` also treats `783fb562...` as the current/certificate Lean hash. This makes the formal evidence chain ambiguous about which Lean source was actually certified.",
-      "required_repair": "Regenerate the Lean build certificate so every occurrence of `formal/lean/OC133V12.lean` has one consistent source hash, or split the refs into explicitly named normalized/archive/current-source fields and make the finite manifest mismatch check fail on unexplained divergence.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-HYBRID: OC operators are typed update semantics; chart-labelled flow-one, proof/rewrite, and guard/reset hybrid routes are separate first-class typed realizations.",
-      "failure_mode": "The cited theorem `integrated_operator_semantics` is not a route-complete theorem over an arbitrary admitted operator route. It requires simultaneous admitted smooth, hybrid, and proof systems as assumptions and then unpacks obligations from those assumptions. The finite rows are single-route cases, but all cite this integrated theorem; a hybrid-only or proof-rewrite-only public claim is therefore not directly the proposition proved by the cited Lean theorem.",
-      "required_repair": "Add and ledger-bind a route-disjunction theorem such as `forall a, operatorAdmitted a = true -> route-specific typed obligations`, with separate smooth-chart, guard/reset, and proof/rewrite cases; bind each finite row to the matching route theorem or make `integrated_operator_semantics` a corollary only.",
+      "severity": "MEDIUM",
+      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+      "claim": "T133-HYBRID: OC operators are typed update semantics; chart-labelled flow-one notation is admitted only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth cases.",
+      "failure_mode": "The ledger binds the claim to formal/lean/OC133V12.lean::operator_admission_route_obligations, which only unpacks Boolean route-admission obligations from an already-formed OperatorAdmission record. It does not prove a general typed update semantics theorem relating admitted operators to UpdateSystem.step, SmoothSystem.flow, HybridSystem.hybridStep, or ProofRewriteSystem behavior.",
+      "required_repair": "Either narrow the ledger claim to route-admission Boolean obligations, or replace/add the Lean reference with a packaged theorem that binds OperatorAdmission to the actual smooth, guard/reset, and proof/rewrite update semantics, with the exact public boundary stated in the theorem statement.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
       "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-K-ZERO, T133-CYCLE, T133-MIN, and T133-KLEVEL have zero adversarial blockers and are in a ready no-send/formal-consistency state.",
-      "failure_mode": "The directly referenced proof sheets for these rows still state `Status: BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12`, while the inventory records `adversarial_review_blocker_total: 0` and `owner_review_state: READY_NO_SEND`. The ledger state and the proof-obligation source state disagree.",
-      "required_repair": "Either update the proof sheets to the current formal-consistency/no-send status, or propagate the blocked status back into the theorem inventory and claim ledger blocker counts before release gating.",
+      "claim": "T133-KLEVEL: Every declared adjacent K-level transition K0->K12 has a release-atlas row, retained-witness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release classifier.",
+      "failure_mode": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage proves properties of internally constructed Lean rows and evidence records for an input AdjacentK. It does not prove that the executable finite rows in proofs/FINITE_MODEL_CHECKS_1_3_3.json exist, are bijective with AdjacentK, or are hash-bound to the external atlas data referenced by the proof ledger.",
+      "required_repair": "Add a Lean-verifiable manifest/list binding the executable finite rows and atlas row IDs to AdjacentK, or explicitly split the claim: Lean proves only internal release-classifier row construction; external executable-row coverage is certified solely by the finite-model report.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "LOW",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-MIN: Within the declared v12 release tuple semantics, each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.",
+      "failure_mode": "release_tuple_semantic_component_irredundant proves sensitivity of a hard-coded Boolean conjunction: semanticDropReleaseTupleComponent directly flips the target component's semantic Boolean and semanticOnlyReleaseTupleVerdict then fails. This supports the scoped evaluator claim, but not semantic minimality or irreducibility of the actual promoted components.",
+      "required_repair": "Keep the current demoted/non-scientific status, or strengthen it by binding each Component constructor to its real proof and finite-check artifact and proving that no component can be dropped or simulated while preserving the declared verdict suite.",
       "status": "OPEN"
     }
   ],

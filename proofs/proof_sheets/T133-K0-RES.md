@@ -1,9 +1,9 @@
 # T133-K0-RES - K0 resolution-relative distinguishability theorem
 
-Status: `PROMOTED_BOUNDED_THEOREM_V12_NO_SEND`
+Status: `BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12`
 Primary artifact: `appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex`
 Machine-checked subset: `formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction`
-Attacked claim: K0 support is resolution-relative: same-resolution states are not distinguished, and a finite countermodel shows raw separation need not induce resolution distinction.
+Attacked claim: K0 support is treated as a no-send formal release-consistency check over declared resolution quotients: same-resolution states are not distinguished, and a finite countermodel shows raw separation need not induce resolution distinction. It is not promoted as an independent novelty or scientific theorem in v12.
 
 ## Assumptions
 - A raw carrier may be continuous, finite, countable, graph-like, proof-theoretic, or typed-combinatorial.
@@ -22,12 +22,12 @@ If two raw points are in the same rho-cell, no OC theorem may infer raw separati
 If two rho-cells are distinct and the quotient metric declares positive separation, K0 distinguishability follows without a raw lower bound.
 
 ## Theorem
-K0 is compatible with continuous raw carriers because the required separation is a quotient property.
+K0 is compatible with continuous raw carriers inside the declared release semantics because the required separation is a quotient property.
 
 ## Proof
-The proof factors every K0 reference through rho. Lemma 1 blocks raw discreteness leakage. Lemma 2 supplies the only positive separation used by downstream K0 claims. Therefore the promoted theorem is about resolved classes, not raw points.
+The proof factors every K0 reference through rho. Lemma 1 blocks raw discreteness leakage. Lemma 2 supplies the only positive separation used by downstream K0 checks. Therefore the no-send formal check is about resolved classes, not raw points.
 
-The proof is promoted only as a bounded no-send release claim with the stated assumptions. It is linked to the finite witness corpus and
+This is a candidate proof sheet and is not release-promoted while G57/G58/G70 remain open. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the
 finite corpus checks the release verdict behavior used by the public claim ledger.
 

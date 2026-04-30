@@ -40,7 +40,7 @@
     }
   ],
   "official_snapshots_are_inputs_not_validation_by_themselves": true,
-  "empirical_promotion_policy": "NO_EMPIRICAL_PASS_WITHOUT_NUMERIC_REPLAY",
+  "empirical_promotion_policy": "NO_EMPIRICAL_PASS_FROM_OFFICIAL_SNAPSHOT_REPLAY_QA",
   "numeric_replay_qa_table": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
   "numeric_replay_row_total": 6,
   "numeric_replay_lane_total": 5,
@@ -240,8 +240,8 @@
   "numeric_quarantined_replay_qa_total": 6,
   "domain_validation_promoted": false,
   "heldout_prediction_support_present": false,
-  "scientific_validation_state": "EMPIRICAL_REPLAY_REQUIRED_FOR_DOMAIN_PROMOTION",
-  "release_gate_semantics": "Exit 0 means replay QA completed and no empirical promotion leaked; it is not a domain-validation PASS.",
+  "scientific_validation_state": "TARGET_BLIND_HELDOUT_PROTOCOL_REQUIRED_FOR_DOMAIN_PROMOTION",
+  "release_gate_semantics": "Exit 0 means official-snapshot replay QA completed and no empirical promotion leaked; snapshot replay can never by itself become a domain-validation PASS.",
   "verdict": "QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED",
   "validation_boundary": "This is deterministic numeric replay QA. It is not held-out empirical prediction support and does not promote domain validation."
 }

@@ -3,47 +3,31 @@
   "role": "clarity_didactic_reviewer",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 3,
-  "finding_total": 5,
+  "high_open_total": 2,
+  "finding_total": 3,
   "findings": [
     {
       "severity": "HIGH",
       "artifact_ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-      "claim": "The hostile route table lets a reader follow each claim through tuple components -> Lean theorem -> semantic finite case -> negative control -> falsifier boundary.",
-      "failure_mode": "The tuple column only names component labels such as `k; carrier; realization` or `operators; lawful_possibility`; it does not map those tuple components to theorem hypotheses, finite-model JSON fields, or evaluator predicates. For example, `T133-K0-RES` points to finite cases whose model fields are `rho_cell_a`, `rho_cell_b`, `raw_distance`, and `resolution_distinguished`, but the guide never shows how these instantiate `k`, `carrier`, or `realization`. A hostile reader cannot audit the tuple -> theorem -> finite-case route without author reconstruction.",
-      "required_repair": "Add a per-claim route map that binds each tuple component to the exact theorem assumption(s), finite-model field(s), evaluator predicate, positive case, negative case, and falsifier mutation. Make this machine-readable or add explicit row-level subfields in the guide.",
+      "claim": "The Machine-readable Route Map binds tuple components to theorem assumptions, finite-model JSON fields, evaluator predicates, positive cases, negative controls, and falsifier boundaries.",
+      "failure_mode": "The guide delegates the didactic binding to docs/OC_1_3_3_HOSTILE_ROUTE_MAP.json, but the current route-map rows for T133-BOUNDARY, T133-DIM, T133-CYCLE, T133-ID, T133-MIN, and T133-KLEVEL use finite_model_fields=[\"model\"] and evaluator_predicate=\"see proofs/finite_model_checks/run_finite_model_checks.py::observed\" for most or all tuple components. That is not a field-level route; a hostile reader must inspect runner internals or ask the author to know which semantic fields falsify which tuple component.",
+      "required_repair": "Expand the guide/route-map binding for every tuple component to name the actual finite JSON fields and route-specific predicate clauses; keep generic runner references only as secondary source links.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
-      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "claim": "`T133-OMEGA-STATUS` rejects death/live contradiction and rebirth-as-same-identity equivocation through `FM-T133-OMEGA-STATUS-NEG`.",
-      "failure_mode": "The only `T133-OMEGA-STATUS` negative control is overdetermined: it sets `death=true` and `live=true` while also using original-token rebirth/identity fields. Because the rejection can be explained entirely by the death/live contradiction, the finite case does not isolate the promoted claim's identity-equivocation boundary. The phenomenon matrix and guide both advertise a falsifier with two disjuncts, but only one combined negative case exists for this theorem id.",
-      "required_repair": "Split the negative controls: one case that changes only death/live consistency, and a separate case with death/live otherwise valid while rebirth is incorrectly accepted as same-identity without endpoint-bound identity evidence. Link the second control to the `T133-ID` truth-table cases or duplicate the isolated lifecycle control under `T133-OMEGA-STATUS`.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-      "claim": "`T133-HYBRID` falsifier boundary blocks treating a chart token as differentiability, manifold, vector-field, or ODE-solution evidence.",
-      "failure_mode": "The guide routes `T133-HYBRID` through guard/reset and proof/rewrite cases, but omits the smooth-chart controls that directly test the advertised chart-token boundary: `FM-T133-HYBRID-SMOOTH-CHART-POS`, `FM-T133-HYBRID-SMOOTH-CHART-NEG`, and `FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG` exist in the finite model artifact but are not surfaced in the hostile-reader route. A reader following the guide cannot verify the stated falsifier against the relevant finite semantic cases.",
-      "required_repair": "Add the smooth-chart positive, missing-chart negative, and missing-local-law negative controls to the `T133-HYBRID` route, and align the falsifier text to the exact finite cases that reject derivative/flow-one claims without declared chart obligations.",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "The P002 and P007 model cards give the finite negative-control route and falsifier boundary for T133-OMEGA-STATUS and T133-K-ZERO.",
+      "failure_mode": "P002 lists only FM-T133-OMEGA-STATUS-NEG even though the guide/route map and finite checks also use FM-T133-OMEGA-IDENTITY-EQUIVOCATION-NEG for the same identity-equivocation boundary. P007 lists only FM-T133-K-ZERO-NEG and a no-zero-cause falsifier, while the guide/route map and finite checks also include FM-T133-K-ZERO-LIVE-SUPPORT-NEG and FM-T133-K-ZERO-OBSTRUCTION-NEG. A hostile reader following the matrix route sees incomplete falsifier coverage for live-support, obstruction, and identity-equivocation cases.",
+      "required_repair": "Add the missing finite negative-control IDs to the affected model_card additional_replay_cases or negative_control fields, and align each falsifier text with the full guide/route-map boundary.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
-      "artifact_ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-      "claim": "The `Blockers` column gives the current route-blocker state for theorem rows.",
-      "failure_mode": "The guide reports `Blockers` = `0` for formal-consistency rows such as `T133-CYCLE`, `T133-K-ZERO`, `T133-MIN`, and `T133-KLEVEL`, while the phenomenon coverage matrix reports `blocker_count: 1` for corresponding model-card rows. The artifacts do not define whether these are different blocker namespaces. This creates a gating ambiguity for hostile readers trying to distinguish claim-ledger blockers from coverage-promotion blockers.",
-      "required_repair": "Rename and define the blocker fields, for example `claim_ledger_blockers` versus `coverage_promotion_blockers`, and add a row-level blocker reason when a coverage row is blocked because it is illustrative/formal-only rather than scientifically promoted.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "MEDIUM",
-      "artifact_ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-      "claim": "`T133-K-ZERO` falsifier boundary covers undeclared zero-cause, missing live support, and active obstruction.",
-      "failure_mode": "The guide lists only `FM-T133-K-ZERO-NEG` as the negative control, which covers undeclared zero-cause. The finite model artifact also has `FM-T133-K-ZERO-LIVE-SUPPORT-NEG` and `FM-T133-K-ZERO-OBSTRUCTION-NEG`, but the hostile route omits them. The stated falsifier has three branches, while the guide exposes only one.",
-      "required_repair": "List all three K-zero negative controls in the hostile route or narrow the guide's falsifier boundary to the one exposed control. Prefer listing the live-support and obstruction negative cases so each falsifier branch is auditable.",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "Rows with no coverage-promotion blocker are safe no-send scoped formal model-card rows, not broad domain phenomenon coverage.",
+      "failure_mode": "P001, P002, P004, P005, P006, and P015 simultaneously set counts_as_phenomenon_coverage=false and coverage_promotion_state=FORMAL_MODEL_CARD_REPLAY_NO_SEND_NOT_DOMAIN_PHENOMENON_COVERAGE, but also set coverage_promotion_blockers=0 with reason \"no coverage-promotion blocker for this no-send scoped row\". That creates coverage-theater ambiguity: zero blocker can be read as coverage clearance even though the same row says it is not domain phenomenon coverage.",
+      "required_repair": "For every row excluded from phenomenon coverage, either set coverage_promotion_blockers/blocker_count to 1 with a uniform not-domain-coverage reason, or split the fields into route_executable=true and domain_coverage_promotion_allowed=false so zero never implies phenomenon-coverage clearance.",
       "status": "OPEN"
     }
   ],

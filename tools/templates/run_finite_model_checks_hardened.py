@@ -404,11 +404,12 @@ def operator_admission_evidence(model: dict[str, Any]) -> dict[str, Any]:
         )
     elif route == "hybrid_guard_reset":
         typed_source_target = model.get("smooth_state_type") == model.get("hybrid_state_type")
-        guard_observed = isinstance(model.get("guard"), bool)
+        guard_evaluated = isinstance(model.get("guard"), bool)
+        guard_value = model.get("guard") is True
         route_admitted = (
             typed_source_target
             and model.get("derivative_requested") is False
-            and guard_observed
+            and guard_value
             and model.get("reset_source_mode") == model.get("current_mode")
             and model.get("reset_target_mode") == model.get("target_mode")
             and model.get("reset_codomain") == model.get("hybrid_state_type")
@@ -435,7 +436,9 @@ def operator_admission_evidence(model: dict[str, Any]) -> dict[str, Any]:
         "chart_domain_contains_source": model.get("chart_domain_contains_state") is True,
         "chart_local_law_declared": model.get("local_law_declared") is True,
         "derivative_requested": model.get("derivative_requested") is True,
-        "guard_observed": isinstance(model.get("guard"), bool),
+        "guard_evaluated": isinstance(model.get("guard"), bool),
+        "guard_value": model.get("guard") is True,
+        "guard_observed": model.get("guard") is True,
         "reset_source_typed": model.get("reset_source_mode") == model.get("current_mode"),
         "reset_target_typed": model.get("reset_target_mode") == model.get("target_mode"),
         "reset_admissible": model.get("post_reset_admissible") is True,

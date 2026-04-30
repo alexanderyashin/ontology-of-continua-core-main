@@ -1,1 +1,37 @@
-{"role":"not_novel_attacker","findings":[{"severity":"HIGH","artifact_ref":"docs/OC_1_3_3_HOSTILE_READER_GUIDE.md","claim":"The no-send finite case reads the current owner approval and publish manifest. GitHub, Zenodo, Software Heritage, journal submission, and DOI minting remain locked.","failure_mode":"The guide and CLAIM_LEDGER OC133-NOSEND-001 rely on ADV-NOSEND-PUBLISH as current no-send evidence, but the referenced finite-check row records publish_manifest_sha256=62a254222ee8aa3591291d256aeb1b9f9860ce20fb65ef2c23e3696d791a65aa and owner_release_approval_sha256=f6f4ae1d93633fed4935cb6b439d6ae034435e8d76179ef9e69946cc1e4198a3, while the current Lean build certificate clean_source_manifest binds the same manifest and approval files as ba3aeb65469eeccec6989f8c8dd14fe3df33bda325166bc4a7bb08c35fd56832 and 47e73eef97a57be3ebe6974f87c2effae5be5a49ccc4699f8b37ad424908ef47. That makes the no-send control-plane evidence stale or hash-unbound to the current manifest/approval versions, so the release-critical lock claim is not actually certified by the cited finite case.","required_repair":"Regenerate the no-send finite model checks against the current manifest and owner-approval files, refresh all recorded hashes, and add a release gate that fails if ADV-NOSEND-PUBLISH hashes diverge from the current clean_source_manifest/current file hashes. Keep OC133-NOSEND-001 uncounted as supported until the bindings match.","status":"OPEN"},{"severity":"MEDIUM","artifact_ref":"comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json","claim":"The bounded positioning delta is a release-bound typed theorem ledger plus executable finite witnesses, numeric replay QA, falsifier registry, and owner-gated no-send publication controls.","failure_mode":"The comparator correctly refuses uniqueness promotion, but the stated residual delta is still framed against only thin illustrative anchors. The closest reduction target for that delta is not GST/autopoiesis but mature systems-engineering/formal-methods practice: requirements traceability, safety or assurance cases, V&V gates, proof certificates, provenance, reproducibility manifests, and release governance. The current Systems Engineering and Formal Methods rows use broad single-source anchors and therefore do not test whether the alleged control-plane bundle is merely relabeled assurance-case/release-engineering practice.","required_repair":"Add explicit non-promoted comparator rows or subrows for assurance/safety cases, GSN-style argument structures, requirements traceability matrices, scientific workflow provenance/reproducibility systems, and formal-methods release certification. Mark the control-plane delta as positioning-only until those closest governance prior-art families are checked.","status":"OPEN"}]}
+{
+  "role": "not_novel_attacker",
+  "findings": [
+    {
+      "severity": "HIGH",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "T133-K0-RES: K0 support is resolution-relative: same-resolution states are not distinguished, and a finite countermodel shows raw separation need not induce resolution distinction.",
+      "failure_mode": "This row is promoted as a bounded no-send scientific claim, but the referenced support reduces to standard quotienting/coarse-graining by an observational equivalence relation. The current comparator register does not give a specific prior-art boundary against measurement-resolution, quotient-state, GST, or dynamical-system coarse-graining formalisms. As written, the Lean/finite witness only checks the stipulated release semantics, so the scientific-promotion label is theorem theater rather than independent scientific content.",
+      "required_repair": "Demote T133-K0-RES to FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM with scientific_promotion_allowed=false and remove it from scientific_promotion_allowed_total, or add independent semantics plus a source-backed prior-art comparison against quotient/coarse-graining frameworks and a falsifier that can fail outside the release-defined model.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "T133-DIM: Historical axis activation may be monotone while effective working rank decreases.",
+      "failure_mode": "This row is also promoted as a bounded no-send scientific claim, but the claim collapses to the standard distinction between accumulated history/state memory and current active rank or effective dimension. The current artifacts do not separate it from dynamical-systems state augmentation, path dependence, or complexity/rank bookkeeping; the proof support only shows compatibility under declared definitions.",
+      "required_repair": "Demote T133-DIM to a formal release-consistency check with scientific_promotion_allowed=false, or supply a nontrivial independent semantic theorem with explicit prior-art reduction tests against path-dependent systems, state-history variables, and effective-rank/complexity measures.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "Bounded positioning notes for the release-governed theorem/evidence/falsifier/no-send bundle.",
+      "failure_mode": "The matrix is conservative about uniqueness, but it compares traditions one row at a time while the residual OC delta is a composite of known assurance cases, GSN, V&V traceability, formal methods, and reproducibility packaging. A hostile reader can reduce the whole v12 control plane to this existing composite stack; no composite-prior-art row tests that reduction.",
+      "required_repair": "Add explicit composite prior-art rows for assurance-case plus formal-methods plus reproducibility workflows, or rewrite bounded_positioning_note fields so they claim only local implementation scope and no residual theoretical delta.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
+      "claim": "While G57/G58/G70 are open, theorem rows are candidate routes, not release-promoted claims.",
+      "failure_mode": "The guide correctly states that routes are not release-promoted while closure gates are open, but the compact table still shows T133-K0-RES and T133-DIM as PROMOTED_BOUNDED_NO_SEND_V12 with claim-ledger blockers 0. That wording is easy to read as public scientific promotion despite release_promotion_allowed=false and fresh Cerberus requirements.",
+      "required_repair": "Change the displayed status for open-gate rows to CANDIDATE_BOUNDED_NO_SEND or add explicit release_promotion_allowed=false and fresh_cerberus_required=true columns; rename claim-ledger blockers to row-local blockers so no-send state cannot be misread.",
+      "status": "OPEN"
+    }
+  ]
+}

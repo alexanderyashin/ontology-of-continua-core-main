@@ -14,9 +14,9 @@
       "phenomenon_id": "P001",
       "hostile_question": "Does OC actually explain raw continuity versus K0 distinguishability?",
       "attacked_claim": "T133-K0-RES",
-      "upstream_status": "PROMOTED_BOUNDED_NO_SEND_V12",
-      "upstream_claim_status": "PROMOTED_BOUNDED_NO_SEND_V12",
-      "upstream_scientific_promotion_allowed": true,
+      "upstream_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
+      "upstream_claim_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
+      "upstream_scientific_promotion_allowed": false,
       "package_release_promotion_allowed": false,
       "coverage_promotion_status": "SCOPED_MODEL_CARD_NO_SEND_NOT_BROAD_DOMAIN_PROMOTION",
       "no_send_status": "NO_SEND_OWNER_GATED",
@@ -86,7 +86,9 @@
         "observable": "death blocks live status; rebirth source is residue and target is a new live token",
         "prediction_or_replay": "FM-T133-OMEGA-STATUS-POS",
         "negative_control": "FM-T133-OMEGA-STATUS-NEG",
-        "additional_replay_cases": [],
+        "additional_replay_cases": [
+          "FM-T133-OMEGA-IDENTITY-EQUIVOCATION-NEG"
+        ],
         "truth_table_case_prefixes": [],
         "falsifier": "If death=true and live=true are accepted together, or rebirth targets the original identity token, the lifecycle theorem fails.",
         "evidence_refs": [
@@ -274,9 +276,9 @@
       "phenomenon_id": "P006",
       "hostile_question": "Does OC actually explain dimension drop after historical axis activation?",
       "attacked_claim": "T133-DIM",
-      "upstream_status": "PROMOTED_BOUNDED_NO_SEND_V12",
-      "upstream_claim_status": "PROMOTED_BOUNDED_NO_SEND_V12",
-      "upstream_scientific_promotion_allowed": true,
+      "upstream_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
+      "upstream_claim_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
+      "upstream_scientific_promotion_allowed": false,
       "package_release_promotion_allowed": false,
       "coverage_promotion_status": "SCOPED_MODEL_CARD_NO_SEND_NOT_BROAD_DOMAIN_PROMOTION",
       "no_send_status": "NO_SEND_OWNER_GATED",
@@ -346,7 +348,10 @@
         "observable": "k=0 is licensed by declared zero-cause, not empty state set",
         "prediction_or_replay": "FM-T133-K-ZERO-POS",
         "negative_control": "FM-T133-K-ZERO-NEG",
-        "additional_replay_cases": [],
+        "additional_replay_cases": [
+          "FM-T133-K-ZERO-LIVE-SUPPORT-NEG",
+          "FM-T133-K-ZERO-OBSTRUCTION-NEG"
+        ],
         "truth_table_case_prefixes": [],
         "falsifier": "If k=0 is accepted with nonempty support and no declared zero-cause, the k-zero theorem fails.",
         "evidence_refs": [
