@@ -1,0 +1,221 @@
+{
+  "schema_id": "OC133_PLATINUM_ACCELERATOR_COCKPIT_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "no_send": true,
+  "publication_forbidden": true,
+  "goal": "OC_CORE_1_3_3_10_10_READY_NO_SEND",
+  "strategy": "capability repair first, one materialize sync, serialized dependency-aware deterministic checks, rerun only impacted Cerberus roles unless full suite is requested",
+  "frontier_hash_start": "116493ca946fd2d31b8e59eaba0ad9ec7d8b1bd5137b70f033b1dea821f3d91a",
+  "frontier_hash_end": "3c932a4ddc4f48c57d3952c7905667630ba55d5ef48d18d51f9ce9603e31f723",
+  "start_counts": {
+    "critical_open_total": 2,
+    "high_open_total": 16,
+    "parse_failure_total": 0,
+    "execution_bad_total": 0
+  },
+  "end_counts": {
+    "critical_open_total": 1,
+    "high_open_total": 10,
+    "parse_failure_total": 0,
+    "execution_bad_total": 0
+  },
+  "iteration_total": 1,
+  "iterations": [
+    {
+      "iteration": 1,
+      "no_send": true,
+      "started_counts": {
+        "critical_open_total": 2,
+        "high_open_total": 16,
+        "parse_failure_total": 0,
+        "execution_bad_total": 0
+      },
+      "frontier_hash_start": "116493ca946fd2d31b8e59eaba0ad9ec7d8b1bd5137b70f033b1dea821f3d91a",
+      "dependency_dag": [
+        "capability_repair_apply",
+        "materialize_sync",
+        "python_compile",
+        "finite_model_semantics",
+        "lean_named_target",
+        "validation_qa",
+        "impacted_cerberus_roles",
+        "post_cerberus_materialize_sync",
+        "release_evaluate"
+      ],
+      "parallelism_policy": "Only Cerberus role calls may run in parallel; artifact-writing materialize/finite/validation/evaluate stages are serialized to avoid stale or racing evidence.",
+      "commands": [
+        {
+          "stage": "capability_repair_apply",
+          "cmd": [],
+          "returncode": 0,
+          "skipped": true,
+          "skip_reason": "cached_pass_autonomous_repair_for_unchanged_frontier",
+          "dependency_stage": null,
+          "elapsed_seconds": 0,
+          "write_scope": [],
+          "frontier_hash_before": "116493ca946fd2d31b8e59eaba0ad9ec7d8b1bd5137b70f033b1dea821f3d91a",
+          "stdout_tail": "",
+          "stderr_tail": ""
+        },
+        {
+          "stage": "materialize_sync",
+          "cmd": [],
+          "returncode": 0,
+          "skipped": true,
+          "skip_reason": "cached_generated_surface_for_unchanged_frontier",
+          "dependency_stage": null,
+          "elapsed_seconds": 0,
+          "write_scope": [],
+          "frontier_hash_before": "116493ca946fd2d31b8e59eaba0ad9ec7d8b1bd5137b70f033b1dea821f3d91a",
+          "stdout_tail": "",
+          "stderr_tail": ""
+        },
+        {
+          "stage": "focused_checks",
+          "cmd": [],
+          "returncode": 0,
+          "skipped": true,
+          "skip_reason": "disabled_by_cli",
+          "dependency_stage": null,
+          "elapsed_seconds": 0,
+          "write_scope": [],
+          "frontier_hash_before": "116493ca946fd2d31b8e59eaba0ad9ec7d8b1bd5137b70f033b1dea821f3d91a",
+          "stdout_tail": "",
+          "stderr_tail": ""
+        },
+        {
+          "stage": "impacted_cerberus_roles",
+          "cmd": [
+            "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+            "tools/run_oc133_v12_cerberus.py",
+            "--max-workers",
+            "6",
+            "--role-timeout",
+            "900",
+            "--roles",
+            "claim_boundary_auditor,clarity_didactic_reviewer,dynamical_systems_reviewer,hostile_journal_reviewer,public_surface_auditor,reproducibility_auditor"
+          ],
+          "returncode": 1,
+          "elapsed_seconds": 505.537,
+          "write_scope": [
+            "reviews/oc133_llm_cerberus/results",
+            "reviews/oc133_llm_cerberus/raw_v12",
+            "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json"
+          ],
+          "frontier_hash_before": "116493ca946fd2d31b8e59eaba0ad9ec7d8b1bd5137b70f033b1dea821f3d91a",
+          "frontier_hash_after": "f7aede228c78bfbd18f18348d7a0f5c18b0be9dc5f4c91e28eb5f1313032ed09",
+          "dependency_policy": "sequential_if_write_scope_nonempty",
+          "stdout_tail": "ry_type_theory_reviewer\",\n    \"empirical_statistician\",\n    \"prior_art_historian\",\n    \"hostile_journal_reviewer\",\n    \"not_novel_attacker\",\n    \"phenomenon_x_attacker\",\n    \"clarity_didactic_reviewer\",\n    \"reproducibility_auditor\",\n    \"theorem_theater_auditor\",\n    \"empirical_theater_auditor\",\n    \"claim_boundary_auditor\",\n    \"public_surface_auditor\"\n  ],\n  \"executed_roles_this_run\": [\n    \"claim_boundary_auditor\",\n    \"clarity_didactic_reviewer\",\n    \"dynamical_systems_reviewer\",\n    \"hostile_journal_reviewer\",\n    \"public_surface_auditor\",\n    \"reproducibility_auditor\"\n  ],\n  \"role_total\": 14,\n  \"configured_role_total\": 14,\n  \"max_workers\": 6,\n  \"execution_status\": \"EXECUTED_WITH_OPEN_FINDINGS\",\n  \"critical_open_total\": 1,\n  \"high_open_total\": 10,\n  \"parse_failure_total\": 0,\n  \"parse_failures\": [],\n  \"execution_bad_total\": 0,\n  \"execution_bad_roles\": [],\n  \"pending_role_total\": 0,\n  \"pending_roles\": [],\n  \"result_refs\": [\n    \"reviews/oc133_llm_cerberus/results/formal_mathematician.json\",\n    \"reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json\",\n    \"reviews/oc133_llm_cerberus/results/category_type_theory_reviewer.json\",\n    \"reviews/oc133_llm_cerberus/results/empirical_statistician.json\",\n    \"reviews/oc133_llm_cerberus/results/prior_art_historian.json\",\n    \"reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json\",\n    \"reviews/oc133_llm_cerberus/results/not_novel_attacker.json\",\n    \"reviews/oc133_llm_cerberus/results/phenomenon_x_attacker.json\",\n    \"reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json\",\n    \"reviews/oc133_llm_cerberus/results/reproducibility_auditor.json\",\n    \"reviews/oc133_llm_cerberus/results/theorem_theater_auditor.json\",\n    \"reviews/oc133_llm_cerberus/results/empirical_theater_auditor.json\",\n    \"reviews/oc133_llm_cerberus/results/claim_boundary_auditor.json\",\n    \"reviews/oc133_llm_cerberus/results/public_surface_auditor.json\"\n  ],\n  \"result_refs_this_run\": [\n    \"reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json\",\n    \"reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json\",\n    \"reviews/oc133_llm_cerberus/results/reproducibility_auditor.json\",\n    \"reviews/oc133_llm_cerberus/results/public_surface_auditor.json\",\n    \"reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json\",\n    \"reviews/oc133_llm_cerberus/results/claim_boundary_auditor.json\"\n  ]\n}\n",
+          "stderr_tail": ""
+        },
+        {
+          "stage": "post_cerberus_materialize_sync",
+          "cmd": [
+            "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+            "tools/materialize_oc_core_1_3_3_v12_closure.py"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 47.239,
+          "write_scope": [
+            "claims",
+            "review",
+            "reviews",
+            "reports",
+            "validation",
+            "releases",
+            "manifest.json",
+            "checksums.txt",
+            "ro-crate-metadata.jsonld"
+          ],
+          "frontier_hash_before": "f7aede228c78bfbd18f18348d7a0f5c18b0be9dc5f4c91e28eb5f1313032ed09",
+          "frontier_hash_after": "3c932a4ddc4f48c57d3952c7905667630ba55d5ef48d18d51f9ce9603e31f723",
+          "dependency_policy": "sequential_if_write_scope_nonempty",
+          "stdout_tail": "{\n  \"release_id\": \"oc_core_1_3_3\",\n  \"version\": \"1.3.3\",\n  \"status\": \"V12_MATERIALIZED_NO_SEND\"\n}\n",
+          "stderr_tail": ""
+        },
+        {
+          "stage": "release_evaluate",
+          "cmd": [],
+          "returncode": 0,
+          "skipped": true,
+          "skip_reason": "cached_scorecard_reused_for_unchanged_frontier",
+          "dependency_stage": null,
+          "elapsed_seconds": 0,
+          "write_scope": [],
+          "frontier_hash_before": "3c932a4ddc4f48c57d3952c7905667630ba55d5ef48d18d51f9ce9603e31f723",
+          "stdout_tail": "",
+          "stderr_tail": ""
+        }
+      ],
+      "selected_roles": [
+        "claim_boundary_auditor",
+        "clarity_didactic_reviewer",
+        "dynamical_systems_reviewer",
+        "hostile_journal_reviewer",
+        "public_surface_auditor",
+        "reproducibility_auditor"
+      ],
+      "selected_role_policy": "rerun only roles with open critical/high findings, expanded by current work-order profile mapping; use --full-cerberus for acceptance sweep",
+      "evaluate_policy": {
+        "scorecard_exists": true,
+        "cerberus_ran": true,
+        "cerberus_zero_blockers_before_evaluate": false,
+        "counts_before_evaluate": {
+          "critical_open_total": 1,
+          "high_open_total": 10,
+          "parse_failure_total": 0,
+          "execution_bad_total": 0
+        },
+        "frontier_changed_before_evaluate": true,
+        "skip_cerberus_fast_path_cached_evaluate": false,
+        "skip_failed_cerberus_cached_evaluate": true,
+        "force_evaluate": false,
+        "evaluate_needed": false
+      },
+      "ended_counts": {
+        "critical_open_total": 1,
+        "high_open_total": 10,
+        "parse_failure_total": 0,
+        "execution_bad_total": 0
+      },
+      "frontier_hash_end": "3c932a4ddc4f48c57d3952c7905667630ba55d5ef48d18d51f9ce9603e31f723",
+      "gate_state": {
+        "release_state": "SCIENTIFIC_BLOCKERS_REMAIN",
+        "master_verdict": "FAIL",
+        "gate_counts": {
+          "BLOCKED": 1,
+          "FAIL": 3,
+          "NOT_APPLICABLE": 0,
+          "NOT_RUN": 0,
+          "PASS": 67,
+          "WARN": 0
+        },
+        "publish_allowed": false,
+        "journal_submissions_allowed": false
+      },
+      "command_failure_total": 1,
+      "blocker_delta": {
+        "critical_open_total": -1,
+        "high_open_total": -6,
+        "parse_failure_total": 0,
+        "execution_bad_total": 0
+      }
+    }
+  ],
+  "gate_state": {
+    "release_state": "SCIENTIFIC_BLOCKERS_REMAIN",
+    "master_verdict": "FAIL",
+    "gate_counts": {
+      "BLOCKED": 1,
+      "FAIL": 3,
+      "NOT_APPLICABLE": 0,
+      "NOT_RUN": 0,
+      "PASS": 67,
+      "WARN": 0
+    },
+    "publish_allowed": false,
+    "journal_submissions_allowed": false
+  },
+  "verdict": "CONTINUE_AUTONOMOUS_HARDENING"
+}

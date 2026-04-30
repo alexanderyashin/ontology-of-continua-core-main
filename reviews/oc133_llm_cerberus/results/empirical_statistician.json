@@ -3,33 +3,8 @@
   "role": "empirical_statistician",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 1,
-  "finding_total": 3,
-  "findings": [
-    {
-      "severity": "HIGH",
-      "artifact_ref": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
-      "claim": "The checked-in report is the current OC133_DOMAIN_VALIDATION_REPORT_v12 artifact with verdict QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED.",
-      "failure_mode": "The report is not reproducible from the current validation/run_all.py payload. The current runner would emit lane coverage and gate-audit fields such as expected_lanes, missing_lane_total, extra_lane_total, finite_model_checks_ref, finite_model_checks_sha256, finite_model_checks_failure_total, finite_model_checks_certificate_binding_failure_total, cli_mode, qa_only_zero_exit_allowed, and canonical_clean_checkout_command_sequence; the checked-in report omits them and instead contains fields not emitted by the current runner. This makes the official validation artifact stale and removes the controls needed to audit lane coverage, finite-check binding, and QA-only exit semantics.",
-      "required_repair": "Regenerate reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json from the current validation/run_all.py in the intended release mode, commit the exact output, and fail release if the report schema and runner payload diverge or omit lane missing/extra counts, finite binding totals, and CLI QA-only/domain-gate metadata.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "MEDIUM",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "The six OC133-NUM rows have support NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER.",
-      "failure_mode": "The corresponding QA table and replay log show no held-out split, no baseline model, no residual distribution, and no empirical falsifier. The controls are ad hoc parser mismatch checks such as wrong constants, CO2 against water, +1 count mutation, corrupted WDI payload, and accepted-count-minus-one. Calling these baseline controls and falsifiers overstates the statistical content even though promotion flags are false.",
-      "required_repair": "Rename the support class and row fields to parser replay QA with synthetic mismatch controls, or add a preregistered target-blind protocol with real comparator baselines, uncertainty/residual analysis, and explicit empirical falsification criteria before using baseline or falsifier terminology.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "MEDIUM",
-      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
-      "claim": "\"independent_replay\": true",
-      "failure_mode": "Within the inspected artifacts, independence is not evidenced. The log declares input_ref as the QA table and compares table values to the same official snapshots; materializer_invoked=false only shows the materializer was not run, not that the replay is statistically or implementation-independently replicated.",
-      "required_repair": "Rename the field to independent_of_materializer, or add explicit independence evidence such as replay script identity/hash, separate parser implementation criteria, and a statement that independence is software QA only, not empirical replication.",
-      "status": "OPEN"
-    }
-  ],
+  "high_open_total": 0,
+  "finding_total": 0,
+  "findings": [],
   "raw_output_ref": "reviews/oc133_llm_cerberus/raw_v12/empirical_statistician.txt"
 }

@@ -25,14 +25,14 @@ A typed update relation need not induce a derivative without extra smoothness as
 OC operators F,G,H,Q,R,S,U are typed updates; chart-labelled flow-one, proof/rewrite, and guard/reset hybrid routes are separate typed realizations.
 
 ## Proof
-The primitive object is a route-specific operator-admission record. The Lean theorem `integrated_operator_semantics` binds the smooth-chart flow-one update, chart/domain/local-law obligations, guard/reset update branch, and proof/rewrite non-smooth branch in one statement; `operator_admission_route_obligations` remains a supporting decomposition lemma. The false-guard pass-through branch is checked by `hybrid_no_guard_uses_update` and by finite rows whose operator admission records guard evaluation rather than assuming the guard value is true. The finite runner independently evaluates the same fields and fails if labels are correct but obligations are missing.
+The primitive object is a route-specific operator-admission record. The Lean theorem `integrated_operator_semantics` binds the smooth-chart flow-one update, chart/domain/local-law obligations, guard/reset update branch, and proof/rewrite non-smooth branch in one statement; `operator_admission_route_obligations` remains a supporting decomposition lemma. The Lean theorem `bound_hybrid_admission_obligations` adds a system/source-bound hybrid admission record, tying guard observation, guard value, reset source/target typing, codomain typing, and reset admissibility to the actual `HybridSystem` and source state. The false-guard pass-through branch is checked by `hybrid_no_guard_uses_update` and by finite rows whose operator admission records guard evaluation rather than assuming the guard value is true. The finite runner independently evaluates the same fields and fails if labels are correct but obligations are missing.
 
 This is a candidate proof sheet and is not release-promoted while G57/G58/G70 remain open. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the
 finite corpus checks the release verdict behavior used by the public claim ledger.
 
 ## Counterexample Boundary
-Any section treating a chart token as a differentiability, manifold, vector-field, or ODE-solution theorem fails G41.
+Any route treating a chart token as differentiability, manifold, vector-field, or ODE-solution evidence is outside the v12 operator theorem and remains a future lint/proof obligation.
 
 ## Machine-Checkable Finite Example
 The finite corpus includes smooth-chart positive/negative cases, guard/reset positive/negative cases, proof/rewrite positive/negative cases, and tamper controls for missing local law, wrong reset codomain, and derivative leakage.

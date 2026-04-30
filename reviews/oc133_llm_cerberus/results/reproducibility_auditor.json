@@ -2,16 +2,32 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "reproducibility_auditor",
   "execution_status": "EXECUTED",
-  "critical_open_total": 0,
+  "critical_open_total": 1,
   "high_open_total": 1,
-  "finding_total": 1,
+  "finding_total": 3,
   "findings": [
     {
-      "severity": "HIGH",
+      "severity": "CRITICAL",
       "artifact_ref": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
-      "claim": "The post-generation reproducibility manifest reports verdict PASS with git_state.tracked_worktree_dirty_total = 0 and strict_head_replay_clean = true, claiming a detached clean HEAD replay verifies the committed package input set plus regenerated compare refs.",
-      "failure_mode": "The current checkout is not clean: tracked reviewer raw/result files under reviews/oc133_llm_cerberus are modified. This makes the manifest stale for the current workspace; a clean checkout from HEAD can reproduce the committed package, but it does not attest the current working-tree package inputs or current local artifact state.",
-      "required_repair": "Commit or revert all tracked drift, then rerun tools/verify_oc133_reproducible_temp_tree.py in strict mode and commit the regenerated manifest. Keep the reproducibility gate failing whenever tracked worktree or staged drift is present.",
+      "claim": "The manifest claims `git_state.strict_head_replay_clean=true`, `tracked_worktree_dirty_total=0`, `mismatch_total=0`, and `verdict=PASS` for a clean HEAD replay.",
+      "failure_mode": "The current release-critical working tree is not the clean HEAD state asserted by the manifest: listed artifacts currently modified relative to HEAD include `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json`, `tools/verify_oc133_reproducible_temp_tree.py`, `proofs/finite_model_checks/run_finite_model_checks.py`, and `validation/run_all.py`. A clean checkout of the recorded HEAD therefore cannot regenerate the current artifact bytes under review, and the strict verifier would refuse the dirty tracked state.",
+      "required_repair": "Commit or discard the current release-critical changes, then rerun the reproducibility verifier from a zero-dirty tracked worktree and update `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` so its recorded clean state and artifact hashes bind to the actual current files.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "tools/verify_oc133_reproducible_temp_tree.py",
+      "claim": "The current verifier can regenerate and self-check the committed post-generation reproducibility manifest.",
+      "failure_mode": "The current verifier now adds `internal_checksum_failure_total` and `internal_checksum_failures` to the stable payload and gates PASS on them, but the current `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` lacks those fields while still claiming a matching `stable_payload_sha256` and `verdict=PASS`. Running the current verifier would change the stable payload, so the manifest is stale relative to the verifier source.",
+      "required_repair": "Regenerate the post-generation reproducibility manifest with the current verifier until the manifest includes the internal checksum fields, `internal_checksum_failure_total` is zero, and `previous_manifest_matches_current_stable_payload` is true; commit the verifier and manifest together.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
+      "claim": "The post-generation reproducibility manifest is a reproducible release-critical artifact.",
+      "failure_mode": "The manifest records `sync_regenerated_artifacts_requested=true`, but the verifier's default is false and the manifest does not record the exact verifier invocation that produced itself. Because this flag is included in the stable payload, the obvious clean-checkout command without the flag cannot reproduce the current manifest hash.",
+      "required_repair": "Record an explicit top-level verifier command such as `python tools/verify_oc133_reproducible_temp_tree.py --sync-regenerated-artifacts`, or make the release canonical invocation use the default and regenerate the manifest with `sync_regenerated_artifacts_requested=false`.",
       "status": "OPEN"
     }
   ],

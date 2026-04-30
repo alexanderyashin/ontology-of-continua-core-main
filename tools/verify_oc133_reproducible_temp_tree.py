@@ -99,6 +99,105 @@ def zip_member_manifest(path: Path) -> dict[str, Any]:
     }
 
 
+def parse_checksum_lines(path: Path) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for line_no, line in enumerate(path.read_text(encoding="utf-8", errors="ignore").splitlines(), start=1):
+        stripped = line.strip()
+        if not stripped:
+            continue
+        parts = stripped.split(maxsplit=1)
+        if len(parts) != 2:
+            rows.append({"line_no": str(line_no), "sha256": "", "path": "", "parse_error": "CHECKSUM_LINE_PARSE_FAILED"})
+            continue
+        rows.append({"line_no": str(line_no), "sha256": parts[0], "path": parts[1].strip()})
+    return rows
+
+
+def internal_checksum_failures(repo: Path) -> list[dict[str, Any]]:
+    """Validate hashes declared inside regenerated manifests/checksum files."""
+    failures: list[dict[str, Any]] = []
+
+    def check_file_ref(source_ref: str, ref: str, expected_sha: str | None, expected_size: int | None = None) -> None:
+        if not ref:
+            failures.append({"source_ref": source_ref, "path": ref, "reason": "EMPTY_REF"})
+            return
+        path = repo / ref
+        if not path.is_file():
+            failures.append({"source_ref": source_ref, "path": ref, "reason": "MISSING_REFERENCED_FILE"})
+            return
+        actual_sha = sha256_file(path)
+        if expected_sha and actual_sha != expected_sha:
+            failures.append({"source_ref": source_ref, "path": ref, "reason": "SHA256_MISMATCH", "expected": expected_sha, "actual": actual_sha})
+        if expected_size is not None and path.stat().st_size != int(expected_size):
+            failures.append({"source_ref": source_ref, "path": ref, "reason": "SIZE_MISMATCH", "expected": expected_size, "actual": path.stat().st_size})
+
+    manifest_path = repo / "manifest.json"
+    if manifest_path.is_file():
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except Exception as exc:
+            failures.append({"source_ref": "manifest.json", "reason": "JSON_PARSE_FAILED", "error": str(exc)})
+        else:
+            for row in manifest.get("files", []):
+                if isinstance(row, dict):
+                    check_file_ref("manifest.json", str(row.get("path", "")), row.get("sha256"), row.get("size_bytes"))
+
+    checksums_path = repo / "checksums.txt"
+    if checksums_path.is_file():
+        for row in parse_checksum_lines(checksums_path):
+            if row.get("parse_error"):
+                failures.append({"source_ref": "checksums.txt", **row})
+            else:
+                check_file_ref("checksums.txt", row["path"], row["sha256"])
+
+    inventory_path = repo / "releases" / RELEASE_ID / "editorial" / "OC_CORE_1_3_3_ARTIFACT_INVENTORY.json"
+    if inventory_path.is_file():
+        try:
+            inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+        except Exception as exc:
+            failures.append({"source_ref": inventory_path.relative_to(repo).as_posix(), "reason": "JSON_PARSE_FAILED", "error": str(exc)})
+        else:
+            for row in inventory.get("rows", []):
+                if isinstance(row, dict):
+                    check_file_ref(inventory_path.relative_to(repo).as_posix(), str(row.get("path", "")), row.get("sha256"), row.get("size_bytes"))
+
+    sha_path = repo / "releases" / RELEASE_ID / "editorial" / "OC_CORE_1_3_3_SHA256SUMS"
+    if sha_path.is_file():
+        sha_ref = sha_path.relative_to(repo).as_posix()
+        for row in parse_checksum_lines(sha_path):
+            if row.get("parse_error"):
+                failures.append({"source_ref": sha_ref, **row})
+            else:
+                check_file_ref(sha_ref, row["path"], row["sha256"])
+
+    zip_integrity_path = repo / "releases" / RELEASE_ID / "editorial" / "OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json"
+    if zip_integrity_path.is_file():
+        try:
+            zip_integrity = json.loads(zip_integrity_path.read_text(encoding="utf-8"))
+        except Exception as exc:
+            failures.append({"source_ref": zip_integrity_path.relative_to(repo).as_posix(), "reason": "JSON_PARSE_FAILED", "error": str(exc)})
+        else:
+            check_file_ref(
+                zip_integrity_path.relative_to(repo).as_posix(),
+                str(zip_integrity.get("package", "")),
+                zip_integrity.get("package_sha256"),
+                zip_integrity.get("package_size_bytes"),
+            )
+            package_ref = str(zip_integrity.get("package", ""))
+            package_path = repo / package_ref
+            if package_path.is_file() and zip_integrity.get("package_member_total") is not None:
+                actual_member_total = zip_member_manifest(package_path).get("member_total")
+                if actual_member_total != int(zip_integrity.get("package_member_total")):
+                    failures.append({
+                        "source_ref": zip_integrity_path.relative_to(repo).as_posix(),
+                        "path": package_ref,
+                        "reason": "ZIP_MEMBER_TOTAL_MISMATCH",
+                        "expected": zip_integrity.get("package_member_total"),
+                        "actual": actual_member_total,
+                    })
+    return failures
+
+
 def recompute_manifest_stable_payload_hash(manifest: dict[str, Any] | None) -> str | None:
     if not isinstance(manifest, dict):
         return None
@@ -288,6 +387,7 @@ def main() -> int:
     bad_commands: list[dict[str, Any]] = []
     synced_refs: list[str] = []
     non_compare_mutations: list[dict[str, Any]] = []
+    internal_hash_failures: list[dict[str, Any]] = []
     if not state["strict_head_replay_clean"] and not args.allow_dirty_worktree:
         payload = {
             "schema_id": "OC133_POST_GENERATION_REPRODUCIBILITY_MANIFEST_v12",
@@ -368,6 +468,7 @@ def main() -> int:
                 if not matches:
                     failures.append(row)
             bad_commands = [row for row in command_rows if row["returncode"] != 0]
+            internal_hash_failures = internal_checksum_failures(temp_root)
             non_compare_mutations = []
             for ref, before_sha in sorted(pre_run_non_compare_hashes.items()):
                 path = temp_root / ref
@@ -442,6 +543,8 @@ def main() -> int:
         "mismatches": failures,
         "non_compare_ref_mutation_total": len(non_compare_mutations),
         "non_compare_ref_mutations": non_compare_mutations[:200],
+        "internal_checksum_failure_total": len(internal_hash_failures),
+        "internal_checksum_failures": internal_hash_failures[:200],
         "rows": rows,
         "no_send": True,
     }
@@ -474,6 +577,7 @@ def main() -> int:
             and not bad_commands
             and not failures
             and not non_compare_mutations
+            and not internal_hash_failures
             and (
                 previous_manifest is None
                 or (

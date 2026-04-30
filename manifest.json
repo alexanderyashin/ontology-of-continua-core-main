@@ -14,6 +14,15 @@
   "git_tag": null,
   "public_record": null,
   "stale_v132_surface_allowed": false,
+  "inventory_policy": "Manifest lists no-send review-surface files. checksums.txt is the nonrecursive signing file for manifest.json plus manifest-listed files and is intentionally excluded from files to avoid a self-referential checksum cycle.",
+  "checksum_file_ref": "checksums.txt",
+  "nonrecursive_manifest_exceptions": [
+    {
+      "path": "checksums.txt",
+      "reason": "self-referential checksum cycle if included in manifest files",
+      "covered_by": "root checksum row signs manifest.json and each manifest-listed file"
+    }
+  ],
   "files": [
     {
       "path": ".codemeta.json",
@@ -41,20 +50,26 @@
     },
     {
       "path": "claims/CLAIM_LEDGER_1_3_3.json",
-      "size_bytes": 20815,
-      "sha256": "e791e16c1b06aa48c85df144fba50358c0735fcf7f3f415ab67861a9c3f33b17",
+      "size_bytes": 21389,
+      "sha256": "35e1bc16e6b494412e83af6d0c8c6081cbdb27e3263da457045feea4ef5d03d4",
+      "role": "NO_SEND_REVIEW_SURFACE"
+    },
+    {
+      "path": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "size_bytes": 54059,
+      "sha256": "4187229bc689f3117dfe9948d2129f983e188826edc880840ea116dcbfa95681",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
       "path": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "size_bytes": 225092,
-      "sha256": "93c3f290053a39e79c3cffcb4a4ea7816691c5812e00be22ecf995a368f451c8",
+      "size_bytes": 240844,
+      "sha256": "f8aab390dbdcdb3a905b4042e419f4368390364d3654ae644de82791abebc00a",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
       "path": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "size_bytes": 14912,
-      "sha256": "fc233a8ba79dbcaf02dc8ad01e0224f5aacb1df3832a46d7e1784722e2b784d2",
+      "size_bytes": 14969,
+      "sha256": "7ff602fb92be2b45393a772065192e65e60e8b561b75e5be6c4092c250f2e6fa",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
@@ -77,32 +92,32 @@
     },
     {
       "path": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
-      "size_bytes": 12394,
-      "sha256": "d57c6d564007721a0dad09f0a2f0202550809b070de43bfac0af94ae591dd0ce",
+      "size_bytes": 12404,
+      "sha256": "0842cd9eef928858953173155c7cbccd822e2fa0896da59ef9edc370d803d0d3",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
       "path": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "size_bytes": 411616,
-      "sha256": "cadf635939569c91292df7e1b50de4d83a71b3c63f69b0550a0be057717ab81a",
+      "size_bytes": 458760,
+      "sha256": "4d25346386d556a69574beebf2e84a7ebf42aeaa90b08d14cf1485be82771a19",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
       "path": "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json",
       "size_bytes": 1846,
-      "sha256": "ca560cd92d45306d3a8e9457e1c75a07cb65d2d2b97e123e322dd443dafaf4d4",
+      "sha256": "95985d26726ab9142504148c41c406c861f0bb112662663b0d5ea790c3b6012a",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
       "path": "ro-crate-metadata.jsonld",
-      "size_bytes": 3010,
-      "sha256": "2aab996329d9c8523384be9a8aaaae46ea6b0d966c2d97b33ddfb856954a158f",
+      "size_bytes": 3099,
+      "sha256": "999f30ffab4c424f7752466555e7b48e094ad6ab5591985cdbc74d27c38cea16",
       "role": "NO_SEND_REVIEW_SURFACE"
     },
     {
       "path": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
       "size_bytes": 11830,
-      "sha256": "47d250d038b595a0937967d0ac39c6ce5961647f1d14c178605ba860ced2a10e",
+      "sha256": "74b9a0e1ece5ec2a74a250a077e9d85818276fb7586c9f11e2e2af116bff1206",
       "role": "NO_SEND_REVIEW_SURFACE"
     }
   ]

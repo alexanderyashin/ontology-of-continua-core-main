@@ -197,6 +197,12 @@ def public_metadata_surface_check(ref_rows: list[dict[str, Any]]) -> dict[str, A
         if ROOT.resolve() not in path.parents and path != ROOT.resolve():
             failures.append(f"{ref}::ESCAPES_REPO_ROOT")
             continue
+        if row.get("must_absent") is True:
+            if path.exists():
+                failures.append(f"{ref}::MUST_BE_ABSENT_BUT_EXISTS")
+            else:
+                checked += 1
+            continue
         if row.get("must_exist") is True and not path.is_file():
             failures.append(f"{ref}::MISSING")
             continue
@@ -379,6 +385,28 @@ def theorem_reference_audit(inputs: dict[str, Any], lean_cert: dict[str, Any]) -
     }
 
 
+def classify_evidence_ref(ref: str) -> str:
+    if ref.startswith("formal/lean/OC133V12.lean::"):
+        return "lean_theorem_ref"
+    if ref.startswith("proofs/finite_model_checks/run_finite_model_checks.py::"):
+        return "semantic_evaluator_ref"
+    return "governance_or_artifact_ref"
+
+
+def split_bound_refs(refs: list[str]) -> dict[str, Any]:
+    lean_refs = sorted(ref for ref in refs if classify_evidence_ref(ref) == "lean_theorem_ref")
+    semantic_refs = sorted(ref for ref in refs if classify_evidence_ref(ref) == "semantic_evaluator_ref")
+    governance_refs = sorted(ref for ref in refs if classify_evidence_ref(ref) == "governance_or_artifact_ref")
+    return {
+        "lean_theorem_ref_total": len(lean_refs),
+        "semantic_evaluator_ref_total": len(semantic_refs),
+        "governance_or_artifact_ref_total": len(governance_refs),
+        "lean_theorem_refs": lean_refs,
+        "semantic_evaluator_refs": semantic_refs,
+        "governance_or_artifact_refs": governance_refs,
+    }
+
+
 def atlas_external_binding_audit(inputs: dict[str, Any], atlas: dict[str, Any], lean_cert: dict[str, Any]) -> dict[str, Any]:
     finite_by_id = {row.get("case_id"): row for row in inputs.get("rows", [])}
     theorem_names = {
@@ -509,7 +537,6 @@ def operator_admission_evidence(model: dict[str, Any]) -> dict[str, Any]:
         "flow_notation_requested": model.get("flow_notation_requested") is True,
         "guard_evaluated": isinstance(model.get("guard"), bool),
         "guard_value": model.get("guard") is True,
-        "guard_observed": isinstance(model.get("guard"), bool),
         "reset_source_typed": model.get("reset_source_mode") == model.get("current_mode"),
         "reset_target_typed": model.get("reset_target_mode") == model.get("target_mode"),
         "reset_admissible": model.get("post_reset_admissible") is True,
@@ -561,6 +588,8 @@ def unique_nonempty_values(*values: Any) -> bool:
 def hypothetical_owner_approved_control(model: dict[str, Any]) -> str:
     owner_approved = model.get("owner_approved") is True
     publish_requested = model.get("publish_requested") is True
+    deposit_metadata_ready = model.get("deposit_ready_metadata") is True
+    public_record_ready = model.get("public_record_present") is True
     channel_fields = {
         "github_release": "github_release_allowed",
         "zenodo_deposit": "zenodo_deposit_allowed",
@@ -589,8 +618,17 @@ def hypothetical_owner_approved_control(model: dict[str, Any]) -> str:
         )
     else:
         fresh_review_open = True
-    if publish_requested and owner_approved and global_lock_open and common_gates_open and requested_channels_ok and fresh_review_open:
-        return "ALLOW_AFTER_OWNER_APPROVAL"
+    if (
+        publish_requested
+        and owner_approved
+        and deposit_metadata_ready
+        and public_record_ready
+        and global_lock_open
+        and common_gates_open
+        and requested_channels_ok
+        and fresh_review_open
+    ):
+        return "ACCEPT_PUBLIC_ACTION"
     if publish_requested:
         return "REJECT_PUBLIC_ACTION"
     return "NO_ACTION"
@@ -742,8 +780,10 @@ def observed(row: dict[str, Any]) -> str:
         elif theorem_id == "T133-HYBRID":
             update_kind = model.get("update_kind", "hybrid_guard_reset")
             chart_declared = model.get("smooth_chart_id") not in {None, ""}
+            admission = operator_admission_evidence(model)
             if update_kind == "hybrid_guard_reset":
-                guard = bool(model.get("guard"))
+                guard_is_bool = isinstance(model.get("guard"), bool)
+                guard = model.get("guard") is True
                 expected_next = model.get("reset_target") if guard else model.get("step_target")
                 no_smooth_flow_leak = (
                     not chart_declared
@@ -759,7 +799,9 @@ def observed(row: dict[str, Any]) -> str:
                     and model.get("mode_invariant_preserved") is True
                 )
                 ok = (
-                    model.get("actual_next") == expected_next
+                    guard_is_bool
+                    and admission["route_admitted"] is True
+                    and model.get("actual_next") == expected_next
                     and model.get("flow_notation_requested") is False
                     and no_smooth_flow_leak
                     and shared_state_ok
@@ -895,6 +937,12 @@ def observed(row: dict[str, Any]) -> str:
 
 def evaluate(row: dict[str, Any]) -> dict[str, Any]:
     out = dict(row)
+    ref = out.pop("lean_ref", None)
+    if ref:
+        out[classify_evidence_ref(str(ref))] = str(ref)
+    counter_ref = out.pop("counterexample_lean_ref", None)
+    if counter_ref:
+        out["counterexample_" + classify_evidence_ref(str(counter_ref))] = str(counter_ref)
     if any(key.startswith("observed_") for key in row):
         out["input_schema_violation"] = "input rows must not contain observed_* verdict fields"
         out["passed"] = False
@@ -933,6 +981,7 @@ def main() -> int:
     failures = [row for row in rows if not row.get("passed")]
     lean_cert = read_json(LEAN_CERT) if LEAN_CERT.exists() else {}
     ref_audit = theorem_reference_audit(inputs, lean_cert)
+    split_refs = split_bound_refs(ref_audit["theorem_refs"])
     atlas_audit = atlas_external_binding_audit(inputs, atlas_payload, lean_cert)
     lean_source = ROOT / "formal" / "lean" / "OC133V12.lean"
     current_lean_sha256 = sha256_source_ref(lean_source) if lean_source.exists() else None
@@ -1064,7 +1113,10 @@ def main() -> int:
         "finite_row_theorem_ref_total": ref_audit["theorem_ref_total"],
         "finite_row_theorem_ref_bound_total": ref_audit["theorem_ref_bound_total"],
         "finite_row_theorem_ref_missing_total": ref_audit["theorem_ref_missing_total"],
-        "finite_row_theorem_refs": ref_audit["theorem_refs"],
+        "finite_row_evidence_ref_total": ref_audit["theorem_ref_total"],
+        "finite_row_evidence_ref_bound_total": ref_audit["theorem_ref_bound_total"],
+        "finite_row_evidence_ref_missing_total": ref_audit["theorem_ref_missing_total"],
+        **split_refs,
         "finite_row_theorem_ref_missing": ref_audit["theorem_ref_missing"],
         "certificate_binding_failure_total": len(certificate_binding_failures),
         "certificate_binding_failures": certificate_binding_failures,

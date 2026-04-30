@@ -370,7 +370,27 @@ def apply_profiles(orders: list[dict[str, Any]]) -> list[dict[str, Any]]:
         class_remediation_result["profile"] = "v12_vulnerability_class_remediator"
         class_remediation_result["capability_description"] = "Class-level Cerberus finding remediation axis: finding class -> repair function -> predicate ledger."
         class_remediation_result["role"] = "shared_class_level_repair_axis"
+        if class_remediation_result["returncode"] != 0:
+            sync_result = command([sys.executable, "tools/materialize_oc_core_1_3_3_v12_closure.py"], timeout=900)
+            sync_result["profile"] = "v12_post_class_remediation_materializer_sync"
+            sync_result["capability_description"] = "Regenerate dependent artifacts after class-level edits before deciding whether the class repair truly failed."
+            sync_result["role"] = "shared_generated_surface_sync_after_class_repair"
+            results.append(sync_result)
+            retry_result = command([sys.executable, "tools/oc133_vulnerability_class_remediator.py", "--apply"], timeout=420)
+            retry_result["profile"] = "v12_vulnerability_class_remediator_retry_after_sync"
+            retry_result["capability_description"] = "One deterministic retry after materializer sync; prevents stale generated artifacts from masquerading as class-repair failure."
+            retry_result["role"] = "shared_class_level_repair_axis"
+            results.append(retry_result)
+            if retry_result["returncode"] == 0:
+                class_remediation_result["returncode"] = 0
+                class_remediation_result["stale_generated_artifact_failure_recovered_by_retry"] = True
+                class_remediation_result["retry_profile_ref"] = retry_result["profile"]
+        final_sync_result = command([sys.executable, "tools/materialize_oc_core_1_3_3_v12_closure.py"], timeout=900)
+        final_sync_result["profile"] = "v12_pre_profile_executor_materializer_sync"
+        final_sync_result["capability_description"] = "Ensure profile executors evaluate the synchronized post-remediator artifact graph."
+        final_sync_result["role"] = "shared_generated_surface_sync_before_profile_checks"
         results.append(class_remediation_result)
+        results.append(final_sync_result)
     for profile in known_profiles:
         result = command([sys.executable, "tools/oc133_capability_repair_executor.py", "--profile", profile, "--work-order-file", str(WORK_ORDERS)], timeout=420)
         result["profile"] = profile

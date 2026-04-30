@@ -2,35 +2,27 @@
   "role": "prior_art_historian",
   "findings": [
     {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json; proofs/proof_sheets/T133-K0-RES.md; proofs/proof_sheets/T133-OMEGA-STATUS.md; proofs/proof_sheets/T133-K-ZERO.md; proofs/proof_sheets/T133-BOUNDARY.md; proofs/proof_sheets/T133-HYBRID.md; proofs/proof_sheets/T133-DIM.md; proofs/proof_sheets/T133-CYCLE.md; proofs/proof_sheets/T133-ID.md; proofs/proof_sheets/T133-MIN.md; proofs/proof_sheets/T133-KLEVEL.md",
-      "claim": "T133-K0-RES through T133-KLEVEL are clean no-send formal release-consistency checks with adversarial_review_blocker_total=0.",
-      "failure_mode": "Each ledger row cites a proof sheet as evidence, but every current T133 proof sheet is marked Status: BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12 and states it is not release-promoted while G57/G58/G70 remain open. The ledger imports those blocked candidate theorem sheets as FORMAL_RELEASE_CONSISTENCY_CHECK support while reporting adversarial_review_blocker_total=0. This is theorem theater even though public scientific promotion remains false.",
-      "required_repair": "Regenerate the claim ledger from the current proof-sheet statuses: mark affected T133 rows blocked, set nonzero blocker totals, and exclude them from clean support totals until fresh Cerberus/G57/G58/G70 closure passes; or replace the proof sheets with passed repair-reviewed evidence and then update the ledger counters in the same release pass.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json; reviews/oc133_llm_cerberus/repair/OC133_CERBERUS_REPAIR_WORK_ORDERS.json",
-      "claim": "OC133-CORP-AUTO-001 through OC133-CORP-AUTO-008 are only no-send repair-loop governance surfaces with adversarial_review_blocker_total=0.",
-      "failure_mode": "The ledger rows are opaque placeholders named only as internal automation-control claim 1 through 8, while the referenced repair-work-order artifact still declares open_finding_total=16. Without concrete claim text and a current open/closed reconciliation, the ledger cannot prove these rows are harmless governance-only entries rather than unresolved release risks or relabeled coverage claims.",
-      "required_repair": "Remove OC133-CORP-AUTO-* from the scientific claim ledger or replace each placeholder with concrete automation claim text, work_order_ids, current closure state, and computed blocker totals. If open_finding_total is historical, rename it and add current_open_finding_total=0; if it is current, propagate it into the ledger blocker counts.",
+      "severity": "MEDIUM",
+      "artifact_ref": "comparators/source_snapshots",
+      "claim": "OC133-NOVELTY-001: Prior-art comparison is an illustrative bounded positioning note; uniqueness, priority, and absence are not promoted until a systematic search exists.",
+      "failure_mode": "The snapshots are only local bibliographic/search-protocol capsules and explicitly not full source captures. That is acceptable for non-promotion, but it leaves the accepted_overlap and bounded_positioning_note fields insufficiently auditable as source-backed bibliographic positioning.",
+      "required_repair": "Either add source excerpts/pages/section anchors with access metadata for each snapshot, or downgrade the register/schema wording from source-backed positioning to bibliography-only protocol notes.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
-      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json; comparators/source_snapshots",
-      "claim": "The comparator matrix is SOURCE_BACKED prior-art positioning with accepted overlap and bounded delta rows.",
-      "failure_mode": "The bundled source_snapshots are local bibliographic/search-protocol capsules, not archived source content, excerpts, or result logs. That is adequate for non-promoted bibliographic positioning, but it does not substantiate the SOURCE_BACKED label or the per-row prior_art_has/overlap assertions beyond self-authored capsule text.",
-      "required_repair": "Either relabel the register as bibliographic-positioning-only, or add actual archived source excerpts/result logs with hashes for each row. Keep uniqueness, priority, and single-source absence explicitly non-promoted until a systematic search exists.",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "Bounded positioning note that OC combines a typed theorem ledger, executable finite witnesses, numeric replay QA, falsifier registry, and owner-gated no-send publication controls.",
+      "failure_mode": "Rows 11-14 admit overlap with assurance cases, GSN, traceability matrices, and RO-Crate, but the remaining bundle language still risks prior-art relabeling of established assurance/reproducibility/release-gate practices. No uniqueness is promoted, so this is not high severity, but the delta is not bibliographically separated.",
+      "required_repair": "Add explicit comparator rows for software release governance, certification evidence packages, CI/CD quality gates, repository embargo/no-send workflows, and publication/repository deposit controls; then state the OC bundle as local integration only unless a systematic search supports a narrower delta.",
       "status": "OPEN"
     },
     {
-      "severity": "MEDIUM",
+      "severity": "LOW",
       "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "scientific_promotion_wording_violation_total is 0 while the top-level promotion_condition says the ledger may contain bounded no-send scientific claims.",
-      "failure_mode": "That top-level phrase conflicts with scientific_promotion_allowed_total=0 and the row-level language that these are not scientific theorem promotions. The lint rule appears to miss top-level wording, leaving a no-send/public-surface ambiguity that can be read as retained scientific claim promotion.",
-      "required_repair": "Replace the phrase with non-promotion language such as formal consistency, governance, and replay-QA rows only; extend the wording lint to top-level ledger fields and regenerate scientific_promotion_wording_violation_total.",
+      "claim": "T133-BOUNDARY: Metric thresholds are a specialization of typed classifier boundaries.",
+      "failure_mode": "The claim text reads as an absolute mathematical/general classifier statement even though the row is only a no-send formal release-consistency check. The comparator register has no metric topology, decision-boundary, or classifier-threshold prior-art row to prevent relabeling.",
+      "required_repair": "Rewrite the claim as bounded to declared v12 classifier semantics and add a comparator row covering metric/topological thresholds, statistical or ML decision boundaries, and classifier theory.",
       "status": "OPEN"
     }
   ]

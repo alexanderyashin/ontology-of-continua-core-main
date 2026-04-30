@@ -31,6 +31,33 @@ def certified_generated_artifact_hashes() -> dict[str, str]:
     }
 
 
+def replay_qa_status_language_failures(payload: dict, *, namespace: str) -> list[str]:
+    """Reject support/pass/validation wording on official-snapshot replay QA rows."""
+    failures: list[str] = []
+    forbidden = ("SUPPORTED", "VALIDATED", "PROMOTED", "PASS")
+    allowed_phrases = (
+        "NOT_PROMOTED",
+        "QA_NOT_DOMAIN_VALIDATION",
+        "QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED",
+        "PREDICTION_SUPPORT_BLOCKED",
+        "EMPIRICAL_SUPPORT_BLOCKED",
+    )
+    for idx, row in enumerate(payload.get("rows", []) if isinstance(payload, dict) else []):
+        if not isinstance(row, dict):
+            continue
+        promoted = row.get("prediction_support_allowed") is True or row.get("empirical_support_allowed") is True
+        if promoted:
+            continue
+        for key in ("result_verdict", "promotion_status", "prediction_status", "public_status", "verdict"):
+            value = row.get(key)
+            if value in (None, ""):
+                continue
+            text = str(value).upper()
+            if any(term in text for term in forbidden) and not any(allowed in text for allowed in allowed_phrases):
+                failures.append(f"{namespace}::{idx}::{key}::{value}")
+    return failures
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run OC133 domain validation or explicit replay-QA mode.")
     parser.add_argument(
@@ -131,6 +158,8 @@ def main() -> int:
         numeric_artifact_failures.append("NUMERIC_REPLAY_TABLE_INCOMPLETE")
     if numeric_log.get("row_total", 0) < 5:
         numeric_artifact_failures.append("NUMERIC_REPLAY_LOG_INCOMPLETE")
+    numeric_artifact_failures.extend(replay_qa_status_language_failures(numeric_payload, namespace="NUMERIC_REPLAY_QA_TABLE"))
+    numeric_artifact_failures.extend(replay_qa_status_language_failures(numeric_log, namespace="NUMERIC_REPLAY_LOG"))
     lanes = []
     lane_replay_results = []
     lane_replay_failure_total = 0
@@ -178,6 +207,8 @@ def main() -> int:
         if packet.get("prediction_support_allowed") is False or packet.get("empirical_support_allowed") is False:
             remaining = remaining or "NOT_EMPIRICAL_PROMOTION_NUMERIC_REPLAY_QA_ONLY"
         lanes.append({"lane": packet["lane"], "result_verdict": replay_payload.get("result_verdict", packet["result_verdict"]), "remaining_blocker": remaining})
+        replay_status_failures = replay_qa_status_language_failures({"rows": [packet, replay_payload]}, namespace=f"LANE::{packet.get('lane')}")
+        numeric_artifact_failures.extend(replay_status_failures)
     missing_lanes = [lane for lane in expected_lanes if lane not in seen_lanes]
     extra_lanes = sorted(seen_lanes - set(expected_lanes))
     for lane in missing_lanes:

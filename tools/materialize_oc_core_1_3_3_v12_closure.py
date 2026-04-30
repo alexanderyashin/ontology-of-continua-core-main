@@ -482,9 +482,9 @@ THEOREMS = [
         "lemma1": "A declared chart-labelled flow-one route induces a typed update relation in the v12 subset.",
         "lemma2": "A typed update relation need not induce a derivative without extra smoothness assumptions.",
         "theorem": "OC operators F,G,H,Q,R,S,U are typed updates; chart-labelled flow-one, proof/rewrite, and guard/reset hybrid routes are separate typed realizations.",
-        "proof": "The primitive object is a route-specific operator-admission record. The Lean theorem `integrated_operator_semantics` binds the smooth-chart flow-one update, chart/domain/local-law obligations, guard/reset update branch, and proof/rewrite non-smooth branch in one statement; `operator_admission_route_obligations` remains a supporting decomposition lemma. The false-guard pass-through branch is checked by `hybrid_no_guard_uses_update` and by finite rows whose operator admission records guard evaluation rather than assuming the guard value is true. The finite runner independently evaluates the same fields and fails if labels are correct but obligations are missing.",
+        "proof": "The primitive object is a route-specific operator-admission record. The Lean theorem `integrated_operator_semantics` binds the smooth-chart flow-one update, chart/domain/local-law obligations, guard/reset update branch, and proof/rewrite non-smooth branch in one statement; `operator_admission_route_obligations` remains a supporting decomposition lemma. The Lean theorem `bound_hybrid_admission_obligations` adds a system/source-bound hybrid admission record, tying guard observation, guard value, reset source/target typing, codomain typing, and reset admissibility to the actual `HybridSystem` and source state. The false-guard pass-through branch is checked by `hybrid_no_guard_uses_update` and by finite rows whose operator admission records guard evaluation rather than assuming the guard value is true. The finite runner independently evaluates the same fields and fails if labels are correct but obligations are missing.",
         "finite": "The finite corpus includes smooth-chart positive/negative cases, guard/reset positive/negative cases, proof/rewrite positive/negative cases, and tamper controls for missing local law, wrong reset codomain, and derivative leakage.",
-        "boundary": "Any section treating a chart token as a differentiability, manifold, vector-field, or ODE-solution theorem fails G41.",
+        "boundary": "Any route treating a chart token as differentiability, manifold, vector-field, or ODE-solution evidence is outside the v12 operator theorem and remains a future lint/proof obligation.",
     },
     {
         "id": "T133-DIM",
@@ -514,7 +514,7 @@ THEOREMS = [
         "title": "Live-status cycle-mode requirement theorem",
         "artifact": "content/OC_1_3_3_CYCLE_TAXONOMY.tex",
         "lean": "eligible_live_requires_cycle_or_maintenance",
-        "claim": "Promoted eligible-live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
+        "claim": "Declared eligible-live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
         "assumptions": [
             "Live status is not static persistence.",
             "Maintenance, renewal, replay, regulatory, and degenerate cycle modes are distinct.",
@@ -560,23 +560,23 @@ THEOREMS = [
         "title": "Declared semantic-verdict component independence theorem",
         "artifact": "appendix/OC_1_3_3_GLOBAL_MINIMALITY_WITNESSES.tex",
         "lean": "release_tuple_semantic_component_irredundant",
-        "claim": "Within the declared v12 release tuple semantics, each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.",
+        "claim": "Within the declared v12 release tuple semantics, each tuple component has a one-field semantic keep/drop witness that changes the release verdict.",
         "assumptions": [
             "Minimality is claimed for the release-governed OC verdict class, not for all possible theories.",
-            "Each promoted component has a witness pair that changes a declared OC verdict when the component is removed or weakened.",
+            "Each declared component has a witness pair that changes a declared OC verdict when the component is removed or weakened.",
             "Witnesses are checked by the finite-model ledger and by the Lean component-witness schema.",
         ],
         "definitions": [
             "Verdict-invariant: preserves pass/fail classification of the declared OC tests.",
             "Witness pair: two cases differing only in one component and producing different verdicts.",
-            "Global tuple minimality: every promoted tuple component has at least one witness pair.",
+            "Global tuple minimality: every declared tuple component has at least one witness pair.",
         ],
         "lemma1": "A component with a verdict-changing witness cannot be removed verdict-invariantly.",
-        "lemma2": "The v12 witness ledger covers every promoted tuple component.",
-        "theorem": "The promoted v12 tuple has component-wise independence for the declared semantic verdict suite.",
-        "proof": "For each component c, the witness ledger gives keep_c and drop_c cases whose semantic records differ only in c's obligation field and whose verdicts differ. Lemma 1 proves that c is required for the release verdict suite. Lemma 2 ranges over the full promoted tuple. Therefore no promoted component can be removed while preserving this declared v12 verdict suite.",
+        "lemma2": "The v12 witness ledger covers every declared tuple component.",
+        "theorem": "The declared v12 tuple has component-wise independence for the declared semantic verdict suite.",
+        "proof": "For each component c, the witness ledger gives keep_c and drop_c cases whose semantic records differ only in c's obligation field and whose verdicts differ. Lemma 1 proves that c is required for the release verdict suite. Lemma 2 ranges over the full declared tuple. Therefore no declared component can be removed while preserving this declared v12 verdict suite.",
         "finite": "Removing boundary admits a state rejected by the full tuple; removing cycle mode admits a frozen non-live object.",
-        "boundary": "If any promoted tuple component can be removed while `FM-MIN-*` still returns PASS for the declared semantic verdict suite, the minimality card fails.",
+        "boundary": "If any declared tuple component can be removed while `FM-MIN-*` still returns PASS for the declared semantic verdict suite, the minimality card fails.",
     },
     {
         "id": "T133-KLEVEL",
@@ -1645,7 +1645,8 @@ def write_proofs(root: Path) -> None:
         "| --- | --- | --- | --- | --- |",
     ]
     for row in rows:
-        lines.append(f"| `{row['theorem_id']}` | public claim must match assumptions and counterexample boundary | `{row['proof_sheet_ref']}` | `{row['lean_ref']}` | `FM-{row['theorem_id']}-POS`, `FM-{row['theorem_id']}-NEG` |")
+        pos_case = "FM-T133-ID-IDENTITY-POS" if row["theorem_id"] == "T133-ID" else f"FM-{row['theorem_id']}-POS"
+        lines.append(f"| `{row['theorem_id']}` | public claim must match assumptions and counterexample boundary | `{row['proof_sheet_ref']}` | `{row['lean_ref']}` | `{pos_case}`, `FM-{row['theorem_id']}-NEG` |")
     lines.extend(
         [
             "",
@@ -1889,9 +1890,9 @@ not a vector-field theorem, and not a differentiability theorem. Proof/rewrite a
 routes are first-class non-smooth update routes. Stochastic, graph, and institutional operators are
 listed only as extension obligations until separate formal and finite evidence exists.
 
-The release gate rejects any domain section that treats a chart token as differentiability,
-manifold structure, vector-field semantics, or an ODE-solution claim. Those stronger claims require
-future route-specific mathematics and are not promoted by v12.
+The v12 package rejects those stronger readings at the claim-boundary level. A future release may add
+a corpus-wide lint gate for differentiability/manifold/vector-field/ODE wording, but v12 does not
+claim such a lint theorem; those stronger mathematical claims require route-specific evidence first.
 """,
     )
     write_text(
@@ -2145,7 +2146,11 @@ def write_klevel_and_claims(root: Path) -> None:
             "promotion_condition": (
                 "Not promoted as a scientific theorem: this row is a formal release-consistency check only and cannot become a bounded scientific claim until replaced by independent semantics/proof evidence."
                 if theorem["id"] in FORMAL_CONSISTENCY_ONLY_THEOREMS
-                else "Promoted only as a bounded no-send scientific claim; the package-level release verdict still requires G57, G58, and G70 to pass with fresh zero critical/high Cerberus findings."
+                else (
+                    "Eligible only as a bounded no-send scientific claim after G57, G58, and G70 pass with fresh zero critical/high Cerberus findings."
+                    if scientific_promotion_allowed
+                    else "Not promoted as a scientific theorem in the current package: fresh Cerberus critical/high findings remain open, so this row is an owner-review proof obligation only."
+                )
             ),
             "scope_limit": "Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.",
         }
@@ -2202,17 +2207,30 @@ def write_klevel_and_claims(root: Path) -> None:
                 "adversarial_review_blocker_total": open_review_blocker_total,
                 "prior_cerberus_open_total_at_generation": prior_open_review_blocker_total,
                 "fresh_cerberus_required_for_release": True,
-                "promotion_condition": "Promoted only as a bounded no-send control-plane claim; public action remains impossible while owner approval is pending or any channel lock is false.",
-                "scope_limit": "Local owner-review package only; owner approval alone is insufficient while global_no_send_lock or any channel lock remains false-to-public.",
+                "promotion_condition": "Allowed only as a bounded no-send control-plane claim; public action is disallowed/rejected by the v12 release control plane while owner approval is pending, deposit/public-record readiness is absent, no-send remains locked, or any channel lock is false.",
+                "scope_limit": "Local owner-review package only; this is not a real-world enforcement guarantee against manual or external publication. Owner approval alone is insufficient unless deposit-ready metadata, a public-record target, no-send unlock, and every channel lock are all separately true.",
             },
         ]
     )
-    scientific_promotion_wording_violations = [
+    support_ceiling_claim_ids = [
         row.get("claim_id")
         for row in claim_rows
-        if row.get("scientific_promotion_allowed") is False
-        and "Promoted only as a bounded no-send scientific claim" in str(row.get("promotion_condition", ""))
+        if row.get("evidence_ceiling") == "FORMAL_RELEASE_CONSISTENCY_CHECK_NOT_INDEPENDENT_SCIENTIFIC_THEOREM"
     ]
+    ambiguous_promotion_phrases = [
+        "Promoted eligible",
+        "each promoted",
+        "The proof is promoted",
+        "Promoted only as a bounded no-send scientific claim",
+        "Promoted only as a bounded no-send control-plane claim",
+    ]
+    scientific_promotion_wording_violations = []
+    for row in claim_rows:
+        if row.get("scientific_promotion_allowed") is True:
+            continue
+        haystack = "\n".join(str(row.get(key, "")) for key in ("claim", "promotion_condition", "scope_limit"))
+        if any(phrase in haystack for phrase in ambiguous_promotion_phrases):
+            scientific_promotion_wording_violations.append(row.get("claim_id"))
     ledger = {
         "schema_id": "OC133_CLAIM_LEDGER_FULL_v12",
         "release_id": RELEASE_ID,
@@ -2220,7 +2238,8 @@ def write_klevel_and_claims(root: Path) -> None:
         "claim_total": len(claim_rows),
         "unsupported_promoted_total": 0,
         "demoted_public_claim_total": 0,
-        "support_ceiling_total": 0,
+        "support_ceiling_total": len(support_ceiling_claim_ids),
+        "support_ceiling_claim_ids": support_ceiling_claim_ids,
         "adversarial_review_blocker_total": open_review_blocker_total,
         "prior_cerberus_open_total_at_generation": prior_open_review_blocker_total,
         "fresh_cerberus_required_for_release": True,
@@ -2231,7 +2250,7 @@ def write_klevel_and_claims(root: Path) -> None:
         "scientific_promotion_wording_violation_total": len(scientific_promotion_wording_violations),
         "scientific_promotion_wording_violations": scientific_promotion_wording_violations,
         "scientific_promotion_wording_lint_rule": "If scientific_promotion_allowed=false or evidence_ceiling=FORMAL_RELEASE_CONSISTENCY_CHECK_NOT_INDEPENDENT_SCIENTIFIC_THEOREM, promotion_condition must use explicit non-promotion language.",
-        "promotion_condition": "The ledger may contain bounded no-send scientific claims, but package-level release promotion remains false until G57/G58/G70 pass after fresh Cerberus review.",
+        "promotion_condition": "Current ledger rows are no-send owner-review obligations, replay-QA quarantine rows, non-promoted prior-art positioning notes, and a bounded governance control. Scientific promotion remains false until G57/G58/G70 pass after fresh zero critical/high Cerberus review.",
         "absolute_overclaim_policy": "BLOCK_PUBLIC_PROMOTION",
         "rows": claim_rows,
     }
@@ -2326,7 +2345,7 @@ def write_empirical(root: Path) -> None:
             "prediction_support_allowed": row.get("prediction_support_allowed", False),
             "empirical_support_allowed": row.get("empirical_support_allowed", False),
             "quarantine_reason": row.get("quarantine_reason", ""),
-            "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS",
+            "result_verdict": "NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION",
             "remaining_blocker": "NOT_EMPIRICAL_PROMOTION_NUMERIC_REPLAY_QA_ONLY",
         }
         write_json(root / "validation" / lane / "VALIDATION_PACKET.json", packet)
@@ -2380,7 +2399,7 @@ def main() -> int:
         "lane": LANE,
         "release_id": "oc_core_1_3_3",
         "version": "1.3.3",
-        "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS" if not failures else "FAIL",
+        "result_verdict": "NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION" if not failures else "FAIL",
         "remaining_blocker": packet.get("remaining_blocker") or "NOT_EMPIRICAL_PROMOTION_NUMERIC_REPLAY_QA_ONLY",
         "failure_total": len(failures),
         "failures": failures,
@@ -2411,7 +2430,7 @@ if __name__ == "__main__":
                 "lane": lane_row["lane"],
                 "release_id": RELEASE_ID,
                 "version": VERSION,
-                "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS",
+                "result_verdict": "NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION",
                 "remaining_blocker": "NOT_EMPIRICAL_PROMOTION_NUMERIC_REPLAY_QA_ONLY",
                 "failure_total": 0,
                 "failures": [],
@@ -2521,6 +2540,7 @@ def write_comparators_and_reviews(root: Path) -> None:
     ]
     phen_payload = {
         "schema_id": "OC133_PHENOMENON_COVERAGE_MATRIX_v12",
+        "matrix_title": "OC Core 1.3.3 Internal Model-Card Gap Register",
         "release_id": RELEASE_ID,
         "version": VERSION,
         "row_total": len(phenomenon_rows),
@@ -2528,7 +2548,7 @@ def write_comparators_and_reviews(root: Path) -> None:
         "rows": phenomenon_rows,
     }
     write_json(root / "docs" / "OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json", phen_payload)
-    phen_lines = ["# OC Core 1.3.3 Phenomenon Coverage Matrix", "", "| ID | Question | Status | Limitation |", "| --- | --- | --- | --- |"]
+    phen_lines = ["# OC Core 1.3.3 Internal Model-Card Gap Register", "", "| ID | Question | Status | Limitation |", "| --- | --- | --- | --- |"]
     for row in phenomenon_rows:
         phen_lines.append(f"| `{row['phenomenon_id']}` | {row['hostile_question']} | `{row['explanation_status']}` | {row['limitation']} |")
     write_text(root / "docs" / "OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.md", "\n".join(phen_lines))
@@ -2935,8 +2955,16 @@ def semantic_finite_observed(row: dict[str, Any]) -> str:
         publish_requested = model.get("publish_requested") is True
         if publish_requested and model.get("current_owner_approved") is False and model.get("all_public_channels_locked") is True:
             return "REJECT_PUBLIC_ACTION"
-        if publish_requested and model.get("owner_approved") is True and model.get("publish_allowed") is True:
-            return "ALLOW_AFTER_OWNER_APPROVAL"
+        if (
+            publish_requested
+            and model.get("owner_approved") is True
+            and model.get("publish_allowed") is True
+            and model.get("deposit_ready_metadata") is True
+            and model.get("public_record_present") is True
+        ):
+            return "ACCEPT_PUBLIC_ACTION"
+        if publish_requested:
+            return "REJECT_PUBLIC_ACTION"
         return "NO_ACTION"
     return "UNKNOWN"
 
@@ -3116,7 +3144,7 @@ def write_semantic_finite_model_checks(root: Path) -> None:
             "negative_control_id": "",
         },
         {
-            "case_id": "FM-T133-ID-POS",
+            "case_id": "FM-T133-ID-REBIRTH-NONIDENTITY-POS",
             "theorem_id": "T133-ID",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
@@ -3313,12 +3341,16 @@ def write_semantic_finite_model_checks(root: Path) -> None:
                 "case_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
                 "theorem_id": "OC133-NOSEND-001",
                 "case_type": "no_send_hypothetical_control",
-                "expected_verdict": "ALLOW_AFTER_OWNER_APPROVAL",
+                "expected_verdict": "REJECT_PUBLIC_ACTION",
                 "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+                "control_label": "OWNER_APPROVED_BUT_DEPOSIT_METADATA_AND_PUBLIC_RECORD_NOT_READY_REJECT",
+                "failed_gate_predicates": ["deposit_ready_metadata", "public_record_present"],
                 "model": {
                     "owner_approved": True,
                     "publish_requested": True,
                     "publish_allowed": True,
+                    "deposit_ready_metadata": False,
+                    "public_record_present": False,
                     "global_no_send_lock": False,
                     "journal_submissions_allowed": True,
                     "journal_submission_allowed": True,
@@ -3327,6 +3359,37 @@ def write_semantic_finite_model_checks(root: Path) -> None:
                     "software_heritage_deposit_allowed": True,
                     "doi_minting_allowed": True,
                     "requested_channels": ["github_release", "zenodo_deposit", "software_heritage_deposit", "journal_submission", "doi_minting"],
+                },
+                "negative_control_id": "",
+            },
+            {
+                "case_id": "ADV-NOSEND-PUBLISH-ALL-GATES-OPEN-CONTROL",
+                "theorem_id": "OC133-NOSEND-001",
+                "case_type": "no_send_hypothetical_control",
+                "expected_verdict": "ACCEPT_PUBLIC_ACTION",
+                "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+                "control_label": "ALL_OWNER_METADATA_RECORD_REVIEW_AND_CHANNEL_GATES_OPEN_HYPOTHETICAL_ACCEPT",
+                "failed_gate_predicates": [],
+                "model": {
+                    "owner_approved": True,
+                    "publish_requested": True,
+                    "publish_allowed": True,
+                    "deposit_ready_metadata": True,
+                    "public_record_present": True,
+                    "global_no_send_lock": False,
+                    "journal_submissions_allowed": True,
+                    "journal_submission_allowed": True,
+                    "github_release_allowed": True,
+                    "zenodo_deposit_allowed": True,
+                    "software_heritage_deposit_allowed": True,
+                    "doi_minting_allowed": True,
+                    "requested_channels": ["github_release", "zenodo_deposit", "software_heritage_deposit", "journal_submission", "doi_minting"],
+                    "fresh_cerberus_required_for_release": True,
+                    "g57_attack_matrix_zero_critical_high": True,
+                    "g58_reviewer_persona_suite_pass": True,
+                    "g70_scientific_closure_verdict_pass": True,
+                    "critical_open_total": 0,
+                    "high_open_total": 0,
                 },
                 "negative_control_id": "",
             },
@@ -3464,9 +3527,13 @@ def observed(row: dict) -> str:
     if case_type == "no_send_hypothetical_control":
         owner_approved = model.get("owner_approved") is True
         publish_requested = model.get("publish_requested") is True
+        deposit_metadata_ready = model.get("deposit_ready_metadata") is True
+        public_record_ready = model.get("public_record_present") is True
         publish_allowed = model.get("publish_allowed") is True
-        if publish_requested and owner_approved and publish_allowed:
-            return "ALLOW_AFTER_OWNER_APPROVAL"
+        if publish_requested and owner_approved and deposit_metadata_ready and public_record_ready and publish_allowed:
+            return "ACCEPT_PUBLIC_ACTION"
+        if publish_requested:
+            return "REJECT_PUBLIC_ACTION"
         return "NO_ACTION"
     return "UNKNOWN"
 
@@ -3897,7 +3964,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
         ("P012", "no-send publication control as an operational release-state check", "OC133-NOSEND-001", "owner approval plus manifest/channel-lock state machine", "public action is rejected while global no-send or any channel lock remains closed", "ADV-NOSEND-PUBLISH"),
         ("P013", "K-level collapse objections", "T133-KLEVEL", "adjacent transition atlas with retained witness and demotion criterion", "reduction fails exactly when retained witness stays observable", "FM-T133-KLEVEL-POS"),
         ("P014", "minimality versus relabeling attack", "T133-MIN", "one-component keep/drop witness pair per promoted tuple component", "component removal changes declared verdict in semantic finite runner", "FM-T133-MIN-POS"),
-        ("P015", "identity continuation versus residue/rebirth equivocation", "T133-ID", "endpoint-bound morphism truth table separating identity, residue, and rebirth evidence classes", "identity continuation is accepted only when endpoint-bound identity evidence is present", "FM-T133-ID-POS"),
+        ("P015", "identity continuation versus residue/rebirth equivocation", "T133-ID", "endpoint-bound morphism truth table separating identity, residue, and rebirth evidence classes", "identity continuation is accepted only when endpoint-bound identity evidence is present", "FM-T133-ID-IDENTITY-POS"),
     ]
     phenomenon_rows = []
     claim_ledger_for_phenomena = read_json(root / "claims" / "CLAIM_LEDGER_1_3_3.json")
@@ -3928,6 +3995,8 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             negative_case = f"{finite_case}-NEG"
         elif finite_case == "ADV-NOSEND-PUBLISH":
             negative_case = "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL"
+        elif pid == "P015":
+            negative_case = "FM-T133-ID-NEG"
         else:
             negative_case = finite_case.replace("POS", "NEG")
         illustrative_internal = pid in {"P003", "P007", "P008", "P009", "P010", "P011", "P013", "P014"}
@@ -3937,7 +4006,14 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
                 "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
             ]
-            route = f"claim `{claim}` -> owner approval state -> publish manifest channel locks -> finite no-send case `{finite_case}` -> partial-lock reject controls `ADV-NOSEND-PARTIAL-LOCK-*` -> hypothetical owner-approved allow control"
+            route = (
+                f"claim `{claim}` -> predicates owner_approved, publish_allowed, deposit_ready_metadata, "
+                "public_record_present, global_no_send_lock=false, G57/G58/G70 zero critical/high, "
+                "github_release_allowed, zenodo_deposit_allowed, software_heritage_deposit_allowed, "
+                "journal_submission_allowed, doi_minting_allowed -> finite no-send case "
+                f"`{finite_case}` -> owner-only/deposit-not-ready reject control -> partial-lock reject controls "
+                "`ADV-NOSEND-PARTIAL-LOCK-*` -> all-gates-open hypothetical accept control."
+            )
             explanation_status = "OPERATIONAL_NO_SEND_CONTROL_REPLAYED"
             counts_as_phenomenon_coverage = False
             coverage_promotion_state = "OPERATIONAL_GOVERNANCE_CONTROL_NOT_PHENOMENON_COVERAGE"
@@ -4015,6 +4091,11 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                             "FM-T133-HYBRID-NEG",
                             "FM-T133-HYBRID-NO-GUARD-STEP-POS",
                             "FM-T133-HYBRID-NO-GUARD-STEP-NEG",
+                            "FM-T133-HYBRID-GUARD-MISSING-NEG",
+                            "FM-T133-HYBRID-GUARD-NONBOOLEAN-NEG",
+                            "FM-T133-HYBRID-GUARD-VALUE-MISMATCH-NEG",
+                            "FM-T133-HYBRID-RESET-SOURCE-MODE-NEG",
+                            "FM-T133-HYBRID-RESET-TARGET-MODE-NEG",
                             "FM-T133-HYBRID-SMOOTH-CHART-POS",
                             "FM-T133-HYBRID-SMOOTH-CHART-NEG",
                             "FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG",
@@ -4022,11 +4103,48 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                             "FM-T133-HYBRID-PROOF-NO-RULE-NEG",
                         ]
                         if pid == "P005"
-                        else ["FM-T133-ID-RESIDUE-POS", "FM-T133-ID-RESIDUE-NEG", "FM-T133-ID-IDENTITY-POS"]
+                        else ["FM-T133-ID-REBIRTH-NONIDENTITY-POS", "FM-T133-ID-RESIDUE-POS", "FM-T133-ID-RESIDUE-NEG", "FM-T133-ID-NEG"]
                         if pid == "P015"
                         else []
                     ),
                     "truth_table_case_prefixes": ["FM-T133-ID-TT-IDENTITY", "FM-T133-ID-TT-RESIDUE", "FM-T133-ID-TT-REBIRTH"] if pid == "P015" else [],
+                    "no_send_gate_predicates": (
+                        [
+                            "owner_approved",
+                            "publish_allowed",
+                            "deposit_ready_metadata",
+                            "public_record_present",
+                            "global_no_send_lock=false",
+                            "g57_attack_matrix_zero_critical_high",
+                            "g58_reviewer_persona_suite_pass",
+                            "g70_scientific_closure_verdict_pass",
+                            "github_release_allowed",
+                            "zenodo_deposit_allowed",
+                            "software_heritage_deposit_allowed",
+                            "journal_submission_allowed",
+                            "doi_minting_allowed",
+                        ]
+                        if pid == "P012"
+                        else []
+                    ),
+                    "negative_control_explanations": (
+                        {
+                            "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL": "Fails because deposit_ready_metadata=false and public_record_present=false even though owner_approved=true.",
+                            "ADV-NOSEND-PARTIAL-LOCK-OWNER_APPROVED": "Fails only owner_approved.",
+                            "ADV-NOSEND-PARTIAL-LOCK-PUBLISH_ALLOWED": "Fails only publish_allowed.",
+                            "ADV-NOSEND-PARTIAL-LOCK-DEPOSIT_READY_METADATA": "Fails only deposit_ready_metadata.",
+                            "ADV-NOSEND-PARTIAL-LOCK-PUBLIC_RECORD_PRESENT": "Fails only public_record_present.",
+                            "ADV-NOSEND-PARTIAL-LOCK-GLOBAL_NO_SEND_LOCK": "Fails only global_no_send_lock=false requirement.",
+                            "ADV-NOSEND-PARTIAL-LOCK-GITHUB_RELEASE": "Fails only github_release_allowed.",
+                            "ADV-NOSEND-PARTIAL-LOCK-ZENODO_DEPOSIT": "Fails only zenodo_deposit_allowed.",
+                            "ADV-NOSEND-PARTIAL-LOCK-SOFTWARE_HERITAGE_DEPOSIT": "Fails only software_heritage_deposit_allowed.",
+                            "ADV-NOSEND-PARTIAL-LOCK-JOURNAL_SUBMISSION": "Fails only journal_submission_allowed.",
+                            "ADV-NOSEND-PARTIAL-LOCK-DOI_MINTING": "Fails only doi_minting_allowed.",
+                            "ADV-NOSEND-PUBLISH-ALL-GATES-OPEN-CONTROL": "Accepts only in a hypothetical model where every predicate is open; it is not the current no-send release state.",
+                        }
+                        if pid == "P012"
+                        else {}
+                    ),
                     "falsifier": falsifier_by_pid[pid],
                     "evidence_refs": evidence_refs,
                 },
@@ -4044,26 +4162,28 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
         )
     phen_payload = {
         "schema_id": "OC133_PHENOMENON_COVERAGE_MATRIX_v12_MODEL_CARDS",
+        "matrix_title": "OC Core 1.3.3 Internal Model-Card Gap Register",
         "release_id": RELEASE_ID,
         "version": VERSION,
         "row_total": len(phenomenon_rows),
         "phenomenon_coverage_row_total": sum(1 for row in phenomenon_rows if row.get("counts_as_phenomenon_coverage") is True),
         "formal_model_card_replay_total": sum(1 for row in phenomenon_rows if row.get("counts_as_formal_model_card_replay") is True),
         "empirical_domain_phenomenon_coverage_total": sum(1 for row in phenomenon_rows if row.get("counts_as_empirical_domain_phenomenon_coverage") is True),
-        "coverage_counter_policy": "phenomenon_coverage_row_total is reserved for domain-specific evaluator/external-observable/non-replay validation rows; finite formal model cards are counted separately as formal_model_card_replay_total.",
+        "matrix_role": "INTERNAL_NO_SEND_MODEL_CARD_GAP_REGISTER_NOT_DOMAIN_PHENOMENON_COVERAGE",
+        "coverage_counter_policy": "phenomenon_coverage_row_total is reserved for future domain-specific evaluator/external-observable/non-replay validation rows; finite formal model cards are counted separately as formal_model_card_replay_total and never imply broad phenomenon coverage.",
         "illustrative_internal_model_row_total": sum(1 for row in phenomenon_rows if row.get("counts_as_phenomenon_coverage") is False),
         "unsupported_closed_total": 0,
         "rows": phenomenon_rows,
     }
     write_json(root / "docs" / "OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json", phen_payload)
-    phen_lines = ["# OC Core 1.3.3 Phenomenon Coverage Matrix", "", "| ID | Question | Model | Observable | Status |", "| --- | --- | --- | --- | --- |"]
+    phen_lines = ["# OC Core 1.3.3 Internal Model-Card Gap Register", "", "| ID | Question | Model | Observable | Status |", "| --- | --- | --- | --- | --- |"]
     for row in phenomenon_rows:
         phen_lines.append(f"| `{row['phenomenon_id']}` | {row['hostile_question']} | {row['phenomenon_specific_model']} | {row['observable']} | `{row['explanation_status']}` |")
     write_text(root / "docs" / "OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.md", "\n".join(phen_lines))
 
     closure_by_theme = {
         "formal": ("formal/lean/OC133V12.lean", "eligible_live_requires_cycle"),
-        "proof": ("proofs/FINITE_MODEL_CHECKS_1_3_3.json", "semantic_evaluator=true"),
+        "proof": ("proofs/FINITE_MODEL_CHECKS_1_3_3.json", "mutation controls reject label-only, flag-oracle, and wrong-witness rows; finite case IDs cite independent observed verdicts"),
         "empirical": ("validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json", "NUMERIC_REPLAY_QA_NOT_EMPIRICAL_PROMOTION"),
         "novelty": ("comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json", "NOT_PROMOTED_RESEARCH_NOTE + local_protocol_snapshot_sha256"),
         "coverage": ("docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json", "model_card + scoped explanation_status"),
@@ -4071,7 +4191,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
         "release": ("releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json", "publish_allowed=false"),
         "minimality": ("formal/lean/OC133V12.lean", "release_tuple_semantic_component_irredundant + data/OC133_GLOBAL_MINIMALITY_WITNESSES.json"),
         "klevel": ("formal/lean/OC133V12.lean", "release_atlas_manifest_has_total_finite_case_coverage + data/k_level_irreducibility_matrix.json"),
-            "operator": ("formal/lean/OC133V12.lean", "integrated_operator_semantics + operator_admission_route_obligations + hybrid guard/reset branch theorems"),
+            "operator": ("formal/lean/OC133V12.lean", "integrated_operator_semantics + operator_admission_route_obligations + bound_hybrid_admission_obligations + hybrid guard/reset branch theorems"),
     }
     themes = [
         ("formal", "hidden type ambiguity", "T133-OMEGA-STATUS"),
@@ -4398,10 +4518,20 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
         "T133-HYBRID": ("FM-T133-HYBRID-POS", "FM-T133-HYBRID-NEG"),
         "T133-DIM": ("FM-T133-DIM-POS", "FM-T133-DIM-NEG"),
         "T133-CYCLE": ("FM-T133-CYCLE-POS", "FM-T133-CYCLE-NEG"),
-        "T133-ID": ("FM-T133-ID-POS", "FM-T133-ID-NEG"),
+        "T133-ID": ("FM-T133-ID-IDENTITY-POS", "FM-T133-ID-NEG"),
         "T133-MIN": ("FM-T133-MIN-POS", "FM-T133-MIN-NEG"),
         "T133-KLEVEL": ("FM-T133-KLEVEL-POS", "FM-T133-KLEVEL-NEG"),
     }
+    fresh_review_gate_display = (
+        f"fresh_cerberus critical={cerberus_summary.get('critical_open_total')}; "
+        f"high={cerberus_summary.get('high_open_total')}; "
+        f"satisfied={fresh_cerberus_review_satisfied}"
+    )
+    deterministic_proof_status = "CLOSED_BY_SPECIFIC_V12_EVIDENCE"
+    deterministic_proof_evidence_note = (
+        "This deterministic row is closed only against its named predicate and artifact refs. "
+        "Fresh Cerberus critical/high findings remain separate integrated rows and still block release closure until G58/G70 are zero."
+    )
     attack_rows: list[dict[str, Any]] = []
     for idx, finding in enumerate(cerberus_open_findings(root), start=1):
         closure = closure_for_cerberus_finding(finding)
@@ -4469,8 +4599,8 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
                     "closure_type": "theorem_specific_artifact_field",
                     "closure_evidence_refs": [theorem["artifact"], f"proofs/proof_sheets/{theorem['id']}.md", "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json", "proofs/FINITE_MODEL_CHECKS_1_3_3.json"],
                     "closure_verification_query": query,
-                    "closure_evidence": f"{theorem['id']} is checked by {query}.",
-                    "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+                    "closure_evidence": f"{theorem['id']} is checked by {query}. {deterministic_proof_evidence_note}",
+                    "status": deterministic_proof_status,
                     "no_send": True,
                 }
             )
@@ -4494,8 +4624,8 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
                     "closure_type": "theorem_specific_public_surface_field",
                     "closure_evidence_refs": ["docs/OC_1_3_3_HOSTILE_READER_GUIDE.md", "claims/CLAIM_LEDGER_1_3_3.json", f"proofs/proof_sheets/{theorem['id']}.md"],
                     "closure_verification_query": query,
-                    "closure_evidence": f"{theorem['id']} has a public-surface route checked by {query}.",
-                    "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+                    "closure_evidence": f"{theorem['id']} has a public-surface route checked by {query}. {deterministic_proof_evidence_note}",
+                    "status": deterministic_proof_status,
                     "no_send": True,
                 }
             )
@@ -4509,7 +4639,7 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
             "artifact_location": "claims/CLAIM_LEDGER_1_3_3.json + proofs/THEOREM_INVENTORY_1_3_3.json + docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json + releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
             "objection": "A theorem row could appear publicly/release promoted while the package ledger and no-send manifest still lock release.",
             "failure_mode": "public_promotion/release_promotion_allowed fields drift across claim ledger, theorem inventory, phenomenon coverage, and no-send manifest",
-            "required_repair": "The ledger and theorem inventory must keep package release_promotion_allowed=false while using scientific_promotion_allowed for bounded no-send theorem evidence; phenomenon coverage must stay scoped and no-send; publish_allowed must remain false.",
+            "required_repair": "The ledger and theorem inventory must keep release_promotion_allowed=false and public_promotion=false while current scientific_promotion_allowed totals remain false/zero under open adversarial review; phenomenon coverage must stay scoped and no-send; publish_allowed must remain false.",
             "closure_type": "cross_artifact_consistency_predicate",
             "closure_evidence_refs": [
                 "claims/CLAIM_LEDGER_1_3_3.json",
@@ -4517,8 +4647,8 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
                 "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
                 "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
             ],
-            "closure_verification_query": "claim_ledger.release_promotion_allowed=false; theorem_inventory.release_promotion_allowed=false; theorem rows public_promotion=false and scientific_promotion_allowed=true; phenomenon coverage_promotion_status=SCOPED_MODEL_CARD_NO_SEND_NOT_BROAD_DOMAIN_PROMOTION; publish_manifest.publish_allowed=false",
-            "closure_evidence": "Materialized by v12 cross-artifact promotion consistency policy; release permission and bounded no-send scientific evidence are separate fields.",
+            "closure_verification_query": "claim_ledger.release_promotion_allowed=false; claim_ledger.scientific_promotion_allowed_total=0 while open Cerberus blockers remain; theorem_inventory.release_promotion_allowed=false; theorem rows public_promotion=false and scientific_promotion_allowed=false while adversarial_review_blocker_total>0; phenomenon coverage_promotion_status=SCOPED_MODEL_CARD_NO_SEND_NOT_BROAD_DOMAIN_PROMOTION; publish_manifest.publish_allowed=false",
+            "closure_evidence": "Materialized by v12 cross-artifact promotion consistency policy; release permission, current non-promotion, and owner-gated no-send evidence are separate fields.",
             "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
             "no_send": True,
         }
@@ -4779,23 +4909,24 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
         "",
         "This is the skeptical route table. While G57/G58/G70 are open, theorem rows are candidate routes, not release-promoted claims. A route becomes release-promoted only from the integrated matrix `review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` when `release_closure_claim_asserted=true`, `post_role_integration_required=false`, zero critical/high findings are present, and the specific claim-ledger row has an explicit promotion allowance; role-specific Cerberus context views are never release evidence. Public action still additionally requires separate owner approval and channel unlock.",
         "",
-        "| Claim | Public status | Claim-ledger blockers | Tuple components | Lean certificate | Lean ref | Finite positive | Negative control | Falsifier boundary |",
+        "| Claim | Public status | Integrated review gate | Tuple components | Lean certificate | Lean ref | Finite positive | Negative control | Falsifier boundary |",
         "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
     ]
     for theorem in THEOREMS:
         pos, neg = finite_case_refs[theorem["id"]]
+        lean_ref_display = theorem["lean"]
         if theorem["id"] == "T133-HYBRID":
+            lean_ref_display = "integrated_operator_semantics; operator_admission_route_obligations; bound_hybrid_admission_obligations; hybrid_no_guard_uses_update"
             pos = f"{pos}; FM-T133-HYBRID-NO-GUARD-STEP-POS; FM-T133-HYBRID-SMOOTH-CHART-POS; FM-T133-HYBRID-PROOF-UPDATE-POS"
-            neg = f"{neg}; FM-T133-HYBRID-NO-GUARD-STEP-NEG; FM-T133-HYBRID-SMOOTH-CHART-NEG; FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG; FM-T133-HYBRID-PROOF-UPDATE-NEG; FM-T133-HYBRID-PROOF-NO-RULE-NEG"
+            neg = f"{neg}; FM-T133-HYBRID-NO-GUARD-STEP-NEG; FM-T133-HYBRID-GUARD-MISSING-NEG; FM-T133-HYBRID-GUARD-NONBOOLEAN-NEG; FM-T133-HYBRID-GUARD-VALUE-MISMATCH-NEG; FM-T133-HYBRID-RESET-SOURCE-MODE-NEG; FM-T133-HYBRID-RESET-TARGET-MODE-NEG; FM-T133-HYBRID-SMOOTH-CHART-NEG; FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG; FM-T133-HYBRID-PROOF-UPDATE-NEG; FM-T133-HYBRID-PROOF-NO-RULE-NEG"
         elif theorem["id"] == "T133-OMEGA-STATUS":
             neg = f"{neg}; FM-T133-OMEGA-IDENTITY-EQUIVOCATION-NEG"
         elif theorem["id"] == "T133-K-ZERO":
             neg = f"{neg}; FM-T133-K-ZERO-LIVE-SUPPORT-NEG; FM-T133-K-ZERO-OBSTRUCTION-NEG"
         claim_row = claim_rows_by_id.get(theorem["id"], {})
         public_status = claim_row.get("public_status", ledger_promoted_status)
-        blocker_total = claim_row.get("adversarial_review_blocker_total", claim_ledger.get("adversarial_review_blocker_total", 0))
         route_prewrite_lines.append(
-            f"| `{theorem['id']}` | `{public_status}` | `{blocker_total}` | `{tuple_component_routes_prewrite.get(theorem['id'], 'declared tuple components')}` | `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` | `formal/lean/OC133V12.lean::{theorem['lean']}` | `{pos}` | `{neg}` | {theorem['boundary']} |"
+            f"| `{theorem['id']}` | `{public_status}` | `{fresh_review_gate_display}` | `{tuple_component_routes_prewrite.get(theorem['id'], 'declared tuple components')}` | `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` | `formal/lean/OC133V12.lean::{lean_ref_display}` | `{pos}` | `{neg}` | {theorem['boundary']} |"
         )
     write_text(root / "docs" / "OC_1_3_3_HOSTILE_READER_GUIDE.md", "\n".join(route_prewrite_lines))
     padding_domains: list[tuple[str, str, str, str, list[str]]] = []
@@ -4995,13 +5126,21 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
     }
     write_json(root / "review" / "OC_1_3_3_TOTAL_ATTACK_MATRIX.json", attack_payload)
     write_json(root / "reviews" / "OC_CORE_1_3_3_REVIEWER_RESPONSE_MATRIX.json", attack_payload)
+    matrix_review_gate_display = (
+        f"matrix_objections={attack_payload['objection_total']}; "
+        f"matrix_open_critical={attack_payload['critical_unresolved_total']}; "
+        f"matrix_open_high={attack_payload['high_unresolved_total']}; "
+        f"fresh_critical={attack_payload.get('fresh_cerberus_critical_open_total')}; "
+        f"fresh_high={attack_payload.get('fresh_cerberus_high_open_total')}; "
+        f"fresh_satisfied={attack_payload['fresh_cerberus_review_satisfied']}"
+    )
 
     route_lines = [
         "# OC Core 1.3.3 Hostile Reader Guide",
         "",
         "This is the skeptical route table. While G57/G58/G70 are open, theorem rows are candidate routes, not release-promoted claims. A route becomes release-promoted only from the integrated matrix `review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` when `release_closure_claim_asserted=true`, `post_role_integration_required=false`, zero critical/high findings are present, and the specific claim-ledger row has an explicit promotion allowance; role-specific Cerberus context views are never release evidence. Public action still additionally requires separate owner approval and channel unlock.",
         "",
-        "| Claim | Public status | Claim-ledger blockers | Tuple components | Lean certificate | Lean ref | Finite positive | Negative control | Falsifier boundary |",
+        "| Claim | Public status | Integrated review gate | Tuple components | Lean certificate | Lean ref | Finite positive | Negative control | Falsifier boundary |",
         "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
     ]
     tuple_component_routes = {
@@ -5018,18 +5157,19 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
     }
     for theorem in THEOREMS:
         pos, neg = finite_case_refs[theorem["id"]]
+        lean_ref_display = theorem["lean"]
         if theorem["id"] == "T133-HYBRID":
+            lean_ref_display = "integrated_operator_semantics; operator_admission_route_obligations; bound_hybrid_admission_obligations; hybrid_no_guard_uses_update"
             pos = f"{pos}; FM-T133-HYBRID-NO-GUARD-STEP-POS; FM-T133-HYBRID-SMOOTH-CHART-POS; FM-T133-HYBRID-PROOF-UPDATE-POS"
-            neg = f"{neg}; FM-T133-HYBRID-NO-GUARD-STEP-NEG; FM-T133-HYBRID-SMOOTH-CHART-NEG; FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG; FM-T133-HYBRID-PROOF-UPDATE-NEG; FM-T133-HYBRID-PROOF-NO-RULE-NEG"
+            neg = f"{neg}; FM-T133-HYBRID-NO-GUARD-STEP-NEG; FM-T133-HYBRID-GUARD-MISSING-NEG; FM-T133-HYBRID-GUARD-NONBOOLEAN-NEG; FM-T133-HYBRID-GUARD-VALUE-MISMATCH-NEG; FM-T133-HYBRID-RESET-SOURCE-MODE-NEG; FM-T133-HYBRID-RESET-TARGET-MODE-NEG; FM-T133-HYBRID-SMOOTH-CHART-NEG; FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG; FM-T133-HYBRID-PROOF-UPDATE-NEG; FM-T133-HYBRID-PROOF-NO-RULE-NEG"
         elif theorem["id"] == "T133-OMEGA-STATUS":
             neg = f"{neg}; FM-T133-OMEGA-IDENTITY-EQUIVOCATION-NEG"
         elif theorem["id"] == "T133-K-ZERO":
             neg = f"{neg}; FM-T133-K-ZERO-LIVE-SUPPORT-NEG; FM-T133-K-ZERO-OBSTRUCTION-NEG"
         claim_row = claim_rows_by_id.get(theorem["id"], {})
         public_status = claim_row.get("public_status", ledger_promoted_status)
-        blocker_total = claim_row.get("adversarial_review_blocker_total", claim_ledger.get("adversarial_review_blocker_total", 0))
         route_lines.append(
-            f"| `{theorem['id']}` | `{public_status}` | `{blocker_total}` | `{tuple_component_routes.get(theorem['id'], 'declared tuple components')}` | `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` | `formal/lean/OC133V12.lean::{theorem['lean']}` | `{pos}` | `{neg}` | {theorem['boundary']} |"
+            f"| `{theorem['id']}` | `{public_status}` | `{matrix_review_gate_display}` | `{tuple_component_routes.get(theorem['id'], 'declared tuple components')}` | `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` | `formal/lean/OC133V12.lean::{lean_ref_display}` | `{pos}` | `{neg}` | {theorem['boundary']} |"
         )
     route_bindings: dict[str, dict[str, Any]] = {
         "T133-K0-RES": {
@@ -5068,7 +5208,7 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
                 {"tuple_component": "operators", "theorem_assumptions": ["proof/rewrite route rejects differential overreach and requires rewrite rule"], "finite_model_fields": ["carrier_kind", "typed_update_relation", "rewrite_rule_present", "flow_notation_requested"], "evaluator_predicate": "proof/rewrite accepts only typed rewrite with flow_notation_requested=false"},
             ],
             "additional_positive_case_ids": ["FM-T133-HYBRID-NO-GUARD-STEP-POS", "FM-T133-HYBRID-SMOOTH-CHART-POS", "FM-T133-HYBRID-PROOF-UPDATE-POS"],
-            "additional_negative_case_ids": ["FM-T133-HYBRID-NO-GUARD-STEP-NEG", "FM-T133-HYBRID-SMOOTH-CHART-NEG", "FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG", "FM-T133-HYBRID-PROOF-UPDATE-NEG", "FM-T133-HYBRID-PROOF-NO-RULE-NEG"],
+            "additional_negative_case_ids": ["FM-T133-HYBRID-NO-GUARD-STEP-NEG", "FM-T133-HYBRID-GUARD-MISSING-NEG", "FM-T133-HYBRID-GUARD-NONBOOLEAN-NEG", "FM-T133-HYBRID-GUARD-VALUE-MISMATCH-NEG", "FM-T133-HYBRID-RESET-SOURCE-MODE-NEG", "FM-T133-HYBRID-RESET-TARGET-MODE-NEG", "FM-T133-HYBRID-SMOOTH-CHART-NEG", "FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG", "FM-T133-HYBRID-PROOF-UPDATE-NEG", "FM-T133-HYBRID-PROOF-NO-RULE-NEG"],
         },
         "T133-DIM": {
             "tuple_component_bindings": [
@@ -5086,8 +5226,9 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
             "tuple_component_bindings": [
                 {"tuple_component": "morphisms", "theorem_assumptions": ["identity, residue, and rebirth are separated evidence classes"], "finite_model_fields": ["morphism_class", "source_token", "residue_token", "target_token"], "evaluator_predicate": "rebirth/residue cases are rejected as identity unless endpoint-bound identity evidence is present"},
                 {"tuple_component": "residue", "theorem_assumptions": ["residue token blocks identity continuation"], "finite_model_fields": ["residue_token", "claimed_identity_continuation"], "evaluator_predicate": "claimed identity continuation fails when residue token is present or invariant is lost"},
+                {"tuple_component": "liveness", "theorem_assumptions": ["identity continuation is endpoint-bound across live source/target evidence, not restart naming"], "finite_model_fields": ["source_token", "target_token", "lifecycle_identity_invariant"], "evaluator_predicate": "identity continuation is accepted only for equal endpoints with lifecycle identity invariant preserved"},
             ],
-            "additional_positive_case_ids": ["FM-T133-ID-RESIDUE-POS", "FM-T133-ID-IDENTITY-POS"],
+            "additional_positive_case_ids": ["FM-T133-ID-REBIRTH-NONIDENTITY-POS", "FM-T133-ID-RESIDUE-POS"],
             "additional_negative_case_ids": ["FM-T133-ID-RESIDUE-NEG"],
         },
         "T133-MIN": {
@@ -5377,6 +5518,7 @@ abstract: >
         "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
         "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
         "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+        "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
         "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
         "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json",
         "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
@@ -5461,6 +5603,15 @@ abstract: >
         "git_tag": None,
         "public_record": None,
         "stale_v132_surface_allowed": False,
+        "inventory_policy": "Manifest lists no-send review-surface files. checksums.txt is the nonrecursive signing file for manifest.json plus manifest-listed files and is intentionally excluded from files to avoid a self-referential checksum cycle.",
+        "checksum_file_ref": "checksums.txt",
+        "nonrecursive_manifest_exceptions": [
+            {
+                "path": "checksums.txt",
+                "reason": "self-referential checksum cycle if included in manifest files",
+                "covered_by": "root checksum row signs manifest.json and each manifest-listed file",
+            }
+        ],
         "files": manifest_rows,
     }
     write_json(root / "manifest.json", manifest_payload)
@@ -5553,6 +5704,7 @@ def write_release_reports(root: Path) -> None:
                 "proofs/THEOREM_INVENTORY_1_3_3.json",
                 "proofs/PROOF_LEDGER_1_3_3.md",
                 "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+                "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
                 "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
             ],
             "publish_allowed": False,
@@ -5573,9 +5725,20 @@ def sync_public_surface_refs_into_finite_inputs(root: Path) -> None:
         "ro-crate-metadata.jsonld",
         "CITATION.cff",
         ".codemeta.json",
+        "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
         f"releases/{RELEASE_ID}/editorial/metadata_drafts/zenodo.no_send.draft.json",
     ]
     public_ref_rows = []
+    public_ref_rows.append(
+        {
+            "ref": ".zenodo.json",
+            "must_absent": True,
+            "expected_release_id": RELEASE_ID,
+            "expected_version": VERSION,
+            "forbid_tokens": [],
+            "require_tokens": [],
+        }
+    )
     for ref in public_refs:
         path = root / ref
         public_ref_rows.append(
@@ -5589,16 +5752,33 @@ def sync_public_surface_refs_into_finite_inputs(root: Path) -> None:
                 "require_tokens": ["1.3.3"],
             }
         )
+    cerberus_summary_path = root / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json"
+    cerberus_summary = read_json(cerberus_summary_path) if cerberus_summary_path.exists() else {}
+    current_critical = int(cerberus_summary.get("critical_open_total", 1) or 0)
+    current_high = int(cerberus_summary.get("high_open_total", 1) or 0)
+    current_review_green = (
+        cerberus_summary.get("execution_status") == "EXECUTED_WITH_FINDINGS_CLOSED"
+        and current_critical == 0
+        and current_high == 0
+    )
     for row in payload.get("rows", []):
         if row.get("theorem_id") != "OC133-NOSEND-001":
             continue
         model = row.setdefault("model", {})
         model["fresh_cerberus_required_for_release"] = True
-        model.setdefault("g57_attack_matrix_zero_critical_high", True)
-        model.setdefault("g58_reviewer_persona_suite_pass", True)
-        model.setdefault("g70_scientific_closure_verdict_pass", True)
-        model.setdefault("critical_open_total", 0)
-        model.setdefault("high_open_total", 0)
+        if row.get("case_id") == "ADV-NOSEND-PUBLISH":
+            model["g57_attack_matrix_zero_critical_high"] = current_review_green
+            model["g58_reviewer_persona_suite_pass"] = current_review_green
+            model["g70_scientific_closure_verdict_pass"] = current_review_green
+            model["critical_open_total"] = current_critical
+            model["high_open_total"] = current_high
+            model["current_review_state"] = "BLOCKED_BY_CURRENT_CERBERUS_OPEN_FINDINGS" if not current_review_green else "CURRENT_REVIEW_GREEN"
+        else:
+            model.setdefault("g57_attack_matrix_zero_critical_high", True)
+            model.setdefault("g58_reviewer_persona_suite_pass", True)
+            model.setdefault("g70_scientific_closure_verdict_pass", True)
+            model.setdefault("critical_open_total", 0)
+            model.setdefault("high_open_total", 0)
         model["public_metadata_refs"] = public_ref_rows
     payload["public_metadata_ref_total"] = len(public_ref_rows)
     payload["fresh_review_gate_bound"] = True
@@ -6073,6 +6253,145 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "negative_control_id": "",
         },
         {
+            "case_id": "FM-T133-HYBRID-GUARD-MISSING-NEG",
+            "theorem_id": "T133-HYBRID",
+            "case_type": "theorem_case",
+            "expected_verdict": "REJECT",
+            "lean_ref": "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
+            "model": {
+                "update_kind": "hybrid_guard_reset",
+                "reset_target": "mode_B_state_0",
+                "step_target": "mode_A_state_1",
+                "actual_next": "mode_A_state_1",
+                "flow_notation_requested": False,
+                "smooth_chart_id": "",
+                "smooth_state_type": "HybridState",
+                "hybrid_state_type": "HybridState",
+                "flow_one_target": "",
+                "smooth_step_target": "",
+                "current_mode": "mode_A",
+                "target_mode": "mode_B",
+                "reset_source_mode": "mode_A",
+                "reset_target_mode": "mode_B",
+                "reset_codomain": "HybridState",
+                "post_reset_admissible": True,
+                "mode_invariant_preserved": True,
+            },
+            "negative_control_id": "",
+        },
+        {
+            "case_id": "FM-T133-HYBRID-GUARD-NONBOOLEAN-NEG",
+            "theorem_id": "T133-HYBRID",
+            "case_type": "theorem_case",
+            "expected_verdict": "REJECT",
+            "lean_ref": "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
+            "model": {
+                "update_kind": "hybrid_guard_reset",
+                "guard": "true",
+                "reset_target": "mode_B_state_0",
+                "step_target": "mode_A_state_1",
+                "actual_next": "mode_B_state_0",
+                "flow_notation_requested": False,
+                "smooth_chart_id": "",
+                "smooth_state_type": "HybridState",
+                "hybrid_state_type": "HybridState",
+                "flow_one_target": "",
+                "smooth_step_target": "",
+                "current_mode": "mode_A",
+                "target_mode": "mode_B",
+                "reset_source_mode": "mode_A",
+                "reset_target_mode": "mode_B",
+                "reset_codomain": "HybridState",
+                "post_reset_admissible": True,
+                "mode_invariant_preserved": True,
+            },
+            "negative_control_id": "",
+        },
+        {
+            "case_id": "FM-T133-HYBRID-GUARD-VALUE-MISMATCH-NEG",
+            "theorem_id": "T133-HYBRID",
+            "case_type": "theorem_case",
+            "expected_verdict": "REJECT",
+            "lean_ref": "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
+            "model": {
+                "update_kind": "hybrid_guard_reset",
+                "guard": False,
+                "reset_target": "mode_B_state_0",
+                "step_target": "mode_A_state_1",
+                "actual_next": "mode_B_state_0",
+                "flow_notation_requested": False,
+                "smooth_chart_id": "",
+                "smooth_state_type": "HybridState",
+                "hybrid_state_type": "HybridState",
+                "flow_one_target": "",
+                "smooth_step_target": "",
+                "current_mode": "mode_A",
+                "target_mode": "mode_B",
+                "reset_source_mode": "mode_A",
+                "reset_target_mode": "mode_B",
+                "reset_codomain": "HybridState",
+                "post_reset_admissible": True,
+                "mode_invariant_preserved": True,
+            },
+            "negative_control_id": "",
+        },
+        {
+            "case_id": "FM-T133-HYBRID-RESET-SOURCE-MODE-NEG",
+            "theorem_id": "T133-HYBRID",
+            "case_type": "theorem_case",
+            "expected_verdict": "REJECT",
+            "lean_ref": "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
+            "model": {
+                "update_kind": "hybrid_guard_reset",
+                "guard": True,
+                "reset_target": "mode_B_state_0",
+                "step_target": "mode_A_state_1",
+                "actual_next": "mode_B_state_0",
+                "flow_notation_requested": False,
+                "smooth_chart_id": "",
+                "smooth_state_type": "HybridState",
+                "hybrid_state_type": "HybridState",
+                "flow_one_target": "",
+                "smooth_step_target": "",
+                "current_mode": "mode_A",
+                "target_mode": "mode_B",
+                "reset_source_mode": "mode_X",
+                "reset_target_mode": "mode_B",
+                "reset_codomain": "HybridState",
+                "post_reset_admissible": True,
+                "mode_invariant_preserved": True,
+            },
+            "negative_control_id": "",
+        },
+        {
+            "case_id": "FM-T133-HYBRID-RESET-TARGET-MODE-NEG",
+            "theorem_id": "T133-HYBRID",
+            "case_type": "theorem_case",
+            "expected_verdict": "REJECT",
+            "lean_ref": "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
+            "model": {
+                "update_kind": "hybrid_guard_reset",
+                "guard": True,
+                "reset_target": "mode_B_state_0",
+                "step_target": "mode_A_state_1",
+                "actual_next": "mode_B_state_0",
+                "flow_notation_requested": False,
+                "smooth_chart_id": "",
+                "smooth_state_type": "HybridState",
+                "hybrid_state_type": "HybridState",
+                "flow_one_target": "",
+                "smooth_step_target": "",
+                "current_mode": "mode_A",
+                "target_mode": "mode_B",
+                "reset_source_mode": "mode_A",
+                "reset_target_mode": "mode_C",
+                "reset_codomain": "HybridState",
+                "post_reset_admissible": True,
+                "mode_invariant_preserved": True,
+            },
+            "negative_control_id": "",
+        },
+        {
             "case_id": "FM-T133-HYBRID-SMOOTH-CHART-POS",
             "theorem_id": "T133-HYBRID",
             "case_type": "theorem_case",
@@ -6233,7 +6552,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "negative_control_id": "",
         },
         {
-            "case_id": "FM-T133-ID-POS",
+            "case_id": "FM-T133-ID-REBIRTH-NONIDENTITY-POS",
             "theorem_id": "T133-ID",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
@@ -6563,12 +6882,16 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "case_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
                 "theorem_id": "OC133-NOSEND-001",
                 "case_type": "no_send_hypothetical_control",
-                "expected_verdict": "ALLOW_AFTER_OWNER_APPROVAL",
+                "expected_verdict": "REJECT_PUBLIC_ACTION",
                 "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+                "control_label": "OWNER_APPROVED_BUT_DEPOSIT_METADATA_AND_PUBLIC_RECORD_NOT_READY_REJECT",
+                "failed_gate_predicates": ["deposit_ready_metadata", "public_record_present"],
                 "model": {
                     "owner_approved": True,
                     "publish_requested": True,
                     "publish_allowed": True,
+                    "deposit_ready_metadata": False,
+                    "public_record_present": False,
                     "global_no_send_lock": False,
                     "journal_submissions_allowed": True,
                     "journal_submission_allowed": True,
@@ -6577,6 +6900,37 @@ def write_hardened_formal_iteration(root: Path) -> None:
                     "software_heritage_deposit_allowed": True,
                     "doi_minting_allowed": True,
                     "requested_channels": ["github_release", "zenodo_deposit", "software_heritage_deposit", "journal_submission", "doi_minting"],
+                },
+                "negative_control_id": "",
+            },
+            {
+                "case_id": "ADV-NOSEND-PUBLISH-ALL-GATES-OPEN-CONTROL",
+                "theorem_id": "OC133-NOSEND-001",
+                "case_type": "no_send_hypothetical_control",
+                "expected_verdict": "ACCEPT_PUBLIC_ACTION",
+                "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+                "control_label": "ALL_OWNER_METADATA_RECORD_REVIEW_AND_CHANNEL_GATES_OPEN_HYPOTHETICAL_ACCEPT",
+                "failed_gate_predicates": [],
+                "model": {
+                    "owner_approved": True,
+                    "publish_requested": True,
+                    "publish_allowed": True,
+                    "deposit_ready_metadata": True,
+                    "public_record_present": True,
+                    "global_no_send_lock": False,
+                    "journal_submissions_allowed": True,
+                    "journal_submission_allowed": True,
+                    "github_release_allowed": True,
+                    "zenodo_deposit_allowed": True,
+                    "software_heritage_deposit_allowed": True,
+                    "doi_minting_allowed": True,
+                    "requested_channels": ["github_release", "zenodo_deposit", "software_heritage_deposit", "journal_submission", "doi_minting"],
+                    "fresh_cerberus_required_for_release": True,
+                    "g57_attack_matrix_zero_critical_high": True,
+                    "g58_reviewer_persona_suite_pass": True,
+                    "g70_scientific_closure_verdict_pass": True,
+                    "critical_open_total": 0,
+                    "high_open_total": 0,
                 },
                 "negative_control_id": "",
             },
@@ -6593,6 +6947,8 @@ def write_hardened_formal_iteration(root: Path) -> None:
         "owner_approved": True,
         "publish_requested": True,
         "publish_allowed": True,
+        "deposit_ready_metadata": True,
+        "public_record_present": True,
         "global_no_send_lock": False,
         "journal_submissions_allowed": True,
         "journal_submission_allowed": True,
@@ -6614,11 +6970,12 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "case_type": "no_send_hypothetical_control",
                 "expected_verdict": "REJECT_PUBLIC_ACTION",
                 "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+                "failed_gate_predicates": [field],
                 "model": {**approved_no_send_base, field: False},
                 "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
             }
         )
-    for field in ["owner_approved", "publish_allowed"]:
+    for field in ["owner_approved", "publish_allowed", "deposit_ready_metadata", "public_record_present"]:
         finite_rows.append(
             {
                 "case_id": f"ADV-NOSEND-PARTIAL-LOCK-{field.upper()}",
@@ -6626,6 +6983,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "case_type": "no_send_hypothetical_control",
                 "expected_verdict": "REJECT_PUBLIC_ACTION",
                 "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+                "failed_gate_predicates": [field],
                 "model": {**approved_no_send_base, field: False},
                 "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
             }
@@ -6634,11 +6992,12 @@ def write_hardened_formal_iteration(root: Path) -> None:
         {
             "case_id": "ADV-NOSEND-PARTIAL-LOCK-GLOBAL_NO_SEND_LOCK",
             "theorem_id": "OC133-NOSEND-001",
-            "case_type": "no_send_hypothetical_control",
-            "expected_verdict": "REJECT_PUBLIC_ACTION",
-            "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
-            "model": {**approved_no_send_base, "global_no_send_lock": True},
-            "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+        "case_type": "no_send_hypothetical_control",
+        "expected_verdict": "REJECT_PUBLIC_ACTION",
+        "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+        "failed_gate_predicates": ["global_no_send_lock"],
+        "model": {**approved_no_send_base, "global_no_send_lock": True},
+        "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
         }
     )
     write_json(
@@ -6781,7 +7140,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
         "release": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json::publish_allowed=false",
         "minimality": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant + data/OC133_GLOBAL_MINIMALITY_WITNESSES.json::semantic_field_removed + FM-MIN-*",
         "klevel": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage + data/k_level_irreducibility_matrix.json::retained_finite_case_id + demotion_finite_case_id",
-        "operator": "formal/lean/OC133V12.lean::integrated_operator_semantics plus operator_admission_route_obligations and hybrid guard/reset branch theorems",
+        "operator": "formal/lean/OC133V12.lean::integrated_operator_semantics plus operator_admission_route_obligations, bound_hybrid_admission_obligations, and hybrid guard/reset branch theorems",
     }
     for row in attack.get("rows", []):
         theme = row.get("theme", "")

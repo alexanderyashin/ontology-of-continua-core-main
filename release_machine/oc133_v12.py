@@ -136,6 +136,7 @@ def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, A
         root / "CITATION.cff",
         root / ".codemeta.json",
         root / "ro-crate-metadata.jsonld",
+        root / "docs" / "OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
     ]
     missing = [rel(root, path) for path in metadata_paths if not path.exists()]
     stale_hits: list[dict[str, str]] = []
@@ -177,6 +178,9 @@ def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, A
         "public_manifest_release_id": public_manifest.get("release_id") == RELEASE_ID,
         "public_manifest_version": public_manifest.get("version") == VERSION,
         "checksums_mentions_manifest": "manifest.json" in checksums_body,
+        "public_manifest_mentions_phenomenon_matrix": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json" in public_manifest_body,
+        "checksums_mentions_phenomenon_matrix": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json" in checksums_body,
+        "ro_crate_mentions_phenomenon_matrix": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json" in ro_body,
     }
     no_send_checks = {
         "publish_allowed_false": manifest.get("publish_allowed") is False,
@@ -332,7 +336,7 @@ def audit(root: Path) -> dict[str, Any]:
         "residue_preservation_not_identity_without_invariant",
         "rebirth_not_identity_without_invariant",
         "invariant_lost_blocks_identity",
-        "invariant_preserved_classifies_identity",
+        "endpoint_bound_identity_positive",
         "declared_death_blocks_live",
         "lifecycle_status_morphism_separation",
         "lifecycle_residue_rebirth_morphism_boundary",

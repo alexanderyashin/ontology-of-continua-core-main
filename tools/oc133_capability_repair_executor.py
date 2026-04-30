@@ -256,12 +256,14 @@ def check_no_send_public_surface() -> dict[str, Any]:
         for row in partial_rows
         if row.get("expected_verdict") != "REJECT_PUBLIC_ACTION" or row.get("observed_verdict") != "REJECT_PUBLIC_ACTION" or row.get("passed") is not True
     ]
-    full_allow = next((row for row in no_send_rows if row.get("case_id") == "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL"), {})
+    owner_only_reject = next((row for row in no_send_rows if row.get("case_id") == "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL"), {})
+    all_gates_open = next((row for row in no_send_rows if row.get("case_id") == "ADV-NOSEND-PUBLISH-ALL-GATES-OPEN-CONTROL"), {})
     full_reject = next((row for row in no_send_rows if row.get("case_id") == "ADV-NOSEND-PUBLISH"), {})
     finite_controls_ok = (
-        len(partial_rows) >= 8
+        len(partial_rows) >= 10
         and not failed_partial_controls
-        and full_allow.get("observed_verdict") == "ALLOW_AFTER_OWNER_APPROVAL"
+        and owner_only_reject.get("observed_verdict") == "REJECT_PUBLIC_ACTION"
+        and all_gates_open.get("observed_verdict") == "ACCEPT_PUBLIC_ACTION"
         and full_reject.get("observed_verdict") == "REJECT_PUBLIC_ACTION"
     )
     state = "PASS" if not unlocked and not false_lean_route and finite_controls_ok else "FAIL"
@@ -272,7 +274,8 @@ def check_no_send_public_surface() -> dict[str, Any]:
         "no_send_row_total": len(no_send_rows),
         "partial_lock_control_total": len(partial_rows),
         "failed_partial_controls": failed_partial_controls,
-        "full_allow_verdict": full_allow.get("observed_verdict"),
+        "owner_only_control_verdict": owner_only_reject.get("observed_verdict"),
+        "all_gates_open_control_verdict": all_gates_open.get("observed_verdict"),
         "full_reject_verdict": full_reject.get("observed_verdict"),
     }
 

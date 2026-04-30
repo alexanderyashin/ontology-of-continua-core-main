@@ -4,30 +4,22 @@
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
   "high_open_total": 0,
-  "finding_total": 3,
+  "finding_total": 2,
   "findings": [
     {
       "severity": "MEDIUM",
       "artifact_ref": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
-      "claim": "Each lane has result_verdict=NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS.",
-      "failure_mode": "The report correctly states heldout_prediction_support_present=false and verdict=QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED, but the lane verdict still uses SUPPORT language in a domain-validation artifact. This is not an empirical promotion leak by itself, yet it is scrapeable as lane support from snapshot replay.",
-      "required_repair": "Rename lane result_verdict values to unambiguous QA wording such as NUMERIC_REPLAY_QA_MATCHED_PINNED_SNAPSHOT_NOT_DOMAIN_SUPPORT, and add per-lane domain_support_allowed=false.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "MEDIUM",
-      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "unsupported_closed_total=0 while rows P003, P007-P011, P013, and P014 carry coverage_promotion_blockers=1.",
-      "failure_mode": "The top-level artifact exposes no aggregate coverage_promotion_blocker_total, so a consumer can see zero unsupported_closed_total and miss the eight current row-level coverage blockers. The rows are not promoted, but the summary underreports the open coverage-gap state.",
-      "required_repair": "Add a top-level coverage_promotion_blocker_total=8 and list the blocked phenomenon_ids, or redefine unsupported_closed_total so it cannot be mistaken for a coverage blocker summary.",
+      "claim": "All lane result_verdict values are NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS while heldout_prediction_support_present is false and domain_validation_promoted is false.",
+      "failure_mode": "The artifacts correctly quarantine replay rows from empirical or prediction support, but the release-critical domain validation report still uses the machine-readable term SUPPORTED in per-lane verdicts for snapshot replay rows. A downstream consumer that keys on result_verdict rather than the later boundary fields can misread official-snapshot replay QA as validation support.",
+      "required_repair": "Rename per-lane verdicts to an unambiguous QA-only value such as NUMERIC_REPLAY_REPRODUCED_WITHIN_QA_BOUNDS_NOT_DOMAIN_SUPPORT, add an explicit per-lane domain_validation_support_allowed:false field, and fail release checks if any result_verdict contains SUPPORTED while heldout_prediction_support_present is false.",
       "status": "OPEN"
     },
     {
       "severity": "LOW",
-      "artifact_ref": "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
-      "claim": "Numeric replay QA log is stored under validation/numeric_predictions.",
-      "failure_mode": "The artifact body correctly bars all rows from prediction and empirical support, but the directory namespace still says numeric_predictions. This is a low-grade empirical-theater affordance for downstream tooling or citations that classify by path rather than schema fields.",
-      "required_repair": "Move or mirror this log under a replay-QA namespace, or add a machine-readable path_deprecation/namespace_warning field stating that numeric_predictions is legacy and not prediction support.",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "Formal model-card rows use model_card.prediction_or_replay identifiers while counts_as_phenomenon_coverage and counts_as_empirical_domain_phenomenon_coverage are false.",
+      "failure_mode": "The coverage matrix blocks empirical promotion, but the combined field name prediction_or_replay preserves ambiguity between prediction and replay for rows that are explicitly formal/internal model-card replays only. This is not a current promotion leak, but it leaves avoidable empirical-theater surface for dashboards or summaries that extract prediction_* fields naively.",
+      "required_repair": "Split prediction_or_replay into formal_replay_case_id and empirical_prediction_case_id, set empirical_prediction_case_id:null for all current rows, and add a schema check that formal/internal model-card rows cannot populate empirical prediction fields.",
       "status": "OPEN"
     }
   ],

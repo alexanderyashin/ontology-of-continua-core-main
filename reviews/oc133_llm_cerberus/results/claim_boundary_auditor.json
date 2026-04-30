@@ -3,39 +3,39 @@
   "role": "claim_boundary_auditor",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 0,
+  "high_open_total": 3,
   "finding_total": 4,
   "findings": [
     {
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "artifact_ref": "reviews/oc133_llm_cerberus/context_v12/claim_boundary_auditor/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 in the same artifact that records fresh_cerberus_review_satisfied=false, fresh_cerberus_execution_status=EXECUTED_WITH_OPEN_FINDINGS, fresh_cerberus_high_open_total=12, and post_role_integration_required=true.",
-      "failure_mode": "The unqualified unresolved counters are claim-boundary ambiguous. A downstream reader or tool can lift the zero counters as evidence of release closure even though the file itself says this context is not release evidence and fresh Cerberus has open high findings.",
-      "required_repair": "Remove or rename the unqualified critical_unresolved_total/high_unresolved_total fields in this role-context file to deterministic_context_* only, and add a single release_gate_status value that blocks closure while fresh_cerberus_high_open_total > 0 or post_role_integration_required=true.",
+      "claim": "\"release_closure_matrix_kind\": \"INTEGRATED_RELEASE_ATTACK_MATRIX_NOT_ROLE_CONTEXT_VIEW\" with \"critical_unresolved_total\": 0 and \"high_unresolved_total\": 0",
+      "failure_mode": "The same current artifact also declares \"fresh_cerberus_context_view\": true, \"fresh_context_not_release_evidence\": true, \"post_role_integration_required\": true, and fresh Cerberus open totals of 2 critical / 16 high. A role-specific filtered context view can therefore be cited as an integrated zero-open release matrix even though it explicitly is not release evidence.",
+      "required_repair": "Set the matrix identity to ROLE_CONTEXT_VIEW_NOT_RELEASE_MATRIX, rename the top-level zero counters to deterministic_context_* or include the 2/16 fresh open findings in release-blocking counters, and regenerate the true integrated matrix before any closure or promotion claim.",
       "status": "OPEN"
     },
     {
-      "severity": "MEDIUM",
-      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "adversarial_review_blocker_total=0 at ledger top level and per-row, while prior_cerberus_open_total_at_generation=12 and fresh_cerberus_required_for_release=true.",
-      "failure_mode": "The ledger gives zero blocker counts without carrying the current fresh-Cerberus open-high state from the attack matrix. release_promotion_allowed=false prevents immediate public promotion, but the ledger can still be cited as no adversarial blockers while the current review context reports 12 high open findings and post-role integration required.",
-      "required_repair": "Add explicit current_review_blocker fields to the ledger, including fresh_cerberus_high_open_total=12, fresh_cerberus_review_satisfied=false, and post_role_integration_required=true, and distinguish row-local ledger blockers from active release blockers.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "MEDIUM",
+      "severity": "HIGH",
       "artifact_ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
-      "claim": "The theorem route table lists Claim-ledger blockers as 0 for all T133 theorem rows.",
-      "failure_mode": "The introduction says G57/G58/G70 are open and routes are not release-promoted, but the table's blocker column is the most scannable field and repeatedly presents zero. That makes the claim boundary depend on surrounding prose rather than row-level evidence.",
-      "required_repair": "Replace the column with row_ledger_blockers and active_release_gate, and set active_release_gate to BLOCKED_FRESH_CERBERUS_G57_G58_G70 until the integrated matrix shows release_closure_claim_asserted=true, post_role_integration_required=false, and zero critical/high findings.",
+      "claim": "Integrated review gate cells: \"matrix_objections=215; matrix_open_critical=2; matrix_open_high=16; fresh_critical=2; fresh_high=16; fresh_satisfied=False\"",
+      "failure_mode": "The guide is not synchronized with the current matrix artifact, which reports objection_total=197, critical_unresolved_total=0, high_unresolved_total=0, fresh_cerberus_critical_open_total=2, fresh_cerberus_high_open_total=16, release_closure_claim_asserted=false, and post_role_integration_required=true. The gate conflates integrated-matrix counters with fresh-context counters and relies on stale wording instead of current evidence.",
+      "required_repair": "Regenerate every Integrated review gate cell from the current controlling matrix, separate deterministic/context counters from fresh Cerberus blockers, include release_closure_claim_asserted=false and post_role_integration_required=true, and use a canonical matrix path/hash.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "OC133-NOSEND-001 promotion_condition: \"public action remains impossible while owner approval is pending or any channel lock is false\"",
+      "failure_mode": "The evidence supports a bounded control-plane rejection, not real-world impossibility. Owner approval and manifest locks can make the release machinery reject publication, but they cannot prove that GitHub release, DOI minting, deposit, or journal submission is impossible outside that machinery.",
+      "required_repair": "Replace \"impossible\" with \"disallowed/rejected by the v12 release control plane\" and add an explicit scope limit that the no-send claim is not a real-world enforcement guarantee against manual or external publication.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
       "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
-      "claim": "OC133-CORP-AUTO-001 through OC133-CORP-AUTO-008 are counted inside claim_total=26 as generic 'Internal Logion automation-control claim N' rows.",
-      "failure_mode": "These rows have no specific claim boundary beyond no-send exclusion wording and are not included in control_plane_total. Counting eight opaque internal automation placeholders as claims inflates the release claim surface and makes it impossible to audit which automation IDs are being excluded or whether they relabel prior open findings.",
-      "required_repair": "Move the eight internal automation rows to a separate automation/control appendix or expand each with the concrete automation claim ID, evidence target, exclusion reason, and excluded_from_claim_total=true; update claim_total to count only auditable OC scientific, numeric, novelty, and governance claims.",
+      "claim": "T133-BOUNDARY: \"Metric thresholds are a specialization of typed classifier boundaries.\"",
+      "failure_mode": "The claim text is universal on its face while the row evidence ceiling is only a no-send formal release-consistency check. The actual boundary is carried by generic scope_limit wording rather than by the attacked claim itself, leaving a reusable public overclaim surface for all metric thresholds or all classifier boundaries.",
+      "required_repair": "Rewrite the claim to start with \"Within the declared v12 typed-boundary semantics and proof-sheet assumptions...\" and explicitly deny any general ontology, measurement, social-boundary, or universal classifier theorem.",
       "status": "OPEN"
     }
   ],

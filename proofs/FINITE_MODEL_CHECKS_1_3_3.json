@@ -3,18 +3,18 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "runner": "proofs/finite_model_checks/run_finite_model_checks.py",
-  "runner_sha256": "73ffd6801450c7917f82d907c7cb54ffac230936c499ab891d8aa43cc3ac76b3",
+  "runner_sha256": "6c9ff3a6d98901e3ac49cd0400c65f6739fd69fa1ba0ad0ce67b2769d65111ed",
   "input_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
-  "input_sha256": "efdbe45f2e54f38c2d023613c5ac01c4d2c611207e17a6dbcd9326438404a83d",
+  "input_sha256": "be6b29a445448829150b2de6fc8222155c5f625fe9b083f86561a441420c7c1f",
   "atlas_ref": "data/k_level_irreducibility_matrix.json",
   "atlas_sha256": "2ff38a6f3500daa19ce3ce9abbe1a72c3bd6dcb73a64fe89348ad920813a3708",
   "lean_build_certificate_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-  "lean_build_certificate_sha256": "06a19df6b3346543002aa2ceaade6009fcb337c2cfdb3ceae9f05201ecaa879c",
+  "lean_build_certificate_sha256": "28188e6efb493f2f08b85c4a4d35ae841585f078fb40377e581cbd3e1e9ae151",
   "lean_source_ref": "formal/lean/OC133V12.lean",
-  "current_lean_source_sha256": "5224c1b8d80ca1f1491fab75d165ea2bb12f865c6390d6158de921b8eeb61c73",
-  "certificate_lean_source_sha256": "5224c1b8d80ca1f1491fab75d165ea2bb12f865c6390d6158de921b8eeb61c73",
-  "current_lean_source_byte_sha256": "e82d34bc54f50c08ef3439bac5f0d52349bb7f2ae2601f471298166044bfddca",
-  "certificate_lean_source_byte_sha256": "e82d34bc54f50c08ef3439bac5f0d52349bb7f2ae2601f471298166044bfddca",
+  "current_lean_source_sha256": "40c226d09e14414282cfa026c1540705b167de23713c986b1a34f186689bcd37",
+  "certificate_lean_source_sha256": "40c226d09e14414282cfa026c1540705b167de23713c986b1a34f186689bcd37",
+  "current_lean_source_byte_sha256": "8b0daa5afba26fe9a78b59c0966ef58fc931f1c7f7d1a0f7bceb4c31cc8dd01c",
+  "certificate_lean_source_byte_sha256": "8b0daa5afba26fe9a78b59c0966ef58fc931f1c7f7d1a0f7bceb4c31cc8dd01c",
   "source_hash_policy": "sha256 is LF-normalized for source binding; byte_sha256 records archive bytes.",
   "cert_lean_sha256_matches_current_source": true,
   "lean_build_returncode": 0,
@@ -46,10 +46,10 @@
     "lake_version": "5.0.0-src+7e01a1b",
     "lean_version": "4.28.0"
   },
-  "live_lean_clean_source_manifest_sha256": "3d5f1acb6d4627ab0dabed7f2db41e769a790b093097c3a323ce45c5f8ea74a4",
-  "certificate_clean_source_manifest_sha256": "3d5f1acb6d4627ab0dabed7f2db41e769a790b093097c3a323ce45c5f8ea74a4",
-  "generated_artifact_manifest_sha256": "7616aef83ec35e948fe1ec13d5fb9d5df20dab0e8b571a3a4d65d0430791e925",
-  "certificate_generated_artifact_manifest_sha256": "7616aef83ec35e948fe1ec13d5fb9d5df20dab0e8b571a3a4d65d0430791e925",
+  "live_lean_clean_source_manifest_sha256": "e4965fdaa40d68dd61e31bd44d4aa202774705320f99274a09f62dab9b187427",
+  "certificate_clean_source_manifest_sha256": "e4965fdaa40d68dd61e31bd44d4aa202774705320f99274a09f62dab9b187427",
+  "generated_artifact_manifest_sha256": "058d83f13042bbfb11651a8603a6e628478c0d2a15352727acb68bed4ee9e897",
+  "certificate_generated_artifact_manifest_sha256": "058d83f13042bbfb11651a8603a6e628478c0d2a15352727acb68bed4ee9e897",
   "source_manifest_mismatch_total": 0,
   "source_manifest_mismatches": [],
   "generated_artifact_manifest_mismatch_total": 0,
@@ -68,10 +68,17 @@
   "live_lean_build_stderr_tail": "info: oc_core_1_3_3_v12: no previous manifest, creating one from scratch\n<toolchain provisioning outside canonical transcript>\n",
   "lean_theorem_ref_present_total": 10,
   "lean_theorem_ref_missing_total": 0,
-  "finite_row_theorem_ref_total": 21,
-  "finite_row_theorem_ref_bound_total": 21,
+  "finite_row_theorem_ref_total": 22,
+  "finite_row_theorem_ref_bound_total": 22,
   "finite_row_theorem_ref_missing_total": 0,
-  "finite_row_theorem_refs": [
+  "finite_row_evidence_ref_total": 22,
+  "finite_row_evidence_ref_bound_total": 22,
+  "finite_row_evidence_ref_missing_total": 0,
+  "lean_theorem_ref_total": 15,
+  "semantic_evaluator_ref_total": 6,
+  "governance_or_artifact_ref_total": 1,
+  "lean_theorem_refs": [
+    "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
     "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
     "formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance",
     "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
@@ -85,13 +92,17 @@
     "formal/lean/OC133V12.lean::rank_drop_not_historical_erasure",
     "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
     "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
-    "formal/lean/OC133V12.lean::zero_cause_does_not_compute_k_by_itself",
+    "formal/lean/OC133V12.lean::zero_cause_does_not_compute_k_by_itself"
+  ],
+  "semantic_evaluator_refs": [
     "proofs/finite_model_checks/run_finite_model_checks.py::atlas_rows",
     "proofs/finite_model_checks/run_finite_model_checks.py::has_forbidden_key",
     "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
     "proofs/finite_model_checks/run_finite_model_checks.py::klevel_reduction_verdict",
     "proofs/finite_model_checks/run_finite_model_checks.py::klevel_schema_valid",
-    "proofs/finite_model_checks/run_finite_model_checks.py::semantic_tuple_verdict",
+    "proofs/finite_model_checks/run_finite_model_checks.py::semantic_tuple_verdict"
+  ],
+  "governance_or_artifact_refs": [
     "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json"
   ],
   "finite_row_theorem_ref_missing": [],
@@ -102,14 +113,14 @@
   "input_observed_field_total": 0,
   "flag_oracle_key_total": 0,
   "flag_oracle_mutation_total": 1,
-  "case_total": 133,
+  "case_total": 141,
   "positive_case_total": 21,
-  "negative_case_total": 61,
+  "negative_case_total": 66,
   "component_witness_total": 11,
   "k_transition_witness_total": 12,
   "k_transition_negative_total": 12,
   "mutation_control_total": 6,
-  "no_send_state_machine_total": 10,
+  "no_send_state_machine_total": 13,
   "semantic_failure_total": 0,
   "failure_total": 0,
   "machine_checked_subset_total": 10,
@@ -119,7 +130,6 @@
       "theorem_id": "T133-K0-RES",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction",
       "model": {
         "rho_cell_a": 0,
         "rho_cell_b": 0,
@@ -131,6 +141,7 @@
         "cross_resolution_distinguished": true
       },
       "negative_control_id": "FM-T133-K0-RES-NEG",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction",
       "observed_verdict": "ACCEPT",
       "passed": true
     },
@@ -139,7 +150,6 @@
       "theorem_id": "T133-K0-RES",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction",
       "model": {
         "rho_cell_a": 0,
         "rho_cell_b": 0,
@@ -151,6 +161,7 @@
         "cross_resolution_distinguished": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -159,7 +170,6 @@
       "theorem_id": "T133-OMEGA-STATUS",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary",
       "model": {
         "death": true,
         "live": false,
@@ -179,6 +189,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "FM-T133-OMEGA-STATUS-NEG",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary",
       "observed_verdict": "ACCEPT",
       "passed": true
     },
@@ -187,7 +198,6 @@
       "theorem_id": "T133-OMEGA-STATUS",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary",
       "model": {
         "death": true,
         "live": true,
@@ -208,6 +218,7 @@
         "negative_control_isolated_dimension": "death_live_contradiction_only"
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -216,7 +227,6 @@
       "theorem_id": "T133-OMEGA-STATUS",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary",
       "model": {
         "death": true,
         "live": false,
@@ -237,6 +247,7 @@
         "negative_control_isolated_dimension": "rebirth_as_same_identity_equivocation_only"
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -245,7 +256,6 @@
       "theorem_id": "T133-K-ZERO",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
       "model": {
         "live_support": true,
         "admissible_nonempty": true,
@@ -265,6 +275,7 @@
         }
       },
       "negative_control_id": "FM-T133-K-ZERO-NEG",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
       "observed_verdict": "ACCEPT",
       "passed": true
     },
@@ -273,7 +284,6 @@
       "theorem_id": "T133-K-ZERO",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
       "model": {
         "live_support": true,
         "admissible_nonempty": true,
@@ -293,6 +303,7 @@
         }
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -301,7 +312,6 @@
       "theorem_id": "T133-K-ZERO",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::zero_cause_does_not_compute_k_by_itself",
       "model": {
         "live_support": true,
         "admissible_nonempty": true,
@@ -321,6 +331,7 @@
         }
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::zero_cause_does_not_compute_k_by_itself",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -329,7 +340,6 @@
       "theorem_id": "T133-K-ZERO",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
       "model": {
         "live_support": false,
         "admissible_nonempty": true,
@@ -349,6 +359,7 @@
         }
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -357,7 +368,6 @@
       "theorem_id": "T133-BOUNDARY",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::metric_boundary_specialization",
       "model": {
         "boundary_kind": "classifier",
         "metric_measure_declared": true,
@@ -366,6 +376,7 @@
         "classifier_failure": true
       },
       "negative_control_id": "FM-T133-BOUNDARY-NEG",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::metric_boundary_specialization",
       "observed_verdict": "ACCEPT",
       "passed": true
     },
@@ -374,7 +385,6 @@
       "theorem_id": "T133-BOUNDARY",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::metric_boundary_specialization",
       "model": {
         "boundary_kind": "metric_without_measure",
         "metric_measure_declared": false,
@@ -383,6 +393,7 @@
         "classifier_failure": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::metric_boundary_specialization",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -391,7 +402,6 @@
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
       "model": {
         "update_kind": "hybrid_guard_reset",
         "guard": true,
@@ -413,6 +423,7 @@
         "mode_invariant_preserved": true
       },
       "negative_control_id": "FM-T133-HYBRID-NEG",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
       "computed_operator_admission": {
         "route": "hybrid_guard_reset",
         "typed_source_target": true,
@@ -422,7 +433,6 @@
         "flow_notation_requested": false,
         "guard_evaluated": true,
         "guard_value": true,
-        "guard_observed": true,
         "reset_source_typed": true,
         "reset_target_typed": true,
         "reset_admissible": true,
@@ -437,7 +447,6 @@
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
       "model": {
         "update_kind": "hybrid_guard_reset",
         "guard": true,
@@ -459,6 +468,7 @@
         "mode_invariant_preserved": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
       "computed_operator_admission": {
         "route": "hybrid_guard_reset",
         "typed_source_target": false,
@@ -468,7 +478,6 @@
         "flow_notation_requested": true,
         "guard_evaluated": true,
         "guard_value": true,
-        "guard_observed": true,
         "reset_source_typed": true,
         "reset_target_typed": false,
         "reset_admissible": false,
@@ -483,7 +492,6 @@
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::hybrid_no_guard_uses_update",
       "model": {
         "update_kind": "hybrid_guard_reset",
         "guard": false,
@@ -505,6 +513,7 @@
         "mode_invariant_preserved": true
       },
       "negative_control_id": "FM-T133-HYBRID-NO-GUARD-STEP-NEG",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::hybrid_no_guard_uses_update",
       "computed_operator_admission": {
         "route": "hybrid_guard_reset",
         "typed_source_target": true,
@@ -514,7 +523,6 @@
         "flow_notation_requested": false,
         "guard_evaluated": true,
         "guard_value": false,
-        "guard_observed": true,
         "reset_source_typed": true,
         "reset_target_typed": true,
         "reset_admissible": true,
@@ -529,7 +537,6 @@
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::hybrid_no_guard_uses_update",
       "model": {
         "update_kind": "hybrid_guard_reset",
         "guard": false,
@@ -551,6 +558,7 @@
         "mode_invariant_preserved": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::hybrid_no_guard_uses_update",
       "computed_operator_admission": {
         "route": "hybrid_guard_reset",
         "typed_source_target": true,
@@ -560,7 +568,6 @@
         "flow_notation_requested": false,
         "guard_evaluated": true,
         "guard_value": false,
-        "guard_observed": true,
         "reset_source_typed": true,
         "reset_target_typed": true,
         "reset_admissible": true,
@@ -571,11 +578,234 @@
       "passed": true
     },
     {
+      "case_id": "FM-T133-HYBRID-GUARD-MISSING-NEG",
+      "theorem_id": "T133-HYBRID",
+      "case_type": "theorem_case",
+      "expected_verdict": "REJECT",
+      "model": {
+        "update_kind": "hybrid_guard_reset",
+        "reset_target": "mode_B_state_0",
+        "step_target": "mode_A_state_1",
+        "actual_next": "mode_A_state_1",
+        "flow_notation_requested": false,
+        "smooth_chart_id": "",
+        "smooth_state_type": "HybridState",
+        "hybrid_state_type": "HybridState",
+        "flow_one_target": "",
+        "smooth_step_target": "",
+        "current_mode": "mode_A",
+        "target_mode": "mode_B",
+        "reset_source_mode": "mode_A",
+        "reset_target_mode": "mode_B",
+        "reset_codomain": "HybridState",
+        "post_reset_admissible": true,
+        "mode_invariant_preserved": true
+      },
+      "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
+      "computed_operator_admission": {
+        "route": "hybrid_guard_reset",
+        "typed_source_target": true,
+        "chart_declared": false,
+        "chart_domain_contains_source": false,
+        "chart_local_law_declared": false,
+        "flow_notation_requested": false,
+        "guard_evaluated": false,
+        "guard_value": false,
+        "reset_source_typed": true,
+        "reset_target_typed": true,
+        "reset_admissible": true,
+        "rewrite_rule_present": false,
+        "route_admitted": false
+      },
+      "observed_verdict": "REJECT",
+      "passed": true
+    },
+    {
+      "case_id": "FM-T133-HYBRID-GUARD-NONBOOLEAN-NEG",
+      "theorem_id": "T133-HYBRID",
+      "case_type": "theorem_case",
+      "expected_verdict": "REJECT",
+      "model": {
+        "update_kind": "hybrid_guard_reset",
+        "guard": "true",
+        "reset_target": "mode_B_state_0",
+        "step_target": "mode_A_state_1",
+        "actual_next": "mode_B_state_0",
+        "flow_notation_requested": false,
+        "smooth_chart_id": "",
+        "smooth_state_type": "HybridState",
+        "hybrid_state_type": "HybridState",
+        "flow_one_target": "",
+        "smooth_step_target": "",
+        "current_mode": "mode_A",
+        "target_mode": "mode_B",
+        "reset_source_mode": "mode_A",
+        "reset_target_mode": "mode_B",
+        "reset_codomain": "HybridState",
+        "post_reset_admissible": true,
+        "mode_invariant_preserved": true
+      },
+      "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
+      "computed_operator_admission": {
+        "route": "hybrid_guard_reset",
+        "typed_source_target": true,
+        "chart_declared": false,
+        "chart_domain_contains_source": false,
+        "chart_local_law_declared": false,
+        "flow_notation_requested": false,
+        "guard_evaluated": false,
+        "guard_value": false,
+        "reset_source_typed": true,
+        "reset_target_typed": true,
+        "reset_admissible": true,
+        "rewrite_rule_present": false,
+        "route_admitted": false
+      },
+      "observed_verdict": "REJECT",
+      "passed": true
+    },
+    {
+      "case_id": "FM-T133-HYBRID-GUARD-VALUE-MISMATCH-NEG",
+      "theorem_id": "T133-HYBRID",
+      "case_type": "theorem_case",
+      "expected_verdict": "REJECT",
+      "model": {
+        "update_kind": "hybrid_guard_reset",
+        "guard": false,
+        "reset_target": "mode_B_state_0",
+        "step_target": "mode_A_state_1",
+        "actual_next": "mode_B_state_0",
+        "flow_notation_requested": false,
+        "smooth_chart_id": "",
+        "smooth_state_type": "HybridState",
+        "hybrid_state_type": "HybridState",
+        "flow_one_target": "",
+        "smooth_step_target": "",
+        "current_mode": "mode_A",
+        "target_mode": "mode_B",
+        "reset_source_mode": "mode_A",
+        "reset_target_mode": "mode_B",
+        "reset_codomain": "HybridState",
+        "post_reset_admissible": true,
+        "mode_invariant_preserved": true
+      },
+      "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
+      "computed_operator_admission": {
+        "route": "hybrid_guard_reset",
+        "typed_source_target": true,
+        "chart_declared": false,
+        "chart_domain_contains_source": false,
+        "chart_local_law_declared": false,
+        "flow_notation_requested": false,
+        "guard_evaluated": true,
+        "guard_value": false,
+        "reset_source_typed": true,
+        "reset_target_typed": true,
+        "reset_admissible": true,
+        "rewrite_rule_present": false,
+        "route_admitted": true
+      },
+      "observed_verdict": "REJECT",
+      "passed": true
+    },
+    {
+      "case_id": "FM-T133-HYBRID-RESET-SOURCE-MODE-NEG",
+      "theorem_id": "T133-HYBRID",
+      "case_type": "theorem_case",
+      "expected_verdict": "REJECT",
+      "model": {
+        "update_kind": "hybrid_guard_reset",
+        "guard": true,
+        "reset_target": "mode_B_state_0",
+        "step_target": "mode_A_state_1",
+        "actual_next": "mode_B_state_0",
+        "flow_notation_requested": false,
+        "smooth_chart_id": "",
+        "smooth_state_type": "HybridState",
+        "hybrid_state_type": "HybridState",
+        "flow_one_target": "",
+        "smooth_step_target": "",
+        "current_mode": "mode_A",
+        "target_mode": "mode_B",
+        "reset_source_mode": "mode_X",
+        "reset_target_mode": "mode_B",
+        "reset_codomain": "HybridState",
+        "post_reset_admissible": true,
+        "mode_invariant_preserved": true
+      },
+      "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
+      "computed_operator_admission": {
+        "route": "hybrid_guard_reset",
+        "typed_source_target": true,
+        "chart_declared": false,
+        "chart_domain_contains_source": false,
+        "chart_local_law_declared": false,
+        "flow_notation_requested": false,
+        "guard_evaluated": true,
+        "guard_value": true,
+        "reset_source_typed": false,
+        "reset_target_typed": true,
+        "reset_admissible": true,
+        "rewrite_rule_present": false,
+        "route_admitted": false
+      },
+      "observed_verdict": "REJECT",
+      "passed": true
+    },
+    {
+      "case_id": "FM-T133-HYBRID-RESET-TARGET-MODE-NEG",
+      "theorem_id": "T133-HYBRID",
+      "case_type": "theorem_case",
+      "expected_verdict": "REJECT",
+      "model": {
+        "update_kind": "hybrid_guard_reset",
+        "guard": true,
+        "reset_target": "mode_B_state_0",
+        "step_target": "mode_A_state_1",
+        "actual_next": "mode_B_state_0",
+        "flow_notation_requested": false,
+        "smooth_chart_id": "",
+        "smooth_state_type": "HybridState",
+        "hybrid_state_type": "HybridState",
+        "flow_one_target": "",
+        "smooth_step_target": "",
+        "current_mode": "mode_A",
+        "target_mode": "mode_B",
+        "reset_source_mode": "mode_A",
+        "reset_target_mode": "mode_C",
+        "reset_codomain": "HybridState",
+        "post_reset_admissible": true,
+        "mode_invariant_preserved": true
+      },
+      "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
+      "computed_operator_admission": {
+        "route": "hybrid_guard_reset",
+        "typed_source_target": true,
+        "chart_declared": false,
+        "chart_domain_contains_source": false,
+        "chart_local_law_declared": false,
+        "flow_notation_requested": false,
+        "guard_evaluated": true,
+        "guard_value": true,
+        "reset_source_typed": true,
+        "reset_target_typed": false,
+        "reset_admissible": true,
+        "rewrite_rule_present": false,
+        "route_admitted": false
+      },
+      "observed_verdict": "REJECT",
+      "passed": true
+    },
+    {
       "case_id": "FM-T133-HYBRID-SMOOTH-CHART-POS",
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
       "model": {
         "update_kind": "smooth_chart",
         "source_type": "SmoothState",
@@ -590,6 +820,7 @@
         "chart_domain_contains_state": true
       },
       "negative_control_id": "FM-T133-HYBRID-SMOOTH-CHART-NEG",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
       "computed_operator_admission": {
         "route": "smooth_chart",
         "typed_source_target": true,
@@ -599,7 +830,6 @@
         "flow_notation_requested": true,
         "guard_evaluated": false,
         "guard_value": false,
-        "guard_observed": false,
         "reset_source_typed": true,
         "reset_target_typed": true,
         "reset_admissible": false,
@@ -614,7 +844,6 @@
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
       "model": {
         "update_kind": "smooth_chart",
         "source_type": "SmoothState",
@@ -629,6 +858,7 @@
         "chart_domain_contains_state": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
       "computed_operator_admission": {
         "route": "smooth_chart",
         "typed_source_target": true,
@@ -638,7 +868,6 @@
         "flow_notation_requested": true,
         "guard_evaluated": false,
         "guard_value": false,
-        "guard_observed": false,
         "reset_source_typed": true,
         "reset_target_typed": true,
         "reset_admissible": false,
@@ -653,7 +882,6 @@
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
       "model": {
         "update_kind": "proof_rewrite",
         "carrier_kind": "proof",
@@ -667,6 +895,7 @@
         "smooth_chart_id": ""
       },
       "negative_control_id": "FM-T133-HYBRID-PROOF-UPDATE-NEG",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
       "computed_operator_admission": {
         "route": "proof_rewrite",
         "typed_source_target": true,
@@ -676,7 +905,6 @@
         "flow_notation_requested": false,
         "guard_evaluated": false,
         "guard_value": false,
-        "guard_observed": false,
         "reset_source_typed": true,
         "reset_target_typed": true,
         "reset_admissible": false,
@@ -691,7 +919,6 @@
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
       "model": {
         "update_kind": "proof_rewrite",
         "carrier_kind": "proof",
@@ -705,6 +932,7 @@
         "smooth_chart_id": ""
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
       "computed_operator_admission": {
         "route": "proof_rewrite",
         "typed_source_target": true,
@@ -714,7 +942,6 @@
         "flow_notation_requested": true,
         "guard_evaluated": false,
         "guard_value": false,
-        "guard_observed": false,
         "reset_source_typed": true,
         "reset_target_typed": true,
         "reset_admissible": false,
@@ -729,7 +956,6 @@
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
       "model": {
         "update_kind": "smooth_chart",
         "source_type": "SmoothState",
@@ -744,6 +970,7 @@
         "chart_domain_contains_state": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
       "computed_operator_admission": {
         "route": "smooth_chart",
         "typed_source_target": true,
@@ -753,7 +980,6 @@
         "flow_notation_requested": true,
         "guard_evaluated": false,
         "guard_value": false,
-        "guard_observed": false,
         "reset_source_typed": true,
         "reset_target_typed": true,
         "reset_admissible": false,
@@ -768,7 +994,6 @@
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
       "model": {
         "update_kind": "proof_rewrite",
         "carrier_kind": "proof",
@@ -782,6 +1007,7 @@
         "smooth_chart_id": ""
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::operator_admission_route_obligations",
       "computed_operator_admission": {
         "route": "proof_rewrite",
         "typed_source_target": true,
@@ -791,7 +1017,6 @@
         "flow_notation_requested": false,
         "guard_evaluated": false,
         "guard_value": false,
-        "guard_observed": false,
         "reset_source_typed": true,
         "reset_target_typed": true,
         "reset_admissible": false,
@@ -806,7 +1031,6 @@
       "theorem_id": "T133-DIM",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::historical_axis_survives_rank_drop",
       "model": {
         "historical": [
           1,
@@ -820,6 +1044,7 @@
         ]
       },
       "negative_control_id": "FM-T133-DIM-NEG",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::historical_axis_survives_rank_drop",
       "observed_verdict": "ACCEPT",
       "passed": true
     },
@@ -828,8 +1053,6 @@
       "theorem_id": "T133-DIM",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::historical_axis_survives_rank_drop",
-      "counterexample_lean_ref": "formal/lean/OC133V12.lean::rank_drop_not_historical_erasure",
       "model": {
         "historical": [
           1,
@@ -843,6 +1066,8 @@
         ]
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::historical_axis_survives_rank_drop",
+      "counterexample_lean_theorem_ref": "formal/lean/OC133V12.lean::rank_drop_not_historical_erasure",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -851,7 +1076,6 @@
       "theorem_id": "T133-CYCLE",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance",
       "model": {
         "live": true,
         "cycle_mode": "maintenance_loop",
@@ -861,6 +1085,7 @@
         }
       },
       "negative_control_id": "FM-T133-CYCLE-NEG",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance",
       "observed_verdict": "ACCEPT",
       "passed": true
     },
@@ -869,7 +1094,6 @@
       "theorem_id": "T133-CYCLE",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance",
       "model": {
         "live": true,
         "cycle_mode": "none",
@@ -879,15 +1103,15 @@
         }
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance",
       "observed_verdict": "REJECT",
       "passed": true
     },
     {
-      "case_id": "FM-T133-ID-POS",
+      "case_id": "FM-T133-ID-REBIRTH-NONIDENTITY-POS",
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "residue_token": "residue_schema_01",
@@ -898,6 +1122,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "FM-T133-ID-NEG",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "ACCEPT",
       "passed": true
     },
@@ -906,7 +1131,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "residue_token": "residue_schema_01",
@@ -917,6 +1141,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -925,7 +1150,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "residue_token": "residue_schema_01",
@@ -936,6 +1160,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "FM-T133-ID-RESIDUE-NEG",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "ACCEPT",
       "passed": true
     },
@@ -944,7 +1169,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "residue_token": "residue_schema_01",
@@ -955,6 +1179,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -963,7 +1188,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "identity",
         "residue_token": null,
@@ -974,6 +1198,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "ACCEPT",
       "passed": true
     },
@@ -982,7 +1207,6 @@
       "theorem_id": "T133-MIN",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "model": {
         "component_cases": [
           {
@@ -1340,6 +1564,7 @@
         ]
       },
       "negative_control_id": "FM-T133-MIN-NEG",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "observed_verdict": "ACCEPT",
       "passed": true
     },
@@ -1348,7 +1573,6 @@
       "theorem_id": "T133-MIN",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "model": {
         "component_cases": [
           {
@@ -1386,6 +1610,7 @@
         ]
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -1394,7 +1619,6 @@
       "theorem_id": "T133-KLEVEL",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transitions": [
           {
@@ -1904,6 +2128,7 @@
         ]
       },
       "negative_control_id": "FM-T133-KLEVEL-NEG",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_verdict": "ACCEPT",
       "passed": true
     },
@@ -1912,7 +2137,6 @@
       "theorem_id": "T133-KLEVEL",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transitions": [
           {
@@ -1960,6 +2184,7 @@
         ]
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -1968,7 +2193,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "identity",
         "identity_invariant_preserved": false,
@@ -1979,6 +2203,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -1987,7 +2212,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "identity",
         "identity_invariant_preserved": false,
@@ -1998,6 +2222,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2006,7 +2231,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "identity",
         "identity_invariant_preserved": false,
@@ -2017,6 +2241,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2025,7 +2250,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "identity",
         "identity_invariant_preserved": false,
@@ -2036,6 +2260,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2044,7 +2269,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "identity",
         "identity_invariant_preserved": false,
@@ -2055,6 +2279,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "ACCEPT",
       "passed": true
     },
@@ -2063,7 +2288,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "identity",
         "identity_invariant_preserved": false,
@@ -2074,6 +2298,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2082,7 +2307,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "identity",
         "identity_invariant_preserved": false,
@@ -2093,6 +2317,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2101,7 +2326,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "identity",
         "identity_invariant_preserved": false,
@@ -2112,6 +2336,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2120,7 +2345,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "identity",
         "identity_invariant_preserved": true,
@@ -2131,6 +2355,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2139,7 +2364,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "identity",
         "identity_invariant_preserved": true,
@@ -2150,6 +2374,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2158,7 +2383,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "identity",
         "identity_invariant_preserved": true,
@@ -2169,6 +2393,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2177,7 +2402,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "identity",
         "identity_invariant_preserved": true,
@@ -2188,6 +2412,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2196,7 +2421,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "identity",
         "identity_invariant_preserved": true,
@@ -2207,6 +2431,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2215,7 +2440,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "identity",
         "identity_invariant_preserved": true,
@@ -2226,6 +2450,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "ACCEPT",
       "passed": true
     },
@@ -2234,7 +2459,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "identity",
         "identity_invariant_preserved": true,
@@ -2245,6 +2469,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2253,7 +2478,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "identity",
         "identity_invariant_preserved": true,
@@ -2264,6 +2488,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2272,7 +2497,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "identity_invariant_preserved": false,
@@ -2283,6 +2507,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2291,7 +2516,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "identity_invariant_preserved": false,
@@ -2302,6 +2526,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2310,7 +2535,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "identity_invariant_preserved": false,
@@ -2321,6 +2545,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2329,7 +2554,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "identity_invariant_preserved": false,
@@ -2340,6 +2564,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2348,7 +2573,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "identity_invariant_preserved": false,
@@ -2359,6 +2583,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2367,7 +2592,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "identity_invariant_preserved": false,
@@ -2378,6 +2602,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2386,7 +2611,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "identity_invariant_preserved": false,
@@ -2397,6 +2621,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "ACCEPT",
       "passed": true
     },
@@ -2405,7 +2630,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "identity_invariant_preserved": false,
@@ -2416,6 +2640,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2424,7 +2649,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "identity_invariant_preserved": true,
@@ -2435,6 +2659,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2443,7 +2668,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "identity_invariant_preserved": true,
@@ -2454,6 +2678,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2462,7 +2687,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "identity_invariant_preserved": true,
@@ -2473,6 +2697,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2481,7 +2706,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "identity_invariant_preserved": true,
@@ -2492,6 +2716,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2500,7 +2725,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "identity_invariant_preserved": true,
@@ -2511,6 +2735,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2519,7 +2744,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "identity_invariant_preserved": true,
@@ -2530,6 +2754,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2538,7 +2763,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "identity_invariant_preserved": true,
@@ -2549,6 +2773,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "ACCEPT",
       "passed": true
     },
@@ -2557,7 +2782,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "residue",
         "identity_invariant_preserved": true,
@@ -2568,6 +2792,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2576,7 +2801,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "identity_invariant_preserved": false,
@@ -2587,6 +2811,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2595,7 +2820,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "identity_invariant_preserved": false,
@@ -2606,6 +2830,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2614,7 +2839,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "identity_invariant_preserved": false,
@@ -2625,6 +2849,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "ACCEPT",
       "passed": true
     },
@@ -2633,7 +2858,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "identity_invariant_preserved": false,
@@ -2644,6 +2868,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2652,7 +2877,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "identity_invariant_preserved": false,
@@ -2663,6 +2887,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2671,7 +2896,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "identity_invariant_preserved": false,
@@ -2682,6 +2906,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2690,7 +2915,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "identity_invariant_preserved": false,
@@ -2701,6 +2925,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2709,7 +2934,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "identity_invariant_preserved": false,
@@ -2720,6 +2944,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2728,7 +2953,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "identity_invariant_preserved": true,
@@ -2739,6 +2963,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2747,7 +2972,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "identity_invariant_preserved": true,
@@ -2758,6 +2982,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2766,7 +2991,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "identity_invariant_preserved": true,
@@ -2777,6 +3001,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "ACCEPT",
       "passed": true
     },
@@ -2785,7 +3010,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "identity_invariant_preserved": true,
@@ -2796,6 +3020,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2804,7 +3029,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "identity_invariant_preserved": true,
@@ -2815,6 +3039,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2823,7 +3048,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "identity_invariant_preserved": true,
@@ -2834,6 +3058,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2842,7 +3067,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "identity_invariant_preserved": true,
@@ -2853,6 +3077,7 @@
         "claimed_identity_continuation": false
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2861,7 +3086,6 @@
       "theorem_id": "T133-ID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "model": {
         "morphism_class": "rebirth",
         "identity_invariant_preserved": true,
@@ -2872,6 +3096,7 @@
         "claimed_identity_continuation": true
       },
       "negative_control_id": "",
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -2882,7 +3107,6 @@
       "component": "carrier",
       "expected_keep_verdict": "PASS",
       "expected_drop_verdict": "FAIL",
-      "lean_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "model": {
         "target_component": "carrier",
         "keep": {
@@ -2914,6 +3138,7 @@
         "keep_case_description": "typed raw carrier present",
         "drop_case_description": "carrier erased into untyped token"
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "observed_keep_verdict": "PASS",
       "observed_drop_verdict": "FAIL",
       "passed": true
@@ -2925,7 +3150,6 @@
       "component": "realization",
       "expected_keep_verdict": "PASS",
       "expected_drop_verdict": "FAIL",
-      "lean_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "model": {
         "target_component": "realization",
         "keep": {
@@ -2957,6 +3181,7 @@
         "keep_case_description": "realization binds symbols to domain semantics",
         "drop_case_description": "symbols float without interpretation"
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "observed_keep_verdict": "PASS",
       "observed_drop_verdict": "FAIL",
       "passed": true
@@ -2968,7 +3193,6 @@
       "component": "lawful_possibility",
       "expected_keep_verdict": "PASS",
       "expected_drop_verdict": "FAIL",
-      "lean_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "model": {
         "target_component": "lawful_possibility",
         "keep": {
@@ -3000,6 +3224,7 @@
         "keep_case_description": "admissible transitions are checked",
         "drop_case_description": "forbidden transition admitted"
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "observed_keep_verdict": "PASS",
       "observed_drop_verdict": "FAIL",
       "passed": true
@@ -3011,7 +3236,6 @@
       "component": "liveness",
       "expected_keep_verdict": "PASS",
       "expected_drop_verdict": "FAIL",
-      "lean_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "model": {
         "target_component": "liveness",
         "keep": {
@@ -3043,6 +3267,7 @@
         "keep_case_description": "live predicate requires active support",
         "drop_case_description": "static label called live"
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "observed_keep_verdict": "PASS",
       "observed_drop_verdict": "FAIL",
       "passed": true
@@ -3054,7 +3279,6 @@
       "component": "residue",
       "expected_keep_verdict": "PASS",
       "expected_drop_verdict": "FAIL",
-      "lean_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "model": {
         "target_component": "residue",
         "keep": {
@@ -3086,6 +3310,7 @@
         "keep_case_description": "post-death residue is classified",
         "drop_case_description": "residue erased"
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "observed_keep_verdict": "PASS",
       "observed_drop_verdict": "FAIL",
       "passed": true
@@ -3097,7 +3322,6 @@
       "component": "morphisms",
       "expected_keep_verdict": "PASS",
       "expected_drop_verdict": "FAIL",
-      "lean_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "model": {
         "target_component": "morphisms",
         "keep": {
@@ -3129,6 +3353,7 @@
         "keep_case_description": "identity/residue/rebirth morphisms separated",
         "drop_case_description": "rebirth read as identity"
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "observed_keep_verdict": "PASS",
       "observed_drop_verdict": "FAIL",
       "passed": true
@@ -3140,7 +3365,6 @@
       "component": "boundaries",
       "expected_keep_verdict": "PASS",
       "expected_drop_verdict": "FAIL",
-      "lean_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "model": {
         "target_component": "boundaries",
         "keep": {
@@ -3172,6 +3396,7 @@
         "keep_case_description": "classifier boundary rejects bad state",
         "drop_case_description": "boundary removed"
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "observed_keep_verdict": "PASS",
       "observed_drop_verdict": "FAIL",
       "passed": true
@@ -3183,7 +3408,6 @@
       "component": "operators",
       "expected_keep_verdict": "PASS",
       "expected_drop_verdict": "FAIL",
-      "lean_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "model": {
         "target_component": "operators",
         "keep": {
@@ -3215,6 +3439,7 @@
         "keep_case_description": "typed update relation declared",
         "drop_case_description": "derivative imposed on rewrite state"
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "observed_keep_verdict": "PASS",
       "observed_drop_verdict": "FAIL",
       "passed": true
@@ -3226,7 +3451,6 @@
       "component": "cycles",
       "expected_keep_verdict": "PASS",
       "expected_drop_verdict": "FAIL",
-      "lean_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "model": {
         "target_component": "cycles",
         "keep": {
@@ -3258,6 +3482,7 @@
         "keep_case_description": "cycle mode or maintenance predicate present",
         "drop_case_description": "frozen object accepted as live"
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "observed_keep_verdict": "PASS",
       "observed_drop_verdict": "FAIL",
       "passed": true
@@ -3269,7 +3494,6 @@
       "component": "dimension",
       "expected_keep_verdict": "PASS",
       "expected_drop_verdict": "FAIL",
-      "lean_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "model": {
         "target_component": "dimension",
         "keep": {
@@ -3301,6 +3525,7 @@
         "keep_case_description": "historical axis separated from effective rank",
         "drop_case_description": "axes conflated"
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "observed_keep_verdict": "PASS",
       "observed_drop_verdict": "FAIL",
       "passed": true
@@ -3312,7 +3537,6 @@
       "component": "k",
       "expected_keep_verdict": "PASS",
       "expected_drop_verdict": "FAIL",
-      "lean_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "model": {
         "target_component": "k",
         "keep": {
@@ -3344,6 +3568,7 @@
         "keep_case_description": "zero-cause family explains score zero",
         "drop_case_description": "k=0 asserted without cause"
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
       "observed_keep_verdict": "PASS",
       "observed_drop_verdict": "FAIL",
       "passed": true
@@ -3354,7 +3579,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K0_to_K1",
       "expected_reduction_verdict": "FAILS_WITH_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K0_to_K1",
         "from_k": 0,
@@ -3397,6 +3621,7 @@
           }
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "FAILS_WITH_WITNESS",
       "passed": true
     },
@@ -3406,7 +3631,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K0_to_K1",
       "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K0_to_K1",
         "from_k": 0,
@@ -3428,6 +3652,7 @@
           "verdict_changes": false
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
       "passed": true
     },
@@ -3437,7 +3662,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K1_to_K2",
       "expected_reduction_verdict": "FAILS_WITH_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K1_to_K2",
         "from_k": 1,
@@ -3480,6 +3704,7 @@
           }
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "FAILS_WITH_WITNESS",
       "passed": true
     },
@@ -3489,7 +3714,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K1_to_K2",
       "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K1_to_K2",
         "from_k": 1,
@@ -3511,6 +3735,7 @@
           "verdict_changes": false
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
       "passed": true
     },
@@ -3520,7 +3745,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K2_to_K3",
       "expected_reduction_verdict": "FAILS_WITH_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K2_to_K3",
         "from_k": 2,
@@ -3563,6 +3787,7 @@
           }
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "FAILS_WITH_WITNESS",
       "passed": true
     },
@@ -3572,7 +3797,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K2_to_K3",
       "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K2_to_K3",
         "from_k": 2,
@@ -3594,6 +3818,7 @@
           "verdict_changes": false
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
       "passed": true
     },
@@ -3603,7 +3828,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K3_to_K4",
       "expected_reduction_verdict": "FAILS_WITH_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K3_to_K4",
         "from_k": 3,
@@ -3646,6 +3870,7 @@
           }
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "FAILS_WITH_WITNESS",
       "passed": true
     },
@@ -3655,7 +3880,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K3_to_K4",
       "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K3_to_K4",
         "from_k": 3,
@@ -3677,6 +3901,7 @@
           "verdict_changes": false
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
       "passed": true
     },
@@ -3686,7 +3911,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K4_to_K5",
       "expected_reduction_verdict": "FAILS_WITH_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K4_to_K5",
         "from_k": 4,
@@ -3729,6 +3953,7 @@
           }
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "FAILS_WITH_WITNESS",
       "passed": true
     },
@@ -3738,7 +3963,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K4_to_K5",
       "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K4_to_K5",
         "from_k": 4,
@@ -3760,6 +3984,7 @@
           "verdict_changes": false
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
       "passed": true
     },
@@ -3769,7 +3994,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K5_to_K6",
       "expected_reduction_verdict": "FAILS_WITH_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K5_to_K6",
         "from_k": 5,
@@ -3812,6 +4036,7 @@
           }
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "FAILS_WITH_WITNESS",
       "passed": true
     },
@@ -3821,7 +4046,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K5_to_K6",
       "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K5_to_K6",
         "from_k": 5,
@@ -3843,6 +4067,7 @@
           "verdict_changes": false
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
       "passed": true
     },
@@ -3852,7 +4077,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K6_to_K7",
       "expected_reduction_verdict": "FAILS_WITH_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K6_to_K7",
         "from_k": 6,
@@ -3895,6 +4119,7 @@
           }
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "FAILS_WITH_WITNESS",
       "passed": true
     },
@@ -3904,7 +4129,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K6_to_K7",
       "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K6_to_K7",
         "from_k": 6,
@@ -3926,6 +4150,7 @@
           "verdict_changes": false
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
       "passed": true
     },
@@ -3935,7 +4160,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K7_to_K8",
       "expected_reduction_verdict": "FAILS_WITH_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K7_to_K8",
         "from_k": 7,
@@ -3978,6 +4202,7 @@
           }
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "FAILS_WITH_WITNESS",
       "passed": true
     },
@@ -3987,7 +4212,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K7_to_K8",
       "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K7_to_K8",
         "from_k": 7,
@@ -4009,6 +4233,7 @@
           "verdict_changes": false
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
       "passed": true
     },
@@ -4018,7 +4243,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K8_to_K9",
       "expected_reduction_verdict": "FAILS_WITH_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K8_to_K9",
         "from_k": 8,
@@ -4061,6 +4285,7 @@
           }
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "FAILS_WITH_WITNESS",
       "passed": true
     },
@@ -4070,7 +4295,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K8_to_K9",
       "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K8_to_K9",
         "from_k": 8,
@@ -4092,6 +4316,7 @@
           "verdict_changes": false
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
       "passed": true
     },
@@ -4101,7 +4326,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K9_to_K10",
       "expected_reduction_verdict": "FAILS_WITH_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K9_to_K10",
         "from_k": 9,
@@ -4144,6 +4368,7 @@
           }
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "FAILS_WITH_WITNESS",
       "passed": true
     },
@@ -4153,7 +4378,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K9_to_K10",
       "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K9_to_K10",
         "from_k": 9,
@@ -4175,6 +4399,7 @@
           "verdict_changes": false
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
       "passed": true
     },
@@ -4184,7 +4409,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K10_to_K11",
       "expected_reduction_verdict": "FAILS_WITH_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K10_to_K11",
         "from_k": 10,
@@ -4227,6 +4451,7 @@
           }
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "FAILS_WITH_WITNESS",
       "passed": true
     },
@@ -4236,7 +4461,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K10_to_K11",
       "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K10_to_K11",
         "from_k": 10,
@@ -4258,6 +4482,7 @@
           "verdict_changes": false
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
       "passed": true
     },
@@ -4267,7 +4492,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K11_to_K12",
       "expected_reduction_verdict": "FAILS_WITH_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K11_to_K12",
         "from_k": 11,
@@ -4310,6 +4534,7 @@
           }
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "FAILS_WITH_WITNESS",
       "passed": true
     },
@@ -4319,7 +4544,6 @@
       "case_type": "adjacent_k_transition_witness",
       "transition_id": "K11_to_K12",
       "expected_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
-      "lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "model": {
         "transition_id": "K11_to_K12",
         "from_k": 11,
@@ -4341,6 +4565,7 @@
           "verdict_changes": false
         }
       },
+      "lean_theorem_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
       "observed_reduction_verdict": "DEMOTABLE_WITH_LOST_WITNESS",
       "passed": true
     },
@@ -4349,7 +4574,6 @@
       "theorem_id": "T133-MIN",
       "case_type": "mutation_control",
       "expected_verdict": "REJECT",
-      "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::semantic_tuple_verdict",
       "model": {
         "mutated_row": {
           "case_id": "MUTATED-LABEL-ONLY-MIN",
@@ -4393,6 +4617,7 @@
           }
         }
       },
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::semantic_tuple_verdict",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -4401,7 +4626,6 @@
       "theorem_id": "T133-BOUNDARY",
       "case_type": "mutation_control",
       "expected_verdict": "REJECT_FLAG_ORACLE_INPUT",
-      "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::has_forbidden_key",
       "model": {
         "mutated_row": {
           "case_id": "MUTATED-FLAG-ORACLE-BOUNDARY",
@@ -4417,6 +4641,7 @@
           }
         }
       },
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::has_forbidden_key",
       "observed_verdict": "REJECT_FLAG_ORACLE_INPUT",
       "passed": true
     },
@@ -4425,7 +4650,6 @@
       "theorem_id": "T133-KLEVEL",
       "case_type": "mutation_control",
       "expected_verdict": "REJECT",
-      "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::klevel_reduction_verdict",
       "model": {
         "mutated_row": {
           "case_id": "MUTATED-WRONG-WITNESS-KLEVEL",
@@ -4479,6 +4703,7 @@
           }
         }
       },
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::klevel_reduction_verdict",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -4487,7 +4712,6 @@
       "theorem_id": "T133-KLEVEL",
       "case_type": "mutation_control",
       "expected_verdict": "REJECT",
-      "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::klevel_schema_valid",
       "model": {
         "mutated_row": {
           "case_id": "MUTATED-WRONG-KLEVEL-TEXT",
@@ -4541,6 +4765,7 @@
           }
         }
       },
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::klevel_schema_valid",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -4549,7 +4774,6 @@
       "theorem_id": "T133-KLEVEL",
       "case_type": "mutation_control",
       "expected_verdict": "REJECT",
-      "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::atlas_rows",
       "model": {
         "mutated_row": {
           "case_id": "MUTATED-DUPLICATED-KLEVEL",
@@ -5065,6 +5289,7 @@
           }
         }
       },
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::atlas_rows",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -5073,7 +5298,6 @@
       "theorem_id": "T133-KLEVEL",
       "case_type": "mutation_control",
       "expected_verdict": "REJECT",
-      "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::klevel_schema_valid",
       "model": {
         "mutated_row": {
           "case_id": "MUTATED-MISSING-KLEVEL-CRITERION",
@@ -5126,6 +5350,7 @@
           }
         }
       },
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::klevel_schema_valid",
       "observed_verdict": "REJECT",
       "passed": true
     },
@@ -5134,7 +5359,6 @@
       "theorem_id": "OC133-NOSEND-001",
       "case_type": "no_send_state_machine",
       "expected_verdict": "REJECT_PUBLIC_ACTION",
-      "lean_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
       "model": {
         "manifest_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
         "approval_ref": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
@@ -5149,16 +5373,25 @@
           "doi_minting"
         ],
         "fresh_cerberus_required_for_release": true,
-        "g57_attack_matrix_zero_critical_high": true,
-        "g58_reviewer_persona_suite_pass": true,
-        "g70_scientific_closure_verdict_pass": true,
-        "critical_open_total": 0,
-        "high_open_total": 0,
+        "g57_attack_matrix_zero_critical_high": false,
+        "g58_reviewer_persona_suite_pass": false,
+        "g70_scientific_closure_verdict_pass": false,
+        "critical_open_total": 1,
+        "high_open_total": 10,
+        "current_review_state": "BLOCKED_BY_CURRENT_CERBERUS_OPEN_FINDINGS",
         "public_metadata_refs": [
+          {
+            "ref": ".zenodo.json",
+            "must_absent": true,
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [],
+            "require_tokens": []
+          },
           {
             "ref": "manifest.json",
             "must_exist": true,
-            "sha256": "5904ef93bb16a8f347f69ff85961eb79fefe05fd1b0919388763131085d0cbbc",
+            "sha256": "7f8ac30325bc0be8df734479d67c21739cf67344f4f95af0e3ab9d6ff8efe828",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5175,7 +5408,7 @@
           {
             "ref": "checksums.txt",
             "must_exist": true,
-            "sha256": "aaa97d0152f744404e29e843b0e3f313ce99c66315197dd9f379c626814e3bcc",
+            "sha256": "5c7477f06806766398e6b6d942ab2fe2618b41993e29d04c2f019f7d050d9705",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5192,7 +5425,7 @@
           {
             "ref": "ro-crate-metadata.jsonld",
             "must_exist": true,
-            "sha256": "2aab996329d9c8523384be9a8aaaae46ea6b0d966c2d97b33ddfb856954a158f",
+            "sha256": "999f30ffab4c424f7752466555e7b48e094ad6ab5591985cdbc74d27c38cea16",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5227,6 +5460,23 @@
             "ref": ".codemeta.json",
             "must_exist": true,
             "sha256": "a8d0dc7da4d1f33ed3dd53e37d326f9fccead48342a043c28f2e74bdacf464a7",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+            "must_exist": true,
+            "sha256": "4187229bc689f3117dfe9948d2129f983e188826edc880840ea116dcbfa95681",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5260,10 +5510,11 @@
         ]
       },
       "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+      "governance_or_artifact_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
       "public_metadata_surface": {
         "ok": true,
-        "checked_ref_total": 6,
-        "expected_ref_total": 6,
+        "checked_ref_total": 8,
+        "expected_ref_total": 8,
         "failure_total": 0,
         "failures": []
       },
@@ -5283,12 +5534,18 @@
       "case_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
       "theorem_id": "OC133-NOSEND-001",
       "case_type": "no_send_hypothetical_control",
-      "expected_verdict": "ALLOW_AFTER_OWNER_APPROVAL",
-      "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+      "expected_verdict": "REJECT_PUBLIC_ACTION",
+      "control_label": "OWNER_APPROVED_BUT_DEPOSIT_METADATA_AND_PUBLIC_RECORD_NOT_READY_REJECT",
+      "failed_gate_predicates": [
+        "deposit_ready_metadata",
+        "public_record_present"
+      ],
       "model": {
         "owner_approved": true,
         "publish_requested": true,
         "publish_allowed": true,
+        "deposit_ready_metadata": false,
+        "public_record_present": false,
         "global_no_send_lock": false,
         "journal_submissions_allowed": true,
         "journal_submission_allowed": true,
@@ -5311,9 +5568,17 @@
         "high_open_total": 0,
         "public_metadata_refs": [
           {
+            "ref": ".zenodo.json",
+            "must_absent": true,
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [],
+            "require_tokens": []
+          },
+          {
             "ref": "manifest.json",
             "must_exist": true,
-            "sha256": "5904ef93bb16a8f347f69ff85961eb79fefe05fd1b0919388763131085d0cbbc",
+            "sha256": "7f8ac30325bc0be8df734479d67c21739cf67344f4f95af0e3ab9d6ff8efe828",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5330,7 +5595,7 @@
           {
             "ref": "checksums.txt",
             "must_exist": true,
-            "sha256": "aaa97d0152f744404e29e843b0e3f313ce99c66315197dd9f379c626814e3bcc",
+            "sha256": "5c7477f06806766398e6b6d942ab2fe2618b41993e29d04c2f019f7d050d9705",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5347,7 +5612,7 @@
           {
             "ref": "ro-crate-metadata.jsonld",
             "must_exist": true,
-            "sha256": "2aab996329d9c8523384be9a8aaaae46ea6b0d966c2d97b33ddfb856954a158f",
+            "sha256": "999f30ffab4c424f7752466555e7b48e094ad6ab5591985cdbc74d27c38cea16",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5382,6 +5647,23 @@
             "ref": ".codemeta.json",
             "must_exist": true,
             "sha256": "a8d0dc7da4d1f33ed3dd53e37d326f9fccead48342a043c28f2e74bdacf464a7",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+            "must_exist": true,
+            "sha256": "4187229bc689f3117dfe9948d2129f983e188826edc880840ea116dcbfa95681",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5415,14 +5697,190 @@
         ]
       },
       "negative_control_id": "",
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
       "public_metadata_surface": {
         "ok": true,
-        "checked_ref_total": 6,
-        "expected_ref_total": 6,
+        "checked_ref_total": 8,
+        "expected_ref_total": 8,
         "failure_total": 0,
         "failures": []
       },
-      "observed_verdict": "ALLOW_AFTER_OWNER_APPROVAL",
+      "observed_verdict": "REJECT_PUBLIC_ACTION",
+      "passed": true
+    },
+    {
+      "case_id": "ADV-NOSEND-PUBLISH-ALL-GATES-OPEN-CONTROL",
+      "theorem_id": "OC133-NOSEND-001",
+      "case_type": "no_send_hypothetical_control",
+      "expected_verdict": "ACCEPT_PUBLIC_ACTION",
+      "control_label": "ALL_OWNER_METADATA_RECORD_REVIEW_AND_CHANNEL_GATES_OPEN_HYPOTHETICAL_ACCEPT",
+      "failed_gate_predicates": [],
+      "model": {
+        "owner_approved": true,
+        "publish_requested": true,
+        "publish_allowed": true,
+        "deposit_ready_metadata": true,
+        "public_record_present": true,
+        "global_no_send_lock": false,
+        "journal_submissions_allowed": true,
+        "journal_submission_allowed": true,
+        "github_release_allowed": true,
+        "zenodo_deposit_allowed": true,
+        "software_heritage_deposit_allowed": true,
+        "doi_minting_allowed": true,
+        "requested_channels": [
+          "github_release",
+          "zenodo_deposit",
+          "software_heritage_deposit",
+          "journal_submission",
+          "doi_minting"
+        ],
+        "fresh_cerberus_required_for_release": true,
+        "g57_attack_matrix_zero_critical_high": true,
+        "g58_reviewer_persona_suite_pass": true,
+        "g70_scientific_closure_verdict_pass": true,
+        "critical_open_total": 0,
+        "high_open_total": 0,
+        "public_metadata_refs": [
+          {
+            "ref": ".zenodo.json",
+            "must_absent": true,
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [],
+            "require_tokens": []
+          },
+          {
+            "ref": "manifest.json",
+            "must_exist": true,
+            "sha256": "7f8ac30325bc0be8df734479d67c21739cf67344f4f95af0e3ab9d6ff8efe828",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": "checksums.txt",
+            "must_exist": true,
+            "sha256": "5c7477f06806766398e6b6d942ab2fe2618b41993e29d04c2f019f7d050d9705",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": "ro-crate-metadata.jsonld",
+            "must_exist": true,
+            "sha256": "999f30ffab4c424f7752466555e7b48e094ad6ab5591985cdbc74d27c38cea16",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": "CITATION.cff",
+            "must_exist": true,
+            "sha256": "6a5ebf2abb4b372e0c3a3b7bddbfb73f0c6f6e3484afa5a131ab0ab695c56a06",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": ".codemeta.json",
+            "must_exist": true,
+            "sha256": "a8d0dc7da4d1f33ed3dd53e37d326f9fccead48342a043c28f2e74bdacf464a7",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+            "must_exist": true,
+            "sha256": "4187229bc689f3117dfe9948d2129f983e188826edc880840ea116dcbfa95681",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
+            "must_exist": true,
+            "sha256": "e0a5b5a0f07d65cc7e351d3f6db79fc600d84231402099c17c54ca53995d47ed",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          }
+        ]
+      },
+      "negative_control_id": "",
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+      "public_metadata_surface": {
+        "ok": true,
+        "checked_ref_total": 8,
+        "expected_ref_total": 8,
+        "failure_total": 0,
+        "failures": []
+      },
+      "observed_verdict": "ACCEPT_PUBLIC_ACTION",
       "passed": true
     },
     {
@@ -5430,11 +5888,15 @@
       "theorem_id": "OC133-NOSEND-001",
       "case_type": "no_send_hypothetical_control",
       "expected_verdict": "REJECT_PUBLIC_ACTION",
-      "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+      "failed_gate_predicates": [
+        "github_release_allowed"
+      ],
       "model": {
         "owner_approved": true,
         "publish_requested": true,
         "publish_allowed": true,
+        "deposit_ready_metadata": true,
+        "public_record_present": true,
         "global_no_send_lock": false,
         "journal_submissions_allowed": true,
         "journal_submission_allowed": true,
@@ -5457,9 +5919,17 @@
         "high_open_total": 0,
         "public_metadata_refs": [
           {
+            "ref": ".zenodo.json",
+            "must_absent": true,
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [],
+            "require_tokens": []
+          },
+          {
             "ref": "manifest.json",
             "must_exist": true,
-            "sha256": "5904ef93bb16a8f347f69ff85961eb79fefe05fd1b0919388763131085d0cbbc",
+            "sha256": "7f8ac30325bc0be8df734479d67c21739cf67344f4f95af0e3ab9d6ff8efe828",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5476,7 +5946,7 @@
           {
             "ref": "checksums.txt",
             "must_exist": true,
-            "sha256": "aaa97d0152f744404e29e843b0e3f313ce99c66315197dd9f379c626814e3bcc",
+            "sha256": "5c7477f06806766398e6b6d942ab2fe2618b41993e29d04c2f019f7d050d9705",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5493,7 +5963,7 @@
           {
             "ref": "ro-crate-metadata.jsonld",
             "must_exist": true,
-            "sha256": "2aab996329d9c8523384be9a8aaaae46ea6b0d966c2d97b33ddfb856954a158f",
+            "sha256": "999f30ffab4c424f7752466555e7b48e094ad6ab5591985cdbc74d27c38cea16",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5542,6 +6012,23 @@
             ]
           },
           {
+            "ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+            "must_exist": true,
+            "sha256": "4187229bc689f3117dfe9948d2129f983e188826edc880840ea116dcbfa95681",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
             "ref": "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
             "must_exist": true,
             "sha256": "e0a5b5a0f07d65cc7e351d3f6db79fc600d84231402099c17c54ca53995d47ed",
@@ -5561,10 +6048,11 @@
         ]
       },
       "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
       "public_metadata_surface": {
         "ok": true,
-        "checked_ref_total": 6,
-        "expected_ref_total": 6,
+        "checked_ref_total": 8,
+        "expected_ref_total": 8,
         "failure_total": 0,
         "failures": []
       },
@@ -5576,11 +6064,15 @@
       "theorem_id": "OC133-NOSEND-001",
       "case_type": "no_send_hypothetical_control",
       "expected_verdict": "REJECT_PUBLIC_ACTION",
-      "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+      "failed_gate_predicates": [
+        "zenodo_deposit_allowed"
+      ],
       "model": {
         "owner_approved": true,
         "publish_requested": true,
         "publish_allowed": true,
+        "deposit_ready_metadata": true,
+        "public_record_present": true,
         "global_no_send_lock": false,
         "journal_submissions_allowed": true,
         "journal_submission_allowed": true,
@@ -5603,9 +6095,17 @@
         "high_open_total": 0,
         "public_metadata_refs": [
           {
+            "ref": ".zenodo.json",
+            "must_absent": true,
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [],
+            "require_tokens": []
+          },
+          {
             "ref": "manifest.json",
             "must_exist": true,
-            "sha256": "5904ef93bb16a8f347f69ff85961eb79fefe05fd1b0919388763131085d0cbbc",
+            "sha256": "7f8ac30325bc0be8df734479d67c21739cf67344f4f95af0e3ab9d6ff8efe828",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5622,7 +6122,7 @@
           {
             "ref": "checksums.txt",
             "must_exist": true,
-            "sha256": "aaa97d0152f744404e29e843b0e3f313ce99c66315197dd9f379c626814e3bcc",
+            "sha256": "5c7477f06806766398e6b6d942ab2fe2618b41993e29d04c2f019f7d050d9705",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5639,7 +6139,7 @@
           {
             "ref": "ro-crate-metadata.jsonld",
             "must_exist": true,
-            "sha256": "2aab996329d9c8523384be9a8aaaae46ea6b0d966c2d97b33ddfb856954a158f",
+            "sha256": "999f30ffab4c424f7752466555e7b48e094ad6ab5591985cdbc74d27c38cea16",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5688,6 +6188,23 @@
             ]
           },
           {
+            "ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+            "must_exist": true,
+            "sha256": "4187229bc689f3117dfe9948d2129f983e188826edc880840ea116dcbfa95681",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
             "ref": "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
             "must_exist": true,
             "sha256": "e0a5b5a0f07d65cc7e351d3f6db79fc600d84231402099c17c54ca53995d47ed",
@@ -5707,10 +6224,11 @@
         ]
       },
       "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
       "public_metadata_surface": {
         "ok": true,
-        "checked_ref_total": 6,
-        "expected_ref_total": 6,
+        "checked_ref_total": 8,
+        "expected_ref_total": 8,
         "failure_total": 0,
         "failures": []
       },
@@ -5722,11 +6240,15 @@
       "theorem_id": "OC133-NOSEND-001",
       "case_type": "no_send_hypothetical_control",
       "expected_verdict": "REJECT_PUBLIC_ACTION",
-      "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+      "failed_gate_predicates": [
+        "software_heritage_deposit_allowed"
+      ],
       "model": {
         "owner_approved": true,
         "publish_requested": true,
         "publish_allowed": true,
+        "deposit_ready_metadata": true,
+        "public_record_present": true,
         "global_no_send_lock": false,
         "journal_submissions_allowed": true,
         "journal_submission_allowed": true,
@@ -5749,9 +6271,17 @@
         "high_open_total": 0,
         "public_metadata_refs": [
           {
+            "ref": ".zenodo.json",
+            "must_absent": true,
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [],
+            "require_tokens": []
+          },
+          {
             "ref": "manifest.json",
             "must_exist": true,
-            "sha256": "5904ef93bb16a8f347f69ff85961eb79fefe05fd1b0919388763131085d0cbbc",
+            "sha256": "7f8ac30325bc0be8df734479d67c21739cf67344f4f95af0e3ab9d6ff8efe828",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5768,7 +6298,7 @@
           {
             "ref": "checksums.txt",
             "must_exist": true,
-            "sha256": "aaa97d0152f744404e29e843b0e3f313ce99c66315197dd9f379c626814e3bcc",
+            "sha256": "5c7477f06806766398e6b6d942ab2fe2618b41993e29d04c2f019f7d050d9705",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5785,7 +6315,7 @@
           {
             "ref": "ro-crate-metadata.jsonld",
             "must_exist": true,
-            "sha256": "2aab996329d9c8523384be9a8aaaae46ea6b0d966c2d97b33ddfb856954a158f",
+            "sha256": "999f30ffab4c424f7752466555e7b48e094ad6ab5591985cdbc74d27c38cea16",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5834,6 +6364,23 @@
             ]
           },
           {
+            "ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+            "must_exist": true,
+            "sha256": "4187229bc689f3117dfe9948d2129f983e188826edc880840ea116dcbfa95681",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
             "ref": "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
             "must_exist": true,
             "sha256": "e0a5b5a0f07d65cc7e351d3f6db79fc600d84231402099c17c54ca53995d47ed",
@@ -5853,10 +6400,11 @@
         ]
       },
       "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
       "public_metadata_surface": {
         "ok": true,
-        "checked_ref_total": 6,
-        "expected_ref_total": 6,
+        "checked_ref_total": 8,
+        "expected_ref_total": 8,
         "failure_total": 0,
         "failures": []
       },
@@ -5868,11 +6416,15 @@
       "theorem_id": "OC133-NOSEND-001",
       "case_type": "no_send_hypothetical_control",
       "expected_verdict": "REJECT_PUBLIC_ACTION",
-      "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+      "failed_gate_predicates": [
+        "journal_submission_allowed"
+      ],
       "model": {
         "owner_approved": true,
         "publish_requested": true,
         "publish_allowed": true,
+        "deposit_ready_metadata": true,
+        "public_record_present": true,
         "global_no_send_lock": false,
         "journal_submissions_allowed": true,
         "journal_submission_allowed": false,
@@ -5895,9 +6447,17 @@
         "high_open_total": 0,
         "public_metadata_refs": [
           {
+            "ref": ".zenodo.json",
+            "must_absent": true,
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [],
+            "require_tokens": []
+          },
+          {
             "ref": "manifest.json",
             "must_exist": true,
-            "sha256": "5904ef93bb16a8f347f69ff85961eb79fefe05fd1b0919388763131085d0cbbc",
+            "sha256": "7f8ac30325bc0be8df734479d67c21739cf67344f4f95af0e3ab9d6ff8efe828",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5914,7 +6474,7 @@
           {
             "ref": "checksums.txt",
             "must_exist": true,
-            "sha256": "aaa97d0152f744404e29e843b0e3f313ce99c66315197dd9f379c626814e3bcc",
+            "sha256": "5c7477f06806766398e6b6d942ab2fe2618b41993e29d04c2f019f7d050d9705",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5931,7 +6491,7 @@
           {
             "ref": "ro-crate-metadata.jsonld",
             "must_exist": true,
-            "sha256": "2aab996329d9c8523384be9a8aaaae46ea6b0d966c2d97b33ddfb856954a158f",
+            "sha256": "999f30ffab4c424f7752466555e7b48e094ad6ab5591985cdbc74d27c38cea16",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -5980,6 +6540,23 @@
             ]
           },
           {
+            "ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+            "must_exist": true,
+            "sha256": "4187229bc689f3117dfe9948d2129f983e188826edc880840ea116dcbfa95681",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
             "ref": "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
             "must_exist": true,
             "sha256": "e0a5b5a0f07d65cc7e351d3f6db79fc600d84231402099c17c54ca53995d47ed",
@@ -5999,10 +6576,11 @@
         ]
       },
       "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
       "public_metadata_surface": {
         "ok": true,
-        "checked_ref_total": 6,
-        "expected_ref_total": 6,
+        "checked_ref_total": 8,
+        "expected_ref_total": 8,
         "failure_total": 0,
         "failures": []
       },
@@ -6014,11 +6592,15 @@
       "theorem_id": "OC133-NOSEND-001",
       "case_type": "no_send_hypothetical_control",
       "expected_verdict": "REJECT_PUBLIC_ACTION",
-      "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+      "failed_gate_predicates": [
+        "doi_minting_allowed"
+      ],
       "model": {
         "owner_approved": true,
         "publish_requested": true,
         "publish_allowed": true,
+        "deposit_ready_metadata": true,
+        "public_record_present": true,
         "global_no_send_lock": false,
         "journal_submissions_allowed": true,
         "journal_submission_allowed": true,
@@ -6041,9 +6623,17 @@
         "high_open_total": 0,
         "public_metadata_refs": [
           {
+            "ref": ".zenodo.json",
+            "must_absent": true,
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [],
+            "require_tokens": []
+          },
+          {
             "ref": "manifest.json",
             "must_exist": true,
-            "sha256": "5904ef93bb16a8f347f69ff85961eb79fefe05fd1b0919388763131085d0cbbc",
+            "sha256": "7f8ac30325bc0be8df734479d67c21739cf67344f4f95af0e3ab9d6ff8efe828",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -6060,7 +6650,7 @@
           {
             "ref": "checksums.txt",
             "must_exist": true,
-            "sha256": "aaa97d0152f744404e29e843b0e3f313ce99c66315197dd9f379c626814e3bcc",
+            "sha256": "5c7477f06806766398e6b6d942ab2fe2618b41993e29d04c2f019f7d050d9705",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -6077,7 +6667,7 @@
           {
             "ref": "ro-crate-metadata.jsonld",
             "must_exist": true,
-            "sha256": "2aab996329d9c8523384be9a8aaaae46ea6b0d966c2d97b33ddfb856954a158f",
+            "sha256": "999f30ffab4c424f7752466555e7b48e094ad6ab5591985cdbc74d27c38cea16",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -6126,6 +6716,23 @@
             ]
           },
           {
+            "ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+            "must_exist": true,
+            "sha256": "4187229bc689f3117dfe9948d2129f983e188826edc880840ea116dcbfa95681",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
             "ref": "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
             "must_exist": true,
             "sha256": "e0a5b5a0f07d65cc7e351d3f6db79fc600d84231402099c17c54ca53995d47ed",
@@ -6145,10 +6752,11 @@
         ]
       },
       "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
       "public_metadata_surface": {
         "ok": true,
-        "checked_ref_total": 6,
-        "expected_ref_total": 6,
+        "checked_ref_total": 8,
+        "expected_ref_total": 8,
         "failure_total": 0,
         "failures": []
       },
@@ -6160,11 +6768,15 @@
       "theorem_id": "OC133-NOSEND-001",
       "case_type": "no_send_hypothetical_control",
       "expected_verdict": "REJECT_PUBLIC_ACTION",
-      "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+      "failed_gate_predicates": [
+        "owner_approved"
+      ],
       "model": {
         "owner_approved": false,
         "publish_requested": true,
         "publish_allowed": true,
+        "deposit_ready_metadata": true,
+        "public_record_present": true,
         "global_no_send_lock": false,
         "journal_submissions_allowed": true,
         "journal_submission_allowed": true,
@@ -6187,9 +6799,17 @@
         "high_open_total": 0,
         "public_metadata_refs": [
           {
+            "ref": ".zenodo.json",
+            "must_absent": true,
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [],
+            "require_tokens": []
+          },
+          {
             "ref": "manifest.json",
             "must_exist": true,
-            "sha256": "5904ef93bb16a8f347f69ff85961eb79fefe05fd1b0919388763131085d0cbbc",
+            "sha256": "7f8ac30325bc0be8df734479d67c21739cf67344f4f95af0e3ab9d6ff8efe828",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -6206,7 +6826,7 @@
           {
             "ref": "checksums.txt",
             "must_exist": true,
-            "sha256": "aaa97d0152f744404e29e843b0e3f313ce99c66315197dd9f379c626814e3bcc",
+            "sha256": "5c7477f06806766398e6b6d942ab2fe2618b41993e29d04c2f019f7d050d9705",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -6223,7 +6843,7 @@
           {
             "ref": "ro-crate-metadata.jsonld",
             "must_exist": true,
-            "sha256": "2aab996329d9c8523384be9a8aaaae46ea6b0d966c2d97b33ddfb856954a158f",
+            "sha256": "999f30ffab4c424f7752466555e7b48e094ad6ab5591985cdbc74d27c38cea16",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -6272,6 +6892,23 @@
             ]
           },
           {
+            "ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+            "must_exist": true,
+            "sha256": "4187229bc689f3117dfe9948d2129f983e188826edc880840ea116dcbfa95681",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
             "ref": "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
             "must_exist": true,
             "sha256": "e0a5b5a0f07d65cc7e351d3f6db79fc600d84231402099c17c54ca53995d47ed",
@@ -6291,10 +6928,11 @@
         ]
       },
       "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
       "public_metadata_surface": {
         "ok": true,
-        "checked_ref_total": 6,
-        "expected_ref_total": 6,
+        "checked_ref_total": 8,
+        "expected_ref_total": 8,
         "failure_total": 0,
         "failures": []
       },
@@ -6306,11 +6944,15 @@
       "theorem_id": "OC133-NOSEND-001",
       "case_type": "no_send_hypothetical_control",
       "expected_verdict": "REJECT_PUBLIC_ACTION",
-      "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+      "failed_gate_predicates": [
+        "publish_allowed"
+      ],
       "model": {
         "owner_approved": true,
         "publish_requested": true,
         "publish_allowed": false,
+        "deposit_ready_metadata": true,
+        "public_record_present": true,
         "global_no_send_lock": false,
         "journal_submissions_allowed": true,
         "journal_submission_allowed": true,
@@ -6333,9 +6975,17 @@
         "high_open_total": 0,
         "public_metadata_refs": [
           {
+            "ref": ".zenodo.json",
+            "must_absent": true,
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [],
+            "require_tokens": []
+          },
+          {
             "ref": "manifest.json",
             "must_exist": true,
-            "sha256": "5904ef93bb16a8f347f69ff85961eb79fefe05fd1b0919388763131085d0cbbc",
+            "sha256": "7f8ac30325bc0be8df734479d67c21739cf67344f4f95af0e3ab9d6ff8efe828",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -6352,7 +7002,7 @@
           {
             "ref": "checksums.txt",
             "must_exist": true,
-            "sha256": "aaa97d0152f744404e29e843b0e3f313ce99c66315197dd9f379c626814e3bcc",
+            "sha256": "5c7477f06806766398e6b6d942ab2fe2618b41993e29d04c2f019f7d050d9705",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -6369,7 +7019,7 @@
           {
             "ref": "ro-crate-metadata.jsonld",
             "must_exist": true,
-            "sha256": "2aab996329d9c8523384be9a8aaaae46ea6b0d966c2d97b33ddfb856954a158f",
+            "sha256": "999f30ffab4c424f7752466555e7b48e094ad6ab5591985cdbc74d27c38cea16",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -6418,6 +7068,23 @@
             ]
           },
           {
+            "ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+            "must_exist": true,
+            "sha256": "4187229bc689f3117dfe9948d2129f983e188826edc880840ea116dcbfa95681",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
             "ref": "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
             "must_exist": true,
             "sha256": "e0a5b5a0f07d65cc7e351d3f6db79fc600d84231402099c17c54ca53995d47ed",
@@ -6437,10 +7104,363 @@
         ]
       },
       "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
       "public_metadata_surface": {
         "ok": true,
-        "checked_ref_total": 6,
-        "expected_ref_total": 6,
+        "checked_ref_total": 8,
+        "expected_ref_total": 8,
+        "failure_total": 0,
+        "failures": []
+      },
+      "observed_verdict": "REJECT_PUBLIC_ACTION",
+      "passed": true
+    },
+    {
+      "case_id": "ADV-NOSEND-PARTIAL-LOCK-DEPOSIT_READY_METADATA",
+      "theorem_id": "OC133-NOSEND-001",
+      "case_type": "no_send_hypothetical_control",
+      "expected_verdict": "REJECT_PUBLIC_ACTION",
+      "failed_gate_predicates": [
+        "deposit_ready_metadata"
+      ],
+      "model": {
+        "owner_approved": true,
+        "publish_requested": true,
+        "publish_allowed": true,
+        "deposit_ready_metadata": false,
+        "public_record_present": true,
+        "global_no_send_lock": false,
+        "journal_submissions_allowed": true,
+        "journal_submission_allowed": true,
+        "github_release_allowed": true,
+        "zenodo_deposit_allowed": true,
+        "software_heritage_deposit_allowed": true,
+        "doi_minting_allowed": true,
+        "requested_channels": [
+          "github_release",
+          "zenodo_deposit",
+          "software_heritage_deposit",
+          "journal_submission",
+          "doi_minting"
+        ],
+        "fresh_cerberus_required_for_release": true,
+        "g57_attack_matrix_zero_critical_high": true,
+        "g58_reviewer_persona_suite_pass": true,
+        "g70_scientific_closure_verdict_pass": true,
+        "critical_open_total": 0,
+        "high_open_total": 0,
+        "public_metadata_refs": [
+          {
+            "ref": ".zenodo.json",
+            "must_absent": true,
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [],
+            "require_tokens": []
+          },
+          {
+            "ref": "manifest.json",
+            "must_exist": true,
+            "sha256": "7f8ac30325bc0be8df734479d67c21739cf67344f4f95af0e3ab9d6ff8efe828",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": "checksums.txt",
+            "must_exist": true,
+            "sha256": "5c7477f06806766398e6b6d942ab2fe2618b41993e29d04c2f019f7d050d9705",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": "ro-crate-metadata.jsonld",
+            "must_exist": true,
+            "sha256": "999f30ffab4c424f7752466555e7b48e094ad6ab5591985cdbc74d27c38cea16",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": "CITATION.cff",
+            "must_exist": true,
+            "sha256": "6a5ebf2abb4b372e0c3a3b7bddbfb73f0c6f6e3484afa5a131ab0ab695c56a06",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": ".codemeta.json",
+            "must_exist": true,
+            "sha256": "a8d0dc7da4d1f33ed3dd53e37d326f9fccead48342a043c28f2e74bdacf464a7",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+            "must_exist": true,
+            "sha256": "4187229bc689f3117dfe9948d2129f983e188826edc880840ea116dcbfa95681",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
+            "must_exist": true,
+            "sha256": "e0a5b5a0f07d65cc7e351d3f6db79fc600d84231402099c17c54ca53995d47ed",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          }
+        ]
+      },
+      "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+      "public_metadata_surface": {
+        "ok": true,
+        "checked_ref_total": 8,
+        "expected_ref_total": 8,
+        "failure_total": 0,
+        "failures": []
+      },
+      "observed_verdict": "REJECT_PUBLIC_ACTION",
+      "passed": true
+    },
+    {
+      "case_id": "ADV-NOSEND-PARTIAL-LOCK-PUBLIC_RECORD_PRESENT",
+      "theorem_id": "OC133-NOSEND-001",
+      "case_type": "no_send_hypothetical_control",
+      "expected_verdict": "REJECT_PUBLIC_ACTION",
+      "failed_gate_predicates": [
+        "public_record_present"
+      ],
+      "model": {
+        "owner_approved": true,
+        "publish_requested": true,
+        "publish_allowed": true,
+        "deposit_ready_metadata": true,
+        "public_record_present": false,
+        "global_no_send_lock": false,
+        "journal_submissions_allowed": true,
+        "journal_submission_allowed": true,
+        "github_release_allowed": true,
+        "zenodo_deposit_allowed": true,
+        "software_heritage_deposit_allowed": true,
+        "doi_minting_allowed": true,
+        "requested_channels": [
+          "github_release",
+          "zenodo_deposit",
+          "software_heritage_deposit",
+          "journal_submission",
+          "doi_minting"
+        ],
+        "fresh_cerberus_required_for_release": true,
+        "g57_attack_matrix_zero_critical_high": true,
+        "g58_reviewer_persona_suite_pass": true,
+        "g70_scientific_closure_verdict_pass": true,
+        "critical_open_total": 0,
+        "high_open_total": 0,
+        "public_metadata_refs": [
+          {
+            "ref": ".zenodo.json",
+            "must_absent": true,
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [],
+            "require_tokens": []
+          },
+          {
+            "ref": "manifest.json",
+            "must_exist": true,
+            "sha256": "7f8ac30325bc0be8df734479d67c21739cf67344f4f95af0e3ab9d6ff8efe828",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": "checksums.txt",
+            "must_exist": true,
+            "sha256": "5c7477f06806766398e6b6d942ab2fe2618b41993e29d04c2f019f7d050d9705",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": "ro-crate-metadata.jsonld",
+            "must_exist": true,
+            "sha256": "999f30ffab4c424f7752466555e7b48e094ad6ab5591985cdbc74d27c38cea16",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": "CITATION.cff",
+            "must_exist": true,
+            "sha256": "6a5ebf2abb4b372e0c3a3b7bddbfb73f0c6f6e3484afa5a131ab0ab695c56a06",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": ".codemeta.json",
+            "must_exist": true,
+            "sha256": "a8d0dc7da4d1f33ed3dd53e37d326f9fccead48342a043c28f2e74bdacf464a7",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+            "must_exist": true,
+            "sha256": "4187229bc689f3117dfe9948d2129f983e188826edc880840ea116dcbfa95681",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
+            "ref": "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
+            "must_exist": true,
+            "sha256": "e0a5b5a0f07d65cc7e351d3f6db79fc600d84231402099c17c54ca53995d47ed",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          }
+        ]
+      },
+      "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+      "public_metadata_surface": {
+        "ok": true,
+        "checked_ref_total": 8,
+        "expected_ref_total": 8,
         "failure_total": 0,
         "failures": []
       },
@@ -6452,11 +7472,15 @@
       "theorem_id": "OC133-NOSEND-001",
       "case_type": "no_send_hypothetical_control",
       "expected_verdict": "REJECT_PUBLIC_ACTION",
-      "lean_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
+      "failed_gate_predicates": [
+        "global_no_send_lock"
+      ],
       "model": {
         "owner_approved": true,
         "publish_requested": true,
         "publish_allowed": true,
+        "deposit_ready_metadata": true,
+        "public_record_present": true,
         "global_no_send_lock": true,
         "journal_submissions_allowed": true,
         "journal_submission_allowed": true,
@@ -6479,9 +7503,17 @@
         "high_open_total": 0,
         "public_metadata_refs": [
           {
+            "ref": ".zenodo.json",
+            "must_absent": true,
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [],
+            "require_tokens": []
+          },
+          {
             "ref": "manifest.json",
             "must_exist": true,
-            "sha256": "5904ef93bb16a8f347f69ff85961eb79fefe05fd1b0919388763131085d0cbbc",
+            "sha256": "7f8ac30325bc0be8df734479d67c21739cf67344f4f95af0e3ab9d6ff8efe828",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -6498,7 +7530,7 @@
           {
             "ref": "checksums.txt",
             "must_exist": true,
-            "sha256": "aaa97d0152f744404e29e843b0e3f313ce99c66315197dd9f379c626814e3bcc",
+            "sha256": "5c7477f06806766398e6b6d942ab2fe2618b41993e29d04c2f019f7d050d9705",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -6515,7 +7547,7 @@
           {
             "ref": "ro-crate-metadata.jsonld",
             "must_exist": true,
-            "sha256": "2aab996329d9c8523384be9a8aaaae46ea6b0d966c2d97b33ddfb856954a158f",
+            "sha256": "999f30ffab4c424f7752466555e7b48e094ad6ab5591985cdbc74d27c38cea16",
             "expected_release_id": "oc_core_1_3_3",
             "expected_version": "1.3.3",
             "forbid_tokens": [
@@ -6564,6 +7596,23 @@
             ]
           },
           {
+            "ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+            "must_exist": true,
+            "sha256": "4187229bc689f3117dfe9948d2129f983e188826edc880840ea116dcbfa95681",
+            "expected_release_id": "oc_core_1_3_3",
+            "expected_version": "1.3.3",
+            "forbid_tokens": [
+              "1.3.2",
+              "v1.3.2",
+              "10.5281/zenodo.",
+              "oc_core_1_3_2",
+              ".zenodo.json"
+            ],
+            "require_tokens": [
+              "1.3.3"
+            ]
+          },
+          {
             "ref": "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
             "must_exist": true,
             "sha256": "e0a5b5a0f07d65cc7e351d3f6db79fc600d84231402099c17c54ca53995d47ed",
@@ -6583,10 +7632,11 @@
         ]
       },
       "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
+      "semantic_evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
       "public_metadata_surface": {
         "ok": true,
-        "checked_ref_total": 6,
-        "expected_ref_total": 6,
+        "checked_ref_total": 8,
+        "expected_ref_total": 8,
         "failure_total": 0,
         "failures": []
       },

@@ -3,7 +3,7 @@
 Status: `BLOCKED_PENDING_ADVERSARIAL_REPAIR_V12`
 Primary artifact: `content/OC_1_3_3_CYCLE_TAXONOMY.tex`
 Machine-checked subset: `formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance`
-Attacked claim: Promoted eligible-live status requires an explicit cycle mode or non-vacuous maintenance predicate.
+Attacked claim: Declared eligible-live status requires an explicit cycle mode or non-vacuous maintenance predicate.
 
 ## Assumptions
 - Live status is not static persistence.

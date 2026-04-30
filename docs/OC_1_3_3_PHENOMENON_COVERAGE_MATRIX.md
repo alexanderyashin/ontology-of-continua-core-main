@@ -1,4 +1,4 @@
-# OC Core 1.3.3 Phenomenon Coverage Matrix
+# OC Core 1.3.3 Internal Model-Card Gap Register
 
 | ID | Question | Model | Observable | Status |
 | --- | --- | --- | --- | --- |

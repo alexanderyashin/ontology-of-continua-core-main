@@ -3,31 +3,39 @@
   "role": "formal_mathematician",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 2,
-  "finding_total": 3,
+  "high_open_total": 0,
+  "finding_total": 4,
   "findings": [
     {
-      "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-HYBRID: OC operators are typed update semantics; chart-labelled flow-one notation is admitted only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth cases.",
-      "failure_mode": "The cited Lean theorem operator_admission_route_obligations only decomposes Boolean fields of OperatorAdmission. It does not mention SmoothSystem.flow, flow-one notation, smoothAsUpdate, or step_eq_flow_one, and it does not prove existence of first-class proof/rewrite or guard/reset update systems. The public claim's flow-one and hybrid-update semantics are therefore not the proposition proved by the cited theorem.",
-      "required_repair": "Replace or supplement the T133-HYBRID lean_ref with a theorem whose statement includes SmoothSystem as an UpdateSystem flow-one case, chart/domain/local-law obligations for smooth admission, and typed non-derivative guard-reset/proof-rewrite admitted cases; update the theorem inventory, proof ledger, and build certificate to cite that theorem.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "artifact_ref": "formal/lean/OC133V12.lean",
       "claim": "T133-BOUNDARY: Metric thresholds are a specialization of typed classifier boundaries.",
-      "failure_mode": "MetricBoundary is defined only as measure : S -> Nat plus threshold : Nat. No metric, distance function, metric-space law, or ordered codomain abstraction appears in the theorem. metric_boundary_specialization proves that a Nat-valued scalar threshold can be wrapped as a classifier, not the stated metric-threshold proposition.",
-      "required_repair": "Either narrow the public claim to declared Nat-valued measurement thresholds, or strengthen the formalization with an actual metric/ordered-threshold structure and prove the classifier-specialization theorem for that structure.",
+      "failure_mode": "The Lean structure called MetricBoundary only supplies an arbitrary distance : S -> S -> Nat, center, and threshold. No metric or pseudometric axioms are present, so metric_boundary_specialization proves only that a declared Nat-valued measurement threshold can be wrapped as a classifier. It does not prove a formal metric-threshold specialization in the mathematical sense.",
+      "required_repair": "Either rename/scope the public claim to 'declared Nat-valued measurement-threshold classifiers' or add a metric/pseudometric structure with the relevant axioms and restate metric_boundary_specialization over that structure.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
       "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-HYBRID: OC operators are typed update semantics; chart-labelled flow-one notation is admitted only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth cases.",
+      "failure_mode": "The inventory Lean ref integrated_operator_semantics proves consequences only after smooth, hybrid, and proof admissions plus an actual chart are already assumed. The standalone admission predicate operatorAdmitted is not tied to an actual SmoothSystem chart record, and the cited theorem does not itself state the intended only-if rule for flow notation or the independent first-class admission of non-smooth routes. Those properties are split across helper/finite checks rather than the advertised theorem.",
+      "required_repair": "Replace or supplement the cited Lean theorem with an explicit admission theorem quantifying over OperatorAdmission and the relevant system records, proving that flow-one notation is admitted only for an actually declared chart record and that guard/reset and proof/rewrite routes are admitted without smooth-chart assumptions under their own typed obligations.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "LOW",
+      "artifact_ref": "formal/lean/OC133V12.lean",
       "claim": "T133-KLEVEL: Every declared adjacent K-level transition K0->K12 has a release-atlas row, retained-witness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release classifier.",
-      "failure_mode": "release_atlas_manifest_has_total_finite_case_coverage proves properties of internally constructed rows whose retainedWitnessPresent and demotionControlPresent fields are hard-coded true. It proves finite-case ID strings, not that executable finite rows exist or that an external evaluator actually checked those rows. The finite-model artifact supplies that evidence, but the cited Lean theorem alone does not prove the public proposition as worded.",
-      "required_repair": "Split the public claim into a Lean-internal atlas-row theorem and a finite-execution evidence claim, or generate/import a certified manifest object into Lean so the theorem quantifies over the actual finite rows and evaluator results.",
+      "failure_mode": "release_atlas_manifest_has_total_finite_case_coverage proves coverage for internally generated Lean constructors and internally generated retained/demotion evidence. It does not by itself certify the external atlas JSON rows or the semantic content of each added axis; that binding is outside the Lean theorem and rests on finite-model/report plumbing.",
+      "required_repair": "Keep the public boundary explicit that this is classifier-manifest consistency only, or generate/import the atlas rows as Lean data with a hash-bound manifest theorem proving the external rows match the Lean constructors and case ids.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "LOW",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-MIN: Within the declared v12 release tuple semantics, each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.",
+      "failure_mode": "release_tuple_semantic_component_irredundant is a hard-coded Boolean conjunction over fullSemanticCase and dropSemanticComponent. It proves the declared toy verdict table is sensitive to each enum field, not a stronger global minimality or independence result outside that declared table. The current public wording is mostly scoped correctly, but the theorem title and inventory still risk reading as mathematical minimality.",
+      "required_repair": "Retain the 'declared v12 release tuple semantics' limitation everywhere this theorem is referenced, or replace the hard-coded table proof with a theorem over an imported/hash-bound component witness ledger and an explicitly specified semantic evaluator.",
       "status": "OPEN"
     }
   ],

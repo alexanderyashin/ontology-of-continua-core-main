@@ -13,21 +13,21 @@
     "master_verdict": "FAIL",
     "gate_counts": {
       "BLOCKED": 1,
-      "FAIL": 2,
+      "FAIL": 3,
       "NOT_APPLICABLE": 0,
       "NOT_RUN": 0,
-      "PASS": 68,
+      "PASS": 67,
       "WARN": 0
     },
     "critical_findings": 3,
-    "high_findings": 0,
-    "finding_total": 3,
+    "high_findings": 1,
+    "finding_total": 4,
     "owner_approval_required": true,
     "global_no_send_lock": true,
     "publish_allowed": false,
     "journal_submissions_allowed": false,
     "package": "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip",
-    "package_sha256": "4c62108b29b0101f9ca4adf51e80e5b3df95cae2fa3ebb3e7ace6fce2b3d8df7",
+    "package_sha256": "54c20dc9f5a93de10b3c23e68618028fb471503848e75785213f2e79a0fdcf33",
     "artifact_total": 200
   },
   "gate_results": [
@@ -841,30 +841,31 @@
       "details": {
         "state": "FAIL",
         "objection_total": 215,
-        "critical_unresolved_total": 1,
-        "high_unresolved_total": 18,
+        "critical_unresolved_total": 2,
+        "high_unresolved_total": 106,
         "fresh_cerberus_review_satisfied": false,
         "fresh_cerberus_review_gate_status": "BLOCKED_PENDING_FRESH_ZERO_CRITICAL_HIGH_REVIEW",
         "attack_closure_failures": [
-          "CERBERUS-001-clarity_didactic_reviewer",
-          "CERBERUS-002-clarity_didactic_reviewer",
-          "CERBERUS-003-dynamical_systems_reviewer",
-          "CERBERUS-004-dynamical_systems_reviewer",
-          "CERBERUS-005-dynamical_systems_reviewer",
-          "CERBERUS-006-empirical_statistician",
-          "CERBERUS-007-formal_mathematician",
-          "CERBERUS-008-formal_mathematician",
-          "CERBERUS-009-hostile_journal_reviewer",
+          "CERBERUS-001-claim_boundary_auditor",
+          "CERBERUS-002-claim_boundary_auditor",
+          "CERBERUS-003-claim_boundary_auditor",
+          "CERBERUS-004-claim_boundary_auditor",
+          "CERBERUS-005-claim_boundary_auditor",
+          "CERBERUS-006-clarity_didactic_reviewer",
+          "CERBERUS-007-clarity_didactic_reviewer",
+          "CERBERUS-008-clarity_didactic_reviewer",
+          "CERBERUS-009-dynamical_systems_reviewer",
           "CERBERUS-010-hostile_journal_reviewer",
           "CERBERUS-011-hostile_journal_reviewer",
-          "CERBERUS-012-prior_art_historian",
-          "CERBERUS-013-prior_art_historian",
-          "CERBERUS-014-public_surface_auditor",
-          "CERBERUS-015-public_surface_auditor",
+          "CERBERUS-012-hostile_journal_reviewer",
+          "CERBERUS-013-hostile_journal_reviewer",
+          "CERBERUS-014-hostile_journal_reviewer",
+          "CERBERUS-015-hostile_journal_reviewer",
           "CERBERUS-016-public_surface_auditor",
-          "CERBERUS-017-public_surface_auditor",
-          "CERBERUS-018-public_surface_auditor",
-          "CERBERUS-019-reproducibility_auditor"
+          "CERBERUS-017-reproducibility_auditor",
+          "CERBERUS-018-reproducibility_auditor",
+          "DET-T133-K0-RES-ASSUMPTION",
+          "DET-T133-K0-RES-LEAN"
         ]
       },
       "executed": true
@@ -880,18 +881,16 @@
         "execution_status": "EXECUTED_WITH_OPEN_FINDINGS",
         "role_total": 14,
         "bad_results": [
-          "reviews/oc133_llm_cerberus/results/formal_mathematician.json",
           "reviews/oc133_llm_cerberus/results/dynamical_systems_reviewer.json",
-          "reviews/oc133_llm_cerberus/results/empirical_statistician.json",
-          "reviews/oc133_llm_cerberus/results/prior_art_historian.json",
           "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
           "reviews/oc133_llm_cerberus/results/clarity_didactic_reviewer.json",
           "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json",
+          "reviews/oc133_llm_cerberus/results/claim_boundary_auditor.json",
           "reviews/oc133_llm_cerberus/results/public_surface_auditor.json"
         ],
         "pending_role_total": 0,
-        "critical_open_total": 1,
-        "high_open_total": 18,
+        "critical_open_total": 2,
+        "high_open_total": 16,
         "parse_failure_total": 0
       },
       "executed": true
@@ -951,7 +950,10 @@
           "ro_crate_mentions_version": true,
           "public_manifest_release_id": true,
           "public_manifest_version": true,
-          "checksums_mentions_manifest": true
+          "checksums_mentions_manifest": true,
+          "public_manifest_mentions_phenomenon_matrix": true,
+          "checksums_mentions_phenomenon_matrix": true,
+          "ro_crate_mentions_phenomenon_matrix": true
         }
       },
       "executed": true
@@ -959,16 +961,18 @@
     {
       "gate_id": "G62",
       "name": "G62_LLM_SCHEMA_CLAIM_BOUNDARY_PASS",
-      "state": "PASS",
+      "state": "FAIL",
       "severity": "HIGH",
       "summary": "G62_LLM_SCHEMA_CLAIM_BOUNDARY_PASS checked by v12 no-compromise release profile.",
       "details": {
-        "state": "PASS",
+        "state": "FAIL",
         "absolute_hit_total": 0,
         "absolute_hits": [],
         "phenomenon_rows": 15,
         "phenomenon_failures": [],
-        "phenomenon_missing_controls": []
+        "phenomenon_missing_controls": [
+          "P015"
+        ]
       },
       "executed": true
     },
@@ -1033,7 +1037,10 @@
           "ro_crate_mentions_version": true,
           "public_manifest_release_id": true,
           "public_manifest_version": true,
-          "checksums_mentions_manifest": true
+          "checksums_mentions_manifest": true,
+          "public_manifest_mentions_phenomenon_matrix": true,
+          "checksums_mentions_phenomenon_matrix": true,
+          "ro_crate_mentions_phenomenon_matrix": true
         },
         "no_send_checks": {
           "publish_allowed_false": true,
@@ -1083,7 +1090,10 @@
           "ro_crate_mentions_version": true,
           "public_manifest_release_id": true,
           "public_manifest_version": true,
-          "checksums_mentions_manifest": true
+          "checksums_mentions_manifest": true,
+          "public_manifest_mentions_phenomenon_matrix": true,
+          "checksums_mentions_phenomenon_matrix": true,
+          "ro_crate_mentions_phenomenon_matrix": true
         },
         "no_send_checks": {
           "publish_allowed_false": true,
@@ -1139,7 +1149,7 @@
       "severity": "CRITICAL",
       "summary": "G70_10_10_SCIENTIFIC_CLOSURE_VERDICT checked by v12 no-compromise release profile.",
       "details": {
-        "prior_critical_high_bad_total": 2,
+        "prior_critical_high_bad_total": 3,
         "release_state_on_pass": "OC_CORE_1_3_3_10_10_READY_NO_SEND"
       },
       "executed": true

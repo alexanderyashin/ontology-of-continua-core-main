@@ -45,7 +45,7 @@ def main() -> int:
         "lane": LANE,
         "release_id": "oc_core_1_3_3",
         "version": "1.3.3",
-        "result_verdict": "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS" if not failures else "FAIL",
+        "result_verdict": "NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION" if not failures else "FAIL",
         "remaining_blocker": packet.get("remaining_blocker") or "NOT_EMPIRICAL_PROMOTION_NUMERIC_REPLAY_QA_ONLY",
         "failure_total": len(failures),
         "failures": failures,

@@ -3,31 +3,23 @@
   "role": "dynamical_systems_reviewer",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 3,
-  "finding_total": 3,
+  "high_open_total": 2,
+  "finding_total": 2,
   "findings": [
     {
       "severity": "HIGH",
       "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-HYBRID: guard/reset updates are first-class non-smooth typed update semantics.",
-      "failure_mode": "The admission predicate admits guard/reset only when guardObserved=true, but the same formal section proves hybrid_no_guard_uses_update and the finite model accepts FM-T133-HYBRID-NO-GUARD-STEP-POS while computed_operator_admission.route_admitted=false. This splits executable hybrid semantics from operator admission: the false-guard branch is treated as a valid update by the theorem/runner but is not an admitted operator route.",
-      "required_repair": "Unify the hybrid admission semantics: either split guard/reset into trigger and pass-through update routes, or extend operatorAdmitted with an explicitly typed/admissible false-guard step branch. Then require every ACCEPT T133-HYBRID finite row to have computed_operator_admission.route_admitted=true, and add negative controls for false-guard step typing/admissibility failures.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-HYBRID: no differentiability or ODE-solution theorem is promoted; chart-labelled flow-one notation is only a declared chart/domain/local-law record.",
-      "failure_mode": "The formal API still defines SmoothChart.derivative and derivativeAvailable as mere chart presence, while finite T133-HYBRID smooth-chart positive cases accept derivative_requested=true. A chart token plus arbitrary derivative field is enough to make derivativeAvailable=true, with no differentiability, vector-field, smoothness, flow law, or ODE obligation. This is a hidden differentiability-admission claim despite the textual demotion.",
-      "required_repair": "Remove or rename derivativeAvailable/derivativeRequested for v12 to chartRecordPresent/flowNotationRequested, require derivativeRequested=false in all no-ODE release checks, or add explicit mathematical obligations for differentiability/vector-field/flow semantics before any derivative-positive case can be accepted.",
+      "claim": "T133-HYBRID: OC operators are typed update semantics; chart-labelled flow-one notation is admitted only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth cases.",
+      "failure_mode": "The guard/reset formal admission is still self-attested label logic. `operatorAdmitted` admits the guard/reset route from booleans such as `guardEvaluated`, `resetSourceTyped`, `resetTargetTyped`, and `resetAdmissible`, but it does not use `guardValue`, and the reset typing booleans are not tied to `HybridSystem.mode xh` or `HybridSystem.mode (h.reset xh)`. `guard_reset_binding_obligations` obtains `a.guardValue = h.guard xh` and `a.resetAdmissible = h.admissible (h.reset xh)` only as assumptions, not as consequences of admission. This leaves the advertised typed guard/reset semantics as theorem theater rather than a bound hybrid transition semantics.",
+      "required_repair": "Replace or supplement `OperatorAdmission` with a bound hybrid admission record parameterized by the `HybridSystem` and source state, requiring guard observation equality, source-mode equality, reset-target mode equality, codomain/type binding, and reset admissibility as formal fields tied to `h`. Derive guard/reset execution only from that bound record, or demote T133-HYBRID to a label-level classifier claim.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
-      "claim": "OC133-NOSEND-001 and package-level release gate: public release remains blocked until fresh G57/G58/G70 Cerberus review plus owner approval and explicit manifest/channel unlocks.",
-      "failure_mode": "hypothetical_owner_approved_control returns ALLOW_AFTER_OWNER_APPROVAL when owner_approved, global_no_send_lock=false, publish_allowed, journal_submissions_allowed, and requested channel flags are true. It does not model the ledger's fresh_cerberus_required_for_release / G57-G58-G70 gate, yet FINITE_MODEL_CHECKS promotes this allow branch as the negative control for no-send.",
-      "required_repair": "Add explicit fresh-review gate fields to the no-send state machine and finite rows, require G57/G58/G70 pass states before ALLOW_AFTER_OWNER_APPROVAL, and change the current hypothetical allow control to REJECT_PUBLIC_ACTION unless those fresh-review fields are present and true.",
+      "claim": "T133-HYBRID finite evidence supports guard/reset update semantics and the rejection of smooth/ODE leakage.",
+      "failure_mode": "The executable checker computes `guard_evaluated = isinstance(model.get(\"guard\"), bool)` in `operator_admission_evidence`, but the actual T133-HYBRID verdict path uses `guard = bool(model.get(\"guard\"))` and does not require the computed `route_admitted` result. A missing or non-boolean guard can therefore be silently coerced to the false branch and accepted if `actual_next` matches `step_target`; the current generated finite rows only exercise boolean true/false guards and do not include a missing/non-boolean guard negative control.",
+      "required_repair": "Make the T133-HYBRID evaluator reject unless `operator_admission_evidence(model)[\"route_admitted\"]` is true and `model[\"guard\"]` is explicitly boolean before branch selection. Add finite negative controls for missing guard, non-boolean guard, guard-value mismatch, and reset source/target mode binding failures, then regenerate `proofs/FINITE_MODEL_CHECKS_1_3_3.json`.",
       "status": "OPEN"
     }
   ],

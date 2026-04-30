@@ -4,25 +4,33 @@
     {
       "severity": "MEDIUM",
       "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-K-ZERO: Continuumness zero requires live support, an independently clear obstruction ledger, and a declared zero-cause family.",
-      "failure_mode": "The Lean evidence is definitional over booleans: computedK is defined directly from obstructionActiveBool, and the theorem only unfolds kZeroLicensed into hasZeroCause plus obstructionActiveBool=false. It does not establish an independent obstruction ledger; it assumes the obstruction flags inside the same record.",
-      "required_repair": "Either weaken the claim wording to 'declared clear obstruction flags' or add an independently supplied obstruction-ledger witness with a non-circular binding theorem showing k=0 follows only after that independent ledger is checked.",
+      "claim": "T133-MIN: Within the declared v12 release tuple semantics, each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.",
+      "failure_mode": "The Lean evidence is circular over its own evaluator: semanticVerdict is a conjunction over fullSemanticCase, dropSemanticComponent flips exactly one Boolean to false, and release_tuple_semantic_component_irredundant is discharged by case split/native_decide. This establishes regression sensitivity of the declared classifier, not independent component irredundancy. Current ledgers demote the row to no-send formal consistency, so this is not critical/high.",
+      "required_repair": "Keep the public boundary as a synthetic release-classifier regression test, or replace it with independently sourced per-component models and a non-circular evaluator that proves irredundancy without constructing the failure from the same drop function.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
       "artifact_ref": "formal/lean/OC133V12.lean",
       "claim": "T133-KLEVEL: Every declared adjacent K-level transition K0->K12 has a release-atlas row, retained-witness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release classifier.",
-      "failure_mode": "The Lean theorem proves coverage using constructors and booleans generated inside the Lean file: retainedClassifierEvidence sets retainedWitnessMatches=true and verdictChanges=true, and releaseReductionFails merely rechecks those fields. This is release-manifest consistency, not an independent evaluator of K-level irreducibility or witness semantics.",
-      "required_repair": "Keep the claim explicitly limited to manifest/classifier bookkeeping, or add an external-hash-bound evaluator theorem that consumes the finite atlas rows and proves the retained/demotion verdicts from non-oracle witness data.",
+      "failure_mode": "The Lean evidence is a hard-coded atlas/manifest consistency check: retainedTransitionEvidence, demotedTransitionEvidence, releaseAtlasManifestRow, retainedClassifierEvidence, and demotedClassifierEvidence are all generated from the same AdjacentK code tables. It does not prove semantic K-level irreducibility beyond the declared classifier. The current claim boundary acknowledges this, so severity is reduced.",
+      "required_repair": "Keep the no-send classifier wording, or add a formal semantic reduction relation plus independently authored witness data so the theorem proves reduction failure rather than self-consistency of generated rows.",
       "status": "OPEN"
     },
     {
-      "severity": "LOW",
+      "severity": "MEDIUM",
       "artifact_ref": "formal/lean/OC133V12.lean",
-      "claim": "T133-MIN: Within the declared v12 release tuple semantics, each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.",
-      "failure_mode": "The minimality evidence is structurally circular: semanticVerdict is a conjunction of component booleans, and each drop case flips one conjunct to false. This supports the bounded declared-tuple claim, but not any stronger minimality, independence, or necessity claim outside that hand-built conjunction.",
-      "required_repair": "Preserve the current no-send limitation and add a guard in the claim/proof ledger stating that T133-MIN is only conjunction sensitivity; require independent semantics or nontrivial dependency analysis before any minimality language beyond the declared tuple is promoted.",
+      "claim": "T133-BOUNDARY: Metric thresholds are a specialization of typed classifier boundaries.",
+      "failure_mode": "metric_boundary_specialization is an adapter lemma by definition: metricAsClassifier is defined from metricMeasure and the proof is rfl/And.intro. It does not establish a representation theorem for arbitrary boundaries or validate any measurement rule; the finite negative only rejects a missing declared measure. Current ledgers keep this no-send and non-scientific.",
+      "required_repair": "Either rename/scope it as a definitional adapter check, or formalize the measurement rule and prove metric-threshold boundaries instantiate the classifier interface under that rule with explicit exclusions for non-measured social/logical boundaries.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "formal/lean/OC133V12.lean",
+      "claim": "T133-K-ZERO: Continuumness zero requires live support, an independently clear obstruction ledger, and a declared zero-cause family; a zero-cause label alone does not compute k=0.",
+      "failure_mode": "computedK is defined solely as if obstructionActiveBool then 1 else 0, and kZeroLicensed packs hasZeroCause with computedK = 0. continuumness_zero_case_iff_declared_zero_cause_with_support unfolds these definitions; it does not formalize independence or provenance of the obstruction ledger. The finite checks exercise Boolean fields, not an independent obstruction evaluator.",
+      "required_repair": "Formalize an independent obstruction-ledger type/evaluator with provenance separate from the zero-cause label, or reduce the claim wording to a Boolean release-consistency check over declared fields.",
       "status": "OPEN"
     }
   ]

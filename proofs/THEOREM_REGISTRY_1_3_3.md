@@ -11,7 +11,7 @@ Each row below is a proof-obligation ledger, not only a status table. The public
 | `T133-HYBRID` | public claim must match assumptions and counterexample boundary | `proofs/proof_sheets/T133-HYBRID.md` | `formal/lean/OC133V12.lean::integrated_operator_semantics` | `FM-T133-HYBRID-POS`, `FM-T133-HYBRID-NEG` |
 | `T133-DIM` | public claim must match assumptions and counterexample boundary | `proofs/proof_sheets/T133-DIM.md` | `formal/lean/OC133V12.lean::historical_axis_survives_rank_drop` | `FM-T133-DIM-POS`, `FM-T133-DIM-NEG` |
 | `T133-CYCLE` | public claim must match assumptions and counterexample boundary | `proofs/proof_sheets/T133-CYCLE.md` | `formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance` | `FM-T133-CYCLE-POS`, `FM-T133-CYCLE-NEG` |
-| `T133-ID` | public claim must match assumptions and counterexample boundary | `proofs/proof_sheets/T133-ID.md` | `formal/lean/OC133V12.lean::endpoint_bound_identity_classification` | `FM-T133-ID-POS`, `FM-T133-ID-NEG` |
+| `T133-ID` | public claim must match assumptions and counterexample boundary | `proofs/proof_sheets/T133-ID.md` | `formal/lean/OC133V12.lean::endpoint_bound_identity_classification` | `FM-T133-ID-IDENTITY-POS`, `FM-T133-ID-NEG` |
 | `T133-MIN` | public claim must match assumptions and counterexample boundary | `proofs/proof_sheets/T133-MIN.md` | `formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant` | `FM-T133-MIN-POS`, `FM-T133-MIN-NEG` |
 | `T133-KLEVEL` | public claim must match assumptions and counterexample boundary | `proofs/proof_sheets/T133-KLEVEL.md` | `formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage` | `FM-T133-KLEVEL-POS`, `FM-T133-KLEVEL-NEG` |
 

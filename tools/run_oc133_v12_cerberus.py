@@ -371,6 +371,7 @@ def fresh_context_ref(role: str, ref: str) -> str:
     excluded_rows = [row for row in rows if row.get("source") == "llm_cerberus"]
     view = dict(payload)
     view["fresh_cerberus_context_view"] = True
+    view["release_closure_matrix_kind"] = "ROLE_CONTEXT_VIEW_NOT_RELEASE_MATRIX"
     view["source_attack_matrix_ref"] = ref
     view["excluded_prior_llm_cerberus_row_total"] = len(excluded_rows)
     view["fresh_context_policy"] = (
@@ -393,12 +394,13 @@ def fresh_context_ref(role: str, ref: str) -> str:
     summary = json.loads(summary_path.read_text(encoding="utf-8")) if summary_path.exists() else {}
     fresh_critical = int(summary.get("critical_open_total", 0) or 0)
     fresh_high = int(summary.get("high_open_total", 0) or 0)
-    view["critical_unresolved_total"] = deterministic_critical
-    view["high_unresolved_total"] = deterministic_high
+    view["critical_unresolved_total"] = deterministic_critical + fresh_critical
+    view["high_unresolved_total"] = deterministic_high + fresh_high
     view["release_closure_claim_asserted"] = False
     view["fresh_context_counter_policy"] = (
         "This role-specific context is intentionally not a release-closure matrix. "
-        "critical_unresolved_total/high_unresolved_total are numeric deterministic counters for the filtered context view; "
+        "deterministic_context_* counters describe the filtered deterministic view; "
+        "critical_unresolved_total/high_unresolved_total include the latest fresh Cerberus open findings so the context view never displays release-like zero blockers while G58/G70 remain open; "
         "fresh_cerberus_* fields copy the latest integrated summary and the release matrix must be regenerated after this role result."
     )
     view["objection_total"] = len(deterministic_rows)

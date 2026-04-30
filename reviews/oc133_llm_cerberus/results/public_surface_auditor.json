@@ -2,48 +2,32 @@
   "schema_id": "OC133_LLM_CERBERUS_RESULT_v12",
   "role": "public_surface_auditor",
   "execution_status": "EXECUTED",
-  "critical_open_total": 1,
-  "high_open_total": 4,
-  "finding_total": 5,
+  "critical_open_total": 0,
+  "high_open_total": 3,
+  "finding_total": 3,
   "findings": [
     {
-      "severity": "CRITICAL",
+      "severity": "HIGH",
+      "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+      "claim": "OC133-NOSEND-001 / P012: owner approval plus manifest/channel-lock state machine operationally controls public action using owner approval, no-send lock, channel locks, fresh G57/G58/G70 gates, deposit-ready metadata, and public-record readiness.",
+      "failure_mode": "The fresh review, critical/high count, deposit_ready_metadata, and public_record_present gates are injected only inside the finite-model rows; they are not bound as fields in the authoritative publish manifest, owner approval file, or public manifest. Every public-action case also expects REJECT_PUBLIC_ACTION, including the named owner-approved control where deposit_ready_metadata=false and public_record_present=false. An always-reject evaluator could pass, so the artifact proves lockout only, not a real owner-approved publication state machine.",
+      "required_repair": "Add the missing gates as structured, hash-bound fields or referenced gate artifacts in the release-control metadata; add an all-gates-open ACCEPT_PUBLIC_ACTION control; relabel the current owner-approved case as a deposit/public-record-not-ready reject; regenerate finite checks and the coverage matrix.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
       "artifact_ref": "manifest.json",
-      "claim": "The v1.3.3 no-send public bundle has no public release, DOI, or deposit asserted.",
-      "failure_mode": "The RO-Crate-referenced manifest is still a v1.3.2 public-release manifest: release_id oc_core_1_3_2, version 1.3.2, DOI 10.5281/zenodo.19851694, concept DOI 10.5281/zenodo.17899134, git_tag v1.3.2, and many releases/oc_core_1_3_2 source_path entries. This directly contradicts the v1.3.3 no-send metadata and leaks stale DOI/public payload metadata through the public surface.",
-      "required_repair": "Regenerate manifest.json from the current v1.3.3 no-send payload: set release_id oc_core_1_3_3 and version 1.3.3, remove or null all DOI/public record fields until owner approval, remove v1.3.2 source/payload entries, and bind it to refreshed v1.3.3 checksums.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "checksums.txt",
-      "claim": "The integrity surface verifies the current v1.3.3 no-send payload.",
-      "failure_mode": "checksums.txt is stale against the current package: it lists .zenodo.json even though that file is absent, and it still includes many oc_core_1_3_2 paths. Because ro-crate-metadata.jsonld includes checksums.txt as a public hasPart, the release integrity surface preserves stale public metadata instead of verifying v1.3.3.",
-      "required_repair": "Regenerate checksums.txt only from existing v1.3.3 no-send release-critical artifacts after the manifest repair; remove .zenodo.json unless a current v1.3.3 no-send Zenodo draft exists.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": ".zenodo.json",
-      "claim": "Release-critical Zenodo metadata is available for audit and is no-send/owner-gated.",
-      "failure_mode": ".zenodo.json is absent, while manifest.json and checksums.txt still list it with a stale hash. The Zenodo public-action surface therefore cannot be audited, and stale metadata references can either break verification or resurrect old deposit metadata.",
-      "required_repair": "Restore a v1.3.3 .zenodo.json draft containing only owner-gated no-send metadata, no DOI/concept DOI/record identifiers, and version 1.3.3, then update manifest.json and checksums.txt to its current hash.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "ro-crate-metadata.jsonld",
-      "claim": "The RO-Crate describes an actual v1.3.3 no-send review bundle.",
-      "failure_mode": "The RO-Crate hasPart list includes primary_pdfs/, repro/, evidence/, and metadata/ paths that are absent at the crate root, and it includes manifest.json/checksums.txt that are stale v1.3.2 surfaces. The crate therefore advertises a bundle that is not present and is not public-surface-parity clean.",
-      "required_repair": "Update ro-crate-metadata.jsonld hasPart to the actual current v1.3.3 artifacts, create any intentionally listed package directories, and replace stale manifest/checksum references with regenerated v1.3.3 no-send files.",
+      "claim": "OC133_NO_SEND_PUBLIC_SURFACE_MANIFEST_v12 is the public-surface manifest for the no-send review bundle.",
+      "failure_mode": "The public inventories disagree: manifest.json lists the 16 payload files but omits manifest.json and checksums.txt, checksums.txt includes manifest.json plus those payload files but omits itself, and ro-crate-metadata.jsonld declares both manifest.json and checksums.txt as hasPart. Without an explicit self/checksum exception policy, public consumers cannot determine the authoritative release-critical file set.",
+      "required_repair": "Align manifest.json, checksums.txt, and ro-crate-metadata.jsonld with one explicit inventory policy; include checksums.txt in the manifest or declare a named nonrecursive exception; regenerate hashes and any finite-model public-surface checks.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "claim": "The no-send/public-action gate passed with failure_total 0 and no_send_byte_binding_failure_total 0.",
-      "failure_mode": "The certified no-send check binds the publish manifest and owner approval files, but it does not bind the public metadata surface that currently fails: .zenodo.json, manifest.json, checksums.txt, and RO-Crate hasPart parity. The gate can pass while a stale DOI manifest and missing Zenodo artifact remain public, which makes the no-send proof overclaim its coverage.",
-      "required_repair": "Extend the finite-model no-send runner/input so every public metadata artifact is existence-checked, hash-bound, v1.3.3-scoped, and DOI-free until owner approval; regenerate FINITE_MODEL_CHECKS_1_3_3.json only after those checks fail on stale DOI or missing public-surface artifacts.",
+      "claim": "finite_row_theorem_ref_total=21 and finite_row_theorem_ref_bound_total=21 establish theorem/reference binding for the finite rows.",
+      "failure_mode": "The counted finite_row_theorem_refs include Python evaluator functions and a JSON publish manifest path, not only Lean theorem references. This lets script hooks and governance files be counted under theorem-ref binding, overstating machine-checked theorem coverage despite machine_checked_subset_total=10.",
+      "required_repair": "Split Lean theorem refs, semantic evaluator refs, and governance refs into separate fields and totals; stop using lean_ref/theorem_ref wording for Python or JSON controls; recompute the counts and update dependent public metadata.",
       "status": "OPEN"
     }
   ],

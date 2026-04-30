@@ -389,7 +389,7 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertEqual(validation["lane_total"], 5)
         self.assertEqual(validation["numeric_replay_lane_total"], 5)
         self.assertGreaterEqual(validation["numeric_replay_row_total"], 5)
-        self.assertTrue(all(row["result_verdict"] == "NUMERIC_REPLAY_SUPPORTED_WITHIN_BOUNDS" for row in validation["lanes"]))
+        self.assertTrue(all(row["result_verdict"] == "NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION" for row in validation["lanes"]))
 
         numeric = json.loads((root / "validation/numeric_predictions/OC133_NUMERIC_PREDICTION_TABLE.json").read_text(encoding="utf-8"))
         self.assertEqual(numeric["unsupported_promoted_total"], 0)
