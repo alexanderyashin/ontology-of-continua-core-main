@@ -9,6 +9,7 @@ from pathlib import Path
 
 
 CURRENT_RELEASE_MARKER = "CURRENT_RELEASE.json"
+ENV_OVERRIDE_UNLOCK = "OC_RELEASE_ALLOW_OVERRIDE"
 RELEASE_ID_RE = re.compile(r"^oc_core_(\d+)_(\d+)_(\d+)(?:_(.+))?$")
 BRANCH_VERSION_RE = re.compile(r"oc[-_]core[-_](\d+)\.(\d+)\.(\d+)", re.I)
 
@@ -85,6 +86,20 @@ def _identity_from_marker(root: Path) -> ReleaseIdentity | None:
     return None
 
 
+def _identity_from_root_version(root: Path) -> ReleaseIdentity | None:
+    path = root / "VERSION"
+    if not path.exists():
+        return None
+    try:
+        version = path.read_text(encoding="utf-8").strip()
+        release_id = release_id_from_version(version)
+    except Exception:
+        return None
+    if (root / "releases" / release_id).exists():
+        return ReleaseIdentity(release_id=release_id, version=version, source=f"root_version:{path.as_posix()}")
+    return None
+
+
 def _release_sort_key(release_id: str) -> tuple[int, int, int, str] | None:
     match = RELEASE_ID_RE.match(release_id)
     if not match:
@@ -97,7 +112,8 @@ def _release_sort_key(release_id: str) -> tuple[int, int, int, str] | None:
 
 def _identity_from_latest_release_dir(root: Path) -> ReleaseIdentity | None:
     releases_dir = root / "releases"
-    candidates: list[tuple[tuple[int, int, int, str], str]] = []
+    stable_candidates: list[tuple[tuple[int, int, int, str], str]] = []
+    prerelease_candidates: list[tuple[tuple[int, int, int, str], str]] = []
     if not releases_dir.exists():
         return None
     for path in releases_dir.iterdir():
@@ -105,7 +121,11 @@ def _identity_from_latest_release_dir(root: Path) -> ReleaseIdentity | None:
             continue
         key = _release_sort_key(path.name)
         if key is not None:
-            candidates.append((key, path.name))
+            if RELEASE_ID_RE.match(path.name).group(4):
+                prerelease_candidates.append((key, path.name))
+            else:
+                stable_candidates.append((key, path.name))
+    candidates = stable_candidates or prerelease_candidates
     if not candidates:
         return None
     release_id = sorted(candidates)[-1][1]
@@ -116,23 +136,24 @@ def current_release(start: Path | None = None) -> ReleaseIdentity:
     root = _repo_root(start)
     env_release = os.environ.get("OC_RELEASE_ID", "").strip()
     env_version = os.environ.get("OC_RELEASE_VERSION", "").strip()
-    if env_release:
+    env_override_allowed = os.environ.get(ENV_OVERRIDE_UNLOCK, "").strip() in {"1", "true", "TRUE", "yes", "YES"}
+    if env_override_allowed and env_release:
         return ReleaseIdentity(
             release_id=env_release,
             version=env_version or version_from_release_id(env_release),
             source="env:OC_RELEASE_ID",
         )
-    if env_version:
+    if env_override_allowed and env_version:
         return ReleaseIdentity(
             release_id=release_id_from_version(env_version),
             version=env_version,
             source="env:OC_RELEASE_VERSION",
         )
-    for resolver in (_identity_from_branch, _identity_from_marker, _identity_from_latest_release_dir):
+    for resolver in (_identity_from_branch, _identity_from_marker, _identity_from_root_version, _identity_from_latest_release_dir):
         identity = resolver(root)
         if identity is not None:
             return identity
-    return ReleaseIdentity(release_id="oc_core_1_3_3", version="1.3.3", source="fallback")
+    raise RuntimeError(f"Could not resolve current release under {root}")
 
 
 def write_current_release_marker(root: Path, release_id: str, version: str, *, source: str) -> Path:
@@ -143,9 +164,9 @@ def write_current_release_marker(root: Path, release_id: str, version: str, *, s
         "release_id": release_id,
         "version": version,
         "source": source,
-        "policy": "Current release is resolved automatically by env override, git branch, this marker, then highest release directory.",
+        "policy": f"Current release is resolved automatically by git branch, this marker, root VERSION, then highest stable release directory. Env override requires {ENV_OVERRIDE_UNLOCK}=1.",
         "publish_allowed": False,
         "no_send": True,
     }
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     return path

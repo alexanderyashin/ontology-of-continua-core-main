@@ -73,14 +73,14 @@ def read_json(path: Path) -> Any:
 
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
 
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if not text.endswith("\n"):
         text += "\n"
-    path.write_text(text, encoding="utf-8")
+    path.write_text(text, encoding="utf-8", newline="\n")
 
 
 def sha256_file(path: Path) -> str:
@@ -205,12 +205,12 @@ def package_file_paths(root: Path) -> list[Path]:
 def _package_input_fingerprint(root: Path) -> str:
     h = hashlib.sha256()
     for path in package_file_paths(root):
-        stat = path.stat()
+        size = path.stat().st_size
         h.update(rel(root, path).encode("utf-8"))
         h.update(b"\0")
-        h.update(str(stat.st_size).encode("ascii"))
+        h.update(str(size).encode("ascii"))
         h.update(b"\0")
-        h.update(str(stat.st_mtime_ns).encode("ascii"))
+        h.update(sha256_file(path).encode("ascii"))
         h.update(b"\0")
     return h.hexdigest()
 

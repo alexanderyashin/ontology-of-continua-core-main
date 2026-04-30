@@ -47,7 +47,7 @@ def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if not text.endswith("\n"):
         text += "\n"
-    path.write_text(text, encoding="utf-8")
+    path.write_text(text, encoding="utf-8", newline="\n")
 
 
 def clear_reproducible_generated_outputs(root: Path) -> None:
@@ -128,8 +128,11 @@ def release_critical_source_refs() -> list[str]:
         "simulations/adversarial/run_all.py",
         "simulations/run_all.py",
         "simulations/expected_simulations.yml",
+        "release_machine/cli.py",
         "release_machine/oc133.py",
+        "release_machine/oc133_hardening.py",
         "release_machine/oc133_v12.py",
+        "release_machine/versioning.py",
         "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
         "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
     ]
@@ -1875,7 +1878,7 @@ def main() -> int:
         "machine_checked_subset_total": 10,
         "rows": rows,
     }
-    OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+    OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8", newline="\\n")
     print(json.dumps(payload, ensure_ascii=False, indent=2))
     return 0 if not failures else 1
 
@@ -2898,7 +2901,7 @@ def main() -> int:
     report = build_report()
     output = ROOT / "reports" / "OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json"
     output.parent.mkdir(exist_ok=True)
-    output.write_text(json.dumps(report, indent=2) + "\\n", encoding="utf-8")
+    output.write_text(json.dumps(report, indent=2) + "\\n", encoding="utf-8", newline="\\n")
     print(json.dumps(report, indent=2))
     return 0 if report.get("failure_total") == 0 else 1
 
@@ -3679,7 +3682,7 @@ def main() -> int:
         "machine_checked_subset_total": 10,
         "rows": rows,
     }
-    OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+    OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8", newline="\\n")
     print(json.dumps(payload, ensure_ascii=False, indent=2))
     return 0 if not failures else 1
 

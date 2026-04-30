@@ -646,7 +646,7 @@ def main() -> int:
             "verdict": "FAIL",
         }
         previous_manifest_path.parent.mkdir(parents=True, exist_ok=True)
-        previous_manifest_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        previous_manifest_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
         print(json.dumps(payload, ensure_ascii=False, indent=2))
         return 1
     with tempfile.TemporaryDirectory(prefix="oc133_repro_verify_") as tmp:
@@ -850,7 +850,7 @@ def main() -> int:
     }
     out = previous_manifest_path
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps(payload, ensure_ascii=False, indent=2))
     return 0 if payload["verdict"] == "PASS" else 1
 

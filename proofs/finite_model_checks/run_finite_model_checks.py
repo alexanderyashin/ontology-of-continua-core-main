@@ -110,8 +110,11 @@ def release_critical_source_refs() -> list[str]:
         "simulations/adversarial/run_all.py",
         "simulations/run_all.py",
         "simulations/expected_simulations.yml",
+        "release_machine/cli.py",
         "release_machine/oc133.py",
+        "release_machine/oc133_hardening.py",
         "release_machine/oc133_v12.py",
+        "release_machine/versioning.py",
         "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
         "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
     ]
@@ -1216,7 +1219,7 @@ def main() -> int:
         "machine_checked_subset_total": lean_cert.get("theorem_ref_present_total", 0) if lean_cert_ok else 0,
         "rows": rows,
     }
-    OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps(payload, ensure_ascii=False, indent=2))
     return 0 if not failures and not certificate_binding_failures else 1
 

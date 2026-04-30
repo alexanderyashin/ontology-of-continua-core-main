@@ -122,7 +122,7 @@ def main() -> int:
     report = build_report()
     output = ROOT / "reports" / "OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json"
     output.parent.mkdir(exist_ok=True)
-    output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps(report, indent=2))
     return 0 if report.get("failure_total") == 0 else 1
 

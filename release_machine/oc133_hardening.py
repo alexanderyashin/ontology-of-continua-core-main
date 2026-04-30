@@ -82,14 +82,14 @@ def read_json(path: Path) -> Any:
 
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
 
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if not text.endswith("\n"):
         text += "\n"
-    path.write_text(text, encoding="utf-8")
+    path.write_text(text, encoding="utf-8", newline="\n")
 
 
 def rel(root: Path, path: Path) -> str:
@@ -382,7 +382,7 @@ def absolute_overclaim_audit(root: Path) -> dict[str, Any]:
     hits: list[dict[str, Any]] = []
     seen_paths: set[Path] = set()
     for pattern in PUBLIC_SCAN_GLOBS:
-        for path in root.glob(pattern):
+        for path in sorted(root.glob(pattern), key=lambda candidate: rel(root, candidate)):
             if not path.is_file() or path in seen_paths:
                 continue
             seen_paths.add(path)

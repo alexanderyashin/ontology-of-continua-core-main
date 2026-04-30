@@ -23,8 +23,8 @@ def main() -> int:
     root = Path(__file__).resolve().parents[2]
     reports = root / "reports"
     reports.mkdir(exist_ok=True)
-    (reports / "OC_CORE_1_3_3_COUNTEREXAMPLE_REPORT.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    (reports / "OC_CORE_1_3_3_COUNTEREXAMPLE_REPORT.md").write_text("# OC Core 1.3.3 Counterexample Report\n\nVerdict: `" + payload["verdict"] + "`\n", encoding="utf-8")
+    (reports / "OC_CORE_1_3_3_COUNTEREXAMPLE_REPORT.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8", newline="\n")
+    (reports / "OC_CORE_1_3_3_COUNTEREXAMPLE_REPORT.md").write_text("# OC Core 1.3.3 Counterexample Report\n\nVerdict: `" + payload["verdict"] + "`\n", encoding="utf-8", newline="\n")
     print(json.dumps(payload, indent=2))
     return 0 if not failures else 1
 

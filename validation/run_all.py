@@ -301,7 +301,7 @@ def main() -> int:
     }
     reports = ROOT / "reports"
     reports.mkdir(exist_ok=True)
-    (reports / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    (reports / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8", newline="\n")
     lines = [
         "# OC Core 1.3.3 Domain Validation Report",
         "",
@@ -320,7 +320,7 @@ def main() -> int:
     ]
     for row in lanes:
         lines.append(f"| `{row['lane']}` | `{row['result_verdict']}` | `{row.get('remaining_blocker') or ''}` |")
-    (reports / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (reports / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.md").write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps(payload, indent=2))
     if payload["verdict"] == "FAIL":
         return 1

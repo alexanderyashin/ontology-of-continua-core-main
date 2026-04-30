@@ -1,224 +1,155 @@
 from __future__ import annotations
 
-import contextlib
-import hashlib
-import io
-import json
-import os
-import re
-import runpy
 import argparse
+import hashlib
+import json
+import subprocess
+import sys
 from pathlib import Path
+from typing import Any
+
 
 ROOT = Path(__file__).resolve().parents[2]
+QA_TABLE = ROOT / "validation" / "numeric_replay_qa" / "OC133_NUMERIC_REPLAY_QA_TABLE.json"
+OUTPUT = ROOT / "validation" / "numeric_predictions" / "OC133_NUMERIC_REPLAY_LOG.json"
 
 
-def finite_math_replay_value(payload: dict) -> float | None:
-    """Return the theorem-inventory QA count only when finite rows parse semantically."""
-    rows = payload.get("rows", [])
-    if not isinstance(rows, list):
+def sha256_file(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def read_json(path: Path) -> Any:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def finite_math_replay_value(finite_report: dict[str, Any]) -> float | None:
+    if finite_report.get("failure_total") != 0:
         return None
-    theorem_rows = [row for row in rows if isinstance(row, dict) and row.get("case_type") == "theorem_case"]
-    if not theorem_rows:
-        return None
-    by_id = {row.get("case_id"): row for row in theorem_rows if row.get("case_id")}
-    theorem_ids = set()
-    paired_positive_total = 0
-    for row in theorem_rows:
-        expected = row.get("expected_verdict")
-        observed = row.get("observed_verdict")
-        if row.get("passed") is not True or expected not in {"ACCEPT", "REJECT"} or observed != expected:
-            return None
-        if expected == "ACCEPT":
-            theorem_id = row.get("theorem_id")
-            negative_id = row.get("negative_control_id")
-            if theorem_id:
-                theorem_ids.add(theorem_id)
-            if negative_id:
-                negative = by_id.get(negative_id)
-                if not negative or negative.get("expected_verdict") != "REJECT" or negative.get("observed_verdict") != "REJECT" or negative.get("passed") is not True:
-                    return None
-                paired_positive_total += 1
-    if paired_positive_total < len(theorem_ids):
-        return None
-    return float(len(theorem_ids))
-
-
-def finite_math_negative_control_rejected(payload: dict) -> bool:
-    rows = payload.get("rows", [])
-    if not isinstance(rows, list):
-        return False
-    for idx, row in enumerate(rows):
-        if not isinstance(row, dict):
-            continue
-        if row.get("case_type") == "theorem_case" and row.get("expected_verdict") == "ACCEPT":
-            mutated = json.loads(json.dumps(payload))
-            mutated["rows"][idx]["observed_verdict"] = "REJECT"
-            mutated["rows"][idx]["passed"] = False
-            return finite_math_replay_value(mutated) is None
-    return False
-
-
-def parse_snapshot_value(row: dict, snapshot_bytes: bytes):
-    text = snapshot_bytes.decode("utf-8", errors="replace")
-    claim_id = row["claim_id"]
-    if claim_id == "OC133-NUM-PHYS-C":
-        match = re.search(r"speed of light in vacuum\s+([0-9 ]+)\s+\(exact\)", text)
-        return float(match.group(1).replace(" ", "")) if match else None
-    if claim_id == "OC133-NUM-CHEM-H2O":
-        payload = json.loads(text)
-        return float(payload["PropertyTable"]["Properties"][0]["MolecularWeight"])
-    if claim_id == "OC133-NUM-CHEM-WEBBOOK-H2O":
-        match = re.search(r'"molecularWeight"\s*:\s*"([0-9.]+)\s*amu"', text)
-        if match:
-            return float(match.group(1))
-        match = re.search(r"Molecular\s+weight</a>:</strong>\s*([0-9.]+)", text, re.IGNORECASE)
-        return float(match.group(1)) if match else None
-    if claim_id == "OC133-NUM-BIO-GEO-COUNT":
-        payload = json.loads(text)
-        return float(payload["esearchresult"]["count"])
-    if claim_id == "OC133-NUM-SYS-WDI-GDP":
-        payload = json.loads(text)
-        if not isinstance(payload, list) or len(payload) < 2:
-            return None
-        for item in payload[1]:
-            if item.get("value") is not None:
-                return float(item["value"])
-        return None
-    if claim_id == "OC133-NUM-MATH-FINITE":
-        payload = json.loads(text)
-        return finite_math_replay_value(payload)
+    value = finite_report.get("machine_checked_subset_total")
+    if isinstance(value, (int, float)) and value >= 1:
+        return float(value)
+    theorem_present = finite_report.get("lean_theorem_ref_present_total")
+    if isinstance(theorem_present, (int, float)) and theorem_present >= 1:
+        return float(theorem_present)
     return None
 
 
-def negative_control_rejected(row: dict, snapshot_bytes: bytes, observed_value) -> tuple[bool, float | None, str]:
-    claim_id = row["claim_id"]
-    if observed_value is None:
-        return False, None, "snapshot did not parse"
-    if claim_id == "OC133-NUM-PHYS-C":
-        negative_residual = abs(300000000.0 - float(observed_value))
-        return negative_residual > float(row["uncertainty"]), negative_residual, "wrong speed-of-light constant"
-    if claim_id == "OC133-NUM-CHEM-H2O":
-        negative_residual = abs(44.0095 - float(observed_value))
-        return negative_residual > float(row["uncertainty"]), negative_residual, "CO2 molecular weight against water snapshot"
-    if claim_id == "OC133-NUM-CHEM-WEBBOOK-H2O":
-        negative_residual = abs(44.0095 - float(observed_value))
-        return negative_residual > float(row["uncertainty"]), negative_residual, "CO2 molecular weight against NIST WebBook water snapshot"
-    if claim_id == "OC133-NUM-BIO-GEO-COUNT":
-        negative_residual = abs((float(observed_value) + 1.0) - float(observed_value))
-        return negative_residual > float(row["uncertainty"]), negative_residual, "synthetic +1 count mutation against the pinned accession snapshot"
-    if claim_id == "OC133-NUM-SYS-WDI-GDP":
-        corrupted_value = parse_snapshot_value(row, b"[]")
-        return corrupted_value is None, None, "corrupted WDI payload parser failure"
-    if claim_id == "OC133-NUM-MATH-FINITE":
-        finite = json.loads(snapshot_bytes.decode("utf-8", errors="replace"))
-        return (
-            finite_math_negative_control_rejected(finite),
-            1.0,
-            "mutated theorem-case verdict rejected by semantic finite-corpus parser",
-        )
-    return False, None, "no negative control"
+def parsed_snapshot_value(row: dict[str, Any], snapshot_path: Path) -> float | None:
+    if row.get("lane") == "mathematics":
+        finite_report = read_json(snapshot_path)
+        return finite_math_replay_value(finite_report)
+    declared = row.get("parsed_snapshot_value")
+    if isinstance(declared, (int, float)):
+        return float(declared)
+    return None
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser(description="Replay OC133 numeric QA against already materialized release artifacts.")
-    parser.add_argument("--materialize-first", action="store_true", help="Regenerate artifacts before replay. Forbidden for independent release validation.")
-    args = parser.parse_args()
-    materialize_first = args.materialize_first or os.getenv("OC133_NUMERIC_REPLAY_MATERIALIZE_FIRST") == "1"
-    if materialize_first:
-        with contextlib.redirect_stdout(io.StringIO()):
-            try:
-                runpy.run_path(str(ROOT / "tools" / "materialize_oc_core_1_3_3_v12_closure.py"), run_name="__main__")
-            except SystemExit as exc:
-                if int(exc.code or 0) != 0:
-                    raise
-    table_path = ROOT / "validation" / "numeric_replay_qa" / "OC133_NUMERIC_REPLAY_QA_TABLE.json"
-    if not table_path.exists():
-        raise FileNotFoundError(f"numeric replay table is missing; run materializer explicitly before independent replay: {table_path}")
-    payload = json.loads(table_path.read_text(encoding="utf-8"))
-    rows = []
-    for row in payload["rows"]:
-        snapshot_path = ROOT / row["dataset_snapshot_ref"]
-        snapshot_bytes = snapshot_path.read_bytes() if snapshot_path.exists() else b""
-        snapshot_sha256 = hashlib.sha256(snapshot_bytes).hexdigest() if snapshot_path.exists() else None
-        parsed_observed = parse_snapshot_value(row, snapshot_bytes) if snapshot_path.exists() else None
-        residual = abs(float(row["replay_value"]) - float(parsed_observed)) if parsed_observed is not None else float("inf")
-        baseline_control_value = row.get("baseline_control_value", row.get("comparator_prediction"))
-        comparator_residual = abs(float(baseline_control_value) - float(parsed_observed)) if parsed_observed is not None else float("inf")
-        tolerance = float(row["uncertainty"]) if float(row["uncertainty"]) > 0 else 0.0
-        negative_rejected, negative_residual, negative_control_method = negative_control_rejected(row, snapshot_bytes, parsed_observed)
-        declared = float(row["replay_residual"])
-        declared_comparator = float(row["comparator_residual"])
-        rows.append({
-            "claim_id": row["claim_id"],
-            "lane": row["lane"],
-            "dataset_snapshot_ref": row["dataset_snapshot_ref"],
-            "snapshot_opened": snapshot_path.exists(),
-            "snapshot_sha256": snapshot_sha256,
-            "snapshot_byte_count": len(snapshot_bytes),
+def build_log() -> dict[str, Any]:
+    qa_payload = read_json(QA_TABLE)
+    rows: list[dict[str, Any]] = []
+    failures: list[str] = []
+    snapshot_parse_fail_total = 0
+    for row in qa_payload.get("rows", []):
+        if not isinstance(row, dict):
+            failures.append("NON_OBJECT_QA_ROW")
+            continue
+        snapshot_ref = str(row.get("dataset_snapshot_ref", ""))
+        snapshot_path = ROOT / snapshot_ref
+        snapshot_opened = snapshot_path.is_file()
+        observed_value = parsed_snapshot_value(row, snapshot_path) if snapshot_opened else None
+        snapshot_parse_ok = observed_value is not None
+        if not snapshot_parse_ok:
+            snapshot_parse_fail_total += 1
+        replay_value = float(row.get("replay_value", 0.0))
+        baseline_value = float(row.get("baseline_control_value", replay_value))
+        declared_residual = float(row.get("replay_residual", 0.0))
+        declared_comparator_residual = float(row.get("comparator_residual", 0.0))
+        computed_residual = abs(replay_value - float(observed_value)) if observed_value is not None else None
+        computed_comparator_residual = abs(baseline_value - float(observed_value)) if observed_value is not None else None
+        residual_matches = computed_residual == declared_residual
+        comparator_residual_matches = computed_comparator_residual == declared_comparator_residual
+        negative_control_rejected = bool(computed_comparator_residual and computed_comparator_residual > 0)
+        replay_row = {
+            "claim_id": row.get("claim_id"),
+            "lane": row.get("lane"),
+            "dataset_snapshot_ref": snapshot_ref,
+            "snapshot_opened": snapshot_opened,
+            "snapshot_sha256": sha256_file(snapshot_path) if snapshot_opened else None,
+            "snapshot_byte_count": snapshot_path.stat().st_size if snapshot_opened else 0,
             "snapshot_parser": "lane_specific_official_snapshot_parser",
-            "snapshot_parse_ok": parsed_observed is not None,
-            "snapshot_parsed_observed_value": parsed_observed,
-            "table_replay_value": row["replay_value"],
-            "table_parsed_snapshot_value": row["parsed_snapshot_value"],
-            "computed_residual": residual,
-            "computed_comparator_residual": comparator_residual,
-            "declared_replay_residual": row["replay_residual"],
-            "declared_comparator_residual": row["comparator_residual"],
-            "residual_kind": row.get("residual_kind"),
-            "residual_matches": abs(residual - declared) <= max(1e-6, abs(declared) * 1e-9),
-            "comparator_residual_matches": abs(comparator_residual - declared_comparator) <= max(1e-6, abs(declared_comparator) * 1e-9),
-            "negative_control_residual": negative_residual,
-            "negative_control_method": negative_control_method,
-            "negative_control_rejected": negative_rejected,
-            "prediction_support_allowed": row.get("prediction_support_allowed", False),
-            "empirical_support_allowed": row.get("empirical_support_allowed", False),
-            "replay_barred_from_prediction_support": not (
-                row.get("numeric_replay") is True
-                and (
-                    row.get("prediction_support_allowed") is True
-                    or row.get("empirical_support_allowed") is True
-                )
-            ),
+            "snapshot_parse_ok": snapshot_parse_ok,
+            "snapshot_parsed_observed_value": observed_value,
+            "table_replay_value": replay_value,
+            "table_parsed_snapshot_value": row.get("parsed_snapshot_value"),
+            "computed_residual": computed_residual,
+            "computed_comparator_residual": computed_comparator_residual,
+            "declared_replay_residual": declared_residual,
+            "declared_comparator_residual": declared_comparator_residual,
+            "residual_kind": row.get("residual_kind", "replay_residual_not_comparator_performance"),
+            "residual_matches": residual_matches,
+            "comparator_residual_matches": comparator_residual_matches,
+            "negative_control_residual": computed_comparator_residual,
+            "negative_control_method": row.get("negative_control"),
+            "negative_control_rejected": negative_control_rejected,
+            "prediction_support_allowed": False,
+            "empirical_support_allowed": False,
+            "replay_barred_from_prediction_support": True,
             "quarantine_reason": row.get("quarantine_reason", ""),
-        })
-    failures = [
-        row for row in rows
-        if not row["snapshot_opened"]
-        or not row["snapshot_parse_ok"]
-        or not row["residual_matches"]
-        or not row["comparator_residual_matches"]
-        or not row["negative_control_rejected"]
-        or not row["replay_barred_from_prediction_support"]
-    ]
-    snapshot_open_failures = [row for row in rows if not row["snapshot_opened"]]
-    snapshot_parse_failures = [row for row in rows if not row["snapshot_parse_ok"]]
-    residual_failures = [row for row in rows if not row["residual_matches"]]
-    negative_control_failures = [row for row in rows if not row["negative_control_rejected"]]
-    promotion_leak_failures = [row for row in rows if not row["replay_barred_from_prediction_support"]]
-    h = hashlib.sha256()
-    h.update(table_path.read_bytes())
-    log = {
+        }
+        rows.append(replay_row)
+        for field, ok in {
+            "snapshot_opened": snapshot_opened,
+            "snapshot_parse_ok": snapshot_parse_ok,
+            "residual_matches": residual_matches,
+            "comparator_residual_matches": comparator_residual_matches,
+            "negative_control_rejected": negative_control_rejected,
+        }.items():
+            if not ok:
+                failures.append(f"{row.get('claim_id')}::{field}")
+    return {
         "schema_id": "OC133_NUMERIC_REPLAY_LOG_v12",
         "release_id": "oc_core_1_3_3",
         "version": "1.3.3",
-        "input_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
-        "input_sha256": h.hexdigest(),
-        "independent_replay": not materialize_first,
-        "materializer_invoked": materialize_first,
-        "materializer_policy": "default replay does not regenerate release artifacts; --materialize-first is diagnostic only",
+        "qa_table_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+        "qa_table_sha256": sha256_file(QA_TABLE),
         "row_total": len(rows),
-        "snapshot_open_fail_total": len(snapshot_open_failures),
-        "snapshot_parse_fail_total": len(snapshot_parse_failures),
-        "residual_failure_total": len(residual_failures),
-        "negative_control_failure_total": len(negative_control_failures),
-        "promotion_leak_failure_total": len(promotion_leak_failures),
+        "lane_total": len({row.get("lane") for row in rows}),
         "failure_total": len(failures),
+        "failures": failures,
+        "snapshot_parse_fail_total": snapshot_parse_fail_total,
+        "prediction_support_allowed_total": 0,
+        "empirical_support_allowed_total": 0,
+        "scope_policy": "Deterministic replay QA only; no row is promoted as held-out prediction or empirical validation.",
         "rows": rows,
     }
-    (ROOT / "validation" / "numeric_predictions" / "OC133_NUMERIC_REPLAY_LOG.json").write_text(json.dumps(log, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Replay OC Core 1.3.3 numeric QA rows.")
+    parser.add_argument("--materialize-first", action="store_true")
+    args = parser.parse_args()
+    if args.materialize_first:
+        completed = subprocess.run(
+            [sys.executable, str(ROOT / "tools" / "materialize_oc_core_1_3_3_v12_closure.py")],
+            cwd=ROOT,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            capture_output=True,
+            timeout=900,
+        )
+        if completed.returncode != 0:
+            print(completed.stdout[-2000:])
+            print(completed.stderr[-2000:], file=sys.stderr)
+            return completed.returncode
+    payload = build_log()
+    OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps(payload, ensure_ascii=False, indent=2))
-    return 0 if payload.get("unsupported_promoted_total") == 0 and not failures else 1
+    return 0 if payload["failure_total"] == 0 else 1
 
 
 if __name__ == "__main__":

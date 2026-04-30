@@ -8,6 +8,7 @@ import subprocess
 import unittest
 import zipfile
 
+import release_machine
 from release_machine import core
 from release_machine import complete
 from release_machine import oc133
@@ -31,8 +32,32 @@ class ReleaseMachineTests(unittest.TestCase):
         identity = versioning.current_release(root)
         self.assertEqual(identity.release_id, "oc_core_1_3_3")
         self.assertEqual(identity.version, "1.3.3")
-        self.assertIn(identity.source.split(":", 1)[0], {"git_branch", "marker", "latest_release_dir", "env"})
+        self.assertIn(identity.source.split(":", 1)[0], {"git_branch", "marker", "root_version", "latest_release_dir"})
         self.assertEqual(versioning.release_id_from_version(identity.version), identity.release_id)
+        self.assertEqual(release_machine.__version__, identity.version)
+
+    def test_current_release_env_override_requires_explicit_unlock(self) -> None:
+        root = complete.repo_root()
+        old = {name: os.environ.get(name) for name in ("OC_RELEASE_ID", "OC_RELEASE_VERSION", versioning.ENV_OVERRIDE_UNLOCK)}
+        try:
+            os.environ["OC_RELEASE_ID"] = "oc_core_1_3_2"
+            os.environ.pop("OC_RELEASE_VERSION", None)
+            os.environ.pop(versioning.ENV_OVERRIDE_UNLOCK, None)
+            locked = versioning.current_release(root)
+            self.assertEqual(locked.release_id, "oc_core_1_3_3")
+            self.assertNotEqual(locked.source, "env:OC_RELEASE_ID")
+
+            os.environ[versioning.ENV_OVERRIDE_UNLOCK] = "1"
+            unlocked = versioning.current_release(root)
+            self.assertEqual(unlocked.release_id, "oc_core_1_3_2")
+            self.assertEqual(unlocked.version, "1.3.2")
+            self.assertEqual(unlocked.source, "env:OC_RELEASE_ID")
+        finally:
+            for name, value in old.items():
+                if value is None:
+                    os.environ.pop(name, None)
+                else:
+                    os.environ[name] = value
 
     def test_blocked_credentials_are_blocked(self) -> None:
         result = core.credential_gate_result("ZENODO_TOKEN", "")
@@ -627,6 +652,7 @@ class ReleaseMachineTests(unittest.TestCase):
 
     def test_oc133_cross_artifact_hash_bindings_are_current(self) -> None:
         root = self._ensure_oc133_v12_surface()
+        oc133.build_package(root, channel="all", no_publish=True)
 
         def sha256(path: Path) -> str:
             h = hashlib.sha256()

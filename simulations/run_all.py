@@ -170,7 +170,7 @@ def run() -> dict[str, Any]:
 
 def write_report(report: dict[str, Any]) -> None:
     RESULT_JSON.parent.mkdir(parents=True, exist_ok=True)
-    RESULT_JSON.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    RESULT_JSON.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     lines = [
         "# OC Core 1.3.3 Simulation Results",
         "",
@@ -186,7 +186,7 @@ def write_report(report: dict[str, Any]) -> None:
     for row in report["results"]:
         state = "PASS" if not row["errors"] else "FAIL"
         lines.append(f"| `{row['runner']}` | `{row['observed_simulation_id']}` | `{state}` |")
-    RESULT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    RESULT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
 
 
 def main() -> int:
