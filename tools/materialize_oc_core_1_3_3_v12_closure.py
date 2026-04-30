@@ -24,12 +24,40 @@ RELEASE_ID = "oc_core_1_3_3"
 VERSION = "1.3.3"
 TIMESTAMP = "2026-04-28T00:00:00Z"
 
+REPRODUCIBLE_GENERATED_OUTPUTS_TO_CLEAR = [
+    "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+    "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+    "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json",
+    "proofs/finite_model_checks/FINITE_MODEL_REPLAY_REPORT.json",
+    "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+    "manifest.json",
+    "checksums.txt",
+    "ro-crate-metadata.jsonld",
+    "CITATION.cff",
+    ".codemeta.json",
+    "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
+    "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ARTIFACT_INVENTORY.json",
+    "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_SHA256SUMS",
+    "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
+    "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip",
+]
+
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if not text.endswith("\n"):
         text += "\n"
     path.write_text(text, encoding="utf-8")
+
+
+def clear_reproducible_generated_outputs(root: Path) -> None:
+    """Start from the same source-clean state used by the strict verifier."""
+    for ref in REPRODUCIBLE_GENERATED_OUTPUTS_TO_CLEAR:
+        path = (root / ref).resolve()
+        if root.resolve() not in path.parents and path != root.resolve():
+            raise ValueError(f"generated-output ref escapes repo root: {ref}")
+        if path.is_file():
+            path.unlink()
 
 
 def write_json(path: Path, payload: Any) -> None:
@@ -7584,6 +7612,7 @@ def write_finite_output_attestation(root: Path) -> dict[str, Any]:
 
 
 def main() -> int:
+    clear_reproducible_generated_outputs(ROOT)
     write_lean_package(ROOT)
     write_text(ROOT / "formal" / "lean" / "OC133V12.lean", LEAN_SOURCE_V12_ITERATION)
     write_formal_documents(ROOT)
