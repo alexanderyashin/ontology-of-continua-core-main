@@ -7,12 +7,15 @@
   "demoted_public_claim_total": 0,
   "support_ceiling_total": 0,
   "adversarial_review_blocker_total": 0,
-  "prior_cerberus_open_total_at_generation": 6,
+  "prior_cerberus_open_total_at_generation": 3,
   "fresh_cerberus_required_for_release": true,
   "release_promotion_allowed": false,
   "scientific_promotion_allowed_total": 6,
   "governance_control_allowed_total": 1,
   "control_plane_total": 1,
+  "scientific_promotion_wording_violation_total": 0,
+  "scientific_promotion_wording_violations": [],
+  "scientific_promotion_wording_lint_rule": "If scientific_promotion_allowed=false or evidence_ceiling=FORMAL_RELEASE_CONSISTENCY_CHECK_NOT_INDEPENDENT_SCIENTIFIC_THEOREM, promotion_condition must use explicit non-promotion language.",
   "promotion_condition": "The ledger may contain bounded no-send scientific claims, but package-level release promotion remains false until G57/G58/G70 pass after fresh Cerberus review.",
   "absolute_overclaim_policy": "BLOCK_PUBLIC_PROMOTION",
   "rows": [
@@ -26,7 +29,7 @@
       "scientific_promotion_allowed": true,
       "evidence_ceiling": "BOUNDED_SCIENTIFIC_THEOREM",
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "fresh_cerberus_required_for_release": true,
       "promotion_condition": "Promoted only as a bounded no-send scientific claim; the package-level release verdict still requires G57, G58, and G70 to pass with fresh zero critical/high Cerberus findings.",
       "scope_limit": "Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary."
@@ -41,7 +44,7 @@
       "scientific_promotion_allowed": true,
       "evidence_ceiling": "BOUNDED_SCIENTIFIC_THEOREM",
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "fresh_cerberus_required_for_release": true,
       "promotion_condition": "Promoted only as a bounded no-send scientific claim; the package-level release verdict still requires G57, G58, and G70 to pass with fresh zero critical/high Cerberus findings.",
       "scope_limit": "Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary."
@@ -49,16 +52,16 @@
     {
       "claim_id": "T133-K-ZERO",
       "claim": "Continuumness zero requires live support, an independently clear obstruction ledger, and a declared zero-cause family; a zero-cause label alone does not compute k=0.",
-      "support": "LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS",
+      "support": "FORMAL_RELEASE_CONSISTENCY_CHECK",
       "evidence_ref": "proofs/proof_sheets/T133-K-ZERO.md",
       "public_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
       "release_promotion_allowed": false,
       "scientific_promotion_allowed": false,
       "evidence_ceiling": "FORMAL_RELEASE_CONSISTENCY_CHECK_NOT_INDEPENDENT_SCIENTIFIC_THEOREM",
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "fresh_cerberus_required_for_release": true,
-      "promotion_condition": "Promoted only as a bounded no-send scientific claim; the package-level release verdict still requires G57, G58, and G70 to pass with fresh zero critical/high Cerberus findings.",
+      "promotion_condition": "Not promoted as a scientific theorem: this row is a formal release-consistency check only and cannot become a bounded scientific claim until replaced by independent semantics/proof evidence.",
       "scope_limit": "Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary."
     },
     {
@@ -71,7 +74,7 @@
       "scientific_promotion_allowed": true,
       "evidence_ceiling": "BOUNDED_SCIENTIFIC_THEOREM",
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "fresh_cerberus_required_for_release": true,
       "promotion_condition": "Promoted only as a bounded no-send scientific claim; the package-level release verdict still requires G57, G58, and G70 to pass with fresh zero critical/high Cerberus findings.",
       "scope_limit": "Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary."
@@ -86,7 +89,7 @@
       "scientific_promotion_allowed": true,
       "evidence_ceiling": "BOUNDED_SCIENTIFIC_THEOREM",
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "fresh_cerberus_required_for_release": true,
       "promotion_condition": "Promoted only as a bounded no-send scientific claim; the package-level release verdict still requires G57, G58, and G70 to pass with fresh zero critical/high Cerberus findings.",
       "scope_limit": "Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary."
@@ -101,7 +104,7 @@
       "scientific_promotion_allowed": true,
       "evidence_ceiling": "BOUNDED_SCIENTIFIC_THEOREM",
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "fresh_cerberus_required_for_release": true,
       "promotion_condition": "Promoted only as a bounded no-send scientific claim; the package-level release verdict still requires G57, G58, and G70 to pass with fresh zero critical/high Cerberus findings.",
       "scope_limit": "Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary."
@@ -109,16 +112,16 @@
     {
       "claim_id": "T133-CYCLE",
       "claim": "Promoted eligible-live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
-      "support": "LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS",
+      "support": "FORMAL_RELEASE_CONSISTENCY_CHECK",
       "evidence_ref": "proofs/proof_sheets/T133-CYCLE.md",
       "public_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
       "release_promotion_allowed": false,
       "scientific_promotion_allowed": false,
       "evidence_ceiling": "FORMAL_RELEASE_CONSISTENCY_CHECK_NOT_INDEPENDENT_SCIENTIFIC_THEOREM",
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "fresh_cerberus_required_for_release": true,
-      "promotion_condition": "Promoted only as a bounded no-send scientific claim; the package-level release verdict still requires G57, G58, and G70 to pass with fresh zero critical/high Cerberus findings.",
+      "promotion_condition": "Not promoted as a scientific theorem: this row is a formal release-consistency check only and cannot become a bounded scientific claim until replaced by independent semantics/proof evidence.",
       "scope_limit": "Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary."
     },
     {
@@ -131,7 +134,7 @@
       "scientific_promotion_allowed": true,
       "evidence_ceiling": "BOUNDED_SCIENTIFIC_THEOREM",
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "fresh_cerberus_required_for_release": true,
       "promotion_condition": "Promoted only as a bounded no-send scientific claim; the package-level release verdict still requires G57, G58, and G70 to pass with fresh zero critical/high Cerberus findings.",
       "scope_limit": "Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary."
@@ -139,31 +142,31 @@
     {
       "claim_id": "T133-MIN",
       "claim": "Within the declared v12 release tuple semantics, each promoted tuple component has a one-field semantic keep/drop witness that changes the release verdict.",
-      "support": "LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS",
+      "support": "FORMAL_RELEASE_CONSISTENCY_CHECK",
       "evidence_ref": "proofs/proof_sheets/T133-MIN.md",
       "public_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
       "release_promotion_allowed": false,
       "scientific_promotion_allowed": false,
       "evidence_ceiling": "FORMAL_RELEASE_CONSISTENCY_CHECK_NOT_INDEPENDENT_SCIENTIFIC_THEOREM",
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "fresh_cerberus_required_for_release": true,
-      "promotion_condition": "Promoted only as a bounded no-send scientific claim; the package-level release verdict still requires G57, G58, and G70 to pass with fresh zero critical/high Cerberus findings.",
+      "promotion_condition": "Not promoted as a scientific theorem: this row is a formal release-consistency check only and cannot become a bounded scientific claim until replaced by independent semantics/proof evidence.",
       "scope_limit": "Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary."
     },
     {
       "claim_id": "T133-KLEVEL",
       "claim": "Every declared adjacent K-level transition K0->K12 has a release-atlas row, retained-witness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release classifier; independent semantic irreducibility beyond this declared classifier is a future proof obligation, not a promoted v12 theorem.",
-      "support": "LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS",
+      "support": "FORMAL_RELEASE_CONSISTENCY_CHECK",
       "evidence_ref": "proofs/proof_sheets/T133-KLEVEL.md",
       "public_status": "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
       "release_promotion_allowed": false,
       "scientific_promotion_allowed": false,
       "evidence_ceiling": "FORMAL_RELEASE_CONSISTENCY_CHECK_NOT_INDEPENDENT_SCIENTIFIC_THEOREM",
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "fresh_cerberus_required_for_release": true,
-      "promotion_condition": "Promoted only as a bounded no-send scientific claim; the package-level release verdict still requires G57, G58, and G70 to pass with fresh zero critical/high Cerberus findings.",
+      "promotion_condition": "Not promoted as a scientific theorem: this row is a formal release-consistency check only and cannot become a bounded scientific claim until replaced by independent semantics/proof evidence.",
       "scope_limit": "Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary."
     },
     {
@@ -176,7 +179,7 @@
       "prediction_support_allowed": false,
       "empirical_support_allowed": false,
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "promotion_condition": "requires a future prospective target-blind empirical protocol; current row is replay QA only",
       "scope_limit": "This is replay QA and falsifier plumbing, not empirical theory promotion."
     },
@@ -190,7 +193,7 @@
       "prediction_support_allowed": false,
       "empirical_support_allowed": false,
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "promotion_condition": "requires a future prospective target-blind empirical protocol; current row is replay QA only",
       "scope_limit": "This is replay QA and falsifier plumbing, not empirical theory promotion."
     },
@@ -204,7 +207,7 @@
       "prediction_support_allowed": false,
       "empirical_support_allowed": false,
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "promotion_condition": "requires a future prospective target-blind empirical protocol; current row is replay QA only",
       "scope_limit": "This is replay QA and falsifier plumbing, not empirical theory promotion."
     },
@@ -218,7 +221,7 @@
       "prediction_support_allowed": false,
       "empirical_support_allowed": false,
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "promotion_condition": "requires a future prospective target-blind empirical protocol; current row is replay QA only",
       "scope_limit": "This is replay QA and falsifier plumbing, not empirical theory promotion."
     },
@@ -232,7 +235,7 @@
       "prediction_support_allowed": false,
       "empirical_support_allowed": false,
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "promotion_condition": "requires a future prospective target-blind empirical protocol; current row is replay QA only",
       "scope_limit": "This is replay QA and falsifier plumbing, not empirical theory promotion."
     },
@@ -246,7 +249,7 @@
       "prediction_support_allowed": false,
       "empirical_support_allowed": false,
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "promotion_condition": "requires a future prospective target-blind empirical protocol; current row is replay QA only",
       "scope_limit": "This is replay QA and falsifier plumbing, not empirical theory promotion."
     },
@@ -260,7 +263,7 @@
       "uniqueness_claim_allowed": false,
       "priority_claim_allowed": false,
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "promotion_condition": "requires systematic source-backed priority/novelty search; current row is positioning only",
       "scope_limit": "No uniqueness, priority, absence, or invention claim is promoted by this row; systematic search remains future work."
     },
@@ -280,7 +283,7 @@
       "governance_control_allowed": true,
       "control_plane_claim": true,
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "fresh_cerberus_required_for_release": true,
       "promotion_condition": "Promoted only as a bounded no-send control-plane claim; public action remains impossible while owner approval is pending or any channel lock is false.",
       "scope_limit": "Local owner-review package only; owner approval alone is insufficient while global_no_send_lock or any channel lock remains false-to-public."
@@ -294,7 +297,7 @@
       "release_promotion_allowed": false,
       "scientific_promotion_allowed": false,
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "promotion_condition": "Excluded from OC theorem/empirical promotion; included so attack-matrix automation IDs cannot inflate coverage outside the ledger.",
       "scope_limit": "Operational automation/governance row only; not evidence for OC scientific novelty, truth, or phenomenon coverage."
     },
@@ -307,7 +310,7 @@
       "release_promotion_allowed": false,
       "scientific_promotion_allowed": false,
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "promotion_condition": "Excluded from OC theorem/empirical promotion; included so attack-matrix automation IDs cannot inflate coverage outside the ledger.",
       "scope_limit": "Operational automation/governance row only; not evidence for OC scientific novelty, truth, or phenomenon coverage."
     },
@@ -320,7 +323,7 @@
       "release_promotion_allowed": false,
       "scientific_promotion_allowed": false,
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "promotion_condition": "Excluded from OC theorem/empirical promotion; included so attack-matrix automation IDs cannot inflate coverage outside the ledger.",
       "scope_limit": "Operational automation/governance row only; not evidence for OC scientific novelty, truth, or phenomenon coverage."
     },
@@ -333,7 +336,7 @@
       "release_promotion_allowed": false,
       "scientific_promotion_allowed": false,
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "promotion_condition": "Excluded from OC theorem/empirical promotion; included so attack-matrix automation IDs cannot inflate coverage outside the ledger.",
       "scope_limit": "Operational automation/governance row only; not evidence for OC scientific novelty, truth, or phenomenon coverage."
     },
@@ -346,7 +349,7 @@
       "release_promotion_allowed": false,
       "scientific_promotion_allowed": false,
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "promotion_condition": "Excluded from OC theorem/empirical promotion; included so attack-matrix automation IDs cannot inflate coverage outside the ledger.",
       "scope_limit": "Operational automation/governance row only; not evidence for OC scientific novelty, truth, or phenomenon coverage."
     },
@@ -359,7 +362,7 @@
       "release_promotion_allowed": false,
       "scientific_promotion_allowed": false,
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "promotion_condition": "Excluded from OC theorem/empirical promotion; included so attack-matrix automation IDs cannot inflate coverage outside the ledger.",
       "scope_limit": "Operational automation/governance row only; not evidence for OC scientific novelty, truth, or phenomenon coverage."
     },
@@ -372,7 +375,7 @@
       "release_promotion_allowed": false,
       "scientific_promotion_allowed": false,
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "promotion_condition": "Excluded from OC theorem/empirical promotion; included so attack-matrix automation IDs cannot inflate coverage outside the ledger.",
       "scope_limit": "Operational automation/governance row only; not evidence for OC scientific novelty, truth, or phenomenon coverage."
     },
@@ -385,7 +388,7 @@
       "release_promotion_allowed": false,
       "scientific_promotion_allowed": false,
       "adversarial_review_blocker_total": 0,
-      "prior_cerberus_open_total_at_generation": 6,
+      "prior_cerberus_open_total_at_generation": 3,
       "promotion_condition": "Excluded from OC theorem/empirical promotion; included so attack-matrix automation IDs cannot inflate coverage outside the ledger.",
       "scope_limit": "Operational automation/governance row only; not evidence for OC scientific novelty, truth, or phenomenon coverage."
     }

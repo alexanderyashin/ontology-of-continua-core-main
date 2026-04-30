@@ -2088,7 +2088,7 @@ def write_klevel_and_claims(root: Path) -> None:
         {
             "claim_id": theorem["id"],
             "claim": theorem["claim"],
-            "support": "LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS",
+            "support": "FORMAL_RELEASE_CONSISTENCY_CHECK" if theorem["id"] in FORMAL_CONSISTENCY_ONLY_THEOREMS else "LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS",
             "evidence_ref": f"proofs/proof_sheets/{theorem['id']}.md",
             "public_status": theorem_public_status if theorem["id"] not in FORMAL_CONSISTENCY_ONLY_THEOREMS else "FORMAL_CONSISTENCY_CHECK_NO_SEND_NOT_SCIENTIFIC_THEOREM",
             "release_promotion_allowed": package_release_promotion_allowed,
@@ -2097,7 +2097,11 @@ def write_klevel_and_claims(root: Path) -> None:
             "adversarial_review_blocker_total": open_review_blocker_total,
             "prior_cerberus_open_total_at_generation": prior_open_review_blocker_total,
             "fresh_cerberus_required_for_release": True,
-            "promotion_condition": "Promoted only as a bounded no-send scientific claim; the package-level release verdict still requires G57, G58, and G70 to pass with fresh zero critical/high Cerberus findings.",
+            "promotion_condition": (
+                "Not promoted as a scientific theorem: this row is a formal release-consistency check only and cannot become a bounded scientific claim until replaced by independent semantics/proof evidence."
+                if theorem["id"] in FORMAL_CONSISTENCY_ONLY_THEOREMS
+                else "Promoted only as a bounded no-send scientific claim; the package-level release verdict still requires G57, G58, and G70 to pass with fresh zero critical/high Cerberus findings."
+            ),
             "scope_limit": "Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.",
         }
         for theorem in THEOREMS
@@ -2174,6 +2178,12 @@ def write_klevel_and_claims(root: Path) -> None:
                 "scope_limit": "Operational automation/governance row only; not evidence for OC scientific novelty, truth, or phenomenon coverage.",
             }
         )
+    scientific_promotion_wording_violations = [
+        row.get("claim_id")
+        for row in claim_rows
+        if row.get("scientific_promotion_allowed") is False
+        and "Promoted only as a bounded no-send scientific claim" in str(row.get("promotion_condition", ""))
+    ]
     ledger = {
         "schema_id": "OC133_CLAIM_LEDGER_FULL_v12",
         "release_id": RELEASE_ID,
@@ -2189,6 +2199,9 @@ def write_klevel_and_claims(root: Path) -> None:
         "scientific_promotion_allowed_total": sum(1 for row in claim_rows if row.get("scientific_promotion_allowed") is True),
         "governance_control_allowed_total": sum(1 for row in claim_rows if row.get("governance_control_allowed") is True),
         "control_plane_total": sum(1 for row in claim_rows if row.get("control_plane_claim") is True),
+        "scientific_promotion_wording_violation_total": len(scientific_promotion_wording_violations),
+        "scientific_promotion_wording_violations": scientific_promotion_wording_violations,
+        "scientific_promotion_wording_lint_rule": "If scientific_promotion_allowed=false or evidence_ceiling=FORMAL_RELEASE_CONSISTENCY_CHECK_NOT_INDEPENDENT_SCIENTIFIC_THEOREM, promotion_condition must use explicit non-promotion language.",
         "promotion_condition": "The ledger may contain bounded no-send scientific claims, but package-level release promotion remains false until G57/G58/G70 pass after fresh Cerberus review.",
         "absolute_overclaim_policy": "BLOCK_PUBLIC_PROMOTION",
         "rows": claim_rows,
@@ -2214,6 +2227,14 @@ def write_empirical(root: Path) -> None:
         qa_row["baseline_control_value"] = baseline_control_value
         qa_row["comparator_residual"] = abs(float(baseline_control_value) - float(qa_row["parsed_snapshot_value"]))
         qa_row["residual_kind"] = "replay_residual_not_comparator_performance"
+        qa_row["performance_metric_allowed"] = False
+        qa_row["residual_public_interpretation"] = "PARSER_QA_DIAGNOSTIC_ONLY_NOT_MODEL_PERFORMANCE"
+        qa_row["parser_qa_diagnostics"] = {
+            "replay_residual": qa_row["replay_residual"],
+            "comparator_residual": qa_row["comparator_residual"],
+            "residual_kind": qa_row["residual_kind"],
+            "diagnostic_scope": "Parser/replay sanity check against pinned snapshots; not predictive performance, not empirical support, not a train/test score.",
+        }
         qa_rows.append(qa_row)
     payload = {
         "schema_id": "OC133_NUMERIC_REPLAY_QA_TABLE_v12",
@@ -3838,13 +3859,13 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             explanation_status = (
                 "ILLUSTRATIVE_INTERNAL_MODEL_NOT_PHENOMENON_COVERAGE"
                 if illustrative_internal
-                else "PHENOMENON_SPECIFIC_MODEL_REPLAYED"
+                else "FORMAL_MODEL_CARD_REPLAYED_NOT_EMPIRICAL_DOMAIN_COVERAGE"
             )
-            counts_as_phenomenon_coverage = not illustrative_internal
+            counts_as_phenomenon_coverage = False
             coverage_promotion_state = (
                 "ILLUSTRATIVE_INTERNAL_MODEL_NOT_PHENOMENON_COVERAGE"
                 if illustrative_internal
-                else "SCOPED_MODEL_CARD_NO_SEND_NOT_BROAD_DOMAIN_PROMOTION"
+                else "FORMAL_MODEL_CARD_REPLAY_NO_SEND_NOT_DOMAIN_PHENOMENON_COVERAGE"
             )
             blocker_count = (
                 1
@@ -3865,6 +3886,8 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 "fresh_review_gate_status": "FRESH_G57_G58_G70_REQUIRED_FOR_PACKAGE_RELEASE",
                 "public_promotion": False,
                 "counts_as_phenomenon_coverage": counts_as_phenomenon_coverage,
+                "counts_as_formal_model_card_replay": pid != "P012",
+                "counts_as_empirical_domain_phenomenon_coverage": False,
                 "blocker_count": blocker_count,
                 "claim_boundary": (
                     "This is an internal release-consistency illustration and is excluded from phenomenon coverage totals until a domain model/evaluator is added."
@@ -3903,6 +3926,9 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
         "version": VERSION,
         "row_total": len(phenomenon_rows),
         "phenomenon_coverage_row_total": sum(1 for row in phenomenon_rows if row.get("counts_as_phenomenon_coverage") is True),
+        "formal_model_card_replay_total": sum(1 for row in phenomenon_rows if row.get("counts_as_formal_model_card_replay") is True),
+        "empirical_domain_phenomenon_coverage_total": sum(1 for row in phenomenon_rows if row.get("counts_as_empirical_domain_phenomenon_coverage") is True),
+        "coverage_counter_policy": "phenomenon_coverage_row_total is reserved for domain-specific evaluator/external-observable/non-replay validation rows; finite formal model cards are counted separately as formal_model_card_replay_total.",
         "illustrative_internal_model_row_total": sum(1 for row in phenomenon_rows if row.get("counts_as_phenomenon_coverage") is False),
         "unsupported_closed_total": 0,
         "rows": phenomenon_rows,

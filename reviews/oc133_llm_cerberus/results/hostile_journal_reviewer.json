@@ -3,39 +3,39 @@
   "role": "hostile_journal_reviewer",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 4,
+  "high_open_total": 3,
   "finding_total": 4,
   "findings": [
     {
       "severity": "HIGH",
       "artifact_ref": "reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "claim": "High attack rows such as DET-MATRIX-034/035/038/039/040 against T133-BOUNDARY and DET-MATRIX-041 against T133-HYBRID are CLOSED_BY_SPECIFIC_V12_EVIDENCE.",
-      "failure_mode": "The rows require exact predicate closure, but the current closure evidence often records only current artifact hashes with closure_observed_case_results=[] and closure_observed_case_result_total=0. Hash binding is not proof that the requested falsifier, dependency, stale-evidence, claim-id, review-trace, or assumption-boundary predicate was actually satisfied, so the matrix closes high attacks by provenance theater rather than reviewer-verifiable closure.",
-      "required_repair": "Reopen every high row whose closure evidence lacks an explicit predicate result. Emit per-row verifier fields showing the matched claim_id/theorem_id/case_id refs, falsifier text, dependency refs, route chain, and boolean predicate pass, then close only rows with current hashes plus the exact requested predicate evidence.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-CYCLE: Promoted eligible-live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
-      "failure_mode": "The inventory promotes this as SCIENTIFICALLY_PROMOTED_NO_SEND_WITH_LEAN_SUBSET_AND_FINITE_WITNESS, but the directly referenced Lean item only unpacks definitions: eligibleLive already includes supportWitnessed, and supportWitnessed is cycleWitnessed or maintenanceWitnessed. The finite cases test the same release predicate. This is definitional consistency, not independent scientific theorem evidence.",
-      "required_repair": "Demote T133-CYCLE to a formal release-consistency check, or replace it with a non-definitional theorem where the liveness requirement follows from independently stated axioms and countermodels. Update the claim ledger, theorem inventory, coverage matrix, and attack matrix wording accordingly.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "claim": "T133-K-ZERO: Continuumness zero requires live support, an independently clear obstruction ledger, and a declared zero-cause family; a zero-cause label alone does not compute k=0.",
-      "failure_mode": "The promoted Lean theorem is an iff obtained by unfolding continuumnessCaseZero and kZeroLicensed, whose definitions already contain the live-support, admissible, cycle, zero-cause, and no-obstruction requirements. The artifact proves bookkeeping equivalence rather than a substantive continuumness result.",
-      "required_repair": "Demote T133-K-ZERO to formal consistency, or add an independent semantics for k and obstruction ledgers where the zero-cause/no-obstruction condition is derived rather than stipulated. Add independent nonzero and obstruction-active countermodels before restoring scientific promotion.",
+      "claim": "Fresh zero critical/high Cerberus findings are a release condition for the bounded scientific promotions.",
+      "failure_mode": "The current attack matrix has critical_unresolved_total=null, high_unresolved_total=null, fresh_cerberus_review_gate_status=PENDING_THIS_ROLE_RERUN, and fresh Cerberus open totals excluded from the context view. That means the artifact cannot presently substantiate any zero-critical/high closure claim even though other artifacts carry zero blocker counters and six bounded scientific promotions.",
+      "required_repair": "Integrate the fresh role result into the release matrix with numeric critical/high open totals, cross-link the summary, and keep release/scientific promotion gates closed unless the integrated fresh counters are explicitly zero.",
       "status": "OPEN"
     },
     {
       "severity": "HIGH",
       "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "claim": "P003/T133-CYCLE counts as phenomenon coverage for biological organization as typed liveness and cycles.",
-      "failure_mode": "The row counts as phenomenon coverage while relying only on a minimal live cell-state surrogate and formal replay cases FM-T133-CYCLE-POS/NEG, and it simultaneously admits it is not a full empirical solution. Counting this as phenomenon coverage inflates a toy classifier check into broad biological explanation.",
-      "required_repair": "Set P003 counts_as_phenomenon_coverage=false and mark it as an illustrative internal model, or add a domain-specific biological model card with measurement rules, data, baseline comparators, held-out or prospective tests, and falsifiers before including it in phenomenon_coverage_row_total.",
+      "claim": "phenomenon_coverage_row_total=6 for P001, P002, P004, P005, P006, and P015.",
+      "failure_mode": "All counted coverage rows are marked SCOPED_FORMAL_REPLAY_NOT_DOMAIN_TOTALIZATION and explicitly say they are not full empirical solutions of the broad phenomenon. Counting finite toy/model-card replays as phenomenon coverage invites empirical theater and broad-coverage inflation despite the local caveats.",
+      "required_repair": "Split the field into formal_model_card_replay_total and empirical/domain_phenomenon_coverage_total, or set counts_as_phenomenon_coverage=false until each row has a domain-specific evaluator, external observable, and non-replay validation protocol.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "HIGH",
+      "artifact_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+      "claim": "T133-K-ZERO, T133-CYCLE, T133-MIN, and T133-KLEVEL are formal consistency checks, not independent scientific theorems.",
+      "failure_mode": "These rows have public_status/evidence_ceiling/scientific_promotion_allowed fields that demote them, but their promotion_condition still says they are promoted as bounded no-send scientific claims. That internal contradiction is theorem-theater ammunition and makes the ledger didactically unsafe.",
+      "required_repair": "Replace the promotion_condition on all non-scientific rows with explicit non-promotion language and add a schema/lint rule forbidding scientific-promotion wording when scientific_promotion_allowed=false or evidence_ceiling is FORMAL_RELEASE_CONSISTENCY_CHECK_NOT_INDEPENDENT_SCIENTIFIC_THEOREM.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+      "claim": "Numeric rows provide replay QA with baseline negative-control falsifiers, not empirical or prediction support.",
+      "failure_mode": "The quarantine flags are correct, but the table still presents replay_residual and comparator_residual fields for exact official snapshot replays with no train/test split. A skeptical journal can still read this as performance theater unless the residuals are visibly parser-QA diagnostics only.",
+      "required_repair": "Move comparator_residual fields into a parser-QA diagnostic section, remove performance-like framing from the numeric table, and require a separate prospective target-blind protocol before any empirical row can be promoted.",
       "status": "OPEN"
     }
   ],

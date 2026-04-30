@@ -3,31 +3,31 @@
   "role": "reproducibility_auditor",
   "execution_status": "EXECUTED",
   "critical_open_total": 0,
-  "high_open_total": 2,
+  "high_open_total": 0,
   "finding_total": 3,
   "findings": [
     {
-      "severity": "HIGH",
+      "severity": "MEDIUM",
       "artifact_ref": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
-      "claim": "verdict PASS with source_only_target_policy that compared generated targets, including the no-send release zip and SHA256SUMS, are newly produced from the tracked-source temp tree",
-      "failure_mode": "The verifier starts from a detached HEAD worktree containing all tracked generated artifacts and deletes only the 11 COMPARE_REFS before running producers. The package command then builds a 198-member zip from tracked package inputs, so the zip and checksum can byte-match while un-deleted generated package members remain preexisting cached artifacts from HEAD rather than being regenerated from source.",
-      "required_repair": "Define a complete generated-output inventory for every package member and producer input, delete those generated files from the temp tree before the command sequence, rerun the full producer graph, and compare regenerated member hashes individually; otherwise narrow the claim to packaging determinism from a committed artifact set, not source-only regeneration.",
-      "status": "OPEN"
-    },
-    {
-      "severity": "HIGH",
-      "artifact_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-      "claim": "isolated clean checkout build and post-generation reproducibility without hidden local state",
-      "failure_mode": "The canonical compared certificate embeds ambient host tool state such as elan_version_observed and python_version, while tools/verify_oc133_reproducible_temp_tree.py records post-generation commands only as executed_with_current_python. The package zip also depends on Python zipfile/zlib behavior. A clean checkout on a different Python/elan/zlib stack can fail byte-for-byte regeneration even with the same Lean toolchain and no .lake cache.",
-      "required_repair": "Either provide a hermetic container or explicit lock/provisioning record for Python, zlib, elan, git, OS, and compression behavior, or remove host-specific diagnostics from compared canonical artifacts and place them only in noncanonical local observation files.",
+      "claim": "verdict PASS for post-generation reproducibility of the current release-critical artifact set",
+      "failure_mode": "The manifest itself is release-critical in this review, but it is not in preexisting_compared_targets_deleted_before_generation or rows and is excluded from the package/output comparison cycle. The current evidence supports stable_payload continuity for the manifest, not byte-regeneration of the current manifest wrapper as a compared artifact.",
+      "required_repair": "Add an outer verifier harness that runs tools/verify_oc133_reproducible_temp_tree.py in a detached temp checkout and compares the generated manifest bytes, or explicitly downgrade the claim to stable-payload-only reproduction and bind that stable payload in a non-cyclic attestation.",
       "status": "OPEN"
     },
     {
       "severity": "MEDIUM",
-      "artifact_ref": "tools/verify_oc133_reproducible_temp_tree.py",
-      "claim": "previous_manifest_self_check detects stale or locally edited manifest payloads before overwriting",
-      "failure_mode": "The self-check compares only the previous top-level stable_payload_sha256 string to the newly computed stable payload hash. It does not recompute the previous manifest stable payload from the previous file contents, so a committed or local payload edit that leaves stable_payload_sha256 unchanged is not detected by this check.",
-      "required_repair": "Recompute the previous manifest stable payload hash from the previous manifest fields, verify it equals the declared previous stable_payload_sha256, then compare that recomputed hash to the current stable payload hash before overwriting.",
+      "artifact_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+      "claim": "post_generation_reproducibility_manifest_hash_binding is covered by OUTER_ATTESTATION_ONLY_TO_AVOID_CERTIFICATE_OUTPUT_CYCLE",
+      "failure_mode": "The certificate names reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json::stable_payload_sha256 but does not record the actual stable_payload_sha256 value. The Lean certificate is therefore not cryptographically bound to the exact current post-generation reproducibility manifest; the binding depends on a separate reader checking the current manifest file.",
+      "required_repair": "Record the expected post-generation stable_payload_sha256 in a separate release-level attestation, or add a two-file non-cyclic binding where the manifest binds the certificate hash and an outer checksum file binds both exact values.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "LOW",
+      "artifact_ref": "simulations/run_all.py",
+      "claim": "current OC Core 1.3.3 simulation reproducibility entrypoint with 11 expected simulations",
+      "failure_mode": "The runner verifies deterministic replay of static expected outputs but does not enforce model-specific behavioral distinctness across the 11 simulation lanes. Current certificates show identical runner hashes and identical expected numeric outputs across the lanes, so this remains illustration-only evidence and cannot support phenomenon coverage or empirical promotion.",
+      "required_repair": "Keep the support ceiling explicit wherever these results are consumed, or add lane-distinct simulation contracts, model-specific invariants, and negative controls before counting simulation_total as coverage evidence.",
       "status": "OPEN"
     }
   ],

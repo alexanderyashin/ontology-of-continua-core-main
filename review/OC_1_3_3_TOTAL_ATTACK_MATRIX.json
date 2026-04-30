@@ -4,16 +4,16 @@
   "version": "1.3.3",
   "objection_total": 215,
   "semantic_dedup_key_total": 200,
-  "cerberus_sourced_objection_total": 6,
-  "deterministic_objection_total": 209,
+  "cerberus_sourced_objection_total": 3,
+  "deterministic_objection_total": 212,
   "critical_unresolved_total": 0,
-  "high_unresolved_total": 6,
+  "high_unresolved_total": 3,
   "fresh_cerberus_review_satisfied": false,
   "fresh_cerberus_review_gate_status": "BLOCKED_PENDING_FRESH_ZERO_CRITICAL_HIGH_REVIEW",
   "fresh_cerberus_summary_ref": "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json",
   "fresh_cerberus_execution_status": "EXECUTED_WITH_OPEN_FINDINGS",
   "fresh_cerberus_critical_open_total": 0,
-  "fresh_cerberus_high_open_total": 6,
+  "fresh_cerberus_high_open_total": 3,
   "release_pass_badge_allowed": false,
   "generic_row_total": 0,
   "rows": [
@@ -21,23 +21,22 @@
       "objection_id": "CERBERUS-001-hostile_journal_reviewer",
       "source": "llm_cerberus",
       "source_result_ref": "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
-      "source_finding_hash": "23b211f4c36c4ead",
+      "source_finding_hash": "fdd870ace38f8a50",
       "source_finding_index": 1,
-      "theme": "hybrid_operator_semantics",
+      "theme": "empirical_quarantine",
       "severity": "HIGH",
-      "attacked_claim": "Current `hybrid_operator_semantics` surface for `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` must satisfy `smooth_hybrid_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, and proof/rewrite admission semantics`; stale source finding hash `23b211f4c36c4ead` is retained only as an audit key.",
+      "attacked_claim": "Current `empirical_quarantine` surface for `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` must satisfy `prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false`; stale source finding hash `fdd870ace38f8a50` is retained only as an audit key.",
       "artifact_location": "reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-      "objection": "Open HIGH Cerberus finding against `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` under normalized theme `hybrid_operator_semantics`. Source finding hash `23b211f4c36c4ead` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` under normalized theme `hybrid_operator_semantics`. Source finding hash `23b211f4c36c4ead` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `23b211f4c36c4ead` as critical/high open; verify by `smooth_hybrid_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, and proof/rewrite admission semantics`.",
+      "objection": "Open HIGH Cerberus finding against `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` under normalized theme `empirical_quarantine`. Source finding hash `fdd870ace38f8a50` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json` under normalized theme `empirical_quarantine`. Source finding hash `fdd870ace38f8a50` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `fdd870ace38f8a50` as critical/high open; verify by `prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false`.",
       "closure_type": "cerberus_finding_bound_specific_artifact_field",
       "closure_evidence_refs": [
-        "formal/lean/OC133V12.lean",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-        "content/OC_1_3_3_OPERATOR_SEMANTICS.tex"
+        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+        "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json"
       ],
-      "closure_verification_query": "smooth_hybrid_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, and proof/rewrite admission semantics",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json and bound to: smooth_hybrid_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, and proof/rewrite admission semantics. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "closure_verification_query": "prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json and bound to: prediction_support_allowed_total=0 and numeric_replay rows have empirical_support_allowed=false. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
       "status": "OPEN_PENDING_REPAIR",
       "no_send": true
     },
@@ -45,61 +44,15 @@
       "objection_id": "CERBERUS-002-hostile_journal_reviewer",
       "source": "llm_cerberus",
       "source_result_ref": "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
-      "source_finding_hash": "e86bb8baf524fcf8",
+      "source_finding_hash": "9d9222af49af991a",
       "source_finding_index": 2,
-      "theme": "attack_matrix_binding",
-      "severity": "HIGH",
-      "attacked_claim": "Current `attack_matrix_binding` surface for `proofs/THEOREM_INVENTORY_1_3_3.json` must satisfy `attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations`; stale source finding hash `e86bb8baf524fcf8` is retained only as an audit key.",
-      "artifact_location": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "objection": "Open HIGH Cerberus finding against `proofs/THEOREM_INVENTORY_1_3_3.json` under normalized theme `attack_matrix_binding`. Source finding hash `e86bb8baf524fcf8` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `proofs/THEOREM_INVENTORY_1_3_3.json` under normalized theme `attack_matrix_binding`. Source finding hash `e86bb8baf524fcf8` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `e86bb8baf524fcf8` as critical/high open; verify by `attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations`.",
-      "closure_type": "cerberus_finding_bound_specific_artifact_field",
-      "closure_evidence_refs": [
-        "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
-        "reviews/oc133_llm_cerberus/repair/OC133_CERBERUS_REPAIR_WORK_ORDERS.json"
-      ],
-      "closure_verification_query": "attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json and bound to: attack rows are generated from exact Cerberus findings plus deterministic theorem/finite/numeric/comparator/no-send obligations. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
-      "status": "OPEN_PENDING_REPAIR",
-      "no_send": true
-    },
-    {
-      "objection_id": "CERBERUS-003-hostile_journal_reviewer",
-      "source": "llm_cerberus",
-      "source_result_ref": "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
-      "source_finding_hash": "c472a86aa49588a8",
-      "source_finding_index": 3,
-      "theme": "claim_boundary",
-      "severity": "HIGH",
-      "attacked_claim": "Current `claim_boundary` surface for `proofs/THEOREM_INVENTORY_1_3_3.json` must satisfy `public claim is bounded to theorem/proof/finite/falsifier evidence`; stale source finding hash `c472a86aa49588a8` is retained only as an audit key.",
-      "artifact_location": "proofs/THEOREM_INVENTORY_1_3_3.json",
-      "objection": "Open HIGH Cerberus finding against `proofs/THEOREM_INVENTORY_1_3_3.json` under normalized theme `claim_boundary`. Source finding hash `c472a86aa49588a8` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `proofs/THEOREM_INVENTORY_1_3_3.json` under normalized theme `claim_boundary`. Source finding hash `c472a86aa49588a8` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `c472a86aa49588a8` as critical/high open; verify by `public claim is bounded to theorem/proof/finite/falsifier evidence`.",
-      "closure_type": "cerberus_finding_bound_specific_artifact_field",
-      "closure_evidence_refs": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "closure_verification_query": "public claim is bounded to theorem/proof/finite/falsifier evidence",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json and bound to: public claim is bounded to theorem/proof/finite/falsifier evidence. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
-      "status": "OPEN_PENDING_REPAIR",
-      "no_send": true
-    },
-    {
-      "objection_id": "CERBERUS-004-hostile_journal_reviewer",
-      "source": "llm_cerberus",
-      "source_result_ref": "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
-      "source_finding_hash": "3c22aad8fa9d6527",
-      "source_finding_index": 4,
       "theme": "phenomenon_model_card",
       "severity": "HIGH",
-      "attacked_claim": "Current `phenomenon_model_card` surface for `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` must satisfy `each model_card names prediction_or_replay, negative_control, evidence_refs, and falsifier`; stale source finding hash `3c22aad8fa9d6527` is retained only as an audit key.",
+      "attacked_claim": "Current `phenomenon_model_card` surface for `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` must satisfy `each model_card names prediction_or_replay, negative_control, evidence_refs, and falsifier`; stale source finding hash `9d9222af49af991a` is retained only as an audit key.",
       "artifact_location": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-      "objection": "Open HIGH Cerberus finding against `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` under normalized theme `phenomenon_model_card`. Source finding hash `3c22aad8fa9d6527` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` under normalized theme `phenomenon_model_card`. Source finding hash `3c22aad8fa9d6527` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `3c22aad8fa9d6527` as critical/high open; verify by `each model_card names prediction_or_replay, negative_control, evidence_refs, and falsifier`.",
+      "objection": "Open HIGH Cerberus finding against `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` under normalized theme `phenomenon_model_card`. Source finding hash `9d9222af49af991a` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json` under normalized theme `phenomenon_model_card`. Source finding hash `9d9222af49af991a` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `9d9222af49af991a` as critical/high open; verify by `each model_card names prediction_or_replay, negative_control, evidence_refs, and falsifier`.",
       "closure_type": "cerberus_finding_bound_specific_artifact_field",
       "closure_evidence_refs": [
         "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
@@ -111,48 +64,25 @@
       "no_send": true
     },
     {
-      "objection_id": "CERBERUS-005-reproducibility_auditor",
+      "objection_id": "CERBERUS-003-hostile_journal_reviewer",
       "source": "llm_cerberus",
-      "source_result_ref": "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json",
-      "source_finding_hash": "78b37083f2a52642",
-      "source_finding_index": 1,
+      "source_result_ref": "reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json",
+      "source_finding_hash": "9564bc8dcaa17e3a",
+      "source_finding_index": 3,
       "theme": "no_send_parity",
       "severity": "HIGH",
-      "attacked_claim": "Current `no_send_parity` surface for `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` must satisfy `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`; stale source finding hash `78b37083f2a52642` is retained only as an audit key.",
-      "artifact_location": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
-      "objection": "Open HIGH Cerberus finding against `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` under normalized theme `no_send_parity`. Source finding hash `78b37083f2a52642` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json` under normalized theme `no_send_parity`. Source finding hash `78b37083f2a52642` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `reproducibility_auditor` Cerberus run no longer reports source finding hash `78b37083f2a52642` as critical/high open; verify by `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`.",
+      "attacked_claim": "Current `no_send_parity` surface for `claims/CLAIM_LEDGER_1_3_3.json` must satisfy `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`; stale source finding hash `9564bc8dcaa17e3a` is retained only as an audit key.",
+      "artifact_location": "claims/CLAIM_LEDGER_1_3_3.json",
+      "objection": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `no_send_parity`. Source finding hash `9564bc8dcaa17e3a` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "failure_mode": "Open HIGH Cerberus finding against `claims/CLAIM_LEDGER_1_3_3.json` under normalized theme `no_send_parity`. Source finding hash `9564bc8dcaa17e3a` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
+      "required_repair": "Repair the attacked artifact until a fresh `hostile_journal_reviewer` Cerberus run no longer reports source finding hash `9564bc8dcaa17e3a` as critical/high open; verify by `ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked`.",
       "closure_type": "cerberus_finding_bound_specific_artifact_field",
       "closure_evidence_refs": [
         "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
         "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
       ],
       "closure_verification_query": "ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/reproducibility_auditor.json and bound to: ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
-      "status": "OPEN_PENDING_REPAIR",
-      "no_send": true
-    },
-    {
-      "objection_id": "CERBERUS-006-reproducibility_auditor",
-      "source": "llm_cerberus",
-      "source_result_ref": "reviews/oc133_llm_cerberus/results/reproducibility_auditor.json",
-      "source_finding_hash": "f97c859cb8726a66",
-      "source_finding_index": 2,
-      "theme": "claim_boundary",
-      "severity": "HIGH",
-      "attacked_claim": "Current `claim_boundary` surface for `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` must satisfy `public claim is bounded to theorem/proof/finite/falsifier evidence`; stale source finding hash `f97c859cb8726a66` is retained only as an audit key.",
-      "artifact_location": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-      "objection": "Open HIGH Cerberus finding against `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` under normalized theme `claim_boundary`. Source finding hash `f97c859cb8726a66` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "failure_mode": "Open HIGH Cerberus finding against `formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json` under normalized theme `claim_boundary`. Source finding hash `f97c859cb8726a66` is kept in `source_finding_hash`; current release counters are recomputed from matrix rows, not copied from source prose.",
-      "required_repair": "Repair the attacked artifact until a fresh `reproducibility_auditor` Cerberus run no longer reports source finding hash `f97c859cb8726a66` as critical/high open; verify by `public claim is bounded to theorem/proof/finite/falsifier evidence`.",
-      "closure_type": "cerberus_finding_bound_specific_artifact_field",
-      "closure_evidence_refs": [
-        "claims/CLAIM_LEDGER_1_3_3.json",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
-      ],
-      "closure_verification_query": "public claim is bounded to theorem/proof/finite/falsifier evidence",
-      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/reproducibility_auditor.json and bound to: public claim is bounded to theorem/proof/finite/falsifier evidence. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
+      "closure_evidence": "Repair path generated from reviews/oc133_llm_cerberus/results/hostile_journal_reviewer.json and bound to: ADV-NOSEND-PUBLISH reads current manifest/approval refs; all public channels including DOI minting are locked. This row remains open until a fresh Cerberus role result no longer reports the source finding as critical/high OPEN.",
       "status": "OPEN_PENDING_REPAIR",
       "no_send": true
     },
@@ -3706,23 +3636,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -3834,23 +3764,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -3961,23 +3891,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -4089,23 +4019,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -4216,23 +4146,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -4344,23 +4274,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -4471,7 +4401,7 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -4479,23 +4409,23 @@
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/proof_sheets/T133-K0-RES.md",
@@ -4624,23 +4554,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -4752,23 +4682,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -4880,23 +4810,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -5008,23 +4938,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -5136,23 +5066,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -5263,23 +5193,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -5391,23 +5321,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -5518,23 +5448,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -5646,23 +5576,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -5769,7 +5699,7 @@
       "closure_current_artifact_hashes": [
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "content/OC_1_3_3_TYPED_FOUNDATION.tex",
@@ -5781,23 +5711,23 @@
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/proof_sheets/T133-OMEGA-STATUS.md",
@@ -5926,23 +5856,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -6054,23 +5984,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -6182,23 +6112,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -6310,23 +6240,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -6438,23 +6368,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -6565,23 +6495,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -6693,23 +6623,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -6820,23 +6750,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -6948,23 +6878,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -7075,7 +7005,7 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -7083,23 +7013,23 @@
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/proof_sheets/T133-K-ZERO.md",
@@ -7228,23 +7158,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -7356,23 +7286,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -7484,23 +7414,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -7612,23 +7542,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -7740,23 +7670,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -7867,23 +7797,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -7995,23 +7925,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -8122,23 +8052,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -8250,23 +8180,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -8377,7 +8307,7 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -8385,23 +8315,23 @@
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/proof_sheets/T133-BOUNDARY.md",
@@ -8530,23 +8460,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -8658,23 +8588,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -8786,23 +8716,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -8914,23 +8844,23 @@
         },
         {
           "ref": "claims/CLAIM_LEDGER_1_3_3.json",
-          "sha256": "27486c567a8002f4fa9c9a044fd9dbe2d25871d3fa4943fb5b958cd95a7d31ff"
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
         },
         {
           "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
-          "sha256": "afb2bcdeb4c6e19a5c98338fa0c4efdb2427ba9c83b423079fd200b52470f44d"
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-          "sha256": "cd1ebfa9c11926efe527f1446cdbe668659274792c179e9bddca93165dd40380"
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
         },
         {
           "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
@@ -8976,6 +8906,388 @@
         "query_case_ids": [
           "FM-T133-HYBRID-NEG",
           "FM-T133-HYBRID-POS"
+        ],
+        "matched_case_ids": [
+          "FM-T133-HYBRID-NEG",
+          "FM-T133-HYBRID-POS"
+        ],
+        "required_theorem_case_ids": [
+          "FM-T133-HYBRID-POS",
+          "FM-T133-HYBRID-NEG"
+        ],
+        "named_cases_observed": true,
+        "named_cases_passed": true,
+        "artifact_hashes_present": true,
+        "claim_ledger_match": true,
+        "claim_public_status": "PROMOTED_BOUNDED_NO_SEND_V12",
+        "claim_scientific_promotion_allowed": true,
+        "theorem_registry_match": true,
+        "theorem_inventory_match": true,
+        "proof_sheet_has_assumptions": true,
+        "proof_sheet_has_counterexample_boundary": true,
+        "hostile_reader_route_chain_present": true,
+        "falsifier_or_boundary_text_present": true,
+        "case_set_named_for_predicate": [
+          "FM-T133-HYBRID-NEG",
+          "FM-T133-HYBRID-POS"
+        ],
+        "vector_specific_predicate_pass": true,
+        "closure_predicate_pass": true
+      },
+      "closure_predicate_pass": true,
+      "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+      "no_send": true
+    },
+    {
+      "objection_id": "DET-MATRIX-042-T133-HYBRID-NEGATIVE-CONTROL",
+      "source": "deterministic_attack_register",
+      "theme": "attack_matrix_distinct_surface_coverage",
+      "severity": "HIGH",
+      "attacked_claim": "T133-HYBRID",
+      "artifact_location": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+      "objection": "T133-HYBRID attack: Typed update and chart-labelled operator semantics theorem: negative control could be absent or non-responsive.",
+      "failure_mode": "Typed update and chart-labelled operator semantics theorem: negative control could be absent or non-responsive",
+      "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
+      "closure_type": "generated_distinct_attack_surface",
+      "closure_evidence_refs": [
+        "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+        "proofs/proof_sheets/T133-HYBRID.md",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "proofs/THEOREM_REGISTRY_1_3_3.json",
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-HYBRID-POS",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-HYBRID-NEG",
+        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
+      ],
+      "closure_verification_query": "T133-HYBRID/NEGATIVE-CONTROL: FM-T133-HYBRID-NEG passed=true and rejects the stronger reading",
+      "closure_evidence": "Observed current closure for `T133-HYBRID/NEGATIVE-CONTROL: FM-T133-HYBRID-NEG passed=true and rejects the stronger reading`: 8 artifact hash(es), 2 finite/control case result(s), predicate_pass=true, verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+          "sha256": "809808828cb75f2cea6e5e588c4655c986755916ba2af3ca2234a6faaa7a431f"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-HYBRID.md",
+          "sha256": "8e045af8044642484cce6f6aabbd6b9bcb8210b457aacd474b495a09d77cb1f8"
+        },
+        {
+          "ref": "claims/CLAIM_LEDGER_1_3_3.json",
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
+        },
+        {
+          "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
+        },
+        {
+          "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
+        },
+        {
+          "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
+          "sha256": "67548223c095c6df437732208190149ab9a56bad0d688d840174769718e1e04c"
+        }
+      ],
+      "closure_observed_case_results": [
+        {
+          "case_id": "FM-T133-HYBRID-NEG",
+          "passed": true,
+          "observed_verdict": "REJECT",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        },
+        {
+          "case_id": "FM-T133-HYBRID-POS",
+          "passed": true,
+          "observed_verdict": "ACCEPT",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        }
+      ],
+      "closure_current_artifact_hash_total": 8,
+      "closure_observed_case_result_total": 2,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
+      "closure_predicate_results": {
+        "matched_claim_id": "T133-HYBRID",
+        "matched_theorem_id": "T133-HYBRID",
+        "domain_key": "T133-HYBRID",
+        "vector_id": "NEGATIVE-CONTROL",
+        "dependency_refs": [
+          "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+          "proofs/proof_sheets/T133-HYBRID.md",
+          "claims/CLAIM_LEDGER_1_3_3.json",
+          "proofs/THEOREM_REGISTRY_1_3_3.json",
+          "proofs/THEOREM_INVENTORY_1_3_3.json",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-HYBRID-POS",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-HYBRID-NEG",
+          "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
+        ],
+        "query_case_ids": [
+          "FM-T133-HYBRID-NEG"
+        ],
+        "matched_case_ids": [
+          "FM-T133-HYBRID-NEG",
+          "FM-T133-HYBRID-POS"
+        ],
+        "required_theorem_case_ids": [
+          "FM-T133-HYBRID-POS",
+          "FM-T133-HYBRID-NEG"
+        ],
+        "named_cases_observed": true,
+        "named_cases_passed": true,
+        "artifact_hashes_present": true,
+        "claim_ledger_match": true,
+        "claim_public_status": "PROMOTED_BOUNDED_NO_SEND_V12",
+        "claim_scientific_promotion_allowed": true,
+        "theorem_registry_match": true,
+        "theorem_inventory_match": true,
+        "proof_sheet_has_assumptions": true,
+        "proof_sheet_has_counterexample_boundary": true,
+        "hostile_reader_route_chain_present": true,
+        "falsifier_or_boundary_text_present": true,
+        "case_set_named_for_predicate": [
+          "FM-T133-HYBRID-NEG",
+          "FM-T133-HYBRID-POS"
+        ],
+        "vector_specific_predicate_pass": true,
+        "closure_predicate_pass": true
+      },
+      "closure_predicate_pass": true,
+      "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+      "no_send": true
+    },
+    {
+      "objection_id": "DET-MATRIX-043-T133-HYBRID-PUBLIC-SURFACE",
+      "source": "deterministic_attack_register",
+      "theme": "attack_matrix_distinct_surface_coverage",
+      "severity": "HIGH",
+      "attacked_claim": "T133-HYBRID",
+      "artifact_location": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+      "objection": "T133-HYBRID attack: Typed update and chart-labelled operator semantics theorem: public wording could exceed the machine-checked claim.",
+      "failure_mode": "Typed update and chart-labelled operator semantics theorem: public wording could exceed the machine-checked claim",
+      "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
+      "closure_type": "generated_distinct_attack_surface",
+      "closure_evidence_refs": [
+        "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+        "proofs/proof_sheets/T133-HYBRID.md",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "proofs/THEOREM_REGISTRY_1_3_3.json",
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-HYBRID-POS",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-HYBRID-NEG",
+        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
+      ],
+      "closure_verification_query": "T133-HYBRID/PUBLIC-SURFACE: claim ledger public_status=PROMOTED_BOUNDED_NO_SEND_V12; FM-T133-HYBRID-POS passed=true; FM-T133-HYBRID-NEG passed=true",
+      "closure_evidence": "Observed current closure for `T133-HYBRID/PUBLIC-SURFACE: claim ledger public_status=PROMOTED_BOUNDED_NO_SEND_V12; FM-T133-HYBRID-POS passed=true; FM-T133-HYBRID-NEG passed=true`: 8 artifact hash(es), 2 finite/control case result(s), predicate_pass=true, verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+          "sha256": "809808828cb75f2cea6e5e588c4655c986755916ba2af3ca2234a6faaa7a431f"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-HYBRID.md",
+          "sha256": "8e045af8044642484cce6f6aabbd6b9bcb8210b457aacd474b495a09d77cb1f8"
+        },
+        {
+          "ref": "claims/CLAIM_LEDGER_1_3_3.json",
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
+        },
+        {
+          "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
+        },
+        {
+          "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
+        },
+        {
+          "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
+          "sha256": "67548223c095c6df437732208190149ab9a56bad0d688d840174769718e1e04c"
+        }
+      ],
+      "closure_observed_case_results": [
+        {
+          "case_id": "FM-T133-HYBRID-NEG",
+          "passed": true,
+          "observed_verdict": "REJECT",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        },
+        {
+          "case_id": "FM-T133-HYBRID-POS",
+          "passed": true,
+          "observed_verdict": "ACCEPT",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        }
+      ],
+      "closure_current_artifact_hash_total": 8,
+      "closure_observed_case_result_total": 2,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
+      "closure_predicate_results": {
+        "matched_claim_id": "T133-HYBRID",
+        "matched_theorem_id": "T133-HYBRID",
+        "domain_key": "T133-HYBRID",
+        "vector_id": "PUBLIC-SURFACE",
+        "dependency_refs": [
+          "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+          "proofs/proof_sheets/T133-HYBRID.md",
+          "claims/CLAIM_LEDGER_1_3_3.json",
+          "proofs/THEOREM_REGISTRY_1_3_3.json",
+          "proofs/THEOREM_INVENTORY_1_3_3.json",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-HYBRID-POS",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-HYBRID-NEG",
+          "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
+        ],
+        "query_case_ids": [
+          "FM-T133-HYBRID-NEG",
+          "FM-T133-HYBRID-POS"
+        ],
+        "matched_case_ids": [
+          "FM-T133-HYBRID-NEG",
+          "FM-T133-HYBRID-POS"
+        ],
+        "required_theorem_case_ids": [
+          "FM-T133-HYBRID-POS",
+          "FM-T133-HYBRID-NEG"
+        ],
+        "named_cases_observed": true,
+        "named_cases_passed": true,
+        "artifact_hashes_present": true,
+        "claim_ledger_match": true,
+        "claim_public_status": "PROMOTED_BOUNDED_NO_SEND_V12",
+        "claim_scientific_promotion_allowed": true,
+        "theorem_registry_match": true,
+        "theorem_inventory_match": true,
+        "proof_sheet_has_assumptions": true,
+        "proof_sheet_has_counterexample_boundary": true,
+        "hostile_reader_route_chain_present": true,
+        "falsifier_or_boundary_text_present": true,
+        "case_set_named_for_predicate": [
+          "FM-T133-HYBRID-NEG",
+          "FM-T133-HYBRID-POS"
+        ],
+        "vector_specific_predicate_pass": true,
+        "closure_predicate_pass": true
+      },
+      "closure_predicate_pass": true,
+      "status": "CLOSED_BY_SPECIFIC_V12_EVIDENCE",
+      "no_send": true
+    },
+    {
+      "objection_id": "DET-MATRIX-044-T133-HYBRID-FALSIFIER",
+      "source": "deterministic_attack_register",
+      "theme": "attack_matrix_distinct_surface_coverage",
+      "severity": "HIGH",
+      "attacked_claim": "T133-HYBRID",
+      "artifact_location": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+      "objection": "T133-HYBRID attack: Typed update and chart-labelled operator semantics theorem: falsifier could be missing, vague, or non-executable.",
+      "failure_mode": "Typed update and chart-labelled operator semantics theorem: falsifier could be missing, vague, or non-executable",
+      "required_repair": "Close this distinct attack surface only by the exact predicate named in closure_verification_query.",
+      "closure_type": "generated_distinct_attack_surface",
+      "closure_evidence_refs": [
+        "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+        "proofs/proof_sheets/T133-HYBRID.md",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "proofs/THEOREM_REGISTRY_1_3_3.json",
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-HYBRID-POS",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-HYBRID-NEG",
+        "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
+      ],
+      "closure_verification_query": "T133-HYBRID/FALSIFIER: proof sheet Counterexample Boundary present and FM-T133-HYBRID-NEG passed=true",
+      "closure_evidence": "Observed current closure for `T133-HYBRID/FALSIFIER: proof sheet Counterexample Boundary present and FM-T133-HYBRID-NEG passed=true`: 8 artifact hash(es), 2 finite/control case result(s), predicate_pass=true, verifier `tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py`.",
+      "closure_current_artifact_hashes": [
+        {
+          "ref": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+          "sha256": "809808828cb75f2cea6e5e588c4655c986755916ba2af3ca2234a6faaa7a431f"
+        },
+        {
+          "ref": "proofs/proof_sheets/T133-HYBRID.md",
+          "sha256": "8e045af8044642484cce6f6aabbd6b9bcb8210b457aacd474b495a09d77cb1f8"
+        },
+        {
+          "ref": "claims/CLAIM_LEDGER_1_3_3.json",
+          "sha256": "eba0ca5693f3437f0f21eb4259b8a2c6b8940b508f1d88d58de6acd32ace4e38"
+        },
+        {
+          "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
+        },
+        {
+          "ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+          "sha256": "dccee6741a84c4ae712f414f010f19e8b72f817c448da7426f61e1da85bcb2ac"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
+        },
+        {
+          "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+          "sha256": "993cb4800061dab877356f850c008b97e9ca4eca0d26c51e47919298d7fd5eee"
+        },
+        {
+          "ref": "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
+          "sha256": "67548223c095c6df437732208190149ab9a56bad0d688d840174769718e1e04c"
+        }
+      ],
+      "closure_observed_case_results": [
+        {
+          "case_id": "FM-T133-HYBRID-NEG",
+          "passed": true,
+          "observed_verdict": "REJECT",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        },
+        {
+          "case_id": "FM-T133-HYBRID-POS",
+          "passed": true,
+          "observed_verdict": "ACCEPT",
+          "observed_keep_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null
+        }
+      ],
+      "closure_current_artifact_hash_total": 8,
+      "closure_observed_case_result_total": 2,
+      "closure_verifier_identity": "tools/materialize_oc_core_1_3_3_v12_closure.py + proofs/finite_model_checks/run_finite_model_checks.py + release_machine/oc133_v12.py",
+      "closure_predicate_results": {
+        "matched_claim_id": "T133-HYBRID",
+        "matched_theorem_id": "T133-HYBRID",
+        "domain_key": "T133-HYBRID",
+        "vector_id": "FALSIFIER",
+        "dependency_refs": [
+          "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
+          "proofs/proof_sheets/T133-HYBRID.md",
+          "claims/CLAIM_LEDGER_1_3_3.json",
+          "proofs/THEOREM_REGISTRY_1_3_3.json",
+          "proofs/THEOREM_INVENTORY_1_3_3.json",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-HYBRID-POS",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-T133-HYBRID-NEG",
+          "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md"
+        ],
+        "query_case_ids": [
+          "FM-T133-HYBRID-NEG"
         ],
         "matched_case_ids": [
           "FM-T133-HYBRID-NEG",

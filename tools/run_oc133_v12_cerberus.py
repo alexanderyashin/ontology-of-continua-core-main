@@ -379,21 +379,26 @@ def fresh_context_ref(role: str, ref: str) -> str:
     )
     view["deterministic_context_critical_unresolved_total"] = deterministic_critical
     view["deterministic_context_high_unresolved_total"] = deterministic_high
-    view["critical_unresolved_total"] = None
-    view["high_unresolved_total"] = None
+    summary_path = ROOT / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json"
+    summary = json.loads(summary_path.read_text(encoding="utf-8")) if summary_path.exists() else {}
+    fresh_critical = int(summary.get("critical_open_total", 0) or 0)
+    fresh_high = int(summary.get("high_open_total", 0) or 0)
+    view["critical_unresolved_total"] = deterministic_critical
+    view["high_unresolved_total"] = deterministic_high
     view["release_closure_claim_asserted"] = False
     view["fresh_context_counter_policy"] = (
         "This role-specific context is intentionally not a release-closure matrix. "
-        "critical_unresolved_total/high_unresolved_total are null until the fresh role result is integrated; "
-        "only deterministic_context_* counters describe the filtered context view."
+        "critical_unresolved_total/high_unresolved_total are numeric deterministic counters for the filtered context view; "
+        "fresh_cerberus_* fields copy the latest integrated summary and the release matrix must be regenerated after this role result."
     )
     view["objection_total"] = len(deterministic_rows)
     view["cerberus_sourced_objection_total"] = 0
-    view["fresh_cerberus_review_satisfied"] = "PENDING_THIS_ROLE_RERUN_NOT_ASSERTED_IN_CONTEXT_VIEW"
-    view["fresh_cerberus_review_gate_status"] = "PENDING_THIS_ROLE_RERUN"
-    view["fresh_cerberus_execution_status"] = "EXCLUDED_FROM_FRESH_CONTEXT_VIEW"
-    view["fresh_cerberus_critical_open_total"] = "EXCLUDED_FROM_FRESH_CONTEXT_VIEW"
-    view["fresh_cerberus_high_open_total"] = "EXCLUDED_FROM_FRESH_CONTEXT_VIEW"
+    view["fresh_cerberus_review_satisfied"] = summary.get("execution_status") == "EXECUTED_WITH_FINDINGS_CLOSED" and fresh_critical == 0 and fresh_high == 0
+    view["fresh_cerberus_review_gate_status"] = "PASS_IN_LATEST_INTEGRATED_SUMMARY" if view["fresh_cerberus_review_satisfied"] else "BLOCKED_UNTIL_THIS_ROLE_RESULT_IS_INTEGRATED_AND_ZERO"
+    view["fresh_cerberus_execution_status"] = summary.get("execution_status", "NO_PRIOR_SUMMARY")
+    view["fresh_cerberus_critical_open_total"] = fresh_critical
+    view["fresh_cerberus_high_open_total"] = fresh_high
+    view["post_role_integration_required"] = True
     view["release_pass_badge_allowed"] = False
     view_path = CONTEXT_DIR / role / ref
     view_path.parent.mkdir(parents=True, exist_ok=True)
