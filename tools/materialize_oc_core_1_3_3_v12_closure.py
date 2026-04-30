@@ -438,7 +438,7 @@ THEOREMS = [
         "id": "T133-HYBRID",
         "title": "Typed update and chart-labelled operator semantics theorem",
         "artifact": "content/OC_1_3_3_OPERATOR_SEMANTICS.tex",
-        "lean": "smooth_hybrid_operator_semantics",
+        "lean": "integrated_operator_semantics",
         "claim": "OC operators are typed update semantics; chart-labelled flow-one notation is admitted only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth cases. No differentiability or ODE-solution theorem is promoted in v12.",
         "assumptions": [
             "Operators are typed update components over realization states.",
@@ -453,8 +453,8 @@ THEOREMS = [
         "lemma1": "A declared chart-labelled flow-one route induces a typed update relation in the v12 subset.",
         "lemma2": "A typed update relation need not induce a derivative without extra smoothness assumptions.",
         "theorem": "OC operators F,G,H,Q,R,S,U are typed updates; chart-labelled flow-one, proof/rewrite, and guard/reset hybrid routes are separate typed realizations.",
-        "proof": "The primitive object is the update relation. Chart-labelled systems interpret it through flow-one bookkeeping only when a chart record is declared, while proof and rewrite systems interpret it through transition steps with derivative requests disabled. Lemma 1 embeds the chart-labelled route; Lemma 2 blocks universal derivative overreach; the finite runner separately checks guard/reset codomains and non-smooth proof/rewrite updates.",
-        "finite": "A proof-replay operator maps theorem states through rewrite steps; it is well typed and has no derivative.",
+        "proof": "The primitive object is a route-specific operator-admission record. The Lean theorem `integrated_operator_semantics` makes the chart domain and local-law obligations load-bearing for smooth-chart routes, makes guard/reset admission depend on observed guard truth, typed reset source/target, and post-reset admissibility, and makes proof/rewrite admission depend on a declared rewrite rule with derivative requests rejected. The finite runner independently evaluates the same fields and fails if labels are correct but obligations are missing.",
+        "finite": "The finite corpus includes smooth-chart positive/negative cases, guard/reset positive/negative cases, proof/rewrite positive/negative cases, and tamper controls for missing local law, wrong reset codomain, and derivative leakage.",
         "boundary": "Any section treating a chart token as a differentiability, manifold, vector-field, or ODE-solution theorem fails G41.",
     },
     {
@@ -3949,7 +3949,7 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
         "release": ("releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json", "publish_allowed=false"),
         "minimality": ("formal/lean/OC133V12.lean", "release_tuple_semantic_component_irredundant + data/OC133_GLOBAL_MINIMALITY_WITNESSES.json"),
         "klevel": ("formal/lean/OC133V12.lean", "release_atlas_manifest_has_total_finite_case_coverage + data/k_level_irreducibility_matrix.json"),
-        "operator": ("formal/lean/OC133V12.lean", "smooth_hybrid_operator_semantics + shared HybridSmoothSystem state"),
+        "operator": ("formal/lean/OC133V12.lean", "integrated_operator_semantics + shared HybridSmoothSystem state"),
     }
     themes = [
         ("formal", "hidden type ambiguity", "T133-OMEGA-STATUS"),
@@ -4075,7 +4075,7 @@ def closure_for_cerberus_finding(finding: dict[str, Any]) -> dict[str, Any]:
         return {
             "theme": "hybrid_operator_semantics",
             "closure_evidence_refs": ["formal/lean/OC133V12.lean", "proofs/FINITE_MODEL_CHECKS_1_3_3.json", "content/OC_1_3_3_OPERATOR_SEMANTICS.tex"],
-            "closure_verification_query": "smooth_hybrid_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, and proof/rewrite admission semantics",
+            "closure_verification_query": "integrated_operator_semantics plus FM-T133-HYBRID-SMOOTH-CHART-POS/NEG, FM-T133-HYBRID-POS/NEG, and FM-T133-HYBRID-PROOF-UPDATE-POS/NEG require route-specific smooth-chart, guard/reset, and proof/rewrite admission semantics",
         }
     if "minimality" in haystack or "tuple" in haystack or "min" in haystack:
         return {
@@ -4782,8 +4782,9 @@ def write_cerberus_bound_attack_matrix_and_reader_guide(root: Path) -> None:
                     }
                 )
                 row_evidence = (
-                    f"No-send closure for `{query}` is bound to owner approval decision=PENDING, "
-                    "publish_manifest.publish_allowed=false, and finite case ADV-NOSEND-PUBLISH passed=true."
+                    f"Observed current closure for `{query}`: no-send closure is bound to "
+                    "owner approval decision=PENDING, publish_manifest.publish_allowed=false, "
+                    "and finite case ADV-NOSEND-PUBLISH passed=true."
                 )
                 evidence_binding = closure_evidence_binding(root, row_refs, query)
                 predicate_results = attack_closure_predicate_results(
@@ -5415,7 +5416,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-HYBRID",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
-            "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
+            "lean_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
             "model": {
                 "update_kind": "hybrid_guard_reset",
                 "guard": True,
@@ -5443,7 +5444,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-HYBRID",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
+            "lean_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
             "model": {
                 "update_kind": "hybrid_guard_reset",
                 "guard": True,
@@ -5471,7 +5472,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-HYBRID",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
-            "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
+            "lean_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
             "model": {
                 "update_kind": "smooth_chart",
                 "source_type": "SmoothState",
@@ -5492,7 +5493,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-HYBRID",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
+            "lean_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
             "model": {
                 "update_kind": "smooth_chart",
                 "source_type": "SmoothState",
@@ -5513,7 +5514,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-HYBRID",
             "case_type": "theorem_case",
             "expected_verdict": "ACCEPT",
-            "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
+            "lean_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
             "model": {
                 "update_kind": "proof_rewrite",
                 "carrier_kind": "proof",
@@ -5522,6 +5523,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "target_type": "ProofState",
                 "step_target": "proof_state_after_rewrite",
                 "actual_next": "proof_state_after_rewrite",
+                "rewrite_rule_present": True,
                 "derivative_requested": False,
                 "smooth_chart_id": "",
             },
@@ -5532,7 +5534,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
             "theorem_id": "T133-HYBRID",
             "case_type": "theorem_case",
             "expected_verdict": "REJECT",
-            "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
+            "lean_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
             "model": {
                 "update_kind": "proof_rewrite",
                 "carrier_kind": "proof",
@@ -5541,7 +5543,49 @@ def write_hardened_formal_iteration(root: Path) -> None:
                 "target_type": "ProofState",
                 "step_target": "proof_state_after_rewrite",
                 "actual_next": "proof_state_after_rewrite",
+                "rewrite_rule_present": True,
                 "derivative_requested": True,
+                "smooth_chart_id": "",
+            },
+            "negative_control_id": "",
+        },
+        {
+            "case_id": "FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG",
+            "theorem_id": "T133-HYBRID",
+            "case_type": "theorem_case",
+            "expected_verdict": "REJECT",
+            "lean_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
+            "model": {
+                "update_kind": "smooth_chart",
+                "source_type": "SmoothState",
+                "target_type": "SmoothState",
+                "smooth_state_type": "SmoothState",
+                "smooth_chart_id": "declared_chart_01",
+                "derivative_requested": True,
+                "flow_one_target": "smooth_state_after_flow_one",
+                "smooth_step_target": "smooth_state_after_flow_one",
+                "actual_next": "smooth_state_after_flow_one",
+                "local_law_declared": False,
+                "chart_domain_contains_state": True,
+            },
+            "negative_control_id": "",
+        },
+        {
+            "case_id": "FM-T133-HYBRID-PROOF-NO-RULE-NEG",
+            "theorem_id": "T133-HYBRID",
+            "case_type": "theorem_case",
+            "expected_verdict": "REJECT",
+            "lean_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
+            "model": {
+                "update_kind": "proof_rewrite",
+                "carrier_kind": "proof",
+                "typed_update_relation": True,
+                "source_type": "ProofState",
+                "target_type": "ProofState",
+                "step_target": "proof_state_after_rewrite",
+                "actual_next": "proof_state_after_rewrite",
+                "rewrite_rule_present": False,
+                "derivative_requested": False,
                 "smooth_chart_id": "",
             },
             "negative_control_id": "",
@@ -6132,7 +6176,7 @@ def write_hardened_formal_iteration(root: Path) -> None:
         "release": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json::publish_allowed=false",
         "minimality": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant + data/OC133_GLOBAL_MINIMALITY_WITNESSES.json::semantic_field_removed + FM-MIN-*",
         "klevel": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage + data/k_level_irreducibility_matrix.json::retained_finite_case_id + demotion_finite_case_id",
-        "operator": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics over shared HybridSmoothSystem state",
+        "operator": "formal/lean/OC133V12.lean::integrated_operator_semantics over shared HybridSmoothSystem state",
     }
     for row in attack.get("rows", []):
         theme = row.get("theme", "")

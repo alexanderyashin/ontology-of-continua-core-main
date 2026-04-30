@@ -349,7 +349,14 @@ class ReleaseMachineTests(unittest.TestCase):
             self.assertEqual(summary["gate_counts"]["PASS"], 71)
         else:
             self.assertIn(gates["G57"]["state"], {"PASS", "FAIL"})
-            self.assertEqual(gates["G58"]["state"], "BLOCKED")
+            if (
+                gates["G58"]["details"]["critical_open_total"] == 0
+                and gates["G58"]["details"]["high_open_total"] == 0
+                and gates["G58"]["details"]["parse_failure_total"] == 0
+            ):
+                self.assertEqual(gates["G58"]["state"], "PASS")
+            else:
+                self.assertEqual(gates["G58"]["state"], "BLOCKED")
             self.assertEqual(gates["G70"]["state"], "FAIL")
             self.assertEqual(summary["release_state"], "SCIENTIFIC_BLOCKERS_REMAIN")
         self.assertEqual(gates["G36"]["details"]["theorem_total"], 10)
@@ -379,6 +386,22 @@ class ReleaseMachineTests(unittest.TestCase):
         theorem_inventory = json.loads((root / "proofs/THEOREM_INVENTORY_1_3_3.json").read_text(encoding="utf-8"))
         self.assertEqual(theorem_inventory["demoted_route_total"], 0)
         self.assertEqual(theorem_inventory["machine_checked_subset_total"], theorem_inventory["theorem_total"])
+
+        metadata_paths = [
+            root / ".zenodo.json",
+            root / "CITATION.cff",
+            root / ".codemeta.json",
+            root / "ro-crate-metadata.jsonld",
+        ]
+        for path in metadata_paths:
+            body = path.read_text(encoding="utf-8")
+            self.assertIn("1.3.3", body, path.name)
+            self.assertNotIn("1.3.2", body, path.name)
+            self.assertNotIn("v1.3.2", body, path.name)
+        self.assertEqual(json.loads((root / ".zenodo.json").read_text(encoding="utf-8"))["version"], "1.3.3")
+        self.assertEqual(json.loads((root / ".codemeta.json").read_text(encoding="utf-8"))["version"], "1.3.3")
+        self.assertEqual(gates["G66"]["details"]["stale_hit_total"], 0)
+        self.assertEqual(gates["G67"]["details"]["stale_hit_total"], 0)
 
         approval = json.loads((root / "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json").read_text(encoding="utf-8"))
         self.assertEqual(approval["decision"], "PENDING")

@@ -365,6 +365,58 @@ def has_forbidden_key(value: Any) -> bool:
     return False
 
 
+def operator_admission_evidence(model: dict[str, Any]) -> dict[str, Any]:
+    route = model.get("update_kind", "hybrid_guard_reset")
+    chart_declared = model.get("smooth_chart_id") not in {None, ""}
+    if route == "smooth_chart":
+        typed_source_target = model.get("smooth_state_type") == model.get("source_type") == model.get("target_type")
+        route_admitted = (
+            typed_source_target
+            and chart_declared
+            and model.get("chart_domain_contains_state") is True
+            and model.get("local_law_declared") is True
+        )
+    elif route == "hybrid_guard_reset":
+        typed_source_target = model.get("smooth_state_type") == model.get("hybrid_state_type")
+        route_admitted = (
+            typed_source_target
+            and model.get("derivative_requested") is False
+            and model.get("guard") is True
+            and model.get("reset_source_mode") == model.get("current_mode")
+            and model.get("reset_target_mode") == model.get("target_mode")
+            and model.get("reset_codomain") == model.get("hybrid_state_type")
+            and model.get("post_reset_admissible") is True
+        )
+    elif route == "proof_rewrite":
+        typed_source_target = (
+            model.get("carrier_kind") in {"proof", "rewrite"}
+            and model.get("typed_update_relation") is True
+            and model.get("source_type") == model.get("target_type")
+        )
+        route_admitted = (
+            typed_source_target
+            and model.get("derivative_requested") is False
+            and model.get("rewrite_rule_present") is True
+        )
+    else:
+        typed_source_target = False
+        route_admitted = False
+    return {
+        "route": route,
+        "typed_source_target": typed_source_target,
+        "chart_declared": chart_declared,
+        "chart_domain_contains_source": model.get("chart_domain_contains_state") is True,
+        "chart_local_law_declared": model.get("local_law_declared") is True,
+        "derivative_requested": model.get("derivative_requested") is True,
+        "guard_observed": model.get("guard") is True,
+        "reset_source_typed": model.get("reset_source_mode") == model.get("current_mode"),
+        "reset_target_typed": model.get("reset_target_mode") == model.get("target_mode"),
+        "reset_admissible": model.get("post_reset_admissible") is True,
+        "rewrite_rule_present": model.get("rewrite_rule_present") is True,
+        "route_admitted": route_admitted,
+    }
+
+
 def atlas_rows() -> dict[str, dict[str, Any]]:
     payload = json.loads(ATLAS.read_text(encoding="utf-8"))
     rows = {}
@@ -606,6 +658,7 @@ def observed(row: dict[str, Any]) -> str:
                     model.get("carrier_kind") in {"proof", "rewrite"}
                     and model.get("typed_update_relation") is True
                     and model.get("source_type") == model.get("target_type")
+                    and model.get("rewrite_rule_present") is True
                     and model.get("derivative_requested") is False
                     and not chart_declared
                     and model.get("actual_next") == model.get("step_target")
@@ -743,6 +796,8 @@ def evaluate(row: dict[str, Any]) -> dict[str, Any]:
             out["owner_release_approval_ref"] = model.get("approval_ref")
             out["owner_release_approval_sha256"] = sha256_file(ROOT / str(model.get("approval_ref")))
             out["expected_owner_release_approval_sha256"] = model.get("approval_sha256")
+    if row.get("theorem_id") == "T133-HYBRID":
+        out["computed_operator_admission"] = operator_admission_evidence(row.get("model", {}))
     if row.get("case_type") == "component_keep_drop_witness":
         out["observed_keep_verdict"] = semantic_tuple_verdict(row.get("model", {}).get("keep", {}))
         out["observed_drop_verdict"] = obs

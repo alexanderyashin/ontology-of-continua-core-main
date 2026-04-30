@@ -3,7 +3,7 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "input_contract": "inputs contain raw model facts, semantic fields, and expected verdicts only; observed verdicts and flag-oracle closure fields are runner outputs or schema violations",
-  "row_total": 128,
+  "row_total": 130,
   "observed_field_total": 0,
   "flag_oracle_key_total": 0,
   "rows": [
@@ -230,7 +230,7 @@
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
+      "lean_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
       "model": {
         "update_kind": "hybrid_guard_reset",
         "guard": true,
@@ -258,7 +258,7 @@
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
+      "lean_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
       "model": {
         "update_kind": "hybrid_guard_reset",
         "guard": true,
@@ -286,7 +286,7 @@
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
+      "lean_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
       "model": {
         "update_kind": "smooth_chart",
         "source_type": "SmoothState",
@@ -307,7 +307,7 @@
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
+      "lean_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
       "model": {
         "update_kind": "smooth_chart",
         "source_type": "SmoothState",
@@ -328,7 +328,7 @@
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "ACCEPT",
-      "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
+      "lean_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
       "model": {
         "update_kind": "proof_rewrite",
         "carrier_kind": "proof",
@@ -337,6 +337,7 @@
         "target_type": "ProofState",
         "step_target": "proof_state_after_rewrite",
         "actual_next": "proof_state_after_rewrite",
+        "rewrite_rule_present": true,
         "derivative_requested": false,
         "smooth_chart_id": ""
       },
@@ -347,7 +348,7 @@
       "theorem_id": "T133-HYBRID",
       "case_type": "theorem_case",
       "expected_verdict": "REJECT",
-      "lean_ref": "formal/lean/OC133V12.lean::smooth_hybrid_operator_semantics",
+      "lean_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
       "model": {
         "update_kind": "proof_rewrite",
         "carrier_kind": "proof",
@@ -356,7 +357,49 @@
         "target_type": "ProofState",
         "step_target": "proof_state_after_rewrite",
         "actual_next": "proof_state_after_rewrite",
+        "rewrite_rule_present": true,
         "derivative_requested": true,
+        "smooth_chart_id": ""
+      },
+      "negative_control_id": ""
+    },
+    {
+      "case_id": "FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG",
+      "theorem_id": "T133-HYBRID",
+      "case_type": "theorem_case",
+      "expected_verdict": "REJECT",
+      "lean_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
+      "model": {
+        "update_kind": "smooth_chart",
+        "source_type": "SmoothState",
+        "target_type": "SmoothState",
+        "smooth_state_type": "SmoothState",
+        "smooth_chart_id": "declared_chart_01",
+        "derivative_requested": true,
+        "flow_one_target": "smooth_state_after_flow_one",
+        "smooth_step_target": "smooth_state_after_flow_one",
+        "actual_next": "smooth_state_after_flow_one",
+        "local_law_declared": false,
+        "chart_domain_contains_state": true
+      },
+      "negative_control_id": ""
+    },
+    {
+      "case_id": "FM-T133-HYBRID-PROOF-NO-RULE-NEG",
+      "theorem_id": "T133-HYBRID",
+      "case_type": "theorem_case",
+      "expected_verdict": "REJECT",
+      "lean_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
+      "model": {
+        "update_kind": "proof_rewrite",
+        "carrier_kind": "proof",
+        "typed_update_relation": true,
+        "source_type": "ProofState",
+        "target_type": "ProofState",
+        "step_target": "proof_state_after_rewrite",
+        "actual_next": "proof_state_after_rewrite",
+        "rewrite_rule_present": false,
+        "derivative_requested": false,
         "smooth_chart_id": ""
       },
       "negative_control_id": ""

@@ -125,6 +125,59 @@ def text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore") if path.exists() else ""
 
 
+def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, Any]:
+    """Check root publication metadata for v1.3.3 no-send consistency."""
+    metadata_paths = [
+        root / ".zenodo.json",
+        root / "CITATION.cff",
+        root / ".codemeta.json",
+        root / "ro-crate-metadata.jsonld",
+    ]
+    missing = [rel(root, path) for path in metadata_paths if not path.exists()]
+    stale_hits: list[dict[str, str]] = []
+    for path in metadata_paths:
+        body = text(path)
+        for token in ("v1.3.2", "1.3.2"):
+            if token in body:
+                stale_hits.append({"path": rel(root, path), "token": token})
+
+    zenodo = read_json(root / ".zenodo.json") if (root / ".zenodo.json").exists() else {}
+    codemeta = read_json(root / ".codemeta.json") if (root / ".codemeta.json").exists() else {}
+    ro_crate = read_json(root / "ro-crate-metadata.jsonld") if (root / "ro-crate-metadata.jsonld").exists() else {}
+    citation = text(root / "CITATION.cff")
+    ro_nodes = ro_crate.get("@graph", []) if isinstance(ro_crate, dict) else []
+    ro_versions = [node.get("version") for node in ro_nodes if isinstance(node, dict) and node.get("version")]
+    zenodo_body = json.dumps(zenodo, sort_keys=True)
+
+    version_checks = {
+        "zenodo_version": zenodo.get("version") == VERSION,
+        "zenodo_title_mentions_version": f"v{VERSION}" in str(zenodo.get("title", "")) or VERSION in str(zenodo.get("title", "")),
+        "zenodo_description_mentions_version": VERSION in str(zenodo.get("description", "")),
+        "citation_version": f'version: "{VERSION}"' in citation or f"version: {VERSION}" in citation,
+        "citation_message_mentions_no_send": "no-send" in citation.lower(),
+        "codemeta_version": codemeta.get("version") == VERSION,
+        "codemeta_description_mentions_version": VERSION in str(codemeta.get("description", "")),
+        "ro_crate_versions": bool(ro_versions) and all(value == VERSION for value in ro_versions),
+        "ro_crate_mentions_version": VERSION in json.dumps(ro_crate, sort_keys=True),
+    }
+    no_send_checks = {
+        "publish_allowed_false": manifest.get("publish_allowed") is False,
+        "zenodo_deposit_allowed_false": manifest.get("zenodo_deposit_allowed") is False,
+        "github_release_allowed_false": manifest.get("github_release_allowed") is False,
+        "journal_submissions_allowed_false": manifest.get("journal_submissions_allowed") is False,
+        "zenodo_notes_no_send": "no-send" in zenodo_body.lower() or "pending" in zenodo_body.lower(),
+    }
+    return {
+        "missing": missing,
+        "stale_hits": stale_hits,
+        "stale_hit_total": len(stale_hits),
+        "version_checks": version_checks,
+        "no_send_checks": no_send_checks,
+        "all_versions_current": all(version_checks.values()),
+        "all_no_send_locked": all(no_send_checks.values()),
+    }
+
+
 def ensure_v12(root: Path) -> None:
     script = root / "tools" / "materialize_oc_core_1_3_3_v12_closure.py"
     try:
@@ -318,6 +371,7 @@ def audit(root: Path) -> dict[str, Any]:
         "PHENOMENON_SPECIFIC_MODEL_REPLAYED",
         "SCOPED_CLASSIFIER_ILLUSTRATION_NOT_DOMAIN_CLOSURE",
         "ILLUSTRATIVE_INTERNAL_MODEL_NOT_PHENOMENON_COVERAGE",
+        "FORMAL_MODEL_CARD_REPLAYED_NOT_EMPIRICAL_DOMAIN_COVERAGE",
         "OPERATIONAL_NO_SEND_CONTROL_REPLAYED",
     }
     phenomenon_failures = [
@@ -377,6 +431,7 @@ def audit(root: Path) -> dict[str, Any]:
         root / ".codemeta.json",
         root / "ro-crate-metadata.jsonld",
     ]
+    metadata_surface = _metadata_surface_audit(root, manifest)
     return {
         "typed_foundation": {
             "state": "PASS" if (root / "content" / "OC_1_3_3_TYPED_FOUNDATION.tex").exists() and inv.get("theorem_total", 0) >= 10 else "FAIL",
@@ -470,7 +525,17 @@ def audit(root: Path) -> dict[str, Any]:
             "stable_payload_sha256": repro_manifest.get("stable_payload_sha256"),
         },
         "no_local_paths_secrets": {"state": "PASS" if not secret_hits else "FAIL", "hit_total": len(secret_hits), "hits": secret_hits[:20]},
-        "surface_parity": {"state": "PASS" if all(path.exists() for path in surface_paths) and text(root / "releases" / "oc_core_1_3_3" / "VERSION").strip() == VERSION else "FAIL", "missing": [rel(root, path) for path in surface_paths if not path.exists()]},
+        "surface_parity": {
+            "state": "PASS" if (
+                all(path.exists() for path in surface_paths)
+                and text(root / "releases" / "oc_core_1_3_3" / "VERSION").strip() == VERSION
+                and metadata_surface["all_versions_current"]
+                and metadata_surface["stale_hit_total"] == 0
+            ) else "FAIL",
+            "missing": [rel(root, path) for path in surface_paths if not path.exists()],
+            "metadata_stale_hit_total": metadata_surface["stale_hit_total"],
+            "metadata_version_checks": metadata_surface["version_checks"],
+        },
         "llm_schema_claim_boundary": {"state": "PASS" if not absolute_hits and phenomenon.get("unsupported_closed_total") == 0 and not phenomenon_failures and not phenomenon_missing_controls else "FAIL", "absolute_hit_total": len(absolute_hits), "absolute_hits": absolute_hits[:20], "phenomenon_rows": phenomenon.get("row_total"), "phenomenon_failures": phenomenon_failures, "phenomenon_missing_controls": phenomenon_missing_controls},
         "no_empirical_discovery_only": {
             "state": "PASS" if (
@@ -495,8 +560,29 @@ def audit(root: Path) -> dict[str, Any]:
         },
         "no_scope_narrowing": {"state": "PASS" if not scope_hits and claims.get("demoted_public_claim_total") == 0 else "FAIL", "scope_hit_total": len(scope_hits), "hits": scope_hits[:20]},
         "owner_packet": {"state": "PASS" if approval.get("decision") == "PENDING" and (root / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_OWNER_APPROVAL_PACKET.json").exists() else "FAIL"},
-        "zenodo": {"state": "PASS" if (root / ".zenodo.json").exists() and manifest.get("zenodo_deposit_allowed") is False else "FAIL"},
-        "github": {"state": "PASS" if manifest.get("github_release_allowed") is False and manifest.get("publish_allowed") is False else "FAIL"},
+        "zenodo": {
+            "state": "PASS" if (
+                (root / ".zenodo.json").exists()
+                and manifest.get("zenodo_deposit_allowed") is False
+                and manifest.get("publish_allowed") is False
+                and metadata_surface["version_checks"].get("zenodo_version") is True
+                and metadata_surface["version_checks"].get("zenodo_title_mentions_version") is True
+                and metadata_surface["version_checks"].get("zenodo_description_mentions_version") is True
+                and metadata_surface["no_send_checks"].get("zenodo_notes_no_send") is True
+                and not [row for row in metadata_surface["stale_hits"] if row["path"] == ".zenodo.json"]
+            ) else "FAIL",
+            **metadata_surface,
+        },
+        "github": {
+            "state": "PASS" if (
+                manifest.get("github_release_allowed") is False
+                and manifest.get("publish_allowed") is False
+                and metadata_surface["all_versions_current"]
+                and metadata_surface["stale_hit_total"] == 0
+                and metadata_surface["all_no_send_locked"]
+            ) else "FAIL",
+            **metadata_surface,
+        },
         "post_release": {"state": "PASS" if (root / "POST_RELEASE_VERIFICATION_PLAN.md").exists() else "FAIL"},
         "external_review": {"state": "PASS" if (root / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_EXTERNAL_REVIEW_PACKAGE.json").exists() else "FAIL"},
     }

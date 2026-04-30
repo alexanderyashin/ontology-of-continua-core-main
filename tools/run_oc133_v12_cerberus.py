@@ -140,6 +140,10 @@ ROLE_CONTEXT_REFS = {
         "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
     ],
     "public_surface_auditor": [
+        ".zenodo.json",
+        "CITATION.cff",
+        ".codemeta.json",
+        "ro-crate-metadata.jsonld",
         "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
         "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
         "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
@@ -161,7 +165,7 @@ ROLE_FOCUS = {
     "theorem_theater_auditor": "Attack any theorem whose Lean/formal/finite evidence is only definitional, circular, or weaker than the promoted claim.",
     "empirical_theater_auditor": "Attack any numeric/validation row that is snapshot replay while being used as empirical prediction support.",
     "claim_boundary_auditor": "Attack absolute TOE/truth/irrefutability/public-promotion overclaims and any claim boundary that relies on wording instead of evidence.",
-    "public_surface_auditor": "Attack no-send, owner approval, DOI/public action, local paths, and public-surface parity.",
+    "public_surface_auditor": "Attack no-send, owner approval, DOI/public action, stale release metadata, local paths, and public-surface parity.",
 }
 
 

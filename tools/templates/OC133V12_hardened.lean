@@ -591,6 +591,7 @@ structure UpdateSystem where
 structure SmoothChart (State : Type) where
   derivative : (State -> State) -> State -> State
   localLaw : (State -> State) -> State -> Prop
+  inDomain : State -> Bool
 
 structure SmoothSystem extends UpdateSystem where
   chart : Option (SmoothChart State)
@@ -629,6 +630,15 @@ theorem no_chart_rejects_smooth_flow_notation (s : SmoothSystem) :
   rw [h]
   rfl
 
+theorem smooth_chart_has_domain_and_local_law
+    (s : SmoothSystem) (c : SmoothChart s.State) (x : s.State) :
+    s.chart = some c ->
+    c.inDomain x = true ->
+    c.localLaw s.step x ->
+    c.inDomain x = true /\ c.localLaw s.step x := by
+  intro _ hdomain hlaw
+  exact And.intro hdomain hlaw
+
 structure HybridSystem extends UpdateSystem where
   Mode : Type
   mode : State -> Mode
@@ -651,20 +661,30 @@ deriving DecidableEq, Repr
 structure OperatorAdmission where
   route : OperatorRoute
   chartDeclared : Bool
+  chartDomainContainsSource : Bool
+  chartLocalLawDeclared : Bool
   derivativeRequested : Bool
   typedSourceTarget : Bool
+  guardObserved : Bool
+  resetSourceTyped : Bool
+  resetTargetTyped : Bool
+  resetAdmissible : Bool
+  rewriteRulePresent : Bool
 
 def operatorAdmitted (a : OperatorAdmission) : Bool :=
   a.typedSourceTarget &&
   match a.route with
-  | OperatorRoute.smoothChart => a.chartDeclared
-  | OperatorRoute.guardResetHybrid => !a.derivativeRequested
-  | OperatorRoute.proofRewrite => !a.derivativeRequested
+  | OperatorRoute.smoothChart =>
+      a.chartDeclared && a.chartDomainContainsSource && a.chartLocalLawDeclared
+  | OperatorRoute.guardResetHybrid =>
+      (!a.derivativeRequested) && a.guardObserved && a.resetSourceTyped && a.resetTargetTyped && a.resetAdmissible
+  | OperatorRoute.proofRewrite =>
+      (!a.derivativeRequested) && a.rewriteRulePresent
 
 theorem admitted_operator_has_typed_source_target (a : OperatorAdmission) :
     operatorAdmitted a = true -> a.typedSourceTarget = true := by
   cases a with
-  | mk route chart requested typed =>
+  | mk route chart domain law requested typed guard resetSource resetTarget resetAdmit rewrite =>
       intro h
       simp [operatorAdmitted] at h
       exact h.left
@@ -672,35 +692,72 @@ theorem admitted_operator_has_typed_source_target (a : OperatorAdmission) :
 theorem admitted_guard_reset_rejects_derivative (a : OperatorAdmission) :
     a.route = OperatorRoute.guardResetHybrid -> operatorAdmitted a = true -> a.derivativeRequested = false := by
   cases a with
-  | mk route chart requested typed =>
+  | mk route chart domain law requested typed guard resetSource resetTarget resetAdmit rewrite =>
       intro hroute hadmit
       cases route
       · cases hroute
       · simp [operatorAdmitted] at hadmit
-        exact hadmit.right
+        exact hadmit.right.left.left.left.left
       · cases hroute
 
 theorem admitted_proof_rewrite_rejects_derivative (a : OperatorAdmission) :
     a.route = OperatorRoute.proofRewrite -> operatorAdmitted a = true -> a.derivativeRequested = false := by
   cases a with
-  | mk route chart requested typed =>
+  | mk route chart domain law requested typed guard resetSource resetTarget resetAdmit rewrite =>
       intro hroute hadmit
       cases route
       · cases hroute
       · cases hroute
       · simp [operatorAdmitted] at hadmit
-        exact hadmit.right
+        exact hadmit.right.left
 
 theorem admitted_smooth_chart_requires_chart (a : OperatorAdmission) :
     a.route = OperatorRoute.smoothChart -> operatorAdmitted a = true -> a.chartDeclared = true := by
   cases a with
-  | mk route chart requested typed =>
+  | mk route chart domain law requested typed guard resetSource resetTarget resetAdmit rewrite =>
       intro hroute hadmit
       cases route
       · simp [operatorAdmitted] at hadmit
-        exact hadmit.right
+        exact hadmit.right.left.left
       · cases hroute
       · cases hroute
+
+theorem admitted_smooth_chart_requires_domain_and_law (a : OperatorAdmission) :
+    a.route = OperatorRoute.smoothChart -> operatorAdmitted a = true ->
+    a.chartDomainContainsSource = true /\ a.chartLocalLawDeclared = true := by
+  cases a with
+  | mk route chart domain law requested typed guard resetSource resetTarget resetAdmit rewrite =>
+      intro hroute hadmit
+      cases route
+      · simp [operatorAdmitted] at hadmit
+        exact And.intro hadmit.right.left.right hadmit.right.right
+      · cases hroute
+      · cases hroute
+
+theorem admitted_guard_reset_has_typed_reset_obligations (a : OperatorAdmission) :
+    a.route = OperatorRoute.guardResetHybrid -> operatorAdmitted a = true ->
+    a.guardObserved = true /\ a.resetSourceTyped = true /\ a.resetTargetTyped = true /\ a.resetAdmissible = true := by
+  cases a with
+  | mk route chart domain law requested typed guard resetSource resetTarget resetAdmit rewrite =>
+      intro hroute hadmit
+      cases route
+      · cases hroute
+      · simp [operatorAdmitted] at hadmit
+        exact And.intro hadmit.right.left.left.left.right
+          (And.intro hadmit.right.left.left.right
+            (And.intro hadmit.right.left.right hadmit.right.right))
+      · cases hroute
+
+theorem admitted_proof_rewrite_has_rule (a : OperatorAdmission) :
+    a.route = OperatorRoute.proofRewrite -> operatorAdmitted a = true -> a.rewriteRulePresent = true := by
+  cases a with
+  | mk route chart domain law requested typed guard resetSource resetTarget resetAdmit rewrite =>
+      intro hroute hadmit
+      cases route
+      · cases hroute
+      · cases hroute
+      · simp [operatorAdmitted] at hadmit
+        exact hadmit.right.right
 
 theorem derivative_request_requires_chart_or_rewrite_rejection (a : OperatorAdmission) :
     operatorAdmitted a = true -> a.derivativeRequested = true ->
@@ -708,7 +765,7 @@ theorem derivative_request_requires_chart_or_rewrite_rejection (a : OperatorAdmi
     (a.route = OperatorRoute.smoothChart -> a.chartDeclared = true) := by
   intro hadmit hreq
   cases a with
-  | mk route chart requested typed =>
+  | mk route chart domain law requested typed guard resetSource resetTarget resetAdmit rewrite =>
       simp [operatorAdmitted] at hadmit hreq
       subst hreq
       cases route
@@ -719,7 +776,7 @@ theorem derivative_request_requires_chart_or_rewrite_rejection (a : OperatorAdmi
           | inl hproof => cases hproof
           | inr hhybrid => cases hhybrid
         · intro _
-          exact hadmit.right
+          exact hadmit.right.left.left
       · simp at hadmit
       · simp at hadmit
 
@@ -739,6 +796,37 @@ theorem hybrid_no_guard_uses_update (h : HybridSystem) (x : h.State) :
 theorem proof_rewrite_update_has_no_derivative (p : ProofRewriteSystem) :
     proofRewriteDerivativeAllowed p = false := by
   rfl
+
+theorem guard_reset_binding_obligations
+    (h : HybridSystem) (xh : h.State) (a : OperatorAdmission) :
+    a.route = OperatorRoute.guardResetHybrid ->
+    a.guardObserved = h.guard xh ->
+    a.resetSourceTyped = true ->
+    a.resetTargetTyped = true ->
+    a.resetAdmissible = h.admissible (h.reset xh) ->
+    operatorAdmitted a = true ->
+    h.guard xh = true /\ h.admissible (h.reset xh) = true /\ hybridStep h xh = h.reset xh := by
+  intro hroute hguard _ _ hadmiss hadmit
+  have hob := admitted_guard_reset_has_typed_reset_obligations a hroute hadmit
+  have hguardTrue : h.guard xh = true := by
+    rw [<- hguard]
+    exact hob.left
+  have hadmissTrue : h.admissible (h.reset xh) = true := by
+    rw [<- hadmiss]
+    exact hob.right.right.right
+  exact And.intro hguardTrue (And.intro hadmissTrue (hybrid_guard_uses_reset h xh hguardTrue))
+
+theorem proof_rewrite_binding_obligations
+    (p : ProofRewriteSystem) (a : OperatorAdmission) :
+    a.route = OperatorRoute.proofRewrite ->
+    a.rewriteRulePresent = p.rewriteRulePresent ->
+    operatorAdmitted a = true ->
+    p.rewriteRulePresent = true /\ proofRewriteDerivativeAllowed p = false /\ a.derivativeRequested = false := by
+  intro hroute hrewrite hadmit
+  have hrewriteA := admitted_proof_rewrite_has_rule a hroute hadmit
+  have hderiv := admitted_proof_rewrite_rejects_derivative a hroute hadmit
+  exact And.intro (by rw [<- hrewrite]; exact hrewriteA)
+    (And.intro (proof_rewrite_update_has_no_derivative p) hderiv)
 
 theorem smooth_hybrid_operator_semantics
     (s : SmoothSystem) (h : HybridSystem) (p : ProofRewriteSystem)
@@ -788,6 +876,70 @@ theorem smooth_hybrid_operator_semantics
                       (no_chart_rejects_smooth_flow_notation s)
                       (And.intro (hybrid_guard_uses_reset h xh)
                         (And.intro (hybrid_no_guard_uses_update h xh) (proof_rewrite_update_has_no_derivative p))))))))))))
+
+theorem integrated_operator_semantics
+    (s : SmoothSystem) (h : HybridSystem) (p : ProofRewriteSystem)
+    (xs : s.State) (xh : h.State) (c : SmoothChart s.State)
+    (aSmooth aHybrid aProof : OperatorAdmission) :
+    s.chart = some c ->
+    c.inDomain xs = true ->
+    c.localLaw s.step xs ->
+    aSmooth.route = OperatorRoute.smoothChart ->
+    aSmooth.chartDeclared = true ->
+    aSmooth.chartDomainContainsSource = c.inDomain xs ->
+    aSmooth.chartLocalLawDeclared = true ->
+    aHybrid.route = OperatorRoute.guardResetHybrid ->
+    aHybrid.guardObserved = h.guard xh ->
+    aHybrid.resetSourceTyped = true ->
+    aHybrid.resetTargetTyped = true ->
+    aHybrid.resetAdmissible = h.admissible (h.reset xh) ->
+    aProof.route = OperatorRoute.proofRewrite ->
+    aProof.rewriteRulePresent = p.rewriteRulePresent ->
+    operatorAdmitted aSmooth = true ->
+    operatorAdmitted aHybrid = true ->
+    operatorAdmitted aProof = true ->
+    (smoothAsUpdate s).step xs = s.flow 1 xs /\
+    c.inDomain xs = true /\
+    c.localLaw s.step xs /\
+    aSmooth.chartDeclared = true /\
+    aSmooth.chartDomainContainsSource = true /\
+    aSmooth.chartLocalLawDeclared = true /\
+    h.guard xh = true /\
+    h.admissible (h.reset xh) = true /\
+    hybridStep h xh = h.reset xh /\
+    p.rewriteRulePresent = true /\
+    proofRewriteDerivativeAllowed p = false /\
+    aHybrid.derivativeRequested = false /\
+    aProof.derivativeRequested = false := by
+  intro hchart hdomain hlaw hsmooth hsmoothChart hsmoothDomain hsmoothLaw hhybrid hguard hsource htarget hadmiss hproof hrewrite hadmitSmooth hadmitHybrid hadmitProof
+  have hsDomainLaw := admitted_smooth_chart_requires_domain_and_law aSmooth hsmooth hadmitSmooth
+  have hhybridBinding := guard_reset_binding_obligations h xh aHybrid hhybrid hguard hsource htarget hadmiss hadmitHybrid
+  have hproofBinding := proof_rewrite_binding_obligations p aProof hproof hrewrite hadmitProof
+  constructor
+  · exact smooth_operator_is_update_special_case s xs
+  constructor
+  · exact hdomain
+  constructor
+  · exact hlaw
+  constructor
+  · exact hsmoothChart
+  constructor
+  · exact hsDomainLaw.left
+  constructor
+  · exact hsmoothLaw
+  constructor
+  · exact hhybridBinding.left
+  constructor
+  · exact hhybridBinding.right.left
+  constructor
+  · exact hhybridBinding.right.right
+  constructor
+  · exact hproofBinding.left
+  constructor
+  · exact hproofBinding.right.left
+  constructor
+  · exact admitted_guard_reset_rejects_derivative aHybrid hhybrid hadmitHybrid
+  · exact hproofBinding.right.right
 
 structure AxisRecord where
   historical : Nat

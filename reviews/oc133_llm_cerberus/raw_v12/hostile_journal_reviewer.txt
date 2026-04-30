@@ -1,1 +1,45 @@
-{"role":"hostile_journal_reviewer","findings":[{"severity":"HIGH","artifact_ref":"reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json","claim":"Fresh zero critical/high Cerberus findings are a release condition for the bounded scientific promotions.","failure_mode":"The current attack matrix has critical_unresolved_total=null, high_unresolved_total=null, fresh_cerberus_review_gate_status=PENDING_THIS_ROLE_RERUN, and fresh Cerberus open totals excluded from the context view. That means the artifact cannot presently substantiate any zero-critical/high closure claim even though other artifacts carry zero blocker counters and six bounded scientific promotions.","required_repair":"Integrate the fresh role result into the release matrix with numeric critical/high open totals, cross-link the summary, and keep release/scientific promotion gates closed unless the integrated fresh counters are explicitly zero.","status":"OPEN"},{"severity":"HIGH","artifact_ref":"docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json","claim":"phenomenon_coverage_row_total=6 for P001, P002, P004, P005, P006, and P015.","failure_mode":"All counted coverage rows are marked SCOPED_FORMAL_REPLAY_NOT_DOMAIN_TOTALIZATION and explicitly say they are not full empirical solutions of the broad phenomenon. Counting finite toy/model-card replays as phenomenon coverage invites empirical theater and broad-coverage inflation despite the local caveats.","required_repair":"Split the field into formal_model_card_replay_total and empirical/domain_phenomenon_coverage_total, or set counts_as_phenomenon_coverage=false until each row has a domain-specific evaluator, external observable, and non-replay validation protocol.","status":"OPEN"},{"severity":"HIGH","artifact_ref":"claims/CLAIM_LEDGER_1_3_3.json","claim":"T133-K-ZERO, T133-CYCLE, T133-MIN, and T133-KLEVEL are formal consistency checks, not independent scientific theorems.","failure_mode":"These rows have public_status/evidence_ceiling/scientific_promotion_allowed fields that demote them, but their promotion_condition still says they are promoted as bounded no-send scientific claims. That internal contradiction is theorem-theater ammunition and makes the ledger didactically unsafe.","required_repair":"Replace the promotion_condition on all non-scientific rows with explicit non-promotion language and add a schema/lint rule forbidding scientific-promotion wording when scientific_promotion_allowed=false or evidence_ceiling is FORMAL_RELEASE_CONSISTENCY_CHECK_NOT_INDEPENDENT_SCIENTIFIC_THEOREM.","status":"OPEN"},{"severity":"MEDIUM","artifact_ref":"validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json","claim":"Numeric rows provide replay QA with baseline negative-control falsifiers, not empirical or prediction support.","failure_mode":"The quarantine flags are correct, but the table still presents replay_residual and comparator_residual fields for exact official snapshot replays with no train/test split. A skeptical journal can still read this as performance theater unless the residuals are visibly parser-QA diagnostics only.","required_repair":"Move comparator_residual fields into a parser-QA diagnostic section, remove performance-like framing from the numeric table, and require a separate prospective target-blind protocol before any empirical row can be promoted.","status":"OPEN"}]}
+{
+  "role": "hostile_journal_reviewer",
+  "findings": [
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "reviews/oc133_llm_cerberus/context_v12/hostile_journal_reviewer/review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+      "claim": "critical_unresolved_total=0 and high_unresolved_total=0 while fresh_cerberus_review_satisfied=false, fresh_cerberus_execution_status=EXECUTED_WITH_OPEN_FINDINGS, fresh_cerberus_high_open_total=1, and release_pass_badge_allowed=false.",
+      "failure_mode": "The matrix distinguishes deterministic closure from fresh Cerberus state, but the release-critical surface still exposes a zero-unresolved matrix beside an open fresh-review high count. A skeptical reviewer cannot tell from this artifact whether the remaining high finding is current, stale, or already repaired.",
+      "required_repair": "Regenerate/integrate this role result into the matrix and summary; either embed the remaining high finding with blocker ID, artifact ref, current failure, and repair, or reduce fresh_cerberus_high_open_total to 0 with closure evidence. Propagate the same scoped counter semantics into the claim ledger and theorem inventory.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "The artifact is a phenomenon coverage matrix with 15 rows, but phenomenon_coverage_row_total=0 and empirical_domain_phenomenon_coverage_total=0; rows are formal model-card replays or internal illustrations only.",
+      "failure_mode": "The matrix is candidly scoped, so this is not a current public promotion leak, but the repeated 'Does OC actually explain...' framing can still read like phenomenon coverage while every row is excluded from phenomenon coverage totals. A journal could reject any coverage/explanation reading as formal-model-card theater.",
+      "required_repair": "Rename the surface to formal model-card/replay matrix, or add domain-specific evaluator rows with external observables, non-replay validation, negative controls, and clear counts_as_phenomenon_coverage=true criteria.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
+      "claim": "P014 / T133-MIN: one-component keep/drop witness pair per promoted tuple component.",
+      "failure_mode": "The row routes the minimality model card through aggregate FM-T133-MIN-POS and FM-T133-MIN-NEG identifiers, while the falsifier depends on per-component keep/drop witnesses. The component-level case IDs and verdict mappings are not exposed in this artifact.",
+      "required_repair": "In P014, enumerate every FM-MIN component case ID and map each tuple component to its keep field, drop field, expected verdict, observed verdict, and falsifier condition.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "MEDIUM",
+      "artifact_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+      "claim": "Rows carry baseline_control_value, negative_control, and comparator_residual while residual_kind and performance_metric_allowed say replay residuals are not model performance.",
+      "failure_mode": "The quarantine flags prevent a high-severity empirical promotion leak, but baseline/comparator vocabulary still invites performance interpretation if the row is excerpted outside its disclaimers.",
+      "required_repair": "Rename baseline_control_value and comparator_residual to synthetic_mutation_value and synthetic_mutation_residual, or add a machine-readable rule that these fields are excluded from all empirical performance and validation claims.",
+      "status": "OPEN"
+    },
+    {
+      "severity": "LOW",
+      "artifact_ref": "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
+      "claim": "The novelty register is source-backed while uniqueness, priority, and absence claims are not promoted.",
+      "failure_mode": "The demotion is correct, but the SOURCE_BACKED framing rests on illustrative one-source anchors and local protocol capsule hashes rather than audit-grade source locators or captured source evidence. This weakens prior-art auditability without currently inflating novelty.",
+      "required_repair": "Rename the register as protocol-anchored positioning only, or add stable bibliographic identifiers, page or section locators, short compliant excerpts or capture metadata, and hashes over captured source evidence for each comparator row.",
+      "status": "OPEN"
+    }
+  ]
+}
