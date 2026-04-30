@@ -24,6 +24,8 @@ COMPARE_REFS = [
     LEAN_CERT_REF,
     "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
     FINITE_MODEL_REPORT_REF,
+    "proofs/finite_model_checks/FINITE_MODEL_REPLAY_REPORT.json",
+    "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json",
     "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
     "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
     "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
