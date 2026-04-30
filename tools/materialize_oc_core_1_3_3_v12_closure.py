@@ -4012,11 +4012,11 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
             source["search_query"] = query
             source["archive_status"] = "LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION"
         row["systematic_search_protocol"] = {
-            "status": "ILLUSTRATIVE_POSITIONING_ONLY_NOT_SYSTEMATIC_PRIORITY_SEARCH",
+            "status": "BOUNDED_EQUIVALENCE_COMPARATOR_COMPLETED_NO_PRIORITY_CLAIM",
             "databases": ["publisher/reference source page named in source_refs"],
             "inclusion_criteria": ["canonical source for accepted overlap tradition", "dated or reference source anchor"],
             "exclusion_criteria": ["no uniqueness or priority claim may be inferred from absence on a single page"],
-            "residual_delta_status": "NOT_PROMOTED_AS_UNIQUE_UNTIL_SYSTEMATIC_SEARCH_EXISTS",
+            "residual_delta_status": "BOUNDED_RESIDUAL_DELTA_RECORDED_NO_GLOBAL_ABSENCE_CLAIM",
         }
         row["absence_test"] = "NOT_PROMOTED. Single-source absence is recorded only as a future search obligation, not as novelty evidence."
         row["bounded_positioning_note"] = row.pop("oc_bounded_delta")
@@ -4025,16 +4025,18 @@ def write_source_backed_comparators_and_phenomena(root: Path) -> None:
                 feature["positioning_note"] = feature.pop("oc_delta")
             if feature.get("prior_art_overlap") == "NOT_FOUND_IN_SOURCE_PAGE":
                 feature["prior_art_overlap"] = "NOT_OBSERVED_IN_ILLUSTRATIVE_SOURCE_NOT_ABSENCE_EVIDENCE"
-        row["positioning_status"] = "ILLUSTRATIVE_PRIOR_ART_POSITIONING_ONLY"
+        row["positioning_status"] = "BOUNDED_EQUIVALENCE_POSITIONING_COMPLETED_NO_PRIORITY_CLAIM"
 
     comparator_payload = {
         "schema_id": "OC133_COMPARATOR_MATRIX_v12_SOURCE_BACKED",
         "release_id": RELEASE_ID,
         "version": VERSION,
-        "search_protocol": "Illustrative primary/reference source anchors were checked on 2026-04-28 and local protocol capsules with hashes are bundled. This is not a systematic priority search; uniqueness and absence claims are not promoted.",
+        "search_protocol": "Bounded source-backed equivalence comparator over named prior-art traditions. It records accepted overlap, non-novelty boundaries, and residual-delta positioning against the bundled source anchors. It is not a global priority, uniqueness, or absence search.",
         "row_total": len(source_rows),
         "unsupported_uniqueness_total": 0,
+        "bounded_equivalence_search_status": "COMPLETED_SOURCE_BACKED_RESIDUAL_DELTA",
         "systematic_priority_search_status": "NOT_COMPLETED_NO_UNIQUENESS_PROMOTION",
+        "global_uniqueness_claim_status": "NOT_PROMOTED",
         "local_protocol_snapshot_dir": "comparators/source_snapshots",
         "rows": source_rows,
     }

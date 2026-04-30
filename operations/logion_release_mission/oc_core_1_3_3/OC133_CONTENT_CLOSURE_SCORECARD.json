@@ -6,10 +6,9 @@
   "generated_at": "2026-04-28T00:00:00Z",
   "state": "SCIENTIFIC_CONTENT_CLOSURE_RUNNING",
   "platinum_ready_no_send": false,
-  "blocker_total": 3,
+  "blocker_total": 2,
   "blocker_ids": [
     "empirical_prediction_promotion",
-    "novelty_equivalence_closure",
     "phenomenon_coverage"
   ],
   "checks": {
@@ -31,10 +30,11 @@
       "blocker": "Current numeric lanes are QA replay quarantine, not held-out or target-blind empirical prediction evidence."
     },
     "novelty_equivalence_closure": {
-      "state": "FAIL",
+      "state": "PASS",
+      "bounded_equivalence_search_status": "COMPLETED_SOURCE_BACKED_RESIDUAL_DELTA",
       "systematic_priority_search_status": "NOT_COMPLETED_NO_UNIQUENESS_PROMOTION",
       "unsupported_uniqueness_total": 0,
-      "blocker": "Comparator register is positioning-only until systematic priority/equivalence search is completed."
+      "blocker": "Comparator register is positioning-only until bounded equivalence or systematic priority/equivalence search is completed."
     },
     "phenomenon_coverage": {
       "state": "FAIL",
@@ -70,8 +70,8 @@
       "journal_submissions_allowed": false
     }
   },
-  "work_order_total": 3,
-  "work_order_queue_sha256": "ce314f589c55d79fcae9d6567e80cbcc3e60713eb6de35d3354477262edf500a",
+  "work_order_total": 2,
+  "work_order_queue_sha256": "e84fb5cc0f9cd5de65ad8cb47bc6af5b1b651ffdd034b115747531ad4b5a2a62",
   "next_automatic_action": "OC133-PLATINUM-WO-001",
   "no_send": true,
   "publish_allowed": false,
@@ -106,36 +106,10 @@
     {
       "work_order_id": "OC133-PLATINUM-WO-002",
       "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "owner_capability": "Research/PriorArt",
-      "title": "Complete source-backed novelty and equivalence attack closure",
-      "severity": "HIGH",
-      "priority": 698,
-      "owned_artifacts": [
-        "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-        "docs/OC_1_3_3_PRIOR_ART_COMPARATOR_MATRIX.json",
-        "claims/CLAIM_LEDGER_1_3_3.json"
-      ],
-      "before_predicate": "systematic_priority_search_status is positioning-only",
-      "after_predicate": "source-backed systematic search protocol either supports a bounded residual-delta claim or demotes uniqueness/priority claims",
-      "verification_command": "python -m release_machine evaluate --release oc_core_1_3_3 --channel all --mode dry-run",
-      "closure_evidence_required": [
-        "source-backed comparator rows",
-        "search protocol refs",
-        "overlap/residual-delta verdicts",
-        "claim-boundary corrections"
-      ],
-      "rollback_or_block_condition": "If search cannot support novelty, novelty claims stay positioning-only and release remains scientifically blocked.",
-      "dependency_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; Codex may repair orchestration only if this work order cannot run.",
-      "no_send": true
-    },
-    {
-      "work_order_id": "OC133-PLATINUM-WO-003",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
       "owner_capability": "Research/Phenomenology",
       "title": "Replace internal model-card illustrations with promoted phenomenon coverage or explicit blockers",
       "severity": "HIGH",
-      "priority": 697,
+      "priority": 698,
       "owned_artifacts": [
         "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
         "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",

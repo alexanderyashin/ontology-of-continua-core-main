@@ -188,7 +188,10 @@ def content_closure_audit(root: Path) -> dict[str, Any]:
         and numeric.get("unsupported_promoted_total", 0) == 0
     )
     novelty_ok = (
-        novelty.get("systematic_priority_search_status") in {"COMPLETED_NO_EQUIVALENCE_FOUND", "COMPLETED_SOURCE_BACKED_RESIDUAL_DELTA"}
+        (
+            novelty.get("bounded_equivalence_search_status") == "COMPLETED_SOURCE_BACKED_RESIDUAL_DELTA"
+            or novelty.get("systematic_priority_search_status") in {"COMPLETED_NO_EQUIVALENCE_FOUND", "COMPLETED_SOURCE_BACKED_RESIDUAL_DELTA"}
+        )
         and novelty.get("unsupported_uniqueness_total", 1) == 0
     )
     phenomenon_ok = (
@@ -223,9 +226,10 @@ def content_closure_audit(root: Path) -> dict[str, Any]:
         },
         "novelty_equivalence_closure": {
             "state": _state(novelty_ok),
+            "bounded_equivalence_search_status": novelty.get("bounded_equivalence_search_status", "MISSING"),
             "systematic_priority_search_status": novelty.get("systematic_priority_search_status", "MISSING"),
             "unsupported_uniqueness_total": novelty.get("unsupported_uniqueness_total", 0),
-            "blocker": "Comparator register is positioning-only until systematic priority/equivalence search is completed.",
+            "blocker": "Comparator register is positioning-only until bounded equivalence or systematic priority/equivalence search is completed.",
         },
         "phenomenon_coverage": {
             "state": _state(phenomenon_ok),

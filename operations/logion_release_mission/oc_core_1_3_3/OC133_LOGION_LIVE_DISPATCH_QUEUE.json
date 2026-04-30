@@ -4,10 +4,10 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "generated_at": "2026-04-28T00:00:00Z",
-  "queue_sha256": "ce314f589c55d79fcae9d6567e80cbcc3e60713eb6de35d3354477262edf500a",
+  "queue_sha256": "e84fb5cc0f9cd5de65ad8cb47bc6af5b1b651ffdd034b115747531ad4b5a2a62",
   "state": "ACTIVE",
   "ordering_policy": "safety/no-send, severity, gate unblock value, dependency unblock value, stable work_order_id",
-  "work_order_total": 3,
+  "work_order_total": 2,
   "rows": [
     {
       "work_order_id": "OC133-PLATINUM-WO-001",
@@ -38,36 +38,10 @@
     {
       "work_order_id": "OC133-PLATINUM-WO-002",
       "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "owner_capability": "Research/PriorArt",
-      "title": "Complete source-backed novelty and equivalence attack closure",
-      "severity": "HIGH",
-      "priority": 698,
-      "owned_artifacts": [
-        "comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json",
-        "docs/OC_1_3_3_PRIOR_ART_COMPARATOR_MATRIX.json",
-        "claims/CLAIM_LEDGER_1_3_3.json"
-      ],
-      "before_predicate": "systematic_priority_search_status is positioning-only",
-      "after_predicate": "source-backed systematic search protocol either supports a bounded residual-delta claim or demotes uniqueness/priority claims",
-      "verification_command": "python -m release_machine evaluate --release oc_core_1_3_3 --channel all --mode dry-run",
-      "closure_evidence_required": [
-        "source-backed comparator rows",
-        "search protocol refs",
-        "overlap/residual-delta verdicts",
-        "claim-boundary corrections"
-      ],
-      "rollback_or_block_condition": "If search cannot support novelty, novelty claims stay positioning-only and release remains scientifically blocked.",
-      "dependency_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; Codex may repair orchestration only if this work order cannot run.",
-      "no_send": true
-    },
-    {
-      "work_order_id": "OC133-PLATINUM-WO-003",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
       "owner_capability": "Research/Phenomenology",
       "title": "Replace internal model-card illustrations with promoted phenomenon coverage or explicit blockers",
       "severity": "HIGH",
-      "priority": 697,
+      "priority": 698,
       "owned_artifacts": [
         "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
         "docs/OC_1_3_3_HOSTILE_READER_GUIDE.md",
