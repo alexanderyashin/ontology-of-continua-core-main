@@ -247,10 +247,13 @@ def main() -> int:
             copied_source_refs = extract_head_sources(temp_root)
             temp_git_index = initialize_temp_git_index(temp_root, copied_source_refs)
             preexisting_targets = []
+            preexisting_target_sha256: dict[str, str] = {}
             for ref in COMPARE_REFS:
                 target = temp_root / ref
                 if target.exists():
                     preexisting_targets.append(ref)
+                    if target.is_file():
+                        preexisting_target_sha256[ref] = sha256_file(target)
                     target.unlink()
             command_rows = [
                 run_command(temp_root, command, portable)
@@ -259,18 +262,17 @@ def main() -> int:
             rows = []
             failures = []
             for ref in COMPARE_REFS:
-                current = ROOT / ref
                 regenerated = temp_root / ref
-                current_exists = current.exists()
+                baseline_exists = ref in preexisting_target_sha256
                 regenerated_exists = regenerated.exists()
-                current_sha = sha256_file(current) if current_exists and current.is_file() else None
+                baseline_sha = preexisting_target_sha256.get(ref)
                 regenerated_sha = sha256_file(regenerated) if regenerated_exists and regenerated.is_file() else None
-                matches = current_sha == regenerated_sha and current_exists and regenerated_exists
+                matches = baseline_sha == regenerated_sha and baseline_exists and regenerated_exists
                 row = {
                     "ref": ref,
-                    "current_exists": current_exists,
+                    "committed_clean_checkout_baseline_exists": baseline_exists,
                     "regenerated_exists": regenerated_exists,
-                    "current_sha256": current_sha,
+                    "committed_clean_checkout_baseline_sha256": baseline_sha,
                     "regenerated_sha256": regenerated_sha,
                     "matches": matches,
                 }
@@ -299,6 +301,7 @@ def main() -> int:
         "copied_source_ref_total": len(copied_source_refs),
         "temp_git_index": temp_git_index,
         "source_only_target_policy": "All compared generated targets are deleted from the tracked-source temp tree before producers run; any regenerated target must be newly produced by the command sequence.",
+        "comparison_baseline_policy": "Byte comparison is against the preexisting committed files in the same detached clean worktree before deletion, not against ambient current worktree bytes.",
         "preexisting_compared_target_total": len(preexisting_targets),
         "preexisting_compared_targets_deleted_before_generation": preexisting_targets,
         "host_local_path_policy": "Canonical command records use portable argv forms; interpreter path is intentionally not serialized.",
