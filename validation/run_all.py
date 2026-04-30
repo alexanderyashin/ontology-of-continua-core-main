@@ -286,7 +286,18 @@ def main() -> int:
     )
     target_prediction_total = int(target_payload.get("prediction_support_allowed_total", 0) or 0)
     target_empirical_total = int(target_payload.get("empirical_support_allowed_total", 0) or 0)
+    target_blind_lane_total = int(target_payload.get("lane_total", 0) or 0)
+    target_blind_all_required_domains_present = target_blind_lane_total >= 5 and target_prediction_total >= 5 and target_empirical_total >= 5
     target_blind_bounded_support_present = target_prediction_total > 0 and target_empirical_total > 0 and not target_blind_failures
+    scientific_validation_state = (
+        "TARGET_BLIND_HELDOUT_RECONSTRUCTION_ALL_REQUIRED_DOMAINS_NO_SEND"
+        if qa_clear and target_blind_all_required_domains_present
+        else (
+            "TARGET_BLIND_HELDOUT_RECONSTRUCTION_PARTIAL_NO_SEND"
+            if target_blind_bounded_support_present
+            else "TARGET_BLIND_HELDOUT_PROTOCOL_REQUIRED_FOR_DOMAIN_PROMOTION"
+        )
+    )
     payload = {
         "schema_id": "OC133_DOMAIN_VALIDATION_REPORT_v12",
         "release_id": "oc_core_1_3_3",
@@ -325,10 +336,12 @@ def main() -> int:
         "target_blind_failures": target_blind_failures,
         "target_blind_prediction_support_allowed_total": target_prediction_total,
         "target_blind_empirical_support_allowed_total": target_empirical_total,
+        "target_blind_lane_total": target_blind_lane_total,
+        "target_blind_all_required_domains_present": target_blind_all_required_domains_present,
         "target_blind_generated_by": target_payload.get("generated_by"),
         "target_blind_capability_owner": target_payload.get("capability_owner"),
         "target_blind_closure_predicates": target_payload.get("closure_predicates", {}),
-        "promoted_empirical_lane_total": int(target_payload.get("lane_total", 0) or 0) if target_blind_bounded_support_present else 0,
+        "promoted_empirical_lane_total": target_blind_lane_total if target_blind_bounded_support_present else 0,
         "numeric_snapshot_parse_fail_total": numeric_log.get("snapshot_parse_fail_total", 0),
         "lane_replay_failure_total": lane_replay_failure_total,
         "lane_replay_results": lane_replay_results,
@@ -340,7 +353,7 @@ def main() -> int:
         "domain_validation_support_allowed": False,
         "target_blind_bounded_reconstruction_support_present": target_blind_bounded_support_present,
         "heldout_prediction_support_present": target_blind_bounded_support_present,
-        "scientific_validation_state": "TARGET_BLIND_HELDOUT_RECONSTRUCTION_PARTIAL_NO_SEND" if target_blind_bounded_support_present else "TARGET_BLIND_HELDOUT_PROTOCOL_REQUIRED_FOR_DOMAIN_PROMOTION",
+        "scientific_validation_state": scientific_validation_state,
         "scientific_validation_state_scope": "bounded target-blind reconstruction rows only; no broad domain validation and no TOE truth claim",
         "release_gate_semantics": "Exit 0 means official-snapshot replay QA completed and no empirical promotion leaked; snapshot replay can never by itself become a domain-validation PASS.",
         "cli_mode": "QA_ONLY" if args.qa_only else "DOMAIN_VALIDATION_GATE",
@@ -352,7 +365,7 @@ def main() -> int:
         ],
         "qa_only_zero_exit_allowed": bool(args.qa_only),
         "validation_boundary": "Official-snapshot replay QA remains quarantined. Target-blind rows may support only bounded held-out reconstruction claims, not broad domain validation or novelty.",
-        "verdict": "TARGET_BLIND_HELDOUT_RECONSTRUCTION_PARTIAL_NO_SEND" if qa_clear and target_blind_bounded_support_present else ("QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED" if qa_clear else "FAIL"),
+        "verdict": scientific_validation_state if qa_clear and target_blind_bounded_support_present else ("QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED" if qa_clear else "FAIL"),
     }
     reports = ROOT / "reports"
     reports.mkdir(exist_ok=True)

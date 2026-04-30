@@ -257,6 +257,8 @@ def check_target_blind_empirical_repair() -> dict[str, Any]:
         "falsifier",
         "prediction_support_allowed",
         "empirical_support_allowed",
+        "snapshot_sha256",
+        "replay_hash",
         "support_scope",
     }
     row_failures = []
@@ -279,7 +281,7 @@ def check_target_blind_empirical_repair() -> dict[str, Any]:
         "target_generated_by_logion": target.get("generated_by") == "LOGION_CAPABILITY_WORKER",
         "target_capability_owner_ok": target.get("capability_owner") == "Research/EmpiricalScience",
         "target_failure_total_zero": target.get("failure_total") == 0,
-        "target_support_rows_present": target.get("prediction_support_allowed_total", 0) >= 2 and target.get("empirical_support_allowed_total", 0) >= 2,
+        "target_support_rows_present": target.get("prediction_support_allowed_total", 0) >= 5 and target.get("empirical_support_allowed_total", 0) >= 5 and target.get("lane_total", 0) >= 5,
         "target_row_predicates_complete": not row_failures,
         "numeric_replay_remains_quarantined": numeric.get("prediction_support_allowed_total", 0) == 0 and numeric.get("empirical_support_allowed_total", 0) == 0,
         "report_bounded_support_present": report.get("target_blind_bounded_reconstruction_support_present") is True,
@@ -299,16 +301,20 @@ def check_target_blind_empirical_repair() -> dict[str, Any]:
 
 
 def check_all_domain_empirical_readiness() -> dict[str, Any]:
+    target_cmd = command([sys.executable, "validation/target_blind/run_target_blind_predictions.py"], timeout=240)
+    validation_cmd = command([sys.executable, "validation/run_all.py", "--qa-only"], timeout=1200)
     audit = oc133_platinum.all_domain_readiness_audit(ROOT)
     empirical = audit.get("checks", {}).get("all_domain_empirical_predictions", {})
     return {
         "profile": "v12_all_domain_empirical_readiness_repair",
+        "target_blind_command": target_cmd,
+        "validation_command": validation_cmd,
         "audit_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_READINESS_SCORECARD.json",
         "required_domains": empirical.get("required_domains", []),
         "passed_domains": empirical.get("passed_domains", []),
         "missing_domains": empirical.get("missing_domains", []),
         "missing_domain_total": empirical.get("missing_domain_total", 0),
-        "state": "PASS" if empirical.get("state") == "PASS" else "FAIL",
+        "state": "PASS" if target_cmd["returncode"] == 0 and validation_cmd["returncode"] == 0 and empirical.get("state") == "PASS" else "FAIL",
         "block_condition": "Missing domains are not auto-filled. Research/EmpiricalScience must produce honest held-out or target-blind evidence before this profile passes.",
     }
 

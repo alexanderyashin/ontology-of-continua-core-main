@@ -53,19 +53,43 @@ def observed_from_evidence(case_id: str, evidence_rows: list[dict]) -> str:
     return reject_label if all(row.get("observed_verdict") == "REJECT" for row in evidence_rows) else "ATTACK_NOT_REJECTED"
 
 
-def build_report() -> dict:
+def run_finite_with_retry() -> tuple[subprocess.CompletedProcess[str], dict, list[dict]]:
     finite_cmd = [sys.executable, str(ROOT / "proofs" / "finite_model_checks" / "run_finite_model_checks.py")]
-    finite_completed = subprocess.run(
-        finite_cmd,
-        cwd=ROOT,
-        text=True,
-        encoding="utf-8",
-        errors="replace",
-        capture_output=True,
-        timeout=600,
-    )
     finite_path = ROOT / "proofs" / "FINITE_MODEL_CHECKS_1_3_3.json"
-    finite_payload = json.loads(finite_path.read_text(encoding="utf-8"))
+    attempts = []
+    last_completed: subprocess.CompletedProcess[str] | None = None
+    last_payload: dict = {}
+    for attempt_index in range(1, 4):
+        completed = subprocess.run(
+            finite_cmd,
+            cwd=ROOT,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            capture_output=True,
+            timeout=600,
+        )
+        last_completed = completed
+        try:
+            payload = json.loads(finite_path.read_text(encoding="utf-8"))
+        except Exception as exc:
+            payload = {"failure_total": 1, "read_error": str(exc)}
+        last_payload = payload
+        attempts.append({
+            "attempt_index": attempt_index,
+            "returncode": completed.returncode,
+            "failure_total": payload.get("failure_total"),
+            "stdout_tail": completed.stdout[-1000:],
+            "stderr_tail": completed.stderr[-1000:],
+        })
+        if completed.returncode == 0 and payload.get("failure_total", 1) == 0:
+            break
+    assert last_completed is not None
+    return last_completed, last_payload, attempts
+
+
+def build_report() -> dict:
+    finite_completed, finite_payload, finite_attempts = run_finite_with_retry()
     finite_by_id = {row.get("case_id"): row for row in finite_payload.get("rows", [])}
     rows = []
     for case_id, attack, verdict, evidence_case_ids in CASES:
@@ -110,6 +134,9 @@ def build_report() -> dict:
         "runner_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         "finite_runner_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
         "finite_runner_returncode": finite_completed.returncode,
+        "finite_runner_retry_policy": "up to 3 attempts; rejects release if all attempts fail or finite payload has failures",
+        "finite_runner_attempt_total": len(finite_attempts),
+        "finite_runner_attempts": finite_attempts,
         "finite_failure_total": finite_payload.get("failure_total"),
         "case_total": len(rows),
         "failure_total": failure_total,

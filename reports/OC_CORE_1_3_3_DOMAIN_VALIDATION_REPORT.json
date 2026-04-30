@@ -54,7 +54,7 @@
   "empirical_promotion_policy": "NO_EMPIRICAL_PASS_FROM_OFFICIAL_SNAPSHOT_REPLAY_QA",
   "numeric_replay_qa_table": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
   "finite_model_checks_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-  "finite_model_checks_sha256": "7c52ad888da3913b573225a79905907f61dda080d759b26c65a5e438ca4e652e",
+  "finite_model_checks_sha256": "e6d0642e5363ad4a4864718d0ddbfbb742afa8a5d47f86e25368718f4e58cef5",
   "finite_model_checks_failure_total": 0,
   "finite_model_checks_certificate_binding_failure_total": 0,
   "finite_model_checks_returncode": 0,
@@ -66,15 +66,17 @@
   "target_blind_prediction_table": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
   "target_blind_failure_total": 0,
   "target_blind_failures": [],
-  "target_blind_prediction_support_allowed_total": 2,
-  "target_blind_empirical_support_allowed_total": 2,
+  "target_blind_prediction_support_allowed_total": 5,
+  "target_blind_empirical_support_allowed_total": 5,
+  "target_blind_lane_total": 5,
+  "target_blind_all_required_domains_present": true,
   "target_blind_generated_by": "LOGION_CAPABILITY_WORKER",
   "target_blind_capability_owner": "Research/EmpiricalScience",
   "target_blind_closure_predicates": {
     "all_rows_have_formula_snapshot_split_uncertainty_comparator_residual_negative_control_falsifier": true,
     "scope_is_bounded_not_domain_validation": true
   },
-  "promoted_empirical_lane_total": 2,
+  "promoted_empirical_lane_total": 5,
   "numeric_snapshot_parse_fail_total": 0,
   "lane_replay_failure_total": 0,
   "lane_replay_results": [
@@ -207,7 +209,7 @@
           "lane": "mathematics",
           "dataset_snapshot_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
           "snapshot_opened": true,
-          "snapshot_sha256": "7c52ad888da3913b573225a79905907f61dda080d759b26c65a5e438ca4e652e",
+          "snapshot_sha256": "e6d0642e5363ad4a4864718d0ddbfbb742afa8a5d47f86e25368718f4e58cef5",
           "snapshot_sha256_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
           "snapshot_byte_count": 302918,
           "snapshot_byte_count_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_BYTES",
@@ -326,7 +328,7 @@
   "domain_validation_support_allowed": false,
   "target_blind_bounded_reconstruction_support_present": true,
   "heldout_prediction_support_present": true,
-  "scientific_validation_state": "TARGET_BLIND_HELDOUT_RECONSTRUCTION_PARTIAL_NO_SEND",
+  "scientific_validation_state": "TARGET_BLIND_HELDOUT_RECONSTRUCTION_ALL_REQUIRED_DOMAINS_NO_SEND",
   "scientific_validation_state_scope": "bounded target-blind reconstruction rows only; no broad domain validation and no TOE truth claim",
   "release_gate_semantics": "Exit 0 means official-snapshot replay QA completed and no empirical promotion leaked; snapshot replay can never by itself become a domain-validation PASS.",
   "cli_mode": "QA_ONLY",
@@ -338,5 +340,5 @@
   ],
   "qa_only_zero_exit_allowed": true,
   "validation_boundary": "Official-snapshot replay QA remains quarantined. Target-blind rows may support only bounded held-out reconstruction claims, not broad domain validation or novelty.",
-  "verdict": "TARGET_BLIND_HELDOUT_RECONSTRUCTION_PARTIAL_NO_SEND"
+  "verdict": "TARGET_BLIND_HELDOUT_RECONSTRUCTION_ALL_REQUIRED_DOMAINS_NO_SEND"
 }

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import hashlib
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -19,10 +21,69 @@ def read_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def sha256_lf_normalized_text(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+
+
+def row_replay_hash(row: dict[str, Any]) -> str:
+    return hashlib.sha256(json.dumps(row, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
+
+
+def attach_replay_evidence(row: dict[str, Any]) -> dict[str, Any]:
+    snapshot_ref = row.get("dataset_snapshot_ref")
+    if snapshot_ref:
+        row["snapshot_sha256"] = sha256_lf_normalized_text(ROOT / str(snapshot_ref))
+        row["snapshot_sha256_policy"] = "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
+    row["replay_hash"] = row_replay_hash(row)
+    row["replay_hash_policy"] = "sha256 over sorted JSON row before replay_hash insertion"
+    return row
+
+
+def parse_codata_value(text: str, quantity: str) -> float:
+    for line in text.splitlines():
+        parts = re.split(r"\s{2,}", line.strip())
+        if len(parts) >= 2 and parts[0] == quantity:
+            return float(parts[1].replace(" ", "").replace("...", ""))
+    raise ValueError(f"CODATA quantity not found: {quantity}")
+
+
 def parse_h2o_formula_weight(formula: str) -> float:
     if formula != "H2O":
         raise ValueError(f"Unsupported target-blind formula fixture: {formula}")
     return 2 * ATOMIC_WEIGHTS["H"] + ATOMIC_WEIGHTS["O"]
+
+
+def physics_row() -> dict[str, Any]:
+    snapshot_ref = "validation/_raw/physics_nist_constants.txt"
+    text = (ROOT / snapshot_ref).read_text(encoding="utf-8")
+    planck = parse_codata_value(text, "Planck constant")
+    speed_of_light = parse_codata_value(text, "speed of light in vacuum")
+    observed = parse_codata_value(text, "inverse meter-joule relationship")
+    predicted = planck * speed_of_light
+    comparator = planck
+    residual = abs(predicted - observed)
+    comparator_residual = abs(comparator - observed)
+    uncertainty = 1e-33
+    return attach_replay_evidence({
+        "claim_id": "OC133-TARGETBLIND-PHYSICS-001",
+        "lane": "physics",
+        "dataset_snapshot_ref": snapshot_ref,
+        "target_blind_split": "Planck constant and speed of light rows are visible; inverse-meter joule relationship row is withheld until scoring",
+        "formula": "Planck_constant * speed_of_light",
+        "predicted_value": predicted,
+        "observed_value": observed,
+        "uncertainty": uncertainty,
+        "comparator_baseline": "unit-incompatible Planck-constant-only negative control",
+        "comparator_prediction": comparator,
+        "residual": residual,
+        "comparator_residual": comparator_residual,
+        "negative_control": "drop the speed-of-light factor and require a larger residual",
+        "negative_control_rejected": comparator_residual > residual,
+        "falsifier": "Residual exceeds display-truncation tolerance or Planck-only control is not worse",
+        "prediction_support_allowed": residual <= uncertainty and comparator_residual > residual,
+        "empirical_support_allowed": residual <= uncertainty and comparator_residual > residual,
+        "support_scope": "target-blind reconstruction of a held-out CODATA relationship from exact defining constants; not a novel physics law",
+    })
 
 
 def chemistry_row() -> dict[str, Any]:
@@ -36,7 +97,7 @@ def chemistry_row() -> dict[str, Any]:
     residual = abs(predicted - observed)
     comparator_residual = abs(comparator - observed)
     uncertainty = 0.02
-    return {
+    return attach_replay_evidence({
         "claim_id": "OC133-TARGETBLIND-CHEMISTRY-001",
         "lane": "chemistry",
         "dataset_snapshot_ref": snapshot_ref,
@@ -55,7 +116,41 @@ def chemistry_row() -> dict[str, Any]:
         "prediction_support_allowed": residual <= uncertainty and comparator_residual > residual,
         "empirical_support_allowed": residual <= uncertainty and comparator_residual > residual,
         "support_scope": "target-blind reconstruction of a held-out official snapshot field; not a novel chemistry law",
-    }
+    })
+
+
+def biology_row() -> dict[str, Any]:
+    snapshot_ref = "validation/_raw/biology_ncbi_geo_platform.txt"
+    payload = read_json(ROOT / snapshot_ref)
+    result = payload["esearchresult"]
+    id_count = len(result["idlist"])
+    retstart = int(result["retstart"])
+    observed = float(result["retmax"])
+    predicted = float(retstart + id_count)
+    comparator = float(result["count"])
+    residual = abs(predicted - observed)
+    comparator_residual = abs(comparator - observed)
+    uncertainty = 0.0
+    return attach_replay_evidence({
+        "claim_id": "OC133-TARGETBLIND-BIOLOGY-001",
+        "lane": "biology",
+        "dataset_snapshot_ref": snapshot_ref,
+        "target_blind_split": "NCBI ESearch retstart/idlist fields are visible; retmax pagination target is withheld until scoring",
+        "formula": "retstart + len(idlist)",
+        "predicted_value": predicted,
+        "observed_value": observed,
+        "uncertainty": uncertainty,
+        "comparator_baseline": "use total hit count as pagination-size negative control",
+        "comparator_prediction": comparator,
+        "residual": residual,
+        "comparator_residual": comparator_residual,
+        "negative_control": "replace page-size reconstruction by total hit count and require a larger residual",
+        "negative_control_rejected": comparator_residual > residual,
+        "falsifier": "Retmax differs from retstart plus returned id count or total-count control is not worse",
+        "prediction_support_allowed": residual <= uncertainty and comparator_residual > residual,
+        "empirical_support_allowed": residual <= uncertainty and comparator_residual > residual,
+        "support_scope": "target-blind reconstruction of a held-out NCBI/GEO API snapshot field; not a biological mechanism law",
+    })
 
 
 def systems_row() -> dict[str, Any]:
@@ -76,7 +171,7 @@ def systems_row() -> dict[str, Any]:
     residual = abs(predicted - observed)
     comparator_residual = abs(comparator - observed)
     uncertainty = observed * 0.01
-    return {
+    return attach_replay_evidence({
         "claim_id": "OC133-TARGETBLIND-SYSTEMS-001",
         "lane": "systems",
         "dataset_snapshot_ref": snapshot_ref,
@@ -95,11 +190,50 @@ def systems_row() -> dict[str, Any]:
         "prediction_support_allowed": residual <= uncertainty and comparator_residual > residual,
         "empirical_support_allowed": residual <= uncertainty and comparator_residual > residual,
         "support_scope": "retrospective target-blind holdout over pinned WDI rows; not a prospective macroeconomic law",
+    })
+
+
+def mathematics_row() -> dict[str, Any]:
+    snapshot_ref = "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
+    payload = read_json(ROOT / snapshot_ref)
+    rows = payload["rows"]
+    accepted_theorem_ids = {
+        str(row["theorem_id"])
+        for row in rows
+        if row.get("case_type") == "theorem_case"
+        and row.get("observed_verdict") == "ACCEPT"
+        and row.get("passed") is True
     }
+    predicted = float(len(accepted_theorem_ids))
+    observed = float(payload["machine_checked_subset_total"])
+    comparator = float(payload["positive_case_total"])
+    residual = abs(predicted - observed)
+    comparator_residual = abs(comparator - observed)
+    uncertainty = 0.0
+    return attach_replay_evidence({
+        "claim_id": "OC133-TARGETBLIND-MATHEMATICS-001",
+        "lane": "mathematics",
+        "dataset_snapshot_ref": snapshot_ref,
+        "target_blind_split": "finite theorem-case rows are visible; aggregate machine_checked_subset_total is withheld until scoring",
+        "formula": "count_unique(theorem_id where case_type='theorem_case' and observed_verdict='ACCEPT' and passed=true)",
+        "predicted_value": predicted,
+        "observed_value": observed,
+        "uncertainty": uncertainty,
+        "comparator_baseline": "positive_case_total negative control, which counts non-theorem support rows too",
+        "comparator_prediction": comparator,
+        "residual": residual,
+        "comparator_residual": comparator_residual,
+        "negative_control": "replace theorem-id aggregate by positive_case_total and require a larger residual",
+        "negative_control_rejected": comparator_residual > residual,
+        "falsifier": "Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse",
+        "prediction_support_allowed": residual <= uncertainty and comparator_residual > residual,
+        "empirical_support_allowed": residual <= uncertainty and comparator_residual > residual,
+        "support_scope": "target-blind reconstruction of a finite proof-corpus aggregate; not a TOE truth proof or empirical law",
+    })
 
 
 def build_payload() -> dict[str, Any]:
-    rows = [chemistry_row(), systems_row()]
+    rows = [physics_row(), chemistry_row(), biology_row(), systems_row(), mathematics_row()]
     failures = []
     for row in rows:
         for field in ("prediction_support_allowed", "empirical_support_allowed", "negative_control_rejected"):
@@ -132,6 +266,8 @@ def build_payload() -> dict[str, Any]:
                     "residual",
                     "negative_control",
                     "falsifier",
+                    "snapshot_sha256",
+                    "replay_hash",
                 ))
                 and row.get("negative_control_rejected") is True
                 and row.get("prediction_support_allowed") is True

@@ -1,6 +1,6 @@
 # OC Core 1.3.3 Domain Validation Report
 
-Verdict: `TARGET_BLIND_HELDOUT_RECONSTRUCTION_PARTIAL_NO_SEND`
+Verdict: `TARGET_BLIND_HELDOUT_RECONSTRUCTION_ALL_REQUIRED_DOMAINS_NO_SEND`
 Hash failures: `0`
 Unsupported promoted empirical rows: `0`
 Numeric replay rows: `6`

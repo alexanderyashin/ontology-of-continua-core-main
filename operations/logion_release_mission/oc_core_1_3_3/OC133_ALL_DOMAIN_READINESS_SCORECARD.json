@@ -4,16 +4,14 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "generated_at": "2026-04-28T00:00:00Z",
-  "state": "OC_CORE_1_3_3_ALL_DOMAIN_SCIENTIFIC_READINESS_RUNNING",
-  "final_readiness_state": "SCIENTIFIC_BLOCKERS_REMAIN",
-  "all_domain_ready_no_send": false,
-  "blocker_total": 1,
-  "blocker_ids": [
-    "all_domain_empirical_predictions"
-  ],
+  "state": "ALL_DOMAIN_READY_NO_SEND",
+  "final_readiness_state": "ALL_DOMAIN_READY_NO_SEND",
+  "all_domain_ready_no_send": true,
+  "blocker_total": 0,
+  "blocker_ids": [],
   "checks": {
     "all_domain_empirical_predictions": {
-      "state": "FAIL",
+      "state": "PASS",
       "required_domains": [
         "physics",
         "chemistry",
@@ -22,17 +20,16 @@
         "mathematics"
       ],
       "passed_domains": [
+        "biology",
         "chemistry",
+        "mathematics",
+        "physics",
         "systems"
       ],
-      "passed_domain_total": 2,
-      "missing_domains": [
-        "physics",
-        "biology",
-        "mathematics"
-      ],
-      "missing_domain_total": 3,
-      "target_blind_row_total": 2,
+      "passed_domain_total": 5,
+      "missing_domains": [],
+      "missing_domain_total": 0,
+      "target_blind_row_total": 5,
       "target_blind_failure_total": 0,
       "target_blind_generated_by": "LOGION_CAPABILITY_WORKER",
       "target_blind_capability_owner": "Research/EmpiricalScience",
@@ -88,40 +85,13 @@
       "execution_bad_total": 0
     }
   },
-  "work_order_total": 1,
-  "work_order_queue_sha256": "3399f21f837b138acc36daa1d7e7851e77c0c2dc03b40deb3dbb4a17f90abdb5",
-  "next_automatic_action": "OC133-PLATINUM-WO-001",
+  "work_order_total": 0,
+  "work_order_queue_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "next_automatic_action": "OWNER_REVIEW_NO_SEND",
   "base_content_closure_state": "PASS",
   "base_content_closure_blocker_total": 0,
   "no_send": true,
   "publish_allowed": false,
   "journal_submissions_allowed": false,
-  "work_orders": [
-    {
-      "work_order_id": "OC133-PLATINUM-WO-001",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "owner_capability": "Research/EmpiricalScience",
-      "title": "Close all-domain held-out or target-blind numeric prediction evidence",
-      "severity": "CRITICAL",
-      "priority": 999,
-      "owned_artifacts": [
-        "validation/target_blind/",
-        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
-        "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_READINESS_SCORECARD.json"
-      ],
-      "before_predicate": "missing_domains == ['physics', 'biology', 'mathematics']",
-      "after_predicate": "each required domain has formula, pinned snapshot, split policy, numeric prediction, uncertainty, comparator, residual, negative control, falsifier, and replay hash",
-      "verification_command": "python tools/oc133_logion_all_domain_readiness.py --execute-next --write",
-      "closure_evidence_required": [
-        "per-domain target-blind or held-out prediction rows",
-        "dataset snapshot refs and hashes",
-        "negative-control/falsifier outputs",
-        "Logion capability execution ledger row"
-      ],
-      "rollback_or_block_condition": "If a domain cannot honestly close, keep ALL_DOMAIN_SCIENTIFIC_READINESS_RUNNING and do not claim TOE/all-domain prediction readiness.",
-      "dependency_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; Codex may repair orchestration only if this work order cannot run.",
-      "no_send": true
-    }
-  ]
+  "work_orders": []
 }

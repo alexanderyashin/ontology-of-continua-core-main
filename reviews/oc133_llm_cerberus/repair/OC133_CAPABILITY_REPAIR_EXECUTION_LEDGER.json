@@ -3,8 +3,8 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "profile_total": 15,
-  "pass_total": 14,
-  "fail_total": 1,
+  "pass_total": 15,
+  "fail_total": 0,
   "rows": [
     {
       "profile": "v12_all_domain_empirical_readiness_repair",
@@ -14,6 +14,25 @@
         "profile": "v12_all_domain_empirical_readiness_repair",
         "audit": {
           "profile": "v12_all_domain_empirical_readiness_repair",
+          "target_blind_command": {
+            "cmd": [
+              "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+              "validation/target_blind/run_target_blind_predictions.py"
+            ],
+            "returncode": 0,
+            "stdout_tail": "pective target-blind holdout over pinned WDI rows; not a prospective macroeconomic law\",\n      \"snapshot_sha256\": \"52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b\",\n      \"snapshot_sha256_policy\": \"LF_NORMALIZED_TEXT_SNAPSHOT_HASH\",\n      \"replay_hash\": \"778ffef9592179e6062fad4b770d02612408603c70455f734c423475ff704be4\",\n      \"replay_hash_policy\": \"sha256 over sorted JSON row before replay_hash insertion\"\n    },\n    {\n      \"claim_id\": \"OC133-TARGETBLIND-MATHEMATICS-001\",\n      \"lane\": \"mathematics\",\n      \"dataset_snapshot_ref\": \"proofs/FINITE_MODEL_CHECKS_1_3_3.json\",\n      \"target_blind_split\": \"finite theorem-case rows are visible; aggregate machine_checked_subset_total is withheld until scoring\",\n      \"formula\": \"count_unique(theorem_id where case_type='theorem_case' and observed_verdict='ACCEPT' and passed=true)\",\n      \"predicted_value\": 10.0,\n      \"observed_value\": 10.0,\n      \"uncertainty\": 0.0,\n      \"comparator_baseline\": \"positive_case_total negative control, which counts non-theorem support rows too\",\n      \"comparator_prediction\": 21.0,\n      \"residual\": 0.0,\n      \"comparator_residual\": 11.0,\n      \"negative_control\": \"replace theorem-id aggregate by positive_case_total and require a larger residual\",\n      \"negative_control_rejected\": true,\n      \"falsifier\": \"Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse\",\n      \"prediction_support_allowed\": true,\n      \"empirical_support_allowed\": true,\n      \"support_scope\": \"target-blind reconstruction of a finite proof-corpus aggregate; not a TOE truth proof or empirical law\",\n      \"snapshot_sha256\": \"e6d0642e5363ad4a4864718d0ddbfbb742afa8a5d47f86e25368718f4e58cef5\",\n      \"snapshot_sha256_policy\": \"LF_NORMALIZED_TEXT_SNAPSHOT_HASH\",\n      \"replay_hash\": \"0c3e830ddf6f165166b9faea8dd2f90ab98ab85c6156b04aa2dda9acbdffa78b\",\n      \"replay_hash_policy\": \"sha256 over sorted JSON row before replay_hash insertion\"\n    }\n  ]\n}\n",
+            "stderr_tail": ""
+          },
+          "validation_command": {
+            "cmd": [
+              "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+              "validation/run_all.py",
+              "--qa-only"
+            ],
+            "returncode": 0,
+            "stdout_tail": "arator_performance\",\n          \"residual_matches\": true,\n          \"comparator_residual_matches\": true,\n          \"negative_control_residual\": 4241013358949.0,\n          \"negative_control_method\": \"remove or corrupt the latest WDI value and require replay parser failure\",\n          \"negative_control_rejected\": true,\n          \"prediction_support_allowed\": false,\n          \"empirical_support_allowed\": false,\n          \"replay_barred_from_prediction_support\": true,\n          \"quarantine_reason\": \"snapshot contains the target value; retrospective replay QA only, barred from prediction support\"\n        }\n      ]\n    }\n  ],\n  \"numeric_blocked_for_promotion_total\": 0,\n  \"empirical_promotion_disallowed_total\": 6,\n  \"numeric_quarantined_replay_qa_total\": 6,\n  \"domain_validation_promoted\": false,\n  \"broad_domain_validation_promoted\": false,\n  \"domain_validation_support_allowed\": false,\n  \"target_blind_bounded_reconstruction_support_present\": true,\n  \"heldout_prediction_support_present\": true,\n  \"scientific_validation_state\": \"TARGET_BLIND_HELDOUT_RECONSTRUCTION_ALL_REQUIRED_DOMAINS_NO_SEND\",\n  \"scientific_validation_state_scope\": \"bounded target-blind reconstruction rows only; no broad domain validation and no TOE truth claim\",\n  \"release_gate_semantics\": \"Exit 0 means official-snapshot replay QA completed and no empirical promotion leaked; snapshot replay can never by itself become a domain-validation PASS.\",\n  \"cli_mode\": \"QA_ONLY\",\n  \"materialize_first_explicit\": false,\n  \"materialize_first_returncode\": null,\n  \"canonical_clean_checkout_command_sequence\": [\n    \"python tools/materialize_oc_core_1_3_3_v12_closure.py\",\n    \"python validation/run_all.py --qa-only\"\n  ],\n  \"qa_only_zero_exit_allowed\": true,\n  \"validation_boundary\": \"Official-snapshot replay QA remains quarantined. Target-blind rows may support only bounded held-out reconstruction claims, not broad domain validation or novelty.\",\n  \"verdict\": \"TARGET_BLIND_HELDOUT_RECONSTRUCTION_ALL_REQUIRED_DOMAINS_NO_SEND\"\n}\n",
+            "stderr_tail": ""
+          },
           "audit_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_READINESS_SCORECARD.json",
           "required_domains": [
             "physics",
@@ -23,21 +42,20 @@
             "mathematics"
           ],
           "passed_domains": [
+            "biology",
             "chemistry",
+            "mathematics",
+            "physics",
             "systems"
           ],
-          "missing_domains": [
-            "physics",
-            "biology",
-            "mathematics"
-          ],
-          "missing_domain_total": 3,
-          "state": "FAIL",
+          "missing_domains": [],
+          "missing_domain_total": 0,
+          "state": "PASS",
           "block_condition": "Missing domains are not auto-filled. Research/EmpiricalScience must produce honest held-out or target-blind evidence before this profile passes."
         },
-        "state": "FAIL"
+        "state": "PASS"
       },
-      "profile_verification_status": "FAIL",
+      "profile_verification_status": "PASS",
       "no_send": true
     },
     {

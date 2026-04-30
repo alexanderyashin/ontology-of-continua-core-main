@@ -268,6 +268,8 @@ def _all_domain_empirical_audit(root: Path) -> dict[str, Any]:
         "negative_control",
         "negative_control_rejected",
         "falsifier",
+        "snapshot_sha256",
+        "replay_hash",
         "support_scope",
     )
     for row in rows:
