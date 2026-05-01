@@ -68,6 +68,107 @@ def finite_rows() -> list[dict[str, Any]]:
     return rows if isinstance(rows, list) else []
 
 
+def grand_finite_input_rows() -> list[dict[str, Any]]:
+    return [
+        {
+            "case_id": "FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
+            "theorem_id": CLAIM_ID,
+            "case_type": "grand_toe_formal_obligation",
+            "expected_verdict": "REJECT_PROMOTION",
+            "model": {
+                "mode": "current_claim_ledger",
+                "claim_ledger_ref": CLAIM_LEDGER_REF,
+                "requested_claim_classes": [
+                    "numerically_proven_toe",
+                    "all_domain_numerical_prediction",
+                    "predicts_better_than_modern_science",
+                ],
+                "required_promotion_theorem_ids": ["OC133-GRAND-TOE-PROMOTED-FORMAL-THEOREM"],
+                "blocking_theorem_ids": [CLAIM_ID],
+                "required_lean_refs": LEAN_REFS,
+                "required_finite_case_ids": FINITE_CASE_IDS,
+                "proof_sheet_refs": [PROOF_SHEET_REF],
+                "current_artifact_class": "bounded theorem rows plus replay/baseline support; no dedicated promoted grand TOE/all-domain claim row",
+            },
+            "negative_control_id": "FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+            "lean_ref": "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_cannot_promote",
+        },
+        {
+            "case_id": "FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+            "theorem_id": CLAIM_ID,
+            "case_type": "grand_toe_formal_obligation",
+            "expected_verdict": "ACCEPT_PROMOTION",
+            "model": {
+                "mode": "hypothetical_complete",
+                "dedicated_claim_row": True,
+                "release_promotion_allowed": True,
+                "scientific_promotion_allowed": True,
+                "public_status_promoted": True,
+                "unsupported_promoted_total": 0,
+                "requested_claim_classes": [
+                    "numerically_proven_toe",
+                    "all_domain_numerical_prediction",
+                    "predicts_better_than_modern_science",
+                ],
+                "promoted_grand_claim_ids": ["OC133-GRAND-TOE-HYPOTHETICAL-PROMOTION"],
+                "required_promotion_theorem_ids": ["OC133-GRAND-TOE-HYPOTHETICAL-PROMOTION"],
+                "blocking_theorem_ids": [CLAIM_ID],
+                "required_lean_refs": [
+                    "formal/lean/OC133V12.lean::grand_toe_promotion_requires_all_formal_obligations",
+                    "formal/lean/OC133V12.lean::grand_toe_complete_formal_obligations_accept_control",
+                ],
+                "required_finite_case_ids": FINITE_CASE_IDS,
+                "proof_sheet_refs": [PROOF_SHEET_REF],
+                "control_policy": "hypothetical only; not a current release promotion",
+            },
+            "negative_control_id": "FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT",
+            "lean_ref": "formal/lean/OC133V12.lean::grand_toe_complete_formal_obligations_accept_control",
+        },
+        {
+            "case_id": "FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT",
+            "theorem_id": CLAIM_ID,
+            "case_type": "grand_toe_formal_obligation",
+            "expected_verdict": "REJECT_PROMOTION",
+            "model": {
+                "mode": "hypothetical_missing_finite",
+                "dedicated_claim_row": True,
+                "release_promotion_allowed": True,
+                "scientific_promotion_allowed": True,
+                "public_status_promoted": True,
+                "unsupported_promoted_total": 0,
+                "requested_claim_classes": [
+                    "numerically_proven_toe",
+                    "all_domain_numerical_prediction",
+                    "predicts_better_than_modern_science",
+                ],
+                "promoted_grand_claim_ids": ["OC133-GRAND-TOE-HYPOTHETICAL-PROMOTION"],
+                "required_promotion_theorem_ids": ["OC133-GRAND-TOE-HYPOTHETICAL-PROMOTION"],
+                "blocking_theorem_ids": [CLAIM_ID],
+                "required_lean_refs": [
+                    "formal/lean/OC133V12.lean::grand_toe_promotion_requires_all_formal_obligations",
+                    "formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion",
+                ],
+                "required_finite_case_ids": [],
+                "proof_sheet_refs": [PROOF_SHEET_REF],
+                "negative_control_isolated_dimension": "finite_case_ids_missing_only",
+            },
+            "negative_control_id": "",
+            "lean_ref": "formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion",
+        },
+    ]
+
+
+def ensure_grand_finite_input_rows() -> None:
+    payload = read_json(FINITE_INPUT_REF)
+    rows = payload.get("rows", [])
+    if not isinstance(rows, list):
+        rows = []
+    wanted = set(FINITE_CASE_IDS)
+    retained = [row for row in rows if not (isinstance(row, dict) and row.get("case_id") in wanted)]
+    payload["rows"] = retained + grand_finite_input_rows()
+    write_json(FINITE_INPUT_REF, payload)
+
+
 def grand_finite_rows() -> list[dict[str, Any]]:
     wanted = set(FINITE_CASE_IDS)
     return [row for row in finite_rows() if isinstance(row, dict) and row.get("case_id") in wanted]
@@ -327,6 +428,7 @@ def main() -> int:
     parser.add_argument("--write", action="store_true", help="Write proof sheet, generated ledgers, and claim ledger blocker row.")
     args = parser.parse_args()
 
+    ensure_grand_finite_input_rows()
     if args.write:
         write_text(PROOF_SHEET_REF, render_proof_sheet(obligation_payload()))
         claim_ledger = update_claim_ledger()

@@ -19,6 +19,7 @@ REQUIRED_EMPIRICAL_DOMAINS = ("physics", "chemistry", "biology", "systems", "mat
 MODERN_SCIENCE_COMPARATOR_REGISTER_REL = "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json"
 GRAND_EMPIRICAL_REPORT_REL = "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json"
 GRAND_TOE_FORMAL_OBLIGATION_LEDGER_REL = "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json"
+GRAND_PROMOTION_CONTRACT_REL = "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json"
 GRAND_SCIENCE_CLAIM_CLASSES = (
     "numerically_proven_toe",
     "all_domain_numerical_prediction",
@@ -326,6 +327,8 @@ def _grand_science_toe_ambition_audit(
     grand_empirical_report = read_json(grand_empirical_report_path)
     formal_obligation_layer_path = root / GRAND_TOE_FORMAL_OBLIGATION_LEDGER_REL
     formal_obligation_layer = read_json(formal_obligation_layer_path)
+    promotion_contract_path = root / GRAND_PROMOTION_CONTRACT_REL
+    promotion_contract = read_json(promotion_contract_path)
     comparator_register_path = root / MODERN_SCIENCE_COMPARATOR_REGISTER_REL
     comparator_register = read_json(comparator_register_path)
     claim_rows = claims.get("rows", []) if isinstance(claims.get("rows"), list) else []
@@ -483,12 +486,21 @@ def _grand_science_toe_ambition_audit(
         and all(domain in certified_domains for domain in REQUIRED_EMPIRICAL_DOMAINS)
     )
 
+    promotion_contract_ok = (
+        promotion_contract_path.exists()
+        and promotion_contract.get("release_id") == RELEASE_ID
+        and promotion_contract.get("promotion_allowed") is True
+        and str(promotion_contract.get("verdict", "")).upper() in {"PASS", "PROMOTION_ALLOWED"}
+        and not promotion_contract.get("open_blockers")
+        and not promotion_contract.get("failed_gate_predicates")
+    )
     claim_ledger_ok = (
         claims.get("release_promotion_allowed") is True
         and claims.get("unsupported_promoted_total") == 0
         and bool(promoted_grand_claims)
         and theorem_inventory.get("machine_checked_subset_total") == theorem_inventory.get("theorem_total")
         and theorem_inventory.get("scientific_promotion_allowed_total", 0) > 0
+        and promotion_contract_ok
     )
     empirical_superiority_ok = not missing_superiority_domains and grand_empirical_ok
     stronger_evidence_ok = claim_ledger_ok and empirical_superiority_ok and comparator_ok
@@ -516,6 +528,12 @@ def _grand_science_toe_ambition_audit(
             "formal_obligation_layer_exists": formal_obligation_layer_path.exists(),
             "formal_obligation_layer_state": formal_obligation_layer.get("state"),
             "machine_proved_nonpromotion": formal_layer_machine_nonpromotion,
+            "grand_promotion_contract_ref": GRAND_PROMOTION_CONTRACT_REL,
+            "grand_promotion_contract_exists": promotion_contract_path.exists(),
+            "grand_promotion_contract_verdict": promotion_contract.get("verdict"),
+            "grand_promotion_contract_allowed": promotion_contract.get("promotion_allowed"),
+            "grand_promotion_contract_open_blockers": promotion_contract.get("open_blockers", []),
+            "grand_promotion_contract_failed_gate_predicates": promotion_contract.get("failed_gate_predicates", []),
             "machine_proof_refs": formal_obligation_layer.get("machine_proof_refs", {}),
             "formal_gate_vector": formal_obligation_layer.get("formal_gate_vector", {}),
             "failed_gate_predicates": formal_obligation_layer.get("failed_gate_predicates", []),

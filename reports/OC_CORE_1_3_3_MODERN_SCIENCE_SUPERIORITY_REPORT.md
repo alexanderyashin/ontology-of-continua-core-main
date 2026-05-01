@@ -34,23 +34,23 @@ Work-order decomposition:
 - `physics` `domain_relevance_exceeds_exact_standard_replay`: Replace exact reference-standard replay with a domain-relevant held-out or prospective physics benchmark before scoring.
 - `physics` `GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20`: Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.
 - `physics` `NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK`: Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.
-- `physics` `NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED`: Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.
+- `physics` `CANDIDATE_EVIDENCE_PACKS_INVALID::1`: Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.
 - `chemistry` `independent_replay_passes_from_clean_checkout`: Run an independent clean-checkout replay with command, output tail, artifact hashes, and environment note recorded.
 - `chemistry` `not_a_curated_field_copy`: Separate curated-field parser replay from a chemistry benchmark whose targets, baselines, uncertainty, and negative controls are declared before scoring.
 - `chemistry` `domain_relevance_exceeds_curated_field_reconstruction`: Separate curated-field parser replay from a chemistry benchmark whose targets, baselines, uncertainty, and negative controls are declared before scoring.
 - `chemistry` `GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20`: Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.
 - `chemistry` `NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK`: Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.
-- `chemistry` `NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED`: Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.
+- `chemistry` `CANDIDATE_EVIDENCE_PACKS_INVALID::1`: Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.
 - `biology` `independent_replay_passes_from_clean_checkout`: Run an independent clean-checkout replay with command, output tail, artifact hashes, and environment note recorded.
 - `biology` `biological_mechanism_test_present`: Add a source-backed biological mechanism benchmark instead of repository pagination/count reconstruction.
 - `biology` `GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20`: Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.
 - `biology` `NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK`: Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.
-- `biology` `NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED`: Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.
+- `biology` `CANDIDATE_EVIDENCE_PACKS_INVALID::1`: Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.
 - `systems` `independent_replay_passes_from_clean_checkout`: Run an independent clean-checkout replay with command, output tail, artifact hashes, and environment note recorded.
 - `systems` `prospective_or_time-locked_protocol_present`: Add a prospective or time-locked WDI/systems protocol with comparator and scoring locked before the target is read.
 - `systems` `GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20`: Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.
 - `systems` `NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK`: Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.
-- `systems` `NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED`: Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.
+- `systems` `CANDIDATE_EVIDENCE_PACKS_INVALID::1`: Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.
 - `mathematics` `independent_replay_passes_from_clean_checkout`: Run an independent clean-checkout replay with command, output tail, artifact hashes, and environment note recorded.
 - `mathematics` `machine_checked_theorem_scope_matches_public_claim`: Bind public mathematical claim scope to machine-checked Lean/formal artifacts and an independently replayed proof surface.
 - `mathematics` `GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20`: Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.

@@ -1,0 +1,49 @@
+{
+  "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+  "release_id": "oc_core_1_3_3",
+  "capability_owner": "Research/EmpiricalScience",
+  "evidence_pack_id": "OC133-GRAND-CHEMISTRY-PHYSICS-CHEMISTRY-CANDIDATE",
+  "domain": "chemistry",
+  "source_separation": {
+    "mode": "target_blind",
+    "pre_target_lock": true,
+    "target_hidden_until_scoring": true,
+    "training_sources": [
+      "validation/_raw/chemistry_pubchem_water.txt::OC133-TARGETBLIND-CHEMISTRY-001::visible-training-fields"
+    ],
+    "target_sources": [
+      "validation/_raw/chemistry_pubchem_water.txt::OC133-TARGETBLIND-CHEMISTRY-001::withheld-target-field"
+    ]
+  },
+  "n": 1,
+  "model_under_test": "2*atomic_weight(H)+atomic_weight(O)",
+  "comparator_baseline": {
+    "name": "CO2 molecular-weight negative control against water target",
+    "prediction_rule": "Use each row's pre-declared comparator_prediction against the same withheld target; aggregate by mean absolute residual.",
+    "pre_registered": true
+  },
+  "uncertainty": {
+    "metric": "mean absolute residual",
+    "method": "Target-blind row declared uncertainty; interval upper bound is max(row uncertainty, aggregate model residual). Pack remains blocked unless N and grand-scope predicates pass.",
+    "interval": [
+      0.0,
+      0.02
+    ]
+  },
+  "residuals": {
+    "model": 0.000280000000000058,
+    "comparator": 25.994500000000002,
+    "superiority_margin": 25.994220000000002
+  },
+  "negative_controls": [
+    {
+      "control_id": "OC133-TARGETBLIND-CHEMISTRY-001-NEGATIVE-CONTROL",
+      "description": "replace H2O by CO2 and require larger residual",
+      "rejected": true
+    }
+  ],
+  "falsifiers": [
+    "Residual exceeds declared uncertainty or CO2 control is not worse than formula reconstruction"
+  ],
+  "grand_toe_support_allowed": false
+}

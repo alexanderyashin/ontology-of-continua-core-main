@@ -395,8 +395,11 @@ def materialize_grand_science_program(profile: str) -> dict[str, Any]:
             ["lake", "build", "OC133V12"],
             [sys.executable, "tools/oc133_refresh_lean_certificate.py"],
             [sys.executable, "proofs/finite_model_checks/run_finite_model_checks.py"],
+            ["lake", "env", "lean", "formal/lean/OC133GrandPromotion.lean"],
+            [sys.executable, "tools/oc133_grand_promotion_contract.py", "--write"],
         ],
         "v12_grand_empirical_superiority_research_program": [
+            [sys.executable, "tools/oc133_domain_evidence_executor_runner.py", "--write", "--allow-blocked-exit-zero"],
             [sys.executable, "tools/oc133_grand_empirical_evidence_factory.py", "--allow-blocked-exit-zero"],
         ],
         "v12_modern_science_comparator_research_program": [

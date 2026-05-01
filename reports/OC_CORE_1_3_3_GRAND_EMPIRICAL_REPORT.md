@@ -2,7 +2,7 @@
 
 Verdict: `BLOCKED_PENDING_GENUINE_PER_DOMAIN_EVIDENCE`
 Grand TOE support allowed: `false`
-Candidate evidence packs: `0`
+Candidate evidence packs: `4`
 Valid evidence packs: `0`
 Bounded baseline rows: `5`
 Blocked domains: `5/5`
@@ -12,11 +12,11 @@ This factory/gate does not emit a grand empirical support allowance from bounded
 
 | Domain | Status | Candidate packs | Valid packs | Valid N | Minimum N | Bounded baseline rows | Grand TOE support | Blockers |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- |
-| `biology` | `BLOCKED` | `0` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED |
-| `chemistry` | `BLOCKED` | `0` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED |
+| `biology` | `BLOCKED` | `1` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; CANDIDATE_EVIDENCE_PACKS_INVALID::1 |
+| `chemistry` | `BLOCKED` | `1` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; CANDIDATE_EVIDENCE_PACKS_INVALID::1 |
 | `mathematics` | `BLOCKED` | `0` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED; CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE |
-| `physics` | `BLOCKED` | `0` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED |
-| `systems` | `BLOCKED` | `0` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED |
+| `physics` | `BLOCKED` | `1` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; CANDIDATE_EVIDENCE_PACKS_INVALID::1 |
+| `systems` | `BLOCKED` | `1` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; CANDIDATE_EVIDENCE_PACKS_INVALID::1 |
 
 ## Candidate Factory
 

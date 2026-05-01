@@ -1,0 +1,1427 @@
+{
+  "schema_id": "OC133_DOMAIN_EVIDENCE_EXECUTOR_RUN_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_at": "2026-05-01T01:58:36Z",
+  "capability_owner": "Research/EmpiricalScience",
+  "executor_root_ref": "validation/heldout/domain_evidence",
+  "executor_total": 2,
+  "executor_refs": [
+    "validation/heldout/domain_evidence/biology_systems_evidence_executor.py",
+    "validation/heldout/domain_evidence/physics_chemistry_evidence_executor.py"
+  ],
+  "command_failure_total": 0,
+  "command_failure_refs": [],
+  "parsed_payload_total": 1,
+  "artifact_payload_total": 2,
+  "effective_payload_total": 2,
+  "candidate_pack_total": 4,
+  "valid_pack_total": 0,
+  "blocked_executor_payload_total": 2,
+  "results": [
+    {
+      "executor_ref": "validation/heldout/domain_evidence/biology_systems_evidence_executor.py",
+      "command": [
+        "python",
+        "validation/heldout/domain_evidence/biology_systems_evidence_executor.py",
+        "--write",
+        "--allow-blocked-exit-zero"
+      ],
+      "standard_command": [
+        "python",
+        "validation/heldout/domain_evidence/biology_systems_evidence_executor.py",
+        "--write",
+        "--allow-blocked-exit-zero"
+      ],
+      "compatibility_retry_without_allow_blocked_exit_zero": false,
+      "returncode": 0,
+      "stdout_tail": "n_failures\": [\n        \"SYSTEMS_CURRENT_SNAPSHOT_IS_RETROSPECTIVE_MACRO_REPLAY_NOT_PROSPECTIVE_CIVILIZATIONAL_EVIDENCE\",\n        \"SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT\",\n        \"TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT\",\n        \"N_BELOW_MINIMUM::1/20\",\n        \"COMPARATOR_BASELINE_NOT_PREREGISTERED\"\n      ],\n      \"schema_validation_failures\": [\n        \"N_BELOW_MINIMUM::20\",\n        \"GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH\"\n      ],\n      \"grand_gate_failures\": [\n        \"PRE_TARGET_LOCK_REQUIRED\",\n        \"TARGET_HIDDEN_UNTIL_SCORING_REQUIRED\",\n        \"N_BELOW_MINIMUM::20\",\n        \"COMPARATOR_BASELINE_NOT_PREREGISTERED\",\n        \"GRAND_TOE_SUPPORT_NOT_ALLOWED\"\n      ],\n      \"tamper_test_total\": 3,\n      \"tamper_tests\": [\n        {\n          \"test_id\": \"systems-snapshot-tamper-hash-changes\",\n          \"description\": \"deterministic mutation of a target-bearing field must change the canonical snapshot hash\",\n          \"passed\": true\n        },\n        {\n          \"test_id\": \"systems-target-field-tamper-rejected\",\n          \"description\": \"removing or mutating target-bearing data must be detected by parser or residual replay\",\n          \"passed\": true\n        },\n        {\n          \"test_id\": \"systems-negative-control-residual-test\",\n          \"description\": \"every declared row-level comparator/negative control must have residual above the OC model residual\",\n          \"passed\": true\n        }\n      ],\n      \"residuals\": {\n        \"model\": 59572919095.09375,\n        \"comparator\": 4241013358949.0,\n        \"superiority_margin\": 4181440439853.9062\n      },\n      \"valid_under_executor\": false,\n      \"valid_under_current_grand_schema\": false,\n      \"valid_under_grand_gate\": false,\n      \"blockers\": [\n        \"PRE_TARGET_LOCK_REQUIRED\",\n        \"TARGET_HIDDEN_UNTIL_SCORING_REQUIRED\",\n        \"SYSTEMS_CURRENT_SNAPSHOT_IS_RETROSPECTIVE_MACRO_REPLAY_NOT_PROSPECTIVE_CIVILIZATIONAL_EVIDENCE\",\n        \"SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT\",\n        \"TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT\",\n        \"N_BELOW_MINIMUM::1/20\",\n        \"COMPARATOR_BASELINE_NOT_PREREGISTERED\",\n        \"N_BELOW_MINIMUM::20\",\n        \"GRAND_TOE_SUPPORT_NOT_ALLOWED\",\n        \"GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH\"\n      ],\n      \"protocol_notes\": [\n        \"Current WDI snapshot yields one retrospective GDP holdout, not 20 independent systems/civilizational targets.\",\n        \"A valid future systems pack must pre-register the target horizon and score at least 20 target-hidden or prospective observations.\"\n      ],\n      \"observation_rows\": [\n        {\n          \"observation_id\": \"SYSTEMS-WDI-WORLD-GDP-2024\",\n          \"training_source\": \"validation/_raw/systems_world_bank_gdp.txt::training_years(2021,2022,2023)\",\n          \"target_source\": \"validation/_raw/systems_world_bank_gdp.txt::target_year(2024)\",\n          \"formula\": \"GDP_2023 + (GDP_2023-GDP_2021)/2\",\n          \"predicted_value\": 111042234099108.1,\n          \"observed_value\": 110982661180013.0,\n          \"comparator_prediction\": 106741647821064.0,\n          \"model_residual\": 59572919095.09375,\n          \"comparator_residual\": 4241013358949.0,\n          \"uncertainty\": 1109826611800.1301,\n          \"negative_control_id\": \"systems-last-observation-control\",\n          \"negative_control_rejected\": true,\n          \"falsifier\": \"held-out residual exceeds 1 percent of observed target or comparator is not worse\",\n          \"row_sha256\": \"7082ef8e0ce3fd58b7f58a090baa50b67bbeae456ae0150cfa6d0a33773b4a83\"\n        }\n      ]\n    }\n  ],\n  \"verdict\": \"BLOCKED_PENDING_GENUINE_BIOLOGY_SYSTEMS_EVIDENCE\",\n  \"no_fabricated_success_policy\": \"The executor emits grand support only when source separation, N, formula, comparator, residual, uncertainty, negative controls, falsifiers, schema shape, and grand factory gate all pass. Current bounded replay snapshots remain blocked.\",\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"registry_write_allowed\": false\n}\n",
+      "stderr_tail": "",
+      "parsed_payload": {
+        "schema_id": "OC133_BIOLOGY_SYSTEMS_EVIDENCE_EXECUTION_REPORT_v1",
+        "release_id": "oc_core_1_3_3",
+        "version": "1.3.3",
+        "capability_owner": "Research/EmpiricalScience",
+        "blocker_id": "grand_toe_empirical_superiority",
+        "executor": "validation/heldout/domain_evidence/biology_systems_evidence_executor.py",
+        "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+        "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
+        "grand_factory_ref": "validation/grand_science/evidence_pack_factory.py",
+        "output_root_ref": "validation/heldout/grand_science/biology_systems",
+        "report_ref": "validation/heldout/grand_science/biology_systems/OC133_BIOLOGY_SYSTEMS_EVIDENCE_EXECUTION_REPORT.json",
+        "protocol_ref": "validation/heldout/grand_science/biology_systems/OC133_BIOLOGY_SYSTEMS_EVIDENCE_PROTOCOL.json",
+        "candidate_pack_refs": [
+          "validation/heldout/grand_science/biology_systems/biology_candidate_evidence_pack.json",
+          "validation/heldout/grand_science/biology_systems/systems_candidate_evidence_pack.json"
+        ],
+        "candidate_pack_total": 2,
+        "valid_under_current_grand_schema_total": 0,
+        "valid_under_grand_gate_total": 0,
+        "valid_under_executor_total": 0,
+        "valid_pack_total": 0,
+        "blocked_pack_total": 2,
+        "blocked_domain_total": 2,
+        "protocol_sha256": "4815b7a76089e38cf7611f51c31903a9bdd2f80e72943b14a8e09157396853be",
+        "domains": [
+          {
+            "domain": "biology",
+            "candidate_pack_ref": "validation/heldout/grand_science/biology_systems/biology_candidate_evidence_pack.json",
+            "candidate_pack_sha256": "e7744846b1dd3a14a4bc96db9f2fc026192aca74190717b128db46acbf27b9ae",
+            "snapshot_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+            "snapshot_kind": "current_bounded_ncbi_geo_esearch_snapshot",
+            "snapshot_sha256": "f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4",
+            "snapshot_sha256_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+            "snapshot_byte_count": 525,
+            "minimum_n": 20,
+            "candidate_n": 1,
+            "source_validation_failures": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED"
+            ],
+            "observation_validation_failures": [
+              "BIOLOGY_CURRENT_SNAPSHOT_IS_API_PAGINATION_QA_NOT_MECHANISM_EVIDENCE",
+              "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+              "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+              "N_BELOW_MINIMUM::1/20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED"
+            ],
+            "schema_validation_failures": [
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+            ],
+            "grand_gate_failures": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+              "N_BELOW_MINIMUM::20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ],
+            "tamper_test_total": 3,
+            "tamper_tests": [
+              {
+                "test_id": "biology-snapshot-tamper-hash-changes",
+                "description": "deterministic mutation of a target-bearing field must change the canonical snapshot hash",
+                "passed": true
+              },
+              {
+                "test_id": "biology-target-field-tamper-rejected",
+                "description": "removing or mutating target-bearing data must be detected by parser or residual replay",
+                "passed": true
+              },
+              {
+                "test_id": "biology-negative-control-residual-test",
+                "description": "every declared row-level comparator/negative control must have residual above the OC model residual",
+                "passed": true
+              }
+            ],
+            "residuals": {
+              "model": 0.0,
+              "comparator": 43988.0,
+              "superiority_margin": 43988.0
+            },
+            "valid_under_executor": false,
+            "valid_under_current_grand_schema": false,
+            "valid_under_grand_gate": false,
+            "blockers": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+              "BIOLOGY_CURRENT_SNAPSHOT_IS_API_PAGINATION_QA_NOT_MECHANISM_EVIDENCE",
+              "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+              "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+              "N_BELOW_MINIMUM::1/20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED",
+              "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+            ],
+            "protocol_notes": [
+              "Current GEO snapshot provides one bounded pagination reconstruction, not 20 independent biology mechanism targets.",
+              "A valid future biology pack must freeze a pre-target model/comparator and score at least 20 target-hidden or prospective biology observations."
+            ],
+            "observation_rows": [
+              {
+                "observation_id": "BIOLOGY-GEO-GPL96-PAGE-0000",
+                "training_source": "validation/_raw/biology_ncbi_geo_platform.txt::visible_fields(retstart,idlist)",
+                "target_source": "validation/_raw/biology_ncbi_geo_platform.txt::withheld_field(retmax)",
+                "formula": "retstart + len(idlist)",
+                "predicted_value": 20.0,
+                "observed_value": 20.0,
+                "comparator_prediction": 44008.0,
+                "model_residual": 0.0,
+                "comparator_residual": 43988.0,
+                "uncertainty": 0.0,
+                "negative_control_id": "biology-total-hit-count-control",
+                "negative_control_rejected": true,
+                "falsifier": "retmax differs from retstart plus returned id count or total-count control is not worse",
+                "row_sha256": "ed8aa8d90ae29629d74b37cd2c833bfb7db3bf7d303fab6ec9eb079b5fb4d87b"
+              }
+            ]
+          },
+          {
+            "domain": "systems",
+            "candidate_pack_ref": "validation/heldout/grand_science/biology_systems/systems_candidate_evidence_pack.json",
+            "candidate_pack_sha256": "81ce4944ba6d7d439c41c59ab089cedb5e49841e24e0bb33e9823191cb62d791",
+            "snapshot_ref": "validation/_raw/systems_world_bank_gdp.txt",
+            "snapshot_kind": "current_bounded_world_bank_wdi_snapshot",
+            "snapshot_sha256": "52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b",
+            "snapshot_sha256_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+            "snapshot_byte_count": 1102,
+            "minimum_n": 20,
+            "candidate_n": 1,
+            "source_validation_failures": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED"
+            ],
+            "observation_validation_failures": [
+              "SYSTEMS_CURRENT_SNAPSHOT_IS_RETROSPECTIVE_MACRO_REPLAY_NOT_PROSPECTIVE_CIVILIZATIONAL_EVIDENCE",
+              "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+              "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+              "N_BELOW_MINIMUM::1/20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED"
+            ],
+            "schema_validation_failures": [
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+            ],
+            "grand_gate_failures": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+              "N_BELOW_MINIMUM::20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ],
+            "tamper_test_total": 3,
+            "tamper_tests": [
+              {
+                "test_id": "systems-snapshot-tamper-hash-changes",
+                "description": "deterministic mutation of a target-bearing field must change the canonical snapshot hash",
+                "passed": true
+              },
+              {
+                "test_id": "systems-target-field-tamper-rejected",
+                "description": "removing or mutating target-bearing data must be detected by parser or residual replay",
+                "passed": true
+              },
+              {
+                "test_id": "systems-negative-control-residual-test",
+                "description": "every declared row-level comparator/negative control must have residual above the OC model residual",
+                "passed": true
+              }
+            ],
+            "residuals": {
+              "model": 59572919095.09375,
+              "comparator": 4241013358949.0,
+              "superiority_margin": 4181440439853.9062
+            },
+            "valid_under_executor": false,
+            "valid_under_current_grand_schema": false,
+            "valid_under_grand_gate": false,
+            "blockers": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+              "SYSTEMS_CURRENT_SNAPSHOT_IS_RETROSPECTIVE_MACRO_REPLAY_NOT_PROSPECTIVE_CIVILIZATIONAL_EVIDENCE",
+              "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+              "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+              "N_BELOW_MINIMUM::1/20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED",
+              "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+            ],
+            "protocol_notes": [
+              "Current WDI snapshot yields one retrospective GDP holdout, not 20 independent systems/civilizational targets.",
+              "A valid future systems pack must pre-register the target horizon and score at least 20 target-hidden or prospective observations."
+            ],
+            "observation_rows": [
+              {
+                "observation_id": "SYSTEMS-WDI-WORLD-GDP-2024",
+                "training_source": "validation/_raw/systems_world_bank_gdp.txt::training_years(2021,2022,2023)",
+                "target_source": "validation/_raw/systems_world_bank_gdp.txt::target_year(2024)",
+                "formula": "GDP_2023 + (GDP_2023-GDP_2021)/2",
+                "predicted_value": 111042234099108.1,
+                "observed_value": 110982661180013.0,
+                "comparator_prediction": 106741647821064.0,
+                "model_residual": 59572919095.09375,
+                "comparator_residual": 4241013358949.0,
+                "uncertainty": 1109826611800.1301,
+                "negative_control_id": "systems-last-observation-control",
+                "negative_control_rejected": true,
+                "falsifier": "held-out residual exceeds 1 percent of observed target or comparator is not worse",
+                "row_sha256": "7082ef8e0ce3fd58b7f58a090baa50b67bbeae456ae0150cfa6d0a33773b4a83"
+              }
+            ]
+          }
+        ],
+        "verdict": "BLOCKED_PENDING_GENUINE_BIOLOGY_SYSTEMS_EVIDENCE",
+        "no_fabricated_success_policy": "The executor emits grand support only when source separation, N, formula, comparator, residual, uncertainty, negative controls, falsifiers, schema shape, and grand factory gate all pass. Current bounded replay snapshots remain blocked.",
+        "no_send": true,
+        "publish_allowed": false,
+        "registry_write_allowed": false
+      },
+      "artifact_payload": {
+        "schema_id": "OC133_BIOLOGY_SYSTEMS_EVIDENCE_EXECUTION_REPORT_v1",
+        "release_id": "oc_core_1_3_3",
+        "version": "1.3.3",
+        "capability_owner": "Research/EmpiricalScience",
+        "blocker_id": "grand_toe_empirical_superiority",
+        "executor": "validation/heldout/domain_evidence/biology_systems_evidence_executor.py",
+        "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+        "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
+        "grand_factory_ref": "validation/grand_science/evidence_pack_factory.py",
+        "output_root_ref": "validation/heldout/grand_science/biology_systems",
+        "report_ref": "validation/heldout/grand_science/biology_systems/OC133_BIOLOGY_SYSTEMS_EVIDENCE_EXECUTION_REPORT.json",
+        "protocol_ref": "validation/heldout/grand_science/biology_systems/OC133_BIOLOGY_SYSTEMS_EVIDENCE_PROTOCOL.json",
+        "candidate_pack_refs": [
+          "validation/heldout/grand_science/biology_systems/biology_candidate_evidence_pack.json",
+          "validation/heldout/grand_science/biology_systems/systems_candidate_evidence_pack.json"
+        ],
+        "candidate_pack_total": 2,
+        "valid_under_current_grand_schema_total": 0,
+        "valid_under_grand_gate_total": 0,
+        "valid_under_executor_total": 0,
+        "valid_pack_total": 0,
+        "blocked_pack_total": 2,
+        "blocked_domain_total": 2,
+        "protocol_sha256": "4815b7a76089e38cf7611f51c31903a9bdd2f80e72943b14a8e09157396853be",
+        "domains": [
+          {
+            "domain": "biology",
+            "candidate_pack_ref": "validation/heldout/grand_science/biology_systems/biology_candidate_evidence_pack.json",
+            "candidate_pack_sha256": "e7744846b1dd3a14a4bc96db9f2fc026192aca74190717b128db46acbf27b9ae",
+            "snapshot_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+            "snapshot_kind": "current_bounded_ncbi_geo_esearch_snapshot",
+            "snapshot_sha256": "f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4",
+            "snapshot_sha256_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+            "snapshot_byte_count": 525,
+            "minimum_n": 20,
+            "candidate_n": 1,
+            "source_validation_failures": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED"
+            ],
+            "observation_validation_failures": [
+              "BIOLOGY_CURRENT_SNAPSHOT_IS_API_PAGINATION_QA_NOT_MECHANISM_EVIDENCE",
+              "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+              "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+              "N_BELOW_MINIMUM::1/20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED"
+            ],
+            "schema_validation_failures": [
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+            ],
+            "grand_gate_failures": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+              "N_BELOW_MINIMUM::20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ],
+            "tamper_test_total": 3,
+            "tamper_tests": [
+              {
+                "test_id": "biology-snapshot-tamper-hash-changes",
+                "description": "deterministic mutation of a target-bearing field must change the canonical snapshot hash",
+                "passed": true
+              },
+              {
+                "test_id": "biology-target-field-tamper-rejected",
+                "description": "removing or mutating target-bearing data must be detected by parser or residual replay",
+                "passed": true
+              },
+              {
+                "test_id": "biology-negative-control-residual-test",
+                "description": "every declared row-level comparator/negative control must have residual above the OC model residual",
+                "passed": true
+              }
+            ],
+            "residuals": {
+              "model": 0.0,
+              "comparator": 43988.0,
+              "superiority_margin": 43988.0
+            },
+            "valid_under_executor": false,
+            "valid_under_current_grand_schema": false,
+            "valid_under_grand_gate": false,
+            "blockers": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+              "BIOLOGY_CURRENT_SNAPSHOT_IS_API_PAGINATION_QA_NOT_MECHANISM_EVIDENCE",
+              "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+              "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+              "N_BELOW_MINIMUM::1/20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED",
+              "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+            ],
+            "protocol_notes": [
+              "Current GEO snapshot provides one bounded pagination reconstruction, not 20 independent biology mechanism targets.",
+              "A valid future biology pack must freeze a pre-target model/comparator and score at least 20 target-hidden or prospective biology observations."
+            ],
+            "observation_rows": [
+              {
+                "observation_id": "BIOLOGY-GEO-GPL96-PAGE-0000",
+                "training_source": "validation/_raw/biology_ncbi_geo_platform.txt::visible_fields(retstart,idlist)",
+                "target_source": "validation/_raw/biology_ncbi_geo_platform.txt::withheld_field(retmax)",
+                "formula": "retstart + len(idlist)",
+                "predicted_value": 20.0,
+                "observed_value": 20.0,
+                "comparator_prediction": 44008.0,
+                "model_residual": 0.0,
+                "comparator_residual": 43988.0,
+                "uncertainty": 0.0,
+                "negative_control_id": "biology-total-hit-count-control",
+                "negative_control_rejected": true,
+                "falsifier": "retmax differs from retstart plus returned id count or total-count control is not worse",
+                "row_sha256": "ed8aa8d90ae29629d74b37cd2c833bfb7db3bf7d303fab6ec9eb079b5fb4d87b"
+              }
+            ]
+          },
+          {
+            "domain": "systems",
+            "candidate_pack_ref": "validation/heldout/grand_science/biology_systems/systems_candidate_evidence_pack.json",
+            "candidate_pack_sha256": "81ce4944ba6d7d439c41c59ab089cedb5e49841e24e0bb33e9823191cb62d791",
+            "snapshot_ref": "validation/_raw/systems_world_bank_gdp.txt",
+            "snapshot_kind": "current_bounded_world_bank_wdi_snapshot",
+            "snapshot_sha256": "52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b",
+            "snapshot_sha256_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+            "snapshot_byte_count": 1102,
+            "minimum_n": 20,
+            "candidate_n": 1,
+            "source_validation_failures": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED"
+            ],
+            "observation_validation_failures": [
+              "SYSTEMS_CURRENT_SNAPSHOT_IS_RETROSPECTIVE_MACRO_REPLAY_NOT_PROSPECTIVE_CIVILIZATIONAL_EVIDENCE",
+              "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+              "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+              "N_BELOW_MINIMUM::1/20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED"
+            ],
+            "schema_validation_failures": [
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+            ],
+            "grand_gate_failures": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+              "N_BELOW_MINIMUM::20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ],
+            "tamper_test_total": 3,
+            "tamper_tests": [
+              {
+                "test_id": "systems-snapshot-tamper-hash-changes",
+                "description": "deterministic mutation of a target-bearing field must change the canonical snapshot hash",
+                "passed": true
+              },
+              {
+                "test_id": "systems-target-field-tamper-rejected",
+                "description": "removing or mutating target-bearing data must be detected by parser or residual replay",
+                "passed": true
+              },
+              {
+                "test_id": "systems-negative-control-residual-test",
+                "description": "every declared row-level comparator/negative control must have residual above the OC model residual",
+                "passed": true
+              }
+            ],
+            "residuals": {
+              "model": 59572919095.09375,
+              "comparator": 4241013358949.0,
+              "superiority_margin": 4181440439853.9062
+            },
+            "valid_under_executor": false,
+            "valid_under_current_grand_schema": false,
+            "valid_under_grand_gate": false,
+            "blockers": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+              "SYSTEMS_CURRENT_SNAPSHOT_IS_RETROSPECTIVE_MACRO_REPLAY_NOT_PROSPECTIVE_CIVILIZATIONAL_EVIDENCE",
+              "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+              "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+              "N_BELOW_MINIMUM::1/20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED",
+              "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+            ],
+            "protocol_notes": [
+              "Current WDI snapshot yields one retrospective GDP holdout, not 20 independent systems/civilizational targets.",
+              "A valid future systems pack must pre-register the target horizon and score at least 20 target-hidden or prospective observations."
+            ],
+            "observation_rows": [
+              {
+                "observation_id": "SYSTEMS-WDI-WORLD-GDP-2024",
+                "training_source": "validation/_raw/systems_world_bank_gdp.txt::training_years(2021,2022,2023)",
+                "target_source": "validation/_raw/systems_world_bank_gdp.txt::target_year(2024)",
+                "formula": "GDP_2023 + (GDP_2023-GDP_2021)/2",
+                "predicted_value": 111042234099108.1,
+                "observed_value": 110982661180013.0,
+                "comparator_prediction": 106741647821064.0,
+                "model_residual": 59572919095.09375,
+                "comparator_residual": 4241013358949.0,
+                "uncertainty": 1109826611800.1301,
+                "negative_control_id": "systems-last-observation-control",
+                "negative_control_rejected": true,
+                "falsifier": "held-out residual exceeds 1 percent of observed target or comparator is not worse",
+                "row_sha256": "7082ef8e0ce3fd58b7f58a090baa50b67bbeae456ae0150cfa6d0a33773b4a83"
+              }
+            ]
+          }
+        ],
+        "verdict": "BLOCKED_PENDING_GENUINE_BIOLOGY_SYSTEMS_EVIDENCE",
+        "no_fabricated_success_policy": "The executor emits grand support only when source separation, N, formula, comparator, residual, uncertainty, negative controls, falsifiers, schema shape, and grand factory gate all pass. Current bounded replay snapshots remain blocked.",
+        "no_send": true,
+        "publish_allowed": false,
+        "registry_write_allowed": false,
+        "artifact_report_ref": "validation/heldout/grand_science/biology_systems/OC133_BIOLOGY_SYSTEMS_EVIDENCE_EXECUTION_REPORT.json"
+      },
+      "effective_payload": {
+        "schema_id": "OC133_BIOLOGY_SYSTEMS_EVIDENCE_EXECUTION_REPORT_v1",
+        "release_id": "oc_core_1_3_3",
+        "version": "1.3.3",
+        "capability_owner": "Research/EmpiricalScience",
+        "blocker_id": "grand_toe_empirical_superiority",
+        "executor": "validation/heldout/domain_evidence/biology_systems_evidence_executor.py",
+        "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+        "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
+        "grand_factory_ref": "validation/grand_science/evidence_pack_factory.py",
+        "output_root_ref": "validation/heldout/grand_science/biology_systems",
+        "report_ref": "validation/heldout/grand_science/biology_systems/OC133_BIOLOGY_SYSTEMS_EVIDENCE_EXECUTION_REPORT.json",
+        "protocol_ref": "validation/heldout/grand_science/biology_systems/OC133_BIOLOGY_SYSTEMS_EVIDENCE_PROTOCOL.json",
+        "candidate_pack_refs": [
+          "validation/heldout/grand_science/biology_systems/biology_candidate_evidence_pack.json",
+          "validation/heldout/grand_science/biology_systems/systems_candidate_evidence_pack.json"
+        ],
+        "candidate_pack_total": 2,
+        "valid_under_current_grand_schema_total": 0,
+        "valid_under_grand_gate_total": 0,
+        "valid_under_executor_total": 0,
+        "valid_pack_total": 0,
+        "blocked_pack_total": 2,
+        "blocked_domain_total": 2,
+        "protocol_sha256": "4815b7a76089e38cf7611f51c31903a9bdd2f80e72943b14a8e09157396853be",
+        "domains": [
+          {
+            "domain": "biology",
+            "candidate_pack_ref": "validation/heldout/grand_science/biology_systems/biology_candidate_evidence_pack.json",
+            "candidate_pack_sha256": "e7744846b1dd3a14a4bc96db9f2fc026192aca74190717b128db46acbf27b9ae",
+            "snapshot_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+            "snapshot_kind": "current_bounded_ncbi_geo_esearch_snapshot",
+            "snapshot_sha256": "f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4",
+            "snapshot_sha256_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+            "snapshot_byte_count": 525,
+            "minimum_n": 20,
+            "candidate_n": 1,
+            "source_validation_failures": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED"
+            ],
+            "observation_validation_failures": [
+              "BIOLOGY_CURRENT_SNAPSHOT_IS_API_PAGINATION_QA_NOT_MECHANISM_EVIDENCE",
+              "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+              "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+              "N_BELOW_MINIMUM::1/20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED"
+            ],
+            "schema_validation_failures": [
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+            ],
+            "grand_gate_failures": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+              "N_BELOW_MINIMUM::20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ],
+            "tamper_test_total": 3,
+            "tamper_tests": [
+              {
+                "test_id": "biology-snapshot-tamper-hash-changes",
+                "description": "deterministic mutation of a target-bearing field must change the canonical snapshot hash",
+                "passed": true
+              },
+              {
+                "test_id": "biology-target-field-tamper-rejected",
+                "description": "removing or mutating target-bearing data must be detected by parser or residual replay",
+                "passed": true
+              },
+              {
+                "test_id": "biology-negative-control-residual-test",
+                "description": "every declared row-level comparator/negative control must have residual above the OC model residual",
+                "passed": true
+              }
+            ],
+            "residuals": {
+              "model": 0.0,
+              "comparator": 43988.0,
+              "superiority_margin": 43988.0
+            },
+            "valid_under_executor": false,
+            "valid_under_current_grand_schema": false,
+            "valid_under_grand_gate": false,
+            "blockers": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+              "BIOLOGY_CURRENT_SNAPSHOT_IS_API_PAGINATION_QA_NOT_MECHANISM_EVIDENCE",
+              "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+              "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+              "N_BELOW_MINIMUM::1/20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED",
+              "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+            ],
+            "protocol_notes": [
+              "Current GEO snapshot provides one bounded pagination reconstruction, not 20 independent biology mechanism targets.",
+              "A valid future biology pack must freeze a pre-target model/comparator and score at least 20 target-hidden or prospective biology observations."
+            ],
+            "observation_rows": [
+              {
+                "observation_id": "BIOLOGY-GEO-GPL96-PAGE-0000",
+                "training_source": "validation/_raw/biology_ncbi_geo_platform.txt::visible_fields(retstart,idlist)",
+                "target_source": "validation/_raw/biology_ncbi_geo_platform.txt::withheld_field(retmax)",
+                "formula": "retstart + len(idlist)",
+                "predicted_value": 20.0,
+                "observed_value": 20.0,
+                "comparator_prediction": 44008.0,
+                "model_residual": 0.0,
+                "comparator_residual": 43988.0,
+                "uncertainty": 0.0,
+                "negative_control_id": "biology-total-hit-count-control",
+                "negative_control_rejected": true,
+                "falsifier": "retmax differs from retstart plus returned id count or total-count control is not worse",
+                "row_sha256": "ed8aa8d90ae29629d74b37cd2c833bfb7db3bf7d303fab6ec9eb079b5fb4d87b"
+              }
+            ]
+          },
+          {
+            "domain": "systems",
+            "candidate_pack_ref": "validation/heldout/grand_science/biology_systems/systems_candidate_evidence_pack.json",
+            "candidate_pack_sha256": "81ce4944ba6d7d439c41c59ab089cedb5e49841e24e0bb33e9823191cb62d791",
+            "snapshot_ref": "validation/_raw/systems_world_bank_gdp.txt",
+            "snapshot_kind": "current_bounded_world_bank_wdi_snapshot",
+            "snapshot_sha256": "52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b",
+            "snapshot_sha256_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+            "snapshot_byte_count": 1102,
+            "minimum_n": 20,
+            "candidate_n": 1,
+            "source_validation_failures": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED"
+            ],
+            "observation_validation_failures": [
+              "SYSTEMS_CURRENT_SNAPSHOT_IS_RETROSPECTIVE_MACRO_REPLAY_NOT_PROSPECTIVE_CIVILIZATIONAL_EVIDENCE",
+              "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+              "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+              "N_BELOW_MINIMUM::1/20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED"
+            ],
+            "schema_validation_failures": [
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+            ],
+            "grand_gate_failures": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+              "N_BELOW_MINIMUM::20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ],
+            "tamper_test_total": 3,
+            "tamper_tests": [
+              {
+                "test_id": "systems-snapshot-tamper-hash-changes",
+                "description": "deterministic mutation of a target-bearing field must change the canonical snapshot hash",
+                "passed": true
+              },
+              {
+                "test_id": "systems-target-field-tamper-rejected",
+                "description": "removing or mutating target-bearing data must be detected by parser or residual replay",
+                "passed": true
+              },
+              {
+                "test_id": "systems-negative-control-residual-test",
+                "description": "every declared row-level comparator/negative control must have residual above the OC model residual",
+                "passed": true
+              }
+            ],
+            "residuals": {
+              "model": 59572919095.09375,
+              "comparator": 4241013358949.0,
+              "superiority_margin": 4181440439853.9062
+            },
+            "valid_under_executor": false,
+            "valid_under_current_grand_schema": false,
+            "valid_under_grand_gate": false,
+            "blockers": [
+              "PRE_TARGET_LOCK_REQUIRED",
+              "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+              "SYSTEMS_CURRENT_SNAPSHOT_IS_RETROSPECTIVE_MACRO_REPLAY_NOT_PROSPECTIVE_CIVILIZATIONAL_EVIDENCE",
+              "SOURCE_SEPARATION_NOT_VERIFIABLE_FROM_CURRENT_SINGLE_RAW_SNAPSHOT",
+              "TARGET_VALUES_VISIBLE_IN_PINNED_RAW_SNAPSHOT",
+              "N_BELOW_MINIMUM::1/20",
+              "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED",
+              "GRAND_TOE_SUPPORT_ALLOWED_CONST_MISMATCH"
+            ],
+            "protocol_notes": [
+              "Current WDI snapshot yields one retrospective GDP holdout, not 20 independent systems/civilizational targets.",
+              "A valid future systems pack must pre-register the target horizon and score at least 20 target-hidden or prospective observations."
+            ],
+            "observation_rows": [
+              {
+                "observation_id": "SYSTEMS-WDI-WORLD-GDP-2024",
+                "training_source": "validation/_raw/systems_world_bank_gdp.txt::training_years(2021,2022,2023)",
+                "target_source": "validation/_raw/systems_world_bank_gdp.txt::target_year(2024)",
+                "formula": "GDP_2023 + (GDP_2023-GDP_2021)/2",
+                "predicted_value": 111042234099108.1,
+                "observed_value": 110982661180013.0,
+                "comparator_prediction": 106741647821064.0,
+                "model_residual": 59572919095.09375,
+                "comparator_residual": 4241013358949.0,
+                "uncertainty": 1109826611800.1301,
+                "negative_control_id": "systems-last-observation-control",
+                "negative_control_rejected": true,
+                "falsifier": "held-out residual exceeds 1 percent of observed target or comparator is not worse",
+                "row_sha256": "7082ef8e0ce3fd58b7f58a090baa50b67bbeae456ae0150cfa6d0a33773b4a83"
+              }
+            ]
+          }
+        ],
+        "verdict": "BLOCKED_PENDING_GENUINE_BIOLOGY_SYSTEMS_EVIDENCE",
+        "no_fabricated_success_policy": "The executor emits grand support only when source separation, N, formula, comparator, residual, uncertainty, negative controls, falsifiers, schema shape, and grand factory gate all pass. Current bounded replay snapshots remain blocked.",
+        "no_send": true,
+        "publish_allowed": false,
+        "registry_write_allowed": false
+      },
+      "parsed_json": true,
+      "artifact_payload_found": true,
+      "command_pass": true
+    },
+    {
+      "executor_ref": "validation/heldout/domain_evidence/physics_chemistry_evidence_executor.py",
+      "command": [
+        "python",
+        "validation/heldout/domain_evidence/physics_chemistry_evidence_executor.py",
+        "--write"
+      ],
+      "standard_command": [
+        "python",
+        "validation/heldout/domain_evidence/physics_chemistry_evidence_executor.py",
+        "--write",
+        "--allow-blocked-exit-zero"
+      ],
+      "compatibility_retry_without_allow_blocked_exit_zero": true,
+      "returncode": 0,
+      "stdout_tail": "physics/chemistry evidence artifacts materialized; valid candidate packs: 0/2\n",
+      "stderr_tail": "",
+      "parsed_payload": null,
+      "artifact_payload": {
+        "schema_id": "OC133_PHYSICS_CHEMISTRY_EVIDENCE_PROTOCOL_v1",
+        "release_id": "oc_core_1_3_3",
+        "version": "1.3.3",
+        "capability_owner": "Research/EmpiricalScience",
+        "executor": "validation/heldout/domain_evidence/physics_chemistry_evidence_executor.py",
+        "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+        "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
+        "target_blind_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+        "numeric_replay_qa_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+        "numeric_replay_log_ref": "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
+        "minimum_per_domain_n": 20,
+        "domains": [
+          {
+            "domain": "physics",
+            "minimum_n": 20,
+            "available_target_blind_case_total": 1,
+            "usable_blocked_candidate_case_total": 1,
+            "grand_eligible_case_total": 0,
+            "available_numeric_replay_qa_total": 1,
+            "candidate_pack_ref": "validation/heldout/grand_science/physics_chemistry/physics_candidate_evidence_pack.json",
+            "candidate_pack_sha256": "d51d8d810784cffb32089c7917fbad9f8f23f18d9deafaeaf57e3d6574b64812",
+            "candidate_pack_hash_policy": "sha256 over sorted JSON evidence pack",
+            "candidate_pack_valid_under_current_grand_schema": false,
+            "candidate_pack_grand_schema_failures": [
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ],
+            "grand_toe_support_allowed_by_executor": false,
+            "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PACK",
+            "blockers": [
+              "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+              "NO_GRAND_ELIGIBLE_TARGET_BLIND_OR_PROSPECTIVE_ROWS",
+              "CURRENT_SOURCE_SCOPE_IS_BOUNDED_BASELINE_NOT_GRAND_DOMAIN_EVIDENCE",
+              "NUMERIC_REPLAY_QA_ROWS_QUARANTINED_NOT_PREDICTION::1"
+            ],
+            "target_blind_cases": [
+              {
+                "claim_id": "OC133-TARGETBLIND-PHYSICS-001",
+                "domain": "physics",
+                "source_kind": "target_blind",
+                "source_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-PHYSICS-001",
+                "dataset_snapshot_ref": "validation/_raw/physics_nist_constants.txt",
+                "snapshot_hash": {
+                  "source_ref": "validation/_raw/physics_nist_constants.txt",
+                  "exists": true,
+                  "sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+                  "byte_count": 40801,
+                  "hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
+                },
+                "declared_snapshot_sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+                "row_sha256": "a83ea273ef65d6136ad7c0dfe2f7d870822fe15a062a47ae906a7d46705a0cf1",
+                "row_sha256_policy": "sha256 over sorted JSON row excluding replay_hash fields",
+                "formula": "Planck_constant * speed_of_light",
+                "predicted_value": 1.9864458571489286e-25,
+                "observed_value": 1.986445857e-25,
+                "uncertainty": 1e-33,
+                "computed_residual": 1.4892870576445277e-35,
+                "declared_residual": 1.4892870576445277e-35,
+                "comparator_baseline": "unit-incompatible Planck-constant-only negative control",
+                "comparator_prediction": 6.62607015e-34,
+                "computed_comparator_residual": 1.9864458503739297e-25,
+                "declared_comparator_residual": 1.9864458503739297e-25,
+                "negative_control": "drop the speed-of-light factor and require a larger residual",
+                "negative_control_rejected": true,
+                "falsifier": "Residual exceeds display-truncation tolerance or Planck-only control is not worse",
+                "source_separation": {
+                  "mode": "target_blind",
+                  "pre_target_lock": true,
+                  "target_hidden_until_scoring": true,
+                  "training_source": "validation/_raw/physics_nist_constants.txt::OC133-TARGETBLIND-PHYSICS-001::visible-training-fields",
+                  "target_source": "validation/_raw/physics_nist_constants.txt::OC133-TARGETBLIND-PHYSICS-001::withheld-target-field",
+                  "split_statement": "Planck constant and speed of light rows are visible; inverse-meter joule relationship row is withheld until scoring"
+                },
+                "support_scope": "target-blind reconstruction of a held-out CODATA relationship from exact defining constants; not a novel physics law",
+                "grand_scope_blocked": true,
+                "grand_empirical_support_allowed_by_source": false,
+                "prediction_support_allowed": true,
+                "empirical_support_allowed": true,
+                "field_failure_total": 0,
+                "field_failures": [],
+                "warnings": [
+                  "SOURCE_SCOPE_LIMITS_GRAND_SUPPORT"
+                ],
+                "tamper_tests": [
+                  {
+                    "test_id": "OC133-TARGETBLIND-PHYSICS-001-snapshot-hash-tamper",
+                    "kind": "tamper",
+                    "passed": true,
+                    "expected_rejection": "SNAPSHOT_SHA256_MISMATCH"
+                  },
+                  {
+                    "test_id": "OC133-TARGETBLIND-PHYSICS-001-comparator-equals-model-control",
+                    "kind": "negative_control",
+                    "passed": true,
+                    "expected_rejection": "COMPARATOR_NOT_WORSE_THAN_MODEL"
+                  },
+                  {
+                    "test_id": "OC133-TARGETBLIND-PHYSICS-001-target-shift-falsifier",
+                    "kind": "falsifier",
+                    "passed": true,
+                    "expected_rejection": "MODEL_RESIDUAL_EXCEEDS_UNCERTAINTY"
+                  }
+                ],
+                "usable_for_blocked_candidate_pack": true,
+                "eligible_for_valid_grand_pack": false
+              }
+            ],
+            "numeric_replay_qa_audits": [
+              {
+                "claim_id": "OC133-NUM-PHYS-C",
+                "domain": "physics",
+                "source_kind": "numeric_replay_qa",
+                "source_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-PHYS-C",
+                "dataset_snapshot_ref": "validation/_raw/physics_nist_constants.txt",
+                "snapshot_hash": {
+                  "source_ref": "validation/_raw/physics_nist_constants.txt",
+                  "exists": true,
+                  "sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+                  "byte_count": 40801,
+                  "hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
+                },
+                "replay_rule": "replay c from SI defining value parsed from NIST CODATA snapshot",
+                "split_policy": "no train/test; definitional constant replay",
+                "replay_residual": 0.0,
+                "comparator_residual": 207542.0,
+                "negative_control": "replace c by 300000000 and residual becomes nonzero",
+                "falsifier": "NIST snapshot parse does not yield 299792458 m s^-1",
+                "performance_metric_allowed": false,
+                "blockers": [
+                  "NUMERIC_REPLAY_QA_QUARANTINED_NOT_GRAND_EVIDENCE"
+                ]
+              }
+            ],
+            "tamper_and_negative_control_tests": [
+              {
+                "test_id": "OC133-TARGETBLIND-PHYSICS-001-snapshot-hash-tamper",
+                "kind": "tamper",
+                "passed": true,
+                "expected_rejection": "SNAPSHOT_SHA256_MISMATCH"
+              },
+              {
+                "test_id": "OC133-TARGETBLIND-PHYSICS-001-comparator-equals-model-control",
+                "kind": "negative_control",
+                "passed": true,
+                "expected_rejection": "COMPARATOR_NOT_WORSE_THAN_MODEL"
+              },
+              {
+                "test_id": "OC133-TARGETBLIND-PHYSICS-001-target-shift-falsifier",
+                "kind": "falsifier",
+                "passed": true,
+                "expected_rejection": "MODEL_RESIDUAL_EXCEEDS_UNCERTAINTY"
+              }
+            ],
+            "protocol_steps_to_unblock": [
+              "pre-register physics/chemistry model, comparator, residual metric, uncertainty method, negative controls, and falsifiers before scoring",
+              "use source snapshots whose target fields remain hidden until scoring or a genuinely prospective source",
+              "record LF-normalized snapshot hashes and candidate-pack hashes",
+              "collect at least 20 eligible rows per domain; numeric replay QA rows do not count",
+              "exclude rows whose own support scope says bounded, QA-only, or not a domain/novel-law claim",
+              "route candidate packs to the parent registry only after grand schema validation is clean"
+            ]
+          },
+          {
+            "domain": "chemistry",
+            "minimum_n": 20,
+            "available_target_blind_case_total": 1,
+            "usable_blocked_candidate_case_total": 1,
+            "grand_eligible_case_total": 0,
+            "available_numeric_replay_qa_total": 2,
+            "candidate_pack_ref": "validation/heldout/grand_science/physics_chemistry/chemistry_candidate_evidence_pack.json",
+            "candidate_pack_sha256": "cc109a7061dad286e438d2fa49ce6640c8ec4d2d876844882501b3f39fbdba36",
+            "candidate_pack_hash_policy": "sha256 over sorted JSON evidence pack",
+            "candidate_pack_valid_under_current_grand_schema": false,
+            "candidate_pack_grand_schema_failures": [
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ],
+            "grand_toe_support_allowed_by_executor": false,
+            "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PACK",
+            "blockers": [
+              "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+              "NO_GRAND_ELIGIBLE_TARGET_BLIND_OR_PROSPECTIVE_ROWS",
+              "CURRENT_SOURCE_SCOPE_IS_BOUNDED_BASELINE_NOT_GRAND_DOMAIN_EVIDENCE",
+              "NUMERIC_REPLAY_QA_ROWS_QUARANTINED_NOT_PREDICTION::2"
+            ],
+            "target_blind_cases": [
+              {
+                "claim_id": "OC133-TARGETBLIND-CHEMISTRY-001",
+                "domain": "chemistry",
+                "source_kind": "target_blind",
+                "source_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-CHEMISTRY-001",
+                "dataset_snapshot_ref": "validation/_raw/chemistry_pubchem_water.txt",
+                "snapshot_hash": {
+                  "source_ref": "validation/_raw/chemistry_pubchem_water.txt",
+                  "exists": true,
+                  "sha256": "316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f",
+                  "byte_count": 248,
+                  "hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
+                },
+                "declared_snapshot_sha256": "316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f",
+                "row_sha256": "c115a6d84fdad856976f60ad6d2fb4c9f9c397f994c7eafb09526f944004469d",
+                "row_sha256_policy": "sha256 over sorted JSON row excluding replay_hash fields",
+                "formula": "2*atomic_weight(H)+atomic_weight(O)",
+                "predicted_value": 18.01528,
+                "observed_value": 18.015,
+                "uncertainty": 0.02,
+                "computed_residual": 0.000280000000000058,
+                "declared_residual": 0.000280000000000058,
+                "comparator_baseline": "CO2 molecular-weight negative control against water target",
+                "comparator_prediction": 44.0095,
+                "computed_comparator_residual": 25.994500000000002,
+                "declared_comparator_residual": 25.994500000000002,
+                "negative_control": "replace H2O by CO2 and require larger residual",
+                "negative_control_rejected": true,
+                "falsifier": "Residual exceeds declared uncertainty or CO2 control is not worse than formula reconstruction",
+                "source_separation": {
+                  "mode": "target_blind",
+                  "pre_target_lock": true,
+                  "target_hidden_until_scoring": true,
+                  "training_source": "validation/_raw/chemistry_pubchem_water.txt::OC133-TARGETBLIND-CHEMISTRY-001::visible-training-fields",
+                  "target_source": "validation/_raw/chemistry_pubchem_water.txt::OC133-TARGETBLIND-CHEMISTRY-001::withheld-target-field",
+                  "split_statement": "formula field is visible; MolecularWeight target is withheld until scoring"
+                },
+                "support_scope": "target-blind reconstruction of a held-out official snapshot field; not a novel chemistry law",
+                "grand_scope_blocked": true,
+                "grand_empirical_support_allowed_by_source": false,
+                "prediction_support_allowed": true,
+                "empirical_support_allowed": true,
+                "field_failure_total": 0,
+                "field_failures": [],
+                "warnings": [
+                  "SOURCE_SCOPE_LIMITS_GRAND_SUPPORT"
+                ],
+                "tamper_tests": [
+                  {
+                    "test_id": "OC133-TARGETBLIND-CHEMISTRY-001-snapshot-hash-tamper",
+                    "kind": "tamper",
+                    "passed": true,
+                    "expected_rejection": "SNAPSHOT_SHA256_MISMATCH"
+                  },
+                  {
+                    "test_id": "OC133-TARGETBLIND-CHEMISTRY-001-comparator-equals-model-control",
+                    "kind": "negative_control",
+                    "passed": true,
+                    "expected_rejection": "COMPARATOR_NOT_WORSE_THAN_MODEL"
+                  },
+                  {
+                    "test_id": "OC133-TARGETBLIND-CHEMISTRY-001-target-shift-falsifier",
+                    "kind": "falsifier",
+                    "passed": true,
+                    "expected_rejection": "MODEL_RESIDUAL_EXCEEDS_UNCERTAINTY"
+                  }
+                ],
+                "usable_for_blocked_candidate_pack": true,
+                "eligible_for_valid_grand_pack": false
+              }
+            ],
+            "numeric_replay_qa_audits": [
+              {
+                "claim_id": "OC133-NUM-CHEM-WEBBOOK-H2O",
+                "domain": "chemistry",
+                "source_kind": "numeric_replay_qa",
+                "source_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-CHEM-WEBBOOK-H2O",
+                "dataset_snapshot_ref": "validation/_raw/chemistry_nist_webbook_water.txt",
+                "snapshot_hash": {
+                  "source_ref": "validation/_raw/chemistry_nist_webbook_water.txt",
+                  "exists": true,
+                  "sha256": "7ed042e5997e54ce83a15395d284986278adbfbce80e0f6907f15e0f52b1a6ac",
+                  "byte_count": 22897,
+                  "hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
+                },
+                "replay_rule": "replay molecular weight from pinned NIST Chemistry WebBook HTML/JSON-LD snapshot",
+                "split_policy": "official snapshot field replay only; no held-out formula-derived chemistry claim",
+                "replay_residual": 0.0,
+                "comparator_residual": 25.994200000000003,
+                "negative_control": "use CO2 molecular-weight value against NIST WebBook water snapshot and require mismatch",
+                "falsifier": "NIST Chemistry WebBook snapshot parser cannot recover molecularWeight=18.0153 for water",
+                "performance_metric_allowed": false,
+                "blockers": [
+                  "NUMERIC_REPLAY_QA_QUARANTINED_NOT_GRAND_EVIDENCE"
+                ]
+              },
+              {
+                "claim_id": "OC133-NUM-CHEM-H2O",
+                "domain": "chemistry",
+                "source_kind": "numeric_replay_qa",
+                "source_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-CHEM-H2O",
+                "dataset_snapshot_ref": "validation/_raw/chemistry_pubchem_water.txt",
+                "snapshot_hash": {
+                  "source_ref": "validation/_raw/chemistry_pubchem_water.txt",
+                  "exists": true,
+                  "sha256": "316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f",
+                  "byte_count": 248,
+                  "hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
+                },
+                "replay_rule": "replay molecular weight from pinned PubChem MolecularWeight field parsed from official snapshot",
+                "split_policy": "snapshot field replay only; no held-out formula-derived chemistry claim",
+                "replay_residual": 0.0,
+                "comparator_residual": 25.994500000000002,
+                "negative_control": "use CO2 molecular-weight field against water snapshot and require mismatch",
+                "falsifier": "PubChem snapshot parser cannot recover MolecularWeight=18.015 for CID 962",
+                "performance_metric_allowed": false,
+                "blockers": [
+                  "NUMERIC_REPLAY_QA_QUARANTINED_NOT_GRAND_EVIDENCE"
+                ]
+              }
+            ],
+            "tamper_and_negative_control_tests": [
+              {
+                "test_id": "OC133-TARGETBLIND-CHEMISTRY-001-snapshot-hash-tamper",
+                "kind": "tamper",
+                "passed": true,
+                "expected_rejection": "SNAPSHOT_SHA256_MISMATCH"
+              },
+              {
+                "test_id": "OC133-TARGETBLIND-CHEMISTRY-001-comparator-equals-model-control",
+                "kind": "negative_control",
+                "passed": true,
+                "expected_rejection": "COMPARATOR_NOT_WORSE_THAN_MODEL"
+              },
+              {
+                "test_id": "OC133-TARGETBLIND-CHEMISTRY-001-target-shift-falsifier",
+                "kind": "falsifier",
+                "passed": true,
+                "expected_rejection": "MODEL_RESIDUAL_EXCEEDS_UNCERTAINTY"
+              }
+            ],
+            "protocol_steps_to_unblock": [
+              "pre-register physics/chemistry model, comparator, residual metric, uncertainty method, negative controls, and falsifiers before scoring",
+              "use source snapshots whose target fields remain hidden until scoring or a genuinely prospective source",
+              "record LF-normalized snapshot hashes and candidate-pack hashes",
+              "collect at least 20 eligible rows per domain; numeric replay QA rows do not count",
+              "exclude rows whose own support scope says bounded, QA-only, or not a domain/novel-law claim",
+              "route candidate packs to the parent registry only after grand schema validation is clean"
+            ]
+          }
+        ],
+        "candidate_pack_total": 2,
+        "valid_candidate_pack_total": 0,
+        "blocked_candidate_pack_total": 2,
+        "no_fabricated_success_policy": "This executor emits grand schema-valid packs only when source separation, fields, negative controls, falsifiers, N, and explicit grand-scope predicates pass. Current bounded target-blind and numeric replay rows are routed as blocked candidates/protocol evidence.",
+        "protocol_sha256": "8ae1d7fa289d72f5bde4032916e1c978c38fd78a2a64b90221d7904ef15b486a",
+        "artifact_report_ref": "validation/heldout/grand_science/physics_chemistry/OC133_PHYSICS_CHEMISTRY_EVIDENCE_PROTOCOL.json"
+      },
+      "effective_payload": {
+        "schema_id": "OC133_PHYSICS_CHEMISTRY_EVIDENCE_PROTOCOL_v1",
+        "release_id": "oc_core_1_3_3",
+        "version": "1.3.3",
+        "capability_owner": "Research/EmpiricalScience",
+        "executor": "validation/heldout/domain_evidence/physics_chemistry_evidence_executor.py",
+        "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+        "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
+        "target_blind_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+        "numeric_replay_qa_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+        "numeric_replay_log_ref": "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
+        "minimum_per_domain_n": 20,
+        "domains": [
+          {
+            "domain": "physics",
+            "minimum_n": 20,
+            "available_target_blind_case_total": 1,
+            "usable_blocked_candidate_case_total": 1,
+            "grand_eligible_case_total": 0,
+            "available_numeric_replay_qa_total": 1,
+            "candidate_pack_ref": "validation/heldout/grand_science/physics_chemistry/physics_candidate_evidence_pack.json",
+            "candidate_pack_sha256": "d51d8d810784cffb32089c7917fbad9f8f23f18d9deafaeaf57e3d6574b64812",
+            "candidate_pack_hash_policy": "sha256 over sorted JSON evidence pack",
+            "candidate_pack_valid_under_current_grand_schema": false,
+            "candidate_pack_grand_schema_failures": [
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ],
+            "grand_toe_support_allowed_by_executor": false,
+            "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PACK",
+            "blockers": [
+              "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+              "NO_GRAND_ELIGIBLE_TARGET_BLIND_OR_PROSPECTIVE_ROWS",
+              "CURRENT_SOURCE_SCOPE_IS_BOUNDED_BASELINE_NOT_GRAND_DOMAIN_EVIDENCE",
+              "NUMERIC_REPLAY_QA_ROWS_QUARANTINED_NOT_PREDICTION::1"
+            ],
+            "target_blind_cases": [
+              {
+                "claim_id": "OC133-TARGETBLIND-PHYSICS-001",
+                "domain": "physics",
+                "source_kind": "target_blind",
+                "source_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-PHYSICS-001",
+                "dataset_snapshot_ref": "validation/_raw/physics_nist_constants.txt",
+                "snapshot_hash": {
+                  "source_ref": "validation/_raw/physics_nist_constants.txt",
+                  "exists": true,
+                  "sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+                  "byte_count": 40801,
+                  "hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
+                },
+                "declared_snapshot_sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+                "row_sha256": "a83ea273ef65d6136ad7c0dfe2f7d870822fe15a062a47ae906a7d46705a0cf1",
+                "row_sha256_policy": "sha256 over sorted JSON row excluding replay_hash fields",
+                "formula": "Planck_constant * speed_of_light",
+                "predicted_value": 1.9864458571489286e-25,
+                "observed_value": 1.986445857e-25,
+                "uncertainty": 1e-33,
+                "computed_residual": 1.4892870576445277e-35,
+                "declared_residual": 1.4892870576445277e-35,
+                "comparator_baseline": "unit-incompatible Planck-constant-only negative control",
+                "comparator_prediction": 6.62607015e-34,
+                "computed_comparator_residual": 1.9864458503739297e-25,
+                "declared_comparator_residual": 1.9864458503739297e-25,
+                "negative_control": "drop the speed-of-light factor and require a larger residual",
+                "negative_control_rejected": true,
+                "falsifier": "Residual exceeds display-truncation tolerance or Planck-only control is not worse",
+                "source_separation": {
+                  "mode": "target_blind",
+                  "pre_target_lock": true,
+                  "target_hidden_until_scoring": true,
+                  "training_source": "validation/_raw/physics_nist_constants.txt::OC133-TARGETBLIND-PHYSICS-001::visible-training-fields",
+                  "target_source": "validation/_raw/physics_nist_constants.txt::OC133-TARGETBLIND-PHYSICS-001::withheld-target-field",
+                  "split_statement": "Planck constant and speed of light rows are visible; inverse-meter joule relationship row is withheld until scoring"
+                },
+                "support_scope": "target-blind reconstruction of a held-out CODATA relationship from exact defining constants; not a novel physics law",
+                "grand_scope_blocked": true,
+                "grand_empirical_support_allowed_by_source": false,
+                "prediction_support_allowed": true,
+                "empirical_support_allowed": true,
+                "field_failure_total": 0,
+                "field_failures": [],
+                "warnings": [
+                  "SOURCE_SCOPE_LIMITS_GRAND_SUPPORT"
+                ],
+                "tamper_tests": [
+                  {
+                    "test_id": "OC133-TARGETBLIND-PHYSICS-001-snapshot-hash-tamper",
+                    "kind": "tamper",
+                    "passed": true,
+                    "expected_rejection": "SNAPSHOT_SHA256_MISMATCH"
+                  },
+                  {
+                    "test_id": "OC133-TARGETBLIND-PHYSICS-001-comparator-equals-model-control",
+                    "kind": "negative_control",
+                    "passed": true,
+                    "expected_rejection": "COMPARATOR_NOT_WORSE_THAN_MODEL"
+                  },
+                  {
+                    "test_id": "OC133-TARGETBLIND-PHYSICS-001-target-shift-falsifier",
+                    "kind": "falsifier",
+                    "passed": true,
+                    "expected_rejection": "MODEL_RESIDUAL_EXCEEDS_UNCERTAINTY"
+                  }
+                ],
+                "usable_for_blocked_candidate_pack": true,
+                "eligible_for_valid_grand_pack": false
+              }
+            ],
+            "numeric_replay_qa_audits": [
+              {
+                "claim_id": "OC133-NUM-PHYS-C",
+                "domain": "physics",
+                "source_kind": "numeric_replay_qa",
+                "source_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-PHYS-C",
+                "dataset_snapshot_ref": "validation/_raw/physics_nist_constants.txt",
+                "snapshot_hash": {
+                  "source_ref": "validation/_raw/physics_nist_constants.txt",
+                  "exists": true,
+                  "sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+                  "byte_count": 40801,
+                  "hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
+                },
+                "replay_rule": "replay c from SI defining value parsed from NIST CODATA snapshot",
+                "split_policy": "no train/test; definitional constant replay",
+                "replay_residual": 0.0,
+                "comparator_residual": 207542.0,
+                "negative_control": "replace c by 300000000 and residual becomes nonzero",
+                "falsifier": "NIST snapshot parse does not yield 299792458 m s^-1",
+                "performance_metric_allowed": false,
+                "blockers": [
+                  "NUMERIC_REPLAY_QA_QUARANTINED_NOT_GRAND_EVIDENCE"
+                ]
+              }
+            ],
+            "tamper_and_negative_control_tests": [
+              {
+                "test_id": "OC133-TARGETBLIND-PHYSICS-001-snapshot-hash-tamper",
+                "kind": "tamper",
+                "passed": true,
+                "expected_rejection": "SNAPSHOT_SHA256_MISMATCH"
+              },
+              {
+                "test_id": "OC133-TARGETBLIND-PHYSICS-001-comparator-equals-model-control",
+                "kind": "negative_control",
+                "passed": true,
+                "expected_rejection": "COMPARATOR_NOT_WORSE_THAN_MODEL"
+              },
+              {
+                "test_id": "OC133-TARGETBLIND-PHYSICS-001-target-shift-falsifier",
+                "kind": "falsifier",
+                "passed": true,
+                "expected_rejection": "MODEL_RESIDUAL_EXCEEDS_UNCERTAINTY"
+              }
+            ],
+            "protocol_steps_to_unblock": [
+              "pre-register physics/chemistry model, comparator, residual metric, uncertainty method, negative controls, and falsifiers before scoring",
+              "use source snapshots whose target fields remain hidden until scoring or a genuinely prospective source",
+              "record LF-normalized snapshot hashes and candidate-pack hashes",
+              "collect at least 20 eligible rows per domain; numeric replay QA rows do not count",
+              "exclude rows whose own support scope says bounded, QA-only, or not a domain/novel-law claim",
+              "route candidate packs to the parent registry only after grand schema validation is clean"
+            ]
+          },
+          {
+            "domain": "chemistry",
+            "minimum_n": 20,
+            "available_target_blind_case_total": 1,
+            "usable_blocked_candidate_case_total": 1,
+            "grand_eligible_case_total": 0,
+            "available_numeric_replay_qa_total": 2,
+            "candidate_pack_ref": "validation/heldout/grand_science/physics_chemistry/chemistry_candidate_evidence_pack.json",
+            "candidate_pack_sha256": "cc109a7061dad286e438d2fa49ce6640c8ec4d2d876844882501b3f39fbdba36",
+            "candidate_pack_hash_policy": "sha256 over sorted JSON evidence pack",
+            "candidate_pack_valid_under_current_grand_schema": false,
+            "candidate_pack_grand_schema_failures": [
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ],
+            "grand_toe_support_allowed_by_executor": false,
+            "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PACK",
+            "blockers": [
+              "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+              "NO_GRAND_ELIGIBLE_TARGET_BLIND_OR_PROSPECTIVE_ROWS",
+              "CURRENT_SOURCE_SCOPE_IS_BOUNDED_BASELINE_NOT_GRAND_DOMAIN_EVIDENCE",
+              "NUMERIC_REPLAY_QA_ROWS_QUARANTINED_NOT_PREDICTION::2"
+            ],
+            "target_blind_cases": [
+              {
+                "claim_id": "OC133-TARGETBLIND-CHEMISTRY-001",
+                "domain": "chemistry",
+                "source_kind": "target_blind",
+                "source_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-CHEMISTRY-001",
+                "dataset_snapshot_ref": "validation/_raw/chemistry_pubchem_water.txt",
+                "snapshot_hash": {
+                  "source_ref": "validation/_raw/chemistry_pubchem_water.txt",
+                  "exists": true,
+                  "sha256": "316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f",
+                  "byte_count": 248,
+                  "hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
+                },
+                "declared_snapshot_sha256": "316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f",
+                "row_sha256": "c115a6d84fdad856976f60ad6d2fb4c9f9c397f994c7eafb09526f944004469d",
+                "row_sha256_policy": "sha256 over sorted JSON row excluding replay_hash fields",
+                "formula": "2*atomic_weight(H)+atomic_weight(O)",
+                "predicted_value": 18.01528,
+                "observed_value": 18.015,
+                "uncertainty": 0.02,
+                "computed_residual": 0.000280000000000058,
+                "declared_residual": 0.000280000000000058,
+                "comparator_baseline": "CO2 molecular-weight negative control against water target",
+                "comparator_prediction": 44.0095,
+                "computed_comparator_residual": 25.994500000000002,
+                "declared_comparator_residual": 25.994500000000002,
+                "negative_control": "replace H2O by CO2 and require larger residual",
+                "negative_control_rejected": true,
+                "falsifier": "Residual exceeds declared uncertainty or CO2 control is not worse than formula reconstruction",
+                "source_separation": {
+                  "mode": "target_blind",
+                  "pre_target_lock": true,
+                  "target_hidden_until_scoring": true,
+                  "training_source": "validation/_raw/chemistry_pubchem_water.txt::OC133-TARGETBLIND-CHEMISTRY-001::visible-training-fields",
+                  "target_source": "validation/_raw/chemistry_pubchem_water.txt::OC133-TARGETBLIND-CHEMISTRY-001::withheld-target-field",
+                  "split_statement": "formula field is visible; MolecularWeight target is withheld until scoring"
+                },
+                "support_scope": "target-blind reconstruction of a held-out official snapshot field; not a novel chemistry law",
+                "grand_scope_blocked": true,
+                "grand_empirical_support_allowed_by_source": false,
+                "prediction_support_allowed": true,
+                "empirical_support_allowed": true,
+                "field_failure_total": 0,
+                "field_failures": [],
+                "warnings": [
+                  "SOURCE_SCOPE_LIMITS_GRAND_SUPPORT"
+                ],
+                "tamper_tests": [
+                  {
+                    "test_id": "OC133-TARGETBLIND-CHEMISTRY-001-snapshot-hash-tamper",
+                    "kind": "tamper",
+                    "passed": true,
+                    "expected_rejection": "SNAPSHOT_SHA256_MISMATCH"
+                  },
+                  {
+                    "test_id": "OC133-TARGETBLIND-CHEMISTRY-001-comparator-equals-model-control",
+                    "kind": "negative_control",
+                    "passed": true,
+                    "expected_rejection": "COMPARATOR_NOT_WORSE_THAN_MODEL"
+                  },
+                  {
+                    "test_id": "OC133-TARGETBLIND-CHEMISTRY-001-target-shift-falsifier",
+                    "kind": "falsifier",
+                    "passed": true,
+                    "expected_rejection": "MODEL_RESIDUAL_EXCEEDS_UNCERTAINTY"
+                  }
+                ],
+                "usable_for_blocked_candidate_pack": true,
+                "eligible_for_valid_grand_pack": false
+              }
+            ],
+            "numeric_replay_qa_audits": [
+              {
+                "claim_id": "OC133-NUM-CHEM-WEBBOOK-H2O",
+                "domain": "chemistry",
+                "source_kind": "numeric_replay_qa",
+                "source_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-CHEM-WEBBOOK-H2O",
+                "dataset_snapshot_ref": "validation/_raw/chemistry_nist_webbook_water.txt",
+                "snapshot_hash": {
+                  "source_ref": "validation/_raw/chemistry_nist_webbook_water.txt",
+                  "exists": true,
+                  "sha256": "7ed042e5997e54ce83a15395d284986278adbfbce80e0f6907f15e0f52b1a6ac",
+                  "byte_count": 22897,
+                  "hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
+                },
+                "replay_rule": "replay molecular weight from pinned NIST Chemistry WebBook HTML/JSON-LD snapshot",
+                "split_policy": "official snapshot field replay only; no held-out formula-derived chemistry claim",
+                "replay_residual": 0.0,
+                "comparator_residual": 25.994200000000003,
+                "negative_control": "use CO2 molecular-weight value against NIST WebBook water snapshot and require mismatch",
+                "falsifier": "NIST Chemistry WebBook snapshot parser cannot recover molecularWeight=18.0153 for water",
+                "performance_metric_allowed": false,
+                "blockers": [
+                  "NUMERIC_REPLAY_QA_QUARANTINED_NOT_GRAND_EVIDENCE"
+                ]
+              },
+              {
+                "claim_id": "OC133-NUM-CHEM-H2O",
+                "domain": "chemistry",
+                "source_kind": "numeric_replay_qa",
+                "source_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-CHEM-H2O",
+                "dataset_snapshot_ref": "validation/_raw/chemistry_pubchem_water.txt",
+                "snapshot_hash": {
+                  "source_ref": "validation/_raw/chemistry_pubchem_water.txt",
+                  "exists": true,
+                  "sha256": "316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f",
+                  "byte_count": 248,
+                  "hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
+                },
+                "replay_rule": "replay molecular weight from pinned PubChem MolecularWeight field parsed from official snapshot",
+                "split_policy": "snapshot field replay only; no held-out formula-derived chemistry claim",
+                "replay_residual": 0.0,
+                "comparator_residual": 25.994500000000002,
+                "negative_control": "use CO2 molecular-weight field against water snapshot and require mismatch",
+                "falsifier": "PubChem snapshot parser cannot recover MolecularWeight=18.015 for CID 962",
+                "performance_metric_allowed": false,
+                "blockers": [
+                  "NUMERIC_REPLAY_QA_QUARANTINED_NOT_GRAND_EVIDENCE"
+                ]
+              }
+            ],
+            "tamper_and_negative_control_tests": [
+              {
+                "test_id": "OC133-TARGETBLIND-CHEMISTRY-001-snapshot-hash-tamper",
+                "kind": "tamper",
+                "passed": true,
+                "expected_rejection": "SNAPSHOT_SHA256_MISMATCH"
+              },
+              {
+                "test_id": "OC133-TARGETBLIND-CHEMISTRY-001-comparator-equals-model-control",
+                "kind": "negative_control",
+                "passed": true,
+                "expected_rejection": "COMPARATOR_NOT_WORSE_THAN_MODEL"
+              },
+              {
+                "test_id": "OC133-TARGETBLIND-CHEMISTRY-001-target-shift-falsifier",
+                "kind": "falsifier",
+                "passed": true,
+                "expected_rejection": "MODEL_RESIDUAL_EXCEEDS_UNCERTAINTY"
+              }
+            ],
+            "protocol_steps_to_unblock": [
+              "pre-register physics/chemistry model, comparator, residual metric, uncertainty method, negative controls, and falsifiers before scoring",
+              "use source snapshots whose target fields remain hidden until scoring or a genuinely prospective source",
+              "record LF-normalized snapshot hashes and candidate-pack hashes",
+              "collect at least 20 eligible rows per domain; numeric replay QA rows do not count",
+              "exclude rows whose own support scope says bounded, QA-only, or not a domain/novel-law claim",
+              "route candidate packs to the parent registry only after grand schema validation is clean"
+            ]
+          }
+        ],
+        "candidate_pack_total": 2,
+        "valid_candidate_pack_total": 0,
+        "blocked_candidate_pack_total": 2,
+        "no_fabricated_success_policy": "This executor emits grand schema-valid packs only when source separation, fields, negative controls, falsifiers, N, and explicit grand-scope predicates pass. Current bounded target-blind and numeric replay rows are routed as blocked candidates/protocol evidence.",
+        "protocol_sha256": "8ae1d7fa289d72f5bde4032916e1c978c38fd78a2a64b90221d7904ef15b486a",
+        "artifact_report_ref": "validation/heldout/grand_science/physics_chemistry/OC133_PHYSICS_CHEMISTRY_EVIDENCE_PROTOCOL.json"
+      },
+      "parsed_json": false,
+      "artifact_payload_found": true,
+      "command_pass": true
+    }
+  ],
+  "write_requested": true,
+  "no_send": true,
+  "publish_allowed": false,
+  "journal_submissions_allowed": false,
+  "verdict": "EXECUTORS_RAN_BLOCKERS_ALLOWED",
+  "closure_policy": "This runner only executes capability-owned evidence generators. Grand empirical closure is decided later by validation/grand_science/evidence_pack_factory.py; executor existence or zero return code is not scientific closure."
+}

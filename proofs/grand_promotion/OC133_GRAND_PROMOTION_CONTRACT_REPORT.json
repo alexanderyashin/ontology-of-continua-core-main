@@ -1,0 +1,280 @@
+{
+  "schema_id": "OC133_GRAND_PROMOTION_CONTRACT_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Logion Research/FormalScience + Review/ClaimBoundary",
+  "generated_by": "tools/oc133_grand_promotion_contract.py",
+  "lean_contract_module": "formal/lean/OC133GrandPromotion.lean",
+  "contract_scope": "Reusable fail-closed promotion contract for future grand TOE/all-domain claims; it does not prove or promote the current artifacts.",
+  "promotion_allowed": false,
+  "verdict": "BLOCKED",
+  "open_blockers": [
+    "grand_toe_claim_ledger_evidence",
+    "grand_toe_empirical_superiority",
+    "modern_science_comparator_superiority"
+  ],
+  "failed_gate_predicates": [
+    "dedicated_claim_row",
+    "release_promotion_allowed",
+    "scientific_promotion_allowed",
+    "public_status_promoted",
+    "promotion_theorem_ids_bound",
+    "all_domain_empirical_pack_valid",
+    "modern_science_superiority_certified"
+  ],
+  "promotion_gate_vector": {
+    "dedicated_claim_row": false,
+    "release_promotion_allowed": false,
+    "scientific_promotion_allowed": false,
+    "public_status_promoted": false,
+    "promotion_theorem_ids_bound": false,
+    "proof_refs_bound": true,
+    "claim_lean_refs_bound": true,
+    "finite_refs_bound": true,
+    "finite_positive_negative_controls_bound": true,
+    "unsupported_promoted_total_zero": true,
+    "finite_checks_passed": true,
+    "contract_lean_refs_bound": true,
+    "all_domain_empirical_pack_valid": false,
+    "modern_science_superiority_certified": false
+  },
+  "claim_ledger_assessment": {
+    "claim_ledger_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+    "formal_obligation_ledger_ref": "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
+    "required_claim_classes": [
+      "numerically_proven_toe",
+      "all_domain_numerical_prediction",
+      "predicts_better_than_modern_science"
+    ],
+    "formal_obligation_ledger_blocker_remains": true,
+    "candidate_grand_claim_total": 1,
+    "candidate_grand_claim_ids": [
+      "OC133-GRAND-TOE-FORMAL-BLOCKER"
+    ],
+    "promoted_grand_claim_total": 0,
+    "promoted_grand_claim_ids": [],
+    "selected_claim_id": "OC133-GRAND-TOE-FORMAL-BLOCKER",
+    "proof_refs": [
+      "proofs/proof_sheets/GRAND_TOE_FORMAL_BLOCKER.md"
+    ],
+    "promotion_theorem_ids": [],
+    "claim_lean_refs": [
+      "formal/lean/OC133V12.lean::grand_toe_promotion_requires_all_formal_obligations",
+      "formal/lean/OC133V12.lean::grand_toe_complete_formal_obligations_accept_control",
+      "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_cannot_promote",
+      "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_missing_dedicated_claim",
+      "formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion"
+    ],
+    "finite_case_ids": [
+      "FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
+      "FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+      "FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT"
+    ],
+    "finite_refs_declared": true,
+    "finite_positive_case_ids": [
+      "FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT"
+    ],
+    "finite_negative_case_ids": [
+      "FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
+      "FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT"
+    ],
+    "missing_finite_case_ids": [],
+    "formal_gate_vector": {
+      "dedicated_claim_row": false,
+      "release_promotion_allowed": false,
+      "scientific_promotion_allowed": false,
+      "public_status_promoted": false,
+      "promotion_theorem_ids_bound": false,
+      "proof_refs_bound": true,
+      "claim_lean_refs_bound": true,
+      "finite_refs_bound": true,
+      "finite_positive_negative_controls_bound": true,
+      "unsupported_promoted_total_zero": true
+    },
+    "failed_formal_gate_predicates": [
+      "dedicated_claim_row",
+      "release_promotion_allowed",
+      "scientific_promotion_allowed",
+      "public_status_promoted",
+      "promotion_theorem_ids_bound"
+    ]
+  },
+  "finite_checks_assessment": {
+    "finite_checks_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+    "finite_checks_passed": true,
+    "case_total": 149,
+    "passed_total": 149,
+    "failure_total": 0,
+    "failed_case_ids": []
+  },
+  "contract_lean_assessment": {
+    "contract_lean_refs": [
+      "formal/lean/OC133GrandPromotion.lean::grand_promotion_pass_requires_all_obligations",
+      "formal/lean/OC133GrandPromotion.lean::grand_promotion_complete_control_accepts",
+      "formal/lean/OC133GrandPromotion.lean::grand_promotion_current_artifact_class_cannot_promote",
+      "formal/lean/OC133GrandPromotion.lean::grand_promotion_current_artifact_class_missing_claim_ledger_evidence",
+      "formal/lean/OC133GrandPromotion.lean::grand_promotion_missing_empirical_pack_blocks_promotion",
+      "formal/lean/OC133GrandPromotion.lean::grand_promotion_missing_modern_science_superiority_blocks_promotion",
+      "formal/lean/OC133GrandPromotion.lean::grand_promotion_missing_finite_refs_blocks_promotion"
+    ],
+    "contract_lean_refs_bound": true,
+    "rows": [
+      {
+        "lean_ref": "formal/lean/OC133GrandPromotion.lean::grand_promotion_pass_requires_all_obligations",
+        "bound": true
+      },
+      {
+        "lean_ref": "formal/lean/OC133GrandPromotion.lean::grand_promotion_complete_control_accepts",
+        "bound": true
+      },
+      {
+        "lean_ref": "formal/lean/OC133GrandPromotion.lean::grand_promotion_current_artifact_class_cannot_promote",
+        "bound": true
+      },
+      {
+        "lean_ref": "formal/lean/OC133GrandPromotion.lean::grand_promotion_current_artifact_class_missing_claim_ledger_evidence",
+        "bound": true
+      },
+      {
+        "lean_ref": "formal/lean/OC133GrandPromotion.lean::grand_promotion_missing_empirical_pack_blocks_promotion",
+        "bound": true
+      },
+      {
+        "lean_ref": "formal/lean/OC133GrandPromotion.lean::grand_promotion_missing_modern_science_superiority_blocks_promotion",
+        "bound": true
+      },
+      {
+        "lean_ref": "formal/lean/OC133GrandPromotion.lean::grand_promotion_missing_finite_refs_blocks_promotion",
+        "bound": true
+      }
+    ]
+  },
+  "grand_empirical_assessment": {
+    "grand_empirical_report_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
+    "all_domain_empirical_pack_valid": false,
+    "verdict": "BLOCKED_PENDING_GENUINE_PER_DOMAIN_EVIDENCE",
+    "grand_toe_support_allowed": false,
+    "domain_predictive_superiority_supported": false,
+    "blocked_domain_total": 5,
+    "valid_evidence_pack_total": 0,
+    "domain_rows": [
+      {
+        "domain": "biology",
+        "grand_toe_support_allowed": false,
+        "valid_n": 0,
+        "minimum_n": 20,
+        "valid_pack_total": 0,
+        "status": "BLOCKED",
+        "blockers": [
+          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "CANDIDATE_EVIDENCE_PACKS_INVALID::1"
+        ]
+      },
+      {
+        "domain": "chemistry",
+        "grand_toe_support_allowed": false,
+        "valid_n": 0,
+        "minimum_n": 20,
+        "valid_pack_total": 0,
+        "status": "BLOCKED",
+        "blockers": [
+          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "CANDIDATE_EVIDENCE_PACKS_INVALID::1"
+        ]
+      },
+      {
+        "domain": "mathematics",
+        "grand_toe_support_allowed": false,
+        "valid_n": 0,
+        "minimum_n": 20,
+        "valid_pack_total": 0,
+        "status": "BLOCKED",
+        "blockers": [
+          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED",
+          "CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE"
+        ]
+      },
+      {
+        "domain": "physics",
+        "grand_toe_support_allowed": false,
+        "valid_n": 0,
+        "minimum_n": 20,
+        "valid_pack_total": 0,
+        "status": "BLOCKED",
+        "blockers": [
+          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "CANDIDATE_EVIDENCE_PACKS_INVALID::1"
+        ]
+      },
+      {
+        "domain": "systems",
+        "grand_toe_support_allowed": false,
+        "valid_n": 0,
+        "minimum_n": 20,
+        "valid_pack_total": 0,
+        "status": "BLOCKED",
+        "blockers": [
+          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "CANDIDATE_EVIDENCE_PACKS_INVALID::1"
+        ]
+      }
+    ],
+    "failed_predicates": [
+      "biology::GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+      "biology::NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+      "biology::CANDIDATE_EVIDENCE_PACKS_INVALID::1",
+      "chemistry::GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+      "chemistry::NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+      "chemistry::CANDIDATE_EVIDENCE_PACKS_INVALID::1",
+      "mathematics::GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+      "mathematics::NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+      "mathematics::NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED",
+      "mathematics::CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE",
+      "physics::GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+      "physics::NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+      "physics::CANDIDATE_EVIDENCE_PACKS_INVALID::1",
+      "systems::GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+      "systems::NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+      "systems::CANDIDATE_EVIDENCE_PACKS_INVALID::1"
+    ]
+  },
+  "modern_science_assessment": {
+    "modern_science_report_ref": "reports/OC_CORE_1_3_3_MODERN_SCIENCE_SUPERIORITY_REPORT.json",
+    "modern_science_register_ref": "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
+    "modern_science_superiority_certified": false,
+    "verdict": "BLOCKED_NO_MODERN_SCIENCE_SUPERIORITY_CERTIFIED",
+    "release_promotion_allowed": false,
+    "row_total": 5,
+    "superiority_certified_total": 0,
+    "blocked_superiority_total": 5,
+    "matrix_row_total": 5,
+    "matrix_certified": false,
+    "failed_predicates": [
+      "No lane has clean-checkout independent replay recorded in this register.",
+      "Physics and chemistry lanes remain exact-standard or curated-field reconstruction, not superiority evidence.",
+      "Biology lacks a biological mechanism benchmark beyond API/query accounting.",
+      "Systems lacks a prospective or time-locked protocol beyond retrospective pinned WDI rows.",
+      "Mathematics lacks public claim scope matching strong enough to certify superiority over Lean/formal mathematics.",
+      "physics::independent_replay_passes_from_clean_checkout",
+      "physics::result_is_not_merely_exact_standard_replay",
+      "physics::domain_relevance_exceeds_exact_standard_replay",
+      "chemistry::independent_replay_passes_from_clean_checkout",
+      "chemistry::not_a_curated_field_copy",
+      "chemistry::domain_relevance_exceeds_curated_field_reconstruction",
+      "biology::independent_replay_passes_from_clean_checkout",
+      "biology::biological_mechanism_test_present",
+      "systems::independent_replay_passes_from_clean_checkout",
+      "systems::prospective_or_time-locked_protocol_present",
+      "mathematics::independent_replay_passes_from_clean_checkout",
+      "mathematics::machine_checked_theorem_scope_matches_public_claim"
+    ]
+  },
+  "pass_condition": "PASS requires a dedicated promoted grand claim row with theorem IDs, proof refs, Lean refs, finite positive and negative refs, zero unsupported promoted claims, a passing finite report, valid all-domain empirical evidence packs, and certified modern-science superiority.",
+  "no_fabricated_pass_policy": "Bounded theorem rows, replay QA, target-blind baseline rows, sample packs, and source-backed comparator notes are insufficient for this grand promotion contract."
+}
