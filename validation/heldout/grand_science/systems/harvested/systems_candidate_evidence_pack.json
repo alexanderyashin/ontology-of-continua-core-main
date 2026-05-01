@@ -1,0 +1,56 @@
+{
+  "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+  "release_id": "oc_core_1_3_3",
+  "capability_owner": "Research/EmpiricalScience",
+  "evidence_pack_id": "oc-core-1-3-3-systems-official-world-bank-harvester",
+  "domain": "systems",
+  "source_separation": {
+    "mode": "target_blind",
+    "pre_target_lock": false,
+    "target_hidden_until_scoring": false,
+    "training_sources": [
+      "validation/_raw/systems_world_bank_gdp.txt::1W:NY.GDP.MKTP.CD::training_years=2021,2022",
+      "validation/_raw/systems_world_bank_gdp.txt::1W:NY.GDP.MKTP.CD::training_years=2022,2023"
+    ],
+    "target_sources": [
+      "validation/_raw/systems_world_bank_gdp.txt::1W:NY.GDP.MKTP.CD::target_year=2023",
+      "validation/_raw/systems_world_bank_gdp.txt::1W:NY.GDP.MKTP.CD::target_year=2024"
+    ]
+  },
+  "n": 2,
+  "model_under_test": "y_t = y_t-1 + (y_t-1 - y_t-2) for each country-indicator series",
+  "comparator_baseline": {
+    "name": "World Bank carry-forward comparator",
+    "prediction_rule": "predict each target year as immediately previous observed value for same series",
+    "pre_registered": true
+  },
+  "uncertainty": {
+    "metric": "mean absolute residual",
+    "method": "two-point extrapolation spread over declared target row intervals",
+    "interval": [
+      0.0,
+      4490123095533.0
+    ]
+  },
+  "residuals": {
+    "model": 314091685780.89844,
+    "comparator": 4365568227241.0,
+    "superiority_margin": 4051476541460.1016
+  },
+  "negative_controls": [
+    {
+      "control_id": "1W-NY.GDP.MKTP.CD-2023-NEGATIVE-CONTROL",
+      "description": "comparator residual must exceed linear model residual",
+      "rejected": true
+    },
+    {
+      "control_id": "1W-NY.GDP.MKTP.CD-2024-NEGATIVE-CONTROL",
+      "description": "comparator residual must exceed linear model residual",
+      "rejected": true
+    }
+  ],
+  "falsifiers": [
+    "if observed shifts by declared uncertainty, model residual should not exceed uncertainty"
+  ],
+  "grand_toe_support_allowed": false
+}

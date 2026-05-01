@@ -1,0 +1,40 @@
+{
+  "schema_id": "OC133_SYSTEMS_HARVESTER_PROTOCOL_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "blocker_id": "grand_toe_empirical_superiority",
+  "verdict": "BLOCKED_PENDING_GENUINE_EVIDENCE_PACK",
+  "blocked_domain_total": 1,
+  "queue_total": 1,
+  "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+  "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
+  "protocol_schema_ref": "validation/grand_science/grand_empirical_protocol.schema.json",
+  "sample_pack_ref": "validation/heldout/samples/grand_empirical_evidence_pack.sample.json",
+  "rows": [
+    {
+      "domain": "systems",
+      "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PACK",
+      "candidate_pack_ref": "validation/heldout/grand_science/systems/harvested/systems_candidate_evidence_pack.json",
+      "candidate_pack_sha256": "826c32ee00a81fdcf8d5803c4ba349c8ff25f30895c03ed9f7cf2a9406764091",
+      "minimum_n": 20,
+      "candidate_pack_total": 1,
+      "blockers": [
+        "SOURCE_SEPARATION_PRE_TARGET_LOCK_REQUIRED",
+        "SOURCE_SEPARATION_TARGET_HIDDEN_REQUIRED",
+        "N_BELOW_MINIMUM::2/20",
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "N_BELOW_MINIMUM::20",
+        "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+      ],
+      "required_protocol_steps": [
+        "pre-register model, comparator, uncertainty protocol before any target scoring",
+        "collect target-hidden or prospective observations until configured minimum N",
+        "enforce distinct training and target source sets in source separation",
+        "run candidate-level negative controls and falsifier replay before support is claimed",
+        "emit blocked-only status when source-separation or data prerequisites are not met"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,221 @@
+{
+  "schema_id": "OC133_HARVESTER_RUN_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_at": "2026-05-01T02:38:28Z",
+  "capability_owner": "Logion Research/EmpiricalScience",
+  "harvester_root_ref": "validation/heldout/harvesters",
+  "harvester_total": 2,
+  "harvester_refs": [
+    "validation/heldout/harvesters/physics_chemistry_harvester.py",
+    "validation/heldout/harvesters/systems_harvester.py"
+  ],
+  "command_failure_total": 0,
+  "command_failure_refs": [],
+  "parsed_payload_total": 2,
+  "candidate_pack_total": 1,
+  "valid_pack_total": 0,
+  "blocked_obligation_total": 10,
+  "results": [
+    {
+      "harvester_ref": "validation/heldout/harvesters/physics_chemistry_harvester.py",
+      "command": [
+        "python",
+        "validation/heldout/harvesters/physics_chemistry_harvester.py",
+        "--write",
+        "--offline",
+        "--allow-blocked-exit-zero"
+      ],
+      "compatibility_retry_without_allow_blocked_exit_zero": false,
+      "returncode": 0,
+      "stdout_tail": "/harvested/OC133_PHYSICS_CHEMISTRY_HARVESTER_BLOCKER_REPORT.json\",\n  \"offline\": true,\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"journal_submissions_allowed\": false,\n  \"candidate_pack_total\": 0,\n  \"valid_pack_total\": 0,\n  \"valid_candidate_pack_total\": 0,\n  \"blocked_candidate_pack_total\": 0,\n  \"current_target_blind_row_total\": 2,\n  \"bounded_baseline_row_total\": 2,\n  \"grand_eligible_row_total\": 0,\n  \"minimum_per_domain_n\": 20,\n  \"grand_toe_support_allowed\": false,\n  \"blocker_total\": 3,\n  \"open_blocker_total\": 3,\n  \"blockers\": [\n    \"GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20\",\n    \"CURRENT_TARGET_BLIND_ROWS_ARE_BOUNDED_BASELINE_NOT_GRAND_EVIDENCE\",\n    \"GRAND_TOE_SUPPORT_NOT_ALLOWED\"\n  ],\n  \"domains\": [\n    {\n      \"domain\": \"physics\",\n      \"minimum_n\": 20,\n      \"current_target_blind_row_total\": 1,\n      \"grand_eligible_row_total\": 0,\n      \"bounded_baseline_row_total\": 1,\n      \"candidate_pack_total\": 0,\n      \"valid_pack_total\": 0,\n      \"grand_toe_support_allowed\": false,\n      \"status\": \"BLOCKED_CURRENT_ROWS_ARE_BASELINE_ONLY\",\n      \"blockers\": [\n        \"GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20\",\n        \"CURRENT_TARGET_BLIND_ROWS_ARE_BOUNDED_BASELINE_NOT_GRAND_EVIDENCE\",\n        \"GRAND_TOE_SUPPORT_NOT_ALLOWED\"\n      ],\n      \"baseline_rows\": [\n        {\n          \"claim_id\": \"OC133-TARGETBLIND-PHYSICS-001\",\n          \"domain\": \"physics\",\n          \"source_ref\": \"validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-PHYSICS-001\",\n          \"dataset_snapshot_ref\": \"validation/_raw/physics_nist_constants.txt\",\n          \"formula\": \"Planck_constant * speed_of_light\",\n          \"support_scope\": \"target-blind reconstruction of a held-out CODATA relationship from exact defining constants; not a novel physics law\",\n          \"prediction_support_allowed\": true,\n          \"empirical_support_allowed\": true,\n          \"grand_toe_support_allowed\": false,\n          \"grand_n_credit\": 0,\n          \"classification\": \"BOUNDED_BASELINE_NOT_GRAND_EVIDENCE\",\n          \"row_sha256\": \"a83ea273ef65d6136ad7c0dfe2f7d870822fe15a062a47ae906a7d46705a0cf1\"\n        }\n      ]\n    },\n    {\n      \"domain\": \"chemistry\",\n      \"minimum_n\": 20,\n      \"current_target_blind_row_total\": 1,\n      \"grand_eligible_row_total\": 0,\n      \"bounded_baseline_row_total\": 1,\n      \"candidate_pack_total\": 0,\n      \"valid_pack_total\": 0,\n      \"grand_toe_support_allowed\": false,\n      \"status\": \"BLOCKED_CURRENT_ROWS_ARE_BASELINE_ONLY\",\n      \"blockers\": [\n        \"GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20\",\n        \"CURRENT_TARGET_BLIND_ROWS_ARE_BOUNDED_BASELINE_NOT_GRAND_EVIDENCE\",\n        \"GRAND_TOE_SUPPORT_NOT_ALLOWED\"\n      ],\n      \"baseline_rows\": [\n        {\n          \"claim_id\": \"OC133-TARGETBLIND-CHEMISTRY-001\",\n          \"domain\": \"chemistry\",\n          \"source_ref\": \"validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-CHEMISTRY-001\",\n          \"dataset_snapshot_ref\": \"validation/_raw/chemistry_pubchem_water.txt\",\n          \"formula\": \"2*atomic_weight(H)+atomic_weight(O)\",\n          \"support_scope\": \"target-blind reconstruction of a held-out official snapshot field; not a novel chemistry law\",\n          \"prediction_support_allowed\": true,\n          \"empirical_support_allowed\": true,\n          \"grand_toe_support_allowed\": false,\n          \"grand_n_credit\": 0,\n          \"classification\": \"BOUNDED_BASELINE_NOT_GRAND_EVIDENCE\",\n          \"row_sha256\": \"c115a6d84fdad856976f60ad6d2fb4c9f9c397f994c7eafb09526f944004469d\"\n        }\n      ]\n    }\n  ],\n  \"explanation\": [\n    \"N<20: current physics/chemistry target-blind rows provide zero grand-eligible rows against the required minimum.\",\n    \"The current rows are bounded baseline reconstructions, not grand evidence.\",\n    \"No candidate evidence pack is emitted from these rows; valid_pack_total remains 0.\"\n  ],\n  \"verdict\": \"BLOCKED_PENDING_GENUINE_PHYSICS_CHEMISTRY_EVIDENCE\",\n  \"report_sha256\": \"943dba6d9e7ebfc19a5b72d1716661183ad1f85c14187c5645231e8bc72969a9\"\n}\n",
+      "stderr_tail": "",
+      "parsed_payload": {
+        "schema_id": "OC133_PHYSICS_CHEMISTRY_HARVESTER_BLOCKER_REPORT_v1",
+        "release_id": "oc_core_1_3_3",
+        "version": "1.3.3",
+        "capability_owner": "Research/EmpiricalScience",
+        "blocker_id": "grand_toe_empirical_superiority",
+        "harvester": "validation/heldout/harvesters/physics_chemistry_harvester.py",
+        "target_blind_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+        "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+        "output_ref": "validation/heldout/grand_science/physics_chemistry/harvested/OC133_PHYSICS_CHEMISTRY_HARVESTER_BLOCKER_REPORT.json",
+        "offline": true,
+        "no_send": true,
+        "publish_allowed": false,
+        "journal_submissions_allowed": false,
+        "candidate_pack_total": 0,
+        "valid_pack_total": 0,
+        "valid_candidate_pack_total": 0,
+        "blocked_candidate_pack_total": 0,
+        "current_target_blind_row_total": 2,
+        "bounded_baseline_row_total": 2,
+        "grand_eligible_row_total": 0,
+        "minimum_per_domain_n": 20,
+        "grand_toe_support_allowed": false,
+        "blocker_total": 3,
+        "open_blocker_total": 3,
+        "blockers": [
+          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "CURRENT_TARGET_BLIND_ROWS_ARE_BOUNDED_BASELINE_NOT_GRAND_EVIDENCE",
+          "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+        ],
+        "domains": [
+          {
+            "domain": "physics",
+            "minimum_n": 20,
+            "current_target_blind_row_total": 1,
+            "grand_eligible_row_total": 0,
+            "bounded_baseline_row_total": 1,
+            "candidate_pack_total": 0,
+            "valid_pack_total": 0,
+            "grand_toe_support_allowed": false,
+            "status": "BLOCKED_CURRENT_ROWS_ARE_BASELINE_ONLY",
+            "blockers": [
+              "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+              "CURRENT_TARGET_BLIND_ROWS_ARE_BOUNDED_BASELINE_NOT_GRAND_EVIDENCE",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ],
+            "baseline_rows": [
+              {
+                "claim_id": "OC133-TARGETBLIND-PHYSICS-001",
+                "domain": "physics",
+                "source_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-PHYSICS-001",
+                "dataset_snapshot_ref": "validation/_raw/physics_nist_constants.txt",
+                "formula": "Planck_constant * speed_of_light",
+                "support_scope": "target-blind reconstruction of a held-out CODATA relationship from exact defining constants; not a novel physics law",
+                "prediction_support_allowed": true,
+                "empirical_support_allowed": true,
+                "grand_toe_support_allowed": false,
+                "grand_n_credit": 0,
+                "classification": "BOUNDED_BASELINE_NOT_GRAND_EVIDENCE",
+                "row_sha256": "a83ea273ef65d6136ad7c0dfe2f7d870822fe15a062a47ae906a7d46705a0cf1"
+              }
+            ]
+          },
+          {
+            "domain": "chemistry",
+            "minimum_n": 20,
+            "current_target_blind_row_total": 1,
+            "grand_eligible_row_total": 0,
+            "bounded_baseline_row_total": 1,
+            "candidate_pack_total": 0,
+            "valid_pack_total": 0,
+            "grand_toe_support_allowed": false,
+            "status": "BLOCKED_CURRENT_ROWS_ARE_BASELINE_ONLY",
+            "blockers": [
+              "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+              "CURRENT_TARGET_BLIND_ROWS_ARE_BOUNDED_BASELINE_NOT_GRAND_EVIDENCE",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ],
+            "baseline_rows": [
+              {
+                "claim_id": "OC133-TARGETBLIND-CHEMISTRY-001",
+                "domain": "chemistry",
+                "source_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-CHEMISTRY-001",
+                "dataset_snapshot_ref": "validation/_raw/chemistry_pubchem_water.txt",
+                "formula": "2*atomic_weight(H)+atomic_weight(O)",
+                "support_scope": "target-blind reconstruction of a held-out official snapshot field; not a novel chemistry law",
+                "prediction_support_allowed": true,
+                "empirical_support_allowed": true,
+                "grand_toe_support_allowed": false,
+                "grand_n_credit": 0,
+                "classification": "BOUNDED_BASELINE_NOT_GRAND_EVIDENCE",
+                "row_sha256": "c115a6d84fdad856976f60ad6d2fb4c9f9c397f994c7eafb09526f944004469d"
+              }
+            ]
+          }
+        ],
+        "explanation": [
+          "N<20: current physics/chemistry target-blind rows provide zero grand-eligible rows against the required minimum.",
+          "The current rows are bounded baseline reconstructions, not grand evidence.",
+          "No candidate evidence pack is emitted from these rows; valid_pack_total remains 0."
+        ],
+        "verdict": "BLOCKED_PENDING_GENUINE_PHYSICS_CHEMISTRY_EVIDENCE",
+        "report_sha256": "943dba6d9e7ebfc19a5b72d1716661183ad1f85c14187c5645231e8bc72969a9"
+      },
+      "parsed_json": true
+    },
+    {
+      "harvester_ref": "validation/heldout/harvesters/systems_harvester.py",
+      "command": [
+        "python",
+        "validation/heldout/harvesters/systems_harvester.py",
+        "--write",
+        "--offline",
+        "--allow-blocked-exit-zero"
+      ],
+      "compatibility_retry_without_allow_blocked_exit_zero": false,
+      "returncode": 0,
+      "stdout_tail": "{\n  \"schema_id\": \"OC133_SYSTEMS_HARVESTER_REPORT_v1\",\n  \"release_id\": \"oc_core_1_3_3\",\n  \"version\": \"1.3.3\",\n  \"capability_owner\": \"Research/EmpiricalScience\",\n  \"blocker_id\": \"grand_toe_empirical_superiority\",\n  \"reporter\": \"validation/heldout/harvesters/systems_harvester.py\",\n  \"source_kind\": \"raw_snapshot\",\n  \"source_ref\": \"validation/_raw/systems_world_bank_gdp.txt\",\n  \"snapshot_ref\": \"validation/_raw/systems_world_bank_gdp.txt\",\n  \"snapshot_sha256\": \"52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b\",\n  \"snapshot_byte_count\": 1102,\n  \"candidate_pack_total\": 1,\n  \"valid_candidate_pack_total\": 0,\n  \"valid_pack_total\": 0,\n  \"blocked_domain_total\": 1,\n  \"candidate_pack_ref\": \"validation/heldout/grand_science/systems/harvested/systems_candidate_evidence_pack.json\",\n  \"candidate_pack_sha256\": \"826c32ee00a81fdcf8d5803c4ba349c8ff25f30895c03ed9f7cf2a9406764091\",\n  \"candidate_pack_hash_policy\": \"sha256 over canonical JSON\",\n  \"protocol_ref\": \"validation/heldout/grand_science/systems/harvested/OC133_SYSTEMS_HARVESTER_PROTOCOL.json\",\n  \"protocol_sha256\": \"abab0fd7b1fda4ff100c8b47d3080878efa51e0d6c27adc7ae559eafb151d206\",\n  \"verdict\": \"BLOCKED_PENDING_GENUINE_EVIDENCE\",\n  \"requirements_ref\": \"benchmarks/grand_science/domain_requirements.json\",\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"journal_submissions_allowed\": false,\n  \"candidate_row_total\": 2,\n  \"blocker_total\": 7,\n  \"open_blocker_total\": 7,\n  \"blockers\": [\n    \"SOURCE_SEPARATION_PRE_TARGET_LOCK_REQUIRED\",\n    \"SOURCE_SEPARATION_TARGET_HIDDEN_REQUIRED\",\n    \"N_BELOW_MINIMUM::2/20\",\n    \"PRE_TARGET_LOCK_REQUIRED\",\n    \"TARGET_HIDDEN_UNTIL_SCORING_REQUIRED\",\n    \"N_BELOW_MINIMUM::20\",\n    \"GRAND_TOE_SUPPORT_NOT_ALLOWED\"\n  ],\n  \"rows\": [\n    {\n      \"observation_id\": \"SYSTEMS-TARGET_BLIND-1W-NY.GDP.MKTP.CD-2021:2022:2023\",\n      \"country\": \"1W:World\",\n      \"indicator\": \"NY.GDP.MKTP.CD:GDP (current US$)\",\n      \"training_source\": \"validation/_raw/systems_world_bank_gdp.txt::1W:NY.GDP.MKTP.CD::training_years=2021,2022\",\n      \"target_source\": \"validation/_raw/systems_world_bank_gdp.txt::1W:NY.GDP.MKTP.CD::target_year=2023\",\n      \"model_residual\": 379073634977.7969,\n      \"comparator_residual\": 4490123095533.0,\n      \"row_sha256\": \"389cb7a0a0885ff5e2edf655b157d75d148dc73fba4d0afe667349e7a6017473\"\n    },\n    {\n      \"observation_id\": \"SYSTEMS-TARGET_BLIND-1W-NY.GDP.MKTP.CD-2022:2023:2024\",\n      \"country\": \"1W:World\",\n      \"indicator\": \"NY.GDP.MKTP.CD:GDP (current US$)\",\n      \"training_source\": \"validation/_raw/systems_world_bank_gdp.txt::1W:NY.GDP.MKTP.CD::training_years=2022,2023\",\n      \"target_source\": \"validation/_raw/systems_world_bank_gdp.txt::1W:NY.GDP.MKTP.CD::target_year=2024\",\n      \"model_residual\": 249109736584.0,\n      \"comparator_residual\": 4241013358949.0,\n      \"row_sha256\": \"deb6494fe649f3635145f4a2d06bfdf89f8af5d84e29ff9077a90edb1663999a\"\n    }\n  ]\n}\n",
+      "stderr_tail": "",
+      "parsed_payload": {
+        "schema_id": "OC133_SYSTEMS_HARVESTER_REPORT_v1",
+        "release_id": "oc_core_1_3_3",
+        "version": "1.3.3",
+        "capability_owner": "Research/EmpiricalScience",
+        "blocker_id": "grand_toe_empirical_superiority",
+        "reporter": "validation/heldout/harvesters/systems_harvester.py",
+        "source_kind": "raw_snapshot",
+        "source_ref": "validation/_raw/systems_world_bank_gdp.txt",
+        "snapshot_ref": "validation/_raw/systems_world_bank_gdp.txt",
+        "snapshot_sha256": "52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b",
+        "snapshot_byte_count": 1102,
+        "candidate_pack_total": 1,
+        "valid_candidate_pack_total": 0,
+        "valid_pack_total": 0,
+        "blocked_domain_total": 1,
+        "candidate_pack_ref": "validation/heldout/grand_science/systems/harvested/systems_candidate_evidence_pack.json",
+        "candidate_pack_sha256": "826c32ee00a81fdcf8d5803c4ba349c8ff25f30895c03ed9f7cf2a9406764091",
+        "candidate_pack_hash_policy": "sha256 over canonical JSON",
+        "protocol_ref": "validation/heldout/grand_science/systems/harvested/OC133_SYSTEMS_HARVESTER_PROTOCOL.json",
+        "protocol_sha256": "abab0fd7b1fda4ff100c8b47d3080878efa51e0d6c27adc7ae559eafb151d206",
+        "verdict": "BLOCKED_PENDING_GENUINE_EVIDENCE",
+        "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+        "no_send": true,
+        "publish_allowed": false,
+        "journal_submissions_allowed": false,
+        "candidate_row_total": 2,
+        "blocker_total": 7,
+        "open_blocker_total": 7,
+        "blockers": [
+          "SOURCE_SEPARATION_PRE_TARGET_LOCK_REQUIRED",
+          "SOURCE_SEPARATION_TARGET_HIDDEN_REQUIRED",
+          "N_BELOW_MINIMUM::2/20",
+          "PRE_TARGET_LOCK_REQUIRED",
+          "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+          "N_BELOW_MINIMUM::20",
+          "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+        ],
+        "rows": [
+          {
+            "observation_id": "SYSTEMS-TARGET_BLIND-1W-NY.GDP.MKTP.CD-2021:2022:2023",
+            "country": "1W:World",
+            "indicator": "NY.GDP.MKTP.CD:GDP (current US$)",
+            "training_source": "validation/_raw/systems_world_bank_gdp.txt::1W:NY.GDP.MKTP.CD::training_years=2021,2022",
+            "target_source": "validation/_raw/systems_world_bank_gdp.txt::1W:NY.GDP.MKTP.CD::target_year=2023",
+            "model_residual": 379073634977.7969,
+            "comparator_residual": 4490123095533.0,
+            "row_sha256": "389cb7a0a0885ff5e2edf655b157d75d148dc73fba4d0afe667349e7a6017473"
+          },
+          {
+            "observation_id": "SYSTEMS-TARGET_BLIND-1W-NY.GDP.MKTP.CD-2022:2023:2024",
+            "country": "1W:World",
+            "indicator": "NY.GDP.MKTP.CD:GDP (current US$)",
+            "training_source": "validation/_raw/systems_world_bank_gdp.txt::1W:NY.GDP.MKTP.CD::training_years=2022,2023",
+            "target_source": "validation/_raw/systems_world_bank_gdp.txt::1W:NY.GDP.MKTP.CD::target_year=2024",
+            "model_residual": 249109736584.0,
+            "comparator_residual": 4241013358949.0,
+            "row_sha256": "deb6494fe649f3635145f4a2d06bfdf89f8af5d84e29ff9077a90edb1663999a"
+          }
+        ]
+      },
+      "parsed_json": true
+    }
+  ],
+  "closure_policy": "Harvesters may create candidate evidence packs, but grand empirical closure is decided only by validation/grand_science/evidence_pack_factory.py after registry/source-separation/schema checks.",
+  "no_send": true,
+  "publish_allowed": false,
+  "journal_submissions_allowed": false,
+  "verdict": "HARVESTERS_RAN"
+}

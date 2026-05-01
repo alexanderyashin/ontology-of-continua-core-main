@@ -1,0 +1,104 @@
+{
+  "schema_id": "OC133_PHYSICS_CHEMISTRY_HARVESTER_BLOCKER_REPORT_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "blocker_id": "grand_toe_empirical_superiority",
+  "harvester": "validation/heldout/harvesters/physics_chemistry_harvester.py",
+  "target_blind_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+  "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+  "output_ref": "validation/heldout/grand_science/physics_chemistry/harvested/OC133_PHYSICS_CHEMISTRY_HARVESTER_BLOCKER_REPORT.json",
+  "offline": true,
+  "no_send": true,
+  "publish_allowed": false,
+  "journal_submissions_allowed": false,
+  "candidate_pack_total": 0,
+  "valid_pack_total": 0,
+  "valid_candidate_pack_total": 0,
+  "blocked_candidate_pack_total": 0,
+  "current_target_blind_row_total": 2,
+  "bounded_baseline_row_total": 2,
+  "grand_eligible_row_total": 0,
+  "minimum_per_domain_n": 20,
+  "grand_toe_support_allowed": false,
+  "blocker_total": 3,
+  "open_blocker_total": 3,
+  "blockers": [
+    "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+    "CURRENT_TARGET_BLIND_ROWS_ARE_BOUNDED_BASELINE_NOT_GRAND_EVIDENCE",
+    "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+  ],
+  "domains": [
+    {
+      "domain": "physics",
+      "minimum_n": 20,
+      "current_target_blind_row_total": 1,
+      "grand_eligible_row_total": 0,
+      "bounded_baseline_row_total": 1,
+      "candidate_pack_total": 0,
+      "valid_pack_total": 0,
+      "grand_toe_support_allowed": false,
+      "status": "BLOCKED_CURRENT_ROWS_ARE_BASELINE_ONLY",
+      "blockers": [
+        "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+        "CURRENT_TARGET_BLIND_ROWS_ARE_BOUNDED_BASELINE_NOT_GRAND_EVIDENCE",
+        "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+      ],
+      "baseline_rows": [
+        {
+          "claim_id": "OC133-TARGETBLIND-PHYSICS-001",
+          "domain": "physics",
+          "source_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-PHYSICS-001",
+          "dataset_snapshot_ref": "validation/_raw/physics_nist_constants.txt",
+          "formula": "Planck_constant * speed_of_light",
+          "support_scope": "target-blind reconstruction of a held-out CODATA relationship from exact defining constants; not a novel physics law",
+          "prediction_support_allowed": true,
+          "empirical_support_allowed": true,
+          "grand_toe_support_allowed": false,
+          "grand_n_credit": 0,
+          "classification": "BOUNDED_BASELINE_NOT_GRAND_EVIDENCE",
+          "row_sha256": "a83ea273ef65d6136ad7c0dfe2f7d870822fe15a062a47ae906a7d46705a0cf1"
+        }
+      ]
+    },
+    {
+      "domain": "chemistry",
+      "minimum_n": 20,
+      "current_target_blind_row_total": 1,
+      "grand_eligible_row_total": 0,
+      "bounded_baseline_row_total": 1,
+      "candidate_pack_total": 0,
+      "valid_pack_total": 0,
+      "grand_toe_support_allowed": false,
+      "status": "BLOCKED_CURRENT_ROWS_ARE_BASELINE_ONLY",
+      "blockers": [
+        "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+        "CURRENT_TARGET_BLIND_ROWS_ARE_BOUNDED_BASELINE_NOT_GRAND_EVIDENCE",
+        "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+      ],
+      "baseline_rows": [
+        {
+          "claim_id": "OC133-TARGETBLIND-CHEMISTRY-001",
+          "domain": "chemistry",
+          "source_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-CHEMISTRY-001",
+          "dataset_snapshot_ref": "validation/_raw/chemistry_pubchem_water.txt",
+          "formula": "2*atomic_weight(H)+atomic_weight(O)",
+          "support_scope": "target-blind reconstruction of a held-out official snapshot field; not a novel chemistry law",
+          "prediction_support_allowed": true,
+          "empirical_support_allowed": true,
+          "grand_toe_support_allowed": false,
+          "grand_n_credit": 0,
+          "classification": "BOUNDED_BASELINE_NOT_GRAND_EVIDENCE",
+          "row_sha256": "c115a6d84fdad856976f60ad6d2fb4c9f9c397f994c7eafb09526f944004469d"
+        }
+      ]
+    }
+  ],
+  "explanation": [
+    "N<20: current physics/chemistry target-blind rows provide zero grand-eligible rows against the required minimum.",
+    "The current rows are bounded baseline reconstructions, not grand evidence.",
+    "No candidate evidence pack is emitted from these rows; valid_pack_total remains 0."
+  ],
+  "verdict": "BLOCKED_PENDING_GENUINE_PHYSICS_CHEMISTRY_EVIDENCE",
+  "report_sha256": "943dba6d9e7ebfc19a5b72d1716661183ad1f85c14187c5645231e8bc72969a9"
+}

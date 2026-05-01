@@ -1,0 +1,44 @@
+{
+  "schema_id": "OC133_BIOLOGY_MATH_TARGET_BLOCKERS_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "planner": "tools/oc133_biology_math_target_definition.py",
+  "target_definitions_ref": "validation/heldout/acquisition_plans/biology_math_targets/OC133_BIOLOGY_MATH_TARGET_DEFINITIONS.json",
+  "support_allowed": false,
+  "open_blocker_total": 6,
+  "open_blocker_ids": [
+    "BIOLOGY_API_PAGINATION_NOT_GRAND_EVIDENCE::API pagination is not grand evidence",
+    "N_BELOW_MINIMUM::biology::1/20::N<20",
+    "NO_SUPPORT_ALLOWED::biology::no support allowed",
+    "MATHEMATICS_PROOF_CORPUS_NOT_GRAND_EVIDENCE::proof corpus is not grand evidence",
+    "N_BELOW_MINIMUM::mathematics::1/20::N<20",
+    "NO_SUPPORT_ALLOWED::mathematics::no support allowed"
+  ],
+  "rows": [
+    {
+      "domain": "biology",
+      "target_id": "OC133-BIOLOGY-MATH-BIOLOGY-PAGINATION-001",
+      "support_allowed": false,
+      "blockers": [
+        "BIOLOGY_API_PAGINATION_NOT_GRAND_EVIDENCE::API pagination is not grand evidence",
+        "N_BELOW_MINIMUM::biology::1/20::N<20",
+        "NO_SUPPORT_ALLOWED::biology::no support allowed"
+      ]
+    },
+    {
+      "domain": "mathematics",
+      "target_id": "OC133-BIOLOGY-MATH-MATHEMATICS-PROOF-CORPUS-001",
+      "support_allowed": false,
+      "blockers": [
+        "MATHEMATICS_PROOF_CORPUS_NOT_GRAND_EVIDENCE::proof corpus is not grand evidence",
+        "N_BELOW_MINIMUM::mathematics::1/20::N<20",
+        "NO_SUPPORT_ALLOWED::mathematics::no support allowed"
+      ]
+    }
+  ],
+  "support_policy": "Current biology API pagination and mathematics proof-corpus aggregates are target definitions only: API pagination/proof corpus are not grand evidence, N<20, no support allowed.",
+  "no_send": true,
+  "publish_allowed": false,
+  "verdict": "BLOCKED_TARGET_DEFINITIONS_ONLY_NO_SUPPORT_ALLOWED",
+  "blocker_hash": "181020cead1b6fcd973ad350e6eb3df6e84c69f2dd17a2e55c2f03b9bb907db7"
+}

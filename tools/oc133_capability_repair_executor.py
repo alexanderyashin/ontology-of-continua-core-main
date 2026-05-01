@@ -400,6 +400,7 @@ def materialize_grand_science_program(profile: str) -> dict[str, Any]:
         ],
         "v12_grand_empirical_superiority_research_program": [
             [sys.executable, "tools/oc133_acquisition_planner_runner.py", "--write", "--allow-blocked-exit-zero"],
+            [sys.executable, "tools/oc133_harvester_runner.py", "--write", "--allow-blocked-exit-zero"],
             [sys.executable, "tools/oc133_domain_evidence_executor_runner.py", "--write", "--allow-blocked-exit-zero"],
             [sys.executable, "tools/oc133_grand_empirical_evidence_factory.py", "--allow-blocked-exit-zero"],
         ],

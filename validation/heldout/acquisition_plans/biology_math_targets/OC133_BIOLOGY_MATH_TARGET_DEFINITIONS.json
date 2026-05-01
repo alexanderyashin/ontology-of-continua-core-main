@@ -1,0 +1,150 @@
+{
+  "schema_id": "OC133_BIOLOGY_MATH_TARGET_DEFINITIONS_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "planner": "tools/oc133_biology_math_target_definition.py",
+  "capability_owner": "Research/EmpiricalScience",
+  "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+  "output_root_ref": "validation/heldout/acquisition_plans/biology_math_targets",
+  "artifact_refs": {
+    "target_definitions": "validation/heldout/acquisition_plans/biology_math_targets/OC133_BIOLOGY_MATH_TARGET_DEFINITIONS.json",
+    "blockers": "validation/heldout/acquisition_plans/biology_math_targets/OC133_BIOLOGY_MATH_TARGET_BLOCKERS.json",
+    "readme": "validation/heldout/acquisition_plans/biology_math_targets/README.md"
+  },
+  "input_refs": {
+    "biology_snapshot": "validation/_raw/biology_ncbi_geo_platform.txt",
+    "finite_checks": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+    "lean_certificate_optional": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json"
+  },
+  "minimum_n": 20,
+  "target_definition_total": 2,
+  "blocked_target_total": 2,
+  "support_allowed": false,
+  "open_blocker_total": 6,
+  "open_blocker_ids": [
+    "BIOLOGY_API_PAGINATION_NOT_GRAND_EVIDENCE::API pagination is not grand evidence",
+    "N_BELOW_MINIMUM::biology::1/20::N<20",
+    "NO_SUPPORT_ALLOWED::biology::no support allowed",
+    "MATHEMATICS_PROOF_CORPUS_NOT_GRAND_EVIDENCE::proof corpus is not grand evidence",
+    "N_BELOW_MINIMUM::mathematics::1/20::N<20",
+    "NO_SUPPORT_ALLOWED::mathematics::no support allowed"
+  ],
+  "target_definitions": [
+    {
+      "target_id": "OC133-BIOLOGY-MATH-BIOLOGY-PAGINATION-001",
+      "domain": "biology",
+      "target_kind": "api_pagination_replay",
+      "source_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+      "source_sha256": "f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4",
+      "source_byte_count": 525,
+      "source_assessment": {
+        "source_kind": "NCBI_GEO_ESearch_API_snapshot",
+        "grand_evidence": false,
+        "scope_statement": "API pagination is not grand evidence; this is a bounded retmax target definition."
+      },
+      "target_definition": {
+        "visible_fields": [
+          "esearchresult.retstart",
+          "esearchresult.idlist"
+        ],
+        "withheld_field": "esearchresult.retmax",
+        "formula": "retstart + len(idlist)",
+        "predicted_value": 20.0,
+        "observed_value": 20.0,
+        "comparator_baseline": "esearchresult.count total-hit count",
+        "comparator_prediction": 44008.0,
+        "residuals": {
+          "model": 0.0,
+          "comparator": 43988.0
+        },
+        "falsifier": "retmax differs from retstart plus returned id count"
+      },
+      "current_n": 1,
+      "minimum_n": 20,
+      "missing_n": 19,
+      "support_allowed": false,
+      "status": "BLOCKED_TARGET_DEFINITION_ONLY",
+      "blockers": [
+        "BIOLOGY_API_PAGINATION_NOT_GRAND_EVIDENCE::API pagination is not grand evidence",
+        "N_BELOW_MINIMUM::biology::1/20::N<20",
+        "NO_SUPPORT_ALLOWED::biology::no support allowed"
+      ]
+    },
+    {
+      "target_id": "OC133-BIOLOGY-MATH-MATHEMATICS-PROOF-CORPUS-001",
+      "domain": "mathematics",
+      "target_kind": "finite_proof_corpus_aggregate",
+      "source_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+      "source_sha256": "6cc852b04933d0f8a0dd8812733f09bd09491bde49d914e61a6c7548d8e95749",
+      "source_byte_count": 302918,
+      "source_assessment": {
+        "source_kind": "finite_lean_proof_corpus",
+        "grand_evidence": false,
+        "scope_statement": "proof corpus is not grand evidence; this is a bounded formal QA aggregate."
+      },
+      "finite_checks": {
+        "case_total": 146,
+        "positive_case_total": 21,
+        "machine_checked_subset_total": 10,
+        "unique_accepted_theorem_total": 10,
+        "lean_theorem_ref_total": 15,
+        "lean_build_returncode": 0,
+        "live_lean_build_returncode": 0,
+        "lean_source_ref": "formal/lean/OC133V12.lean",
+        "current_lean_source_sha256": "6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f",
+        "certificate_lean_source_sha256": "6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f"
+      },
+      "lean_certificate": {
+        "present": true,
+        "ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+        "sha256": "a15d9ebaf25bb5f600c816f317e75d6ed064d1ed0df925189376b7e7d3cafd12",
+        "execution_status": "EXECUTED_ISOLATED_CLEAN_BUILD",
+        "returncode": 0,
+        "clean_returncode": 0,
+        "theorem_ref_present_total": 10,
+        "theorem_ref_missing_total": 0,
+        "lean_source_ref": "formal/lean/OC133V12.lean",
+        "lean_source_sha256": "6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f",
+        "finite_checks_certificate_source_sha256": "6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f",
+        "finite_checks_current_source_sha256": "6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f",
+        "source_sha256_matches_finite_checks": true
+      },
+      "target_definition": {
+        "visible_fields": [
+          "rows.case_type",
+          "rows.observed_verdict",
+          "rows.passed",
+          "rows.theorem_id"
+        ],
+        "withheld_field": "machine_checked_subset_total",
+        "formula": "count_unique(theorem_id where case_type='theorem_case' and observed_verdict='ACCEPT' and passed=true)",
+        "predicted_value": 10.0,
+        "observed_value": 10.0,
+        "comparator_baseline": "positive_case_total",
+        "comparator_prediction": 21.0,
+        "residuals": {
+          "model": 0.0,
+          "comparator": 11.0
+        },
+        "falsifier": "accepted theorem aggregate differs from machine_checked_subset_total"
+      },
+      "current_n": 1,
+      "minimum_n": 20,
+      "missing_n": 19,
+      "support_allowed": false,
+      "status": "BLOCKED_TARGET_DEFINITION_ONLY",
+      "blockers": [
+        "MATHEMATICS_PROOF_CORPUS_NOT_GRAND_EVIDENCE::proof corpus is not grand evidence",
+        "N_BELOW_MINIMUM::mathematics::1/20::N<20",
+        "NO_SUPPORT_ALLOWED::mathematics::no support allowed"
+      ]
+    }
+  ],
+  "support_policy": "Current biology API pagination and mathematics proof-corpus aggregates are target definitions only: API pagination/proof corpus are not grand evidence, N<20, no support allowed.",
+  "no_send": true,
+  "publish_allowed": false,
+  "registry_write_allowed": false,
+  "verdict": "BLOCKED_TARGET_DEFINITIONS_ONLY_NO_SUPPORT_ALLOWED",
+  "target_definition_hash": "c648eec59540a7830f8a1aeaa760196a7408aac6b58b31ddf25dc843405f6434",
+  "blocker_hash": "181020cead1b6fcd973ad350e6eb3df6e84c69f2dd17a2e55c2f03b9bb907db7"
+}
