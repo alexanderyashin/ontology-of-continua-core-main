@@ -857,13 +857,25 @@ def _github_upload_assets(root: Path, profile: ReleaseProfile, token: str, relea
 
 
 def _github_update_topics(profile: ReleaseProfile, token: str) -> dict[str, Any]:
-    return _http_json(
-        "PUT",
-        _github_api_url(profile, "/topics"),
-        token=token,
-        payload={"names": profile.github_topics},
-        headers={"Accept": "application/vnd.github+json"},
-    )
+    try:
+        payload = _http_json(
+            "PUT",
+            _github_api_url(profile, "/topics"),
+            token=token,
+            payload={"names": profile.github_topics},
+            headers={"Accept": "application/vnd.github+json"},
+        )
+        payload["ok"] = True
+        return payload
+    except RuntimeError as exc:
+        if "HTTP 403" in str(exc):
+            return {
+                "ok": False,
+                "state": "TOPICS_UPDATE_BLOCKED_TOKEN_SCOPE",
+                "requested_topics": profile.github_topics,
+                "warning": "GitHub release body and Zenodo keywords contain the release keywords/hashtags; repository topic mutation requires a broader token scope.",
+            }
+        raise
 
 
 def _zenodo_token() -> str:
