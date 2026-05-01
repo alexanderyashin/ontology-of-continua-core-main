@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import hashlib
+import importlib.util
 import os
 from pathlib import Path
 import subprocess
@@ -19,6 +20,17 @@ from release_machine import publication
 from release_machine import versioning
 
 
+def _load_grand_science_loop_module():
+    root = complete.repo_root()
+    module_path = root / "tools" / "oc133_grand_science_research_loop.py"
+    spec = importlib.util.spec_from_file_location("oc133_grand_science_research_loop", module_path)
+    assert spec is not None
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
 class ReleaseMachineTests(unittest.TestCase):
     def _ensure_oc133_v12_surface(self) -> Path:
         root = complete.repo_root()
@@ -29,6 +41,75 @@ class ReleaseMachineTests(unittest.TestCase):
         path = root / rel_path
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+    def _write_grand_science_loop_fixture(self, root: Path) -> Path:
+        mission_dir = root / "operations" / "logion_release_mission" / "oc_core_1_3_3"
+        mission_dir.mkdir(parents=True, exist_ok=True)
+        obligations = [
+            {
+                "obligation_id": "OC133-GRAND-FORMAL-001",
+                "owner_capability": "Research/FormalScience",
+                "title": "Formal fixture",
+                "blocker_check": "grand_toe_claim_ledger_evidence",
+                "artifact_exists_is_not_closure": True,
+                "no_send": True,
+            },
+            {
+                "obligation_id": "OC133-GRAND-EMPIRICAL-001",
+                "owner_capability": "Research/EmpiricalScience",
+                "title": "Empirical fixture",
+                "blocker_check": "grand_toe_empirical_superiority",
+                "artifact_exists_is_not_closure": True,
+                "no_send": True,
+            },
+            {
+                "obligation_id": "OC133-GRAND-PRIORART-001",
+                "owner_capability": "Research/PriorArt",
+                "title": "Prior-art fixture",
+                "blocker_check": "modern_science_comparator_superiority",
+                "artifact_exists_is_not_closure": True,
+                "no_send": True,
+            },
+        ]
+        self._write_fixture_json(
+            root,
+            "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_RESEARCH_PROGRAM.json",
+            {
+                "schema_id": "OC133_GRAND_SCIENCE_RESEARCH_PROGRAM_v1",
+                "release_id": "oc_core_1_3_3",
+                "version": "1.3.3",
+                "blocker_ids": [
+                    "grand_toe_claim_ledger_evidence",
+                    "grand_toe_empirical_superiority",
+                    "modern_science_comparator_superiority",
+                ],
+                "checks": {
+                    "grand_toe_claim_ledger_evidence": {"state": "FAIL"},
+                    "grand_toe_empirical_superiority": {"state": "FAIL"},
+                    "modern_science_comparator_superiority": {"state": "FAIL"},
+                },
+                "all_obligations": obligations,
+                "no_send": True,
+                "publish_allowed": False,
+                "journal_submissions_allowed": False,
+            },
+        )
+        self._write_fixture_json(
+            root,
+            "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_READINESS_SCORECARD.json",
+            {
+                "blocker_ids": [
+                    "grand_toe_claim_ledger_evidence",
+                    "grand_toe_empirical_superiority",
+                    "modern_science_comparator_superiority",
+                ],
+                "all_domain_ready_no_send": False,
+                "no_send": True,
+                "publish_allowed": False,
+                "journal_submissions_allowed": False,
+            },
+        )
+        return mission_dir
 
     def _make_bounded_grand_ambition_fixture(self, root: Path) -> None:
         component_files = [
@@ -171,6 +252,45 @@ class ReleaseMachineTests(unittest.TestCase):
                     os.environ.pop(name, None)
                 else:
                     os.environ[name] = value
+
+    def test_oc133_grand_science_loop_round_robins_open_obligations(self) -> None:
+        module = _load_grand_science_loop_module()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._write_grand_science_loop_fixture(root)
+            calls: list[list[str]] = []
+
+            def fake_runner(cmd: list[str], timeout: int) -> dict:
+                calls.append(cmd)
+                return {"cmd": cmd, "returncode": 0, "stdout_tail": "", "stderr_tail": ""}
+
+            first = module.run_loop(root, max_obligations=1, runner=fake_runner)
+            second = module.run_loop(root, max_obligations=1, runner=fake_runner)
+
+            self.assertEqual(first["selected_obligation_ids"], ["OC133-GRAND-FORMAL-001"])
+            self.assertEqual(second["selected_obligation_ids"], ["OC133-GRAND-EMPIRICAL-001"])
+            self.assertEqual(first["next_cursor_obligation_id"], "OC133-GRAND-EMPIRICAL-001")
+            self.assertEqual(second["next_cursor_obligation_id"], "OC133-GRAND-PRIORART-001")
+            self.assertEqual(len(calls), 2)
+
+    def test_oc133_grand_science_loop_blocks_pass_while_all_domain_blockers_remain(self) -> None:
+        module = _load_grand_science_loop_module()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            mission_dir = self._write_grand_science_loop_fixture(root)
+
+            def fake_runner(cmd: list[str], timeout: int) -> dict:
+                return {"cmd": cmd, "returncode": 0, "stdout_tail": "profile PASS", "stderr_tail": ""}
+
+            result = module.run_loop(root, runner=fake_runner)
+
+            self.assertEqual(result["verdict"], "SCIENTIFIC_BLOCKERS_REMAIN")
+            self.assertEqual(result["all_domain_blocker_total_after"], 3)
+            self.assertFalse(result["publish_allowed"])
+            self.assertFalse(result["journal_submissions_allowed"])
+            self.assertTrue(result["no_send"])
+            self.assertTrue((mission_dir / "OC133_GRAND_SCIENCE_LOOP_STATE.json").exists())
+            self.assertTrue((mission_dir / "OC133_GRAND_SCIENCE_LOOP_latest.json").exists())
 
     def test_blocked_credentials_are_blocked(self) -> None:
         result = core.credential_gate_result("ZENODO_TOKEN", "")

@@ -401,6 +401,22 @@ def apply_profiles(orders: list[dict[str, Any]]) -> list[dict[str, Any]]:
         final_sync_result["role"] = "shared_generated_surface_sync_before_profile_checks"
         results.append(class_remediation_result)
         results.append(final_sync_result)
+        dependency_refresh_commands = [
+            ([sys.executable, "validation/target_blind/run_target_blind_predictions.py"], "v12_post_materializer_target_blind_refresh"),
+            ([sys.executable, "validation/run_all.py", "--qa-only"], "v12_post_materializer_validation_refresh"),
+            ([sys.executable, "validation/grand_science/run_grand_empirical_gate.py", "--allow-blocked-exit-zero"], "v12_post_materializer_grand_empirical_refresh"),
+            ([sys.executable, "benchmarks/modern_science/validate_modern_science_register.py"], "v12_post_materializer_modern_science_register_check"),
+            ([sys.executable, "tools/oc133_logion_all_domain_readiness.py", "--write"], "v12_post_materializer_all_domain_scorecard_refresh"),
+        ]
+        for cmd, profile_name in dependency_refresh_commands:
+            refresh_result = command(cmd, timeout=900)
+            refresh_result["profile"] = profile_name
+            refresh_result["capability_description"] = "Deterministic post-materializer dependency refresh so generated surfaces cannot leave target-blind, grand empirical, comparator, or all-domain scorecard artifacts stale."
+            refresh_result["role"] = "shared_generated_surface_dependency_refresh"
+            if profile_name == "v12_post_materializer_all_domain_scorecard_refresh" and refresh_result.get("returncode") == 2:
+                refresh_result["returncode"] = 0
+                refresh_result["scientific_blockers_preserved_without_command_failure"] = True
+            results.append(refresh_result)
     for profile in known_profiles:
         result = command([sys.executable, "tools/oc133_capability_repair_executor.py", "--profile", profile, "--work-order-file", str(WORK_ORDERS)], timeout=420)
         result["profile"] = profile
@@ -429,11 +445,14 @@ def apply_profiles(orders: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def focused_checks() -> list[dict[str, Any]]:
     return [
-        command([sys.executable, "-m", "py_compile", "tools/materialize_oc_core_1_3_3_v12_closure.py", "proofs/finite_model_checks/run_finite_model_checks.py", "tools/oc133_autonomous_research_loop.py", "tools/oc133_capability_repair_executor.py", "tools/oc133_vulnerability_class_remediator.py"], timeout=120),
+        command([sys.executable, "-m", "py_compile", "tools/materialize_oc_core_1_3_3_v12_closure.py", "proofs/finite_model_checks/run_finite_model_checks.py", "tools/oc133_autonomous_research_loop.py", "tools/oc133_capability_repair_executor.py", "tools/oc133_vulnerability_class_remediator.py", "validation/grand_science/run_grand_empirical_gate.py", "benchmarks/modern_science/validate_modern_science_register.py"], timeout=120),
         command([sys.executable, "tools/oc133_vulnerability_class_remediator.py"], timeout=120),
         command([sys.executable, "proofs/finite_model_checks/run_finite_model_checks.py"], timeout=120),
         command(["lake", "build", "OC133V12"], timeout=600),
+        command([sys.executable, "validation/target_blind/run_target_blind_predictions.py"], timeout=240),
         command([sys.executable, "validation/run_all.py", "--qa-only"], timeout=240),
+        command([sys.executable, "validation/grand_science/run_grand_empirical_gate.py", "--allow-blocked-exit-zero"], timeout=120),
+        command([sys.executable, "benchmarks/modern_science/validate_modern_science_register.py"], timeout=120),
         command([sys.executable, "-m", "unittest", "release_machine.tests.test_release_machine.ReleaseMachineTests.test_oc133_scientific_closure_gates_are_no_send"], timeout=240),
         command([sys.executable, "-m", "release_machine", "evaluate", "--release", "oc_core_1_3_3", "--channel", "all", "--mode", "dry-run"], timeout=240),
     ]

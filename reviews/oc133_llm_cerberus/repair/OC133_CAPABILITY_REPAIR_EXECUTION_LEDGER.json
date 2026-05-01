@@ -3,8 +3,8 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "profile_total": 18,
-  "pass_total": 18,
-  "fail_total": 0,
+  "pass_total": 15,
+  "fail_total": 3,
   "rows": [
     {
       "profile": "v12_all_domain_empirical_readiness_repair",
@@ -123,15 +123,28 @@
           "profile": "v12_grand_empirical_superiority_research_program",
           "program_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_RESEARCH_PROGRAM.json",
           "program_state": "RUNNING_SCIENTIFIC_BLOCKERS_REMAIN",
+          "profile_verification_commands": [
+            {
+              "cmd": [
+                "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+                "validation/grand_science/run_grand_empirical_gate.py",
+                "--allow-blocked-exit-zero"
+              ],
+              "returncode": 0,
+              "stdout_tail": "support_scope\": \"retrospective target-blind holdout over pinned WDI rows; not a prospective macroeconomic law\",\n      \"classification\": \"BOUNDED_BASELINE_NOT_GRAND_SUPPORT\"\n    },\n    {\n      \"evidence_pack_id\": \"OC133-TARGETBLIND-MATHEMATICS-001\",\n      \"domain\": \"mathematics\",\n      \"source_ref\": \"validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json\",\n      \"source_separation_mode\": \"target_blind\",\n      \"n\": 1,\n      \"model_under_test\": \"count_unique(theorem_id where case_type='theorem_case' and observed_verdict='ACCEPT' and passed=true)\",\n      \"comparator_baseline\": \"positive_case_total negative control, which counts non-theorem support rows too\",\n      \"uncertainty\": 0.0,\n      \"model_residual\": 0.0,\n      \"comparator_residual\": 11.0,\n      \"superiority_margin\": 11.0,\n      \"negative_control_rejected\": true,\n      \"falsifier\": \"Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse\",\n      \"grand_toe_support_allowed\": false,\n      \"support_scope\": \"target-blind reconstruction of a finite proof-corpus aggregate; not a TOE truth proof or empirical law\",\n      \"classification\": \"BOUNDED_BASELINE_NOT_GRAND_SUPPORT\"\n    }\n  ],\n  \"grand_toe_support_allowed\": false,\n  \"domain_predictive_superiority_supported\": false,\n  \"verdict\": \"BLOCKED_PENDING_GENUINE_PER_DOMAIN_EVIDENCE\",\n  \"support_policy\": \"A domain is unresolved unless an evidence pack demonstrates target-blind or prospective source separation, per-domain N at or above the configured minimum, comparator superiority, uncertainty, residuals, negative controls, and falsifiers. Existing OC133 target-blind rows are admissible only as bounded baseline evidence and do not permit grand TOE support.\",\n  \"no_fabricated_pass_policy\": \"This gate does not emit a grand empirical support allowance from bounded OC133 reconstructions. Unresolved domains remain BLOCKED until prospective or target-blind evidence packs clear the configured criteria.\"\n}\n",
+              "stderr_tail": ""
+            }
+          ],
+          "profile_verification_pass": true,
           "selected_obligation_total": 3,
           "all_domain_final_readiness_state": "SCIENTIFIC_BLOCKERS_REMAIN",
           "all_domain_ready_no_send": false,
           "scientific_closure_state": "NOT_CLOSED_UNTIL_EVIDENCE_PREDICATES_PASS",
-          "state": "PASS"
+          "state": "SCIENTIFIC_BLOCKERS_REMAIN"
         },
-        "state": "PASS"
+        "state": "SCIENTIFIC_BLOCKERS_REMAIN"
       },
-      "profile_verification_status": "PASS",
+      "profile_verification_status": "SCIENTIFIC_BLOCKERS_REMAIN",
       "no_send": true
     },
     {
@@ -144,15 +157,37 @@
           "profile": "v12_grand_formal_science_research_program",
           "program_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_RESEARCH_PROGRAM.json",
           "program_state": "RUNNING_SCIENTIFIC_BLOCKERS_REMAIN",
+          "profile_verification_commands": [
+            {
+              "cmd": [
+                "lake",
+                "build",
+                "OC133V12"
+              ],
+              "returncode": 0,
+              "stdout_tail": "Build completed successfully (3 jobs).\n",
+              "stderr_tail": ""
+            },
+            {
+              "cmd": [
+                "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+                "proofs/finite_model_checks/run_finite_model_checks.py"
+              ],
+              "returncode": 0,
+              "stdout_tail": "se_artifact\": false\n          },\n          {\n            \"channel\": \"software_heritage_deposit\",\n            \"artifact_kind\": \"reviewer_attack_map_pdf\",\n            \"artifact_identifier\": \"urn:oc-core:1.3.3:future-public-artifact:software_heritage_deposit:reviewer_attack_map_pdf\",\n            \"sha256_policy\": \"FUTURE_OWNER_APPROVED_ARTIFACT_DIGEST_REQUIRED\",\n            \"current_no_send_ref\": \"releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_REVIEWER_ATTACK_AND_RESPONSE_MAP_EN.pdf\",\n            \"current_no_send_ref_is_public_release_artifact\": false\n          },\n          {\n            \"channel\": \"journal_submission\",\n            \"artifact_kind\": \"journal_core_pdf\",\n            \"artifact_identifier\": \"urn:oc-core:1.3.3:future-public-artifact:journal_submission:journal_core_pdf\",\n            \"sha256_policy\": \"FUTURE_OWNER_APPROVED_ARTIFACT_DIGEST_REQUIRED\",\n            \"current_no_send_ref\": \"releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf\",\n            \"current_no_send_ref_is_public_release_artifact\": false\n          },\n          {\n            \"channel\": \"doi_minting\",\n            \"artifact_kind\": \"checksums_manifest\",\n            \"artifact_identifier\": \"urn:oc-core:1.3.3:future-public-artifact:doi_minting:checksums_manifest\",\n            \"sha256_policy\": \"FUTURE_OWNER_APPROVED_ARTIFACT_DIGEST_REQUIRED\",\n            \"current_no_send_ref\": \"checksums.txt\",\n            \"current_no_send_ref_is_public_release_artifact\": false\n          }\n        ]\n      },\n      \"negative_control_id\": \"ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL\",\n      \"semantic_evaluator_ref\": \"proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control\",\n      \"public_metadata_surface\": {\n        \"ok\": false,\n        \"checked_ref_total\": 0,\n        \"expected_ref_total\": 0,\n        \"failure_total\": 0,\n        \"failures\": [],\n        \"observed_refs\": []\n      },\n      \"observed_verdict\": \"REJECT_PUBLIC_ACTION\",\n      \"passed\": true\n    }\n  ]\n}\n",
+              "stderr_tail": ""
+            }
+          ],
+          "profile_verification_pass": true,
           "selected_obligation_total": 3,
           "all_domain_final_readiness_state": "SCIENTIFIC_BLOCKERS_REMAIN",
           "all_domain_ready_no_send": false,
           "scientific_closure_state": "NOT_CLOSED_UNTIL_EVIDENCE_PREDICATES_PASS",
-          "state": "PASS"
+          "state": "SCIENTIFIC_BLOCKERS_REMAIN"
         },
-        "state": "PASS"
+        "state": "SCIENTIFIC_BLOCKERS_REMAIN"
       },
-      "profile_verification_status": "PASS",
+      "profile_verification_status": "SCIENTIFIC_BLOCKERS_REMAIN",
       "no_send": true
     },
     {
@@ -247,8 +282,8 @@
     },
     {
       "profile": "v12_lean_certificate_repair",
-      "work_order_total": 8,
-      "work_order_hash": "078e5f475abfb124cbd3e28759857a94ce5b42fc078e6017512c952abd5e6b4d",
+      "work_order_total": 0,
+      "work_order_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
       "result": {
         "profile": "v12_lean_certificate_repair",
         "audit": {
@@ -305,15 +340,27 @@
           "profile": "v12_modern_science_comparator_research_program",
           "program_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_RESEARCH_PROGRAM.json",
           "program_state": "RUNNING_SCIENTIFIC_BLOCKERS_REMAIN",
+          "profile_verification_commands": [
+            {
+              "cmd": [
+                "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+                "benchmarks/modern_science/validate_modern_science_register.py"
+              ],
+              "returncode": 0,
+              "stdout_tail": "modern science superiority register remains source-backed and blocked\n",
+              "stderr_tail": ""
+            }
+          ],
+          "profile_verification_pass": true,
           "selected_obligation_total": 3,
           "all_domain_final_readiness_state": "SCIENTIFIC_BLOCKERS_REMAIN",
           "all_domain_ready_no_send": false,
           "scientific_closure_state": "NOT_CLOSED_UNTIL_EVIDENCE_PREDICATES_PASS",
-          "state": "PASS"
+          "state": "SCIENTIFIC_BLOCKERS_REMAIN"
         },
-        "state": "PASS"
+        "state": "SCIENTIFIC_BLOCKERS_REMAIN"
       },
-      "profile_verification_status": "PASS",
+      "profile_verification_status": "SCIENTIFIC_BLOCKERS_REMAIN",
       "no_send": true
     },
     {
@@ -368,7 +415,7 @@
               "validation/target_blind/run_target_blind_predictions.py"
             ],
             "returncode": 0,
-            "stdout_tail": "t\",\n      \"target_blind_split\": \"formula field is visible; MolecularWeight target is withheld until scoring\",\n      \"formula\": \"2*atomic_weight(H)+atomic_weight(O)\",\n      \"predicted_value\": 18.01528,\n      \"observed_value\": 18.015,\n      \"uncertainty\": 0.02,\n      \"comparator_baseline\": \"CO2 molecular-weight negative control against water target\",\n      \"comparator_prediction\": 44.0095,\n      \"residual\": 0.000280000000000058,\n      \"comparator_residual\": 25.994500000000002,\n      \"negative_control\": \"replace H2O by CO2 and require larger residual\",\n      \"negative_control_rejected\": true,\n      \"falsifier\": \"Residual exceeds declared uncertainty or CO2 control is not worse than formula reconstruction\",\n      \"prediction_support_allowed\": true,\n      \"empirical_support_allowed\": true,\n      \"support_scope\": \"target-blind reconstruction of a held-out official snapshot field; not a novel chemistry law\"\n    },\n    {\n      \"claim_id\": \"OC133-TARGETBLIND-SYSTEMS-001\",\n      \"lane\": \"systems\",\n      \"dataset_snapshot_ref\": \"validation/_raw/systems_world_bank_gdp.txt\",\n      \"target_blind_split\": \"2021-2023 train rows predict withheld 2024 World Bank WDI target\",\n      \"formula\": \"GDP_2023 + (GDP_2023-GDP_2021)/2\",\n      \"predicted_value\": 111042234099108.1,\n      \"observed_value\": 110982661180013.0,\n      \"uncertainty\": 1109826611800.1301,\n      \"comparator_baseline\": \"last-observation carry-forward GDP_2023\",\n      \"comparator_prediction\": 106741647821064.0,\n      \"residual\": 59572919095.09375,\n      \"comparator_residual\": 4241013358949.0,\n      \"negative_control\": \"last-observation baseline must have larger residual\",\n      \"negative_control_rejected\": true,\n      \"falsifier\": \"Held-out residual exceeds 1 percent of observed target or comparator is not worse\",\n      \"prediction_support_allowed\": true,\n      \"empirical_support_allowed\": true,\n      \"support_scope\": \"retrospective target-blind holdout over pinned WDI rows; not a prospective macroeconomic law\"\n    }\n  ]\n}\n",
+            "stdout_tail": "pective target-blind holdout over pinned WDI rows; not a prospective macroeconomic law\",\n      \"snapshot_sha256\": \"52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b\",\n      \"snapshot_sha256_policy\": \"LF_NORMALIZED_TEXT_SNAPSHOT_HASH\",\n      \"replay_hash\": \"778ffef9592179e6062fad4b770d02612408603c70455f734c423475ff704be4\",\n      \"replay_hash_policy\": \"sha256 over sorted JSON row before replay_hash insertion\"\n    },\n    {\n      \"claim_id\": \"OC133-TARGETBLIND-MATHEMATICS-001\",\n      \"lane\": \"mathematics\",\n      \"dataset_snapshot_ref\": \"proofs/FINITE_MODEL_CHECKS_1_3_3.json\",\n      \"target_blind_split\": \"finite theorem-case rows are visible; aggregate machine_checked_subset_total is withheld until scoring\",\n      \"formula\": \"count_unique(theorem_id where case_type='theorem_case' and observed_verdict='ACCEPT' and passed=true)\",\n      \"predicted_value\": 10.0,\n      \"observed_value\": 10.0,\n      \"uncertainty\": 0.0,\n      \"comparator_baseline\": \"positive_case_total negative control, which counts non-theorem support rows too\",\n      \"comparator_prediction\": 21.0,\n      \"residual\": 0.0,\n      \"comparator_residual\": 11.0,\n      \"negative_control\": \"replace theorem-id aggregate by positive_case_total and require a larger residual\",\n      \"negative_control_rejected\": true,\n      \"falsifier\": \"Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse\",\n      \"prediction_support_allowed\": true,\n      \"empirical_support_allowed\": true,\n      \"support_scope\": \"target-blind reconstruction of a finite proof-corpus aggregate; not a TOE truth proof or empirical law\",\n      \"snapshot_sha256\": \"4bce5978711dd0805dd8aff9a888a8e1354db365180e5db86518a7f441612a6a\",\n      \"snapshot_sha256_policy\": \"LF_NORMALIZED_TEXT_SNAPSHOT_HASH\",\n      \"replay_hash\": \"95b6512cefe378d6198c756feabb315110df5a30dd652196f0d9dd8ce4497fae\",\n      \"replay_hash_policy\": \"sha256 over sorted JSON row before replay_hash insertion\"\n    }\n  ]\n}\n",
             "stderr_tail": ""
           },
           "validation_command": {
@@ -379,7 +426,7 @@
               "--qa-only"
             ],
             "returncode": 0,
-            "stdout_tail": "nd\": \"replay_residual_not_comparator_performance\",\n          \"residual_matches\": true,\n          \"comparator_residual_matches\": true,\n          \"negative_control_residual\": 4241013358949.0,\n          \"negative_control_method\": \"remove or corrupt the latest WDI value and require replay parser failure\",\n          \"negative_control_rejected\": true,\n          \"prediction_support_allowed\": false,\n          \"empirical_support_allowed\": false,\n          \"replay_barred_from_prediction_support\": true,\n          \"quarantine_reason\": \"snapshot contains the target value; retrospective replay QA only, barred from prediction support\"\n        }\n      ]\n    }\n  ],\n  \"numeric_blocked_for_promotion_total\": 0,\n  \"empirical_promotion_disallowed_total\": 6,\n  \"numeric_quarantined_replay_qa_total\": 6,\n  \"domain_validation_promoted\": false,\n  \"broad_domain_validation_promoted\": false,\n  \"domain_validation_support_allowed\": false,\n  \"target_blind_bounded_reconstruction_support_present\": true,\n  \"heldout_prediction_support_present\": true,\n  \"scientific_validation_state\": \"TARGET_BLIND_HELDOUT_RECONSTRUCTION_PARTIAL_NO_SEND\",\n  \"scientific_validation_state_scope\": \"bounded target-blind reconstruction rows only; no broad domain validation and no TOE truth claim\",\n  \"release_gate_semantics\": \"Exit 0 means official-snapshot replay QA completed and no empirical promotion leaked; snapshot replay can never by itself become a domain-validation PASS.\",\n  \"cli_mode\": \"QA_ONLY\",\n  \"materialize_first_explicit\": true,\n  \"materialize_first_returncode\": 0,\n  \"canonical_clean_checkout_command_sequence\": [\n    \"python tools/materialize_oc_core_1_3_3_v12_closure.py\",\n    \"python validation/run_all.py --qa-only\"\n  ],\n  \"qa_only_zero_exit_allowed\": true,\n  \"validation_boundary\": \"Official-snapshot replay QA remains quarantined. Target-blind rows may support only bounded held-out reconstruction claims, not broad domain validation or novelty.\",\n  \"verdict\": \"TARGET_BLIND_HELDOUT_RECONSTRUCTION_PARTIAL_NO_SEND\"\n}\n",
+            "stdout_tail": "comparator_performance\",\n          \"residual_matches\": true,\n          \"comparator_residual_matches\": true,\n          \"negative_control_residual\": 4241013358949.0,\n          \"negative_control_method\": \"remove or corrupt the latest WDI value and require replay parser failure\",\n          \"negative_control_rejected\": true,\n          \"prediction_support_allowed\": false,\n          \"empirical_support_allowed\": false,\n          \"replay_barred_from_prediction_support\": true,\n          \"quarantine_reason\": \"snapshot contains the target value; retrospective replay QA only, barred from prediction support\"\n        }\n      ]\n    }\n  ],\n  \"numeric_blocked_for_promotion_total\": 0,\n  \"empirical_promotion_disallowed_total\": 6,\n  \"numeric_quarantined_replay_qa_total\": 6,\n  \"domain_validation_promoted\": false,\n  \"broad_domain_validation_promoted\": false,\n  \"domain_validation_support_allowed\": false,\n  \"target_blind_bounded_reconstruction_support_present\": true,\n  \"heldout_prediction_support_present\": true,\n  \"scientific_validation_state\": \"TARGET_BLIND_HELDOUT_RECONSTRUCTION_ALL_REQUIRED_DOMAINS_NO_SEND\",\n  \"scientific_validation_state_scope\": \"bounded target-blind reconstruction rows only; no broad domain validation and no TOE truth claim\",\n  \"release_gate_semantics\": \"Exit 0 means official-snapshot replay QA completed and no empirical promotion leaked; snapshot replay can never by itself become a domain-validation PASS.\",\n  \"cli_mode\": \"QA_ONLY\",\n  \"materialize_first_explicit\": true,\n  \"materialize_first_returncode\": 0,\n  \"canonical_clean_checkout_command_sequence\": [\n    \"python tools/materialize_oc_core_1_3_3_v12_closure.py\",\n    \"python validation/run_all.py --qa-only\"\n  ],\n  \"qa_only_zero_exit_allowed\": true,\n  \"validation_boundary\": \"Official-snapshot replay QA remains quarantined. Target-blind rows may support only bounded held-out reconstruction claims, not broad domain validation or novelty.\",\n  \"verdict\": \"TARGET_BLIND_HELDOUT_RECONSTRUCTION_ALL_REQUIRED_DOMAINS_NO_SEND\"\n}\n",
             "stderr_tail": ""
           },
           "predicate_checks": {

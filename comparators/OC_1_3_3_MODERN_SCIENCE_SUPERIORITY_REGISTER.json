@@ -1,0 +1,224 @@
+{
+  "schema_id": "OC133_MODERN_SCIENCE_SUPERIORITY_REGISTER_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "capability_owner": "Logion Research/PriorArt",
+  "register_policy": "Source-backed modern-science comparator and superiority register. It records incumbent capacity, OC evidence boundaries, concrete benchmark predicates, and blockers. It does not certify superiority unless evidence exists.",
+  "source_capsule_dir": "comparators/modern_science/source_capsules",
+  "benchmark_lanes_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json",
+  "row_total": 5,
+  "superiority_certified_total": 0,
+  "blocked_superiority_total": 5,
+  "current_release_state": "BLOCKED_NO_MODERN_SCIENCE_SUPERIORITY_CERTIFIED",
+  "release_blocker": "No lane has independent replay plus non-replay, non-curated-field, domain-relevant evidence sufficient to certify superiority over modern-science incumbents.",
+  "minimum_superiority_predicates": [
+    "primary_or_source_backed_incumbent_ref_present",
+    "oc_artifact_ref_present",
+    "heldout_or_prospective_split_declared",
+    "metric_and_uncertainty_declared_before_scoring",
+    "comparator_baseline_declared",
+    "negative_control_rejected",
+    "falsifier_declared",
+    "independent_replay_passes_from_clean_checkout",
+    "domain_relevance_exceeds_parser_or_curated_field_replay",
+    "claim_text_excludes_broad_or_incumbent-superiority_overclaim"
+  ],
+  "global_gate_predicates": {
+    "all_rows_have_source_refs": true,
+    "all_rows_have_benchmark_predicates": true,
+    "any_superiority_certified": false,
+    "current_release_must_remain_blocked": true,
+    "absence_or_single_source_absence_used_as_evidence": false
+  },
+  "rows": [
+    {
+      "row_id": "MS-SUP-PHYSICS-CONSTANTS",
+      "lane_id": "MS-LANE-PHYSICS-CONSTANTS",
+      "domain": "physics",
+      "incumbent_modern_science": "NIST/CODATA/SI fundamental constants reference standards",
+      "source_refs": [
+        {
+          "title": "NIST CODATA recommended values of the fundamental physical constants, 2022 adjustment",
+          "url": "https://physics.nist.gov/cuu/pdf/all.pdf",
+          "source_date": "2022",
+          "inspected_on": "2026-05-01",
+          "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-PHYS-CODATA-2022.txt",
+          "local_source_capsule_sha256": "121e451dfdaa13ff49e17b2bdb54b19e908d6fa4a890b2c857cc4eeaa6d1ace5"
+        }
+      ],
+      "accepted_incumbent_capacity": "NIST/CODATA publishes exact/reference physical constants, including c = 299792458 m s^-1.",
+      "oc_current_evidence_refs": [
+        "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-PHYSICS-001",
+        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-PHYS-C",
+        "validation/physics/VALIDATION_PACKET.json"
+      ],
+      "oc_current_evidence_boundary": "Bounded target-blind reconstruction and replay QA only; no new physics, no better constant source, no CODATA/SI superiority.",
+      "superiority_claim_status": "NOT_CERTIFIED",
+      "release_effect": "BLOCK_RELEASE_PROMOTION_FOR_SUPERIORITY",
+      "benchmark_predicate_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json::MS-PRED-PHYS-001",
+      "blocking_predicates": [
+        "independent_replay_passes_from_clean_checkout",
+        "domain_relevance_exceeds_exact_standard_replay"
+      ],
+      "allowed_current_wording": "OC has a bounded reconstruction lane over pinned constants; it does not outperform or replace modern physics reference standards.",
+      "forbidden_wording": [
+        "superior to modern physics",
+        "better than CODATA",
+        "new law of physics"
+      ]
+    },
+    {
+      "row_id": "MS-SUP-CHEMISTRY-WATER",
+      "lane_id": "MS-LANE-CHEMISTRY-WATER",
+      "domain": "chemistry",
+      "incumbent_modern_science": "NIST Chemistry WebBook and PubChem compound reference records",
+      "source_refs": [
+        {
+          "title": "NIST Chemistry WebBook, SRD 69, Water",
+          "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185",
+          "source_date": "reference",
+          "inspected_on": "2026-05-01",
+          "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-CHEM-NIST-WEBBOOK-H2O.txt",
+          "local_source_capsule_sha256": "9823217e20af0896d5aee0c1211a2f17a9e43f3f1c4d08a727d8633e8964e3c5"
+        },
+        {
+          "title": "PubChem compound record, Water, CID 962",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/962",
+          "source_date": "2026-04",
+          "inspected_on": "2026-05-01",
+          "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-CHEM-PUBCHEM-H2O.txt",
+          "local_source_capsule_sha256": "89980451bf51e4f62a01f958bf1bd650733fe1a6670e76bfad2c5ce67d12c823"
+        }
+      ],
+      "accepted_incumbent_capacity": "Curated chemical reference records provide water formula and molecular-weight fields.",
+      "oc_current_evidence_refs": [
+        "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-CHEMISTRY-001",
+        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-CHEM-H2O",
+        "validation/chemistry/VALIDATION_PACKET.json"
+      ],
+      "oc_current_evidence_boundary": "Bounded formula-field reconstruction and parser QA only; no chemical discovery, no database superiority.",
+      "superiority_claim_status": "NOT_CERTIFIED",
+      "release_effect": "BLOCK_RELEASE_PROMOTION_FOR_SUPERIORITY",
+      "benchmark_predicate_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json::MS-PRED-CHEM-001",
+      "blocking_predicates": [
+        "independent_replay_passes_from_clean_checkout",
+        "domain_relevance_exceeds_curated_field_reconstruction"
+      ],
+      "allowed_current_wording": "OC reconstructs a bounded water field under declared uncertainty; it does not outperform NIST WebBook, PubChem, or chemistry.",
+      "forbidden_wording": [
+        "superior to modern chemistry",
+        "better chemical reference than PubChem or NIST",
+        "new chemistry law"
+      ]
+    },
+    {
+      "row_id": "MS-SUP-BIOLOGY-GEO",
+      "lane_id": "MS-LANE-BIOLOGY-GEO",
+      "domain": "biology",
+      "incumbent_modern_science": "NCBI GEO public functional-genomics repository and query/data surfaces",
+      "source_refs": [
+        {
+          "title": "NCBI Gene Expression Omnibus overview and dataset documentation",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/info/overview.html",
+          "source_date": "reference",
+          "inspected_on": "2026-05-01",
+          "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-BIO-NCBI-GEO.txt",
+          "local_source_capsule_sha256": "ecb31bbe88815175df5e4c058dbbc8a030476339e1f12236b957754ef2855ae7"
+        }
+      ],
+      "accepted_incumbent_capacity": "GEO stores and exposes public high-throughput functional-genomics records with DataSet/Series/Sample/Platform organization.",
+      "oc_current_evidence_refs": [
+        "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-BIOLOGY-001",
+        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-BIO-GEO-COUNT",
+        "validation/biology/VALIDATION_PACKET.json"
+      ],
+      "oc_current_evidence_boundary": "Bounded API/query accounting reconstruction only; no biological mechanism or repository superiority.",
+      "superiority_claim_status": "NOT_CERTIFIED",
+      "release_effect": "BLOCK_RELEASE_PROMOTION_FOR_SUPERIORITY",
+      "benchmark_predicate_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json::MS-PRED-BIO-001",
+      "blocking_predicates": [
+        "independent_replay_passes_from_clean_checkout",
+        "biological_mechanism_test_present"
+      ],
+      "allowed_current_wording": "OC checks bounded GEO query accounting; it does not outperform modern biology or GEO.",
+      "forbidden_wording": [
+        "superior to modern biology",
+        "biological mechanism proven",
+        "better than GEO"
+      ]
+    },
+    {
+      "row_id": "MS-SUP-SYSTEMS-WDI-GDP",
+      "lane_id": "MS-LANE-SYSTEMS-WDI-GDP",
+      "domain": "systems",
+      "incumbent_modern_science": "World Bank World Development Indicators GDP current US dollar series and API metadata",
+      "source_refs": [
+        {
+          "title": "World Bank WDI metadata for NY.GDP.MKTP.CD",
+          "url": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/NY.GDP.MKTP.CD",
+          "source_date": "reference",
+          "inspected_on": "2026-05-01",
+          "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-SYS-WORLD-BANK-WDI.txt",
+          "local_source_capsule_sha256": "6477aaa3228fba4ab088b29a909465addce8f9ecbc6c662fa6f5962f279c4f40"
+        }
+      ],
+      "accepted_incumbent_capacity": "WDI provides annual GDP current-US-dollar indicator metadata and API access sourced from national accounts and statistical sources.",
+      "oc_current_evidence_refs": [
+        "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-SYSTEMS-001",
+        "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-SYS-WDI-GDP",
+        "validation/systems/VALIDATION_PACKET.json"
+      ],
+      "oc_current_evidence_boundary": "Bounded retrospective holdout over pinned rows only; no macroeconomic law or WDI/statistical-production superiority.",
+      "superiority_claim_status": "NOT_CERTIFIED",
+      "release_effect": "BLOCK_RELEASE_PROMOTION_FOR_SUPERIORITY",
+      "benchmark_predicate_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json::MS-PRED-SYS-001",
+      "blocking_predicates": [
+        "independent_replay_passes_from_clean_checkout",
+        "prospective_or_time-locked_protocol_present"
+      ],
+      "allowed_current_wording": "OC has a bounded retrospective WDI holdout lane; it does not outperform modern macroeconomic statistics.",
+      "forbidden_wording": [
+        "superior to modern economics",
+        "macroeconomic law proven",
+        "better than World Bank WDI"
+      ]
+    },
+    {
+      "row_id": "MS-SUP-MATHEMATICS-LEAN",
+      "lane_id": "MS-LANE-MATHEMATICS-LEAN-FINITE",
+      "domain": "mathematics",
+      "incumbent_modern_science": "Lean 4 theorem prover and formal mathematics ecosystem",
+      "source_refs": [
+        {
+          "title": "Lean 4 official site",
+          "url": "https://lean4.dev/",
+          "source_date": "reference",
+          "inspected_on": "2026-05-01",
+          "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-MATH-LEAN4.txt",
+          "local_source_capsule_sha256": "827b10594ad2c190b6911395f50c819825b9177a2352456e98a0c0ab615427a0"
+        }
+      ],
+      "accepted_incumbent_capacity": "Lean 4 is an interactive theorem prover and programming language for verified programs and formal mathematics.",
+      "oc_current_evidence_refs": [
+        "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-MATHEMATICS-001"
+      ],
+      "oc_current_evidence_boundary": "Bounded local finite proof-corpus QA and release-consistency only; no theorem-prover or formal-mathematics superiority.",
+      "superiority_claim_status": "NOT_CERTIFIED",
+      "release_effect": "BLOCK_RELEASE_PROMOTION_FOR_SUPERIORITY",
+      "benchmark_predicate_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json::MS-PRED-MATH-001",
+      "blocking_predicates": [
+        "independent_replay_passes_from_clean_checkout",
+        "machine_checked_theorem_scope_matches_public_claim"
+      ],
+      "allowed_current_wording": "OC uses bounded formal and finite witness artifacts; it does not outperform Lean or formal mathematics.",
+      "forbidden_wording": [
+        "superior to modern mathematics",
+        "better theorem prover than Lean",
+        "formal mathematics surpassed"
+      ]
+    }
+  ]
+}

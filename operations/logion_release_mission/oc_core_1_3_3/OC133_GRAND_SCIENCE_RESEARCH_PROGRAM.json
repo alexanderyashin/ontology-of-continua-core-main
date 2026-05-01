@@ -7,9 +7,8 @@
   "program_state": "RUNNING_SCIENTIFIC_BLOCKERS_REMAIN",
   "all_domain_final_readiness_state": "SCIENTIFIC_BLOCKERS_REMAIN",
   "all_domain_ready_no_send": false,
-  "bounded_all_domain_ready_no_send": false,
+  "bounded_all_domain_ready_no_send": true,
   "blocker_ids": [
-    "all_domain_empirical_predictions",
     "grand_toe_claim_ledger_evidence",
     "grand_toe_empirical_superiority",
     "modern_science_comparator_superiority"
@@ -125,6 +124,18 @@
       "no_send": true
     }
   ],
+  "profile_verification_commands": [
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "benchmarks/modern_science/validate_modern_science_register.py"
+      ],
+      "returncode": 0,
+      "stdout_tail": "modern science superiority register remains source-backed and blocked\n",
+      "stderr_tail": ""
+    }
+  ],
+  "profile_verification_pass": true,
   "checks": {
     "grand_toe_claim_ledger_evidence": {
       "state": "FAIL",
@@ -238,20 +249,125 @@
         "systems",
         "mathematics"
       ],
+      "grand_empirical_report_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
+      "grand_empirical_report_exists": true,
+      "grand_empirical_verdict": "BLOCKED_PENDING_GENUINE_PER_DOMAIN_EVIDENCE",
+      "grand_empirical_blocked_domain_total": 5,
+      "grand_empirical_evidence_pack_total": 0,
+      "grand_empirical_supported_domains": [],
+      "grand_empirical_missing_domains": [
+        "physics",
+        "chemistry",
+        "biology",
+        "systems",
+        "mathematics"
+      ],
+      "grand_empirical_domain_results": {
+        "biology": {
+          "domain": "biology",
+          "registered_pack_total": 0,
+          "valid_pack_total": 0,
+          "valid_n": 0,
+          "minimum_n": 20,
+          "bounded_baseline_row_total": 1,
+          "bounded_baseline_refs": [
+            "OC133-TARGETBLIND-BIOLOGY-001"
+          ],
+          "grand_toe_support_allowed": false,
+          "status": "BLOCKED",
+          "blockers": [
+            "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+            "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK"
+          ]
+        },
+        "chemistry": {
+          "domain": "chemistry",
+          "registered_pack_total": 0,
+          "valid_pack_total": 0,
+          "valid_n": 0,
+          "minimum_n": 20,
+          "bounded_baseline_row_total": 1,
+          "bounded_baseline_refs": [
+            "OC133-TARGETBLIND-CHEMISTRY-001"
+          ],
+          "grand_toe_support_allowed": false,
+          "status": "BLOCKED",
+          "blockers": [
+            "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+            "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK"
+          ]
+        },
+        "mathematics": {
+          "domain": "mathematics",
+          "registered_pack_total": 0,
+          "valid_pack_total": 0,
+          "valid_n": 0,
+          "minimum_n": 20,
+          "bounded_baseline_row_total": 1,
+          "bounded_baseline_refs": [
+            "OC133-TARGETBLIND-MATHEMATICS-001"
+          ],
+          "grand_toe_support_allowed": false,
+          "status": "BLOCKED",
+          "blockers": [
+            "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+            "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+            "CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE"
+          ]
+        },
+        "physics": {
+          "domain": "physics",
+          "registered_pack_total": 0,
+          "valid_pack_total": 0,
+          "valid_n": 0,
+          "minimum_n": 20,
+          "bounded_baseline_row_total": 1,
+          "bounded_baseline_refs": [
+            "OC133-TARGETBLIND-PHYSICS-001"
+          ],
+          "grand_toe_support_allowed": false,
+          "status": "BLOCKED",
+          "blockers": [
+            "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+            "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK"
+          ]
+        },
+        "systems": {
+          "domain": "systems",
+          "registered_pack_total": 0,
+          "valid_pack_total": 0,
+          "valid_n": 0,
+          "minimum_n": 20,
+          "bounded_baseline_row_total": 1,
+          "bounded_baseline_refs": [
+            "OC133-TARGETBLIND-SYSTEMS-001"
+          ],
+          "grand_toe_support_allowed": false,
+          "status": "BLOCKED",
+          "blockers": [
+            "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+            "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK"
+          ]
+        }
+      },
       "bounded_target_blind_rows_visible_not_final": 5,
       "target_blind_generated_by": "LOGION_CAPABILITY_WORKER",
       "target_blind_capability_owner": "Research/EmpiricalScience",
       "blocker": "Grand all-domain claims require target-blind or held-out predictive evidence that beats a comparator baseline in every required domain; mere artifact existence is not enough.",
-      "required_evidence_layer": "Each per-domain empirical row must explicitly set grand_toe_support_allowed, broad_domain_validation_support_allowed, or modern_science_superiority_support_allowed after target-blind/held-out scoring beats the comparator."
+      "required_evidence_layer": "Each per-domain empirical row must explicitly set grand_toe_support_allowed after target-blind/held-out scoring beats the comparator, and the strict grand empirical report must clear every required domain."
     },
     "modern_science_comparator_superiority": {
       "state": "FAIL",
       "requested_ambition_level": "numerically proven TOE across all domains and better than modern science",
       "register_ref": "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
-      "register_exists": false,
+      "register_exists": true,
+      "schema_id": "OC133_MODERN_SCIENCE_SUPERIORITY_REGISTER_v1",
       "claim_classes": null,
-      "superiority_claim_allowed": null,
-      "failure_total": null,
+      "current_release_state": "BLOCKED_NO_MODERN_SCIENCE_SUPERIORITY_CERTIFIED",
+      "superiority_claim_allowed": false,
+      "failure_total": 0,
+      "superiority_certified_total": 0,
+      "blocked_superiority_total": 5,
       "certified_domains": [],
       "missing_certified_domains": [
         "physics",
@@ -264,7 +380,7 @@
     },
     "broad_domain_validation_promotion_guard": {
       "state": "PASS",
-      "broad_domain_validation_promoted": null,
+      "broad_domain_validation_promoted": false,
       "stronger_grand_science_evidence_exists": false,
       "stronger_evidence_components": {
         "claim_ledger": false,

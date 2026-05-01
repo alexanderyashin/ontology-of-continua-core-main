@@ -1,0 +1,122 @@
+{
+  "schema_id": "OC133_GRAND_SCIENCE_LOOP_RUN_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "mode": "execute",
+  "program_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_RESEARCH_PROGRAM.json",
+  "state_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_LOOP_STATE.json",
+  "all_domain_scorecard_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_READINESS_SCORECARD.json",
+  "selected_obligation_total": 3,
+  "selected_obligation_ids": [
+    "OC133-GRAND-FORMAL-001",
+    "OC133-GRAND-EMPIRICAL-001",
+    "OC133-GRAND-PRIORART-001"
+  ],
+  "next_cursor_obligation_id": "OC133-GRAND-FORMAL-001",
+  "blocker_ids_before": [
+    "grand_toe_claim_ledger_evidence",
+    "grand_toe_empirical_superiority",
+    "modern_science_comparator_superiority"
+  ],
+  "blocker_ids_after": [
+    "grand_toe_claim_ledger_evidence",
+    "grand_toe_empirical_superiority",
+    "modern_science_comparator_superiority"
+  ],
+  "all_domain_blocker_total_after": 3,
+  "command_fail_total": 0,
+  "blocked_obligation_total": 3,
+  "rows": [
+    {
+      "obligation_id": "OC133-GRAND-FORMAL-001",
+      "owner_capability": "Research/FormalScience",
+      "title": "Prove the dedicated grand TOE/all-domain claim or keep it unpromoted",
+      "blocker_check": "grand_toe_claim_ledger_evidence",
+      "profile": "v12_grand_formal_science_research_program",
+      "action": "execute",
+      "action_state": "COMMAND_PASS",
+      "execution_state": "BLOCKED",
+      "before_check_state": "FAIL",
+      "after_check_state": "FAIL",
+      "blocker_still_present": true,
+      "closure_predicate_satisfied": false,
+      "artifact_exists_is_not_closure": true,
+      "command": {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_capability_repair_executor.py",
+          "--profile",
+          "v12_grand_formal_science_research_program"
+        ],
+        "returncode": 0,
+        "stdout_tail": "{\n  \"profile\": \"v12_grand_formal_science_research_program\",\n  \"state\": \"SCIENTIFIC_BLOCKERS_REMAIN\",\n  \"ledger_ref\": \"reviews/oc133_llm_cerberus/repair/OC133_CAPABILITY_REPAIR_EXECUTION_LEDGER.json\",\n  \"work_order_total\": 1\n}\n",
+        "stderr_tail": ""
+      },
+      "no_send": true,
+      "publish_allowed": false,
+      "journal_submissions_allowed": false
+    },
+    {
+      "obligation_id": "OC133-GRAND-EMPIRICAL-001",
+      "owner_capability": "Research/EmpiricalScience",
+      "title": "Produce strict per-domain predictive superiority evidence",
+      "blocker_check": "grand_toe_empirical_superiority",
+      "profile": "v12_grand_empirical_superiority_research_program",
+      "action": "execute",
+      "action_state": "COMMAND_PASS",
+      "execution_state": "BLOCKED",
+      "before_check_state": "FAIL",
+      "after_check_state": "FAIL",
+      "blocker_still_present": true,
+      "closure_predicate_satisfied": false,
+      "artifact_exists_is_not_closure": true,
+      "command": {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_capability_repair_executor.py",
+          "--profile",
+          "v12_grand_empirical_superiority_research_program"
+        ],
+        "returncode": 0,
+        "stdout_tail": "{\n  \"profile\": \"v12_grand_empirical_superiority_research_program\",\n  \"state\": \"SCIENTIFIC_BLOCKERS_REMAIN\",\n  \"ledger_ref\": \"reviews/oc133_llm_cerberus/repair/OC133_CAPABILITY_REPAIR_EXECUTION_LEDGER.json\",\n  \"work_order_total\": 1\n}\n",
+        "stderr_tail": ""
+      },
+      "no_send": true,
+      "publish_allowed": false,
+      "journal_submissions_allowed": false
+    },
+    {
+      "obligation_id": "OC133-GRAND-PRIORART-001",
+      "owner_capability": "Research/PriorArt",
+      "title": "Certify superiority against modern-science comparator baselines",
+      "blocker_check": "modern_science_comparator_superiority",
+      "profile": "v12_modern_science_comparator_research_program",
+      "action": "execute",
+      "action_state": "COMMAND_PASS",
+      "execution_state": "BLOCKED",
+      "before_check_state": "FAIL",
+      "after_check_state": "FAIL",
+      "blocker_still_present": true,
+      "closure_predicate_satisfied": false,
+      "artifact_exists_is_not_closure": true,
+      "command": {
+        "cmd": [
+          "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+          "tools/oc133_capability_repair_executor.py",
+          "--profile",
+          "v12_modern_science_comparator_research_program"
+        ],
+        "returncode": 0,
+        "stdout_tail": "{\n  \"profile\": \"v12_modern_science_comparator_research_program\",\n  \"state\": \"SCIENTIFIC_BLOCKERS_REMAIN\",\n  \"ledger_ref\": \"reviews/oc133_llm_cerberus/repair/OC133_CAPABILITY_REPAIR_EXECUTION_LEDGER.json\",\n  \"work_order_total\": 1\n}\n",
+        "stderr_tail": ""
+      },
+      "no_send": true,
+      "publish_allowed": false,
+      "journal_submissions_allowed": false
+    }
+  ],
+  "verdict": "SCIENTIFIC_BLOCKERS_REMAIN",
+  "no_send": true,
+  "publish_allowed": false,
+  "journal_submissions_allowed": false
+}

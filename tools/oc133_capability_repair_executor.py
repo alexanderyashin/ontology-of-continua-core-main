@@ -45,7 +45,22 @@ def rel(path: Path) -> str:
 
 
 def command(cmd: list[str], *, timeout: int = 300) -> dict[str, Any]:
-    completed = subprocess.run(cmd, cwd=ROOT, text=True, encoding="utf-8", errors="replace", capture_output=True, timeout=timeout)
+    try:
+        completed = subprocess.run(cmd, cwd=ROOT, text=True, encoding="utf-8", errors="replace", capture_output=True, timeout=timeout)
+    except FileNotFoundError as exc:
+        return {
+            "cmd": cmd,
+            "returncode": 127,
+            "stdout_tail": "",
+            "stderr_tail": str(exc),
+        }
+    except subprocess.TimeoutExpired as exc:
+        return {
+            "cmd": cmd,
+            "returncode": 124,
+            "stdout_tail": (exc.stdout or "")[-2000:] if isinstance(exc.stdout, str) else "",
+            "stderr_tail": (exc.stderr or "")[-2000:] if isinstance(exc.stderr, str) else "",
+        }
     return {
         "cmd": cmd,
         "returncode": completed.returncode,
@@ -374,6 +389,23 @@ def _grand_science_obligation(
 
 
 def materialize_grand_science_program(profile: str) -> dict[str, Any]:
+    verification_commands_by_profile = {
+        "v12_grand_formal_science_research_program": [
+            ["lake", "build", "OC133V12"],
+            [sys.executable, "proofs/finite_model_checks/run_finite_model_checks.py"],
+        ],
+        "v12_grand_empirical_superiority_research_program": [
+            [sys.executable, "validation/grand_science/run_grand_empirical_gate.py", "--allow-blocked-exit-zero"],
+        ],
+        "v12_modern_science_comparator_research_program": [
+            [sys.executable, "benchmarks/modern_science/validate_modern_science_register.py"],
+        ],
+    }
+    verification_commands = verification_commands_by_profile.get(profile, [])
+    verification_results = [
+        command(cmd, timeout=900 if cmd and cmd[0] == "lake" else 300)
+        for cmd in verification_commands
+    ]
     audit = oc133_platinum.all_domain_readiness_audit(ROOT, oc133_platinum.content_closure_audit(ROOT))
     checks = audit.get("checks", {})
     obligations = [
@@ -437,6 +469,8 @@ def materialize_grand_science_program(profile: str) -> dict[str, Any]:
         "selected_obligation_total": len(selected),
         "obligations": selected,
         "all_obligations": obligations,
+        "profile_verification_commands": verification_results,
+        "profile_verification_pass": all(row.get("returncode") == 0 for row in verification_results),
         "checks": {
             key: checks.get(key, {})
             for key in (
@@ -451,15 +485,19 @@ def materialize_grand_science_program(profile: str) -> dict[str, Any]:
         "journal_submissions_allowed": False,
     }
     write_json(GRAND_SCIENCE_PROGRAM, payload)
+    verification_pass = all(row.get("returncode") == 0 for row in verification_results)
+    state = "FAIL" if not verification_pass else "SCIENTIFIC_BLOCKERS_REMAIN" if selected else "PASS"
     return {
         "profile": profile,
         "program_ref": rel(GRAND_SCIENCE_PROGRAM),
         "program_state": payload["program_state"],
+        "profile_verification_commands": verification_results,
+        "profile_verification_pass": verification_pass,
         "selected_obligation_total": len(selected),
         "all_domain_final_readiness_state": audit.get("final_readiness_state"),
         "all_domain_ready_no_send": audit.get("all_domain_ready_no_send"),
         "scientific_closure_state": "NOT_CLOSED_UNTIL_EVIDENCE_PREDICATES_PASS",
-        "state": "PASS",
+        "state": state,
     }
 
 
@@ -622,7 +660,12 @@ def main() -> int:
     result = check_profile(args.profile)
     row = update_profile_ledger(args.profile, work_orders, result)
     print(json.dumps({"profile": args.profile, "state": result.get("state"), "ledger_ref": rel(PROFILE_LEDGER), "work_order_total": len(work_orders)}, ensure_ascii=False, indent=2))
-    return 0 if row["profile_verification_status"] == "PASS" else 1
+    # A scientific blocker is a successful capability execution with a negative
+    # research verdict. The caller must keep the obligation open, but should not
+    # classify the executor itself as broken.
+    if row["profile_verification_status"] in {"PASS", "SCIENTIFIC_BLOCKERS_REMAIN"}:
+        return 0
+    return 1
 
 
 if __name__ == "__main__":

@@ -17,6 +17,7 @@ ALL_DOMAIN_STATE_RUNNING = "OC_CORE_1_3_3_ALL_DOMAIN_SCIENTIFIC_READINESS_RUNNIN
 ALL_DOMAIN_READY_STATE = "ALL_DOMAIN_READY_NO_SEND"
 REQUIRED_EMPIRICAL_DOMAINS = ("physics", "chemistry", "biology", "systems", "mathematics")
 MODERN_SCIENCE_COMPARATOR_REGISTER_REL = "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json"
+GRAND_EMPIRICAL_REPORT_REL = "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json"
 GRAND_SCIENCE_CLAIM_CLASSES = (
     "numerically_proven_toe",
     "all_domain_numerical_prediction",
@@ -320,6 +321,8 @@ def _grand_science_toe_ambition_audit(
 ) -> dict[str, dict[str, Any]]:
     validation = read_json(root / "reports" / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json")
     target = read_json(root / "validation" / "target_blind" / "OC133_TARGET_BLIND_PREDICTION_TABLE.json")
+    grand_empirical_report_path = root / GRAND_EMPIRICAL_REPORT_REL
+    grand_empirical_report = read_json(grand_empirical_report_path)
     comparator_register_path = root / MODERN_SCIENCE_COMPARATOR_REGISTER_REL
     comparator_register = read_json(comparator_register_path)
     claim_rows = claims.get("rows", []) if isinstance(claims.get("rows"), list) else []
@@ -410,23 +413,66 @@ def _grand_science_toe_ambition_audit(
         for domain in REQUIRED_EMPIRICAL_DOMAINS
         if not per_domain_superiority.get(domain, {}).get("passes_strict_predictive_superiority")
     ]
+    grand_empirical_domains = (
+        grand_empirical_report.get("domains", [])
+        if isinstance(grand_empirical_report.get("domains"), list)
+        else []
+    )
+    grand_empirical_domain_results = {
+        str(row.get("domain")): row
+        for row in grand_empirical_domains
+        if isinstance(row, dict) and row.get("domain")
+    }
+    grand_empirical_supported_domains = sorted(
+        domain
+        for domain, row in grand_empirical_domain_results.items()
+        if row.get("grand_toe_support_allowed") is True
+        and str(row.get("status", "")).upper() != "BLOCKED"
+    )
+    missing_grand_empirical_domains = [
+        domain
+        for domain in REQUIRED_EMPIRICAL_DOMAINS
+        if domain not in grand_empirical_supported_domains
+    ]
+    grand_empirical_ok = (
+        grand_empirical_report_path.exists()
+        and grand_empirical_report.get("release_id") == RELEASE_ID
+        and grand_empirical_report.get("grand_toe_support_allowed") is True
+        and int(grand_empirical_report.get("blocked_domain_total", 1) or 0) == 0
+        and all(domain in grand_empirical_supported_domains for domain in REQUIRED_EMPIRICAL_DOMAINS)
+    )
 
     comparator_rows = comparator_register.get("rows", []) if isinstance(comparator_register.get("rows"), list) else []
     certified_domains = sorted({
         str(row.get("domain"))
         for row in comparator_rows
-        if row.get("modern_science_comparator_present") is True
-        and row.get("superiority_certified") is True
-        and row.get("benchmark_ref")
-        and row.get("oc_result_ref")
-        and row.get("comparator_result_ref")
+        if (
+            row.get("superiority_certified") is True
+            or str(row.get("superiority_claim_status", "")).upper() in {"CERTIFIED", "SUPERIORITY_CERTIFIED"}
+        )
+        and (row.get("modern_science_comparator_present") is True or row.get("source_refs"))
+        and (row.get("benchmark_ref") or row.get("benchmark_predicate_ref"))
+        and (row.get("oc_result_ref") or row.get("oc_result_refs") or row.get("oc_current_evidence_refs"))
+        and (row.get("comparator_result_ref") or row.get("comparator_result_refs") or row.get("source_refs"))
     })
+    comparator_blocked_total = int(comparator_register.get("blocked_superiority_total", 1) or 0)
+    comparator_certified_total = int(comparator_register.get("superiority_certified_total", 0) or 0)
+    comparator_failure_total = int(comparator_register.get("failure_total", 0) or 0)
+    comparator_claim_allowed = (
+        comparator_register.get("superiority_claim_allowed") is True
+        or comparator_register.get("release_promotion_allowed") is True
+        or str(comparator_register.get("current_release_state", "")).upper() in {
+            "CERTIFIED_MODERN_SCIENCE_SUPERIORITY",
+            "SUPERIORITY_CERTIFIED",
+        }
+    )
     comparator_ok = (
         comparator_register_path.exists()
         and comparator_register.get("release_id") == RELEASE_ID
-        and comparator_register.get("claim_classes") == list(GRAND_SCIENCE_CLAIM_CLASSES)
-        and comparator_register.get("superiority_claim_allowed") is True
-        and comparator_register.get("failure_total") == 0
+        and comparator_claim_allowed
+        and comparator_failure_total == 0
+        and comparator_blocked_total == 0
+        and comparator_certified_total >= len(REQUIRED_EMPIRICAL_DOMAINS)
         and all(domain in certified_domains for domain in REQUIRED_EMPIRICAL_DOMAINS)
     )
 
@@ -437,7 +483,7 @@ def _grand_science_toe_ambition_audit(
         and theorem_inventory.get("machine_checked_subset_total") == theorem_inventory.get("theorem_total")
         and theorem_inventory.get("scientific_promotion_allowed_total", 0) > 0
     )
-    empirical_superiority_ok = not missing_superiority_domains
+    empirical_superiority_ok = not missing_superiority_domains and grand_empirical_ok
     stronger_evidence_ok = claim_ledger_ok and empirical_superiority_ok and comparator_ok
     broad_promoted = validation.get("broad_domain_validation_promoted") is True
     broad_guard_ok = broad_promoted is False or stronger_evidence_ok
@@ -463,20 +509,32 @@ def _grand_science_toe_ambition_audit(
             "required_domains": list(REQUIRED_EMPIRICAL_DOMAINS),
             "strict_domain_results": per_domain_superiority,
             "missing_or_not_superior_domains": missing_superiority_domains,
+            "grand_empirical_report_ref": GRAND_EMPIRICAL_REPORT_REL,
+            "grand_empirical_report_exists": grand_empirical_report_path.exists(),
+            "grand_empirical_verdict": grand_empirical_report.get("verdict"),
+            "grand_empirical_blocked_domain_total": grand_empirical_report.get("blocked_domain_total"),
+            "grand_empirical_evidence_pack_total": grand_empirical_report.get("evidence_pack_total"),
+            "grand_empirical_supported_domains": grand_empirical_supported_domains,
+            "grand_empirical_missing_domains": missing_grand_empirical_domains,
+            "grand_empirical_domain_results": grand_empirical_domain_results,
             "bounded_target_blind_rows_visible_not_final": len(target_rows),
             "target_blind_generated_by": target.get("generated_by"),
             "target_blind_capability_owner": target.get("capability_owner"),
             "blocker": "Grand all-domain claims require target-blind or held-out predictive evidence that beats a comparator baseline in every required domain; mere artifact existence is not enough.",
-            "required_evidence_layer": "Each per-domain empirical row must explicitly set grand_toe_support_allowed, broad_domain_validation_support_allowed, or modern_science_superiority_support_allowed after target-blind/held-out scoring beats the comparator.",
+            "required_evidence_layer": "Each per-domain empirical row must explicitly set grand_toe_support_allowed after target-blind/held-out scoring beats the comparator, and the strict grand empirical report must clear every required domain.",
         },
         "modern_science_comparator_superiority": {
             "state": _state(comparator_ok),
             "requested_ambition_level": GRAND_SCIENCE_REQUESTED_AMBITION,
             "register_ref": MODERN_SCIENCE_COMPARATOR_REGISTER_REL,
             "register_exists": comparator_register_path.exists(),
+            "schema_id": comparator_register.get("schema_id"),
             "claim_classes": comparator_register.get("claim_classes"),
-            "superiority_claim_allowed": comparator_register.get("superiority_claim_allowed"),
-            "failure_total": comparator_register.get("failure_total"),
+            "current_release_state": comparator_register.get("current_release_state"),
+            "superiority_claim_allowed": comparator_claim_allowed,
+            "failure_total": comparator_failure_total,
+            "superiority_certified_total": comparator_certified_total,
+            "blocked_superiority_total": comparator_blocked_total,
             "certified_domains": certified_domains,
             "missing_certified_domains": [domain for domain in REQUIRED_EMPIRICAL_DOMAINS if domain not in certified_domains],
             "blocker": "Claims that OC predicts better than modern science require a modern-science comparator/benchmark register certifying superiority for every required domain.",

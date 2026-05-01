@@ -1,0 +1,204 @@
+{
+  "schema_id": "OC133_GRAND_EMPIRICAL_REPORT_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_by": "validation/grand_science/run_grand_empirical_gate.py",
+  "capability_owner": "Research/EmpiricalScience",
+  "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+  "schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
+  "heldout_registry_ref": "validation/heldout/grand_science_evidence_registry.json",
+  "bounded_baseline_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+  "evidence_pack_total": 0,
+  "bounded_baseline_row_total": 5,
+  "registry_failure_total": 0,
+  "registry_failures": [],
+  "evidence_pack_failure_total": 0,
+  "evidence_pack_failures": {},
+  "domain_total": 5,
+  "blocked_domain_total": 5,
+  "domains": [
+    {
+      "domain": "biology",
+      "registered_pack_total": 0,
+      "valid_pack_total": 0,
+      "valid_n": 0,
+      "minimum_n": 20,
+      "bounded_baseline_row_total": 1,
+      "bounded_baseline_refs": [
+        "OC133-TARGETBLIND-BIOLOGY-001"
+      ],
+      "grand_toe_support_allowed": false,
+      "status": "BLOCKED",
+      "blockers": [
+        "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+        "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK"
+      ]
+    },
+    {
+      "domain": "chemistry",
+      "registered_pack_total": 0,
+      "valid_pack_total": 0,
+      "valid_n": 0,
+      "minimum_n": 20,
+      "bounded_baseline_row_total": 1,
+      "bounded_baseline_refs": [
+        "OC133-TARGETBLIND-CHEMISTRY-001"
+      ],
+      "grand_toe_support_allowed": false,
+      "status": "BLOCKED",
+      "blockers": [
+        "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+        "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK"
+      ]
+    },
+    {
+      "domain": "mathematics",
+      "registered_pack_total": 0,
+      "valid_pack_total": 0,
+      "valid_n": 0,
+      "minimum_n": 20,
+      "bounded_baseline_row_total": 1,
+      "bounded_baseline_refs": [
+        "OC133-TARGETBLIND-MATHEMATICS-001"
+      ],
+      "grand_toe_support_allowed": false,
+      "status": "BLOCKED",
+      "blockers": [
+        "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+        "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+        "CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE"
+      ]
+    },
+    {
+      "domain": "physics",
+      "registered_pack_total": 0,
+      "valid_pack_total": 0,
+      "valid_n": 0,
+      "minimum_n": 20,
+      "bounded_baseline_row_total": 1,
+      "bounded_baseline_refs": [
+        "OC133-TARGETBLIND-PHYSICS-001"
+      ],
+      "grand_toe_support_allowed": false,
+      "status": "BLOCKED",
+      "blockers": [
+        "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+        "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK"
+      ]
+    },
+    {
+      "domain": "systems",
+      "registered_pack_total": 0,
+      "valid_pack_total": 0,
+      "valid_n": 0,
+      "minimum_n": 20,
+      "bounded_baseline_row_total": 1,
+      "bounded_baseline_refs": [
+        "OC133-TARGETBLIND-SYSTEMS-001"
+      ],
+      "grand_toe_support_allowed": false,
+      "status": "BLOCKED",
+      "blockers": [
+        "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+        "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK"
+      ]
+    }
+  ],
+  "bounded_baseline_rows": [
+    {
+      "evidence_pack_id": "OC133-TARGETBLIND-PHYSICS-001",
+      "domain": "physics",
+      "source_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+      "source_separation_mode": "target_blind",
+      "n": 1,
+      "model_under_test": "Planck_constant * speed_of_light",
+      "comparator_baseline": "unit-incompatible Planck-constant-only negative control",
+      "uncertainty": 1e-33,
+      "model_residual": 1.4892870576445277e-35,
+      "comparator_residual": 1.9864458503739297e-25,
+      "superiority_margin": 1.986445850225001e-25,
+      "negative_control_rejected": true,
+      "falsifier": "Residual exceeds display-truncation tolerance or Planck-only control is not worse",
+      "grand_toe_support_allowed": false,
+      "support_scope": "target-blind reconstruction of a held-out CODATA relationship from exact defining constants; not a novel physics law",
+      "classification": "BOUNDED_BASELINE_NOT_GRAND_SUPPORT"
+    },
+    {
+      "evidence_pack_id": "OC133-TARGETBLIND-CHEMISTRY-001",
+      "domain": "chemistry",
+      "source_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+      "source_separation_mode": "target_blind",
+      "n": 1,
+      "model_under_test": "2*atomic_weight(H)+atomic_weight(O)",
+      "comparator_baseline": "CO2 molecular-weight negative control against water target",
+      "uncertainty": 0.02,
+      "model_residual": 0.000280000000000058,
+      "comparator_residual": 25.994500000000002,
+      "superiority_margin": 25.994220000000002,
+      "negative_control_rejected": true,
+      "falsifier": "Residual exceeds declared uncertainty or CO2 control is not worse than formula reconstruction",
+      "grand_toe_support_allowed": false,
+      "support_scope": "target-blind reconstruction of a held-out official snapshot field; not a novel chemistry law",
+      "classification": "BOUNDED_BASELINE_NOT_GRAND_SUPPORT"
+    },
+    {
+      "evidence_pack_id": "OC133-TARGETBLIND-BIOLOGY-001",
+      "domain": "biology",
+      "source_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+      "source_separation_mode": "target_blind",
+      "n": 1,
+      "model_under_test": "retstart + len(idlist)",
+      "comparator_baseline": "use total hit count as pagination-size negative control",
+      "uncertainty": 0.0,
+      "model_residual": 0.0,
+      "comparator_residual": 43988.0,
+      "superiority_margin": 43988.0,
+      "negative_control_rejected": true,
+      "falsifier": "Retmax differs from retstart plus returned id count or total-count control is not worse",
+      "grand_toe_support_allowed": false,
+      "support_scope": "target-blind reconstruction of a held-out NCBI/GEO API snapshot field; not a biological mechanism law",
+      "classification": "BOUNDED_BASELINE_NOT_GRAND_SUPPORT"
+    },
+    {
+      "evidence_pack_id": "OC133-TARGETBLIND-SYSTEMS-001",
+      "domain": "systems",
+      "source_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+      "source_separation_mode": "target_blind",
+      "n": 1,
+      "model_under_test": "GDP_2023 + (GDP_2023-GDP_2021)/2",
+      "comparator_baseline": "last-observation carry-forward GDP_2023",
+      "uncertainty": 1109826611800.1301,
+      "model_residual": 59572919095.09375,
+      "comparator_residual": 4241013358949.0,
+      "superiority_margin": 4181440439853.9062,
+      "negative_control_rejected": true,
+      "falsifier": "Held-out residual exceeds 1 percent of observed target or comparator is not worse",
+      "grand_toe_support_allowed": false,
+      "support_scope": "retrospective target-blind holdout over pinned WDI rows; not a prospective macroeconomic law",
+      "classification": "BOUNDED_BASELINE_NOT_GRAND_SUPPORT"
+    },
+    {
+      "evidence_pack_id": "OC133-TARGETBLIND-MATHEMATICS-001",
+      "domain": "mathematics",
+      "source_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+      "source_separation_mode": "target_blind",
+      "n": 1,
+      "model_under_test": "count_unique(theorem_id where case_type='theorem_case' and observed_verdict='ACCEPT' and passed=true)",
+      "comparator_baseline": "positive_case_total negative control, which counts non-theorem support rows too",
+      "uncertainty": 0.0,
+      "model_residual": 0.0,
+      "comparator_residual": 11.0,
+      "superiority_margin": 11.0,
+      "negative_control_rejected": true,
+      "falsifier": "Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse",
+      "grand_toe_support_allowed": false,
+      "support_scope": "target-blind reconstruction of a finite proof-corpus aggregate; not a TOE truth proof or empirical law",
+      "classification": "BOUNDED_BASELINE_NOT_GRAND_SUPPORT"
+    }
+  ],
+  "grand_toe_support_allowed": false,
+  "domain_predictive_superiority_supported": false,
+  "verdict": "BLOCKED_PENDING_GENUINE_PER_DOMAIN_EVIDENCE",
+  "support_policy": "A domain is unresolved unless an evidence pack demonstrates target-blind or prospective source separation, per-domain N at or above the configured minimum, comparator superiority, uncertainty, residuals, negative controls, and falsifiers. Existing OC133 target-blind rows are admissible only as bounded baseline evidence and do not permit grand TOE support.",
+  "no_fabricated_pass_policy": "This gate does not emit a grand empirical support allowance from bounded OC133 reconstructions. Unresolved domains remain BLOCKED until prospective or target-blind evidence packs clear the configured criteria."
+}
