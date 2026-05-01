@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -581,6 +582,26 @@ def sync_plan(sync_requested: bool, bad_commands: list[dict[str, Any]]) -> tuple
     return False, SYNC_REASON_REQUESTED
 
 
+def short_temp_parent() -> Path | None:
+    """Use a short temp parent so Windows path length cannot skew replay.
+
+    Several held-out evidence refs are intentionally long.  Under the default
+    Windows temp root, a detached worktree can exceed legacy MAX_PATH limits,
+    making normal Path.exists checks report false and producing bogus package
+    member mismatches.  A short parent keeps the verifier about science and
+    packaging, not host path trivia.
+    """
+    override = os.environ.get("OC133_REPRO_TEMP_ROOT")
+    if override:
+        parent = Path(override)
+    elif os.name == "nt":
+        parent = Path(os.environ.get("SystemDrive", "C:") + "\\oc133tmp")
+    else:
+        return None
+    parent.mkdir(parents=True, exist_ok=True)
+    return parent
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Verify OC Core 1.3.3 post-generation reproducibility from immutable HEAD.")
     parser.add_argument(
@@ -649,7 +670,8 @@ def main() -> int:
         previous_manifest_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
         print(json.dumps(payload, ensure_ascii=False, indent=2))
         return 1
-    with tempfile.TemporaryDirectory(prefix="oc133_repro_verify_") as tmp:
+    temp_parent = short_temp_parent()
+    with tempfile.TemporaryDirectory(prefix="r_", dir=str(temp_parent) if temp_parent else None) as tmp:
         temp_root = Path(tmp) / "repo"
         try:
             copied_source_refs = extract_head_sources(temp_root)
