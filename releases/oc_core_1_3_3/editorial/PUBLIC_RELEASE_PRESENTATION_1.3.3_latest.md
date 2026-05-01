@@ -39,7 +39,7 @@ The eight journal packages are included as owner-review-ready no-send material. 
 
 ## Zenodo
 
-DOI: Pending until Zenodo publication completes
+DOI: 10.5281/zenodo.19956748
 
 Concept DOI: 10.5281/zenodo.17899134
 

@@ -72,6 +72,9 @@ def main(argv: list[str] | None = None) -> int:
     publish.add_argument("--execute", action="store_true")
     publish.add_argument("--channel", action="append", default=[])
 
+    publish_resume = sub.add_parser("publish-resume")
+    publish_resume.add_argument("--release-id", default=None)
+
     approve = sub.add_parser("owner-approve")
     approve.add_argument("--release-id", default=None)
     approve.add_argument("--owner-identity", default="Alexander Yashin")
@@ -174,6 +177,11 @@ def main(argv: list[str] | None = None) -> int:
             payload["dry_run"] = bool(args.dry_run)
             payload["execute_requested"] = bool(args.execute)
             payload["publish_allowed"] = False
+    elif args.command == "publish-resume":
+        if release_id == oc133.RELEASE_ID:
+            payload = public_release.resume_github_after_zenodo(public_release.repo_root(), release_id=release_id)
+        else:
+            raise ValueError(f"publish-resume is not implemented for {release_id}")
     elif args.command == "owner-approve":
         if release_id == oc133.RELEASE_ID:
             payload = public_release.grant_owner_approval(public_release.repo_root(), release_id=release_id, owner_identity=args.owner_identity)

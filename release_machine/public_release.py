@@ -476,8 +476,8 @@ def _zenodo_record(record_id: str) -> dict[str, Any]:
 
 
 def _tokens_ok() -> dict[str, Any]:
-    gh = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
-    zen = os.environ.get("ZENODO_ACCESS_TOKEN") or os.environ.get("ZENODO_TOKEN")
+    gh = (os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or "").strip()
+    zen = (os.environ.get("ZENODO_ACCESS_TOKEN") or os.environ.get("ZENODO_TOKEN") or "").strip()
     return {
         "github_token_present": bool(gh),
         "zenodo_production_token_present": bool(zen),
@@ -760,8 +760,9 @@ def _http_json(method: str, url: str, *, token: str | None = None, payload: Any 
     if payload is not None:
         data = json.dumps(payload).encode("utf-8")
         request_headers["Content-Type"] = "application/json"
-    if token:
-        request_headers["Authorization"] = f"Bearer {token}"
+    clean_token = token.strip() if token else ""
+    if clean_token:
+        request_headers["Authorization"] = f"Bearer {clean_token}"
     request = urllib.request.Request(url, data=data, headers=request_headers, method=method)
     try:
         with urllib.request.urlopen(request, timeout=180) as response:
@@ -774,8 +775,9 @@ def _http_json(method: str, url: str, *, token: str | None = None, payload: Any 
 
 def _http_upload(method: str, url: str, *, token: str | None = None, data: bytes, content_type: str) -> dict[str, Any]:
     headers = {"Content-Type": content_type, "Accept": "application/json"}
-    if token:
-        headers["Authorization"] = f"Bearer {token}"
+    clean_token = token.strip() if token else ""
+    if clean_token:
+        headers["Authorization"] = f"Bearer {clean_token}"
     request = urllib.request.Request(url, data=data, headers=headers, method=method)
     try:
         with urllib.request.urlopen(request, timeout=600) as response:
@@ -865,7 +867,7 @@ def _github_update_topics(profile: ReleaseProfile, token: str) -> dict[str, Any]
 
 
 def _zenodo_token() -> str:
-    token = os.environ.get("ZENODO_ACCESS_TOKEN") or os.environ.get("ZENODO_TOKEN")
+    token = (os.environ.get("ZENODO_ACCESS_TOKEN") or os.environ.get("ZENODO_TOKEN") or "").strip()
     if not token:
         raise RuntimeError("ZENODO_ACCESS_TOKEN or ZENODO_TOKEN is required for production Zenodo publication.")
     return token
@@ -949,7 +951,7 @@ def publish_execute(root: Path, *, release_id: str) -> dict[str, Any]:
         write=True,
     )
 
-    github_token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    github_token = (os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or "").strip()
     if not github_token:
         raise RuntimeError("GITHUB_TOKEN or GH_TOKEN is required for GitHub Release publication.")
     github_release = _github_create_or_update_release(profile, github_token, metadata["release_body"])
@@ -1021,6 +1023,104 @@ def publish_execute(root: Path, *, release_id: str) -> dict[str, Any]:
     return report
 
 
+def resume_github_after_zenodo(root: Path, *, release_id: str) -> dict[str, Any]:
+    profile = load_profile(root, release_id)
+    status = _git_status(root)
+    if status:
+        raise RuntimeError(f"Working tree must be clean before publication recovery: {status}")
+    tag_state = _git_tag_exists(root, profile.tag)
+    if not tag_state["local_exists"] or not tag_state["remote_exists"]:
+        raise RuntimeError(f"Cannot resume GitHub publication; tag {profile.tag} is not present locally and remotely.")
+    editorial = editorial_root(root, profile)
+    presentation = _read_json(editorial / f"PUBLIC_RELEASE_PRESENTATION_{profile.version}_latest.json", {})
+    zenodo_doi = presentation.get("zenodo_doi")
+    zenodo_record_url = presentation.get("zenodo_record_url")
+    if not zenodo_doi or not zenodo_record_url:
+        raise RuntimeError("Cannot resume GitHub publication; Zenodo DOI/record URL is missing from public release presentation.")
+    github_token = (os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or "").strip()
+    if not github_token:
+        raise RuntimeError("GITHUB_TOKEN or GH_TOKEN is required for GitHub Release publication.")
+    metadata = build_public_metadata(
+        root,
+        profile,
+        zenodo_doi=zenodo_doi,
+        zenodo_record_url=zenodo_record_url,
+        write=False,
+    )
+    github_release = _github_create_or_update_release(profile, github_token, metadata["release_body"])
+    uploaded_assets = _github_upload_assets(root, profile, github_token, github_release)
+    topics = _github_update_topics(profile, github_token)
+    github_url = github_release.get("html_url") or f"https://github.com/{profile.repository}/releases/tag/{profile.tag}"
+    metadata = build_public_metadata(
+        root,
+        profile,
+        zenodo_doi=zenodo_doi,
+        zenodo_record_url=zenodo_record_url,
+        github_release_url=github_url,
+        write=True,
+    )
+    now = _utc_timestamp()
+    tag_object = _run(root, ["git", "rev-parse", profile.tag], timeout=60).stdout.strip()
+    tag_commit = _run(root, ["git", "rev-parse", f"{profile.tag}^{{}}"], timeout=60).stdout.strip()
+    report = {
+        "schema_id": "LOGION_PUBLICATION_EXECUTION_REPORT_v1",
+        "release_id": profile.release_id,
+        "version": profile.version,
+        "tag": profile.tag,
+        "recovery_mode": "RESUME_GITHUB_AFTER_ZENODO",
+        "tag_result": {
+            "tag": profile.tag,
+            "tag_sha": tag_object,
+            "tag_commit": tag_commit,
+            "remote_tag_present": tag_state["remote_exists"],
+        },
+        "github_release_url": github_url,
+        "github_release_id": github_release.get("id"),
+        "github_uploaded_assets": uploaded_assets,
+        "github_topics": topics,
+        "zenodo_record_url": zenodo_record_url,
+        "zenodo_record_id": str(zenodo_record_url).rstrip("/").split("/")[-1],
+        "zenodo_doi": zenodo_doi,
+        "asset_checksums": _asset_records(root, profile),
+        "publication_timestamp": now,
+        "journal_submissions_allowed": False,
+        "software_heritage_deposit_allowed": False,
+    }
+    _write_json(editorial / f"PUBLICATION_EXECUTION_REPORT_{profile.version}_latest.json", report)
+    _write_text(
+        editorial / f"PUBLICATION_EXECUTION_REPORT_{profile.version}_latest.md",
+        f"# Public Release Execution Report\n\nRelease: `{profile.release_id}` v{profile.version}\n\nGitHub: {github_url}\n\nZenodo: {zenodo_record_url}\n\nDOI: {zenodo_doi}\n\nRecovery mode: resume GitHub after successful Zenodo publication.\n\nJournal submissions: locked.\n",
+    )
+
+    approval_path = editorial / f"OWNER_RELEASE_APPROVAL_v{profile.version}.json"
+    approval = _read_json(approval_path, {})
+    approval.update(
+        {
+            "published": True,
+            "publication_timestamp": now,
+            "github_release_url": github_url,
+            "zenodo_record_url": zenodo_record_url,
+            "zenodo_doi": zenodo_doi,
+            "journal_submissions_allowed": False,
+        }
+    )
+    _write_json(approval_path, approval)
+    manifest_path = editorial / f"OC_CORE_{profile.version.replace('.', '_')}_PUBLISH_MANIFEST_DRAFT.json"
+    manifest = _read_json(manifest_path, {})
+    manifest.update(
+        {
+            "published": True,
+            "publication_timestamp": now,
+            "github_release_url": github_url,
+            "zenodo_record_url": zenodo_record_url,
+            "zenodo_doi": zenodo_doi,
+            "journal_submissions_allowed": False,
+        }
+    )
+    _write_json(manifest_path, manifest)
+    return report
+
+
 def _github_release_verify(profile: ReleaseProfile, token: str) -> dict[str, Any]:
     release = _github_get_release(profile, token)
     if not release:
@@ -1059,7 +1159,7 @@ def postflight(root: Path, *, release_id: str) -> dict[str, Any]:
     profile = load_profile(root, release_id)
     editorial = editorial_root(root, profile)
     report = _read_json(editorial / f"PUBLICATION_EXECUTION_REPORT_{profile.version}_latest.json", {})
-    github_token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    github_token = (os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or "").strip()
     if not github_token:
         raise RuntimeError("GITHUB_TOKEN or GH_TOKEN is required for postflight.")
     github = _github_release_verify(profile, github_token)
