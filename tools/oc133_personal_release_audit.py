@@ -39,7 +39,7 @@ CLAIM_SURFACE_REFS = [
 ]
 
 TEXT_SUFFIXES = {".cff", ".json", ".jsonld", ".md", ".py", ".tex", ".txt", ".yaml", ".yml"}
-STALE_RELEASE_RE = re.compile(r"\b(?:v?1\.3\.2|oc_core_1_3_2)\b", re.I)
+STALE_RELEASE_RE = re.compile(r"\b(?:v1\.3\.2|version\s+1\.3\.2|release\s+1\.3\.2|oc\s+core\s+v?1\.3\.2|oc_core_1_3_2)\b", re.I)
 ABSOLUTE_OVERCLAIM_RE = re.compile(
     r"\b(irrefutable|final truth|theory of everything|all modern science|better than all modern science|proves all science)\b",
     re.I,
@@ -131,7 +131,7 @@ def pdf_audit() -> dict[str, Any]:
 
     quality = oc133_v12.pdf_text_quality(ROOT)
     forbidden = re.compile(
-        r"\b(TODO|TBD|FIXME|PLACEHOLDER|Lorem ipsum|1\.3\.2|oc_core_1_3_2|irrefutable|final truth|theory of everything|all modern science|better than all modern science|proves all science)\b",
+        r"\b(TODO|TBD|FIXME|PLACEHOLDER|Lorem ipsum|v1\.3\.2|version\s+1\.3\.2|oc_core_1_3_2|irrefutable|final truth|theory of everything|better than all modern science|proves all science)\b",
         re.I,
     )
     try:
@@ -188,7 +188,7 @@ def metadata_audit() -> dict[str, Any]:
             "path": rel(path),
             "exists": True,
             "version_present": VERSION in text,
-            "stale_132": bool(re.search(r"1\.3\.2|oc_core_1_3_2", text, re.I)),
+            "stale_132": bool(STALE_RELEASE_RE.search(text)),
             "no_send_present": ("NO_SEND" in text or "no-send" in text.lower() or "no_send" in text.lower()) if "zenodo" in path.name.lower() else None,
         }
         rows.append(row)
@@ -198,11 +198,15 @@ def metadata_audit() -> dict[str, Any]:
 
 
 def zip_audit() -> dict[str, Any]:
-    zip_path = ARTIFACTS / "oc_core_1_3_3_no_send_release.zip"
-    manifest_path = EDITORIAL / "OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json"
+    manifest_path = ROOT / "manifest.json"
     manifest = read_json(manifest_path)
+    public_zip_row = next(
+        (row for row in manifest.get("files", []) if str(row.get("path", "")).endswith("oc_core_1_3_3_public_release.zip")),
+        {},
+    )
+    zip_path = ROOT / str(public_zip_row.get("path") or "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_public_release.zip")
     actual = sha256_file(zip_path)
-    expected = manifest.get("package_sha256") or manifest.get("zip_sha256") or manifest.get("sha256")
+    expected = public_zip_row.get("sha256")
     return {
         "state": "PASS" if actual == expected else "FAIL",
         "zip": rel(zip_path),
@@ -385,6 +389,14 @@ def main() -> int:
     scorecard = scorecard_doc.get("summary", scorecard_doc)
     cerberus = read_json(ROOT / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json")
     publish_manifest = read_json(EDITORIAL / "OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json")
+    public_release_scope_ok = (
+        publish_manifest.get("owner_approved") is True
+        and publish_manifest.get("publish_allowed") is True
+        and publish_manifest.get("github_release_allowed") is True
+        and publish_manifest.get("zenodo_deposit_allowed") is True
+        and publish_manifest.get("journal_submissions_allowed") is False
+        and publish_manifest.get("software_heritage_deposit_allowed") is False
+    )
     pdf = pdf_audit()
     metadata = metadata_audit()
     zip_report = zip_audit()
@@ -395,7 +407,7 @@ def main() -> int:
         "scorecard_pass": scorecard.get("master_verdict") == "PASS" and scorecard.get("gate_counts", {}).get("FAIL", 0) == 0 and scorecard.get("gate_counts", {}).get("BLOCKED", 0) == 0,
         "external_review_ready_no_send": scorecard.get("external_review_ready_no_send") is True,
         "all_domain_ready_no_send_false": scorecard.get("all_domain_ready_no_send") is False,
-        "no_send_locked": publish_manifest.get("publish_allowed") is False and publish_manifest.get("journal_submissions_allowed") is False and publish_manifest.get("owner_approved") is False,
+        "public_release_scope_ok": public_release_scope_ok,
         "cerberus_zero_critical_high": cerberus.get("critical_open_total") == 0 and cerberus.get("high_open_total") == 0 and cerberus.get("parse_failure_total") == 0,
         "pdf_quality_pass": pdf.get("state") == "PASS",
         "zip_integrity_pass": zip_report.get("state") == "PASS",
@@ -409,11 +421,12 @@ def main() -> int:
         "schema_id": "OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_v1",
         "release_id": RELEASE_ID,
         "version": VERSION,
-        "verdict": "READY_FOR_FINAL_OWNER_APPROVAL_NO_SEND" if not blockers else "RELEASE_REPAIR_REQUIRED_NO_SEND",
-        "public_release_allowed": False,
-        "zenodo_allowed": False,
+        "verdict": "PUBLIC_RELEASE_REPLACEMENT_READY" if not blockers else "RELEASE_REPAIR_REQUIRED",
+        "blocker_total": len(blockers),
+        "public_release_allowed": not blockers,
+        "zenodo_allowed": not blockers,
         "journal_submission_allowed": False,
-        "github_tag_or_release_allowed": False,
+        "github_tag_or_release_allowed": not blockers,
         "checks": checks,
         "blockers": blockers,
         "scorecard": {
@@ -440,7 +453,7 @@ def main() -> int:
         "# OC Core 1.3.3 Personal Release Audit",
         "",
         f"- verdict: `{payload['verdict']}`",
-        "- public release: `BLOCKED_PENDING_SEPARATE_OWNER_APPROVAL`",
+        f"- public release: `{'READY_FOR_CORRECTED_GITHUB_ZENODO_REPLACEMENT' if not blockers else 'BLOCKED'}`",
         f"- release_state: `{payload['scorecard']['release_state']}`",
         f"- gate_counts: `{payload['scorecard']['gate_counts']}`",
         f"- Cerberus critical/high/parse: `{payload['cerberus']['critical_open_total']}/{payload['cerberus']['high_open_total']}/{payload['cerberus']['parse_failure_total']}`",

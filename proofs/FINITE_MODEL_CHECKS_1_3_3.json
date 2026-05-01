@@ -3,13 +3,13 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "runner": "proofs/finite_model_checks/run_finite_model_checks.py",
-  "runner_sha256": "78aeaafe3c64dc26ffa4984c95e6cd28b8f77ed0ef4c9fdc99dd583fd38724fa",
+  "runner_sha256": "876eca892b3b691beef7453f609df004b5c96d85ba2d6c5d247791d657a09644",
   "input_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
-  "input_sha256": "bdb7cc7f2fe68497487a9d3a6eda677ed8cb4b71a2776a917d896aed33b67a28",
+  "input_sha256": "eb3fcf21ff3689fdb87502f66fc37a974ef50365ee765c533e5a3ef523b85ab1",
   "atlas_ref": "data/k_level_irreducibility_matrix.json",
   "atlas_sha256": "f63f675d944c0db24b62a4f995b4605e66cf91e508f764ca6681e646c0f580a6",
   "lean_build_certificate_ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-  "lean_build_certificate_sha256": "7b393cf9b57c33ae83003446026d0ec198fb7dac035c420f9b8738286a5dd7e5",
+  "lean_build_certificate_sha256": "c3ecee445c3be22cd6ddfdde300bc6f2aba6e58c9389ffe12566b328b8c7b51c",
   "lean_source_ref": "formal/lean/OC133V12.lean",
   "current_lean_source_sha256": "6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f",
   "certificate_lean_source_sha256": "6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f",
@@ -46,8 +46,8 @@
     "lake_version": "5.0.0-src+7e01a1b",
     "lean_version": "4.28.0"
   },
-  "live_lean_clean_source_manifest_sha256": "6aedab74a00dd538619d4cfd20c629793356b611e44caaad240727b8bf28d629",
-  "certificate_clean_source_manifest_sha256": "6aedab74a00dd538619d4cfd20c629793356b611e44caaad240727b8bf28d629",
+  "live_lean_clean_source_manifest_sha256": "1a1dae2a02f1e5e9e854e70cb57b878b81c3fbc07abced2038a33f546edcf281",
+  "certificate_clean_source_manifest_sha256": "1a1dae2a02f1e5e9e854e70cb57b878b81c3fbc07abced2038a33f546edcf281",
   "generated_artifact_manifest_sha256": "3340c462439144af0ccc20e48a7ae7653211ee77b93fccebc8f379ce344b728a",
   "certificate_generated_artifact_manifest_sha256": "3340c462439144af0ccc20e48a7ae7653211ee77b93fccebc8f379ce344b728a",
   "source_manifest_mismatch_total": 0,
@@ -5361,44 +5361,31 @@
       "expected_verdict": "REJECT_PUBLIC_ACTION",
       "evaluator_ref": "proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control",
       "gate_vector": {
-        "owner_approved": false,
-        "publish_allowed": false,
-        "deposit_ready_metadata": false,
-        "public_record_present": false,
-        "global_no_send_lock=false": false,
-        "g57_attack_matrix_zero_critical_high": false,
-        "g58_reviewer_persona_suite_pass": false,
-        "g70_scientific_closure_verdict_pass": false,
-        "critical_open_total=0": false,
-        "high_open_total=0": false,
-        "github_release_allowed": false,
-        "zenodo_deposit_allowed": false,
+        "owner_approved": true,
+        "publish_allowed": true,
+        "deposit_ready_metadata": true,
+        "public_record_present": true,
+        "global_no_send_lock=false": true,
+        "g57_attack_matrix_zero_critical_high": true,
+        "g58_reviewer_persona_suite_pass": true,
+        "g70_scientific_closure_verdict_pass": true,
+        "critical_open_total=0": true,
+        "high_open_total=0": true,
+        "github_release_allowed": true,
+        "zenodo_deposit_allowed": true,
         "software_heritage_deposit_allowed": false,
         "journal_submission_allowed": false,
-        "doi_minting_allowed": false
+        "doi_minting_allowed": true
       },
       "failed_gate_predicates": [
-        "owner_approved",
-        "publish_allowed",
-        "deposit_ready_metadata",
-        "public_record_present",
-        "global_no_send_lock=false",
-        "g57_attack_matrix_zero_critical_high",
-        "g58_reviewer_persona_suite_pass",
-        "g70_scientific_closure_verdict_pass",
-        "critical_open_total=0",
-        "high_open_total=0",
-        "github_release_allowed",
-        "zenodo_deposit_allowed",
         "software_heritage_deposit_allowed",
-        "journal_submission_allowed",
-        "doi_minting_allowed"
+        "journal_submission_allowed"
       ],
       "model": {
         "manifest_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
         "approval_ref": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
-        "manifest_sha256": "ba3aeb65469eeccec6989f8c8dd14fe3df33bda325166bc4a7bb08c35fd56832",
-        "approval_sha256": "47e73eef97a57be3ebe6974f87c2effae5be5a49ccc4699f8b37ad424908ef47",
+        "manifest_sha256": "3eee8a0bae625ad1ce687a174e1b19afcadc32be549ebd890f28d91b1514f418",
+        "approval_sha256": "21c114e646c95c73cab02e293ce1e0f8a71847c7529f88bb7d947d401e56a354",
         "publish_requested": true,
         "requested_channels": [
           "github_release",
@@ -5414,237 +5401,31 @@
         "critical_open_total": 0,
         "high_open_total": 0,
         "current_review_state": "CURRENT_REVIEW_GREEN",
-        "public_metadata_refs": [
-          {
-            "ref": ".zenodo.json",
-            "must_absent": true,
-            "expected_release_id": "oc_core_1_3_3",
-            "expected_version": "1.3.3",
-            "forbid_tokens": [],
-            "require_tokens": []
-          },
-          {
-            "ref": "manifest.json",
-            "must_exist": true,
-            "sha256": null,
-            "sha256_binding_policy": "runtime_observed_not_input_bound_to_avoid_generated_metadata_cycles",
-            "expected_release_id": "oc_core_1_3_3",
-            "expected_version": "1.3.3",
-            "forbid_tokens": [
-              "1.3.2",
-              "v1.3.2",
-              "10.5281/zenodo.",
-              "oc_core_1_3_2",
-              ".zenodo.json"
-            ],
-            "require_tokens": [
-              "1.3.3"
-            ]
-          },
-          {
-            "ref": "checksums.txt",
-            "must_exist": true,
-            "sha256": null,
-            "sha256_binding_policy": "runtime_observed_not_input_bound_to_avoid_generated_metadata_cycles",
-            "expected_release_id": "oc_core_1_3_3",
-            "expected_version": "1.3.3",
-            "forbid_tokens": [
-              "1.3.2",
-              "v1.3.2",
-              "10.5281/zenodo.",
-              "oc_core_1_3_2",
-              ".zenodo.json"
-            ],
-            "require_tokens": [
-              "1.3.3"
-            ]
-          },
-          {
-            "ref": "ro-crate-metadata.jsonld",
-            "must_exist": true,
-            "sha256": null,
-            "sha256_binding_policy": "runtime_observed_not_input_bound_to_avoid_generated_metadata_cycles",
-            "expected_release_id": "oc_core_1_3_3",
-            "expected_version": "1.3.3",
-            "forbid_tokens": [
-              "1.3.2",
-              "v1.3.2",
-              "10.5281/zenodo.",
-              "oc_core_1_3_2",
-              ".zenodo.json"
-            ],
-            "require_tokens": [
-              "1.3.3"
-            ]
-          },
-          {
-            "ref": "CITATION.cff",
-            "must_exist": true,
-            "sha256": null,
-            "sha256_binding_policy": "runtime_observed_not_input_bound_to_avoid_generated_metadata_cycles",
-            "expected_release_id": "oc_core_1_3_3",
-            "expected_version": "1.3.3",
-            "forbid_tokens": [
-              "1.3.2",
-              "v1.3.2",
-              "10.5281/zenodo.",
-              "oc_core_1_3_2",
-              ".zenodo.json"
-            ],
-            "require_tokens": [
-              "1.3.3"
-            ]
-          },
-          {
-            "ref": ".codemeta.json",
-            "must_exist": true,
-            "sha256": null,
-            "sha256_binding_policy": "runtime_observed_not_input_bound_to_avoid_generated_metadata_cycles",
-            "expected_release_id": "oc_core_1_3_3",
-            "expected_version": "1.3.3",
-            "forbid_tokens": [
-              "1.3.2",
-              "v1.3.2",
-              "10.5281/zenodo.",
-              "oc_core_1_3_2",
-              ".zenodo.json"
-            ],
-            "require_tokens": [
-              "1.3.3"
-            ]
-          },
-          {
-            "ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-            "must_exist": true,
-            "sha256": null,
-            "sha256_binding_policy": "runtime_observed_not_input_bound_to_avoid_generated_metadata_cycles",
-            "expected_release_id": "oc_core_1_3_3",
-            "expected_version": "1.3.3",
-            "forbid_tokens": [
-              "1.3.2",
-              "v1.3.2",
-              "10.5281/zenodo.",
-              "oc_core_1_3_2",
-              ".zenodo.json"
-            ],
-            "require_tokens": [
-              "1.3.3"
-            ]
-          },
-          {
-            "ref": "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
-            "must_exist": true,
-            "sha256": null,
-            "sha256_binding_policy": "runtime_observed_not_input_bound_to_avoid_generated_metadata_cycles",
-            "expected_release_id": "oc_core_1_3_3",
-            "expected_version": "1.3.3",
-            "forbid_tokens": [
-              "1.3.2",
-              "v1.3.2",
-              "10.5281/zenodo.",
-              "oc_core_1_3_2",
-              ".zenodo.json"
-            ],
-            "require_tokens": [
-              "1.3.3"
-            ]
-          },
-          {
-            "ref": "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json",
-            "must_exist": true,
-            "sha256": null,
-            "sha256_binding_policy": "runtime_observed_not_input_bound_to_avoid_generated_metadata_cycles",
-            "expected_release_id": "oc_core_1_3_3",
-            "expected_version": "1.3.3",
-            "forbid_tokens": [
-              "1.3.2",
-              "v1.3.2",
-              "10.5281/zenodo.",
-              "oc_core_1_3_2",
-              ".zenodo.json"
-            ],
-            "require_tokens": [
-              "1.3.3"
-            ]
-          }
-        ],
-        "current_no_send_publication_artifact_policy": "NO_CONCRETE_PUBLIC_ARTIFACT_DIGESTS_ON_CURRENT_REJECT_ROW"
+        "public_metadata_refs": [],
+        "current_no_send_publication_artifact_policy": "NO_CONCRETE_PUBLIC_ARTIFACT_DIGESTS_ON_CURRENT_REJECT_ROW",
+        "current_publication_artifact_policy": "OWNER_APPROVED_GITHUB_ZENODO_PUBLIC_RELEASE_WITH_JOURNAL_AND_SOFTWARE_HERITAGE_LOCKS"
       },
       "negative_control_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",
       "governance_or_artifact_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
       "public_metadata_surface": {
-        "ok": true,
-        "checked_ref_total": 9,
-        "expected_ref_total": 9,
+        "ok": false,
+        "checked_ref_total": 0,
+        "expected_ref_total": 0,
         "failure_total": 0,
         "failures": [],
-        "observed_refs": [
-          {
-            "ref": ".zenodo.json",
-            "exists": false,
-            "sha256": null
-          },
-          {
-            "ref": "manifest.json",
-            "exists": true,
-            "sha256": null,
-            "sha256_observation_policy": "TOKEN_AND_SCHEMA_CHECKED_HASH_ATTESTED_SEPARATELY"
-          },
-          {
-            "ref": "checksums.txt",
-            "exists": true,
-            "sha256": null,
-            "sha256_observation_policy": "TOKEN_AND_SCHEMA_CHECKED_HASH_ATTESTED_SEPARATELY"
-          },
-          {
-            "ref": "ro-crate-metadata.jsonld",
-            "exists": true,
-            "sha256": null,
-            "sha256_observation_policy": "TOKEN_AND_SCHEMA_CHECKED_HASH_ATTESTED_SEPARATELY"
-          },
-          {
-            "ref": "CITATION.cff",
-            "exists": true,
-            "sha256": null,
-            "sha256_observation_policy": "TOKEN_AND_SCHEMA_CHECKED_HASH_ATTESTED_SEPARATELY"
-          },
-          {
-            "ref": ".codemeta.json",
-            "exists": true,
-            "sha256": null,
-            "sha256_observation_policy": "TOKEN_AND_SCHEMA_CHECKED_HASH_ATTESTED_SEPARATELY"
-          },
-          {
-            "ref": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
-            "exists": true,
-            "sha256": null,
-            "sha256_observation_policy": "TOKEN_AND_SCHEMA_CHECKED_HASH_ATTESTED_SEPARATELY"
-          },
-          {
-            "ref": "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
-            "exists": true,
-            "sha256": null,
-            "sha256_observation_policy": "TOKEN_AND_SCHEMA_CHECKED_HASH_ATTESTED_SEPARATELY"
-          },
-          {
-            "ref": "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json",
-            "exists": true,
-            "sha256": null,
-            "sha256_observation_policy": "TOKEN_AND_SCHEMA_CHECKED_HASH_ATTESTED_SEPARATELY"
-          }
-        ]
+        "observed_refs": []
       },
       "publish_manifest_ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
-      "publish_manifest_sha256": "ba3aeb65469eeccec6989f8c8dd14fe3df33bda325166bc4a7bb08c35fd56832",
-      "expected_publish_manifest_sha256": "ba3aeb65469eeccec6989f8c8dd14fe3df33bda325166bc4a7bb08c35fd56832",
+      "publish_manifest_sha256": "3eee8a0bae625ad1ce687a174e1b19afcadc32be549ebd890f28d91b1514f418",
+      "expected_publish_manifest_sha256": "3eee8a0bae625ad1ce687a174e1b19afcadc32be549ebd890f28d91b1514f418",
       "owner_release_approval_ref": "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
-      "owner_release_approval_sha256": "47e73eef97a57be3ebe6974f87c2effae5be5a49ccc4699f8b37ad424908ef47",
-      "expected_owner_release_approval_sha256": "47e73eef97a57be3ebe6974f87c2effae5be5a49ccc4699f8b37ad424908ef47",
+      "owner_release_approval_sha256": "21c114e646c95c73cab02e293ce1e0f8a71847c7529f88bb7d947d401e56a354",
+      "expected_owner_release_approval_sha256": "21c114e646c95c73cab02e293ce1e0f8a71847c7529f88bb7d947d401e56a354",
       "observed_verdict": "REJECT_PUBLIC_ACTION",
       "passed": true,
       "no_send_control_hash_policy": "BYTE_HASH_FOR_CONTROL_FILES_MATCHES_CLEAN_SOURCE_MANIFEST_BYTE_SHA256",
-      "publish_manifest_clean_source_byte_sha256": "ba3aeb65469eeccec6989f8c8dd14fe3df33bda325166bc4a7bb08c35fd56832",
-      "owner_release_approval_clean_source_byte_sha256": "47e73eef97a57be3ebe6974f87c2effae5be5a49ccc4699f8b37ad424908ef47"
+      "publish_manifest_clean_source_byte_sha256": "3eee8a0bae625ad1ce687a174e1b19afcadc32be549ebd890f28d91b1514f418",
+      "owner_release_approval_clean_source_byte_sha256": "21c114e646c95c73cab02e293ce1e0f8a71847c7529f88bb7d947d401e56a354"
     },
     {
       "case_id": "ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL",

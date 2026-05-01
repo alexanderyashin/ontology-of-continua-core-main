@@ -129,6 +129,7 @@ def release_critical_source_refs() -> list[str]:
         "validation/run_all.py",
         "validation/numeric_predictions/run_numeric_prediction_replay.py",
         "tools/verify_oc133_reproducible_temp_tree.py",
+        "tools/oc133_public_release_payload.py",
         "simulations/adversarial/run_all.py",
         "simulations/run_all.py",
         "simulations/expected_simulations.yml",

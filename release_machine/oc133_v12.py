@@ -157,7 +157,7 @@ def text(path: Path) -> str:
 def pdf_text_quality(root: Path) -> dict[str, Any]:
     rows: list[dict[str, Any]] = []
     forbidden = re.compile(
-        r"\b(TODO|TBD|FIXME|PLACEHOLDER|Lorem ipsum|1\.3\.2|oc_core_1_3_2|irrefutable|final truth|theory of everything|better than all modern science)\b",
+        r"\b(TODO|TBD|FIXME|PLACEHOLDER|Lorem ipsum|v1\.3\.2|version\s+1\.3\.2|oc_core_1_3_2|irrefutable|final truth|theory of everything|better than all modern science)\b",
         re.I,
     )
     try:

@@ -36,6 +36,12 @@ SECRET_PATTERN = re.compile(
     re.IGNORECASE,
 )
 
+PUBLIC_FORBIDDEN_RE = re.compile(
+    r"\bNO_SEND\b|no-send|no_send|publish_allowed\s*=\s*false|owner_approved\s*=\s*false|"
+    r"not a public release|manifest_kind[^\n]+NOT_PUBLIC_RELEASE|public release record:\s*none|release DOI:\s*none assigned",
+    re.IGNORECASE,
+)
+
 
 @dataclasses.dataclass(frozen=True)
 class ReleaseAsset:
@@ -133,7 +139,7 @@ def _default_oc133_profile() -> ReleaseProfile:
         branch="release/oc-core-1.3.3-total-scientific-closure",
         repository="alexanderyashin/ontology-of-continua-core-main",
         title="Ontology of Continua Core 1.3.3",
-        subtitle="Bounded external-review release with typed foundations, proof/evidence ledgers, reproducibility package, and no-send journal owner-review packets",
+        subtitle="Bounded external-review scientific release with typed foundations, proof/evidence ledgers, reproducibility package, and journal owner-review packets",
         release_state="OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND",
         expected_gate_pass_total=71,
         expected_package_sha256="",
@@ -199,9 +205,9 @@ def _default_oc133_profile() -> ReleaseProfile:
                 "Adversarial review, objections, boundaries, and response map.",
             ),
             ReleaseAsset(
-                "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip",
-                "Frozen release package",
-                "Canonical reproducibility package; journal submissions remain locked unless separately approved.",
+                "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_public_release.zip",
+                "Public reproducibility package",
+                "Canonical public GitHub/Zenodo reproducibility package; journal submissions require separate approval.",
             ),
             ReleaseAsset("manifest.json", "Root artifact manifest", "Machine-readable package manifest."),
             ReleaseAsset("checksums.txt", "Root checksums", "Root checksum list for public assets."),
@@ -371,7 +377,15 @@ def _owner_audit_ok(root: Path, profile: ReleaseProfile) -> dict[str, Any]:
         "exists": path.exists(),
         "verdict": verdict,
         "blocker_total": blocker_total,
-        "ok": path.exists() and blocker_total == 0 and str(verdict).upper() in {"READY_FOR_FINAL_OWNER_APPROVAL_NO_SEND", "PASS", "READY_NO_SEND"},
+        "ok": path.exists()
+        and blocker_total == 0
+        and str(verdict).upper()
+        in {
+            "READY_FOR_FINAL_OWNER_APPROVAL_NO_SEND",
+            "PUBLIC_RELEASE_REPLACEMENT_READY",
+            "PASS",
+            "READY_NO_SEND",
+        },
     }
 
 
@@ -429,6 +443,30 @@ def _delta_ok(root: Path) -> dict[str, Any]:
 
 
 def _zip_integrity_ok(root: Path, profile: ReleaseProfile) -> dict[str, Any]:
+    public_zip_asset = next((asset for asset in profile.assets if asset.path.endswith("public_release.zip")), None)
+    if public_zip_asset is not None:
+        public_zip_path = root / public_zip_asset.path
+        manifest = _read_json(root / "manifest.json", {})
+        manifest_rows = manifest.get("files", []) if isinstance(manifest, dict) else []
+        manifest_row = next(
+            (row for row in manifest_rows if isinstance(row, dict) and row.get("path") == public_zip_asset.path),
+            {},
+        )
+        actual_sha = _sha256(public_zip_path) if public_zip_path.is_file() else None
+        expected_sha = manifest_row.get("sha256") or profile.expected_package_sha256 or actual_sha
+        return {
+            "path": "manifest.json",
+            "package_ref": public_zip_asset.path,
+            "exists": public_zip_path.is_file(),
+            "manifest_sha256": manifest_row.get("sha256"),
+            "actual_sha256": actual_sha,
+            "expected_sha256": expected_sha,
+            "profile_pins_package_sha256": bool(profile.expected_package_sha256),
+            "ok": public_zip_path.is_file()
+            and bool(manifest_row)
+            and actual_sha == manifest_row.get("sha256")
+            and (not profile.expected_package_sha256 or actual_sha == profile.expected_package_sha256),
+        }
     path = editorial_root(root, profile) / f"OC_CORE_{profile.version.replace('.', '_')}_ZIP_INTEGRITY_latest.json"
     if not path.exists() and profile.release_id == "oc_core_1_3_3":
         path = editorial_root(root, profile) / "OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json"
@@ -450,6 +488,38 @@ def _zip_integrity_ok(root: Path, profile: ReleaseProfile) -> dict[str, Any]:
         and package_path.is_file()
         and actual_sha == manifest_sha
         and (not profile.expected_package_sha256 or actual_sha == profile.expected_package_sha256),
+    }
+
+
+def _public_payload_suitability_ok(root: Path, profile: ReleaseProfile) -> dict[str, Any]:
+    path = editorial_root(root, profile) / f"PUBLIC_PAYLOAD_SUITABILITY_{profile.version}_latest.json"
+    payload = _read_json(path, {})
+    state = payload.get("state")
+    public_zip_assets = [asset.path for asset in profile.assets if asset.path.endswith("public_release.zip")]
+    primary_no_send_assets = [
+        asset.path
+        for asset in profile.assets
+        if "no_send" in Path(asset.path).name.lower() or "nosend" in Path(asset.path).name.lower()
+    ]
+    pdf_failure_total = int(payload.get("pdf_audit", {}).get("failure_total", 999))
+    forbidden_total = int(payload.get("public_surface_forbidden_hit_total", 999))
+    zip_state = payload.get("zip_scan", {}).get("state")
+    return {
+        "path": _rel(root, path) if path.exists() else str(path),
+        "exists": path.exists(),
+        "state": state,
+        "pdf_failure_total": pdf_failure_total,
+        "public_surface_forbidden_hit_total": forbidden_total,
+        "zip_scan_state": zip_state,
+        "public_zip_assets": public_zip_assets,
+        "primary_no_send_assets": primary_no_send_assets,
+        "ok": path.exists()
+        and state == "PASS"
+        and pdf_failure_total == 0
+        and forbidden_total == 0
+        and zip_state == "PASS"
+        and len(public_zip_assets) == 1
+        and not primary_no_send_assets,
     }
 
 
@@ -509,7 +579,7 @@ def _release_body(profile: ReleaseProfile, checksums: list[dict[str, Any]], zeno
 
 ## Scope
 
-This is the public GitHub and Zenodo release of OC Core {profile.version}. It is a bounded external-review release: the release surface promotes the model-core claims supported by the included proof, finite-model, validation, reproducibility, and adversarial-review artifacts. Broader full-domain TOE and all-modern-science-superiority obligations remain in the background science program unless explicitly evidenced in this release package.
+This is the public GitHub and Zenodo release of OC Core {profile.version}. It is a bounded external-review scientific release: the release surface promotes the model-core claims supported by the included proof, finite-model, validation, reproducibility, and adversarial-review artifacts. Broader full-science and universal modern-science-superiority obligations remain in the background research program unless explicitly evidenced in this release package.
 
 ## Core Assets
 
@@ -517,7 +587,7 @@ This is the public GitHub and Zenodo release of OC Core {profile.version}. It is
 
 ## Journal Packages
 
-The eight journal packages are included as owner-review-ready no-send material. Journal submissions remain locked and require a separate owner approval.
+The eight journal packages are included as owner-review material. Journal submissions require a separate owner approval before outbound use.
 
 ## Zenodo
 
@@ -602,7 +672,7 @@ def build_public_metadata(
     return metadata
 
 
-def _preflight_common(root: Path, profile: ReleaseProfile, *, require_approval: bool) -> dict[str, Any]:
+def _preflight_common(root: Path, profile: ReleaseProfile, *, require_approval: bool, replace_existing: bool = False) -> dict[str, Any]:
     status = _git_status(root)
     branch = _git_branch(root)
     head = _git_head(root)
@@ -615,6 +685,7 @@ def _preflight_common(root: Path, profile: ReleaseProfile, *, require_approval: 
     journal = _journal_lock_ok(root, profile)
     delta = _delta_ok(root)
     zip_integrity = _zip_integrity_ok(root, profile)
+    public_payload = _public_payload_suitability_ok(root, profile)
     owner = _owner_approval_state(root, profile)
     token_state = _tokens_ok()
     previous_record_ok = False
@@ -628,13 +699,18 @@ def _preflight_common(root: Path, profile: ReleaseProfile, *, require_approval: 
     checks = {
         "clean_tree": {"ok": not status, "dirty_rows": status},
         "expected_branch": {"ok": branch == profile.branch, "actual_branch": branch, "expected_branch": profile.branch},
-        "tag_absent": {"ok": not tag_state["local_exists"] and not tag_state["remote_exists"], **tag_state},
+        "tag_policy": {
+            "ok": (tag_state["local_exists"] and tag_state["remote_exists"]) if replace_existing else (not tag_state["local_exists"] and not tag_state["remote_exists"]),
+            "policy": "REPLACE_EXISTING_TAG" if replace_existing else "CREATE_NEW_TAG_ONLY",
+            **tag_state,
+        },
         "scorecard": scorecard,
         "owner_audit": owner_audit,
         "cerberus": cerberus,
         "journal_lock": journal,
         "delta_queue": delta,
         "zip_integrity": zip_integrity,
+        "public_payload_suitability": public_payload,
         "assets": {"ok": all(row["exists"] for row in assets), "missing": [row["path"] for row in assets if not row["exists"]]},
         "secret_scan": {"ok": not secret_hits, "hits": secret_hits},
         "production_tokens": token_state,
@@ -898,6 +974,18 @@ def _github_upload_assets(root: Path, profile: ReleaseProfile, token: str, relea
     return uploaded
 
 
+def _github_replace_assets(root: Path, profile: ReleaseProfile, token: str, release: dict[str, Any]) -> list[dict[str, Any]]:
+    release_id = release["id"]
+    for item in _github_list_release_assets(profile, token, release_id):
+        _http_json(
+            "DELETE",
+            _github_api_url(profile, f"/releases/assets/{item['id']}"),
+            token=token,
+            headers={"Accept": "application/vnd.github+json"},
+        )
+    return _github_upload_assets(root, profile, token, release)
+
+
 def _github_update_topics(profile: ReleaseProfile, token: str) -> dict[str, Any]:
     try:
         payload = _http_json(
@@ -989,6 +1077,99 @@ def _zenodo_publish(root: Path, profile: ReleaseProfile, metadata: dict[str, Any
     }
 
 
+def _zenodo_reserved_doi(draft: dict[str, Any]) -> str | None:
+    metadata = draft.get("metadata", {}) if isinstance(draft, dict) else {}
+    prereserved = metadata.get("prereserve_doi", {}) if isinstance(metadata, dict) else {}
+    if isinstance(prereserved, dict) and prereserved.get("doi"):
+        return str(prereserved["doi"])
+    draft_id = draft.get("record_id") or draft.get("id")
+    return f"10.5281/zenodo.{draft_id}" if draft_id else None
+
+
+def prepare_zenodo_replacement_draft(root: Path, *, release_id: str) -> dict[str, Any]:
+    profile = load_profile(root, release_id)
+    token = _zenodo_token()
+    editorial = editorial_root(root, profile)
+    presentation = _read_json(editorial / f"PUBLIC_RELEASE_PRESENTATION_{profile.version}_latest.json", {})
+    current_record_url = str(presentation.get("zenodo_record_url") or "")
+    source_record_id = current_record_url.rstrip("/").split("/")[-1] if current_record_url else profile.previous_zenodo_record_id
+    new_version = _zenodo_json("POST", f"/{source_record_id}/actions/newversion", token)
+    latest_draft_url = new_version.get("links", {}).get("latest_draft")
+    draft = _zenodo_json("GET", latest_draft_url, token) if latest_draft_url else new_version
+    deleted_inherited_files = _zenodo_delete_draft_files(draft, token)
+    payload = {
+        "schema_id": "LOGION_ZENODO_REPLACEMENT_DRAFT_v1",
+        "release_id": profile.release_id,
+        "version": profile.version,
+        "source_record_id": source_record_id,
+        "draft_id": str(draft["id"]),
+        "draft_record_id": str(draft.get("record_id") or draft["id"]),
+        "reserved_doi": _zenodo_reserved_doi(draft),
+        "latest_draft_url": latest_draft_url,
+        "bucket_url": draft.get("links", {}).get("bucket"),
+        "deleted_inherited_files": deleted_inherited_files,
+        "inherited_file_delete_total": len(deleted_inherited_files),
+        "created_at": _utc_timestamp(),
+    }
+    _write_json(editorial / f"ZENODO_REPLACEMENT_DRAFT_{profile.version}_latest.json", payload)
+    return payload
+
+
+def _zenodo_publish_prepared_draft(root: Path, profile: ReleaseProfile, metadata: dict[str, Any], draft_payload: dict[str, Any]) -> dict[str, Any]:
+    token = _zenodo_token()
+    draft_id = str(draft_payload["draft_id"])
+    draft = _zenodo_json("GET", f"/{draft_id}", token)
+    deleted_inherited_files = _zenodo_delete_draft_files(draft, token)
+    bucket = draft.get("links", {}).get("bucket") or draft_payload.get("bucket_url")
+    if not bucket:
+        raise RuntimeError("Zenodo draft bucket URL is missing.")
+    _zenodo_json("PUT", f"/{draft_id}", token, {"metadata": metadata["zenodo_metadata"]})
+    uploaded = []
+    for asset in profile.assets:
+        result = _zenodo_upload_file(bucket, token, root / asset.path)
+        uploaded.append({"filename": (root / asset.path).name, "result": result})
+    published = _zenodo_json("POST", f"/{draft_id}/actions/publish", token)
+    record_id = str(published.get("record_id") or published.get("id") or draft_id)
+    doi = published.get("doi") or published.get("metadata", {}).get("doi") or draft_payload.get("reserved_doi")
+    return {
+        "draft_id": draft_id,
+        "record_id": record_id,
+        "record_url": f"https://zenodo.org/records/{record_id}",
+        "doi": doi,
+        "source_record_id": draft_payload.get("source_record_id"),
+        "deleted_inherited_files": [*draft_payload.get("deleted_inherited_files", []), *deleted_inherited_files],
+        "uploaded": uploaded,
+        "published": published,
+    }
+
+
+def _zenodo_mark_superseded(record_id: str, corrected_doi: str, corrected_record_url: str) -> dict[str, Any]:
+    token = _zenodo_token()
+    try:
+        edit = _zenodo_json("POST", f"/{record_id}/actions/edit", token)
+        draft_id = str(edit.get("id") or record_id)
+        draft = _zenodo_json("GET", f"/{draft_id}", token)
+        metadata = draft.get("metadata", {})
+        description = str(metadata.get("description", ""))
+        note = (
+            f"\n\n<p><strong>Superseded release notice:</strong> This record is superseded by "
+            f"the corrected OC Core v1.3.3 public release {corrected_doi} at {corrected_record_url}.</p>"
+        )
+        if corrected_doi not in description:
+            metadata["description"] = description + note
+        related = metadata.get("related_identifiers", [])
+        if not isinstance(related, list):
+            related = []
+        if not any(isinstance(row, dict) and row.get("identifier") == corrected_doi for row in related):
+            related.append({"identifier": corrected_doi, "relation": "isPreviousVersionOf", "scheme": "doi"})
+        metadata["related_identifiers"] = related
+        _zenodo_json("PUT", f"/{draft_id}", token, {"metadata": metadata})
+        published = _zenodo_json("POST", f"/{draft_id}/actions/publish", token)
+        return {"record_id": record_id, "state": "SUPERSEDED_METADATA_UPDATED", "published": bool(published)}
+    except Exception as exc:
+        return {"record_id": record_id, "state": "METADATA_EDIT_BLOCKED_BY_ZENODO", "error": str(exc)[:1000]}
+
+
 def _create_tag_and_push(root: Path, profile: ReleaseProfile, body: str) -> dict[str, Any]:
     tag_state = _git_tag_exists(root, profile.tag)
     if tag_state["local_exists"] or tag_state["remote_exists"]:
@@ -1000,6 +1181,29 @@ def _create_tag_and_push(root: Path, profile: ReleaseProfile, body: str) -> dict
         "tag": profile.tag,
         "tag_sha": _run(root, ["git", "rev-parse", profile.tag], timeout=60).stdout.strip(),
         "head": _git_head(root),
+        "branch_push_stdout": branch_push.stdout,
+        "branch_push_stderr": branch_push.stderr,
+        "tag_push_stdout": tag_push.stdout,
+        "tag_push_stderr": tag_push.stderr,
+    }
+
+
+def _replace_tag_and_push(root: Path, profile: ReleaseProfile) -> dict[str, Any]:
+    head = _git_head(root)
+    existing_local = _run(root, ["git", "tag", "--list", profile.tag], timeout=60).stdout.strip()
+    existing_remote = _run(root, ["git", "ls-remote", "--tags", "origin", profile.tag], timeout=120).stdout.strip()
+    if existing_local:
+        _run(root, ["git", "tag", "-d", profile.tag], timeout=60)
+    _run(root, ["git", "tag", "-a", profile.tag, "-m", f"{profile.title} v{profile.version} corrected public release", head], timeout=60)
+    branch_push = _run(root, ["git", "push", "-u", "origin", f"HEAD:{profile.branch}"], timeout=300)
+    tag_push = _run(root, ["git", "push", "--force", "origin", profile.tag], timeout=300)
+    return {
+        "tag": profile.tag,
+        "head": head,
+        "previous_local_tag_present": bool(existing_local),
+        "previous_remote_tag_present": bool(existing_remote),
+        "tag_sha": _run(root, ["git", "rev-parse", profile.tag], timeout=60).stdout.strip(),
+        "tag_commit": _run(root, ["git", "rev-parse", f"{profile.tag}^{{}}"], timeout=60).stdout.strip(),
         "branch_push_stdout": branch_push.stdout,
         "branch_push_stderr": branch_push.stderr,
         "tag_push_stdout": tag_push.stdout,
@@ -1067,6 +1271,121 @@ def publish_execute(root: Path, *, release_id: str) -> dict[str, Any]:
     _write_text(
         editorial / f"PUBLICATION_EXECUTION_REPORT_{profile.version}_latest.md",
         f"# Public Release Execution Report\n\nRelease: `{profile.release_id}` v{profile.version}\n\nGitHub: {github_url}\n\nZenodo: {zenodo_result.get('record_url')}\n\nDOI: {zenodo_result.get('doi')}\n\nJournal submissions: locked.\n",
+    )
+
+    approval_path = editorial / f"OWNER_RELEASE_APPROVAL_v{profile.version}.json"
+    approval = _read_json(approval_path, {})
+    approval.update(
+        {
+            "published": True,
+            "publication_timestamp": now,
+            "github_release_url": github_url,
+            "zenodo_record_url": zenodo_result.get("record_url"),
+            "zenodo_doi": zenodo_result.get("doi"),
+            "journal_submissions_allowed": False,
+        }
+    )
+    _write_json(approval_path, approval)
+    manifest_path = editorial / f"OC_CORE_{profile.version.replace('.', '_')}_PUBLISH_MANIFEST_DRAFT.json"
+    manifest = _read_json(manifest_path, {})
+    manifest.update(
+        {
+            "published": True,
+            "publication_timestamp": now,
+            "github_release_url": github_url,
+            "zenodo_record_url": zenodo_result.get("record_url"),
+            "zenodo_doi": zenodo_result.get("doi"),
+            "journal_submissions_allowed": False,
+        }
+    )
+    _write_json(manifest_path, manifest)
+    return report
+
+
+def replace_public_release(root: Path, *, release_id: str) -> dict[str, Any]:
+    profile = load_profile(root, release_id)
+    preflight = _preflight_common(root, profile, require_approval=True, replace_existing=True)
+    if not preflight["preflight_ok"]:
+        raise RuntimeError("Replacement publication preflight failed; refusing to replace public release.")
+    draft_payload = _read_json(editorial_root(root, profile) / f"ZENODO_REPLACEMENT_DRAFT_{profile.version}_latest.json", {})
+    if not draft_payload.get("draft_id") or not draft_payload.get("reserved_doi"):
+        raise RuntimeError("Zenodo replacement draft is missing; run publication-replacement-draft before replacement.")
+    reserved_doi = str(draft_payload["reserved_doi"])
+    reserved_record_url = f"https://zenodo.org/records/{draft_payload.get('draft_record_id') or draft_payload['draft_id']}"
+    metadata = build_public_metadata(
+        root,
+        profile,
+        zenodo_doi=reserved_doi,
+        zenodo_record_url=reserved_record_url,
+        write=False,
+    )
+    if PUBLIC_FORBIDDEN_RE.search(metadata["release_body"]):
+        raise RuntimeError("GitHub/Zenodo public release body contains forbidden no-send contradiction language.")
+    if _git_status(root):
+        raise RuntimeError("Working tree must be clean before tag replacement and public upload.")
+    tag_result = _replace_tag_and_push(root, profile)
+    zenodo_result = _zenodo_publish_prepared_draft(root, profile, metadata, draft_payload)
+    if zenodo_result.get("doi") != reserved_doi:
+        raise RuntimeError(
+            f"Zenodo DOI changed after publish: reserved={reserved_doi}, actual={zenodo_result.get('doi')}. "
+            "Do not update GitHub until a corrected DOI-bound payload is rebuilt."
+        )
+    github_token = (os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or "").strip()
+    if not github_token:
+        raise RuntimeError("GITHUB_TOKEN or GH_TOKEN is required for GitHub Release replacement.")
+    metadata = build_public_metadata(
+        root,
+        profile,
+        zenodo_doi=zenodo_result.get("doi"),
+        zenodo_record_url=zenodo_result.get("record_url"),
+        write=False,
+    )
+    github_release = _github_create_or_update_release(profile, github_token, metadata["release_body"])
+    uploaded_assets = _github_replace_assets(root, profile, github_token, github_release)
+    topics = _github_update_topics(profile, github_token)
+    github_url = github_release.get("html_url") or f"https://github.com/{profile.repository}/releases/tag/{profile.tag}"
+    metadata = build_public_metadata(
+        root,
+        profile,
+        zenodo_doi=zenodo_result.get("doi"),
+        zenodo_record_url=zenodo_result.get("record_url"),
+        github_release_url=github_url,
+        write=True,
+    )
+    supersession = [
+        _zenodo_mark_superseded(record_id, str(zenodo_result.get("doi")), str(zenodo_result.get("record_url")))
+        for record_id in ["19956748", "19956854"]
+        if str(record_id) != str(zenodo_result.get("record_id"))
+    ]
+    now = _utc_timestamp()
+    report = {
+        "schema_id": "LOGION_PUBLICATION_EXECUTION_REPORT_v2",
+        "release_id": profile.release_id,
+        "version": profile.version,
+        "tag": profile.tag,
+        "replacement_mode": "REPLACE_BAD_PUBLIC_V1_3_3_IN_PLACE",
+        "tag_result": tag_result,
+        "github_release_url": github_url,
+        "github_release_id": github_release.get("id"),
+        "github_uploaded_assets": uploaded_assets,
+        "github_topics": topics,
+        "zenodo_record_url": zenodo_result.get("record_url"),
+        "zenodo_record_id": zenodo_result.get("record_id"),
+        "zenodo_doi": zenodo_result.get("doi"),
+        "zenodo_source_record_id": zenodo_result.get("source_record_id"),
+        "zenodo_deleted_inherited_files": zenodo_result.get("deleted_inherited_files"),
+        "zenodo_uploaded": zenodo_result.get("uploaded"),
+        "superseded_records": supersession,
+        "asset_checksums": _asset_records(root, profile),
+        "publication_timestamp": now,
+        "journal_submissions_allowed": False,
+        "software_heritage_deposit_allowed": False,
+    }
+    editorial = editorial_root(root, profile)
+    _write_json(editorial / f"PUBLICATION_EXECUTION_REPORT_{profile.version}_latest.json", report)
+    _write_text(
+        editorial / f"PUBLICATION_EXECUTION_REPORT_{profile.version}_latest.md",
+        f"# Public Release Execution Report\n\nRelease: `{profile.release_id}` v{profile.version}\n\nReplacement mode: replace invalid public v1.3.3 in place.\n\nGitHub: {github_url}\n\nZenodo: {zenodo_result.get('record_url')}\n\nDOI: {zenodo_result.get('doi')}\n\nJournal submissions: require separate approval.\n",
     )
 
     approval_path = editorial / f"OWNER_RELEASE_APPROVAL_v{profile.version}.json"

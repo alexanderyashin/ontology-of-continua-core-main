@@ -75,6 +75,19 @@ def main(argv: list[str] | None = None) -> int:
     publish_resume = sub.add_parser("publish-resume")
     publish_resume.add_argument("--release-id", default=None)
 
+    publish_replace = sub.add_parser("publish-replace")
+    publish_replace.add_argument("--release-id", default=None)
+
+    replacement_draft = sub.add_parser("publication-replacement-draft")
+    replacement_draft.add_argument("--release-id", default=None)
+
+    public_payload = sub.add_parser("public-payload")
+    public_payload.add_argument("--release-id", default=None)
+    public_payload.add_argument("--doi", default=None)
+    public_payload.add_argument("--zenodo-record-url", default=None)
+    public_payload.add_argument("--github-release-url", default=None)
+    public_payload.add_argument("--check", action="store_true")
+
     zenodo_republish = sub.add_parser("zenodo-republish")
     zenodo_republish.add_argument("--release-id", default=None)
 
@@ -185,6 +198,29 @@ def main(argv: list[str] | None = None) -> int:
             payload = public_release.resume_github_after_zenodo(public_release.repo_root(), release_id=release_id)
         else:
             raise ValueError(f"publish-resume is not implemented for {release_id}")
+    elif args.command == "publication-replacement-draft":
+        if release_id == oc133.RELEASE_ID:
+            payload = public_release.prepare_zenodo_replacement_draft(public_release.repo_root(), release_id=release_id)
+        else:
+            raise ValueError(f"publication-replacement-draft is not implemented for {release_id}")
+    elif args.command == "publish-replace":
+        if release_id == oc133.RELEASE_ID:
+            payload = public_release.replace_public_release(public_release.repo_root(), release_id=release_id)
+        else:
+            raise ValueError(f"publish-replace is not implemented for {release_id}")
+    elif args.command == "public-payload":
+        if release_id == oc133.RELEASE_ID:
+            from tools import oc133_public_release_payload
+            if args.check:
+                payload = oc133_public_release_payload.audit_public_payload()
+            else:
+                payload = oc133_public_release_payload.materialize(
+                    doi=args.doi,
+                    zenodo_record_url=args.zenodo_record_url,
+                    github_release_url=args.github_release_url,
+                )
+        else:
+            raise ValueError(f"public-payload is not implemented for {release_id}")
     elif args.command == "zenodo-republish":
         if release_id == oc133.RELEASE_ID:
             payload = public_release.republish_clean_zenodo_and_update_github(public_release.repo_root(), release_id=release_id)

@@ -103,9 +103,16 @@ class ReleaseMachineTests(unittest.TestCase):
             profile = public_release.load_profile(root, "oc_core_1_3_3")
             payload = public_release.build_public_metadata(root, profile, write=False)
             self.assertEqual(payload["release_id"], "oc_core_1_3_3")
-            self.assertIn("Journal submissions remain locked", payload["release_body"])
+            self.assertIn("This is the public GitHub and Zenodo release", payload["release_body"])
+            self.assertIn("Journal submissions require a separate owner approval", payload["release_body"])
             self.assertFalse((root / ".zenodo.json").exists())
             self.assertFalse((root / "releases/oc_core_1_3_3/editorial/PUBLIC_RELEASE_PROFILE.json").exists())
+
+    def test_oc133_public_release_profile_uses_public_payload_asset(self) -> None:
+        profile = public_release.load_profile(complete.repo_root(), "oc_core_1_3_3")
+        asset_paths = [asset.path for asset in profile.assets]
+        self.assertIn("releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_public_release.zip", asset_paths)
+        self.assertNotIn("releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip", asset_paths)
 
     def test_oc133_existing_package_reused_when_fingerprint_inputs_match(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

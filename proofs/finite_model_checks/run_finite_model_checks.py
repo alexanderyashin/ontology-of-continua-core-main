@@ -107,6 +107,7 @@ def release_critical_source_refs() -> list[str]:
         "validation/run_all.py",
         "validation/numeric_predictions/run_numeric_prediction_replay.py",
         "tools/verify_oc133_reproducible_temp_tree.py",
+        "tools/oc133_public_release_payload.py",
         "simulations/adversarial/run_all.py",
         "simulations/run_all.py",
         "simulations/expected_simulations.yml",
@@ -1160,8 +1161,8 @@ def observed(row: dict[str, Any]) -> str:
         manifest = read_rel_json(manifest_ref)
         approval = read_rel_json(approval_ref)
         digest_bound = (
-            model.get("manifest_sha256") == sha256_file(manifest_path)
-            and model.get("approval_sha256") == sha256_file(approval_path)
+            model.get("manifest_sha256") == sha256_source_ref(manifest_path)
+            and model.get("approval_sha256") == sha256_source_ref(approval_path)
         )
         publish_requested = model.get("publish_requested") is True
         locked_fields = [
@@ -1233,11 +1234,11 @@ def evaluate(row: dict[str, Any]) -> dict[str, Any]:
         out["public_metadata_surface"] = public_metadata_surface_check(model.get("public_metadata_refs", []))
         if model.get("manifest_ref"):
             out["publish_manifest_ref"] = model.get("manifest_ref")
-            out["publish_manifest_sha256"] = sha256_file(ROOT / str(model.get("manifest_ref")))
+            out["publish_manifest_sha256"] = sha256_source_ref(ROOT / str(model.get("manifest_ref")))
             out["expected_publish_manifest_sha256"] = model.get("manifest_sha256")
         if model.get("approval_ref"):
             out["owner_release_approval_ref"] = model.get("approval_ref")
-            out["owner_release_approval_sha256"] = sha256_file(ROOT / str(model.get("approval_ref")))
+            out["owner_release_approval_sha256"] = sha256_source_ref(ROOT / str(model.get("approval_ref")))
             out["expected_owner_release_approval_sha256"] = model.get("approval_sha256")
     if row.get("theorem_id") == "T133-HYBRID":
         out["computed_operator_admission"] = operator_admission_evidence(row.get("model", {}))
