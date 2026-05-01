@@ -7,6 +7,7 @@
 - All-domain blockers: `2`
 - Cerberus critical/high: `0` / `0`
 - Journal packages: `8`
+- Dirty tree governed/current: `true` / `true`
 - External LLM budget/day: `2000000`
 - Host compute: `allowed`
 - Budget action: `REQUEST_EXTRA_LLM_BUDGET`
@@ -25,4 +26,4 @@
 - `OC_FULL_SCIENCE_BACKGROUND_LOCK` owner=`OC_FULL_SCIENCE_BACKGROUND` background_release_write=`false`
 - `NON_OC_WORKSTREAM_ISOLATION_LOCK` owner=`ESTRA_TOOLKIT_EA2O_OTHER` background_release_write=`false`
 
-Controller hash: `243fb64cc845fd62db68e4e9508d662bdd5c6f81f3d2af0c5ca3d4811a3622ea`
+Controller hash: `0bacbd235fee98c3e9f8108139f40df14bffa545342f8f4bf618737f947b49ec`
