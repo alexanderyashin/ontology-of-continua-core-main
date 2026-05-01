@@ -1642,6 +1642,8 @@ def postflight(root: Path, *, release_id: str) -> dict[str, Any]:
     profile = load_profile(root, release_id)
     editorial = editorial_root(root, profile)
     report = _read_json(editorial / f"PUBLICATION_EXECUTION_REPORT_{profile.version}_latest.json", {})
+    postflight_path = editorial / f"PUBLICATION_POSTFLIGHT_{profile.version}_latest.json"
+    previous_postflight = _read_json(postflight_path, {})
     github_token = (os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or "").strip()
     if not github_token:
         raise RuntimeError("GITHUB_TOKEN or GH_TOKEN is required for postflight.")
@@ -1662,7 +1664,11 @@ def postflight(root: Path, *, release_id: str) -> dict[str, Any]:
         "postflight_ok": bool(github.get("ok") and zenodo.get("ok")),
         "generated_at": _utc_timestamp(),
     }
-    _write_json(editorial / f"PUBLICATION_POSTFLIGHT_{profile.version}_latest.json", payload)
+    comparable_previous = {key: value for key, value in previous_postflight.items() if key != "generated_at"}
+    comparable_current = {key: value for key, value in payload.items() if key != "generated_at"}
+    if comparable_previous == comparable_current and previous_postflight.get("generated_at"):
+        payload["generated_at"] = previous_postflight["generated_at"]
+    _write_json(postflight_path, payload)
     _write_text(
         editorial / f"PUBLICATION_POSTFLIGHT_{profile.version}_latest.md",
         f"# Public Release Postflight\n\nGitHub: {'PASS' if github.get('ok') else 'FAIL'}\n\nZenodo: {'PASS' if zenodo.get('ok') else 'FAIL'}\n\nJournal submissions: locked.\n",
