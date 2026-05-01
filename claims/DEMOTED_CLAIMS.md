@@ -1,5 +1,4 @@
-# Demoted Claims
+# OC Core 1.3.3 Demoted Claims
 
-Rows with public_status `DEMOTED`.
-
-No claims currently use this status in v1.3.2.
+No claims currently use public_status `DEMOTED` in this no-send owner-review package.
+Unsupported broad TOE/all-domain/superiority obligations are kept as blocked research obligations instead of demoted release claims.

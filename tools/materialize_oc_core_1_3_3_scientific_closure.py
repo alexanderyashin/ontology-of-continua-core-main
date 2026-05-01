@@ -100,6 +100,24 @@ def write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def read_json_optional(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+def has_v12_claim_governance(path: Path) -> bool:
+    payload = read_json_optional(path)
+    return (
+        payload.get("schema_id") == "OC133_CLAIM_LEDGER_FULL_v12"
+        and payload.get("release_id") == RELEASE_ID
+        and payload.get("version") == VERSION
+    )
+
+
 def sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
@@ -156,7 +174,7 @@ def formal_appendices(root: Path) -> None:
 \label{app:oc133-k0-resolution}
 
 \paragraph{Repair target.}
-Core 1.3.2 used a global lower bound on raw state difference.  Core 1.3.3
+The earlier core formulation used a global lower bound on raw state difference.  Core 1.3.3
 replaces it with a resolution-indexed quotient.  A resolution regime is a pair
 \(\rho=(E_\rho,\varepsilon_\rho)\), where \(E_\rho\subseteq S\times S\) is a
 reflexive symmetric tolerance relation and \(\varepsilon_\rho>0\) is a
@@ -205,7 +223,7 @@ Metric boundaries arise when \(b_i=f_i:\overline{\Omega}\to\mathbb{R}\) and
 admissibility is membership in a subobject or pullback-compatible constraint.
 
 \paragraph{Theorem.}
-The real-valued threshold boundary of Core 1.3.2 is a special case of the
+The earlier real-valued threshold boundary is a special case of the
 classifier boundary.
 
 \paragraph{Proof.}
@@ -255,7 +273,7 @@ discrete update, stochastic kernel, rewrite system, proof replay, or hybrid
 automaton.
 
 \paragraph{Theorem.}
-The differential notation of Core 1.3.2 is the smooth-realization
+The earlier differential notation is the smooth-realization
 specialization of the update semantics.
 
 \paragraph{Proof.}
@@ -530,14 +548,21 @@ def matrices_and_ledgers(root: Path) -> None:
         {"claim_id": "OC133-EMP-001", "claim": "Empirical lanes have official-data replay packets or explicit no-promotion blockers.", "support": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS", "evidence_ref": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.md", "public_status": "PROMOTED"},
         {"claim_id": "OC133-REDTEAM-001", "claim": "Known critical/high reviewer attacks have closure routes.", "support": "OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS", "evidence_ref": "reviews/OC_CORE_1_3_3_REVIEWER_ATTACK_MAP.md", "public_status": "PROMOTED"},
     ])
-    write_json(root / "claims" / "CLAIM_LEDGER_1_3_3.json", {"schema_id": "OC133_CLAIM_LEDGER_v1", "claim_total": len(claim_rows), "unsupported_promoted_total": 0, "rows": claim_rows})
-    write_text(root / "claims" / "CLAIM_EVIDENCE_MATRIX_1_3_3.md", "\n".join([
+    base_ledger = {"schema_id": "OC133_CLAIM_LEDGER_v1", "claim_total": len(claim_rows), "unsupported_promoted_total": 0, "rows": claim_rows}
+    live_ledger_path = root / "claims" / "CLAIM_LEDGER_1_3_3.json"
+    write_json(root / "claims" / "CLAIM_LEDGER_SCIENTIFIC_CLOSURE_BASE_1_3_3.json", base_ledger)
+    if not has_v12_claim_governance(live_ledger_path):
+        write_json(live_ledger_path, base_ledger)
+    base_matrix = "\n".join([
         "# OC Core 1.3.3 Claim Evidence Matrix",
         "",
         "| Claim | Support | Evidence |",
         "| --- | --- | --- |",
         *[f"| `{row['claim_id']}` {row['claim']} | `{row['support']}` | `{row['evidence_ref']}` |" for row in claim_rows],
-    ]))
+    ])
+    write_text(root / "claims" / "CLAIM_EVIDENCE_MATRIX_SCIENTIFIC_CLOSURE_BASE_1_3_3.md", base_matrix)
+    if not has_v12_claim_governance(live_ledger_path):
+        write_text(root / "claims" / "CLAIM_EVIDENCE_MATRIX_1_3_3.md", base_matrix)
 
 
 def validation_artifacts(root: Path) -> None:

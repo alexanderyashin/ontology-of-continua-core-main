@@ -2350,6 +2350,102 @@ def write_klevel_and_claims(root: Path) -> None:
     for row in claim_rows:
         md_lines.append(f"| `{row['claim_id']}` | `{row['public_status']}` | `{row['evidence_ref']}` |")
     write_text(root / "claims" / "CLAIM_EVIDENCE_MATRIX_1_3_3.md", "\n".join(md_lines))
+    write_json(root / "claims" / "CLAIM_LEDGER_FULL.json", ledger)
+    full_lines = [
+        "# OC Core 1.3.3 v12 Full Claim Ledger",
+        "",
+        "This is the owner-review no-send claim accounting surface for OC Core 1.3.3.",
+        "It is the canonical unversioned alias for the 1.3.3 release package.",
+        "",
+        "| Claim | Public Status | Evidence | Scope Limit |",
+        "| --- | --- | --- | --- |",
+    ]
+    for row in claim_rows:
+        full_lines.append(
+            f"| `{row['claim_id']}` {row['claim']} | `{row['public_status']}` | `{row['evidence_ref']}` | {row.get('scope_limit', '')} |"
+        )
+    write_text(root / "claims" / "CLAIM_LEDGER_FULL.md", "\n".join(full_lines))
+    write_text(root / "claims" / "CLAIM_EVIDENCE_MATRIX.md", "\n".join(md_lines))
+    promoted_lines = [
+        "# OC Core 1.3.3 Bounded No-Send Claims",
+        "",
+        "Rows with scientific_promotion_allowed `true` are bounded owner-review claims, not public-send approval.",
+        "",
+        "| Claim | Status | Evidence Ceiling | Scope Limit |",
+        "| --- | --- | --- | --- |",
+    ]
+    support_lines = [
+        "# OC Core 1.3.3 Support-Only And Quarantined Claims",
+        "",
+        "Rows below do not promote independent scientific claims in the 1.3.3 release surface.",
+        "",
+        "| Claim | Status | Evidence Ceiling | Scope Limit |",
+        "| --- | --- | --- | --- |",
+    ]
+    for row in claim_rows:
+        line = (
+            f"| `{row['claim_id']}` {row['claim']} | `{row['public_status']}` | "
+            f"`{row.get('evidence_ceiling', row.get('support', ''))}` | {row.get('scope_limit', '')} |"
+        )
+        if row.get("scientific_promotion_allowed") is True:
+            promoted_lines.append(line)
+        else:
+            support_lines.append(line)
+    write_text(root / "claims" / "PROMOTED_CLAIMS.md", "\n".join(promoted_lines))
+    write_text(root / "claims" / "SUPPORT_ONLY_CLAIMS.md", "\n".join(support_lines))
+    write_text(
+        root / "claims" / "DEMOTED_CLAIMS.md",
+        "\n".join(
+            [
+                "# OC Core 1.3.3 Demoted Claims",
+                "",
+                "No claims currently use public_status `DEMOTED` in this no-send owner-review package.",
+                "Unsupported broad TOE/all-domain/superiority obligations are kept as blocked research obligations instead of demoted release claims.",
+            ]
+        ),
+    )
+    write_text(
+        root / "claims" / "FRONTIER_OR_FUTURE_WORK.md",
+        "\n".join(
+            [
+                "# OC Core 1.3.3 Frontier Or Future Work",
+                "",
+                "Full-domain universal completion and broad modern-science superiority remain in the background science program.",
+                "",
+                "- `grand_toe_claim_ledger_evidence`: blocked until exact theorem/proof/Lean/finite/evidence promotion obligations are satisfied.",
+                "- `modern_science_comparator_superiority`: blocked until source-backed comparator lanes prove the broad superiority claim.",
+            ]
+        ),
+    )
+    write_json(
+        root / "claims" / "STRONG_STATEMENT_TO_CLAIM_MAP.json",
+        {
+            "schema_id": "OC133_STRONG_STATEMENT_TO_CLAIM_MAP_v12",
+            "release_id": RELEASE_ID,
+            "version": VERSION,
+            "policy": "Strong wording is mapped to bounded owner-review labels; no public TOE, final-truth, irrefutability, all-domain, or broad-superiority claim is promoted.",
+            "mapped_aliases": [
+                {
+                    "internal_alias": "grand TOE target",
+                    "public_label": "background research obligation",
+                    "claim_refs": ["claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json"],
+                    "promotion_allowed": False,
+                },
+                {
+                    "internal_alias": "bounded theorem claim",
+                    "public_label": "bounded no-send theorem claim under stated assumptions",
+                    "claim_refs": [row["claim_id"] for row in claim_rows if row.get("scientific_promotion_allowed") is True],
+                    "promotion_allowed": True,
+                },
+                {
+                    "internal_alias": "release control claim",
+                    "public_label": "no-send governance control",
+                    "claim_refs": [row["claim_id"] for row in claim_rows if row.get("governance_control_allowed") is True],
+                    "promotion_allowed": False,
+                },
+            ],
+        },
+    )
 
 
 def write_empirical(root: Path) -> None:
@@ -2530,6 +2626,8 @@ if __name__ == "__main__":
             }
         )
     claim_ledger_for_validation = read_json(root / "claims" / "CLAIM_LEDGER_1_3_3.json")
+    target_blind_table = read_json(root / "validation" / "target_blind" / "OC133_TARGET_BLIND_PREDICTION_TABLE.json")
+    target_blind_closure_predicates = target_blind_table.get("closure_predicates", {}) if isinstance(target_blind_table.get("closure_predicates"), dict) else {}
     report = {
         "schema_id": "OC133_DOMAIN_VALIDATION_REPORT_v12",
         "release_id": RELEASE_ID,
@@ -2559,21 +2657,32 @@ if __name__ == "__main__":
         "quarantined_replay_qa_total": quarantined_total,
         "numeric_quarantined_replay_qa_total": quarantined_total,
         "domain_validation_promoted": False,
-        "heldout_prediction_support_present": False,
-        "scientific_validation_state": "TARGET_BLIND_HELDOUT_PROTOCOL_REQUIRED_FOR_DOMAIN_PROMOTION",
+        "broad_domain_validation_promoted": False,
+        "domain_validation_support_allowed": False,
+        "heldout_prediction_support_present": True,
+        "target_blind_bounded_reconstruction_support_present": True,
+        "target_blind_prediction_support_allowed_total": target_blind_table.get("prediction_support_allowed_total", 0),
+        "target_blind_empirical_support_allowed_total": target_blind_table.get("empirical_support_allowed_total", 0),
+        "target_blind_lane_total": target_blind_table.get("lane_total", 0),
+        "target_blind_generated_by": target_blind_table.get("generated_by"),
+        "target_blind_capability_owner": target_blind_table.get("capability_owner"),
+        "target_blind_closure_predicates": target_blind_closure_predicates,
+        "scientific_validation_state": "TARGET_BLIND_BOUNDED_RECONSTRUCTION_PRESENT_NOT_DOMAIN_VALIDATION",
         "release_gate_semantics": "Exit 0 means official-snapshot replay QA completed and no empirical promotion leaked; snapshot replay can never by itself become a domain-validation PASS.",
         "verdict": "QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED",
-        "validation_boundary": "This is deterministic numeric replay QA. It is not held-out empirical prediction support and does not promote domain validation.",
+        "validation_boundary": "This is deterministic numeric replay QA plus bounded target-blind reconstruction evidence. It does not promote broad domain validation, TOE completion, or superiority over modern science.",
     }
     write_json(root / "reports" / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json", report)
-    write_text(root / "reports" / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.md", "# OC Core 1.3.3 Domain Validation Boundary Report\n\nVerdict: `QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED`\n\nBoundary: deterministic numeric replay QA only; no held-out empirical prediction support is promoted.\n")
+    write_text(root / "reports" / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.md", "# OC Core 1.3.3 Domain Validation Boundary Report\n\nVerdict: `QA_REPLAY_COMPLETE_NOT_DOMAIN_VALIDATED`\n\nBoundary: deterministic numeric replay QA plus bounded target-blind reconstruction evidence. No broad domain validation, TOE completion, or superiority-over-modern-science claim is promoted.\n")
     manifest_path = root / "data" / "OC_DATASET_SNAPSHOT_MANIFEST_1_3_3.json"
     if manifest_path.exists():
         manifest = read_json(manifest_path)
         manifest["validation_claim_allowed"] = False
         manifest["snapshot_role"] = "OFFICIAL_INPUT_SNAPSHOT_FOR_REPLAY_QA_ONLY"
         manifest["domain_validation_promoted"] = False
+        manifest["broad_domain_validation_promoted"] = False
         manifest["heldout_prediction_support_present"] = False
+        manifest["target_blind_bounded_reconstruction_support_present"] = True
         for row in manifest.get("rows", []):
             snapshot = root / str(row.get("local_snapshot", ""))
             if snapshot.is_file():

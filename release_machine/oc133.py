@@ -265,6 +265,8 @@ def package_file_paths(root: Path) -> list[Path]:
         path = Path(ref)
         if path.name == ZIP_NAME or path.name in PACKAGE_EXCLUDED_NAMES:
             return False
+        if ref.startswith(f"releases/{RELEASE_ID}/editorial/parfit/"):
+            return False
         if "__pycache__" in path.parts or "pdf_text_audit" in path.parts:
             return False
         if path.suffix == ".pyc":

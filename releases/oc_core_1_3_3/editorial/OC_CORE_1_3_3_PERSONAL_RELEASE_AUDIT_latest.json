@@ -2,13 +2,13 @@
   "schema_id": "OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_v1",
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
-  "verdict": "READY_FOR_FINAL_OWNER_APPROVAL_NO_SEND",
+  "verdict": "RELEASE_REPAIR_REQUIRED_NO_SEND",
   "public_release_allowed": false,
   "zenodo_allowed": false,
   "journal_submission_allowed": false,
   "github_tag_or_release_allowed": false,
   "checks": {
-    "scorecard_pass": true,
+    "scorecard_pass": false,
     "external_review_ready_no_send": true,
     "all_domain_ready_no_send_false": true,
     "no_send_locked": true,
@@ -16,18 +16,22 @@
     "pdf_quality_pass": true,
     "zip_integrity_pass": true,
     "journal_packages_pass": true,
-    "metadata_pass": true
+    "metadata_pass": true,
+    "claim_surface_pass": true,
+    "packaged_surface_pass": true
   },
-  "blockers": [],
+  "blockers": [
+    "scorecard_pass"
+  ],
   "scorecard": {
-    "master_verdict": "PASS",
-    "release_state": "OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND",
+    "master_verdict": "FAIL",
+    "release_state": "SCIENTIFIC_BLOCKERS_REMAIN",
     "gate_counts": {
       "BLOCKED": 0,
-      "FAIL": 0,
+      "FAIL": 2,
       "NOT_APPLICABLE": 0,
       "NOT_RUN": 0,
-      "PASS": 71,
+      "PASS": 69,
       "WARN": 0
     },
     "all_domain_blocker_ids": [
@@ -189,16 +193,109 @@
     "state": "PASS",
     "zip": "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip",
     "manifest": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
-    "actual_sha256": "ab2439a190ae4281bd2dbde9f6b1bc80bbd78d80b209c3ee5051e921bcce7475",
-    "manifest_sha256": "ab2439a190ae4281bd2dbde9f6b1bc80bbd78d80b209c3ee5051e921bcce7475"
+    "actual_sha256": "b9c5200515e8ff308f6834f5a037eebcb2e8e1c0d75c0ca200bcbdea7f2c4b7b",
+    "manifest_sha256": "b9c5200515e8ff308f6834f5a037eebcb2e8e1c0d75c0ca200bcbdea7f2c4b7b"
   },
   "journal_packages": {
     "state": "PASS",
     "index": "releases/oc_core_1_3_3/submission_packages/SUBMISSION_PACKAGE_INDEX.json",
     "package_total": 8,
+    "row_total": 8,
     "package_status_counts": {
       "OWNER_REVIEW_READY_NO_SEND": 8
     },
+    "failure_total": 0,
+    "failures": []
+  },
+  "claim_surface": {
+    "state": "PASS",
+    "claim_total": 18,
+    "surface_total": 10,
+    "failure_total": 0,
+    "failures": [],
+    "rows": [
+      {
+        "path": "claims/CLAIM_LEDGER_1_3_3.json",
+        "exists": true,
+        "version_present": true,
+        "stale_132": false,
+        "absolute_overclaim": false
+      },
+      {
+        "path": "claims/CLAIM_LEDGER_FULL.json",
+        "exists": true,
+        "version_present": true,
+        "stale_132": false,
+        "absolute_overclaim": false
+      },
+      {
+        "path": "claims/CLAIM_LEDGER_FULL.md",
+        "exists": true,
+        "version_present": true,
+        "stale_132": false,
+        "absolute_overclaim": false
+      },
+      {
+        "path": "claims/CLAIM_EVIDENCE_MATRIX.md",
+        "exists": true,
+        "version_present": true,
+        "stale_132": false,
+        "absolute_overclaim": false
+      },
+      {
+        "path": "claims/CLAIM_EVIDENCE_MATRIX_1_3_3.md",
+        "exists": true,
+        "version_present": true,
+        "stale_132": false,
+        "absolute_overclaim": false
+      },
+      {
+        "path": "claims/PROMOTED_CLAIMS.md",
+        "exists": true,
+        "version_present": true,
+        "stale_132": false,
+        "absolute_overclaim": false
+      },
+      {
+        "path": "claims/SUPPORT_ONLY_CLAIMS.md",
+        "exists": true,
+        "version_present": true,
+        "stale_132": false,
+        "absolute_overclaim": false
+      },
+      {
+        "path": "claims/DEMOTED_CLAIMS.md",
+        "exists": true,
+        "version_present": true,
+        "stale_132": false,
+        "absolute_overclaim": false
+      },
+      {
+        "path": "claims/FRONTIER_OR_FUTURE_WORK.md",
+        "exists": true,
+        "version_present": true,
+        "stale_132": false,
+        "absolute_overclaim": false
+      },
+      {
+        "path": "claims/STRONG_STATEMENT_TO_CLAIM_MAP.json",
+        "exists": true,
+        "version_present": true,
+        "stale_132": false,
+        "absolute_overclaim": false
+      }
+    ]
+  },
+  "packaged_surface": {
+    "state": "PASS",
+    "inventory_artifact_total": 781,
+    "text_scanned_total": 772,
+    "stale_hit_total": 0,
+    "stale_hits": [],
+    "absolute_overclaim_hit_total": 0,
+    "absolute_overclaim_hits": [],
+    "missing_total": 0,
+    "zip_self_ref_failure_total": 0,
     "failure_total": 0,
     "failures": []
   }

@@ -9,20 +9,20 @@
     "channel": "all",
     "mode": "dry-run",
     "generated_at": "2026-04-28T00:00:00Z",
-    "release_state": "OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND",
-    "technical_gate_state": "OC_CORE_1_3_3_10_10_READY_NO_SEND",
-    "master_verdict": "PASS",
+    "release_state": "SCIENTIFIC_BLOCKERS_REMAIN",
+    "technical_gate_state": "SCIENTIFIC_BLOCKERS_REMAIN",
+    "master_verdict": "FAIL",
     "gate_counts": {
       "BLOCKED": 0,
-      "FAIL": 0,
+      "FAIL": 2,
       "NOT_APPLICABLE": 0,
       "NOT_RUN": 0,
-      "PASS": 71,
+      "PASS": 69,
       "WARN": 0
     },
-    "critical_findings": 0,
-    "high_findings": 0,
-    "finding_total": 0,
+    "critical_findings": 1,
+    "high_findings": 1,
+    "finding_total": 2,
     "content_closure_state": "PASS",
     "content_closure_blocker_total": 0,
     "content_closure_blocker_ids": [],
@@ -52,8 +52,8 @@
     "publish_allowed": false,
     "journal_submissions_allowed": false,
     "package": "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip",
-    "package_sha256": "ab2439a190ae4281bd2dbde9f6b1bc80bbd78d80b209c3ee5051e921bcce7475",
-    "artifact_total": 785
+    "package_sha256": "b9c5200515e8ff308f6834f5a037eebcb2e8e1c0d75c0ca200bcbdea7f2c4b7b",
+    "artifact_total": 781
   },
   "gate_results": [
     {
@@ -946,23 +946,104 @@
     {
       "gate_id": "G59",
       "name": "G59_REPRODUCIBILITY_CLEAN_CHECKOUT_PASS",
-      "state": "PASS",
+      "state": "FAIL",
       "severity": "HIGH",
       "summary": "G59_REPRODUCIBILITY_CLEAN_CHECKOUT_PASS checked by v12 no-compromise release profile.",
       "details": {
-        "state": "PASS",
+        "state": "FAIL",
         "manifest_ref": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
-        "verdict": "PASS",
-        "command_failure_total": 0,
-        "mismatch_total": 0,
+        "verdict": "FAIL",
+        "command_failure_total": 1,
+        "mismatch_total": 24,
         "mismatch_count_ok": true,
-        "mismatch_failures": [],
+        "mismatch_failures": [
+          {
+            "ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "proofs/finite_model_checks/FINITE_MODEL_REPLAY_REPORT.json",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.md",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "manifest.json",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "checksums.txt",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "ro-crate-metadata.jsonld",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "CITATION.cff",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": ".codemeta.json",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "simulations/results/OC_CORE_1_3_3_SIMULATION_RESULTS_latest.json",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "reports/OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "review/OC_1_3_3_TOTAL_ATTACK_MATRIX.json",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          },
+          {
+            "ref": "reviews/OC_CORE_1_3_3_REVIEWER_RESPONSE_MATRIX.json",
+            "reason": "STRICT_HEAD_REPLAY_REFUSED_DIRTY_TRACKED_STATE"
+          }
+        ],
         "non_compare_ref_mutation_total": 0,
         "repro_non_compare_mutation_count_ok": true,
-        "preexisting_compared_target_total": 24,
+        "preexisting_compared_target_total": null,
         "compared_artifact_total": 24,
-        "strict_head_replay_clean": true,
-        "stable_payload_sha256": "9f2b3936e1c54016cb71dd89aa59948364932879e6488698bce684919cef0203",
+        "strict_head_replay_clean": false,
+        "stable_payload_sha256": null,
         "internal_checksum_failures": [],
         "internal_checksum_failure_count_ok": true,
         "unexpected_internal_checksum_failures": []
@@ -1307,11 +1388,11 @@
     {
       "gate_id": "G70",
       "name": "G70_10_10_SCIENTIFIC_CLOSURE_VERDICT",
-      "state": "PASS",
+      "state": "FAIL",
       "severity": "CRITICAL",
       "summary": "G70_10_10_SCIENTIFIC_CLOSURE_VERDICT checked by v12 no-compromise release profile.",
       "details": {
-        "prior_critical_high_bad_total": 0,
+        "prior_critical_high_bad_total": 1,
         "release_state_on_pass": "OC_CORE_1_3_3_10_10_READY_NO_SEND",
         "state": "PASS",
         "issues": [],

@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import sys
+import zipfile
 from pathlib import Path
 from typing import Any
 
@@ -23,12 +25,79 @@ PDFS = [
     "OC_CORE_1_3_3_REVIEWER_ATTACK_AND_RESPONSE_MAP_EN.pdf",
 ]
 
+CLAIM_SURFACE_REFS = [
+    "claims/CLAIM_LEDGER_1_3_3.json",
+    "claims/CLAIM_LEDGER_FULL.json",
+    "claims/CLAIM_LEDGER_FULL.md",
+    "claims/CLAIM_EVIDENCE_MATRIX.md",
+    "claims/CLAIM_EVIDENCE_MATRIX_1_3_3.md",
+    "claims/PROMOTED_CLAIMS.md",
+    "claims/SUPPORT_ONLY_CLAIMS.md",
+    "claims/DEMOTED_CLAIMS.md",
+    "claims/FRONTIER_OR_FUTURE_WORK.md",
+    "claims/STRONG_STATEMENT_TO_CLAIM_MAP.json",
+]
+
+TEXT_SUFFIXES = {".cff", ".json", ".jsonld", ".md", ".py", ".tex", ".txt", ".yaml", ".yml"}
+STALE_RELEASE_RE = re.compile(r"\b(?:v?1\.3\.2|oc_core_1_3_2)\b", re.I)
+ABSOLUTE_OVERCLAIM_RE = re.compile(
+    r"\b(irrefutable|final truth|theory of everything|all modern science|better than all modern science|proves all science)\b",
+    re.I,
+)
+REQUIRED_JOURNAL_COMPONENT_IDS = {
+    "submission_package_json",
+    "required_component_manifest_json",
+    "required_component_manifest_md",
+    "cover_letter",
+    "checklist",
+    "reproducibility_and_data",
+    "conflict_and_funding",
+    "ai_assistance",
+}
+STALE_CONTEXT_SAFE_REFS = {
+    "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+    "proofs/finite_model_checks/run_finite_model_checks.py",
+    "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+}
+OVERCLAIM_CONTEXT_SAFE_REFS = {
+    # This executable contains detector tokens and rejection reasons used to
+    # block grand-TOE/all-domain promotion; it is not a promoted claim surface.
+    "proofs/finite_model_checks/run_finite_model_checks.py",
+}
+
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 
+def long_fs_path(path: Path) -> str:
+    value = str(path if path.is_absolute() else path.resolve())
+    if os.name != "nt" or value.startswith("\\\\?\\"):
+        return value
+    if value.startswith("\\\\"):
+        return "\\\\?\\UNC\\" + value[2:]
+    return "\\\\?\\" + value
+
+
+def path_exists(path: Path) -> bool:
+    return os.path.exists(long_fs_path(path))
+
+
+def is_file(path: Path) -> bool:
+    return os.path.isfile(long_fs_path(path))
+
+
+def read_bytes(path: Path) -> bytes:
+    with open(long_fs_path(path), "rb") as handle:
+        return handle.read()
+
+
+def read_text(path: Path) -> str:
+    with open(long_fs_path(path), "r", encoding="utf-8", errors="ignore") as handle:
+        return handle.read()
+
+
 def read_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads(read_text(path))
 
 
 def rel(path: Path) -> str:
@@ -37,7 +106,7 @@ def rel(path: Path) -> str:
 
 def sha256_file(path: Path) -> str:
     h = hashlib.sha256()
-    with path.open("rb") as fh:
+    with open(long_fs_path(path), "rb") as fh:
         for chunk in iter(lambda: fh.read(1024 * 1024), b""):
             h.update(chunk)
     return h.hexdigest()
@@ -46,9 +115,10 @@ def sha256_file(path: Path) -> str:
 def write_text_if_changed(path: Path, text: str) -> bool:
     path.parent.mkdir(parents=True, exist_ok=True)
     data = text.encode("utf-8")
-    if path.exists() and path.read_bytes() == data:
+    if path_exists(path) and read_bytes(path) == data:
         return False
-    path.write_bytes(data)
+    with open(long_fs_path(path), "wb") as handle:
+        handle.write(data)
     return True
 
 
@@ -109,11 +179,11 @@ def metadata_audit() -> dict[str, Any]:
     rows = []
     stale = []
     for path in paths:
-        if not path.exists():
+        if not path_exists(path):
             rows.append({"path": rel(path), "exists": False, "version_present": False, "stale_132": False})
             stale.append(rel(path))
             continue
-        text = path.read_text(encoding="utf-8", errors="ignore")
+        text = read_text(path)
         row = {
             "path": rel(path),
             "exists": True,
@@ -145,24 +215,168 @@ def zip_audit() -> dict[str, Any]:
 def journal_package_audit() -> dict[str, Any]:
     index_path = ROOT / "releases" / RELEASE_ID / "submission_packages" / "SUBMISSION_PACKAGE_INDEX.json"
     index = read_json(index_path)
-    rows = index.get("packages", [])
+    rows = index.get("rows", index.get("packages", []))
     failures = []
     for row in rows:
+        venue = row.get("venue_id")
         if row.get("package_status") != "OWNER_REVIEW_READY_NO_SEND":
-            failures.append(f"{row.get('venue_id')}:bad_status")
+            failures.append(f"{venue}:bad_status")
         if row.get("submission_allowed") is not False or row.get("journal_submissions_allowed") is not False:
-            failures.append(f"{row.get('venue_id')}:send_unlocked")
+            failures.append(f"{venue}:send_unlocked")
         components = row.get("required_components", [])
+        component_ids = {component.get("component_id") for component in components if isinstance(component, dict)}
+        missing_component_ids = sorted(REQUIRED_JOURNAL_COMPONENT_IDS - component_ids)
+        for component_id in missing_component_ids:
+            failures.append(f"{venue}:{component_id}:missing")
         for component in components:
             if component.get("status") != "READY_NO_SEND":
-                failures.append(f"{row.get('venue_id')}:{component.get('component_id')}:not_ready")
+                failures.append(f"{venue}:{component.get('component_id')}:not_ready")
+            component_path = ROOT / str(component.get("path", ""))
+            if component.get("required") is True and not is_file(component_path):
+                failures.append(f"{venue}:{component.get('component_id')}:missing_file")
+            if component_path.suffix.lower() in TEXT_SUFFIXES and is_file(component_path):
+                text = read_text(component_path)
+                if STALE_RELEASE_RE.search(text):
+                    failures.append(f"{venue}:{component.get('component_id')}:stale_132")
+                if has_unsafe_absolute_overclaim(text):
+                    failures.append(f"{venue}:{component.get('component_id')}:absolute_overclaim")
     return {
-        "state": "PASS" if index.get("package_total") == 8 and not failures else "FAIL",
+        "state": "PASS" if index.get("package_total") == 8 and len(rows) == 8 and not failures else "FAIL",
         "index": rel(index_path),
         "package_total": index.get("package_total"),
+        "row_total": len(rows),
         "package_status_counts": index.get("package_status_counts"),
         "failure_total": len(failures),
         "failures": failures,
+    }
+
+
+def claim_surface_audit() -> dict[str, Any]:
+    failures = []
+    rows = []
+    ledger = read_json(ROOT / "claims" / "CLAIM_LEDGER_1_3_3.json")
+    if ledger.get("release_id") != RELEASE_ID or ledger.get("version") != VERSION:
+        failures.append("claim_ledger_version_or_release_id")
+    for key in ["unsupported_promoted_total", "adversarial_review_blocker_total", "scientific_promotion_wording_violation_total"]:
+        if ledger.get(key) != 0:
+            failures.append(f"claim_ledger_{key}")
+    if ledger.get("release_promotion_allowed") is not False:
+        failures.append("claim_ledger_release_promotion_unlocked")
+    for item in ledger.get("rows", []):
+        claim_id = item.get("claim_id")
+        evidence_ref = str(item.get("evidence_ref", ""))
+        evidence_path = ROOT / evidence_ref.split("::", 1)[0]
+        if not evidence_ref or not path_exists(evidence_path):
+            failures.append(f"{claim_id}:missing_evidence_ref")
+        if not item.get("scope_limit"):
+            failures.append(f"{claim_id}:missing_scope_limit")
+        if is_promoted_public_status(item.get("public_status")) and item.get("scientific_promotion_allowed") is not True:
+            failures.append(f"{claim_id}:promoted_without_scientific_allowed")
+    for ref in CLAIM_SURFACE_REFS:
+        path = ROOT / ref
+        text = read_text(path) if path_exists(path) else ""
+        row = {
+            "path": ref,
+            "exists": path_exists(path),
+            "version_present": VERSION in text,
+            "stale_132": bool(STALE_RELEASE_RE.search(text)),
+            "absolute_overclaim": has_unsafe_absolute_overclaim(text),
+        }
+        rows.append(row)
+        if not row["exists"]:
+            failures.append(f"{ref}:missing")
+        if not row["version_present"]:
+            failures.append(f"{ref}:version_missing")
+        if row["stale_132"]:
+            failures.append(f"{ref}:stale_132")
+        if row["absolute_overclaim"]:
+            failures.append(f"{ref}:absolute_overclaim")
+    return {
+        "state": "PASS" if not failures else "FAIL",
+        "claim_total": ledger.get("claim_total"),
+        "surface_total": len(rows),
+        "failure_total": len(failures),
+        "failures": failures,
+        "rows": rows,
+    }
+
+
+def is_promoted_public_status(value: Any) -> bool:
+    status = str(value or "")
+    return status == "PROMOTED" or status.startswith("PROMOTED_")
+
+
+def has_unsafe_absolute_overclaim(text: str) -> bool:
+    safe_markers = [
+        "not ",
+        "no ",
+        "blocked",
+        "disallow",
+        "false",
+        "quarantine",
+        "background",
+        "unless separately proved",
+        "without promoting",
+        "not_",
+    ]
+    for line in text.splitlines():
+        if not ABSOLUTE_OVERCLAIM_RE.search(line):
+            continue
+        lowered = line.lower()
+        if not any(marker in lowered for marker in safe_markers):
+            return True
+    return False
+
+
+def packaged_surface_audit() -> dict[str, Any]:
+    inventory = read_json(EDITORIAL / "OC_CORE_1_3_3_ARTIFACT_INVENTORY.json")
+    failures = []
+    scanned_total = 0
+    stale_hits = []
+    overclaim_hits = []
+    missing = []
+    for row in inventory.get("rows", []):
+        ref = str(row.get("path", ""))
+        path = ROOT / ref
+        if not path_exists(path):
+            missing.append(ref)
+            failures.append(f"{ref}:missing")
+            continue
+        if path.suffix.lower() not in TEXT_SUFFIXES:
+            continue
+        scanned_total += 1
+        text = read_text(path)
+        if ref not in STALE_CONTEXT_SAFE_REFS and STALE_RELEASE_RE.search(text):
+            stale_hits.append(ref)
+            failures.append(f"{ref}:stale_132")
+        if ref not in OVERCLAIM_CONTEXT_SAFE_REFS and has_unsafe_absolute_overclaim(text):
+            overclaim_hits.append(ref)
+            failures.append(f"{ref}:absolute_overclaim")
+    zip_path = ARTIFACTS / "oc_core_1_3_3_no_send_release.zip"
+    zip_self_ref_failures = []
+    with zipfile.ZipFile(zip_path) as archive:
+        names = archive.namelist()
+        for forbidden in [
+            "OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_latest.json",
+            "OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
+            "OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
+            "OC_CORE_1_3_3_SHA256SUMS",
+        ]:
+            if any(name.endswith(forbidden) for name in names):
+                zip_self_ref_failures.append(forbidden)
+                failures.append(f"zip_self_ref:{forbidden}")
+    return {
+        "state": "PASS" if not failures else "FAIL",
+        "inventory_artifact_total": inventory.get("artifact_total"),
+        "text_scanned_total": scanned_total,
+        "stale_hit_total": len(stale_hits),
+        "stale_hits": stale_hits[:50],
+        "absolute_overclaim_hit_total": len(overclaim_hits),
+        "absolute_overclaim_hits": overclaim_hits[:50],
+        "missing_total": len(missing),
+        "zip_self_ref_failure_total": len(zip_self_ref_failures),
+        "failure_total": len(failures),
+        "failures": failures[:100],
     }
 
 
@@ -175,6 +389,8 @@ def main() -> int:
     metadata = metadata_audit()
     zip_report = zip_audit()
     journal = journal_package_audit()
+    claims = claim_surface_audit()
+    packaged = packaged_surface_audit()
     checks = {
         "scorecard_pass": scorecard.get("master_verdict") == "PASS" and scorecard.get("gate_counts", {}).get("FAIL", 0) == 0 and scorecard.get("gate_counts", {}).get("BLOCKED", 0) == 0,
         "external_review_ready_no_send": scorecard.get("external_review_ready_no_send") is True,
@@ -185,6 +401,8 @@ def main() -> int:
         "zip_integrity_pass": zip_report.get("state") == "PASS",
         "journal_packages_pass": journal.get("state") == "PASS",
         "metadata_pass": metadata.get("state") == "PASS",
+        "claim_surface_pass": claims.get("state") == "PASS",
+        "packaged_surface_pass": packaged.get("state") == "PASS",
     }
     blockers = [name for name, ok in checks.items() if not ok]
     payload = {
@@ -213,6 +431,8 @@ def main() -> int:
         "metadata": metadata,
         "zip": zip_report,
         "journal_packages": journal,
+        "claim_surface": claims,
+        "packaged_surface": packaged,
     }
     write_json_if_changed(OUT_JSON, payload)
     blocker_lines = [f"- `{blocker}`" for blocker in blockers] if blockers else ["- none"]
@@ -226,6 +446,8 @@ def main() -> int:
         f"- Cerberus critical/high/parse: `{payload['cerberus']['critical_open_total']}/{payload['cerberus']['high_open_total']}/{payload['cerberus']['parse_failure_total']}`",
         f"- package SHA-256: `{zip_report['actual_sha256']}`",
         f"- journal packages: `{journal['package_total']}` packages, `{journal['package_status_counts']}`",
+        f"- claim surface: `{claims['state']}` failures=`{claims['failure_total']}`",
+        f"- packaged surface: `{packaged['state']}` failures=`{packaged['failure_total']}`",
         "",
         "## Boundary",
         "",

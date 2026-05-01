@@ -1,88 +1,32 @@
 {
-  "schema_id": "OC133_COUNTEREXAMPLE_REPORT_v12",
-  "case_total": 10,
+  "schema_id": "OC133_COUNTEREXAMPLE_REPORT_v1",
+  "case_total": 5,
   "failure_total": 0,
-  "open_counterexample_total": 0,
   "cases": [
     {
-      "counterexample_id": "CE-K0-RAW-DISCRETENESS",
-      "attack": "continuous raw states share rho-cell",
-      "target_gate": "G32-G70",
-      "expected_response": "REJECT_RAW_DISCRETENESS_LEAK",
-      "status": "DEFEATED_BY_V12_ARTIFACT",
-      "evidence_ref": "reports/OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json"
+      "case": "cycle_free_live_candidate",
+      "expected": "REJECT",
+      "observed": "REJECT"
     },
     {
-      "counterexample_id": "CE-LIVE-STATIC-LABEL",
-      "attack": "static label without cycle",
-      "target_gate": "G32-G70",
-      "expected_response": "REJECT_LIVE_STATUS",
-      "status": "DEFEATED_BY_V12_ARTIFACT",
-      "evidence_ref": "reports/OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json"
+      "case": "effective_dimension_decrease",
+      "expected": "COMPATIBLE_WITH_A_HIST",
+      "observed": "COMPATIBLE_WITH_A_HIST"
     },
     {
-      "counterexample_id": "CE-KZERO-NO-CAUSE",
-      "attack": "k zero asserted without zero-cause",
-      "target_gate": "G32-G70",
-      "expected_response": "REJECT_K_ZERO",
-      "status": "DEFEATED_BY_V12_ARTIFACT",
-      "evidence_ref": "reports/OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json"
+      "case": "logical_boundary_without_real_threshold",
+      "expected": "ACCEPT_GENERALIZED_BOUNDARY",
+      "observed": "ACCEPT_GENERALIZED_BOUNDARY"
     },
     {
-      "counterexample_id": "CE-BOUNDARY-FAKE-METRIC",
-      "attack": "logical boundary forced into metric",
-      "target_gate": "G32-G70",
-      "expected_response": "REJECT_FAKE_METRIC",
-      "status": "DEFEATED_BY_V12_ARTIFACT",
-      "evidence_ref": "reports/OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json"
+      "case": "residue_rebirth_not_identity_continuation",
+      "expected": "REBIRTH_NOT_CONTINUATION",
+      "observed": "REBIRTH_NOT_CONTINUATION"
     },
     {
-      "counterexample_id": "CE-HYBRID-UNIVERSAL-DERIVATIVE",
-      "attack": "rewrite state differentiated",
-      "target_gate": "G32-G70",
-      "expected_response": "REJECT_SMOOTH_OVERREACH",
-      "status": "DEFEATED_BY_V12_ARTIFACT",
-      "evidence_ref": "reports/OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json"
-    },
-    {
-      "counterexample_id": "CE-DIM-RANK-CONFLATION",
-      "attack": "historical axis erased by rank drop",
-      "target_gate": "G32-G70",
-      "expected_response": "REJECT_AXIS_ERASURE",
-      "status": "DEFEATED_BY_V12_ARTIFACT",
-      "evidence_ref": "reports/OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json"
-    },
-    {
-      "counterexample_id": "CE-ID-REBIRTH-AS-IDENTITY",
-      "attack": "rebirth called same identity",
-      "target_gate": "G32-G70",
-      "expected_response": "REJECT_IDENTITY_EQUIVOCATION",
-      "status": "DEFEATED_BY_V12_ARTIFACT",
-      "evidence_ref": "reports/OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json"
-    },
-    {
-      "counterexample_id": "CE-MIN-REMOVE-BOUNDARY",
-      "attack": "boundary component removed",
-      "target_gate": "G32-G70",
-      "expected_response": "VERDICT_CHANGE_DETECTED",
-      "status": "DEFEATED_BY_V12_ARTIFACT",
-      "evidence_ref": "reports/OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json"
-    },
-    {
-      "counterexample_id": "CE-KLEVEL-COLLAPSE",
-      "attack": "K3 reduced to K2 despite closure witness",
-      "target_gate": "G32-G70",
-      "expected_response": "REDUCTION_FAILS_WITH_WITNESS",
-      "status": "DEFEATED_BY_V12_ARTIFACT",
-      "evidence_ref": "reports/OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json"
-    },
-    {
-      "counterexample_id": "CE-NOSEND-PUBLISH",
-      "attack": "publish_allowed true with owner_approved false",
-      "target_gate": "G32-G70",
-      "expected_response": "REJECT_PUBLIC_ACTION",
-      "status": "DEFEATED_BY_V12_ARTIFACT",
-      "evidence_ref": "reports/OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json"
+      "case": "k_level_reduction_attempt",
+      "expected": "FAILS_WITH_WITNESS",
+      "observed": "FAILS_WITH_WITNESS"
     }
   ],
   "verdict": "PASS"

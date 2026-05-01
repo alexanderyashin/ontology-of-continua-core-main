@@ -1,20 +1,16 @@
-# Promoted Claims
+# OC Core 1.3.3 Bounded No-Send Claims
 
-Rows with public_status `PROMOTED`.
+Rows with scientific_promotion_allowed `true` are bounded owner-review claims, not public-send approval.
 
-| Claim | Support Class | Ceiling |
-| --- | --- | --- |
-| `OC-CLAIM-000001` Boundary cycle invariant | `FORMALLY_PROVED` | formal model statement |
-| `OC-CLAIM-000002` Threshold replay in formal examples | `THEOREM_NATIVE_HELD_OUT_VALIDATED` | theorem-native replay within named assumptions |
-| `OC-CLAIM-000003` RAF closure packet mapping | `OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS` | bounded worked example and deterministic replay |
-| `OC-CLAIM-000004` Membrane viability windows | `OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS` | bounded operational example |
-| `OC-CLAIM-000005` Binding collapse formula route | `THEOREM_NATIVE_HELD_OUT_VALIDATED` | formula route under stated assumptions |
-| `OC-CLAIM-000009` Recursion consistency | `FORMALLY_PROVED` | formal consistency route plus deterministic replay |
-| `OC-CLAIM-000010` Irreducibility route | `THEOREM_NATIVE_HELD_OUT_VALIDATED` | theorem-native statement under assumptions |
-| `OC-CLAIM-000012` Comparator-aware release discipline | `OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS` | release-process guarantee inside this repository |
-| `OC-CLAIM-000013` Public reproducibility route | `OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS` | local deterministic package route |
-| `OC-CLAIM-000014` Falsifiability discipline | `OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS` | documented critique and demotion route |
-| `OC-CLAIM-000017` Release-machine gate enforceability | `OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS` | repository-local gate enforcement |
-| `OC-CLAIM-000018` Public-surface parity | `OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS` | checked parity across tracked v1.3.2 surfaces |
-| `OC-CLAIM-000019` External release unit principle | `OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS` | governance rule implemented for tracked routes |
-| `OC-CLAIM-000020` OC Core v1.3.2 hygiene patch | `OPERATIONALLY_SUPPORTED_WITHIN_BOUNDS` | release-candidate hygiene repair |
+| Claim | Status | Evidence Ceiling | Scope Limit |
+| --- | --- | --- | --- |
+| `T133-K0-RES` K0 support is treated as a no-send formal release-consistency check over declared resolution quotients: same-resolution states are not distinguished, and a finite countermodel shows raw separation need not induce resolution distinction. It is not promoted as an independent novelty or scientific theorem in v12. | `PROMOTED_BOUNDED_NO_SEND_V12` | `BOUNDED_SCIENTIFIC_THEOREM` | Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary. |
+| `T133-OMEGA-STATUS` Death blocks live status; residue and rebirth are token-bound evidence relations with distinct class-specific endpoint rules: residue separates source from residue while returning to the source endpoint, and rebirth separates source, residue, and new target tokens. Rebirth is non-identity unless endpoint-bound identity evidence has identity class, declared invariant preservation, no residue token, and equal source/target endpoint evidence. No categorical Hom/composition theorem is promoted. | `PROMOTED_BOUNDED_NO_SEND_V12` | `BOUNDED_SCIENTIFIC_THEOREM` | Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary. |
+| `T133-K-ZERO` Continuumness zero requires live support, an independently clear obstruction ledger, and a declared zero-cause family; a zero-cause label alone does not compute k=0. | `PROMOTED_BOUNDED_NO_SEND_V12` | `BOUNDED_SCIENTIFIC_THEOREM` | Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary. |
+| `T133-BOUNDARY` Metric thresholds are a specialization of typed classifier boundaries. | `PROMOTED_BOUNDED_NO_SEND_V12` | `BOUNDED_SCIENTIFIC_THEOREM` | Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary. |
+| `T133-HYBRID` OC operators are typed update semantics; chart-labelled flow-one notation is admitted only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth cases. No differentiability or ODE-solution theorem is promoted in v12. | `PROMOTED_BOUNDED_NO_SEND_V12` | `BOUNDED_SCIENTIFIC_THEOREM` | Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary. |
+| `T133-DIM` Historical axis activation and effective working rank are kept as distinct no-send formal release-consistency fields; a finite/Lean witness shows compatibility of monotone historical bookkeeping with decreasing effective rank, but v12 does not promote an independent scientific dimension theorem. | `PROMOTED_BOUNDED_NO_SEND_V12` | `BOUNDED_SCIENTIFIC_THEOREM` | Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary. |
+| `T133-CYCLE` Declared eligible-live status requires an explicit cycle mode or non-vacuous maintenance predicate. | `PROMOTED_BOUNDED_NO_SEND_V12` | `BOUNDED_SCIENTIFIC_THEOREM` | Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary. |
+| `T133-ID` Identity continuation requires endpoint-bound identity evidence: identity class, declared invariant preservation, no residue token, equal source/target endpoint evidence, lifecycle identity-invariant truth, and typed source/target binding. Residue and rebirth evidence classes do not become identity continuation merely by preserving some invariants. No categorical Hom/composition theorem is promoted. | `PROMOTED_BOUNDED_NO_SEND_V12` | `BOUNDED_SCIENTIFIC_THEOREM` | Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary. |
+| `T133-MIN` Within the declared v12 release tuple semantics, each tuple component has a one-field semantic keep/drop witness that changes the release verdict. | `PROMOTED_BOUNDED_NO_SEND_V12` | `BOUNDED_SCIENTIFIC_THEOREM` | Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary. |
+| `T133-KLEVEL` Every declared adjacent K-level transition K0->K12 has a release-atlas row, retained-witness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release classifier; independent semantic irreducibility beyond this declared classifier is a future proof obligation, not a promoted v12 theorem. | `PROMOTED_BOUNDED_NO_SEND_V12` | `BOUNDED_SCIENTIFIC_THEOREM` | Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary. |
