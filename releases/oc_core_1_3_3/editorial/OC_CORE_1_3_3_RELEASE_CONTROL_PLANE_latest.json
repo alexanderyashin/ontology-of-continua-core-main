@@ -3,7 +3,7 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "generated_at": "2026-04-28T00:00:00Z",
-  "release_state": "OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND",
+  "release_state": "SCIENTIFIC_BLOCKERS_REMAIN",
   "global_no_send_lock": true,
   "owner_approval_required": true,
   "owner_approved": false,
@@ -900,23 +900,167 @@
     {
       "gate_id": "G59",
       "name": "G59_REPRODUCIBILITY_CLEAN_CHECKOUT_PASS",
-      "state": "PASS",
+      "state": "FAIL",
       "severity": "HIGH",
       "summary": "G59_REPRODUCIBILITY_CLEAN_CHECKOUT_PASS checked by v12 no-compromise release profile.",
       "details": {
-        "state": "PASS",
+        "state": "FAIL",
         "manifest_ref": "reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
-        "verdict": "PASS",
+        "verdict": "FAIL",
         "command_failure_total": 0,
-        "mismatch_total": 0,
+        "mismatch_total": 12,
         "mismatch_count_ok": true,
-        "mismatch_failures": [],
-        "non_compare_ref_mutation_total": 0,
+        "mismatch_failures": [
+          {
+            "ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+            "committed_clean_checkout_baseline_exists": true,
+            "regenerated_exists": true,
+            "committed_clean_checkout_baseline_sha256": "fbc5b3dbd59b4224dd4cd8143c9cb5a18e44e52ec5437b2b9f409724a546db9f",
+            "regenerated_sha256": "dd2f5ad8050ddf62bbe794990965811faf9548511f986f03fc0cfe75d5fcf194",
+            "mismatch_reasons": [
+              "SHA256_MISMATCH"
+            ],
+            "matches": false
+          },
+          {
+            "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+            "committed_clean_checkout_baseline_exists": true,
+            "regenerated_exists": true,
+            "committed_clean_checkout_baseline_sha256": "74d5460594cf1744b472c51e7f63983392bddfb865f3c77baae1c3779b12bbd6",
+            "regenerated_sha256": "7add50eaa505ec17ea50ed8f5e6d569cc15c6258c9f00003ed8b180ae10b0c4c",
+            "mismatch_reasons": [
+              "SHA256_MISMATCH"
+            ],
+            "matches": false
+          },
+          {
+            "ref": "proofs/finite_model_checks/FINITE_MODEL_REPLAY_REPORT.json",
+            "committed_clean_checkout_baseline_exists": true,
+            "regenerated_exists": true,
+            "committed_clean_checkout_baseline_sha256": "719346101bfeca97304d1ae88f50ab58502bc8fa04c584e5edd6dc5d0939e57e",
+            "regenerated_sha256": "1dd4ab4142f58565efc9e2e6a64c88703c8bb24ae75f4304f2e2efcbf0e7d3eb",
+            "mismatch_reasons": [
+              "SHA256_MISMATCH"
+            ],
+            "matches": false
+          },
+          {
+            "ref": "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json",
+            "committed_clean_checkout_baseline_exists": true,
+            "regenerated_exists": true,
+            "committed_clean_checkout_baseline_sha256": "2233e8449c99bdc54d6304f731d44ae9338508c11614b810ca9f7fad921f09fb",
+            "regenerated_sha256": "4adfa2a08895551a83cf7982ba201fa2f3864c3e1eb04286412d8042f044e8ae",
+            "mismatch_reasons": [
+              "SHA256_MISMATCH"
+            ],
+            "matches": false
+          },
+          {
+            "ref": "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
+            "committed_clean_checkout_baseline_exists": true,
+            "regenerated_exists": true,
+            "committed_clean_checkout_baseline_sha256": "bbb5efe783d6f20206c8f3c2dc17cfa7e12592571bcba45b53cb2d6d7f00684f",
+            "regenerated_sha256": "51b38561b9cd8d55f91db6612be5f2d4e2ab3992669772d173142050bfeeab2b",
+            "mismatch_reasons": [
+              "SHA256_MISMATCH"
+            ],
+            "matches": false
+          },
+          {
+            "ref": "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+            "committed_clean_checkout_baseline_exists": true,
+            "regenerated_exists": true,
+            "committed_clean_checkout_baseline_sha256": "c067f112a28fd319498d637189b5c56b0f68ea86f77e06051b65346f6fe748d5",
+            "regenerated_sha256": "fae1e545bdce3bd1f1305a6f625d8e63f6113d2a6cf2315e4e67d06cb07c0646",
+            "mismatch_reasons": [
+              "SHA256_MISMATCH"
+            ],
+            "matches": false
+          },
+          {
+            "ref": "manifest.json",
+            "committed_clean_checkout_baseline_exists": true,
+            "regenerated_exists": true,
+            "committed_clean_checkout_baseline_sha256": "cb8d8625466dac8fce13d89fc4b5e9138b27b7587156cb9a6cdaf345076b10ec",
+            "regenerated_sha256": "dee77118b3c56ca35d50d763ef06c4bd4748d1e8b595a090f284b6fc06ac59c9",
+            "mismatch_reasons": [
+              "SHA256_MISMATCH"
+            ],
+            "matches": false
+          },
+          {
+            "ref": "checksums.txt",
+            "committed_clean_checkout_baseline_exists": true,
+            "regenerated_exists": true,
+            "committed_clean_checkout_baseline_sha256": "f6e37134ba3a8ddf6d3a8a02ea30954e6463c9efced524608df960b895b36aa4",
+            "regenerated_sha256": "99cd1f2e8fee1fd699c4a53de85a91fc80a963a6c9e767485f0d020fa494d2d1",
+            "mismatch_reasons": [
+              "SHA256_MISMATCH"
+            ],
+            "matches": false
+          },
+          {
+            "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ARTIFACT_INVENTORY.json",
+            "committed_clean_checkout_baseline_exists": true,
+            "regenerated_exists": true,
+            "committed_clean_checkout_baseline_sha256": "beb4814962d3a9922ca33ef35e0c500b5d5f3cb3ee462d77c0479e78077c0435",
+            "regenerated_sha256": "c8998990fa6e55020a739a2e37ef557704d3576429e88a703694c26bbee2af71",
+            "mismatch_reasons": [
+              "SHA256_MISMATCH"
+            ],
+            "matches": false
+          },
+          {
+            "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_SHA256SUMS",
+            "committed_clean_checkout_baseline_exists": true,
+            "regenerated_exists": true,
+            "committed_clean_checkout_baseline_sha256": "9c070cb9b1047a786e78be2920fdf4e8165afb7fe504d17f69a94aec2c8d88fa",
+            "regenerated_sha256": "d7fb9e63d81467382b9a69fb707b8aed658603f11fb6b967970aa040355fb04a",
+            "mismatch_reasons": [
+              "SHA256_MISMATCH"
+            ],
+            "matches": false
+          },
+          {
+            "ref": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
+            "committed_clean_checkout_baseline_exists": true,
+            "regenerated_exists": true,
+            "committed_clean_checkout_baseline_sha256": "d6a4aaf5f51abd3f72b69365df2cca31701c2226e418f1e8438c5d24de0c7298",
+            "regenerated_sha256": "8783fd312b8287435b201fcf3713a99d2a4744f415444d5e776f6c1802d2e898",
+            "mismatch_reasons": [
+              "SHA256_MISMATCH"
+            ],
+            "matches": false
+          },
+          {
+            "ref": "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip",
+            "committed_clean_checkout_baseline_exists": true,
+            "regenerated_exists": true,
+            "committed_clean_checkout_baseline_sha256": "11400c0ec31cb970678a3a983452cda0e78997fbbfdf058c65bccaa551b30229",
+            "regenerated_sha256": "d8d8042cafdc42c52faf9560fd308480a28d876e1b73d177a1376f4aeb1f2504",
+            "mismatch_reasons": [
+              "SHA256_MISMATCH",
+              "ZIP_MEMBER_MANIFEST_MISMATCH"
+            ],
+            "zip_member_manifest_compared": true,
+            "committed_clean_checkout_baseline_zip_member_manifest": {
+              "member_total": 783,
+              "member_manifest_sha256": "93fb9324d3414e48a97199273ebaff6bd343c13fb0b146bf0c2d2a3fa4f0960b"
+            },
+            "regenerated_zip_member_manifest": {
+              "member_total": 785,
+              "member_manifest_sha256": "009675bacce3ca222a645336964414ba6afae8d15282f729ffd7cb7684b0c6c1"
+            },
+            "zip_member_manifest_matches": false,
+            "matches": false
+          }
+        ],
+        "non_compare_ref_mutation_total": 1,
         "repro_non_compare_mutation_count_ok": true,
         "preexisting_compared_target_total": 23,
         "compared_artifact_total": 23,
         "strict_head_replay_clean": true,
-        "stable_payload_sha256": "bfb5b62269b899214e752f87e50bcfa69e9422f56d8eb5e17358327a54f5e47f",
+        "stable_payload_sha256": "77f794ffdcb249063c2d6598a432188d592e1c95ac82edc12220804b1ee6705d",
         "internal_checksum_failures": [],
         "internal_checksum_failure_count_ok": true,
         "unexpected_internal_checksum_failures": []
@@ -1261,11 +1405,11 @@
     {
       "gate_id": "G70",
       "name": "G70_10_10_SCIENTIFIC_CLOSURE_VERDICT",
-      "state": "PASS",
+      "state": "FAIL",
       "severity": "CRITICAL",
       "summary": "G70_10_10_SCIENTIFIC_CLOSURE_VERDICT checked by v12 no-compromise release profile.",
       "details": {
-        "prior_critical_high_bad_total": 0,
+        "prior_critical_high_bad_total": 1,
         "release_state_on_pass": "OC_CORE_1_3_3_10_10_READY_NO_SEND",
         "state": "PASS",
         "issues": [],

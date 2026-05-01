@@ -29,6 +29,7 @@ COMPARE_REFS = [
     "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json",
     "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json",
     "validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json",
+    "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
     "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
     "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.md",
     "manifest.json",
