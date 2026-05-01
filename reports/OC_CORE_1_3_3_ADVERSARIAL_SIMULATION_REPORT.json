@@ -3,6 +3,21 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "runner": "simulations/adversarial/run_all.py",
+  "runner_sha256": "02880c64e6882171f80ad6ac48cf1933a0133cd370c637f7eaf2471b3de5a6f7",
+  "finite_runner_ref": "proofs/finite_model_checks/run_finite_model_checks.py",
+  "finite_runner_returncode": 0,
+  "finite_runner_retry_policy": "up to 3 attempts; rejects release if all attempts fail or finite payload has failures",
+  "finite_runner_attempt_total": 1,
+  "finite_runner_attempts": [
+    {
+      "attempt_index": 1,
+      "returncode": 0,
+      "failure_total": 0,
+      "stdout_tail": "_ref_is_public_release_artifact\": false\n          },\n          {\n            \"channel\": \"doi_minting\",\n            \"artifact_kind\": \"checksums_manifest\",\n            \"artifact_identifier\": \"urn:oc-core:1.3.3:future-public-artifact:doi_minting:checksums_manifest\",\n            \"sha256_policy\": \"FUTURE_OWNER_APPROVED_ARTIFACT_DIGEST_REQUIRED\",\n            \"current_no_send_ref\": \"checksums.txt\",\n            \"current_no_send_ref_is_public_release_artifact\": false\n          }\n        ]\n      },\n      \"negative_control_id\": \"ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL\",\n      \"semantic_evaluator_ref\": \"proofs/finite_model_checks/run_finite_model_checks.py::hypothetical_owner_approved_control\",\n      \"public_metadata_surface\": {\n        \"ok\": false,\n        \"checked_ref_total\": 0,\n        \"expected_ref_total\": 0,\n        \"failure_total\": 0,\n        \"failures\": [],\n        \"observed_refs\": []\n      },\n      \"observed_verdict\": \"REJECT_PUBLIC_ACTION\",\n      \"passed\": true\n    }\n  ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "finite_failure_total": 0,
   "case_total": 10,
   "failure_total": 0,
   "rows": [
@@ -10,6 +25,19 @@
       "case_id": "ADV-K0-RAW-DISCRETENESS",
       "attack": "continuous raw states share rho-cell",
       "expected_verdict": "REJECT_RAW_DISCRETENESS_LEAK",
+      "evidence_case_ids": [
+        "FM-T133-K0-RES-NEG"
+      ],
+      "evidence_observed_values": [
+        {
+          "case_id": "FM-T133-K0-RES-NEG",
+          "observed_verdict": "REJECT",
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null,
+          "passed": true
+        }
+      ],
+      "evidence_cases_passed": true,
       "observed_verdict": "REJECT_RAW_DISCRETENESS_LEAK",
       "passed": true
     },
@@ -17,6 +45,19 @@
       "case_id": "ADV-LIVE-STATIC-LABEL",
       "attack": "static label without cycle",
       "expected_verdict": "REJECT_LIVE_STATUS",
+      "evidence_case_ids": [
+        "FM-T133-CYCLE-NEG"
+      ],
+      "evidence_observed_values": [
+        {
+          "case_id": "FM-T133-CYCLE-NEG",
+          "observed_verdict": "REJECT",
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null,
+          "passed": true
+        }
+      ],
+      "evidence_cases_passed": true,
       "observed_verdict": "REJECT_LIVE_STATUS",
       "passed": true
     },
@@ -24,6 +65,19 @@
       "case_id": "ADV-KZERO-NO-CAUSE",
       "attack": "k zero asserted without zero-cause",
       "expected_verdict": "REJECT_K_ZERO",
+      "evidence_case_ids": [
+        "FM-T133-K-ZERO-NEG"
+      ],
+      "evidence_observed_values": [
+        {
+          "case_id": "FM-T133-K-ZERO-NEG",
+          "observed_verdict": "REJECT",
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null,
+          "passed": true
+        }
+      ],
+      "evidence_cases_passed": true,
       "observed_verdict": "REJECT_K_ZERO",
       "passed": true
     },
@@ -31,6 +85,19 @@
       "case_id": "ADV-BOUNDARY-FAKE-METRIC",
       "attack": "logical boundary forced into metric",
       "expected_verdict": "REJECT_FAKE_METRIC",
+      "evidence_case_ids": [
+        "FM-T133-BOUNDARY-NEG"
+      ],
+      "evidence_observed_values": [
+        {
+          "case_id": "FM-T133-BOUNDARY-NEG",
+          "observed_verdict": "REJECT",
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null,
+          "passed": true
+        }
+      ],
+      "evidence_cases_passed": true,
       "observed_verdict": "REJECT_FAKE_METRIC",
       "passed": true
     },
@@ -38,6 +105,19 @@
       "case_id": "ADV-HYBRID-UNIVERSAL-DERIVATIVE",
       "attack": "rewrite state differentiated",
       "expected_verdict": "REJECT_SMOOTH_OVERREACH",
+      "evidence_case_ids": [
+        "FM-T133-HYBRID-PROOF-UPDATE-NEG"
+      ],
+      "evidence_observed_values": [
+        {
+          "case_id": "FM-T133-HYBRID-PROOF-UPDATE-NEG",
+          "observed_verdict": "REJECT",
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null,
+          "passed": true
+        }
+      ],
+      "evidence_cases_passed": true,
       "observed_verdict": "REJECT_SMOOTH_OVERREACH",
       "passed": true
     },
@@ -45,6 +125,19 @@
       "case_id": "ADV-DIM-RANK-CONFLATION",
       "attack": "historical axis erased by rank drop",
       "expected_verdict": "REJECT_AXIS_ERASURE",
+      "evidence_case_ids": [
+        "FM-T133-DIM-NEG"
+      ],
+      "evidence_observed_values": [
+        {
+          "case_id": "FM-T133-DIM-NEG",
+          "observed_verdict": "REJECT",
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null,
+          "passed": true
+        }
+      ],
+      "evidence_cases_passed": true,
       "observed_verdict": "REJECT_AXIS_ERASURE",
       "passed": true
     },
@@ -52,6 +145,19 @@
       "case_id": "ADV-ID-REBIRTH-AS-IDENTITY",
       "attack": "rebirth called same identity",
       "expected_verdict": "REJECT_IDENTITY_EQUIVOCATION",
+      "evidence_case_ids": [
+        "FM-T133-ID-NEG"
+      ],
+      "evidence_observed_values": [
+        {
+          "case_id": "FM-T133-ID-NEG",
+          "observed_verdict": "REJECT",
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null,
+          "passed": true
+        }
+      ],
+      "evidence_cases_passed": true,
       "observed_verdict": "REJECT_IDENTITY_EQUIVOCATION",
       "passed": true
     },
@@ -59,6 +165,19 @@
       "case_id": "ADV-MIN-REMOVE-BOUNDARY",
       "attack": "boundary component removed",
       "expected_verdict": "VERDICT_CHANGE_DETECTED",
+      "evidence_case_ids": [
+        "FM-MIN-boundaries"
+      ],
+      "evidence_observed_values": [
+        {
+          "case_id": "FM-MIN-boundaries",
+          "observed_verdict": null,
+          "observed_drop_verdict": "FAIL",
+          "observed_reduction_verdict": null,
+          "passed": true
+        }
+      ],
+      "evidence_cases_passed": true,
       "observed_verdict": "VERDICT_CHANGE_DETECTED",
       "passed": true
     },
@@ -66,6 +185,19 @@
       "case_id": "ADV-KLEVEL-COLLAPSE",
       "attack": "K3 reduced to K2 despite closure witness",
       "expected_verdict": "REDUCTION_FAILS_WITH_WITNESS",
+      "evidence_case_ids": [
+        "FM-KLEVEL-K2_to_K3"
+      ],
+      "evidence_observed_values": [
+        {
+          "case_id": "FM-KLEVEL-K2_to_K3",
+          "observed_verdict": null,
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": "FAILS_WITH_WITNESS",
+          "passed": true
+        }
+      ],
+      "evidence_cases_passed": true,
       "observed_verdict": "REDUCTION_FAILS_WITH_WITNESS",
       "passed": true
     },
@@ -73,6 +205,19 @@
       "case_id": "ADV-NOSEND-PUBLISH",
       "attack": "publish_allowed true with owner_approved false",
       "expected_verdict": "REJECT_PUBLIC_ACTION",
+      "evidence_case_ids": [
+        "ADV-NOSEND-PUBLISH"
+      ],
+      "evidence_observed_values": [
+        {
+          "case_id": "ADV-NOSEND-PUBLISH",
+          "observed_verdict": "REJECT_PUBLIC_ACTION",
+          "observed_drop_verdict": null,
+          "observed_reduction_verdict": null,
+          "passed": true
+        }
+      ],
+      "evidence_cases_passed": true,
       "observed_verdict": "REJECT_PUBLIC_ACTION",
       "passed": true
     }
