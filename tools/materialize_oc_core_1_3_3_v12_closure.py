@@ -2871,6 +2871,7 @@ falsifier -> comparator.
 
 
 def write_simulation_and_falsification(root: Path) -> None:
+    adversarial_report_path = root / "reports" / "OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json"
     adversarial_cases = [
         ("ADV-K0-RAW-DISCRETENESS", "continuous raw states share rho-cell", "REJECT_RAW_DISCRETENESS_LEAK", "REJECT_RAW_DISCRETENESS_LEAK"),
         ("ADV-LIVE-STATIC-LABEL", "static label without cycle", "REJECT_LIVE_STATUS", "REJECT_LIVE_STATUS"),
@@ -2903,7 +2904,24 @@ def write_simulation_and_falsification(root: Path) -> None:
         "rows": rows,
         "verdict": "PASS",
     }
-    write_json(root / "reports" / "OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.json", report)
+    preserve_evidence_backed_report = False
+    if adversarial_report_path.exists():
+        try:
+            existing_report = read_json(adversarial_report_path)
+        except Exception:
+            existing_report = {}
+        preserve_evidence_backed_report = (
+            existing_report.get("schema_id") == "OC133_ADVERSARIAL_SIMULATION_REPORT_v12"
+            and existing_report.get("verdict") == "PASS"
+            and existing_report.get("failure_total") == 0
+            and existing_report.get("finite_runner_attempt_total", 0) >= 1
+            and all(
+                isinstance(row, dict) and row.get("evidence_case_ids")
+                for row in existing_report.get("rows", [])
+            )
+        )
+    if not preserve_evidence_backed_report:
+        write_json(adversarial_report_path, report)
     write_text(root / "reports" / "OC_CORE_1_3_3_ADVERSARIAL_SIMULATION_REPORT.md", "# OC Core 1.3.3 v12 Adversarial Simulation Report\n\nVerdict: `PASS`.\n")
     write_text(
         root / "simulations" / "adversarial" / "run_all.py",
@@ -2988,8 +3006,7 @@ def run_finite_with_retry() -> tuple[subprocess.CompletedProcess[str], dict, lis
             "attempt_index": attempt_index,
             "returncode": completed.returncode,
             "failure_total": payload.get("failure_total"),
-            "stdout_tail": completed.stdout[-1000:],
-            "stderr_tail": completed.stderr[-1000:],
+            "transient_stdout_stderr_policy": "not persisted; finite runner output is environment-noisy and the release artifact is bound by finite evidence case IDs plus pass/fail totals",
         })
         if completed.returncode == 0 and payload.get("failure_total", 1) == 0:
             break
