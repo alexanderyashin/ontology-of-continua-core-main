@@ -17,6 +17,7 @@ from release_machine import oc133
 from release_machine import oc133_platinum
 from release_machine import oc133_v12
 from release_machine import publication
+from release_machine import public_release
 from release_machine import versioning
 
 
@@ -84,6 +85,27 @@ class ReleaseMachineTests(unittest.TestCase):
             self.assertFalse(oc133.write_text(text_path, "stable\n"))
             self.assertTrue(oc133.write_json(json_path, {"stable": True}))
             self.assertFalse(oc133.write_json(json_path, {"stable": True}))
+
+    def test_public_release_profile_is_serialized_and_reloaded(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            profile = public_release.load_profile(root, "oc_core_1_3_3")
+            self.assertTrue(public_release.write_profile(root, profile))
+            reloaded = public_release.load_profile(root, "oc_core_1_3_3")
+            self.assertEqual(reloaded.release_id, "oc_core_1_3_3")
+            self.assertEqual(reloaded.version, "1.3.3")
+            self.assertEqual(reloaded.tag, "v1.3.3")
+            self.assertGreater(len(reloaded.assets), 5)
+
+    def test_public_release_metadata_can_be_built_without_dirtying_tree(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            profile = public_release.load_profile(root, "oc_core_1_3_3")
+            payload = public_release.build_public_metadata(root, profile, write=False)
+            self.assertEqual(payload["release_id"], "oc_core_1_3_3")
+            self.assertIn("Journal submissions remain locked", payload["release_body"])
+            self.assertFalse((root / ".zenodo.json").exists())
+            self.assertFalse((root / "releases/oc_core_1_3_3/editorial/PUBLIC_RELEASE_PROFILE.json").exists())
 
     def test_oc133_existing_package_reused_when_fingerprint_inputs_match(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

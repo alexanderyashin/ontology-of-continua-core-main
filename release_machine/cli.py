@@ -7,6 +7,7 @@ from . import core
 from . import lrgef
 from . import oc133
 from . import publication
+from . import public_release
 from . import versioning
 
 
@@ -112,7 +113,10 @@ def main(argv: list[str] | None = None) -> int:
     elif args.command == "publish-plan":
         payload = core.publish_plan(release, args.channel)
     elif args.command == "postflight":
-        payload = core.postflight(release, args.channel, args.public_url)
+        if release == oc133.RELEASE_ID:
+            payload = public_release.postflight(public_release.repo_root(), release_id=release)
+        else:
+            payload = core.postflight(release, args.channel, args.public_url)
     elif args.command == "init":
         payload = {
             "schema_id": "LRGEF_RELEASE_INIT_v1",
@@ -155,7 +159,15 @@ def main(argv: list[str] | None = None) -> int:
         payload = {"release_id": release_id, "summary": summary, "signature": signature}
     elif args.command == "publish":
         channel = args.channel[0] if len(args.channel) == 1 else "all"
-        if args.execute and not args.dry_run:
+        if release_id == oc133.RELEASE_ID:
+            if args.execute and not args.dry_run:
+                payload = public_release.publish_execute(public_release.repo_root(), release_id=release_id)
+            else:
+                payload = public_release.publication_preflight(public_release.repo_root(), release_id=release_id, write=False, require_approval=True)
+                payload["dry_run"] = bool(args.dry_run)
+                payload["execute_requested"] = bool(args.execute)
+                payload["channel"] = channel
+        elif args.execute and not args.dry_run:
             payload = publication.publish_execute(core.repo_root())
         else:
             payload = core.publish_plan(release_id, channel)
@@ -163,15 +175,22 @@ def main(argv: list[str] | None = None) -> int:
             payload["execute_requested"] = bool(args.execute)
             payload["publish_allowed"] = False
     elif args.command == "owner-approve":
-        payload = publication.grant_owner_approval(core.repo_root(), owner_identity=args.owner_identity)
+        if release_id == oc133.RELEASE_ID:
+            payload = public_release.grant_owner_approval(public_release.repo_root(), release_id=release_id, owner_identity=args.owner_identity)
+        else:
+            payload = publication.grant_owner_approval(core.repo_root(), owner_identity=args.owner_identity)
     elif args.command == "publication-preflight":
-        payload = publication.publication_preflight(core.repo_root())
+        if release_id == oc133.RELEASE_ID:
+            payload = public_release.publication_preflight(public_release.repo_root(), release_id=release_id, write=True, require_approval=True)
+        else:
+            payload = publication.publication_preflight(core.repo_root())
     elif args.command == "submission-packages":
         payload = publication.generate_submission_packages(core.repo_root(), release_id=release_id)
     elif args.command == "publication-presentation":
         root = core.repo_root()
         if release_id == oc133.RELEASE_ID:
-            payload = oc133.publication_presentation_verify(oc133.repo_root())
+            profile = public_release.load_profile(public_release.repo_root(), release_id)
+            payload = public_release.build_public_metadata(public_release.repo_root(), profile, write=bool(args.sync))
             payload["sync_requested"] = bool(args.sync)
             payload["verify_requested"] = bool(args.verify)
         elif args.sync:
