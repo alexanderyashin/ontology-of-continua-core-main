@@ -79,8 +79,7 @@ def run_finite_with_retry() -> tuple[subprocess.CompletedProcess[str], dict, lis
             "attempt_index": attempt_index,
             "returncode": completed.returncode,
             "failure_total": payload.get("failure_total"),
-            "stdout_tail": completed.stdout[-1000:],
-            "stderr_tail": completed.stderr[-1000:],
+            "transient_stdout_stderr_policy": "not persisted; finite runner output is environment-noisy and the release artifact is bound by finite evidence case IDs plus pass/fail totals",
         })
         if completed.returncode == 0 and payload.get("failure_total", 1) == 0:
             break
