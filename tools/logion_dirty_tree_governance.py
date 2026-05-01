@@ -115,6 +115,7 @@ def classify_public_path(path: str) -> str:
         or path.startswith("docs/OC_1_3_3")
         or path.startswith("validation/numeric_predictions/")
         or path.startswith("validation/target_blind/")
+        or path in {"tools/materialize_oc_core_1_3_3_scientific_closure.py", "tools/oc133_personal_release_audit.py"}
         or path == "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json"
     ):
         return "oc133_release_package"

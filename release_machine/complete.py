@@ -748,17 +748,52 @@ def _pdf_escape(value: str) -> str:
 
 
 def make_pdf_bytes(title: str, lines: list[str]) -> bytes:
-    content = [f"({_pdf_escape(title)}) Tj"]
-    for line in lines:
-        content.extend(["T*", f"({_pdf_escape(line[:96])}) Tj"])
-    stream = "BT /F1 12 Tf 72 760 Td 14 TL " + " ".join(content) + " ET"
-    objects = [
+    def wrap_line(value: str, width: int = 88) -> list[str]:
+        words = str(value).replace("\t", " ").split()
+        if not words:
+            return [""]
+        wrapped: list[str] = []
+        current = ""
+        for word in words:
+            if not current:
+                current = word
+            elif len(current) + 1 + len(word) <= width:
+                current = f"{current} {word}"
+            else:
+                wrapped.append(current)
+                current = word
+        if current:
+            wrapped.append(current)
+        return wrapped
+
+    normalized_lines: list[str] = []
+    for line in [title, "", *lines]:
+        normalized_lines.extend(wrap_line(line))
+    page_size = 44
+    pages = [normalized_lines[idx : idx + page_size] for idx in range(0, len(normalized_lines), page_size)] or [[title]]
+
+    objects: list[bytes] = [
         b"<< /Type /Catalog /Pages 2 0 R >>",
-        b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
-        b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>",
+        b"<< /Type /Pages /Kids [] /Count 0 >>",
         b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
-        f"<< /Length {len(stream.encode('latin-1'))} >>\nstream\n{stream}\nendstream".encode("latin-1"),
     ]
+    page_object_ids: list[int] = []
+    for page_lines in pages:
+        content = [f"({_pdf_escape(page_lines[0])}) Tj"]
+        for line in page_lines[1:]:
+            content.extend(["T*", f"({_pdf_escape(line)}) Tj"])
+        stream = "BT /F1 11 Tf 54 750 Td 14 TL " + " ".join(content) + " ET"
+        stream_bytes = stream.encode("latin-1", "replace")
+        page_id = len(objects) + 1
+        content_id = page_id + 1
+        page_object_ids.append(page_id)
+        objects.append(
+            f"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents {content_id} 0 R >>".encode("ascii")
+        )
+        objects.append(f"<< /Length {len(stream_bytes)} >>\nstream\n".encode("ascii") + stream_bytes + b"\nendstream")
+
+    kids = " ".join(f"{page_id} 0 R" for page_id in page_object_ids)
+    objects[1] = f"<< /Type /Pages /Kids [{kids}] /Count {len(page_object_ids)} >>".encode("ascii")
     body = bytearray(b"%PDF-1.4\n")
     offsets = [0]
     for idx, obj in enumerate(objects, start=1):

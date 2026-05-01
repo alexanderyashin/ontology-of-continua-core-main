@@ -791,24 +791,82 @@ def release_artifacts(root: Path) -> None:
     }
     write_json(editorial / "OWNER_RELEASE_APPROVAL_v1.3.3.json", approval)
     write_text(editorial / "OC_CORE_1_3_3_OWNER_APPROVAL_PACKET.md", "# OC Core 1.3.3 Owner Approval Packet\n\nDecision: `PENDING`.\n\nPublic release, upload, email, and journal submission remain locked.\n")
+    common_lines = [
+        "Release boundary: OC Core 1.3.3 is an external-review no-send package for the bounded model core, not a public release and not an unbounded universal-completion claim.",
+        "Authorization: publish_allowed=false, journal_submissions_allowed=false, owner_approved=false, owner approval remains required.",
+        "Formal foundation: typed carriers, realizations, lawful possibility, time-sliced liveness, residue, morphisms, generalized boundaries, hybrid operators, cycle modes, historical/effective dimension, and an axiomatized k.",
+        "Lean evidence: formal/lean/OC133V12.lean is built by lake build OC133V12 and bound by formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json.",
+        "Finite semantic evidence: proofs/finite_model_checks/run_finite_model_checks.py computes verdicts from raw model facts and writes proofs/FINITE_MODEL_CHECKS_1_3_3.json.",
+        "Proof boundary: promoted formal claims must cite theorem IDs, proof sheets, finite case IDs, or corrected claim boundaries.",
+        "K-level evidence: data/k_level_irreducibility_matrix.json binds adjacent transitions to retained witnesses and lawful demotion controls.",
+        "Empirical boundary: official snapshots are inputs and replay QA, not domain validation by themselves.",
+        "Target-blind scope: validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json supports bounded reconstruction rows only.",
+        "No overclaim rule: unbounded universal-completion, global superiority, and full-domain numerical closure remain background research obligations unless literal evidence supports promotion.",
+        "Review evidence: reviews/oc133_llm_cerberus/ contains the structured Cerberus suite and the critical/high open-count summary.",
+        "Adversarial evidence: simulations/adversarial/run_all.py and falsification/counterexample_search/run_counterexample_search.py exercise the known attack classes.",
+        "Package evidence: releases/oc_core_1_3_3/submission_packages/SUBMISSION_PACKAGE_INDEX.json lists eight owner-review-ready no-send venue packages.",
+        "Reproducibility evidence: reports/OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json binds regenerated artifacts and clean-checkout replay status.",
+        "Reader route: start with claim ledger, theorem inventory, finite checks, validation report, Cerberus summary, and then the venue package for the target journal.",
+    ]
     source_docs = [
-        ("OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf", "Master Monograph", "Formal core, proof closure, K-level atlas, validation reports, and reviewer attack closure."),
-        ("OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf", "Journal Core", "Reviewer-facing compact argument with no-send DOI and submission language pending."),
-        ("OC_CORE_1_3_3_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf", "Methods and Reproducibility Companion", "Rebuild, validation replay, falsifier registry, and data snapshot instructions."),
-        ("OC_CORE_1_3_3_REVIEWER_ATTACK_AND_RESPONSE_MAP_EN.pdf", "Reviewer Attack and Response Map", "100-objection red-team closure map and comparator brief."),
+        (
+            "OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf",
+            "Master Monograph",
+            [
+                "Purpose: complete no-send monograph route for the bounded OC Core 1.3.3 model foundation.",
+                "Core contribution: the model is presented as a typed cross-domain structural framework with explicit admissibility, liveness, boundary, operator, identity, and K-level semantics.",
+                "Theorem route: T133-K0-RES, T133-OMEGA-STATUS, T133-K-ZERO, T133-BOUNDARY, T133-HYBRID, T133-DIM, T133-CYCLE, T133-ID, T133-KLEVEL, and T133-MIN are bound to proof artifacts.",
+                "Minimality route: global minimality is supported by keep/drop witnesses and finite semantic cases rather than by a component checklist.",
+                "Scope limit: the monograph does not promote unbounded universal completion, full-domain numerical superiority, or certainty language.",
+                *common_lines,
+            ],
+        ),
+        (
+            "OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf",
+            "Journal Core",
+            [
+                "Purpose: compact reviewer-facing route for a journal editor or referee deciding whether the bounded model core is coherent and worth review.",
+                "Argument route: state the typed tuple, show why K0 raw separation is not resolution, bind liveness to admissible live realizations, then route claims through proof and falsifier artifacts.",
+                "Evidence route: Lean build, finite semantic checks, target-blind bounded reconstruction rows, comparator register, and Cerberus zero critical/high summary.",
+                "Submission status: owner-review-ready no-send only; submission language and DOI language remain pending owner approval.",
+                *common_lines,
+            ],
+        ),
+        (
+            "OC_CORE_1_3_3_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf",
+            "Methods and Reproducibility Companion",
+            [
+                "Purpose: exact local rebuild and replay path for the scientific and release artifacts.",
+                "Required commands: lake build OC133V12; python proofs/finite_model_checks/run_finite_model_checks.py; python validation/run_all.py --qa-only.",
+                "Required simulation commands: python simulations/run_all.py --write-report; python simulations/adversarial/run_all.py; python falsification/counterexample_search/run_counterexample_search.py.",
+                "Required release commands: python -m release_machine evaluate --release oc_core_1_3_3 --channel all --mode dry-run; python -m release_machine package --release oc_core_1_3_3 --channel all --no-publish.",
+                "Hash policy: release package SHA-256 is recorded in releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json and SHA256SUMS.",
+                "Data policy: official snapshots stay pinned with hashes, parsers, negative controls, and replay residuals; snapshot replay cannot promote empirical discovery by itself.",
+                *common_lines,
+            ],
+        ),
+        (
+            "OC_CORE_1_3_3_REVIEWER_ATTACK_AND_RESPONSE_MAP_EN.pdf",
+            "Reviewer Attack and Response Map",
+            [
+                "Purpose: map hostile objections to exact artifacts, closure evidence, and remaining claim boundaries.",
+                "Primary attack classes: theorem theater, raw-discreteness leakage, unsupported liveness, fake metric boundaries, smooth-operator overreach, identity/rebirth equivocation, K-level collapse, empirical replay theater, novelty equivalence, and unsupported public-surface claims.",
+                "Closure rule: a finding closes only by theorem ID, finite case ID, replay output, comparator row, or corrected claim boundary; status tokens alone do not close a finding.",
+                "Current Cerberus boundary: critical_open_total=0 and high_open_total=0 for the bounded external-review package, while universal-completion and global-superiority obligations stay in the background research program.",
+                *common_lines,
+            ],
+        ),
     ]
     if str(root) not in sys.path:
         sys.path.insert(0, str(root))
     from release_machine.complete import make_pdf_bytes
-    for filename, title, body in source_docs:
+    for filename, title, doc_lines in source_docs:
         lines = [
             f"OC Core {VERSION}: {title}",
             "Status: OWNER_REVIEW_READY_NO_SEND.",
             "No public release or journal submission is authorized.",
-            body,
-            "Formal appendices: K0 resolution, generalized boundary, continuumness, hybrid operators, identity/residue/rebirth, minimality, K-level irreducibility, comparator matrix.",
-            "Empirical policy: official-data snapshots or protocol-ready blockers; no fake PASS.",
-        ] * 90
+            *doc_lines,
+        ]
         (artifacts / filename).write_bytes(make_pdf_bytes(f"OC Core {VERSION} {title}", lines))
     manifest = {
         "schema_id": "OC133_PUBLISH_MANIFEST_DRAFT_v1",

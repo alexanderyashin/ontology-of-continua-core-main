@@ -30,6 +30,13 @@ G57_ATTACK_MATRIX_PLACEHOLDER_TERMS = {
     "todo",
 }
 
+PDF_ARTIFACTS = [
+    "OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf",
+    "OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf",
+    "OC_CORE_1_3_3_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf",
+    "OC_CORE_1_3_3_REVIEWER_ATTACK_AND_RESPONSE_MAP_EN.pdf",
+]
+
 V12_RELEASE_STATES = {
     "SCIENTIFIC_CLOSURE_RUNNING",
     "SCIENTIFIC_BLOCKERS_REMAIN",
@@ -145,6 +152,70 @@ def _portable_path(value: Any) -> str:
 
 def text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore") if path.exists() else ""
+
+
+def pdf_text_quality(root: Path) -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+    forbidden = re.compile(
+        r"\b(TODO|TBD|FIXME|PLACEHOLDER|Lorem ipsum|1\.3\.2|oc_core_1_3_2|irrefutable|final truth|theory of everything|better than all modern science)\b",
+        re.I,
+    )
+    try:
+        from pypdf import PdfReader  # type: ignore
+    except Exception as exc:  # pragma: no cover - depends on local toolchain
+        return {"state": "FAIL", "error": f"pypdf_unavailable:{exc}", "failure_total": len(PDF_ARTIFACTS), "rows": []}
+    for name in PDF_ARTIFACTS:
+        path = root / "releases" / RELEASE_ID / "artifacts" / name
+        extracted = ""
+        error = ""
+        pages = 0
+        if path.exists():
+            try:
+                reader = PdfReader(str(path))
+                pages = len(reader.pages)
+                extracted = "\n".join(page.extract_text() or "" for page in reader.pages)
+            except Exception as exc:  # pragma: no cover - malformed PDF path
+                error = str(exc)
+        lines = [line.strip() for line in extracted.splitlines() if line.strip()]
+        counts = Counter(lines)
+        line_total = len(lines)
+        unique_line_total = len(counts)
+        top_count = counts.most_common(1)[0][1] if counts else 0
+        duplicate_share = (top_count / line_total) if line_total else 1.0
+        forbidden_hits = [
+            {
+                "match": match.group(0),
+                "snippet": extracted[max(0, match.start() - 80) : match.end() + 120].replace("\n", " "),
+            }
+            for match in forbidden.finditer(extracted)
+        ][:10]
+        status = (
+            path.exists()
+            and not error
+            and pages >= 1
+            and len(extracted) >= 1800
+            and VERSION in extracted
+            and unique_line_total >= 25
+            and duplicate_share <= 0.35
+            and not forbidden_hits
+        )
+        rows.append(
+            {
+                "artifact": rel(root, path),
+                "exists": path.exists(),
+                "pages": pages,
+                "text_chars": len(extracted),
+                "line_total": line_total,
+                "unique_line_total": unique_line_total,
+                "max_duplicate_line_share": round(duplicate_share, 6),
+                "forbidden_hit_total": len(forbidden_hits),
+                "forbidden_hits": forbidden_hits,
+                "error": error,
+                "state": "PASS" if status else "FAIL",
+            }
+        )
+    failed = [row for row in rows if row["state"] != "PASS"]
+    return {"state": "PASS" if not failed else "FAIL", "failure_total": len(failed), "rows": rows}
 
 
 def _public_surface_metadata_paths(root: Path, public_manifest: dict[str, Any], ro_crate: dict[str, Any]) -> list[Path]:
@@ -517,6 +588,7 @@ def audit(root: Path) -> dict[str, Any]:
     absolute_hits = _scan_hits(root, FORBIDDEN_ABSOLUTE_PATTERNS)
     scope_hits = _scan_hits(root, FORBIDDEN_SCOPE_REPAIR_PATTERNS)
     secret_hits = _scan_hits(root, SECRET_PATTERNS)
+    pdf_quality = pdf_text_quality(root)
     promoted_claims = [row for row in claims.get("rows", []) if str(row.get("public_status", "")).startswith("PROMOTED")]
     proof_bound_failures = [
         row for row in promoted_claims
@@ -1011,7 +1083,14 @@ def audit(root: Path) -> dict[str, Any]:
             **metadata_surface,
         },
         "post_release": {"state": "PASS" if (root / "POST_RELEASE_VERIFICATION_PLAN.md").exists() else "FAIL"},
-        "external_review": {"state": "PASS" if (root / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_EXTERNAL_REVIEW_PACKAGE.json").exists() else "FAIL"},
+        "external_review": {
+            "state": "PASS" if (
+                (root / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_EXTERNAL_REVIEW_PACKAGE.json").exists()
+                and pdf_quality.get("state") == "PASS"
+            ) else "FAIL",
+            "external_review_package_exists": (root / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_EXTERNAL_REVIEW_PACKAGE.json").exists(),
+            "pdf_quality": pdf_quality,
+        },
     }
 
 
