@@ -435,6 +435,21 @@ def git_state() -> dict[str, Any]:
     }
 
 
+def stable_git_state(state: dict[str, Any]) -> dict[str, Any]:
+    """Keep reproducibility state semantic, not commit-id-cyclic.
+
+    The strict verifier still checks a detached worktree at HEAD, but the
+    stable payload must not include HEAD object ids. Otherwise committing the
+    final scorecard telemetry changes the reproducibility hash and creates an
+    endless release-control loop with no artifact delta.
+    """
+    return {
+        key: value
+        for key, value in state.items()
+        if key not in {"head_commit", "head_tree"}
+    }
+
+
 def head_tracked_source_refs() -> list[str]:
     completed = git_run(["ls-tree", "-r", "--name-only", "HEAD"], timeout=120)
     return [line.strip() for line in completed.stdout.splitlines() if line.strip()]
@@ -827,7 +842,7 @@ def main() -> int:
         "package_member_regeneration_policy": "The verifier deletes and regenerates COMPARE_REFS, then compares package bytes and zip-member hashes. It does not claim every package member was regenerated from primitive sources unless that member is listed in COMPARE_REFS or a future generated-output inventory.",
         "cross_environment_byte_identity_claimed": False,
         "packaging_stack_policy": "Byte identity is a same-stack local release check unless a future container/provisioning digest is supplied; canonical artifacts must not promote cross-Python/zlib byte identity.",
-        "git_state": state,
+        "git_state": stable_git_state(state),
         "head_source_manifest_sha256": sha256_json(source_manifest),
         "head_source_ref_total": len(source_manifest),
         "copied_source_ref_total": len(copied_source_refs),
