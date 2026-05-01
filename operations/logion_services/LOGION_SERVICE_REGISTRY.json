@@ -1,0 +1,315 @@
+{
+  "schema_id": "LOGION_SERVICE_REGISTRY_v1",
+  "authority_chain": [
+    "Safety Directive",
+    "LOGI",
+    "K6 Strategy HQ",
+    "Service Directors",
+    "Managers",
+    "Executors"
+  ],
+  "architecture_principle": "Logion is a service organization: incident, research, editorial, verification, release, publication, and governance are independent services connected by contracts.",
+  "services": [
+    {
+      "service_id": "strategy_hq",
+      "name": "Strategy HQ / K6",
+      "service_type": "command_and_portfolio_control",
+      "authority": "LOGI -> K6 Strategy HQ",
+      "mission": "Own portfolio priorities, resource policy, service activation, and cross-service arbitration.",
+      "owns": [
+        "portfolio state",
+        "budget policy",
+        "service priorities",
+        "release critical path"
+      ],
+      "does_not_own": [
+        "scientific claim creation",
+        "manuscript editing",
+        "public upload execution"
+      ],
+      "interfaces": {
+        "inputs": [
+          "owner directive",
+          "service telemetry",
+          "incident signals",
+          "release gate state"
+        ],
+        "outputs": [
+          "portfolio directives",
+          "resource budget",
+          "service activation orders",
+          "arbitration decisions"
+        ]
+      },
+      "primary_artifacts": [
+        "operations/project_control/LOGION_PROJECT_COCKPIT.md",
+        "operations/project_control/LOGION_PORTFOLIO_STATE.json"
+      ]
+    },
+    {
+      "service_id": "incident_management",
+      "name": "Incident Management",
+      "service_type": "signal_triage_root_cause_and_containment",
+      "authority": "Strategy HQ / K6",
+      "mission": "Classify incidents, freeze unsafe downstream actions, assign service-owned work orders, and record RCA/postmortem.",
+      "owns": [
+        "incident queue",
+        "severity matrix",
+        "containment state",
+        "RCA",
+        "postmortem"
+      ],
+      "does_not_own": [
+        "research repairs",
+        "editorial generation",
+        "release publication"
+      ],
+      "interfaces": {
+        "inputs": [
+          "bad public record",
+          "gate failure",
+          "public-surface defect",
+          "self-dirtying check"
+        ],
+        "outputs": [
+          "incident case",
+          "service work orders",
+          "containment directive",
+          "closure predicates"
+        ]
+      },
+      "primary_artifacts": [
+        "operations/incidents/",
+        "operations/project_control/LOGION_ESCALATION_MATRIX.json",
+        "operations/project_control/LOGION_INCIDENT_QUEUE.json"
+      ]
+    },
+    {
+      "service_id": "research_science",
+      "name": "Research Science Contour",
+      "service_type": "model_proof_data_and_prediction_work",
+      "authority": "Institute Director / Research Director",
+      "mission": "Develop OC model content, theorem obligations, proof/data artifacts, prediction lanes, novelty comparisons, and claim boundaries.",
+      "owns": [
+        "model sources",
+        "claim ledger",
+        "proof ledger",
+        "Lean sources",
+        "finite semantics",
+        "validation lanes"
+      ],
+      "does_not_own": [
+        "public release metadata",
+        "Zenodo/GitHub publication",
+        "incident severity"
+      ],
+      "interfaces": {
+        "inputs": [
+          "research mission",
+          "review findings",
+          "claim gaps",
+          "empirical protocol gaps"
+        ],
+        "outputs": [
+          "science artifacts",
+          "claim/evidence mappings",
+          "promotion/demotion evidence",
+          "research blockers"
+        ]
+      },
+      "primary_artifacts": [
+        "<product>/claims/",
+        "<product>/proofs/",
+        "<product>/formal/",
+        "<product>/validation/",
+        "<product>/reports/"
+      ]
+    },
+    {
+      "service_id": "editorial_manuscript",
+      "name": "Editorial Manuscript Integration",
+      "service_type": "science_to_document_projection",
+      "authority": "Publication Director + Research Director",
+      "mission": "Project approved science into monographs, articles, guides, response maps, and journal-owner-review packets.",
+      "owns": [
+        "corpus ledger",
+        "source-to-PDF trace",
+        "manuscript structure",
+        "title/frontmatter/dedication",
+        "reading order"
+      ],
+      "does_not_own": [
+        "scientific truth claims",
+        "public upload execution",
+        "incident management"
+      ],
+      "interfaces": {
+        "inputs": [
+          "science corpus",
+          "claim ledger",
+          "proof/evidence refs",
+          "review boundaries"
+        ],
+        "outputs": [
+          "monograph",
+          "article",
+          "methods companion",
+          "reviewer map",
+          "journal package drafts"
+        ]
+      },
+      "primary_artifacts": [
+        "<product>/editorial/corpus_ledger.json",
+        "<product>/artifacts/master_monograph.pdf",
+        "<product>/submission_packages/"
+      ]
+    },
+    {
+      "service_id": "verification_review",
+      "name": "Verification and Review",
+      "service_type": "gates_audits_cerberus_and_owner_review",
+      "authority": "Review Director",
+      "mission": "Run deterministic checks, Cerberus roles, evidence audits, owner-review audits, and closure verification.",
+      "owns": [
+        "gate verdicts",
+        "review findings",
+        "audit reports",
+        "closure-evidence validation"
+      ],
+      "does_not_own": [
+        "artifact repair implementation",
+        "research content creation",
+        "publication execution"
+      ],
+      "interfaces": {
+        "inputs": [
+          "candidate artifacts",
+          "work-order closure evidence",
+          "release package"
+        ],
+        "outputs": [
+          "PASS/FAIL/BLOCKED verdicts",
+          "findings",
+          "reopened work orders",
+          "owner-review verdict"
+        ]
+      },
+      "primary_artifacts": [
+        "<product>/reviews/",
+        "<product>/editorial/*AUDIT*.json",
+        "<product>/editorial/*SCORECARD*.json"
+      ]
+    },
+    {
+      "service_id": "release_engineering",
+      "name": "Release Engineering",
+      "service_type": "artifact_packaging_versioning_and_space_migration",
+      "authority": "IT Department Director",
+      "mission": "Build deterministic package outputs, manage release versioning, enforce development/verification/release space boundaries, and keep checks delta-stable.",
+      "owns": [
+        "release machine",
+        "public payload builder",
+        "release-space migration",
+        "Delta Queue",
+        "reproducibility"
+      ],
+      "does_not_own": [
+        "scientific claim ambition",
+        "journal submission decision",
+        "incident severity"
+      ],
+      "interfaces": {
+        "inputs": [
+          "verified science corpus",
+          "editorial outputs",
+          "publication approval contract"
+        ],
+        "outputs": [
+          "public payload",
+          "checksums",
+          "metadata",
+          "release package",
+          "space-boundary audit"
+        ]
+      },
+      "primary_artifacts": [
+        "release_machine/",
+        "tools/*release_payload*.py",
+        "tools/*release_spaces*.py"
+      ]
+    },
+    {
+      "service_id": "publication_records",
+      "name": "Publication Records",
+      "service_type": "github_zenodo_public_record_execution",
+      "authority": "Publication Director",
+      "mission": "Execute GitHub and Zenodo publication/replacement only after approval, exact file set, and postflight gates.",
+      "owns": [
+        "GitHub Release body/assets",
+        "Zenodo metadata/files",
+        "DOI record",
+        "post-release report"
+      ],
+      "does_not_own": [
+        "journal submissions",
+        "scientific content editing",
+        "release artifact generation"
+      ],
+      "interfaces": {
+        "inputs": [
+          "public payload",
+          "approval contract",
+          "tokens",
+          "postflight expectations"
+        ],
+        "outputs": [
+          "public URLs",
+          "DOI",
+          "publication execution report",
+          "postflight verification"
+        ]
+      },
+      "primary_artifacts": [
+        "<product>/editorial/public_release_execution_report.json"
+      ]
+    },
+    {
+      "service_id": "safety_governance",
+      "name": "Safety and Governance",
+      "service_type": "scope_locks_secret_scans_and_policy",
+      "authority": "Safety Directive / LOGI",
+      "mission": "Enforce approval scope, secret/local-path scans, journal/SWH/email locks, and private/public boundaries.",
+      "owns": [
+        "approval contracts",
+        "secret scan policy",
+        "scope locks",
+        "private/public separation"
+      ],
+      "does_not_own": [
+        "scientific content",
+        "editorial quality",
+        "public upload mechanics"
+      ],
+      "interfaces": {
+        "inputs": [
+          "publication request",
+          "artifact set",
+          "scope change"
+        ],
+        "outputs": [
+          "allow/block decision",
+          "scope contract",
+          "policy findings"
+        ]
+      },
+      "primary_artifacts": [
+        "<product>/editorial/owner_release_approval.json",
+        "<product>/editorial/publish_manifest.json"
+      ]
+    }
+  ],
+  "service_total": 8,
+  "router_ref": "operations/logion_services/LOGION_SERVICE_ROUTER.json",
+  "contracts_ref": "operations/logion_services/LOGION_SERVICE_CONTRACTS.json",
+  "registry_hash": "fdf936ebe6a54bba52ae1c0ea6ff508ae6692dc28cad37b70f3740bd451353a1"
+}

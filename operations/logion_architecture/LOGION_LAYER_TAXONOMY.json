@@ -1,0 +1,101 @@
+{
+  "schema_id": "LOGION_LAYER_TAXONOMY_v1",
+  "principle": "Function is the capacity to produce; product is the concrete produced outcome. Lines and machines connect them without merging them.",
+  "layers": [
+    {
+      "layer_id": "control_layer",
+      "definition": "Direction, priority, budget, arbitration, and safety policy.",
+      "examples": [
+        "Strategy HQ/K6",
+        "portfolio controller",
+        "budget ledger",
+        "approval authority"
+      ],
+      "must_not_contain": [
+        "product-specific scientific claims",
+        "manuscript body"
+      ]
+    },
+    {
+      "layer_id": "function_layer",
+      "definition": "Stable organizational capabilities that can act on many products.",
+      "examples": [
+        "research science",
+        "editorial integration",
+        "verification review",
+        "release engineering",
+        "publication records"
+      ],
+      "must_not_contain": [
+        "version-specific DOI",
+        "single-release artifact inventory as service definition"
+      ]
+    },
+    {
+      "layer_id": "production_line_layer",
+      "definition": "Reusable flow that turns inputs into a class of outcomes.",
+      "examples": [
+        "scientific release line",
+        "journal package line",
+        "product/tool release line"
+      ],
+      "must_not_contain": [
+        "one-off incident RCA",
+        "single product as the line definition"
+      ]
+    },
+    {
+      "layer_id": "repair_line_layer",
+      "definition": "Reusable line for defect containment, root-cause analysis, class repair, regression gates, and postmortem.",
+      "examples": [
+        "incident management",
+        "self-repair work-order loop",
+        "postflight correction"
+      ],
+      "must_not_contain": [
+        "normal editorial work disguised as incident work"
+      ]
+    },
+    {
+      "layer_id": "methodology_layer",
+      "definition": "Standards and protocols used by functions and lines.",
+      "examples": [
+        "Delta Queue",
+        "source-to-PDF trace",
+        "target-blind replay protocol",
+        "public payload suitability gate"
+      ],
+      "must_not_contain": [
+        "specific release payload as a standard"
+      ]
+    },
+    {
+      "layer_id": "machine_layer",
+      "definition": "Executable stations, scripts, release-machine modules, local tools, and LLM bridges.",
+      "examples": [
+        "release_machine",
+        "materializers",
+        "auditors",
+        "Cerberus runner"
+      ],
+      "must_not_contain": [
+        "authority decisions",
+        "scientific truth claims"
+      ]
+    },
+    {
+      "layer_id": "product_layer",
+      "definition": "Concrete outcomes: a release, article package, dataset, product build, or public record.",
+      "examples": [
+        "OC Core 1.3.3",
+        "Zenodo record",
+        "GitHub release",
+        "journal package set"
+      ],
+      "must_not_contain": [
+        "definition of the organization function itself"
+      ]
+    }
+  ],
+  "taxonomy_hash": "f2bf2fa6aeaa445688be35da04ae3d62fff23b8bedd95eb35d5df6fcfe2f6d52"
+}

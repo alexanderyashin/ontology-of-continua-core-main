@@ -18,6 +18,7 @@ from release_machine import oc133_platinum
 from release_machine import oc133_v12
 from release_machine import publication
 from release_machine import public_release
+from release_machine import science_monolith
 from release_machine import versioning
 
 
@@ -47,6 +48,61 @@ def _load_process_coherence_guard_module():
     root = complete.repo_root()
     module_path = root / "tools" / "logion_process_coherence_guard.py"
     spec = importlib.util.spec_from_file_location("logion_process_coherence_guard", module_path)
+    assert spec is not None
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
+def _load_incident_pipeline_module():
+    root = complete.repo_root()
+    module_path = root / "tools" / "logion_incident_pipeline.py"
+    spec = importlib.util.spec_from_file_location("logion_incident_pipeline", module_path)
+    assert spec is not None
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
+def _load_escalation_matrix_module():
+    root = complete.repo_root()
+    module_path = root / "tools" / "logion_escalation_matrix.py"
+    spec = importlib.util.spec_from_file_location("logion_escalation_matrix", module_path)
+    assert spec is not None
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
+def _load_service_architecture_module():
+    root = complete.repo_root()
+    module_path = root / "tools" / "logion_service_architecture.py"
+    spec = importlib.util.spec_from_file_location("logion_service_architecture", module_path)
+    assert spec is not None
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
+def _load_release_spaces_module():
+    root = complete.repo_root()
+    module_path = root / "tools" / "logion_release_spaces.py"
+    spec = importlib.util.spec_from_file_location("logion_release_spaces", module_path)
+    assert spec is not None
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
+def _load_function_product_module():
+    root = complete.repo_root()
+    module_path = root / "tools" / "logion_function_product_separation.py"
+    spec = importlib.util.spec_from_file_location("logion_function_product_separation", module_path)
     assert spec is not None
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
@@ -164,6 +220,109 @@ class ReleaseMachineTests(unittest.TestCase):
         asset_paths = [asset.path for asset in profile.assets]
         self.assertIn("releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_public_release.zip", asset_paths)
         self.assertNotIn("releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip", asset_paths)
+
+    def test_oc133_science_monolith_corpus_ledger_has_required_science_refs(self) -> None:
+        root = complete.repo_root()
+        ledger = science_monolith.build_corpus_ledger(root)
+        self.assertEqual(ledger["version"], "1.3.3")
+        self.assertEqual(ledger["missing_total"], 0)
+        refs = {row["ref"] for row in ledger["rows"]}
+        self.assertIn("claims/CLAIM_LEDGER_1_3_3.json", refs)
+        self.assertIn("formal/lean/OC133V12.lean", refs)
+        self.assertIn("validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json", refs)
+        self.assertIn("releases/oc_core_1_3_3/public_payload/sources/OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.md", refs)
+
+    def test_oc133_public_payload_suitability_requires_science_monolith_gate(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            profile = public_release.load_profile(root, "oc_core_1_3_3")
+            audit = root / "releases" / "oc_core_1_3_3" / "editorial" / "PUBLIC_PAYLOAD_SUITABILITY_1.3.3_latest.json"
+            audit.parent.mkdir(parents=True, exist_ok=True)
+            audit.write_text(
+                json.dumps(
+                    {
+                        "state": "PASS",
+                        "pdf_audit": {"failure_total": 0},
+                        "public_surface_forbidden_hit_total": 0,
+                        "zip_scan": {"state": "PASS"},
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            gate = public_release._public_payload_suitability_ok(root, profile)
+            self.assertFalse(gate["ok"])
+            self.assertIsNone(gate["science_monolith_state"])
+
+    def test_logion_incident_pipeline_routes_public_release_failure_to_capabilities(self) -> None:
+        incident = _load_incident_pipeline_module()
+        payload = incident.build_incident_payload()
+        self.assertEqual(payload["incident_id"], "INC_OC133_PUBLIC_RELEASE_MONOGRAPH_SURROGATE_20260501")
+        self.assertEqual(payload["severity"], "P0")
+        self.assertFalse(payload["manual_repair_allowed"])
+        owners = {row["owner_capability"] for row in payload["work_orders"]}
+        self.assertIn("Research/ManuscriptIntegration", owners)
+        self.assertIn("IT/ReleaseAutomation", owners)
+        self.assertIn("Review/Cerberus", owners)
+        self.assertIn("Publication/PublicRecords", owners)
+        self.assertGreaterEqual(len(payload["root_causes"]), 4)
+
+    def test_logion_escalation_matrix_classifies_current_release_incident_as_p0(self) -> None:
+        escalation = _load_escalation_matrix_module()
+        outputs = escalation.build_outputs(complete.repo_root())
+        validation = escalation.validate(outputs)
+        self.assertEqual(validation["state"], "PASS")
+        self.assertFalse(outputs["matrix"]["manual_repair_policy"]["codex_direct_hand_fix_allowed"])
+        incident = next(
+            row for row in outputs["queue"]["rows"]
+            if row["incident_id"] == "INC_OC133_PUBLIC_RELEASE_MONOGRAPH_SURROGATE_20260501"
+        )
+        self.assertEqual(incident["severity"], "P0")
+        self.assertEqual(incident["signal_class"], "bad_public_release_record")
+        self.assertIn("IT/ReleaseAutomation", incident["capability_owners"])
+
+    def test_logion_service_architecture_keeps_core_functions_independent(self) -> None:
+        services = _load_service_architecture_module()
+        outputs = services.build_registry()
+        validation = services.validate(outputs)
+        self.assertEqual(validation["state"], "PASS")
+        service_ids = {row["service_id"] for row in outputs["registry"]["services"]}
+        self.assertIn("incident_management", service_ids)
+        self.assertIn("editorial_manuscript", service_ids)
+        self.assertIn("research_science", service_ids)
+        self.assertIn("release_engineering", service_ids)
+        self.assertIn("publication_records", service_ids)
+        self.assertNotEqual("incident_management", "editorial_manuscript")
+        bad_public_route = next(row for row in outputs["router"]["routes"] if row["signal"] == "bad_public_release_record")
+        self.assertEqual(bad_public_route["primary_service"], "incident_management")
+        self.assertIn("editorial_manuscript", bad_public_route["downstream_services"])
+        self.assertIn("publication_records", bad_public_route["downstream_services"])
+
+    def test_logion_release_spaces_separate_development_verification_and_release(self) -> None:
+        spaces = _load_release_spaces_module()
+        model = spaces.build_space_model()
+        ids = {row["space_id"] for row in model["spaces"]}
+        self.assertEqual(ids, {"development", "verification", "release"})
+        migrations = {row["migration_id"]: row for row in model["migrations"]}
+        self.assertFalse(migrations["development_to_verification"]["may_write_public_release_space"])
+        self.assertTrue(migrations["verification_to_release"]["may_write_public_release_space"])
+        release_space = next(row for row in model["spaces"] if row["space_id"] == "release")
+        self.assertIn("NO_SEND", release_space["forbidden_control_language"])
+        self.assertTrue(model["delta_queue_contract"]["semantic_delta_required_for_downstream_trigger"])
+
+    def test_logion_function_product_separation_keeps_product_outcomes_out_of_functions(self) -> None:
+        module = _load_function_product_module()
+        outputs = module.build_outputs()
+        audit = module.validate(outputs)
+        self.assertEqual(audit["state"], "PASS")
+        metrics = audit["quantitative_metrics"]
+        self.assertEqual(metrics["function_registry_product_token_hit_total"], 0)
+        self.assertEqual(metrics["production_line_product_token_hit_total"], 0)
+        products = outputs["products"]["products"]
+        self.assertEqual(len(products), 1)
+        self.assertEqual(products[0]["layer_id"], "product_layer")
+        line_ids = {row["line_id"] for row in outputs["production_lines"]["production_lines"]}
+        self.assertIn(products[0]["production_line_id"], line_ids)
 
     def test_oc133_existing_package_reused_when_fingerprint_inputs_match(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

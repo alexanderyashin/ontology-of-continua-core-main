@@ -27,6 +27,14 @@ DIRTY_LEDGER_REL = dirty_governance.LEDGER_REL
 DELTA_QUEUE_LEDGER_REL = f"{PROJECT_CONTROL_REL}/LOGION_DELTA_QUEUE_LEDGER.json"
 DELTA_QUEUE_POLICY_REL = f"{PROJECT_CONTROL_REL}/LOGION_DELTA_QUEUE_POLICY.json"
 PROCESS_COHERENCE_GUARD_REL = f"{PROJECT_CONTROL_REL}/LOGION_PROCESS_COHERENCE_GUARD.json"
+ESCALATION_MATRIX_REL = f"{PROJECT_CONTROL_REL}/LOGION_ESCALATION_MATRIX.json"
+INCIDENT_QUEUE_REL = f"{PROJECT_CONTROL_REL}/LOGION_INCIDENT_QUEUE.json"
+INCIDENT_COCKPIT_REL = f"{PROJECT_CONTROL_REL}/LOGION_INCIDENT_CONTROL_COCKPIT.md"
+RELEASE_SPACE_AUDIT_REL = f"{PROJECT_CONTROL_REL}/LOGION_RELEASE_SPACE_AUDIT.json"
+SERVICE_REGISTRY_REL = "operations/logion_services/LOGION_SERVICE_REGISTRY.json"
+SERVICE_ROUTER_REL = "operations/logion_services/LOGION_SERVICE_ROUTER.json"
+FUNCTION_PRODUCT_AUDIT_REL = "operations/logion_architecture/LOGION_FUNCTION_PRODUCT_SEPARATION_AUDIT.json"
+FUNCTION_PRODUCT_ROUTING_REL = "operations/logion_architecture/LOGION_FUNCTION_PRODUCT_ROUTING.json"
 COCKPIT_JSON_REL = f"{PROJECT_CONTROL_REL}/LOGION_PROJECT_CONTROL_COCKPIT.json"
 COCKPIT_MD_REL = f"{PROJECT_CONTROL_REL}/LOGION_PROJECT_CONTROL_COCKPIT.md"
 SELF_GENERATED_DIR_PREFIX = f"{PROJECT_CONTROL_REL}/"
@@ -301,6 +309,13 @@ def build_portfolio(root: Path) -> dict[str, Any]:
     dirty = dirty_tree_governance(root)
     delta_queue = read_json(root / DELTA_QUEUE_LEDGER_REL)
     coherence = read_json(root / PROCESS_COHERENCE_GUARD_REL)
+    incident_queue = read_json(root / INCIDENT_QUEUE_REL)
+    escalation_matrix = read_json(root / ESCALATION_MATRIX_REL)
+    release_space = read_json(root / RELEASE_SPACE_AUDIT_REL)
+    service_registry = read_json(root / SERVICE_REGISTRY_REL)
+    service_router = read_json(root / SERVICE_ROUTER_REL)
+    function_product = read_json(root / FUNCTION_PRODUCT_AUDIT_REL)
+    function_product_routing = read_json(root / FUNCTION_PRODUCT_ROUTING_REL)
 
     external_ready = all_domain.get("external_review_ready_no_send") is True
     all_domain_ready = all_domain.get("all_domain_ready_no_send") is True
@@ -395,6 +410,40 @@ def build_portfolio(root: Path) -> dict[str, Any]:
             "critical_high_total": coherence.get("critical_high_total"),
             "issue_total": coherence.get("issue_total"),
         },
+        "incident_control": {
+            "matrix_ref": ESCALATION_MATRIX_REL,
+            "queue_ref": INCIDENT_QUEUE_REL,
+            "cockpit_ref": INCIDENT_COCKPIT_REL,
+            "matrix_present": bool(escalation_matrix),
+            "incident_total": incident_queue.get("incident_total"),
+            "p0_total": incident_queue.get("p0_total"),
+            "active_total": incident_queue.get("active_total"),
+            "queue_hash": incident_queue.get("queue_hash"),
+            "manual_repair_allowed": escalation_matrix.get("manual_repair_policy", {}).get("codex_direct_hand_fix_allowed"),
+        },
+        "service_architecture": {
+            "service_registry_ref": SERVICE_REGISTRY_REL,
+            "service_router_ref": SERVICE_ROUTER_REL,
+            "service_total": service_registry.get("service_total"),
+            "route_total": len(service_router.get("routes", [])),
+            "registry_hash": service_registry.get("registry_hash"),
+            "router_hash": service_router.get("router_hash"),
+        },
+        "function_product_separation": {
+            "audit_ref": FUNCTION_PRODUCT_AUDIT_REL,
+            "routing_ref": FUNCTION_PRODUCT_ROUTING_REL,
+            "state": function_product.get("state"),
+            "failure_total": function_product.get("failure_total"),
+            "metrics": function_product.get("quantitative_metrics", {}),
+            "routing_row_total": function_product_routing.get("routing_row_total"),
+        },
+        "release_space_control": {
+            "audit_ref": RELEASE_SPACE_AUDIT_REL,
+            "state": release_space.get("state"),
+            "failure_total": release_space.get("failure_total"),
+            "control_language_hit_total": release_space.get("control_language_hit_total"),
+            "release_space_path_total": release_space.get("release_space_path_total"),
+        },
         "no_send": True,
         "publish_allowed": False,
         "journal_submissions_allowed": False,
@@ -457,6 +506,11 @@ def render_cockpit(cockpit: dict[str, Any]) -> str:
         f"- Dirty tree governed/current: `{str(portfolio['dirty_tree_governed']).lower()}` / `{str(portfolio['dirty_tree_ledger_current']).lower()}`",
         f"- Delta Queue significant/trigger: `{str(portfolio['delta_queue'].get('significant_delta')).lower()}` / `{str(portfolio['delta_queue'].get('downstream_trigger_allowed')).lower()}`",
         f"- Process coherence: `{portfolio['process_coherence'].get('state')}` critical/high=`{portfolio['process_coherence'].get('critical_high_total')}`",
+        f"- Incident queue P0/active: `{portfolio['incident_control'].get('p0_total')}` / `{portfolio['incident_control'].get('active_total')}`",
+        f"- Manual repair allowed: `{str(portfolio['incident_control'].get('manual_repair_allowed')).lower()}`",
+        f"- Services/routes: `{portfolio['service_architecture'].get('service_total')}` / `{portfolio['service_architecture'].get('route_total')}`",
+        f"- Function/product separation: `{portfolio['function_product_separation'].get('state')}` failures=`{portfolio['function_product_separation'].get('failure_total')}`",
+        f"- Release-space audit: `{portfolio['release_space_control'].get('state')}` control hits=`{portfolio['release_space_control'].get('control_language_hit_total')}`",
         f"- External LLM budget/day: `{budget['daily_external_llm_budget_tokens']}`",
         f"- Host compute: `allowed`",
         f"- Budget action: `{budget['budget_override_action']}`",
@@ -502,6 +556,9 @@ def build_cockpit(root: Path = ROOT) -> dict[str, Any]:
             "delta_queue_ledger_ref": DELTA_QUEUE_LEDGER_REL,
             "delta_queue_policy_ref": DELTA_QUEUE_POLICY_REL,
             "process_coherence_guard_ref": PROCESS_COHERENCE_GUARD_REL,
+            "escalation_matrix_ref": ESCALATION_MATRIX_REL,
+            "incident_queue_ref": INCIDENT_QUEUE_REL,
+            "incident_cockpit_ref": INCIDENT_COCKPIT_REL,
             "cockpit_json_ref": COCKPIT_JSON_REL,
             "cockpit_md_ref": COCKPIT_MD_REL,
         },

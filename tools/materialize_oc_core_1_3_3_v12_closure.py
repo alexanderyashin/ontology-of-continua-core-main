@@ -138,7 +138,13 @@ def release_critical_source_refs() -> list[str]:
         "release_machine/oc133_hardening.py",
         "release_machine/oc133_v12.py",
         "release_machine/public_release.py",
+        "release_machine/science_monolith.py",
         "release_machine/versioning.py",
+        "tools/logion_incident_pipeline.py",
+        "tools/logion_escalation_matrix.py",
+        "tools/logion_release_spaces.py",
+        "tools/logion_service_architecture.py",
+        "tools/logion_function_product_separation.py",
         "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
         "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
     ]

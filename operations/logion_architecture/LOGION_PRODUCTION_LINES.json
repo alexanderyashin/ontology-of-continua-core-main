@@ -1,0 +1,76 @@
+{
+  "schema_id": "LOGION_PRODUCTION_LINES_v1",
+  "production_lines": [
+    {
+      "line_id": "scientific_release_line",
+      "layer_id": "production_line_layer",
+      "purpose": "Turn a verified science corpus into release-ready public scientific artifacts and records.",
+      "ordered_functions": [
+        "research_science",
+        "editorial_manuscript",
+        "verification_review",
+        "release_engineering",
+        "safety_governance",
+        "publication_records"
+      ],
+      "quality_metrics": [
+        "claim_evidence_coverage_ratio",
+        "source_to_pdf_trace_coverage_ratio",
+        "public_surface_contamination_total",
+        "substantive_pdf_count",
+        "postflight_failure_total"
+      ]
+    },
+    {
+      "line_id": "journal_package_line",
+      "layer_id": "production_line_layer",
+      "purpose": "Turn a release corpus into venue-specific owner-review journal packages.",
+      "ordered_functions": [
+        "editorial_manuscript",
+        "verification_review",
+        "safety_governance"
+      ],
+      "quality_metrics": [
+        "venue_package_total",
+        "component_problem_total",
+        "unsupported_claim_total"
+      ]
+    },
+    {
+      "line_id": "incident_repair_line",
+      "layer_id": "repair_line_layer",
+      "purpose": "Turn a defect signal into containment, RCA, class-level repair, regression gates, and postmortem.",
+      "ordered_functions": [
+        "incident_management",
+        "strategy_control",
+        "release_engineering",
+        "verification_review"
+      ],
+      "quality_metrics": [
+        "severity",
+        "containment_time_seconds",
+        "root_cause_total",
+        "regression_gate_total",
+        "reopen_count"
+      ]
+    },
+    {
+      "line_id": "background_science_line",
+      "layer_id": "production_line_layer",
+      "purpose": "Run continuous research lanes without mutating release products until promotion gates pass.",
+      "ordered_functions": [
+        "research_science",
+        "verification_review",
+        "delta_queue"
+      ],
+      "quality_metrics": [
+        "lane_count",
+        "evidence_pack_count",
+        "promotion_gate_pass_count",
+        "budget_used_tokens"
+      ]
+    }
+  ],
+  "production_line_total": 4,
+  "production_line_hash": "c18bb2c6368e0339af47456eb50716d17a4d30209e17cb222351cb69c89cfd08"
+}

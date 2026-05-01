@@ -1,0 +1,119 @@
+{
+  "schema_id": "LOGION_SERVICE_CONTRACTS_v1",
+  "contracts": [
+    {
+      "contract_id": "bad_public_release_record__service_route",
+      "signal": "bad_public_release_record",
+      "primary_service": "incident_management",
+      "downstream_services": [
+        "release_engineering",
+        "editorial_manuscript",
+        "verification_review",
+        "publication_records"
+      ],
+      "preconditions": [
+        "primary_service in registry: True",
+        "work order must name artifact refs, expected predicate, verification command, and rollback/block rule"
+      ],
+      "postconditions": [
+        "closure evidence is validated by verification_review",
+        "service boundaries remain intact",
+        "no direct Codex hand-patch is accepted as service closure"
+      ]
+    },
+    {
+      "contract_id": "science_content_gap__service_route",
+      "signal": "science_content_gap",
+      "primary_service": "research_science",
+      "downstream_services": [
+        "verification_review",
+        "editorial_manuscript"
+      ],
+      "preconditions": [
+        "primary_service in registry: True",
+        "work order must name artifact refs, expected predicate, verification command, and rollback/block rule"
+      ],
+      "postconditions": [
+        "closure evidence is validated by verification_review",
+        "service boundaries remain intact",
+        "no direct Codex hand-patch is accepted as service closure"
+      ]
+    },
+    {
+      "contract_id": "manuscript_projection_gap__service_route",
+      "signal": "manuscript_projection_gap",
+      "primary_service": "editorial_manuscript",
+      "downstream_services": [
+        "research_science",
+        "verification_review",
+        "release_engineering"
+      ],
+      "preconditions": [
+        "primary_service in registry: True",
+        "work order must name artifact refs, expected predicate, verification command, and rollback/block rule"
+      ],
+      "postconditions": [
+        "closure evidence is validated by verification_review",
+        "service boundaries remain intact",
+        "no direct Codex hand-patch is accepted as service closure"
+      ]
+    },
+    {
+      "contract_id": "public_payload_or_metadata_gap__service_route",
+      "signal": "public_payload_or_metadata_gap",
+      "primary_service": "release_engineering",
+      "downstream_services": [
+        "editorial_manuscript",
+        "safety_governance",
+        "verification_review"
+      ],
+      "preconditions": [
+        "primary_service in registry: True",
+        "work order must name artifact refs, expected predicate, verification command, and rollback/block rule"
+      ],
+      "postconditions": [
+        "closure evidence is validated by verification_review",
+        "service boundaries remain intact",
+        "no direct Codex hand-patch is accepted as service closure"
+      ]
+    },
+    {
+      "contract_id": "github_zenodo_execution_gap__service_route",
+      "signal": "github_zenodo_execution_gap",
+      "primary_service": "publication_records",
+      "downstream_services": [
+        "release_engineering",
+        "safety_governance",
+        "verification_review"
+      ],
+      "preconditions": [
+        "primary_service in registry: True",
+        "work order must name artifact refs, expected predicate, verification command, and rollback/block rule"
+      ],
+      "postconditions": [
+        "closure evidence is validated by verification_review",
+        "service boundaries remain intact",
+        "no direct Codex hand-patch is accepted as service closure"
+      ]
+    },
+    {
+      "contract_id": "approval_scope_or_secret_gap__service_route",
+      "signal": "approval_scope_or_secret_gap",
+      "primary_service": "safety_governance",
+      "downstream_services": [
+        "release_engineering",
+        "publication_records"
+      ],
+      "preconditions": [
+        "primary_service in registry: True",
+        "work order must name artifact refs, expected predicate, verification command, and rollback/block rule"
+      ],
+      "postconditions": [
+        "closure evidence is validated by verification_review",
+        "service boundaries remain intact",
+        "no direct Codex hand-patch is accepted as service closure"
+      ]
+    }
+  ],
+  "contract_hash": "9019a959979c7f9d8efcd3a8b68ef39a83dc28ddaa08ff5408cf271fb56ea54c"
+}

@@ -7,9 +7,14 @@
 - All-domain blockers: `2`
 - Cerberus critical/high: `0` / `0`
 - Journal packages: `8`
-- Dirty tree governed/current: `true` / `true`
+- Dirty tree governed/current: `false` / `true`
 - Delta Queue significant/trigger: `false` / `false`
 - Process coherence: `PASS` critical/high=`0`
+- Incident queue P0/active: `1` / `1`
+- Manual repair allowed: `false`
+- Services/routes: `8` / `6`
+- Function/product separation: `PASS` failures=`0`
+- Release-space audit: `PASS` control hits=`0`
 - External LLM budget/day: `2000000`
 - Host compute: `allowed`
 - Budget action: `REQUEST_EXTRA_LLM_BUDGET`
@@ -28,4 +33,4 @@
 - `OC_FULL_SCIENCE_BACKGROUND_LOCK` owner=`OC_FULL_SCIENCE_BACKGROUND` background_release_write=`false`
 - `NON_OC_WORKSTREAM_ISOLATION_LOCK` owner=`ESTRA_TOOLKIT_EA2O_OTHER` background_release_write=`false`
 
-Controller hash: `f7aac4cd0a464d9f51a975beb24b544b51cf4672909dd4241665ceef8817ebaa`
+Controller hash: `675856ca2599afd6909942e97be053d4eb7ff0633e23c5bc287e11f73542e1e7`

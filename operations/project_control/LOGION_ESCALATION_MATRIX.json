@@ -1,0 +1,365 @@
+{
+  "schema_id": "LOGION_ESCALATION_MATRIX_v1",
+  "authority_chain": [
+    "Safety Directive",
+    "LOGI",
+    "K6 Strategy HQ",
+    "Project Controller",
+    "Capability Directors",
+    "Executors"
+  ],
+  "manual_repair_policy": {
+    "codex_direct_hand_fix_allowed": false,
+    "capability_executor_required": true,
+    "artifact_exists_is_not_closure": true,
+    "closure_must_cite_evidence": true
+  },
+  "severity_tiers": [
+    {
+      "severity": "P0",
+      "name": "PUBLIC_RELEASE_OR_SAFETY_DEFECT",
+      "examples": [
+        "bad public GitHub/Zenodo release",
+        "wrong primary scientific asset",
+        "secret/local private path leak",
+        "journal/SWH/email scope opened without explicit approval"
+      ],
+      "strategy_hq_signal": "IMMEDIATE",
+      "freeze_policy": "freeze further public actions except controlled replacement/containment",
+      "sla": "same working session until contained or explicitly blocked by external service",
+      "closure_authority": [
+        "Safety/Governance",
+        "StrategyHQ/IncidentCommand",
+        "Owner"
+      ]
+    },
+    {
+      "severity": "P1",
+      "name": "RELEASE_BLOCKING_SCIENTIFIC_OR_REPRODUCIBILITY_DEFECT",
+      "examples": [
+        "G32-G70 fail",
+        "Cerberus critical/high open",
+        "strict reproducibility fail"
+      ],
+      "strategy_hq_signal": "HIGH_PRIORITY",
+      "freeze_policy": "block release readiness; allow capability-owned repair",
+      "sla": "before any publication/replacement action",
+      "closure_authority": [
+        "StrategyHQ/IncidentCommand",
+        "Review/Cerberus",
+        "affected capability director"
+      ]
+    },
+    {
+      "severity": "P2",
+      "name": "BACKGROUND_SCIENCE_OR_ROADMAP_DEFECT",
+      "examples": [
+        "grand TOE evidence blocker",
+        "modern-science superiority not yet evidenced"
+      ],
+      "strategy_hq_signal": "QUEUE_BACKGROUND",
+      "freeze_policy": "do not block bounded release if claim boundary excludes it",
+      "sla": "roadmap milestone",
+      "closure_authority": [
+        "Research Director",
+        "StrategyHQ/IncidentCommand"
+      ]
+    },
+    {
+      "severity": "P3",
+      "name": "PROCESS_TELEMETRY_OR_DELTA_QUEUE_DEFECT",
+      "examples": [
+        "read-only check dirties tree",
+        "stale dirty ledger",
+        "unnecessary rerun chain"
+      ],
+      "strategy_hq_signal": "NORMAL",
+      "freeze_policy": "block automation loop that self-dirties until coherence is restored",
+      "sla": "next controller refresh",
+      "closure_authority": [
+        "IT/ReleaseAutomation",
+        "Project Controller"
+      ]
+    },
+    {
+      "severity": "P4",
+      "name": "COSMETIC_OR_NON_RELEASE_DEFECT",
+      "examples": [
+        "non-public wording cleanup",
+        "background note formatting"
+      ],
+      "strategy_hq_signal": "LOW",
+      "freeze_policy": "no release freeze unless it crosses public-surface gates",
+      "sla": "batch with next relevant artifact regeneration",
+      "closure_authority": [
+        "owning capability manager"
+      ]
+    }
+  ],
+  "capability_directory": [
+    {
+      "capability_id": "StrategyHQ/IncidentCommand",
+      "director": "K6 Strategy HQ",
+      "manager_roles": [
+        "incident commander",
+        "decision-quality controller",
+        "resource controller"
+      ],
+      "executor_boundary": "may route, freeze, authorize, and require work orders; does not hand-edit release science",
+      "primary_artifacts": [
+        "operations/project_control/LOGION_INCIDENT_QUEUE.json",
+        "operations/project_control/LOGION_INCIDENT_CONTROL_COCKPIT.md"
+      ]
+    },
+    {
+      "capability_id": "ServiceArchitecture/Router",
+      "director": "K6 Strategy HQ / Service Architecture",
+      "manager_roles": [
+        "service registry owner",
+        "service router owner",
+        "boundary-contract auditor"
+      ],
+      "executor_boundary": "defines independent Logion services and routes signals between them; does not absorb service work into incidents",
+      "primary_artifacts": [
+        "operations/logion_services/LOGION_SERVICE_REGISTRY.json",
+        "operations/logion_services/LOGION_SERVICE_ROUTER.json"
+      ]
+    },
+    {
+      "capability_id": "Research/ManuscriptIntegration",
+      "director": "Institute Director / Research Director",
+      "manager_roles": [
+        "corpus curator",
+        "science-to-manuscript integrator",
+        "claim-boundary reviewer"
+      ],
+      "executor_boundary": "builds the science monolith and corpus ledger from approved public-safe science sources",
+      "primary_artifacts": [
+        "releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf",
+        "releases/oc_core_1_3_3/editorial/SCIENCE_MONOLITH_CORPUS_LEDGER_1_3_3_latest.json"
+      ]
+    },
+    {
+      "capability_id": "Research/EmpiricalScience",
+      "director": "Institute Director / Empirical Science Director",
+      "manager_roles": [
+        "evidence-lane planner",
+        "target-blind replay owner",
+        "comparator protocol owner"
+      ],
+      "executor_boundary": "runs background evidence lanes and candidate-pack validators; cannot promote grand claims without promotion gates",
+      "primary_artifacts": [
+        "validation/heldout/grand_science_evidence_registry.json",
+        "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
+        "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_RESEARCH_PROGRAM.json"
+      ]
+    },
+    {
+      "capability_id": "IT/ReleaseAutomation",
+      "director": "IT Department Director",
+      "manager_roles": [
+        "release-machine maintainer",
+        "Delta Queue maintainer",
+        "safe-executor maintainer"
+      ],
+      "executor_boundary": "edits automation, gates, templates, and deterministic generators; never promotes unsupported claims",
+      "primary_artifacts": [
+        "release_machine/public_release.py",
+        "release_machine/science_monolith.py",
+        "tools/oc133_public_release_payload.py",
+        "tools/logion_incident_pipeline.py"
+      ]
+    },
+    {
+      "capability_id": "Review/Cerberus",
+      "director": "Review Director",
+      "manager_roles": [
+        "hostile reviewer",
+        "claim-boundary prosecutor",
+        "public-surface auditor"
+      ],
+      "executor_boundary": "opens findings and validates closure evidence; artifact existence is never closure",
+      "primary_artifacts": [
+        "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json",
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_latest.json"
+      ]
+    },
+    {
+      "capability_id": "Publication/PublicRecords",
+      "director": "Publication Director",
+      "manager_roles": [
+        "GitHub release executor",
+        "Zenodo executor",
+        "metadata curator"
+      ],
+      "executor_boundary": "publishes only after StrategyHQ approval, clean local gates, exact asset set, and production tokens",
+      "primary_artifacts": [
+        "releases/oc_core_1_3_3/editorial/PUBLIC_RELEASE_EXECUTION_REPORT_v1.3.3.json",
+        "releases/oc_core_1_3_3/editorial/PUBLIC_RELEASE_PRESENTATION_1.3.3_latest.json"
+      ]
+    },
+    {
+      "capability_id": "Safety/Governance",
+      "director": "Safety Directive / LOGI",
+      "manager_roles": [
+        "no-send lock owner",
+        "secret/local-path scanner",
+        "publication-scope controller"
+      ],
+      "executor_boundary": "blocks unsafe scope, secret leakage, private-path leakage, or unapproved public action",
+      "primary_artifacts": [
+        "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+        "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json"
+      ]
+    }
+  ],
+  "routing_rules": [
+    {
+      "signal_class": "bad_public_release_record",
+      "severity": "P0",
+      "owner_capability": "StrategyHQ/IncidentCommand",
+      "support_capabilities": [
+        "Publication/PublicRecords",
+        "IT/ReleaseAutomation",
+        "Research/ManuscriptIntegration",
+        "Review/Cerberus"
+      ],
+      "required_work_order_fields": [
+        "work_order_id",
+        "owner_capability",
+        "artifacts",
+        "closure_predicate",
+        "verification_command",
+        "rollback_or_block_rule"
+      ],
+      "safe_executor_policy": "controlled replacement only; no one-off manual asset upload",
+      "closure_evidence_required": [
+        "postflight PASS",
+        "exact GitHub asset set",
+        "exact Zenodo file set",
+        "incident postmortem"
+      ]
+    },
+    {
+      "signal_class": "service_boundary_confusion",
+      "severity": "P1",
+      "owner_capability": "ServiceArchitecture/Router",
+      "support_capabilities": [
+        "StrategyHQ/IncidentCommand",
+        "IT/ReleaseAutomation",
+        "Research/ManuscriptIntegration",
+        "Publication/PublicRecords"
+      ],
+      "safe_executor_policy": "service registry/router contract; incident, editorial, research, verification, release, and publication remain independent services",
+      "closure_evidence_required": [
+        "LOGION_SERVICE_REGISTRY PASS",
+        "incident_management and editorial_manuscript are separate service ids",
+        "routes assign primary/downstream services without monolithic pipeline ownership"
+      ]
+    },
+    {
+      "signal_class": "function_product_confusion",
+      "severity": "P1",
+      "owner_capability": "ServiceArchitecture/Router",
+      "support_capabilities": [
+        "StrategyHQ/IncidentCommand",
+        "Research/ManuscriptIntegration",
+        "IT/ReleaseAutomation",
+        "Publication/PublicRecords"
+      ],
+      "safe_executor_policy": "function/product separation audit; functions, production lines, repair lines, methods, machines, and products must be distinct ledgers",
+      "closure_evidence_required": [
+        "LOGION_FUNCTION_PRODUCT_SEPARATION_AUDIT state PASS",
+        "function_registry_product_token_hit_total=0",
+        "production_line_product_token_hit_total=0",
+        "product outcomes are represented only in LOGION_PRODUCT_OUTCOME_LEDGER"
+      ]
+    },
+    {
+      "signal_class": "science_to_manuscript_projection_gap",
+      "severity": "P1",
+      "owner_capability": "Research/ManuscriptIntegration",
+      "support_capabilities": [
+        "IT/ReleaseAutomation",
+        "Review/Cerberus"
+      ],
+      "safe_executor_policy": "science_monolith builder and corpus ledger only",
+      "closure_evidence_required": [
+        "SCIENCE_MONOLITH_AUDIT PASS",
+        "corpus ledger missing_total=0"
+      ]
+    },
+    {
+      "signal_class": "public_payload_role_semantics_gap",
+      "severity": "P1",
+      "owner_capability": "IT/ReleaseAutomation",
+      "support_capabilities": [
+        "Publication/PublicRecords",
+        "Review/Cerberus"
+      ],
+      "safe_executor_policy": "public-payload builder/gates; reject route sheets and no-send primary assets",
+      "closure_evidence_required": [
+        "public payload materialized after source rebinding",
+        "PUBLIC_PAYLOAD_SUITABILITY PASS",
+        "PUBLIC_FILE_SET_GATE ok"
+      ]
+    },
+    {
+      "signal_class": "approval_scope_contract_conflict",
+      "severity": "P1",
+      "owner_capability": "IT/ReleaseAutomation",
+      "support_capabilities": [
+        "Safety/Governance",
+        "Review/Cerberus"
+      ],
+      "safe_executor_policy": "mode-aware gate contracts; no-send checks remain strict in no-send mode",
+      "closure_evidence_required": [
+        "finite checks PASS in current mode",
+        "owner audit blocker_total=0"
+      ]
+    },
+    {
+      "signal_class": "source_certificate_binding_drift",
+      "severity": "P1",
+      "owner_capability": "IT/ReleaseAutomation",
+      "support_capabilities": [
+        "Research/ManuscriptIntegration",
+        "Review/Cerberus"
+      ],
+      "safe_executor_policy": "pre-approval certificate rebinding through materializer; publication approval controls must not be reset after approval",
+      "closure_evidence_required": [
+        "LEAN certificate source manifest matches current source",
+        "finite model certificate_binding_failure_total=0"
+      ]
+    },
+    {
+      "signal_class": "background_science_evidence_gap",
+      "severity": "P2",
+      "owner_capability": "Research/EmpiricalScience",
+      "support_capabilities": [
+        "Research/PriorArt",
+        "Review/Cerberus"
+      ],
+      "safe_executor_policy": "background evidence lanes only; cannot mutate public release claims without promotion gate",
+      "closure_evidence_required": [
+        "valid evidence pack",
+        "comparator result",
+        "claim promotion gate PASS"
+      ]
+    },
+    {
+      "signal_class": "self_dirtying_verification",
+      "severity": "P3",
+      "owner_capability": "IT/ReleaseAutomation",
+      "support_capabilities": [
+        "Project Controller"
+      ],
+      "safe_executor_policy": "Delta Queue thresholding; read-only checks cannot alter release package artifacts",
+      "closure_evidence_required": [
+        "repeat check significant_delta=false",
+        "public/private trees clean or governed"
+      ]
+    }
+  ],
+  "matrix_hash": "f76e4059cd8850842bff42b579f1179b049faaa52aa586d16c21b21368933088"
+}

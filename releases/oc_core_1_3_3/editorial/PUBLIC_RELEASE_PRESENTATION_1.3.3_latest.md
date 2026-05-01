@@ -34,9 +34,9 @@ The eight journal packages are included as owner-review material. Journal submis
 
 ## Zenodo
 
-DOI: 10.5281/zenodo.19957779
+DOI: Pending until Zenodo publication completes
 
-DOI link: https://doi.org/10.5281/zenodo.19957779
+DOI link: Pending until Zenodo publication completes
 
 Concept DOI: 10.5281/zenodo.17899134
 

@@ -189,14 +189,31 @@ def pdf_text_quality(root: Path) -> dict[str, Any]:
             }
             for match in forbidden.finditer(extracted)
         ][:10]
+        is_master = name == "OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf"
+        min_pages = 690 if is_master else 1
+        min_chars = 1_200_000 if is_master else 1800
+        master_anchor_ok = True
+        if is_master:
+            master_anchor_ok = all(
+                anchor in extracted
+                for anchor in [
+                    "Dedicated to my dear wife Maria",
+                    "T133-K0-RES",
+                    "Lean",
+                    "finite-model",
+                    "target-blind",
+                    "Cerberus",
+                ]
+            )
         status = (
             path.exists()
             and not error
-            and pages >= 1
-            and len(extracted) >= 1800
+            and pages >= min_pages
+            and len(extracted) >= min_chars
             and VERSION in extracted
             and unique_line_total >= 25
             and duplicate_share <= 0.35
+            and master_anchor_ok
             and not forbidden_hits
         )
         rows.append(
@@ -205,6 +222,9 @@ def pdf_text_quality(root: Path) -> dict[str, Any]:
                 "exists": path.exists(),
                 "pages": pages,
                 "text_chars": len(extracted),
+                "min_pages": min_pages,
+                "min_text_chars": min_chars,
+                "master_anchor_ok": master_anchor_ok,
                 "line_total": line_total,
                 "unique_line_total": unique_line_total,
                 "max_duplicate_line_share": round(duplicate_share, 6),

@@ -1,0 +1,66 @@
+{
+  "schema_id": "LOGION_SERVICE_ROUTER_v1",
+  "routing_principle": "Signals route between independent services; no service is embedded as a private subroutine of another.",
+  "routes": [
+    {
+      "signal": "bad_public_release_record",
+      "primary_service": "incident_management",
+      "downstream_services": [
+        "release_engineering",
+        "editorial_manuscript",
+        "verification_review",
+        "publication_records"
+      ],
+      "rule": "Incident service opens RCA and assigns work orders; each downstream service repairs only its own owned class."
+    },
+    {
+      "signal": "science_content_gap",
+      "primary_service": "research_science",
+      "downstream_services": [
+        "verification_review",
+        "editorial_manuscript"
+      ],
+      "rule": "Research creates or blocks evidence; editorial may only project verified science into documents."
+    },
+    {
+      "signal": "manuscript_projection_gap",
+      "primary_service": "editorial_manuscript",
+      "downstream_services": [
+        "research_science",
+        "verification_review",
+        "release_engineering"
+      ],
+      "rule": "Editorial rebuilds document structure and traceability; research supplies missing science, release engineering packages it."
+    },
+    {
+      "signal": "public_payload_or_metadata_gap",
+      "primary_service": "release_engineering",
+      "downstream_services": [
+        "editorial_manuscript",
+        "safety_governance",
+        "verification_review"
+      ],
+      "rule": "Release engineering fixes package/version/space migration machinery; it must not rewrite scientific claims."
+    },
+    {
+      "signal": "github_zenodo_execution_gap",
+      "primary_service": "publication_records",
+      "downstream_services": [
+        "release_engineering",
+        "safety_governance",
+        "verification_review"
+      ],
+      "rule": "Publication records executes or repairs public records after approved artifacts pass gates."
+    },
+    {
+      "signal": "approval_scope_or_secret_gap",
+      "primary_service": "safety_governance",
+      "downstream_services": [
+        "release_engineering",
+        "publication_records"
+      ],
+      "rule": "Safety blocks scope leaks and token/path leaks; publication waits for clearance."
+    }
+  ],
+  "router_hash": "01862ba38f363d50aad0c03ced1f8477d79fc8634155b0b2f9e891af948039ba"
+}

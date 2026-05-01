@@ -389,7 +389,7 @@ def main() -> int:
     scorecard = scorecard_doc.get("summary", scorecard_doc)
     cerberus = read_json(ROOT / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json")
     publish_manifest = read_json(EDITORIAL / "OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json")
-    public_release_scope_ok = (
+    public_release_scope_enabled = (
         publish_manifest.get("owner_approved") is True
         and publish_manifest.get("publish_allowed") is True
         and publish_manifest.get("github_release_allowed") is True
@@ -397,6 +397,17 @@ def main() -> int:
         and publish_manifest.get("journal_submissions_allowed") is False
         and publish_manifest.get("software_heritage_deposit_allowed") is False
     )
+    pre_approval_scope_locked = (
+        publish_manifest.get("owner_approval_required") is True
+        and publish_manifest.get("owner_approved") is False
+        and publish_manifest.get("publish_allowed") is False
+        and publish_manifest.get("github_release_allowed") is False
+        and publish_manifest.get("zenodo_deposit_allowed") is False
+        and publish_manifest.get("journal_submissions_allowed") is False
+        and publish_manifest.get("software_heritage_deposit_allowed") is False
+    )
+    public_release_scope_ok = public_release_scope_enabled or pre_approval_scope_locked
+    public_release_scope_mode = "PUBLIC_RELEASE_ENABLED" if public_release_scope_enabled else "PRE_APPROVAL_LOCKED"
     pdf = pdf_audit()
     metadata = metadata_audit()
     zip_report = zip_audit()
@@ -421,12 +432,19 @@ def main() -> int:
         "schema_id": "OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_v1",
         "release_id": RELEASE_ID,
         "version": VERSION,
-        "verdict": "PUBLIC_RELEASE_REPLACEMENT_READY" if not blockers else "RELEASE_REPAIR_REQUIRED",
+        "verdict": (
+            "PUBLIC_RELEASE_REPLACEMENT_READY"
+            if not blockers and public_release_scope_enabled
+            else "READY_FOR_FINAL_OWNER_APPROVAL_NO_SEND"
+            if not blockers
+            else "RELEASE_REPAIR_REQUIRED"
+        ),
         "blocker_total": len(blockers),
-        "public_release_allowed": not blockers,
-        "zenodo_allowed": not blockers,
+        "public_release_allowed": not blockers and public_release_scope_enabled,
+        "zenodo_allowed": not blockers and public_release_scope_enabled,
         "journal_submission_allowed": False,
-        "github_tag_or_release_allowed": not blockers,
+        "github_tag_or_release_allowed": not blockers and public_release_scope_enabled,
+        "public_release_scope_mode": public_release_scope_mode,
         "checks": checks,
         "blockers": blockers,
         "scorecard": {

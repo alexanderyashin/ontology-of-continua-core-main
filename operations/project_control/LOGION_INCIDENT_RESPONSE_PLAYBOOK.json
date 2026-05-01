@@ -1,0 +1,39 @@
+{
+  "schema_id": "LOGION_INCIDENT_RESPONSE_PLAYBOOK_v1",
+  "entry_conditions": [
+    "public surface defect",
+    "release gate fail",
+    "self-dirtying verification loop",
+    "claim/evidence contradiction",
+    "missing capability executor for a repeated repair class"
+  ],
+  "response_steps": [
+    "open incident under operations/incidents/<incident_id>",
+    "classify severity through LOGION_ESCALATION_MATRIX",
+    "freeze unsafe downstream actions according to severity tier",
+    "assign capability-owned work orders with closure predicates",
+    "run only safe executors or create an IT work order if no executor exists",
+    "rerun deterministic gates and Cerberus/review gates only when Delta Queue reports material change",
+    "publish or replace public records only after StrategyHQ and Safety/Governance closure",
+    "write postmortem, regression gate, and project-control update"
+  ],
+  "required_case_artifacts": [
+    "INCIDENT_CASE.json",
+    "WORK_ORDERS.json",
+    "RCA_AND_COCKPIT.md",
+    "ARCHITECTURE_SELF_REPAIR_CONTRACT.json",
+    "ARCHITECTURE_SELF_REPAIR_EXECUTION.json when self-repair runs"
+  ],
+  "routing_rules": [
+    "bad_public_release_record",
+    "service_boundary_confusion",
+    "function_product_confusion",
+    "science_to_manuscript_projection_gap",
+    "public_payload_role_semantics_gap",
+    "approval_scope_contract_conflict",
+    "source_certificate_binding_drift",
+    "background_science_evidence_gap",
+    "self_dirtying_verification"
+  ],
+  "no_manual_bypass_rule": "If no safe executor exists, the next action is an IT capability work order to build one; direct artifact patching is not closure."
+}

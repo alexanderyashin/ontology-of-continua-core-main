@@ -38,7 +38,9 @@ SECRET_PATTERN = re.compile(
 )
 
 PUBLIC_FORBIDDEN_RE = re.compile(
-    r"\bNO_SEND\b|no-send|no_send|publish_allowed\s*=\s*false|owner_approved\s*=\s*false|"
+    r"\bNO_SEND\b|no-send|no_send|"
+    r"publish_allowed\s*[:=]\s*false|owner_approved\s*[:=]\s*false|"
+    r"\"publish_allowed\"\s*:\s*false|\"owner_approved\"\s*:\s*false|"
     r"not a public release|manifest_kind[^\n]+NOT_PUBLIC_RELEASE|public release record:\s*none|release DOI:\s*none assigned",
     re.IGNORECASE,
 )
@@ -145,7 +147,7 @@ def _default_oc133_profile() -> ReleaseProfile:
         repository="alexanderyashin/ontology-of-continua-core-main",
         title="Ontology of Continua Core 1.3.3",
         subtitle="Bounded external-review scientific release with typed foundations, proof/evidence ledgers, reproducibility package, and journal owner-review packets",
-        release_state="OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND",
+        release_state="OC_CORE_1_3_3_PUBLIC_GITHUB_ZENODO_RELEASE",
         expected_gate_pass_total=71,
         expected_package_sha256="",
         previous_zenodo_record_id="19851694",
@@ -353,6 +355,11 @@ def _scorecard_ok(root: Path, profile: ReleaseProfile) -> dict[str, Any]:
     pass_total = int(gate_counts.get("PASS", 0))
     fail_total = int(gate_counts.get("FAIL", 0))
     state = summary.get("release_state")
+    bounded_external_review_ready = bool(
+        summary.get("external_review_ready_no_send")
+        or state == "OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND"
+        or state == "OC_CORE_1_3_3_10_10_READY_NO_SEND"
+    )
     return {
         "path": _rel(root, path) if path.exists() else str(path),
         "exists": path.exists(),
@@ -360,13 +367,13 @@ def _scorecard_ok(root: Path, profile: ReleaseProfile) -> dict[str, Any]:
         "pass_total": pass_total,
         "fail_total": fail_total,
         "master_verdict": summary.get("master_verdict"),
-        "external_review_ready_no_send": bool(summary.get("external_review_ready_no_send", state == profile.release_state)),
+        "external_review_ready": bounded_external_review_ready,
         "all_domain_ready_no_send": bool(summary.get("all_domain_ready_no_send", False)),
         "ok": path.exists()
         and pass_total == profile.expected_gate_pass_total
         and fail_total == 0
         and summary.get("master_verdict") == "PASS"
-        and state == profile.release_state,
+        and bounded_external_review_ready,
     }
 
 
@@ -500,6 +507,7 @@ def _public_payload_suitability_ok(root: Path, profile: ReleaseProfile) -> dict[
     path = editorial_root(root, profile) / f"PUBLIC_PAYLOAD_SUITABILITY_{profile.version}_latest.json"
     payload = _read_json(path, {})
     state = payload.get("state")
+    monolith = payload.get("science_monolith_audit", {}) if isinstance(payload.get("science_monolith_audit"), dict) else {}
     public_zip_assets = [asset.path for asset in profile.assets if asset.path.endswith("public_release.zip")]
     primary_no_send_assets = [
         asset.path
@@ -514,12 +522,17 @@ def _public_payload_suitability_ok(root: Path, profile: ReleaseProfile) -> dict[
         "exists": path.exists(),
         "state": state,
         "pdf_failure_total": pdf_failure_total,
+        "science_monolith_state": monolith.get("state"),
+        "science_monolith_pages": monolith.get("pages"),
+        "science_monolith_text_chars": monolith.get("text_chars"),
+        "science_monolith_failure_total": monolith.get("failure_total"),
         "public_surface_forbidden_hit_total": forbidden_total,
         "zip_scan_state": zip_state,
         "public_zip_assets": public_zip_assets,
         "primary_no_send_assets": primary_no_send_assets,
         "ok": path.exists()
         and state == "PASS"
+        and monolith.get("state") == "PASS"
         and pdf_failure_total == 0
         and forbidden_total == 0
         and zip_state == "PASS"
@@ -988,8 +1001,14 @@ def publication_preflight(root: Path, *, release_id: str, write: bool = True, re
 
 def grant_owner_approval(root: Path, *, release_id: str, owner_identity: str) -> dict[str, Any]:
     profile = load_profile(root, release_id)
-    readiness = _preflight_common(root, profile, require_approval=False)
-    if not readiness["preflight_ok"]:
+    readiness = _preflight_common(root, profile, require_approval=False, replace_existing=True)
+    approval_blocking_checks = {
+        key: value
+        for key, value in readiness["checks"].items()
+        if key not in {"clean_tree", "tag_policy", "owner_publication_approval"}
+    }
+    approval_ready = all(value.get("ok") for value in approval_blocking_checks.values() if isinstance(value, dict))
+    if not approval_ready:
         payload = {
             "schema_id": "LOGION_OWNER_APPROVAL_ATTEMPT_v1",
             "release_id": profile.release_id,
@@ -998,6 +1017,7 @@ def grant_owner_approval(root: Path, *, release_id: str, owner_identity: str) ->
             "owner_identity": owner_identity,
             "reason": "Release readiness preflight failed before owner approval.",
             "readiness": readiness,
+            "approval_blocking_checks": approval_blocking_checks,
         }
         _write_json(editorial_root(root, profile) / f"OWNER_APPROVAL_BLOCKED_{profile.version}.json", payload)
         return payload

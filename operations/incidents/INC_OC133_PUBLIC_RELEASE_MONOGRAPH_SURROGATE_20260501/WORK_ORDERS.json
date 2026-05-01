@@ -1,0 +1,75 @@
+[
+  {
+    "work_order_id": "OC133-INC-WO-001",
+    "owner_capability": "ServiceArchitecture/Router",
+    "title": "Define independent Logion services and route the 1.3.3 publication incident through service contracts",
+    "artifacts": [
+      "operations/logion_services/LOGION_SERVICE_REGISTRY.json",
+      "operations/logion_services/LOGION_SERVICE_ROUTER.json",
+      "operations/logion_services/LOGION_SERVICE_CONTRACTS.json"
+    ],
+    "closure_predicate": "service registry PASS, incident_management/editorial/research/release/publication are separate services",
+    "verification_command": "python -m release_machine services --check",
+    "status": "CLOSED"
+  },
+  {
+    "work_order_id": "OC133-INC-WO-002",
+    "owner_capability": "Research/ManuscriptIntegration",
+    "title": "Build OC Core 1.3.3 science monolith from full corpus plus 1.3.3 delta",
+    "artifacts": [
+      "releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf",
+      "releases/oc_core_1_3_3/editorial/SCIENCE_MONOLITH_CORPUS_LEDGER_1_3_3_latest.json"
+    ],
+    "closure_predicate": "master pages >= 690, dedication present, all 1.3.3 science anchors present, stale 1.3.2 identity absent",
+    "verification_command": "python -m release_machine science-monolith --release-id oc_core_1_3_3 --check",
+    "status": "CLOSED"
+  },
+  {
+    "work_order_id": "OC133-INC-WO-003",
+    "owner_capability": "IT/ReleaseAutomation",
+    "title": "Prevent surrogate PDFs and control packets from occupying public scientific roles",
+    "artifacts": [
+      "release_machine/science_monolith.py",
+      "tools/oc133_public_release_payload.py",
+      "release_machine/public_release.py"
+    ],
+    "closure_predicate": "public payload suitability requires science_monolith_audit PASS and rejects tiny primary PDFs",
+    "verification_command": "python -m release_machine public-payload --release-id oc_core_1_3_3 --check",
+    "status": "CLOSED"
+  },
+  {
+    "work_order_id": "OC133-INC-WO-004",
+    "owner_capability": "Review/Cerberus",
+    "title": "Re-run release gates after monolith integration and reopen any scientific or public-surface blockers",
+    "artifacts": [
+      "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json"
+    ],
+    "closure_predicate": "release scorecard PASS, Cerberus critical/high/parse = 0/0/0, public replacement preflight PASS",
+    "verification_command": "python -m release_machine evaluate --release oc_core_1_3_3 --channel all --mode dry-run",
+    "status": "CLOSED"
+  },
+  {
+    "work_order_id": "OC133-INC-WO-005",
+    "owner_capability": "IT/ReleaseAutomation",
+    "title": "Separate development, verification, and release spaces so public artifacts contain no verification-control vocabulary",
+    "artifacts": [
+      "operations/project_control/LOGION_RELEASE_SPACE_MODEL.json",
+      "operations/project_control/LOGION_RELEASE_SPACE_AUDIT.json",
+      "tools/logion_release_spaces.py"
+    ],
+    "closure_predicate": "release space audit PASS, control_language_hit_total=0, root manifest is PUBLIC_GITHUB_ZENODO_RELEASE",
+    "verification_command": "python -m release_machine release-spaces --release-id oc_core_1_3_3 --check",
+    "status": "CLOSED"
+  },
+  {
+    "work_order_id": "OC133-INC-WO-006",
+    "owner_capability": "Publication/PublicRecords",
+    "title": "Replace bad GitHub and Zenodo public records only after local incident closure",
+    "artifacts": [
+      "releases/oc_core_1_3_3/editorial/PUBLIC_RELEASE_EXECUTION_REPORT_v1.3.3.json"
+    ],
+    "closure_predicate": "GitHub v1.3.3 and newest Zenodo version contain exact corrected file set and checksums",
+    "verification_command": "python -m release_machine postflight --release oc_core_1_3_3",
+    "status": "PENDING_LOCAL_GATES"
+  }
+]

@@ -17,6 +17,11 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from release_machine import science_monolith
+
 RELEASE_ID = "oc_core_1_3_3"
 VERSION = "1.3.3"
 TAG = "v1.3.3"
@@ -34,10 +39,10 @@ PDF_SPECS = {
     "master": {
         "filename": "OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf",
         "source": "OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.md",
-        "title": "OC Core 1.3.3 Master Monograph",
-        "min_chars": 90000,
-        "min_pages": 35,
-        "description": "Canonical long-form scientific reference for OC Core 1.3.3.",
+        "title": "OC Core 1.3.3 Science Monolith",
+        "min_chars": 1_200_000,
+        "min_pages": 690,
+        "description": "Canonical full scientific monolith for OC Core 1.3.3.",
     },
     "journal": {
         "filename": "OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf",
@@ -67,7 +72,10 @@ PDF_SPECS = {
 
 
 PUBLIC_FORBIDDEN_RE = re.compile(
-    r"\bNO_SEND\b|no-send|no_send|publish_allowed\s*=\s*false|owner_approved\s*=\s*false|not a public release|"
+    r"\bNO_SEND\b|no-send|no_send|"
+    r"publish_allowed\s*[:=]\s*false|owner_approved\s*[:=]\s*false|"
+    r"\"publish_allowed\"\s*:\s*false|\"owner_approved\"\s*:\s*false|"
+    r"not a public release|"
     r"manifest_kind[^\n]+NOT_PUBLIC_RELEASE|public release record:\s*none|release DOI:\s*none assigned",
     re.IGNORECASE,
 )
@@ -131,7 +139,8 @@ def sha256_source_ref(path: Path) -> str:
 def text_bytes_for_zip(path: Path) -> bytes:
     data = path.read_bytes()
     if path.suffix.lower() in TEXT_SUFFIXES:
-        data = data.replace(b"\r\n", b"\n")
+        text = data.decode("utf-8", errors="ignore").replace("\r\n", "\n")
+        data = clean_public_text(text).encode("utf-8")
     return data
 
 
@@ -179,7 +188,13 @@ def sanitize_public_json(value: Any) -> Any:
     if isinstance(value, list):
         return [sanitize_public_json(item) for item in value]
     if isinstance(value, dict):
-        return {clean_public_text(key): sanitize_public_json(item) for key, item in value.items()}
+        sanitized: dict[str, Any] = {}
+        for key, item in value.items():
+            public_key = clean_public_text(key)
+            if public_key == "support_ceiling":
+                public_key = "release_support_boundary"
+            sanitized[public_key] = sanitize_public_json(item)
+        return sanitized
     return value
 
 
@@ -697,11 +712,14 @@ def build_pdf(source: Path, output: Path, title: str) -> dict[str, Any]:
         str(output),
     ]
     completed = subprocess.run(cmd, cwd=ROOT, text=True, encoding="utf-8", errors="replace", capture_output=True, timeout=900)
+    command = " ".join(cmd).replace(str(ROOT.resolve()), "<REPO_ROOT>")
+    stdout_tail = completed.stdout[-2000:].replace(str(ROOT.resolve()), "<REPO_ROOT>")
+    stderr_tail = completed.stderr[-4000:].replace(str(ROOT.resolve()), "<REPO_ROOT>")
     return {
-        "command": " ".join(cmd),
+        "command": command,
         "returncode": completed.returncode,
-        "stdout_tail": completed.stdout[-2000:],
-        "stderr_tail": completed.stderr[-4000:],
+        "stdout_tail": stdout_tail,
+        "stderr_tail": stderr_tail,
         "output": rel(output),
         "ok": completed.returncode == 0 and output.exists() and output.stat().st_size > 0,
     }
@@ -748,6 +766,8 @@ def public_pdf_audit() -> dict[str, Any]:
             "min_pages": spec["min_pages"],
             "version_present": VERSION in text,
             "toc_present": "Contents" in text or "Table of Contents" in text,
+            "dedication_present": "Dedicated to my dear wife Maria" in text if key == "master" else True,
+            "science_delta_present": "T133-K0-RES" in text and "target-blind" in text if key == "master" else True,
             "forbidden_hit_total": len(forbidden_hits),
             "overclaim_hit_total": len(overclaim_hits),
             "forbidden_hits": forbidden_hits[:20],
@@ -760,6 +780,8 @@ def public_pdf_audit() -> dict[str, Any]:
             and row["text_chars"] >= spec["min_chars"]
             and row["version_present"]
             and row["toc_present"]
+            and row["dedication_present"]
+            and row["science_delta_present"]
             and row["forbidden_hit_total"] == 0
             and row["overclaim_hit_total"] == 0
         )
@@ -818,7 +840,9 @@ def materialize_public_evidence_summaries() -> list[Path]:
         if not src.exists():
             continue
         dst = PUBLIC_EVIDENCE / ref.replace("/", "__").replace("\\", "__")
-        if src.suffix.lower() in TEXT_SUFFIXES:
+        if src.suffix.lower() in {".json", ".jsonld"}:
+            write_json_if_changed(dst, sanitize_public_json(read_json(src, {})))
+        elif src.suffix.lower() in TEXT_SUFFIXES:
             write_text_if_changed(dst, clean_public_text(read_text(src)))
         else:
             dst.parent.mkdir(parents=True, exist_ok=True)
@@ -875,6 +899,10 @@ def build_public_zip() -> dict[str, Any]:
         ".codemeta.json",
         f"releases/{RELEASE_ID}/RELEASE_NOTES.md",
         f"releases/{RELEASE_ID}/CHANGELOG.md",
+        f"releases/{RELEASE_ID}/editorial/SCIENCE_MONOLITH_CORPUS_LEDGER_1_3_3_latest.json",
+        f"releases/{RELEASE_ID}/editorial/SCIENCE_MONOLITH_AUDIT_1_3_3_latest.json",
+        f"releases/{RELEASE_ID}/editorial/SCIENCE_MONOLITH_BUILD_1_3_3_latest.json",
+        f"releases/{RELEASE_ID}/editorial/SCIENCE_MONOLITH_BUILD_1_3_3_latest.md",
     ]:
         path = ROOT / ref
         if path.exists():
@@ -1232,7 +1260,7 @@ def write_profile() -> None:
         "repository": "alexanderyashin/ontology-of-continua-core-main",
         "title": "Ontology of Continua Core",
         "subtitle": "Bounded external-review scientific release with typed foundations, proof/evidence ledgers, reproducibility package, and journal owner-review packets",
-        "release_state": "OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND",
+        "release_state": "OC_CORE_1_3_3_PUBLIC_GITHUB_ZENODO_RELEASE",
         "expected_gate_pass_total": 71,
         "expected_package_sha256": "",
         "previous_zenodo_record_id": "19956854",
@@ -1315,17 +1343,16 @@ def zip_public_scan() -> dict[str, Any]:
             suffix = Path(name).suffix.lower()
             if suffix in TEXT_SUFFIXES:
                 text = zf.read(name).decode("utf-8", errors="ignore")
-                # Journal packages are allowed to carry their outbound lock language.
-                if "submission_packages/" not in name.replace("\\", "/"):
-                    hit = PUBLIC_FORBIDDEN_RE.search(text)
-                    if hit:
-                        forbidden.append({"member": name, "issue": "public_forbidden_text", "match": hit.group(0)})
+                hit = PUBLIC_FORBIDDEN_RE.search(text)
+                if hit:
+                    forbidden.append({"member": name, "issue": "public_forbidden_text", "match": hit.group(0)})
     return {"state": "PASS" if not forbidden else "FAIL", "failure_total": len(forbidden), "failures": forbidden[:100]}
 
 
 def audit_public_payload() -> dict[str, Any]:
     asset_paths = [ROOT / row["path"] for row in public_assets()]
     pdf_audit = public_pdf_audit()
+    monolith_audit = science_monolith.audit_monolith(ROOT)
     scan_hits = public_surface_scan(asset_paths + list(PUBLIC_SOURCES.glob("*.md")) + [ROOT / "README.md", ROOT / ".zenodo.json"])
     zip_scan = zip_public_scan()
     missing_assets = [rel(path) for path in asset_paths if not path.is_file()]
@@ -1333,6 +1360,8 @@ def audit_public_payload() -> dict[str, Any]:
     failures = []
     if pdf_audit["state"] != "PASS":
         failures.append("pdf_audit_failed")
+    if monolith_audit.get("state") != "PASS":
+        failures.append("science_monolith_audit_failed")
     if scan_hits:
         failures.append("public_surface_forbidden_hits")
     if zip_scan["state"] != "PASS":
@@ -1350,6 +1379,7 @@ def audit_public_payload() -> dict[str, Any]:
         "failure_total": len(failures),
         "failures": failures,
         "pdf_audit": pdf_audit,
+        "science_monolith_audit": monolith_audit,
         "public_surface_forbidden_hit_total": len(scan_hits),
         "public_surface_forbidden_hits": scan_hits[:100],
         "zip_scan": zip_scan,
@@ -1458,7 +1488,21 @@ def materialize(doi: str | None = None, zenodo_record_url: str | None = None, gi
     finite_control_sync = sync_finite_publication_controls()
     build_rows = []
     if not skip_pdf:
+        monolith_build = science_monolith.materialize_monolith(ROOT, doi=doi, zenodo_record_url=zenodo_record_url)
+        build_rows.append(
+            {
+                "command": "release_machine.science_monolith.materialize_monolith",
+                "returncode": 0 if monolith_build.get("state") == "PASS" else 1,
+                "stdout_tail": "",
+                "stderr_tail": "",
+                "output": monolith_build.get("output_pdf"),
+                "ok": monolith_build.get("state") == "PASS",
+                "science_monolith": monolith_build.get("audit", {}),
+            }
+        )
         for key, source in sources.items():
+            if key == "master":
+                continue
             spec = PDF_SPECS[key]
             build_rows.append(build_pdf(source, ARTIFACTS / spec["filename"], spec["title"]))
         failures = [row for row in build_rows if not row["ok"]]
