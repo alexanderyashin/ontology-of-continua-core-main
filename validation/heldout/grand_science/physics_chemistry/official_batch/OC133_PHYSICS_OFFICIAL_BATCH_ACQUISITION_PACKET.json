@@ -6,6 +6,7 @@
   "generated_by": "tools/oc133_physics_chemistry_official_batch_factory.py",
   "domain": "physics",
   "source_lane": "official_batch",
+  "status": "PARTIAL_ACQUISITION_REQUIRED",
   "no_send": true,
   "publish_allowed": false,
   "registry_write_allowed": false,
@@ -13,25 +14,9 @@
   "grand_toe_support_allowed": false,
   "candidate_n": 44,
   "minimum_n": 20,
-  "missing_official_snapshot_total": 2,
+  "request_total": 1,
+  "missing_official_snapshot_total": 1,
   "missing_official_snapshots": [
-    {
-      "acquisition_id": "OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001",
-      "official_source": "NIST CODATA 2022 fundamental constants complete ASCII listing",
-      "official_endpoint_url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
-      "expected_local_snapshot_ref": "validation/_raw/physics_nist_constants_prospective_allascii.txt",
-      "required_fields": [
-        "Quantity",
-        "Value",
-        "Uncertainty",
-        "Unit"
-      ],
-      "query_params": {},
-      "no_send_lock": true,
-      "minimum_rows_required": 20,
-      "current_official_batch_rows": 44,
-      "missing_reason": "The pinned CODATA snapshot is usable for deterministic formula replay, but a prospective read-only acquisition/lock is still needed before any target-blind promotion claim."
-    },
     {
       "acquisition_id": "OC133-PHYSICS-NIST-ASD-HYDROGEN-BALMER-001",
       "official_source": "NIST Atomic Spectra Database hydrogen Balmer lines",
@@ -52,28 +37,448 @@
       "no_send_lock": true,
       "minimum_rows_required": 20,
       "current_official_batch_rows": 0,
-      "runner_validation_note": "Current official-readonly runner allowlist only covers physics.nist.gov/cuu/Constants; this ASD request is intentionally visible as a protocol blocker until the allowlist is extended.",
-      "missing_reason": "No independent NIST ASD target snapshot is pinned for a physics held-out spectral-line class."
+      "runner_validation_note": "The official-readonly runner allowlist accepts this exact NIST ASD hydrogen Balmer TSV query.",
+      "missing_reason": "No independent NIST ASD target snapshot is pinned for a physics held-out spectral-line class.",
+      "prospective_lock_metadata": {
+        "schema_id": "OC133_OFFICIAL_READONLY_PROSPECTIVE_LOCK_METADATA_v1",
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "request_visible_fields": {
+          "acquisition_id": "OC133-PHYSICS-NIST-ASD-HYDROGEN-BALMER-001",
+          "current_official_batch_rows": 0,
+          "expected_local_snapshot_ref": "validation/_raw/physics_nist_asd_hydrogen_balmer_lines_v1.tsv",
+          "minimum_rows_required": 20,
+          "missing_reason": "No independent NIST ASD target snapshot is pinned for a physics held-out spectral-line class.",
+          "no_send_lock": true,
+          "official_endpoint_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H&limits_type=0&low_w=&upp_w=&unit=1&de=0&format=3&line_out=0&remove_js=on&en_unit=1&output=0&page_size=50&show_obs_wl=1&show_calc_wl=1&show_wn=1",
+          "official_source": "NIST Atomic Spectra Database hydrogen Balmer lines",
+          "query_params": {
+            "spectra": "H",
+            "format": "3",
+            "show_obs_wl": "1",
+            "show_calc_wl": "1",
+            "show_wn": "1"
+          },
+          "required_fields": [
+            "observed_wavelength",
+            "calculated_wavelength",
+            "wavenumber"
+          ],
+          "runner_validation_note": "The official-readonly runner allowlist accepts this exact NIST ASD hydrogen Balmer TSV query."
+        },
+        "request_visible_fields_hash": "88f67ea81940fedb44eb6abb18fc427642b43446a15367ee88190f228e30a40f",
+        "model_family": "OC133 physics official-batch deterministic visible-field scorer",
+        "model_family_hash": "f72be29828181658fd6c835a4fb13513b257cb0badc2ecd931ab1d37bb136700",
+        "comparator_baseline": {
+          "name": "physics official-batch preregistered same-target formula ablation baseline",
+          "prediction_rule": "For each declared CODATA target, evaluate the preregistered target formula after replacing the first visible ingredient with dimensionless 1.0; score that same-target ablation under the same residual metric.",
+          "pre_registered": true,
+          "residual_metric_id": "absolute_error_with_uncertainty_normalized_score_v1"
+        },
+        "comparator_baseline_hash": "0a01dcaa5dbf0733e402af49ae1973f4d9d87176e017a97262afe67578e37a0a",
+        "scoring_policy": {
+          "residual_metric_id": "absolute_error_with_uncertainty_normalized_score_v1",
+          "scoring_started": false,
+          "scoring_started_at": "",
+          "target_projection_unsealed_for_scoring": false,
+          "target_projection_unsealed_for_scoring_at": "",
+          "prediction_materialization_required_before_scoring": true,
+          "target_projection_read_before_prediction_materialization": false,
+          "scientific_pass": false
+        },
+        "scoring_policy_hash": "c85732af0c2c3f9097474ccc8f33bbcdf42d5c897cc22a24cc24c7c2b654191c",
+        "target_split_policy": {
+          "target_hidden_until_scoring": true,
+          "target_values_in_metadata_allowed": false,
+          "target_value_fields_excluded": [
+            "target_quantity",
+            "observed_value",
+            "target_unit",
+            "official_uncertainty",
+            "uncertainty"
+          ],
+          "target_projection_fields_excluded": [
+            "target_quantity",
+            "observed_value",
+            "target_unit",
+            "official_uncertainty",
+            "uncertainty",
+            "target_source",
+            "target_projection",
+            "target_projection_id",
+            "target_hash",
+            "observed_value_text",
+            "official_uncertainty_text",
+            "model_residual",
+            "model_residual_score",
+            "residual_within_uncertainty"
+          ],
+          "policy": "Metadata may name excluded target fields but must not carry target values."
+        },
+        "target_split_policy_hash": "2dc49326208320f98c9de0f86901d9ee05b01a8452029162c8d0d1d1c3a3625f",
+        "no_send_locks": {
+          "no_send": true,
+          "publish_allowed": false,
+          "push_allowed": false,
+          "public_release_action_allowed": false,
+          "registry_write_allowed": false,
+          "journal_submissions_allowed": false
+        },
+        "no_send_locks_hash": "04da509c847a7e6d22722ca0af905f8a3bfc2a970004b5c6dde5bdfc31f7cdb6",
+        "prospective_order_proof": {
+          "event_order": [
+            {
+              "event_index": 1,
+              "event": "source_snapshot_locked",
+              "performed_by_acquisition_runner": true,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 2,
+              "event": "source_separation_declared",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 3,
+              "event": "visible_projection_locked",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 4,
+              "event": "prediction_materialized",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 5,
+              "event": "target_projection_unsealed_for_scoring",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": false
+            },
+            {
+              "event_index": 6,
+              "event": "scoring_started",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": false
+            }
+          ],
+          "strict_precedence": "source_snapshot_locked < source_separation_declared < visible_projection_locked < prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started",
+          "source_snapshot_locked_before_scoring": true,
+          "target_unsealed_before_acquisition": false,
+          "scoring_started_before_acquisition": false,
+          "post_acquisition_events_not_performed_by_runner": [
+            "target_projection_unsealed_for_scoring",
+            "scoring_started"
+          ],
+          "order_hash": "750ce7f91abe058d199934ffa71ff5bb012064e85bd8ce52a3e062fcc18e287f"
+        },
+        "prospective_order_hash": "750ce7f91abe058d199934ffa71ff5bb012064e85bd8ce52a3e062fcc18e287f",
+        "order_proof": {
+          "event_order": [
+            {
+              "event_index": 1,
+              "event": "source_snapshot_locked",
+              "performed_by_acquisition_runner": true,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 2,
+              "event": "source_separation_declared",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 3,
+              "event": "visible_projection_locked",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 4,
+              "event": "prediction_materialized",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 5,
+              "event": "target_projection_unsealed_for_scoring",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": false
+            },
+            {
+              "event_index": 6,
+              "event": "scoring_started",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": false
+            }
+          ],
+          "strict_precedence": "source_snapshot_locked < source_separation_declared < visible_projection_locked < prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started",
+          "source_snapshot_locked_before_scoring": true,
+          "target_unsealed_before_acquisition": false,
+          "scoring_started_before_acquisition": false,
+          "post_acquisition_events_not_performed_by_runner": [
+            "target_projection_unsealed_for_scoring",
+            "scoring_started"
+          ],
+          "order_hash": "750ce7f91abe058d199934ffa71ff5bb012064e85bd8ce52a3e062fcc18e287f"
+        },
+        "order_hash": "750ce7f91abe058d199934ffa71ff5bb012064e85bd8ce52a3e062fcc18e287f",
+        "metadata_inputs_hash": "772b033610af1ec90b1d76bfe920d47527665d3d7faca0f6e6532515dd3b2bf9",
+        "target_value_leak_check": {
+          "target_values_present": false,
+          "target_value_fields_excluded": [
+            "target_quantity",
+            "observed_value",
+            "target_unit",
+            "official_uncertainty",
+            "uncertainty"
+          ]
+        },
+        "metadata_hash": "2f8d070c864a25308dcafed551dab291b64ee110d513f94e2651cbcd8bd228a0"
+      }
     }
   ],
   "acquisition_requests": [
     {
-      "acquisition_id": "OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001",
-      "official_source": "NIST CODATA 2022 fundamental constants complete ASCII listing",
-      "official_endpoint_url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
-      "expected_local_snapshot_ref": "validation/_raw/physics_nist_constants_prospective_allascii.txt",
+      "acquisition_id": "OC133-PHYSICS-NIST-ASD-HYDROGEN-BALMER-001",
+      "official_source": "NIST Atomic Spectra Database hydrogen Balmer lines",
+      "official_endpoint_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H&limits_type=0&low_w=&upp_w=&unit=1&de=0&format=3&line_out=0&remove_js=on&en_unit=1&output=0&page_size=50&show_obs_wl=1&show_calc_wl=1&show_wn=1",
+      "expected_local_snapshot_ref": "validation/_raw/physics_nist_asd_hydrogen_balmer_lines_v1.tsv",
       "required_fields": [
-        "Quantity",
-        "Value",
-        "Uncertainty",
-        "Unit"
+        "observed_wavelength",
+        "calculated_wavelength",
+        "wavenumber"
       ],
-      "query_params": {},
+      "query_params": {
+        "spectra": "H",
+        "format": "3",
+        "show_obs_wl": "1",
+        "show_calc_wl": "1",
+        "show_wn": "1"
+      },
       "no_send_lock": true,
       "minimum_rows_required": 20,
-      "current_official_batch_rows": 44,
-      "missing_reason": "The pinned CODATA snapshot is usable for deterministic formula replay, but a prospective read-only acquisition/lock is still needed before any target-blind promotion claim."
-    },
+      "current_official_batch_rows": 0,
+      "runner_validation_note": "The official-readonly runner allowlist accepts this exact NIST ASD hydrogen Balmer TSV query.",
+      "missing_reason": "No independent NIST ASD target snapshot is pinned for a physics held-out spectral-line class.",
+      "prospective_lock_metadata": {
+        "schema_id": "OC133_OFFICIAL_READONLY_PROSPECTIVE_LOCK_METADATA_v1",
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "request_visible_fields": {
+          "acquisition_id": "OC133-PHYSICS-NIST-ASD-HYDROGEN-BALMER-001",
+          "current_official_batch_rows": 0,
+          "expected_local_snapshot_ref": "validation/_raw/physics_nist_asd_hydrogen_balmer_lines_v1.tsv",
+          "minimum_rows_required": 20,
+          "missing_reason": "No independent NIST ASD target snapshot is pinned for a physics held-out spectral-line class.",
+          "no_send_lock": true,
+          "official_endpoint_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H&limits_type=0&low_w=&upp_w=&unit=1&de=0&format=3&line_out=0&remove_js=on&en_unit=1&output=0&page_size=50&show_obs_wl=1&show_calc_wl=1&show_wn=1",
+          "official_source": "NIST Atomic Spectra Database hydrogen Balmer lines",
+          "query_params": {
+            "spectra": "H",
+            "format": "3",
+            "show_obs_wl": "1",
+            "show_calc_wl": "1",
+            "show_wn": "1"
+          },
+          "required_fields": [
+            "observed_wavelength",
+            "calculated_wavelength",
+            "wavenumber"
+          ],
+          "runner_validation_note": "The official-readonly runner allowlist accepts this exact NIST ASD hydrogen Balmer TSV query."
+        },
+        "request_visible_fields_hash": "88f67ea81940fedb44eb6abb18fc427642b43446a15367ee88190f228e30a40f",
+        "model_family": "OC133 physics official-batch deterministic visible-field scorer",
+        "model_family_hash": "f72be29828181658fd6c835a4fb13513b257cb0badc2ecd931ab1d37bb136700",
+        "comparator_baseline": {
+          "name": "physics official-batch preregistered same-target formula ablation baseline",
+          "prediction_rule": "For each declared CODATA target, evaluate the preregistered target formula after replacing the first visible ingredient with dimensionless 1.0; score that same-target ablation under the same residual metric.",
+          "pre_registered": true,
+          "residual_metric_id": "absolute_error_with_uncertainty_normalized_score_v1"
+        },
+        "comparator_baseline_hash": "0a01dcaa5dbf0733e402af49ae1973f4d9d87176e017a97262afe67578e37a0a",
+        "scoring_policy": {
+          "residual_metric_id": "absolute_error_with_uncertainty_normalized_score_v1",
+          "scoring_started": false,
+          "scoring_started_at": "",
+          "target_projection_unsealed_for_scoring": false,
+          "target_projection_unsealed_for_scoring_at": "",
+          "prediction_materialization_required_before_scoring": true,
+          "target_projection_read_before_prediction_materialization": false,
+          "scientific_pass": false
+        },
+        "scoring_policy_hash": "c85732af0c2c3f9097474ccc8f33bbcdf42d5c897cc22a24cc24c7c2b654191c",
+        "target_split_policy": {
+          "target_hidden_until_scoring": true,
+          "target_values_in_metadata_allowed": false,
+          "target_value_fields_excluded": [
+            "target_quantity",
+            "observed_value",
+            "target_unit",
+            "official_uncertainty",
+            "uncertainty"
+          ],
+          "target_projection_fields_excluded": [
+            "target_quantity",
+            "observed_value",
+            "target_unit",
+            "official_uncertainty",
+            "uncertainty",
+            "target_source",
+            "target_projection",
+            "target_projection_id",
+            "target_hash",
+            "observed_value_text",
+            "official_uncertainty_text",
+            "model_residual",
+            "model_residual_score",
+            "residual_within_uncertainty"
+          ],
+          "policy": "Metadata may name excluded target fields but must not carry target values."
+        },
+        "target_split_policy_hash": "2dc49326208320f98c9de0f86901d9ee05b01a8452029162c8d0d1d1c3a3625f",
+        "no_send_locks": {
+          "no_send": true,
+          "publish_allowed": false,
+          "push_allowed": false,
+          "public_release_action_allowed": false,
+          "registry_write_allowed": false,
+          "journal_submissions_allowed": false
+        },
+        "no_send_locks_hash": "04da509c847a7e6d22722ca0af905f8a3bfc2a970004b5c6dde5bdfc31f7cdb6",
+        "prospective_order_proof": {
+          "event_order": [
+            {
+              "event_index": 1,
+              "event": "source_snapshot_locked",
+              "performed_by_acquisition_runner": true,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 2,
+              "event": "source_separation_declared",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 3,
+              "event": "visible_projection_locked",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 4,
+              "event": "prediction_materialized",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 5,
+              "event": "target_projection_unsealed_for_scoring",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": false
+            },
+            {
+              "event_index": 6,
+              "event": "scoring_started",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": false
+            }
+          ],
+          "strict_precedence": "source_snapshot_locked < source_separation_declared < visible_projection_locked < prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started",
+          "source_snapshot_locked_before_scoring": true,
+          "target_unsealed_before_acquisition": false,
+          "scoring_started_before_acquisition": false,
+          "post_acquisition_events_not_performed_by_runner": [
+            "target_projection_unsealed_for_scoring",
+            "scoring_started"
+          ],
+          "order_hash": "750ce7f91abe058d199934ffa71ff5bb012064e85bd8ce52a3e062fcc18e287f"
+        },
+        "prospective_order_hash": "750ce7f91abe058d199934ffa71ff5bb012064e85bd8ce52a3e062fcc18e287f",
+        "order_proof": {
+          "event_order": [
+            {
+              "event_index": 1,
+              "event": "source_snapshot_locked",
+              "performed_by_acquisition_runner": true,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 2,
+              "event": "source_separation_declared",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 3,
+              "event": "visible_projection_locked",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 4,
+              "event": "prediction_materialized",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 5,
+              "event": "target_projection_unsealed_for_scoring",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": false
+            },
+            {
+              "event_index": 6,
+              "event": "scoring_started",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": false
+            }
+          ],
+          "strict_precedence": "source_snapshot_locked < source_separation_declared < visible_projection_locked < prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started",
+          "source_snapshot_locked_before_scoring": true,
+          "target_unsealed_before_acquisition": false,
+          "scoring_started_before_acquisition": false,
+          "post_acquisition_events_not_performed_by_runner": [
+            "target_projection_unsealed_for_scoring",
+            "scoring_started"
+          ],
+          "order_hash": "750ce7f91abe058d199934ffa71ff5bb012064e85bd8ce52a3e062fcc18e287f"
+        },
+        "order_hash": "750ce7f91abe058d199934ffa71ff5bb012064e85bd8ce52a3e062fcc18e287f",
+        "metadata_inputs_hash": "772b033610af1ec90b1d76bfe920d47527665d3d7faca0f6e6532515dd3b2bf9",
+        "target_value_leak_check": {
+          "target_values_present": false,
+          "target_value_fields_excluded": [
+            "target_quantity",
+            "observed_value",
+            "target_unit",
+            "official_uncertainty",
+            "uncertainty"
+          ]
+        },
+        "metadata_hash": "2f8d070c864a25308dcafed551dab291b64ee110d513f94e2651cbcd8bd228a0"
+      }
+    }
+  ],
+  "exact_acquisition_requests": [
     {
       "acquisition_id": "OC133-PHYSICS-NIST-ASD-HYDROGEN-BALMER-001",
       "official_source": "NIST Atomic Spectra Database hydrogen Balmer lines",
@@ -94,21 +499,264 @@
       "no_send_lock": true,
       "minimum_rows_required": 20,
       "current_official_batch_rows": 0,
-      "runner_validation_note": "Current official-readonly runner allowlist only covers physics.nist.gov/cuu/Constants; this ASD request is intentionally visible as a protocol blocker until the allowlist is extended.",
-      "missing_reason": "No independent NIST ASD target snapshot is pinned for a physics held-out spectral-line class."
+      "runner_validation_note": "The official-readonly runner allowlist accepts this exact NIST ASD hydrogen Balmer TSV query.",
+      "missing_reason": "No independent NIST ASD target snapshot is pinned for a physics held-out spectral-line class.",
+      "prospective_lock_metadata": {
+        "schema_id": "OC133_OFFICIAL_READONLY_PROSPECTIVE_LOCK_METADATA_v1",
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "request_visible_fields": {
+          "acquisition_id": "OC133-PHYSICS-NIST-ASD-HYDROGEN-BALMER-001",
+          "current_official_batch_rows": 0,
+          "expected_local_snapshot_ref": "validation/_raw/physics_nist_asd_hydrogen_balmer_lines_v1.tsv",
+          "minimum_rows_required": 20,
+          "missing_reason": "No independent NIST ASD target snapshot is pinned for a physics held-out spectral-line class.",
+          "no_send_lock": true,
+          "official_endpoint_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H&limits_type=0&low_w=&upp_w=&unit=1&de=0&format=3&line_out=0&remove_js=on&en_unit=1&output=0&page_size=50&show_obs_wl=1&show_calc_wl=1&show_wn=1",
+          "official_source": "NIST Atomic Spectra Database hydrogen Balmer lines",
+          "query_params": {
+            "spectra": "H",
+            "format": "3",
+            "show_obs_wl": "1",
+            "show_calc_wl": "1",
+            "show_wn": "1"
+          },
+          "required_fields": [
+            "observed_wavelength",
+            "calculated_wavelength",
+            "wavenumber"
+          ],
+          "runner_validation_note": "The official-readonly runner allowlist accepts this exact NIST ASD hydrogen Balmer TSV query."
+        },
+        "request_visible_fields_hash": "88f67ea81940fedb44eb6abb18fc427642b43446a15367ee88190f228e30a40f",
+        "model_family": "OC133 physics official-batch deterministic visible-field scorer",
+        "model_family_hash": "f72be29828181658fd6c835a4fb13513b257cb0badc2ecd931ab1d37bb136700",
+        "comparator_baseline": {
+          "name": "physics official-batch preregistered same-target formula ablation baseline",
+          "prediction_rule": "For each declared CODATA target, evaluate the preregistered target formula after replacing the first visible ingredient with dimensionless 1.0; score that same-target ablation under the same residual metric.",
+          "pre_registered": true,
+          "residual_metric_id": "absolute_error_with_uncertainty_normalized_score_v1"
+        },
+        "comparator_baseline_hash": "0a01dcaa5dbf0733e402af49ae1973f4d9d87176e017a97262afe67578e37a0a",
+        "scoring_policy": {
+          "residual_metric_id": "absolute_error_with_uncertainty_normalized_score_v1",
+          "scoring_started": false,
+          "scoring_started_at": "",
+          "target_projection_unsealed_for_scoring": false,
+          "target_projection_unsealed_for_scoring_at": "",
+          "prediction_materialization_required_before_scoring": true,
+          "target_projection_read_before_prediction_materialization": false,
+          "scientific_pass": false
+        },
+        "scoring_policy_hash": "c85732af0c2c3f9097474ccc8f33bbcdf42d5c897cc22a24cc24c7c2b654191c",
+        "target_split_policy": {
+          "target_hidden_until_scoring": true,
+          "target_values_in_metadata_allowed": false,
+          "target_value_fields_excluded": [
+            "target_quantity",
+            "observed_value",
+            "target_unit",
+            "official_uncertainty",
+            "uncertainty"
+          ],
+          "target_projection_fields_excluded": [
+            "target_quantity",
+            "observed_value",
+            "target_unit",
+            "official_uncertainty",
+            "uncertainty",
+            "target_source",
+            "target_projection",
+            "target_projection_id",
+            "target_hash",
+            "observed_value_text",
+            "official_uncertainty_text",
+            "model_residual",
+            "model_residual_score",
+            "residual_within_uncertainty"
+          ],
+          "policy": "Metadata may name excluded target fields but must not carry target values."
+        },
+        "target_split_policy_hash": "2dc49326208320f98c9de0f86901d9ee05b01a8452029162c8d0d1d1c3a3625f",
+        "no_send_locks": {
+          "no_send": true,
+          "publish_allowed": false,
+          "push_allowed": false,
+          "public_release_action_allowed": false,
+          "registry_write_allowed": false,
+          "journal_submissions_allowed": false
+        },
+        "no_send_locks_hash": "04da509c847a7e6d22722ca0af905f8a3bfc2a970004b5c6dde5bdfc31f7cdb6",
+        "prospective_order_proof": {
+          "event_order": [
+            {
+              "event_index": 1,
+              "event": "source_snapshot_locked",
+              "performed_by_acquisition_runner": true,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 2,
+              "event": "source_separation_declared",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 3,
+              "event": "visible_projection_locked",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 4,
+              "event": "prediction_materialized",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 5,
+              "event": "target_projection_unsealed_for_scoring",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": false
+            },
+            {
+              "event_index": 6,
+              "event": "scoring_started",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": false
+            }
+          ],
+          "strict_precedence": "source_snapshot_locked < source_separation_declared < visible_projection_locked < prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started",
+          "source_snapshot_locked_before_scoring": true,
+          "target_unsealed_before_acquisition": false,
+          "scoring_started_before_acquisition": false,
+          "post_acquisition_events_not_performed_by_runner": [
+            "target_projection_unsealed_for_scoring",
+            "scoring_started"
+          ],
+          "order_hash": "750ce7f91abe058d199934ffa71ff5bb012064e85bd8ce52a3e062fcc18e287f"
+        },
+        "prospective_order_hash": "750ce7f91abe058d199934ffa71ff5bb012064e85bd8ce52a3e062fcc18e287f",
+        "order_proof": {
+          "event_order": [
+            {
+              "event_index": 1,
+              "event": "source_snapshot_locked",
+              "performed_by_acquisition_runner": true,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 2,
+              "event": "source_separation_declared",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 3,
+              "event": "visible_projection_locked",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 4,
+              "event": "prediction_materialized",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": true
+            },
+            {
+              "event_index": 5,
+              "event": "target_projection_unsealed_for_scoring",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": false
+            },
+            {
+              "event_index": 6,
+              "event": "scoring_started",
+              "performed_by_acquisition_runner": false,
+              "must_precede_scoring": false
+            }
+          ],
+          "strict_precedence": "source_snapshot_locked < source_separation_declared < visible_projection_locked < prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started",
+          "source_snapshot_locked_before_scoring": true,
+          "target_unsealed_before_acquisition": false,
+          "scoring_started_before_acquisition": false,
+          "post_acquisition_events_not_performed_by_runner": [
+            "target_projection_unsealed_for_scoring",
+            "scoring_started"
+          ],
+          "order_hash": "750ce7f91abe058d199934ffa71ff5bb012064e85bd8ce52a3e062fcc18e287f"
+        },
+        "order_hash": "750ce7f91abe058d199934ffa71ff5bb012064e85bd8ce52a3e062fcc18e287f",
+        "metadata_inputs_hash": "772b033610af1ec90b1d76bfe920d47527665d3d7faca0f6e6532515dd3b2bf9",
+        "target_value_leak_check": {
+          "target_values_present": false,
+          "target_value_fields_excluded": [
+            "target_quantity",
+            "observed_value",
+            "target_unit",
+            "official_uncertainty",
+            "uncertainty"
+          ]
+        },
+        "metadata_hash": "2f8d070c864a25308dcafed551dab291b64ee110d513f94e2651cbcd8bd228a0"
+      }
     }
   ],
+  "official_acquisition_run_root_ref": "validation/heldout/acquisition_runs/oc133_official_readonly",
+  "codata_prospective_lock_satisfied": true,
+  "codata_prospective_lock_evidence": {
+    "acquisition_id": "OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001",
+    "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt",
+    "snapshot_sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+    "source_bytes_sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+    "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.lock.json",
+    "lock_sha256": "ab6927da9a8e61197f0628e806d86031da1c11a2210889e2394fa6abf213ef98",
+    "metadata_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.metadata.json",
+    "metadata_sha256": "7407d084cb7bd375dd20a240003d3b7195ecc84402bbf3ea31dcf5bd1e6ac361",
+    "order_record_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/order_records/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.order.json",
+    "order_record_sha256": "ac8e3898d6ae8b84f7684957017ed08286ed8b89811872d521587c1a3768c1ee",
+    "order_record_file_sha256": "e6cc665317a92c77ef0b206ddca441d633029e4f4dab8967f702fd7b90b0a8c2"
+  },
   "protocol_blockers": [
-    "PRE_TARGET_LOCK_REQUIRED",
-    "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
-    "SOURCE_SEPARATION_ATTESTATION_REQUIRED",
     "INDEPENDENT_PHYSICS_TARGET_CLASS_REQUIRED"
   ],
+  "automated_prospective_protocol": {
+    "protocol_id": "OC133-PHYSICS-OFFICIAL-BATCH-PROSPECTIVE-ACQUISITION-v1",
+    "runner_tool_ref": "tools/oc133_official_readonly_acquisition_runner.py",
+    "phase_order": [
+      "freeze_formula_comparator_uncertainty_controls_and_falsifiers",
+      "write_no_send_acquisition_packet",
+      "dry_run_runner_validation",
+      "execute_readonly_official_https_get_after_packet_hash_is_fixed",
+      "materialize_prediction_rows_from_visible_fields_only",
+      "unseal_target_projection_for_scoring",
+      "rerun_factory_check_and_grand_gate"
+    ],
+    "acceptance_gates": [
+      "all acquisition requests validate against the official-readonly runner allowlist",
+      "acquired snapshot hashes match the runner metadata and no-send locks",
+      "source-separation lock event order is strictly source_snapshot_locked < source_separation_declared < visible_projection_locked < prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started",
+      "prediction materialization hashes exclude all scoring target fields",
+      "N>=20, comparator preregistered, residuals within uncertainty, negative controls rejected, falsifiers not triggered",
+      "grand_toe_support_allowed remains false unless the strict grand gate has no failures"
+    ],
+    "dry_run_command": "python tools/oc133_official_readonly_acquisition_runner.py --packet validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET.json --allow-blocked-exit-zero",
+    "execute_command_no_public_action": "python tools/oc133_official_readonly_acquisition_runner.py --packet validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET.json --execute-network --allow-blocked-exit-zero",
+    "post_acquisition_factory_check_command": "python tools/oc133_physics_chemistry_official_batch_factory.py --check --allow-blocked-exit-zero",
+    "known_current_runner_blocker": "No dry-run runner validation blocker is expected; network acquisition still requires explicit --execute-network and intact no-send prospective locks."
+  },
   "runner": {
     "tool_ref": "tools/oc133_official_readonly_acquisition_runner.py",
     "example_dry_run_command": "python tools/oc133_official_readonly_acquisition_runner.py --packet validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET.json --write",
     "example_execute_command": "python tools/oc133_official_readonly_acquisition_runner.py --packet validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET.json --execute-network --allow-blocked-exit-zero"
   },
   "policy": "Acquisition requests pin official bytes only; they do not constitute empirical PASS or grand TOE support.",
-  "packet_sha256": "2e1bac251c84b50be3ba2269afca063469032a550def7f554194956d2eeeeba5"
+  "packet_sha256": "cf68b375c3ac4af16f876d5c33a468d4ddf0e561afb0e555a91dd64c91e41436"
 }

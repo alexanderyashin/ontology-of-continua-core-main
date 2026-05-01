@@ -1,0 +1,2133 @@
+{
+  "schema_id": "OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_TASKS_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "generated_by": "tools/oc133_chemistry_pubchem_hbond_donor_factory.py",
+  "target_class": "pubchem_hydrogen_bond_donor_count",
+  "target_field": "HBondDonorCount",
+  "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion",
+  "rows": [
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0001-9C3E47EB2F9C",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0001",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-001.json",
+      "snapshot_sha256": "2ed2fe8c0f42c0954e3852af3f821a7065be8e2028984de4cc5ca86563259056",
+      "source_snapshot_hash": "2ed2fe8c0f42c0954e3852af3f821a7065be8e2028984de4cc5ca86563259056",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-001",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-001.lock.json",
+      "lock_sha256": "4f5890b49f0decd5685830ac83f365d9ba770282f708d9406f55fc7d1bc48a9d",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/962/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "962",
+      "molecular_formula": "H2O",
+      "canonical_smiles": "O",
+      "connectivity_smiles": "O",
+      "visible_projection": {
+        "CID": 962,
+        "MolecularFormula": "H2O",
+        "ConnectivitySMILES": "O"
+      },
+      "target_projection": {
+        "HBondDonorCount": 1
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-001.json::CID=962::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-001.json::CID=962::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "O",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 1,
+      "observed_value": 1.0,
+      "observed_value_text": "1",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 1,
+      "comparator_residual": 0.0,
+      "comparator_material_margin": 0.0,
+      "comparator_material_margin_met": false,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0001-9C3E47EB2F9C",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 0.0,
+          "material_margin": 0.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": false,
+          "status": "NOT_REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0001-9C3E47EB2F9C",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0001-9C3E47EB2F9C",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": false,
+      "nontrivial_negative_controls_rejected": false,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "67bf27557a9a9b566fbefd382cbb78437ccdd8474be88c1893ede8251da621c2",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0002-2C2FBC2AFD63",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0002",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-002.json",
+      "snapshot_sha256": "c5ef966f3a7881a95bd7224c220d38869b63d3ef495bebb41a2e9ff286834b18",
+      "source_snapshot_hash": "c5ef966f3a7881a95bd7224c220d38869b63d3ef495bebb41a2e9ff286834b18",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-002",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-002.lock.json",
+      "lock_sha256": "74765962de56f3de62d4c7b31fcb4bcc459f18bc429cce1ffecea530c6817e5f",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/702/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "702",
+      "molecular_formula": "C2H6O",
+      "canonical_smiles": "CCO",
+      "connectivity_smiles": "CCO",
+      "visible_projection": {
+        "CID": 702,
+        "MolecularFormula": "C2H6O",
+        "ConnectivitySMILES": "CCO"
+      },
+      "target_projection": {
+        "HBondDonorCount": 1
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-002.json::CID=702::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-002.json::CID=702::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "CCO",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 1,
+      "observed_value": 1.0,
+      "observed_value_text": "1",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 1,
+      "comparator_residual": 0.0,
+      "comparator_material_margin": 0.0,
+      "comparator_material_margin_met": false,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0002-2C2FBC2AFD63",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 0.0,
+          "material_margin": 0.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": false,
+          "status": "NOT_REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0002-2C2FBC2AFD63",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0002-2C2FBC2AFD63",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": false,
+      "nontrivial_negative_controls_rejected": false,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "e993b26d5db41949ac762f3a0d04f8e4d9f205b4bd3280c22931da28104a75a7",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0003-EA4A445CC304",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0003",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-003.json",
+      "snapshot_sha256": "1f6503c66755d1335e240ecfc4bc525b782430e9b1a75d90593ea3eef4d4c2bb",
+      "source_snapshot_hash": "1f6503c66755d1335e240ecfc4bc525b782430e9b1a75d90593ea3eef4d4c2bb",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-003",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-003.lock.json",
+      "lock_sha256": "2d97b42abd7d5f948ffb1d4a37fd9519e71ccd876e0226d47b2e94862fb2b174",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/176/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "176",
+      "molecular_formula": "C2H4O2",
+      "canonical_smiles": "CC(=O)O",
+      "connectivity_smiles": "CC(=O)O",
+      "visible_projection": {
+        "CID": 176,
+        "MolecularFormula": "C2H4O2",
+        "ConnectivitySMILES": "CC(=O)O"
+      },
+      "target_projection": {
+        "HBondDonorCount": 1
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-003.json::CID=176::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-003.json::CID=176::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "CC(=O)O",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 1,
+      "observed_value": 1.0,
+      "observed_value_text": "1",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 2,
+      "comparator_residual": 1.0,
+      "comparator_material_margin": 1.0,
+      "comparator_material_margin_met": true,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0003-EA4A445CC304",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": true,
+          "status": "REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0003-EA4A445CC304",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0003-EA4A445CC304",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": true,
+      "nontrivial_negative_controls_rejected": true,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "5869048dcc36a1f035a5dde54d286a834151eb2995af086a1dc1c4f8a3305255",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0004-B80CE4750E28",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0004",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-004.json",
+      "snapshot_sha256": "8f389340fee9881a37667009cd98954f7a52d5d708cef04cb25e260d5ec61006",
+      "source_snapshot_hash": "8f389340fee9881a37667009cd98954f7a52d5d708cef04cb25e260d5ec61006",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-004",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-004.lock.json",
+      "lock_sha256": "476a87135a767b1e5481f14668f21fec235fd056bf1d11ddbf25115f5ae96a1f",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/180/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "180",
+      "molecular_formula": "C3H6O",
+      "canonical_smiles": "CC(=O)C",
+      "connectivity_smiles": "CC(=O)C",
+      "visible_projection": {
+        "CID": 180,
+        "MolecularFormula": "C3H6O",
+        "ConnectivitySMILES": "CC(=O)C"
+      },
+      "target_projection": {
+        "HBondDonorCount": 0
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-004.json::CID=180::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-004.json::CID=180::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "CC(=O)C",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 0,
+      "observed_value": 0.0,
+      "observed_value_text": "0",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 1,
+      "comparator_residual": 1.0,
+      "comparator_material_margin": 1.0,
+      "comparator_material_margin_met": true,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0004-B80CE4750E28",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": true,
+          "status": "REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0004-B80CE4750E28",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 0.0,
+          "material_margin": 0.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0004-B80CE4750E28",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": true,
+      "nontrivial_negative_controls_rejected": true,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "f4a51656e3a4708c1bdab697ff5e03186523a7bdf205b3bd951af7019cbd5dbd",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0005-A0DD985DD19D",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0005",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-005.json",
+      "snapshot_sha256": "4abf6c8cc4274aa657167c45caea0844f03ae1ee18580904c5e7da4cf02d60ab",
+      "source_snapshot_hash": "4abf6c8cc4274aa657167c45caea0844f03ae1ee18580904c5e7da4cf02d60ab",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-005",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-005.lock.json",
+      "lock_sha256": "9927b62a42325c7893c1156243b16926a0b350954cb821d06248c850d5d558ba",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/241/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "241",
+      "molecular_formula": "C6H6",
+      "canonical_smiles": "C1=CC=CC=C1",
+      "connectivity_smiles": "C1=CC=CC=C1",
+      "visible_projection": {
+        "CID": 241,
+        "MolecularFormula": "C6H6",
+        "ConnectivitySMILES": "C1=CC=CC=C1"
+      },
+      "target_projection": {
+        "HBondDonorCount": 0
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-005.json::CID=241::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-005.json::CID=241::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "C1=CC=CC=C1",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 0,
+      "observed_value": 0.0,
+      "observed_value_text": "0",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 0,
+      "comparator_residual": 0.0,
+      "comparator_material_margin": 0.0,
+      "comparator_material_margin_met": false,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0005-A0DD985DD19D",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 0.0,
+          "material_margin": 0.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": false,
+          "status": "NOT_REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0005-A0DD985DD19D",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 0.0,
+          "material_margin": 0.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0005-A0DD985DD19D",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": false,
+      "nontrivial_negative_controls_rejected": false,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "d0dddcdc4d0e719006014913e85375c3002694befe2e05379ad4c3b729e85c59",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0006-5D2229D59EDD",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0006",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-006.json",
+      "snapshot_sha256": "9a4182e50da514934204d9e70f6330929a6e79e095a58deaeae3834e1fb81eec",
+      "source_snapshot_hash": "9a4182e50da514934204d9e70f6330929a6e79e095a58deaeae3834e1fb81eec",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-006",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-006.lock.json",
+      "lock_sha256": "e8c06539c7432e5357134769233372b35336ff225a391f0d93ce535825e42564",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/887/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "887",
+      "molecular_formula": "CH4O",
+      "canonical_smiles": "CO",
+      "connectivity_smiles": "CO",
+      "visible_projection": {
+        "CID": 887,
+        "MolecularFormula": "CH4O",
+        "ConnectivitySMILES": "CO"
+      },
+      "target_projection": {
+        "HBondDonorCount": 1
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-006.json::CID=887::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-006.json::CID=887::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "CO",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 1,
+      "observed_value": 1.0,
+      "observed_value_text": "1",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 1,
+      "comparator_residual": 0.0,
+      "comparator_material_margin": 0.0,
+      "comparator_material_margin_met": false,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0006-5D2229D59EDD",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 0.0,
+          "material_margin": 0.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": false,
+          "status": "NOT_REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0006-5D2229D59EDD",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0006-5D2229D59EDD",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": false,
+      "nontrivial_negative_controls_rejected": false,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "69f1be4537b774da38fd7c7fd3ef648dca36cb8ad5d18dc2c5c3dd66d0ffc662",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0007-A5553C1ECB83",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0007",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-007.json",
+      "snapshot_sha256": "6d92831048b7c526b713887b9614d6e93aff8dc119df1500527d08c6021844bc",
+      "source_snapshot_hash": "6d92831048b7c526b713887b9614d6e93aff8dc119df1500527d08c6021844bc",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-007",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-007.lock.json",
+      "lock_sha256": "e2ea5d3976da0f66a2d72f096a899d63669b67d565820239b8e3a1c26853169c",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/284/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "284",
+      "molecular_formula": "CH2O2",
+      "canonical_smiles": "C(=O)O",
+      "connectivity_smiles": "C(=O)O",
+      "visible_projection": {
+        "CID": 284,
+        "MolecularFormula": "CH2O2",
+        "ConnectivitySMILES": "C(=O)O"
+      },
+      "target_projection": {
+        "HBondDonorCount": 1
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-007.json::CID=284::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-007.json::CID=284::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "C(=O)O",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 1,
+      "observed_value": 1.0,
+      "observed_value_text": "1",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 2,
+      "comparator_residual": 1.0,
+      "comparator_material_margin": 1.0,
+      "comparator_material_margin_met": true,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0007-A5553C1ECB83",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": true,
+          "status": "REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0007-A5553C1ECB83",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0007-A5553C1ECB83",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": true,
+      "nontrivial_negative_controls_rejected": true,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "ff4d55ccd481c4217a58876951d782f02554a83d2d6d4902296bbc80f1bef545",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0008-DEE2B27AEF5B",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0008",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-008.json",
+      "snapshot_sha256": "bc74442761bb5cbe313499b97c3a2dd527559fdddba3791044720f58af8cf6cb",
+      "source_snapshot_hash": "bc74442761bb5cbe313499b97c3a2dd527559fdddba3791044720f58af8cf6cb",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-008",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-008.lock.json",
+      "lock_sha256": "14204e92d5159977a9f68834ce92a3ca81f401cfb6e8bdd8d276975840aded95",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/996/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "996",
+      "molecular_formula": "C6H6O",
+      "canonical_smiles": "C1=CC=C(C=C1)O",
+      "connectivity_smiles": "C1=CC=C(C=C1)O",
+      "visible_projection": {
+        "CID": 996,
+        "MolecularFormula": "C6H6O",
+        "ConnectivitySMILES": "C1=CC=C(C=C1)O"
+      },
+      "target_projection": {
+        "HBondDonorCount": 1
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-008.json::CID=996::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-008.json::CID=996::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "C1=CC=C(C=C1)O",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 1,
+      "observed_value": 1.0,
+      "observed_value_text": "1",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 1,
+      "comparator_residual": 0.0,
+      "comparator_material_margin": 0.0,
+      "comparator_material_margin_met": false,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0008-DEE2B27AEF5B",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 0.0,
+          "material_margin": 0.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": false,
+          "status": "NOT_REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0008-DEE2B27AEF5B",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0008-DEE2B27AEF5B",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": false,
+      "nontrivial_negative_controls_rejected": false,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "642f32592f4427e216a543104f41a82eda56bcfcb1b0a45aa7c5833b67ead41c",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0009-C4C3A6D89EA0",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0009",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-009.json",
+      "snapshot_sha256": "9c4946a5ac1df7905f18baa4054d2225955a3f4536c38ad304a1f9b1cd92bee4",
+      "source_snapshot_hash": "9c4946a5ac1df7905f18baa4054d2225955a3f4536c38ad304a1f9b1cd92bee4",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-009",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-009.lock.json",
+      "lock_sha256": "f27560843760aa7c80066cf4a7550e0e9cc85ebcaed5499ed2a0b288ee59f6be",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/6115/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "6115",
+      "molecular_formula": "C6H7N",
+      "canonical_smiles": "C1=CC=C(C=C1)N",
+      "connectivity_smiles": "C1=CC=C(C=C1)N",
+      "visible_projection": {
+        "CID": 6115,
+        "MolecularFormula": "C6H7N",
+        "ConnectivitySMILES": "C1=CC=C(C=C1)N"
+      },
+      "target_projection": {
+        "HBondDonorCount": 1
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-009.json::CID=6115::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-009.json::CID=6115::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "C1=CC=C(C=C1)N",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 1,
+      "observed_value": 1.0,
+      "observed_value_text": "1",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 1,
+      "comparator_residual": 0.0,
+      "comparator_material_margin": 0.0,
+      "comparator_material_margin_met": false,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0009-C4C3A6D89EA0",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 0.0,
+          "material_margin": 0.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": false,
+          "status": "NOT_REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0009-C4C3A6D89EA0",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0009-C4C3A6D89EA0",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": false,
+      "nontrivial_negative_controls_rejected": false,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "b1206a927522c5b5c747d083fcae9c0c7c15a0323cf4837e0d5767f8a24366da",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0010-125664014829",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0010",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-010.json",
+      "snapshot_sha256": "18c7b4148f9e49bfd89bbbdd81f8a32210a6c838dbd5b6142d7fc91ce852eb64",
+      "source_snapshot_hash": "18c7b4148f9e49bfd89bbbdd81f8a32210a6c838dbd5b6142d7fc91ce852eb64",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-010",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-010.lock.json",
+      "lock_sha256": "77eb5c4fafb49dd06b90afe5dab938bc73960e13822c1247720b404f41b2e376",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/178/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "178",
+      "molecular_formula": "C2H5NO",
+      "canonical_smiles": "CC(=O)N",
+      "connectivity_smiles": "CC(=O)N",
+      "visible_projection": {
+        "CID": 178,
+        "MolecularFormula": "C2H5NO",
+        "ConnectivitySMILES": "CC(=O)N"
+      },
+      "target_projection": {
+        "HBondDonorCount": 1
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-010.json::CID=178::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-010.json::CID=178::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "CC(=O)N",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 1,
+      "observed_value": 1.0,
+      "observed_value_text": "1",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 2,
+      "comparator_residual": 1.0,
+      "comparator_material_margin": 1.0,
+      "comparator_material_margin_met": true,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0010-125664014829",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": true,
+          "status": "REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0010-125664014829",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0010-125664014829",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": true,
+      "nontrivial_negative_controls_rejected": true,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "943d46496f231f4651b518f61f63f95234c8a5e2ff99b8ce996b2709c043bfc8",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0011-F0DCDBD4E797",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0011",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-011.json",
+      "snapshot_sha256": "97170685ed09973d4681d5ff3ebca396cdae2cd3b40cbb87bada2b87865b23a5",
+      "source_snapshot_hash": "97170685ed09973d4681d5ff3ebca396cdae2cd3b40cbb87bada2b87865b23a5",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-011",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-011.lock.json",
+      "lock_sha256": "c4a0c9e3de52bc2c027d272abd8bdd8c56bf9c6d11453cec8b07d825b382906b",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/8254/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "8254",
+      "molecular_formula": "C2H6O",
+      "canonical_smiles": "COC",
+      "connectivity_smiles": "COC",
+      "visible_projection": {
+        "CID": 8254,
+        "MolecularFormula": "C2H6O",
+        "ConnectivitySMILES": "COC"
+      },
+      "target_projection": {
+        "HBondDonorCount": 0
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-011.json::CID=8254::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-011.json::CID=8254::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "COC",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 0,
+      "observed_value": 0.0,
+      "observed_value_text": "0",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 1,
+      "comparator_residual": 1.0,
+      "comparator_material_margin": 1.0,
+      "comparator_material_margin_met": true,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0011-F0DCDBD4E797",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": true,
+          "status": "REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0011-F0DCDBD4E797",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 0.0,
+          "material_margin": 0.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0011-F0DCDBD4E797",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": true,
+      "nontrivial_negative_controls_rejected": true,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "4928b9a16a0c5982a7e59804ac4eb0565bdc8b1a7eaaa154ccc265906b0532fe",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0012-6470C51C7947",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0012",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-012.json",
+      "snapshot_sha256": "84b53f8b20a3e614f9ccf5ad8e709682967b40abbea47bc250d432da96ca0ad9",
+      "source_snapshot_hash": "84b53f8b20a3e614f9ccf5ad8e709682967b40abbea47bc250d432da96ca0ad9",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-012",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-012.lock.json",
+      "lock_sha256": "3ac195c59f640492f672ba55deb166d820e4058ca994f7fda5d562b64d28d5cb",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/8857/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "8857",
+      "molecular_formula": "C4H8O2",
+      "canonical_smiles": "CCOC(=O)C",
+      "connectivity_smiles": "CCOC(=O)C",
+      "visible_projection": {
+        "CID": 8857,
+        "MolecularFormula": "C4H8O2",
+        "ConnectivitySMILES": "CCOC(=O)C"
+      },
+      "target_projection": {
+        "HBondDonorCount": 0
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-012.json::CID=8857::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-012.json::CID=8857::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "CCOC(=O)C",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 0,
+      "observed_value": 0.0,
+      "observed_value_text": "0",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 2,
+      "comparator_residual": 2.0,
+      "comparator_material_margin": 2.0,
+      "comparator_material_margin_met": true,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0012-6470C51C7947",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 2.0,
+          "material_margin": 2.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": true,
+          "status": "REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0012-6470C51C7947",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 0.0,
+          "material_margin": 0.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0012-6470C51C7947",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": true,
+      "nontrivial_negative_controls_rejected": true,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "3f06952d9be545de3bd20042e4a933bcd6ade176ddc2e6eff95d73c4fd8b73dc",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0013-943AF63B2E4F",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0013",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-013.json",
+      "snapshot_sha256": "79b7ac013fc909c9b3aa074b2701bdbc01a154e72a34988211aff094ef8a9d85",
+      "source_snapshot_hash": "79b7ac013fc909c9b3aa074b2701bdbc01a154e72a34988211aff094ef8a9d85",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-013",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-013.lock.json",
+      "lock_sha256": "dfe95295803d21d4ad08ce4cdad01d210ae60e5edd72d0522a43ce35e327f34f",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/1049/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "1049",
+      "molecular_formula": "C5H5N",
+      "canonical_smiles": "C1=CC=NC=C1",
+      "connectivity_smiles": "C1=CC=NC=C1",
+      "visible_projection": {
+        "CID": 1049,
+        "MolecularFormula": "C5H5N",
+        "ConnectivitySMILES": "C1=CC=NC=C1"
+      },
+      "target_projection": {
+        "HBondDonorCount": 0
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-013.json::CID=1049::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-013.json::CID=1049::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "C1=CC=NC=C1",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 0,
+      "observed_value": 0.0,
+      "observed_value_text": "0",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 1,
+      "comparator_residual": 1.0,
+      "comparator_material_margin": 1.0,
+      "comparator_material_margin_met": true,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0013-943AF63B2E4F",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": true,
+          "status": "REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0013-943AF63B2E4F",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 0.0,
+          "material_margin": 0.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0013-943AF63B2E4F",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": true,
+      "nontrivial_negative_controls_rejected": true,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "49450eb77b1dd1aaa6e97cadf9c3368576bf1e7f72fedf7621e3b629f700f343",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0014-A564F427F0BF",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0014",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-014.json",
+      "snapshot_sha256": "1e532e74b45f1ec0482be50e613702735c36df03ee76299dc1a662d0d914b4f5",
+      "source_snapshot_hash": "1e532e74b45f1ec0482be50e613702735c36df03ee76299dc1a662d0d914b4f5",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-014",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-014.lock.json",
+      "lock_sha256": "da1a3e1df01f549083d9f9966298e45588561db87a0d0b33131a99cf6ea2f08e",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/795/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "795",
+      "molecular_formula": "C3H4N2",
+      "canonical_smiles": "C1=CN=CN1",
+      "connectivity_smiles": "C1=CN=CN1",
+      "visible_projection": {
+        "CID": 795,
+        "MolecularFormula": "C3H4N2",
+        "ConnectivitySMILES": "C1=CN=CN1"
+      },
+      "target_projection": {
+        "HBondDonorCount": 1
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-014.json::CID=795::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-014.json::CID=795::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "C1=CN=CN1",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 1,
+      "observed_value": 1.0,
+      "observed_value_text": "1",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 2,
+      "comparator_residual": 1.0,
+      "comparator_material_margin": 1.0,
+      "comparator_material_margin_met": true,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0014-A564F427F0BF",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": true,
+          "status": "REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0014-A564F427F0BF",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0014-A564F427F0BF",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": true,
+      "nontrivial_negative_controls_rejected": true,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "949de1b1f0188570978405f2191893346b9e36be34f4ee1ff72e845ec53ec0d6",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0015-F06DDBA3E5F5",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0015",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-015.json",
+      "snapshot_sha256": "0b4f14c4eb25db061c40910d18736957f7a8cc1c795a786db8aab92124a3203c",
+      "source_snapshot_hash": "0b4f14c4eb25db061c40910d18736957f7a8cc1c795a786db8aab92124a3203c",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-015",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-015.lock.json",
+      "lock_sha256": "c54de8e07799ccd0d5c896cb1ee848f57ccc74ad111148e59cfc55fdf2782a9f",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/1176/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "1176",
+      "molecular_formula": "CH4N2O",
+      "canonical_smiles": "C(=O)(N)N",
+      "connectivity_smiles": "C(=O)(N)N",
+      "visible_projection": {
+        "CID": 1176,
+        "MolecularFormula": "CH4N2O",
+        "ConnectivitySMILES": "C(=O)(N)N"
+      },
+      "target_projection": {
+        "HBondDonorCount": 2
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-015.json::CID=1176::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-015.json::CID=1176::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "C(=O)(N)N",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 2,
+      "observed_value": 2.0,
+      "observed_value_text": "2",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 3,
+      "comparator_residual": 1.0,
+      "comparator_material_margin": 1.0,
+      "comparator_material_margin_met": true,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0015-F06DDBA3E5F5",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": true,
+          "status": "REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0015-F06DDBA3E5F5",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 2.0,
+          "material_margin": 2.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0015-F06DDBA3E5F5",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": true,
+      "nontrivial_negative_controls_rejected": true,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "8233721d37407a61be2a4734896ea574784866823be9c0938cd7c46bbbc02472",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0016-7A3F42A8E2F4",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0016",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-016.json",
+      "snapshot_sha256": "2d4b6b8e78f5b13bb75d1b11fda997ad1d261fc88f6614aa7b558d95ec95ec16",
+      "source_snapshot_hash": "2d4b6b8e78f5b13bb75d1b11fda997ad1d261fc88f6614aa7b558d95ec95ec16",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-016",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-016.lock.json",
+      "lock_sha256": "64597d69e2f09fe26dd327b5bbc49038646410904309e148814998946b4d1c89",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/6342/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "6342",
+      "molecular_formula": "C2H3N",
+      "canonical_smiles": "CC#N",
+      "connectivity_smiles": "CC#N",
+      "visible_projection": {
+        "CID": 6342,
+        "MolecularFormula": "C2H3N",
+        "ConnectivitySMILES": "CC#N"
+      },
+      "target_projection": {
+        "HBondDonorCount": 0
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-016.json::CID=6342::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-016.json::CID=6342::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "CC#N",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 0,
+      "observed_value": 0.0,
+      "observed_value_text": "0",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 1,
+      "comparator_residual": 1.0,
+      "comparator_material_margin": 1.0,
+      "comparator_material_margin_met": true,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0016-7A3F42A8E2F4",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": true,
+          "status": "REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0016-7A3F42A8E2F4",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 0.0,
+          "material_margin": 0.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0016-7A3F42A8E2F4",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": true,
+      "nontrivial_negative_controls_rejected": true,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "03201a8b09e173a56d6b942bf3a5e6a0931d130155af240e63bbf8cd7e59edb4",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0017-4027A49904F6",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0017",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-017.json",
+      "snapshot_sha256": "30ffe258662a408a0d0d5a97c1a8d886ef446c2f3a59ce423bdf7d7ee8d7f243",
+      "source_snapshot_hash": "30ffe258662a408a0d0d5a97c1a8d886ef446c2f3a59ce423bdf7d7ee8d7f243",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-017",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-017.lock.json",
+      "lock_sha256": "43561ab6da5c1299b6701f588b23da1c7550c9f6f372360216bf23440f2f2280",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/753/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "753",
+      "molecular_formula": "C3H8O3",
+      "canonical_smiles": "C(C(CO)O)O",
+      "connectivity_smiles": "C(C(CO)O)O",
+      "visible_projection": {
+        "CID": 753,
+        "MolecularFormula": "C3H8O3",
+        "ConnectivitySMILES": "C(C(CO)O)O"
+      },
+      "target_projection": {
+        "HBondDonorCount": 3
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-017.json::CID=753::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-017.json::CID=753::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "C(C(CO)O)O",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 3,
+      "observed_value": 3.0,
+      "observed_value_text": "3",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 3,
+      "comparator_residual": 0.0,
+      "comparator_material_margin": 0.0,
+      "comparator_material_margin_met": false,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0017-4027A49904F6",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 0.0,
+          "material_margin": 0.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": false,
+          "status": "NOT_REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0017-4027A49904F6",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 3.0,
+          "material_margin": 3.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0017-4027A49904F6",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": false,
+      "nontrivial_negative_controls_rejected": false,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "94bc289a9da9c7bbb2cd6550f9dd160cd7345a9a074ff13dbee1b8228e831615",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0018-340A0329981C",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0018",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-018.json",
+      "snapshot_sha256": "86fbfb217b4f33ca6eb5748417b1c39dc41471e1f1f3daebf2e90ef5f2a1484e",
+      "source_snapshot_hash": "86fbfb217b4f33ca6eb5748417b1c39dc41471e1f1f3daebf2e90ef5f2a1484e",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-018",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-018.lock.json",
+      "lock_sha256": "89bdda54b44113f45686ac016903d4b45b57da4c5b1057e586d8032aaf6f49d5",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/280/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "280",
+      "molecular_formula": "CO2",
+      "canonical_smiles": "C(=O)=O",
+      "connectivity_smiles": "C(=O)=O",
+      "visible_projection": {
+        "CID": 280,
+        "MolecularFormula": "CO2",
+        "ConnectivitySMILES": "C(=O)=O"
+      },
+      "target_projection": {
+        "HBondDonorCount": 0
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-018.json::CID=280::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-018.json::CID=280::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "C(=O)=O",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 0,
+      "observed_value": 0.0,
+      "observed_value_text": "0",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 2,
+      "comparator_residual": 2.0,
+      "comparator_material_margin": 2.0,
+      "comparator_material_margin_met": true,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0018-340A0329981C",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 2.0,
+          "material_margin": 2.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": true,
+          "status": "REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0018-340A0329981C",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 0.0,
+          "material_margin": 0.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0018-340A0329981C",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": true,
+      "nontrivial_negative_controls_rejected": true,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "c1e9d0fd5c60d7b00a60fe4ace207a13d8951d374c7f1d7ca735f47eca9cbdba",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0019-F9A415A6CEB0",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0019",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-019.json",
+      "snapshot_sha256": "81f15066c9ffc0646d26ec0b5a6728d3a841c3ef9d1d90aa0e526588b5f9dd06",
+      "source_snapshot_hash": "81f15066c9ffc0646d26ec0b5a6728d3a841c3ef9d1d90aa0e526588b5f9dd06",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-019",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-019.lock.json",
+      "lock_sha256": "454674d64a3e5252629283d9e3b0e17d02b3e607594bb4cec966fb7e67079c49",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/222/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "222",
+      "molecular_formula": "H3N",
+      "canonical_smiles": "N",
+      "connectivity_smiles": "N",
+      "visible_projection": {
+        "CID": 222,
+        "MolecularFormula": "H3N",
+        "ConnectivitySMILES": "N"
+      },
+      "target_projection": {
+        "HBondDonorCount": 1
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-019.json::CID=222::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-019.json::CID=222::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "N",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 1,
+      "observed_value": 1.0,
+      "observed_value_text": "1",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 1,
+      "comparator_residual": 0.0,
+      "comparator_material_margin": 0.0,
+      "comparator_material_margin_met": false,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0019-F9A415A6CEB0",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 0.0,
+          "material_margin": 0.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": false,
+          "status": "NOT_REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0019-F9A415A6CEB0",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 1.0,
+          "material_margin": 1.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0019-F9A415A6CEB0",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": false,
+      "nontrivial_negative_controls_rejected": false,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "9e7645f68992394e3c668e35637b5fcbc192f001d3a33133e3500e4fdcdfa6d2",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-HBD-0020-BE5F1D32EB7A",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-HBD-0020",
+      "task_type": "pubchem_smiles_to_hbond_donor_count",
+      "target_class": "pubchem_hydrogen_bond_donor_count",
+      "target_field": "HBondDonorCount",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-020.json",
+      "snapshot_sha256": "c7e4196cc375162cd2e9c728c3ce8d09bba4a9e1b5820192b5ac4da15906cb34",
+      "source_snapshot_hash": "c7e4196cc375162cd2e9c728c3ce8d09bba4a9e1b5820192b5ac4da15906cb34",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-020",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-HBD-ACQ-020.lock.json",
+      "lock_sha256": "244a3a8925b88094a57aaa9a76909bd29da4febfafaf9b71bbcec79315a6bd56",
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/297/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+      "official_source_confirmed": true,
+      "pre_target_sequence_proof": {
+        "source_snapshot_locked_before_scoring": true,
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+      },
+      "declared_before_scoring_lock": true,
+      "target_hidden_until_scoring": true,
+      "prediction_materialized_before_target_open": true,
+      "target_read_before_prediction_materialization": false,
+      "cid": "297",
+      "molecular_formula": "CH4",
+      "canonical_smiles": "C",
+      "connectivity_smiles": "C",
+      "visible_projection": {
+        "CID": 297,
+        "MolecularFormula": "CH4",
+        "ConnectivitySMILES": "C"
+      },
+      "target_projection": {
+        "HBondDonorCount": 0
+      },
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-020.json::CID=297::visible_fields(CID,MolecularFormula,ConnectivitySMILES)",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-020.json::CID=297::target_field(HBondDonorCount)",
+      "formula": "count hydrogen-bond donor atoms from visible SMILES structural tokens",
+      "formula_inputs": {
+        "smiles": "C",
+        "model_kind": "smiles_hbond_donor_count_v1"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula",
+          "ConnectivitySMILES"
+        ],
+        "target_fields_excluded": [
+          "HBondDonorCount"
+        ]
+      },
+      "predicted_value": 0,
+      "observed_value": 0.0,
+      "observed_value_text": "0",
+      "uncertainty": 0.0,
+      "uncertainty_basis": "integer PubChem descriptor; exact match required per row",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_kind": "formula_hetero_atom_count_donor_baseline",
+      "comparator_baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline",
+      "comparator_prediction_rule": "parse only MolecularFormula from the visible projection and predict the count of N plus O atoms as donor atoms, ignoring bonding, protonation, and functional group context",
+      "comparator_pre_registered": true,
+      "comparator_baseline_sha256": "0727cf10a1b907f334862fc17b53075db436aae6ac9304ab94478a7946c2ee06",
+      "comparator_prediction": 0,
+      "comparator_residual": 0.0,
+      "comparator_material_margin": 0.0,
+      "comparator_material_margin_met": false,
+      "negative_controls": [
+        {
+          "control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0020-BE5F1D32EB7A",
+          "description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+          "residual": 0.0,
+          "material_margin": 0.0,
+          "required_material_margin": 0.2,
+          "nontrivial": true,
+          "rejected": false,
+          "status": "NOT_REJECTED"
+        },
+        {
+          "control_id": "chemistry-hbd-zero-count-control::CHEM-PUBCHEM-HBD-0020-BE5F1D32EB7A",
+          "description": "constant zero donor-count sanity control must be worse when donors are present and no better in aggregate",
+          "residual": 0.0,
+          "material_margin": 0.0,
+          "required_material_margin": 0.0,
+          "nontrivial": false,
+          "rejected": true,
+          "status": "REJECTED"
+        }
+      ],
+      "negative_control_id": "chemistry-hbd-formula-heteroatom-control::CHEM-PUBCHEM-HBD-0020-BE5F1D32EB7A",
+      "negative_control_description": "formula-only N+O heteroatom baseline must be materially worse than the SMILES donor predictor",
+      "negative_control_rejected": false,
+      "nontrivial_negative_controls_rejected": false,
+      "falsifier": "SMILES donor-count residual is nonzero, target leaks into visible/comparator inputs, target is formula-mass replay, or aggregate formula-only comparator is not materially worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "0362243980f9b2229cfcb1e601820db4cca88512a0401ed8bd15dda6d0158482",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    }
+  ],
+  "blockers": []
+}

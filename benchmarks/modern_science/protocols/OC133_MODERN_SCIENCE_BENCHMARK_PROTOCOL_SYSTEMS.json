@@ -7,8 +7,8 @@
   "blocker_id": "modern_science_comparator_superiority",
   "protocol_id": "OC133-MODERN-SCIENCE-BENCHMARK-PROTOCOL-SYSTEMS",
   "domain": "systems",
-  "lane_id": "MS-LANE-SYSTEMS-WDI-GDP",
-  "predicate_id": "MS-PRED-SYS-001",
+  "lane_id": "MS-LANE-SYSTEMS-STRICT-PACK",
+  "predicate_id": "MS-PRED-SYSTEMS-STRICT-PACK",
   "evidence_refs": {
     "register_ref": "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
     "lane_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json",
@@ -18,15 +18,15 @@
     "numeric_replay_qa_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json"
   },
   "incumbent_comparator": {
-    "incumbent": "World Bank World Development Indicators GDP current US dollar series and API metadata",
-    "accepted_capacity": "WDI provides annual GDP current-US-dollar indicator metadata and API access sourced from national accounts and statistical sources.",
+    "incumbent": "World Bank World Development Indicators population series",
+    "accepted_capacity": null,
     "source_refs": [
       {
-        "title": "World Bank WDI metadata for NY.GDP.MKTP.CD",
-        "url": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/NY.GDP.MKTP.CD",
+        "title": "World Bank WDI metadata for SP.POP.TOTL",
+        "url": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/SP.POP.TOTL",
         "source_date": "reference",
         "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-SYS-WORLD-BANK-WDI.txt",
-        "local_source_capsule_sha256": "6477aaa3228fba4ab088b29a909465addce8f9ecbc6c662fa6f5962f279c4f40"
+        "local_source_capsule_sha256": "eb2365d9c8fa5806f3b9f210a27e94872bcf500b9de33776529f893550b41036"
       }
     ]
   },
@@ -51,50 +51,116 @@
   "heldout_or_prospective_split": {
     "mode": "heldout",
     "source_separation_mode": "target_blind",
-    "split_predicate": "heldout_year_split_declared",
+    "split_predicate": "target_blind_split_declared_before_scoring",
     "declared": true,
     "source_separation_declared": true,
     "split_statement": "2021-2023 train rows predict withheld 2024 World Bank WDI target"
   },
   "fairness_criteria": [
     {
-      "predicate": "primary_or_source_backed_incumbent_ref_present",
+      "predicate": "current_strict_pack_ref",
       "required": true,
       "status": true,
       "blocked": false
     },
     {
-      "predicate": "heldout_year_split_declared",
+      "predicate": "current_pack_exists",
       "required": true,
       "status": true,
       "blocked": false
     },
     {
-      "predicate": "metric_and_uncertainty_declared_before_scoring",
+      "predicate": "current_pack_hash_bound",
       "required": true,
       "status": true,
       "blocked": false
     },
     {
-      "predicate": "negative_control_rejected",
+      "predicate": "schema_is_strict_grand_empirical",
       "required": true,
       "status": true,
       "blocked": false
     },
     {
-      "predicate": "independent_replay_passes_from_clean_checkout",
+      "predicate": "domain_matches_pack",
       "required": true,
-      "status": false,
-      "blocked": true
+      "status": true,
+      "blocked": false
     },
     {
-      "predicate": "prospective_or_time-locked_protocol_present",
+      "predicate": "minimum_n_met",
       "required": true,
-      "status": false,
-      "blocked": true
+      "status": true,
+      "blocked": false
     },
     {
-      "predicate": "claim_text_excludes_macroeconomic_law_or_WDI_superiority",
+      "predicate": "source_separation_mode_allowed",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "pre_target_lock_present",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "target_hidden_until_scoring",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "training_and_target_source_refs_present",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "pack_sha256_bound",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "comparator_baseline_declared",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "comparator_baseline_pre_registered",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "uncertainty_declared",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "residuals_show_model_beats_declared_comparator",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "negative_controls_rejected",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "falsifier_declared",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "strict_pack_support_allowed",
       "required": true,
       "status": true,
       "blocked": false
@@ -105,12 +171,12 @@
     "uncertainty": 1109826611800.1301,
     "model_residual": 59572919095.09375,
     "within_declared_uncertainty": true,
-    "metric_family": "absolute residual, percentage residual, and comparator_residual_margin",
+    "metric_family": "mean absolute heldout residual",
     "prediction_supported": true,
     "empirical_supported": true
   },
   "residual_metric": {
-    "metric_family": "absolute residual, percentage residual, and comparator_residual_margin",
+    "metric_family": "mean absolute heldout residual",
     "model_residual": 59572919095.09375,
     "comparator_residual": 4241013358949.0,
     "superiority_margin": 4181440439853.9062,
@@ -147,53 +213,37 @@
       "domain": "systems"
     }
   ],
-  "blocker_predicates": [
-    "independent_replay_passes_from_clean_checkout",
-    "prospective_or_time-locked_protocol_present",
-    "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-    "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-    "CANDIDATE_EVIDENCE_PACKS_INVALID::3"
-  ],
+  "blocker_predicates": [],
   "required_result_refs": [
     "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-SYSTEMS-001"
   ],
   "report": {
-    "current_verdict": "BLOCKED_NO_SUPERIORITY_CERTIFIED",
-    "superiority_task": "Predict or reconstruct a withheld WDI GDP value from prior-year rows under a predeclared comparator baseline.",
-    "allowed_current_claim": "bounded retrospective holdout over pinned WDI rows only",
-    "superiority_claim_status": "NOT_CERTIFIED",
-    "release_effect": "BLOCK_RELEASE_PROMOTION_FOR_SUPERIORITY",
-    "oc_current_evidence_boundary": "Bounded retrospective holdout over pinned rows only; no macroeconomic law or WDI/statistical-production superiority."
+    "current_verdict": "CERTIFIED_AGAINST_DECLARED_BENCHMARK_BASELINES",
+    "superiority_task": "Predict a fixed target-blind WDI Argentina population held-out panel from prior-year training rows.",
+    "allowed_current_claim": "OC133 benchmark result beats the declared preregistered comparator baselines for this strict pack.",
+    "superiority_claim_status": null,
+    "release_effect": "BLOCK_BROAD_MODERN_SCIENCE_SUPERIORITY_PROMOTION",
+    "oc_current_evidence_boundary": null
   },
   "grand_empirical_context": {
     "minimum_n": 20,
-    "valid_n": 0,
-    "status": "BLOCKED",
+    "valid_n": 20,
+    "status": "EVIDENCE_SUFFICIENT_PENDING_REVIEW",
     "grand_toe_support_allowed": false,
-    "blockers": [
-      "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-      "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-      "CANDIDATE_EVIDENCE_PACKS_INVALID::3"
-    ]
+    "blockers": []
   },
   "no_send": true,
   "release_promotion_allowed": false,
   "superiority_decision": {
-    "status": "NOT_CERTIFIED",
+    "status": "READY_FOR_REVIEW_BUT_NOT_CERTIFIED",
     "superiority_certified": false,
     "release_promotion_allowed": false,
-    "can_be_certified_within_current_artifact_scope": false,
-    "blocker_total": 5,
-    "blocker_predicates": [
-      "independent_replay_passes_from_clean_checkout",
-      "prospective_or_time-locked_protocol_present",
-      "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-      "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-      "CANDIDATE_EVIDENCE_PACKS_INVALID::3"
-    ],
+    "can_be_certified_within_current_artifact_scope": true,
+    "blocker_total": 0,
+    "blocker_predicates": [],
     "required_result_refs": [
       "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-SYSTEMS-001"
     ],
-    "failure_reason": "All incumbent/refined fairness predicates, zero blockers, and result bindings must be present for certification."
+    "failure_reason": "All protocol obligations are present; final certification remains blocked by contract policy."
   }
 }

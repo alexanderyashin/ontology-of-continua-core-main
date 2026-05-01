@@ -1,0 +1,69 @@
+{
+  "schema_id": "OC133_BIOLOGY_TARGET_EVIDENCE_WORK_ORDER_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "factory": "tools/oc133_biology_target_evidence_factory.py",
+  "status": "NO_LOCAL_OFFICIAL_BIOLOGICAL_TARGET_BUNDLE_FOUND",
+  "no_send": true,
+  "publish_allowed": false,
+  "registry_write_allowed": false,
+  "minimum_n": 20,
+  "official_source_policy": "Use official NCBI/GEO or another official biological repository only; do not transcribe or invent target values.",
+  "preferred_local_helper": "tools/oc133_biology_target_official_bundle_builder.py",
+  "preferred_helper_command": "python tools/oc133_biology_target_official_bundle_builder.py --execute-network --allow-blocked-exit-zero",
+  "required_final_bundle_schema_id": "OC133_BIOLOGY_TARGET_OFFICIAL_BUNDLE_v1",
+  "required_final_bundle_fields": [
+    "schema_id",
+    "domain",
+    "source_separation",
+    "model_under_test",
+    "comparator_baseline",
+    "uncertainty_metric",
+    "uncertainty_method",
+    "biological_target_rows"
+  ],
+  "official_acquisition_requests": [
+    {
+      "request_id": "OC133-BIO-TARGET-GEOPROFILES-ESEARCH-0001",
+      "http_method": "GET",
+      "official_endpoint_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=geoprofiles&term=GDS3716%5BAll+Fields%5D+AND+Homo+sapiens%5BORGN%5D+AND+count%5BVTYP%5D+NOT+Control%5BAll+Fields%5D&retmode=json&retmax=30&retstart=0&sort=relevance",
+      "query_params": {
+        "db": "geoprofiles",
+        "term": "GDS3716[All Fields] AND Homo sapiens[ORGN] AND count[VTYP] NOT Control[All Fields]",
+        "retmode": "json",
+        "retmax": "30",
+        "retstart": "0",
+        "sort": "relevance"
+      },
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/biology/target_evidence/raw/OC133_BIOLOGY_TARGET_GEO_PROFILE_SEARCH.json",
+      "hash_required": true,
+      "no_send_lock": true
+    },
+    {
+      "request_id": "OC133-BIO-TARGET-GEOPROFILES-ESUMMARY-0001",
+      "http_method": "GET",
+      "official_endpoint_url_template": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=geoprofiles&retmode=json&id={comma_joined_esearch_ids}",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/biology/target_evidence/raw/OC133_BIOLOGY_TARGET_GEO_PROFILE_SUMMARY.json",
+      "depends_on": "OC133-BIO-TARGET-GEOPROFILES-ESEARCH-0001",
+      "hash_required": true,
+      "no_send_lock": true
+    }
+  ],
+  "target_materialization_protocol": [
+    "Pin the GEO Profiles ESearch response with the official read-only runner.",
+    "Pin the GEO Profiles ESummary response for the locked profile UIDs with the official read-only runner.",
+    "Materialize a visible projection containing GEO Profile uid, dataset/platform IDs, gene/probe labels, value type, vmin, vmax, and rstd.",
+    "Materialize prediction rows from the visible projection before unsealing the target projection.",
+    "Unseal only the rmean target projection after prediction materialization and build one biological_target_row per official expression observable.",
+    "Each target row must represent a GEO Profile gene-expression observable, never an API count, page size, retmax, retstart, or idlist property."
+  ],
+  "acceptance_criteria": [
+    "N >= 20",
+    "source_separation.mode is target_blind or prospective",
+    "pre_target_lock and target_hidden_until_scoring are true",
+    "training_sources and target_sources are non-overlapping",
+    "comparator is pre-registered, biological, and nontrivial",
+    "every row has source_ref, source_sha256, uncertainty, residuals, negative control, and falsifier"
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "schema_id": "OC133_CERBERUS_K_ALL_DOMAIN_EMPIRICAL_OVERCLAIM_AUDIT_v1",
+  "release_id": "oc_core_1_3_3",
+  "branch": "release/oc-core-1.3.3-total-scientific-closure",
+  "reviewer_role": "Logion Review/Cerberus Worker K",
+  "generated_at": "2026-05-01",
+  "scope": [
+    "biology valid evidence pack",
+    "chemistry valid evidence pack",
+    "mathematics valid evidence pack",
+    "systems valid evidence pack",
+    "grand empirical gate and registry-sync routing"
+  ],
+  "write_scope": "reviews/oc133_llm_cerberus/repair",
+  "critical_findings": [],
+  "high_findings": [
+    {
+      "id": "CERBERUS-K-OC133-BIOLOGY-GRAND-SCOPE-001",
+      "severity": "HIGH",
+      "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_CANDIDATE_PACK.json; reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
+      "domain": "biology",
+      "attacked_claim": "The NCBI/GEO batch page-size reconstruction pack is valid_for_grand_support=true and grand_toe_support_allowed=true, and the grand report marks biology EVIDENCE_SUFFICIENT_PENDING_REVIEW with no blockers.",
+      "failure_mode": "The model under test is API page-size reconstruction by len(esearchresult.idlist), with a total-hit-count page-size negative control. That supports a bounded API pagination/replay claim, not a biological mechanism, biological prediction, or grand/TOE support claim. The negative control is structurally weak because total hit count is expected to be far from per-page retmax/idlist length.",
+      "required_repair": "Demote this pack to bounded NCBI/GEO pagination QA, or replace it with target-hidden/prospective biological evidence whose target is a biological outcome and whose preregistered comparator is nontrivial for that biological target. Do not let this pack close grand biology support until that replacement passes the strict gate.",
+      "closure_evidence_or_blockers": [
+        "Closed as overclaim removal: validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_CANDIDATE_PACK.json now has grand_toe_support_allowed=false and support_scope='bounded NCBI/GEO API page-size reconstruction QA; not biological grand support'.",
+        "Closed as gate hardening: validation/grand_science/evidence_pack_factory.py rejects biology pagination/API page-size packs with BIOLOGY_PAGINATION_QA_NOT_GRAND_EVIDENCE, BIOLOGY_COMPARATOR_STRUCTURALLY_SILLY_OR_PAGINATION_ONLY, BIOLOGY_TARGET_ROWS_BELOW_MINIMUM, and BIOLOGY_TARGET_ROWS_REQUIRED.",
+        "Gate rerun evidence: reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json lists biology status BLOCKED, valid_n=0, valid_pack_refs=[], and blockers GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20, NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK, CANDIDATE_EVIDENCE_PACKS_INVALID::4.",
+        "Successor requirement retained: biology support remains unclosed until a target-hidden/prospective biological target pack with N>=20, source hashes, non-pagination comparator, residuals/uncertainty, negative controls, and falsifiers passes."
+      ],
+      "status": "CLOSED_SCOPE_OVERCLAIM_REMOVED_BIOLOGY_SUPPORT_STILL_BLOCKED"
+    },
+    {
+      "id": "CERBERUS-K-OC133-CHEMISTRY-TRIVIAL-COMPARATOR-001",
+      "severity": "HIGH",
+      "artifact_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_CANDIDATE_PACK.json; validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_PROTOCOL.json",
+      "domain": "chemistry",
+      "attacked_claim": "The PubChem formula batch is grand_toe_support_allowed=true and is selected as valid chemistry grand support.",
+      "failure_mode": "The pack demonstrates fixed atomic-weight formula summation against PubChem MolecularWeight, but the preregistered comparator is a zero-Da null baseline. That comparator is too trivial to carry grand-support weight; rejecting it shows formula arithmetic beats predicting zero mass, not that OC has chemistry-domain predictive superiority or TOE-level support.",
+      "required_repair": "Either demote the claim to formula-mass replay/field reconstruction or add a nontrivial preregistered chemistry comparator and negative controls appropriate to the asserted chemistry scope. The public/grand flag should not exceed the formula-mass evidence boundary.",
+      "closure_evidence_or_blockers": [
+        "Blocker: comparator_baseline.name is zero-Da molecular-weight null baseline.",
+        "Blocker: all negative controls are the same zero-Da replacement class.",
+        "Closure evidence required: successor evidence beats a meaningful preregistered chemistry comparator under the same residual metric, with protocol/source hashes and explicit scope language that excludes TOE/final truth unless separately proved."
+      ],
+      "status": "OPEN"
+    },
+    {
+      "id": "CERBERUS-K-OC133-MATHEMATICS-EMPIRICAL-CLASS-MISMATCH-001",
+      "severity": "HIGH",
+      "artifact_ref": "validation/heldout/grand_science/mathematics/mathematics_candidate_evidence_pack.json; validation/heldout/grand_science/mathematics/OC133_MATHEMATICS_EVIDENCE_EXECUTION_REPORT.json",
+      "domain": "mathematics",
+      "attacked_claim": "The finite proof-corpus replay pack is an OC133_GRAND_EMPIRICAL_EVIDENCE_v1 pack with grand_toe_support_allowed=true and valid mathematics grand support.",
+      "failure_mode": "The evidence is a formal/finite proof-corpus consistency replay, not empirical evidence. The accept-all comparator can be useful as a proof-corpus sanity check, but it is not a scientific comparator for empirical grand support and does not establish TOE truth or all-domain mathematical finality.",
+      "required_repair": "Route this artifact through the formal claim/proof ledger as bounded formal QA, or add a dedicated formal grand-claim obligation with theorem IDs, proof sheets, Lean refs, finite cases, and a claim boundary that does not label it empirical support.",
+      "closure_evidence_or_blockers": [
+        "Blocker: candidate pack uses grand empirical evidence schema and grand_toe_support_allowed=true for proof-corpus replay.",
+        "Existing support evidence: execution report binds input/output model hashes and Lean source hashes, so the hash-binding issue is not the primary blocker.",
+        "Closure evidence required: formal route re-audits as formal support only, or a dedicated grand formal claim passes its separate theorem/proof/finite obligations."
+      ],
+      "status": "OPEN"
+    },
+    {
+      "id": "CERBERUS-K-OC133-SYSTEMS-MATERIALITY-001",
+      "severity": "HIGH",
+      "artifact_ref": "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_CANDIDATE_PACK.json; validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_REPORT.json",
+      "domain": "systems",
+      "attacked_claim": "The WDI predictive-search v2 pack is grand_toe_support_allowed=true and selected as valid systems grand support.",
+      "failure_mode": "The selected model beats the best comparator by only 37641.359375 on mean absolute residuals around 2.289261e12, while the uncertainty interval extends to 1.2227714143831828e13. The negative-control criterion is strict residual greater-than, so a near-tie can pass as support. That is too weak for grand/all-domain support even though the source lock and comparator identities are machine-readable.",
+      "required_repair": "Add a preregistered materiality/tolerance policy for systems residual superiority, or demote the pack to bounded WDI predictive-search evidence until it beats nontrivial baselines by a robust margin under the declared uncertainty method.",
+      "closure_evidence_or_blockers": [
+        "Closed by demotion: tools/oc133_systems_wdi_predictive_search_v2_factory.py now preregisters OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY inside the source-lock scoring policy and hashes it with materiality_policy_sha256=e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26.",
+        "Closed by gate: validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_REPORT.json now reports grand_toe_support_allowed=false, valid_pack_total=0, verdict=BLOCKED, HELDOUT_RESIDUAL_MATERIALITY_NOT_MET, and ROW_MATERIALITY_NOT_MET::57/57.",
+        "Closed by audit: aggregate superiority_margin=37641.359375 is below aggregate_required_margin=122277141438.31828, and every heldout row carries a materiality audit instead of allowing strict greater-than near-ties to pass.",
+        "Remaining systems blocker: stronger systems evidence is still required before grand systems support can pass; the current WDI v2 pack is bounded WDI predictive-search replay evidence only."
+      ],
+      "status": "CLOSED_BY_BOUNDED_DEMOTION"
+    },
+    {
+      "id": "CERBERUS-K-OC133-GRAND-ROUTING-SYNC-001",
+      "severity": "HIGH",
+      "artifact_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json; reports/OC_CORE_1_3_3_GRAND_EVIDENCE_REGISTRY_SYNC.json; validation/heldout/grand_science_evidence_registry.json; validation/heldout/OC133_GRAND_EVIDENCE_REPAIR_WORK_ORDERS.json",
+      "domain": "grand_gate_routing",
+      "attacked_claim": "Grand gate routing cleanly reflects current valid packs and open repair state.",
+      "failure_mode": "The current grand empirical gate sees four valid packs and marks biology valid, but the checked-in registry omits the biology pack and the checked-in sync report is stale/out of phase. A dry-run sync reports new_valid_refs containing the biology pack and open_repair_work_order_total=3, while the checked-in work-order file still contains open biology work orders. This can misroute review closure by mixing valid-domain status with stale repair queues.",
+      "required_repair": "Regenerate or reconcile the grand registry sync and work-order routing after review decisions, ensuring valid refs, open work orders, and domain status derive from the same gate run. Status tokens must not close or reopen work orders without matching artifact refs and hashes.",
+      "closure_evidence_or_blockers": [
+        "Blocker: validation/heldout/grand_science_evidence_registry.json lists chemistry, mathematics, and systems, but not the biology pack that the grand report selects.",
+        "Blocker: checked-in reports/OC_CORE_1_3_3_GRAND_EVIDENCE_REGISTRY_SYNC.json reports valid_candidate_total=2 and blocked_domain_total_after_sync=3, while read-only sync.build_payload reports valid_candidate_total=4, new_valid_ref_total=1, blocked_domain_total_after_sync=1.",
+        "Closure evidence required: registry sync report, registry refs, repair work orders, and grand empirical report agree on valid/current packs and remaining blockers."
+      ],
+      "status": "OPEN"
+    }
+  ],
+  "medium_findings": [],
+  "source_separation_closures": [
+    {
+      "domain": "biology",
+      "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_PROTOCOL.json",
+      "reason_no_source_separation_high": "The target-blind claim is backed by exact visible/target lock refs plus training_manifest_sha256=723826b50d4d4a2d439cd7c186f7ce955bd55f170a707aae5086b0e3fb7419f8 and target_manifest_sha256=158b04750c3315566cc60dffcd025b735cc2b218beca5d61711462d0b72a8a7b.",
+      "remaining_blocker": "Scope/comparator weakness, not missing lock refs."
+    },
+    {
+      "domain": "chemistry",
+      "artifact_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_PROTOCOL.json",
+      "reason_no_source_separation_high": "The protocol binds target projection to the acquisition packet with training_manifest_sha256=6399ff208e8a4045f1e8e26c301f0362af30c9ffabe0593565a76d16cdd18b34 and target_manifest_sha256=69b8692f4b9c205d6dc7293f65a842362b66ebb7cd8c6c082e0603fc3b411d65.",
+      "remaining_blocker": "Trivial zero-Da comparator and overbroad grand-support flag."
+    },
+    {
+      "domain": "mathematics",
+      "artifact_ref": "validation/heldout/grand_science/mathematics/OC133_MATHEMATICS_EVIDENCE_EXECUTION_REPORT.json",
+      "reason_no_source_separation_high": "The execution report records input_canonical_sha256=d3a9a92d5c8bab5596ad8c5f079cfcd5699e8ae484babf2842ae0f208eb97915, snapshot hashes, and per-row input/output model hashes.",
+      "remaining_blocker": "Empirical class mismatch, not hash binding."
+    },
+    {
+      "domain": "systems",
+      "artifact_ref": "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_SOURCE_LOCK.json",
+      "reason_no_source_separation_high": "The source lock and report bind snapshot_sha256=c2e5f23f3fa88e97c4ea338541c4689d1cd8a33e164d11831cb8a3b573b09cd7 and lock_order_hash=0de4551d1d49840c8a10bc7f7eb0944c1b3441e6696df9fb412c9bcf6850b7ed.",
+      "remaining_blocker": "Materiality overclaim is closed by demotion: WDI v2 is blocked/bounded until stronger systems evidence clears the preregistered materiality gate."
+    }
+  ],
+  "deterministic_scans": [
+    {
+      "command": "python -m pytest tests/test_grand_empirical_evidence_factory.py tests/test_grand_evidence_registry_sync_factory.py tests/test_biology_ncbi_batch_factory.py tests/test_chemistry_pubchem_formula_batch_factory.py tests/test_systems_wdi_predictive_search_v2_factory.py tests/test_mathematics_evidence_executor.py",
+      "result": "PASS",
+      "observed": "57 passed"
+    },
+    {
+      "command": "read-only build_grand_empirical_payload plus sync.build_payload(write=False)",
+      "result": "FINDING_SUPPORT",
+      "observed": {
+        "gate_valid_evidence_pack_total": 4,
+        "gate_blocked_domain_total": 1,
+        "gate_grand_toe_support_allowed": false,
+        "sync_dry_run_valid_candidate_total": 4,
+        "sync_dry_run_new_valid_refs": [
+          "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_CANDIDATE_PACK.json"
+        ],
+        "sync_dry_run_open_repair_work_order_total": 3
+      }
+    },
+    {
+      "command": "custom overclaim/source-ref token scan across valid packs and grand reports",
+      "result": "PASS_WITH_SCOPE_FINDINGS_ABOVE",
+      "observed": {
+        "absolute_overclaim_term_hits": [
+          {
+            "artifact_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
+            "line": 989,
+            "note": "Scoped negative phrase: not a TOE truth proof or empirical law"
+          }
+        ],
+        "status_only_source_refs": 0
+      }
+    }
+  ],
+  "overall_verdict": "BIOLOGY_AND_SYSTEMS_HIGHS_CLOSED_REMAINING_HIGH_FINDINGS_OPEN_NO_CRITICALS",
+  "no_push_no_public_action": true,
+  "changed_paths": [
+    "reviews/oc133_llm_cerberus/repair/OC133_CERBERUS_K_ALL_DOMAIN_EMPIRICAL_OVERCLAIM_AUDIT.json",
+    "validation/grand_science/evidence_pack_factory.py",
+    "tools/oc133_biology_ncbi_batch_factory.py",
+    "validation/heldout/domain_evidence/biology_systems_evidence_executor.py",
+    "tests/test_grand_empirical_factory.py",
+    "tests/test_biology_ncbi_batch_factory.py",
+    "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_CANDIDATE_PACK.json",
+    "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_REPORT.json",
+    "tools/oc133_systems_wdi_predictive_search_v2_factory.py",
+    "tests/test_systems_wdi_predictive_search_v2_factory.py",
+    "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_CANDIDATE_PACK.json",
+    "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_PROTOCOL.json",
+    "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_REPORT.json",
+    "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_SOURCE_LOCK.json",
+    "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_SOURCE_LOCK_DECLARATION.json",
+    "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_TASKS.json",
+    "validation/heldout/grand_science/systems/wdi_predictive_search_v2/README.md",
+    "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
+    "reports/OC_CORE_1_3_3_GRAND_EVIDENCE_REGISTRY_SYNC.json"
+  ]
+}

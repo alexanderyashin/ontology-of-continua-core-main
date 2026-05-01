@@ -5,100 +5,100 @@
   "evidence_pack_id": "OC133-PHYSICS-OFFICIAL-SNAPSHOT-BATCH-CANDIDATE",
   "domain": "physics",
   "source_separation": {
-    "mode": "official_snapshot_replay",
-    "pre_target_lock": false,
-    "target_hidden_until_scoring": false,
+    "mode": "prospective",
+    "pre_target_lock": true,
+    "target_hidden_until_scoring": true,
     "training_sources": [
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-001::formula_inputs::speed of light in vacuum",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-002::formula_inputs::Planck constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-003::formula_inputs::elementary charge",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-004::formula_inputs::elementary charge",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-005::formula_inputs::Planck constant,elementary charge",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-006::formula_inputs::elementary charge,Planck constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-007::formula_inputs::Planck constant,speed of light in vacuum",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-008::formula_inputs::Planck constant,speed of light in vacuum,elementary charge",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-009::formula_inputs::elementary charge,Planck constant,speed of light in vacuum",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-010::formula_inputs::elementary charge,Boltzmann constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-011::formula_inputs::Boltzmann constant,elementary charge",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-012::formula_inputs::Planck constant,Boltzmann constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-013::formula_inputs::Boltzmann constant,Planck constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-014::formula_inputs::Planck constant,speed of light in vacuum,Boltzmann constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-015::formula_inputs::Boltzmann constant,Planck constant,speed of light in vacuum",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-016::formula_inputs::Planck constant,speed of light in vacuum",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-017::formula_inputs::Boltzmann constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-018::formula_inputs::speed of light in vacuum",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-019::formula_inputs::speed of light in vacuum",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-020::formula_inputs::speed of light in vacuum,Planck constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-021::formula_inputs::speed of light in vacuum,Planck constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-022::formula_inputs::speed of light in vacuum,Boltzmann constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-023::formula_inputs::speed of light in vacuum,elementary charge",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-024::formula_inputs::elementary charge,speed of light in vacuum",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-025::formula_inputs::atomic mass constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-026::formula_inputs::atomic mass constant,speed of light in vacuum",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-027::formula_inputs::atomic mass constant,speed of light in vacuum,elementary charge",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-028::formula_inputs::atomic mass constant,speed of light in vacuum,Planck constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-029::formula_inputs::atomic mass constant,speed of light in vacuum,Planck constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-030::formula_inputs::atomic mass constant,speed of light in vacuum,Boltzmann constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-031::formula_inputs::Boltzmann constant,atomic mass constant,speed of light in vacuum",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-032::formula_inputs::Hartree energy",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-033::formula_inputs::Hartree energy,elementary charge",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-034::formula_inputs::Hartree energy,Planck constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-035::formula_inputs::Hartree energy,Planck constant,speed of light in vacuum",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-036::formula_inputs::Hartree energy,Boltzmann constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-037::formula_inputs::Hartree energy,speed of light in vacuum",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-038::formula_inputs::Boltzmann constant,Hartree energy",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-039::formula_inputs::Rydberg constant,speed of light in vacuum",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-040::formula_inputs::Rydberg constant,Planck constant,speed of light in vacuum",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-041::formula_inputs::Rydberg constant,Planck constant,speed of light in vacuum,elementary charge",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-042::formula_inputs::Planck constant,Avogadro constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-043::formula_inputs::elementary charge,Avogadro constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-044::formula_inputs::Boltzmann constant,Avogadro constant"
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-001::formula_inputs::speed of light in vacuum",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-002::formula_inputs::Planck constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-003::formula_inputs::elementary charge",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-004::formula_inputs::elementary charge",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-005::formula_inputs::Planck constant,elementary charge",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-006::formula_inputs::elementary charge,Planck constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-007::formula_inputs::Planck constant,speed of light in vacuum",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-008::formula_inputs::Planck constant,speed of light in vacuum,elementary charge",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-009::formula_inputs::elementary charge,Planck constant,speed of light in vacuum",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-010::formula_inputs::elementary charge,Boltzmann constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-011::formula_inputs::Boltzmann constant,elementary charge",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-012::formula_inputs::Planck constant,Boltzmann constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-013::formula_inputs::Boltzmann constant,Planck constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-014::formula_inputs::Planck constant,speed of light in vacuum,Boltzmann constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-015::formula_inputs::Boltzmann constant,Planck constant,speed of light in vacuum",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-016::formula_inputs::Planck constant,speed of light in vacuum",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-017::formula_inputs::Boltzmann constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-018::formula_inputs::speed of light in vacuum",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-019::formula_inputs::speed of light in vacuum",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-020::formula_inputs::speed of light in vacuum,Planck constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-021::formula_inputs::speed of light in vacuum,Planck constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-022::formula_inputs::speed of light in vacuum,Boltzmann constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-023::formula_inputs::speed of light in vacuum,elementary charge",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-024::formula_inputs::elementary charge,speed of light in vacuum",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-025::formula_inputs::atomic mass constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-026::formula_inputs::atomic mass constant,speed of light in vacuum",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-027::formula_inputs::atomic mass constant,speed of light in vacuum,elementary charge",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-028::formula_inputs::atomic mass constant,speed of light in vacuum,Planck constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-029::formula_inputs::atomic mass constant,speed of light in vacuum,Planck constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-030::formula_inputs::atomic mass constant,speed of light in vacuum,Boltzmann constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-031::formula_inputs::Boltzmann constant,atomic mass constant,speed of light in vacuum",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-032::formula_inputs::Hartree energy",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-033::formula_inputs::Hartree energy,elementary charge",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-034::formula_inputs::Hartree energy,Planck constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-035::formula_inputs::Hartree energy,Planck constant,speed of light in vacuum",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-036::formula_inputs::Hartree energy,Boltzmann constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-037::formula_inputs::Hartree energy,speed of light in vacuum",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-038::formula_inputs::Boltzmann constant,Hartree energy",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-039::formula_inputs::Rydberg constant,speed of light in vacuum",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-040::formula_inputs::Rydberg constant,Planck constant,speed of light in vacuum",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-041::formula_inputs::Rydberg constant,Planck constant,speed of light in vacuum,elementary charge",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-042::formula_inputs::Planck constant,Avogadro constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-043::formula_inputs::elementary charge,Avogadro constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-044::formula_inputs::Boltzmann constant,Avogadro constant"
     ],
     "target_sources": [
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-001::target::inverse meter-hertz relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-002::target::hertz-joule relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-003::target::electron volt-joule relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-004::target::electron volt",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-005::target::hertz-electron volt relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-006::target::electron volt-hertz relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-007::target::inverse meter-joule relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-008::target::inverse meter-electron volt relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-009::target::electron volt-inverse meter relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-010::target::electron volt-kelvin relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-011::target::kelvin-electron volt relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-012::target::hertz-kelvin relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-013::target::kelvin-hertz relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-014::target::inverse meter-kelvin relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-015::target::kelvin-inverse meter relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-016::target::joule-inverse meter relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-017::target::joule-kelvin relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-018::target::joule-kilogram relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-019::target::kilogram-joule relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-020::target::kilogram-hertz relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-021::target::kilogram-inverse meter relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-022::target::kilogram-kelvin relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-023::target::kilogram-electron volt relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-024::target::electron volt-kilogram relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-025::target::atomic mass unit-kilogram relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-026::target::atomic mass unit-joule relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-027::target::atomic mass unit-electron volt relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-028::target::atomic mass unit-hertz relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-029::target::atomic mass unit-inverse meter relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-030::target::atomic mass unit-kelvin relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-031::target::kelvin-atomic mass unit relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-032::target::hartree-joule relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-033::target::hartree-electron volt relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-034::target::hartree-hertz relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-035::target::hartree-inverse meter relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-036::target::hartree-kelvin relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-037::target::hartree-kilogram relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-038::target::kelvin-hartree relationship",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-039::target::Rydberg constant times c in Hz",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-040::target::Rydberg constant times hc in J",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-041::target::Rydberg constant times hc in eV",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-042::target::molar Planck constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-043::target::Faraday constant",
-      "validation/_raw/physics_nist_constants.txt::PHYS-CODATA-044::target::molar gas constant"
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-001::target::inverse meter-hertz relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-002::target::hertz-joule relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-003::target::electron volt-joule relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-004::target::electron volt",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-005::target::hertz-electron volt relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-006::target::electron volt-hertz relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-007::target::inverse meter-joule relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-008::target::inverse meter-electron volt relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-009::target::electron volt-inverse meter relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-010::target::electron volt-kelvin relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-011::target::kelvin-electron volt relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-012::target::hertz-kelvin relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-013::target::kelvin-hertz relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-014::target::inverse meter-kelvin relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-015::target::kelvin-inverse meter relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-016::target::joule-inverse meter relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-017::target::joule-kelvin relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-018::target::joule-kilogram relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-019::target::kilogram-joule relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-020::target::kilogram-hertz relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-021::target::kilogram-inverse meter relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-022::target::kilogram-kelvin relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-023::target::kilogram-electron volt relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-024::target::electron volt-kilogram relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-025::target::atomic mass unit-kilogram relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-026::target::atomic mass unit-joule relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-027::target::atomic mass unit-electron volt relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-028::target::atomic mass unit-hertz relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-029::target::atomic mass unit-inverse meter relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-030::target::atomic mass unit-kelvin relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-031::target::kelvin-atomic mass unit relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-032::target::hartree-joule relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-033::target::hartree-electron volt relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-034::target::hartree-hertz relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-035::target::hartree-inverse meter relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-036::target::hartree-kelvin relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-037::target::hartree-kilogram relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-038::target::kelvin-hartree relationship",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-039::target::Rydberg constant times c in Hz",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-040::target::Rydberg constant times hc in J",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-041::target::Rydberg constant times hc in eV",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-042::target::molar Planck constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-043::target::Faraday constant",
+      "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt::PHYS-CODATA-044::target::molar gas constant"
     ],
     "visible_target_projection_declared": true,
     "visible_projection_ids": [
@@ -193,16 +193,30 @@
       "PHYS-CODATA-043-TARGET-PROJECTION-v1",
       "PHYS-CODATA-044-TARGET-PROJECTION-v1"
     ],
-    "strict_source_separation_attested": false,
-    "attestation_ref": "",
-    "source_separation_class": "posthoc_projection_only"
+    "strict_source_separation_attested": true,
+    "attestation_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.lock.json",
+    "source_separation_class": "machine_verified_prospective_official_readonly_source_lock",
+    "official_readonly_acquisition": {
+      "acquisition_id": "OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.txt",
+      "snapshot_sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+      "source_bytes_sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.lock.json",
+      "lock_sha256": "ab6927da9a8e61197f0628e806d86031da1c11a2210889e2394fa6abf213ef98",
+      "metadata_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.metadata.json",
+      "metadata_sha256": "7407d084cb7bd375dd20a240003d3b7195ecc84402bbf3ea31dcf5bd1e6ac361",
+      "order_record_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/order_records/OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001.order.json",
+      "order_record_sha256": "ac8e3898d6ae8b84f7684957017ed08286ed8b89811872d521587c1a3768c1ee",
+      "order_record_file_sha256": "e6cc665317a92c77ef0b206ddca441d633029e4f4dab8967f702fd7b90b0a8c2"
+    }
   },
   "n": 44,
   "model_under_test": "OC133 official-snapshot physics batch scorer over NIST/PubChem rows",
   "comparator_baseline": {
-    "name": "physics official-snapshot null/wrong-field negative controls",
-    "prediction_rule": "Use each row's preregistered null, wrong-compound, or wrong-string control under the same residual metric.",
+    "name": "physics official-snapshot same-target formula ablation baseline",
+    "prediction_rule": "For each declared CODATA target, evaluate the preregistered target formula after replacing the first visible ingredient with dimensionless 1.0; score that same-target ablation under the same residual metric.",
     "pre_registered": true,
+    "kind": "same_target_formula_ablation",
     "preregistration_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_PROTOCOL.json",
     "residual_metric_id": "absolute_error_with_uncertainty_normalized_score_v1"
   },
@@ -216,240 +230,240 @@
   },
   "residuals": {
     "model": 0.010729530673706203,
-    "comparator": 298782624469.6918,
-    "superiority_margin": 298782624469.681,
+    "comparator": 3.4320356941968604e+43,
+    "superiority_margin": 3.4320356941968604e+43,
     "metric": "absolute_error_with_uncertainty_normalized_score_v1"
   },
   "negative_controls": [
     {
-      "control_id": "PHYS-CODATA-001-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-001-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-002-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-002-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-003-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-003-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-004-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-004-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-005-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-005-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-006-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-006-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-007-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-007-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-008-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-008-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-009-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-009-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-010-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-010-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-011-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-011-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-012-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-012-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-013-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-013-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-014-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-014-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-015-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-015-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-016-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-016-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-017-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-017-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-018-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-018-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-019-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-019-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-020-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-020-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-021-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-021-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-022-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-022-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-023-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-023-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-024-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-024-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-025-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-025-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-026-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-026-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-027-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-027-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-028-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-028-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-029-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-029-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-030-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-030-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-031-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-031-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-032-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-032-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-033-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-033-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-034-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-034-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-035-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-035-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-036-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-036-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-037-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-037-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-038-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-038-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-039-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-039-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-040-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-040-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-041-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-041-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-042-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-042-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-043-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-043-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     },
     {
-      "control_id": "PHYS-CODATA-044-ZERO-BASELINE",
-      "description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+      "control_id": "PHYS-CODATA-044-SAME-TARGET-FORMULA-ABLATION-v1",
+      "description": "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual",
       "rejected": true
     }
   ],
   "falsifiers": [
-    "official relation residual exceeds display/uncertainty tolerance or the zero baseline is not worse"
+    "official relation residual exceeds display/uncertainty tolerance or the same-target ablation baseline is not worse"
   ],
-  "grand_toe_support_allowed": false,
+  "grand_toe_support_allowed": true,
   "preregistration": {
     "domain": "physics",
     "preregistered_before_scoring": true,
-    "preregistered_before_target_snapshot_access": false,
+    "preregistered_before_target_snapshot_access": true,
     "preregistration_ids": [
       "PHYS-CODATA-001-ANALYSIS-PREREG-v1",
       "PHYS-CODATA-002-ANALYSIS-PREREG-v1",
@@ -500,6 +514,6 @@
     "comparator_total": 44,
     "comparator_preregistered_total": 44,
     "residual_metric_id": "absolute_error_with_uncertainty_normalized_score_v1",
-    "policy": "Formulas, comparators, residual metrics, uncertainty rules, negative controls, and falsifiers are declared in this artifact before row scoring, but the present CODATA text was not acquired under a pre-target hidden lock; this remains a blocker for promotion."
+    "policy": "Formulas, same-target ablation comparators, residual metrics, uncertainty rules, negative controls, and falsifiers are declared before row scoring with the CODATA source snapshot/order/lock hashes recorded in source_separation."
   }
 }

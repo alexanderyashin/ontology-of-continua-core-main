@@ -9,6 +9,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -23,6 +24,7 @@ DEFAULT_PACKET_GLOB = "validation/heldout/grand_science/**/*ACQUISITION_PACKET.j
 RUN_ROOT_REL = "validation/heldout/acquisition_runs/oc133_official_readonly"
 SNAPSHOT_ROOT_REL = f"{RUN_ROOT_REL}/snapshots"
 LOCK_ROOT_REL = f"{RUN_ROOT_REL}/locks"
+ORDER_ROOT_REL = f"{RUN_ROOT_REL}/order_records"
 RUN_REPORT_REL = f"{RUN_ROOT_REL}/OC133_OFFICIAL_READONLY_ACQUISITION_RUN.json"
 PUBLIC_REPORT_REL = "reports/OC133_OFFICIAL_READONLY_ACQUISITION_RUN.json"
 REPORT_JSON_REL = PUBLIC_REPORT_REL
@@ -72,6 +74,9 @@ class AllowRule:
     name: str
     host: str
     path_prefix: str
+    exact_path: bool = False
+    required_query_params: tuple[tuple[str, str], ...] = ()
+    allowed_query_keys: tuple[str, ...] = ()
 
 
 ALLOWLIST: tuple[AllowRule, ...] = (
@@ -79,8 +84,61 @@ ALLOWLIST: tuple[AllowRule, ...] = (
     AllowRule("PubChem PUG REST", "pubchem.ncbi.nlm.nih.gov", "/rest/pug/"),
     AllowRule("World Bank API", "api.worldbank.org", "/v2/"),
     AllowRule("NIST physics constants", "physics.nist.gov", "/cuu/Constants/"),
+    AllowRule(
+        "NIST ASD hydrogen Balmer lines TSV",
+        "physics.nist.gov",
+        "/cgi-bin/ASD/lines1.pl",
+        exact_path=True,
+        required_query_params=(
+            ("spectra", "H"),
+            ("limits_type", "0"),
+            ("low_w", ""),
+            ("upp_w", ""),
+            ("unit", "1"),
+            ("de", "0"),
+            ("format", "3"),
+            ("line_out", "0"),
+            ("remove_js", "on"),
+            ("en_unit", "1"),
+            ("output", "0"),
+            ("page_size", "50"),
+            ("show_obs_wl", "1"),
+            ("show_calc_wl", "1"),
+            ("show_wn", "1"),
+        ),
+        allowed_query_keys=(
+            "spectra",
+            "limits_type",
+            "low_w",
+            "upp_w",
+            "unit",
+            "de",
+            "format",
+            "line_out",
+            "remove_js",
+            "en_unit",
+            "output",
+            "page_size",
+            "show_obs_wl",
+            "show_calc_wl",
+            "show_wn",
+        ),
+    ),
     AllowRule("NIST Chemistry WebBook", "webbook.nist.gov", "/cgi/cbook.cgi"),
 )
+
+DEFAULT_PROSPECTIVE_LOCK_METADATA: dict[str, Any] = {
+    "schema_id": "OC133_OFFICIAL_READONLY_PROSPECTIVE_LOCK_METADATA_v1",
+    "source_snapshot_pre_target_lock": True,
+    "target_hidden_until_scoring": True,
+    "target_projection_unsealed_for_scoring": False,
+    "scoring_started": False,
+    "prediction_materialization_required_before_scoring": True,
+    "target_projection_read_before_prediction_materialization": False,
+    "public_release_action_allowed": False,
+    "publish_allowed": False,
+    "push_allowed": False,
+}
 
 
 def repo_root() -> Path:
@@ -174,6 +232,37 @@ def redacted_url(url: str) -> str:
     return urllib.parse.urlunsplit((parsed.scheme, netloc, parsed.path, query, parsed.fragment))
 
 
+def rule_path_matches(rule: AllowRule, path: str) -> bool:
+    if rule.exact_path:
+        return path == rule.path_prefix
+    return path.startswith(rule.path_prefix)
+
+
+def query_blockers_for_rule(rule: AllowRule, parsed: urllib.parse.SplitResult) -> list[str]:
+    if not rule.required_query_params and not rule.allowed_query_keys:
+        return []
+    pairs = urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)
+    seen: dict[str, list[str]] = {}
+    for key, value in pairs:
+        seen.setdefault(key, []).append(value)
+    blockers: list[str] = []
+    allowed_keys = set(rule.allowed_query_keys)
+    if allowed_keys:
+        unexpected = sorted(key for key in seen if key not in allowed_keys)
+        if unexpected:
+            blockers.append(f"QUERY_PARAM_NOT_ALLOWED::{','.join(unexpected)}")
+    for key, values in sorted(seen.items()):
+        if len(values) > 1:
+            blockers.append(f"QUERY_PARAM_DUPLICATE_NOT_ALLOWED::{key}")
+    for key, expected in rule.required_query_params:
+        values = seen.get(key)
+        if values is None:
+            blockers.append(f"QUERY_PARAM_REQUIRED::{key}")
+        elif values != [expected]:
+            blockers.append(f"QUERY_PARAM_VALUE_NOT_ALLOWED::{key}")
+    return blockers
+
+
 def allowlist_match(url: str) -> tuple[bool, str, list[str]]:
     parsed = urllib.parse.urlsplit(url)
     blockers: list[str] = []
@@ -188,7 +277,9 @@ def allowlist_match(url: str) -> tuple[bool, str, list[str]]:
     if sensitive_keys:
         blockers.append(f"SENSITIVE_QUERY_TOKEN_NOT_ALLOWED::{','.join(sensitive_keys)}")
     for rule in ALLOWLIST:
-        if host == rule.host and parsed.path.startswith(rule.path_prefix):
+        if host == rule.host and rule_path_matches(rule, parsed.path):
+            rule_blockers = query_blockers_for_rule(rule, parsed)
+            blockers.extend(rule_blockers)
             return not blockers, rule.name, blockers
     blockers.append(f"URL_NOT_IN_OFFICIAL_ALLOWLIST::{host}{parsed.path}")
     return False, "", blockers
@@ -228,17 +319,50 @@ def load_packet_requests(root: Path, packet_paths: list[Path]) -> list[dict[str,
                     "packet_no_send_lock": bool(row.get("no_send_lock", payload.get("no_send", True))),
                     "required_fields": row.get("required_fields", []),
                     "query_params": row.get("query_params", {}),
+                    "prospective_lock_metadata": row.get(
+                        "prospective_lock_metadata",
+                        row.get("source_separation_lock_metadata", row.get("execution_lock_metadata", {})),
+                    ),
                 }
             )
     return requests
 
 
-def validate_request(row: dict[str, Any]) -> dict[str, Any]:
+def prospective_lock_metadata_blockers(row: dict[str, Any], *, require_execution_metadata: bool) -> list[str]:
+    metadata = row.get("prospective_lock_metadata")
+    if not require_execution_metadata:
+        return []
+    if not isinstance(metadata, dict) or not metadata:
+        return ["PROSPECTIVE_LOCK_METADATA_MISSING"]
+    blockers: list[str] = []
+    required_values = {
+        "source_snapshot_pre_target_lock": True,
+        "target_hidden_until_scoring": True,
+        "target_projection_unsealed_for_scoring": False,
+        "scoring_started": False,
+        "prediction_materialization_required_before_scoring": True,
+        "target_projection_read_before_prediction_materialization": False,
+        "public_release_action_allowed": False,
+        "publish_allowed": False,
+        "push_allowed": False,
+    }
+    for key, expected in required_values.items():
+        if metadata.get(key) is not expected:
+            blockers.append(f"PROSPECTIVE_LOCK_METADATA_INVALID::{key}")
+    if metadata.get("scoring_started_at"):
+        blockers.append("POST_SCORING_ACQUISITION_NOT_ALLOWED")
+    if metadata.get("target_projection_unsealed_for_scoring_at"):
+        blockers.append("TARGET_UNSEALED_BEFORE_ACQUISITION_NOT_ALLOWED")
+    return blockers
+
+
+def validate_request(row: dict[str, Any], *, require_execution_metadata: bool = False) -> dict[str, Any]:
     blockers: list[str] = []
     official_url = row["network_official_endpoint_url"]
     expected_ref = row["expected_local_snapshot_ref"]
     allowed, allowlist_rule, url_blockers = allowlist_match(official_url)
     blockers.extend(url_blockers)
+    blockers.extend(prospective_lock_metadata_blockers(row, require_execution_metadata=require_execution_metadata))
     if not expected_ref:
         blockers.append("EXPECTED_LOCAL_SNAPSHOT_REF_MISSING")
     elif not is_safe_relative_ref(expected_ref):
@@ -249,6 +373,7 @@ def validate_request(row: dict[str, Any]) -> dict[str, Any]:
     suffix = suffix_for_ref(expected_ref)
     snapshot_ref = f"{SNAPSHOT_ROOT_REL}/{acquisition_id}{suffix}"
     lock_ref = f"{LOCK_ROOT_REL}/{acquisition_id}.lock.json"
+    order_ref = f"{ORDER_ROOT_REL}/{acquisition_id}.order.json"
     meta_ref = f"{SNAPSHOT_ROOT_REL}/{acquisition_id}.metadata.json"
     return {
         **row,
@@ -259,6 +384,7 @@ def validate_request(row: dict[str, Any]) -> dict[str, Any]:
         "snapshot_ref": snapshot_ref,
         "snapshot_metadata_ref": meta_ref,
         "lock_ref": lock_ref,
+        "order_record_ref": order_ref,
         "hash_policy": HASH_POLICY,
     }
 
@@ -309,6 +435,81 @@ def fetch_official_url(url: str, timeout: int = REQUEST_TIMEOUT_SECONDS) -> tupl
         return int(exc.code), response_headers(exc), data
 
 
+def utc_now_iso() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def build_order_record(record: dict[str, Any], *, acquired_at_utc: str) -> dict[str, Any]:
+    metadata = record.get("prospective_lock_metadata")
+    if not isinstance(metadata, dict):
+        metadata = {}
+    order_record = {
+        "schema_id": "OC133_OFFICIAL_READONLY_ACQUISITION_ORDER_RECORD_v1",
+        "release_id": RELEASE_ID,
+        "acquisition_id": record["acquisition_id"],
+        "official_endpoint_url": record["redacted_official_endpoint_url"],
+        "snapshot_ref": record["snapshot_ref"],
+        "snapshot_sha256": record["sha256"],
+        "source_bytes_sha256": record["sha256"],
+        "source_bytes_byte_count": record["byte_count"],
+        "acquired_at_utc": acquired_at_utc,
+        "event_order": [
+            {
+                "event_index": 1,
+                "event": "source_snapshot_locked",
+                "timestamp_utc": acquired_at_utc,
+                "status": "completed_by_official_readonly_runner",
+            },
+            {
+                "event_index": 2,
+                "event": "source_separation_declared",
+                "status": "required_by_packet_before_scoring",
+            },
+            {
+                "event_index": 3,
+                "event": "visible_projection_locked",
+                "status": "required_after_source_lock_before_prediction_materialization",
+            },
+            {
+                "event_index": 4,
+                "event": "prediction_materialized",
+                "status": "required_before_target_projection_unsealed_for_scoring",
+            },
+            {
+                "event_index": 5,
+                "event": "target_projection_unsealed_for_scoring",
+                "status": "not_performed_by_acquisition_runner",
+            },
+            {
+                "event_index": 6,
+                "event": "scoring_started",
+                "status": "not_performed_by_acquisition_runner",
+            },
+        ],
+        "sequence_proof": {
+            "source_snapshot_locked_before_scoring": True,
+            "source_snapshot_pre_target_lock": metadata.get("source_snapshot_pre_target_lock") is True,
+            "target_hidden_until_scoring": metadata.get("target_hidden_until_scoring") is True,
+            "target_projection_unsealed_for_scoring": False,
+            "scoring_started": False,
+            "prediction_materialization_required_before_scoring": (
+                metadata.get("prediction_materialization_required_before_scoring") is True
+            ),
+            "target_projection_read_before_prediction_materialization": False,
+            "prediction_before_scoring_sequence_required": (
+                "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+            ),
+        },
+        "locks": NO_SEND_LOCKS,
+        "scientific_pass": False,
+        "policy": "Order record is a pre-target acquisition lock only; it does not unseal targets or start scoring.",
+    }
+    order_record["order_record_sha256"] = sha256_object(
+        {key: value for key, value in order_record.items() if key != "order_record_sha256"}
+    )
+    return order_record
+
+
 def parse_retry_after_seconds(headers: dict[str, str]) -> float | None:
     value = headers.get("retry-after", "").strip()
     if not value:
@@ -337,9 +538,13 @@ def build_lock(record: dict[str, Any]) -> dict[str, Any]:
         "expected_local_snapshot_ref": record["expected_local_snapshot_ref"],
         "snapshot_ref": record["snapshot_ref"],
         "snapshot_sha256": record["sha256"],
+        "source_bytes_sha256": record["sha256"],
         "byte_count": record["byte_count"],
         "http_status": record["http_status"],
+        "order_record_ref": record["order_record_ref"],
+        "order_record_sha256": record["order_record_sha256"],
         "hash_policy": HASH_POLICY,
+        "pre_target_sequence_proof": record["pre_target_sequence_proof"],
         "locks": NO_SEND_LOCKS,
         "scientific_pass": False,
         "policy": "Acquisition success only pins official bytes for strict evidence factories; it is not a scientific PASS.",
@@ -361,6 +566,8 @@ def base_execution_record(row: dict[str, Any]) -> dict[str, Any]:
         "network_attempt_total": 0,
         "retry_attempts": [],
         "retry_queue_eligible": False,
+        "order_record_sha256": "",
+        "pre_target_sequence_proof": {},
     }
 
 
@@ -368,18 +575,36 @@ def existing_acquired_record(root: Path, row: dict[str, Any]) -> dict[str, Any] 
     snapshot_path = resolve_under_root(root, row["snapshot_ref"])
     metadata_path = resolve_under_root(root, row["snapshot_metadata_ref"])
     lock_path = resolve_under_root(root, row["lock_ref"])
-    if not (snapshot_path.is_file() and metadata_path.is_file() and lock_path.is_file()):
+    order_path = resolve_under_root(root, row["order_record_ref"])
+    if not (snapshot_path.is_file() and metadata_path.is_file() and lock_path.is_file() and order_path.is_file()):
         return None
     try:
         data = snapshot_path.read_bytes()
         metadata = read_json(metadata_path)
         lock = read_json(lock_path)
+        order_record = read_json(order_path)
     except Exception:
         return None
-    if not isinstance(metadata, dict) or not isinstance(lock, dict):
+    if not isinstance(metadata, dict) or not isinstance(lock, dict) or not isinstance(order_record, dict):
         return None
     digest = sha256_bytes(data)
     byte_count = len(data)
+    order_record_sha256 = sha256_object({key: value for key, value in order_record.items() if key != "order_record_sha256"})
+    if order_record.get("order_record_sha256") != order_record_sha256:
+        return None
+    sequence_proof = order_record.get("sequence_proof")
+    if not isinstance(sequence_proof, dict):
+        return None
+    if not (
+        sequence_proof.get("source_snapshot_locked_before_scoring") is True
+        and sequence_proof.get("source_snapshot_pre_target_lock") is True
+        and sequence_proof.get("target_hidden_until_scoring") is True
+        and sequence_proof.get("prediction_materialization_required_before_scoring") is True
+        and sequence_proof.get("target_projection_unsealed_for_scoring") is False
+        and sequence_proof.get("scoring_started") is False
+        and sequence_proof.get("target_projection_read_before_prediction_materialization") is False
+    ):
+        return None
     required_metadata = {
         "release_id": RELEASE_ID,
         "status": "ACQUIRED_READONLY",
@@ -387,7 +612,10 @@ def existing_acquired_record(root: Path, row: dict[str, Any]) -> dict[str, Any] 
         "snapshot_ref": row["snapshot_ref"],
         "expected_local_snapshot_ref": row["expected_local_snapshot_ref"],
         "sha256": digest,
+        "source_bytes_sha256": digest,
         "byte_count": byte_count,
+        "order_record_ref": row["order_record_ref"],
+        "order_record_sha256": order_record_sha256,
         "locks": NO_SEND_LOCKS,
         "scientific_pass": False,
     }
@@ -397,7 +625,11 @@ def existing_acquired_record(root: Path, row: dict[str, Any]) -> dict[str, Any] 
         "snapshot_ref": row["snapshot_ref"],
         "expected_local_snapshot_ref": row["expected_local_snapshot_ref"],
         "snapshot_sha256": digest,
+        "source_bytes_sha256": digest,
         "byte_count": byte_count,
+        "order_record_ref": row["order_record_ref"],
+        "order_record_sha256": order_record_sha256,
+        "pre_target_sequence_proof": sequence_proof,
         "locks": NO_SEND_LOCKS,
         "scientific_pass": False,
     }
@@ -420,6 +652,8 @@ def existing_acquired_record(root: Path, row: dict[str, Any]) -> dict[str, Any] 
             "content_type": str(metadata.get("content_type") or ""),
             "status": "ACQUIRED_READONLY",
             "fetch_error": "",
+            "order_record_sha256": order_record_sha256,
+            "pre_target_sequence_proof": sequence_proof,
         }
     )
     return record
@@ -480,6 +714,7 @@ def execute_request(
         )
         if 200 <= status < 300:
             digest = sha256_bytes(data)
+            acquired_at_utc = utc_now_iso()
             record.update(
                 {
                     "sha256": digest,
@@ -488,7 +723,11 @@ def execute_request(
                     "retry_queue_eligible": False,
                 }
             )
+            order_record = build_order_record(record, acquired_at_utc=acquired_at_utc)
+            record["order_record_sha256"] = order_record["order_record_sha256"]
+            record["pre_target_sequence_proof"] = order_record["sequence_proof"]
             write_bytes(resolve_under_root(root, row["snapshot_ref"]), data)
+            write_json(resolve_under_root(root, row["order_record_ref"]), order_record)
             metadata = {
                 "schema_id": "OC133_OFFICIAL_READONLY_ACQUISITION_SNAPSHOT_METADATA_v1",
                 "release_id": RELEASE_ID,
@@ -501,7 +740,11 @@ def execute_request(
                 "http_status": record["http_status"],
                 "byte_count": record["byte_count"],
                 "sha256": record["sha256"],
+                "source_bytes_sha256": record["sha256"],
                 "content_type": record["content_type"],
+                "order_record_ref": record["order_record_ref"],
+                "order_record_sha256": record["order_record_sha256"],
+                "pre_target_sequence_proof": record["pre_target_sequence_proof"],
                 "hash_policy": HASH_POLICY,
                 "locks": NO_SEND_LOCKS,
                 "scientific_pass": False,
@@ -534,6 +777,8 @@ def dry_run_record(row: dict[str, Any]) -> dict[str, Any]:
         "network_attempt_total": 0,
         "retry_attempts": [],
         "retry_queue_eligible": False,
+        "order_record_sha256": "",
+        "pre_target_sequence_proof": {},
     }
 
 
@@ -569,7 +814,8 @@ def build_report(
     sleeper: Any = time.sleep,
 ) -> dict[str, Any]:
     raw_rows = load_packet_requests(root, packet_paths)
-    validated_rows = [validate_request(row) for row in raw_rows]
+    validated_rows = [validate_request(row, require_execution_metadata=execute_network) for row in raw_rows]
+    execution_readiness_rows = [validate_request(row, require_execution_metadata=True) for row in raw_rows]
     records = [
         execute_request(
             root,
@@ -588,6 +834,19 @@ def build_report(
     blocked_total = sum(1 for row in records if row["status"] == "VALIDATION_BLOCKED")
     failed_total = sum(1 for row in records if row["status"] in {"FETCH_FAILED", "HTTP_STATUS_NOT_SUCCESS"})
     retry_queue = build_retry_queue(records)
+    execution_blockers = sorted(
+        {
+            blocker
+            for row in execution_readiness_rows
+            for blocker in row["validation_blockers"]
+            if blocker.startswith("PROSPECTIVE_LOCK_METADATA")
+            or blocker
+            in {
+                "POST_SCORING_ACQUISITION_NOT_ALLOWED",
+                "TARGET_UNSEALED_BEFORE_ACQUISITION_NOT_ALLOWED",
+            }
+        }
+    )
     attempts_allowed = max(1, max_attempts if max_attempts is not None else len(retry_delays) + 1)
     report = {
         "schema_id": REPORT_SCHEMA_ID,
@@ -615,6 +874,17 @@ def build_report(
             "force_refetch": force_refetch,
         },
         "retry_queue": retry_queue,
+        "execution_blocker_packet": {
+            "schema_id": "OC133_OFFICIAL_READONLY_ACQUISITION_EXECUTION_BLOCKER_PACKET_v1",
+            "status": "BLOCKED" if execution_blockers or failed_total else "CLEAR",
+            "remaining_execution_blockers": execution_blockers,
+            "execution_ready_request_total": sum(1 for row in execution_readiness_rows if row["validated_for_network"]),
+            "execution_validation_blocked_total": sum(
+                1 for row in execution_readiness_rows if not row["validated_for_network"]
+            ),
+            "network_failure_total": failed_total,
+            "policy": "Do not fake snapshots; execute only after packet-level prospective lock metadata is present and no public action is enabled.",
+        },
         "retry_report": {
             "schema_id": "OC133_OFFICIAL_READONLY_ACQUISITION_RETRY_REPORT_v1",
             "queue_total": len(retry_queue),

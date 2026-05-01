@@ -100,6 +100,10 @@ def runtime_argv(argv: list[Any]) -> list[str]:
     return result
 
 
+def sanitized_recorded_argv(argv: list[Any]) -> list[str]:
+    return ["python" if str(item) == sys.executable else str(item) for item in argv]
+
+
 def no_send_safety_rank(row: dict[str, Any]) -> int:
     locks = row.get("no_send_locks", {})
     if not isinstance(locks, dict):
@@ -1117,7 +1121,7 @@ def command(cmd: list[str], *, timeout: int = 900) -> dict[str, Any]:
         timeout=timeout,
     )
     return {
-        "cmd": cmd,
+        "cmd": sanitized_recorded_argv(cmd),
         "returncode": completed.returncode,
         "stdout_tail": completed.stdout[-4000:],
         "stderr_tail": completed.stderr[-4000:],
@@ -1148,6 +1152,13 @@ def append_ledger(row: dict[str, Any]) -> dict[str, Any]:
             item = dict(item)
             item["execution_state"] = "SCIENTIFIC_BLOCKERS_REMAIN"
             item["legacy_execution_state_normalized_from"] = "PASS"
+        if isinstance(item, dict) and isinstance(item.get("command"), dict):
+            command_row = dict(item["command"])
+            cmd = command_row.get("cmd")
+            if isinstance(cmd, list):
+                command_row["cmd"] = sanitized_recorded_argv(cmd)
+                item = dict(item)
+                item["command"] = command_row
         normalized_rows.append(item)
     rows = normalized_rows
     rows.append(row)

@@ -1,0 +1,103 @@
+{
+  "schema_id": "OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_PROTOCOL",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "candidate_pack_ref": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json",
+  "candidate_pack_sha256": "b698b983cd1a3644568ede8a271493f01f2588a3de718f01b06ff419af87de52",
+  "snapshot_ref": "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json",
+  "snapshot_sha256": "d227c75496329073630477406ed23f734813a99a152765396112a5232d5774ec",
+  "acquisition_packet_ref": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_ACQUISITION_PACKET.json",
+  "pre_target_lock_metadata": {
+    "source_lock_ref": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_SOURCE_LOCK.json",
+    "source_lock_sha256": "227b75ebb6f98768f5c9974b60ecf8366b68880b30c5e63dc787b90df59c5f9d",
+    "source_lock_declaration_ref": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_SOURCE_LOCK_DECLARATION.json",
+    "source_lock_declaration_sha256": "5a4cbb559929fc9428fb67f6dd198cb99426e56eb5a839057f56255f863742e8",
+    "materialization_order_hash": "404590753a26ea247fa949f2c08543612806520364eaf9f221025f8054223475",
+    "snapshot_ref": "validation/heldout/grand_science/systems/wdi_population_materiality/raw/world_bank_wdi_arg_population_total_1960_2024.json",
+    "snapshot_sha256": "d227c75496329073630477406ed23f734813a99a152765396112a5232d5774ec"
+  },
+  "target_panel": [
+    1980,
+    1981,
+    1982,
+    1983,
+    1984,
+    1985,
+    1986,
+    1987,
+    1988,
+    1989,
+    1990,
+    1991,
+    1992,
+    1993,
+    1994,
+    1995,
+    1996,
+    1997,
+    1998,
+    1999
+  ],
+  "formula_manifest": [
+    {
+      "formula_id": "last_slope",
+      "family": "linear_increment",
+      "rule": "y_t = y_t-1 + (y_t-1 - y_t-2)",
+      "min_history": 2,
+      "parameters": {}
+    },
+    {
+      "formula_id": "mean_slope_5",
+      "family": "linear_increment",
+      "rule": "y_t = y_t-1 + mean(last five annual slopes)",
+      "min_history": 6,
+      "parameters": {}
+    },
+    {
+      "formula_id": "ols_10",
+      "family": "linear_regression",
+      "rule": "ordinary least-squares line on the last ten prior annual values",
+      "min_history": 10,
+      "parameters": {}
+    }
+  ],
+  "comparator_baselines": [
+    {
+      "id": "carry_forward_last_observation",
+      "name": "WDI carry-forward last-observation comparator",
+      "prediction_rule": "predict the heldout year as the latest prior observed WDI population value",
+      "pre_registered": true
+    },
+    {
+      "id": "prior_training_mean",
+      "name": "WDI prior-years arithmetic-mean comparator",
+      "prediction_rule": "predict the heldout year as the arithmetic mean of all prior WDI population values",
+      "pre_registered": true
+    },
+    {
+      "id": "trailing_three_year_mean",
+      "name": "WDI trailing-three-year mean comparator",
+      "prediction_rule": "predict the heldout year as the arithmetic mean of the latest three prior WDI population values",
+      "pre_registered": true
+    }
+  ],
+  "materiality_policy": {
+    "policy_id": "OC133-SYSTEMS-WDI-POPULATION-MATERIALITY-POLICY",
+    "policy_version": "1.0",
+    "pre_registered": true,
+    "metric": "absolute residual advantage over best preregistered comparator",
+    "aggregate_gate": {
+      "minimum_margin_fraction_of_residual_scale": 0.01,
+      "minimum_margin_fraction_of_uncertainty_upper": 0.01
+    },
+    "row_gate": {
+      "minimum_margin_fraction_of_residual_scale": 0.01,
+      "minimum_margin_fraction_of_uncertainty_upper": 0.01
+    },
+    "minimum_margin_absolute": 1e-12,
+    "near_tie_policy": "strict greater-than is insufficient; aggregate and row margins must clear this policy"
+  },
+  "materiality_policy_sha256": "094368c85ced2f517e6aeae0642169c94484ac0fe057ac4848720a0891614170",
+  "blockers": []
+}

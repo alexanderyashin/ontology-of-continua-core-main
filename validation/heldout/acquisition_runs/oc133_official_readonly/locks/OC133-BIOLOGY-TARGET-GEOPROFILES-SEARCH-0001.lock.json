@@ -1,0 +1,37 @@
+{
+  "schema_id": "OC133_OFFICIAL_READONLY_ACQUISITION_NO_SEND_LOCK_v1",
+  "release_id": "oc_core_1_3_3",
+  "acquisition_id": "OC133-BIOLOGY-TARGET-GEOPROFILES-SEARCH-0001",
+  "official_endpoint_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=geoprofiles&term=GDS3716%5BAll+Fields%5D+AND+Homo+sapiens%5BORGN%5D+AND+count%5BVTYP%5D+NOT+Control%5BAll+Fields%5D&retmode=json&retmax=30&retstart=0&sort=relevance",
+  "expected_local_snapshot_ref": "validation/heldout/grand_science/biology/target_evidence/raw/OC133_BIOLOGY_TARGET_GEO_PROFILE_SEARCH.json",
+  "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-BIOLOGY-TARGET-GEOPROFILES-SEARCH-0001.json",
+  "snapshot_sha256": "b49dfbd6333ca6734909f62ee0de274e0e99a5449c4e046321ae41c8dbe02265",
+  "source_bytes_sha256": "b49dfbd6333ca6734909f62ee0de274e0e99a5449c4e046321ae41c8dbe02265",
+  "byte_count": 1012,
+  "http_status": 200,
+  "order_record_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/order_records/OC133-BIOLOGY-TARGET-GEOPROFILES-SEARCH-0001.order.json",
+  "order_record_sha256": "2b246c6ce2d82c422501999be88b03026c8b71ef88a851f2664673f8896b7206",
+  "hash_policy": "sha256 over acquired response bytes as stored",
+  "pre_target_sequence_proof": {
+    "source_snapshot_locked_before_scoring": true,
+    "source_snapshot_pre_target_lock": true,
+    "target_hidden_until_scoring": true,
+    "target_projection_unsealed_for_scoring": false,
+    "scoring_started": false,
+    "prediction_materialization_required_before_scoring": true,
+    "target_projection_read_before_prediction_materialization": false,
+    "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+  },
+  "locks": {
+    "no_send": true,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "journal_submissions_allowed": false,
+    "doi_registration_allowed": false,
+    "zenodo_upload_allowed": false,
+    "registry_write_allowed": false,
+    "release_promotion_allowed": false
+  },
+  "scientific_pass": false,
+  "policy": "Acquisition success only pins official bytes for strict evidence factories; it is not a scientific PASS."
+}

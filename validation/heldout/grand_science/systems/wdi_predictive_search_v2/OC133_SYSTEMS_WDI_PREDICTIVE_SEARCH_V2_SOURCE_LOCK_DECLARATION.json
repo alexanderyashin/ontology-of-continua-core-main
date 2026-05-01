@@ -16,7 +16,9 @@
   },
   "snapshot_ref": "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json",
   "snapshot_sha256": "c2e5f23f3fa88e97c4ea338541c4689d1cd8a33e164d11831cb8a3b573b09cd7",
+  "snapshot_lastupdated": "2026-04-08",
   "snapshot_hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+  "scoring_started_timestamp": "2026-05-01T00:00:00Z",
   "split_policy": {
     "mode": "target_blind",
     "target_hidden_until_scoring": true,
@@ -2789,8 +2791,29 @@
     "residual_metric": "absolute residual; aggregate model residual is mean absolute residual",
     "negative_control_policy": "reject support unless every comparator baseline is worse than the selected model on every heldout row",
     "uncertainty_policy": "deterministic replay envelope over selected-model absolute residuals",
+    "materiality_policy": {
+      "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+      "policy_version": "1.0",
+      "pre_registered": true,
+      "metric": "absolute residual advantage over best preregistered comparator",
+      "aggregate_gate": {
+        "minimum_margin_fraction_of_residual_scale": 0.01,
+        "minimum_margin_fraction_of_uncertainty_upper": 0.01,
+        "residual_scale": "max(1, model_mean_absolute_residual, best_comparator_mean_absolute_residual)",
+        "uncertainty_upper": "candidate-pack uncertainty interval upper bound"
+      },
+      "row_gate": {
+        "minimum_margin_fraction_of_residual_scale": 0.01,
+        "minimum_margin_fraction_of_uncertainty_upper": 0.01,
+        "residual_scale": "max(1, row_model_absolute_residual, row_best_comparator_absolute_residual)",
+        "uncertainty_upper": "row selected-formula prior replay uncertainty interval upper bound"
+      },
+      "minimum_margin_absolute": 1e-12,
+      "near_tie_policy": "a strict comparator residual greater-than is insufficient; grand support requires both aggregate and every row-level best-comparator margin to meet the preregistered materiality thresholds"
+    },
+    "materiality_policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
     "tamper_policy": "heldout target mutation must change row hashes without changing same-row formula selection or prediction",
-    "support_gate_policy": "grand_toe_support_allowed is true iff source lock, source separation, N, row validation, residual superiority, negative controls, tamper tests, pack gate, and strict schema all pass"
+    "support_gate_policy": "grand_toe_support_allowed is true iff source lock, source separation, N, row validation, residual superiority, materiality, negative controls, tamper tests, pack gate, and strict schema all pass"
   },
   "declaration_exclusion_policy": {
     "forbidden_score_fields": [
@@ -2798,11 +2821,14 @@
       "best_comparator_residual",
       "comparator_baselines",
       "formula_selection",
+      "heldout_value",
       "model_residual",
       "observed_value",
       "predicted_value",
       "prediction",
-      "row_hash"
+      "row_hash",
+      "target_value",
+      "value"
     ],
     "observed_target_values_excluded": true,
     "predictions_excluded": true,

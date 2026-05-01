@@ -10,10 +10,13 @@
     "mode": "target_blind",
     "pre_target_lock": true,
     "target_hidden_until_scoring": true,
-    "declared_before_scoring": false,
-    "lock_id": "missing",
-    "lock_timestamp": "missing",
-    "source_ref": "validation/heldout/grand_science/systems/harvested/systems_candidate_evidence_pack.json"
+    "declared_before_scoring": true,
+    "lock_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-INTERNAL-LOCK-0de4551d1d49840c",
+    "lock_timestamp": null,
+    "lock_order_hash": "0de4551d1d49840c8a10bc7f7eb0944c1b3441e6696df9fb412c9bcf6850b7ed",
+    "lock_proof_type": "internal_materialization_order_hash",
+    "source_ref": "validation/heldout/grand_science/systems/harvested/systems_candidate_evidence_pack.json",
+    "source_lock_verified": true
   },
   "source_lock_ref": "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_SOURCE_LOCK.json",
   "source_lock_declaration_ref": "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_SOURCE_LOCK_DECLARATION.json",
@@ -21,17 +24,20 @@
     "lock_required": true,
     "source_mode": "target_blind",
     "source_ref": "validation/heldout/grand_science/systems/harvested/systems_candidate_evidence_pack.json",
-    "lock_id": "missing",
-    "lock_timestamp": "missing",
+    "lock_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-INTERNAL-LOCK-0de4551d1d49840c",
+    "lock_timestamp": null,
+    "lock_order_hash": "0de4551d1d49840c8a10bc7f7eb0944c1b3441e6696df9fb412c9bcf6850b7ed",
+    "lock_proof_type": "internal_materialization_order_hash",
     "pre_target_lock": true,
     "target_hidden_until_scoring": true,
-    "declared_before_scoring": false,
+    "declared_before_scoring": true,
     "snapshot_ref": "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json",
     "snapshot_sha256": "c2e5f23f3fa88e97c4ea338541c4689d1cd8a33e164d11831cb8a3b573b09cd7",
     "source_lock_ref": "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_SOURCE_LOCK.json",
-    "source_lock_sha256": "568d4966bbb41829497066c104fa0710b9a86edfe7d61141620706a6495b8e6d",
+    "source_lock_sha256": "5f57489b37bd79ab573ba6d6281de485d0fc2b1bff42988ddaaf9e768fd6d010",
     "source_lock_declaration_ref": "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_SOURCE_LOCK_DECLARATION.json",
-    "source_lock_declaration_sha256": "b4ebd22ba38526c62b144766d18d7bf659c298c74ae3b914e16dbe79968b288c",
+    "source_lock_declaration_sha256": "65dedf663a0cf90f50445f52c58c0c40ca87e957e62971d7b20a5d7f688b0134",
+    "source_lock_materialization_order_hash": "0de4551d1d49840c8a10bc7f7eb0944c1b3441e6696df9fb412c9bcf6850b7ed",
     "formula_family_locked_before_target_scoring": true,
     "formula_family_sha256": "70f44118204aea8bf7f7aeca150a5b67cfb9195b537225c47840b273a03bf2d2",
     "target_split_locked_before_target_scoring": true,
@@ -39,12 +45,12 @@
     "comparator_baselines_locked_before_target_scoring": true,
     "comparator_baselines_sha256": "062473960b73efca08668c1ab7f67dbd4a2d5d1bd39fe046c2f934300e7a3b94",
     "scoring_policy_locked_before_target_scoring": true,
-    "scoring_policy_sha256": "f063456d2fad7201772a5594aeb907f3c4a86240e5bdc8ec70448202b7ae5c3b"
+    "scoring_policy_sha256": "6b342937ed9521fc7afb54254eee23ec1ec1393c3096d7ccb676906babd4abd7"
   },
   "series_total": 1,
   "row_total": 57,
   "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-  "row_hashes_sha256": "5baf43b83ef539973247724d501572d150a1150a362d106adabb6db402cf7345",
+  "row_hashes_sha256": "37ad14a186d21e387a9c6abe1356ca44085468b7903e4d8b1cd729d7619a4f9f",
   "formula_search": {
     "preregistered_formula_family": [
       {
@@ -182,6 +188,520 @@
     "cycle_guard_formula_ids": [
       "cycle_guard_micro_trend"
     ]
+  },
+  "materiality_policy": {
+    "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+    "policy_version": "1.0",
+    "pre_registered": true,
+    "metric": "absolute residual advantage over best preregistered comparator",
+    "aggregate_gate": {
+      "minimum_margin_fraction_of_residual_scale": 0.01,
+      "minimum_margin_fraction_of_uncertainty_upper": 0.01,
+      "residual_scale": "max(1, model_mean_absolute_residual, best_comparator_mean_absolute_residual)",
+      "uncertainty_upper": "candidate-pack uncertainty interval upper bound"
+    },
+    "row_gate": {
+      "minimum_margin_fraction_of_residual_scale": 0.01,
+      "minimum_margin_fraction_of_uncertainty_upper": 0.01,
+      "residual_scale": "max(1, row_model_absolute_residual, row_best_comparator_absolute_residual)",
+      "uncertainty_upper": "row selected-formula prior replay uncertainty interval upper bound"
+    },
+    "minimum_margin_absolute": 1e-12,
+    "near_tie_policy": "a strict comparator residual greater-than is insufficient; grand support requires both aggregate and every row-level best-comparator margin to meet the preregistered materiality thresholds"
+  },
+  "materiality_policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+  "materiality_audit": {
+    "policy": {
+      "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+      "policy_version": "1.0",
+      "pre_registered": true,
+      "metric": "absolute residual advantage over best preregistered comparator",
+      "aggregate_gate": {
+        "minimum_margin_fraction_of_residual_scale": 0.01,
+        "minimum_margin_fraction_of_uncertainty_upper": 0.01,
+        "residual_scale": "max(1, model_mean_absolute_residual, best_comparator_mean_absolute_residual)",
+        "uncertainty_upper": "candidate-pack uncertainty interval upper bound"
+      },
+      "row_gate": {
+        "minimum_margin_fraction_of_residual_scale": 0.01,
+        "minimum_margin_fraction_of_uncertainty_upper": 0.01,
+        "residual_scale": "max(1, row_model_absolute_residual, row_best_comparator_absolute_residual)",
+        "uncertainty_upper": "row selected-formula prior replay uncertainty interval upper bound"
+      },
+      "minimum_margin_absolute": 1e-12,
+      "near_tie_policy": "a strict comparator residual greater-than is insufficient; grand support requires both aggregate and every row-level best-comparator margin to meet the preregistered materiality thresholds"
+    },
+    "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+    "aggregate_margin": 37641.359375,
+    "aggregate_required_margin": 122277141438.31828,
+    "aggregate_residual_scale": 2289261329216.593,
+    "aggregate_uncertainty_upper": 12227714143831.828,
+    "aggregate_margin_fraction_of_residual_scale": 1.6442578614596715e-08,
+    "aggregate_margin_fraction_of_uncertainty_upper": 3.078364355940385e-09,
+    "aggregate_passed": false,
+    "row_total": 57,
+    "row_audit_total": 57,
+    "row_materiality_passed_total": 0,
+    "row_materiality_failed_total": 57,
+    "row_materiality_failures": [
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1968",
+        "heldout_year": 1968,
+        "margin": 2294.873046875,
+        "required_margin": 1849421605.473301,
+        "residual_scale": 184942160547.33008,
+        "uncertainty_upper": 167472849165.6853
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1969",
+        "heldout_year": 1969,
+        "margin": 2479.8154296875,
+        "required_margin": 2593087088.6998973,
+        "residual_scale": 259308708869.98975,
+        "uncertainty_upper": 184942158252.45703
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1970",
+        "heldout_year": 1970,
+        "margin": 2739.1240234375,
+        "required_margin": 2651344870.1536036,
+        "residual_scale": 265134487015.36035,
+        "uncertainty_upper": 259308706390.17432
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1971",
+        "heldout_year": 1971,
+        "margin": 3004.25830078125,
+        "required_margin": 3156386346.8327003,
+        "residual_scale": 315638634683.27,
+        "uncertainty_upper": 265134484276.23633
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1972",
+        "heldout_year": 1972,
+        "margin": 3319.89697265625,
+        "required_margin": 5143164686.984898,
+        "residual_scale": 514316468698.48975,
+        "uncertainty_upper": 315638631679.0117
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1973",
+        "heldout_year": 1973,
+        "margin": 3834.21337890625,
+        "required_margin": 8543441474.507798,
+        "residual_scale": 854344147450.7798,
+        "uncertainty_upper": 514316465378.5928
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1974",
+        "heldout_year": 1974,
+        "margin": 4688.5576171875,
+        "required_margin": 8543441436.165665,
+        "residual_scale": 730956502539.3604,
+        "uncertainty_upper": 854344143616.5664
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1975",
+        "heldout_year": 1975,
+        "margin": 5419.5146484375,
+        "required_margin": 8543441436.165665,
+        "residual_scale": 615627950785.7402,
+        "uncertainty_upper": 854344143616.5664
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1976",
+        "heldout_year": 1976,
+        "margin": 6035.142578125,
+        "required_margin": 8543441436.165665,
+        "residual_scale": 525031502346.4297,
+        "uncertainty_upper": 854344143616.5664
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1977",
+        "heldout_year": 1977,
+        "margin": 6560.173828125,
+        "required_margin": 8562692098.338897,
+        "residual_scale": 856269209833.8896,
+        "uncertainty_upper": 854344143616.5664
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1978",
+        "heldout_year": 1978,
+        "margin": 7416.4423828125,
+        "required_margin": 13632188879.2854,
+        "residual_scale": 1363218887928.54,
+        "uncertainty_upper": 856269203273.7158
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1979",
+        "heldout_year": 1979,
+        "margin": 8779.662109375,
+        "required_margin": 13758011582.009308,
+        "residual_scale": 1375801158200.9307,
+        "uncertainty_upper": 1363218880512.0977
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1980",
+        "heldout_year": 1980,
+        "margin": 10155.462890625,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 1297305638399.6992,
+        "uncertainty_upper": 1375801149421.2686
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1981",
+        "heldout_year": 1981,
+        "margin": 11452.767578125,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 390672553291.0,
+        "uncertainty_upper": 1375801149421.2686
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1982",
+        "heldout_year": 1982,
+        "margin": 11843.44140625,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 124164437310.69922,
+        "uncertainty_upper": 1375801149421.2686
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1983",
+        "heldout_year": 1983,
+        "margin": 11719.27734375,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 243698137257.19922,
+        "uncertainty_upper": 1375801149421.2686
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1984",
+        "heldout_year": 1984,
+        "margin": 11962.974609375,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 464982784152.9004,
+        "uncertainty_upper": 1375801149421.2686
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1985",
+        "heldout_year": 1985,
+        "margin": 12427.95703125,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 589024868705.1992,
+        "uncertainty_upper": 1375801149421.2686
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1986",
+        "heldout_year": 1986,
+        "margin": 13016.982421875,
+        "required_margin": 23314566986.294003,
+        "residual_scale": 2331456698629.4004,
+        "uncertainty_upper": 1375801149421.2686
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1987",
+        "heldout_year": 1987,
+        "margin": 15348.439453125,
+        "required_margin": 23314566856.12418,
+        "residual_scale": 2123800478166.4004,
+        "uncertainty_upper": 2331456685612.418
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1988",
+        "heldout_year": 1988,
+        "margin": 17472.240234375,
+        "required_margin": 23314566856.12418,
+        "residual_scale": 2052582183314.8984,
+        "uncertainty_upper": 2331456685612.418
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1989",
+        "heldout_year": 1989,
+        "margin": 19524.8203125,
+        "required_margin": 23314566856.12418,
+        "residual_scale": 870992152367.1016,
+        "uncertainty_upper": 2331456685612.418
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1990",
+        "heldout_year": 1990,
+        "margin": 20395.8125,
+        "required_margin": 25269371243.64,
+        "residual_scale": 2526937124364.0,
+        "uncertainty_upper": 2331456685612.418
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1991",
+        "heldout_year": 1991,
+        "margin": 22922.75,
+        "required_margin": 25269371039.681877,
+        "residual_scale": 998152796985.8984,
+        "uncertainty_upper": 2526937103968.1875
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1992",
+        "heldout_year": 1992,
+        "margin": 23920.90234375,
+        "required_margin": 25269371039.681877,
+        "residual_scale": 1626055187795.9023,
+        "uncertainty_upper": 2526937103968.1875
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1993",
+        "heldout_year": 1993,
+        "margin": 25546.9609375,
+        "required_margin": 25269371039.681877,
+        "residual_scale": 427964416438.6992,
+        "uncertainty_upper": 2526937103968.1875
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1994",
+        "heldout_year": 1994,
+        "margin": 25974.921875,
+        "required_margin": 25269371039.681877,
+        "residual_scale": 1986524873512.1016,
+        "uncertainty_upper": 2526937103968.1875
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1995",
+        "heldout_year": 1995,
+        "margin": 27961.44921875,
+        "required_margin": 32839712697.183987,
+        "residual_scale": 3283971269718.3984,
+        "uncertainty_upper": 2526937103968.1875
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1996",
+        "heldout_year": 1996,
+        "margin": 31245.41796875,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 723530608564.6992,
+        "uncertainty_upper": 3283971241756.949
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1997",
+        "heldout_year": 1997,
+        "margin": 31968.94921875,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 98390129615.0,
+        "uncertainty_upper": 3283971241756.949
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1998",
+        "heldout_year": 1998,
+        "margin": 31870.55859375,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 136810938929.0,
+        "uncertainty_upper": 3283971241756.949
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1999",
+        "heldout_year": 1999,
+        "margin": 31733.75,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 1049078600498.6016,
+        "uncertainty_upper": 3283971241756.949
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2000",
+        "heldout_year": 2000,
+        "margin": 32782.828125,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 1115328657660.5977,
+        "uncertainty_upper": 3283971241756.949
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2001",
+        "heldout_year": 2001,
+        "margin": 33898.15625,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 207738727593.19922,
+        "uncertainty_upper": 3283971241756.949
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2002",
+        "heldout_year": 2002,
+        "margin": 33690.41796875,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 1301107865304.1992,
+        "uncertainty_upper": 3283971241756.949
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2003",
+        "heldout_year": 2003,
+        "margin": 34991.52734375,
+        "required_margin": 42517514213.450005,
+        "residual_scale": 4251751421345.0,
+        "uncertainty_upper": 3283971241756.949
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2004",
+        "heldout_year": 2004,
+        "margin": 39243.2734375,
+        "required_margin": 49821074636.07805,
+        "residual_scale": 4982107463607.805,
+        "uncertainty_upper": 4251751386353.4727
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2005",
+        "heldout_year": 2005,
+        "margin": 44225.3828125,
+        "required_margin": 49821074243.64532,
+        "residual_scale": 3675105358299.0938,
+        "uncertainty_upper": 4982107424364.531
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2006",
+        "heldout_year": 2006,
+        "margin": 47900.4921875,
+        "required_margin": 49821074243.64532,
+        "residual_scale": 4023017476327.203,
+        "uncertainty_upper": 4982107424364.531
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2007",
+        "heldout_year": 2007,
+        "margin": 51923.5078125,
+        "required_margin": 66022785166.89797,
+        "residual_scale": 6602278516689.797,
+        "uncertainty_upper": 4982107424364.531
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2008",
+        "heldout_year": 2008,
+        "margin": 58525.7890625,
+        "required_margin": 66022784647.662895,
+        "residual_scale": 5785943563455.5,
+        "uncertainty_upper": 6602278464766.289
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2009",
+        "heldout_year": 2009,
+        "margin": 64311.7265625,
+        "required_margin": 66022784647.662895,
+        "residual_scale": 3329473404636.8984,
+        "uncertainty_upper": 6602278464766.289
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2010",
+        "heldout_year": 2010,
+        "margin": 60982.2578125,
+        "required_margin": 66022784647.662895,
+        "residual_scale": 5828935531610.5,
+        "uncertainty_upper": 6602278464766.289
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2011",
+        "heldout_year": 2011,
+        "margin": 66811.1953125,
+        "required_margin": 74985178621.74399,
+        "residual_scale": 7498517862174.398,
+        "uncertainty_upper": 6602278464766.289
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2012",
+        "heldout_year": 2012,
+        "margin": 74309.703125,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 1650885241967.7031,
+        "uncertainty_upper": 7498517795363.203
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2013",
+        "heldout_year": 2013,
+        "margin": 75960.59375,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 2074298245422.0938,
+        "uncertainty_upper": 7498517795363.203
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2014",
+        "heldout_year": 2014,
+        "margin": 78034.890625,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 2019995934252.0,
+        "uncertainty_upper": 7498517795363.203
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2015",
+        "heldout_year": 2015,
+        "margin": 80054.890625,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 4432974813785.0,
+        "uncertainty_upper": 7498517795363.203
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2016",
+        "heldout_year": 2016,
+        "margin": 75621.90625,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 1209770050880.1094,
+        "uncertainty_upper": 7498517795363.203
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2017",
+        "heldout_year": 2017,
+        "margin": 76831.6875,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 5007418904518.5,
+        "uncertainty_upper": 7498517795363.203
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2018",
+        "heldout_year": 2018,
+        "margin": 81839.109375,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 5211862039033.703,
+        "uncertainty_upper": 7498517795363.203
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2019",
+        "heldout_year": 2019,
+        "margin": 87050.96875,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 1432297462118.2969,
+        "uncertainty_upper": 7498517795363.203
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2020",
+        "heldout_year": 2020,
+        "margin": 88483.265625,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 2570501382965.5,
+        "uncertainty_upper": 7498517795363.203
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2021",
+        "heldout_year": 2021,
+        "margin": 85912.765625,
+        "required_margin": 122277142297.44594,
+        "residual_scale": 12227714229744.594,
+        "uncertainty_upper": 7498517795363.203
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2022",
+        "heldout_year": 2022,
+        "margin": 98140.46875,
+        "required_margin": 122277141438.31828,
+        "residual_scale": 4111049460555.203,
+        "uncertainty_upper": 12227714143831.828
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2023",
+        "heldout_year": 2023,
+        "margin": 102251.53125,
+        "required_margin": 122277141438.31828,
+        "residual_scale": 4490123095533.0,
+        "uncertainty_upper": 12227714143831.828
+      },
+      {
+        "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2024",
+        "heldout_year": 2024,
+        "margin": 106741.640625,
+        "required_margin": 122277141438.31828,
+        "residual_scale": 4241013358949.0,
+        "uncertainty_upper": 12227714143831.828
+      }
+    ],
+    "passed": false
   },
   "rows": [
     {
@@ -504,7 +1024,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "ee919b045e3f6b2b7d01e54c1a76d36d25795c07376a633d783ae581d850c923"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 2294.873046875,
+        "required_margin": 1849421605.473301,
+        "residual_scale": 184942160547.33008,
+        "uncertainty_upper": 167472849165.6853,
+        "margin_fraction_of_residual_scale": 1.240859866719087e-08,
+        "margin_fraction_of_uncertainty_upper": 1.3702955782430271e-08,
+        "passed": false
+      },
+      "row_hash": "86b71642248e467c2ff83730b74f3755f969d2196bb732744a5604ff9c1449f1"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1969",
@@ -840,7 +1371,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "64fa393becc68ad141a1e7e6a56895b9557c45a0272e7fced734df1af83b5848"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 2479.8154296875,
+        "required_margin": 2593087088.6998973,
+        "residual_scale": 259308708869.98975,
+        "uncertainty_upper": 184942158252.45703,
+        "margin_fraction_of_residual_scale": 9.563178346357858e-09,
+        "margin_fraction_of_uncertainty_upper": 1.3408600035381899e-08,
+        "passed": false
+      },
+      "row_hash": "64a77ae7915ffb6c6e9eb3dd70abd2a6f273818b4458cfc4f78116ddc4f4766f"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1970",
@@ -1190,7 +1732,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "febd037cd44220197288d6613caa01d63040ada96b4da85ffe0dce1734b46802"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 2739.1240234375,
+        "required_margin": 2651344870.1536036,
+        "residual_scale": 265134487015.36035,
+        "uncertainty_upper": 259308706390.17432,
+        "margin_fraction_of_residual_scale": 1.0331074068379536e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0563178003425843e-08,
+        "passed": false
+      },
+      "row_hash": "7e89bc64edbd2939c54e64148875c897ed7d08cbb7596a9b435245ec19fc4b2b"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1971",
@@ -1554,7 +2107,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "e06240d330e7d80ecdac7ec2c14232c5dfde8a73d303080885fa936daee6c4f3"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 3004.25830078125,
+        "required_margin": 3156386346.8327003,
+        "residual_scale": 315638634683.27,
+        "uncertainty_upper": 265134484276.23633,
+        "margin_fraction_of_residual_scale": 9.518030971702485e-09,
+        "margin_fraction_of_uncertainty_upper": 1.1331073394629405e-08,
+        "passed": false
+      },
+      "row_hash": "d82783cc40170982ecb54608f699dfb27934772cf226baccd7b1521a59889667"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1972",
@@ -1932,7 +2496,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "15fe9e94ecc787558568501f6d2e939d63b40a228e40b5632339f2f868e8c230"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 3319.89697265625,
+        "required_margin": 5143164686.984898,
+        "residual_scale": 514316468698.48975,
+        "uncertainty_upper": 315638631679.0117,
+        "margin_fraction_of_residual_scale": 6.4549692158554805e-09,
+        "margin_fraction_of_uncertainty_upper": 1.0518031189643525e-08,
+        "passed": false
+      },
+      "row_hash": "04ee304ecab535f9188ddfdc93a8cda88253b53e63a1a13c5450885593f28635"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1973",
@@ -2324,7 +2899,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "08fd1782a9261e6c7e3d1c05e8a20109cebfb00a2ae4a7edc849f1bb0649c7e3"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 3834.21337890625,
+        "required_margin": 8543441474.507798,
+        "residual_scale": 854344147450.7798,
+        "uncertainty_upper": 514316465378.5928,
+        "margin_fraction_of_residual_scale": 4.487902668200984e-09,
+        "margin_fraction_of_uncertainty_upper": 7.454969142556718e-09,
+        "passed": false
+      },
+      "row_hash": "455bbb6535c3a9f01eb50f7969b61d665f6ca4432535c55a8dcb8b9301c18c13"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1974",
@@ -2730,7 +3316,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "fd6d4c0647533defd57ea2e647af2f1b4a6926559f87d90eeedcf327ff947c2b"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 4688.5576171875,
+        "required_margin": 8543441436.165665,
+        "residual_scale": 730956502539.3604,
+        "uncertainty_upper": 854344143616.5664,
+        "margin_fraction_of_residual_scale": 6.4142771846195206e-09,
+        "margin_fraction_of_uncertainty_upper": 5.487902799146179e-09,
+        "passed": false
+      },
+      "row_hash": "22abfcedd567c670eb2da99d8aca6740585506f8043accbccdf36cee7da601a5"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1975",
@@ -3150,7 +3747,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "8b7c0b52ea0baaa5ab4b295f3dffc2455b46476417632f6974a00aa8a326bd13"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 5419.5146484375,
+        "required_margin": 8543441436.165665,
+        "residual_scale": 615627950785.7402,
+        "uncertainty_upper": 854344143616.5664,
+        "margin_fraction_of_residual_scale": 8.803230330137623e-09,
+        "margin_fraction_of_uncertainty_upper": 6.343479602371809e-09,
+        "passed": false
+      },
+      "row_hash": "b809950b12c86f84279b13a14fe41f0cbfb9095965cb1b1d7f436f6218a3524e"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1976",
@@ -3584,7 +4192,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "16d2c51eb0a659182beab75cae222da7f39f7faef63b7981a6dd272e53ea7224"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 6035.142578125,
+        "required_margin": 8543441436.165665,
+        "residual_scale": 525031502346.4297,
+        "uncertainty_upper": 854344143616.5664,
+        "margin_fraction_of_residual_scale": 1.1494819932048292e-08,
+        "margin_fraction_of_uncertainty_upper": 7.06406501784789e-09,
+        "passed": false
+      },
+      "row_hash": "e027e2ce4ec630b90dec53c32909dcf38ea64d1479abf850e04be214de07ffc1"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1977",
@@ -4032,7 +4651,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "bc259b60ec2f2b5d1dd6727dbe63839fc615c7c59099b3af9c9233634b1f90b7"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 6560.173828125,
+        "required_margin": 8562692098.338897,
+        "residual_scale": 856269209833.8896,
+        "uncertainty_upper": 854344143616.5664,
+        "margin_fraction_of_residual_scale": 7.661344998493673e-09,
+        "margin_fraction_of_uncertainty_upper": 7.678608061096789e-09,
+        "passed": false
+      },
+      "row_hash": "e226df142f535edb35d0b2e7ef565ac9cd34ed7b94ef44cea2c5ea2a52191399"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1978",
@@ -4494,7 +5124,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "cb308bd32734004ab6af5b0cbc717a04e680c04acd727c3d5405583451c71b3f"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 7416.4423828125,
+        "required_margin": 13632188879.2854,
+        "residual_scale": 1363218887928.54,
+        "uncertainty_upper": 856269203273.7158,
+        "margin_fraction_of_residual_scale": 5.440389983212491e-09,
+        "margin_fraction_of_uncertainty_upper": 8.661344299733915e-09,
+        "passed": false
+      },
+      "row_hash": "3440179cb8457f009e65a95ef490f49e74e8b3b8ef835f12f16723532e31ba65"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1979",
@@ -4970,7 +5611,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "dd3e00ff7667149b1457bd0ba9b12336ff7ace76afc00be2b31463ef80f3a9a6"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 8779.662109375,
+        "required_margin": 13758011582.009308,
+        "residual_scale": 1375801158200.9307,
+        "uncertainty_upper": 1363218880512.0977,
+        "margin_fraction_of_residual_scale": 6.381490564272925e-09,
+        "margin_fraction_of_uncertainty_upper": 6.4403906334373036e-09,
+        "passed": false
+      },
+      "row_hash": "e633a55d12191a60451642b722d65fc43357b4729cd425e0fb15fb2af8a92bc4"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1980",
@@ -5460,7 +6112,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "3042b4f4bcfb110a5ad10ead79a09ab37da7a627409118e4385318d720105417"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 10155.462890625,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 1297305638399.6992,
+        "uncertainty_upper": 1375801149421.2686,
+        "margin_fraction_of_residual_scale": 7.828118979851459e-09,
+        "margin_fraction_of_uncertainty_upper": 7.381490337391345e-09,
+        "passed": false
+      },
+      "row_hash": "bc715348af45931115e9e80b48e889e22fa6e87457c951268824b6bce4c425f6"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1981",
@@ -5964,7 +6627,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "fc5548a17ef5daf3f5c59ca65c5f3afda7c9fa6f270d3935693eff96f1b74660"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 11452.767578125,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 390672553291.0,
+        "uncertainty_upper": 1375801149421.2686,
+        "margin_fraction_of_residual_scale": 2.9315516233857833e-08,
+        "margin_fraction_of_uncertainty_upper": 8.32443524483361e-09,
+        "passed": false
+      },
+      "row_hash": "adf0062f1e915774843764aab612760b3abc88c21b3fa00d19673dead6859e12"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1982",
@@ -6482,7 +7156,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "203addac77202eb24dedb0ecf52cdd13b3453c56cf5c2a03b25f3e78f45a9916"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 11843.44140625,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 124164437310.69922,
+        "uncertainty_upper": 1375801149421.2686,
+        "margin_fraction_of_residual_scale": 9.53851333181168e-08,
+        "margin_fraction_of_uncertainty_upper": 8.608396214258106e-09,
+        "passed": false
+      },
+      "row_hash": "86c23eefe20f864d29d251c2c7a786840db2e67cbc45c81640821d8c2bcec1f6"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1983",
@@ -7014,7 +7699,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "30e42ecd272e44fcdd96637b7878b3d1c382760c9d8df0bb69e26d69ef1cdc1d"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 11719.27734375,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 243698137257.19922,
+        "uncertainty_upper": 1375801149421.2686,
+        "margin_fraction_of_residual_scale": 4.808931851367196e-08,
+        "margin_fraction_of_uncertainty_upper": 8.51814766158592e-09,
+        "passed": false
+      },
+      "row_hash": "c4c855912cb5c9eac761f25dae9e0d0bdd6b844bdb5aac7005a2af6faef60db0"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1984",
@@ -7560,7 +8256,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "37a02106ce33ca394a852f75a8072776e081974e73a091e8af00f9832011164c"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 11962.974609375,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 464982784152.9004,
+        "uncertainty_upper": 1375801149421.2686,
+        "margin_fraction_of_residual_scale": 2.5727779644936732e-08,
+        "margin_fraction_of_uncertainty_upper": 8.695278830379835e-09,
+        "passed": false
+      },
+      "row_hash": "80c08bd6614798d1c7f4fd47f43441758e42441a630b3e35cf9c22c0934c76dd"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1985",
@@ -8120,7 +8827,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "5297c3a4f870ad198f096d896175eb45d0a71d88f7c326461c9180cb78a61752"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 12427.95703125,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 589024868705.1992,
+        "uncertainty_upper": 1375801149421.2686,
+        "margin_fraction_of_residual_scale": 2.1099205978466188e-08,
+        "margin_fraction_of_uncertainty_upper": 9.033250943624976e-09,
+        "passed": false
+      },
+      "row_hash": "eda00c0bf7fb904573a9338d52b19fe5f7baf6e34d15e5a55d713e966717a0bf"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1986",
@@ -8694,7 +9412,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "67ddfdb1a3e195d0d03442248274880741d602ecb2d4485a8e15893733d530cb"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 13016.982421875,
+        "required_margin": 23314566986.294003,
+        "residual_scale": 2331456698629.4004,
+        "uncertainty_upper": 1375801149421.2686,
+        "margin_fraction_of_residual_scale": 5.583197161468763e-09,
+        "margin_fraction_of_uncertainty_upper": 9.461383592643894e-09,
+        "passed": false
+      },
+      "row_hash": "1ba05bac79b10a3eed6a8fccc0b43c040836c7f3d5a8f2bf1079a70fe0d372ba"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1987",
@@ -9282,7 +10011,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "86ab0663da148e3448bc4f517ea92f1d4cd8ffcca33d095d969afa7b4de565fe"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 15348.439453125,
+        "required_margin": 23314566856.12418,
+        "residual_scale": 2123800478166.4004,
+        "uncertainty_upper": 2331456685612.418,
+        "margin_fraction_of_residual_scale": 7.22687446910088e-09,
+        "margin_fraction_of_uncertainty_upper": 6.583197340890479e-09,
+        "passed": false
+      },
+      "row_hash": "5b71bc77d49e739e9207a47e8e5134e3a0f513fce47965579f24bac77098d6c2"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1988",
@@ -9884,7 +10624,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "9369253dfdea80ce4e26c493adcbece4215ab08e327ce42db205fcbf6abaed7b"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 17472.240234375,
+        "required_margin": 23314566856.12418,
+        "residual_scale": 2052582183314.8984,
+        "uncertainty_upper": 2331456685612.418,
+        "margin_fraction_of_residual_scale": 8.512321882360645e-09,
+        "margin_fraction_of_uncertainty_upper": 7.49413031869621e-09,
+        "passed": false
+      },
+      "row_hash": "9f70bb7e41979b516a397a9ba605dcde265cb85e2aac4a507b5fc30a8d934fe0"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1989",
@@ -10500,7 +11251,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "30f0ee094fe13dc332593ffc2559be13b70efb10249e00de59e5e80a6b5dcf90"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 19524.8203125,
+        "required_margin": 23314566856.12418,
+        "residual_scale": 870992152367.1016,
+        "uncertainty_upper": 2331456685612.418,
+        "margin_fraction_of_residual_scale": 2.241675801491122e-08,
+        "margin_fraction_of_uncertainty_upper": 8.374515569167135e-09,
+        "passed": false
+      },
+      "row_hash": "bd33a3b8a74dd94470fee4efb6bddf567192bf8a518b77dc4b420ced0704cf34"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1990",
@@ -11130,7 +11892,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "0540f28159ee202d3cc7fc61e36d6d92f1dce1c524a26aa666bb1670c0f6dd0f"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 20395.8125,
+        "required_margin": 25269371243.64,
+        "residual_scale": 2526937124364.0,
+        "uncertainty_upper": 2331456685612.418,
+        "margin_fraction_of_residual_scale": 8.071357337445973e-09,
+        "margin_fraction_of_uncertainty_upper": 8.748098399538787e-09,
+        "passed": false
+      },
+      "row_hash": "df6c7b7e7457cec7dea29baf2fba0462cb5e4baac052bd3cb18ff7f38ba2338d"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1991",
@@ -11774,7 +12547,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "fb12764eeb144f0eacb5686f890521696eca29c4832fdd95a31e5d11f0439114"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 22922.75,
+        "required_margin": 25269371039.681877,
+        "residual_scale": 998152796985.8984,
+        "uncertainty_upper": 2526937103968.1875,
+        "margin_fraction_of_residual_scale": 2.2965171333706982e-08,
+        "margin_fraction_of_uncertainty_upper": 9.071357559316831e-09,
+        "passed": false
+      },
+      "row_hash": "e42ab00fb987515f92100251736b62f0a39c6b1c97e8cf6820454586671a1e50"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1992",
@@ -12432,7 +13216,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "135203066a0c95ca254312fb69a32d124be193a96fc88f31c0af66598a2457d7"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 23920.90234375,
+        "required_margin": 25269371039.681877,
+        "residual_scale": 1626055187795.9023,
+        "uncertainty_upper": 2526937103968.1875,
+        "margin_fraction_of_residual_scale": 1.4711002752726053e-08,
+        "margin_fraction_of_uncertainty_upper": 9.466362382421667e-09,
+        "passed": false
+      },
+      "row_hash": "d84886396d5df9e753656a03885de42a2da0b3e1d5e0103680faea3f1314c6d4"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1993",
@@ -13104,7 +13899,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "4f3f4e03ed35d6fd09de6e79c7ec550687bfbf8687e16cc7b3c2b66084c91cc6"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 25546.9609375,
+        "required_margin": 25269371039.681877,
+        "residual_scale": 427964416438.6992,
+        "uncertainty_upper": 2526937103968.1875,
+        "margin_fraction_of_residual_scale": 5.969412398836504e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0109852317804907e-08,
+        "passed": false
+      },
+      "row_hash": "bc1f1003c390e3d46a8cc384fe46b0a7038a796903fc2fe488df8c45bf578b87"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1994",
@@ -13790,7 +14596,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "2e80e5fb06f6793ed88fdf330d226b751a7e3b2eaa00a2ae48edbd5d40ca3108"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 25974.921875,
+        "required_margin": 25269371039.681877,
+        "residual_scale": 1986524873512.1016,
+        "uncertainty_upper": 2526937103968.1875,
+        "margin_fraction_of_residual_scale": 1.3075558338757325e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0279211870453824e-08,
+        "passed": false
+      },
+      "row_hash": "9c4c95e0d4b5d8abe4e6db20a6461b7affaf06149c7464358ddd94d77850bc4f"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1995",
@@ -14490,7 +15307,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "cce88f7746057f92910aa30f22ef2e096bea1ce3406766ca3ea215917374156a"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 27961.44921875,
+        "required_margin": 32839712697.183987,
+        "residual_scale": 3283971269718.3984,
+        "uncertainty_upper": 2526937103968.1875,
+        "margin_fraction_of_residual_scale": 8.514523094822234e-09,
+        "margin_fraction_of_uncertainty_upper": 1.1065352269686732e-08,
+        "passed": false
+      },
+      "row_hash": "b15f7d3ed82c1b59447b246891a201d8eba4a676df2817704f1a050d2d109b10"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1996",
@@ -15204,7 +16032,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "37e67c2fc7f0df14b95c8447d98b1032f92df517bed0f53f32b0fe24342b3de0"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 31245.41796875,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 723530608564.6992,
+        "uncertainty_upper": 3283971241756.949,
+        "margin_fraction_of_residual_scale": 4.318465258951928e-08,
+        "margin_fraction_of_uncertainty_upper": 9.51452240855601e-09,
+        "passed": false
+      },
+      "row_hash": "3d0213fd6ff8b6865acf99a5cd9d0d9a2057c363985cd3d5b4035c1baae2afa8"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1997",
@@ -15932,7 +16771,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "c6219b1cbe17b463d7a671bbb61d3dcbfe3fdd8b3819aa806edb82354b7d36de"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 31968.94921875,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 98390129615.0,
+        "uncertainty_upper": 3283971241756.949,
+        "margin_fraction_of_residual_scale": 3.2492028767361434e-07,
+        "margin_fraction_of_uncertainty_upper": 9.734844450600722e-09,
+        "passed": false
+      },
+      "row_hash": "e4df641085701b7014ef406097d6f11952b6a1f3671b4bd8bde83dd66ba5929c"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1998",
@@ -16674,7 +17524,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "612bd9f11a3d53073140e5a292ba27120b25f353f9955433cd2a34fcd3cd21c2"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 31870.55859375,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 136810938929.0,
+        "uncertainty_upper": 3283971241756.949,
+        "margin_fraction_of_residual_scale": 2.3295329191688162e-07,
+        "margin_fraction_of_uncertainty_upper": 9.704883583785287e-09,
+        "passed": false
+      },
+      "row_hash": "b7a500c6ad63b21d35fff3c5c432e870b33f7991cc4b3c70a4e5f1bbe590461c"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1999",
@@ -17430,7 +18291,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "dfc35e5596cbefc54c2806870c1c08d3bcc0b3c1b6b6a3a0413728d29c2668b8"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 31733.75,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 1049078600498.6016,
+        "uncertainty_upper": 3283971241756.949,
+        "margin_fraction_of_residual_scale": 3.024916339435169e-08,
+        "margin_fraction_of_uncertainty_upper": 9.66322408567202e-09,
+        "passed": false
+      },
+      "row_hash": "60e537bfac3de341446f818378eaeb99f4fa5af3093741b804b64d4e1993ac01"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2000",
@@ -18200,7 +19072,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "b8e59117cee7471ea8452d13f4d9f72b877be9ca7cbb90fe51e83988ff276d41"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 32782.828125,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 1115328657660.5977,
+        "uncertainty_upper": 3283971241756.949,
+        "margin_fraction_of_residual_scale": 2.9392975693605862e-08,
+        "margin_fraction_of_uncertainty_upper": 9.982678200147983e-09,
+        "passed": false
+      },
+      "row_hash": "a41bcd2ff517c1e011cade8410ab644ef1b2ec6fbf2df066166f4542a5c1de67"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2001",
@@ -18984,7 +19867,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "8e1bb3660dcd0ba98f7b2bb7d25db358431b482d11b4590e8b93fd37d041746d"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 33898.15625,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 207738727593.19922,
+        "uncertainty_upper": 3283971241756.949,
+        "margin_fraction_of_residual_scale": 1.631768743494977e-07,
+        "margin_fraction_of_uncertainty_upper": 1.0322306060105519e-08,
+        "passed": false
+      },
+      "row_hash": "50e5c1102612bf9648f21beafea180cfa47053b76eeac6bbcc81586e9194b0be"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2002",
@@ -19782,7 +20676,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "357436ada71e21c0ad2711c88f97464a16afcdaffb028343e59b36e3482aa3dc"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 33690.41796875,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 1301107865304.1992,
+        "uncertainty_upper": 3283971241756.949,
+        "margin_fraction_of_residual_scale": 2.5893639464605937e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0259047807838102e-08,
+        "passed": false
+      },
+      "row_hash": "3b51ddf58239640e8844dd979bc5d9084a6389f34c628ee1ac996e2c5c59b9b0"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2003",
@@ -20594,7 +21499,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "5cbfa14ef51e9e45acc73d2638dcb4d429fb5945d6b7bcf03dc646662ec30d9c"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 34991.52734375,
+        "required_margin": 42517514213.450005,
+        "residual_scale": 4251751421345.0,
+        "uncertainty_upper": 3283971241756.949,
+        "margin_fraction_of_residual_scale": 8.229909013044035e-09,
+        "margin_fraction_of_uncertainty_upper": 1.0655247798403152e-08,
+        "passed": false
+      },
+      "row_hash": "2bdccfd835178151ada0b3d4c21a529b0f3aee3a906c69a73562c199dd5ee835"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2004",
@@ -21420,7 +22336,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "13f2b9f55fbb63a3c3cecabf537afc6e7a1726e91e1a59e401d30fc158d32aa3"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 39243.2734375,
+        "required_margin": 49821074636.07805,
+        "residual_scale": 4982107463607.805,
+        "uncertainty_upper": 4251751386353.4727,
+        "margin_fraction_of_residual_scale": 7.876842024014048e-09,
+        "margin_fraction_of_uncertainty_upper": 9.229907835969947e-09,
+        "passed": false
+      },
+      "row_hash": "8a5b7f4386fd5c9850f7bc1af24ec74c6658580ed8cc3fb63dcfc27a04a245d9"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2005",
@@ -22260,7 +23187,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "d3b5bcbcb51442f1d4f6e6a18dc4456b6ab89f9b798564d3aefa1f5b8797946c"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 44225.3828125,
+        "required_margin": 49821074243.64532,
+        "residual_scale": 3675105358299.0938,
+        "uncertainty_upper": 4982107424364.531,
+        "margin_fraction_of_residual_scale": 1.203377277678056e-08,
+        "margin_fraction_of_uncertainty_upper": 8.876842477586873e-09,
+        "passed": false
+      },
+      "row_hash": "38b51c5827380b787b722b3aaa6da574efc266bbfdc303e965661fcc67da7e7e"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2006",
@@ -23114,7 +24052,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "b83d78d7b7e901c5dd25e6d2c8890be1319f0883df5ae0df676bda4732ccb2cc"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 47900.4921875,
+        "required_margin": 49821074243.64532,
+        "residual_scale": 4023017476327.203,
+        "uncertainty_upper": 4982107424364.531,
+        "margin_fraction_of_residual_scale": 1.1906608029759432e-08,
+        "margin_fraction_of_uncertainty_upper": 9.614504085810578e-09,
+        "passed": false
+      },
+      "row_hash": "6722e1565b7e2f72f0946be4f4cbcb7820b1354d35e0d9cc5ff338d162187800"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2007",
@@ -23982,7 +24931,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "1e8a9d02c3074251572645393b8bf8045f8204ed46a61cc979d898b2073edf12"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 51923.5078125,
+        "required_margin": 66022785166.89797,
+        "residual_scale": 6602278516689.797,
+        "uncertainty_upper": 4982107424364.531,
+        "margin_fraction_of_residual_scale": 7.864483099469883e-09,
+        "margin_fraction_of_uncertainty_upper": 1.0421996835831546e-08,
+        "passed": false
+      },
+      "row_hash": "92e419e171d47b0866c50bedf8674b4b6d4dbecd7db9a830eaaf93d4c09267f5"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2008",
@@ -24864,7 +25824,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "adb53466409a67a1aabb36c5b2e7437021705a6244a7d6c8dda396ca3e87b64b"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 58525.7890625,
+        "required_margin": 66022784647.662895,
+        "residual_scale": 5785943563455.5,
+        "uncertainty_upper": 6602278464766.289,
+        "margin_fraction_of_residual_scale": 1.0115167633530638e-08,
+        "margin_fraction_of_uncertainty_upper": 8.86448358317945e-09,
+        "passed": false
+      },
+      "row_hash": "5683e348361237c208ffcaef60a26a4d02bda3fc5961424d17f788424b4c3167"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2009",
@@ -25760,7 +26731,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "9eb47bcc079e43eb81f548866e6d78406a92ee399887645d97a3941e74502c98"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 64311.7265625,
+        "required_margin": 66022784647.662895,
+        "residual_scale": 3329473404636.8984,
+        "uncertainty_upper": 6602278464766.289,
+        "margin_fraction_of_residual_scale": 1.931588535079878e-08,
+        "margin_fraction_of_uncertainty_upper": 9.740838243298262e-09,
+        "passed": false
+      },
+      "row_hash": "29be12e9f6a303dd5eebedb48b18f3335c7ac1983df632db32c5e17870b104f2"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2010",
@@ -26670,7 +27652,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "0f7bc0fe772e9a5c5ea187400f542aa72bbe5dad12202046445f0e606123cb44"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 60982.2578125,
+        "required_margin": 66022784647.662895,
+        "residual_scale": 5828935531610.5,
+        "uncertainty_upper": 6602278464766.289,
+        "margin_fraction_of_residual_scale": 1.0461988725349818e-08,
+        "margin_fraction_of_uncertainty_upper": 9.236547373446582e-09,
+        "passed": false
+      },
+      "row_hash": "05cbd5e4d81e84632ab7291d99dd8d00ccf258028e446920b18e96348b796461"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2011",
@@ -27594,7 +28587,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "72bf21ec6c53c13151279114fd06d71a3f60ba8af6512a8277e8efce700502e2"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 66811.1953125,
+        "required_margin": 74985178621.74399,
+        "residual_scale": 7498517862174.398,
+        "uncertainty_upper": 6602278464766.289,
+        "margin_fraction_of_residual_scale": 8.909920138954805e-09,
+        "margin_fraction_of_uncertainty_upper": 1.0119414936683532e-08,
+        "passed": false
+      },
+      "row_hash": "79c25ddeb5a7e394ac79283ac7f32655e8a169100d0282d22c8ec60eaa8ff3d6"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2012",
@@ -28532,7 +29536,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "1cf416544bf1931b9c71205cb2688f3ddb1a284252a561d16f903f0f128210e1"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 74309.703125,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 1650885241967.7031,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 4.5012034292843805e-08,
+        "margin_fraction_of_uncertainty_upper": 9.909918887029952e-09,
+        "passed": false
+      },
+      "row_hash": "3e6a69b331ea214d115fdd38e2cff051d9ebb38c47da566cec927d9b07b3809c"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2013",
@@ -29484,7 +30499,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "b2bb4b889eab9c14960bcca6a513255af1f3c759dd05b749e86de4b228c3f0c1"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 75960.59375,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 2074298245422.0938,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 3.661989972639782e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0130081147099647e-08,
+        "passed": false
+      },
+      "row_hash": "3feb2adeada462903995f427732c67bf1adc35aae6978ee5ee5c0478a84a4375"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2014",
@@ -30450,7 +31476,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "f47634ea25707a3ea7fda3f15b3e6c61b549a9fd02e6f64009eebed31a8c48da"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 78034.890625,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 2019995934252.0,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 3.863121172760981e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0406708732925031e-08,
+        "passed": false
+      },
+      "row_hash": "159133f79e400c70af3c74a07567f6e3fc4d5175767a800e3844fdf44b2b45d8"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2015",
@@ -31430,7 +32467,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "4d44bb8569aa3f4fae44ac1da995430f9b3518921649402f6b98ce77c9bedded"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 80054.890625,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 4432974813785.0,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 1.8058954536817422e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0676095304395075e-08,
+        "passed": false
+      },
+      "row_hash": "6dcffe33c32a1377498abed60fb783c109769eb08ff9559d7924d7757fe38fa2"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2016",
@@ -32424,7 +33472,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "d47effc1b7486410405ad2a3381ee74af374134a83aaee2443c9e32518412926"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 75621.90625,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 1209770050880.1094,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 6.250932249065429e-08,
+        "margin_fraction_of_uncertainty_upper": 1.008491388748343e-08,
+        "passed": false
+      },
+      "row_hash": "3ea6b023e2905630c3a8acb0e9a70d79c42370c2f847f99e84ab7697b73cb941"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2017",
@@ -33432,7 +34491,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "86206de9efa246411ccb9b57bfbf7f5f45e0b3d9b5c885fa0d2ae81bbba1ed07"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 76831.6875,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 5007418904518.5,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 1.5343571002352145e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0246249938555828e-08,
+        "passed": false
+      },
+      "row_hash": "f6025c5c693eb48e0750ca05ea2eb46190c0a9244363d0bfb0fc79a9a6b25515"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2018",
@@ -34454,7 +35524,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "0a859965785e1806df95137c5e9e4c535e408b999804ce0e2589d4cc4717ac80"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 81839.109375,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 5211862039033.703,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 1.5702470395815245e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0914038161729266e-08,
+        "passed": false
+      },
+      "row_hash": "b69f3733959cc675836357ef71b014a93be3bc7602a0106e950fb19f5e617d3e"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2019",
@@ -35490,7 +36571,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "7fe2c129e89346eaa92bec213a7bf26818e1a482cab2787876f2216f3886555e"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 87050.96875,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 1432297462118.2969,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 6.077715771502935e-08,
+        "margin_fraction_of_uncertainty_upper": 1.1609090106291272e-08,
+        "passed": false
+      },
+      "row_hash": "4ed3c39ea306698df9e796b12341b10370d831a598f7b91f007c317cc8b9b15f"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2020",
@@ -36540,7 +37632,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "ab0db9b3d3d278a8b801b2ca23ff16a3fe06a23c9a202108fa8ef5e89cf1e23a"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 88483.265625,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 2570501382965.5,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 3.442257071378031e-08,
+        "margin_fraction_of_uncertainty_upper": 1.1800100771877167e-08,
+        "passed": false
+      },
+      "row_hash": "1f15bff445fac8697cf2a6ab23ca298a97f49154a3472354e67e613558e011b8"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2021",
@@ -37604,7 +38707,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "06bed7bfaeb0fb970bf5b88c61b60aea982cec3ccc22fc5bd08afe5a8ba8f4b8"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 85912.765625,
+        "required_margin": 122277142297.44594,
+        "residual_scale": 12227714229744.594,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 7.0260691418525655e-09,
+        "margin_fraction_of_uncertainty_upper": 1.1457299691697094e-08,
+        "passed": false
+      },
+      "row_hash": "e2beefdeea85ee92a7e71322ef59205523e208ca1540de06a43d735bc9f6079b"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2022",
@@ -38682,7 +39796,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "59b9f347ef2c9419af9b065e27d50d107f4600b2e078a831c230eca8de357beb"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 98140.46875,
+        "required_margin": 122277141438.31828,
+        "residual_scale": 4111049460555.203,
+        "uncertainty_upper": 12227714143831.828,
+        "margin_fraction_of_residual_scale": 2.387236390406891e-08,
+        "margin_fraction_of_uncertainty_upper": 8.026068290082343e-09,
+        "passed": false
+      },
+      "row_hash": "e1515de7d4ff87b9db0c3a7d67d51cf36678a8032788d3be153f68dfcd37b6d6"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2023",
@@ -39774,7 +40899,18 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "8bc9fc3edade22821c9e3a826a14045cb32b2639cacfe5780b130a2b3bbb5fbc"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 102251.53125,
+        "required_margin": 122277141438.31828,
+        "residual_scale": 4490123095533.0,
+        "uncertainty_upper": 12227714143831.828,
+        "margin_fraction_of_residual_scale": 2.2772545223030735e-08,
+        "margin_fraction_of_uncertainty_upper": 8.362276877529064e-09,
+        "passed": false
+      },
+      "row_hash": "9d7e57566909a44976fc77befb9bb50c763805598e0436e9e0b02e8ab8aa1857"
     },
     {
       "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2024",
@@ -40880,47 +42016,1469 @@
       },
       "falsifier": "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction",
       "row_hash_policy": "sha256 over canonical row JSON excluding row_hash",
-      "row_hash": "e66a23f5e7da3630921d8641023d566d495ca7e8c1703799696f9977bd920260"
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 106741.640625,
+        "required_margin": 122277141438.31828,
+        "residual_scale": 4241013358949.0,
+        "uncertainty_upper": 12227714143831.828,
+        "margin_fraction_of_residual_scale": 2.5168899880912544e-08,
+        "margin_fraction_of_uncertainty_upper": 8.729484462052539e-09,
+        "passed": false
+      },
+      "row_hash": "11d09fb25df26edd888ed49936d6c6dbc5ce41504d57239250b67833ee4fa97e"
     }
   ],
-  "exact_failure_rows": [],
+  "exact_failure_rows": [
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1968",
+      "heldout_year": 1968,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 184942158252.45703,
+      "best_comparator_residual": 184942160547.33008,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 2294.873046875,
+        "required_margin": 1849421605.473301,
+        "residual_scale": 184942160547.33008,
+        "uncertainty_upper": 167472849165.6853,
+        "margin_fraction_of_residual_scale": 1.240859866719087e-08,
+        "margin_fraction_of_uncertainty_upper": 1.3702955782430271e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1969",
+      "heldout_year": 1969,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 259308706390.17432,
+      "best_comparator_residual": 259308708869.98975,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 2479.8154296875,
+        "required_margin": 2593087088.6998973,
+        "residual_scale": 259308708869.98975,
+        "uncertainty_upper": 184942158252.45703,
+        "margin_fraction_of_residual_scale": 9.563178346357858e-09,
+        "margin_fraction_of_uncertainty_upper": 1.3408600035381899e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1970",
+      "heldout_year": 1970,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 265134484276.23633,
+      "best_comparator_residual": 265134487015.36035,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 2739.1240234375,
+        "required_margin": 2651344870.1536036,
+        "residual_scale": 265134487015.36035,
+        "uncertainty_upper": 259308706390.17432,
+        "margin_fraction_of_residual_scale": 1.0331074068379536e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0563178003425843e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1971",
+      "heldout_year": 1971,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 315638631679.0117,
+      "best_comparator_residual": 315638634683.27,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 3004.25830078125,
+        "required_margin": 3156386346.8327003,
+        "residual_scale": 315638634683.27,
+        "uncertainty_upper": 265134484276.23633,
+        "margin_fraction_of_residual_scale": 9.518030971702485e-09,
+        "margin_fraction_of_uncertainty_upper": 1.1331073394629405e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1972",
+      "heldout_year": 1972,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 514316465378.5928,
+      "best_comparator_residual": 514316468698.48975,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 3319.89697265625,
+        "required_margin": 5143164686.984898,
+        "residual_scale": 514316468698.48975,
+        "uncertainty_upper": 315638631679.0117,
+        "margin_fraction_of_residual_scale": 6.4549692158554805e-09,
+        "margin_fraction_of_uncertainty_upper": 1.0518031189643525e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1973",
+      "heldout_year": 1973,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 854344143616.5664,
+      "best_comparator_residual": 854344147450.7798,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 3834.21337890625,
+        "required_margin": 8543441474.507798,
+        "residual_scale": 854344147450.7798,
+        "uncertainty_upper": 514316465378.5928,
+        "margin_fraction_of_residual_scale": 4.487902668200984e-09,
+        "margin_fraction_of_uncertainty_upper": 7.454969142556718e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1974",
+      "heldout_year": 1974,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 730956497850.8027,
+      "best_comparator_residual": 730956502539.3604,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 4688.5576171875,
+        "required_margin": 8543441436.165665,
+        "residual_scale": 730956502539.3604,
+        "uncertainty_upper": 854344143616.5664,
+        "margin_fraction_of_residual_scale": 6.4142771846195206e-09,
+        "margin_fraction_of_uncertainty_upper": 5.487902799146179e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1975",
+      "heldout_year": 1975,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 615627945366.2256,
+      "best_comparator_residual": 615627950785.7402,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 5419.5146484375,
+        "required_margin": 8543441436.165665,
+        "residual_scale": 615627950785.7402,
+        "uncertainty_upper": 854344143616.5664,
+        "margin_fraction_of_residual_scale": 8.803230330137623e-09,
+        "margin_fraction_of_uncertainty_upper": 6.343479602371809e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1976",
+      "heldout_year": 1976,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 525031496311.2871,
+      "best_comparator_residual": 525031502346.4297,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 6035.142578125,
+        "required_margin": 8543441436.165665,
+        "residual_scale": 525031502346.4297,
+        "uncertainty_upper": 854344143616.5664,
+        "margin_fraction_of_residual_scale": 1.1494819932048292e-08,
+        "margin_fraction_of_uncertainty_upper": 7.06406501784789e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1977",
+      "heldout_year": 1977,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 856269203273.7158,
+      "best_comparator_residual": 856269209833.8896,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 6560.173828125,
+        "required_margin": 8562692098.338897,
+        "residual_scale": 856269209833.8896,
+        "uncertainty_upper": 854344143616.5664,
+        "margin_fraction_of_residual_scale": 7.661344998493673e-09,
+        "margin_fraction_of_uncertainty_upper": 7.678608061096789e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1978",
+      "heldout_year": 1978,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 1363218880512.0977,
+      "best_comparator_residual": 1363218887928.54,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 7416.4423828125,
+        "required_margin": 13632188879.2854,
+        "residual_scale": 1363218887928.54,
+        "uncertainty_upper": 856269203273.7158,
+        "margin_fraction_of_residual_scale": 5.440389983212491e-09,
+        "margin_fraction_of_uncertainty_upper": 8.661344299733915e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1979",
+      "heldout_year": 1979,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 1375801149421.2686,
+      "best_comparator_residual": 1375801158200.9307,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 8779.662109375,
+        "required_margin": 13758011582.009308,
+        "residual_scale": 1375801158200.9307,
+        "uncertainty_upper": 1363218880512.0977,
+        "margin_fraction_of_residual_scale": 6.381490564272925e-09,
+        "margin_fraction_of_uncertainty_upper": 6.4403906334373036e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1980",
+      "heldout_year": 1980,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 1297305628244.2363,
+      "best_comparator_residual": 1297305638399.6992,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 10155.462890625,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 1297305638399.6992,
+        "uncertainty_upper": 1375801149421.2686,
+        "margin_fraction_of_residual_scale": 7.828118979851459e-09,
+        "margin_fraction_of_uncertainty_upper": 7.381490337391345e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1981",
+      "heldout_year": 1981,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 390672541838.2324,
+      "best_comparator_residual": 390672553291.0,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 11452.767578125,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 390672553291.0,
+        "uncertainty_upper": 1375801149421.2686,
+        "margin_fraction_of_residual_scale": 2.9315516233857833e-08,
+        "margin_fraction_of_uncertainty_upper": 8.32443524483361e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1982",
+      "heldout_year": 1982,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 124164425467.25781,
+      "best_comparator_residual": 124164437310.69922,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 11843.44140625,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 124164437310.69922,
+        "uncertainty_upper": 1375801149421.2686,
+        "margin_fraction_of_residual_scale": 9.53851333181168e-08,
+        "margin_fraction_of_uncertainty_upper": 8.608396214258106e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1983",
+      "heldout_year": 1983,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 243698125537.92188,
+      "best_comparator_residual": 243698137257.19922,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 11719.27734375,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 243698137257.19922,
+        "uncertainty_upper": 1375801149421.2686,
+        "margin_fraction_of_residual_scale": 4.808931851367196e-08,
+        "margin_fraction_of_uncertainty_upper": 8.51814766158592e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1984",
+      "heldout_year": 1984,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 464982772189.9258,
+      "best_comparator_residual": 464982784152.9004,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 11962.974609375,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 464982784152.9004,
+        "uncertainty_upper": 1375801149421.2686,
+        "margin_fraction_of_residual_scale": 2.5727779644936732e-08,
+        "margin_fraction_of_uncertainty_upper": 8.695278830379835e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1985",
+      "heldout_year": 1985,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 589024856277.2422,
+      "best_comparator_residual": 589024868705.1992,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 12427.95703125,
+        "required_margin": 13758011494.212687,
+        "residual_scale": 589024868705.1992,
+        "uncertainty_upper": 1375801149421.2686,
+        "margin_fraction_of_residual_scale": 2.1099205978466188e-08,
+        "margin_fraction_of_uncertainty_upper": 9.033250943624976e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1986",
+      "heldout_year": 1986,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 2331456685612.418,
+      "best_comparator_residual": 2331456698629.4004,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 13016.982421875,
+        "required_margin": 23314566986.294003,
+        "residual_scale": 2331456698629.4004,
+        "uncertainty_upper": 1375801149421.2686,
+        "margin_fraction_of_residual_scale": 5.583197161468763e-09,
+        "margin_fraction_of_uncertainty_upper": 9.461383592643894e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1987",
+      "heldout_year": 1987,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 2123800462817.961,
+      "best_comparator_residual": 2123800478166.4004,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 15348.439453125,
+        "required_margin": 23314566856.12418,
+        "residual_scale": 2123800478166.4004,
+        "uncertainty_upper": 2331456685612.418,
+        "margin_fraction_of_residual_scale": 7.22687446910088e-09,
+        "margin_fraction_of_uncertainty_upper": 6.583197340890479e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1988",
+      "heldout_year": 1988,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 2052582165842.6582,
+      "best_comparator_residual": 2052582183314.8984,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 17472.240234375,
+        "required_margin": 23314566856.12418,
+        "residual_scale": 2052582183314.8984,
+        "uncertainty_upper": 2331456685612.418,
+        "margin_fraction_of_residual_scale": 8.512321882360645e-09,
+        "margin_fraction_of_uncertainty_upper": 7.49413031869621e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1989",
+      "heldout_year": 1989,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 870992132842.2812,
+      "best_comparator_residual": 870992152367.1016,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 19524.8203125,
+        "required_margin": 23314566856.12418,
+        "residual_scale": 870992152367.1016,
+        "uncertainty_upper": 2331456685612.418,
+        "margin_fraction_of_residual_scale": 2.241675801491122e-08,
+        "margin_fraction_of_uncertainty_upper": 8.374515569167135e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1990",
+      "heldout_year": 1990,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 2526937103968.1875,
+      "best_comparator_residual": 2526937124364.0,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 20395.8125,
+        "required_margin": 25269371243.64,
+        "residual_scale": 2526937124364.0,
+        "uncertainty_upper": 2331456685612.418,
+        "margin_fraction_of_residual_scale": 8.071357337445973e-09,
+        "margin_fraction_of_uncertainty_upper": 8.748098399538787e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1991",
+      "heldout_year": 1991,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 998152774063.1484,
+      "best_comparator_residual": 998152796985.8984,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 22922.75,
+        "required_margin": 25269371039.681877,
+        "residual_scale": 998152796985.8984,
+        "uncertainty_upper": 2526937103968.1875,
+        "margin_fraction_of_residual_scale": 2.2965171333706982e-08,
+        "margin_fraction_of_uncertainty_upper": 9.071357559316831e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1992",
+      "heldout_year": 1992,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 1626055163875.0,
+      "best_comparator_residual": 1626055187795.9023,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 23920.90234375,
+        "required_margin": 25269371039.681877,
+        "residual_scale": 1626055187795.9023,
+        "uncertainty_upper": 2526937103968.1875,
+        "margin_fraction_of_residual_scale": 1.4711002752726053e-08,
+        "margin_fraction_of_uncertainty_upper": 9.466362382421667e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1993",
+      "heldout_year": 1993,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 427964390891.7383,
+      "best_comparator_residual": 427964416438.6992,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 25546.9609375,
+        "required_margin": 25269371039.681877,
+        "residual_scale": 427964416438.6992,
+        "uncertainty_upper": 2526937103968.1875,
+        "margin_fraction_of_residual_scale": 5.969412398836504e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0109852317804907e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1994",
+      "heldout_year": 1994,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 1986524847537.1797,
+      "best_comparator_residual": 1986524873512.1016,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 25974.921875,
+        "required_margin": 25269371039.681877,
+        "residual_scale": 1986524873512.1016,
+        "uncertainty_upper": 2526937103968.1875,
+        "margin_fraction_of_residual_scale": 1.3075558338757325e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0279211870453824e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1995",
+      "heldout_year": 1995,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 3283971241756.949,
+      "best_comparator_residual": 3283971269718.3984,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 27961.44921875,
+        "required_margin": 32839712697.183987,
+        "residual_scale": 3283971269718.3984,
+        "uncertainty_upper": 2526937103968.1875,
+        "margin_fraction_of_residual_scale": 8.514523094822234e-09,
+        "margin_fraction_of_uncertainty_upper": 1.1065352269686732e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1996",
+      "heldout_year": 1996,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 723530577319.2812,
+      "best_comparator_residual": 723530608564.6992,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 31245.41796875,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 723530608564.6992,
+        "uncertainty_upper": 3283971241756.949,
+        "margin_fraction_of_residual_scale": 4.318465258951928e-08,
+        "margin_fraction_of_uncertainty_upper": 9.51452240855601e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1997",
+      "heldout_year": 1997,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 98390097646.05078,
+      "best_comparator_residual": 98390129615.0,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 31968.94921875,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 98390129615.0,
+        "uncertainty_upper": 3283971241756.949,
+        "margin_fraction_of_residual_scale": 3.2492028767361434e-07,
+        "margin_fraction_of_uncertainty_upper": 9.734844450600722e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1998",
+      "heldout_year": 1998,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 136810907058.4414,
+      "best_comparator_residual": 136810938929.0,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 31870.55859375,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 136810938929.0,
+        "uncertainty_upper": 3283971241756.949,
+        "margin_fraction_of_residual_scale": 2.3295329191688162e-07,
+        "margin_fraction_of_uncertainty_upper": 9.704883583785287e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1999",
+      "heldout_year": 1999,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 1049078568764.8516,
+      "best_comparator_residual": 1049078600498.6016,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 31733.75,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 1049078600498.6016,
+        "uncertainty_upper": 3283971241756.949,
+        "margin_fraction_of_residual_scale": 3.024916339435169e-08,
+        "margin_fraction_of_uncertainty_upper": 9.66322408567202e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2000",
+      "heldout_year": 2000,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 1115328624877.7695,
+      "best_comparator_residual": 1115328657660.5977,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 32782.828125,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 1115328657660.5977,
+        "uncertainty_upper": 3283971241756.949,
+        "margin_fraction_of_residual_scale": 2.9392975693605862e-08,
+        "margin_fraction_of_uncertainty_upper": 9.982678200147983e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2001",
+      "heldout_year": 2001,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 207738693695.04297,
+      "best_comparator_residual": 207738727593.19922,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 33898.15625,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 207738727593.19922,
+        "uncertainty_upper": 3283971241756.949,
+        "margin_fraction_of_residual_scale": 1.631768743494977e-07,
+        "margin_fraction_of_uncertainty_upper": 1.0322306060105519e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2002",
+      "heldout_year": 2002,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 1301107831613.7812,
+      "best_comparator_residual": 1301107865304.1992,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 33690.41796875,
+        "required_margin": 32839712417.569492,
+        "residual_scale": 1301107865304.1992,
+        "uncertainty_upper": 3283971241756.949,
+        "margin_fraction_of_residual_scale": 2.5893639464605937e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0259047807838102e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2003",
+      "heldout_year": 2003,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 4251751386353.4727,
+      "best_comparator_residual": 4251751421345.0,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 34991.52734375,
+        "required_margin": 42517514213.450005,
+        "residual_scale": 4251751421345.0,
+        "uncertainty_upper": 3283971241756.949,
+        "margin_fraction_of_residual_scale": 8.229909013044035e-09,
+        "margin_fraction_of_uncertainty_upper": 1.0655247798403152e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2004",
+      "heldout_year": 2004,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 4982107424364.531,
+      "best_comparator_residual": 4982107463607.805,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 39243.2734375,
+        "required_margin": 49821074636.07805,
+        "residual_scale": 4982107463607.805,
+        "uncertainty_upper": 4251751386353.4727,
+        "margin_fraction_of_residual_scale": 7.876842024014048e-09,
+        "margin_fraction_of_uncertainty_upper": 9.229907835969947e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2005",
+      "heldout_year": 2005,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 3675105314073.711,
+      "best_comparator_residual": 3675105358299.0938,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 44225.3828125,
+        "required_margin": 49821074243.64532,
+        "residual_scale": 3675105358299.0938,
+        "uncertainty_upper": 4982107424364.531,
+        "margin_fraction_of_residual_scale": 1.203377277678056e-08,
+        "margin_fraction_of_uncertainty_upper": 8.876842477586873e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2006",
+      "heldout_year": 2006,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 4023017428426.711,
+      "best_comparator_residual": 4023017476327.203,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 47900.4921875,
+        "required_margin": 49821074243.64532,
+        "residual_scale": 4023017476327.203,
+        "uncertainty_upper": 4982107424364.531,
+        "margin_fraction_of_residual_scale": 1.1906608029759432e-08,
+        "margin_fraction_of_uncertainty_upper": 9.614504085810578e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2007",
+      "heldout_year": 2007,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 6602278464766.289,
+      "best_comparator_residual": 6602278516689.797,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 51923.5078125,
+        "required_margin": 66022785166.89797,
+        "residual_scale": 6602278516689.797,
+        "uncertainty_upper": 4982107424364.531,
+        "margin_fraction_of_residual_scale": 7.864483099469883e-09,
+        "margin_fraction_of_uncertainty_upper": 1.0421996835831546e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2008",
+      "heldout_year": 2008,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 5785943504929.711,
+      "best_comparator_residual": 5785943563455.5,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 58525.7890625,
+        "required_margin": 66022784647.662895,
+        "residual_scale": 5785943563455.5,
+        "uncertainty_upper": 6602278464766.289,
+        "margin_fraction_of_residual_scale": 1.0115167633530638e-08,
+        "margin_fraction_of_uncertainty_upper": 8.86448358317945e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2009",
+      "heldout_year": 2009,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 3329473340325.172,
+      "best_comparator_residual": 3329473404636.8984,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 64311.7265625,
+        "required_margin": 66022784647.662895,
+        "residual_scale": 3329473404636.8984,
+        "uncertainty_upper": 6602278464766.289,
+        "margin_fraction_of_residual_scale": 1.931588535079878e-08,
+        "margin_fraction_of_uncertainty_upper": 9.740838243298262e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2010",
+      "heldout_year": 2010,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 5828935470628.242,
+      "best_comparator_residual": 5828935531610.5,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 60982.2578125,
+        "required_margin": 66022784647.662895,
+        "residual_scale": 5828935531610.5,
+        "uncertainty_upper": 6602278464766.289,
+        "margin_fraction_of_residual_scale": 1.0461988725349818e-08,
+        "margin_fraction_of_uncertainty_upper": 9.236547373446582e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2011",
+      "heldout_year": 2011,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 7498517795363.203,
+      "best_comparator_residual": 7498517862174.398,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 66811.1953125,
+        "required_margin": 74985178621.74399,
+        "residual_scale": 7498517862174.398,
+        "uncertainty_upper": 6602278464766.289,
+        "margin_fraction_of_residual_scale": 8.909920138954805e-09,
+        "margin_fraction_of_uncertainty_upper": 1.0119414936683532e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2012",
+      "heldout_year": 2012,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 1650885167658.0,
+      "best_comparator_residual": 1650885241967.7031,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 74309.703125,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 1650885241967.7031,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 4.5012034292843805e-08,
+        "margin_fraction_of_uncertainty_upper": 9.909918887029952e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2013",
+      "heldout_year": 2013,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 2074298169461.5,
+      "best_comparator_residual": 2074298245422.0938,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 75960.59375,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 2074298245422.0938,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 3.661989972639782e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0130081147099647e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2014",
+      "heldout_year": 2014,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 2019995856217.1094,
+      "best_comparator_residual": 2019995934252.0,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 78034.890625,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 2019995934252.0,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 3.863121172760981e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0406708732925031e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2015",
+      "heldout_year": 2015,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 4432974733730.109,
+      "best_comparator_residual": 4432974813785.0,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 80054.890625,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 4432974813785.0,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 1.8058954536817422e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0676095304395075e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2016",
+      "heldout_year": 2016,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 1209769975258.2031,
+      "best_comparator_residual": 1209770050880.1094,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 75621.90625,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 1209770050880.1094,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 6.250932249065429e-08,
+        "margin_fraction_of_uncertainty_upper": 1.008491388748343e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2017",
+      "heldout_year": 2017,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 5007418827686.8125,
+      "best_comparator_residual": 5007418904518.5,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 76831.6875,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 5007418904518.5,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 1.5343571002352145e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0246249938555828e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2018",
+      "heldout_year": 2018,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 5211861957194.594,
+      "best_comparator_residual": 5211862039033.703,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 81839.109375,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 5211862039033.703,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 1.5702470395815245e-08,
+        "margin_fraction_of_uncertainty_upper": 1.0914038161729266e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2019",
+      "heldout_year": 2019,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 1432297375067.3281,
+      "best_comparator_residual": 1432297462118.2969,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 87050.96875,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 1432297462118.2969,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 6.077715771502935e-08,
+        "margin_fraction_of_uncertainty_upper": 1.1609090106291272e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2020",
+      "heldout_year": 2020,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 2570501294482.2344,
+      "best_comparator_residual": 2570501382965.5,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 88483.265625,
+        "required_margin": 74985177953.63203,
+        "residual_scale": 2570501382965.5,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 3.442257071378031e-08,
+        "margin_fraction_of_uncertainty_upper": 1.1800100771877167e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2021",
+      "heldout_year": 2021,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 12227714143831.828,
+      "best_comparator_residual": 12227714229744.594,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 85912.765625,
+        "required_margin": 122277142297.44594,
+        "residual_scale": 12227714229744.594,
+        "uncertainty_upper": 7498517795363.203,
+        "margin_fraction_of_residual_scale": 7.0260691418525655e-09,
+        "margin_fraction_of_uncertainty_upper": 1.1457299691697094e-08,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2022",
+      "heldout_year": 2022,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 4111049362414.7344,
+      "best_comparator_residual": 4111049460555.203,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 98140.46875,
+        "required_margin": 122277141438.31828,
+        "residual_scale": 4111049460555.203,
+        "uncertainty_upper": 12227714143831.828,
+        "margin_fraction_of_residual_scale": 2.387236390406891e-08,
+        "margin_fraction_of_uncertainty_upper": 8.026068290082343e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2023",
+      "heldout_year": 2023,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 4490122993281.469,
+      "best_comparator_residual": 4490123095533.0,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 102251.53125,
+        "required_margin": 122277141438.31828,
+        "residual_scale": 4490123095533.0,
+        "uncertainty_upper": 12227714143831.828,
+        "margin_fraction_of_residual_scale": 2.2772545223030735e-08,
+        "margin_fraction_of_uncertainty_upper": 8.362276877529064e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    },
+    {
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2024",
+      "heldout_year": 2024,
+      "selected_formula_id": "cycle_guard_micro_trend",
+      "model_residual": 4241013252207.3594,
+      "best_comparator_residual": 4241013358949.0,
+      "materiality": {
+        "policy_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY",
+        "policy_sha256": "e66898497693f38096813f0d1ab295dfd6f345442ba296c6f677a56cd78b5e26",
+        "margin": 106741.640625,
+        "required_margin": 122277141438.31828,
+        "residual_scale": 4241013358949.0,
+        "uncertainty_upper": 12227714143831.828,
+        "margin_fraction_of_residual_scale": 2.5168899880912544e-08,
+        "margin_fraction_of_uncertainty_upper": 8.729484462052539e-09,
+        "passed": false
+      },
+      "failed_negative_controls": [],
+      "failures": [
+        "ROW_MATERIALITY_NOT_MET"
+      ]
+    }
+  ],
   "negative_control_failure_rows": [],
   "blockers": [
-    "DECLARED_BEFORE_SCORING_REQUIRED",
-    "PRE_TARGET_LOCK_ID_REQUIRED",
-    "PRE_TARGET_LOCK_TIMESTAMP_REQUIRED",
-    "SOURCE_LOCK_PREDICATE_NOT_TRUE::declared_before_scoring",
-    "SOURCE_LOCK_EXTERNAL_ID_REQUIRED",
-    "SOURCE_LOCK_EXTERNAL_TIMESTAMP_REQUIRED",
-    "GRAND_TOE_SUPPORT_NOT_ALLOWED",
-    "STRICT_SOURCE_LOCK_PREDICATE_NOT_TRUE::declared_before_scoring",
-    "STRICT_SOURCE_LOCK_EXTERNAL_ID_REQUIRED",
-    "STRICT_SOURCE_LOCK_EXTERNAL_TIMESTAMP_REQUIRED"
+    "HELDOUT_RESIDUAL_MATERIALITY_NOT_MET",
+    "ROW_MATERIALITY_NOT_MET::57/57",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1968",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1969",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1970",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1971",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1972",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1973",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1974",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1975",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1976",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1977",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1978",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1979",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1980",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1981",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1982",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1983",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1984",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1985",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1986",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1987",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1988",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1989",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1990",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1991",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1992",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1993",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1994",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1995",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1996",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1997",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1998",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1999",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2000",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2001",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2002",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2003",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2004",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2005",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2006",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2007",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2008",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2009",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2010",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2011",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2012",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2013",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2014",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2015",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2016",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2017",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2018",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2019",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2020",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2021",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2022",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2023",
+    "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2024",
+    "GRAND_TOE_SUPPORT_NOT_ALLOWED"
   ],
   "next_work_orders": [
     {
-      "work_order_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-SOURCE-SEPARATION",
+      "work_order_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY",
       "status": "OPEN",
       "triggered_by": [
-        "DECLARED_BEFORE_SCORING_REQUIRED",
-        "PRE_TARGET_LOCK_ID_REQUIRED",
-        "PRE_TARGET_LOCK_TIMESTAMP_REQUIRED",
-        "SOURCE_LOCK_EXTERNAL_ID_REQUIRED",
-        "SOURCE_LOCK_EXTERNAL_TIMESTAMP_REQUIRED",
-        "STRICT_SOURCE_LOCK_EXTERNAL_ID_REQUIRED",
-        "STRICT_SOURCE_LOCK_EXTERNAL_TIMESTAMP_REQUIRED"
+        "HELDOUT_RESIDUAL_MATERIALITY_NOT_MET",
+        "ROW_MATERIALITY_NOT_MET::57/57",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1968",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1969",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1970",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1971",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1972",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1973",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1974",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1975",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1976",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1977",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1978",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1979",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1980",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1981",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1982",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1983",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1984",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1985",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1986",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1987",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1988",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1989",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1990",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1991",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1992",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1993",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1994",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1995",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1996",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1997",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1998",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1999",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2000",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2001",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2002",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2003",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2004",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2005",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2006",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2007",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2008",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2009",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2010",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2011",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2012",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2013",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2014",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2015",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2016",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2017",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2018",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2019",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2020",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2021",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2022",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2023",
+        "ROW_MATERIALITY_NOT_MET::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2024"
       ],
-      "action": "Attach complete pre-target lock metadata with target-blind or prospective source separation before any support claim."
+      "action": "Keep this as bounded WDI replay evidence until aggregate and every row-level residual margin exceed the preregistered materiality thresholds."
     },
     {
-      "work_order_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-STRICT-SCHEMA",
+      "work_order_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-FAILURE-ROWS",
       "status": "OPEN",
       "triggered_by": [
-        "STRICT_SOURCE_LOCK_PREDICATE_NOT_TRUE::declared_before_scoring",
-        "STRICT_SOURCE_LOCK_EXTERNAL_ID_REQUIRED",
-        "STRICT_SOURCE_LOCK_EXTERNAL_TIMESTAMP_REQUIRED"
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1968",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1969",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1970",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1971",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1972",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1973",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1974",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1975",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1976",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1977",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1978",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1979",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1980",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1981",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1982",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1983",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1984",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1985",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1986",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1987",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1988",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1989",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1990",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1991",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1992",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1993",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1994",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1995",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1996",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1997",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1998",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1999",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2000",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2001",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2002",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2003",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2004",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2005",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2006",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2007",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2008",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2009",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2010",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2011",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2012",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2013",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2014",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2015",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2016",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2017",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2018",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2019",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2020",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2021",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2022",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2023",
+        "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2024"
       ],
-      "action": "Repair schema/hash fields and rerun the factory; do not mark grand support by hand."
+      "action": "Investigate exact failed heldout rows without changing target values or using targets for model selection."
     }
   ]
 }

@@ -1,0 +1,48 @@
+{
+  "schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_STRONGER_TARGET_WORK_ORDER_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "planner": "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
+  "cerberus_key": "CERBERUS-K-OC133-CHEMISTRY-TRIVIAL-COMPARATOR-001",
+  "status": "OPEN_STRONGER_CHEMISTRY_TARGET_REQUIRED",
+  "reason": "The comparator has been upgraded from a zero-Da null to a preregistered formula-visible atom-count baseline, but the target remains PubChem MolecularWeight reconstructed from MolecularFormula. This is bounded formula-mass replay, not independent grand chemistry support.",
+  "current_pack_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_CANDIDATE_PACK.json",
+  "current_report_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_REPORT.json",
+  "current_rows": 20,
+  "current_source_separation": {
+    "mode": "target_blind",
+    "pre_target_lock": true,
+    "target_hidden_until_scoring": true,
+    "training_sources": [
+      "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json::target_projection_visible_fields(CID,MolecularFormula)"
+    ],
+    "target_sources": [
+      "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json::target_projection_target_field(MolecularWeight)"
+    ]
+  },
+  "blocked_grand_toe_support": true,
+  "required_successor_target": {
+    "target_class": "independent_chemistry_property",
+    "examples": [
+      "experimental boiling/melting point with temperature/unit normalization",
+      "measured density or vapor pressure with phase and temperature controls",
+      "spectral peak/property prediction with instrument/source provenance",
+      "bio/cheminformatics activity target with scaffold or family holdout"
+    ],
+    "must_not_be": [
+      "MolecularWeight directly determined by MolecularFormula",
+      "exact formula-mass replay using the same visible formula",
+      "target values used to tune comparator or row inclusion"
+    ]
+  },
+  "required_controls": [
+    "retain the nontrivial formula-visible comparator or a preregistered chemistry-aware successor",
+    "include nontrivial negative controls that must be worse by a material margin",
+    "fail closed on target leakage, stale preregistration hashes, or trivial-only comparators"
+  ],
+  "no_send": true,
+  "publish_allowed": false,
+  "journal_submissions_allowed": false,
+  "registry_write_allowed": false
+}

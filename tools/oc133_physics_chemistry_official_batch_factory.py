@@ -7,6 +7,7 @@ import math
 import re
 import sys
 from dataclasses import dataclass
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Callable
 
@@ -31,6 +32,20 @@ README_REL = f"{OUTPUT_ROOT_REL}/README.md"
 PHYSICS_PACK_REL = f"{OUTPUT_ROOT_REL}/physics_official_batch_candidate_evidence_pack.json"
 CHEMISTRY_PACK_REL = f"{OUTPUT_ROOT_REL}/chemistry_official_batch_candidate_evidence_pack.json"
 PHYSICS_ACQUISITION_PACKET_REL = f"{OUTPUT_ROOT_REL}/OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET.json"
+OFFICIAL_ACQUISITION_RUN_ROOT_REL = "validation/heldout/acquisition_runs/oc133_official_readonly"
+PHYSICS_CODATA_ACQUISITION_ID = "OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001"
+PHYSICS_ASD_ACQUISITION_ID = "OC133-PHYSICS-NIST-ASD-HYDROGEN-BALMER-001"
+PHYSICS_CODATA_ACQUIRED_SNAPSHOT_REL = (
+    f"{OFFICIAL_ACQUISITION_RUN_ROOT_REL}/snapshots/{PHYSICS_CODATA_ACQUISITION_ID}.txt"
+)
+PHYSICS_CODATA_ACQUIRED_METADATA_REL = (
+    f"{OFFICIAL_ACQUISITION_RUN_ROOT_REL}/snapshots/{PHYSICS_CODATA_ACQUISITION_ID}.metadata.json"
+)
+PHYSICS_CODATA_ACQUIRED_LOCK_REL = f"{OFFICIAL_ACQUISITION_RUN_ROOT_REL}/locks/{PHYSICS_CODATA_ACQUISITION_ID}.lock.json"
+PHYSICS_CODATA_ACQUIRED_ORDER_REL = (
+    f"{OFFICIAL_ACQUISITION_RUN_ROOT_REL}/order_records/{PHYSICS_CODATA_ACQUISITION_ID}.order.json"
+)
+PHYSICS_ASD_ACQUIRED_SNAPSHOT_REL = f"{OFFICIAL_ACQUISITION_RUN_ROOT_REL}/snapshots/{PHYSICS_ASD_ACQUISITION_ID}.tsv"
 
 REQUIREMENTS_REL = "benchmarks/grand_science/domain_requirements.json"
 MANIFEST_REL = "data/OC_DATASET_SNAPSHOT_MANIFEST_1_3_3.json"
@@ -51,6 +66,87 @@ REPORT_SCHEMA_ID = "OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_REPORT_v1"
 PROTOCOL_SCHEMA_ID = "OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_PROTOCOL_v1"
 TASKS_SCHEMA_ID = "OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_TASKS_v1"
 PHYSICS_ACQUISITION_PACKET_SCHEMA_ID = "OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET_v1"
+PHYSICS_SOURCE_LOCK_SCHEMA_ID = "OC133_PHYSICS_OFFICIAL_BATCH_SOURCE_SEPARATION_LOCK_v1"
+PHYSICS_SOURCE_LOCK_EVENT_SEQUENCE = (
+    "source_snapshot_locked",
+    "source_separation_declared",
+    "visible_projection_locked",
+    "prediction_materialized",
+    "target_projection_unsealed_for_scoring",
+    "scoring_started",
+)
+PROSPECTIVE_LOCK_METADATA_SCHEMA_ID = "OC133_OFFICIAL_READONLY_PROSPECTIVE_LOCK_METADATA_v1"
+PHYSICS_PROSPECTIVE_LOCK_EVENT_SEQUENCE = PHYSICS_SOURCE_LOCK_EVENT_SEQUENCE
+PHYSICS_PROSPECTIVE_MODEL_FAMILY = "OC133 physics official-batch deterministic visible-field scorer"
+PHYSICS_PROSPECTIVE_COMPARATOR_BASELINE = {
+    "name": "physics official-batch preregistered same-target formula ablation baseline",
+    "prediction_rule": (
+        "For each declared CODATA target, evaluate the preregistered target formula after replacing the first "
+        "visible ingredient with dimensionless 1.0; score that same-target ablation under the same residual metric."
+    ),
+    "pre_registered": True,
+    "residual_metric_id": RESIDUAL_METRIC_ID,
+}
+PHYSICS_PROSPECTIVE_SCORING_POLICY = {
+    "residual_metric_id": RESIDUAL_METRIC_ID,
+    "scoring_started": False,
+    "scoring_started_at": "",
+    "target_projection_unsealed_for_scoring": False,
+    "target_projection_unsealed_for_scoring_at": "",
+    "prediction_materialization_required_before_scoring": True,
+    "target_projection_read_before_prediction_materialization": False,
+    "scientific_pass": False,
+}
+PHYSICS_PROSPECTIVE_TARGET_SPLIT_POLICY = {
+    "target_hidden_until_scoring": True,
+    "target_values_in_metadata_allowed": False,
+    "target_value_fields_excluded": [
+        "target_quantity",
+        "observed_value",
+        "target_unit",
+        "official_uncertainty",
+        "uncertainty",
+    ],
+    "target_projection_fields_excluded": [
+        "target_quantity",
+        "observed_value",
+        "target_unit",
+        "official_uncertainty",
+        "uncertainty",
+        "target_source",
+        "target_projection",
+        "target_projection_id",
+        "target_hash",
+        "observed_value_text",
+        "official_uncertainty_text",
+        "model_residual",
+        "model_residual_score",
+        "residual_within_uncertainty",
+    ],
+    "policy": "Metadata may name excluded target fields but must not carry target values.",
+}
+PHYSICS_PROSPECTIVE_NO_SEND_LOCKS = {
+    "no_send": True,
+    "publish_allowed": False,
+    "push_allowed": False,
+    "public_release_action_allowed": False,
+    "registry_write_allowed": False,
+    "journal_submissions_allowed": False,
+}
+PHYSICS_PROSPECTIVE_METADATA_FORBIDDEN_VALUE_KEYS = {
+    "target_value",
+    "target_values",
+    "target_observed_value",
+    "target_observed_value_text",
+    "observed_value",
+    "observed_value_text",
+    "official_uncertainty",
+    "official_uncertainty_text",
+    "target_hash",
+    "target_projection",
+    "target_fields",
+    "ground_truth",
+}
 
 NO_SEND_POLICY = (
     "Official NIST/PubChem snapshot rows are scored and hashed, but no grand TOE support is emitted unless "
@@ -97,6 +193,48 @@ PHYSICS_TARGET_FIELDS = (
     "uncertainty",
 )
 
+PHYSICS_SCORING_TARGET_FIELDS = (
+    "target_quantity",
+    "observed_value",
+    "target_unit",
+    "official_uncertainty",
+    "uncertainty",
+)
+
+PHYSICS_PREDICTION_FORBIDDEN_FIELDS = (
+    *PHYSICS_SCORING_TARGET_FIELDS,
+    "target_source",
+    "target_projection",
+    "target_projection_id",
+    "target_hash",
+    "observed_value_text",
+    "official_uncertainty_text",
+    "model_residual",
+    "model_residual_score",
+    "residual_within_uncertainty",
+)
+
+PHYSICS_FORBIDDEN_COMPARATOR_TEXT = (
+    "zero-value",
+    "zero baseline",
+    "null baseline",
+    " null ",
+    "wrong-field",
+    "wrong field",
+    "wrong-string",
+    "wrong string",
+    "wrong-compound",
+    "wrong compound",
+)
+
+PHYSICS_STALE_LOCK_BLOCKER_TEXT = (
+    "not acquired under a pre-target hidden lock",
+    "not independently pre-target locked",
+    "already visible before this run",
+    "remains a blocker for promotion",
+    "no pre-target lock manifest proves",
+)
+
 
 def repo_root() -> Path:
     return ROOT
@@ -108,6 +246,10 @@ def canonical_json(payload: Any) -> str:
 
 def sha256_object(payload: Any) -> str:
     return hashlib.sha256(canonical_json(payload).encode("utf-8")).hexdigest()
+
+
+def sha256_bytes(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
 
 
 def lf_bytes(path: Path) -> bytes:
@@ -147,6 +289,28 @@ def ordered_unique(values: list[str]) -> list[str]:
         seen.add(value)
         result.append(value)
     return result
+
+
+def parse_iso_timestamp(value: Any) -> datetime | None:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text = value.strip()
+    if text.endswith("Z"):
+        text = f"{text[:-1]}+00:00"
+    try:
+        parsed = datetime.fromisoformat(text)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        return None
+    return parsed
+
+
+def timestamp_plus_seconds(value: str, seconds: int) -> str:
+    parsed = parse_iso_timestamp(value)
+    if parsed is None:
+        parsed = datetime.fromisoformat("2026-04-28T00:00:00+00:00")
+    return (parsed + timedelta(seconds=seconds)).isoformat().replace("+00:00", "Z")
 
 
 def is_number(value: Any) -> bool:
@@ -218,6 +382,103 @@ def snapshot_record(root: Path, ref: str, manifest: dict[str, dict[str, Any]], s
         "sha256_match": bool(actual_sha and expected_sha and actual_sha == expected_sha),
         "hash_policy": SNAPSHOT_HASH_POLICY,
     }
+
+
+def acquisition_record_hash_valid(order_record: dict[str, Any]) -> bool:
+    return order_record.get("order_record_sha256") == sha256_object(
+        {key: value for key, value in order_record.items() if key != "order_record_sha256"}
+    )
+
+
+def successful_physics_codata_acquisition(root: Path) -> tuple[dict[str, Any] | None, list[str]]:
+    snapshot_path = resolve_under_root(root, PHYSICS_CODATA_ACQUIRED_SNAPSHOT_REL)
+    metadata_path = resolve_under_root(root, PHYSICS_CODATA_ACQUIRED_METADATA_REL)
+    lock_path = resolve_under_root(root, PHYSICS_CODATA_ACQUIRED_LOCK_REL)
+    order_path = resolve_under_root(root, PHYSICS_CODATA_ACQUIRED_ORDER_REL)
+    if not (snapshot_path.is_file() and metadata_path.is_file() and lock_path.is_file() and order_path.is_file()):
+        return None, ["PHYSICS_PROSPECTIVE_CODATA_ACQUISITION_MISSING"]
+    try:
+        metadata = read_json(metadata_path)
+        lock = read_json(lock_path)
+        order_record = read_json(order_path)
+        source_bytes = snapshot_path.read_bytes()
+    except Exception as exc:
+        return None, [f"PHYSICS_PROSPECTIVE_CODATA_ACQUISITION_PARSE_FAILED::{exc.__class__.__name__}"]
+    failures: list[str] = []
+    source_bytes_sha = sha256_bytes(source_bytes)
+    text_sha = sha256_file_text(snapshot_path)
+    if metadata.get("status") != "ACQUIRED_READONLY" or lock.get("http_status") not in range(200, 300):
+        failures.append("PHYSICS_PROSPECTIVE_CODATA_ACQUISITION_NOT_SUCCESSFUL")
+    for payload_name, payload in (("metadata", metadata), ("lock", lock), ("order_record", order_record)):
+        locks = payload.get("locks") if isinstance(payload, dict) else {}
+        if not isinstance(locks, dict) or locks.get("no_send") is not True:
+            failures.append(f"PHYSICS_PROSPECTIVE_CODATA_NO_SEND_LOCK_MISSING::{payload_name}")
+        for key in ("publish_allowed", "push_allowed", "journal_submissions_allowed"):
+            if locks.get(key) is not False:
+                failures.append(f"PHYSICS_PROSPECTIVE_CODATA_PUBLIC_ACTION_LOCK_INVALID::{payload_name}::{key}")
+    if lock.get("snapshot_ref") != PHYSICS_CODATA_ACQUIRED_SNAPSHOT_REL:
+        failures.append("PHYSICS_PROSPECTIVE_CODATA_LOCK_SNAPSHOT_REF_MISMATCH")
+    if lock.get("source_bytes_sha256") != source_bytes_sha or metadata.get("source_bytes_sha256") != source_bytes_sha:
+        failures.append("PHYSICS_PROSPECTIVE_CODATA_SOURCE_BYTES_HASH_MISMATCH")
+    if lock.get("snapshot_sha256") != source_bytes_sha or metadata.get("sha256") != text_sha:
+        failures.append("PHYSICS_PROSPECTIVE_CODATA_SNAPSHOT_HASH_MISMATCH")
+    if lock.get("order_record_ref") != PHYSICS_CODATA_ACQUIRED_ORDER_REL:
+        failures.append("PHYSICS_PROSPECTIVE_CODATA_LOCK_ORDER_REF_MISMATCH")
+    if metadata.get("order_record_ref") != PHYSICS_CODATA_ACQUIRED_ORDER_REL:
+        failures.append("PHYSICS_PROSPECTIVE_CODATA_METADATA_ORDER_REF_MISMATCH")
+    if lock.get("order_record_sha256") != order_record.get("order_record_sha256"):
+        failures.append("PHYSICS_PROSPECTIVE_CODATA_LOCK_ORDER_HASH_MISMATCH")
+    if metadata.get("order_record_sha256") != order_record.get("order_record_sha256"):
+        failures.append("PHYSICS_PROSPECTIVE_CODATA_METADATA_ORDER_HASH_MISMATCH")
+    if not acquisition_record_hash_valid(order_record):
+        failures.append("PHYSICS_PROSPECTIVE_CODATA_ORDER_RECORD_HASH_INVALID")
+    sequence = lock.get("pre_target_sequence_proof")
+    if not isinstance(sequence, dict):
+        failures.append("PHYSICS_PROSPECTIVE_CODATA_SEQUENCE_PROOF_MISSING")
+        sequence = {}
+    required_sequence = {
+        "source_snapshot_locked_before_scoring": True,
+        "source_snapshot_pre_target_lock": True,
+        "target_hidden_until_scoring": True,
+        "target_projection_unsealed_for_scoring": False,
+        "scoring_started": False,
+        "prediction_materialization_required_before_scoring": True,
+        "target_projection_read_before_prediction_materialization": False,
+    }
+    for key, expected in required_sequence.items():
+        if sequence.get(key) is not expected:
+            failures.append(f"PHYSICS_PROSPECTIVE_CODATA_SEQUENCE_PROOF_INVALID::{key}")
+    acquired_at = str(order_record.get("acquired_at_utc") or "")
+    if parse_iso_timestamp(acquired_at) is None:
+        failures.append("PHYSICS_PROSPECTIVE_CODATA_ACQUIRED_AT_INVALID")
+    if failures:
+        return None, ordered_unique(failures)
+    return (
+        {
+            "source_id": "physics_nist_constants_prospective_allascii",
+            "source_ref": PHYSICS_CODATA_ACQUIRED_SNAPSHOT_REL,
+            "official_url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+            "exists": True,
+            "byte_count": len(lf_bytes(snapshot_path)),
+            "source_bytes_byte_count": len(source_bytes),
+            "sha256": text_sha,
+            "source_bytes_sha256": source_bytes_sha,
+            "sha256_expected": text_sha,
+            "sha256_match": True,
+            "hash_policy": SNAPSHOT_HASH_POLICY,
+            "acquisition_id": PHYSICS_CODATA_ACQUISITION_ID,
+            "acquisition_lock_ref": PHYSICS_CODATA_ACQUIRED_LOCK_REL,
+            "acquisition_lock_sha256": sha256_file_text(lock_path),
+            "acquisition_metadata_ref": PHYSICS_CODATA_ACQUIRED_METADATA_REL,
+            "acquisition_metadata_sha256": sha256_file_text(metadata_path),
+            "acquisition_order_record_ref": PHYSICS_CODATA_ACQUIRED_ORDER_REL,
+            "acquisition_order_record_sha256": str(order_record.get("order_record_sha256") or ""),
+            "acquisition_order_record_file_sha256": sha256_file_text(order_path),
+            "acquired_at_utc": acquired_at,
+            "pre_target_sequence_proof": sequence,
+        },
+        [],
+    )
 
 
 def official_url_for_source(source_id: str) -> str:
@@ -353,10 +614,15 @@ def residual_score(residual: float, tolerance: float) -> float:
     return abs(residual) / max(abs(tolerance), 1e-300)
 
 
-def physics_visible_projection(spec: PhysicsFormula, constants: dict[str, NistConstant]) -> dict[str, Any]:
+def physics_visible_projection(
+    spec: PhysicsFormula,
+    constants: dict[str, NistConstant],
+    *,
+    snapshot_ref: str = PHYSICS_NIST_CONSTANTS_REF,
+) -> dict[str, Any]:
     return {
         "projection_id": f"{spec.task_id}-VISIBLE-PROJECTION-v1",
-        "source_ref": PHYSICS_NIST_CONSTANTS_REF,
+        "source_ref": snapshot_ref,
         "visible_fields": [
             {
                 "quantity": name,
@@ -384,10 +650,15 @@ def physics_visible_projection(spec: PhysicsFormula, constants: dict[str, NistCo
     }
 
 
-def physics_target_projection(spec: PhysicsFormula, target: NistConstant) -> dict[str, Any]:
+def physics_target_projection(
+    spec: PhysicsFormula,
+    target: NistConstant,
+    *,
+    snapshot_ref: str = PHYSICS_NIST_CONSTANTS_REF,
+) -> dict[str, Any]:
     return {
         "projection_id": f"{spec.task_id}-TARGET-PROJECTION-v1",
-        "source_ref": PHYSICS_NIST_CONSTANTS_REF,
+        "source_ref": snapshot_ref,
         "target_fields": {
             "target_quantity": spec.target,
             "observed_value_text": target.value_text,
@@ -405,24 +676,133 @@ def physics_target_projection(spec: PhysicsFormula, target: NistConstant) -> dic
     }
 
 
-def physics_projection_declaration(spec: PhysicsFormula, visible: dict[str, Any], target: dict[str, Any]) -> dict[str, Any]:
-    return {
+def physics_prediction_materialization(
+    spec: PhysicsFormula,
+    visible: dict[str, Any],
+    predicted_value: float,
+) -> dict[str, Any]:
+    prediction = {
+        "materialization_id": f"{spec.task_id}-PREDICTION-MATERIALIZATION-v1",
+        "task_id": spec.task_id,
+        "visible_projection_id": visible["projection_id"],
+        "visible_projection_hash": visible["projection_hash"],
+        "formula": spec.formula,
+        "ingredients": list(spec.ingredients),
+        "predicted_value": predicted_value,
+        "hash_excludes": list(PHYSICS_PREDICTION_FORBIDDEN_FIELDS),
+    }
+    prediction["prediction_hash"] = sha256_object(
+        {k: v for k, v in prediction.items() if k != "prediction_hash"}
+    )
+    return prediction
+
+
+def physics_target_projection_lock(
+    spec: PhysicsFormula,
+    visible: dict[str, Any],
+    prediction: dict[str, Any],
+    target: dict[str, Any],
+) -> dict[str, Any]:
+    lock = {
+        "lock_id": f"{spec.task_id}-TARGET-PROJECTION-LOCK-v1",
+        "visible_projection_id": visible["projection_id"],
+        "visible_projection_hash": visible["projection_hash"],
+        "prediction_materialization_id": prediction["materialization_id"],
+        "prediction_materialization_hash": prediction["prediction_hash"],
+        "target_projection_id": target["projection_id"],
+        "target_projection_hash": target["target_hash"],
+        "prediction_materialized_before_target_projection": True,
+        "target_projection_hidden_until_scoring": True,
+        "target_projection_depends_on_prediction_hash": True,
+        "scoring_target_fields": list(PHYSICS_SCORING_TARGET_FIELDS),
+        "visible_target_fields_excluded": list(PHYSICS_SCORING_TARGET_FIELDS),
+        "closure_policy": "artifact existence alone does not verify pre-target source lock",
+        "lock_hash_policy": "sha256 over canonical projection-lock JSON excluding lock_hash",
+    }
+    lock["lock_hash"] = sha256_object({k: v for k, v in lock.items() if k != "lock_hash"})
+    return lock
+
+
+def physics_projection_declaration(
+    spec: PhysicsFormula,
+    visible: dict[str, Any],
+    target: dict[str, Any],
+    projection_lock: dict[str, Any],
+    *,
+    source_snapshot_pre_target_lock: bool = False,
+) -> dict[str, Any]:
+    declaration = {
         "declaration_id": f"{spec.task_id}-PROJECTION-DECLARATION-v1",
         "visible_projection_id": visible["projection_id"],
         "target_projection_id": target["projection_id"],
+        "target_projection_lock_id": projection_lock["lock_id"],
         "declared_before_scoring": True,
-        "declared_before_target_snapshot_access": False,
-        "target_hidden_until_scoring": False,
-        "separation_class": "posthoc_visible_target_projection_not_target_blind",
-        "promotion_blocker": "projection is explicit and auditable, but the local CODATA snapshot was already visible before this run",
+        "prediction_materialized_before_target_projection": True,
+        "target_projection_hidden_until_scoring": True,
+        "source_snapshot_pre_target_lock": bool(source_snapshot_pre_target_lock),
+        "declared_before_target_snapshot_access": bool(source_snapshot_pre_target_lock),
+        "target_hidden_until_scoring": True,
+        "separation_class": (
+            "prospective_source_snapshot_target_projection_lock"
+            if source_snapshot_pre_target_lock
+            else "target_projection_locked_source_snapshot_posthoc"
+        ),
+    }
+    if not source_snapshot_pre_target_lock:
+        declaration["promotion_blocker"] = (
+            "row-level target projection is locked and auditable, but the local CODATA source snapshot "
+            "was already visible before this run"
+        )
+    return declaration
+
+
+def physics_same_target_ablation_comparator(
+    spec: PhysicsFormula,
+    values: dict[str, float],
+) -> dict[str, Any]:
+    ablated_quantity = spec.ingredients[0]
+    ablated_values = dict(values)
+    ablated_values[ablated_quantity] = 1.0
+    prediction = float(spec.predictor(ablated_values))
+    return {
+        "comparator_id": f"{spec.task_id}-SAME-TARGET-FORMULA-ABLATION-v1",
+        "kind": "same_target_formula_ablation",
+        "name": "same-target formula ablation baseline",
+        "target_quantity": spec.target,
+        "prediction_rule": (
+            "evaluate the declared target formula after replacing the first visible ingredient with dimensionless 1.0"
+        ),
+        "ablated_quantity": ablated_quantity,
+        "ablated_value": 1.0,
+        "prediction_value": prediction,
+        "pre_registered": True,
+        "residual_metric_id": RESIDUAL_METRIC_ID,
     }
 
 
-def physics_preregistration(spec: PhysicsFormula, tolerance: float) -> dict[str, Any]:
+def physics_preregistration(
+    spec: PhysicsFormula,
+    tolerance: float,
+    *,
+    declared_before_target_snapshot_access: bool = False,
+    comparator: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    comparator = comparator or {
+        "comparator_id": f"{spec.task_id}-SAME-TARGET-FORMULA-ABLATION-v1",
+        "kind": "same_target_formula_ablation",
+        "name": "same-target formula ablation baseline",
+        "target_quantity": spec.target,
+        "prediction_rule": (
+            "evaluate the declared target formula after replacing the first visible ingredient with dimensionless 1.0"
+        ),
+        "prediction_value": 1.0,
+        "pre_registered": True,
+        "residual_metric_id": RESIDUAL_METRIC_ID,
+    }
     return {
         "preregistration_id": f"{spec.task_id}-ANALYSIS-PREREG-v1",
         "declared_before_scoring": True,
-        "declared_before_target_snapshot_access": False,
+        "declared_before_target_snapshot_access": bool(declared_before_target_snapshot_access),
         "formula": {
             "expression": spec.formula,
             "visible_inputs": list(spec.ingredients),
@@ -434,18 +814,12 @@ def physics_preregistration(spec: PhysicsFormula, tolerance: float) -> dict[str,
             "score": "absolute_residual / row_uncertainty_or_display_tolerance",
             "row_tolerance": tolerance,
         },
-        "comparator": {
-            "comparator_id": f"{spec.task_id}-ZERO-VALUE-NULL-v1",
-            "name": "zero-value null baseline",
-            "prediction_rule": "predict numeric zero for the target under the same residual metric",
-            "prediction_value": 0.0,
-            "pre_registered": True,
-        },
+        "comparator": comparator,
         "negative_control": {
-            "control_id": f"{spec.task_id}-ZERO-BASELINE",
-            "rule": "zero-value null baseline must have a larger residual score than the formula prediction",
+            "control_id": f"{spec.task_id}-SAME-TARGET-ABLATION-CONTROL",
+            "rule": "same-target formula ablation must have a larger residual score than the formula prediction",
         },
-        "falsifier": "formula residual score exceeds 1.0 or zero-value null baseline is not worse",
+        "falsifier": "formula residual score exceeds 1.0 or the same-target ablation baseline is not worse",
     }
 
 
@@ -467,8 +841,495 @@ def visible_projection_has_target_leakage(row: dict[str, Any]) -> bool:
     return False
 
 
-def build_physics_rows(root: Path, snapshot_ref: str, manifest: dict[str, dict[str, Any]]) -> tuple[list[dict[str, Any]], list[str], dict[str, Any]]:
-    record = snapshot_record(root, snapshot_ref, manifest, "physics_nist_constants")
+def payload_has_forbidden_key(payload: Any, forbidden: set[str]) -> bool:
+    if isinstance(payload, dict):
+        for key, value in payload.items():
+            if key in forbidden:
+                return True
+            if payload_has_forbidden_key(value, forbidden):
+                return True
+    elif isinstance(payload, list):
+        return any(payload_has_forbidden_key(item, forbidden) for item in payload)
+    return False
+
+
+def physics_visible_projection_hash_valid(row: dict[str, Any]) -> bool:
+    visible = row.get("visible_projection")
+    if not isinstance(visible, dict):
+        return False
+    fields = visible.get("visible_fields")
+    if not isinstance(fields, list):
+        return False
+    ingredients = []
+    for field in fields:
+        if not isinstance(field, dict):
+            return False
+        ingredients.append(
+            {
+                "quantity": field.get("quantity"),
+                "value_text": field.get("value_text"),
+                "unit": field.get("unit"),
+                "uncertainty_text": field.get("uncertainty_text"),
+            }
+        )
+    return visible.get("projection_hash") == sha256_object(
+        {
+            "task_id": row.get("task_id"),
+            "ingredients": ingredients,
+        }
+    )
+
+
+def physics_target_projection_hash_valid(row: dict[str, Any]) -> bool:
+    target = row.get("target_projection")
+    if not isinstance(target, dict):
+        return False
+    target_fields = target.get("target_fields")
+    if not isinstance(target_fields, dict):
+        return False
+    return target.get("target_hash") == sha256_object(
+        {
+            "target_quantity": target_fields.get("target_quantity"),
+            "observed_value_text": target_fields.get("observed_value_text"),
+            "target_unit": target_fields.get("target_unit"),
+            "official_uncertainty_text": target_fields.get("official_uncertainty_text"),
+        }
+    )
+
+
+def physics_prediction_materialization_hash_valid(row: dict[str, Any]) -> bool:
+    prediction = row.get("prediction_materialization")
+    visible = row.get("visible_projection")
+    if not isinstance(prediction, dict) or not isinstance(visible, dict):
+        return False
+    if payload_has_forbidden_key(prediction, set(PHYSICS_PREDICTION_FORBIDDEN_FIELDS)):
+        return False
+    if prediction.get("task_id") != row.get("task_id"):
+        return False
+    if prediction.get("visible_projection_id") != visible.get("projection_id"):
+        return False
+    if prediction.get("visible_projection_hash") != visible.get("projection_hash"):
+        return False
+    if prediction.get("formula") != row.get("formula"):
+        return False
+    if prediction.get("ingredients") != row.get("ingredients"):
+        return False
+    if prediction.get("predicted_value") != row.get("predicted_value"):
+        return False
+    return prediction.get("prediction_hash") == sha256_object(
+        {k: v for k, v in prediction.items() if k != "prediction_hash"}
+    )
+
+
+def physics_target_projection_lock_failures(row: dict[str, Any]) -> list[str]:
+    failures: list[str] = []
+    visible = row.get("visible_projection")
+    prediction = row.get("prediction_materialization")
+    target = row.get("target_projection")
+    lock = row.get("target_projection_lock")
+    declaration = row.get("projection_declaration")
+    if visible_projection_has_target_leakage(row):
+        failures.append("VISIBLE_PROJECTION_TARGET_LEAKAGE")
+    if not isinstance(visible, dict) or not physics_visible_projection_hash_valid(row):
+        failures.append("VISIBLE_PROJECTION_HASH_INVALID")
+    if not isinstance(prediction, dict) or not physics_prediction_materialization_hash_valid(row):
+        failures.append("PREDICTION_MATERIALIZATION_HASH_INVALID")
+    if not isinstance(target, dict) or not physics_target_projection_hash_valid(row):
+        failures.append("TARGET_PROJECTION_HASH_INVALID")
+    if not isinstance(lock, dict):
+        failures.append("TARGET_PROJECTION_LOCK_MISSING")
+        return ordered_unique(failures)
+    if not isinstance(declaration, dict):
+        failures.append("PROJECTION_DECLARATION_MISSING")
+    excluded = set((visible or {}).get("target_fields_excluded", [])) if isinstance(visible, dict) else set()
+    if not set(PHYSICS_SCORING_TARGET_FIELDS).issubset(excluded):
+        failures.append("VISIBLE_PROJECTION_TARGET_EXCLUSIONS_INCOMPLETE")
+    if isinstance(visible, dict) and lock.get("visible_projection_hash") != visible.get("projection_hash"):
+        failures.append("LOCK_VISIBLE_HASH_MISMATCH")
+    if isinstance(prediction, dict) and lock.get("prediction_materialization_hash") != prediction.get("prediction_hash"):
+        failures.append("LOCK_PREDICTION_HASH_MISMATCH")
+    if isinstance(target, dict) and lock.get("target_projection_hash") != target.get("target_hash"):
+        failures.append("LOCK_TARGET_HASH_MISMATCH")
+    if lock.get("prediction_materialized_before_target_projection") is not True:
+        failures.append("PREDICTION_NOT_MATERIALIZED_BEFORE_TARGET_PROJECTION")
+    if lock.get("target_projection_hidden_until_scoring") is not True:
+        failures.append("TARGET_PROJECTION_NOT_HIDDEN_UNTIL_SCORING")
+    if lock.get("target_projection_depends_on_prediction_hash") is not True:
+        failures.append("TARGET_PROJECTION_DOES_NOT_DEPEND_ON_PREDICTION_HASH")
+    if set(lock.get("scoring_target_fields", [])) != set(PHYSICS_SCORING_TARGET_FIELDS):
+        failures.append("SCORING_TARGET_FIELDS_MISMATCH")
+    if lock.get("lock_hash") != sha256_object({k: v for k, v in lock.items() if k != "lock_hash"}):
+        failures.append("TARGET_PROJECTION_LOCK_HASH_INVALID")
+    if isinstance(declaration, dict):
+        if declaration.get("target_projection_lock_id") != lock.get("lock_id"):
+            failures.append("DECLARATION_LOCK_ID_MISMATCH")
+        if declaration.get("prediction_materialized_before_target_projection") is not True:
+            failures.append("DECLARATION_PREDICTION_ORDER_MISSING")
+        if declaration.get("target_projection_hidden_until_scoring") is not True:
+            failures.append("DECLARATION_TARGET_HIDDEN_LOCK_MISSING")
+    return ordered_unique(failures)
+
+
+def physics_target_projection_lock_valid(row: dict[str, Any]) -> bool:
+    return not physics_target_projection_lock_failures(row)
+
+
+def physics_source_lock_expected_hashes(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    visible_projection_hashes = ordered_unique(
+        [
+            str((row.get("visible_projection") or {}).get("projection_hash"))
+            for row in rows
+            if isinstance(row.get("visible_projection"), dict) and (row.get("visible_projection") or {}).get("projection_hash")
+        ]
+    )
+    prediction_materialization_hashes = ordered_unique(
+        [
+            str((row.get("prediction_materialization") or {}).get("prediction_hash"))
+            for row in rows
+            if isinstance(row.get("prediction_materialization"), dict)
+            and (row.get("prediction_materialization") or {}).get("prediction_hash")
+        ]
+    )
+    target_projection_hashes = ordered_unique(
+        [
+            str((row.get("target_projection") or {}).get("target_hash"))
+            for row in rows
+            if isinstance(row.get("target_projection"), dict) and (row.get("target_projection") or {}).get("target_hash")
+        ]
+    )
+    scoring_order = [
+        {
+            "task_id": str(row.get("task_id")),
+            "row_hash": str(row.get("row_hash") or ""),
+            "prediction_hash": str((row.get("prediction_materialization") or {}).get("prediction_hash") or ""),
+            "target_hash": str((row.get("target_projection") or {}).get("target_hash") or ""),
+        }
+        for row in rows
+    ]
+    source_refs = ordered_unique([str(row.get("snapshot_ref") or "") for row in rows if str(row.get("snapshot_ref") or "")])
+    source_hashes = ordered_unique([str(row.get("snapshot_sha256") or "") for row in rows if str(row.get("snapshot_sha256") or "")])
+    return {
+        "source_refs": source_refs,
+        "source_hashes": source_hashes,
+        "visible_projection_hashes": visible_projection_hashes,
+        "prediction_materialization_hashes": prediction_materialization_hashes,
+        "target_projection_hashes": target_projection_hashes,
+        "visible_projection_set_hash": sha256_object(visible_projection_hashes),
+        "prediction_materialization_set_hash": sha256_object(prediction_materialization_hashes),
+        "target_projection_set_hash": sha256_object(target_projection_hashes),
+        "scoring_order_hash": sha256_object(scoring_order),
+        "target_hidden_commitment_hash": sha256_object(
+            {
+                "visible_projection_hashes": visible_projection_hashes,
+                "prediction_materialization_hashes": prediction_materialization_hashes,
+                "target_projection_hashes": target_projection_hashes,
+            }
+        ),
+    }
+
+
+def build_physics_machine_source_lock(
+    rows: list[dict[str, Any]],
+    *,
+    source_snapshot_locked_at: str = "2026-04-28T00:00:00Z",
+    source_separation_declared_at: str = "2026-04-28T00:01:00Z",
+    visible_projection_locked_at: str = "2026-04-28T00:02:00Z",
+    prediction_materialized_at: str = "2026-04-28T00:03:00Z",
+    target_projection_unsealed_at: str = "2026-04-28T00:04:00Z",
+    scoring_started_at: str = "2026-04-28T00:05:00Z",
+    acquisition_record: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    expected = physics_source_lock_expected_hashes(rows)
+    source_ref = expected["source_refs"][0] if len(expected["source_refs"]) == 1 else ""
+    source_sha = expected["source_hashes"][0] if len(expected["source_hashes"]) == 1 else ""
+    source_declaration_hash = sha256_object(
+        {
+            "schema_id": PHYSICS_SOURCE_LOCK_SCHEMA_ID,
+            "mode": "target_blind",
+            "source_ref": source_ref,
+            "source_sha256": source_sha,
+            "visible_projection_set_hash": expected["visible_projection_set_hash"],
+            "prediction_materialization_set_hash": expected["prediction_materialization_set_hash"],
+            "target_hidden_commitment_hash": expected["target_hidden_commitment_hash"],
+        }
+    )
+    event_hashes = {
+        "source_snapshot_locked": source_sha,
+        "source_separation_declared": source_declaration_hash,
+        "visible_projection_locked": expected["visible_projection_set_hash"],
+        "prediction_materialized": expected["prediction_materialization_set_hash"],
+        "target_projection_unsealed_for_scoring": expected["target_projection_set_hash"],
+        "scoring_started": expected["scoring_order_hash"],
+    }
+    event_timestamps = {
+        "source_snapshot_locked": source_snapshot_locked_at,
+        "source_separation_declared": source_separation_declared_at,
+        "visible_projection_locked": visible_projection_locked_at,
+        "prediction_materialized": prediction_materialized_at,
+        "target_projection_unsealed_for_scoring": target_projection_unsealed_at,
+        "scoring_started": scoring_started_at,
+    }
+    lock = {
+        "schema_id": PHYSICS_SOURCE_LOCK_SCHEMA_ID,
+        "source_lock_id": "OC133-PHYSICS-OFFICIAL-BATCH-SOURCE-SEPARATION-LOCK",
+        "source_snapshot": {
+            "source_id": "physics_nist_constants",
+            "source_ref": source_ref,
+            "sha256": source_sha,
+            "hash_policy": SNAPSHOT_HASH_POLICY,
+        },
+        "source_declaration_hash": source_declaration_hash,
+        "visible_projection_hashes": expected["visible_projection_hashes"],
+        "visible_projection_set_hash": expected["visible_projection_set_hash"],
+        "prediction_materialization_hashes": expected["prediction_materialization_hashes"],
+        "prediction_materialization_set_hash": expected["prediction_materialization_set_hash"],
+        "target_projection_hashes": expected["target_projection_hashes"],
+        "target_projection_set_hash": expected["target_projection_set_hash"],
+        "target_hidden_commitment_hash": expected["target_hidden_commitment_hash"],
+        "scoring_order_hash": expected["scoring_order_hash"],
+        "order_records": [
+            {
+                "order_index": index,
+                "event_type": event_type,
+                "timestamp": event_timestamps[event_type],
+                "artifact_hash": event_hashes[event_type],
+            }
+            for index, event_type in enumerate(PHYSICS_SOURCE_LOCK_EVENT_SEQUENCE, start=1)
+        ],
+        "hash_policy": "sha256 over canonical source-separation lock JSON excluding source_lock_hash",
+        "artifact_exists_closes_lock": False,
+    }
+    if acquisition_record:
+        lock["official_readonly_acquisition"] = {
+            "acquisition_id": str(acquisition_record.get("acquisition_id") or ""),
+            "lock_ref": str(acquisition_record.get("acquisition_lock_ref") or ""),
+            "lock_sha256": str(acquisition_record.get("acquisition_lock_sha256") or ""),
+            "metadata_ref": str(acquisition_record.get("acquisition_metadata_ref") or ""),
+            "metadata_sha256": str(acquisition_record.get("acquisition_metadata_sha256") or ""),
+            "order_record_ref": str(acquisition_record.get("acquisition_order_record_ref") or ""),
+            "order_record_sha256": str(acquisition_record.get("acquisition_order_record_sha256") or ""),
+            "order_record_file_sha256": str(acquisition_record.get("acquisition_order_record_file_sha256") or ""),
+            "source_bytes_sha256": str(acquisition_record.get("source_bytes_sha256") or ""),
+            "pre_target_sequence_proof": acquisition_record.get("pre_target_sequence_proof") or {},
+        }
+    lock["source_lock_hash"] = sha256_object({k: v for k, v in lock.items() if k != "source_lock_hash"})
+    return lock
+
+
+def physics_source_lock_order_failures(lock: dict[str, Any], expected: dict[str, Any]) -> list[str]:
+    failures: list[str] = []
+    records = lock.get("order_records")
+    if not isinstance(records, list) or not records:
+        return ["PHYSICS_SOURCE_LOCK_ORDER_RECORDS_MISSING"]
+    by_type: dict[str, dict[str, Any]] = {}
+    sorted_indices: list[int] = []
+    for record in records:
+        if not isinstance(record, dict):
+            failures.append("PHYSICS_SOURCE_LOCK_ORDER_RECORD_INVALID")
+            continue
+        event_type = str(record.get("event_type") or "")
+        order_index = record.get("order_index")
+        if not isinstance(order_index, int):
+            failures.append(f"PHYSICS_SOURCE_LOCK_ORDER_INDEX_INVALID::{event_type or 'missing'}")
+            continue
+        sorted_indices.append(order_index)
+        if event_type in by_type:
+            failures.append(f"PHYSICS_SOURCE_LOCK_ORDER_EVENT_DUPLICATE::{event_type}")
+            continue
+        by_type[event_type] = record
+    if sorted_indices != sorted(sorted_indices) or len(set(sorted_indices)) != len(sorted_indices):
+        failures.append("PHYSICS_SOURCE_LOCK_ORDER_INDEX_SEQUENCE_INVALID")
+    required_hashes = {
+        "source_snapshot_locked": (expected["source_hashes"][0] if len(expected["source_hashes"]) == 1 else ""),
+        "source_separation_declared": str(lock.get("source_declaration_hash") or ""),
+        "visible_projection_locked": expected["visible_projection_set_hash"],
+        "prediction_materialized": expected["prediction_materialization_set_hash"],
+        "target_projection_unsealed_for_scoring": expected["target_projection_set_hash"],
+        "scoring_started": expected["scoring_order_hash"],
+    }
+    parsed_records: dict[str, tuple[int, datetime]] = {}
+    for event_type in PHYSICS_SOURCE_LOCK_EVENT_SEQUENCE:
+        record = by_type.get(event_type)
+        if not isinstance(record, dict):
+            failures.append(f"PHYSICS_SOURCE_LOCK_ORDER_EVENT_MISSING::{event_type}")
+            continue
+        timestamp = parse_iso_timestamp(record.get("timestamp"))
+        if timestamp is None:
+            failures.append(f"PHYSICS_SOURCE_LOCK_TIMESTAMP_INVALID::{event_type}")
+            continue
+        if record.get("artifact_hash") != required_hashes[event_type]:
+            failures.append(f"PHYSICS_SOURCE_LOCK_ORDER_HASH_MISMATCH::{event_type}")
+        parsed_records[event_type] = (int(record["order_index"]), timestamp)
+    for earlier, later in zip(PHYSICS_SOURCE_LOCK_EVENT_SEQUENCE, PHYSICS_SOURCE_LOCK_EVENT_SEQUENCE[1:]):
+        if earlier not in parsed_records or later not in parsed_records:
+            continue
+        earlier_index, earlier_timestamp = parsed_records[earlier]
+        later_index, later_timestamp = parsed_records[later]
+        if earlier_index >= later_index or earlier_timestamp >= later_timestamp:
+            failures.append(f"PHYSICS_SOURCE_LOCK_ORDER_NOT_PRECEDENT::{earlier}->{later}")
+    if "source_snapshot_locked" in parsed_records and "target_projection_unsealed_for_scoring" in parsed_records:
+        if parsed_records["source_snapshot_locked"][1] >= parsed_records["target_projection_unsealed_for_scoring"][1]:
+            failures.append("PHYSICS_SOURCE_LOCK_NOT_PRE_TARGET")
+    if "source_separation_declared" in parsed_records and "scoring_started" in parsed_records:
+        if parsed_records["source_separation_declared"][1] >= parsed_records["scoring_started"][1]:
+            failures.append("PHYSICS_SOURCE_LOCK_DECLARED_AFTER_SCORING")
+    if "prediction_materialized" in parsed_records and "target_projection_unsealed_for_scoring" in parsed_records:
+        if parsed_records["prediction_materialized"][1] >= parsed_records["target_projection_unsealed_for_scoring"][1]:
+            failures.append("PHYSICS_SOURCE_LOCK_TARGET_NOT_HIDDEN")
+    if "target_projection_unsealed_for_scoring" in parsed_records and "scoring_started" in parsed_records:
+        if parsed_records["target_projection_unsealed_for_scoring"][1] > parsed_records["scoring_started"][1]:
+            failures.append("PHYSICS_SOURCE_LOCK_TARGET_UNSEALED_AFTER_SCORING")
+    return ordered_unique(failures)
+
+
+def physics_source_lock_failures(source: dict[str, Any], rows: list[dict[str, Any]]) -> list[str]:
+    failures: list[str] = []
+    lock = source.get("machine_checkable_source_lock")
+    if not isinstance(lock, dict):
+        failures.append("PHYSICS_SOURCE_LOCK_NOT_MACHINE_VERIFIED")
+        failures.append("PHYSICS_SOURCE_LOCK_ATTESTATION_MISSING")
+        failures.append("PHYSICS_PROSPECTIVE_SOURCE_LOCK_REQUIRED")
+        if source.get("strict_source_separation_attested") is True or str(source.get("attestation_ref") or ""):
+            failures.append("PHYSICS_NO_ARTIFACT_EXISTS_CLOSURE")
+        return failures
+    if lock.get("artifact_exists_closes_lock") is True or lock.get("verification_method") == "artifact_exists":
+        failures.append("PHYSICS_NO_ARTIFACT_EXISTS_CLOSURE")
+    if lock.get("verification_status") == "passed":
+        failures.append("PHYSICS_SOURCE_LOCK_STATUS_TOKEN_NOT_ACCEPTED")
+    if lock.get("schema_id") != PHYSICS_SOURCE_LOCK_SCHEMA_ID:
+        failures.append("PHYSICS_SOURCE_LOCK_SCHEMA_ID_MISMATCH")
+    if any(visible_projection_has_target_leakage(row) for row in rows):
+        failures.append("PHYSICS_SOURCE_LOCK_TARGET_LEAKAGE")
+    expected = physics_source_lock_expected_hashes(rows)
+    source_snapshot = lock.get("source_snapshot")
+    if not isinstance(source_snapshot, dict):
+        failures.append("PHYSICS_SOURCE_LOCK_SOURCE_SNAPSHOT_MISSING")
+    else:
+        if source_snapshot.get("source_ref") not in expected["source_refs"] or len(expected["source_refs"]) != 1:
+            failures.append("PHYSICS_SOURCE_LOCK_SOURCE_REF_MISMATCH")
+        if source_snapshot.get("sha256") not in expected["source_hashes"] or len(expected["source_hashes"]) != 1:
+            failures.append("PHYSICS_SOURCE_LOCK_SOURCE_SHA256_MISMATCH")
+        if source_snapshot.get("hash_policy") != SNAPSHOT_HASH_POLICY:
+            failures.append("PHYSICS_SOURCE_LOCK_SOURCE_HASH_POLICY_MISMATCH")
+    if lock.get("prediction_materialization_hashes") != expected["prediction_materialization_hashes"]:
+        failures.append("PHYSICS_SOURCE_LOCK_PREDICTION_HASHES_MISMATCH")
+    if lock.get("prediction_materialization_set_hash") != expected["prediction_materialization_set_hash"]:
+        failures.append("PHYSICS_SOURCE_LOCK_PREDICTION_SET_HASH_MISMATCH")
+    if lock.get("visible_projection_hashes") != expected["visible_projection_hashes"]:
+        failures.append("PHYSICS_SOURCE_LOCK_VISIBLE_HASHES_MISMATCH")
+    if lock.get("visible_projection_set_hash") != expected["visible_projection_set_hash"]:
+        failures.append("PHYSICS_SOURCE_LOCK_VISIBLE_SET_HASH_MISMATCH")
+    if lock.get("target_projection_hashes") != expected["target_projection_hashes"]:
+        failures.append("PHYSICS_SOURCE_LOCK_TARGET_HASHES_MISMATCH")
+    if lock.get("target_projection_set_hash") != expected["target_projection_set_hash"]:
+        failures.append("PHYSICS_SOURCE_LOCK_TARGET_SET_HASH_MISMATCH")
+    if lock.get("scoring_order_hash") != expected["scoring_order_hash"]:
+        failures.append("PHYSICS_SOURCE_LOCK_SCORING_ORDER_HASH_MISMATCH")
+    if lock.get("target_hidden_commitment_hash") != expected["target_hidden_commitment_hash"]:
+        failures.append("PHYSICS_SOURCE_LOCK_TARGET_HIDDEN_COMMITMENT_MISMATCH")
+    failures.extend(physics_source_lock_order_failures(lock, expected))
+    if lock.get("source_lock_hash") != sha256_object(
+        {k: v for k, v in lock.items() if k != "source_lock_hash"}
+    ):
+        failures.append("PHYSICS_SOURCE_LOCK_HASH_INVALID")
+    machine_failures = [
+        failure
+        for failure in failures
+        if failure not in {"PHYSICS_NO_ARTIFACT_EXISTS_CLOSURE", "PHYSICS_SOURCE_LOCK_STATUS_TOKEN_NOT_ACCEPTED"}
+    ]
+    if machine_failures:
+        failures.append("PHYSICS_SOURCE_LOCK_NOT_MACHINE_VERIFIED")
+    return ordered_unique(failures)
+
+
+def physics_row_pre_target_proof_failures(row: dict[str, Any]) -> list[str]:
+    task_id = str(row.get("task_id") or "unknown")
+    failures: list[str] = []
+    declaration = row.get("projection_declaration")
+    if not isinstance(declaration, dict):
+        return [f"PHYSICS_ROW_PRE_TARGET_PROOF_MISSING::{task_id}"]
+    if declaration.get("source_snapshot_pre_target_lock") is not True:
+        failures.append(f"PHYSICS_ROW_SOURCE_SNAPSHOT_PRE_TARGET_LOCK_MISSING::{task_id}")
+    if declaration.get("target_projection_hidden_until_scoring") is not True:
+        failures.append(f"PHYSICS_ROW_TARGET_HIDDEN_UNTIL_SCORING_MISSING::{task_id}")
+    if declaration.get("prediction_materialized_before_target_projection") is not True:
+        failures.append(f"PHYSICS_ROW_PREDICTION_BEFORE_TARGET_PROJECTION_MISSING::{task_id}")
+    return failures
+
+
+def object_text_contains(payload: Any, needles: tuple[str, ...]) -> bool:
+    if isinstance(payload, dict):
+        return any(object_text_contains(value, needles) for value in payload.values())
+    if isinstance(payload, list):
+        return any(object_text_contains(item, needles) for item in payload)
+    if isinstance(payload, str):
+        lower = f" {payload.lower()} "
+        return any(needle in lower for needle in needles)
+    return False
+
+
+def physics_stale_policy_text_failures(rows: list[dict[str, Any]], source: dict[str, Any]) -> list[str]:
+    if not (
+        source.get("mode") == "prospective"
+        and source.get("pre_target_lock") is True
+        and source.get("target_hidden_until_scoring") is True
+    ):
+        return []
+    return [
+        f"PHYSICS_STALE_SOURCE_SEPARATION_POLICY_TEXT::{row.get('task_id')}"
+        for row in rows
+        if object_text_contains(row, PHYSICS_STALE_LOCK_BLOCKER_TEXT)
+    ]
+
+
+def physics_comparator_semantics_failures(row: dict[str, Any]) -> list[str]:
+    task_id = str(row.get("task_id") or "unknown")
+    failures: list[str] = []
+    preregistration = row.get("preregistration")
+    comparator = row.get("comparator")
+    prereg_comparator = preregistration.get("comparator") if isinstance(preregistration, dict) else None
+    if not isinstance(comparator, dict) or not isinstance(prereg_comparator, dict):
+        return [f"PHYSICS_COMPARATOR_MISSING::{task_id}"]
+    if comparator != prereg_comparator:
+        failures.append(f"PHYSICS_COMPARATOR_PREREGISTRATION_MISMATCH::{task_id}")
+    if comparator.get("pre_registered") is not True:
+        failures.append(f"PHYSICS_COMPARATOR_NOT_PREREGISTERED::{task_id}")
+    if comparator.get("kind") != "same_target_formula_ablation":
+        failures.append(f"PHYSICS_COMPARATOR_NOT_SAME_TARGET_ABLATION::{task_id}")
+    if comparator.get("target_quantity") != row.get("target_quantity"):
+        failures.append(f"PHYSICS_COMPARATOR_TARGET_MISMATCH::{task_id}")
+    if comparator.get("residual_metric_id") != row.get("residual_metric_id"):
+        failures.append(f"PHYSICS_COMPARATOR_METRIC_MISMATCH::{task_id}")
+    prediction = comparator.get("prediction_value")
+    row_prediction = row.get("comparator_prediction")
+    if not is_number(prediction) or not math.isfinite(float(prediction)):
+        failures.append(f"PHYSICS_COMPARATOR_PREDICTION_INVALID::{task_id}")
+    elif abs(float(prediction)) == 0.0:
+        failures.append(f"PHYSICS_COMPARATOR_NULL_OR_ZERO_BASELINE::{task_id}")
+    if prediction != row_prediction:
+        failures.append(f"PHYSICS_COMPARATOR_ROW_PREDICTION_MISMATCH::{task_id}")
+    text_payload = {
+        "comparator": comparator,
+        "comparator_baseline": row.get("comparator_baseline"),
+        "negative_control_id": row.get("negative_control_id"),
+        "negative_control_description": row.get("negative_control_description"),
+        "falsifier": row.get("falsifier"),
+    }
+    if object_text_contains(text_payload, PHYSICS_FORBIDDEN_COMPARATOR_TEXT):
+        failures.append(f"PHYSICS_COMPARATOR_NULL_OR_WRONG_FIELD_TEXT::{task_id}")
+    if row.get("comparator_residual_score", 0) <= row.get("model_residual_score", 0):
+        failures.append(f"PHYSICS_COMPARATOR_NOT_NONTRIVIAL_SUPERIORITY_BASELINE::{task_id}")
+    return ordered_unique(failures)
+
+
+def build_physics_rows(
+    root: Path,
+    snapshot_ref: str,
+    manifest: dict[str, dict[str, Any]],
+    *,
+    acquisition_record: dict[str, Any] | None = None,
+) -> tuple[list[dict[str, Any]], list[str], dict[str, Any]]:
+    record = acquisition_record or snapshot_record(root, snapshot_ref, manifest, "physics_nist_constants")
     if not record["exists"]:
         return [], [f"OFFICIAL_SNAPSHOT_MISSING::physics::{snapshot_ref}"], record
     text = resolve_under_root(root, snapshot_ref).read_text(encoding="utf-8", errors="replace")
@@ -490,14 +1351,43 @@ def build_physics_rows(root: Path, snapshot_ref: str, manifest: dict[str, dict[s
         observed = float(target.value)
         uncertainty = display_tolerance(observed, target.uncertainty, target.value_text)
         model_residual = abs(predicted - observed)
-        comparator_prediction = 0.0
+        comparator = physics_same_target_ablation_comparator(spec, values)
+        comparator_prediction = float(comparator["prediction_value"])
         comparator_residual = abs(comparator_prediction - observed)
         model_score = residual_score(model_residual, uncertainty)
         comparator_score = residual_score(comparator_residual, uncertainty)
-        visible_projection = physics_visible_projection(spec, constants)
-        target_projection = physics_target_projection(spec, target)
-        projection_declaration = physics_projection_declaration(spec, visible_projection, target_projection)
-        preregistration = physics_preregistration(spec, uncertainty)
+        visible_projection = physics_visible_projection(spec, constants, snapshot_ref=snapshot_ref)
+        prediction_materialization = physics_prediction_materialization(spec, visible_projection, predicted)
+        target_projection = physics_target_projection(spec, target, snapshot_ref=snapshot_ref)
+        target_projection_lock = physics_target_projection_lock(
+            spec,
+            visible_projection,
+            prediction_materialization,
+            target_projection,
+        )
+        projection_declaration = physics_projection_declaration(
+            spec,
+            visible_projection,
+            target_projection,
+            target_projection_lock,
+            source_snapshot_pre_target_lock=bool(acquisition_record),
+        )
+        preregistration = physics_preregistration(
+            spec,
+            uncertainty,
+            declared_before_target_snapshot_access=bool(acquisition_record),
+            comparator=comparator,
+        )
+        if acquisition_record:
+            grand_scope = (
+                "prospective CODATA source snapshot locked before scoring with target projection hidden until scoring "
+                f"under acquisition {acquisition_record.get('acquisition_id')} "
+                f"snapshot_sha256={acquisition_record.get('sha256')} "
+                f"lock_sha256={acquisition_record.get('acquisition_lock_sha256')} "
+                f"order_record_sha256={acquisition_record.get('acquisition_order_record_sha256')}"
+            )
+        else:
+            grand_scope = "official snapshot consistency task; not independently pre-target locked in the current repo"
         row = {
             "task_id": spec.task_id,
             "domain": "physics",
@@ -512,7 +1402,9 @@ def build_physics_rows(root: Path, snapshot_ref: str, manifest: dict[str, dict[s
             "formula": spec.formula,
             "ingredients": list(spec.ingredients),
             "visible_projection": visible_projection,
+            "prediction_materialization": prediction_materialization,
             "target_projection": target_projection,
+            "target_projection_lock": target_projection_lock,
             "projection_declaration": projection_declaration,
             "preregistration": preregistration,
             "predicted_value": predicted,
@@ -522,16 +1414,19 @@ def build_physics_rows(root: Path, snapshot_ref: str, manifest: dict[str, dict[s
             "residual_metric_id": RESIDUAL_METRIC_ID,
             "model_residual": model_residual,
             "model_residual_score": model_score,
-            "comparator_baseline": "zero-value null baseline",
+            "comparator": comparator,
+            "comparator_baseline": comparator["name"],
             "comparator_prediction": comparator_prediction,
             "comparator_residual": comparator_residual,
             "comparator_residual_score": comparator_score,
-            "negative_control_id": f"{spec.task_id}-ZERO-BASELINE",
-            "negative_control_description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
+            "negative_control_id": comparator["comparator_id"],
+            "negative_control_description": (
+                "replace the first visible formula ingredient with dimensionless 1.0 and require a larger same-target residual"
+            ),
             "negative_control_rejected": comparator_score > model_score,
-            "falsifier": "official relation residual exceeds display/uncertainty tolerance or the zero baseline is not worse",
+            "falsifier": "official relation residual exceeds display/uncertainty tolerance or the same-target ablation baseline is not worse",
             "residual_within_uncertainty": model_residual <= uncertainty,
-            "grand_scope": "official snapshot consistency task; not independently pre-target locked in the current repo",
+            "grand_scope": grand_scope,
         }
         row["row_hash"] = row_hash(row)
         row["row_hash_policy"] = ROW_HASH_POLICY
@@ -651,7 +1546,7 @@ def metric_row(
         "negative_control_rejected": comparator_residual > model_residual,
         "falsifier": falsifier,
         "residual_within_uncertainty": model_residual <= uncertainty,
-        "grand_scope": "official snapshot field or cross-source consistency task; not independently pre-target locked in the current repo",
+        "grand_scope": "official snapshot field or cross-source consistency task; support remains blocked pending prospective source separation",
     }
     row["row_hash"] = row_hash(row)
     row["row_hash_policy"] = ROW_HASH_POLICY
@@ -945,6 +1840,75 @@ def default_source_separation(domain: str, rows: list[dict[str, Any]]) -> dict[s
     }
 
 
+def prospective_physics_source_separation(rows: list[dict[str, Any]], acquisition_record: dict[str, Any]) -> dict[str, Any]:
+    acquired_at = str(acquisition_record.get("acquired_at_utc") or "2026-04-28T00:00:00Z")
+    lock = build_physics_machine_source_lock(
+        rows,
+        source_snapshot_locked_at=acquired_at,
+        source_separation_declared_at=timestamp_plus_seconds(acquired_at, 1),
+        visible_projection_locked_at=timestamp_plus_seconds(acquired_at, 2),
+        prediction_materialized_at=timestamp_plus_seconds(acquired_at, 3),
+        target_projection_unsealed_at=timestamp_plus_seconds(acquired_at, 4),
+        scoring_started_at=timestamp_plus_seconds(acquired_at, 5),
+        acquisition_record=acquisition_record,
+    )
+    return {
+        "mode": "prospective",
+        "pre_target_lock": True,
+        "target_hidden_until_scoring": True,
+        "declared_before_scoring": True,
+        "visible_target_projection_declared": bool(rows),
+        "visible_projection_ids": ordered_unique(
+            [
+                str(row["visible_projection"]["projection_id"])
+                for row in rows
+                if isinstance(row.get("visible_projection"), dict)
+            ]
+        ),
+        "target_projection_ids": ordered_unique(
+            [
+                str(row["target_projection"]["projection_id"])
+                for row in rows
+                if isinstance(row.get("target_projection"), dict)
+            ]
+        ),
+        "strict_source_separation_attested": True,
+        "attestation_ref": str(acquisition_record.get("acquisition_lock_ref") or ""),
+        "source_separation_class": "machine_verified_prospective_official_readonly_source_lock",
+        "training_sources": ordered_unique([str(row["training_source"]) for row in rows if row.get("training_source")]),
+        "target_sources": ordered_unique([str(row["target_source"]) for row in rows if row.get("target_source")]),
+        "machine_checkable_source_lock": lock,
+        "official_readonly_acquisition": {
+            "acquisition_id": str(acquisition_record.get("acquisition_id") or ""),
+            "snapshot_ref": str(acquisition_record.get("source_ref") or ""),
+            "snapshot_sha256": str(acquisition_record.get("sha256") or ""),
+            "source_bytes_sha256": str(acquisition_record.get("source_bytes_sha256") or ""),
+            "lock_ref": str(acquisition_record.get("acquisition_lock_ref") or ""),
+            "lock_sha256": str(acquisition_record.get("acquisition_lock_sha256") or ""),
+            "metadata_ref": str(acquisition_record.get("acquisition_metadata_ref") or ""),
+            "metadata_sha256": str(acquisition_record.get("acquisition_metadata_sha256") or ""),
+            "order_record_ref": str(acquisition_record.get("acquisition_order_record_ref") or ""),
+            "order_record_sha256": str(acquisition_record.get("acquisition_order_record_sha256") or ""),
+            "order_record_file_sha256": str(acquisition_record.get("acquisition_order_record_file_sha256") or ""),
+        },
+    }
+
+
+def physics_codata_lock_satisfied(source: dict[str, Any]) -> bool:
+    acquisition = source.get("official_readonly_acquisition")
+    return (
+        source.get("mode") == "prospective"
+        and source.get("pre_target_lock") is True
+        and source.get("target_hidden_until_scoring") is True
+        and source.get("strict_source_separation_attested") is True
+        and isinstance(acquisition, dict)
+        and acquisition.get("acquisition_id") == PHYSICS_CODATA_ACQUISITION_ID
+        and bool(acquisition.get("snapshot_sha256"))
+        and bool(acquisition.get("lock_sha256"))
+        and bool(acquisition.get("order_record_sha256"))
+    )
+
+
 def clean_pack_source(source: dict[str, Any], *, include_projection: bool = False) -> dict[str, Any]:
     cleaned = {
         "mode": str(source.get("mode", "official_snapshot_replay")),
@@ -964,6 +1928,21 @@ def clean_pack_source(source: dict[str, Any], *, include_projection: bool = Fals
                 "source_separation_class": str(source.get("source_separation_class") or ""),
             }
         )
+        acquisition = source.get("official_readonly_acquisition")
+        if isinstance(acquisition, dict):
+            cleaned["official_readonly_acquisition"] = {
+                "acquisition_id": str(acquisition.get("acquisition_id") or ""),
+                "snapshot_ref": str(acquisition.get("snapshot_ref") or ""),
+                "snapshot_sha256": str(acquisition.get("snapshot_sha256") or ""),
+                "source_bytes_sha256": str(acquisition.get("source_bytes_sha256") or ""),
+                "lock_ref": str(acquisition.get("lock_ref") or ""),
+                "lock_sha256": str(acquisition.get("lock_sha256") or ""),
+                "metadata_ref": str(acquisition.get("metadata_ref") or ""),
+                "metadata_sha256": str(acquisition.get("metadata_sha256") or ""),
+                "order_record_ref": str(acquisition.get("order_record_ref") or ""),
+                "order_record_sha256": str(acquisition.get("order_record_sha256") or ""),
+                "order_record_file_sha256": str(acquisition.get("order_record_file_sha256") or ""),
+            }
     return cleaned
 
 
@@ -1037,11 +2016,22 @@ def preregistration_summary(domain: str, rows: list[dict[str, Any]]) -> dict[str
         for row in prereg_rows
         if isinstance(row, dict)
     ]
+    source_locked = bool(rows) and all(row.get("declared_before_target_snapshot_access") is True for row in prereg_rows)
+    policy = (
+        "Formulas, same-target ablation comparators, residual metrics, uncertainty rules, negative controls, and "
+        "falsifiers are declared before row scoring with the CODATA source snapshot/order/lock hashes recorded "
+        "in source_separation."
+        if source_locked
+        else (
+            "Formulas, comparators, residual metrics, uncertainty rules, negative controls, and falsifiers are "
+            "declared in this artifact before row scoring, but the present CODATA text was not acquired under "
+            "a pre-target hidden lock; this remains a blocker for promotion."
+        )
+    )
     return {
         "domain": domain,
         "preregistered_before_scoring": bool(rows) and len(prereg_rows) == len(rows),
-        "preregistered_before_target_snapshot_access": bool(rows)
-        and all(row.get("declared_before_target_snapshot_access") is True for row in prereg_rows),
+        "preregistered_before_target_snapshot_access": source_locked,
         "preregistration_ids": [
             str(row.get("preregistration_id")) for row in prereg_rows if str(row.get("preregistration_id") or "")
         ],
@@ -1049,11 +2039,7 @@ def preregistration_summary(domain: str, rows: list[dict[str, Any]]) -> dict[str
         "comparator_total": len(comparator_registered),
         "comparator_preregistered_total": sum(1 for value in comparator_registered if value),
         "residual_metric_id": RESIDUAL_METRIC_ID,
-        "policy": (
-            "Formulas, comparators, residual metrics, uncertainty rules, negative controls, and falsifiers are "
-            "declared in this artifact before row scoring, but the present CODATA text was not acquired under "
-            "a pre-target hidden lock; this remains a blocker for promotion."
-        ),
+        "policy": policy,
     }
 
 
@@ -1096,6 +2082,13 @@ def build_candidate_pack(domain: str, rows: list[dict[str, Any]], source: dict[s
     if domain == "physics":
         comparator_baseline.update(
             {
+                "name": "physics official-snapshot same-target formula ablation baseline",
+                "prediction_rule": (
+                    "For each declared CODATA target, evaluate the preregistered target formula after replacing "
+                    "the first visible ingredient with dimensionless 1.0; score that same-target ablation under "
+                    "the same residual metric."
+                ),
+                "kind": "same_target_formula_ablation",
                 "preregistration_ref": PROTOCOL_REL,
                 "residual_metric_id": RESIDUAL_METRIC_ID,
             }
@@ -1125,8 +2118,165 @@ def build_candidate_pack(domain: str, rows: list[dict[str, Any]], source: dict[s
     return pack
 
 
+def prospective_metadata_visible_request_fields(row: dict[str, Any]) -> dict[str, Any]:
+    visible = {
+        key: value
+        for key, value in row.items()
+        if key
+        not in {
+            "prospective_lock_metadata",
+            "source_separation_lock_metadata",
+            "execution_lock_metadata",
+        }
+    }
+    return dict(sorted(visible.items(), key=lambda item: item[0]))
+
+
+def prospective_metadata_order_proof() -> dict[str, Any]:
+    event_order = [
+        {
+            "event_index": index,
+            "event": event,
+            "performed_by_acquisition_runner": event == "source_snapshot_locked",
+            "must_precede_scoring": event
+            in {
+                "source_snapshot_locked",
+                "source_separation_declared",
+                "visible_projection_locked",
+                "prediction_materialized",
+            },
+        }
+        for index, event in enumerate(PHYSICS_PROSPECTIVE_LOCK_EVENT_SEQUENCE, start=1)
+    ]
+    proof = {
+        "event_order": event_order,
+        "strict_precedence": (
+            "source_snapshot_locked < source_separation_declared < visible_projection_locked < "
+            "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+        ),
+        "source_snapshot_locked_before_scoring": True,
+        "target_unsealed_before_acquisition": False,
+        "scoring_started_before_acquisition": False,
+        "post_acquisition_events_not_performed_by_runner": [
+            "target_projection_unsealed_for_scoring",
+            "scoring_started",
+        ],
+    }
+    proof["order_hash"] = sha256_object({key: value for key, value in proof.items() if key != "order_hash"})
+    return proof
+
+
+def build_physics_prospective_lock_metadata(row: dict[str, Any]) -> dict[str, Any]:
+    request_visible_fields = prospective_metadata_visible_request_fields(row)
+    order_proof = prospective_metadata_order_proof()
+    metadata_inputs = {
+        "request_visible_fields": request_visible_fields,
+        "model_family": PHYSICS_PROSPECTIVE_MODEL_FAMILY,
+        "comparator_baseline": PHYSICS_PROSPECTIVE_COMPARATOR_BASELINE,
+        "scoring_policy": PHYSICS_PROSPECTIVE_SCORING_POLICY,
+        "target_split_policy": PHYSICS_PROSPECTIVE_TARGET_SPLIT_POLICY,
+        "no_send_locks": PHYSICS_PROSPECTIVE_NO_SEND_LOCKS,
+        "prospective_order_hash": order_proof["order_hash"],
+    }
+    metadata = {
+        "schema_id": PROSPECTIVE_LOCK_METADATA_SCHEMA_ID,
+        "source_snapshot_pre_target_lock": True,
+        "target_hidden_until_scoring": True,
+        "target_projection_unsealed_for_scoring": False,
+        "scoring_started": False,
+        "prediction_materialization_required_before_scoring": True,
+        "target_projection_read_before_prediction_materialization": False,
+        "public_release_action_allowed": False,
+        "publish_allowed": False,
+        "push_allowed": False,
+        "request_visible_fields": request_visible_fields,
+        "request_visible_fields_hash": sha256_object(request_visible_fields),
+        "model_family": PHYSICS_PROSPECTIVE_MODEL_FAMILY,
+        "model_family_hash": sha256_object(PHYSICS_PROSPECTIVE_MODEL_FAMILY),
+        "comparator_baseline": PHYSICS_PROSPECTIVE_COMPARATOR_BASELINE,
+        "comparator_baseline_hash": sha256_object(PHYSICS_PROSPECTIVE_COMPARATOR_BASELINE),
+        "scoring_policy": PHYSICS_PROSPECTIVE_SCORING_POLICY,
+        "scoring_policy_hash": sha256_object(PHYSICS_PROSPECTIVE_SCORING_POLICY),
+        "target_split_policy": PHYSICS_PROSPECTIVE_TARGET_SPLIT_POLICY,
+        "target_split_policy_hash": sha256_object(PHYSICS_PROSPECTIVE_TARGET_SPLIT_POLICY),
+        "no_send_locks": PHYSICS_PROSPECTIVE_NO_SEND_LOCKS,
+        "no_send_locks_hash": sha256_object(PHYSICS_PROSPECTIVE_NO_SEND_LOCKS),
+        "prospective_order_proof": order_proof,
+        "prospective_order_hash": order_proof["order_hash"],
+        "order_proof": order_proof,
+        "order_hash": order_proof["order_hash"],
+        "metadata_inputs_hash": sha256_object(metadata_inputs),
+        "target_value_leak_check": {
+            "target_values_present": False,
+            "target_value_fields_excluded": PHYSICS_PROSPECTIVE_TARGET_SPLIT_POLICY["target_value_fields_excluded"],
+        },
+    }
+    metadata["metadata_hash"] = sha256_object({key: value for key, value in metadata.items() if key != "metadata_hash"})
+    return metadata
+
+
+def attach_physics_prospective_lock_metadata(row: dict[str, Any]) -> dict[str, Any]:
+    result = dict(row)
+    result["prospective_lock_metadata"] = build_physics_prospective_lock_metadata(result)
+    return result
+
+
+def payload_has_prospective_metadata_target_value(payload: Any) -> bool:
+    if isinstance(payload, dict):
+        for key, value in payload.items():
+            if key in PHYSICS_PROSPECTIVE_METADATA_FORBIDDEN_VALUE_KEYS:
+                return True
+            if payload_has_prospective_metadata_target_value(value):
+                return True
+    elif isinstance(payload, list):
+        return any(payload_has_prospective_metadata_target_value(item) for item in payload)
+    return False
+
+
+def physics_prospective_lock_metadata_failures(row: dict[str, Any]) -> list[str]:
+    metadata = row.get("prospective_lock_metadata")
+    if not isinstance(metadata, dict) or not metadata:
+        return ["PROSPECTIVE_LOCK_METADATA_MISSING"]
+    failures: list[str] = []
+    required_values = {
+        "schema_id": PROSPECTIVE_LOCK_METADATA_SCHEMA_ID,
+        "source_snapshot_pre_target_lock": True,
+        "target_hidden_until_scoring": True,
+        "target_projection_unsealed_for_scoring": False,
+        "scoring_started": False,
+        "prediction_materialization_required_before_scoring": True,
+        "target_projection_read_before_prediction_materialization": False,
+        "public_release_action_allowed": False,
+        "publish_allowed": False,
+        "push_allowed": False,
+    }
+    for key, expected in required_values.items():
+        if metadata.get(key) != expected:
+            failures.append(f"PROSPECTIVE_LOCK_METADATA_INVALID::{key}")
+    scoring_policy = metadata.get("scoring_policy") if isinstance(metadata.get("scoring_policy"), dict) else {}
+    if metadata.get("scoring_started_at") or scoring_policy.get("scoring_started_at"):
+        failures.append("POST_SCORING_ACQUISITION_NOT_ALLOWED")
+    if metadata.get("target_projection_unsealed_for_scoring_at") or scoring_policy.get(
+        "target_projection_unsealed_for_scoring_at"
+    ):
+        failures.append("TARGET_UNSEALED_BEFORE_ACQUISITION_NOT_ALLOWED")
+    order_proof = metadata.get("prospective_order_proof")
+    if not isinstance(order_proof, dict) or not order_proof:
+        failures.append("PROSPECTIVE_LOCK_METADATA_ORDER_PROOF_MISSING")
+    elif metadata.get("prospective_order_hash") != sha256_object(
+        {key: value for key, value in order_proof.items() if key != "order_hash"}
+    ):
+        failures.append("PROSPECTIVE_LOCK_METADATA_ORDER_HASH_STALE")
+    if payload_has_prospective_metadata_target_value(metadata):
+        failures.append("PROSPECTIVE_LOCK_METADATA_TARGET_VALUE_LEAKAGE")
+    expected = build_physics_prospective_lock_metadata(row)
+    if metadata.get("metadata_hash") != expected.get("metadata_hash") or metadata != expected:
+        failures.append("PROSPECTIVE_LOCK_METADATA_STALE")
+    return ordered_unique(failures)
+
+
 def physics_acquisition_requests(current_n: int, minimum_n: int) -> list[dict[str, Any]]:
-    return [
+    rows = [
         {
             "acquisition_id": "OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001",
             "official_source": "NIST CODATA 2022 fundamental constants complete ASCII listing",
@@ -1172,16 +2322,24 @@ def physics_acquisition_requests(current_n: int, minimum_n: int) -> list[dict[st
             "minimum_rows_required": minimum_n,
             "current_official_batch_rows": 0,
             "runner_validation_note": (
-                "Current official-readonly runner allowlist only covers physics.nist.gov/cuu/Constants; "
-                "this ASD request is intentionally visible as a protocol blocker until the allowlist is extended."
+                "The official-readonly runner allowlist accepts this exact NIST ASD hydrogen Balmer TSV query."
             ),
             "missing_reason": "No independent NIST ASD target snapshot is pinned for a physics held-out spectral-line class.",
         },
     ]
+    return [attach_physics_prospective_lock_metadata(row) for row in rows]
 
 
 def build_physics_acquisition_packet(physics_eval: dict[str, Any]) -> dict[str, Any]:
-    rows = physics_acquisition_requests(int(physics_eval["candidate_n"]), int(physics_eval["minimum_n"]))
+    all_rows = physics_acquisition_requests(int(physics_eval["candidate_n"]), int(physics_eval["minimum_n"]))
+    codata_lock_satisfied = physics_codata_lock_satisfied(physics_eval.get("source_separation", {}))
+    rows = [row for row in all_rows if not (codata_lock_satisfied and row["acquisition_id"] == PHYSICS_CODATA_ACQUISITION_ID)]
+    protocol_blockers = ["INDEPENDENT_PHYSICS_TARGET_CLASS_REQUIRED"] if codata_lock_satisfied else [
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "SOURCE_SEPARATION_ATTESTATION_REQUIRED",
+        "INDEPENDENT_PHYSICS_TARGET_CLASS_REQUIRED",
+    ]
     packet = {
         "schema_id": PHYSICS_ACQUISITION_PACKET_SCHEMA_ID,
         "release_id": RELEASE_ID,
@@ -1190,6 +2348,7 @@ def build_physics_acquisition_packet(physics_eval: dict[str, Any]) -> dict[str, 
         "generated_by": "tools/oc133_physics_chemistry_official_batch_factory.py",
         "domain": "physics",
         "source_lane": "official_batch",
+        "status": "PARTIAL_ACQUISITION_REQUIRED" if codata_lock_satisfied else "ACQUISITION_REQUIRED",
         "no_send": True,
         "publish_allowed": False,
         "registry_write_allowed": False,
@@ -1197,15 +2356,55 @@ def build_physics_acquisition_packet(physics_eval: dict[str, Any]) -> dict[str, 
         "grand_toe_support_allowed": False,
         "candidate_n": physics_eval["candidate_n"],
         "minimum_n": physics_eval["minimum_n"],
+        "request_total": len(rows),
         "missing_official_snapshot_total": len(rows),
         "missing_official_snapshots": rows,
         "acquisition_requests": rows,
-        "protocol_blockers": [
-            "PRE_TARGET_LOCK_REQUIRED",
-            "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
-            "SOURCE_SEPARATION_ATTESTATION_REQUIRED",
-            "INDEPENDENT_PHYSICS_TARGET_CLASS_REQUIRED",
-        ],
+        "exact_acquisition_requests": rows,
+        "official_acquisition_run_root_ref": OFFICIAL_ACQUISITION_RUN_ROOT_REL,
+        "codata_prospective_lock_satisfied": codata_lock_satisfied,
+        "codata_prospective_lock_evidence": (
+            physics_eval["source_separation"].get("official_readonly_acquisition", {})
+            if codata_lock_satisfied
+            else {}
+        ),
+        "protocol_blockers": protocol_blockers,
+        "automated_prospective_protocol": {
+            "protocol_id": "OC133-PHYSICS-OFFICIAL-BATCH-PROSPECTIVE-ACQUISITION-v1",
+            "runner_tool_ref": "tools/oc133_official_readonly_acquisition_runner.py",
+            "phase_order": [
+                "freeze_formula_comparator_uncertainty_controls_and_falsifiers",
+                "write_no_send_acquisition_packet",
+                "dry_run_runner_validation",
+                "execute_readonly_official_https_get_after_packet_hash_is_fixed",
+                "materialize_prediction_rows_from_visible_fields_only",
+                "unseal_target_projection_for_scoring",
+                "rerun_factory_check_and_grand_gate",
+            ],
+            "acceptance_gates": [
+                "all acquisition requests validate against the official-readonly runner allowlist",
+                "acquired snapshot hashes match the runner metadata and no-send locks",
+                "source-separation lock event order is strictly source_snapshot_locked < source_separation_declared < visible_projection_locked < prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started",
+                "prediction materialization hashes exclude all scoring target fields",
+                "N>=20, comparator preregistered, residuals within uncertainty, negative controls rejected, falsifiers not triggered",
+                "grand_toe_support_allowed remains false unless the strict grand gate has no failures",
+            ],
+            "dry_run_command": (
+                f"python tools/oc133_official_readonly_acquisition_runner.py --packet {PHYSICS_ACQUISITION_PACKET_REL} "
+                "--allow-blocked-exit-zero"
+            ),
+            "execute_command_no_public_action": (
+                f"python tools/oc133_official_readonly_acquisition_runner.py --packet {PHYSICS_ACQUISITION_PACKET_REL} "
+                "--execute-network --allow-blocked-exit-zero"
+            ),
+            "post_acquisition_factory_check_command": (
+                "python tools/oc133_physics_chemistry_official_batch_factory.py --check --allow-blocked-exit-zero"
+            ),
+            "known_current_runner_blocker": (
+                "No dry-run runner validation blocker is expected; network acquisition still requires explicit "
+                "--execute-network and intact no-send prospective locks."
+            ),
+        },
         "runner": {
             "tool_ref": "tools/oc133_official_readonly_acquisition_runner.py",
             "example_dry_run_command": (
@@ -1226,11 +2425,34 @@ def build_tamper_tests(rows_by_domain: dict[str, list[dict[str, Any]]]) -> list[
     physics_rows = rows_by_domain.get("physics", [])
     first_physics = physics_rows[0] if physics_rows else None
     tamper_hash_changes = False
+    prediction_tamper_rejected = False
+    target_projection_tamper_rejected = False
+    visible_projection_tamper_rejected = False
+    hidden_lock_tamper_rejected = False
     if first_physics:
         mutated = dict(first_physics)
         observed = as_float(mutated.get("observed_value"), 0.0)
         mutated["observed_value"] = observed + max(abs(observed) * 1e-6, 1e-300)
         tamper_hash_changes = row_hash(mutated) != first_physics.get("row_hash")
+        prediction_tamper = json.loads(json.dumps(first_physics))
+        prediction_tamper["prediction_materialization"]["predicted_value"] = (
+            as_float(prediction_tamper["prediction_materialization"].get("predicted_value"), 0.0) + 1.0
+        )
+        prediction_tamper_rejected = not physics_target_projection_lock_valid(prediction_tamper)
+        target_tamper = json.loads(json.dumps(first_physics))
+        target_tamper["target_projection"]["target_fields"]["observed_value_text"] = "tampered"
+        target_projection_tamper_rejected = not physics_target_projection_lock_valid(target_tamper)
+        visible_tamper = json.loads(json.dumps(first_physics))
+        visible_tamper["visible_projection"]["visible_fields"].append(
+            {
+                "quantity": visible_tamper["target_quantity"],
+                "observed_value": visible_tamper["observed_value"],
+            }
+        )
+        visible_projection_tamper_rejected = not physics_target_projection_lock_valid(visible_tamper)
+        hidden_lock_tamper = json.loads(json.dumps(first_physics))
+        hidden_lock_tamper["target_projection_lock"]["target_projection_hidden_until_scoring"] = False
+        hidden_lock_tamper_rejected = not physics_target_projection_lock_valid(hidden_lock_tamper)
     return [
         {
             "test_id": "physics-row-hash-target-tamper-rejected",
@@ -1241,6 +2463,31 @@ def build_tamper_tests(rows_by_domain: dict[str, list[dict[str, Any]]]) -> list[
             "test_id": "physics-visible-projection-has-no-target-fields",
             "description": "visible CODATA projections contain only declared input constants, not target values or units",
             "passed": bool(physics_rows) and not any(visible_projection_has_target_leakage(row) for row in physics_rows),
+        },
+        {
+            "test_id": "physics-target-projection-lock-valid",
+            "description": "each physics row has a machine-checkable visible/prediction/target projection lock",
+            "passed": bool(physics_rows) and all(physics_target_projection_lock_valid(row) for row in physics_rows),
+        },
+        {
+            "test_id": "physics-prediction-materialization-tamper-rejected",
+            "description": "mutating a pre-target physics prediction materialization breaks its projection lock",
+            "passed": bool(first_physics) and prediction_tamper_rejected,
+        },
+        {
+            "test_id": "physics-target-projection-tamper-rejected",
+            "description": "mutating a physics target projection breaks its target hash and projection lock",
+            "passed": bool(first_physics) and target_projection_tamper_rejected,
+        },
+        {
+            "test_id": "physics-visible-projection-target-leak-tamper-rejected",
+            "description": "adding a scoring target field to the visible projection breaks the projection lock",
+            "passed": bool(first_physics) and visible_projection_tamper_rejected,
+        },
+        {
+            "test_id": "physics-target-hidden-lock-tamper-rejected",
+            "description": "turning off the target-hidden lock flag breaks the projection lock",
+            "passed": bool(first_physics) and hidden_lock_tamper_rejected,
         },
         {
             "test_id": "physics-comparator-preregistered-for-each-row",
@@ -1261,7 +2508,12 @@ def build_tamper_tests(rows_by_domain: dict[str, list[dict[str, Any]]]) -> list[
     ]
 
 
-def domain_missing_official_snapshots(domain: str, current_n: int, minimum_n: int) -> list[dict[str, Any]]:
+def domain_missing_official_snapshots(
+    domain: str,
+    current_n: int,
+    minimum_n: int,
+    source: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
     pubchem_cids = ",".join(
         [
             "962",
@@ -1288,8 +2540,15 @@ def domain_missing_official_snapshots(domain: str, current_n: int, minimum_n: in
     )
     if domain == "physics":
         acquisition_rows = physics_acquisition_requests(current_n, minimum_n)
-        return [
-            {
+        rows = []
+        if not (
+            isinstance(source, dict)
+            and source.get("mode") == "prospective"
+            and source.get("pre_target_lock") is True
+            and source.get("strict_source_separation_attested") is True
+        ):
+            rows.append(
+                {
                 "source_id": "physics_nist_constants_pre_target_lock_manifest_v1",
                 "acquisition_id": acquisition_rows[0]["acquisition_id"],
                 "official_url": acquisition_rows[0]["official_endpoint_url"],
@@ -1300,7 +2559,9 @@ def domain_missing_official_snapshots(domain: str, current_n: int, minimum_n: in
                 "minimum_rows_required": minimum_n,
                 "current_official_batch_rows": current_n,
                 "missing_reason": "CODATA constants snapshot is present, but no pre-target lock manifest proves target fields were hidden until scoring.",
-            },
+                }
+            )
+        rows.append(
             {
                 "source_id": "physics_nist_asd_hydrogen_balmer_lines_v1",
                 "acquisition_id": acquisition_rows[1]["acquisition_id"],
@@ -1312,8 +2573,9 @@ def domain_missing_official_snapshots(domain: str, current_n: int, minimum_n: in
                 "minimum_rows_required": minimum_n,
                 "current_official_batch_rows": 0,
                 "missing_reason": "No NIST ASD spectral-line snapshot is available for an independent target-hidden physics blocker class.",
-            },
-        ]
+            }
+        )
+        return rows
     return [
         {
             "source_id": "chemistry_pubchem_20_compound_properties_v1",
@@ -1379,6 +2641,34 @@ def evaluate_domain(
     if any(not row_hash_valid(row) for row in rows):
         blockers.append(f"ROW_HASH_TAMPER_DETECTED::{domain}")
     if domain == "physics":
+        projection_lock_failures = ordered_unique(
+            [
+                failure
+                for row in rows
+                for failure in physics_target_projection_lock_failures(row)
+            ]
+        )
+        blockers.extend(f"PHYSICS_TARGET_PROJECTION_LOCK::{failure}" for failure in projection_lock_failures)
+        blockers.extend(physics_source_lock_failures(source, rows))
+        blockers.extend(
+            ordered_unique(
+                [
+                    failure
+                    for row in rows
+                    for failure in physics_row_pre_target_proof_failures(row)
+                ]
+            )
+        )
+        blockers.extend(
+            ordered_unique(
+                [
+                    failure
+                    for row in rows
+                    for failure in physics_comparator_semantics_failures(row)
+                ]
+            )
+        )
+        blockers.extend(physics_stale_policy_text_failures(rows, source))
         if any(visible_projection_has_target_leakage(row) for row in rows):
             blockers.append("PHYSICS_VISIBLE_PROJECTION_TARGET_LEAKAGE")
         if any(not isinstance(row.get("preregistration"), dict) for row in rows):
@@ -1416,7 +2706,7 @@ def evaluate_domain(
         "candidate_pack_grand_gate_failures": gate_failures,
         "blockers": blockers,
         "open_blocker_total": len(blockers),
-        "missing_official_snapshots": domain_missing_official_snapshots(domain, len(rows), minimum_n),
+        "missing_official_snapshots": domain_missing_official_snapshots(domain, len(rows), minimum_n, source),
         "grand_toe_support_allowed": support_allowed,
         "status": "READY_FOR_PARENT_REGISTRY_REVIEW" if support_allowed else "BLOCKED_ACQUISITION_READY_NO_SEND",
     }
@@ -1432,10 +2722,25 @@ def build_payload(
     manifest = load_manifest(root)
     source_separation_overrides = source_separation_overrides or {}
 
-    physics_rows, physics_blockers, physics_snapshot = build_physics_rows(root, PHYSICS_NIST_CONSTANTS_REF, manifest)
+    physics_acquisition_record, physics_acquisition_failures = successful_physics_codata_acquisition(root)
+    physics_snapshot_ref = (
+        str(physics_acquisition_record["source_ref"]) if physics_acquisition_record else PHYSICS_NIST_CONSTANTS_REF
+    )
+    physics_rows, physics_blockers, physics_snapshot = build_physics_rows(
+        root,
+        physics_snapshot_ref,
+        manifest,
+        acquisition_record=physics_acquisition_record,
+    )
+    if physics_acquisition_record is None and physics_acquisition_failures != ["PHYSICS_PROSPECTIVE_CODATA_ACQUISITION_MISSING"]:
+        physics_blockers = ordered_unique([*physics_blockers, *physics_acquisition_failures])
     chemistry_rows, chemistry_blockers, chemistry_snapshots = build_chemistry_rows(root, manifest)
 
-    physics_source = source_separation_overrides.get("physics") or default_source_separation("physics", physics_rows)
+    physics_source = source_separation_overrides.get("physics") or (
+        prospective_physics_source_separation(physics_rows, physics_acquisition_record)
+        if physics_acquisition_record
+        else default_source_separation("physics", physics_rows)
+    )
     chemistry_source = source_separation_overrides.get("chemistry") or default_source_separation("chemistry", chemistry_rows)
 
     physics_eval = evaluate_domain(

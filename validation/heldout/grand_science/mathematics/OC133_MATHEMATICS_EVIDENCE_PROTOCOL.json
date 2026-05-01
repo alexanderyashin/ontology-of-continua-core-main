@@ -1,43 +1,42 @@
 {
-  "schema_id": "OC133_MATHEMATICS_EVIDENCE_PROTOCOL_PACKET_v1",
+  "schema_id": "OC133_MATHEMATICS_FORMAL_EVIDENCE_PROTOCOL_PACKET_v3",
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
-  "capability_owner": "Research/EmpiricalScience",
-  "blocker_id": "grand_toe_empirical_superiority",
+  "capability_owner": "Research/FormalScience",
+  "blocker_id": "CERBERUS-K-OC133-MATHEMATICS-EMPIRICAL-CLASS-MISMATCH-001",
   "executor": "validation/heldout/domain_evidence/mathematics_evidence_executor.py",
   "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
   "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
+  "formal_evidence_schema_id": "OC133_FORMAL_SUPPORT_EVIDENCE_v1",
   "target_blind_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
   "domain_total": 1,
-  "blocked_domain_total": 1,
+  "blocked_domain_total": 0,
   "rows": [
     {
       "domain": "mathematics",
-      "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PACK",
+      "status": "FORMAL_SUPPORT_ACCEPTED",
       "candidate_pack_ref": "validation/heldout/grand_science/mathematics/mathematics_candidate_evidence_pack.json",
-      "candidate_n": 1,
+      "candidate_n": 87,
       "minimum_n": 20,
-      "missing_n": 19,
+      "missing_n": 0,
+      "support_route": "formal",
+      "formal_support_verdict": "FORMAL_SUPPORT_ACCEPTED",
+      "formal_support_allowed": true,
+      "empirical_support_allowed": false,
       "grand_toe_support_allowed": false,
-      "source_kind": "finite_lean_proof_corpus",
+      "source_kind": "executable_finite_model_proof_corpus",
       "grand_empirical_source": false,
-      "blockers": [
-        "MATHEMATICS_CURRENT_SOURCE_IS_FINITE_LEAN_PROOF_CORPUS_NOT_EMPIRICAL_GRAND_EVIDENCE",
-        "GENUINE_EVIDENCE_N_BELOW_MINIMUM::1/20",
-        "GRAND_TOE_SUPPORT_FORCED_FALSE_FOR_CURRENT_MATHEMATICS_EVIDENCE",
-        "GRAND_GATE::N_BELOW_MINIMUM::20",
-        "GRAND_GATE::GRAND_TOE_SUPPORT_NOT_ALLOWED"
-      ],
+      "blockers": [],
       "required_protocol_steps": [
-        "do not count finite Lean proof-corpus rows as empirical grand evidence",
-        "pre-register a mathematics-facing empirical or target-blind protocol before target scoring",
-        "separate training/development material from target material and record deterministic source hashes",
-        "collect at least 20 independent eligible observations under that protocol",
-        "score OC and comparator residuals under the same deterministic metric",
-        "retain negative controls, falsifiers, tamper checks, and explicit grand_toe_support_allowed=false until all gates pass"
+        "join pre-execution finite-model input rows to executed proof-corpus rows by case_id",
+        "exclude rows whose raw model facts, Lean refs, expected verdicts, observed verdicts, or derived passed flags are not bound",
+        "bind every formal theorem to exact theorem ID, proof sheet ref, Lean ref, finite positive case, finite negative case, and public claim boundary",
+        "require at least 20 eligible machine-checkable finite cases for the formal route",
+        "emit a separate formal_support_verdict and keep empirical_support_allowed false",
+        "retain negative-control rows, target-leakage checks, tamper checks, and formal falsifier conditions even when a candidate fails"
       ]
     }
   ],
-  "registry_integration_policy": "This executor does not edit validation/heldout/grand_science_evidence_registry.json; current mathematics output remains a blocked candidate only.",
-  "protocol_sha256": "ad18bedf5c880587997c9a26d8a9c8b9651ed8ffd61414bfcc836361a66d98db"
+  "registry_integration_policy": "The generated mathematics pack is a formal-support artifact, not a grand empirical evidence pack; grand empirical registry sync must reject it for empirical support.",
+  "protocol_sha256": "4760a43b1dfa7443a100d6ecebc723136e7e9e38a8bfd78b8a9fd35bee6d9be3"
 }

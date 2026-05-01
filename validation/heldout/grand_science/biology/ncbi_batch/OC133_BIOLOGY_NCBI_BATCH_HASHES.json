@@ -7,33 +7,58 @@
   "artifact_hashes": [
     {
       "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_TASKS.json",
-      "sha256": "cd46c3b255e6393238d9ee94b85498b8e441503a58b4832840516bc43b8b577f",
+      "sha256": "dc26d925da69b728adca2b3c2bf13cb40e8872a48232968df3500e57ae2fd182",
       "hash_policy": "sha256 over canonical JSON"
     },
     {
       "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_PROTOCOL.json",
-      "sha256": "50ea997d3d3b3b584fdd3e5e829e6fca4510f5253b2aaf482a1040eb65c414e8",
+      "sha256": "304419f98e28b5a79fb240388a3eb717444eb300db59769862bc9b8a6ee1d7ff",
       "hash_policy": "sha256 over canonical JSON"
     },
     {
       "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_CANDIDATE_PACK.json",
-      "sha256": "99e2109ecb5267a2d44cb71b74600a0278ba80da9c092a35ab36eb2938493ce7",
+      "sha256": "abd6bfd18c2136cbdc528c29df75af64313e10207f79bf6df5635f2160aba6c7",
       "hash_policy": "sha256 over canonical JSON"
     },
     {
       "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_REPORT.json",
-      "sha256": "b04eb165f0d191ac141d0f3220983a1eee3a1807e913e27d32e524e73f4dc6a0",
+      "sha256": "556ade5c43875e119f4b7966ff1f26187434c3536e0bf1f19481a0959d800188",
       "hash_policy": "sha256 over canonical JSON"
     },
     {
       "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_ACQUISITION_PACKET.json",
-      "sha256": "891710d195a55957abf4ec8ea955991da8876c4271673c5bfee8cc612517c4df",
+      "sha256": "7643fbc6b6c1aa6ca26eb4f1ec11e5dfed9c47d0f9eccee2ec66c6abdbb50aea",
       "hash_policy": "sha256 over canonical JSON"
     },
     {
       "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/README.md",
-      "sha256": "d8070740344c00f56bc812020fbcec19c41a05d21c42da2d929668341ac997e5",
+      "sha256": "72f0ccd9edf8ea6891046ac2596a3f7b016470205dc282dcfc1bbd11cdf71258",
       "hash_policy": "sha256 over UTF-8 README text"
+    },
+    {
+      "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/legacy_seed_locks/OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C.declaration.json",
+      "sha256": "0be91c954ba55eb17a0770636cc4da02a74163f6f0ce6efcda04374beb992be2",
+      "hash_policy": "sha256 over canonical JSON"
+    },
+    {
+      "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/legacy_seed_locks/OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C.lock.json",
+      "sha256": "879c30297229cf15e4b5ad3c13772f3db0a00a344a02b942c7601136f9646aae",
+      "hash_policy": "sha256 over canonical JSON"
+    },
+    {
+      "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/legacy_seed_locks/OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C.prediction_materialization_lock.json",
+      "sha256": "a95ac12da01d18656f661c99f376619bc3ee580dea170dbbbe40f3818876d87a",
+      "hash_policy": "sha256 over canonical JSON"
+    },
+    {
+      "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/legacy_seed_locks/OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C.target_projection_lock.json",
+      "sha256": "51927529a76df7362620597ed389f03cf4340f5b793432f7b38fe8ad0bd62c46",
+      "hash_policy": "sha256 over canonical JSON"
+    },
+    {
+      "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/legacy_seed_locks/OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C.visible_projection_lock.json",
+      "sha256": "8a95476973109be42f7a94807aac15f38c8232f85c46a2cac9920ca47a7139f1",
+      "hash_policy": "sha256 over canonical JSON"
     }
   ],
   "snapshot_hashes": [
@@ -47,8 +72,10 @@
       "failures": [],
       "acquisition_id": "",
       "expected_local_snapshot_ref": "",
-      "lock_ref": "",
-      "declared_before_scoring_lock": false
+      "lock_ref": "validation/heldout/grand_science/biology/ncbi_batch/legacy_seed_locks/OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C.lock.json",
+      "declared_before_scoring_lock": true,
+      "target_projection_lock_verified": true,
+      "legacy_seed_upgrade": true
     },
     {
       "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-NCBI-GEO-OFFICIAL-SNAPSHOT-0001.json",
@@ -301,103 +328,130 @@
   "row_hashes": [
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
-      "row_hash": "a1d70b8c0db5522cf15dd45255422fff49b3ce5cdd56692d177e60e9bfd26191",
+      "row_hash": "dc0ece36baad1b42d2479a8197818d05c5e8e5118f8ed23bbfb8925f0f4b0a82",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0002-7CD3DE7D3418",
-      "row_hash": "e0c9b8fd3fa46d7d48e9ef4e7bbb073f894656c6367482d21f7ca694fcc6889e",
+      "row_hash": "b948123209abc67c748e18d8a9fff8563aad76552e13404559d6dcdd2d0c700d",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0003-D8D3D89B0F41",
-      "row_hash": "f63f43b78d6e09d16ac6dd12d665d69fb3d64162948b2300671827c5c028c0ff",
+      "row_hash": "dcd35e0420dae012ff80136807e847820107ea4cedd43363a9714cd3455e7e84",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0004-743F37701DC5",
-      "row_hash": "8479543f7e5b9091fb155f6a9e7e25f2067d20e7b9c6d3f7cf0d68ea51116ad1",
+      "row_hash": "b83a4da38c71fb739f62d95cab3bdf03bde0af6e63416f8167c7332af127c233",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0005-A17268CCB987",
-      "row_hash": "88c7ade0dd26b7851b9f20c9dc5e8c1cca0dbae328301cb317494fa9e960bf68",
+      "row_hash": "f6430fdf6651897a0090923e1a5212e1d8a9a696673ee930841de5c8dbb61a98",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0006-515E1F7EFC0A",
-      "row_hash": "6c77f9ce91ca0f1c68e1418efc2782c593400f221a89a985d4b949e3009d5782",
+      "row_hash": "de1e37a41416d8babbb5ed9120d3b20a5a43354e243f8815ff24ef66d4f621a2",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0007-CAB27F60F0CA",
-      "row_hash": "9c2e35d362a437f1e0f1595601266d897cb57b16e69056fde861418afc34e01c",
+      "row_hash": "d80e9e2552c3083218589ce7742480dab60d049bfd1ef3e48d7941d5b6c1ad8f",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0008-E0F2854C95AE",
-      "row_hash": "5472711ba3b06feefada9fc5f452765ffda614983c967ef8201d75bc6a7522fe",
+      "row_hash": "18e286e1c126fb2fa5aee4a5b081accbb89ad6a488d604cf177cd22108164bb7",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0009-0540D2ACBBF6",
-      "row_hash": "c3315cd1ece20af6394f8a2b0c5030992c6a33aa309436b1425237ff5ea7f6a2",
+      "row_hash": "46ceae394d73f0982e861ff155625a95a6619f08d728ee380081bfc2edf23cb5",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0010-84A763CAC536",
-      "row_hash": "7d1f89ce2bc867adde09733183546a7725ba23bd5a1ffbf3aec72515b563ef83",
+      "row_hash": "a713a17d3ad6888d10c47057452a8fe305172eb7a66690ab12d3a25aa9c2ed2f",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0011-2AE688DFFF6A",
-      "row_hash": "b9e3ead1b76b32cdf54acb962a41bc4bee76e34213c8ea8276d41c3fc0b07ad9",
+      "row_hash": "63c9235c8c3e85cce00fffdb9638ce5afbaade01c4ab5da057b76bec0dfe089e",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0012-F2EF86E7066B",
-      "row_hash": "bf58d1cabb0d6114ab0c8dcd489525f938fa6cbdd6f48e620b879eb84019f13e",
+      "row_hash": "4c326668b9c02da0c3c56fa131a0cdbfcc9cff2656ba55ac7116a0141d259b2a",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0013-43F179C44BBF",
-      "row_hash": "6d9f9fc3635c98db128c120cea15fa4073e8202cefe989cde243f209e1029c9f",
+      "row_hash": "cbc0d12b369e2792cd4442cb53322cf87ea6a70bdea94772323599c87cd179ff",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0014-C9AE43B924E8",
-      "row_hash": "c17f26b811454dc143b6f24ad0665dafa06df4e89307e5f2e9a47f4e459faa40",
+      "row_hash": "4d04c1be3ce12471078297722113479fb2b883c68f56eafea06f8535b1dd6366",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0015-56443BD66135",
-      "row_hash": "69fdbfd150847a6fe715293bfb11982369c118a477ac13ed27fb07c8121fdbce",
+      "row_hash": "f6190204fb524259517ce31b671b56007a47b3628dbebe0fb42762f4ab76bd43",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0016-46DABA206E96",
-      "row_hash": "5b970613c0c059cbc347216ec666c2850fdee0704424c0940dea27360dbe26f0",
+      "row_hash": "9ec16d140fc72f8992d5042e990bc74d45e1d04cffa578df5b42acaf38cf9eac",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0017-440EE39E7C89",
-      "row_hash": "9c522629b339877aab0cf70e2f0717d051b8964ffbe1ae60c9cb914973d0b81d",
+      "row_hash": "1e807e99e230efc7c98180a9e8ccb8f1c59e137a79702aa9a3f1aef9083dcb44",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0018-3EEF723D3694",
-      "row_hash": "5a6c55a1b9aacbe519e0a13abba90bd758cdb38cef9a1ce5d5e0b530b17b7a00",
+      "row_hash": "551418da2ed6ed3ecd00dc954acf0c50088425d46ffd14cf040e45ac7b0ce2db",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0019-0F33C759B334",
-      "row_hash": "5bfa88b2a7ea82ec9eff9d0975e4c8b9a5c7bb7efcb3cd6b4481225d3ff98302",
+      "row_hash": "f6745e13c826057e48c3439c457c7a8339c2046c5ea67555f48db4a8743a5a76",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
     },
     {
       "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0020-12A331673E7F",
-      "row_hash": "6d985ff3f0773ccafdcd9b02d7edd875c11e820c4dc3e124bbacee3b5106022e",
+      "row_hash": "bfea4e4e3190872c6bb22957cd889dc21e6253a116a5c9f09f065bdd7777f65e",
       "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    }
+  ],
+  "legacy_seed_artifact_hashes": [
+    {
+      "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/legacy_seed_locks/OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C.declaration.json",
+      "sha256": "0be91c954ba55eb17a0770636cc4da02a74163f6f0ce6efcda04374beb992be2",
+      "hash_policy": "sha256 over canonical JSON"
+    },
+    {
+      "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/legacy_seed_locks/OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C.lock.json",
+      "sha256": "879c30297229cf15e4b5ad3c13772f3db0a00a344a02b942c7601136f9646aae",
+      "hash_policy": "sha256 over canonical JSON"
+    },
+    {
+      "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/legacy_seed_locks/OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C.prediction_materialization_lock.json",
+      "sha256": "a95ac12da01d18656f661c99f376619bc3ee580dea170dbbbe40f3818876d87a",
+      "hash_policy": "sha256 over canonical JSON"
+    },
+    {
+      "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/legacy_seed_locks/OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C.target_projection_lock.json",
+      "sha256": "51927529a76df7362620597ed389f03cf4340f5b793432f7b38fe8ad0bd62c46",
+      "hash_policy": "sha256 over canonical JSON"
+    },
+    {
+      "artifact_ref": "validation/heldout/grand_science/biology/ncbi_batch/legacy_seed_locks/OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C.visible_projection_lock.json",
+      "sha256": "8a95476973109be42f7a94807aac15f38c8232f85c46a2cac9920ca47a7139f1",
+      "hash_policy": "sha256 over canonical JSON"
     }
   ]
 }

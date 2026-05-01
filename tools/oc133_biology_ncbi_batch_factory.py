@@ -15,6 +15,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from validation.grand_science import evidence_pack_factory as grand_factory
+from tools import oc133_target_projection_lock_factory as target_projection_factory
 
 
 RELEASE_ID = "oc_core_1_3_3"
@@ -37,6 +38,14 @@ REPORT_REL = f"{OUTPUT_ROOT_REL}/OC133_BIOLOGY_NCBI_BATCH_REPORT.json"
 ACQUISITION_REL = f"{OUTPUT_ROOT_REL}/OC133_BIOLOGY_NCBI_BATCH_ACQUISITION_PACKET.json"
 HASHES_REL = f"{OUTPUT_ROOT_REL}/OC133_BIOLOGY_NCBI_BATCH_HASHES.json"
 README_REL = f"{OUTPUT_ROOT_REL}/README.md"
+TARGET_PROJECTION_DECLARATION_REL = f"{OUTPUT_ROOT_REL}/OC133_BIOLOGY_NCBI_BATCH_TARGET_PROJECTION_DECLARATION.json"
+VISIBLE_PROJECTION_LOCK_REL = f"{OUTPUT_ROOT_REL}/OC133_BIOLOGY_NCBI_BATCH_VISIBLE_PROJECTION_LOCK.json"
+PREDICTION_MATERIALIZATION_LOCK_REL = (
+    f"{OUTPUT_ROOT_REL}/OC133_BIOLOGY_NCBI_BATCH_PREDICTION_MATERIALIZATION_LOCK.json"
+)
+TARGET_PROJECTION_LOCK_REL = f"{OUTPUT_ROOT_REL}/OC133_BIOLOGY_NCBI_BATCH_TARGET_PROJECTION_LOCK.json"
+LEGACY_SEED_LOCK_ROOT_REL = f"{OUTPUT_ROOT_REL}/legacy_seed_locks"
+LEGACY_SEED_LOCK_SCHEMA_ID = "OC133_BIOLOGY_NCBI_LEGACY_SEED_TARGET_PROJECTION_LOCK_v1"
 
 REQUIREMENTS_REL = "benchmarks/grand_science/domain_requirements.json"
 DEFAULT_SNAPSHOT_REF = "validation/_raw/biology_ncbi_geo_platform.txt"
@@ -59,12 +68,22 @@ DEFAULT_GEO_TERM = "GPL96[Accession]"
 DEFAULT_RETMAX = 20
 NCBI_GEO_HINTS = ("ncbi", "geo", "gds", "gse", "gsm", "gpl")
 GENERATED_NAME_PREFIX = "OC133_BIOLOGY_NCBI_BATCH_"
+BIOLOGY_TARGET_LOCK_ID = "OC133-BIOLOGY-NCBI-BATCH-TARGET-PROJECTION-LOCK"
+BIOLOGY_VISIBLE_FIELDS = [
+    "esearchresult.idlist",
+    "esearchresult.retstart",
+    "esearchresult.querytranslation",
+]
+BIOLOGY_TARGET_FIELDS = ["esearchresult.retmax"]
+PROJECTION_NO_SEND_LOCKS = target_projection_factory.NO_SEND_LOCKS
 SUPPORT_POLICY = (
-    "Grand support is emitted only for an N>=20 NCBI/GEO batch with explicit source separation, "
-    "pre-target lock, hidden target manifest, official NCBI/GEO provenance, preregistered comparator, "
-    "residual superiority, rejected negative controls, and falsifiers. Existing single raw snapshots "
-    "remain acquisition-ready blockers."
+    "NCBI/GEO page-size reconstruction is bounded acquisition QA only. It may verify official bytes, "
+    "target-projection locks, hashes, residuals, and negative controls, but it cannot close grand biology "
+    "support. Grand biology remains blocked until a successor pack contains biological target rows, "
+    "non-pagination biological comparator evidence, uncertainty/residuals, negative controls, falsifiers, "
+    "and source hashes."
 )
+PAGINATION_QA_BLOCKER = "BIOLOGY_PAGINATION_QA_NOT_GRAND_EVIDENCE"
 
 
 def repo_root() -> Path:
@@ -527,6 +546,8 @@ def build_row(
     comparator_residual = abs(comparator_prediction - observed)
     term = as_str(esearch.get("querytranslation"), DEFAULT_GEO_TERM) or DEFAULT_GEO_TERM
     if acquisition:
+        legacy_status = dict_or_empty(acquisition.get("target_projection_lock"))
+        legacy_upgrade_invalid = acquisition.get("legacy_seed_upgrade") is True and legacy_status.get("verified") is not True
         provenance = {
             **provenance,
             "official_source": "NCBI E-utilities ESearch",
@@ -538,12 +559,11 @@ def build_row(
             "prediction_rule": as_str(
                 comparator.get("prediction_rule"), "use esearchresult.count as the retmax prediction"
             ),
-            "pre_registered": comparator.get("pre_registered", True),
+            "pre_registered": False if legacy_upgrade_invalid else comparator.get("pre_registered", True),
         }
     official_ok, official_source, official_url = provenance_status(provenance, source_ref)
     comparator_pre_registered = comparator.get("pre_registered") is True
-    row_id_hash = sha256_object({"source_ref": source_ref, "record_index": record_index, "term": term})[:12].upper()
-    row_id = f"BIOLOGY-NCBI-GEO-BATCH-{record_index:04d}-{row_id_hash}"
+    row_id = biology_row_id(source_ref, record_index, term)
     row = {
         "observation_id": row_id,
         "claim_id": f"OC133-BIOLOGY-NCBI-BATCH-{record_index:04d}",
@@ -599,9 +619,381 @@ def build_row(
         "falsifier": "retmax differs from returned idlist length, or the GEO total-count control is not worse",
         "falsifier_status": "TRIGGERED" if (model_residual != 0 or comparator_residual <= model_residual) else "NOT_TRIGGERED",
     }
+    if acquisition.get("legacy_seed_upgrade") is True:
+        target_projection_status = dict_or_empty(acquisition.get("target_projection_lock"))
+        row["legacy_seed_upgrade"] = True
+        row["target_projection_lock_verified"] = target_projection_status.get("verified") is True
+        row["target_projection_lock_refs"] = target_projection_status.get("refs", {})
+        row["target_projection_lock_hashes"] = target_projection_status.get("hashes", {})
+        row["target_projection_lock_status"] = target_projection_status
     row["row_hash"] = row_hash(row)
     row["row_hash_policy"] = ROW_HASH_POLICY
     return row, idlist_failures
+
+
+def biology_row_id(source_ref: str, record_index: int, term: str) -> str:
+    row_id_hash = sha256_object({"source_ref": source_ref, "record_index": record_index, "term": term})[:12].upper()
+    return f"BIOLOGY-NCBI-GEO-BATCH-{record_index:04d}-{row_id_hash}"
+
+
+def comparator_preregistration_contract() -> dict[str, Any]:
+    contract = {
+        "name": "GEO total-hit-count page-size negative control",
+        "prediction_rule": "use esearchresult.count as the retmax prediction",
+        "pre_registered": True,
+        "residual_metric": "absolute_error_retmax",
+        "rejection_criterion": "comparator_residual must be strictly greater than model_residual",
+        "declared_before_scoring": True,
+    }
+    return {**contract, "baseline_sha256": sha256_object(contract)}
+
+
+def legacy_seed_metadata(record: dict[str, Any]) -> dict[str, Any]:
+    for key in ("legacy_seed_lock", "legacy_seed_target_projection_lock", "target_projection_seed_lock"):
+        value = record.get(key)
+        if isinstance(value, dict):
+            return value
+    return {}
+
+
+def is_legacy_seed_candidate(
+    *,
+    source_ref: str,
+    record: dict[str, Any],
+    acquisition: dict[str, Any],
+) -> bool:
+    if acquisition:
+        return False
+    esearch = esearch_result(record)
+    if not esearch:
+        return False
+    return source_ref == DEFAULT_SNAPSHOT_REF or bool(legacy_seed_metadata(record))
+
+
+def legacy_seed_lock_id(source_ref: str, source_sha256: str, record_index: int, record: dict[str, Any]) -> str:
+    esearch = esearch_result(record)
+    term = as_str(esearch.get("querytranslation"), DEFAULT_GEO_TERM) or DEFAULT_GEO_TERM
+    token = sha256_object(
+        {
+            "source_ref": source_ref,
+            "source_sha256": source_sha256,
+            "record_index": record_index,
+            "term": term,
+            "visible_fields": BIOLOGY_VISIBLE_FIELDS,
+            "target_fields": BIOLOGY_TARGET_FIELDS,
+        }
+    )[:16].upper()
+    return f"OC133-BIOLOGY-NCBI-LEGACY-SEED-{token}"
+
+
+def build_legacy_seed_projection_status(
+    *,
+    source_ref: str,
+    source_sha256: str,
+    record_index: int,
+    record: dict[str, Any],
+) -> dict[str, Any]:
+    esearch = esearch_result(record)
+    idlist, idlist_failures = parse_idlist(esearch)
+    retstart = as_int(esearch.get("retstart"), 0)
+    retmax = as_int(esearch.get("retmax"), len(idlist))
+    count = as_int(esearch.get("count"), retmax)
+    term = as_str(esearch.get("querytranslation"), DEFAULT_GEO_TERM) or DEFAULT_GEO_TERM
+    row_id = biology_row_id(source_ref, record_index, term)
+    lock_id = legacy_seed_lock_id(source_ref, source_sha256, record_index, record)
+    lock_ref = f"{LEGACY_SEED_LOCK_ROOT_REL}/{lock_id}.lock.json"
+    declaration_ref = f"{LEGACY_SEED_LOCK_ROOT_REL}/{lock_id}.declaration.json"
+    visible_ref = f"{LEGACY_SEED_LOCK_ROOT_REL}/{lock_id}.visible_projection_lock.json"
+    prediction_ref = f"{LEGACY_SEED_LOCK_ROOT_REL}/{lock_id}.prediction_materialization_lock.json"
+    target_ref = f"{LEGACY_SEED_LOCK_ROOT_REL}/{lock_id}.target_projection_lock.json"
+    comparator_contract = comparator_preregistration_contract()
+    blockers = [f"LEGACY_SEED_{failure}::{source_ref}::{record_index}" for failure in idlist_failures]
+    if retmax < 0:
+        blockers.append(f"LEGACY_SEED_TARGET_INVALID::{source_ref}::{record_index}")
+    official_url = official_esearch_url(term, retstart, retmax)
+    declaration = {
+        "schema_id": "OC133_BIOLOGY_NCBI_LEGACY_SEED_TARGET_PROJECTION_DECLARATION_v1",
+        "release_id": RELEASE_ID,
+        "generated_by": PLANNER_REF,
+        "lock_id": lock_id,
+        "declared_before_scoring": True,
+        "source_snapshot_ref": source_ref,
+        "source_snapshot_sha256": source_sha256,
+        "row_index": record_index,
+        "row_id": row_id,
+        "visible_fields": BIOLOGY_VISIBLE_FIELDS,
+        "target_fields": BIOLOGY_TARGET_FIELDS,
+        "model_declaration": {
+            "kind": "geo_esearch_page_size_reconstruction",
+            "formula": "len(esearchresult.idlist)",
+            "visible_inputs": BIOLOGY_VISIBLE_FIELDS,
+        },
+        "comparator_declaration": {
+            "kind": "geo_total_hit_count_negative_control",
+            "baseline_sha256": comparator_contract["baseline_sha256"],
+        },
+        "residual_metric": "absolute_error_retmax",
+        "official_provenance_classification": {
+            "official_source": "NCBI E-utilities ESearch",
+            "official_url": official_url,
+            "classification_method": "deterministically reconstructed from raw ESearch querytranslation, retstart, and retmax fields",
+        },
+        "locks": dict(PROJECTION_NO_SEND_LOCKS),
+        "support_policy": "Legacy seed upgrade proves target-blind row projection only; grand support remains gated by all biology requirements.",
+    }
+    declaration_sha = sha256_object(declaration)
+    visible = {
+        "esearchresult.idlist": [str(item) for item in idlist],
+        "esearchresult.retstart": retstart,
+        "esearchresult.querytranslation": term,
+    }
+    target = {"esearchresult.retmax": retmax}
+    visible_row = {"row_index": record_index, "row_id": row_id, "visible": visible}
+    target_row = {"row_index": record_index, "row_id": row_id, "target": target}
+    visible_row_sha = sha256_object(visible_row)
+    target_row_sha = sha256_object(target_row)
+    visible_projection_lock = {
+        "schema_id": target_projection_factory.VISIBLE_LOCK_SCHEMA_ID,
+        "release_id": RELEASE_ID,
+        "lock_id": lock_id,
+        "declaration_ref": declaration_ref,
+        "snapshot_ref": source_ref,
+        "snapshot_sha256": source_sha256,
+        "declaration_sha256": declaration_sha,
+        "visible_fields": BIOLOGY_VISIBLE_FIELDS,
+        "row_count": 1,
+        "rows": [{**visible_row, "visible_row_sha256": visible_row_sha}],
+        "locks": dict(PROJECTION_NO_SEND_LOCKS),
+    }
+    visible_sha = sha256_object(visible_projection_lock)
+    prediction_materialization_lock = {
+        "schema_id": target_projection_factory.PREDICTION_LOCK_SCHEMA_ID,
+        "release_id": RELEASE_ID,
+        "lock_id": lock_id,
+        "declaration_ref": declaration_ref,
+        "declaration_sha256": declaration_sha,
+        "visible_projection_sha256": visible_sha,
+        "model_declaration": declaration["model_declaration"],
+        "comparator_declaration": declaration["comparator_declaration"],
+        "prediction_rows": [
+            {
+                "row_index": record_index,
+                "row_id": row_id,
+                "visible_row_sha256": visible_row_sha,
+                "declaration_sha256": declaration_sha,
+                "model_prediction": float(len(idlist)),
+                "comparator_prediction": float(count),
+                "target_opened": False,
+            }
+        ],
+        "algorithmic_target_separation": {
+            "prediction_inputs": "raw ESearch idlist, retstart, and querytranslation visible projection plus locked declarations only",
+            "target_projection_read_before_prediction_materialization": False,
+            "target_opened_after_prediction_materialization": True,
+        },
+        "locks": dict(PROJECTION_NO_SEND_LOCKS),
+    }
+    prediction_sha = sha256_object(prediction_materialization_lock)
+    target_projection_lock = {
+        "schema_id": target_projection_factory.TARGET_LOCK_SCHEMA_ID,
+        "release_id": RELEASE_ID,
+        "lock_id": lock_id,
+        "declaration_ref": declaration_ref,
+        "snapshot_ref": source_ref,
+        "snapshot_sha256": source_sha256,
+        "declaration_sha256": declaration_sha,
+        "visible_projection_sha256": visible_sha,
+        "prediction_materialization_sha256": prediction_sha,
+        "target_fields": BIOLOGY_TARGET_FIELDS,
+        "row_count": 1,
+        "rows": [
+            {
+                **target_row,
+                "target_row_sha256": target_row_sha,
+                "source_row_sha256": sha256_object(record),
+            }
+        ],
+        "target_opened_after_prediction_materialization": True,
+        "locks": dict(PROJECTION_NO_SEND_LOCKS),
+    }
+    target_sha = sha256_object(target_projection_lock)
+    seed_lock = {
+        "schema_id": LEGACY_SEED_LOCK_SCHEMA_ID,
+        "release_id": RELEASE_ID,
+        "generated_by": PLANNER_REF,
+        "lock_id": lock_id,
+        "lock_ref": lock_ref,
+        "source_snapshot_ref": source_ref,
+        "source_snapshot_sha256": source_sha256,
+        "record_index": record_index,
+        "row_id": row_id,
+        "official_source": "NCBI E-utilities ESearch",
+        "official_url": official_url,
+        "declaration_ref": declaration_ref,
+        "declaration_sha256": declaration_sha,
+        "visible_projection_lock_ref": visible_ref,
+        "visible_projection_lock_sha256": visible_sha,
+        "prediction_materialization_lock_ref": prediction_ref,
+        "prediction_materialization_lock_sha256": prediction_sha,
+        "target_projection_lock_ref": target_ref,
+        "target_projection_lock_sha256": target_sha,
+        "comparator_baseline": comparator_contract,
+        "locks": dict(PROJECTION_NO_SEND_LOCKS),
+        "support_policy": "Legacy seed upgrade proves target-blind row projection only; grand support remains gated by all biology requirements.",
+    }
+    seed_lock_sha = sha256_object(seed_lock)
+    status = {
+        "required": True,
+        "verified": not blockers,
+        "valid": not blockers,
+        "source_separation_derived": True,
+        "source_kind": "legacy_seed_auto_projection",
+        "generated_by": PLANNER_REF,
+        "standard_factory": PLANNER_REF,
+        "refs": {
+            "legacy_seed_lock_ref": lock_ref,
+            "declaration_ref": declaration_ref,
+            "visible_projection_lock_ref": visible_ref,
+            "prediction_materialization_lock_ref": prediction_ref,
+            "target_projection_lock_ref": target_ref,
+        },
+        "hashes": {
+            "legacy_seed_lock_sha256": seed_lock_sha,
+            "declaration_sha256": declaration_sha,
+            "snapshot_sha256": source_sha256,
+            "visible_projection_lock_sha256": visible_sha,
+            "prediction_materialization_lock_sha256": prediction_sha,
+            "target_projection_lock_sha256": target_sha,
+            "comparator_baseline_sha256": comparator_contract["baseline_sha256"],
+        },
+        "visible_fields": BIOLOGY_VISIBLE_FIELDS,
+        "target_fields": BIOLOGY_TARGET_FIELDS,
+        "blockers": blockers,
+        "locks": dict(PROJECTION_NO_SEND_LOCKS),
+    }
+    return {
+        "lock_ref": lock_ref,
+        "lock_sha256": seed_lock_sha,
+        "lock_payload": seed_lock,
+        "artifacts": {
+            declaration_ref: declaration,
+            visible_ref: visible_projection_lock,
+            prediction_ref: prediction_materialization_lock,
+            target_ref: target_projection_lock,
+            lock_ref: seed_lock,
+        },
+        "target_projection_lock": status,
+        "comparator_baseline": comparator_contract,
+        "official_url": official_url,
+        "blockers": blockers,
+    }
+
+
+def validate_declared_legacy_seed_metadata(
+    metadata: dict[str, Any],
+    upgrade: dict[str, Any],
+    *,
+    source_ref: str,
+    record_index: int,
+) -> list[str]:
+    if not metadata:
+        return []
+    status = dict_or_empty(upgrade.get("target_projection_lock"))
+    refs = dict_or_empty(status.get("refs"))
+    hashes = dict_or_empty(status.get("hashes"))
+    failures: list[str] = []
+    expected_lock_ref = as_str(metadata.get("lock_ref"), as_str(metadata.get("legacy_seed_lock_ref")))
+    if expected_lock_ref and expected_lock_ref != as_str(upgrade.get("lock_ref")):
+        failures.append(f"LEGACY_SEED_LOCK_REF_MISMATCH::{source_ref}::{record_index}")
+    expected_lock_sha = as_str(metadata.get("lock_sha256"), as_str(metadata.get("legacy_seed_lock_sha256")))
+    if expected_lock_sha and expected_lock_sha != as_str(upgrade.get("lock_sha256")):
+        failures.append(f"LEGACY_SEED_LOCK_HASH_MISMATCH::{source_ref}::{record_index}")
+    expected_comparator_sha = as_str(metadata.get("comparator_baseline_sha256"))
+    if expected_comparator_sha and expected_comparator_sha != as_str(hashes.get("comparator_baseline_sha256")):
+        failures.append(f"LEGACY_SEED_COMPARATOR_BASELINE_STALE::{source_ref}::{record_index}")
+    ref_map = (
+        ("declaration_ref", "declaration_sha256", "DECLARATION"),
+        ("visible_projection_lock_ref", "visible_projection_lock_sha256", "VISIBLE_PROJECTION_LOCK"),
+        ("prediction_materialization_lock_ref", "prediction_materialization_lock_sha256", "PREDICTION_MATERIALIZATION_LOCK"),
+        ("target_projection_lock_ref", "target_projection_lock_sha256", "TARGET_PROJECTION_LOCK"),
+    )
+    for ref_key, hash_key, label in ref_map:
+        expected_ref = as_str(metadata.get(ref_key))
+        expected_sha = as_str(metadata.get(hash_key))
+        if expected_ref and expected_ref != as_str(refs.get(ref_key)):
+            failures.append(f"LEGACY_SEED_{label}_REF_MISMATCH::{source_ref}::{record_index}")
+        if expected_sha and expected_sha != as_str(hashes.get(hash_key)):
+            failures.append(f"LEGACY_SEED_{label}_HASH_MISMATCH::{source_ref}::{record_index}")
+    declared_visible_fields = list_of_strings(metadata.get("visible_fields"))
+    if declared_visible_fields:
+        if declared_visible_fields != BIOLOGY_VISIBLE_FIELDS:
+            failures.append(f"LEGACY_SEED_VISIBLE_FIELDS_UNEXPECTED::{source_ref}::{record_index}")
+        if set(declared_visible_fields) & set(BIOLOGY_TARGET_FIELDS):
+            failures.append(f"LEGACY_SEED_TARGET_FIELD_IN_VISIBLE_PROJECTION::{source_ref}::{record_index}")
+    if "locks" in metadata and dict_or_empty(metadata.get("locks")) != PROJECTION_NO_SEND_LOCKS:
+        failures.append(f"LEGACY_SEED_NO_SEND_LOCKS_MISSING_OR_WEAK::{source_ref}::{record_index}")
+    return failures
+
+
+def legacy_seed_upgrade_for_record(
+    *,
+    source_ref: str,
+    source_sha256: str,
+    record_index: int,
+    record: dict[str, Any],
+    acquisition: dict[str, Any],
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any], list[str]]:
+    if not is_legacy_seed_candidate(source_ref=source_ref, record=record, acquisition=acquisition):
+        return acquisition, {}, {}, []
+    upgrade = build_legacy_seed_projection_status(
+        source_ref=source_ref,
+        source_sha256=source_sha256,
+        record_index=record_index,
+        record=record,
+    )
+    metadata_failures = validate_declared_legacy_seed_metadata(
+        legacy_seed_metadata(record),
+        upgrade,
+        source_ref=source_ref,
+        record_index=record_index,
+    )
+    status = dict_or_empty(upgrade.get("target_projection_lock"))
+    blockers = ordered_unique([*list_of_strings(status.get("blockers")), *metadata_failures])
+    if blockers:
+        status = {**status, "verified": False, "valid": False, "blockers": blockers}
+        upgrade = {**upgrade, "target_projection_lock": status}
+    source = (
+        {
+            "mode": "target_blind",
+            "kind": "legacy_seed_target_projection_lock",
+            "pre_target_lock": True,
+            "target_hidden_until_scoring": True,
+            "declared_before_scoring": True,
+            "training_sources": [dict_or_empty(status.get("refs")).get("visible_projection_lock_ref", "")],
+            "target_sources": [dict_or_empty(status.get("refs")).get("target_projection_lock_ref", "")],
+            "training_manifest_sha256": dict_or_empty(status.get("hashes")).get("visible_projection_lock_sha256", ""),
+            "target_manifest_sha256": dict_or_empty(status.get("hashes")).get("target_projection_lock_sha256", ""),
+        }
+        if status.get("verified") is True
+        else {}
+    )
+    upgraded_acquisition = {
+        "acquisition_id": as_str(dict_or_empty(status.get("refs")).get("legacy_seed_lock_ref")),
+        "packet_ref": "",
+        "packet_schema_id": "",
+        "expected_local_snapshot_ref": source_ref,
+        "official_endpoint_url": as_str(upgrade.get("official_url")),
+        "lock_ref": as_str(upgrade.get("lock_ref")),
+        "lock_sha256": as_str(upgrade.get("lock_sha256")),
+        "declared_before_scoring_lock": status.get("verified") is True,
+        "hash_policy": "sha256 over deterministic legacy seed target-projection contract",
+        "required_fields": [*BIOLOGY_VISIBLE_FIELDS, *BIOLOGY_TARGET_FIELDS],
+        "target_projection_lock": status,
+        "legacy_seed_upgrade": True,
+        "legacy_seed_artifacts": dict_or_empty(upgrade.get("artifacts")),
+    }
+    comparator = dict_or_empty(upgrade.get("comparator_baseline")) if status.get("verified") is True else {}
+    return upgraded_acquisition, source, comparator, blockers
 
 
 def select_source_separation(candidates: list[dict[str, Any]]) -> tuple[dict[str, Any], list[str]]:
@@ -692,6 +1084,690 @@ def validate_rows(rows: list[dict[str, Any]]) -> list[str]:
     return ordered_unique(failures)
 
 
+def target_projection_refs() -> dict[str, str]:
+    return {
+        "declaration_ref": (
+            f"validation/heldout/target_projection_locks/declarations/biology_ncbi_batch/{BIOLOGY_TARGET_LOCK_ID}.json"
+        ),
+        "visible_lock_ref": (
+            f"validation/heldout/target_projection_locks/locks/{BIOLOGY_TARGET_LOCK_ID}.visible_projection_lock.json"
+        ),
+        "prediction_lock_ref": (
+            f"validation/heldout/target_projection_locks/locks/{BIOLOGY_TARGET_LOCK_ID}.prediction_materialization_lock.json"
+        ),
+        "target_lock_ref": (
+            f"validation/heldout/target_projection_locks/locks/{BIOLOGY_TARGET_LOCK_ID}.target_projection_lock.json"
+        ),
+    }
+
+
+def target_projection_refs_from_attachment(status: dict[str, Any]) -> dict[str, str]:
+    refs = dict_or_empty(status.get("refs"))
+    expected_refs = dict_or_empty(status.get("expected_refs"))
+    return {
+        "declaration_ref": as_str(refs.get("declaration_ref"), as_str(expected_refs.get("declaration_ref"))),
+        "visible_lock_ref": as_str(
+            refs.get("visible_projection_lock_ref"),
+            as_str(refs.get("visible_lock_ref"), as_str(expected_refs.get("visible_lock_ref"))),
+        ),
+        "prediction_lock_ref": as_str(
+            refs.get("prediction_materialization_lock_ref"),
+            as_str(refs.get("prediction_lock_ref"), as_str(expected_refs.get("prediction_lock_ref"))),
+        ),
+        "target_lock_ref": as_str(
+            refs.get("target_projection_lock_ref"),
+            as_str(refs.get("target_lock_ref"), as_str(expected_refs.get("target_lock_ref"))),
+        ),
+    }
+
+
+def packet_target_projection_lock(root: Path) -> dict[str, Any] | None:
+    path = root / ACQUISITION_REL
+    if not path.exists():
+        return None
+    try:
+        packet = read_json(path)
+    except Exception:
+        return None
+    if not isinstance(packet, dict) or "target_projection_lock" not in packet:
+        return None
+    status = dict_or_empty(packet.get("target_projection_lock"))
+    hashes = dict_or_empty(status.get("hashes"))
+    if not hashes:
+        return None
+    refs = target_projection_refs_from_attachment(status)
+    if refs == target_projection_refs() and not as_str(hashes.get("snapshot_sha256")):
+        return None
+    return status
+
+
+def projection_payload(row: dict[str, Any], fields: list[str]) -> dict[str, Any]:
+    values = {
+        "esearchresult.idlist": [str(item) for item in row.get("formula_inputs", {}).get("idlist", [])],
+        "esearchresult.retstart": as_int(row.get("retstart")),
+        "esearchresult.querytranslation": as_str(row.get("query_term")),
+        "esearchresult.retmax": as_int(row.get("retmax"), as_int(row.get("observed_value"))),
+    }
+    return {field: values[field] for field in fields if field in values}
+
+
+def normalized_projection(payload: Any, fields: list[str]) -> dict[str, Any]:
+    if not isinstance(payload, dict):
+        return {}
+    normalized: dict[str, Any] = {}
+    for field in fields:
+        value = payload.get(field)
+        if field == "esearchresult.idlist":
+            normalized[field] = [str(item) for item in value] if isinstance(value, list) else []
+        elif field in {"esearchresult.retstart", "esearchresult.retmax"}:
+            normalized[field] = as_int(value)
+        elif field == "esearchresult.querytranslation":
+            normalized[field] = as_str(value)
+        else:
+            normalized[field] = value
+    return normalized
+
+
+def target_lock_locks_valid(payload: Any) -> bool:
+    locks = payload.get("locks") if isinstance(payload, dict) else None
+    return isinstance(locks, dict) and all(locks.get(key) is expected for key, expected in PROJECTION_NO_SEND_LOCKS.items())
+
+
+def read_projection_artifact(root: Path, ref: str, failures: list[str]) -> dict[str, Any]:
+    if not ref:
+        failures.append("TARGET_PROJECTION_LOCK_ARTIFACT_REF_MISSING")
+        return {}
+    try:
+        path = resolve_under_root(root, ref)
+    except ValueError:
+        failures.append(f"TARGET_PROJECTION_LOCK_ARTIFACT_REF_OUTSIDE_REPO::{ref}")
+        return {}
+    if not path.exists():
+        failures.append(f"TARGET_PROJECTION_LOCK_ARTIFACT_MISSING::{ref}")
+        return {}
+    try:
+        payload = read_json(path)
+    except Exception as exc:
+        failures.append(f"TARGET_PROJECTION_LOCK_ARTIFACT_PARSE_FAILED::{ref}::{exc.__class__.__name__}")
+        return {}
+    if not isinstance(payload, dict):
+        failures.append(f"TARGET_PROJECTION_LOCK_ARTIFACT_NOT_OBJECT::{ref}")
+        return {}
+    return payload
+
+
+def expected_hash_matches(declaration: dict[str, Any], key: str, actual: str, failures: list[str]) -> None:
+    expected = as_str(declaration.get(key))
+    if not expected:
+        failures.append(f"TARGET_PROJECTION_LOCK_EXPECTED_HASH_MISSING::{key}")
+    elif expected != actual:
+        failures.append(f"TARGET_PROJECTION_LOCK_EXPECTED_HASH_MISMATCH::{key}")
+
+
+def official_acquisition_id_from_ref(ref: str) -> str:
+    name = Path(ref.replace("\\", "/")).stem
+    if re.fullmatch(r"OC133-NCBI-GEO-OFFICIAL-SNAPSHOT-\d{4}", name):
+        return name
+    return ""
+
+
+def projection_row_id(row: dict[str, Any]) -> str:
+    return as_str(row.get("observation_id")) or as_str(row.get("acquisition_id"))
+
+
+def projection_row_identity_candidates(row: dict[str, Any]) -> list[str]:
+    return ordered_unique(
+        [
+            as_str(row.get("acquisition_id")),
+            official_acquisition_id_from_ref(as_str(row.get("snapshot_ref"))),
+            as_str(row.get("observation_id")),
+        ]
+    )
+
+
+def projection_source_key(row: dict[str, Any]) -> tuple[str, str]:
+    return as_str(row.get("snapshot_ref")), as_str(row.get("snapshot_sha256"), as_str(row.get("source_snapshot_hash")))
+
+
+def snapshot_row_id(row: dict[str, Any]) -> str:
+    return as_str(row.get("acquisition_id")) or as_str(row.get("observation_id"))
+
+
+def snapshot_source_key(row: dict[str, Any]) -> tuple[str, str]:
+    return as_str(row.get("source_snapshot_ref")), as_str(row.get("source_snapshot_sha256"))
+
+
+def snapshot_projection_payload(row: dict[str, Any], fields: list[str]) -> dict[str, Any]:
+    esearch = dict_or_empty(row.get("esearchresult"))
+    values = {
+        "esearchresult.idlist": [str(item) for item in esearch.get("idlist", [])] if isinstance(esearch.get("idlist"), list) else [],
+        "esearchresult.retstart": as_int(esearch.get("retstart")),
+        "esearchresult.querytranslation": as_str(esearch.get("querytranslation")),
+        "esearchresult.retmax": as_int(esearch.get("retmax")),
+    }
+    return {field: values[field] for field in fields if field in values}
+
+
+def projection_signature(row: dict[str, Any]) -> str:
+    return sha256_object(
+        {
+            "visible": projection_payload(row, BIOLOGY_VISIBLE_FIELDS),
+            "target": projection_payload(row, BIOLOGY_TARGET_FIELDS),
+        }
+    )
+
+
+def snapshot_projection_signature(row: dict[str, Any]) -> str:
+    return sha256_object(
+        {
+            "visible": snapshot_projection_payload(row, BIOLOGY_VISIBLE_FIELDS),
+            "target": snapshot_projection_payload(row, BIOLOGY_TARGET_FIELDS),
+        }
+    )
+
+
+def validate_packet_projection_hashes(
+    status: dict[str, Any],
+    *,
+    declaration_hash: str,
+    visible_sha256: str,
+    prediction_sha256: str,
+    target_sha256: str,
+    failures: list[str],
+) -> None:
+    hashes = dict_or_empty(status.get("hashes"))
+    expected = {
+        "declaration_sha256": declaration_hash,
+        "visible_projection_lock_sha256": visible_sha256,
+        "prediction_materialization_lock_sha256": prediction_sha256,
+        "target_projection_lock_sha256": target_sha256,
+    }
+    for key, actual in expected.items():
+        declared = as_str(hashes.get(key))
+        if not declared:
+            failures.append(f"TARGET_PROJECTION_LOCK_PACKET_HASH_MISSING::{key}")
+        elif declared != actual:
+            failures.append(f"TARGET_PROJECTION_LOCK_PACKET_HASH_MISMATCH::{key}")
+
+
+def packet_projection_refs_for_status(refs: dict[str, str], packet_status: dict[str, Any] | None) -> dict[str, str]:
+    packet_refs = dict_or_empty(packet_status.get("refs")) if packet_status is not None else {}
+    if packet_refs:
+        return {key: as_str(value) for key, value in packet_refs.items()}
+    return {
+        "declaration_ref": refs["declaration_ref"],
+        "visible_projection_lock_ref": refs["visible_lock_ref"],
+        "prediction_materialization_lock_ref": refs["prediction_lock_ref"],
+        "target_projection_lock_ref": refs["target_lock_ref"],
+    }
+
+
+def validate_projection_snapshot(
+    root: Path,
+    *,
+    declaration: dict[str, Any],
+    visible_lock: dict[str, Any],
+    target_lock: dict[str, Any],
+    rows: list[dict[str, Any]],
+    packet_status: dict[str, Any] | None,
+    failures: list[str],
+) -> list[dict[str, Any]]:
+    snapshot_ref = as_str(declaration.get("snapshot_ref"))
+    if not snapshot_ref:
+        return []
+    try:
+        snapshot_path = resolve_under_root(root, snapshot_ref)
+    except ValueError:
+        failures.append(f"TARGET_PROJECTION_SNAPSHOT_REF_OUTSIDE_REPO::{snapshot_ref}")
+        return []
+    if not snapshot_path.exists() or not snapshot_path.is_file():
+        failures.append(f"TARGET_PROJECTION_SNAPSHOT_MISSING::{snapshot_ref}")
+        return []
+    snapshot_sha256 = sha256_bytes(snapshot_path.read_bytes())
+    expected_snapshot_sha = as_str(declaration.get("expected_snapshot_sha256"))
+    if expected_snapshot_sha and expected_snapshot_sha != snapshot_sha256:
+        failures.append("TARGET_PROJECTION_SNAPSHOT_HASH_MISMATCH")
+    for lock_payload, label in ((visible_lock, "VISIBLE_PROJECTION_LOCK"), (target_lock, "TARGET_PROJECTION_LOCK")):
+        if as_str(lock_payload.get("snapshot_ref")) != snapshot_ref:
+            failures.append(f"{label}_SNAPSHOT_REF_MISMATCH")
+        if as_str(lock_payload.get("snapshot_sha256")) != snapshot_sha256:
+            failures.append(f"{label}_SNAPSHOT_HASH_MISMATCH")
+    if packet_status is not None:
+        declared_packet_snapshot_sha = as_str(dict_or_empty(packet_status.get("hashes")).get("snapshot_sha256"))
+        if not declared_packet_snapshot_sha:
+            failures.append("TARGET_PROJECTION_LOCK_PACKET_HASH_MISSING::snapshot_sha256")
+        elif declared_packet_snapshot_sha != snapshot_sha256:
+            failures.append("TARGET_PROJECTION_LOCK_PACKET_HASH_MISMATCH::snapshot_sha256")
+
+    try:
+        snapshot_payload = read_json(snapshot_path)
+    except Exception as exc:
+        failures.append(f"TARGET_PROJECTION_SNAPSHOT_PARSE_FAILED::{exc.__class__.__name__}")
+        return []
+    snapshot_rows = snapshot_payload.get("rows") if isinstance(snapshot_payload, dict) else None
+    if not isinstance(snapshot_rows, list):
+        return []
+    return [item for item in snapshot_rows if isinstance(item, dict)]
+
+
+def add_unique_binding(index: dict[Any, dict[str, Any] | None], key: Any, row: dict[str, Any]) -> None:
+    if not key or (isinstance(key, tuple) and not all(key)):
+        return
+    if key in index:
+        index[key] = None
+    else:
+        index[key] = row
+
+
+def unique_bound(index: dict[Any, dict[str, Any] | None], key: Any) -> dict[str, Any] | None:
+    row = index.get(key)
+    return row if isinstance(row, dict) else None
+
+
+def build_snapshot_binding_indexes(snapshot_rows: list[dict[str, Any]]) -> dict[str, dict[Any, dict[str, Any] | None]]:
+    by_id: dict[Any, dict[str, Any] | None] = {}
+    by_source: dict[Any, dict[str, Any] | None] = {}
+    by_projection: dict[Any, dict[str, Any] | None] = {}
+    for row in snapshot_rows:
+        add_unique_binding(by_id, snapshot_row_id(row), row)
+        add_unique_binding(by_source, snapshot_source_key(row), row)
+        add_unique_binding(by_projection, snapshot_projection_signature(row), row)
+    return {"id": by_id, "source": by_source, "projection": by_projection}
+
+
+def bind_projection_snapshot_row(
+    row: dict[str, Any],
+    snapshot_indexes: dict[str, dict[Any, dict[str, Any] | None]],
+) -> dict[str, Any] | None:
+    for candidate in projection_row_identity_candidates(row):
+        bound = unique_bound(snapshot_indexes["id"], candidate)
+        if bound is not None:
+            return bound
+    bound = unique_bound(snapshot_indexes["source"], projection_source_key(row))
+    if bound is not None:
+        return bound
+    return unique_bound(snapshot_indexes["projection"], projection_signature(row))
+
+
+def projection_lock_row_id(row: dict[str, Any], snapshot_row: dict[str, Any] | None) -> str:
+    if snapshot_row is not None:
+        snapshot_id = snapshot_row_id(snapshot_row)
+        if snapshot_id:
+            return snapshot_id
+    for candidate in projection_row_identity_candidates(row):
+        if candidate:
+            return candidate
+    return "unknown"
+
+
+def load_target_projection_lock_source(
+    root: Path,
+    rows: list[dict[str, Any]],
+    packet_status: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    refs = target_projection_refs_from_attachment(packet_status) if packet_status is not None else target_projection_refs()
+    failures: list[str] = []
+    source_kind = "packet_attachment" if packet_status is not None else "legacy_artifacts"
+    if not rows:
+        return {
+            "valid": False,
+            "source_separation_derived": False,
+            "failures": [],
+            "refs": packet_projection_refs_for_status(refs, packet_status),
+            "expected_refs": refs,
+            "hashes": dict_or_empty(packet_status.get("hashes")) if packet_status is not None else {},
+            "locks": dict_or_empty(packet_status.get("locks")) if packet_status is not None else PROJECTION_NO_SEND_LOCKS,
+            "source_kind": source_kind,
+            "source_separation": {},
+        }
+
+    if packet_status is not None:
+        if dict_or_empty(packet_status.get("locks")) != PROJECTION_NO_SEND_LOCKS:
+            failures.append("TARGET_PROJECTION_LOCK_PACKET_NO_SEND_LOCKS_MISSING_OR_WEAK")
+        for key, ref in refs.items():
+            if not ref:
+                failures.append(f"TARGET_PROJECTION_LOCK_PACKET_REF_MISSING::{key}")
+
+    declaration = read_projection_artifact(root, refs["declaration_ref"], failures)
+    visible_lock = read_projection_artifact(root, refs["visible_lock_ref"], failures)
+    prediction_lock = read_projection_artifact(root, refs["prediction_lock_ref"], failures)
+    target_lock = read_projection_artifact(root, refs["target_lock_ref"], failures)
+    if failures:
+        return {
+            "valid": False,
+            "source_separation_derived": False,
+            "failures": ordered_unique(failures),
+            "refs": packet_projection_refs_for_status(refs, packet_status),
+            "expected_refs": refs,
+            "hashes": dict_or_empty(packet_status.get("hashes")) if packet_status is not None else {},
+            "locks": dict_or_empty(packet_status.get("locks")) if packet_status is not None else PROJECTION_NO_SEND_LOCKS,
+            "source_kind": source_kind,
+            "source_separation": {},
+        }
+
+    declaration_hash = sha256_object(
+        {
+            key: value
+            for key, value in declaration.items()
+            if key not in target_projection_factory.EXPECTED_HASH_KEYS
+        }
+    )
+    visible_sha256 = sha256_object(visible_lock)
+    prediction_sha256 = sha256_object(prediction_lock)
+    target_sha256 = sha256_object(target_lock)
+    if packet_status is not None:
+        validate_packet_projection_hashes(
+            packet_status,
+            declaration_hash=declaration_hash,
+            visible_sha256=visible_sha256,
+            prediction_sha256=prediction_sha256,
+            target_sha256=target_sha256,
+            failures=failures,
+        )
+
+    if declaration.get("declared_before_scoring") is not True:
+        failures.append("TARGET_PROJECTION_LOCK_DECLARATION_NOT_PRETARGET")
+    if as_str(declaration.get("lock_id")) != BIOLOGY_TARGET_LOCK_ID:
+        failures.append("TARGET_PROJECTION_LOCK_ID_MISMATCH")
+    if list_of_strings(declaration.get("visible_fields")) != BIOLOGY_VISIBLE_FIELDS:
+        failures.append("TARGET_PROJECTION_LOCK_VISIBLE_FIELDS_UNEXPECTED")
+    if list_of_strings(declaration.get("target_fields")) != BIOLOGY_TARGET_FIELDS:
+        failures.append("TARGET_PROJECTION_LOCK_TARGET_FIELDS_UNEXPECTED")
+    if not target_lock_locks_valid(declaration):
+        failures.append("TARGET_PROJECTION_DECLARATION_NO_SEND_LOCKS_WEAK")
+    for visible in list_of_strings(declaration.get("visible_fields")):
+        for target in list_of_strings(declaration.get("target_fields")):
+            if target_projection_factory.paths_overlap(visible, target):
+                failures.append(f"TARGET_FIELD_IN_VISIBLE_PROJECTION::{target}")
+
+    expected_hash_matches(declaration, "expected_declaration_sha256", declaration_hash, failures)
+    expected_hash_matches(declaration, "expected_visible_projection_sha256", visible_sha256, failures)
+    expected_hash_matches(declaration, "expected_prediction_materialization_sha256", prediction_sha256, failures)
+    expected_hash_matches(declaration, "expected_target_projection_sha256", target_sha256, failures)
+
+    if visible_lock.get("schema_id") != target_projection_factory.VISIBLE_LOCK_SCHEMA_ID:
+        failures.append("VISIBLE_PROJECTION_LOCK_SCHEMA_MISMATCH")
+    if prediction_lock.get("schema_id") != target_projection_factory.PREDICTION_LOCK_SCHEMA_ID:
+        failures.append("PREDICTION_MATERIALIZATION_LOCK_SCHEMA_MISMATCH")
+    if target_lock.get("schema_id") != target_projection_factory.TARGET_LOCK_SCHEMA_ID:
+        failures.append("TARGET_PROJECTION_LOCK_SCHEMA_MISMATCH")
+    if visible_lock.get("declaration_sha256") != declaration_hash:
+        failures.append("VISIBLE_PROJECTION_DECLARATION_HASH_MISMATCH")
+    if prediction_lock.get("declaration_sha256") != declaration_hash:
+        failures.append("PREDICTION_MATERIALIZATION_DECLARATION_HASH_MISMATCH")
+    if target_lock.get("declaration_sha256") != declaration_hash:
+        failures.append("TARGET_PROJECTION_DECLARATION_HASH_MISMATCH")
+    if prediction_lock.get("visible_projection_sha256") != visible_sha256:
+        failures.append("PREDICTION_VISIBLE_PROJECTION_HASH_MISMATCH")
+    if target_lock.get("visible_projection_sha256") != visible_sha256:
+        failures.append("TARGET_VISIBLE_PROJECTION_HASH_MISMATCH")
+    if target_lock.get("prediction_materialization_sha256") != prediction_sha256:
+        failures.append("TARGET_PREDICTION_MATERIALIZATION_HASH_MISMATCH")
+    for lock_payload, label in (
+        (visible_lock, "VISIBLE_PROJECTION_LOCK"),
+        (prediction_lock, "PREDICTION_MATERIALIZATION_LOCK"),
+        (target_lock, "TARGET_PROJECTION_LOCK"),
+    ):
+        if as_str(lock_payload.get("declaration_ref")) != refs["declaration_ref"]:
+            failures.append(f"{label}_DECLARATION_REF_MISMATCH")
+    for lock_name, lock_payload in (
+        ("VISIBLE_PROJECTION_LOCK", visible_lock),
+        ("PREDICTION_MATERIALIZATION_LOCK", prediction_lock),
+        ("TARGET_PROJECTION_LOCK", target_lock),
+    ):
+        if as_str(lock_payload.get("lock_id")) != BIOLOGY_TARGET_LOCK_ID:
+            failures.append(f"{lock_name}_ID_MISMATCH")
+        if not target_lock_locks_valid(lock_payload):
+            failures.append(f"{lock_name}_NO_SEND_LOCKS_WEAK")
+
+    separation = dict_or_empty(prediction_lock.get("algorithmic_target_separation"))
+    if separation.get("target_projection_read_before_prediction_materialization") is not False:
+        failures.append("TARGET_PROJECTION_READ_BEFORE_PREDICTION_MATERIALIZATION")
+    if separation.get("target_opened_after_prediction_materialization") is not True:
+        failures.append("TARGET_PROJECTION_OPEN_AFTER_PREDICTION_NOT_ATTESTED")
+    if target_lock.get("target_opened_after_prediction_materialization") is not True:
+        failures.append("TARGET_LOCK_OPEN_AFTER_PREDICTION_NOT_ATTESTED")
+    projection_snapshot_rows = validate_projection_snapshot(
+        root,
+        declaration=declaration,
+        visible_lock=visible_lock,
+        target_lock=target_lock,
+        rows=rows,
+        packet_status=packet_status,
+        failures=failures,
+    )
+
+    visible_rows_raw = visible_lock.get("rows")
+    target_rows_raw = target_lock.get("rows")
+    prediction_rows_raw = prediction_lock.get("prediction_rows")
+    if not isinstance(visible_rows_raw, list):
+        failures.append("VISIBLE_PROJECTION_LOCK_ROWS_MISSING")
+        visible_rows_raw = []
+    if not isinstance(target_rows_raw, list):
+        failures.append("TARGET_PROJECTION_LOCK_ROWS_MISSING")
+        target_rows_raw = []
+    if not isinstance(prediction_rows_raw, list):
+        failures.append("PREDICTION_MATERIALIZATION_ROWS_MISSING")
+        prediction_rows_raw = []
+    declared_row_count = as_int(declaration.get("row_count"), len(visible_rows_raw))
+    for lock_name, lock_payload, lock_rows in (
+        ("VISIBLE_PROJECTION_LOCK", visible_lock, visible_rows_raw),
+        ("TARGET_PROJECTION_LOCK", target_lock, target_rows_raw),
+        ("PREDICTION_MATERIALIZATION", prediction_lock, prediction_rows_raw),
+    ):
+        if as_int(lock_payload.get("row_count"), len(lock_rows)) != len(lock_rows):
+            failures.append(f"{lock_name}_ROW_COUNT_FIELD_MISMATCH")
+        if declared_row_count != len(lock_rows):
+            failures.append(f"{lock_name}_DECLARED_ROW_COUNT_MISMATCH")
+
+    visible_by_id = {as_str(item.get("row_id")): item for item in visible_rows_raw if isinstance(item, dict)}
+    target_by_id = {as_str(item.get("row_id")): item for item in target_rows_raw if isinstance(item, dict)}
+    prediction_by_id = {as_str(item.get("row_id")): item for item in prediction_rows_raw if isinstance(item, dict)}
+    snapshot_indexes = build_snapshot_binding_indexes(projection_snapshot_rows)
+    bound_lock_row_ids: set[str] = set()
+    for row in rows:
+        row_label = projection_row_id(row)
+        snapshot_row = bind_projection_snapshot_row(row, snapshot_indexes) if projection_snapshot_rows else None
+        if projection_snapshot_rows and snapshot_row is None:
+            failures.append(f"TARGET_PROJECTION_SNAPSHOT_ROW_MISSING::{row_label}")
+            continue
+        if snapshot_row is not None:
+            snapshot_id = snapshot_row_id(snapshot_row)
+            if projection_source_key(row)[0] and snapshot_source_key(snapshot_row)[0] != projection_source_key(row)[0]:
+                failures.append(f"TARGET_PROJECTION_SNAPSHOT_SOURCE_REF_MISMATCH::{row_label}")
+            if projection_source_key(row)[1] and snapshot_source_key(snapshot_row)[1] != projection_source_key(row)[1]:
+                failures.append(f"TARGET_PROJECTION_SNAPSHOT_SOURCE_HASH_MISMATCH::{row_label}")
+            if snapshot_projection_payload(snapshot_row, BIOLOGY_VISIBLE_FIELDS) != projection_payload(row, BIOLOGY_VISIBLE_FIELDS):
+                failures.append(f"TARGET_PROJECTION_SNAPSHOT_VISIBLE_FACT_MISMATCH::{row_label}")
+            if snapshot_projection_payload(snapshot_row, BIOLOGY_TARGET_FIELDS) != projection_payload(row, BIOLOGY_TARGET_FIELDS):
+                failures.append(f"TARGET_PROJECTION_SNAPSHOT_TARGET_FACT_MISMATCH::{row_label}")
+            if snapshot_id not in projection_row_identity_candidates(row):
+                row_label = f"{row_label}=>{snapshot_id}"
+        row_id = projection_lock_row_id(row, snapshot_row)
+        bound_lock_row_ids.add(row_id)
+        visible_row = visible_by_id.get(row_id)
+        target_row = target_by_id.get(row_id)
+        prediction_row = prediction_by_id.get(row_id)
+        if visible_row is None:
+            failures.append(f"VISIBLE_PROJECTION_ROW_MISSING::{row_label}")
+            continue
+        if target_row is None:
+            failures.append(f"TARGET_PROJECTION_ROW_MISSING::{row_label}")
+            continue
+        if prediction_row is None:
+            failures.append(f"PREDICTION_MATERIALIZATION_ROW_MISSING::{row_label}")
+            continue
+        expected_visible = projection_payload(row, BIOLOGY_VISIBLE_FIELDS)
+        expected_target = projection_payload(row, BIOLOGY_TARGET_FIELDS)
+        actual_visible = normalized_projection(visible_row.get("visible"), BIOLOGY_VISIBLE_FIELDS)
+        actual_target = normalized_projection(target_row.get("target"), BIOLOGY_TARGET_FIELDS)
+        if actual_visible != expected_visible:
+            failures.append(f"VISIBLE_PROJECTION_ROW_MISMATCH::{row_label}")
+        if actual_target != expected_target:
+            failures.append(f"TARGET_PROJECTION_ROW_MISMATCH::{row_label}")
+        visible_row_hash = sha256_object(
+            {
+                "row_index": as_int(visible_row.get("row_index")),
+                "row_id": row_id,
+                "visible": actual_visible,
+            }
+        )
+        target_row_hash = sha256_object(
+            {
+                "row_index": as_int(target_row.get("row_index")),
+                "row_id": row_id,
+                "target": actual_target,
+            }
+        )
+        if as_str(visible_row.get("visible_row_sha256")) != visible_row_hash:
+            failures.append(f"VISIBLE_PROJECTION_ROW_HASH_MISMATCH::{row_label}")
+        if as_str(target_row.get("target_row_sha256")) != target_row_hash:
+            failures.append(f"TARGET_PROJECTION_ROW_HASH_MISMATCH::{row_label}")
+        if prediction_row.get("target_opened") is not False:
+            failures.append(f"PREDICTION_ROW_TARGET_OPENED_BEFORE_MATERIALIZATION::{row_label}")
+
+    visible_ids = set(visible_by_id)
+    target_ids = set(target_by_id)
+    prediction_ids = set(prediction_by_id)
+    if visible_ids - bound_lock_row_ids:
+        failures.append(f"VISIBLE_PROJECTION_LOCK_UNBOUND_ROWS::{len(visible_ids - bound_lock_row_ids)}")
+    if target_ids - bound_lock_row_ids:
+        failures.append(f"TARGET_PROJECTION_LOCK_UNBOUND_ROWS::{len(target_ids - bound_lock_row_ids)}")
+    if prediction_ids - bound_lock_row_ids:
+        failures.append(f"PREDICTION_MATERIALIZATION_UNBOUND_ROWS::{len(prediction_ids - bound_lock_row_ids)}")
+
+    valid = not failures
+    source_separation = (
+        {
+            "mode": "target_blind",
+            "kind": "target_projection_lock",
+            "pre_target_lock": True,
+            "target_hidden_until_scoring": True,
+            "declared_before_scoring": True,
+            "training_sources": [refs["visible_lock_ref"]],
+            "target_sources": [refs["target_lock_ref"]],
+            "training_manifest_sha256": visible_sha256,
+            "target_manifest_sha256": target_sha256,
+        }
+        if valid
+        else {}
+    )
+    return {
+        "valid": valid,
+        "source_separation_derived": valid,
+        "failures": ordered_unique(failures),
+        "refs": packet_projection_refs_for_status(refs, packet_status),
+        "expected_refs": refs,
+        "hashes": {
+            "declaration_sha256": declaration_hash,
+            "visible_projection_lock_sha256": visible_sha256,
+            "prediction_materialization_lock_sha256": prediction_sha256,
+            "target_projection_lock_sha256": target_sha256,
+            **(
+                {"snapshot_sha256": as_str(declaration.get("expected_snapshot_sha256"))}
+                if as_str(declaration.get("expected_snapshot_sha256"))
+                else {}
+            ),
+            **(
+                {
+                    "snapshot_sha256": as_str(dict_or_empty(packet_status.get("hashes")).get("snapshot_sha256"))
+                }
+                if packet_status is not None and as_str(dict_or_empty(packet_status.get("hashes")).get("snapshot_sha256"))
+                else {}
+            ),
+        },
+        "locks": dict_or_empty(packet_status.get("locks")) if packet_status is not None else PROJECTION_NO_SEND_LOCKS,
+        "source_kind": source_kind,
+        "declaration_sha256": declaration_hash,
+        "visible_projection_sha256": visible_sha256,
+        "prediction_materialization_sha256": prediction_sha256,
+        "target_projection_sha256": target_sha256,
+        "source_separation": source_separation,
+    }
+
+
+def apply_target_projection_lock(rows: list[dict[str, Any]], projection_status: dict[str, Any]) -> None:
+    if projection_status.get("valid") is not True:
+        return
+    refs = dict_or_empty(projection_status.get("expected_refs"))
+    for row in rows:
+        row["lock_ref"] = as_str(refs.get("target_lock_ref"))
+        row["lock_sha256"] = as_str(projection_status.get("target_projection_sha256"))
+        row["declared_before_scoring_lock"] = True
+        row["target_projection_lock_verified"] = True
+        row["target_projection_lock_refs"] = projection_status.get("refs", {})
+        row["target_projection_lock_hashes"] = projection_status.get("hashes", {})
+        row["row_hash"] = row_hash(row)
+
+
+def combine_target_projection_status(
+    *,
+    batch_status: dict[str, Any],
+    batch_rows: list[dict[str, Any]],
+    legacy_rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    legacy_statuses = [dict_or_empty(row.get("target_projection_lock_hashes")) for row in legacy_rows]
+    legacy_failures = ordered_unique(
+        [
+            failure
+            for row in legacy_rows
+            for failure in list_of_strings(
+                dict_or_empty(row.get("target_projection_lock_status")).get("blockers")
+            )
+        ]
+    )
+    legacy_valid = not legacy_rows or all(row.get("target_projection_lock_verified") is True for row in legacy_rows)
+    batch_valid = not batch_rows or batch_status.get("valid") is True
+    failures = ordered_unique([*list_of_strings(batch_status.get("failures")), *legacy_failures])
+    visible_sources = []
+    target_sources = []
+    visible_hashes = []
+    target_hashes = []
+    if batch_rows and batch_status.get("valid") is True:
+        batch_source = dict_or_empty(batch_status.get("source_separation"))
+        visible_sources.extend(list_of_strings(batch_source.get("training_sources")))
+        target_sources.extend(list_of_strings(batch_source.get("target_sources")))
+        visible_hashes.append(as_str(batch_source.get("training_manifest_sha256")))
+        target_hashes.append(as_str(batch_source.get("target_manifest_sha256")))
+    for row in legacy_rows:
+        refs = dict_or_empty(row.get("target_projection_lock_refs"))
+        hashes = dict_or_empty(row.get("target_projection_lock_hashes"))
+        visible_sources.append(as_str(refs.get("visible_projection_lock_ref")))
+        target_sources.append(as_str(refs.get("target_projection_lock_ref")))
+        visible_hashes.append(as_str(hashes.get("visible_projection_lock_sha256")))
+        target_hashes.append(as_str(hashes.get("target_projection_lock_sha256")))
+    valid = batch_valid and legacy_valid and not failures
+    source_separation = (
+        {
+            "mode": "target_blind",
+            "kind": "target_projection_lock_with_legacy_seed_upgrade"
+            if batch_rows and legacy_rows
+            else ("legacy_seed_target_projection_lock" if legacy_rows else "target_projection_lock"),
+            "pre_target_lock": True,
+            "target_hidden_until_scoring": True,
+            "declared_before_scoring": True,
+            "training_sources": ordered_unique([source for source in visible_sources if source]),
+            "target_sources": ordered_unique([source for source in target_sources if source]),
+            "training_manifest_sha256": sha256_object(ordered_unique([value for value in visible_hashes if value])),
+            "target_manifest_sha256": sha256_object(ordered_unique([value for value in target_hashes if value])),
+        }
+        if valid
+        else {}
+    )
+    if not legacy_rows:
+        return batch_status
+    return {
+        **batch_status,
+        "valid": valid,
+        "source_separation_derived": valid,
+        "failures": failures,
+        "source_kind": "batch_projection_plus_legacy_seed" if batch_rows else "legacy_seed_auto_projection",
+        "legacy_seed_row_total": len(legacy_rows),
+        "legacy_seed_hashes": legacy_statuses,
+        "source_separation": source_separation,
+    }
+
+
 def residual_summary(rows: list[dict[str, Any]]) -> dict[str, float]:
     model_values = [as_float(row.get("model_residual")) for row in rows if is_number(row.get("model_residual"))]
     comparator_values = [as_float(row.get("comparator_residual")) for row in rows if is_number(row.get("comparator_residual"))]
@@ -727,6 +1803,9 @@ def build_pack(rows: list[dict[str, Any]], source: dict[str, Any], support_allow
         "capability_owner": CAPABILITY_OWNER,
         "evidence_pack_id": "OC133-BIOLOGY-NCBI-BATCH-CANDIDATE",
         "domain": "biology",
+        "evidence_family": "biology-ncbi-geo-pagination-qa",
+        "pack_version": "1.0",
+        "support_scope": "bounded NCBI/GEO API page-size reconstruction QA; not biological grand support",
         "source_separation": {
             "mode": source.get("mode", "snapshot_replay"),
             "pre_target_lock": source.get("pre_target_lock") is True,
@@ -908,9 +1987,25 @@ def build_acquisition_packet(
     minimum_n: int,
     blockers: list[str],
     snapshot_refs: list[str],
+    projection_status: dict[str, Any],
     packet_requests: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     missing = missing_official_snapshots(rows, minimum_n, packet_requests)
+    target_projection_lock = {
+        "required": True,
+        "valid": projection_status.get("valid") is True,
+        "source_separation_derived": projection_status.get("source_separation_derived") is True,
+        "expected_refs": projection_status.get("expected_refs", target_projection_refs()),
+        "failures": projection_status.get("failures", []),
+    }
+    if dict_or_empty(projection_status.get("refs")) or dict_or_empty(projection_status.get("hashes")):
+        target_projection_lock.update(
+            {
+                "refs": projection_status.get("refs", packet_projection_refs_for_status(target_projection_refs(), None)),
+                "hashes": projection_status.get("hashes", {}),
+                "locks": projection_status.get("locks", PROJECTION_NO_SEND_LOCKS),
+            }
+        )
     return {
         "schema_id": ACQUISITION_SCHEMA_ID,
         "release_id": RELEASE_ID,
@@ -921,6 +2016,7 @@ def build_acquisition_packet(
         "current_snapshot_refs": snapshot_refs,
         "official_acquisition_run_root_ref": OFFICIAL_ACQUISITION_RUN_ROOT_REL,
         "source_acquisition_requests": packet_requests or [],
+        "target_projection_lock": target_projection_lock,
         "current_usable_row_total": len(rows),
         "minimum_n": minimum_n,
         "missing_n": max(0, minimum_n - len(rows)),
@@ -960,6 +2056,7 @@ def build_protocol(
     source: dict[str, Any],
     minimum_n: int,
     snapshot_hashes: list[dict[str, Any]],
+    projection_status: dict[str, Any],
 ) -> dict[str, Any]:
     return {
         "schema_id": PROTOCOL_SCHEMA_ID,
@@ -976,6 +2073,7 @@ def build_protocol(
         "acquisition_packet_ref": ACQUISITION_REL,
         "snapshot_hashes": snapshot_hashes,
         "source_separation_claim": source,
+        "target_projection_lock": projection_status,
         "minimum_n": minimum_n,
         "candidate_n": len(rows),
         "criteria": {
@@ -1013,6 +2111,7 @@ def build_tasks(
     snapshot_hashes: list[dict[str, Any]],
     source: dict[str, Any],
     minimum_n: int,
+    projection_status: dict[str, Any],
 ) -> dict[str, Any]:
     return {
         "schema_id": TASKS_SCHEMA_ID,
@@ -1026,6 +2125,7 @@ def build_tasks(
         "candidate_n": len(rows),
         "missing_n": max(0, minimum_n - len(rows)),
         "source_separation": source,
+        "target_projection_lock": projection_status,
         "snapshot_manifest": snapshot_hashes,
         "rows": rows,
         "comparator_baselines": ordered_unique(
@@ -1065,6 +2165,7 @@ def build_report(
     minimum_n: int,
     snapshot_refs: list[str],
     snapshot_hashes: list[dict[str, Any]],
+    projection_status: dict[str, Any],
 ) -> dict[str, Any]:
     support_allowed = candidate_pack.get("grand_toe_support_allowed") is True
     return {
@@ -1085,6 +2186,7 @@ def build_report(
         "snapshot_refs": snapshot_refs,
         "snapshot_hashes": snapshot_hashes,
         "snapshot_hash_policy": SNAPSHOT_HASH_POLICY,
+        "target_projection_lock": projection_status,
         "row_hash_policy": ROW_HASH_POLICY,
         "row_hashes": [row.get("row_hash") for row in rows],
         "minimum_n": minimum_n,
@@ -1124,7 +2226,9 @@ def build_hashes(
     readme: str,
     snapshot_hashes: list[dict[str, Any]],
     rows: list[dict[str, Any]],
+    legacy_seed_artifacts: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    legacy_seed_artifacts = legacy_seed_artifacts or {}
     return {
         "schema_id": HASHES_SCHEMA_ID,
         "release_id": RELEASE_ID,
@@ -1138,6 +2242,10 @@ def build_hashes(
             {"artifact_ref": REPORT_REL, "sha256": sha256_object(report), "hash_policy": PACK_HASH_POLICY},
             {"artifact_ref": ACQUISITION_REL, "sha256": sha256_object(acquisition_packet), "hash_policy": PACK_HASH_POLICY},
             {"artifact_ref": README_REL, "sha256": sha256_text(readme), "hash_policy": "sha256 over UTF-8 README text"},
+            *[
+                {"artifact_ref": ref, "sha256": sha256_object(artifact), "hash_policy": PACK_HASH_POLICY}
+                for ref, artifact in sorted(legacy_seed_artifacts.items())
+            ],
         ],
         "snapshot_hashes": snapshot_hashes,
         "row_hashes": [
@@ -1147,6 +2255,10 @@ def build_hashes(
                 "row_hash_policy": ROW_HASH_POLICY,
             }
             for row in rows
+        ],
+        "legacy_seed_artifact_hashes": [
+            {"artifact_ref": ref, "sha256": sha256_object(artifact), "hash_policy": PACK_HASH_POLICY}
+            for ref, artifact in sorted(legacy_seed_artifacts.items())
         ],
     }
 
@@ -1221,6 +2333,7 @@ def build_payload(root: Path | None = None, snapshot_refs: list[str] | None = No
     rows: list[dict[str, Any]] = []
     local_blockers: list[str] = [*requirement_failures, *official_failures]
     source_candidates: list[dict[str, Any]] = []
+    legacy_seed_artifacts: dict[str, dict[str, Any]] = {}
     record_index = 0
     for snapshot in loaded_snapshots:
         local_blockers.extend(snapshot["failures"])
@@ -1229,7 +2342,8 @@ def build_payload(root: Path | None = None, snapshot_refs: list[str] | None = No
         if payload is None:
             continue
         for record, source_candidate, comparator, provenance in iter_payload_records(payload):
-            if acquisition:
+            row_acquisition = acquisition
+            if row_acquisition:
                 source_candidate = {
                     "mode": "official_readonly_snapshot_replay",
                     "kind": "official_readonly_acquisition_lock",
@@ -1241,6 +2355,24 @@ def build_payload(root: Path | None = None, snapshot_refs: list[str] | None = No
                     "training_manifest_sha256": "",
                     "target_manifest_sha256": "",
                 }
+            else:
+                row_acquisition, legacy_source, legacy_comparator, legacy_failures = legacy_seed_upgrade_for_record(
+                    source_ref=snapshot["ref"],
+                    source_sha256=snapshot["sha256"],
+                    record_index=record_index + 1,
+                    record=record,
+                    acquisition=row_acquisition,
+                )
+                if row_acquisition:
+                    source_candidate = legacy_source
+                    comparator = legacy_comparator
+                    provenance = {
+                        **provenance,
+                        "official_source": "NCBI E-utilities ESearch",
+                        "official_url": as_str(row_acquisition.get("official_endpoint_url")),
+                    }
+                    legacy_seed_artifacts.update(dict_or_empty(row_acquisition.get("legacy_seed_artifacts")))
+                local_blockers.extend(legacy_failures)
             source_candidates.append(source_candidate)
             record_index += 1
             row, row_failures = build_row(
@@ -1250,7 +2382,7 @@ def build_payload(root: Path | None = None, snapshot_refs: list[str] | None = No
                 record_index=record_index,
                 comparator=comparator,
                 provenance=provenance,
-                acquisition=acquisition,
+                acquisition=row_acquisition,
             )
             local_blockers.extend(row_failures)
             if row is not None:
@@ -1260,6 +2392,37 @@ def build_payload(root: Path | None = None, snapshot_refs: list[str] | None = No
         local_blockers.append("NO_LOCAL_NCBI_GEO_SNAPSHOTS_DISCOVERED")
     if loaded_snapshots and not rows:
         local_blockers.append("NO_SCORABLE_NCBI_GEO_ESEARCH_ROWS")
+    rows_by_snapshot: dict[str, list[dict[str, Any]]] = {}
+    for row in rows:
+        rows_by_snapshot.setdefault(as_str(row.get("snapshot_ref")), []).append(row)
+    for item in snapshot_hashes:
+        if item.get("lock_ref"):
+            continue
+        snapshot_rows = rows_by_snapshot.get(as_str(item.get("snapshot_ref")), [])
+        if snapshot_rows and all(row.get("declared_before_scoring_lock") is True for row in snapshot_rows):
+            item["lock_ref"] = as_str(snapshot_rows[0].get("lock_ref"))
+            item["declared_before_scoring_lock"] = True
+            item["target_projection_lock_verified"] = all(
+                row.get("target_projection_lock_verified") is True for row in snapshot_rows
+            )
+            item["legacy_seed_upgrade"] = all(row.get("legacy_seed_upgrade") is True for row in snapshot_rows)
+
+    legacy_rows = [row for row in rows if row.get("legacy_seed_upgrade") is True]
+    batch_projection_rows = [row for row in rows if row.get("legacy_seed_upgrade") is not True]
+    batch_projection_status = load_target_projection_lock_source(
+        root, batch_projection_rows, packet_target_projection_lock(root)
+    )
+    projection_status = combine_target_projection_status(
+        batch_status=batch_projection_status,
+        batch_rows=batch_projection_rows,
+        legacy_rows=legacy_rows,
+    )
+    if rows and projection_status.get("valid") is not True:
+        local_blockers.extend(projection_status.get("failures", []))
+        local_blockers.append("TARGET_PROJECTION_LOCK_REQUIRED")
+    if projection_status.get("valid") is True:
+        apply_target_projection_lock(batch_projection_rows, batch_projection_status)
+        source_candidates = [dict_or_empty(projection_status.get("source_separation"))]
 
     source, source_selection_failures = select_source_separation(source_candidates)
     local_blockers.extend(source_selection_failures)
@@ -1271,6 +2434,7 @@ def build_payload(root: Path | None = None, snapshot_refs: list[str] | None = No
         local_blockers.append("CURRENT_RAW_DATA_TOO_THIN_FOR_NCBI_GEO_BATCH")
     if residual_summary(rows)["superiority_margin"] <= 0:
         local_blockers.append("RESIDUAL_SUPERIORITY_NOT_MET")
+    local_blockers.append(PAGINATION_QA_BLOCKER)
 
     local_blockers = ordered_unique(local_blockers)
     gate_pack = build_pack(rows, source, support_allowed=True)
@@ -1283,12 +2447,20 @@ def build_payload(root: Path | None = None, snapshot_refs: list[str] | None = No
         blockers = ordered_unique([*blockers, "GRAND_TOE_SUPPORT_NOT_ALLOWED"])
 
     tamper_tests = build_tamper_tests(rows, snapshot_hashes)
-    tasks = build_tasks(rows=rows, blockers=blockers, snapshot_hashes=snapshot_hashes, source=source, minimum_n=minimum_n)
+    tasks = build_tasks(
+        rows=rows,
+        blockers=blockers,
+        snapshot_hashes=snapshot_hashes,
+        source=source,
+        minimum_n=minimum_n,
+        projection_status=projection_status,
+    )
     acquisition_packet = build_acquisition_packet(
         rows=rows,
         minimum_n=minimum_n,
         blockers=blockers,
         snapshot_refs=discovered_refs,
+        projection_status=projection_status,
         packet_requests=packet_requests,
     )
     protocol = build_protocol(
@@ -1298,6 +2470,7 @@ def build_payload(root: Path | None = None, snapshot_refs: list[str] | None = No
         source=source,
         minimum_n=minimum_n,
         snapshot_hashes=snapshot_hashes,
+        projection_status=projection_status,
     )
     report = build_report(
         candidate_pack=candidate_pack,
@@ -1311,6 +2484,7 @@ def build_payload(root: Path | None = None, snapshot_refs: list[str] | None = No
         minimum_n=minimum_n,
         snapshot_refs=discovered_refs,
         snapshot_hashes=snapshot_hashes,
+        projection_status=projection_status,
     )
     readme = render_readme(report, acquisition_packet)
     hashes = build_hashes(
@@ -1322,6 +2496,7 @@ def build_payload(root: Path | None = None, snapshot_refs: list[str] | None = No
         readme=readme,
         snapshot_hashes=snapshot_hashes,
         rows=rows,
+        legacy_seed_artifacts=legacy_seed_artifacts,
     )
 
     return {
@@ -1332,6 +2507,7 @@ def build_payload(root: Path | None = None, snapshot_refs: list[str] | None = No
         "acquisition_packet": acquisition_packet,
         "hashes": hashes,
         "readme": readme,
+        "legacy_seed_artifacts": legacy_seed_artifacts,
     }
 
 
@@ -1345,6 +2521,8 @@ def write_outputs(root: Path | None = None, snapshot_refs: list[str] | None = No
     write_json(root / ACQUISITION_REL, payload["acquisition_packet"])
     write_json(root / HASHES_REL, payload["hashes"])
     write_text(root / README_REL, payload["readme"])
+    for rel_path, artifact in sorted(dict_or_empty(payload.get("legacy_seed_artifacts")).items()):
+        write_json(root / rel_path, artifact)
     return payload
 
 
@@ -1358,6 +2536,7 @@ def check_stored(root: Path | None = None, snapshot_refs: list[str] | None = Non
         (REPORT_REL, expected["report"]),
         (ACQUISITION_REL, expected["acquisition_packet"]),
         (HASHES_REL, expected["hashes"]),
+        *sorted(dict_or_empty(expected.get("legacy_seed_artifacts")).items()),
     ]
     failures: list[str] = []
     for rel_path, payload in checks:

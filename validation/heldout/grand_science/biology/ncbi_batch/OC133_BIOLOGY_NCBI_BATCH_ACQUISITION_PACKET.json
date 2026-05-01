@@ -505,6 +505,41 @@
       "packet_schema_id": "OC133_BIOLOGY_NCBI_BATCH_ACQUISITION_PACKET_v1"
     }
   ],
+  "target_projection_lock": {
+    "required": true,
+    "valid": true,
+    "source_separation_derived": true,
+    "expected_refs": {
+      "declaration_ref": "validation/heldout/target_projection_locks/declarations/biology_ncbi_batch/OC133-BIOLOGY-NCBI-BATCH-TARGET-PROJECTION-LOCK.json",
+      "visible_lock_ref": "validation/heldout/target_projection_locks/locks/OC133-BIOLOGY-NCBI-BATCH-TARGET-PROJECTION-LOCK.visible_projection_lock.json",
+      "prediction_lock_ref": "validation/heldout/target_projection_locks/locks/OC133-BIOLOGY-NCBI-BATCH-TARGET-PROJECTION-LOCK.prediction_materialization_lock.json",
+      "target_lock_ref": "validation/heldout/target_projection_locks/locks/OC133-BIOLOGY-NCBI-BATCH-TARGET-PROJECTION-LOCK.target_projection_lock.json"
+    },
+    "failures": [],
+    "refs": {
+      "declaration_ref": "validation/heldout/target_projection_locks/declarations/biology_ncbi_batch/OC133-BIOLOGY-NCBI-BATCH-TARGET-PROJECTION-LOCK.json",
+      "visible_projection_lock_ref": "validation/heldout/target_projection_locks/locks/OC133-BIOLOGY-NCBI-BATCH-TARGET-PROJECTION-LOCK.visible_projection_lock.json",
+      "prediction_materialization_lock_ref": "validation/heldout/target_projection_locks/locks/OC133-BIOLOGY-NCBI-BATCH-TARGET-PROJECTION-LOCK.prediction_materialization_lock.json",
+      "target_projection_lock_ref": "validation/heldout/target_projection_locks/locks/OC133-BIOLOGY-NCBI-BATCH-TARGET-PROJECTION-LOCK.target_projection_lock.json"
+    },
+    "hashes": {
+      "declaration_sha256": "e0e4fb1ec9e3eea06422188651f6703851294bd52a389bb609aa0ff7545c6dc0",
+      "visible_projection_lock_sha256": "0c1e1c143242adfbc1c73be119a707760d215defacb7ff630da6f660e078f3d1",
+      "prediction_materialization_lock_sha256": "8af66c07ff2fd9f1bca0909dffb434ed4b7ad2cfb02cee29a4061947996b511c",
+      "target_projection_lock_sha256": "f91cb4e148081c42f2308873a8203faa9a7480df74b3879592c3d6c1b4af0c2c",
+      "snapshot_sha256": "95c7eb645f36b72456268408c9fd38bf4a5604b65a2c1ce599cfd201fdca23ab"
+    },
+    "locks": {
+      "no_send": true,
+      "publish_allowed": false,
+      "push_allowed": false,
+      "journal_submissions_allowed": false,
+      "doi_registration_allowed": false,
+      "zenodo_upload_allowed": false,
+      "registry_write_allowed": false,
+      "release_promotion_allowed": false
+    }
+  },
   "current_usable_row_total": 20,
   "minimum_n": 20,
   "missing_n": 0,
@@ -528,16 +563,10 @@
     }
   ],
   "blockers": [
-    "SOURCE_SEPARATION_MODE_NOT_ALLOWED::official_readonly_snapshot_replay",
-    "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
-    "ROW_FIELD_MISSING::BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F::lock_ref",
-    "OFFICIAL_NCBI_GEO_PROVENANCE_MISSING::BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
-    "DECLARED_BEFORE_SCORING_LOCK_MISSING::BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
-    "COMPARATOR_BASELINE_NOT_PREREGISTERED::BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
-    "COMPARATOR_BASELINE_NOT_PREREGISTERED",
-    "OFFICIAL_NCBI_GEO_PROVENANCE_REQUIRED",
-    "DECLARED_BEFORE_SCORING_LOCK_REQUIRED",
-    "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
+    "BIOLOGY_PAGINATION_QA_NOT_GRAND_EVIDENCE",
+    "BIOLOGY_COMPARATOR_STRUCTURALLY_SILLY_OR_PAGINATION_ONLY",
+    "BIOLOGY_TARGET_ROWS_BELOW_MINIMUM::0/20",
+    "BIOLOGY_TARGET_ROWS_REQUIRED",
     "GRAND_TOE_SUPPORT_NOT_ALLOWED"
   ],
   "no_send": true,

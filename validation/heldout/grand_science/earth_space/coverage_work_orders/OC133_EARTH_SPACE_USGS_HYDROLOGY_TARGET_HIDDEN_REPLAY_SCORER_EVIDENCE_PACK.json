@@ -1,0 +1,998 @@
+{
+  "schema_id": "OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "work_order_id": "MS-COV-WO-011",
+  "domain_class_id": "earth_space_environmental_sciences",
+  "phenomenon_class_id": "geochemistry_and_hydrology_observables",
+  "capability_owner": "Logion Earth-Space Evidence / Official Geophysical Data",
+  "scorer_kind": "target_hidden_temporal_holdout_replay",
+  "pack_status": "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET",
+  "strict_artifact": true,
+  "scorer_ready": true,
+  "strict_predicates_all_pass": false,
+  "scientific_pass": false,
+  "coverage_closure_allowed": false,
+  "broad_modern_science_superiority_allowed": false,
+  "coverage_review_status": "NOT_REQUESTED_NO_SEND",
+  "source": {
+    "source_id": "earth_usgs_nwis_daily_values_discharge_v1",
+    "source_name": "USGS Water Services Daily Values API mean discharge",
+    "official_endpoint_url": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=01646500&startDT=2024-01-01&endDT=2024-02-09&parameterCd=00060&statCd=00003&siteStatus=all",
+    "snapshot_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/usgs_potomac_daily_discharge_2024_01_01_2024_02_09.json",
+    "metadata_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/usgs_potomac_daily_discharge_2024_01_01_2024_02_09.metadata.json",
+    "source_snapshot_sha256": "acdcff42013baa90301e8352fb070e931f99bd8d92b8e57a2e28597bcaab4a83",
+    "metadata_sha256": "53a81cd9bfb419cb432e7489c51abb1c53a4f2b5d5fa35184ac82e15ca6695e0",
+    "byte_count": 5560,
+    "value_row_count": 40,
+    "source_snapshot_hash_bound": true
+  },
+  "target_variable": {
+    "name": "daily_mean_streamflow_discharge",
+    "unit": "cubic feet per second",
+    "target_field": "USGS_DV[site=01646500, parameterCd=00060, statCd=00003, date].value"
+  },
+  "pretarget_declaration": {
+    "declared_before_scoring": true,
+    "target_hidden_until_scoring": true,
+    "target_values_used_for_model_selection": false,
+    "target_values_used_for_prediction_materialization": false,
+    "split_policy": {
+      "mode": "prospective_source_lock_then_temporal_holdout",
+      "training_row_count": 20,
+      "hidden_row_count": 20,
+      "training_date_range": [
+        "2024-01-01",
+        "2024-01-20"
+      ],
+      "hidden_date_range": [
+        "2024-01-21",
+        "2024-02-09"
+      ],
+      "split_rule": "First 20 daily values are visible training rows; final 20 daily values are hidden scoring targets."
+    },
+    "visible_training_rows": [
+      {
+        "row_index": 1,
+        "date": "2024-01-01",
+        "discharge_cfs": 8930.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "38d924d3442b8f8261a69901f7685674f0548a58b369f58af04fdadefe09c719"
+      },
+      {
+        "row_index": 2,
+        "date": "2024-01-02",
+        "discharge_cfs": 7760.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "07ef40f73e30b6b853c4417988743e188dae6790666a03c33e155759429fe51e"
+      },
+      {
+        "row_index": 3,
+        "date": "2024-01-03",
+        "discharge_cfs": 6860.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "3c678fc9cfe7a43699e16dc2ae58bd756d3e407f20f12e9dba353985cce85cc4"
+      },
+      {
+        "row_index": 4,
+        "date": "2024-01-04",
+        "discharge_cfs": 6050.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "2ed3537be467a882ae255f58efc76fc48b5edc1531e4e6f7ab7abcf598022cff"
+      },
+      {
+        "row_index": 5,
+        "date": "2024-01-05",
+        "discharge_cfs": 5430.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "88b2f1930a92444a8a94bc8d533b571209cf33ab83a92672630c85708f9f6212"
+      },
+      {
+        "row_index": 6,
+        "date": "2024-01-06",
+        "discharge_cfs": 5480.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "0a9ef17b2166760b315595fff4d868f222a885eaa2360f9b85eda5bcd45e01e1"
+      },
+      {
+        "row_index": 7,
+        "date": "2024-01-07",
+        "discharge_cfs": 7410.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "2b7a8a52f3710eec3283755a9ad57d47781712b5119d46b4e55f2d76821de57d"
+      },
+      {
+        "row_index": 8,
+        "date": "2024-01-08",
+        "discharge_cfs": 6380.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "ed78bf8a741bedf54b276095c06d85b87014a75712237d4c6b3dd284e803eb32"
+      },
+      {
+        "row_index": 9,
+        "date": "2024-01-09",
+        "discharge_cfs": 9460.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "2524bc05afb7dfa8f7121ab05cf3e148c9a9aaad959d7df8923a319940e015b2"
+      },
+      {
+        "row_index": 10,
+        "date": "2024-01-10",
+        "discharge_cfs": 39000.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "332178678726d294f39e32cc167d1ea584af43506709f879b2fe055115eba2e7"
+      },
+      {
+        "row_index": 11,
+        "date": "2024-01-11",
+        "discharge_cfs": 68600.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "a83cdb71dfd891dc9736bbc1bf97060fb8ee95ccb8e4dff7fc5af2021691cf68"
+      },
+      {
+        "row_index": 12,
+        "date": "2024-01-12",
+        "discharge_cfs": 52900.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "dbaacb5949322276b728fe81f27c02cdf1ae711f0b6ed91a0b70079b9e0f2ddd"
+      },
+      {
+        "row_index": 13,
+        "date": "2024-01-13",
+        "discharge_cfs": 40100.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "5d50eb020f73cf7c307045827c4540029153df095775b43d807d8a99f8898af9"
+      },
+      {
+        "row_index": 14,
+        "date": "2024-01-14",
+        "discharge_cfs": 37000.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "68c408e801c208ca93a115cc3b931e3c402a65acbc6f4d79cce81931dc872281"
+      },
+      {
+        "row_index": 15,
+        "date": "2024-01-15",
+        "discharge_cfs": 33100.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "07484d7ba90513a2073fa91cf41619cdf66ff3d5cca4e36580310003d843ee93"
+      },
+      {
+        "row_index": 16,
+        "date": "2024-01-16",
+        "discharge_cfs": 26400.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "922f2c75579295edb7f600e2f4cbedaeabe925093c734eae5ed563150319ce81"
+      },
+      {
+        "row_index": 17,
+        "date": "2024-01-17",
+        "discharge_cfs": 20700.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "9fe3af448ff0e858c3af84e1c2635d8e776656f05720cbeb507d0184240eed33"
+      },
+      {
+        "row_index": 18,
+        "date": "2024-01-18",
+        "discharge_cfs": 16700.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "2063e7a6ef999085ffce7c7601d1d778d11b58286a77a5922bdde2eaf00db764"
+      },
+      {
+        "row_index": 19,
+        "date": "2024-01-19",
+        "discharge_cfs": 14000.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "2f6609596422824e03512d1afe81537916e4b676a04a18f1075ab0e6c6cb8b2f"
+      },
+      {
+        "row_index": 20,
+        "date": "2024-01-20",
+        "discharge_cfs": 12300.0,
+        "qualifiers": [
+          "A"
+        ],
+        "source_row_sha256": "036b6579eb3283944a8916bf93ca4c725beea594b7eaf065c1fd6e3e59881ac9"
+      }
+    ],
+    "hidden_target_placeholders": [
+      {
+        "row_index": 21,
+        "date": "2024-01-21",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "223c7d673cb15457114233f6f72d409926ee56ea34c80770254d1197c44bd68e"
+      },
+      {
+        "row_index": 22,
+        "date": "2024-01-22",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "35da8d948c0389efc5af900a0271edf2315f2461eba1faa7e2fc7b38ae511e94"
+      },
+      {
+        "row_index": 23,
+        "date": "2024-01-23",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "7eece3dc5eacf0696781d3f17b616f76286b91a8ece6e32b642cebe4b1537539"
+      },
+      {
+        "row_index": 24,
+        "date": "2024-01-24",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "dfe71899236f6bf49102e13e73184a4dc0b92489d1670fb04e82699f4c4a8bdc"
+      },
+      {
+        "row_index": 25,
+        "date": "2024-01-25",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "ff23f1677c6dde91adbf2200601b94f15d7d2c3bb255a5dcae1ea5897a357fee"
+      },
+      {
+        "row_index": 26,
+        "date": "2024-01-26",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "51972127637359195964d637834999dc39df55d3136d3ff3a6eb4daadde482e0"
+      },
+      {
+        "row_index": 27,
+        "date": "2024-01-27",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "349c6c002a96eb2b9d41088c19cc915e2f6a22befa6ade94a35ba1b5447bfa66"
+      },
+      {
+        "row_index": 28,
+        "date": "2024-01-28",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "695158e9f88b805334292ef7a71b1867f08403a3a6aa0822a8d29bf5eb713f60"
+      },
+      {
+        "row_index": 29,
+        "date": "2024-01-29",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "736e075cf11c644817965cf55f1ec53701d605d0cba7ffb0cf8afdfffdb845c3"
+      },
+      {
+        "row_index": 30,
+        "date": "2024-01-30",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "775d45708c2515811412d5a2320b04aca35c922cebe2930cc1a52dc681b52ad4"
+      },
+      {
+        "row_index": 31,
+        "date": "2024-01-31",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "caaedd46f4e08ac147f00888afadfeca865de6a1b30527f6063e1f5c64f271f7"
+      },
+      {
+        "row_index": 32,
+        "date": "2024-02-01",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "7db8371624d0462cbae93137fe863537681135bb97cbfcc0b4164b144cee4262"
+      },
+      {
+        "row_index": 33,
+        "date": "2024-02-02",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "1c3d5aba22dc2160479aa4e9f5870090b9639361d53bbc833b104e5246b97f91"
+      },
+      {
+        "row_index": 34,
+        "date": "2024-02-03",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "c5d63f37ee343c80be1078e2c442a6fe276664bcf3df75eec3fa443171b37b53"
+      },
+      {
+        "row_index": 35,
+        "date": "2024-02-04",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "102bc7b949e4587158b9a522b169fa083d6f71b1ecb70a798997c492a89cc754"
+      },
+      {
+        "row_index": 36,
+        "date": "2024-02-05",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "6165f218e864dc01f70c49f5d9252779b4a172194c2fa04608aae1686b254438"
+      },
+      {
+        "row_index": 37,
+        "date": "2024-02-06",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "449a98c3481d2d6f413413b10ebcee5076b2e7bae4b0c489b7c8885c4c46e79a"
+      },
+      {
+        "row_index": 38,
+        "date": "2024-02-07",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "046b27c050b099fe557bb794de84c20e6867e764052a285db963007d651a8359"
+      },
+      {
+        "row_index": 39,
+        "date": "2024-02-08",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "0c947ecc16e61ffcfd13b8453a218b58e3d5b57f76ae4cf6371a101cf482cf03"
+      },
+      {
+        "row_index": 40,
+        "date": "2024-02-09",
+        "target_field": "value.timeSeries[0].values[0].value[].value",
+        "target_value_hidden": true,
+        "target_placeholder_sha256": "25d085db549dcd31ed0bc2902ad9f9bdd9373d1c5e40002f9550dd038b56c9e6"
+      }
+    ],
+    "prediction_formula": {
+      "model_id": "USGS-LOG-FLOW-PRIOR-DELTA-MEDIAN",
+      "pre_registered": true,
+      "rule": "log1p(Q_hat_t) = log1p(Q_prior) + median(diff(log1p(Q_visible_training)))",
+      "hidden_replay_policy": "For the first hidden date Q_prior is the last visible discharge; later hidden dates use the previous model prediction, not hidden observations.",
+      "training_only_parameters": {
+        "median_log_delta": -0.12563,
+        "parameter_source": "visible training rows only"
+      }
+    },
+    "comparator_baseline": {
+      "comparator_id": "USGS-LAST-OBSERVATION-CARRY-FORWARD",
+      "pre_registered": true,
+      "prediction_rule": "Predict every hidden discharge row as the last visible discharge value.",
+      "target_values_used_for_baseline_design": false
+    },
+    "uncertainty_policy": {
+      "method": "training-only one-step residual envelope",
+      "residual_metric": "hidden mean absolute residual in cubic feet per second",
+      "aggregate_uncertainty_allowance_cfs": 1556.069086,
+      "training_log_residual_mad": 0.071554,
+      "strict_superiority_rule": "model_mae_cfs + aggregate_uncertainty_allowance_cfs < comparator_mae_cfs"
+    },
+    "materialization_order": [
+      "hash official USGS snapshot bytes and metadata",
+      "parse visible training rows 1-20",
+      "declare hidden target placeholders for rows 21-40 without target values",
+      "materialize model and comparator predictions from visible rows only",
+      "unseal hidden target values and score residuals",
+      "run negative-control and target-leakage falsifier checks"
+    ],
+    "prediction_materialization": {
+      "predictions_materialized_before_target_unseal": true,
+      "hidden_target_values_included": false,
+      "prediction_rows": [
+        {
+          "row_index": 21,
+          "date": "2024-01-21",
+          "model_prediction_cfs": 10847.761259,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 12300.0,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 22,
+          "date": "2024-01-22",
+          "model_prediction_cfs": 9566.97178,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 10847.761259,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 23,
+          "date": "2024-01-23",
+          "model_prediction_cfs": 8437.390503,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 9566.97178,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 24,
+          "date": "2024-01-24",
+          "model_prediction_cfs": 7441.166001,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 8437.390503,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 25,
+          "date": "2024-01-25",
+          "model_prediction_cfs": 6562.554361,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 7441.166001,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 26,
+          "date": "2024-01-26",
+          "model_prediction_cfs": 5787.670374,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 6562.554361,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 27,
+          "date": "2024-01-27",
+          "model_prediction_cfs": 5104.2681,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 5787.670374,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 28,
+          "date": "2024-01-28",
+          "model_prediction_cfs": 4501.547336,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 5104.2681,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 29,
+          "date": "2024-01-29",
+          "model_prediction_cfs": 3969.982937,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 4501.547336,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 30,
+          "date": "2024-01-30",
+          "model_prediction_cfs": 3501.174283,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 3969.982937,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 31,
+          "date": "2024-01-31",
+          "model_prediction_cfs": 3087.712518,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 3501.174283,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 32,
+          "date": "2024-02-01",
+          "model_prediction_cfs": 2723.063467,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 3087.712518,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 33,
+          "date": "2024-02-02",
+          "model_prediction_cfs": 2401.464369,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 2723.063467,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 34,
+          "date": "2024-02-03",
+          "model_prediction_cfs": 2117.832808,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 2401.464369,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 35,
+          "date": "2024-02-04",
+          "model_prediction_cfs": 1867.68639,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 2117.832808,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 36,
+          "date": "2024-02-05",
+          "model_prediction_cfs": 1647.071906,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 1867.68639,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 37,
+          "date": "2024-02-06",
+          "model_prediction_cfs": 1452.502857,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 1647.071906,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 38,
+          "date": "2024-02-07",
+          "model_prediction_cfs": 1280.904356,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 1452.502857,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 39,
+          "date": "2024-02-08",
+          "model_prediction_cfs": 1129.564533,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 1280.904356,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        },
+        {
+          "row_index": 40,
+          "date": "2024-02-09",
+          "model_prediction_cfs": 996.091676,
+          "comparator_prediction_cfs": 12300.0,
+          "prediction_inputs": {
+            "prior_prediction_or_last_visible_cfs": 1129.564533,
+            "training_only_median_log_delta": -0.12563,
+            "hidden_target_value_used": false
+          }
+        }
+      ],
+      "prediction_rows_sha256": "932bc8e79a9c7428ae84cb86fd41220de578f9cfd27f63c604104e998f72b956"
+    },
+    "materialization_order_hash": "269ce32df10a3d796e4ffe42a4b074677f7e1d9a0b94e5824e89920ae9c60c91",
+    "declaration_sha256": "7f28b5216bf778fbff8d3e35ebd2ecd7946cd5f72cf29f4caffd7947b85566b0"
+  },
+  "scoring_results": {
+    "hidden_row_count": 20,
+    "hidden_target_values_sha256": "e569735c3d3b1ac5766346fd7ad505343f887d022d492534b2b7cc5ed1831be5",
+    "scored_rows_sha256": "e115ab0f193c5a7768bd0252a32c2cc4fb63fa03c0788ffaf88532a88e837a28",
+    "scored_rows": [
+      {
+        "row_index": 21,
+        "date": "2024-01-21",
+        "observed_discharge_cfs": 10400.0,
+        "model_prediction_cfs": 10847.761259,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 447.761259,
+        "comparator_abs_residual_cfs": 1900.0,
+        "source_row_sha256": "09a779db00cc3a9b672fbec40f1c6c5d335ef92af7f1357ecdefb19cf8332c7a",
+        "score_row_sha256": "f088711bd96c1aa4633eb641b5558fb893dc31d090ce4fd2790217e3eeaa8fab"
+      },
+      {
+        "row_index": 22,
+        "date": "2024-01-22",
+        "observed_discharge_cfs": 9960.0,
+        "model_prediction_cfs": 9566.97178,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 393.02822,
+        "comparator_abs_residual_cfs": 2340.0,
+        "source_row_sha256": "5ec9c1f31580a92a22b85df9b14fffbf061c43b4452a5489280cf5fa98c48e11",
+        "score_row_sha256": "44a6afc4cdeff048b33994efca3c5c5729b2cc0c992e9a3aaf1cc0a2788d8a5a"
+      },
+      {
+        "row_index": 23,
+        "date": "2024-01-23",
+        "observed_discharge_cfs": 8970.0,
+        "model_prediction_cfs": 8437.390503,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 532.609497,
+        "comparator_abs_residual_cfs": 3330.0,
+        "source_row_sha256": "bebd0fa6beee7ad2fba08081782fd3c0b0747b5e1cb6c578f4e485dfecc653ac",
+        "score_row_sha256": "650723e38d6c5bf1221a54c7cfac8e953cfd4fcba00a8e3bf9d7c250b665f01d"
+      },
+      {
+        "row_index": 24,
+        "date": "2024-01-24",
+        "observed_discharge_cfs": 8000.0,
+        "model_prediction_cfs": 7441.166001,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 558.833999,
+        "comparator_abs_residual_cfs": 4300.0,
+        "source_row_sha256": "7d3355a1913e76772bfe3f6e417bc340d2cbf9f9a14224421d105823775b4948",
+        "score_row_sha256": "882c1abb46a04e5a542d26ad1d61e541178053daed7b173d1b06a2bb45bcb4a7"
+      },
+      {
+        "row_index": 25,
+        "date": "2024-01-25",
+        "observed_discharge_cfs": 8410.0,
+        "model_prediction_cfs": 6562.554361,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 1847.445639,
+        "comparator_abs_residual_cfs": 3890.0,
+        "source_row_sha256": "579c7aeade625096fb77abc908ce489d4433daf40467acc0da119e99aac7c0cc",
+        "score_row_sha256": "ee54e8b125621fccf31b5ad94e0c48aa18bb5471e83e16a88ec33b5d33767581"
+      },
+      {
+        "row_index": 26,
+        "date": "2024-01-26",
+        "observed_discharge_cfs": 9860.0,
+        "model_prediction_cfs": 5787.670374,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 4072.329626,
+        "comparator_abs_residual_cfs": 2440.0,
+        "source_row_sha256": "56976274813b4a72ee3cca2906c49cfc39ad46d930889d7d38974e92f3277c5e",
+        "score_row_sha256": "7c57f8b2173d39c2936a0fbe85742775f099249b5f23b9c614e3b4ff3c1c6048"
+      },
+      {
+        "row_index": 27,
+        "date": "2024-01-27",
+        "observed_discharge_cfs": 11500.0,
+        "model_prediction_cfs": 5104.2681,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 6395.7319,
+        "comparator_abs_residual_cfs": 800.0,
+        "source_row_sha256": "8870aeed01f9cde50b3e98e7e4da73779507dca5098f619eb50b85923312523b",
+        "score_row_sha256": "a8d586983ff68b8032064e15a32b94145ab2643403d0e82c373937ff8d4802b3"
+      },
+      {
+        "row_index": 28,
+        "date": "2024-01-28",
+        "observed_discharge_cfs": 31500.0,
+        "model_prediction_cfs": 4501.547336,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 26998.452664,
+        "comparator_abs_residual_cfs": 19200.0,
+        "source_row_sha256": "7412fcb0381fc94fc379689c2ee8d293460d98401483e02397e753162ce1866e",
+        "score_row_sha256": "e831e53a8618e8eba56555e8546e4c2bff2d373d9c028af737ec8e75cdb91ca6"
+      },
+      {
+        "row_index": 29,
+        "date": "2024-01-29",
+        "observed_discharge_cfs": 49100.0,
+        "model_prediction_cfs": 3969.982937,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 45130.017063,
+        "comparator_abs_residual_cfs": 36800.0,
+        "source_row_sha256": "3643d58e4f554efbbd3fef092863be0fc19b98831d5e4327f9029bad406ee292",
+        "score_row_sha256": "4eef9cc431ff4e57d05b8213f86652b3f8052163ac4a685f8761054a7ff83a31"
+      },
+      {
+        "row_index": 30,
+        "date": "2024-01-30",
+        "observed_discharge_cfs": 66800.0,
+        "model_prediction_cfs": 3501.174283,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 63298.825717,
+        "comparator_abs_residual_cfs": 54500.0,
+        "source_row_sha256": "f43a9cdfe67662bf1ee7663b4afe0c84a0a649f1f1c1d7b38c207546457f66bc",
+        "score_row_sha256": "fe02afd3488859ccc22391121617914feaa15eb765315f07052ec35733584d4b"
+      },
+      {
+        "row_index": 31,
+        "date": "2024-01-31",
+        "observed_discharge_cfs": 49400.0,
+        "model_prediction_cfs": 3087.712518,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 46312.287482,
+        "comparator_abs_residual_cfs": 37100.0,
+        "source_row_sha256": "005840ddfe671f74d6914bbac125417cb58189318604b6ac60dbd8a6799b814d",
+        "score_row_sha256": "6f2e2179d2cb38726ddbd94cca700b56935374dbda52b6b5811fd9f88d4a17c9"
+      },
+      {
+        "row_index": 32,
+        "date": "2024-02-01",
+        "observed_discharge_cfs": 34600.0,
+        "model_prediction_cfs": 2723.063467,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 31876.936533,
+        "comparator_abs_residual_cfs": 22300.0,
+        "source_row_sha256": "c8abd68e60f039f87013e86e120a3dd294f014638395f6bcb57c68cff11ab9d5",
+        "score_row_sha256": "1a48c9b36e9b4bac36ad1bc2fea1a848ce0e81979f1a95afb3fc31a6db78d101"
+      },
+      {
+        "row_index": 33,
+        "date": "2024-02-02",
+        "observed_discharge_cfs": 26900.0,
+        "model_prediction_cfs": 2401.464369,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 24498.535631,
+        "comparator_abs_residual_cfs": 14600.0,
+        "source_row_sha256": "14597bcee4648d2cd9c03883d4fa89c3373aa5cd1459a6ea143c244ed62ba621",
+        "score_row_sha256": "17eeaf2fdbea1eac46c63c37d3ff1c15e68b16fd68f7a7f6005986424b4ad37e"
+      },
+      {
+        "row_index": 34,
+        "date": "2024-02-03",
+        "observed_discharge_cfs": 22300.0,
+        "model_prediction_cfs": 2117.832808,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 20182.167192,
+        "comparator_abs_residual_cfs": 10000.0,
+        "source_row_sha256": "87ac75169d484c27ce2ce926d9f8c4687fd2c4f3dcea6b3abe3d141e44b2c52e",
+        "score_row_sha256": "11f50911d8ba3b7f2f2d2cea69fa3a0c825a255a594f7c6a00f25c580a48e36a"
+      },
+      {
+        "row_index": 35,
+        "date": "2024-02-04",
+        "observed_discharge_cfs": 18700.0,
+        "model_prediction_cfs": 1867.68639,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 16832.31361,
+        "comparator_abs_residual_cfs": 6400.0,
+        "source_row_sha256": "cfc23e7abed5e1d9b0767d9dafc2d7d294e7e7ad09146c4db72b2b23ac131d1b",
+        "score_row_sha256": "7a20951da298023a19724af0f921a1a2769c0ed6bfe3d990d63e42fa3dc6a8d0"
+      },
+      {
+        "row_index": 36,
+        "date": "2024-02-05",
+        "observed_discharge_cfs": 16000.0,
+        "model_prediction_cfs": 1647.071906,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 14352.928094,
+        "comparator_abs_residual_cfs": 3700.0,
+        "source_row_sha256": "7aca6d4f73db3e60e6100da9f6380ec433bd369c9833c87669e331999d6d72bf",
+        "score_row_sha256": "4b47ff0551b0ccb87923b0e04c553536f210eb6677fe003fc6efdec15d128997"
+      },
+      {
+        "row_index": 37,
+        "date": "2024-02-06",
+        "observed_discharge_cfs": 13900.0,
+        "model_prediction_cfs": 1452.502857,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 12447.497143,
+        "comparator_abs_residual_cfs": 1600.0,
+        "source_row_sha256": "e6cd3af812666b8c7456a682c82e02a08d402d6716783434a08db863088d7920",
+        "score_row_sha256": "bf3a6e53b9007bceed5f87a3b8187356f2dd7a819bcda0dcc1c74a78621e291f"
+      },
+      {
+        "row_index": 38,
+        "date": "2024-02-07",
+        "observed_discharge_cfs": 12500.0,
+        "model_prediction_cfs": 1280.904356,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 11219.095644,
+        "comparator_abs_residual_cfs": 200.0,
+        "source_row_sha256": "b3cfa0d2249b154644bdbf8a2e6db983a83bbae496926d8fd88bfe0964c2feba",
+        "score_row_sha256": "23fef5e848c3eb5460e269b4d29de1081b09e54353ebb8b1d4b40b15a68c7a2e"
+      },
+      {
+        "row_index": 39,
+        "date": "2024-02-08",
+        "observed_discharge_cfs": 11400.0,
+        "model_prediction_cfs": 1129.564533,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 10270.435467,
+        "comparator_abs_residual_cfs": 900.0,
+        "source_row_sha256": "e7af8d73d7a0c26ee70f1720a5738276bdd054a4de8378ffd0f70e318d3664c5",
+        "score_row_sha256": "5fffbd87d1bc2abe758f2da3cd83cc76ab6ecd4c054851e24fc99c38a7e453a4"
+      },
+      {
+        "row_index": 40,
+        "date": "2024-02-09",
+        "observed_discharge_cfs": 10400.0,
+        "model_prediction_cfs": 996.091676,
+        "comparator_prediction_cfs": 12300.0,
+        "model_abs_residual_cfs": 9403.908324,
+        "comparator_abs_residual_cfs": 1900.0,
+        "source_row_sha256": "5380722268ebbfd0afd3d51df3a707e552b7c17d7f0f3f0982d0a1fe0fd35209",
+        "score_row_sha256": "10d26f209427e8cec18d833a26f845ca620449fa2827094c0353957a5318ae23"
+      }
+    ],
+    "aggregate": {
+      "model_mae_cfs": 17353.557035,
+      "model_rmse_cfs": 24460.939877,
+      "comparator_mae_cfs": 11410.0,
+      "comparator_rmse_cfs": 18711.026428,
+      "aggregate_uncertainty_allowance_cfs": 1556.069086,
+      "model_mae_plus_uncertainty_cfs": 18909.626121,
+      "strict_superiority_margin_cfs": -7499.626121,
+      "residual_superiority_pass": false,
+      "training_parameters": {
+        "median_log_delta": -0.12563,
+        "training_log_residual_median_abs": 0.089084,
+        "training_log_residual_mad": 0.071554,
+        "training_cfs_residual_median_abs": 1556.069086,
+        "training_cfs_residual_mad": 1440.450372,
+        "training_cfs_residual_mae": 5068.903413,
+        "training_cfs_residual_rmse": 10888.674617
+      }
+    }
+  },
+  "negative_control": {
+    "control_id": "USGS-DISCHARGE-DATE-ORDER-REVERSAL",
+    "description": "Reverse hidden target date order after source lock; the strict scorer must reject any target sequence whose date-sequence hash differs from the declared holdout.",
+    "declared_hidden_date_sequence_sha256": "a2fcc1c78c7aa8ab206b4cbb606033b8355af6f403123af0d408b80e5edfcc19",
+    "control_hidden_date_sequence_sha256": "d8b9407a447f9a47fb1d6a08a59e84f140f1869c15db05327e97c25df91fff86",
+    "date_sequence_hash_matches_declared": false,
+    "audit_model_mae_cfs": 17353.557035,
+    "audit_comparator_mae_cfs": 11410.0,
+    "audit_uncertainty_allowance_cfs": 1556.069086,
+    "audit_residual_superiority_pass": false,
+    "rejected": true,
+    "rejection_reasons": [
+      "NEGATIVE_CONTROL_TARGET_DATE_SEQUENCE_HASH_MISMATCH",
+      "NEGATIVE_CONTROL_RESIDUAL_SUPERIORITY_NOT_MET"
+    ]
+  },
+  "target_leakage_control": {
+    "control_id": "USGS-HYDROLOGY-HIDDEN-TARGET-MUTATION-LEAKAGE-CONTROL",
+    "description": "Mutating hidden target values must not change materialized model or comparator predictions.",
+    "predictions_unchanged_under_hidden_target_mutation": true,
+    "target_hashes_changed_under_hidden_target_mutation": true,
+    "original_prediction_rows_sha256": "932bc8e79a9c7428ae84cb86fd41220de578f9cfd27f63c604104e998f72b956",
+    "mutated_prediction_rows_sha256": "932bc8e79a9c7428ae84cb86fd41220de578f9cfd27f63c604104e998f72b956",
+    "original_hidden_target_values_sha256": "e569735c3d3b1ac5766346fd7ad505343f887d022d492534b2b7cc5ed1831be5",
+    "mutated_hidden_target_values_sha256": "0715666b58444960ede43725e09fe2ed32d6d4b7beeecf26b86850249fbbe27a",
+    "passed": true
+  },
+  "falsifier": {
+    "falsifier_id": "USGS-HYDROLOGY-FAIL-CLOSED-FALSIFIER",
+    "status": "TRIGGERED",
+    "triggered_predicates": [
+      "COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY"
+    ],
+    "non_triggered_predicates": [
+      "SOURCE_SNAPSHOT_HASH_OR_METADATA_HASH_MISMATCH",
+      "HIDDEN_DISCHARGE_TARGET_ROWS_READ_BEFORE_PREDICTION_MATERIALIZATION",
+      "FEWER_THAN_20_HIDDEN_DAILY_VALUES_SCORED"
+    ]
+  },
+  "strict_predicate_results": [
+    {
+      "predicate": "STRICT_PACK_SCHEMA_PASS",
+      "passed": true
+    },
+    {
+      "predicate": "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
+      "passed": true
+    },
+    {
+      "predicate": "TARGET_VARIABLE_EXACTLY_DECLARED",
+      "passed": true
+    },
+    {
+      "predicate": "TARGET_HIDDEN_SPLIT_DECLARED",
+      "passed": true
+    },
+    {
+      "predicate": "FORMULA_OR_MODEL_PREREGISTERED",
+      "passed": true
+    },
+    {
+      "predicate": "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+      "passed": true
+    },
+    {
+      "predicate": "UNCERTAINTY_AND_RESIDUAL_DECLARED",
+      "passed": true
+    },
+    {
+      "predicate": "NEGATIVE_CONTROL_REJECTED",
+      "passed": true
+    },
+    {
+      "predicate": "FALSIFIER_PREDICATES_EXECUTABLE",
+      "passed": true
+    },
+    {
+      "predicate": "TARGET_LEAKAGE_CONTROL_PASS",
+      "passed": true
+    },
+    {
+      "predicate": "RESIDUAL_SUPERIORITY_WITH_UNCERTAINTY",
+      "passed": false,
+      "failure": "COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY"
+    }
+  ],
+  "exact_blocker": "COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY",
+  "exact_blockers": [
+    "COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY"
+  ],
+  "exact_blocker_detail": "model_mae_plus_uncertainty_cfs=18909.626121 >= comparator_mae_cfs=11410.0",
+  "replay_command": {
+    "commands": [
+      "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-usgs-hydrology --write",
+      "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check"
+    ]
+  },
+  "replay_hash_policy": "sha256 over canonical JSON evidence pack excluding replay_hash and evidence_pack_sha256",
+  "no_send_locks": {
+    "no_send": true,
+    "public_release_action_allowed": false,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "registry_write_allowed": false,
+    "journal_submission_allowed": false,
+    "email_allowed": false,
+    "doi_registration_allowed": false,
+    "coverage_closure_allowed": false,
+    "broad_modern_science_superiority_allowed": false
+  },
+  "replay_hash": "3e71fb5ecafbe35fa0a13d022c7b08c012109e7e16a49076ee499c3e987eb025",
+  "evidence_pack_sha256": "4d56d243c31a996b1502f246a768270d2654e864890aaa176c78a9af9f0a4c6c"
+}

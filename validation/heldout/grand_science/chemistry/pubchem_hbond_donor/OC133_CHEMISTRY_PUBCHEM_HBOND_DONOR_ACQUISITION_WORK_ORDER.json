@@ -1,0 +1,26 @@
+{
+  "schema_id": "OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_ACQUISITION_WORK_ORDER_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "planner": "tools/oc133_chemistry_pubchem_hbond_donor_factory.py",
+  "status": "BLOCKED_SCORING_REQUIRED",
+  "reason": "Chemistry independent HBondDonorCount lane cannot close until official no-send PubChem snapshots and strict scoring pass.",
+  "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_ACQUISITION_PACKET.json",
+  "standard_runner_command": "python tools/oc133_official_readonly_acquisition_runner.py --packet validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_ACQUISITION_PACKET.json --execute-network",
+  "request_total": 0,
+  "current_n": 20,
+  "minimum_n": 20,
+  "remaining_blockers": [],
+  "no_send": true,
+  "locks": {
+    "no_send": true,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "journal_submissions_allowed": false,
+    "doi_registration_allowed": false,
+    "zenodo_upload_allowed": false,
+    "registry_write_allowed": false,
+    "release_promotion_allowed": false
+  }
+}

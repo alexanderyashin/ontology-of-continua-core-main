@@ -1,0 +1,516 @@
+{
+  "schema_id": "OC133_OPERATIONS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "capability_owner": "Logion Operations Evidence / Intervention and Queueing Sources",
+  "generated_by": "validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py",
+  "coverage_register_ref": "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+  "coverage_queue_ref": "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+  "domain_class_id": "complex_systems_operations_science",
+  "target_work_order_ids": [
+    "MS-COV-WO-033",
+    "MS-COV-WO-034",
+    "MS-COV-WO-035"
+  ],
+  "work_order_total": 3,
+  "fail_closed_spec_total": 3,
+  "coverage_closure_allowed": false,
+  "broad_modern_science_superiority_allowed": false,
+  "small_deterministic_replay_implemented": "SPEC_GENERATION_AND_SYNC_CHECK_ONLY",
+  "official_data_acquired": false,
+  "no_fake_pass": true,
+  "no_send_locks": {
+    "no_send": true,
+    "public_release_action_allowed": false,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "registry_write_allowed": false,
+    "journal_submission_allowed": false,
+    "email_allowed": false,
+    "doi_registration_allowed": false,
+    "coverage_closure_allowed": false,
+    "broad_modern_science_superiority_allowed": false,
+    "all_domain_scientific_closure_allowed": false
+  },
+  "work_orders": [
+    {
+      "work_order_id": "MS-COV-WO-033",
+      "stable_id": "MS-COV-WO-033::complex_systems_operations_science::multi_agent_system_dynamics",
+      "coverage_gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS",
+      "domain_class_id": "complex_systems_operations_science",
+      "phenomenon_class_id": "multi_agent_system_dynamics",
+      "phenomenon_label": "multi agent system dynamics",
+      "priority": "P0",
+      "lane_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
+      "coverage_closure_allowed": false,
+      "support_allowed_for_broad_coverage": false,
+      "official_sources": [
+        {
+          "source_id": "NYC_TLC_TRIP_RECORD_DATA",
+          "title": "New York City Taxi and Limousine Commission Trip Record Data",
+          "source_authority": "New York City Taxi and Limousine Commission",
+          "official_url": "https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page",
+          "official_documentation_url": "https://www.nyc.gov/assets/tlc/downloads/pdf/trip_record_user_guide.pdf",
+          "access_mode": "read_only_https_parquet_or_open_data_export",
+          "runner_allowlist_status": "NOT_ALLOWLISTED_FOR_THIS_SPEC"
+        }
+      ],
+      "acquisition_protocol": {
+        "mode": "bounded_protocol_only_no_network_fetch_performed",
+        "steps": [
+          "Download a pinned month of official TLC trip parquet files and the matching taxi-zone lookup.",
+          "Record source URLs, object sizes, parquet metadata, and SHA-256 before aggregation.",
+          "Aggregate only after source lock into pickup-zone/dropoff-zone/hour targets with target hours hidden until scoring."
+        ],
+        "example_official_endpoint_url": "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-01.parquet",
+        "required_local_snapshots": [
+          "validation/heldout/grand_science/operations/coverage_work_orders/raw/multi_agent_tlc/tlc_yellow_2024_01.lock.json",
+          "validation/heldout/grand_science/operations/coverage_work_orders/raw/multi_agent_tlc/tlc_zone_lookup.lock.json"
+        ]
+      },
+      "target_variable": {
+        "name": "heldout_zone_hour_trip_flow_count",
+        "unit": "trip records per pickup zone, dropoff zone, and hour",
+        "target_fields": [
+          "PULocationID",
+          "DOLocationID",
+          "pickup_hour",
+          "trip_count"
+        ],
+        "target_field": "tlc_flow[pickup_zone, dropoff_zone, heldout_hour].trip_count",
+        "extraction_rule": "Trip records are aggregated into a zone-hour flow panel; heldout hours and route counts remain sealed until graph-temporal predictions are written.",
+        "target_hidden_until_scoring": true
+      },
+      "split": {
+        "source_separation_mode": "chronological_hour_split_with_route_hash_guard",
+        "train": "first 60 percent of locked hours plus route_hash strata",
+        "validation": "next 20 percent of locked hours",
+        "holdout": "final 20 percent of locked hours, target counts sealed until scoring",
+        "target_values_visible_during_split": false
+      },
+      "formula_or_model": {
+        "model_id": "OPS-TLC-GRAPH-TEMPORAL-FLOW-MODEL",
+        "formula_or_model": "Fit a training-only graph-temporal autoregressive count model using prior route counts, hour/day effects, pickup/dropoff zone adjacency, and weather/calendar flags if locked before scoring.",
+        "inputs_visible_before_target": [
+          "prior route-hour counts",
+          "hour of day",
+          "day of week",
+          "pickup/dropoff zone IDs",
+          "training-only route adjacency"
+        ],
+        "target_values_used_for_model_design": false,
+        "target_values_used_for_selection": false
+      },
+      "incumbent_comparator": {
+        "name": "seasonal carry-forward and route-hour mean comparator",
+        "prediction_rule": "predict each heldout route-hour count from last visible count and training-only route/hour mean",
+        "pre_registered": true,
+        "target_values_used_for_baseline_design": false
+      },
+      "uncertainty_and_residual": {
+        "residual_metric": "absolute count residual and Poisson deviance per route-hour",
+        "uncertainty_method": "rolling training residual envelope with count-scale Poisson interval",
+        "superiority_predicate": "model_MAE + uncertainty_upper < best_comparator_MAE"
+      },
+      "negative_control": {
+        "control_id": "OPS-TLC-ZONE-LABEL-SHUFFLE",
+        "description": "Shuffle pickup/dropoff zone labels after source lock.",
+        "rejection_predicate": "shuffled-zone replay must change row hashes and remove residual advantage"
+      },
+      "falsifier": {
+        "falsifier_id": "OPS-TLC-MULTI-AGENT-FLOW-FALSIFIER",
+        "trigger": "Heldout trip counts leak into formula selection, fewer than 20 route-hour rows are scored, source hashes drift, or the seasonal comparator ties or beats the model within uncertainty."
+      },
+      "falsifier_predicates": [
+        "TLC parquet/object hash changes between acquisition and replay",
+        "heldout route-hour trip counts are read before prediction materialization",
+        "holdout row count is below minimum_n",
+        "zone-label shuffle is not rejected"
+      ],
+      "minimum_n": 200,
+      "replay_command": "python validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py --check",
+      "replay_protocol": {
+        "commands": [
+          "python validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py --check",
+          "python <future_tlc_multi_agent_flow_scorer.py> --source-lock <tlc_lock> --write-pack --fail-closed"
+        ],
+        "required_artifacts": [
+          "TLC trip parquet source lock",
+          "taxi-zone lookup source lock",
+          "target-hidden zone-hour flow task table",
+          "strict multi-agent flow evidence pack"
+        ],
+        "acceptance_predicates": [
+          "STRICT_PACK_SCHEMA_PASS",
+          "MINIMUM_N_GE_20_OR_FORMAL_EQUIVALENT_JUSTIFIED",
+          "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+          "SOURCE_SEPARATION_PASS",
+          "TARGET_VARIABLE_EXACTLY_DECLARED",
+          "FORMULA_OR_MODEL_PREREGISTERED",
+          "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+          "UNCERTAINTY_POLICY_DECLARED",
+          "RESIDUAL_METRIC_EXECUTABLE",
+          "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+          "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+          "INDEPENDENT_REPLAY_PASS",
+          "COVERAGE_REVIEW_REQUIRED",
+          "NO_BROAD_SUPERIORITY_CERTIFICATION",
+          "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND",
+          "TLC_MULTI_AGENT_FLOW_SCOPE_REVIEWED"
+        ]
+      },
+      "current_evidence_status": {
+        "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
+        "executable_evidence_exists": false,
+        "coverage_closure_allowed": false,
+        "broad_support_allowed": false,
+        "reason": "NYC TLC is identified as an official public mobility source, but no source lock, aggregation manifest, scorer, comparator output, or strict pack is present."
+      },
+      "remaining_blockers": [
+        "TLC_SOURCE_LOCK_NOT_ACQUIRED",
+        "TARGET_HIDDEN_FLOW_TABLE_NOT_BUILT",
+        "STRICT_MULTI_AGENT_FLOW_EVIDENCE_PACK_NOT_BUILT",
+        "COVERAGE_REVIEW_NOT_PERFORMED"
+      ],
+      "no_send_locks": {
+        "no_send": true,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "registry_write_allowed": false,
+        "journal_submission_allowed": false,
+        "email_allowed": false,
+        "doi_registration_allowed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false,
+        "all_domain_scientific_closure_allowed": false
+      },
+      "N": {
+        "minimum_required": 200,
+        "observed": null,
+        "status": "NOT_ACQUIRED_PROTOCOL_ONLY"
+      },
+      "row_sha256": "40948676cb6824dcd03b23c4f041bb358a5cdad75bc13d972f24a0b2169b4454"
+    },
+    {
+      "work_order_id": "MS-COV-WO-034",
+      "stable_id": "MS-COV-WO-034::complex_systems_operations_science::queue_supply_chain_and_operations_observables",
+      "coverage_gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES",
+      "domain_class_id": "complex_systems_operations_science",
+      "phenomenon_class_id": "queue_supply_chain_and_operations_observables",
+      "phenomenon_label": "queue supply chain and operations observables",
+      "priority": "P0",
+      "lane_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
+      "coverage_closure_allowed": false,
+      "support_allowed_for_broad_coverage": false,
+      "official_sources": [
+        {
+          "source_id": "USDOT_BTS_TRANSTATS_ON_TIME_PERFORMANCE",
+          "title": "BTS TranStats Reporting Carrier On-Time Performance",
+          "source_authority": "U.S. Department of Transportation Bureau of Transportation Statistics",
+          "official_url": "https://www.transtats.bts.gov/TableInfo.asp?QO_fu146_anzr=b0-gvzr&gnoyr_VQ=FGJ",
+          "official_documentation_url": "https://transtats.bts.gov/ONTIME/Index.aspx",
+          "access_mode": "read_only_https_download",
+          "runner_allowlist_status": "NOT_ALLOWLISTED_FOR_THIS_SPEC"
+        }
+      ],
+      "acquisition_protocol": {
+        "mode": "bounded_protocol_only_no_network_fetch_performed",
+        "steps": [
+          "Download a pinned month from BTS TranStats Reporting Carrier On-Time Performance.",
+          "Record requested fields, row count, BTS release metadata, and SHA-256 before aggregation.",
+          "Score airport/carrier/day delay and taxi-out targets after source and split locks exist."
+        ],
+        "example_official_endpoint_url": "https://www.transtats.bts.gov/DL_SelectFields.aspx?Table_id=236&db_short_name=On-Time",
+        "required_local_snapshots": [
+          "validation/heldout/grand_science/operations/coverage_work_orders/raw/queue_bts/bts_ontime_2024_01.lock.json"
+        ]
+      },
+      "target_variable": {
+        "name": "heldout_airport_carrier_queue_delay",
+        "unit": "minutes",
+        "target_fields": [
+          "Origin",
+          "Dest",
+          "Reporting_Airline",
+          "FlightDate",
+          "ArrDelayMinutes",
+          "TaxiOut"
+        ],
+        "target_field": "bts_ontime[carrier, origin, dest, flight_date].ArrDelayMinutes",
+        "extraction_rule": "Flight records are grouped into airport/carrier/day queue-delay panels; heldout delay values remain sealed until predictions and baselines are materialized.",
+        "target_hidden_until_scoring": true
+      },
+      "split": {
+        "source_separation_mode": "chronological_flight_date_split",
+        "train": "first 60 percent of locked flight dates within carrier/origin strata",
+        "validation": "next 20 percent of locked flight dates",
+        "holdout": "final 20 percent of locked flight dates, delay targets sealed until scoring",
+        "target_values_visible_during_split": false
+      },
+      "formula_or_model": {
+        "model_id": "OPS-BTS-QUEUE-DELAY-PRIOR-STATE-MODEL",
+        "formula_or_model": "Fit a training-only queue-delay model from prior airport/carrier delays, scheduled departure time, distance, day-of-week, and route frequency; predict heldout delay minutes once.",
+        "inputs_visible_before_target": [
+          "prior delay and taxi-out aggregates",
+          "carrier",
+          "origin/destination airport",
+          "scheduled departure time",
+          "distance",
+          "day of week"
+        ],
+        "target_values_used_for_model_design": false,
+        "target_values_used_for_selection": false
+      },
+      "incumbent_comparator": {
+        "name": "carrier-airport trailing mean and scheduled-block comparator",
+        "prediction_rule": "predict heldout delay from training-only carrier/origin trailing mean and last visible delay",
+        "pre_registered": true,
+        "target_values_used_for_baseline_design": false
+      },
+      "uncertainty_and_residual": {
+        "residual_metric": "absolute delay-minute residual and pinball loss for high-delay quantiles",
+        "uncertainty_method": "rolling pre-holdout residual envelope stratified by carrier and airport",
+        "superiority_predicate": "model_MAE + uncertainty_upper < best_preregistered_comparator_MAE"
+      },
+      "negative_control": {
+        "control_id": "OPS-BTS-ROUTE-DATE-SHUFFLE",
+        "description": "Shuffle route/date pairings after source lock.",
+        "rejection_predicate": "shuffled-route/date replay must change row hashes and remove residual advantage"
+      },
+      "falsifier": {
+        "falsifier_id": "OPS-BTS-QUEUE-DELAY-FALSIFIER",
+        "trigger": "Heldout delay values leak into model selection, fewer than 20 rows are scored, source hashes drift, or trailing-mean comparator ties or beats the model within uncertainty."
+      },
+      "falsifier_predicates": [
+        "BTS source file hash changes between acquisition and replay",
+        "heldout delay values are read before prediction materialization",
+        "holdout row count is below minimum_n",
+        "route/date shuffle is not rejected"
+      ],
+      "minimum_n": 1000,
+      "replay_command": "python validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py --check",
+      "replay_protocol": {
+        "commands": [
+          "python validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py --check",
+          "python <future_bts_queue_delay_scorer.py> --source-lock <bts_lock> --write-pack --fail-closed"
+        ],
+        "required_artifacts": [
+          "BTS TranStats source lock",
+          "requested-field manifest",
+          "target-hidden queue-delay task table",
+          "strict queue/operations evidence pack"
+        ],
+        "acceptance_predicates": [
+          "STRICT_PACK_SCHEMA_PASS",
+          "MINIMUM_N_GE_20_OR_FORMAL_EQUIVALENT_JUSTIFIED",
+          "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+          "SOURCE_SEPARATION_PASS",
+          "TARGET_VARIABLE_EXACTLY_DECLARED",
+          "FORMULA_OR_MODEL_PREREGISTERED",
+          "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+          "UNCERTAINTY_POLICY_DECLARED",
+          "RESIDUAL_METRIC_EXECUTABLE",
+          "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+          "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+          "INDEPENDENT_REPLAY_PASS",
+          "COVERAGE_REVIEW_REQUIRED",
+          "NO_BROAD_SUPERIORITY_CERTIFICATION",
+          "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND",
+          "BTS_QUEUE_OPERATIONS_SCOPE_REVIEWED"
+        ]
+      },
+      "current_evidence_status": {
+        "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
+        "executable_evidence_exists": false,
+        "coverage_closure_allowed": false,
+        "broad_support_allowed": false,
+        "reason": "BTS TranStats is identified as an official operations source, but no source lock, delay scorer, comparator output, or strict pack is present."
+      },
+      "remaining_blockers": [
+        "BTS_TRANSTATS_SOURCE_LOCK_NOT_ACQUIRED",
+        "TARGET_HIDDEN_QUEUE_DELAY_TABLE_NOT_BUILT",
+        "STRICT_QUEUE_OPERATIONS_EVIDENCE_PACK_NOT_BUILT",
+        "COVERAGE_REVIEW_NOT_PERFORMED"
+      ],
+      "no_send_locks": {
+        "no_send": true,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "registry_write_allowed": false,
+        "journal_submission_allowed": false,
+        "email_allowed": false,
+        "doi_registration_allowed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false,
+        "all_domain_scientific_closure_allowed": false
+      },
+      "N": {
+        "minimum_required": 1000,
+        "observed": null,
+        "status": "NOT_ACQUIRED_PROTOCOL_ONLY"
+      },
+      "row_sha256": "d9213e4fcd29036304e47f8e88474a5ac306a70c631be5614dcf1575abb739d3"
+    },
+    {
+      "work_order_id": "MS-COV-WO-035",
+      "stable_id": "MS-COV-WO-035::complex_systems_operations_science::resilience_risk_and_intervention_response",
+      "coverage_gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE",
+      "domain_class_id": "complex_systems_operations_science",
+      "phenomenon_class_id": "resilience_risk_and_intervention_response",
+      "phenomenon_label": "resilience risk and intervention response",
+      "priority": "P0",
+      "lane_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
+      "coverage_closure_allowed": false,
+      "support_allowed_for_broad_coverage": false,
+      "official_sources": [
+        {
+          "source_id": "FEMA_OPENFEMA_DISASTER_DECLARATIONS_V2",
+          "title": "OpenFEMA Disaster Declarations Summaries v2",
+          "source_authority": "Federal Emergency Management Agency",
+          "official_url": "https://www.fema.gov/openfema-data-page/disaster-declarations-summaries-v2",
+          "official_documentation_url": "https://www.fema.gov/about/openfema/api",
+          "access_mode": "read_only_https_get",
+          "runner_allowlist_status": "NOT_ALLOWLISTED_FOR_THIS_SPEC"
+        }
+      ],
+      "acquisition_protocol": {
+        "mode": "bounded_protocol_only_no_network_fetch_performed",
+        "steps": [
+          "Fetch DisasterDeclarationsSummaries v2 for a pinned historical interval and selected fields.",
+          "Record query URL, FEMA metadata, returned row count, and SHA-256 before aggregation.",
+          "Aggregate state/county/month declaration and incident-type targets only after source hashing."
+        ],
+        "example_official_endpoint_url": "https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries?%24select=disasterNumber%2Cstate%2CdesignatedArea%2CdeclarationDate%2CincidentType%2CdeclarationType&%24filter=declarationDate+ge+%272020-01-01T00%3A00%3A00.000z%27&%24top=5000",
+        "required_local_snapshots": [
+          "validation/heldout/grand_science/operations/coverage_work_orders/raw/resilience_fema/fema_disaster_declarations_v2.lock.json"
+        ]
+      },
+      "target_variable": {
+        "name": "heldout_state_month_disaster_declaration_count",
+        "unit": "FEMA declaration records per state/month/incident type",
+        "target_fields": [
+          "state",
+          "incidentType",
+          "declaration_month",
+          "declaration_count"
+        ],
+        "target_field": "fema_declarations[state, incidentType, heldout_month].declaration_count",
+        "extraction_rule": "Declaration rows are aggregated into state/month/incident panels; heldout month counts remain sealed until response-risk predictions are materialized.",
+        "target_hidden_until_scoring": true
+      },
+      "split": {
+        "source_separation_mode": "chronological_event_month_split",
+        "train": "declaration months before validation window",
+        "validation": "months immediately before the heldout period",
+        "holdout": "pinned future historical months sealed until scoring",
+        "target_values_visible_during_split": false
+      },
+      "formula_or_model": {
+        "model_id": "OPS-FEMA-SEASONAL-RESILIENCE-RISK-MODEL",
+        "formula_or_model": "Fit a training-only seasonal state/incident risk model from prior declaration counts, incident type, state, month-of-year, and rolling trend terms; predict heldout monthly counts once.",
+        "inputs_visible_before_target": [
+          "prior declaration counts",
+          "state",
+          "incident type",
+          "month of year",
+          "rolling trend terms"
+        ],
+        "target_values_used_for_model_design": false,
+        "target_values_used_for_selection": false
+      },
+      "incumbent_comparator": {
+        "name": "seasonal same-month mean and last-observation comparator",
+        "prediction_rule": "predict heldout declaration count from prior same-month mean and last visible monthly count",
+        "pre_registered": true,
+        "target_values_used_for_baseline_design": false
+      },
+      "uncertainty_and_residual": {
+        "residual_metric": "absolute count residual and Poisson deviance per state/month/incident type",
+        "uncertainty_method": "pre-holdout rolling seasonal residual envelope",
+        "superiority_predicate": "model_count_residual + uncertainty_upper < best_comparator_count_residual"
+      },
+      "negative_control": {
+        "control_id": "OPS-FEMA-MONTH-LABEL-SHUFFLE",
+        "description": "Shuffle heldout month labels after source lock.",
+        "rejection_predicate": "shuffled-month replay must change row hashes and remove residual advantage"
+      },
+      "falsifier": {
+        "falsifier_id": "OPS-FEMA-RESILIENCE-RESPONSE-FALSIFIER",
+        "trigger": "Heldout declaration counts leak into formula selection, fewer than 20 rows are scored, source hashes drift, or seasonal comparator ties or beats the model within uncertainty."
+      },
+      "falsifier_predicates": [
+        "OpenFEMA response hash changes between acquisition and replay",
+        "heldout declaration counts are read before prediction materialization",
+        "holdout row count is below minimum_n",
+        "month-label shuffle is not rejected"
+      ],
+      "minimum_n": 100,
+      "replay_command": "python validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py --check",
+      "replay_protocol": {
+        "commands": [
+          "python validation/heldout/grand_science/operations/coverage_work_orders/oc133_operations_modern_science_coverage_work_orders.py --check",
+          "python <future_fema_resilience_response_scorer.py> --source-lock <fema_lock> --write-pack --fail-closed"
+        ],
+        "required_artifacts": [
+          "OpenFEMA source lock",
+          "state/month aggregation manifest",
+          "target-hidden resilience response task table",
+          "strict resilience/risk evidence pack"
+        ],
+        "acceptance_predicates": [
+          "STRICT_PACK_SCHEMA_PASS",
+          "MINIMUM_N_GE_20_OR_FORMAL_EQUIVALENT_JUSTIFIED",
+          "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+          "SOURCE_SEPARATION_PASS",
+          "TARGET_VARIABLE_EXACTLY_DECLARED",
+          "FORMULA_OR_MODEL_PREREGISTERED",
+          "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+          "UNCERTAINTY_POLICY_DECLARED",
+          "RESIDUAL_METRIC_EXECUTABLE",
+          "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+          "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+          "INDEPENDENT_REPLAY_PASS",
+          "COVERAGE_REVIEW_REQUIRED",
+          "NO_BROAD_SUPERIORITY_CERTIFICATION",
+          "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND",
+          "FEMA_RESILIENCE_RESPONSE_SCOPE_REVIEWED"
+        ]
+      },
+      "current_evidence_status": {
+        "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
+        "executable_evidence_exists": false,
+        "coverage_closure_allowed": false,
+        "broad_support_allowed": false,
+        "reason": "OpenFEMA is identified as an official resilience source, but no operations-local source lock, scorer, comparator output, or strict pack is present."
+      },
+      "remaining_blockers": [
+        "OPENFEMA_SOURCE_LOCK_NOT_ACQUIRED",
+        "TARGET_HIDDEN_RESILIENCE_TABLE_NOT_BUILT",
+        "STRICT_RESILIENCE_EVIDENCE_PACK_NOT_BUILT",
+        "COVERAGE_REVIEW_NOT_PERFORMED"
+      ],
+      "no_send_locks": {
+        "no_send": true,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "registry_write_allowed": false,
+        "journal_submission_allowed": false,
+        "email_allowed": false,
+        "doi_registration_allowed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false,
+        "all_domain_scientific_closure_allowed": false
+      },
+      "N": {
+        "minimum_required": 100,
+        "observed": null,
+        "status": "NOT_ACQUIRED_PROTOCOL_ONLY"
+      },
+      "row_sha256": "ef86eff9ee6656f7044de99e27c4cac5c122fbff3785dd0198fe210104d06e3a"
+    }
+  ]
+}

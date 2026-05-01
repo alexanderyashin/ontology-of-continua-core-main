@@ -1,0 +1,1471 @@
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import math
+import statistics
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+from urllib.parse import urlencode
+import urllib.request
+
+
+RELEASE_ID = "oc_core_1_3_3"
+VERSION = "1.3.3"
+GENERATED_ON = "2026-05-01"
+SCHEMA_ID = "OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS_v1"
+CAPABILITY_OWNER = "Logion Earth-Space Evidence / Official Geophysical Data"
+
+SCRIPT_REL = (
+    "validation/heldout/grand_science/earth_space/coverage_work_orders/"
+    "oc133_earth_space_modern_science_coverage_work_orders.py"
+)
+OUTPUT_REL = (
+    "validation/heldout/grand_science/earth_space/coverage_work_orders/"
+    "OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
+)
+COVERAGE_REGISTER_REL = "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
+MODERN_WORK_ORDERS_REL = "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
+
+USGS_HYDROLOGY_ENDPOINT = (
+    "https://waterservices.usgs.gov/nwis/dv/?"
+    + urlencode(
+        {
+            "format": "json",
+            "sites": "01646500",
+            "startDT": "2024-01-01",
+            "endDT": "2024-02-09",
+            "parameterCd": "00060",
+            "statCd": "00003",
+            "siteStatus": "all",
+        }
+    )
+)
+USGS_HYDROLOGY_SNAPSHOT_REL = (
+    "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/"
+    "usgs_potomac_daily_discharge_2024_01_01_2024_02_09.json"
+)
+USGS_HYDROLOGY_METADATA_REL = (
+    "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/"
+    "usgs_potomac_daily_discharge_2024_01_01_2024_02_09.metadata.json"
+)
+USGS_HYDROLOGY_SCORER_EVIDENCE_REL = (
+    "validation/heldout/grand_science/earth_space/coverage_work_orders/"
+    "OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json"
+)
+USGS_HYDROLOGY_SCORER_SCHEMA_ID = (
+    "OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_v1"
+)
+USGS_HYDROLOGY_WORK_ORDER_ID = "MS-COV-WO-011"
+
+NO_SEND_LOCKS = {
+    "no_send": True,
+    "public_release_action_allowed": False,
+    "publish_allowed": False,
+    "push_allowed": False,
+    "registry_write_allowed": False,
+    "journal_submission_allowed": False,
+    "email_allowed": False,
+    "doi_registration_allowed": False,
+    "coverage_closure_allowed": False,
+    "broad_modern_science_superiority_allowed": False,
+}
+
+SPEC_REQUIRED_FIELDS = (
+    "official_source",
+    "target_variable",
+    "target_hidden_split",
+    "formula_or_model",
+    "preregistered_comparator",
+    "uncertainty_and_residual",
+    "negative_control",
+    "falsifier",
+    "N",
+    "replay_command",
+    "fail_closed_current_evidence",
+)
+
+COMMON_CLOSURE_PREDICATES = [
+    "STRICT_PACK_SCHEMA_PASS",
+    "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
+    "TARGET_VARIABLE_EXACTLY_DECLARED",
+    "TARGET_HIDDEN_OR_PROSPECTIVE_LOCK_DECLARED",
+    "FORMULA_OR_MODEL_PREREGISTERED",
+    "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+    "UNCERTAINTY_AND_RESIDUAL_DECLARED",
+    "NEGATIVE_CONTROL_REJECTION_REQUIRED",
+    "FALSIFIER_PREDICATES_EXECUTABLE",
+    "INDEPENDENT_REPLAY_PASS",
+    "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW",
+    "NO_BROAD_SUPERIORITY_CERTIFICATION",
+]
+
+
+def repo_root() -> Path:
+    return Path(__file__).resolve().parents[5]
+
+
+def canonical_json(payload: Any) -> str:
+    return json.dumps(payload, ensure_ascii=True, sort_keys=True, separators=(",", ":"))
+
+
+def sha256_bytes(payload: bytes) -> str:
+    return hashlib.sha256(payload).hexdigest()
+
+
+def sha256_object(payload: Any) -> str:
+    return sha256_bytes(canonical_json(payload).encode("utf-8"))
+
+
+def read_json(path: Path) -> Any:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def write_json(path: Path, payload: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8", newline="\n")
+
+
+def no_send() -> dict[str, Any]:
+    return dict(NO_SEND_LOCKS)
+
+
+def with_hash(row: dict[str, Any]) -> dict[str, Any]:
+    row = dict(row)
+    row["row_sha256"] = sha256_object(row)
+    return row
+
+
+def utc_now_iso() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def fetch_official_bytes(url: str) -> tuple[int, str, bytes]:
+    request = urllib.request.Request(
+        url,
+        headers={
+            "Accept": "application/json",
+            "User-Agent": "Logion-OC133-earth-space-coverage-work-order/1.0",
+        },
+        method="GET",
+    )
+    with urllib.request.urlopen(request, timeout=30) as response:
+        content_type = str(response.headers.get("content-type", ""))
+        return int(response.status), content_type, response.read()
+
+
+def count_usgs_values(payload: bytes) -> int:
+    try:
+        data = json.loads(payload.decode("utf-8"))
+        series = data.get("value", {}).get("timeSeries", [])
+        if not series:
+            return 0
+        values = series[0].get("values", [])
+        if not values:
+            return 0
+        rows = values[0].get("value", [])
+        return len(rows) if isinstance(rows, list) else 0
+    except Exception:
+        return 0
+
+
+def refresh_usgs_hydrology_snapshot(root: Path) -> dict[str, Any]:
+    status, content_type, payload = fetch_official_bytes(USGS_HYDROLOGY_ENDPOINT)
+    snapshot_path = root / USGS_HYDROLOGY_SNAPSHOT_REL
+    metadata_path = root / USGS_HYDROLOGY_METADATA_REL
+    digest = sha256_bytes(payload)
+    snapshot_path.parent.mkdir(parents=True, exist_ok=True)
+    snapshot_path.write_bytes(payload)
+    metadata = {
+        "schema_id": "OC133_EARTH_SPACE_USGS_HYDROLOGY_SOURCE_SNAPSHOT_METADATA_v1",
+        "release_id": RELEASE_ID,
+        "acquisition_id": "OC133-EARTH-USGS-POTOMAC-DV-00060-20240101-20240209",
+        "official_source": "USGS Water Services Daily Values",
+        "official_documentation_url": "https://waterservices.usgs.gov/docs/dv-service/daily-values-service-details/",
+        "official_endpoint_url": USGS_HYDROLOGY_ENDPOINT,
+        "snapshot_ref": USGS_HYDROLOGY_SNAPSHOT_REL,
+        "source_bytes_sha256": digest,
+        "byte_count": len(payload),
+        "http_status": status,
+        "content_type": content_type,
+        "value_row_count": count_usgs_values(payload),
+        "acquired_at_utc": utc_now_iso(),
+        "hash_policy": "sha256 over official response bytes exactly as stored",
+        "source_snapshot_pre_target_lock": True,
+        "target_hidden_until_scoring": True,
+        "target_projection_unsealed_for_scoring": False,
+        "scoring_started": False,
+        "scientific_pass": False,
+        "coverage_closure_allowed": False,
+        "no_send_locks": no_send(),
+    }
+    metadata["metadata_sha256"] = sha256_object({k: v for k, v in metadata.items() if k != "metadata_sha256"})
+    write_json(metadata_path, metadata)
+    return metadata
+
+
+def load_usgs_api_lane(root: Path) -> dict[str, Any]:
+    snapshot_path = root / USGS_HYDROLOGY_SNAPSHOT_REL
+    metadata_path = root / USGS_HYDROLOGY_METADATA_REL
+    if not snapshot_path.exists() or not metadata_path.exists():
+        return {
+            "status": "OPEN_FAIL_CLOSED_NO_SOURCE_SNAPSHOT_HASH",
+            "official_endpoint_url": USGS_HYDROLOGY_ENDPOINT,
+            "snapshot_ref": USGS_HYDROLOGY_SNAPSHOT_REL,
+            "metadata_ref": USGS_HYDROLOGY_METADATA_REL,
+            "source_snapshot_hash_bound": False,
+            "remaining_blocker": "USGS_SOURCE_SNAPSHOT_NOT_ACQUIRED",
+        }
+    metadata = read_json(metadata_path)
+    payload = snapshot_path.read_bytes()
+    digest = sha256_bytes(payload)
+    expected_metadata_hash = sha256_object({k: v for k, v in metadata.items() if k != "metadata_sha256"})
+    hash_ok = (
+        metadata.get("source_bytes_sha256") == digest
+        and metadata.get("byte_count") == len(payload)
+        and metadata.get("metadata_sha256") == expected_metadata_hash
+        and int(metadata.get("value_row_count", 0) or 0) >= 20
+    )
+    return {
+        "status": (
+            "SOURCE_SNAPSHOT_HASH_BOUND_ACQUISITION_ONLY_NOT_STRICT_EVIDENCE"
+            if hash_ok
+            else "OPEN_FAIL_CLOSED_SOURCE_SNAPSHOT_HASH_MISMATCH"
+        ),
+        "official_endpoint_url": metadata.get("official_endpoint_url", USGS_HYDROLOGY_ENDPOINT),
+        "snapshot_ref": USGS_HYDROLOGY_SNAPSHOT_REL,
+        "metadata_ref": USGS_HYDROLOGY_METADATA_REL,
+        "source_snapshot_sha256": digest,
+        "metadata_sha256": metadata.get("metadata_sha256"),
+        "byte_count": len(payload),
+        "value_row_count": metadata.get("value_row_count", 0),
+        "source_snapshot_hash_bound": hash_ok,
+        "scientific_pass": False,
+        "coverage_closure_allowed": False,
+        "remaining_blocker": "STRICT_TARGET_HIDDEN_SCORER_AND_EVIDENCE_PACK_NOT_BUILT",
+    }
+
+
+def round_metric(value: float) -> float:
+    return round(float(value), 6)
+
+
+def mean(values: list[float]) -> float:
+    return sum(values) / len(values) if values else 0.0
+
+
+def rmse(values: list[float]) -> float:
+    return math.sqrt(mean([value * value for value in values])) if values else 0.0
+
+
+def median_value(values: list[float]) -> float:
+    return float(statistics.median(values)) if values else 0.0
+
+
+def median_absolute_deviation(values: list[float]) -> float:
+    if not values:
+        return 0.0
+    center = median_value(values)
+    return median_value([abs(value - center) for value in values])
+
+
+def extract_usgs_discharge_rows(snapshot: dict[str, Any]) -> list[dict[str, Any]]:
+    series = snapshot.get("value", {}).get("timeSeries", [])
+    if not series:
+        return []
+    value_sets = series[0].get("values", [])
+    if not value_sets:
+        return []
+    rows = value_sets[0].get("value", [])
+    if not isinstance(rows, list):
+        return []
+    extracted: list[dict[str, Any]] = []
+    for index, row in enumerate(rows, start=1):
+        if not isinstance(row, dict):
+            continue
+        date_time = str(row.get("dateTime", ""))
+        try:
+            discharge = float(row["value"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        extracted.append(
+            {
+                "row_index": index,
+                "date": date_time[:10],
+                "date_time": date_time,
+                "discharge_cfs": discharge,
+                "qualifiers": row.get("qualifiers", []),
+                "source_row_sha256": sha256_object({"row_index": index, "row": row}),
+            }
+        )
+    return extracted
+
+
+def usgs_training_parameters(training_rows: list[dict[str, Any]]) -> dict[str, Any]:
+    values = [float(row["discharge_cfs"]) for row in training_rows]
+    logs = [math.log1p(value) for value in values]
+    log_deltas = [logs[index] - logs[index - 1] for index in range(1, len(logs))]
+    median_log_delta = median_value(log_deltas)
+    log_residuals = [
+        abs(logs[index] - (logs[index - 1] + median_log_delta)) for index in range(1, len(logs))
+    ]
+    cfs_predictions = [math.expm1(logs[index - 1] + median_log_delta) for index in range(1, len(logs))]
+    cfs_residuals = [abs(values[index] - cfs_predictions[index - 1]) for index in range(1, len(values))]
+    return {
+        "training_row_count": len(training_rows),
+        "median_log_delta": median_log_delta,
+        "training_log_residual_median_abs": median_value(log_residuals),
+        "training_log_residual_mad": median_absolute_deviation(log_residuals),
+        "training_cfs_residual_median_abs": median_value(cfs_residuals),
+        "training_cfs_residual_mad": median_absolute_deviation(cfs_residuals),
+        "training_cfs_residual_mae": mean(cfs_residuals),
+        "training_cfs_residual_rmse": rmse(cfs_residuals),
+    }
+
+
+def usgs_prediction_rows(
+    training_rows: list[dict[str, Any]],
+    hidden_rows: list[dict[str, Any]],
+    params: dict[str, Any],
+) -> list[dict[str, Any]]:
+    if not training_rows:
+        return []
+    median_log_delta = float(params["median_log_delta"])
+    last_visible_cfs = float(training_rows[-1]["discharge_cfs"])
+    prior_prediction_or_visible = last_visible_cfs
+    predictions: list[dict[str, Any]] = []
+    for row in hidden_rows:
+        predicted = math.expm1(math.log1p(prior_prediction_or_visible) + median_log_delta)
+        predictions.append(
+            {
+                "row_index": row["row_index"],
+                "date": row["date"],
+                "model_prediction_cfs": round_metric(predicted),
+                "comparator_prediction_cfs": round_metric(last_visible_cfs),
+                "prediction_inputs": {
+                    "prior_prediction_or_last_visible_cfs": round_metric(prior_prediction_or_visible),
+                    "training_only_median_log_delta": round_metric(median_log_delta),
+                    "hidden_target_value_used": False,
+                },
+            }
+        )
+        prior_prediction_or_visible = predicted
+    return predictions
+
+
+def usgs_prediction_declaration(
+    training_rows: list[dict[str, Any]],
+    hidden_rows: list[dict[str, Any]],
+    params: dict[str, Any],
+) -> dict[str, Any]:
+    prediction_rows = usgs_prediction_rows(training_rows, hidden_rows, params)
+    materialization = {
+        "predictions_materialized_before_target_unseal": True,
+        "hidden_target_values_included": False,
+        "prediction_rows": prediction_rows,
+        "prediction_rows_sha256": sha256_object(prediction_rows),
+    }
+    declaration = {
+        "declared_before_scoring": True,
+        "target_hidden_until_scoring": True,
+        "target_values_used_for_model_selection": False,
+        "target_values_used_for_prediction_materialization": False,
+        "split_policy": {
+            "mode": "prospective_source_lock_then_temporal_holdout",
+            "training_row_count": len(training_rows),
+            "hidden_row_count": len(hidden_rows),
+            "training_date_range": [training_rows[0]["date"], training_rows[-1]["date"]]
+            if training_rows
+            else [],
+            "hidden_date_range": [hidden_rows[0]["date"], hidden_rows[-1]["date"]] if hidden_rows else [],
+            "split_rule": "First 20 daily values are visible training rows; final 20 daily values are hidden scoring targets.",
+        },
+        "visible_training_rows": [
+            {
+                "row_index": row["row_index"],
+                "date": row["date"],
+                "discharge_cfs": round_metric(float(row["discharge_cfs"])),
+                "qualifiers": row.get("qualifiers", []),
+                "source_row_sha256": row["source_row_sha256"],
+            }
+            for row in training_rows
+        ],
+        "hidden_target_placeholders": [
+            {
+                "row_index": row["row_index"],
+                "date": row["date"],
+                "target_field": "value.timeSeries[0].values[0].value[].value",
+                "target_value_hidden": True,
+                "target_placeholder_sha256": sha256_object(
+                    {
+                        "row_index": row["row_index"],
+                        "date": row["date"],
+                        "target_field": "value.timeSeries[0].values[0].value[].value",
+                        "target_value_hidden": True,
+                    }
+                ),
+            }
+            for row in hidden_rows
+        ],
+        "prediction_formula": {
+            "model_id": "USGS-LOG-FLOW-PRIOR-DELTA-MEDIAN",
+            "pre_registered": True,
+            "rule": "log1p(Q_hat_t) = log1p(Q_prior) + median(diff(log1p(Q_visible_training)))",
+            "hidden_replay_policy": "For the first hidden date Q_prior is the last visible discharge; later hidden dates use the previous model prediction, not hidden observations.",
+            "training_only_parameters": {
+                "median_log_delta": round_metric(float(params["median_log_delta"])),
+                "parameter_source": "visible training rows only",
+            },
+        },
+        "comparator_baseline": {
+            "comparator_id": "USGS-LAST-OBSERVATION-CARRY-FORWARD",
+            "pre_registered": True,
+            "prediction_rule": "Predict every hidden discharge row as the last visible discharge value.",
+            "target_values_used_for_baseline_design": False,
+        },
+        "uncertainty_policy": {
+            "method": "training-only one-step residual envelope",
+            "residual_metric": "hidden mean absolute residual in cubic feet per second",
+            "aggregate_uncertainty_allowance_cfs": round_metric(
+                float(params["training_cfs_residual_median_abs"])
+            ),
+            "training_log_residual_mad": round_metric(float(params["training_log_residual_mad"])),
+            "strict_superiority_rule": "model_mae_cfs + aggregate_uncertainty_allowance_cfs < comparator_mae_cfs",
+        },
+        "materialization_order": [
+            "hash official USGS snapshot bytes and metadata",
+            "parse visible training rows 1-20",
+            "declare hidden target placeholders for rows 21-40 without target values",
+            "materialize model and comparator predictions from visible rows only",
+            "unseal hidden target values and score residuals",
+            "run negative-control and target-leakage falsifier checks",
+        ],
+        "prediction_materialization": materialization,
+    }
+    declaration["materialization_order_hash"] = sha256_object(declaration["materialization_order"])
+    declaration["declaration_sha256"] = sha256_object(declaration)
+    return declaration
+
+
+def usgs_scored_rows(
+    hidden_rows: list[dict[str, Any]],
+    prediction_rows: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    scored: list[dict[str, Any]] = []
+    for actual, predicted in zip(hidden_rows, prediction_rows):
+        observed = round_metric(float(actual["discharge_cfs"]))
+        model_prediction = round_metric(float(predicted["model_prediction_cfs"]))
+        comparator_prediction = round_metric(float(predicted["comparator_prediction_cfs"]))
+        row = {
+            "row_index": actual["row_index"],
+            "date": actual["date"],
+            "observed_discharge_cfs": observed,
+            "model_prediction_cfs": model_prediction,
+            "comparator_prediction_cfs": comparator_prediction,
+            "model_abs_residual_cfs": round_metric(abs(observed - model_prediction)),
+            "comparator_abs_residual_cfs": round_metric(abs(observed - comparator_prediction)),
+            "source_row_sha256": actual["source_row_sha256"],
+        }
+        row["score_row_sha256"] = sha256_object(row)
+        scored.append(row)
+    return scored
+
+
+def usgs_hidden_target_hash(hidden_rows: list[dict[str, Any]]) -> str:
+    return sha256_object(
+        [
+            {
+                "row_index": row["row_index"],
+                "date": row["date"],
+                "observed_discharge_cfs": round_metric(float(row["discharge_cfs"])),
+            }
+            for row in hidden_rows
+        ]
+    )
+
+
+def usgs_target_leakage_control(
+    rows: list[dict[str, Any]],
+    prediction_rows: list[dict[str, Any]],
+    params: dict[str, Any],
+) -> dict[str, Any]:
+    mutated = [dict(row) for row in rows]
+    for row in mutated[20:40]:
+        row["discharge_cfs"] = float(row["discharge_cfs"]) + 1000000.0
+    mutated_predictions = usgs_prediction_rows(mutated[:20], mutated[20:40], params)
+    original_prediction_hash = sha256_object(prediction_rows)
+    mutated_prediction_hash = sha256_object(mutated_predictions)
+    original_target_hash = usgs_hidden_target_hash(rows[20:40])
+    mutated_target_hash = usgs_hidden_target_hash(mutated[20:40])
+    return {
+        "control_id": "USGS-HYDROLOGY-HIDDEN-TARGET-MUTATION-LEAKAGE-CONTROL",
+        "description": "Mutating hidden target values must not change materialized model or comparator predictions.",
+        "predictions_unchanged_under_hidden_target_mutation": original_prediction_hash == mutated_prediction_hash,
+        "target_hashes_changed_under_hidden_target_mutation": original_target_hash != mutated_target_hash,
+        "original_prediction_rows_sha256": original_prediction_hash,
+        "mutated_prediction_rows_sha256": mutated_prediction_hash,
+        "original_hidden_target_values_sha256": original_target_hash,
+        "mutated_hidden_target_values_sha256": mutated_target_hash,
+        "passed": original_prediction_hash == mutated_prediction_hash and original_target_hash != mutated_target_hash,
+    }
+
+
+def usgs_negative_control(
+    hidden_rows: list[dict[str, Any]],
+    prediction_rows: list[dict[str, Any]],
+    uncertainty_allowance_cfs: float,
+) -> dict[str, Any]:
+    reversed_hidden = list(reversed(hidden_rows))
+    model_residuals: list[float] = []
+    comparator_residuals: list[float] = []
+    for actual, predicted in zip(reversed_hidden, prediction_rows):
+        observed = float(actual["discharge_cfs"])
+        model_residuals.append(abs(observed - float(predicted["model_prediction_cfs"])))
+        comparator_residuals.append(abs(observed - float(predicted["comparator_prediction_cfs"])))
+    model_mae = round_metric(mean(model_residuals))
+    comparator_mae = round_metric(mean(comparator_residuals))
+    declared_sequence_hash = sha256_object([row["date"] for row in hidden_rows])
+    reversed_sequence_hash = sha256_object([row["date"] for row in reversed_hidden])
+    residual_superiority_pass = model_mae + uncertainty_allowance_cfs < comparator_mae
+    rejection_reasons = []
+    if reversed_sequence_hash != declared_sequence_hash:
+        rejection_reasons.append("NEGATIVE_CONTROL_TARGET_DATE_SEQUENCE_HASH_MISMATCH")
+    if not residual_superiority_pass:
+        rejection_reasons.append("NEGATIVE_CONTROL_RESIDUAL_SUPERIORITY_NOT_MET")
+    return {
+        "control_id": "USGS-DISCHARGE-DATE-ORDER-REVERSAL",
+        "description": "Reverse hidden target date order after source lock; the strict scorer must reject any target sequence whose date-sequence hash differs from the declared holdout.",
+        "declared_hidden_date_sequence_sha256": declared_sequence_hash,
+        "control_hidden_date_sequence_sha256": reversed_sequence_hash,
+        "date_sequence_hash_matches_declared": reversed_sequence_hash == declared_sequence_hash,
+        "audit_model_mae_cfs": model_mae,
+        "audit_comparator_mae_cfs": comparator_mae,
+        "audit_uncertainty_allowance_cfs": round_metric(uncertainty_allowance_cfs),
+        "audit_residual_superiority_pass": residual_superiority_pass,
+        "rejected": bool(rejection_reasons),
+        "rejection_reasons": rejection_reasons,
+    }
+
+
+def usgs_scorer_hash_payload(pack: dict[str, Any]) -> dict[str, Any]:
+    return {key: value for key, value in pack.items() if key not in {"replay_hash", "evidence_pack_sha256"}}
+
+
+def usgs_scorer_evidence_hash_payload(pack: dict[str, Any]) -> dict[str, Any]:
+    return {key: value for key, value in pack.items() if key != "evidence_pack_sha256"}
+
+
+def attach_usgs_scorer_hashes(pack: dict[str, Any]) -> dict[str, Any]:
+    pack = dict(pack)
+    pack["replay_hash"] = sha256_object(usgs_scorer_hash_payload(pack))
+    pack["evidence_pack_sha256"] = sha256_object(usgs_scorer_evidence_hash_payload(pack))
+    return pack
+
+
+def blocked_usgs_hydrology_scorer_pack(source_lane: dict[str, Any], blockers: list[str]) -> dict[str, Any]:
+    primary = blockers[0] if blockers else "USGS_HYDROLOGY_SCORER_BLOCKED"
+    return attach_usgs_scorer_hashes(
+        {
+            "schema_id": USGS_HYDROLOGY_SCORER_SCHEMA_ID,
+            "release_id": RELEASE_ID,
+            "version": VERSION,
+            "generated_on": GENERATED_ON,
+            "work_order_id": USGS_HYDROLOGY_WORK_ORDER_ID,
+            "domain_class_id": "earth_space_environmental_sciences",
+            "phenomenon_class_id": "geochemistry_and_hydrology_observables",
+            "capability_owner": CAPABILITY_OWNER,
+            "scorer_kind": "target_hidden_temporal_holdout_replay",
+            "pack_status": "BLOCKED_FAIL_CLOSED_SOURCE_OR_DATA_INSUFFICIENT",
+            "strict_artifact": True,
+            "scorer_ready": False,
+            "strict_predicates_all_pass": False,
+            "scientific_pass": False,
+            "coverage_closure_allowed": False,
+            "broad_modern_science_superiority_allowed": False,
+            "source": {
+                "snapshot_ref": source_lane.get("snapshot_ref"),
+                "metadata_ref": source_lane.get("metadata_ref"),
+                "source_snapshot_hash_bound": source_lane.get("source_snapshot_hash_bound") is True,
+                "source_snapshot_sha256": source_lane.get("source_snapshot_sha256"),
+                "value_row_count": source_lane.get("value_row_count", 0),
+            },
+            "exact_blocker": primary,
+            "exact_blockers": blockers,
+            "replay_hash_policy": "sha256 over canonical JSON evidence pack excluding replay_hash and evidence_pack_sha256",
+            "no_send_locks": no_send(),
+        }
+    )
+
+
+def build_usgs_hydrology_scorer_pack(root: Path | None = None) -> dict[str, Any]:
+    root = root or repo_root()
+    source_lane = load_usgs_api_lane(root)
+    if source_lane.get("source_snapshot_hash_bound") is not True:
+        return blocked_usgs_hydrology_scorer_pack(
+            source_lane,
+            [str(source_lane.get("remaining_blocker", "USGS_SOURCE_SNAPSHOT_NOT_HASH_BOUND"))],
+        )
+
+    snapshot = read_json(root / USGS_HYDROLOGY_SNAPSHOT_REL)
+    rows = extract_usgs_discharge_rows(snapshot)
+    if len(rows) < 40:
+        return blocked_usgs_hydrology_scorer_pack(
+            source_lane,
+            [f"USGS_HYDROLOGY_SOURCE_ROWS_BELOW_REQUIRED_40::{len(rows)}/40"],
+        )
+
+    training_rows = rows[:20]
+    hidden_rows = rows[20:40]
+    params = usgs_training_parameters(training_rows)
+    declaration = usgs_prediction_declaration(training_rows, hidden_rows, params)
+    prediction_rows = declaration["prediction_materialization"]["prediction_rows"]
+    scored_rows = usgs_scored_rows(hidden_rows, prediction_rows)
+    model_residuals = [float(row["model_abs_residual_cfs"]) for row in scored_rows]
+    comparator_residuals = [float(row["comparator_abs_residual_cfs"]) for row in scored_rows]
+    model_mae = round_metric(mean(model_residuals))
+    comparator_mae = round_metric(mean(comparator_residuals))
+    uncertainty_allowance_cfs = round_metric(float(params["training_cfs_residual_median_abs"]))
+    superiority_margin = round_metric(comparator_mae - model_mae - uncertainty_allowance_cfs)
+    residual_superiority_pass = superiority_margin > 0
+    negative_control = usgs_negative_control(hidden_rows, prediction_rows, uncertainty_allowance_cfs)
+    leakage_control = usgs_target_leakage_control(rows, prediction_rows, params)
+    triggered_predicates: list[str] = []
+    if not residual_superiority_pass:
+        triggered_predicates.append("COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY")
+    if not negative_control["rejected"]:
+        triggered_predicates.append("NEGATIVE_CONTROL_NOT_REJECTED")
+    if not leakage_control["passed"]:
+        triggered_predicates.append("TARGET_LEAKAGE_CONTROL_FAILED")
+    exact_blockers = triggered_predicates or []
+    strict_predicates = [
+        {"predicate": "STRICT_PACK_SCHEMA_PASS", "passed": True},
+        {"predicate": "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND", "passed": True},
+        {"predicate": "TARGET_VARIABLE_EXACTLY_DECLARED", "passed": True},
+        {"predicate": "TARGET_HIDDEN_SPLIT_DECLARED", "passed": True},
+        {"predicate": "FORMULA_OR_MODEL_PREREGISTERED", "passed": True},
+        {"predicate": "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED", "passed": True},
+        {"predicate": "UNCERTAINTY_AND_RESIDUAL_DECLARED", "passed": True},
+        {"predicate": "NEGATIVE_CONTROL_REJECTED", "passed": negative_control["rejected"]},
+        {"predicate": "FALSIFIER_PREDICATES_EXECUTABLE", "passed": True},
+        {"predicate": "TARGET_LEAKAGE_CONTROL_PASS", "passed": leakage_control["passed"]},
+        {
+            "predicate": "RESIDUAL_SUPERIORITY_WITH_UNCERTAINTY",
+            "passed": residual_superiority_pass,
+            "failure": None if residual_superiority_pass else "COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY",
+        },
+    ]
+    strict_all_pass = all(row["passed"] for row in strict_predicates)
+    pack = {
+        "schema_id": USGS_HYDROLOGY_SCORER_SCHEMA_ID,
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_on": GENERATED_ON,
+        "work_order_id": USGS_HYDROLOGY_WORK_ORDER_ID,
+        "domain_class_id": "earth_space_environmental_sciences",
+        "phenomenon_class_id": "geochemistry_and_hydrology_observables",
+        "capability_owner": CAPABILITY_OWNER,
+        "scorer_kind": "target_hidden_temporal_holdout_replay",
+        "pack_status": (
+            "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE"
+            if strict_all_pass
+            else "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET"
+        ),
+        "strict_artifact": True,
+        "scorer_ready": True,
+        "strict_predicates_all_pass": strict_all_pass,
+        "scientific_pass": strict_all_pass,
+        "coverage_closure_allowed": False,
+        "broad_modern_science_superiority_allowed": False,
+        "coverage_review_status": "NOT_REQUESTED_NO_SEND",
+        "source": {
+            "source_id": "earth_usgs_nwis_daily_values_discharge_v1",
+            "source_name": "USGS Water Services Daily Values API mean discharge",
+            "official_endpoint_url": source_lane.get("official_endpoint_url"),
+            "snapshot_ref": USGS_HYDROLOGY_SNAPSHOT_REL,
+            "metadata_ref": USGS_HYDROLOGY_METADATA_REL,
+            "source_snapshot_sha256": source_lane.get("source_snapshot_sha256"),
+            "metadata_sha256": source_lane.get("metadata_sha256"),
+            "byte_count": source_lane.get("byte_count"),
+            "value_row_count": source_lane.get("value_row_count"),
+            "source_snapshot_hash_bound": True,
+        },
+        "target_variable": {
+            "name": "daily_mean_streamflow_discharge",
+            "unit": "cubic feet per second",
+            "target_field": "USGS_DV[site=01646500, parameterCd=00060, statCd=00003, date].value",
+        },
+        "pretarget_declaration": declaration,
+        "scoring_results": {
+            "hidden_row_count": len(scored_rows),
+            "hidden_target_values_sha256": usgs_hidden_target_hash(hidden_rows),
+            "scored_rows_sha256": sha256_object(scored_rows),
+            "scored_rows": scored_rows,
+            "aggregate": {
+                "model_mae_cfs": model_mae,
+                "model_rmse_cfs": round_metric(rmse(model_residuals)),
+                "comparator_mae_cfs": comparator_mae,
+                "comparator_rmse_cfs": round_metric(rmse(comparator_residuals)),
+                "aggregate_uncertainty_allowance_cfs": uncertainty_allowance_cfs,
+                "model_mae_plus_uncertainty_cfs": round_metric(model_mae + uncertainty_allowance_cfs),
+                "strict_superiority_margin_cfs": superiority_margin,
+                "residual_superiority_pass": residual_superiority_pass,
+                "training_parameters": {
+                    "median_log_delta": round_metric(float(params["median_log_delta"])),
+                    "training_log_residual_median_abs": round_metric(
+                        float(params["training_log_residual_median_abs"])
+                    ),
+                    "training_log_residual_mad": round_metric(float(params["training_log_residual_mad"])),
+                    "training_cfs_residual_median_abs": uncertainty_allowance_cfs,
+                    "training_cfs_residual_mad": round_metric(float(params["training_cfs_residual_mad"])),
+                    "training_cfs_residual_mae": round_metric(float(params["training_cfs_residual_mae"])),
+                    "training_cfs_residual_rmse": round_metric(float(params["training_cfs_residual_rmse"])),
+                },
+            },
+        },
+        "negative_control": negative_control,
+        "target_leakage_control": leakage_control,
+        "falsifier": {
+            "falsifier_id": "USGS-HYDROLOGY-FAIL-CLOSED-FALSIFIER",
+            "status": "NOT_TRIGGERED" if not triggered_predicates else "TRIGGERED",
+            "triggered_predicates": triggered_predicates,
+            "non_triggered_predicates": [
+                "SOURCE_SNAPSHOT_HASH_OR_METADATA_HASH_MISMATCH",
+                "HIDDEN_DISCHARGE_TARGET_ROWS_READ_BEFORE_PREDICTION_MATERIALIZATION",
+                "FEWER_THAN_20_HIDDEN_DAILY_VALUES_SCORED",
+            ],
+        },
+        "strict_predicate_results": strict_predicates,
+        "exact_blocker": exact_blockers[0] if exact_blockers else None,
+        "exact_blockers": exact_blockers,
+        "exact_blocker_detail": (
+            "model_mae_plus_uncertainty_cfs="
+            f"{round_metric(model_mae + uncertainty_allowance_cfs)} >= comparator_mae_cfs={comparator_mae}"
+            if not residual_superiority_pass
+            else None
+        ),
+        "replay_command": {
+            "commands": [
+                "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-usgs-hydrology --write",
+                "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check",
+            ]
+        },
+        "replay_hash_policy": "sha256 over canonical JSON evidence pack excluding replay_hash and evidence_pack_sha256",
+        "no_send_locks": no_send(),
+    }
+    return attach_usgs_scorer_hashes(pack)
+
+
+def usgs_hydrology_scorer_summary(root: Path, source_lane: dict[str, Any]) -> dict[str, Any]:
+    if source_lane.get("source_snapshot_hash_bound") is not True:
+        return {
+            "target_hidden_scorer_present": False,
+            "strict_evidence_pack_ref": None,
+            "strict_evidence_pack_sha256": None,
+            "strict_scientific_predicates_pass": False,
+            "negative_control_rejected": False,
+            "falsifier_status": "NOT_RUN",
+            "remaining_blocker": source_lane.get("remaining_blocker", "USGS_SOURCE_SNAPSHOT_NOT_HASH_BOUND"),
+            "scorer_status": "OPEN_FAIL_CLOSED_SOURCE_HASH_REQUIRED",
+        }
+    pack = build_usgs_hydrology_scorer_pack(root)
+    return {
+        "target_hidden_scorer_present": pack.get("scorer_ready") is True,
+        "strict_evidence_pack_ref": USGS_HYDROLOGY_SCORER_EVIDENCE_REL,
+        "strict_evidence_pack_sha256": pack.get("evidence_pack_sha256"),
+        "strict_scientific_predicates_pass": pack.get("strict_predicates_all_pass") is True,
+        "negative_control_rejected": pack.get("negative_control", {}).get("rejected") is True,
+        "falsifier_status": pack.get("falsifier", {}).get("status"),
+        "remaining_blocker": pack.get("exact_blocker") or "COVERAGE_REGISTER_REVIEW_NOT_PERFORMED",
+        "scorer_status": pack.get("pack_status"),
+    }
+
+
+def usgs_hydrology_fail_closed_evidence(
+    source_lane: dict[str, Any],
+    scorer_summary: dict[str, Any],
+) -> dict[str, Any]:
+    if scorer_summary.get("target_hidden_scorer_present") is not True:
+        return fail_closed_evidence(
+            "USGS official source bytes are hash-bound when present, but no target-hidden scorer, comparator result, negative-control result, or strict evidence pack is bound.",
+            source_lane=source_lane,
+        )
+    strict_pass = scorer_summary.get("strict_scientific_predicates_pass") is True
+    return {
+        "current_status": (
+            "STRICT_EVIDENCE_PASS_NO_COVERAGE_CLOSURE"
+            if strict_pass
+            else "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET"
+        ),
+        "executable_evidence_exists": True,
+        "strict_evidence_pack_ref": scorer_summary.get("strict_evidence_pack_ref"),
+        "strict_evidence_pack_sha256": scorer_summary.get("strict_evidence_pack_sha256"),
+        "source_snapshot_hash_bound": source_lane.get("source_snapshot_hash_bound") is True,
+        "source_snapshot_ref": source_lane.get("snapshot_ref"),
+        "source_snapshot_sha256": source_lane.get("source_snapshot_sha256"),
+        "target_hidden_scorer_present": True,
+        "comparator_residual_metric_bound": True,
+        "negative_control_rejected": scorer_summary.get("negative_control_rejected") is True,
+        "falsifier_status": scorer_summary.get("falsifier_status"),
+        "exact_blocker": None if strict_pass else scorer_summary.get("remaining_blocker"),
+        "reason": (
+            "USGS target-hidden scorer, comparator residual, negative-control, and replay hash are bound; coverage closure remains disabled pending review."
+            if strict_pass
+            else "USGS target-hidden replay scorer is bound, but strict evidence is blocked because the predeclared model does not beat the carry-forward comparator within the uncertainty allowance."
+        ),
+        "coverage_closure_allowed": False,
+        "broad_modern_science_superiority_allowed": False,
+        "scientific_pass": strict_pass,
+    }
+
+
+def fail_closed_evidence(reason: str, *, source_lane: dict[str, Any] | None = None) -> dict[str, Any]:
+    source_lane = source_lane or {}
+    source_hash_bound = source_lane.get("source_snapshot_hash_bound") is True
+    return {
+        "current_status": (
+            "OPEN_FAIL_CLOSED_SOURCE_HASH_BOUND_STRICT_EVIDENCE_MISSING"
+            if source_hash_bound
+            else "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE"
+        ),
+        "executable_evidence_exists": False,
+        "strict_evidence_pack_ref": None,
+        "source_snapshot_hash_bound": source_hash_bound,
+        "source_snapshot_ref": source_lane.get("snapshot_ref"),
+        "source_snapshot_sha256": source_lane.get("source_snapshot_sha256"),
+        "reason": reason,
+        "coverage_closure_allowed": False,
+        "broad_modern_science_superiority_allowed": False,
+        "scientific_pass": False,
+    }
+
+
+def noaa_water_level_url(product: str) -> str:
+    params = {
+        "begin_date": "20240101",
+        "end_date": "20240103",
+        "station": "9414290",
+        "product": product,
+        "datum": "MLLW",
+        "time_zone": "gmt",
+        "units": "metric",
+        "application": "LogionOC133CoverageSpec",
+        "format": "json",
+    }
+    if product == "predictions":
+        params["interval"] = "6"
+    return "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?" + urlencode(params)
+
+
+def nasa_power_url() -> str:
+    return (
+        "https://power.larc.nasa.gov/api/temporal/daily/point?"
+        + urlencode(
+            {
+                "parameters": "ALLSKY_SFC_SW_DWN,T2M",
+                "community": "RE",
+                "longitude": "-122.4194",
+                "latitude": "37.7749",
+                "start": "20240101",
+                "end": "20240209",
+                "format": "JSON",
+                "time-standard": "UTC",
+            }
+        )
+    )
+
+
+def build_work_orders(root: Path | None = None) -> list[dict[str, Any]]:
+    root = root or repo_root()
+    usgs_source_lane = load_usgs_api_lane(root)
+    usgs_scorer = usgs_hydrology_scorer_summary(root, usgs_source_lane)
+    usgs_lane = {
+        **usgs_source_lane,
+        **usgs_scorer,
+        "status": (
+            "SOURCE_SNAPSHOT_HASH_BOUND_SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET"
+            if usgs_scorer.get("target_hidden_scorer_present") is True
+            and usgs_scorer.get("strict_scientific_predicates_pass") is not True
+            else usgs_source_lane.get("status")
+        ),
+    }
+    rows = [
+        {
+            "work_order_id": "MS-COV-WO-010",
+            "domain_class_id": "earth_space_environmental_sciences",
+            "phenomenon_class_id": "climate_weather_geophysical_time_series",
+            "phenomenon_label": "climate weather geophysical time series",
+            "lane_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+            "coverage_closure_allowed": False,
+            "support_allowed_for_broad_coverage": False,
+            "executable_spec": {
+                "official_source": {
+                    "source_id": "earth_noaa_coops_san_francisco_water_level_v1",
+                    "source_name": "NOAA CO-OPS Data Retrieval API water level and tide prediction observations",
+                    "source_authority": "NOAA Center for Operational Oceanographic Products and Services",
+                    "official_documentation_url": "https://api.tidesandcurrents.noaa.gov/api/prod/",
+                    "official_endpoint_url": noaa_water_level_url("water_level"),
+                    "paired_official_endpoint_url": noaa_water_level_url("predictions"),
+                    "required_local_snapshot_refs": [
+                        "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_20240101_20240103.json",
+                        "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_predictions_20240101_20240103.json",
+                    ],
+                    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+                },
+                "target_variable": {
+                    "name": "observed_six_minute_water_level_mllw",
+                    "unit": "meters relative to MLLW",
+                    "target_fields": ["data[].v"],
+                    "target_field": "NOAA_COOPS[station=9414290, timestamp].data.v",
+                },
+                "target_hidden_split": {
+                    "mode": "target_blind_same_source_with_visible_prediction_product",
+                    "visible_inputs": ["timestamp", "official tide prediction value", "prior observed residuals before hidden timestamp"],
+                    "hidden_target_fields": ["observed water_level data[].v for heldout timestamps"],
+                    "split_rule": "Lock source bytes; expose Jan 1 prior residuals for calibration; hide Jan 2-3 observed water-level values until predictions are materialized.",
+                    "target_hidden_until_scoring": True,
+                    "target_values_used_for_selection": False,
+                },
+                "formula_or_model": {
+                    "model_id": "NOAA-TIDE-PREDICTION-PLUS-PRIOR-RESIDUAL-AR1",
+                    "rule": "y_hat(t) = NOAA_prediction(t) + median(prior_observed_minus_prediction_residual) + 0.5 * last_visible_residual",
+                    "required_inputs": ["official tide prediction", "prior visible residuals", "timestamp"],
+                    "target_values_may_be_used_for_model_design": False,
+                },
+                "preregistered_comparator": {
+                    "comparator_id": "NOAA-HARMONIC-PREDICTION-ONLY",
+                    "prediction_rule": "Predict each hidden observed water-level row using only the paired official NOAA tide prediction value at the same timestamp.",
+                    "pre_registered": True,
+                    "target_values_used_for_baseline_design": False,
+                },
+                "uncertainty_and_residual": {
+                    "uncertainty_method": "pre-target median absolute deviation of visible residuals plus NOAA reported standard deviation field where present",
+                    "residual_metric": "absolute residual per hidden six-minute timestamp; aggregate MAE and RMSE",
+                    "superiority_rule": "model MAE plus uncertainty allowance must be lower than comparator MAE and every timestamp hash must remain bound",
+                },
+                "negative_control": {
+                    "control_id": "NOAA-WATER-LEVEL-TIMESTAMP-PHASE-SHIFT",
+                    "description": "Shift the target timestamps by +6 hours after source lock.",
+                    "rejection_predicate": "phase-shifted target mapping changes row hashes and worsens residuals relative to the locked timestamp mapping",
+                },
+                "falsifier": {
+                    "falsifier_id": "NOAA-WATER-LEVEL-FAIL-CLOSED-FALSIFIER",
+                    "triggers": [
+                        "observed hidden water-level values appear in visible inputs",
+                        "NOAA source snapshot hashes are missing or change on replay",
+                        "comparator residual ties or beats the model within the uncertainty policy",
+                        "fewer than 20 hidden timestamps are scored",
+                    ],
+                },
+                "N": {
+                    "minimum_n": 20,
+                    "planned_source_rows": 720,
+                    "planned_hidden_target_rows": 480,
+                    "unit": "six-minute water-level observations",
+                },
+                "replay_command": {
+                    "commands": [
+                        "acquire NOAA CO-OPS water_level and predictions endpoints listed in this spec and hash response bytes",
+                        "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check",
+                    ],
+                    "acceptance_predicates": COMMON_CLOSURE_PREDICATES,
+                },
+                "fail_closed_current_evidence": fail_closed_evidence(
+                    "NOAA source snapshots, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound."
+                ),
+            },
+            "no_send_locks": no_send(),
+        },
+        {
+            "work_order_id": "MS-COV-WO-011",
+            "domain_class_id": "earth_space_environmental_sciences",
+            "phenomenon_class_id": "geochemistry_and_hydrology_observables",
+            "phenomenon_label": "geochemistry and hydrology observables",
+            "lane_status": (
+                "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET"
+                if usgs_scorer.get("target_hidden_scorer_present") is True
+                else "OPEN_FAIL_CLOSED_SOURCE_HASH_BOUND_STRICT_EVIDENCE_MISSING"
+            ),
+            "coverage_closure_allowed": False,
+            "support_allowed_for_broad_coverage": False,
+            "official_api_lane": usgs_lane,
+            "executable_spec": {
+                "official_source": {
+                    "source_id": "earth_usgs_nwis_daily_values_discharge_v1",
+                    "source_name": "USGS Water Services Daily Values API mean discharge",
+                    "source_authority": "U.S. Geological Survey",
+                    "official_documentation_url": "https://waterservices.usgs.gov/docs/dv-service/daily-values-service-details/",
+                    "official_endpoint_url": USGS_HYDROLOGY_ENDPOINT,
+                    "required_local_snapshot_refs": [USGS_HYDROLOGY_SNAPSHOT_REL],
+                    "snapshot_status": usgs_lane.get("status"),
+                },
+                "target_variable": {
+                    "name": "daily_mean_streamflow_discharge",
+                    "unit": "cubic feet per second",
+                    "target_fields": ["value.timeSeries[0].values[0].value[].value"],
+                    "target_field": "USGS_DV[site=01646500, parameterCd=00060, statCd=00003, date].value",
+                },
+                "target_hidden_split": {
+                    "mode": "prospective_source_lock_then_temporal_holdout",
+                    "visible_inputs": ["site id", "dates 2024-01-01 through 2024-01-20 discharge values", "parameter metadata"],
+                    "hidden_target_fields": ["dates 2024-01-21 through 2024-02-09 discharge values"],
+                    "split_rule": "The first 20 daily values are visible training rows; the final 20 daily values are hidden targets until prediction materialization.",
+                    "target_hidden_until_scoring": True,
+                    "target_values_used_for_selection": False,
+                },
+                "formula_or_model": {
+                    "model_id": "USGS-LOG-FLOW-PRIOR-DELTA-MEDIAN",
+                    "rule": "log1p(Q_hat_t) = log1p(Q_t_minus_1) + median(diff(log1p(Q_visible_training)))",
+                    "required_inputs": ["prior daily discharge", "training-only median log-flow delta", "date order"],
+                    "target_values_may_be_used_for_model_design": False,
+                },
+                "preregistered_comparator": {
+                    "comparator_id": "USGS-LAST-OBSERVATION-CARRY-FORWARD",
+                    "prediction_rule": "Predict every hidden discharge row as the last visible discharge value, with no target rows used for tuning.",
+                    "pre_registered": True,
+                    "target_values_used_for_baseline_design": False,
+                },
+                "uncertainty_and_residual": {
+                    "uncertainty_method": "training-only median absolute deviation of one-step log-flow residuals",
+                    "residual_metric": "absolute residual in cfs per heldout date plus aggregate MAE over hidden dates",
+                    "superiority_rule": "model MAE plus uncertainty allowance must be lower than carry-forward comparator MAE; otherwise the lane stays open",
+                },
+                "negative_control": {
+                    "control_id": "USGS-DISCHARGE-DATE-ORDER-REVERSAL",
+                    "description": "Reverse hidden target date order after source lock.",
+                    "rejection_predicate": "date-order reversal changes the declared hidden date-sequence hash and is rejected before any strict acceptance claim",
+                },
+                "falsifier": {
+                    "falsifier_id": "USGS-HYDROLOGY-FAIL-CLOSED-FALSIFIER",
+                    "triggers": [
+                        "source snapshot hash or metadata hash does not match stored bytes",
+                        "hidden discharge target rows are read before prediction materialization",
+                        "carry-forward comparator ties or beats the model within uncertainty",
+                        "fewer than 20 hidden daily values are scored",
+                    ],
+                },
+                "N": {
+                    "minimum_n": 20,
+                    "acquired_source_rows": usgs_lane.get("value_row_count", 0),
+                    "planned_hidden_target_rows": 20,
+                    "unit": "daily mean discharge observations",
+                },
+                "replay_command": {
+                    "commands": [
+                        "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-usgs-hydrology --write",
+                        "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check",
+                    ],
+                    "acceptance_predicates": COMMON_CLOSURE_PREDICATES,
+                },
+                "fail_closed_current_evidence": usgs_hydrology_fail_closed_evidence(
+                    usgs_source_lane,
+                    usgs_scorer,
+                ),
+            },
+            "no_send_locks": no_send(),
+        },
+        {
+            "work_order_id": "MS-COV-WO-012",
+            "domain_class_id": "earth_space_environmental_sciences",
+            "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
+            "phenomenon_label": "remote sensing and planetary measurements",
+            "lane_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+            "coverage_closure_allowed": False,
+            "support_allowed_for_broad_coverage": False,
+            "executable_spec": {
+                "official_source": {
+                    "source_id": "earth_nasa_power_daily_solar_san_francisco_v1",
+                    "source_name": "NASA POWER Daily API solar and meteorological point data",
+                    "source_authority": "NASA Langley Research Center POWER Project",
+                    "official_documentation_url": "https://power.larc.nasa.gov/docs/services/api/temporal/daily/",
+                    "official_endpoint_url": nasa_power_url(),
+                    "required_local_snapshot_refs": [
+                        "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/nasa_power_sf_daily_20240101_20240209.json"
+                    ],
+                    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS",
+                },
+                "target_variable": {
+                    "name": "daily_all_sky_surface_shortwave_downward_irradiance",
+                    "unit": "kWh/m^2/day",
+                    "target_fields": ["properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>"],
+                    "target_field": "NASA_POWER[lat=37.7749, lon=-122.4194, date].ALLSKY_SFC_SW_DWN",
+                },
+                "target_hidden_split": {
+                    "mode": "target_blind_temporal_holdout",
+                    "visible_inputs": ["latitude", "longitude", "day-of-year", "visible T2M values", "prior solar rows"],
+                    "hidden_target_fields": ["ALLSKY_SFC_SW_DWN values for heldout dates"],
+                    "split_rule": "Hide the final 20 daily rows as targets after source lock; the first 20 daily rows remain visible for formula materialization.",
+                    "target_hidden_until_scoring": True,
+                    "target_values_used_for_selection": False,
+                },
+                "formula_or_model": {
+                    "model_id": "NASA-POWER-CLEAR-SKY-SEASONAL-LAG",
+                    "rule": "y_hat(date) = median(visible ALLSKY_SFC_SW_DWN for same week window) adjusted by cosine solar-zenith day-of-year factor",
+                    "required_inputs": ["latitude", "day-of-year", "visible solar rows", "visible T2M"],
+                    "target_values_may_be_used_for_model_design": False,
+                },
+                "preregistered_comparator": {
+                    "comparator_id": "NASA-POWER-TRAILING-MEAN-COMPARATOR",
+                    "prediction_rule": "Predict each hidden date using the trailing seven visible daily solar-radiation mean only.",
+                    "pre_registered": True,
+                    "target_values_used_for_baseline_design": False,
+                },
+                "uncertainty_and_residual": {
+                    "uncertainty_method": "visible-date rolling residual envelope with fixed kWh/m^2/day materiality floor",
+                    "residual_metric": "absolute residual per heldout date; aggregate MAE",
+                    "superiority_rule": "model MAE plus uncertainty allowance must be lower than the trailing-mean comparator MAE",
+                },
+                "negative_control": {
+                    "control_id": "NASA-POWER-LATITUDE-SIGN-FLIP",
+                    "description": "Flip latitude sign after source lock while keeping dates fixed.",
+                    "rejection_predicate": "latitude-sign flip changes prediction rows and fails residual/materiality predicates",
+                },
+                "falsifier": {
+                    "falsifier_id": "NASA-POWER-REMOTE-SENSING-FAIL-CLOSED-FALSIFIER",
+                    "triggers": [
+                        "hidden solar target values appear in visible inputs",
+                        "NASA POWER source snapshot hash is missing or changes",
+                        "trailing-mean comparator ties or beats the model within uncertainty",
+                        "fewer than 20 NASA POWER daily rows are locked",
+                    ],
+                },
+                "N": {
+                    "minimum_n": 20,
+                    "planned_source_rows": 40,
+                    "planned_hidden_target_rows": 20,
+                    "unit": "daily point records",
+                },
+                "replay_command": {
+                    "commands": [
+                        "acquire NASA POWER endpoint listed in this spec and hash response bytes",
+                        "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check",
+                    ],
+                    "acceptance_predicates": COMMON_CLOSURE_PREDICATES,
+                },
+                "fail_closed_current_evidence": fail_closed_evidence(
+                    "NASA POWER source snapshot, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound."
+                ),
+            },
+            "no_send_locks": no_send(),
+        },
+    ]
+    return [with_hash(row) for row in rows]
+
+
+def build_payload(root: Path | None = None) -> dict[str, Any]:
+    root = root or repo_root()
+    rows = build_work_orders(root)
+    return {
+        "schema_id": SCHEMA_ID,
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_on": GENERATED_ON,
+        "capability_owner": CAPABILITY_OWNER,
+        "generated_by": SCRIPT_REL,
+        "coverage_register_ref": COVERAGE_REGISTER_REL,
+        "modern_science_work_orders_ref": MODERN_WORK_ORDERS_REL,
+        "domain_class_id": "earth_space_environmental_sciences",
+        "target_work_order_ids": ["MS-COV-WO-010", "MS-COV-WO-011", "MS-COV-WO-012"],
+        "work_order_total": len(rows),
+        "coverage_closure_allowed": False,
+        "broad_modern_science_superiority_allowed": False,
+        "official_api_hash_bound_lane_total": sum(
+            1 for row in rows if row.get("official_api_lane", {}).get("source_snapshot_hash_bound") is True
+        ),
+        "no_send_locks": no_send(),
+        "work_orders": rows,
+    }
+
+
+def validate_executable_spec(spec: dict[str, Any], *, row_id: str) -> list[str]:
+    failures: list[str] = []
+    for field in SPEC_REQUIRED_FIELDS:
+        if not spec.get(field):
+            failures.append(f"SPEC_FIELD_MISSING::{row_id}::{field}")
+    source = spec.get("official_source", {})
+    if not str(source.get("source_authority", "")):
+        failures.append(f"OFFICIAL_SOURCE_AUTHORITY_MISSING::{row_id}")
+    if not str(source.get("official_documentation_url", "")).startswith("https://"):
+        failures.append(f"OFFICIAL_SOURCE_DOC_URL_MISSING::{row_id}")
+    if not str(source.get("official_endpoint_url", "")).startswith("https://"):
+        failures.append(f"OFFICIAL_SOURCE_ENDPOINT_URL_MISSING::{row_id}")
+    target = spec.get("target_variable", {})
+    if not target.get("target_fields"):
+        failures.append(f"TARGET_FIELDS_MISSING::{row_id}")
+    split = spec.get("target_hidden_split", {})
+    if split.get("target_hidden_until_scoring") is not True:
+        failures.append(f"TARGET_NOT_HIDDEN_UNTIL_SCORING::{row_id}")
+    if split.get("target_values_used_for_selection") is not False:
+        failures.append(f"TARGET_VALUES_USED_FOR_SELECTION::{row_id}")
+    formula = spec.get("formula_or_model", {})
+    if formula.get("target_values_may_be_used_for_model_design") is not False:
+        failures.append(f"FORMULA_TARGET_LEAK_ALLOWED::{row_id}")
+    comparator = spec.get("preregistered_comparator", {})
+    if comparator.get("pre_registered") is not True:
+        failures.append(f"COMPARATOR_NOT_PREREGISTERED::{row_id}")
+    if comparator.get("target_values_used_for_baseline_design") is not False:
+        failures.append(f"COMPARATOR_TARGET_LEAK_ALLOWED::{row_id}")
+    if not spec.get("uncertainty_and_residual", {}).get("residual_metric"):
+        failures.append(f"RESIDUAL_METRIC_MISSING::{row_id}")
+    if not spec.get("negative_control", {}).get("rejection_predicate"):
+        failures.append(f"NEGATIVE_CONTROL_REJECTION_MISSING::{row_id}")
+    if not spec.get("falsifier", {}).get("triggers"):
+        failures.append(f"FALSIFIER_TRIGGERS_MISSING::{row_id}")
+    if int(spec.get("N", {}).get("minimum_n", 0) or 0) < 20:
+        failures.append(f"MINIMUM_N_LT_20::{row_id}")
+    if not spec.get("replay_command", {}).get("commands"):
+        failures.append(f"REPLAY_COMMAND_MISSING::{row_id}")
+    evidence = spec.get("fail_closed_current_evidence", {})
+    if evidence.get("coverage_closure_allowed") is not False:
+        failures.append(f"FAIL_CLOSED_EVIDENCE_ALLOWS_CLOSURE::{row_id}")
+    if evidence.get("scientific_pass") is not False:
+        failures.append(f"FAIL_CLOSED_EVIDENCE_FAKE_PASS::{row_id}")
+    return failures
+
+
+def validate_payload(payload: dict[str, Any]) -> list[str]:
+    failures: list[str] = []
+    rows = payload.get("work_orders", [])
+    if payload.get("coverage_closure_allowed") is not False:
+        failures.append("PAYLOAD_COVERAGE_CLOSURE_ALLOWED")
+    if payload.get("broad_modern_science_superiority_allowed") is not False:
+        failures.append("PAYLOAD_BROAD_SUPERIORITY_ALLOWED")
+    if not isinstance(rows, list) or payload.get("work_order_total") != len(rows):
+        failures.append("WORK_ORDER_TOTAL_MISMATCH")
+        return failures
+    expected_ids = {"MS-COV-WO-010", "MS-COV-WO-011", "MS-COV-WO-012"}
+    if {str(row.get("work_order_id")) for row in rows if isinstance(row, dict)} != expected_ids:
+        failures.append("EARTH_SPACE_WORK_ORDER_SET_MISMATCH")
+    hash_bound_total = 0
+    for row in rows:
+        if not isinstance(row, dict):
+            failures.append("WORK_ORDER_NOT_OBJECT")
+            continue
+        row_id = str(row.get("work_order_id", "unknown"))
+        if row.get("coverage_closure_allowed") is not False:
+            failures.append(f"COVERAGE_CLOSURE_ALLOWED::{row_id}")
+        if row.get("support_allowed_for_broad_coverage") is not False:
+            failures.append(f"BROAD_SUPPORT_ALLOWED::{row_id}")
+        if str(row.get("lane_status", "")).upper() == "PASS":
+            failures.append(f"FAKE_PASS_STATUS::{row_id}")
+        failures.extend(validate_executable_spec(row.get("executable_spec", {}), row_id=row_id))
+        api_lane = row.get("official_api_lane", {})
+        if isinstance(api_lane, dict) and api_lane.get("source_snapshot_hash_bound") is True:
+            hash_bound_total += 1
+            if not str(api_lane.get("source_snapshot_sha256", "")):
+                failures.append(f"HASH_BOUND_LANE_SHA_MISSING::{row_id}")
+            if int(api_lane.get("value_row_count", 0) or 0) < 20:
+                failures.append(f"HASH_BOUND_LANE_N_LT_20::{row_id}")
+        expected_hash = sha256_object({key: value for key, value in row.items() if key != "row_sha256"})
+        if row.get("row_sha256") != expected_hash:
+            failures.append(f"ROW_HASH_MISMATCH::{row_id}")
+    if payload.get("official_api_hash_bound_lane_total") != hash_bound_total:
+        failures.append("OFFICIAL_API_HASH_BOUND_TOTAL_MISMATCH")
+    if hash_bound_total < 1:
+        failures.append("NO_OFFICIAL_API_HASH_BOUND_LANE_IMPLEMENTED")
+    return failures
+
+
+def validate_usgs_hydrology_scorer_pack(
+    pack: dict[str, Any],
+    root: Path | None = None,
+) -> list[str]:
+    root = root or repo_root()
+    failures: list[str] = []
+    if pack.get("schema_id") != USGS_HYDROLOGY_SCORER_SCHEMA_ID:
+        failures.append("USGS_HYDROLOGY_SCORER_SCHEMA_MISMATCH")
+    if pack.get("work_order_id") != USGS_HYDROLOGY_WORK_ORDER_ID:
+        failures.append("USGS_HYDROLOGY_SCORER_WORK_ORDER_MISMATCH")
+    if pack.get("strict_artifact") is not True:
+        failures.append("USGS_HYDROLOGY_SCORER_STRICT_ARTIFACT_NOT_TRUE")
+    if pack.get("coverage_closure_allowed") is not False:
+        failures.append("USGS_HYDROLOGY_SCORER_COVERAGE_CLOSURE_ALLOWED")
+    if pack.get("broad_modern_science_superiority_allowed") is not False:
+        failures.append("USGS_HYDROLOGY_SCORER_BROAD_SUPERIORITY_ALLOWED")
+    if pack.get("no_send_locks", {}).get("no_send") is not True:
+        failures.append("USGS_HYDROLOGY_SCORER_NO_SEND_LOCK_MISSING")
+
+    expected_replay_hash = sha256_object(usgs_scorer_hash_payload(pack))
+    if pack.get("replay_hash") != expected_replay_hash:
+        failures.append("USGS_HYDROLOGY_SCORER_REPLAY_HASH_MISMATCH")
+    expected_pack_hash = sha256_object(usgs_scorer_evidence_hash_payload(pack))
+    if pack.get("evidence_pack_sha256") != expected_pack_hash:
+        failures.append("USGS_HYDROLOGY_SCORER_EVIDENCE_PACK_HASH_MISMATCH")
+
+    source_lane = load_usgs_api_lane(root)
+    source = pack.get("source", {})
+    if source.get("source_snapshot_hash_bound") is True:
+        if source_lane.get("source_snapshot_hash_bound") is not True:
+            failures.append("USGS_HYDROLOGY_SCORER_SOURCE_NOT_HASH_BOUND_ON_REPLAY")
+        for field in ("source_snapshot_sha256", "metadata_sha256", "byte_count", "value_row_count"):
+            if source.get(field) != source_lane.get(field):
+                failures.append(f"USGS_HYDROLOGY_SCORER_SOURCE_FIELD_MISMATCH::{field}")
+
+    if pack.get("scorer_ready") is not True:
+        if not pack.get("exact_blockers"):
+            failures.append("USGS_HYDROLOGY_SCORER_BLOCKED_WITHOUT_EXACT_BLOCKER")
+        return failures
+
+    declaration = pack.get("pretarget_declaration", {})
+    split = declaration.get("split_policy", {})
+    hidden_placeholders = declaration.get("hidden_target_placeholders", [])
+    visible_rows = declaration.get("visible_training_rows", [])
+    materialization = declaration.get("prediction_materialization", {})
+    prediction_rows = materialization.get("prediction_rows", [])
+    scoring = pack.get("scoring_results", {})
+    scored_rows = scoring.get("scored_rows", [])
+    aggregate = scoring.get("aggregate", {})
+
+    if split.get("training_row_count") != 20 or len(visible_rows) != 20:
+        failures.append("USGS_HYDROLOGY_SCORER_TRAINING_SPLIT_NOT_20")
+    if split.get("hidden_row_count") != 20 or len(hidden_placeholders) != 20:
+        failures.append("USGS_HYDROLOGY_SCORER_HIDDEN_SPLIT_NOT_20")
+    if scoring.get("hidden_row_count") != 20 or len(scored_rows) != 20:
+        failures.append("USGS_HYDROLOGY_SCORER_SCORED_N_NOT_20")
+    if declaration.get("target_hidden_until_scoring") is not True:
+        failures.append("USGS_HYDROLOGY_SCORER_TARGET_NOT_HIDDEN")
+    if declaration.get("target_values_used_for_model_selection") is not False:
+        failures.append("USGS_HYDROLOGY_SCORER_TARGET_USED_FOR_SELECTION")
+    if declaration.get("target_values_used_for_prediction_materialization") is not False:
+        failures.append("USGS_HYDROLOGY_SCORER_TARGET_USED_FOR_PREDICTION")
+    if materialization.get("predictions_materialized_before_target_unseal") is not True:
+        failures.append("USGS_HYDROLOGY_SCORER_PREDICTIONS_NOT_MATERIALIZED_BEFORE_UNSEAL")
+    if materialization.get("hidden_target_values_included") is not False:
+        failures.append("USGS_HYDROLOGY_SCORER_MATERIALIZATION_CONTAINS_HIDDEN_TARGETS")
+    for placeholder in hidden_placeholders:
+        if "observed_discharge_cfs" in placeholder or "target_value" in placeholder:
+            failures.append("USGS_HYDROLOGY_SCORER_HIDDEN_PLACEHOLDER_LEAKS_TARGET")
+            break
+    if materialization.get("prediction_rows_sha256") != sha256_object(prediction_rows):
+        failures.append("USGS_HYDROLOGY_SCORER_PREDICTION_ROWS_HASH_MISMATCH")
+    if scoring.get("scored_rows_sha256") != sha256_object(scored_rows):
+        failures.append("USGS_HYDROLOGY_SCORER_SCORED_ROWS_HASH_MISMATCH")
+    for row in scored_rows:
+        expected_row_hash = sha256_object({key: value for key, value in row.items() if key != "score_row_sha256"})
+        if row.get("score_row_sha256") != expected_row_hash:
+            failures.append(f"USGS_HYDROLOGY_SCORER_SCORE_ROW_HASH_MISMATCH::{row.get('date')}")
+
+    model_mae = float(aggregate.get("model_mae_cfs", 0.0) or 0.0)
+    comparator_mae = float(aggregate.get("comparator_mae_cfs", 0.0) or 0.0)
+    uncertainty = float(aggregate.get("aggregate_uncertainty_allowance_cfs", 0.0) or 0.0)
+    residual_pass = model_mae + uncertainty < comparator_mae
+    if aggregate.get("residual_superiority_pass") is not residual_pass:
+        failures.append("USGS_HYDROLOGY_SCORER_RESIDUAL_SUPERIORITY_FLAG_MISMATCH")
+    if round_metric(comparator_mae - model_mae - uncertainty) != aggregate.get("strict_superiority_margin_cfs"):
+        failures.append("USGS_HYDROLOGY_SCORER_SUPERIORITY_MARGIN_MISMATCH")
+
+    if pack.get("negative_control", {}).get("rejected") is not True:
+        failures.append("USGS_HYDROLOGY_NEGATIVE_CONTROL_NOT_REJECTED")
+    if pack.get("target_leakage_control", {}).get("passed") is not True:
+        failures.append("USGS_HYDROLOGY_TARGET_LEAKAGE_CONTROL_NOT_PASSED")
+
+    strict_predicates = pack.get("strict_predicate_results", [])
+    strict_all = all(row.get("passed") is True for row in strict_predicates) if strict_predicates else False
+    if pack.get("strict_predicates_all_pass") is not strict_all:
+        failures.append("USGS_HYDROLOGY_STRICT_PREDICATE_SUMMARY_MISMATCH")
+    if pack.get("scientific_pass") is not strict_all:
+        failures.append("USGS_HYDROLOGY_SCIENTIFIC_PASS_MISMATCH")
+    if not residual_pass and pack.get("exact_blocker") != "COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY":
+        failures.append("USGS_HYDROLOGY_EXACT_BLOCKER_MISMATCH")
+    falsifier_status = pack.get("falsifier", {}).get("status")
+    if pack.get("exact_blockers") and falsifier_status != "TRIGGERED":
+        failures.append("USGS_HYDROLOGY_FALSIFIER_NOT_TRIGGERED_FOR_BLOCKER")
+    if not pack.get("exact_blockers") and falsifier_status != "NOT_TRIGGERED":
+        failures.append("USGS_HYDROLOGY_FALSIFIER_TRIGGERED_WITHOUT_BLOCKER")
+    return failures
+
+
+def check_usgs_hydrology_scorer_stored(root: Path | None = None) -> list[str]:
+    root = root or repo_root()
+    source_lane = load_usgs_api_lane(root)
+    if source_lane.get("source_snapshot_hash_bound") is not True:
+        return []
+    expected = build_usgs_hydrology_scorer_pack(root)
+    failures = validate_usgs_hydrology_scorer_pack(expected, root)
+    path = root / USGS_HYDROLOGY_SCORER_EVIDENCE_REL
+    if not path.exists():
+        return [*failures, f"missing::{USGS_HYDROLOGY_SCORER_EVIDENCE_REL}"]
+    actual = read_json(path)
+    if actual != expected:
+        failures.append(f"mismatch::{USGS_HYDROLOGY_SCORER_EVIDENCE_REL}")
+    failures.extend(validate_usgs_hydrology_scorer_pack(actual if isinstance(actual, dict) else {}, root))
+    return sorted(set(failures))
+
+
+def check_stored(root: Path | None = None) -> list[str]:
+    root = root or repo_root()
+    expected = build_payload(root)
+    failures = validate_payload(expected)
+    path = root / OUTPUT_REL
+    if not path.exists():
+        return [*failures, f"missing::{OUTPUT_REL}"]
+    actual = read_json(path)
+    if actual != expected:
+        failures.append(f"mismatch::{OUTPUT_REL}")
+    failures.extend(validate_payload(actual if isinstance(actual, dict) else {}))
+    failures.extend(check_usgs_hydrology_scorer_stored(root))
+    return sorted(set(failures))
+
+
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Build/check earth-space modern-science coverage work orders.")
+    parser.add_argument("--root", default=str(repo_root()), help="repository root")
+    parser.add_argument("--write", action="store_true", help="write deterministic work-order artifact")
+    parser.add_argument("--check", action="store_true", help="check stored artifact synchronization")
+    parser.add_argument(
+        "--refresh-usgs-hydrology-source",
+        action="store_true",
+        help="perform one read-only official USGS acquisition and refresh the local hash-bound source snapshot",
+    )
+    parser.add_argument(
+        "--score-usgs-hydrology",
+        action="store_true",
+        help="build/check the target-hidden USGS hydrology replay scorer evidence pack",
+    )
+    return parser.parse_args(argv)
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = parse_args(argv)
+    root = Path(args.root).resolve()
+    if args.refresh_usgs_hydrology_source:
+        refresh_usgs_hydrology_snapshot(root)
+    if args.score_usgs_hydrology:
+        pack = build_usgs_hydrology_scorer_pack(root)
+        if args.write:
+            write_json(root / USGS_HYDROLOGY_SCORER_EVIDENCE_REL, pack)
+        failures = check_usgs_hydrology_scorer_stored(root) if args.check else validate_usgs_hydrology_scorer_pack(pack, root)
+        print(
+            json.dumps(
+                {
+                    "status": "ok" if not failures else "failed",
+                    "output_ref": USGS_HYDROLOGY_SCORER_EVIDENCE_REL,
+                    "pack_status": pack.get("pack_status"),
+                    "exact_blocker": pack.get("exact_blocker"),
+                    "failures": failures,
+                },
+                indent=2,
+            )
+        )
+        return 0 if not failures else 1
+    if args.check:
+        failures = check_stored(root)
+        if failures:
+            for failure in failures:
+                print(f"ERROR: {failure}")
+            return 1
+        print(json.dumps({"status": "ok", "checked": OUTPUT_REL}, indent=2))
+        return 0
+    payload = build_payload(root)
+    failures = validate_payload(payload)
+    if args.write:
+        write_json(root / OUTPUT_REL, payload)
+        if load_usgs_api_lane(root).get("source_snapshot_hash_bound") is True:
+            write_json(root / USGS_HYDROLOGY_SCORER_EVIDENCE_REL, build_usgs_hydrology_scorer_pack(root))
+    print(json.dumps({"status": "ok" if not failures else "failed", "output_ref": OUTPUT_REL, "failures": failures}, indent=2))
+    return 0 if not failures else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

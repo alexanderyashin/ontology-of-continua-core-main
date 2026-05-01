@@ -54,6 +54,13 @@ PACK_FIELDS = (
     "falsifiers",
     "grand_toe_support_allowed",
 )
+OPTIONAL_PACK_FIELDS = (
+    "biological_target_rows",
+    "source_hashes",
+    "evidence_family",
+    "pack_version",
+    "source_contract",
+)
 
 
 @dataclass(frozen=True)
@@ -473,7 +480,7 @@ def falsifier_rows(evidence: SnapshotEvidence) -> list[str]:
 def build_candidate_pack(evidence: SnapshotEvidence, support_allowed: bool) -> dict[str, Any]:
     residuals = residual_summary(evidence.observations)
     interval = uncertainty_interval(evidence, residuals["model"])
-    return {
+    pack = {
         "schema_id": EVIDENCE_SCHEMA_ID,
         "release_id": RELEASE_ID,
         "capability_owner": CAPABILITY_OWNER,
@@ -493,6 +500,36 @@ def build_candidate_pack(evidence: SnapshotEvidence, support_allowed: bool) -> d
         "falsifiers": falsifier_rows(evidence),
         "grand_toe_support_allowed": support_allowed,
     }
+    if evidence.domain == "biology":
+        pack.update(
+            {
+                "evidence_family": "biology-target-evidence",
+                "pack_version": "1.0",
+                "source_contract": "official_biology_target_bundle",
+                "source_hashes": [
+                    {
+                        "source_ref": evidence.snapshot_ref,
+                        "source_sha256": evidence.snapshot_sha256,
+                        "hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+                    }
+                ],
+                "biological_target_rows": [
+                    {
+                        "biological_target_id": row.observation_id,
+                        "biological_target_kind": "biological_response_target",
+                        "source_ref": row.target_source or evidence.snapshot_ref,
+                        "source_sha256": evidence.snapshot_sha256,
+                        "prediction": row.predicted_value,
+                        "observed": row.observed_value,
+                        "comparator_prediction": row.comparator_prediction,
+                        "model_residual": row.model_residual,
+                        "comparator_residual": row.comparator_residual,
+                    }
+                    for row in evidence.observations
+                ],
+            }
+        )
+    return pack
 
 
 def validate_grand_schema_shape(pack: dict[str, Any]) -> list[str]:
@@ -500,8 +537,9 @@ def validate_grand_schema_shape(pack: dict[str, Any]) -> list[str]:
     for field in PACK_FIELDS:
         if field not in pack:
             failures.append(f"MISSING_FIELD::{field}")
+    allowed_fields = set(PACK_FIELDS) | set(OPTIONAL_PACK_FIELDS)
     for field in pack:
-        if field not in PACK_FIELDS:
+        if field not in allowed_fields:
             failures.append(f"ADDITIONAL_FIELD::{field}")
     if pack.get("schema_id") != EVIDENCE_SCHEMA_ID:
         failures.append("SCHEMA_ID_MISMATCH")

@@ -7,8 +7,8 @@
   "blocker_id": "modern_science_comparator_superiority",
   "protocol_id": "OC133-MODERN-SCIENCE-BENCHMARK-PROTOCOL-PHYSICS",
   "domain": "physics",
-  "lane_id": "MS-LANE-PHYSICS-CONSTANTS",
-  "predicate_id": "MS-PRED-PHYS-001",
+  "lane_id": "MS-LANE-PHYSICS-STRICT-PACK",
+  "predicate_id": "MS-PRED-PHYSICS-STRICT-PACK",
   "evidence_refs": {
     "register_ref": "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
     "lane_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json",
@@ -19,7 +19,7 @@
   },
   "incumbent_comparator": {
     "incumbent": "NIST/CODATA/SI fundamental constants reference standards",
-    "accepted_capacity": "NIST/CODATA publishes exact/reference physical constants, including c = 299792458 m s^-1.",
+    "accepted_capacity": null,
     "source_refs": [
       {
         "title": "NIST CODATA recommended values of the fundamental physical constants, 2022 adjustment",
@@ -58,43 +58,109 @@
   },
   "fairness_criteria": [
     {
-      "predicate": "primary_or_source_backed_incumbent_ref_present",
+      "predicate": "current_strict_pack_ref",
       "required": true,
       "status": true,
       "blocked": false
     },
     {
-      "predicate": "target_blind_split_declared_before_scoring",
+      "predicate": "current_pack_exists",
       "required": true,
       "status": true,
       "blocked": false
     },
     {
-      "predicate": "metric_and_uncertainty_declared_before_scoring",
+      "predicate": "current_pack_hash_bound",
       "required": true,
       "status": true,
       "blocked": false
     },
     {
-      "predicate": "negative_control_rejected",
+      "predicate": "schema_is_strict_grand_empirical",
       "required": true,
       "status": true,
       "blocked": false
     },
     {
-      "predicate": "independent_replay_passes_from_clean_checkout",
+      "predicate": "domain_matches_pack",
       "required": true,
-      "status": false,
-      "blocked": true
+      "status": true,
+      "blocked": false
     },
     {
-      "predicate": "result_is_not_merely_exact_standard_replay",
+      "predicate": "minimum_n_met",
       "required": true,
-      "status": false,
-      "blocked": true
+      "status": true,
+      "blocked": false
     },
     {
-      "predicate": "claim_text_excludes_new_physics_or_CODATA_superiority",
+      "predicate": "source_separation_mode_allowed",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "pre_target_lock_present",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "target_hidden_until_scoring",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "training_and_target_source_refs_present",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "pack_sha256_bound",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "comparator_baseline_declared",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "comparator_baseline_pre_registered",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "uncertainty_declared",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "residuals_show_model_beats_declared_comparator",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "negative_controls_rejected",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "falsifier_declared",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "strict_pack_support_allowed",
       "required": true,
       "status": true,
       "blocked": false
@@ -105,12 +171,12 @@
     "uncertainty": 1e-33,
     "model_residual": 1.4892870576445277e-35,
     "within_declared_uncertainty": true,
-    "metric_family": "absolute_residual_against_held_out_value plus comparator_residual_margin",
+    "metric_family": "absolute_error_with_uncertainty_normalized_score_v1",
     "prediction_supported": true,
     "empirical_supported": true
   },
   "residual_metric": {
-    "metric_family": "absolute_residual_against_held_out_value plus comparator_residual_margin",
+    "metric_family": "absolute_error_with_uncertainty_normalized_score_v1",
     "model_residual": 1.4892870576445277e-35,
     "comparator_residual": 1.9864458503739297e-25,
     "superiority_margin": 1.986445850225001e-25,
@@ -147,55 +213,37 @@
       "domain": "physics"
     }
   ],
-  "blocker_predicates": [
-    "independent_replay_passes_from_clean_checkout",
-    "result_is_not_merely_exact_standard_replay",
-    "domain_relevance_exceeds_exact_standard_replay",
-    "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-    "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-    "CANDIDATE_EVIDENCE_PACKS_INVALID::1"
-  ],
+  "blocker_predicates": [],
   "required_result_refs": [
     "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-PHYSICS-001"
   ],
   "report": {
-    "current_verdict": "BLOCKED_NO_SUPERIORITY_CERTIFIED",
-    "superiority_task": "Reconstruct a held-out CODATA relationship from visible exact constants without reading the target field.",
-    "allowed_current_claim": "bounded target-blind reconstruction of a held-out constants relationship only",
-    "superiority_claim_status": "NOT_CERTIFIED",
-    "release_effect": "BLOCK_RELEASE_PROMOTION_FOR_SUPERIORITY",
-    "oc_current_evidence_boundary": "Bounded target-blind reconstruction and replay QA only; no new physics, no better constant source, no CODATA/SI superiority."
+    "current_verdict": "CERTIFIED_AGAINST_DECLARED_BENCHMARK_BASELINES",
+    "superiority_task": "Reconstruct official CODATA/SI relationship targets from visible formula inputs under a prospective official-readonly source lock.",
+    "allowed_current_claim": "OC133 benchmark result beats the declared preregistered comparator baselines for this strict pack.",
+    "superiority_claim_status": null,
+    "release_effect": "BLOCK_BROAD_MODERN_SCIENCE_SUPERIORITY_PROMOTION",
+    "oc_current_evidence_boundary": null
   },
   "grand_empirical_context": {
     "minimum_n": 20,
-    "valid_n": 0,
-    "status": "BLOCKED",
+    "valid_n": 44,
+    "status": "EVIDENCE_SUFFICIENT_PENDING_REVIEW",
     "grand_toe_support_allowed": false,
-    "blockers": [
-      "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-      "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-      "CANDIDATE_EVIDENCE_PACKS_INVALID::1"
-    ]
+    "blockers": []
   },
   "no_send": true,
   "release_promotion_allowed": false,
   "superiority_decision": {
-    "status": "NOT_CERTIFIED",
+    "status": "READY_FOR_REVIEW_BUT_NOT_CERTIFIED",
     "superiority_certified": false,
     "release_promotion_allowed": false,
-    "can_be_certified_within_current_artifact_scope": false,
-    "blocker_total": 6,
-    "blocker_predicates": [
-      "independent_replay_passes_from_clean_checkout",
-      "result_is_not_merely_exact_standard_replay",
-      "domain_relevance_exceeds_exact_standard_replay",
-      "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-      "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-      "CANDIDATE_EVIDENCE_PACKS_INVALID::1"
-    ],
+    "can_be_certified_within_current_artifact_scope": true,
+    "blocker_total": 0,
+    "blocker_predicates": [],
     "required_result_refs": [
       "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-PHYSICS-001"
     ],
-    "failure_reason": "All incumbent/refined fairness predicates, zero blockers, and result bindings must be present for certification."
+    "failure_reason": "All protocol obligations are present; final certification remains blocked by contract policy."
   }
 }

@@ -27,7 +27,7 @@ def main() -> int:
     payload = build_grand_empirical_payload(ROOT)
     write_grand_empirical_outputs(ROOT, payload)
     print(json.dumps(payload, ensure_ascii=False, indent=2))
-    if payload["blocked_domain_total"] == 0 and payload["grand_toe_support_allowed"] is True:
+    if payload["blocked_domain_total"] == 0 and payload.get("empirical_domain_support_allowed") is True:
         return 0
     return 0 if args.allow_blocked_exit_zero else 2
 

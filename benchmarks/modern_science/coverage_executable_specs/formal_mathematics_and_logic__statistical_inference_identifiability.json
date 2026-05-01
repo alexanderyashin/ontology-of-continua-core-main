@@ -1,0 +1,286 @@
+{
+  "spec_schema_id": "OC133_PHYSICS_CHEMISTRY_EXECUTABLE_COVERAGE_LANE_SPEC_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "capability_owner": "Logion Formal Methods Coverage",
+  "source_domain_work_order_ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/OC133_FORMAL_MATHEMATICS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+  "work_order_id": "MS-COV-WO-002",
+  "coverage_gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY",
+  "domain_class_id": "formal_mathematics_and_logic",
+  "phenomenon_class_id": "statistical_inference_identifiability__protocol_only_executable_spec",
+  "source_domain_class_id": "formal_mathematics_and_logic",
+  "source_phenomenon_class_id": "statistical_inference_identifiability",
+  "source_coverage_gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY",
+  "coverage_closure_status": "OPEN_FAIL_CLOSED_PENDING_STATISTICAL_PROBABILISTIC_FORMAL_CORPUS_AND_REPLAY",
+  "coverage_closure_allowed": false,
+  "formal_route_only": true,
+  "empirical_numeric_prediction_allowed": false,
+  "source_plan_id": "MS-FORMAL-STATISTICAL_INFERENCE_IDENTIFIABILITY-LEAN4-v1",
+  "official_data_source": {
+    "source_id": "statistical_inference_identifiability_lean4_formal_corpus_v1",
+    "source_name": "Lean 4 statistical and probabilistic identifiability proof corpus",
+    "source_authority": "Lean project and Logion formal proof corpus steward",
+    "official_documentation_url": "https://lean-lang.org/documentation/",
+    "official_endpoint_url": "https://github.com/leanprover/lean4",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/statistical_probabilistic_inference/OC133_STAT_PROB_IDENTIFIABILITY_EXECUTED_PROOF_CORPUS.json",
+    "required_lock_ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/statistical_probabilistic_inference/OC133_STAT_PROB_IDENTIFIABILITY_WITHHELD_AGGREGATES.lock.json",
+    "minimum_rows_required": 20,
+    "snapshot_status": "EXACT_STATISTICAL_PROBABILISTIC_FORMAL_CORPUS_BOUND_SCORER_PASS",
+    "source_kind": "formal_probability_and_identifiability_theorem_corpus"
+  },
+  "target_variable": {
+    "name": "stat_prob_formal_identifiability_heldout_sequents",
+    "unit": "formal proof-checker verdict",
+    "target_fields": [
+      "sequent_id",
+      "observable_distribution_signature",
+      "intervention_query",
+      "declared_axioms",
+      "expected_identifiability_verdict",
+      "proof_ref"
+    ],
+    "extraction_rule": "Hold back expected_identifiability_verdict, countermodel_or_proof_ref, aggregate accept/reject counts by graph family until the formal proof route materializes from validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/statistical_probabilistic_inference/OC133_STAT_PROB_IDENTIFIABILITY_FORMAL_INPUTS.json.",
+    "target_statement": "For held-out finite probability kernels, graphical/separation sequents, and intervention queries, prove whether the target query is identifiable from the declared observable distribution.",
+    "minimum_target_rows": 20
+  },
+  "formula_requirement": {
+    "formula_or_model": "Produce a Lean/finite proof or countermodel for each held-out identifiability sequent. A numeric posterior estimate, regression residual, simulation result, or empirical forecast is explicitly out of scope.",
+    "required_inputs": [
+      "observable_distribution_signature",
+      "intervention_query",
+      "declared_axioms",
+      "locked_graphical_or_kernel_sequent"
+    ],
+    "target_values_may_be_used_for_model_design": false,
+    "route": "formal",
+    "checker_refs": [
+      "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/statistical_probabilistic_inference/OC133_STAT_PROB_IDENTIFIABILITY_SCORER.py",
+      "formal/lean/OC133V12.lean"
+    ],
+    "empirical_numeric_prediction": false
+  },
+  "incumbent_comparator_requirement": {
+    "baseline_name": "unconditional-identifiable or independence-only comparator",
+    "baseline_id": "STAT-PROB-INDEPENDENCE-ACCEPT-ALL-COMPARATOR",
+    "prediction_rule": "classify every held-out query as identifiable using only unconditional independence and visible marginal signatures, without applying intervention/identifiability proof rules",
+    "pre_registered": true,
+    "target_values_used_for_baseline_design": false,
+    "required_material_margin": "model_mismatch_count == 0, comparator_mismatch_count > 0, and non-identifiable controls are rejected"
+  },
+  "uncertainty_requirement": {
+    "metric": "exact_formal_verdict_no_empirical_interval",
+    "rule": "No empirical uncertainty interval is applicable; proof checker verdicts are exact.",
+    "empirical_numeric_prediction": false
+  },
+  "residual_requirement": {
+    "metric_id": "formal_identifiability_verdict_mismatch_count",
+    "formula": "sum(1 if preregistered_formal_verdict != executed_formal_verdict else 0) over locked formal rows",
+    "definition": "0/1 mismatch between the preregistered formal derivation verdict and the executed proof or countermodel verdict; aggregate count and exact zero required for accepted formal support.",
+    "superiority_rule": "model_mismatch_count == 0, comparator_mismatch_count > 0, and non-identifiable controls are rejected",
+    "empirical_numeric_prediction": false
+  },
+  "negative_control_requirement": {
+    "control_id": "STAT-PROB-LATENT-CONFOUNDER-NONIDENTIFIABILITY-CONTROL",
+    "rule": "formal replay emits REJECT/countermodel and the comparator's identifiable verdict fails",
+    "description": "A held-out latent-confounding or label-swap construction known only through the locked target corpus must be rejected as non-identifiable."
+  },
+  "falsifier_requirement": {
+    "falsifier_id": "STAT-PROB-FORMAL-IDENTIFIABILITY-FALSIFIER",
+    "trigger": "empirical numeric prediction, simulation fit, or posterior calibration is used as proof of identifiability; withheld verdicts, aggregate accept/reject counts, or countermodel refs leak before proof materialization; fewer than 20 formal-equivalent held-out sequents replay; the independence-only comparator ties or beats the formal derivation; any proof/countermodel ref is missing, unhashable, or not reproducible",
+    "trigger_predicates": [
+      "empirical numeric prediction, simulation fit, or posterior calibration is used as proof of identifiability",
+      "withheld verdicts, aggregate accept/reject counts, or countermodel refs leak before proof materialization",
+      "fewer than 20 formal-equivalent held-out sequents replay",
+      "the independence-only comparator ties or beats the formal derivation",
+      "any proof/countermodel ref is missing, unhashable, or not reproducible"
+    ]
+  },
+  "execution_requirements": {
+    "minimum_n": 20,
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true,
+    "evidence_pack_schema_id": "OC133_FORMAL_MATHEMATICS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS_v1",
+    "replay_command": "python validation/heldout/grand_science/formal_mathematics/coverage_work_orders/oc133_formal_mathematics_modern_science_coverage_work_orders.py --check",
+    "replay_commands": [
+      "python validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/statistical_probabilistic_inference/OC133_STAT_PROB_IDENTIFIABILITY_SCORER.py --check",
+      "python validation/heldout/grand_science/formal_mathematics/coverage_work_orders/oc133_formal_mathematics_modern_science_coverage_work_orders.py --check"
+    ],
+    "empirical_numeric_prediction_allowed": false
+  },
+  "current_evidence": {
+    "executable_evidence_exists": false,
+    "executable_evidence_ref": null,
+    "reason": "Deterministic formal-route identifiability inputs, executed proof corpus, withheld aggregate lock, and scorer are materialized and replay cleanly. Coverage remains open pending formal coverage-scope review.",
+    "status": "EXACT_STATISTICAL_PROBABILISTIC_FORMAL_CORPUS_BOUND_SCORER_PASS",
+    "formal_exact_evidence_exists": true,
+    "coverage_closure_allowed": false,
+    "remaining_blockers": [
+      "FORMAL_COVERAGE_SCOPE_REVIEW_NOT_PERFORMED",
+      "NO_COVERAGE_CLOSURE_MARK_ALLOWED"
+    ]
+  },
+  "closure_predicates_required": [
+    "STRICT_PACK_SCHEMA_PASS",
+    "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+    "TARGET_VARIABLE_EXACTLY_DECLARED",
+    "FORMULA_OR_MODEL_PREREGISTERED",
+    "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+    "UNCERTAINTY_POLICY_DECLARED",
+    "RESIDUAL_METRIC_EXECUTABLE",
+    "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+    "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+    "INDEPENDENT_REPLAY_PASS",
+    "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW",
+    "FORMAL_ROUTE_DECLARED",
+    "SOURCE_PROOF_CORPUS_HASH_BOUND_OR_EXPLICITLY_MISSING",
+    "TARGET_THEOREM_OR_PROPERTY_DECLARED",
+    "TARGET_HIDDEN_OR_FORMAL_WITHHELD_AGGREGATE_POLICY_DECLARED",
+    "PROOF_OR_MODEL_PREREGISTERED",
+    "COMPARATOR_BASELINE_PREREGISTERED",
+    "RESIDUAL_OR_ERROR_NOTION_DECLARED",
+    "NEGATIVE_CONTROL_DECLARED",
+    "FALSIFIER_DECLARED",
+    "REPLAY_COMMAND_DECLARED",
+    "EMPIRICAL_NUMERIC_PREDICTION_NOT_ASSERTED",
+    "COVERAGE_CLOSURE_REMAINS_FALSE_UNTIL_EXACT_REVIEW",
+    "NO_BROAD_SUPERIORITY_CERTIFICATION",
+    "STATISTICAL_PROBABILISTIC_FORMAL_CORPUS_BOUND",
+    "EXECUTABLE_LANE_SPEC_DECLARED",
+    "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
+  ],
+  "source_proof_corpus": {
+    "corpus_id": "OC133-FORMAL-MATH-STATISTICAL-PROBABILISTIC-INFERENCE-v1",
+    "corpus_kind": "planned_formal_identifiability_proof_corpus",
+    "source_kind": "formal_probability_and_identifiability_theorem_corpus",
+    "minimum_formal_case_count": 20,
+    "exact_evidence_exists": false,
+    "artifacts": [
+      {
+        "ref": "comparators/modern_science/source_capsules/MS-SRC-MATH-LEAN4.txt",
+        "role": "Lean 4 source capsule",
+        "exists": true,
+        "sha256": "827b10594ad2c190b6911395f50c819825b9177a2352456e98a0c0ab615427a0",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": false
+      },
+      {
+        "ref": "benchmarks/modern_science/protocols/OC133_MODERN_SCIENCE_BENCHMARK_PROTOCOL_MATHEMATICS.json",
+        "role": "mathematics formal-route protocol",
+        "exists": true,
+        "sha256": "25f7eea7a9b6fe3aa42f7f230bcc6798413a54274d802bf593939c1265c2b1a3",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": false
+      },
+      {
+        "ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/statistical_probabilistic_inference/OC133_STAT_PROB_IDENTIFIABILITY_FORMAL_INPUTS.json",
+        "role": "pre-target formal probability/d-separation sequent inputs",
+        "exists": true,
+        "sha256": "38a5b9ee44a49f99b6ab8ca45a9322dcb489146fab2dea6649248d63d4f35b10",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": true
+      },
+      {
+        "ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/statistical_probabilistic_inference/OC133_STAT_PROB_IDENTIFIABILITY_EXECUTED_PROOF_CORPUS.json",
+        "role": "executed Lean/finite identifiability proof corpus",
+        "exists": true,
+        "sha256": "772fb75c561e9631dae90f08e8a07f7b62be57a6d3ef024cdbec8b57af5e064e",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": true
+      },
+      {
+        "ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/statistical_probabilistic_inference/OC133_STAT_PROB_IDENTIFIABILITY_WITHHELD_AGGREGATES.lock.json",
+        "role": "formal withheld aggregate lock",
+        "exists": true,
+        "sha256": "537b7db082915ba1c354d3b184fbbb0afb87f8e66c765ab647cc0945df7bfc05",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": true
+      }
+    ],
+    "scope_boundary": "This lane is about machine-checkable identifiability and probabilistic inference theorems. It must not treat empirical fit, calibration, simulation accuracy, or numeric prediction as coverage evidence."
+  },
+  "target_theorem_or_property": {
+    "target_id": "STAT-PROB-FORMAL-IDENTIFIABILITY-HELDOUT-SEQUENTS",
+    "target_type": "formal statistical/probabilistic identifiability theorem",
+    "target_statement": "For held-out finite probability kernels, graphical/separation sequents, and intervention queries, prove whether the target query is identifiable from the declared observable distribution.",
+    "target_fields": [
+      "sequent_id",
+      "observable_distribution_signature",
+      "intervention_query",
+      "declared_axioms",
+      "expected_identifiability_verdict",
+      "proof_ref"
+    ],
+    "minimum_target_rows": 20
+  },
+  "hidden_target_or_formal_withheld_aggregate_policy": {
+    "mode": "formal_withheld_aggregate",
+    "pre_target_lock_ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/statistical_probabilistic_inference/OC133_STAT_PROB_IDENTIFIABILITY_FORMAL_INPUTS.json",
+    "hidden_target_ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/statistical_probabilistic_inference/OC133_STAT_PROB_IDENTIFIABILITY_EXECUTED_PROOF_CORPUS.json",
+    "withheld_until_scoring": [
+      "expected_identifiability_verdict",
+      "countermodel_or_proof_ref",
+      "aggregate accept/reject counts by graph family"
+    ],
+    "allowed_pre_scoring_aggregates": [
+      "manifest hash",
+      "minimum row count",
+      "axiom vocabulary",
+      "query-signature schema"
+    ],
+    "target_values_used_for_proof_design": false
+  },
+  "proof_or_model": {
+    "route": "formal",
+    "model_id": "STAT-PROB-IDENTIFIABILITY-FORMAL-DERIVATION",
+    "description": "Produce a Lean/finite proof or countermodel for each held-out identifiability sequent. A numeric posterior estimate, regression residual, simulation result, or empirical forecast is explicitly out of scope.",
+    "checker_refs": [
+      "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/statistical_probabilistic_inference/OC133_STAT_PROB_IDENTIFIABILITY_SCORER.py",
+      "formal/lean/OC133V12.lean"
+    ],
+    "empirical_numeric_prediction": false
+  },
+  "comparator_baseline": {
+    "baseline_id": "STAT-PROB-INDEPENDENCE-ACCEPT-ALL-COMPARATOR",
+    "name": "unconditional-identifiable or independence-only comparator",
+    "prediction_rule": "classify every held-out query as identifiable using only unconditional independence and visible marginal signatures, without applying intervention/identifiability proof rules",
+    "pre_registered": true,
+    "target_values_used_for_baseline_design": false
+  },
+  "residual_or_error_notion": {
+    "applicable": true,
+    "metric_id": "formal_identifiability_verdict_mismatch_count",
+    "definition": "0/1 mismatch between the preregistered formal derivation verdict and the executed proof or countermodel verdict; aggregate count and exact zero required for accepted formal support.",
+    "uncertainty_policy": "No empirical uncertainty interval is applicable; proof checker verdicts are exact.",
+    "superiority_or_acceptance_rule": "model_mismatch_count == 0, comparator_mismatch_count > 0, and non-identifiable controls are rejected",
+    "empirical_numeric_prediction": false
+  },
+  "negative_control": {
+    "control_id": "STAT-PROB-LATENT-CONFOUNDER-NONIDENTIFIABILITY-CONTROL",
+    "description": "A held-out latent-confounding or label-swap construction known only through the locked target corpus must be rejected as non-identifiable.",
+    "rejection_predicate": "formal replay emits REJECT/countermodel and the comparator's identifiable verdict fails"
+  },
+  "falsifier": {
+    "falsifier_id": "STAT-PROB-FORMAL-IDENTIFIABILITY-FALSIFIER",
+    "trigger_predicates": [
+      "empirical numeric prediction, simulation fit, or posterior calibration is used as proof of identifiability",
+      "withheld verdicts, aggregate accept/reject counts, or countermodel refs leak before proof materialization",
+      "fewer than 20 formal-equivalent held-out sequents replay",
+      "the independence-only comparator ties or beats the formal derivation",
+      "any proof/countermodel ref is missing, unhashable, or not reproducible"
+    ]
+  },
+  "no_send_locks": {
+    "no_send": true,
+    "public_release_action_allowed": false,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "registry_write_allowed": false,
+    "journal_submission_allowed": false,
+    "email_allowed": false,
+    "doi_registration_allowed": false,
+    "coverage_closure_allowed": false,
+    "broad_modern_science_superiority_allowed": false,
+    "empirical_numeric_prediction_allowed": false
+  }
+}

@@ -1,0 +1,1052 @@
+{
+  "schema_id": "OC133_MODERN_SCIENCE_COVERAGE_REGISTER_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "capability_owner": "Logion Research/PriorArt",
+  "taxonomy_source": {
+    "source_policy": "internally_declared_coverage_taxonomy",
+    "taxonomy_id": "OC133_DECLARED_MODERN_SCIENCE_COVERAGE_TAXONOMY_v1",
+    "scope_note": "This is an internal blocking taxonomy for broad modern-science wording. It is deliberately broader than the four current empirical lanes and must not be treated as proof that the taxonomy is exhaustive for public science classification.",
+    "closure_rule": "A broad modern-science superiority claim requires every declared domain class and every required phenomenon class to have source-backed, target-separated benchmark lanes with preregistered comparators, uncertainty, controls, falsifiers, independent replay, and explicit domain-scope survey evidence."
+  },
+  "required_domain_class_total": 12,
+  "required_phenomenon_class_total": 39,
+  "current_empirical_lane_mapping": [
+    {
+      "domain": "biology",
+      "lane_id": "MS-LANE-BIOLOGY-STRICT-PACK",
+      "domain_class_id": "biological_life_sciences",
+      "phenomenon_class_ids": [
+        "functional_genomics_expression"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "This lane covers only the listed phenomenon class ids for its declared pack task."
+    },
+    {
+      "domain": "chemistry",
+      "lane_id": "MS-LANE-CHEMISTRY-STRICT-PACK",
+      "domain_class_id": "chemical_sciences",
+      "phenomenon_class_ids": [
+        "molecular_descriptor_prediction"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "This lane covers only the listed phenomenon class ids for its declared pack task."
+    },
+    {
+      "domain": "physics",
+      "lane_id": "MS-LANE-PHYSICS-STRICT-PACK",
+      "domain_class_id": "physical_sciences",
+      "phenomenon_class_ids": [
+        "fundamental_constants_relationships"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "This lane covers only the listed phenomenon class ids for its declared pack task."
+    },
+    {
+      "domain": "systems",
+      "lane_id": "MS-LANE-SYSTEMS-STRICT-PACK",
+      "domain_class_id": "social_economic_political_sciences",
+      "phenomenon_class_ids": [
+        "demographic_population_series"
+      ],
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json",
+      "benchmark_scoped_certified": true,
+      "broad_modern_science_certified": false,
+      "scope_limit": "This lane covers only the listed phenomenon class ids for its declared pack task."
+    }
+  ],
+  "domain_class_rows": [
+    {
+      "domain_class_id": "formal_mathematics_and_logic",
+      "label": "Formal mathematics, logic, statistics, and proof science",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "formal_theorem_reconstruction",
+          "label": "formal theorem reconstruction"
+        },
+        {
+          "phenomenon_class_id": "statistical_inference_identifiability",
+          "label": "statistical inference identifiability"
+        },
+        {
+          "phenomenon_class_id": "computational_complexity_and_algorithmic_proof",
+          "label": "computational complexity and algorithmic proof"
+        }
+      ],
+      "current_lane_ids": [],
+      "protocol_only_ref": {
+        "domain": "mathematics",
+        "protocol_ref": "benchmarks/modern_science/protocols/OC133_MODERN_SCIENCE_BENCHMARK_PROTOCOL_MATHEMATICS.json",
+        "source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-MATH-LEAN4.txt"
+      },
+      "coverage_status": "PROTOCOL_ONLY_NO_CERTIFIED_STRICT_PACK",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [
+        "formal_theorem_reconstruction",
+        "statistical_inference_identifiability",
+        "computational_complexity_and_algorithmic_proof"
+      ],
+      "gap_total": 3
+    },
+    {
+      "domain_class_id": "physical_sciences",
+      "label": "Physical sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "fundamental_constants_relationships",
+          "label": "fundamental constants relationships"
+        },
+        {
+          "phenomenon_class_id": "dynamical_laws_and_conservation",
+          "label": "dynamical laws and conservation"
+        },
+        {
+          "phenomenon_class_id": "condensed_matter_fields_and_measurements",
+          "label": "condensed matter fields and measurements"
+        },
+        {
+          "phenomenon_class_id": "astronomical_and_cosmological_observables",
+          "label": "astronomical and cosmological observables"
+        }
+      ],
+      "current_lane_ids": [
+        "MS-LANE-PHYSICS-STRICT-PACK"
+      ],
+      "protocol_only_ref": null,
+      "coverage_status": "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [
+        "dynamical_laws_and_conservation",
+        "condensed_matter_fields_and_measurements",
+        "astronomical_and_cosmological_observables"
+      ],
+      "gap_total": 3
+    },
+    {
+      "domain_class_id": "chemical_sciences",
+      "label": "Chemical sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "molecular_descriptor_prediction",
+          "label": "molecular descriptor prediction"
+        },
+        {
+          "phenomenon_class_id": "reaction_and_kinetics_prediction",
+          "label": "reaction and kinetics prediction"
+        },
+        {
+          "phenomenon_class_id": "thermochemistry_and_phase_behavior",
+          "label": "thermochemistry and phase behavior"
+        },
+        {
+          "phenomenon_class_id": "materials_and_spectroscopy_observables",
+          "label": "materials and spectroscopy observables"
+        }
+      ],
+      "current_lane_ids": [
+        "MS-LANE-CHEMISTRY-STRICT-PACK"
+      ],
+      "protocol_only_ref": null,
+      "coverage_status": "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [
+        "reaction_and_kinetics_prediction",
+        "thermochemistry_and_phase_behavior",
+        "materials_and_spectroscopy_observables"
+      ],
+      "gap_total": 3
+    },
+    {
+      "domain_class_id": "earth_space_environmental_sciences",
+      "label": "Earth, space, and environmental sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "climate_weather_geophysical_time_series",
+          "label": "climate weather geophysical time series"
+        },
+        {
+          "phenomenon_class_id": "geochemistry_and_hydrology_observables",
+          "label": "geochemistry and hydrology observables"
+        },
+        {
+          "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
+          "label": "remote sensing and planetary measurements"
+        }
+      ],
+      "current_lane_ids": [],
+      "protocol_only_ref": null,
+      "coverage_status": "NO_CERTIFIED_LANES",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [
+        "climate_weather_geophysical_time_series",
+        "geochemistry_and_hydrology_observables",
+        "remote_sensing_and_planetary_measurements"
+      ],
+      "gap_total": 3
+    },
+    {
+      "domain_class_id": "biological_life_sciences",
+      "label": "Biological and life sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "functional_genomics_expression",
+          "label": "functional genomics expression"
+        },
+        {
+          "phenomenon_class_id": "evolutionary_phylogenetic_patterns",
+          "label": "evolutionary phylogenetic patterns"
+        },
+        {
+          "phenomenon_class_id": "cellular_developmental_regulatory_dynamics",
+          "label": "cellular developmental regulatory dynamics"
+        },
+        {
+          "phenomenon_class_id": "ecology_population_and_biodiversity_observables",
+          "label": "ecology population and biodiversity observables"
+        }
+      ],
+      "current_lane_ids": [
+        "MS-LANE-BIOLOGY-STRICT-PACK"
+      ],
+      "protocol_only_ref": null,
+      "coverage_status": "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [
+        "evolutionary_phylogenetic_patterns",
+        "cellular_developmental_regulatory_dynamics",
+        "ecology_population_and_biodiversity_observables"
+      ],
+      "gap_total": 3
+    },
+    {
+      "domain_class_id": "medical_health_sciences",
+      "label": "Medical and health sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
+          "label": "clinical outcomes and biomarkers"
+        },
+        {
+          "phenomenon_class_id": "epidemiological_transmission_and_risk",
+          "label": "epidemiological transmission and risk"
+        },
+        {
+          "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
+          "label": "pharmacology toxicology and dose response"
+        }
+      ],
+      "current_lane_ids": [],
+      "protocol_only_ref": null,
+      "coverage_status": "NO_CERTIFIED_LANES",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [
+        "clinical_outcomes_and_biomarkers",
+        "epidemiological_transmission_and_risk",
+        "pharmacology_toxicology_and_dose_response"
+      ],
+      "gap_total": 3
+    },
+    {
+      "domain_class_id": "agricultural_food_sciences",
+      "label": "Agricultural, food, and veterinary sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "crop_yield_soil_and_trait_observables",
+          "label": "crop yield soil and trait observables"
+        },
+        {
+          "phenomenon_class_id": "food_chemistry_safety_and_nutrition",
+          "label": "food chemistry safety and nutrition"
+        },
+        {
+          "phenomenon_class_id": "animal_health_and_production_systems",
+          "label": "animal health and production systems"
+        }
+      ],
+      "current_lane_ids": [],
+      "protocol_only_ref": null,
+      "coverage_status": "NO_CERTIFIED_LANES",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [
+        "crop_yield_soil_and_trait_observables",
+        "food_chemistry_safety_and_nutrition",
+        "animal_health_and_production_systems"
+      ],
+      "gap_total": 3
+    },
+    {
+      "domain_class_id": "engineering_materials_sciences",
+      "label": "Engineering, materials, and applied measurement sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "materials_property_and_failure_prediction",
+          "label": "materials property and failure prediction"
+        },
+        {
+          "phenomenon_class_id": "control_systems_and_signal_measurement",
+          "label": "control systems and signal measurement"
+        },
+        {
+          "phenomenon_class_id": "energy_transport_and_manufacturing_processes",
+          "label": "energy transport and manufacturing processes"
+        }
+      ],
+      "current_lane_ids": [],
+      "protocol_only_ref": null,
+      "coverage_status": "NO_CERTIFIED_LANES",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [
+        "materials_property_and_failure_prediction",
+        "control_systems_and_signal_measurement",
+        "energy_transport_and_manufacturing_processes"
+      ],
+      "gap_total": 3
+    },
+    {
+      "domain_class_id": "computer_information_sciences",
+      "label": "Computer and information sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "program_semantics_and_verification",
+          "label": "program semantics and verification"
+        },
+        {
+          "phenomenon_class_id": "machine_learning_generalization_and_evaluation",
+          "label": "machine learning generalization and evaluation"
+        },
+        {
+          "phenomenon_class_id": "information_network_and_security_observables",
+          "label": "information network and security observables"
+        }
+      ],
+      "current_lane_ids": [],
+      "protocol_only_ref": null,
+      "coverage_status": "NO_CERTIFIED_LANES",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [
+        "program_semantics_and_verification",
+        "machine_learning_generalization_and_evaluation",
+        "information_network_and_security_observables"
+      ],
+      "gap_total": 3
+    },
+    {
+      "domain_class_id": "cognitive_behavioral_neurosciences",
+      "label": "Cognitive, behavioral, and neurosciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "neural_recording_and_brain_network_observables",
+          "label": "neural recording and brain network observables"
+        },
+        {
+          "phenomenon_class_id": "behavioral_task_and_psychometric_prediction",
+          "label": "behavioral task and psychometric prediction"
+        },
+        {
+          "phenomenon_class_id": "learning_memory_and_perception_dynamics",
+          "label": "learning memory and perception dynamics"
+        }
+      ],
+      "current_lane_ids": [],
+      "protocol_only_ref": null,
+      "coverage_status": "NO_CERTIFIED_LANES",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [
+        "neural_recording_and_brain_network_observables",
+        "behavioral_task_and_psychometric_prediction",
+        "learning_memory_and_perception_dynamics"
+      ],
+      "gap_total": 3
+    },
+    {
+      "domain_class_id": "social_economic_political_sciences",
+      "label": "Social, economic, demographic, and political sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "demographic_population_series",
+          "label": "demographic population series"
+        },
+        {
+          "phenomenon_class_id": "economic_indicator_and_market_observables",
+          "label": "economic indicator and market observables"
+        },
+        {
+          "phenomenon_class_id": "institutional_social_network_and_policy_outcomes",
+          "label": "institutional social network and policy outcomes"
+        }
+      ],
+      "current_lane_ids": [
+        "MS-LANE-SYSTEMS-STRICT-PACK"
+      ],
+      "protocol_only_ref": null,
+      "coverage_status": "PARTIAL_BENCHMARK_SCOPED_LANES_PRESENT",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [
+        "economic_indicator_and_market_observables",
+        "institutional_social_network_and_policy_outcomes"
+      ],
+      "gap_total": 2
+    },
+    {
+      "domain_class_id": "complex_systems_operations_science",
+      "label": "Complex systems, operations, and decision sciences",
+      "required_phenomenon_classes": [
+        {
+          "phenomenon_class_id": "multi_agent_system_dynamics",
+          "label": "multi agent system dynamics"
+        },
+        {
+          "phenomenon_class_id": "queue_supply_chain_and_operations_observables",
+          "label": "queue supply chain and operations observables"
+        },
+        {
+          "phenomenon_class_id": "resilience_risk_and_intervention_response",
+          "label": "resilience risk and intervention response"
+        }
+      ],
+      "current_lane_ids": [],
+      "protocol_only_ref": null,
+      "coverage_status": "NO_CERTIFIED_LANES",
+      "broad_domain_coverage_certified": false,
+      "missing_phenomenon_class_ids": [
+        "multi_agent_system_dynamics",
+        "queue_supply_chain_and_operations_observables",
+        "resilience_risk_and_intervention_response"
+      ],
+      "gap_total": 3
+    }
+  ],
+  "coverage_gap_rows": [
+    {
+      "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-FORMAL_THEOREM_RECONSTRUCTION",
+      "domain_class_id": "formal_mathematics_and_logic",
+      "domain_label": "Formal mathematics, logic, statistics, and proof science",
+      "phenomenon_class_id": "formal_theorem_reconstruction",
+      "phenomenon_label": "formal theorem reconstruction",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-STATISTICAL_INFERENCE_IDENTIFIABILITY",
+      "domain_class_id": "formal_mathematics_and_logic",
+      "domain_label": "Formal mathematics, logic, statistics, and proof science",
+      "phenomenon_class_id": "statistical_inference_identifiability",
+      "phenomenon_label": "statistical inference identifiability",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF",
+      "domain_class_id": "formal_mathematics_and_logic",
+      "domain_label": "Formal mathematics, logic, statistics, and proof science",
+      "phenomenon_class_id": "computational_complexity_and_algorithmic_proof",
+      "phenomenon_label": "computational complexity and algorithmic proof",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-DYNAMICAL_LAWS_AND_CONSERVATION",
+      "domain_class_id": "physical_sciences",
+      "domain_label": "Physical sciences",
+      "phenomenon_class_id": "dynamical_laws_and_conservation",
+      "phenomenon_label": "dynamical laws and conservation",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-CONDENSED_MATTER_FIELDS_AND_MEASUREMENTS",
+      "domain_class_id": "physical_sciences",
+      "domain_label": "Physical sciences",
+      "phenomenon_class_id": "condensed_matter_fields_and_measurements",
+      "phenomenon_label": "condensed matter fields and measurements",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-PHYSICAL_SCIENCES-ASTRONOMICAL_AND_COSMOLOGICAL_OBSERVABLES",
+      "domain_class_id": "physical_sciences",
+      "domain_label": "Physical sciences",
+      "phenomenon_class_id": "astronomical_and_cosmological_observables",
+      "phenomenon_label": "astronomical and cosmological observables",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-REACTION_AND_KINETICS_PREDICTION",
+      "domain_class_id": "chemical_sciences",
+      "domain_label": "Chemical sciences",
+      "phenomenon_class_id": "reaction_and_kinetics_prediction",
+      "phenomenon_label": "reaction and kinetics prediction",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-THERMOCHEMISTRY_AND_PHASE_BEHAVIOR",
+      "domain_class_id": "chemical_sciences",
+      "domain_label": "Chemical sciences",
+      "phenomenon_class_id": "thermochemistry_and_phase_behavior",
+      "phenomenon_label": "thermochemistry and phase behavior",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-CHEMICAL_SCIENCES-MATERIALS_AND_SPECTROSCOPY_OBSERVABLES",
+      "domain_class_id": "chemical_sciences",
+      "domain_label": "Chemical sciences",
+      "phenomenon_class_id": "materials_and_spectroscopy_observables",
+      "phenomenon_label": "materials and spectroscopy observables",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-CLIMATE_WEATHER_GEOPHYSICAL_TIME_SERIES",
+      "domain_class_id": "earth_space_environmental_sciences",
+      "domain_label": "Earth, space, and environmental sciences",
+      "phenomenon_class_id": "climate_weather_geophysical_time_series",
+      "phenomenon_label": "climate weather geophysical time series",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-GEOCHEMISTRY_AND_HYDROLOGY_OBSERVABLES",
+      "domain_class_id": "earth_space_environmental_sciences",
+      "domain_label": "Earth, space, and environmental sciences",
+      "phenomenon_class_id": "geochemistry_and_hydrology_observables",
+      "phenomenon_label": "geochemistry and hydrology observables",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-EARTH_SPACE_ENVIRONMENTAL_SCIENCES-REMOTE_SENSING_AND_PLANETARY_MEASUREMENTS",
+      "domain_class_id": "earth_space_environmental_sciences",
+      "domain_label": "Earth, space, and environmental sciences",
+      "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
+      "phenomenon_label": "remote sensing and planetary measurements",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-EVOLUTIONARY_PHYLOGENETIC_PATTERNS",
+      "domain_class_id": "biological_life_sciences",
+      "domain_label": "Biological and life sciences",
+      "phenomenon_class_id": "evolutionary_phylogenetic_patterns",
+      "phenomenon_label": "evolutionary phylogenetic patterns",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-CELLULAR_DEVELOPMENTAL_REGULATORY_DYNAMICS",
+      "domain_class_id": "biological_life_sciences",
+      "domain_label": "Biological and life sciences",
+      "phenomenon_class_id": "cellular_developmental_regulatory_dynamics",
+      "phenomenon_label": "cellular developmental regulatory dynamics",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-BIOLOGICAL_LIFE_SCIENCES-ECOLOGY_POPULATION_AND_BIODIVERSITY_OBSERVABLES",
+      "domain_class_id": "biological_life_sciences",
+      "domain_label": "Biological and life sciences",
+      "phenomenon_class_id": "ecology_population_and_biodiversity_observables",
+      "phenomenon_label": "ecology population and biodiversity observables",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-CLINICAL_OUTCOMES_AND_BIOMARKERS",
+      "domain_class_id": "medical_health_sciences",
+      "domain_label": "Medical and health sciences",
+      "phenomenon_class_id": "clinical_outcomes_and_biomarkers",
+      "phenomenon_label": "clinical outcomes and biomarkers",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-EPIDEMIOLOGICAL_TRANSMISSION_AND_RISK",
+      "domain_class_id": "medical_health_sciences",
+      "domain_label": "Medical and health sciences",
+      "phenomenon_class_id": "epidemiological_transmission_and_risk",
+      "phenomenon_label": "epidemiological transmission and risk",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-MEDICAL_HEALTH_SCIENCES-PHARMACOLOGY_TOXICOLOGY_AND_DOSE_RESPONSE",
+      "domain_class_id": "medical_health_sciences",
+      "domain_label": "Medical and health sciences",
+      "phenomenon_class_id": "pharmacology_toxicology_and_dose_response",
+      "phenomenon_label": "pharmacology toxicology and dose response",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
+      "domain_class_id": "agricultural_food_sciences",
+      "domain_label": "Agricultural, food, and veterinary sciences",
+      "phenomenon_class_id": "crop_yield_soil_and_trait_observables",
+      "phenomenon_label": "crop yield soil and trait observables",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION",
+      "domain_class_id": "agricultural_food_sciences",
+      "domain_label": "Agricultural, food, and veterinary sciences",
+      "phenomenon_class_id": "food_chemistry_safety_and_nutrition",
+      "phenomenon_label": "food chemistry safety and nutrition",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
+      "domain_class_id": "agricultural_food_sciences",
+      "domain_label": "Agricultural, food, and veterinary sciences",
+      "phenomenon_class_id": "animal_health_and_production_systems",
+      "phenomenon_label": "animal health and production systems",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-MATERIALS_PROPERTY_AND_FAILURE_PREDICTION",
+      "domain_class_id": "engineering_materials_sciences",
+      "domain_label": "Engineering, materials, and applied measurement sciences",
+      "phenomenon_class_id": "materials_property_and_failure_prediction",
+      "phenomenon_label": "materials property and failure prediction",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-CONTROL_SYSTEMS_AND_SIGNAL_MEASUREMENT",
+      "domain_class_id": "engineering_materials_sciences",
+      "domain_label": "Engineering, materials, and applied measurement sciences",
+      "phenomenon_class_id": "control_systems_and_signal_measurement",
+      "phenomenon_label": "control systems and signal measurement",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-ENGINEERING_MATERIALS_SCIENCES-ENERGY_TRANSPORT_AND_MANUFACTURING_PROCESSES",
+      "domain_class_id": "engineering_materials_sciences",
+      "domain_label": "Engineering, materials, and applied measurement sciences",
+      "phenomenon_class_id": "energy_transport_and_manufacturing_processes",
+      "phenomenon_label": "energy transport and manufacturing processes",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-PROGRAM_SEMANTICS_AND_VERIFICATION",
+      "domain_class_id": "computer_information_sciences",
+      "domain_label": "Computer and information sciences",
+      "phenomenon_class_id": "program_semantics_and_verification",
+      "phenomenon_label": "program semantics and verification",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-MACHINE_LEARNING_GENERALIZATION_AND_EVALUATION",
+      "domain_class_id": "computer_information_sciences",
+      "domain_label": "Computer and information sciences",
+      "phenomenon_class_id": "machine_learning_generalization_and_evaluation",
+      "phenomenon_label": "machine learning generalization and evaluation",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-COMPUTER_INFORMATION_SCIENCES-INFORMATION_NETWORK_AND_SECURITY_OBSERVABLES",
+      "domain_class_id": "computer_information_sciences",
+      "domain_label": "Computer and information sciences",
+      "phenomenon_class_id": "information_network_and_security_observables",
+      "phenomenon_label": "information network and security observables",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
+      "domain_class_id": "cognitive_behavioral_neurosciences",
+      "domain_label": "Cognitive, behavioral, and neurosciences",
+      "phenomenon_class_id": "neural_recording_and_brain_network_observables",
+      "phenomenon_label": "neural recording and brain network observables",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION",
+      "domain_class_id": "cognitive_behavioral_neurosciences",
+      "domain_label": "Cognitive, behavioral, and neurosciences",
+      "phenomenon_class_id": "behavioral_task_and_psychometric_prediction",
+      "phenomenon_label": "behavioral task and psychometric prediction",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS",
+      "domain_class_id": "cognitive_behavioral_neurosciences",
+      "domain_label": "Cognitive, behavioral, and neurosciences",
+      "phenomenon_class_id": "learning_memory_and_perception_dynamics",
+      "phenomenon_label": "learning memory and perception dynamics",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
+      "domain_class_id": "social_economic_political_sciences",
+      "domain_label": "Social, economic, demographic, and political sciences",
+      "phenomenon_class_id": "economic_indicator_and_market_observables",
+      "phenomenon_label": "economic indicator and market observables",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES",
+      "domain_class_id": "social_economic_political_sciences",
+      "domain_label": "Social, economic, demographic, and political sciences",
+      "phenomenon_class_id": "institutional_social_network_and_policy_outcomes",
+      "phenomenon_label": "institutional social network and policy outcomes",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS",
+      "domain_class_id": "complex_systems_operations_science",
+      "domain_label": "Complex systems, operations, and decision sciences",
+      "phenomenon_class_id": "multi_agent_system_dynamics",
+      "phenomenon_label": "multi agent system dynamics",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES",
+      "domain_class_id": "complex_systems_operations_science",
+      "domain_label": "Complex systems, operations, and decision sciences",
+      "phenomenon_class_id": "queue_supply_chain_and_operations_observables",
+      "phenomenon_label": "queue supply chain and operations observables",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    },
+    {
+      "gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE",
+      "domain_class_id": "complex_systems_operations_science",
+      "domain_label": "Complex systems, operations, and decision sciences",
+      "phenomenon_class_id": "resilience_risk_and_intervention_response",
+      "phenomenon_label": "resilience risk and intervention response",
+      "gap_type": "NO_CERTIFIED_SOURCE_BACKED_BENCHMARK_LANE",
+      "required_before_broad_claim": true,
+      "missing_evidence_lanes": [
+        "source-backed target definition lane",
+        "target-blind or prospective acquisition lane",
+        "preregistered incumbent comparator lane",
+        "OC result scoring lane with uncertainty",
+        "negative-control and falsifier lane",
+        "independent replay lane bound to this coverage register"
+      ]
+    }
+  ],
+  "coverage_gap_total": 35,
+  "covered_required_phenomenon_class_total": 4,
+  "coverage_summary": {
+    "domain_classes_with_any_current_lane_total": 4,
+    "domain_classes_without_certified_lane_total": 8,
+    "benchmark_scoped_lane_total": 4,
+    "broad_coverage_certified": false
+  },
+  "coverage_closure_predicates": {
+    "taxonomy_declared": true,
+    "every_required_domain_class_has_certified_lane": false,
+    "every_required_phenomenon_class_has_certified_lane": false,
+    "every_current_lane_is_benchmark_scoped_only": true,
+    "domain_scope_surveys_present_for_all_domain_classes": false,
+    "independent_clean_checkout_replay_bound_to_coverage_register": false,
+    "coverage_extends_to_all_of_modern_science": false
+  },
+  "coverage_closure_decision": {
+    "coverage_extends_to_all_of_modern_science": false,
+    "state": "BLOCKED_BY_COVERAGE_GAPS",
+    "failed_predicates": [
+      "every_required_domain_class_has_certified_lane",
+      "every_required_phenomenon_class_has_certified_lane",
+      "domain_scope_surveys_present_for_all_domain_classes",
+      "independent_clean_checkout_replay_bound_to_coverage_register",
+      "coverage_extends_to_all_of_modern_science"
+    ],
+    "work_orders_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json"
+  }
+}

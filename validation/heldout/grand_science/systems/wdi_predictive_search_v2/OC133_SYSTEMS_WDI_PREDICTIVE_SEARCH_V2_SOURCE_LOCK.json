@@ -4,14 +4,56 @@
   "version": "1.3.3",
   "capability_owner": "Research/EmpiricalScience",
   "source_lock_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-SOURCE-LOCK",
+  "lock_proof_type": "internal_materialization_order_hash",
+  "internal_lock_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-INTERNAL-LOCK-0de4551d1d49840c",
+  "external_lock_evidence_available": false,
+  "external_lock_id": null,
+  "external_lock_timestamp": null,
   "declaration_ref": "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_SOURCE_LOCK_DECLARATION.json",
-  "declaration_sha256": "b4ebd22ba38526c62b144766d18d7bf659c298c74ae3b914e16dbe79968b288c",
+  "declaration_sha256": "65dedf663a0cf90f50445f52c58c0c40ca87e957e62971d7b20a5d7f688b0134",
   "declaration_hash_policy": "sha256 over canonical JSON source-lock declaration",
-  "declared_before_scoring": false,
+  "materialization_order": {
+    "protocol_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-SOURCE-LOCK-PROTOCOL",
+    "proof_type": "internal_materialization_order_hash",
+    "order_hash_policy": "sha256 over canonical JSON source-lock materialization order",
+    "source_ref": "validation/heldout/grand_science/systems/harvested/systems_candidate_evidence_pack.json",
+    "steps": [
+      {
+        "step_index": 1,
+        "step_id": "snapshot_hash_materialized",
+        "snapshot_ref": "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json",
+        "snapshot_sha256": "c2e5f23f3fa88e97c4ea338541c4689d1cd8a33e164d11831cb8a3b573b09cd7",
+        "snapshot_lastupdated": "2026-04-08"
+      },
+      {
+        "step_index": 2,
+        "step_id": "target_blind_declaration_materialized",
+        "declaration_ref": "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_SOURCE_LOCK_DECLARATION.json",
+        "declaration_sha256": "65dedf663a0cf90f50445f52c58c0c40ca87e957e62971d7b20a5d7f688b0134",
+        "target_split_sha256": "ed66effeedee7bf22a64eccf4808e1b1dd8facde8d49c3ce4af447010c4efb20",
+        "target_row_count": 57,
+        "target_row_values_excluded": true
+      },
+      {
+        "step_index": 3,
+        "step_id": "model_and_scoring_policy_locked",
+        "candidate_formulas_sha256": "70f44118204aea8bf7f7aeca150a5b67cfb9195b537225c47840b273a03bf2d2",
+        "comparator_baselines_sha256": "062473960b73efca08668c1ab7f67dbd4a2d5d1bd39fe046c2f934300e7a3b94",
+        "scoring_policy_sha256": "6b342937ed9521fc7afb54254eee23ec1ec1393c3096d7ccb676906babd4abd7"
+      },
+      {
+        "step_index": 4,
+        "step_id": "heldout_scoring_permitted_after_lock",
+        "scoring_started_timestamp": "2026-05-01T00:00:00Z",
+        "target_rows_used_for_selection": false
+      }
+    ]
+  },
+  "materialization_order_hash": "0de4551d1d49840c8a10bc7f7eb0944c1b3441e6696df9fb412c9bcf6850b7ed",
+  "materialization_order_hash_policy": "sha256 over canonical JSON source-lock materialization order",
+  "declared_before_scoring": true,
   "pre_target_lock": true,
   "target_hidden_until_scoring": true,
-  "external_lock_id": "missing",
-  "external_lock_timestamp": "missing",
   "source_ref": "validation/heldout/grand_science/systems/harvested/systems_candidate_evidence_pack.json",
   "snapshot_ref": "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json",
   "snapshot_sha256": "c2e5f23f3fa88e97c4ea338541c4689d1cd8a33e164d11831cb8a3b573b09cd7",
@@ -24,7 +66,7 @@
   "target_split_sha256": "ed66effeedee7bf22a64eccf4808e1b1dd8facde8d49c3ce4af447010c4efb20",
   "candidate_formulas_sha256": "70f44118204aea8bf7f7aeca150a5b67cfb9195b537225c47840b273a03bf2d2",
   "comparator_baselines_sha256": "062473960b73efca08668c1ab7f67dbd4a2d5d1bd39fe046c2f934300e7a3b94",
-  "scoring_policy_sha256": "f063456d2fad7201772a5594aeb907f3c4a86240e5bdc8ec70448202b7ae5c3b",
+  "scoring_policy_sha256": "6b342937ed9521fc7afb54254eee23ec1ec1393c3096d7ccb676906babd4abd7",
   "declaration_excludes_target_values": true,
   "score_artifacts_allowed_in_declaration": false
 }

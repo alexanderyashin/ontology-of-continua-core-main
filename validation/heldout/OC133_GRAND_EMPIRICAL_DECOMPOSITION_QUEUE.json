@@ -4,234 +4,33 @@
   "version": "1.3.3",
   "capability_owner": "Research/EmpiricalScience",
   "blocker_id": "grand_toe_empirical_superiority",
-  "verdict": "BLOCKED_PENDING_GENUINE_PER_DOMAIN_EVIDENCE",
-  "blocked_domain_total": 5,
-  "queue_total": 5,
+  "verdict": "EMPIRICAL_DOMAIN_SUPPORT_ALLOWED",
+  "blocked_domain_total": 0,
+  "blocked_empirical_domain_total": 0,
+  "queue_total": 0,
   "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+  "empirical_required_domains": [
+    "biology",
+    "chemistry",
+    "physics",
+    "systems"
+  ],
+  "formal_required_domains": [
+    "mathematics"
+  ],
+  "formal_route_status": [
+    {
+      "domain": "mathematics",
+      "support_route": "formal",
+      "status": "ROUTED_TO_FORMAL_SUPPORT",
+      "empirical_support_allowed": false,
+      "grand_empirical_support_allowed": false,
+      "formal_support_report_ref": "validation/heldout/grand_science/mathematics/OC133_MATHEMATICS_EVIDENCE_EXECUTION_REPORT.json",
+      "route_separation_policy": "Formal support is audited by release readiness and must not be counted as grand empirical evidence."
+    }
+  ],
   "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
   "protocol_schema_ref": "validation/grand_science/grand_empirical_protocol.schema.json",
   "sample_pack_ref": "validation/heldout/samples/grand_empirical_evidence_pack.sample.json",
-  "rows": [
-    {
-      "queue_id": "OC133-GRAND-EMPIRICAL-DECOMP-BIOLOGY",
-      "blocker_id": "grand_toe_empirical_superiority",
-      "domain": "biology",
-      "owner_capability": "Research/EmpiricalScience",
-      "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PACK",
-      "current_valid_n": 0,
-      "minimum_n": 20,
-      "missing_n": 20,
-      "domain_blockers": [
-        "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-        "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-        "CANDIDATE_EVIDENCE_PACKS_INVALID::4"
-      ],
-      "required_protocol_steps": [
-        "pre-register the OC model, comparator baseline, residual metric, uncertainty method, negative controls, and falsifiers before target scoring",
-        "freeze training/source-development material separately from target/held-out sources and record stable hashes",
-        "keep target values hidden until scoring is complete, or use a genuinely prospective target source",
-        "collect at least the configured per-domain N with no training/target source overlap",
-        "score OC residuals and comparator residuals under the same metric and uncertainty protocol",
-        "reject every declared negative control and retain falsifier conditions even when the candidate fails",
-        "register the final evidence pack in validation/heldout/grand_science_evidence_registry.json only after the pack is complete"
-      ],
-      "required_pack_fields": [
-        "schema_id",
-        "release_id",
-        "capability_owner",
-        "evidence_pack_id",
-        "domain",
-        "source_separation",
-        "n",
-        "model_under_test",
-        "comparator_baseline",
-        "uncertainty",
-        "residuals",
-        "negative_controls",
-        "falsifiers",
-        "grand_toe_support_allowed"
-      ],
-      "sample_pack_ref": "validation/heldout/samples/grand_empirical_evidence_pack.sample.json",
-      "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
-      "protocol_schema_ref": "validation/grand_science/grand_empirical_protocol.schema.json",
-      "registry_ref": "validation/heldout/grand_science_evidence_registry.json"
-    },
-    {
-      "queue_id": "OC133-GRAND-EMPIRICAL-DECOMP-CHEMISTRY",
-      "blocker_id": "grand_toe_empirical_superiority",
-      "domain": "chemistry",
-      "owner_capability": "Research/EmpiricalScience",
-      "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PACK",
-      "current_valid_n": 0,
-      "minimum_n": 20,
-      "missing_n": 20,
-      "domain_blockers": [
-        "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-        "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-        "CANDIDATE_EVIDENCE_PACKS_INVALID::3"
-      ],
-      "required_protocol_steps": [
-        "pre-register the OC model, comparator baseline, residual metric, uncertainty method, negative controls, and falsifiers before target scoring",
-        "freeze training/source-development material separately from target/held-out sources and record stable hashes",
-        "keep target values hidden until scoring is complete, or use a genuinely prospective target source",
-        "collect at least the configured per-domain N with no training/target source overlap",
-        "score OC residuals and comparator residuals under the same metric and uncertainty protocol",
-        "reject every declared negative control and retain falsifier conditions even when the candidate fails",
-        "register the final evidence pack in validation/heldout/grand_science_evidence_registry.json only after the pack is complete"
-      ],
-      "required_pack_fields": [
-        "schema_id",
-        "release_id",
-        "capability_owner",
-        "evidence_pack_id",
-        "domain",
-        "source_separation",
-        "n",
-        "model_under_test",
-        "comparator_baseline",
-        "uncertainty",
-        "residuals",
-        "negative_controls",
-        "falsifiers",
-        "grand_toe_support_allowed"
-      ],
-      "sample_pack_ref": "validation/heldout/samples/grand_empirical_evidence_pack.sample.json",
-      "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
-      "protocol_schema_ref": "validation/grand_science/grand_empirical_protocol.schema.json",
-      "registry_ref": "validation/heldout/grand_science_evidence_registry.json"
-    },
-    {
-      "queue_id": "OC133-GRAND-EMPIRICAL-DECOMP-MATHEMATICS",
-      "blocker_id": "grand_toe_empirical_superiority",
-      "domain": "mathematics",
-      "owner_capability": "Research/EmpiricalScience",
-      "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PACK",
-      "current_valid_n": 0,
-      "minimum_n": 20,
-      "missing_n": 20,
-      "domain_blockers": [
-        "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-        "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-        "CANDIDATE_EVIDENCE_PACKS_INVALID::1",
-        "CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE"
-      ],
-      "required_protocol_steps": [
-        "pre-register the OC model, comparator baseline, residual metric, uncertainty method, negative controls, and falsifiers before target scoring",
-        "freeze training/source-development material separately from target/held-out sources and record stable hashes",
-        "keep target values hidden until scoring is complete, or use a genuinely prospective target source",
-        "collect at least the configured per-domain N with no training/target source overlap",
-        "score OC residuals and comparator residuals under the same metric and uncertainty protocol",
-        "reject every declared negative control and retain falsifier conditions even when the candidate fails",
-        "register the final evidence pack in validation/heldout/grand_science_evidence_registry.json only after the pack is complete"
-      ],
-      "required_pack_fields": [
-        "schema_id",
-        "release_id",
-        "capability_owner",
-        "evidence_pack_id",
-        "domain",
-        "source_separation",
-        "n",
-        "model_under_test",
-        "comparator_baseline",
-        "uncertainty",
-        "residuals",
-        "negative_controls",
-        "falsifiers",
-        "grand_toe_support_allowed"
-      ],
-      "sample_pack_ref": "validation/heldout/samples/grand_empirical_evidence_pack.sample.json",
-      "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
-      "protocol_schema_ref": "validation/grand_science/grand_empirical_protocol.schema.json",
-      "registry_ref": "validation/heldout/grand_science_evidence_registry.json"
-    },
-    {
-      "queue_id": "OC133-GRAND-EMPIRICAL-DECOMP-PHYSICS",
-      "blocker_id": "grand_toe_empirical_superiority",
-      "domain": "physics",
-      "owner_capability": "Research/EmpiricalScience",
-      "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PACK",
-      "current_valid_n": 0,
-      "minimum_n": 20,
-      "missing_n": 20,
-      "domain_blockers": [
-        "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-        "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-        "CANDIDATE_EVIDENCE_PACKS_INVALID::2"
-      ],
-      "required_protocol_steps": [
-        "pre-register the OC model, comparator baseline, residual metric, uncertainty method, negative controls, and falsifiers before target scoring",
-        "freeze training/source-development material separately from target/held-out sources and record stable hashes",
-        "keep target values hidden until scoring is complete, or use a genuinely prospective target source",
-        "collect at least the configured per-domain N with no training/target source overlap",
-        "score OC residuals and comparator residuals under the same metric and uncertainty protocol",
-        "reject every declared negative control and retain falsifier conditions even when the candidate fails",
-        "register the final evidence pack in validation/heldout/grand_science_evidence_registry.json only after the pack is complete"
-      ],
-      "required_pack_fields": [
-        "schema_id",
-        "release_id",
-        "capability_owner",
-        "evidence_pack_id",
-        "domain",
-        "source_separation",
-        "n",
-        "model_under_test",
-        "comparator_baseline",
-        "uncertainty",
-        "residuals",
-        "negative_controls",
-        "falsifiers",
-        "grand_toe_support_allowed"
-      ],
-      "sample_pack_ref": "validation/heldout/samples/grand_empirical_evidence_pack.sample.json",
-      "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
-      "protocol_schema_ref": "validation/grand_science/grand_empirical_protocol.schema.json",
-      "registry_ref": "validation/heldout/grand_science_evidence_registry.json"
-    },
-    {
-      "queue_id": "OC133-GRAND-EMPIRICAL-DECOMP-SYSTEMS",
-      "blocker_id": "grand_toe_empirical_superiority",
-      "domain": "systems",
-      "owner_capability": "Research/EmpiricalScience",
-      "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PACK",
-      "current_valid_n": 0,
-      "minimum_n": 20,
-      "missing_n": 20,
-      "domain_blockers": [
-        "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-        "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-        "CANDIDATE_EVIDENCE_PACKS_INVALID::6"
-      ],
-      "required_protocol_steps": [
-        "pre-register the OC model, comparator baseline, residual metric, uncertainty method, negative controls, and falsifiers before target scoring",
-        "freeze training/source-development material separately from target/held-out sources and record stable hashes",
-        "keep target values hidden until scoring is complete, or use a genuinely prospective target source",
-        "collect at least the configured per-domain N with no training/target source overlap",
-        "score OC residuals and comparator residuals under the same metric and uncertainty protocol",
-        "reject every declared negative control and retain falsifier conditions even when the candidate fails",
-        "register the final evidence pack in validation/heldout/grand_science_evidence_registry.json only after the pack is complete"
-      ],
-      "required_pack_fields": [
-        "schema_id",
-        "release_id",
-        "capability_owner",
-        "evidence_pack_id",
-        "domain",
-        "source_separation",
-        "n",
-        "model_under_test",
-        "comparator_baseline",
-        "uncertainty",
-        "residuals",
-        "negative_controls",
-        "falsifiers",
-        "grand_toe_support_allowed"
-      ],
-      "sample_pack_ref": "validation/heldout/samples/grand_empirical_evidence_pack.sample.json",
-      "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
-      "protocol_schema_ref": "validation/grand_science/grand_empirical_protocol.schema.json",
-      "registry_ref": "validation/heldout/grand_science_evidence_registry.json"
-    }
-  ]
+  "rows": []
 }

@@ -1,0 +1,1519 @@
+{
+  "schema_id": "OC133_AGRICULTURE_FDC_SODIUM_TARGET_HIDDEN_TASK_TABLE_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "target_work_order_id": "MS-COV-WO-020",
+  "source_snapshot_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/OC133_AGRICULTURE_FDC_FOUNDATION_FOODS_LIST_25.compact.json",
+  "source_snapshot_sha256": "47895b2c098463427e3b5c439a2f0693a8971ceaa5a2de11f0c8ade2180fc5f1",
+  "source_lock_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-FOUNDATION-FOODS-LIST-0001.lock.json",
+  "source_lock_sha256": "707fcc3770a6052528f7606f9cbf9bb71c6a729388f11df2749cb01ef4416248",
+  "target_hidden_until_scoring": true,
+  "target_values_present": false,
+  "target_values_used_for_selection": false,
+  "target_values_used_for_model_design": false,
+  "predeclared_visible_fields": [
+    "fdcId",
+    "description",
+    "dataType",
+    "publicationDate",
+    "ndbNumber",
+    "selected_nutrients[203].name",
+    "selected_nutrients[203].amount",
+    "selected_nutrients[203].unitName",
+    "selected_nutrients[203].derivationCode",
+    "selected_nutrients[203].derivationDescription",
+    "selected_nutrients[204].name",
+    "selected_nutrients[204].amount",
+    "selected_nutrients[204].unitName",
+    "selected_nutrients[204].derivationCode",
+    "selected_nutrients[204].derivationDescription",
+    "selected_nutrients[205].name",
+    "selected_nutrients[205].amount",
+    "selected_nutrients[205].unitName",
+    "selected_nutrients[205].derivationCode",
+    "selected_nutrients[205].derivationDescription",
+    "selected_nutrients[207].name",
+    "selected_nutrients[207].amount",
+    "selected_nutrients[207].unitName",
+    "selected_nutrients[207].derivationCode",
+    "selected_nutrients[207].derivationDescription",
+    "selected_nutrients[208].name",
+    "selected_nutrients[208].amount",
+    "selected_nutrients[208].unitName",
+    "selected_nutrients[208].derivationCode",
+    "selected_nutrients[208].derivationDescription",
+    "selected_nutrients[301].name",
+    "selected_nutrients[301].amount",
+    "selected_nutrients[301].unitName",
+    "selected_nutrients[301].derivationCode",
+    "selected_nutrients[301].derivationDescription"
+  ],
+  "hidden_target_fields": [
+    "selected_nutrients[307].amount",
+    "selected_nutrients[307].unitName",
+    "selected_nutrients[307].derivationCode",
+    "selected_nutrients[307].derivationDescription"
+  ],
+  "formula_model": {
+    "formula_id": "AGRI-FDC-VISIBLE-ASH-SODIUM-PROXY-v1",
+    "rule": "predict sodium_mg_per_100g = max(0, 393.37 * visible_ash_g_per_100g), using the sodium mass fraction of sodium chloride as a fixed visible-ash proxy; nutrient 307 is excluded from visible inputs and is unsealed only for scoring",
+    "target_values_used_for_model_design": false
+  },
+  "comparator_baseline": {
+    "comparator_id": "AGRI-FDC-VISIBLE-CALCIUM-MINERAL-BASELINE-v1",
+    "name": "FoodData Central visible calcium mineral baseline",
+    "prediction_rule": "predict sodium_mg_per_100g = visible calcium_mg_per_100g from nutrient 301",
+    "pre_registered": true,
+    "target_values_used_for_baseline_design": false
+  },
+  "prediction_materialization": {
+    "predictions_materialized_before_target_unseal": true,
+    "materialization_rule": "task rows contain visible-only model and comparator predictions before hidden sodium targets are opened",
+    "hidden_target_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-SODIUM-HIDDEN-TARGETS-0001.lock.json"
+  },
+  "row_count": 25,
+  "rows_sha256": "3c046529f2cf85ab51e1ca7a5d6a459ac3d73348bfaf13bd2c4ad010c6bf8074",
+  "rows": [
+    {
+      "task_id": "AGRI-FDC-SODIUM-0001",
+      "fdcId": 321358,
+      "description": "Hummus, commercial",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "16158",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 7.35,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 17.1,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 14.9,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 1.97,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 229.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 41.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "2ffa095cbb5cadb888540c6a89eadd789c3d7999c1fdc4973dd076a53782be77",
+      "visible_row_sha256": "3587b934f478f5daf46af94586e5bf498d77a87891b0c3087bc7a1a2c479f352",
+      "model_prediction_mg_per_100g": 774.9389,
+      "comparator_prediction_mg_per_100g": 41.0,
+      "task_row_sha256": "7dadc4f03bc81630cb52027b0a2a913ca2c617549556b7208fcb55df48ff629d"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0002",
+      "fdcId": 321360,
+      "description": "Tomatoes, grape, raw",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "100147",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 0.83,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 0.63,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 5.51,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 0.56,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 27.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 11.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "8e553dbbfeaee8958a3ff57d0784ad939918f45de6495caad37a696afaf64cbf",
+      "visible_row_sha256": "9129a08b6c05f3ebe039563438f71e2ef14e6be392ed5036cba7663e2fdec399",
+      "model_prediction_mg_per_100g": 220.2872,
+      "comparator_prediction_mg_per_100g": 11.0,
+      "task_row_sha256": "04fd68792adca040b79d9a020ed9a0f7843b26c5233fbe2be9ba1515f7e73690"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0003",
+      "fdcId": 321611,
+      "description": "Beans, snap, green, canned, regular pack, drained solids",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "11056",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 1.04,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 0.39,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 4.11,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 0.89,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 21.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 36.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "364648eef4a7c2554847a3c83a22a3063f38474a050535d5f82f3c2f0dc39f2b",
+      "visible_row_sha256": "23a293f492f20d4e76cf4baaa0c66d79c9e213e3bbc7130061efbc0d7304464a",
+      "model_prediction_mg_per_100g": 350.0993,
+      "comparator_prediction_mg_per_100g": 36.0,
+      "task_row_sha256": "de48f87f9f7d9a25636acac09ddc0110c4160dd66fa55b8d2164329cf5b471f1"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0004",
+      "fdcId": 323121,
+      "description": "Frankfurter, beef, unheated",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "7022",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 11.7,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 28.0,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 2.89,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 2.74,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 314.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 15.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "60a57cf89893adf004736e6367dc453ca4b4f57b3e217f56b780f9a1840cf84e",
+      "visible_row_sha256": "6982f59e04c339b732be1c775971756ed93f61acd325e11c6b5d40b85d9dda59",
+      "model_prediction_mg_per_100g": 1077.8338,
+      "comparator_prediction_mg_per_100g": 15.0,
+      "task_row_sha256": "f90058f8ee1eeff07b18eca23ed0bd1904c2b3d28abed71453ea6f01d37098c2"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0005",
+      "fdcId": 323294,
+      "description": "Nuts, almonds, dry roasted, with salt added",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "12563",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 20.4,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 57.8,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 16.2,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 3.47,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 620.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 273.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "938d5d05958075897c6d9b36837a5e5efaf99c2aaf37bcd762e378f8bc0d9583",
+      "visible_row_sha256": "d365dd08cd8c0f66b4321bd4fa65439bf4b6ea533f8f72e620ddb761ec89a7a5",
+      "model_prediction_mg_per_100g": 1364.9939,
+      "comparator_prediction_mg_per_100g": 273.0,
+      "task_row_sha256": "123f309efecae5a6f824f717807c7a3f5d2d9249619974cad2a90211e65d360b"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0006",
+      "fdcId": 323505,
+      "description": "Kale, raw",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "11233",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 2.92,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 1.49,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 4.42,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 1.54,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 35.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 254.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "623f09780bafabfda92ef54016a804e6b2f06fc367f0ecf0f3d976f66e49f3c3",
+      "visible_row_sha256": "eafa787202077600e03ed1f86137d29b2eebf0227765f8813624c00ab0e84950",
+      "model_prediction_mg_per_100g": 605.7898,
+      "comparator_prediction_mg_per_100g": 254.0,
+      "task_row_sha256": "b6a81d64c65c52adc4c4078a266158096df8c06dc156779d794d40965e93f9fe"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0007",
+      "fdcId": 323604,
+      "description": "Egg, whole, raw, frozen, pasteurized",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "1171",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 12.3,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 10.3,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 0.91,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 1.16,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 150.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 55.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "b6cc2366a0cb7b0415c8a7c1f41c8de6af9b61aab60d384a61bb5647af8aaedb",
+      "visible_row_sha256": "2aa09129d7032f29922a1b6015e9cbcb018c215fa971f0a8081f85452fa91b91",
+      "model_prediction_mg_per_100g": 456.3092,
+      "comparator_prediction_mg_per_100g": 55.0,
+      "task_row_sha256": "077cffcb90be5a53bb728508aa02278a806eef8d08378fb4ed3d400257e95eb1"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0008",
+      "fdcId": 323697,
+      "description": "Egg, white, raw, frozen, pasteurized",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "1172",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 10.1,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 0.16,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 0.74,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 0.7,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 48.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 9.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "73cd97e1c96402acdcb8c226d40e74f3f89b2e29be4f67716264bbfc08737aca",
+      "visible_row_sha256": "9264e8753ffa4d60c758eb8667b90e3223f56601fed8fe0aa1d94c4a6efb61a5",
+      "model_prediction_mg_per_100g": 275.359,
+      "comparator_prediction_mg_per_100g": 9.0,
+      "task_row_sha256": "0c9c41d349c31f451934774342b221b54a2ddce85ce48fe2329a5e2a6b71dae7"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0009",
+      "fdcId": 323793,
+      "description": "Egg, white, dried",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "1173",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 79.9,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 0.65,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 6.02,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 5.47,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 376.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 104.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "eab0321562cac897c3c78f05803b9f09c9b48fb34275dcd5a24862c8389c8bb3",
+      "visible_row_sha256": "63321a5285be662c7ce449ce1a33bcf325d669011ccfa7e79b9af5f19032eff2",
+      "model_prediction_mg_per_100g": 2151.7339,
+      "comparator_prediction_mg_per_100g": 104.0,
+      "task_row_sha256": "f79d850d2209c4e1c3bed53695d873fc98e6367c8a87e3e149449293f35a9020"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0010",
+      "fdcId": 324317,
+      "description": "Onion rings, breaded, par fried, frozen, prepared, heated in oven",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "11296",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 4.52,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 14.4,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 36.3,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 1.44,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 288.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 28.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "daed8d35af2a777650adee79bbcd82c761263c1f441c8926780efc47f1652391",
+      "visible_row_sha256": "028cccb64ccda52169348065eb9545c971f049f22c8a8d00a33eb1831f3c9efe",
+      "model_prediction_mg_per_100g": 566.4528,
+      "comparator_prediction_mg_per_100g": 28.0,
+      "task_row_sha256": "999620e7e870a63e4309c3b8be6217be2fa8cc4f656ca4b9b4d94f2b00356df7"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0011",
+      "fdcId": 324653,
+      "description": "Pickles, cucumber, dill or kosher dill",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "11937",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 0.48,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 0.43,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 1.99,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 2.44,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 12.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 54.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "9f641db716326bb0e326c96f5f512647c242228444d42127b26e18843712ce52",
+      "visible_row_sha256": "48d440276dd91db93d585dda86f2a7a6782386766ce49bcb3ee6210c9a89d22b",
+      "model_prediction_mg_per_100g": 959.8228,
+      "comparator_prediction_mg_per_100g": 54.0,
+      "task_row_sha256": "92409cc337d6124cf88abb42e763b144843ba58081b20894db1472fd9a01bcc9"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0012",
+      "fdcId": 325036,
+      "description": "Cheese, parmesan, grated",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "1032",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 29.6,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 28.0,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 12.4,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 7.15,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 421.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 884.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "a8f05824241f75b050f013846527c64c62b8511c560af0c3c05887540c378be4",
+      "visible_row_sha256": "59cfb51ba160f88ea3e5aadc00397ba44861f6d8b249f672fa9d872b48cfcb8e",
+      "model_prediction_mg_per_100g": 2812.5955,
+      "comparator_prediction_mg_per_100g": 884.0,
+      "task_row_sha256": "667ec0ad87d80f07cd3c2514bfa5f6ec93e8d81e2df82a653fc744b492cb2957"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0013",
+      "fdcId": 325198,
+      "description": "Cheese, pasteurized process, American, vitamin D fortified",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "1042",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 18.0,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 30.6,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 5.27,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 6.59,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 366.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 866.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "f9b81f285d347db070ce49a830cac252cee9dada1d62259c0a7070a07d40704c",
+      "visible_row_sha256": "b6b7b80cb32f01eee1a84c16744fa49e743dac0e70a8ed76e59115dfc725d9b1",
+      "model_prediction_mg_per_100g": 2592.3083,
+      "comparator_prediction_mg_per_100g": 866.0,
+      "task_row_sha256": "cefb8991428fc25241fe47d25a8cbb701c6e5094b8001dc334ccd9e2ce480b2b"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0014",
+      "fdcId": 325287,
+      "description": "Grapefruit juice, white, canned or bottled, unsweetened",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "9123",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 0.55,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 0.7,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 7.59,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 0.29,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 37.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 16.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "2d072326727ce7fab14ffa6b7383b73522aeeb5e9e9575cf339314820a54a20b",
+      "visible_row_sha256": "d0973c12b2ac7305b8b4fb8e764c4708a73273e4e908fe617924bc5adaccb841",
+      "model_prediction_mg_per_100g": 114.0773,
+      "comparator_prediction_mg_per_100g": 16.0,
+      "task_row_sha256": "82ab2a24389666adfea2b9822864d78234f7ba4aba362b1e6f77feac6a365d86"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0015",
+      "fdcId": 325430,
+      "description": "Peaches, yellow, raw",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "9236",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 0.91,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 0.27,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 10.1,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 0.43,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 42.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 4.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "4caf74b2924509348c2d3e6f02ae122938c0ffe67697bcfcaa04aac30ce6137d",
+      "visible_row_sha256": "96bc157d7461bc104839f5ab02263f8cc7be9c6ca7d85723318bd2c89e362cb4",
+      "model_prediction_mg_per_100g": 169.1491,
+      "comparator_prediction_mg_per_100g": 4.0,
+      "task_row_sha256": "7cbf81685a0edf364cef4ab4d1fa2ef20315aa65e87d4921837f7ac5da136518"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0016",
+      "fdcId": 325524,
+      "description": "Seeds, sunflower seed kernels, dry roasted, with salt added",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "12537",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 21.0,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 56.1,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 17.1,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 4.3,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 612.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 78.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "ced184662b3eab433c6f42cfb28adaa69442ccf6a39d1df876372d4f93c18b03",
+      "visible_row_sha256": "ce247d5d6c9c9bfc84c023d3e8487ad01649315fd82506c9665c39ffef203fc0",
+      "model_prediction_mg_per_100g": 1691.491,
+      "comparator_prediction_mg_per_100g": 78.0,
+      "task_row_sha256": "e252a85ab6355cdad99547cbd75aa1662682c7fdb9cbff9d97b450e07e773750"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0017",
+      "fdcId": 326196,
+      "description": "Kale, frozen, cooked, boiled, drained, without salt",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "11236",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 2.94,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 1.21,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 5.3,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 0.73,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 36.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 150.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "03dc8e14076cafce23ea1ce09b2d61a63f8581e95726da5a4d71edfd026dd84e",
+      "visible_row_sha256": "d2210bb3348f540f88d0ff7c15fbf3558706e4724f66748022368729a9243f4f",
+      "model_prediction_mg_per_100g": 287.1601,
+      "comparator_prediction_mg_per_100g": 150.0,
+      "task_row_sha256": "c7aa8b0d55431e81762f205417daeefb158d969777bfe023fc7319a263c56a62"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0018",
+      "fdcId": 326698,
+      "description": "Mustard, prepared, yellow",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "2046",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 4.25,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 3.38,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 5.3,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 3.37,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 61.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 63.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "ab05d616c36603aeac2782c67c5c266ead44e4f74eebad093442f67a1d45c78e",
+      "visible_row_sha256": "9bf360e69a413ced34c32667747c9467d4e84711b9b516d4c896b1a2ad2f1f0d",
+      "model_prediction_mg_per_100g": 1325.6569,
+      "comparator_prediction_mg_per_100g": 63.0,
+      "task_row_sha256": "cca34adb32fadad358578d5d1e3b38aac033ed98c5b2e8ffaac45e8f9983a062"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0019",
+      "fdcId": 327046,
+      "description": "Kiwifruit, green, raw",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "9148",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 1.06,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 0.44,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 14.0,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 0.63,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 58.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 35.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "f9fcf8f23ce8d13f3266da4af5f9a5c9f00f5821048e9cb57569e36f410d0c60",
+      "visible_row_sha256": "9157955495816e824a9410a83fa698d2feee1d641d2e8b69d25750a89314d879",
+      "model_prediction_mg_per_100g": 247.8231,
+      "comparator_prediction_mg_per_100g": 35.0,
+      "task_row_sha256": "957f8c35fdacba40c2800c2c94bc032554c428b15e1c13fb159bb580f89d2a53"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0020",
+      "fdcId": 327357,
+      "description": "Nectarines, raw",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "9191",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 1.06,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 0.28,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 9.18,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 0.48,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 39.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 2.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "e707f83ada8b076aeb3e41bcc21eca5295b93527494065e3c4bfabc91f684538",
+      "visible_row_sha256": "34549063eb9cc8ad9aae1fb875bc4dc06004d2da17ff7a47493cebf7c38de3c6",
+      "model_prediction_mg_per_100g": 188.8176,
+      "comparator_prediction_mg_per_100g": 2.0,
+      "task_row_sha256": "bb0920f7aa9ce24dfdee3743d862ae420dd5941936e79ffd61f44f291b5d50d2"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0021",
+      "fdcId": 328637,
+      "description": "Cheese, cheddar",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "1009",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 23.3,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 34.0,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 2.44,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 3.67,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 408.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 707.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "f4f7b2f61aa504a262007da91869ef973ac51060ba4d087438f0e7b3a939e1e0",
+      "visible_row_sha256": "0bee6ac3da091a2570ff28bf1e418d8473c8375022267b4adf9156f77c931e44",
+      "model_prediction_mg_per_100g": 1443.6679,
+      "comparator_prediction_mg_per_100g": 707.0,
+      "task_row_sha256": "39f282a12290ea0bcc84d872fb1c27045d7f17dca38a0b7c2f8e94c777a021c0"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0022",
+      "fdcId": 328841,
+      "description": "Cheese, cottage, lowfat, 2% milkfat",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "1015",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 11.0,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 2.3,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 4.31,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 1.25,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 84.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 103.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "a4865c326bffb810b4d1e0276238fb9d2261068841fa9a4d7a5f0c1b0f838245",
+      "visible_row_sha256": "a53c8a8d7eed4941e6d670909358163f51c37a71f398656e242d57b4834a8157",
+      "model_prediction_mg_per_100g": 491.7125,
+      "comparator_prediction_mg_per_100g": 103.0,
+      "task_row_sha256": "57fc7bde0ad80d9a4e2d9c1520f9761ccd3bd672ea82f2e4e0150785a1208226"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0023",
+      "fdcId": 329370,
+      "description": "Cheese, mozzarella, low moisture, part-skim",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "1029",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 23.7,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 20.4,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 4.44,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 3.79,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 298.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 693.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "86b87fd1e35d885b58990d54c00bb7921b3bb8c1a9d6e431634491faae1ae615",
+      "visible_row_sha256": "830080e0dad2f196346a1908788a864d7d00395109f06207aa8c95d6fb966947",
+      "model_prediction_mg_per_100g": 1490.8723,
+      "comparator_prediction_mg_per_100g": 693.0,
+      "task_row_sha256": "d060d5a21a1cbfa4d773ac3cb9cc88001ad7d390737093278b9827e49c7dfd2c"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0024",
+      "fdcId": 329490,
+      "description": "Egg, whole, dried",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "1133",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 48.1,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 39.8,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 1.87,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 6.2,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 575.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 220.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "b511371502babd96ce12cc7a608503187fdfd0caf42e904a2d3128abf224dc7b",
+      "visible_row_sha256": "29d9e18ceca3a0054ed29e417a691848e45b2896d816a26056ea4316200005d7",
+      "model_prediction_mg_per_100g": 2438.894,
+      "comparator_prediction_mg_per_100g": 220.0,
+      "task_row_sha256": "eed51085d38f95dd394a1d60fb05c59db44413f9825e13d9e5c984a8018f6d7a"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0025",
+      "fdcId": 329596,
+      "description": "Egg, yolk, raw, frozen, pasteurized",
+      "dataType": "Foundation",
+      "publicationDate": "2019-04-01",
+      "ndbNumber": "1126",
+      "visible_selected_nutrients": {
+        "203": {
+          "name": "Protein",
+          "amount": 15.6,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "204": {
+          "name": "Total lipid (fat)",
+          "amount": 25.1,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "205": {
+          "name": "Carbohydrate, by difference",
+          "amount": 0.59,
+          "unitName": "G",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "207": {
+          "name": "Ash",
+          "amount": 2.65,
+          "unitName": "G",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        },
+        "208": {
+          "name": "Energy",
+          "amount": 296.0,
+          "unitName": "KCAL",
+          "derivationCode": "NC",
+          "derivationDescription": "Calculated"
+        },
+        "301": {
+          "name": "Calcium, Ca",
+          "amount": 119.0,
+          "unitName": "MG",
+          "derivationCode": "A",
+          "derivationDescription": "Analytical"
+        }
+      },
+      "source_row_sha256": "5d4c9f97fa48c0146171680dc605e6c518ab63f109d7c54fe44328a8fcbfa9eb",
+      "visible_row_sha256": "80122ba761bdd171566125adf4117323c34bab6246a7ddfdb2dd6ac50d5fba03",
+      "model_prediction_mg_per_100g": 1042.4305,
+      "comparator_prediction_mg_per_100g": 119.0,
+      "task_row_sha256": "a24d4359757e5552bd1aa72a4b4fadd07b1804306a008f3b9f988902c0a4524f"
+    }
+  ],
+  "coverage_closure_allowed": false,
+  "no_send_locks": {
+    "no_send": true,
+    "public_release_action_allowed": false,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "registry_write_allowed": false,
+    "journal_submission_allowed": false,
+    "email_allowed": false,
+    "doi_registration_allowed": false,
+    "coverage_closure_allowed": false,
+    "broad_modern_science_superiority_allowed": false,
+    "all_domain_scientific_closure_allowed": false
+  },
+  "task_table_sha256": "9d4f6adfab62994f1b7d42283dd07cf04f851650f53a3dd8a4c76fcf02737218"
+}

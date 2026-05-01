@@ -1,49 +1,524 @@
 {
-  "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+  "schema_id": "OC133_FORMAL_SUPPORT_EVIDENCE_v1",
   "release_id": "oc_core_1_3_3",
-  "capability_owner": "Research/EmpiricalScience",
-  "evidence_pack_id": "OC133-GRAND-MATHEMATICS-CANDIDATE",
+  "capability_owner": "Research/FormalScience",
+  "evidence_pack_id": "OC133-FORMAL-MATHEMATICS-FINITE-PROOF-CORPUS-V3",
   "domain": "mathematics",
+  "support_route": "formal",
+  "evidence_class": "formal_finite_proof_corpus",
+  "claim_support_scope": "formal_claims_only",
+  "empirical_support_allowed": false,
+  "formal_support_allowed": true,
+  "formal_support_verdict": "FORMAL_SUPPORT_ACCEPTED",
+  "grand_toe_support_allowed": false,
+  "grand_empirical_support_allowed": false,
+  "route_separation_policy": "Mathematics finite/proof rows support formal claims through theorem/proof/Lean/finite obligations only; they are never counted as empirical grand-science evidence.",
   "source_separation": {
     "mode": "target_blind",
     "pre_target_lock": true,
     "target_hidden_until_scoring": true,
     "training_sources": [
-      "proofs/FINITE_MODEL_CHECKS_1_3_3.json::finite_theorem_case_rows(case_type,observed_verdict,passed,theorem_id)"
+      "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json::rows(case_id,case_type,expected_verdict,model,lean_ref)",
+      "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json::sha256=25605a333af74123d178807efe1b33fb1433a1a6a2c98e01b0f1ec60c581c51c"
     ],
     "target_sources": [
-      "proofs/FINITE_MODEL_CHECKS_1_3_3.json::machine_checked_subset_total"
+      "proofs/FINITE_MODEL_CHECKS_1_3_3.json::rows(case_id,observed_verdict,passed,lean_theorem_ref)",
+      "proofs/FINITE_MODEL_CHECKS_1_3_3.json::lean_build_certificate_ref"
     ]
   },
-  "n": 1,
-  "model_under_test": "count_unique(theorem_id where case_type='theorem_case' and observed_verdict='ACCEPT' and passed=true)",
-  "comparator_baseline": {
-    "name": "positive_case_total negative control, which counts non-theorem support rows too",
-    "prediction_rule": "Use proof-corpus positive_case_total against the same machine_checked_subset_total aggregate.",
-    "pre_registered": true
-  },
-  "uncertainty": {
-    "metric": "absolute residual over one finite proof-corpus aggregate",
-    "method": "deterministic replay of the pinned Lean/finite-model proof corpus aggregate",
-    "interval": [
-      0.0,
-      0.0
-    ]
-  },
-  "residuals": {
-    "model": 0.0,
-    "comparator": 11.0,
-    "superiority_margin": 11.0
-  },
-  "negative_controls": [
+  "n": 87,
+  "theorem_ids": [
+    "T133-K0-RES",
+    "T133-OMEGA-STATUS",
+    "T133-K-ZERO",
+    "T133-BOUNDARY",
+    "T133-HYBRID",
+    "T133-DIM",
+    "T133-CYCLE",
+    "T133-ID",
+    "T133-MIN",
+    "T133-KLEVEL"
+  ],
+  "proof_sheet_refs": [
+    "proofs/proof_sheets/T133-K0-RES.md",
+    "proofs/proof_sheets/T133-OMEGA-STATUS.md",
+    "proofs/proof_sheets/T133-K-ZERO.md",
+    "proofs/proof_sheets/T133-BOUNDARY.md",
+    "proofs/proof_sheets/T133-HYBRID.md",
+    "proofs/proof_sheets/T133-DIM.md",
+    "proofs/proof_sheets/T133-CYCLE.md",
+    "proofs/proof_sheets/T133-ID.md",
+    "proofs/proof_sheets/T133-MIN.md",
+    "proofs/proof_sheets/T133-KLEVEL.md"
+  ],
+  "lean_refs": [
+    "formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction",
+    "formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary",
+    "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
+    "formal/lean/OC133V12.lean::zero_cause_does_not_compute_k_by_itself",
+    "formal/lean/OC133V12.lean::metric_boundary_specialization",
+    "formal/lean/OC133V12.lean::integrated_operator_semantics",
+    "formal/lean/OC133V12.lean::operator_admission_route_obligations",
+    "formal/lean/OC133V12.lean::hybrid_no_guard_uses_update",
+    "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations",
+    "formal/lean/OC133V12.lean::historical_axis_survives_rank_drop",
+    "formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance",
+    "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
+    "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
+    "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage"
+  ],
+  "finite_case_ids": [
+    "FM-T133-K0-RES-POS",
+    "FM-T133-K0-RES-NEG",
+    "FM-T133-OMEGA-STATUS-POS",
+    "FM-T133-OMEGA-STATUS-NEG",
+    "FM-T133-OMEGA-IDENTITY-EQUIVOCATION-NEG",
+    "FM-T133-K-ZERO-POS",
+    "FM-T133-K-ZERO-NEG",
+    "FM-T133-K-ZERO-OBSTRUCTION-NEG",
+    "FM-T133-K-ZERO-LIVE-SUPPORT-NEG",
+    "FM-T133-BOUNDARY-POS",
+    "FM-T133-BOUNDARY-NEG",
+    "FM-T133-HYBRID-POS",
+    "FM-T133-HYBRID-NEG",
+    "FM-T133-HYBRID-NO-GUARD-STEP-POS",
+    "FM-T133-HYBRID-NO-GUARD-STEP-NEG",
+    "FM-T133-HYBRID-GUARD-MISSING-NEG",
+    "FM-T133-HYBRID-GUARD-NONBOOLEAN-NEG",
+    "FM-T133-HYBRID-GUARD-VALUE-MISMATCH-NEG",
+    "FM-T133-HYBRID-RESET-SOURCE-MODE-NEG",
+    "FM-T133-HYBRID-RESET-TARGET-MODE-NEG",
+    "FM-T133-HYBRID-SMOOTH-CHART-POS",
+    "FM-T133-HYBRID-SMOOTH-CHART-NEG",
+    "FM-T133-HYBRID-PROOF-UPDATE-POS",
+    "FM-T133-HYBRID-PROOF-UPDATE-NEG",
+    "FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG",
+    "FM-T133-HYBRID-PROOF-NO-RULE-NEG",
+    "FM-T133-DIM-POS",
+    "FM-T133-DIM-NEG",
+    "FM-T133-CYCLE-POS",
+    "FM-T133-CYCLE-NEG",
+    "FM-T133-ID-REBIRTH-NONIDENTITY-POS",
+    "FM-T133-ID-NEG",
+    "FM-T133-ID-RESIDUE-POS",
+    "FM-T133-ID-RESIDUE-NEG",
+    "FM-T133-ID-IDENTITY-POS",
+    "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+    "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+    "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE",
+    "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+    "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+    "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+    "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+    "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE",
+    "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+    "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+    "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE",
+    "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+    "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+    "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+    "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+    "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE",
+    "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+    "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+    "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE",
+    "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+    "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+    "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+    "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+    "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE",
+    "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+    "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+    "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE",
+    "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+    "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+    "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+    "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+    "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE",
+    "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+    "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+    "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE",
+    "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+    "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+    "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+    "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+    "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE",
+    "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+    "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+    "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE",
+    "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+    "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+    "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+    "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+    "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE",
+    "FM-T133-MIN-POS",
+    "FM-T133-MIN-NEG",
+    "FM-T133-KLEVEL-POS",
+    "FM-T133-KLEVEL-NEG"
+  ],
+  "formal_obligations": [
     {
-      "control_id": "OC133-TARGETBLIND-MATHEMATICS-001-POSITIVE-CASE-TOTAL-CONTROL",
-      "description": "replace theorem-id aggregate by positive_case_total and require a larger residual",
-      "rejected": true
+      "theorem_id": "T133-K0-RES",
+      "proof_sheet_ref": "proofs/proof_sheets/T133-K0-RES.md",
+      "proof_sheet_ref_exists": true,
+      "primary_lean_ref": "formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction",
+      "case_lean_refs": [
+        "formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction"
+      ],
+      "finite_case_ids": [
+        "FM-T133-K0-RES-POS",
+        "FM-T133-K0-RES-NEG"
+      ],
+      "finite_positive_case_ids": [
+        "FM-T133-K0-RES-POS"
+      ],
+      "finite_negative_case_ids": [
+        "FM-T133-K0-RES-NEG"
+      ],
+      "public_claim_boundary": "K0 support is treated as a no-send formal release-consistency check over declared resolution quotients: same-resolution states are not distinguished, and a finite countermodel shows raw separation need not induce resolution distinction. It is not promoted as an independent novelty or scientific theorem in v12.",
+      "formal_obligation_passed": true,
+      "formal_obligation_failures": []
+    },
+    {
+      "theorem_id": "T133-OMEGA-STATUS",
+      "proof_sheet_ref": "proofs/proof_sheets/T133-OMEGA-STATUS.md",
+      "proof_sheet_ref_exists": true,
+      "primary_lean_ref": "formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary",
+      "case_lean_refs": [
+        "formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary"
+      ],
+      "finite_case_ids": [
+        "FM-T133-OMEGA-STATUS-POS",
+        "FM-T133-OMEGA-STATUS-NEG",
+        "FM-T133-OMEGA-IDENTITY-EQUIVOCATION-NEG"
+      ],
+      "finite_positive_case_ids": [
+        "FM-T133-OMEGA-STATUS-POS"
+      ],
+      "finite_negative_case_ids": [
+        "FM-T133-OMEGA-STATUS-NEG",
+        "FM-T133-OMEGA-IDENTITY-EQUIVOCATION-NEG"
+      ],
+      "public_claim_boundary": "Death blocks live status; residue and rebirth are token-bound evidence relations with distinct class-specific endpoint rules: residue separates source from residue while returning to the source endpoint, and rebirth separates source, residue, and new target tokens. Rebirth is non-identity unless endpoint-bound identity evidence has identity class, declared invariant preservation, no residue token, and equal source/target endpoint evidence. No categorical Hom/composition theorem is promoted.",
+      "formal_obligation_passed": true,
+      "formal_obligation_failures": []
+    },
+    {
+      "theorem_id": "T133-K-ZERO",
+      "proof_sheet_ref": "proofs/proof_sheets/T133-K-ZERO.md",
+      "proof_sheet_ref_exists": true,
+      "primary_lean_ref": "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
+      "case_lean_refs": [
+        "formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support",
+        "formal/lean/OC133V12.lean::zero_cause_does_not_compute_k_by_itself"
+      ],
+      "finite_case_ids": [
+        "FM-T133-K-ZERO-POS",
+        "FM-T133-K-ZERO-NEG",
+        "FM-T133-K-ZERO-OBSTRUCTION-NEG",
+        "FM-T133-K-ZERO-LIVE-SUPPORT-NEG"
+      ],
+      "finite_positive_case_ids": [
+        "FM-T133-K-ZERO-POS"
+      ],
+      "finite_negative_case_ids": [
+        "FM-T133-K-ZERO-NEG",
+        "FM-T133-K-ZERO-OBSTRUCTION-NEG",
+        "FM-T133-K-ZERO-LIVE-SUPPORT-NEG"
+      ],
+      "public_claim_boundary": "Continuumness zero requires live support, an independently clear obstruction ledger, and a declared zero-cause family; a zero-cause label alone does not compute k=0.",
+      "formal_obligation_passed": true,
+      "formal_obligation_failures": []
+    },
+    {
+      "theorem_id": "T133-BOUNDARY",
+      "proof_sheet_ref": "proofs/proof_sheets/T133-BOUNDARY.md",
+      "proof_sheet_ref_exists": true,
+      "primary_lean_ref": "formal/lean/OC133V12.lean::metric_boundary_specialization",
+      "case_lean_refs": [
+        "formal/lean/OC133V12.lean::metric_boundary_specialization"
+      ],
+      "finite_case_ids": [
+        "FM-T133-BOUNDARY-POS",
+        "FM-T133-BOUNDARY-NEG"
+      ],
+      "finite_positive_case_ids": [
+        "FM-T133-BOUNDARY-POS"
+      ],
+      "finite_negative_case_ids": [
+        "FM-T133-BOUNDARY-NEG"
+      ],
+      "public_claim_boundary": "Metric thresholds are a specialization of typed classifier boundaries.",
+      "formal_obligation_passed": true,
+      "formal_obligation_failures": []
+    },
+    {
+      "theorem_id": "T133-HYBRID",
+      "proof_sheet_ref": "proofs/proof_sheets/T133-HYBRID.md",
+      "proof_sheet_ref_exists": true,
+      "primary_lean_ref": "formal/lean/OC133V12.lean::integrated_operator_semantics",
+      "case_lean_refs": [
+        "formal/lean/OC133V12.lean::operator_admission_route_obligations",
+        "formal/lean/OC133V12.lean::hybrid_no_guard_uses_update",
+        "formal/lean/OC133V12.lean::bound_hybrid_admission_obligations"
+      ],
+      "finite_case_ids": [
+        "FM-T133-HYBRID-POS",
+        "FM-T133-HYBRID-NEG",
+        "FM-T133-HYBRID-NO-GUARD-STEP-POS",
+        "FM-T133-HYBRID-NO-GUARD-STEP-NEG",
+        "FM-T133-HYBRID-GUARD-MISSING-NEG",
+        "FM-T133-HYBRID-GUARD-NONBOOLEAN-NEG",
+        "FM-T133-HYBRID-GUARD-VALUE-MISMATCH-NEG",
+        "FM-T133-HYBRID-RESET-SOURCE-MODE-NEG",
+        "FM-T133-HYBRID-RESET-TARGET-MODE-NEG",
+        "FM-T133-HYBRID-SMOOTH-CHART-POS",
+        "FM-T133-HYBRID-SMOOTH-CHART-NEG",
+        "FM-T133-HYBRID-PROOF-UPDATE-POS",
+        "FM-T133-HYBRID-PROOF-UPDATE-NEG",
+        "FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG",
+        "FM-T133-HYBRID-PROOF-NO-RULE-NEG"
+      ],
+      "finite_positive_case_ids": [
+        "FM-T133-HYBRID-POS",
+        "FM-T133-HYBRID-NO-GUARD-STEP-POS",
+        "FM-T133-HYBRID-SMOOTH-CHART-POS",
+        "FM-T133-HYBRID-PROOF-UPDATE-POS"
+      ],
+      "finite_negative_case_ids": [
+        "FM-T133-HYBRID-NEG",
+        "FM-T133-HYBRID-NO-GUARD-STEP-NEG",
+        "FM-T133-HYBRID-GUARD-MISSING-NEG",
+        "FM-T133-HYBRID-GUARD-NONBOOLEAN-NEG",
+        "FM-T133-HYBRID-GUARD-VALUE-MISMATCH-NEG",
+        "FM-T133-HYBRID-RESET-SOURCE-MODE-NEG",
+        "FM-T133-HYBRID-RESET-TARGET-MODE-NEG",
+        "FM-T133-HYBRID-SMOOTH-CHART-NEG",
+        "FM-T133-HYBRID-PROOF-UPDATE-NEG",
+        "FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG",
+        "FM-T133-HYBRID-PROOF-NO-RULE-NEG"
+      ],
+      "public_claim_boundary": "OC operators are typed update semantics; chart-labelled flow-one notation is admitted only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth cases. No differentiability or ODE-solution theorem is promoted in v12.",
+      "formal_obligation_passed": true,
+      "formal_obligation_failures": []
+    },
+    {
+      "theorem_id": "T133-DIM",
+      "proof_sheet_ref": "proofs/proof_sheets/T133-DIM.md",
+      "proof_sheet_ref_exists": true,
+      "primary_lean_ref": "formal/lean/OC133V12.lean::historical_axis_survives_rank_drop",
+      "case_lean_refs": [
+        "formal/lean/OC133V12.lean::historical_axis_survives_rank_drop"
+      ],
+      "finite_case_ids": [
+        "FM-T133-DIM-POS",
+        "FM-T133-DIM-NEG"
+      ],
+      "finite_positive_case_ids": [
+        "FM-T133-DIM-POS"
+      ],
+      "finite_negative_case_ids": [
+        "FM-T133-DIM-NEG"
+      ],
+      "public_claim_boundary": "Historical axis activation and effective working rank are kept as distinct no-send formal release-consistency fields; a finite/Lean witness shows compatibility of monotone historical bookkeeping with decreasing effective rank, but v12 does not promote an independent scientific dimension theorem.",
+      "formal_obligation_passed": true,
+      "formal_obligation_failures": []
+    },
+    {
+      "theorem_id": "T133-CYCLE",
+      "proof_sheet_ref": "proofs/proof_sheets/T133-CYCLE.md",
+      "proof_sheet_ref_exists": true,
+      "primary_lean_ref": "formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance",
+      "case_lean_refs": [
+        "formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance"
+      ],
+      "finite_case_ids": [
+        "FM-T133-CYCLE-POS",
+        "FM-T133-CYCLE-NEG"
+      ],
+      "finite_positive_case_ids": [
+        "FM-T133-CYCLE-POS"
+      ],
+      "finite_negative_case_ids": [
+        "FM-T133-CYCLE-NEG"
+      ],
+      "public_claim_boundary": "Declared eligible-live status requires an explicit cycle mode or non-vacuous maintenance predicate.",
+      "formal_obligation_passed": true,
+      "formal_obligation_failures": []
+    },
+    {
+      "theorem_id": "T133-ID",
+      "proof_sheet_ref": "proofs/proof_sheets/T133-ID.md",
+      "proof_sheet_ref_exists": true,
+      "primary_lean_ref": "formal/lean/OC133V12.lean::endpoint_bound_identity_classification",
+      "case_lean_refs": [
+        "formal/lean/OC133V12.lean::endpoint_bound_identity_classification"
+      ],
+      "finite_case_ids": [
+        "FM-T133-ID-REBIRTH-NONIDENTITY-POS",
+        "FM-T133-ID-NEG",
+        "FM-T133-ID-RESIDUE-POS",
+        "FM-T133-ID-RESIDUE-NEG",
+        "FM-T133-ID-IDENTITY-POS",
+        "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE"
+      ],
+      "finite_positive_case_ids": [
+        "FM-T133-ID-REBIRTH-NONIDENTITY-POS",
+        "FM-T133-ID-RESIDUE-POS",
+        "FM-T133-ID-IDENTITY-POS",
+        "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE"
+      ],
+      "finite_negative_case_ids": [
+        "FM-T133-ID-NEG",
+        "FM-T133-ID-RESIDUE-NEG",
+        "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE",
+        "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE",
+        "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE",
+        "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE",
+        "FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE"
+      ],
+      "public_claim_boundary": "Identity continuation requires endpoint-bound identity evidence: identity class, declared invariant preservation, no residue token, equal source/target endpoint evidence, lifecycle identity-invariant truth, and typed source/target binding. Residue and rebirth evidence classes do not become identity continuation merely by preserving some invariants. No categorical Hom/composition theorem is promoted.",
+      "formal_obligation_passed": true,
+      "formal_obligation_failures": []
+    },
+    {
+      "theorem_id": "T133-MIN",
+      "proof_sheet_ref": "proofs/proof_sheets/T133-MIN.md",
+      "proof_sheet_ref_exists": true,
+      "primary_lean_ref": "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant",
+      "case_lean_refs": [
+        "formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant"
+      ],
+      "finite_case_ids": [
+        "FM-T133-MIN-POS",
+        "FM-T133-MIN-NEG"
+      ],
+      "finite_positive_case_ids": [
+        "FM-T133-MIN-POS"
+      ],
+      "finite_negative_case_ids": [
+        "FM-T133-MIN-NEG"
+      ],
+      "public_claim_boundary": "Within the declared v12 release tuple semantics, each tuple component has a one-field semantic keep/drop witness that changes the release verdict.",
+      "formal_obligation_passed": true,
+      "formal_obligation_failures": []
+    },
+    {
+      "theorem_id": "T133-KLEVEL",
+      "proof_sheet_ref": "proofs/proof_sheets/T133-KLEVEL.md",
+      "proof_sheet_ref_exists": true,
+      "primary_lean_ref": "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage",
+      "case_lean_refs": [
+        "formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage"
+      ],
+      "finite_case_ids": [
+        "FM-T133-KLEVEL-POS",
+        "FM-T133-KLEVEL-NEG"
+      ],
+      "finite_positive_case_ids": [
+        "FM-T133-KLEVEL-POS"
+      ],
+      "finite_negative_case_ids": [
+        "FM-T133-KLEVEL-NEG"
+      ],
+      "public_claim_boundary": "Every declared adjacent K-level transition K0->K12 has a release-atlas row, retained-witness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release classifier; independent semantic irreducibility beyond this declared classifier is a future proof obligation, not a promoted v12 theorem.",
+      "formal_obligation_passed": true,
+      "formal_obligation_failures": []
     }
   ],
-  "falsifiers": [
-    "Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse"
+  "formal_falsifiers": [
+    "Any theorem ID is absent from the theorem registry.",
+    "Any proof sheet ref, Lean ref, finite positive case, finite negative case, or public claim boundary is missing.",
+    "Any counted finite row fails replay, target-leakage, model-hash, Lean-binding, or expected/observed verdict checks."
   ],
-  "grand_toe_support_allowed": false
+  "formal_audit_failures": []
 }

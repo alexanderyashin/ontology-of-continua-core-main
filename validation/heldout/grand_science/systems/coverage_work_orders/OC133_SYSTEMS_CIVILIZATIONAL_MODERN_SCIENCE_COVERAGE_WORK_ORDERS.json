@@ -1,0 +1,660 @@
+{
+  "schema_id": "OC133_SYSTEMS_CIVILIZATIONAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "capability_owner": "Logion Research/Systems Civilizational Coverage",
+  "generated_by": "validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_civilizational_modern_science_coverage_work_orders.py",
+  "coverage_register_ref": "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+  "modern_science_protocol_ref": "benchmarks/modern_science/protocols/OC133_MODERN_SCIENCE_BENCHMARK_PROTOCOL_SYSTEMS.json",
+  "domain_family": "systems_civilizational",
+  "domain_class_ids": [
+    "social_economic_political_sciences",
+    "complex_systems_operations_science"
+  ],
+  "work_order_total": 5,
+  "fail_closed_or_review_pending_total": 5,
+  "coverage_closure_allowed": false,
+  "broad_modern_science_superiority_allowed": false,
+  "no_send_locks": {
+    "no_send": true,
+    "public_release_action_allowed": false,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "registry_write_allowed": false,
+    "journal_submission_allowed": false,
+    "email_allowed": false,
+    "doi_registration_allowed": false,
+    "coverage_closure_allowed": false,
+    "broad_modern_science_superiority_allowed": false
+  },
+  "work_orders": [
+    {
+      "work_order_id": "OC133-SYSTEMS-COVERAGE-ECONOMIC-INDICATOR-MARKET-OBSERVABLES",
+      "coverage_gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-ECONOMIC_INDICATOR_AND_MARKET_OBSERVABLES",
+      "domain_class_id": "social_economic_political_sciences",
+      "phenomenon_class_id": "economic_indicator_and_market_observables",
+      "phenomenon_label": "economic indicator and market observables",
+      "lane_status": "FAIL_CLOSED_PENDING_GENERALIZED_WDI_INDICATOR_REPLAY",
+      "coverage_closure_allowed": false,
+      "support_allowed_for_broad_coverage": false,
+      "current_evidence_assessment": "The current WDI population materiality lane proves the target-hidden machinery for one demographic series. It does not close economic or market coverage until GDP/market indicator rows replay with all comparators and materiality predicates.",
+      "existing_official_lane_refs": [
+        "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json",
+        "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_PROTOCOL.json",
+        "validation/heldout/grand_science/systems/wdi_model_search/OC133_SYSTEMS_WDI_MODEL_SEARCH_REPORT.json"
+      ],
+      "official_sources": [
+        {
+          "source_id": "WORLD_BANK_WDI_API",
+          "title": "World Bank World Development Indicators API",
+          "official_url": "https://api.worldbank.org/v2/",
+          "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-SYS-WORLD-BANK-WDI.txt",
+          "access_mode": "read_only_https_get",
+          "runner_allowlist_status": "ALLOWLISTED"
+        }
+      ],
+      "acquisition_requests": [
+        {
+          "request_id": "OC133-SYS-COV-WDI-GDP-WLD-0001",
+          "http_method": "GET",
+          "official_endpoint_url": "https://api.worldbank.org/v2/country/WLD/indicator/NY.GDP.MKTP.CD?format=json&per_page=20000&date=1960%3A2024",
+          "expected_local_snapshot_ref": "validation/heldout/grand_science/systems/coverage_work_orders/raw/world_bank_wdi_wld_gdp_current_usd_1960_2024.json",
+          "country": "WLD",
+          "indicator": "NY.GDP.MKTP.CD",
+          "date_range": "1960:2024",
+          "hash_required": true,
+          "no_send_lock": true
+        }
+      ],
+      "target_variable": {
+        "name": "heldout_world_gdp_current_usd",
+        "unit": "current US dollars",
+        "target_field": "WDI[WLD, NY.GDP.MKTP.CD, heldout_year].value",
+        "minimum_target_rows": 20,
+        "target_hidden_until_scoring": true
+      },
+      "prediction_formula": {
+        "formula_id": "SYSTEMS-WDI-TRAINING-ONLY-FORMULA-SELECTOR",
+        "rule": "select, using only years earlier than heldout_year, the lowest prior validation residual among carry_forward, linear_last_slope, damped_slope_25/50/75, rolling_mean_3/5, rolling_slope_3/5, and simple exponential smoothing; then score the heldout target once",
+        "inputs_visible_before_target": [
+          "country code",
+          "indicator id",
+          "strictly prior annual values",
+          "pre-registered formula manifest",
+          "pre-registered comparator manifest"
+        ],
+        "target_values_used_for_selection": false
+      },
+      "incumbent_comparator": {
+        "name": "WDI GDP best-of carry-forward, prior-mean, and trailing-mean comparators",
+        "prediction_rule": "score each heldout target against preregistered last-observation carry-forward, prior-training mean, and trailing-three-year mean baselines on the same source snapshot",
+        "pre_registered": true
+      },
+      "uncertainty_and_residual": {
+        "residual_metric": "absolute residual per heldout country/indicator/year; aggregate mean absolute residual",
+        "uncertainty_method": "selected-formula prior validation residual envelope declared before target unsealing",
+        "superiority_predicate": "every row and aggregate residual margin must exceed preregistered materiality thresholds"
+      },
+      "negative_control": {
+        "control_id": "SYSTEMS-WDI-GDP-COMPARATOR-NEGATIVE-CONTROL",
+        "description": "every preregistered comparator must have larger heldout absolute residual than the selected training-only model",
+        "rejection_predicate": "all comparator_residual values are strictly greater than model_residual for every accepted row"
+      },
+      "falsifier_predicates": [
+        "source-lock declaration contains observed target values, predictions, residuals, or row hashes",
+        "formula selection uses heldout target rows or non-prior validation rows",
+        "any comparator beats or ties the selected model within uncertainty/materiality policy",
+        "target mutation fails to change the candidate-pack or row hash",
+        "official source snapshot hash changes between acquisition and replay"
+      ],
+      "replay_protocol": {
+        "commands": [
+          "python tools/oc133_official_readonly_acquisition_runner.py --packet <generated_wdi_gdp_acquisition_packet> --write-report --allow-blocked-exit-zero",
+          "python tools/oc133_systems_wdi_predictive_search_v2_factory.py --snapshot-ref <locked_wdi_gdp_snapshot> --write --allow-blocked-exit-zero",
+          "python validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_civilizational_modern_science_coverage_work_orders.py --check"
+        ],
+        "required_artifacts": [
+          "WDI GDP source snapshot",
+          "pre-target WDI source lock",
+          "target-hidden GDP task rows",
+          "strict WDI economic indicator candidate pack"
+        ],
+        "acceptance_predicates": [
+          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
+          "TARGET_VARIABLE_DECLARED",
+          "TARGET_HIDDEN_OR_PROSPECTIVE_LOCK_DECLARED",
+          "PREDICTION_FORMULA_DECLARED_BEFORE_SCORING",
+          "COMPARATOR_PREREGISTERED_AND_NONTRIVIAL",
+          "UNCERTAINTY_AND_RESIDUAL_DECLARED",
+          "NEGATIVE_CONTROL_REJECTION_REQUIRED",
+          "FALSIFIER_PREDICATES_EXECUTABLE",
+          "INDEPENDENT_REPLAY_REQUIRED",
+          "COVERAGE_GAP_REMAINS_OPEN_UNTIL_REVIEW",
+          "NO_BROAD_SUPERIORITY_CERTIFICATION",
+          "WDI_ECONOMIC_INDICATOR_SCOPE_REVIEWED"
+        ]
+      },
+      "remaining_blockers": [
+        "GENERALIZED_WDI_GDP_REPLAY_NOT_MATERIALIZED",
+        "CURRENT_WDI_MODEL_SEARCH_HAS_NEGATIVE_CONTROL_FAILURES",
+        "COVERAGE_REVIEW_NOT_PERFORMED"
+      ],
+      "no_send_locks": {
+        "no_send": true,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "registry_write_allowed": false,
+        "journal_submission_allowed": false,
+        "email_allowed": false,
+        "doi_registration_allowed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false
+      },
+      "row_sha256": "41f9ba0118d6c27b4cc378e9d0e99e4309ebda9f889763b0720183a455b5c724"
+    },
+    {
+      "work_order_id": "OC133-SYSTEMS-COVERAGE-INSTITUTIONAL-SOCIAL-NETWORK-POLICY-OUTCOMES",
+      "coverage_gap_id": "MS-COV-GAP-SOCIAL_ECONOMIC_POLITICAL_SCIENCES-INSTITUTIONAL_SOCIAL_NETWORK_AND_POLICY_OUTCOMES",
+      "domain_class_id": "social_economic_political_sciences",
+      "phenomenon_class_id": "institutional_social_network_and_policy_outcomes",
+      "phenomenon_label": "institutional social network and policy outcomes",
+      "lane_status": "FAIL_CLOSED_PENDING_WDI_WGI_POLICY_REPLAY",
+      "coverage_closure_allowed": false,
+      "support_allowed_for_broad_coverage": false,
+      "current_evidence_assessment": "No current strict pack covers institutional, governance, policy, or social-network outcome targets.",
+      "official_sources": [
+        {
+          "source_id": "WORLD_BANK_WGI_VIA_WDI_API",
+          "title": "World Bank World Development Indicators API",
+          "official_url": "https://api.worldbank.org/v2/",
+          "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-SYS-WORLD-BANK-WDI.txt",
+          "access_mode": "read_only_https_get",
+          "runner_allowlist_status": "ALLOWLISTED"
+        }
+      ],
+      "acquisition_requests": [
+        {
+          "request_id": "OC133-SYS-COV-WDI-WGI-GE-0001",
+          "http_method": "GET",
+          "official_endpoint_url": "https://api.worldbank.org/v2/country/all/indicator/GE.EST?format=json&per_page=20000&date=1996%3A2024",
+          "expected_local_snapshot_ref": "validation/heldout/grand_science/systems/coverage_work_orders/raw/world_bank_wgi_government_effectiveness_estimate.json",
+          "country": "all",
+          "indicator": "GE.EST",
+          "date_range": "1996:2024",
+          "hash_required": true,
+          "no_send_lock": true
+        },
+        {
+          "request_id": "OC133-SYS-COV-WDI-WGI-RL-0001",
+          "http_method": "GET",
+          "official_endpoint_url": "https://api.worldbank.org/v2/country/all/indicator/RL.EST?format=json&per_page=20000&date=1996%3A2024",
+          "expected_local_snapshot_ref": "validation/heldout/grand_science/systems/coverage_work_orders/raw/world_bank_wgi_rule_of_law_estimate.json",
+          "country": "all",
+          "indicator": "RL.EST",
+          "date_range": "1996:2024",
+          "hash_required": true,
+          "no_send_lock": true
+        }
+      ],
+      "target_variable": {
+        "name": "heldout_country_year_governance_estimate",
+        "unit": "World Bank WGI estimate units",
+        "target_field": "WDI[country, GE.EST or RL.EST, heldout_year].value",
+        "minimum_target_rows": 20,
+        "target_hidden_until_scoring": true
+      },
+      "prediction_formula": {
+        "formula_id": "SYSTEMS-WDI-TRAINING-ONLY-FORMULA-SELECTOR",
+        "rule": "select, using only years earlier than heldout_year, the lowest prior validation residual among carry_forward, linear_last_slope, damped_slope_25/50/75, rolling_mean_3/5, rolling_slope_3/5, and simple exponential smoothing; then score the heldout target once",
+        "inputs_visible_before_target": [
+          "country code",
+          "indicator id",
+          "strictly prior annual values",
+          "pre-registered formula manifest",
+          "pre-registered comparator manifest"
+        ],
+        "target_values_used_for_selection": false
+      },
+      "incumbent_comparator": {
+        "name": "WGI governance best-of carry-forward, prior-mean, and trailing-mean comparators",
+        "prediction_rule": "score each heldout target against preregistered last-observation carry-forward, prior-training mean, and trailing-three-year mean baselines on the same source snapshot",
+        "pre_registered": true
+      },
+      "uncertainty_and_residual": {
+        "residual_metric": "absolute residual per heldout country/indicator/year; aggregate mean absolute residual",
+        "uncertainty_method": "selected-formula prior validation residual envelope declared before target unsealing",
+        "superiority_predicate": "every row and aggregate residual margin must exceed preregistered materiality thresholds"
+      },
+      "negative_control": {
+        "control_id": "SYSTEMS-WGI-POLICY-COMPARATOR-NEGATIVE-CONTROL",
+        "description": "every preregistered comparator must have larger heldout absolute residual than the selected training-only model",
+        "rejection_predicate": "all comparator_residual values are strictly greater than model_residual for every accepted row"
+      },
+      "falsifier_predicates": [
+        "source-lock declaration contains observed target values, predictions, residuals, or row hashes",
+        "formula selection uses heldout target rows or non-prior validation rows",
+        "any comparator beats or ties the selected model within uncertainty/materiality policy",
+        "target mutation fails to change the candidate-pack or row hash",
+        "official source snapshot hash changes between acquisition and replay"
+      ],
+      "replay_protocol": {
+        "commands": [
+          "python tools/oc133_official_readonly_acquisition_runner.py --packet <generated_wgi_acquisition_packet> --write-report --allow-blocked-exit-zero",
+          "python tools/oc133_systems_wdi_predictive_search_v2_factory.py --snapshot-ref <locked_wgi_snapshot> --write --allow-blocked-exit-zero",
+          "python validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_civilizational_modern_science_coverage_work_orders.py --check"
+        ],
+        "required_artifacts": [
+          "WGI source snapshot through WDI API",
+          "policy/governance target-hidden source lock",
+          "strict institutional-policy candidate pack"
+        ],
+        "acceptance_predicates": [
+          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
+          "TARGET_VARIABLE_DECLARED",
+          "TARGET_HIDDEN_OR_PROSPECTIVE_LOCK_DECLARED",
+          "PREDICTION_FORMULA_DECLARED_BEFORE_SCORING",
+          "COMPARATOR_PREREGISTERED_AND_NONTRIVIAL",
+          "UNCERTAINTY_AND_RESIDUAL_DECLARED",
+          "NEGATIVE_CONTROL_REJECTION_REQUIRED",
+          "FALSIFIER_PREDICATES_EXECUTABLE",
+          "INDEPENDENT_REPLAY_REQUIRED",
+          "COVERAGE_GAP_REMAINS_OPEN_UNTIL_REVIEW",
+          "NO_BROAD_SUPERIORITY_CERTIFICATION",
+          "WGI_POLICY_SCOPE_REVIEWED"
+        ]
+      },
+      "remaining_blockers": [
+        "WGI_SOURCE_SNAPSHOTS_NOT_ACQUIRED",
+        "STRICT_POLICY_OUTCOME_EVIDENCE_PACK_NOT_BUILT",
+        "COVERAGE_REVIEW_NOT_PERFORMED"
+      ],
+      "no_send_locks": {
+        "no_send": true,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "registry_write_allowed": false,
+        "journal_submission_allowed": false,
+        "email_allowed": false,
+        "doi_registration_allowed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false
+      },
+      "row_sha256": "3751e7ab3c5a44661077e9f10e1608d2ca76bb3a89f8c54ad2d88eac567a24c2"
+    },
+    {
+      "work_order_id": "OC133-SYSTEMS-COVERAGE-MULTI-AGENT-SYSTEM-DYNAMICS",
+      "coverage_gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-MULTI_AGENT_SYSTEM_DYNAMICS",
+      "domain_class_id": "complex_systems_operations_science",
+      "phenomenon_class_id": "multi_agent_system_dynamics",
+      "phenomenon_label": "multi agent system dynamics",
+      "lane_status": "FAIL_CLOSED_PENDING_WDI_FLOW_DYNAMICS_REPLAY",
+      "coverage_closure_allowed": false,
+      "support_allowed_for_broad_coverage": false,
+      "current_evidence_assessment": "No current strict pack covers multi-agent flow, migration, network, or interaction dynamics.",
+      "official_sources": [
+        {
+          "source_id": "WORLD_BANK_WDI_API",
+          "title": "World Bank World Development Indicators API",
+          "official_url": "https://api.worldbank.org/v2/",
+          "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-SYS-WORLD-BANK-WDI.txt",
+          "access_mode": "read_only_https_get",
+          "runner_allowlist_status": "ALLOWLISTED"
+        }
+      ],
+      "acquisition_requests": [
+        {
+          "request_id": "OC133-SYS-COV-WDI-NET-MIGRATION-0001",
+          "http_method": "GET",
+          "official_endpoint_url": "https://api.worldbank.org/v2/country/all/indicator/SM.POP.NETM?format=json&per_page=20000&date=1960%3A2024",
+          "expected_local_snapshot_ref": "validation/heldout/grand_science/systems/coverage_work_orders/raw/world_bank_wdi_net_migration_country_year.json",
+          "country": "all",
+          "indicator": "SM.POP.NETM",
+          "date_range": "1960:2024",
+          "hash_required": true,
+          "no_send_lock": true
+        },
+        {
+          "request_id": "OC133-SYS-COV-WDI-URBAN-POP-SHARE-0001",
+          "http_method": "GET",
+          "official_endpoint_url": "https://api.worldbank.org/v2/country/all/indicator/SP.URB.TOTL.IN.ZS?format=json&per_page=20000&date=1960%3A2024",
+          "expected_local_snapshot_ref": "validation/heldout/grand_science/systems/coverage_work_orders/raw/world_bank_wdi_urban_population_share_country_year.json",
+          "country": "all",
+          "indicator": "SP.URB.TOTL.IN.ZS",
+          "date_range": "1960:2024",
+          "hash_required": true,
+          "no_send_lock": true
+        }
+      ],
+      "target_variable": {
+        "name": "heldout_country_year_net_migration",
+        "unit": "people",
+        "target_field": "WDI[country, SM.POP.NETM, heldout_year].value",
+        "minimum_target_rows": 20,
+        "target_hidden_until_scoring": true
+      },
+      "prediction_formula": {
+        "formula_id": "SYSTEMS-WDI-TRAINING-ONLY-FORMULA-SELECTOR",
+        "rule": "select, using only years earlier than heldout_year, the lowest prior validation residual among carry_forward, linear_last_slope, damped_slope_25/50/75, rolling_mean_3/5, rolling_slope_3/5, and simple exponential smoothing; then score the heldout target once",
+        "inputs_visible_before_target": [
+          "country code",
+          "indicator id",
+          "strictly prior annual values",
+          "pre-registered formula manifest",
+          "pre-registered comparator manifest"
+        ],
+        "target_values_used_for_selection": false
+      },
+      "incumbent_comparator": {
+        "name": "WDI flow-dynamics best-of carry-forward, prior-mean, and trailing-mean comparators",
+        "prediction_rule": "score each heldout target against preregistered last-observation carry-forward, prior-training mean, and trailing-three-year mean baselines on the same source snapshot",
+        "pre_registered": true
+      },
+      "uncertainty_and_residual": {
+        "residual_metric": "absolute residual per heldout country/indicator/year; aggregate mean absolute residual",
+        "uncertainty_method": "selected-formula prior validation residual envelope declared before target unsealing",
+        "superiority_predicate": "every row and aggregate residual margin must exceed preregistered materiality thresholds"
+      },
+      "negative_control": {
+        "control_id": "SYSTEMS-MULTI-AGENT-FLOW-COMPARATOR-NEGATIVE-CONTROL",
+        "description": "every preregistered comparator must have larger heldout absolute residual than the selected training-only model",
+        "rejection_predicate": "all comparator_residual values are strictly greater than model_residual for every accepted row"
+      },
+      "falsifier_predicates": [
+        "source-lock declaration contains observed target values, predictions, residuals, or row hashes",
+        "formula selection uses heldout target rows or non-prior validation rows",
+        "any comparator beats or ties the selected model within uncertainty/materiality policy",
+        "target mutation fails to change the candidate-pack or row hash",
+        "official source snapshot hash changes between acquisition and replay"
+      ],
+      "replay_protocol": {
+        "commands": [
+          "python tools/oc133_official_readonly_acquisition_runner.py --packet <generated_wdi_flow_acquisition_packet> --write-report --allow-blocked-exit-zero",
+          "python tools/oc133_systems_wdi_predictive_search_v2_factory.py --snapshot-ref <locked_wdi_flow_snapshot> --write --allow-blocked-exit-zero",
+          "python validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_civilizational_modern_science_coverage_work_orders.py --check"
+        ],
+        "required_artifacts": [
+          "WDI migration/urbanization source snapshots",
+          "target-hidden flow-dynamics task rows",
+          "strict multi-agent systems candidate pack"
+        ],
+        "acceptance_predicates": [
+          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
+          "TARGET_VARIABLE_DECLARED",
+          "TARGET_HIDDEN_OR_PROSPECTIVE_LOCK_DECLARED",
+          "PREDICTION_FORMULA_DECLARED_BEFORE_SCORING",
+          "COMPARATOR_PREREGISTERED_AND_NONTRIVIAL",
+          "UNCERTAINTY_AND_RESIDUAL_DECLARED",
+          "NEGATIVE_CONTROL_REJECTION_REQUIRED",
+          "FALSIFIER_PREDICATES_EXECUTABLE",
+          "INDEPENDENT_REPLAY_REQUIRED",
+          "COVERAGE_GAP_REMAINS_OPEN_UNTIL_REVIEW",
+          "NO_BROAD_SUPERIORITY_CERTIFICATION",
+          "MULTI_AGENT_FLOW_SCOPE_REVIEWED"
+        ]
+      },
+      "remaining_blockers": [
+        "WDI_FLOW_DYNAMICS_SOURCE_SNAPSHOTS_NOT_ACQUIRED",
+        "STRICT_MULTI_AGENT_FLOW_EVIDENCE_PACK_NOT_BUILT"
+      ],
+      "no_send_locks": {
+        "no_send": true,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "registry_write_allowed": false,
+        "journal_submission_allowed": false,
+        "email_allowed": false,
+        "doi_registration_allowed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false
+      },
+      "row_sha256": "4bff88cc3072a9e36f303e2f54d6567b8e45a6fd7323c02a12d145833eca2de9"
+    },
+    {
+      "work_order_id": "OC133-SYSTEMS-COVERAGE-QUEUE-SUPPLY-CHAIN-OPERATIONS-OBSERVABLES",
+      "coverage_gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-QUEUE_SUPPLY_CHAIN_AND_OPERATIONS_OBSERVABLES",
+      "domain_class_id": "complex_systems_operations_science",
+      "phenomenon_class_id": "queue_supply_chain_and_operations_observables",
+      "phenomenon_label": "queue supply chain and operations observables",
+      "lane_status": "FAIL_CLOSED_PENDING_WDI_OPERATIONS_REPLAY",
+      "coverage_closure_allowed": false,
+      "support_allowed_for_broad_coverage": false,
+      "current_evidence_assessment": "No current strict pack covers queue, logistics, supply-chain, or operations-measurement targets.",
+      "official_sources": [
+        {
+          "source_id": "WORLD_BANK_WDI_API",
+          "title": "World Bank World Development Indicators API",
+          "official_url": "https://api.worldbank.org/v2/",
+          "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-SYS-WORLD-BANK-WDI.txt",
+          "access_mode": "read_only_https_get",
+          "runner_allowlist_status": "ALLOWLISTED"
+        }
+      ],
+      "acquisition_requests": [
+        {
+          "request_id": "OC133-SYS-COV-WDI-CONTAINER-PORT-TRAFFIC-0001",
+          "http_method": "GET",
+          "official_endpoint_url": "https://api.worldbank.org/v2/country/all/indicator/IS.SHP.GOOD.TU?format=json&per_page=20000&date=1960%3A2024",
+          "expected_local_snapshot_ref": "validation/heldout/grand_science/systems/coverage_work_orders/raw/world_bank_wdi_container_port_traffic_country_year.json",
+          "country": "all",
+          "indicator": "IS.SHP.GOOD.TU",
+          "date_range": "1960:2024",
+          "hash_required": true,
+          "no_send_lock": true
+        },
+        {
+          "request_id": "OC133-SYS-COV-WDI-AIR-PASSENGERS-0001",
+          "http_method": "GET",
+          "official_endpoint_url": "https://api.worldbank.org/v2/country/all/indicator/IS.AIR.PSGR?format=json&per_page=20000&date=1960%3A2024",
+          "expected_local_snapshot_ref": "validation/heldout/grand_science/systems/coverage_work_orders/raw/world_bank_wdi_air_transport_passengers_country_year.json",
+          "country": "all",
+          "indicator": "IS.AIR.PSGR",
+          "date_range": "1960:2024",
+          "hash_required": true,
+          "no_send_lock": true
+        }
+      ],
+      "target_variable": {
+        "name": "heldout_country_year_container_port_traffic",
+        "unit": "TEU",
+        "target_field": "WDI[country, IS.SHP.GOOD.TU, heldout_year].value",
+        "minimum_target_rows": 20,
+        "target_hidden_until_scoring": true
+      },
+      "prediction_formula": {
+        "formula_id": "SYSTEMS-WDI-TRAINING-ONLY-FORMULA-SELECTOR",
+        "rule": "select, using only years earlier than heldout_year, the lowest prior validation residual among carry_forward, linear_last_slope, damped_slope_25/50/75, rolling_mean_3/5, rolling_slope_3/5, and simple exponential smoothing; then score the heldout target once",
+        "inputs_visible_before_target": [
+          "country code",
+          "indicator id",
+          "strictly prior annual values",
+          "pre-registered formula manifest",
+          "pre-registered comparator manifest"
+        ],
+        "target_values_used_for_selection": false
+      },
+      "incumbent_comparator": {
+        "name": "WDI logistics/operations best-of carry-forward, prior-mean, and trailing-mean comparators",
+        "prediction_rule": "score each heldout target against preregistered last-observation carry-forward, prior-training mean, and trailing-three-year mean baselines on the same source snapshot",
+        "pre_registered": true
+      },
+      "uncertainty_and_residual": {
+        "residual_metric": "absolute residual per heldout country/indicator/year; aggregate mean absolute residual",
+        "uncertainty_method": "selected-formula prior validation residual envelope declared before target unsealing",
+        "superiority_predicate": "every row and aggregate residual margin must exceed preregistered materiality thresholds"
+      },
+      "negative_control": {
+        "control_id": "SYSTEMS-OPERATIONS-COMPARATOR-NEGATIVE-CONTROL",
+        "description": "every preregistered comparator must have larger heldout absolute residual than the selected training-only model",
+        "rejection_predicate": "all comparator_residual values are strictly greater than model_residual for every accepted row"
+      },
+      "falsifier_predicates": [
+        "source-lock declaration contains observed target values, predictions, residuals, or row hashes",
+        "formula selection uses heldout target rows or non-prior validation rows",
+        "any comparator beats or ties the selected model within uncertainty/materiality policy",
+        "target mutation fails to change the candidate-pack or row hash",
+        "official source snapshot hash changes between acquisition and replay"
+      ],
+      "replay_protocol": {
+        "commands": [
+          "python tools/oc133_official_readonly_acquisition_runner.py --packet <generated_wdi_operations_acquisition_packet> --write-report --allow-blocked-exit-zero",
+          "python tools/oc133_systems_wdi_predictive_search_v2_factory.py --snapshot-ref <locked_wdi_operations_snapshot> --write --allow-blocked-exit-zero",
+          "python validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_civilizational_modern_science_coverage_work_orders.py --check"
+        ],
+        "required_artifacts": [
+          "WDI logistics/transport source snapshots",
+          "target-hidden operations task rows",
+          "strict queue/supply-chain candidate pack"
+        ],
+        "acceptance_predicates": [
+          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
+          "TARGET_VARIABLE_DECLARED",
+          "TARGET_HIDDEN_OR_PROSPECTIVE_LOCK_DECLARED",
+          "PREDICTION_FORMULA_DECLARED_BEFORE_SCORING",
+          "COMPARATOR_PREREGISTERED_AND_NONTRIVIAL",
+          "UNCERTAINTY_AND_RESIDUAL_DECLARED",
+          "NEGATIVE_CONTROL_REJECTION_REQUIRED",
+          "FALSIFIER_PREDICATES_EXECUTABLE",
+          "INDEPENDENT_REPLAY_REQUIRED",
+          "COVERAGE_GAP_REMAINS_OPEN_UNTIL_REVIEW",
+          "NO_BROAD_SUPERIORITY_CERTIFICATION",
+          "OPERATIONS_LOGISTICS_SCOPE_REVIEWED"
+        ]
+      },
+      "remaining_blockers": [
+        "WDI_OPERATIONS_SOURCE_SNAPSHOTS_NOT_ACQUIRED",
+        "STRICT_OPERATIONS_EVIDENCE_PACK_NOT_BUILT"
+      ],
+      "no_send_locks": {
+        "no_send": true,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "registry_write_allowed": false,
+        "journal_submission_allowed": false,
+        "email_allowed": false,
+        "doi_registration_allowed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false
+      },
+      "row_sha256": "041e671634a1b469e089959fc691909474c51f544bd3c72bc5f6900caf752651"
+    },
+    {
+      "work_order_id": "OC133-SYSTEMS-COVERAGE-RESILIENCE-RISK-INTERVENTION-RESPONSE",
+      "coverage_gap_id": "MS-COV-GAP-COMPLEX_SYSTEMS_OPERATIONS_SCIENCE-RESILIENCE_RISK_AND_INTERVENTION_RESPONSE",
+      "domain_class_id": "complex_systems_operations_science",
+      "phenomenon_class_id": "resilience_risk_and_intervention_response",
+      "phenomenon_label": "resilience risk and intervention response",
+      "lane_status": "FAIL_CLOSED_PENDING_OFFICIAL_DISASTER_SOURCE_ALLOWLIST_AND_REPLAY",
+      "coverage_closure_allowed": false,
+      "support_allowed_for_broad_coverage": false,
+      "current_evidence_assessment": "No current strict pack covers disaster resilience, intervention timing, or post-event response observables.",
+      "official_sources": [
+        {
+          "source_id": "FEMA_OPENFEMA_DISASTER_DECLARATIONS",
+          "title": "FEMA OpenFEMA Disaster Declarations Summaries",
+          "official_url": "https://www.fema.gov/openfema-data-page/disaster-declarations-summaries-v2",
+          "access_mode": "read_only_https_get",
+          "runner_allowlist_status": "BLOCKED_PENDING_ALLOWLIST_ENTRY_AND_SOURCE_CAPSULE"
+        }
+      ],
+      "acquisition_requests": [
+        {
+          "request_id": "OC133-SYS-COV-FEMA-DISASTER-DECLARATIONS-0001",
+          "http_method": "GET",
+          "official_endpoint_url": "https://www.fema.gov/openfema-data-hub/arcgis/rest/services/FEMA_Disaster_Declarations_Summaries_v2/FeatureServer/0/query?where=declarationDate+%3E%3D+DATE+%272000-01-01%27&outFields=disasterNumber%2Cstate%2CdeclarationDate%2CincidentType%2CdesignatedArea&f=json&resultRecordCount=2000",
+          "expected_local_snapshot_ref": "validation/heldout/grand_science/systems/coverage_work_orders/raw/resilience_risk/fema_disaster_declarations_2000_present.json",
+          "hash_required": true,
+          "no_send_lock": true,
+          "blocked_until": "official_readonly_runner_allowlist_adds_FEMA_OpenFEMA_endpoint"
+        }
+      ],
+      "target_variable": {
+        "name": "heldout_state_month_disaster_declaration_count",
+        "unit": "declaration records per state/month",
+        "target_field": "OpenFEMA[state, incidentType, heldout_month].declaration_count",
+        "minimum_target_rows": 20,
+        "target_hidden_until_scoring": true
+      },
+      "prediction_formula": {
+        "formula_id": "SYSTEMS-RESILIENCE-SEASONAL-RISK-SLOPE",
+        "rule": "y_hat(state, month) = trailing_same_month_mean_5yr + mean(last three monthly deltas)",
+        "inputs_visible_before_target": [
+          "state",
+          "incident type",
+          "prior monthly declaration counts",
+          "pre-registered seasonal window"
+        ],
+        "target_values_used_for_selection": false
+      },
+      "incumbent_comparator": {
+        "name": "OpenFEMA seasonal carry-forward response-risk comparator",
+        "prediction_rule": "predict heldout declaration count from prior same-month mean and previous-month count",
+        "pre_registered": true
+      },
+      "uncertainty_and_residual": {
+        "residual_metric": "absolute count residual per state/month; aggregate mean absolute residual",
+        "uncertainty_method": "pre-event rolling seasonal residual envelope",
+        "superiority_predicate": "model residual plus uncertainty is smaller than best preregistered comparator residual"
+      },
+      "negative_control": {
+        "control_id": "SYSTEMS-RESILIENCE-MONTH-SHUFFLE-CONTROL",
+        "description": "shuffle heldout month labels after source lock; replay must reject the shuffled intervention timeline",
+        "rejection_predicate": "shuffled month mapping changes row hashes and worsens residuals relative to locked targets"
+      },
+      "falsifier_predicates": [
+        "OpenFEMA source snapshot cannot be hashed or replayed",
+        "heldout declaration counts leak into formula selection",
+        "seasonal carry-forward comparator ties or beats the model within uncertainty",
+        "month-shuffle control does not change row hashes"
+      ],
+      "replay_protocol": {
+        "commands": [
+          "extend official_readonly_acquisition_runner allowlist for the OpenFEMA ArcGIS query endpoint",
+          "python tools/oc133_official_readonly_acquisition_runner.py --packet <generated_fema_acquisition_packet> --write-report --allow-blocked-exit-zero",
+          "python validation/heldout/grand_science/systems/coverage_work_orders/oc133_systems_civilizational_modern_science_coverage_work_orders.py --check"
+        ],
+        "required_artifacts": [
+          "OpenFEMA source capsule and allowlist entry",
+          "target-hidden state/month declaration task rows",
+          "strict resilience/intervention response candidate pack"
+        ],
+        "acceptance_predicates": [
+          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
+          "TARGET_VARIABLE_DECLARED",
+          "TARGET_HIDDEN_OR_PROSPECTIVE_LOCK_DECLARED",
+          "PREDICTION_FORMULA_DECLARED_BEFORE_SCORING",
+          "COMPARATOR_PREREGISTERED_AND_NONTRIVIAL",
+          "UNCERTAINTY_AND_RESIDUAL_DECLARED",
+          "NEGATIVE_CONTROL_REJECTION_REQUIRED",
+          "FALSIFIER_PREDICATES_EXECUTABLE",
+          "INDEPENDENT_REPLAY_REQUIRED",
+          "COVERAGE_GAP_REMAINS_OPEN_UNTIL_REVIEW",
+          "NO_BROAD_SUPERIORITY_CERTIFICATION",
+          "OPENFEMA_ALLOWLIST_AND_SOURCE_CAPSULE_REVIEWED"
+        ]
+      },
+      "remaining_blockers": [
+        "FEMA_SOURCE_CAPSULE_NOT_PRESENT",
+        "FEMA_RUNNER_ALLOWLIST_NOT_PRESENT",
+        "STRICT_RESILIENCE_RESPONSE_EVIDENCE_PACK_NOT_BUILT"
+      ],
+      "no_send_locks": {
+        "no_send": true,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "registry_write_allowed": false,
+        "journal_submission_allowed": false,
+        "email_allowed": false,
+        "doi_registration_allowed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false
+      },
+      "row_sha256": "a28c81537f0cbf29aeb6d132f042858b201d807d09ac65a5f5f3a64d47f87658"
+    }
+  ]
+}

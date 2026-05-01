@@ -1,0 +1,472 @@
+{
+  "schema_id": "OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "capability_owner": "Logion Agriculture Evidence / Food, Crop, and Veterinary Sources",
+  "target_work_order_id": "MS-COV-WO-020",
+  "source_snapshot_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/OC133_AGRICULTURE_FDC_FOUNDATION_FOODS_LIST_25.compact.json",
+  "source_lock_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-FOUNDATION-FOODS-LIST-0001.lock.json",
+  "visible_task_table_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_TARGET_HIDDEN_TASK_TABLE.json",
+  "hidden_target_lock_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-SODIUM-HIDDEN-TARGETS-0001.lock.json",
+  "source_snapshot_sha256": "47895b2c098463427e3b5c439a2f0693a8971ceaa5a2de11f0c8ade2180fc5f1",
+  "source_lock_sha256": "707fcc3770a6052528f7606f9cbf9bb71c6a729388f11df2749cb01ef4416248",
+  "visible_task_table_sha256": "9d4f6adfab62994f1b7d42283dd07cf04f851650f53a3dd8a4c76fcf02737218",
+  "hidden_target_lock_sha256": "da6c508f04f895068337233124a1364703a38625f65fb8d6900c17f9caeecafa",
+  "source_separation": {
+    "mode": "target_blind",
+    "target_hidden_until_scoring": true,
+    "target_values_used_for_selection": false,
+    "target_values_used_for_model_design": false,
+    "predictions_materialized_before_target_unseal": true,
+    "visible_fields": [
+      "fdcId",
+      "description",
+      "dataType",
+      "publicationDate",
+      "ndbNumber",
+      "selected_nutrients[203].name",
+      "selected_nutrients[203].amount",
+      "selected_nutrients[203].unitName",
+      "selected_nutrients[203].derivationCode",
+      "selected_nutrients[203].derivationDescription",
+      "selected_nutrients[204].name",
+      "selected_nutrients[204].amount",
+      "selected_nutrients[204].unitName",
+      "selected_nutrients[204].derivationCode",
+      "selected_nutrients[204].derivationDescription",
+      "selected_nutrients[205].name",
+      "selected_nutrients[205].amount",
+      "selected_nutrients[205].unitName",
+      "selected_nutrients[205].derivationCode",
+      "selected_nutrients[205].derivationDescription",
+      "selected_nutrients[207].name",
+      "selected_nutrients[207].amount",
+      "selected_nutrients[207].unitName",
+      "selected_nutrients[207].derivationCode",
+      "selected_nutrients[207].derivationDescription",
+      "selected_nutrients[208].name",
+      "selected_nutrients[208].amount",
+      "selected_nutrients[208].unitName",
+      "selected_nutrients[208].derivationCode",
+      "selected_nutrients[208].derivationDescription",
+      "selected_nutrients[301].name",
+      "selected_nutrients[301].amount",
+      "selected_nutrients[301].unitName",
+      "selected_nutrients[301].derivationCode",
+      "selected_nutrients[301].derivationDescription"
+    ],
+    "hidden_target_fields": [
+      "selected_nutrients[307].amount",
+      "selected_nutrients[307].unitName",
+      "selected_nutrients[307].derivationCode",
+      "selected_nutrients[307].derivationDescription"
+    ]
+  },
+  "formula_model": {
+    "formula_id": "AGRI-FDC-VISIBLE-ASH-SODIUM-PROXY-v1",
+    "rule": "predict sodium_mg_per_100g = max(0, 393.37 * visible_ash_g_per_100g), using the sodium mass fraction of sodium chloride as a fixed visible-ash proxy; nutrient 307 is excluded from visible inputs and is unsealed only for scoring",
+    "target_values_used_for_model_design": false
+  },
+  "comparator_baseline": {
+    "comparator_id": "AGRI-FDC-VISIBLE-CALCIUM-MINERAL-BASELINE-v1",
+    "name": "FoodData Central visible calcium mineral baseline",
+    "prediction_rule": "predict sodium_mg_per_100g = visible calcium_mg_per_100g from nutrient 301",
+    "pre_registered": true,
+    "target_values_used_for_baseline_design": false
+  },
+  "uncertainty_residual_metric": {
+    "residual_metric": "absolute sodium residual in mg per 100 g; aggregate MAE across heldout FDC food rows",
+    "uncertainty_method": "deterministic jackknife interval over row-level absolute sodium residuals",
+    "model_jackknife_interval": {
+      "lower_mean_absolute_error": 469.474279,
+      "upper_mean_absolute_error": 548.049058
+    },
+    "comparator_jackknife_interval": {
+      "lower_mean_absolute_error": 290.375,
+      "upper_mean_absolute_error": 337.916667
+    }
+  },
+  "residuals": {
+    "model": {
+      "mean_absolute_error": 528.851068,
+      "median_absolute_error": 271.1601,
+      "max_absolute_error": 1953.894
+    },
+    "comparator": {
+      "mean_absolute_error": 324.6,
+      "median_absolute_error": 201.0,
+      "max_absolute_error": 1146.0
+    },
+    "superiority_margin_mg_per_100g": -204.251068,
+    "material_margin_required_mg_per_100g": 26.442553,
+    "material_margin_met": false
+  },
+  "negative_control": {
+    "control_id": "AGRI-FDC-FDCID-SODIUM-SHUFFLE-CONTROL",
+    "description": "rotate the hidden fdcId-to-sodium target mapping by one row after visible predictions are materialized",
+    "locked_target_map_sha256": "a746ea89df43b5057ff96fd4c0f4e505fa6774f09b273be229e944b43c7a1d05",
+    "control_target_map_sha256": "89dfad82c3a222fc111cc4114fb7a2ce016aa5a1d042d8246f375d03f2c00748",
+    "model_control_residual": {
+      "mean_absolute_error": 883.902236,
+      "median_absolute_error": 790.1772,
+      "max_absolute_error": 2591.3083
+    },
+    "rejection_predicate": "control target map hash differs from locked target map and control model MAE exceeds locked-target model MAE",
+    "rejected": true
+  },
+  "falsifier": {
+    "falsifier_id": "AGRI-FDC-FOOD-CHEMISTRY-FALSIFIER",
+    "triggers": [
+      "FDC source snapshot hash is missing or changes during replay",
+      "nutrient number 307 appears in visible model or comparator inputs",
+      "visible ash nutrient 207 or calcium nutrient 301 is missing",
+      "N is below 20",
+      "target-hidden task table, hidden target lock, scoring pack, or replay hash is missing or changes during replay",
+      "sodium shuffle negative control is not rejected"
+    ],
+    "triggered": []
+  },
+  "row_count": 25,
+  "row_results_sha256": "bbaba5c082c792f37e13e049dcea74e02d2bd9dd5ead64dfa45d70f271e7d138",
+  "row_results": [
+    {
+      "task_id": "AGRI-FDC-SODIUM-0001",
+      "fdcId": 321358,
+      "visible_row_sha256": "3587b934f478f5daf46af94586e5bf498d77a87891b0c3087bc7a1a2c479f352",
+      "hidden_target_row_sha256": "d20356ef9bffef4617491bb7ab7c743c506a68ae3a44f9bc806a0f1b69ba9a57",
+      "model_prediction_mg_per_100g": 774.9389,
+      "comparator_prediction_mg_per_100g": 41.0,
+      "observed_sodium_mg_per_100g": 438.0,
+      "model_absolute_residual_mg_per_100g": 336.9389,
+      "comparator_absolute_residual_mg_per_100g": 397.0,
+      "row_result_sha256": "618ac811e430605b45819b968ac6892c2307b1ead2f837920e07d9a25d29fb04"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0002",
+      "fdcId": 321360,
+      "visible_row_sha256": "9129a08b6c05f3ebe039563438f71e2ef14e6be392ed5036cba7663e2fdec399",
+      "hidden_target_row_sha256": "7c58cc9b12cd9e0260e97098a0750b32426af79fca36fdcf7dcc9d93281336fa",
+      "model_prediction_mg_per_100g": 220.2872,
+      "comparator_prediction_mg_per_100g": 11.0,
+      "observed_sodium_mg_per_100g": 6.0,
+      "model_absolute_residual_mg_per_100g": 214.2872,
+      "comparator_absolute_residual_mg_per_100g": 5.0,
+      "row_result_sha256": "4e02dc1a4480a04b08978c0f7d9999854a9df8e90f339aa6692c57889cef89f3"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0003",
+      "fdcId": 321611,
+      "visible_row_sha256": "23a293f492f20d4e76cf4baaa0c66d79c9e213e3bbc7130061efbc0d7304464a",
+      "hidden_target_row_sha256": "7875c82371ccf5e9d28fbe5b3d296cb5741a381f9d3582ab4c70f6e514671803",
+      "model_prediction_mg_per_100g": 350.0993,
+      "comparator_prediction_mg_per_100g": 36.0,
+      "observed_sodium_mg_per_100g": 282.0,
+      "model_absolute_residual_mg_per_100g": 68.0993,
+      "comparator_absolute_residual_mg_per_100g": 246.0,
+      "row_result_sha256": "d9a4aad306f94354a53aff5d7d1ef762ad1dc7d78bdfa413419cc3bf2aa215f6"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0004",
+      "fdcId": 323121,
+      "visible_row_sha256": "6982f59e04c339b732be1c775971756ed93f61acd325e11c6b5d40b85d9dda59",
+      "hidden_target_row_sha256": "2db4d051500cbbc9201989f261a63126d92bcd829cf2ef163e3e8cb67ae35c27",
+      "model_prediction_mg_per_100g": 1077.8338,
+      "comparator_prediction_mg_per_100g": 15.0,
+      "observed_sodium_mg_per_100g": 872.0,
+      "model_absolute_residual_mg_per_100g": 205.8338,
+      "comparator_absolute_residual_mg_per_100g": 857.0,
+      "row_result_sha256": "7e02552ff0898ef41a41b8b147fb5729c47dcd6d795edbf1a3a0ea6b983174cb"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0005",
+      "fdcId": 323294,
+      "visible_row_sha256": "d365dd08cd8c0f66b4321bd4fa65439bf4b6ea533f8f72e620ddb761ec89a7a5",
+      "hidden_target_row_sha256": "2d102f225cf8bd08cff819dceb191e36344a4af807eb9d53d5ee9ff2f4eb5e3f",
+      "model_prediction_mg_per_100g": 1364.9939,
+      "comparator_prediction_mg_per_100g": 273.0,
+      "observed_sodium_mg_per_100g": 256.0,
+      "model_absolute_residual_mg_per_100g": 1108.9939,
+      "comparator_absolute_residual_mg_per_100g": 17.0,
+      "row_result_sha256": "92b6fc8402d525fcb9bb1642f339a20ffb37f94662b69d9600ce66c78ad3783b"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0006",
+      "fdcId": 323505,
+      "visible_row_sha256": "eafa787202077600e03ed1f86137d29b2eebf0227765f8813624c00ab0e84950",
+      "hidden_target_row_sha256": "94abd136580f62854e753b5f5ae4a30c62a328ae102623263f22758ed9117be7",
+      "model_prediction_mg_per_100g": 605.7898,
+      "comparator_prediction_mg_per_100g": 254.0,
+      "observed_sodium_mg_per_100g": 53.0,
+      "model_absolute_residual_mg_per_100g": 552.7898,
+      "comparator_absolute_residual_mg_per_100g": 201.0,
+      "row_result_sha256": "aa2748eb53697707fc42510c24d06b923b94c0732add82a4c44873a2281fdef8"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0007",
+      "fdcId": 323604,
+      "visible_row_sha256": "2aa09129d7032f29922a1b6015e9cbcb018c215fa971f0a8081f85452fa91b91",
+      "hidden_target_row_sha256": "4d8e2ba99effa72a3824c80f025c75adf5f4f2a17e0eedb06acf2d66f33cd699",
+      "model_prediction_mg_per_100g": 456.3092,
+      "comparator_prediction_mg_per_100g": 55.0,
+      "observed_sodium_mg_per_100g": 121.0,
+      "model_absolute_residual_mg_per_100g": 335.3092,
+      "comparator_absolute_residual_mg_per_100g": 66.0,
+      "row_result_sha256": "0e8dcc367f0b2225972cfc0315fadecba0fec92fc7bd7a90416791c1cb069d1d"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0008",
+      "fdcId": 323697,
+      "visible_row_sha256": "9264e8753ffa4d60c758eb8667b90e3223f56601fed8fe0aa1d94c4a6efb61a5",
+      "hidden_target_row_sha256": "77edb7bd798f0a336080ec0951d1d42fb13748d7f9237eb4badfb50a87f9661e",
+      "model_prediction_mg_per_100g": 275.359,
+      "comparator_prediction_mg_per_100g": 9.0,
+      "observed_sodium_mg_per_100g": 144.0,
+      "model_absolute_residual_mg_per_100g": 131.359,
+      "comparator_absolute_residual_mg_per_100g": 135.0,
+      "row_result_sha256": "12e169f93e38ea9d097441b9223f0602cab5eb3d1ec66f9db8f4d1a0c1f725c7"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0009",
+      "fdcId": 323793,
+      "visible_row_sha256": "63321a5285be662c7ce449ce1a33bcf325d669011ccfa7e79b9af5f19032eff2",
+      "hidden_target_row_sha256": "83893e6ec780e2e115e00fafe0cfd13ec3a5f0f241d417155dbaf80c79f0a632",
+      "model_prediction_mg_per_100g": 2151.7339,
+      "comparator_prediction_mg_per_100g": 104.0,
+      "observed_sodium_mg_per_100g": 1250.0,
+      "model_absolute_residual_mg_per_100g": 901.7339,
+      "comparator_absolute_residual_mg_per_100g": 1146.0,
+      "row_result_sha256": "b0cfa607a002af8ded3b412a8ec28d983779a6551d22c64dd09c7c27c5f7fbf8"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0010",
+      "fdcId": 324317,
+      "visible_row_sha256": "028cccb64ccda52169348065eb9545c971f049f22c8a8d00a33eb1831f3c9efe",
+      "hidden_target_row_sha256": "409f6a9892014a36ee3160919917bde13bb5c322e698321c10c84beb265f7fa4",
+      "model_prediction_mg_per_100g": 566.4528,
+      "comparator_prediction_mg_per_100g": 28.0,
+      "observed_sodium_mg_per_100g": 374.0,
+      "model_absolute_residual_mg_per_100g": 192.4528,
+      "comparator_absolute_residual_mg_per_100g": 346.0,
+      "row_result_sha256": "b730f755ebc86d6dcdb797987d396c8890b1d73e7584005bcaff48d3e3dca15f"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0011",
+      "fdcId": 324653,
+      "visible_row_sha256": "48d440276dd91db93d585dda86f2a7a6782386766ce49bcb3ee6210c9a89d22b",
+      "hidden_target_row_sha256": "177d7040aa816e92dc4a2c6c33668fcae34d2775add2fcf59d2cd02c1b195668",
+      "model_prediction_mg_per_100g": 959.8228,
+      "comparator_prediction_mg_per_100g": 54.0,
+      "observed_sodium_mg_per_100g": 808.0,
+      "model_absolute_residual_mg_per_100g": 151.8228,
+      "comparator_absolute_residual_mg_per_100g": 754.0,
+      "row_result_sha256": "68327f9b326897ab1865eff17d771c2b384fc0cb134f68d343f4f946e206849f"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0012",
+      "fdcId": 325036,
+      "visible_row_sha256": "59cfb51ba160f88ea3e5aadc00397ba44861f6d8b249f672fa9d872b48cfcb8e",
+      "hidden_target_row_sha256": "672335ea39c924f67bc7123534ff4988d93a1a28b9a16015fcf82a4e55591882",
+      "model_prediction_mg_per_100g": 2812.5955,
+      "comparator_prediction_mg_per_100g": 884.0,
+      "observed_sodium_mg_per_100g": 1750.0,
+      "model_absolute_residual_mg_per_100g": 1062.5955,
+      "comparator_absolute_residual_mg_per_100g": 866.0,
+      "row_result_sha256": "e91452f6ad662e4c92f930287601403a7de440840c6c974e5a58fc25d5b3d4bc"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0013",
+      "fdcId": 325198,
+      "visible_row_sha256": "b6b7b80cb32f01eee1a84c16744fa49e743dac0e70a8ed76e59115dfc725d9b1",
+      "hidden_target_row_sha256": "0f3a7d3d4ceb532f2e226a92d4257fdf2c8a021eef28de1ac73eeac783b02831",
+      "model_prediction_mg_per_100g": 2592.3083,
+      "comparator_prediction_mg_per_100g": 866.0,
+      "observed_sodium_mg_per_100g": 1660.0,
+      "model_absolute_residual_mg_per_100g": 932.3083,
+      "comparator_absolute_residual_mg_per_100g": 794.0,
+      "row_result_sha256": "ba78d1db66cb4aabf63d46bbb1dc8388ec3049c60648796b462142f059ab64b7"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0014",
+      "fdcId": 325287,
+      "visible_row_sha256": "d0973c12b2ac7305b8b4fb8e764c4708a73273e4e908fe617924bc5adaccb841",
+      "hidden_target_row_sha256": "0e41885a02c0459c8ae05bfb987d0bf77dd200898fb0ab674e1ab40d0eebe037",
+      "model_prediction_mg_per_100g": 114.0773,
+      "comparator_prediction_mg_per_100g": 16.0,
+      "observed_sodium_mg_per_100g": 1.0,
+      "model_absolute_residual_mg_per_100g": 113.0773,
+      "comparator_absolute_residual_mg_per_100g": 15.0,
+      "row_result_sha256": "21196dbdd2180e7b69aa1f48a8023805121f7c62d495a61c2f48aedfef92240e"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0015",
+      "fdcId": 325430,
+      "visible_row_sha256": "96bc157d7461bc104839f5ab02263f8cc7be9c6ca7d85723318bd2c89e362cb4",
+      "hidden_target_row_sha256": "7d409c8c0e1fc7244f61bd9d3a62ecd667108f647d47f015ee9bf437770fcc93",
+      "model_prediction_mg_per_100g": 169.1491,
+      "comparator_prediction_mg_per_100g": 4.0,
+      "observed_sodium_mg_per_100g": 13.0,
+      "model_absolute_residual_mg_per_100g": 156.1491,
+      "comparator_absolute_residual_mg_per_100g": 9.0,
+      "row_result_sha256": "3eb20e5f0710bae00892eaf199401f128ce5931cadb7e6e81c66054730052f9c"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0016",
+      "fdcId": 325524,
+      "visible_row_sha256": "ce247d5d6c9c9bfc84c023d3e8487ad01649315fd82506c9665c39ffef203fc0",
+      "hidden_target_row_sha256": "a24d65e5d1267080cb16bdff64115e2c1f353bc88de279834f3fc212714feb5a",
+      "model_prediction_mg_per_100g": 1691.491,
+      "comparator_prediction_mg_per_100g": 78.0,
+      "observed_sodium_mg_per_100g": 532.0,
+      "model_absolute_residual_mg_per_100g": 1159.491,
+      "comparator_absolute_residual_mg_per_100g": 454.0,
+      "row_result_sha256": "fae8a3738dd01d81c519a684050dde1f9bc8c36c71ce295ad223e203453378d4"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0017",
+      "fdcId": 326196,
+      "visible_row_sha256": "d2210bb3348f540f88d0ff7c15fbf3558706e4724f66748022368729a9243f4f",
+      "hidden_target_row_sha256": "cfba8757855a7429d1b4f41c357e873eda05e862bc2992d704a39b7d057bbbb9",
+      "model_prediction_mg_per_100g": 287.1601,
+      "comparator_prediction_mg_per_100g": 150.0,
+      "observed_sodium_mg_per_100g": 16.0,
+      "model_absolute_residual_mg_per_100g": 271.1601,
+      "comparator_absolute_residual_mg_per_100g": 134.0,
+      "row_result_sha256": "5082d0f08475cc45283834971b393a1a448238f4cc02b907c6475c6384192b66"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0018",
+      "fdcId": 326698,
+      "visible_row_sha256": "9bf360e69a413ced34c32667747c9467d4e84711b9b516d4c896b1a2ad2f1f0d",
+      "hidden_target_row_sha256": "1ecf04f0bf2bfda393b40f5aeb5ffedefae90037da6f7a84e3af4a09a9911acb",
+      "model_prediction_mg_per_100g": 1325.6569,
+      "comparator_prediction_mg_per_100g": 63.0,
+      "observed_sodium_mg_per_100g": 1100.0,
+      "model_absolute_residual_mg_per_100g": 225.6569,
+      "comparator_absolute_residual_mg_per_100g": 1037.0,
+      "row_result_sha256": "53544c246a2461e2c1e68f63ff4daaa5d93f2575bd83f62b8d713df7a1c60d9a"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0019",
+      "fdcId": 327046,
+      "visible_row_sha256": "9157955495816e824a9410a83fa698d2feee1d641d2e8b69d25750a89314d879",
+      "hidden_target_row_sha256": "1727a4bb4b7b8c0c857c4e6019231bdbcc04e26bd4f532066457c450d8da69f6",
+      "model_prediction_mg_per_100g": 247.8231,
+      "comparator_prediction_mg_per_100g": 35.0,
+      "observed_sodium_mg_per_100g": 5.0,
+      "model_absolute_residual_mg_per_100g": 242.8231,
+      "comparator_absolute_residual_mg_per_100g": 30.0,
+      "row_result_sha256": "cd307a7558aedabcd9969a1dde1b64e49cb21cbe65b90adbec40ae4a9f5e91a8"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0020",
+      "fdcId": 327357,
+      "visible_row_sha256": "34549063eb9cc8ad9aae1fb875bc4dc06004d2da17ff7a47493cebf7c38de3c6",
+      "hidden_target_row_sha256": "f922765b55e9d79b8061fc1dbfd7ee45945da400fdde8ca3b34454226237085f",
+      "model_prediction_mg_per_100g": 188.8176,
+      "comparator_prediction_mg_per_100g": 2.0,
+      "observed_sodium_mg_per_100g": 13.0,
+      "model_absolute_residual_mg_per_100g": 175.8176,
+      "comparator_absolute_residual_mg_per_100g": 11.0,
+      "row_result_sha256": "6a706c83b5e8135fc21aaebd72b1f91c475e7a589ed2613afa90bd6d92757bbe"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0021",
+      "fdcId": 328637,
+      "visible_row_sha256": "0bee6ac3da091a2570ff28bf1e418d8473c8375022267b4adf9156f77c931e44",
+      "hidden_target_row_sha256": "25afa9273ac9212a7e7f647c72349aaedcb37a35a18eceb849207ae0ede16d31",
+      "model_prediction_mg_per_100g": 1443.6679,
+      "comparator_prediction_mg_per_100g": 707.0,
+      "observed_sodium_mg_per_100g": 654.0,
+      "model_absolute_residual_mg_per_100g": 789.6679,
+      "comparator_absolute_residual_mg_per_100g": 53.0,
+      "row_result_sha256": "726499f153bd9e63c1ce0b4925c4c108e6d28ba17eb6fcc72ec3134610d029d7"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0022",
+      "fdcId": 328841,
+      "visible_row_sha256": "a53c8a8d7eed4941e6d670909358163f51c37a71f398656e242d57b4834a8157",
+      "hidden_target_row_sha256": "d24c48dc593dd48667ccab95f6d0e08369dcc74ea31a5e1b4ea8d2671113d283",
+      "model_prediction_mg_per_100g": 491.7125,
+      "comparator_prediction_mg_per_100g": 103.0,
+      "observed_sodium_mg_per_100g": 321.0,
+      "model_absolute_residual_mg_per_100g": 170.7125,
+      "comparator_absolute_residual_mg_per_100g": 218.0,
+      "row_result_sha256": "42fcd27edc5fe8059e7ddf1c9cec4229b80c16798ad166049d98835c0b03acdc"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0023",
+      "fdcId": 329370,
+      "visible_row_sha256": "830080e0dad2f196346a1908788a864d7d00395109f06207aa8c95d6fb966947",
+      "hidden_target_row_sha256": "99e22af1abe2045a6bc3ebfa025103c68a84a33438c0d6b10c72aded57b3cb79",
+      "model_prediction_mg_per_100g": 1490.8723,
+      "comparator_prediction_mg_per_100g": 693.0,
+      "observed_sodium_mg_per_100g": 699.0,
+      "model_absolute_residual_mg_per_100g": 791.8723,
+      "comparator_absolute_residual_mg_per_100g": 6.0,
+      "row_result_sha256": "1e5def46a7772f66d0669ae2203a88bfaff05ceed5f825b9598760af3537122b"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0024",
+      "fdcId": 329490,
+      "visible_row_sha256": "29d9e18ceca3a0054ed29e417a691848e45b2896d816a26056ea4316200005d7",
+      "hidden_target_row_sha256": "e3bed8fb283bbc6156061660b31bb17d895c9d986f6150acfc25fb28771a4f4e",
+      "model_prediction_mg_per_100g": 2438.894,
+      "comparator_prediction_mg_per_100g": 220.0,
+      "observed_sodium_mg_per_100g": 485.0,
+      "model_absolute_residual_mg_per_100g": 1953.894,
+      "comparator_absolute_residual_mg_per_100g": 265.0,
+      "row_result_sha256": "37c6b11d19481c592aad55d24c3ff1ae311d6a984ac06985d8f713aeed77f783"
+    },
+    {
+      "task_id": "AGRI-FDC-SODIUM-0025",
+      "fdcId": 329596,
+      "visible_row_sha256": "80122ba761bdd171566125adf4117323c34bab6246a7ddfdb2dd6ac50d5fba03",
+      "hidden_target_row_sha256": "a4114a546e5965271a0085671fac2e44bbf825cf4c51ea9d174997b9a18787d4",
+      "model_prediction_mg_per_100g": 1042.4305,
+      "comparator_prediction_mg_per_100g": 119.0,
+      "observed_sodium_mg_per_100g": 66.0,
+      "model_absolute_residual_mg_per_100g": 976.4305,
+      "comparator_absolute_residual_mg_per_100g": 53.0,
+      "row_result_sha256": "641ab63ca5e72f4d23d82d485972e9904d10466e45ce63a881c2093f2109c18b"
+    }
+  ],
+  "replay_hash_inputs": {
+    "source_snapshot_sha256": "47895b2c098463427e3b5c439a2f0693a8971ceaa5a2de11f0c8ade2180fc5f1",
+    "source_lock_sha256": "707fcc3770a6052528f7606f9cbf9bb71c6a729388f11df2749cb01ef4416248",
+    "task_table_sha256": "9d4f6adfab62994f1b7d42283dd07cf04f851650f53a3dd8a4c76fcf02737218",
+    "hidden_target_lock_sha256": "da6c508f04f895068337233124a1364703a38625f65fb8d6900c17f9caeecafa",
+    "row_results_sha256": "bbaba5c082c792f37e13e049dcea74e02d2bd9dd5ead64dfa45d70f271e7d138",
+    "negative_control_target_map_sha256": "89dfad82c3a222fc111cc4114fb7a2ce016aa5a1d042d8246f375d03f2c00748",
+    "model": "AGRI-FDC-VISIBLE-ASH-SODIUM-PROXY-v1",
+    "comparator": "AGRI-FDC-VISIBLE-CALCIUM-MINERAL-BASELINE-v1"
+  },
+  "replay_sha256": "b0206400a41c45763080e1a772a070ed953771d6f9cfe5492a03c47045f7c358",
+  "strict_evidence_pack": {
+    "scorer_ready": true,
+    "fail_closed": true,
+    "coverage_closure_allowed": false,
+    "support_allowed_for_broad_coverage": false,
+    "coverage_closure_failures": [
+      "NO_BROAD_SUPERIORITY_CERTIFICATION",
+      "COVERAGE_CLOSURE_ALLOWED_FALSE_BY_POLICY",
+      "MATERIAL_SUPERIORITY_MARGIN_NOT_MET_BY_COMPACT_FDC_SCORER"
+    ]
+  },
+  "coverage_closure_allowed": false,
+  "support_allowed_for_broad_coverage": false,
+  "no_send_locks": {
+    "no_send": true,
+    "public_release_action_allowed": false,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "registry_write_allowed": false,
+    "journal_submission_allowed": false,
+    "email_allowed": false,
+    "doi_registration_allowed": false,
+    "coverage_closure_allowed": false,
+    "broad_modern_science_superiority_allowed": false,
+    "all_domain_scientific_closure_allowed": false
+  },
+  "scoring_pack_sha256": "c90ccdaa7f2ae7069c5a8680e03374a6ab183ea6a4e84fea48295caae81b6e23"
+}

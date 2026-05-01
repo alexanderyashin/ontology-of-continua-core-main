@@ -1,0 +1,286 @@
+{
+  "spec_schema_id": "OC133_PHYSICS_CHEMISTRY_EXECUTABLE_COVERAGE_LANE_SPEC_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "capability_owner": "Logion Formal Methods Coverage",
+  "source_domain_work_order_ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/OC133_FORMAL_MATHEMATICS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+  "work_order_id": "MS-COV-WO-003",
+  "coverage_gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF",
+  "domain_class_id": "formal_mathematics_and_logic",
+  "phenomenon_class_id": "computational_complexity_and_algorithmic_proof__protocol_only_executable_spec",
+  "source_domain_class_id": "formal_mathematics_and_logic",
+  "source_phenomenon_class_id": "computational_complexity_and_algorithmic_proof",
+  "source_coverage_gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF",
+  "coverage_closure_status": "OPEN_FAIL_CLOSED_PENDING_COMPLEXITY_ALGORITHMIC_FORMAL_CORPUS_AND_REPLAY",
+  "coverage_closure_allowed": false,
+  "formal_route_only": true,
+  "empirical_numeric_prediction_allowed": false,
+  "source_plan_id": "MS-FORMAL-COMPUTATIONAL_COMPLEXITY_AND_ALGORITHMIC_PROOF-LEAN4-v1",
+  "official_data_source": {
+    "source_id": "computational_complexity_and_algorithmic_proof_lean4_formal_corpus_v1",
+    "source_name": "Lean 4 computational complexity and algorithmic proof corpus",
+    "source_authority": "Lean project and Logion formal proof corpus steward",
+    "official_documentation_url": "https://lean-lang.org/documentation/",
+    "official_endpoint_url": "https://github.com/leanprover/lean4",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/computational_complexity_algorithmic_proof/OC133_COMPLEXITY_ALGORITHMIC_EXECUTED_PROOF_CORPUS.json",
+    "required_lock_ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/computational_complexity_algorithmic_proof/OC133_COMPLEXITY_ALGORITHMIC_WITHHELD_AGGREGATES.lock.json",
+    "minimum_rows_required": 20,
+    "snapshot_status": "EXACT_COMPLEXITY_ALGORITHMIC_FORMAL_CORPUS_BOUND_SCORER_PASS",
+    "source_kind": "formal_algorithm_correctness_and_complexity_theorem_corpus"
+  },
+  "target_variable": {
+    "name": "complexity_algorithmic_heldout_proof_obligations",
+    "unit": "formal proof-checker verdict",
+    "target_fields": [
+      "algorithm_id",
+      "invariant_or_recurrence_id",
+      "input_size_measure",
+      "claimed_bound_class",
+      "expected_bound_or_correctness_verdict",
+      "proof_or_counterexample_ref"
+    ],
+    "extraction_rule": "Hold back expected_bound_or_correctness_verdict, proof_or_counterexample_ref, aggregate bound-class pass/fail counts until the formal proof route materializes from validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/computational_complexity_algorithmic_proof/OC133_COMPLEXITY_ALGORITHMIC_FORMAL_INPUTS.json.",
+    "target_statement": "For held-out algorithm specifications, loop invariants, recurrences, and input-size measures, prove the declared correctness and asymptotic upper-bound verdict or provide an executable counterexample.",
+    "minimum_target_rows": 20
+  },
+  "formula_requirement": {
+    "formula_or_model": "Materialize a Lean/finite proof of algorithmic correctness or complexity-bound preservation, or a checked counterexample. Empirical runtime measurements may only appear as negative controls.",
+    "required_inputs": [
+      "algorithm_id",
+      "invariant_or_recurrence_id",
+      "input_size_measure",
+      "claimed_bound_class"
+    ],
+    "target_values_may_be_used_for_model_design": false,
+    "route": "formal",
+    "checker_refs": [
+      "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/computational_complexity_algorithmic_proof/OC133_COMPLEXITY_ALGORITHMIC_SCORER.py",
+      "formal/lean/OC133V12.lean"
+    ],
+    "empirical_numeric_prediction": false
+  },
+  "incumbent_comparator_requirement": {
+    "baseline_name": "sample-run/majority-bound comparator",
+    "baseline_id": "COMPLEXITY-SAMPLE-RUN-OR-MAJORITY-BOUND-COMPARATOR",
+    "prediction_rule": "infer the visible majority bound class or correctness verdict from sample executions only, without a machine-checkable invariant, recurrence, or proof certificate",
+    "pre_registered": true,
+    "target_values_used_for_baseline_design": false,
+    "required_material_margin": "model_mismatch_count == 0, comparator_mismatch_count > 0, and invariant/recurrence mutation controls are rejected"
+  },
+  "uncertainty_requirement": {
+    "metric": "exact_formal_verdict_no_empirical_interval",
+    "rule": "No empirical uncertainty interval is applicable; asymptotic claims require proof/counterexample replay.",
+    "empirical_numeric_prediction": false
+  },
+  "residual_requirement": {
+    "metric_id": "formal_complexity_proof_mismatch_count",
+    "formula": "sum(1 if preregistered_formal_verdict != executed_formal_verdict else 0) over locked formal rows",
+    "definition": "0/1 mismatch between the preregistered formal proof verdict and the executed proof or counterexample verdict; aggregate count and exact zero required for formal support.",
+    "superiority_rule": "model_mismatch_count == 0, comparator_mismatch_count > 0, and invariant/recurrence mutation controls are rejected",
+    "empirical_numeric_prediction": false
+  },
+  "negative_control_requirement": {
+    "control_id": "COMPLEXITY-INVARIANT-OR-RECURRENCE-MUTATION-CONTROL",
+    "rule": "mutated proof obligations fail while the locked formal obligations replay exactly",
+    "description": "Mutate a loop invariant, recurrence base case, or monotonicity premise after source lock; the formal replay must reject the corrupted proof route."
+  },
+  "falsifier_requirement": {
+    "falsifier_id": "COMPLEXITY-ALGORITHMIC-PROOF-FALSIFIER",
+    "trigger": "runtime timing, benchmark speed, or empirical scaling fit is used as proof of complexity; withheld bound verdicts or counterexample refs leak before proof materialization; fewer than 20 formal-equivalent algorithmic proof obligations replay; sample-run/majority comparator ties or beats the formal derivation; any invariant, recurrence, proof certificate, or counterexample ref is missing or unhashable",
+    "trigger_predicates": [
+      "runtime timing, benchmark speed, or empirical scaling fit is used as proof of complexity",
+      "withheld bound verdicts or counterexample refs leak before proof materialization",
+      "fewer than 20 formal-equivalent algorithmic proof obligations replay",
+      "sample-run/majority comparator ties or beats the formal derivation",
+      "any invariant, recurrence, proof certificate, or counterexample ref is missing or unhashable"
+    ]
+  },
+  "execution_requirements": {
+    "minimum_n": 20,
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true,
+    "evidence_pack_schema_id": "OC133_FORMAL_MATHEMATICS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS_v1",
+    "replay_command": "python validation/heldout/grand_science/formal_mathematics/coverage_work_orders/oc133_formal_mathematics_modern_science_coverage_work_orders.py --check",
+    "replay_commands": [
+      "python validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/computational_complexity_algorithmic_proof/OC133_COMPLEXITY_ALGORITHMIC_SCORER.py --check",
+      "python validation/heldout/grand_science/formal_mathematics/coverage_work_orders/oc133_formal_mathematics_modern_science_coverage_work_orders.py --check"
+    ],
+    "empirical_numeric_prediction_allowed": false
+  },
+  "current_evidence": {
+    "executable_evidence_exists": false,
+    "executable_evidence_ref": null,
+    "reason": "Deterministic formal-route complexity inputs, executed proof corpus, withheld aggregate lock, and scorer are materialized and replay cleanly. Coverage remains open pending formal coverage-scope review.",
+    "status": "EXACT_COMPLEXITY_ALGORITHMIC_FORMAL_CORPUS_BOUND_SCORER_PASS",
+    "formal_exact_evidence_exists": true,
+    "coverage_closure_allowed": false,
+    "remaining_blockers": [
+      "FORMAL_COVERAGE_SCOPE_REVIEW_NOT_PERFORMED",
+      "NO_COVERAGE_CLOSURE_MARK_ALLOWED"
+    ]
+  },
+  "closure_predicates_required": [
+    "STRICT_PACK_SCHEMA_PASS",
+    "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+    "TARGET_VARIABLE_EXACTLY_DECLARED",
+    "FORMULA_OR_MODEL_PREREGISTERED",
+    "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+    "UNCERTAINTY_POLICY_DECLARED",
+    "RESIDUAL_METRIC_EXECUTABLE",
+    "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+    "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+    "INDEPENDENT_REPLAY_PASS",
+    "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW",
+    "FORMAL_ROUTE_DECLARED",
+    "SOURCE_PROOF_CORPUS_HASH_BOUND_OR_EXPLICITLY_MISSING",
+    "TARGET_THEOREM_OR_PROPERTY_DECLARED",
+    "TARGET_HIDDEN_OR_FORMAL_WITHHELD_AGGREGATE_POLICY_DECLARED",
+    "PROOF_OR_MODEL_PREREGISTERED",
+    "COMPARATOR_BASELINE_PREREGISTERED",
+    "RESIDUAL_OR_ERROR_NOTION_DECLARED",
+    "NEGATIVE_CONTROL_DECLARED",
+    "FALSIFIER_DECLARED",
+    "REPLAY_COMMAND_DECLARED",
+    "EMPIRICAL_NUMERIC_PREDICTION_NOT_ASSERTED",
+    "COVERAGE_CLOSURE_REMAINS_FALSE_UNTIL_EXACT_REVIEW",
+    "NO_BROAD_SUPERIORITY_CERTIFICATION",
+    "COMPLEXITY_ALGORITHMIC_FORMAL_CORPUS_BOUND",
+    "EXECUTABLE_LANE_SPEC_DECLARED",
+    "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
+  ],
+  "source_proof_corpus": {
+    "corpus_id": "OC133-FORMAL-MATH-COMPLEXITY-ALGORITHMIC-PROOF-v1",
+    "corpus_kind": "planned_complexity_and_algorithmic_proof_corpus",
+    "source_kind": "formal_algorithm_correctness_and_complexity_theorem_corpus",
+    "minimum_formal_case_count": 20,
+    "exact_evidence_exists": true,
+    "artifacts": [
+      {
+        "ref": "comparators/modern_science/source_capsules/MS-SRC-MATH-LEAN4.txt",
+        "role": "Lean 4 source capsule",
+        "exists": true,
+        "sha256": "827b10594ad2c190b6911395f50c819825b9177a2352456e98a0c0ab615427a0",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": false
+      },
+      {
+        "ref": "benchmarks/modern_science/protocols/OC133_MODERN_SCIENCE_BENCHMARK_PROTOCOL_MATHEMATICS.json",
+        "role": "mathematics formal-route protocol",
+        "exists": true,
+        "sha256": "25f7eea7a9b6fe3aa42f7f230bcc6798413a54274d802bf593939c1265c2b1a3",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": false
+      },
+      {
+        "ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/computational_complexity_algorithmic_proof/OC133_COMPLEXITY_ALGORITHMIC_FORMAL_INPUTS.json",
+        "role": "pre-target algorithm/invariant/recurrence inputs",
+        "exists": true,
+        "sha256": "2ff2b7826c14961333d98c312e94318b40a1fae661a2a59db5b32358a1d0ea9d",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": true
+      },
+      {
+        "ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/computational_complexity_algorithmic_proof/OC133_COMPLEXITY_ALGORITHMIC_EXECUTED_PROOF_CORPUS.json",
+        "role": "executed complexity and algorithmic proof corpus",
+        "exists": true,
+        "sha256": "a8d80097c6f8ac336da425696020e35bfb524918a2d0b82c3a2f0c40d4a238da",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": true
+      },
+      {
+        "ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/computational_complexity_algorithmic_proof/OC133_COMPLEXITY_ALGORITHMIC_WITHHELD_AGGREGATES.lock.json",
+        "role": "formal withheld aggregate lock",
+        "exists": true,
+        "sha256": "4fe2815c092ff86ddccfb49016fea6997d456fd57fbe6366a6846b39c33f0b6e",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": true
+      }
+    ],
+    "scope_boundary": "This lane requires formal correctness or complexity proofs. Runtime timing curves, benchmark speed, empirical numeric prediction, empirical scaling fits, or sample tests are controls/comparators only, not proof evidence."
+  },
+  "target_theorem_or_property": {
+    "target_id": "COMPLEXITY-ALGORITHMIC-HELDOUT-PROOF-OBLIGATIONS",
+    "target_type": "formal computational complexity and algorithmic proof",
+    "target_statement": "For held-out algorithm specifications, loop invariants, recurrences, and input-size measures, prove the declared correctness and asymptotic upper-bound verdict or provide an executable counterexample.",
+    "target_fields": [
+      "algorithm_id",
+      "invariant_or_recurrence_id",
+      "input_size_measure",
+      "claimed_bound_class",
+      "expected_bound_or_correctness_verdict",
+      "proof_or_counterexample_ref"
+    ],
+    "minimum_target_rows": 20
+  },
+  "hidden_target_or_formal_withheld_aggregate_policy": {
+    "mode": "formal_withheld_aggregate",
+    "pre_target_lock_ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/computational_complexity_algorithmic_proof/OC133_COMPLEXITY_ALGORITHMIC_FORMAL_INPUTS.json",
+    "hidden_target_ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/computational_complexity_algorithmic_proof/OC133_COMPLEXITY_ALGORITHMIC_EXECUTED_PROOF_CORPUS.json",
+    "withheld_until_scoring": [
+      "expected_bound_or_correctness_verdict",
+      "proof_or_counterexample_ref",
+      "aggregate bound-class pass/fail counts"
+    ],
+    "allowed_pre_scoring_aggregates": [
+      "manifest hash",
+      "minimum row count",
+      "algorithm vocabulary",
+      "bound-class vocabulary"
+    ],
+    "target_values_used_for_proof_design": false
+  },
+  "proof_or_model": {
+    "route": "formal",
+    "model_id": "COMPLEXITY-ALGORITHMIC-FORMAL-DERIVATION",
+    "description": "Materialize a Lean/finite proof of algorithmic correctness or complexity-bound preservation, or a checked counterexample. Empirical runtime measurements may only appear as negative controls.",
+    "checker_refs": [
+      "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/planned_corpora/computational_complexity_algorithmic_proof/OC133_COMPLEXITY_ALGORITHMIC_SCORER.py",
+      "formal/lean/OC133V12.lean"
+    ],
+    "empirical_numeric_prediction": false
+  },
+  "comparator_baseline": {
+    "baseline_id": "COMPLEXITY-SAMPLE-RUN-OR-MAJORITY-BOUND-COMPARATOR",
+    "name": "sample-run/majority-bound comparator",
+    "prediction_rule": "infer the visible majority bound class or correctness verdict from sample executions only, without a machine-checkable invariant, recurrence, or proof certificate",
+    "pre_registered": true,
+    "target_values_used_for_baseline_design": false
+  },
+  "residual_or_error_notion": {
+    "applicable": true,
+    "metric_id": "formal_complexity_proof_mismatch_count",
+    "definition": "0/1 mismatch between the preregistered formal proof verdict and the executed proof or counterexample verdict; aggregate count and exact zero required for formal support.",
+    "uncertainty_policy": "No empirical uncertainty interval is applicable; asymptotic claims require proof/counterexample replay.",
+    "superiority_or_acceptance_rule": "model_mismatch_count == 0, comparator_mismatch_count > 0, and invariant/recurrence mutation controls are rejected",
+    "empirical_numeric_prediction": false
+  },
+  "negative_control": {
+    "control_id": "COMPLEXITY-INVARIANT-OR-RECURRENCE-MUTATION-CONTROL",
+    "description": "Mutate a loop invariant, recurrence base case, or monotonicity premise after source lock; the formal replay must reject the corrupted proof route.",
+    "rejection_predicate": "mutated proof obligations fail while the locked formal obligations replay exactly"
+  },
+  "falsifier": {
+    "falsifier_id": "COMPLEXITY-ALGORITHMIC-PROOF-FALSIFIER",
+    "trigger_predicates": [
+      "runtime timing, benchmark speed, or empirical scaling fit is used as proof of complexity",
+      "withheld bound verdicts or counterexample refs leak before proof materialization",
+      "fewer than 20 formal-equivalent algorithmic proof obligations replay",
+      "sample-run/majority comparator ties or beats the formal derivation",
+      "any invariant, recurrence, proof certificate, or counterexample ref is missing or unhashable"
+    ]
+  },
+  "no_send_locks": {
+    "no_send": true,
+    "public_release_action_allowed": false,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "registry_write_allowed": false,
+    "journal_submission_allowed": false,
+    "email_allowed": false,
+    "doi_registration_allowed": false,
+    "coverage_closure_allowed": false,
+    "broad_modern_science_superiority_allowed": false,
+    "empirical_numeric_prediction_allowed": false
+  }
+}

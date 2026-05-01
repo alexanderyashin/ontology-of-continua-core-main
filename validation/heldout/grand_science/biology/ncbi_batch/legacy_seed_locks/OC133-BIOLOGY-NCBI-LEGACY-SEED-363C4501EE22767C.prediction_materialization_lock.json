@@ -1,0 +1,47 @@
+{
+  "schema_id": "OC133_TARGET_BLIND_PREDICTION_MATERIALIZATION_LOCK_v1",
+  "release_id": "oc_core_1_3_3",
+  "lock_id": "OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C",
+  "declaration_ref": "validation/heldout/grand_science/biology/ncbi_batch/legacy_seed_locks/OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C.declaration.json",
+  "declaration_sha256": "0be91c954ba55eb17a0770636cc4da02a74163f6f0ce6efcda04374beb992be2",
+  "visible_projection_sha256": "8a95476973109be42f7a94807aac15f38c8232f85c46a2cac9920ca47a7139f1",
+  "model_declaration": {
+    "kind": "geo_esearch_page_size_reconstruction",
+    "formula": "len(esearchresult.idlist)",
+    "visible_inputs": [
+      "esearchresult.idlist",
+      "esearchresult.retstart",
+      "esearchresult.querytranslation"
+    ]
+  },
+  "comparator_declaration": {
+    "kind": "geo_total_hit_count_negative_control",
+    "baseline_sha256": "77136c198bc9ec698dbd9d7d37af8b118d81bd13bb36650e13798505a60c0592"
+  },
+  "prediction_rows": [
+    {
+      "row_index": 1,
+      "row_id": "BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
+      "visible_row_sha256": "6762810135d2ad12d05f6965d2d29ad631893ae2f39bf0c822f30042eb446b33",
+      "declaration_sha256": "0be91c954ba55eb17a0770636cc4da02a74163f6f0ce6efcda04374beb992be2",
+      "model_prediction": 20.0,
+      "comparator_prediction": 44008.0,
+      "target_opened": false
+    }
+  ],
+  "algorithmic_target_separation": {
+    "prediction_inputs": "raw ESearch idlist, retstart, and querytranslation visible projection plus locked declarations only",
+    "target_projection_read_before_prediction_materialization": false,
+    "target_opened_after_prediction_materialization": true
+  },
+  "locks": {
+    "no_send": true,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "journal_submissions_allowed": false,
+    "doi_registration_allowed": false,
+    "zenodo_upload_allowed": false,
+    "registry_write_allowed": false,
+    "release_promotion_allowed": false
+  }
+}

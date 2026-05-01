@@ -33,7 +33,14 @@ def acquisition_row(url: str, expected_ref: str = "validation/_raw/test_snapshot
         "official_endpoint_url": url,
         "expected_local_snapshot_ref": expected_ref,
         "no_send_lock": True,
+        "prospective_lock_metadata": dict(runner.DEFAULT_PROSPECTIVE_LOCK_METADATA),
     }
+
+
+def acquisition_row_without_lock_metadata(url: str) -> dict:
+    row = acquisition_row(url)
+    row.pop("prospective_lock_metadata")
+    return row
 
 
 class FakeResponse:
@@ -116,14 +123,30 @@ class OfficialReadonlyAcquisitionRunnerTests(unittest.TestCase):
             snapshot = root / record["snapshot_ref"]
             metadata = root / record["snapshot_metadata_ref"]
             lock = root / record["lock_ref"]
+            order_record = root / record["order_record_ref"]
             self.assertEqual(snapshot.read_bytes(), body)
             self.assertTrue(metadata.is_file())
+            self.assertTrue(order_record.is_file())
+            order_payload = json.loads(order_record.read_text(encoding="utf-8"))
+            self.assertEqual(order_payload["source_bytes_sha256"], expected_sha)
+            self.assertTrue(order_payload["sequence_proof"]["source_snapshot_pre_target_lock"])
+            self.assertTrue(order_payload["sequence_proof"]["target_hidden_until_scoring"])
+            self.assertTrue(order_payload["sequence_proof"]["prediction_materialization_required_before_scoring"])
+            self.assertFalse(order_payload["sequence_proof"]["target_projection_unsealed_for_scoring"])
+            self.assertFalse(order_payload["sequence_proof"]["scoring_started"])
             lock_payload = json.loads(lock.read_text(encoding="utf-8"))
             self.assertEqual(lock_payload["snapshot_sha256"], expected_sha)
+            self.assertEqual(lock_payload["source_bytes_sha256"], expected_sha)
+            self.assertEqual(lock_payload["order_record_sha256"], order_payload["order_record_sha256"])
             self.assertEqual(lock_payload["byte_count"], len(body))
             self.assertTrue(lock_payload["locks"]["no_send"])
             self.assertFalse(lock_payload["locks"]["publish_allowed"])
             self.assertFalse(lock_payload["locks"]["push_allowed"])
+            self.assertFalse(lock_payload["locks"]["journal_submissions_allowed"])
+            self.assertFalse(lock_payload["locks"]["doi_registration_allowed"])
+            self.assertFalse(lock_payload["locks"]["zenodo_upload_allowed"])
+            self.assertFalse(lock_payload["locks"]["registry_write_allowed"])
+            self.assertFalse(lock_payload["locks"]["release_promotion_allowed"])
             self.assertFalse(lock_payload["scientific_pass"])
 
     def test_execute_network_reuses_valid_acquired_lock_without_refetch(self) -> None:
@@ -308,11 +331,17 @@ class OfficialReadonlyAcquisitionRunnerTests(unittest.TestCase):
             self.assertIn("access_token=REDACTED", record["official_endpoint_url"])
 
     def test_allowlist_accepts_only_named_official_endpoint_families(self) -> None:
+        nist_asd_url = (
+            "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H&limits_type=0&low_w=&upp_w="
+            "&unit=1&de=0&format=3&line_out=0&remove_js=on&en_unit=1&output=0&page_size=50"
+            "&show_obs_wl=1&show_calc_wl=1&show_wn=1"
+        )
         allowed_urls = {
             "NCBI EUtils": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=gds",
             "PubChem PUG REST": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/962/JSON",
             "World Bank API": "https://api.worldbank.org/v2/country/USA/indicator/NY.GDP.MKTP.CD?format=json",
             "NIST physics constants": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+            "NIST ASD hydrogen Balmer lines TSV": nist_asd_url,
             "NIST Chemistry WebBook": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185&Units=SI",
         }
         for rule_name, url in allowed_urls.items():
@@ -325,6 +354,73 @@ class OfficialReadonlyAcquisitionRunnerTests(unittest.TestCase):
         blocked, _, blockers = runner.allowlist_match("https://pubchem.ncbi.nlm.nih.gov/not-pug/data")
         self.assertFalse(blocked)
         self.assertTrue(any(blocker.startswith("URL_NOT_IN_OFFICIAL_ALLOWLIST::") for blocker in blockers))
+
+        blocked, matched_rule, blockers = runner.allowlist_match(nist_asd_url.replace("format=3", "format=0"))
+        self.assertFalse(blocked)
+        self.assertEqual(matched_rule, "NIST ASD hydrogen Balmer lines TSV")
+        self.assertIn("QUERY_PARAM_VALUE_NOT_ALLOWED::format", blockers)
+
+        blocked, _, blockers = runner.allowlist_match(
+            nist_asd_url.replace("/cgi-bin/ASD/lines1.pl", "/cgi-bin/ASD/energy1.pl")
+        )
+        self.assertFalse(blocked)
+        self.assertTrue(any(blocker.startswith("URL_NOT_IN_OFFICIAL_ALLOWLIST::") for blocker in blockers))
+
+    def test_nist_asd_physics_request_passes_dry_run_without_network(self) -> None:
+        nist_asd_url = (
+            "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H&limits_type=0&low_w=&upp_w="
+            "&unit=1&de=0&format=3&line_out=0&remove_js=on&en_unit=1&output=0&page_size=50"
+            "&show_obs_wl=1&show_calc_wl=1&show_wn=1"
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            packet = root / "validation/heldout/grand_science/physics/PACKET_ACQUISITION_PACKET.json"
+            write_json(
+                packet,
+                packet_payload(
+                    acquisition_row(nist_asd_url, "validation/_raw/physics_nist_asd_hydrogen_balmer_lines_v1.tsv")
+                ),
+            )
+
+            with mock.patch.object(runner.urllib.request, "urlopen", side_effect=AssertionError("network")):
+                report = runner.build_report(root, [packet], execute_network=False)
+
+            self.assertEqual(report["validated_for_network_total"], 1)
+            self.assertEqual(report["validation_blocked_total"], 0)
+            self.assertEqual(report["records"][0]["allowlist_rule"], "NIST ASD hydrogen Balmer lines TSV")
+            self.assertEqual(report["records"][0]["status"], "DRY_RUN_NETWORK_NOT_EXECUTED")
+
+    def test_execute_network_blocks_missing_or_post_scoring_lock_metadata_before_network(self) -> None:
+        url = "https://physics.nist.gov/cuu/Constants/Table/allascii.txt"
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            packet = root / "validation/heldout/grand_science/physics/PACKET_ACQUISITION_PACKET.json"
+            post_scoring = acquisition_row(url, "validation/_raw/post_scoring.txt")
+            post_scoring["acquisition_id"] = "TEST-POST-SCORING"
+            post_scoring["prospective_lock_metadata"]["scoring_started"] = True
+            post_scoring["prospective_lock_metadata"]["scoring_started_at"] = "2026-05-01T00:00:00Z"
+            write_json(
+                packet,
+                packet_payload(
+                    acquisition_row_without_lock_metadata(url),
+                    post_scoring,
+                ),
+            )
+
+            with mock.patch.object(runner.urllib.request, "urlopen") as urlopen:
+                report = runner.build_report(root, [packet], execute_network=True)
+
+            urlopen.assert_not_called()
+            by_id = {row["acquisition_id"]: row for row in report["records"]}
+            self.assertEqual(by_id["TEST-OFFICIAL-SNAPSHOT-0001"]["status"], "VALIDATION_BLOCKED")
+            self.assertIn(
+                "PROSPECTIVE_LOCK_METADATA_MISSING",
+                by_id["TEST-OFFICIAL-SNAPSHOT-0001"]["validation_blockers"],
+            )
+            self.assertEqual(by_id["TEST-POST-SCORING"]["status"], "VALIDATION_BLOCKED")
+            self.assertIn("POST_SCORING_ACQUISITION_NOT_ALLOWED", by_id["TEST-POST-SCORING"]["validation_blockers"])
+            self.assertIn("PROSPECTIVE_LOCK_METADATA_INVALID::scoring_started", report["blockers"])
+            self.assertEqual(report["execution_blocker_packet"]["status"], "BLOCKED")
 
     def test_unsafe_expected_snapshot_ref_blocks_execution(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

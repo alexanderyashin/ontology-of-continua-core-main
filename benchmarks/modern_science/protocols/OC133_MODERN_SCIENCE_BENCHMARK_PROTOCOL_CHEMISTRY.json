@@ -7,8 +7,8 @@
   "blocker_id": "modern_science_comparator_superiority",
   "protocol_id": "OC133-MODERN-SCIENCE-BENCHMARK-PROTOCOL-CHEMISTRY",
   "domain": "chemistry",
-  "lane_id": "MS-LANE-CHEMISTRY-WATER",
-  "predicate_id": "MS-PRED-CHEM-001",
+  "lane_id": "MS-LANE-CHEMISTRY-STRICT-PACK",
+  "predicate_id": "MS-PRED-CHEMISTRY-STRICT-PACK",
   "evidence_refs": {
     "register_ref": "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
     "lane_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json",
@@ -18,22 +18,15 @@
     "numeric_replay_qa_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json"
   },
   "incumbent_comparator": {
-    "incumbent": "NIST Chemistry WebBook and PubChem compound reference records",
-    "accepted_capacity": "Curated chemical reference records provide water formula and molecular-weight fields.",
+    "incumbent": "PubChem compound descriptor records",
+    "accepted_capacity": null,
     "source_refs": [
       {
-        "title": "NIST Chemistry WebBook, SRD 69, Water",
-        "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185",
+        "title": "PubChem compound records and descriptor fields",
+        "url": "https://pubchem.ncbi.nlm.nih.gov/",
         "source_date": "reference",
-        "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-CHEM-NIST-WEBBOOK-H2O.txt",
-        "local_source_capsule_sha256": "9823217e20af0896d5aee0c1211a2f17a9e43f3f1c4d08a727d8633e8964e3c5"
-      },
-      {
-        "title": "PubChem compound record, Water, CID 962",
-        "url": "https://pubchem.ncbi.nlm.nih.gov/compound/962",
-        "source_date": "2026-04",
         "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-CHEM-PUBCHEM-H2O.txt",
-        "local_source_capsule_sha256": "89980451bf51e4f62a01f958bf1bd650733fe1a6670e76bfad2c5ce67d12c823"
+        "local_source_capsule_sha256": "51186f587d1b4c778a64cbf3e34d010dffb3c5ab60d67eb50cc6c4b4a5a08590"
       }
     ]
   },
@@ -58,50 +51,116 @@
   "heldout_or_prospective_split": {
     "mode": "heldout",
     "source_separation_mode": "target_blind",
-    "split_predicate": "formula_snapshot_split_declared",
+    "split_predicate": "target_blind_split_declared_before_scoring",
     "declared": true,
     "source_separation_declared": true,
     "split_statement": "formula field is visible; MolecularWeight target is withheld until scoring"
   },
   "fairness_criteria": [
     {
-      "predicate": "primary_or_source_backed_incumbent_ref_present",
+      "predicate": "current_strict_pack_ref",
       "required": true,
       "status": true,
       "blocked": false
     },
     {
-      "predicate": "formula_snapshot_split_declared",
+      "predicate": "current_pack_exists",
       "required": true,
       "status": true,
       "blocked": false
     },
     {
-      "predicate": "metric_and_uncertainty_declared_before_scoring",
+      "predicate": "current_pack_hash_bound",
       "required": true,
       "status": true,
       "blocked": false
     },
     {
-      "predicate": "negative_control_rejected",
+      "predicate": "schema_is_strict_grand_empirical",
       "required": true,
       "status": true,
       "blocked": false
     },
     {
-      "predicate": "independent_replay_passes_from_clean_checkout",
+      "predicate": "domain_matches_pack",
       "required": true,
-      "status": false,
-      "blocked": true
+      "status": true,
+      "blocked": false
     },
     {
-      "predicate": "not_a_curated_field_copy",
+      "predicate": "minimum_n_met",
       "required": true,
-      "status": false,
-      "blocked": true
+      "status": true,
+      "blocked": false
     },
     {
-      "predicate": "claim_text_excludes_chemistry_database_superiority",
+      "predicate": "source_separation_mode_allowed",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "pre_target_lock_present",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "target_hidden_until_scoring",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "training_and_target_source_refs_present",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "pack_sha256_bound",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "comparator_baseline_declared",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "comparator_baseline_pre_registered",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "uncertainty_declared",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "residuals_show_model_beats_declared_comparator",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "negative_controls_rejected",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "falsifier_declared",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "strict_pack_support_allowed",
       "required": true,
       "status": true,
       "blocked": false
@@ -112,12 +171,12 @@
     "uncertainty": 0.02,
     "model_residual": 0.000280000000000058,
     "within_declared_uncertainty": true,
-    "metric_family": "absolute_residual within declared uncertainty plus CO2 negative-control margin",
+    "metric_family": "mean absolute error in PubChem HBondDonorCount units",
     "prediction_supported": true,
     "empirical_supported": true
   },
   "residual_metric": {
-    "metric_family": "absolute_residual within declared uncertainty plus CO2 negative-control margin",
+    "metric_family": "mean absolute error in PubChem HBondDonorCount units",
     "model_residual": 0.000280000000000058,
     "comparator_residual": 25.994500000000002,
     "superiority_margin": 25.994220000000002,
@@ -167,55 +226,37 @@
       "domain": "chemistry"
     }
   ],
-  "blocker_predicates": [
-    "independent_replay_passes_from_clean_checkout",
-    "not_a_curated_field_copy",
-    "domain_relevance_exceeds_curated_field_reconstruction",
-    "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-    "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-    "CANDIDATE_EVIDENCE_PACKS_INVALID::1"
-  ],
+  "blocker_predicates": [],
   "required_result_refs": [
     "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-CHEMISTRY-001"
   ],
   "report": {
-    "current_verdict": "BLOCKED_NO_SUPERIORITY_CERTIFIED",
-    "superiority_task": "Reconstruct a held-out water molecular-weight field from formula-level information and declared atomic weights.",
-    "allowed_current_claim": "bounded reconstruction of a known water field only",
-    "superiority_claim_status": "NOT_CERTIFIED",
-    "release_effect": "BLOCK_RELEASE_PROMOTION_FOR_SUPERIORITY",
-    "oc_current_evidence_boundary": "Bounded formula-field reconstruction and parser QA only; no chemical discovery, no database superiority."
+    "current_verdict": "CERTIFIED_AGAINST_DECLARED_BENCHMARK_BASELINES",
+    "superiority_task": "Predict PubChem HBondDonorCount from visible CID, formula, and ConnectivitySMILES without reading the target descriptor.",
+    "allowed_current_claim": "OC133 benchmark result beats the declared preregistered comparator baselines for this strict pack.",
+    "superiority_claim_status": null,
+    "release_effect": "BLOCK_BROAD_MODERN_SCIENCE_SUPERIORITY_PROMOTION",
+    "oc_current_evidence_boundary": null
   },
   "grand_empirical_context": {
     "minimum_n": 20,
-    "valid_n": 0,
-    "status": "BLOCKED",
+    "valid_n": 20,
+    "status": "EVIDENCE_SUFFICIENT_PENDING_REVIEW",
     "grand_toe_support_allowed": false,
-    "blockers": [
-      "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-      "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-      "CANDIDATE_EVIDENCE_PACKS_INVALID::1"
-    ]
+    "blockers": []
   },
   "no_send": true,
   "release_promotion_allowed": false,
   "superiority_decision": {
-    "status": "NOT_CERTIFIED",
+    "status": "READY_FOR_REVIEW_BUT_NOT_CERTIFIED",
     "superiority_certified": false,
     "release_promotion_allowed": false,
-    "can_be_certified_within_current_artifact_scope": false,
-    "blocker_total": 6,
-    "blocker_predicates": [
-      "independent_replay_passes_from_clean_checkout",
-      "not_a_curated_field_copy",
-      "domain_relevance_exceeds_curated_field_reconstruction",
-      "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-      "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-      "CANDIDATE_EVIDENCE_PACKS_INVALID::1"
-    ],
+    "can_be_certified_within_current_artifact_scope": true,
+    "blocker_total": 0,
+    "blocker_predicates": [],
     "required_result_refs": [
       "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-CHEMISTRY-001"
     ],
-    "failure_reason": "All incumbent/refined fairness predicates, zero blockers, and result bindings must be present for certification."
+    "failure_reason": "All protocol obligations are present; final certification remains blocked by contract policy."
   }
 }

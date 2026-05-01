@@ -1,0 +1,456 @@
+{
+  "schema_id": "OC133_EARTH_SPACE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "capability_owner": "Logion Earth-Space Evidence / Official Geophysical Data",
+  "generated_by": "validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py",
+  "coverage_register_ref": "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+  "modern_science_work_orders_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+  "domain_class_id": "earth_space_environmental_sciences",
+  "target_work_order_ids": [
+    "MS-COV-WO-010",
+    "MS-COV-WO-011",
+    "MS-COV-WO-012"
+  ],
+  "work_order_total": 3,
+  "coverage_closure_allowed": false,
+  "broad_modern_science_superiority_allowed": false,
+  "official_api_hash_bound_lane_total": 1,
+  "no_send_locks": {
+    "no_send": true,
+    "public_release_action_allowed": false,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "registry_write_allowed": false,
+    "journal_submission_allowed": false,
+    "email_allowed": false,
+    "doi_registration_allowed": false,
+    "coverage_closure_allowed": false,
+    "broad_modern_science_superiority_allowed": false
+  },
+  "work_orders": [
+    {
+      "work_order_id": "MS-COV-WO-010",
+      "domain_class_id": "earth_space_environmental_sciences",
+      "phenomenon_class_id": "climate_weather_geophysical_time_series",
+      "phenomenon_label": "climate weather geophysical time series",
+      "lane_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+      "coverage_closure_allowed": false,
+      "support_allowed_for_broad_coverage": false,
+      "executable_spec": {
+        "official_source": {
+          "source_id": "earth_noaa_coops_san_francisco_water_level_v1",
+          "source_name": "NOAA CO-OPS Data Retrieval API water level and tide prediction observations",
+          "source_authority": "NOAA Center for Operational Oceanographic Products and Services",
+          "official_documentation_url": "https://api.tidesandcurrents.noaa.gov/api/prod/",
+          "official_endpoint_url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20240101&end_date=20240103&station=9414290&product=water_level&datum=MLLW&time_zone=gmt&units=metric&application=LogionOC133CoverageSpec&format=json",
+          "paired_official_endpoint_url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20240101&end_date=20240103&station=9414290&product=predictions&datum=MLLW&time_zone=gmt&units=metric&application=LogionOC133CoverageSpec&format=json&interval=6",
+          "required_local_snapshot_refs": [
+            "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_water_level_20240101_20240103.json",
+            "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/noaa_coops_9414290_predictions_20240101_20240103.json"
+          ],
+          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+        },
+        "target_variable": {
+          "name": "observed_six_minute_water_level_mllw",
+          "unit": "meters relative to MLLW",
+          "target_fields": [
+            "data[].v"
+          ],
+          "target_field": "NOAA_COOPS[station=9414290, timestamp].data.v"
+        },
+        "target_hidden_split": {
+          "mode": "target_blind_same_source_with_visible_prediction_product",
+          "visible_inputs": [
+            "timestamp",
+            "official tide prediction value",
+            "prior observed residuals before hidden timestamp"
+          ],
+          "hidden_target_fields": [
+            "observed water_level data[].v for heldout timestamps"
+          ],
+          "split_rule": "Lock source bytes; expose Jan 1 prior residuals for calibration; hide Jan 2-3 observed water-level values until predictions are materialized.",
+          "target_hidden_until_scoring": true,
+          "target_values_used_for_selection": false
+        },
+        "formula_or_model": {
+          "model_id": "NOAA-TIDE-PREDICTION-PLUS-PRIOR-RESIDUAL-AR1",
+          "rule": "y_hat(t) = NOAA_prediction(t) + median(prior_observed_minus_prediction_residual) + 0.5 * last_visible_residual",
+          "required_inputs": [
+            "official tide prediction",
+            "prior visible residuals",
+            "timestamp"
+          ],
+          "target_values_may_be_used_for_model_design": false
+        },
+        "preregistered_comparator": {
+          "comparator_id": "NOAA-HARMONIC-PREDICTION-ONLY",
+          "prediction_rule": "Predict each hidden observed water-level row using only the paired official NOAA tide prediction value at the same timestamp.",
+          "pre_registered": true,
+          "target_values_used_for_baseline_design": false
+        },
+        "uncertainty_and_residual": {
+          "uncertainty_method": "pre-target median absolute deviation of visible residuals plus NOAA reported standard deviation field where present",
+          "residual_metric": "absolute residual per hidden six-minute timestamp; aggregate MAE and RMSE",
+          "superiority_rule": "model MAE plus uncertainty allowance must be lower than comparator MAE and every timestamp hash must remain bound"
+        },
+        "negative_control": {
+          "control_id": "NOAA-WATER-LEVEL-TIMESTAMP-PHASE-SHIFT",
+          "description": "Shift the target timestamps by +6 hours after source lock.",
+          "rejection_predicate": "phase-shifted target mapping changes row hashes and worsens residuals relative to the locked timestamp mapping"
+        },
+        "falsifier": {
+          "falsifier_id": "NOAA-WATER-LEVEL-FAIL-CLOSED-FALSIFIER",
+          "triggers": [
+            "observed hidden water-level values appear in visible inputs",
+            "NOAA source snapshot hashes are missing or change on replay",
+            "comparator residual ties or beats the model within the uncertainty policy",
+            "fewer than 20 hidden timestamps are scored"
+          ]
+        },
+        "N": {
+          "minimum_n": 20,
+          "planned_source_rows": 720,
+          "planned_hidden_target_rows": 480,
+          "unit": "six-minute water-level observations"
+        },
+        "replay_command": {
+          "commands": [
+            "acquire NOAA CO-OPS water_level and predictions endpoints listed in this spec and hash response bytes",
+            "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check"
+          ],
+          "acceptance_predicates": [
+            "STRICT_PACK_SCHEMA_PASS",
+            "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
+            "TARGET_VARIABLE_EXACTLY_DECLARED",
+            "TARGET_HIDDEN_OR_PROSPECTIVE_LOCK_DECLARED",
+            "FORMULA_OR_MODEL_PREREGISTERED",
+            "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+            "UNCERTAINTY_AND_RESIDUAL_DECLARED",
+            "NEGATIVE_CONTROL_REJECTION_REQUIRED",
+            "FALSIFIER_PREDICATES_EXECUTABLE",
+            "INDEPENDENT_REPLAY_PASS",
+            "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW",
+            "NO_BROAD_SUPERIORITY_CERTIFICATION"
+          ]
+        },
+        "fail_closed_current_evidence": {
+          "current_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+          "executable_evidence_exists": false,
+          "strict_evidence_pack_ref": null,
+          "source_snapshot_hash_bound": false,
+          "source_snapshot_ref": null,
+          "source_snapshot_sha256": null,
+          "reason": "NOAA source snapshots, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound.",
+          "coverage_closure_allowed": false,
+          "broad_modern_science_superiority_allowed": false,
+          "scientific_pass": false
+        }
+      },
+      "no_send_locks": {
+        "no_send": true,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "registry_write_allowed": false,
+        "journal_submission_allowed": false,
+        "email_allowed": false,
+        "doi_registration_allowed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false
+      },
+      "row_sha256": "ef22b73063fd1e94ad63ccc083849b4b6b3b102c8c5ae377cd05203eb3b6d4a1"
+    },
+    {
+      "work_order_id": "MS-COV-WO-011",
+      "domain_class_id": "earth_space_environmental_sciences",
+      "phenomenon_class_id": "geochemistry_and_hydrology_observables",
+      "phenomenon_label": "geochemistry and hydrology observables",
+      "lane_status": "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET",
+      "coverage_closure_allowed": false,
+      "support_allowed_for_broad_coverage": false,
+      "official_api_lane": {
+        "status": "SOURCE_SNAPSHOT_HASH_BOUND_SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET",
+        "official_endpoint_url": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=01646500&startDT=2024-01-01&endDT=2024-02-09&parameterCd=00060&statCd=00003&siteStatus=all",
+        "snapshot_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/usgs_potomac_daily_discharge_2024_01_01_2024_02_09.json",
+        "metadata_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/usgs_potomac_daily_discharge_2024_01_01_2024_02_09.metadata.json",
+        "source_snapshot_sha256": "acdcff42013baa90301e8352fb070e931f99bd8d92b8e57a2e28597bcaab4a83",
+        "metadata_sha256": "53a81cd9bfb419cb432e7489c51abb1c53a4f2b5d5fa35184ac82e15ca6695e0",
+        "byte_count": 5560,
+        "value_row_count": 40,
+        "source_snapshot_hash_bound": true,
+        "scientific_pass": false,
+        "coverage_closure_allowed": false,
+        "remaining_blocker": "COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY",
+        "target_hidden_scorer_present": true,
+        "strict_evidence_pack_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+        "strict_evidence_pack_sha256": "4d56d243c31a996b1502f246a768270d2654e864890aaa176c78a9af9f0a4c6c",
+        "strict_scientific_predicates_pass": false,
+        "negative_control_rejected": true,
+        "falsifier_status": "TRIGGERED",
+        "scorer_status": "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET"
+      },
+      "executable_spec": {
+        "official_source": {
+          "source_id": "earth_usgs_nwis_daily_values_discharge_v1",
+          "source_name": "USGS Water Services Daily Values API mean discharge",
+          "source_authority": "U.S. Geological Survey",
+          "official_documentation_url": "https://waterservices.usgs.gov/docs/dv-service/daily-values-service-details/",
+          "official_endpoint_url": "https://waterservices.usgs.gov/nwis/dv/?format=json&sites=01646500&startDT=2024-01-01&endDT=2024-02-09&parameterCd=00060&statCd=00003&siteStatus=all",
+          "required_local_snapshot_refs": [
+            "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/usgs_potomac_daily_discharge_2024_01_01_2024_02_09.json"
+          ],
+          "snapshot_status": "SOURCE_SNAPSHOT_HASH_BOUND_SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET"
+        },
+        "target_variable": {
+          "name": "daily_mean_streamflow_discharge",
+          "unit": "cubic feet per second",
+          "target_fields": [
+            "value.timeSeries[0].values[0].value[].value"
+          ],
+          "target_field": "USGS_DV[site=01646500, parameterCd=00060, statCd=00003, date].value"
+        },
+        "target_hidden_split": {
+          "mode": "prospective_source_lock_then_temporal_holdout",
+          "visible_inputs": [
+            "site id",
+            "dates 2024-01-01 through 2024-01-20 discharge values",
+            "parameter metadata"
+          ],
+          "hidden_target_fields": [
+            "dates 2024-01-21 through 2024-02-09 discharge values"
+          ],
+          "split_rule": "The first 20 daily values are visible training rows; the final 20 daily values are hidden targets until prediction materialization.",
+          "target_hidden_until_scoring": true,
+          "target_values_used_for_selection": false
+        },
+        "formula_or_model": {
+          "model_id": "USGS-LOG-FLOW-PRIOR-DELTA-MEDIAN",
+          "rule": "log1p(Q_hat_t) = log1p(Q_t_minus_1) + median(diff(log1p(Q_visible_training)))",
+          "required_inputs": [
+            "prior daily discharge",
+            "training-only median log-flow delta",
+            "date order"
+          ],
+          "target_values_may_be_used_for_model_design": false
+        },
+        "preregistered_comparator": {
+          "comparator_id": "USGS-LAST-OBSERVATION-CARRY-FORWARD",
+          "prediction_rule": "Predict every hidden discharge row as the last visible discharge value, with no target rows used for tuning.",
+          "pre_registered": true,
+          "target_values_used_for_baseline_design": false
+        },
+        "uncertainty_and_residual": {
+          "uncertainty_method": "training-only median absolute deviation of one-step log-flow residuals",
+          "residual_metric": "absolute residual in cfs per heldout date plus aggregate MAE over hidden dates",
+          "superiority_rule": "model MAE plus uncertainty allowance must be lower than carry-forward comparator MAE; otherwise the lane stays open"
+        },
+        "negative_control": {
+          "control_id": "USGS-DISCHARGE-DATE-ORDER-REVERSAL",
+          "description": "Reverse hidden target date order after source lock.",
+          "rejection_predicate": "date-order reversal changes the declared hidden date-sequence hash and is rejected before any strict acceptance claim"
+        },
+        "falsifier": {
+          "falsifier_id": "USGS-HYDROLOGY-FAIL-CLOSED-FALSIFIER",
+          "triggers": [
+            "source snapshot hash or metadata hash does not match stored bytes",
+            "hidden discharge target rows are read before prediction materialization",
+            "carry-forward comparator ties or beats the model within uncertainty",
+            "fewer than 20 hidden daily values are scored"
+          ]
+        },
+        "N": {
+          "minimum_n": 20,
+          "acquired_source_rows": 40,
+          "planned_hidden_target_rows": 20,
+          "unit": "daily mean discharge observations"
+        },
+        "replay_command": {
+          "commands": [
+            "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --score-usgs-hydrology --write",
+            "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check"
+          ],
+          "acceptance_predicates": [
+            "STRICT_PACK_SCHEMA_PASS",
+            "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
+            "TARGET_VARIABLE_EXACTLY_DECLARED",
+            "TARGET_HIDDEN_OR_PROSPECTIVE_LOCK_DECLARED",
+            "FORMULA_OR_MODEL_PREREGISTERED",
+            "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+            "UNCERTAINTY_AND_RESIDUAL_DECLARED",
+            "NEGATIVE_CONTROL_REJECTION_REQUIRED",
+            "FALSIFIER_PREDICATES_EXECUTABLE",
+            "INDEPENDENT_REPLAY_PASS",
+            "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW",
+            "NO_BROAD_SUPERIORITY_CERTIFICATION"
+          ]
+        },
+        "fail_closed_current_evidence": {
+          "current_status": "SCORER_READY_FAIL_CLOSED_STRICT_EVIDENCE_NOT_MET",
+          "executable_evidence_exists": true,
+          "strict_evidence_pack_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/OC133_EARTH_SPACE_USGS_HYDROLOGY_TARGET_HIDDEN_REPLAY_SCORER_EVIDENCE_PACK.json",
+          "strict_evidence_pack_sha256": "4d56d243c31a996b1502f246a768270d2654e864890aaa176c78a9af9f0a4c6c",
+          "source_snapshot_hash_bound": true,
+          "source_snapshot_ref": "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/usgs_potomac_daily_discharge_2024_01_01_2024_02_09.json",
+          "source_snapshot_sha256": "acdcff42013baa90301e8352fb070e931f99bd8d92b8e57a2e28597bcaab4a83",
+          "target_hidden_scorer_present": true,
+          "comparator_residual_metric_bound": true,
+          "negative_control_rejected": true,
+          "falsifier_status": "TRIGGERED",
+          "exact_blocker": "COMPARATOR_BASELINE_NOT_BEATEN_WITH_UNCERTAINTY",
+          "reason": "USGS target-hidden replay scorer is bound, but strict evidence is blocked because the predeclared model does not beat the carry-forward comparator within the uncertainty allowance.",
+          "coverage_closure_allowed": false,
+          "broad_modern_science_superiority_allowed": false,
+          "scientific_pass": false
+        }
+      },
+      "no_send_locks": {
+        "no_send": true,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "registry_write_allowed": false,
+        "journal_submission_allowed": false,
+        "email_allowed": false,
+        "doi_registration_allowed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false
+      },
+      "row_sha256": "7fdd11fa9758a5795f0bcfb3294050e063d9269af60a00911b87f449071d69b8"
+    },
+    {
+      "work_order_id": "MS-COV-WO-012",
+      "domain_class_id": "earth_space_environmental_sciences",
+      "phenomenon_class_id": "remote_sensing_and_planetary_measurements",
+      "phenomenon_label": "remote sensing and planetary measurements",
+      "lane_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+      "coverage_closure_allowed": false,
+      "support_allowed_for_broad_coverage": false,
+      "executable_spec": {
+        "official_source": {
+          "source_id": "earth_nasa_power_daily_solar_san_francisco_v1",
+          "source_name": "NASA POWER Daily API solar and meteorological point data",
+          "source_authority": "NASA Langley Research Center POWER Project",
+          "official_documentation_url": "https://power.larc.nasa.gov/docs/services/api/temporal/daily/",
+          "official_endpoint_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN%2CT2M&community=RE&longitude=-122.4194&latitude=37.7749&start=20240101&end=20240209&format=JSON&time-standard=UTC",
+          "required_local_snapshot_refs": [
+            "validation/heldout/grand_science/earth_space/coverage_work_orders/raw/nasa_power_sf_daily_20240101_20240209.json"
+          ],
+          "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+        },
+        "target_variable": {
+          "name": "daily_all_sky_surface_shortwave_downward_irradiance",
+          "unit": "kWh/m^2/day",
+          "target_fields": [
+            "properties.parameter.ALLSKY_SFC_SW_DWN.<YYYYMMDD>"
+          ],
+          "target_field": "NASA_POWER[lat=37.7749, lon=-122.4194, date].ALLSKY_SFC_SW_DWN"
+        },
+        "target_hidden_split": {
+          "mode": "target_blind_temporal_holdout",
+          "visible_inputs": [
+            "latitude",
+            "longitude",
+            "day-of-year",
+            "visible T2M values",
+            "prior solar rows"
+          ],
+          "hidden_target_fields": [
+            "ALLSKY_SFC_SW_DWN values for heldout dates"
+          ],
+          "split_rule": "Hide the final 20 daily rows as targets after source lock; the first 20 daily rows remain visible for formula materialization.",
+          "target_hidden_until_scoring": true,
+          "target_values_used_for_selection": false
+        },
+        "formula_or_model": {
+          "model_id": "NASA-POWER-CLEAR-SKY-SEASONAL-LAG",
+          "rule": "y_hat(date) = median(visible ALLSKY_SFC_SW_DWN for same week window) adjusted by cosine solar-zenith day-of-year factor",
+          "required_inputs": [
+            "latitude",
+            "day-of-year",
+            "visible solar rows",
+            "visible T2M"
+          ],
+          "target_values_may_be_used_for_model_design": false
+        },
+        "preregistered_comparator": {
+          "comparator_id": "NASA-POWER-TRAILING-MEAN-COMPARATOR",
+          "prediction_rule": "Predict each hidden date using the trailing seven visible daily solar-radiation mean only.",
+          "pre_registered": true,
+          "target_values_used_for_baseline_design": false
+        },
+        "uncertainty_and_residual": {
+          "uncertainty_method": "visible-date rolling residual envelope with fixed kWh/m^2/day materiality floor",
+          "residual_metric": "absolute residual per heldout date; aggregate MAE",
+          "superiority_rule": "model MAE plus uncertainty allowance must be lower than the trailing-mean comparator MAE"
+        },
+        "negative_control": {
+          "control_id": "NASA-POWER-LATITUDE-SIGN-FLIP",
+          "description": "Flip latitude sign after source lock while keeping dates fixed.",
+          "rejection_predicate": "latitude-sign flip changes prediction rows and fails residual/materiality predicates"
+        },
+        "falsifier": {
+          "falsifier_id": "NASA-POWER-REMOTE-SENSING-FAIL-CLOSED-FALSIFIER",
+          "triggers": [
+            "hidden solar target values appear in visible inputs",
+            "NASA POWER source snapshot hash is missing or changes",
+            "trailing-mean comparator ties or beats the model within uncertainty",
+            "fewer than 20 NASA POWER daily rows are locked"
+          ]
+        },
+        "N": {
+          "minimum_n": 20,
+          "planned_source_rows": 40,
+          "planned_hidden_target_rows": 20,
+          "unit": "daily point records"
+        },
+        "replay_command": {
+          "commands": [
+            "acquire NASA POWER endpoint listed in this spec and hash response bytes",
+            "python validation/heldout/grand_science/earth_space/coverage_work_orders/oc133_earth_space_modern_science_coverage_work_orders.py --check"
+          ],
+          "acceptance_predicates": [
+            "STRICT_PACK_SCHEMA_PASS",
+            "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
+            "TARGET_VARIABLE_EXACTLY_DECLARED",
+            "TARGET_HIDDEN_OR_PROSPECTIVE_LOCK_DECLARED",
+            "FORMULA_OR_MODEL_PREREGISTERED",
+            "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+            "UNCERTAINTY_AND_RESIDUAL_DECLARED",
+            "NEGATIVE_CONTROL_REJECTION_REQUIRED",
+            "FALSIFIER_PREDICATES_EXECUTABLE",
+            "INDEPENDENT_REPLAY_PASS",
+            "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW",
+            "NO_BROAD_SUPERIORITY_CERTIFICATION"
+          ]
+        },
+        "fail_closed_current_evidence": {
+          "current_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+          "executable_evidence_exists": false,
+          "strict_evidence_pack_ref": null,
+          "source_snapshot_hash_bound": false,
+          "source_snapshot_ref": null,
+          "source_snapshot_sha256": null,
+          "reason": "NASA POWER source snapshot, target-hidden scorer, negative-control replay, and strict evidence pack are not yet bound.",
+          "coverage_closure_allowed": false,
+          "broad_modern_science_superiority_allowed": false,
+          "scientific_pass": false
+        }
+      },
+      "no_send_locks": {
+        "no_send": true,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "registry_write_allowed": false,
+        "journal_submission_allowed": false,
+        "email_allowed": false,
+        "doi_registration_allowed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false
+      },
+      "row_sha256": "3920363c3d43bb16d648778046eda2857c8d69d391afd4a1e59bcbf67cc752cc"
+    }
+  ]
+}

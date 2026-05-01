@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from collections import defaultdict
@@ -118,6 +119,18 @@ def write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
 
 
+def canonical_sha256(payload: Any) -> str:
+    return hashlib.sha256(
+        json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+
+
+def file_sha256(path: Path) -> str | None:
+    if not path.exists() or not path.is_file():
+        return None
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
 def ordered_unique(values: list[str]) -> list[str]:
     seen: set[str] = set()
     out: list[str] = []
@@ -148,12 +161,106 @@ def registry_refs(registry: dict[str, Any]) -> list[str]:
     return ordered_unique([str(ref).replace("\\", "/") for ref in refs if isinstance(ref, str) and ref.strip()])
 
 
-def build_work_orders(report: dict[str, Any]) -> dict[str, Any]:
+def selected_valid_refs(report: dict[str, Any]) -> list[str]:
+    rows = report.get("candidate_rows", [])
+    if not isinstance(rows, list):
+        return []
+    return ordered_unique(
+        [
+            str(row["source_ref"]).replace("\\", "/")
+            for row in rows
+            if isinstance(row, dict)
+            and row.get("selected_for_domain_support") is True
+            and isinstance(row.get("source_ref"), str)
+        ]
+    )
+
+
+def candidate_hashes(report: dict[str, Any]) -> dict[str, str]:
+    rows = report.get("candidate_rows", [])
+    if not isinstance(rows, list):
+        return {}
+    return {
+        str(row["source_ref"]).replace("\\", "/"): str(row["candidate_sha256"])
+        for row in rows
+        if isinstance(row, dict)
+        and isinstance(row.get("source_ref"), str)
+        and isinstance(row.get("candidate_sha256"), str)
+    }
+
+
+def source_artifact_set(root: Path, report: dict[str, Any]) -> dict[str, Any]:
+    candidates = candidate_hashes(report)
+    valid_refs = selected_valid_refs(report)
+    return {
+        "requirements_ref": grand_factory.REQUIREMENTS_REL,
+        "requirements_sha256": file_sha256(root / grand_factory.REQUIREMENTS_REL),
+        "schema_ref": grand_factory.EVIDENCE_SCHEMA_REL,
+        "schema_sha256": file_sha256(root / grand_factory.EVIDENCE_SCHEMA_REL),
+        "protocol_schema_ref": grand_factory.PROTOCOL_SCHEMA_REL,
+        "protocol_schema_sha256": file_sha256(root / grand_factory.PROTOCOL_SCHEMA_REL),
+        "bounded_baseline_ref": grand_factory.TARGET_BLIND_REL,
+        "bounded_baseline_sha256": file_sha256(root / grand_factory.TARGET_BLIND_REL),
+        "candidate_evidence_pack_hashes": dict(sorted(candidates.items())),
+        "selected_valid_evidence_pack_refs": valid_refs,
+        "selected_valid_evidence_pack_hashes": {ref: candidates[ref] for ref in valid_refs if ref in candidates},
+        "domain_blockers": {
+            str(row.get("domain")): list(row.get("blockers", []))
+            for row in report.get("domains", [])
+            if isinstance(row, dict) and row.get("domain")
+        },
+        "blocked_domain_total": report.get("blocked_domain_total"),
+        "grand_toe_support_allowed": report.get("grand_toe_support_allowed"),
+    }
+
+
+def sync_identity(root: Path, report: dict[str, Any]) -> dict[str, Any]:
+    artifacts = source_artifact_set(root, report)
+    source_hash = canonical_sha256(artifacts)
+    return {
+        "sync_run_id": f"OC133-GRAND-GATE-{source_hash[:16].upper()}",
+        "gate_run_id": f"OC133-GRAND-GATE-{source_hash[:16].upper()}",
+        "source_artifact_set_sha256": source_hash,
+        "source_artifact_hashes": artifacts,
+    }
+
+
+def annotate_grand_report(report: dict[str, Any], identity: dict[str, Any], generated_at: str) -> dict[str, Any]:
+    payload = dict(report)
+    payload["generated_at"] = generated_at
+    payload["sync_run_id"] = identity["sync_run_id"]
+    payload["gate_run_id"] = identity["gate_run_id"]
+    payload["source_artifact_set_sha256"] = identity["source_artifact_set_sha256"]
+    payload["source_artifact_hashes"] = identity["source_artifact_hashes"]
+    payload["selected_valid_evidence_pack_refs"] = selected_valid_refs(report)
+    payload["registry_sync_ref"] = REPORT_JSON_REL
+    payload["repair_work_orders_ref"] = WORK_ORDERS_REL
+    return payload
+
+
+def blocked_domains(report: dict[str, Any]) -> set[str]:
+    rows = report.get("domains", [])
+    if not isinstance(rows, list):
+        return set()
+    return {
+        str(row.get("domain"))
+        for row in rows
+        if isinstance(row, dict) and row.get("domain") and row.get("status") == "BLOCKED"
+    }
+
+
+def build_work_orders(report: dict[str, Any], identity: dict[str, Any], generated_at: str) -> dict[str, Any]:
     grouped: dict[tuple[str, str, str], dict[str, Any]] = {}
+    blocked = blocked_domains(report)
+    hashes = candidate_hashes(report)
     for row in report.get("candidate_rows", []):
         if not isinstance(row, dict) or row.get("valid_for_grand_support") is True:
             continue
+        if row.get("supersession_status") == "superseded":
+            continue
         domain = str(row.get("domain") or "unknown")
+        if domain not in blocked:
+            continue
         source_ref = str(row.get("source_ref") or "")
         for failure in row.get("failures", []):
             class_id, owner, required_repair = failure_class(str(failure))
@@ -168,19 +275,32 @@ def build_work_orders(report: dict[str, Any]) -> dict[str, Any]:
                     "status": "OPEN",
                     "required_repair": required_repair,
                     "candidate_refs": [],
+                    "candidate_artifacts": [],
                     "failure_examples": [],
                     "before_predicate": "candidate evidence pack fails validation.grand_science.evidence_pack_factory.pack_failure_reasons",
-                    "after_predicate": "the same pack or successor pack validates with valid_for_grand_support=true and is registered by this sync factory",
+                    "after_predicate": "the same pack or successor pack validates with valid_for_grand_support=true, carries the cited source_ref/candidate_sha256, and is registered by this sync factory",
                     "closure_evidence_required": [
-                        "candidate row valid_for_grand_support=true",
-                        "registered evidence_pack_ref points to the validated pack",
-                        "grand empirical gate re-audits the domain without this failure class",
+                        "validated candidate source_ref",
+                        "validated candidate_sha256 from the same gate run",
+                        "registered evidence_pack_ref points to the validated source_ref",
+                        "grand empirical gate re-audits the domain without this failure class under the same source_artifact_set_sha256",
                     ],
+                    "closure_requires_artifact_refs_and_hashes": True,
                     "artifact_exists_is_not_closure": True,
+                    "sync_run_id": identity["sync_run_id"],
+                    "gate_run_id": identity["gate_run_id"],
+                    "source_artifact_set_sha256": identity["source_artifact_set_sha256"],
                     **NO_SEND_LOCKS,
                 },
             )
             item["candidate_refs"] = ordered_unique([*item["candidate_refs"], source_ref])
+            artifact = {
+                "source_ref": source_ref,
+                "candidate_sha256": hashes.get(source_ref),
+                "failure": str(failure),
+            }
+            if artifact not in item["candidate_artifacts"]:
+                item["candidate_artifacts"].append(artifact)
             item["failure_examples"] = ordered_unique([*item["failure_examples"], str(failure)])
 
     rows = sorted(grouped.values(), key=lambda item: (item["domain"], item["failure_class"], item["work_order_id"]))
@@ -188,60 +308,110 @@ def build_work_orders(report: dict[str, Any]) -> dict[str, Any]:
         "schema_id": WORK_ORDER_SCHEMA_ID,
         "release_id": RELEASE_ID,
         "version": VERSION,
-        "generated_at": utc_now(),
+        "generated_at": generated_at,
         "capability_owner": CAPABILITY_OWNER,
+        "sync_run_id": identity["sync_run_id"],
+        "gate_run_id": identity["gate_run_id"],
+        "source_artifact_set_sha256": identity["source_artifact_set_sha256"],
+        "source_artifact_hashes": identity["source_artifact_hashes"],
         "work_order_total": len(rows),
         "open_work_order_total": len(rows),
         "rows": rows,
         "no_send": True,
         "publish_allowed": False,
         "journal_submissions_allowed": False,
-        "closure_policy": "A work order closes only when the strict grand empirical gate validates the affected evidence pack; status tokens and artifact existence do not close it.",
+        "closure_policy": "A work order closes only when the strict grand empirical gate validates the affected evidence pack and the closure cites the validated source_ref plus candidate_sha256. Status tokens and artifact existence do not close it.",
     }
 
 
-def apply_valid_refs(root: Path, registry: dict[str, Any], additions: list[str]) -> tuple[dict[str, Any], bool]:
-    if not additions:
-        return registry, False
+def synchronize_registry_refs(
+    root: Path,
+    registry: dict[str, Any],
+    desired_refs: list[str],
+    identity: dict[str, Any],
+    generated_at: str,
+) -> tuple[dict[str, Any], bool]:
     current = registry_refs(registry)
-    merged = ordered_unique([*current, *additions])
-    if merged == current:
-        return registry, False
     updated = dict(registry)
     updated.setdefault("schema_id", "OC133_GRAND_SCIENCE_HELDOUT_REGISTRY_v1")
     updated.setdefault("release_id", RELEASE_ID)
     updated.setdefault("capability_owner", CAPABILITY_OWNER)
-    updated["evidence_pack_refs"] = merged
-    write_json(root / grand_factory.REGISTRY_REL, updated)
-    return updated, True
+    updated["evidence_pack_refs"] = desired_refs
+    updated["generated_at"] = generated_at
+    updated["sync_run_id"] = identity["sync_run_id"]
+    updated["gate_run_id"] = identity["gate_run_id"]
+    updated["source_artifact_set_sha256"] = identity["source_artifact_set_sha256"]
+    updated["registered_evidence_pack_hashes"] = identity["source_artifact_hashes"].get(
+        "selected_valid_evidence_pack_hashes", {}
+    )
+    changed = current != desired_refs or any(
+        registry.get(key) != updated.get(key)
+        for key in ("sync_run_id", "gate_run_id", "source_artifact_set_sha256", "registered_evidence_pack_hashes")
+    )
+    if changed:
+        write_json(root / grand_factory.REGISTRY_REL, updated)
+    return updated, changed
 
 
 def build_payload(root: Path, *, write: bool = False) -> dict[str, Any]:
+    generated_at = utc_now()
     before_registry = read_json(root / grand_factory.REGISTRY_REL)
     before_refs = registry_refs(before_registry)
     report_before = grand_factory.build_grand_empirical_payload(root)
-    candidate_rows = [row for row in report_before.get("candidate_rows", []) if isinstance(row, dict)]
-    valid_refs = [
-        str(row["source_ref"])
-        for row in candidate_rows
-        if row.get("valid_for_grand_support") is True and isinstance(row.get("source_ref"), str)
-    ]
-    additions = sorted(ref for ref in valid_refs if ref not in before_refs)
-    after_registry, registry_updated = apply_valid_refs(root, before_registry, additions) if write else (before_registry, False)
-    report_after = grand_factory.build_grand_empirical_payload(root) if registry_updated else report_before
+    desired_refs_before = selected_valid_refs(report_before)
+    identity_before = sync_identity(root, report_before)
+    registry_updated = False
+    after_registry = before_registry
+    report_after = report_before
+    if write:
+        after_registry, registry_updated = synchronize_registry_refs(
+            root,
+            before_registry,
+            desired_refs_before,
+            identity_before,
+            generated_at,
+        )
+        report_after = grand_factory.build_grand_empirical_payload(root)
+    identity = sync_identity(root, report_after)
+    desired_refs = selected_valid_refs(report_after)
+    if write and (
+        identity["source_artifact_set_sha256"] != identity_before["source_artifact_set_sha256"]
+        or registry_refs(after_registry) != desired_refs
+    ):
+        after_registry, registry_updated_second_pass = synchronize_registry_refs(
+            root,
+            after_registry,
+            desired_refs,
+            identity,
+            generated_at,
+        )
+        registry_updated = registry_updated or registry_updated_second_pass
+        report_after = grand_factory.build_grand_empirical_payload(root)
+        identity = sync_identity(root, report_after)
+        desired_refs = selected_valid_refs(report_after)
+
+    annotated_report = annotate_grand_report(report_after, identity, generated_at)
+    candidate_rows = [row for row in report_after.get("candidate_rows", []) if isinstance(row, dict)]
+    new_valid_refs = ordered_unique([ref for ref in desired_refs if ref not in before_refs])
     after_refs = registry_refs(after_registry)
     invalid_rows = [row for row in candidate_rows if row.get("valid_for_grand_support") is not True]
+    current_invalid_rows = [
+        row
+        for row in invalid_rows
+        if row.get("supersession_status") != "superseded"
+        and str(row.get("domain") or "unknown") in blocked_domains(report_after)
+    ]
     failure_class_counts: dict[str, int] = defaultdict(int)
-    for row in invalid_rows:
+    for row in current_invalid_rows:
         failures = row.get("failures", [])
         if not isinstance(failures, list):
             continue
         for failure in failures:
             class_id, _, _ = failure_class(str(failure))
             failure_class_counts[class_id] += 1
-    work_orders = build_work_orders(report_after)
+    work_orders = build_work_orders(report_after, identity, generated_at)
 
-    if additions:
+    if new_valid_refs:
         verdict = "REGISTRY_SYNC_APPLIED_VALID_PACKS" if write else "REGISTRY_SYNC_VALID_PACKS_AVAILABLE"
     elif report_after.get("blocked_domain_total", 0):
         verdict = "REGISTRY_SYNC_BLOCKED_PENDING_VALID_PACKS"
@@ -252,18 +422,28 @@ def build_payload(root: Path, *, write: bool = False) -> dict[str, Any]:
         "schema_id": SCHEMA_ID,
         "release_id": RELEASE_ID,
         "version": VERSION,
-        "generated_at": utc_now(),
+        "generated_at": generated_at,
         "capability_owner": CAPABILITY_OWNER,
+        "sync_run_id": identity["sync_run_id"],
+        "gate_run_id": identity["gate_run_id"],
+        "source_artifact_set_sha256": identity["source_artifact_set_sha256"],
+        "source_artifact_hashes": identity["source_artifact_hashes"],
         "registry_ref": grand_factory.REGISTRY_REL,
         "grand_empirical_report_ref": grand_factory.REPORT_JSON_REL,
         "work_orders_ref": WORK_ORDERS_REL,
         "candidate_total": len(candidate_rows),
-        "valid_candidate_total": len(valid_refs),
+        "current_candidate_total": sum(1 for row in candidate_rows if row.get("supersession_status") != "superseded"),
+        "superseded_candidate_total": sum(1 for row in candidate_rows if row.get("supersession_status") == "superseded"),
+        "valid_candidate_total": len(desired_refs),
         "invalid_candidate_total": len(invalid_rows),
+        "current_invalid_candidate_total": len(current_invalid_rows),
         "registered_ref_total_before": len(before_refs),
         "registered_ref_total_after": len(after_refs),
-        "new_valid_ref_total": len(additions),
-        "new_valid_refs": additions,
+        "expected_registry_refs": desired_refs,
+        "new_valid_ref_total": len(new_valid_refs),
+        "new_valid_refs": new_valid_refs,
+        "removed_stale_ref_total": len([ref for ref in before_refs if ref not in desired_refs]),
+        "removed_stale_refs": [ref for ref in before_refs if ref not in desired_refs],
         "registry_updated": registry_updated,
         "blocked_domain_total_after_sync": report_after.get("blocked_domain_total"),
         "grand_toe_support_allowed_after_sync": report_after.get("grand_toe_support_allowed"),
@@ -275,10 +455,86 @@ def build_payload(root: Path, *, write: bool = False) -> dict[str, Any]:
         "closure_policy": "The sync factory only registers evidence packs already accepted by the strict grand empirical validator. It never edits packs or upgrades grand_toe_support_allowed.",
     }
     if write:
+        grand_factory.write_grand_empirical_outputs(root, annotated_report)
         write_json(root / REPORT_JSON_REL, payload)
         write_json(root / WORK_ORDERS_REL, work_orders)
         write_markdown(root / REPORT_MD_REL, payload, work_orders)
     return payload
+
+
+def check_stored(root: Path) -> list[str]:
+    errors: list[str] = []
+    registry = read_json(root / grand_factory.REGISTRY_REL)
+    sync_report = read_json(root / REPORT_JSON_REL)
+    grand_report = read_json(root / grand_factory.REPORT_JSON_REL)
+    work_orders = read_json(root / WORK_ORDERS_REL)
+
+    persisted = {
+        "registry": registry,
+        "sync_report": sync_report,
+        "grand_report": grand_report,
+        "work_orders": work_orders,
+    }
+    for key, payload in persisted.items():
+        if not payload:
+            errors.append(f"{key} artifact is missing or not JSON")
+
+    run_ids = {key: payload.get("sync_run_id") for key, payload in persisted.items() if payload.get("sync_run_id")}
+    if len(set(run_ids.values())) > 1:
+        errors.append(f"sync_run_id mismatch across artifacts: {run_ids}")
+    source_hashes = {
+        key: payload.get("source_artifact_set_sha256")
+        for key, payload in persisted.items()
+        if payload.get("source_artifact_set_sha256")
+    }
+    if len(set(source_hashes.values())) > 1:
+        errors.append(f"source_artifact_set_sha256 mismatch across artifacts: {source_hashes}")
+
+    report_valid_refs = selected_valid_refs(grand_report)
+    current_registry_refs = registry_refs(registry)
+    extra_registry_refs = [ref for ref in current_registry_refs if ref not in report_valid_refs]
+    missing_registry_refs = [ref for ref in report_valid_refs if ref not in current_registry_refs]
+    if extra_registry_refs:
+        errors.append(f"registry refs not selected by grand report: {extra_registry_refs}")
+    if missing_registry_refs:
+        errors.append(f"grand report selected valid refs missing from registry: {missing_registry_refs}")
+
+    recomputed_report = grand_factory.build_grand_empirical_payload(root)
+    recomputed_identity = sync_identity(root, recomputed_report)
+    stored_source_hash = grand_report.get("source_artifact_set_sha256")
+    if stored_source_hash and recomputed_identity["source_artifact_set_sha256"] != stored_source_hash:
+        errors.append(
+            "stored grand report source_artifact_set_sha256 does not match current gate inputs: "
+            f"{stored_source_hash} != {recomputed_identity['source_artifact_set_sha256']}"
+        )
+
+    open_rows = [
+        row
+        for row in work_orders.get("rows", [])
+        if isinstance(row, dict) and str(row.get("status") or "OPEN").upper() != "CLOSED"
+    ]
+    blocked = blocked_domains(grand_report)
+    valid_ref_set = set(report_valid_refs)
+    for row in open_rows:
+        domain = str(row.get("domain") or "unknown")
+        if domain not in blocked:
+            errors.append(f"open work order remains for non-blocked domain {domain}: {row.get('work_order_id')}")
+        candidate_refs = {str(ref).replace("\\", "/") for ref in row.get("candidate_refs", []) if ref}
+        already_valid_refs = sorted(candidate_refs & valid_ref_set)
+        if already_valid_refs:
+            errors.append(
+                f"open work order cites already valid registered refs {already_valid_refs}: {row.get('work_order_id')}"
+            )
+        artifacts = row.get("candidate_artifacts", [])
+        if not isinstance(artifacts, list) or not artifacts:
+            errors.append(f"open work order lacks candidate_artifacts refs/hashes: {row.get('work_order_id')}")
+            continue
+        for artifact in artifacts:
+            if not isinstance(artifact, dict) or not artifact.get("source_ref") or not artifact.get("candidate_sha256"):
+                errors.append(f"open work order closure artifact lacks source_ref/candidate_sha256: {row.get('work_order_id')}")
+                break
+
+    return errors
 
 
 def write_markdown(path: Path, payload: dict[str, Any], work_orders: dict[str, Any]) -> None:
@@ -287,7 +543,10 @@ def write_markdown(path: Path, payload: dict[str, Any], work_orders: dict[str, A
         "",
         f"Verdict: `{payload['verdict']}`",
         f"Candidate packs: `{payload['candidate_total']}`",
+        f"Current candidates: `{payload['current_candidate_total']}`",
+        f"Superseded candidates: `{payload['superseded_candidate_total']}`",
         f"Valid candidates: `{payload['valid_candidate_total']}`",
+        f"Current invalid candidates: `{payload['current_invalid_candidate_total']}`",
         f"New valid refs registered: `{payload['new_valid_ref_total']}`",
         f"Blocked domains after sync: `{payload['blocked_domain_total_after_sync']}`",
         f"Open repair work orders: `{payload['open_repair_work_order_total']}`",
@@ -326,12 +585,22 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Synchronize strict grand empirical evidence packs into the held-out registry.")
     parser.add_argument("--root", default=str(ROOT))
     parser.add_argument("--write", action="store_true", help="write the sync report, work orders, and any validated registry additions")
+    parser.add_argument("--check", action="store_true", help="check that stored registry/report/work-order artifacts share one gate run")
     return parser.parse_args(argv)
 
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
-    payload = build_payload(Path(args.root).resolve(), write=args.write)
+    root = Path(args.root).resolve()
+    if args.check:
+        errors = check_stored(root)
+        if errors:
+            for error in errors:
+                print(f"ERROR: {error}")
+            return 1
+        print("grand evidence registry sync check passed")
+        return 0
+    payload = build_payload(root, write=args.write)
     print(json.dumps(payload, ensure_ascii=False, indent=2))
     return 0
 

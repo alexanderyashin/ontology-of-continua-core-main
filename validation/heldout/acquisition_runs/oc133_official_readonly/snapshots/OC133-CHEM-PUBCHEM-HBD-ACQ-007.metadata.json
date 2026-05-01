@@ -1,0 +1,39 @@
+{
+  "schema_id": "OC133_OFFICIAL_READONLY_ACQUISITION_SNAPSHOT_METADATA_v1",
+  "release_id": "oc_core_1_3_3",
+  "acquisition_id": "OC133-CHEM-PUBCHEM-HBD-ACQ-007",
+  "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/284/property/MolecularFormula,CanonicalSMILES,ConnectivitySMILES,HBondDonorCount/JSON",
+  "allowlist_rule": "PubChem PUG REST",
+  "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/raw/pubchem_cid_284_hbond_donor.json",
+  "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-HBD-ACQ-007.json",
+  "status": "ACQUIRED_READONLY",
+  "http_status": 200,
+  "byte_count": 197,
+  "sha256": "6d92831048b7c526b713887b9614d6e93aff8dc119df1500527d08c6021844bc",
+  "source_bytes_sha256": "6d92831048b7c526b713887b9614d6e93aff8dc119df1500527d08c6021844bc",
+  "content_type": "application/json",
+  "order_record_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/order_records/OC133-CHEM-PUBCHEM-HBD-ACQ-007.order.json",
+  "order_record_sha256": "9dac2b3890573f24a3fd28f5452cc8c46c2dae1220595252c0996d94caf16da2",
+  "pre_target_sequence_proof": {
+    "source_snapshot_locked_before_scoring": true,
+    "source_snapshot_pre_target_lock": true,
+    "target_hidden_until_scoring": true,
+    "target_projection_unsealed_for_scoring": false,
+    "scoring_started": false,
+    "prediction_materialization_required_before_scoring": true,
+    "target_projection_read_before_prediction_materialization": false,
+    "prediction_before_scoring_sequence_required": "prediction_materialized < target_projection_unsealed_for_scoring <= scoring_started"
+  },
+  "hash_policy": "sha256 over acquired response bytes as stored",
+  "locks": {
+    "no_send": true,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "journal_submissions_allowed": false,
+    "doi_registration_allowed": false,
+    "zenodo_upload_allowed": false,
+    "registry_write_allowed": false,
+    "release_promotion_allowed": false
+  },
+  "scientific_pass": false
+}

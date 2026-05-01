@@ -1,0 +1,86 @@
+{
+  "spec_schema_id": "OC133_PHYSICS_CHEMISTRY_EXECUTABLE_COVERAGE_LANE_SPEC_v1",
+  "domain_class_id": "biological_life_sciences",
+  "phenomenon_class_id": "evolutionary_phylogenetic_patterns",
+  "coverage_closure_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+  "source_plan_id": "MS-BIO-EVOLUTION-NCBI-TAXONOMY-LCA-v1",
+  "official_data_source": {
+    "source_id": "biology_ncbi_taxonomy_lca_lineage_v1",
+    "source_name": "NCBI Taxonomy E-utilities taxonomy lineage records",
+    "source_authority": "National Center for Biotechnology Information",
+    "official_documentation_url": "https://www.ncbi.nlm.nih.gov/books/NBK25499/",
+    "official_endpoint_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=taxonomy&id=9606,10090,10116,7227,7955,3702",
+    "required_local_snapshot_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.json",
+    "required_lock_ref": "validation/heldout/grand_science/biology/evolutionary_phylogeny/OC133_NCBI_TAXONOMY_LINEAGE_SNAPSHOT.lock.json",
+    "minimum_rows_required": 20,
+    "snapshot_status": "NOT_ACQUIRED_FOR_THIS_COVERAGE_CLASS"
+  },
+  "target_variable": {
+    "name": "lowest_common_ancestor_tax_id",
+    "unit": "NCBI taxonomy identifier",
+    "target_fields": [
+      "tax_id_pair",
+      "lowest_common_ancestor_tax_id",
+      "lineage_distance"
+    ],
+    "extraction_rule": "Hide pairwise lowest-common-ancestor targets until lineage-derived predictions are materialized from locked visible taxon identifiers and permitted lineage prefixes."
+  },
+  "formula_requirement": {
+    "formula_or_model": "Lowest-common-ancestor replay over locked NCBI Taxonomy lineage arrays with pairwise tree-distance scoring declared before target opening.",
+    "required_inputs": [
+      "visible_tax_id_pair",
+      "locked_lineage_prefixes",
+      "declared_rank_order"
+    ],
+    "target_values_may_be_used_for_model_design": false
+  },
+  "incumbent_comparator_requirement": {
+    "baseline_name": "rank-only majority ancestor baseline",
+    "prediction_rule": "Predict the most frequent visible-panel ancestor at the declared rank without reading hidden pairwise lowest-common-ancestor targets.",
+    "pre_registered": true,
+    "target_values_used_for_baseline_design": false,
+    "required_material_margin": "lineage replay accuracy and tree-distance residual must beat the rank-only baseline on the same hidden taxon pairs"
+  },
+  "uncertainty_requirement": {
+    "metric": "taxonomy_tree_distance_with_lockfile_version_tolerance",
+    "rule": "Bind the NCBI taxonomy snapshot date, lock hash, and accepted synonym/version policy before target opening."
+  },
+  "residual_requirement": {
+    "metric_id": "taxonomy_lca_tree_distance_residual_v1",
+    "formula": "absolute tree-distance between predicted and observed lowest-common-ancestor nodes over hidden taxon pairs",
+    "superiority_rule": "mean tree-distance residual must be lower than comparator residual and exact LCA accuracy must be higher than comparator accuracy"
+  },
+  "negative_control_requirement": {
+    "control_id": "BIO-EVOLUTION-LINEAGE-SHUFFLE-BASELINE",
+    "rule": "lineage-shuffled and rank-only controls must score materially worse than the preregistered lineage replay"
+  },
+  "falsifier_requirement": {
+    "falsifier_id": "BIO-EVOLUTION-NCBI-TAXONOMY-FALSIFIER",
+    "trigger": "hidden LCA target leaks into visible inputs, N<20, NCBI snapshot or lock hash is missing, residual does not beat comparator, or synonym/version policy is changed after target opening"
+  },
+  "execution_requirements": {
+    "minimum_n": 20,
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true,
+    "evidence_pack_schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+    "replay_command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check"
+  },
+  "current_evidence": {
+    "executable_evidence_exists": false,
+    "executable_evidence_ref": null,
+    "reason": "No locked NCBI Taxonomy lineage snapshot, pairwise target projection, scorer, or strict evidence pack exists for this coverage class."
+  },
+  "closure_predicates_required": [
+    "STRICT_PACK_SCHEMA_PASS",
+    "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+    "TARGET_VARIABLE_EXACTLY_DECLARED",
+    "FORMULA_OR_MODEL_PREREGISTERED",
+    "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+    "UNCERTAINTY_POLICY_DECLARED",
+    "RESIDUAL_METRIC_EXECUTABLE",
+    "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+    "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+    "INDEPENDENT_REPLAY_PASS",
+    "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW"
+  ]
+}

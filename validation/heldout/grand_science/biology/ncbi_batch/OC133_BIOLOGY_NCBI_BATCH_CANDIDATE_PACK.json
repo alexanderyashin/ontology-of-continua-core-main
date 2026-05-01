@@ -4,15 +4,20 @@
   "capability_owner": "Research/EmpiricalScience",
   "evidence_pack_id": "OC133-BIOLOGY-NCBI-BATCH-CANDIDATE",
   "domain": "biology",
+  "evidence_family": "biology-ncbi-geo-pagination-qa",
+  "pack_version": "1.0",
+  "support_scope": "bounded NCBI/GEO API page-size reconstruction QA; not biological grand support",
   "source_separation": {
-    "mode": "official_readonly_snapshot_replay",
+    "mode": "target_blind",
     "pre_target_lock": true,
-    "target_hidden_until_scoring": false,
+    "target_hidden_until_scoring": true,
     "training_sources": [
-      "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_ACQUISITION_PACKET.json::visible_fields(retstart,idlist,querytranslation)"
+      "validation/heldout/target_projection_locks/locks/OC133-BIOLOGY-NCBI-BATCH-TARGET-PROJECTION-LOCK.visible_projection_lock.json",
+      "validation/heldout/grand_science/biology/ncbi_batch/legacy_seed_locks/OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C.visible_projection_lock.json"
     ],
     "target_sources": [
-      "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_ACQUISITION_PACKET.json::target_field(retmax)"
+      "validation/heldout/target_projection_locks/locks/OC133-BIOLOGY-NCBI-BATCH-TARGET-PROJECTION-LOCK.target_projection_lock.json",
+      "validation/heldout/grand_science/biology/ncbi_batch/legacy_seed_locks/OC133-BIOLOGY-NCBI-LEGACY-SEED-363C4501EE22767C.target_projection_lock.json"
     ]
   },
   "n": 20,
@@ -20,7 +25,7 @@
   "comparator_baseline": {
     "name": "GEO total-hit-count page-size negative control",
     "prediction_rule": "use esearchresult.count as the retmax prediction for every batch row",
-    "pre_registered": false
+    "pre_registered": true
   },
   "uncertainty": {
     "metric": "mean absolute residual",

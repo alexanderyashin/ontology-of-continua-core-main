@@ -19,6 +19,7 @@ REGISTER_REL = "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json"
 LANES_REL = "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json"
 REPORT_REL = "reports/OC_CORE_1_3_3_MODERN_SCIENCE_SUPERIORITY_REPORT.json"
 GRAND_REPORT_REL = "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json"
+COVERAGE_REGISTER_REL = "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json"
 TARGET_BLIND_REL = "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json"
 NUMERIC_REPLAY_REL = "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json"
 PROTOCOL_DIR_REL = "benchmarks/modern_science/protocols"
@@ -72,6 +73,10 @@ def load_json(path: Path) -> dict[str, Any]:
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+
+
+def sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def row_by(rows: list[dict[str, Any]], key: str) -> dict[str, dict[str, Any]]:
@@ -462,12 +467,178 @@ def build_domain_protocol(
     return protocol
 
 
+def build_formal_mathematics_protocol(root: Path, coverage_register: dict[str, Any]) -> dict[str, Any]:
+    protocol_only_ref: dict[str, Any] = {}
+    for row in coverage_register.get("domain_class_rows", []):
+        if row.get("domain_class_id") == "formal_mathematics_and_logic":
+            value = row.get("protocol_only_ref", {})
+            if isinstance(value, dict):
+                protocol_only_ref = value
+            break
+    source_capsule_ref = str(
+        protocol_only_ref.get("source_capsule_ref", "comparators/modern_science/source_capsules/MS-SRC-MATH-LEAN4.txt")
+    )
+    source_capsule_path = root / source_capsule_ref
+    source_capsule_sha256 = sha256_file(source_capsule_path) if source_capsule_path.exists() else ""
+    blocker_predicates = [
+        "FORMAL_ROUTE_PROTOCOL_ONLY_NO_EMPIRICAL_SUPERIORITY_PROTOCOL",
+        "NO_STRICT_EMPIRICAL_EVIDENCE_PACK_FOR_FORMAL_MATHEMATICS",
+        "COVERAGE_REGISTER_FORMAL_GAPS_REMAIN_OPEN",
+        "BROAD_MODERN_SCIENCE_SUPERIORITY_BLOCKED",
+    ]
+    return {
+        "schema_id": SCHEMA_ID,
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "generated_on": "2026-05-01",
+        "capability_owner": CAPABILITY_OWNER,
+        "blocker_id": BLOCKER_ID,
+        "protocol_id": "OC133-MODERN-SCIENCE-BENCHMARK-PROTOCOL-MATHEMATICS",
+        "domain": "mathematics",
+        "lane_id": "MS-LANE-MATHEMATICS-FORMAL-ROUTE-PROTOCOL-ONLY",
+        "predicate_id": "MS-PRED-MATH-FORMAL-ROUTE-001",
+        "route_type": "FORMAL_ROUTE_PROTOCOL_ONLY",
+        "evidence_refs": {
+            "register_ref": REGISTER_REL,
+            "coverage_register_ref": COVERAGE_REGISTER_REL,
+            "lane_ref": LANES_REL,
+            "modern_science_superiority_report_ref": REPORT_REL,
+            "source_capsule_ref": source_capsule_ref,
+            "source_capsule_sha256": source_capsule_sha256,
+        },
+        "incumbent_comparator": {
+            "incumbent": "Lean 4 theorem prover and formal mathematics ecosystem",
+            "accepted_capacity": "Lean 4 is an interactive theorem prover and programming language for verified programs and formal mathematics.",
+            "source_refs": [
+                {
+                    "title": "Lean 4 official site",
+                    "url": "https://lean4.dev/",
+                    "source_date": "reference",
+                    "local_source_capsule_ref": source_capsule_ref,
+                    "local_source_capsule_sha256": source_capsule_sha256,
+                }
+            ],
+        },
+        "oc_model_under_test": {
+            "result_ref": "",
+            "claim_id": "",
+            "dataset_snapshot_ref": "",
+            "formula_or_model": "",
+            "prediction_support_allowed": False,
+            "empirical_support_allowed": False,
+            "support_scope": "formal route/protocol-only planning; no empirical benchmark or theorem-prover superiority protocol is asserted",
+        },
+        "formal_route": {
+            "protocol_only": True,
+            "empirical_protocol_required": False,
+            "strict_empirical_pack_required": False,
+            "coverage_gap_status": "OPEN",
+            "allowed_current_claim": "bounded formal release-consistency and proof-route planning only",
+            "forbidden_claims": [
+                "superior to formal mathematics",
+                "superior to theorem provers",
+                "empirical mathematics superiority",
+                "broad modern-science superiority",
+            ],
+        },
+        "heldout_or_prospective_split": {
+            "mode": "not_applicable_formal_route",
+            "source_separation_mode": "protocol_only",
+            "split_predicate": "FORMAL_ROUTE_PROTOCOL_ONLY_DECLARED",
+            "declared": False,
+            "source_separation_declared": False,
+            "split_statement": "No target-blind empirical split is required or claimed for this formal route protocol.",
+        },
+        "fairness_criteria": [
+            {
+                "predicate": "formal_route_protocol_only_declared",
+                "required": True,
+                "status": True,
+                "blocked": False,
+            },
+            {
+                "predicate": "claim_text_excludes_theorem_prover_or_formal_math_superiority",
+                "required": True,
+                "status": True,
+                "blocked": False,
+            },
+            {
+                "predicate": "source_capsule_hash_bound",
+                "required": True,
+                "status": bool(source_capsule_sha256),
+                "blocked": not bool(source_capsule_sha256),
+            },
+            {
+                "predicate": "strict_empirical_evidence_pack_present",
+                "required": False,
+                "status": False,
+                "blocked": False,
+            },
+            {
+                "predicate": "coverage_register_gap_closed",
+                "required": True,
+                "status": False,
+                "blocked": True,
+            },
+        ],
+        "uncertainty": {
+            "declared": False,
+            "uncertainty": None,
+            "model_residual": None,
+            "within_declared_uncertainty": False,
+            "metric_family": "formal route/protocol-only; no empirical residual metric",
+            "prediction_supported": False,
+            "empirical_supported": False,
+        },
+        "residual_metric": {
+            "metric_family": "formal route/protocol-only; no empirical residual metric",
+            "model_residual": None,
+            "comparator_residual": None,
+            "superiority_margin": None,
+            "model_predicted": None,
+            "model_observed": None,
+        },
+        "negative_controls": [],
+        "falsifiers": [],
+        "blocker_predicates": blocker_predicates,
+        "required_result_refs": [],
+        "report": {
+            "current_verdict": "FORMAL_ROUTE_PROTOCOL_ONLY_NOT_EMPIRICAL_SUPERIORITY",
+            "superiority_task": "Maintain formal-route protocol boundary for mathematics without fabricating an empirical protocol.",
+            "allowed_current_claim": "bounded formal release-consistency and proof-route planning only",
+            "superiority_claim_status": "NOT_CERTIFIED",
+            "release_effect": "BLOCK_RELEASE_PROMOTION_FOR_SUPERIORITY",
+            "oc_current_evidence_boundary": "No empirical mathematics superiority or theorem-prover superiority evidence is asserted.",
+        },
+        "grand_empirical_context": {
+            "minimum_n": None,
+            "valid_n": 0,
+            "status": "NOT_APPLICABLE_FORMAL_ROUTE",
+            "grand_toe_support_allowed": False,
+            "blockers": blocker_predicates,
+        },
+        "no_send": True,
+        "release_promotion_allowed": False,
+        "superiority_decision": {
+            "status": "NOT_CERTIFIED",
+            "superiority_certified": False,
+            "release_promotion_allowed": False,
+            "can_be_certified_within_current_artifact_scope": False,
+            "blocker_total": len(blocker_predicates),
+            "blocker_predicates": blocker_predicates,
+            "required_result_refs": [],
+            "failure_reason": "Mathematics is represented as a formal route/protocol-only lane; no empirical result refs are required or sufficient for superiority certification.",
+        },
+    }
+
+
 def build_protocols(root: Path | None = None) -> list[tuple[str, dict[str, Any]]]:
     root = root or repo_root()
     register = load_json(root / REGISTER_REL)
     lanes = load_json(root / LANES_REL)
     report = load_json(root / REPORT_REL)
     grand = load_json(root / GRAND_REPORT_REL)
+    coverage_register = load_json(root / COVERAGE_REGISTER_REL)
     target_blind = load_json(root / TARGET_BLIND_REL)
     numeric_replay = load_json(root / NUMERIC_REPLAY_REL)
 
@@ -479,6 +650,7 @@ def build_protocols(root: Path | None = None) -> list[tuple[str, dict[str, Any]]
     numeric_by_domain = rows_by(numeric_replay.get("rows", []), "lane")
 
     protocols: list[tuple[str, dict[str, Any]]] = []
+    seen_domains: set[str] = set()
     for row in register.get("rows", []):
         if not isinstance(row, dict):
             continue
@@ -498,6 +670,9 @@ def build_protocols(root: Path | None = None) -> list[tuple[str, dict[str, Any]]
         )
         numeric_rows = numeric_by_domain.get(domain, [])
         protocols.append((domain, build_domain_protocol(row, lane_row, report_row, grand_row, target_row, numeric_rows)))
+        seen_domains.add(domain)
+    if "mathematics" not in seen_domains:
+        protocols.append(("mathematics", build_formal_mathematics_protocol(root, coverage_register)))
     return protocols
 
 

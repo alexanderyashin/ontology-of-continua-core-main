@@ -236,6 +236,75 @@ def visible_number(visible: dict[str, Any], field: str, blockers: list[str], pre
     return value
 
 
+def visible_list_length(visible: dict[str, Any], field: str, blockers: list[str], prefix: str) -> int | None:
+    if field not in visible:
+        blockers.append(f"{prefix}_REFERENCES_NON_VISIBLE_FIELD::{field}")
+        return None
+    value = visible[field]
+    if not isinstance(value, list):
+        blockers.append(f"{prefix}_FIELD_NOT_LIST::{field}")
+        return None
+    return len(value)
+
+
+def atomic_weight_table(declaration: dict[str, Any], blockers: list[str], prefix: str) -> dict[str, float]:
+    raw_weights = declaration.get("atomic_weights")
+    if not isinstance(raw_weights, dict) or not raw_weights:
+        blockers.append(f"{prefix}_ATOMIC_WEIGHTS_MISSING_OR_INVALID")
+        return {}
+    weights: dict[str, float] = {}
+    for element, raw_weight in raw_weights.items():
+        if not isinstance(element, str) or not re.fullmatch(r"[A-Z][a-z]?", element):
+            blockers.append(f"{prefix}_ATOMIC_WEIGHT_ELEMENT_INVALID::{element}")
+            continue
+        weight = as_number(raw_weight)
+        if weight is None or weight <= 0.0:
+            blockers.append(f"{prefix}_ATOMIC_WEIGHT_NOT_POSITIVE::{element}")
+            continue
+        weights[element] = weight
+    return weights
+
+
+def formula_weight_from_visible(
+    visible: dict[str, Any],
+    formula_field: str,
+    weights: dict[str, float],
+    blockers: list[str],
+    prefix: str,
+) -> float | None:
+    if formula_field not in visible:
+        blockers.append(f"{prefix}_REFERENCES_NON_VISIBLE_FIELD::{formula_field}")
+        return None
+    formula = visible[formula_field]
+    if not isinstance(formula, str) or not formula.strip():
+        blockers.append(f"{prefix}_FORMULA_FIELD_NOT_STRING::{formula_field}")
+        return None
+    text = formula.strip()
+    total = 0.0
+    pos = 0
+    token_seen = False
+    while pos < len(text):
+        match = re.match(r"([A-Z][a-z]?)(\d*)", text[pos:])
+        if not match:
+            blockers.append(f"{prefix}_BAD_CHEMICAL_FORMULA::{formula_field}")
+            return None
+        element, count_text = match.groups()
+        if element not in weights:
+            blockers.append(f"{prefix}_UNKNOWN_ATOMIC_WEIGHT::{element}")
+            return None
+        count = int(count_text) if count_text else 1
+        if count <= 0:
+            blockers.append(f"{prefix}_BAD_CHEMICAL_FORMULA::{formula_field}")
+            return None
+        total += weights[element] * count
+        pos += len(match.group(0))
+        token_seen = True
+    if not token_seen:
+        blockers.append(f"{prefix}_BAD_CHEMICAL_FORMULA::{formula_field}")
+        return None
+    return total
+
+
 def materialize_declared_prediction(
     declaration: dict[str, Any],
     visible: dict[str, Any],
@@ -251,6 +320,15 @@ def materialize_declared_prediction(
     if kind == "copy_field":
         field = str(declaration.get("field") or "")
         return visible_number(visible, field, blockers, prefix)
+    if kind == "list_length":
+        field = str(declaration.get("field") or "")
+        return visible_list_length(visible, field, blockers, prefix)
+    if kind == "chemical_formula_weight":
+        formula_field = str(declaration.get("formula_field") or "")
+        weights = atomic_weight_table(declaration, blockers, prefix)
+        if not weights:
+            return None
+        return formula_weight_from_visible(visible, formula_field, weights, blockers, prefix)
     if kind == "linear":
         total = as_number(declaration.get("intercept", 0.0))
         if total is None:
@@ -308,7 +386,67 @@ def scalar_values(payload: Any, path: str = "$") -> list[tuple[str, Any]]:
     return [(path, payload)]
 
 
-def target_value_leak_blockers(declaration: dict[str, Any], target_rows: list[dict[str, Any]]) -> list[str]:
+def public_atomic_weight_exemptions(
+    declaration: dict[str, Any],
+    visible_fields: list[str],
+    target_fields: list[str],
+    target_rows: list[dict[str, Any]],
+) -> list[dict[str, str]]:
+    model_declaration = declaration.get("model_declaration")
+    if not isinstance(model_declaration, dict):
+        return []
+    kind = str(model_declaration.get("kind") or model_declaration.get("type") or "").lower()
+    if kind != "chemical_formula_weight":
+        return []
+    formula_field = model_declaration.get("formula_field")
+    if not isinstance(formula_field, str) or not formula_field.strip():
+        return []
+    formula_field = formula_field.strip()
+    if formula_field not in visible_fields:
+        return []
+    if any(paths_overlap(formula_field, target) for target in target_fields):
+        return []
+    for key, value in scalar_values(model_declaration):
+        if key.endswith(".field") or key.endswith("_field") or ".fields[" in key:
+            field_value = str(value)
+            if any(paths_overlap(field_value, target) for target in target_fields):
+                return []
+
+    raw_weights = model_declaration.get("atomic_weights")
+    if not isinstance(raw_weights, dict) or not raw_weights:
+        return []
+    for element, raw_weight in raw_weights.items():
+        if not isinstance(element, str) or not re.fullmatch(r"[A-Z][a-z]?", element):
+            return []
+        weight = as_number(raw_weight)
+        if weight is None or weight <= 0.0:
+            return []
+
+    target_atoms = {
+        canonical_json(value)
+        for row in target_rows
+        for value in row["target"].values()
+        if value is not None and not isinstance(value, bool)
+    }
+    exemptions = []
+    for element, raw_weight in raw_weights.items():
+        path = f"$.model_declaration.atomic_weights.{element}"
+        if canonical_json(raw_weight) in target_atoms:
+            exemptions.append(
+                {
+                    "path": path,
+                    "kind": "chemical_formula_weight_public_atomic_weight",
+                    "table": "model_declaration.atomic_weights",
+                }
+            )
+    return sorted(exemptions, key=lambda exemption: exemption["path"])
+
+
+def target_value_leak_blockers(
+    declaration: dict[str, Any],
+    target_rows: list[dict[str, Any]],
+    public_constant_exemptions: list[dict[str, str]] | None = None,
+) -> list[str]:
     target_atoms = {
         canonical_json(value)
         for row in target_rows
@@ -316,8 +454,15 @@ def target_value_leak_blockers(declaration: dict[str, Any], target_rows: list[di
         if value is not None and not isinstance(value, bool)
     }
     blockers = []
+    exempt_paths = {
+        exemption["path"]
+        for exemption in public_constant_exemptions or []
+        if isinstance(exemption, dict) and isinstance(exemption.get("path"), str)
+    }
     searchable_declaration = declaration_payload_for_hash(declaration)
     for path, value in scalar_values(searchable_declaration):
+        if path in exempt_paths:
+            continue
         if canonical_json(value) in target_atoms:
             blockers.append(f"DECLARATION_CONTAINS_TARGET_VALUE::{path}")
     return sorted(set(blockers))
@@ -344,7 +489,7 @@ def validate_field_separation(
                 blockers.append(f"ROW_INCLUSION_RULE_REFERENCES_TARGET_FIELD::{rule_field}")
     for name, declaration in (("MODEL", model_declaration), ("COMPARATOR", comparator_declaration)):
         for key, value in scalar_values(declaration):
-            if key.endswith(".field") or key.endswith(".target_field") or ".fields[" in key:
+            if key.endswith(".field") or key.endswith("_field") or ".fields[" in key:
                 field_value = str(value)
                 for target in target_fields:
                     if paths_overlap(field_value, target):
@@ -549,6 +694,12 @@ def build_one_lock(root: Path, declaration_path: Path) -> dict[str, Any]:
             }
         )
 
+    public_constant_exemptions = public_atomic_weight_exemptions(
+        declaration,
+        visible_fields,
+        target_fields,
+        target_rows,
+    )
     target_projection_lock = {
         "schema_id": TARGET_LOCK_SCHEMA_ID,
         "release_id": RELEASE_ID,
@@ -562,6 +713,7 @@ def build_one_lock(root: Path, declaration_path: Path) -> dict[str, Any]:
         "target_fields": target_fields,
         "row_count": len(target_rows),
         "rows": target_rows,
+        "public_constant_exemptions": public_constant_exemptions,
         "target_opened_after_prediction_materialization": True,
         "locks": NO_SEND_LOCKS,
     }
@@ -569,7 +721,7 @@ def build_one_lock(root: Path, declaration_path: Path) -> dict[str, Any]:
     if declaration.get("expected_target_projection_sha256") not in (None, target_projection_sha256):
         blockers.append("TARGET_PROJECTION_HASH_MISMATCH")
 
-    blockers.extend(target_value_leak_blockers(declaration, target_rows))
+    blockers.extend(target_value_leak_blockers(declaration, target_rows, public_constant_exemptions))
     blockers = sorted(set(blockers))
 
     residual_summary: dict[str, Any]
@@ -629,6 +781,7 @@ def build_one_lock(root: Path, declaration_path: Path) -> dict[str, Any]:
         "visible_projection_lock": visible_projection_lock,
         "target_projection_lock": target_projection_lock,
         "prediction_materialization_lock": prediction_materialization_lock,
+        "public_constant_exemptions": public_constant_exemptions,
         "row_hashes": [
             {
                 "row_index": visible_row["row_index"],
@@ -670,6 +823,15 @@ def public_record(record: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def report_public_constant_exemptions(records: list[dict[str, Any]]) -> list[dict[str, str]]:
+    exemptions = []
+    for record in records:
+        for exemption in record.get("public_constant_exemptions", []):
+            if isinstance(exemption, dict):
+                exemptions.append({"lock_id": str(record.get("lock_id", "")), **exemption})
+    return sorted(exemptions, key=lambda exemption: (exemption["lock_id"], exemption["path"]))
+
+
 def build_report(root: Path, declaration_paths: list[Path]) -> dict[str, Any]:
     records = [build_one_lock(root, path) for path in declaration_paths]
     blockers = sorted({blocker for record in records for blocker in record["blockers"]})
@@ -687,6 +849,7 @@ def build_report(root: Path, declaration_paths: list[Path]) -> dict[str, Any]:
         "locked_fail_total": sum(1 for record in records if record["verdict"] == "LOCKED_FAIL_RESIDUAL_POLICY"),
         "open_blocker_total": len(blockers),
         "blockers": blockers,
+        "public_constant_exemptions": report_public_constant_exemptions(records),
         "records": [public_record(record) for record in records],
         "locks": NO_SEND_LOCKS,
         "support_policy": "No grand TOE support switch is set by this infrastructure capability.",
@@ -712,6 +875,7 @@ def build_report_with_locks(root: Path, declaration_paths: list[Path]) -> tuple[
         "locked_fail_total": sum(1 for record in records if record["verdict"] == "LOCKED_FAIL_RESIDUAL_POLICY"),
         "open_blocker_total": len(blockers),
         "blockers": blockers,
+        "public_constant_exemptions": report_public_constant_exemptions(records),
         "records": [public_record(record) for record in records],
         "locks": NO_SEND_LOCKS,
         "support_policy": "No grand TOE support switch is set by this infrastructure capability.",

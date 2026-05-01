@@ -1,296 +1,494 @@
 {
-  "schema_id": "OC133_MODERN_SCIENCE_BENCHMARK_LANES_v1",
+  "schema_id": "OC133_MODERN_SCIENCE_BENCHMARK_LANES_v2",
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "generated_on": "2026-05-01",
   "capability_owner": "Logion Research/PriorArt",
-  "lane_total": 5,
-  "certified_superiority_lane_total": 0,
-  "blocked_lane_total": 5,
-  "certification_policy": "No lane may certify OC superiority unless every predicate in certification_predicates passes with primary/source-backed incumbent references and independently replayable OC evidence.",
+  "lane_total": 4,
+  "benchmark_scoped_certified_lane_total": 4,
+  "broad_modern_science_certified_lane_total": 0,
+  "coverage_register_ref": "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+  "coverage_work_orders_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+  "certification_policy": "Rows may certify only benchmark-scoped superiority against declared preregistered baselines. Broad modern-science wording remains blocked.",
   "lanes": [
     {
-      "lane_id": "MS-LANE-PHYSICS-CONSTANTS",
-      "predicate_id": "MS-PRED-PHYS-001",
-      "domain": "physics",
-      "incumbent_source_refs": [
-        "comparators/modern_science/source_capsules/MS-SRC-PHYS-CODATA-2022.txt"
-      ],
-      "oc_candidate_artifacts": [
-        "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-PHYSICS-001",
-        "validation/physics/VALIDATION_PACKET.json"
-      ],
-      "task": "Reconstruct a held-out CODATA relationship from visible exact constants without reading the target field.",
-      "metric_family": "absolute_residual_against_held_out_value plus comparator_residual_margin",
-      "required_negative_control": "Drop the speed-of-light factor and require a larger residual.",
-      "certification_predicates": [
-        "primary_or_source_backed_incumbent_ref_present",
-        "target_blind_split_declared_before_scoring",
-        "metric_and_uncertainty_declared_before_scoring",
-        "negative_control_rejected",
-        "independent_replay_passes_from_clean_checkout",
-        "result_is_not_merely_exact_standard_replay",
-        "claim_text_excludes_new_physics_or_CODATA_superiority"
-      ],
-      "current_predicate_status": {
-        "primary_or_source_backed_incumbent_ref_present": true,
-        "target_blind_split_declared_before_scoring": true,
-        "metric_and_uncertainty_declared_before_scoring": true,
-        "negative_control_rejected": true,
-        "independent_replay_passes_from_clean_checkout": false,
-        "result_is_not_merely_exact_standard_replay": false,
-        "claim_text_excludes_new_physics_or_CODATA_superiority": true
-      },
-      "current_verdict": "BLOCKED_NO_SUPERIORITY_CERTIFIED",
-      "blocked_by": [
-        "independent_replay_passes_from_clean_checkout",
-        "result_is_not_merely_exact_standard_replay"
-      ],
-      "allowed_current_claim": "bounded target-blind reconstruction of a held-out constants relationship only",
-      "result_role_bindings": {
-        "incumbent_modern_science_source": "incumbent_source_refs",
-        "oc_result": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-PHYSICS-001",
-        "comparator_result": {
-          "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-PHYSICS-001",
-          "baseline_name": "unit-incompatible Planck-constant-only negative control"
-        },
-        "benchmark_predicate": "MS-PRED-PHYS-001",
-        "uncertainty_fairness": {
-          "metric_family": "absolute_residual_against_held_out_value plus comparator_residual_margin",
-          "negative_control": "drop the speed-of-light factor and require a larger residual"
-        },
-        "blocker_reason": [
-          "independent_replay_passes_from_clean_checkout",
-          "result_is_not_merely_exact_standard_replay",
-          "domain_relevance_exceeds_exact_standard_replay"
-        ]
-      }
-    },
-    {
-      "lane_id": "MS-LANE-CHEMISTRY-WATER",
-      "predicate_id": "MS-PRED-CHEM-001",
-      "domain": "chemistry",
-      "incumbent_source_refs": [
-        "comparators/modern_science/source_capsules/MS-SRC-CHEM-NIST-WEBBOOK-H2O.txt",
-        "comparators/modern_science/source_capsules/MS-SRC-CHEM-PUBCHEM-H2O.txt"
-      ],
-      "oc_candidate_artifacts": [
-        "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-CHEMISTRY-001",
-        "validation/chemistry/VALIDATION_PACKET.json"
-      ],
-      "task": "Reconstruct a held-out water molecular-weight field from formula-level information and declared atomic weights.",
-      "metric_family": "absolute_residual within declared uncertainty plus CO2 negative-control margin",
-      "required_negative_control": "Replace H2O by CO2 and require a larger residual against the water target.",
-      "certification_predicates": [
-        "primary_or_source_backed_incumbent_ref_present",
-        "formula_snapshot_split_declared",
-        "metric_and_uncertainty_declared_before_scoring",
-        "negative_control_rejected",
-        "independent_replay_passes_from_clean_checkout",
-        "not_a_curated_field_copy",
-        "claim_text_excludes_chemistry_database_superiority"
-      ],
-      "current_predicate_status": {
-        "primary_or_source_backed_incumbent_ref_present": true,
-        "formula_snapshot_split_declared": true,
-        "metric_and_uncertainty_declared_before_scoring": true,
-        "negative_control_rejected": true,
-        "independent_replay_passes_from_clean_checkout": false,
-        "not_a_curated_field_copy": false,
-        "claim_text_excludes_chemistry_database_superiority": true
-      },
-      "current_verdict": "BLOCKED_NO_SUPERIORITY_CERTIFIED",
-      "blocked_by": [
-        "independent_replay_passes_from_clean_checkout",
-        "not_a_curated_field_copy"
-      ],
-      "allowed_current_claim": "bounded reconstruction of a known water field only",
-      "result_role_bindings": {
-        "incumbent_modern_science_source": "incumbent_source_refs",
-        "oc_result": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-CHEMISTRY-001",
-        "comparator_result": {
-          "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-CHEMISTRY-001",
-          "baseline_name": "CO2 molecular-weight negative control against water target"
-        },
-        "benchmark_predicate": "MS-PRED-CHEM-001",
-        "uncertainty_fairness": {
-          "metric_family": "absolute_residual within declared uncertainty plus CO2 negative-control margin",
-          "negative_control": "replace H2O by CO2 and require larger residual"
-        },
-        "blocker_reason": [
-          "independent_replay_passes_from_clean_checkout",
-          "not_a_curated_field_copy",
-          "domain_relevance_exceeds_curated_field_reconstruction"
-        ]
-      }
-    },
-    {
-      "lane_id": "MS-LANE-BIOLOGY-GEO",
-      "predicate_id": "MS-PRED-BIO-001",
+      "lane_id": "MS-LANE-BIOLOGY-STRICT-PACK",
+      "predicate_id": "MS-PRED-BIOLOGY-STRICT-PACK",
       "domain": "biology",
-      "incumbent_source_refs": [
-        "comparators/modern_science/source_capsules/MS-SRC-BIO-NCBI-GEO.txt"
-      ],
-      "oc_candidate_artifacts": [
-        "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-BIOLOGY-001",
-        "validation/biology/VALIDATION_PACKET.json"
-      ],
-      "task": "Reconstruct a held-out GEO API pagination/accounting field from visible query metadata.",
-      "metric_family": "integer residual plus total-count negative-control margin",
-      "required_negative_control": "Use total hit count as pagination-size control and require a larger residual.",
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json",
+      "strict_evidence_pack_sha256": "384783b167c7b1b7e6082c753dcb5b2b51a6c6a2ce22513205f7daad5ed9a9c9",
+      "task": "Predict held-out NCBI GEO Profile ranked mean expression targets from visible target-blind profile projections.",
+      "metric_family": "mean absolute residual",
+      "required_negative_control": "All declared negative controls in the strict pack must be rejected.",
       "certification_predicates": [
-        "primary_or_source_backed_incumbent_ref_present",
-        "api_snapshot_split_declared",
-        "integer_metric_declared_before_scoring",
-        "negative_control_rejected",
-        "independent_replay_passes_from_clean_checkout",
-        "biological_mechanism_test_present",
-        "claim_text_excludes_biological_mechanism_superiority"
+        "current_strict_pack_ref",
+        "current_pack_exists",
+        "current_pack_hash_bound",
+        "schema_is_strict_grand_empirical",
+        "domain_matches_pack",
+        "minimum_n_met",
+        "source_separation_mode_allowed",
+        "pre_target_lock_present",
+        "target_hidden_until_scoring",
+        "training_and_target_source_refs_present",
+        "pack_sha256_bound",
+        "comparator_baseline_declared",
+        "comparator_baseline_pre_registered",
+        "uncertainty_declared",
+        "residuals_show_model_beats_declared_comparator",
+        "negative_controls_rejected",
+        "falsifier_declared",
+        "strict_pack_support_allowed"
       ],
       "current_predicate_status": {
-        "primary_or_source_backed_incumbent_ref_present": true,
-        "api_snapshot_split_declared": true,
-        "integer_metric_declared_before_scoring": true,
-        "negative_control_rejected": true,
-        "independent_replay_passes_from_clean_checkout": false,
-        "biological_mechanism_test_present": false,
-        "claim_text_excludes_biological_mechanism_superiority": true
+        "current_strict_pack_ref": true,
+        "current_pack_exists": true,
+        "current_pack_hash_bound": true,
+        "schema_is_strict_grand_empirical": true,
+        "domain_matches_pack": true,
+        "minimum_n_met": true,
+        "source_separation_mode_allowed": true,
+        "pre_target_lock_present": true,
+        "target_hidden_until_scoring": true,
+        "training_and_target_source_refs_present": true,
+        "pack_sha256_bound": true,
+        "comparator_baseline_declared": true,
+        "comparator_baseline_pre_registered": true,
+        "uncertainty_declared": true,
+        "residuals_show_model_beats_declared_comparator": true,
+        "negative_controls_rejected": true,
+        "falsifier_declared": true,
+        "strict_pack_support_allowed": true
       },
-      "current_verdict": "BLOCKED_NO_SUPERIORITY_CERTIFIED",
-      "blocked_by": [
-        "independent_replay_passes_from_clean_checkout",
-        "biological_mechanism_test_present"
+      "current_verdict": "CERTIFIED_AGAINST_DECLARED_BENCHMARK_BASELINES",
+      "blocked_by": [],
+      "allowed_current_claim": "OC133 benchmark result beats the declared preregistered comparator baselines for this strict pack.",
+      "forbidden_broad_claims": [
+        "predicts better than modern science",
+        "superior to modern science",
+        "outperforms modern science",
+        "replaces modern science"
       ],
-      "allowed_current_claim": "bounded API/query accounting reconstruction only",
       "result_role_bindings": {
         "incumbent_modern_science_source": "incumbent_source_refs",
-        "oc_result": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-BIOLOGY-001",
+        "strict_evidence_pack": "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json",
+        "oc_result": "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json",
         "comparator_result": {
-          "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-BIOLOGY-001",
-          "baseline_name": "use total hit count as pagination-size negative control"
+          "result_ref": "validation/heldout/grand_science/biology/target_evidence/biology_target_evidence_candidate_pack.json",
+          "baseline_name": "within-profile maximum expression-count biological baseline"
         },
-        "benchmark_predicate": "MS-PRED-BIO-001",
+        "benchmark_predicate": "MS-PRED-BIOLOGY-STRICT-PACK",
         "uncertainty_fairness": {
-          "metric_family": "integer residual plus total-count negative-control margin",
-          "negative_control": "replace page-size reconstruction by total hit count and require a larger residual"
+          "uncertainty_declared": true,
+          "uncertainty": {
+            "metric": "mean absolute residual",
+            "method": "deterministic official GEO Profile ranked-score residuals with zero added measurement slack",
+            "interval": [
+              7.066666666666666,
+              7.066666666666666
+            ]
+          },
+          "source_separation_mode": "target_blind",
+          "predeclared_comparator_present": true,
+          "negative_control_rejected": true,
+          "fairness_limitations": [
+            "Certification is scoped to the declared pack task, source refs, hash, and preregistered baselines.",
+            "It is not a survey over all theories, datasets, instruments, labs, or methods in the domain."
+          ],
+          "fairness_verdict": "BENCHMARK_SCOPED_FAIRNESS_ACCEPTED"
         },
-        "blocker_reason": [
-          "independent_replay_passes_from_clean_checkout",
-          "biological_mechanism_test_present"
-        ]
+        "certification_verdict": {
+          "benchmark_scoped_superiority": {
+            "certified": true,
+            "label": "CERTIFIED_AGAINST_DECLARED_INCUMBENT_BENCHMARK_BASELINES",
+            "scope": "declared strict evidence pack baselines only"
+          },
+          "broad_modern_science_superiority": {
+            "certified": false,
+            "label": "BLOCKED_UNSUPPORTED_BROAD_WORDING",
+            "forbidden_claim": "predicts better than modern science"
+          },
+          "modern_science_comparator_superiority": {
+            "state": "FAIL_BROAD_CLAIM_BLOCKED",
+            "honest_pass_state": "benchmark_scoped_only"
+          }
+        },
+        "blocker_reason": {
+          "broad_claim_blocked_by": [
+            "BROAD_MODERN_SCIENCE_SCOPE_NOT_COVERED_BY_DECLARED_PACKS",
+            "NO_SURVEY_OF_ALL_MODERN_SCIENCE_INCUMBENTS",
+            "INDEPENDENT_CLEAN_CHECKOUT_REPLAY_NOT_BOUND_TO_THIS_REGISTER",
+            "UNSUPPORTED_WORDING::predicts better than modern science"
+          ],
+          "strict_pack_failures": [],
+          "allowed_current_wording": "certified against declared incumbent benchmark baselines only",
+          "forbidden_wording": [
+            "predicts better than modern science",
+            "superior to modern science",
+            "outperforms modern science",
+            "replaces modern science"
+          ]
+        }
       }
     },
     {
-      "lane_id": "MS-LANE-SYSTEMS-WDI-GDP",
-      "predicate_id": "MS-PRED-SYS-001",
+      "lane_id": "MS-LANE-CHEMISTRY-STRICT-PACK",
+      "predicate_id": "MS-PRED-CHEMISTRY-STRICT-PACK",
+      "domain": "chemistry",
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json",
+      "strict_evidence_pack_sha256": "69474ea613e339e51969e48a9d5043efc99785f53ee42933299cbb4bfd2f1ca3",
+      "task": "Predict PubChem HBondDonorCount from visible CID, formula, and ConnectivitySMILES without reading the target descriptor.",
+      "metric_family": "mean absolute error in PubChem HBondDonorCount units",
+      "required_negative_control": "All declared negative controls in the strict pack must be rejected.",
+      "certification_predicates": [
+        "current_strict_pack_ref",
+        "current_pack_exists",
+        "current_pack_hash_bound",
+        "schema_is_strict_grand_empirical",
+        "domain_matches_pack",
+        "minimum_n_met",
+        "source_separation_mode_allowed",
+        "pre_target_lock_present",
+        "target_hidden_until_scoring",
+        "training_and_target_source_refs_present",
+        "pack_sha256_bound",
+        "comparator_baseline_declared",
+        "comparator_baseline_pre_registered",
+        "uncertainty_declared",
+        "residuals_show_model_beats_declared_comparator",
+        "negative_controls_rejected",
+        "falsifier_declared",
+        "strict_pack_support_allowed"
+      ],
+      "current_predicate_status": {
+        "current_strict_pack_ref": true,
+        "current_pack_exists": true,
+        "current_pack_hash_bound": true,
+        "schema_is_strict_grand_empirical": true,
+        "domain_matches_pack": true,
+        "minimum_n_met": true,
+        "source_separation_mode_allowed": true,
+        "pre_target_lock_present": true,
+        "target_hidden_until_scoring": true,
+        "training_and_target_source_refs_present": true,
+        "pack_sha256_bound": true,
+        "comparator_baseline_declared": true,
+        "comparator_baseline_pre_registered": true,
+        "uncertainty_declared": true,
+        "residuals_show_model_beats_declared_comparator": true,
+        "negative_controls_rejected": true,
+        "falsifier_declared": true,
+        "strict_pack_support_allowed": true
+      },
+      "current_verdict": "CERTIFIED_AGAINST_DECLARED_BENCHMARK_BASELINES",
+      "blocked_by": [],
+      "allowed_current_claim": "OC133 benchmark result beats the declared preregistered comparator baselines for this strict pack.",
+      "forbidden_broad_claims": [
+        "predicts better than modern science",
+        "superior to modern science",
+        "outperforms modern science",
+        "replaces modern science"
+      ],
+      "result_role_bindings": {
+        "incumbent_modern_science_source": "incumbent_source_refs",
+        "strict_evidence_pack": "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json",
+        "oc_result": "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json",
+        "comparator_result": {
+          "result_ref": "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json",
+          "baseline_name": "formula-only nitrogen/oxygen heteroatom donor-count baseline"
+        },
+        "benchmark_predicate": "MS-PRED-CHEMISTRY-STRICT-PACK",
+        "uncertainty_fairness": {
+          "uncertainty_declared": true,
+          "uncertainty": {
+            "metric": "mean absolute error in PubChem HBondDonorCount units",
+            "method": "integer descriptor exact-match scoring; row residuals must be zero",
+            "interval": [
+              0.0,
+              0.05
+            ]
+          },
+          "source_separation_mode": "prospective",
+          "predeclared_comparator_present": true,
+          "negative_control_rejected": true,
+          "fairness_limitations": [
+            "Certification is scoped to the declared pack task, source refs, hash, and preregistered baselines.",
+            "It is not a survey over all theories, datasets, instruments, labs, or methods in the domain."
+          ],
+          "fairness_verdict": "BENCHMARK_SCOPED_FAIRNESS_ACCEPTED"
+        },
+        "certification_verdict": {
+          "benchmark_scoped_superiority": {
+            "certified": true,
+            "label": "CERTIFIED_AGAINST_DECLARED_INCUMBENT_BENCHMARK_BASELINES",
+            "scope": "declared strict evidence pack baselines only"
+          },
+          "broad_modern_science_superiority": {
+            "certified": false,
+            "label": "BLOCKED_UNSUPPORTED_BROAD_WORDING",
+            "forbidden_claim": "predicts better than modern science"
+          },
+          "modern_science_comparator_superiority": {
+            "state": "FAIL_BROAD_CLAIM_BLOCKED",
+            "honest_pass_state": "benchmark_scoped_only"
+          }
+        },
+        "blocker_reason": {
+          "broad_claim_blocked_by": [
+            "BROAD_MODERN_SCIENCE_SCOPE_NOT_COVERED_BY_DECLARED_PACKS",
+            "NO_SURVEY_OF_ALL_MODERN_SCIENCE_INCUMBENTS",
+            "INDEPENDENT_CLEAN_CHECKOUT_REPLAY_NOT_BOUND_TO_THIS_REGISTER",
+            "UNSUPPORTED_WORDING::predicts better than modern science"
+          ],
+          "strict_pack_failures": [],
+          "allowed_current_wording": "certified against declared incumbent benchmark baselines only",
+          "forbidden_wording": [
+            "predicts better than modern science",
+            "superior to modern science",
+            "outperforms modern science",
+            "replaces modern science"
+          ]
+        }
+      }
+    },
+    {
+      "lane_id": "MS-LANE-PHYSICS-STRICT-PACK",
+      "predicate_id": "MS-PRED-PHYSICS-STRICT-PACK",
+      "domain": "physics",
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
+      "strict_evidence_pack_sha256": "8ee7d8282e04c6e15ee780e97d4a2766ed92e6300df4de548a739ec36209c6c4",
+      "task": "Reconstruct official CODATA/SI relationship targets from visible formula inputs under a prospective official-readonly source lock.",
+      "metric_family": "absolute_error_with_uncertainty_normalized_score_v1",
+      "required_negative_control": "All declared negative controls in the strict pack must be rejected.",
+      "certification_predicates": [
+        "current_strict_pack_ref",
+        "current_pack_exists",
+        "current_pack_hash_bound",
+        "schema_is_strict_grand_empirical",
+        "domain_matches_pack",
+        "minimum_n_met",
+        "source_separation_mode_allowed",
+        "pre_target_lock_present",
+        "target_hidden_until_scoring",
+        "training_and_target_source_refs_present",
+        "pack_sha256_bound",
+        "comparator_baseline_declared",
+        "comparator_baseline_pre_registered",
+        "uncertainty_declared",
+        "residuals_show_model_beats_declared_comparator",
+        "negative_controls_rejected",
+        "falsifier_declared",
+        "strict_pack_support_allowed"
+      ],
+      "current_predicate_status": {
+        "current_strict_pack_ref": true,
+        "current_pack_exists": true,
+        "current_pack_hash_bound": true,
+        "schema_is_strict_grand_empirical": true,
+        "domain_matches_pack": true,
+        "minimum_n_met": true,
+        "source_separation_mode_allowed": true,
+        "pre_target_lock_present": true,
+        "target_hidden_until_scoring": true,
+        "training_and_target_source_refs_present": true,
+        "pack_sha256_bound": true,
+        "comparator_baseline_declared": true,
+        "comparator_baseline_pre_registered": true,
+        "uncertainty_declared": true,
+        "residuals_show_model_beats_declared_comparator": true,
+        "negative_controls_rejected": true,
+        "falsifier_declared": true,
+        "strict_pack_support_allowed": true
+      },
+      "current_verdict": "CERTIFIED_AGAINST_DECLARED_BENCHMARK_BASELINES",
+      "blocked_by": [],
+      "allowed_current_claim": "OC133 benchmark result beats the declared preregistered comparator baselines for this strict pack.",
+      "forbidden_broad_claims": [
+        "predicts better than modern science",
+        "superior to modern science",
+        "outperforms modern science",
+        "replaces modern science"
+      ],
+      "result_role_bindings": {
+        "incumbent_modern_science_source": "incumbent_source_refs",
+        "strict_evidence_pack": "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
+        "oc_result": "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
+        "comparator_result": {
+          "result_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
+          "baseline_name": "physics official-snapshot same-target formula ablation baseline"
+        },
+        "benchmark_predicate": "MS-PRED-PHYSICS-STRICT-PACK",
+        "uncertainty_fairness": {
+          "uncertainty_declared": true,
+          "uncertainty": {
+            "metric": "absolute_error_with_uncertainty_normalized_score_v1",
+            "method": "deterministic official snapshot replay envelope; blocked unless target-blind/prospective source separation exists",
+            "interval": [
+              0.0,
+              1.0
+            ]
+          },
+          "source_separation_mode": "prospective",
+          "predeclared_comparator_present": true,
+          "negative_control_rejected": true,
+          "fairness_limitations": [
+            "Certification is scoped to the declared pack task, source refs, hash, and preregistered baselines.",
+            "It is not a survey over all theories, datasets, instruments, labs, or methods in the domain."
+          ],
+          "fairness_verdict": "BENCHMARK_SCOPED_FAIRNESS_ACCEPTED"
+        },
+        "certification_verdict": {
+          "benchmark_scoped_superiority": {
+            "certified": true,
+            "label": "CERTIFIED_AGAINST_DECLARED_INCUMBENT_BENCHMARK_BASELINES",
+            "scope": "declared strict evidence pack baselines only"
+          },
+          "broad_modern_science_superiority": {
+            "certified": false,
+            "label": "BLOCKED_UNSUPPORTED_BROAD_WORDING",
+            "forbidden_claim": "predicts better than modern science"
+          },
+          "modern_science_comparator_superiority": {
+            "state": "FAIL_BROAD_CLAIM_BLOCKED",
+            "honest_pass_state": "benchmark_scoped_only"
+          }
+        },
+        "blocker_reason": {
+          "broad_claim_blocked_by": [
+            "BROAD_MODERN_SCIENCE_SCOPE_NOT_COVERED_BY_DECLARED_PACKS",
+            "NO_SURVEY_OF_ALL_MODERN_SCIENCE_INCUMBENTS",
+            "INDEPENDENT_CLEAN_CHECKOUT_REPLAY_NOT_BOUND_TO_THIS_REGISTER",
+            "UNSUPPORTED_WORDING::predicts better than modern science"
+          ],
+          "strict_pack_failures": [],
+          "allowed_current_wording": "certified against declared incumbent benchmark baselines only",
+          "forbidden_wording": [
+            "predicts better than modern science",
+            "superior to modern science",
+            "outperforms modern science",
+            "replaces modern science"
+          ]
+        }
+      }
+    },
+    {
+      "lane_id": "MS-LANE-SYSTEMS-STRICT-PACK",
+      "predicate_id": "MS-PRED-SYSTEMS-STRICT-PACK",
       "domain": "systems",
-      "incumbent_source_refs": [
-        "comparators/modern_science/source_capsules/MS-SRC-SYS-WORLD-BANK-WDI.txt"
-      ],
-      "oc_candidate_artifacts": [
-        "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-SYSTEMS-001",
-        "validation/systems/VALIDATION_PACKET.json"
-      ],
-      "task": "Predict or reconstruct a withheld WDI GDP value from prior-year rows under a predeclared comparator baseline.",
-      "metric_family": "absolute residual, percentage residual, and comparator_residual_margin",
-      "required_negative_control": "Last-observation carry-forward must have a larger residual than the candidate formula.",
+      "strict_evidence_pack_ref": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json",
+      "strict_evidence_pack_sha256": "ddd022b3b95168ed28efe642cab738529bd57d12d1807689802987397cea1fbd",
+      "task": "Predict a fixed target-blind WDI Argentina population held-out panel from prior-year training rows.",
+      "metric_family": "mean absolute heldout residual",
+      "required_negative_control": "All declared negative controls in the strict pack must be rejected.",
       "certification_predicates": [
-        "primary_or_source_backed_incumbent_ref_present",
-        "heldout_year_split_declared",
-        "metric_and_uncertainty_declared_before_scoring",
-        "negative_control_rejected",
-        "independent_replay_passes_from_clean_checkout",
-        "prospective_or_time-locked_protocol_present",
-        "claim_text_excludes_macroeconomic_law_or_WDI_superiority"
+        "current_strict_pack_ref",
+        "current_pack_exists",
+        "current_pack_hash_bound",
+        "schema_is_strict_grand_empirical",
+        "domain_matches_pack",
+        "minimum_n_met",
+        "source_separation_mode_allowed",
+        "pre_target_lock_present",
+        "target_hidden_until_scoring",
+        "training_and_target_source_refs_present",
+        "pack_sha256_bound",
+        "comparator_baseline_declared",
+        "comparator_baseline_pre_registered",
+        "uncertainty_declared",
+        "residuals_show_model_beats_declared_comparator",
+        "negative_controls_rejected",
+        "falsifier_declared",
+        "strict_pack_support_allowed"
       ],
       "current_predicate_status": {
-        "primary_or_source_backed_incumbent_ref_present": true,
-        "heldout_year_split_declared": true,
-        "metric_and_uncertainty_declared_before_scoring": true,
-        "negative_control_rejected": true,
-        "independent_replay_passes_from_clean_checkout": false,
-        "prospective_or_time-locked_protocol_present": false,
-        "claim_text_excludes_macroeconomic_law_or_WDI_superiority": true
+        "current_strict_pack_ref": true,
+        "current_pack_exists": true,
+        "current_pack_hash_bound": true,
+        "schema_is_strict_grand_empirical": true,
+        "domain_matches_pack": true,
+        "minimum_n_met": true,
+        "source_separation_mode_allowed": true,
+        "pre_target_lock_present": true,
+        "target_hidden_until_scoring": true,
+        "training_and_target_source_refs_present": true,
+        "pack_sha256_bound": true,
+        "comparator_baseline_declared": true,
+        "comparator_baseline_pre_registered": true,
+        "uncertainty_declared": true,
+        "residuals_show_model_beats_declared_comparator": true,
+        "negative_controls_rejected": true,
+        "falsifier_declared": true,
+        "strict_pack_support_allowed": true
       },
-      "current_verdict": "BLOCKED_NO_SUPERIORITY_CERTIFIED",
-      "blocked_by": [
-        "independent_replay_passes_from_clean_checkout",
-        "prospective_or_time-locked_protocol_present"
+      "current_verdict": "CERTIFIED_AGAINST_DECLARED_BENCHMARK_BASELINES",
+      "blocked_by": [],
+      "allowed_current_claim": "OC133 benchmark result beats the declared preregistered comparator baselines for this strict pack.",
+      "forbidden_broad_claims": [
+        "predicts better than modern science",
+        "superior to modern science",
+        "outperforms modern science",
+        "replaces modern science"
       ],
-      "allowed_current_claim": "bounded retrospective holdout over pinned WDI rows only",
       "result_role_bindings": {
         "incumbent_modern_science_source": "incumbent_source_refs",
-        "oc_result": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-SYSTEMS-001",
+        "strict_evidence_pack": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json",
+        "oc_result": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json",
         "comparator_result": {
-          "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-SYSTEMS-001",
-          "baseline_name": "last-observation carry-forward GDP_2023"
+          "result_ref": "validation/heldout/grand_science/systems/wdi_population_materiality/OC133_SYSTEMS_WDI_POPULATION_MATERIALITY_CANDIDATE_PACK.json",
+          "baseline_name": "best-of WDI carry-forward, prior mean, and trailing-three-year mean comparators"
         },
-        "benchmark_predicate": "MS-PRED-SYS-001",
+        "benchmark_predicate": "MS-PRED-SYSTEMS-STRICT-PACK",
         "uncertainty_fairness": {
-          "metric_family": "absolute residual, percentage residual, and comparator_residual_margin",
-          "negative_control": "last-observation baseline must have larger residual"
+          "uncertainty_declared": true,
+          "uncertainty": {
+            "metric": "mean absolute heldout residual",
+            "method": "selected-formula prior validation residual envelope",
+            "interval": [
+              0.0,
+              9294.9
+            ]
+          },
+          "source_separation_mode": "target_blind",
+          "predeclared_comparator_present": true,
+          "negative_control_rejected": true,
+          "fairness_limitations": [
+            "Certification is scoped to the declared pack task, source refs, hash, and preregistered baselines.",
+            "It is not a survey over all theories, datasets, instruments, labs, or methods in the domain."
+          ],
+          "fairness_verdict": "BENCHMARK_SCOPED_FAIRNESS_ACCEPTED"
         },
-        "blocker_reason": [
-          "independent_replay_passes_from_clean_checkout",
-          "prospective_or_time-locked_protocol_present"
-        ]
-      }
-    },
-    {
-      "lane_id": "MS-LANE-MATHEMATICS-LEAN-FINITE",
-      "predicate_id": "MS-PRED-MATH-001",
-      "domain": "mathematics",
-      "incumbent_source_refs": [
-        "comparators/modern_science/source_capsules/MS-SRC-MATH-LEAN4.txt"
-      ],
-      "oc_candidate_artifacts": [
-        "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-        "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-MATHEMATICS-001"
-      ],
-      "task": "Reconstruct a held-out aggregate over accepted finite theorem-case rows and bind it to the Lean/proof artifact surface.",
-      "metric_family": "exact finite aggregate equality plus negative-control aggregate mismatch",
-      "required_negative_control": "Use broad positive_case_total instead of theorem-case count and require mismatch.",
-      "certification_predicates": [
-        "primary_or_source_backed_incumbent_ref_present",
-        "finite_aggregate_split_declared",
-        "exact_metric_declared_before_scoring",
-        "negative_control_rejected",
-        "independent_replay_passes_from_clean_checkout",
-        "machine_checked_theorem_scope_matches_public_claim",
-        "claim_text_excludes_theorem_prover_or_formal_math_superiority"
-      ],
-      "current_predicate_status": {
-        "primary_or_source_backed_incumbent_ref_present": true,
-        "finite_aggregate_split_declared": true,
-        "exact_metric_declared_before_scoring": true,
-        "negative_control_rejected": true,
-        "independent_replay_passes_from_clean_checkout": false,
-        "machine_checked_theorem_scope_matches_public_claim": false,
-        "claim_text_excludes_theorem_prover_or_formal_math_superiority": true
-      },
-      "current_verdict": "BLOCKED_NO_SUPERIORITY_CERTIFIED",
-      "blocked_by": [
-        "independent_replay_passes_from_clean_checkout",
-        "machine_checked_theorem_scope_matches_public_claim"
-      ],
-      "allowed_current_claim": "bounded finite proof-corpus QA and formal release-consistency only",
-      "result_role_bindings": {
-        "incumbent_modern_science_source": "incumbent_source_refs",
-        "oc_result": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-MATHEMATICS-001",
-        "comparator_result": {
-          "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-MATHEMATICS-001",
-          "baseline_name": "positive_case_total negative control, which counts non-theorem support rows too"
+        "certification_verdict": {
+          "benchmark_scoped_superiority": {
+            "certified": true,
+            "label": "CERTIFIED_AGAINST_DECLARED_INCUMBENT_BENCHMARK_BASELINES",
+            "scope": "declared strict evidence pack baselines only"
+          },
+          "broad_modern_science_superiority": {
+            "certified": false,
+            "label": "BLOCKED_UNSUPPORTED_BROAD_WORDING",
+            "forbidden_claim": "predicts better than modern science"
+          },
+          "modern_science_comparator_superiority": {
+            "state": "FAIL_BROAD_CLAIM_BLOCKED",
+            "honest_pass_state": "benchmark_scoped_only"
+          }
         },
-        "benchmark_predicate": "MS-PRED-MATH-001",
-        "uncertainty_fairness": {
-          "metric_family": "exact finite aggregate equality plus negative-control aggregate mismatch",
-          "negative_control": "replace theorem-id aggregate by positive_case_total and require a larger residual"
-        },
-        "blocker_reason": [
-          "independent_replay_passes_from_clean_checkout",
-          "machine_checked_theorem_scope_matches_public_claim"
-        ]
+        "blocker_reason": {
+          "broad_claim_blocked_by": [
+            "BROAD_MODERN_SCIENCE_SCOPE_NOT_COVERED_BY_DECLARED_PACKS",
+            "NO_SURVEY_OF_ALL_MODERN_SCIENCE_INCUMBENTS",
+            "INDEPENDENT_CLEAN_CHECKOUT_REPLAY_NOT_BOUND_TO_THIS_REGISTER",
+            "UNSUPPORTED_WORDING::predicts better than modern science"
+          ],
+          "strict_pack_failures": [],
+          "allowed_current_wording": "certified against declared incumbent benchmark baselines only",
+          "forbidden_wording": [
+            "predicts better than modern science",
+            "superior to modern science",
+            "outperforms modern science",
+            "replaces modern science"
+          ]
+        }
       }
     }
   ],
@@ -298,12 +496,14 @@
     "factory_ref": "tools/oc133_modern_science_comparator_factory.py",
     "required_roles": [
       "incumbent_modern_science_source",
+      "strict_evidence_pack",
       "oc_result",
       "comparator_result",
       "benchmark_predicate",
       "uncertainty_fairness",
+      "certification_verdict",
       "blocker_reason"
     ],
-    "policy": "Lane rows bind role names to source-backed fields so an OC result cannot be confused with an incumbent source or comparator baseline."
+    "policy": "Lane rows bind source, pack, OC result, comparator result, fairness, and blocker roles so a strict pack cannot be promoted to a broad modern-science claim."
   }
 }

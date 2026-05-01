@@ -1,0 +1,21 @@
+{
+  "schema_id": "OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_REPORT_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "generated_by": "tools/oc133_chemistry_pubchem_hbond_donor_factory.py",
+  "target_class": "pubchem_hydrogen_bond_donor_count",
+  "target_field": "HBondDonorCount",
+  "candidate_n": 20,
+  "minimum_n": 20,
+  "residuals": {
+    "model": 0.0,
+    "comparator": 0.65,
+    "superiority_margin": 0.65
+  },
+  "grand_toe_support_allowed": true,
+  "candidate_pack_ref": "validation/heldout/grand_science/chemistry/pubchem_hbond_donor/OC133_CHEMISTRY_PUBCHEM_HBOND_DONOR_CANDIDATE_PACK.json",
+  "candidate_pack_sha256": "c6ff620bf48a7cf01a18415825d914716607692d297341a4947a64ca22d7bd6a",
+  "blockers": [],
+  "support_policy": "Grand chemistry support is emitted only for N>=20 official PubChem PUG REST rows where HBondDonorCount is hidden until scoring, predictions are materialized from visible SMILES before target opening, the target is not MolecularWeight or any formula-mass replay, a preregistered formula-only heteroatom baseline is materially worse, negative controls are rejected, falsifiers are retained, and source hashes/locks validate."
+}

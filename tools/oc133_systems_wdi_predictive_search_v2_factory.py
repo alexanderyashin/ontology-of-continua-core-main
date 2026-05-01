@@ -6,6 +6,7 @@ import json
 import math
 import sys
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
@@ -53,9 +54,21 @@ SNAPSHOT_HASH_POLICY = "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
 OBJECT_HASH_POLICY = "sha256 over canonical JSON"
 ROW_HASH_POLICY = "sha256 over canonical row JSON excluding row_hash"
 SOURCE_LOCK_HASH_POLICY = "sha256 over canonical JSON source-lock declaration"
+SOURCE_LOCK_ORDER_HASH_POLICY = "sha256 over canonical JSON source-lock materialization order"
+SOURCE_LOCK_INTERNAL_PROOF_TYPE = "internal_materialization_order_hash"
+SOURCE_LOCK_SCORING_STARTED_AT = "2026-05-01T00:00:00Z"
 MIN_TRAINING_SCORE_ROWS = 3
 STRICT_SCHEMA_ID = "OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_STRICT_SCHEMA"
+MATERIALITY_POLICY_ID = "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY-POLICY"
+MIN_AGGREGATE_MARGIN_FRACTION_OF_RESIDUAL_SCALE = 0.01
+MIN_AGGREGATE_MARGIN_FRACTION_OF_UNCERTAINTY_UPPER = 0.01
+MIN_ROW_MARGIN_FRACTION_OF_RESIDUAL_SCALE = 0.01
+MIN_ROW_MARGIN_FRACTION_OF_UNCERTAINTY_UPPER = 0.01
+MIN_MATERIALITY_MARGIN_ABSOLUTE = 1e-12
 DECLARATION_FORBIDDEN_KEYS = {
+    "value",
+    "target_value",
+    "heldout_value",
     "observed_value",
     "predicted_value",
     "prediction",
@@ -261,6 +274,30 @@ def as_float(value: Any) -> float | None:
     return out if math.isfinite(out) else None
 
 
+def parse_iso_timestamp(value: Any) -> datetime | None:
+    if value in (None, "", "missing"):
+        return None
+    raw = str(value).strip()
+    if not raw or raw == "missing":
+        return None
+    if raw.endswith("Z"):
+        raw = raw[:-1] + "+00:00"
+    if len(raw) == 10 and raw[4] == "-" and raw[7] == "-":
+        raw = raw + "T00:00:00+00:00"
+    try:
+        parsed = datetime.fromisoformat(raw)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def snapshot_last_updated(payload: Any) -> str | None:
+    value = payload_metadata(payload).get("lastupdated")
+    return str(value).strip() if value not in (None, "") else None
+
+
 def load_requirements(root: Path) -> tuple[dict[str, Any], list[str]]:
     path = root / REQUIREMENTS_REL
     if not path.exists():
@@ -370,6 +407,50 @@ def extract_source_separation(root: Path, payload: Any) -> dict[str, Any]:
     }
 
 
+def unverified_source_separation(source_lock: dict[str, Any], declaration: dict[str, Any]) -> dict[str, Any]:
+    source_claim = declaration.get("source_claim") if isinstance(declaration.get("source_claim"), dict) else {}
+    return {
+        "mode": "unverified_source_lock",
+        "pre_target_lock": False,
+        "target_hidden_until_scoring": False,
+        "declared_before_scoring": False,
+        "lock_id": str(source_lock.get("internal_lock_id") or source_lock.get("external_lock_id") or source_claim.get("lock_id") or "missing"),
+        "lock_timestamp": source_lock.get("external_lock_timestamp") or source_claim.get("lock_timestamp"),
+        "lock_order_hash": source_lock.get("materialization_order_hash"),
+        "lock_proof_type": source_lock.get("lock_proof_type"),
+        "source_ref": source_lock.get("source_ref") or source_claim.get("source_ref") or "none",
+        "source_lock_verified": False,
+    }
+
+
+def derive_source_separation_from_lock(
+    source_lock: dict[str, Any],
+    declaration: dict[str, Any],
+    rows: list[dict[str, Any]],
+) -> tuple[dict[str, Any], list[str]]:
+    failures = validate_source_lock(source_lock, declaration, rows)
+    if failures:
+        source = unverified_source_separation(source_lock, declaration)
+        source["source_lock_verification_failures"] = failures
+        return source, failures
+    source_claim = declaration.get("source_claim") if isinstance(declaration.get("source_claim"), dict) else {}
+    return (
+        {
+            "mode": str(source_claim.get("mode", "missing")),
+            "pre_target_lock": True,
+            "target_hidden_until_scoring": True,
+            "declared_before_scoring": True,
+            "lock_id": str(source_lock.get("internal_lock_id") or source_lock.get("external_lock_id")),
+            "lock_timestamp": source_lock.get("external_lock_timestamp"),
+            "lock_order_hash": source_lock.get("materialization_order_hash"),
+            "lock_proof_type": source_lock.get("lock_proof_type"),
+            "source_ref": source_lock.get("source_ref") or source_claim.get("source_ref") or "none",
+            "source_lock_verified": True,
+        },
+        [],
+    )
+
+
 def years_before(values_by_year: dict[int, float], target_year: int) -> list[int]:
     return sorted(year for year in values_by_year if year < target_year)
 
@@ -399,6 +480,77 @@ def formula_family_manifest() -> list[dict[str, Any]]:
         }
         for formula in FORMULA_FAMILIES
     ]
+
+
+def materiality_policy() -> dict[str, Any]:
+    return {
+        "policy_id": MATERIALITY_POLICY_ID,
+        "policy_version": "1.0",
+        "pre_registered": True,
+        "metric": "absolute residual advantage over best preregistered comparator",
+        "aggregate_gate": {
+            "minimum_margin_fraction_of_residual_scale": MIN_AGGREGATE_MARGIN_FRACTION_OF_RESIDUAL_SCALE,
+            "minimum_margin_fraction_of_uncertainty_upper": MIN_AGGREGATE_MARGIN_FRACTION_OF_UNCERTAINTY_UPPER,
+            "residual_scale": "max(1, model_mean_absolute_residual, best_comparator_mean_absolute_residual)",
+            "uncertainty_upper": "candidate-pack uncertainty interval upper bound",
+        },
+        "row_gate": {
+            "minimum_margin_fraction_of_residual_scale": MIN_ROW_MARGIN_FRACTION_OF_RESIDUAL_SCALE,
+            "minimum_margin_fraction_of_uncertainty_upper": MIN_ROW_MARGIN_FRACTION_OF_UNCERTAINTY_UPPER,
+            "residual_scale": "max(1, row_model_absolute_residual, row_best_comparator_absolute_residual)",
+            "uncertainty_upper": "row selected-formula prior replay uncertainty interval upper bound",
+        },
+        "minimum_margin_absolute": MIN_MATERIALITY_MARGIN_ABSOLUTE,
+        "near_tie_policy": (
+            "a strict comparator residual greater-than is insufficient; grand support requires both aggregate "
+            "and every row-level best-comparator margin to meet the preregistered materiality thresholds"
+        ),
+    }
+
+
+def materiality_policy_hash() -> str:
+    return sha256_object(materiality_policy())
+
+
+def materiality_required_margin(
+    *,
+    residual_scale: float,
+    uncertainty_upper: float,
+    residual_scale_fraction: float,
+    uncertainty_upper_fraction: float,
+) -> float:
+    return max(
+        MIN_MATERIALITY_MARGIN_ABSOLUTE,
+        residual_scale_fraction * max(1.0, residual_scale),
+        uncertainty_upper_fraction * max(0.0, uncertainty_upper),
+    )
+
+
+def row_materiality_audit(row: dict[str, Any]) -> dict[str, Any]:
+    model_residual = float(row.get("model_residual") or 0.0)
+    best_comparator_residual = float(row.get("best_comparator_residual") or 0.0)
+    margin = best_comparator_residual - model_residual
+    uncertainty = row.get("uncertainty") if isinstance(row.get("uncertainty"), dict) else {}
+    interval = uncertainty.get("interval") if isinstance(uncertainty.get("interval"), list) else [0.0, 0.0]
+    uncertainty_upper = float(interval[-1] or 0.0) if interval else 0.0
+    residual_scale = max(1.0, abs(model_residual), abs(best_comparator_residual))
+    required_margin = materiality_required_margin(
+        residual_scale=residual_scale,
+        uncertainty_upper=uncertainty_upper,
+        residual_scale_fraction=MIN_ROW_MARGIN_FRACTION_OF_RESIDUAL_SCALE,
+        uncertainty_upper_fraction=MIN_ROW_MARGIN_FRACTION_OF_UNCERTAINTY_UPPER,
+    )
+    return {
+        "policy_id": MATERIALITY_POLICY_ID,
+        "policy_sha256": materiality_policy_hash(),
+        "margin": margin,
+        "required_margin": required_margin,
+        "residual_scale": residual_scale,
+        "uncertainty_upper": uncertainty_upper,
+        "margin_fraction_of_residual_scale": margin / residual_scale if residual_scale else 0.0,
+        "margin_fraction_of_uncertainty_upper": margin / uncertainty_upper if uncertainty_upper else None,
+        "passed": margin >= required_margin,
+    }
 
 
 def formula_training_residuals(values_by_year: dict[int, float], target_year: int, formula: Formula) -> list[dict[str, Any]]:
@@ -600,6 +752,7 @@ def build_replay_rows(series: dict[SeriesKey, dict[int, float]], snapshot_ref: s
                 ),
                 "row_hash_policy": ROW_HASH_POLICY,
             }
+            row["materiality"] = row_materiality_audit(row)
             row["row_hash"] = sha256_object({name: value for name, value in row.items() if name != "row_hash"})
             rows.append(row)
     return rows, ordered_unique(failures)
@@ -634,8 +787,8 @@ def validate_source_separation(source: dict[str, Any], rows: list[dict[str, Any]
         failures.append("DECLARED_BEFORE_SCORING_REQUIRED")
     if source.get("lock_id") in (None, "", "missing"):
         failures.append("PRE_TARGET_LOCK_ID_REQUIRED")
-    if source.get("lock_timestamp") in (None, "", "missing"):
-        failures.append("PRE_TARGET_LOCK_TIMESTAMP_REQUIRED")
+    if source.get("lock_timestamp") in (None, "", "missing") and source.get("lock_order_hash") in (None, "", "missing"):
+        failures.append("PRE_TARGET_LOCK_TIMESTAMP_OR_ORDER_HASH_REQUIRED")
     training_sources = [str(row.get("training_source", "")) for row in rows if row.get("training_source")]
     target_sources = [str(row.get("target_source", "")) for row in rows if row.get("target_source")]
     if not training_sources or not target_sources:
@@ -697,6 +850,23 @@ def validate_rows(rows: list[dict[str, Any]]) -> tuple[list[str], list[dict[str,
             for comparator in comparators:
                 if comparator.get("negative_control_rejected") is not True:
                     row_failures.append(f"NEGATIVE_CONTROL_NOT_REJECTED::{comparator.get('comparator_id')}")
+        materiality = row.get("materiality") if isinstance(row.get("materiality"), dict) else {}
+        if not materiality:
+            row_failures.append("ROW_MATERIALITY_AUDIT_MISSING")
+        else:
+            expected_materiality = row_materiality_audit(row)
+            comparable_expected = {
+                name: value for name, value in expected_materiality.items() if name != "margin_fraction_of_uncertainty_upper"
+            }
+            comparable_observed = {
+                name: value for name, value in materiality.items() if name != "margin_fraction_of_uncertainty_upper"
+            }
+            if comparable_observed != comparable_expected:
+                row_failures.append("ROW_MATERIALITY_AUDIT_MISMATCH")
+            if materiality.get("policy_sha256") != materiality_policy_hash():
+                row_failures.append("ROW_MATERIALITY_POLICY_HASH_MISMATCH")
+            if materiality.get("passed") is not True:
+                row_failures.append("ROW_MATERIALITY_NOT_MET")
         if row_failures:
             failures.extend(f"{failure}::{row_id}" for failure in row_failures)
             failure_rows.append(
@@ -706,6 +876,7 @@ def validate_rows(rows: list[dict[str, Any]]) -> tuple[list[str], list[dict[str,
                     "selected_formula_id": row.get("selected_formula_id"),
                     "model_residual": row.get("model_residual"),
                     "best_comparator_residual": row.get("best_comparator_residual"),
+                    "materiality": row.get("materiality"),
                     "failed_negative_controls": row.get("failed_negative_controls", []),
                     "failures": row_failures,
                 }
@@ -742,6 +913,54 @@ def uncertainty_interval(rows: list[dict[str, Any]], model_mean: float) -> list[
     return [0.0, max([model_mean, *residuals])]
 
 
+def materiality_audit(rows: list[dict[str, Any]], residuals: dict[str, Any] | None = None) -> dict[str, Any]:
+    residuals = residuals or residual_summary(rows)
+    model_mean = float(residuals.get("model") or 0.0)
+    comparator_mean = float(residuals.get("comparator") or 0.0)
+    margin = float(residuals.get("superiority_margin") or 0.0)
+    uncertainty_upper = float(uncertainty_interval(rows, model_mean)[-1])
+    residual_scale = max(1.0, abs(model_mean), abs(comparator_mean))
+    required_margin = materiality_required_margin(
+        residual_scale=residual_scale,
+        uncertainty_upper=uncertainty_upper,
+        residual_scale_fraction=MIN_AGGREGATE_MARGIN_FRACTION_OF_RESIDUAL_SCALE,
+        uncertainty_upper_fraction=MIN_AGGREGATE_MARGIN_FRACTION_OF_UNCERTAINTY_UPPER,
+    )
+    row_audits = [row.get("materiality") for row in rows if isinstance(row.get("materiality"), dict)]
+    failed_rows: list[dict[str, Any]] = []
+    for row in rows:
+        audit = row.get("materiality") if isinstance(row.get("materiality"), dict) else {}
+        if audit.get("passed") is True:
+            continue
+        failed_rows.append(
+            {
+                "observation_id": row.get("observation_id"),
+                "heldout_year": row.get("heldout_year"),
+                "margin": audit.get("margin"),
+                "required_margin": audit.get("required_margin"),
+                "residual_scale": audit.get("residual_scale"),
+                "uncertainty_upper": audit.get("uncertainty_upper"),
+            }
+        )
+    return {
+        "policy": materiality_policy(),
+        "policy_sha256": materiality_policy_hash(),
+        "aggregate_margin": margin,
+        "aggregate_required_margin": required_margin,
+        "aggregate_residual_scale": residual_scale,
+        "aggregate_uncertainty_upper": uncertainty_upper,
+        "aggregate_margin_fraction_of_residual_scale": margin / residual_scale if residual_scale else 0.0,
+        "aggregate_margin_fraction_of_uncertainty_upper": margin / uncertainty_upper if uncertainty_upper else None,
+        "aggregate_passed": bool(rows) and margin >= required_margin,
+        "row_total": len(rows),
+        "row_audit_total": len(row_audits),
+        "row_materiality_passed_total": sum(1 for audit in row_audits if audit.get("passed") is True),
+        "row_materiality_failed_total": len(failed_rows),
+        "row_materiality_failures": failed_rows,
+        "passed": bool(rows) and margin >= required_margin and not failed_rows,
+    }
+
+
 def aggregate_negative_controls(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     controls: list[dict[str, Any]] = []
     for row in rows:
@@ -771,11 +990,18 @@ def aggregate_negative_controls(rows: list[dict[str, Any]]) -> list[dict[str, An
 
 def build_pack(rows: list[dict[str, Any]], source: dict[str, Any], support_allowed: bool) -> dict[str, Any]:
     residuals = residual_summary(rows)
+    audit = materiality_audit(rows, residuals)
     return {
         "schema_id": grand_factory.EVIDENCE_SCHEMA_ID,
         "release_id": RELEASE_ID,
         "capability_owner": CAPABILITY_OWNER,
         "evidence_pack_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-CANDIDATE",
+        "evidence_family": "systems_wdi_predictive_search_v2",
+        "support_scope": (
+            "bounded WDI predictive-search replay evidence; grand systems support is allowed only when "
+            "the preregistered materiality audit, source lock, schema, N, comparators, falsifiers, and "
+            "tamper checks all pass"
+        ),
         "domain": "systems",
         "source_separation": {
             "mode": source.get("mode", "snapshot_replay"),
@@ -801,6 +1027,7 @@ def build_pack(rows: list[dict[str, Any]], source: dict[str, Any], support_allow
             "interval": uncertainty_interval(rows, float(residuals["model"])),
         },
         "residuals": residuals,
+        "materiality_audit": audit,
         "negative_controls": aggregate_negative_controls(rows),
         "falsifiers": ordered_unique([str(row["falsifier"]) for row in rows if row.get("falsifier")])
         or ["support fails when no heldout WDI replay rows are available"],
@@ -1023,6 +1250,11 @@ def blocker_work_orders(blockers: list[str], *, minimum_n: int, candidate_n: int
         "Require strict positive residual superiority against the best comparator and all row-level controls.",
     )
     add(
+        "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-MATERIALITY",
+        "MATERIALITY",
+        "Keep this as bounded WDI replay evidence until aggregate and every row-level residual margin exceed the preregistered materiality thresholds.",
+    )
+    add(
         "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-TAMPER",
         "TAMPER_TEST_FAILED",
         "Repair hash/tamper replay before registry review.",
@@ -1121,6 +1353,7 @@ def row_split_declarations(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def source_lock_scoring_policy() -> dict[str, Any]:
+    declared_materiality_policy = materiality_policy()
     return {
         "selection_scope": "per target row; same-series years strictly earlier than heldout_year",
         "selection_metric": "mean absolute residual on prior one-step replay rows with declared cycle-guard override",
@@ -1136,14 +1369,300 @@ def source_lock_scoring_policy() -> dict[str, Any]:
             "reject support unless every comparator baseline is worse than the selected model on every heldout row"
         ),
         "uncertainty_policy": "deterministic replay envelope over selected-model absolute residuals",
+        "materiality_policy": declared_materiality_policy,
+        "materiality_policy_sha256": sha256_object(declared_materiality_policy),
         "tamper_policy": (
             "heldout target mutation must change row hashes without changing same-row formula selection or prediction"
         ),
         "support_gate_policy": (
             "grand_toe_support_allowed is true iff source lock, source separation, N, row validation, "
-            "residual superiority, negative controls, tamper tests, pack gate, and strict schema all pass"
+            "residual superiority, materiality, negative controls, tamper tests, pack gate, and strict schema all pass"
         ),
     }
+
+
+class SourceLockProtocol:
+    """Reusable fail-closed source-lock builder and verifier for WDI v2."""
+
+    def build_declaration(
+        self,
+        source: dict[str, Any],
+        series: dict[SeriesKey, dict[int, float]],
+        snapshot_ref: str,
+        snapshot_sha256: str,
+        snapshot_lastupdated: str | None = None,
+    ) -> dict[str, Any]:
+        target_rows = target_split_declarations(series, snapshot_ref)
+        candidate_formulas = formula_family_manifest()
+        comparator_baselines = list(COMPARATOR_BASELINES)
+        scoring_policy = source_lock_scoring_policy()
+        return {
+            "schema_id": SOURCE_LOCK_DECLARATION_SCHEMA_ID,
+            "release_id": RELEASE_ID,
+            "version": VERSION,
+            "capability_owner": CAPABILITY_OWNER,
+            "declaration_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-PRE-TARGET-DECLARATION",
+            "declaration_scope": (
+                "source lock for WDI predictive-search v2 model family, target split, candidate formulas, "
+                "comparators, and scoring policy before heldout target scoring"
+            ),
+            "source_claim": source,
+            "snapshot_ref": snapshot_ref,
+            "snapshot_sha256": snapshot_sha256,
+            "snapshot_lastupdated": snapshot_lastupdated,
+            "snapshot_hash_policy": SNAPSHOT_HASH_POLICY,
+            "scoring_started_timestamp": SOURCE_LOCK_SCORING_STARTED_AT,
+            "split_policy": {
+                "mode": source.get("mode"),
+                "target_hidden_until_scoring": source.get("target_hidden_until_scoring") is True,
+                "training_year_rule": "training_year < heldout_year",
+                "target_row_values_excluded": True,
+                "prediction_outputs_excluded": True,
+                "minimum_prior_years": MIN_TARGET_PRIOR_YEARS,
+            },
+            "target_rows_declared_before_scoring": target_rows,
+            "candidate_formulas_declared_before_scoring": candidate_formulas,
+            "comparator_baselines_declared_before_scoring": comparator_baselines,
+            "scoring_policy_declared_before_scoring": scoring_policy,
+            "declaration_exclusion_policy": {
+                "forbidden_score_fields": sorted(DECLARATION_FORBIDDEN_KEYS),
+                "observed_target_values_excluded": True,
+                "predictions_excluded": True,
+                "residuals_excluded": True,
+            },
+        }
+
+    def build_materialization_order(self, source: dict[str, Any], declaration: dict[str, Any]) -> dict[str, Any]:
+        target_rows = declaration.get("target_rows_declared_before_scoring", [])
+        candidate_formulas = declaration.get("candidate_formulas_declared_before_scoring", [])
+        comparator_baselines = declaration.get("comparator_baselines_declared_before_scoring", [])
+        scoring_policy = declaration.get("scoring_policy_declared_before_scoring", {})
+        declaration_sha256 = sha256_object(declaration)
+        return {
+            "protocol_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-SOURCE-LOCK-PROTOCOL",
+            "proof_type": SOURCE_LOCK_INTERNAL_PROOF_TYPE,
+            "order_hash_policy": SOURCE_LOCK_ORDER_HASH_POLICY,
+            "source_ref": source.get("source_ref"),
+            "steps": [
+                {
+                    "step_index": 1,
+                    "step_id": "snapshot_hash_materialized",
+                    "snapshot_ref": declaration.get("snapshot_ref"),
+                    "snapshot_sha256": declaration.get("snapshot_sha256"),
+                    "snapshot_lastupdated": declaration.get("snapshot_lastupdated"),
+                },
+                {
+                    "step_index": 2,
+                    "step_id": "target_blind_declaration_materialized",
+                    "declaration_ref": SOURCE_LOCK_DECLARATION_REL,
+                    "declaration_sha256": declaration_sha256,
+                    "target_split_sha256": sha256_object(target_rows),
+                    "target_row_count": len(target_rows) if isinstance(target_rows, list) else 0,
+                    "target_row_values_excluded": not declaration_contains_forbidden_score_fields(declaration),
+                },
+                {
+                    "step_index": 3,
+                    "step_id": "model_and_scoring_policy_locked",
+                    "candidate_formulas_sha256": sha256_object(candidate_formulas),
+                    "comparator_baselines_sha256": sha256_object(comparator_baselines),
+                    "scoring_policy_sha256": sha256_object(scoring_policy),
+                },
+                {
+                    "step_index": 4,
+                    "step_id": "heldout_scoring_permitted_after_lock",
+                    "scoring_started_timestamp": declaration.get("scoring_started_timestamp"),
+                    "target_rows_used_for_selection": False,
+                },
+            ],
+        }
+
+    def build_lock(self, source: dict[str, Any], declaration: dict[str, Any]) -> dict[str, Any]:
+        target_rows = declaration.get("target_rows_declared_before_scoring", [])
+        candidate_formulas = declaration.get("candidate_formulas_declared_before_scoring", [])
+        scoring_policy = declaration.get("scoring_policy_declared_before_scoring", {})
+        comparator_baselines = declaration.get("comparator_baselines_declared_before_scoring", [])
+        external_lock_id = source.get("lock_id")
+        if external_lock_id in (None, "", "missing"):
+            external_lock_id = None
+        external_lock_timestamp = source.get("lock_timestamp")
+        if external_lock_timestamp in (None, "", "missing"):
+            external_lock_timestamp = None
+        external_lock_time = parse_iso_timestamp(external_lock_timestamp)
+        scoring_time = parse_iso_timestamp(declaration.get("scoring_started_timestamp"))
+        snapshot_time = parse_iso_timestamp(declaration.get("snapshot_lastupdated"))
+        external_claim_present = external_lock_id is not None or external_lock_timestamp is not None
+        external_claim_valid = not external_claim_present or (
+            external_lock_id is not None
+            and external_lock_time is not None
+            and scoring_time is not None
+            and external_lock_time < scoring_time
+            and (snapshot_time is None or external_lock_time >= snapshot_time)
+        )
+        materialization_order = self.build_materialization_order(source, declaration)
+        materialization_order_hash = sha256_object(materialization_order)
+        target_hidden = (
+            source.get("target_hidden_until_scoring") is True
+            and declaration.get("split_policy", {}).get("target_hidden_until_scoring") is True
+            and not declaration_contains_forbidden_score_fields(declaration)
+        )
+        pre_target_lock = source.get("pre_target_lock") is True and bool(materialization_order_hash)
+        declared_before_scoring = (
+            source.get("mode") in ("target_blind", "prospective")
+            and pre_target_lock
+            and target_hidden
+            and external_claim_valid
+        )
+        internal_lock_id = (
+            "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-INTERNAL-LOCK-"
+            f"{materialization_order_hash[:16]}"
+        )
+        return {
+            "schema_id": SOURCE_LOCK_SCHEMA_ID,
+            "release_id": RELEASE_ID,
+            "version": VERSION,
+            "capability_owner": CAPABILITY_OWNER,
+            "source_lock_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-SOURCE-LOCK",
+            "lock_proof_type": SOURCE_LOCK_INTERNAL_PROOF_TYPE,
+            "internal_lock_id": internal_lock_id,
+            "external_lock_evidence_available": external_claim_present,
+            "external_lock_id": external_lock_id,
+            "external_lock_timestamp": external_lock_timestamp,
+            "declaration_ref": SOURCE_LOCK_DECLARATION_REL,
+            "declaration_sha256": sha256_object(declaration),
+            "declaration_hash_policy": SOURCE_LOCK_HASH_POLICY,
+            "materialization_order": materialization_order,
+            "materialization_order_hash": materialization_order_hash,
+            "materialization_order_hash_policy": SOURCE_LOCK_ORDER_HASH_POLICY,
+            "declared_before_scoring": declared_before_scoring,
+            "pre_target_lock": pre_target_lock,
+            "target_hidden_until_scoring": target_hidden,
+            "source_ref": source.get("source_ref"),
+            "snapshot_ref": declaration.get("snapshot_ref"),
+            "snapshot_sha256": declaration.get("snapshot_sha256"),
+            "model_family_declared_before_scoring": declared_before_scoring,
+            "target_split_declared_before_scoring": declared_before_scoring,
+            "target_rows_declared_before_scoring": declared_before_scoring,
+            "candidate_formulas_declared_before_scoring": declared_before_scoring,
+            "scoring_policy_declared_before_scoring": declared_before_scoring,
+            "target_row_count": len(target_rows) if isinstance(target_rows, list) else 0,
+            "target_split_sha256": sha256_object(target_rows),
+            "candidate_formulas_sha256": sha256_object(candidate_formulas),
+            "comparator_baselines_sha256": sha256_object(comparator_baselines),
+            "scoring_policy_sha256": sha256_object(scoring_policy),
+            "declaration_excludes_target_values": not declaration_contains_forbidden_score_fields(declaration),
+            "score_artifacts_allowed_in_declaration": False,
+        }
+
+    def validate(self, source_lock: dict[str, Any], declaration: dict[str, Any], rows: list[dict[str, Any]]) -> list[str]:
+        failures: list[str] = []
+        if source_lock.get("schema_id") != SOURCE_LOCK_SCHEMA_ID:
+            failures.append("SOURCE_LOCK_SCHEMA_ID_MISMATCH")
+        if declaration.get("schema_id") != SOURCE_LOCK_DECLARATION_SCHEMA_ID:
+            failures.append("SOURCE_LOCK_DECLARATION_SCHEMA_ID_MISMATCH")
+        if source_lock.get("declaration_sha256") != sha256_object(declaration):
+            failures.append("SOURCE_LOCK_DECLARATION_HASH_MISMATCH")
+        if source_lock.get("declaration_ref") != SOURCE_LOCK_DECLARATION_REL:
+            failures.append("SOURCE_LOCK_DECLARATION_REF_MISMATCH")
+        for field in (
+            "declared_before_scoring",
+            "pre_target_lock",
+            "target_hidden_until_scoring",
+            "model_family_declared_before_scoring",
+            "target_split_declared_before_scoring",
+            "target_rows_declared_before_scoring",
+            "candidate_formulas_declared_before_scoring",
+            "scoring_policy_declared_before_scoring",
+            "declaration_excludes_target_values",
+        ):
+            if source_lock.get(field) is not True:
+                failures.append(f"SOURCE_LOCK_PREDICATE_NOT_TRUE::{field}")
+        if source_lock.get("lock_proof_type") != SOURCE_LOCK_INTERNAL_PROOF_TYPE:
+            failures.append("SOURCE_LOCK_PROOF_TYPE_UNSUPPORTED")
+        if source_lock.get("internal_lock_id") in (None, "", "missing"):
+            failures.append("SOURCE_LOCK_INTERNAL_ID_REQUIRED")
+        materialization_order = source_lock.get("materialization_order")
+        if not isinstance(materialization_order, dict):
+            failures.append("SOURCE_LOCK_MATERIALIZATION_ORDER_REQUIRED")
+            materialization_order = {}
+        materialization_order_hash = source_lock.get("materialization_order_hash")
+        if materialization_order_hash in (None, "", "missing"):
+            failures.append("SOURCE_LOCK_MATERIALIZATION_ORDER_HASH_REQUIRED")
+        elif materialization_order_hash != sha256_object(materialization_order):
+            failures.append("SOURCE_LOCK_MATERIALIZATION_ORDER_HASH_MISMATCH")
+        order_steps = materialization_order.get("steps") if isinstance(materialization_order, dict) else None
+        if not isinstance(order_steps, list) or [step.get("step_index") for step in order_steps if isinstance(step, dict)] != [1, 2, 3, 4]:
+            failures.append("SOURCE_LOCK_MATERIALIZATION_ORDER_INVALID")
+        else:
+            declaration_step = order_steps[1] if len(order_steps) > 1 and isinstance(order_steps[1], dict) else {}
+            scoring_step = order_steps[3] if len(order_steps) > 3 and isinstance(order_steps[3], dict) else {}
+            if declaration_step.get("declaration_sha256") != sha256_object(declaration):
+                failures.append("SOURCE_LOCK_ORDER_DECLARATION_HASH_MISMATCH")
+            if declaration_step.get("target_row_values_excluded") is not True:
+                failures.append("SOURCE_LOCK_ORDER_TARGET_VALUES_NOT_EXCLUDED")
+            if scoring_step.get("scoring_started_timestamp") != declaration.get("scoring_started_timestamp"):
+                failures.append("SOURCE_LOCK_ORDER_SCORING_TIMESTAMP_MISMATCH")
+        external_lock_id = source_lock.get("external_lock_id")
+        external_lock_timestamp = source_lock.get("external_lock_timestamp")
+        external_claim_present = external_lock_id not in (None, "", "missing") or external_lock_timestamp not in (
+            None,
+            "",
+            "missing",
+        )
+        external_lock_time = parse_iso_timestamp(external_lock_timestamp)
+        if external_claim_present and external_lock_id in (None, "", "missing"):
+            failures.append("SOURCE_LOCK_EXTERNAL_ID_REQUIRED")
+        if external_claim_present and external_lock_timestamp in (None, "", "missing"):
+            failures.append("SOURCE_LOCK_EXTERNAL_TIMESTAMP_REQUIRED")
+        elif external_claim_present and external_lock_time is None:
+            failures.append("SOURCE_LOCK_EXTERNAL_TIMESTAMP_INVALID")
+        snapshot_lastupdated = declaration.get("snapshot_lastupdated")
+        snapshot_time = parse_iso_timestamp(snapshot_lastupdated)
+        if snapshot_lastupdated not in (None, "", "missing") and snapshot_time is None:
+            failures.append("SOURCE_LOCK_SNAPSHOT_TIMESTAMP_INVALID")
+        scoring_started = declaration.get("scoring_started_timestamp")
+        scoring_time = parse_iso_timestamp(scoring_started)
+        if scoring_started in (None, "", "missing") or scoring_time is None:
+            failures.append("SOURCE_LOCK_SCORING_TIMESTAMP_INVALID")
+        if external_lock_time is not None and snapshot_time is not None and external_lock_time < snapshot_time:
+            failures.append("SOURCE_LOCK_STALE_FOR_SNAPSHOT")
+        if external_lock_time is not None and scoring_time is not None and external_lock_time >= scoring_time:
+            failures.append("SOURCE_LOCK_POST_SCORING_TIMESTAMP")
+        declared_rows = declaration.get("target_rows_declared_before_scoring", [])
+        if not isinstance(declared_rows, list) or not declared_rows:
+            failures.append("SOURCE_LOCK_TARGET_ROWS_REQUIRED")
+            declared_rows = []
+        if source_lock.get("target_split_sha256") != sha256_object(declared_rows):
+            failures.append("SOURCE_LOCK_TARGET_SPLIT_HASH_MISMATCH")
+        if source_lock.get("candidate_formulas_sha256") != sha256_object(
+            declaration.get("candidate_formulas_declared_before_scoring", [])
+        ):
+            failures.append("SOURCE_LOCK_CANDIDATE_FORMULAS_HASH_MISMATCH")
+        if source_lock.get("comparator_baselines_sha256") != sha256_object(
+            declaration.get("comparator_baselines_declared_before_scoring", [])
+        ):
+            failures.append("SOURCE_LOCK_COMPARATOR_BASELINES_HASH_MISMATCH")
+        if source_lock.get("scoring_policy_sha256") != sha256_object(
+            declaration.get("scoring_policy_declared_before_scoring", {})
+        ):
+            failures.append("SOURCE_LOCK_SCORING_POLICY_HASH_MISMATCH")
+        declared_scoring_policy = declaration.get("scoring_policy_declared_before_scoring", {})
+        declared_materiality_policy = (
+            declared_scoring_policy.get("materiality_policy") if isinstance(declared_scoring_policy, dict) else None
+        )
+        if declared_materiality_policy != materiality_policy():
+            failures.append("SOURCE_LOCK_MATERIALITY_POLICY_MISMATCH")
+        if not isinstance(declared_scoring_policy, dict) or declared_scoring_policy.get(
+            "materiality_policy_sha256"
+        ) != sha256_object(declared_materiality_policy):
+            failures.append("SOURCE_LOCK_MATERIALITY_POLICY_HASH_MISMATCH")
+        if declaration_contains_forbidden_score_fields(declaration):
+            failures.append("SOURCE_LOCK_DECLARATION_CONTAINS_SCORE_FIELDS")
+        if row_split_declarations(rows) != declared_rows:
+            failures.append("SOURCE_LOCK_DECLARED_TARGET_ROWS_DO_NOT_MATCH_SCORED_ROWS")
+        return ordered_unique(failures)
+
+
+SOURCE_LOCK_PROTOCOL = SourceLockProtocol()
 
 
 def build_source_lock_declaration(
@@ -1151,44 +1670,9 @@ def build_source_lock_declaration(
     series: dict[SeriesKey, dict[int, float]],
     snapshot_ref: str,
     snapshot_sha256: str,
+    snapshot_lastupdated: str | None = None,
 ) -> dict[str, Any]:
-    target_rows = target_split_declarations(series, snapshot_ref)
-    candidate_formulas = formula_family_manifest()
-    comparator_baselines = list(COMPARATOR_BASELINES)
-    scoring_policy = source_lock_scoring_policy()
-    return {
-        "schema_id": SOURCE_LOCK_DECLARATION_SCHEMA_ID,
-        "release_id": RELEASE_ID,
-        "version": VERSION,
-        "capability_owner": CAPABILITY_OWNER,
-        "declaration_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-PRE-TARGET-DECLARATION",
-        "declaration_scope": (
-            "source lock for WDI predictive-search v2 model family, target split, candidate formulas, "
-            "comparators, and scoring policy before heldout target scoring"
-        ),
-        "source_claim": source,
-        "snapshot_ref": snapshot_ref,
-        "snapshot_sha256": snapshot_sha256,
-        "snapshot_hash_policy": SNAPSHOT_HASH_POLICY,
-        "split_policy": {
-            "mode": source.get("mode"),
-            "target_hidden_until_scoring": source.get("target_hidden_until_scoring") is True,
-            "training_year_rule": "training_year < heldout_year",
-            "target_row_values_excluded": True,
-            "prediction_outputs_excluded": True,
-            "minimum_prior_years": MIN_TARGET_PRIOR_YEARS,
-        },
-        "target_rows_declared_before_scoring": target_rows,
-        "candidate_formulas_declared_before_scoring": candidate_formulas,
-        "comparator_baselines_declared_before_scoring": comparator_baselines,
-        "scoring_policy_declared_before_scoring": scoring_policy,
-        "declaration_exclusion_policy": {
-            "forbidden_score_fields": sorted(DECLARATION_FORBIDDEN_KEYS),
-            "observed_target_values_excluded": True,
-            "predictions_excluded": True,
-            "residuals_excluded": True,
-        },
-    }
+    return SOURCE_LOCK_PROTOCOL.build_declaration(source, series, snapshot_ref, snapshot_sha256, snapshot_lastupdated)
 
 
 def declaration_contains_forbidden_score_fields(value: Any) -> bool:
@@ -1204,92 +1688,11 @@ def declaration_contains_forbidden_score_fields(value: Any) -> bool:
 
 
 def build_source_lock(source: dict[str, Any], declaration: dict[str, Any]) -> dict[str, Any]:
-    target_rows = declaration.get("target_rows_declared_before_scoring", [])
-    candidate_formulas = declaration.get("candidate_formulas_declared_before_scoring", [])
-    scoring_policy = declaration.get("scoring_policy_declared_before_scoring", {})
-    comparator_baselines = declaration.get("comparator_baselines_declared_before_scoring", [])
-    return {
-        "schema_id": SOURCE_LOCK_SCHEMA_ID,
-        "release_id": RELEASE_ID,
-        "version": VERSION,
-        "capability_owner": CAPABILITY_OWNER,
-        "source_lock_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-SOURCE-LOCK",
-        "declaration_ref": SOURCE_LOCK_DECLARATION_REL,
-        "declaration_sha256": sha256_object(declaration),
-        "declaration_hash_policy": SOURCE_LOCK_HASH_POLICY,
-        "declared_before_scoring": source.get("declared_before_scoring") is True,
-        "pre_target_lock": source.get("pre_target_lock") is True,
-        "target_hidden_until_scoring": source.get("target_hidden_until_scoring") is True,
-        "external_lock_id": source.get("lock_id"),
-        "external_lock_timestamp": source.get("lock_timestamp"),
-        "source_ref": source.get("source_ref"),
-        "snapshot_ref": declaration.get("snapshot_ref"),
-        "snapshot_sha256": declaration.get("snapshot_sha256"),
-        "model_family_declared_before_scoring": True,
-        "target_split_declared_before_scoring": True,
-        "target_rows_declared_before_scoring": True,
-        "candidate_formulas_declared_before_scoring": True,
-        "scoring_policy_declared_before_scoring": True,
-        "target_row_count": len(target_rows) if isinstance(target_rows, list) else 0,
-        "target_split_sha256": sha256_object(target_rows),
-        "candidate_formulas_sha256": sha256_object(candidate_formulas),
-        "comparator_baselines_sha256": sha256_object(comparator_baselines),
-        "scoring_policy_sha256": sha256_object(scoring_policy),
-        "declaration_excludes_target_values": not declaration_contains_forbidden_score_fields(declaration),
-        "score_artifacts_allowed_in_declaration": False,
-    }
+    return SOURCE_LOCK_PROTOCOL.build_lock(source, declaration)
 
 
 def validate_source_lock(source_lock: dict[str, Any], declaration: dict[str, Any], rows: list[dict[str, Any]]) -> list[str]:
-    failures: list[str] = []
-    if source_lock.get("schema_id") != SOURCE_LOCK_SCHEMA_ID:
-        failures.append("SOURCE_LOCK_SCHEMA_ID_MISMATCH")
-    if declaration.get("schema_id") != SOURCE_LOCK_DECLARATION_SCHEMA_ID:
-        failures.append("SOURCE_LOCK_DECLARATION_SCHEMA_ID_MISMATCH")
-    if source_lock.get("declaration_sha256") != sha256_object(declaration):
-        failures.append("SOURCE_LOCK_DECLARATION_HASH_MISMATCH")
-    if source_lock.get("declaration_ref") != SOURCE_LOCK_DECLARATION_REL:
-        failures.append("SOURCE_LOCK_DECLARATION_REF_MISMATCH")
-    for field in (
-        "declared_before_scoring",
-        "pre_target_lock",
-        "target_hidden_until_scoring",
-        "model_family_declared_before_scoring",
-        "target_split_declared_before_scoring",
-        "target_rows_declared_before_scoring",
-        "candidate_formulas_declared_before_scoring",
-        "scoring_policy_declared_before_scoring",
-        "declaration_excludes_target_values",
-    ):
-        if source_lock.get(field) is not True:
-            failures.append(f"SOURCE_LOCK_PREDICATE_NOT_TRUE::{field}")
-    if source_lock.get("external_lock_id") in (None, "", "missing"):
-        failures.append("SOURCE_LOCK_EXTERNAL_ID_REQUIRED")
-    if source_lock.get("external_lock_timestamp") in (None, "", "missing"):
-        failures.append("SOURCE_LOCK_EXTERNAL_TIMESTAMP_REQUIRED")
-    declared_rows = declaration.get("target_rows_declared_before_scoring", [])
-    if not isinstance(declared_rows, list) or not declared_rows:
-        failures.append("SOURCE_LOCK_TARGET_ROWS_REQUIRED")
-        declared_rows = []
-    if source_lock.get("target_split_sha256") != sha256_object(declared_rows):
-        failures.append("SOURCE_LOCK_TARGET_SPLIT_HASH_MISMATCH")
-    if source_lock.get("candidate_formulas_sha256") != sha256_object(
-        declaration.get("candidate_formulas_declared_before_scoring", [])
-    ):
-        failures.append("SOURCE_LOCK_CANDIDATE_FORMULAS_HASH_MISMATCH")
-    if source_lock.get("comparator_baselines_sha256") != sha256_object(
-        declaration.get("comparator_baselines_declared_before_scoring", [])
-    ):
-        failures.append("SOURCE_LOCK_COMPARATOR_BASELINES_HASH_MISMATCH")
-    if source_lock.get("scoring_policy_sha256") != sha256_object(
-        declaration.get("scoring_policy_declared_before_scoring", {})
-    ):
-        failures.append("SOURCE_LOCK_SCORING_POLICY_HASH_MISMATCH")
-    if declaration_contains_forbidden_score_fields(declaration):
-        failures.append("SOURCE_LOCK_DECLARATION_CONTAINS_SCORE_FIELDS")
-    if row_split_declarations(rows) != declared_rows:
-        failures.append("SOURCE_LOCK_DECLARED_TARGET_ROWS_DO_NOT_MATCH_SCORED_ROWS")
-    return ordered_unique(failures)
+    return SOURCE_LOCK_PROTOCOL.validate(source_lock, declaration, rows)
 
 
 def build_pre_target_lock_metadata(
@@ -1304,6 +1707,8 @@ def build_pre_target_lock_metadata(
         "source_ref": source.get("source_ref"),
         "lock_id": source.get("lock_id"),
         "lock_timestamp": source.get("lock_timestamp"),
+        "lock_order_hash": source.get("lock_order_hash"),
+        "lock_proof_type": source.get("lock_proof_type"),
         "pre_target_lock": source.get("pre_target_lock") is True,
         "target_hidden_until_scoring": source.get("target_hidden_until_scoring") is True,
         "declared_before_scoring": source.get("declared_before_scoring") is True,
@@ -1313,6 +1718,7 @@ def build_pre_target_lock_metadata(
         "source_lock_sha256": sha256_object(source_lock),
         "source_lock_declaration_ref": SOURCE_LOCK_DECLARATION_REL,
         "source_lock_declaration_sha256": source_lock.get("declaration_sha256"),
+        "source_lock_materialization_order_hash": source_lock.get("materialization_order_hash"),
         "formula_family_locked_before_target_scoring": source_lock.get("model_family_declared_before_scoring") is True,
         "formula_family_sha256": source_lock.get("candidate_formulas_sha256"),
         "target_split_locked_before_target_scoring": source_lock.get("target_split_declared_before_scoring") is True,
@@ -1336,7 +1742,7 @@ def evaluate_wdi_payload(
     requirement_failures = requirement_failures or []
     minimum_n = int(requirements.get("minimum_per_domain_n", 20))
     blockers: list[str] = list(requirement_failures)
-    source = extract_source_separation(root, raw_payload)
+    raw_source_claim = extract_source_separation(root, raw_payload)
 
     try:
         series = parse_wdi_payload(raw_payload)
@@ -1345,12 +1751,18 @@ def evaluate_wdi_payload(
         blockers.append(f"SNAPSHOT_PARSE_FAILED::{exc}")
 
     rows, row_build_failures = build_replay_rows(series, snapshot_ref)
+    source_lock_declaration = build_source_lock_declaration(
+        raw_source_claim,
+        series,
+        snapshot_ref,
+        snapshot_sha256,
+        snapshot_lastupdated=snapshot_last_updated(raw_payload),
+    )
+    source_lock = build_source_lock(raw_source_claim, source_lock_declaration)
+    source, source_lock_failures = derive_source_separation_from_lock(source_lock, source_lock_declaration, rows)
     source_failures = validate_source_separation(source, rows, requirements)
     row_failures, failure_rows = validate_rows(rows)
     formula_search = build_formula_search_summary(rows)
-    source_lock_declaration = build_source_lock_declaration(source, series, snapshot_ref, snapshot_sha256)
-    source_lock = build_source_lock(source, source_lock_declaration)
-    source_lock_failures = validate_source_lock(source_lock, source_lock_declaration, rows)
 
     if len(rows) < minimum_n:
         blockers.append(f"N_BELOW_MINIMUM::{len(rows)}/{minimum_n}")
@@ -1358,6 +1770,11 @@ def evaluate_wdi_payload(
     residuals = residual_summary(rows)
     if residuals["superiority_margin"] <= 0:
         blockers.append("HELDOUT_RESIDUAL_SUPERIORITY_NOT_MET")
+    materiality = materiality_audit(rows, residuals)
+    if materiality["aggregate_passed"] is not True:
+        blockers.append("HELDOUT_RESIDUAL_MATERIALITY_NOT_MET")
+    if materiality["row_materiality_failed_total"]:
+        blockers.append(f"ROW_MATERIALITY_NOT_MET::{materiality['row_materiality_failed_total']}/{len(rows)}")
 
     negative_control_failure_rows = [
         row
@@ -1373,8 +1790,8 @@ def evaluate_wdi_payload(
 
     lock_metadata = build_pre_target_lock_metadata(source, source_lock, snapshot_ref, snapshot_sha256)
     candidate_support = not ordered_unique([*preliminary_blockers, *tamper_failures])
-    candidate_pack = build_pack(rows, source, support_allowed=candidate_support)
-    candidate_gate_failures = grand_factory.pack_failure_reasons(candidate_pack, requirements)
+    candidate_pack_for_gate = build_pack(rows, source, support_allowed=True)
+    candidate_gate_failures = grand_factory.pack_failure_reasons(candidate_pack_for_gate, requirements)
     support_before_strict_schema = candidate_support and not candidate_gate_failures
     pack = build_pack(rows, source, support_allowed=support_before_strict_schema)
     pack_sha256 = sha256_object(pack)
@@ -1401,6 +1818,8 @@ def evaluate_wdi_payload(
         "formula_search": formula_search,
         "comparator_baselines": list(COMPARATOR_BASELINES),
         "residual_metric": "absolute residual; aggregate model residual is mean absolute residual",
+        "materiality_policy": materiality_policy(),
+        "materiality_policy_sha256": materiality_policy_hash(),
         "negative_control_policy": "reject support unless every comparator baseline is worse than the selected model on every heldout row",
         "tamper_policy": "heldout target mutation must change row hashes without changing same-row formula selection or prediction",
         "required_protocol_steps": [
@@ -1410,7 +1829,8 @@ def evaluate_wdi_payload(
             "select formulas using only same-series years strictly earlier than each heldout target year",
             "score each heldout target once and record row hashes",
             "compare against all preregistered baselines under the same residual metric",
-            "reject support unless N, strict schema, source separation, residual superiority, all negative controls, falsifiers, and tamper tests pass",
+            "audit aggregate and row-level materiality against the preregistered residual-scale and uncertainty thresholds",
+            "reject support unless N, strict schema, source separation, residual superiority, materiality, all negative controls, falsifiers, and tamper tests pass",
         ],
         "blockers": [],
         "next_work_orders": [],
@@ -1432,6 +1852,9 @@ def evaluate_wdi_payload(
         "row_hash_policy": ROW_HASH_POLICY,
         "row_hashes_sha256": task_rows_hash,
         "formula_search": formula_search,
+        "materiality_policy": materiality_policy(),
+        "materiality_policy_sha256": materiality_policy_hash(),
+        "materiality_audit": pack["materiality_audit"],
         "rows": rows,
         "exact_failure_rows": failure_rows,
         "negative_control_failure_rows": negative_control_failure_rows,
@@ -1463,6 +1886,9 @@ def evaluate_wdi_payload(
         "series_total": len(series),
         "formula_search": formula_search,
         "residuals": pack["residuals"],
+        "materiality_policy": materiality_policy(),
+        "materiality_policy_sha256": materiality_policy_hash(),
+        "materiality_audit": pack["materiality_audit"],
         "negative_control_total": len(pack["negative_controls"]),
         "negative_control_rejected_total": sum(1 for row in pack["negative_controls"] if row.get("rejected") is True),
         "source_validation_failures": source_failures,
@@ -1553,7 +1979,7 @@ def build_missing_snapshot_payload(root: Path, snapshot_ref: str, requirements: 
     formula_search = build_formula_search_summary(rows)
     source_lock_declaration = build_source_lock_declaration(source, {}, snapshot_ref, "missing")
     source_lock = build_source_lock(source, source_lock_declaration)
-    source_lock_failures = validate_source_lock(source_lock, source_lock_declaration, rows)
+    source, source_lock_failures = derive_source_separation_from_lock(source_lock, source_lock_declaration, rows)
     blockers = ordered_unique([*blockers, *source_lock_failures])
     lock_metadata = build_pre_target_lock_metadata(source, source_lock, snapshot_ref, "missing")
     pack = build_pack(rows, source, support_allowed=False)

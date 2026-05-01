@@ -1,22 +1,34 @@
 # OC Core 1.3.3 Grand Empirical Report
 
-Verdict: `BLOCKED_PENDING_GENUINE_PER_DOMAIN_EVIDENCE`
-Grand TOE support allowed: `false`
-Candidate evidence packs: `16`
-Valid evidence packs: `0`
+Verdict: `EMPIRICAL_DOMAIN_SUPPORT_ALLOWED`
+Empirical-domain support allowed: `true`
+TOE/final/broad modern-science promotion allowed by this gate: `false`
+Candidate evidence packs: `19`
+Current evidence packs: `5`
+Superseded evidence packs: `14`
+Valid evidence packs: `4`
 Bounded baseline rows: `5`
-Blocked domains: `5/5`
-Decomposition queue rows: `5`
+Blocked empirical domains: `0/4`
+Formal required domains: `1`
+Decomposition queue rows: `0`
+Sync run: `not-bound`
+Source artifact set: `not-bound`
 
-This factory/gate does not emit a grand empirical support allowance from bounded OC133 reconstructions, sample packs, or artifact existence. Unresolved domains remain BLOCKED until prospective or target-blind evidence packs clear the configured criteria.
+This factory/gate emits only bounded empirical-domain support from qualifying packs. It does not emit TOE, final-theory, broad modern-science coverage, or modern-science superiority promotion from bounded OC133 reconstructions, sample packs, or artifact existence. Unresolved domains remain BLOCKED until prospective or target-blind evidence packs clear the configured criteria.
+Formal required domains are exposed here as dependencies, but excluded from empirical support counts and blockers.
 
-| Domain | Status | Candidate packs | Valid packs | Valid N | Minimum N | Bounded baseline rows | Grand TOE support | Blockers |
-| --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- |
-| `biology` | `BLOCKED` | `4` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; CANDIDATE_EVIDENCE_PACKS_INVALID::4 |
-| `chemistry` | `BLOCKED` | `3` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; CANDIDATE_EVIDENCE_PACKS_INVALID::3 |
-| `mathematics` | `BLOCKED` | `1` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; CANDIDATE_EVIDENCE_PACKS_INVALID::1; CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE |
-| `physics` | `BLOCKED` | `2` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; CANDIDATE_EVIDENCE_PACKS_INVALID::2 |
-| `systems` | `BLOCKED` | `6` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; CANDIDATE_EVIDENCE_PACKS_INVALID::6 |
+| Domain | Status | Candidate packs | Current packs | Superseded packs | Valid packs | Valid N | Minimum N | Bounded baseline rows | Empirical-domain support | TOE/final promotion | Blockers |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |
+| `biology` | `EVIDENCE_SUFFICIENT_PENDING_REVIEW` | `5` | `1` | `4` | `1` | `30` | `20` | `1` | `true` | `false` |  |
+| `chemistry` | `EVIDENCE_SUFFICIENT_PENDING_REVIEW` | `4` | `1` | `3` | `1` | `20` | `20` | `1` | `true` | `false` |  |
+| `physics` | `EVIDENCE_SUFFICIENT_PENDING_REVIEW` | `2` | `1` | `1` | `1` | `44` | `20` | `1` | `true` | `false` |  |
+| `systems` | `EVIDENCE_SUFFICIENT_PENDING_REVIEW` | `7` | `1` | `6` | `1` | `20` | `20` | `1` | `true` | `false` |  |
+
+## Formal Route Dependencies
+
+| Domain | Route | Status | Empirical support allowed | Formal support report |
+| --- | --- | --- | --- | --- |
+| `mathematics` | `formal` | `ROUTED_TO_FORMAL_SUPPORT` | `false` | validation/heldout/grand_science/mathematics/OC133_MATHEMATICS_EVIDENCE_EXECUTION_REPORT.json |
 
 ## Candidate Factory
 
@@ -26,7 +38,7 @@ Sample-only pack: `validation/heldout/samples/grand_empirical_evidence_pack.samp
 
 ## Bounded Baseline
 
-Current target-blind rows are retained as bounded reconstruction evidence only. They are not promoted to broad domain validation or grand TOE support.
+Current target-blind rows are retained as bounded reconstruction evidence only. They are not promoted to broad domain validation, TOE/final-theory support, or modern-science superiority.
 
 | Domain | Baseline ID | N | Model residual | Comparator residual | Support scope |
 | --- | --- | ---: | ---: | ---: | --- |

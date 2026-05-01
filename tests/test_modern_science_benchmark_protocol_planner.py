@@ -45,7 +45,16 @@ class ModernScienceBenchmarkProtocolPlannerTests(unittest.TestCase):
             self.assertIn("falsifiers", protocol)
             self.assertIn("blocker_predicates", protocol)
             self.assertIn("required_result_refs", protocol)
-            self.assertTrue(protocol["required_result_refs"])
+            if domain == "mathematics":
+                self.assertEqual(protocol["route_type"], "FORMAL_ROUTE_PROTOCOL_ONLY")
+                self.assertEqual(protocol["required_result_refs"], [])
+                self.assertTrue(protocol["formal_route"]["protocol_only"])
+                self.assertFalse(protocol["formal_route"]["empirical_protocol_required"])
+                self.assertFalse(protocol["oc_model_under_test"]["prediction_support_allowed"])
+                self.assertFalse(protocol["oc_model_under_test"]["empirical_support_allowed"])
+            else:
+                self.assertNotEqual(protocol.get("route_type"), "FORMAL_ROUTE_PROTOCOL_ONLY")
+                self.assertTrue(protocol["required_result_refs"])
             self.assertIsInstance(protocol["fairness_criteria"], list)
             for criterion in protocol["fairness_criteria"]:
                 self.assertIn("predicate", criterion)

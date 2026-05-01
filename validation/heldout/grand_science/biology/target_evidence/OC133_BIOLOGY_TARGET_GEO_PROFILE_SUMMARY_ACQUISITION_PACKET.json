@@ -1,0 +1,48 @@
+{
+  "schema_id": "OC133_BIOLOGY_TARGET_EVIDENCE_ACQUISITION_PACKET_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "generated_by": "tools/oc133_biology_target_official_bundle_builder.py",
+  "stage": "summary",
+  "minimum_target_rows": 20,
+  "official_source_policy": "NCBI GEO Profiles via EUtils only; acquired bytes are read-only official source material and are not a scientific pass by themselves.",
+  "missing_official_snapshots": [
+    {
+      "acquisition_id": "OC133-BIOLOGY-TARGET-GEOPROFILES-SUMMARY-0001",
+      "official_source": "NCBI EUtils GEO Profiles",
+      "official_endpoint_url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=geoprofiles&id=65632215%2C65632214%2C65632213%2C65632212%2C65632211%2C65632210%2C65632209%2C65632208%2C65632207%2C65632206%2C65632205%2C65632204%2C65632203%2C65632202%2C65632201%2C65632200%2C65632199%2C65632198%2C65632197%2C65632196%2C65632195%2C65632194%2C65632193%2C65632192%2C65632191%2C65632190%2C65632189%2C65632188%2C65632186%2C65632185&retmode=json",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/biology/target_evidence/raw/OC133_BIOLOGY_TARGET_GEO_PROFILE_SUMMARY.json",
+      "no_send_lock": true,
+      "required_fields": [
+        "result.<uid>.rmean",
+        "result.<uid>.rstd"
+      ],
+      "query_params": {
+        "db": "geoprofiles",
+        "id": "65632215,65632214,65632213,65632212,65632211,65632210,65632209,65632208,65632207,65632206,65632205,65632204,65632203,65632202,65632201,65632200,65632199,65632198,65632197,65632196,65632195,65632194,65632193,65632192,65632191,65632190,65632189,65632188,65632186,65632185",
+        "retmode": "json"
+      },
+      "prospective_lock_metadata": {
+        "schema_id": "OC133_OFFICIAL_READONLY_PROSPECTIVE_LOCK_METADATA_v1",
+        "source_snapshot_pre_target_lock": true,
+        "target_hidden_until_scoring": true,
+        "target_projection_unsealed_for_scoring": false,
+        "scoring_started": false,
+        "prediction_materialization_required_before_scoring": true,
+        "target_projection_read_before_prediction_materialization": false,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false
+      }
+    }
+  ],
+  "no_send": true,
+  "publish_allowed": false,
+  "push_allowed": false,
+  "journal_submissions_allowed": false,
+  "doi_registration_allowed": false,
+  "zenodo_upload_allowed": false,
+  "registry_write_allowed": false,
+  "release_promotion_allowed": false
+}

@@ -1,0 +1,526 @@
+{
+  "schema_id": "OC133_AGRICULTURE_MODERN_SCIENCE_COVERAGE_WORK_ORDERS_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "capability_owner": "Logion Agriculture Evidence / Food, Crop, and Veterinary Sources",
+  "generated_by": "validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py",
+  "coverage_register_ref": "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+  "domain_class_id": "agricultural_food_sciences",
+  "work_order_ids": [
+    "MS-COV-WO-019",
+    "MS-COV-WO-020",
+    "MS-COV-WO-021"
+  ],
+  "work_order_total": 3,
+  "fail_closed_or_acquisition_only_total": 3,
+  "coverage_closure_allowed": false,
+  "broad_modern_science_superiority_allowed": false,
+  "readonly_acquisition_lane_implemented": true,
+  "target_hidden_scorer_ready_work_order_ids": [
+    "MS-COV-WO-020"
+  ],
+  "implemented_acquisition_refs": [
+    "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/OC133_AGRICULTURE_FDC_FOUNDATION_FOODS_LIST_25.compact.json",
+    "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-FOUNDATION-FOODS-LIST-0001.lock.json",
+    "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_REPLAY_REPORT.json"
+  ],
+  "implemented_scoring_refs": [
+    "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_TARGET_HIDDEN_TASK_TABLE.json",
+    "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-SODIUM-HIDDEN-TARGETS-0001.lock.json",
+    "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json"
+  ],
+  "no_send_locks": {
+    "no_send": true,
+    "public_release_action_allowed": false,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "registry_write_allowed": false,
+    "journal_submission_allowed": false,
+    "email_allowed": false,
+    "doi_registration_allowed": false,
+    "coverage_closure_allowed": false,
+    "broad_modern_science_superiority_allowed": false,
+    "all_domain_scientific_closure_allowed": false
+  },
+  "work_orders": [
+    {
+      "work_order_id": "MS-COV-WO-019",
+      "coverage_gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-CROP_YIELD_SOIL_AND_TRAIT_OBSERVABLES",
+      "domain_class_id": "agricultural_food_sciences",
+      "phenomenon_class_id": "crop_yield_soil_and_trait_observables",
+      "phenomenon_label": "crop yield soil and trait observables",
+      "lane_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+      "coverage_closure_allowed": false,
+      "support_allowed_for_broad_coverage": false,
+      "official_sources": [
+        {
+          "source_id": "USDA_NASS_QUICKSTATS_API",
+          "title": "USDA National Agricultural Statistics Service Quick Stats API",
+          "official_url": "https://quickstats.nass.usda.gov/api",
+          "access_mode": "read_only_https_get",
+          "runner_allowlist_status": "BLOCKED_REQUIRES_USDA_NASS_API_KEY_AND_SOURCE_LOCK",
+          "official_documentation_url": "https://www.nass.usda.gov/developer/"
+        },
+        {
+          "source_id": "USDA_NRCS_SOIL_DATA_ACCESS",
+          "title": "USDA NRCS Soil Data Access tabular REST service",
+          "official_url": "https://SDMDataAccess.sc.egov.usda.gov/Tabular/post.rest",
+          "access_mode": "read_only_https_post",
+          "runner_allowlist_status": "BLOCKED_PENDING_SDA_QUERY_LOCK_AND_COUNTY_JOIN",
+          "official_documentation_url": "https://sdmdataaccess.nrcs.usda.gov/WebServiceHelp.aspx"
+        }
+      ],
+      "acquisition_requests": [
+        {
+          "request_id": "OC133-AGRI-CROP-NASS-CORN-YIELD-IA-STATE-2000-2024",
+          "http_method": "GET",
+          "official_endpoint_url_template": "https://quickstats.nass.usda.gov/api/api_GET/?key=%24%7BUSDA_QUICKSTATS_API_KEY%7D&source_desc=SURVEY&sector_desc=CROPS&group_desc=FIELD+CROPS&commodity_desc=CORN&statisticcat_desc=YIELD&agg_level_desc=STATE&state_alpha=IA&year__GE=2000&format=JSON",
+          "expected_local_snapshot_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/crop_yield_soil_traits/usda_nass_ia_corn_yield_2000_2024.json",
+          "hash_required": true,
+          "blocked_until": "USDA_QUICKSTATS_API_KEY_AND_TARGET_LOCK_PRESENT",
+          "no_send_lock": true
+        },
+        {
+          "request_id": "OC133-AGRI-CROP-NRCS-SDA-IA-SOIL-COMPONENTS",
+          "http_method": "POST",
+          "official_endpoint_url": "https://SDMDataAccess.sc.egov.usda.gov/Tabular/post.rest",
+          "expected_local_snapshot_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/crop_yield_soil_traits/usda_nrcs_sda_ia_soil_components.json",
+          "hash_required": true,
+          "blocked_until": "USDA_NRCS_SDA_SQL_QUERY_AND_COUNTY_JOIN_PREREGISTERED",
+          "no_send_lock": true
+        }
+      ],
+      "target_variable": {
+        "name": "heldout_county_or_state_year_corn_yield",
+        "unit": "bushels per acre",
+        "target_fields": [
+          "Value",
+          "year",
+          "state_alpha",
+          "county_code_or_state_alpha"
+        ],
+        "official_target_source": "USDA_NASS_QUICKSTATS_API",
+        "minimum_target_rows": 20
+      },
+      "target_hidden_split": {
+        "source_separation_mode": "target_blind",
+        "training_visible": "QuickStats crop-yield rows with year <= 2018 plus locked NRCS soil attributes",
+        "target_hidden_until_scoring": "QuickStats crop-yield rows with year >= 2019 are sealed until predictions and comparator outputs are materialized",
+        "split_key": "state_or_county x year",
+        "target_values_used_for_selection": false
+      },
+      "formula_model": {
+        "formula_id": "AGRI-CROP-SOIL-TRAIT-TRAINING-ONLY-TREND-MODEL",
+        "rule": "y_hat(location, year) = training-only location intercept + pre-2019 linear year trend + locked soil available-water/slope terms + lagged visible yield residual adjustment",
+        "visible_inputs": [
+          "pre-target QuickStats yield rows",
+          "NRCS Soil Data Access soil attributes",
+          "locked location identifiers",
+          "pre-registered crop/soil feature manifest"
+        ],
+        "target_values_used_for_model_design": false
+      },
+      "preregistered_comparator": {
+        "name": "USDA QuickStats trailing-mean and linear-trend agronomic baseline",
+        "prediction_rule": "predict each heldout yield row using the better pre-2019 five-year trailing mean or pre-2019 linear trend for the same location",
+        "pre_registered": true,
+        "target_values_used_for_baseline_design": false
+      },
+      "uncertainty_residual_metric": {
+        "residual_metric": "absolute yield residual in bushels per acre; aggregate MAE over heldout location/year rows",
+        "uncertainty_method": "pre-2019 rolling-origin residual envelope by location and crop",
+        "superiority_predicate": "model_MAE + uncertainty_margin < comparator_MAE on the same heldout rows"
+      },
+      "negative_control": {
+        "control_id": "AGRI-CROP-YEAR-SHUFFLE-CONTROL",
+        "description": "shuffle heldout years within location after source lock",
+        "rejection_predicate": "shuffled-year target mapping must change row hashes and worsen the residual envelope relative to locked targets"
+      },
+      "falsifier": {
+        "falsifier_id": "AGRI-CROP-QUICKSTATS-SOIL-FALSIFIER",
+        "triggers": [
+          "QuickStats or Soil Data Access snapshot hash is missing or changes during replay",
+          "heldout yield values appear in visible inputs, formula selection, or comparator selection",
+          "N is below 20",
+          "trailing-mean or trend comparator ties or beats the model within uncertainty",
+          "year-shuffle negative control is not rejected"
+        ]
+      },
+      "minimum_n": 20,
+      "replay_command": "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --check",
+      "replay_protocol": {
+        "commands": [
+          "obtain a USDA NASS QuickStats API key through the official registration path before acquisition",
+          "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --check"
+        ],
+        "required_artifacts": [
+          "USDA QuickStats crop-yield source snapshot and lock",
+          "USDA NRCS Soil Data Access source snapshot and lock",
+          "target-hidden crop-yield task table",
+          "strict crop/soil/trait evidence candidate pack"
+        ],
+        "acceptance_predicates": [
+          "OFFICIAL_SOURCE_URL_DECLARED",
+          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
+          "TARGET_VARIABLE_DECLARED",
+          "TARGET_HIDDEN_OR_PROSPECTIVE_SPLIT_DECLARED",
+          "FORMULA_OR_MODEL_PREREGISTERED_BEFORE_SCORING",
+          "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+          "UNCERTAINTY_AND_RESIDUAL_METRIC_DECLARED",
+          "NEGATIVE_CONTROL_EXECUTABLE",
+          "FALSIFIER_EXECUTABLE",
+          "MINIMUM_N_GE_20",
+          "INDEPENDENT_REPLAY_COMMAND_DECLARED",
+          "COVERAGE_CLOSURE_ALLOWED_FALSE",
+          "NO_BROAD_SUPERIORITY_CERTIFICATION"
+        ]
+      },
+      "current_evidence_status": {
+        "status_code": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+        "coverage_closure_allowed": false,
+        "executable_evidence_exists": false,
+        "reason": "No locked QuickStats yield snapshot, NRCS soil snapshot, target-hidden task table, scorer, comparator outputs, or strict evidence pack is present."
+      },
+      "remaining_blockers": [
+        "USDA_QUICKSTATS_API_KEY_NOT_BOUND",
+        "NRCS_SDA_QUERY_LOCK_NOT_BUILT",
+        "TARGET_HIDDEN_CROP_SOIL_EVIDENCE_PACK_NOT_BUILT",
+        "NO_INDEPENDENT_REPLAY_OF_SCORING"
+      ],
+      "no_send_locks": {
+        "no_send": true,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "registry_write_allowed": false,
+        "journal_submission_allowed": false,
+        "email_allowed": false,
+        "doi_registration_allowed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false,
+        "all_domain_scientific_closure_allowed": false
+      },
+      "row_sha256": "91a371c619153783f64b6ca69590d178ef1363b7ede198e2ed088b1c7bfe9268"
+    },
+    {
+      "work_order_id": "MS-COV-WO-020",
+      "coverage_gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-FOOD_CHEMISTRY_SAFETY_AND_NUTRITION",
+      "domain_class_id": "agricultural_food_sciences",
+      "phenomenon_class_id": "food_chemistry_safety_and_nutrition",
+      "phenomenon_label": "food chemistry safety and nutrition",
+      "lane_status": "OPEN_FAIL_CLOSED_SCORER_READY_STRICT_EVIDENCE_PACK_NO_COVERAGE_CLOSURE",
+      "coverage_closure_allowed": false,
+      "support_allowed_for_broad_coverage": false,
+      "official_sources": [
+        {
+          "source_id": "USDA_FOODDATA_CENTRAL_API",
+          "title": "USDA FoodData Central API",
+          "official_url": "https://api.nal.usda.gov/fdc/v1/foods/list",
+          "access_mode": "read_only_https_get",
+          "runner_allowlist_status": "READONLY_REPLAY_AND_TARGET_HIDDEN_SCORER_IMPLEMENTED_WITH_DEMO_KEY_RATE_LIMIT",
+          "official_documentation_url": "https://fdc.nal.usda.gov/api-guide",
+          "local_snapshot_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/OC133_AGRICULTURE_FDC_FOUNDATION_FOODS_LIST_25.compact.json",
+          "lock_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-FOUNDATION-FOODS-LIST-0001.lock.json"
+        }
+      ],
+      "acquisition_requests": [
+        {
+          "request_id": "OC133-AGRI-FDC-FOUNDATION-FOODS-LIST-0001",
+          "http_method": "GET",
+          "official_endpoint_url": "https://api.nal.usda.gov/fdc/v1/foods/list?api_key=DEMO_KEY&dataType=Foundation&pageSize=25&sortBy=fdcId&sortOrder=asc",
+          "expected_local_snapshot_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/OC133_AGRICULTURE_FDC_FOUNDATION_FOODS_LIST_25.compact.json",
+          "expected_lock_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-FOUNDATION-FOODS-LIST-0001.lock.json",
+          "hash_required": true,
+          "no_send_lock": true,
+          "implemented_replay_command": "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --acquire-fdc --write-acquisition"
+        }
+      ],
+      "target_variable": {
+        "name": "heldout_food_sodium_content",
+        "unit": "mg per 100 g edible portion",
+        "target_fields": [
+          "foodNutrients[number=307].amount"
+        ],
+        "official_target_source": "USDA_FOODDATA_CENTRAL_API",
+        "minimum_target_rows": 20
+      },
+      "target_hidden_split": {
+        "source_separation_mode": "target_blind",
+        "training_visible": "Foundation-food identifiers, descriptions, publication dates, and non-sodium nutrient fields from the locked FDC response",
+        "target_hidden_until_scoring": "Sodium, Na nutrient number 307 is hidden until predictions and comparator outputs are materialized",
+        "split_key": "fdcId",
+        "target_values_used_for_selection": false
+      },
+      "formula_model": {
+        "formula_id": "AGRI-FDC-VISIBLE-ASH-SODIUM-PROXY-v1",
+        "rule": "predict sodium_mg_per_100g = max(0, 393.37 * visible_ash_g_per_100g), using the sodium mass fraction of sodium chloride as a fixed visible-ash proxy; nutrient 307 is excluded from visible inputs and is unsealed only for scoring",
+        "visible_inputs": [
+          "fdcId",
+          "description",
+          "dataType",
+          "publicationDate",
+          "ndbNumber",
+          "selected_nutrients[203,204,205,207,208,301]",
+          "pre-registered nutrient selector excluding number 307"
+        ],
+        "target_values_used_for_model_design": false
+      },
+      "preregistered_comparator": {
+        "name": "FoodData Central visible calcium mineral baseline",
+        "comparator_id": "AGRI-FDC-VISIBLE-CALCIUM-MINERAL-BASELINE-v1",
+        "prediction_rule": "predict sodium_mg_per_100g = visible calcium_mg_per_100g from nutrient 301",
+        "pre_registered": true,
+        "target_values_used_for_baseline_design": false
+      },
+      "uncertainty_residual_metric": {
+        "residual_metric": "absolute sodium residual in mg per 100 g; aggregate MAE across heldout FDC food rows",
+        "uncertainty_method": "deterministic jackknife interval over row-level absolute sodium residuals after prediction materialization",
+        "superiority_predicate": "model_MAE must beat comparator_MAE by a material predeclared margin and every negative control must be rejected; this work order does not permit coverage closure from the compact scorer alone"
+      },
+      "negative_control": {
+        "control_id": "AGRI-FDC-FDCID-SODIUM-SHUFFLE-CONTROL",
+        "description": "rotate the hidden fdcId-to-sodium target mapping by one row after visible predictions are materialized",
+        "rejection_predicate": "rotated target map hash must differ from the locked target map hash and the rotated-control model MAE must be larger than the locked-target model MAE"
+      },
+      "falsifier": {
+        "falsifier_id": "AGRI-FDC-FOOD-CHEMISTRY-FALSIFIER",
+        "triggers": [
+          "FDC source snapshot hash is missing or changes during replay",
+          "nutrient number 307 appears in visible model or comparator inputs",
+          "visible ash nutrient 207 or calcium nutrient 301 is missing",
+          "N is below 20",
+          "target-hidden task table, hidden target lock, scoring pack, or replay hash is missing or changes during replay",
+          "sodium shuffle negative control is not rejected"
+        ]
+      },
+      "minimum_n": 20,
+      "replay_command": "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --score-fdc --write-scoring",
+      "replay_protocol": {
+        "commands": [
+          "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --acquire-fdc --write-acquisition",
+          "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --score-fdc --write-scoring",
+          "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --check"
+        ],
+        "required_artifacts": [
+          "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/OC133_AGRICULTURE_FDC_FOUNDATION_FOODS_LIST_25.compact.json",
+          "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-FOUNDATION-FOODS-LIST-0001.lock.json",
+          "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_TARGET_HIDDEN_TASK_TABLE.json",
+          "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-SODIUM-HIDDEN-TARGETS-0001.lock.json",
+          "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json",
+          "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_REPLAY_REPORT.json"
+        ],
+        "acceptance_predicates": [
+          "OFFICIAL_SOURCE_URL_DECLARED",
+          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
+          "TARGET_VARIABLE_DECLARED",
+          "TARGET_HIDDEN_OR_PROSPECTIVE_SPLIT_DECLARED",
+          "FORMULA_OR_MODEL_PREREGISTERED_BEFORE_SCORING",
+          "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+          "UNCERTAINTY_AND_RESIDUAL_METRIC_DECLARED",
+          "NEGATIVE_CONTROL_EXECUTABLE",
+          "FALSIFIER_EXECUTABLE",
+          "MINIMUM_N_GE_20",
+          "INDEPENDENT_REPLAY_COMMAND_DECLARED",
+          "COVERAGE_CLOSURE_ALLOWED_FALSE",
+          "NO_BROAD_SUPERIORITY_CERTIFICATION",
+          "READONLY_FDC_ACQUISITION_HASH_BOUND",
+          "TARGET_HIDDEN_FDC_SODIUM_SCORER_READY",
+          "STRICT_FDC_SCORING_PACK_HASH_BOUND",
+          "FDC_SODIUM_NEGATIVE_CONTROL_REJECTED"
+        ]
+      },
+      "current_evidence_status": {
+        "status_code": "OPEN_FAIL_CLOSED_SCORER_READY_STRICT_EVIDENCE_PACK_NO_COVERAGE_CLOSURE",
+        "coverage_closure_allowed": false,
+        "executable_evidence_exists": true,
+        "readonly_acquisition_lane_implemented": true,
+        "target_hidden_scorer_present": true,
+        "implemented_snapshot_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/OC133_AGRICULTURE_FDC_FOUNDATION_FOODS_LIST_25.compact.json",
+        "implemented_lock_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-FOUNDATION-FOODS-LIST-0001.lock.json",
+        "implemented_task_table_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_TARGET_HIDDEN_TASK_TABLE.json",
+        "implemented_hidden_target_lock_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/locks/OC133-AGRI-FDC-SODIUM-HIDDEN-TARGETS-0001.lock.json",
+        "implemented_scoring_pack_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/OC133_AGRICULTURE_FDC_SODIUM_SCORING_PACK.json",
+        "reason": "The compact FDC snapshot supplies the visible ash/calcium fields and hidden sodium target needed for an executable target-hidden sodium scorer, comparator residual table, negative-control result, replay hash, and strict fail-closed evidence pack. Coverage closure remains prohibited."
+      },
+      "remaining_blockers": [
+        "COVERAGE_CLOSURE_NOT_CLAIMED_FAIL_CLOSED",
+        "BROAD_SUPERIORITY_CERTIFICATION_STILL_PROHIBITED"
+      ],
+      "no_send_locks": {
+        "no_send": true,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "registry_write_allowed": false,
+        "journal_submission_allowed": false,
+        "email_allowed": false,
+        "doi_registration_allowed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false,
+        "all_domain_scientific_closure_allowed": false
+      },
+      "row_sha256": "0ea479d8b3aeb00a9c26bb6c0d0bdb12b143496b87d76fe06eb412cb6b5d5b3a"
+    },
+    {
+      "work_order_id": "MS-COV-WO-021",
+      "coverage_gap_id": "MS-COV-GAP-AGRICULTURAL_FOOD_SCIENCES-ANIMAL_HEALTH_AND_PRODUCTION_SYSTEMS",
+      "domain_class_id": "agricultural_food_sciences",
+      "phenomenon_class_id": "animal_health_and_production_systems",
+      "phenomenon_label": "animal health and production systems",
+      "lane_status": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+      "coverage_closure_allowed": false,
+      "support_allowed_for_broad_coverage": false,
+      "official_sources": [
+        {
+          "source_id": "WOAH_WAHIS_PUBLIC_INTERFACE",
+          "title": "WOAH World Animal Health Information System",
+          "official_url": "https://wahis.woah.org/#/home",
+          "access_mode": "read_only_https_get",
+          "runner_allowlist_status": "BLOCKED_PENDING_PUBLIC_EXPORT_OR_API_LOCK",
+          "official_documentation_url": "https://www.woah.org/en/animal-health-in-the-world/the-oie-wahis-project/"
+        },
+        {
+          "source_id": "FAOSTAT_QCL_CROPS_LIVESTOCK_PRODUCTS",
+          "title": "FAOSTAT Crops and livestock products bulk download",
+          "official_url": "https://fenixservices.fao.org/faostat/static/bulkdownloads/Production_Crops_Livestock_E_All_Data.zip",
+          "access_mode": "read_only_https_get",
+          "runner_allowlist_status": "BLOCKED_PENDING_FAOSTAT_LIVESTOCK_SOURCE_LOCK_AND_TARGET_PACK",
+          "official_documentation_url": "https://www.fao.org/faostat/en/#data/QCL"
+        }
+      ],
+      "acquisition_requests": [
+        {
+          "request_id": "OC133-AGRI-ANIMAL-FAOSTAT-QCL-LIVESTOCK-0001",
+          "http_method": "GET",
+          "official_endpoint_url": "https://fenixservices.fao.org/faostat/static/bulkdownloads/Production_Crops_Livestock_E_All_Data.zip",
+          "expected_local_snapshot_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/animal_health_production/faostat_qcl_livestock.zip",
+          "hash_required": true,
+          "blocked_until": "FAOSTAT_QCL_LIVESTOCK_TARGET_SCHEMA_AND_PARSER_LOCKED",
+          "no_send_lock": true
+        },
+        {
+          "request_id": "OC133-AGRI-ANIMAL-WOAH-WAHIS-HPAI-0001",
+          "http_method": "OFFICIAL_EXPORT_OR_REVIEWED_API",
+          "official_endpoint_url": "https://wahis.woah.org/#/home",
+          "expected_local_snapshot_ref": "validation/heldout/grand_science/agriculture/coverage_work_orders/raw/animal_health_production/woah_wahis_hpai_public_export.json",
+          "hash_required": true,
+          "blocked_until": "WOAH_PUBLIC_EXPORT_OR_API_ENDPOINT_DOCUMENTED_AND_LOCKED",
+          "no_send_lock": true
+        }
+      ],
+      "target_variable": {
+        "name": "heldout_country_year_livestock_production_and_notifiable_disease_burden",
+        "unit": "FAOSTAT livestock head/count or production quantity; WOAH outbreak/event count",
+        "target_fields": [
+          "FAOSTAT Value",
+          "WOAH outbreak_count",
+          "area",
+          "item",
+          "year"
+        ],
+        "official_target_source": "FAOSTAT_QCL_CROPS_LIVESTOCK_PRODUCTS + WOAH_WAHIS_PUBLIC_INTERFACE",
+        "minimum_target_rows": 20
+      },
+      "target_hidden_split": {
+        "source_separation_mode": "target_blind",
+        "training_visible": "country/item/year rows earlier than the heldout years plus predeclared disease-history covariates",
+        "target_hidden_until_scoring": "later country/year livestock production and WOAH disease-burden targets are sealed until model and comparator outputs are materialized",
+        "split_key": "country x livestock_item_or_disease x year",
+        "target_values_used_for_selection": false
+      },
+      "formula_model": {
+        "formula_id": "AGRI-ANIMAL-LAGGED-PRODUCTION-HEALTH-MODEL",
+        "rule": "y_hat(country, item, year) = training-only lagged livestock level + rolling growth trend + predeclared disease-burden lag adjustment where WOAH source rows are locked",
+        "visible_inputs": [
+          "pre-heldout FAOSTAT livestock rows",
+          "pre-heldout WOAH disease burden rows",
+          "country and species identifiers",
+          "pre-registered lag window"
+        ],
+        "target_values_used_for_model_design": false
+      },
+      "preregistered_comparator": {
+        "name": "FAOSTAT carry-forward and rolling-mean livestock baseline",
+        "prediction_rule": "predict heldout livestock/health target with last observation carried forward and trailing five-year mean on the same official source snapshot",
+        "pre_registered": true,
+        "target_values_used_for_baseline_design": false
+      },
+      "uncertainty_residual_metric": {
+        "residual_metric": "absolute residual for count/production rows; aggregate scaled MAE by country/species/year",
+        "uncertainty_method": "rolling-origin residual envelope by species and country before target unsealing",
+        "superiority_predicate": "model_scaled_MAE + uncertainty_margin < comparator_scaled_MAE and disease-label controls are rejected"
+      },
+      "negative_control": {
+        "control_id": "AGRI-ANIMAL-COUNTRY-YEAR-DISEASE-SHUFFLE",
+        "description": "shuffle country/year disease-burden rows after source lock",
+        "rejection_predicate": "shuffled disease covariates must change row hashes and fail to improve heldout livestock/health residuals"
+      },
+      "falsifier": {
+        "falsifier_id": "AGRI-ANIMAL-FAOSTAT-WOAH-FALSIFIER",
+        "triggers": [
+          "FAOSTAT or WOAH snapshot hash is missing or changes during replay",
+          "heldout livestock or disease values leak into formula selection",
+          "N is below 20",
+          "carry-forward or rolling-mean comparator ties or beats the model within uncertainty",
+          "country/year disease shuffle is not rejected"
+        ]
+      },
+      "minimum_n": 20,
+      "replay_command": "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --check",
+      "replay_protocol": {
+        "commands": [
+          "document and lock an official WOAH public export or reviewed API endpoint before replay",
+          "python validation/heldout/grand_science/agriculture/coverage_work_orders/oc133_agriculture_modern_science_coverage_work_orders.py --check"
+        ],
+        "required_artifacts": [
+          "FAOSTAT QCL livestock source snapshot and lock",
+          "WOAH WAHIS source snapshot/export and lock",
+          "target-hidden animal production/health task table",
+          "strict animal-health/production evidence candidate pack"
+        ],
+        "acceptance_predicates": [
+          "OFFICIAL_SOURCE_URL_DECLARED",
+          "OFFICIAL_SOURCE_SNAPSHOT_HASH_BOUND",
+          "TARGET_VARIABLE_DECLARED",
+          "TARGET_HIDDEN_OR_PROSPECTIVE_SPLIT_DECLARED",
+          "FORMULA_OR_MODEL_PREREGISTERED_BEFORE_SCORING",
+          "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+          "UNCERTAINTY_AND_RESIDUAL_METRIC_DECLARED",
+          "NEGATIVE_CONTROL_EXECUTABLE",
+          "FALSIFIER_EXECUTABLE",
+          "MINIMUM_N_GE_20",
+          "INDEPENDENT_REPLAY_COMMAND_DECLARED",
+          "COVERAGE_CLOSURE_ALLOWED_FALSE",
+          "NO_BROAD_SUPERIORITY_CERTIFICATION"
+        ]
+      },
+      "current_evidence_status": {
+        "status_code": "OPEN_FAIL_CLOSED_NO_EXECUTABLE_EVIDENCE",
+        "coverage_closure_allowed": false,
+        "executable_evidence_exists": false,
+        "reason": "No locked FAOSTAT livestock parser, WOAH public export/API lock, target-hidden task table, scorer, controls, or strict evidence pack is present."
+      },
+      "remaining_blockers": [
+        "WOAH_PUBLIC_EXPORT_OR_API_LOCK_NOT_PRESENT",
+        "FAOSTAT_QCL_LIVESTOCK_PARSER_NOT_LOCKED",
+        "TARGET_HIDDEN_ANIMAL_HEALTH_PRODUCTION_PACK_NOT_BUILT",
+        "NO_INDEPENDENT_REPLAY_OF_SCORING"
+      ],
+      "no_send_locks": {
+        "no_send": true,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "registry_write_allowed": false,
+        "journal_submission_allowed": false,
+        "email_allowed": false,
+        "doi_registration_allowed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false,
+        "all_domain_scientific_closure_allowed": false
+      },
+      "row_sha256": "d7d4bb57ee6e8ff54ea58f747c2fc54d54205ca4d677fe10100872eba83eafd3"
+    }
+  ]
+}

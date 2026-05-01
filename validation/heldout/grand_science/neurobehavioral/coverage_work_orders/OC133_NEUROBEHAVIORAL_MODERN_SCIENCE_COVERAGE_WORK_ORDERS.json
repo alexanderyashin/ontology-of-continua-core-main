@@ -1,0 +1,510 @@
+{
+  "schema_id": "OC133_NEUROBEHAVIORAL_MODERN_SCIENCE_COVERAGE_WORK_ORDERS_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "capability_owner": "Logion Neurobehavioral Evidence / Public Experiment Sources",
+  "generated_by": "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py",
+  "coverage_register_ref": "comparators/modern_science/OC133_MODERN_SCIENCE_COVERAGE_REGISTER.json",
+  "coverage_queue_ref": "reports/OC_CORE_1_3_3_MODERN_SCIENCE_COVERAGE_LANE_QUEUE.json",
+  "domain_class_id": "cognitive_behavioral_neurosciences",
+  "target_work_order_ids": [
+    "MS-COV-WO-028",
+    "MS-COV-WO-029",
+    "MS-COV-WO-030"
+  ],
+  "work_order_total": 3,
+  "fail_closed_spec_total": 3,
+  "coverage_closure_allowed": false,
+  "broad_modern_science_superiority_allowed": false,
+  "small_deterministic_replay_implemented": "SPEC_GENERATION_AND_SYNC_CHECK_ONLY",
+  "official_data_acquired": false,
+  "no_fake_pass": true,
+  "no_send_locks": {
+    "no_send": true,
+    "public_release_action_allowed": false,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "registry_write_allowed": false,
+    "journal_submission_allowed": false,
+    "email_allowed": false,
+    "doi_registration_allowed": false,
+    "coverage_closure_allowed": false,
+    "broad_modern_science_superiority_allowed": false,
+    "all_domain_scientific_closure_allowed": false
+  },
+  "work_orders": [
+    {
+      "work_order_id": "MS-COV-WO-028",
+      "stable_id": "MS-COV-WO-028::cognitive_behavioral_neurosciences::neural_recording_and_brain_network_observables",
+      "coverage_gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-NEURAL_RECORDING_AND_BRAIN_NETWORK_OBSERVABLES",
+      "domain_class_id": "cognitive_behavioral_neurosciences",
+      "phenomenon_class_id": "neural_recording_and_brain_network_observables",
+      "phenomenon_label": "neural recording and brain network observables",
+      "priority": "P0",
+      "lane_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
+      "coverage_closure_allowed": false,
+      "support_allowed_for_broad_coverage": false,
+      "official_sources": [
+        {
+          "source_id": "OPENNEURO_DS000030_CNP",
+          "title": "UCLA Consortium for Neuropsychiatric Phenomics LA5c Study",
+          "source_authority": "OpenNeuro / OpenfMRI / Center for Reproducible Neuroscience",
+          "official_url": "https://openneuro.org/datasets/ds000030",
+          "official_documentation_url": "https://github.com/OpenNeuroDatasets/ds000030",
+          "access_mode": "read_only_openneuro_git_or_s3",
+          "runner_allowlist_status": "NOT_ALLOWLISTED_FOR_THIS_SPEC"
+        }
+      ],
+      "acquisition_protocol": {
+        "mode": "bounded_protocol_only_no_network_fetch_performed",
+        "steps": [
+          "Acquire OpenNeuro ds000030 at a pinned version using DataLad/OpenNeuro git or the published S3 object tree.",
+          "Record dataset version, git commit or object manifest hash, participants.tsv hash, and task/scan file hashes.",
+          "Materialize the neural_recording_brain_network target-hidden task table only after source and subject split locks exist."
+        ],
+        "required_local_snapshots": [
+          "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/raw/neural_recording_brain_network/openneuro_ds000030_dataset.lock.json",
+          "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/raw/neural_recording_brain_network/target_projection.lock.json"
+        ]
+      },
+      "target_variable": {
+        "name": "heldout_subject_resting_state_connectivity_edge",
+        "unit": "Fisher z-transformed functional connectivity",
+        "target_fields": [
+          "atlas_edge_zcorr[source_region,target_region]",
+          "subject_id",
+          "task_rest_bold_run"
+        ],
+        "target_field": "connectivity_matrix[heldout_subject, heldout_edge].z_corr",
+        "extraction_rule": "Resting-state BOLD time series are transformed into a locked atlas connectivity matrix; heldout subject edge values stay hidden until predictions are materialized.",
+        "target_hidden_until_scoring": true
+      },
+      "split": {
+        "source_separation_mode": "subject_hash_stratified_split",
+        "train": "subject_hash_mod_100 in 0..59 after diagnosis/site/task-availability strata are locked",
+        "validation": "subject_hash_mod_100 in 60..79 after diagnosis/site/task-availability strata are locked",
+        "holdout": "subject_hash_mod_100 in 80..99 after diagnosis/site/task-availability strata are locked",
+        "target_values_visible_during_split": false
+      },
+      "formula_or_model": {
+        "model_id": "NEURO-CNP-CONNECTIVITY-GRAPH-RIDGE",
+        "formula_or_model": "Fit a training-only nuisance-adjusted ridge/graph prior from visible subject covariates and training-subject connectivity structure, then predict heldout subject edge vectors once.",
+        "inputs_visible_before_target": [
+          "subject_id hash",
+          "site",
+          "age",
+          "sex",
+          "diagnostic group if present",
+          "training-subject connectivity covariance",
+          "motion quality metrics"
+        ],
+        "target_values_used_for_model_design": false,
+        "target_values_used_for_selection": false
+      },
+      "incumbent_comparator": {
+        "name": "training-cohort mean connectivity edge comparator",
+        "prediction_rule": "predict each heldout edge by the training-only mean for the same atlas edge and stratum",
+        "pre_registered": true,
+        "target_values_used_for_baseline_design": false
+      },
+      "uncertainty_and_residual": {
+        "residual_metric": "edge-wise absolute residual and subject-level RMSE over heldout edge vectors",
+        "uncertainty_method": "subject bootstrap plus motion-quality stratified conformal residual envelope",
+        "superiority_predicate": "model_RMSE + uncertainty_upper < comparator_RMSE"
+      },
+      "negative_control": {
+        "control_id": "NEURO-CONNECTIVITY-SUBJECT-LABEL-SHUFFLE",
+        "description": "Shuffle heldout subject labels after source lock.",
+        "rejection_predicate": "shuffled-subject replay must change row hashes and remove residual advantage"
+      },
+      "falsifier": {
+        "falsifier_id": "NEURO-CONNECTIVITY-SOURCE-LEAK-FALSIFIER",
+        "trigger": "Heldout connectivity edges leak into training, dataset hashes drift, fewer than 20 subjects are scored, or training-mean comparator ties or beats the model within uncertainty."
+      },
+      "falsifier_predicates": [
+        "OpenNeuro dataset/tree hash changes between acquisition and replay",
+        "heldout subject edge values are read before prediction materialization",
+        "holdout subject count is below minimum_n",
+        "subject-label shuffle is not rejected"
+      ],
+      "minimum_n": 80,
+      "replay_command": "python validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py --check",
+      "replay_protocol": {
+        "commands": [
+          "python validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py --check",
+          "python <future_openneuro_cnp_connectivity_scorer.py> --dataset-lock <ds000030_lock> --write-pack --fail-closed"
+        ],
+        "required_artifacts": [
+          "OpenNeuro ds000030 source lock",
+          "participants/task availability hash",
+          "target-hidden connectivity task table",
+          "strict neural network evidence pack"
+        ],
+        "acceptance_predicates": [
+          "STRICT_PACK_SCHEMA_PASS",
+          "MINIMUM_N_GE_20_OR_FORMAL_EQUIVALENT_JUSTIFIED",
+          "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+          "SOURCE_SEPARATION_PASS",
+          "TARGET_VARIABLE_EXACTLY_DECLARED",
+          "FORMULA_OR_MODEL_PREREGISTERED",
+          "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+          "UNCERTAINTY_POLICY_DECLARED",
+          "RESIDUAL_METRIC_EXECUTABLE",
+          "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+          "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+          "INDEPENDENT_REPLAY_PASS",
+          "COVERAGE_REVIEW_REQUIRED",
+          "NO_BROAD_SUPERIORITY_CERTIFICATION",
+          "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND",
+          "NEURAL_NETWORK_SCOPE_REVIEWED"
+        ]
+      },
+      "current_evidence_status": {
+        "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
+        "executable_evidence_exists": false,
+        "coverage_closure_allowed": false,
+        "broad_support_allowed": false,
+        "reason": "OpenNeuro ds000030 is identified, but no dataset lock, preprocessing manifest, target-hidden connectivity scorer, comparator run, or strict pack is present."
+      },
+      "remaining_blockers": [
+        "OPENNEURO_DS000030_SOURCE_LOCK_NOT_ACQUIRED",
+        "CONNECTIVITY_PREPROCESSING_MANIFEST_NOT_LOCKED",
+        "STRICT_NEURAL_NETWORK_EVIDENCE_PACK_NOT_BUILT",
+        "COVERAGE_REVIEW_NOT_PERFORMED"
+      ],
+      "no_send_locks": {
+        "no_send": true,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "registry_write_allowed": false,
+        "journal_submission_allowed": false,
+        "email_allowed": false,
+        "doi_registration_allowed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false,
+        "all_domain_scientific_closure_allowed": false
+      },
+      "N": {
+        "minimum_required": 80,
+        "observed": null,
+        "status": "NOT_ACQUIRED_PROTOCOL_ONLY"
+      },
+      "row_sha256": "0372b279976532ea0c68ce6e2c650975ae7f689c3f28b4b93aae89731350c997"
+    },
+    {
+      "work_order_id": "MS-COV-WO-029",
+      "stable_id": "MS-COV-WO-029::cognitive_behavioral_neurosciences::behavioral_task_and_psychometric_prediction",
+      "coverage_gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-BEHAVIORAL_TASK_AND_PSYCHOMETRIC_PREDICTION",
+      "domain_class_id": "cognitive_behavioral_neurosciences",
+      "phenomenon_class_id": "behavioral_task_and_psychometric_prediction",
+      "phenomenon_label": "behavioral task and psychometric prediction",
+      "priority": "P0",
+      "lane_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
+      "coverage_closure_allowed": false,
+      "support_allowed_for_broad_coverage": false,
+      "official_sources": [
+        {
+          "source_id": "OPENNEURO_DS000030_CNP",
+          "title": "UCLA Consortium for Neuropsychiatric Phenomics LA5c Study",
+          "source_authority": "OpenNeuro / OpenfMRI / Center for Reproducible Neuroscience",
+          "official_url": "https://openneuro.org/datasets/ds000030",
+          "official_documentation_url": "https://github.com/OpenNeuroDatasets/ds000030",
+          "access_mode": "read_only_openneuro_git_or_s3",
+          "runner_allowlist_status": "NOT_ALLOWLISTED_FOR_THIS_SPEC"
+        }
+      ],
+      "acquisition_protocol": {
+        "mode": "bounded_protocol_only_no_network_fetch_performed",
+        "steps": [
+          "Acquire OpenNeuro ds000030 at a pinned version using DataLad/OpenNeuro git or the published S3 object tree.",
+          "Record dataset version, git commit or object manifest hash, participants.tsv hash, and task/scan file hashes.",
+          "Materialize the behavioral_task_psychometric target-hidden task table only after source and subject split locks exist."
+        ],
+        "required_local_snapshots": [
+          "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/raw/behavioral_task_psychometric/openneuro_ds000030_dataset.lock.json",
+          "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/raw/behavioral_task_psychometric/target_projection.lock.json"
+        ]
+      },
+      "target_variable": {
+        "name": "heldout_stop_signal_behavioral_performance",
+        "unit": "milliseconds and success-rate proportion",
+        "target_fields": [
+          "stop_signal_training_median_go_rt_ms",
+          "stop_signal_success_rate",
+          "phenotype_psychometric_score_if_declared"
+        ],
+        "target_field": "subject_behavior.stop_signal.heldout_metric",
+        "extraction_rule": "BIDS behavior/event files are parsed into subject-level task metrics; heldout subject metrics and psychometric targets remain sealed until prediction rows are written.",
+        "target_hidden_until_scoring": true
+      },
+      "split": {
+        "source_separation_mode": "subject_hash_stratified_split",
+        "train": "subject_hash_mod_100 in 0..59 after diagnosis/site/task-availability strata are locked",
+        "validation": "subject_hash_mod_100 in 60..79 after diagnosis/site/task-availability strata are locked",
+        "holdout": "subject_hash_mod_100 in 80..99 after diagnosis/site/task-availability strata are locked",
+        "target_values_visible_during_split": false
+      },
+      "formula_or_model": {
+        "model_id": "NEURO-BEHAVIOR-TRAINING-SUBJECT-MIXED-MODEL",
+        "formula_or_model": "Fit a training-only mixed-effects behavioral model from visible trial condition, prior trial history, age/sex/site covariates, and training-subject psychometric summaries; score heldout subject metrics once.",
+        "inputs_visible_before_target": [
+          "trial condition",
+          "non-heldout event timing",
+          "subject covariates",
+          "training-subject behavioral summaries"
+        ],
+        "target_values_used_for_model_design": false,
+        "target_values_used_for_selection": false
+      },
+      "incumbent_comparator": {
+        "name": "condition-stratified training mean behavioral comparator",
+        "prediction_rule": "predict heldout RT/success metrics by the training-only condition and covariate-stratum mean",
+        "pre_registered": true,
+        "target_values_used_for_baseline_design": false
+      },
+      "uncertainty_and_residual": {
+        "residual_metric": "absolute RT residual in ms and absolute success-rate residual per subject",
+        "uncertainty_method": "subject bootstrap with trial-count weighting and preregistered missingness rules",
+        "superiority_predicate": "weighted_model_residual + uncertainty_upper < weighted_comparator_residual"
+      },
+      "negative_control": {
+        "control_id": "NEURO-BEHAVIOR-SUBJECT-METRIC-SHUFFLE",
+        "description": "Shuffle heldout subject behavioral metrics after source lock.",
+        "rejection_predicate": "shuffled-metric replay must change row hashes and remove residual advantage"
+      },
+      "falsifier": {
+        "falsifier_id": "NEURO-BEHAVIOR-PSYCHOMETRIC-FALSIFIER",
+        "trigger": "Heldout behavior/psychometric metrics leak into model selection, fewer than 20 subjects are scored, dataset hashes drift, or training-mean comparator ties or beats the model within uncertainty."
+      },
+      "falsifier_predicates": [
+        "OpenNeuro behavior/event file hash changes between acquisition and replay",
+        "heldout subject target metrics are read before prediction materialization",
+        "holdout subject count is below minimum_n",
+        "subject-metric shuffle is not rejected"
+      ],
+      "minimum_n": 40,
+      "replay_command": "python validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py --check",
+      "replay_protocol": {
+        "commands": [
+          "python validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py --check",
+          "python <future_openneuro_cnp_behavior_scorer.py> --dataset-lock <ds000030_lock> --write-pack --fail-closed"
+        ],
+        "required_artifacts": [
+          "OpenNeuro ds000030 source lock",
+          "BIDS behavior/event parse manifest",
+          "target-hidden behavioral metric table",
+          "strict behavioral/psychometric evidence pack"
+        ],
+        "acceptance_predicates": [
+          "STRICT_PACK_SCHEMA_PASS",
+          "MINIMUM_N_GE_20_OR_FORMAL_EQUIVALENT_JUSTIFIED",
+          "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+          "SOURCE_SEPARATION_PASS",
+          "TARGET_VARIABLE_EXACTLY_DECLARED",
+          "FORMULA_OR_MODEL_PREREGISTERED",
+          "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+          "UNCERTAINTY_POLICY_DECLARED",
+          "RESIDUAL_METRIC_EXECUTABLE",
+          "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+          "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+          "INDEPENDENT_REPLAY_PASS",
+          "COVERAGE_REVIEW_REQUIRED",
+          "NO_BROAD_SUPERIORITY_CERTIFICATION",
+          "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND",
+          "BEHAVIORAL_PSYCHOMETRIC_SCOPE_REVIEWED"
+        ]
+      },
+      "current_evidence_status": {
+        "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
+        "executable_evidence_exists": false,
+        "coverage_closure_allowed": false,
+        "broad_support_allowed": false,
+        "reason": "The public experiment source is identified, but no behavior-event source lock, target-hidden metric table, comparator output, or strict pack is present."
+      },
+      "remaining_blockers": [
+        "OPENNEURO_BEHAVIOR_SOURCE_LOCK_NOT_ACQUIRED",
+        "TARGET_HIDDEN_BEHAVIOR_TABLE_NOT_BUILT",
+        "STRICT_BEHAVIORAL_EVIDENCE_PACK_NOT_BUILT",
+        "COVERAGE_REVIEW_NOT_PERFORMED"
+      ],
+      "no_send_locks": {
+        "no_send": true,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "registry_write_allowed": false,
+        "journal_submission_allowed": false,
+        "email_allowed": false,
+        "doi_registration_allowed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false,
+        "all_domain_scientific_closure_allowed": false
+      },
+      "N": {
+        "minimum_required": 40,
+        "observed": null,
+        "status": "NOT_ACQUIRED_PROTOCOL_ONLY"
+      },
+      "row_sha256": "08776284f8a2d119288d41b2e172300aa3dc19780e260605c32fb090b5b9764b"
+    },
+    {
+      "work_order_id": "MS-COV-WO-030",
+      "stable_id": "MS-COV-WO-030::cognitive_behavioral_neurosciences::learning_memory_and_perception_dynamics",
+      "coverage_gap_id": "MS-COV-GAP-COGNITIVE_BEHAVIORAL_NEUROSCIENCES-LEARNING_MEMORY_AND_PERCEPTION_DYNAMICS",
+      "domain_class_id": "cognitive_behavioral_neurosciences",
+      "phenomenon_class_id": "learning_memory_and_perception_dynamics",
+      "phenomenon_label": "learning memory and perception dynamics",
+      "priority": "P0",
+      "lane_status": "OPEN_FAIL_CLOSED_EXECUTABLE_SPEC_ONLY",
+      "coverage_closure_allowed": false,
+      "support_allowed_for_broad_coverage": false,
+      "official_sources": [
+        {
+          "source_id": "OPENNEURO_DS000030_CNP",
+          "title": "UCLA Consortium for Neuropsychiatric Phenomics LA5c Study",
+          "source_authority": "OpenNeuro / OpenfMRI / Center for Reproducible Neuroscience",
+          "official_url": "https://openneuro.org/datasets/ds000030",
+          "official_documentation_url": "https://github.com/OpenNeuroDatasets/ds000030",
+          "access_mode": "read_only_openneuro_git_or_s3",
+          "runner_allowlist_status": "NOT_ALLOWLISTED_FOR_THIS_SPEC"
+        }
+      ],
+      "acquisition_protocol": {
+        "mode": "bounded_protocol_only_no_network_fetch_performed",
+        "steps": [
+          "Acquire OpenNeuro ds000030 at a pinned version using DataLad/OpenNeuro git or the published S3 object tree.",
+          "Record dataset version, git commit or object manifest hash, participants.tsv hash, and task/scan file hashes.",
+          "Materialize the learning_memory_perception target-hidden task table only after source and subject split locks exist."
+        ],
+        "required_local_snapshots": [
+          "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/raw/learning_memory_perception/openneuro_ds000030_dataset.lock.json",
+          "validation/heldout/grand_science/neurobehavioral/coverage_work_orders/raw/learning_memory_perception/target_projection.lock.json"
+        ]
+      },
+      "target_variable": {
+        "name": "heldout_paired_associate_memory_performance",
+        "unit": "accuracy proportion and reaction time milliseconds",
+        "target_fields": [
+          "PAMenc_trial_accuracy",
+          "PAMret_trial_accuracy",
+          "PAMret_reaction_time_ms"
+        ],
+        "target_field": "subject_task.PAMret.heldout_accuracy_or_rt",
+        "extraction_rule": "Paired-associate memory encoding/retrieval events are parsed into subject/trial target metrics; heldout trial and subject targets remain sealed until predictions are materialized.",
+        "target_hidden_until_scoring": true
+      },
+      "split": {
+        "source_separation_mode": "subject_hash_stratified_split",
+        "train": "subject_hash_mod_100 in 0..59 after diagnosis/site/task-availability strata are locked",
+        "validation": "subject_hash_mod_100 in 60..79 after diagnosis/site/task-availability strata are locked",
+        "holdout": "subject_hash_mod_100 in 80..99 after diagnosis/site/task-availability strata are locked",
+        "target_values_visible_during_split": false
+      },
+      "formula_or_model": {
+        "model_id": "NEURO-PAM-TRAINING-ONLY-LEARNING-CURVE",
+        "formula_or_model": "Fit a training-only learning/memory curve with trial order, stimulus condition, subject covariates, and prior visible trials; score heldout subject/trial targets once.",
+        "inputs_visible_before_target": [
+          "trial order",
+          "stimulus condition",
+          "visible prior trial indicators",
+          "subject covariates",
+          "training-subject learning curves"
+        ],
+        "target_values_used_for_model_design": false,
+        "target_values_used_for_selection": false
+      },
+      "incumbent_comparator": {
+        "name": "training-only task-phase mean and carry-forward learning comparator",
+        "prediction_rule": "predict heldout PAM accuracy/RT from training phase mean and last visible trial metric only",
+        "pre_registered": true,
+        "target_values_used_for_baseline_design": false
+      },
+      "uncertainty_and_residual": {
+        "residual_metric": "absolute accuracy residual and RT MAE per subject/trial",
+        "uncertainty_method": "blocked bootstrap by subject with trial-order conformal residual envelope",
+        "superiority_predicate": "model_residual + uncertainty_upper < best_preregistered_comparator_residual"
+      },
+      "negative_control": {
+        "control_id": "NEURO-PAM-TRIAL-ORDER-SHUFFLE",
+        "description": "Shuffle heldout trial order after source lock.",
+        "rejection_predicate": "shuffled-order replay must change row hashes and remove learning-curve advantage"
+      },
+      "falsifier": {
+        "falsifier_id": "NEURO-PAM-LEARNING-MEMORY-FALSIFIER",
+        "trigger": "Heldout accuracy/RT targets leak into learning-curve fitting, fewer than 20 subjects are scored, dataset hashes drift, or carry-forward/mean comparator ties or beats the model within uncertainty."
+      },
+      "falsifier_predicates": [
+        "OpenNeuro PAM event file hash changes between acquisition and replay",
+        "heldout PAM target metrics are read before prediction materialization",
+        "holdout subject count is below minimum_n",
+        "trial-order shuffle is not rejected"
+      ],
+      "minimum_n": 40,
+      "replay_command": "python validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py --check",
+      "replay_protocol": {
+        "commands": [
+          "python validation/heldout/grand_science/neurobehavioral/coverage_work_orders/oc133_neurobehavioral_modern_science_coverage_work_orders.py --check",
+          "python <future_openneuro_cnp_pam_learning_scorer.py> --dataset-lock <ds000030_lock> --write-pack --fail-closed"
+        ],
+        "required_artifacts": [
+          "OpenNeuro ds000030 source lock",
+          "BIDS PAMenc/PAMret event parse manifest",
+          "target-hidden learning/memory task table",
+          "strict learning/memory evidence pack"
+        ],
+        "acceptance_predicates": [
+          "STRICT_PACK_SCHEMA_PASS",
+          "MINIMUM_N_GE_20_OR_FORMAL_EQUIVALENT_JUSTIFIED",
+          "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+          "SOURCE_SEPARATION_PASS",
+          "TARGET_VARIABLE_EXACTLY_DECLARED",
+          "FORMULA_OR_MODEL_PREREGISTERED",
+          "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+          "UNCERTAINTY_POLICY_DECLARED",
+          "RESIDUAL_METRIC_EXECUTABLE",
+          "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+          "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+          "INDEPENDENT_REPLAY_PASS",
+          "COVERAGE_REVIEW_REQUIRED",
+          "NO_BROAD_SUPERIORITY_CERTIFICATION",
+          "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND",
+          "LEARNING_MEMORY_PERCEPTION_SCOPE_REVIEWED"
+        ]
+      },
+      "current_evidence_status": {
+        "status": "OPEN_FAIL_CLOSED_SPEC_DECLARED_NO_SOURCE_LOCK_NO_STRICT_PACK",
+        "executable_evidence_exists": false,
+        "coverage_closure_allowed": false,
+        "broad_support_allowed": false,
+        "reason": "OpenNeuro ds000030 includes relevant task material, but no locked PAM event table, scorer, comparator output, or strict pack is present."
+      },
+      "remaining_blockers": [
+        "OPENNEURO_PAM_SOURCE_LOCK_NOT_ACQUIRED",
+        "TARGET_HIDDEN_PAM_TABLE_NOT_BUILT",
+        "STRICT_LEARNING_MEMORY_EVIDENCE_PACK_NOT_BUILT",
+        "COVERAGE_REVIEW_NOT_PERFORMED"
+      ],
+      "no_send_locks": {
+        "no_send": true,
+        "public_release_action_allowed": false,
+        "publish_allowed": false,
+        "push_allowed": false,
+        "registry_write_allowed": false,
+        "journal_submission_allowed": false,
+        "email_allowed": false,
+        "doi_registration_allowed": false,
+        "coverage_closure_allowed": false,
+        "broad_modern_science_superiority_allowed": false,
+        "all_domain_scientific_closure_allowed": false
+      },
+      "N": {
+        "minimum_required": 40,
+        "observed": null,
+        "status": "NOT_ACQUIRED_PROTOCOL_ONLY"
+      },
+      "row_sha256": "60b8e0d45d753415877123fe0d63130d3dc8f960598fbd2e3fcbd06364f965c5"
+    }
+  ]
+}

@@ -1,0 +1,324 @@
+{
+  "spec_schema_id": "OC133_PHYSICS_CHEMISTRY_EXECUTABLE_COVERAGE_LANE_SPEC_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "capability_owner": "Logion Formal Methods Coverage",
+  "source_domain_work_order_ref": "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/OC133_FORMAL_MATHEMATICS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS.json",
+  "work_order_id": "MS-COV-WO-001",
+  "coverage_gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-FORMAL_THEOREM_RECONSTRUCTION",
+  "domain_class_id": "formal_mathematics_and_logic",
+  "phenomenon_class_id": "formal_theorem_reconstruction__protocol_only_executable_spec",
+  "source_domain_class_id": "formal_mathematics_and_logic",
+  "source_phenomenon_class_id": "formal_theorem_reconstruction",
+  "source_coverage_gap_id": "MS-COV-GAP-FORMAL_MATHEMATICS_AND_LOGIC-FORMAL_THEOREM_RECONSTRUCTION",
+  "coverage_closure_status": "OPEN_FAIL_CLOSED_EXISTING_FORMAL_ARTIFACTS_REPLAY_OR_COVERAGE_REVIEW_PENDING",
+  "coverage_closure_allowed": false,
+  "formal_route_only": true,
+  "empirical_numeric_prediction_allowed": false,
+  "source_plan_id": "MS-FORMAL-FORMAL_THEOREM_RECONSTRUCTION-LEAN4-v1",
+  "official_data_source": {
+    "source_id": "formal_theorem_reconstruction_lean4_formal_corpus_v1",
+    "source_name": "Lean 4 finite-model theorem reconstruction proof corpus",
+    "source_authority": "Lean project and Logion formal proof corpus steward",
+    "official_documentation_url": "https://lean-lang.org/documentation/",
+    "official_endpoint_url": "https://github.com/leanprover/lean4",
+    "required_local_snapshot_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+    "required_lock_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+    "minimum_rows_required": 20,
+    "snapshot_status": "EXISTING_FORMAL_ARTIFACTS_BOUND_BUT_EXACT_COVERAGE_EVIDENCE_NOT_CERTIFIED",
+    "source_kind": "formal_proof_corpus_not_empirical_observation_table"
+  },
+  "target_variable": {
+    "name": "formal_theorem_reconstruction_verdict_replay",
+    "unit": "formal proof-checker verdict",
+    "target_fields": [
+      "case_id",
+      "theorem_id",
+      "expected_verdict",
+      "observed_verdict",
+      "passed",
+      "lean_theorem_ref",
+      "proof_sheet_ref"
+    ],
+    "extraction_rule": "Hold back observed_verdict, passed, lean_theorem_ref until the formal proof route materializes from proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json.",
+    "target_statement": "Reconstruct held-out theorem-case ACCEPT/REJECT verdicts from pre-execution finite-model facts and bind each accepted row to theorem ID, proof sheet, Lean ref, and executable snapshot.",
+    "minimum_target_rows": 20
+  },
+  "formula_requirement": {
+    "formula_or_model": "Join finite-model input rows to executed proof-corpus rows by case_id; the pre-execution expected verdict is the formal prediction and the executed finite/Lean snapshot supplies the observed verdict.",
+    "required_inputs": [
+      "case_id",
+      "theorem_id",
+      "pre_execution_expected_verdict",
+      "finite_model_input_facts"
+    ],
+    "target_values_may_be_used_for_model_design": false,
+    "route": "formal",
+    "checker_refs": [
+      "validation/heldout/domain_evidence/mathematics_evidence_executor.py",
+      "formal/lean/OC133V12.lean",
+      "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json"
+    ],
+    "empirical_numeric_prediction": false
+  },
+  "incumbent_comparator_requirement": {
+    "baseline_name": "accept-all formal baseline",
+    "baseline_id": "FORMAL-THEOREM-ACCEPT-ALL-COMPARATOR",
+    "prediction_rule": "predict ACCEPT for every theorem_case row regardless of finite model facts",
+    "pre_registered": true,
+    "target_values_used_for_baseline_design": false,
+    "required_material_margin": "model_residual == 0 and comparator_residual > model_residual with all formal negative controls rejected"
+  },
+  "uncertainty_requirement": {
+    "metric": "exact_formal_verdict_no_empirical_interval",
+    "rule": "No empirical uncertainty interval is claimed; exact proof-check equality is required.",
+    "empirical_numeric_prediction": false
+  },
+  "residual_requirement": {
+    "metric_id": "formal_verdict_mismatch_count",
+    "formula": "sum(1 if preregistered_formal_verdict != executed_formal_verdict else 0) over locked formal rows",
+    "definition": "0/1 mismatch between pre-execution expected verdict and executed observed verdict, aggregated by sum over valid theorem_case rows.",
+    "superiority_rule": "model_residual == 0 and comparator_residual > model_residual with all formal negative controls rejected",
+    "empirical_numeric_prediction": false
+  },
+  "negative_control_requirement": {
+    "control_id": "OC133-MATH-FINITE-PROOF-ACCEPT-ALL-NEGATIVE-CONTROL",
+    "rule": "comparator_residual > model_residual on every valid REJECT row aggregate",
+    "description": "Rows whose pre-execution verdict is REJECT must reject the accept-all comparator while passing the exact formal replay."
+  },
+  "falsifier_requirement": {
+    "falsifier_id": "FORMAL-THEOREM-RECONSTRUCTION-REPLAY-FALSIFIER",
+    "trigger": "any observed verdict or passed flag appears in the pre-execution input corpus; any input/output model hash, Lean ref, theorem ID, proof sheet, or passed flag is unbound; Lean build certificate does not bind the current Lean source; model residual is nonzero or the accept-all comparator is not rejected; formal support is counted as empirical grand-science evidence",
+    "trigger_predicates": [
+      "any observed verdict or passed flag appears in the pre-execution input corpus",
+      "any input/output model hash, Lean ref, theorem ID, proof sheet, or passed flag is unbound",
+      "Lean build certificate does not bind the current Lean source",
+      "model residual is nonzero or the accept-all comparator is not rejected",
+      "formal support is counted as empirical grand-science evidence"
+    ]
+  },
+  "execution_requirements": {
+    "minimum_n": 20,
+    "source_separation_mode": "target_blind",
+    "target_hidden_until_scoring": true,
+    "evidence_pack_schema_id": "OC133_FORMAL_MATHEMATICS_MODERN_SCIENCE_COVERAGE_WORK_ORDERS_v1",
+    "replay_command": "python validation/heldout/grand_science/formal_mathematics/coverage_work_orders/oc133_formal_mathematics_modern_science_coverage_work_orders.py --check",
+    "replay_commands": [
+      "python validation/heldout/domain_evidence/mathematics_evidence_executor.py --check",
+      "python validation/heldout/grand_science/formal_mathematics/coverage_work_orders/oc133_formal_mathematics_modern_science_coverage_work_orders.py --check"
+    ],
+    "empirical_numeric_prediction_allowed": false
+  },
+  "current_evidence": {
+    "executable_evidence_exists": false,
+    "executable_evidence_ref": null,
+    "reason": "Existing Lean/finite/proof artifacts are present as candidate formal-route material, but this coverage spec does not certify exact coverage evidence. The mathematics executor replay must be synchronized and a formal coverage-scope review must pass before this row can claim exact evidence.",
+    "status": "EXISTING_FORMAL_ARTIFACTS_BOUND_BUT_EXACT_COVERAGE_EVIDENCE_NOT_CERTIFIED",
+    "formal_exact_evidence_exists": true,
+    "coverage_closure_allowed": false,
+    "remaining_blockers": [
+      "MATHEMATICS_FORMAL_EVIDENCE_REPLAY_CHECK_NOT_PASSING_IN_THIS_WORKTREE",
+      "COVERAGE_REGISTER_GAP_STILL_OPEN",
+      "FORMAL_COVERAGE_SCOPE_REVIEW_NOT_PERFORMED",
+      "NO_BROAD_SUPERIORITY_CERTIFICATION"
+    ]
+  },
+  "closure_predicates_required": [
+    "STRICT_PACK_SCHEMA_PASS",
+    "OFFICIAL_SOURCE_SNAPSHOT_LOCKED",
+    "TARGET_VARIABLE_EXACTLY_DECLARED",
+    "FORMULA_OR_MODEL_PREREGISTERED",
+    "COMPARATOR_PREREGISTERED_AND_TARGET_SEPARATED",
+    "UNCERTAINTY_POLICY_DECLARED",
+    "RESIDUAL_METRIC_EXECUTABLE",
+    "NEGATIVE_CONTROLS_EXECUTABLE_AND_REJECTED",
+    "FALSIFIERS_EXECUTABLE_AND_NOT_TRIGGERED",
+    "INDEPENDENT_REPLAY_PASS",
+    "COVERAGE_REGISTER_GAP_CLOSED_BY_REVIEW",
+    "FORMAL_ROUTE_DECLARED",
+    "SOURCE_PROOF_CORPUS_HASH_BOUND_OR_EXPLICITLY_MISSING",
+    "TARGET_THEOREM_OR_PROPERTY_DECLARED",
+    "TARGET_HIDDEN_OR_FORMAL_WITHHELD_AGGREGATE_POLICY_DECLARED",
+    "PROOF_OR_MODEL_PREREGISTERED",
+    "COMPARATOR_BASELINE_PREREGISTERED",
+    "RESIDUAL_OR_ERROR_NOTION_DECLARED",
+    "NEGATIVE_CONTROL_DECLARED",
+    "FALSIFIER_DECLARED",
+    "REPLAY_COMMAND_DECLARED",
+    "EMPIRICAL_NUMERIC_PREDICTION_NOT_ASSERTED",
+    "COVERAGE_CLOSURE_REMAINS_FALSE_UNTIL_EXACT_REVIEW",
+    "NO_BROAD_SUPERIORITY_CERTIFICATION",
+    "FORMAL_THEOREM_RECONSTRUCTION_SCOPE_REVIEW_REQUIRED",
+    "EXECUTABLE_LANE_SPEC_DECLARED",
+    "FAIL_CLOSED_UNLESS_EXECUTABLE_EVIDENCE_BOUND"
+  ],
+  "source_proof_corpus": {
+    "corpus_id": "OC133-FORMAL-MATH-THEOREM-RECONSTRUCTION-FINITE-LEAN-v1",
+    "corpus_kind": "existing_executable_finite_model_and_lean_proof_corpus",
+    "source_kind": "formal_proof_corpus_not_empirical_observation_table",
+    "minimum_formal_case_count": 20,
+    "candidate_artifact_set_present": true,
+    "exact_evidence_exists": false,
+    "artifacts": [
+      {
+        "ref": "comparators/modern_science/source_capsules/MS-SRC-MATH-LEAN4.txt",
+        "role": "Lean 4 source capsule",
+        "exists": true,
+        "sha256": "827b10594ad2c190b6911395f50c819825b9177a2352456e98a0c0ab615427a0",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": true
+      },
+      {
+        "ref": "validation/heldout/grand_science/mathematics/OC133_MATHEMATICS_EVIDENCE_PROTOCOL.json",
+        "role": "formal mathematics executor protocol",
+        "exists": true,
+        "sha256": "0c4d7b4d39a467f290f5fbdd66f7c5f1a682b181e5d996de6b9a47764accadac",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": true
+      },
+      {
+        "ref": "validation/heldout/grand_science/mathematics/OC133_MATHEMATICS_EVIDENCE_EXECUTION_REPORT.json",
+        "role": "formal mathematics execution report",
+        "exists": true,
+        "sha256": "9c40e3c32faa79010856e5d60917ba07bc46ea15f4806846bc5b8e297359bc43",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": true
+      },
+      {
+        "ref": "validation/heldout/grand_science/mathematics/mathematics_candidate_evidence_pack.json",
+        "role": "formal support candidate evidence pack",
+        "exists": true,
+        "sha256": "839b96e7f73aa0ed296074699cf2d7add02bf1b78684a0762ecd63574545e33e",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": true
+      },
+      {
+        "ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+        "role": "pre-execution finite-model input corpus",
+        "exists": true,
+        "sha256": "d64de093708f78f5c29aecf9c2bf96256c0ccf128cf9bba72c9df075b4f1be0f",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": true
+      },
+      {
+        "ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "role": "executed finite-model/proof corpus snapshot",
+        "exists": true,
+        "sha256": "185ace4b37ae844701b13d0d1b10fd7d62c44214f31c6e69e551c8156459dc7e",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": true
+      },
+      {
+        "ref": "proofs/THEOREM_REGISTRY_1_3_3.json",
+        "role": "theorem registry",
+        "exists": true,
+        "sha256": "aec35d84c4d85203c9e05b8971f5b2b9b7fa704ff48a5b25b1b48e90bec40c50",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": true
+      },
+      {
+        "ref": "formal/lean/OC133V12.lean",
+        "role": "Lean source",
+        "exists": true,
+        "sha256": "8d377d3c018fed724ca8f9b3a29c998be55a1fa8bc8e1234fc9fe9a889cb682c",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": true
+      },
+      {
+        "ref": "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json",
+        "role": "Lean build certificate",
+        "exists": true,
+        "sha256": "f7cb1a9d87addb9b91de7541d715f8cb42a989f829608a69f6e3581a81fcd769",
+        "sha256_policy": "sha256 over artifact bytes",
+        "exact_evidence_required": true
+      }
+    ],
+    "scope_boundary": "Existing rows can support formal theorem-case reconstruction checks only. They do not assert theorem-prover superiority, empirical numeric prediction, or broad modern-science coverage."
+  },
+  "target_theorem_or_property": {
+    "target_id": "FORMAL-THEOREM-RECONSTRUCTION-VERDICT-REPLAY",
+    "target_type": "formal theorem-case reconstruction",
+    "target_statement": "Reconstruct held-out theorem-case ACCEPT/REJECT verdicts from pre-execution finite-model facts and bind each accepted row to theorem ID, proof sheet, Lean ref, and executable snapshot.",
+    "target_fields": [
+      "case_id",
+      "theorem_id",
+      "expected_verdict",
+      "observed_verdict",
+      "passed",
+      "lean_theorem_ref",
+      "proof_sheet_ref"
+    ],
+    "minimum_target_rows": 20
+  },
+  "hidden_target_or_formal_withheld_aggregate_policy": {
+    "mode": "target_blind_formal_replay",
+    "pre_target_lock_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+    "hidden_target_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+    "withheld_until_scoring": [
+      "observed_verdict",
+      "passed",
+      "lean_theorem_ref"
+    ],
+    "allowed_pre_scoring_aggregates": [
+      "input_sha256",
+      "case_count",
+      "declared theorem-id set"
+    ],
+    "target_values_used_for_proof_design": false
+  },
+  "proof_or_model": {
+    "route": "formal",
+    "model_id": "OC133-FINITE-LEAN-EXPECTED-VERDICT-REPLAY",
+    "description": "Join finite-model input rows to executed proof-corpus rows by case_id; the pre-execution expected verdict is the formal prediction and the executed finite/Lean snapshot supplies the observed verdict.",
+    "checker_refs": [
+      "validation/heldout/domain_evidence/mathematics_evidence_executor.py",
+      "formal/lean/OC133V12.lean",
+      "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json"
+    ],
+    "empirical_numeric_prediction": false
+  },
+  "comparator_baseline": {
+    "baseline_id": "FORMAL-THEOREM-ACCEPT-ALL-COMPARATOR",
+    "name": "accept-all formal baseline",
+    "prediction_rule": "predict ACCEPT for every theorem_case row regardless of finite model facts",
+    "pre_registered": true,
+    "target_values_used_for_baseline_design": false
+  },
+  "residual_or_error_notion": {
+    "applicable": true,
+    "metric_id": "formal_verdict_mismatch_count",
+    "definition": "0/1 mismatch between pre-execution expected verdict and executed observed verdict, aggregated by sum over valid theorem_case rows.",
+    "uncertainty_policy": "No empirical uncertainty interval is claimed; exact proof-check equality is required.",
+    "superiority_or_acceptance_rule": "model_residual == 0 and comparator_residual > model_residual with all formal negative controls rejected",
+    "empirical_numeric_prediction": false
+  },
+  "negative_control": {
+    "control_id": "OC133-MATH-FINITE-PROOF-ACCEPT-ALL-NEGATIVE-CONTROL",
+    "description": "Rows whose pre-execution verdict is REJECT must reject the accept-all comparator while passing the exact formal replay.",
+    "rejection_predicate": "comparator_residual > model_residual on every valid REJECT row aggregate"
+  },
+  "falsifier": {
+    "falsifier_id": "FORMAL-THEOREM-RECONSTRUCTION-REPLAY-FALSIFIER",
+    "trigger_predicates": [
+      "any observed verdict or passed flag appears in the pre-execution input corpus",
+      "any input/output model hash, Lean ref, theorem ID, proof sheet, or passed flag is unbound",
+      "Lean build certificate does not bind the current Lean source",
+      "model residual is nonzero or the accept-all comparator is not rejected",
+      "formal support is counted as empirical grand-science evidence"
+    ]
+  },
+  "no_send_locks": {
+    "no_send": true,
+    "public_release_action_allowed": false,
+    "publish_allowed": false,
+    "push_allowed": false,
+    "registry_write_allowed": false,
+    "journal_submission_allowed": false,
+    "email_allowed": false,
+    "doi_registration_allowed": false,
+    "coverage_closure_allowed": false,
+    "broad_modern_science_superiority_allowed": false,
+    "empirical_numeric_prediction_allowed": false
+  }
+}

@@ -44,25 +44,29 @@ def rel(path: Path) -> str:
     return path.resolve().relative_to(ROOT.resolve()).as_posix()
 
 
+def sanitized_recorded_argv(cmd: list[Any]) -> list[str]:
+    return ["python" if str(item) == sys.executable else str(item) for item in cmd]
+
+
 def command(cmd: list[str], *, timeout: int = 300) -> dict[str, Any]:
     try:
         completed = subprocess.run(cmd, cwd=ROOT, text=True, encoding="utf-8", errors="replace", capture_output=True, timeout=timeout)
     except FileNotFoundError as exc:
         return {
-            "cmd": cmd,
+            "cmd": sanitized_recorded_argv(cmd),
             "returncode": 127,
             "stdout_tail": "",
             "stderr_tail": str(exc),
         }
     except subprocess.TimeoutExpired as exc:
         return {
-            "cmd": cmd,
+            "cmd": sanitized_recorded_argv(cmd),
             "returncode": 124,
             "stdout_tail": (exc.stdout or "")[-2000:] if isinstance(exc.stdout, str) else "",
             "stderr_tail": (exc.stderr or "")[-2000:] if isinstance(exc.stderr, str) else "",
         }
     return {
-        "cmd": cmd,
+        "cmd": sanitized_recorded_argv(cmd),
         "returncode": completed.returncode,
         "stdout_tail": completed.stdout[-2000:],
         "stderr_tail": completed.stderr[-2000:],
