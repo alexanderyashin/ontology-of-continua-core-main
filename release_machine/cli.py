@@ -75,6 +75,9 @@ def main(argv: list[str] | None = None) -> int:
     publish_resume = sub.add_parser("publish-resume")
     publish_resume.add_argument("--release-id", default=None)
 
+    zenodo_republish = sub.add_parser("zenodo-republish")
+    zenodo_republish.add_argument("--release-id", default=None)
+
     approve = sub.add_parser("owner-approve")
     approve.add_argument("--release-id", default=None)
     approve.add_argument("--owner-identity", default="Alexander Yashin")
@@ -182,6 +185,11 @@ def main(argv: list[str] | None = None) -> int:
             payload = public_release.resume_github_after_zenodo(public_release.repo_root(), release_id=release_id)
         else:
             raise ValueError(f"publish-resume is not implemented for {release_id}")
+    elif args.command == "zenodo-republish":
+        if release_id == oc133.RELEASE_ID:
+            payload = public_release.republish_clean_zenodo_and_update_github(public_release.repo_root(), release_id=release_id)
+        else:
+            raise ValueError(f"zenodo-republish is not implemented for {release_id}")
     elif args.command == "owner-approve":
         if release_id == oc133.RELEASE_ID:
             payload = public_release.grant_owner_approval(public_release.repo_root(), release_id=release_id, owner_identity=args.owner_identity)

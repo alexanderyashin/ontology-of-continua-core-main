@@ -943,12 +943,31 @@ def _zenodo_upload_file(bucket_url: str, token: str, path: Path) -> dict[str, An
     return _http_upload("PUT", url, token=token, data=path.read_bytes(), content_type="application/octet-stream")
 
 
-def _zenodo_publish(root: Path, profile: ReleaseProfile, metadata: dict[str, Any]) -> dict[str, Any]:
+def _zenodo_delete_draft_files(draft: dict[str, Any], token: str) -> list[dict[str, Any]]:
+    deleted: list[dict[str, Any]] = []
+    draft_id = str(draft["id"])
+    for item in draft.get("files", []) or []:
+        file_id = item.get("id")
+        filename = item.get("filename") or item.get("key")
+        delete_url = item.get("links", {}).get("self")
+        if delete_url:
+            _zenodo_json("DELETE", delete_url, token)
+        elif file_id:
+            _zenodo_json("DELETE", f"/{draft_id}/files/{file_id}", token)
+        else:
+            continue
+        deleted.append({"id": file_id, "filename": filename})
+    return deleted
+
+
+def _zenodo_publish(root: Path, profile: ReleaseProfile, metadata: dict[str, Any], *, previous_record_id: str | None = None) -> dict[str, Any]:
     token = _zenodo_token()
-    new_version = _zenodo_json("POST", f"/{profile.previous_zenodo_record_id}/actions/newversion", token)
+    source_record_id = previous_record_id or profile.previous_zenodo_record_id
+    new_version = _zenodo_json("POST", f"/{source_record_id}/actions/newversion", token)
     latest_draft_url = new_version.get("links", {}).get("latest_draft")
     draft = _zenodo_json("GET", latest_draft_url, token) if latest_draft_url else new_version
     draft_id = str(draft["id"])
+    deleted_inherited_files = _zenodo_delete_draft_files(draft, token)
     bucket = draft["links"]["bucket"]
     _zenodo_json("PUT", f"/{draft_id}", token, {"metadata": metadata["zenodo_metadata"]})
     uploaded = []
@@ -963,6 +982,8 @@ def _zenodo_publish(root: Path, profile: ReleaseProfile, metadata: dict[str, Any
         "record_id": record_id,
         "record_url": f"https://zenodo.org/records/{record_id}",
         "doi": doi,
+        "source_record_id": source_record_id,
+        "deleted_inherited_files": deleted_inherited_files,
         "uploaded": uploaded,
         "published": published,
     }
@@ -1175,6 +1196,91 @@ def resume_github_after_zenodo(root: Path, *, release_id: str) -> dict[str, Any]
     return report
 
 
+def republish_clean_zenodo_and_update_github(root: Path, *, release_id: str) -> dict[str, Any]:
+    profile = load_profile(root, release_id)
+    status = _git_status(root)
+    if status:
+        raise RuntimeError(f"Working tree must be clean before Zenodo clean republish: {status}")
+    editorial = editorial_root(root, profile)
+    presentation = _read_json(editorial / f"PUBLIC_RELEASE_PRESENTATION_{profile.version}_latest.json", {})
+    current_record_url = str(presentation.get("zenodo_record_url") or "")
+    current_record_id = current_record_url.rstrip("/").split("/")[-1] if current_record_url else profile.previous_zenodo_record_id
+    metadata = build_public_metadata(root, profile, write=False)
+    zenodo_result = _zenodo_publish(root, profile, metadata, previous_record_id=current_record_id)
+    github_token = (os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or "").strip()
+    if not github_token:
+        raise RuntimeError("GITHUB_TOKEN or GH_TOKEN is required for GitHub Release metadata update.")
+    metadata = build_public_metadata(
+        root,
+        profile,
+        zenodo_doi=zenodo_result.get("doi"),
+        zenodo_record_url=zenodo_result.get("record_url"),
+        write=False,
+    )
+    github_release = _github_create_or_update_release(profile, github_token, metadata["release_body"])
+    github_url = github_release.get("html_url") or f"https://github.com/{profile.repository}/releases/tag/{profile.tag}"
+    metadata = build_public_metadata(
+        root,
+        profile,
+        zenodo_doi=zenodo_result.get("doi"),
+        zenodo_record_url=zenodo_result.get("record_url"),
+        github_release_url=github_url,
+        write=True,
+    )
+    now = _utc_timestamp()
+    report = {
+        "schema_id": "LOGION_PUBLICATION_EXECUTION_REPORT_v1",
+        "release_id": profile.release_id,
+        "version": profile.version,
+        "tag": profile.tag,
+        "recovery_mode": "ZENODO_CLEAN_REPUBLISH_AFTER_INHERITED_FILE_DETECTION",
+        "github_release_url": github_url,
+        "github_release_id": github_release.get("id"),
+        "zenodo_record_url": zenodo_result.get("record_url"),
+        "zenodo_record_id": zenodo_result.get("record_id"),
+        "zenodo_doi": zenodo_result.get("doi"),
+        "zenodo_source_record_id": zenodo_result.get("source_record_id"),
+        "zenodo_deleted_inherited_files": zenodo_result.get("deleted_inherited_files"),
+        "zenodo_uploaded": zenodo_result.get("uploaded"),
+        "asset_checksums": _asset_records(root, profile),
+        "publication_timestamp": now,
+        "journal_submissions_allowed": False,
+        "software_heritage_deposit_allowed": False,
+    }
+    _write_json(editorial / f"PUBLICATION_EXECUTION_REPORT_{profile.version}_latest.json", report)
+    _write_text(
+        editorial / f"PUBLICATION_EXECUTION_REPORT_{profile.version}_latest.md",
+        f"# Public Release Execution Report\n\nRelease: `{profile.release_id}` v{profile.version}\n\nGitHub: {github_url}\n\nZenodo: {zenodo_result.get('record_url')}\n\nDOI: {zenodo_result.get('doi')}\n\nRecovery mode: clean Zenodo republish after inherited-file detection.\n\nJournal submissions: locked.\n",
+    )
+    approval_path = editorial / f"OWNER_RELEASE_APPROVAL_v{profile.version}.json"
+    approval = _read_json(approval_path, {})
+    approval.update(
+        {
+            "published": True,
+            "publication_timestamp": now,
+            "github_release_url": github_url,
+            "zenodo_record_url": zenodo_result.get("record_url"),
+            "zenodo_doi": zenodo_result.get("doi"),
+            "journal_submissions_allowed": False,
+        }
+    )
+    _write_json(approval_path, approval)
+    manifest_path = editorial / f"OC_CORE_{profile.version.replace('.', '_')}_PUBLISH_MANIFEST_DRAFT.json"
+    manifest = _read_json(manifest_path, {})
+    manifest.update(
+        {
+            "published": True,
+            "publication_timestamp": now,
+            "github_release_url": github_url,
+            "zenodo_record_url": zenodo_result.get("record_url"),
+            "zenodo_doi": zenodo_result.get("doi"),
+            "journal_submissions_allowed": False,
+        }
+    )
+    _write_json(manifest_path, manifest)
+    return report
+
+
 def _github_release_verify(profile: ReleaseProfile, token: str) -> dict[str, Any]:
     release = _github_get_release(profile, token)
     if not release:
@@ -1183,12 +1289,14 @@ def _github_release_verify(profile: ReleaseProfile, token: str) -> dict[str, Any
     names = {asset.get("name") for asset in assets}
     expected = {_github_asset_upload_name(Path(asset.path).name) for asset in profile.assets}
     missing = sorted(expected - names)
+    unexpected = sorted(names - expected)
     return {
         "exists": True,
         "url": release.get("html_url"),
         "asset_total": len(assets),
         "missing_assets": missing,
-        "ok": not missing and release.get("tag_name") == profile.tag,
+        "unexpected_assets": unexpected,
+        "ok": not missing and not unexpected and release.get("tag_name") == profile.tag,
     }
 
 
@@ -1198,6 +1306,7 @@ def _zenodo_verify(profile: ReleaseProfile, record_id: str) -> dict[str, Any]:
     names = {item.get("key") for item in files}
     expected = {Path(asset.path).name for asset in profile.assets}
     missing = sorted(expected - names)
+    unexpected = sorted(names - expected)
     doi = record.get("doi")
     return {
         "exists": bool(record.get("id")),
@@ -1205,7 +1314,8 @@ def _zenodo_verify(profile: ReleaseProfile, record_id: str) -> dict[str, Any]:
         "doi": doi,
         "file_total": len(files),
         "missing_files": missing,
-        "ok": bool(record.get("id")) and not missing and str(record.get("metadata", {}).get("version")) == profile.version,
+        "unexpected_files": unexpected,
+        "ok": bool(record.get("id")) and not missing and not unexpected and str(record.get("metadata", {}).get("version")) == profile.version,
     }
 
 
