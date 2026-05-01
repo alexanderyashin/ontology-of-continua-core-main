@@ -20,6 +20,16 @@ LEAN_CERT_REF = "formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json"
 FINITE_MODEL_REPORT_REF = "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
 ZIP_INTEGRITY_REF = "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json"
 PACKAGE_REF = "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip"
+SOURCE_MANIFEST_TELEMETRY_EXCLUDE_PREFIXES = (
+    "operations/project_control/",
+)
+SOURCE_MANIFEST_TELEMETRY_EXCLUDE_REFS = {
+    "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_latest.json",
+    "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_latest.md",
+    "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_RELEASE_CONTROL_PLANE_latest.json",
+    "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json",
+    "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_RELEASE_SCORECARD_latest.md",
+}
 
 COMPARE_REFS = [
     LEAN_CERT_REF,
@@ -435,8 +445,13 @@ def head_source_manifest() -> list[dict[str, str]]:
     rows = []
     for line in completed.stdout.splitlines():
         meta, ref = line.split("\t", 1)
+        ref = ref.replace("\\", "/")
+        if ref in SOURCE_MANIFEST_TELEMETRY_EXCLUDE_REFS or any(
+            ref.startswith(prefix) for prefix in SOURCE_MANIFEST_TELEMETRY_EXCLUDE_PREFIXES
+        ):
+            continue
         mode, kind, object_id = meta.split()
-        rows.append({"ref": ref.replace("\\", "/"), "mode": mode, "kind": kind, "git_object_id": object_id})
+        rows.append({"ref": ref, "mode": mode, "kind": kind, "git_object_id": object_id})
     return rows
 
 
