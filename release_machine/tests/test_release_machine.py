@@ -31,6 +31,28 @@ def _load_grand_science_loop_module():
     return module
 
 
+def _load_delta_queue_module():
+    root = complete.repo_root()
+    module_path = root / "tools" / "logion_delta_queue.py"
+    spec = importlib.util.spec_from_file_location("logion_delta_queue", module_path)
+    assert spec is not None
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
+def _load_process_coherence_guard_module():
+    root = complete.repo_root()
+    module_path = root / "tools" / "logion_process_coherence_guard.py"
+    spec = importlib.util.spec_from_file_location("logion_process_coherence_guard", module_path)
+    assert spec is not None
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
 class ReleaseMachineTests(unittest.TestCase):
     def _ensure_oc133_v12_surface(self) -> Path:
         root = complete.repo_root()
@@ -41,6 +63,247 @@ class ReleaseMachineTests(unittest.TestCase):
         path = root / rel_path
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+    def test_oc133_delta_writers_skip_identical_content(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            text_path = root / "artifact.md"
+            json_path = root / "artifact.json"
+            self.assertTrue(oc133.write_text(text_path, "stable\n"))
+            self.assertFalse(oc133.write_text(text_path, "stable\n"))
+            self.assertTrue(oc133.write_json(json_path, {"stable": True}))
+            self.assertFalse(oc133.write_json(json_path, {"stable": True}))
+
+    def test_oc133_existing_package_reused_when_fingerprint_inputs_match(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            payload_path = root / "proofs" / "fixture_1_3_3.json"
+            payload_path.parent.mkdir(parents=True, exist_ok=True)
+            payload_path.write_text('{"stable": true}\n', encoding="utf-8")
+            paths = [payload_path]
+            oc133.write_inventory_and_checksums(root, paths)
+            zip_payload = oc133.build_zip(root, paths)
+            reused = oc133._existing_package_if_current(root, "all", True, "fixture", paths)
+            self.assertIsNotNone(reused)
+            assert reused is not None
+            self.assertEqual(reused["package_sha256"], zip_payload["sha256"])
+            self.assertEqual(reused["artifact_total"], 1)
+
+    def test_oc133_package_excludes_self_referential_audit_outputs(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            subprocess.run(["git", "init"], cwd=root, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            audit = root / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_latest.json"
+            pdf_text = root / "releases" / "oc_core_1_3_3" / "editorial" / "pdf_text_audit" / "OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.txt"
+            proof = root / "proofs" / "FINITE_MODEL_CHECKS_1_3_3.json"
+            for path in [audit, pdf_text, proof]:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("{}\n", encoding="utf-8")
+            subprocess.run(["git", "add", "."], cwd=root, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            refs = {path.relative_to(root).as_posix() for path in oc133.package_file_paths(root)}
+            self.assertIn("proofs/FINITE_MODEL_CHECKS_1_3_3.json", refs)
+            self.assertNotIn("releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_latest.json", refs)
+            self.assertNotIn("releases/oc_core_1_3_3/editorial/pdf_text_audit/OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.txt", refs)
+
+    def test_oc133_lean_certificate_source_guard_detects_delta(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source_path = root / "release_machine" / "oc133.py"
+            source_path.parent.mkdir(parents=True, exist_ok=True)
+            source_path.write_text("stable\n", encoding="utf-8")
+            cert_path = root / "formal" / "lean" / "LEAN_BUILD_CERTIFICATE_1_3_3.json"
+            cert_path.parent.mkdir(parents=True, exist_ok=True)
+            cert_path.write_text(
+                json.dumps(
+                    {
+                        "clean_source_manifest": [
+                            {
+                                "ref": "release_machine/oc133.py",
+                                "sha256": hashlib.sha256(b"stable\n").hexdigest(),
+                            }
+                        ]
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            self.assertTrue(oc133._lean_certificate_sources_current(root))
+            source_path.write_text("changed\n", encoding="utf-8")
+            self.assertFalse(oc133._lean_certificate_sources_current(root))
+
+    def test_oc133_root_no_send_surface_guard_detects_stale_legacy_metadata(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for ref in oc133.ROOT_NO_SEND_SURFACE_REFS:
+                path = root / ref
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("OC Core 1.3.3 no-send review package\n", encoding="utf-8")
+            self.assertTrue(oc133._root_no_send_surface_current(root))
+            (root / "manifest.json").write_text("oc_core_1_3_2 v1.3.2 10.5281/zenodo.123\n", encoding="utf-8")
+            self.assertFalse(oc133._root_no_send_surface_current(root))
+            (root / "manifest.json").write_text("OC Core 1.3.3 no-send review package\n", encoding="utf-8")
+            (root / ".zenodo.json").write_text('{"version":"1.3.2"}\n', encoding="utf-8")
+            self.assertFalse(oc133._root_no_send_surface_current(root))
+
+    def test_logion_delta_queue_blocks_downstream_when_snapshot_unchanged(self) -> None:
+        delta_queue = _load_delta_queue_module()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._write_fixture_json(
+                root,
+                "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json",
+                {
+                    "summary": {
+                        "release_state": "OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND",
+                        "technical_gate_state": "OC_CORE_1_3_3_10_10_READY_NO_SEND",
+                        "master_verdict": "PASS",
+                        "gate_counts": {"PASS": 71, "FAIL": 0},
+                        "publish_allowed": False,
+                        "journal_submissions_allowed": False,
+                        "all_domain_blocker_ids": ["grand_toe_claim_ledger_evidence"],
+                    }
+                },
+            )
+            self._write_fixture_json(
+                root,
+                "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json",
+                {"critical_open_total": 0, "high_open_total": 0, "parse_failure_total": 0},
+            )
+            self._write_fixture_json(
+                root,
+                "releases/oc_core_1_3_3/submission_packages/SUBMISSION_PACKAGE_INDEX.json",
+                {"package_total": 8, "package_status_counts": {"OWNER_REVIEW_READY_NO_SEND": 8}, "submission_allowed": False, "journal_submissions_allowed": False},
+            )
+            self._write_fixture_json(
+                root,
+                "operations/project_control/LOGION_DIRTY_TREE_GOVERNANCE_LEDGER.json",
+                {"governance_state": "GOVERNED_DIRTY_TREE", "public_dirty_total": 0, "public_unclassified_total": 0, "private_dirty_total": 0, "private_unknown_total": 0},
+            )
+            self._write_fixture_json(
+                root,
+                "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
+                {"package_sha256": "a" * 64, "package_size_bytes": 1, "package_member_total": 1},
+            )
+            first = delta_queue.evaluate(root, "release")
+            delta_queue.write_json_if_changed(root / delta_queue.LEDGER_REL, first)
+            second = delta_queue.evaluate(root, "release")
+            self.assertFalse(second["significant_delta"])
+            self.assertFalse(second["downstream_trigger_allowed"])
+
+    def test_logion_process_coherence_guard_blocks_self_referential_package(self) -> None:
+        guard = _load_process_coherence_guard_module()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            package = root / "releases" / "oc_core_1_3_3" / "artifacts" / "oc_core_1_3_3_no_send_release.zip"
+            package.parent.mkdir(parents=True, exist_ok=True)
+            package.write_bytes(b"zip")
+            self._write_fixture_json(
+                root,
+                "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json",
+                {"summary": {"release_state": "OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND", "all_domain_ready_no_send": False}},
+            )
+            self._write_fixture_json(
+                root,
+                "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+                {"publish_allowed": False, "journal_submissions_allowed": False, "owner_approved": False},
+            )
+            self._write_fixture_json(
+                root,
+                "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+                {"decision": "PENDING", "publish_allowed": False},
+            )
+            self._write_fixture_json(
+                root,
+                "releases/oc_core_1_3_3/submission_packages/SUBMISSION_PACKAGE_INDEX.json",
+                {"submission_allowed": False, "journal_submissions_allowed": False},
+            )
+            self._write_fixture_json(
+                root,
+                "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
+                {"package": "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip", "package_sha256": hashlib.sha256(b"zip").hexdigest()},
+            )
+            self._write_fixture_json(
+                root,
+                "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ARTIFACT_INVENTORY.json",
+                {"rows": [{"path": "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_latest.json"}]},
+            )
+            self._write_fixture_json(
+                root,
+                "operations/project_control/LOGION_DIRTY_TREE_GOVERNANCE_LEDGER.json",
+                {"public_unclassified_total": 0, "private_unknown_total": 0},
+            )
+            report = guard.build_report(root)
+            self.assertEqual(report["state"], "FAIL")
+            self.assertIn("COHERENCE-SELF-REFERENTIAL-PACKAGE", {row["issue_id"] for row in report["issues"]})
+
+    def test_logion_process_coherence_guard_blocks_materializer_package_ownership(self) -> None:
+        guard = _load_process_coherence_guard_module()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            package = root / "releases" / "oc_core_1_3_3" / "artifacts" / "oc_core_1_3_3_no_send_release.zip"
+            package.parent.mkdir(parents=True, exist_ok=True)
+            package.write_bytes(b"zip")
+            self._write_fixture_json(
+                root,
+                "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json",
+                {"summary": {"release_state": "OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND", "all_domain_ready_no_send": False}},
+            )
+            self._write_fixture_json(
+                root,
+                "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+                {"publish_allowed": False, "journal_submissions_allowed": False, "owner_approved": False},
+            )
+            self._write_fixture_json(
+                root,
+                "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json",
+                {"decision": "PENDING", "publish_allowed": False},
+            )
+            self._write_fixture_json(
+                root,
+                "releases/oc_core_1_3_3/submission_packages/SUBMISSION_PACKAGE_INDEX.json",
+                {"submission_allowed": False, "journal_submissions_allowed": False},
+            )
+            self._write_fixture_json(
+                root,
+                "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
+                {"package": "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip", "package_sha256": hashlib.sha256(b"zip").hexdigest()},
+            )
+            self._write_fixture_json(root, "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ARTIFACT_INVENTORY.json", {"rows": []})
+            self._write_fixture_json(root, "operations/project_control/LOGION_DIRTY_TREE_GOVERNANCE_LEDGER.json", {"public_unclassified_total": 0, "private_unknown_total": 0})
+            script = root / "tools" / "materialize_oc_core_1_3_3_v12_closure.py"
+            script.parent.mkdir(parents=True, exist_ok=True)
+            script.write_text(
+                "REPRODUCIBLE_GENERATED_OUTPUTS_TO_CLEAR = [\n"
+                "    'releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip',\n"
+                "]\n",
+                encoding="utf-8",
+            )
+            report = guard.build_report(root)
+            self.assertEqual(report["state"], "FAIL")
+            self.assertIn("COHERENCE-MATERIALIZER-PACKAGE-OWNERSHIP", {row["issue_id"] for row in report["issues"]})
+
+    def test_logion_process_coherence_guard_blocks_stale_root_metadata(self) -> None:
+        guard = _load_process_coherence_guard_module()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            package = root / "releases" / "oc_core_1_3_3" / "artifacts" / "oc_core_1_3_3_no_send_release.zip"
+            package.parent.mkdir(parents=True, exist_ok=True)
+            package.write_bytes(b"zip")
+            self._write_fixture_json(root, "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json", {"summary": {"release_state": "OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND", "all_domain_ready_no_send": False}})
+            self._write_fixture_json(root, "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json", {"publish_allowed": False, "journal_submissions_allowed": False, "owner_approved": False})
+            self._write_fixture_json(root, "releases/oc_core_1_3_3/editorial/OWNER_RELEASE_APPROVAL_v1.3.3.json", {"decision": "PENDING", "publish_allowed": False})
+            self._write_fixture_json(root, "releases/oc_core_1_3_3/submission_packages/SUBMISSION_PACKAGE_INDEX.json", {"submission_allowed": False, "journal_submissions_allowed": False})
+            self._write_fixture_json(root, "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json", {"package": "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip", "package_sha256": hashlib.sha256(b"zip").hexdigest()})
+            self._write_fixture_json(root, "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ARTIFACT_INVENTORY.json", {"rows": []})
+            self._write_fixture_json(root, "operations/project_control/LOGION_DIRTY_TREE_GOVERNANCE_LEDGER.json", {"public_unclassified_total": 0, "private_unknown_total": 0})
+            for ref in guard.ROOT_NO_SEND_SURFACE_REFS:
+                path = root / ref
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("OC Core 1.3.3 no-send review package\n", encoding="utf-8")
+            (root / ".zenodo.json").write_text('{"version":"1.3.2"}\n', encoding="utf-8")
+            report = guard.build_report(root)
+            self.assertEqual(report["state"], "FAIL")
+            self.assertIn("COHERENCE-ROOT-METADATA-STALE", {row["issue_id"] for row in report["issues"]})
 
     def _write_grand_science_loop_fixture(self, root: Path) -> Path:
         mission_dir = root / "operations" / "logion_release_mission" / "oc_core_1_3_3"
@@ -1364,6 +1627,13 @@ class ReleaseMachineTests(unittest.TestCase):
         )
         package_path = root / zip_integrity["package"]
         self.assertEqual(zip_integrity["package_sha256"], sha256(package_path))
+
+    def test_zz_oc133_suite_restores_current_no_send_surface(self) -> None:
+        root = complete.repo_root()
+        oc133_v12.ensure_v12(root)
+        package = oc133.build_package(root, channel="all", no_publish=True)
+        self.assertTrue(oc133._root_no_send_surface_current(root))
+        self.assertTrue((root / package["package"]).exists())
 
 
 if __name__ == "__main__":

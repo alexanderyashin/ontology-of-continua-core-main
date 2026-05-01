@@ -23,6 +23,24 @@ ZIP_NAME = "oc_core_1_3_3_no_send_release.zip"
 
 _BUILD_PACKAGE_CACHE: dict[tuple[str, str, str, bool], dict[str, Any]] = {}
 
+ROOT_NO_SEND_SURFACE_REFS = [
+    "manifest.json",
+    "checksums.txt",
+    "ro-crate-metadata.jsonld",
+    "CITATION.cff",
+    ".codemeta.json",
+    "README.md",
+    "RELEASE_NOTES.md",
+    "VERSION",
+]
+
+ROOT_NO_SEND_FORBIDDEN_TOKENS = [
+    "1.3.2",
+    "v1.3.2",
+    "oc_core_1_3_2",
+    "10.5281/zenodo.",
+]
+
 PDF_ARTIFACTS = [
     "OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf",
     "OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf",
@@ -72,16 +90,23 @@ def read_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def write_json(path: Path, payload: Any) -> None:
+def _write_bytes_if_changed(path: Path, data: bytes) -> bool:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+    if path.exists() and path.read_bytes() == data:
+        return False
+    path.write_bytes(data)
+    return True
 
 
-def write_text(path: Path, text: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
+def write_json(path: Path, payload: Any) -> bool:
+    data = (json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    return _write_bytes_if_changed(path, data)
+
+
+def write_text(path: Path, text: str) -> bool:
     if not text.endswith("\n"):
         text += "\n"
-    path.write_text(text, encoding="utf-8", newline="\n")
+    return _write_bytes_if_changed(path, text.encode("utf-8"))
 
 
 def sha256_file(path: Path) -> str:
@@ -207,10 +232,13 @@ def package_file_paths(root: Path) -> list[Path]:
         "OC_CORE_1_3_3_SHA256SUMS",
         "OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
         "OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
+        "OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_latest.json",
+        "OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_latest.md",
     }
     return sorted(
         path for path in files
         if path.name not in excluded_names
+        and "pdf_text_audit" not in path.parts
         and "__pycache__" not in path.parts
         and path.suffix != ".pyc"
         and rel(root, path) in tracked_refs
@@ -256,8 +284,49 @@ def _remember_package(root: Path, channel: str, no_publish: bool, fingerprint: s
     _BUILD_PACKAGE_CACHE[key] = {"fingerprint": fingerprint, "payload": dict(payload)}
 
 
-def write_inventory_and_checksums(root: Path) -> list[Path]:
-    paths = package_file_paths(root)
+def _lean_certificate_sources_current(root: Path) -> bool:
+    cert_path = root / "formal" / "lean" / "LEAN_BUILD_CERTIFICATE_1_3_3.json"
+    if not cert_path.exists():
+        return False
+    try:
+        cert = read_json(cert_path)
+    except (OSError, json.JSONDecodeError):
+        return False
+    rows = cert.get("clean_source_manifest", [])
+    if not isinstance(rows, list) or not rows:
+        return False
+    for row in rows:
+        if not isinstance(row, dict):
+            return False
+        ref = row.get("ref")
+        expected = row.get("sha256")
+        if not isinstance(ref, str) or not isinstance(expected, str):
+            return False
+        path = root / ref
+        if not path.exists() or not path.is_file():
+            return False
+        if hashlib.sha256(package_bytes(path)).hexdigest() != expected:
+            return False
+    return True
+
+
+def _root_no_send_surface_current(root: Path) -> bool:
+    if (root / ".zenodo.json").exists():
+        return False
+    for ref in ROOT_NO_SEND_SURFACE_REFS:
+        path = root / ref
+        if not path.exists() or not path.is_file():
+            return False
+        body = path.read_text(encoding="utf-8", errors="ignore")
+        if "1.3.3" not in body:
+            return False
+        lowered = body.lower()
+        if any(token.lower() in lowered for token in ROOT_NO_SEND_FORBIDDEN_TOKENS):
+            return False
+    return True
+
+
+def _inventory_payload(root: Path, paths: list[Path]) -> dict[str, Any]:
     rows = []
     for path in paths:
         payload = package_bytes(path)
@@ -268,28 +337,79 @@ def write_inventory_and_checksums(root: Path) -> list[Path]:
             "package_hash_policy": "TEXT_MEMBERS_LF_NORMALIZED_BEFORE_ARCHIVE",
             "status": "ASSEMBLED",
         })
-    inventory = {
+    return {
         "schema_id": "OC133_ARTIFACT_INVENTORY_v1",
         "release_id": RELEASE_ID,
         "version": VERSION,
         "artifact_total": len(rows),
         "rows": rows,
     }
+
+
+def _checksum_text(inventory: dict[str, Any]) -> str:
+    return "\n".join(f"{row['sha256']}  {row['path']}" for row in inventory.get("rows", [])) + "\n"
+
+
+def _existing_package_if_current(root: Path, channel: str, no_publish: bool, fingerprint: str, paths: list[Path]) -> dict[str, Any] | None:
+    inventory_path = editorial_dir(root) / "OC_CORE_1_3_3_ARTIFACT_INVENTORY.json"
+    checksums_path = editorial_dir(root) / "OC_CORE_1_3_3_SHA256SUMS"
+    integrity_path = editorial_dir(root) / "OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json"
+    zip_path = artifacts_dir(root) / ZIP_NAME
+    if not all(path.exists() for path in [inventory_path, checksums_path, integrity_path, zip_path]):
+        return None
+    desired_inventory = _inventory_payload(root, paths)
+    try:
+        current_inventory = read_json(inventory_path)
+        current_integrity = read_json(integrity_path)
+    except (OSError, json.JSONDecodeError):
+        return None
+    if current_inventory != desired_inventory:
+        return None
+    if checksums_path.read_text(encoding="utf-8") != _checksum_text(desired_inventory):
+        return None
+    package_sha256 = sha256_file(zip_path)
+    if current_integrity.get("package") != rel(root, zip_path):
+        return None
+    if current_integrity.get("package_sha256") != package_sha256:
+        return None
+    if current_integrity.get("package_member_total") != len(paths):
+        return None
+    payload = {
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "channel": channel,
+        "no_publish": bool(no_publish),
+        "publish_allowed": False,
+        "package": rel(root, zip_path),
+        "package_sha256": package_sha256,
+        "artifact_total": len(paths),
+        "package_member_total": current_integrity.get("package_member_total"),
+    }
+    _remember_package(root, channel, no_publish, fingerprint, payload)
+    return payload
+
+
+def write_inventory_and_checksums(root: Path, paths: list[Path] | None = None) -> list[Path]:
+    paths = paths or package_file_paths(root)
+    inventory = _inventory_payload(root, paths)
     write_json(editorial_dir(root) / "OC_CORE_1_3_3_ARTIFACT_INVENTORY.json", inventory)
-    checksum_lines = [f"{row['sha256']}  {row['path']}" for row in rows]
-    write_text(editorial_dir(root) / "OC_CORE_1_3_3_SHA256SUMS", "\n".join(checksum_lines))
-    return package_file_paths(root)
+    write_text(editorial_dir(root) / "OC_CORE_1_3_3_SHA256SUMS", _checksum_text(inventory))
+    return paths
 
 
 def build_zip(root: Path, paths: list[Path]) -> dict[str, Any]:
     zip_path = artifacts_dir(root) / ZIP_NAME
     artifacts_dir(root).mkdir(parents=True, exist_ok=True)
-    with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+    tmp_path = zip_path.with_suffix(zip_path.suffix + ".tmp")
+    with zipfile.ZipFile(tmp_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
         for path in sorted(paths):
             info = zipfile.ZipInfo(rel(root, path), date_time=(2026, 4, 28, 0, 0, 0))
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o644 << 16
             zf.writestr(info, package_bytes(path))
+    tmp_bytes = tmp_path.read_bytes()
+    _write_bytes_if_changed(zip_path, tmp_bytes)
+    tmp_path.unlink(missing_ok=True)
     payload = {
         "path": rel(root, zip_path),
         "sha256": sha256_file(zip_path),
@@ -315,6 +435,15 @@ def build_package(root: Path | None = None, channel: str = "all", no_publish: bo
     # release-machine helpers; running v12 before the finite/validation replays
     # prevents stale DOI/public-record metadata from becoming canonical again.
     ensure_materialized(root)
+    paths = package_file_paths(root)
+    fingerprint = _package_input_fingerprint(root)
+    if _lean_certificate_sources_current(root) and _root_no_send_surface_current(root):
+        cached = _cached_package(root, channel, no_publish, fingerprint)
+        if cached is not None:
+            return cached
+        existing = _existing_package_if_current(root, channel, no_publish, fingerprint, paths)
+        if existing is not None:
+            return existing
     oc133_hardening.ensure_hardened(root)
     oc133_v12.ensure_v12(root)
     run_local_replays(root)
@@ -322,7 +451,11 @@ def build_package(root: Path | None = None, channel: str = "all", no_publish: bo
     cached = _cached_package(root, channel, no_publish, fingerprint)
     if cached is not None:
         return cached
-    paths = write_inventory_and_checksums(root)
+    paths = package_file_paths(root)
+    existing = _existing_package_if_current(root, channel, no_publish, fingerprint, paths)
+    if existing is not None:
+        return existing
+    paths = write_inventory_and_checksums(root, paths)
     zip_payload = build_zip(root, paths)
     payload = {
         "release_id": RELEASE_ID,

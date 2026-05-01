@@ -24,6 +24,9 @@ BUDGET_LEDGER_REL = f"{PROJECT_CONTROL_REL}/LOGION_BUDGET_LEDGER.json"
 WORKSTREAM_LOCKS_REL = f"{PROJECT_CONTROL_REL}/LOGION_WORKSTREAM_LOCKS.json"
 MILESTONE_PLAN_REL = f"{PROJECT_CONTROL_REL}/LOGION_MILESTONE_PLAN.json"
 DIRTY_LEDGER_REL = dirty_governance.LEDGER_REL
+DELTA_QUEUE_LEDGER_REL = f"{PROJECT_CONTROL_REL}/LOGION_DELTA_QUEUE_LEDGER.json"
+DELTA_QUEUE_POLICY_REL = f"{PROJECT_CONTROL_REL}/LOGION_DELTA_QUEUE_POLICY.json"
+PROCESS_COHERENCE_GUARD_REL = f"{PROJECT_CONTROL_REL}/LOGION_PROCESS_COHERENCE_GUARD.json"
 COCKPIT_JSON_REL = f"{PROJECT_CONTROL_REL}/LOGION_PROJECT_CONTROL_COCKPIT.json"
 COCKPIT_MD_REL = f"{PROJECT_CONTROL_REL}/LOGION_PROJECT_CONTROL_COCKPIT.md"
 SELF_GENERATED_DIR_PREFIX = f"{PROJECT_CONTROL_REL}/"
@@ -183,7 +186,14 @@ def resource_policy() -> dict[str, Any]:
             "full Cerberus reruns while deterministic blockers are unchanged",
             "parallel subagents without disjoint write scopes and expected blocker delta",
             "planning-only work orders executed as scientific repair",
+            "release package regeneration when the Delta Queue semantic fingerprint is unchanged",
         ],
+        "delta_queue_policy": {
+            "policy_ref": DELTA_QUEUE_POLICY_REL,
+            "ledger_ref": DELTA_QUEUE_LEDGER_REL,
+            "principle": "No downstream capability signal without a material qualitative delta over threshold.",
+            "release_checks_default_mode": "release",
+        },
         "no_send": True,
         "publish_allowed": False,
         "journal_submissions_allowed": False,
@@ -289,6 +299,8 @@ def build_portfolio(root: Path) -> dict[str, Any]:
     cerberus = read_json(root / CERBERUS_SUMMARY_REL)
     release = read_json(root / RELEASE_SCORECARD_REL)
     dirty = dirty_tree_governance(root)
+    delta_queue = read_json(root / DELTA_QUEUE_LEDGER_REL)
+    coherence = read_json(root / PROCESS_COHERENCE_GUARD_REL)
 
     external_ready = all_domain.get("external_review_ready_no_send") is True
     all_domain_ready = all_domain.get("all_domain_ready_no_send") is True
@@ -368,6 +380,21 @@ def build_portfolio(root: Path) -> dict[str, Any]:
         "dirty_tree_governance_state": dirty["state"],
         "dirty_tree_governed": dirty["governed"],
         "dirty_tree_ledger_current": dirty["ledger_current"],
+        "delta_queue": {
+            "ledger_ref": DELTA_QUEUE_LEDGER_REL,
+            "mode": delta_queue.get("mode"),
+            "semantic_fingerprint": delta_queue.get("semantic_fingerprint"),
+            "significant_delta": delta_queue.get("significant_delta"),
+            "changed_classes": delta_queue.get("changed_classes", []),
+            "downstream_trigger_allowed": delta_queue.get("downstream_trigger_allowed"),
+            "no_send_valid": delta_queue.get("no_send_valid"),
+        },
+        "process_coherence": {
+            "guard_ref": PROCESS_COHERENCE_GUARD_REL,
+            "state": coherence.get("state"),
+            "critical_high_total": coherence.get("critical_high_total"),
+            "issue_total": coherence.get("issue_total"),
+        },
         "no_send": True,
         "publish_allowed": False,
         "journal_submissions_allowed": False,
@@ -428,6 +455,8 @@ def render_cockpit(cockpit: dict[str, Any]) -> str:
         f"- Cerberus critical/high: `{portfolio.get('cerberus_critical_open_total')}` / `{portfolio.get('cerberus_high_open_total')}`",
         f"- Journal packages: `{portfolio['journal_packages']['package_total']}`",
         f"- Dirty tree governed/current: `{str(portfolio['dirty_tree_governed']).lower()}` / `{str(portfolio['dirty_tree_ledger_current']).lower()}`",
+        f"- Delta Queue significant/trigger: `{str(portfolio['delta_queue'].get('significant_delta')).lower()}` / `{str(portfolio['delta_queue'].get('downstream_trigger_allowed')).lower()}`",
+        f"- Process coherence: `{portfolio['process_coherence'].get('state')}` critical/high=`{portfolio['process_coherence'].get('critical_high_total')}`",
         f"- External LLM budget/day: `{budget['daily_external_llm_budget_tokens']}`",
         f"- Host compute: `allowed`",
         f"- Budget action: `{budget['budget_override_action']}`",
@@ -470,6 +499,9 @@ def build_cockpit(root: Path = ROOT) -> dict[str, Any]:
             "workstream_locks_ref": WORKSTREAM_LOCKS_REL,
             "milestone_plan_ref": MILESTONE_PLAN_REL,
             "dirty_tree_ledger_ref": DIRTY_LEDGER_REL,
+            "delta_queue_ledger_ref": DELTA_QUEUE_LEDGER_REL,
+            "delta_queue_policy_ref": DELTA_QUEUE_POLICY_REL,
+            "process_coherence_guard_ref": PROCESS_COHERENCE_GUARD_REL,
             "cockpit_json_ref": COCKPIT_JSON_REL,
             "cockpit_md_ref": COCKPIT_MD_REL,
         },
@@ -521,6 +553,10 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     root = Path(args.root).resolve()
+    if args.write:
+        ledger = dirty_governance.build_ledger(root)
+        dirty_governance.write_json(root / dirty_governance.LEDGER_REL, ledger)
+        dirty_governance.write_text(root / dirty_governance.LEDGER_MD_REL, dirty_governance.render_markdown(ledger))
     cockpit = build_cockpit(root)
     if args.write:
         write_outputs(root, cockpit)

@@ -150,12 +150,18 @@ def _read_json(path: Path, default: Any | None = None) -> Any:
 
 def _write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    text = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+    if path.exists() and path.read_text(encoding="utf-8") == text:
+        return
+    path.write_text(text, encoding="utf-8")
 
 
 def _write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text.rstrip() + "\n", encoding="utf-8")
+    normalized = text.rstrip() + "\n"
+    if path.exists() and path.read_text(encoding="utf-8") == normalized:
+        return
+    path.write_text(normalized, encoding="utf-8")
 
 
 def _run(root: Path, args: list[str], *, check: bool = True) -> subprocess.CompletedProcess[str]:
@@ -506,6 +512,38 @@ def _submission_zip_integrity_ref(release_id: str) -> str:
     return "releases/oc_core_1_3_2/editorial/OC_CORE_1_3_2_ZIP_INTEGRITY_latest.json"
 
 
+def _ensure_submission_release_artifacts(root: Path, release_id: str) -> None:
+    """Ensure mandatory submission artifacts exist without creating write loops.
+
+    The OC 1.3.3 submission packages reference the no-send release archive.
+    Full test runs can exercise legacy builders before this generator and leave
+    the archive/integrity files absent.  Submission readiness should not depend
+    on execution order, so this self-heals only the missing prerequisite by
+    calling the delta-safe 1.3.3 package builder.
+    """
+    if release_id != "oc_core_1_3_3":
+        return
+    missing = [
+        rel_path
+        for role, rel_path in _submission_artifact_refs(release_id)
+        if role != "release_archive" and not (root / rel_path).exists()
+    ]
+    archive_path = root / next(path for role, path in _submission_artifact_refs(release_id) if role == "release_archive")
+    integrity_path = root / _submission_zip_integrity_ref(release_id)
+    if missing or not archive_path.exists() or not integrity_path.exists():
+        from . import oc133
+
+        oc133.build_package(root, channel="all", no_publish=True)
+
+
+def _refresh_submission_release_package(root: Path, release_id: str) -> None:
+    if release_id != "oc_core_1_3_3":
+        return
+    from . import oc133
+
+    oc133.build_package(root, channel="all", no_publish=True)
+
+
 def _submission_schema(prefix_release_id: str, name: str) -> str:
     if prefix_release_id == "oc_core_1_3_3":
         return f"OC133_{name}_v1"
@@ -554,6 +592,7 @@ def _submission_component_rows(venue_id: str, release_id: str) -> list[dict[str,
 
 def generate_submission_packages(root: Path, release_id: str | None = None) -> dict[str, Any]:
     release_id, version, identity_source = _submission_identity(root, release_id)
+    _ensure_submission_release_artifacts(root, release_id)
     base = root / "releases" / release_id / "submission_packages"
     artifact_refs_template = _submission_artifact_refs(release_id)
     primary_manuscript = next(path for role, path in artifact_refs_template if role == "primary_manuscript")
@@ -712,6 +751,7 @@ def generate_submission_packages(root: Path, release_id: str | None = None) -> d
         "- Submission allowed: `false`",
         "- Owner approval required: `true`",
     ]))
+    _refresh_submission_release_package(root, release_id)
     return index
 
 

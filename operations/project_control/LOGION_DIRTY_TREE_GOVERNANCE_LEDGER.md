@@ -1,14 +1,17 @@
 # Logion Dirty Tree Governance Ledger
 
 - State: `GOVERNED_DIRTY_TREE`
-- Public dirty total: `0`
+- Public dirty total: `56`
 - Public unclassified: `0`
 - Private dirty total: `0`
 - Private unknown: `0`
-- Fingerprint: `761ae9232e5d5401ae0a816c09d8f8031ef7a4b641b3142d8c1a0a80a732f3c2`
+- Fingerprint: `071fc368f8a81d30b66aac51e571508c004c010040a7b77248747473edfd77bd`
 
 ## Public Classes
 
+- `legacy_1_3_2`: `17`
+- `oc133_release_package`: `35`
+- `project_control`: `4`
 
 ## Private Classes
 

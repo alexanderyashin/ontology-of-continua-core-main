@@ -1,0 +1,42 @@
+{
+  "schema_id": "LOGION_DELTA_QUEUE_POLICY_v1",
+  "principle": "A downstream Logion node receives a signal only when a material qualitative delta crosses the configured threshold.",
+  "modes": {
+    "diagnostic": {
+      "writes": "optional ledger only when --write is supplied",
+      "triggers_downstream": false,
+      "use": "inspect drift and explain why no further chain should run"
+    },
+    "test": {
+      "writes": "test ledger allowed",
+      "triggers_downstream": false,
+      "use": "prove delta routing and idempotence without operational effects"
+    },
+    "productive": {
+      "writes": "ledger allowed",
+      "triggers_downstream": "only when significant_delta=true",
+      "use": "normal Logion workstream operation"
+    },
+    "release": {
+      "writes": "ledger allowed",
+      "triggers_downstream": "only when significant_delta=true and no-send locks remain valid",
+      "use": "release verification; checks must not dirty artifacts without material delta"
+    }
+  },
+  "significant_delta_classes": [
+    "release_verdict_or_state_change",
+    "gate_count_change",
+    "critical_or_high_review_count_change",
+    "dirty_tree_governance_change",
+    "working_tree_delta_change",
+    "journal_send_lock_or_package_status_change",
+    "no_send_lock_change",
+    "package_member_set_or_package_hash_change",
+    "all_domain_blocker_set_change"
+  ],
+  "non_significant_examples": [
+    "rerun with byte-identical generated output",
+    "diagnostic command with unchanged semantic snapshot",
+    "cache refresh that does not change release-visible artifact hashes"
+  ]
+}

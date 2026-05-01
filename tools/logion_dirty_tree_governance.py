@@ -98,15 +98,21 @@ def classify_public_path(path: str) -> str:
     path = path.replace("\\", "/")
     if path.startswith("operations/project_control/"):
         return "project_control"
-    if path in {"tools/logion_dirty_tree_governance.py", "tools/logion_project_controller.py"}:
+    if path in {
+        "tools/logion_dirty_tree_governance.py",
+        "tools/logion_project_controller.py",
+        "tools/logion_delta_queue.py",
+        "tools/logion_process_coherence_guard.py",
+    }:
         return "project_control"
     if "oc_core_1_3_2" in path or "v1.3.2" in path or path.startswith("reports/parfit/"):
         return "legacy_1_3_2"
     if (
         path.startswith("releases/oc_core_1_3_3/")
-        or path in {"manifest.json", "checksums.txt", "ro-crate-metadata.jsonld", "CITATION.cff", ".codemeta.json", ".zenodo.json"}
+        or path in {"manifest.json", "checksums.txt", "ro-crate-metadata.jsonld", "CITATION.cff", ".codemeta.json", ".zenodo.json", "RELEASE_NOTES.md", "VERSION"}
         or path.startswith("formal/lean/")
         or path.startswith("proofs/")
+        or path.startswith("falsification/counterexample_search/")
         or path.startswith("claims/")
         or path.startswith("operations/logion_release_mission/oc_core_1_3_3/")
         or path.startswith("release_machine/")
@@ -115,8 +121,8 @@ def classify_public_path(path: str) -> str:
         or path.startswith("docs/OC_1_3_3")
         or path.startswith("validation/numeric_predictions/")
         or path.startswith("validation/target_blind/")
-        or path in {"tools/materialize_oc_core_1_3_3_scientific_closure.py", "tools/oc133_personal_release_audit.py"}
-        or path == "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json"
+        or path in {"tools/materialize_oc_core_1_3_3_scientific_closure.py", "tools/materialize_oc_core_1_3_3_v12_closure.py", "tools/oc133_personal_release_audit.py"}
+        or path in {"reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json", "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.md"}
     ):
         return "oc133_release_package"
     if (

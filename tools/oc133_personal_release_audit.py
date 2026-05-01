@@ -43,6 +43,19 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def write_text_if_changed(path: Path, text: str) -> bool:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    data = text.encode("utf-8")
+    if path.exists() and path.read_bytes() == data:
+        return False
+    path.write_bytes(data)
+    return True
+
+
+def write_json_if_changed(path: Path, payload: Any) -> bool:
+    return write_text_if_changed(path, json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
+
+
 def pdf_audit() -> dict[str, Any]:
     from release_machine import oc133_v12
 
@@ -64,7 +77,7 @@ def pdf_audit() -> dict[str, Any]:
         reader = PdfReader(str(path))
         text = "\n".join(page.extract_text() or "" for page in reader.pages)
         text_ref = text_dir / f"{path.stem}.txt"
-        text_ref.write_text(text, encoding="utf-8")
+        write_text_if_changed(text_ref, text)
         rows.append(
             {
                 "artifact": rel(path),
@@ -201,7 +214,7 @@ def main() -> int:
         "zip": zip_report,
         "journal_packages": journal,
     }
-    OUT_JSON.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    write_json_if_changed(OUT_JSON, payload)
     blocker_lines = [f"- `{blocker}`" for blocker in blockers] if blockers else ["- none"]
     lines = [
         "# OC Core 1.3.3 Personal Release Audit",
@@ -222,7 +235,7 @@ def main() -> int:
         "",
         *blocker_lines,
     ]
-    OUT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    write_text_if_changed(OUT_MD, "\n".join(lines) + "\n")
     print(json.dumps(payload, ensure_ascii=False, indent=2))
     return 0 if not blockers else 1
 

@@ -37,10 +37,6 @@ REPRODUCIBLE_GENERATED_OUTPUTS_TO_CLEAR = [
     "CITATION.cff",
     ".codemeta.json",
     "releases/oc_core_1_3_3/editorial/metadata_drafts/zenodo.no_send.draft.json",
-    "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ARTIFACT_INVENTORY.json",
-    "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_SHA256SUMS",
-    "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
-    "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip",
 ]
 
 

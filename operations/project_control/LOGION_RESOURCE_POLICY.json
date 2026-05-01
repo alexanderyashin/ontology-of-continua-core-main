@@ -16,8 +16,15 @@
   "forbidden_spend_patterns": [
     "full Cerberus reruns while deterministic blockers are unchanged",
     "parallel subagents without disjoint write scopes and expected blocker delta",
-    "planning-only work orders executed as scientific repair"
+    "planning-only work orders executed as scientific repair",
+    "release package regeneration when the Delta Queue semantic fingerprint is unchanged"
   ],
+  "delta_queue_policy": {
+    "policy_ref": "operations/project_control/LOGION_DELTA_QUEUE_POLICY.json",
+    "ledger_ref": "operations/project_control/LOGION_DELTA_QUEUE_LEDGER.json",
+    "principle": "No downstream capability signal without a material qualitative delta over threshold.",
+    "release_checks_default_mode": "release"
+  },
   "no_send": true,
   "publish_allowed": false,
   "journal_submissions_allowed": false
