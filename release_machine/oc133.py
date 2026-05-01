@@ -486,7 +486,11 @@ def evaluate_release(release: str = RELEASE_ID, channel: str = "all", mode: str 
     all_domain_audit = oc133_platinum.all_domain_readiness_audit(root, platinum_audit)
     platinum_refs = oc133_platinum.write_mission_outputs(root, platinum_audit) if write else {}
     content_blocked = platinum_audit.get("state") != "PASS"
-    all_domain_blocked = all_domain_audit.get("all_domain_ready_no_send") is not True
+    external_review_ready = all_domain_audit.get("external_review_ready_no_send") is True
+    all_domain_blocked = (
+        all_domain_audit.get("all_domain_ready_no_send") is not True
+        and external_review_ready is not True
+    )
     technical_state = "SCIENTIFIC_BLOCKERS_REMAIN" if hard_bad else "OC_CORE_1_3_3_10_10_READY_NO_SEND"
     if hard_bad:
         release_state = "SCIENTIFIC_BLOCKERS_REMAIN"
@@ -494,6 +498,8 @@ def evaluate_release(release: str = RELEASE_ID, channel: str = "all", mode: str 
         release_state = "SCIENTIFIC_CONTENT_CLOSURE_RUNNING"
     elif all_domain_blocked:
         release_state = all_domain_audit.get("final_readiness_state", "SCIENTIFIC_BLOCKERS_REMAIN")
+    elif external_review_ready and all_domain_audit.get("all_domain_ready_no_send") is not True:
+        release_state = oc133_platinum.EXTERNAL_REVIEW_READY_STATE
     else:
         release_state = "ALL_DOMAIN_READY_NO_SEND"
     summary = {
@@ -516,6 +522,8 @@ def evaluate_release(release: str = RELEASE_ID, channel: str = "all", mode: str 
         "all_domain_scientific_readiness_state": all_domain_audit.get("state"),
         "all_domain_final_readiness_state": all_domain_audit.get("final_readiness_state"),
         "all_domain_ready_no_send": all_domain_audit.get("all_domain_ready_no_send"),
+        "external_review_ready_no_send": external_review_ready,
+        "full_science_program_state": all_domain_audit.get("full_science_program_state"),
         "all_domain_blocker_total": all_domain_audit.get("blocker_total"),
         "all_domain_blocker_ids": all_domain_audit.get("blocker_ids"),
         "all_domain_missing_empirical_domains": all_domain_audit.get("checks", {}).get("all_domain_empirical_predictions", {}).get("missing_domains", []),

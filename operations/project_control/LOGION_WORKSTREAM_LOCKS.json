@@ -1,0 +1,50 @@
+{
+  "schema_id": "LOGION_WORKSTREAM_LOCKS_v1",
+  "generated_at": "2026-04-28T00:00:00Z",
+  "global_no_send": true,
+  "locks": [
+    {
+      "lock_id": "OC133_RELEASE_ARTIFACT_LOCK",
+      "owner_workstream": "OC133_RELEASE_FOREGROUND",
+      "protected_paths": [
+        "releases/oc_core_1_3_3/",
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "proofs/",
+        "formal/lean/"
+      ],
+      "write_allowed_for": [
+        "release stabilization",
+        "journal package verification",
+        "bounded claim governance"
+      ],
+      "background_science_write_allowed": false
+    },
+    {
+      "lock_id": "OC_FULL_SCIENCE_BACKGROUND_LOCK",
+      "owner_workstream": "OC_FULL_SCIENCE_BACKGROUND",
+      "protected_paths": [
+        "validation/heldout/",
+        "benchmarks/modern_science/",
+        "comparators/modern_science/",
+        "operations/logion_release_mission/oc_core_1_3_3/"
+      ],
+      "write_allowed_for": [
+        "research queue",
+        "evidence lanes",
+        "future-release roadmap"
+      ],
+      "release_package_regeneration_allowed": false
+    },
+    {
+      "lock_id": "NON_OC_WORKSTREAM_ISOLATION_LOCK",
+      "owner_workstream": "ESTRA_TOOLKIT_EA2O_OTHER",
+      "protected_paths": [
+        "estra toolkit workstream",
+        "EA2O workstream",
+        "business/product workstreams"
+      ],
+      "may_mutate_oc133_release_artifacts": false
+    }
+  ],
+  "collision_policy": "If a planned write crosses workstream ownership, controller must block it or require an explicit handoff record."
+}

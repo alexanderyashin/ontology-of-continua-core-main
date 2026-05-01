@@ -217,6 +217,176 @@ class ReleaseMachineTests(unittest.TestCase):
             {"critical_open_total": 0, "high_open_total": 0, "parse_failure_total": 0, "execution_bad_total": 0},
         )
 
+    def _make_mathematics_formal_support_fixture(
+        self,
+        root: Path,
+        *,
+        allowed: bool = True,
+        include_refs: bool = True,
+        high_open_total: int = 0,
+        stale_report_hash: bool = False,
+    ) -> None:
+        theorem_ids = ["T-MATH-FORMAL-1"] if include_refs else []
+        proof_refs = ["proofs/proof_sheets/T-MATH-FORMAL-1.md"] if include_refs else []
+        lean_refs = ["formal/lean/OC133V12.lean::math_formal_fixture"] if include_refs else []
+        finite_refs = ["FM-MATH-FORMAL-POS", "FM-MATH-FORMAL-NEG"] if include_refs else []
+        for proof_ref in proof_refs:
+            (root / proof_ref).parent.mkdir(parents=True, exist_ok=True)
+            (root / proof_ref).write_text("# Fixture proof\n", encoding="utf-8")
+        if lean_refs:
+            (root / "formal/lean").mkdir(parents=True, exist_ok=True)
+            (root / "formal/lean/OC133V12.lean").write_text("theorem math_formal_fixture : True := by trivial\n", encoding="utf-8")
+
+        pack = {
+            "schema_id": "OC133_FORMAL_SUPPORT_EVIDENCE_v1",
+            "release_id": "oc_core_1_3_3",
+            "capability_owner": "Research/FormalScience",
+            "domain": "mathematics",
+            "support_route": "formal",
+            "formal_support_allowed": allowed,
+            "formal_support_verdict": "FORMAL_SUPPORT_ACCEPTED" if allowed else "FORMAL_SUPPORT_BLOCKED",
+            "empirical_support_allowed": False,
+            "grand_empirical_support_allowed": False,
+            "theorem_ids": theorem_ids,
+            "proof_sheet_refs": proof_refs,
+            "lean_refs": lean_refs,
+            "finite_case_ids": finite_refs,
+            "blockers": [] if allowed else ["FORMAL_ROUTE_BLOCKED"],
+            "high_open_total": high_open_total,
+        }
+        pack_ref = "validation/heldout/grand_science/mathematics/mathematics_candidate_evidence_pack.json"
+        self._write_fixture_json(root, pack_ref, pack)
+        pack_sha256 = oc133_platinum.sha256_object(pack)
+
+        report_row = {
+            "domain": "mathematics",
+            "status": "FORMAL_SUPPORT_ACCEPTED" if allowed else "BLOCKED_PENDING_MATHEMATICS_FORMAL_EVIDENCE_REPAIR",
+            "candidate_pack_ref": pack_ref,
+            "candidate_pack_sha256": pack_sha256,
+            "support_route": "formal",
+            "formal_support_allowed": allowed,
+            "formal_support_verdict": "FORMAL_SUPPORT_ACCEPTED" if allowed else "FORMAL_SUPPORT_BLOCKED",
+            "empirical_support_allowed": False,
+            "formal_theorem_ids": theorem_ids,
+            "formal_proof_sheet_refs": proof_refs,
+            "formal_lean_refs": lean_refs,
+            "formal_finite_case_ids": finite_refs,
+            "blockers": [] if allowed else ["FORMAL_ROUTE_BLOCKED"],
+            "high_open_total": high_open_total,
+        }
+        report = {
+            "schema_id": "OC133_MATHEMATICS_FORMAL_EVIDENCE_EXECUTION_REPORT_v3",
+            "release_id": "oc_core_1_3_3",
+            "version": "1.3.3",
+            "capability_owner": "Research/FormalScience",
+            "formal_support_allowed_total": 1 if allowed else 0,
+            "valid_under_executor_total": 1 if allowed else 0,
+            "valid_pack_total": 1 if allowed else 0,
+            "blocked_pack_total": 0 if allowed else 1,
+            "blocked_domain_total": 0 if allowed else 1,
+            "domains": [report_row],
+            "verdict": "MATHEMATICS_FORMAL_SUPPORT_ROUTE_READY" if allowed else "BLOCKED_PENDING_MATHEMATICS_FORMAL_EVIDENCE",
+            "empirical_grand_gate_verdict": "REJECTED_FORMAL_ONLY_NOT_EMPIRICAL",
+            "route_separation_policy": "Formal mathematics support is audited separately from grand empirical support.",
+            "high_open_total": high_open_total,
+        }
+        report["report_sha256"] = (
+            "f" * 64 if stale_report_hash else oc133_platinum.sha256_object(report)
+        )
+        self._write_fixture_json(
+            root,
+            "validation/heldout/grand_science/mathematics/OC133_MATHEMATICS_EVIDENCE_EXECUTION_REPORT.json",
+            report,
+        )
+
+    def _make_strict_grand_empirical_report_fixture(
+        self,
+        root: Path,
+        *,
+        allowed: bool = True,
+        missing_domain: str | None = None,
+        missing_hash_domain: str | None = None,
+    ) -> None:
+        domains = [domain for domain in oc133_platinum.REQUIRED_EMPIRICAL_DOMAINS if domain != missing_domain]
+        domain_rows = []
+        candidate_rows = []
+        for idx, domain in enumerate(domains, start=1):
+            pack_ref = f"validation/heldout/grand_science/{domain}/fixture/{domain}_strict_pack.json"
+            pack = {
+                "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+                "release_id": "oc_core_1_3_3",
+                "domain": domain,
+                "evidence_pack_id": f"STRICT-{domain.upper()}",
+                "n": 20 + idx,
+                "source_separation": {"mode": "target_blind"},
+                "grand_toe_support_allowed": allowed,
+                "residuals": {"model": 0.1, "comparator": 1.0, "superiority_margin": 0.9},
+            }
+            self._write_fixture_json(root, pack_ref, pack)
+            pack_sha256 = oc133_platinum.sha256_object(pack)
+            candidate_sha256 = "" if domain == missing_hash_domain else pack_sha256
+            domain_allowed = allowed and domain != missing_hash_domain
+            domain_rows.append(
+                {
+                    "domain": domain,
+                    "valid_pack_total": 1 if domain_allowed else 0,
+                    "valid_pack_refs": [pack_ref],
+                    "valid_n": 20 + idx,
+                    "minimum_n": 20,
+                    "bounded_baseline_row_total": 1,
+                    "bounded_baseline_refs": [f"OC133-TARGETBLIND-{domain.upper()}-001"],
+                    "grand_toe_support_allowed": domain_allowed,
+                    "status": "EVIDENCE_SUFFICIENT_PENDING_REVIEW" if domain_allowed else "BLOCKED",
+                    "blockers": [] if domain_allowed else ["STRICT_FIXTURE_BLOCKED"],
+                }
+            )
+            candidate_rows.append(
+                {
+                    "source_ref": pack_ref,
+                    "evidence_pack_id": f"STRICT-{domain.upper()}",
+                    "domain": domain,
+                    "formal_only_pack": False,
+                    "n": 20 + idx,
+                    "grand_toe_support_allowed": domain_allowed,
+                    "candidate_sha256": candidate_sha256,
+                    "valid_for_grand_support": domain_allowed,
+                    "failure_total": 0 if domain_allowed else 1,
+                    "failures": [] if domain_allowed else ["STRICT_FIXTURE_BLOCKED"],
+                    "supersession_status": "current",
+                    "selected_for_domain_support": True,
+                }
+            )
+
+        blocked_total = 0 if allowed and missing_domain is None and missing_hash_domain is None else 1
+        report = {
+            "schema_id": "OC133_GRAND_EMPIRICAL_REPORT_v1",
+            "release_id": "oc_core_1_3_3",
+            "version": "1.3.3",
+            "empirical_required_domains": list(oc133_platinum.REQUIRED_EMPIRICAL_DOMAINS),
+            "required_domains": list(oc133_platinum.REQUIRED_EMPIRICAL_DOMAINS),
+            "formal_required_domains": ["mathematics"],
+            "formal_route_status": [
+                {
+                    "domain": "mathematics",
+                    "support_route": "formal",
+                    "status": "ROUTED_TO_FORMAL_SUPPORT",
+                    "empirical_support_allowed": False,
+                    "grand_empirical_support_allowed": False,
+                }
+            ],
+            "candidate_rows": candidate_rows,
+            "domains": domain_rows,
+            "blocked_domain_total": blocked_total,
+            "blocked_empirical_domain_total": blocked_total,
+            "registry_failure_total": 0,
+            "valid_evidence_pack_total": len(domains) if blocked_total == 0 else len(domains) - 1,
+            "evidence_pack_total": len(domains),
+            "grand_toe_support_allowed": blocked_total == 0,
+            "domain_predictive_superiority_supported": blocked_total == 0,
+            "verdict": "GRAND_EMPIRICAL_SUPPORT_ALLOWED" if blocked_total == 0 else "BLOCKED_PENDING_GENUINE_PER_DOMAIN_EVIDENCE",
+        }
+        self._write_fixture_json(root, oc133_platinum.GRAND_EMPIRICAL_REPORT_REL, report)
+
     def test_fake_pass_prevention(self) -> None:
         with self.assertRaises(ValueError):
             core.gate_result("gate_x", "fake", "PASS", executed=False)
@@ -689,6 +859,134 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertIn("better than modern science", audit_text)
         self.assertIn("bounded", audit_text)
         self.assertIn("target", audit_text)
+        grand_empirical = audit["checks"]["grand_toe_empirical_superiority"]
+        self.assertEqual(grand_empirical["state"], "FAIL")
+        self.assertFalse(grand_empirical["grand_empirical_report_exists"])
+        self.assertEqual(
+            set(grand_empirical["missing_or_not_superior_domains"]),
+            set(oc133_platinum.REQUIRED_EMPIRICAL_DOMAINS),
+        )
+        self.assertEqual(
+            set(grand_empirical["bounded_target_blind_diagnostics"]),
+            set(oc133_platinum.REQUIRED_EMPIRICAL_DOMAINS),
+        )
+
+    def test_oc133_strict_grand_empirical_report_closes_empirical_blocker(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._make_bounded_grand_ambition_fixture(root)
+            self._make_strict_grand_empirical_report_fixture(root)
+
+            audit = oc133_platinum.all_domain_readiness_audit(root, {"state": "PASS", "blocker_total": 0})
+
+        grand_empirical = audit["checks"]["grand_toe_empirical_superiority"]
+        self.assertEqual(grand_empirical["state"], "PASS")
+        self.assertEqual(grand_empirical["missing_or_not_superior_domains"], [])
+        self.assertEqual(
+            set(grand_empirical["grand_empirical_supported_domains"]),
+            set(oc133_platinum.REQUIRED_EMPIRICAL_DOMAINS),
+        )
+        self.assertTrue(grand_empirical["grand_empirical_route_split_ok"])
+        self.assertTrue(grand_empirical["grand_empirical_mathematics_formal_route_present"])
+        self.assertNotIn("mathematics", grand_empirical["strict_domain_results"])
+        self.assertEqual(
+            set(grand_empirical["bounded_target_blind_diagnostics"]),
+            set(oc133_platinum.REQUIRED_EMPIRICAL_DOMAINS),
+        )
+        for row in grand_empirical["strict_domain_results"].values():
+            self.assertTrue(row["passes_strict_predictive_superiority"])
+            self.assertTrue(row["selected_pack_refs_present"])
+            self.assertTrue(row["selected_pack_hashes_valid"])
+            self.assertTrue(row["selected_pack_refs_registered_valid"])
+
+    def test_oc133_missing_or_blocked_grand_empirical_report_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._make_bounded_grand_ambition_fixture(root)
+            self._make_strict_grand_empirical_report_fixture(root, allowed=False)
+
+            blocked_audit = oc133_platinum.all_domain_readiness_audit(root, {"state": "PASS", "blocker_total": 0})
+
+        blocked = blocked_audit["checks"]["grand_toe_empirical_superiority"]
+        self.assertEqual(blocked["state"], "FAIL")
+        self.assertFalse(blocked["grand_empirical_support_allowed"])
+        self.assertGreater(blocked["grand_empirical_blocked_domain_total"], 0)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._make_bounded_grand_ambition_fixture(root)
+            self._make_strict_grand_empirical_report_fixture(root, missing_domain="physics")
+
+            missing_domain_audit = oc133_platinum.all_domain_readiness_audit(root, {"state": "PASS", "blocker_total": 0})
+
+        missing_domain = missing_domain_audit["checks"]["grand_toe_empirical_superiority"]
+        self.assertEqual(missing_domain["state"], "FAIL")
+        self.assertIn("physics", missing_domain["missing_or_not_superior_domains"])
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._make_bounded_grand_ambition_fixture(root)
+            self._make_strict_grand_empirical_report_fixture(root, missing_hash_domain="chemistry")
+
+            missing_hash_audit = oc133_platinum.all_domain_readiness_audit(root, {"state": "PASS", "blocker_total": 0})
+
+        missing_hash = missing_hash_audit["checks"]["grand_toe_empirical_superiority"]
+        self.assertEqual(missing_hash["state"], "FAIL")
+        self.assertFalse(missing_hash["strict_domain_results"]["chemistry"]["selected_pack_hashes_valid"])
+
+    def test_oc133_mathematics_empirical_absence_does_not_block_when_formal_route_passes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._make_bounded_grand_ambition_fixture(root)
+            self._make_mathematics_formal_support_fixture(root)
+
+            audit = oc133_platinum.all_domain_readiness_audit(root, {"state": "PASS", "blocker_total": 0})
+
+        empirical = audit["checks"]["all_domain_empirical_predictions"]
+        mathematics = audit["checks"]["mathematics_formal_support"]
+        self.assertEqual(empirical["state"], "PASS")
+        self.assertNotIn("mathematics", empirical["required_domains"])
+        self.assertNotIn("mathematics", empirical["missing_domains"])
+        self.assertNotIn("mathematics", empirical["passed_domains"])
+        self.assertEqual(mathematics["state"], "PASS")
+        self.assertTrue(mathematics["exact_formal_refs_present"])
+        self.assertFalse(mathematics["empirical_support_allowed"])
+        self.assertNotIn("all_domain_empirical_predictions", audit["blocker_ids"])
+        self.assertNotIn("mathematics_formal_support", audit["blocker_ids"])
+
+    def test_oc133_missing_or_bad_mathematics_formal_route_blocks(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._make_bounded_grand_ambition_fixture(root)
+
+            missing_audit = oc133_platinum.all_domain_readiness_audit(root, {"state": "PASS", "blocker_total": 0})
+
+        self.assertEqual(missing_audit["checks"]["mathematics_formal_support"]["state"], "FAIL")
+        self.assertIn("mathematics_formal_support", missing_audit["blocker_ids"])
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._make_bounded_grand_ambition_fixture(root)
+            self._make_mathematics_formal_support_fixture(root, include_refs=False)
+
+            bad_refs_audit = oc133_platinum.all_domain_readiness_audit(root, {"state": "PASS", "blocker_total": 0})
+
+        mathematics = bad_refs_audit["checks"]["mathematics_formal_support"]
+        self.assertEqual(mathematics["state"], "FAIL")
+        self.assertFalse(mathematics["exact_formal_refs_present"])
+        self.assertIn("mathematics_formal_support", bad_refs_audit["blocker_ids"])
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._make_bounded_grand_ambition_fixture(root)
+            self._make_mathematics_formal_support_fixture(root, high_open_total=1)
+
+            high_blocker_audit = oc133_platinum.all_domain_readiness_audit(root, {"state": "PASS", "blocker_total": 0})
+
+        mathematics = high_blocker_audit["checks"]["mathematics_formal_support"]
+        self.assertEqual(mathematics["state"], "FAIL")
+        self.assertGreater(mathematics["critical_high_blocker_total"], 0)
+        self.assertIn("mathematics_formal_support", high_blocker_audit["blocker_ids"])
 
     def test_oc133_grand_science_ambition_routes_to_work_order_no_send(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -737,7 +1035,7 @@ class ReleaseMachineTests(unittest.TestCase):
     def test_oc133_scientific_closure_gates_are_no_send(self) -> None:
         root = complete.repo_root()
         summary = oc133.evaluate_release("oc_core_1_3_3", "all", "dry-run", write=True)
-        self.assertIn(summary["release_state"], {"OC_CORE_1_3_3_PLATINUM_READY_NO_SEND", "ALL_DOMAIN_READY_NO_SEND", "SCIENTIFIC_BLOCKERS_REMAIN", "JOURNAL_PACKAGE_REPAIR_REQUIRED", "SCIENTIFIC_CONTENT_CLOSURE_RUNNING"})
+        self.assertIn(summary["release_state"], {"OC_CORE_1_3_3_PLATINUM_READY_NO_SEND", "ALL_DOMAIN_READY_NO_SEND", "OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND", "SCIENTIFIC_BLOCKERS_REMAIN", "JOURNAL_PACKAGE_REPAIR_REQUIRED", "SCIENTIFIC_CONTENT_CLOSURE_RUNNING"})
         self.assertIn(summary["master_verdict"], {"PASS", "FAIL"})
         self.assertFalse(summary["publish_allowed"])
         self.assertFalse(summary["journal_submissions_allowed"])
@@ -759,7 +1057,13 @@ class ReleaseMachineTests(unittest.TestCase):
             self.assertEqual(gates["G70"]["state"], "PASS")
             self.assertEqual(summary["gate_counts"]["PASS"], 71)
             self.assertEqual(summary["content_closure_state"], "PASS")
-            self.assertTrue(summary["all_domain_ready_no_send"])
+            self.assertTrue(summary["all_domain_ready_no_send"] or summary["external_review_ready_no_send"])
+            if summary["release_state"] == "OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND":
+                self.assertFalse(summary["all_domain_ready_no_send"])
+                self.assertTrue(summary["external_review_ready_no_send"])
+                self.assertIn("grand_toe_claim_ledger_evidence", summary["all_domain_blocker_ids"])
+                self.assertIn("modern_science_comparator_superiority", summary["all_domain_blocker_ids"])
+                self.assertEqual(len(summary["all_domain_missing_empirical_domains"]), 0)
         elif summary["release_state"] == "SCIENTIFIC_CONTENT_CLOSURE_RUNNING":
             self.assertEqual(summary["technical_gate_state"], "OC_CORE_1_3_3_10_10_READY_NO_SEND")
             self.assertEqual(gates["G57"]["state"], "PASS")

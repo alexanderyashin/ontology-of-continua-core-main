@@ -1,0 +1,24 @@
+{
+  "schema_id": "LOGION_RESOURCE_POLICY_v1",
+  "generated_at": "2026-04-28T00:00:00Z",
+  "external_llm_daily_budget_tokens": 2000000,
+  "external_llm_budget_owner": "Strategy HQ/K6 under owner control",
+  "external_llm_default_mode": "SPARSE_MILESTONE_REVIEW",
+  "host_compute_policy": "ALLOWED_WITHIN_SAFETY_PROTOCOL",
+  "internal_llm_policy": "USE_FOR_NON_RELEASE_CRITICAL_BACKGROUND_WORK_WHEN_AVAILABLE",
+  "budget_override_action": "REQUEST_EXTRA_LLM_BUDGET",
+  "budget_override_effect": "records owner request only; does not automatically unlock spending",
+  "broad_review_allowed_when": [
+    "release-critical deterministic blocker delta exists",
+    "journal package milestone is ready for adversarial review",
+    "owner explicitly approves a budget override"
+  ],
+  "forbidden_spend_patterns": [
+    "full Cerberus reruns while deterministic blockers are unchanged",
+    "parallel subagents without disjoint write scopes and expected blocker delta",
+    "planning-only work orders executed as scientific repair"
+  ],
+  "no_send": true,
+  "publish_allowed": false,
+  "journal_submissions_allowed": false
+}

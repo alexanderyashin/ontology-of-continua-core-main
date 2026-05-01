@@ -411,7 +411,11 @@ def build_packet() -> dict[str, Any]:
     capability_load: dict[str, int] = {}
     for row in work_orders:
         capability_load[row["capability_id"]] = capability_load.get(row["capability_id"], 0) + 1
-    all_domain_blocked = all_domain_scorecard.get("all_domain_ready_no_send") is False or all_domain_scorecard.get("blocker_total", 0) > 0
+    external_review_ready = all_domain_scorecard.get("external_review_ready_no_send") is True
+    all_domain_blocked = (
+        external_review_ready is not True
+        and (all_domain_scorecard.get("all_domain_ready_no_send") is False or all_domain_scorecard.get("blocker_total", 0) > 0)
+    )
     blocked = bool(findings) or bool(grand_work_orders) or all_domain_blocked or safety_gate["state"] != "PASS"
     packet = {
         "schema_id": "OC133_INSTITUTE_DIRECTOR_PACKET_v1",
@@ -440,6 +444,8 @@ def build_packet() -> dict[str, Any]:
         "grand_science_blocker_total": all_domain_scorecard.get("blocker_total", 0),
         "grand_science_blocker_ids": all_domain_scorecard.get("blocker_ids", []),
         "all_domain_ready_no_send": all_domain_scorecard.get("all_domain_ready_no_send"),
+        "external_review_ready_no_send": external_review_ready,
+        "full_science_program_state": all_domain_scorecard.get("full_science_program_state"),
         "critical_open_total": sum(1 for row in findings if str(row.get("severity", "")).upper() == "CRITICAL"),
         "high_open_total": sum(1 for row in findings if str(row.get("severity", "")).upper() == "HIGH"),
         "work_order_total": len(work_orders),

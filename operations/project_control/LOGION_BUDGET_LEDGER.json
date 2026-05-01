@@ -1,0 +1,39 @@
+{
+  "schema_id": "LOGION_BUDGET_LEDGER_v1",
+  "generated_at": "2026-04-28T00:00:00Z",
+  "daily_external_llm_budget_tokens": 2000000,
+  "daily_external_llm_spent_tokens_recorded": 0,
+  "daily_external_llm_remaining_tokens_recorded": 2000000,
+  "host_compute_allowed": true,
+  "budget_override_action": "REQUEST_EXTRA_LLM_BUDGET",
+  "budget_override_requested": false,
+  "budget_override_approved": false,
+  "budget_rows": [
+    {
+      "workstream_id": "OC133_RELEASE_FOREGROUND",
+      "external_llm_token_budget": 500000,
+      "policy": "release-critical review only"
+    },
+    {
+      "workstream_id": "OC_FULL_SCIENCE_BACKGROUND",
+      "external_llm_token_budget": 1500000,
+      "policy": "background research contour; local host first"
+    },
+    {
+      "workstream_id": "ESTRA_TOOLKIT",
+      "external_llm_token_budget": 0,
+      "policy": "use internal/local mechanisms unless separately budgeted"
+    },
+    {
+      "workstream_id": "EA2O",
+      "external_llm_token_budget": 0,
+      "policy": "use internal/local mechanisms unless separately budgeted"
+    }
+  ],
+  "release_state": "OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND",
+  "input_refs": [
+    "operations/project_control/LOGION_WORKSTREAM_PORTFOLIO.json",
+    "operations/project_control/LOGION_RESOURCE_POLICY.json"
+  ],
+  "ledger_hash": "6047a2fc57e8b49388176c76fa70eac6311fc3374c0b7e2b263355667ae88786"
+}

@@ -15,11 +15,17 @@ MISSION_ID = "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION"
 MISSION_DIR_REL = "operations/logion_release_mission/oc_core_1_3_3"
 ALL_DOMAIN_STATE_RUNNING = "OC_CORE_1_3_3_ALL_DOMAIN_SCIENTIFIC_READINESS_RUNNING"
 ALL_DOMAIN_READY_STATE = "ALL_DOMAIN_READY_NO_SEND"
-REQUIRED_EMPIRICAL_DOMAINS = ("physics", "chemistry", "biology", "systems", "mathematics")
+EXTERNAL_REVIEW_READY_STATE = "OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND"
+FULL_SCIENCE_PROGRAM_RUNNING_STATE = "OC_FULL_SCIENCE_PROGRAM_RUNNING"
+REQUIRED_EMPIRICAL_DOMAINS = ("physics", "chemistry", "biology", "systems")
+REQUIRED_FORMAL_DOMAINS = ("mathematics",)
 MODERN_SCIENCE_COMPARATOR_REGISTER_REL = "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json"
 GRAND_EMPIRICAL_REPORT_REL = "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json"
 GRAND_TOE_FORMAL_OBLIGATION_LEDGER_REL = "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json"
 GRAND_PROMOTION_CONTRACT_REL = "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json"
+MATHEMATICS_FORMAL_SUPPORT_REPORT_REL = (
+    "validation/heldout/grand_science/mathematics/OC133_MATHEMATICS_EVIDENCE_EXECUTION_REPORT.json"
+)
 GRAND_SCIENCE_CLAIM_CLASSES = (
     "numerically_proven_toe",
     "all_domain_numerical_prediction",
@@ -274,7 +280,8 @@ def _all_domain_empirical_audit(root: Path) -> dict[str, Any]:
     passed_domains = sorted({
         str(row.get("lane"))
         for row in rows
-        if row.get("prediction_support_allowed") is True
+        if str(row.get("lane")) in REQUIRED_EMPIRICAL_DOMAINS
+        and row.get("prediction_support_allowed") is True
         and row.get("empirical_support_allowed") is True
         and row.get("negative_control_rejected") is True
         and row.get("residual") is not None
@@ -337,6 +344,131 @@ def _all_domain_empirical_audit(root: Path) -> dict[str, Any]:
     }
 
 
+def _refs_exist(root: Path, refs: list[str]) -> bool:
+    return all((root / ref.split("::", 1)[0]).exists() for ref in refs)
+
+
+def _hash_is_valid(value: Any) -> bool:
+    return isinstance(value, str) and len(value) == 64 and all(ch in "0123456789abcdef" for ch in value.lower())
+
+
+def _ref_path_exists(root: Path, ref: str) -> bool:
+    return bool(ref) and (root / ref.split("::", 1)[0].split("#", 1)[0]).exists()
+
+
+def _critical_high_blocker_total(*payloads: dict[str, Any]) -> int:
+    total = 0
+    counter_names = (
+        "critical_open_total",
+        "high_open_total",
+        "critical_blocker_total",
+        "high_blocker_total",
+        "formal_critical_open_total",
+        "formal_high_open_total",
+    )
+    for payload in payloads:
+        for name in counter_names:
+            try:
+                total += int(payload.get(name, 0) or 0)
+            except (TypeError, ValueError):
+                total += 1
+        blockers = payload.get("blockers", [])
+        if isinstance(blockers, list):
+            total += sum(1 for blocker in blockers if str(blocker).upper().startswith(("CRITICAL", "HIGH")))
+    return total
+
+
+def _mathematics_formal_support_audit(root: Path) -> dict[str, Any]:
+    report_path = root / MATHEMATICS_FORMAL_SUPPORT_REPORT_REL
+    report = read_json(report_path)
+    domains = report.get("domains", []) if isinstance(report.get("domains"), list) else []
+    math_row = next((row for row in domains if isinstance(row, dict) and row.get("domain") == "mathematics"), {})
+    pack_ref = str(math_row.get("candidate_pack_ref") or "")
+    pack_path = root / pack_ref if pack_ref else Path()
+    pack = read_json(pack_path) if pack_ref else {}
+
+    theorem_refs = math_row.get("formal_theorem_ids") or pack.get("theorem_ids") or []
+    proof_refs = math_row.get("formal_proof_sheet_refs") or pack.get("proof_sheet_refs") or []
+    lean_refs = math_row.get("formal_lean_refs") or pack.get("lean_refs") or []
+    finite_refs = math_row.get("formal_finite_case_ids") or pack.get("finite_case_ids") or []
+    if not isinstance(theorem_refs, list):
+        theorem_refs = []
+    if not isinstance(proof_refs, list):
+        proof_refs = []
+    if not isinstance(lean_refs, list):
+        lean_refs = []
+    if not isinstance(finite_refs, list):
+        finite_refs = []
+
+    report_sha256 = report.get("report_sha256")
+    report_hash_valid = (
+        _hash_is_valid(report_sha256)
+        and sha256_object({key: value for key, value in report.items() if key != "report_sha256"}) == report_sha256
+    )
+    candidate_pack_sha256 = math_row.get("candidate_pack_sha256")
+    candidate_hash_valid = (
+        bool(pack)
+        and _hash_is_valid(candidate_pack_sha256)
+        and sha256_object(pack) == candidate_pack_sha256
+    )
+    exact_formal_refs_present = (
+        bool(theorem_refs)
+        and bool(proof_refs)
+        and bool(lean_refs)
+        and bool(finite_refs)
+        and _refs_exist(root, [str(ref) for ref in proof_refs])
+        and _refs_exist(root, [str(ref) for ref in lean_refs])
+    )
+    formal_support_reference_present = exact_formal_refs_present or report_hash_valid
+    critical_high_blocker_total = _critical_high_blocker_total(report, math_row, pack)
+    ok = (
+        report_path.exists()
+        and report.get("release_id") == RELEASE_ID
+        and report.get("capability_owner") == "Research/FormalScience"
+        and report.get("formal_support_allowed_total", 0) >= 1
+        and report.get("valid_under_executor_total", 0) >= 1
+        and report.get("valid_pack_total", 0) >= 1
+        and int(report.get("blocked_pack_total", 1) or 0) == 0
+        and int(report.get("blocked_domain_total", 1) or 0) == 0
+        and math_row.get("support_route") == "formal"
+        and math_row.get("formal_support_allowed") is True
+        and math_row.get("formal_support_verdict") == "FORMAL_SUPPORT_ACCEPTED"
+        and math_row.get("empirical_support_allowed") is False
+        and pack.get("formal_support_allowed") is True
+        and pack.get("empirical_support_allowed") is False
+        and exact_formal_refs_present
+        and formal_support_reference_present
+        and critical_high_blocker_total == 0
+    )
+    return {
+        "state": _state(ok),
+        "required_formal_domains": list(REQUIRED_FORMAL_DOMAINS),
+        "domain": "mathematics",
+        "formal_support_report_ref": MATHEMATICS_FORMAL_SUPPORT_REPORT_REL,
+        "formal_support_report_exists": report_path.exists(),
+        "formal_support_report_sha256": report_sha256,
+        "formal_support_report_hash_valid": report_hash_valid,
+        "candidate_pack_ref": pack_ref,
+        "candidate_pack_exists": bool(pack_ref) and pack_path.exists(),
+        "candidate_pack_sha256": candidate_pack_sha256,
+        "candidate_pack_hash_valid": candidate_hash_valid,
+        "formal_support_reference_present": formal_support_reference_present,
+        "support_route": math_row.get("support_route"),
+        "formal_support_allowed": math_row.get("formal_support_allowed"),
+        "formal_support_verdict": math_row.get("formal_support_verdict"),
+        "empirical_support_allowed": math_row.get("empirical_support_allowed"),
+        "exact_formal_refs_present": exact_formal_refs_present,
+        "theorem_ref_total": len(theorem_refs),
+        "proof_sheet_ref_total": len(proof_refs),
+        "lean_ref_total": len(lean_refs),
+        "finite_case_ref_total": len(finite_refs),
+        "critical_high_blocker_total": critical_high_blocker_total,
+        "valid_under_executor_total": report.get("valid_under_executor_total"),
+        "blocked_domain_total": report.get("blocked_domain_total"),
+        "blocker": "Mathematics readiness closes through the formal route only: theorem IDs, proof sheets, Lean refs, finite cases, formal support references, and zero critical/high formal blockers. It must not count as empirical grand evidence.",
+    }
+
+
 def _grand_science_toe_ambition_audit(
     root: Path,
     claims: dict[str, Any],
@@ -396,7 +528,7 @@ def _grand_science_toe_ambition_audit(
         elif is_promoted or any(token in row_text for token in ("numerically proven", "predicts better", "all-domain")):
             grand_claims_missing_formal_artifacts.append(row.get("claim_id"))
 
-    per_domain_superiority: dict[str, dict[str, Any]] = {}
+    bounded_target_blind_diagnostics: dict[str, dict[str, Any]] = {}
     for row in target_rows:
         domain = str(row.get("lane"))
         if domain not in REQUIRED_EMPIRICAL_DOMAINS:
@@ -415,7 +547,7 @@ def _grand_science_toe_ambition_audit(
             or row.get("broad_domain_validation_support_allowed") is True
             or row.get("modern_science_superiority_support_allowed") is True
         )
-        per_domain_superiority[domain] = {
+        bounded_target_blind_diagnostics[domain] = {
             "claim_id": row.get("claim_id"),
             "target_blind_or_heldout": target_blind_or_heldout,
             "prediction_support_allowed": row.get("prediction_support_allowed") is True,
@@ -439,11 +571,6 @@ def _grand_science_toe_ambition_audit(
                 and row.get("negative_control_rejected") is True
             ),
         }
-    missing_superiority_domains = [
-        domain
-        for domain in REQUIRED_EMPIRICAL_DOMAINS
-        if not per_domain_superiority.get(domain, {}).get("passes_strict_predictive_superiority")
-    ]
     grand_empirical_domains = (
         grand_empirical_report.get("domains", [])
         if isinstance(grand_empirical_report.get("domains"), list)
@@ -454,23 +581,170 @@ def _grand_science_toe_ambition_audit(
         for row in grand_empirical_domains
         if isinstance(row, dict) and row.get("domain")
     }
+    grand_empirical_candidate_rows = (
+        grand_empirical_report.get("candidate_rows", [])
+        if isinstance(grand_empirical_report.get("candidate_rows"), list)
+        else []
+    )
+    grand_empirical_required_domains = grand_empirical_report.get(
+        "empirical_required_domains",
+        grand_empirical_report.get("required_domains", []),
+    )
+    if not isinstance(grand_empirical_required_domains, list):
+        grand_empirical_required_domains = []
+    grand_empirical_formal_required_domains = grand_empirical_report.get("formal_required_domains", [])
+    if not isinstance(grand_empirical_formal_required_domains, list):
+        grand_empirical_formal_required_domains = []
+    grand_empirical_formal_route_status = (
+        grand_empirical_report.get("formal_route_status", [])
+        if isinstance(grand_empirical_report.get("formal_route_status"), list)
+        else []
+    )
+    grand_empirical_mathematics_formal_route_present = any(
+        isinstance(row, dict)
+        and row.get("domain") == "mathematics"
+        and row.get("support_route") == "formal"
+        and row.get("empirical_support_allowed") is False
+        and row.get("grand_empirical_support_allowed") is False
+        for row in grand_empirical_formal_route_status
+    )
+    grand_empirical_route_split_ok = (
+        set(str(domain) for domain in grand_empirical_required_domains) == set(REQUIRED_EMPIRICAL_DOMAINS)
+        and set(str(domain) for domain in grand_empirical_formal_required_domains) >= set(REQUIRED_FORMAL_DOMAINS)
+        and grand_empirical_mathematics_formal_route_present
+    )
+    selected_grand_empirical_rows_by_domain: dict[str, list[dict[str, Any]]] = {
+        domain: [] for domain in REQUIRED_EMPIRICAL_DOMAINS
+    }
+    selected_grand_empirical_nonempirical_domains = sorted({
+        str(row.get("domain"))
+        for row in grand_empirical_candidate_rows
+        if isinstance(row, dict)
+        and row.get("selected_for_domain_support") is True
+        and str(row.get("domain")) not in REQUIRED_EMPIRICAL_DOMAINS
+    })
+    for row in grand_empirical_candidate_rows:
+        if not isinstance(row, dict) or row.get("selected_for_domain_support") is not True:
+            continue
+        domain = str(row.get("domain"))
+        if domain in selected_grand_empirical_rows_by_domain:
+            selected_grand_empirical_rows_by_domain[domain].append(row)
+
+    strict_domain_results: dict[str, dict[str, Any]] = {}
+    for domain in REQUIRED_EMPIRICAL_DOMAINS:
+        domain_row = grand_empirical_domain_results.get(domain, {})
+        valid_pack_refs = domain_row.get("valid_pack_refs", [])
+        if not isinstance(valid_pack_refs, list):
+            valid_pack_refs = []
+        valid_pack_refs = [str(ref) for ref in valid_pack_refs if str(ref)]
+        selected_rows = selected_grand_empirical_rows_by_domain[domain]
+        selected_pack_refs = [str(row.get("source_ref") or "") for row in selected_rows if str(row.get("source_ref") or "")]
+        selected_candidate_sha256s = [
+            str(row.get("candidate_sha256") or "")
+            for row in selected_rows
+            if str(row.get("candidate_sha256") or "")
+        ]
+        selected_pack_refs_present = bool(selected_pack_refs) and all(
+            _ref_path_exists(root, pack_ref) for pack_ref in selected_pack_refs
+        )
+        selected_pack_hashes_valid = bool(selected_rows) and all(
+            _hash_is_valid(row.get("candidate_sha256"))
+            and _ref_path_exists(root, str(row.get("source_ref") or ""))
+            and sha256_object(read_json(root / str(row.get("source_ref")).split("::", 1)[0].split("#", 1)[0]))
+            == row.get("candidate_sha256")
+            for row in selected_rows
+        )
+        selected_pack_refs_registered_valid = bool(selected_pack_refs) and all(
+            pack_ref in valid_pack_refs for pack_ref in selected_pack_refs
+        )
+        selected_rows_are_strict_support = bool(selected_rows) and all(
+            row.get("valid_for_grand_support") is True
+            and (
+                row.get("empirical_domain_support_allowed") is True
+                or (
+                    row.get("empirical_domain_support_allowed") is None
+                    and row.get("grand_toe_support_allowed") is True
+                )
+            )
+            and row.get("formal_only_pack") is False
+            and int(row.get("failure_total", 1) or 0) == 0
+            and str(row.get("supersession_status", "")).lower() == "current"
+            for row in selected_rows
+        )
+        domain_passes_strict = (
+            bool(domain_row)
+            and (
+                domain_row.get("empirical_domain_support_allowed") is True
+                or (
+                    domain_row.get("empirical_domain_support_allowed") is None
+                    and domain_row.get("grand_toe_support_allowed") is True
+                )
+            )
+            and str(domain_row.get("status", "")).upper() != "BLOCKED"
+            and int(domain_row.get("valid_pack_total", 0) or 0) >= 1
+            and selected_rows_are_strict_support
+            and selected_pack_refs_registered_valid
+            and selected_pack_refs_present
+            and selected_pack_hashes_valid
+        )
+        strict_domain_results[domain] = {
+            "source": "strict_grand_empirical_report_selected_valid_packs",
+            "domain_status": domain_row.get("status"),
+            "empirical_domain_support_allowed": (
+                domain_row.get("empirical_domain_support_allowed") is True
+                or (
+                    domain_row.get("empirical_domain_support_allowed") is None
+                    and domain_row.get("grand_toe_support_allowed") is True
+                )
+            ),
+            "grand_toe_support_allowed": False,
+            "grand_toe_support_scope": domain_row.get("grand_toe_support_scope"),
+            "valid_pack_total": domain_row.get("valid_pack_total"),
+            "valid_pack_refs": valid_pack_refs,
+            "selected_pack_refs": selected_pack_refs,
+            "selected_candidate_sha256s": selected_candidate_sha256s,
+            "selected_pack_refs_present": selected_pack_refs_present,
+            "selected_pack_hashes_valid": selected_pack_hashes_valid,
+            "selected_pack_refs_registered_valid": selected_pack_refs_registered_valid,
+            "selected_rows_are_strict_support": selected_rows_are_strict_support,
+            "selected_n_total": sum(int(row.get("n", 0) or 0) for row in selected_rows),
+            "minimum_n": domain_row.get("minimum_n"),
+            "valid_n": domain_row.get("valid_n"),
+            "bounded_baseline_refs": domain_row.get("bounded_baseline_refs", []),
+            "bounded_baseline_row_total": domain_row.get("bounded_baseline_row_total"),
+            "passes_strict_predictive_superiority": domain_passes_strict,
+        }
     grand_empirical_supported_domains = sorted(
         domain
-        for domain, row in grand_empirical_domain_results.items()
-        if row.get("grand_toe_support_allowed") is True
-        and str(row.get("status", "")).upper() != "BLOCKED"
+        for domain, row in strict_domain_results.items()
+        if row.get("passes_strict_predictive_superiority") is True
     )
     missing_grand_empirical_domains = [
         domain
         for domain in REQUIRED_EMPIRICAL_DOMAINS
         if domain not in grand_empirical_supported_domains
     ]
+    missing_superiority_domains = missing_grand_empirical_domains
     grand_empirical_ok = (
         grand_empirical_report_path.exists()
         and grand_empirical_report.get("release_id") == RELEASE_ID
-        and grand_empirical_report.get("grand_toe_support_allowed") is True
+        and grand_empirical_report.get("verdict")
+        in {"EMPIRICAL_DOMAIN_SUPPORT_ALLOWED", "GRAND_EMPIRICAL_SUPPORT_ALLOWED"}
+        and (
+            grand_empirical_report.get("empirical_domain_support_allowed") is True
+            or (
+                grand_empirical_report.get("empirical_domain_support_allowed") is None
+                and grand_empirical_report.get("grand_toe_support_allowed") is True
+            )
+        )
+        and grand_empirical_report.get("domain_predictive_superiority_supported") is True
+        and grand_empirical_route_split_ok
         and int(grand_empirical_report.get("blocked_domain_total", 1) or 0) == 0
+        and int(grand_empirical_report.get("blocked_empirical_domain_total", 1) or 0) == 0
+        and int(grand_empirical_report.get("registry_failure_total", 1) or 0) == 0
+        and int(grand_empirical_report.get("valid_evidence_pack_total", 0) or 0) >= len(REQUIRED_EMPIRICAL_DOMAINS)
         and all(domain in grand_empirical_supported_domains for domain in REQUIRED_EMPIRICAL_DOMAINS)
+        and not selected_grand_empirical_nonempirical_domains
     )
 
     comparator_rows = comparator_register.get("rows", []) if isinstance(comparator_register.get("rows"), list) else []
@@ -572,21 +846,46 @@ def _grand_science_toe_ambition_audit(
             "state": _state(empirical_superiority_ok),
             "requested_ambition_level": GRAND_SCIENCE_REQUESTED_AMBITION,
             "required_domains": list(REQUIRED_EMPIRICAL_DOMAINS),
-            "strict_domain_results": per_domain_superiority,
+            "strict_domain_results": strict_domain_results,
             "missing_or_not_superior_domains": missing_superiority_domains,
             "grand_empirical_report_ref": GRAND_EMPIRICAL_REPORT_REL,
             "grand_empirical_report_exists": grand_empirical_report_path.exists(),
             "grand_empirical_verdict": grand_empirical_report.get("verdict"),
+            "empirical_domain_support_allowed": grand_empirical_report.get("empirical_domain_support_allowed"),
+            "empirical_domain_predictive_superiority_supported": grand_empirical_report.get(
+                "empirical_domain_predictive_superiority_supported",
+                grand_empirical_report.get("domain_predictive_superiority_supported"),
+            ),
+            "grand_empirical_support_allowed": False,
+            "grand_empirical_support_scope": grand_empirical_report.get("grand_toe_support_scope"),
+            "grand_empirical_domain_predictive_superiority_supported": False,
+            "grand_toe_claim_promotion_allowed": grand_empirical_report.get("grand_toe_claim_promotion_allowed"),
+            "final_theory_or_toe_promotion_allowed": grand_empirical_report.get("final_theory_or_toe_promotion_allowed"),
+            "broad_modern_science_coverage_promotion_allowed": grand_empirical_report.get(
+                "broad_modern_science_coverage_promotion_allowed"
+            ),
+            "modern_science_superiority_promotion_allowed": grand_empirical_report.get(
+                "modern_science_superiority_promotion_allowed"
+            ),
             "grand_empirical_blocked_domain_total": grand_empirical_report.get("blocked_domain_total"),
+            "grand_empirical_blocked_empirical_domain_total": grand_empirical_report.get("blocked_empirical_domain_total"),
             "grand_empirical_evidence_pack_total": grand_empirical_report.get("evidence_pack_total"),
+            "grand_empirical_valid_evidence_pack_total": grand_empirical_report.get("valid_evidence_pack_total"),
+            "grand_empirical_required_domains": grand_empirical_required_domains,
+            "grand_empirical_formal_required_domains": grand_empirical_formal_required_domains,
+            "grand_empirical_route_split_ok": grand_empirical_route_split_ok,
+            "grand_empirical_mathematics_formal_route_present": grand_empirical_mathematics_formal_route_present,
+            "grand_empirical_formal_route_status": grand_empirical_formal_route_status,
             "grand_empirical_supported_domains": grand_empirical_supported_domains,
             "grand_empirical_missing_domains": missing_grand_empirical_domains,
             "grand_empirical_domain_results": grand_empirical_domain_results,
+            "grand_empirical_selected_nonempirical_domains": selected_grand_empirical_nonempirical_domains,
             "bounded_target_blind_rows_visible_not_final": len(target_rows),
+            "bounded_target_blind_diagnostics": bounded_target_blind_diagnostics,
             "target_blind_generated_by": target.get("generated_by"),
             "target_blind_capability_owner": target.get("capability_owner"),
-            "blocker": "Grand all-domain claims require target-blind or held-out predictive evidence that beats a comparator baseline in every required domain; mere artifact existence is not enough.",
-            "required_evidence_layer": "Each per-domain empirical row must explicitly set grand_toe_support_allowed after target-blind/held-out scoring beats the comparator, and the strict grand empirical report must clear every required domain.",
+            "blocker": "Grand all-domain claims still require separate formal grand-claim and modern-science comparator gates. This check consumes only the strict empirical-domain report and keeps bounded target-blind rows as baseline diagnostics.",
+            "required_evidence_layer": "Each empirical domain must be selected by the strict empirical-domain report with empirical_domain_support_allowed=true, zero blocked domains, present pack refs, matching candidate hashes, and mathematics routed formally rather than counted as empirical evidence.",
         },
         "modern_science_comparator_superiority": {
             "state": _state(comparator_ok),
@@ -652,6 +951,7 @@ def all_domain_readiness_audit(root: Path, base_audit: dict[str, Any] | None = N
     base_audit = base_audit or {}
     journal = _journal_package_audit(root)
     empirical = _all_domain_empirical_audit(root)
+    mathematics_formal = _mathematics_formal_support_audit(root)
     overclaim = _package_surface_overclaim_audit(root)
     journal_send = _journal_send_readiness_audit(root, journal)
     claims = read_json(root / "claims" / "CLAIM_LEDGER_1_3_3.json")
@@ -671,6 +971,7 @@ def all_domain_readiness_audit(root: Path, base_audit: dict[str, Any] | None = N
     )
     checks = {
         "all_domain_empirical_predictions": empirical,
+        "mathematics_formal_support": mathematics_formal,
         "claim_boundary_no_overclaim": overclaim,
         "journal_owner_review_packages": journal,
         "journal_send_readiness_minus_owner_lock": journal_send,
@@ -691,8 +992,30 @@ def all_domain_readiness_audit(root: Path, base_audit: dict[str, Any] | None = N
     }
     checks.update(grand_science)
     blockers = {key: row for key, row in checks.items() if row.get("state") != "PASS"}
+    external_review_remaining_blockers = {
+        "grand_toe_claim_ledger_evidence",
+        "modern_science_comparator_superiority",
+    }
+    external_review_required_checks = (
+        "all_domain_empirical_predictions",
+        "mathematics_formal_support",
+        "claim_boundary_no_overclaim",
+        "journal_owner_review_packages",
+        "journal_send_readiness_minus_owner_lock",
+        "formal_theorem_evidence",
+        "cerberus_critical_high",
+        "grand_toe_empirical_superiority",
+        "broad_domain_validation_promotion_guard",
+    )
+    external_review_ready = (
+        bool(blockers)
+        and set(blockers).issubset(external_review_remaining_blockers)
+        and all(checks.get(key, {}).get("state") == "PASS" for key in external_review_required_checks)
+    )
     if "journal_owner_review_packages" in blockers or "journal_send_readiness_minus_owner_lock" in blockers:
         final_state = "JOURNAL_PACKAGE_REPAIR_REQUIRED"
+    elif external_review_ready:
+        final_state = EXTERNAL_REVIEW_READY_STATE
     elif blockers:
         final_state = "SCIENTIFIC_BLOCKERS_REMAIN"
     else:
@@ -704,9 +1027,24 @@ def all_domain_readiness_audit(root: Path, base_audit: dict[str, Any] | None = N
         "release_id": RELEASE_ID,
         "version": VERSION,
         "generated_at": TIMESTAMP,
-        "state": ALL_DOMAIN_READY_STATE if not blockers else ALL_DOMAIN_STATE_RUNNING,
+        "state": ALL_DOMAIN_READY_STATE if not blockers else EXTERNAL_REVIEW_READY_STATE if external_review_ready else ALL_DOMAIN_STATE_RUNNING,
         "final_readiness_state": final_state,
         "all_domain_ready_no_send": not blockers,
+        "external_review_ready_no_send": external_review_ready or not blockers,
+        "external_review_release_bar": {
+            "state": "PASS" if external_review_ready or not blockers else "FAIL",
+            "release_state_on_pass": EXTERNAL_REVIEW_READY_STATE,
+            "allowed_remaining_research_blockers": sorted(external_review_remaining_blockers),
+            "actual_remaining_blockers": list(blockers),
+            "required_checks": list(external_review_required_checks),
+            "claim_policy": (
+                "1.3.3 may promote bounded cross-domain model-core support, not total TOE, "
+                "all-domain numerical closure, or better-than-all-modern-science claims."
+            ),
+        },
+        "full_science_program_state": "COMPLETED_FOR_ALL_DOMAIN_CLOSURE" if not blockers else FULL_SCIENCE_PROGRAM_RUNNING_STATE,
+        "full_science_remaining_blocker_total": len(blockers),
+        "full_science_remaining_blocker_ids": list(blockers),
         "bounded_all_domain_readiness_visible_not_final": True,
         "bounded_all_domain_ready_no_send": empirical.get("state") == "PASS",
         "blocker_total": len(blockers),
@@ -1099,6 +1437,39 @@ def build_all_domain_work_orders(blocker_checks: dict[str, dict[str, Any]]) -> l
             block_condition="If a domain cannot honestly close, keep ALL_DOMAIN_SCIENTIFIC_READINESS_RUNNING and do not claim TOE/all-domain prediction readiness.",
         ))
         idx += 1
+    if "mathematics_formal_support" in blocker_checks:
+        row = blocker_checks["mathematics_formal_support"]
+        orders.append(_work_order(
+            idx=idx,
+            capability="Research/FormalScience",
+            title="Close mathematics through formal theorem/proof/Lean/finite support",
+            severity="CRITICAL",
+            artifacts=[
+                MATHEMATICS_FORMAL_SUPPORT_REPORT_REL,
+                "validation/heldout/grand_science/mathematics/mathematics_candidate_evidence_pack.json",
+                "proofs/THEOREM_REGISTRY_1_3_3.json",
+                "proofs/proof_sheets/",
+                "formal/lean/OC133V12.lean",
+                "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+            ],
+            before_predicate=(
+                f"formal_support_allowed={row.get('formal_support_allowed')} "
+                f"exact_formal_refs_present={row.get('exact_formal_refs_present')} "
+                f"critical_high_blocker_total={row.get('critical_high_blocker_total')}"
+            ),
+            after_predicate="mathematics formal_support_allowed=true, empirical_support_allowed=false, exact theorem/proof/Lean/finite refs or formal support report hash bound, critical_high_blocker_total=0",
+            verification_command="python validation/heldout/domain_evidence/mathematics_evidence_executor.py && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
+            closure_evidence_required=[
+                "formal support execution report hash",
+                "candidate pack hash",
+                "theorem IDs",
+                "proof sheet refs",
+                "Lean theorem refs",
+                "finite positive/negative case IDs",
+            ],
+            block_condition="Do not substitute mathematics proof corpus rows into empirical evidence; keep mathematics blocked until the formal route passes.",
+        ))
+        idx += 1
     if "claim_boundary_no_overclaim" in blocker_checks:
         orders.append(_work_order(
             idx=idx,
@@ -1176,6 +1547,7 @@ def render_cockpit(audit: dict[str, Any]) -> str:
 
 def render_all_domain_cockpit(audit: dict[str, Any]) -> str:
     empirical = audit["checks"].get("all_domain_empirical_predictions", {})
+    mathematics_formal = audit["checks"].get("mathematics_formal_support", {})
     journal = audit["checks"].get("journal_owner_review_packages", {})
     lines = [
         "# OC Core 1.3.3 All-Domain Scientific Readiness Cockpit",
@@ -1184,6 +1556,8 @@ def render_all_domain_cockpit(audit: dict[str, Any]) -> str:
         f"State: `{audit['state']}`",
         f"Final readiness state: `{audit['final_readiness_state']}`",
         f"All-domain ready no-send: `{str(audit['all_domain_ready_no_send']).lower()}`",
+        f"External-review ready no-send: `{str(audit.get('external_review_ready_no_send', False)).lower()}`",
+        f"Full science program: `{audit.get('full_science_program_state', 'UNKNOWN')}`",
         f"Blockers: `{audit['blocker_total']}`",
         f"Next automatic action: `{audit['next_automatic_action']}`",
         "Public action allowed: `false`",
@@ -1194,6 +1568,7 @@ def render_all_domain_cockpit(audit: dict[str, Any]) -> str:
         f"- Required empirical domains: `{len(REQUIRED_EMPIRICAL_DOMAINS)}`",
         f"- Passed empirical domains: `{empirical.get('passed_domain_total', 0)}`",
         f"- Missing empirical domains: `{empirical.get('missing_domain_total', 0)}`",
+        f"- Mathematics formal support: `{mathematics_formal.get('state', 'FAIL')}`",
         f"- Journal owner-review packages: `{journal.get('package_total', 0)}`",
         "",
         "## Capability Checks",
@@ -1205,6 +1580,7 @@ def render_all_domain_cockpit(audit: dict[str, Any]) -> str:
         counter = ""
         for candidate in (
             "missing_domain_total",
+            "theorem_ref_total",
             "hit_total",
             "package_total",
             "bad_send_unlock_total",

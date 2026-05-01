@@ -1,6 +1,6 @@
 # OC Core 1.3.3 Release Scorecard
 
-Release state: `SCIENTIFIC_BLOCKERS_REMAIN`
+Release state: `OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND`
 Publish allowed: `false`
 
 | Gate | Name | State | Severity |

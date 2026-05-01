@@ -237,7 +237,8 @@ def build_packet(commands: list[dict[str, Any]]) -> dict[str, Any]:
         all_domain_blockers = []
     open_total = len(cerb["open_findings"])
     all_domain_ready = all_domain.get("all_domain_ready_no_send") is True and not all_domain_blockers
-    ready = open_total == 0 and release_master == "PASS" and content_state == "PASS" and all_domain_ready
+    external_review_ready = all_domain.get("external_review_ready_no_send") is True
+    ready = open_total == 0 and release_master == "PASS" and content_state == "PASS" and (all_domain_ready or external_review_ready)
     packet = {
         "schema_id": "OC133_STRATEGY_HQ_BRIDGE_PACKET_v1",
         "release_id": "oc_core_1_3_3",
@@ -259,6 +260,8 @@ def build_packet(commands: list[dict[str, Any]]) -> dict[str, Any]:
         "content_blocker_ids": content_blockers,
         "all_domain_scientific_readiness_state": all_domain.get("state"),
         "all_domain_ready_no_send": all_domain.get("all_domain_ready_no_send"),
+        "external_review_ready_no_send": external_review_ready,
+        "full_science_program_state": all_domain.get("full_science_program_state"),
         "all_domain_blocker_total": len(all_domain_blockers),
         "all_domain_blocker_ids": all_domain_blockers,
         "capability_graph_ref": rel(CAPABILITY_GRAPH),

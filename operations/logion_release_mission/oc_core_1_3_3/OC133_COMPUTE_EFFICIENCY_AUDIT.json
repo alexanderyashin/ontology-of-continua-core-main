@@ -16,12 +16,12 @@
     {
       "ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_WORK_ORDERS.json",
       "exists": true,
-      "sha256": "6ec661e831280cbd701ba6e531c32ea0d267192e3c6be24d299e3ee1f43e3a09"
+      "sha256": "22a688a1289070311fd48efe36ce80782805519b132f967ea71f8257056cb51c"
     },
     {
       "ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_READINESS_SCORECARD.json",
       "exists": true,
-      "sha256": "1f3e4a9fdce5922dbd9985999b6fb09e78d1673f04b8ed160ffb6a4e9b08c922"
+      "sha256": "9f588b1d5018e6e59d99bae60521e7bb88364daafa4d6ff4859b35d3da7f463b"
     },
     {
       "ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_EXECUTION_LEDGER.json",
@@ -34,24 +34,23 @@
       "sha256": "b3f06590954f94f8538efbe0d989eb249db156b45ed9b5b9e942f590edee1873"
     }
   ],
-  "input_set_sha256": "3457e67350deb9bc5094e7a1a3b3aaea2c5f86d75fe810363e59a9807998b6a2",
+  "input_set_sha256": "1f65ea73d645d868eb301a666ab9d6f475c61690c393243c3b94acc62b69a959",
   "findings": {
     "top_window": 10,
-    "top_work_order_total": 10,
+    "top_work_order_total": 2,
     "top_work_order_mode_counts": {
-      "capability_profile": 4,
-      "planning_only": 6
+      "unknown": 2
     },
-    "planning_only_top_work_order_total": 6,
-    "capability_profile_top_work_order_total": 4,
+    "planning_only_top_work_order_total": 0,
+    "capability_profile_top_work_order_total": 0,
     "domain_local_replay_top_work_order_total": 0,
-    "unknown_executor_top_work_order_total": 0,
+    "unknown_executor_top_work_order_total": 2,
     "known_blocker_total": 2,
     "known_blocker_ids": [
       "grand_toe_claim_ledger_evidence",
       "modern_science_comparator_superiority"
     ],
-    "final_readiness_state": "SCIENTIFIC_BLOCKERS_REMAIN",
+    "final_readiness_state": "OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND",
     "coverage_queue_size": 35,
     "coverage_executable_lane_total": 29,
     "execution_repetition": {
@@ -73,102 +72,22 @@
   "top_work_orders": [
     {
       "rank": 1,
-      "work_order_id": "OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-003",
-      "owner_capability": "Logion Formal Methods / Proof-Route Planning",
-      "executor_mode": "planning_queue_validation",
-      "mode_bucket": "planning_only",
-      "command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-      "closure_policy": "Planning/check execution is not scientific closure; the lane remains open until the evidence pack, comparator, controls, falsifiers, and reviewed coverage predicates pass.",
-      "planning_only_cannot_close_science": true
+      "work_order_id": "OC133-PLATINUM-WO-002",
+      "owner_capability": "Research/PriorArt",
+      "executor_mode": "unknown",
+      "mode_bucket": "unknown",
+      "command": "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
+      "closure_policy": null,
+      "planning_only_cannot_close_science": false
     },
     {
       "rank": 2,
-      "work_order_id": "OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-001",
-      "owner_capability": "Logion Formal Methods / Proof-Route Planning",
-      "executor_mode": "planning_queue_validation",
-      "mode_bucket": "planning_only",
-      "command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-      "closure_policy": "Planning/check execution is not scientific closure; the lane remains open until the evidence pack, comparator, controls, falsifiers, and reviewed coverage predicates pass.",
-      "planning_only_cannot_close_science": true
-    },
-    {
-      "rank": 3,
-      "work_order_id": "OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-002",
-      "owner_capability": "Logion Formal Methods / Proof-Route Planning",
-      "executor_mode": "planning_queue_validation",
-      "mode_bucket": "planning_only",
-      "command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-      "closure_policy": "Planning/check execution is not scientific closure; the lane remains open until the evidence pack, comparator, controls, falsifiers, and reviewed coverage predicates pass.",
-      "planning_only_cannot_close_science": true
-    },
-    {
-      "rank": 4,
-      "work_order_id": "OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-016",
-      "owner_capability": "Logion Health Evidence / Regulated Clinical and Epidemiology Sources",
-      "executor_mode": "planning_queue_validation",
-      "mode_bucket": "planning_only",
-      "command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-      "closure_policy": "Planning/check execution is not scientific closure; the lane remains open until the evidence pack, comparator, controls, falsifiers, and reviewed coverage predicates pass.",
-      "planning_only_cannot_close_science": true
-    },
-    {
-      "rank": 5,
-      "work_order_id": "OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-017",
-      "owner_capability": "Logion Health Evidence / Regulated Clinical and Epidemiology Sources",
-      "executor_mode": "planning_queue_validation",
-      "mode_bucket": "planning_only",
-      "command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-      "closure_policy": "Planning/check execution is not scientific closure; the lane remains open until the evidence pack, comparator, controls, falsifiers, and reviewed coverage predicates pass.",
-      "planning_only_cannot_close_science": true
-    },
-    {
-      "rank": 6,
-      "work_order_id": "OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-018",
-      "owner_capability": "Logion Health Evidence / Regulated Clinical and Epidemiology Sources",
-      "executor_mode": "planning_queue_validation",
-      "mode_bucket": "planning_only",
-      "command": "python benchmarks/modern_science/coverage_lane_dispatcher.py --check",
-      "closure_policy": "Planning/check execution is not scientific closure; the lane remains open until the evidence pack, comparator, controls, falsifiers, and reviewed coverage predicates pass.",
-      "planning_only_cannot_close_science": true
-    },
-    {
-      "rank": 7,
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-MODERN-SCIENCE-SUPERIORITY-CERTIFIED",
-      "owner_capability": "Research/PriorArt",
-      "executor_mode": "capability_profile",
-      "mode_bucket": "capability_profile",
-      "command": "python tools/oc133_capability_repair_executor.py --profile v12_modern_science_comparator_research_program",
-      "closure_policy": "Executor may refresh comparator artifacts, but closure requires all coverage lanes and broad predicates to pass.",
-      "planning_only_cannot_close_science": false
-    },
-    {
-      "rank": 8,
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-DEDICATED-CLAIM-ROW",
+      "work_order_id": "OC133-PLATINUM-WO-001",
       "owner_capability": "Research/FormalScience",
-      "executor_mode": "capability_profile",
-      "mode_bucket": "capability_profile",
-      "command": "python tools/oc133_capability_repair_executor.py --profile v12_grand_formal_science_research_program",
-      "closure_policy": "Executor output is evidence only; closure requires the predicate to re-audit PASS without unlocking no-send.",
-      "planning_only_cannot_close_science": false
-    },
-    {
-      "rank": 9,
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-PROMOTION-THEOREM-IDS-BOUND",
-      "owner_capability": "Research/FormalScience",
-      "executor_mode": "capability_profile",
-      "mode_bucket": "capability_profile",
-      "command": "python tools/oc133_capability_repair_executor.py --profile v12_grand_formal_science_research_program",
-      "closure_policy": "Executor output is evidence only; closure requires the predicate to re-audit PASS without unlocking no-send.",
-      "planning_only_cannot_close_science": false
-    },
-    {
-      "rank": 10,
-      "work_order_id": "OC133-ALLDOMAIN-BROAD-GAP-FINITE-CASE-IDS-BOUND",
-      "owner_capability": "Research/FormalScience",
-      "executor_mode": "capability_profile",
-      "mode_bucket": "capability_profile",
-      "command": "python tools/oc133_capability_repair_executor.py --profile v12_grand_formal_science_research_program",
-      "closure_policy": "Executor output is evidence only; closure requires the predicate to re-audit PASS without unlocking no-send.",
+      "executor_mode": "unknown",
+      "mode_bucket": "unknown",
+      "command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
+      "closure_policy": null,
       "planning_only_cannot_close_science": false
     }
   ],
@@ -197,19 +116,13 @@
     ]
   },
   "next_efficient_action": {
-    "action_id": "ROUTE_REAL_EXECUTOR_FOR_OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-003",
-    "reason": "The current top work order only validates the planning queue; rerunning it cannot close a scientific blocker.",
+    "action_id": "EXECUTE_FOCUSED_OC133-PLATINUM-WO-002",
+    "reason": "The next row is not planning-only; keep execution narrow and require blocker-delta evidence.",
     "allowed": true,
     "blocked_actions": [
-      "EXECUTE_OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-003_AS_PLANNING_ONLY",
-      "FULL_CERBERUS_SUITE_BEFORE_BLOCKER_DELTA",
-      "FULL_RELEASE_MACHINE_EVALUATE_BEFORE_BLOCKER_DELTA"
+      "BROAD_TEST_BUNDLE_WITHOUT_ARTIFACT_HASH_DELTA"
     ],
-    "required_before_execution": [
-      "executor_mode_is_domain_local_replay_or_capability_profile",
-      "expected_blocker_delta_declared",
-      "focused_verification_command_declared"
-    ]
+    "current_final_state": "OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND"
   },
-  "audit_sha256": "46b4b76aa11be3c5faf69600b499443ca6cca515d45fbe350cb5210b27680510"
+  "audit_sha256": "0ed57657a429616b8a14b690d4a5df89163ba05a197cd6abdbe00464a3a2564c"
 }

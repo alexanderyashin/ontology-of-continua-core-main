@@ -2,12 +2,12 @@
 
 - State: `COMPUTE_EFFICIENCY_GUARD_ACTIVE`
 - Owner budget signal: `48%` remaining; risk `HIGH`
-- Final readiness state: `SCIENTIFIC_BLOCKERS_REMAIN`
+- Final readiness state: `OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND`
 - Known blockers: `2`
-- Top planning-only rows: `6` / `10`
+- Top planning-only rows: `0` / `2`
 - Repeated work orders above threshold: `1`
-- Next economical action: `ROUTE_REAL_EXECUTOR_FOR_OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-003`
-- Reason: The current top work order only validates the planning queue; rerunning it cannot close a scientific blocker.
+- Next economical action: `EXECUTE_FOCUSED_OC133-PLATINUM-WO-002`
+- Reason: The next row is not planning-only; keep execution narrow and require blocker-delta evidence.
 
 ## Guardrails
 
@@ -18,10 +18,7 @@
 
 ## Top Queue
 
-- `1` `OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-003` -> `planning_queue_validation` / `Logion Formal Methods / Proof-Route Planning`
-- `2` `OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-001` -> `planning_queue_validation` / `Logion Formal Methods / Proof-Route Planning`
-- `3` `OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-002` -> `planning_queue_validation` / `Logion Formal Methods / Proof-Route Planning`
-- `4` `OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-016` -> `planning_queue_validation` / `Logion Health Evidence / Regulated Clinical and Epidemiology Sources`
-- `5` `OC133-ALLDOMAIN-COVERAGE-MS-COV-WO-017` -> `planning_queue_validation` / `Logion Health Evidence / Regulated Clinical and Epidemiology Sources`
+- `1` `OC133-PLATINUM-WO-002` -> `unknown` / `Research/PriorArt`
+- `2` `OC133-PLATINUM-WO-001` -> `unknown` / `Research/FormalScience`
 
-Audit hash: `46b4b76aa11be3c5faf69600b499443ca6cca515d45fbe350cb5210b27680510`
+Audit hash: `0ed57657a429616b8a14b690d4a5df89163ba05a197cd6abdbe00464a3a2564c`
