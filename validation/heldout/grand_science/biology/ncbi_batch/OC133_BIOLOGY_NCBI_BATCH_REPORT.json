@@ -1,0 +1,144 @@
+{
+  "schema_id": "OC133_BIOLOGY_NCBI_BATCH_REPORT_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "planner": "tools/oc133_biology_ncbi_batch_factory.py",
+  "support_policy": "Grand support is emitted only for an N>=20 NCBI/GEO batch with explicit source separation, pre-target lock, hidden target manifest, official NCBI/GEO provenance, preregistered comparator, residual superiority, rejected negative controls, and falsifiers. Existing single raw snapshots remain acquisition-ready blockers.",
+  "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+  "candidate_pack_ref": "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_CANDIDATE_PACK.json",
+  "candidate_pack_sha256": "47e3de02ed450d63df692caf6bebd99fe3382c256883704c628856049165926f",
+  "candidate_pack_hash_policy": "sha256 over canonical JSON",
+  "protocol_ref": "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_PROTOCOL.json",
+  "tasks_ref": "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_TASKS.json",
+  "acquisition_packet_ref": "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_ACQUISITION_PACKET.json",
+  "hashes_ref": "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_HASHES.json",
+  "snapshot_refs": [
+    "validation/_raw/biology_ncbi_geo_platform.txt"
+  ],
+  "snapshot_hashes": [
+    {
+      "snapshot_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+      "snapshot_sha256": "f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4",
+      "snapshot_hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+      "snapshot_byte_count": 526,
+      "parsed": true,
+      "failures": []
+    }
+  ],
+  "snapshot_hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+  "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion",
+  "row_hashes": [
+    "f8835e354c33565c587460d3d547244a4c99310ee655eb4bbf09804f0a9308de"
+  ],
+  "minimum_n": 20,
+  "candidate_n": 1,
+  "missing_n": 19,
+  "source_separation": {
+    "mode": "snapshot_replay",
+    "kind": "snapshot_replay",
+    "pre_target_lock": false,
+    "target_hidden_until_scoring": false,
+    "declared_before_scoring": false,
+    "training_sources": [],
+    "target_sources": [],
+    "training_manifest_sha256": "",
+    "target_manifest_sha256": ""
+  },
+  "residuals": {
+    "model": 0.0,
+    "comparator": 43988.0,
+    "superiority_margin": 43988.0
+  },
+  "comparator_baseline": {
+    "name": "GEO total-hit-count page-size negative control",
+    "prediction_rule": "use esearchresult.count as the retmax prediction for every batch row",
+    "pre_registered": false
+  },
+  "negative_controls": [
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    }
+  ],
+  "falsifiers": [
+    "retmax differs from returned idlist length, or the GEO total-count control is not worse"
+  ],
+  "tamper_tests": [
+    {
+      "test_id": "biology-ncbi-row-hashes-change-on-target-mutation",
+      "description": "mutating a target value must alter row hashes",
+      "passed": true
+    },
+    {
+      "test_id": "biology-ncbi-snapshot-hashes-present",
+      "description": "every parsed local NCBI/GEO snapshot has an LF-normalized SHA256",
+      "passed": true
+    },
+    {
+      "test_id": "biology-ncbi-negative-controls-rejected",
+      "description": "every row-level total-count negative control must be worse than the model residual",
+      "passed": true
+    }
+  ],
+  "local_blockers": [
+    "SOURCE_SEPARATION_MISSING::defaulting_to_snapshot_replay",
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED::snapshot_replay",
+    "TARGET_SEPARATION_NOT_REAL::snapshot_replay",
+    "PRE_TARGET_LOCK_REQUIRED",
+    "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+    "SOURCE_SEPARATION_NOT_DECLARED_BEFORE_SCORING",
+    "TRAINING_AND_TARGET_SOURCES_REQUIRED",
+    "OFFICIAL_NCBI_GEO_PROVENANCE_MISSING::BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
+    "COMPARATOR_BASELINE_NOT_PREREGISTERED::BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
+    "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+    "OFFICIAL_NCBI_GEO_PROVENANCE_REQUIRED",
+    "N_BELOW_MINIMUM::1/20",
+    "CURRENT_RAW_DATA_TOO_THIN_FOR_NCBI_GEO_BATCH"
+  ],
+  "candidate_gate_failures": [
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
+    "PRE_TARGET_LOCK_REQUIRED",
+    "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+    "N_BELOW_MINIMUM::20",
+    "COMPARATOR_BASELINE_NOT_PREREGISTERED"
+  ],
+  "final_pack_failure_reasons": [
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
+    "PRE_TARGET_LOCK_REQUIRED",
+    "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+    "N_BELOW_MINIMUM::20",
+    "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+    "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+  ],
+  "blockers": [
+    "SOURCE_SEPARATION_MISSING::defaulting_to_snapshot_replay",
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED::snapshot_replay",
+    "TARGET_SEPARATION_NOT_REAL::snapshot_replay",
+    "PRE_TARGET_LOCK_REQUIRED",
+    "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+    "SOURCE_SEPARATION_NOT_DECLARED_BEFORE_SCORING",
+    "TRAINING_AND_TARGET_SOURCES_REQUIRED",
+    "OFFICIAL_NCBI_GEO_PROVENANCE_MISSING::BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
+    "COMPARATOR_BASELINE_NOT_PREREGISTERED::BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
+    "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+    "OFFICIAL_NCBI_GEO_PROVENANCE_REQUIRED",
+    "N_BELOW_MINIMUM::1/20",
+    "CURRENT_RAW_DATA_TOO_THIN_FOR_NCBI_GEO_BATCH",
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
+    "N_BELOW_MINIMUM::20",
+    "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+  ],
+  "open_blocker_total": 16,
+  "blocked_total": 16,
+  "grand_toe_support_allowed": false,
+  "verdict": "BLOCKED_ACQUISITION_READY_NCBI_GEO_BATCH",
+  "support_scope": "strict NCBI/GEO batch page-size reconstruction; not a biological mechanism superiority claim",
+  "no_fabricated_pass_policy": "Grand support is emitted only for an N>=20 NCBI/GEO batch with explicit source separation, pre-target lock, hidden target manifest, official NCBI/GEO provenance, preregistered comparator, residual superiority, rejected negative controls, and falsifiers. Existing single raw snapshots remain acquisition-ready blockers.",
+  "no_send": true,
+  "publish_allowed": false,
+  "journal_submissions_allowed": false,
+  "registry_write_allowed": false,
+  "release_promotion_allowed": false
+}

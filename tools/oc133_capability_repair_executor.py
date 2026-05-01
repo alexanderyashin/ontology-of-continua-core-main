@@ -400,10 +400,15 @@ def materialize_grand_science_program(profile: str) -> dict[str, Any]:
         ],
         "v12_grand_empirical_superiority_research_program": [
             [sys.executable, "tools/oc133_acquisition_planner_runner.py", "--write", "--allow-blocked-exit-zero"],
+            [sys.executable, "tools/oc133_official_readonly_acquisition_runner.py", "--write", "--allow-blocked-exit-zero"],
             [sys.executable, "tools/oc133_harvester_runner.py", "--write", "--allow-blocked-exit-zero"],
             [sys.executable, "tools/oc133_domain_evidence_executor_runner.py", "--write", "--allow-blocked-exit-zero"],
+            [sys.executable, "tools/oc133_grand_evidence_registry_sync_factory.py", "--write"],
+            [sys.executable, "tools/oc133_grand_evidence_repair_router.py", "--write"],
             [sys.executable, "tools/oc133_empirical_capability_registry.py", "--write"],
             [sys.executable, "tools/oc133_empirical_capability_dispatcher.py", "--write", "--refresh-registry", "--execute", "--max-actions", "10"],
+            [sys.executable, "tools/oc133_grand_evidence_registry_sync_factory.py", "--write"],
+            [sys.executable, "tools/oc133_grand_evidence_repair_router.py", "--write"],
             [sys.executable, "tools/oc133_grand_empirical_evidence_factory.py", "--allow-blocked-exit-zero"],
         ],
         "v12_modern_science_comparator_research_program": [

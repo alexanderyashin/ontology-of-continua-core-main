@@ -29,16 +29,16 @@ Dispatcher PASS means command execution succeeded and the returned scientific pa
 
 | Action | Component | Allowed | Executed | Return code | Outcome | Science verdict | Hash changed |
 | --- | --- | --- | --- | ---: | --- | --- | --- |
-| `OC133-ECQ-001` | `validation/heldout/harvesters/systems_harvester.py` | `True` | `True` | `0` | `SCIENTIFIC_BLOCKED` | `BLOCKED_PENDING_GENUINE_EVIDENCE` | `False` |
-| `OC133-ECQ-002` | `tools/oc133_physics_chemistry_acquisition_planner.py` | `True` | `True` | `0` | `SCIENTIFIC_BLOCKED` | `BLOCKED_PENDING_GENUINE_ACQUISITION` | `True` |
-| `OC133-ECQ-003` | `tools/oc133_biology_ncbi_benchmark_factory.py` | `True` | `True` | `2` | `SCIENTIFIC_BLOCKED_LEGACY_NONZERO` | `BLOCKED_PENDING_GENUINE_BIOLOGY_REPLAY_EVIDENCE` | `False` |
-| `OC133-ECQ-004` | `tools/oc133_systems_wdi_benchmark_factory.py` | `True` | `True` | `2` | `SCIENTIFIC_BLOCKED_LEGACY_NONZERO` | `BLOCKED_PENDING_GENUINE_WDI_BENCHMARK` | `False` |
-| `OC133-ECQ-005` | `tools/oc133_grand_empirical_evidence_factory.py` | `True` | `True` | `2` | `SCIENTIFIC_BLOCKED_LEGACY_NONZERO` | `BLOCKED_PENDING_GENUINE_PER_DOMAIN_EVIDENCE` | `False` |
-| `OC133-ECQ-006` | `validation/heldout/harvesters/physics_chemistry_harvester.py` | `True` | `True` | `0` | `SCIENTIFIC_BLOCKED` | `BLOCKED_PENDING_GENUINE_PHYSICS_CHEMISTRY_EVIDENCE` | `False` |
-| `OC133-ECQ-007` | `validation/heldout/domain_evidence/biology_systems_evidence_executor.py` | `True` | `True` | `0` | `SCIENTIFIC_BLOCKED` | `BLOCKED_PENDING_GENUINE_BIOLOGY_SYSTEMS_EVIDENCE` | `False` |
-| `OC133-ECQ-008` | `tools/oc133_biology_systems_acquisition_planner.py` | `True` | `True` | `0` | `SCIENTIFIC_BLOCKED` | `BLOCKED_PENDING_GENUINE_BIOLOGY_SYSTEMS_EVIDENCE` | `False` |
-| `OC133-ECQ-009` | `validation/heldout/domain_evidence/mathematics_evidence_executor.py` | `True` | `True` | `0` | `SCIENTIFIC_BLOCKED` | `BLOCKED_PENDING_GENUINE_MATHEMATICS_EVIDENCE` | `False` |
-| `OC133-ECQ-010` | `validation/heldout/domain_evidence/physics_chemistry_evidence_executor.py` | `True` | `True` | `0` | `SCIENTIFIC_BLOCKED` | `UNKNOWN` | `False` |
+| `OC133-ECQ-001` | `tools/oc133_systems_wdi_model_search_factory.py` | `True` | `True` | `2` | `SCIENTIFIC_BLOCKED_LEGACY_NONZERO` | `BLOCKED` | `False` |
+| `OC133-ECQ-002` | `validation/heldout/harvesters/systems_harvester.py` | `True` | `True` | `0` | `SCIENTIFIC_BLOCKED` | `BLOCKED_PENDING_GENUINE_EVIDENCE` | `False` |
+| `OC133-ECQ-003` | `tools/oc133_grand_evidence_registry_sync_factory.py` | `True` | `True` | `0` | `SCIENTIFIC_BLOCKED` | `REGISTRY_SYNC_BLOCKED_PENDING_VALID_PACKS` | `True` |
+| `OC133-ECQ-004` | `tools/oc133_biology_ncbi_batch_factory.py` | `True` | `True` | `2` | `SCIENTIFIC_BLOCKED_LEGACY_NONZERO` | `BLOCKED_ACQUISITION_READY_NCBI_GEO_BATCH` | `False` |
+| `OC133-ECQ-005` | `tools/oc133_physics_chemistry_acquisition_planner.py` | `True` | `True` | `0` | `SCIENTIFIC_BLOCKED` | `BLOCKED_PENDING_GENUINE_ACQUISITION` | `True` |
+| `OC133-ECQ-006` | `tools/oc133_biology_ncbi_benchmark_factory.py` | `True` | `True` | `2` | `SCIENTIFIC_BLOCKED_LEGACY_NONZERO` | `BLOCKED_PENDING_GENUINE_BIOLOGY_REPLAY_EVIDENCE` | `False` |
+| `OC133-ECQ-007` | `tools/oc133_systems_wdi_benchmark_factory.py` | `True` | `True` | `2` | `SCIENTIFIC_BLOCKED_LEGACY_NONZERO` | `BLOCKED_PENDING_GENUINE_WDI_BENCHMARK` | `False` |
+| `OC133-ECQ-008` | `tools/oc133_physics_chemistry_official_batch_factory.py` | `True` | `True` | `2` | `SCIENTIFIC_BLOCKED_LEGACY_NONZERO` | `BLOCKED_ACQUISITION_READY_NO_SEND` | `False` |
+| `OC133-ECQ-009` | `tools/oc133_grand_empirical_evidence_factory.py` | `True` | `True` | `2` | `SCIENTIFIC_BLOCKED_LEGACY_NONZERO` | `BLOCKED_PENDING_GENUINE_PER_DOMAIN_EVIDENCE` | `False` |
+| `OC133-ECQ-010` | `validation/heldout/harvesters/physics_chemistry_harvester.py` | `True` | `True` | `0` | `SCIENTIFIC_BLOCKED` | `BLOCKED_PENDING_GENUINE_PHYSICS_CHEMISTRY_EVIDENCE` | `False` |
 
 ## Rejections
 

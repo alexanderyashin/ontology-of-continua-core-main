@@ -1,0 +1,207 @@
+{
+  "schema_id": "OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_REPORT_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "blocker_id": "grand_toe_empirical_superiority",
+  "generated_by": "tools/oc133_physics_chemistry_official_batch_factory.py",
+  "protocol_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_PROTOCOL.json",
+  "tasks_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_TASKS.json",
+  "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+  "manifest_ref": "data/OC_DATASET_SNAPSHOT_MANIFEST_1_3_3.json",
+  "candidate_pack_total": 2,
+  "valid_candidate_pack_total": 0,
+  "blocked_candidate_pack_total": 2,
+  "minimum_per_domain_n": 20,
+  "open_blocker_total": 8,
+  "blockers": [
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED::official_snapshot_replay",
+    "PRE_TARGET_LOCK_REQUIRED",
+    "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+    "SOURCE_SEPARATION_NOT_DECLARED_BEFORE_SCORING",
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
+    "GRAND_TOE_SUPPORT_NOT_ALLOWED",
+    "N_BELOW_MINIMUM::chemistry::12/20",
+    "N_BELOW_MINIMUM::20"
+  ],
+  "domains": [
+    {
+      "domain": "physics",
+      "status": "BLOCKED_ACQUISITION_READY_NO_SEND",
+      "candidate_pack_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
+      "candidate_pack_sha256": "b49062881596399aba678221589c325b6bbc9c0bba91101b2f3f933352802155",
+      "candidate_n": 44,
+      "grand_eligible_n": 0,
+      "minimum_n": 20,
+      "missing_n": 0,
+      "residuals": {
+        "model": 1.482118481998642e+39,
+        "comparator": 3.0827102127035016e+48,
+        "superiority_margin": 3.082710211221383e+48
+      },
+      "negative_control_total": 44,
+      "falsifier_total": 1,
+      "candidate_pack_valid_under_current_grand_gate": false,
+      "candidate_pack_grand_gate_failures": [
+        "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+      ],
+      "open_blocker_total": 6,
+      "blockers": [
+        "SOURCE_SEPARATION_MODE_NOT_ALLOWED::official_snapshot_replay",
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "SOURCE_SEPARATION_NOT_DECLARED_BEFORE_SCORING",
+        "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
+        "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+      ],
+      "missing_official_snapshots": [
+        {
+          "source_id": "physics_nist_constants_pre_target_lock_manifest_v1",
+          "official_url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+          "required_local_snapshot_ref": "validation/_raw/physics_nist_constants_pre_target_lock_manifest_v1.json",
+          "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/locks/physics_nist_constants_pre_target_lock_manifest_v1.json",
+          "minimum_rows_required": 20,
+          "current_official_batch_rows": 44,
+          "missing_reason": "CODATA constants snapshot is present, but no pre-target lock manifest proves target fields were hidden until scoring."
+        },
+        {
+          "source_id": "physics_nist_asd_hydrogen_balmer_lines_v1",
+          "official_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H&limits_type=0&low_w=&upp_w=&unit=1&de=0&format=3&line_out=0&remove_js=on&en_unit=1&output=0&page_size=50&show_obs_wl=1&show_calc_wl=1&show_wn=1",
+          "required_local_snapshot_ref": "validation/_raw/physics_nist_asd_hydrogen_balmer_lines_v1.tsv",
+          "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/locks/physics_nist_asd_hydrogen_balmer_lines_v1.json",
+          "minimum_rows_required": 20,
+          "current_official_batch_rows": 0,
+          "missing_reason": "No NIST ASD spectral-line snapshot is available for an independent target-hidden physics blocker class."
+        }
+      ],
+      "grand_toe_support_allowed": false
+    },
+    {
+      "domain": "chemistry",
+      "status": "BLOCKED_ACQUISITION_READY_NO_SEND",
+      "candidate_pack_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/chemistry_official_batch_candidate_evidence_pack.json",
+      "candidate_pack_sha256": "df7ac032d92cd2c92c4a17cbb86a855a7ded5915cf5fe8100fdc016cd71487ef",
+      "candidate_n": 12,
+      "grand_eligible_n": 0,
+      "minimum_n": 20,
+      "missing_n": 8,
+      "residuals": {
+        "model": 5.166666666648704e-05,
+        "comparator": 9.331450000000002,
+        "superiority_margin": 9.331398333333336
+      },
+      "negative_control_total": 12,
+      "falsifier_total": 12,
+      "candidate_pack_valid_under_current_grand_gate": false,
+      "candidate_pack_grand_gate_failures": [
+        "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "N_BELOW_MINIMUM::20",
+        "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+      ],
+      "open_blocker_total": 8,
+      "blockers": [
+        "SOURCE_SEPARATION_MODE_NOT_ALLOWED::official_snapshot_replay",
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "SOURCE_SEPARATION_NOT_DECLARED_BEFORE_SCORING",
+        "N_BELOW_MINIMUM::chemistry::12/20",
+        "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
+        "N_BELOW_MINIMUM::20",
+        "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+      ],
+      "missing_official_snapshots": [
+        {
+          "source_id": "chemistry_pubchem_20_compound_properties_v1",
+          "official_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/962,297,222,280,977,947,783,702,241,180,176,5234,5793,2244,2519,784,887,1118,5957,23931/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+          "required_local_snapshot_ref": "validation/_raw/chemistry_pubchem_20_compound_properties_v1.json",
+          "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/locks/chemistry_pubchem_20_compound_properties_v1.json",
+          "minimum_rows_required": 20,
+          "current_official_batch_rows": 12,
+          "missing_reason": "Only the water PubChem snapshot is present; chemistry needs at least 20 target-hidden/prospective official rows."
+        },
+        {
+          "source_id": "chemistry_nist_webbook_water_gas_thermo_v1",
+          "official_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185&Units=SI&Mask=1#Thermo-Gas",
+          "required_local_snapshot_ref": "validation/_raw/chemistry_nist_webbook_water_gas_thermo_v1.html",
+          "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/locks/chemistry_nist_webbook_water_gas_thermo_v1.json",
+          "minimum_rows_required": 20,
+          "current_official_batch_rows": 0,
+          "missing_reason": "The current WebBook water page is a species landing page, not a thermochemistry target snapshot."
+        },
+        {
+          "source_id": "chemistry_nist_webbook_water_ir_spectrum_v1",
+          "official_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185&Units=SI&Mask=80#IR-Spec",
+          "required_local_snapshot_ref": "validation/_raw/chemistry_nist_webbook_water_ir_spectrum_v1.html",
+          "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/locks/chemistry_nist_webbook_water_ir_spectrum_v1.json",
+          "minimum_rows_required": 20,
+          "current_official_batch_rows": 0,
+          "missing_reason": "No NIST WebBook spectral target snapshot is available for chemistry spectral blocker rows."
+        },
+        {
+          "source_id": "chemistry_nist_kinetics_water_v1",
+          "official_url": "https://kinetics.nist.gov/kinetics/rpSearch?cas=7732185",
+          "required_local_snapshot_ref": "validation/_raw/chemistry_nist_kinetics_water_v1.html",
+          "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/locks/chemistry_nist_kinetics_water_v1.json",
+          "minimum_rows_required": 20,
+          "current_official_batch_rows": 0,
+          "missing_reason": "No NIST kinetics target snapshot is available for chemistry kinetic/equilibrium blocker rows."
+        }
+      ],
+      "grand_toe_support_allowed": false
+    }
+  ],
+  "snapshot_records": [
+    {
+      "source_id": "physics_nist_constants",
+      "source_ref": "validation/_raw/physics_nist_constants.txt",
+      "official_url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+      "exists": true,
+      "byte_count": 40801,
+      "sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+      "sha256_expected": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+      "sha256_match": true,
+      "hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
+    },
+    {
+      "source_id": "chemistry_pubchem_water",
+      "source_ref": "validation/_raw/chemistry_pubchem_water.txt",
+      "official_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/962/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "exists": true,
+      "byte_count": 248,
+      "sha256": "316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f",
+      "sha256_expected": "316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f",
+      "sha256_match": true,
+      "hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
+    },
+    {
+      "source_id": "chemistry_nist_webbook_water",
+      "source_ref": "validation/_raw/chemistry_nist_webbook_water.txt",
+      "official_url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185&Units=SI",
+      "exists": true,
+      "byte_count": 22897,
+      "sha256": "7ed042e5997e54ce83a15395d284986278adbfbce80e0f6907f15e0f52b1a6ac",
+      "sha256_expected": "7ed042e5997e54ce83a15395d284986278adbfbce80e0f6907f15e0f52b1a6ac",
+      "sha256_match": true,
+      "hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
+    }
+  ],
+  "artifact_hashes": {
+    "physics_candidate_pack_sha256": "b49062881596399aba678221589c325b6bbc9c0bba91101b2f3f933352802155",
+    "chemistry_candidate_pack_sha256": "df7ac032d92cd2c92c4a17cbb86a855a7ded5915cf5fe8100fdc016cd71487ef",
+    "tasks_sha256": "0c27543606d95232b69ebb007054869d3a1d0e5826292c5ecbd85294e87b4b5e",
+    "protocol_sha256": "05e4ea465e840b7d76f64d9fce5c3e883470e7b06058eabe7d58d65f8c2360e1"
+  },
+  "grand_toe_support_allowed": false,
+  "verdict": "BLOCKED_ACQUISITION_READY_NO_SEND",
+  "no_send": true,
+  "publish_allowed": false,
+  "journal_submissions_allowed": false,
+  "registry_integration_allowed": false,
+  "no_fabricated_success_policy": "Official NIST/PubChem snapshot rows are scored and hashed, but no grand TOE support is emitted unless the domain pack has N>=20, pre-target target-blind or prospective separation, preregistered comparator baselines, residual superiority, rejected negative controls, falsifiers, and a clean grand empirical gate.",
+  "report_sha256": "93cbd078f2dbab99da9ce59035a05ace8c3b2b3cad97ee91ceedd702d80fd80f"
+}

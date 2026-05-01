@@ -1,0 +1,76 @@
+{
+  "schema_id": "OC133_BIOLOGY_NCBI_BATCH_PROTOCOL_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "planner": "tools/oc133_biology_ncbi_batch_factory.py",
+  "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+  "candidate_pack_ref": "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_CANDIDATE_PACK.json",
+  "candidate_pack_sha256": "47e3de02ed450d63df692caf6bebd99fe3382c256883704c628856049165926f",
+  "candidate_pack_hash_policy": "sha256 over canonical JSON",
+  "tasks_ref": "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_TASKS.json",
+  "report_ref": "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_REPORT.json",
+  "acquisition_packet_ref": "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_ACQUISITION_PACKET.json",
+  "snapshot_hashes": [
+    {
+      "snapshot_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+      "snapshot_sha256": "f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4",
+      "snapshot_hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+      "snapshot_byte_count": 526,
+      "parsed": true,
+      "failures": []
+    }
+  ],
+  "source_separation_claim": {
+    "mode": "snapshot_replay",
+    "kind": "snapshot_replay",
+    "pre_target_lock": false,
+    "target_hidden_until_scoring": false,
+    "declared_before_scoring": false,
+    "training_sources": [],
+    "target_sources": [],
+    "training_manifest_sha256": "",
+    "target_manifest_sha256": ""
+  },
+  "minimum_n": 20,
+  "candidate_n": 1,
+  "criteria": {
+    "n_at_least_minimum": false,
+    "source_separation_mode_allowed": false,
+    "pre_target_lock_required": false,
+    "target_hidden_until_scoring_required": false,
+    "comparator_preregistered_required": false,
+    "negative_controls_rejected_required": true,
+    "official_ncbi_geo_provenance_required": false
+  },
+  "required_protocol_steps": [
+    "discover only local raw/pinned NCBI/GEO snapshots inside the public repo",
+    "hash every raw snapshot with LF-normalized SHA256 before scoring",
+    "freeze source separation, visible fields, target fields, comparator, residual metric, negative controls, and falsifiers before scoring",
+    "construct one row per official NCBI/GEO ESearch snapshot record",
+    "score retmax/page-size reconstruction from visible idlist length only",
+    "compare against the preregistered GEO total-hit-count baseline",
+    "block grand_toe_support_allowed unless N>=20 and every strict criterion passes",
+    "emit acquisition-ready missing official snapshots when current raw data are too thin"
+  ],
+  "blockers": [
+    "SOURCE_SEPARATION_MISSING::defaulting_to_snapshot_replay",
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED::snapshot_replay",
+    "TARGET_SEPARATION_NOT_REAL::snapshot_replay",
+    "PRE_TARGET_LOCK_REQUIRED",
+    "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+    "SOURCE_SEPARATION_NOT_DECLARED_BEFORE_SCORING",
+    "TRAINING_AND_TARGET_SOURCES_REQUIRED",
+    "OFFICIAL_NCBI_GEO_PROVENANCE_MISSING::BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
+    "COMPARATOR_BASELINE_NOT_PREREGISTERED::BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
+    "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+    "OFFICIAL_NCBI_GEO_PROVENANCE_REQUIRED",
+    "N_BELOW_MINIMUM::1/20",
+    "CURRENT_RAW_DATA_TOO_THIN_FOR_NCBI_GEO_BATCH",
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
+    "N_BELOW_MINIMUM::20",
+    "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+  ],
+  "no_send": true,
+  "publish_allowed": false
+}

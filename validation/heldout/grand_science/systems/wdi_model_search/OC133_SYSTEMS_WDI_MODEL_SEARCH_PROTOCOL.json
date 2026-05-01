@@ -1,0 +1,184 @@
+{
+  "schema_id": "OC133_SYSTEMS_WDI_MODEL_SEARCH_PROTOCOL_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "blocker_id": "grand_toe_empirical_superiority",
+  "candidate_pack_ref": "validation/heldout/grand_science/systems/wdi_model_search/OC133_SYSTEMS_WDI_MODEL_SEARCH_CANDIDATE_PACK.json",
+  "candidate_pack_sha256": "181c5f4ac5870270cbadbce6d362ba8811cf8d364eac9fbbef6bea1c675fa987",
+  "candidate_pack_hash_policy": "sha256 over canonical JSON",
+  "snapshot_ref": "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json",
+  "snapshot_sha256": "c2e5f23f3fa88e97c4ea338541c4689d1cd8a33e164d11831cb8a3b573b09cd7",
+  "snapshot_hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+  "source_separation_claim": {
+    "mode": "target_blind",
+    "pre_target_lock": true,
+    "target_hidden_until_scoring": true,
+    "declared_before_scoring": false,
+    "source_ref": "validation/heldout/grand_science/systems/harvested/systems_candidate_evidence_pack.json"
+  },
+  "minimum_n": 20,
+  "candidate_n": 60,
+  "formula_search": {
+    "preregistered_formula_family": [
+      {
+        "formula_id": "linear_two_lag",
+        "rule": "y_t = y_t-1 + (y_t-1 - y_t-2)",
+        "min_history": 2
+      },
+      {
+        "formula_id": "damped_two_lag_75",
+        "rule": "y_t = y_t-1 + 0.75*(y_t-1 - y_t-2)",
+        "min_history": 2
+      },
+      {
+        "formula_id": "damped_two_lag_50",
+        "rule": "y_t = y_t-1 + 0.5*(y_t-1 - y_t-2)",
+        "min_history": 2
+      },
+      {
+        "formula_id": "damped_two_lag_25",
+        "rule": "y_t = y_t-1 + 0.25*(y_t-1 - y_t-2)",
+        "min_history": 2
+      },
+      {
+        "formula_id": "mean_slope_three",
+        "rule": "y_t = y_t-1 + mean(two previous annual slopes)",
+        "min_history": 3
+      },
+      {
+        "formula_id": "mean_slope_five",
+        "rule": "y_t = y_t-1 + mean(four previous annual slopes)",
+        "min_history": 5
+      },
+      {
+        "formula_id": "three_year_level_mean",
+        "rule": "y_t = mean(y_t-1, y_t-2, y_t-3)",
+        "min_history": 3
+      },
+      {
+        "formula_id": "log_growth_two_lag",
+        "rule": "y_t = y_t-1 * (y_t-1 / y_t-2), positive series only",
+        "min_history": 2
+      }
+    ],
+    "selection_scope": "per target row; same-series years strictly earlier than heldout_year",
+    "selection_metric": "mean absolute residual on prior replay rows",
+    "target_rows_used_for_selection": false,
+    "minimum_training_score_rows": 3,
+    "selected_formula_counts": {
+      "damped_two_lag_75": 3,
+      "linear_two_lag": 39,
+      "log_growth_two_lag": 7,
+      "mean_slope_five": 8,
+      "mean_slope_three": 3
+    }
+  },
+  "comparator_baseline": {
+    "name": "WDI carry-forward last-observation comparator",
+    "pre_registered": true
+  },
+  "residual_metric": "absolute residual; aggregate is mean absolute residual",
+  "negative_control_policy": "reject support unless every heldout row has comparator_residual > model_residual",
+  "tamper_policy": "heldout target mutation must change row hashes without changing same-row formula selection",
+  "required_protocol_steps": [
+    "freeze the WDI snapshot and record its hash",
+    "load the formula family before any target scoring",
+    "select formulas using only same-series years strictly earlier than each heldout target year",
+    "score each heldout target once and record row hashes",
+    "compare against the preregistered carry-forward baseline under the same residual metric",
+    "reject support unless N, source separation, residual superiority, all negative controls, falsifiers, and tamper tests pass"
+  ],
+  "blockers": [
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1981",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1982",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1983",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1989",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1991",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1993",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1996",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1997",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1999",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2001",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2002",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2009",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2010",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2012",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2014",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2015",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2016",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2019",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2020",
+    "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2021",
+    "NEGATIVE_CONTROL_NOT_REJECTED::16",
+    "NEGATIVE_CONTROL_NOT_REJECTED::17",
+    "NEGATIVE_CONTROL_NOT_REJECTED::18",
+    "NEGATIVE_CONTROL_NOT_REJECTED::24",
+    "NEGATIVE_CONTROL_NOT_REJECTED::26",
+    "NEGATIVE_CONTROL_NOT_REJECTED::28",
+    "NEGATIVE_CONTROL_NOT_REJECTED::31",
+    "NEGATIVE_CONTROL_NOT_REJECTED::32",
+    "NEGATIVE_CONTROL_NOT_REJECTED::34",
+    "NEGATIVE_CONTROL_NOT_REJECTED::36",
+    "NEGATIVE_CONTROL_NOT_REJECTED::37",
+    "NEGATIVE_CONTROL_NOT_REJECTED::44",
+    "NEGATIVE_CONTROL_NOT_REJECTED::45",
+    "NEGATIVE_CONTROL_NOT_REJECTED::47",
+    "NEGATIVE_CONTROL_NOT_REJECTED::49",
+    "NEGATIVE_CONTROL_NOT_REJECTED::50",
+    "NEGATIVE_CONTROL_NOT_REJECTED::51",
+    "NEGATIVE_CONTROL_NOT_REJECTED::54",
+    "NEGATIVE_CONTROL_NOT_REJECTED::55",
+    "NEGATIVE_CONTROL_NOT_REJECTED::56",
+    "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+  ],
+  "next_work_orders": [
+    {
+      "work_order_id": "OC133-SYSTEMS-WDI-MODEL-SEARCH-NEGATIVE-CONTROLS",
+      "status": "OPEN",
+      "triggered_by": [
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1981",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1982",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1983",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1989",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1991",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1993",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1996",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1997",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-1999",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2001",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2002",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2009",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2010",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2012",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2014",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2015",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2016",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2019",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2020",
+        "NEGATIVE_CONTROL_NOT_REJECTED::SYSTEMS-WDI-MODEL-SEARCH-WLD-NY.GDP.MKTP.CD-2021",
+        "NEGATIVE_CONTROL_NOT_REJECTED::16",
+        "NEGATIVE_CONTROL_NOT_REJECTED::17",
+        "NEGATIVE_CONTROL_NOT_REJECTED::18",
+        "NEGATIVE_CONTROL_NOT_REJECTED::24",
+        "NEGATIVE_CONTROL_NOT_REJECTED::26",
+        "NEGATIVE_CONTROL_NOT_REJECTED::28",
+        "NEGATIVE_CONTROL_NOT_REJECTED::31",
+        "NEGATIVE_CONTROL_NOT_REJECTED::32",
+        "NEGATIVE_CONTROL_NOT_REJECTED::34",
+        "NEGATIVE_CONTROL_NOT_REJECTED::36",
+        "NEGATIVE_CONTROL_NOT_REJECTED::37",
+        "NEGATIVE_CONTROL_NOT_REJECTED::44",
+        "NEGATIVE_CONTROL_NOT_REJECTED::45",
+        "NEGATIVE_CONTROL_NOT_REJECTED::47",
+        "NEGATIVE_CONTROL_NOT_REJECTED::49",
+        "NEGATIVE_CONTROL_NOT_REJECTED::50",
+        "NEGATIVE_CONTROL_NOT_REJECTED::51",
+        "NEGATIVE_CONTROL_NOT_REJECTED::54",
+        "NEGATIVE_CONTROL_NOT_REJECTED::55",
+        "NEGATIVE_CONTROL_NOT_REJECTED::56"
+      ],
+      "action": "Revise the pre-registered systems formula family on training-only data or harvest broader systems targets; do not promote while any carry-forward control wins."
+    }
+  ]
+}

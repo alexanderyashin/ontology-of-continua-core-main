@@ -176,6 +176,78 @@ class EmpiricalCapabilityRegistryTests(unittest.TestCase):
             self.assertIn("## Cockpit Locks", report_md)
             self.assertIn("## Compute-Degradation Notes", report_md)
 
+    def test_registry_treats_sync_repair_work_orders_as_blockers(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            write_text(
+                root,
+                "tools/oc133_grand_evidence_registry_sync_factory.py",
+                "\n".join(
+                    [
+                        "from __future__ import annotations",
+                        "REPORT_JSON_REL = \"reports/OC_CORE_1_3_3_GRAND_EVIDENCE_REGISTRY_SYNC.json\"",
+                        "CAPABILITY_OWNER = \"Research/EmpiricalScience\"",
+                    ]
+                ),
+            )
+            write_json(
+                root,
+                "reports/OC_CORE_1_3_3_GRAND_EVIDENCE_REGISTRY_SYNC.json",
+                {
+                    "schema_id": "OC133_GRAND_EVIDENCE_REGISTRY_SYNC_v1",
+                    "verdict": "REGISTRY_SYNC_BLOCKED_PENDING_VALID_PACKS",
+                    "candidate_total": 10,
+                    "valid_candidate_total": 0,
+                    "invalid_candidate_total": 10,
+                    "blocked_domain_total_after_sync": 5,
+                    "open_repair_work_order_total": 15,
+                },
+            )
+
+            payload = registry.build_payload(root, write=False)
+            row = payload["components"][0]
+
+            self.assertTrue(row["is_blocked"])
+            self.assertEqual(row["open_blocker_total"], 15)
+            self.assertEqual(row["blocked_domain_total"], 5)
+            self.assertEqual(row["blocked_candidate_pack_total"], 10)
+            self.assertEqual(payload["next_action_queue"][0]["component_ref"], "tools/oc133_grand_evidence_registry_sync_factory.py")
+
+    def test_registry_discovers_official_readonly_acquisition_runner(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            write_text(
+                root,
+                "tools/oc133_official_readonly_acquisition_runner.py",
+                "\n".join(
+                    [
+                        "from __future__ import annotations",
+                        "CAPABILITY_OWNER = \"Research/EmpiricalScience\"",
+                        "REPORT_JSON_REL = \"reports/OC_CORE_1_3_3_OFFICIAL_READONLY_ACQUISITION_RUN.json\"",
+                    ]
+                ),
+            )
+            write_json(
+                root,
+                "reports/OC_CORE_1_3_3_OFFICIAL_READONLY_ACQUISITION_RUN.json",
+                {
+                    "schema_id": "OC133_OFFICIAL_READONLY_ACQUISITION_RUN_v1",
+                    "verdict": "ACQUISITION_DRY_RUN_READY",
+                    "open_blocker_total": 3,
+                    "candidate_pack_total": 3,
+                    "valid_pack_total": 0,
+                },
+            )
+
+            payload = registry.build_payload(root, write=False)
+
+            self.assertEqual(payload["component_type_totals"]["planner"], 1)
+            self.assertEqual(payload["components"][0]["component_ref"], "tools/oc133_official_readonly_acquisition_runner.py")
+            self.assertEqual(
+                payload["components"][0]["command"],
+                "python tools/oc133_official_readonly_acquisition_runner.py --write --allow-blocked-exit-zero",
+            )
+
 
 if __name__ == "__main__":
     raise SystemExit(unittest.main())

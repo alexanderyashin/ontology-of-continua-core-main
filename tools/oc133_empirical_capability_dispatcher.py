@@ -323,7 +323,10 @@ def _script_allowed(component_ref: str, component_type: str) -> bool:
     if component_type == "executor":
         return component_ref.startswith("validation/heldout/domain_evidence/") and component_ref.endswith("_evidence_executor.py")
     if component_type == "planner":
-        return component_ref.startswith("tools/oc133_") and component_ref.endswith("_acquisition_planner.py")
+        return component_ref.startswith("tools/oc133_") and (
+            component_ref.endswith("_acquisition_planner.py")
+            or component_ref.endswith("_acquisition_runner.py")
+        )
     return False
 
 

@@ -109,6 +109,8 @@ class EmpiricalCapabilityDispatcherTests(unittest.TestCase):
         source = Path(program.__code__.co_filename).read_text(encoding="utf-8")
         self.assertIn("tools/oc133_empirical_capability_registry.py", source)
         self.assertIn("tools/oc133_empirical_capability_dispatcher.py", source)
+        self.assertIn("tools/oc133_grand_evidence_registry_sync_factory.py", source)
+        self.assertIn("tools/oc133_official_readonly_acquisition_runner.py", source)
         self.assertIn("--refresh-registry", source)
         self.assertIn("--execute", source)
 
@@ -323,6 +325,20 @@ class EmpiricalCapabilityDispatcherTests(unittest.TestCase):
             self.assertTrue(result["retry_info"])
             self.assertEqual(result["retry_info"]["removed_args"], ["--allow-blocked-exit-zero"])
             self.assertEqual(result["action_outcome"], "SCIENTIFIC_BLOCKED")
+
+    def test_allowlist_accepts_official_readonly_acquisition_runner_as_planner(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            ref = "tools/oc133_official_readonly_acquisition_runner.py"
+            write_script(root, ref, SAFE_SCRIPT)
+            row = component(ref, f"python {ref} --write --allow-blocked-exit-zero", component_type="planner")
+            write_registry(root, [row])
+
+            payload = dispatcher.build_payload(root, write=False, execute=True, max_actions=None)
+
+            self.assertEqual(payload["rejected_action_total"], 0)
+            self.assertEqual(payload["command_failure_total"], 0)
+            self.assertEqual(payload["executed_action_total"], 1)
 
 
 if __name__ == "__main__":

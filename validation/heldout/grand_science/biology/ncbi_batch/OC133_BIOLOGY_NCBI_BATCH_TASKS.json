@@ -1,0 +1,108 @@
+{
+  "schema_id": "OC133_BIOLOGY_NCBI_BATCH_TASKS_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "planner": "tools/oc133_biology_ncbi_batch_factory.py",
+  "snapshot_hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+  "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion",
+  "minimum_n": 20,
+  "candidate_n": 1,
+  "missing_n": 19,
+  "source_separation": {
+    "mode": "snapshot_replay",
+    "kind": "snapshot_replay",
+    "pre_target_lock": false,
+    "target_hidden_until_scoring": false,
+    "declared_before_scoring": false,
+    "training_sources": [],
+    "target_sources": [],
+    "training_manifest_sha256": "",
+    "target_manifest_sha256": ""
+  },
+  "snapshot_manifest": [
+    {
+      "snapshot_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+      "snapshot_sha256": "f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4",
+      "snapshot_hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+      "snapshot_byte_count": 526,
+      "parsed": true,
+      "failures": []
+    }
+  ],
+  "rows": [
+    {
+      "observation_id": "BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
+      "claim_id": "OC133-BIOLOGY-NCBI-BATCH-0001",
+      "task_type": "geo_esearch_page_size_reconstruction",
+      "snapshot_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+      "snapshot_sha256": "f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4",
+      "record_index": 1,
+      "official_source_confirmed": false,
+      "official_source": "UNDECLARED_NCBI_GEO_PROVENANCE",
+      "official_source_url": "validation/_raw/biology_ncbi_geo_platform.txt::NO_OFFICIAL_SOURCE_URL_DECLARED",
+      "query_term": "GPL96[Accession]",
+      "retstart": 0,
+      "retmax": 20,
+      "idlist_count": 20,
+      "training_source": "validation/_raw/biology_ncbi_geo_platform.txt::record=1::visible_fields(retstart,idlist,querytranslation)",
+      "target_source": "validation/_raw/biology_ncbi_geo_platform.txt::record=1::target_field(retmax)",
+      "formula": "len(esearchresult.idlist)",
+      "predicted_value": 20.0,
+      "observed_value": 20.0,
+      "comparator_baseline_name": "GEO total-hit-count page-size negative control",
+      "comparator_prediction_rule": "use esearchresult.count as the retmax prediction",
+      "comparator_pre_registered": false,
+      "comparator_prediction": 44008.0,
+      "uncertainty": 0.0,
+      "model_residual": 0.0,
+      "comparator_residual": 43988.0,
+      "negative_control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
+      "negative_control_description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "negative_control_rejected": true,
+      "falsifier": "retmax differs from returned idlist length, or the GEO total-count control is not worse",
+      "row_hash": "f8835e354c33565c587460d3d547244a4c99310ee655eb4bbf09804f0a9308de",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    }
+  ],
+  "comparator_baselines": [
+    {
+      "name": "GEO total-hit-count page-size negative control",
+      "prediction_rule": "use esearchresult.count as the retmax prediction",
+      "pre_registered": false
+    }
+  ],
+  "residuals": {
+    "model": 0.0,
+    "comparator": 43988.0,
+    "superiority_margin": 43988.0
+  },
+  "negative_controls": [
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    }
+  ],
+  "falsifiers": [
+    "retmax differs from returned idlist length, or the GEO total-count control is not worse"
+  ],
+  "blockers": [
+    "SOURCE_SEPARATION_MISSING::defaulting_to_snapshot_replay",
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED::snapshot_replay",
+    "TARGET_SEPARATION_NOT_REAL::snapshot_replay",
+    "PRE_TARGET_LOCK_REQUIRED",
+    "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+    "SOURCE_SEPARATION_NOT_DECLARED_BEFORE_SCORING",
+    "TRAINING_AND_TARGET_SOURCES_REQUIRED",
+    "OFFICIAL_NCBI_GEO_PROVENANCE_MISSING::BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
+    "COMPARATOR_BASELINE_NOT_PREREGISTERED::BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
+    "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+    "OFFICIAL_NCBI_GEO_PROVENANCE_REQUIRED",
+    "N_BELOW_MINIMUM::1/20",
+    "CURRENT_RAW_DATA_TOO_THIN_FOR_NCBI_GEO_BATCH",
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
+    "N_BELOW_MINIMUM::20",
+    "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+  ]
+}

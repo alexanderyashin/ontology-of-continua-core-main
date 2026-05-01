@@ -224,14 +224,20 @@ def discover_planners(root: Path) -> list[Path]:
     if not tools.exists():
         return []
     out = []
-    for file in sorted(tools.glob("oc133_*_acquisition_planner.py")):
+    candidates = [
+        *tools.glob("oc133_*_acquisition_planner.py"),
+        *tools.glob("oc133_*_acquisition_runner.py"),
+    ]
+    for file in sorted(set(candidates)):
         if file.name == "oc133_empirical_capability_registry.py":
+            continue
+        if file.name == "oc133_acquisition_planner_runner.py":
             continue
         metadata = parse_module_constants(file)
         if _has_empirical_owner(metadata):
             out.append(file)
             continue
-        # retain local acquisition-planner scripts that target empirical sources
+        # retain local acquisition scripts that target empirical sources
         out.append(file)
     return out
 
@@ -312,15 +318,24 @@ def _extract_blocker_fields(payload: dict[str, Any] | None) -> dict[str, int]:
         payload,
         "open_blocker_total",
         "open_blockers",
+        "open_repair_work_order_total",
         "blocked_total",
         "blocked",
     )
-    blocker_total = int_field(payload, "blocker_total", "open_blocker_total", "open_blockers", "blocked_total")
+    blocker_total = int_field(
+        payload,
+        "blocker_total",
+        "open_blocker_total",
+        "open_blockers",
+        "open_repair_work_order_total",
+        "blocked_total",
+    )
     blocked_domain_total = int_field(
         payload,
         "blocked_domain_total",
         "blocked_domain_count",
         "blocked_total_domains",
+        "blocked_domain_total_after_sync",
     )
     return {
         "open_blocker_total": open_blockers,
@@ -349,6 +364,7 @@ def _extract_pack_fields(payload: dict[str, Any] | None) -> dict[str, int]:
         payload,
         "blocked_candidate_pack_total",
         "blocked_pack_total",
+        "invalid_candidate_total",
         "blocked_total",
     )
     return {

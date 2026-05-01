@@ -1,0 +1,49 @@
+{
+  "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+  "release_id": "oc_core_1_3_3",
+  "capability_owner": "Research/EmpiricalScience",
+  "evidence_pack_id": "OC133-BIOLOGY-NCBI-BATCH-CANDIDATE",
+  "domain": "biology",
+  "source_separation": {
+    "mode": "snapshot_replay",
+    "pre_target_lock": false,
+    "target_hidden_until_scoring": false,
+    "training_sources": [
+      "validation/_raw/biology_ncbi_geo_platform.txt::record=1::visible_fields(retstart,idlist,querytranslation)"
+    ],
+    "target_sources": [
+      "validation/_raw/biology_ncbi_geo_platform.txt::record=1::target_field(retmax)"
+    ]
+  },
+  "n": 1,
+  "model_under_test": "NCBI/GEO ESearch batch page-size reconstruction: len(esearchresult.idlist)",
+  "comparator_baseline": {
+    "name": "GEO total-hit-count page-size negative control",
+    "prediction_rule": "use esearchresult.count as the retmax prediction for every batch row",
+    "pre_registered": false
+  },
+  "uncertainty": {
+    "metric": "mean absolute residual",
+    "method": "deterministic NCBI/GEO ESearch batch replay with exact integer target",
+    "interval": [
+      0.0,
+      0.0
+    ]
+  },
+  "residuals": {
+    "model": 0.0,
+    "comparator": 43988.0,
+    "superiority_margin": 43988.0
+  },
+  "negative_controls": [
+    {
+      "control_id": "biology-ncbi-total-count-control::BIOLOGY-NCBI-GEO-BATCH-0001-F6B8F2D6A89F",
+      "description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
+      "rejected": true
+    }
+  ],
+  "falsifiers": [
+    "retmax differs from returned idlist length, or the GEO total-count control is not worse"
+  ],
+  "grand_toe_support_allowed": false
+}
