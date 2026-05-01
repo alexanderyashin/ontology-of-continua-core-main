@@ -103,6 +103,11 @@ def git_status(root: Path) -> dict[str, Any]:
     except Exception as exc:
         return {"available": False, "error": str(exc), "dirty_total": None}
     lines = completed.stdout.splitlines()
+    branch_line = lines[0] if lines else ""
+    # `git status --branch` appends volatile ahead/behind counters after
+    # commits. The controller must not self-dirty merely because it recorded
+    # that it was about to be committed.
+    stable_branch = branch_line.split(" [", 1)[0] if branch_line else ""
     dirty = [
         line
         for line in lines
@@ -112,7 +117,8 @@ def git_status(root: Path) -> dict[str, Any]:
     ]
     return {
         "available": completed.returncode == 0,
-        "branch": lines[0] if lines else "",
+        "branch": stable_branch,
+        "branch_observation_policy": "ahead/behind counters excluded for delta-stable controller artifacts",
         "dirty_total": len(dirty),
         "dirty_files_sample": dirty[:80],
     }
