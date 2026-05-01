@@ -91,6 +91,12 @@ def main(argv: list[str] | None = None) -> int:
     zenodo_republish = sub.add_parser("zenodo-republish")
     zenodo_republish.add_argument("--release-id", default=None)
 
+    zenodo_presentation_repair = sub.add_parser("zenodo-presentation-repair")
+    zenodo_presentation_repair.add_argument("--release-id", default=None)
+
+    github_presentation_repair = sub.add_parser("github-presentation-repair")
+    github_presentation_repair.add_argument("--release-id", default=None)
+
     approve = sub.add_parser("owner-approve")
     approve.add_argument("--release-id", default=None)
     approve.add_argument("--owner-identity", default="Alexander Yashin")
@@ -226,6 +232,16 @@ def main(argv: list[str] | None = None) -> int:
             payload = public_release.republish_clean_zenodo_and_update_github(public_release.repo_root(), release_id=release_id)
         else:
             raise ValueError(f"zenodo-republish is not implemented for {release_id}")
+    elif args.command == "zenodo-presentation-repair":
+        if release_id == oc133.RELEASE_ID:
+            payload = public_release.repair_zenodo_presentation_in_place(public_release.repo_root(), release_id=release_id)
+        else:
+            raise ValueError(f"zenodo-presentation-repair is not implemented for {release_id}")
+    elif args.command == "github-presentation-repair":
+        if release_id == oc133.RELEASE_ID:
+            payload = public_release.repair_github_presentation(public_release.repo_root(), release_id=release_id)
+        else:
+            raise ValueError(f"github-presentation-repair is not implemented for {release_id}")
     elif args.command == "owner-approve":
         if release_id == oc133.RELEASE_ID:
             payload = public_release.grant_owner_approval(public_release.repo_root(), release_id=release_id, owner_identity=args.owner_identity)

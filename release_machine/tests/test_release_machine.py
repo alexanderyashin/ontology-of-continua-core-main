@@ -105,8 +105,59 @@ class ReleaseMachineTests(unittest.TestCase):
             self.assertEqual(payload["release_id"], "oc_core_1_3_3")
             self.assertIn("This is the public GitHub and Zenodo release", payload["release_body"])
             self.assertIn("Journal submissions require a separate owner approval", payload["release_body"])
+            self.assertIn("<p><strong>", payload["zenodo_metadata"]["description"])
+            self.assertNotIn("# Ontology", payload["zenodo_metadata"]["description"])
             self.assertFalse((root / ".zenodo.json").exists())
             self.assertFalse((root / "releases/oc_core_1_3_3/editorial/PUBLIC_RELEASE_PROFILE.json").exists())
+
+    def test_oc133_zenodo_metadata_uses_html_not_github_markdown(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            profile = public_release.load_profile(root, "oc_core_1_3_3")
+            payload = public_release.build_public_metadata(
+                root,
+                profile,
+                zenodo_doi="10.5281/zenodo.19957779",
+                zenodo_record_url="https://zenodo.org/records/19957779",
+                github_release_url="https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/tag/v1.3.3",
+                write=False,
+            )
+            description = payload["zenodo_metadata"]["description"]
+            self.assertTrue(payload["zenodo_presentation_gate"]["ok"])
+            self.assertIn("Recommended reading order", description)
+            self.assertIn("<ol>", description)
+            self.assertNotRegex(description, r"(?m)^\s*#")
+            self.assertLessEqual(len(public_release.SHA256_HEX_RE.findall(description)), 1)
+
+    def test_oc133_zenodo_presentation_gate_rejects_markdown(self) -> None:
+        profile = public_release.load_profile(complete.repo_root(), "oc_core_1_3_3")
+        metadata = public_release._zenodo_metadata(
+            profile,
+            "# Raw Markdown\n\n- `artifact.pdf`: abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789\n",
+            doi="10.5281/zenodo.19957779",
+        )
+        gate = public_release._zenodo_metadata_suitability(
+            profile,
+            metadata,
+            expected_doi="10.5281/zenodo.19957779",
+        )
+        self.assertFalse(gate["ok"])
+        self.assertFalse(gate["checks"]["no_markdown_headings"])
+        self.assertFalse(gate["checks"]["html_structure_ok"])
+
+    def test_oc133_public_file_set_gate_rejects_metadata_first(self) -> None:
+        profile = public_release.load_profile(complete.repo_root(), "oc_core_1_3_3")
+        records = [
+            {
+                "filename": Path(asset.path).name,
+                "size_bytes": 100_000 if asset.path.lower().endswith(".pdf") else 10_000,
+            }
+            for asset in profile.assets
+        ]
+        records.sort(key=lambda row: 0 if row["filename"] == ".codemeta.json" else 1)
+        gate = public_release._public_file_set_gate(complete.repo_root(), profile, records)
+        self.assertFalse(gate["ok"])
+        self.assertFalse(gate["checks"]["metadata_not_first"])
 
     def test_oc133_public_release_profile_uses_public_payload_asset(self) -> None:
         profile = public_release.load_profile(complete.repo_root(), "oc_core_1_3_3")

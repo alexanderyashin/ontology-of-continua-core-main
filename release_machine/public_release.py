@@ -3,6 +3,7 @@ from __future__ import annotations
 import base64
 import dataclasses
 import hashlib
+import html
 import json
 import mimetypes
 import os
@@ -41,6 +42,10 @@ PUBLIC_FORBIDDEN_RE = re.compile(
     r"not a public release|manifest_kind[^\n]+NOT_PUBLIC_RELEASE|public release record:\s*none|release DOI:\s*none assigned",
     re.IGNORECASE,
 )
+
+MARKDOWN_HEADING_RE = re.compile(r"(?m)^\s{0,3}#{1,6}\s+\S+")
+SHA256_HEX_RE = re.compile(r"\b[a-f0-9]{64}\b", re.IGNORECASE)
+HTML_STRUCTURE_RE = re.compile(r"</?(p|ul|ol|li|strong|em|a|h2|h3)\b", re.IGNORECASE)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -146,7 +151,7 @@ def _default_oc133_profile() -> ReleaseProfile:
         previous_zenodo_record_id="19851694",
         previous_zenodo_doi="10.5281/zenodo.19851694",
         concept_doi="10.5281/zenodo.17899134",
-        creators=[{"name": "Yashin, Alexander", "affiliation": "Logion / Estra"}],
+        creators=[{"name": "Yashin, Alexander", "affiliation": "Logion / Estra", "orcid": "0009-0008-6166-0914"}],
         license="cc-by-4.0",
         keywords=[
             "Ontology of Continua",
@@ -555,15 +560,32 @@ def _tokens_ok() -> dict[str, Any]:
     }
 
 
-def _release_body(profile: ReleaseProfile, checksums: list[dict[str, Any]], zenodo_doi: str | None = None) -> str:
-    asset_lines = "\n".join(
-        f"- `{row['filename']}`: {row['label']} ({row['sha256']})"
-        for row in checksums
-        if row.get("exists") and row.get("sha256")
-    )
+def _github_release_body(profile: ReleaseProfile, checksums: list[dict[str, Any]], zenodo_doi: str | None = None) -> str:
     doi_line = zenodo_doi or "Pending until Zenodo publication completes"
+    doi_link = f"https://doi.org/{doi_line}" if zenodo_doi else "Pending until Zenodo publication completes"
     keywords = ", ".join(profile.keywords)
     hashtags = " ".join(profile.hashtags)
+    download_base = f"https://github.com/{profile.repository}/releases/download/{profile.tag}"
+    primary = [
+        ("OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf", "Master monograph", "Canonical long-form scientific reference."),
+        ("OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf", "Journal core article", "Compact article-style entry point."),
+        (
+            "OC_CORE_1_3_3_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf",
+            "Methods and reproducibility companion",
+            "Reproducibility, validation, and audit navigation.",
+        ),
+        (
+            "OC_CORE_1_3_3_REVIEWER_ATTACK_AND_RESPONSE_MAP_EN.pdf",
+            "Reviewer attack and response map",
+            "Adversarial objections, boundaries, and responses.",
+        ),
+        ("oc_core_1_3_3_public_release.zip", "Public reproducibility package", "Proof/evidence corpus and journal owner-review material."),
+        ("checksums.txt", "Checksums", "SHA-256 integrity list for all public assets."),
+    ]
+    asset_lines = "\n".join(
+        f"| [{filename}]({download_base}/{urllib.parse.quote(filename)}) | {label} | {description} |"
+        for filename, label, description in primary
+    )
     return f"""# {profile.title} v{profile.version}
 
 {profile.subtitle}
@@ -572,7 +594,7 @@ def _release_body(profile: ReleaseProfile, checksums: list[dict[str, Any]], zeno
 
 1. Scope and release boundary
 2. Core scientific artifacts
-3. Reproducibility and checksums
+3. Public assets and checksums
 4. Journal package status
 5. Zenodo DOI and citation
 6. Release governance
@@ -581,9 +603,13 @@ def _release_body(profile: ReleaseProfile, checksums: list[dict[str, Any]], zeno
 
 This is the public GitHub and Zenodo release of OC Core {profile.version}. It is a bounded external-review scientific release: the release surface promotes the model-core claims supported by the included proof, finite-model, validation, reproducibility, and adversarial-review artifacts. Broader full-science and universal modern-science-superiority obligations remain in the background research program unless explicitly evidenced in this release package.
 
-## Core Assets
+## Public Assets
 
+| Asset | Role | How to use it |
+| --- | --- | --- |
 {asset_lines}
+
+Checksums for the complete public asset set are in [`checksums.txt`]({download_base}/checksums.txt). Machine-readable metadata is provided as `manifest.json`, `CITATION.cff`, `default.codemeta.json`, and `ro-crate-metadata.jsonld`.
 
 ## Journal Packages
 
@@ -592,6 +618,8 @@ The eight journal packages are included as owner-review material. Journal submis
 ## Zenodo
 
 DOI: {doi_line}
+
+DOI link: {doi_link}
 
 Concept DOI: {profile.concept_doi}
 
@@ -607,6 +635,192 @@ Previous version DOI: {profile.previous_zenodo_doi}
 
 GitHub Release and Zenodo publication were owner-approved for this release phase. Journal submission, email, and Software Heritage deposit are not enabled by this release action.
 """
+
+
+def _release_body(profile: ReleaseProfile, checksums: list[dict[str, Any]], zenodo_doi: str | None = None) -> str:
+    return _github_release_body(profile, checksums, zenodo_doi=zenodo_doi)
+
+
+def _asset_by_filename(checksums: list[dict[str, Any]], filename: str) -> dict[str, Any]:
+    return next((row for row in checksums if row.get("filename") == filename), {})
+
+
+def _html_link(url: str, label: str) -> str:
+    safe_url = html.escape(url, quote=True)
+    safe_label = html.escape(label)
+    return f'<a href="{safe_url}">{safe_label}</a>'
+
+
+def _zenodo_html_description(
+    profile: ReleaseProfile,
+    checksums: list[dict[str, Any]],
+    *,
+    zenodo_doi: str | None = None,
+    zenodo_record_url: str | None = None,
+    github_release_url: str | None = None,
+) -> str:
+    doi = zenodo_doi or "pending"
+    doi_url = f"https://doi.org/{doi}" if doi != "pending" else ""
+    record_url = zenodo_record_url or (
+        f"https://zenodo.org/records/{doi.rsplit('.', 1)[-1]}" if doi.startswith("10.5281/zenodo.") else ""
+    )
+    github_url = github_release_url or f"https://github.com/{profile.repository}/releases/tag/{profile.tag}"
+    pdf_names = [
+        "OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf",
+        "OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf",
+        "OC_CORE_1_3_3_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf",
+        "OC_CORE_1_3_3_REVIEWER_ATTACK_AND_RESPONSE_MAP_EN.pdf",
+    ]
+    reading_rows = []
+    for filename in pdf_names:
+        row = _asset_by_filename(checksums, filename)
+        label = row.get("label") or filename
+        reading_rows.append(f"<li><strong>{html.escape(str(label))}</strong> - {html.escape(filename)}</li>")
+    package = _asset_by_filename(checksums, "oc_core_1_3_3_public_release.zip")
+    package_label = package.get("label") or "Public reproducibility package"
+    reading_rows.append(
+        f"<li><strong>{html.escape(str(package_label))}</strong> - "
+        "proof, finite-model, validation, review, metadata, and checksum artifacts.</li>"
+    )
+    doi_html = _html_link(doi_url, doi) if doi_url else html.escape(doi)
+    record_html = _html_link(record_url, "Zenodo record") if record_url else "Zenodo record assigned during publication"
+    github_html = _html_link(github_url, "GitHub release")
+    concept_html = _html_link(f"https://doi.org/{profile.concept_doi}", profile.concept_doi)
+    checksum_note = "Checksums are provided in the uploaded checksums.txt file and inside the public release package."
+    keywords = ", ".join(profile.keywords[:8])
+    return (
+        f"<p><strong>{html.escape(profile.title)} v{html.escape(profile.version)}</strong> is a bounded "
+        "external-review scientific release of the Ontology of Continua core model. The release packages the typed "
+        "foundation, theorem and proof ledgers, Lean/finite-model evidence, target-blind validation summaries, "
+        "reproducibility material, and adversarial-review closure artifacts used for external scientific review.</p>"
+        "<p>The promoted release claims are bounded by the included evidence. Broader full-science completion and "
+        "universal modern-science-superiority obligations remain part of the continuing research program unless "
+        "explicitly evidenced in this package.</p>"
+        "<h2>Recommended reading order</h2>"
+        f"<ol>{''.join(reading_rows)}</ol>"
+        "<h2>Release contents</h2>"
+        "<ul>"
+        "<li>Four substantive English PDF documents: monograph, journal core article, methods companion, and reviewer response map.</li>"
+        "<li>One public reproducibility package containing proof, validation, review, metadata, and journal owner-review materials.</li>"
+        f"<li>{html.escape(checksum_note)}</li>"
+        "</ul>"
+        "<h2>Citation and links</h2>"
+        "<ul>"
+        f"<li>Version DOI: {doi_html}</li>"
+        f"<li>Concept DOI: {concept_html}</li>"
+        f"<li>{record_html}</li>"
+        f"<li>{github_html}</li>"
+        "</ul>"
+        "<h2>Governance boundary</h2>"
+        "<p>GitHub Release and Zenodo publication are approved for OC Core v1.3.3. Journal packages are included "
+        "as owner-review material only; journal submission, email campaigns, and Software Heritage deposit require "
+        "separate approval.</p>"
+        f"<p><strong>Keywords:</strong> {html.escape(keywords)}</p>"
+    )
+
+
+def _zenodo_metadata_suitability(
+    profile: ReleaseProfile,
+    metadata: dict[str, Any],
+    *,
+    expected_doi: str | None = None,
+    expected_record_url: str | None = None,
+) -> dict[str, Any]:
+    description = str(metadata.get("description") or "")
+    license_value = metadata.get("license")
+    license_id = str(license_value.get("id")) if isinstance(license_value, dict) else str(license_value or "")
+    related = metadata.get("related_identifiers", [])
+    related_identifiers = {str(row.get("identifier")) for row in related if isinstance(row, dict)}
+    creators = metadata.get("creators", [])
+    creator_has_name = any(isinstance(row, dict) and row.get("name") for row in creators)
+    creator_has_orcid = any(isinstance(row, dict) and row.get("orcid") for row in creators)
+    markdown_heading_total = len(MARKDOWN_HEADING_RE.findall(description))
+    sha256_total = len(SHA256_HEX_RE.findall(description))
+    backtick_total = description.count("`")
+    forbidden_hits = PUBLIC_FORBIDDEN_RE.findall(description)
+    stale_132 = bool(re.search(r"\b1\.3\.2\b|oc_core_1_3_2", description, re.IGNORECASE))
+    html_structure = bool(HTML_STRUCTURE_RE.search(description))
+    length = len(description)
+    required_phrases = [
+        "Recommended reading order",
+        "Release contents",
+        "Citation and links",
+        "Governance boundary",
+    ]
+    missing_phrases = [phrase for phrase in required_phrases if phrase not in description]
+    doi_ok = not expected_doi or expected_doi in description or expected_doi in related_identifiers
+    record_ok = not expected_record_url or expected_record_url in description
+    concept_ok = profile.concept_doi in description and profile.concept_doi in related_identifiers
+    keyword_set = {str(row).lower() for row in metadata.get("keywords", []) if row}
+    expected_keywords = {str(row).lower() for row in profile.keywords[:6]}
+    missing_keywords = sorted(expected_keywords - keyword_set)
+    checks = {
+        "title_ok": metadata.get("title") in {f"{profile.title} v{profile.version}", profile.title},
+        "version_ok": metadata.get("version") == profile.version,
+        "license_ok": license_id == profile.license,
+        "creator_has_name": creator_has_name,
+        "creator_has_orcid": creator_has_orcid,
+        "html_structure_ok": html_structure,
+        "no_markdown_headings": markdown_heading_total == 0,
+        "no_backticks": backtick_total == 0,
+        "no_checksum_wall": sha256_total <= 1,
+        "description_length_ok": 700 <= length <= 2600,
+        "required_sections_ok": not missing_phrases,
+        "no_forbidden_public_tokens": not forbidden_hits,
+        "no_stale_1_3_2": not stale_132,
+        "doi_ok": doi_ok,
+        "record_ok": record_ok,
+        "concept_doi_ok": concept_ok,
+        "keywords_ok": not missing_keywords,
+    }
+    return {
+        "gate_id": "ZENODO_PRESENTATION_SUITABILITY_GATE",
+        "description_length": length,
+        "markdown_heading_total": markdown_heading_total,
+        "sha256_hex_total": sha256_total,
+        "backtick_total": backtick_total,
+        "missing_required_sections": missing_phrases,
+        "missing_keywords": missing_keywords,
+        "forbidden_hit_total": len(forbidden_hits),
+        "checks": checks,
+        "ok": all(checks.values()),
+    }
+
+
+def _public_file_set_gate(root: Path, profile: ReleaseProfile, records: list[dict[str, Any]] | None = None) -> dict[str, Any]:
+    rows = records or _asset_records(root, profile)
+    names = [str(row.get("filename") or Path(str(row.get("path", ""))).name) for row in rows]
+    expected = {Path(asset.path).name for asset in profile.assets}
+    present = {name for name in names if name}
+    missing = sorted(expected - present)
+    pdf_rows = [row for row in rows if str(row.get("filename", "")).lower().endswith(".pdf")]
+    tiny_pdfs = [
+        {"filename": row.get("filename"), "size_bytes": row.get("size_bytes", 0)}
+        for row in pdf_rows
+        if int(row.get("size_bytes") or 0) < 50_000
+    ]
+    first_name = names[0] if names else ""
+    metadata_first = bool(first_name.startswith(".") or first_name.lower() in {"manifest.json", "checksums.txt", "citation.cff"})
+    public_zip_total = sum(1 for name in names if name == "oc_core_1_3_3_public_release.zip")
+    no_send_names = [name for name in names if "no_send" in name.lower() or "nosend" in name.lower()]
+    checks = {
+        "all_expected_files_present": not missing,
+        "public_zip_present_once": public_zip_total == 1,
+        "pdf_total_ok": len(pdf_rows) >= 4,
+        "pdfs_not_tiny": not tiny_pdfs,
+        "metadata_not_first": not metadata_first,
+        "no_no_send_assets": not no_send_names,
+    }
+    return {
+        "gate_id": "PUBLIC_FILE_SET_GATE",
+        "file_total": len(names),
+        "first_file": first_name,
+        "missing_files": missing,
+        "tiny_pdfs": tiny_pdfs,
+        "no_send_asset_names": no_send_names,
+        "checks": checks,
+        "ok": all(checks.values()),
+    }
 
 
 def _zenodo_metadata(profile: ReleaseProfile, description: str, *, doi: str | None = None) -> dict[str, Any]:
@@ -639,8 +853,22 @@ def build_public_metadata(
     write: bool = True,
 ) -> dict[str, Any]:
     assets = _asset_records(root, profile)
-    body = _release_body(profile, assets, zenodo_doi=zenodo_doi)
-    zenodo = _zenodo_metadata(profile, body, doi=zenodo_doi)
+    body = _github_release_body(profile, assets, zenodo_doi=zenodo_doi)
+    zenodo_description = _zenodo_html_description(
+        profile,
+        assets,
+        zenodo_doi=zenodo_doi,
+        zenodo_record_url=zenodo_record_url,
+        github_release_url=github_release_url,
+    )
+    zenodo = _zenodo_metadata(profile, zenodo_description, doi=zenodo_doi)
+    zenodo_gate = _zenodo_metadata_suitability(
+        profile,
+        zenodo,
+        expected_doi=zenodo_doi,
+        expected_record_url=zenodo_record_url,
+    )
+    file_gate = _public_file_set_gate(root, profile, assets)
     metadata = {
         "schema_id": "LOGION_PUBLIC_RELEASE_PRESENTATION_v1",
         "release_id": profile.release_id,
@@ -658,7 +886,11 @@ def build_public_metadata(
         "github_topics": profile.github_topics,
         "hashtags": profile.hashtags,
         "release_body": body,
+        "github_release_body": body,
+        "zenodo_html_description": zenodo_description,
         "zenodo_metadata": zenodo,
+        "zenodo_presentation_gate": zenodo_gate,
+        "public_file_set_gate": file_gate,
         "assets": assets,
         "journal_submissions_allowed": profile.journal_submissions_allowed,
         "software_heritage_allowed": profile.software_heritage_allowed,
@@ -686,6 +918,7 @@ def _preflight_common(root: Path, profile: ReleaseProfile, *, require_approval: 
     delta = _delta_ok(root)
     zip_integrity = _zip_integrity_ok(root, profile)
     public_payload = _public_payload_suitability_ok(root, profile)
+    public_metadata = build_public_metadata(root, profile, write=False)
     owner = _owner_approval_state(root, profile)
     token_state = _tokens_ok()
     previous_record_ok = False
@@ -711,6 +944,8 @@ def _preflight_common(root: Path, profile: ReleaseProfile, *, require_approval: 
         "delta_queue": delta,
         "zip_integrity": zip_integrity,
         "public_payload_suitability": public_payload,
+        "zenodo_presentation_suitability": public_metadata["zenodo_presentation_gate"],
+        "public_file_set": public_metadata["public_file_set_gate"],
         "assets": {"ok": all(row["exists"] for row in assets), "missing": [row["path"] for row in assets if not row["exists"]]},
         "secret_scan": {"ok": not secret_hits, "hits": secret_hits},
         "production_tokens": token_state,
@@ -1170,6 +1405,162 @@ def _zenodo_mark_superseded(record_id: str, corrected_doi: str, corrected_record
         return {"record_id": record_id, "state": "METADATA_EDIT_BLOCKED_BY_ZENODO", "error": str(exc)[:1000]}
 
 
+def _zenodo_update_published_metadata(record_id: str, metadata: dict[str, Any]) -> dict[str, Any]:
+    token = _zenodo_token()
+    edit = _zenodo_json("POST", f"/{record_id}/actions/edit", token)
+    draft_id = str(edit.get("id") or record_id)
+    draft = _zenodo_json("GET", f"/{draft_id}", token)
+    current_metadata = draft.get("metadata", {})
+    if not isinstance(current_metadata, dict):
+        current_metadata = {}
+    merged_metadata = dict(current_metadata)
+    for key in [
+        "title",
+        "upload_type",
+        "publication_type",
+        "description",
+        "creators",
+        "license",
+        "keywords",
+        "version",
+        "related_identifiers",
+    ]:
+        if key in metadata:
+            merged_metadata[key] = metadata[key]
+    _zenodo_json("PUT", f"/{draft_id}", token, {"metadata": merged_metadata})
+    published = _zenodo_json("POST", f"/{draft_id}/actions/publish", token)
+    return {
+        "record_id": record_id,
+        "draft_id": draft_id,
+        "updated_metadata_keys": sorted(set(metadata) & set(merged_metadata)),
+        "published": bool(published),
+        "doi": published.get("doi") or published.get("metadata", {}).get("doi"),
+    }
+
+
+def repair_zenodo_presentation_in_place(root: Path, *, release_id: str) -> dict[str, Any]:
+    profile = load_profile(root, release_id)
+    editorial = editorial_root(root, profile)
+    presentation = _read_json(editorial / f"PUBLIC_RELEASE_PRESENTATION_{profile.version}_latest.json", {})
+    report = _read_json(editorial / f"PUBLICATION_EXECUTION_REPORT_{profile.version}_latest.json", {})
+    zenodo_record_url = str(presentation.get("zenodo_record_url") or report.get("zenodo_record_url") or "")
+    zenodo_doi = str(presentation.get("zenodo_doi") or report.get("zenodo_doi") or "")
+    github_release_url = str(presentation.get("github_release_url") or report.get("github_release_url") or "")
+    record_id = zenodo_record_url.rstrip("/").split("/")[-1] if zenodo_record_url else str(report.get("zenodo_record_id") or "")
+    if not record_id:
+        raise RuntimeError("Cannot repair Zenodo presentation: record id is missing.")
+    metadata = build_public_metadata(
+        root,
+        profile,
+        zenodo_doi=zenodo_doi or None,
+        zenodo_record_url=zenodo_record_url or None,
+        github_release_url=github_release_url or None,
+        write=True,
+    )
+    gate = metadata["zenodo_presentation_gate"]
+    if not gate["ok"]:
+        raise RuntimeError(f"Zenodo presentation gate failed locally: {gate}")
+    remote_update = _zenodo_update_published_metadata(record_id, metadata["zenodo_metadata"])
+    live = _zenodo_verify(profile, record_id)
+    now = _utc_timestamp()
+    payload = {
+        "schema_id": "LOGION_ZENODO_PRESENTATION_REPAIR_v1",
+        "release_id": profile.release_id,
+        "version": profile.version,
+        "repair_policy": "IN_PLACE_FIRST",
+        "record_id": record_id,
+        "zenodo_record_url": zenodo_record_url or f"https://zenodo.org/records/{record_id}",
+        "zenodo_doi": zenodo_doi or live.get("doi"),
+        "github_release_url": github_release_url,
+        "local_zenodo_presentation_gate": gate,
+        "local_public_file_set_gate": metadata["public_file_set_gate"],
+        "remote_update": remote_update,
+        "live_zenodo_verification": live,
+        "fallback_required": not bool(live.get("ok")),
+        "generated_at": now,
+    }
+    _write_json(editorial / f"ZENODO_PRESENTATION_REPAIR_{profile.version}_latest.json", payload)
+    _write_text(
+        editorial / f"ZENODO_PRESENTATION_REPAIR_{profile.version}_latest.md",
+        "\n".join(
+            [
+                "# Zenodo Presentation Repair",
+                "",
+                f"Release: `{profile.release_id}` v{profile.version}",
+                "",
+                f"Record: {payload['zenodo_record_url']}",
+                "",
+                f"DOI: {payload['zenodo_doi']}",
+                "",
+                f"Local presentation gate: {'PASS' if gate.get('ok') else 'FAIL'}",
+                "",
+                f"Live Zenodo gate: {'PASS' if live.get('ok') else 'FAIL'}",
+                "",
+                f"Fallback required: `{str(payload['fallback_required']).lower()}`",
+            ]
+        ),
+    )
+    return payload
+
+
+def repair_github_presentation(root: Path, *, release_id: str) -> dict[str, Any]:
+    profile = load_profile(root, release_id)
+    editorial = editorial_root(root, profile)
+    presentation = _read_json(editorial / f"PUBLIC_RELEASE_PRESENTATION_{profile.version}_latest.json", {})
+    report = _read_json(editorial / f"PUBLICATION_EXECUTION_REPORT_{profile.version}_latest.json", {})
+    zenodo_doi = str(presentation.get("zenodo_doi") or report.get("zenodo_doi") or "")
+    zenodo_record_url = str(presentation.get("zenodo_record_url") or report.get("zenodo_record_url") or "")
+    github_release_url = str(presentation.get("github_release_url") or report.get("github_release_url") or "")
+    metadata = build_public_metadata(
+        root,
+        profile,
+        zenodo_doi=zenodo_doi or None,
+        zenodo_record_url=zenodo_record_url or None,
+        github_release_url=github_release_url or None,
+        write=True,
+    )
+    body = metadata["github_release_body"]
+    if PUBLIC_FORBIDDEN_RE.search(body) or re.search(r"\b1\.3\.2\b|oc_core_1_3_2", body, re.IGNORECASE):
+        raise RuntimeError("GitHub release body failed public-surface scan.")
+    token = (os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or "").strip()
+    if not token:
+        raise RuntimeError("GITHUB_TOKEN or GH_TOKEN is required for GitHub presentation repair.")
+    release = _github_create_or_update_release(profile, token, body)
+    live = _github_release_verify(profile, token)
+    now = _utc_timestamp()
+    payload = {
+        "schema_id": "LOGION_GITHUB_PRESENTATION_REPAIR_v1",
+        "release_id": profile.release_id,
+        "version": profile.version,
+        "github_release_url": release.get("html_url") or github_release_url,
+        "release_id_remote": release.get("id"),
+        "live_github_verification": live,
+        "assets_touched": False,
+        "tag_touched": False,
+        "generated_at": now,
+    }
+    _write_json(editorial / f"GITHUB_PRESENTATION_REPAIR_{profile.version}_latest.json", payload)
+    _write_text(
+        editorial / f"GITHUB_PRESENTATION_REPAIR_{profile.version}_latest.md",
+        "\n".join(
+            [
+                "# GitHub Presentation Repair",
+                "",
+                f"Release: `{profile.release_id}` v{profile.version}",
+                "",
+                f"GitHub: {payload['github_release_url']}",
+                "",
+                f"Live GitHub gate: {'PASS' if live.get('ok') else 'FAIL'}",
+                "",
+                "Assets touched: `false`",
+                "",
+                "Tag touched: `false`",
+            ]
+        ),
+    )
+    return payload
+
+
 def _create_tag_and_push(root: Path, profile: ReleaseProfile, body: str) -> dict[str, Any]:
     tag_state = _git_tag_exists(root, profile.tag)
     if tag_state["local_exists"] or tag_state["remote_exists"]:
@@ -1609,13 +2000,27 @@ def _github_release_verify(profile: ReleaseProfile, token: str) -> dict[str, Any
     expected = {_github_asset_upload_name(Path(asset.path).name) for asset in profile.assets}
     missing = sorted(expected - names)
     unexpected = sorted(names - expected)
+    body = str(release.get("body") or "")
+    forbidden_hits = PUBLIC_FORBIDDEN_RE.findall(body)
+    stale_132 = bool(re.search(r"\b1\.3\.2\b|oc_core_1_3_2", body, re.IGNORECASE))
     return {
         "exists": True,
         "url": release.get("html_url"),
         "asset_total": len(assets),
         "missing_assets": missing,
         "unexpected_assets": unexpected,
-        "ok": not missing and not unexpected and release.get("tag_name") == profile.tag,
+        "body_has_markdown_toc": "## Table of Contents" in body,
+        "body_has_hashtags": all(tag in body for tag in profile.hashtags[:3]),
+        "body_has_checksums_link": "checksums.txt" in body,
+        "forbidden_hit_total": len(forbidden_hits),
+        "stale_1_3_2": stale_132,
+        "ok": not missing
+        and not unexpected
+        and release.get("tag_name") == profile.tag
+        and "## Table of Contents" in body
+        and "checksums.txt" in body
+        and len(forbidden_hits) == 0
+        and not stale_132,
     }
 
 
@@ -1627,6 +2032,22 @@ def _zenodo_verify(profile: ReleaseProfile, record_id: str) -> dict[str, Any]:
     missing = sorted(expected - names)
     unexpected = sorted(names - expected)
     doi = record.get("doi")
+    metadata = record.get("metadata", {})
+    remote_records = [
+        {
+            "filename": item.get("key"),
+            "size_bytes": item.get("size"),
+            "sha256": str(item.get("checksum", "")).removeprefix("md5:").removeprefix("sha256:") or None,
+        }
+        for item in files
+    ]
+    presentation_gate = _zenodo_metadata_suitability(
+        profile,
+        metadata,
+        expected_doi=str(doi) if doi else None,
+        expected_record_url=f"https://zenodo.org/records/{record.get('id')}",
+    )
+    file_gate = _public_file_set_gate(Path.cwd(), profile, remote_records)
     return {
         "exists": bool(record.get("id")),
         "record_id": str(record.get("id")),
@@ -1634,7 +2055,34 @@ def _zenodo_verify(profile: ReleaseProfile, record_id: str) -> dict[str, Any]:
         "file_total": len(files),
         "missing_files": missing,
         "unexpected_files": unexpected,
-        "ok": bool(record.get("id")) and not missing and not unexpected and str(record.get("metadata", {}).get("version")) == profile.version,
+        "presentation_gate": presentation_gate,
+        "public_file_set_gate": file_gate,
+        "ok": bool(record.get("id"))
+        and not missing
+        and not unexpected
+        and str(metadata.get("version")) == profile.version
+        and presentation_gate["ok"]
+        and file_gate["ok"],
+    }
+
+
+def _github_zenodo_parity_gate(profile: ReleaseProfile, github: dict[str, Any], zenodo: dict[str, Any]) -> dict[str, Any]:
+    doi = str(zenodo.get("doi") or "")
+    github_url = str(github.get("url") or "")
+    checks = {
+        "github_ok": bool(github.get("ok")),
+        "zenodo_ok": bool(zenodo.get("ok")),
+        "doi_present": doi.startswith("10.5281/zenodo."),
+        "github_release_url_ok": profile.tag in github_url,
+        "version_ok": profile.version == "1.3.3",
+        "journal_submission_lock_preserved": profile.journal_submissions_allowed is False,
+    }
+    return {
+        "gate_id": "GITHUB_ZENODO_PARITY_GATE",
+        "doi": doi,
+        "github_url": github_url,
+        "checks": checks,
+        "ok": all(checks.values()),
     }
 
 
@@ -1650,6 +2098,7 @@ def postflight(root: Path, *, release_id: str) -> dict[str, Any]:
     github = _github_release_verify(profile, github_token)
     record_id = str(report.get("zenodo_record_id", ""))
     zenodo = _zenodo_verify(profile, record_id) if record_id else {"ok": False, "missing": "record_id"}
+    parity = _github_zenodo_parity_gate(profile, github, zenodo)
     checksums = _asset_records(root, profile)
     payload = {
         "schema_id": "LOGION_PUBLICATION_POSTFLIGHT_v1",
@@ -1658,10 +2107,11 @@ def postflight(root: Path, *, release_id: str) -> dict[str, Any]:
         "tag": profile.tag,
         "github": github,
         "zenodo": zenodo,
+        "github_zenodo_parity_gate": parity,
         "asset_checksums": checksums,
         "journal_submissions_allowed": False,
         "software_heritage_deposit_allowed": False,
-        "postflight_ok": bool(github.get("ok") and zenodo.get("ok")),
+        "postflight_ok": bool(github.get("ok") and zenodo.get("ok") and parity.get("ok")),
         "generated_at": _utc_timestamp(),
     }
     comparable_previous = {key: value for key, value in previous_postflight.items() if key != "generated_at"}

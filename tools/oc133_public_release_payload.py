@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import html
 import json
 import os
 import re
@@ -915,6 +916,8 @@ def write_public_metadata(doi: str | None, zenodo_record_url: str | None, github
                 "sha256": sha256_file(path) if path.is_file() else None,
             }
         )
+    github_body = release_body(asset_rows, doi, zenodo_record_url, github_release_url)
+    zenodo_description = zenodo_html_description(asset_rows, doi, zenodo_record_url, github_release_url)
     manifest = {
         "schema_id": "OC133_PUBLIC_RELEASE_MANIFEST_v2",
         "release_id": RELEASE_ID,
@@ -932,6 +935,8 @@ def write_public_metadata(doi: str | None, zenodo_record_url: str | None, github
         "zenodo_record_url": zenodo_record_url,
         "zenodo_doi": doi,
         "concept_doi": "10.5281/zenodo.17899134",
+        "github_release_body": github_body,
+        "zenodo_html_description": zenodo_description,
         "files": asset_rows,
     }
     write_json_if_changed(ROOT / "manifest.json", manifest)
@@ -1055,7 +1060,6 @@ GitHub Release: `{github_release_url or 'https://github.com/alexanderyashin/onto
 """
     write_text_if_changed(RELEASE_ROOT / "README.md", readme)
     write_text_if_changed(ROOT / "README.md", readme)
-    zenodo_description = release_body(asset_rows, doi, zenodo_record_url, github_release_url)
     zenodo = {
         "title": f"Ontology of Continua Core v{VERSION}",
         "upload_type": "publication",
@@ -1086,11 +1090,88 @@ GitHub Release: `{github_release_url or 'https://github.com/alexanderyashin/onto
     return manifest
 
 
+def zenodo_html_description(
+    asset_rows: list[dict[str, Any]],
+    doi: str | None,
+    zenodo_record_url: str | None,
+    github_release_url: str | None,
+) -> str:
+    version_doi = doi or "pending"
+    doi_html = (
+        f'<a href="{html.escape("https://doi.org/" + version_doi, quote=True)}">{html.escape(version_doi)}</a>'
+        if doi
+        else "assigned by Zenodo publication metadata"
+    )
+    record_html = (
+        f'<a href="{html.escape(zenodo_record_url, quote=True)}">Zenodo record</a>'
+        if zenodo_record_url
+        else "Zenodo record assigned during publication"
+    )
+    github_url = github_release_url or "https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/tag/v1.3.3"
+    github_html = f'<a href="{html.escape(github_url, quote=True)}">GitHub release</a>'
+    labels = {row.get("filename"): row.get("label") for row in asset_rows}
+    reading_order = [
+        ("OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf", labels.get("OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf") or "Master monograph"),
+        ("OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf", labels.get("OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf") or "Journal core article"),
+        (
+            "OC_CORE_1_3_3_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf",
+            labels.get("OC_CORE_1_3_3_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf")
+            or "Methods and reproducibility companion",
+        ),
+        (
+            "OC_CORE_1_3_3_REVIEWER_ATTACK_AND_RESPONSE_MAP_EN.pdf",
+            labels.get("OC_CORE_1_3_3_REVIEWER_ATTACK_AND_RESPONSE_MAP_EN.pdf") or "Reviewer attack and response map",
+        ),
+        ("oc_core_1_3_3_public_release.zip", "Public reproducibility package"),
+    ]
+    reading = "".join(
+        f"<li><strong>{html.escape(str(label))}</strong> - {html.escape(filename)}</li>"
+        for filename, label in reading_order
+    )
+    return (
+        f"<p><strong>Ontology of Continua Core v{VERSION}</strong> is a bounded external-review scientific release "
+        "of the OC core model. It provides typed foundations, proof/evidence ledgers, Lean and finite-model evidence, "
+        "target-blind validation summaries, reproducibility material, and adversarial-review closure artifacts.</p>"
+        "<p>The release promotes only model-core claims supported by the included evidence. Broader full-science "
+        "completion and universal modern-science-superiority obligations remain outside this release surface.</p>"
+        "<h2>Recommended reading order</h2>"
+        f"<ol>{reading}</ol>"
+        "<h2>Release contents</h2>"
+        "<ul><li>Four substantive English PDF documents.</li><li>One public reproducibility package with proof, "
+        "validation, review, metadata, checksums, and journal owner-review materials.</li><li>Checksums are provided "
+        "in checksums.txt.</li></ul>"
+        "<h2>Citation and links</h2>"
+        f"<ul><li>Version DOI: {doi_html}</li><li>Concept DOI: "
+        '<a href="https://doi.org/10.5281/zenodo.17899134">10.5281/zenodo.17899134</a></li>'
+        f"<li>{record_html}</li><li>{github_html}</li></ul>"
+        "<h2>Governance boundary</h2>"
+        "<p>GitHub Release and Zenodo publication are approved for v1.3.3. Journal packages are included as "
+        "owner-review material only; journal submission, email campaigns, and Software Heritage deposit require "
+        "separate approval.</p>"
+    )
+
+
 def release_body(asset_rows: list[dict[str, Any]], doi: str | None, zenodo_record_url: str | None, github_release_url: str | None) -> str:
+    download_base = "https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/download/v1.3.3"
+    primary = [
+        ("OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf", "Master monograph", "Canonical long-form scientific reference."),
+        ("OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf", "Journal core article", "Compact article-style entry point."),
+        (
+            "OC_CORE_1_3_3_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf",
+            "Methods and reproducibility companion",
+            "Reproducibility, validation, and audit navigation.",
+        ),
+        (
+            "OC_CORE_1_3_3_REVIEWER_ATTACK_AND_RESPONSE_MAP_EN.pdf",
+            "Reviewer attack and response map",
+            "Adversarial objections, boundaries, and responses.",
+        ),
+        ("oc_core_1_3_3_public_release.zip", "Public reproducibility package", "Proof/evidence corpus and journal owner-review material."),
+        ("checksums.txt", "Checksums", "SHA-256 integrity list for all public assets."),
+    ]
     asset_lines = "\n".join(
-        f"- `{row['filename']}` - {row['label']} - SHA-256 `{row['sha256']}`"
-        for row in asset_rows
-        if row.get("sha256")
+        f"| [{filename}]({download_base}/{filename}) | {label} | {description} |"
+        for filename, label, description in primary
     )
     return f"""# Ontology of Continua Core v{VERSION}
 
@@ -1100,7 +1181,7 @@ Bounded external-review scientific release with typed foundations, proof/evidenc
 
 1. Scope
 2. Core scientific documents
-3. Evidence and reproducibility package
+3. Public assets and checksums
 4. Journal package boundary
 5. Citation and DOI
 6. Checksums
@@ -1109,9 +1190,13 @@ Bounded external-review scientific release with typed foundations, proof/evidenc
 
 OC Core {VERSION} is a public GitHub and Zenodo release. The promoted claims are bounded by the included formal, finite-model, validation, comparator, and adversarial-review artifacts. Broader full-science completion and universal modern-science superiority remain outside this release surface.
 
-## Core Assets
+## Public Assets
 
+| Asset | Role | How to use it |
+| --- | --- | --- |
 {asset_lines}
+
+Checksums for the complete public asset set are in [`checksums.txt`]({download_base}/checksums.txt). Machine-readable metadata is provided as `manifest.json`, `CITATION.cff`, `default.codemeta.json`, and `ro-crate-metadata.jsonld`.
 
 ## Journal Packages
 
