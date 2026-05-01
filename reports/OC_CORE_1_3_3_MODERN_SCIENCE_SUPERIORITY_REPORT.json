@@ -32,6 +32,1227 @@
     "Separate parser/curated-field replay from domain-relevant prediction.",
     "For empirical domains, add prospective or time-locked heldout protocols with declared baselines before scoring.",
     "For formal domains, bind theorem scope, Lean build scope, finite witnesses, and public wording before any stronger claim."
-  ]
+  ],
+  "register_factory_ref": "tools/oc133_modern_science_comparator_factory.py",
+  "domain_evidence_matrix_ref": "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json::domain_evidence_matrix",
+  "domain_evidence_matrix": [
+    {
+      "domain": "physics",
+      "row_id": "MS-SUP-PHYSICS-CONSTANTS",
+      "lane_id": "MS-LANE-PHYSICS-CONSTANTS",
+      "predicate_id": "MS-PRED-PHYS-001",
+      "distinction_roles_present": [
+        "incumbent_modern_science_source",
+        "oc_result",
+        "comparator_result",
+        "benchmark_predicate",
+        "uncertainty_fairness",
+        "blocker_reason"
+      ],
+      "incumbent_modern_science_source": {
+        "incumbent": "NIST/CODATA/SI fundamental constants reference standards",
+        "accepted_capacity": "NIST/CODATA publishes exact/reference physical constants, including c = 299792458 m s^-1.",
+        "source_refs": [
+          {
+            "title": "NIST CODATA recommended values of the fundamental physical constants, 2022 adjustment",
+            "url": "https://physics.nist.gov/cuu/pdf/all.pdf",
+            "source_date": "2022",
+            "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-PHYS-CODATA-2022.txt",
+            "local_source_capsule_sha256": "121e451dfdaa13ff49e17b2bdb54b19e908d6fa4a890b2c857cc4eeaa6d1ace5"
+          }
+        ],
+        "source_role": "incumbent modern-science capacity only; not absence, novelty, or superiority evidence"
+      },
+      "oc_result": {
+        "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-PHYSICS-001",
+        "claim_id": "OC133-TARGETBLIND-PHYSICS-001",
+        "result_kind": "BOUNDED_TARGET_BLIND_RECONSTRUCTION_NOT_SUPERIORITY",
+        "dataset_snapshot_ref": "validation/_raw/physics_nist_constants.txt",
+        "formula_or_model": "Planck_constant * speed_of_light",
+        "predicted_value": 1.9864458571489286e-25,
+        "observed_value": 1.986445857e-25,
+        "residual": 1.4892870576445277e-35,
+        "uncertainty": 1e-33,
+        "prediction_support_allowed": true,
+        "empirical_support_allowed": true,
+        "support_scope": "target-blind reconstruction of a held-out CODATA relationship from exact defining constants; not a novel physics law",
+        "snapshot_sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+        "replay_hash": "a83ea273ef65d6136ad7c0dfe2f7d870822fe15a062a47ae906a7d46705a0cf1",
+        "current_boundary": "Bounded target-blind reconstruction and replay QA only; no new physics, no better constant source, no CODATA/SI superiority."
+      },
+      "comparator_result": {
+        "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-PHYSICS-001",
+        "baseline_name": "unit-incompatible Planck-constant-only negative control",
+        "comparator_prediction": 6.62607015e-34,
+        "comparator_residual": 1.9864458503739297e-25,
+        "negative_control": "drop the speed-of-light factor and require a larger residual",
+        "negative_control_rejected": true,
+        "falsifier": "Residual exceeds display-truncation tolerance or Planck-only control is not worse",
+        "beats_comparator_on_bounded_row": true,
+        "replay_controls_not_performance": [
+          {
+            "result_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-PHYS-C",
+            "claim_scope": "calibration replay of an official constant, not a new law of physics",
+            "replay_residual": 0.0,
+            "comparator_residual": 207542.0,
+            "performance_metric_allowed": false,
+            "promotion_status": "REPLAY_QA_QUARANTINED_NOT_PREDICTION"
+          }
+        ]
+      },
+      "benchmark_predicate": {
+        "benchmark_predicate_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json::MS-PRED-PHYS-001",
+        "task": "Reconstruct a held-out CODATA relationship from visible exact constants without reading the target field.",
+        "metric_family": "absolute_residual_against_held_out_value plus comparator_residual_margin",
+        "certification_predicates": [
+          "primary_or_source_backed_incumbent_ref_present",
+          "target_blind_split_declared_before_scoring",
+          "metric_and_uncertainty_declared_before_scoring",
+          "negative_control_rejected",
+          "independent_replay_passes_from_clean_checkout",
+          "result_is_not_merely_exact_standard_replay",
+          "claim_text_excludes_new_physics_or_CODATA_superiority"
+        ],
+        "current_predicate_status": {
+          "primary_or_source_backed_incumbent_ref_present": true,
+          "target_blind_split_declared_before_scoring": true,
+          "metric_and_uncertainty_declared_before_scoring": true,
+          "negative_control_rejected": true,
+          "independent_replay_passes_from_clean_checkout": false,
+          "result_is_not_merely_exact_standard_replay": false,
+          "claim_text_excludes_new_physics_or_CODATA_superiority": true
+        },
+        "current_verdict": "BLOCKED_NO_SUPERIORITY_CERTIFIED",
+        "allowed_current_claim": "bounded target-blind reconstruction of a held-out constants relationship only"
+      },
+      "uncertainty_fairness": {
+        "uncertainty_declared": true,
+        "uncertainty": 1e-33,
+        "residual_within_uncertainty": true,
+        "source_separation_mode": "target_blind",
+        "split_policy": "Planck constant and speed of light rows are visible; inverse-meter joule relationship row is withheld until scoring",
+        "predeclared_metric_present": true,
+        "predeclared_comparator_present": true,
+        "negative_control_rejected": true,
+        "fairness_limitations": [
+          "bounded baseline row only; grand_toe_support_allowed is false",
+          "current OC evidence boundary prevents incumbent-superiority wording",
+          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED"
+        ],
+        "fairness_verdict": "BOUNDED_FAIRNESS_INSUFFICIENT_FOR_SUPERIORITY"
+      },
+      "blocker_reason": {
+        "superiority_claim_status": "NOT_CERTIFIED",
+        "release_effect": "BLOCK_RELEASE_PROMOTION_FOR_SUPERIORITY",
+        "blocked_by": [
+          "independent_replay_passes_from_clean_checkout",
+          "result_is_not_merely_exact_standard_replay",
+          "domain_relevance_exceeds_exact_standard_replay"
+        ],
+        "grand_empirical_blockers": [
+          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED"
+        ],
+        "domain_blocker_summary": "Bounded target-blind reconstruction and replay QA only; no new physics, no better constant source, no CODATA/SI superiority.",
+        "allowed_current_wording": "OC has a bounded reconstruction lane over pinned constants; it does not outperform or replace modern physics reference standards.",
+        "forbidden_wording": [
+          "superior to modern physics",
+          "better than CODATA",
+          "new law of physics"
+        ]
+      },
+      "superiority_decision": {
+        "status": "NOT_CERTIFIED",
+        "certified": false,
+        "release_promotion_allowed": false,
+        "reason": "Source-backed bounded reconstruction and comparator rows exist, but the strict superiority predicates are not all satisfied."
+      },
+      "work_order_decomposition": [
+        {
+          "domain": "physics",
+          "blocking_predicate": "independent_replay_passes_from_clean_checkout",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Run an independent clean-checkout replay with command, output tail, artifact hashes, and environment note recorded.",
+          "required_artifact": "clean-checkout replay record bound to the relevant OC result and comparator baseline",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "physics",
+          "blocking_predicate": "result_is_not_merely_exact_standard_replay",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Replace exact reference-standard replay with a domain-relevant held-out or prospective physics benchmark before scoring.",
+          "required_artifact": "physics benchmark protocol separating CODATA/SI reference replay from candidate model performance",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "physics",
+          "blocking_predicate": "domain_relevance_exceeds_exact_standard_replay",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Replace exact reference-standard replay with a domain-relevant held-out or prospective physics benchmark before scoring.",
+          "required_artifact": "physics benchmark protocol separating CODATA/SI reference replay from candidate model performance",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "physics",
+          "blocking_predicate": "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+          "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "physics",
+          "blocking_predicate": "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+          "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "physics",
+          "blocking_predicate": "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+          "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        }
+      ],
+      "bounded_baseline_grand_gate": {
+        "bounded_baseline_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json::bounded_baseline_rows::physics",
+        "classification": "BOUNDED_BASELINE_NOT_GRAND_SUPPORT",
+        "grand_toe_support_allowed": false,
+        "minimum_n": 20,
+        "valid_n": 0,
+        "status": "BLOCKED"
+      }
+    },
+    {
+      "domain": "chemistry",
+      "row_id": "MS-SUP-CHEMISTRY-WATER",
+      "lane_id": "MS-LANE-CHEMISTRY-WATER",
+      "predicate_id": "MS-PRED-CHEM-001",
+      "distinction_roles_present": [
+        "incumbent_modern_science_source",
+        "oc_result",
+        "comparator_result",
+        "benchmark_predicate",
+        "uncertainty_fairness",
+        "blocker_reason"
+      ],
+      "incumbent_modern_science_source": {
+        "incumbent": "NIST Chemistry WebBook and PubChem compound reference records",
+        "accepted_capacity": "Curated chemical reference records provide water formula and molecular-weight fields.",
+        "source_refs": [
+          {
+            "title": "NIST Chemistry WebBook, SRD 69, Water",
+            "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185",
+            "source_date": "reference",
+            "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-CHEM-NIST-WEBBOOK-H2O.txt",
+            "local_source_capsule_sha256": "9823217e20af0896d5aee0c1211a2f17a9e43f3f1c4d08a727d8633e8964e3c5"
+          },
+          {
+            "title": "PubChem compound record, Water, CID 962",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/compound/962",
+            "source_date": "2026-04",
+            "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-CHEM-PUBCHEM-H2O.txt",
+            "local_source_capsule_sha256": "89980451bf51e4f62a01f958bf1bd650733fe1a6670e76bfad2c5ce67d12c823"
+          }
+        ],
+        "source_role": "incumbent modern-science capacity only; not absence, novelty, or superiority evidence"
+      },
+      "oc_result": {
+        "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-CHEMISTRY-001",
+        "claim_id": "OC133-TARGETBLIND-CHEMISTRY-001",
+        "result_kind": "BOUNDED_TARGET_BLIND_RECONSTRUCTION_NOT_SUPERIORITY",
+        "dataset_snapshot_ref": "validation/_raw/chemistry_pubchem_water.txt",
+        "formula_or_model": "2*atomic_weight(H)+atomic_weight(O)",
+        "predicted_value": 18.01528,
+        "observed_value": 18.015,
+        "residual": 0.000280000000000058,
+        "uncertainty": 0.02,
+        "prediction_support_allowed": true,
+        "empirical_support_allowed": true,
+        "support_scope": "target-blind reconstruction of a held-out official snapshot field; not a novel chemistry law",
+        "snapshot_sha256": "316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f",
+        "replay_hash": "c115a6d84fdad856976f60ad6d2fb4c9f9c397f994c7eafb09526f944004469d",
+        "current_boundary": "Bounded formula-field reconstruction and parser QA only; no chemical discovery, no database superiority."
+      },
+      "comparator_result": {
+        "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-CHEMISTRY-001",
+        "baseline_name": "CO2 molecular-weight negative control against water target",
+        "comparator_prediction": 44.0095,
+        "comparator_residual": 25.994500000000002,
+        "negative_control": "replace H2O by CO2 and require larger residual",
+        "negative_control_rejected": true,
+        "falsifier": "Residual exceeds declared uncertainty or CO2 control is not worse than formula reconstruction",
+        "beats_comparator_on_bounded_row": true,
+        "replay_controls_not_performance": [
+          {
+            "result_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-CHEM-WEBBOOK-H2O",
+            "claim_scope": "NIST Chemistry WebBook molecular-weight field replay for water only",
+            "replay_residual": 0.0,
+            "comparator_residual": 25.994200000000003,
+            "performance_metric_allowed": false,
+            "promotion_status": "REPLAY_QA_QUARANTINED_NOT_PREDICTION"
+          },
+          {
+            "result_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-CHEM-H2O",
+            "claim_scope": "PubChem molecular-weight field replay for water only",
+            "replay_residual": 0.0,
+            "comparator_residual": 25.994500000000002,
+            "performance_metric_allowed": false,
+            "promotion_status": "REPLAY_QA_QUARANTINED_NOT_PREDICTION"
+          }
+        ]
+      },
+      "benchmark_predicate": {
+        "benchmark_predicate_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json::MS-PRED-CHEM-001",
+        "task": "Reconstruct a held-out water molecular-weight field from formula-level information and declared atomic weights.",
+        "metric_family": "absolute_residual within declared uncertainty plus CO2 negative-control margin",
+        "certification_predicates": [
+          "primary_or_source_backed_incumbent_ref_present",
+          "formula_snapshot_split_declared",
+          "metric_and_uncertainty_declared_before_scoring",
+          "negative_control_rejected",
+          "independent_replay_passes_from_clean_checkout",
+          "not_a_curated_field_copy",
+          "claim_text_excludes_chemistry_database_superiority"
+        ],
+        "current_predicate_status": {
+          "primary_or_source_backed_incumbent_ref_present": true,
+          "formula_snapshot_split_declared": true,
+          "metric_and_uncertainty_declared_before_scoring": true,
+          "negative_control_rejected": true,
+          "independent_replay_passes_from_clean_checkout": false,
+          "not_a_curated_field_copy": false,
+          "claim_text_excludes_chemistry_database_superiority": true
+        },
+        "current_verdict": "BLOCKED_NO_SUPERIORITY_CERTIFIED",
+        "allowed_current_claim": "bounded reconstruction of a known water field only"
+      },
+      "uncertainty_fairness": {
+        "uncertainty_declared": true,
+        "uncertainty": 0.02,
+        "residual_within_uncertainty": true,
+        "source_separation_mode": "target_blind",
+        "split_policy": "formula field is visible; MolecularWeight target is withheld until scoring",
+        "predeclared_metric_present": true,
+        "predeclared_comparator_present": true,
+        "negative_control_rejected": true,
+        "fairness_limitations": [
+          "bounded baseline row only; grand_toe_support_allowed is false",
+          "current OC evidence boundary prevents incumbent-superiority wording",
+          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED"
+        ],
+        "fairness_verdict": "BOUNDED_FAIRNESS_INSUFFICIENT_FOR_SUPERIORITY"
+      },
+      "blocker_reason": {
+        "superiority_claim_status": "NOT_CERTIFIED",
+        "release_effect": "BLOCK_RELEASE_PROMOTION_FOR_SUPERIORITY",
+        "blocked_by": [
+          "independent_replay_passes_from_clean_checkout",
+          "not_a_curated_field_copy",
+          "domain_relevance_exceeds_curated_field_reconstruction"
+        ],
+        "grand_empirical_blockers": [
+          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED"
+        ],
+        "domain_blocker_summary": "Bounded formula-field reconstruction and parser QA only; no chemical discovery, no database superiority.",
+        "allowed_current_wording": "OC reconstructs a bounded water field under declared uncertainty; it does not outperform NIST WebBook, PubChem, or chemistry.",
+        "forbidden_wording": [
+          "superior to modern chemistry",
+          "better chemical reference than PubChem or NIST",
+          "new chemistry law"
+        ]
+      },
+      "superiority_decision": {
+        "status": "NOT_CERTIFIED",
+        "certified": false,
+        "release_promotion_allowed": false,
+        "reason": "Source-backed bounded reconstruction and comparator rows exist, but the strict superiority predicates are not all satisfied."
+      },
+      "work_order_decomposition": [
+        {
+          "domain": "chemistry",
+          "blocking_predicate": "independent_replay_passes_from_clean_checkout",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Run an independent clean-checkout replay with command, output tail, artifact hashes, and environment note recorded.",
+          "required_artifact": "clean-checkout replay record bound to the relevant OC result and comparator baseline",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "chemistry",
+          "blocking_predicate": "not_a_curated_field_copy",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Separate curated-field parser replay from a chemistry benchmark whose targets, baselines, uncertainty, and negative controls are declared before scoring.",
+          "required_artifact": "chemistry benchmark protocol not reducible to NIST/PubChem field copying",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "chemistry",
+          "blocking_predicate": "domain_relevance_exceeds_curated_field_reconstruction",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Separate curated-field parser replay from a chemistry benchmark whose targets, baselines, uncertainty, and negative controls are declared before scoring.",
+          "required_artifact": "chemistry benchmark protocol not reducible to NIST/PubChem field copying",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "chemistry",
+          "blocking_predicate": "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+          "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "chemistry",
+          "blocking_predicate": "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+          "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "chemistry",
+          "blocking_predicate": "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+          "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        }
+      ],
+      "bounded_baseline_grand_gate": {
+        "bounded_baseline_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json::bounded_baseline_rows::chemistry",
+        "classification": "BOUNDED_BASELINE_NOT_GRAND_SUPPORT",
+        "grand_toe_support_allowed": false,
+        "minimum_n": 20,
+        "valid_n": 0,
+        "status": "BLOCKED"
+      }
+    },
+    {
+      "domain": "biology",
+      "row_id": "MS-SUP-BIOLOGY-GEO",
+      "lane_id": "MS-LANE-BIOLOGY-GEO",
+      "predicate_id": "MS-PRED-BIO-001",
+      "distinction_roles_present": [
+        "incumbent_modern_science_source",
+        "oc_result",
+        "comparator_result",
+        "benchmark_predicate",
+        "uncertainty_fairness",
+        "blocker_reason"
+      ],
+      "incumbent_modern_science_source": {
+        "incumbent": "NCBI GEO public functional-genomics repository and query/data surfaces",
+        "accepted_capacity": "GEO stores and exposes public high-throughput functional-genomics records with DataSet/Series/Sample/Platform organization.",
+        "source_refs": [
+          {
+            "title": "NCBI Gene Expression Omnibus overview and dataset documentation",
+            "url": "https://www.ncbi.nlm.nih.gov/geo/info/overview.html",
+            "source_date": "reference",
+            "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-BIO-NCBI-GEO.txt",
+            "local_source_capsule_sha256": "ecb31bbe88815175df5e4c058dbbc8a030476339e1f12236b957754ef2855ae7"
+          }
+        ],
+        "source_role": "incumbent modern-science capacity only; not absence, novelty, or superiority evidence"
+      },
+      "oc_result": {
+        "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-BIOLOGY-001",
+        "claim_id": "OC133-TARGETBLIND-BIOLOGY-001",
+        "result_kind": "BOUNDED_TARGET_BLIND_RECONSTRUCTION_NOT_SUPERIORITY",
+        "dataset_snapshot_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+        "formula_or_model": "retstart + len(idlist)",
+        "predicted_value": 20.0,
+        "observed_value": 20.0,
+        "residual": 0.0,
+        "uncertainty": 0.0,
+        "prediction_support_allowed": true,
+        "empirical_support_allowed": true,
+        "support_scope": "target-blind reconstruction of a held-out NCBI/GEO API snapshot field; not a biological mechanism law",
+        "snapshot_sha256": "f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4",
+        "replay_hash": "6606a563b35116d6852bc936618757a29873c52e59541a0928546bc863cd4ecb",
+        "current_boundary": "Bounded API/query accounting reconstruction only; no biological mechanism or repository superiority."
+      },
+      "comparator_result": {
+        "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-BIOLOGY-001",
+        "baseline_name": "use total hit count as pagination-size negative control",
+        "comparator_prediction": 44008.0,
+        "comparator_residual": 43988.0,
+        "negative_control": "replace page-size reconstruction by total hit count and require a larger residual",
+        "negative_control_rejected": true,
+        "falsifier": "Retmax differs from retstart plus returned id count or total-count control is not worse",
+        "beats_comparator_on_bounded_row": true,
+        "replay_controls_not_performance": [
+          {
+            "result_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-BIO-GEO-COUNT",
+            "claim_scope": "official GEO query-count replay; no organism-wide mechanism claim",
+            "replay_residual": 0.0,
+            "comparator_residual": 1.0,
+            "performance_metric_allowed": false,
+            "promotion_status": "REPLAY_QA_QUARANTINED_NOT_PREDICTION"
+          }
+        ]
+      },
+      "benchmark_predicate": {
+        "benchmark_predicate_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json::MS-PRED-BIO-001",
+        "task": "Reconstruct a held-out GEO API pagination/accounting field from visible query metadata.",
+        "metric_family": "integer residual plus total-count negative-control margin",
+        "certification_predicates": [
+          "primary_or_source_backed_incumbent_ref_present",
+          "api_snapshot_split_declared",
+          "integer_metric_declared_before_scoring",
+          "negative_control_rejected",
+          "independent_replay_passes_from_clean_checkout",
+          "biological_mechanism_test_present",
+          "claim_text_excludes_biological_mechanism_superiority"
+        ],
+        "current_predicate_status": {
+          "primary_or_source_backed_incumbent_ref_present": true,
+          "api_snapshot_split_declared": true,
+          "integer_metric_declared_before_scoring": true,
+          "negative_control_rejected": true,
+          "independent_replay_passes_from_clean_checkout": false,
+          "biological_mechanism_test_present": false,
+          "claim_text_excludes_biological_mechanism_superiority": true
+        },
+        "current_verdict": "BLOCKED_NO_SUPERIORITY_CERTIFIED",
+        "allowed_current_claim": "bounded API/query accounting reconstruction only"
+      },
+      "uncertainty_fairness": {
+        "uncertainty_declared": true,
+        "uncertainty": 0.0,
+        "residual_within_uncertainty": true,
+        "source_separation_mode": "target_blind",
+        "split_policy": "NCBI ESearch retstart/idlist fields are visible; retmax pagination target is withheld until scoring",
+        "predeclared_metric_present": true,
+        "predeclared_comparator_present": true,
+        "negative_control_rejected": true,
+        "fairness_limitations": [
+          "bounded baseline row only; grand_toe_support_allowed is false",
+          "current OC evidence boundary prevents incumbent-superiority wording",
+          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED"
+        ],
+        "fairness_verdict": "BOUNDED_FAIRNESS_INSUFFICIENT_FOR_SUPERIORITY"
+      },
+      "blocker_reason": {
+        "superiority_claim_status": "NOT_CERTIFIED",
+        "release_effect": "BLOCK_RELEASE_PROMOTION_FOR_SUPERIORITY",
+        "blocked_by": [
+          "independent_replay_passes_from_clean_checkout",
+          "biological_mechanism_test_present"
+        ],
+        "grand_empirical_blockers": [
+          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED"
+        ],
+        "domain_blocker_summary": "Bounded API/query accounting reconstruction only; no biological mechanism or repository superiority.",
+        "allowed_current_wording": "OC checks bounded GEO query accounting; it does not outperform modern biology or GEO.",
+        "forbidden_wording": [
+          "superior to modern biology",
+          "biological mechanism proven",
+          "better than GEO"
+        ]
+      },
+      "superiority_decision": {
+        "status": "NOT_CERTIFIED",
+        "certified": false,
+        "release_promotion_allowed": false,
+        "reason": "Source-backed bounded reconstruction and comparator rows exist, but the strict superiority predicates are not all satisfied."
+      },
+      "work_order_decomposition": [
+        {
+          "domain": "biology",
+          "blocking_predicate": "independent_replay_passes_from_clean_checkout",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Run an independent clean-checkout replay with command, output tail, artifact hashes, and environment note recorded.",
+          "required_artifact": "clean-checkout replay record bound to the relevant OC result and comparator baseline",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "biology",
+          "blocking_predicate": "biological_mechanism_test_present",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Add a source-backed biological mechanism benchmark instead of repository pagination/count reconstruction.",
+          "required_artifact": "biology mechanism benchmark with declared comparator, uncertainty, negative control, and falsifier",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "biology",
+          "blocking_predicate": "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+          "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "biology",
+          "blocking_predicate": "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+          "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "biology",
+          "blocking_predicate": "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+          "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        }
+      ],
+      "bounded_baseline_grand_gate": {
+        "bounded_baseline_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json::bounded_baseline_rows::biology",
+        "classification": "BOUNDED_BASELINE_NOT_GRAND_SUPPORT",
+        "grand_toe_support_allowed": false,
+        "minimum_n": 20,
+        "valid_n": 0,
+        "status": "BLOCKED"
+      }
+    },
+    {
+      "domain": "systems",
+      "row_id": "MS-SUP-SYSTEMS-WDI-GDP",
+      "lane_id": "MS-LANE-SYSTEMS-WDI-GDP",
+      "predicate_id": "MS-PRED-SYS-001",
+      "distinction_roles_present": [
+        "incumbent_modern_science_source",
+        "oc_result",
+        "comparator_result",
+        "benchmark_predicate",
+        "uncertainty_fairness",
+        "blocker_reason"
+      ],
+      "incumbent_modern_science_source": {
+        "incumbent": "World Bank World Development Indicators GDP current US dollar series and API metadata",
+        "accepted_capacity": "WDI provides annual GDP current-US-dollar indicator metadata and API access sourced from national accounts and statistical sources.",
+        "source_refs": [
+          {
+            "title": "World Bank WDI metadata for NY.GDP.MKTP.CD",
+            "url": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/NY.GDP.MKTP.CD",
+            "source_date": "reference",
+            "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-SYS-WORLD-BANK-WDI.txt",
+            "local_source_capsule_sha256": "6477aaa3228fba4ab088b29a909465addce8f9ecbc6c662fa6f5962f279c4f40"
+          }
+        ],
+        "source_role": "incumbent modern-science capacity only; not absence, novelty, or superiority evidence"
+      },
+      "oc_result": {
+        "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-SYSTEMS-001",
+        "claim_id": "OC133-TARGETBLIND-SYSTEMS-001",
+        "result_kind": "BOUNDED_TARGET_BLIND_RECONSTRUCTION_NOT_SUPERIORITY",
+        "dataset_snapshot_ref": "validation/_raw/systems_world_bank_gdp.txt",
+        "formula_or_model": "GDP_2023 + (GDP_2023-GDP_2021)/2",
+        "predicted_value": 111042234099108.1,
+        "observed_value": 110982661180013.0,
+        "residual": 59572919095.09375,
+        "uncertainty": 1109826611800.1301,
+        "prediction_support_allowed": true,
+        "empirical_support_allowed": true,
+        "support_scope": "retrospective target-blind holdout over pinned WDI rows; not a prospective macroeconomic law",
+        "snapshot_sha256": "52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b",
+        "replay_hash": "778ffef9592179e6062fad4b770d02612408603c70455f734c423475ff704be4",
+        "current_boundary": "Bounded retrospective holdout over pinned rows only; no macroeconomic law or WDI/statistical-production superiority."
+      },
+      "comparator_result": {
+        "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-SYSTEMS-001",
+        "baseline_name": "last-observation carry-forward GDP_2023",
+        "comparator_prediction": 106741647821064.0,
+        "comparator_residual": 4241013358949.0,
+        "negative_control": "last-observation baseline must have larger residual",
+        "negative_control_rejected": true,
+        "falsifier": "Held-out residual exceeds 1 percent of observed target or comparator is not worse",
+        "beats_comparator_on_bounded_row": true,
+        "replay_controls_not_performance": [
+          {
+            "result_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-SYS-WDI-GDP",
+            "claim_scope": "retrospective WDI GDP snapshot replay QA with descriptive comparator, no prediction or superiority claim",
+            "replay_residual": 0.0,
+            "comparator_residual": 4241013358949.0,
+            "performance_metric_allowed": false,
+            "promotion_status": "REPLAY_QA_QUARANTINED_NOT_PREDICTION"
+          }
+        ]
+      },
+      "benchmark_predicate": {
+        "benchmark_predicate_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json::MS-PRED-SYS-001",
+        "task": "Predict or reconstruct a withheld WDI GDP value from prior-year rows under a predeclared comparator baseline.",
+        "metric_family": "absolute residual, percentage residual, and comparator_residual_margin",
+        "certification_predicates": [
+          "primary_or_source_backed_incumbent_ref_present",
+          "heldout_year_split_declared",
+          "metric_and_uncertainty_declared_before_scoring",
+          "negative_control_rejected",
+          "independent_replay_passes_from_clean_checkout",
+          "prospective_or_time-locked_protocol_present",
+          "claim_text_excludes_macroeconomic_law_or_WDI_superiority"
+        ],
+        "current_predicate_status": {
+          "primary_or_source_backed_incumbent_ref_present": true,
+          "heldout_year_split_declared": true,
+          "metric_and_uncertainty_declared_before_scoring": true,
+          "negative_control_rejected": true,
+          "independent_replay_passes_from_clean_checkout": false,
+          "prospective_or_time-locked_protocol_present": false,
+          "claim_text_excludes_macroeconomic_law_or_WDI_superiority": true
+        },
+        "current_verdict": "BLOCKED_NO_SUPERIORITY_CERTIFIED",
+        "allowed_current_claim": "bounded retrospective holdout over pinned WDI rows only"
+      },
+      "uncertainty_fairness": {
+        "uncertainty_declared": true,
+        "uncertainty": 1109826611800.1301,
+        "residual_within_uncertainty": true,
+        "source_separation_mode": "target_blind",
+        "split_policy": "2021-2023 train rows predict withheld 2024 World Bank WDI target",
+        "predeclared_metric_present": true,
+        "predeclared_comparator_present": true,
+        "negative_control_rejected": true,
+        "fairness_limitations": [
+          "bounded baseline row only; grand_toe_support_allowed is false",
+          "current OC evidence boundary prevents incumbent-superiority wording",
+          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED"
+        ],
+        "fairness_verdict": "BOUNDED_FAIRNESS_INSUFFICIENT_FOR_SUPERIORITY"
+      },
+      "blocker_reason": {
+        "superiority_claim_status": "NOT_CERTIFIED",
+        "release_effect": "BLOCK_RELEASE_PROMOTION_FOR_SUPERIORITY",
+        "blocked_by": [
+          "independent_replay_passes_from_clean_checkout",
+          "prospective_or_time-locked_protocol_present"
+        ],
+        "grand_empirical_blockers": [
+          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED"
+        ],
+        "domain_blocker_summary": "Bounded retrospective holdout over pinned rows only; no macroeconomic law or WDI/statistical-production superiority.",
+        "allowed_current_wording": "OC has a bounded retrospective WDI holdout lane; it does not outperform modern macroeconomic statistics.",
+        "forbidden_wording": [
+          "superior to modern economics",
+          "macroeconomic law proven",
+          "better than World Bank WDI"
+        ]
+      },
+      "superiority_decision": {
+        "status": "NOT_CERTIFIED",
+        "certified": false,
+        "release_promotion_allowed": false,
+        "reason": "Source-backed bounded reconstruction and comparator rows exist, but the strict superiority predicates are not all satisfied."
+      },
+      "work_order_decomposition": [
+        {
+          "domain": "systems",
+          "blocking_predicate": "independent_replay_passes_from_clean_checkout",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Run an independent clean-checkout replay with command, output tail, artifact hashes, and environment note recorded.",
+          "required_artifact": "clean-checkout replay record bound to the relevant OC result and comparator baseline",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "systems",
+          "blocking_predicate": "prospective_or_time-locked_protocol_present",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Add a prospective or time-locked WDI/systems protocol with comparator and scoring locked before the target is read.",
+          "required_artifact": "systems prospective or time-locked benchmark protocol and replay record",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "systems",
+          "blocking_predicate": "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+          "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "systems",
+          "blocking_predicate": "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+          "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "systems",
+          "blocking_predicate": "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+          "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        }
+      ],
+      "bounded_baseline_grand_gate": {
+        "bounded_baseline_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json::bounded_baseline_rows::systems",
+        "classification": "BOUNDED_BASELINE_NOT_GRAND_SUPPORT",
+        "grand_toe_support_allowed": false,
+        "minimum_n": 20,
+        "valid_n": 0,
+        "status": "BLOCKED"
+      }
+    },
+    {
+      "domain": "mathematics",
+      "row_id": "MS-SUP-MATHEMATICS-LEAN",
+      "lane_id": "MS-LANE-MATHEMATICS-LEAN-FINITE",
+      "predicate_id": "MS-PRED-MATH-001",
+      "distinction_roles_present": [
+        "incumbent_modern_science_source",
+        "oc_result",
+        "comparator_result",
+        "benchmark_predicate",
+        "uncertainty_fairness",
+        "blocker_reason"
+      ],
+      "incumbent_modern_science_source": {
+        "incumbent": "Lean 4 theorem prover and formal mathematics ecosystem",
+        "accepted_capacity": "Lean 4 is an interactive theorem prover and programming language for verified programs and formal mathematics.",
+        "source_refs": [
+          {
+            "title": "Lean 4 official site",
+            "url": "https://lean4.dev/",
+            "source_date": "reference",
+            "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-MATH-LEAN4.txt",
+            "local_source_capsule_sha256": "827b10594ad2c190b6911395f50c819825b9177a2352456e98a0c0ab615427a0"
+          }
+        ],
+        "source_role": "incumbent modern-science capacity only; not absence, novelty, or superiority evidence"
+      },
+      "oc_result": {
+        "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-MATHEMATICS-001",
+        "claim_id": "OC133-TARGETBLIND-MATHEMATICS-001",
+        "result_kind": "BOUNDED_TARGET_BLIND_RECONSTRUCTION_NOT_SUPERIORITY",
+        "dataset_snapshot_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "formula_or_model": "count_unique(theorem_id where case_type='theorem_case' and observed_verdict='ACCEPT' and passed=true)",
+        "predicted_value": 10.0,
+        "observed_value": 10.0,
+        "residual": 0.0,
+        "uncertainty": 0.0,
+        "prediction_support_allowed": true,
+        "empirical_support_allowed": true,
+        "support_scope": "target-blind reconstruction of a finite proof-corpus aggregate; not a TOE truth proof or empirical law",
+        "snapshot_sha256": "d781dd7f0808451a564eab0f55fbf3c6e061ad4ebf9bab0da46be3426c395247",
+        "replay_hash": "c5a17b253792813764d87be75b29ba2fd33a301b5ce3afb89c12e3ddc1a7ca06",
+        "current_boundary": "Bounded local finite proof-corpus QA and release-consistency only; no theorem-prover or formal-mathematics superiority."
+      },
+      "comparator_result": {
+        "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-MATHEMATICS-001",
+        "baseline_name": "positive_case_total negative control, which counts non-theorem support rows too",
+        "comparator_prediction": 21.0,
+        "comparator_residual": 11.0,
+        "negative_control": "replace theorem-id aggregate by positive_case_total and require a larger residual",
+        "negative_control_rejected": true,
+        "falsifier": "Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse",
+        "beats_comparator_on_bounded_row": true,
+        "replay_controls_not_performance": [
+          {
+            "result_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-MATH-FINITE",
+            "claim_scope": "finite witness acceptance count for machine-checked v12 theorem inventory rows; never public-promotion, empirical, or prediction support in v12 unless a future prospective protocol explicitly flips release_promotion_allowed, prediction_support_allowed, and empirical_support_allowed after review",
+            "replay_residual": 0.0,
+            "comparator_residual": 1.0,
+            "performance_metric_allowed": false,
+            "promotion_status": "FINITE_MODEL_REPLAY_QA_NOT_EMPIRICAL_PROMOTION"
+          }
+        ]
+      },
+      "benchmark_predicate": {
+        "benchmark_predicate_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json::MS-PRED-MATH-001",
+        "task": "Reconstruct a held-out aggregate over accepted finite theorem-case rows and bind it to the Lean/proof artifact surface.",
+        "metric_family": "exact finite aggregate equality plus negative-control aggregate mismatch",
+        "certification_predicates": [
+          "primary_or_source_backed_incumbent_ref_present",
+          "finite_aggregate_split_declared",
+          "exact_metric_declared_before_scoring",
+          "negative_control_rejected",
+          "independent_replay_passes_from_clean_checkout",
+          "machine_checked_theorem_scope_matches_public_claim",
+          "claim_text_excludes_theorem_prover_or_formal_math_superiority"
+        ],
+        "current_predicate_status": {
+          "primary_or_source_backed_incumbent_ref_present": true,
+          "finite_aggregate_split_declared": true,
+          "exact_metric_declared_before_scoring": true,
+          "negative_control_rejected": true,
+          "independent_replay_passes_from_clean_checkout": false,
+          "machine_checked_theorem_scope_matches_public_claim": false,
+          "claim_text_excludes_theorem_prover_or_formal_math_superiority": true
+        },
+        "current_verdict": "BLOCKED_NO_SUPERIORITY_CERTIFIED",
+        "allowed_current_claim": "bounded finite proof-corpus QA and formal release-consistency only"
+      },
+      "uncertainty_fairness": {
+        "uncertainty_declared": true,
+        "uncertainty": 0.0,
+        "residual_within_uncertainty": true,
+        "source_separation_mode": "target_blind",
+        "split_policy": "finite theorem-case rows are visible; aggregate machine_checked_subset_total is withheld until scoring",
+        "predeclared_metric_present": true,
+        "predeclared_comparator_present": true,
+        "negative_control_rejected": true,
+        "fairness_limitations": [
+          "bounded baseline row only; grand_toe_support_allowed is false",
+          "current OC evidence boundary prevents incumbent-superiority wording",
+          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED",
+          "CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE"
+        ],
+        "fairness_verdict": "BOUNDED_FAIRNESS_INSUFFICIENT_FOR_SUPERIORITY"
+      },
+      "blocker_reason": {
+        "superiority_claim_status": "NOT_CERTIFIED",
+        "release_effect": "BLOCK_RELEASE_PROMOTION_FOR_SUPERIORITY",
+        "blocked_by": [
+          "independent_replay_passes_from_clean_checkout",
+          "machine_checked_theorem_scope_matches_public_claim"
+        ],
+        "grand_empirical_blockers": [
+          "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED",
+          "CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE"
+        ],
+        "domain_blocker_summary": "Bounded local finite proof-corpus QA and release-consistency only; no theorem-prover or formal-mathematics superiority.",
+        "allowed_current_wording": "OC uses bounded formal and finite witness artifacts; it does not outperform Lean or formal mathematics.",
+        "forbidden_wording": [
+          "superior to modern mathematics",
+          "better theorem prover than Lean",
+          "formal mathematics surpassed"
+        ]
+      },
+      "superiority_decision": {
+        "status": "NOT_CERTIFIED",
+        "certified": false,
+        "release_promotion_allowed": false,
+        "reason": "Source-backed bounded reconstruction and comparator rows exist, but the strict superiority predicates are not all satisfied."
+      },
+      "work_order_decomposition": [
+        {
+          "domain": "mathematics",
+          "blocking_predicate": "independent_replay_passes_from_clean_checkout",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Run an independent clean-checkout replay with command, output tail, artifact hashes, and environment note recorded.",
+          "required_artifact": "clean-checkout replay record bound to the relevant OC result and comparator baseline",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "mathematics",
+          "blocking_predicate": "machine_checked_theorem_scope_matches_public_claim",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Bind public mathematical claim scope to machine-checked Lean/formal artifacts and an independently replayed proof surface.",
+          "required_artifact": "formal-scope binding record covering Lean build, finite witnesses, and public wording",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "mathematics",
+          "blocking_predicate": "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+          "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "mathematics",
+          "blocking_predicate": "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+          "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "mathematics",
+          "blocking_predicate": "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+          "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        },
+        {
+          "domain": "mathematics",
+          "blocking_predicate": "CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE",
+          "owner_capability": "Logion Research/PriorArt",
+          "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+          "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+          "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+        }
+      ],
+      "bounded_baseline_grand_gate": {
+        "bounded_baseline_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json::bounded_baseline_rows::mathematics",
+        "classification": "BOUNDED_BASELINE_NOT_GRAND_SUPPORT",
+        "grand_toe_support_allowed": false,
+        "minimum_n": 20,
+        "valid_n": 0,
+        "status": "BLOCKED"
+      }
+    }
+  ],
+  "domain_evidence_matrix_summary": {
+    "domain_total": 5,
+    "domains": [
+      "physics",
+      "chemistry",
+      "biology",
+      "systems",
+      "mathematics"
+    ],
+    "required_distinction_roles": [
+      "incumbent_modern_science_source",
+      "oc_result",
+      "comparator_result",
+      "benchmark_predicate",
+      "uncertainty_fairness",
+      "blocker_reason"
+    ],
+    "superiority_certified_total": 0,
+    "blocked_superiority_total": 5,
+    "work_order_step_total": 28
+  },
+  "executable_validation": {
+    "commands": [
+      "python tools/oc133_modern_science_comparator_factory.py --check",
+      "python benchmarks/modern_science/validate_modern_science_register.py"
+    ],
+    "policy": "Validation must keep the report blocked unless every source-backed per-domain superiority predicate is satisfied."
+  },
+  "work_order_decomposition": [
+    {
+      "domain": "physics",
+      "blocking_predicate": "independent_replay_passes_from_clean_checkout",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Run an independent clean-checkout replay with command, output tail, artifact hashes, and environment note recorded.",
+      "required_artifact": "clean-checkout replay record bound to the relevant OC result and comparator baseline",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "physics",
+      "blocking_predicate": "result_is_not_merely_exact_standard_replay",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Replace exact reference-standard replay with a domain-relevant held-out or prospective physics benchmark before scoring.",
+      "required_artifact": "physics benchmark protocol separating CODATA/SI reference replay from candidate model performance",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "physics",
+      "blocking_predicate": "domain_relevance_exceeds_exact_standard_replay",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Replace exact reference-standard replay with a domain-relevant held-out or prospective physics benchmark before scoring.",
+      "required_artifact": "physics benchmark protocol separating CODATA/SI reference replay from candidate model performance",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "physics",
+      "blocking_predicate": "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+      "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "physics",
+      "blocking_predicate": "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+      "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "physics",
+      "blocking_predicate": "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+      "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "chemistry",
+      "blocking_predicate": "independent_replay_passes_from_clean_checkout",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Run an independent clean-checkout replay with command, output tail, artifact hashes, and environment note recorded.",
+      "required_artifact": "clean-checkout replay record bound to the relevant OC result and comparator baseline",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "chemistry",
+      "blocking_predicate": "not_a_curated_field_copy",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Separate curated-field parser replay from a chemistry benchmark whose targets, baselines, uncertainty, and negative controls are declared before scoring.",
+      "required_artifact": "chemistry benchmark protocol not reducible to NIST/PubChem field copying",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "chemistry",
+      "blocking_predicate": "domain_relevance_exceeds_curated_field_reconstruction",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Separate curated-field parser replay from a chemistry benchmark whose targets, baselines, uncertainty, and negative controls are declared before scoring.",
+      "required_artifact": "chemistry benchmark protocol not reducible to NIST/PubChem field copying",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "chemistry",
+      "blocking_predicate": "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+      "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "chemistry",
+      "blocking_predicate": "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+      "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "chemistry",
+      "blocking_predicate": "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+      "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "biology",
+      "blocking_predicate": "independent_replay_passes_from_clean_checkout",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Run an independent clean-checkout replay with command, output tail, artifact hashes, and environment note recorded.",
+      "required_artifact": "clean-checkout replay record bound to the relevant OC result and comparator baseline",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "biology",
+      "blocking_predicate": "biological_mechanism_test_present",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Add a source-backed biological mechanism benchmark instead of repository pagination/count reconstruction.",
+      "required_artifact": "biology mechanism benchmark with declared comparator, uncertainty, negative control, and falsifier",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "biology",
+      "blocking_predicate": "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+      "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "biology",
+      "blocking_predicate": "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+      "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "biology",
+      "blocking_predicate": "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+      "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "systems",
+      "blocking_predicate": "independent_replay_passes_from_clean_checkout",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Run an independent clean-checkout replay with command, output tail, artifact hashes, and environment note recorded.",
+      "required_artifact": "clean-checkout replay record bound to the relevant OC result and comparator baseline",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "systems",
+      "blocking_predicate": "prospective_or_time-locked_protocol_present",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Add a prospective or time-locked WDI/systems protocol with comparator and scoring locked before the target is read.",
+      "required_artifact": "systems prospective or time-locked benchmark protocol and replay record",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "systems",
+      "blocking_predicate": "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+      "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "systems",
+      "blocking_predicate": "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+      "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "systems",
+      "blocking_predicate": "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+      "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "mathematics",
+      "blocking_predicate": "independent_replay_passes_from_clean_checkout",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Run an independent clean-checkout replay with command, output tail, artifact hashes, and environment note recorded.",
+      "required_artifact": "clean-checkout replay record bound to the relevant OC result and comparator baseline",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "mathematics",
+      "blocking_predicate": "machine_checked_theorem_scope_matches_public_claim",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Bind public mathematical claim scope to machine-checked Lean/formal artifacts and an independently replayed proof surface.",
+      "required_artifact": "formal-scope binding record covering Lean build, finite witnesses, and public wording",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "mathematics",
+      "blocking_predicate": "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+      "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "mathematics",
+      "blocking_predicate": "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+      "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "mathematics",
+      "blocking_predicate": "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+      "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    },
+    {
+      "domain": "mathematics",
+      "blocking_predicate": "CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE",
+      "owner_capability": "Logion Research/PriorArt",
+      "required_action": "Provide a valid per-domain evidence pack at the required N with target-blind or prospective source separation.",
+      "required_artifact": "grand-science evidence pack accepted by the strict empirical gate",
+      "closure_rule": "Record source-backed evidence and rerun validate_modern_science_register; do not flip superiority status unless every certification predicate passes."
+    }
+  ],
+  "work_order_policy": "These steps decompose the blocker without certifying superiority; each closure artifact must be source-backed and replayable."
 }
-

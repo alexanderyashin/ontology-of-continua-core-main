@@ -70,12 +70,14 @@
         },
         "training_sources": {
           "type": "array",
+          "minItems": 1,
           "items": {
             "type": "string"
           }
         },
         "target_sources": {
           "type": "array",
+          "minItems": 1,
           "items": {
             "type": "string"
           }
@@ -84,7 +86,7 @@
     },
     "n": {
       "type": "integer",
-      "minimum": 1
+      "minimum": 20
     },
     "model_under_test": {
       "type": "string",
@@ -196,7 +198,7 @@
       }
     },
     "grand_toe_support_allowed": {
-      "type": "boolean"
+      "const": true
     }
   }
 }

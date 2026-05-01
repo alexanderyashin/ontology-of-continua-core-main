@@ -18,6 +18,7 @@ ALL_DOMAIN_READY_STATE = "ALL_DOMAIN_READY_NO_SEND"
 REQUIRED_EMPIRICAL_DOMAINS = ("physics", "chemistry", "biology", "systems", "mathematics")
 MODERN_SCIENCE_COMPARATOR_REGISTER_REL = "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json"
 GRAND_EMPIRICAL_REPORT_REL = "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json"
+GRAND_TOE_FORMAL_OBLIGATION_LEDGER_REL = "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json"
 GRAND_SCIENCE_CLAIM_CLASSES = (
     "numerically_proven_toe",
     "all_domain_numerical_prediction",
@@ -323,6 +324,8 @@ def _grand_science_toe_ambition_audit(
     target = read_json(root / "validation" / "target_blind" / "OC133_TARGET_BLIND_PREDICTION_TABLE.json")
     grand_empirical_report_path = root / GRAND_EMPIRICAL_REPORT_REL
     grand_empirical_report = read_json(grand_empirical_report_path)
+    formal_obligation_layer_path = root / GRAND_TOE_FORMAL_OBLIGATION_LEDGER_REL
+    formal_obligation_layer = read_json(formal_obligation_layer_path)
     comparator_register_path = root / MODERN_SCIENCE_COMPARATOR_REGISTER_REL
     comparator_register = read_json(comparator_register_path)
     claim_rows = claims.get("rows", []) if isinstance(claims.get("rows"), list) else []
@@ -341,9 +344,13 @@ def _grand_science_toe_ambition_audit(
     formal_tokens = ("theorem", "proof", "lean", "finite")
     promoted_grand_claims = []
     grand_claims_missing_formal_artifacts = []
+    formal_blocker_claim_ids = []
     for row in claim_rows:
         row_text = json.dumps(row, ensure_ascii=False).lower()
         if not any(token in row_text for token in grand_tokens):
+            continue
+        if str(row.get("public_status", "")).upper() == "FORMAL_BLOCKER_NOT_PROMOTED_V12":
+            formal_blocker_claim_ids.append(row.get("claim_id"))
             continue
         is_promoted = (
             row.get("scientific_promotion_allowed") is True
@@ -487,6 +494,13 @@ def _grand_science_toe_ambition_audit(
     stronger_evidence_ok = claim_ledger_ok and empirical_superiority_ok and comparator_ok
     broad_promoted = validation.get("broad_domain_validation_promoted") is True
     broad_guard_ok = broad_promoted is False or stronger_evidence_ok
+    formal_layer_machine_nonpromotion = (
+        formal_obligation_layer_path.exists()
+        and formal_obligation_layer.get("blocker_id") == "grand_toe_claim_ledger_evidence"
+        and formal_obligation_layer.get("state") == "CURRENT_ARTIFACT_CLASS_CANNOT_PROMOTE"
+        and formal_obligation_layer.get("machine_proved_nonpromotion") is True
+        and formal_obligation_layer.get("release_promotion_allowed") is False
+    )
 
     return {
         "grand_toe_claim_ledger_evidence": {
@@ -497,11 +511,23 @@ def _grand_science_toe_ambition_audit(
             "promoted_grand_claim_ids": promoted_grand_claims,
             "promoted_grand_claim_total": len(promoted_grand_claims),
             "grand_claims_missing_formal_artifacts": grand_claims_missing_formal_artifacts[:20],
+            "formal_blocker_claim_ids": formal_blocker_claim_ids,
+            "formal_obligation_layer_ref": GRAND_TOE_FORMAL_OBLIGATION_LEDGER_REL,
+            "formal_obligation_layer_exists": formal_obligation_layer_path.exists(),
+            "formal_obligation_layer_state": formal_obligation_layer.get("state"),
+            "machine_proved_nonpromotion": formal_layer_machine_nonpromotion,
+            "machine_proof_refs": formal_obligation_layer.get("machine_proof_refs", {}),
+            "formal_gate_vector": formal_obligation_layer.get("formal_gate_vector", {}),
+            "failed_gate_predicates": formal_obligation_layer.get("failed_gate_predicates", []),
+            "work_order_decomposition": formal_obligation_layer.get("work_order_decomposition", []),
             "theorem_total": theorem_inventory.get("theorem_total"),
             "machine_checked_subset_total": theorem_inventory.get("machine_checked_subset_total"),
             "scientific_promotion_allowed_total": theorem_inventory.get("scientific_promotion_allowed_total"),
-            "required_evidence_layer": "Dedicated promoted TOE/all-domain claim row with theorem/proof/Lean/finite evidence refs; bounded theorem rows do not satisfy grand-claim promotion by themselves.",
-            "blocker": "TOE/all-domain promotion requires a dedicated promoted claim-ledger row bound to theorem, proof, Lean, and finite evidence.",
+            "required_evidence_layer": "Dedicated promoted TOE/all-domain claim row with theorem/proof/Lean/finite evidence refs; bounded theorem rows and the formal non-promotion blocker do not satisfy grand-claim promotion by themselves.",
+            "blocker": (
+                "TOE/all-domain promotion requires a dedicated promoted claim-ledger row bound to theorem, proof, Lean, and finite evidence. "
+                "The current artifact class is machine-proved non-promotable when the formal obligation layer reports CURRENT_ARTIFACT_CLASS_CANNOT_PROMOTE."
+            ),
         },
         "grand_toe_empirical_superiority": {
             "state": _state(empirical_superiority_ok),
@@ -934,12 +960,14 @@ def build_all_domain_work_orders(blocker_checks: dict[str, dict[str, Any]]) -> l
             severity="CRITICAL",
             artifacts=[
                 "claims/CLAIM_LEDGER_1_3_3.json",
+                GRAND_TOE_FORMAL_OBLIGATION_LEDGER_REL,
                 "proofs/THEOREM_INVENTORY_1_3_3.json",
                 "proofs/proof_sheets/",
                 "formal/lean/",
                 "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+                "tools/oc133_grand_toe_formal_obligations.py",
             ],
-            before_predicate="no dedicated promoted TOE/all-domain claim-ledger row with theorem/proof/Lean/finite evidence",
+            before_predicate="no dedicated promoted TOE/all-domain claim-ledger row with theorem/proof/Lean/finite evidence, or formal obligation layer rejects current artifact class",
             after_predicate="any TOE/all-domain promoted claim has explicit claim-ledger row, theorem/proof/Lean/finite evidence refs, unsupported_promoted_total=0, and release_promotion_allowed=true",
             verification_command="lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write",
             closure_evidence_required=[
@@ -948,6 +976,7 @@ def build_all_domain_work_orders(blocker_checks: dict[str, dict[str, Any]]) -> l
                 "Lean theorem IDs",
                 "proof sheet refs",
                 "finite-model witness case IDs",
+                "or, if not closable, formal non-promotion proof refs and work-order decomposition",
             ],
             block_condition="If this evidence cannot honestly be produced, keep TOE/all-domain claims demoted and final readiness in SCIENTIFIC_BLOCKERS_REMAIN.",
         ))

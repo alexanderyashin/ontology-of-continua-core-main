@@ -59,6 +59,19 @@ def read_json(path: Path) -> dict[str, Any]:
 def append_ledger(row: dict[str, Any]) -> dict[str, Any]:
     ledger = read_json(EXECUTION_LEDGER)
     rows = ledger.get("rows", []) if isinstance(ledger.get("rows"), list) else []
+    normalized_rows = []
+    for item in rows:
+        if (
+            isinstance(item, dict)
+            and item.get("execution_state") == "PASS"
+            and item.get("after_final_readiness_state") == "SCIENTIFIC_BLOCKERS_REMAIN"
+            and item.get("artifact_exists_is_not_closure") is True
+        ):
+            item = dict(item)
+            item["execution_state"] = "SCIENTIFIC_BLOCKERS_REMAIN"
+            item["legacy_execution_state_normalized_from"] = "PASS"
+        normalized_rows.append(item)
+    rows = normalized_rows
     rows.append(row)
     payload = {
         "schema_id": "OC133_ALL_DOMAIN_EXECUTION_LEDGER_v1",
@@ -68,6 +81,7 @@ def append_ledger(row: dict[str, Any]) -> dict[str, Any]:
         "row_total": len(rows),
         "pass_total": sum(1 for item in rows if item.get("execution_state") == "PASS"),
         "fail_total": sum(1 for item in rows if item.get("execution_state") != "PASS"),
+        "scientific_blocked_total": sum(1 for item in rows if item.get("execution_state") == "SCIENTIFIC_BLOCKERS_REMAIN"),
         "latest_work_order_id": row.get("work_order_id"),
         "latest_execution_state": row.get("execution_state"),
         "no_send": True,
@@ -141,17 +155,27 @@ def execute_next() -> dict[str, Any]:
         result_cmd = command([sys.executable, "tools/oc133_capability_repair_executor.py", "--profile", profile], timeout=1500)
         after = oc133_platinum.all_domain_readiness_audit(ROOT, oc133_platinum.content_closure_audit(ROOT))
         refs = write_all_domain_outputs(after)
+        after_blocker_ids = after.get("blocker_ids", [])
+        if result_cmd["returncode"] != 0:
+            execution_state = "FAIL"
+        elif work_order.get("work_order_id") != "OWNER_REVIEW_NO_SEND" and work_order.get("before_predicate") and work_order.get("owner_capability") and work_order.get("title") and str(work_order.get("work_order_id")):
+            execution_state = "SCIENTIFIC_BLOCKERS_REMAIN" if str(work_order.get("work_order_id")).startswith("OC133-PLATINUM-WO-") and any(
+                str(row.get("work_order_id")) == str(work_order.get("work_order_id"))
+                for row in after.get("work_orders", [])
+            ) else "PASS"
+        else:
+            execution_state = "PASS"
         row = {
             "schema_id": "OC133_ALL_DOMAIN_EXECUTION_ROW_v1",
             "work_order_id": work_order.get("work_order_id"),
             "owner_capability": work_order.get("owner_capability"),
             "profile": profile,
-            "execution_state": "PASS" if result_cmd["returncode"] == 0 else "FAIL",
+            "execution_state": execution_state,
             "before_state": before.get("state"),
             "before_final_readiness_state": before.get("final_readiness_state"),
             "after_state": after.get("state"),
             "after_final_readiness_state": after.get("final_readiness_state"),
-            "after_blocker_ids": after.get("blocker_ids", []),
+            "after_blocker_ids": after_blocker_ids,
             "command": result_cmd,
             "refs": refs,
             "artifact_exists_is_not_closure": True,
@@ -218,7 +242,8 @@ def main() -> int:
     }
     print(json.dumps(payload, ensure_ascii=False, indent=2))
     if execute_result is not None and execute_result.get("execution_state") not in {"PASS", "NOOP"}:
-        return 1
+        if execute_result.get("execution_state") != "SCIENTIFIC_BLOCKERS_REMAIN":
+            return 1
     return 0 if audit["all_domain_ready_no_send"] else 2
 
 

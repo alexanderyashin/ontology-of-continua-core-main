@@ -391,13 +391,16 @@ def _grand_science_obligation(
 def materialize_grand_science_program(profile: str) -> dict[str, Any]:
     verification_commands_by_profile = {
         "v12_grand_formal_science_research_program": [
+            [sys.executable, "tools/oc133_grand_toe_formal_obligations.py", "--write"],
             ["lake", "build", "OC133V12"],
+            [sys.executable, "tools/oc133_refresh_lean_certificate.py"],
             [sys.executable, "proofs/finite_model_checks/run_finite_model_checks.py"],
         ],
         "v12_grand_empirical_superiority_research_program": [
-            [sys.executable, "validation/grand_science/run_grand_empirical_gate.py", "--allow-blocked-exit-zero"],
+            [sys.executable, "tools/oc133_grand_empirical_evidence_factory.py", "--allow-blocked-exit-zero"],
         ],
         "v12_modern_science_comparator_research_program": [
+            [sys.executable, "tools/oc133_modern_science_comparator_factory.py", "--write"],
             [sys.executable, "benchmarks/modern_science/validate_modern_science_register.py"],
         ],
     }

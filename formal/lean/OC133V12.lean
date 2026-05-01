@@ -1629,4 +1629,100 @@ theorem release_atlas_manifest_has_total_finite_case_coverage (k : AdjacentK) :
           (And.intro (by cases k <;> rfl)
             (And.intro (by cases k <;> rfl) (by cases k <;> rfl))))))
 
+inductive GrandToeClaimClass where
+  | numericallyProvenTOE
+  | allDomainNumericalPrediction
+  | predictsBetterThanModernScience
+deriving DecidableEq, Repr
+
+structure GrandToeFormalObligationLayer where
+  dedicatedClaimRow : Bool
+  releasePromotionAllowed : Bool
+  scientificPromotionAllowed : Bool
+  publicStatusPromoted : Bool
+  theoremIdsBound : Bool
+  proofSheetRefsBound : Bool
+  leanTheoremIdsBound : Bool
+  finiteCaseIdsBound : Bool
+  unsupportedPromotedTotalZero : Bool
+deriving Repr
+
+def grandToeFormalObligationsComplete (o : GrandToeFormalObligationLayer) : Prop :=
+  ((((((((o.dedicatedClaimRow = true /\
+  o.releasePromotionAllowed = true) /\
+  o.scientificPromotionAllowed = true) /\
+  o.publicStatusPromoted = true) /\
+  o.theoremIdsBound = true) /\
+  o.proofSheetRefsBound = true) /\
+  o.leanTheoremIdsBound = true) /\
+  o.finiteCaseIdsBound = true) /\
+  o.unsupportedPromotedTotalZero = true)
+
+def grandToeFormalPromotionAllowed (o : GrandToeFormalObligationLayer) : Bool :=
+  o.dedicatedClaimRow &&
+  o.releasePromotionAllowed &&
+  o.scientificPromotionAllowed &&
+  o.publicStatusPromoted &&
+  o.theoremIdsBound &&
+  o.proofSheetRefsBound &&
+  o.leanTheoremIdsBound &&
+  o.finiteCaseIdsBound &&
+  o.unsupportedPromotedTotalZero
+
+def currentGrandToeArtifactClass : GrandToeFormalObligationLayer :=
+  {
+    dedicatedClaimRow := false,
+    releasePromotionAllowed := false,
+    scientificPromotionAllowed := false,
+    publicStatusPromoted := false,
+    theoremIdsBound := false,
+    proofSheetRefsBound := true,
+    leanTheoremIdsBound := true,
+    finiteCaseIdsBound := true,
+    unsupportedPromotedTotalZero := true
+  }
+
+def completeGrandToeFormalControl : GrandToeFormalObligationLayer :=
+  {
+    dedicatedClaimRow := true,
+    releasePromotionAllowed := true,
+    scientificPromotionAllowed := true,
+    publicStatusPromoted := true,
+    theoremIdsBound := true,
+    proofSheetRefsBound := true,
+    leanTheoremIdsBound := true,
+    finiteCaseIdsBound := true,
+    unsupportedPromotedTotalZero := true
+  }
+
+def missingFiniteGrandToeFormalControl : GrandToeFormalObligationLayer :=
+  { completeGrandToeFormalControl with finiteCaseIdsBound := false }
+
+theorem grand_toe_promotion_requires_all_formal_obligations
+    (o : GrandToeFormalObligationLayer) :
+    grandToeFormalPromotionAllowed o = true ->
+    grandToeFormalObligationsComplete o := by
+  intro h
+  simpa [grandToeFormalObligationsComplete, grandToeFormalPromotionAllowed] using h
+
+theorem grand_toe_complete_formal_obligations_accept_control :
+    grandToeFormalPromotionAllowed completeGrandToeFormalControl = true := by
+  native_decide
+
+theorem grand_toe_current_artifact_class_cannot_promote :
+    grandToeFormalPromotionAllowed currentGrandToeArtifactClass = false := by
+  native_decide
+
+theorem grand_toe_current_artifact_class_missing_dedicated_claim :
+    currentGrandToeArtifactClass.dedicatedClaimRow = false /\
+    currentGrandToeArtifactClass.releasePromotionAllowed = false /\
+    currentGrandToeArtifactClass.scientificPromotionAllowed = false /\
+    currentGrandToeArtifactClass.publicStatusPromoted = false /\
+    currentGrandToeArtifactClass.theoremIdsBound = false := by
+  native_decide
+
+theorem grand_toe_missing_finite_cases_blocks_promotion :
+    grandToeFormalPromotionAllowed missingFiniteGrandToeFormalControl = false := by
+  native_decide
+
 end OC133V12

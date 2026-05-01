@@ -1,0 +1,49 @@
+{
+  "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+  "release_id": "oc_core_1_3_3",
+  "capability_owner": "Research/EmpiricalScience",
+  "evidence_pack_id": "SAMPLE_ONLY_DO_NOT_REGISTER",
+  "domain": "physics",
+  "source_separation": {
+    "mode": "target_blind",
+    "pre_target_lock": true,
+    "target_hidden_until_scoring": true,
+    "training_sources": [
+      "sample_training_source_hash_or_snapshot_ref"
+    ],
+    "target_sources": [
+      "sample_target_source_hash_or_snapshot_ref"
+    ]
+  },
+  "n": 20,
+  "model_under_test": "sample-only preregistered OC scoring rule; replace with the real frozen rule",
+  "comparator_baseline": {
+    "name": "sample-only preregistered comparator",
+    "prediction_rule": "sample-only comparator scoring rule; replace before registration",
+    "pre_registered": true
+  },
+  "uncertainty": {
+    "metric": "sample residual metric",
+    "method": "sample uncertainty method",
+    "interval": [
+      0.0,
+      0.1
+    ]
+  },
+  "residuals": {
+    "model": 0.0,
+    "comparator": 0.2,
+    "superiority_margin": 0.2
+  },
+  "negative_controls": [
+    {
+      "control_id": "sample_negative_control",
+      "description": "sample-only negative control; replace with a domain-specific pre-registered control",
+      "rejected": true
+    }
+  ],
+  "falsifiers": [
+    "sample-only falsifier; replace with a domain-specific kill condition"
+  ],
+  "grand_toe_support_allowed": false
+}

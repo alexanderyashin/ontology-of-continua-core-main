@@ -1,0 +1,94 @@
+{
+  "schema_id": "OC133_GRAND_TOE_FORMAL_OBLIGATION_LEDGER_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/FormalScience",
+  "blocker_id": "grand_toe_claim_ledger_evidence",
+  "claim_id": "OC133-GRAND-TOE-FORMAL-BLOCKER",
+  "state": "CURRENT_ARTIFACT_CLASS_CANNOT_PROMOTE",
+  "blocker_remains": true,
+  "release_promotion_allowed": false,
+  "scientific_promotion_allowed": false,
+  "requested_claim_classes": [
+    "numerically_proven_toe",
+    "all_domain_numerical_prediction",
+    "predicts_better_than_modern_science"
+  ],
+  "promoted_grand_claim_ids": [],
+  "promoted_grand_claim_total": 0,
+  "current_artifact_class": "bounded theorem rows, target-blind/replay baseline rows, no-send governance rows, and non-promoted comparator notes",
+  "formal_gate_vector": {
+    "dedicated_claim_row": false,
+    "release_promotion_allowed": false,
+    "scientific_promotion_allowed": false,
+    "public_status_promoted": false,
+    "promotion_theorem_ids_bound": false,
+    "proof_sheet_refs_bound": true,
+    "lean_theorem_ids_bound": true,
+    "finite_case_ids_bound": true,
+    "unsupported_promoted_total_zero": true
+  },
+  "failed_gate_predicates": [
+    "dedicated_claim_row",
+    "release_promotion_allowed",
+    "scientific_promotion_allowed",
+    "public_status_promoted",
+    "promotion_theorem_ids_bound"
+  ],
+  "machine_proved_nonpromotion": true,
+  "machine_proof_refs": {
+    "proof_sheet_ref": "proofs/proof_sheets/GRAND_TOE_FORMAL_BLOCKER.md",
+    "lean_refs": [
+      "formal/lean/OC133V12.lean::grand_toe_promotion_requires_all_formal_obligations",
+      "formal/lean/OC133V12.lean::grand_toe_complete_formal_obligations_accept_control",
+      "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_cannot_promote",
+      "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_missing_dedicated_claim",
+      "formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion"
+    ],
+    "finite_case_ids": [
+      "FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
+      "FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+      "FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT"
+    ],
+    "finite_input_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+    "finite_output_refs": [
+      "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
+      "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+      "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT"
+    ]
+  },
+  "positive_control_case_id": "FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+  "current_reject_case_id": "FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
+  "negative_control_case_id": "FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT",
+  "work_order_decomposition": [
+    {
+      "work_order_id": "OC133-GRAND-FORMAL-WO-001",
+      "title": "Create a dedicated promoted grand TOE/all-domain claim row only if the grand claim is actually intended for promotion.",
+      "acceptance": "Claim row has release_promotion_allowed=true, scientific_promotion_allowed=true, public_status promoted, and explicit theorem/proof/Lean/finite refs."
+    },
+    {
+      "work_order_id": "OC133-GRAND-FORMAL-WO-002",
+      "title": "Bind theorem inventory and proof sheet IDs for the dedicated grand claim.",
+      "acceptance": "The promoted row names theorem IDs distinct from the bounded v12 theorem rows and cites proof sheets with assumptions and falsifier boundaries."
+    },
+    {
+      "work_order_id": "OC133-GRAND-FORMAL-WO-003",
+      "title": "Add Lean theorem obligations for the grand claim itself.",
+      "acceptance": "Lean contains theorem IDs proving the promoted grand statement, not only the non-promotion gate or bounded tuple classifiers."
+    },
+    {
+      "work_order_id": "OC133-GRAND-FORMAL-WO-004",
+      "title": "Add executable finite positive and negative cases for the dedicated grand claim.",
+      "acceptance": "Finite rows include positive witness IDs and mutation/negative controls; missing finite IDs keep promotion rejected."
+    },
+    {
+      "work_order_id": "OC133-GRAND-FORMAL-WO-005",
+      "title": "Re-audit with Logion all-domain readiness after empirical and modern-science comparator blockers are separately closed.",
+      "acceptance": "grand_toe_claim_ledger_evidence, grand_toe_empirical_superiority, and modern_science_comparator_superiority all re-audit PASS without no-send unlock."
+    }
+  ],
+  "no_send": true,
+  "publish_allowed": false,
+  "journal_submissions_allowed": false,
+  "claim_ledger_sha256_after_update": "f5c418abfec891e09051981c1c254e537f3c135951ad0b1e7d88448a5da796c3"
+}

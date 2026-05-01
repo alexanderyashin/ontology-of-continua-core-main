@@ -2,19 +2,27 @@
 
 Verdict: `BLOCKED_PENDING_GENUINE_PER_DOMAIN_EVIDENCE`
 Grand TOE support allowed: `false`
-Registered evidence packs: `0`
+Candidate evidence packs: `0`
+Valid evidence packs: `0`
 Bounded baseline rows: `5`
 Blocked domains: `5/5`
+Decomposition queue rows: `5`
 
-This gate does not emit a grand empirical support allowance from bounded OC133 reconstructions. Unresolved domains remain BLOCKED until prospective or target-blind evidence packs clear the configured criteria.
+This factory/gate does not emit a grand empirical support allowance from bounded OC133 reconstructions, sample packs, or artifact existence. Unresolved domains remain BLOCKED until prospective or target-blind evidence packs clear the configured criteria.
 
-| Domain | Status | Valid N | Minimum N | Bounded baseline rows | Grand TOE support | Blockers |
-| --- | --- | ---: | ---: | ---: | --- | --- |
-| `biology` | `BLOCKED` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK |
-| `chemistry` | `BLOCKED` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK |
-| `mathematics` | `BLOCKED` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE |
-| `physics` | `BLOCKED` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK |
-| `systems` | `BLOCKED` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK |
+| Domain | Status | Candidate packs | Valid packs | Valid N | Minimum N | Bounded baseline rows | Grand TOE support | Blockers |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- |
+| `biology` | `BLOCKED` | `0` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED |
+| `chemistry` | `BLOCKED` | `0` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED |
+| `mathematics` | `BLOCKED` | `0` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED; CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE |
+| `physics` | `BLOCKED` | `0` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED |
+| `systems` | `BLOCKED` | `0` | `0` | `0` | `20` | `1` | `false` | GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20; NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK; NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED |
+
+## Candidate Factory
+
+Candidate scan: `validation/heldout/OC133_GRAND_EMPIRICAL_CANDIDATE_SCAN.json`
+Decomposition queue: `validation/heldout/OC133_GRAND_EMPIRICAL_DECOMPOSITION_QUEUE.json`
+Sample-only pack: `validation/heldout/samples/grand_empirical_evidence_pack.sample.json`
 
 ## Bounded Baseline
 

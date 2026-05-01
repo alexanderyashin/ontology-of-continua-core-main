@@ -803,6 +803,200 @@ def klevel_reduction_verdict(model: dict[str, Any]) -> str:
     return "REDUCTION_UNCHECKED"
 
 
+GRAND_TOE_TOKENS = (
+    "theory of everything",
+    "toe",
+    "all-domain",
+    "all domain",
+    "across all domains",
+    "numerically proven",
+    "modern science",
+    "better than",
+)
+
+
+def string_list(value: Any) -> list[str]:
+    if isinstance(value, list):
+        return [str(item) for item in value if str(item).strip()]
+    if value in {None, ""}:
+        return []
+    return [str(value)]
+
+
+def finite_case_ids_declared() -> set[str]:
+    try:
+        payload = read_json(INPUT)
+    except Exception:
+        return set()
+    return {
+        str(row.get("case_id"))
+        for row in payload.get("rows", [])
+        if isinstance(row, dict) and row.get("case_id")
+    }
+
+
+def claim_ids_declared(ref: str) -> set[str]:
+    try:
+        payload = read_rel_json(ref)
+    except Exception:
+        return set()
+    return {
+        str(row.get("claim_id"))
+        for row in payload.get("rows", [])
+        if isinstance(row, dict) and row.get("claim_id")
+    }
+
+
+def lean_or_runner_ref_bound(ref: str) -> bool:
+    if "::" not in ref:
+        path = ROOT / ref
+        return path.exists()
+    path_ref, symbol = ref.split("::", 1)
+    if path_ref == "formal/lean/OC133V12.lean":
+        return symbol in declared_symbols(ROOT / path_ref)
+    if path_ref == "proofs/finite_model_checks/run_finite_model_checks.py":
+        return symbol in declared_symbols(Path(__file__))
+    return (ROOT / path_ref).exists()
+
+
+def proof_ref_bound(ref: str) -> bool:
+    path_ref = ref.split("::", 1)[0]
+    path = ROOT / path_ref
+    return path.is_file()
+
+
+def finite_case_ref_bound(case_id: str) -> bool:
+    return case_id in finite_case_ids_declared()
+
+
+def grand_claim_text(row: dict[str, Any]) -> str:
+    return json.dumps(row, ensure_ascii=False).lower()
+
+
+def is_grand_claim_row(row: dict[str, Any]) -> bool:
+    text = grand_claim_text(row)
+    return any(token in text for token in GRAND_TOE_TOKENS)
+
+
+def row_refers_to_all(values: list[str], row: dict[str, Any]) -> bool:
+    text = grand_claim_text(row)
+    return bool(values) and all(value.lower() in text for value in values)
+
+
+def grand_toe_formal_obligation_audit(row: dict[str, Any]) -> dict[str, Any]:
+    model = row.get("model", {})
+    mode = str(model.get("mode", "current_claim_ledger"))
+    claim_ledger_ref = str(model.get("claim_ledger_ref", "claims/CLAIM_LEDGER_1_3_3.json"))
+    proof_sheet_refs = string_list(model.get("proof_sheet_refs") or model.get("proof_sheet_ref"))
+    required_lean_refs = string_list(model.get("required_lean_refs"))
+    required_finite_case_ids = string_list(model.get("required_finite_case_ids"))
+    required_promotion_theorem_ids = string_list(model.get("required_promotion_theorem_ids"))
+    blocking_theorem_ids = string_list(model.get("blocking_theorem_ids"))
+
+    proof_sheet_refs_bound = bool(proof_sheet_refs) and all(proof_ref_bound(ref) for ref in proof_sheet_refs)
+    lean_theorem_ids_bound = bool(required_lean_refs) and all(lean_or_runner_ref_bound(ref) for ref in required_lean_refs)
+    finite_case_ids_bound = (
+        bool(required_finite_case_ids)
+        and str(row.get("case_id")) in required_finite_case_ids
+        and all(finite_case_ref_bound(case_id) for case_id in required_finite_case_ids)
+    )
+    blocking_theorem_ids_bound = bool(blocking_theorem_ids) and str(row.get("theorem_id")) in blocking_theorem_ids
+
+    if mode == "hypothetical_complete":
+        promoted_grand_claim_ids = string_list(model.get("promoted_grand_claim_ids"))
+        dedicated_claim_row = model.get("dedicated_claim_row") is True
+        release_promotion_allowed = model.get("release_promotion_allowed") is True
+        scientific_promotion_allowed = model.get("scientific_promotion_allowed") is True
+        public_status_promoted = model.get("public_status_promoted") is True
+        unsupported_promoted_total_zero = int(model.get("unsupported_promoted_total", 1) or 0) == 0
+        promotion_theorem_ids_bound = (
+            bool(required_promotion_theorem_ids)
+            and row_refers_to_all(required_promotion_theorem_ids, model)
+        )
+        grand_claims_missing_formal_artifacts: list[str] = []
+    elif mode == "hypothetical_missing_finite":
+        promoted_grand_claim_ids = string_list(model.get("promoted_grand_claim_ids"))
+        dedicated_claim_row = model.get("dedicated_claim_row") is True
+        release_promotion_allowed = model.get("release_promotion_allowed") is True
+        scientific_promotion_allowed = model.get("scientific_promotion_allowed") is True
+        public_status_promoted = model.get("public_status_promoted") is True
+        unsupported_promoted_total_zero = int(model.get("unsupported_promoted_total", 1) or 0) == 0
+        promotion_theorem_ids_bound = bool(required_promotion_theorem_ids)
+        finite_case_ids_bound = False
+        grand_claims_missing_formal_artifacts = promoted_grand_claim_ids
+    else:
+        claims = read_rel_json(claim_ledger_ref)
+        claim_rows = claims.get("rows", []) if isinstance(claims.get("rows"), list) else []
+        promoted_grand_rows = []
+        grand_claims_missing_formal_artifacts = []
+        for claim_row in claim_rows:
+            if not isinstance(claim_row, dict) or not is_grand_claim_row(claim_row):
+                continue
+            is_promoted = (
+                claim_row.get("scientific_promotion_allowed") is True
+                and claim_row.get("release_promotion_allowed") is True
+                and "PROMOTED" in str(claim_row.get("public_status", "")).upper()
+            )
+            if is_promoted:
+                promoted_grand_rows.append(claim_row)
+                if not (
+                    row_refers_to_all(required_promotion_theorem_ids, claim_row)
+                    and row_refers_to_all(required_lean_refs, claim_row)
+                    and row_refers_to_all(required_finite_case_ids, claim_row)
+                    and row_refers_to_all(proof_sheet_refs, claim_row)
+                ):
+                    grand_claims_missing_formal_artifacts.append(str(claim_row.get("claim_id")))
+        promoted_grand_claim_ids = [str(item.get("claim_id")) for item in promoted_grand_rows]
+        dedicated_claim_row = bool(promoted_grand_rows)
+        release_promotion_allowed = claims.get("release_promotion_allowed") is True and dedicated_claim_row
+        scientific_promotion_allowed = any(item.get("scientific_promotion_allowed") is True for item in promoted_grand_rows)
+        public_status_promoted = any("PROMOTED" in str(item.get("public_status", "")).upper() for item in promoted_grand_rows)
+        unsupported_promoted_total_zero = int(claims.get("unsupported_promoted_total", 1) or 0) == 0
+        promotion_theorem_ids_bound = (
+            bool(required_promotion_theorem_ids)
+            and any(row_refers_to_all(required_promotion_theorem_ids, item) for item in promoted_grand_rows)
+        )
+
+    formal_gate_vector = {
+        "dedicated_claim_row": dedicated_claim_row,
+        "release_promotion_allowed": release_promotion_allowed,
+        "scientific_promotion_allowed": scientific_promotion_allowed,
+        "public_status_promoted": public_status_promoted,
+        "promotion_theorem_ids_bound": promotion_theorem_ids_bound,
+        "proof_sheet_refs_bound": proof_sheet_refs_bound,
+        "lean_theorem_ids_bound": lean_theorem_ids_bound,
+        "finite_case_ids_bound": finite_case_ids_bound,
+        "unsupported_promoted_total_zero": unsupported_promoted_total_zero,
+    }
+    failed_gate_predicates = [key for key, value in formal_gate_vector.items() if value is not True]
+    formal_promotion_allowed = not failed_gate_predicates
+    return {
+        "verdict": "ACCEPT_PROMOTION" if formal_promotion_allowed else "REJECT_PROMOTION",
+        "mode": mode,
+        "claim_ledger_ref": claim_ledger_ref,
+        "requested_claim_classes": string_list(model.get("requested_claim_classes")),
+        "promoted_grand_claim_ids": promoted_grand_claim_ids,
+        "promoted_grand_claim_total": len(promoted_grand_claim_ids),
+        "required_promotion_theorem_ids": required_promotion_theorem_ids,
+        "blocking_theorem_ids": blocking_theorem_ids,
+        "blocking_theorem_ids_bound": blocking_theorem_ids_bound,
+        "required_lean_refs": required_lean_refs,
+        "required_finite_case_ids": required_finite_case_ids,
+        "proof_sheet_refs": proof_sheet_refs,
+        "formal_gate_vector": formal_gate_vector,
+        "failed_gate_predicates": failed_gate_predicates,
+        "grand_claims_missing_formal_artifacts": grand_claims_missing_formal_artifacts[:20],
+        "machine_proved_nonpromotion": (
+            not formal_promotion_allowed
+            and blocking_theorem_ids_bound
+            and proof_sheet_refs_bound
+            and lean_theorem_ids_bound
+            and finite_case_ids_bound
+        ),
+        "blocker_reason": "Current artifact class lacks a dedicated promoted grand TOE/all-domain claim row with bound theorem/proof/Lean/finite obligations.",
+    }
+
+
 def observed(row: dict[str, Any]) -> str:
     if has_forbidden_key(row.get("model", {})):
         return "REJECT_FLAG_ORACLE_INPUT"
@@ -953,6 +1147,8 @@ def observed(row: dict[str, Any]) -> str:
         return semantic_tuple_verdict(model.get("drop", {}))
     if case_type == "adjacent_k_transition_witness":
         return klevel_reduction_verdict(model)
+    if case_type == "grand_toe_formal_obligation":
+        return str(grand_toe_formal_obligation_audit(row).get("verdict", "REJECT_PROMOTION"))
     if case_type == "mutation_control":
         return observed(dict(model.get("mutated_row", {})))
     if case_type == "no_send_state_machine":
@@ -1044,6 +1240,8 @@ def evaluate(row: dict[str, Any]) -> dict[str, Any]:
             out["expected_owner_release_approval_sha256"] = model.get("approval_sha256")
     if row.get("theorem_id") == "T133-HYBRID":
         out["computed_operator_admission"] = operator_admission_evidence(row.get("model", {}))
+    if row.get("case_type") == "grand_toe_formal_obligation":
+        out["computed_grand_toe_formal_obligation"] = grand_toe_formal_obligation_audit(row)
     if row.get("case_type") == "component_keep_drop_witness":
         out["observed_keep_verdict"] = semantic_tuple_verdict(row.get("model", {}).get("keep", {}))
         out["observed_drop_verdict"] = obs

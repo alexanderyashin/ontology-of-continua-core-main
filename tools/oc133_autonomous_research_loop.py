@@ -402,9 +402,13 @@ def apply_profiles(orders: list[dict[str, Any]]) -> list[dict[str, Any]]:
         results.append(class_remediation_result)
         results.append(final_sync_result)
         dependency_refresh_commands = [
+            ([sys.executable, "tools/oc133_grand_toe_formal_obligations.py", "--write"], "v12_post_materializer_grand_formal_obligation_refresh"),
+            ([sys.executable, "tools/oc133_refresh_lean_certificate.py"], "v12_post_materializer_lean_certificate_refresh"),
+            ([sys.executable, "proofs/finite_model_checks/run_finite_model_checks.py"], "v12_post_materializer_finite_model_refresh"),
             ([sys.executable, "validation/target_blind/run_target_blind_predictions.py"], "v12_post_materializer_target_blind_refresh"),
             ([sys.executable, "validation/run_all.py", "--qa-only"], "v12_post_materializer_validation_refresh"),
-            ([sys.executable, "validation/grand_science/run_grand_empirical_gate.py", "--allow-blocked-exit-zero"], "v12_post_materializer_grand_empirical_refresh"),
+            ([sys.executable, "tools/oc133_grand_empirical_evidence_factory.py", "--allow-blocked-exit-zero"], "v12_post_materializer_grand_empirical_refresh"),
+            ([sys.executable, "tools/oc133_modern_science_comparator_factory.py", "--write"], "v12_post_materializer_modern_science_factory_refresh"),
             ([sys.executable, "benchmarks/modern_science/validate_modern_science_register.py"], "v12_post_materializer_modern_science_register_check"),
             ([sys.executable, "tools/oc133_logion_all_domain_readiness.py", "--write"], "v12_post_materializer_all_domain_scorecard_refresh"),
         ]
@@ -427,10 +431,26 @@ def apply_profiles(orders: list[dict[str, Any]]) -> list[dict[str, Any]]:
         results.append(result)
         for order in orders:
             if order.get("profile") == profile and order.get("status") == "QUEUED":
-                order["status"] = "APPLIED" if result["returncode"] == 0 else "REPAIR_COMMAND_FAILED"
+                scientific_blockers_remain = (
+                    result["returncode"] == 0
+                    and profile in {
+                        "v12_grand_formal_science_research_program",
+                        "v12_grand_empirical_superiority_research_program",
+                        "v12_modern_science_comparator_research_program",
+                    }
+                )
+                order["status"] = (
+                    "APPLIED_SCIENTIFIC_BLOCKERS_REMAIN"
+                    if scientific_blockers_remain
+                    else "APPLIED" if result["returncode"] == 0 else "REPAIR_COMMAND_FAILED"
+                )
                 order["repair_command_returncode"] = result["returncode"]
                 order["profile_executor"] = "tools/oc133_capability_repair_executor.py"
-                order["profile_verification_status"] = "PASS" if result["returncode"] == 0 else "FAIL"
+                order["profile_verification_status"] = (
+                    "SCIENTIFIC_BLOCKERS_REMAIN"
+                    if scientific_blockers_remain
+                    else "PASS" if result["returncode"] == 0 else "FAIL"
+                )
                 order["integrated_materializer_profile"] = "bootstrap_only"
                 order["class_remediator_ref"] = "reviews/oc133_llm_cerberus/repair/OC133_VULNERABILITY_CLASS_REMEDIATION_LEDGER.json"
     for profile in unknown_profiles:
@@ -445,7 +465,7 @@ def apply_profiles(orders: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def focused_checks() -> list[dict[str, Any]]:
     return [
-        command([sys.executable, "-m", "py_compile", "tools/materialize_oc_core_1_3_3_v12_closure.py", "proofs/finite_model_checks/run_finite_model_checks.py", "tools/oc133_autonomous_research_loop.py", "tools/oc133_capability_repair_executor.py", "tools/oc133_vulnerability_class_remediator.py", "validation/grand_science/run_grand_empirical_gate.py", "benchmarks/modern_science/validate_modern_science_register.py"], timeout=120),
+        command([sys.executable, "-m", "py_compile", "tools/materialize_oc_core_1_3_3_v12_closure.py", "proofs/finite_model_checks/run_finite_model_checks.py", "tools/oc133_autonomous_research_loop.py", "tools/oc133_capability_repair_executor.py", "tools/oc133_vulnerability_class_remediator.py", "tools/oc133_refresh_lean_certificate.py", "tools/oc133_grand_toe_formal_obligations.py", "tools/oc133_grand_empirical_evidence_factory.py", "tools/oc133_modern_science_comparator_factory.py", "validation/grand_science/run_grand_empirical_gate.py", "benchmarks/modern_science/validate_modern_science_register.py"], timeout=120),
         command([sys.executable, "tools/oc133_vulnerability_class_remediator.py"], timeout=120),
         command([sys.executable, "proofs/finite_model_checks/run_finite_model_checks.py"], timeout=120),
         command(["lake", "build", "OC133V12"], timeout=600),

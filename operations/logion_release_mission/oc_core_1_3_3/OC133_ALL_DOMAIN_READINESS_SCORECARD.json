@@ -102,11 +102,82 @@
       "promoted_grand_claim_ids": [],
       "promoted_grand_claim_total": 0,
       "grand_claims_missing_formal_artifacts": [],
+      "formal_blocker_claim_ids": [],
+      "formal_obligation_layer_ref": "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
+      "formal_obligation_layer_exists": true,
+      "formal_obligation_layer_state": "CURRENT_ARTIFACT_CLASS_CANNOT_PROMOTE",
+      "machine_proved_nonpromotion": true,
+      "machine_proof_refs": {
+        "proof_sheet_ref": "proofs/proof_sheets/GRAND_TOE_FORMAL_BLOCKER.md",
+        "lean_refs": [
+          "formal/lean/OC133V12.lean::grand_toe_promotion_requires_all_formal_obligations",
+          "formal/lean/OC133V12.lean::grand_toe_complete_formal_obligations_accept_control",
+          "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_cannot_promote",
+          "formal/lean/OC133V12.lean::grand_toe_current_artifact_class_missing_dedicated_claim",
+          "formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion"
+        ],
+        "finite_case_ids": [
+          "FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
+          "FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+          "FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT"
+        ],
+        "finite_input_ref": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+        "finite_output_refs": [
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-GRAND-TOE-FORMAL-CURRENT-REJECT",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-GRAND-TOE-FORMAL-HYPOTHETICAL-ACCEPT",
+          "proofs/FINITE_MODEL_CHECKS_1_3_3.json::FM-GRAND-TOE-FORMAL-MISSING-FINITE-REJECT"
+        ]
+      },
+      "formal_gate_vector": {
+        "dedicated_claim_row": false,
+        "release_promotion_allowed": false,
+        "scientific_promotion_allowed": false,
+        "public_status_promoted": false,
+        "promotion_theorem_ids_bound": false,
+        "proof_sheet_refs_bound": true,
+        "lean_theorem_ids_bound": true,
+        "finite_case_ids_bound": true,
+        "unsupported_promoted_total_zero": true
+      },
+      "failed_gate_predicates": [
+        "dedicated_claim_row",
+        "release_promotion_allowed",
+        "scientific_promotion_allowed",
+        "public_status_promoted",
+        "promotion_theorem_ids_bound"
+      ],
+      "work_order_decomposition": [
+        {
+          "work_order_id": "OC133-GRAND-FORMAL-WO-001",
+          "title": "Create a dedicated promoted grand TOE/all-domain claim row only if the grand claim is actually intended for promotion.",
+          "acceptance": "Claim row has release_promotion_allowed=true, scientific_promotion_allowed=true, public_status promoted, and explicit theorem/proof/Lean/finite refs."
+        },
+        {
+          "work_order_id": "OC133-GRAND-FORMAL-WO-002",
+          "title": "Bind theorem inventory and proof sheet IDs for the dedicated grand claim.",
+          "acceptance": "The promoted row names theorem IDs distinct from the bounded v12 theorem rows and cites proof sheets with assumptions and falsifier boundaries."
+        },
+        {
+          "work_order_id": "OC133-GRAND-FORMAL-WO-003",
+          "title": "Add Lean theorem obligations for the grand claim itself.",
+          "acceptance": "Lean contains theorem IDs proving the promoted grand statement, not only the non-promotion gate or bounded tuple classifiers."
+        },
+        {
+          "work_order_id": "OC133-GRAND-FORMAL-WO-004",
+          "title": "Add executable finite positive and negative cases for the dedicated grand claim.",
+          "acceptance": "Finite rows include positive witness IDs and mutation/negative controls; missing finite IDs keep promotion rejected."
+        },
+        {
+          "work_order_id": "OC133-GRAND-FORMAL-WO-005",
+          "title": "Re-audit with Logion all-domain readiness after empirical and modern-science comparator blockers are separately closed.",
+          "acceptance": "grand_toe_claim_ledger_evidence, grand_toe_empirical_superiority, and modern_science_comparator_superiority all re-audit PASS without no-send unlock."
+        }
+      ],
       "theorem_total": 10,
       "machine_checked_subset_total": 10,
       "scientific_promotion_allowed_total": 10,
-      "required_evidence_layer": "Dedicated promoted TOE/all-domain claim row with theorem/proof/Lean/finite evidence refs; bounded theorem rows do not satisfy grand-claim promotion by themselves.",
-      "blocker": "TOE/all-domain promotion requires a dedicated promoted claim-ledger row bound to theorem, proof, Lean, and finite evidence."
+      "required_evidence_layer": "Dedicated promoted TOE/all-domain claim row with theorem/proof/Lean/finite evidence refs; bounded theorem rows and the formal non-promotion blocker do not satisfy grand-claim promotion by themselves.",
+      "blocker": "TOE/all-domain promotion requires a dedicated promoted claim-ledger row bound to theorem, proof, Lean, and finite evidence. The current artifact class is machine-proved non-promotable when the formal obligation layer reports CURRENT_ARTIFACT_CLASS_CANNOT_PROMOTE."
     },
     "grand_toe_empirical_superiority": {
       "state": "FAIL",
@@ -218,10 +289,14 @@
       "grand_empirical_domain_results": {
         "biology": {
           "domain": "biology",
+          "candidate_pack_total": 0,
           "registered_pack_total": 0,
+          "discovered_pack_total": 0,
           "valid_pack_total": 0,
+          "valid_pack_refs": [],
           "valid_n": 0,
           "minimum_n": 20,
+          "missing_n": 20,
           "bounded_baseline_row_total": 1,
           "bounded_baseline_refs": [
             "OC133-TARGETBLIND-BIOLOGY-001"
@@ -230,15 +305,20 @@
           "status": "BLOCKED",
           "blockers": [
             "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-            "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK"
+            "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+            "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED"
           ]
         },
         "chemistry": {
           "domain": "chemistry",
+          "candidate_pack_total": 0,
           "registered_pack_total": 0,
+          "discovered_pack_total": 0,
           "valid_pack_total": 0,
+          "valid_pack_refs": [],
           "valid_n": 0,
           "minimum_n": 20,
+          "missing_n": 20,
           "bounded_baseline_row_total": 1,
           "bounded_baseline_refs": [
             "OC133-TARGETBLIND-CHEMISTRY-001"
@@ -247,15 +327,20 @@
           "status": "BLOCKED",
           "blockers": [
             "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-            "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK"
+            "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+            "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED"
           ]
         },
         "mathematics": {
           "domain": "mathematics",
+          "candidate_pack_total": 0,
           "registered_pack_total": 0,
+          "discovered_pack_total": 0,
           "valid_pack_total": 0,
+          "valid_pack_refs": [],
           "valid_n": 0,
           "minimum_n": 20,
+          "missing_n": 20,
           "bounded_baseline_row_total": 1,
           "bounded_baseline_refs": [
             "OC133-TARGETBLIND-MATHEMATICS-001"
@@ -265,15 +350,20 @@
           "blockers": [
             "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
             "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+            "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED",
             "CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE"
           ]
         },
         "physics": {
           "domain": "physics",
+          "candidate_pack_total": 0,
           "registered_pack_total": 0,
+          "discovered_pack_total": 0,
           "valid_pack_total": 0,
+          "valid_pack_refs": [],
           "valid_n": 0,
           "minimum_n": 20,
+          "missing_n": 20,
           "bounded_baseline_row_total": 1,
           "bounded_baseline_refs": [
             "OC133-TARGETBLIND-PHYSICS-001"
@@ -282,15 +372,20 @@
           "status": "BLOCKED",
           "blockers": [
             "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-            "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK"
+            "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+            "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED"
           ]
         },
         "systems": {
           "domain": "systems",
+          "candidate_pack_total": 0,
           "registered_pack_total": 0,
+          "discovered_pack_total": 0,
           "valid_pack_total": 0,
+          "valid_pack_refs": [],
           "valid_n": 0,
           "minimum_n": 20,
+          "missing_n": 20,
           "bounded_baseline_row_total": 1,
           "bounded_baseline_refs": [
             "OC133-TARGETBLIND-SYSTEMS-001"
@@ -299,7 +394,8 @@
           "status": "BLOCKED",
           "blockers": [
             "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
-            "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK"
+            "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+            "NO_CANDIDATE_EVIDENCE_PACK_DISCOVERED"
           ]
         }
       },
@@ -345,7 +441,7 @@
     }
   },
   "work_order_total": 3,
-  "work_order_queue_sha256": "5b0ad085dad217847d341d684e93204868b3125f4ba848c1faed9335d6cd8170",
+  "work_order_queue_sha256": "1248262f418c798df01356655b315671ad6aec7c7dc56a0e0052d860acf867ca",
   "next_automatic_action": "OC133-PLATINUM-WO-001",
   "base_content_closure_state": "PASS",
   "base_content_closure_blocker_total": 0,
@@ -362,12 +458,14 @@
       "priority": 999,
       "owned_artifacts": [
         "claims/CLAIM_LEDGER_1_3_3.json",
+        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
         "proofs/THEOREM_INVENTORY_1_3_3.json",
         "proofs/proof_sheets/",
         "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "tools/oc133_grand_toe_formal_obligations.py"
       ],
-      "before_predicate": "no dedicated promoted TOE/all-domain claim-ledger row with theorem/proof/Lean/finite evidence",
+      "before_predicate": "no dedicated promoted TOE/all-domain claim-ledger row with theorem/proof/Lean/finite evidence, or formal obligation layer rejects current artifact class",
       "after_predicate": "any TOE/all-domain promoted claim has explicit claim-ledger row, theorem/proof/Lean/finite evidence refs, unsupported_promoted_total=0, and release_promotion_allowed=true",
       "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write",
       "closure_evidence_required": [
@@ -375,7 +473,8 @@
         "theorem inventory IDs",
         "Lean theorem IDs",
         "proof sheet refs",
-        "finite-model witness case IDs"
+        "finite-model witness case IDs",
+        "or, if not closable, formal non-promotion proof refs and work-order decomposition"
       ],
       "rollback_or_block_condition": "If this evidence cannot honestly be produced, keep TOE/all-domain claims demoted and final readiness in SCIENTIFIC_BLOCKERS_REMAIN.",
       "dependency_ids": [],

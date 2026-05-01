@@ -4,7 +4,7 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "generated_at": "2026-04-28T00:00:00Z",
-  "queue_sha256": "5b0ad085dad217847d341d684e93204868b3125f4ba848c1faed9335d6cd8170",
+  "queue_sha256": "1248262f418c798df01356655b315671ad6aec7c7dc56a0e0052d860acf867ca",
   "state": "ACTIVE",
   "ordering_policy": "safety/no-send, all-domain evidence blocker, claim-boundary blocker, journal-package blocker, stable work_order_id",
   "work_order_total": 3,
@@ -18,12 +18,14 @@
       "priority": 999,
       "owned_artifacts": [
         "claims/CLAIM_LEDGER_1_3_3.json",
+        "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
         "proofs/THEOREM_INVENTORY_1_3_3.json",
         "proofs/proof_sheets/",
         "formal/lean/",
-        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+        "tools/oc133_grand_toe_formal_obligations.py"
       ],
-      "before_predicate": "no dedicated promoted TOE/all-domain claim-ledger row with theorem/proof/Lean/finite evidence",
+      "before_predicate": "no dedicated promoted TOE/all-domain claim-ledger row with theorem/proof/Lean/finite evidence, or formal obligation layer rejects current artifact class",
       "after_predicate": "any TOE/all-domain promoted claim has explicit claim-ledger row, theorem/proof/Lean/finite evidence refs, unsupported_promoted_total=0, and release_promotion_allowed=true",
       "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write",
       "closure_evidence_required": [
@@ -31,7 +33,8 @@
         "theorem inventory IDs",
         "Lean theorem IDs",
         "proof sheet refs",
-        "finite-model witness case IDs"
+        "finite-model witness case IDs",
+        "or, if not closable, formal non-promotion proof refs and work-order decomposition"
       ],
       "rollback_or_block_condition": "If this evidence cannot honestly be produced, keep TOE/all-domain claims demoted and final readiness in SCIENTIFIC_BLOCKERS_REMAIN.",
       "dependency_ids": [],

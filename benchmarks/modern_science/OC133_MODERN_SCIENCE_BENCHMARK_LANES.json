@@ -46,7 +46,25 @@
         "independent_replay_passes_from_clean_checkout",
         "result_is_not_merely_exact_standard_replay"
       ],
-      "allowed_current_claim": "bounded target-blind reconstruction of a held-out constants relationship only"
+      "allowed_current_claim": "bounded target-blind reconstruction of a held-out constants relationship only",
+      "result_role_bindings": {
+        "incumbent_modern_science_source": "incumbent_source_refs",
+        "oc_result": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-PHYSICS-001",
+        "comparator_result": {
+          "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-PHYSICS-001",
+          "baseline_name": "unit-incompatible Planck-constant-only negative control"
+        },
+        "benchmark_predicate": "MS-PRED-PHYS-001",
+        "uncertainty_fairness": {
+          "metric_family": "absolute_residual_against_held_out_value plus comparator_residual_margin",
+          "negative_control": "drop the speed-of-light factor and require a larger residual"
+        },
+        "blocker_reason": [
+          "independent_replay_passes_from_clean_checkout",
+          "result_is_not_merely_exact_standard_replay",
+          "domain_relevance_exceeds_exact_standard_replay"
+        ]
+      }
     },
     {
       "lane_id": "MS-LANE-CHEMISTRY-WATER",
@@ -86,7 +104,25 @@
         "independent_replay_passes_from_clean_checkout",
         "not_a_curated_field_copy"
       ],
-      "allowed_current_claim": "bounded reconstruction of a known water field only"
+      "allowed_current_claim": "bounded reconstruction of a known water field only",
+      "result_role_bindings": {
+        "incumbent_modern_science_source": "incumbent_source_refs",
+        "oc_result": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-CHEMISTRY-001",
+        "comparator_result": {
+          "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-CHEMISTRY-001",
+          "baseline_name": "CO2 molecular-weight negative control against water target"
+        },
+        "benchmark_predicate": "MS-PRED-CHEM-001",
+        "uncertainty_fairness": {
+          "metric_family": "absolute_residual within declared uncertainty plus CO2 negative-control margin",
+          "negative_control": "replace H2O by CO2 and require larger residual"
+        },
+        "blocker_reason": [
+          "independent_replay_passes_from_clean_checkout",
+          "not_a_curated_field_copy",
+          "domain_relevance_exceeds_curated_field_reconstruction"
+        ]
+      }
     },
     {
       "lane_id": "MS-LANE-BIOLOGY-GEO",
@@ -125,7 +161,24 @@
         "independent_replay_passes_from_clean_checkout",
         "biological_mechanism_test_present"
       ],
-      "allowed_current_claim": "bounded API/query accounting reconstruction only"
+      "allowed_current_claim": "bounded API/query accounting reconstruction only",
+      "result_role_bindings": {
+        "incumbent_modern_science_source": "incumbent_source_refs",
+        "oc_result": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-BIOLOGY-001",
+        "comparator_result": {
+          "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-BIOLOGY-001",
+          "baseline_name": "use total hit count as pagination-size negative control"
+        },
+        "benchmark_predicate": "MS-PRED-BIO-001",
+        "uncertainty_fairness": {
+          "metric_family": "integer residual plus total-count negative-control margin",
+          "negative_control": "replace page-size reconstruction by total hit count and require a larger residual"
+        },
+        "blocker_reason": [
+          "independent_replay_passes_from_clean_checkout",
+          "biological_mechanism_test_present"
+        ]
+      }
     },
     {
       "lane_id": "MS-LANE-SYSTEMS-WDI-GDP",
@@ -164,7 +217,24 @@
         "independent_replay_passes_from_clean_checkout",
         "prospective_or_time-locked_protocol_present"
       ],
-      "allowed_current_claim": "bounded retrospective holdout over pinned WDI rows only"
+      "allowed_current_claim": "bounded retrospective holdout over pinned WDI rows only",
+      "result_role_bindings": {
+        "incumbent_modern_science_source": "incumbent_source_refs",
+        "oc_result": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-SYSTEMS-001",
+        "comparator_result": {
+          "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-SYSTEMS-001",
+          "baseline_name": "last-observation carry-forward GDP_2023"
+        },
+        "benchmark_predicate": "MS-PRED-SYS-001",
+        "uncertainty_fairness": {
+          "metric_family": "absolute residual, percentage residual, and comparator_residual_margin",
+          "negative_control": "last-observation baseline must have larger residual"
+        },
+        "blocker_reason": [
+          "independent_replay_passes_from_clean_checkout",
+          "prospective_or_time-locked_protocol_present"
+        ]
+      }
     },
     {
       "lane_id": "MS-LANE-MATHEMATICS-LEAN-FINITE",
@@ -204,8 +274,36 @@
         "independent_replay_passes_from_clean_checkout",
         "machine_checked_theorem_scope_matches_public_claim"
       ],
-      "allowed_current_claim": "bounded finite proof-corpus QA and formal release-consistency only"
+      "allowed_current_claim": "bounded finite proof-corpus QA and formal release-consistency only",
+      "result_role_bindings": {
+        "incumbent_modern_science_source": "incumbent_source_refs",
+        "oc_result": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-MATHEMATICS-001",
+        "comparator_result": {
+          "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-MATHEMATICS-001",
+          "baseline_name": "positive_case_total negative control, which counts non-theorem support rows too"
+        },
+        "benchmark_predicate": "MS-PRED-MATH-001",
+        "uncertainty_fairness": {
+          "metric_family": "exact finite aggregate equality plus negative-control aggregate mismatch",
+          "negative_control": "replace theorem-id aggregate by positive_case_total and require a larger residual"
+        },
+        "blocker_reason": [
+          "independent_replay_passes_from_clean_checkout",
+          "machine_checked_theorem_scope_matches_public_claim"
+        ]
+      }
     }
-  ]
+  ],
+  "result_role_contract": {
+    "factory_ref": "tools/oc133_modern_science_comparator_factory.py",
+    "required_roles": [
+      "incumbent_modern_science_source",
+      "oc_result",
+      "comparator_result",
+      "benchmark_predicate",
+      "uncertainty_fairness",
+      "blocker_reason"
+    ],
+    "policy": "Lane rows bind role names to source-backed fields so an OC result cannot be confused with an incumbent source or comparator baseline."
+  }
 }
-
