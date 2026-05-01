@@ -9,10 +9,15 @@ This sheet is the Logion Research/FormalScience obligation layer for blocker `gr
 Lean theorem refs:
 
 - `formal/lean/OC133V12.lean::grand_toe_promotion_requires_all_formal_obligations`
+- `formal/lean/OC133V12.lean::grand_toe_promotion_requires_theorem_obligation_mapping`
 - `formal/lean/OC133V12.lean::grand_toe_complete_formal_obligations_accept_control`
 - `formal/lean/OC133V12.lean::grand_toe_current_artifact_class_cannot_promote`
 - `formal/lean/OC133V12.lean::grand_toe_current_artifact_class_missing_dedicated_claim`
 - `formal/lean/OC133V12.lean::grand_toe_missing_finite_cases_blocks_promotion`
+- `formal/lean/OC133V12.lean::grand_toe_missing_theorem_proof_mapping_blocks_promotion`
+- `formal/lean/OC133V12.lean::grand_toe_missing_lean_mapping_blocks_promotion`
+- `formal/lean/OC133V12.lean::grand_toe_missing_finite_case_mapping_blocks_promotion`
+- `formal/lean/OC133V12.lean::grand_toe_missing_claim_ledger_boundary_blocks_promotion`
 
 Finite case IDs:
 
@@ -27,16 +32,48 @@ The current row is `FM-GRAND-TOE-FORMAL-CURRENT-REJECT` and must observe `REJECT
 | Gate | Current value |
 | --- | --- |
 | `dedicated_claim_row` | `false` |
+| `claim_ledger_promotion_boundaries_bound` | `false` |
 | `release_promotion_allowed` | `false` |
 | `scientific_promotion_allowed` | `false` |
 | `public_status_promoted` | `false` |
 | `promotion_theorem_ids_bound` | `false` |
-| `proof_sheet_refs_bound` | `true` |
-| `lean_theorem_ids_bound` | `true` |
-| `finite_case_ids_bound` | `true` |
+| `theorem_ids_map_to_proof_sheet_ids` | `false` |
+| `proof_sheet_refs_bound` | `false` |
+| `theorem_ids_map_to_lean_declaration_ids` | `false` |
+| `lean_theorem_ids_bound` | `false` |
+| `theorem_ids_map_to_finite_model_case_ids` | `false` |
+| `finite_case_ids_bound` | `false` |
+| `finite_positive_negative_controls_bound` | `false` |
 | `unsupported_promoted_total_zero` | `true` |
 
-Failed promotion predicates: `dedicated_claim_row, release_promotion_allowed, scientific_promotion_allowed, public_status_promoted, promotion_theorem_ids_bound`.
+Failed promotion predicates: `dedicated_claim_row, claim_ledger_promotion_boundaries_bound, release_promotion_allowed, scientific_promotion_allowed, public_status_promoted, promotion_theorem_ids_bound, theorem_ids_map_to_proof_sheet_ids, proof_sheet_refs_bound, theorem_ids_map_to_lean_declaration_ids, lean_theorem_ids_bound, theorem_ids_map_to_finite_model_case_ids, finite_case_ids_bound, finite_positive_negative_controls_bound, all_domain_empirical_pack_valid, modern_science_superiority_certified`.
+
+## Theorem Obligation Map
+
+| Theorem ID | Proof sheet mapped | Lean declaration mapped | Finite positive/negative mapped |
+| --- | --- | --- | --- |
+| `NO_PROMOTION_THEOREM_IDS_DECLARED_FOR_DEDICATED_GRAND_CLAIM_ROW` | `false` | `false` | `false` |
+
+## Missing Obligations
+
+- `claim_ledger::dedicated_promoted_grand_toe_all_domain_claim_row_missing`
+- `claim_ledger::dedicated_row_release_promotion_allowed_true`
+- `claim_ledger::dedicated_row_scientific_promotion_allowed_true`
+- `claim_ledger::dedicated_row_public_status_promoted`
+- `claim_ledger::ledger_release_promotion_allowed_true`
+- `theorem_inventory::promotion_theorem_ids_missing_from_dedicated_claim_row`
+- `biology::grand_toe_support_allowed_false`
+- `chemistry::grand_toe_support_allowed_false`
+- `physics::grand_toe_support_allowed_false`
+- `systems::grand_toe_support_allowed_false`
+- `Current strict evidence packs support only benchmark-scoped superiority over declared preregistered comparator baselines.`
+- `No artifact in this register surveys or defeats all modern-science incumbents across a domain, much less all of modern science.`
+- `The broad wording 'predicts better than modern science' remains blocked.`
+- `Independent clean temp-tree replay is bound to the register for the current strict packs; broad coverage remains blocked.`
+
+## Machine Non-Promotion Proof Gaps
+
+- `NONE`
 
 ## Work-Order Decomposition
 
