@@ -3,9 +3,9 @@
 - verdict: `RELEASE_REPAIR_REQUIRED_NO_SEND`
 - public release: `BLOCKED_PENDING_SEPARATE_OWNER_APPROVAL`
 - release_state: `SCIENTIFIC_BLOCKERS_REMAIN`
-- gate_counts: `{'BLOCKED': 0, 'FAIL': 3, 'NOT_APPLICABLE': 0, 'NOT_RUN': 0, 'PASS': 68, 'WARN': 0}`
+- gate_counts: `{'BLOCKED': 0, 'FAIL': 2, 'NOT_APPLICABLE': 0, 'NOT_RUN': 0, 'PASS': 69, 'WARN': 0}`
 - Cerberus critical/high/parse: `0/0/0`
-- package SHA-256: `2713b93e14ad6bffd96abaa9a14d4189d539cf153452c745f6ec4f62478e1c44`
+- package SHA-256: `d91ea61257c35477981011e669d4b70ddadff0dd0c4aee10f9ff1cca6f401514`
 - journal packages: `8` packages, `{'OWNER_REVIEW_READY_NO_SEND': 8}`
 - claim surface: `PASS` failures=`0`
 - packaged surface: `PASS` failures=`0`
