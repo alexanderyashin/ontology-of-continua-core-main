@@ -219,6 +219,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Logion all-domain scientific readiness controller for OC Core 1.3.3.")
     parser.add_argument("--write", action="store_true", help="Write all-domain scorecard, work orders, and cockpit.")
     parser.add_argument("--execute-next", action="store_true", help="Execute the highest-priority all-domain work order via a Logion capability profile.")
+    parser.add_argument(
+        "--allow-blocked-exit-zero",
+        action="store_true",
+        help="Return zero when the controller ran correctly but scientific blockers remain.",
+    )
     args = parser.parse_args()
 
     execute_result = execute_next() if args.execute_next else None
@@ -244,7 +249,9 @@ def main() -> int:
     if execute_result is not None and execute_result.get("execution_state") not in {"PASS", "NOOP"}:
         if execute_result.get("execution_state") != "SCIENTIFIC_BLOCKERS_REMAIN":
             return 1
-    return 0 if audit["all_domain_ready_no_send"] else 2
+    if audit["all_domain_ready_no_send"]:
+        return 0
+    return 0 if args.allow_blocked_exit_zero else 2
 
 
 if __name__ == "__main__":

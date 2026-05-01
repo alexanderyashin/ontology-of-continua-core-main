@@ -159,6 +159,26 @@ class GrandEmpiricalFactoryTests(unittest.TestCase):
             self.assertEqual(payload["blocked_domain_total"], 1)
             self.assertFalse(payload["grand_toe_support_allowed"])
 
+    def test_discovery_ignores_operational_status_reports_that_are_not_packs(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._minimal_root(root, ["physics"])
+            write_json(
+                root,
+                "validation/heldout/status_report.json",
+                {
+                    "schema_id": "SOME_OPERATIONAL_REPORT",
+                    "release_id": "oc_core_1_3_3",
+                    "grand_toe_support_allowed": False,
+                    "verdict": "BLOCKED",
+                },
+            )
+
+            payload = factory.build_grand_empirical_payload(root)
+
+            self.assertEqual(payload["evidence_pack_total"], 0)
+            self.assertEqual(payload["evidence_pack_failure_total"], 0)
+
 
 if __name__ == "__main__":
     unittest.main()

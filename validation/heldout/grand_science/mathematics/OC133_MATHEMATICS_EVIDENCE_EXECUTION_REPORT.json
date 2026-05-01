@@ -21,7 +21,7 @@
   "valid_pack_total": 0,
   "blocked_pack_total": 1,
   "blocked_domain_total": 1,
-  "protocol_sha256": "ad18bedf5c880587997c9a26d8a9c8b9651ed8ffd61414bfcc836361a66d98db",
+  "protocol_sha256": "7452b646dd5134f44fd1cd68bd2a104626ccc043d06b6928fde341d257be2f97",
   "domains": [
     {
       "domain": "mathematics",
@@ -30,10 +30,10 @@
       "candidate_pack_sha256": "985177a31866ed300d95478868847469b82cd71347423fbeda52f6bc38c30bae",
       "candidate_pack_hash_policy": "sha256 over sorted canonical JSON",
       "snapshot_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
-      "snapshot_sha256": "6cc852b04933d0f8a0dd8812733f09bd09491bde49d914e61a6c7548d8e95749",
+      "snapshot_sha256": "e8af01151d76a757bb095ead0f2a41cf2b5fbc2f7ba9de28f296848516e4ba0e",
       "snapshot_sha256_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
-      "snapshot_byte_count": 302918,
-      "snapshot_canonical_sha256": "07036604f8d4608b52e8dbba2d57b9d86c43786fa01a8193ff84f55079d75621",
+      "snapshot_byte_count": 314948,
+      "snapshot_canonical_sha256": "831f67ba3009ce1eed7b7c19b243df39a9a9df8f8120a993aa5cc94cab6a0abc",
       "snapshot_canonical_hash_policy": "sha256 over sorted canonical JSON",
       "target_blind_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
       "target_blind_row_sha256": "a5a9910ec6dd67ea5fdd41ff85d50e600b9cbfacedefe8c49fd35f23703d88d7",
@@ -46,7 +46,7 @@
         "machine_checked_subset_total": 10,
         "unique_accepted_theorem_total": 10,
         "positive_case_total": 21,
-        "lean_theorem_ref_total": 15,
+        "lean_theorem_ref_total": 18,
         "lean_source_ref": "formal/lean/OC133V12.lean",
         "current_lean_source_sha256": "6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f",
         "certificate_lean_source_sha256": "6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f"
@@ -81,7 +81,9 @@
       "falsifiers": [
         "Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse"
       ],
-      "binding_failures": [],
+      "binding_failures": [
+        "TARGET_BLIND_SNAPSHOT_SHA256_MISMATCH"
+      ],
       "grand_gate_failures": [
         "N_BELOW_MINIMUM::20",
         "GRAND_TOE_SUPPORT_NOT_ALLOWED"
@@ -126,6 +128,7 @@
         "MATHEMATICS_CURRENT_SOURCE_IS_FINITE_LEAN_PROOF_CORPUS_NOT_EMPIRICAL_GRAND_EVIDENCE",
         "GENUINE_EVIDENCE_N_BELOW_MINIMUM::1/20",
         "GRAND_TOE_SUPPORT_FORCED_FALSE_FOR_CURRENT_MATHEMATICS_EVIDENCE",
+        "TARGET_BLIND_BINDING::TARGET_BLIND_SNAPSHOT_SHA256_MISMATCH",
         "GRAND_GATE::N_BELOW_MINIMUM::20",
         "GRAND_GATE::GRAND_TOE_SUPPORT_NOT_ALLOWED"
       ]
@@ -136,5 +139,5 @@
   "no_send": true,
   "publish_allowed": false,
   "registry_write_allowed": false,
-  "report_sha256": "69bd67112a2411ccfe0e8d7977af0a5aa1ee52df6635ade42f13defd5617bfee"
+  "report_sha256": "1e1e12c7bdb9d77df426c3162a9d727204281c9546f48333c6ca9c88f515b1d9"
 }

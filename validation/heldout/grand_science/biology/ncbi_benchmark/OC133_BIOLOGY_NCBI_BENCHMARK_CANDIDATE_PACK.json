@@ -1,0 +1,45 @@
+{
+  "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+  "release_id": "oc_core_1_3_3",
+  "capability_owner": "Research/EmpiricalScience",
+  "evidence_pack_id": "OC133-BIOLOGY-NCBI-BENCHMARK-CANDIDATE",
+  "domain": "biology",
+  "source_separation": {
+    "mode": "snapshot_replay",
+    "pre_target_lock": false,
+    "target_hidden_until_scoring": false,
+    "training_sources": [],
+    "target_sources": []
+  },
+  "n": 1,
+  "model_under_test": "retstart + len(idlist)",
+  "comparator_baseline": {
+    "name": "NCBI benchmark comparator baseline",
+    "prediction_rule": "declared comparator predictions are preregistered and held against row residuals",
+    "pre_registered": false
+  },
+  "uncertainty": {
+    "metric": "mean absolute residual",
+    "method": "deterministic replay protocol with declared uncertainty",
+    "interval": [
+      0.0,
+      0.0
+    ]
+  },
+  "residuals": {
+    "model": 0.0,
+    "comparator": 43989.0,
+    "superiority_margin": 43989.0
+  },
+  "negative_controls": [
+    {
+      "control_id": "BIOLOGY-NCBI-COUNT-CONTROL-REPLAY",
+      "description": "replace the GEO replay formula with a comparator and require strictly larger residual",
+      "rejected": true
+    }
+  ],
+  "falsifiers": [
+    "count replay residual exceeds declared uncertainty or comparator is not worse than model residual"
+  ],
+  "grand_toe_support_allowed": false
+}

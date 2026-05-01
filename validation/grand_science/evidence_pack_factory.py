@@ -129,11 +129,10 @@ def should_skip_discovered_path(path: Path) -> bool:
 def looks_like_evidence_pack(payload: Any) -> bool:
     if not isinstance(payload, dict):
         return False
-    return (
-        payload.get("schema_id") == EVIDENCE_SCHEMA_ID
-        or "evidence_pack_id" in payload
-        or "grand_toe_support_allowed" in payload
-    )
+    if payload.get("schema_id") == EVIDENCE_SCHEMA_ID:
+        return True
+    evidence_fields = set(REQUIRED_PACK_FIELDS) - {"evidence_pack_id"}
+    return "evidence_pack_id" in payload and any(field in payload for field in evidence_fields)
 
 
 def load_candidate_records(

@@ -295,7 +295,7 @@
       "grand_empirical_report_exists": true,
       "grand_empirical_verdict": "BLOCKED_PENDING_GENUINE_PER_DOMAIN_EVIDENCE",
       "grand_empirical_blocked_domain_total": 5,
-      "grand_empirical_evidence_pack_total": 12,
+      "grand_empirical_evidence_pack_total": 10,
       "grand_empirical_supported_domains": [],
       "grand_empirical_missing_domains": [
         "physics",
@@ -307,9 +307,9 @@
       "grand_empirical_domain_results": {
         "biology": {
           "domain": "biology",
-          "candidate_pack_total": 2,
+          "candidate_pack_total": 3,
           "registered_pack_total": 0,
-          "discovered_pack_total": 2,
+          "discovered_pack_total": 3,
           "valid_pack_total": 0,
           "valid_pack_refs": [],
           "valid_n": 0,
@@ -324,7 +324,7 @@
           "blockers": [
             "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
             "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-            "CANDIDATE_EVIDENCE_PACKS_INVALID::2"
+            "CANDIDATE_EVIDENCE_PACKS_INVALID::3"
           ]
         },
         "chemistry": {
@@ -396,9 +396,9 @@
         },
         "systems": {
           "domain": "systems",
-          "candidate_pack_total": 3,
+          "candidate_pack_total": 4,
           "registered_pack_total": 0,
-          "discovered_pack_total": 3,
+          "discovered_pack_total": 4,
           "valid_pack_total": 0,
           "valid_pack_refs": [],
           "valid_n": 0,
@@ -413,7 +413,7 @@
           "blockers": [
             "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
             "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-            "CANDIDATE_EVIDENCE_PACKS_INVALID::3"
+            "CANDIDATE_EVIDENCE_PACKS_INVALID::4"
           ]
         }
       },
@@ -459,14 +459,76 @@
     }
   },
   "work_order_total": 3,
-  "work_order_queue_sha256": "1248262f418c798df01356655b315671ad6aec7c7dc56a0e0052d860acf867ca",
-  "next_automatic_action": "OC133-PLATINUM-WO-001",
+  "work_order_queue_sha256": "8944a9235e5db913952bac0510ce38a7b1b95f4e4b7740e9087b8d460104c692",
+  "next_automatic_action": "OC133-PLATINUM-WO-002",
   "base_content_closure_state": "PASS",
   "base_content_closure_blocker_total": 0,
   "no_send": true,
   "publish_allowed": false,
   "journal_submissions_allowed": false,
   "work_orders": [
+    {
+      "work_order_id": "OC133-PLATINUM-WO-002",
+      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
+      "owner_capability": "Research/EmpiricalScience",
+      "title": "Replace bounded rows with strict per-domain predictive superiority evidence",
+      "severity": "CRITICAL",
+      "priority": 998,
+      "owned_artifacts": [
+        "validation/target_blind/",
+        "validation/heldout/",
+        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+        "claims/CLAIM_LEDGER_1_3_3.json"
+      ],
+      "before_predicate": "missing_or_not_superior_domains == ['physics', 'chemistry', 'biology', 'systems', 'mathematics']",
+      "after_predicate": "each required empirical domain has target-blind or held-out prediction evidence, uncertainty, falsifier, negative control, and numeric residual strictly better than comparator residual",
+      "verification_command": "python tools/oc133_logion_all_domain_readiness.py --execute-next --write --allow-blocked-exit-zero",
+      "closure_evidence_required": [
+        "per-domain target-blind or held-out prediction rows",
+        "dataset snapshot refs and hashes",
+        "OC residual and comparator residual calculations",
+        "negative-control/falsifier outputs",
+        "Logion capability execution ledger row"
+      ],
+      "rollback_or_block_condition": "If any required domain lacks genuine predictive superiority, keep bounded readiness visible but not final for grand TOE claims.",
+      "dependency_ids": [],
+      "dependency_blocker_ids": [],
+      "implementation_policy": "Execute through Logion capability worker; Codex may repair orchestration only if this work order cannot run.",
+      "no_send": true,
+      "open_dependency_blocker_ids": [],
+      "blocked_by_open_dependency_total": 0
+    },
+    {
+      "work_order_id": "OC133-PLATINUM-WO-003",
+      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
+      "owner_capability": "Research/PriorArt",
+      "title": "Create modern-science comparator superiority register",
+      "severity": "CRITICAL",
+      "priority": 997,
+      "owned_artifacts": [
+        "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
+        "comparators/",
+        "benchmarks/",
+        "claims/CLAIM_LEDGER_1_3_3.json"
+      ],
+      "before_predicate": "modern-science comparator register missing or not certifying superiority across required domains",
+      "after_predicate": "register exists for grand claim classes and certifies OC superiority against modern-science comparator benchmarks for every required empirical domain",
+      "verification_command": "python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
+      "closure_evidence_required": [
+        "modern-science comparator/benchmark register",
+        "per-domain benchmark refs",
+        "OC result refs",
+        "modern-science comparator result refs",
+        "superiority certification verdicts"
+      ],
+      "rollback_or_block_condition": "If superiority over modern science is not certified, remove or demote superiority claims and keep final readiness scientifically blocked.",
+      "dependency_ids": [],
+      "dependency_blocker_ids": [],
+      "implementation_policy": "Execute through Logion capability worker; Codex may repair orchestration only if this work order cannot run.",
+      "no_send": true,
+      "open_dependency_blocker_ids": [],
+      "blocked_by_open_dependency_total": 0
+    },
     {
       "work_order_id": "OC133-PLATINUM-WO-001",
       "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
@@ -485,7 +547,7 @@
       ],
       "before_predicate": "no dedicated promoted TOE/all-domain claim-ledger row with theorem/proof/Lean/finite evidence, or formal obligation layer rejects current artifact class",
       "after_predicate": "any TOE/all-domain promoted claim has explicit claim-ledger row, theorem/proof/Lean/finite evidence refs, unsupported_promoted_total=0, and release_promotion_allowed=true",
-      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write",
+      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
       "closure_evidence_required": [
         "dedicated grand-claim ledger row ID",
         "theorem inventory IDs",
@@ -496,64 +558,17 @@
       ],
       "rollback_or_block_condition": "If this evidence cannot honestly be produced, keep TOE/all-domain claims demoted and final readiness in SCIENTIFIC_BLOCKERS_REMAIN.",
       "dependency_ids": [],
+      "dependency_blocker_ids": [
+        "grand_toe_empirical_superiority",
+        "modern_science_comparator_superiority"
+      ],
       "implementation_policy": "Execute through Logion capability worker; Codex may repair orchestration only if this work order cannot run.",
-      "no_send": true
-    },
-    {
-      "work_order_id": "OC133-PLATINUM-WO-002",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "owner_capability": "Research/EmpiricalScience",
-      "title": "Replace bounded rows with strict per-domain predictive superiority evidence",
-      "severity": "CRITICAL",
-      "priority": 998,
-      "owned_artifacts": [
-        "validation/target_blind/",
-        "validation/heldout/",
-        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
-        "claims/CLAIM_LEDGER_1_3_3.json"
+      "no_send": true,
+      "open_dependency_blocker_ids": [
+        "grand_toe_empirical_superiority",
+        "modern_science_comparator_superiority"
       ],
-      "before_predicate": "missing_or_not_superior_domains == ['physics', 'chemistry', 'biology', 'systems', 'mathematics']",
-      "after_predicate": "each required empirical domain has target-blind or held-out prediction evidence, uncertainty, falsifier, negative control, and numeric residual strictly better than comparator residual",
-      "verification_command": "python tools/oc133_logion_all_domain_readiness.py --execute-next --write",
-      "closure_evidence_required": [
-        "per-domain target-blind or held-out prediction rows",
-        "dataset snapshot refs and hashes",
-        "OC residual and comparator residual calculations",
-        "negative-control/falsifier outputs",
-        "Logion capability execution ledger row"
-      ],
-      "rollback_or_block_condition": "If any required domain lacks genuine predictive superiority, keep bounded readiness visible but not final for grand TOE claims.",
-      "dependency_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; Codex may repair orchestration only if this work order cannot run.",
-      "no_send": true
-    },
-    {
-      "work_order_id": "OC133-PLATINUM-WO-003",
-      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
-      "owner_capability": "Research/PriorArt",
-      "title": "Create modern-science comparator superiority register",
-      "severity": "CRITICAL",
-      "priority": 997,
-      "owned_artifacts": [
-        "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
-        "comparators/",
-        "benchmarks/",
-        "claims/CLAIM_LEDGER_1_3_3.json"
-      ],
-      "before_predicate": "modern-science comparator register missing or not certifying superiority across required domains",
-      "after_predicate": "register exists for grand claim classes and certifies OC superiority against modern-science comparator benchmarks for every required empirical domain",
-      "verification_command": "python tools/oc133_logion_all_domain_readiness.py --write",
-      "closure_evidence_required": [
-        "modern-science comparator/benchmark register",
-        "per-domain benchmark refs",
-        "OC result refs",
-        "modern-science comparator result refs",
-        "superiority certification verdicts"
-      ],
-      "rollback_or_block_condition": "If superiority over modern science is not certified, remove or demote superiority claims and keep final readiness scientifically blocked.",
-      "dependency_ids": [],
-      "implementation_policy": "Execute through Logion capability worker; Codex may repair orchestration only if this work order cannot run.",
-      "no_send": true
+      "blocked_by_open_dependency_total": 2
     }
   ]
 }

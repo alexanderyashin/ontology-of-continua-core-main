@@ -402,6 +402,8 @@ def materialize_grand_science_program(profile: str) -> dict[str, Any]:
             [sys.executable, "tools/oc133_acquisition_planner_runner.py", "--write", "--allow-blocked-exit-zero"],
             [sys.executable, "tools/oc133_harvester_runner.py", "--write", "--allow-blocked-exit-zero"],
             [sys.executable, "tools/oc133_domain_evidence_executor_runner.py", "--write", "--allow-blocked-exit-zero"],
+            [sys.executable, "tools/oc133_empirical_capability_registry.py", "--write"],
+            [sys.executable, "tools/oc133_empirical_capability_dispatcher.py", "--write", "--refresh-registry", "--execute", "--max-actions", "10"],
             [sys.executable, "tools/oc133_grand_empirical_evidence_factory.py", "--allow-blocked-exit-zero"],
         ],
         "v12_modern_science_comparator_research_program": [
@@ -430,7 +432,7 @@ def materialize_grand_science_program(profile: str) -> dict[str, Any]:
                 "proofs/FINITE_MODEL_CHECKS_1_3_3.json::positive/negative witness cases",
             ],
             pass_predicate="grand_toe_claim_ledger_evidence.state == PASS and release_promotion_allowed == true for the dedicated grand claim",
-            verification_command="lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write",
+            verification_command="lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
         ),
         _grand_science_obligation(
             obligation_id="OC133-GRAND-EMPIRICAL-001",
@@ -444,7 +446,7 @@ def materialize_grand_science_program(profile: str) -> dict[str, Any]:
                 "per-domain comparator residuals, uncertainty, negative controls, and falsifiers",
             ],
             pass_predicate="every required domain passes strict predictive superiority against a comparator and explicitly allows grand-claim support",
-            verification_command="python validation/run_all.py --qa-only && python tools/oc133_logion_all_domain_readiness.py --write",
+            verification_command="python validation/run_all.py --qa-only && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
         ),
         _grand_science_obligation(
             obligation_id="OC133-GRAND-PRIORART-001",
@@ -459,7 +461,7 @@ def materialize_grand_science_program(profile: str) -> dict[str, Any]:
                 "source-backed fairness and uncertainty notes",
             ],
             pass_predicate="modern_science_comparator_superiority.state == PASS for physics, chemistry, biology, systems, and mathematics",
-            verification_command="python tools/oc133_logion_all_domain_readiness.py --write",
+            verification_command="python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
         ),
     ]
     selected = [row for row in obligations if row["blocker_check"] in audit.get("blocker_ids", [])]

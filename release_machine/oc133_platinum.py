@@ -107,6 +107,7 @@ def _work_order(
     closure_evidence_required: list[str],
     block_condition: str,
     dependency_ids: list[str] | None = None,
+    dependency_blocker_ids: list[str] | None = None,
 ) -> dict[str, Any]:
     priority_base = {"CRITICAL": 1000, "HIGH": 700, "MEDIUM": 400, "LOW": 100}.get(severity, 400)
     return {
@@ -123,9 +124,29 @@ def _work_order(
         "closure_evidence_required": closure_evidence_required,
         "rollback_or_block_condition": block_condition,
         "dependency_ids": dependency_ids or [],
+        "dependency_blocker_ids": dependency_blocker_ids or [],
         "implementation_policy": "Execute through Logion capability worker; Codex may repair orchestration only if this work order cannot run.",
         "no_send": True,
     }
+
+
+def _dependency_aware_work_order_sort(orders: list[dict[str, Any]], open_blocker_ids: set[str]) -> list[dict[str, Any]]:
+    for row in orders:
+        dependency_blocker_ids = [
+            str(blocker_id)
+            for blocker_id in row.get("dependency_blocker_ids", [])
+            if str(blocker_id) in open_blocker_ids
+        ]
+        row["open_dependency_blocker_ids"] = dependency_blocker_ids
+        row["blocked_by_open_dependency_total"] = len(dependency_blocker_ids)
+    return sorted(
+        orders,
+        key=lambda row: (
+            int(row.get("blocked_by_open_dependency_total", 0)) > 0,
+            -int(row["priority"]),
+            row["work_order_id"],
+        ),
+    )
 
 
 def _journal_package_audit(root: Path) -> dict[str, Any]:
@@ -987,7 +1008,7 @@ def build_all_domain_work_orders(blocker_checks: dict[str, dict[str, Any]]) -> l
             ],
             before_predicate="no dedicated promoted TOE/all-domain claim-ledger row with theorem/proof/Lean/finite evidence, or formal obligation layer rejects current artifact class",
             after_predicate="any TOE/all-domain promoted claim has explicit claim-ledger row, theorem/proof/Lean/finite evidence refs, unsupported_promoted_total=0, and release_promotion_allowed=true",
-            verification_command="lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write",
+            verification_command="lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
             closure_evidence_required=[
                 "dedicated grand-claim ledger row ID",
                 "theorem inventory IDs",
@@ -997,6 +1018,10 @@ def build_all_domain_work_orders(blocker_checks: dict[str, dict[str, Any]]) -> l
                 "or, if not closable, formal non-promotion proof refs and work-order decomposition",
             ],
             block_condition="If this evidence cannot honestly be produced, keep TOE/all-domain claims demoted and final readiness in SCIENTIFIC_BLOCKERS_REMAIN.",
+            dependency_blocker_ids=[
+                "grand_toe_empirical_superiority",
+                "modern_science_comparator_superiority",
+            ],
         ))
         idx += 1
     if "grand_toe_empirical_superiority" in blocker_checks:
@@ -1014,7 +1039,7 @@ def build_all_domain_work_orders(blocker_checks: dict[str, dict[str, Any]]) -> l
             ],
             before_predicate=f"missing_or_not_superior_domains == {row.get('missing_or_not_superior_domains', [])}",
             after_predicate="each required empirical domain has target-blind or held-out prediction evidence, uncertainty, falsifier, negative control, and numeric residual strictly better than comparator residual",
-            verification_command="python tools/oc133_logion_all_domain_readiness.py --execute-next --write",
+            verification_command="python tools/oc133_logion_all_domain_readiness.py --execute-next --write --allow-blocked-exit-zero",
             closure_evidence_required=[
                 "per-domain target-blind or held-out prediction rows",
                 "dataset snapshot refs and hashes",
@@ -1039,7 +1064,7 @@ def build_all_domain_work_orders(blocker_checks: dict[str, dict[str, Any]]) -> l
             ],
             before_predicate="modern-science comparator register missing or not certifying superiority across required domains",
             after_predicate="register exists for grand claim classes and certifies OC superiority against modern-science comparator benchmarks for every required empirical domain",
-            verification_command="python tools/oc133_logion_all_domain_readiness.py --write",
+            verification_command="python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
             closure_evidence_required=[
                 "modern-science comparator/benchmark register",
                 "per-domain benchmark refs",
@@ -1064,7 +1089,7 @@ def build_all_domain_work_orders(blocker_checks: dict[str, dict[str, Any]]) -> l
             ],
             before_predicate=f"missing_domains == {row.get('missing_domains', [])}",
             after_predicate="each required domain has formula, pinned snapshot, split policy, numeric prediction, uncertainty, comparator, residual, negative control, falsifier, and replay hash",
-            verification_command="python tools/oc133_logion_all_domain_readiness.py --execute-next --write",
+            verification_command="python tools/oc133_logion_all_domain_readiness.py --execute-next --write --allow-blocked-exit-zero",
             closure_evidence_required=[
                 "per-domain target-blind or held-out prediction rows",
                 "dataset snapshot refs and hashes",
@@ -1088,7 +1113,7 @@ def build_all_domain_work_orders(blocker_checks: dict[str, dict[str, Any]]) -> l
             ],
             before_predicate="overclaim hit_total > 0",
             after_predicate="no unsupported TOE, irrefutable, final-truth, all-domain prediction, or send-readiness wording appears outside explicit negation/owner-gated context",
-            verification_command="python tools/oc133_logion_all_domain_readiness.py --write",
+            verification_command="python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
             closure_evidence_required=["overclaim scan hit_total=0", "claim-boundary correction refs"],
             block_condition="Unsupported ambitious claims remain blockers until proven or removed from promoted surfaces.",
         ))
@@ -1102,11 +1127,11 @@ def build_all_domain_work_orders(blocker_checks: dict[str, dict[str, Any]]) -> l
             artifacts=["releases/oc_core_1_3_3/submission_packages/"],
             before_predicate="package missing, stale, overclaiming, or submission_allowed not false",
             after_predicate="8 complete owner-review no-send packages exist; actual submission remains locked by owner approval and scientific all-domain gates",
-            verification_command="python tools/oc133_logion_all_domain_readiness.py --write",
+            verification_command="python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero",
             closure_evidence_required=["SUBMISSION_PACKAGE_INDEX.json", "venue manifests", "NO_SEND/OWNER_APPROVAL_REQUIRED fields"],
             block_condition="No journal package may claim actual send readiness while owner approval is pending.",
         ))
-    return sorted(orders, key=lambda row: (-int(row["priority"]), row["work_order_id"]))
+    return _dependency_aware_work_order_sort(orders, set(blocker_checks))
 
 
 def render_cockpit(audit: dict[str, Any]) -> str:

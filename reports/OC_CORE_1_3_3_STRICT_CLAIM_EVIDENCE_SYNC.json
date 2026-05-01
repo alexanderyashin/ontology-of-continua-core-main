@@ -1,0 +1,53 @@
+{
+  "schema_id": "OC_CORE_1_3_3_STRICT_CLAIM_EVIDENCE_SYNC_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Logion Research/FormalScience + Review/ClaimBoundary",
+  "generated_by": "tools/oc133_strict_claim_evidence_synchronizer.py",
+  "sync_scope": "Synchronize promoted grand-claim ledger rows to theorem inventory, proof-sheet, Lean theorem, and finite evidence surfaces; never narrow claim text.",
+  "claim_ledger_ref": "claims/CLAIM_LEDGER_1_3_3.json",
+  "theorem_inventory_ref": "proofs/THEOREM_INVENTORY_1_3_3.json",
+  "finite_report_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+  "grand_promotion_contract_ref": "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json",
+  "grand_empirical_report_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
+  "target_claim_total": 0,
+  "target_claim_ids": [],
+  "blocked_claim_total": 0,
+  "supported_claim_total": 0,
+  "claim_assessments": [],
+  "gate_summary": {
+    "contract_gate": {
+      "mission_requires_grand_claim_surface": true,
+      "target_claim_surface_present": false,
+      "contract_verdict": "BLOCKED",
+      "promotion_contract_pass": false,
+      "empirical_verdict": "BLOCKED_PENDING_GENUINE_PER_DOMAIN_EVIDENCE",
+      "grand_toe_support_allowed": false,
+      "blocked_domain_total": 5
+    },
+    "sync_gate": false,
+    "contract_vs_empirical_gate": "BLOCKED",
+    "blocked_gate_issue_count": 1
+  },
+  "verdict": "BLOCKED",
+  "work_orders": [
+    {
+      "work_order_id": "OC133-STRICT-CE-SYNC-001",
+      "claim_id": "OC133-GRAND-TOE-PROMOTION",
+      "owner_capability": "Research/FormalScience + Review/ClaimBoundary",
+      "missing_issue": "grand_claim_promotion_surface_missing",
+      "required_action": "Create a dedicated promoted grand-claim candidate surface only when its theorem, proof-sheet, Lean, finite-model, empirical, and comparator evidence can bind; otherwise keep final TOE readiness blocked.",
+      "required_artifacts": [
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+        "proofs/grand_promotion/OC133_GRAND_PROMOTION_CONTRACT_REPORT.json"
+      ],
+      "before_predicate": "No promoted TOE/all-domain/numeric-superiority claim row exists, so absence of overclaim cannot count as final scientific closure.",
+      "after_predicate": "At least one dedicated promoted grand claim exists and passes strict claim-evidence synchronization under the same gates.",
+      "closure_rule": "Capability-specific repair should create concrete evidence surfaces; no artifact existence outside this scope may close this blocker.",
+      "no_send": true
+    }
+  ],
+  "work_order_total": 1,
+  "work_order_policy": "Every missing evidence surface produces an explicit capability work order; claims are never silently narrowed from PROMOTED."
+}

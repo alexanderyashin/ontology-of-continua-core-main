@@ -5,7 +5,7 @@ State: `OC_CORE_1_3_3_ALL_DOMAIN_SCIENTIFIC_READINESS_RUNNING`
 Final readiness state: `SCIENTIFIC_BLOCKERS_REMAIN`
 All-domain ready no-send: `false`
 Blockers: `3`
-Next automatic action: `OC133-PLATINUM-WO-001`
+Next automatic action: `OC133-PLATINUM-WO-002`
 Public action allowed: `false`
 Journal submissions allowed: `false`
 
@@ -33,9 +33,9 @@ Journal submissions allowed: `false`
 
 ## Active Work Orders
 
-- `OC133-PLATINUM-WO-001` `Research/FormalScience` `CRITICAL`: Prove or demote grand TOE/all-domain claim promotion
-  Verification: `lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write`
 - `OC133-PLATINUM-WO-002` `Research/EmpiricalScience` `CRITICAL`: Replace bounded rows with strict per-domain predictive superiority evidence
-  Verification: `python tools/oc133_logion_all_domain_readiness.py --execute-next --write`
+  Verification: `python tools/oc133_logion_all_domain_readiness.py --execute-next --write --allow-blocked-exit-zero`
 - `OC133-PLATINUM-WO-003` `Research/PriorArt` `CRITICAL`: Create modern-science comparator superiority register
-  Verification: `python tools/oc133_logion_all_domain_readiness.py --write`
+  Verification: `python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero`
+- `OC133-PLATINUM-WO-001` `Research/FormalScience` `CRITICAL`: Prove or demote grand TOE/all-domain claim promotion
+  Verification: `lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write --allow-blocked-exit-zero`

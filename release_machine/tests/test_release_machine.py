@@ -273,6 +273,39 @@ class ReleaseMachineTests(unittest.TestCase):
             self.assertEqual(second["next_cursor_obligation_id"], "OC133-GRAND-PRIORART-001")
             self.assertEqual(len(calls), 2)
 
+    def test_oc133_grand_science_loop_reuses_all_domain_dispatch_order_when_present(self) -> None:
+        module = _load_grand_science_loop_module()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._write_grand_science_loop_fixture(root)
+            self._write_fixture_json(
+                root,
+                "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_WORK_ORDERS.json",
+                {
+                    "queue_sha256": "dispatch-fixture-v1",
+                    "rows": [
+                        {"work_order_id": "OC133-PLATINUM-WO-002", "owner_capability": "Research/EmpiricalScience"},
+                        {"work_order_id": "OC133-PLATINUM-WO-003", "owner_capability": "Research/PriorArt"},
+                        {"work_order_id": "OC133-PLATINUM-WO-001", "owner_capability": "Research/FormalScience"},
+                    ]
+                },
+            )
+            self._write_fixture_json(
+                root,
+                "operations/logion_release_mission/oc_core_1_3_3/OC133_GRAND_SCIENCE_LOOP_STATE.json",
+                {
+                    "next_cursor_obligation_id": "OC133-GRAND-FORMAL-001",
+                    "dispatch_queue_sha256": "stale-dispatch",
+                },
+            )
+
+            def fake_runner(cmd: list[str], timeout: int) -> dict:
+                return {"cmd": cmd, "returncode": 0, "stdout_tail": "", "stderr_tail": ""}
+
+            first = module.run_loop(root, max_obligations=1, runner=fake_runner)
+            self.assertEqual(first["selected_obligation_ids"], ["OC133-GRAND-EMPIRICAL-001"])
+            self.assertEqual(first["next_cursor_obligation_id"], "OC133-GRAND-PRIORART-001")
+
     def test_oc133_grand_science_loop_blocks_pass_while_all_domain_blockers_remain(self) -> None:
         module = _load_grand_science_loop_module()
         with tempfile.TemporaryDirectory() as tmp:
@@ -684,6 +717,22 @@ class ReleaseMachineTests(unittest.TestCase):
             self.assertTrue(row["no_send"])
             self.assertIn(row["severity"], {"CRITICAL", "HIGH"})
             self.assertTrue(row["verification_command"])
+
+    def test_oc133_all_domain_queue_defers_grand_formal_claim_until_evidence_dependencies(self) -> None:
+        blockers = {
+            "grand_toe_claim_ledger_evidence": {"state": "FAIL"},
+            "grand_toe_empirical_superiority": {"state": "FAIL", "missing_or_not_superior_domains": ["physics"]},
+            "modern_science_comparator_superiority": {"state": "FAIL"},
+        }
+        orders = oc133_platinum.build_all_domain_work_orders(blockers)
+        self.assertEqual(orders[0]["owner_capability"], "Research/EmpiricalScience")
+        formal = next(row for row in orders if row["owner_capability"] == "Research/FormalScience")
+        self.assertEqual(
+            formal["open_dependency_blocker_ids"],
+            ["grand_toe_empirical_superiority", "modern_science_comparator_superiority"],
+        )
+        self.assertGreater(formal["blocked_by_open_dependency_total"], 0)
+        self.assertIn("--allow-blocked-exit-zero", " ".join(row["verification_command"] for row in orders))
 
     def test_oc133_scientific_closure_gates_are_no_send(self) -> None:
         root = complete.repo_root()

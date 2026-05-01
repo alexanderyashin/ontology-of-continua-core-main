@@ -2,6 +2,7 @@ from __future__ import annotations
 import json
 import shutil
 import tempfile
+import urllib.parse
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -44,6 +45,20 @@ def world_bank_linear_payload(start_year: int = 2000, end_year: int = 2024) -> d
     return [{"dummy": True}, rows]
 
 
+class FakeResponse:
+    def __init__(self, body: bytes):
+        self._body = body
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        return None
+
+    def read(self) -> bytes:
+        return self._body
+
+
 class SystemsHarvesterTests(unittest.TestCase):
     def test_offline_snapshot_build_is_deterministic_and_blocked_for_low_n(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -84,19 +99,6 @@ class SystemsHarvesterTests(unittest.TestCase):
 
             payload = world_bank_linear_payload(2000, 2025)
 
-            class FakeResponse:
-                def __init__(self, body: bytes):
-                    self._body = body
-
-                def __enter__(self):
-                    return self
-
-                def __exit__(self, exc_type, exc, tb):
-                    return None
-
-                def read(self) -> bytes:
-                    return self._body
-
             with patch(
                 "validation.heldout.harvesters.systems_harvester.urllib.request.urlopen",
                 return_value=FakeResponse(json.dumps(payload).encode("utf-8")),
@@ -111,6 +113,56 @@ class SystemsHarvesterTests(unittest.TestCase):
             self.assertGreater(len(protocol["rows"]), 0)
             self.assertEqual(protocol["rows"][0]["candidate_pack_total"], 1)
             self.assertEqual(rows[0].country.split(":")[0], "USA")
+
+    def test_official_endpoint_is_expanded_and_pinned_for_offline_replay(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            copy_required(root)
+            plan = {
+                "rows": [
+                    {
+                        "domain": "systems",
+                        "official_source_refs": [
+                            {"kind": "official_endpoint", "url": "https://api.worldbank.org/v2/country/USA/indicator/NY.GDP.MKTP.CD?format=json&per_page=5"}
+                        ],
+                    }
+                ]
+            }
+            plan_path = root / "validation/heldout/acquisition_plans/biology_systems/OC133_BIOLOGY_SYSTEMS_ACQUISITION_PLAN.json"
+            plan_path.parent.mkdir(parents=True, exist_ok=True)
+            plan_path.write_text(json.dumps(plan, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+            payload = world_bank_linear_payload(2000, 2025)
+            seen_urls: list[str] = []
+
+            def fake_urlopen(request, timeout):
+                seen_urls.append(request.full_url)
+                return FakeResponse(json.dumps(payload).encode("utf-8"))
+
+            with patch(
+                "validation.heldout.harvesters.systems_harvester.urllib.request.urlopen",
+                side_effect=fake_urlopen,
+            ):
+                endpoint_report, _protocol, endpoint_pack = harvester.write_outputs(
+                    root,
+                    offline=False,
+                    acquisition_plan_ref=str(plan_path),
+                )
+
+            self.assertTrue(endpoint_pack["grand_toe_support_allowed"])
+            self.assertEqual(endpoint_report["source_kind"], "official_endpoint")
+            self.assertEqual(endpoint_report["snapshot_ref"], harvester.PINNED_OFFICIAL_SNAPSHOT_REL)
+            self.assertTrue((root / harvester.PINNED_OFFICIAL_SNAPSHOT_REL).is_file())
+            parsed_query = urllib.parse.parse_qs(urllib.parse.urlparse(seen_urls[0]).query)
+            self.assertEqual(parsed_query["per_page"], [str(harvester.DEFAULT_OFFICIAL_PER_PAGE)])
+
+            offline_report, _protocol, offline_pack, _rows = harvester.build_payload(
+                root,
+                offline=True,
+                acquisition_plan_ref=str(plan_path),
+            )
+            self.assertEqual(offline_report["source_kind"], "pinned_official_snapshot")
+            self.assertTrue(offline_pack["grand_toe_support_allowed"])
+            self.assertEqual(offline_pack["source_separation"]["mode"], "target_blind")
 
     def test_write_outputs_materializes_harvested_systems_artifacts(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

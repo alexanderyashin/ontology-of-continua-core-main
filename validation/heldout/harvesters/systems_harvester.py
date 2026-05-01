@@ -5,6 +5,7 @@ import hashlib
 import json
 import math
 import sys
+import urllib.parse
 import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
@@ -29,11 +30,13 @@ OUTPUT_ROOT_REL = "validation/heldout/grand_science/systems/harvested"
 PACK_REL = f"{OUTPUT_ROOT_REL}/systems_candidate_evidence_pack.json"
 REPORT_REL = f"{OUTPUT_ROOT_REL}/OC133_SYSTEMS_HARVESTER_REPORT.json"
 PROTOCOL_REL = f"{OUTPUT_ROOT_REL}/OC133_SYSTEMS_HARVESTER_PROTOCOL.json"
+PINNED_OFFICIAL_SNAPSHOT_REL = f"{OUTPUT_ROOT_REL}/systems_world_bank_wdi_official_endpoint_snapshot.json"
 
 ACQUISITION_PLAN_REL = "validation/heldout/acquisition_plans/biology_systems/OC133_BIOLOGY_SYSTEMS_ACQUISITION_PLAN.json"
 REQUIREMENTS_REL = "benchmarks/grand_science/domain_requirements.json"
 DEFAULT_SNAPSHOT_REF = "validation/_raw/systems_world_bank_gdp.txt"
 DEFAULT_ENDPOINT_TIMEOUT_SECONDS = 2.0
+DEFAULT_OFFICIAL_PER_PAGE = 1000
 LOOKBACK_YEARS = 2
 
 
@@ -89,6 +92,10 @@ def canonical_json(payload: Any) -> str:
 
 def sha256_object(payload: Any) -> str:
     return hashlib.sha256(canonical_json(payload).encode("utf-8")).hexdigest()
+
+
+def canonical_payload_byte_count(payload: Any) -> int:
+    return len(canonical_json(payload).encode("utf-8"))
 
 
 def lf_normalized_bytes(path: Path) -> bytes:
@@ -168,7 +175,25 @@ def source_refs_from_plan(plan_row: dict[str, Any]) -> list[dict[str, str]]:
 
 
 def source_mode_for_kind(kind: str) -> str:
+    if kind == "pinned_official_snapshot":
+        return "target_blind"
     return "prospective" if kind == "official_endpoint" else "target_blind"
+
+
+def normalize_world_bank_endpoint_url(url: str, minimum_n: int, lookback: int = LOOKBACK_YEARS) -> str:
+    parsed = urllib.parse.urlparse(url)
+    query = urllib.parse.parse_qs(parsed.query, keep_blank_values=True)
+    query["format"] = ["json"]
+    required_per_page = max(DEFAULT_OFFICIAL_PER_PAGE, minimum_n + lookback + 5)
+    current_per_page = 0
+    try:
+        current_per_page = int(query.get("per_page", ["0"])[0])
+    except (TypeError, ValueError):
+        current_per_page = 0
+    if current_per_page < required_per_page:
+        query["per_page"] = [str(required_per_page)]
+    normalized_query = urllib.parse.urlencode(query, doseq=True)
+    return urllib.parse.urlunparse(parsed._replace(query=normalized_query))
 
 
 def row_source_ids(source_label: str, country_code: str, indicator_id: str, training_years: tuple[int, int], target_year: int) -> tuple[str, str]:
@@ -398,6 +423,14 @@ def build_pack(
             "training_sources": [row.training_source for row in rows],
             "target_sources": [row.target_source for row in rows],
         }
+    elif source_kind == "pinned_official_snapshot":
+        source_separation = {
+            "mode": "target_blind",
+            "pre_target_lock": bool(rows),
+            "target_hidden_until_scoring": bool(rows),
+            "training_sources": [row.training_source for row in rows],
+            "target_sources": [row.target_source for row in rows],
+        }
     else:
         source_separation = {
             "mode": "target_blind",
@@ -480,6 +513,7 @@ def build_report(
     source_kind: str,
     snapshot_ref: str,
     snapshot_path: Path | None,
+    source_payload: Any | None = None,
 ) -> dict[str, Any]:
     pack_sha256 = sha256_object(pack)
     protocol = build_protocol_payload(PACK_REL, pack_sha256, blockers, pack.get("grand_toe_support_allowed") is True)
@@ -487,6 +521,8 @@ def build_report(
     snapshot_exists = snapshot_path is not None and snapshot_path.exists()
     snapshot_sha = sha256_lf_text(snapshot_path) if snapshot_exists else None
     snapshot_bytes = len(lf_normalized_bytes(snapshot_path)) if snapshot_exists else 0
+    source_payload_sha = sha256_object(source_payload) if source_payload is not None else None
+    source_payload_bytes = canonical_payload_byte_count(source_payload) if source_payload is not None else 0
 
     return {
         "schema_id": SCHEMA_ID,
@@ -500,6 +536,8 @@ def build_report(
         "snapshot_ref": snapshot_ref,
         "snapshot_sha256": snapshot_sha,
         "snapshot_byte_count": snapshot_bytes,
+        "source_payload_sha256": source_payload_sha,
+        "source_payload_byte_count": source_payload_bytes,
         "candidate_pack_total": 1,
         "valid_candidate_pack_total": 1 if pack.get("grand_toe_support_allowed") else 0,
         "valid_pack_total": 1 if pack.get("grand_toe_support_allowed") else 0,
@@ -553,6 +591,7 @@ def build_payload(
     snapshot_ref: str = DEFAULT_SNAPSHOT_REF,
     acquisition_plan_ref: str = ACQUISITION_PLAN_REL,
     endpoint_timeout: float = DEFAULT_ENDPOINT_TIMEOUT_SECONDS,
+    pin_official_snapshot: bool = False,
 ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any], list[Row]]:
     requirements = load_requirements(root) or default_requirements()
     minimum_n = int(requirements.get("minimum_per_domain_n", 20))
@@ -567,18 +606,34 @@ def build_payload(
     payload: Any = None
     blockers: list[str] = []
     endpoint_urls = [row.get("url", "") for row in source_rows if row.get("kind") == "official_endpoint" and row.get("url")]
-    if not offline and endpoint_urls:
+    snapshot_path = None
+
+    if offline:
+        pinned_path = resolve_under_root(root, PINNED_OFFICIAL_SNAPSHOT_REL)
+        if pinned_path.exists():
+            payload = read_json_safe(pinned_path)
+            if payload:
+                snapshot_ref = PINNED_OFFICIAL_SNAPSHOT_REL
+                snapshot_path = pinned_path
+                source_kind = "pinned_official_snapshot"
+                source_label = PINNED_OFFICIAL_SNAPSHOT_REL
+
+    if payload is None and not offline and endpoint_urls:
         for url in endpoint_urls:
+            normalized_url = normalize_world_bank_endpoint_url(url, minimum_n=minimum_n)
             try:
-                payload = fetch_official_payload(url, timeout_seconds=endpoint_timeout)
+                payload = fetch_official_payload(normalized_url, timeout_seconds=endpoint_timeout)
                 source_kind = "official_endpoint"
-                source_label = str(url)
+                source_label = str(normalized_url)
+                if pin_official_snapshot:
+                    snapshot_ref = PINNED_OFFICIAL_SNAPSHOT_REL
+                    snapshot_path = resolve_under_root(root, snapshot_ref)
+                    write_json(snapshot_path, payload)
                 break
             except Exception as exc:  # pragma: no cover - boundary
-                blockers.append(f"SYSTEMS_ENDPOINT_FETCH_FAILED::{url}::{exc.__class__.__name__}")
+                blockers.append(f"SYSTEMS_ENDPOINT_FETCH_FAILED::{normalized_url}::{exc.__class__.__name__}")
                 continue
 
-    snapshot_path = None
     if payload is None:
         snapshot_path = resolve_under_root(root, snapshot_ref)
         payload = read_json_safe(snapshot_path)
@@ -606,11 +661,14 @@ def build_payload(
         source_kind=source_kind,
         snapshot_ref=snapshot_ref,
         snapshot_path=snapshot_path,
+        source_payload=payload,
     )
     return report, protocol, pack, rows
 
 
 def write_outputs(root: Path, **kwargs: Any) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+    if kwargs.get("offline") is False:
+        kwargs.setdefault("pin_official_snapshot", True)
     report, protocol, pack, _rows = build_payload(root, **kwargs)
     write_json(root / PACK_REL, pack)
     write_json(root / PROTOCOL_REL, protocol)
@@ -641,15 +699,16 @@ def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     root = Path(args.root).resolve()
     offline = args.offline or not args.use_official_endpoints
-    report, _protocol, pack, _rows = build_payload(
-        root,
-        offline=offline,
-        snapshot_ref=args.snapshot_ref,
-        acquisition_plan_ref=args.acquisition_plan_ref,
-        endpoint_timeout=args.endpoint_timeout,
-    )
     if args.write:
-        write_outputs(
+        report, _protocol, _pack = write_outputs(
+            root,
+            offline=offline,
+            snapshot_ref=args.snapshot_ref,
+            acquisition_plan_ref=args.acquisition_plan_ref,
+            endpoint_timeout=args.endpoint_timeout,
+        )
+    else:
+        report, _protocol, _pack, _rows = build_payload(
             root,
             offline=offline,
             snapshot_ref=args.snapshot_ref,

@@ -1,0 +1,48 @@
+{
+  "schema_id": "OC133_BIOLOGY_NCBI_BENCHMARK_PROTOCOL_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "planner": "tools/oc133_biology_ncbi_benchmark_factory.py",
+  "evidence_pack_ref": "validation/heldout/grand_science/biology/ncbi_benchmark/OC133_BIOLOGY_NCBI_BENCHMARK_CANDIDATE_PACK.json",
+  "required_source_modes": [
+    "prospective",
+    "target_blind"
+  ],
+  "minimum_n": 20,
+  "current_n": 1,
+  "candidate_pack_sha256": "306b20bb714d66300bc02c4535689da23b71ab3e2547bf38ad63b3dd62c90937",
+  "candidate_pack_hash_policy": "sha256 over canonical JSON",
+  "blocker_total": 11,
+  "blockers": [
+    "SOURCE_SEPARATION_MISSING::defaulting_to_snapshot_replay",
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED::snapshot_replay",
+    "PRE_TARGET_LOCK_REQUIRED",
+    "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+    "TARGET_SEPARATION_NOT_REAL::snapshot_replay",
+    "SOURCE_REFERENCES_MISSING",
+    "N_BELOW_MINIMUM::1/20",
+    "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
+    "TRAINING_AND_TARGET_SOURCES_REQUIRED",
+    "N_BELOW_MINIMUM::20"
+  ],
+  "rows": [
+    {
+      "domain": "biology",
+      "status": "BLOCKED_PENDING_GENUINE_EVIDENCE",
+      "candidate_pack_ref": "validation/heldout/grand_science/biology/ncbi_benchmark/OC133_BIOLOGY_NCBI_BENCHMARK_CANDIDATE_PACK.json",
+      "candidate_pack_sha256": "306b20bb714d66300bc02c4535689da23b71ab3e2547bf38ad63b3dd62c90937",
+      "candidate_n": 1,
+      "minimum_n": 20,
+      "missing_n": 19,
+      "required_protocol_steps": [
+        "declare target-separated training and target sources before scoring",
+        "pre-register comparator baseline, residual metric, uncertainty policy, negative control, falsifier",
+        "require comparator residual greater than model residual on every row",
+        "require source separation mode target_blind or prospective",
+        "collect at least minimum_n heldout rows"
+      ]
+    }
+  ]
+}

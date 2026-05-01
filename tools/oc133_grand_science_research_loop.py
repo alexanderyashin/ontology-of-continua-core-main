@@ -17,6 +17,7 @@ STATE_NAME = "OC133_GRAND_SCIENCE_LOOP_STATE.json"
 REPORT_NAME = "OC133_GRAND_SCIENCE_LOOP_latest.json"
 COCKPIT_NAME = "OC133_GRAND_SCIENCE_LOOP_latest.md"
 SCORECARD_NAME = "OC133_ALL_DOMAIN_READINESS_SCORECARD.json"
+WORK_ORDERS_NAME = "OC133_ALL_DOMAIN_WORK_ORDERS.json"
 
 PROFILE_BY_OBLIGATION = {
     "OC133-GRAND-FORMAL-001": "v12_grand_formal_science_research_program",
@@ -98,6 +99,28 @@ def _round_robin(rows: list[dict[str, Any]], cursor_id: str | None, limit: int) 
     selected = ordered[: min(limit, len(ordered))]
     next_index = (start + len(selected)) % len(rows)
     return selected, ids[next_index]
+
+
+def _dispatch_ordered_rows(rows: list[dict[str, Any]], dispatch: dict[str, Any]) -> list[dict[str, Any]]:
+    dispatch_rows = dispatch.get("rows", [])
+    if not isinstance(dispatch_rows, list) or not dispatch_rows:
+        return rows
+    capability_order: dict[str, int] = {}
+    for index, row in enumerate(dispatch_rows):
+        if not isinstance(row, dict):
+            continue
+        capability = str(row.get("owner_capability", ""))
+        if capability and capability not in capability_order:
+            capability_order[capability] = index
+    if not capability_order:
+        return rows
+    return sorted(
+        rows,
+        key=lambda row: (
+            capability_order.get(str(row.get("owner_capability", "")), len(capability_order) + 100),
+            str(row.get("obligation_id", "")),
+        ),
+    )
 
 
 def _profile_for(obligation: dict[str, Any]) -> str | None:
@@ -186,14 +209,22 @@ def run_loop(
     report_path = mission_dir / REPORT_NAME
     cockpit_path = mission_dir / COCKPIT_NAME
     scorecard_path = mission_dir / SCORECARD_NAME
+    dispatch_path = mission_dir / WORK_ORDERS_NAME
 
     program = read_json(program_path)
     scorecard = read_json(scorecard_path)
+    dispatch = read_json(dispatch_path)
     obligations = _obligation_rows(program)
     blocker_ids = _blocker_ids(program, scorecard)
     open_rows = [row for row in obligations if str(row.get("blocker_check", "")) in blocker_ids]
+    open_rows = _dispatch_ordered_rows(open_rows, dispatch)
     state = read_json(state_path)
-    cursor_id = state.get("next_cursor_obligation_id")
+    dispatch_queue_sha256 = dispatch.get("queue_sha256") if isinstance(dispatch, dict) else None
+    previous_dispatch_queue_sha256 = state.get("dispatch_queue_sha256")
+    if dispatch_queue_sha256 and dispatch_queue_sha256 != previous_dispatch_queue_sha256:
+        cursor_id = None
+    else:
+        cursor_id = state.get("next_cursor_obligation_id")
     limit = len(open_rows) if max_obligations is None else max_obligations
     selected, next_cursor = _round_robin(open_rows, str(cursor_id) if cursor_id else None, limit)
 
@@ -243,6 +274,7 @@ def run_loop(
         "selected_obligation_total": len(selected),
         "selected_obligation_ids": [row.get("obligation_id") for row in selected],
         "next_cursor_obligation_id": next_cursor,
+        "dispatch_queue_sha256": dispatch_queue_sha256,
         "blocker_ids_before": blocker_ids,
         "blocker_ids_after": final_blocker_ids,
         "all_domain_blocker_total_after": len(final_blocker_ids),
@@ -259,6 +291,7 @@ def run_loop(
         "release_id": "oc_core_1_3_3",
         "version": "1.3.3",
         "next_cursor_obligation_id": next_cursor,
+        "dispatch_queue_sha256": dispatch_queue_sha256,
         "latest_verdict": verdict,
         "latest_selected_obligation_ids": payload["selected_obligation_ids"],
         "obligation_state_by_id": merged_state,
@@ -309,10 +342,17 @@ def main() -> int:
     parser.add_argument("--execute", action="store_true", help="Execute capability profiles instead of check-only profile audits.")
     parser.add_argument("--max-obligations", type=int, default=None, help="Maximum obligations to visit this run; default visits every open obligation once.")
     parser.add_argument("--timeout", type=int, default=900)
+    parser.add_argument(
+        "--allow-blocked-exit-zero",
+        action="store_true",
+        help="Return zero when the loop ran correctly but scientific blockers remain.",
+    )
     args = parser.parse_args()
     payload = run_loop(max_obligations=args.max_obligations, execute=args.execute, timeout=args.timeout)
     print(json.dumps(payload, ensure_ascii=False, indent=2))
-    return 0 if payload["verdict"] == "PASS_NO_SEND" else 1
+    if payload["verdict"] == "PASS_NO_SEND":
+        return 0
+    return 0 if args.allow_blocked_exit_zero and payload["verdict"] == "SCIENTIFIC_BLOCKERS_REMAIN" else 1
 
 
 if __name__ == "__main__":

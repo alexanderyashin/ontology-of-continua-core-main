@@ -1,0 +1,35 @@
+{
+  "schema_id": "OC133_BIOLOGY_NCBI_BENCHMARK_TASKS_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "planner": "tools/oc133_biology_ncbi_benchmark_factory.py",
+  "snapshot_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+  "snapshot_sha256": "f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4",
+  "snapshot_hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+  "snapshot_byte_count": 526,
+  "snapshot_task_count": 1,
+  "metadata_task_count": 0,
+  "rows": [
+    {
+      "observation_id": "BIOLOGY-NCBI-COUNT-001",
+      "task_type": "count",
+      "claim_id": "OC133-TB-NCBI-COUNT-001",
+      "training_source": "validation/_raw/biology_ncbi_geo_platform.txt::training::esearchresult::retstart+idlist",
+      "target_source": "validation/_raw/biology_ncbi_geo_platform.txt::target::esearchresult::retmax",
+      "formula": "retstart + len(idlist)",
+      "predicted_value": 20.0,
+      "observed_value": 20.0,
+      "comparator_prediction": 44009.0,
+      "comparator_pre_registered": false,
+      "uncertainty": 0.0,
+      "negative_control_id": "BIOLOGY-NCBI-COUNT-CONTROL-REPLAY",
+      "negative_control_description": "replace the GEO replay formula with a comparator and require strictly larger residual",
+      "falsifier": "count replay residual exceeds declared uncertainty or comparator is not worse than model residual",
+      "model_residual": 0.0,
+      "comparator_residual": 43989.0,
+      "row_hash": "a96e193755023d264b1852a2ebd71b91e890a07b93f04a8122485e4440f9dfae",
+      "row_hash_policy": "sha256 over sorted JSON row payload"
+    }
+  ]
+}

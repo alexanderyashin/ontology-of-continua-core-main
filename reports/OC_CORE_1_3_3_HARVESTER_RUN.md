@@ -5,7 +5,7 @@ Harvesters: `2`
 Command failures: `0`
 Candidate packs: `1`
 Valid packs reported: `0`
-Blocked obligations: `10`
+Blocked obligations: `44`
 
 Harvesters may create candidate evidence packs, but grand empirical closure is decided only by validation/grand_science/evidence_pack_factory.py after registry/source-separation/schema checks.
 

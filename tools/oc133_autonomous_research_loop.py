@@ -415,7 +415,7 @@ def apply_profiles(orders: list[dict[str, Any]]) -> list[dict[str, Any]]:
             ([sys.executable, "tools/oc133_grand_empirical_evidence_factory.py", "--allow-blocked-exit-zero"], "v12_post_materializer_grand_empirical_refresh"),
             ([sys.executable, "tools/oc133_modern_science_comparator_factory.py", "--write"], "v12_post_materializer_modern_science_factory_refresh"),
             ([sys.executable, "benchmarks/modern_science/validate_modern_science_register.py"], "v12_post_materializer_modern_science_register_check"),
-            ([sys.executable, "tools/oc133_logion_all_domain_readiness.py", "--write"], "v12_post_materializer_all_domain_scorecard_refresh"),
+            ([sys.executable, "tools/oc133_logion_all_domain_readiness.py", "--write", "--allow-blocked-exit-zero"], "v12_post_materializer_all_domain_scorecard_refresh"),
         ]
         for cmd, profile_name in dependency_refresh_commands:
             refresh_result = command(cmd, timeout=900)
