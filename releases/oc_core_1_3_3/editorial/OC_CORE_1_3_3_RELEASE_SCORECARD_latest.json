@@ -9,9 +9,9 @@
     "channel": "all",
     "mode": "dry-run",
     "generated_at": "2026-04-28T00:00:00Z",
-    "release_state": "ALL_DOMAIN_READY_NO_SEND",
+    "release_state": "SCIENTIFIC_BLOCKERS_REMAIN",
     "technical_gate_state": "OC_CORE_1_3_3_10_10_READY_NO_SEND",
-    "master_verdict": "PASS",
+    "master_verdict": "FAIL",
     "gate_counts": {
       "BLOCKED": 0,
       "FAIL": 0,
@@ -36,18 +36,22 @@
       "all_domain_cockpit_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_ALL_DOMAIN_READINESS_COCKPIT.md",
       "trajectory_ref": "operations/logion_release_mission/oc_core_1_3_3/OC133_TRAJECTORY_CERTIFICATE_latest.json"
     },
-    "all_domain_scientific_readiness_state": "ALL_DOMAIN_READY_NO_SEND",
-    "all_domain_final_readiness_state": "ALL_DOMAIN_READY_NO_SEND",
-    "all_domain_ready_no_send": true,
-    "all_domain_blocker_total": 0,
-    "all_domain_blocker_ids": [],
+    "all_domain_scientific_readiness_state": "OC_CORE_1_3_3_ALL_DOMAIN_SCIENTIFIC_READINESS_RUNNING",
+    "all_domain_final_readiness_state": "SCIENTIFIC_BLOCKERS_REMAIN",
+    "all_domain_ready_no_send": false,
+    "all_domain_blocker_total": 3,
+    "all_domain_blocker_ids": [
+      "grand_toe_claim_ledger_evidence",
+      "grand_toe_empirical_superiority",
+      "modern_science_comparator_superiority"
+    ],
     "all_domain_missing_empirical_domains": [],
     "owner_approval_required": true,
     "global_no_send_lock": true,
     "publish_allowed": false,
     "journal_submissions_allowed": false,
     "package": "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip",
-    "package_sha256": "12b6ec18fd72ab04c4cb7bbc927d518ebe4ec6796c13d50141e60977cdf2a2f5",
+    "package_sha256": "9489f36a3a51668f7f2a3c9b18afefb7282dafdf9f32926476b975015835d8bb",
     "artifact_total": 283
   },
   "gate_results": [
@@ -957,7 +961,7 @@
         "preexisting_compared_target_total": 23,
         "compared_artifact_total": 23,
         "strict_head_replay_clean": true,
-        "stable_payload_sha256": "f3e56fa96cd87b251039d766b19320b3a89ccabd8004b389ae6a98988ef60feb",
+        "stable_payload_sha256": "bfb5b62269b899214e752f87e50bcfa69e9422f56d8eb5e17358327a54f5e47f",
         "internal_checksum_failures": [],
         "internal_checksum_failure_count_ok": true,
         "unexpected_internal_checksum_failures": []

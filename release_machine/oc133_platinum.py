@@ -16,6 +16,15 @@ MISSION_DIR_REL = "operations/logion_release_mission/oc_core_1_3_3"
 ALL_DOMAIN_STATE_RUNNING = "OC_CORE_1_3_3_ALL_DOMAIN_SCIENTIFIC_READINESS_RUNNING"
 ALL_DOMAIN_READY_STATE = "ALL_DOMAIN_READY_NO_SEND"
 REQUIRED_EMPIRICAL_DOMAINS = ("physics", "chemistry", "biology", "systems", "mathematics")
+MODERN_SCIENCE_COMPARATOR_REGISTER_REL = "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json"
+GRAND_SCIENCE_CLAIM_CLASSES = (
+    "numerically_proven_toe",
+    "all_domain_numerical_prediction",
+    "predicts_better_than_modern_science",
+)
+GRAND_SCIENCE_REQUESTED_AMBITION = (
+    "numerically proven TOE across all domains and better than modern science"
+)
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -304,6 +313,189 @@ def _all_domain_empirical_audit(root: Path) -> dict[str, Any]:
     }
 
 
+def _grand_science_toe_ambition_audit(
+    root: Path,
+    claims: dict[str, Any],
+    theorem_inventory: dict[str, Any],
+) -> dict[str, dict[str, Any]]:
+    validation = read_json(root / "reports" / "OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json")
+    target = read_json(root / "validation" / "target_blind" / "OC133_TARGET_BLIND_PREDICTION_TABLE.json")
+    comparator_register_path = root / MODERN_SCIENCE_COMPARATOR_REGISTER_REL
+    comparator_register = read_json(comparator_register_path)
+    claim_rows = claims.get("rows", []) if isinstance(claims.get("rows"), list) else []
+    target_rows = target.get("rows", []) if isinstance(target.get("rows"), list) else []
+
+    grand_tokens = (
+        "theory of everything",
+        "toe",
+        "all-domain",
+        "all domain",
+        "across all domains",
+        "modern science",
+        "superior",
+        "better than",
+    )
+    formal_tokens = ("theorem", "proof", "lean", "finite")
+    promoted_grand_claims = []
+    grand_claims_missing_formal_artifacts = []
+    for row in claim_rows:
+        row_text = json.dumps(row, ensure_ascii=False).lower()
+        if not any(token in row_text for token in grand_tokens):
+            continue
+        is_promoted = (
+            row.get("scientific_promotion_allowed") is True
+            and row.get("release_promotion_allowed") is True
+            and "PROMOTED" in str(row.get("public_status", "")).upper()
+        )
+        supporting_refs = row.get("supporting_evidence_refs", [])
+        if not isinstance(supporting_refs, list):
+            supporting_refs = []
+        has_formal_evidence = (
+            any(token in str(row.get("support", "")).lower() for token in formal_tokens)
+            and (
+                any(token in str(row.get("evidence_ref", "")).lower() for token in formal_tokens)
+                or any(any(token in str(ref).lower() for token in formal_tokens) for ref in supporting_refs)
+            )
+        )
+        if is_promoted and has_formal_evidence:
+            promoted_grand_claims.append(row.get("claim_id"))
+        elif is_promoted or any(token in row_text for token in ("numerically proven", "predicts better", "all-domain")):
+            grand_claims_missing_formal_artifacts.append(row.get("claim_id"))
+
+    per_domain_superiority: dict[str, dict[str, Any]] = {}
+    for row in target_rows:
+        domain = str(row.get("lane"))
+        if domain not in REQUIRED_EMPIRICAL_DOMAINS:
+            continue
+        try:
+            residual = float(row.get("residual"))
+            comparator_residual = float(row.get("comparator_residual"))
+            uncertainty = float(row.get("uncertainty"))
+        except (TypeError, ValueError):
+            residual = comparator_residual = uncertainty = float("nan")
+        target_blind_or_heldout = bool(row.get("target_blind_split") or row.get("heldout_split") or row.get("heldout_policy"))
+        beats_comparator = comparator_residual > residual
+        within_uncertainty = residual <= uncertainty
+        grand_claim_support_allowed = (
+            row.get("grand_toe_support_allowed") is True
+            or row.get("broad_domain_validation_support_allowed") is True
+            or row.get("modern_science_superiority_support_allowed") is True
+        )
+        per_domain_superiority[domain] = {
+            "claim_id": row.get("claim_id"),
+            "target_blind_or_heldout": target_blind_or_heldout,
+            "prediction_support_allowed": row.get("prediction_support_allowed") is True,
+            "empirical_support_allowed": row.get("empirical_support_allowed") is True,
+            "grand_claim_support_allowed": grand_claim_support_allowed,
+            "comparator_baseline_present": bool(row.get("comparator_baseline")),
+            "residual": row.get("residual"),
+            "uncertainty": row.get("uncertainty"),
+            "comparator_residual": row.get("comparator_residual"),
+            "beats_comparator": beats_comparator,
+            "within_uncertainty": within_uncertainty,
+            "support_scope": row.get("support_scope"),
+            "passes_strict_predictive_superiority": (
+                target_blind_or_heldout
+                and row.get("prediction_support_allowed") is True
+                and row.get("empirical_support_allowed") is True
+                and grand_claim_support_allowed
+                and bool(row.get("comparator_baseline"))
+                and beats_comparator
+                and within_uncertainty
+                and row.get("negative_control_rejected") is True
+            ),
+        }
+    missing_superiority_domains = [
+        domain
+        for domain in REQUIRED_EMPIRICAL_DOMAINS
+        if not per_domain_superiority.get(domain, {}).get("passes_strict_predictive_superiority")
+    ]
+
+    comparator_rows = comparator_register.get("rows", []) if isinstance(comparator_register.get("rows"), list) else []
+    certified_domains = sorted({
+        str(row.get("domain"))
+        for row in comparator_rows
+        if row.get("modern_science_comparator_present") is True
+        and row.get("superiority_certified") is True
+        and row.get("benchmark_ref")
+        and row.get("oc_result_ref")
+        and row.get("comparator_result_ref")
+    })
+    comparator_ok = (
+        comparator_register_path.exists()
+        and comparator_register.get("release_id") == RELEASE_ID
+        and comparator_register.get("claim_classes") == list(GRAND_SCIENCE_CLAIM_CLASSES)
+        and comparator_register.get("superiority_claim_allowed") is True
+        and comparator_register.get("failure_total") == 0
+        and all(domain in certified_domains for domain in REQUIRED_EMPIRICAL_DOMAINS)
+    )
+
+    claim_ledger_ok = (
+        claims.get("release_promotion_allowed") is True
+        and claims.get("unsupported_promoted_total") == 0
+        and bool(promoted_grand_claims)
+        and theorem_inventory.get("machine_checked_subset_total") == theorem_inventory.get("theorem_total")
+        and theorem_inventory.get("scientific_promotion_allowed_total", 0) > 0
+    )
+    empirical_superiority_ok = not missing_superiority_domains
+    stronger_evidence_ok = claim_ledger_ok and empirical_superiority_ok and comparator_ok
+    broad_promoted = validation.get("broad_domain_validation_promoted") is True
+    broad_guard_ok = broad_promoted is False or stronger_evidence_ok
+
+    return {
+        "grand_toe_claim_ledger_evidence": {
+            "state": _state(claim_ledger_ok),
+            "requested_claim_classes": list(GRAND_SCIENCE_CLAIM_CLASSES),
+            "requested_ambition_level": GRAND_SCIENCE_REQUESTED_AMBITION,
+            "release_promotion_allowed": claims.get("release_promotion_allowed"),
+            "promoted_grand_claim_ids": promoted_grand_claims,
+            "promoted_grand_claim_total": len(promoted_grand_claims),
+            "grand_claims_missing_formal_artifacts": grand_claims_missing_formal_artifacts[:20],
+            "theorem_total": theorem_inventory.get("theorem_total"),
+            "machine_checked_subset_total": theorem_inventory.get("machine_checked_subset_total"),
+            "scientific_promotion_allowed_total": theorem_inventory.get("scientific_promotion_allowed_total"),
+            "required_evidence_layer": "Dedicated promoted TOE/all-domain claim row with theorem/proof/Lean/finite evidence refs; bounded theorem rows do not satisfy grand-claim promotion by themselves.",
+            "blocker": "TOE/all-domain promotion requires a dedicated promoted claim-ledger row bound to theorem, proof, Lean, and finite evidence.",
+        },
+        "grand_toe_empirical_superiority": {
+            "state": _state(empirical_superiority_ok),
+            "requested_ambition_level": GRAND_SCIENCE_REQUESTED_AMBITION,
+            "required_domains": list(REQUIRED_EMPIRICAL_DOMAINS),
+            "strict_domain_results": per_domain_superiority,
+            "missing_or_not_superior_domains": missing_superiority_domains,
+            "bounded_target_blind_rows_visible_not_final": len(target_rows),
+            "target_blind_generated_by": target.get("generated_by"),
+            "target_blind_capability_owner": target.get("capability_owner"),
+            "blocker": "Grand all-domain claims require target-blind or held-out predictive evidence that beats a comparator baseline in every required domain; mere artifact existence is not enough.",
+            "required_evidence_layer": "Each per-domain empirical row must explicitly set grand_toe_support_allowed, broad_domain_validation_support_allowed, or modern_science_superiority_support_allowed after target-blind/held-out scoring beats the comparator.",
+        },
+        "modern_science_comparator_superiority": {
+            "state": _state(comparator_ok),
+            "requested_ambition_level": GRAND_SCIENCE_REQUESTED_AMBITION,
+            "register_ref": MODERN_SCIENCE_COMPARATOR_REGISTER_REL,
+            "register_exists": comparator_register_path.exists(),
+            "claim_classes": comparator_register.get("claim_classes"),
+            "superiority_claim_allowed": comparator_register.get("superiority_claim_allowed"),
+            "failure_total": comparator_register.get("failure_total"),
+            "certified_domains": certified_domains,
+            "missing_certified_domains": [domain for domain in REQUIRED_EMPIRICAL_DOMAINS if domain not in certified_domains],
+            "blocker": "Claims that OC predicts better than modern science require a modern-science comparator/benchmark register certifying superiority for every required domain.",
+        },
+        "broad_domain_validation_promotion_guard": {
+            "state": _state(broad_guard_ok),
+            "broad_domain_validation_promoted": validation.get("broad_domain_validation_promoted"),
+            "stronger_grand_science_evidence_exists": stronger_evidence_ok,
+            "stronger_evidence_components": {
+                "claim_ledger": claim_ledger_ok,
+                "empirical_superiority": empirical_superiority_ok,
+                "modern_science_comparator": comparator_ok,
+            },
+            "bounded_readiness_data_visible_not_final": True,
+            "blocker": "broad_domain_validation_promoted may be true only after the strict grand-science evidence layer passes.",
+        },
+    }
+
+
 def _journal_send_readiness_audit(root: Path, journal: dict[str, Any]) -> dict[str, Any]:
     base = root / "releases" / RELEASE_ID / "submission_packages"
     index = read_json(base / "SUBMISSION_PACKAGE_INDEX.json")
@@ -342,6 +534,7 @@ def all_domain_readiness_audit(root: Path, base_audit: dict[str, Any] | None = N
     claims = read_json(root / "claims" / "CLAIM_LEDGER_1_3_3.json")
     cerberus = read_json(root / "reviews" / "oc133_llm_cerberus" / "OC133_LLM_CERBERUS_SUMMARY.json")
     theorem_inventory = read_json(root / "proofs" / "THEOREM_INVENTORY_1_3_3.json")
+    grand_science = _grand_science_toe_ambition_audit(root, claims, theorem_inventory)
     theorem_ok = (
         claims.get("unsupported_promoted_total") == 0
         and theorem_inventory.get("machine_checked_subset_total") == theorem_inventory.get("theorem_total")
@@ -373,6 +566,7 @@ def all_domain_readiness_audit(root: Path, base_audit: dict[str, Any] | None = N
             "execution_bad_total": cerberus.get("execution_bad_total"),
         },
     }
+    checks.update(grand_science)
     blockers = {key: row for key, row in checks.items() if row.get("state") != "PASS"}
     if "journal_owner_review_packages" in blockers or "journal_send_readiness_minus_owner_lock" in blockers:
         final_state = "JOURNAL_PACKAGE_REPAIR_REQUIRED"
@@ -390,6 +584,8 @@ def all_domain_readiness_audit(root: Path, base_audit: dict[str, Any] | None = N
         "state": ALL_DOMAIN_READY_STATE if not blockers else ALL_DOMAIN_STATE_RUNNING,
         "final_readiness_state": final_state,
         "all_domain_ready_no_send": not blockers,
+        "bounded_all_domain_readiness_visible_not_final": True,
+        "bounded_all_domain_ready_no_send": empirical.get("state") == "PASS",
         "blocker_total": len(blockers),
         "blocker_ids": list(blockers),
         "checks": checks,
@@ -672,6 +868,83 @@ def build_work_orders(blocker_checks: dict[str, dict[str, Any]]) -> list[dict[st
 def build_all_domain_work_orders(blocker_checks: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
     orders: list[dict[str, Any]] = []
     idx = 1
+    if "grand_toe_claim_ledger_evidence" in blocker_checks:
+        orders.append(_work_order(
+            idx=idx,
+            capability="Research/FormalScience",
+            title="Prove or demote grand TOE/all-domain claim promotion",
+            severity="CRITICAL",
+            artifacts=[
+                "claims/CLAIM_LEDGER_1_3_3.json",
+                "proofs/THEOREM_INVENTORY_1_3_3.json",
+                "proofs/proof_sheets/",
+                "formal/lean/",
+                "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+            ],
+            before_predicate="no dedicated promoted TOE/all-domain claim-ledger row with theorem/proof/Lean/finite evidence",
+            after_predicate="any TOE/all-domain promoted claim has explicit claim-ledger row, theorem/proof/Lean/finite evidence refs, unsupported_promoted_total=0, and release_promotion_allowed=true",
+            verification_command="lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write",
+            closure_evidence_required=[
+                "dedicated grand-claim ledger row ID",
+                "theorem inventory IDs",
+                "Lean theorem IDs",
+                "proof sheet refs",
+                "finite-model witness case IDs",
+            ],
+            block_condition="If this evidence cannot honestly be produced, keep TOE/all-domain claims demoted and final readiness in SCIENTIFIC_BLOCKERS_REMAIN.",
+        ))
+        idx += 1
+    if "grand_toe_empirical_superiority" in blocker_checks:
+        row = blocker_checks["grand_toe_empirical_superiority"]
+        orders.append(_work_order(
+            idx=idx,
+            capability="Research/EmpiricalScience",
+            title="Replace bounded rows with strict per-domain predictive superiority evidence",
+            severity="CRITICAL",
+            artifacts=[
+                "validation/target_blind/",
+                "validation/heldout/",
+                "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+                "claims/CLAIM_LEDGER_1_3_3.json",
+            ],
+            before_predicate=f"missing_or_not_superior_domains == {row.get('missing_or_not_superior_domains', [])}",
+            after_predicate="each required empirical domain has target-blind or held-out prediction evidence, uncertainty, falsifier, negative control, and numeric residual strictly better than comparator residual",
+            verification_command="python tools/oc133_logion_all_domain_readiness.py --execute-next --write",
+            closure_evidence_required=[
+                "per-domain target-blind or held-out prediction rows",
+                "dataset snapshot refs and hashes",
+                "OC residual and comparator residual calculations",
+                "negative-control/falsifier outputs",
+                "Logion capability execution ledger row",
+            ],
+            block_condition="If any required domain lacks genuine predictive superiority, keep bounded readiness visible but not final for grand TOE claims.",
+        ))
+        idx += 1
+    if "modern_science_comparator_superiority" in blocker_checks:
+        orders.append(_work_order(
+            idx=idx,
+            capability="Research/PriorArt",
+            title="Create modern-science comparator superiority register",
+            severity="CRITICAL",
+            artifacts=[
+                MODERN_SCIENCE_COMPARATOR_REGISTER_REL,
+                "comparators/",
+                "benchmarks/",
+                "claims/CLAIM_LEDGER_1_3_3.json",
+            ],
+            before_predicate="modern-science comparator register missing or not certifying superiority across required domains",
+            after_predicate="register exists for grand claim classes and certifies OC superiority against modern-science comparator benchmarks for every required empirical domain",
+            verification_command="python tools/oc133_logion_all_domain_readiness.py --write",
+            closure_evidence_required=[
+                "modern-science comparator/benchmark register",
+                "per-domain benchmark refs",
+                "OC result refs",
+                "modern-science comparator result refs",
+                "superiority certification verdicts",
+            ],
+            block_condition="If superiority over modern science is not certified, remove or demote superiority claims and keep final readiness scientifically blocked.",
+        ))
+        idx += 1
     if "all_domain_empirical_predictions" in blocker_checks:
         row = blocker_checks["all_domain_empirical_predictions"]
         orders.append(_work_order(

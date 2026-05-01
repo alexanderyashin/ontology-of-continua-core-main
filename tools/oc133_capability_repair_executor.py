@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 REPAIR_DIR = ROOT / "reviews" / "oc133_llm_cerberus" / "repair"
 DEFAULT_WORK_ORDERS = REPAIR_DIR / "OC133_CERBERUS_REPAIR_WORK_ORDERS.json"
 PROFILE_LEDGER = REPAIR_DIR / "OC133_CAPABILITY_REPAIR_EXECUTION_LEDGER.json"
+GRAND_SCIENCE_PROGRAM = ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "OC133_GRAND_SCIENCE_RESEARCH_PROGRAM.json"
 
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -348,6 +349,120 @@ def check_journal_package_readiness() -> dict[str, Any]:
     }
 
 
+def _grand_science_obligation(
+    *,
+    obligation_id: str,
+    owner_capability: str,
+    title: str,
+    blocker_check: str,
+    required_artifacts: list[str],
+    pass_predicate: str,
+    verification_command: str,
+) -> dict[str, Any]:
+    return {
+        "obligation_id": obligation_id,
+        "owner_capability": owner_capability,
+        "title": title,
+        "blocker_check": blocker_check,
+        "required_artifacts": required_artifacts,
+        "pass_predicate": pass_predicate,
+        "verification_command": verification_command,
+        "closure_rule": "This obligation may close only when the referenced evidence exists and release_machine.oc133_platinum re-audits the blocker check as PASS.",
+        "artifact_exists_is_not_closure": True,
+        "no_send": True,
+    }
+
+
+def materialize_grand_science_program(profile: str) -> dict[str, Any]:
+    audit = oc133_platinum.all_domain_readiness_audit(ROOT, oc133_platinum.content_closure_audit(ROOT))
+    checks = audit.get("checks", {})
+    obligations = [
+        _grand_science_obligation(
+            obligation_id="OC133-GRAND-FORMAL-001",
+            owner_capability="Research/FormalScience",
+            title="Prove the dedicated grand TOE/all-domain claim or keep it unpromoted",
+            blocker_check="grand_toe_claim_ledger_evidence",
+            required_artifacts=[
+                "claims/CLAIM_LEDGER_1_3_3.json::dedicated grand claim row",
+                "proofs/THEOREM_INVENTORY_1_3_3.json::grand theorem IDs",
+                "proofs/proof_sheets/*.md::grand theorem proof sheets",
+                "formal/lean/OC133V12.lean::grand theorem subset",
+                "proofs/FINITE_MODEL_CHECKS_1_3_3.json::positive/negative witness cases",
+            ],
+            pass_predicate="grand_toe_claim_ledger_evidence.state == PASS and release_promotion_allowed == true for the dedicated grand claim",
+            verification_command="lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write",
+        ),
+        _grand_science_obligation(
+            obligation_id="OC133-GRAND-EMPIRICAL-001",
+            owner_capability="Research/EmpiricalScience",
+            title="Produce strict per-domain predictive superiority evidence",
+            blocker_check="grand_toe_empirical_superiority",
+            required_artifacts=[
+                "validation/heldout/ or validation/target_blind/::prospective or target-blind protocol",
+                "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json::broad-domain promotion evidence",
+                "per-domain snapshot hashes and replay hashes",
+                "per-domain comparator residuals, uncertainty, negative controls, and falsifiers",
+            ],
+            pass_predicate="every required domain passes strict predictive superiority against a comparator and explicitly allows grand-claim support",
+            verification_command="python validation/run_all.py --qa-only && python tools/oc133_logion_all_domain_readiness.py --write",
+        ),
+        _grand_science_obligation(
+            obligation_id="OC133-GRAND-PRIORART-001",
+            owner_capability="Research/PriorArt",
+            title="Certify superiority against modern-science comparator baselines",
+            blocker_check="modern_science_comparator_superiority",
+            required_artifacts=[
+                "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
+                "benchmarks/::per-domain benchmark definitions",
+                "OC result refs",
+                "modern-science comparator result refs",
+                "source-backed fairness and uncertainty notes",
+            ],
+            pass_predicate="modern_science_comparator_superiority.state == PASS for physics, chemistry, biology, systems, and mathematics",
+            verification_command="python tools/oc133_logion_all_domain_readiness.py --write",
+        ),
+    ]
+    selected = [row for row in obligations if row["blocker_check"] in audit.get("blocker_ids", [])]
+    payload = {
+        "schema_id": "OC133_GRAND_SCIENCE_RESEARCH_PROGRAM_v1",
+        "release_id": "oc_core_1_3_3",
+        "version": "1.3.3",
+        "requested_ambition_level": getattr(oc133_platinum, "GRAND_SCIENCE_REQUESTED_AMBITION", "numerically proven TOE across all domains and better than modern science"),
+        "profile": profile,
+        "program_state": "RUNNING_SCIENTIFIC_BLOCKERS_REMAIN" if selected else "NO_OPEN_GRAND_SCIENCE_BLOCKERS",
+        "all_domain_final_readiness_state": audit.get("final_readiness_state"),
+        "all_domain_ready_no_send": audit.get("all_domain_ready_no_send"),
+        "bounded_all_domain_ready_no_send": audit.get("bounded_all_domain_ready_no_send"),
+        "blocker_ids": audit.get("blocker_ids", []),
+        "selected_obligation_total": len(selected),
+        "obligations": selected,
+        "all_obligations": obligations,
+        "checks": {
+            key: checks.get(key, {})
+            for key in (
+                "grand_toe_claim_ledger_evidence",
+                "grand_toe_empirical_superiority",
+                "modern_science_comparator_superiority",
+                "broad_domain_validation_promotion_guard",
+            )
+        },
+        "no_send": True,
+        "publish_allowed": False,
+        "journal_submissions_allowed": False,
+    }
+    write_json(GRAND_SCIENCE_PROGRAM, payload)
+    return {
+        "profile": profile,
+        "program_ref": rel(GRAND_SCIENCE_PROGRAM),
+        "program_state": payload["program_state"],
+        "selected_obligation_total": len(selected),
+        "all_domain_final_readiness_state": audit.get("final_readiness_state"),
+        "all_domain_ready_no_send": audit.get("all_domain_ready_no_send"),
+        "scientific_closure_state": "NOT_CLOSED_UNTIL_EVIDENCE_PREDICATES_PASS",
+        "state": "PASS",
+    }
+
+
 def check_no_send_public_surface() -> dict[str, Any]:
     manifest = read_json(ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json")
     phenomenon = read_json(ROOT / "docs" / "OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json")
@@ -438,6 +553,13 @@ def check_profile(profile: str) -> dict[str, Any]:
         return {"profile": profile, "audit": audit, "state": audit["state"]}
     if profile == "v12_journal_package_readiness_repair":
         audit = check_journal_package_readiness()
+        return {"profile": profile, "audit": audit, "state": audit["state"]}
+    if profile in {
+        "v12_grand_formal_science_research_program",
+        "v12_grand_empirical_superiority_research_program",
+        "v12_modern_science_comparator_research_program",
+    }:
+        audit = materialize_grand_science_program(profile)
         return {"profile": profile, "audit": audit, "state": audit["state"]}
     if profile == "v12_no_send_public_surface_repair":
         audit = check_no_send_public_surface()

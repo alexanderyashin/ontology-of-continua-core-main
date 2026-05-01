@@ -1,0 +1,280 @@
+{
+  "schema_id": "OC133_GRAND_SCIENCE_RESEARCH_PROGRAM_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "requested_ambition_level": "numerically proven TOE across all domains and better than modern science",
+  "profile": "v12_grand_formal_science_research_program",
+  "program_state": "RUNNING_SCIENTIFIC_BLOCKERS_REMAIN",
+  "all_domain_final_readiness_state": "SCIENTIFIC_BLOCKERS_REMAIN",
+  "all_domain_ready_no_send": false,
+  "bounded_all_domain_ready_no_send": true,
+  "blocker_ids": [
+    "grand_toe_claim_ledger_evidence",
+    "grand_toe_empirical_superiority",
+    "modern_science_comparator_superiority"
+  ],
+  "selected_obligation_total": 3,
+  "obligations": [
+    {
+      "obligation_id": "OC133-GRAND-FORMAL-001",
+      "owner_capability": "Research/FormalScience",
+      "title": "Prove the dedicated grand TOE/all-domain claim or keep it unpromoted",
+      "blocker_check": "grand_toe_claim_ledger_evidence",
+      "required_artifacts": [
+        "claims/CLAIM_LEDGER_1_3_3.json::dedicated grand claim row",
+        "proofs/THEOREM_INVENTORY_1_3_3.json::grand theorem IDs",
+        "proofs/proof_sheets/*.md::grand theorem proof sheets",
+        "formal/lean/OC133V12.lean::grand theorem subset",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::positive/negative witness cases"
+      ],
+      "pass_predicate": "grand_toe_claim_ledger_evidence.state == PASS and release_promotion_allowed == true for the dedicated grand claim",
+      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write",
+      "closure_rule": "This obligation may close only when the referenced evidence exists and release_machine.oc133_platinum re-audits the blocker check as PASS.",
+      "artifact_exists_is_not_closure": true,
+      "no_send": true
+    },
+    {
+      "obligation_id": "OC133-GRAND-EMPIRICAL-001",
+      "owner_capability": "Research/EmpiricalScience",
+      "title": "Produce strict per-domain predictive superiority evidence",
+      "blocker_check": "grand_toe_empirical_superiority",
+      "required_artifacts": [
+        "validation/heldout/ or validation/target_blind/::prospective or target-blind protocol",
+        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json::broad-domain promotion evidence",
+        "per-domain snapshot hashes and replay hashes",
+        "per-domain comparator residuals, uncertainty, negative controls, and falsifiers"
+      ],
+      "pass_predicate": "every required domain passes strict predictive superiority against a comparator and explicitly allows grand-claim support",
+      "verification_command": "python validation/run_all.py --qa-only && python tools/oc133_logion_all_domain_readiness.py --write",
+      "closure_rule": "This obligation may close only when the referenced evidence exists and release_machine.oc133_platinum re-audits the blocker check as PASS.",
+      "artifact_exists_is_not_closure": true,
+      "no_send": true
+    },
+    {
+      "obligation_id": "OC133-GRAND-PRIORART-001",
+      "owner_capability": "Research/PriorArt",
+      "title": "Certify superiority against modern-science comparator baselines",
+      "blocker_check": "modern_science_comparator_superiority",
+      "required_artifacts": [
+        "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
+        "benchmarks/::per-domain benchmark definitions",
+        "OC result refs",
+        "modern-science comparator result refs",
+        "source-backed fairness and uncertainty notes"
+      ],
+      "pass_predicate": "modern_science_comparator_superiority.state == PASS for physics, chemistry, biology, systems, and mathematics",
+      "verification_command": "python tools/oc133_logion_all_domain_readiness.py --write",
+      "closure_rule": "This obligation may close only when the referenced evidence exists and release_machine.oc133_platinum re-audits the blocker check as PASS.",
+      "artifact_exists_is_not_closure": true,
+      "no_send": true
+    }
+  ],
+  "all_obligations": [
+    {
+      "obligation_id": "OC133-GRAND-FORMAL-001",
+      "owner_capability": "Research/FormalScience",
+      "title": "Prove the dedicated grand TOE/all-domain claim or keep it unpromoted",
+      "blocker_check": "grand_toe_claim_ledger_evidence",
+      "required_artifacts": [
+        "claims/CLAIM_LEDGER_1_3_3.json::dedicated grand claim row",
+        "proofs/THEOREM_INVENTORY_1_3_3.json::grand theorem IDs",
+        "proofs/proof_sheets/*.md::grand theorem proof sheets",
+        "formal/lean/OC133V12.lean::grand theorem subset",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json::positive/negative witness cases"
+      ],
+      "pass_predicate": "grand_toe_claim_ledger_evidence.state == PASS and release_promotion_allowed == true for the dedicated grand claim",
+      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write",
+      "closure_rule": "This obligation may close only when the referenced evidence exists and release_machine.oc133_platinum re-audits the blocker check as PASS.",
+      "artifact_exists_is_not_closure": true,
+      "no_send": true
+    },
+    {
+      "obligation_id": "OC133-GRAND-EMPIRICAL-001",
+      "owner_capability": "Research/EmpiricalScience",
+      "title": "Produce strict per-domain predictive superiority evidence",
+      "blocker_check": "grand_toe_empirical_superiority",
+      "required_artifacts": [
+        "validation/heldout/ or validation/target_blind/::prospective or target-blind protocol",
+        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json::broad-domain promotion evidence",
+        "per-domain snapshot hashes and replay hashes",
+        "per-domain comparator residuals, uncertainty, negative controls, and falsifiers"
+      ],
+      "pass_predicate": "every required domain passes strict predictive superiority against a comparator and explicitly allows grand-claim support",
+      "verification_command": "python validation/run_all.py --qa-only && python tools/oc133_logion_all_domain_readiness.py --write",
+      "closure_rule": "This obligation may close only when the referenced evidence exists and release_machine.oc133_platinum re-audits the blocker check as PASS.",
+      "artifact_exists_is_not_closure": true,
+      "no_send": true
+    },
+    {
+      "obligation_id": "OC133-GRAND-PRIORART-001",
+      "owner_capability": "Research/PriorArt",
+      "title": "Certify superiority against modern-science comparator baselines",
+      "blocker_check": "modern_science_comparator_superiority",
+      "required_artifacts": [
+        "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
+        "benchmarks/::per-domain benchmark definitions",
+        "OC result refs",
+        "modern-science comparator result refs",
+        "source-backed fairness and uncertainty notes"
+      ],
+      "pass_predicate": "modern_science_comparator_superiority.state == PASS for physics, chemistry, biology, systems, and mathematics",
+      "verification_command": "python tools/oc133_logion_all_domain_readiness.py --write",
+      "closure_rule": "This obligation may close only when the referenced evidence exists and release_machine.oc133_platinum re-audits the blocker check as PASS.",
+      "artifact_exists_is_not_closure": true,
+      "no_send": true
+    }
+  ],
+  "checks": {
+    "grand_toe_claim_ledger_evidence": {
+      "state": "FAIL",
+      "requested_claim_classes": [
+        "numerically_proven_toe",
+        "all_domain_numerical_prediction",
+        "predicts_better_than_modern_science"
+      ],
+      "requested_ambition_level": "numerically proven TOE across all domains and better than modern science",
+      "release_promotion_allowed": false,
+      "promoted_grand_claim_ids": [],
+      "promoted_grand_claim_total": 0,
+      "grand_claims_missing_formal_artifacts": [],
+      "theorem_total": 10,
+      "machine_checked_subset_total": 10,
+      "scientific_promotion_allowed_total": 10,
+      "required_evidence_layer": "Dedicated promoted TOE/all-domain claim row with theorem/proof/Lean/finite evidence refs; bounded theorem rows do not satisfy grand-claim promotion by themselves.",
+      "blocker": "TOE/all-domain promotion requires a dedicated promoted claim-ledger row bound to theorem, proof, Lean, and finite evidence."
+    },
+    "grand_toe_empirical_superiority": {
+      "state": "FAIL",
+      "requested_ambition_level": "numerically proven TOE across all domains and better than modern science",
+      "required_domains": [
+        "physics",
+        "chemistry",
+        "biology",
+        "systems",
+        "mathematics"
+      ],
+      "strict_domain_results": {
+        "physics": {
+          "claim_id": "OC133-TARGETBLIND-PHYSICS-001",
+          "target_blind_or_heldout": true,
+          "prediction_support_allowed": true,
+          "empirical_support_allowed": true,
+          "grand_claim_support_allowed": false,
+          "comparator_baseline_present": true,
+          "residual": 1.4892870576445277e-35,
+          "uncertainty": 1e-33,
+          "comparator_residual": 1.9864458503739297e-25,
+          "beats_comparator": true,
+          "within_uncertainty": true,
+          "support_scope": "target-blind reconstruction of a held-out CODATA relationship from exact defining constants; not a novel physics law",
+          "passes_strict_predictive_superiority": false
+        },
+        "chemistry": {
+          "claim_id": "OC133-TARGETBLIND-CHEMISTRY-001",
+          "target_blind_or_heldout": true,
+          "prediction_support_allowed": true,
+          "empirical_support_allowed": true,
+          "grand_claim_support_allowed": false,
+          "comparator_baseline_present": true,
+          "residual": 0.000280000000000058,
+          "uncertainty": 0.02,
+          "comparator_residual": 25.994500000000002,
+          "beats_comparator": true,
+          "within_uncertainty": true,
+          "support_scope": "target-blind reconstruction of a held-out official snapshot field; not a novel chemistry law",
+          "passes_strict_predictive_superiority": false
+        },
+        "biology": {
+          "claim_id": "OC133-TARGETBLIND-BIOLOGY-001",
+          "target_blind_or_heldout": true,
+          "prediction_support_allowed": true,
+          "empirical_support_allowed": true,
+          "grand_claim_support_allowed": false,
+          "comparator_baseline_present": true,
+          "residual": 0.0,
+          "uncertainty": 0.0,
+          "comparator_residual": 43988.0,
+          "beats_comparator": true,
+          "within_uncertainty": true,
+          "support_scope": "target-blind reconstruction of a held-out NCBI/GEO API snapshot field; not a biological mechanism law",
+          "passes_strict_predictive_superiority": false
+        },
+        "systems": {
+          "claim_id": "OC133-TARGETBLIND-SYSTEMS-001",
+          "target_blind_or_heldout": true,
+          "prediction_support_allowed": true,
+          "empirical_support_allowed": true,
+          "grand_claim_support_allowed": false,
+          "comparator_baseline_present": true,
+          "residual": 59572919095.09375,
+          "uncertainty": 1109826611800.1301,
+          "comparator_residual": 4241013358949.0,
+          "beats_comparator": true,
+          "within_uncertainty": true,
+          "support_scope": "retrospective target-blind holdout over pinned WDI rows; not a prospective macroeconomic law",
+          "passes_strict_predictive_superiority": false
+        },
+        "mathematics": {
+          "claim_id": "OC133-TARGETBLIND-MATHEMATICS-001",
+          "target_blind_or_heldout": true,
+          "prediction_support_allowed": true,
+          "empirical_support_allowed": true,
+          "grand_claim_support_allowed": false,
+          "comparator_baseline_present": true,
+          "residual": 0.0,
+          "uncertainty": 0.0,
+          "comparator_residual": 11.0,
+          "beats_comparator": true,
+          "within_uncertainty": true,
+          "support_scope": "target-blind reconstruction of a finite proof-corpus aggregate; not a TOE truth proof or empirical law",
+          "passes_strict_predictive_superiority": false
+        }
+      },
+      "missing_or_not_superior_domains": [
+        "physics",
+        "chemistry",
+        "biology",
+        "systems",
+        "mathematics"
+      ],
+      "bounded_target_blind_rows_visible_not_final": 5,
+      "target_blind_generated_by": "LOGION_CAPABILITY_WORKER",
+      "target_blind_capability_owner": "Research/EmpiricalScience",
+      "blocker": "Grand all-domain claims require target-blind or held-out predictive evidence that beats a comparator baseline in every required domain; mere artifact existence is not enough.",
+      "required_evidence_layer": "Each per-domain empirical row must explicitly set grand_toe_support_allowed, broad_domain_validation_support_allowed, or modern_science_superiority_support_allowed after target-blind/held-out scoring beats the comparator."
+    },
+    "modern_science_comparator_superiority": {
+      "state": "FAIL",
+      "requested_ambition_level": "numerically proven TOE across all domains and better than modern science",
+      "register_ref": "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
+      "register_exists": false,
+      "claim_classes": null,
+      "superiority_claim_allowed": null,
+      "failure_total": null,
+      "certified_domains": [],
+      "missing_certified_domains": [
+        "physics",
+        "chemistry",
+        "biology",
+        "systems",
+        "mathematics"
+      ],
+      "blocker": "Claims that OC predicts better than modern science require a modern-science comparator/benchmark register certifying superiority for every required domain."
+    },
+    "broad_domain_validation_promotion_guard": {
+      "state": "PASS",
+      "broad_domain_validation_promoted": false,
+      "stronger_grand_science_evidence_exists": false,
+      "stronger_evidence_components": {
+        "claim_ledger": false,
+        "empirical_superiority": false,
+        "modern_science_comparator": false
+      },
+      "bounded_readiness_data_visible_not_final": true,
+      "blocker": "broad_domain_validation_promoted may be true only after the strict grand-science evidence layer passes."
+    }
+  },
+  "no_send": true,
+  "publish_allowed": false,
+  "journal_submissions_allowed": false
+}

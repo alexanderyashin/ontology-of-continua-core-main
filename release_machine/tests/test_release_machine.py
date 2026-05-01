@@ -5,6 +5,7 @@ import hashlib
 import os
 from pathlib import Path
 import subprocess
+import tempfile
 import unittest
 import zipfile
 
@@ -12,6 +13,7 @@ import release_machine
 from release_machine import core
 from release_machine import complete
 from release_machine import oc133
+from release_machine import oc133_platinum
 from release_machine import oc133_v12
 from release_machine import publication
 from release_machine import versioning
@@ -22,6 +24,117 @@ class ReleaseMachineTests(unittest.TestCase):
         root = complete.repo_root()
         oc133_v12.ensure_v12(root)
         return root
+
+    def _write_fixture_json(self, root: Path, rel_path: str, payload: dict) -> None:
+        path = root / rel_path
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+    def _make_bounded_grand_ambition_fixture(self, root: Path) -> None:
+        component_files = [
+            "SUBMISSION_PACKAGE.json",
+            "REQUIRED_COMPONENT_MANIFEST.json",
+            "REQUIRED_COMPONENT_MANIFEST.md",
+            "COVER_LETTER_DRAFT.md",
+            "CHECKLIST.md",
+            "REPRODUCIBILITY_AND_DATA_STATEMENT.md",
+            "AI_ASSISTANCE_DISCLOSURE.md",
+            "CONFLICT_AND_FUNDING_STATEMENT.md",
+            "VENUE_FIT_VERDICT.md",
+        ]
+        venues = [f"VENUE_{idx:02d}" for idx in range(1, 9)]
+        for venue in venues:
+            venue_dir = root / "releases" / "oc_core_1_3_3" / "submission_packages" / venue
+            venue_dir.mkdir(parents=True, exist_ok=True)
+            for filename in component_files:
+                (venue_dir / filename).write_text("owner-review no-send fixture\n", encoding="utf-8")
+        self._write_fixture_json(
+            root,
+            "releases/oc_core_1_3_3/submission_packages/SUBMISSION_PACKAGE_INDEX.json",
+            {
+                "release_id": "oc_core_1_3_3",
+                "version": "1.3.3",
+                "package_total": 8,
+                "recommended_package_total": 2,
+                "no_send": True,
+                "submission_allowed": False,
+                "journal_submissions_allowed": False,
+                "package_status_counts": {"OWNER_REVIEW_READY_NO_SEND": 8},
+                "rows": [
+                    {
+                        "venue_id": venue,
+                        "package_status": "OWNER_REVIEW_READY_NO_SEND",
+                        "submission_allowed": False,
+                        "journal_submissions_allowed": False,
+                    }
+                    for venue in venues
+                ],
+            },
+        )
+
+        rows = []
+        for idx, domain in enumerate(oc133_platinum.REQUIRED_EMPIRICAL_DOMAINS, start=1):
+            snapshot = f"data/target_blind/{domain}.snapshot.json"
+            self._write_fixture_json(root, snapshot, {"domain": domain, "fixture": idx})
+            rows.append(
+                {
+                    "claim_id": f"TB-{domain.upper()}",
+                    "lane": domain,
+                    "dataset_snapshot_ref": snapshot,
+                    "target_blind_split": "heldout_fixture",
+                    "formula": "x + 1",
+                    "predicted_value": idx + 1,
+                    "observed_value": idx + 1,
+                    "uncertainty": 0.1,
+                    "comparator_baseline": "modern_science_baseline_fixture",
+                    "comparator_prediction": idx + 2,
+                    "residual": 0.0,
+                    "comparator_residual": 1.0,
+                    "negative_control": "permuted_labels",
+                    "negative_control_rejected": True,
+                    "falsifier": "residual_exceeds_uncertainty",
+                    "snapshot_sha256": "0" * 64,
+                    "replay_hash": "1" * 64,
+                    "support_scope": "bounded_target_blind_all_domain_evidence_not_toe_or_modern_science_certification",
+                    "prediction_support_allowed": True,
+                    "empirical_support_allowed": True,
+                }
+            )
+        self._write_fixture_json(
+            root,
+            "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+            {
+                "generated_by": "LOGION_CAPABILITY_WORKER",
+                "capability_owner": "Research/EmpiricalScience",
+                "failure_total": 0,
+                "grand_scientific_ambition": True,
+                "requested_ambition_level": "numerically proven TOE across all domains and better than modern science",
+                "evidence_scope": "bounded_target_blind_all_domain_evidence_only",
+                "rows": rows,
+            },
+        )
+        self._write_fixture_json(
+            root,
+            "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+            {
+                "domain_validation_promoted": False,
+                "broad_domain_validation_promoted": False,
+                "grand_scientific_ambition": True,
+                "requested_ambition_level": "better than modern science",
+                "evidence_scope": "bounded_target_blind_all_domain_evidence_only",
+            },
+        )
+        self._write_fixture_json(root, "claims/CLAIM_LEDGER_1_3_3.json", {"unsupported_promoted_total": 0})
+        self._write_fixture_json(
+            root,
+            "proofs/THEOREM_INVENTORY_1_3_3.json",
+            {"theorem_total": 1, "machine_checked_subset_total": 1, "scientific_promotion_allowed_total": 1},
+        )
+        self._write_fixture_json(
+            root,
+            "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json",
+            {"critical_open_total": 0, "high_open_total": 0, "parse_failure_total": 0, "execution_bad_total": 0},
+        )
 
     def test_fake_pass_prevention(self) -> None:
         with self.assertRaises(ValueError):
@@ -392,6 +505,66 @@ class ReleaseMachineTests(unittest.TestCase):
         self.assertNotIn("/Users/", state_text)
         self.assertTrue(all("path" not in row for row in state["toolchain"]["tools"].values()))
 
+    def test_oc133_grand_science_ambition_blocks_bounded_evidence_certification(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._make_bounded_grand_ambition_fixture(root)
+
+            audit = oc133_platinum.all_domain_readiness_audit(root, {"state": "PASS", "blocker_total": 0})
+
+        empirical = audit["checks"]["all_domain_empirical_predictions"]
+        self.assertEqual(empirical["state"], "PASS")
+        self.assertEqual(empirical["missing_domain_total"], 0)
+        self.assertEqual(set(empirical["passed_domains"]), set(oc133_platinum.REQUIRED_EMPIRICAL_DOMAINS))
+
+        self.assertFalse(audit["all_domain_ready_no_send"])
+        self.assertNotEqual(audit["final_readiness_state"], oc133_platinum.ALL_DOMAIN_READY_STATE)
+        self.assertGreater(audit["blocker_total"], 0)
+        ambition_checks = {
+            key: row
+            for key, row in audit["checks"].items()
+            if "ambition" in key.lower()
+            or "toe" in key.lower()
+            or "modern_science" in key.lower()
+            or "better_than_modern_science" in key.lower()
+        }
+        self.assertTrue(ambition_checks, audit["checks"].keys())
+        self.assertTrue(any(row.get("state") != "PASS" for row in ambition_checks.values()))
+
+        audit_text = json.dumps(audit, sort_keys=True).lower()
+        self.assertIn("numerically proven toe", audit_text)
+        self.assertIn("better than modern science", audit_text)
+        self.assertIn("bounded", audit_text)
+        self.assertIn("target", audit_text)
+
+    def test_oc133_grand_science_ambition_routes_to_work_order_no_send(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._make_bounded_grand_ambition_fixture(root)
+
+            audit = oc133_platinum.all_domain_readiness_audit(root, {"state": "PASS", "blocker_total": 0})
+
+        self.assertTrue(audit["no_send"])
+        self.assertFalse(audit["publish_allowed"])
+        self.assertFalse(audit["journal_submissions_allowed"])
+        self.assertNotEqual(audit["state"], oc133_platinum.ALL_DOMAIN_READY_STATE)
+        self.assertNotEqual(audit["final_readiness_state"], oc133_platinum.ALL_DOMAIN_READY_STATE)
+        self.assertNotEqual(audit["next_automatic_action"], "OWNER_REVIEW_NO_SEND")
+        self.assertGreater(audit["work_order_total"], 0)
+        self.assertEqual(audit["work_order_total"], len(audit["work_orders"]))
+        self.assertTrue(audit["next_automatic_action"].startswith("OC133-PLATINUM-WO-"))
+
+        work_order_text = json.dumps(audit["work_orders"], sort_keys=True).lower()
+        self.assertTrue(
+            "ambition" in work_order_text
+            or "toe" in work_order_text
+            or "modern science" in work_order_text
+        )
+        for row in audit["work_orders"]:
+            self.assertTrue(row["no_send"])
+            self.assertIn(row["severity"], {"CRITICAL", "HIGH"})
+            self.assertTrue(row["verification_command"])
+
     def test_oc133_scientific_closure_gates_are_no_send(self) -> None:
         root = complete.repo_root()
         summary = oc133.evaluate_release("oc_core_1_3_3", "all", "dry-run", write=True)
@@ -436,10 +609,15 @@ class ReleaseMachineTests(unittest.TestCase):
             self.assertEqual(gates["G58"]["state"], "PASS")
             self.assertEqual(gates["G70"]["state"], "PASS")
             self.assertEqual(summary["release_state"], "SCIENTIFIC_BLOCKERS_REMAIN")
-            self.assertIn("all_domain_empirical_predictions", summary["all_domain_blocker_ids"])
-            self.assertGreater(len(summary["all_domain_missing_empirical_domains"]), 0)
+            self.assertIn("grand_toe_claim_ledger_evidence", summary["all_domain_blocker_ids"])
+            self.assertIn("grand_toe_empirical_superiority", summary["all_domain_blocker_ids"])
+            self.assertIn("modern_science_comparator_superiority", summary["all_domain_blocker_ids"])
+            self.assertEqual(len(summary["all_domain_missing_empirical_domains"]), 0)
             all_domain_ref = root / summary["content_closure_refs"]["all_domain_scorecard_ref"]
             self.assertTrue(all_domain_ref.exists())
+            all_domain_scorecard = json.loads(all_domain_ref.read_text(encoding="utf-8"))
+            self.assertFalse(all_domain_scorecard["all_domain_ready_no_send"])
+            self.assertTrue(all_domain_scorecard["bounded_all_domain_ready_no_send"])
         else:
             self.assertIn(gates["G57"]["state"], {"PASS", "FAIL"})
             if (

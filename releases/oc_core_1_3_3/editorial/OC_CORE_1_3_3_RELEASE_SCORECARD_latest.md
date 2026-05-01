@@ -1,6 +1,6 @@
 # OC Core 1.3.3 Release Scorecard
 
-Release state: `ALL_DOMAIN_READY_NO_SEND`
+Release state: `SCIENTIFIC_BLOCKERS_REMAIN`
 Publish allowed: `false`
 
 | Gate | Name | State | Severity |

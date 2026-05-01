@@ -20,7 +20,9 @@ EXECUTION_LEDGER = ROOT / EXECUTION_LEDGER_REL
 
 
 PROFILE_BY_CAPABILITY = {
+    "Research/FormalScience": "v12_grand_formal_science_research_program",
     "Research/EmpiricalScience": "v12_all_domain_empirical_readiness_repair",
+    "Research/PriorArt": "v12_modern_science_comparator_research_program",
     "Review/ClaimBoundary": "v12_claim_boundary_overclaim_repair",
     "Publication/JournalPackages": "v12_journal_package_readiness_repair",
 }
@@ -125,6 +127,16 @@ def execute_next() -> dict[str, Any]:
 
     work_order = work_orders[0]
     profile = PROFILE_BY_CAPABILITY.get(str(work_order.get("owner_capability")))
+    if (
+        work_order.get("owner_capability") == "Research/EmpiricalScience"
+        and "grand_toe_empirical_superiority" in str(work_order.get("before_predicate", ""))
+    ):
+        profile = "v12_grand_empirical_superiority_research_program"
+    if (
+        work_order.get("owner_capability") == "Research/EmpiricalScience"
+        and "strict per-domain predictive superiority" in str(work_order.get("title", "")).lower()
+    ):
+        profile = "v12_grand_empirical_superiority_research_program"
     if profile:
         result_cmd = command([sys.executable, "tools/oc133_capability_repair_executor.py", "--profile", profile], timeout=1500)
         after = oc133_platinum.all_domain_readiness_audit(ROOT, oc133_platinum.content_closure_audit(ROOT))

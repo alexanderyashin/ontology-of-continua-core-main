@@ -4,9 +4,95 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "generated_at": "2026-04-28T00:00:00Z",
-  "queue_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
-  "state": "EMPTY_OWNER_REVIEW_NO_SEND",
+  "queue_sha256": "5b0ad085dad217847d341d684e93204868b3125f4ba848c1faed9335d6cd8170",
+  "state": "ACTIVE",
   "ordering_policy": "safety/no-send, all-domain evidence blocker, claim-boundary blocker, journal-package blocker, stable work_order_id",
-  "work_order_total": 0,
-  "rows": []
+  "work_order_total": 3,
+  "rows": [
+    {
+      "work_order_id": "OC133-PLATINUM-WO-001",
+      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
+      "owner_capability": "Research/FormalScience",
+      "title": "Prove or demote grand TOE/all-domain claim promotion",
+      "severity": "CRITICAL",
+      "priority": 999,
+      "owned_artifacts": [
+        "claims/CLAIM_LEDGER_1_3_3.json",
+        "proofs/THEOREM_INVENTORY_1_3_3.json",
+        "proofs/proof_sheets/",
+        "formal/lean/",
+        "proofs/FINITE_MODEL_CHECKS_1_3_3.json"
+      ],
+      "before_predicate": "no dedicated promoted TOE/all-domain claim-ledger row with theorem/proof/Lean/finite evidence",
+      "after_predicate": "any TOE/all-domain promoted claim has explicit claim-ledger row, theorem/proof/Lean/finite evidence refs, unsupported_promoted_total=0, and release_promotion_allowed=true",
+      "verification_command": "lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write",
+      "closure_evidence_required": [
+        "dedicated grand-claim ledger row ID",
+        "theorem inventory IDs",
+        "Lean theorem IDs",
+        "proof sheet refs",
+        "finite-model witness case IDs"
+      ],
+      "rollback_or_block_condition": "If this evidence cannot honestly be produced, keep TOE/all-domain claims demoted and final readiness in SCIENTIFIC_BLOCKERS_REMAIN.",
+      "dependency_ids": [],
+      "implementation_policy": "Execute through Logion capability worker; Codex may repair orchestration only if this work order cannot run.",
+      "no_send": true
+    },
+    {
+      "work_order_id": "OC133-PLATINUM-WO-002",
+      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
+      "owner_capability": "Research/EmpiricalScience",
+      "title": "Replace bounded rows with strict per-domain predictive superiority evidence",
+      "severity": "CRITICAL",
+      "priority": 998,
+      "owned_artifacts": [
+        "validation/target_blind/",
+        "validation/heldout/",
+        "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
+        "claims/CLAIM_LEDGER_1_3_3.json"
+      ],
+      "before_predicate": "missing_or_not_superior_domains == ['physics', 'chemistry', 'biology', 'systems', 'mathematics']",
+      "after_predicate": "each required empirical domain has target-blind or held-out prediction evidence, uncertainty, falsifier, negative control, and numeric residual strictly better than comparator residual",
+      "verification_command": "python tools/oc133_logion_all_domain_readiness.py --execute-next --write",
+      "closure_evidence_required": [
+        "per-domain target-blind or held-out prediction rows",
+        "dataset snapshot refs and hashes",
+        "OC residual and comparator residual calculations",
+        "negative-control/falsifier outputs",
+        "Logion capability execution ledger row"
+      ],
+      "rollback_or_block_condition": "If any required domain lacks genuine predictive superiority, keep bounded readiness visible but not final for grand TOE claims.",
+      "dependency_ids": [],
+      "implementation_policy": "Execute through Logion capability worker; Codex may repair orchestration only if this work order cannot run.",
+      "no_send": true
+    },
+    {
+      "work_order_id": "OC133-PLATINUM-WO-003",
+      "mission_id": "OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION",
+      "owner_capability": "Research/PriorArt",
+      "title": "Create modern-science comparator superiority register",
+      "severity": "CRITICAL",
+      "priority": 997,
+      "owned_artifacts": [
+        "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
+        "comparators/",
+        "benchmarks/",
+        "claims/CLAIM_LEDGER_1_3_3.json"
+      ],
+      "before_predicate": "modern-science comparator register missing or not certifying superiority across required domains",
+      "after_predicate": "register exists for grand claim classes and certifies OC superiority against modern-science comparator benchmarks for every required empirical domain",
+      "verification_command": "python tools/oc133_logion_all_domain_readiness.py --write",
+      "closure_evidence_required": [
+        "modern-science comparator/benchmark register",
+        "per-domain benchmark refs",
+        "OC result refs",
+        "modern-science comparator result refs",
+        "superiority certification verdicts"
+      ],
+      "rollback_or_block_condition": "If superiority over modern science is not certified, remove or demote superiority claims and keep final readiness scientifically blocked.",
+      "dependency_ids": [],
+      "implementation_policy": "Execute through Logion capability worker; Codex may repair orchestration only if this work order cannot run.",
+      "no_send": true
+    }
+  ]
 }

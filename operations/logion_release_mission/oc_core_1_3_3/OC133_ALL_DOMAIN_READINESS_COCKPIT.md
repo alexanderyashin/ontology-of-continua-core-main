@@ -1,11 +1,11 @@
 # OC Core 1.3.3 All-Domain Scientific Readiness Cockpit
 
 Mission: `OC_CORE_1_3_3_PLATINUM_RELEASE_MISSION`
-State: `ALL_DOMAIN_READY_NO_SEND`
-Final readiness state: `ALL_DOMAIN_READY_NO_SEND`
-All-domain ready no-send: `true`
-Blockers: `0`
-Next automatic action: `OWNER_REVIEW_NO_SEND`
+State: `OC_CORE_1_3_3_ALL_DOMAIN_SCIENTIFIC_READINESS_RUNNING`
+Final readiness state: `SCIENTIFIC_BLOCKERS_REMAIN`
+All-domain ready no-send: `false`
+Blockers: `3`
+Next automatic action: `OC133-PLATINUM-WO-001`
 Public action allowed: `false`
 Journal submissions allowed: `false`
 
@@ -26,7 +26,16 @@ Journal submissions allowed: `false`
 | `journal_send_readiness_minus_owner_lock` | `PASS` | `package_total=8` |
 | `formal_theorem_evidence` | `PASS` | `theorem_total=10` |
 | `cerberus_critical_high` | `PASS` | `critical_open_total=0` |
+| `grand_toe_claim_ledger_evidence` | `FAIL` | `theorem_total=10` |
+| `grand_toe_empirical_superiority` | `FAIL` |  |
+| `modern_science_comparator_superiority` | `FAIL` |  |
+| `broad_domain_validation_promotion_guard` | `PASS` |  |
 
 ## Active Work Orders
 
-- none
+- `OC133-PLATINUM-WO-001` `Research/FormalScience` `CRITICAL`: Prove or demote grand TOE/all-domain claim promotion
+  Verification: `lake build OC133V12 && python proofs/finite_model_checks/run_finite_model_checks.py && python tools/oc133_logion_all_domain_readiness.py --write`
+- `OC133-PLATINUM-WO-002` `Research/EmpiricalScience` `CRITICAL`: Replace bounded rows with strict per-domain predictive superiority evidence
+  Verification: `python tools/oc133_logion_all_domain_readiness.py --execute-next --write`
+- `OC133-PLATINUM-WO-003` `Research/PriorArt` `CRITICAL`: Create modern-science comparator superiority register
+  Verification: `python tools/oc133_logion_all_domain_readiness.py --write`
