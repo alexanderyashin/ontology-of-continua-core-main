@@ -1,0 +1,49 @@
+{
+  "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+  "release_id": "oc_core_1_3_3",
+  "capability_owner": "Research/EmpiricalScience",
+  "evidence_pack_id": "OC133-GRAND-MATHEMATICS-CANDIDATE",
+  "domain": "mathematics",
+  "source_separation": {
+    "mode": "target_blind",
+    "pre_target_lock": true,
+    "target_hidden_until_scoring": true,
+    "training_sources": [
+      "proofs/FINITE_MODEL_CHECKS_1_3_3.json::finite_theorem_case_rows(case_type,observed_verdict,passed,theorem_id)"
+    ],
+    "target_sources": [
+      "proofs/FINITE_MODEL_CHECKS_1_3_3.json::machine_checked_subset_total"
+    ]
+  },
+  "n": 1,
+  "model_under_test": "count_unique(theorem_id where case_type='theorem_case' and observed_verdict='ACCEPT' and passed=true)",
+  "comparator_baseline": {
+    "name": "positive_case_total negative control, which counts non-theorem support rows too",
+    "prediction_rule": "Use proof-corpus positive_case_total against the same machine_checked_subset_total aggregate.",
+    "pre_registered": true
+  },
+  "uncertainty": {
+    "metric": "absolute residual over one finite proof-corpus aggregate",
+    "method": "deterministic replay of the pinned Lean/finite-model proof corpus aggregate",
+    "interval": [
+      0.0,
+      0.0
+    ]
+  },
+  "residuals": {
+    "model": 0.0,
+    "comparator": 11.0,
+    "superiority_margin": 11.0
+  },
+  "negative_controls": [
+    {
+      "control_id": "OC133-TARGETBLIND-MATHEMATICS-001-POSITIVE-CASE-TOTAL-CONTROL",
+      "description": "replace theorem-id aggregate by positive_case_total and require a larger residual",
+      "rejected": true
+    }
+  ],
+  "falsifiers": [
+    "Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse"
+  ],
+  "grand_toe_support_allowed": false
+}

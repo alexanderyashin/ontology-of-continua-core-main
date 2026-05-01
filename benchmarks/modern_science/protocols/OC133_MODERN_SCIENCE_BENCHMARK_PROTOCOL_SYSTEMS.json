@@ -1,0 +1,199 @@
+{
+  "schema_id": "OC133_MODERN_SCIENCE_BENCHMARK_PROTOCOL_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "capability_owner": "Logion Research/PriorArt",
+  "blocker_id": "modern_science_comparator_superiority",
+  "protocol_id": "OC133-MODERN-SCIENCE-BENCHMARK-PROTOCOL-SYSTEMS",
+  "domain": "systems",
+  "lane_id": "MS-LANE-SYSTEMS-WDI-GDP",
+  "predicate_id": "MS-PRED-SYS-001",
+  "evidence_refs": {
+    "register_ref": "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
+    "lane_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json",
+    "modern_science_superiority_report_ref": "reports/OC_CORE_1_3_3_MODERN_SCIENCE_SUPERIORITY_REPORT.json",
+    "grand_empirical_report_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
+    "target_blind_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+    "numeric_replay_qa_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json"
+  },
+  "incumbent_comparator": {
+    "incumbent": "World Bank World Development Indicators GDP current US dollar series and API metadata",
+    "accepted_capacity": "WDI provides annual GDP current-US-dollar indicator metadata and API access sourced from national accounts and statistical sources.",
+    "source_refs": [
+      {
+        "title": "World Bank WDI metadata for NY.GDP.MKTP.CD",
+        "url": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/NY.GDP.MKTP.CD",
+        "source_date": "reference",
+        "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-SYS-WORLD-BANK-WDI.txt",
+        "local_source_capsule_sha256": "6477aaa3228fba4ab088b29a909465addce8f9ecbc6c662fa6f5962f279c4f40"
+      }
+    ]
+  },
+  "oc_model_under_test": {
+    "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-SYSTEMS-001",
+    "claim_id": "OC133-TARGETBLIND-SYSTEMS-001",
+    "dataset_snapshot_ref": "validation/_raw/systems_world_bank_gdp.txt",
+    "formula_or_model": "GDP_2023 + (GDP_2023-GDP_2021)/2",
+    "predicted_value": 111042234099108.1,
+    "observed_value": 110982661180013.0,
+    "residual": 59572919095.09375,
+    "uncertainty": 1109826611800.1301,
+    "comparator_baseline": "last-observation carry-forward GDP_2023",
+    "comparator_prediction": 106741647821064.0,
+    "negative_control": "last-observation baseline must have larger residual",
+    "negative_control_rejected": true,
+    "falsifier": "Held-out residual exceeds 1 percent of observed target or comparator is not worse",
+    "prediction_support_allowed": true,
+    "empirical_support_allowed": true,
+    "support_scope": "retrospective target-blind holdout over pinned WDI rows; not a prospective macroeconomic law"
+  },
+  "heldout_or_prospective_split": {
+    "mode": "heldout",
+    "source_separation_mode": "target_blind",
+    "split_predicate": "heldout_year_split_declared",
+    "declared": true,
+    "source_separation_declared": true,
+    "split_statement": "2021-2023 train rows predict withheld 2024 World Bank WDI target"
+  },
+  "fairness_criteria": [
+    {
+      "predicate": "primary_or_source_backed_incumbent_ref_present",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "heldout_year_split_declared",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "metric_and_uncertainty_declared_before_scoring",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "negative_control_rejected",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "independent_replay_passes_from_clean_checkout",
+      "required": true,
+      "status": false,
+      "blocked": true
+    },
+    {
+      "predicate": "prospective_or_time-locked_protocol_present",
+      "required": true,
+      "status": false,
+      "blocked": true
+    },
+    {
+      "predicate": "claim_text_excludes_macroeconomic_law_or_WDI_superiority",
+      "required": true,
+      "status": true,
+      "blocked": false
+    }
+  ],
+  "uncertainty": {
+    "declared": true,
+    "uncertainty": 1109826611800.1301,
+    "model_residual": 59572919095.09375,
+    "within_declared_uncertainty": true,
+    "metric_family": "absolute residual, percentage residual, and comparator_residual_margin",
+    "prediction_supported": true,
+    "empirical_supported": true
+  },
+  "residual_metric": {
+    "metric_family": "absolute residual, percentage residual, and comparator_residual_margin",
+    "model_residual": 59572919095.09375,
+    "comparator_residual": 4241013358949.0,
+    "superiority_margin": 4181440439853.9062,
+    "model_predicted": 111042234099108.1,
+    "model_observed": 110982661180013.0
+  },
+  "negative_controls": [
+    {
+      "source": "target_blind",
+      "claim_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-SYSTEMS-001",
+      "control": "last-observation baseline must have larger residual",
+      "rejected": true,
+      "domain": "systems"
+    },
+    {
+      "source": "numeric_replay_qa",
+      "claim_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-SYS-WDI-GDP",
+      "control": "remove or corrupt the latest WDI value and require replay parser failure",
+      "rejected": null,
+      "domain": "systems"
+    }
+  ],
+  "falsifiers": [
+    {
+      "source": "target_blind",
+      "claim_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-SYSTEMS-001",
+      "falsifier": "Held-out residual exceeds 1 percent of observed target or comparator is not worse",
+      "domain": "systems"
+    },
+    {
+      "source": "numeric_replay_qa",
+      "claim_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-SYS-WDI-GDP",
+      "falsifier": "replay parser cannot recover the pinned latest non-null WDI value",
+      "domain": "systems"
+    }
+  ],
+  "blocker_predicates": [
+    "independent_replay_passes_from_clean_checkout",
+    "prospective_or_time-locked_protocol_present",
+    "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+    "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+    "CANDIDATE_EVIDENCE_PACKS_INVALID::2"
+  ],
+  "required_result_refs": [
+    "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-SYSTEMS-001"
+  ],
+  "report": {
+    "current_verdict": "BLOCKED_NO_SUPERIORITY_CERTIFIED",
+    "superiority_task": "Predict or reconstruct a withheld WDI GDP value from prior-year rows under a predeclared comparator baseline.",
+    "allowed_current_claim": "bounded retrospective holdout over pinned WDI rows only",
+    "superiority_claim_status": "NOT_CERTIFIED",
+    "release_effect": "BLOCK_RELEASE_PROMOTION_FOR_SUPERIORITY",
+    "oc_current_evidence_boundary": "Bounded retrospective holdout over pinned rows only; no macroeconomic law or WDI/statistical-production superiority."
+  },
+  "grand_empirical_context": {
+    "minimum_n": 20,
+    "valid_n": 0,
+    "status": "BLOCKED",
+    "grand_toe_support_allowed": false,
+    "blockers": [
+      "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+      "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+      "CANDIDATE_EVIDENCE_PACKS_INVALID::2"
+    ]
+  },
+  "no_send": true,
+  "release_promotion_allowed": false,
+  "superiority_decision": {
+    "status": "NOT_CERTIFIED",
+    "superiority_certified": false,
+    "release_promotion_allowed": false,
+    "can_be_certified_within_current_artifact_scope": false,
+    "blocker_total": 5,
+    "blocker_predicates": [
+      "independent_replay_passes_from_clean_checkout",
+      "prospective_or_time-locked_protocol_present",
+      "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+      "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+      "CANDIDATE_EVIDENCE_PACKS_INVALID::2"
+    ],
+    "required_result_refs": [
+      "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-SYSTEMS-001"
+    ],
+    "failure_reason": "All incumbent/refined fairness predicates, zero blockers, and result bindings must be present for certification."
+  }
+}

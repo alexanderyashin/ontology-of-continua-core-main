@@ -1,0 +1,406 @@
+{
+  "schema_id": "OC133_BIOLOGY_SYSTEMS_ACQUISITION_PLAN_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "planner": "tools/oc133_biology_systems_acquisition_planner.py",
+  "capability_owner": "Logion IT/Research",
+  "blocker_id": "grand_toe_empirical_superiority",
+  "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+  "schema_refs": {
+    "evidence": "validation/grand_science/grand_empirical_evidence.schema.json",
+    "protocol": "validation/grand_science/grand_empirical_protocol.schema.json"
+  },
+  "output_root_ref": "validation/heldout/acquisition_plans/biology_systems",
+  "plan_ref": "validation/heldout/acquisition_plans/biology_systems/OC133_BIOLOGY_SYSTEMS_ACQUISITION_PLAN.json",
+  "required_n": 20,
+  "required_source_modes": [
+    "prospective",
+    "target_blind"
+  ],
+  "required_domains": [
+    "biology",
+    "systems"
+  ],
+  "open_blocker_total": 2,
+  "blocker_total": 8,
+  "blocked_domain_total": 2,
+  "rows": [
+    {
+      "domain": "biology",
+      "snapshot_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+      "snapshot_kind": "bounded_ncbi_geo_replay",
+      "snapshot_sha256": "f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4",
+      "snapshot_byte_count": 526,
+      "schema_refs": {
+        "evidence": "validation/grand_science/grand_empirical_evidence.schema.json",
+        "protocol": "validation/grand_science/grand_empirical_protocol.schema.json",
+        "requirements": "benchmarks/grand_science/domain_requirements.json"
+      },
+      "required_source_separation": {
+        "mode_options": [
+          "prospective",
+          "target_blind"
+        ],
+        "pre_target_lock": true,
+        "target_hidden_until_scoring": true
+      },
+      "current_source_separation": {
+        "mode": "target_blind",
+        "pre_target_lock": false,
+        "target_hidden_until_scoring": false,
+        "training_sources": [
+          "validation/_raw/biology_ncbi_geo_platform.txt::visible_fields(retstart,idlist)"
+        ],
+        "target_sources": [
+          "validation/_raw/biology_ncbi_geo_platform.txt::withheld_field(retmax)"
+        ]
+      },
+      "required_n": 20,
+      "current_n": 1,
+      "missing_n": 19,
+      "model_under_test": "retstart + len(idlist)",
+      "comparator_choices": [
+        {
+          "name": "NCBI GEO total hit count",
+          "prediction_rule": "use esearchresult.count as the GEO count baseline prediction",
+          "pre_registered": false
+        }
+      ],
+      "residual_protocol": {
+        "metric": "mean absolute residual",
+        "method": "bounded replay residual budget",
+        "model_residual": 0.0,
+        "comparator_residual": 43988.0,
+        "uncertainty_interval": [
+          0.0,
+          0.0
+        ]
+      },
+      "uncertainty_protocol": {
+        "metric": "mean absolute residual",
+        "method": "bounded replay residual budget",
+        "interval": [
+          0.0,
+          0.0
+        ]
+      },
+      "negative_controls": [
+        "NORMED_RESIDUAL_NEGATIVE_CONTROL: comparator residual must be strictly larger than model residual"
+      ],
+      "falsifiers": [
+        "comparator residual not worse than model residual"
+      ],
+      "official_source_refs": [
+        {
+          "kind": "raw_snapshot",
+          "ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+          "sha256": "f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4",
+          "byte_count": 526
+        },
+        {
+          "name": "NCBI GEO ESearch API endpoint",
+          "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?term=GPL96[Accession]&retmode=json&retmax=20&retstart=0&db=gds",
+          "official_ref": "https://www.ncbi.nlm.nih.gov",
+          "reachable": null
+        }
+      ],
+      "observation_rows": [
+        {
+          "observation_id": "BIOLOGY-BOUNDED-NCBI-GEO-001",
+          "training_source": "validation/_raw/biology_ncbi_geo_platform.txt::visible_fields(retstart,idlist)",
+          "target_source": "validation/_raw/biology_ncbi_geo_platform.txt::withheld_field(retmax)",
+          "formula": "retstart + len(idlist)",
+          "predicted_value": 20.0,
+          "observed_value": 20.0,
+          "comparator_prediction": 44008.0,
+          "uncertainty": 0.4,
+          "negative_control_id": "biology-gene-expression-count-bounded-control",
+          "negative_control_description": "if target-blind replay exceeds comparator residual, the comparator is not rejected",
+          "falsifier": "comparator residual not worse than model residual"
+        }
+      ],
+      "blockers": [
+        "N_BELOW_MINIMUM::1/20",
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "COMPARATOR_BASELINE_NOT_PREREGISTERED"
+      ],
+      "candidate_pack_template": {
+        "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+        "release_id": "oc_core_1_3_3",
+        "capability_owner": "Research/EmpiricalScience",
+        "evidence_pack_id": "oc-core-1-3-3-biology-bounded-acquisition-template",
+        "domain": "biology",
+        "source_separation": {
+          "mode": "target_blind",
+          "pre_target_lock": false,
+          "target_hidden_until_scoring": false,
+          "training_sources": [
+            "validation/_raw/biology_ncbi_geo_platform.txt::visible_fields(retstart,idlist)"
+          ],
+          "target_sources": [
+            "validation/_raw/biology_ncbi_geo_platform.txt::withheld_field(retmax)"
+          ]
+        },
+        "n": 1,
+        "model_under_test": "retstart + len(idlist)",
+        "comparator_baseline": {
+          "name": "NCBI GEO total hit count",
+          "prediction_rule": "use esearchresult.count as the GEO count baseline prediction",
+          "pre_registered": false
+        },
+        "uncertainty": {
+          "metric": "mean absolute residual",
+          "method": "bounded replay residual budget",
+          "interval": [
+            0.0,
+            0.0
+          ]
+        },
+        "residuals": {
+          "model": 0.0,
+          "comparator": 43988.0,
+          "superiority_margin": 43988.0
+        },
+        "negative_controls": [
+          {
+            "control_id": "NORMED_RESIDUAL_NEGATIVE_CONTROL",
+            "description": "comparator residual must be strictly larger than model residual",
+            "rejected": true
+          }
+        ],
+        "falsifiers": [
+          "comparator residual not worse than model residual"
+        ],
+        "grand_toe_support_allowed": false
+      },
+      "pack_template_ref": "validation/heldout/acquisition_plans/biology_systems/biology_candidate_pack_template.json",
+      "evidence_schema_fields": [
+        "schema_id",
+        "release_id",
+        "capability_owner",
+        "evidence_pack_id",
+        "domain",
+        "source_separation",
+        "n",
+        "model_under_test",
+        "comparator_baseline",
+        "uncertainty",
+        "residuals",
+        "negative_controls",
+        "falsifiers",
+        "grand_toe_support_allowed"
+      ],
+      "protocol_schema_fields": [
+        "schema_id",
+        "release_id",
+        "version",
+        "capability_owner",
+        "blocker_id",
+        "verdict",
+        "blocked_domain_total",
+        "queue_total",
+        "requirements_ref",
+        "evidence_schema_ref",
+        "protocol_schema_ref",
+        "sample_pack_ref",
+        "rows"
+      ],
+      "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PLAN",
+      "grand_toe_support_allowed": false
+    },
+    {
+      "domain": "systems",
+      "snapshot_ref": "validation/_raw/systems_world_bank_gdp.txt",
+      "snapshot_kind": "bounded_world_bank_wdi_replay",
+      "snapshot_sha256": "52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b",
+      "snapshot_byte_count": 1103,
+      "schema_refs": {
+        "evidence": "validation/grand_science/grand_empirical_evidence.schema.json",
+        "protocol": "validation/grand_science/grand_empirical_protocol.schema.json",
+        "requirements": "benchmarks/grand_science/domain_requirements.json"
+      },
+      "required_source_separation": {
+        "mode_options": [
+          "prospective",
+          "target_blind"
+        ],
+        "pre_target_lock": true,
+        "target_hidden_until_scoring": true
+      },
+      "current_source_separation": {
+        "mode": "target_blind",
+        "pre_target_lock": false,
+        "target_hidden_until_scoring": false,
+        "training_sources": [
+          "validation/_raw/systems_world_bank_gdp.txt::years(2021,2022,2023)",
+          "validation/_raw/systems_world_bank_gdp.txt::years(2020,2021,2022)"
+        ],
+        "target_sources": [
+          "validation/_raw/systems_world_bank_gdp.txt::year:2024"
+        ]
+      },
+      "required_n": 20,
+      "current_n": 1,
+      "missing_n": 19,
+      "model_under_test": "GDP_2023 + (GDP_2023 - GDP_2021) / 2",
+      "comparator_choices": [
+        {
+          "name": "World Bank GDP carry-forward comparator",
+          "prediction_rule": "predict next year as previous year",
+          "pre_registered": false
+        }
+      ],
+      "residual_protocol": {
+        "metric": "mean absolute residual",
+        "method": "bounded replay budget over one held-out GDP year",
+        "model_residual": 59572919095.09375,
+        "comparator_residual": 4241013358949.0,
+        "uncertainty_interval": [
+          29786459547.546875,
+          89359378642.64062
+        ]
+      },
+      "uncertainty_protocol": {
+        "metric": "mean absolute residual",
+        "method": "bounded replay budget over one held-out GDP year",
+        "interval": [
+          29786459547.546875,
+          89359378642.64062
+        ]
+      },
+      "negative_controls": [
+        "NORMED_RESIDUAL_NEGATIVE_CONTROL: comparator residual must be strictly larger than model residual"
+      ],
+      "falsifiers": [
+        "comparator residual not worse than model residual"
+      ],
+      "official_source_refs": [
+        {
+          "kind": "raw_snapshot",
+          "ref": "validation/_raw/systems_world_bank_gdp.txt",
+          "sha256": "52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b",
+          "byte_count": 1103
+        },
+        {
+          "name": "World Bank WDI API endpoint",
+          "url": "https://api.worldbank.org/v2/country/1W/indicator/NY.GDP.MKTP.CD?format=json&per_page=5",
+          "official_ref": "https://api.worldbank.org/",
+          "reachable": null
+        }
+      ],
+      "observation_rows": [
+        {
+          "observation_id": "SYSTEMS-BOUNDED-WDI-GDP-2024",
+          "training_source": "validation/_raw/systems_world_bank_gdp.txt::years(2021,2022,2023)",
+          "target_source": "validation/_raw/systems_world_bank_gdp.txt::year:2024",
+          "formula": "GDP_2023 + (GDP_2023 - GDP_2021) / 2",
+          "predicted_value": 111042234099108.1,
+          "observed_value": 110982661180013.0,
+          "comparator_prediction": 106741647821064.0,
+          "uncertainty": 1109826611800.1301,
+          "negative_control_id": "systems-wdi-gdp-last-observation-control",
+          "negative_control_description": "GDP carry-forward baseline should remain a valid comparator only if it is worse than the model on held-out horizon",
+          "falsifier": "comparator residual not worse than model residual"
+        }
+      ],
+      "blockers": [
+        "N_BELOW_MINIMUM::1/20",
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "COMPARATOR_BASELINE_NOT_PREREGISTERED"
+      ],
+      "candidate_pack_template": {
+        "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+        "release_id": "oc_core_1_3_3",
+        "capability_owner": "Research/EmpiricalScience",
+        "evidence_pack_id": "oc-core-1-3-3-systems-bounded-acquisition-template",
+        "domain": "systems",
+        "source_separation": {
+          "mode": "target_blind",
+          "pre_target_lock": false,
+          "target_hidden_until_scoring": false,
+          "training_sources": [
+            "validation/_raw/systems_world_bank_gdp.txt::years(2021,2022,2023)",
+            "validation/_raw/systems_world_bank_gdp.txt::years(2020,2021,2022)"
+          ],
+          "target_sources": [
+            "validation/_raw/systems_world_bank_gdp.txt::year:2024"
+          ]
+        },
+        "n": 1,
+        "model_under_test": "GDP_2023 + (GDP_2023 - GDP_2021) / 2",
+        "comparator_baseline": {
+          "name": "World Bank GDP carry-forward comparator",
+          "prediction_rule": "predict next year as previous year",
+          "pre_registered": false
+        },
+        "uncertainty": {
+          "metric": "mean absolute residual",
+          "method": "bounded replay budget over one held-out GDP year",
+          "interval": [
+            29786459547.546875,
+            89359378642.64062
+          ]
+        },
+        "residuals": {
+          "model": 59572919095.09375,
+          "comparator": 4241013358949.0,
+          "superiority_margin": 4181440439853.9062
+        },
+        "negative_controls": [
+          {
+            "control_id": "NORMED_RESIDUAL_NEGATIVE_CONTROL",
+            "description": "comparator residual must be strictly larger than model residual",
+            "rejected": true
+          }
+        ],
+        "falsifiers": [
+          "comparator residual not worse than model residual"
+        ],
+        "grand_toe_support_allowed": false
+      },
+      "pack_template_ref": "validation/heldout/acquisition_plans/biology_systems/systems_candidate_pack_template.json",
+      "evidence_schema_fields": [
+        "schema_id",
+        "release_id",
+        "capability_owner",
+        "evidence_pack_id",
+        "domain",
+        "source_separation",
+        "n",
+        "model_under_test",
+        "comparator_baseline",
+        "uncertainty",
+        "residuals",
+        "negative_controls",
+        "falsifiers",
+        "grand_toe_support_allowed"
+      ],
+      "protocol_schema_fields": [
+        "schema_id",
+        "release_id",
+        "version",
+        "capability_owner",
+        "blocker_id",
+        "verdict",
+        "blocked_domain_total",
+        "queue_total",
+        "requirements_ref",
+        "evidence_schema_ref",
+        "protocol_schema_ref",
+        "sample_pack_ref",
+        "rows"
+      ],
+      "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PLAN",
+      "grand_toe_support_allowed": false
+    }
+  ],
+  "source_endpoint_checks_requested": false,
+  "endpoint_timeout_seconds": 2.0,
+  "no_send": true,
+  "publish_allowed": false,
+  "journal_submissions_allowed": false,
+  "grand_toe_support_allowed": false,
+  "verdict": "BLOCKED_PENDING_GENUINE_BIOLOGY_SYSTEMS_ACQUISITION"
+}

@@ -2,22 +2,23 @@
   "schema_id": "OC133_DOMAIN_EVIDENCE_EXECUTOR_RUN_v1",
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
-  "generated_at": "2026-05-01T01:58:36Z",
+  "generated_at": "2026-05-01T02:21:09Z",
   "capability_owner": "Research/EmpiricalScience",
   "executor_root_ref": "validation/heldout/domain_evidence",
-  "executor_total": 2,
+  "executor_total": 3,
   "executor_refs": [
     "validation/heldout/domain_evidence/biology_systems_evidence_executor.py",
+    "validation/heldout/domain_evidence/mathematics_evidence_executor.py",
     "validation/heldout/domain_evidence/physics_chemistry_evidence_executor.py"
   ],
   "command_failure_total": 0,
   "command_failure_refs": [],
-  "parsed_payload_total": 1,
-  "artifact_payload_total": 2,
-  "effective_payload_total": 2,
-  "candidate_pack_total": 4,
+  "parsed_payload_total": 2,
+  "artifact_payload_total": 3,
+  "effective_payload_total": 3,
+  "candidate_pack_total": 5,
   "valid_pack_total": 0,
-  "blocked_executor_payload_total": 2,
+  "blocked_executor_payload_total": 3,
   "results": [
     {
       "executor_ref": "validation/heldout/domain_evidence/biology_systems_evidence_executor.py",
@@ -700,6 +701,449 @@
         "no_send": true,
         "publish_allowed": false,
         "registry_write_allowed": false
+      },
+      "parsed_json": true,
+      "artifact_payload_found": true,
+      "command_pass": true
+    },
+    {
+      "executor_ref": "validation/heldout/domain_evidence/mathematics_evidence_executor.py",
+      "command": [
+        "python",
+        "validation/heldout/domain_evidence/mathematics_evidence_executor.py",
+        "--write",
+        "--allow-blocked-exit-zero"
+      ],
+      "standard_command": [
+        "python",
+        "validation/heldout/domain_evidence/mathematics_evidence_executor.py",
+        "--write",
+        "--allow-blocked-exit-zero"
+      ],
+      "compatibility_retry_without_allow_blocked_exit_zero": false,
+      "returncode": 0,
+      "stdout_tail": "\": 10,\n        \"positive_case_total\": 21,\n        \"lean_theorem_ref_total\": 15,\n        \"lean_source_ref\": \"formal/lean/OC133V12.lean\",\n        \"current_lean_source_sha256\": \"6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f\",\n        \"certificate_lean_source_sha256\": \"6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f\"\n      },\n      \"source_separation\": {\n        \"mode\": \"target_blind\",\n        \"pre_target_lock\": true,\n        \"target_hidden_until_scoring\": true,\n        \"training_sources\": [\n          \"proofs/FINITE_MODEL_CHECKS_1_3_3.json::finite_theorem_case_rows(case_type,observed_verdict,passed,theorem_id)\"\n        ],\n        \"target_sources\": [\n          \"proofs/FINITE_MODEL_CHECKS_1_3_3.json::machine_checked_subset_total\"\n        ]\n      },\n      \"candidate_n\": 1,\n      \"minimum_n\": 20,\n      \"missing_n\": 19,\n      \"grand_toe_support_allowed\": false,\n      \"residuals\": {\n        \"model\": 0.0,\n        \"comparator\": 11.0,\n        \"superiority_margin\": 11.0\n      },\n      \"negative_controls\": [\n        {\n          \"control_id\": \"OC133-TARGETBLIND-MATHEMATICS-001-POSITIVE-CASE-TOTAL-CONTROL\",\n          \"description\": \"replace theorem-id aggregate by positive_case_total and require a larger residual\",\n          \"rejected\": true\n        }\n      ],\n      \"falsifiers\": [\n        \"Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse\"\n      ],\n      \"binding_failures\": [],\n      \"grand_gate_failures\": [\n        \"N_BELOW_MINIMUM::20\",\n        \"GRAND_TOE_SUPPORT_NOT_ALLOWED\"\n      ],\n      \"tamper_test_total\": 5,\n      \"tamper_tests\": [\n        {\n          \"test_id\": \"mathematics-proof-corpus-aggregate-tamper-hash-changes\",\n          \"description\": \"mutating machine_checked_subset_total must change the canonical proof-corpus hash\",\n          \"passed\": true\n        },\n        {\n          \"test_id\": \"mathematics-proof-corpus-aggregate-tamper-replay-detected\",\n          \"description\": \"mutating the target aggregate must change the replayed model residual\",\n          \"passed\": true,\n          \"original_model_residual\": 0.0,\n          \"mutated_model_residual\": 1.0\n        },\n        {\n          \"test_id\": \"mathematics-positive-case-negative-control-residual-test\",\n          \"description\": \"positive_case_total control must have larger residual than the theorem-case aggregate\",\n          \"passed\": true,\n          \"model_residual\": 0.0,\n          \"comparator_residual\": 11.0\n        },\n        {\n          \"test_id\": \"mathematics-negative-control-mutation-rejected\",\n          \"description\": \"replacing the comparator with the model prediction must fail negative-control validation\",\n          \"passed\": true,\n          \"expected_rejection\": \"COMPARATOR_NOT_WORSE_THAN_MODEL\"\n        },\n        {\n          \"test_id\": \"mathematics-target-blind-row-tamper-hash-changes\",\n          \"description\": \"mutating a target-blind row value must change the deterministic row hash\",\n          \"passed\": true\n        }\n      ],\n      \"valid_under_executor\": false,\n      \"valid_under_current_grand_schema\": false,\n      \"valid_under_grand_gate\": false,\n      \"blockers\": [\n        \"MATHEMATICS_CURRENT_SOURCE_IS_FINITE_LEAN_PROOF_CORPUS_NOT_EMPIRICAL_GRAND_EVIDENCE\",\n        \"GENUINE_EVIDENCE_N_BELOW_MINIMUM::1/20\",\n        \"GRAND_TOE_SUPPORT_FORCED_FALSE_FOR_CURRENT_MATHEMATICS_EVIDENCE\",\n        \"GRAND_GATE::N_BELOW_MINIMUM::20\",\n        \"GRAND_GATE::GRAND_TOE_SUPPORT_NOT_ALLOWED\"\n      ]\n    }\n  ],\n  \"verdict\": \"BLOCKED_PENDING_GENUINE_MATHEMATICS_EVIDENCE\",\n  \"no_fabricated_success_policy\": \"Current mathematics evidence is a finite Lean/proof-corpus aggregate. It is deterministic and useful for bounded formal QA, but it is not empirical grand evidence and cannot set grand_toe_support_allowed=true.\",\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"registry_write_allowed\": false,\n  \"report_sha256\": \"69bd67112a2411ccfe0e8d7977af0a5aa1ee52df6635ade42f13defd5617bfee\"\n}\n",
+      "stderr_tail": "",
+      "parsed_payload": {
+        "schema_id": "OC133_MATHEMATICS_EVIDENCE_EXECUTION_REPORT_v1",
+        "release_id": "oc_core_1_3_3",
+        "version": "1.3.3",
+        "capability_owner": "Research/EmpiricalScience",
+        "blocker_id": "grand_toe_empirical_superiority",
+        "executor": "validation/heldout/domain_evidence/mathematics_evidence_executor.py",
+        "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+        "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
+        "grand_factory_ref": "validation/grand_science/evidence_pack_factory.py",
+        "output_root_ref": "validation/heldout/grand_science/mathematics",
+        "report_ref": "validation/heldout/grand_science/mathematics/OC133_MATHEMATICS_EVIDENCE_EXECUTION_REPORT.json",
+        "protocol_ref": "validation/heldout/grand_science/mathematics/OC133_MATHEMATICS_EVIDENCE_PROTOCOL.json",
+        "candidate_pack_refs": [
+          "validation/heldout/grand_science/mathematics/mathematics_candidate_evidence_pack.json"
+        ],
+        "candidate_pack_total": 1,
+        "valid_under_current_grand_schema_total": 0,
+        "valid_under_grand_gate_total": 0,
+        "valid_under_executor_total": 0,
+        "valid_pack_total": 0,
+        "blocked_pack_total": 1,
+        "blocked_domain_total": 1,
+        "protocol_sha256": "ad18bedf5c880587997c9a26d8a9c8b9651ed8ffd61414bfcc836361a66d98db",
+        "domains": [
+          {
+            "domain": "mathematics",
+            "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PACK",
+            "candidate_pack_ref": "validation/heldout/grand_science/mathematics/mathematics_candidate_evidence_pack.json",
+            "candidate_pack_sha256": "985177a31866ed300d95478868847469b82cd71347423fbeda52f6bc38c30bae",
+            "candidate_pack_hash_policy": "sha256 over sorted canonical JSON",
+            "snapshot_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+            "snapshot_sha256": "6cc852b04933d0f8a0dd8812733f09bd09491bde49d914e61a6c7548d8e95749",
+            "snapshot_sha256_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+            "snapshot_byte_count": 302918,
+            "snapshot_canonical_sha256": "07036604f8d4608b52e8dbba2d57b9d86c43786fa01a8193ff84f55079d75621",
+            "snapshot_canonical_hash_policy": "sha256 over sorted canonical JSON",
+            "target_blind_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+            "target_blind_row_sha256": "a5a9910ec6dd67ea5fdd41ff85d50e600b9cbfacedefe8c49fd35f23703d88d7",
+            "target_blind_row_hash_policy": "sha256 over sorted JSON row before replay_hash insertion",
+            "source_assessment": {
+              "source_kind": "finite_lean_proof_corpus",
+              "grand_empirical_source": false,
+              "scope_statement": "source is finite/Lean proof corpus, not empirical grand evidence",
+              "candidate_n_policy": "current N is one bounded aggregate replay; Lean theorem counts are not empirical observation N",
+              "machine_checked_subset_total": 10,
+              "unique_accepted_theorem_total": 10,
+              "positive_case_total": 21,
+              "lean_theorem_ref_total": 15,
+              "lean_source_ref": "formal/lean/OC133V12.lean",
+              "current_lean_source_sha256": "6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f",
+              "certificate_lean_source_sha256": "6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f"
+            },
+            "source_separation": {
+              "mode": "target_blind",
+              "pre_target_lock": true,
+              "target_hidden_until_scoring": true,
+              "training_sources": [
+                "proofs/FINITE_MODEL_CHECKS_1_3_3.json::finite_theorem_case_rows(case_type,observed_verdict,passed,theorem_id)"
+              ],
+              "target_sources": [
+                "proofs/FINITE_MODEL_CHECKS_1_3_3.json::machine_checked_subset_total"
+              ]
+            },
+            "candidate_n": 1,
+            "minimum_n": 20,
+            "missing_n": 19,
+            "grand_toe_support_allowed": false,
+            "residuals": {
+              "model": 0.0,
+              "comparator": 11.0,
+              "superiority_margin": 11.0
+            },
+            "negative_controls": [
+              {
+                "control_id": "OC133-TARGETBLIND-MATHEMATICS-001-POSITIVE-CASE-TOTAL-CONTROL",
+                "description": "replace theorem-id aggregate by positive_case_total and require a larger residual",
+                "rejected": true
+              }
+            ],
+            "falsifiers": [
+              "Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse"
+            ],
+            "binding_failures": [],
+            "grand_gate_failures": [
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ],
+            "tamper_test_total": 5,
+            "tamper_tests": [
+              {
+                "test_id": "mathematics-proof-corpus-aggregate-tamper-hash-changes",
+                "description": "mutating machine_checked_subset_total must change the canonical proof-corpus hash",
+                "passed": true
+              },
+              {
+                "test_id": "mathematics-proof-corpus-aggregate-tamper-replay-detected",
+                "description": "mutating the target aggregate must change the replayed model residual",
+                "passed": true,
+                "original_model_residual": 0.0,
+                "mutated_model_residual": 1.0
+              },
+              {
+                "test_id": "mathematics-positive-case-negative-control-residual-test",
+                "description": "positive_case_total control must have larger residual than the theorem-case aggregate",
+                "passed": true,
+                "model_residual": 0.0,
+                "comparator_residual": 11.0
+              },
+              {
+                "test_id": "mathematics-negative-control-mutation-rejected",
+                "description": "replacing the comparator with the model prediction must fail negative-control validation",
+                "passed": true,
+                "expected_rejection": "COMPARATOR_NOT_WORSE_THAN_MODEL"
+              },
+              {
+                "test_id": "mathematics-target-blind-row-tamper-hash-changes",
+                "description": "mutating a target-blind row value must change the deterministic row hash",
+                "passed": true
+              }
+            ],
+            "valid_under_executor": false,
+            "valid_under_current_grand_schema": false,
+            "valid_under_grand_gate": false,
+            "blockers": [
+              "MATHEMATICS_CURRENT_SOURCE_IS_FINITE_LEAN_PROOF_CORPUS_NOT_EMPIRICAL_GRAND_EVIDENCE",
+              "GENUINE_EVIDENCE_N_BELOW_MINIMUM::1/20",
+              "GRAND_TOE_SUPPORT_FORCED_FALSE_FOR_CURRENT_MATHEMATICS_EVIDENCE",
+              "GRAND_GATE::N_BELOW_MINIMUM::20",
+              "GRAND_GATE::GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ]
+          }
+        ],
+        "verdict": "BLOCKED_PENDING_GENUINE_MATHEMATICS_EVIDENCE",
+        "no_fabricated_success_policy": "Current mathematics evidence is a finite Lean/proof-corpus aggregate. It is deterministic and useful for bounded formal QA, but it is not empirical grand evidence and cannot set grand_toe_support_allowed=true.",
+        "no_send": true,
+        "publish_allowed": false,
+        "registry_write_allowed": false,
+        "report_sha256": "69bd67112a2411ccfe0e8d7977af0a5aa1ee52df6635ade42f13defd5617bfee"
+      },
+      "artifact_payload": {
+        "schema_id": "OC133_MATHEMATICS_EVIDENCE_EXECUTION_REPORT_v1",
+        "release_id": "oc_core_1_3_3",
+        "version": "1.3.3",
+        "capability_owner": "Research/EmpiricalScience",
+        "blocker_id": "grand_toe_empirical_superiority",
+        "executor": "validation/heldout/domain_evidence/mathematics_evidence_executor.py",
+        "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+        "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
+        "grand_factory_ref": "validation/grand_science/evidence_pack_factory.py",
+        "output_root_ref": "validation/heldout/grand_science/mathematics",
+        "report_ref": "validation/heldout/grand_science/mathematics/OC133_MATHEMATICS_EVIDENCE_EXECUTION_REPORT.json",
+        "protocol_ref": "validation/heldout/grand_science/mathematics/OC133_MATHEMATICS_EVIDENCE_PROTOCOL.json",
+        "candidate_pack_refs": [
+          "validation/heldout/grand_science/mathematics/mathematics_candidate_evidence_pack.json"
+        ],
+        "candidate_pack_total": 1,
+        "valid_under_current_grand_schema_total": 0,
+        "valid_under_grand_gate_total": 0,
+        "valid_under_executor_total": 0,
+        "valid_pack_total": 0,
+        "blocked_pack_total": 1,
+        "blocked_domain_total": 1,
+        "protocol_sha256": "ad18bedf5c880587997c9a26d8a9c8b9651ed8ffd61414bfcc836361a66d98db",
+        "domains": [
+          {
+            "domain": "mathematics",
+            "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PACK",
+            "candidate_pack_ref": "validation/heldout/grand_science/mathematics/mathematics_candidate_evidence_pack.json",
+            "candidate_pack_sha256": "985177a31866ed300d95478868847469b82cd71347423fbeda52f6bc38c30bae",
+            "candidate_pack_hash_policy": "sha256 over sorted canonical JSON",
+            "snapshot_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+            "snapshot_sha256": "6cc852b04933d0f8a0dd8812733f09bd09491bde49d914e61a6c7548d8e95749",
+            "snapshot_sha256_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+            "snapshot_byte_count": 302918,
+            "snapshot_canonical_sha256": "07036604f8d4608b52e8dbba2d57b9d86c43786fa01a8193ff84f55079d75621",
+            "snapshot_canonical_hash_policy": "sha256 over sorted canonical JSON",
+            "target_blind_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+            "target_blind_row_sha256": "a5a9910ec6dd67ea5fdd41ff85d50e600b9cbfacedefe8c49fd35f23703d88d7",
+            "target_blind_row_hash_policy": "sha256 over sorted JSON row before replay_hash insertion",
+            "source_assessment": {
+              "source_kind": "finite_lean_proof_corpus",
+              "grand_empirical_source": false,
+              "scope_statement": "source is finite/Lean proof corpus, not empirical grand evidence",
+              "candidate_n_policy": "current N is one bounded aggregate replay; Lean theorem counts are not empirical observation N",
+              "machine_checked_subset_total": 10,
+              "unique_accepted_theorem_total": 10,
+              "positive_case_total": 21,
+              "lean_theorem_ref_total": 15,
+              "lean_source_ref": "formal/lean/OC133V12.lean",
+              "current_lean_source_sha256": "6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f",
+              "certificate_lean_source_sha256": "6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f"
+            },
+            "source_separation": {
+              "mode": "target_blind",
+              "pre_target_lock": true,
+              "target_hidden_until_scoring": true,
+              "training_sources": [
+                "proofs/FINITE_MODEL_CHECKS_1_3_3.json::finite_theorem_case_rows(case_type,observed_verdict,passed,theorem_id)"
+              ],
+              "target_sources": [
+                "proofs/FINITE_MODEL_CHECKS_1_3_3.json::machine_checked_subset_total"
+              ]
+            },
+            "candidate_n": 1,
+            "minimum_n": 20,
+            "missing_n": 19,
+            "grand_toe_support_allowed": false,
+            "residuals": {
+              "model": 0.0,
+              "comparator": 11.0,
+              "superiority_margin": 11.0
+            },
+            "negative_controls": [
+              {
+                "control_id": "OC133-TARGETBLIND-MATHEMATICS-001-POSITIVE-CASE-TOTAL-CONTROL",
+                "description": "replace theorem-id aggregate by positive_case_total and require a larger residual",
+                "rejected": true
+              }
+            ],
+            "falsifiers": [
+              "Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse"
+            ],
+            "binding_failures": [],
+            "grand_gate_failures": [
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ],
+            "tamper_test_total": 5,
+            "tamper_tests": [
+              {
+                "test_id": "mathematics-proof-corpus-aggregate-tamper-hash-changes",
+                "description": "mutating machine_checked_subset_total must change the canonical proof-corpus hash",
+                "passed": true
+              },
+              {
+                "test_id": "mathematics-proof-corpus-aggregate-tamper-replay-detected",
+                "description": "mutating the target aggregate must change the replayed model residual",
+                "passed": true,
+                "original_model_residual": 0.0,
+                "mutated_model_residual": 1.0
+              },
+              {
+                "test_id": "mathematics-positive-case-negative-control-residual-test",
+                "description": "positive_case_total control must have larger residual than the theorem-case aggregate",
+                "passed": true,
+                "model_residual": 0.0,
+                "comparator_residual": 11.0
+              },
+              {
+                "test_id": "mathematics-negative-control-mutation-rejected",
+                "description": "replacing the comparator with the model prediction must fail negative-control validation",
+                "passed": true,
+                "expected_rejection": "COMPARATOR_NOT_WORSE_THAN_MODEL"
+              },
+              {
+                "test_id": "mathematics-target-blind-row-tamper-hash-changes",
+                "description": "mutating a target-blind row value must change the deterministic row hash",
+                "passed": true
+              }
+            ],
+            "valid_under_executor": false,
+            "valid_under_current_grand_schema": false,
+            "valid_under_grand_gate": false,
+            "blockers": [
+              "MATHEMATICS_CURRENT_SOURCE_IS_FINITE_LEAN_PROOF_CORPUS_NOT_EMPIRICAL_GRAND_EVIDENCE",
+              "GENUINE_EVIDENCE_N_BELOW_MINIMUM::1/20",
+              "GRAND_TOE_SUPPORT_FORCED_FALSE_FOR_CURRENT_MATHEMATICS_EVIDENCE",
+              "GRAND_GATE::N_BELOW_MINIMUM::20",
+              "GRAND_GATE::GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ]
+          }
+        ],
+        "verdict": "BLOCKED_PENDING_GENUINE_MATHEMATICS_EVIDENCE",
+        "no_fabricated_success_policy": "Current mathematics evidence is a finite Lean/proof-corpus aggregate. It is deterministic and useful for bounded formal QA, but it is not empirical grand evidence and cannot set grand_toe_support_allowed=true.",
+        "no_send": true,
+        "publish_allowed": false,
+        "registry_write_allowed": false,
+        "report_sha256": "69bd67112a2411ccfe0e8d7977af0a5aa1ee52df6635ade42f13defd5617bfee",
+        "artifact_report_ref": "validation/heldout/grand_science/mathematics/OC133_MATHEMATICS_EVIDENCE_EXECUTION_REPORT.json"
+      },
+      "effective_payload": {
+        "schema_id": "OC133_MATHEMATICS_EVIDENCE_EXECUTION_REPORT_v1",
+        "release_id": "oc_core_1_3_3",
+        "version": "1.3.3",
+        "capability_owner": "Research/EmpiricalScience",
+        "blocker_id": "grand_toe_empirical_superiority",
+        "executor": "validation/heldout/domain_evidence/mathematics_evidence_executor.py",
+        "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+        "evidence_schema_ref": "validation/grand_science/grand_empirical_evidence.schema.json",
+        "grand_factory_ref": "validation/grand_science/evidence_pack_factory.py",
+        "output_root_ref": "validation/heldout/grand_science/mathematics",
+        "report_ref": "validation/heldout/grand_science/mathematics/OC133_MATHEMATICS_EVIDENCE_EXECUTION_REPORT.json",
+        "protocol_ref": "validation/heldout/grand_science/mathematics/OC133_MATHEMATICS_EVIDENCE_PROTOCOL.json",
+        "candidate_pack_refs": [
+          "validation/heldout/grand_science/mathematics/mathematics_candidate_evidence_pack.json"
+        ],
+        "candidate_pack_total": 1,
+        "valid_under_current_grand_schema_total": 0,
+        "valid_under_grand_gate_total": 0,
+        "valid_under_executor_total": 0,
+        "valid_pack_total": 0,
+        "blocked_pack_total": 1,
+        "blocked_domain_total": 1,
+        "protocol_sha256": "ad18bedf5c880587997c9a26d8a9c8b9651ed8ffd61414bfcc836361a66d98db",
+        "domains": [
+          {
+            "domain": "mathematics",
+            "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PACK",
+            "candidate_pack_ref": "validation/heldout/grand_science/mathematics/mathematics_candidate_evidence_pack.json",
+            "candidate_pack_sha256": "985177a31866ed300d95478868847469b82cd71347423fbeda52f6bc38c30bae",
+            "candidate_pack_hash_policy": "sha256 over sorted canonical JSON",
+            "snapshot_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+            "snapshot_sha256": "6cc852b04933d0f8a0dd8812733f09bd09491bde49d914e61a6c7548d8e95749",
+            "snapshot_sha256_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+            "snapshot_byte_count": 302918,
+            "snapshot_canonical_sha256": "07036604f8d4608b52e8dbba2d57b9d86c43786fa01a8193ff84f55079d75621",
+            "snapshot_canonical_hash_policy": "sha256 over sorted canonical JSON",
+            "target_blind_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+            "target_blind_row_sha256": "a5a9910ec6dd67ea5fdd41ff85d50e600b9cbfacedefe8c49fd35f23703d88d7",
+            "target_blind_row_hash_policy": "sha256 over sorted JSON row before replay_hash insertion",
+            "source_assessment": {
+              "source_kind": "finite_lean_proof_corpus",
+              "grand_empirical_source": false,
+              "scope_statement": "source is finite/Lean proof corpus, not empirical grand evidence",
+              "candidate_n_policy": "current N is one bounded aggregate replay; Lean theorem counts are not empirical observation N",
+              "machine_checked_subset_total": 10,
+              "unique_accepted_theorem_total": 10,
+              "positive_case_total": 21,
+              "lean_theorem_ref_total": 15,
+              "lean_source_ref": "formal/lean/OC133V12.lean",
+              "current_lean_source_sha256": "6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f",
+              "certificate_lean_source_sha256": "6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f"
+            },
+            "source_separation": {
+              "mode": "target_blind",
+              "pre_target_lock": true,
+              "target_hidden_until_scoring": true,
+              "training_sources": [
+                "proofs/FINITE_MODEL_CHECKS_1_3_3.json::finite_theorem_case_rows(case_type,observed_verdict,passed,theorem_id)"
+              ],
+              "target_sources": [
+                "proofs/FINITE_MODEL_CHECKS_1_3_3.json::machine_checked_subset_total"
+              ]
+            },
+            "candidate_n": 1,
+            "minimum_n": 20,
+            "missing_n": 19,
+            "grand_toe_support_allowed": false,
+            "residuals": {
+              "model": 0.0,
+              "comparator": 11.0,
+              "superiority_margin": 11.0
+            },
+            "negative_controls": [
+              {
+                "control_id": "OC133-TARGETBLIND-MATHEMATICS-001-POSITIVE-CASE-TOTAL-CONTROL",
+                "description": "replace theorem-id aggregate by positive_case_total and require a larger residual",
+                "rejected": true
+              }
+            ],
+            "falsifiers": [
+              "Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse"
+            ],
+            "binding_failures": [],
+            "grand_gate_failures": [
+              "N_BELOW_MINIMUM::20",
+              "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ],
+            "tamper_test_total": 5,
+            "tamper_tests": [
+              {
+                "test_id": "mathematics-proof-corpus-aggregate-tamper-hash-changes",
+                "description": "mutating machine_checked_subset_total must change the canonical proof-corpus hash",
+                "passed": true
+              },
+              {
+                "test_id": "mathematics-proof-corpus-aggregate-tamper-replay-detected",
+                "description": "mutating the target aggregate must change the replayed model residual",
+                "passed": true,
+                "original_model_residual": 0.0,
+                "mutated_model_residual": 1.0
+              },
+              {
+                "test_id": "mathematics-positive-case-negative-control-residual-test",
+                "description": "positive_case_total control must have larger residual than the theorem-case aggregate",
+                "passed": true,
+                "model_residual": 0.0,
+                "comparator_residual": 11.0
+              },
+              {
+                "test_id": "mathematics-negative-control-mutation-rejected",
+                "description": "replacing the comparator with the model prediction must fail negative-control validation",
+                "passed": true,
+                "expected_rejection": "COMPARATOR_NOT_WORSE_THAN_MODEL"
+              },
+              {
+                "test_id": "mathematics-target-blind-row-tamper-hash-changes",
+                "description": "mutating a target-blind row value must change the deterministic row hash",
+                "passed": true
+              }
+            ],
+            "valid_under_executor": false,
+            "valid_under_current_grand_schema": false,
+            "valid_under_grand_gate": false,
+            "blockers": [
+              "MATHEMATICS_CURRENT_SOURCE_IS_FINITE_LEAN_PROOF_CORPUS_NOT_EMPIRICAL_GRAND_EVIDENCE",
+              "GENUINE_EVIDENCE_N_BELOW_MINIMUM::1/20",
+              "GRAND_TOE_SUPPORT_FORCED_FALSE_FOR_CURRENT_MATHEMATICS_EVIDENCE",
+              "GRAND_GATE::N_BELOW_MINIMUM::20",
+              "GRAND_GATE::GRAND_TOE_SUPPORT_NOT_ALLOWED"
+            ]
+          }
+        ],
+        "verdict": "BLOCKED_PENDING_GENUINE_MATHEMATICS_EVIDENCE",
+        "no_fabricated_success_policy": "Current mathematics evidence is a finite Lean/proof-corpus aggregate. It is deterministic and useful for bounded formal QA, but it is not empirical grand evidence and cannot set grand_toe_support_allowed=true.",
+        "no_send": true,
+        "publish_allowed": false,
+        "registry_write_allowed": false,
+        "report_sha256": "69bd67112a2411ccfe0e8d7977af0a5aa1ee52df6635ade42f13defd5617bfee"
       },
       "parsed_json": true,
       "artifact_payload_found": true,

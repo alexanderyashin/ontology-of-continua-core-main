@@ -1,0 +1,56 @@
+{
+  "schema_id": "OC133_BIOLOGY_SYSTEMS_ACQUISITION_REPORT_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "planner": "tools/oc133_biology_systems_acquisition_planner.py",
+  "capability_owner": "Logion IT/Research",
+  "requirements_ref": "benchmarks/grand_science/domain_requirements.json",
+  "output_root_ref": "validation/heldout/acquisition_plans/biology_systems",
+  "required_domain_total": 2,
+  "blocked_domain_total": 2,
+  "open_blocker_total": 2,
+  "grand_toe_support_allowed": false,
+  "rows": [
+    {
+      "domain": "biology",
+      "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PLAN",
+      "required_n": 20,
+      "current_n": 1,
+      "missing_n": 19,
+      "snapshot_ref": "validation/_raw/biology_ncbi_geo_platform.txt",
+      "template_ref": "validation/heldout/acquisition_plans/biology_systems/biology_candidate_pack_template.json",
+      "blocker_total": 4,
+      "blockers": [
+        "N_BELOW_MINIMUM::1/20",
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "COMPARATOR_BASELINE_NOT_PREREGISTERED"
+      ],
+      "grand_toe_support_allowed": false
+    },
+    {
+      "domain": "systems",
+      "status": "BLOCKED_PENDING_GENUINE_EVIDENCE_PLAN",
+      "required_n": 20,
+      "current_n": 1,
+      "missing_n": 19,
+      "snapshot_ref": "validation/_raw/systems_world_bank_gdp.txt",
+      "template_ref": "validation/heldout/acquisition_plans/biology_systems/systems_candidate_pack_template.json",
+      "blocker_total": 4,
+      "blockers": [
+        "N_BELOW_MINIMUM::1/20",
+        "PRE_TARGET_LOCK_REQUIRED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "COMPARATOR_BASELINE_NOT_PREREGISTERED"
+      ],
+      "grand_toe_support_allowed": false
+    }
+  ],
+  "plan_ref": "validation/heldout/acquisition_plans/biology_systems/OC133_BIOLOGY_SYSTEMS_ACQUISITION_PLAN.json",
+  "report_ref": "validation/heldout/acquisition_plans/biology_systems/OC133_BIOLOGY_SYSTEMS_ACQUISITION_REPORT.json",
+  "registry_ref": "validation/heldout/grand_science_evidence_registry.json",
+  "verdict": "BLOCKED_PENDING_GENUINE_BIOLOGY_SYSTEMS_EVIDENCE",
+  "no_send": true,
+  "publish_allowed": false,
+  "journal_submissions_allowed": false
+}

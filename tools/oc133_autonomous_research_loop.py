@@ -409,6 +409,7 @@ def apply_profiles(orders: list[dict[str, Any]]) -> list[dict[str, Any]]:
             ([sys.executable, "tools/oc133_grand_promotion_contract.py", "--write"], "v12_post_materializer_grand_promotion_contract_refresh"),
             ([sys.executable, "validation/target_blind/run_target_blind_predictions.py"], "v12_post_materializer_target_blind_refresh"),
             ([sys.executable, "validation/run_all.py", "--qa-only"], "v12_post_materializer_validation_refresh"),
+            ([sys.executable, "tools/oc133_acquisition_planner_runner.py", "--write", "--allow-blocked-exit-zero"], "v12_post_materializer_acquisition_planner_refresh"),
             ([sys.executable, "tools/oc133_domain_evidence_executor_runner.py", "--write", "--allow-blocked-exit-zero"], "v12_post_materializer_domain_evidence_executor_refresh"),
             ([sys.executable, "tools/oc133_grand_empirical_evidence_factory.py", "--allow-blocked-exit-zero"], "v12_post_materializer_grand_empirical_refresh"),
             ([sys.executable, "tools/oc133_modern_science_comparator_factory.py", "--write"], "v12_post_materializer_modern_science_factory_refresh"),
@@ -468,7 +469,7 @@ def apply_profiles(orders: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def focused_checks() -> list[dict[str, Any]]:
     return [
-        command([sys.executable, "-m", "py_compile", "tools/materialize_oc_core_1_3_3_v12_closure.py", "proofs/finite_model_checks/run_finite_model_checks.py", "tools/oc133_autonomous_research_loop.py", "tools/oc133_capability_repair_executor.py", "tools/oc133_vulnerability_class_remediator.py", "tools/oc133_refresh_lean_certificate.py", "tools/oc133_grand_toe_formal_obligations.py", "tools/oc133_grand_promotion_contract.py", "tools/oc133_domain_evidence_executor_runner.py", "tools/oc133_grand_empirical_evidence_factory.py", "tools/oc133_modern_science_comparator_factory.py", "validation/grand_science/run_grand_empirical_gate.py", "benchmarks/modern_science/validate_modern_science_register.py"], timeout=120),
+        command([sys.executable, "-m", "py_compile", "tools/materialize_oc_core_1_3_3_v12_closure.py", "proofs/finite_model_checks/run_finite_model_checks.py", "tools/oc133_autonomous_research_loop.py", "tools/oc133_capability_repair_executor.py", "tools/oc133_vulnerability_class_remediator.py", "tools/oc133_refresh_lean_certificate.py", "tools/oc133_grand_toe_formal_obligations.py", "tools/oc133_grand_promotion_contract.py", "tools/oc133_acquisition_planner_runner.py", "tools/oc133_domain_evidence_executor_runner.py", "tools/oc133_grand_empirical_evidence_factory.py", "tools/oc133_modern_science_comparator_factory.py", "validation/grand_science/run_grand_empirical_gate.py", "benchmarks/modern_science/validate_modern_science_register.py"], timeout=120),
         command([sys.executable, "tools/oc133_vulnerability_class_remediator.py"], timeout=120),
         command([sys.executable, "proofs/finite_model_checks/run_finite_model_checks.py"], timeout=120),
         command(["lake", "build", "OC133V12"], timeout=600),
@@ -476,6 +477,7 @@ def focused_checks() -> list[dict[str, Any]]:
         command([sys.executable, "tools/oc133_grand_promotion_contract.py", "--write"], timeout=120),
         command([sys.executable, "validation/target_blind/run_target_blind_predictions.py"], timeout=240),
         command([sys.executable, "validation/run_all.py", "--qa-only"], timeout=240),
+        command([sys.executable, "tools/oc133_acquisition_planner_runner.py", "--write", "--allow-blocked-exit-zero"], timeout=240),
         command([sys.executable, "tools/oc133_domain_evidence_executor_runner.py", "--write", "--allow-blocked-exit-zero"], timeout=240),
         command([sys.executable, "validation/grand_science/run_grand_empirical_gate.py", "--allow-blocked-exit-zero"], timeout=120),
         command([sys.executable, "benchmarks/modern_science/validate_modern_science_register.py"], timeout=120),

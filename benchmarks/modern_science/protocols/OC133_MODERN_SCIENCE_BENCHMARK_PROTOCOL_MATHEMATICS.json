@@ -1,0 +1,202 @@
+{
+  "schema_id": "OC133_MODERN_SCIENCE_BENCHMARK_PROTOCOL_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "generated_on": "2026-05-01",
+  "capability_owner": "Logion Research/PriorArt",
+  "blocker_id": "modern_science_comparator_superiority",
+  "protocol_id": "OC133-MODERN-SCIENCE-BENCHMARK-PROTOCOL-MATHEMATICS",
+  "domain": "mathematics",
+  "lane_id": "MS-LANE-MATHEMATICS-LEAN-FINITE",
+  "predicate_id": "MS-PRED-MATH-001",
+  "evidence_refs": {
+    "register_ref": "comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json",
+    "lane_ref": "benchmarks/modern_science/OC133_MODERN_SCIENCE_BENCHMARK_LANES.json",
+    "modern_science_superiority_report_ref": "reports/OC_CORE_1_3_3_MODERN_SCIENCE_SUPERIORITY_REPORT.json",
+    "grand_empirical_report_ref": "reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json",
+    "target_blind_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
+    "numeric_replay_qa_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json"
+  },
+  "incumbent_comparator": {
+    "incumbent": "Lean 4 theorem prover and formal mathematics ecosystem",
+    "accepted_capacity": "Lean 4 is an interactive theorem prover and programming language for verified programs and formal mathematics.",
+    "source_refs": [
+      {
+        "title": "Lean 4 official site",
+        "url": "https://lean4.dev/",
+        "source_date": "reference",
+        "local_source_capsule_ref": "comparators/modern_science/source_capsules/MS-SRC-MATH-LEAN4.txt",
+        "local_source_capsule_sha256": "827b10594ad2c190b6911395f50c819825b9177a2352456e98a0c0ab615427a0"
+      }
+    ]
+  },
+  "oc_model_under_test": {
+    "result_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-MATHEMATICS-001",
+    "claim_id": "OC133-TARGETBLIND-MATHEMATICS-001",
+    "dataset_snapshot_ref": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+    "formula_or_model": "count_unique(theorem_id where case_type='theorem_case' and observed_verdict='ACCEPT' and passed=true)",
+    "predicted_value": 10.0,
+    "observed_value": 10.0,
+    "residual": 0.0,
+    "uncertainty": 0.0,
+    "comparator_baseline": "positive_case_total negative control, which counts non-theorem support rows too",
+    "comparator_prediction": 21.0,
+    "negative_control": "replace theorem-id aggregate by positive_case_total and require a larger residual",
+    "negative_control_rejected": true,
+    "falsifier": "Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse",
+    "prediction_support_allowed": true,
+    "empirical_support_allowed": true,
+    "support_scope": "target-blind reconstruction of a finite proof-corpus aggregate; not a TOE truth proof or empirical law"
+  },
+  "heldout_or_prospective_split": {
+    "mode": "heldout",
+    "source_separation_mode": "target_blind",
+    "split_predicate": "finite_aggregate_split_declared",
+    "declared": true,
+    "source_separation_declared": true,
+    "split_statement": "finite theorem-case rows are visible; aggregate machine_checked_subset_total is withheld until scoring"
+  },
+  "fairness_criteria": [
+    {
+      "predicate": "primary_or_source_backed_incumbent_ref_present",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "finite_aggregate_split_declared",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "exact_metric_declared_before_scoring",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "negative_control_rejected",
+      "required": true,
+      "status": true,
+      "blocked": false
+    },
+    {
+      "predicate": "independent_replay_passes_from_clean_checkout",
+      "required": true,
+      "status": false,
+      "blocked": true
+    },
+    {
+      "predicate": "machine_checked_theorem_scope_matches_public_claim",
+      "required": true,
+      "status": false,
+      "blocked": true
+    },
+    {
+      "predicate": "claim_text_excludes_theorem_prover_or_formal_math_superiority",
+      "required": true,
+      "status": true,
+      "blocked": false
+    }
+  ],
+  "uncertainty": {
+    "declared": true,
+    "uncertainty": 0.0,
+    "model_residual": 0.0,
+    "within_declared_uncertainty": true,
+    "metric_family": "exact finite aggregate equality plus negative-control aggregate mismatch",
+    "prediction_supported": true,
+    "empirical_supported": true
+  },
+  "residual_metric": {
+    "metric_family": "exact finite aggregate equality plus negative-control aggregate mismatch",
+    "model_residual": 0.0,
+    "comparator_residual": 11.0,
+    "superiority_margin": 11.0,
+    "model_predicted": 10.0,
+    "model_observed": 10.0
+  },
+  "negative_controls": [
+    {
+      "source": "target_blind",
+      "claim_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-MATHEMATICS-001",
+      "control": "replace theorem-id aggregate by positive_case_total and require a larger residual",
+      "rejected": true,
+      "domain": "mathematics"
+    },
+    {
+      "source": "numeric_replay_qa",
+      "claim_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-MATH-FINITE",
+      "control": "remove a required tuple component and observe rejected stronger reading",
+      "rejected": null,
+      "domain": "mathematics"
+    }
+  ],
+  "falsifiers": [
+    {
+      "source": "target_blind",
+      "claim_ref": "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-MATHEMATICS-001",
+      "falsifier": "Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse",
+      "domain": "mathematics"
+    },
+    {
+      "source": "numeric_replay_qa",
+      "claim_ref": "validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json::OC133-NUM-MATH-FINITE",
+      "falsifier": "any finite model case has observed verdict different from expected",
+      "domain": "mathematics"
+    }
+  ],
+  "blocker_predicates": [
+    "independent_replay_passes_from_clean_checkout",
+    "machine_checked_theorem_scope_matches_public_claim",
+    "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+    "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+    "CANDIDATE_EVIDENCE_PACKS_INVALID::1",
+    "CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE"
+  ],
+  "required_result_refs": [
+    "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-MATHEMATICS-001"
+  ],
+  "report": {
+    "current_verdict": "BLOCKED_NO_SUPERIORITY_CERTIFIED",
+    "superiority_task": "Reconstruct a held-out aggregate over accepted finite theorem-case rows and bind it to the Lean/proof artifact surface.",
+    "allowed_current_claim": "bounded finite proof-corpus QA and formal release-consistency only",
+    "superiority_claim_status": "NOT_CERTIFIED",
+    "release_effect": "BLOCK_RELEASE_PROMOTION_FOR_SUPERIORITY",
+    "oc_current_evidence_boundary": "Bounded local finite proof-corpus QA and release-consistency only; no theorem-prover or formal-mathematics superiority."
+  },
+  "grand_empirical_context": {
+    "minimum_n": 20,
+    "valid_n": 0,
+    "status": "BLOCKED",
+    "grand_toe_support_allowed": false,
+    "blockers": [
+      "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+      "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+      "CANDIDATE_EVIDENCE_PACKS_INVALID::1",
+      "CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE"
+    ]
+  },
+  "no_send": true,
+  "release_promotion_allowed": false,
+  "superiority_decision": {
+    "status": "NOT_CERTIFIED",
+    "superiority_certified": false,
+    "release_promotion_allowed": false,
+    "can_be_certified_within_current_artifact_scope": false,
+    "blocker_total": 6,
+    "blocker_predicates": [
+      "independent_replay_passes_from_clean_checkout",
+      "machine_checked_theorem_scope_matches_public_claim",
+      "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
+      "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
+      "CANDIDATE_EVIDENCE_PACKS_INVALID::1",
+      "CURRENT_FORMAL_CORPUS_BASELINE_IS_NOT_EMPIRICAL_GRAND_SCIENCE_EVIDENCE"
+    ],
+    "required_result_refs": [
+      "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json::OC133-TARGETBLIND-MATHEMATICS-001"
+    ],
+    "failure_reason": "All incumbent/refined fairness predicates, zero blockers, and result bindings must be present for certification."
+  }
+}
