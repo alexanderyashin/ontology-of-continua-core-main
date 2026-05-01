@@ -829,29 +829,59 @@ def _github_create_or_update_release(profile: ReleaseProfile, token: str, body: 
     )
 
 
+def _github_list_release_assets(profile: ReleaseProfile, token: str, release_id: int | str) -> list[dict[str, Any]]:
+    payload = _http_json(
+        "GET",
+        _github_api_url(profile, f"/releases/{release_id}/assets?per_page=100"),
+        token=token,
+        headers={"Accept": "application/vnd.github+json"},
+    )
+    return payload if isinstance(payload, list) else []
+
+
+def _github_delete_asset_if_present(profile: ReleaseProfile, token: str, release_id: int | str, filename: str) -> bool:
+    assets = _github_list_release_assets(profile, token, release_id)
+    deleted = False
+    for item in assets:
+        if item.get("name") == filename:
+            _http_json(
+                "DELETE",
+                _github_api_url(profile, f"/releases/assets/{item['id']}"),
+                token=token,
+                headers={"Accept": "application/vnd.github+json"},
+            )
+            deleted = True
+    return deleted
+
+
 def _github_upload_assets(root: Path, profile: ReleaseProfile, token: str, release: dict[str, Any]) -> list[dict[str, Any]]:
-    existing_assets = release.get("assets", [])
-    by_name = {item.get("name"): item for item in existing_assets}
     uploaded: list[dict[str, Any]] = []
+    release_id = release["id"]
     upload_url = str(release["upload_url"]).split("{", 1)[0]
     for asset in profile.assets:
         path = root / asset.path
         filename = path.name
-        if filename in by_name:
-            _http_json(
-                "DELETE",
-                _github_api_url(profile, f"/releases/assets/{by_name[filename]['id']}"),
-                token=token,
-                headers={"Accept": "application/vnd.github+json"},
-            )
+        _github_delete_asset_if_present(profile, token, release_id, filename)
         content_type = mimetypes.guess_type(filename)[0] or "application/octet-stream"
-        result = _http_upload(
-            "POST",
-            f"{upload_url}?name={urllib.parse.quote(filename)}",
-            token=token,
-            data=path.read_bytes(),
-            content_type=content_type,
-        )
+        try:
+            result = _http_upload(
+                "POST",
+                f"{upload_url}?name={urllib.parse.quote(filename)}",
+                token=token,
+                data=path.read_bytes(),
+                content_type=content_type,
+            )
+        except RuntimeError as exc:
+            if "already_exists" not in str(exc):
+                raise
+            _github_delete_asset_if_present(profile, token, release_id, filename)
+            result = _http_upload(
+                "POST",
+                f"{upload_url}?name={urllib.parse.quote(filename)}",
+                token=token,
+                data=path.read_bytes(),
+                content_type=content_type,
+            )
         uploaded.append({"name": filename, "browser_download_url": result.get("browser_download_url"), "id": result.get("id")})
     return uploaded
 
