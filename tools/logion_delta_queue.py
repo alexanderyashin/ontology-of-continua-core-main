@@ -21,6 +21,7 @@ DIRTY_LEDGER_REL = f"{PROJECT_CONTROL_REL}/LOGION_DIRTY_TREE_GOVERNANCE_LEDGER.j
 ZIP_INTEGRITY_REL = "releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json"
 
 MODES = {"diagnostic", "test", "productive", "release"}
+SELF_TELEMETRY_PREFIXES = (f"{PROJECT_CONTROL_REL}/",)
 
 
 def read_json(path: Path) -> Any:
@@ -50,7 +51,7 @@ def sha256_object(payload: Any) -> str:
 def git_status_summary(root: Path) -> dict[str, Any]:
     try:
         completed = subprocess.run(
-            ["git", "status", "--short"],
+            ["git", "status", "--short", "-uall"],
             cwd=root,
             text=True,
             encoding="utf-8",
@@ -60,7 +61,14 @@ def git_status_summary(root: Path) -> dict[str, Any]:
         )
     except Exception as exc:
         return {"available": False, "dirty_total": None, "error": str(exc)}
-    rows = [line for line in completed.stdout.splitlines() if line.strip()]
+    rows = []
+    for line in completed.stdout.splitlines():
+        if not line.strip():
+            continue
+        path = line[3:].replace("\\", "/") if len(line) >= 4 else ""
+        if any(path.startswith(prefix) for prefix in SELF_TELEMETRY_PREFIXES):
+            continue
+        rows.append(line)
     return {
         "available": completed.returncode == 0,
         "dirty_total": len(rows),

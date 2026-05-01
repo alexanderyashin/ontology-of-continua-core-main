@@ -222,6 +222,21 @@ class ReleaseMachineTests(unittest.TestCase):
             self.assertFalse(second["significant_delta"])
             self.assertFalse(second["downstream_trigger_allowed"])
 
+    def test_logion_delta_queue_ignores_project_control_self_telemetry_dirty(self) -> None:
+        delta_queue = _load_delta_queue_module()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            subprocess.run(["git", "init"], cwd=root, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            telemetry = root / "operations" / "project_control" / "LOGION_DELTA_QUEUE_LEDGER.json"
+            release_delta = root / "releases" / "oc_core_1_3_3" / "editorial" / "release_delta.json"
+            telemetry.parent.mkdir(parents=True, exist_ok=True)
+            release_delta.parent.mkdir(parents=True, exist_ok=True)
+            telemetry.write_text("{}\n", encoding="utf-8")
+            release_delta.write_text("{}\n", encoding="utf-8")
+            status = delta_queue.git_status_summary(root)
+            self.assertEqual(status["dirty_total"], 1)
+            self.assertEqual(status["dirty_paths"], ["releases/oc_core_1_3_3/editorial/release_delta.json"])
+
     def test_logion_process_coherence_guard_blocks_self_referential_package(self) -> None:
         guard = _load_process_coherence_guard_module()
         with tempfile.TemporaryDirectory() as tmp:
