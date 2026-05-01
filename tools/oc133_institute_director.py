@@ -19,6 +19,8 @@ DIRECTOR_PACKET = DIRECTOR_DIR / "OC133_INSTITUTE_DIRECTOR_PACKET.json"
 DIRECTOR_COCKPIT = DIRECTOR_DIR / "OC133_INSTITUTE_DIRECTOR_COCKPIT.md"
 DIRECTOR_WORK_ORDERS = DIRECTOR_DIR / "OC133_INSTITUTE_DIRECTOR_WORK_ORDERS.json"
 DIRECTOR_LEDGER = DIRECTOR_DIR / "OC133_INSTITUTE_DIRECTOR_CYCLE_LEDGER.json"
+ALL_DOMAIN_SCORECARD = ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "OC133_ALL_DOMAIN_READINESS_SCORECARD.json"
+ALL_DOMAIN_WORK_ORDERS = ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "OC133_ALL_DOMAIN_WORK_ORDERS.json"
 
 
 AUTHORITY_REFS = {
@@ -125,6 +127,30 @@ CAPABILITIES = (
         "LLM_REVIEW_INFRA_REPAIR",
         ("tools/run_oc133_v12_cerberus.py", "reviews/oc133_llm_cerberus/results"),
         "Rerun timeout roles with smaller context bundles or longer per-role timeout; stale JSON may not certify G58.",
+    ),
+    RepairCapability(
+        "grand_formal_toe_research",
+        1,
+        ("grand", "toe", "all-domain", "proof", "lean", "finite", "claim-ledger"),
+        "GRAND_FORMAL_RESEARCH_PROGRAM",
+        ("claims/CLAIM_LEDGER_1_3_3.json", "proofs/THEOREM_INVENTORY_1_3_3.json", "formal/lean/OC133V12.lean"),
+        "Create or reject the dedicated grand TOE/all-domain theorem obligation. This capability may not close by artifact existence.",
+    ),
+    RepairCapability(
+        "grand_empirical_superiority_research",
+        2,
+        ("grand", "superiority", "target-blind", "held-out", "residual", "comparator", "all-domain"),
+        "GRAND_EMPIRICAL_RESEARCH_PROGRAM",
+        ("validation/target_blind", "validation/heldout", "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json"),
+        "Produce strict per-domain predictive superiority evidence or keep broad empirical promotion blocked.",
+    ),
+    RepairCapability(
+        "modern_science_comparator_research",
+        3,
+        ("modern science", "comparator", "benchmark", "superiority", "prior-art"),
+        "MODERN_SCIENCE_COMPARATOR_PROGRAM",
+        ("comparators/OC_1_3_3_MODERN_SCIENCE_SUPERIORITY_REGISTER.json", "benchmarks", "claims/CLAIM_LEDGER_1_3_3.json"),
+        "Build source-backed modern-science comparator benchmarks before any superiority claim can be promoted.",
     ),
 )
 
@@ -280,6 +306,50 @@ def build_director_work_orders(findings: list[dict[str, Any]]) -> list[dict[str,
     return orders
 
 
+def all_domain_science_work_orders() -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    scorecard = read_json(ALL_DOMAIN_SCORECARD)
+    queue = read_json(ALL_DOMAIN_WORK_ORDERS)
+    rows = queue.get("rows", []) if isinstance(queue.get("rows"), list) else []
+    capability_map = {
+        "Research/FormalScience": "grand_formal_toe_research",
+        "Research/EmpiricalScience": "grand_empirical_superiority_research",
+        "Research/PriorArt": "modern_science_comparator_research",
+    }
+    normalized: list[dict[str, Any]] = []
+    for idx, row in enumerate(rows, start=1):
+        if not isinstance(row, dict):
+            continue
+        owner = str(row.get("owner_capability", ""))
+        capability_id = capability_map.get(owner, "attack_matrix_reopen_recompute_repair")
+        cap = next((item for item in CAPABILITIES if item.capability_id == capability_id), CAPABILITIES[0])
+        normalized.append(
+            {
+                "work_order_id": f"OC133-DIRECTOR-GRAND-WO-{idx:03d}",
+                "source": "all_domain_grand_science_blocker",
+                "severity": row.get("severity", "CRITICAL"),
+                "priority": row.get("priority", 900),
+                "capability_id": capability_id,
+                "capability_rank": cap.rank,
+                "capability_score": 999,
+                "repair_kind": cap.repair_kind,
+                "owned_artifacts": row.get("owned_artifacts", list(cap.owned_artifacts)),
+                "repair_contract": row.get("rollback_or_block_condition", cap.repair_contract),
+                "artifact_ref": ",".join(row.get("owned_artifacts", [])) if isinstance(row.get("owned_artifacts"), list) else "",
+                "claim": row.get("title"),
+                "failure_mode": row.get("before_predicate"),
+                "required_repair": row.get("after_predicate"),
+                "verification_command": row.get("verification_command"),
+                "closure_evidence_required": row.get("closure_evidence_required", []),
+                "director_decision": "GRAND_SCIENCE_RESEARCH_REQUIRED_BEFORE_FINAL_RELEASE",
+                "release_gate_effect": "ALL_DOMAIN_FINAL_READINESS_AND_G70_BLOCKED",
+                "source_work_order_id": row.get("work_order_id"),
+                "no_send": True,
+            }
+        )
+    normalized.sort(key=lambda row: (-int(row["priority"]), row["capability_rank"], row["work_order_id"]))
+    return scorecard, normalized
+
+
 def gate_director(authority: dict[str, Any]) -> dict[str, Any]:
     failures = []
     if not authority.get("strategy_hq_authority_pass"):
@@ -312,6 +382,8 @@ def render_cockpit(packet: dict[str, Any]) -> str:
         f"Command seat: `{packet['authority']['command_seat']}`",
         f"Zero external actions ordered: `{str(packet['authority']['zero_external_actions_ordered']).lower()}`",
         f"Open critical/high findings: `{packet['open_finding_total']}`",
+        f"Grand science blockers: `{packet.get('grand_science_blocker_total', 0)}`",
+        f"Grand work orders: `{packet.get('grand_work_order_total', 0)}`",
         f"Work orders: `{packet['work_order_total']}`",
         "",
         "## Authority Chain",
@@ -333,11 +405,14 @@ def build_packet() -> dict[str, Any]:
     authority = authority_snapshot()
     safety_gate = gate_director(authority)
     findings = cerberus_findings()
-    work_orders = build_director_work_orders(findings)
+    cerberus_work_orders = build_director_work_orders(findings)
+    all_domain_scorecard, grand_work_orders = all_domain_science_work_orders()
+    work_orders = grand_work_orders + cerberus_work_orders
     capability_load: dict[str, int] = {}
     for row in work_orders:
         capability_load[row["capability_id"]] = capability_load.get(row["capability_id"], 0) + 1
-    blocked = bool(findings) or safety_gate["state"] != "PASS"
+    all_domain_blocked = all_domain_scorecard.get("all_domain_ready_no_send") is False or all_domain_scorecard.get("blocker_total", 0) > 0
+    blocked = bool(findings) or bool(grand_work_orders) or all_domain_blocked or safety_gate["state"] != "PASS"
     packet = {
         "schema_id": "OC133_INSTITUTE_DIRECTOR_PACKET_v1",
         "release_id": "oc_core_1_3_3",
@@ -362,13 +437,27 @@ def build_packet() -> dict[str, Any]:
         ],
         "capability_load": capability_load,
         "open_finding_total": len(findings),
+        "grand_science_blocker_total": all_domain_scorecard.get("blocker_total", 0),
+        "grand_science_blocker_ids": all_domain_scorecard.get("blocker_ids", []),
+        "all_domain_ready_no_send": all_domain_scorecard.get("all_domain_ready_no_send"),
         "critical_open_total": sum(1 for row in findings if str(row.get("severity", "")).upper() == "CRITICAL"),
         "high_open_total": sum(1 for row in findings if str(row.get("severity", "")).upper() == "HIGH"),
         "work_order_total": len(work_orders),
+        "grand_work_order_total": len(grand_work_orders),
+        "cerberus_work_order_total": len(cerberus_work_orders),
         "work_orders_ref": rel(DIRECTOR_WORK_ORDERS),
         "work_orders": work_orders,
     }
-    write_json(DIRECTOR_WORK_ORDERS, {"schema_id": "OC133_INSTITUTE_DIRECTOR_WORK_ORDERS_v1", "rows": work_orders})
+    write_json(
+        DIRECTOR_WORK_ORDERS,
+        {
+            "schema_id": "OC133_INSTITUTE_DIRECTOR_WORK_ORDERS_v1",
+            "grand_science_blocker_total": all_domain_scorecard.get("blocker_total", 0),
+            "grand_work_order_total": len(grand_work_orders),
+            "cerberus_work_order_total": len(cerberus_work_orders),
+            "rows": work_orders,
+        },
+    )
     write_json(DIRECTOR_PACKET, packet)
     DIRECTOR_COCKPIT.parent.mkdir(parents=True, exist_ok=True)
     DIRECTOR_COCKPIT.write_text(render_cockpit(packet), encoding="utf-8")

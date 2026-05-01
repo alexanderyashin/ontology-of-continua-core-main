@@ -190,6 +190,8 @@ def render_cockpit(packet: dict[str, Any]) -> str:
         f"Release state: `{packet['release_master_verdict']}`",
         f"Content closure: `{packet['content_closure_state']}`",
         f"Content blockers: `{packet['content_blocker_total']}`",
+        f"All-domain readiness: `{packet.get('all_domain_scientific_readiness_state')}`",
+        f"All-domain blockers: `{packet.get('all_domain_blocker_total')}`",
         "",
         "## Capability Links",
         "",
@@ -209,6 +211,11 @@ def render_cockpit(packet: dict[str, Any]) -> str:
         lines.append(f"- `{blocker}`")
     if not packet.get("content_blocker_ids"):
         lines.append("- none")
+    lines.extend(["", "## Grand Science Blockers", ""])
+    for blocker in packet.get("all_domain_blocker_ids", []):
+        lines.append(f"- `{blocker}`")
+    if not packet.get("all_domain_blocker_ids"):
+        lines.append("- none")
     return "\n".join(lines) + "\n"
 
 
@@ -220,12 +227,17 @@ def build_packet(commands: list[dict[str, Any]]) -> dict[str, Any]:
     score_summary = rel_state.get("summary", {}) if isinstance(rel_state.get("summary"), dict) else {}
     release_master = str(score_summary.get("master_verdict") or rel_state.get("master_verdict") or rel_state.get("release_state") or "UNKNOWN")
     content = read_json(ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "OC133_CONTENT_CLOSURE_SCORECARD.json")
+    all_domain = read_json(ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "OC133_ALL_DOMAIN_READINESS_SCORECARD.json")
     content_state = str(content.get("state") or score_summary.get("content_closure_state") or "UNKNOWN")
     content_blockers = content.get("blocker_ids") or score_summary.get("content_closure_blocker_ids") or []
     if not isinstance(content_blockers, list):
         content_blockers = []
+    all_domain_blockers = all_domain.get("blocker_ids") or score_summary.get("all_domain_blocker_ids") or []
+    if not isinstance(all_domain_blockers, list):
+        all_domain_blockers = []
     open_total = len(cerb["open_findings"])
-    ready = open_total == 0 and release_master == "PASS" and content_state == "PASS"
+    all_domain_ready = all_domain.get("all_domain_ready_no_send") is True and not all_domain_blockers
+    ready = open_total == 0 and release_master == "PASS" and content_state == "PASS" and all_domain_ready
     packet = {
         "schema_id": "OC133_STRATEGY_HQ_BRIDGE_PACKET_v1",
         "release_id": "oc_core_1_3_3",
@@ -245,6 +257,10 @@ def build_packet(commands: list[dict[str, Any]]) -> dict[str, Any]:
         "content_closure_state": content_state,
         "content_blocker_total": len(content_blockers),
         "content_blocker_ids": content_blockers,
+        "all_domain_scientific_readiness_state": all_domain.get("state"),
+        "all_domain_ready_no_send": all_domain.get("all_domain_ready_no_send"),
+        "all_domain_blocker_total": len(all_domain_blockers),
+        "all_domain_blocker_ids": all_domain_blockers,
         "capability_graph_ref": rel(CAPABILITY_GRAPH),
         "cerberus": cerb,
         "release": rel_state,

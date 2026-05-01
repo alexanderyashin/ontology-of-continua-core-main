@@ -6,8 +6,10 @@ Owner approved: `False`
 Public action allowed: `False`
 Cerberus open critical/high: `0`
 Release state: `FAIL`
-Content closure: `SCIENTIFIC_CONTENT_CLOSURE_RUNNING`
-Content blockers: `4`
+Content closure: `PASS`
+Content blockers: `0`
+All-domain readiness: `OC_CORE_1_3_3_ALL_DOMAIN_SCIENTIFIC_READINESS_RUNNING`
+All-domain blockers: `3`
 
 ## Capability Links
 
@@ -29,7 +31,10 @@ Content blockers: `4`
 
 ## Content Blockers
 
-- `theorem_promotion`
-- `empirical_prediction_promotion`
-- `novelty_equivalence_closure`
-- `phenomenon_coverage`
+- none
+
+## Grand Science Blockers
+
+- `grand_toe_claim_ledger_evidence`
+- `grand_toe_empirical_superiority`
+- `modern_science_comparator_superiority`

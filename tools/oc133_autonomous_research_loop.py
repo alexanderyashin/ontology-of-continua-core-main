@@ -22,6 +22,9 @@ DIRECTOR_PACKET = ROOT / "operations" / "institute_director" / "oc_core_1_3_3" /
 DIRECTOR_WORK_ORDERS = ROOT / "operations" / "institute_director" / "oc_core_1_3_3" / "OC133_INSTITUTE_DIRECTOR_WORK_ORDERS.json"
 
 DIRECTOR_CAPABILITY_PROFILE_MAP = {
+    "grand_formal_toe_research": "v12_grand_formal_science_research_program",
+    "grand_empirical_superiority_research": "v12_grand_empirical_superiority_research_program",
+    "modern_science_comparator_research": "v12_modern_science_comparator_research_program",
     "formal_lifecycle_morphism_repair": "v12_lifecycle_invariant_repair",
     "identity_truth_table_repair": "v12_lifecycle_invariant_repair",
     "hybrid_operator_semantics_repair": "v12_hybrid_operator_repair",
@@ -34,6 +37,9 @@ DIRECTOR_CAPABILITY_PROFILE_MAP = {
 }
 
 REPAIR_PROFILES = {
+    "v12_grand_formal_science_research_program": "Grand formal TOE/all-domain theorem obligation program; cannot close by artifact existence.",
+    "v12_grand_empirical_superiority_research_program": "Grand per-domain predictive superiority obligation program; cannot close without strict comparator-beating evidence.",
+    "v12_modern_science_comparator_research_program": "Modern-science comparator superiority obligation program; cannot certify superiority without source-backed benchmarks.",
     "v12_klevel_semantic_repair": "K-level atlas, retained witness, demotion, and finite transition repair.",
     "v12_hybrid_operator_repair": "Hybrid/smooth/update semantics and finite guard/reset repair.",
     "v12_minimality_tuple_repair": "Release tuple component keep/drop witness repair.",
@@ -511,6 +517,16 @@ def main() -> int:
     unknown_total = sum(1 for order in orders if order["status"].startswith("BLOCKED"))
     repair_fail_total = sum(1 for result in profile_results if result.get("returncode") != 0)
     check_fail_total = sum(1 for result in check_results if result.get("returncode") != 0)
+    all_domain_after = read_json(ROOT / "operations" / "logion_release_mission" / "oc_core_1_3_3" / "OC133_ALL_DOMAIN_READINESS_SCORECARD.json")
+    all_domain_blocker_total = int(all_domain_after.get("blocker_total", 0) or 0)
+    if not args.apply and orders:
+        verdict = "ACTIVE_WORK_ORDERS_QUEUED_NOT_APPLIED"
+    elif args.apply and all_domain_blocker_total > 0:
+        verdict = "RESEARCH_PROGRAM_APPLIED_SCIENTIFIC_BLOCKERS_REMAIN"
+    elif unknown_total == 0 and repair_fail_total == 0 and check_fail_total == 0:
+        verdict = "PASS_AUTONOMOUS_REPAIR_APPLIED"
+    else:
+        verdict = "BLOCKED_AUTONOMOUS_REPAIR_INCOMPLETE"
     payload = {
         "schema_id": "OC133_AUTONOMOUS_RESEARCH_LOOP_LEDGER_v1",
         "release_id": "oc_core_1_3_3",
@@ -533,7 +549,9 @@ def main() -> int:
         "unknown_repair_total": unknown_total,
         "repair_fail_total": repair_fail_total,
         "check_fail_total": check_fail_total,
-        "verdict": "PASS_AUTONOMOUS_REPAIR_APPLIED" if unknown_total == 0 and repair_fail_total == 0 and check_fail_total == 0 else "BLOCKED_AUTONOMOUS_REPAIR_INCOMPLETE",
+        "all_domain_blocker_total_after": all_domain_blocker_total,
+        "all_domain_blocker_ids_after": all_domain_after.get("blocker_ids", []),
+        "verdict": verdict,
     }
     write_json(RUN_LEDGER, payload)
     print(json.dumps(payload, ensure_ascii=False, indent=2))
