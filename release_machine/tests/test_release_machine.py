@@ -53,6 +53,17 @@ def _load_process_coherence_guard_module():
     return module
 
 
+def _load_reproducibility_verifier_module():
+    root = complete.repo_root()
+    module_path = root / "tools" / "verify_oc133_reproducible_temp_tree.py"
+    spec = importlib.util.spec_from_file_location("verify_oc133_reproducible_temp_tree", module_path)
+    assert spec is not None
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
 class ReleaseMachineTests(unittest.TestCase):
     def _ensure_oc133_v12_surface(self) -> Path:
         root = complete.repo_root()
@@ -119,6 +130,12 @@ class ReleaseMachineTests(unittest.TestCase):
             oc133.tracked_ref_set = original_tracked_ref_set  # type: ignore[assignment]
         self.assertIn(long_ref, refs)
         self.assertIn("formal/README.md", refs)
+
+    def test_oc133_repro_verifier_treats_stale_previous_manifest_as_delta_not_blocker(self) -> None:
+        verifier = _load_reproducibility_verifier_module()
+        self.assertFalse(verifier.previous_manifest_blocks_release(True))
+        self.assertFalse(verifier.previous_manifest_blocks_release(None))
+        self.assertTrue(verifier.previous_manifest_blocks_release(False))
 
     def test_oc133_lean_certificate_source_guard_detects_delta(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

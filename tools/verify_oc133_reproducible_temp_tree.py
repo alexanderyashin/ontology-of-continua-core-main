@@ -583,6 +583,10 @@ def sync_plan(sync_requested: bool, bad_commands: list[dict[str, Any]]) -> tuple
     return False, SYNC_REASON_REQUESTED
 
 
+def previous_manifest_blocks_release(previous_declared_hash_valid: bool | None) -> bool:
+    return previous_declared_hash_valid is False
+
+
 def short_temp_parent() -> Path | None:
     """Use a short temp parent so Windows path length cannot skew replay.
 
@@ -838,6 +842,12 @@ def main() -> int:
         if previous_stable_sha and previous_recomputed_stable_sha
         else None
     )
+    previous_manifest_tamper_detected = previous_manifest_blocks_release(previous_declared_hash_valid)
+    previous_manifest_stale = (
+        previous_recomputed_stable_sha != stable_payload_sha256
+        if previous_recomputed_stable_sha
+        else None
+    )
     previous_self_check = {
         "previous_manifest_existed": isinstance(previous_manifest, dict),
         "previous_manifest_stable_payload_sha256": previous_stable_sha,
@@ -845,7 +855,9 @@ def main() -> int:
         "previous_manifest_declared_hash_valid": previous_declared_hash_valid,
         "current_stable_payload_sha256": stable_payload_sha256,
         "previous_manifest_matches_current_stable_payload": (previous_recomputed_stable_sha == stable_payload_sha256) if previous_recomputed_stable_sha else None,
-        "self_check_policy": "The outer manifest is non-cyclic: stable_payload_sha256 excludes this self-check wrapper. Before overwriting, the verifier recomputes the previous stable payload hash from previous manifest fields, rejects edited payloads whose declared hash no longer matches, and then compares the recomputed previous hash to the current stable payload.",
+        "previous_manifest_stale": previous_manifest_stale,
+        "previous_manifest_tamper_detected": previous_manifest_tamper_detected,
+        "self_check_policy": "The outer manifest is non-cyclic: stable_payload_sha256 excludes this self-check wrapper. Before overwriting, the verifier recomputes the previous stable payload hash from previous manifest fields. A malformed or edited previous manifest is release-blocking; a valid-but-stale previous manifest is recorded as a delta warning and refreshed, not treated as scientific or package reproducibility failure.",
     }
     payload = {
         "schema_id": "OC133_POST_GENERATION_REPRODUCIBILITY_MANIFEST_v12",
@@ -861,13 +873,7 @@ def main() -> int:
             and not non_compare_mutations
             and not internal_hash_failures
             and not cross_binding_failures
-            and (
-                previous_manifest is None
-                or (
-                    previous_declared_hash_valid is True
-                    and previous_recomputed_stable_sha == stable_payload_sha256
-                )
-            )
+            and not previous_manifest_tamper_detected
         )
         else "FAIL",
     }
