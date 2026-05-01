@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from release_machine.constants import TIMESTAMP  # noqa: E402
+from tools import logion_dirty_tree_governance as dirty_governance  # noqa: E402
 
 PROJECT_CONTROL_REL = "operations/project_control"
 
@@ -22,6 +23,7 @@ RESOURCE_POLICY_REL = f"{PROJECT_CONTROL_REL}/LOGION_RESOURCE_POLICY.json"
 BUDGET_LEDGER_REL = f"{PROJECT_CONTROL_REL}/LOGION_BUDGET_LEDGER.json"
 WORKSTREAM_LOCKS_REL = f"{PROJECT_CONTROL_REL}/LOGION_WORKSTREAM_LOCKS.json"
 MILESTONE_PLAN_REL = f"{PROJECT_CONTROL_REL}/LOGION_MILESTONE_PLAN.json"
+DIRTY_LEDGER_REL = dirty_governance.LEDGER_REL
 COCKPIT_JSON_REL = f"{PROJECT_CONTROL_REL}/LOGION_PROJECT_CONTROL_COCKPIT.json"
 COCKPIT_MD_REL = f"{PROJECT_CONTROL_REL}/LOGION_PROJECT_CONTROL_COCKPIT.md"
 SELF_GENERATED_DIR_PREFIX = f"{PROJECT_CONTROL_REL}/"
@@ -102,6 +104,44 @@ def git_status(root: Path) -> dict[str, Any]:
         "branch": lines[0] if lines else "",
         "dirty_total": len(dirty),
         "dirty_files_sample": dirty[:80],
+    }
+
+
+def dirty_tree_governance(root: Path) -> dict[str, Any]:
+    required = (root / ".git").exists()
+    ledger = read_json(root / DIRTY_LEDGER_REL)
+    if not ledger:
+        return {
+            "state": "DIRTY_LEDGER_MISSING" if required else "DIRTY_LEDGER_NOT_REQUIRED_FOR_TEMP_ROOT",
+            "required": required,
+            "governed": not required,
+            "ledger_current": not required,
+            "ledger_ref": DIRTY_LEDGER_REL,
+            "public_dirty_total": None,
+            "private_dirty_total": None,
+            "public_class_counts": {},
+            "private_class_counts": {},
+        }
+    current = dirty_governance.current_fingerprint(root)
+    ledger_current = ledger.get("dirty_tree_fingerprint") == current
+    governed = (
+        ledger.get("governance_state") == "GOVERNED_DIRTY_TREE"
+        and ledger_current
+        and ledger.get("public_unclassified_total") == 0
+        and ledger.get("private_unknown_total") == 0
+    )
+    return {
+        "state": ledger.get("governance_state", "UNKNOWN"),
+        "required": required,
+        "governed": governed,
+        "ledger_current": ledger_current,
+        "ledger_ref": DIRTY_LEDGER_REL,
+        "public_dirty_total": ledger.get("public_dirty_total"),
+        "private_dirty_total": ledger.get("private_dirty_total"),
+        "public_class_counts": ledger.get("public_class_counts", {}),
+        "private_class_counts": ledger.get("private_class_counts", {}),
+        "fingerprint": ledger.get("dirty_tree_fingerprint"),
+        "current_fingerprint": current,
     }
 
 
@@ -248,6 +288,7 @@ def build_portfolio(root: Path) -> dict[str, Any]:
     journal = read_json(root / JOURNAL_INDEX_REL)
     cerberus = read_json(root / CERBERUS_SUMMARY_REL)
     release = read_json(root / RELEASE_SCORECARD_REL)
+    dirty = dirty_tree_governance(root)
 
     external_ready = all_domain.get("external_review_ready_no_send") is True
     all_domain_ready = all_domain.get("all_domain_ready_no_send") is True
@@ -323,6 +364,10 @@ def build_portfolio(root: Path) -> dict[str, Any]:
         "institute_director_state": director.get("director_verdict"),
         "workstreams": workstreams,
         "git_state": git_status(root),
+        "dirty_tree_governance": dirty,
+        "dirty_tree_governance_state": dirty["state"],
+        "dirty_tree_governed": dirty["governed"],
+        "dirty_tree_ledger_current": dirty["ledger_current"],
         "no_send": True,
         "publish_allowed": False,
         "journal_submissions_allowed": False,
@@ -382,6 +427,7 @@ def render_cockpit(cockpit: dict[str, Any]) -> str:
         f"- All-domain blockers: `{portfolio['all_domain_blocker_total']}`",
         f"- Cerberus critical/high: `{portfolio.get('cerberus_critical_open_total')}` / `{portfolio.get('cerberus_high_open_total')}`",
         f"- Journal packages: `{portfolio['journal_packages']['package_total']}`",
+        f"- Dirty tree governed/current: `{str(portfolio['dirty_tree_governed']).lower()}` / `{str(portfolio['dirty_tree_ledger_current']).lower()}`",
         f"- External LLM budget/day: `{budget['daily_external_llm_budget_tokens']}`",
         f"- Host compute: `allowed`",
         f"- Budget action: `{budget['budget_override_action']}`",
@@ -423,6 +469,7 @@ def build_cockpit(root: Path = ROOT) -> dict[str, Any]:
             "budget_ledger_ref": BUDGET_LEDGER_REL,
             "workstream_locks_ref": WORKSTREAM_LOCKS_REL,
             "milestone_plan_ref": MILESTONE_PLAN_REL,
+            "dirty_tree_ledger_ref": DIRTY_LEDGER_REL,
             "cockpit_json_ref": COCKPIT_JSON_REL,
             "cockpit_md_ref": COCKPIT_MD_REL,
         },
@@ -457,6 +504,9 @@ def check_outputs(root: Path, cockpit: dict[str, Any]) -> list[str]:
             mismatches.append(rel_path)
     if not (root / COCKPIT_MD_REL).exists() or (root / COCKPIT_MD_REL).read_text(encoding="utf-8") != render_cockpit(cockpit):
         mismatches.append(COCKPIT_MD_REL)
+    dirty = cockpit["portfolio"]["dirty_tree_governance"]
+    if dirty["required"] and not dirty["governed"]:
+        mismatches.append(DIRTY_LEDGER_REL)
     return mismatches
 
 
@@ -486,6 +536,8 @@ def main(argv: list[str] | None = None) -> int:
                 "release_state": cockpit["portfolio"]["release_state"],
                 "external_review_ready_no_send": cockpit["portfolio"]["external_review_ready_no_send"],
                 "daily_external_llm_budget_tokens": cockpit["budget_ledger"]["daily_external_llm_budget_tokens"],
+                "dirty_tree_governed": cockpit["portfolio"]["dirty_tree_governed"],
+                "dirty_tree_ledger_current": cockpit["portfolio"]["dirty_tree_ledger_current"],
                 "cockpit_ref": COCKPIT_JSON_REL,
             },
             ensure_ascii=False,

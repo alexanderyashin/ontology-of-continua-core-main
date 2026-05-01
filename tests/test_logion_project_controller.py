@@ -4,6 +4,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from tools import logion_project_controller as controller
 
@@ -61,6 +62,45 @@ class LogionProjectControllerTests(unittest.TestCase):
             )
             self.assertTrue(release_stream["release_artifact_write_owner"])
             self.assertFalse(science_stream["release_artifact_write_owner"])
+
+    def test_controller_requires_current_governed_dirty_ledger_for_git_roots(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / ".git").mkdir()
+            write_json(
+                root,
+                controller.DIRTY_LEDGER_REL,
+                {
+                    "governance_state": "GOVERNED_DIRTY_TREE",
+                    "dirty_tree_fingerprint": "fixture-fingerprint",
+                    "public_unclassified_total": 0,
+                    "private_unknown_total": 0,
+                    "public_dirty_total": 3,
+                    "private_dirty_total": 1,
+                    "public_class_counts": {"oc133_release_package": 1, "background_science": 2},
+                    "private_class_counts": {"private_release_anchor_governance": 1},
+                },
+            )
+
+            with patch.object(controller.dirty_governance, "current_fingerprint", return_value="fixture-fingerprint"):
+                cockpit = controller.build_cockpit(root)
+                self.assertTrue(cockpit["portfolio"]["dirty_tree_governed"])
+                self.assertTrue(cockpit["portfolio"]["dirty_tree_ledger_current"])
+                self.assertEqual(controller.check_outputs(root, cockpit), [
+                    controller.PORTFOLIO_REL,
+                    controller.RESOURCE_POLICY_REL,
+                    controller.BUDGET_LEDGER_REL,
+                    controller.WORKSTREAM_LOCKS_REL,
+                    controller.MILESTONE_PLAN_REL,
+                    controller.COCKPIT_JSON_REL,
+                    controller.COCKPIT_MD_REL,
+                ])
+
+            with patch.object(controller.dirty_governance, "current_fingerprint", return_value="new-fingerprint"):
+                cockpit = controller.build_cockpit(root)
+                self.assertFalse(cockpit["portfolio"]["dirty_tree_governed"])
+                self.assertFalse(cockpit["portfolio"]["dirty_tree_ledger_current"])
+                self.assertIn(controller.DIRTY_LEDGER_REL, controller.check_outputs(root, cockpit))
 
     def test_write_then_check_is_deterministic(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
