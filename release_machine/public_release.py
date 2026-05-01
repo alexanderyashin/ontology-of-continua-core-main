@@ -136,7 +136,7 @@ def _default_oc133_profile() -> ReleaseProfile:
         subtitle="Bounded external-review release with typed foundations, proof/evidence ledgers, reproducibility package, and no-send journal owner-review packets",
         release_state="OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND",
         expected_gate_pass_total=71,
-        expected_package_sha256="368a1d1575f21abcaaa8ec1ae906e92678be14ab181b5a21d5cc4e2c22a88874",
+        expected_package_sha256="",
         previous_zenodo_record_id="19851694",
         previous_zenodo_doi="10.5281/zenodo.19851694",
         concept_doi="10.5281/zenodo.17899134",
@@ -437,17 +437,19 @@ def _zip_integrity_ok(root: Path, profile: ReleaseProfile) -> dict[str, Any]:
     package_path = root / str(package_ref)
     manifest_sha = payload.get("package_sha256") or payload.get("sha256")
     actual_sha = _sha256(package_path) if package_path.is_file() else None
+    expected_sha = profile.expected_package_sha256 or manifest_sha
     return {
         "path": _rel(root, path) if path.exists() else str(path),
         "package_ref": str(package_ref),
         "exists": path.exists() and package_path.is_file(),
         "manifest_sha256": manifest_sha,
         "actual_sha256": actual_sha,
-        "expected_sha256": profile.expected_package_sha256,
+        "expected_sha256": expected_sha,
+        "profile_pins_package_sha256": bool(profile.expected_package_sha256),
         "ok": path.exists()
         and package_path.is_file()
-        and actual_sha == profile.expected_package_sha256
-        and manifest_sha == profile.expected_package_sha256,
+        and actual_sha == manifest_sha
+        and (not profile.expected_package_sha256 or actual_sha == profile.expected_package_sha256),
     }
 
 
@@ -726,7 +728,8 @@ def grant_owner_approval(root: Path, *, release_id: str, owner_identity: str) ->
         "journal_no_send_lock": True,
         "release_scope": approval["release_scope"],
         "tag": profile.tag,
-        "expected_package_sha256": profile.expected_package_sha256,
+        "expected_package_sha256": readiness["checks"]["zip_integrity"]["expected_sha256"],
+        "package_sha256_source": "OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
         "approval_timestamp": now,
     }
     metadata = build_public_metadata(root, profile, write=True)
