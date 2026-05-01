@@ -138,8 +138,21 @@ def internal_checksum_failures(repo: Path) -> tuple[list[dict[str, Any]], set[st
     """Validate hashes declared inside regenerated manifests/checksum files."""
     failures: list[dict[str, Any]] = []
     manifest_nonrecursive_exceptions: set[str] = set()
+    inventory_hash_policy_by_ref: dict[str, str] = {}
 
-    def check_file_ref(source_ref: str, ref: str, expected_sha: str | None, expected_size: int | None = None) -> None:
+    def bytes_for_policy(path: Path, hash_policy: str | None) -> bytes:
+        data = path.read_bytes()
+        if hash_policy == "TEXT_MEMBERS_LF_NORMALIZED_BEFORE_ARCHIVE":
+            return data.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+        return data
+
+    def check_file_ref(
+        source_ref: str,
+        ref: str,
+        expected_sha: str | None,
+        expected_size: int | None = None,
+        hash_policy: str | None = None,
+    ) -> None:
         if not ref:
             failures.append({"source_ref": source_ref, "path": ref, "reason": "EMPTY_REF"})
             return
@@ -147,11 +160,12 @@ def internal_checksum_failures(repo: Path) -> tuple[list[dict[str, Any]], set[st
         if not path.is_file():
             failures.append({"source_ref": source_ref, "path": ref, "reason": "MISSING_REFERENCED_FILE"})
             return
-        actual_sha = sha256_file(path)
+        actual_bytes = bytes_for_policy(path, hash_policy)
+        actual_sha = hashlib.sha256(actual_bytes).hexdigest()
         if expected_sha and actual_sha != expected_sha:
-            failures.append({"source_ref": source_ref, "path": ref, "reason": "SHA256_MISMATCH", "expected": expected_sha, "actual": actual_sha})
-        if expected_size is not None and path.stat().st_size != int(expected_size):
-            failures.append({"source_ref": source_ref, "path": ref, "reason": "SIZE_MISMATCH", "expected": expected_size, "actual": path.stat().st_size})
+            failures.append({"source_ref": source_ref, "path": ref, "reason": "SHA256_MISMATCH", "expected": expected_sha, "actual": actual_sha, "hash_policy": hash_policy or "RAW_BYTES"})
+        if expected_size is not None and len(actual_bytes) != int(expected_size):
+            failures.append({"source_ref": source_ref, "path": ref, "reason": "SIZE_MISMATCH", "expected": expected_size, "actual": len(actual_bytes), "hash_policy": hash_policy or "RAW_BYTES"})
 
     manifest_path = repo / "manifest.json"
     if manifest_path.is_file():
@@ -186,7 +200,10 @@ def internal_checksum_failures(repo: Path) -> tuple[list[dict[str, Any]], set[st
         else:
             for row in inventory.get("rows", []):
                 if isinstance(row, dict):
-                    check_file_ref(inventory_path.relative_to(repo).as_posix(), str(row.get("path", "")), row.get("sha256"), row.get("size_bytes"))
+                    ref = str(row.get("path", ""))
+                    policy = str(row.get("package_hash_policy", ""))
+                    inventory_hash_policy_by_ref[ref] = policy
+                    check_file_ref(inventory_path.relative_to(repo).as_posix(), ref, row.get("sha256"), row.get("size_bytes"), policy)
 
     sha_path = repo / "releases" / RELEASE_ID / "editorial" / "OC_CORE_1_3_3_SHA256SUMS"
     if sha_path.is_file():
@@ -195,7 +212,7 @@ def internal_checksum_failures(repo: Path) -> tuple[list[dict[str, Any]], set[st
             if row.get("parse_error"):
                 failures.append({"source_ref": sha_ref, **row})
             else:
-                check_file_ref(sha_ref, row["path"], row["sha256"])
+                check_file_ref(sha_ref, row["path"], row["sha256"], hash_policy=inventory_hash_policy_by_ref.get(row["path"]))
 
     zip_integrity_path = repo / "releases" / RELEASE_ID / "editorial" / "OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json"
     if zip_integrity_path.is_file():
