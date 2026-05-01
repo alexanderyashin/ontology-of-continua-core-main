@@ -1,0 +1,2260 @@
+{
+  "schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_TASKS_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "planner": "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
+  "snapshot_hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+  "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion",
+  "atomic_weight_table": {
+    "table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+    "source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+    "weights": {
+      "H": 1.00794,
+      "He": 4.002602,
+      "Li": 6.941,
+      "Be": 9.012182,
+      "B": 10.811,
+      "C": 12.0107,
+      "N": 14.0067,
+      "O": 15.9994,
+      "F": 18.998403163,
+      "Ne": 20.1797,
+      "Na": 22.98976928,
+      "Mg": 24.305,
+      "Al": 26.9815385,
+      "Si": 28.0855,
+      "P": 30.973761998,
+      "S": 32.065,
+      "Cl": 35.453,
+      "Ar": 39.948,
+      "K": 39.0983,
+      "Ca": 40.078,
+      "Sc": 44.95591,
+      "Ti": 47.867,
+      "V": 50.9415,
+      "Cr": 51.9961,
+      "Mn": 54.938049,
+      "Fe": 55.845,
+      "Co": 58.9332,
+      "Ni": 58.6934,
+      "Cu": 63.546,
+      "Zn": 65.38,
+      "Ga": 69.723,
+      "Ge": 72.64,
+      "As": 74.9216,
+      "Se": 78.96,
+      "Br": 79.904,
+      "Kr": 83.8,
+      "Rb": 85.4678,
+      "Sr": 87.62,
+      "Y": 88.90585,
+      "Zr": 91.224,
+      "Nb": 92.90638,
+      "Mo": 95.94,
+      "Ru": 101.07,
+      "Rh": 102.9055,
+      "Pd": 106.42,
+      "Ag": 107.8682,
+      "Cd": 112.411,
+      "In": 114.818,
+      "Sn": 118.71,
+      "Sb": 121.76,
+      "Te": 127.6,
+      "I": 126.90447,
+      "Xe": 131.293,
+      "Cs": 132.90545,
+      "Ba": 137.327,
+      "La": 138.9055,
+      "Ce": 140.116,
+      "Pr": 140.90765,
+      "Nd": 144.24,
+      "Sm": 150.36,
+      "Eu": 151.964,
+      "Gd": 157.25,
+      "Tb": 158.92534,
+      "Dy": 162.5,
+      "Ho": 164.93032,
+      "Er": 167.259,
+      "Tm": 168.93421,
+      "Yb": 173.04,
+      "Lu": 174.967,
+      "Hf": 178.49,
+      "Ta": 180.9479,
+      "W": 183.84,
+      "Re": 186.207,
+      "Os": 190.23,
+      "Ir": 192.217,
+      "Pt": 195.078,
+      "Au": 196.96655,
+      "Hg": 200.59,
+      "Tl": 204.3833,
+      "Pb": 207.2,
+      "Bi": 208.98038
+    },
+    "table_sha256": "cc92ae968fff602cd8309a231261e8a7629694d95ba91ccb3714f78ce0c4e118"
+  },
+  "minimum_n": 20,
+  "candidate_n": 20,
+  "missing_n": 0,
+  "source_separation": {
+    "mode": "official_readonly_snapshot_replay",
+    "kind": "official_readonly_acquisition_lock",
+    "pre_target_lock": true,
+    "target_hidden_until_scoring": false,
+    "declared_before_scoring": true,
+    "training_sources": [
+      "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json::visible_fields(CID,MolecularFormula)"
+    ],
+    "target_sources": [
+      "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json::target_field(MolecularWeight)"
+    ],
+    "training_manifest_sha256": "",
+    "target_manifest_sha256": ""
+  },
+  "snapshot_manifest": [
+    {
+      "snapshot_ref": "validation/_raw/chemistry_pubchem_water.txt",
+      "snapshot_sha256": "316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f",
+      "source_snapshot_hash": "316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f",
+      "snapshot_hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+      "snapshot_byte_count": 248,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "",
+      "expected_local_snapshot_ref": "",
+      "lock_ref": "",
+      "declared_before_scoring_lock": false
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-001.json",
+      "snapshot_sha256": "ec0603b7f6be1f1b7377bcec2084d64d8f92e93a5267e422a44f8c92b2db0574",
+      "source_snapshot_hash": "ec0603b7f6be1f1b7377bcec2084d64d8f92e93a5267e422a44f8c92b2db0574",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 251,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-001",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_702_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-001.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-002.json",
+      "snapshot_sha256": "2f779e75e98324b26c25f6f04099b55fbb447645ea768bfa5e0391f9d53b4460",
+      "source_snapshot_hash": "2f779e75e98324b26c25f6f04099b55fbb447645ea768bfa5e0391f9d53b4460",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 258,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-002",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_241_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-002.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-003.json",
+      "snapshot_sha256": "55756f21e2ecc2ab324c1e00966809235d166ed9ae95666dad6d474e3dee258c",
+      "source_snapshot_hash": "55756f21e2ecc2ab324c1e00966809235d166ed9ae95666dad6d474e3dee258c",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 255,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-003",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_180_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-003.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-004.json",
+      "snapshot_sha256": "bf1ab45597289128f8ad5811482f70a576c412eea9cc3a8d1705ac08f47cc68f",
+      "source_snapshot_hash": "bf1ab45597289128f8ad5811482f70a576c412eea9cc3a8d1705ac08f47cc68f",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 256,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-004",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_176_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-004.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-005.json",
+      "snapshot_sha256": "b2b28c30cbe9da15c7c34ed8d6ea1309dda41715e02b6cf4e033ccc6fad143d3",
+      "source_snapshot_hash": "b2b28c30cbe9da15c7c34ed8d6ea1309dda41715e02b6cf4e033ccc6fad143d3",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 259,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-005",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_5234_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-005.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-006.json",
+      "snapshot_sha256": "7ab0544c0f29253ab617664f0ce1209a5cea16328a315c5511bf89fcc891e834",
+      "source_snapshot_hash": "7ab0544c0f29253ab617664f0ce1209a5cea16328a315c5511bf89fcc891e834",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 276,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-006",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_5793_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-006.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-007.json",
+      "snapshot_sha256": "ade82e530f1b6824d8a2e92ec7de2eb38c4df9e9770138479208aa48bb2b3457",
+      "source_snapshot_hash": "ade82e530f1b6824d8a2e92ec7de2eb38c4df9e9770138479208aa48bb2b3457",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 275,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-007",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_2244_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-007.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-008.json",
+      "snapshot_sha256": "c0f91863f1592587de30397718c2fbbc6fe76e269795c0b438e7c198a260c8cb",
+      "source_snapshot_hash": "c0f91863f1592587de30397718c2fbbc6fe76e269795c0b438e7c198a260c8cb",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 282,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-008",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_2519_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-008.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-009.json",
+      "snapshot_sha256": "12dde9e3b0f0fb0f970c0ac58a4230a29cd2b76beb64f5e1a3b969a2155482cd",
+      "source_snapshot_hash": "12dde9e3b0f0fb0f970c0ac58a4230a29cd2b76beb64f5e1a3b969a2155482cd",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 250,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-009",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_784_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-009.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-010.json",
+      "snapshot_sha256": "244c80f04bde1451736db8ed7b60e33e2761cc972c1ebe783141aa99bf6be880",
+      "source_snapshot_hash": "244c80f04bde1451736db8ed7b60e33e2761cc972c1ebe783141aa99bf6be880",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 250,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-010",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_887_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-010.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-011.json",
+      "snapshot_sha256": "a078c5b4f467e4670f79c771551f2187c2d3e962be83114d8114e2bfba1af296",
+      "source_snapshot_hash": "a078c5b4f467e4670f79c771551f2187c2d3e962be83114d8114e2bfba1af296",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 260,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-011",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_1118_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-011.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-012.json",
+      "snapshot_sha256": "15a6ec4a59e5e2b267eee4e21a14aa2aaa687f43a973133c749ba3105c2804fd",
+      "source_snapshot_hash": "15a6ec4a59e5e2b267eee4e21a14aa2aaa687f43a973133c749ba3105c2804fd",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 326,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-012",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_5957_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-012.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-013.json",
+      "snapshot_sha256": "9a956cf0287db653cf626a1fc32c2ecb8b6a0ec00c57bf72355bcdcb5629659f",
+      "source_snapshot_hash": "9a956cf0287db653cf626a1fc32c2ecb8b6a0ec00c57bf72355bcdcb5629659f",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 252,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-013",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_23931_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-013.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-014.json",
+      "snapshot_sha256": "2073c31dfd1f1f280310150e076f3aa5be8ef326a9209785fcdece14b750a605",
+      "source_snapshot_hash": "2073c31dfd1f1f280310150e076f3aa5be8ef326a9209785fcdece14b750a605",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 262,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-014",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_5950_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-014.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-015.json",
+      "snapshot_sha256": "f099172951ed6f979db2320e2ade4c2d391741e0d1ada60dc117482e13109dd3",
+      "source_snapshot_hash": "f099172951ed6f979db2320e2ade4c2d391741e0d1ada60dc117482e13109dd3",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 282,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-015",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_3672_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-015.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-016.json",
+      "snapshot_sha256": "b845d0b114130508dc3550afa80d3a18c0f82c8bb86cce6cd76a45700579ea2c",
+      "source_snapshot_hash": "b845d0b114130508dc3550afa80d3a18c0f82c8bb86cce6cd76a45700579ea2c",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 273,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-016",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_1983_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-016.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-017.json",
+      "snapshot_sha256": "4e74082695b1c48a63ed870e63b6470f024cad96c2f3bf28e6eae7e0ef6cde03",
+      "source_snapshot_hash": "4e74082695b1c48a63ed870e63b6470f024cad96c2f3bf28e6eae7e0ef6cde03",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 273,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-017",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_33032_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-017.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-018.json",
+      "snapshot_sha256": "e5e79f6f131bcec10a4604abde5104024abfe38d04bdc0b5727bbc789be8ca0a",
+      "source_snapshot_hash": "e5e79f6f131bcec10a4604abde5104024abfe38d04bdc0b5727bbc789be8ca0a",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 298,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-018",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_5288826_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-018.lock.json",
+      "declared_before_scoring_lock": true
+    },
+    {
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-019.json",
+      "snapshot_sha256": "e5997df91f862cacdf25c635ce7fb546bcb6527198335873a8a2e4d3e838ecc3",
+      "source_snapshot_hash": "e5997df91f862cacdf25c635ce7fb546bcb6527198335873a8a2e4d3e838ecc3",
+      "snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "snapshot_byte_count": 281,
+      "parsed": true,
+      "failures": [],
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-019",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_54670067_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-019.lock.json",
+      "declared_before_scoring_lock": true
+    }
+  ],
+  "rows": [
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0001-F1BDAE057E16",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0001",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/_raw/chemistry_pubchem_water.txt",
+      "snapshot_sha256": "316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f",
+      "source_snapshot_hash": "316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f",
+      "source_snapshot_hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+      "acquisition_id": "",
+      "expected_local_snapshot_ref": "",
+      "lock_ref": "",
+      "lock_sha256": "",
+      "declared_before_scoring_lock": false,
+      "acquisition_packet_ref": "",
+      "record_index": 1,
+      "cid": "962",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/962/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "H2O",
+      "atomic_composition": {
+        "H": 2,
+        "O": 1
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "H",
+          "count": 2,
+          "atomic_weight": 1.00794,
+          "contribution": 2.01588
+        },
+        {
+          "element": "O",
+          "count": 1,
+          "atomic_weight": 15.9994,
+          "contribution": 15.9994
+        }
+      ],
+      "training_source": "validation/_raw/chemistry_pubchem_water.txt::record=1::visible_field(MolecularFormula)::CID=962",
+      "target_source": "validation/_raw/chemistry_pubchem_water.txt::record=1::target_field(MolecularWeight)::CID=962",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "H2O",
+        "atomic_composition": {
+          "H": 2,
+          "O": 1
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 18.01528,
+      "observed_value": 18.015,
+      "observed_value_text": "18.015",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.000280000000000058,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": false,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 18.015,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0001-F1BDAE057E16",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "9d6ede89ced614416846e69a54e7de69c6ba0780c316ad6309ac68732dbaa8a2",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0002-0171D7D5AEFF",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0002",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-001.json",
+      "snapshot_sha256": "ec0603b7f6be1f1b7377bcec2084d64d8f92e93a5267e422a44f8c92b2db0574",
+      "source_snapshot_hash": "ec0603b7f6be1f1b7377bcec2084d64d8f92e93a5267e422a44f8c92b2db0574",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-001",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_702_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-001.lock.json",
+      "lock_sha256": "68cac0894e6a54dd7c066a0b3cfc6088822237d9cea0ac14048835ec4382bbc9",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 2,
+      "cid": "702",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/702/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "C2H6O",
+      "atomic_composition": {
+        "C": 2,
+        "H": 6,
+        "O": 1
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "C",
+          "count": 2,
+          "atomic_weight": 12.0107,
+          "contribution": 24.0214
+        },
+        {
+          "element": "H",
+          "count": 6,
+          "atomic_weight": 1.00794,
+          "contribution": 6.04764
+        },
+        {
+          "element": "O",
+          "count": 1,
+          "atomic_weight": 15.9994,
+          "contribution": 15.9994
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-001.json::record=2::visible_field(MolecularFormula)::CID=702",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-001.json::record=2::target_field(MolecularWeight)::CID=702",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "C2H6O",
+        "atomic_composition": {
+          "C": 2,
+          "H": 6,
+          "O": 1
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 46.06844,
+      "observed_value": 46.07,
+      "observed_value_text": "46.07",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.0015599999999977854,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 46.07,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0002-0171D7D5AEFF",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "b1cc22123182ae30c14fa851627cb560b389983ab1542b78c9b6fc2035db7c57",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0003-6CD1479FB81F",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0003",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-002.json",
+      "snapshot_sha256": "2f779e75e98324b26c25f6f04099b55fbb447645ea768bfa5e0391f9d53b4460",
+      "source_snapshot_hash": "2f779e75e98324b26c25f6f04099b55fbb447645ea768bfa5e0391f9d53b4460",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-002",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_241_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-002.lock.json",
+      "lock_sha256": "dbbbb36d61957a8ebb7e0c4cf220f6a6b96dba666fa5ac20ebf1128ad8fe2bdd",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 3,
+      "cid": "241",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/241/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "C6H6",
+      "atomic_composition": {
+        "C": 6,
+        "H": 6
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "C",
+          "count": 6,
+          "atomic_weight": 12.0107,
+          "contribution": 72.0642
+        },
+        {
+          "element": "H",
+          "count": 6,
+          "atomic_weight": 1.00794,
+          "contribution": 6.04764
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-002.json::record=3::visible_field(MolecularFormula)::CID=241",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-002.json::record=3::target_field(MolecularWeight)::CID=241",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "C6H6",
+        "atomic_composition": {
+          "C": 6,
+          "H": 6
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 78.11184,
+      "observed_value": 78.11,
+      "observed_value_text": "78.11",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.001840000000001396,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 78.11,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0003-6CD1479FB81F",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "6fb8da4f0621dca33ca3c2ea7ee604ba3cbfecd7e9c20bff43a2c6b8b15a794a",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0004-76C50B02E230",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0004",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-003.json",
+      "snapshot_sha256": "55756f21e2ecc2ab324c1e00966809235d166ed9ae95666dad6d474e3dee258c",
+      "source_snapshot_hash": "55756f21e2ecc2ab324c1e00966809235d166ed9ae95666dad6d474e3dee258c",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-003",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_180_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-003.lock.json",
+      "lock_sha256": "94fa2c7e3d37abdc801dc0a70ab26eea43558ba6164a90fc57d8ce4b79108402",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 4,
+      "cid": "180",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/180/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "C3H6O",
+      "atomic_composition": {
+        "C": 3,
+        "H": 6,
+        "O": 1
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "C",
+          "count": 3,
+          "atomic_weight": 12.0107,
+          "contribution": 36.0321
+        },
+        {
+          "element": "H",
+          "count": 6,
+          "atomic_weight": 1.00794,
+          "contribution": 6.04764
+        },
+        {
+          "element": "O",
+          "count": 1,
+          "atomic_weight": 15.9994,
+          "contribution": 15.9994
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-003.json::record=4::visible_field(MolecularFormula)::CID=180",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-003.json::record=4::target_field(MolecularWeight)::CID=180",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "C3H6O",
+        "atomic_composition": {
+          "C": 3,
+          "H": 6,
+          "O": 1
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 58.07914,
+      "observed_value": 58.08,
+      "observed_value_text": "58.08",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.0008599999999958641,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 58.08,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0004-76C50B02E230",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "02aa7d0593a8a97d294db91bfc27c0c1a8a8e3d2a7363459c8623477e80ca0c5",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0005-56E40763FEE1",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0005",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-004.json",
+      "snapshot_sha256": "bf1ab45597289128f8ad5811482f70a576c412eea9cc3a8d1705ac08f47cc68f",
+      "source_snapshot_hash": "bf1ab45597289128f8ad5811482f70a576c412eea9cc3a8d1705ac08f47cc68f",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-004",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_176_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-004.lock.json",
+      "lock_sha256": "4281eb943703e78fcc3400048788da17b3cbb92edcb47c5a9762c4afe451296c",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 5,
+      "cid": "176",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/176/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "C2H4O2",
+      "atomic_composition": {
+        "C": 2,
+        "H": 4,
+        "O": 2
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "C",
+          "count": 2,
+          "atomic_weight": 12.0107,
+          "contribution": 24.0214
+        },
+        {
+          "element": "H",
+          "count": 4,
+          "atomic_weight": 1.00794,
+          "contribution": 4.03176
+        },
+        {
+          "element": "O",
+          "count": 2,
+          "atomic_weight": 15.9994,
+          "contribution": 31.9988
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-004.json::record=5::visible_field(MolecularFormula)::CID=176",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-004.json::record=5::target_field(MolecularWeight)::CID=176",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "C2H4O2",
+        "atomic_composition": {
+          "C": 2,
+          "H": 4,
+          "O": 2
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 60.051959999999994,
+      "observed_value": 60.05,
+      "observed_value_text": "60.05",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.001959999999996853,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 60.05,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0005-56E40763FEE1",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "a52557ec0d339f80267efeaf8ef477efa7c27a5c5560ed1c853739be8f03666e",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0006-A335F3527988",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0006",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-005.json",
+      "snapshot_sha256": "b2b28c30cbe9da15c7c34ed8d6ea1309dda41715e02b6cf4e033ccc6fad143d3",
+      "source_snapshot_hash": "b2b28c30cbe9da15c7c34ed8d6ea1309dda41715e02b6cf4e033ccc6fad143d3",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-005",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_5234_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-005.lock.json",
+      "lock_sha256": "bdc5dae9555b3beec0b816817dae8a8a2ca2bfdddf8d72638a0b51a6385e2607",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 6,
+      "cid": "5234",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5234/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "ClNa",
+      "atomic_composition": {
+        "Cl": 1,
+        "Na": 1
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "Cl",
+          "count": 1,
+          "atomic_weight": 35.453,
+          "contribution": 35.453
+        },
+        {
+          "element": "Na",
+          "count": 1,
+          "atomic_weight": 22.98976928,
+          "contribution": 22.98976928
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-005.json::record=6::visible_field(MolecularFormula)::CID=5234",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-005.json::record=6::target_field(MolecularWeight)::CID=5234",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "ClNa",
+        "atomic_composition": {
+          "Cl": 1,
+          "Na": 1
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 58.44276928000001,
+      "observed_value": 58.44,
+      "observed_value_text": "58.44",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.002769280000009644,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 58.44,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0006-A335F3527988",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "b784db4ccc07f43ce3fa80016328386f4791173562f6fedfbf4d17c92d3c02a8",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0007-97682A4E4BE8",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0007",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-006.json",
+      "snapshot_sha256": "7ab0544c0f29253ab617664f0ce1209a5cea16328a315c5511bf89fcc891e834",
+      "source_snapshot_hash": "7ab0544c0f29253ab617664f0ce1209a5cea16328a315c5511bf89fcc891e834",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-006",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_5793_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-006.lock.json",
+      "lock_sha256": "ca008b38c7bb773b616a7dc2cbf0fd2caea2df9d50977a537b31d4db241096c4",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 7,
+      "cid": "5793",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5793/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "C6H12O6",
+      "atomic_composition": {
+        "C": 6,
+        "H": 12,
+        "O": 6
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "C",
+          "count": 6,
+          "atomic_weight": 12.0107,
+          "contribution": 72.0642
+        },
+        {
+          "element": "H",
+          "count": 12,
+          "atomic_weight": 1.00794,
+          "contribution": 12.09528
+        },
+        {
+          "element": "O",
+          "count": 6,
+          "atomic_weight": 15.9994,
+          "contribution": 95.9964
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-006.json::record=7::visible_field(MolecularFormula)::CID=5793",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-006.json::record=7::target_field(MolecularWeight)::CID=5793",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "C6H12O6",
+        "atomic_composition": {
+          "C": 6,
+          "H": 12,
+          "O": 6
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 180.15588,
+      "observed_value": 180.16,
+      "observed_value_text": "180.16",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.004120000000000346,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 180.16,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0007-97682A4E4BE8",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "c4c31a8d355336cb5abc392eec5ff89c55dfb6c9a2df1f665ad767f1f9e93f30",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0008-565FAF9ED56E",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0008",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-007.json",
+      "snapshot_sha256": "ade82e530f1b6824d8a2e92ec7de2eb38c4df9e9770138479208aa48bb2b3457",
+      "source_snapshot_hash": "ade82e530f1b6824d8a2e92ec7de2eb38c4df9e9770138479208aa48bb2b3457",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-007",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_2244_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-007.lock.json",
+      "lock_sha256": "98529db14a83d7f245d8053ff8cbb5ab7f74d195108388b9a042318305cfa67c",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 8,
+      "cid": "2244",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/2244/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "C9H8O4",
+      "atomic_composition": {
+        "C": 9,
+        "H": 8,
+        "O": 4
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "C",
+          "count": 9,
+          "atomic_weight": 12.0107,
+          "contribution": 108.0963
+        },
+        {
+          "element": "H",
+          "count": 8,
+          "atomic_weight": 1.00794,
+          "contribution": 8.06352
+        },
+        {
+          "element": "O",
+          "count": 4,
+          "atomic_weight": 15.9994,
+          "contribution": 63.9976
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-007.json::record=8::visible_field(MolecularFormula)::CID=2244",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-007.json::record=8::target_field(MolecularWeight)::CID=2244",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "C9H8O4",
+        "atomic_composition": {
+          "C": 9,
+          "H": 8,
+          "O": 4
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 180.15742,
+      "observed_value": 180.16,
+      "observed_value_text": "180.16",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.0025799999999946976,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 180.16,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0008-565FAF9ED56E",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "21425ec7666772bdb204468559f88464232394d52926d5d4a85299bad929841d",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0009-27FFE1EF9B03",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0009",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-008.json",
+      "snapshot_sha256": "c0f91863f1592587de30397718c2fbbc6fe76e269795c0b438e7c198a260c8cb",
+      "source_snapshot_hash": "c0f91863f1592587de30397718c2fbbc6fe76e269795c0b438e7c198a260c8cb",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-008",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_2519_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-008.lock.json",
+      "lock_sha256": "b60735637dfa3aa15a6ff87aab9e94fc754af50e98fdc631d5a7ff84b992bca0",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 9,
+      "cid": "2519",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/2519/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "C8H10N4O2",
+      "atomic_composition": {
+        "C": 8,
+        "H": 10,
+        "N": 4,
+        "O": 2
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "C",
+          "count": 8,
+          "atomic_weight": 12.0107,
+          "contribution": 96.0856
+        },
+        {
+          "element": "H",
+          "count": 10,
+          "atomic_weight": 1.00794,
+          "contribution": 10.0794
+        },
+        {
+          "element": "N",
+          "count": 4,
+          "atomic_weight": 14.0067,
+          "contribution": 56.0268
+        },
+        {
+          "element": "O",
+          "count": 2,
+          "atomic_weight": 15.9994,
+          "contribution": 31.9988
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-008.json::record=9::visible_field(MolecularFormula)::CID=2519",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-008.json::record=9::target_field(MolecularWeight)::CID=2519",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "C8H10N4O2",
+        "atomic_composition": {
+          "C": 8,
+          "H": 10,
+          "N": 4,
+          "O": 2
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 194.1906,
+      "observed_value": 194.19,
+      "observed_value_text": "194.19",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.0005999999999914962,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 194.19,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0009-27FFE1EF9B03",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "9aad30e80a8294006e81787f87f114a0befe662217b9d69bb8ba2eeea1cb1b61",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0010-CFC28D5CEB0D",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0010",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-009.json",
+      "snapshot_sha256": "12dde9e3b0f0fb0f970c0ac58a4230a29cd2b76beb64f5e1a3b969a2155482cd",
+      "source_snapshot_hash": "12dde9e3b0f0fb0f970c0ac58a4230a29cd2b76beb64f5e1a3b969a2155482cd",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-009",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_784_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-009.lock.json",
+      "lock_sha256": "accff41f00b4f20918d37aed98f51022344486c4959b64710ca897f8239b612d",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 10,
+      "cid": "784",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/784/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "H2O2",
+      "atomic_composition": {
+        "H": 2,
+        "O": 2
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "H",
+          "count": 2,
+          "atomic_weight": 1.00794,
+          "contribution": 2.01588
+        },
+        {
+          "element": "O",
+          "count": 2,
+          "atomic_weight": 15.9994,
+          "contribution": 31.9988
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-009.json::record=10::visible_field(MolecularFormula)::CID=784",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-009.json::record=10::target_field(MolecularWeight)::CID=784",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "H2O2",
+        "atomic_composition": {
+          "H": 2,
+          "O": 2
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 34.01468,
+      "observed_value": 34.015,
+      "observed_value_text": "34.015",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.0003200000000020964,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 34.015,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0010-CFC28D5CEB0D",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "d442a3b697f95e98b17aed9b8471ddfb204eeb3fdb8bcbf81de7d10b8b7fc3b5",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0011-742D941C131A",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0011",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-010.json",
+      "snapshot_sha256": "244c80f04bde1451736db8ed7b60e33e2761cc972c1ebe783141aa99bf6be880",
+      "source_snapshot_hash": "244c80f04bde1451736db8ed7b60e33e2761cc972c1ebe783141aa99bf6be880",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-010",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_887_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-010.lock.json",
+      "lock_sha256": "ded77bcb5b1b75dbe9ea943b147079a963b265aa5af1e9b708f0c7125509e311",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 11,
+      "cid": "887",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/887/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "CH4O",
+      "atomic_composition": {
+        "C": 1,
+        "H": 4,
+        "O": 1
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "C",
+          "count": 1,
+          "atomic_weight": 12.0107,
+          "contribution": 12.0107
+        },
+        {
+          "element": "H",
+          "count": 4,
+          "atomic_weight": 1.00794,
+          "contribution": 4.03176
+        },
+        {
+          "element": "O",
+          "count": 1,
+          "atomic_weight": 15.9994,
+          "contribution": 15.9994
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-010.json::record=11::visible_field(MolecularFormula)::CID=887",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-010.json::record=11::target_field(MolecularWeight)::CID=887",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "CH4O",
+        "atomic_composition": {
+          "C": 1,
+          "H": 4,
+          "O": 1
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 32.04186,
+      "observed_value": 32.042,
+      "observed_value_text": "32.042",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.00014000000000180535,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 32.042,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0011-742D941C131A",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "360012c0644fbc799bcc3de180e4502743a2ac82e760ef2c3ae9857724de6529",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0012-F1F5238ACE4D",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0012",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-011.json",
+      "snapshot_sha256": "a078c5b4f467e4670f79c771551f2187c2d3e962be83114d8114e2bfba1af296",
+      "source_snapshot_hash": "a078c5b4f467e4670f79c771551f2187c2d3e962be83114d8114e2bfba1af296",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-011",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_1118_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-011.lock.json",
+      "lock_sha256": "324389f9c5073c71c6c1c066bb95732f187458b37deec2ada8db344245d9dfe9",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 12,
+      "cid": "1118",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/1118/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "H2O4S",
+      "atomic_composition": {
+        "H": 2,
+        "O": 4,
+        "S": 1
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "H",
+          "count": 2,
+          "atomic_weight": 1.00794,
+          "contribution": 2.01588
+        },
+        {
+          "element": "O",
+          "count": 4,
+          "atomic_weight": 15.9994,
+          "contribution": 63.9976
+        },
+        {
+          "element": "S",
+          "count": 1,
+          "atomic_weight": 32.065,
+          "contribution": 32.065
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-011.json::record=12::visible_field(MolecularFormula)::CID=1118",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-011.json::record=12::target_field(MolecularWeight)::CID=1118",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "H2O4S",
+        "atomic_composition": {
+          "H": 2,
+          "O": 4,
+          "S": 1
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 98.07848,
+      "observed_value": 98.08,
+      "observed_value_text": "98.08",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.0015199999999992997,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 98.08,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0012-F1F5238ACE4D",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "1b426d6af10a54f17b88f7979827cbb536a8a2bf79f9e96b440c57d7ceb9a882",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0013-5C0ED58427AB",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0013",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-012.json",
+      "snapshot_sha256": "15a6ec4a59e5e2b267eee4e21a14aa2aaa687f43a973133c749ba3105c2804fd",
+      "source_snapshot_hash": "15a6ec4a59e5e2b267eee4e21a14aa2aaa687f43a973133c749ba3105c2804fd",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-012",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_5957_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-012.lock.json",
+      "lock_sha256": "60c922bd7d7b7bac6b96c98c7598b647a74c08c87b5795bd44cf0653ea9ab606",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 13,
+      "cid": "5957",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5957/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "C10H16N5O13P3",
+      "atomic_composition": {
+        "C": 10,
+        "H": 16,
+        "N": 5,
+        "O": 13,
+        "P": 3
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "C",
+          "count": 10,
+          "atomic_weight": 12.0107,
+          "contribution": 120.107
+        },
+        {
+          "element": "H",
+          "count": 16,
+          "atomic_weight": 1.00794,
+          "contribution": 16.12704
+        },
+        {
+          "element": "N",
+          "count": 5,
+          "atomic_weight": 14.0067,
+          "contribution": 70.0335
+        },
+        {
+          "element": "O",
+          "count": 13,
+          "atomic_weight": 15.9994,
+          "contribution": 207.9922
+        },
+        {
+          "element": "P",
+          "count": 3,
+          "atomic_weight": 30.973761998,
+          "contribution": 92.921285994
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-012.json::record=13::visible_field(MolecularFormula)::CID=5957",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-012.json::record=13::target_field(MolecularWeight)::CID=5957",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "C10H16N5O13P3",
+        "atomic_composition": {
+          "C": 10,
+          "H": 16,
+          "N": 5,
+          "O": 13,
+          "P": 3
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 507.181025994,
+      "observed_value": 507.18,
+      "observed_value_text": "507.18",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.0010259939999741619,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 507.18,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0013-5C0ED58427AB",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "43567521b7b81b4c1f453b12da19bf0c4e70b84c7796985c563439f60f1bc8a0",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0014-615DB71DEE3F",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0014",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-013.json",
+      "snapshot_sha256": "9a956cf0287db653cf626a1fc32c2ecb8b6a0ec00c57bf72355bcdcb5629659f",
+      "source_snapshot_hash": "9a956cf0287db653cf626a1fc32c2ecb8b6a0ec00c57bf72355bcdcb5629659f",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-013",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_23931_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-013.lock.json",
+      "lock_sha256": "8cf8e2cf49837b866927b153817ce37d06b08c743bd0c88102f2c727eef73166",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 14,
+      "cid": "23931",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/23931/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "Hg",
+      "atomic_composition": {
+        "Hg": 1
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "Hg",
+          "count": 1,
+          "atomic_weight": 200.59,
+          "contribution": 200.59
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-013.json::record=14::visible_field(MolecularFormula)::CID=23931",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-013.json::record=14::target_field(MolecularWeight)::CID=23931",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "Hg",
+        "atomic_composition": {
+          "Hg": 1
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 200.59,
+      "observed_value": 200.59,
+      "observed_value_text": "200.59",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.0,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 200.59,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0014-615DB71DEE3F",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "98ea452ccabed3927b38cbc17a4a162d32052dd314f0cb6e0f0f2636bfac4817",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0015-B4015F0246C7",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0015",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-014.json",
+      "snapshot_sha256": "2073c31dfd1f1f280310150e076f3aa5be8ef326a9209785fcdece14b750a605",
+      "source_snapshot_hash": "2073c31dfd1f1f280310150e076f3aa5be8ef326a9209785fcdece14b750a605",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-014",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_5950_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-014.lock.json",
+      "lock_sha256": "87a340f1e80d7d90d2d0004bf52c23c37f5e244c5b76838c65732e92ed0912b1",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 15,
+      "cid": "5950",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5950/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "C3H7NO2",
+      "atomic_composition": {
+        "C": 3,
+        "H": 7,
+        "N": 1,
+        "O": 2
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "C",
+          "count": 3,
+          "atomic_weight": 12.0107,
+          "contribution": 36.0321
+        },
+        {
+          "element": "H",
+          "count": 7,
+          "atomic_weight": 1.00794,
+          "contribution": 7.055580000000001
+        },
+        {
+          "element": "N",
+          "count": 1,
+          "atomic_weight": 14.0067,
+          "contribution": 14.0067
+        },
+        {
+          "element": "O",
+          "count": 2,
+          "atomic_weight": 15.9994,
+          "contribution": 31.9988
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-014.json::record=15::visible_field(MolecularFormula)::CID=5950",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-014.json::record=15::target_field(MolecularWeight)::CID=5950",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "C3H7NO2",
+        "atomic_composition": {
+          "C": 3,
+          "H": 7,
+          "N": 1,
+          "O": 2
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 89.09318,
+      "observed_value": 89.09,
+      "observed_value_text": "89.09",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.0031800000000004047,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 89.09,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0015-B4015F0246C7",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "afddc72599e200b58a8189a2eb255a0fe97f29b67d163bff94f819b3cf2248b5",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0016-977AC2851B96",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0016",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-015.json",
+      "snapshot_sha256": "f099172951ed6f979db2320e2ade4c2d391741e0d1ada60dc117482e13109dd3",
+      "source_snapshot_hash": "f099172951ed6f979db2320e2ade4c2d391741e0d1ada60dc117482e13109dd3",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-015",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_3672_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-015.lock.json",
+      "lock_sha256": "f85b55791c87a245669f03bdcaaec1cbde7c8fe9088fc357585c4a78eec7bd18",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 16,
+      "cid": "3672",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/3672/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "C13H18O2",
+      "atomic_composition": {
+        "C": 13,
+        "H": 18,
+        "O": 2
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "C",
+          "count": 13,
+          "atomic_weight": 12.0107,
+          "contribution": 156.13909999999998
+        },
+        {
+          "element": "H",
+          "count": 18,
+          "atomic_weight": 1.00794,
+          "contribution": 18.14292
+        },
+        {
+          "element": "O",
+          "count": 2,
+          "atomic_weight": 15.9994,
+          "contribution": 31.9988
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-015.json::record=16::visible_field(MolecularFormula)::CID=3672",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-015.json::record=16::target_field(MolecularWeight)::CID=3672",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "C13H18O2",
+        "atomic_composition": {
+          "C": 13,
+          "H": 18,
+          "O": 2
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 206.28081999999998,
+      "observed_value": 206.28,
+      "observed_value_text": "206.28",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.0008199999999760621,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 206.28,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0016-977AC2851B96",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "fba70db369029e29e27bc27788e2e2b57b33a70bcab33a9d6ff152048d037222",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0017-2CA0CAE6455E",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0017",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-016.json",
+      "snapshot_sha256": "b845d0b114130508dc3550afa80d3a18c0f82c8bb86cce6cd76a45700579ea2c",
+      "source_snapshot_hash": "b845d0b114130508dc3550afa80d3a18c0f82c8bb86cce6cd76a45700579ea2c",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-016",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_1983_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-016.lock.json",
+      "lock_sha256": "cfda508ef7f540db8a8d1be4acdee43cfd40bca5a9d4c0e64af3ba73908d23c8",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 17,
+      "cid": "1983",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/1983/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "C8H9NO2",
+      "atomic_composition": {
+        "C": 8,
+        "H": 9,
+        "N": 1,
+        "O": 2
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "C",
+          "count": 8,
+          "atomic_weight": 12.0107,
+          "contribution": 96.0856
+        },
+        {
+          "element": "H",
+          "count": 9,
+          "atomic_weight": 1.00794,
+          "contribution": 9.07146
+        },
+        {
+          "element": "N",
+          "count": 1,
+          "atomic_weight": 14.0067,
+          "contribution": 14.0067
+        },
+        {
+          "element": "O",
+          "count": 2,
+          "atomic_weight": 15.9994,
+          "contribution": 31.9988
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-016.json::record=17::visible_field(MolecularFormula)::CID=1983",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-016.json::record=17::target_field(MolecularWeight)::CID=1983",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "C8H9NO2",
+        "atomic_composition": {
+          "C": 8,
+          "H": 9,
+          "N": 1,
+          "O": 2
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 151.16255999999998,
+      "observed_value": 151.16,
+      "observed_value_text": "151.16",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.0025599999999883494,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 151.16,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0017-2CA0CAE6455E",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "87d2c971c657c8d7782aa7d332cd6d9ff288b7fa446bc50719e91a56f032ecc1",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0018-6016B02190E9",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0018",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-017.json",
+      "snapshot_sha256": "4e74082695b1c48a63ed870e63b6470f024cad96c2f3bf28e6eae7e0ef6cde03",
+      "source_snapshot_hash": "4e74082695b1c48a63ed870e63b6470f024cad96c2f3bf28e6eae7e0ef6cde03",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-017",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_33032_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-017.lock.json",
+      "lock_sha256": "2c3756cad611486675332e57766510fcdac39d6a5ff3d3b9b4a10e9898f0db39",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 18,
+      "cid": "33032",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/33032/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "C5H9NO4",
+      "atomic_composition": {
+        "C": 5,
+        "H": 9,
+        "N": 1,
+        "O": 4
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "C",
+          "count": 5,
+          "atomic_weight": 12.0107,
+          "contribution": 60.0535
+        },
+        {
+          "element": "H",
+          "count": 9,
+          "atomic_weight": 1.00794,
+          "contribution": 9.07146
+        },
+        {
+          "element": "N",
+          "count": 1,
+          "atomic_weight": 14.0067,
+          "contribution": 14.0067
+        },
+        {
+          "element": "O",
+          "count": 4,
+          "atomic_weight": 15.9994,
+          "contribution": 63.9976
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-017.json::record=18::visible_field(MolecularFormula)::CID=33032",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-017.json::record=18::target_field(MolecularWeight)::CID=33032",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "C5H9NO4",
+        "atomic_composition": {
+          "C": 5,
+          "H": 9,
+          "N": 1,
+          "O": 4
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 147.12926,
+      "observed_value": 147.13,
+      "observed_value_text": "147.13",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.0007400000000075124,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 147.13,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0018-6016B02190E9",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "e59684cd3cca1e520a28cf6ace90d17a610e80b9643d77e09d4791c3e13bdd5a",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0019-B0AA2A9A9FD0",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0019",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-018.json",
+      "snapshot_sha256": "e5e79f6f131bcec10a4604abde5104024abfe38d04bdc0b5727bbc789be8ca0a",
+      "source_snapshot_hash": "e5e79f6f131bcec10a4604abde5104024abfe38d04bdc0b5727bbc789be8ca0a",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-018",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_5288826_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-018.lock.json",
+      "lock_sha256": "3cf95e868f032ac029c21a262727a7138ed94fb94149e42b5f8800819f860470",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 19,
+      "cid": "5288826",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5288826/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "C17H19NO3",
+      "atomic_composition": {
+        "C": 17,
+        "H": 19,
+        "N": 1,
+        "O": 3
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "C",
+          "count": 17,
+          "atomic_weight": 12.0107,
+          "contribution": 204.18189999999998
+        },
+        {
+          "element": "H",
+          "count": 19,
+          "atomic_weight": 1.00794,
+          "contribution": 19.15086
+        },
+        {
+          "element": "N",
+          "count": 1,
+          "atomic_weight": 14.0067,
+          "contribution": 14.0067
+        },
+        {
+          "element": "O",
+          "count": 3,
+          "atomic_weight": 15.9994,
+          "contribution": 47.9982
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-018.json::record=19::visible_field(MolecularFormula)::CID=5288826",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-018.json::record=19::target_field(MolecularWeight)::CID=5288826",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "C17H19NO3",
+        "atomic_composition": {
+          "C": 17,
+          "H": 19,
+          "N": 1,
+          "O": 3
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 285.33765999999997,
+      "observed_value": 285.34,
+      "observed_value_text": "285.34",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.0023400000000037835,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 285.34,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0019-B0AA2A9A9FD0",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "f0e82f3cc52b3b31a64493a41d1fdfc837a8fe6193c9e2dedd4f3b191e36928d",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    },
+    {
+      "observation_id": "CHEM-PUBCHEM-FORMULA-0020-3FC35B62A7C1",
+      "claim_id": "OC133-CHEMISTRY-PUBCHEM-FORMULA-0020",
+      "task_type": "pubchem_formula_to_molecular_weight_reconstruction",
+      "snapshot_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-019.json",
+      "snapshot_sha256": "e5997df91f862cacdf25c635ce7fb546bcb6527198335873a8a2e4d3e838ecc3",
+      "source_snapshot_hash": "e5997df91f862cacdf25c635ce7fb546bcb6527198335873a8a2e4d3e838ecc3",
+      "source_snapshot_hash_policy": "sha256 over acquired response bytes as stored",
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-019",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_54670067_properties.json",
+      "lock_ref": "validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-CHEM-PUBCHEM-FORMULA-ACQ-019.lock.json",
+      "lock_sha256": "b91e7c96e1a4f530a1d92ed22ea9c9c1a9b533e32ceef61bae60dd79a1a8c4f0",
+      "declared_before_scoring_lock": true,
+      "acquisition_packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "record_index": 20,
+      "cid": "54670067",
+      "official_source_confirmed": true,
+      "official_source": "PubChem PUG REST",
+      "official_source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/54670067/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "molecular_formula": "C6H8O6",
+      "atomic_composition": {
+        "C": 6,
+        "H": 8,
+        "O": 6
+      },
+      "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2",
+      "atomic_weight_source_note": "Fixed local conventional average atomic weights for deterministic PubChem MolecularWeight replay; v2 expands heavy/metal coverage for acquired PubChem formulas, including mercury. Values are not fetched at runtime and are not tuned per compound.",
+      "formula_evaluation_trace": [
+        {
+          "element": "C",
+          "count": 6,
+          "atomic_weight": 12.0107,
+          "contribution": 72.0642
+        },
+        {
+          "element": "H",
+          "count": 8,
+          "atomic_weight": 1.00794,
+          "contribution": 8.06352
+        },
+        {
+          "element": "O",
+          "count": 6,
+          "atomic_weight": 15.9994,
+          "contribution": 95.9964
+        }
+      ],
+      "training_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-019.json::record=20::visible_field(MolecularFormula)::CID=54670067",
+      "target_source": "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-019.json::record=20::target_field(MolecularWeight)::CID=54670067",
+      "formula": "sum(count[element] * fixed_atomic_weight[element])",
+      "formula_inputs": {
+        "molecular_formula": "C6H8O6",
+        "atomic_composition": {
+          "C": 6,
+          "H": 8,
+          "O": 6
+        },
+        "atomic_weight_table_id": "OC133_FIXED_AVERAGE_ATOMIC_WEIGHTS_v2"
+      },
+      "prediction_inputs": {
+        "visible_fields": [
+          "CID",
+          "MolecularFormula"
+        ],
+        "target_field": "MolecularWeight"
+      },
+      "predicted_value": 176.12412,
+      "observed_value": 176.12,
+      "observed_value_text": "176.12",
+      "uncertainty": 0.05,
+      "uncertainty_basis": "fixed 0.05 Da tolerance for PubChem display/API rounding and fixed-table rounding",
+      "model_residual": 0.004120000000000346,
+      "residual_within_uncertainty": true,
+      "comparator_baseline_name": "zero-Da molecular-weight null baseline",
+      "comparator_prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "comparator_pre_registered": true,
+      "comparator_prediction": 0.0,
+      "comparator_residual": 176.12,
+      "negative_control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0020-3FC35B62A7C1",
+      "negative_control_description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "negative_control_rejected": true,
+      "negative_control_status": "REJECTED",
+      "falsifier": "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse",
+      "falsifier_status": "NOT_TRIGGERED",
+      "row_hash": "2eb9ed3a7eb1410f98803a3769cc16ad99dae305a53a26e21148e8b129b8ceda",
+      "row_hash_policy": "sha256 over canonical row JSON before row_hash insertion"
+    }
+  ],
+  "comparator_baselines": [
+    {
+      "name": "zero-Da molecular-weight null baseline",
+      "prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "pre_registered": false
+    },
+    {
+      "name": "zero-Da molecular-weight null baseline",
+      "prediction_rule": "predict zero molecular weight for every PubChem compound",
+      "pre_registered": true
+    }
+  ],
+  "residuals": {
+    "model": 0.001666763699997098,
+    "comparator": 140.01510000000002,
+    "superiority_margin": 140.01343323630002
+  },
+  "negative_controls": [
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0001-F1BDAE057E16",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0002-0171D7D5AEFF",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0003-6CD1479FB81F",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0004-76C50B02E230",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0005-56E40763FEE1",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0006-A335F3527988",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0007-97682A4E4BE8",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0008-565FAF9ED56E",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0009-27FFE1EF9B03",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0010-CFC28D5CEB0D",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0011-742D941C131A",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0012-F1F5238ACE4D",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0013-5C0ED58427AB",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0014-615DB71DEE3F",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0015-B4015F0246C7",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0016-977AC2851B96",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0017-2CA0CAE6455E",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0018-6016B02190E9",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0019-B0AA2A9A9FD0",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0020-3FC35B62A7C1",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    }
+  ],
+  "falsifiers": [
+    "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse"
+  ],
+  "blockers": [
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED::official_readonly_snapshot_replay",
+    "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+    "ROW_FIELD_MISSING::CHEM-PUBCHEM-FORMULA-0001-F1BDAE057E16::lock_ref",
+    "DECLARED_BEFORE_SCORING_LOCK_MISSING::CHEM-PUBCHEM-FORMULA-0001-F1BDAE057E16",
+    "COMPARATOR_BASELINE_NOT_PREREGISTERED::CHEM-PUBCHEM-FORMULA-0001-F1BDAE057E16",
+    "DECLARED_BEFORE_SCORING_LOCK_REQUIRED",
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
+    "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+    "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "schema_id": "OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "generated_by": "tools/oc133_physics_chemistry_official_batch_factory.py",
+  "domain": "physics",
+  "source_lane": "official_batch",
+  "no_send": true,
+  "publish_allowed": false,
+  "registry_write_allowed": false,
+  "scientific_pass": false,
+  "grand_toe_support_allowed": false,
+  "candidate_n": 44,
+  "minimum_n": 20,
+  "missing_official_snapshot_total": 2,
+  "missing_official_snapshots": [
+    {
+      "acquisition_id": "OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001",
+      "official_source": "NIST CODATA 2022 fundamental constants complete ASCII listing",
+      "official_endpoint_url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+      "expected_local_snapshot_ref": "validation/_raw/physics_nist_constants_prospective_allascii.txt",
+      "required_fields": [
+        "Quantity",
+        "Value",
+        "Uncertainty",
+        "Unit"
+      ],
+      "query_params": {},
+      "no_send_lock": true,
+      "minimum_rows_required": 20,
+      "current_official_batch_rows": 44,
+      "missing_reason": "The pinned CODATA snapshot is usable for deterministic formula replay, but a prospective read-only acquisition/lock is still needed before any target-blind promotion claim."
+    },
+    {
+      "acquisition_id": "OC133-PHYSICS-NIST-ASD-HYDROGEN-BALMER-001",
+      "official_source": "NIST Atomic Spectra Database hydrogen Balmer lines",
+      "official_endpoint_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H&limits_type=0&low_w=&upp_w=&unit=1&de=0&format=3&line_out=0&remove_js=on&en_unit=1&output=0&page_size=50&show_obs_wl=1&show_calc_wl=1&show_wn=1",
+      "expected_local_snapshot_ref": "validation/_raw/physics_nist_asd_hydrogen_balmer_lines_v1.tsv",
+      "required_fields": [
+        "observed_wavelength",
+        "calculated_wavelength",
+        "wavenumber"
+      ],
+      "query_params": {
+        "spectra": "H",
+        "format": "3",
+        "show_obs_wl": "1",
+        "show_calc_wl": "1",
+        "show_wn": "1"
+      },
+      "no_send_lock": true,
+      "minimum_rows_required": 20,
+      "current_official_batch_rows": 0,
+      "runner_validation_note": "Current official-readonly runner allowlist only covers physics.nist.gov/cuu/Constants; this ASD request is intentionally visible as a protocol blocker until the allowlist is extended.",
+      "missing_reason": "No independent NIST ASD target snapshot is pinned for a physics held-out spectral-line class."
+    }
+  ],
+  "acquisition_requests": [
+    {
+      "acquisition_id": "OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001",
+      "official_source": "NIST CODATA 2022 fundamental constants complete ASCII listing",
+      "official_endpoint_url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+      "expected_local_snapshot_ref": "validation/_raw/physics_nist_constants_prospective_allascii.txt",
+      "required_fields": [
+        "Quantity",
+        "Value",
+        "Uncertainty",
+        "Unit"
+      ],
+      "query_params": {},
+      "no_send_lock": true,
+      "minimum_rows_required": 20,
+      "current_official_batch_rows": 44,
+      "missing_reason": "The pinned CODATA snapshot is usable for deterministic formula replay, but a prospective read-only acquisition/lock is still needed before any target-blind promotion claim."
+    },
+    {
+      "acquisition_id": "OC133-PHYSICS-NIST-ASD-HYDROGEN-BALMER-001",
+      "official_source": "NIST Atomic Spectra Database hydrogen Balmer lines",
+      "official_endpoint_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H&limits_type=0&low_w=&upp_w=&unit=1&de=0&format=3&line_out=0&remove_js=on&en_unit=1&output=0&page_size=50&show_obs_wl=1&show_calc_wl=1&show_wn=1",
+      "expected_local_snapshot_ref": "validation/_raw/physics_nist_asd_hydrogen_balmer_lines_v1.tsv",
+      "required_fields": [
+        "observed_wavelength",
+        "calculated_wavelength",
+        "wavenumber"
+      ],
+      "query_params": {
+        "spectra": "H",
+        "format": "3",
+        "show_obs_wl": "1",
+        "show_calc_wl": "1",
+        "show_wn": "1"
+      },
+      "no_send_lock": true,
+      "minimum_rows_required": 20,
+      "current_official_batch_rows": 0,
+      "runner_validation_note": "Current official-readonly runner allowlist only covers physics.nist.gov/cuu/Constants; this ASD request is intentionally visible as a protocol blocker until the allowlist is extended.",
+      "missing_reason": "No independent NIST ASD target snapshot is pinned for a physics held-out spectral-line class."
+    }
+  ],
+  "protocol_blockers": [
+    "PRE_TARGET_LOCK_REQUIRED",
+    "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+    "SOURCE_SEPARATION_ATTESTATION_REQUIRED",
+    "INDEPENDENT_PHYSICS_TARGET_CLASS_REQUIRED"
+  ],
+  "runner": {
+    "tool_ref": "tools/oc133_official_readonly_acquisition_runner.py",
+    "example_dry_run_command": "python tools/oc133_official_readonly_acquisition_runner.py --packet validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET.json --write",
+    "example_execute_command": "python tools/oc133_official_readonly_acquisition_runner.py --packet validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET.json --execute-network --allow-blocked-exit-zero"
+  },
+  "policy": "Acquisition requests pin official bytes only; they do not constitute empirical PASS or grand TOE support.",
+  "packet_sha256": "2e1bac251c84b50be3ba2269afca063469032a550def7f554194956d2eeeeba5"
+}

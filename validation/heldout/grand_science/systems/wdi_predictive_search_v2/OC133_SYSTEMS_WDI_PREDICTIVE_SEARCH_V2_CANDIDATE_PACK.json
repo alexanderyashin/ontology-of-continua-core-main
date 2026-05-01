@@ -1,0 +1,972 @@
+{
+  "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+  "release_id": "oc_core_1_3_3",
+  "capability_owner": "Research/EmpiricalScience",
+  "evidence_pack_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-CANDIDATE",
+  "domain": "systems",
+  "source_separation": {
+    "mode": "target_blind",
+    "pre_target_lock": true,
+    "target_hidden_until_scoring": true,
+    "training_sources": [
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::training_years=1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
+    ],
+    "target_sources": [
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1968",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1969",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1970",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1971",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1972",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1973",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1974",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1975",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1976",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1977",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1978",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1979",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1980",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1981",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1982",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1983",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1984",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1985",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1986",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1987",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1988",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1989",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1990",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1991",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1992",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1993",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1994",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1995",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1996",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1997",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1998",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=1999",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2000",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2001",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2002",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2003",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2004",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2005",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2006",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2007",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2008",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2009",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2010",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2011",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2012",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2013",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2014",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2015",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2016",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2017",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2018",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2019",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2020",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2021",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2022",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2023",
+      "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json::WLD:NY.GDP.MKTP.CD::heldout_target_year=2024"
+    ]
+  },
+  "n": 57,
+  "model_under_test": "World Bank WDI transparent predictive-search family selected per heldout target using only prior same-series rows",
+  "comparator_baseline": {
+    "name": "strict best-of carry-forward and prior-mean WDI comparators",
+    "prediction_rule": "support requires the selected model to beat every preregistered comparator on every heldout row",
+    "pre_registered": true,
+    "baselines": [
+      {
+        "id": "carry_forward_last_observation",
+        "name": "WDI carry-forward last-observation comparator",
+        "prediction_rule": "predict target year as the latest prior observed value",
+        "pre_registered": true
+      },
+      {
+        "id": "prior_training_mean",
+        "name": "WDI prior-training mean comparator",
+        "prediction_rule": "predict target year as the arithmetic mean of prior observed values",
+        "pre_registered": true
+      }
+    ]
+  },
+  "uncertainty": {
+    "metric": "mean absolute heldout residual",
+    "method": "deterministic replay envelope over model residuals",
+    "interval": [
+      0.0,
+      12227714143831.828
+    ]
+  },
+  "residuals": {
+    "model": 2289261291575.2334,
+    "comparator": 2289261329216.593,
+    "superiority_margin": 37641.359375,
+    "by_comparator": {
+      "carry_forward_last_observation": 2289261329216.593,
+      "prior_training_mean": 26672510123557.75
+    }
+  },
+  "negative_controls": [
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1968",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1968",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1968",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1968",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1969",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1969",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1969",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1969",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1970",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1970",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1970",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1970",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1971",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1971",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1971",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1971",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1972",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1972",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1972",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1972",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1973",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1973",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1973",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1973",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1974",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1974",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1974",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1974",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1975",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1975",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1975",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1975",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1976",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1976",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1976",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1976",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1977",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1977",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1977",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1977",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1978",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1978",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1978",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1978",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1979",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1979",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1979",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1979",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1980",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1980",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1980",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1980",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1981",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1981",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1981",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1981",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1982",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1982",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1982",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1982",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1983",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1983",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1983",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1983",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1984",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1984",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1984",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1984",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1985",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1985",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1985",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1985",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1986",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1986",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1986",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1986",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1987",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1987",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1987",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1987",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1988",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1988",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1988",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1988",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1989",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1989",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1989",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1989",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1990",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1990",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1990",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1990",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1991",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1991",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1991",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1991",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1992",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1992",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1992",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1992",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1993",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1993",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1993",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1993",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1994",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1994",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1994",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1994",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1995",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1995",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1995",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1995",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1996",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1996",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1996",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1996",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1997",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1997",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1997",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1997",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1998",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1998",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1998",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1998",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1999",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1999",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1999",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-1999",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2000",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2000",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2000",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2000",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2001",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2001",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2001",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2001",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2002",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2002",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2002",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2002",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2003",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2003",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2003",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2003",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2004",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2004",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2004",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2004",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2005",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2005",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2005",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2005",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2006",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2006",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2006",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2006",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2007",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2007",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2007",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2007",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2008",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2008",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2008",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2008",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2009",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2009",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2009",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2009",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2010",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2010",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2010",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2010",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2011",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2011",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2011",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2011",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2012",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2012",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2012",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2012",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2013",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2013",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2013",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2013",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2014",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2014",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2014",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2014",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2015",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2015",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2015",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2015",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2016",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2016",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2016",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2016",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2017",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2017",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2017",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2017",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2018",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2018",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2018",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2018",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2019",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2019",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2019",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2019",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2020",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2020",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2020",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2020",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2021",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2021",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2021",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2021",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2022",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2022",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2022",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2022",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2023",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2023",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2023",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2023",
+      "comparator_id": "prior_training_mean"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::carry_forward_last_observation::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2024",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2024",
+      "comparator_id": "carry_forward_last_observation"
+    },
+    {
+      "control_id": "systems-wdi-predictive-search-v2::prior_training_mean::SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2024",
+      "description": "pre-registered comparator baseline must have strictly larger heldout absolute residual than the selected training-only model",
+      "rejected": true,
+      "observation_id": "SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-WLD-NY.GDP.MKTP.CD-2024",
+      "comparator_id": "prior_training_mean"
+    }
+  ],
+  "falsifiers": [
+    "support fails if any heldout WDI row has a comparator residual less than or equal to the selected model residual, if formula selection uses target rows, or if target mutation changes same-row selection/prediction"
+  ],
+  "grand_toe_support_allowed": false
+}

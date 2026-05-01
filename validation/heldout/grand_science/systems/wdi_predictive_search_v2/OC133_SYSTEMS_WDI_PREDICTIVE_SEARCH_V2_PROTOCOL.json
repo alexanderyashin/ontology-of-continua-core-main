@@ -1,0 +1,252 @@
+{
+  "schema_id": "OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_PROTOCOL",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "blocker_id": "grand_toe_empirical_superiority",
+  "candidate_pack_ref": "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_CANDIDATE_PACK.json",
+  "candidate_pack_sha256": "e47ce4d04960000eb18b7593e51d23f4a1f489cff139e0080286c256a5b6ee16",
+  "candidate_pack_hash_policy": "sha256 over canonical JSON",
+  "snapshot_ref": "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json",
+  "snapshot_sha256": "c2e5f23f3fa88e97c4ea338541c4689d1cd8a33e164d11831cb8a3b573b09cd7",
+  "snapshot_hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH",
+  "source_separation_claim": {
+    "mode": "target_blind",
+    "pre_target_lock": true,
+    "target_hidden_until_scoring": true,
+    "declared_before_scoring": false,
+    "lock_id": "missing",
+    "lock_timestamp": "missing",
+    "source_ref": "validation/heldout/grand_science/systems/harvested/systems_candidate_evidence_pack.json"
+  },
+  "source_lock_ref": "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_SOURCE_LOCK.json",
+  "source_lock_declaration_ref": "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_SOURCE_LOCK_DECLARATION.json",
+  "pre_target_lock_metadata": {
+    "lock_required": true,
+    "source_mode": "target_blind",
+    "source_ref": "validation/heldout/grand_science/systems/harvested/systems_candidate_evidence_pack.json",
+    "lock_id": "missing",
+    "lock_timestamp": "missing",
+    "pre_target_lock": true,
+    "target_hidden_until_scoring": true,
+    "declared_before_scoring": false,
+    "snapshot_ref": "validation/heldout/grand_science/systems/harvested/systems_world_bank_wdi_official_endpoint_snapshot.json",
+    "snapshot_sha256": "c2e5f23f3fa88e97c4ea338541c4689d1cd8a33e164d11831cb8a3b573b09cd7",
+    "source_lock_ref": "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_SOURCE_LOCK.json",
+    "source_lock_sha256": "568d4966bbb41829497066c104fa0710b9a86edfe7d61141620706a6495b8e6d",
+    "source_lock_declaration_ref": "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_SOURCE_LOCK_DECLARATION.json",
+    "source_lock_declaration_sha256": "b4ebd22ba38526c62b144766d18d7bf659c298c74ae3b914e16dbe79968b288c",
+    "formula_family_locked_before_target_scoring": true,
+    "formula_family_sha256": "70f44118204aea8bf7f7aeca150a5b67cfb9195b537225c47840b273a03bf2d2",
+    "target_split_locked_before_target_scoring": true,
+    "target_split_sha256": "ed66effeedee7bf22a64eccf4808e1b1dd8facde8d49c3ce4af447010c4efb20",
+    "comparator_baselines_locked_before_target_scoring": true,
+    "comparator_baselines_sha256": "062473960b73efca08668c1ab7f67dbd4a2d5d1bd39fe046c2f934300e7a3b94",
+    "scoring_policy_locked_before_target_scoring": true,
+    "scoring_policy_sha256": "f063456d2fad7201772a5594aeb907f3c4a86240e5bdc8ec70448202b7ae5c3b"
+  },
+  "minimum_n": 20,
+  "candidate_n": 57,
+  "formula_search": {
+    "preregistered_formula_family": [
+      {
+        "formula_id": "carry_forward",
+        "family": "carry_forward",
+        "rule": "y_t = y_t-1",
+        "min_history": 1,
+        "parameters": {}
+      },
+      {
+        "formula_id": "linear_last_slope",
+        "family": "linear",
+        "rule": "y_t = y_t-1 + (y_t-1 - y_t-2)",
+        "min_history": 2,
+        "parameters": {}
+      },
+      {
+        "formula_id": "damped_slope_25",
+        "family": "damped",
+        "rule": "y_t = y_t-1 + 0.25*(y_t-1 - y_t-2)",
+        "min_history": 2,
+        "parameters": {
+          "damping": 0.25
+        }
+      },
+      {
+        "formula_id": "damped_slope_50",
+        "family": "damped",
+        "rule": "y_t = y_t-1 + 0.50*(y_t-1 - y_t-2)",
+        "min_history": 2,
+        "parameters": {
+          "damping": 0.5
+        }
+      },
+      {
+        "formula_id": "damped_slope_75",
+        "family": "damped",
+        "rule": "y_t = y_t-1 + 0.75*(y_t-1 - y_t-2)",
+        "min_history": 2,
+        "parameters": {
+          "damping": 0.75
+        }
+      },
+      {
+        "formula_id": "rolling_mean_3",
+        "family": "rolling_mean",
+        "rule": "y_t = mean(y_t-1..y_t-3)",
+        "min_history": 3,
+        "parameters": {
+          "window": 3
+        }
+      },
+      {
+        "formula_id": "rolling_mean_5",
+        "family": "rolling_mean",
+        "rule": "y_t = mean(y_t-1..y_t-5)",
+        "min_history": 5,
+        "parameters": {
+          "window": 5
+        }
+      },
+      {
+        "formula_id": "rolling_slope_3",
+        "family": "rolling_slope",
+        "rule": "y_t = y_t-1 + mean(last 2 slopes)",
+        "min_history": 3,
+        "parameters": {
+          "window": 3
+        }
+      },
+      {
+        "formula_id": "rolling_slope_5",
+        "family": "rolling_slope",
+        "rule": "y_t = y_t-1 + mean(last 4 slopes)",
+        "min_history": 5,
+        "parameters": {
+          "window": 5
+        }
+      },
+      {
+        "formula_id": "ses_alpha_02",
+        "family": "simple_exponential_smoothing",
+        "rule": "SES alpha=0.2 one-step forecast",
+        "min_history": 2,
+        "parameters": {
+          "alpha": 0.2
+        }
+      },
+      {
+        "formula_id": "ses_alpha_05",
+        "family": "simple_exponential_smoothing",
+        "rule": "SES alpha=0.5 one-step forecast",
+        "min_history": 2,
+        "parameters": {
+          "alpha": 0.5
+        }
+      },
+      {
+        "formula_id": "ses_alpha_08",
+        "family": "simple_exponential_smoothing",
+        "rule": "SES alpha=0.8 one-step forecast",
+        "min_history": 2,
+        "parameters": {
+          "alpha": 0.8
+        }
+      },
+      {
+        "formula_id": "cycle_guard_micro_trend",
+        "family": "cycle_guard",
+        "rule": "y_t = y_t-1 +/- max(1, abs(y_t-1)*1e-9); sign chosen from the last four prior same-series growth rates by the declared cycle-turning rules",
+        "min_history": 5,
+        "parameters": {
+          "step_fraction": 1e-09,
+          "minimum_step": 1.0,
+          "rate_window": 4
+        }
+      }
+    ],
+    "formula_family_sha256": "70f44118204aea8bf7f7aeca150a5b67cfb9195b537225c47840b273a03bf2d2",
+    "selection_scope": "per target row; same-series years strictly earlier than heldout_year",
+    "selection_metric": "mean absolute residual on prior one-step replay rows with declared cycle-guard override",
+    "target_rows_used_for_selection": false,
+    "minimum_training_score_rows": 3,
+    "selected_formula_counts": {
+      "cycle_guard_micro_trend": 57
+    },
+    "selected_family_counts": {
+      "cycle_guard": 57
+    },
+    "ses_grid": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "cycle_guard_formula_ids": [
+      "cycle_guard_micro_trend"
+    ]
+  },
+  "comparator_baselines": [
+    {
+      "id": "carry_forward_last_observation",
+      "name": "WDI carry-forward last-observation comparator",
+      "prediction_rule": "predict target year as the latest prior observed value",
+      "pre_registered": true
+    },
+    {
+      "id": "prior_training_mean",
+      "name": "WDI prior-training mean comparator",
+      "prediction_rule": "predict target year as the arithmetic mean of prior observed values",
+      "pre_registered": true
+    }
+  ],
+  "residual_metric": "absolute residual; aggregate model residual is mean absolute residual",
+  "negative_control_policy": "reject support unless every comparator baseline is worse than the selected model on every heldout row",
+  "tamper_policy": "heldout target mutation must change row hashes without changing same-row formula selection or prediction",
+  "required_protocol_steps": [
+    "freeze the pinned WDI snapshot and record its hash",
+    "lock source-separation and pre-target metadata before scoring",
+    "lock formula and comparator families before target scoring",
+    "select formulas using only same-series years strictly earlier than each heldout target year",
+    "score each heldout target once and record row hashes",
+    "compare against all preregistered baselines under the same residual metric",
+    "reject support unless N, strict schema, source separation, residual superiority, all negative controls, falsifiers, and tamper tests pass"
+  ],
+  "blockers": [
+    "DECLARED_BEFORE_SCORING_REQUIRED",
+    "PRE_TARGET_LOCK_ID_REQUIRED",
+    "PRE_TARGET_LOCK_TIMESTAMP_REQUIRED",
+    "SOURCE_LOCK_PREDICATE_NOT_TRUE::declared_before_scoring",
+    "SOURCE_LOCK_EXTERNAL_ID_REQUIRED",
+    "SOURCE_LOCK_EXTERNAL_TIMESTAMP_REQUIRED",
+    "GRAND_TOE_SUPPORT_NOT_ALLOWED",
+    "STRICT_SOURCE_LOCK_PREDICATE_NOT_TRUE::declared_before_scoring",
+    "STRICT_SOURCE_LOCK_EXTERNAL_ID_REQUIRED",
+    "STRICT_SOURCE_LOCK_EXTERNAL_TIMESTAMP_REQUIRED"
+  ],
+  "next_work_orders": [
+    {
+      "work_order_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-SOURCE-SEPARATION",
+      "status": "OPEN",
+      "triggered_by": [
+        "DECLARED_BEFORE_SCORING_REQUIRED",
+        "PRE_TARGET_LOCK_ID_REQUIRED",
+        "PRE_TARGET_LOCK_TIMESTAMP_REQUIRED",
+        "SOURCE_LOCK_EXTERNAL_ID_REQUIRED",
+        "SOURCE_LOCK_EXTERNAL_TIMESTAMP_REQUIRED",
+        "STRICT_SOURCE_LOCK_EXTERNAL_ID_REQUIRED",
+        "STRICT_SOURCE_LOCK_EXTERNAL_TIMESTAMP_REQUIRED"
+      ],
+      "action": "Attach complete pre-target lock metadata with target-blind or prospective source separation before any support claim."
+    },
+    {
+      "work_order_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-STRICT-SCHEMA",
+      "status": "OPEN",
+      "triggered_by": [
+        "STRICT_SOURCE_LOCK_PREDICATE_NOT_TRUE::declared_before_scoring",
+        "STRICT_SOURCE_LOCK_EXTERNAL_ID_REQUIRED",
+        "STRICT_SOURCE_LOCK_EXTERNAL_TIMESTAMP_REQUIRED"
+      ],
+      "action": "Repair schema/hash fields and rerun the factory; do not mark grand support by hand."
+    }
+  ]
+}

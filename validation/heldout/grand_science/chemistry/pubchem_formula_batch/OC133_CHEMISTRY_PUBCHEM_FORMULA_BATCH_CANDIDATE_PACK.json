@@ -1,0 +1,144 @@
+{
+  "schema_id": "OC133_GRAND_EMPIRICAL_EVIDENCE_v1",
+  "release_id": "oc_core_1_3_3",
+  "capability_owner": "Research/EmpiricalScience",
+  "evidence_pack_id": "OC133-GRAND-CHEMISTRY-PUBCHEM-FORMULA-BATCH",
+  "domain": "chemistry",
+  "source_separation": {
+    "mode": "official_readonly_snapshot_replay",
+    "pre_target_lock": true,
+    "target_hidden_until_scoring": false,
+    "training_sources": [
+      "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json::visible_fields(CID,MolecularFormula)"
+    ],
+    "target_sources": [
+      "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json::target_field(MolecularWeight)"
+    ]
+  },
+  "n": 20,
+  "model_under_test": "fixed atomic-weight molecular-formula sum compared to PubChem MolecularWeight",
+  "comparator_baseline": {
+    "name": "zero-Da molecular-weight null baseline",
+    "prediction_rule": "predict zero molecular weight for every PubChem compound",
+    "pre_registered": false
+  },
+  "uncertainty": {
+    "metric": "mean absolute residual in daltons",
+    "method": "fixed 0.05 Da per-row PubChem display/API rounding tolerance",
+    "interval": [
+      0.0,
+      0.05
+    ]
+  },
+  "residuals": {
+    "model": 0.001666763699997098,
+    "comparator": 140.01510000000002,
+    "superiority_margin": 140.01343323630002
+  },
+  "negative_controls": [
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0001-F1BDAE057E16",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0002-0171D7D5AEFF",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0003-6CD1479FB81F",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0004-76C50B02E230",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0005-56E40763FEE1",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0006-A335F3527988",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0007-97682A4E4BE8",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0008-565FAF9ED56E",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0009-27FFE1EF9B03",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0010-CFC28D5CEB0D",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0011-742D941C131A",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0012-F1F5238ACE4D",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0013-5C0ED58427AB",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0014-615DB71DEE3F",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0015-B4015F0246C7",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0016-977AC2851B96",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0017-2CA0CAE6455E",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0018-6016B02190E9",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0019-B0AA2A9A9FD0",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    },
+    {
+      "control_id": "chemistry-pubchem-zero-da-control::CHEM-PUBCHEM-FORMULA-0020-3FC35B62A7C1",
+      "description": "replace the formula-derived mass with a zero-Da null molecular-weight baseline and require a larger residual",
+      "rejected": true
+    }
+  ],
+  "falsifiers": [
+    "formula-derived residual exceeds declared PubChem MolecularWeight tolerance, or the zero-Da control is not worse"
+  ],
+  "grand_toe_support_allowed": false
+}

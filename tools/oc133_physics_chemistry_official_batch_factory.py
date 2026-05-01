@@ -30,6 +30,7 @@ PROTOCOL_REL = f"{OUTPUT_ROOT_REL}/OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_PROTOC
 README_REL = f"{OUTPUT_ROOT_REL}/README.md"
 PHYSICS_PACK_REL = f"{OUTPUT_ROOT_REL}/physics_official_batch_candidate_evidence_pack.json"
 CHEMISTRY_PACK_REL = f"{OUTPUT_ROOT_REL}/chemistry_official_batch_candidate_evidence_pack.json"
+PHYSICS_ACQUISITION_PACKET_REL = f"{OUTPUT_ROOT_REL}/OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET.json"
 
 REQUIREMENTS_REL = "benchmarks/grand_science/domain_requirements.json"
 MANIFEST_REL = "data/OC_DATASET_SNAPSHOT_MANIFEST_1_3_3.json"
@@ -44,10 +45,12 @@ MINIMUM_N_DEFAULT = 20
 SNAPSHOT_HASH_POLICY = "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
 ROW_HASH_POLICY = "sha256 over canonical row JSON excluding row_hash fields"
 PACK_HASH_POLICY = "sha256 over canonical JSON"
+RESIDUAL_METRIC_ID = "absolute_error_with_uncertainty_normalized_score_v1"
 
 REPORT_SCHEMA_ID = "OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_REPORT_v1"
 PROTOCOL_SCHEMA_ID = "OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_PROTOCOL_v1"
 TASKS_SCHEMA_ID = "OC133_PHYSICS_CHEMISTRY_OFFICIAL_BATCH_TASKS_v1"
+PHYSICS_ACQUISITION_PACKET_SCHEMA_ID = "OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET_v1"
 
 NO_SEND_POLICY = (
     "Official NIST/PubChem snapshot rows are scored and hashed, but no grand TOE support is emitted unless "
@@ -84,6 +87,15 @@ class PhysicsFormula:
     formula: str
     ingredients: tuple[str, ...]
     predictor: Callable[[dict[str, float]], float]
+
+
+PHYSICS_TARGET_FIELDS = (
+    "target_quantity",
+    "observed_value",
+    "target_unit",
+    "official_uncertainty",
+    "uncertainty",
+)
 
 
 def repo_root() -> Path:
@@ -325,12 +337,134 @@ def row_hash(row: dict[str, Any]) -> str:
     return sha256_object({k: v for k, v in row.items() if k not in {"row_hash", "row_hash_policy"}})
 
 
+def row_hash_valid(row: dict[str, Any]) -> bool:
+    return bool(row.get("row_hash")) and row_hash(row) == row.get("row_hash")
+
+
 def display_tolerance(observed: float, official_uncertainty: float, value_text: str) -> float:
     if official_uncertainty > 0:
         return max(official_uncertainty, abs(observed) * 1e-12, 1e-300)
     if "..." in value_text:
         return max(abs(observed) * 1e-8, 1e-300)
     return max(abs(observed) * 1e-12, 1e-300)
+
+
+def residual_score(residual: float, tolerance: float) -> float:
+    return abs(residual) / max(abs(tolerance), 1e-300)
+
+
+def physics_visible_projection(spec: PhysicsFormula, constants: dict[str, NistConstant]) -> dict[str, Any]:
+    return {
+        "projection_id": f"{spec.task_id}-VISIBLE-PROJECTION-v1",
+        "source_ref": PHYSICS_NIST_CONSTANTS_REF,
+        "visible_fields": [
+            {
+                "quantity": name,
+                "value_text": constants[name].value_text,
+                "unit": constants[name].unit,
+                "uncertainty_text": constants[name].uncertainty_text,
+            }
+            for name in spec.ingredients
+        ],
+        "target_fields_excluded": list(PHYSICS_TARGET_FIELDS),
+        "projection_hash": sha256_object(
+            {
+                "task_id": spec.task_id,
+                "ingredients": [
+                    {
+                        "quantity": name,
+                        "value_text": constants[name].value_text,
+                        "unit": constants[name].unit,
+                        "uncertainty_text": constants[name].uncertainty_text,
+                    }
+                    for name in spec.ingredients
+                ],
+            }
+        ),
+    }
+
+
+def physics_target_projection(spec: PhysicsFormula, target: NistConstant) -> dict[str, Any]:
+    return {
+        "projection_id": f"{spec.task_id}-TARGET-PROJECTION-v1",
+        "source_ref": PHYSICS_NIST_CONSTANTS_REF,
+        "target_fields": {
+            "target_quantity": spec.target,
+            "observed_value_text": target.value_text,
+            "target_unit": target.unit,
+            "official_uncertainty_text": target.uncertainty_text,
+        },
+        "target_hash": sha256_object(
+            {
+                "target_quantity": spec.target,
+                "observed_value_text": target.value_text,
+                "target_unit": target.unit,
+                "official_uncertainty_text": target.uncertainty_text,
+            }
+        ),
+    }
+
+
+def physics_projection_declaration(spec: PhysicsFormula, visible: dict[str, Any], target: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "declaration_id": f"{spec.task_id}-PROJECTION-DECLARATION-v1",
+        "visible_projection_id": visible["projection_id"],
+        "target_projection_id": target["projection_id"],
+        "declared_before_scoring": True,
+        "declared_before_target_snapshot_access": False,
+        "target_hidden_until_scoring": False,
+        "separation_class": "posthoc_visible_target_projection_not_target_blind",
+        "promotion_blocker": "projection is explicit and auditable, but the local CODATA snapshot was already visible before this run",
+    }
+
+
+def physics_preregistration(spec: PhysicsFormula, tolerance: float) -> dict[str, Any]:
+    return {
+        "preregistration_id": f"{spec.task_id}-ANALYSIS-PREREG-v1",
+        "declared_before_scoring": True,
+        "declared_before_target_snapshot_access": False,
+        "formula": {
+            "expression": spec.formula,
+            "visible_inputs": list(spec.ingredients),
+            "target_quantity": spec.target,
+        },
+        "residual_metric": {
+            "metric_id": RESIDUAL_METRIC_ID,
+            "absolute_residual": "abs(predicted_value - observed_value)",
+            "score": "absolute_residual / row_uncertainty_or_display_tolerance",
+            "row_tolerance": tolerance,
+        },
+        "comparator": {
+            "comparator_id": f"{spec.task_id}-ZERO-VALUE-NULL-v1",
+            "name": "zero-value null baseline",
+            "prediction_rule": "predict numeric zero for the target under the same residual metric",
+            "prediction_value": 0.0,
+            "pre_registered": True,
+        },
+        "negative_control": {
+            "control_id": f"{spec.task_id}-ZERO-BASELINE",
+            "rule": "zero-value null baseline must have a larger residual score than the formula prediction",
+        },
+        "falsifier": "formula residual score exceeds 1.0 or zero-value null baseline is not worse",
+    }
+
+
+def visible_projection_has_target_leakage(row: dict[str, Any]) -> bool:
+    visible = row.get("visible_projection")
+    if not isinstance(visible, dict):
+        return True
+    target = str(row.get("target_quantity") or "")
+    visible_fields = visible.get("visible_fields", [])
+    if not isinstance(visible_fields, list):
+        return True
+    for field in visible_fields:
+        if not isinstance(field, dict):
+            return True
+        if target and str(field.get("quantity")) == target:
+            return True
+        if any(key in field for key in PHYSICS_TARGET_FIELDS):
+            return True
+    return False
 
 
 def build_physics_rows(root: Path, snapshot_ref: str, manifest: dict[str, dict[str, Any]]) -> tuple[list[dict[str, Any]], list[str], dict[str, Any]]:
@@ -358,6 +492,12 @@ def build_physics_rows(root: Path, snapshot_ref: str, manifest: dict[str, dict[s
         model_residual = abs(predicted - observed)
         comparator_prediction = 0.0
         comparator_residual = abs(comparator_prediction - observed)
+        model_score = residual_score(model_residual, uncertainty)
+        comparator_score = residual_score(comparator_residual, uncertainty)
+        visible_projection = physics_visible_projection(spec, constants)
+        target_projection = physics_target_projection(spec, target)
+        projection_declaration = physics_projection_declaration(spec, visible_projection, target_projection)
+        preregistration = physics_preregistration(spec, uncertainty)
         row = {
             "task_id": spec.task_id,
             "domain": "physics",
@@ -371,17 +511,24 @@ def build_physics_rows(root: Path, snapshot_ref: str, manifest: dict[str, dict[s
             "target_source": f"{snapshot_ref}::{spec.task_id}::target::{spec.target}",
             "formula": spec.formula,
             "ingredients": list(spec.ingredients),
+            "visible_projection": visible_projection,
+            "target_projection": target_projection,
+            "projection_declaration": projection_declaration,
+            "preregistration": preregistration,
             "predicted_value": predicted,
             "observed_value": observed,
             "official_uncertainty": target.uncertainty,
             "uncertainty": uncertainty,
+            "residual_metric_id": RESIDUAL_METRIC_ID,
             "model_residual": model_residual,
+            "model_residual_score": model_score,
             "comparator_baseline": "zero-value null baseline",
             "comparator_prediction": comparator_prediction,
             "comparator_residual": comparator_residual,
+            "comparator_residual_score": comparator_score,
             "negative_control_id": f"{spec.task_id}-ZERO-BASELINE",
             "negative_control_description": "replace the derived CODATA relation with a zero-value null baseline and require a larger residual",
-            "negative_control_rejected": comparator_residual > model_residual,
+            "negative_control_rejected": comparator_score > model_score,
             "falsifier": "official relation residual exceeds display/uncertainty tolerance or the zero baseline is not worse",
             "residual_within_uncertainty": model_residual <= uncertainty,
             "grand_scope": "official snapshot consistency task; not independently pre-target locked in the current repo",
@@ -391,8 +538,10 @@ def build_physics_rows(root: Path, snapshot_ref: str, manifest: dict[str, dict[s
         rows.append(row)
         if model_residual > uncertainty:
             blockers.append(f"PHYSICS_RESIDUAL_EXCEEDS_UNCERTAINTY::{spec.task_id}")
-        if comparator_residual <= model_residual:
+        if comparator_score <= model_score:
             blockers.append(f"PHYSICS_NEGATIVE_CONTROL_NOT_REJECTED::{spec.task_id}")
+        if visible_projection_has_target_leakage(row):
+            blockers.append(f"PHYSICS_VISIBLE_PROJECTION_TARGET_LEAKAGE::{spec.task_id}")
     return rows, ordered_unique(blockers), record
 
 
@@ -765,28 +914,60 @@ def build_chemistry_rows(root: Path, manifest: dict[str, dict[str, Any]]) -> tup
 
 
 def default_source_separation(domain: str, rows: list[dict[str, Any]]) -> dict[str, Any]:
+    visible_projection_ids = ordered_unique(
+        [
+            str((row.get("visible_projection") or {}).get("projection_id"))
+            for row in rows
+            if isinstance(row.get("visible_projection"), dict) and (row.get("visible_projection") or {}).get("projection_id")
+        ]
+    )
+    target_projection_ids = ordered_unique(
+        [
+            str((row.get("target_projection") or {}).get("projection_id"))
+            for row in rows
+            if isinstance(row.get("target_projection"), dict) and (row.get("target_projection") or {}).get("projection_id")
+        ]
+    )
     return {
         "mode": "official_snapshot_replay",
         "pre_target_lock": False,
         "target_hidden_until_scoring": False,
         "declared_before_scoring": False,
+        "visible_target_projection_declared": bool(rows),
+        "visible_projection_ids": visible_projection_ids,
+        "target_projection_ids": target_projection_ids,
+        "strict_source_separation_attested": False,
+        "attestation_ref": "",
+        "source_separation_class": "posthoc_projection_only",
         "training_sources": ordered_unique([str(row["training_source"]) for row in rows if row.get("training_source")]),
         "target_sources": ordered_unique([str(row["target_source"]) for row in rows if row.get("target_source")]),
         "blocker": f"{domain} rows were generated from already-visible official snapshots, not a pre-target lock",
     }
 
 
-def clean_pack_source(source: dict[str, Any]) -> dict[str, Any]:
-    return {
+def clean_pack_source(source: dict[str, Any], *, include_projection: bool = False) -> dict[str, Any]:
+    cleaned = {
         "mode": str(source.get("mode", "official_snapshot_replay")),
         "pre_target_lock": source.get("pre_target_lock") is True,
         "target_hidden_until_scoring": source.get("target_hidden_until_scoring") is True,
         "training_sources": [str(item) for item in source.get("training_sources", []) if str(item)],
         "target_sources": [str(item) for item in source.get("target_sources", []) if str(item)],
     }
+    if include_projection:
+        cleaned.update(
+            {
+                "visible_target_projection_declared": source.get("visible_target_projection_declared") is True,
+                "visible_projection_ids": [str(item) for item in source.get("visible_projection_ids", []) if str(item)],
+                "target_projection_ids": [str(item) for item in source.get("target_projection_ids", []) if str(item)],
+                "strict_source_separation_attested": source.get("strict_source_separation_attested") is True,
+                "attestation_ref": str(source.get("attestation_ref") or ""),
+                "source_separation_class": str(source.get("source_separation_class") or ""),
+            }
+        )
+    return cleaned
 
 
-def source_separation_blockers(source: dict[str, Any], requirements: dict[str, Any]) -> list[str]:
+def source_separation_blockers(source: dict[str, Any], requirements: dict[str, Any], domain: str) -> list[str]:
     blockers: list[str] = []
     allowed = {str(mode) for mode in requirements.get("required_source_separation_modes", ["prospective", "target_blind"])}
     if source.get("mode") not in allowed:
@@ -797,8 +978,18 @@ def source_separation_blockers(source: dict[str, Any], requirements: dict[str, A
         blockers.append("TARGET_HIDDEN_UNTIL_SCORING_REQUIRED")
     if source.get("declared_before_scoring") is not True:
         blockers.append("SOURCE_SEPARATION_NOT_DECLARED_BEFORE_SCORING")
-    training_sources = clean_pack_source(source)["training_sources"]
-    target_sources = clean_pack_source(source)["target_sources"]
+    projection_required = domain == "physics"
+    if projection_required and source.get("visible_target_projection_declared") is not True:
+        blockers.append("VISIBLE_TARGET_PROJECTION_DECLARATION_REQUIRED")
+    if source.get("strict_source_separation_attested") is not True:
+        blockers.append("SOURCE_SEPARATION_ATTESTATION_REQUIRED")
+    cleaned = clean_pack_source(source, include_projection=True)
+    training_sources = cleaned["training_sources"]
+    target_sources = cleaned["target_sources"]
+    visible_projection_ids = cleaned["visible_projection_ids"]
+    target_projection_ids = cleaned["target_projection_ids"]
+    if projection_required and (not visible_projection_ids or not target_projection_ids):
+        blockers.append("VISIBLE_AND_TARGET_PROJECTION_IDS_REQUIRED")
     if not training_sources or not target_sources:
         blockers.append("TRAINING_AND_TARGET_SOURCES_REQUIRED")
     if set(training_sources) & set(target_sources):
@@ -807,26 +998,70 @@ def source_separation_blockers(source: dict[str, Any], requirements: dict[str, A
 
 
 def residual_summary(rows: list[dict[str, Any]]) -> dict[str, float]:
-    model = [float(row["model_residual"]) for row in rows if is_number(row.get("model_residual"))]
-    comparator = [float(row["comparator_residual"]) for row in rows if is_number(row.get("comparator_residual"))]
+    model = [
+        float(row.get("model_residual_score", row.get("model_residual")))
+        for row in rows
+        if is_number(row.get("model_residual_score", row.get("model_residual")))
+    ]
+    comparator = [
+        float(row.get("comparator_residual_score", row.get("comparator_residual")))
+        for row in rows
+        if is_number(row.get("comparator_residual_score", row.get("comparator_residual")))
+    ]
     model_mean = sum(model) / len(model) if model else 0.0
     comparator_mean = sum(comparator) / len(comparator) if comparator else 0.0
+    score_metric = any(row.get("residual_metric_id") == RESIDUAL_METRIC_ID for row in rows)
     return {
         "model": model_mean,
         "comparator": comparator_mean,
         "superiority_margin": comparator_mean - model_mean,
+        "metric": RESIDUAL_METRIC_ID if score_metric else "mean_absolute_residual_v1",
     }
 
 
 def uncertainty_interval(rows: list[dict[str, Any]], model_mean: float) -> list[float]:
+    if any(row.get("residual_metric_id") == RESIDUAL_METRIC_ID for row in rows):
+        residuals = [float(row["model_residual_score"]) for row in rows if is_number(row.get("model_residual_score"))]
+        high = max([1.0, model_mean, *residuals], default=1.0)
+        return [0.0, high]
     uncertainties = [float(row["uncertainty"]) for row in rows if is_number(row.get("uncertainty"))]
     residuals = [float(row["model_residual"]) for row in rows if is_number(row.get("model_residual"))]
     high = max([model_mean, *uncertainties, *residuals], default=0.0)
     return [0.0, high]
 
 
+def preregistration_summary(domain: str, rows: list[dict[str, Any]]) -> dict[str, Any]:
+    prereg_rows = [row.get("preregistration") for row in rows if isinstance(row.get("preregistration"), dict)]
+    comparator_registered = [
+        bool((row.get("comparator") or {}).get("pre_registered"))
+        for row in prereg_rows
+        if isinstance(row, dict)
+    ]
+    return {
+        "domain": domain,
+        "preregistered_before_scoring": bool(rows) and len(prereg_rows) == len(rows),
+        "preregistered_before_target_snapshot_access": bool(rows)
+        and all(row.get("declared_before_target_snapshot_access") is True for row in prereg_rows),
+        "preregistration_ids": [
+            str(row.get("preregistration_id")) for row in prereg_rows if str(row.get("preregistration_id") or "")
+        ],
+        "formula_total": len([row for row in prereg_rows if isinstance(row.get("formula"), dict)]),
+        "comparator_total": len(comparator_registered),
+        "comparator_preregistered_total": sum(1 for value in comparator_registered if value),
+        "residual_metric_id": RESIDUAL_METRIC_ID,
+        "policy": (
+            "Formulas, comparators, residual metrics, uncertainty rules, negative controls, and falsifiers are "
+            "declared in this artifact before row scoring, but the present CODATA text was not acquired under "
+            "a pre-target hidden lock; this remains a blocker for promotion."
+        ),
+    }
+
+
 def build_candidate_pack(domain: str, rows: list[dict[str, Any]], source: dict[str, Any], support_allowed: bool) -> dict[str, Any]:
     residuals = residual_summary(rows)
+    pack_residuals: dict[str, Any] = dict(residuals)
+    if domain != "physics":
+        pack_residuals.pop("metric", None)
     controls = [
         {
             "control_id": str(row["negative_control_id"]),
@@ -847,30 +1082,183 @@ def build_candidate_pack(domain: str, rows: list[dict[str, Any]], source: dict[s
     falsifiers = ordered_unique([str(row.get("falsifier")) for row in rows if str(row.get("falsifier") or "").strip()])
     if not falsifiers:
         falsifiers = [f"official {domain} snapshot rows missing; support remains blocked"]
-    return {
+    comparator_baseline = {
+        "name": f"{domain} official-snapshot null/wrong-field negative controls",
+        "prediction_rule": "Use each row's preregistered null, wrong-compound, or wrong-string control under the same residual metric.",
+        "pre_registered": bool(rows)
+        and all(
+            (row.get("preregistration") or {}).get("comparator", {}).get("pre_registered") is True
+            if isinstance(row.get("preregistration"), dict)
+            else True
+            for row in rows
+        ),
+    }
+    if domain == "physics":
+        comparator_baseline.update(
+            {
+                "preregistration_ref": PROTOCOL_REL,
+                "residual_metric_id": RESIDUAL_METRIC_ID,
+            }
+        )
+    pack = {
         "schema_id": grand_factory.EVIDENCE_SCHEMA_ID,
         "release_id": RELEASE_ID,
         "capability_owner": CAPABILITY_OWNER,
         "evidence_pack_id": f"OC133-{domain.upper()}-OFFICIAL-SNAPSHOT-BATCH-CANDIDATE",
         "domain": domain,
-        "source_separation": clean_pack_source(source),
+        "source_separation": clean_pack_source(source, include_projection=domain == "physics"),
         "n": len(rows),
         "model_under_test": f"OC133 official-snapshot {domain} batch scorer over NIST/PubChem rows",
-        "comparator_baseline": {
-            "name": f"{domain} official-snapshot null/wrong-field negative controls",
-            "prediction_rule": "Use each row's preregistered null, wrong-compound, or wrong-string control under the same residual metric.",
-            "pre_registered": bool(rows),
-        },
+        "comparator_baseline": comparator_baseline,
         "uncertainty": {
-            "metric": "mean absolute residual across official snapshot tasks",
+            "metric": residuals["metric"] if domain == "physics" else "mean absolute residual across official snapshot tasks",
             "method": "deterministic official snapshot replay envelope; blocked unless target-blind/prospective source separation exists",
             "interval": uncertainty_interval(rows, residuals["model"]),
         },
-        "residuals": residuals,
+        "residuals": pack_residuals,
         "negative_controls": controls,
         "falsifiers": falsifiers,
         "grand_toe_support_allowed": bool(support_allowed),
     }
+    if domain == "physics":
+        pack["preregistration"] = preregistration_summary(domain, rows)
+    return pack
+
+
+def physics_acquisition_requests(current_n: int, minimum_n: int) -> list[dict[str, Any]]:
+    return [
+        {
+            "acquisition_id": "OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001",
+            "official_source": "NIST CODATA 2022 fundamental constants complete ASCII listing",
+            "official_endpoint_url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+            "expected_local_snapshot_ref": "validation/_raw/physics_nist_constants_prospective_allascii.txt",
+            "required_fields": [
+                "Quantity",
+                "Value",
+                "Uncertainty",
+                "Unit",
+            ],
+            "query_params": {},
+            "no_send_lock": True,
+            "minimum_rows_required": minimum_n,
+            "current_official_batch_rows": current_n,
+            "missing_reason": (
+                "The pinned CODATA snapshot is usable for deterministic formula replay, but a prospective "
+                "read-only acquisition/lock is still needed before any target-blind promotion claim."
+            ),
+        },
+        {
+            "acquisition_id": "OC133-PHYSICS-NIST-ASD-HYDROGEN-BALMER-001",
+            "official_source": "NIST Atomic Spectra Database hydrogen Balmer lines",
+            "official_endpoint_url": (
+                "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H&limits_type=0&low_w=&upp_w="
+                "&unit=1&de=0&format=3&line_out=0&remove_js=on&en_unit=1&output=0&page_size=50"
+                "&show_obs_wl=1&show_calc_wl=1&show_wn=1"
+            ),
+            "expected_local_snapshot_ref": "validation/_raw/physics_nist_asd_hydrogen_balmer_lines_v1.tsv",
+            "required_fields": [
+                "observed_wavelength",
+                "calculated_wavelength",
+                "wavenumber",
+            ],
+            "query_params": {
+                "spectra": "H",
+                "format": "3",
+                "show_obs_wl": "1",
+                "show_calc_wl": "1",
+                "show_wn": "1",
+            },
+            "no_send_lock": True,
+            "minimum_rows_required": minimum_n,
+            "current_official_batch_rows": 0,
+            "runner_validation_note": (
+                "Current official-readonly runner allowlist only covers physics.nist.gov/cuu/Constants; "
+                "this ASD request is intentionally visible as a protocol blocker until the allowlist is extended."
+            ),
+            "missing_reason": "No independent NIST ASD target snapshot is pinned for a physics held-out spectral-line class.",
+        },
+    ]
+
+
+def build_physics_acquisition_packet(physics_eval: dict[str, Any]) -> dict[str, Any]:
+    rows = physics_acquisition_requests(int(physics_eval["candidate_n"]), int(physics_eval["minimum_n"]))
+    packet = {
+        "schema_id": PHYSICS_ACQUISITION_PACKET_SCHEMA_ID,
+        "release_id": RELEASE_ID,
+        "version": VERSION,
+        "capability_owner": CAPABILITY_OWNER,
+        "generated_by": "tools/oc133_physics_chemistry_official_batch_factory.py",
+        "domain": "physics",
+        "source_lane": "official_batch",
+        "no_send": True,
+        "publish_allowed": False,
+        "registry_write_allowed": False,
+        "scientific_pass": False,
+        "grand_toe_support_allowed": False,
+        "candidate_n": physics_eval["candidate_n"],
+        "minimum_n": physics_eval["minimum_n"],
+        "missing_official_snapshot_total": len(rows),
+        "missing_official_snapshots": rows,
+        "acquisition_requests": rows,
+        "protocol_blockers": [
+            "PRE_TARGET_LOCK_REQUIRED",
+            "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+            "SOURCE_SEPARATION_ATTESTATION_REQUIRED",
+            "INDEPENDENT_PHYSICS_TARGET_CLASS_REQUIRED",
+        ],
+        "runner": {
+            "tool_ref": "tools/oc133_official_readonly_acquisition_runner.py",
+            "example_dry_run_command": (
+                f"python tools/oc133_official_readonly_acquisition_runner.py --packet {PHYSICS_ACQUISITION_PACKET_REL} --write"
+            ),
+            "example_execute_command": (
+                "python tools/oc133_official_readonly_acquisition_runner.py "
+                f"--packet {PHYSICS_ACQUISITION_PACKET_REL} --execute-network --allow-blocked-exit-zero"
+            ),
+        },
+        "policy": "Acquisition requests pin official bytes only; they do not constitute empirical PASS or grand TOE support.",
+    }
+    packet["packet_sha256"] = sha256_object({k: v for k, v in packet.items() if k != "packet_sha256"})
+    return packet
+
+
+def build_tamper_tests(rows_by_domain: dict[str, list[dict[str, Any]]]) -> list[dict[str, Any]]:
+    physics_rows = rows_by_domain.get("physics", [])
+    first_physics = physics_rows[0] if physics_rows else None
+    tamper_hash_changes = False
+    if first_physics:
+        mutated = dict(first_physics)
+        observed = as_float(mutated.get("observed_value"), 0.0)
+        mutated["observed_value"] = observed + max(abs(observed) * 1e-6, 1e-300)
+        tamper_hash_changes = row_hash(mutated) != first_physics.get("row_hash")
+    return [
+        {
+            "test_id": "physics-row-hash-target-tamper-rejected",
+            "description": "mutating a physics target observed_value changes the canonical row hash",
+            "passed": bool(first_physics) and tamper_hash_changes,
+        },
+        {
+            "test_id": "physics-visible-projection-has-no-target-fields",
+            "description": "visible CODATA projections contain only declared input constants, not target values or units",
+            "passed": bool(physics_rows) and not any(visible_projection_has_target_leakage(row) for row in physics_rows),
+        },
+        {
+            "test_id": "physics-comparator-preregistered-for-each-row",
+            "description": "every physics row declares its comparator before scoring",
+            "passed": bool(physics_rows)
+            and all(
+                isinstance(row.get("preregistration"), dict)
+                and (row.get("preregistration") or {}).get("comparator", {}).get("pre_registered") is True
+                and (row.get("preregistration") or {}).get("declared_before_scoring") is True
+                for row in physics_rows
+            ),
+        },
+        {
+            "test_id": "physics-n-ge-20-when-codata-snapshot-exists",
+            "description": "the pinned CODATA snapshot yields at least 20 deterministic physics formula rows when present",
+            "passed": len(physics_rows) >= MINIMUM_N_DEFAULT,
+        },
+    ]
 
 
 def domain_missing_official_snapshots(domain: str, current_n: int, minimum_n: int) -> list[dict[str, Any]]:
@@ -899,10 +1287,14 @@ def domain_missing_official_snapshots(domain: str, current_n: int, minimum_n: in
         ]
     )
     if domain == "physics":
+        acquisition_rows = physics_acquisition_requests(current_n, minimum_n)
         return [
             {
                 "source_id": "physics_nist_constants_pre_target_lock_manifest_v1",
-                "official_url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+                "acquisition_id": acquisition_rows[0]["acquisition_id"],
+                "official_url": acquisition_rows[0]["official_endpoint_url"],
+                "official_endpoint_url": acquisition_rows[0]["official_endpoint_url"],
+                "expected_local_snapshot_ref": acquisition_rows[0]["expected_local_snapshot_ref"],
                 "required_local_snapshot_ref": "validation/_raw/physics_nist_constants_pre_target_lock_manifest_v1.json",
                 "required_lock_ref": f"{OUTPUT_ROOT_REL}/locks/physics_nist_constants_pre_target_lock_manifest_v1.json",
                 "minimum_rows_required": minimum_n,
@@ -911,11 +1303,10 @@ def domain_missing_official_snapshots(domain: str, current_n: int, minimum_n: in
             },
             {
                 "source_id": "physics_nist_asd_hydrogen_balmer_lines_v1",
-                "official_url": (
-                    "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H&limits_type=0&low_w=&upp_w="
-                    "&unit=1&de=0&format=3&line_out=0&remove_js=on&en_unit=1&output=0&page_size=50"
-                    "&show_obs_wl=1&show_calc_wl=1&show_wn=1"
-                ),
+                "acquisition_id": acquisition_rows[1]["acquisition_id"],
+                "official_url": acquisition_rows[1]["official_endpoint_url"],
+                "official_endpoint_url": acquisition_rows[1]["official_endpoint_url"],
+                "expected_local_snapshot_ref": acquisition_rows[1]["expected_local_snapshot_ref"],
                 "required_local_snapshot_ref": "validation/_raw/physics_nist_asd_hydrogen_balmer_lines_v1.tsv",
                 "required_lock_ref": f"{OUTPUT_ROOT_REL}/locks/physics_nist_asd_hydrogen_balmer_lines_v1.json",
                 "minimum_rows_required": minimum_n,
@@ -976,7 +1367,7 @@ def evaluate_domain(
 ) -> dict[str, Any]:
     minimum_n = int(requirements.get("minimum_per_domain_n", MINIMUM_N_DEFAULT))
     blockers = list(local_blockers)
-    blockers.extend(source_separation_blockers(source, requirements))
+    blockers.extend(source_separation_blockers(source, requirements, domain))
     if len(rows) < minimum_n:
         blockers.append(f"N_BELOW_MINIMUM::{domain}::{len(rows)}/{minimum_n}")
     if not rows:
@@ -985,6 +1376,19 @@ def evaluate_domain(
         blockers.append(f"NEGATIVE_CONTROLS_NOT_ALL_REJECTED::{domain}")
     if any(row.get("residual_within_uncertainty") is not True for row in rows):
         blockers.append(f"RESIDUALS_OUTSIDE_UNCERTAINTY::{domain}")
+    if any(not row_hash_valid(row) for row in rows):
+        blockers.append(f"ROW_HASH_TAMPER_DETECTED::{domain}")
+    if domain == "physics":
+        if any(visible_projection_has_target_leakage(row) for row in rows):
+            blockers.append("PHYSICS_VISIBLE_PROJECTION_TARGET_LEAKAGE")
+        if any(not isinstance(row.get("preregistration"), dict) for row in rows):
+            blockers.append("PHYSICS_PREREGISTRATION_MISSING")
+        if any(
+            (row.get("preregistration") or {}).get("comparator", {}).get("pre_registered") is not True
+            for row in rows
+            if isinstance(row.get("preregistration"), dict)
+        ):
+            blockers.append("PHYSICS_COMPARATOR_NOT_PREREGISTERED")
 
     candidate_true = build_candidate_pack(domain, rows, source, support_allowed=True)
     gate_failures_if_true = grand_factory.pack_failure_reasons(candidate_true, requirements)
@@ -1004,7 +1408,7 @@ def evaluate_domain(
         "missing_n": max(0, minimum_n - len(rows)),
         "grand_eligible_n": len(rows) if support_allowed else 0,
         "source_separation": source,
-        "source_separation_for_pack": clean_pack_source(source),
+        "source_separation_for_pack": clean_pack_source(source, include_projection=domain == "physics"),
         "residuals": pack["residuals"],
         "negative_control_total": len(pack["negative_controls"]),
         "falsifier_total": len(pack["falsifiers"]),
@@ -1053,6 +1457,8 @@ def build_payload(
     domain_evals = [physics_eval, chemistry_eval]
     all_blockers = ordered_unique([blocker for row in domain_evals for blocker in row["blockers"]])
     snapshot_records = [physics_snapshot, *chemistry_snapshots]
+    tamper_tests = build_tamper_tests({"physics": physics_rows, "chemistry": chemistry_rows})
+    physics_acquisition_packet = build_physics_acquisition_packet(physics_eval)
 
     tasks = {
         "schema_id": TASKS_SCHEMA_ID,
@@ -1065,6 +1471,7 @@ def build_payload(
         "snapshot_hash_policy": SNAPSHOT_HASH_POLICY,
         "row_hash_policy": ROW_HASH_POLICY,
         "snapshot_records": snapshot_records,
+        "tamper_tests": tamper_tests,
         "domains": [
             {
                 "domain": "physics",
@@ -1116,8 +1523,10 @@ def build_payload(
         "tasks_ref": TASKS_REL,
         "report_ref": REPORT_REL,
         "candidate_pack_refs": [PHYSICS_PACK_REL, CHEMISTRY_PACK_REL],
+        "acquisition_packet_refs": [PHYSICS_ACQUISITION_PACKET_REL],
         "minimum_per_domain_n": int(requirements.get("minimum_per_domain_n", MINIMUM_N_DEFAULT)),
         "domains": protocol_domains,
+        "tamper_tests": tamper_tests,
         "open_blocker_total": len(all_blockers),
         "blockers": all_blockers,
         "grand_toe_support_allowed": all(row["grand_toe_support_allowed"] for row in domain_evals),
@@ -1172,9 +1581,13 @@ def build_payload(
         "blockers": all_blockers,
         "domains": report_domains,
         "snapshot_records": snapshot_records,
+        "tamper_tests": tamper_tests,
+        "acquisition_packet_refs": [PHYSICS_ACQUISITION_PACKET_REL],
+        "physics_acquisition_request_total": physics_acquisition_packet["missing_official_snapshot_total"],
         "artifact_hashes": {
             "physics_candidate_pack_sha256": physics_eval["candidate_pack_sha256"],
             "chemistry_candidate_pack_sha256": chemistry_eval["candidate_pack_sha256"],
+            "physics_acquisition_packet_sha256": physics_acquisition_packet["packet_sha256"],
             "tasks_sha256": sha256_object(tasks),
             "protocol_sha256": protocol["protocol_sha256"],
         },
@@ -1199,6 +1612,7 @@ def build_payload(
         "readme": readme,
         PHYSICS_PACK_REL: physics_eval["candidate_pack"],
         CHEMISTRY_PACK_REL: chemistry_eval["candidate_pack"],
+        PHYSICS_ACQUISITION_PACKET_REL: physics_acquisition_packet,
     }
 
 
@@ -1219,6 +1633,13 @@ def render_readme(report: dict[str, Any]) -> str:
             f"`{row['minimum_n']}` | `{str(row['candidate_pack_valid_under_current_grand_gate']).lower()}` | `{row['status']}` |"
         )
     lines.extend(["", "No-send locks are active. Candidate packs in this directory must not be registered while blocked.", ""])
+    lines.extend(
+        [
+            "Physics acquisition packet:",
+            f"- `{PHYSICS_ACQUISITION_PACKET_REL}`",
+            "",
+        ]
+    )
     lines.append("## Missing Official Snapshots")
     for domain in report["domains"]:
         lines.append("")
@@ -1238,6 +1659,7 @@ def write_outputs(root: Path | None = None) -> dict[str, Any]:
     payload = build_payload(root)
     write_json(root / PHYSICS_PACK_REL, payload[PHYSICS_PACK_REL])
     write_json(root / CHEMISTRY_PACK_REL, payload[CHEMISTRY_PACK_REL])
+    write_json(root / PHYSICS_ACQUISITION_PACKET_REL, payload[PHYSICS_ACQUISITION_PACKET_REL])
     write_json(root / TASKS_REL, payload["tasks"])
     write_json(root / PROTOCOL_REL, payload["protocol"])
     write_json(root / REPORT_REL, payload["report"])
@@ -1251,6 +1673,7 @@ def check_stored(root: Path | None = None) -> list[str]:
     checks = [
         (PHYSICS_PACK_REL, expected[PHYSICS_PACK_REL]),
         (CHEMISTRY_PACK_REL, expected[CHEMISTRY_PACK_REL]),
+        (PHYSICS_ACQUISITION_PACKET_REL, expected[PHYSICS_ACQUISITION_PACKET_REL]),
         (TASKS_REL, expected["tasks"]),
         (PROTOCOL_REL, expected["protocol"]),
         (REPORT_REL, expected["report"]),
@@ -1294,7 +1717,23 @@ def main(argv: list[str] | None = None) -> int:
             for failure in failures:
                 print(f"ERROR: {failure}")
             return 1
-        print(json.dumps({"status": "ok", "checked": [PHYSICS_PACK_REL, CHEMISTRY_PACK_REL, TASKS_REL, PROTOCOL_REL, REPORT_REL, README_REL]}, indent=2))
+        print(
+            json.dumps(
+                {
+                    "status": "ok",
+                    "checked": [
+                        PHYSICS_PACK_REL,
+                        CHEMISTRY_PACK_REL,
+                        PHYSICS_ACQUISITION_PACKET_REL,
+                        TASKS_REL,
+                        PROTOCOL_REL,
+                        REPORT_REL,
+                        README_REL,
+                    ],
+                },
+                indent=2,
+            )
+        )
         return 0
     report = write_outputs(root) if args.write else build_payload(root)["report"]
     print(json.dumps(report, ensure_ascii=False, indent=2))

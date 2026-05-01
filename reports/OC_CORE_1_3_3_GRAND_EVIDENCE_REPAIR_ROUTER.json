@@ -2,18 +2,15 @@
   "schema_id": "OC133_GRAND_EVIDENCE_REPAIR_ROUTER_v1",
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
-  "generated_at": "2026-05-01T04:06:37Z",
+  "generated_at": "2026-05-01T04:56:48Z",
   "capability_owner": "Logion IT/Research",
   "work_orders_ref": "validation/heldout/OC133_GRAND_EVIDENCE_REPAIR_WORK_ORDERS.json",
   "capability_registry_ref": "reports/OC_CORE_1_3_3_EMPIRICAL_CAPABILITY_REGISTRY.json",
-  "work_order_total": 17,
-  "routed_work_order_total": 17,
-  "missing_capability_total": 6,
-  "missing_capability_refs": [
-    "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
-    "tools/oc133_systems_wdi_predictive_search_v2_factory.py"
-  ],
-  "route_queue_sha256": "5a8c43424a977f12c0dac6c021dd14f38e9917c27f57633c7cb14006d4abbb2a",
+  "work_order_total": 18,
+  "routed_work_order_total": 18,
+  "missing_capability_total": 0,
+  "missing_capability_refs": [],
+  "route_queue_sha256": "1b292e29f1a165890071f68a206b1230ee42f6ef9fba6475386dba620d5b6c6a",
   "rows": [
     {
       "route_id": "ROUTE::OC133-GRAND-EVIDENCE-REPAIR-BIOLOGY-COMPARATOR_OR_RESIDUAL_FAILURE",
@@ -92,7 +89,6 @@
       "repair_action": "Expand or acquire NCBI/GEO batch evidence.",
       "candidate_refs": [
         "validation/heldout/acquisition_plans/biology_systems/biology_candidate_pack_template.json",
-        "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_CANDIDATE_PACK.json",
         "validation/heldout/grand_science/biology/ncbi_benchmark/OC133_BIOLOGY_NCBI_BENCHMARK_CANDIDATE_PACK.json",
         "validation/heldout/grand_science/biology_systems/biology_candidate_evidence_pack.json"
       ],
@@ -147,17 +143,47 @@
       "owner_approval_required": true
     },
     {
+      "route_id": "ROUTE::OC133-GRAND-EVIDENCE-REPAIR-CHEMISTRY-COMPARATOR_OR_RESIDUAL_FAILURE",
+      "work_order_id": "OC133-GRAND-EVIDENCE-REPAIR-CHEMISTRY-COMPARATOR_OR_RESIDUAL_FAILURE",
+      "domain": "chemistry",
+      "failure_class": "comparator_or_residual_failure",
+      "owner_capability": "Research/EmpiricalScience",
+      "preferred_component_ref": "tools/oc133_grand_empirical_evidence_factory.py",
+      "preferred_component_available": true,
+      "preferred_component_command": "python tools/oc133_grand_empirical_evidence_factory.py --write",
+      "route_status": "ROUTED_TO_AVAILABLE_CAPABILITY",
+      "repair_action": "Route to the generic grand empirical capability until a class-specific capability exists.",
+      "candidate_refs": [
+        "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_CANDIDATE_PACK.json"
+      ],
+      "failure_examples": [
+        "COMPARATOR_BASELINE_NOT_PREREGISTERED"
+      ],
+      "closure_evidence_required": [
+        "candidate row valid_for_grand_support=true",
+        "registered evidence_pack_ref points to the validated pack",
+        "grand empirical gate re-audits the domain without this failure class"
+      ],
+      "artifact_exists_is_not_closure": true,
+      "no_send": true,
+      "publish_allowed": false,
+      "journal_submissions_allowed": false,
+      "external_network_allowed": false,
+      "owner_approval_required": true
+    },
+    {
       "route_id": "ROUTE::OC133-GRAND-EVIDENCE-REPAIR-CHEMISTRY-GRAND_SUPPORT_NOT_AUTHORIZED",
       "work_order_id": "OC133-GRAND-EVIDENCE-REPAIR-CHEMISTRY-GRAND_SUPPORT_NOT_AUTHORIZED",
       "domain": "chemistry",
       "failure_class": "grand_support_not_authorized",
       "owner_capability": "Review/ClaimBoundary",
       "preferred_component_ref": "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
-      "preferred_component_available": false,
-      "preferred_component_command": null,
-      "route_status": "BLOCKED_CAPABILITY_MISSING",
+      "preferred_component_available": true,
+      "preferred_component_command": "python tools/oc133_chemistry_pubchem_formula_batch_factory.py --write",
+      "route_status": "ROUTED_TO_AVAILABLE_CAPABILITY",
       "repair_action": "Keep chemistry blocked until strict grand evidence passes.",
       "candidate_refs": [
+        "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_CANDIDATE_PACK.json",
         "validation/heldout/grand_science/physics_chemistry/chemistry_candidate_evidence_pack.json",
         "validation/heldout/grand_science/physics_chemistry/official_batch/chemistry_official_batch_candidate_evidence_pack.json"
       ],
@@ -183,11 +209,12 @@
       "failure_class": "insufficient_sample_size",
       "owner_capability": "Research/EmpiricalScience",
       "preferred_component_ref": "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
-      "preferred_component_available": false,
-      "preferred_component_command": null,
-      "route_status": "BLOCKED_CAPABILITY_MISSING",
+      "preferred_component_available": true,
+      "preferred_component_command": "python tools/oc133_chemistry_pubchem_formula_batch_factory.py --write",
+      "route_status": "ROUTED_TO_AVAILABLE_CAPABILITY",
       "repair_action": "Acquire or consume more PubChem formula snapshots.",
       "candidate_refs": [
+        "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_CANDIDATE_PACK.json",
         "validation/heldout/grand_science/physics_chemistry/chemistry_candidate_evidence_pack.json",
         "validation/heldout/grand_science/physics_chemistry/official_batch/chemistry_official_batch_candidate_evidence_pack.json"
       ],
@@ -213,17 +240,18 @@
       "failure_class": "source_separation_failure",
       "owner_capability": "Research/EmpiricalScience",
       "preferred_component_ref": "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
-      "preferred_component_available": false,
-      "preferred_component_command": null,
-      "route_status": "BLOCKED_CAPABILITY_MISSING",
+      "preferred_component_available": true,
+      "preferred_component_command": "python tools/oc133_chemistry_pubchem_formula_batch_factory.py --write",
+      "route_status": "ROUTED_TO_AVAILABLE_CAPABILITY",
       "repair_action": "Generate target-hidden PubChem acquisition protocol.",
       "candidate_refs": [
+        "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_CANDIDATE_PACK.json",
         "validation/heldout/grand_science/physics_chemistry/official_batch/chemistry_official_batch_candidate_evidence_pack.json"
       ],
       "failure_examples": [
         "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
-        "PRE_TARGET_LOCK_REQUIRED",
-        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED"
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "PRE_TARGET_LOCK_REQUIRED"
       ],
       "closure_evidence_required": [
         "candidate row valid_for_grand_support=true",
@@ -392,9 +420,9 @@
       "failure_class": "comparator_or_residual_failure",
       "owner_capability": "Research/EmpiricalScience",
       "preferred_component_ref": "tools/oc133_systems_wdi_predictive_search_v2_factory.py",
-      "preferred_component_available": false,
-      "preferred_component_command": null,
-      "route_status": "BLOCKED_CAPABILITY_MISSING",
+      "preferred_component_available": true,
+      "preferred_component_command": "python tools/oc133_systems_wdi_predictive_search_v2_factory.py --write",
+      "route_status": "ROUTED_TO_AVAILABLE_CAPABILITY",
       "repair_action": "Re-score WDI predictors against comparator baselines.",
       "candidate_refs": [
         "validation/heldout/acquisition_plans/biology_systems/systems_candidate_pack_template.json",
@@ -422,16 +450,17 @@
       "failure_class": "grand_support_not_authorized",
       "owner_capability": "Review/ClaimBoundary",
       "preferred_component_ref": "tools/oc133_systems_wdi_predictive_search_v2_factory.py",
-      "preferred_component_available": false,
-      "preferred_component_command": null,
-      "route_status": "BLOCKED_CAPABILITY_MISSING",
+      "preferred_component_available": true,
+      "preferred_component_command": "python tools/oc133_systems_wdi_predictive_search_v2_factory.py --write",
+      "route_status": "ROUTED_TO_AVAILABLE_CAPABILITY",
       "repair_action": "Keep systems blocked until all strict controls pass.",
       "candidate_refs": [
         "validation/heldout/acquisition_plans/biology_systems/systems_candidate_pack_template.json",
         "validation/heldout/grand_science/biology_systems/systems_candidate_evidence_pack.json",
         "validation/heldout/grand_science/systems/harvested/systems_candidate_evidence_pack.json",
         "validation/heldout/grand_science/systems/wdi_benchmark/systems_wdi_benchmark_candidate_evidence_pack.json",
-        "validation/heldout/grand_science/systems/wdi_model_search/OC133_SYSTEMS_WDI_MODEL_SEARCH_CANDIDATE_PACK.json"
+        "validation/heldout/grand_science/systems/wdi_model_search/OC133_SYSTEMS_WDI_MODEL_SEARCH_CANDIDATE_PACK.json",
+        "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_CANDIDATE_PACK.json"
       ],
       "failure_examples": [
         "GRAND_TOE_SUPPORT_NOT_ALLOWED"
@@ -486,13 +515,14 @@
       "failure_class": "negative_control_failure",
       "owner_capability": "Review/ClaimBoundary",
       "preferred_component_ref": "tools/oc133_systems_wdi_predictive_search_v2_factory.py",
-      "preferred_component_available": false,
-      "preferred_component_command": null,
-      "route_status": "BLOCKED_CAPABILITY_MISSING",
+      "preferred_component_available": true,
+      "preferred_component_command": "python tools/oc133_systems_wdi_predictive_search_v2_factory.py --write",
+      "route_status": "ROUTED_TO_AVAILABLE_CAPABILITY",
       "repair_action": "Run stricter WDI predictive search and keep failing rows open.",
       "candidate_refs": [
         "validation/heldout/grand_science/systems/harvested/systems_candidate_evidence_pack.json",
-        "validation/heldout/grand_science/systems/wdi_model_search/OC133_SYSTEMS_WDI_MODEL_SEARCH_CANDIDATE_PACK.json"
+        "validation/heldout/grand_science/systems/wdi_model_search/OC133_SYSTEMS_WDI_MODEL_SEARCH_CANDIDATE_PACK.json",
+        "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_CANDIDATE_PACK.json"
       ],
       "failure_examples": [
         "NEGATIVE_CONTROL_NOT_REJECTED::19",
@@ -528,7 +558,22 @@
         "NEGATIVE_CONTROL_NOT_REJECTED::49",
         "NEGATIVE_CONTROL_NOT_REJECTED::51",
         "NEGATIVE_CONTROL_NOT_REJECTED::55",
-        "NEGATIVE_CONTROL_NOT_REJECTED::56"
+        "NEGATIVE_CONTROL_NOT_REJECTED::56",
+        "NEGATIVE_CONTROL_NOT_REJECTED::30",
+        "NEGATIVE_CONTROL_NOT_REJECTED::42",
+        "NEGATIVE_CONTROL_NOT_REJECTED::46",
+        "NEGATIVE_CONTROL_NOT_REJECTED::62",
+        "NEGATIVE_CONTROL_NOT_REJECTED::66",
+        "NEGATIVE_CONTROL_NOT_REJECTED::68",
+        "NEGATIVE_CONTROL_NOT_REJECTED::82",
+        "NEGATIVE_CONTROL_NOT_REJECTED::84",
+        "NEGATIVE_CONTROL_NOT_REJECTED::88",
+        "NEGATIVE_CONTROL_NOT_REJECTED::92",
+        "NEGATIVE_CONTROL_NOT_REJECTED::94",
+        "NEGATIVE_CONTROL_NOT_REJECTED::96",
+        "NEGATIVE_CONTROL_NOT_REJECTED::102",
+        "NEGATIVE_CONTROL_NOT_REJECTED::104",
+        "NEGATIVE_CONTROL_NOT_REJECTED::106"
       ],
       "closure_evidence_required": [
         "candidate row valid_for_grand_support=true",
@@ -588,6 +633,6 @@
   "journal_submissions_allowed": false,
   "external_network_allowed": false,
   "owner_approval_required": true,
-  "verdict": "REPAIR_ROUTE_BLOCKED_CAPABILITIES_MISSING",
+  "verdict": "REPAIR_ROUTE_READY",
   "closure_policy": "Routing does not close evidence blockers. A routed work order closes only after the preferred capability emits a strict valid evidence pack and the grand empirical gate re-audits it as valid."
 }

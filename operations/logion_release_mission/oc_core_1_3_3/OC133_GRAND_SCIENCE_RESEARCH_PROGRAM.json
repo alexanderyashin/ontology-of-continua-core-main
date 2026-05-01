@@ -139,6 +139,17 @@
     {
       "cmd": [
         "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_official_readonly_acquisition_runner.py",
+        "--write",
+        "--allow-blocked-exit-zero"
+      ],
+      "returncode": 0,
+      "stdout_tail": "l96_accession_retstart_000380_retmax_20.json\",\n      \"packet_no_send_lock\": true,\n      \"required_fields\": [\n        \"header.type\",\n        \"esearchresult.count\",\n        \"esearchresult.retmax\",\n        \"esearchresult.retstart\",\n        \"esearchresult.idlist\",\n        \"esearchresult.querytranslation\"\n      ],\n      \"query_params\": {\n        \"db\": \"gds\",\n        \"term\": \"GPL96[Accession]\",\n        \"retmode\": \"json\",\n        \"retstart\": 380,\n        \"retmax\": 20\n      },\n      \"allowlist_allowed\": true,\n      \"allowlist_rule\": \"NCBI EUtils\",\n      \"validation_blockers\": [],\n      \"validated_for_network\": true,\n      \"snapshot_ref\": \"validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-NCBI-GEO-OFFICIAL-SNAPSHOT-0019.json\",\n      \"snapshot_metadata_ref\": \"validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-NCBI-GEO-OFFICIAL-SNAPSHOT-0019.metadata.json\",\n      \"lock_ref\": \"validation/heldout/acquisition_runs/oc133_official_readonly/locks/OC133-NCBI-GEO-OFFICIAL-SNAPSHOT-0019.lock.json\",\n      \"hash_policy\": \"sha256 over acquired response bytes as stored\",\n      \"network_executed\": false,\n      \"http_status\": 0,\n      \"byte_count\": 0,\n      \"sha256\": \"\",\n      \"content_type\": \"\",\n      \"status\": \"DRY_RUN_NETWORK_NOT_EXECUTED\",\n      \"fetch_error\": \"\"\n    }\n  ],\n  \"locks\": {\n    \"no_send\": true,\n    \"publish_allowed\": false,\n    \"push_allowed\": false,\n    \"journal_submissions_allowed\": false,\n    \"doi_registration_allowed\": false,\n    \"zenodo_upload_allowed\": false,\n    \"registry_write_allowed\": false,\n    \"release_promotion_allowed\": false\n  },\n  \"scientific_pass\": false,\n  \"grand_toe_support_allowed\": false,\n  \"registry_write_allowed\": false,\n  \"publish_allowed\": false,\n  \"push_allowed\": false,\n  \"policy\": \"Read-only acquisition pins official source bytes for later strict evidence factories; acquisition success is not scientific PASS.\",\n  \"report_sha256\": \"01630766a8d3bca3863d4927c5e583ab478b4c4203dce0bc550832cc30fb9645\"\n}\n",
+      "stderr_tail": ""
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
         "tools/oc133_harvester_runner.py",
         "--write",
         "--allow-blocked-exit-zero"
@@ -156,6 +167,70 @@
       ],
       "returncode": 0,
       "stdout_tail": "rejection\": \"MODEL_RESIDUAL_EXCEEDS_UNCERTAINTY\"\n              }\n            ],\n            \"protocol_steps_to_unblock\": [\n              \"pre-register physics/chemistry model, comparator, residual metric, uncertainty method, negative controls, and falsifiers before scoring\",\n              \"use source snapshots whose target fields remain hidden until scoring or a genuinely prospective source\",\n              \"record LF-normalized snapshot hashes and candidate-pack hashes\",\n              \"collect at least 20 eligible rows per domain; numeric replay QA rows do not count\",\n              \"exclude rows whose own support scope says bounded, QA-only, or not a domain/novel-law claim\",\n              \"route candidate packs to the parent registry only after grand schema validation is clean\"\n            ]\n          }\n        ],\n        \"candidate_pack_total\": 2,\n        \"valid_candidate_pack_total\": 0,\n        \"blocked_candidate_pack_total\": 2,\n        \"no_fabricated_success_policy\": \"This executor emits grand schema-valid packs only when source separation, fields, negative controls, falsifiers, N, and explicit grand-scope predicates pass. Current bounded target-blind and numeric replay rows are routed as blocked candidates/protocol evidence.\",\n        \"protocol_sha256\": \"8ae1d7fa289d72f5bde4032916e1c978c38fd78a2a64b90221d7904ef15b486a\",\n        \"artifact_report_ref\": \"validation/heldout/grand_science/physics_chemistry/OC133_PHYSICS_CHEMISTRY_EVIDENCE_PROTOCOL.json\"\n      },\n      \"parsed_json\": false,\n      \"artifact_payload_found\": true,\n      \"command_pass\": true\n    }\n  ],\n  \"write_requested\": true,\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"journal_submissions_allowed\": false,\n  \"verdict\": \"EXECUTORS_RAN_BLOCKERS_ALLOWED\",\n  \"closure_policy\": \"This runner only executes capability-owned evidence generators. Grand empirical closure is decided later by validation/grand_science/evidence_pack_factory.py; executor existence or zero return code is not scientific closure.\"\n}\n",
+      "stderr_tail": ""
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_grand_evidence_registry_sync_factory.py",
+        "--write"
+      ],
+      "returncode": 0,
+      "stdout_tail": "{\n  \"schema_id\": \"OC133_GRAND_EVIDENCE_REGISTRY_SYNC_v1\",\n  \"release_id\": \"oc_core_1_3_3\",\n  \"version\": \"1.3.3\",\n  \"generated_at\": \"2026-05-01T04:07:48Z\",\n  \"capability_owner\": \"Research/EmpiricalScience\",\n  \"registry_ref\": \"validation/heldout/grand_science_evidence_registry.json\",\n  \"grand_empirical_report_ref\": \"reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json\",\n  \"work_orders_ref\": \"validation/heldout/OC133_GRAND_EVIDENCE_REPAIR_WORK_ORDERS.json\",\n  \"candidate_total\": 14,\n  \"valid_candidate_total\": 0,\n  \"invalid_candidate_total\": 14,\n  \"registered_ref_total_before\": 0,\n  \"registered_ref_total_after\": 0,\n  \"new_valid_ref_total\": 0,\n  \"new_valid_refs\": [],\n  \"registry_updated\": false,\n  \"blocked_domain_total_after_sync\": 5,\n  \"grand_toe_support_allowed_after_sync\": false,\n  \"failure_class_counts\": {\n    \"comparator_or_residual_failure\": 6,\n    \"grand_support_not_authorized\": 14,\n    \"insufficient_sample_size\": 11,\n    \"negative_control_failure\": 40,\n    \"source_separation_failure\": 24\n  },\n  \"open_repair_work_order_total\": 17,\n  \"no_send_locks\": {\n    \"no_send\": true,\n    \"publish_allowed\": false,\n    \"journal_submissions_allowed\": false,\n    \"external_network_allowed\": false,\n    \"owner_approval_required\": true\n  },\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"journal_submissions_allowed\": false,\n  \"external_network_allowed\": false,\n  \"owner_approval_required\": true,\n  \"verdict\": \"REGISTRY_SYNC_BLOCKED_PENDING_VALID_PACKS\",\n  \"closure_policy\": \"The sync factory only registers evidence packs already accepted by the strict grand empirical validator. It never edits packs or upgrades grand_toe_support_allowed.\"\n}\n",
+      "stderr_tail": ""
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_grand_evidence_repair_router.py",
+        "--write"
+      ],
+      "returncode": 0,
+      "stdout_tail": "_acquisition_runner.py\",\n      \"preferred_component_available\": true,\n      \"preferred_component_command\": \"python tools/oc133_official_readonly_acquisition_runner.py --write --allow-blocked-exit-zero\",\n      \"route_status\": \"ROUTED_TO_AVAILABLE_CAPABILITY\",\n      \"repair_action\": \"Route to the generic grand empirical capability until a class-specific capability exists.\",\n      \"candidate_refs\": [\n        \"validation/heldout/acquisition_plans/biology_systems/systems_candidate_pack_template.json\",\n        \"validation/heldout/grand_science/biology_systems/systems_candidate_evidence_pack.json\",\n        \"validation/heldout/grand_science/systems/wdi_benchmark/systems_wdi_benchmark_candidate_evidence_pack.json\"\n      ],\n      \"failure_examples\": [\n        \"PRE_TARGET_LOCK_REQUIRED\",\n        \"TARGET_HIDDEN_UNTIL_SCORING_REQUIRED\",\n        \"SOURCE_SEPARATION_MODE_NOT_ALLOWED\"\n      ],\n      \"closure_evidence_required\": [\n        \"candidate row valid_for_grand_support=true\",\n        \"registered evidence_pack_ref points to the validated pack\",\n        \"grand empirical gate re-audits the domain without this failure class\"\n      ],\n      \"artifact_exists_is_not_closure\": true,\n      \"no_send\": true,\n      \"publish_allowed\": false,\n      \"journal_submissions_allowed\": false,\n      \"external_network_allowed\": false,\n      \"owner_approval_required\": true\n    }\n  ],\n  \"no_send_locks\": {\n    \"no_send\": true,\n    \"publish_allowed\": false,\n    \"journal_submissions_allowed\": false,\n    \"external_network_allowed\": false,\n    \"owner_approval_required\": true\n  },\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"journal_submissions_allowed\": false,\n  \"external_network_allowed\": false,\n  \"owner_approval_required\": true,\n  \"verdict\": \"REPAIR_ROUTE_BLOCKED_CAPABILITIES_MISSING\",\n  \"closure_policy\": \"Routing does not close evidence blockers. A routed work order closes only after the preferred capability emits a strict valid evidence pack and the grand empirical gate re-audits it as valid.\"\n}\n",
+      "stderr_tail": ""
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_empirical_capability_registry.py",
+        "--write"
+      ],
+      "returncode": 0,
+      "stdout_tail": "source_class\": \"executor\",\n      \"resource_class_rank\": 1,\n      \"unblock_value\": 126,\n      \"next_action\": \"Run evidence executor to regenerate candidate packs and gate status.\"\n    },\n    {\n      \"action_id\": \"OC133-ECQ-014\",\n      \"position\": 14,\n      \"component_ref\": \"validation/heldout/domain_evidence/physics_chemistry_evidence_executor.py\",\n      \"component_type\": \"executor\",\n      \"resource_class\": \"executor\",\n      \"resource_class_rank\": 1,\n      \"unblock_value\": 52,\n      \"next_action\": \"Monitor for upstream input readiness; rerun to re-evaluate blockade.\"\n    },\n    {\n      \"action_id\": \"OC133-ECQ-015\",\n      \"position\": 15,\n      \"component_ref\": \"tools/oc133_official_readonly_acquisition_runner.py\",\n      \"component_type\": \"planner\",\n      \"resource_class\": \"planner\",\n      \"resource_class_rank\": 0,\n      \"unblock_value\": 0,\n      \"next_action\": \"Monitor for upstream input readiness; rerun to re-evaluate blockade.\"\n    }\n  ],\n  \"next_action_total\": 15,\n  \"no_send_locks\": {\n    \"no_send\": true,\n    \"publish_allowed\": false,\n    \"journal_submissions_allowed\": false,\n    \"external_network_allowed\": false,\n    \"automatic_dispatch_allowed\": false,\n    \"owner_approval_required\": true\n  },\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"journal_submissions_allowed\": false,\n  \"external_network_allowed\": false,\n  \"automatic_dispatch_allowed\": false,\n  \"compute_degradation_notes\": [\n    \"Capability registry ran in local-read dispatcher mode and did not call component commands.\",\n    \"No-send and automatic-dispatch locks keep all next actions as queue entries, not executions.\",\n    \"Rows with blockers are ranked for blocker reconciliation before compute-heavy reruns.\",\n    \"Rows without local payloads or open blockers degrade to monitoring until upstream inputs change.\"\n  ],\n  \"verdict\": \"CAPABILITY_REBALANCE_BLOCKED\",\n  \"closure_policy\": \"Registry layer is dispatcher-only: it does not alter evidence payloads, only emits no-send ordered operational guidance.\"\n}\n",
+      "stderr_tail": ""
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_empirical_capability_dispatcher.py",
+        "--write",
+        "--refresh-registry",
+        "--execute",
+        "--max-actions",
+        "10"
+      ],
+      "returncode": 0,
+      "stdout_tail": "e,\n      \"scientific_payload_found\": true,\n      \"scientific_blocked\": true,\n      \"scientific_blocker_total\": 3,\n      \"scientific_blocker_reasons\": [\n        \"GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20\",\n        \"CURRENT_TARGET_BLIND_ROWS_ARE_BOUNDED_BASELINE_NOT_GRAND_EVIDENCE\",\n        \"GRAND_TOE_SUPPORT_NOT_ALLOWED\"\n      ],\n      \"scientific_verdict\": \"BLOCKED_PENDING_GENUINE_PHYSICS_CHEMISTRY_EVIDENCE\",\n      \"scientific_pass\": false,\n      \"action_outcome\": \"SCIENTIFIC_BLOCKED\",\n      \"repo_hash_before\": {\n        \"sha256\": \"16cccd0a431626a25b2ae7159c547223f221eac9866c94605556ddaddf61a75e\",\n        \"file_total\": 13082,\n        \"byte_total\": 629060309,\n        \"excluded_dirs\": [\n          \".git\",\n          \".lake\",\n          \".pytest_cache\",\n          \"__pycache__\"\n        ]\n      },\n      \"repo_hash_after\": {\n        \"sha256\": \"16cccd0a431626a25b2ae7159c547223f221eac9866c94605556ddaddf61a75e\",\n        \"file_total\": 13082,\n        \"byte_total\": 629060309,\n        \"excluded_dirs\": [\n          \".git\",\n          \".lake\",\n          \".pytest_cache\",\n          \"__pycache__\"\n        ]\n      },\n      \"repo_hash_changed\": false,\n      \"retry_info\": null\n    }\n  ],\n  \"no_send_locks\": {\n    \"no_send\": true,\n    \"publish_allowed\": false,\n    \"journal_submissions_allowed\": false,\n    \"external_network_allowed\": false,\n    \"automatic_dispatch_allowed\": false,\n    \"owner_approval_required\": true\n  },\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"journal_submissions_allowed\": false,\n  \"external_network_allowed\": false,\n  \"network_policy\": \"No network by default: only allowlisted local Python commands run; harvester commands require --offline; proxy variables are stripped from command environments.\",\n  \"closure_policy\": \"Dispatcher PASS means command execution succeeded and the returned scientific payload is not blocked. A zero return code with blockers is recorded as executor_success plus SCIENTIFIC_BLOCKED, not PASS.\",\n  \"verdict\": \"DISPATCH_RAN_WITH_SCIENTIFIC_BLOCKERS\"\n}\n",
+      "stderr_tail": ""
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_grand_evidence_registry_sync_factory.py",
+        "--write"
+      ],
+      "returncode": 0,
+      "stdout_tail": "{\n  \"schema_id\": \"OC133_GRAND_EVIDENCE_REGISTRY_SYNC_v1\",\n  \"release_id\": \"oc_core_1_3_3\",\n  \"version\": \"1.3.3\",\n  \"generated_at\": \"2026-05-01T04:11:03Z\",\n  \"capability_owner\": \"Research/EmpiricalScience\",\n  \"registry_ref\": \"validation/heldout/grand_science_evidence_registry.json\",\n  \"grand_empirical_report_ref\": \"reports/OC_CORE_1_3_3_GRAND_EMPIRICAL_REPORT.json\",\n  \"work_orders_ref\": \"validation/heldout/OC133_GRAND_EVIDENCE_REPAIR_WORK_ORDERS.json\",\n  \"candidate_total\": 14,\n  \"valid_candidate_total\": 0,\n  \"invalid_candidate_total\": 14,\n  \"registered_ref_total_before\": 0,\n  \"registered_ref_total_after\": 0,\n  \"new_valid_ref_total\": 0,\n  \"new_valid_refs\": [],\n  \"registry_updated\": false,\n  \"blocked_domain_total_after_sync\": 5,\n  \"grand_toe_support_allowed_after_sync\": false,\n  \"failure_class_counts\": {\n    \"comparator_or_residual_failure\": 6,\n    \"grand_support_not_authorized\": 14,\n    \"insufficient_sample_size\": 11,\n    \"negative_control_failure\": 40,\n    \"source_separation_failure\": 24\n  },\n  \"open_repair_work_order_total\": 17,\n  \"no_send_locks\": {\n    \"no_send\": true,\n    \"publish_allowed\": false,\n    \"journal_submissions_allowed\": false,\n    \"external_network_allowed\": false,\n    \"owner_approval_required\": true\n  },\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"journal_submissions_allowed\": false,\n  \"external_network_allowed\": false,\n  \"owner_approval_required\": true,\n  \"verdict\": \"REGISTRY_SYNC_BLOCKED_PENDING_VALID_PACKS\",\n  \"closure_policy\": \"The sync factory only registers evidence packs already accepted by the strict grand empirical validator. It never edits packs or upgrades grand_toe_support_allowed.\"\n}\n",
+      "stderr_tail": ""
+    },
+    {
+      "cmd": [
+        "C:\\Users\\Megaport\\scoop\\apps\\python\\current\\python.exe",
+        "tools/oc133_grand_evidence_repair_router.py",
+        "--write"
+      ],
+      "returncode": 0,
+      "stdout_tail": "_acquisition_runner.py\",\n      \"preferred_component_available\": true,\n      \"preferred_component_command\": \"python tools/oc133_official_readonly_acquisition_runner.py --write --allow-blocked-exit-zero\",\n      \"route_status\": \"ROUTED_TO_AVAILABLE_CAPABILITY\",\n      \"repair_action\": \"Route to the generic grand empirical capability until a class-specific capability exists.\",\n      \"candidate_refs\": [\n        \"validation/heldout/acquisition_plans/biology_systems/systems_candidate_pack_template.json\",\n        \"validation/heldout/grand_science/biology_systems/systems_candidate_evidence_pack.json\",\n        \"validation/heldout/grand_science/systems/wdi_benchmark/systems_wdi_benchmark_candidate_evidence_pack.json\"\n      ],\n      \"failure_examples\": [\n        \"PRE_TARGET_LOCK_REQUIRED\",\n        \"TARGET_HIDDEN_UNTIL_SCORING_REQUIRED\",\n        \"SOURCE_SEPARATION_MODE_NOT_ALLOWED\"\n      ],\n      \"closure_evidence_required\": [\n        \"candidate row valid_for_grand_support=true\",\n        \"registered evidence_pack_ref points to the validated pack\",\n        \"grand empirical gate re-audits the domain without this failure class\"\n      ],\n      \"artifact_exists_is_not_closure\": true,\n      \"no_send\": true,\n      \"publish_allowed\": false,\n      \"journal_submissions_allowed\": false,\n      \"external_network_allowed\": false,\n      \"owner_approval_required\": true\n    }\n  ],\n  \"no_send_locks\": {\n    \"no_send\": true,\n    \"publish_allowed\": false,\n    \"journal_submissions_allowed\": false,\n    \"external_network_allowed\": false,\n    \"owner_approval_required\": true\n  },\n  \"no_send\": true,\n  \"publish_allowed\": false,\n  \"journal_submissions_allowed\": false,\n  \"external_network_allowed\": false,\n  \"owner_approval_required\": true,\n  \"verdict\": \"REPAIR_ROUTE_BLOCKED_CAPABILITIES_MISSING\",\n  \"closure_policy\": \"Routing does not close evidence blockers. A routed work order closes only after the preferred capability emits a strict valid evidence pack and the grand empirical gate re-audits it as valid.\"\n}\n",
       "stderr_tail": ""
     },
     {
@@ -183,9 +258,7 @@
       "promoted_grand_claim_ids": [],
       "promoted_grand_claim_total": 0,
       "grand_claims_missing_formal_artifacts": [],
-      "formal_blocker_claim_ids": [
-        "OC133-GRAND-TOE-FORMAL-BLOCKER"
-      ],
+      "formal_blocker_claim_ids": [],
       "formal_obligation_layer_ref": "claims/GRAND_TOE_FORMAL_OBLIGATION_LEDGER_1_3_3.json",
       "formal_obligation_layer_exists": true,
       "formal_obligation_layer_state": "CURRENT_ARTIFACT_CLASS_CANNOT_PROMOTE",
@@ -378,7 +451,7 @@
       "grand_empirical_report_exists": true,
       "grand_empirical_verdict": "BLOCKED_PENDING_GENUINE_PER_DOMAIN_EVIDENCE",
       "grand_empirical_blocked_domain_total": 5,
-      "grand_empirical_evidence_pack_total": 10,
+      "grand_empirical_evidence_pack_total": 14,
       "grand_empirical_supported_domains": [],
       "grand_empirical_missing_domains": [
         "physics",
@@ -390,9 +463,9 @@
       "grand_empirical_domain_results": {
         "biology": {
           "domain": "biology",
-          "candidate_pack_total": 3,
+          "candidate_pack_total": 4,
           "registered_pack_total": 0,
-          "discovered_pack_total": 3,
+          "discovered_pack_total": 4,
           "valid_pack_total": 0,
           "valid_pack_refs": [],
           "valid_n": 0,
@@ -407,14 +480,14 @@
           "blockers": [
             "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
             "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-            "CANDIDATE_EVIDENCE_PACKS_INVALID::3"
+            "CANDIDATE_EVIDENCE_PACKS_INVALID::4"
           ]
         },
         "chemistry": {
           "domain": "chemistry",
-          "candidate_pack_total": 1,
+          "candidate_pack_total": 2,
           "registered_pack_total": 0,
-          "discovered_pack_total": 1,
+          "discovered_pack_total": 2,
           "valid_pack_total": 0,
           "valid_pack_refs": [],
           "valid_n": 0,
@@ -429,7 +502,7 @@
           "blockers": [
             "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
             "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-            "CANDIDATE_EVIDENCE_PACKS_INVALID::1"
+            "CANDIDATE_EVIDENCE_PACKS_INVALID::2"
           ]
         },
         "mathematics": {
@@ -457,9 +530,9 @@
         },
         "physics": {
           "domain": "physics",
-          "candidate_pack_total": 1,
+          "candidate_pack_total": 2,
           "registered_pack_total": 0,
-          "discovered_pack_total": 1,
+          "discovered_pack_total": 2,
           "valid_pack_total": 0,
           "valid_pack_refs": [],
           "valid_n": 0,
@@ -474,14 +547,14 @@
           "blockers": [
             "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
             "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-            "CANDIDATE_EVIDENCE_PACKS_INVALID::1"
+            "CANDIDATE_EVIDENCE_PACKS_INVALID::2"
           ]
         },
         "systems": {
           "domain": "systems",
-          "candidate_pack_total": 4,
+          "candidate_pack_total": 5,
           "registered_pack_total": 0,
-          "discovered_pack_total": 4,
+          "discovered_pack_total": 5,
           "valid_pack_total": 0,
           "valid_pack_refs": [],
           "valid_n": 0,
@@ -496,7 +569,7 @@
           "blockers": [
             "GENUINE_EVIDENCE_N_BELOW_MINIMUM::0/20",
             "NO_VALID_PROSPECTIVE_OR_TARGET_BLIND_EVIDENCE_PACK",
-            "CANDIDATE_EVIDENCE_PACKS_INVALID::4"
+            "CANDIDATE_EVIDENCE_PACKS_INVALID::5"
           ]
         }
       },

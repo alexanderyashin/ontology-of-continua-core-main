@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import re
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -30,6 +31,9 @@ REPORT_SCHEMA_ID = "OC133_OFFICIAL_READONLY_ACQUISITION_RUN_v1"
 REQUEST_TIMEOUT_SECONDS = 30
 MAX_RESPONSE_BYTES = 25 * 1024 * 1024
 HASH_POLICY = "sha256 over acquired response bytes as stored"
+TRANSIENT_HTTP_STATUSES = {408, 425, 429, 500, 502, 503, 504}
+DEFAULT_RETRY_DELAYS_SECONDS = (1.0, 5.0)
+MAX_RETRY_DELAY_SECONDS = 60.0
 
 NO_SEND_LOCKS = {
     "no_send": True,
@@ -292,11 +296,36 @@ def fetch_official_url(url: str, timeout: int = REQUEST_TIMEOUT_SECONDS) -> tupl
         },
         method="GET",
     )
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        data = response.read(MAX_RESPONSE_BYTES + 1)
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            data = response.read(MAX_RESPONSE_BYTES + 1)
+            if len(data) > MAX_RESPONSE_BYTES:
+                raise ValueError("response exceeds MAX_RESPONSE_BYTES")
+            return response_status(response), response_headers(response), data
+    except urllib.error.HTTPError as exc:
+        data = exc.read(MAX_RESPONSE_BYTES + 1)
         if len(data) > MAX_RESPONSE_BYTES:
             raise ValueError("response exceeds MAX_RESPONSE_BYTES")
-        return response_status(response), response_headers(response), data
+        return int(exc.code), response_headers(exc), data
+
+
+def parse_retry_after_seconds(headers: dict[str, str]) -> float | None:
+    value = headers.get("retry-after", "").strip()
+    if not value:
+        return None
+    try:
+        seconds = float(value)
+    except ValueError:
+        return None
+    if seconds < 0:
+        return None
+    return min(seconds, MAX_RETRY_DELAY_SECONDS)
+
+
+def retry_delay_seconds(headers: dict[str, str], retry_delays: tuple[float, ...], retry_index: int) -> float:
+    retry_after = parse_retry_after_seconds(headers)
+    configured = retry_delays[min(retry_index, len(retry_delays) - 1)] if retry_delays else 0.0
+    return min(max(retry_after if retry_after is not None else configured, configured), MAX_RETRY_DELAY_SECONDS)
 
 
 def build_lock(record: dict[str, Any]) -> dict[str, Any]:
@@ -317,56 +346,176 @@ def build_lock(record: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def execute_request(root: Path, row: dict[str, Any]) -> dict[str, Any]:
-    record = {
+def base_execution_record(row: dict[str, Any]) -> dict[str, Any]:
+    return {
         **{key: value for key, value in row.items() if key != "network_official_endpoint_url"},
         "network_executed": True,
+        "resume_reused_existing_acquisition": False,
+        "network_skipped_reason": "",
         "http_status": 0,
         "byte_count": 0,
         "sha256": "",
         "content_type": "",
         "status": "FETCH_FAILED",
         "fetch_error": "",
+        "network_attempt_total": 0,
+        "retry_attempts": [],
+        "retry_queue_eligible": False,
     }
+
+
+def existing_acquired_record(root: Path, row: dict[str, Any]) -> dict[str, Any] | None:
+    snapshot_path = resolve_under_root(root, row["snapshot_ref"])
+    metadata_path = resolve_under_root(root, row["snapshot_metadata_ref"])
+    lock_path = resolve_under_root(root, row["lock_ref"])
+    if not (snapshot_path.is_file() and metadata_path.is_file() and lock_path.is_file()):
+        return None
+    try:
+        data = snapshot_path.read_bytes()
+        metadata = read_json(metadata_path)
+        lock = read_json(lock_path)
+    except Exception:
+        return None
+    if not isinstance(metadata, dict) or not isinstance(lock, dict):
+        return None
+    digest = sha256_bytes(data)
+    byte_count = len(data)
+    required_metadata = {
+        "release_id": RELEASE_ID,
+        "status": "ACQUIRED_READONLY",
+        "official_endpoint_url": row["redacted_official_endpoint_url"],
+        "snapshot_ref": row["snapshot_ref"],
+        "expected_local_snapshot_ref": row["expected_local_snapshot_ref"],
+        "sha256": digest,
+        "byte_count": byte_count,
+        "locks": NO_SEND_LOCKS,
+        "scientific_pass": False,
+    }
+    required_lock = {
+        "release_id": RELEASE_ID,
+        "official_endpoint_url": row["redacted_official_endpoint_url"],
+        "snapshot_ref": row["snapshot_ref"],
+        "expected_local_snapshot_ref": row["expected_local_snapshot_ref"],
+        "snapshot_sha256": digest,
+        "byte_count": byte_count,
+        "locks": NO_SEND_LOCKS,
+        "scientific_pass": False,
+    }
+    if any(metadata.get(key) != value for key, value in required_metadata.items()):
+        return None
+    if any(lock.get(key) != value for key, value in required_lock.items()):
+        return None
+    http_status = int(metadata.get("http_status") or lock.get("http_status") or 0)
+    if not 200 <= http_status < 300:
+        return None
+    record = base_execution_record(row)
+    record.update(
+        {
+            "network_executed": False,
+            "resume_reused_existing_acquisition": True,
+            "network_skipped_reason": "VALID_EXISTING_ACQUIRED_READONLY_LOCK",
+            "http_status": http_status,
+            "byte_count": byte_count,
+            "sha256": digest,
+            "content_type": str(metadata.get("content_type") or ""),
+            "status": "ACQUIRED_READONLY",
+            "fetch_error": "",
+        }
+    )
+    return record
+
+
+def execute_request(
+    root: Path,
+    row: dict[str, Any],
+    *,
+    force_refetch: bool = False,
+    retry_delays: tuple[float, ...] = DEFAULT_RETRY_DELAYS_SECONDS,
+    max_attempts: int | None = None,
+    sleeper: Any = time.sleep,
+) -> dict[str, Any]:
+    record = base_execution_record(row)
     if not row["validated_for_network"]:
         record["network_executed"] = False
         record["status"] = "VALIDATION_BLOCKED"
         return record
-    try:
-        status, headers, data = fetch_official_url(row["network_official_endpoint_url"])
-    except (urllib.error.URLError, OSError, ValueError) as exc:
-        record["fetch_error"] = f"{exc.__class__.__name__}: {exc}"
-        return record
-    digest = sha256_bytes(data)
-    record.update(
-        {
+
+    if not force_refetch:
+        existing = existing_acquired_record(root, row)
+        if existing is not None:
+            return existing
+
+    attempts_allowed = max(1, max_attempts if max_attempts is not None else len(retry_delays) + 1)
+    attempts: list[dict[str, Any]] = []
+    for attempt_number in range(1, attempts_allowed + 1):
+        headers: dict[str, str] = {}
+        data = b""
+        fetch_error = ""
+        try:
+            status, headers, data = fetch_official_url(row["network_official_endpoint_url"])
+        except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
+            status = 0
+            fetch_error = f"{exc.__class__.__name__}: {exc}"
+        transient = bool(fetch_error) or status in TRANSIENT_HTTP_STATUSES
+        attempt = {
+            "attempt_number": attempt_number,
             "http_status": status,
-            "byte_count": len(data),
-            "sha256": digest,
+            "transient": transient,
+            "fetch_error": fetch_error,
+            "retry_after_seconds": parse_retry_after_seconds(headers),
             "content_type": headers.get("content-type", ""),
-            "status": "ACQUIRED_READONLY" if 200 <= status < 300 else "HTTP_STATUS_NOT_SUCCESS",
+            "byte_count": len(data),
         }
-    )
-    write_bytes(resolve_under_root(root, row["snapshot_ref"]), data)
-    metadata = {
-        "schema_id": "OC133_OFFICIAL_READONLY_ACQUISITION_SNAPSHOT_METADATA_v1",
-        "release_id": RELEASE_ID,
-        "acquisition_id": record["acquisition_id"],
-        "official_endpoint_url": record["redacted_official_endpoint_url"],
-        "allowlist_rule": record["allowlist_rule"],
-        "expected_local_snapshot_ref": record["expected_local_snapshot_ref"],
-        "snapshot_ref": record["snapshot_ref"],
-        "status": record["status"],
-        "http_status": record["http_status"],
-        "byte_count": record["byte_count"],
-        "sha256": record["sha256"],
-        "content_type": record["content_type"],
-        "hash_policy": HASH_POLICY,
-        "locks": NO_SEND_LOCKS,
-        "scientific_pass": False,
-    }
-    write_json(resolve_under_root(root, row["snapshot_metadata_ref"]), metadata)
-    write_json(resolve_under_root(root, row["lock_ref"]), build_lock(record))
+        attempts.append(attempt)
+        record.update(
+            {
+                "http_status": status,
+                "byte_count": len(data),
+                "sha256": sha256_bytes(data) if data else "",
+                "content_type": headers.get("content-type", ""),
+                "fetch_error": fetch_error,
+                "network_attempt_total": attempt_number,
+                "retry_attempts": attempts,
+            }
+        )
+        if 200 <= status < 300:
+            digest = sha256_bytes(data)
+            record.update(
+                {
+                    "sha256": digest,
+                    "status": "ACQUIRED_READONLY",
+                    "fetch_error": "",
+                    "retry_queue_eligible": False,
+                }
+            )
+            write_bytes(resolve_under_root(root, row["snapshot_ref"]), data)
+            metadata = {
+                "schema_id": "OC133_OFFICIAL_READONLY_ACQUISITION_SNAPSHOT_METADATA_v1",
+                "release_id": RELEASE_ID,
+                "acquisition_id": record["acquisition_id"],
+                "official_endpoint_url": record["redacted_official_endpoint_url"],
+                "allowlist_rule": record["allowlist_rule"],
+                "expected_local_snapshot_ref": record["expected_local_snapshot_ref"],
+                "snapshot_ref": record["snapshot_ref"],
+                "status": record["status"],
+                "http_status": record["http_status"],
+                "byte_count": record["byte_count"],
+                "sha256": record["sha256"],
+                "content_type": record["content_type"],
+                "hash_policy": HASH_POLICY,
+                "locks": NO_SEND_LOCKS,
+                "scientific_pass": False,
+            }
+            write_json(resolve_under_root(root, row["snapshot_metadata_ref"]), metadata)
+            write_json(resolve_under_root(root, row["lock_ref"]), build_lock(record))
+            return record
+        if not transient or attempt_number == attempts_allowed:
+            record["status"] = "FETCH_FAILED" if fetch_error else "HTTP_STATUS_NOT_SUCCESS"
+            record["retry_queue_eligible"] = transient
+            return record
+        delay = retry_delay_seconds(headers, retry_delays, attempt_number - 1)
+        attempts[-1]["applied_retry_delay_seconds"] = delay
+        sleeper(delay)
     return record
 
 
@@ -374,23 +523,72 @@ def dry_run_record(row: dict[str, Any]) -> dict[str, Any]:
     return {
         **{key: value for key, value in row.items() if key != "network_official_endpoint_url"},
         "network_executed": False,
+        "resume_reused_existing_acquisition": False,
+        "network_skipped_reason": "",
         "http_status": 0,
         "byte_count": 0,
         "sha256": "",
         "content_type": "",
         "status": "DRY_RUN_NETWORK_NOT_EXECUTED" if row["validated_for_network"] else "VALIDATION_BLOCKED",
         "fetch_error": "",
+        "network_attempt_total": 0,
+        "retry_attempts": [],
+        "retry_queue_eligible": False,
     }
 
 
-def build_report(root: Path, packet_paths: list[Path], *, execute_network: bool) -> dict[str, Any]:
+def build_retry_queue(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    queue = []
+    for record in records:
+        if not record.get("retry_queue_eligible"):
+            continue
+        queue.append(
+            {
+                "acquisition_id": record["acquisition_id"],
+                "packet_ref": record["packet_ref"],
+                "official_endpoint_url": record["redacted_official_endpoint_url"],
+                "snapshot_ref": record["snapshot_ref"],
+                "status": record["status"],
+                "http_status": record["http_status"],
+                "network_attempt_total": record["network_attempt_total"],
+                "fetch_error": record["fetch_error"],
+                "next_action": "retry later with --execute-network after official source cool-down; do not infer scientific PASS",
+            }
+        )
+    return queue
+
+
+def build_report(
+    root: Path,
+    packet_paths: list[Path],
+    *,
+    execute_network: bool,
+    force_refetch: bool = False,
+    retry_delays: tuple[float, ...] = DEFAULT_RETRY_DELAYS_SECONDS,
+    max_attempts: int | None = None,
+    sleeper: Any = time.sleep,
+) -> dict[str, Any]:
     raw_rows = load_packet_requests(root, packet_paths)
     validated_rows = [validate_request(row) for row in raw_rows]
-    records = [execute_request(root, row) if execute_network else dry_run_record(row) for row in validated_rows]
+    records = [
+        execute_request(
+            root,
+            row,
+            force_refetch=force_refetch,
+            retry_delays=retry_delays,
+            max_attempts=max_attempts,
+            sleeper=sleeper,
+        )
+        if execute_network
+        else dry_run_record(row)
+        for row in validated_rows
+    ]
     blockers = sorted({blocker for row in records for blocker in row["validation_blockers"]})
     acquired_total = sum(1 for row in records if row["status"] == "ACQUIRED_READONLY")
     blocked_total = sum(1 for row in records if row["status"] == "VALIDATION_BLOCKED")
     failed_total = sum(1 for row in records if row["status"] in {"FETCH_FAILED", "HTTP_STATUS_NOT_SUCCESS"})
+    retry_queue = build_retry_queue(records)
+    attempts_allowed = max(1, max_attempts if max_attempts is not None else len(retry_delays) + 1)
     report = {
         "schema_id": REPORT_SCHEMA_ID,
         "release_id": RELEASE_ID,
@@ -404,9 +602,29 @@ def build_report(root: Path, packet_paths: list[Path], *, execute_network: bool)
         "validated_for_network_total": sum(1 for row in records if row["validated_for_network"]),
         "validation_blocked_total": blocked_total,
         "acquired_readonly_total": acquired_total,
+        "resumed_acquired_readonly_total": sum(1 for row in records if row.get("resume_reused_existing_acquisition")),
         "network_failure_total": failed_total,
+        "retry_queue_total": len(retry_queue),
         "open_blocker_total": len(blockers),
         "blockers": blockers,
+        "retry_policy": {
+            "max_attempts": attempts_allowed,
+            "retry_delay_seconds": list(retry_delays),
+            "transient_http_statuses": sorted(TRANSIENT_HTTP_STATUSES),
+            "max_retry_delay_seconds": MAX_RETRY_DELAY_SECONDS,
+            "force_refetch": force_refetch,
+        },
+        "retry_queue": retry_queue,
+        "retry_report": {
+            "schema_id": "OC133_OFFICIAL_READONLY_ACQUISITION_RETRY_REPORT_v1",
+            "queue_total": len(retry_queue),
+            "success_after_retry_total": sum(
+                1 for row in records if row["status"] == "ACQUIRED_READONLY" and row["network_attempt_total"] > 1
+            ),
+            "exhausted_retry_total": len(retry_queue),
+            "scientific_pass": False,
+            "policy": "Retry exhaustion is an acquisition work queue only; it is not a scientific PASS or FAIL.",
+        },
         "records": records,
         "locks": NO_SEND_LOCKS,
         "scientific_pass": False,
@@ -452,6 +670,15 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--check", action="store_true", help="check stored dry-run reports against current packets")
     parser.add_argument("--execute-network", action="store_true", help="perform explicit read-only HTTPS GET acquisition")
     parser.add_argument("--allow-blocked-exit-zero", action="store_true", help="return zero even with validation/fetch blockers")
+    parser.add_argument("--force-refetch", "--force", action="store_true", help="refetch even when a valid acquired lock exists")
+    parser.add_argument("--max-attempts", type=int, default=None, help="bounded network attempts per request")
+    parser.add_argument(
+        "--retry-delay-seconds",
+        action="append",
+        type=float,
+        default=None,
+        help="retry backoff delay; repeat to provide a sequence",
+    )
     return parser.parse_args(argv)
 
 
@@ -470,7 +697,15 @@ def main(argv: list[str] | None = None) -> int:
             return 1
         print(json.dumps({"status": "ok", "checked": [RUN_REPORT_REL, PUBLIC_REPORT_REL]}, indent=2))
         return 0
-    report = build_report(root, packet_paths, execute_network=bool(args.execute_network))
+    retry_delays = tuple(args.retry_delay_seconds) if args.retry_delay_seconds is not None else DEFAULT_RETRY_DELAYS_SECONDS
+    report = build_report(
+        root,
+        packet_paths,
+        execute_network=bool(args.execute_network),
+        force_refetch=bool(args.force_refetch),
+        retry_delays=retry_delays,
+        max_attempts=args.max_attempts,
+    )
     if args.write or args.write_report or args.execute_network:
         write_reports(root, report)
     print(json.dumps(report, ensure_ascii=False, indent=2))

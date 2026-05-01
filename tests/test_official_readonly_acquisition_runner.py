@@ -37,11 +37,10 @@ def acquisition_row(url: str, expected_ref: str = "validation/_raw/test_snapshot
 
 
 class FakeResponse:
-    status = 200
-    headers = {"Content-Type": "application/json"}
-
-    def __init__(self, body: bytes) -> None:
+    def __init__(self, body: bytes, status: int = 200, headers: dict[str, str] | None = None) -> None:
         self.body = body
+        self.status = status
+        self.headers = headers or {"Content-Type": "application/json"}
 
     def __enter__(self) -> "FakeResponse":
         return self
@@ -126,6 +125,161 @@ class OfficialReadonlyAcquisitionRunnerTests(unittest.TestCase):
             self.assertFalse(lock_payload["locks"]["publish_allowed"])
             self.assertFalse(lock_payload["locks"]["push_allowed"])
             self.assertFalse(lock_payload["scientific_pass"])
+
+    def test_execute_network_reuses_valid_acquired_lock_without_refetch(self) -> None:
+        body = b'{"already": "acquired"}\n'
+        expected_sha = hashlib.sha256(body).hexdigest()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            packet = root / "validation/heldout/grand_science/biology/ncbi_batch/PACKET_ACQUISITION_PACKET.json"
+            write_json(
+                packet,
+                packet_payload(
+                    acquisition_row(
+                        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=gds&retmode=json"
+                    )
+                ),
+            )
+
+            with mock.patch.object(runner.urllib.request, "urlopen", return_value=FakeResponse(body)):
+                first_report = runner.build_report(root, [packet], execute_network=True)
+
+            with mock.patch.object(runner.urllib.request, "urlopen", side_effect=AssertionError("network")):
+                resumed_report = runner.build_report(root, [packet], execute_network=True)
+
+            first_record = first_report["records"][0]
+            resumed_record = resumed_report["records"][0]
+            self.assertEqual(first_record["status"], "ACQUIRED_READONLY")
+            self.assertEqual(resumed_record["status"], "ACQUIRED_READONLY")
+            self.assertFalse(resumed_record["network_executed"])
+            self.assertTrue(resumed_record["resume_reused_existing_acquisition"])
+            self.assertEqual(resumed_record["network_skipped_reason"], "VALID_EXISTING_ACQUIRED_READONLY_LOCK")
+            self.assertEqual(resumed_record["sha256"], expected_sha)
+            self.assertEqual(resumed_report["resumed_acquired_readonly_total"], 1)
+            self.assertEqual(resumed_report["network_failure_total"], 0)
+            self.assertFalse(resumed_report["scientific_pass"])
+
+    def test_execute_network_retries_429_with_injected_backoff_without_sleeping(self) -> None:
+        body = b'{"ok": "after retry"}\n'
+        sleeper = mock.Mock()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            packet = root / "validation/heldout/grand_science/biology/ncbi_batch/PACKET_ACQUISITION_PACKET.json"
+            write_json(
+                packet,
+                packet_payload(
+                    acquisition_row(
+                        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=gds&retmode=json"
+                    )
+                ),
+            )
+
+            with mock.patch.object(
+                runner.urllib.request,
+                "urlopen",
+                side_effect=[
+                    FakeResponse(b"rate limited", status=429, headers={"Retry-After": "0"}),
+                    FakeResponse(body),
+                ],
+            ) as urlopen:
+                report = runner.build_report(
+                    root,
+                    [packet],
+                    execute_network=True,
+                    retry_delays=(0.0,),
+                    max_attempts=2,
+                    sleeper=sleeper,
+                )
+
+            self.assertEqual(urlopen.call_count, 2)
+            sleeper.assert_called_once_with(0.0)
+            record = report["records"][0]
+            self.assertEqual(record["status"], "ACQUIRED_READONLY")
+            self.assertEqual(record["network_attempt_total"], 2)
+            self.assertEqual(record["retry_attempts"][0]["http_status"], 429)
+            self.assertTrue(record["retry_attempts"][0]["transient"])
+            self.assertEqual(record["retry_attempts"][0]["applied_retry_delay_seconds"], 0.0)
+            self.assertEqual(report["retry_report"]["success_after_retry_total"], 1)
+            self.assertEqual(report["retry_queue_total"], 0)
+            self.assertFalse(report["retry_report"]["scientific_pass"])
+
+    def test_transient_exhaustion_produces_retry_queue_without_snapshot_lock(self) -> None:
+        sleeper = mock.Mock()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            packet = root / "validation/heldout/grand_science/biology/ncbi_batch/PACKET_ACQUISITION_PACKET.json"
+            write_json(
+                packet,
+                packet_payload(
+                    acquisition_row(
+                        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=gds&retmode=json"
+                    )
+                ),
+            )
+
+            with mock.patch.object(
+                runner.urllib.request,
+                "urlopen",
+                side_effect=[
+                    FakeResponse(b"rate limited", status=429, headers={"Retry-After": "0"}),
+                    FakeResponse(b"still rate limited", status=429, headers={"Retry-After": "0"}),
+                ],
+            ):
+                report = runner.build_report(
+                    root,
+                    [packet],
+                    execute_network=True,
+                    retry_delays=(0.0,),
+                    max_attempts=2,
+                    sleeper=sleeper,
+                )
+
+            record = report["records"][0]
+            self.assertEqual(record["status"], "HTTP_STATUS_NOT_SUCCESS")
+            self.assertTrue(record["retry_queue_eligible"])
+            self.assertEqual(report["retry_queue_total"], 1)
+            self.assertEqual(report["retry_queue"][0]["http_status"], 429)
+            self.assertEqual(report["network_failure_total"], 1)
+            self.assertFalse((root / record["snapshot_ref"]).exists())
+            self.assertFalse((root / record["lock_ref"]).exists())
+            self.assertFalse(report["scientific_pass"])
+
+    def test_weakened_existing_lock_is_not_reused_and_no_send_lock_is_restored(self) -> None:
+        first_body = b'{"lock": "strict"}\n'
+        second_body = b'{"lock": "restored"}\n'
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            packet = root / "validation/heldout/grand_science/biology/ncbi_batch/PACKET_ACQUISITION_PACKET.json"
+            write_json(
+                packet,
+                packet_payload(
+                    acquisition_row(
+                        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=gds&retmode=json"
+                    )
+                ),
+            )
+
+            with mock.patch.object(runner.urllib.request, "urlopen", return_value=FakeResponse(first_body)):
+                first_report = runner.build_report(root, [packet], execute_network=True)
+
+            lock_path = root / first_report["records"][0]["lock_ref"]
+            weakened_lock = json.loads(lock_path.read_text(encoding="utf-8"))
+            weakened_lock["locks"]["publish_allowed"] = True
+            write_json(lock_path, weakened_lock)
+
+            with mock.patch.object(runner.urllib.request, "urlopen", return_value=FakeResponse(second_body)) as urlopen:
+                report = runner.build_report(root, [packet], execute_network=True)
+
+            urlopen.assert_called_once()
+            record = report["records"][0]
+            self.assertTrue(record["network_executed"])
+            self.assertFalse(record["resume_reused_existing_acquisition"])
+            restored_lock = json.loads(lock_path.read_text(encoding="utf-8"))
+            self.assertEqual(restored_lock["locks"], runner.NO_SEND_LOCKS)
+            self.assertFalse(restored_lock["scientific_pass"])
+            self.assertEqual(report["locks"], runner.NO_SEND_LOCKS)
+            self.assertFalse(report["publish_allowed"])
+            self.assertFalse(report["scientific_pass"])
 
     def test_rejects_non_allowlisted_url_and_redacts_token_without_network(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

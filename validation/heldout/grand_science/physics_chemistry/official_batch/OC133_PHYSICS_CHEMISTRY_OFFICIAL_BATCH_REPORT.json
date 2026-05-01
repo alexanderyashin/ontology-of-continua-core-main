@@ -13,12 +13,13 @@
   "valid_candidate_pack_total": 0,
   "blocked_candidate_pack_total": 2,
   "minimum_per_domain_n": 20,
-  "open_blocker_total": 8,
+  "open_blocker_total": 9,
   "blockers": [
     "SOURCE_SEPARATION_MODE_NOT_ALLOWED::official_snapshot_replay",
     "PRE_TARGET_LOCK_REQUIRED",
     "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
     "SOURCE_SEPARATION_NOT_DECLARED_BEFORE_SCORING",
+    "SOURCE_SEPARATION_ATTESTATION_REQUIRED",
     "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
     "GRAND_TOE_SUPPORT_NOT_ALLOWED",
     "N_BELOW_MINIMUM::chemistry::12/20",
@@ -29,15 +30,16 @@
       "domain": "physics",
       "status": "BLOCKED_ACQUISITION_READY_NO_SEND",
       "candidate_pack_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/physics_official_batch_candidate_evidence_pack.json",
-      "candidate_pack_sha256": "b49062881596399aba678221589c325b6bbc9c0bba91101b2f3f933352802155",
+      "candidate_pack_sha256": "8d160837d95e3bc2da944c6ea02138dd33d0cce4817ed1a48f55e4a3bf3e8d15",
       "candidate_n": 44,
       "grand_eligible_n": 0,
       "minimum_n": 20,
       "missing_n": 0,
       "residuals": {
-        "model": 1.482118481998642e+39,
-        "comparator": 3.0827102127035016e+48,
-        "superiority_margin": 3.082710211221383e+48
+        "model": 0.010729530673706203,
+        "comparator": 298782624469.6918,
+        "superiority_margin": 298782624469.681,
+        "metric": "absolute_error_with_uncertainty_normalized_score_v1"
       },
       "negative_control_total": 44,
       "falsifier_total": 1,
@@ -48,19 +50,23 @@
         "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
         "GRAND_TOE_SUPPORT_NOT_ALLOWED"
       ],
-      "open_blocker_total": 6,
+      "open_blocker_total": 7,
       "blockers": [
         "SOURCE_SEPARATION_MODE_NOT_ALLOWED::official_snapshot_replay",
         "PRE_TARGET_LOCK_REQUIRED",
         "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
         "SOURCE_SEPARATION_NOT_DECLARED_BEFORE_SCORING",
+        "SOURCE_SEPARATION_ATTESTATION_REQUIRED",
         "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
         "GRAND_TOE_SUPPORT_NOT_ALLOWED"
       ],
       "missing_official_snapshots": [
         {
           "source_id": "physics_nist_constants_pre_target_lock_manifest_v1",
+          "acquisition_id": "OC133-PHYSICS-CODATA-PROSPECTIVE-ALLASCII-001",
           "official_url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+          "official_endpoint_url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+          "expected_local_snapshot_ref": "validation/_raw/physics_nist_constants_prospective_allascii.txt",
           "required_local_snapshot_ref": "validation/_raw/physics_nist_constants_pre_target_lock_manifest_v1.json",
           "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/locks/physics_nist_constants_pre_target_lock_manifest_v1.json",
           "minimum_rows_required": 20,
@@ -69,7 +75,10 @@
         },
         {
           "source_id": "physics_nist_asd_hydrogen_balmer_lines_v1",
+          "acquisition_id": "OC133-PHYSICS-NIST-ASD-HYDROGEN-BALMER-001",
           "official_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H&limits_type=0&low_w=&upp_w=&unit=1&de=0&format=3&line_out=0&remove_js=on&en_unit=1&output=0&page_size=50&show_obs_wl=1&show_calc_wl=1&show_wn=1",
+          "official_endpoint_url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H&limits_type=0&low_w=&upp_w=&unit=1&de=0&format=3&line_out=0&remove_js=on&en_unit=1&output=0&page_size=50&show_obs_wl=1&show_calc_wl=1&show_wn=1",
+          "expected_local_snapshot_ref": "validation/_raw/physics_nist_asd_hydrogen_balmer_lines_v1.tsv",
           "required_local_snapshot_ref": "validation/_raw/physics_nist_asd_hydrogen_balmer_lines_v1.tsv",
           "required_lock_ref": "validation/heldout/grand_science/physics_chemistry/official_batch/locks/physics_nist_asd_hydrogen_balmer_lines_v1.json",
           "minimum_rows_required": 20,
@@ -103,12 +112,13 @@
         "N_BELOW_MINIMUM::20",
         "GRAND_TOE_SUPPORT_NOT_ALLOWED"
       ],
-      "open_blocker_total": 8,
+      "open_blocker_total": 9,
       "blockers": [
         "SOURCE_SEPARATION_MODE_NOT_ALLOWED::official_snapshot_replay",
         "PRE_TARGET_LOCK_REQUIRED",
         "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
         "SOURCE_SEPARATION_NOT_DECLARED_BEFORE_SCORING",
+        "SOURCE_SEPARATION_ATTESTATION_REQUIRED",
         "N_BELOW_MINIMUM::chemistry::12/20",
         "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
         "N_BELOW_MINIMUM::20",
@@ -190,11 +200,38 @@
       "hash_policy": "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
     }
   ],
+  "tamper_tests": [
+    {
+      "test_id": "physics-row-hash-target-tamper-rejected",
+      "description": "mutating a physics target observed_value changes the canonical row hash",
+      "passed": true
+    },
+    {
+      "test_id": "physics-visible-projection-has-no-target-fields",
+      "description": "visible CODATA projections contain only declared input constants, not target values or units",
+      "passed": true
+    },
+    {
+      "test_id": "physics-comparator-preregistered-for-each-row",
+      "description": "every physics row declares its comparator before scoring",
+      "passed": true
+    },
+    {
+      "test_id": "physics-n-ge-20-when-codata-snapshot-exists",
+      "description": "the pinned CODATA snapshot yields at least 20 deterministic physics formula rows when present",
+      "passed": true
+    }
+  ],
+  "acquisition_packet_refs": [
+    "validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET.json"
+  ],
+  "physics_acquisition_request_total": 2,
   "artifact_hashes": {
-    "physics_candidate_pack_sha256": "b49062881596399aba678221589c325b6bbc9c0bba91101b2f3f933352802155",
+    "physics_candidate_pack_sha256": "8d160837d95e3bc2da944c6ea02138dd33d0cce4817ed1a48f55e4a3bf3e8d15",
     "chemistry_candidate_pack_sha256": "df7ac032d92cd2c92c4a17cbb86a855a7ded5915cf5fe8100fdc016cd71487ef",
-    "tasks_sha256": "0c27543606d95232b69ebb007054869d3a1d0e5826292c5ecbd85294e87b4b5e",
-    "protocol_sha256": "05e4ea465e840b7d76f64d9fce5c3e883470e7b06058eabe7d58d65f8c2360e1"
+    "physics_acquisition_packet_sha256": "2e1bac251c84b50be3ba2269afca063469032a550def7f554194956d2eeeeba5",
+    "tasks_sha256": "d9ae366c4ee1efc00f060b01c16ad4b19c70d6f9e4c3626d595236476d1b498d",
+    "protocol_sha256": "4a8fced02e52ba4c74a45aa82345e0fef189e3325268b76593fd8eafd5685daa"
   },
   "grand_toe_support_allowed": false,
   "verdict": "BLOCKED_ACQUISITION_READY_NO_SEND",
@@ -203,5 +240,5 @@
   "journal_submissions_allowed": false,
   "registry_integration_allowed": false,
   "no_fabricated_success_policy": "Official NIST/PubChem snapshot rows are scored and hashed, but no grand TOE support is emitted unless the domain pack has N>=20, pre-target target-blind or prospective separation, preregistered comparator baselines, residual superiority, rejected negative controls, falsifiers, and a clean grand empirical gate.",
-  "report_sha256": "93cbd078f2dbab99da9ce59035a05ace8c3b2b3cad97ee91ceedd702d80fd80f"
+  "report_sha256": "ac1c90a93d6ec728d3e463ef4a863b1321706be02864140ab32fe27b2d476ab4"
 }

@@ -2,7 +2,7 @@
 
 Verdict: `BLOCKED_ACQUISITION_READY_NO_SEND`
 Grand TOE support allowed: `false`
-Open blockers: `8`
+Open blockers: `9`
 
 | Domain | Candidate N | Eligible N | Minimum N | Gate valid | Status |
 | --- | ---: | ---: | ---: | --- | --- |
@@ -10,6 +10,9 @@ Open blockers: `8`
 | `chemistry` | `12` | `0` | `20` | `false` | `BLOCKED_ACQUISITION_READY_NO_SEND` |
 
 No-send locks are active. Candidate packs in this directory must not be registered while blocked.
+
+Physics acquisition packet:
+- `validation/heldout/grand_science/physics_chemistry/official_batch/OC133_PHYSICS_OFFICIAL_BATCH_ACQUISITION_PACKET.json`
 
 ## Missing Official Snapshots
 
@@ -28,6 +31,7 @@ No-send locks are active. Candidate packs in this directory must not be register
 - `PRE_TARGET_LOCK_REQUIRED`
 - `TARGET_HIDDEN_UNTIL_SCORING_REQUIRED`
 - `SOURCE_SEPARATION_NOT_DECLARED_BEFORE_SCORING`
+- `SOURCE_SEPARATION_ATTESTATION_REQUIRED`
 - `SOURCE_SEPARATION_MODE_NOT_ALLOWED`
 - `GRAND_TOE_SUPPORT_NOT_ALLOWED`
 - `N_BELOW_MINIMUM::chemistry::12/20`

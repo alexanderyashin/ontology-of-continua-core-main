@@ -46,8 +46,12 @@ DEFAULT_DISCOVERY_ROOTS = (
     "empirical/biology",
     f"{OUTPUT_ROOT_REL}/raw",
 )
+OFFICIAL_ACQUISITION_RUN_ROOT_REL = "validation/heldout/acquisition_runs/oc133_official_readonly"
+OFFICIAL_ACQUISITION_LOCKS_REL = f"{OFFICIAL_ACQUISITION_RUN_ROOT_REL}/locks"
+OFFICIAL_ACQUISITION_SNAPSHOTS_REL = f"{OFFICIAL_ACQUISITION_RUN_ROOT_REL}/snapshots"
 
 SNAPSHOT_HASH_POLICY = "LF_NORMALIZED_TEXT_SNAPSHOT_HASH"
+OFFICIAL_ACQUISITION_HASH_POLICY = "sha256 over acquired response bytes as stored"
 ROW_HASH_POLICY = "sha256 over canonical row JSON before row_hash insertion"
 PACK_HASH_POLICY = "sha256 over canonical JSON"
 OFFICIAL_ESEARCH_ENDPOINT = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
@@ -260,7 +264,123 @@ def load_snapshot(root: Path, ref: str) -> dict[str, Any]:
         "sha256": sha256_bytes(lf_bytes(path)),
         "byte_count": path.stat().st_size,
         "failures": failures,
+        "acquisition": {},
     }
+
+
+def packet_acquisition_rows(packet: dict[str, Any]) -> list[dict[str, Any]]:
+    for key in ("source_acquisition_requests", "missing_official_snapshots", "official_snapshots", "acquisition_requests", "snapshots"):
+        rows = packet.get(key)
+        if isinstance(rows, list):
+            return [row for row in rows if isinstance(row, dict)]
+    return []
+
+
+def load_packet_requests(root: Path) -> list[dict[str, Any]]:
+    path = root / ACQUISITION_REL
+    if not path.exists():
+        return []
+    try:
+        packet = read_json(path)
+    except Exception:
+        return []
+    if not isinstance(packet, dict):
+        return []
+    requests: list[dict[str, Any]] = []
+    for index, row in enumerate(packet_acquisition_rows(packet), start=1):
+        acquisition_id = as_str(row.get("acquisition_id"), f"OC133-NCBI-GEO-OFFICIAL-SNAPSHOT-{index:04d}")
+        requests.append(
+            {
+                **row,
+                "acquisition_id": acquisition_id,
+                "packet_ref": ACQUISITION_REL,
+                "packet_schema_id": as_str(packet.get("schema_id")),
+            }
+        )
+    return requests
+
+
+def request_key(row: dict[str, Any]) -> str:
+    return as_str(row.get("acquisition_id")) or as_str(row.get("expected_local_snapshot_ref"))
+
+
+def load_official_acquisition_snapshots(root: Path, packet_requests: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[str]]:
+    requests_by_id = {request_key(row): row for row in packet_requests if request_key(row)}
+    requests_by_expected_ref = {
+        as_str(row.get("expected_local_snapshot_ref")): row
+        for row in packet_requests
+        if as_str(row.get("expected_local_snapshot_ref"))
+    }
+    locks_dir = root / OFFICIAL_ACQUISITION_LOCKS_REL
+    if not locks_dir.exists():
+        return [], []
+
+    snapshots: list[dict[str, Any]] = []
+    failures: list[str] = []
+    for lock_path in sorted(locks_dir.glob("*.lock.json")):
+        try:
+            lock = read_json(lock_path)
+        except Exception as exc:
+            failures.append(f"OFFICIAL_ACQUISITION_LOCK_PARSE_FAILED::{rel(root, lock_path)}::{exc.__class__.__name__}")
+            continue
+        if not isinstance(lock, dict):
+            failures.append(f"OFFICIAL_ACQUISITION_LOCK_NOT_OBJECT::{rel(root, lock_path)}")
+            continue
+        acquisition_id = as_str(lock.get("acquisition_id"))
+        expected_ref = as_str(lock.get("expected_local_snapshot_ref"))
+        request = requests_by_id.get(acquisition_id) or requests_by_expected_ref.get(expected_ref)
+        if request is None:
+            continue
+        snapshot_ref = as_str(lock.get("snapshot_ref"))
+        if not snapshot_ref.startswith(OFFICIAL_ACQUISITION_SNAPSHOTS_REL):
+            failures.append(f"OFFICIAL_ACQUISITION_SNAPSHOT_REF_UNEXPECTED::{acquisition_id}::{snapshot_ref}")
+            continue
+        snapshot_path = resolve_under_root(root, snapshot_ref)
+        if not snapshot_path.exists() or not snapshot_path.is_file():
+            failures.append(f"OFFICIAL_ACQUISITION_SNAPSHOT_MISSING::{acquisition_id}::{snapshot_ref}")
+            continue
+        raw_bytes = snapshot_path.read_bytes()
+        actual_sha = sha256_bytes(raw_bytes)
+        declared_sha = as_str(lock.get("snapshot_sha256"))
+        if actual_sha != declared_sha:
+            failures.append(f"OFFICIAL_ACQUISITION_SNAPSHOT_HASH_MISMATCH::{acquisition_id}")
+            continue
+        if as_int(lock.get("http_status")) < 200 or as_int(lock.get("http_status")) >= 300:
+            failures.append(f"OFFICIAL_ACQUISITION_HTTP_STATUS_NOT_SUCCESS::{acquisition_id}::{lock.get('http_status')}")
+            continue
+        if dict_or_empty(lock.get("locks")).get("no_send") is not True:
+            failures.append(f"OFFICIAL_ACQUISITION_NO_SEND_LOCK_MISSING::{acquisition_id}")
+            continue
+        try:
+            payload = json.loads(raw_bytes.decode("utf-8"))
+        except Exception as exc:
+            failures.append(f"OFFICIAL_ACQUISITION_SNAPSHOT_PARSE_FAILED::{acquisition_id}::{exc.__class__.__name__}")
+            continue
+        lock_ref = rel(root, lock_path)
+        snapshots.append(
+            {
+                "ref": snapshot_ref,
+                "exists": True,
+                "payload": payload,
+                "sha256": actual_sha,
+                "byte_count": len(raw_bytes),
+                "failures": [],
+                "acquisition": {
+                    "acquisition_id": acquisition_id,
+                    "packet_ref": as_str(request.get("packet_ref"), ACQUISITION_REL),
+                    "packet_schema_id": as_str(request.get("packet_schema_id")),
+                    "expected_local_snapshot_ref": expected_ref,
+                    "official_endpoint_url": as_str(lock.get("official_endpoint_url"), as_str(request.get("official_endpoint_url"))),
+                    "lock_ref": lock_ref,
+                    "lock_sha256": sha256_bytes(lock_path.read_bytes()),
+                    "declared_before_scoring_lock": True,
+                    "hash_policy": as_str(lock.get("hash_policy"), OFFICIAL_ACQUISITION_HASH_POLICY),
+                    "required_fields": request.get("required_fields", []),
+                    "query_params": request.get("query_params", {}),
+                },
+            }
+        )
+    return snapshots, failures
 
 
 def dict_or_empty(value: Any) -> dict[str, Any]:
@@ -384,7 +504,9 @@ def build_row(
     record_index: int,
     comparator: dict[str, Any],
     provenance: dict[str, Any],
+    acquisition: dict[str, Any] | None = None,
 ) -> tuple[dict[str, Any] | None, list[str]]:
+    acquisition = acquisition or {}
     esearch = esearch_result(record)
     if not esearch:
         return None, [f"SNAPSHOT_RECORD_NOT_NCBI_ESEARCH::{source_ref}::{record_index}"]
@@ -404,6 +526,20 @@ def build_row(
     model_residual = abs(predicted - observed)
     comparator_residual = abs(comparator_prediction - observed)
     term = as_str(esearch.get("querytranslation"), DEFAULT_GEO_TERM) or DEFAULT_GEO_TERM
+    if acquisition:
+        provenance = {
+            **provenance,
+            "official_source": "NCBI E-utilities ESearch",
+            "official_url": acquisition.get("official_endpoint_url"),
+        }
+        comparator = {
+            **comparator,
+            "name": as_str(comparator.get("name"), "GEO total-hit-count page-size negative control"),
+            "prediction_rule": as_str(
+                comparator.get("prediction_rule"), "use esearchresult.count as the retmax prediction"
+            ),
+            "pre_registered": comparator.get("pre_registered", True),
+        }
     official_ok, official_source, official_url = provenance_status(provenance, source_ref)
     comparator_pre_registered = comparator.get("pre_registered") is True
     row_id_hash = sha256_object({"source_ref": source_ref, "record_index": record_index, "term": term})[:12].upper()
@@ -414,6 +550,14 @@ def build_row(
         "task_type": "geo_esearch_page_size_reconstruction",
         "snapshot_ref": source_ref,
         "snapshot_sha256": source_sha256,
+        "source_snapshot_hash": source_sha256,
+        "source_snapshot_hash_policy": acquisition.get("hash_policy", SNAPSHOT_HASH_POLICY),
+        "acquisition_id": as_str(acquisition.get("acquisition_id")),
+        "expected_local_snapshot_ref": as_str(acquisition.get("expected_local_snapshot_ref")),
+        "lock_ref": as_str(acquisition.get("lock_ref")),
+        "lock_sha256": as_str(acquisition.get("lock_sha256")),
+        "declared_before_scoring_lock": acquisition.get("declared_before_scoring_lock") is True,
+        "acquisition_packet_ref": as_str(acquisition.get("packet_ref")),
         "record_index": record_index,
         "official_source_confirmed": official_ok,
         "official_source": official_source or "UNDECLARED_NCBI_GEO_PROVENANCE",
@@ -425,6 +569,16 @@ def build_row(
         "training_source": f"{source_ref}::record={record_index}::visible_fields(retstart,idlist,querytranslation)",
         "target_source": f"{source_ref}::record={record_index}::target_field(retmax)",
         "formula": "len(esearchresult.idlist)",
+        "formula_inputs": {
+            "idlist": idlist,
+            "idlist_count": len(idlist),
+            "retstart": retstart,
+            "querytranslation": term,
+        },
+        "prediction_inputs": {
+            "visible_fields": ["esearchresult.idlist", "esearchresult.retstart", "esearchresult.querytranslation"],
+            "target_field": "esearchresult.retmax",
+        },
         "predicted_value": predicted,
         "observed_value": observed,
         "comparator_baseline_name": as_str(
@@ -441,7 +595,9 @@ def build_row(
         "negative_control_id": f"biology-ncbi-total-count-control::{row_id}",
         "negative_control_description": "replace the page-size reconstruction with GEO total hit count and require a larger residual",
         "negative_control_rejected": comparator_residual > model_residual,
+        "negative_control_status": "REJECTED" if comparator_residual > model_residual else "NOT_REJECTED",
         "falsifier": "retmax differs from returned idlist length, or the GEO total-count control is not worse",
+        "falsifier_status": "TRIGGERED" if (model_residual != 0 or comparator_residual <= model_residual) else "NOT_TRIGGERED",
     }
     row["row_hash"] = row_hash(row)
     row["row_hash_policy"] = ROW_HASH_POLICY
@@ -488,7 +644,11 @@ def validate_rows(rows: list[dict[str, Any]]) -> list[str]:
         "observation_id",
         "training_source",
         "target_source",
+        "source_snapshot_hash",
+        "lock_ref",
         "formula",
+        "formula_inputs",
+        "prediction_inputs",
         "predicted_value",
         "observed_value",
         "comparator_prediction",
@@ -496,7 +656,9 @@ def validate_rows(rows: list[dict[str, Any]]) -> list[str]:
         "comparator_residual",
         "negative_control_id",
         "negative_control_description",
+        "negative_control_status",
         "falsifier",
+        "falsifier_status",
         "row_hash",
     )
     for row in rows:
@@ -511,6 +673,8 @@ def validate_rows(rows: list[dict[str, Any]]) -> list[str]:
             failures.append(f"ROW_SOURCE_OVERLAP::{row_id}")
         if row.get("official_source_confirmed") is not True:
             failures.append(f"OFFICIAL_NCBI_GEO_PROVENANCE_MISSING::{row_id}")
+        if row.get("declared_before_scoring_lock") is not True:
+            failures.append(f"DECLARED_BEFORE_SCORING_LOCK_MISSING::{row_id}")
         if row.get("comparator_pre_registered") is not True:
             failures.append(f"COMPARATOR_BASELINE_NOT_PREREGISTERED::{row_id}")
         if row.get("negative_control_rejected") is not True:
@@ -523,6 +687,8 @@ def validate_rows(rows: list[dict[str, Any]]) -> list[str]:
         failures.append("NEGATIVE_CONTROL_REJECTION_CRITERION_FAILED")
     if rows and not all(row.get("official_source_confirmed") is True for row in rows):
         failures.append("OFFICIAL_NCBI_GEO_PROVENANCE_REQUIRED")
+    if rows and not all(row.get("declared_before_scoring_lock") is True for row in rows):
+        failures.append("DECLARED_BEFORE_SCORING_LOCK_REQUIRED")
     return ordered_unique(failures)
 
 
@@ -618,10 +784,46 @@ def official_esearch_url(term: str, retstart: int, retmax: int) -> str:
     return f"{OFFICIAL_ESEARCH_ENDPOINT}?{urlencode(params)}"
 
 
-def missing_official_snapshots(rows: list[dict[str, Any]], minimum_n: int) -> list[dict[str, Any]]:
+def missing_official_snapshots(
+    rows: list[dict[str, Any]],
+    minimum_n: int,
+    packet_requests: list[dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
     missing_n = max(0, minimum_n - len(rows))
     if missing_n == 0:
         return []
+    packet_requests = packet_requests or []
+    acquired_ids = {as_str(row.get("acquisition_id")) for row in rows if row.get("acquisition_id")}
+    acquired_expected_refs = {
+        as_str(row.get("expected_local_snapshot_ref")) for row in rows if row.get("expected_local_snapshot_ref")
+    }
+    missing: list[dict[str, Any]] = []
+    for request in packet_requests:
+        if len(missing) >= missing_n:
+            break
+        acquisition_id = as_str(request.get("acquisition_id"))
+        expected_ref = as_str(request.get("expected_local_snapshot_ref"))
+        if acquisition_id in acquired_ids or expected_ref in acquired_expected_refs:
+            continue
+        missing.append(
+            {
+                "acquisition_id": acquisition_id,
+                "official_source": as_str(request.get("official_source"), "NCBI E-utilities ESearch"),
+                "official_endpoint_url": as_str(request.get("official_endpoint_url")),
+                "expected_local_snapshot_ref": expected_ref,
+                "query_params": request.get("query_params", {}),
+                "required_fields": request.get("required_fields", []),
+                "target_policy": as_str(
+                    request.get("target_policy"),
+                    "retmax is a target field and must remain hidden from the scoring worker until the batch lock is closed",
+                ),
+                "missing_reason": "pinned official acquisition lock/snapshot is absent or failed validation",
+                "no_send_lock": True,
+            }
+        )
+    if len(missing) >= missing_n:
+        return missing
+
     term = DEFAULT_GEO_TERM
     retmax = DEFAULT_RETMAX
     existing_retstarts: set[int] = set()
@@ -631,7 +833,6 @@ def missing_official_snapshots(rows: list[dict[str, Any]], minimum_n: int) -> li
         retmax = positive_retmax[0] if positive_retmax else retmax
         existing_retstarts = {as_int(row.get("retstart"), -1) for row in rows}
 
-    missing: list[dict[str, Any]] = []
     cursor = 0
     while len(missing) < missing_n:
         if cursor in existing_retstarts:
@@ -707,8 +908,9 @@ def build_acquisition_packet(
     minimum_n: int,
     blockers: list[str],
     snapshot_refs: list[str],
+    packet_requests: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    missing = missing_official_snapshots(rows, minimum_n)
+    missing = missing_official_snapshots(rows, minimum_n, packet_requests)
     return {
         "schema_id": ACQUISITION_SCHEMA_ID,
         "release_id": RELEASE_ID,
@@ -717,6 +919,8 @@ def build_acquisition_packet(
         "planner": PLANNER_REF,
         "status": "ACQUISITION_REQUIRED" if blockers else "ACQUISITION_NOT_REQUIRED",
         "current_snapshot_refs": snapshot_refs,
+        "official_acquisition_run_root_ref": OFFICIAL_ACQUISITION_RUN_ROOT_REL,
+        "source_acquisition_requests": packet_requests or [],
         "current_usable_row_total": len(rows),
         "minimum_n": minimum_n,
         "missing_n": max(0, minimum_n - len(rows)),
@@ -988,30 +1192,55 @@ def build_payload(root: Path | None = None, snapshot_refs: list[str] | None = No
     requirements, requirement_failures = load_requirements(root)
     minimum_n = as_int(requirements.get("minimum_per_domain_n"), 20)
     discovered_refs = discover_snapshot_refs(root, snapshot_refs)
+    packet_requests = load_packet_requests(root)
 
     loaded_snapshots = [load_snapshot(root, ref) for ref in discovered_refs]
+    official_snapshots: list[dict[str, Any]] = []
+    official_failures: list[str] = []
+    if snapshot_refs is None:
+        official_snapshots, official_failures = load_official_acquisition_snapshots(root, packet_requests)
+        loaded_snapshots.extend(official_snapshots)
+        discovered_refs = ordered_unique([*discovered_refs, *[item["ref"] for item in official_snapshots]])
     snapshot_hashes = [
         {
             "snapshot_ref": item["ref"],
             "snapshot_sha256": item["sha256"],
-            "snapshot_hash_policy": SNAPSHOT_HASH_POLICY,
+            "source_snapshot_hash": item["sha256"],
+            "snapshot_hash_policy": item.get("acquisition", {}).get("hash_policy", SNAPSHOT_HASH_POLICY),
             "snapshot_byte_count": item["byte_count"],
             "parsed": not item["failures"],
             "failures": item["failures"],
+            "acquisition_id": item.get("acquisition", {}).get("acquisition_id", ""),
+            "expected_local_snapshot_ref": item.get("acquisition", {}).get("expected_local_snapshot_ref", ""),
+            "lock_ref": item.get("acquisition", {}).get("lock_ref", ""),
+            "declared_before_scoring_lock": item.get("acquisition", {}).get("declared_before_scoring_lock") is True,
         }
         for item in loaded_snapshots
     ]
 
     rows: list[dict[str, Any]] = []
-    local_blockers: list[str] = list(requirement_failures)
+    local_blockers: list[str] = [*requirement_failures, *official_failures]
     source_candidates: list[dict[str, Any]] = []
     record_index = 0
     for snapshot in loaded_snapshots:
         local_blockers.extend(snapshot["failures"])
         payload = snapshot.get("payload")
+        acquisition = dict_or_empty(snapshot.get("acquisition"))
         if payload is None:
             continue
         for record, source_candidate, comparator, provenance in iter_payload_records(payload):
+            if acquisition:
+                source_candidate = {
+                    "mode": "official_readonly_snapshot_replay",
+                    "kind": "official_readonly_acquisition_lock",
+                    "pre_target_lock": True,
+                    "target_hidden_until_scoring": False,
+                    "declared_before_scoring": True,
+                    "training_sources": [f"{ACQUISITION_REL}::visible_fields(retstart,idlist,querytranslation)"],
+                    "target_sources": [f"{ACQUISITION_REL}::target_field(retmax)"],
+                    "training_manifest_sha256": "",
+                    "target_manifest_sha256": "",
+                }
             source_candidates.append(source_candidate)
             record_index += 1
             row, row_failures = build_row(
@@ -1021,6 +1250,7 @@ def build_payload(root: Path | None = None, snapshot_refs: list[str] | None = No
                 record_index=record_index,
                 comparator=comparator,
                 provenance=provenance,
+                acquisition=acquisition,
             )
             local_blockers.extend(row_failures)
             if row is not None:
@@ -1059,6 +1289,7 @@ def build_payload(root: Path | None = None, snapshot_refs: list[str] | None = No
         minimum_n=minimum_n,
         blockers=blockers,
         snapshot_refs=discovered_refs,
+        packet_requests=packet_requests,
     )
     protocol = build_protocol(
         candidate_pack=candidate_pack,

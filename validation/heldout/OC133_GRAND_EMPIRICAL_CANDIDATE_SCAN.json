@@ -9,9 +9,9 @@
     "validation/heldout",
     "validation/grand_science"
   ],
-  "candidate_total": 14,
+  "candidate_total": 16,
   "valid_candidate_total": 0,
-  "failure_total": 14,
+  "failure_total": 16,
   "registry_failure_total": 0,
   "registry_failures": [],
   "sample_pack_excluded_from_discovery": true,
@@ -72,20 +72,18 @@
       ],
       "evidence_pack_id": "OC133-BIOLOGY-NCBI-BATCH-CANDIDATE",
       "domain": "biology",
-      "n": 1,
-      "source_separation_mode": "snapshot_replay",
+      "n": 20,
+      "source_separation_mode": "official_readonly_snapshot_replay",
       "model_residual": 0.0,
       "comparator_residual": 43988.0,
       "superiority_margin": 43988.0,
       "grand_toe_support_allowed": false,
-      "candidate_sha256": "81bdbf8fe88ac6d73a86cba59f12a33b49dcd2c2b14dedaca9373647e9e2459f",
+      "candidate_sha256": "02c206f2e3330bc186d1700de3d9a3711a918bf15aa0358880977c3f43ad5fb9",
       "valid_for_grand_support": false,
-      "failure_total": 6,
+      "failure_total": 4,
       "failures": [
         "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
-        "PRE_TARGET_LOCK_REQUIRED",
         "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
-        "N_BELOW_MINIMUM::20",
         "COMPARATOR_BASELINE_NOT_PREREGISTERED",
         "GRAND_TOE_SUPPORT_NOT_ALLOWED"
       ]
@@ -165,6 +163,29 @@
       ]
     },
     {
+      "source_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_CANDIDATE_PACK.json",
+      "origins": [
+        "discovered"
+      ],
+      "evidence_pack_id": "OC133-GRAND-CHEMISTRY-PUBCHEM-FORMULA-BATCH",
+      "domain": "chemistry",
+      "n": 20,
+      "source_separation_mode": "official_readonly_snapshot_replay",
+      "model_residual": 0.001666763699997098,
+      "comparator_residual": 140.01510000000002,
+      "superiority_margin": 140.01343323630002,
+      "grand_toe_support_allowed": false,
+      "candidate_sha256": "bcbac5e90f194119b59c035055e427d36337843ec0ceb9c37a15c09a790eb50c",
+      "valid_for_grand_support": false,
+      "failure_total": 4,
+      "failures": [
+        "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+        "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+      ]
+    },
+    {
       "source_ref": "validation/heldout/grand_science/mathematics/mathematics_candidate_evidence_pack.json",
       "origins": [
         "discovered"
@@ -239,11 +260,11 @@
       "domain": "physics",
       "n": 44,
       "source_separation_mode": "official_snapshot_replay",
-      "model_residual": 1.482118481998642e+39,
-      "comparator_residual": 3.0827102127035016e+48,
-      "superiority_margin": 3.082710211221383e+48,
+      "model_residual": 0.010729530673706203,
+      "comparator_residual": 298782624469.6918,
+      "superiority_margin": 298782624469.681,
       "grand_toe_support_allowed": false,
-      "candidate_sha256": "75dbc41f52192aec0172171b5ff3531c2ffad01e6b3abca77b860e2fbd55ffb1",
+      "candidate_sha256": "c7fd2d62ec8b00be4033722efba7642ca6ff4d75bcd86cc390e989443737300e",
       "valid_for_grand_support": false,
       "failure_total": 4,
       "failures": [
@@ -375,6 +396,26 @@
         "NEGATIVE_CONTROL_NOT_REJECTED::54",
         "NEGATIVE_CONTROL_NOT_REJECTED::55",
         "NEGATIVE_CONTROL_NOT_REJECTED::56",
+        "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+      ]
+    },
+    {
+      "source_ref": "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_CANDIDATE_PACK.json",
+      "origins": [
+        "discovered"
+      ],
+      "evidence_pack_id": "OC133-SYSTEMS-WDI-PREDICTIVE-SEARCH-V2-CANDIDATE",
+      "domain": "systems",
+      "n": 57,
+      "source_separation_mode": "target_blind",
+      "model_residual": 2289261291575.2334,
+      "comparator_residual": 2289261329216.593,
+      "superiority_margin": 37641.359375,
+      "grand_toe_support_allowed": false,
+      "candidate_sha256": "d8e0bf64024d7437786985f5fb57206e62d135d9643c15858ea60fea38065b07",
+      "valid_for_grand_support": false,
+      "failure_total": 1,
+      "failures": [
         "GRAND_TOE_SUPPORT_NOT_ALLOWED"
       ]
     }

@@ -2,10 +2,10 @@
   "schema_id": "OC133_GRAND_EVIDENCE_REPAIR_WORK_ORDERS_v1",
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
-  "generated_at": "2026-05-01T04:03:37Z",
+  "generated_at": "2026-05-01T04:56:47Z",
   "capability_owner": "Research/EmpiricalScience",
-  "work_order_total": 17,
-  "open_work_order_total": 17,
+  "work_order_total": 18,
+  "open_work_order_total": 18,
   "rows": [
     {
       "work_order_id": "OC133-GRAND-EVIDENCE-REPAIR-BIOLOGY-COMPARATOR_OR_RESIDUAL_FAILURE",
@@ -76,7 +76,6 @@
       "required_repair": "Collect or construct a larger target-blind/prospective held-out set before scoring.",
       "candidate_refs": [
         "validation/heldout/acquisition_plans/biology_systems/biology_candidate_pack_template.json",
-        "validation/heldout/grand_science/biology/ncbi_batch/OC133_BIOLOGY_NCBI_BATCH_CANDIDATE_PACK.json",
         "validation/heldout/grand_science/biology/ncbi_benchmark/OC133_BIOLOGY_NCBI_BENCHMARK_CANDIDATE_PACK.json",
         "validation/heldout/grand_science/biology_systems/biology_candidate_evidence_pack.json"
       ],
@@ -131,6 +130,33 @@
       "owner_approval_required": true
     },
     {
+      "work_order_id": "OC133-GRAND-EVIDENCE-REPAIR-CHEMISTRY-COMPARATOR_OR_RESIDUAL_FAILURE",
+      "domain": "chemistry",
+      "failure_class": "comparator_or_residual_failure",
+      "owner_capability": "Research/EmpiricalScience",
+      "status": "OPEN",
+      "required_repair": "Re-score OC and comparator under the same pre-registered residual metric and uncertainty method.",
+      "candidate_refs": [
+        "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_CANDIDATE_PACK.json"
+      ],
+      "failure_examples": [
+        "COMPARATOR_BASELINE_NOT_PREREGISTERED"
+      ],
+      "before_predicate": "candidate evidence pack fails validation.grand_science.evidence_pack_factory.pack_failure_reasons",
+      "after_predicate": "the same pack or successor pack validates with valid_for_grand_support=true and is registered by this sync factory",
+      "closure_evidence_required": [
+        "candidate row valid_for_grand_support=true",
+        "registered evidence_pack_ref points to the validated pack",
+        "grand empirical gate re-audits the domain without this failure class"
+      ],
+      "artifact_exists_is_not_closure": true,
+      "no_send": true,
+      "publish_allowed": false,
+      "journal_submissions_allowed": false,
+      "external_network_allowed": false,
+      "owner_approval_required": true
+    },
+    {
       "work_order_id": "OC133-GRAND-EVIDENCE-REPAIR-CHEMISTRY-GRAND_SUPPORT_NOT_AUTHORIZED",
       "domain": "chemistry",
       "failure_class": "grand_support_not_authorized",
@@ -138,6 +164,7 @@
       "status": "OPEN",
       "required_repair": "Do not register bounded or self-declared weak evidence as grand support; either upgrade the evidence or demote the promoted claim.",
       "candidate_refs": [
+        "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_CANDIDATE_PACK.json",
         "validation/heldout/grand_science/physics_chemistry/chemistry_candidate_evidence_pack.json",
         "validation/heldout/grand_science/physics_chemistry/official_batch/chemistry_official_batch_candidate_evidence_pack.json"
       ],
@@ -194,12 +221,13 @@
       "status": "OPEN",
       "required_repair": "Rebuild the protocol with separate training and target sources, pre-target lock, and hidden target values.",
       "candidate_refs": [
+        "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_CANDIDATE_PACK.json",
         "validation/heldout/grand_science/physics_chemistry/official_batch/chemistry_official_batch_candidate_evidence_pack.json"
       ],
       "failure_examples": [
         "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
-        "PRE_TARGET_LOCK_REQUIRED",
-        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED"
+        "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+        "PRE_TARGET_LOCK_REQUIRED"
       ],
       "before_predicate": "candidate evidence pack fails validation.grand_science.evidence_pack_factory.pack_failure_reasons",
       "after_predicate": "the same pack or successor pack validates with valid_for_grand_support=true and is registered by this sync factory",
@@ -393,7 +421,8 @@
         "validation/heldout/grand_science/biology_systems/systems_candidate_evidence_pack.json",
         "validation/heldout/grand_science/systems/harvested/systems_candidate_evidence_pack.json",
         "validation/heldout/grand_science/systems/wdi_benchmark/systems_wdi_benchmark_candidate_evidence_pack.json",
-        "validation/heldout/grand_science/systems/wdi_model_search/OC133_SYSTEMS_WDI_MODEL_SEARCH_CANDIDATE_PACK.json"
+        "validation/heldout/grand_science/systems/wdi_model_search/OC133_SYSTEMS_WDI_MODEL_SEARCH_CANDIDATE_PACK.json",
+        "validation/heldout/grand_science/systems/wdi_predictive_search_v2/OC133_SYSTEMS_WDI_PREDICTIVE_SEARCH_V2_CANDIDATE_PACK.json"
       ],
       "failure_examples": [
         "GRAND_TOE_SUPPORT_NOT_ALLOWED"

@@ -1,0 +1,510 @@
+{
+  "schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1",
+  "release_id": "oc_core_1_3_3",
+  "version": "1.3.3",
+  "capability_owner": "Research/EmpiricalScience",
+  "planner": "tools/oc133_chemistry_pubchem_formula_batch_factory.py",
+  "status": "ACQUISITION_REQUIRED",
+  "current_snapshot_refs": [
+    "validation/_raw/chemistry_pubchem_water.txt",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-001.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-002.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-003.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-004.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-005.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-006.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-007.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-008.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-009.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-010.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-011.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-012.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-013.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-014.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-015.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-016.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-017.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-018.json",
+    "validation/heldout/acquisition_runs/oc133_official_readonly/snapshots/OC133-CHEM-PUBCHEM-FORMULA-ACQ-019.json"
+  ],
+  "official_acquisition_run_root_ref": "validation/heldout/acquisition_runs/oc133_official_readonly",
+  "source_acquisition_requests": [
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-001",
+      "cid": "702",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/702/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_702_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-001",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-002",
+      "cid": "241",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/241/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_241_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-002",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-003",
+      "cid": "180",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/180/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_180_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-003",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-004",
+      "cid": "176",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/176/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_176_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-004",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-005",
+      "cid": "5234",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5234/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_5234_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-005",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-006",
+      "cid": "5793",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5793/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_5793_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-006",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-007",
+      "cid": "2244",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/2244/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_2244_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-007",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-008",
+      "cid": "2519",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/2519/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_2519_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-008",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-009",
+      "cid": "784",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/784/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_784_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-009",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-010",
+      "cid": "887",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/887/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_887_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-010",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-011",
+      "cid": "1118",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/1118/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_1118_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-011",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-012",
+      "cid": "5957",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5957/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_5957_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-012",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-013",
+      "cid": "23931",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/23931/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_23931_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-013",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-014",
+      "cid": "5950",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5950/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_5950_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-014",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-015",
+      "cid": "3672",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/3672/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_3672_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-015",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-016",
+      "cid": "1983",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/1983/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_1983_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-016",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-017",
+      "cid": "33032",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/33032/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_33032_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-017",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-018",
+      "cid": "5288826",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5288826/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_5288826_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-018",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    },
+    {
+      "request_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-019",
+      "cid": "54670067",
+      "method": "GET",
+      "official_endpoint_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/54670067/property/MolecularFormula,MolecularWeight,CanonicalSMILES,InChIKey/JSON",
+      "expected_local_snapshot_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/raw/pubchem_cid_54670067_properties.json",
+      "required_fields": [
+        "MolecularFormula",
+        "MolecularWeight",
+        "CanonicalSMILES",
+        "InChIKey"
+      ],
+      "target_field": "MolecularWeight",
+      "visible_training_fields": [
+        "CID",
+        "MolecularFormula"
+      ],
+      "missing_reason": "additional pinned PubChem PUG REST formula/weight row required for N>=20 chemistry batch",
+      "no_send_lock": true,
+      "acquisition_id": "OC133-CHEM-PUBCHEM-FORMULA-ACQ-019",
+      "packet_ref": "validation/heldout/grand_science/chemistry/pubchem_formula_batch/OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET.json",
+      "packet_schema_id": "OC133_CHEMISTRY_PUBCHEM_FORMULA_BATCH_ACQUISITION_PACKET_v1"
+    }
+  ],
+  "current_usable_row_total": 20,
+  "minimum_n": 20,
+  "missing_n": 0,
+  "request_total": 0,
+  "missing_official_snapshot_total": 0,
+  "missing_official_snapshots": [],
+  "exact_acquisition_requests": [],
+  "missing_protocol_material": [
+    {
+      "material_id": "OC133-PUBCHEM-FORMULA-PRETARGET-LOCK-MANIFEST",
+      "required": true,
+      "description": "pre-target manifest freezing visible MolecularFormula fields, fixed atomic-weight table, comparator, residual metric, uncertainty, and row inclusion rule before scoring"
+    },
+    {
+      "material_id": "OC133-PUBCHEM-FORMULA-TARGET-HIDDEN-MANIFEST",
+      "required": true,
+      "description": "manifest proving MolecularWeight target fields were hidden from model/comparator selection until scoring"
+    },
+    {
+      "material_id": "OC133-PUBCHEM-FORMULA-COMPARATOR-REGISTRATION",
+      "required": true,
+      "description": "preregister the zero-Da null baseline and rejection criterion before target scoring"
+    }
+  ],
+  "blockers": [
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED::official_readonly_snapshot_replay",
+    "TARGET_HIDDEN_UNTIL_SCORING_REQUIRED",
+    "ROW_FIELD_MISSING::CHEM-PUBCHEM-FORMULA-0001-F1BDAE057E16::lock_ref",
+    "DECLARED_BEFORE_SCORING_LOCK_MISSING::CHEM-PUBCHEM-FORMULA-0001-F1BDAE057E16",
+    "COMPARATOR_BASELINE_NOT_PREREGISTERED::CHEM-PUBCHEM-FORMULA-0001-F1BDAE057E16",
+    "DECLARED_BEFORE_SCORING_LOCK_REQUIRED",
+    "SOURCE_SEPARATION_MODE_NOT_ALLOWED",
+    "COMPARATOR_BASELINE_NOT_PREREGISTERED",
+    "GRAND_TOE_SUPPORT_NOT_ALLOWED"
+  ],
+  "no_send": true,
+  "publish_allowed": false,
+  "journal_submissions_allowed": false,
+  "registry_write_allowed": false,
+  "release_promotion_allowed": false
+}

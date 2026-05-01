@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import tempfile
 import unittest
 from pathlib import Path
@@ -15,6 +16,12 @@ def write_json(root: Path, rel_path: str, payload: dict) -> None:
     path = root / rel_path
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8", newline="\n")
+
+
+def write_bytes(root: Path, rel_path: str, payload: bytes) -> None:
+    path = root / rel_path
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(payload)
 
 
 def requirements(minimum_n: int = 20) -> dict:
@@ -73,9 +80,63 @@ def ncbi_batch_snapshot(row_count: int, comparator_pre_registered: bool = True) 
     }
 
 
+def acquisition_request(idx: int, retstart: int, retmax: int = 20) -> dict:
+    return {
+        "acquisition_id": f"OC133-NCBI-GEO-OFFICIAL-SNAPSHOT-{idx:04d}",
+        "official_source": "NCBI E-utilities ESearch",
+        "official_endpoint_url": factory.official_esearch_url("GPL96[Accession]", retstart, retmax),
+        "expected_local_snapshot_ref": (
+            f"validation/_raw/biology_ncbi_geo_gpl96_accession_retstart_{retstart:06d}_retmax_{retmax}.json"
+        ),
+        "query_params": {"db": "gds", "term": "GPL96[Accession]", "retmode": "json", "retstart": retstart, "retmax": retmax},
+        "required_fields": [
+            "header.type",
+            "esearchresult.count",
+            "esearchresult.retmax",
+            "esearchresult.retstart",
+            "esearchresult.idlist",
+            "esearchresult.querytranslation",
+        ],
+        "no_send_lock": True,
+    }
+
+
+def write_official_lock_fixture(root: Path, idx: int, retstart: int, retmax: int = 20) -> None:
+    acquisition_id = f"OC133-NCBI-GEO-OFFICIAL-SNAPSHOT-{idx:04d}"
+    snapshot_ref = f"{factory.OFFICIAL_ACQUISITION_SNAPSHOTS_REL}/{acquisition_id}.json"
+    lock_ref = f"{factory.OFFICIAL_ACQUISITION_LOCKS_REL}/{acquisition_id}.lock.json"
+    body = json.dumps(esearch_record(idx, retmax)["esearchresult"], ensure_ascii=True, separators=(",", ":"))
+    payload = (
+        '{"header":{"type":"esearch","version":"0.3"},"esearchresult":'
+        + body
+        + "}\n"
+    ).encode("utf-8")
+    digest = hashlib.sha256(payload).hexdigest()
+    expected_ref = f"validation/_raw/biology_ncbi_geo_gpl96_accession_retstart_{retstart:06d}_retmax_{retmax}.json"
+    write_bytes(root, snapshot_ref, payload)
+    write_json(
+        root,
+        lock_ref,
+        {
+            "schema_id": "OC133_OFFICIAL_READONLY_ACQUISITION_NO_SEND_LOCK_v1",
+            "release_id": "oc_core_1_3_3",
+            "acquisition_id": acquisition_id,
+            "official_endpoint_url": factory.official_esearch_url("GPL96[Accession]", retstart, retmax),
+            "expected_local_snapshot_ref": expected_ref,
+            "snapshot_ref": snapshot_ref,
+            "snapshot_sha256": digest,
+            "byte_count": len(payload),
+            "http_status": 200,
+            "hash_policy": factory.OFFICIAL_ACQUISITION_HASH_POLICY,
+            "locks": {"no_send": True, "publish_allowed": False, "registry_write_allowed": False},
+            "scientific_pass": False,
+        },
+    )
+
+
 class BiologyNcbiBatchFactoryTests(unittest.TestCase):
-    def test_current_single_geo_snapshot_blocks_and_emits_acquisition_packet(self) -> None:
-        payload = factory.build_payload(REPO_ROOT, snapshot_refs=[factory.DEFAULT_SNAPSHOT_REF])
+    def test_current_official_geo_locks_are_scored_and_remaining_packet_deltas_emitted(self) -> None:
+        payload = factory.build_payload(REPO_ROOT)
         report = payload["report"]
         tasks = payload["tasks"]
         pack = payload["candidate_pack"]
@@ -83,59 +144,64 @@ class BiologyNcbiBatchFactoryTests(unittest.TestCase):
 
         self.assertFalse(report["grand_toe_support_allowed"])
         self.assertEqual(report["verdict"], "BLOCKED_ACQUISITION_READY_NCBI_GEO_BATCH")
-        self.assertEqual(report["candidate_n"], 1)
-        self.assertEqual(report["missing_n"], 19)
-        self.assertEqual(acquisition["missing_official_snapshot_total"], 19)
+        self.assertEqual(report["candidate_n"], 20)
+        self.assertEqual(report["missing_n"], 0)
+        self.assertEqual(acquisition["missing_official_snapshot_total"], 0)
         self.assertTrue(acquisition["no_send"])
         self.assertFalse(acquisition["publish_allowed"])
         self.assertFalse(acquisition["registry_write_allowed"])
         self.assertFalse(pack["grand_toe_support_allowed"])
-        self.assertTrue(tasks["rows"][0]["row_hash"])
-        self.assertEqual(tasks["rows"][0]["formula"], "len(esearchresult.idlist)")
-        self.assertIn("comparator_prediction", tasks["rows"][0])
-        self.assertIn("negative_control_description", tasks["rows"][0])
-        self.assertIn("falsifier", tasks["rows"][0])
+        official_row = tasks["rows"][1]
+        self.assertTrue(official_row["row_hash"])
+        self.assertEqual(official_row["formula"], "len(esearchresult.idlist)")
+        self.assertTrue(official_row["declared_before_scoring_lock"])
+        self.assertTrue(official_row["lock_ref"].endswith(".lock.json"))
+        self.assertTrue(official_row["source_snapshot_hash"])
+        self.assertEqual(official_row["negative_control_status"], "REJECTED")
+        self.assertIn("formula_inputs", official_row)
+        self.assertIn("prediction_inputs", official_row)
 
         blocker_text = " ".join(report["blockers"])
-        self.assertIn("SOURCE_SEPARATION_MODE_NOT_ALLOWED::snapshot_replay", blocker_text)
+        self.assertIn("SOURCE_SEPARATION_MODE_NOT_ALLOWED::official_readonly_snapshot_replay", blocker_text)
         self.assertIn("TARGET_HIDDEN_UNTIL_SCORING_REQUIRED", blocker_text)
+        self.assertIn("DECLARED_BEFORE_SCORING_LOCK_REQUIRED", blocker_text)
         self.assertIn("COMPARATOR_BASELINE_NOT_PREREGISTERED", blocker_text)
-        self.assertIn("OFFICIAL_NCBI_GEO_PROVENANCE_REQUIRED", blocker_text)
-        self.assertIn("N_BELOW_MINIMUM::1/20", blocker_text)
+        self.assertNotIn("N_BELOW_MINIMUM", blocker_text)
         self.assertIn("GRAND_TOE_SUPPORT_NOT_ALLOWED", blocker_text)
+        self.assertEqual(acquisition["missing_official_snapshots"], [])
 
-        first_missing = acquisition["missing_official_snapshots"][0]
-        self.assertEqual(first_missing["query_params"]["retstart"], 20)
-        self.assertIn("eutils.ncbi.nlm.nih.gov", first_missing["official_endpoint_url"])
-        self.assertTrue(first_missing["no_send_lock"])
-
-    def test_target_hidden_official_batch_can_emit_support_candidate(self) -> None:
+    def test_fixture_acquisition_locks_are_mapped_back_to_packet_requests(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            snapshot_ref = "validation/_raw/ncbi_geo_batch_valid.json"
             write_json(root, factory.REQUIREMENTS_REL, requirements())
-            write_json(root, snapshot_ref, ncbi_batch_snapshot(row_count=20))
+            write_json(
+                root,
+                factory.ACQUISITION_REL,
+                {
+                    "schema_id": factory.ACQUISITION_SCHEMA_ID,
+                    "missing_official_snapshots": [
+                        acquisition_request(1, 20),
+                        acquisition_request(2, 40),
+                        acquisition_request(3, 60),
+                    ],
+                    "no_send": True,
+                },
+            )
+            write_official_lock_fixture(root, 1, 20)
+            write_official_lock_fixture(root, 2, 40)
 
-            payload = factory.write_outputs(root, snapshot_refs=[snapshot_ref])
+            payload = factory.write_outputs(root)
             report = payload["report"]
-            pack = payload["candidate_pack"]
             acquisition = payload["acquisition_packet"]
 
-            self.assertEqual(factory.check_stored(root, snapshot_refs=[snapshot_ref]), [])
-            self.assertTrue(report["grand_toe_support_allowed"])
-            self.assertEqual(report["verdict"], "READY_FOR_PARENT_REGISTRY_REVIEW")
-            self.assertEqual(report["candidate_n"], 20)
-            self.assertEqual(report["open_blocker_total"], 0)
-            self.assertEqual(pack["n"], 20)
-            self.assertTrue(pack["grand_toe_support_allowed"])
-            self.assertEqual(pack["source_separation"]["mode"], "target_blind")
-            self.assertTrue(pack["comparator_baseline"]["pre_registered"])
-            self.assertGreater(pack["residuals"]["superiority_margin"], 0)
-            self.assertEqual(len(pack["negative_controls"]), 20)
-            self.assertTrue(all(control["rejected"] for control in pack["negative_controls"]))
-            self.assertTrue(pack["falsifiers"])
-            self.assertEqual(acquisition["missing_official_snapshot_total"], 0)
-            self.assertTrue(all(test["passed"] for test in report["tamper_tests"]))
+            self.assertEqual(factory.check_stored(root), [])
+            self.assertFalse(report["grand_toe_support_allowed"])
+            self.assertEqual(report["candidate_n"], 2)
+            self.assertEqual(acquisition["missing_official_snapshot_total"], 18)
+            self.assertEqual(acquisition["missing_official_snapshots"][0]["acquisition_id"], "OC133-NCBI-GEO-OFFICIAL-SNAPSHOT-0003")
+            self.assertTrue(all(row["declared_before_scoring_lock"] for row in payload["tasks"]["rows"]))
+            self.assertTrue(all(row["expected_local_snapshot_ref"] for row in payload["tasks"]["rows"]))
+            self.assertIn("TARGET_HIDDEN_UNTIL_SCORING_REQUIRED", report["blockers"])
             self.assertTrue((root / factory.TASKS_REL).is_file())
             self.assertTrue((root / factory.PROTOCOL_REL).is_file())
             self.assertTrue((root / factory.CANDIDATE_PACK_REL).is_file())
