@@ -26,4 +26,4 @@
 - `OC_FULL_SCIENCE_BACKGROUND_LOCK` owner=`OC_FULL_SCIENCE_BACKGROUND` background_release_write=`false`
 - `NON_OC_WORKSTREAM_ISOLATION_LOCK` owner=`ESTRA_TOOLKIT_EA2O_OTHER` background_release_write=`false`
 
-Controller hash: `3fa4a05c2713d0a67dc47f233067c9b5f0833f75fa9a547c4249faa1bda78732`
+Controller hash: `101842120fc867af3db3493d1c5e075b0dd46cd3a4a593123b2e908b18bc223c`
