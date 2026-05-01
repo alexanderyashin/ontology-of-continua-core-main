@@ -829,6 +829,10 @@ def _github_create_or_update_release(profile: ReleaseProfile, token: str, body: 
     )
 
 
+def _github_asset_upload_name(filename: str) -> str:
+    return f"default{filename}" if filename.startswith(".") else filename
+
+
 def _github_list_release_assets(profile: ReleaseProfile, token: str, release_id: int | str) -> list[dict[str, Any]]:
     payload = _http_json(
         "GET",
@@ -861,12 +865,13 @@ def _github_upload_assets(root: Path, profile: ReleaseProfile, token: str, relea
     for asset in profile.assets:
         path = root / asset.path
         filename = path.name
-        _github_delete_asset_if_present(profile, token, release_id, filename)
+        upload_name = _github_asset_upload_name(filename)
+        _github_delete_asset_if_present(profile, token, release_id, upload_name)
         content_type = mimetypes.guess_type(filename)[0] or "application/octet-stream"
         try:
             result = _http_upload(
                 "POST",
-                f"{upload_url}?name={urllib.parse.quote(filename)}",
+                f"{upload_url}?name={urllib.parse.quote(upload_name)}",
                 token=token,
                 data=path.read_bytes(),
                 content_type=content_type,
@@ -874,15 +879,22 @@ def _github_upload_assets(root: Path, profile: ReleaseProfile, token: str, relea
         except RuntimeError as exc:
             if "already_exists" not in str(exc):
                 raise
-            _github_delete_asset_if_present(profile, token, release_id, filename)
+            _github_delete_asset_if_present(profile, token, release_id, upload_name)
             result = _http_upload(
                 "POST",
-                f"{upload_url}?name={urllib.parse.quote(filename)}",
+                f"{upload_url}?name={urllib.parse.quote(upload_name)}",
                 token=token,
                 data=path.read_bytes(),
                 content_type=content_type,
             )
-        uploaded.append({"name": filename, "browser_download_url": result.get("browser_download_url"), "id": result.get("id")})
+        uploaded.append(
+            {
+                "name": upload_name,
+                "source_filename": filename,
+                "browser_download_url": result.get("browser_download_url"),
+                "id": result.get("id"),
+            }
+        )
     return uploaded
 
 
@@ -1169,7 +1181,7 @@ def _github_release_verify(profile: ReleaseProfile, token: str) -> dict[str, Any
         return {"exists": False, "ok": False}
     assets = release.get("assets", [])
     names = {asset.get("name") for asset in assets}
-    expected = {Path(asset.path).name for asset in profile.assets}
+    expected = {_github_asset_upload_name(Path(asset.path).name) for asset in profile.assets}
     missing = sorted(expected - names)
     return {
         "exists": True,
