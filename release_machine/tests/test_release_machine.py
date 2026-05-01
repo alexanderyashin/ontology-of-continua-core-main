@@ -105,6 +105,21 @@ class ReleaseMachineTests(unittest.TestCase):
             self.assertNotIn("releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_latest.json", refs)
             self.assertNotIn("releases/oc_core_1_3_3/editorial/pdf_text_audit/OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.txt", refs)
 
+    def test_oc133_package_candidates_are_tracked_ref_driven_for_windows_long_paths(self) -> None:
+        long_ref = (
+            "validation/heldout/grand_science/formal_mathematics/coverage_work_orders/"
+            "planned_corpora/computational_complexity_algorithmic_proof/"
+            "OC133_COMPLEXITY_ALGORITHMIC_WITHHELD_AGGREGATES.lock.json"
+        )
+        original_tracked_ref_set = oc133.tracked_ref_set
+        try:
+            oc133.tracked_ref_set = lambda root: {long_ref, "formal/README.md"}  # type: ignore[assignment]
+            refs = {path.as_posix() for path in oc133.package_file_paths(Path("."))}
+        finally:
+            oc133.tracked_ref_set = original_tracked_ref_set  # type: ignore[assignment]
+        self.assertIn(long_ref, refs)
+        self.assertIn("formal/README.md", refs)
+
     def test_oc133_lean_certificate_source_guard_detects_delta(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

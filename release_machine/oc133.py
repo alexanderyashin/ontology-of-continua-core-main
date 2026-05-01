@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import fnmatch
+import os
 import runpy
 import subprocess
 import sys
@@ -22,6 +24,51 @@ BRANCH = "release/oc-core-1.3.3-total-scientific-closure"
 ZIP_NAME = "oc_core_1_3_3_no_send_release.zip"
 
 _BUILD_PACKAGE_CACHE: dict[tuple[str, str, str, bool], dict[str, Any]] = {}
+
+PACKAGE_INCLUDE_ROOTS = [
+    f"releases/{RELEASE_ID}/",
+    "proofs/",
+    "validation/",
+    "falsification/",
+    "reviews/",
+]
+
+PACKAGE_INCLUDE_PATTERNS = [
+    "appendix/OC_1_3_3_*.tex",
+    "content/OC_1_3_3_*.tex",
+    "claims/*1_3_3*",
+    "claims/CLAIM_LEDGER_FULL.*",
+    "claims/CLAIM_EVIDENCE_MATRIX.*",
+    "data/*1_3_3*.json",
+    "data/*/*.md",
+    "data/*/*.json",
+    "data/k_level_irreducibility_matrix.json",
+    "data/domain_semantics_matrix.json",
+    "data/OC_CORE_1_3_3_TYPE_SYMBOL_TABLE.json",
+    "docs/OC_1_3_3_*",
+    "comparators/OC_1_3_3_*",
+    "review/OC_1_3_3_*",
+    "empirical/*/*.json",
+    "empirical/*/*.md",
+    "formal/**/*.lean",
+    "formal/*.md",
+    "formal/**/*.md",
+    "lakefile.lean",
+    "lean-toolchain",
+    "reports/OC_CORE_1_3_3_*",
+]
+
+PACKAGE_EXCLUDED_NAMES = {
+    "OC_CORE_1_3_3_ARTIFACT_INVENTORY.json",
+    "OC_CORE_1_3_3_RELEASE_CONTROL_PLANE_latest.json",
+    "OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json",
+    "OC_CORE_1_3_3_RELEASE_SCORECARD_latest.md",
+    "OC_CORE_1_3_3_SHA256SUMS",
+    "OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
+    "OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
+    "OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_latest.json",
+    "OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_latest.md",
+}
 
 ROOT_NO_SEND_SURFACE_REFS = [
     "manifest.json",
@@ -86,15 +133,43 @@ def rel(root: Path, path: Path) -> str:
     return path.resolve().relative_to(root.resolve()).as_posix()
 
 
+def _long_fs_path(path: Path) -> str:
+    value = str(path if path.is_absolute() else path.resolve())
+    if os.name != "nt" or value.startswith("\\\\?\\"):
+        return value
+    if value.startswith("\\\\"):
+        return "\\\\?\\UNC\\" + value[2:]
+    return "\\\\?\\" + value
+
+
+def _path_exists(path: Path) -> bool:
+    return os.path.exists(_long_fs_path(path))
+
+
+def _is_file(path: Path) -> bool:
+    return os.path.isfile(_long_fs_path(path))
+
+
+def _read_bytes(path: Path) -> bytes:
+    with open(_long_fs_path(path), "rb") as handle:
+        return handle.read()
+
+
+def _read_text(path: Path, encoding: str = "utf-8", errors: str = "strict") -> str:
+    with open(_long_fs_path(path), "r", encoding=encoding, errors=errors) as handle:
+        return handle.read()
+
+
 def read_json(path: Path) -> Any:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads(_read_text(path, encoding="utf-8"))
 
 
 def _write_bytes_if_changed(path: Path, data: bytes) -> bool:
     path.parent.mkdir(parents=True, exist_ok=True)
-    if path.exists() and path.read_bytes() == data:
+    if _path_exists(path) and _read_bytes(path) == data:
         return False
-    path.write_bytes(data)
+    with open(_long_fs_path(path), "wb") as handle:
+        handle.write(data)
     return True
 
 
@@ -111,14 +186,14 @@ def write_text(path: Path, text: str) -> bool:
 
 def sha256_file(path: Path) -> str:
     h = hashlib.sha256()
-    with path.open("rb") as handle:
+    with open(_long_fs_path(path), "rb") as handle:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             h.update(chunk)
     return h.hexdigest()
 
 
 def package_bytes(path: Path) -> bytes:
-    data = path.read_bytes()
+    data = _read_bytes(path)
     if path.suffix.lower() in {".py", ".lean", ".yml", ".yaml", ".json", ".md", ".tex", ".txt", ".cff", ".jsonld"}:
         data = data.replace(b"\r\n", b"\n")
     return data
@@ -185,64 +260,20 @@ def run_local_replays(root: Path) -> None:
 
 def package_file_paths(root: Path) -> list[Path]:
     tracked_refs = tracked_ref_set(root)
-    include_roots = [
-        release_dir(root),
-        root / "proofs",
-        root / "validation",
-        root / "falsification",
-        root / "reviews",
-    ]
-    files: set[Path] = set()
-    for base in include_roots:
-        if base.exists():
-            for path in base.rglob("*"):
-                if path.is_file() and path.name != ZIP_NAME and "__pycache__" not in path.parts and path.suffix != ".pyc":
-                    files.add(path)
-    for pattern in [
-        "appendix/OC_1_3_3_*.tex",
-        "content/OC_1_3_3_*.tex",
-        "claims/*1_3_3*",
-        "claims/CLAIM_LEDGER_FULL.*",
-        "claims/CLAIM_EVIDENCE_MATRIX.*",
-        "data/*1_3_3*.json",
-        "data/*/*.md",
-        "data/*/*.json",
-        "data/k_level_irreducibility_matrix.json",
-        "data/domain_semantics_matrix.json",
-        "data/OC_CORE_1_3_3_TYPE_SYMBOL_TABLE.json",
-        "docs/OC_1_3_3_*",
-        "comparators/OC_1_3_3_*",
-        "review/OC_1_3_3_*",
-        "empirical/*/*.json",
-        "empirical/*/*.md",
-        "formal/**/*.lean",
-        "formal/**/*.md",
-        "lakefile.lean",
-        "lean-toolchain",
-        "reports/OC_CORE_1_3_3_*",
-    ]:
-        for path in root.glob(pattern):
-            if path.is_file():
-                files.add(path)
-    excluded_names = {
-        "OC_CORE_1_3_3_ARTIFACT_INVENTORY.json",
-        "OC_CORE_1_3_3_RELEASE_CONTROL_PLANE_latest.json",
-        "OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json",
-        "OC_CORE_1_3_3_RELEASE_SCORECARD_latest.md",
-        "OC_CORE_1_3_3_SHA256SUMS",
-        "OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
-        "OC_CORE_1_3_3_POST_GENERATION_REPRODUCIBILITY_MANIFEST.json",
-        "OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_latest.json",
-        "OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_latest.md",
-    }
-    return sorted(
-        path for path in files
-        if path.name not in excluded_names
-        and "pdf_text_audit" not in path.parts
-        and "__pycache__" not in path.parts
-        and path.suffix != ".pyc"
-        and rel(root, path) in tracked_refs
-    )
+
+    def included(ref: str) -> bool:
+        path = Path(ref)
+        if path.name == ZIP_NAME or path.name in PACKAGE_EXCLUDED_NAMES:
+            return False
+        if "__pycache__" in path.parts or "pdf_text_audit" in path.parts:
+            return False
+        if path.suffix == ".pyc":
+            return False
+        if any(ref.startswith(prefix) for prefix in PACKAGE_INCLUDE_ROOTS):
+            return True
+        return any(fnmatch.fnmatchcase(ref, pattern) for pattern in PACKAGE_INCLUDE_PATTERNS)
+
+    return sorted(root / ref for ref in tracked_refs if included(ref))
 
 
 def _package_input_fingerprint(root: Path) -> str:
@@ -271,10 +302,10 @@ def _cached_package(root: Path, channel: str, no_publish: bool, fingerprint: str
         editorial_dir(root) / "OC_CORE_1_3_3_SHA256SUMS",
         editorial_dir(root) / "OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json",
     ]
-    if not all(path.exists() for path in required_outputs):
+    if not all(_path_exists(path) for path in required_outputs):
         return None
     zip_path = root / payload.get("package", "")
-    if not zip_path.exists() or sha256_file(zip_path) != payload.get("package_sha256"):
+    if not _path_exists(zip_path) or sha256_file(zip_path) != payload.get("package_sha256"):
         return None
     return dict(payload)
 
@@ -286,7 +317,7 @@ def _remember_package(root: Path, channel: str, no_publish: bool, fingerprint: s
 
 def _lean_certificate_sources_current(root: Path) -> bool:
     cert_path = root / "formal" / "lean" / "LEAN_BUILD_CERTIFICATE_1_3_3.json"
-    if not cert_path.exists():
+    if not _path_exists(cert_path):
         return False
     try:
         cert = read_json(cert_path)
@@ -303,7 +334,7 @@ def _lean_certificate_sources_current(root: Path) -> bool:
         if not isinstance(ref, str) or not isinstance(expected, str):
             return False
         path = root / ref
-        if not path.exists() or not path.is_file():
+        if not _is_file(path):
             return False
         if hashlib.sha256(package_bytes(path)).hexdigest() != expected:
             return False
@@ -311,13 +342,13 @@ def _lean_certificate_sources_current(root: Path) -> bool:
 
 
 def _root_no_send_surface_current(root: Path) -> bool:
-    if (root / ".zenodo.json").exists():
+    if _path_exists(root / ".zenodo.json"):
         return False
     for ref in ROOT_NO_SEND_SURFACE_REFS:
         path = root / ref
-        if not path.exists() or not path.is_file():
+        if not _is_file(path):
             return False
-        body = path.read_text(encoding="utf-8", errors="ignore")
+        body = _read_text(path, encoding="utf-8", errors="ignore")
         if "1.3.3" not in body:
             return False
         lowered = body.lower()
@@ -355,7 +386,7 @@ def _existing_package_if_current(root: Path, channel: str, no_publish: bool, fin
     checksums_path = editorial_dir(root) / "OC_CORE_1_3_3_SHA256SUMS"
     integrity_path = editorial_dir(root) / "OC_CORE_1_3_3_ZIP_INTEGRITY_latest.json"
     zip_path = artifacts_dir(root) / ZIP_NAME
-    if not all(path.exists() for path in [inventory_path, checksums_path, integrity_path, zip_path]):
+    if not all(_path_exists(path) for path in [inventory_path, checksums_path, integrity_path, zip_path]):
         return None
     desired_inventory = _inventory_payload(root, paths)
     try:
@@ -365,7 +396,7 @@ def _existing_package_if_current(root: Path, channel: str, no_publish: bool, fin
         return None
     if current_inventory != desired_inventory:
         return None
-    if checksums_path.read_text(encoding="utf-8") != _checksum_text(desired_inventory):
+    if _read_text(checksums_path, encoding="utf-8") != _checksum_text(desired_inventory):
         return None
     package_sha256 = sha256_file(zip_path)
     if current_integrity.get("package") != rel(root, zip_path):
@@ -407,7 +438,7 @@ def build_zip(root: Path, paths: list[Path]) -> dict[str, Any]:
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o644 << 16
             zf.writestr(info, package_bytes(path))
-    tmp_bytes = tmp_path.read_bytes()
+    tmp_bytes = _read_bytes(tmp_path)
     _write_bytes_if_changed(zip_path, tmp_bytes)
     tmp_path.unlink(missing_ok=True)
     payload = {
@@ -473,7 +504,7 @@ def build_package(root: Path | None = None, channel: str = "all", no_publish: bo
 
 
 def _text(path: Path) -> str:
-    return path.read_text(encoding="utf-8", errors="ignore") if path.exists() else ""
+    return _read_text(path, encoding="utf-8", errors="ignore") if _path_exists(path) else ""
 
 
 def _new_gate_results(root: Path) -> list[dict[str, Any]]:
