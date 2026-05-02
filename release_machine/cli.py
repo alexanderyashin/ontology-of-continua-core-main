@@ -134,6 +134,7 @@ def main(argv: list[str] | None = None) -> int:
 
     preflight = sub.add_parser("publication-preflight")
     preflight.add_argument("--release-id", default=None)
+    preflight.add_argument("--write", action="store_true")
 
     submissions = sub.add_parser("submission-packages")
     submissions.add_argument("--release-id", default=None)
@@ -436,7 +437,7 @@ def main(argv: list[str] | None = None) -> int:
             payload = publication.grant_owner_approval(core.repo_root(), owner_identity=args.owner_identity)
     elif args.command == "publication-preflight":
         if release_id == oc133.RELEASE_ID:
-            payload = public_release.publication_preflight(public_release.repo_root(), release_id=release_id, write=True, require_approval=True)
+            payload = public_release.publication_preflight(public_release.repo_root(), release_id=release_id, write=args.write, require_approval=True)
         else:
             payload = publication.publication_preflight(core.repo_root())
     elif args.command == "submission-packages":

@@ -5,7 +5,7 @@
 - release_state: `OC_CORE_1_3_3_EXTERNAL_REVIEW_READY_NO_SEND`
 - gate_counts: `{'BLOCKED': 0, 'FAIL': 0, 'NOT_APPLICABLE': 0, 'NOT_RUN': 0, 'PASS': 71, 'WARN': 0}`
 - Cerberus critical/high/parse: `0/0/0`
-- package SHA-256: `7e984eb1ae0268a045b44f2f6e65a45035248e55cc05fce0032a8ebb1791f9e8`
+- package SHA-256: `4ecb0e91774368a42c4e3480ab299b60527a7461867ad6c551119d5b81748c3a`
 - journal packages: `8` packages, `{'OWNER_REVIEW_READY_NO_SEND': 8}`
 - claim surface: `PASS` failures=`0`
 - packaged surface: `PASS` failures=`0`
