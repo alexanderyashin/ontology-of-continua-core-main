@@ -2,173 +2,338 @@ OC Core 1.3.3 Methods and Reproducibility Companion
 Bounded external-review scientific release
 Alexander Yashin
 2026-05-01
+
 Contents
-1 Ontology of Continua Core 1.3.3 4
-1.1 Release Boundary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
-1.2 Lean Formalization Subset . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
-1.3 Executable Finite-Model Evidence . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
-1.3.1 FM-T133-K0-RES-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
-1.3.2 FM-T133-K0-RES-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
-1.3.3 FM-T133-OMEGA-STATUS-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
-1.3.4 FM-T133-OMEGA-STATUS-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
-1.3.5 FM-T133-OMEGA-IDENTITY-EQUIVOCATION-NEG . . . . . . . . . . . . . . . . . . . 9
-1.3.6 FM-T133-K-ZERO-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
-1.3.7 FM-T133-K-ZERO-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
-1.3.8 FM-T133-K-ZERO-OBSTRUCTION-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . 9
-1.3.9 FM-T133-K-ZERO-LIVE-SUPPORT-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . 9
-1.3.10 FM-T133-BOUNDARY-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
-1.3.11 FM-T133-BOUNDARY-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
-1.3.12 FM-T133-HYBRID-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
-1.3.13 FM-T133-HYBRID-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
-1.3.14 FM-T133-HYBRID-NO-GUARD-STEP-POS . . . . . . . . . . . . . . . . . . . . . . . . . 10
-1.3.15 FM-T133-HYBRID-NO-GUARD-STEP-NEG . . . . . . . . . . . . . . . . . . . . . . . . . 10
-1.3.16 FM-T133-HYBRID-GUARD-MISSING-NEG . . . . . . . . . . . . . . . . . . . . . . . . . 10
-1.3.17 FM-T133-HYBRID-GUARD-NONBOOLEAN-NEG . . . . . . . . . . . . . . . . . . . . . 10
-1.3.18 FM-T133-HYBRID-GUARD-V ALUE-MISMATCH-NEG . . . . . . . . . . . . . . . . . . 11
-1.3.19 FM-T133-HYBRID-RESET-SOURCE-MODE-NEG . . . . . . . . . . . . . . . . . . . . . 11
-1.3.20 FM-T133-HYBRID-RESET-TARGET-MODE-NEG . . . . . . . . . . . . . . . . . . . . . 11
-1.3.21 FM-T133-HYBRID-SMOOTH-CHART-POS . . . . . . . . . . . . . . . . . . . . . . . . . 11
-1.3.22 FM-T133-HYBRID-SMOOTH-CHART-NEG . . . . . . . . . . . . . . . . . . . . . . . . . 11
-1.3.23 FM-T133-HYBRID-PROOF-UPDATE-POS . . . . . . . . . . . . . . . . . . . . . . . . . . 11
-1.3.24 FM-T133-HYBRID-PROOF-UPDATE-NEG . . . . . . . . . . . . . . . . . . . . . . . . . 11
-1.3.25 FM-T133-HYBRID-SMOOTH-LOCAL-LA W-NEG . . . . . . . . . . . . . . . . . . . . . . 12
-1.3.26 FM-T133-HYBRID-PROOF-NO-RULE-NEG . . . . . . . . . . . . . . . . . . . . . . . . . 12
-1.3.27 FM-T133-DIM-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
-1.3.28 FM-T133-DIM-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
-1.3.29 FM-T133-CYCLE-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
-1.3.30 FM-T133-CYCLE-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
-1.3.31 FM-T133-ID-REBIRTH-NONIDENTITY-POS . . . . . . . . . . . . . . . . . . . . . . . . 12
-1.3.32 FM-T133-ID-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
-1.3.33 FM-T133-ID-RESIDUE-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
-1.3.34 FM-T133-ID-RESIDUE-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
-1.3.35 FM-T133-ID-IDENTITY-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
-1
-1.3.36 FM-T133-MIN-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
-1.3.37 FM-T133-MIN-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
-1.3.38 FM-T133-KLEVEL-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
-1.3.39 FM-T133-KLEVEL-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
-1.3.40 FM-T133-ID-TT-IDENTITY-INV-F ALSE-END-F ALSE-RES-F ALSE-CLAIM-F ALSE. . 14
-1.3.41 FM-T133-ID-TT-IDENTITY-INV-F ALSE-END-F ALSE-RES-F ALSE-CLAIM-TRUE. . . 14
-1.3.42 FM-T133-ID-TT-IDENTITY-INV-F ALSE-END-F ALSE-RES-TRUE-CLAIM-F ALSE. . . 14
-1.3.43 FM-T133-ID-TT-IDENTITY-INV-F ALSE-END-F ALSE-RES-TRUE-CLAIM-TRUE . . . 14
-1.3.44 FM-T133-ID-TT-IDENTITY-INV-F ALSE-END-TRUE-RES-F ALSE-CLAIM-F ALSE. . . 14
-1.3.45 FM-T133-ID-TT-IDENTITY-INV-F ALSE-END-TRUE-RES-F ALSE-CLAIM-TRUE . . . 14
-1.3.46 FM-T133-ID-TT-IDENTITY-INV-F ALSE-END-TRUE-RES-TRUE-CLAIM-F ALSE . . . 15
-1.3.47 FM-T133-ID-TT-IDENTITY-INV-F ALSE-END-TRUE-RES-TRUE-CLAIM-TRUE . . . 15
-1.3.48 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-F ALSE-RES-F ALSE-CLAIM-F ALSE. . . 15
-1.3.49 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-F ALSE-RES-F ALSE-CLAIM-TRUE . . . 15
-1.3.50 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-F ALSE-RES-TRUE-CLAIM-F ALSE . . . 15
-1.3.51 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-F ALSE-RES-TRUE-CLAIM-TRUE . . . 15
-1.3.52 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-F ALSE-CLAIM-F ALSE . . . 15
-1.3.53 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-F ALSE-CLAIM-TRUE . . . 16
-1.3.54 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-F ALSE . . . 16
-1.3.55 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE . . . . 16
-1.3.56 FM-T133-ID-TT-RESIDUE-INV-F ALSE-END-F ALSE-RES-F ALSE-CLAIM-F ALSE. . . 16
-1.3.57 FM-T133-ID-TT-RESIDUE-INV-F ALSE-END-F ALSE-RES-F ALSE-CLAIM-TRUE . . . 16
-1.3.58 FM-T133-ID-TT-RESIDUE-INV-F ALSE-END-F ALSE-RES-TRUE-CLAIM-F ALSE . . . 16
-1.3.59 FM-T133-ID-TT-RESIDUE-INV-F ALSE-END-F ALSE-RES-TRUE-CLAIM-TRUE . . . . 16
-1.3.60 FM-T133-ID-TT-RESIDUE-INV-F ALSE-END-TRUE-RES-F ALSE-CLAIM-F ALSE . . . 17
-1.3.61 FM-T133-ID-TT-RESIDUE-INV-F ALSE-END-TRUE-RES-F ALSE-CLAIM-TRUE . . . . 17
-1.3.62 FM-T133-ID-TT-RESIDUE-INV-F ALSE-END-TRUE-RES-TRUE-CLAIM-F ALSE . . . . 17
-1.3.63 FM-T133-ID-TT-RESIDUE-INV-F ALSE-END-TRUE-RES-TRUE-CLAIM-TRUE . . . . 17
-1.3.64 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-F ALSE-RES-F ALSE-CLAIM-F ALSE . . . 17
-1.3.65 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-F ALSE-RES-F ALSE-CLAIM-TRUE . . . . 17
-1.3.66 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-F ALSE-RES-TRUE-CLAIM-F ALSE . . . . 17
-1.3.67 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-F ALSE-RES-TRUE-CLAIM-TRUE . . . . 18
-1.3.68 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-F ALSE-CLAIM-F ALSE . . . . 18
-1.3.69 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-F ALSE-CLAIM-TRUE . . . . 18
-1.3.70 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-F ALSE . . . . 18
-1.3.71 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE . . . . . 18
-1.3.72 FM-T133-ID-TT-REBIRTH-INV-F ALSE-END-F ALSE-RES-F ALSE-CLAIM-F ALSE. . . 18
-1.3.73 FM-T133-ID-TT-REBIRTH-INV-F ALSE-END-F ALSE-RES-F ALSE-CLAIM-TRUE . . . 18
-1.3.74 FM-T133-ID-TT-REBIRTH-INV-F ALSE-END-F ALSE-RES-TRUE-CLAIM-F ALSE . . . 19
-1.3.75 FM-T133-ID-TT-REBIRTH-INV-F ALSE-END-F ALSE-RES-TRUE-CLAIM-TRUE . . . . 19
-1.3.76 FM-T133-ID-TT-REBIRTH-INV-F ALSE-END-TRUE-RES-F ALSE-CLAIM-F ALSE . . . 19
-1.3.77 FM-T133-ID-TT-REBIRTH-INV-F ALSE-END-TRUE-RES-F ALSE-CLAIM-TRUE . . . . 19
-1.3.78 FM-T133-ID-TT-REBIRTH-INV-F ALSE-END-TRUE-RES-TRUE-CLAIM-F ALSE . . . . 19
-1.3.79 FM-T133-ID-TT-REBIRTH-INV-F ALSE-END-TRUE-RES-TRUE-CLAIM-TRUE . . . . 19
-1.3.80 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-F ALSE-RES-F ALSE-CLAIM-F ALSE . . . 19
-1.3.81 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-F ALSE-RES-F ALSE-CLAIM-TRUE . . . . 20
-1.3.82 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-F ALSE-RES-TRUE-CLAIM-F ALSE . . . . 20
-1.3.83 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-F ALSE-RES-TRUE-CLAIM-TRUE . . . . 20
-1.3.84 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-F ALSE-CLAIM-F ALSE . . . . 20
-1.3.85 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-F ALSE-CLAIM-TRUE . . . . 20
-1.3.86 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-F ALSE . . . . 20
-1.3.87 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE . . . . 20
-1.3.88 FM-MIN-carrier . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
-1.3.89 FM-MIN-realization . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
-1.3.90 FM-MIN-lawful_possibility . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
-2
-1.3.91 FM-MIN-liveness . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
-1.3.92 FM-MIN-residue . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
-1.3.93 FM-MIN-morphisms . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
-1.3.94 FM-MIN-boundaries . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
-1.3.95 FM-MIN-operators . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
-1.3.96 FM-MIN-cycles . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
-1.3.97 FM-MIN-dimension . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
-1.3.98 FM-MIN-k . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
-1.3.99 FM-KLEVEL-K0_to_K1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
-1.3.100 FM-KLEVEL-K0_to_K1-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
-1.3.101 FM-KLEVEL-K1_to_K2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
-1.3.102 FM-KLEVEL-K1_to_K2-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
-1.3.103 FM-KLEVEL-K2_to_K3 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
-1.3.104 FM-KLEVEL-K2_to_K3-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
-1.3.105 FM-KLEVEL-K3_to_K4 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
-1.3.106 FM-KLEVEL-K3_to_K4-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
-1.3.107 FM-KLEVEL-K4_to_K5 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
-1.3.108 FM-KLEVEL-K4_to_K5-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
-1.3.109 FM-KLEVEL-K5_to_K6 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
-1.3.110 FM-KLEVEL-K5_to_K6-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
-1.3.111 FM-KLEVEL-K6_to_K7 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
-1.3.112 FM-KLEVEL-K6_to_K7-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
-1.3.113 FM-KLEVEL-K7_to_K8 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
-1.3.114 FM-KLEVEL-K7_to_K8-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
-1.3.115 FM-KLEVEL-K8_to_K9 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
-1.3.116 FM-KLEVEL-K8_to_K9-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
-1.3.117 FM-KLEVEL-K9_to_K10 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
-1.3.118 FM-KLEVEL-K9_to_K10-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
-1.3.119 FM-KLEVEL-K10_to_K11 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
-1.3.120 FM-KLEVEL-K10_to_K11-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
-1.3.121 FM-KLEVEL-K11_to_K12 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
-1.3.122 FM-KLEVEL-K11_to_K12-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
-1.3.123 MUTATION-LABEL-ONLY-MIN . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
-1.3.124 MUTATION-FLAG-ORACLE-BOUNDARY . . . . . . . . . . . . . . . . . . . . . . . . . 26
-1.3.125 MUTATION-WRONG-WITNESS-KLEVEL. . . . . . . . . . . . . . . . . . . . . . . . . . 26
-1.3.126 MUTATION-WRONG-KLEVEL-TEXT . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
-1.3.127 MUTATION-DUPLICATED-KLEVEL . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
-1.3.128 MUTATION-MISSING-KLEVEL-CRITERION . . . . . . . . . . . . . . . . . . . . . . . . 26
-1.4 Target-Blind Numeric Evidence . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
-1.4.1 Physics - OC133-TARGETBLIND-PHYSICS-001 . . . . . . . . . . . . . . . . . . . . . . . 27
-1.4.2 Chemistry - OC133-TARGETBLIND-CHEMISTRY-001 . . . . . . . . . . . . . . . . . . . 27
-1.4.3 Biology - OC133-TARGETBLIND-BIOLOGY-001 . . . . . . . . . . . . . . . . . . . . . . 27
-1.4.4 Systems - OC133-TARGETBLIND-SYSTEMS-001 . . . . . . . . . . . . . . . . . . . . . . 28
-1.4.5 Mathematics - OC133-TARGETBLIND-MATHEMATICS-001 . . . . . . . . . . . . . . . 28
-1.4.6 Replay Audit - Biology . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
-1.4.7 Replay Audit - Chemistry . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
-1.4.8 Replay Audit - Mathematics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
-1.4.9 Replay Audit - Physics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
-1.4.10 Replay Audit - Systems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
-1.5 Journal Owner-Review Packages . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
-1.5.1 FOUNDATIONS_OF_SCIENCE . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
-1.5.2 SYNTHESE . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
-1.5.3 FOUNDATIONS_OF_PHYSICS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
-1.5.4 PHYSICAL_REVIEW_RESEARCH . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
-1.5.5 ACS_OMEGA . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
-3
-1.5.6 ACTA_BIOTHEORETICA . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
-1.5.7 PLOS_COMPUTATIONAL_BIOLOGY . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
-1.5.8 GLOBAL_JOURNAL_OF_FLEXIBLE_SYSTEMS_MANAGEMENT . . . . . . . . . . 31
 1 Ontology of Continua Core 1.3.3
-Version: 1.3.3 Tag: v1.3.3 DOI: 10.5281/zenodo.19964718 Zenodo record: https://zenodo.org/records/19964718
+1.1 Release Boundary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2 Lean Formalization Subset . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3 Executable Finite-Model Evidence . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.1 FM-T133-K0-RES-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.2 FM-T133-K0-RES-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.3 FM-T133-OMEGA-STATUS-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.4 FM-T133-OMEGA-STATUS-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.5 FM-T133-OMEGA-IDENTITY-EQUIVOCATION-NEG . . . . . . . . . . . . . . . . . . .
+1.3.6 FM-T133-K-ZERO-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.7 FM-T133-K-ZERO-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.8 FM-T133-K-ZERO-OBSTRUCTION-NEG . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.9 FM-T133-K-ZERO-LIVE-SUPPORT-NEG . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.10 FM-T133-BOUNDARY-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.11 FM-T133-BOUNDARY-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.12 FM-T133-HYBRID-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.13 FM-T133-HYBRID-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.14 FM-T133-HYBRID-NO-GUARD-STEP-POS . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.15 FM-T133-HYBRID-NO-GUARD-STEP-NEG . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.16 FM-T133-HYBRID-GUARD-MISSING-NEG . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.17 FM-T133-HYBRID-GUARD-NONBOOLEAN-NEG . . . . . . . . . . . . . . . . . . . . .
+1.3.18 FM-T133-HYBRID-GUARD-VALUE-MISMATCH-NEG . . . . . . . . . . . . . . . . . .
+1.3.19 FM-T133-HYBRID-RESET-SOURCE-MODE-NEG . . . . . . . . . . . . . . . . . . . . .
+1.3.20 FM-T133-HYBRID-RESET-TARGET-MODE-NEG . . . . . . . . . . . . . . . . . . . . .
+1.3.21 FM-T133-HYBRID-SMOOTH-CHART-POS . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.22 FM-T133-HYBRID-SMOOTH-CHART-NEG . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.23 FM-T133-HYBRID-PROOF-UPDATE-POS . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.24 FM-T133-HYBRID-PROOF-UPDATE-NEG . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.25 FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG . . . . . . . . . . . . . . . . . . . . . .
+1.3.26 FM-T133-HYBRID-PROOF-NO-RULE-NEG . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.27 FM-T133-DIM-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.28 FM-T133-DIM-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.29 FM-T133-CYCLE-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.30 FM-T133-CYCLE-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.31 FM-T133-ID-REBIRTH-NONIDENTITY-POS . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.32 FM-T133-ID-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.33 FM-T133-ID-RESIDUE-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.34 FM-T133-ID-RESIDUE-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.35 FM-T133-ID-IDENTITY-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+1
+
+4
+4
+4
+8
+8
+8
+8
+9
+9
+9
+9
+9
+9
+9
+10
+10
+10
+10
+10
+10
+10
+11
+11
+11
+11
+11
+11
+11
+12
+12
+12
+12
+12
+12
+12
+13
+13
+13
+13
+
+1.3.36 FM-T133-MIN-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.37 FM-T133-MIN-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.38 FM-T133-KLEVEL-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.39 FM-T133-KLEVEL-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.40 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE . .
+1.3.41 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE . . .
+1.3.42 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE . . .
+1.3.43 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE . . .
+1.3.44 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE . . .
+1.3.45 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE . . .
+1.3.46 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE . . .
+1.3.47 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE . . .
+1.3.48 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE . . .
+1.3.49 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE . . .
+1.3.50 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE . . .
+1.3.51 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE . . .
+1.3.52 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE . . .
+1.3.53 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE . . .
+1.3.54 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE . . .
+1.3.55 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE . . . .
+1.3.56 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE . . .
+1.3.57 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE . . .
+1.3.58 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE . . .
+1.3.59 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE . . . .
+1.3.60 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE . . .
+1.3.61 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE . . . .
+1.3.62 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE . . . .
+1.3.63 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE . . . .
+1.3.64 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE . . .
+1.3.65 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE . . . .
+1.3.66 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE . . . .
+1.3.67 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE . . . .
+1.3.68 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE . . . .
+1.3.69 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE . . . .
+1.3.70 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE . . . .
+1.3.71 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE . . . . .
+1.3.72 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE . . .
+1.3.73 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE . . .
+1.3.74 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE . . .
+1.3.75 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE . . . .
+1.3.76 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE . . .
+1.3.77 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE . . . .
+1.3.78 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE . . . .
+1.3.79 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE . . . .
+1.3.80 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE . . .
+1.3.81 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE . . . .
+1.3.82 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE . . . .
+1.3.83 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE . . . .
+1.3.84 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE . . . .
+1.3.85 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE . . . .
+1.3.86 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE . . . .
+1.3.87 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE . . . .
+1.3.88 FM-MIN-carrier . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.89 FM-MIN-realization . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.90 FM-MIN-lawful_possibility . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+2
+
+13
+13
+13
+14
+14
+14
+14
+14
+14
+14
+15
+15
+15
+15
+15
+15
+15
+16
+16
+16
+16
+16
+16
+16
+17
+17
+17
+17
+17
+17
+17
+18
+18
+18
+18
+18
+18
+18
+19
+19
+19
+19
+19
+19
+19
+20
+20
+20
+20
+20
+20
+20
+21
+21
+21
+
+1.3.91 FM-MIN-liveness . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.92 FM-MIN-residue . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.93 FM-MIN-morphisms . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.94 FM-MIN-boundaries . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.95 FM-MIN-operators . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.96 FM-MIN-cycles . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.97 FM-MIN-dimension . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.98 FM-MIN-k . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.99 FM-KLEVEL-K0_to_K1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.100 FM-KLEVEL-K0_to_K1-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.101 FM-KLEVEL-K1_to_K2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.102 FM-KLEVEL-K1_to_K2-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.103 FM-KLEVEL-K2_to_K3 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.104 FM-KLEVEL-K2_to_K3-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.105 FM-KLEVEL-K3_to_K4 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.106 FM-KLEVEL-K3_to_K4-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.107 FM-KLEVEL-K4_to_K5 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.108 FM-KLEVEL-K4_to_K5-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.109 FM-KLEVEL-K5_to_K6 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.110 FM-KLEVEL-K5_to_K6-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.111 FM-KLEVEL-K6_to_K7 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.112 FM-KLEVEL-K6_to_K7-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.113 FM-KLEVEL-K7_to_K8 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.114 FM-KLEVEL-K7_to_K8-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.115 FM-KLEVEL-K8_to_K9 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.116 FM-KLEVEL-K8_to_K9-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.117 FM-KLEVEL-K9_to_K10 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.118 FM-KLEVEL-K9_to_K10-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.119 FM-KLEVEL-K10_to_K11 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.120 FM-KLEVEL-K10_to_K11-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.121 FM-KLEVEL-K11_to_K12 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.122 FM-KLEVEL-K11_to_K12-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.123 MUTATION-LABEL-ONLY-MIN . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.124 MUTATION-FLAG-ORACLE-BOUNDARY . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.125 MUTATION-WRONG-WITNESS-KLEVEL . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.126 MUTATION-WRONG-KLEVEL-TEXT . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.127 MUTATION-DUPLICATED-KLEVEL . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.128 MUTATION-MISSING-KLEVEL-CRITERION . . . . . . . . . . . . . . . . . . . . . . . .
+1.4 Target-Blind Numeric Evidence . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.4.1 Physics - OC133-TARGETBLIND-PHYSICS-001 . . . . . . . . . . . . . . . . . . . . . . .
+1.4.2 Chemistry - OC133-TARGETBLIND-CHEMISTRY-001 . . . . . . . . . . . . . . . . . . .
+1.4.3 Biology - OC133-TARGETBLIND-BIOLOGY-001 . . . . . . . . . . . . . . . . . . . . . .
+1.4.4 Systems - OC133-TARGETBLIND-SYSTEMS-001 . . . . . . . . . . . . . . . . . . . . . .
+1.4.5 Mathematics - OC133-TARGETBLIND-MATHEMATICS-001 . . . . . . . . . . . . . . .
+1.4.6 Replay Audit - Biology . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.4.7 Replay Audit - Chemistry . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.4.8 Replay Audit - Mathematics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.4.9 Replay Audit - Physics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.4.10 Replay Audit - Systems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5 Journal Owner-Review Packages . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.1 FOUNDATIONS_OF_SCIENCE . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.2 SYNTHESE . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.3 FOUNDATIONS_OF_PHYSICS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.4 PHYSICAL_REVIEW_RESEARCH . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.5 ACS_OMEGA . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3
+
+21
+21
+21
+21
+22
+22
+22
+22
+22
+22
+22
+23
+23
+23
+23
+23
+23
+23
+24
+24
+24
+24
+24
+24
+24
+25
+25
+25
+25
+25
+25
+25
+26
+26
+26
+26
+26
+26
+26
+27
+27
+27
+28
+28
+28
+28
+29
+29
+29
+30
+30
+30
+30
+30
+30
+
+1.5.6
+1.5.7
+1.5.8
+
+ACTA_BIOTHEORETICA . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
+PLOS_COMPUTATIONAL_BIOLOGY . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
+GLOBAL_JOURNAL_OF_FLEXIBLE_SYSTEMS_MANAGEMENT . . . . . . . . . . 31
+
+1 Ontology of Continua Core 1.3.3
+Version: 1.3.3 Tag: v1.3.3 DOI: 10.5281/zenodo.19965913 Zenodo record: https://zenodo.org/records/19965913
+
 1.1 Release Boundary
-OC Core 1.3.3 is a bounded external-review scientific release. It contains a typed model foundation, theo-
-rem/proof evidence, a Lean-checked subset, finite-model semantics, target-blind numeric reconstruction rows,
+OC Core 1.3.3 is a bounded external-review scientific release. It contains a typed model foundation, theorem/proof evidence, a Lean-checked subset, finite-model semantics, target-blind numeric reconstruction rows,
 comparator positioning, adversarial-review closure, and journal owner-review packets.
 The release does not claim final completion of every future scientific projection. It does not submit journal
 packages. It does not claim universal superiority over all modern science. Those broader ambitions remain in
 the background research program and require additional evidence before public promotion.
 The public GitHub and Zenodo publication is owner-approved for this release phase. Journal submissions, email
 campaigns, and Software Heritage actions require separate approval.
+
 1.2 Lean Formalization Subset
 The Lean subset is a machine-checked subset of the OC 1.3.3 theorem surface. The release does not claim that
 every mathematical or empirical statement is fully formalized in Lean. - certificate state: - theorem ref
@@ -199,7 +364,8 @@ inductive Component where
 | residue
 | morphisms
 4
-| boundaries
+
+| boundaries
 | operators
 | cycles
 | dimension
@@ -245,8 +411,10 @@ theorem k0_resolution_does_not_force_raw_separation {S : Type}
 sameCell rho a b -> raw.separated a b = true -> distinguished rho a b = False := by
 intro hs _
 exact k0_same_cell_not_distinguished rho a b hs
+
 5
-inductive K0CounterPoint where
+
+inductive K0CounterPoint where
 | a
 | b
 deriving DecidableEq, Repr
@@ -254,11 +422,12 @@ def k0CounterResolution : Resolution K0CounterPoint :=
 { cell := fun _ => 0 }
 def k0CounterRawSeparation : RawSeparation K0CounterPoint :=
 { separated := fun x y => decide (x != y) }
+
 theorem k0_countermodel_raw_separation_not_resolution_distinction :
 sameCell k0CounterResolution K0CounterPoint.a K0CounterPoint.b /\
 k0CounterRawSeparation.separated K0CounterPoint.a K0CounterPoint.b = true /\
 distinguished k0CounterResolution K0CounterPoint.a K0CounterPoint.b = False := by
-exact And.intro rfl (And.intro (by decide) (k0_same_cell_not_distinguished k0CounterResolution K0CounterPoint.a K0CounterPoint.b rfl))
+exact And.intro rfl (And.intro (by decide) (k0_same_cell_not_distinguished k0CounterResolution K0Counter
 structure MaintenanceEvidence where
 obligationChecked : Bool
 supportAvailable : Bool
@@ -288,8 +457,10 @@ exact h.right.right
 theorem eligible_live_requires_cycle_or_maintenance (R : Realization) (x : R.Carrier) :
 eligibleLive R x -> cycleWitnessed R x \/ maintenanceWitnessed R x := by
 intro h
+
 6
-exact h.right.right
+
+exact h.right.right
 theorem eligible_live_requires_admissible (R : Realization) (x : R.Carrier) :
 eligibleLive R x -> R.admissible x = true := by
 intro h
@@ -307,7 +478,7 @@ cases hc
 | some c =>
 simp
 | inr hmnt =>
-rcases hmnt with ￿m, hsome, _￿
+rcases hmnt with �m, hsome, _�
 rw [hm] at hsome
 cases hsome
 structure Lifecycle (S Residue NewLive : Type) where
@@ -338,8 +509,10 @@ rw [hlive] at hblocked
 cases hblocked
 theorem residue_rebirth_are_typed_source_target_relations {S Residue NewLive : Type}
 (L : Lifecycle S Residue NewLive) (x : S) (r : Residue) (y : NewLive) :
+
 7
-L.residueOf x = some r -> L.rebirthOf r = some y -> L.death x = true ->
+
+L.residueOf x = some r -> L.rebirthOf r = some y -> L.death x = true ->
 L.live x = false /\ L.residueOf x = some r /\ L.rebirthOf r = some y := by
 intro hres hreb hdeath
 exact And.intro (declared_death_blocks_live L x hdeath) (And.intro hres hreb)
@@ -362,10 +535,10 @@ m.mclass = MorphismClass.identity /\
 m.invariantPreserved = true /\
 m.residueToken = none /\
 m.sourceToken = m.targetToken
+
 1.3 Executable Finite-Model Evidence
 The finite-model runner computes semantic verdicts from model facts and mutation controls. The public
-summary below omits internal publication-control rows and preserves the semantic proof evidence. - verdict: -
-failure total: 0 - semantic evaluator: True - mutation control total: 6 - K-transition negative total:
+summary below omits internal publication-control rows and preserves the semantic proof evidence. - verdict: failure total: 0 - semantic evaluator: True - mutation control total: 6 - K-transition negative total:
 12
 1.3.1 FM-T133-K0-RES-POS
 • case type: theorem_case
@@ -379,20 +552,22 @@ failure total: 0 - semantic evaluator: True - mutation control total: 6 - K-tran
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.3 FM-T133-OMEGA-ST A TUS-POS
+1.3.3 FM-T133-OMEGA-STATUS-POS
 • case type: theorem_case
 • observed verdict: ACCEPT
 • expected verdict: ACCEPT
+
 8
-• failure total:
+
+• failure total:
 • witness:
-1.3.4 FM-T133-OMEGA-ST A TUS-NEG
+1.3.4 FM-T133-OMEGA-STATUS-NEG
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.5 FM-T133-OMEGA-IDENTITY-EQUIVOCA TION-NEG
+1.3.5 FM-T133-OMEGA-IDENTITY-EQUIVOCATION-NEG
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
@@ -416,20 +591,21 @@ failure total: 0 - semantic evaluator: True - mutation control total: 6 - K-tran
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.9 FM-T133-K-ZERO-LIVE-SUPPOR T-NEG
+1.3.9 FM-T133-K-ZERO-LIVE-SUPPORT-NEG
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.10 FM-T133-BOUNDAR Y-POS
+1.3.10 FM-T133-BOUNDARY-POS
 • case type: theorem_case
 • observed verdict: ACCEPT
 • expected verdict: ACCEPT
 • failure total:
 • witness:
 9
-1.3.11 FM-T133-BOUNDAR Y-NEG
+
+1.3.11 FM-T133-BOUNDARY-NEG
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
@@ -471,8 +647,10 @@ failure total: 0 - semantic evaluator: True - mutation control total: 6 - K-tran
 • expected verdict: REJECT
 • failure total:
 • witness:
+
 10
-1.3.18 FM-T133-HYBRID-GUARD-V ALUE-MISMA TCH-NEG
+
+1.3.18 FM-T133-HYBRID-GUARD-VALUE-MISMATCH-NEG
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
@@ -484,38 +662,40 @@ failure total: 0 - semantic evaluator: True - mutation control total: 6 - K-tran
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.20 FM-T133-HYBRID-RESET-T ARGET-MODE-NEG
+1.3.20 FM-T133-HYBRID-RESET-TARGET-MODE-NEG
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.21 FM-T133-HYBRID-SMOOTH-CHAR T-POS
+1.3.21 FM-T133-HYBRID-SMOOTH-CHART-POS
 • case type: theorem_case
 • observed verdict: ACCEPT
 • expected verdict: ACCEPT
 • failure total:
 • witness:
-1.3.22 FM-T133-HYBRID-SMOOTH-CHAR T-NEG
+1.3.22 FM-T133-HYBRID-SMOOTH-CHART-NEG
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.23 FM-T133-HYBRID-PROOF-UPDA TE-POS
+1.3.23 FM-T133-HYBRID-PROOF-UPDATE-POS
 • case type: theorem_case
 • observed verdict: ACCEPT
 • expected verdict: ACCEPT
 • failure total:
 • witness:
-1.3.24 FM-T133-HYBRID-PROOF-UPDA TE-NEG
+1.3.24 FM-T133-HYBRID-PROOF-UPDATE-NEG
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
+
 11
-1.3.25 FM-T133-HYBRID-SMOOTH-LOCAL-LA W-NEG
+
+1.3.25 FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
@@ -551,14 +731,16 @@ failure total: 0 - semantic evaluator: True - mutation control total: 6 - K-tran
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.31 FM-T133-ID-REBIR TH-NONIDENTITY-POS
+1.3.31 FM-T133-ID-REBIRTH-NONIDENTITY-POS
 • case type: theorem_case
 • observed verdict: ACCEPT
 • expected verdict: ACCEPT
 • failure total:
 • witness:
+
 12
-1.3.32 FM-T133-ID-NEG
+
+1.3.32 FM-T133-ID-NEG
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
@@ -600,100 +782,106 @@ failure total: 0 - semantic evaluator: True - mutation control total: 6 - K-tran
 • expected verdict: ACCEPT
 • failure total:
 • witness:
+
 13
-1.3.39 FM-T133-KLEVEL-NEG
+
+1.3.39 FM-T133-KLEVEL-NEG
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.40 FM-T133-ID-TT-IDENTITY-INV-F ALSE-END-F ALSE-RES-F ALSE-CLAIM-F ALSE
+1.3.40 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.41 FM-T133-ID-TT-IDENTITY-INV-F ALSE-END-F ALSE-RES-F ALSE-CLAIM-TRUE
+1.3.41 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.42 FM-T133-ID-TT-IDENTITY-INV-F ALSE-END-F ALSE-RES-TRUE-CLAIM-F ALSE
+1.3.42 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.43 FM-T133-ID-TT-IDENTITY-INV-F ALSE-END-F ALSE-RES-TRUE-CLAIM-TRUE
+1.3.43 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.44 FM-T133-ID-TT-IDENTITY-INV-F ALSE-END-TRUE-RES-F ALSE-CLAIM-F ALSE
+1.3.44 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: ACCEPT
 • expected verdict: ACCEPT
 • failure total:
 • witness:
-1.3.45 FM-T133-ID-TT-IDENTITY-INV-F ALSE-END-TRUE-RES-F ALSE-CLAIM-TRUE
+1.3.45 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
+
 14
-1.3.46 FM-T133-ID-TT-IDENTITY-INV-F ALSE-END-TRUE-RES-TRUE-CLAIM-F ALSE
+
+1.3.46 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.47 FM-T133-ID-TT-IDENTITY-INV-F ALSE-END-TRUE-RES-TRUE-CLAIM-TRUE
+1.3.47 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.48 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-F ALSE-RES-F ALSE-CLAIM-F ALSE
+1.3.48 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.49 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-F ALSE-RES-F ALSE-CLAIM-TRUE
+1.3.49 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.50 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-F ALSE-RES-TRUE-CLAIM-F ALSE
+1.3.50 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.51 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-F ALSE-RES-TRUE-CLAIM-TRUE
+1.3.51 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.52 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-F ALSE-CLAIM-F ALSE
+1.3.52 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
+
 15
-1.3.53 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-F ALSE-CLAIM-TRUE
+
+1.3.53 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: ACCEPT
 • expected verdict: ACCEPT
 • failure total:
 • witness:
-1.3.54 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-F ALSE
+1.3.54 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
@@ -705,93 +893,97 @@ failure total: 0 - semantic evaluator: True - mutation control total: 6 - K-tran
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.56 FM-T133-ID-TT-RESIDUE-INV-F ALSE-END-F ALSE-RES-F ALSE-CLAIM-F ALSE
+1.3.56 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.57 FM-T133-ID-TT-RESIDUE-INV-F ALSE-END-F ALSE-RES-F ALSE-CLAIM-TRUE
+1.3.57 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.58 FM-T133-ID-TT-RESIDUE-INV-F ALSE-END-F ALSE-RES-TRUE-CLAIM-F ALSE
+1.3.58 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.59 FM-T133-ID-TT-RESIDUE-INV-F ALSE-END-F ALSE-RES-TRUE-CLAIM-TRUE
+1.3.59 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
+
 16
-1.3.60 FM-T133-ID-TT-RESIDUE-INV-F ALSE-END-TRUE-RES-F ALSE-CLAIM-F ALSE
+
+1.3.60 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.61 FM-T133-ID-TT-RESIDUE-INV-F ALSE-END-TRUE-RES-F ALSE-CLAIM-TRUE
+1.3.61 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.62 FM-T133-ID-TT-RESIDUE-INV-F ALSE-END-TRUE-RES-TRUE-CLAIM-F ALSE
+1.3.62 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: ACCEPT
 • expected verdict: ACCEPT
 • failure total:
 • witness:
-1.3.63 FM-T133-ID-TT-RESIDUE-INV-F ALSE-END-TRUE-RES-TRUE-CLAIM-TRUE
+1.3.63 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.64 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-F ALSE-RES-F ALSE-CLAIM-F ALSE
+1.3.64 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.65 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-F ALSE-RES-F ALSE-CLAIM-TRUE
+1.3.65 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.66 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-F ALSE-RES-TRUE-CLAIM-F ALSE
+1.3.66 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
+
 17
-1.3.67 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-F ALSE-RES-TRUE-CLAIM-TRUE
+
+1.3.67 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.68 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-F ALSE-CLAIM-F ALSE
+1.3.68 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.69 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-F ALSE-CLAIM-TRUE
+1.3.69 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.70 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-F ALSE
+1.3.70 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: ACCEPT
 • expected verdict: ACCEPT
@@ -803,106 +995,112 @@ failure total: 0 - semantic evaluator: True - mutation control total: 6 - K-tran
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.72 FM-T133-ID-TT-REBIR TH-INV-F ALSE-END-F ALSE-RES-F ALSE-CLAIM-F ALSE
+1.3.72 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.73 FM-T133-ID-TT-REBIR TH-INV-F ALSE-END-F ALSE-RES-F ALSE-CLAIM-TRUE
+1.3.73 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
+
 18
-1.3.74 FM-T133-ID-TT-REBIR TH-INV-F ALSE-END-F ALSE-RES-TRUE-CLAIM-F ALSE
+
+1.3.74 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: ACCEPT
 • expected verdict: ACCEPT
 • failure total:
 • witness:
-1.3.75 FM-T133-ID-TT-REBIR TH-INV-F ALSE-END-F ALSE-RES-TRUE-CLAIM-TRUE
+1.3.75 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.76 FM-T133-ID-TT-REBIR TH-INV-F ALSE-END-TRUE-RES-F ALSE-CLAIM-F ALSE
+1.3.76 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.77 FM-T133-ID-TT-REBIR TH-INV-F ALSE-END-TRUE-RES-F ALSE-CLAIM-TRUE
+1.3.77 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.78 FM-T133-ID-TT-REBIR TH-INV-F ALSE-END-TRUE-RES-TRUE-CLAIM-F ALSE
+1.3.78 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.79 FM-T133-ID-TT-REBIR TH-INV-F ALSE-END-TRUE-RES-TRUE-CLAIM-TRUE
+1.3.79 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.80 FM-T133-ID-TT-REBIR TH-INV-TRUE-END-F ALSE-RES-F ALSE-CLAIM-F ALSE
+1.3.80 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
+
 19
-1.3.81 FM-T133-ID-TT-REBIR TH-INV-TRUE-END-F ALSE-RES-F ALSE-CLAIM-TRUE
+
+1.3.81 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.82 FM-T133-ID-TT-REBIR TH-INV-TRUE-END-F ALSE-RES-TRUE-CLAIM-F ALSE
+1.3.82 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: ACCEPT
 • expected verdict: ACCEPT
 • failure total:
 • witness:
-1.3.83 FM-T133-ID-TT-REBIR TH-INV-TRUE-END-F ALSE-RES-TRUE-CLAIM-TRUE
+1.3.83 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.84 FM-T133-ID-TT-REBIR TH-INV-TRUE-END-TRUE-RES-F ALSE-CLAIM-F ALSE
+1.3.84 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.85 FM-T133-ID-TT-REBIR TH-INV-TRUE-END-TRUE-RES-F ALSE-CLAIM-TRUE
+1.3.85 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.86 FM-T133-ID-TT-REBIR TH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-F ALSE
+1.3.86 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.87 FM-T133-ID-TT-REBIR TH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE
+1.3.87 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE
 • case type: theorem_case
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
+
 20
-1.3.88 FM-MIN-carrier
+
+1.3.88 FM-MIN-carrier
 • case type: component_keep_drop_witness
 • observed verdict:
 • expected verdict:
@@ -944,8 +1142,10 @@ failure total: 0 - semantic evaluator: True - mutation control total: 6 - K-tran
 • expected verdict:
 • failure total:
 • witness:
+
 21
-1.3.95 FM-MIN-operators
+
+1.3.95 FM-MIN-operators
 • case type: component_keep_drop_witness
 • observed verdict:
 • expected verdict:
@@ -987,8 +1187,10 @@ failure total: 0 - semantic evaluator: True - mutation control total: 6 - K-tran
 • expected verdict:
 • failure total:
 • witness:
+
 22
-1.3.102 FM-KLEVEL-K1_to_K2-NEG
+
+1.3.102 FM-KLEVEL-K1_to_K2-NEG
 • case type: adjacent_k_transition_witness
 • observed verdict:
 • expected verdict:
@@ -1030,8 +1232,10 @@ failure total: 0 - semantic evaluator: True - mutation control total: 6 - K-tran
 • expected verdict:
 • failure total:
 • witness:
+
 23
-1.3.109 FM-KLEVEL-K5_to_K6
+
+1.3.109 FM-KLEVEL-K5_to_K6
 • case type: adjacent_k_transition_witness
 • observed verdict:
 • expected verdict:
@@ -1073,8 +1277,10 @@ failure total: 0 - semantic evaluator: True - mutation control total: 6 - K-tran
 • expected verdict:
 • failure total:
 • witness:
+
 24
-1.3.116 FM-KLEVEL-K8_to_K9-NEG
+
+1.3.116 FM-KLEVEL-K8_to_K9-NEG
 • case type: adjacent_k_transition_witness
 • observed verdict:
 • expected verdict:
@@ -1116,51 +1322,56 @@ failure total: 0 - semantic evaluator: True - mutation control total: 6 - K-tran
 • expected verdict:
 • failure total:
 • witness:
+
 25
-1.3.123 MUT A TION-LABEL-ONL Y-MIN
+
+1.3.123 MUTATION-LABEL-ONLY-MIN
 • case type: mutation_control
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.124 MUT A TION-FLAG-ORACLE-BOUNDAR Y
+1.3.124 MUTATION-FLAG-ORACLE-BOUNDARY
 • case type: mutation_control
 • observed verdict: REJECT_FLAG_ORACLE_INPUT
 • expected verdict: REJECT_FLAG_ORACLE_INPUT
 • failure total:
 • witness:
-1.3.125 MUT A TION-WRONG-WITNESS-KLEVEL
+1.3.125 MUTATION-WRONG-WITNESS-KLEVEL
 • case type: mutation_control
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.126 MUT A TION-WRONG-KLEVEL-TEXT
+1.3.126 MUTATION-WRONG-KLEVEL-TEXT
 • case type: mutation_control
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.127 MUT A TION-DUPLICA TED-KLEVEL
+1.3.127 MUTATION-DUPLICATED-KLEVEL
 • case type: mutation_control
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
-1.3.128 MUT A TION-MISSING-KLEVEL-CRITERION
+1.3.128 MUTATION-MISSING-KLEVEL-CRITERION
 • case type: mutation_control
 • observed verdict: REJECT
 • expected verdict: REJECT
 • failure total:
 • witness:
+
 1.4 Target-Blind Numeric Evidence
 The empirical section reports bounded target-blind reconstruction rows over pinned oﬀicial snapshots. These
 rows support model-core external review; they do not claim complete domain validation. - lane total: 5
 - failure total: 0 - support policy: Rows are target-blind held-out reconstructions over pinned oﬀicial
 snapshots. They support bounded numeric reconstruction claims only, not broad domain validation or novelty.
 - domain validation policy: NO_EMPIRICAL_PASS_FROM_OFFICIAL_SNAPSHOT_REPLAY_QA
+
 26
-1.4.1 Physics - OC133-T ARGETBLIND-PHYSICS-001
+
+1.4.1 Physics - OC133-TARGETBLIND-PHYSICS-001
 • snapshot: validation/_raw/physics_nist_constants.txt
 • target-blind split: Planck constant and speed of light rows are visible; inverse-meter joule relationship
 row is withheld until scoring
@@ -1177,7 +1388,7 @@ row is withheld until scoring
 • replay hash: a83ea273ef65d6136ad7c0dfe2f7d870822fe15a062a47ae906a7d46705a0cf1
 • support scope: target-blind reconstruction of a held-out CODATA relationship from exact defining
 constants; not a novel physics law
-1.4.2 Chemistry - OC133-T ARGETBLIND-CHEMISTR Y-001
+1.4.2 Chemistry - OC133-TARGETBLIND-CHEMISTRY-001
 • snapshot: validation/_raw/chemistry_pubchem_water.txt
 • target-blind split: formula field is visible; MolecularWeight target is withheld until scoring
 • formula: 2*atomic_weight(H)+atomic_weight(O)
@@ -1193,7 +1404,7 @@ constants; not a novel physics law
 • replay hash: c115a6d84fdad856976f60ad6d2fb4c9f9c397f994c7eafb09526f944004469d
 • support scope: target-blind reconstruction of a held-out oﬀicial snapshot field; not a novel chemistry
 law
-1.4.3 Biology - OC133-T ARGETBLIND-BIOLOGY-001
+1.4.3 Biology - OC133-TARGETBLIND-BIOLOGY-001
 • snapshot: validation/_raw/biology_ncbi_geo_platform.txt
 • target-blind split: NCBI ESearch retstart/idlist fields are visible; retmax pagination target is withheld
 until scoring
@@ -1210,8 +1421,10 @@ until scoring
 • replay hash: 6606a563b35116d6852bc936618757a29873c52e59541a0928546bc863cd4ecb
 • support scope: target-blind reconstruction of a held-out NCBI/GEO API snapshot field; not a biological
 mechanism law
+
 27
-1.4.4 Systems - OC133-T ARGETBLIND-SYSTEMS-001
+
+1.4.4 Systems - OC133-TARGETBLIND-SYSTEMS-001
 • snapshot: validation/_raw/systems_world_bank_gdp.txt
 • target-blind split: 2021-2023 train rows predict withheld 2024 World Bank WDI target
 • formula: GDP_2023 + (GDP_2023-GDP_2021)/2
@@ -1225,9 +1438,8 @@ mechanism law
 • falsifier: Held-out residual exceeds 1 percent of observed target or comparator is not worse
 • snapshot hash: 52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b
 • replay hash: 778ffef9592179e6062fad4b770d02612408603c70455f734c423475ff704be4
-• support scope: retrospective target-blind holdout over pinned WDI rows; not a prospective macroeco-
-nomic law
-1.4.5 Mathematics - OC133-T ARGETBLIND-MA THEMA TICS-001
+• support scope: retrospective target-blind holdout over pinned WDI rows; not a prospective macroeconomic law
+1.4.5 Mathematics - OC133-TARGETBLIND-MATHEMATICS-001
 • snapshot: proofs/FINITE_MODEL_CHECKS_1_3_3.json
 • target-blind split: finite theorem-case rows are visible; aggregate machine_checked_subset_total is
 withheld until scoring
@@ -1243,62 +1455,66 @@ too
 • negative control: replace theorem-id aggregate by positive_case_total and require a larger residual
 • falsifier: Unique accepted theorem-case count differs from machine_checked_subset_total or broad
 positive-case control is not worse
-• snapshot hash: 05348c273fb2c4c867b9050c097b314875b47d1ccc00133ae49c5b0dd1cccc77
-• replay hash: 8b05d3796f0802a76c9a462456532c8fadbb357b5c5704f0c9098ed2b7aaf144
+• snapshot hash: 46ac711a2e86375ed333ce5c8a8b1b810f1f5b052fa657fb1508dbe7831b2f49
+• replay hash: 050e21ffb0f2a5b73ea7faab51da781bbe66adc6bc6376941bb0a0e4eda293f2
 • support scope: target-blind reconstruction of a finite proof-corpus aggregate; not a full-science program
 truth proof or empirical law
 1.4.6 Replay Audit - Biology
-• verdict: NUMERIC_REPLAY_QA_NOT_DOMAIN_V ALIDATION
+• verdict: NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION
 • failure total: 0
 • source log: validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json
 • row: OC133-NUM-BIO-GEO-COUNT
-• snapshot opened:
-• computed residual:
-• negative control rejected:
+• snapshot opened: True
+• computed residual: 0.0
+• negative control rejected: True
 1.4.7 Replay Audit - Chemistry
-• verdict: NUMERIC_REPLAY_QA_NOT_DOMAIN_V ALIDATION
+• verdict: NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION
+
 28
-• failure total: 0
+
+• failure total: 0
 • source log: validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json
 • row: OC133-NUM-CHEM-WEBBOOK-H2O
-• snapshot opened:
-• computed residual:
-• negative control rejected:
+• snapshot opened: True
+• computed residual: 0.0
+• negative control rejected: True
 • row: OC133-NUM-CHEM-H2O
-• snapshot opened:
-• computed residual:
-• negative control rejected:
+• snapshot opened: True
+• computed residual: 0.0
+• negative control rejected: True
 1.4.8 Replay Audit - Mathematics
-• verdict: NUMERIC_REPLAY_QA_NOT_DOMAIN_V ALIDATION
+• verdict: NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION
 • failure total: 0
 • source log: validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json
 • row: OC133-NUM-MATH-FINITE
-• snapshot opened:
-• computed residual:
-• negative control rejected:
+• snapshot opened: True
+• computed residual: 0.0
+• negative control rejected: True
 1.4.9 Replay Audit - Physics
-• verdict: NUMERIC_REPLAY_QA_NOT_DOMAIN_V ALIDATION
+• verdict: NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION
 • failure total: 0
 • source log: validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json
 • row: OC133-NUM-PHYS-C
-• snapshot opened:
-• computed residual:
-• negative control rejected:
+• snapshot opened: True
+• computed residual: 0.0
+• negative control rejected: True
 1.4.10 Replay Audit - Systems
-• verdict: NUMERIC_REPLAY_QA_NOT_DOMAIN_V ALIDATION
+• verdict: NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION
 • failure total: 0
 • source log: validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json
 • row: OC133-NUM-SYS-WDI-GDP
-• snapshot opened:
-• computed residual:
-• negative control rejected:
+• snapshot opened: True
+• computed residual: 0.0
+• negative control rejected: True
+
 29
-1.5 Journal Owner-Review Packages
+
+1.5 Journal Owner-Review Packages
 Eight venue packets are included for owner review. They are not submitted by this release action. Each
 packet contains a package manifest, cover letter draft, checklist, reproducibility/data statement, conflict/funding
 statement, AI assistance disclosure, and venue-fit note. - package total: 8 - recommended package total:
 2
-1.5.1 FOUNDA TIONS_OF_SCIENCE
+1.5.1 FOUNDATIONS_OF_SCIENCE
 • package status: OWNER_REVIEW_READY_FOR_OWNER_REVIEW
 • submission allowed: False
 • journal submissions allowed: False
@@ -1308,7 +1524,7 @@ statement, AI assistance disclosure, and venue-fit note. - package total: 8 - re
 • submission allowed: False
 • journal submissions allowed: False
 • recommended:
-1.5.3 FOUNDA TIONS_OF_PHYSICS
+1.5.3 FOUNDATIONS_OF_PHYSICS
 • package status: OWNER_REVIEW_READY_FOR_OWNER_REVIEW
 • submission allowed: False
 • journal submissions allowed: False
@@ -1323,20 +1539,25 @@ statement, AI assistance disclosure, and venue-fit note. - package total: 8 - re
 • submission allowed: False
 • journal submissions allowed: False
 • recommended:
-1.5.6 ACT A_BIOTHEORETICA
+1.5.6 ACTA_BIOTHEORETICA
 • package status: OWNER_REVIEW_READY_FOR_OWNER_REVIEW
 • submission allowed: False
 • journal submissions allowed: False
 • recommended:
-1.5.7 PLOS_COMPUT A TIONAL_BIOLOGY
+1.5.7 PLOS_COMPUTATIONAL_BIOLOGY
 • package status: OWNER_REVIEW_READY_FOR_OWNER_REVIEW
 • submission allowed: False
 • journal submissions allowed: False
 • recommended:
+
 30
-1.5.8 GLOBAL_JOURNAL_OF_FLEXIBLE_SYSTEMS_MANAGEMENT
+
+1.5.8 GLOBAL_JOURNAL_OF_FLEXIBLE_SYSTEMS_MANAGEMENT
 • package status: OWNER_REVIEW_READY_FOR_OWNER_REVIEW
 • submission allowed: False
 • journal submissions allowed: False
 • recommended:
+
 31
+
+

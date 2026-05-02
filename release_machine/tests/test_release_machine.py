@@ -264,32 +264,32 @@ class ReleaseMachineTests(unittest.TestCase):
         gate = public_release._public_file_set_gate(complete.repo_root(), profile, records)
         self.assertFalse(gate["ok"])
         self.assertFalse(gate["checks"]["metadata_not_first"])
-        self.assertFalse(gate["checks"]["first_file_public_pdf"])
+        self.assertFalse(gate["checks"]["no_text_metadata_preview_files"])
+        self.assertFalse(gate["checks"]["first_file_not_text_metadata"])
 
-    def test_oc133_public_file_set_gate_requires_public_pdf_first(self) -> None:
+    def test_oc133_public_file_set_gate_accepts_curated_zenodo_surface(self) -> None:
         profile = public_release.load_profile(complete.repo_root(), "oc_core_1_3_3")
         records = [
             {
-                "filename": "00_OC_CORE_1_3_3_RELEASE_GUIDE_EN.pdf",
-                "size_bytes": 100_000,
-            },
-            *[
-                {
-                    "filename": Path(asset.path).name,
-                    "size_bytes": 100_000 if asset.path.lower().endswith(".pdf") else 10_000,
-                }
-                for asset in profile.assets
-            ],
+                "filename": Path(asset.path).name,
+                "size_bytes": 100_000 if asset.path.lower().endswith(".pdf") else 2_000_000,
+            }
+            for asset in public_release._zenodo_assets(profile)
         ]
         gate = public_release._public_file_set_gate(complete.repo_root(), profile, records)
         self.assertTrue(gate["checks"]["metadata_not_first"])
-        self.assertTrue(gate["checks"]["first_file_public_pdf"])
+        self.assertTrue(gate["checks"]["no_text_metadata_preview_files"])
+        self.assertTrue(gate["checks"]["first_file_not_text_metadata"])
 
     def test_oc133_public_release_profile_uses_public_payload_asset(self) -> None:
         profile = public_release.load_profile(complete.repo_root(), "oc_core_1_3_3")
         asset_paths = [asset.path for asset in profile.assets]
+        zenodo_asset_paths = [asset.path for asset in public_release._zenodo_assets(profile)]
         self.assertIn("releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_public_release.zip", asset_paths)
+        self.assertIn("releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_public_release.zip", zenodo_asset_paths)
         self.assertNotIn("releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_no_send_release.zip", asset_paths)
+        self.assertNotIn("manifest.json", [Path(path).name for path in zenodo_asset_paths])
+        self.assertNotIn("RELEASE_NOTES.md", [Path(path).name for path in zenodo_asset_paths])
 
     def test_oc133_science_monolith_corpus_ledger_has_required_science_refs(self) -> None:
         root = complete.repo_root()

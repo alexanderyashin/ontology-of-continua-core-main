@@ -79,6 +79,7 @@ class ReleaseProfile:
     github_topics: list[str]
     hashtags: list[str]
     assets: list[ReleaseAsset]
+    zenodo_assets: list[ReleaseAsset] | None = None
     journal_submissions_allowed: bool = False
     software_heritage_allowed: bool = False
 
@@ -245,16 +246,21 @@ def _default_oc133_profile() -> ReleaseProfile:
 
 def _profile_from_json(payload: dict[str, Any]) -> ReleaseProfile:
     payload = {key: value for key, value in payload.items() if key != "schema_id"}
-    assets = [
-        ReleaseAsset(
-            path=str(item["path"]),
-            label=str(item.get("label", Path(str(item["path"])).name)),
-            description=str(item.get("description", "")),
-        )
-        for item in payload.get("assets", [])
-    ]
+    def parse_assets(items: list[dict[str, Any]] | None) -> list[ReleaseAsset] | None:
+        if items is None:
+            return None
+        return [
+            ReleaseAsset(
+                path=str(item["path"]),
+                label=str(item.get("label", Path(str(item["path"])).name)),
+                description=str(item.get("description", "")),
+            )
+            for item in items
+        ]
+
     payload = dict(payload)
-    payload["assets"] = assets
+    payload["assets"] = parse_assets(payload.get("assets", [])) or []
+    payload["zenodo_assets"] = parse_assets(payload.get("zenodo_assets"))
     return ReleaseProfile(**payload)
 
 
@@ -312,8 +318,20 @@ def _git_tag_exists(root: Path, tag: str) -> dict[str, Any]:
 
 
 def _asset_records(root: Path, profile: ReleaseProfile) -> list[dict[str, Any]]:
+    return _asset_records_for(root, profile.assets)
+
+
+def _zenodo_assets(profile: ReleaseProfile) -> list[ReleaseAsset]:
+    return profile.zenodo_assets if profile.zenodo_assets is not None else profile.assets
+
+
+def _zenodo_asset_records(root: Path, profile: ReleaseProfile) -> list[dict[str, Any]]:
+    return _asset_records_for(root, _zenodo_assets(profile))
+
+
+def _asset_records_for(root: Path, assets: list[ReleaseAsset]) -> list[dict[str, Any]]:
     records = []
-    for asset in profile.assets:
+    for asset in assets:
         path = root / asset.path
         records.append(
             {
@@ -804,9 +822,10 @@ def _zenodo_metadata_suitability(
 
 
 def _public_file_set_gate(root: Path, profile: ReleaseProfile, records: list[dict[str, Any]] | None = None) -> dict[str, Any]:
-    rows = records or _asset_records(root, profile)
+    expected_assets = _zenodo_assets(profile)
+    rows = records or _asset_records_for(root, expected_assets)
     names = [str(row.get("filename") or Path(str(row.get("path", ""))).name) for row in rows]
-    expected = {Path(asset.path).name for asset in profile.assets}
+    expected = {Path(asset.path).name for asset in expected_assets}
     present = {name for name in names if name}
     missing = sorted(expected - present)
     pdf_rows = [row for row in rows if str(row.get("filename", "")).lower().endswith(".pdf")]
@@ -817,7 +836,13 @@ def _public_file_set_gate(root: Path, profile: ReleaseProfile, records: list[dic
     ]
     first_name = names[0] if names else ""
     metadata_first = bool(first_name.startswith(".") or first_name.lower() in {"manifest.json", "checksums.txt", "citation.cff"})
-    first_file_public_pdf = first_name.lower().endswith(".pdf") and not metadata_first
+    text_metadata_suffixes = {".json", ".jsonld", ".md", ".txt", ".cff", ".yaml", ".yml"}
+    text_metadata_files = [
+        name
+        for name in names
+        if Path(name).suffix.lower() in text_metadata_suffixes or name.startswith(".")
+    ]
+    first_file_text_metadata = bool(first_name and (Path(first_name).suffix.lower() in text_metadata_suffixes or first_name.startswith(".")))
     public_zip_total = sum(1 for name in names if name == "oc_core_1_3_3_public_release.zip")
     no_send_names = [name for name in names if "no_send" in name.lower() or "nosend" in name.lower()]
     checks = {
@@ -826,7 +851,8 @@ def _public_file_set_gate(root: Path, profile: ReleaseProfile, records: list[dic
         "pdf_total_ok": len(pdf_rows) >= 4,
         "pdfs_not_tiny": not tiny_pdfs,
         "metadata_not_first": not metadata_first,
-        "first_file_public_pdf": first_file_public_pdf,
+        "no_text_metadata_preview_files": not text_metadata_files,
+        "first_file_not_text_metadata": not first_file_text_metadata,
         "no_no_send_assets": not no_send_names,
     }
     return {
@@ -835,6 +861,7 @@ def _public_file_set_gate(root: Path, profile: ReleaseProfile, records: list[dic
         "first_file": first_name,
         "missing_files": missing,
         "tiny_pdfs": tiny_pdfs,
+        "text_metadata_files": text_metadata_files,
         "no_send_asset_names": no_send_names,
         "checks": checks,
         "ok": all(checks.values()),
@@ -888,7 +915,7 @@ def build_public_metadata(
         expected_doi=zenodo_doi,
         expected_record_url=zenodo_record_url,
     )
-    file_gate = _public_file_set_gate(root, profile, assets)
+    file_gate = _public_file_set_gate(root, profile, _zenodo_asset_records(root, profile))
     metadata = {
         "schema_id": "LOGION_PUBLIC_RELEASE_PRESENTATION_v1",
         "release_id": profile.release_id,
@@ -1321,7 +1348,7 @@ def _zenodo_publish(root: Path, profile: ReleaseProfile, metadata: dict[str, Any
     bucket = draft["links"]["bucket"]
     _zenodo_json("PUT", f"/{draft_id}", token, {"metadata": metadata["zenodo_metadata"]})
     uploaded = []
-    for asset in profile.assets:
+    for asset in _zenodo_assets(profile):
         result = _zenodo_upload_file(bucket, token, root / asset.path)
         uploaded.append({"filename": (root / asset.path).name, "result": result})
     published = _zenodo_json("POST", f"/{draft_id}/actions/publish", token)
@@ -1387,7 +1414,7 @@ def _zenodo_publish_prepared_draft(root: Path, profile: ReleaseProfile, metadata
         raise RuntimeError("Zenodo draft bucket URL is missing.")
     _zenodo_json("PUT", f"/{draft_id}", token, {"metadata": metadata["zenodo_metadata"]})
     uploaded = []
-    for asset in profile.assets:
+    for asset in _zenodo_assets(profile):
         result = _zenodo_upload_file(bucket, token, root / asset.path)
         uploaded.append({"filename": (root / asset.path).name, "result": result})
     published = _zenodo_json("POST", f"/{draft_id}/actions/publish", token)
@@ -2055,7 +2082,7 @@ def _zenodo_verify(profile: ReleaseProfile, record_id: str) -> dict[str, Any]:
     record = _zenodo_record(record_id)
     files = record.get("files", [])
     names = {item.get("key") for item in files}
-    expected = {Path(asset.path).name for asset in profile.assets}
+    expected = {Path(asset.path).name for asset in _zenodo_assets(profile)}
     missing = sorted(expected - names)
     unexpected = sorted(names - expected)
     doi = record.get("doi")

@@ -9,8 +9,8 @@ date: 2026-05-01
 
 Version: 1.3.3
 Tag: v1.3.3
-DOI: 10.5281/zenodo.19957779
-Zenodo record: https://zenodo.org/records/19957779
+DOI: 10.5281/zenodo.19965913
+Zenodo record: https://zenodo.org/records/19965913
 
 
 ## Release Boundary
@@ -362,8 +362,8 @@ The empirical section reports bounded target-blind reconstruction rows over pinn
 - **comparator residual:** 11.0
 - **negative control:** replace theorem-id aggregate by positive_case_total and require a larger residual
 - **falsifier:** Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse
-- **snapshot hash:** 05348c273fb2c4c867b9050c097b314875b47d1ccc00133ae49c5b0dd1cccc77
-- **replay hash:** 8b05d3796f0802a76c9a462456532c8fadbb357b5c5704f0c9098ed2b7aaf144
+- **snapshot hash:** 46ac711a2e86375ed333ce5c8a8b1b810f1f5b052fa657fb1508dbe7831b2f49
+- **replay hash:** 050e21ffb0f2a5b73ea7faab51da781bbe66adc6bc6376941bb0a0e4eda293f2
 - **support scope:** target-blind reconstruction of a finite proof-corpus aggregate; not a full-science program truth proof or empirical law
 
 

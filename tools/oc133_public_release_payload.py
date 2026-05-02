@@ -934,6 +934,21 @@ def public_assets() -> list[dict[str, str]]:
     return base
 
 
+def zenodo_assets() -> list[dict[str, str]]:
+    """Curated Zenodo public surface: readable PDFs plus the archival public ZIP.
+
+    GitHub can carry standalone metadata files because its release page renders a
+    controlled Markdown body. Zenodo previews deposited files directly, so raw
+    JSON/Markdown/checksum files are kept inside the ZIP and on GitHub rather
+    than uploaded as independent Zenodo landing-surface files.
+    """
+    return [
+        row
+        for row in public_assets()
+        if row["role"] in {"PUBLIC_SCIENTIFIC_DOCUMENT", "PUBLIC_REPRODUCIBILITY_PACKAGE"}
+    ]
+
+
 def materialize_public_evidence_summaries() -> list[Path]:
     PUBLIC_EVIDENCE.mkdir(parents=True, exist_ok=True)
     refs = [
@@ -1416,6 +1431,10 @@ def write_profile() -> None:
         "assets": [
             {key: row[key] for key in ["path", "label", "description"]}
             for row in public_assets()
+        ],
+        "zenodo_assets": [
+            {key: row[key] for key in ["path", "label", "description"]}
+            for row in zenodo_assets()
         ],
         "journal_submissions_allowed": False,
         "software_heritage_allowed": False,

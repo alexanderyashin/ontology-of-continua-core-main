@@ -3,6 +3,6 @@
 State: `PASS`
 Output: `releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf`
 Pages: `706`
-Text chars: `1428475`
-SHA-256: `dfa02627368c1b080deeab349fa68a67e4d41742bdae12d44aa9bac1e5c12b8e`
+Text chars: `1428559`
+SHA-256: `0a45fc7764490a6b6c8f4ae4c1a950cb437e2215bd4b291f1054831f8dc996d6`
 Failures: `[]`

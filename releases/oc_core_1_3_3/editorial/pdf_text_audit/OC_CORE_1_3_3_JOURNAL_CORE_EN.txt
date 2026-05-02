@@ -2,96 +2,176 @@ OC Core 1.3.3 Journal Core
 Bounded external-review scientific release
 Alexander Yashin
 2026-05-01
+
 Contents
-1 Ontology of Continua Core 1.3.3 2
-1.1 Release Boundary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
-1.2 Claim Governance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
-1.2.1 T133-K0-RES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
-1.2.2 T133-OMEGA-STATUS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
-1.2.3 T133-K-ZERO . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
-1.2.4 T133-BOUNDARY . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
-1.2.5 T133-HYBRID . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
-1.2.6 T133-DIM . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
-1.2.7 T133-CYCLE . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
-1.2.8 T133-ID . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
-1.2.9 T133-MIN . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
-1.2.10 T133-KLEVEL . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
-1.2.11 OC133-NUM-PHYS-C . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
-1.2.12 OC133-NUM-CHEM-WEBBOOK-H2O . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
-1.2.13 OC133-NUM-CHEM-H2O . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
-1.2.14 OC133-NUM-BIO-GEO-COUNT . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
-1.2.15 OC133-NUM-SYS-WDI-GDP . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
-1.2.16 OC133-NUM-MATH-FINITE . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
-1.2.17 OC133-NOVELTY-001 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
-1.2.18 OC133-NOSEND-001 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
-1.3 Theorem and Proof Registry . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
-1.3.1 1. T133-K0-RES: K0 resolution-relative distinguishability theorem . . . . . . . . . . . . . 6
-1.3.2 2. T133-OMEGA-STATUS: Typed liveness, death, residue, and rebirth evidence-
-consistency theorem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
-1.3.3 3. T133-K-ZERO: Continuumness zero obstruction theorem . . . . . . . . . . . . . . . . . 6
-1.3.4 4. T133-BOUNDARY: Metric-threshold boundary specialization theorem . . . . . . . . . 6
-1.3.5 5. T133-HYBRID: Typed update and chart-labelled operator semantics theorem . . . . . 7
-1.3.6 6. T133-DIM: Historical axis and effective-rank compatibility theorem . . . . . . . . . . . 7
-1.3.7 7. T133-CYCLE: Live-status cycle-mode requirement theorem . . . . . . . . . . . . . . . 7
-1.3.8 8. T133-ID: Identity, residue, and rebirth evidence-classification theorem . . . . . . . . . . 7
-1.3.9 9. T133-MIN: Declared semantic-verdict component independence theorem . . . . . . . . 7
-1.3.10 10. T133-KLEVEL: Declared adjacent K-level atlas/evaluator consistency theorem . . . . 8
-1.4 Target-Blind Numeric Evidence . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
-1.4.1 Physics - OC133-TARGETBLIND-PHYSICS-001 . . . . . . . . . . . . . . . . . . . . . . . 8
-1.4.2 Chemistry - OC133-TARGETBLIND-CHEMISTRY-001 . . . . . . . . . . . . . . . . . . . 8
-1.4.3 Biology - OC133-TARGETBLIND-BIOLOGY-001 . . . . . . . . . . . . . . . . . . . . . . 9
-1.4.4 Systems - OC133-TARGETBLIND-SYSTEMS-001 . . . . . . . . . . . . . . . . . . . . . . 9
-1.4.5 Mathematics - OC133-TARGETBLIND-MATHEMATICS-001 . . . . . . . . . . . . . . . 9
-1
-1.5 Prior-Art Comparator and Novelty Boundary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
-1.5.1 General System Theory . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
-1.5.2 Autopoiesis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
-1.5.3 Dynamical Systems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
-1.5.4 Category and Topos Formalisms . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
-1.5.5 RAF Theory . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
-1.5.6 Complexity and Information Measures . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
-1.5.7 Causal and Identity Theories . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
-1.5.8 Systems Engineering . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
-1.5.9 Hybrid Systems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
-1.5.10 Formal Methods and Lean . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
-1.5.11 Assurance Cases and Safety Cases . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
-1.5.12 Goal Structuring Notation / Argument Patterns . . . . . . . . . . . . . . . . . . . . . . . 13
-1.5.13 Requirements Traceability and V&V Matrices . . . . . . . . . . . . . . . . . . . . . . . . . 13
-1.5.14 Scientific Workflow Provenance and Reproducibility Systems . . . . . . . . . . . . . . . . 13
-1.6 Phenomenon Coverage and Limits . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
-1.6.1 P001 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
-1.6.2 P002 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
-1.6.3 P003 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
-1.6.4 P004 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
-1.6.5 P005 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
-1.6.6 P006 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
-1.6.7 P007 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
-1.6.8 P008 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
-1.6.9 P009 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
-1.6.10 P010 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
-1.6.11 P011 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
-1.6.12 P012 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
-1.6.13 P013 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
-1.6.14 P014 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
-1.6.15 P015 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
 1 Ontology of Continua Core 1.3.3
-Version: 1.3.3 Tag: v1.3.3 DOI: 10.5281/zenodo.19964718 Zenodo record: https://zenodo.org/records/19964718
+1.1 Release Boundary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2 Claim Governance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.1 T133-K0-RES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.2 T133-OMEGA-STATUS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.3 T133-K-ZERO . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.4 T133-BOUNDARY . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.5 T133-HYBRID . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.6 T133-DIM . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.7 T133-CYCLE . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.8 T133-ID . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.9 T133-MIN . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.10 T133-KLEVEL . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.11 OC133-NUM-PHYS-C . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.12 OC133-NUM-CHEM-WEBBOOK-H2O . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.13 OC133-NUM-CHEM-H2O . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.14 OC133-NUM-BIO-GEO-COUNT . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.15 OC133-NUM-SYS-WDI-GDP . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.16 OC133-NUM-MATH-FINITE . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.17 OC133-NOVELTY-001 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.18 OC133-NOSEND-001 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3 Theorem and Proof Registry . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.1 1. T133-K0-RES: K0 resolution-relative distinguishability theorem . . . . . . . . . . . . .
+1.3.2 2. T133-OMEGA-STATUS: Typed liveness, death, residue, and rebirth evidenceconsistency theorem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.3 3. T133-K-ZERO: Continuumness zero obstruction theorem . . . . . . . . . . . . . . . . .
+1.3.4 4. T133-BOUNDARY: Metric-threshold boundary specialization theorem . . . . . . . . .
+1.3.5 5. T133-HYBRID: Typed update and chart-labelled operator semantics theorem . . . . .
+1.3.6 6. T133-DIM: Historical axis and effective-rank compatibility theorem . . . . . . . . . . .
+1.3.7 7. T133-CYCLE: Live-status cycle-mode requirement theorem . . . . . . . . . . . . . . .
+1.3.8 8. T133-ID: Identity, residue, and rebirth evidence-classification theorem . . . . . . . . . .
+1.3.9 9. T133-MIN: Declared semantic-verdict component independence theorem . . . . . . . .
+1.3.10 10. T133-KLEVEL: Declared adjacent K-level atlas/evaluator consistency theorem . . . .
+1.4 Target-Blind Numeric Evidence . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.4.1 Physics - OC133-TARGETBLIND-PHYSICS-001 . . . . . . . . . . . . . . . . . . . . . . .
+1.4.2 Chemistry - OC133-TARGETBLIND-CHEMISTRY-001 . . . . . . . . . . . . . . . . . . .
+1.4.3 Biology - OC133-TARGETBLIND-BIOLOGY-001 . . . . . . . . . . . . . . . . . . . . . .
+1.4.4 Systems - OC133-TARGETBLIND-SYSTEMS-001 . . . . . . . . . . . . . . . . . . . . . .
+1.4.5 Mathematics - OC133-TARGETBLIND-MATHEMATICS-001 . . . . . . . . . . . . . . .
+
+1
+
+2
+2
+2
+3
+3
+3
+3
+3
+3
+4
+4
+4
+4
+4
+4
+5
+5
+5
+5
+5
+5
+6
+6
+6
+6
+6
+7
+7
+7
+7
+7
+8
+8
+8
+8
+9
+9
+9
+
+1.5
+
+1.6
+
+Prior-Art Comparator and Novelty Boundary . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.1 General System Theory . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.2 Autopoiesis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.3 Dynamical Systems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.4 Category and Topos Formalisms . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.5 RAF Theory . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.6 Complexity and Information Measures . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.7 Causal and Identity Theories . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.8 Systems Engineering . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.9 Hybrid Systems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.10 Formal Methods and Lean . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.11 Assurance Cases and Safety Cases . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.12 Goal Structuring Notation / Argument Patterns . . . . . . . . . . . . . . . . . . . . . . .
+1.5.13 Requirements Traceability and V&V Matrices . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5.14 Scientific Workflow Provenance and Reproducibility Systems . . . . . . . . . . . . . . . .
+Phenomenon Coverage and Limits . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.6.1 P001 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.6.2 P002 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.6.3 P003 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.6.4 P004 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.6.5 P005 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.6.6 P006 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.6.7 P007 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.6.8 P008 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.6.9 P009 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.6.10 P010 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.6.11 P011 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.6.12 P012 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.6.13 P013 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.6.14 P014 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.6.15 P015 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+10
+10
+10
+10
+11
+11
+11
+11
+12
+12
+12
+12
+13
+13
+13
+14
+14
+14
+14
+14
+14
+15
+15
+15
+15
+15
+15
+15
+16
+16
+16
+
+1 Ontology of Continua Core 1.3.3
+Version: 1.3.3 Tag: v1.3.3 DOI: 10.5281/zenodo.19965913 Zenodo record: https://zenodo.org/records/19965913
+
 1.1 Release Boundary
-OC Core 1.3.3 is a bounded external-review scientific release. It contains a typed model foundation, theo-
-rem/proof evidence, a Lean-checked subset, finite-model semantics, target-blind numeric reconstruction rows,
+OC Core 1.3.3 is a bounded external-review scientific release. It contains a typed model foundation, theorem/proof evidence, a Lean-checked subset, finite-model semantics, target-blind numeric reconstruction rows,
 comparator positioning, adversarial-review closure, and journal owner-review packets.
 The release does not claim final completion of every future scientific projection. It does not submit journal
 packages. It does not claim universal superiority over all modern science. Those broader ambitions remain in
 the background research program and require additional evidence before public promotion.
 The public GitHub and Zenodo publication is owner-approved for this release phase. Journal submissions, email
 campaigns, and Software Heritage actions require separate approval.
+
 1.2 Claim Governance
-The public claim surface is intentionally bounded: a row is promoted only when it is evidence-bound, review-
-clean, and explicitly scoped. Universal closure or all-domain superiority language is not promoted by this release.
+The public claim surface is intentionally bounded: a row is promoted only when it is evidence-bound, reviewclean, and explicitly scoped. Universal closure or all-domain superiority language is not promoted by this release.
 - claim total: 18 - unsupported promoted total: 0 - scientific promotion allowed total: 10 - absolute
 overclaim policy: BLOCK_PUBLIC_PROMOTION
+
 2
-1.2.1 T133-K0-RES
+
+1.2.1 T133-K0-RES
 • claim: K0 support is treated as a owner-review formal release-consistency check over declared resolution
 quotients: same-resolution states are not distinguished, and a finite countermodel shows raw separation
 need not induce resolution distinction. It is not promoted as an independent novelty or scientific theorem
@@ -100,24 +180,22 @@ in v12.
 • evidence: proofs/proof_sheets/T133-K0-RES.md
 • status: PROMOTED_BOUNDED_PUBLIC_RELEASE_V12
 • scope limit: Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.
-1.2.2 T133-OMEGA-ST A TUS
+1.2.2 T133-OMEGA-STATUS
 • claim: Death blocks live status; residue and rebirth are token-bound evidence relations with distinct
 class-specific endpoint rules: residue separates source from residue while returning to the source endpoint,
-and rebirth separates source, residue, and new target tokens. Rebirth is non-identity unless endpoint-
-bound identity evidence has identity class, declared invariant preservation, no residue token, and equal
+and rebirth separates source, residue, and new target tokens. Rebirth is non-identity unless endpointbound identity evidence has identity class, declared invariant preservation, no residue token, and equal
 source/target endpoint evidence. No categorical Hom/composition theorem is promoted.
 • support: LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS
 • evidence: proofs/proof_sheets/T133-OMEGA-STATUS.md
 • status: PROMOTED_BOUNDED_PUBLIC_RELEASE_V12
 • scope limit: Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.
 1.2.3 T133-K-ZERO
-• claim: Continuumness zero requires live support, an independently clear obstruction ledger, and a de-
-clared zero-cause family; a zero-cause label alone does not compute k=0.
+• claim: Continuumness zero requires live support, an independently clear obstruction ledger, and a declared zero-cause family; a zero-cause label alone does not compute k=0.
 • support: LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS
 • evidence: proofs/proof_sheets/T133-K-ZERO.md
 • status: PROMOTED_BOUNDED_PUBLIC_RELEASE_V12
 • scope limit: Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.
-1.2.4 T133-BOUNDAR Y
+1.2.4 T133-BOUNDARY
 • claim: Metric thresholds are a specialization of typed classifier boundaries.
 • support: LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS
 • evidence: proofs/proof_sheets/T133-BOUNDARY.md
@@ -137,8 +215,10 @@ release-consistency fields; a finite/Lean witness shows compatibility of monoton
 with decreasing effective rank, but v12 does not promote an independent scientific dimension theorem.
 • support: LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS
 • evidence: proofs/proof_sheets/T133-DIM.md
+
 3
-• status: PROMOTED_BOUNDED_PUBLIC_RELEASE_V12
+
+• status: PROMOTED_BOUNDED_PUBLIC_RELEASE_V12
 • scope limit: Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.
 1.2.7 T133-CYCLE
 • claim: Declared eligible-live status requires an explicit cycle mode or non-vacuous maintenance predicate.
@@ -173,45 +253,44 @@ promoted v12 theorem.
 • scope limit: Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.
 1.2.11 OC133-NUM-PHYS-C
 • claim: calibration replay of an oﬀicial constant, not a new law of physics
-• support: NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_F ALSIFIER
+• support: NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER
 • evidence: validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json
 • status: QUARANTINED_REPLAY_QA_NOT_PROMOTED_V12
 • scope limit: This is replay QA and falsifier plumbing, not empirical theory promotion.
 1.2.12 OC133-NUM-CHEM-WEBBOOK-H2O
 • claim: NIST Chemistry WebBook molecular-weight field replay for water only
-• support: NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_F ALSIFIER
+• support: NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER
 • evidence: validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json
 • status: QUARANTINED_REPLAY_QA_NOT_PROMOTED_V12
 • scope limit: This is replay QA and falsifier plumbing, not empirical theory promotion.
 4
-1.2.13 OC133-NUM-CHEM-H2O
+
+1.2.13 OC133-NUM-CHEM-H2O
 • claim: PubChem molecular-weight field replay for water only
-• support: NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_F ALSIFIER
+• support: NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER
 • evidence: validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json
 • status: QUARANTINED_REPLAY_QA_NOT_PROMOTED_V12
 • scope limit: This is replay QA and falsifier plumbing, not empirical theory promotion.
 1.2.14 OC133-NUM-BIO-GEO-COUNT
 • claim: oﬀicial GEO query-count replay; no organism-wide mechanism claim
-• support: NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_F ALSIFIER
+• support: NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER
 • evidence: validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json
 • status: QUARANTINED_REPLAY_QA_NOT_PROMOTED_V12
 • scope limit: This is replay QA and falsifier plumbing, not empirical theory promotion.
 1.2.15 OC133-NUM-SYS-WDI-GDP
-• claim: retrospective WDI GDP snapshot replay QA with descriptive comparator, no prediction or supe-
-riority claim
-• support: NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_F ALSIFIER
+• claim: retrospective WDI GDP snapshot replay QA with descriptive comparator, no prediction or superiority claim
+• support: NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER
 • evidence: validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json
 • status: QUARANTINED_REPLAY_QA_NOT_PROMOTED_V12
 • scope limit: This is replay QA and falsifier plumbing, not empirical theory promotion.
-1.2.16 OC133-NUM-MA TH-FINITE
-• claim: finite witness acceptance count for machine-checked v12 theorem inventory rows; never public-
-promotion, empirical, or prediction support in v12 unless a future prospective protocol explicitly flips
+1.2.16 OC133-NUM-MATH-FINITE
+• claim: finite witness acceptance count for machine-checked v12 theorem inventory rows; never publicpromotion, empirical, or prediction support in v12 unless a future prospective protocol explicitly flips
 release_promotion_allowed, prediction_support_allowed, and empirical_support_allowed after review
-• support: NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_F ALSIFIER
+• support: NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER
 • evidence: validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json
 • status: QUARANTINED_REPLAY_QA_NOT_PROMOTED_V12
 • scope limit: This is replay QA and falsifier plumbing, not empirical theory promotion.
-1.2.17 OC133-NOVEL TY-001
+1.2.17 OC133-NOVELTY-001
 • claim: Prior-art comparison is an illustrative bounded positioning note; uniqueness, priority, and absence
 are not promoted until a systematic search exists.
 • support: ILLUSTRATIVE_PRIOR_ART_POSITIONING_ONLY_NO_UNIQUENESS_PROMOTION
@@ -228,8 +307,10 @@ both separate owner approval and an explicit manifest/channel unlock are present
 • scope limit: Local owner-review package only; this is not a real-world enforcement guarantee against
 manual or external publication. Owner approval alone is insuﬀicient unless deposit-ready metadata, a
 public-record target, owner-review unlock, and every channel lock are all separately true.
+
 5
-1.3 Theorem and Proof Registry
+
+1.3 Theorem and Proof Registry
 The release promotes bounded theorem claims only where the theorem registry binds a proof sheet, Lean
 reference, finite witness route, and explicit scope boundary. Broad full-science and universal superiority claims
 stay outside the promoted release surface. - registered theorem total: 10 - machine-checked subset total:
@@ -245,8 +326,8 @@ theorem in v12.
 • evidence ceiling: BOUNDED_SCIENTIFIC_THEOREM_WITH_LEAN_SUBSET_AND_FINITE_WITNESS
 • scope limit: A proof that assumes every pair of raw real states is epsilon-separated is outside v12 and
 fails G33.
-1.3.2 2. T133-OMEGA-ST A TUS: Typed liveness, death, residue, and rebirth evidence-
-consistency theorem
+1.3.2 2.
+T133-OMEGA-STATUS: Typed liveness, death, residue, and rebirth evidenceconsistency theorem
 • claim boundary: Death blocks live status; residue and rebirth are token-bound evidence relations with
 distinct class-specific endpoint rules: residue separates source from residue while returning to the source
 endpoint, and rebirth separates source, residue, and new target tokens. Rebirth is non-identity unless
@@ -267,7 +348,7 @@ and a declared zero-cause family; a zero-cause label alone does not compute k=0.
 • evidence ceiling: BOUNDED_SCIENTIFIC_THEOREM_WITH_LEAN_SUBSET_AND_FINITE_WITNESS
 • scope limit: A realization with undeclared zero-cause, missing live support, or any active obstruction
 may not promote k=0.
-1.3.4 4. T133-BOUNDAR Y: Metric-threshold boundary specialization theorem
+1.3.4 4. T133-BOUNDARY: Metric-threshold boundary specialization theorem
 • claim boundary: Metric thresholds are a specialization of typed classifier boundaries.
 • evidence ref: appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex
 • proof sheet: proofs/proof_sheets/T133-BOUNDARY.md
@@ -275,8 +356,10 @@ may not promote k=0.
 • evidence ceiling: BOUNDED_SCIENTIFIC_THEOREM_WITH_LEAN_SUBSET_AND_FINITE_WITNESS
 • scope limit: A social or logical boundary represented numerically without a measurement rule is blocked
 by G40.
+
 6
-1.3.5 5. T133-HYBRID: Typed update and chart-labelled operator semantics theorem
+
+1.3.5 5. T133-HYBRID: Typed update and chart-labelled operator semantics theorem
 • claim boundary: OC operators are typed update semantics; chart-labelled flow-one notation is admitted
 only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth
 cases. No differentiability or ODE-solution theorem is promoted in v12.
@@ -288,8 +371,7 @@ cases. No differentiability or ODE-solution theorem is promoted in v12.
 evidence is outside the v12 operator theorem and remains a future lint/proof obligation.
 1.3.6 6. T133-DIM: Historical axis and effective-rank compatibility theorem
 • claim boundary: Historical axis activation and effective working rank are kept as distinct owner-review
-formal release-consistency fields; a finite/Lean witness shows compatibility of monotone historical book-
-keeping with decreasing effective rank, but v12 does not promote an independent scientific dimension
+formal release-consistency fields; a finite/Lean witness shows compatibility of monotone historical bookkeeping with decreasing effective rank, but v12 does not promote an independent scientific dimension
 theorem.
 • evidence ref: appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex
 • proof sheet: proofs/proof_sheets/T133-DIM.md
@@ -306,10 +388,8 @@ predicate.
 • evidence ceiling: BOUNDED_SCIENTIFIC_THEOREM_WITH_LEAN_SUBSET_AND_FINITE_WITNESS
 • scope limit: An artifact that never updates, replays, checks, or maintains itself is archive residue, not
 live continuum.
-1.3.8 8. T133-ID: Identity , residue, and rebirth evidence-classification theorem
-• claim boundary: Identity continuation requires endpoint-bound identity evidence: identity class, de-
-clared invariant preservation, no residue token, equal source/target endpoint evidence, lifecycle identity-
-invariant truth, and typed source/target binding. Residue and rebirth evidence classes do not become
+1.3.8 8. T133-ID: Identity, residue, and rebirth evidence-classification theorem
+• claim boundary: Identity continuation requires endpoint-bound identity evidence: identity class, declared invariant preservation, no residue token, equal source/target endpoint evidence, lifecycle identityinvariant truth, and typed source/target binding. Residue and rebirth evidence classes do not become
 identity continuation merely by preserving some invariants. No categorical Hom/composition theorem is
 promoted.
 • evidence ref: appendix/OC_1_3_3_IDENTITY_RESIDUE_REBIRTH_CLASSIFICATION.tex
@@ -325,11 +405,11 @@ semantic keep/drop witness that changes the release verdict.
 • Lean ref: formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant
 • evidence ceiling: BOUNDED_SCIENTIFIC_THEOREM_WITH_LEAN_SUBSET_AND_FINITE_WITNESS
 7
-• scope limit: If any declared tuple component can be removed while FM-MIN-* still returns PASS for the
+
+• scope limit: If any declared tuple component can be removed while FM-MIN-* still returns PASS for the
 declared semantic verdict suite, the minimality card fails.
 1.3.10 10. T133-KLEVEL: Declared adjacent K-level atlas/evaluator consistency theorem
-• claim boundary: Every declared adjacent K-level transition K0->K12 has a release-atlas row, retained-
-witness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release
+• claim boundary: Every declared adjacent K-level transition K0->K12 has a release-atlas row, retainedwitness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release
 classifier; independent semantic irreducibility beyond this declared classifier is a future proof obligation,
 not a promoted v12 theorem.
 • evidence ref: appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex
@@ -339,13 +419,14 @@ not a promoted v12 theorem.
 • scope limit: If any adjacent K row lacks row identity, retained-witness evaluator failure, or inert-witness
 demotion control, the finite negative control fails; independent semantic irreducibility remains unpromoted
 unless separately proven.
+
 1.4 Target-Blind Numeric Evidence
 The empirical section reports bounded target-blind reconstruction rows over pinned oﬀicial snapshots. These
 rows support model-core external review; they do not claim complete domain validation. - lane total: 5
 - failure total: 0 - support policy: Rows are target-blind held-out reconstructions over pinned oﬀicial
 snapshots. They support bounded numeric reconstruction claims only, not broad domain validation or novelty.
 - domain validation policy: NO_EMPIRICAL_PASS_FROM_OFFICIAL_SNAPSHOT_REPLAY_QA
-1.4.1 Physics - OC133-T ARGETBLIND-PHYSICS-001
+1.4.1 Physics - OC133-TARGETBLIND-PHYSICS-001
 • snapshot: validation/_raw/physics_nist_constants.txt
 • target-blind split: Planck constant and speed of light rows are visible; inverse-meter joule relationship
 row is withheld until scoring
@@ -362,7 +443,7 @@ row is withheld until scoring
 • replay hash: a83ea273ef65d6136ad7c0dfe2f7d870822fe15a062a47ae906a7d46705a0cf1
 • support scope: target-blind reconstruction of a held-out CODATA relationship from exact defining
 constants; not a novel physics law
-1.4.2 Chemistry - OC133-T ARGETBLIND-CHEMISTR Y-001
+1.4.2 Chemistry - OC133-TARGETBLIND-CHEMISTRY-001
 • snapshot: validation/_raw/chemistry_pubchem_water.txt
 • target-blind split: formula field is visible; MolecularWeight target is withheld until scoring
 • formula: 2*atomic_weight(H)+atomic_weight(O)
@@ -373,13 +454,15 @@ constants; not a novel physics law
 • comparator baseline: CO2 molecular-weight negative control against water target
 • comparator residual: 25.994500000000002
 • negative control: replace H2O by CO2 and require larger residual
+
 8
-• falsifier: Residual exceeds declared uncertainty or CO2 control is not worse than formula reconstruction
+
+• falsifier: Residual exceeds declared uncertainty or CO2 control is not worse than formula reconstruction
 • snapshot hash: 316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f
 • replay hash: c115a6d84fdad856976f60ad6d2fb4c9f9c397f994c7eafb09526f944004469d
 • support scope: target-blind reconstruction of a held-out oﬀicial snapshot field; not a novel chemistry
 law
-1.4.3 Biology - OC133-T ARGETBLIND-BIOLOGY-001
+1.4.3 Biology - OC133-TARGETBLIND-BIOLOGY-001
 • snapshot: validation/_raw/biology_ncbi_geo_platform.txt
 • target-blind split: NCBI ESearch retstart/idlist fields are visible; retmax pagination target is withheld
 until scoring
@@ -396,7 +479,7 @@ until scoring
 • replay hash: 6606a563b35116d6852bc936618757a29873c52e59541a0928546bc863cd4ecb
 • support scope: target-blind reconstruction of a held-out NCBI/GEO API snapshot field; not a biological
 mechanism law
-1.4.4 Systems - OC133-T ARGETBLIND-SYSTEMS-001
+1.4.4 Systems - OC133-TARGETBLIND-SYSTEMS-001
 • snapshot: validation/_raw/systems_world_bank_gdp.txt
 • target-blind split: 2021-2023 train rows predict withheld 2024 World Bank WDI target
 • formula: GDP_2023 + (GDP_2023-GDP_2021)/2
@@ -410,9 +493,8 @@ mechanism law
 • falsifier: Held-out residual exceeds 1 percent of observed target or comparator is not worse
 • snapshot hash: 52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b
 • replay hash: 778ffef9592179e6062fad4b770d02612408603c70455f734c423475ff704be4
-• support scope: retrospective target-blind holdout over pinned WDI rows; not a prospective macroeco-
-nomic law
-1.4.5 Mathematics - OC133-T ARGETBLIND-MA THEMA TICS-001
+• support scope: retrospective target-blind holdout over pinned WDI rows; not a prospective macroeconomic law
+1.4.5 Mathematics - OC133-TARGETBLIND-MATHEMATICS-001
 • snapshot: proofs/FINITE_MODEL_CHECKS_1_3_3.json
 • target-blind split: finite theorem-case rows are visible; aggregate machine_checked_subset_total is
 withheld until scoring
@@ -424,72 +506,71 @@ and passed=true)
 • residual: 0.0
 • comparator baseline: positive_case_total negative control, which counts non-theorem support rows
 too
+
 9
-• comparator residual: 11.0
+
+• comparator residual: 11.0
 • negative control: replace theorem-id aggregate by positive_case_total and require a larger residual
 • falsifier: Unique accepted theorem-case count differs from machine_checked_subset_total or broad
 positive-case control is not worse
-• snapshot hash: 05348c273fb2c4c867b9050c097b314875b47d1ccc00133ae49c5b0dd1cccc77
-• replay hash: 8b05d3796f0802a76c9a462456532c8fadbb357b5c5704f0c9098ed2b7aaf144
+• snapshot hash: 46ac711a2e86375ed333ce5c8a8b1b810f1f5b052fa657fb1508dbe7831b2f49
+• replay hash: 050e21ffb0f2a5b73ea7faab51da781bbe66adc6bc6376941bb0a0e4eda293f2
 • support scope: target-blind reconstruction of a finite proof-corpus aggregate; not a full-science program
 truth proof or empirical law
+
 1.5 Prior-Art Comparator and Novelty Boundary
 Comparator rows are positioning evidence, not a uniqueness proof for all possible theories. Each row states
 overlap, residual delta, and release-safe novelty boundary. - register status: - row total: 14
 1.5.1 General System Theory
+
 • absence test: NOT_PROMOTED. Single-source absence is recorded only as a future search obligation,
 not as novelty evidence.
 • feature tests: [{‘oc_feature’: ‘cross-domain vocabulary’, ‘prior_art_overlap’: ‘YES’, ‘positioning_note’:
-‘none; not claimed novel’}, {‘oc_feature’: ‘typed proof/data/falsifier/owner-review release governance bun-
-dle’, ‘prior_art_overlap’: ‘NOT_OBSER VED_IN_ILLUSTRATIVE_SOURCE_NOT_ABSENCE_EVIDENCE’,
+‘none; not claimed novel’}, {‘oc_feature’: ‘typed proof/data/falsifier/owner-review release governance bundle’, ‘prior_art_overlap’: ‘NOT_OBSERVED_IN_ILLUSTRATIVE_SOURCE_NOT_ABSENCE_EVIDENCE’,
 ‘positioning_note’: ‘auditable release-governed scientific control plane’}]
 • uniqueness claim status: NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-• source refs: [{‘title’: ‘Ludwig von Bertalanffy, General System Theory’, ‘url’: ‘https://www.georgebraziller.com/general-
-systems-theory’, ‘source_date’: ‘1968’, ‘inspected_on’: ‘2026-04-28’, ‘local_protocol_snapshot_ref’:
-‘comparators/source_snapshots/SRC-01-01.txt’, ‘local_protocol_snapshot_sha256’: ‘ac73ceab8486fb18e77fe2fd155ebf2678ee6f326f59377b2d5b66c2f5a070da’,
+• source refs: [{‘title’: ‘Ludwig von Bertalanffy, General System Theory’, ‘url’: ‘https://www.georgebraziller.com/generalsystems-theory’, ‘source_date’: ‘1968’, ‘inspected_on’: ‘2026-04-28’, ‘local_protocol_snapshot_ref’:
+‘comparators/source_snapshots/SRC-01-01.txt’, ‘local_protocol_snapshot_sha256’: ‘ac73ceab8486fb18e77fe2fd155ebf26
 ‘search_query’: ‘ “General System Theory” “organized wholes and cross-domain system language” release
-governance proof data falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION’}]
+governance proof data falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROM
 1.5.2 Autopoiesis
+
 • absence test: NOT_PROMOTED. Single-source absence is recorded only as a future search obligation,
 not as novelty evidence.
-• feature tests: [{‘oc_feature’: ‘self-producing living organization’, ‘prior_art_overlap’: ‘YES’, ‘position-
-ing_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘residue/rebirth/identity morphism separation with
-owner-review claim ledger’, ‘prior_art_overlap’: ‘NOT_OBSER VED_IN_ILLUSTRATIVE_SOURCE_NOT_ABSENCE_EVIDENCE’,
+• feature tests: [{‘oc_feature’: ‘self-producing living organization’, ‘prior_art_overlap’: ‘YES’, ‘positioning_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘residue/rebirth/identity morphism separation with
+owner-review claim ledger’, ‘prior_art_overlap’: ‘NOT_OBSERVED_IN_ILLUSTRATIVE_SOURCE_NOT_ABSENC
 ‘positioning_note’: ‘typed restart/identity equivocation blocker’}]
 • uniqueness claim status: NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-• source refs: [{‘title’: ‘Maturana and Varela, Autopoiesis and Cognition’, ‘url’: ‘https://link.springer.com/book/10.1007/978-
+• source refs: [{‘title’: ‘Maturana and Varela, Autopoiesis and Cognition’, ‘url’: ‘https://link.springer.com/book/10.1007/
 94-009-8947-4’, ‘source_date’: ‘1980’, ‘inspected_on’: ‘2026-04-28’, ‘local_protocol_snapshot_ref’:
-‘comparators/source_snapshots/SRC-02-01.txt’, ‘local_protocol_snapshot_sha256’: ‘411971bd1277742eebee204a43f99c0ec7eabf6b7955873e67e0078a9f3ee991’,
-‘search_query’: ‘ “Autopoiesis” “self-production and living organization” release governance proof data fal-
-sifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION’}]
+‘comparators/source_snapshots/SRC-02-01.txt’, ‘local_protocol_snapshot_sha256’: ‘411971bd1277742eebee204a43f99c0
+‘search_query’: ‘ “Autopoiesis” “self-production and living organization” release governance proof data falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION’}]
 1.5.3 Dynamical Systems
+
 • absence test: NOT_PROMOTED. Single-source absence is recorded only as a future search obligation,
 not as novelty evidence.
-• feature tests: [{‘oc_feature’: ‘state spaces, flows, iteration’, ‘prior_art_overlap’: ‘YES’, ‘position-
-ing_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘smooth dynamics as one typed update special-
-ization among proof/rewrite/hybrid updates’, ‘prior_art_overlap’: ‘PARTIAL’, ‘positioning_note’: ‘anti-
-universal-ODE typing rule’}]
+• feature tests: [{‘oc_feature’: ‘state spaces, flows, iteration’, ‘prior_art_overlap’: ‘YES’, ‘positioning_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘smooth dynamics as one typed update specialization among proof/rewrite/hybrid updates’, ‘prior_art_overlap’: ‘PARTIAL’, ‘positioning_note’: ‘antiuniversal-ODE typing rule’}]
 • uniqueness claim status: NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-• source refs: [{‘title’: ‘Encyclopedia of Mathematics, Dynamical system’, ‘url’: ‘https://encyclopediaofmath.org/wiki/Dynamical_system’,
-‘source_date’: ‘reference’, ‘inspected_on’: ‘2026-04-28’, ‘local_protocol_snapshot_ref’: ‘comparators/source_snapshots/SRC-
-03-01.txt’, ‘local_protocol_snapshot_sha256’: ‘3643c2233805d87a98f3b1148de0d461354dd8f06138f4a12c4476a3a9210665’,
+• source refs: [{‘title’: ‘Encyclopedia of Mathematics, Dynamical system’, ‘url’: ‘https://encyclopediaofmath.org/wiki/Dy
+‘source_date’: ‘reference’, ‘inspected_on’: ‘2026-04-28’, ‘local_protocol_snapshot_ref’: ‘comparators/source_snapshots/
+03-01.txt’, ‘local_protocol_snapshot_sha256’: ‘3643c2233805d87a98f3b1148de0d461354dd8f06138f4a12c4476a3a9210665
+
 10
-‘search_query’: ‘ “Dynamical Systems” “state evolution and flows” release governance proof data falsifier’,
+
+‘search_query’: ‘ “Dynamical Systems” “state evolution and flows” release governance proof data falsifier’,
 ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION’}]
-1.5.4 Category and T opos F ormalisms
+1.5.4 Category and Topos Formalisms
+
 • absence test: NOT_PROMOTED. Single-source absence is recorded only as a future search obligation,
 not as novelty evidence.
-• feature tests: [{‘oc_feature’: ‘typed objects, morphisms, internal logic’, ‘prior_art_overlap’: ‘YES’, ‘po-
-sitioning_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘public-release theorem/evidence/falsifier lock
-over typed claims’, ‘prior_art_overlap’: ‘NOT_OBSER VED_IN_ILLUSTRATIVE_SOURCE_NOT_ABSENCE_EVIDENCE’,
+• feature tests: [{‘oc_feature’: ‘typed objects, morphisms, internal logic’, ‘prior_art_overlap’: ‘YES’, ‘positioning_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘public-release theorem/evidence/falsifier lock
+over typed claims’, ‘prior_art_overlap’: ‘NOT_OBSERVED_IN_ILLUSTRATIVE_SOURCE_NOT_ABSENCE_EVI
 ‘positioning_note’: ‘release-machine governance over scientific claim promotion’}]
 • uniqueness claim status: NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-• source refs: [{‘title’: ‘nLab, topos’, ‘url’: ‘https://ncatlab.org/nlab/show/topos’, ‘source_date’: ‘refer-
-ence’, ‘inspected_on’: ‘2026-04-28’, ‘local_protocol_snapshot_ref’: ‘comparators/source_snapshots/SRC-
-04-01.txt’, ‘local_protocol_snapshot_sha256’: ‘14f4b28a97898ae48909f877e08070d560998f850230daf171605c47e4d1f669’,
-‘search_query’: ‘ “Category and Topos Formalisms” “typed objects, morphisms, categorical semantics” re-
-lease governance proof data falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION’}]
+• source refs: [{‘title’: ‘nLab, topos’, ‘url’: ‘https://ncatlab.org/nlab/show/topos’, ‘source_date’: ‘reference’, ‘inspected_on’: ‘2026-04-28’, ‘local_protocol_snapshot_ref’: ‘comparators/source_snapshots/SRC04-01.txt’, ‘local_protocol_snapshot_sha256’: ‘14f4b28a97898ae48909f877e08070d560998f850230daf171605c47e4d1f669’,
+‘search_query’: ‘ “Category and Topos Formalisms” “typed objects, morphisms, categorical semantics” release governance proof data falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PR
 1.5.5 RAF Theory
+
 • absence test: NOT_PROMOTED. Single-source absence is recorded only as a future search obligation,
 not as novelty evidence.
 • feature tests: [{‘oc_feature’: ‘autocatalytic closure and boundary relevance’, ‘prior_art_overlap’:
@@ -497,38 +578,35 @@ not as novelty evidence.
 with demotion and release-proof witness rows’, ‘prior_art_overlap’: ‘PARTIAL’, ‘positioning_note’:
 ‘classifier-level irreducibility/demotion rule’}]
 • uniqueness claim status: NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-• source refs: [{‘title’: ‘Hordijk and Steel, Autocatalytic sets and boundaries’, ‘url’: ‘https://link.springer.com/article/10.1186/s13322-
+• source refs: [{‘title’: ‘Hordijk and Steel, Autocatalytic sets and boundaries’, ‘url’: ‘https://link.springer.com/article/10.1
 014-0006-2’, ‘source_date’: ‘2015’, ‘inspected_on’: ‘2026-04-28’, ‘local_protocol_snapshot_ref’:
-‘comparators/source_snapshots/SRC-05-01.txt’, ‘local_protocol_snapshot_sha256’: ‘df9ee2dff8bcf86d318fb695a2e5a6919b72d9f01a64ecee4bf7e7e0c15a2e94’,
-‘search_query’: ‘ “RAF Theory” “autocatalytic closure and boundaries” release governance proof data falsi-
-fier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION’}]
+‘comparators/source_snapshots/SRC-05-01.txt’, ‘local_protocol_snapshot_sha256’: ‘df9ee2dff8bcf86d318fb695a2e5a691
+‘search_query’: ‘ “RAF Theory” “autocatalytic closure and boundaries” release governance proof data falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION’}]
 1.5.6 Complexity and Information Measures
+
 • absence test: NOT_PROMOTED. Single-source absence is recorded only as a future search obligation,
 not as novelty evidence.
-• feature tests: [{‘oc_feature’: ‘information/complexity quantities’, ‘prior_art_overlap’: ‘YES’, ‘posi-
-tioning_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘historical-axis versus effective-rank distinction
+• feature tests: [{‘oc_feature’: ‘information/complexity quantities’, ‘prior_art_overlap’: ‘YES’, ‘positioning_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘historical-axis versus effective-rank distinction
 inside OC K-level claims’, ‘prior_art_overlap’: ‘PARTIAL’, ‘positioning_note’: ‘typed anti-conflation
 theorem and finite witness’}]
 • uniqueness claim status: NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-• source refs: [{‘title’: ‘Stanford Encyclopedia of Philosophy, Information’, ‘url’: ‘https://plato.stanford.edu/entries/information/’,
-‘source_date’: ‘reference’, ‘inspected_on’: ‘2026-04-28’, ‘local_protocol_snapshot_ref’: ‘comparators/source_snapshots/SRC-
+• source refs: [{‘title’: ‘Stanford Encyclopedia of Philosophy, Information’, ‘url’: ‘https://plato.stanford.edu/entries/inform
+‘source_date’: ‘reference’, ‘inspected_on’: ‘2026-04-28’, ‘local_protocol_snapshot_ref’: ‘comparators/source_snapshots/
 06-01.txt’, ‘local_protocol_snapshot_sha256’: ‘004e1d650f029f27ba8cd0cf99cab8fcf07cb50e83bd7ab423e836b398544f25’,
-‘search_query’: ‘ “Complexity and Information Measures” “information-theoretic and complexity quanti-
-ties” release governance proof data falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION’}]
+‘search_query’: ‘ “Complexity and Information Measures” “information-theoretic and complexity quantities” release governance proof data falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSEN
 1.5.7 Causal and Identity Theories
 • absence test: NOT_PROMOTED. Single-source absence is recorded only as a future search obligation,
 not as novelty evidence.
-• feature tests: [{‘oc_feature’: ‘persistence and identity criteria’, ‘prior_art_overlap’: ‘YES’, ‘position-
-ing_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘residue/rebirth never promoted as identity with-
-out explicit invariant preservation’, ‘prior_art_overlap’: ‘PARTIAL’, ‘positioning_note’: ‘release claim-
-boundary lock’}]
+• feature tests: [{‘oc_feature’: ‘persistence and identity criteria’, ‘prior_art_overlap’: ‘YES’, ‘positioning_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘residue/rebirth never promoted as identity without explicit invariant preservation’, ‘prior_art_overlap’: ‘PARTIAL’, ‘positioning_note’: ‘release claimboundary lock’}]
+
 11
-• uniqueness claim status: NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-• source refs: [{‘title’: ‘Stanford Encyclopedia of Philosophy, Identity Over Time’, ‘url’: ‘https://plato.stanford.edu/entries/identity-
-time/’, ‘source_date’: ‘2026’, ‘inspected_on’: ‘2026-04-28’, ‘local_protocol_snapshot_ref’: ‘comparators/source_snapshots/SRC-
+
+• uniqueness claim status: NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
+• source refs: [{‘title’: ‘Stanford Encyclopedia of Philosophy, Identity Over Time’, ‘url’: ‘https://plato.stanford.edu/entrie
+time/’, ‘source_date’: ‘2026’, ‘inspected_on’: ‘2026-04-28’, ‘local_protocol_snapshot_ref’: ‘comparators/source_snapsh
 07-01.txt’, ‘local_protocol_snapshot_sha256’: ‘ffbde0b100aeb2986e68c25b2ef79e78a2a842c92d6f03f7b53969e4b6ccdef4’,
 ‘search_query’: ‘ “Causal and Identity Theories” “diachronic identity and persistence problems” release
-governance proof data falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION’}]
+governance proof data falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROM
 1.5.8 Systems Engineering
 • absence test: NOT_PROMOTED. Single-source absence is recorded only as a future search obligation,
 not as novelty evidence.
@@ -537,13 +615,13 @@ not as novelty evidence.
 release state as theorem/evidence control plane’, ‘prior_art_overlap’: ‘PARTIAL’, ‘positioning_note’:
 ‘scientific publication lock integrated with claim ledger’}]
 • uniqueness claim status: NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-• source refs: [{‘title’: ‘INCOSE, Systems Engineering and System Definitions’, ‘url’: ‘https://www.incose.org/about-
-systems-engineering/system-and-se-definitions/’, ‘source_date’: ‘reference’, ‘inspected_on’: ‘2026-04-28’,
+• source refs: [{‘title’: ‘INCOSE, Systems Engineering and System Definitions’, ‘url’: ‘https://www.incose.org/aboutsystems-engineering/system-and-se-definitions/’, ‘source_date’: ‘reference’, ‘inspected_on’: ‘2026-04-28’,
 ‘local_protocol_snapshot_ref’: ‘comparators/source_snapshots/SRC-08-01.txt’, ‘local_protocol_snapshot_sha256’:
 ‘c279b39dbb5291d70c10d2493fbd7d5d2cd8cc1c1d067609b889ebd7373bf809’, ‘search_query’: ‘ “Systems
 Engineering” “verification, validation, lifecycle governance” release governance proof data falsifier’,
 ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION’}]
 1.5.9 Hybrid Systems
+
 • absence test: NOT_PROMOTED. Single-source absence is recorded only as a future search obligation,
 not as novelty evidence.
 • feature tests: [{‘oc_feature’: ‘continuous/discrete hybrid transition systems’, ‘prior_art_overlap’:
@@ -552,67 +630,63 @@ universal differential overreach’, ‘prior_art_overlap’: ‘PARTIAL’, ‘
 role in OC operator theorem’}]
 • uniqueness claim status: NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
 • source refs: [{‘title’: ‘Hybrid Systems III, Springer’, ‘url’: ‘https://link.springer.com/book/10.1007/BFb0031987’,
-‘source_date’: ‘1996’, ‘inspected_on’: ‘2026-04-28’, ‘local_protocol_snapshot_ref’: ‘comparators/source_snapshots/SRC-
-09-01.txt’, ‘local_protocol_snapshot_sha256’: ‘53321c329f66879221e61823275257e51d3c1e008cb5104bae6f7e9e2676a8b6’,
+‘source_date’: ‘1996’, ‘inspected_on’: ‘2026-04-28’, ‘local_protocol_snapshot_ref’: ‘comparators/source_snapshots/SRC
+09-01.txt’, ‘local_protocol_snapshot_sha256’: ‘53321c329f66879221e61823275257e51d3c1e008cb5104bae6f7e9e2676a8b6’
 ‘search_query’: ‘ “Hybrid Systems” “hybrid continuous/discrete transitions” release governance proof data
 falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION’}]
-1.5.10 F ormal Methods and Lean
+1.5.10 Formal Methods and Lean
+
 • absence test: NOT_PROMOTED. Single-source absence is recorded only as a future search obligation,
 not as novelty evidence.
-• feature tests: [{‘oc_feature’: ‘machine-checked proof development’, ‘prior_art_overlap’: ‘YES’, ‘posi-
-tioning_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘Lean subset plus finite semantic witnesses plus
-release gates for public claim promotion’, ‘prior_art_overlap’: ‘PARTIAL’, ‘positioning_note’: ‘artifact-
-bound scientific release policy’}]
+• feature tests: [{‘oc_feature’: ‘machine-checked proof development’, ‘prior_art_overlap’: ‘YES’, ‘positioning_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘Lean subset plus finite semantic witnesses plus
+release gates for public claim promotion’, ‘prior_art_overlap’: ‘PARTIAL’, ‘positioning_note’: ‘artifactbound scientific release policy’}]
 • uniqueness claim status: NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
 • source refs: [{‘title’: ‘Lean 4 oﬀicial site’, ‘url’: ‘https://lean4.dev/’, ‘source_date’: ‘reference’,
-‘inspected_on’: ‘2026-04-28’, ‘local_protocol_snapshot_ref’: ‘comparators/source_snapshots/SRC-10-
-01.txt’, ‘local_protocol_snapshot_sha256’: ‘6d3b6cc5afbe2d8bae85a6cd7caf72f4f52d4a7195cc4d85fcd69346b8fb668b’,
-‘search_query’: ‘ “Formal Methods and Lean” “theorem proving and formal verification” release gover-
-nance proof data falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION’}]
+‘inspected_on’: ‘2026-04-28’, ‘local_protocol_snapshot_ref’: ‘comparators/source_snapshots/SRC-1001.txt’, ‘local_protocol_snapshot_sha256’: ‘6d3b6cc5afbe2d8bae85a6cd7caf72f4f52d4a7195cc4d85fcd69346b8fb668b’,
+‘search_query’: ‘ “Formal Methods and Lean” “theorem proving and formal verification” release governance proof data falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTIO
 1.5.11 Assurance Cases and Safety Cases
 • absence test: NOT_PROMOTED. Single-source absence is recorded only as a future search obligation,
 not as novelty evidence.
 12
-• feature tests: [{‘oc_feature’: ‘structured argument that evidence supports a claim’, ‘prior_art_overlap’:
-‘YES’, ‘positioning_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘OC v12 claim ledger plus owner-
-review release gates’, ‘prior_art_overlap’: ‘PARTIAL’, ‘positioning_note’: ‘scientific-release control plane
+
+• feature tests: [{‘oc_feature’: ‘structured argument that evidence supports a claim’, ‘prior_art_overlap’:
+‘YES’, ‘positioning_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘OC v12 claim ledger plus ownerreview release gates’, ‘prior_art_overlap’: ‘PARTIAL’, ‘positioning_note’: ‘scientific-release control plane
 around theory claims’}]
 • uniqueness claim status: NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
 • source refs: [{‘title’: ‘NASA System Safety Handbook, safety case/assurance case practice’, ‘url’:
 ‘https://www.nasa.gov/reference/system-safety-handbook/’, ‘source_date’: ‘reference’, ‘inspected_on’:
-‘2026-04-30’, ‘local_protocol_snapshot_ref’: ‘comparators/source_snapshots/SRC-11-01.txt’, ‘lo-
-cal_protocol_snapshot_sha256’: ‘9c12be7e0cac872baf6e93547178bb857cee41b88d8c1d4e9001d548b0cba2b2’,
-‘search_query’: ‘ “Assurance Cases and Safety Cases” “assurance case argument/evidence structures” re-
-lease governance proof data falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION’}]
+‘2026-04-30’, ‘local_protocol_snapshot_ref’:
+‘comparators/source_snapshots/SRC-11-01.txt’, ‘local_protocol_snapshot_sha256’: ‘9c12be7e0cac872baf6e93547178bb857cee41b88d8c1d4e9001d548b0cba2b2’,
+‘search_query’: ‘ “Assurance Cases and Safety Cases” “assurance case argument/evidence structures” release governance proof data falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PR
 1.5.12 Goal Structuring Notation / Argument Patterns
 • absence test: NOT_PROMOTED. Single-source absence is recorded only as a future search obligation,
 not as novelty evidence.
-• feature tests: [{‘oc_feature’: ‘claim -> argument -> evidence trace’, ‘prior_art_overlap’: ‘YES’, ‘po-
-sitioning_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘machine-generated attack matrix and finite-
-case route map’, ‘prior_art_overlap’: ‘PARTIAL’, ‘positioning_note’: ‘local scientific release binding; no
+• feature tests: [{‘oc_feature’: ‘claim -> argument -> evidence trace’, ‘prior_art_overlap’: ‘YES’, ‘positioning_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘machine-generated attack matrix and finitecase route map’, ‘prior_art_overlap’: ‘PARTIAL’, ‘positioning_note’: ‘local scientific release binding; no
 uniqueness promoted’}]
 • uniqueness claim status: NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
 • source refs: [{‘title’: ‘The Assurance Case Working Group and GSN community references’,
-‘url’: ‘https://scsc.uk/scsc-141B’, ‘source_date’: ‘reference’, ‘inspected_on’: ‘2026-04-30’, ‘lo-
-cal_protocol_snapshot_ref’: ‘comparators/source_snapshots/SRC-12-01.txt’, ‘local_protocol_snapshot_sha256’:
-‘ee43f5a19310487c8c6ac885bfe9068ec6cb40e3e1c303c9edc54fce5913b861’, ‘search_query’: ‘ “Goal Struc-
-turing Notation / Argument Patterns” “structured claim/evidence argument notation” release governance
+‘url’:
+‘https://scsc.uk/scsc-141B’, ‘source_date’:
+‘reference’, ‘inspected_on’:
+‘2026-04-30’, ‘local_protocol_snapshot_ref’: ‘comparators/source_snapshots/SRC-12-01.txt’, ‘local_protocol_snapshot_sha256’:
+‘ee43f5a19310487c8c6ac885bfe9068ec6cb40e3e1c303c9edc54fce5913b861’, ‘search_query’: ‘ “Goal Structuring Notation / Argument Patterns” “structured claim/evidence argument notation” release governance
 proof data falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION’}]
-1.5.13 Requirements T raceability and V&V Matrices
+1.5.13 Requirements Traceability and V&V Matrices
+
 • absence test: NOT_PROMOTED. Single-source absence is recorded only as a future search obligation,
 not as novelty evidence.
 • feature tests: [{‘oc_feature’: ‘requirement/claim to verification artifact traceability’, ‘prior_art_overlap’:
-‘YES’, ‘positioning_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘theorem-to-finite-case-to-Cerberus-
-finding closure ledger’, ‘prior_art_overlap’: ‘PARTIAL’, ‘positioning_note’: ‘local owner-review scientific
+‘YES’, ‘positioning_note’: ‘none; not claimed novel’}, {‘oc_feature’: ‘theorem-to-finite-case-to-Cerberusfinding closure ledger’, ‘prior_art_overlap’: ‘PARTIAL’, ‘positioning_note’: ‘local owner-review scientific
 release workflow’}]
 • uniqueness claim status: NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-• source refs: [{‘title’: ‘NASA Systems Engineering Handbook’, ‘url’: ‘https://www.nasa.gov/reference/nasa-
-systems-engineering-handbook/’, ‘source_date’: ‘reference’, ‘inspected_on’: ‘2026-04-30’, ‘lo-
-cal_protocol_snapshot_ref’: ‘comparators/source_snapshots/SRC-13-01.txt’, ‘local_protocol_snapshot_sha256’:
+• source refs: [{‘title’: ‘NASA Systems Engineering Handbook’, ‘url’: ‘https://www.nasa.gov/reference/nasasystems-engineering-handbook/’, ‘source_date’:
+‘reference’, ‘inspected_on’:
+‘2026-04-30’, ‘local_protocol_snapshot_ref’: ‘comparators/source_snapshots/SRC-13-01.txt’, ‘local_protocol_snapshot_sha256’:
 ‘9c24dc9b859c4447b534b035086318467e6cc072cbc5d5b711b10073a9eab584’, ‘search_query’: ‘ “Requirements
 Traceability and V&V Matrices” “requirements traceability and verification/validation matrices” release
-governance proof data falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION’}]
-1.5.14 Scientific W orkflow Provenance and Reproducibility Systems
+governance proof data falsifier’, ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROM
+1.5.14 Scientific Workflow Provenance and Reproducibility Systems
+
 • absence test: NOT_PROMOTED. Single-source absence is recorded only as a future search obligation,
 not as novelty evidence.
 • feature tests: [{‘oc_feature’: ‘artifact metadata, provenance, and reproducibility package’,
@@ -621,12 +695,15 @@ owner-review theorem/replay/Cerberus gate stack’, ‘prior_art_overlap’: ‘
 ‘local policy coupling; no uniqueness promoted’}]
 • uniqueness claim status: NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
 • source refs: [{‘title’: ‘RO-Crate specification’, ‘url’: ‘https://www.researchobject.org/ro-crate/’,
-‘source_date’: ‘reference’, ‘inspected_on’: ‘2026-04-30’, ‘local_protocol_snapshot_ref’: ‘comparators/source_snapshots/SRC-
+‘source_date’: ‘reference’, ‘inspected_on’: ‘2026-04-30’, ‘local_protocol_snapshot_ref’: ‘comparators/source_snapshots/
 14-01.txt’, ‘local_protocol_snapshot_sha256’: ‘b71da73a5a5235fca9d08148a048225ad33f79da1bfc73eaee920e3b9d0daff5’,
+
 13
-‘search_query’: ‘ “Scientific Workflow Provenance and Reproducibility Systems” “workflow provenance,
+
+‘search_query’: ‘ “Scientific Workflow Provenance and Reproducibility Systems” “workflow provenance,
 reproducibility metadata, and research-object packaging” release governance proof data falsifier’,
 ‘archive_status’: ‘LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION’}]
+
 1.6 Phenomenon Coverage and Limits
 The phenomenon matrix records model cards and evidence routes. Rows with illustrative or protocol-ready
 status are not promoted as complete phenomenon explanations. - row total: 15 - state:
@@ -666,8 +743,10 @@ coverage totals until a domain model/evaluator is added.
 fails.
 • claim boundary: This is an internal release-consistency illustration and is excluded from phenomenon
 coverage totals until a domain model/evaluator is added.
+
 14
-1.6.6 P006
+
+1.6.6 P006
 • observable: historical activation remains while effective rank drops
 • negative control: FM-T133-DIM-NEG
 • falsifier: If a historical axis can decrease when effective rank drops, the dimension theorem fails.
@@ -689,8 +768,7 @@ coverage totals until a domain model/evaluator is added.
 1.6.9 P009
 • observable: K6->K7 transition fails reduction when role witness changes verdict
 • negative control: FM-KLEVEL-K6_to_K7-NEG
-• falsifier: If a role/norm witness changes allowed action but the K6->K7 reduction still passes, the insti-
-tution model card fails.
+• falsifier: If a role/norm witness changes allowed action but the K6->K7 reduction still passes, the institution model card fails.
 • claim boundary: This is an internal release-consistency illustration and is excluded from phenomenon
 coverage totals until a domain model/evaluator is added.
 1.6.10 P010
@@ -713,7 +791,8 @@ coverage totals until a domain model/evaluator is added.
 • falsifier: If publish is allowed while owner approval is absent or any channel lock remains not authorized,
 the owner-review card fails.
 15
-• claim boundary: This is an internal release-consistency illustration and is excluded from phenomenon
+
+• claim boundary: This is an internal release-consistency illustration and is excluded from phenomenon
 coverage totals until a domain model/evaluator is added.
 1.6.13 P013
 • observable: reduction fails exactly when retained witness stays observable
@@ -735,4 +814,7 @@ coverage totals until a domain model/evaluator is added.
 identity evidence, the identity theorem fails.
 • claim boundary: This is an internal release-consistency illustration and is excluded from phenomenon
 coverage totals until a domain model/evaluator is added.
+
 16
+
+

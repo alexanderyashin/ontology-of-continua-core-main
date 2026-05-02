@@ -10,5 +10,5 @@ Publication scope:
 - Journal submission: requires separate approval
 - Email campaign and Software Heritage: require separate approval
 
-Zenodo DOI: `10.5281/zenodo.19957779`
+Zenodo DOI: `10.5281/zenodo.19965913`
 GitHub Release: `https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/tag/v1.3.3`

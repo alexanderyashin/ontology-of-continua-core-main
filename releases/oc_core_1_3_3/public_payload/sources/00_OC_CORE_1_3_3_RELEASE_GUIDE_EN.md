@@ -9,8 +9,8 @@ date: 2026-05-01
 
 Version: 1.3.3
 Tag: v1.3.3
-DOI: 10.5281/zenodo.19957779
-Zenodo record: https://zenodo.org/records/19957779
+DOI: 10.5281/zenodo.19965913
+Zenodo record: https://zenodo.org/records/19965913
 
 
 ## Public Landing Guide
