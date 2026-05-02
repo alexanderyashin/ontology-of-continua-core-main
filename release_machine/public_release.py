@@ -817,6 +817,7 @@ def _public_file_set_gate(root: Path, profile: ReleaseProfile, records: list[dic
     ]
     first_name = names[0] if names else ""
     metadata_first = bool(first_name.startswith(".") or first_name.lower() in {"manifest.json", "checksums.txt", "citation.cff"})
+    first_file_public_pdf = first_name.lower().endswith(".pdf") and not metadata_first
     public_zip_total = sum(1 for name in names if name == "oc_core_1_3_3_public_release.zip")
     no_send_names = [name for name in names if "no_send" in name.lower() or "nosend" in name.lower()]
     checks = {
@@ -825,6 +826,7 @@ def _public_file_set_gate(root: Path, profile: ReleaseProfile, records: list[dic
         "pdf_total_ok": len(pdf_rows) >= 4,
         "pdfs_not_tiny": not tiny_pdfs,
         "metadata_not_first": not metadata_first,
+        "first_file_public_pdf": first_file_public_pdf,
         "no_no_send_assets": not no_send_names,
     }
     return {
@@ -1770,7 +1772,7 @@ def replace_public_release(root: Path, *, release_id: str) -> dict[str, Any]:
     )
     supersession = [
         _zenodo_mark_superseded(record_id, str(zenodo_result.get("doi")), str(zenodo_result.get("record_url")))
-        for record_id in ["19956748", "19956854"]
+        for record_id in ["19956748", "19956854", "19957779", "19964204"]
         if str(record_id) != str(zenodo_result.get("record_id"))
     ]
     now = _utc_timestamp()

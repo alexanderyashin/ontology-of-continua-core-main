@@ -19,8 +19,8 @@ VERSION = "1.3.3"
 ESCALATION_MATRIX_REF = "operations/project_control/LOGION_ESCALATION_MATRIX.json"
 INCIDENT_QUEUE_REF = "operations/project_control/LOGION_INCIDENT_QUEUE.json"
 GITHUB_RELEASE_URL = "https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/tag/v1.3.3"
-ZENODO_RECORD_URL = "https://zenodo.org/records/19957779"
-ZENODO_DOI = "10.5281/zenodo.19957779"
+FALLBACK_ZENODO_RECORD_URL = "https://zenodo.org/records/19957779"
+FALLBACK_ZENODO_DOI = "10.5281/zenodo.19957779"
 
 
 def read_text(path: Path) -> str:
@@ -110,6 +110,22 @@ def public_release_approval_mode() -> bool:
     )
 
 
+def publication_context() -> dict[str, str]:
+    editorial = ROOT / "releases" / RELEASE_ID / "editorial"
+    draft = read_json(editorial / f"ZENODO_REPLACEMENT_DRAFT_{VERSION}_latest.json", {})
+    presentation = read_json(editorial / f"PUBLIC_RELEASE_PRESENTATION_{VERSION}_latest.json", {})
+    approval = read_json(editorial / f"OWNER_RELEASE_APPROVAL_v{VERSION}.json", {})
+    draft_record = str(draft.get("draft_record_id") or draft.get("draft_id") or "").strip()
+    draft_doi = str(draft.get("reserved_doi") or "").strip()
+    record_url = (
+        f"https://zenodo.org/records/{draft_record}"
+        if draft_record
+        else str(presentation.get("zenodo_record_url") or approval.get("zenodo_record_url") or FALLBACK_ZENODO_RECORD_URL)
+    )
+    doi = draft_doi or str(presentation.get("zenodo_doi") or approval.get("zenodo_doi") or FALLBACK_ZENODO_DOI)
+    return {"zenodo_record_url": record_url, "zenodo_doi": doi, "github_release_url": GITHUB_RELEASE_URL}
+
+
 def owner_release_authorization_granted() -> bool:
     grant = read_json(ROOT / "releases" / RELEASE_ID / "editorial" / "OWNER_APPROVAL_GRANTED_1.3.3.json", {})
     approval = grant.get("approval", {}) if isinstance(grant, dict) else {}
@@ -124,6 +140,7 @@ def owner_release_authorization_granted() -> bool:
 
 
 def build_self_repair_contract() -> dict[str, Any]:
+    ctx = publication_context()
     return {
         "schema_id": "LOGION_ARCHITECTURE_SELF_REPAIR_CONTRACT_v1",
         "incident_id": INCIDENT_ID,
@@ -214,7 +231,7 @@ def build_self_repair_contract() -> dict[str, Any]:
                 "owner_capability": "IT/ReleaseAutomation",
                 "executor": "tools/oc133_public_release_payload.py",
                 "safe_commands": [
-                    "python -m release_machine public-payload --release-id oc_core_1_3_3 --doi 10.5281/zenodo.19957779 --zenodo-record-url https://zenodo.org/records/19957779 --github-release-url https://github.com/alexanderyashin/ontology-of-continua-core-main/releases/tag/v1.3.3",
+                    f"python -m release_machine public-payload --release-id oc_core_1_3_3 --doi {ctx['zenodo_doi']} --zenodo-record-url {ctx['zenodo_record_url']} --github-release-url {ctx['github_release_url']}",
                     "python -m release_machine public-payload --release-id oc_core_1_3_3 --check"
                 ],
                 "closure_evidence": [
@@ -313,6 +330,7 @@ def run_self_repair_contract() -> dict[str, Any]:
     active_approved_mode = public_release_approval_mode()
     durable_release_authorization = owner_release_authorization_granted()
     approved_mode = active_approved_mode or durable_release_authorization
+    ctx = publication_context()
     commands: list[tuple[str, list[str], int]] = []
     mode_transition_policy = (
         "APPROVED_PUBLIC_RELEASE_REBIND_AND_REAPPLY_APPROVAL"
@@ -364,11 +382,11 @@ def run_self_repair_contract() -> dict[str, Any]:
                 "--release-id",
                 RELEASE_ID,
                 "--doi",
-                ZENODO_DOI,
+                ctx["zenodo_doi"],
                 "--zenodo-record-url",
-                ZENODO_RECORD_URL,
+                ctx["zenodo_record_url"],
                 "--github-release-url",
-                GITHUB_RELEASE_URL,
+                ctx["github_release_url"],
             ],
             1200,
         ),
@@ -457,7 +475,7 @@ def build_incident_payload() -> dict[str, Any]:
     scorecard = read_json(ROOT / "releases" / RELEASE_ID / "editorial" / "OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json", {})
     summary = scorecard.get("summary", scorecard)
     current_master = pdf_stats(master)
-    bad_release_records = ["19956748", "19956854", "19957779"]
+    bad_release_records = ["19956748", "19956854", "19957779", "19964204"]
     root_causes = [
         {
             "root_cause_id": "RC-001",

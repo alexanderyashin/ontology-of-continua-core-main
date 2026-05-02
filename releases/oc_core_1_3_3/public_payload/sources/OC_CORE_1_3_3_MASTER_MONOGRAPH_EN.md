@@ -1967,8 +1967,8 @@ The empirical section reports bounded target-blind reconstruction rows over pinn
 - **comparator residual:** 11.0
 - **negative control:** replace theorem-id aggregate by positive_case_total and require a larger residual
 - **falsifier:** Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse
-- **snapshot hash:** dc1fd271473bbe4a2295120429f222d05daf2d3084a1b852d50ecd471e2fa475
-- **replay hash:** 61dbea211f36804b8914f93091010d518785d55384c1ef641c2cc07b263a1384
+- **snapshot hash:** e0df1fa2196328dc8ccf3a0317c4cc7a7e43c8a14287a6273a6b1b73ca9cd1bf
+- **replay hash:** 6b04d6169779836b85df10a1d0ce8e20b2b74f4d5620989a8b0d56ff974593f1
 - **support scope:** target-blind reconstruction of a finite proof-corpus aggregate; not a full-science program truth proof or empirical law
 
 ### Replay Audit - Biology
