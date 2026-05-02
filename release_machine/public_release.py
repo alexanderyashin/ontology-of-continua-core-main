@@ -1797,9 +1797,17 @@ def replace_public_release(root: Path, *, release_id: str) -> dict[str, Any]:
         github_release_url=github_url,
         write=True,
     )
+    supersession_record_ids = {
+        "19956748",
+        "19956854",
+        "19957779",
+        "19964204",
+        str(zenodo_result.get("source_record_id") or ""),
+        str(draft_payload.get("source_record_id") or ""),
+    }
     supersession = [
         _zenodo_mark_superseded(record_id, str(zenodo_result.get("doi")), str(zenodo_result.get("record_url")))
-        for record_id in ["19956748", "19956854", "19957779", "19964204"]
+        for record_id in sorted(record for record in supersession_record_ids if record)
         if str(record_id) != str(zenodo_result.get("record_id"))
     ]
     now = _utc_timestamp()
