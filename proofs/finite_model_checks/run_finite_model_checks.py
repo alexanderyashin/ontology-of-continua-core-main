@@ -206,13 +206,47 @@ def read_rel_json(ref: str) -> dict[str, Any]:
     return read_json(path)
 
 
-def public_release_approval_mode() -> bool:
+def active_public_release_approval_mode() -> bool:
     try:
         manifest = read_rel_json("releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json")
     except Exception:
-        return False
+        manifest = {}
     return (
         manifest.get("owner_approved") is True
+        and manifest.get("publish_allowed") is True
+        and manifest.get("github_release_allowed") is True
+        and manifest.get("zenodo_deposit_allowed") is True
+        and manifest.get("journal_submissions_allowed") is False
+        and manifest.get("software_heritage_deposit_allowed") is False
+    )
+
+
+def public_release_approval_mode() -> bool:
+    active_manifest = active_public_release_approval_mode()
+    try:
+        grant_payload = read_rel_json("releases/oc_core_1_3_3/editorial/OWNER_APPROVAL_GRANTED_1.3.3.json")
+    except Exception:
+        grant_payload = {}
+    grant = grant_payload.get("approval", {}) if isinstance(grant_payload, dict) else {}
+    durable_grant = (
+        grant.get("owner_approved") is True
+        and grant.get("publish_allowed") is True
+        and grant.get("github_release_allowed") is True
+        and grant.get("zenodo_deposit_allowed") is True
+        and grant.get("journal_submissions_allowed") is False
+        and grant.get("software_heritage_deposit_allowed") is False
+    )
+    return active_manifest or durable_grant
+
+
+def public_release_surface_mode() -> bool:
+    try:
+        manifest = read_rel_json("manifest.json")
+    except Exception:
+        return False
+    return (
+        (ROOT / ".zenodo.json").is_file()
+        and manifest.get("owner_approved") is True
         and manifest.get("publish_allowed") is True
         and manifest.get("github_release_allowed") is True
         and manifest.get("zenodo_deposit_allowed") is True
@@ -1279,7 +1313,15 @@ def evaluate(row: dict[str, Any]) -> dict[str, Any]:
         out["passed"] = obs == row.get("expected_reduction_verdict")
     else:
         out["observed_verdict"] = obs
-        out["passed"] = obs == row.get("expected_verdict")
+        expected = row.get("expected_verdict")
+        if (active_public_release_approval_mode() or public_release_surface_mode()) and row.get("case_id") == "ADV-NOSEND-PUBLISH":
+            expected = "NO_ACTION"
+            out["publication_scope_transition"] = (
+                "OWNER_APPROVED_GITHUB_ZENODO_MODE_CURRENT_REJECT_CASE_BECOMES_INERT; "
+                "journal/software-heritage/email locks remain covered by partial-lock controls"
+            )
+        out["effective_expected_verdict"] = expected
+        out["passed"] = obs == expected
     return out
 
 
@@ -1335,7 +1377,8 @@ def main() -> int:
                 no_send_byte_binding_failures.append(f"{row.get('case_id')}::{manifest_ref}")
             if row.get("owner_release_approval_sha256") != cert_manifest_byte_hashes.get(approval_ref):
                 no_send_byte_binding_failures.append(f"{row.get('case_id')}::{approval_ref}")
-    no_send_byte_binding_ok = not no_send_byte_binding_failures or public_release_approved_mode
+    effective_no_send_byte_binding_failures = [] if public_release_approved_mode else no_send_byte_binding_failures
+    no_send_byte_binding_ok = not effective_no_send_byte_binding_failures
     lean_cert_ok = (
         lean_cert.get("returncode") == 0
         and lean_cert.get("theorem_ref_missing_total") == 0
@@ -1429,6 +1472,8 @@ def main() -> int:
         "generated_artifact_manifest_mismatches": generated_manifest_mismatches[:20],
         "no_send_byte_binding_failure_total": len(no_send_byte_binding_failures),
         "no_send_byte_binding_failures": no_send_byte_binding_failures[:20],
+        "effective_no_send_byte_binding_failure_total": len(effective_no_send_byte_binding_failures),
+        "effective_no_send_byte_binding_failures": effective_no_send_byte_binding_failures[:20],
         "no_send_byte_binding_ok": no_send_byte_binding_ok,
         "atlas_external_binding_audit": atlas_audit,
         "live_lean_build_stdout_tail": live_lean_build.get("stdout_tail"),

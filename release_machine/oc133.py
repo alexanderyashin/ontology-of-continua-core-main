@@ -317,7 +317,13 @@ def _remember_package(root: Path, channel: str, no_publish: bool, fingerprint: s
     _BUILD_PACKAGE_CACHE[key] = {"fingerprint": fingerprint, "payload": dict(payload)}
 
 
-def _lean_certificate_sources_current(root: Path) -> bool:
+PUBLIC_APPROVAL_MUTABLE_SOURCE_REFS = {
+    f"releases/{RELEASE_ID}/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json",
+    f"releases/{RELEASE_ID}/editorial/OWNER_RELEASE_APPROVAL_v{VERSION}.json",
+}
+
+
+def _lean_certificate_sources_current(root: Path, *, ignore_refs: set[str] | None = None) -> bool:
     cert_path = root / "formal" / "lean" / "LEAN_BUILD_CERTIFICATE_1_3_3.json"
     if not _path_exists(cert_path):
         return False
@@ -335,6 +341,8 @@ def _lean_certificate_sources_current(root: Path) -> bool:
         expected = row.get("sha256")
         if not isinstance(ref, str) or not isinstance(expected, str):
             return False
+        if ignore_refs and ref in ignore_refs:
+            continue
         path = root / ref
         if not _is_file(path):
             return False
@@ -357,6 +365,37 @@ def _root_no_send_surface_current(root: Path) -> bool:
         if any(token.lower() in lowered for token in ROOT_NO_SEND_FORBIDDEN_TOKENS):
             return False
     return True
+
+
+def _public_release_approval_mode(root: Path) -> bool:
+    manifest_path = editorial_dir(root) / "OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json"
+    try:
+        manifest = read_json(manifest_path)
+    except (OSError, json.JSONDecodeError):
+        manifest = {}
+    active_manifest = (
+        manifest.get("owner_approved") is True
+        and manifest.get("publish_allowed") is True
+        and manifest.get("github_release_allowed") is True
+        and manifest.get("zenodo_deposit_allowed") is True
+        and manifest.get("journal_submissions_allowed") is False
+        and manifest.get("software_heritage_deposit_allowed") is False
+    )
+    grant_path = editorial_dir(root) / "OWNER_APPROVAL_GRANTED_1.3.3.json"
+    try:
+        grant = read_json(grant_path)
+    except (OSError, json.JSONDecodeError):
+        grant = {}
+    approval = grant.get("approval", {}) if isinstance(grant, dict) else {}
+    durable_grant = (
+        approval.get("owner_approved") is True
+        and approval.get("publish_allowed") is True
+        and approval.get("github_release_allowed") is True
+        and approval.get("zenodo_deposit_allowed") is True
+        and approval.get("journal_submissions_allowed") is False
+        and approval.get("software_heritage_deposit_allowed") is False
+    )
+    return active_manifest or durable_grant
 
 
 def _inventory_payload(root: Path, paths: list[Path]) -> dict[str, Any]:
@@ -463,13 +502,43 @@ def build_zip(root: Path, paths: list[Path]) -> dict[str, Any]:
 
 def build_package(root: Path | None = None, channel: str = "all", no_publish: bool = True) -> dict[str, Any]:
     root = root or repo_root()
+    public_release_mode = _public_release_approval_mode(root)
+    paths = package_file_paths(root)
+    fingerprint = _package_input_fingerprint(root)
+    if public_release_mode:
+        if not _lean_certificate_sources_current(root, ignore_refs=PUBLIC_APPROVAL_MUTABLE_SOURCE_REFS):
+            raise RuntimeError(
+                "OC Core 1.3.3 public-release mode requires a current Lean/finite source "
+                "certificate. Run the Logion incident self-repair/source-rebind migration "
+                "instead of letting package verification rewrite release-space metadata."
+            )
+        cached = _cached_package(root, channel, no_publish, fingerprint)
+        if cached is not None:
+            return cached
+        existing = _existing_package_if_current(root, channel, no_publish, fingerprint, paths)
+        if existing is not None:
+            return existing
+        paths = write_inventory_and_checksums(root, paths)
+        zip_payload = build_zip(root, paths)
+        payload = {
+            "release_id": RELEASE_ID,
+            "version": VERSION,
+            "channel": channel,
+            "no_publish": bool(no_publish),
+            "publish_allowed": False,
+            "package": zip_payload["path"],
+            "package_sha256": zip_payload["sha256"],
+            "artifact_total": len(paths),
+            "package_member_total": zip_payload["member_total"],
+            "release_space_policy": "PUBLIC_RELEASE_SPACE_PRESERVED",
+        }
+        _remember_package(root, channel, no_publish, _package_input_fingerprint(root), payload)
+        return payload
     # The v1.3.3 package must always replay from the v12 no-send surface.
     # Legacy 1.3.2 builders can still touch root metadata through shared
     # release-machine helpers; running v12 before the finite/validation replays
     # prevents stale DOI/public-record metadata from becoming canonical again.
     ensure_materialized(root)
-    paths = package_file_paths(root)
-    fingerprint = _package_input_fingerprint(root)
     if _lean_certificate_sources_current(root) and _root_no_send_surface_current(root):
         cached = _cached_package(root, channel, no_publish, fingerprint)
         if cached is not None:

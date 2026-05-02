@@ -191,6 +191,12 @@ def sanitize_public_json(value: Any) -> Any:
         sanitized: dict[str, Any] = {}
         for key, item in value.items():
             public_key = clean_public_text(key)
+            if public_key == "owner_approved" and item is False:
+                sanitized["pre_publication_owner_approval_pending_control"] = True
+                continue
+            if public_key == "publish_allowed" and item is False:
+                sanitized["pre_publication_publish_block_control"] = True
+                continue
             if public_key == "support_ceiling":
                 public_key = "release_support_boundary"
             sanitized[public_key] = sanitize_public_json(item)
@@ -827,6 +833,8 @@ def materialize_public_evidence_summaries() -> list[Path]:
     PUBLIC_EVIDENCE.mkdir(parents=True, exist_ok=True)
     refs = [
         "formal/lean/OC133V12.lean",
+        "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json",
+        "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json",
         "validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json",
         "reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json",
         "reviews/oc133_llm_cerberus/OC133_LLM_CERBERUS_SUMMARY.json",
@@ -1009,7 +1017,7 @@ abstract: >
         "license": "https://spdx.org/licenses/CC-BY-4.0",
         "datePublished": "2026-05-01",
         "identifier": doi or "10.5281/zenodo.pending",
-        "description": "Bounded external-review scientific release with typed foundations, proof/evidence ledgers, reproducibility package, and journal owner-review packets.",
+        "description": "OC Core 1.3.3 bounded external-review scientific release with typed foundations, proof/evidence ledgers, reproducibility package, and journal owner-review packets.",
         "author": [{"@type": "Person", "givenName": "Alexander", "familyName": "Yashin"}],
     }
     write_json_if_changed(ROOT / ".codemeta.json", codemeta)
@@ -1095,6 +1103,8 @@ GitHub Release: `{github_release_url or 'https://github.com/alexanderyashin/onto
         "description": zenodo_description,
         "creators": [{"name": "Yashin, Alexander", "affiliation": "Logion / Estra", "orcid": "0009-0008-6166-0914"}],
         "license": "cc-by-4.0",
+        "access_right": "open",
+        "publication_date": "2026-05-01",
         "keywords": [
             "Ontology of Continua",
             "OC Core",

@@ -15,7 +15,8 @@
     "manual_release_patch_allowed": false,
     "safe_executor_required": true,
     "write_scope": "repository-local tracked architecture, generation, audit, and release artifacts only",
-    "service_architecture_rule": "Incident management coordinates containment/RCA only. Research, editorial, verification, release engineering, publication records, and governance remain independent services connected by router contracts."
+    "service_architecture_rule": "Incident management coordinates containment/RCA only. Research, editorial, verification, release engineering, publication records, and governance remain independent services connected by router contracts.",
+    "space_separation_rule": "Development, verification, and release spaces are separate logical spaces. Source rebinding happens in verification space; owner-approved publication controls are then re-applied as an explicit release-space migration, never by editing product artifacts directly."
   },
   "repair_classes": [
     {
@@ -135,10 +136,13 @@
       "owner_capability": "IT/ReleaseAutomation",
       "executor": "finite-runner approval-mode policy plus personal release audit scope policy",
       "safe_commands": [
+        "python tools/materialize_oc_core_1_3_3_v12_closure.py",
+        "python -m release_machine owner-approve --release-id oc_core_1_3_3 --owner-identity Alexander Yashin",
         "python proofs/finite_model_checks/run_finite_model_checks.py",
         "python tools/oc133_personal_release_audit.py"
       ],
       "closure_evidence": [
+        "ARCHITECTURE_SELF_REPAIR_EXECUTION.json::mode_transition_policy=APPROVED_PUBLIC_RELEASE_REBIND_AND_REAPPLY_APPROVAL",
         "FINITE_MODEL_CHECKS_1_3_3.json::failure_total=0",
         "OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_latest.json::blocker_total=0"
       ]

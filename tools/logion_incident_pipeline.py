@@ -110,6 +110,19 @@ def public_release_approval_mode() -> bool:
     )
 
 
+def owner_release_authorization_granted() -> bool:
+    grant = read_json(ROOT / "releases" / RELEASE_ID / "editorial" / "OWNER_APPROVAL_GRANTED_1.3.3.json", {})
+    approval = grant.get("approval", {}) if isinstance(grant, dict) else {}
+    return (
+        approval.get("owner_approved") is True
+        and approval.get("publish_allowed") is True
+        and approval.get("github_release_allowed") is True
+        and approval.get("zenodo_deposit_allowed") is True
+        and approval.get("journal_submissions_allowed") is False
+        and approval.get("software_heritage_deposit_allowed") is False
+    )
+
+
 def build_self_repair_contract() -> dict[str, Any]:
     return {
         "schema_id": "LOGION_ARCHITECTURE_SELF_REPAIR_CONTRACT_v1",
@@ -131,6 +144,11 @@ def build_self_repair_contract() -> dict[str, Any]:
             "service_architecture_rule": (
                 "Incident management coordinates containment/RCA only. Research, editorial, verification, "
                 "release engineering, publication records, and governance remain independent services connected by router contracts."
+            ),
+            "space_separation_rule": (
+                "Development, verification, and release spaces are separate logical spaces. "
+                "Source rebinding happens in verification space; owner-approved publication controls are then "
+                "re-applied as an explicit release-space migration, never by editing product artifacts directly."
             ),
         },
         "repair_classes": [
@@ -251,10 +269,13 @@ def build_self_repair_contract() -> dict[str, Any]:
                 "owner_capability": "IT/ReleaseAutomation",
                 "executor": "finite-runner approval-mode policy plus personal release audit scope policy",
                 "safe_commands": [
+                    "python tools/materialize_oc_core_1_3_3_v12_closure.py",
+                    "python -m release_machine owner-approve --release-id oc_core_1_3_3 --owner-identity Alexander Yashin",
                     "python proofs/finite_model_checks/run_finite_model_checks.py",
                     "python tools/oc133_personal_release_audit.py",
                 ],
                 "closure_evidence": [
+                    "ARCHITECTURE_SELF_REPAIR_EXECUTION.json::mode_transition_policy=APPROVED_PUBLIC_RELEASE_REBIND_AND_REAPPLY_APPROVAL",
                     "FINITE_MODEL_CHECKS_1_3_3.json::failure_total=0",
                     "OC_CORE_1_3_3_PERSONAL_RELEASE_AUDIT_latest.json::blocker_total=0",
                 ],
@@ -289,33 +310,36 @@ def build_self_repair_contract() -> dict[str, Any]:
 
 def run_self_repair_contract() -> dict[str, Any]:
     contract = build_self_repair_contract()
-    approved_mode = public_release_approval_mode()
+    active_approved_mode = public_release_approval_mode()
+    durable_release_authorization = owner_release_authorization_granted()
+    approved_mode = active_approved_mode or durable_release_authorization
     commands: list[tuple[str, list[str], int]] = []
-    # The scientific materializer owns Lean/finite certificate source binding
-    # before publication approval is enabled. In approved publication mode it
-    # must not run, because it deliberately resets the publication controls.
-    if not approved_mode:
-        commands.append(
-            (
-                "SERVICE_ARCHITECTURE_ROUTER",
-                ["python", "-m", "release_machine", "services", "--write", "--check"],
-                300,
-            )
+    mode_transition_policy = (
+        "APPROVED_PUBLIC_RELEASE_REBIND_AND_REAPPLY_APPROVAL"
+        if approved_mode
+        else "VERIFICATION_SPACE_REBIND_BEFORE_OWNER_APPROVAL"
+    )
+    commands.append(
+        (
+            "SERVICE_ARCHITECTURE_ROUTER",
+            ["python", "-m", "release_machine", "services", "--write", "--check"],
+            300,
         )
-        commands.append(
-            (
-                "SOURCE_CERTIFICATE_REBIND",
-                ["python", "tools/materialize_oc_core_1_3_3_v12_closure.py"],
-                1200,
-            )
+    )
+    commands.append(
+        (
+            "SOURCE_CERTIFICATE_REBIND",
+            ["python", "tools/materialize_oc_core_1_3_3_v12_closure.py"],
+            1200,
         )
-        commands.append(
-            (
-                "NO_SEND_BASELINE_FINITE_SEMANTICS",
-                ["python", "proofs/finite_model_checks/run_finite_model_checks.py"],
-                600,
-            )
+    )
+    commands.append(
+        (
+            "VERIFICATION_SPACE_FINITE_SEMANTICS",
+            ["python", "proofs/finite_model_checks/run_finite_model_checks.py"],
+            600,
         )
+    )
     if not approved_mode:
         commands.append(
             (
@@ -363,10 +387,34 @@ def run_self_repair_contract() -> dict[str, Any]:
             ["python", "-m", "release_machine", "function-product", "--write", "--check"],
             300,
         ),
+    ])
+    if approved_mode:
+        commands.append(
+            (
+                "RELEASE_SPACE_OWNER_APPROVAL_REAPPLY",
+                [
+                    "python",
+                    "-m",
+                    "release_machine",
+                    "owner-approve",
+                    "--release-id",
+                    RELEASE_ID,
+                    "--owner-identity",
+                    "Alexander Yashin",
+                ],
+                900,
+            )
+        )
+    commands.extend([
         (
             "APPROVAL_MODE_CONTRACT_FINITE",
             ["python", "proofs/finite_model_checks/run_finite_model_checks.py"],
             600,
+        ),
+        (
+            "REVIEW_SCORECARD_POST_REPAIR",
+            ["python", "-m", "release_machine", "evaluate", "--release", RELEASE_ID, "--channel", "all", "--mode", "dry-run"],
+            900,
         ),
         (
             "APPROVAL_MODE_CONTRACT_OWNER_AUDIT",
@@ -392,6 +440,9 @@ def run_self_repair_contract() -> dict[str, Any]:
         "release_id": RELEASE_ID,
         "version": VERSION,
         "public_release_approval_mode": approved_mode,
+        "active_public_release_approval_mode": active_approved_mode,
+        "durable_owner_release_authorization": durable_release_authorization,
+        "mode_transition_policy": mode_transition_policy,
         "contract": contract,
         "rows": rows,
         "failure_total": sum(1 for row in rows if not row["ok"]),

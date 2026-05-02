@@ -1967,8 +1967,8 @@ The empirical section reports bounded target-blind reconstruction rows over pinn
 - **comparator residual:** 11.0
 - **negative control:** replace theorem-id aggregate by positive_case_total and require a larger residual
 - **falsifier:** Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse
-- **snapshot hash:** 95b84c95c588d2482398d8a236097995ab3ee95670af9e288b7ed2b1f426d4d5
-- **replay hash:** 6e5d646bd9ddd46ab42e78b49c8f7bb9e48422dbcd4ad2ac7f79178ee1d11780
+- **snapshot hash:** 0cb5ab981cad6feb64ecaaf35284152590f075f3a7282aef9648e7c6f251bbe8
+- **replay hash:** 9e8f14297d10dc80ffd21acf29ea6690f4b11b134c7e8ff78b2a3f1d7a123066
 - **support scope:** target-blind reconstruction of a finite proof-corpus aggregate; not a full-science program truth proof or empirical law
 
 ### Replay Audit - Biology
@@ -1978,9 +1978,9 @@ The empirical section reports bounded target-blind reconstruction rows over pinn
 - **source log:** validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json
 
 - **row:** OC133-NUM-BIO-GEO-COUNT
-- **snapshot opened:** True
-- **computed residual:** 0.0
-- **negative control rejected:** True
+- **snapshot opened:** 
+- **computed residual:** 
+- **negative control rejected:** 
 
 ### Replay Audit - Chemistry
 
@@ -1989,14 +1989,14 @@ The empirical section reports bounded target-blind reconstruction rows over pinn
 - **source log:** validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json
 
 - **row:** OC133-NUM-CHEM-WEBBOOK-H2O
-- **snapshot opened:** True
-- **computed residual:** 0.0
-- **negative control rejected:** True
+- **snapshot opened:** 
+- **computed residual:** 
+- **negative control rejected:** 
 
 - **row:** OC133-NUM-CHEM-H2O
-- **snapshot opened:** True
-- **computed residual:** 0.0
-- **negative control rejected:** True
+- **snapshot opened:** 
+- **computed residual:** 
+- **negative control rejected:** 
 
 ### Replay Audit - Mathematics
 
@@ -2005,9 +2005,9 @@ The empirical section reports bounded target-blind reconstruction rows over pinn
 - **source log:** validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json
 
 - **row:** OC133-NUM-MATH-FINITE
-- **snapshot opened:** True
-- **computed residual:** 0.0
-- **negative control rejected:** True
+- **snapshot opened:** 
+- **computed residual:** 
+- **negative control rejected:** 
 
 ### Replay Audit - Physics
 
@@ -2016,9 +2016,9 @@ The empirical section reports bounded target-blind reconstruction rows over pinn
 - **source log:** validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json
 
 - **row:** OC133-NUM-PHYS-C
-- **snapshot opened:** True
-- **computed residual:** 0.0
-- **negative control rejected:** True
+- **snapshot opened:** 
+- **computed residual:** 
+- **negative control rejected:** 
 
 ### Replay Audit - Systems
 
@@ -2027,9 +2027,9 @@ The empirical section reports bounded target-blind reconstruction rows over pinn
 - **source log:** validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json
 
 - **row:** OC133-NUM-SYS-WDI-GDP
-- **snapshot opened:** True
-- **computed residual:** 0.0
-- **negative control rejected:** True
+- **snapshot opened:** 
+- **computed residual:** 
+- **negative control rejected:** 
 
 
 ## Prior-Art Comparator and Novelty Boundary

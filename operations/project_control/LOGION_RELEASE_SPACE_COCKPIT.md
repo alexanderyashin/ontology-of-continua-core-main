@@ -3,7 +3,7 @@
 - release: `oc_core_1_3_3` v`1.3.3`
 - state: `PASS`
 - failures: `0`
-- release-space paths: `38`
+- release-space paths: `40`
 - control-language hits: `0`
 - root manifest public: `true`
 - root Zenodo metadata: `true`

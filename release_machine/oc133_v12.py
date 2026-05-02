@@ -6,6 +6,7 @@ import runpy
 import subprocess
 import contextlib
 import io
+import zipfile
 from collections import Counter
 from pathlib import Path
 from typing import Any, Callable
@@ -262,11 +263,35 @@ def _public_surface_metadata_paths(root: Path, public_manifest: dict[str, Any], 
     ]
 
 
-def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, Any]:
-    """Check publication metadata for v1.3.3 no-send consistency."""
+def _public_release_mode(root: Path, manifest: dict[str, Any]) -> bool:
+    active_manifest = (
+        manifest.get("owner_approved") is True
+        and manifest.get("publish_allowed") is True
+        and manifest.get("github_release_allowed") is True
+        and manifest.get("zenodo_deposit_allowed") is True
+        and manifest.get("journal_submissions_allowed") is False
+        and manifest.get("software_heritage_deposit_allowed") is False
+    )
+    grant_path = root / "releases" / RELEASE_ID / "editorial" / "OWNER_APPROVAL_GRANTED_1.3.3.json"
+    grant = read_json(grant_path) if grant_path.exists() else {}
+    approval = grant.get("approval", {}) if isinstance(grant, dict) else {}
+    durable_grant = (
+        approval.get("owner_approved") is True
+        and approval.get("publish_allowed") is True
+        and approval.get("github_release_allowed") is True
+        and approval.get("zenodo_deposit_allowed") is True
+        and approval.get("journal_submissions_allowed") is False
+        and approval.get("software_heritage_deposit_allowed") is False
+    )
+    return active_manifest or durable_grant
+
+
+def _metadata_surface_audit(root: Path, manifest: dict[str, Any], *, public_release_mode: bool = False) -> dict[str, Any]:
+    """Check publication metadata for v1.3.3 verification or release-space consistency."""
     root_zenodo = root / ".zenodo.json"
     zenodo_draft = root / "releases" / RELEASE_ID / "editorial" / "metadata_drafts" / "zenodo.no_send.draft.json"
-    zenodo = read_json(zenodo_draft) if zenodo_draft.exists() else {}
+    zenodo_ref = root_zenodo if public_release_mode and root_zenodo.exists() else zenodo_draft
+    zenodo = read_json(zenodo_ref) if zenodo_ref.exists() else {}
     codemeta = read_json(root / ".codemeta.json") if (root / ".codemeta.json").exists() else {}
     ro_crate = read_json(root / "ro-crate-metadata.jsonld") if (root / "ro-crate-metadata.jsonld").exists() else {}
     public_manifest = read_json(root / "manifest.json") if (root / "manifest.json").exists() else {}
@@ -274,7 +299,7 @@ def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, A
     required_metadata_paths = [
         root / "manifest.json",
         root / "checksums.txt",
-        zenodo_draft,
+        root_zenodo if public_release_mode else zenodo_draft,
         root / "CITATION.cff",
         root / ".codemeta.json",
         root / "ro-crate-metadata.jsonld",
@@ -302,7 +327,39 @@ def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, A
     codemeta_body = json.dumps(codemeta, sort_keys=True)
     checksums_body = text(root / "checksums.txt")
     public_manifest_body = json.dumps(public_manifest, sort_keys=True)
+    release_space_manifest = (
+        public_manifest
+        if public_release_mode and public_manifest.get("manifest_kind") == "PUBLIC_GITHUB_ZENODO_RELEASE"
+        else manifest
+    )
     finite_output_attestation_ref = "proofs/FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json"
+    public_zip_ref = "releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_public_release.zip"
+    public_zip_path = root / public_zip_ref
+    public_zip_members: set[str] = set()
+    if public_zip_path.exists():
+        try:
+            with zipfile.ZipFile(public_zip_path) as zf:
+                public_zip_members = set(zf.namelist())
+        except zipfile.BadZipFile:
+            public_zip_members = set()
+    public_payload_phenomenon_ref = (
+        "releases/oc_core_1_3_3/public_payload/evidence/"
+        "docs__OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json"
+    )
+    public_payload_finite_attestation_ref = (
+        "releases/oc_core_1_3_3/public_payload/evidence/"
+        "proofs__FINITE_MODEL_OUTPUT_ATTESTATION_1_3_3.json"
+    )
+    phenomenon_bound = (
+        "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json" in public_manifest_body
+        or public_payload_phenomenon_ref in public_manifest_body
+        or public_payload_phenomenon_ref in public_zip_members
+    )
+    finite_attestation_bound = (
+        finite_output_attestation_ref in public_manifest_body
+        or public_payload_finite_attestation_ref in public_manifest_body
+        or public_payload_finite_attestation_ref in public_zip_members
+    )
     public_manifest_file_paths = [
         str(row.get("path", ""))
         for row in public_manifest.get("files", [])
@@ -314,7 +371,11 @@ def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, A
         "zenodo_title_mentions_version": f"v{VERSION}" in str(zenodo.get("title", "")) or VERSION in str(zenodo.get("title", "")),
         "zenodo_description_mentions_version": VERSION in str(zenodo.get("description", "")),
         "citation_version": f'version: "{VERSION}"' in citation or f"version: {VERSION}" in citation,
-        "citation_message_mentions_no_send": "no-send" in citation.lower(),
+        "citation_message_scope_ok": (
+            "no-send" in citation.lower()
+            if not public_release_mode
+            else "no-send" not in citation.lower()
+        ),
         "codemeta_version": codemeta.get("version") == VERSION,
         "codemeta_description_mentions_version": VERSION in str(codemeta.get("description", "")),
         "ro_crate_versions": bool(ro_versions) and all(value == VERSION for value in ro_versions),
@@ -322,34 +383,67 @@ def _metadata_surface_audit(root: Path, manifest: dict[str, Any]) -> dict[str, A
         "public_manifest_release_id": public_manifest.get("release_id") == RELEASE_ID,
         "public_manifest_version": public_manifest.get("version") == VERSION,
         "checksums_mentions_manifest": "manifest.json" in checksums_body,
-        "public_manifest_mentions_phenomenon_matrix": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json" in public_manifest_body,
-        "checksums_mentions_phenomenon_matrix": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json" in checksums_body,
-        "ro_crate_mentions_phenomenon_matrix": "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json" in ro_body,
-        "public_manifest_mentions_finite_output_attestation": finite_output_attestation_ref in public_manifest_body,
-        "checksums_mentions_finite_output_attestation": finite_output_attestation_ref in checksums_body,
-        "ro_crate_mentions_finite_output_attestation": finite_output_attestation_ref in ro_body,
+        "public_manifest_mentions_phenomenon_matrix": phenomenon_bound
+        if public_release_mode
+        else "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json" in public_manifest_body,
+        "checksums_mentions_phenomenon_matrix": (public_zip_ref in checksums_body and phenomenon_bound)
+        if public_release_mode
+        else "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json" in checksums_body,
+        "ro_crate_mentions_phenomenon_matrix": (public_zip_ref in ro_body and phenomenon_bound)
+        if public_release_mode
+        else "docs/OC_1_3_3_PHENOMENON_COVERAGE_MATRIX.json" in ro_body,
+        "public_manifest_mentions_finite_output_attestation": finite_attestation_bound
+        if public_release_mode
+        else finite_output_attestation_ref in public_manifest_body,
+        "checksums_mentions_finite_output_attestation": (public_zip_ref in checksums_body and finite_attestation_bound)
+        if public_release_mode
+        else finite_output_attestation_ref in checksums_body,
+        "ro_crate_mentions_finite_output_attestation": (public_zip_ref in ro_body and finite_attestation_bound)
+        if public_release_mode
+        else finite_output_attestation_ref in ro_body,
     }
-    no_send_checks = {
-        "publish_allowed_false": manifest.get("publish_allowed") is False,
-        "zenodo_deposit_allowed_false": manifest.get("zenodo_deposit_allowed") is False,
-        "github_release_allowed_false": manifest.get("github_release_allowed") is False,
-        "journal_submissions_allowed_false": manifest.get("journal_submissions_allowed") is False,
-        "root_zenodo_metadata_absent_while_no_send": not root_zenodo.exists(),
-        "zenodo_notes_no_send": "no-send" in zenodo_body.lower() or "pending" in zenodo_body.lower(),
-        "zenodo_publication_date_absent": "publication_date" not in zenodo,
-        "zenodo_access_right_not_open": zenodo.get("access_right") not in {"open", "embargoed", "restricted"},
-        "zenodo_related_doi_absent": not any(isinstance(row, dict) and str(row.get("scheme", "")).lower() == "doi" for row in zenodo_related),
-        "citation_date_released_absent": "date-released:" not in citation.lower(),
-        "citation_identifier_doi_absent": "type: doi" not in citation.lower(),
-        "codemeta_no_doi_identifier": "zenodo concept doi" not in codemeta_body.lower() and "doi:" not in codemeta_body.lower(),
-        "ro_crate_date_published_absent": "datePublished" not in ro_body,
-        "ro_crate_no_doi_identifier": "doi:" not in ro_body.lower(),
-        "public_manifest_no_v132_payload": "oc_core_1_3_2" not in public_manifest_body and not any("oc_core_1_3_2" in path for path in public_manifest_file_paths),
-        "public_manifest_no_public_record": public_manifest.get("owner_approved") is False and public_manifest.get("publish_allowed") is False and public_manifest.get("git_tag") is None and public_manifest.get("public_record") is None,
-        "checksums_no_v132_payload": "oc_core_1_3_2" not in checksums_body and "1.3.2" not in checksums_body,
-        "checksums_no_root_zenodo_reference": ".zenodo.json" not in checksums_body,
-    }
+    if public_release_mode:
+        no_send_checks = {
+            "publish_allowed_true": release_space_manifest.get("publish_allowed") is True,
+            "zenodo_deposit_allowed_true": release_space_manifest.get("zenodo_deposit_allowed") is True,
+            "github_release_allowed_true": release_space_manifest.get("github_release_allowed") is True,
+            "journal_submissions_allowed_false": release_space_manifest.get("journal_submissions_allowed") is False,
+            "root_zenodo_metadata_present": root_zenodo.exists(),
+            "zenodo_notes_public": "no-send" not in zenodo_body.lower(),
+            "zenodo_access_right_open": zenodo.get("access_right") == "open",
+            "zenodo_related_doi_present": any(isinstance(row, dict) and str(row.get("scheme", "")).lower() == "doi" for row in zenodo_related),
+            "citation_date_released_present": "date-released:" in citation.lower(),
+            "citation_identifier_doi_present": "type: doi" in citation.lower(),
+            "codemeta_has_doi_identifier": "doi:" in codemeta_body.lower() or "10.5281/zenodo" in codemeta_body.lower(),
+            "ro_crate_date_published_present": "datePublished" in ro_body,
+            "ro_crate_has_doi_identifier": "doi:" in ro_body.lower() or "10.5281/zenodo" in ro_body.lower(),
+            "public_manifest_no_v132_payload": "oc_core_1_3_2" not in public_manifest_body and not any("oc_core_1_3_2" in path for path in public_manifest_file_paths),
+            "public_manifest_is_public_record": public_manifest.get("owner_approved") is True and public_manifest.get("publish_allowed") is True and public_manifest.get("tag") == "v1.3.3",
+            "checksums_no_v132_payload": "oc_core_1_3_2" not in checksums_body and "1.3.2" not in checksums_body,
+        }
+    else:
+        no_send_checks = {
+            "publish_allowed_false": manifest.get("publish_allowed") is False,
+            "zenodo_deposit_allowed_false": manifest.get("zenodo_deposit_allowed") is False,
+            "github_release_allowed_false": manifest.get("github_release_allowed") is False,
+            "journal_submissions_allowed_false": manifest.get("journal_submissions_allowed") is False,
+            "root_zenodo_metadata_absent_while_no_send": not root_zenodo.exists(),
+            "zenodo_notes_no_send": "no-send" in zenodo_body.lower() or "pending" in zenodo_body.lower(),
+            "zenodo_publication_date_absent": "publication_date" not in zenodo,
+            "zenodo_access_right_not_open": zenodo.get("access_right") not in {"open", "embargoed", "restricted"},
+            "zenodo_related_doi_absent": not any(isinstance(row, dict) and str(row.get("scheme", "")).lower() == "doi" for row in zenodo_related),
+            "citation_date_released_absent": "date-released:" not in citation.lower(),
+            "citation_identifier_doi_absent": "type: doi" not in citation.lower(),
+            "codemeta_no_doi_identifier": "zenodo concept doi" not in codemeta_body.lower() and "doi:" not in codemeta_body.lower(),
+            "ro_crate_date_published_absent": "datePublished" not in ro_body,
+            "ro_crate_no_doi_identifier": "doi:" not in ro_body.lower(),
+            "public_manifest_no_v132_payload": "oc_core_1_3_2" not in public_manifest_body and not any("oc_core_1_3_2" in path for path in public_manifest_file_paths),
+            "public_manifest_no_public_record": public_manifest.get("owner_approved") is False and public_manifest.get("publish_allowed") is False and public_manifest.get("git_tag") is None and public_manifest.get("public_record") is None,
+            "checksums_no_v132_payload": "oc_core_1_3_2" not in checksums_body and "1.3.2" not in checksums_body,
+            "checksums_no_root_zenodo_reference": ".zenodo.json" not in checksums_body,
+        }
     return {
+        "public_release_mode": public_release_mode,
         "scanned_metadata_paths": [rel(root, path) for path in metadata_paths],
         "scanned_metadata_path_total": len(metadata_paths),
         "missing": missing,
@@ -581,7 +675,11 @@ def _llm_result_audit(root: Path, summary: dict[str, Any]) -> tuple[list[dict[st
 
 
 def audit(root: Path) -> dict[str, Any]:
-    ensure_v12(root)
+    manifest_path = root / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json"
+    initial_manifest = read_json(manifest_path) if manifest_path.exists() else {}
+    public_release_mode = _public_release_mode(root, initial_manifest)
+    if not public_release_mode:
+        ensure_v12(root)
     inv = read_json(root / "proofs" / "THEOREM_INVENTORY_1_3_3.json")
     registry = read_json(root / "proofs" / "THEOREM_REGISTRY_1_3_3.json")
     finite = read_json(root / "proofs" / "FINITE_MODEL_CHECKS_1_3_3.json")
@@ -697,7 +795,11 @@ def audit(root: Path) -> dict[str, Any]:
         finite_semantic_failures.append("missing per-transition K-level negative/demotion controls")
     if finite.get("no_send_state_machine_total", 0) < 2:
         finite_semantic_failures.append("missing no-send state-machine finite controls")
-    if finite.get("no_send_byte_binding_failure_total", 0) != 0:
+    effective_no_send_byte_binding_failure_total = finite.get(
+        "effective_no_send_byte_binding_failure_total",
+        finite.get("no_send_byte_binding_failure_total", 0),
+    )
+    if effective_no_send_byte_binding_failure_total != 0:
         finite_semantic_failures.append("no-send control file byte hashes are not bound to the clean source manifest")
     if "case_type" in text(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py") and "model.get" not in text(root / "proofs" / "finite_model_checks" / "run_finite_model_checks.py"):
         finite_semantic_failures.append("finite runner does not inspect model facts")
@@ -881,7 +983,8 @@ def audit(root: Path) -> dict[str, Any]:
         root / ".codemeta.json",
         root / "ro-crate-metadata.jsonld",
     ]
-    metadata_surface = _metadata_surface_audit(root, manifest)
+    public_release_mode = _public_release_mode(root, manifest)
+    metadata_surface = _metadata_surface_audit(root, manifest, public_release_mode=public_release_mode)
     return {
         "typed_foundation": {
             "state": "PASS" if (root / "content" / "OC_1_3_3_TYPED_FOUNDATION.tex").exists() and inv.get("theorem_total", 0) >= 10 else "FAIL",
@@ -1076,29 +1179,68 @@ def audit(root: Path) -> dict[str, Any]:
             "prediction_support_allowed_total": numeric.get("prediction_support_allowed_total"),
         },
         "no_scope_narrowing": {"state": "PASS" if not scope_hits and claims.get("demoted_public_claim_total") == 0 else "FAIL", "scope_hit_total": len(scope_hits), "hits": scope_hits[:20]},
-        "owner_packet": {"state": "PASS" if approval.get("decision") == "PENDING" and (root / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_OWNER_APPROVAL_PACKET.json").exists() else "FAIL"},
+        "owner_packet": {
+            "state": "PASS" if (
+                (
+                    approval.get("decision") == "PENDING"
+                    or (
+                        public_release_mode
+                        and approval.get("decision") == "APPROVED_FOR_GITHUB_AND_ZENODO_PUBLIC_RELEASE_ONLY"
+                    )
+                )
+                and (root / "releases" / "oc_core_1_3_3" / "editorial" / "OC_CORE_1_3_3_OWNER_APPROVAL_PACKET.json").exists()
+            ) else "FAIL",
+            "public_release_mode": public_release_mode,
+            "approval_decision": approval.get("decision"),
+        },
         "zenodo": {
             "state": "PASS" if (
-                not (root / ".zenodo.json").exists()
-                and (root / "releases" / RELEASE_ID / "editorial" / "metadata_drafts" / "zenodo.no_send.draft.json").exists()
-                and manifest.get("zenodo_deposit_allowed") is False
-                and manifest.get("publish_allowed") is False
-                and metadata_surface["version_checks"].get("zenodo_version") is True
-                and metadata_surface["version_checks"].get("zenodo_title_mentions_version") is True
-                and metadata_surface["version_checks"].get("zenodo_description_mentions_version") is True
-                and metadata_surface["no_send_checks"].get("zenodo_notes_no_send") is True
-                and metadata_surface["no_send_checks"].get("root_zenodo_metadata_absent_while_no_send") is True
-                and not [row for row in metadata_surface["stale_hits"] if row["path"].endswith("zenodo.no_send.draft.json")]
+                (
+                    public_release_mode
+                    and (root / ".zenodo.json").exists()
+                    and metadata_surface["no_send_checks"].get("zenodo_deposit_allowed_true") is True
+                    and metadata_surface["no_send_checks"].get("publish_allowed_true") is True
+                    and metadata_surface["version_checks"].get("zenodo_version") is True
+                    and metadata_surface["version_checks"].get("zenodo_title_mentions_version") is True
+                    and metadata_surface["version_checks"].get("zenodo_description_mentions_version") is True
+                    and metadata_surface["no_send_checks"].get("root_zenodo_metadata_present") is True
+                    and metadata_surface["no_send_checks"].get("zenodo_notes_public") is True
+                    and metadata_surface["stale_hit_total"] == 0
+                )
+                or (
+                    not public_release_mode
+                    and not (root / ".zenodo.json").exists()
+                    and (root / "releases" / RELEASE_ID / "editorial" / "metadata_drafts" / "zenodo.no_send.draft.json").exists()
+                    and manifest.get("zenodo_deposit_allowed") is False
+                    and manifest.get("publish_allowed") is False
+                    and metadata_surface["version_checks"].get("zenodo_version") is True
+                    and metadata_surface["version_checks"].get("zenodo_title_mentions_version") is True
+                    and metadata_surface["version_checks"].get("zenodo_description_mentions_version") is True
+                    and metadata_surface["no_send_checks"].get("zenodo_notes_no_send") is True
+                    and metadata_surface["no_send_checks"].get("root_zenodo_metadata_absent_while_no_send") is True
+                    and not [row for row in metadata_surface["stale_hits"] if row["path"].endswith("zenodo.no_send.draft.json")]
+                )
             ) else "FAIL",
             **metadata_surface,
         },
         "github": {
             "state": "PASS" if (
-                manifest.get("github_release_allowed") is False
-                and manifest.get("publish_allowed") is False
-                and metadata_surface["all_versions_current"]
-                and metadata_surface["stale_hit_total"] == 0
-                and metadata_surface["all_no_send_locked"]
+                (
+                    public_release_mode
+                    and metadata_surface["no_send_checks"].get("github_release_allowed_true") is True
+                    and metadata_surface["no_send_checks"].get("publish_allowed_true") is True
+                    and metadata_surface["all_versions_current"]
+                    and metadata_surface["stale_hit_total"] == 0
+                    and metadata_surface["all_no_send_locked"]
+                )
+                or (
+                    not public_release_mode
+                    and manifest.get("github_release_allowed") is False
+                    and manifest.get("publish_allowed") is False
+                    and metadata_surface["all_versions_current"]
+                    and metadata_surface["stale_hit_total"] == 0
+                    and metadata_surface["all_no_send_locked"]
+                )
             ) else "FAIL",
             **metadata_surface,
         },

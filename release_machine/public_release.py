@@ -33,6 +33,7 @@ TEXT_SUFFIXES = {
 
 SECRET_PATTERN = re.compile(
     r"(OPENAI_API_KEY|GITHUB_TOKEN|GH_TOKEN|ZENODO_ACCESS_TOKEN|ZENODO_TOKEN|password\s*=|secret\s*=|token\s*=|"
+    r"ghp_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9]{20,}|Bearer\s+[A-Za-z0-9_.-]{20,}|"
     r"[A-Za-z]:\\Users\\|/home/|estra-private-work)",
     re.IGNORECASE,
 )
@@ -330,18 +331,20 @@ def _asset_records(root: Path, profile: ReleaseProfile) -> list[dict[str, Any]]:
 
 def _find_secret_hits(root: Path, profile: ReleaseProfile) -> list[dict[str, str]]:
     hits: list[dict[str, str]] = []
-    for asset in profile.assets:
-        path = root / asset.path
+    scan_paths = [root / asset.path for asset in profile.assets]
+    scan_paths.extend((root / "reviews" / "oc133_llm_cerberus" / "logs").glob("*.log"))
+    for path in scan_paths:
+        rel_path = path.relative_to(root).as_posix() if path.is_absolute() and root in path.parents else path.as_posix()
         if not path.is_file() or path.suffix.lower() not in TEXT_SUFFIXES:
             continue
         try:
             text = path.read_text(encoding="utf-8", errors="replace")
         except OSError as exc:
-            hits.append({"path": asset.path, "issue": f"read_failed:{exc}"})
+            hits.append({"path": rel_path, "issue": f"read_failed:{exc}"})
             continue
         match = SECRET_PATTERN.search(text)
         if match:
-            hits.append({"path": asset.path, "issue": f"secret_or_local_path_pattern:{match.group(0)[:60]}"})
+            hits.append({"path": rel_path, "issue": f"secret_or_local_path_pattern:{match.group(0)[:60]}"})
     return hits
 
 
@@ -850,6 +853,8 @@ def _zenodo_metadata(profile: ReleaseProfile, description: str, *, doi: str | No
         "description": description,
         "creators": profile.creators,
         "license": profile.license,
+        "access_right": "open",
+        "publication_date": "2026-05-01",
         "keywords": profile.keywords,
         "version": profile.version,
         "related_identifiers": related,
