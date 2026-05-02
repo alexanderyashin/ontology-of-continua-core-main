@@ -2,6 +2,6 @@
 
 GitHub: PASS
 
-Zenodo: FAIL
+Zenodo: PASS
 
 Journal submissions: locked.
