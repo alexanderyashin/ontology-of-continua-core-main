@@ -20,6 +20,7 @@ from release_machine import publication
 from release_machine import public_release
 from release_machine import science_monolith
 from release_machine import versioning
+from tools import oc133_public_release_payload
 
 
 def _load_grand_science_loop_module():
@@ -165,6 +166,55 @@ class ReleaseMachineTests(unittest.TestCase):
             self.assertNotIn("# Ontology", payload["zenodo_metadata"]["description"])
             self.assertFalse((root / ".zenodo.json").exists())
             self.assertFalse((root / "releases/oc_core_1_3_3/editorial/PUBLIC_RELEASE_PROFILE.json").exists())
+
+    def test_oc133_public_payload_check_is_non_mutating(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            editorial = root / "releases" / "oc_core_1_3_3" / "editorial"
+            sources = root / "releases" / "oc_core_1_3_3" / "public_payload" / "sources"
+            zip_path = root / "releases" / "oc_core_1_3_3" / "artifacts" / "oc_core_1_3_3_public_release.zip"
+            zip_path.parent.mkdir(parents=True, exist_ok=True)
+            zip_path.write_bytes(b"zip-placeholder")
+
+            original_editorial = oc133_public_release_payload.EDITORIAL
+            original_sources = oc133_public_release_payload.PUBLIC_SOURCES
+            original_zip = oc133_public_release_payload.PUBLIC_ZIP
+            original_root = oc133_public_release_payload.ROOT
+            original_assets = oc133_public_release_payload.public_assets
+            original_pdf_audit = oc133_public_release_payload.public_pdf_audit
+            original_surface_scan = oc133_public_release_payload.public_surface_scan
+            original_zip_scan = oc133_public_release_payload.zip_public_scan
+            original_monolith_audit = science_monolith.audit_monolith
+            try:
+                oc133_public_release_payload.EDITORIAL = editorial
+                oc133_public_release_payload.PUBLIC_SOURCES = sources
+                oc133_public_release_payload.PUBLIC_ZIP = zip_path
+                oc133_public_release_payload.ROOT = root
+                oc133_public_release_payload.public_assets = lambda: []  # type: ignore[assignment]
+                oc133_public_release_payload.public_pdf_audit = lambda *, persist_audit_text=True: {  # type: ignore[assignment]
+                    "state": "PASS",
+                    "rows": [],
+                    "failure_total": 0,
+                }
+                oc133_public_release_payload.public_surface_scan = lambda paths: []  # type: ignore[assignment]
+                oc133_public_release_payload.zip_public_scan = lambda: {"state": "PASS", "failure_total": 0, "failures": []}  # type: ignore[assignment]
+                science_monolith.audit_monolith = lambda repo_root: {"state": "PASS"}  # type: ignore[assignment]
+
+                payload = oc133_public_release_payload.audit_public_payload(write=False)
+            finally:
+                oc133_public_release_payload.EDITORIAL = original_editorial
+                oc133_public_release_payload.PUBLIC_SOURCES = original_sources
+                oc133_public_release_payload.PUBLIC_ZIP = original_zip
+                oc133_public_release_payload.ROOT = original_root
+                oc133_public_release_payload.public_assets = original_assets  # type: ignore[assignment]
+                oc133_public_release_payload.public_pdf_audit = original_pdf_audit  # type: ignore[assignment]
+                oc133_public_release_payload.public_surface_scan = original_surface_scan  # type: ignore[assignment]
+                oc133_public_release_payload.zip_public_scan = original_zip_scan  # type: ignore[assignment]
+                science_monolith.audit_monolith = original_monolith_audit  # type: ignore[assignment]
+
+            self.assertEqual(payload["state"], "PASS")
+            self.assertFalse((editorial / "PUBLIC_PAYLOAD_SUITABILITY_1.3.3_latest.json").exists())
+            self.assertFalse((editorial / "pdf_text_audit").exists())
 
     def test_oc133_zenodo_metadata_uses_html_not_github_markdown(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

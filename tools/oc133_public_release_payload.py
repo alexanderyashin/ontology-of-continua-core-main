@@ -9,6 +9,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import textwrap
 import time
 import zipfile
@@ -731,8 +732,18 @@ def build_pdf(source: Path, output: Path, title: str) -> dict[str, Any]:
     }
 
 
-def pdf_text(path: Path) -> tuple[str, int]:
-    txt_path = EDITORIAL / "pdf_text_audit" / f"{path.stem}.txt"
+def pdf_text(path: Path, *, persist_audit_text: bool = True) -> tuple[str, int]:
+    if persist_audit_text:
+        txt_path = EDITORIAL / "pdf_text_audit" / f"{path.stem}.txt"
+        return _pdf_text_to_path(path, txt_path)
+
+    with tempfile.TemporaryDirectory(prefix="oc133_pdf_text_audit_") as tmp_dir:
+        txt_path = Path(tmp_dir) / f"{path.stem}.txt"
+        return _pdf_text_to_path(path, txt_path)
+
+
+def _pdf_text_to_path(path: Path, txt_path: Path) -> tuple[str, int]:
+    txt_path.parent.mkdir(parents=True, exist_ok=True)
     completed = subprocess.run(
         ["pdftotext", str(path), str(txt_path)],
         cwd=ROOT,
@@ -754,12 +765,12 @@ def pdf_text(path: Path) -> tuple[str, int]:
     return text, pages
 
 
-def public_pdf_audit() -> dict[str, Any]:
+def public_pdf_audit(*, persist_audit_text: bool = True) -> dict[str, Any]:
     rows = []
     failures = []
     for key, spec in PDF_SPECS.items():
         path = ARTIFACTS / spec["filename"]
-        text, pages = pdf_text(path) if path.exists() else ("", 0)
+        text, pages = pdf_text(path, persist_audit_text=persist_audit_text) if path.exists() else ("", 0)
         forbidden_hits = [m.group(0) for m in PUBLIC_FORBIDDEN_RE.finditer(text)]
         overclaim_hits = [m.group(0) for m in ABSOLUTE_OVERCLAIM_RE.finditer(text)]
         row = {
@@ -1359,9 +1370,9 @@ def zip_public_scan() -> dict[str, Any]:
     return {"state": "PASS" if not forbidden else "FAIL", "failure_total": len(forbidden), "failures": forbidden[:100]}
 
 
-def audit_public_payload() -> dict[str, Any]:
+def audit_public_payload(*, write: bool = True) -> dict[str, Any]:
     asset_paths = [ROOT / row["path"] for row in public_assets()]
-    pdf_audit = public_pdf_audit()
+    pdf_audit = public_pdf_audit(persist_audit_text=write)
     monolith_audit = science_monolith.audit_monolith(ROOT)
     scan_hits = public_surface_scan(asset_paths + list(PUBLIC_SOURCES.glob("*.md")) + [ROOT / "README.md", ROOT / ".zenodo.json"])
     zip_scan = zip_public_scan()
@@ -1402,6 +1413,9 @@ def audit_public_payload() -> dict[str, Any]:
             "size_bytes": PUBLIC_ZIP.stat().st_size if PUBLIC_ZIP.exists() else 0,
         },
     }
+    if not write:
+        return payload
+
     write_json_if_changed(EDITORIAL / f"PUBLIC_PAYLOAD_SUITABILITY_{VERSION}_latest.json", payload)
     lines = [
         f"# OC Core {VERSION} Public Payload Suitability",

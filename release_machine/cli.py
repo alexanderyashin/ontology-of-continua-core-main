@@ -249,7 +249,7 @@ def main(argv: list[str] | None = None) -> int:
         if release_id == oc133.RELEASE_ID:
             from tools import oc133_public_release_payload
             if args.check:
-                payload = oc133_public_release_payload.audit_public_payload()
+                payload = oc133_public_release_payload.audit_public_payload(write=False)
             else:
                 payload = oc133_public_release_payload.materialize(
                     doi=args.doi,
