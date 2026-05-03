@@ -1,0 +1,86 @@
+# OC Core Release Notes and Changelog v1.3.3
+
+Version: `1.3.3`
+Concept DOI for PDF citation: `10.5281/zenodo.17899134`
+Author: Alexander Yashin
+
+## Abstract
+
+This review-space artifact is assembled from the current OC Core release aggregator, science-to-structure mapping, package cascade, terminal text contracts, and deterministic transition rules. It is not a GitHub or Zenodo publication action.
+
+## Reader Contract
+
+Read this document as an assembled scientific route. Claims are bounded by their proof, evidence, replay, comparator, or falsifier route; unsupported all-domain or superiority claims are not promoted by package assembly.
+
+
+## Block 1
+
+
+### Define Title Page
+
+Define Title Page and Release Identity is introduced here as a reader-facing obligation, not as a file name or process label. The reader task is to fill one future paragraph that completes the definition_model route for Title Page and Release Identity. The paragraph draws on formal model and foundation, prior art novelty and comparator, didactic synthesis and reader guidance and states the local vocabulary before any proof, replay, or comparison is allowed to carry weight. Its boundary is conservative: may define model terms and scope; may not promote empirical or universal claims without later proof/evidence slots. With the object named, the next move is to expose the support route instead of relying on assertion.
+
+Bind Title Page and Release Identity to proof, evidence, or replay carries the evidential burden for the surrounding claim. The release text must show how the reader moves from prose to proof, finite semantics, replay material, comparator evidence, or source trace. The mapped route uses formal model and foundation, machine checked and finite semantics, empirical computational evidence; exact paths and hashes stay in the source trace so the paragraph remains readable. The support is promoted only as far as this boundary permits: may support promoted claims only through cited proof/data; otherwise marks the claim as partial, planned, or missing. The support route only becomes reviewable when its boundary, falsifier, and negative side are visible.
+
+State limits and falsifiers for Title Page and Release Identity states what would make the local claim weaker, false, incomplete, or research-only. The release cannot use the presence of evidence as permission to overstate scope. It must name the falsifier, negative control, reviewer objection, or residual risk carried by review attack response and limits, empirical computational evidence, prior art novelty and comparator. The governing boundary is: must prevent overclaiming and must route unsupported strength to limits or background research. Once the boundary is explicit, the manuscript may synthesize the local consequence without inflating it.
+
+Synthesize Title Page and Release Identity synthesizes the local route for the reader. It states what has been established, what remains bounded, and why the next section follows. The synthesis draws on didactic synthesis and reader guidance, reproducibility governance and artifacts, review attack response and limits but does not add new scientific strength beyond the evidence already named. The boundary remains: may synthesize established local results but must not add new unsupported claims. The next obligation begins by defining the next object before asking the reader to accept claims about it.
+
+
+### Define Dedication to Maria
+
+Define Dedication to Maria is introduced here as a reader-facing obligation, not as a file name or process label. The reader task is to fill one future paragraph that completes the definition_model route for Dedication to Maria. The paragraph draws on formal model and foundation, prior art novelty and comparator, didactic synthesis and reader guidance and states the local vocabulary before any proof, replay, or comparison is allowed to carry weight. Its boundary is conservative: may define model terms and scope; may not promote empirical or universal claims without later proof/evidence slots. With the object named, the next move is to expose the support route instead of relying on assertion.
+
+Bind Dedication to Maria to proof, evidence, or replay carries the evidential burden for the surrounding claim. The release text must show how the reader moves from prose to proof, finite semantics, replay material, comparator evidence, or source trace. The mapped route uses formal model and foundation, machine checked and finite semantics, empirical computational evidence; exact paths and hashes stay in the source trace so the paragraph remains readable. The support is promoted only as far as this boundary permits: may support promoted claims only through cited proof/data; otherwise marks the claim as partial, planned, or missing. The support route only becomes reviewable when its boundary, falsifier, and negative side are visible.
+
+State limits and falsifiers for Dedication to Maria states what would make the local claim weaker, false, incomplete, or research-only. The release cannot use the presence of evidence as permission to overstate scope. It must name the falsifier, negative control, reviewer objection, or residual risk carried by review attack response and limits, empirical computational evidence, prior art novelty and comparator. The governing boundary is: must prevent overclaiming and must route unsupported strength to limits or background research. Once the boundary is explicit, the manuscript may synthesize the local consequence without inflating it.
+
+Synthesize Dedication to Maria synthesizes the local route for the reader. It states what has been established, what remains bounded, and why the next section follows. The synthesis draws on didactic synthesis and reader guidance, reproducibility governance and artifacts, review attack response and limits but does not add new scientific strength beyond the evidence already named. The boundary remains: may synthesize established local results but must not add new unsupported claims. The next obligation begins by defining the next object before asking the reader to accept claims about it.
+
+
+### Define Abstract
+
+Define Abstract is introduced here as a reader-facing obligation, not as a file name or process label. The reader task is to fill one future paragraph that completes the definition_model route for Abstract. The paragraph draws on formal model and foundation, prior art novelty and comparator, didactic synthesis and reader guidance and states the local vocabulary before any proof, replay, or comparison is allowed to carry weight. Its boundary is conservative: may define model terms and scope; may not promote empirical or universal claims without later proof/evidence slots. With the object named, the next move is to expose the support route instead of relying on assertion.
+
+Bind Abstract to proof, evidence, or replay carries the evidential burden for the surrounding claim. The release text must show how the reader moves from prose to proof, finite semantics, replay material, comparator evidence, or source trace. The mapped route uses formal model and foundation, machine checked and finite semantics, empirical computational evidence; exact paths and hashes stay in the source trace so the paragraph remains readable. The support is promoted only as far as this boundary permits: may support promoted claims only through cited proof/data; otherwise marks the claim as partial, planned, or missing. The support route only becomes reviewable when its boundary, falsifier, and negative side are visible.
+
+State limits and falsifiers for Abstract states what would make the local claim weaker, false, incomplete, or research-only. The release cannot use the presence of evidence as permission to overstate scope. It must name the falsifier, negative control, reviewer objection, or residual risk carried by review attack response and limits, empirical computational evidence, prior art novelty and comparator. The governing boundary is: must prevent overclaiming and must route unsupported strength to limits or background research. Once the boundary is explicit, the manuscript may synthesize the local consequence without inflating it.
+
+Synthesize Abstract synthesizes the local route for the reader. It states what has been established, what remains bounded, and why the next section follows. The synthesis draws on didactic synthesis and reader guidance, reproducibility governance and artifacts, review attack response and limits but does not add new scientific strength beyond the evidence already named. The boundary remains: may synthesize established local results but must not add new unsupported claims. The next obligation begins by defining the next object before asking the reader to accept claims about it.
+
+
+### Define Keywords
+
+Define Keywords and Classification is introduced here as a reader-facing obligation, not as a file name or process label. The reader task is to fill one future paragraph that completes the definition_model route for Keywords and Classification. The paragraph draws on formal model and foundation, prior art novelty and comparator, didactic synthesis and reader guidance and states the local vocabulary before any proof, replay, or comparison is allowed to carry weight. Its boundary is conservative: may define model terms and scope; may not promote empirical or universal claims without later proof/evidence slots. With the object named, the next move is to expose the support route instead of relying on assertion.
+
+Bind Keywords and Classification to proof, evidence, or replay carries the evidential burden for the surrounding claim. The release text must show how the reader moves from prose to proof, finite semantics, replay material, comparator evidence, or source trace. The mapped route uses formal model and foundation, machine checked and finite semantics, empirical computational evidence; exact paths and hashes stay in the source trace so the paragraph remains readable. The support is promoted only as far as this boundary permits: may support promoted claims only through cited proof/data; otherwise marks the claim as partial, planned, or missing. The support route only becomes reviewable when its boundary, falsifier, and negative side are visible.
+
+State limits and falsifiers for Keywords and Classification states what would make the local claim weaker, false, incomplete, or research-only. The release cannot use the presence of evidence as permission to overstate scope. It must name the falsifier, negative control, reviewer objection, or residual risk carried by review attack response and limits, empirical computational evidence, prior art novelty and comparator. The governing boundary is: must prevent overclaiming and must route unsupported strength to limits or background research. Once the boundary is explicit, the manuscript may synthesize the local consequence without inflating it.
+
+Synthesize Keywords and Classification synthesizes the local route for the reader. It states what has been established, what remains bounded, and why the next section follows. The synthesis draws on didactic synthesis and reader guidance, reproducibility governance and artifacts, review attack response and limits but does not add new scientific strength beyond the evidence already named. The boundary remains: may synthesize established local results but must not add new unsupported claims. The next obligation begins by defining the next object before asking the reader to accept claims about it.
+
+
+### Define Citation, DOI,
+
+Define Citation, DOI, and Version Statement is introduced here as a reader-facing obligation, not as a file name or process label. The reader task is to fill one future paragraph that completes the definition_model route for Citation, DOI, and Version Statement. The paragraph draws on formal model and foundation, prior art novelty and comparator, didactic synthesis and reader guidance and states the local vocabulary before any proof, replay, or comparison is allowed to carry weight. Its boundary is conservative: may define model terms and scope; may not promote empirical or universal claims without later proof/evidence slots. With the object named, the next move is to expose the support route instead of relying on assertion.
+
+Bind Citation, DOI, and Version Statement to proof, evidence, or replay carries the evidential burden for the surrounding claim. The release text must show how the reader moves from prose to proof, finite semantics, replay material, comparator evidence, or source trace. The mapped route uses formal model and foundation, machine checked and finite semantics, empirical computational evidence; exact paths and hashes stay in the source trace so the paragraph remains readable. The support is promoted only as far as this boundary permits: may support promoted claims only through cited proof/data; otherwise marks the claim as partial, planned, or missing. The support route only becomes reviewable when its boundary, falsifier, and negative side are visible.
+
+State limits and falsifiers for Citation, DOI, and Version Statement states what would make the local claim weaker, false, incomplete, or research-only. The release cannot use the presence of evidence as permission to overstate scope. It must name the falsifier, negative control, reviewer objection, or residual risk carried by review attack response and limits, empirical computational evidence, prior art novelty and comparator. The governing boundary is: must prevent overclaiming and must route unsupported strength to limits or background research. Once the boundary is explicit, the manuscript may synthesize the local consequence without inflating it.
+
+Synthesize Citation, DOI, and Version Statement synthesizes the local route for the reader. It states what has been established, what remains bounded, and why the next section follows. The synthesis draws on didactic synthesis and reader guidance, reproducibility governance and artifacts, review attack response and limits but does not add new scientific strength beyond the evidence already named. The boundary remains: may synthesize established local results but must not add new unsupported claims. The next obligation begins by defining the next object before asking the reader to accept claims about it.
+
+
+### Define Table of Contents
+
+Define Table of Contents is introduced here as a reader-facing obligation, not as a file name or process label. The reader task is to fill one future paragraph that completes the definition_model route for Table of Contents. The paragraph draws on formal model and foundation, prior art novelty and comparator, didactic synthesis and reader guidance and states the local vocabulary before any proof, replay, or comparison is allowed to carry weight. Its boundary is conservative: may define model terms and scope; may not promote empirical or universal claims without later proof/evidence slots. With the object named, the next move is to expose the support route instead of relying on assertion.
+
+Bind Table of Contents to proof, evidence, or replay carries the evidential burden for the surrounding claim. The release text must show how the reader moves from prose to proof, finite semantics, replay material, comparator evidence, or source trace. The mapped route uses formal model and foundation, machine checked and finite semantics, empirical computational evidence; exact paths and hashes stay in the source trace so the paragraph remains readable. The support is promoted only as far as this boundary permits: may support promoted claims only through cited proof/data; otherwise marks the claim as partial, planned, or missing. The support route only becomes reviewable when its boundary, falsifier, and negative side are visible.
+
+State limits and falsifiers for Table of Contents states what would make the local claim weaker, false, incomplete, or research-only. The release cannot use the presence of evidence as permission to overstate scope. It must name the falsifier, negative control, reviewer objection, or residual risk carried by review attack response and limits, empirical computational evidence, prior art novelty and comparator. The governing boundary is: must prevent overclaiming and must route unsupported strength to limits or background research. Once the boundary is explicit, the manuscript may synthesize the local consequence without inflating it.
+
+Synthesize Table of Contents synthesizes the local route for the reader. It states what has been established, what remains bounded, and why the next section follows. The synthesis draws on didactic synthesis and reader guidance, reproducibility governance and artifacts, review attack response and limits but does not add new scientific strength beyond the evidence already named. The boundary remains: may synthesize established local results but must not add new unsupported claims. The next obligation begins by defining the next object before asking the reader to accept claims about it.
+
+## Source Trace
+
+Exact source bindings, path hashes, quality scorer hooks, and transition records are recorded in the generated artifact package manifest. They are kept out of the main prose to avoid turning the document into a ledger dump.

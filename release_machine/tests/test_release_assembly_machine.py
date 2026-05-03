@@ -107,9 +107,11 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         audit_path = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "quality_validation" / "OC_CORE_RELEASE_QUALITY_AUDIT_1.3.3.json"
         audit = read_json(audit_path)
         self.assertEqual(audit["status"], "QUALITY_REPAIR_REQUIRED")
-        self.assertGreater(audit["summary"]["not_assessed_l10_total"], 0)
+        self.assertEqual(audit["summary"]["not_assessed_l10_total"], 0)
+        self.assertGreater(audit["summary"]["scientific_coverage_not_assessed_l10_total"], 0)
         self.assertFalse(audit["summary"]["quality_claim_allowed"])
-        self.assertIn("VULN-QA-001", audit["vulnerability_ids"])
+        self.assertFalse(audit["summary"]["scientific_full_coverage_claim_allowed"])
+        self.assertIn("VULN-CERB-001", audit["vulnerability_ids"])
 
     def test_vulnerability_protocol_and_delta_are_scoped(self) -> None:
         base = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "quality_validation"
@@ -124,6 +126,33 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertEqual(delta["parent_hashes"]["vulnerability_protocol_hash"], protocol["artifact_hash"])
         self.assertEqual(delta["remediation_revision"], "r001")
         self.assertTrue(delta["affected_artifacts"] or delta["affected_node_ids"])
+
+    def test_artifact_generation_rules_exist_and_keep_doi_layer_separate(self) -> None:
+        base = ASSEMBLY / "artifact_generation"
+        profile = read_json(base / "OC_CORE_RELEASE_ARTIFACT_GENERATION_PROFILE.json")
+        terminal = read_json(base / "OC_CORE_TERMINAL_TEXT_GENERATION_RULES.json")
+        transitions = read_json(base / "OC_CORE_TRANSITION_RULES.json")
+        self.assertEqual(profile["concept_doi_policy"]["pdf_doi"], "10.5281/zenodo.17899134")
+        self.assertTrue(profile["concept_doi_policy"]["release_record_doi_is_publication_layer_only"])
+        for field in ["reader_task", "claim_boundary", "source_refs", "transition_in", "transition_out"]:
+            self.assertIn(field, terminal["terminal_contract_fields"])
+        self.assertIn("definition_model->proof_evidence", transitions["templates"])
+
+    def test_generated_release_package_is_review_space_only(self) -> None:
+        base = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "generated_artifacts"
+        assembly = read_json(base / "package_assembly" / "OC_CORE_RELEASE_PACKAGE_ASSEMBLY_1.3.3.json")
+        audit = read_json(base / "package_assembly" / "OC_CORE_RELEASE_PACKAGE_ASSEMBLY_AUDIT_1.3.3.json")
+        self.assertEqual(audit["status"], "PASS")
+        self.assertFalse(assembly["publication_actions_performed"])
+        self.assertIsNone(assembly["release_record_doi"])
+        self.assertEqual(assembly["concept_doi"], "10.5281/zenodo.17899134")
+        self.assertEqual(assembly["summary"]["terminal_node_total"], 656)
+        self.assertEqual(assembly["summary"]["blocked_terminal_total"], 0)
+        self.assertEqual(assembly["summary"]["transition_record_total"], 655)
+        for row in assembly["artifact_rows"]:
+            self.assertTrue(row["output_paths"])
+            for output in row["output_paths"]:
+                self.assertTrue((ROOT / output).exists(), output)
 
 
 if __name__ == "__main__":

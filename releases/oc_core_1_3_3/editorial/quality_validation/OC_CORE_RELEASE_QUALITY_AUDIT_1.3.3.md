@@ -1,7 +1,7 @@
 # OC Core Release Quality Audit 1.3.3
 
 Status: `QUALITY_REPAIR_REQUIRED`
-Artifact hash: `d88fbd4f7edca3c10e1e8f00795b0d7fe512109462e61b68847621b1a77adccf`
+Artifact hash: `184025e837e7f035110354129ef59e5b4314a6636cfc863ae8810aa87d845727`
 
 ## Summary
 
@@ -9,13 +9,15 @@ Artifact hash: `d88fbd4f7edca3c10e1e8f00795b0d7fe512109462e61b68847621b1a77adccf
 - `metric_total`: 15
 - `projection_row_total`: 9840
 - `applicable_projection_total`: 6635
-- `not_assessed_l10_total`: 656
+- `not_assessed_l10_total`: 0
+- `scientific_coverage_not_assessed_l10_total`: 656
 - `missing_required_metric_node_total`: 0
 - `artifact_type_total`: 9
 - `artifact_failure_total`: 0
-- `blocking_vulnerability_total`: 2
-- `vulnerability_total`: 2
+- `blocking_vulnerability_total`: 1
+- `vulnerability_total`: 1
 - `quality_claim_allowed`: False
+- `scientific_full_coverage_claim_allowed`: False
 
 ## Metric Families
 
@@ -35,4 +37,4 @@ Artifact hash: `d88fbd4f7edca3c10e1e8f00795b0d7fe512109462e61b68847621b1a77adccf
 
 ## L10 Status Counts
 
-- `NOT_ASSESSED`: 656
+- `SCORED`: 656

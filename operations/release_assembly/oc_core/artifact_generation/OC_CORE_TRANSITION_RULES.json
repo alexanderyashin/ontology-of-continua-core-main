@@ -1,0 +1,49 @@
+{
+  "artifact_hash": "1270ad6d0d4fd35aea43fea609e55189bdc6473df85f77e09f6ac7a67f427b62",
+  "artifact_kind": "OC_CORE_TRANSITION_RULES",
+  "body_prose_included": false,
+  "canonical_argument_sequence": [
+    "identity",
+    "scope",
+    "problem",
+    "prior_art",
+    "method",
+    "model",
+    "proof",
+    "evidence",
+    "limits",
+    "novelty",
+    "didactics",
+    "review",
+    "reproducibility",
+    "governance",
+    "synthesis"
+  ],
+  "gate_rules": [
+    "every adjacent terminal pair must have a transition record",
+    "chapter transitions must not skip from evidence to synthesis without a limits/falsifier route where applicable",
+    "artifact transitions must state reading order and reader payoff",
+    "transition text must not contain source paths, checksums, approval locks, or publication-control language"
+  ],
+  "role_sequence": [
+    "definition_model",
+    "proof_evidence",
+    "limits_falsifier",
+    "synthesis_transition"
+  ],
+  "schema_id": "OC_CORE_TRANSITION_RULES_v1",
+  "status": "OC_CORE_ARTIFACT_GENERATION_RULES_READY",
+  "templates": {
+    "definition_model->proof_evidence": "Having named the object, the manuscript now makes the support route explicit.",
+    "limits_falsifier->synthesis_transition": "With the boundary stated, the section can synthesize the local consequence without overclaiming.",
+    "proof_evidence->limits_falsifier": "The support route is useful only when its boundary and falsifier are visible.",
+    "synthesis_transition->definition_model": "The next obligation starts by naming the next object before asking for proof or evidence."
+  },
+  "transition_levels": [
+    "terminal",
+    "paragraph_group",
+    "chapter",
+    "block",
+    "artifact"
+  ]
+}

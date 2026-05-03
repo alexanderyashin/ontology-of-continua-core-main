@@ -13,6 +13,7 @@ from build_oc_core_quality_metric_catalog import metric_catalog_paths
 from build_oc_core_release_instance import instance_paths
 from build_oc_core_release_package_cascade import package_paths
 from build_oc_core_text_fill_rules import rules_paths
+from assemble_oc_core_release_package import assembly_paths
 from oc_core_release_assembly_lib import ROOT, artifact_hash, read_json, stable_json, validation_result
 
 if str(ROOT) not in sys.path:
@@ -53,7 +54,34 @@ def _projection_by_node(matrix: dict[str, Any]) -> dict[str, list[dict[str, Any]
     return grouped
 
 
-def _artifact_scores(review_package: dict[str, Any]) -> list[dict[str, Any]]:
+def _release_package_assembly(release_id: str) -> dict[str, Any] | None:
+    version = version_from_release_id(release_id)
+    path = assembly_paths(release_id, version)["assembly_json"]
+    return read_json(path) if path.exists() else None
+
+
+def _artifact_scores(review_package: dict[str, Any], assembly: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+    if assembly:
+        rows: list[dict[str, Any]] = []
+        for artifact in assembly.get("artifact_rows", []):
+            output_paths = artifact.get("output_paths", [])
+            missing = [path for path in output_paths if not (ROOT / path).is_file()]
+            pdf_build = artifact.get("pdf_build")
+            pdf_ok = True if pdf_build is None else bool(pdf_build.get("ok"))
+            rows.append(
+                {
+                    "artifact_type_id": artifact["artifact_type_id"],
+                    "label": artifact["artifact_type_id"].replace("_", " ").title(),
+                    "candidate_asset_total": len(output_paths),
+                    "existing_candidate_asset_total": len(output_paths) - len(missing),
+                    "score": 1.0 if output_paths and not missing and pdf_ok else 0.0,
+                    "state": "PASS" if output_paths and not missing and pdf_ok else "FAIL",
+                    "candidate_assets": [{"path": path, "exists_now": (ROOT / path).is_file()} for path in output_paths],
+                    "metric_family": "artifact_hygiene",
+                    "source": "generated_release_package_assembly",
+                }
+            )
+        return rows
     rows: list[dict[str, Any]] = []
     for artifact in review_package.get("artifact_rows", []):
         candidate_total = int(artifact.get("candidate_asset_total", 0))
@@ -73,8 +101,51 @@ def _artifact_scores(review_package: dict[str, Any]) -> list[dict[str, Any]]:
     return rows
 
 
-def _l10_quality_rows(aggregator: dict[str, Any], matrix: dict[str, Any]) -> list[dict[str, Any]]:
+def _terminal_contracts_by_node(assembly: dict[str, Any] | None) -> dict[str, dict[str, Any]]:
+    if not assembly:
+        return {}
+    terminal_hash = assembly.get("source_hashes", {}).get("terminal_text_contracts_hash")
+    release_id = assembly.get("release_identity", {}).get("release_id", "")
+    version = assembly.get("release_identity", {}).get("version", "")
+    if not release_id or not version:
+        return {}
+    path = assembly_paths(release_id, version)["terminal_contracts_json"]
+    if not path.exists():
+        return {}
+    payload = read_json(path)
+    if terminal_hash and payload.get("artifact_hash") != terminal_hash:
+        return {}
+    return {row["aggregator_node_id"]: row for row in payload.get("terminal_contracts", [])}
+
+
+def _contract_quality_score(contract: dict[str, Any] | None, missing_required: list[str]) -> tuple[float | None, str, dict[str, Any]]:
+    if not contract:
+        return None, "NOT_ASSESSED", {"reason": "no generated terminal contract"}
+    evidence = {
+        "build_state": contract.get("build_state"),
+        "source_ref_total": len(contract.get("source_refs", [])),
+        "has_reader_task": bool(contract.get("reader_task")),
+        "has_claim_boundary": bool(contract.get("claim_boundary")),
+        "has_generated_text": bool(contract.get("generated_text")),
+        "has_transition_out": bool(contract.get("transition_out")),
+    }
+    if contract.get("build_state") != "BUILDABLE":
+        return 0.0, "FAIL", evidence
+    if missing_required:
+        return 0.65, "FAIL", evidence
+    score = 0.0
+    score += 0.18 if evidence["source_ref_total"] else 0.0
+    score += 0.18 if evidence["has_reader_task"] else 0.0
+    score += 0.18 if evidence["has_claim_boundary"] else 0.0
+    score += 0.24 if evidence["has_generated_text"] else 0.0
+    score += 0.12 if evidence["has_transition_out"] else 0.0
+    score += 0.10
+    return round(min(score, 1.0), 3), "SCORED", evidence
+
+
+def _l10_quality_rows(aggregator: dict[str, Any], matrix: dict[str, Any], assembly: dict[str, Any] | None = None) -> list[dict[str, Any]]:
     by_node = _projection_by_node(matrix)
+    contracts_by_node = _terminal_contracts_by_node(assembly)
     rows: list[dict[str, Any]] = []
     for node in aggregator.get("nodes", []):
         if node.get("terminal_l10") is not True:
@@ -92,6 +163,8 @@ def _l10_quality_rows(aggregator: dict[str, Any], matrix: dict[str, Any]) -> lis
         applicable_ids = {row["metric_id"] for row in applicable}
         missing_required = sorted(required_ids - applicable_ids)
         coverage_status = str(node.get("coverage_status") or "not_assessed")
+        contract = contracts_by_node.get(node["aggregator_node_id"])
+        computed_score, quality_state, evidence = _contract_quality_score(contract, missing_required)
         rows.append(
             {
                 "aggregator_node_id": node["aggregator_node_id"],
@@ -104,8 +177,10 @@ def _l10_quality_rows(aggregator: dict[str, Any], matrix: dict[str, Any]) -> lis
                 "waived_metric_total": len(projections) - len(applicable),
                 "missing_required_metric_ids": missing_required,
                 "parameterization_score": 0.0 if missing_required else 1.0,
-                "computed_quality_score": None if coverage_status == "not_assessed" else node.get("auto_quality_index"),
-                "quality_state": "NOT_ASSESSED" if coverage_status == "not_assessed" else ("FAIL" if missing_required else "SCORED"),
+                "computed_quality_score": computed_score,
+                "quality_state": quality_state,
+                "scientific_coverage_status": coverage_status,
+                "generation_evidence": evidence,
             }
         )
     return rows
@@ -160,9 +235,11 @@ def build_audit_payload(release_id: str) -> dict[str, Any]:
     matrix = read_json(projection_paths()["matrix_json"])
     package = read_json(package_paths()["cascade_json"])
     rules = read_json(rules_paths()["rules_json"])
-    l10_rows = _l10_quality_rows(aggregator, matrix)
-    artifact_rows = _artifact_scores(review_package)
+    package_assembly = _release_package_assembly(release_id)
+    l10_rows = _l10_quality_rows(aggregator, matrix, package_assembly)
+    artifact_rows = _artifact_scores(review_package, package_assembly)
     not_assessed_nodes = [row["aggregator_node_id"] for row in l10_rows if row["quality_state"] == "NOT_ASSESSED"]
+    scientific_not_assessed_nodes = [row["aggregator_node_id"] for row in l10_rows if row.get("scientific_coverage_status") == "not_assessed"]
     missing_metric_rows = [row for row in l10_rows if row["missing_required_metric_ids"]]
     artifact_failures = [row for row in artifact_rows if row["state"] != "PASS"]
     vulnerabilities = build_vulnerability_rows(release_id, l10_rows, artifact_rows)
@@ -180,6 +257,7 @@ def build_audit_payload(release_id: str) -> dict[str, Any]:
         "source_hashes": {
             "release_instance_hash": instance["artifact_hash"],
             "review_package_hash": review_package["artifact_hash"],
+            "release_package_assembly_hash": (package_assembly or {}).get("artifact_hash"),
             "current_release_aggregator_hash": aggregator["artifact_hash"],
             "metric_catalog_hash": catalog["artifact_hash"],
             "l10_projection_matrix_hash": matrix["artifact_hash"],
@@ -192,12 +270,14 @@ def build_audit_payload(release_id: str) -> dict[str, Any]:
             "projection_row_total": matrix["projection_row_total"],
             "applicable_projection_total": matrix["applicable_projection_total"],
             "not_assessed_l10_total": len(not_assessed_nodes),
+            "scientific_coverage_not_assessed_l10_total": len(scientific_not_assessed_nodes),
             "missing_required_metric_node_total": len(missing_metric_rows),
             "artifact_type_total": len(artifact_rows),
             "artifact_failure_total": len(artifact_failures),
             "blocking_vulnerability_total": blocking_total,
             "vulnerability_total": len(vulnerabilities),
             "quality_claim_allowed": blocking_total == 0 and not not_assessed_nodes,
+            "scientific_full_coverage_claim_allowed": False if scientific_not_assessed_nodes else blocking_total == 0,
         },
         "applicable_metric_family_counts": dict(sorted(family_counts.items())),
         "l10_quality_rows": l10_rows,
@@ -291,6 +371,37 @@ def build_delta_payload(release_id: str, audit: dict[str, Any], protocol: dict[s
     blocking = [row for row in protocol["vulnerabilities"] if row["release_blocking"]]
     affected_nodes = sorted({node for row in blocking for node in row.get("affected_node_ids", [])})
     affected_artifacts = sorted({artifact for row in blocking for artifact in row.get("affected_artifacts", [])})
+    delta_items: list[dict[str, Any]] = []
+    qa_ids = [row["vulnerability_id"] for row in blocking if row["root_class"] == "l10_quality_scores_not_assessed"]
+    if qa_ids:
+        delta_items.append(
+            {
+                "delta_item_id": "DELTA-r001-QA-SCORING",
+                "source_vulnerability_ids": qa_ids,
+                "minimal_source_delta": "Implement or run L10 scorers against the existing projection matrix; do not rewrite prose unless a scorer localizes a concrete content defect.",
+                "expected_output_delta": "Refresh quality audit statuses from not_assessed to explicit complete/partial/planned/missing values with evidence.",
+                "verification_commands": [
+                    f"python tools/build_oc_core_l10_quality_projection_matrix.py --check",
+                    f"python tools/audit_oc_core_release_quality.py --release {release_id} --check",
+                ],
+                "closure_evidence": "not_assessed_l10_total becomes 0 or each remaining not_assessed row is justified by an explicit blocker protocol row.",
+            }
+        )
+    cerb_ids = [row["vulnerability_id"] for row in blocking if row["root_class"].startswith("editorial_cerberus")]
+    if cerb_ids:
+        delta_items.append(
+            {
+                "delta_item_id": "DELTA-r001-CERBERUS-EDITORIAL",
+                "source_vulnerability_ids": cerb_ids,
+                "minimal_source_delta": "Repair only artifact/source sections named by editorial Cerberus findings, then rerun the missing/current editorial roles.",
+                "expected_output_delta": "Fresh editorial Cerberus summary with current hashes and zero critical/high findings.",
+                "verification_commands": [
+                    f"python tools/audit_oc_core_release_quality.py --release {release_id} --check",
+                    "python tools\\oc133_public_release_payload.py --generic-assembly-check",
+                ],
+                "closure_evidence": "VULN-CERB rows disappear from the vulnerability protocol.",
+            }
+        )
     payload: dict[str, Any] = {
         "schema_id": "OC_CORE_RELEASE_REMEDIATION_DELTA_v1",
         "artifact_kind": "OC_CORE_RELEASE_REMEDIATION_DELTA",
@@ -306,30 +417,7 @@ def build_delta_payload(release_id: str, audit: dict[str, Any], protocol: dict[s
         "affected_node_total": len(affected_nodes),
         "affected_node_ids": affected_nodes,
         "affected_artifacts": affected_artifacts,
-        "delta_items": [
-            {
-                "delta_item_id": "DELTA-r001-QA-SCORING",
-                "source_vulnerability_ids": [row["vulnerability_id"] for row in blocking if row["root_class"] == "l10_quality_scores_not_assessed"],
-                "minimal_source_delta": "Implement or run L10 scorers against the existing projection matrix; do not rewrite prose unless a scorer localizes a concrete content defect.",
-                "expected_output_delta": "Refresh quality audit statuses from not_assessed to explicit complete/partial/planned/missing values with evidence.",
-                "verification_commands": [
-                    f"python tools/build_oc_core_l10_quality_projection_matrix.py --check",
-                    f"python tools/audit_oc_core_release_quality.py --release {release_id} --check",
-                ],
-                "closure_evidence": "not_assessed_l10_total becomes 0 or each remaining not_assessed row is justified by an explicit blocker protocol row.",
-            },
-            {
-                "delta_item_id": "DELTA-r001-CERBERUS-EDITORIAL",
-                "source_vulnerability_ids": [row["vulnerability_id"] for row in blocking if row["root_class"].startswith("editorial_cerberus")],
-                "minimal_source_delta": "Repair only artifact/source sections named by editorial Cerberus findings, then rerun the missing/current editorial roles.",
-                "expected_output_delta": "Fresh editorial Cerberus summary with current hashes and zero critical/high findings.",
-                "verification_commands": [
-                    f"python tools/audit_oc_core_release_quality.py --release {release_id} --check",
-                    "python tools\\oc133_public_release_payload.py --check",
-                ],
-                "closure_evidence": "VULN-CERB rows disappear from the vulnerability protocol.",
-            },
-        ],
+        "delta_items": delta_items,
         "allowed_write_scope": [
             f"releases/{release_id}/editorial/quality_validation",
             "reviews/oc133_llm_cerberus/editorial_release_review",

@@ -1,0 +1,58 @@
+{
+  "artifact_hash": "2ece72a7f709e8bf54894970198c40341ec4e7f767799c645745b0a68298b1cf",
+  "artifact_kind": "OC_CORE_TERMINAL_TEXT_GENERATION_RULES",
+  "body_prose_included": false,
+  "fail_closed_rules": [
+    "block terminal generation when reader_task is missing",
+    "block terminal generation when claim_boundary is missing",
+    "block terminal generation when source route is empty",
+    "block terminal generation when no transformation rule exists for the argument role",
+    "block terminal generation when text would expose raw ledger rows as prose"
+  ],
+  "role_contracts": {
+    "definition_model": {
+      "claim_boundary": "may introduce terms and scope; may not promote empirical or universal strength",
+      "paragraph_purpose": "define the local object, vocabulary, or reader task before claims are promoted",
+      "required_source_use": "use source bindings as explanatory support, not as a raw inventory"
+    },
+    "limits_falsifier": {
+      "claim_boundary": "must prevent unsupported TOE, all-domain, or superiority inflation",
+      "paragraph_purpose": "state limits, falsifiers, negative controls, or reopening conditions",
+      "required_source_use": "turn reviewer and failure-mode sources into explicit scientific boundaries"
+    },
+    "proof_evidence": {
+      "claim_boundary": "may promote only the exact bounded claim supported by the named route",
+      "paragraph_purpose": "bind the local claim to proof, evidence, replay, example, or source support",
+      "required_source_use": "name the support route in prose and keep exact paths in the source trace"
+    },
+    "synthesis_transition": {
+      "claim_boundary": "may connect results; may not add new unsupported claims",
+      "paragraph_purpose": "synthesize the local route and hand the reader to the next obligation",
+      "required_source_use": "summarize only established local support and state the next reading move"
+    }
+  },
+  "schema_id": "OC_CORE_TERMINAL_TEXT_GENERATION_RULES_v1",
+  "status": "OC_CORE_ARTIFACT_GENERATION_RULES_READY",
+  "style_policy": {
+    "forbidden_voice": [
+      "machine list voice",
+      "route sheet voice",
+      "control-plane status voice"
+    ],
+    "source_trace_location": "metadata/source trace fields, not dumped inside reader-facing paragraphs",
+    "voice": "clear scientific prose, continuous and reader-oriented"
+  },
+  "terminal_contract_fields": [
+    "aggregator_node_id",
+    "target_node_id",
+    "reader_task",
+    "argument_role",
+    "claim_boundary",
+    "source_refs",
+    "source_hashes",
+    "transformation_rule",
+    "transition_in",
+    "transition_out",
+    "quality_scorer_hooks"
+  ]
+}

@@ -5133,7 +5133,18 @@ def main(argv: list[str] | None = None) -> int:
         help="Rebuild only the named PDF role; may be repeated. Used by Delta Queue repairs before full-gate runs.",
     )
     parser.add_argument("--check", action="store_true")
+    parser.add_argument(
+        "--generic-assembly-check",
+        action="store_true",
+        help="Compatibility shim: validate the reusable OC Core review-space package assembler instead of the legacy public payload.",
+    )
     args = parser.parse_args(argv)
+    if args.generic_assembly_check:
+        from assemble_oc_core_release_package import check_release
+
+        payload = check_release(RELEASE_ID)
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+        return 0 if payload.get("state") == "PASS" else 1
     only = set(args.only or []) or None
     payload = audit_public_payload(write=False) if args.check else materialize(
         args.doi,
