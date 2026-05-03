@@ -1,0 +1,777 @@
+# OC Core 1.3.3 Master Manuscript Structure L01-L10 Companion
+
+Status: DRAFT_STRUCTURE_REVIEW_COMPANION
+Version: 1.3.3
+Depth: L10
+Artifact hash: `1eedce82c98fe84cf7ec23bc392736481d17255a2e902181041808f62ed4a5c6`
+Structure artifact hash: `b76034268efd4d108fc9f14c646ae42ec31e50d52840587bc5139784d6027506`
+Structure combined hash: `03c511b00e427ac8c18056ae7775ac7c3da2967778b193084cdbfb7abf110f32`
+Parent artifact hash: `4e536f94e54304e1e7ebb2aee8aa3e3c4dd4cc1cf6ad576839fe7de3381385fb`
+
+Structure-review companion only. It records scientific cartography rationale and gates; it is not manuscript prose.
+
+## Purpose
+
+paragraph slots define the final fill map for prose generation without containing prose
+
+## Standard Anchors
+
+- NATURE_REPORTING_REPRODUCIBILITY: reporting, reproducibility, data, code, material, and protocol availability are planned before manuscript prose (https://www.nature.com/ncomms/editorial-policies/reporting-standards)
+- ICMJE_RECOMMENDATIONS: authorship, contribution, accountability, manuscript preparation, and publication responsibility are explicit (https://www.icmje.org/recommendations/)
+- TOP_GUIDELINES: transparency, openness, preregisterable claims, data/code/material availability, and analytic reproducibility are structurally represented (https://incentivizingopen.org/projects2/transparency-and-openness-promotion-top-guidelines/)
+- LOGION_TOE_GRADE_POSITIVE_GATE: the structure must positively plan claim, model, proof, evidence, falsifier, limits, reviewer response, reproducibility, and synthesis routes (internal://logion/scientific-editorial-standard)
+
+## Why This Structure And Order
+
+- It preserves every approved/frozen parent node before adding the current level.
+- It follows the required scientific reading path: identity, scope, problem, prior art, method, model, proof, evidence, limits, novelty, didactics, review, reproducibility, governance, synthesis, and back matter.
+- It is structure-only, so manuscript prose cannot bypass later fill-control and editorial gates.
+
+## Rejected Alternatives
+
+- Final prose paragraphs: rejected because L10 is paragraph-slot structure, not final manuscript text.
+
+## Required Scientific Arc Coverage
+
+- identity: PLANNED_IN_STRUCTURE (matched: title, identity, citation, author, instrument, method)
+- scope: PLANNED_IN_STRUCTURE (matched: scope, claims, does not claim, boundary, promotion, demotion)
+- problem: PLANNED_IN_STRUCTURE (matched: problem, motivation, continuum, liveness, identity, boundaries)
+- prior_art: PLANNED_IN_STRUCTURE (matched: prior art, comparator, systems theory, autopoiesis, dynamical, category)
+- method: PLANNED_IN_STRUCTURE (matched: methodology, standard, evidence architecture, negative controls)
+- formal_model: PLANNED_IN_STRUCTURE (matched: formal foundation, tuple, well-formed, lawful, continuumness)
+- dynamics: PLANNED_IN_STRUCTURE (matched: dynamics, operators, identity, k-level, rebirth, demotion)
+- proof: PLANNED_IN_STRUCTURE (matched: theorem, proof, dependency, minimality, counterexample)
+- formalization: PLANNED_IN_STRUCTURE (matched: formalization, lean, finite model, machine-checked, witness)
+- empirical_evidence: PLANNED_IN_STRUCTURE (matched: empirical, computational, evidence, target-blind, held-out)
+- domain_projection: PLANNED_IN_STRUCTURE (matched: domain projection, phenomenon, coverage, model cards)
+- falsification: PLANNED_IN_STRUCTURE (matched: falsification, falsifier, failure modes, unsupported, risks)
+- novelty: PLANNED_IN_STRUCTURE (matched: novelty, non-equivalence, overlap, residual-delta, positioning)
+- didactics: PLANNED_IN_STRUCTURE (matched: didactic, worked examples, visual, reader tracks, figure)
+- review: PLANNED_IN_STRUCTURE (matched: adversarial review, reviewer, cerberus, objections, response)
+- reproducibility: PLANNED_IN_STRUCTURE (matched: reproducibility, data, software, checksums, replay)
+- governance: PLANNED_IN_STRUCTURE (matched: release governance, journal, metadata, owner approval, external use)
+- synthesis: PLANNED_IN_STRUCTURE (matched: synthesis, contribution, research roadmap, future releases)
+- backmatter: PLANNED_IN_STRUCTURE (matched: back matter, appendix, glossary, bibliography, index, corpus ledger)
+
+## TOE Route Coverage
+
+- claim: PLANNED_IN_STRUCTURE (matched: claim, claims, claim classes, claim promotion)
+- model: PLANNED_IN_STRUCTURE (matched: model, tuple, formal foundation, well-formed continua)
+- proof: PLANNED_IN_STRUCTURE (matched: proof, theorem, dependency graph, minimality)
+- evidence: PLANNED_IN_STRUCTURE (matched: evidence, target-blind, held-out)
+- falsifier: PLANNED_IN_STRUCTURE (matched: falsifier, falsification, counterexample)
+- limits: PLANNED_IN_STRUCTURE (matched: limits, does not claim, failure modes, research-only)
+- synthesis: PLANNED_IN_STRUCTURE (matched: synthesis, what 1.3.3 establishes, scientific contribution)
+
+## L1 Burden Coverage
+
+- L1.1 Front Matter And Publication Identity: PLANNED_IN_STRUCTURE - publication identity, frontmatter, attribution, and reader navigability
+- L1.2 Orientation, Scope, And Claim Boundaries: PLANNED_IN_STRUCTURE - claim boundary, audience contract, and release-vs-full-science separation
+- L1.3 Problem, Motivation, And Scientific Context: PLANNED_IN_STRUCTURE - problem statement and motivation for the theory
+- L1.4 Prior Art And Comparator Landscape: PLANNED_IN_STRUCTURE - prior-art comparator context and scientific positioning inputs
+- L1.5 Methodology And Evidence Architecture: PLANNED_IN_STRUCTURE - method, evidence architecture, falsification, and traceability standards
+- L1.6 Mathematical And Conceptual Preliminaries: PLANNED_IN_STRUCTURE - mathematical and conceptual prerequisites
+- L1.7 OC Core Formal Foundation: PLANNED_IN_STRUCTURE - core formal model and foundational limits
+- L1.8 Dynamics, Boundaries, Identity, And K-Levels: PLANNED_IN_STRUCTURE - dynamic, boundary, identity, and k-level semantics
+- L1.9 Theorem Spine And Proof Closure: PLANNED_IN_STRUCTURE - theorem spine, proof dependencies, and closure boundaries
+- L1.10 Formalization And Executable Semantics: PLANNED_IN_STRUCTURE - formalization and executable semantic evidence
+- L1.11 Empirical And Computational Evidence: PLANNED_IN_STRUCTURE - empirical, computational, and target-blind evidence lanes
+- L1.12 Domain Projections And Phenomenon Coverage: PLANNED_IN_STRUCTURE - domain projection and phenomenon coverage map
+- L1.13 Falsification, Limits, And Failure Modes: PLANNED_IN_STRUCTURE - falsification, limits, demotion rules, and failure modes
+- L1.14 Novelty, Non-Equivalence, And Scientific Positioning: PLANNED_IN_STRUCTURE - novelty, non-equivalence, and response to reframing attacks
+- L1.15 Didactic Atlas And Worked Examples: PLANNED_IN_STRUCTURE - didactic atlas, examples, figures, and reader tracks
+- L1.16 Adversarial Review And Reviewer Response: PLANNED_IN_STRUCTURE - adversarial review protocol and closure evidence
+- L1.17 Reproducibility, Data, Software, And Artifact Traceability: PLANNED_IN_STRUCTURE - reproducibility, software, data, and source-to-artifact traceability
+- L1.18 Release Governance And Journal Extraction Map: PLANNED_IN_STRUCTURE - release governance, citation, journal extraction, and external-use boundaries
+- L1.19 Synthesis And Research Program: PLANNED_IN_STRUCTURE - synthesis, contribution, open program, and future release relation
+- L1.20 Back Matter: PLANNED_IN_STRUCTURE - appendices, full ledgers, glossary, bibliography, index, and corpus ledger
+
+## Next-Level Expectations
+
+the next phase must assess fill maturity and source coverage without altering frozen structure
+
+## Quantitative Checks
+
+- combined_node_total: 5432
+- inherited_locked_node_total: 4776
+- l1_burden_planned_total: 20
+- l1_burden_total: 20
+- node_expectation_total: 656
+- own_expansion_node_total: 656
+- scientific_arc_planned_total: 19
+- scientific_arc_requirement_total: 19
+- toe_route_planned_total: 7
+- toe_route_requirement_total: 7
+- unresolved_structure_question_total: 0
+
+## Review Gate Outputs
+
+- reader_path_coverage_score: 100
+- review_verdict: PASS
+- scientific_arc_coverage_score: 100
+- structure_completeness_score: 100
+- toe_target_coverage_score: 100
+- unresolved_structure_question_total: 0
+
+## Node Expectation Index
+
+- 1.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.8.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.8.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.8.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.8.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.9.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.9.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.9.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 1.9.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 2.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 3.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.8.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.8.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.8.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.8.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.9.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.9.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.9.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 4.9.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.8.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.8.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.8.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 5.8.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.8.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.8.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.8.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 6.8.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.8.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.8.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.8.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.8.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.9.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.9.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.9.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 7.9.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.8.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.8.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.8.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.8.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.9.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.9.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.9.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.9.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.10.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.10.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.10.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 8.10.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.8.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.8.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.8.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.8.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.9.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.9.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.9.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 9.9.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.8.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.8.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.8.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 10.8.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.8.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.8.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.8.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.8.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.9.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.9.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.9.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.9.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.10.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.10.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.10.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 11.10.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.8.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.8.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.8.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 12.8.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 13.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 14.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.8.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.8.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.8.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 15.8.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.8.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.8.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.8.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 16.8.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.8.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.8.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.8.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 17.8.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.8.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.8.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.8.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 18.8.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 19.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.1.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.1.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.1.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.1.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.2.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.2.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.2.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.2.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.3.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.3.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.3.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.3.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.4.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.4.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.4.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.4.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.5.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.5.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.5.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.5.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.6.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.6.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.6.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.6.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.7.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.7.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.7.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.7.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.8.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.8.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.8.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.8.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.9.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.9.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.9.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.9.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.10.1.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.10.2.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.10.3.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+- 20.10.4.1.1.1.1.1.1.1 Paragraph Draft Slot [paragraph_slot]: VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED; fill=not_assessed_this_phase
+
+## Unresolved Draft Questions
+
+None.

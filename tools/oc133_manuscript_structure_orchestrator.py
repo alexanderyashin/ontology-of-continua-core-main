@@ -6,7 +6,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from oc133_manuscript_structure_transfer_lib import MAX_DEPTH, run_index, run_l1
+from oc133_manuscript_structure_transfer_lib import EXPECTED_STRUCTURE_FILE_TOTAL, MAX_DEPTH, run_index, run_l1
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -54,7 +54,7 @@ def run_transfers(*, write: bool) -> dict[str, object]:
         missing.extend(str(item) for item in step.get("missing", []))
     return {
         "changed": changed,
-        "file_total": 22,
+        "file_total": EXPECTED_STRUCTURE_FILE_TOTAL,
         "missing": missing,
         "state": state,
         "steps": steps,

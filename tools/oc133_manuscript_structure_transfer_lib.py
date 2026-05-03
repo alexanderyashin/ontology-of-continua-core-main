@@ -21,6 +21,8 @@ RECOVERED_MASTER_JSON = EDITORIAL / "MASTER_MANUSCRIPT_STRUCTURE_1_3_3.json"
 EXPECTED_L1_TOTAL = 20
 EXPECTED_L2_TOTAL = 164
 MAX_DEPTH = 10
+COMPANION_MIN_DEPTH = 2
+EXPECTED_STRUCTURE_FILE_TOTAL = 2 + ((MAX_DEPTH - 1) * 4) + 2
 
 LEVEL_NAMES = {
     1: "top_level_block",
@@ -76,6 +78,141 @@ UNSAFE_TITLE_PATTERNS = [
     re.compile(r"\.(?:tex|md|json|pdf|zip|ndjson)\b", re.I),
     re.compile(r"\b(?:route|payload|manifest|release[-_ ]machine|control[-_ ]plane)\b", re.I),
 ]
+
+STANDARD_ANCHORS = [
+    {
+        "id": "NATURE_REPORTING_REPRODUCIBILITY",
+        "url": "https://www.nature.com/ncomms/editorial-policies/reporting-standards",
+        "expectation": "reporting, reproducibility, data, code, material, and protocol availability are planned before manuscript prose",
+    },
+    {
+        "id": "ICMJE_RECOMMENDATIONS",
+        "url": "https://www.icmje.org/recommendations/",
+        "expectation": "authorship, contribution, accountability, manuscript preparation, and publication responsibility are explicit",
+    },
+    {
+        "id": "TOP_GUIDELINES",
+        "url": "https://incentivizingopen.org/projects2/transparency-and-openness-promotion-top-guidelines/",
+        "expectation": "transparency, openness, preregisterable claims, data/code/material availability, and analytic reproducibility are structurally represented",
+    },
+    {
+        "id": "LOGION_TOE_GRADE_POSITIVE_GATE",
+        "url": "internal://logion/scientific-editorial-standard",
+        "expectation": "the structure must positively plan claim, model, proof, evidence, falsifier, limits, reviewer response, reproducibility, and synthesis routes",
+    },
+]
+
+L1_BURDEN_MAP = {
+    1: "publication identity, frontmatter, attribution, and reader navigability",
+    2: "claim boundary, audience contract, and release-vs-full-science separation",
+    3: "problem statement and motivation for the theory",
+    4: "prior-art comparator context and scientific positioning inputs",
+    5: "method, evidence architecture, falsification, and traceability standards",
+    6: "mathematical and conceptual prerequisites",
+    7: "core formal model and foundational limits",
+    8: "dynamic, boundary, identity, and k-level semantics",
+    9: "theorem spine, proof dependencies, and closure boundaries",
+    10: "formalization and executable semantic evidence",
+    11: "empirical, computational, and target-blind evidence lanes",
+    12: "domain projection and phenomenon coverage map",
+    13: "falsification, limits, demotion rules, and failure modes",
+    14: "novelty, non-equivalence, and response to reframing attacks",
+    15: "didactic atlas, examples, figures, and reader tracks",
+    16: "adversarial review protocol and closure evidence",
+    17: "reproducibility, software, data, and source-to-artifact traceability",
+    18: "release governance, citation, journal extraction, and external-use boundaries",
+    19: "synthesis, contribution, open program, and future release relation",
+    20: "appendices, full ledgers, glossary, bibliography, index, and corpus ledger",
+}
+
+SCIENTIFIC_ARC_REQUIREMENTS = [
+    ("identity", ["title", "identity", "citation", "author", "instrument", "method"]),
+    ("scope", ["scope", "claims", "does not claim", "boundary", "promotion", "demotion"]),
+    ("problem", ["problem", "motivation", "continuum", "liveness", "identity", "boundaries"]),
+    ("prior_art", ["prior art", "comparator", "systems theory", "autopoiesis", "dynamical", "category"]),
+    ("method", ["methodology", "standard", "evidence architecture", "negative controls"]),
+    ("formal_model", ["formal foundation", "tuple", "well-formed", "lawful", "continuumness"]),
+    ("dynamics", ["dynamics", "operators", "identity", "k-level", "rebirth", "demotion"]),
+    ("proof", ["theorem", "proof", "dependency", "minimality", "counterexample"]),
+    ("formalization", ["formalization", "lean", "finite model", "machine-checked", "witness"]),
+    ("empirical_evidence", ["empirical", "computational", "evidence", "target-blind", "held-out"]),
+    ("domain_projection", ["domain projection", "phenomenon", "coverage", "model cards"]),
+    ("falsification", ["falsification", "falsifier", "failure modes", "unsupported", "risks"]),
+    ("novelty", ["novelty", "non-equivalence", "overlap", "residual-delta", "positioning"]),
+    ("didactics", ["didactic", "worked examples", "visual", "reader tracks", "figure"]),
+    ("review", ["adversarial review", "reviewer", "cerberus", "objections", "response"]),
+    ("reproducibility", ["reproducibility", "data", "software", "checksums", "replay"]),
+    ("governance", ["release governance", "journal", "metadata", "owner approval", "external use"]),
+    ("synthesis", ["synthesis", "contribution", "research roadmap", "future releases"]),
+    ("backmatter", ["back matter", "appendix", "glossary", "bibliography", "index", "corpus ledger"]),
+]
+
+TOE_ROUTE_REQUIREMENTS = [
+    ("claim", ["claim", "claims", "claim classes", "claim promotion"]),
+    ("model", ["model", "tuple", "formal foundation", "well-formed continua"]),
+    ("proof", ["proof", "theorem", "dependency graph", "minimality"]),
+    ("evidence", ["evidence", "validation", "target-blind", "held-out"]),
+    ("falsifier", ["falsifier", "falsification", "counterexample"]),
+    ("limits", ["limits", "does not claim", "failure modes", "research-only"]),
+    ("synthesis", ["synthesis", "what 1.3.3 establishes", "scientific contribution"]),
+]
+
+LEVEL_PURPOSES = {
+    2: "chapters define the complete scientific reading architecture under frozen L1 blocks",
+    3: "sections define repeatable internal obligations for every chapter before any prose is written",
+    4: "subsections constrain each section into inclusion rules and scientific boundaries",
+    5: "subsubsections enumerate required subclaim coverage inside each boundary",
+    6: "paragraph groups reserve coherent local development units without writing prose",
+    7: "argument moves reserve the rhetorical and evidential moves each paragraph group must perform",
+    8: "evidence, proof, or example slots bind each argument move to future support material",
+    9: "transition and claim-support slots make every support relation explicit before drafting",
+    10: "paragraph slots define the final fill map for prose generation without containing prose",
+}
+
+LEVEL_NEXT_EXPECTATIONS = {
+    2: "L3 must give every chapter purpose, core material, evidence anchors, and transition boundaries",
+    3: "L4 must state inclusion rules under each section without collapsing inherited sections",
+    4: "L5 must map each subsection to required subclaims and avoid unsupported broad claims",
+    5: "L6 must create paragraph-group slots that can later hold coherent manuscript prose",
+    6: "L7 must define argument moves for each paragraph group before evidence is attached",
+    7: "L8 must assign evidence, proof, example, or explicit future-work support slots",
+    8: "L9 must define how each support slot transitions into claim support or limitation",
+    9: "L10 must provide paragraph slots and fill-control hooks for later maturity tracking",
+    10: "the next phase must assess fill maturity and source coverage without altering frozen structure",
+}
+
+LEVEL_REJECTED_ALTERNATIVES = {
+    2: [
+        "IMRAD-only article structure: rejected because OC 1.3.3 is a monograph-scale theory artifact, not a single empirical article.",
+        "Appendix-first evidence dump: rejected because readers need identity, scope, problem, method, model, proof, evidence, limits, and synthesis in order.",
+        "Internal build-order outline: rejected because public scientific reading order must not mirror operational build machinery.",
+    ],
+    3: [
+        "Freeform chapter-specific sections: rejected because every chapter needs comparable purpose, material, evidence, and transition obligations.",
+        "Raw corpus import headings: rejected because recovered sources are evidence for structure, not reader-facing structure by themselves.",
+    ],
+    4: [
+        "Immediate prose outline: rejected because inclusion rules must be fixed before drafting.",
+    ],
+    5: [
+        "Single generic subclaim bucket: rejected because later fill-control needs explicit subclaim slots.",
+    ],
+    6: [
+        "Paragraph-level drafting now: rejected because this phase is cartography only.",
+    ],
+    7: [
+        "Reviewer-response-only argument flow: rejected because the manuscript must teach and prove, not only defend.",
+    ],
+    8: [
+        "Evidence-only slots: rejected because formal proof, examples, negative controls, and limitations are all required support classes.",
+    ],
+    9: [
+        "Implicit transitions: rejected because claim-support gaps were a known release failure class.",
+    ],
+    10: [
+        "Final prose paragraphs: rejected because L10 is paragraph-slot structure, not final manuscript text.",
+    ],
+}
 
 
 @dataclass(frozen=True)
@@ -141,6 +278,11 @@ def nodes_hash(nodes: list[dict[str, Any]]) -> str:
 
 def artifact_paths(depth: int) -> tuple[Path, Path]:
     stem = f"MASTER_MANUSCRIPT_STRUCTURE_L{depth:02d}_1_3_3"
+    return STRUCTURE_DIR / f"{stem}.json", STRUCTURE_DIR / f"{stem}.md"
+
+
+def companion_paths(depth: int) -> tuple[Path, Path]:
+    stem = f"MASTER_MANUSCRIPT_STRUCTURE_L{depth:02d}_COMPANION_1_3_3"
     return STRUCTURE_DIR / f"{stem}.json", STRUCTURE_DIR / f"{stem}.md"
 
 
@@ -251,6 +393,223 @@ def provenance_candidates(chapter_title: str, l1_title: str, recovered_nodes: li
         if len(candidates) == 3:
             break
     return candidates
+
+
+def title_corpus(nodes: list[dict[str, Any]]) -> str:
+    return " | ".join(str(node.get("title", "")).lower() for node in nodes)
+
+
+def requirement_present(corpus: str, keywords: list[str]) -> bool:
+    return any(keyword.lower() in corpus for keyword in keywords)
+
+
+def build_requirement_coverage(nodes: list[dict[str, Any]], requirements: list[tuple[str, list[str]]]) -> list[dict[str, Any]]:
+    corpus = title_corpus(nodes)
+    coverage: list[dict[str, Any]] = []
+    for requirement_id, keywords in requirements:
+        matched = [keyword for keyword in keywords if keyword.lower() in corpus]
+        coverage.append(
+            {
+                "requirement_id": requirement_id,
+                "status": "PLANNED_IN_STRUCTURE" if matched else "MISSING_FROM_STRUCTURE",
+                "matched_keywords": matched,
+                "required_keyword_set": keywords,
+            }
+        )
+    return coverage
+
+
+def coverage_score(coverage: list[dict[str, Any]]) -> int:
+    if not coverage:
+        return 0
+    planned = sum(1 for item in coverage if item.get("status") == "PLANNED_IN_STRUCTURE")
+    return int(round((planned / len(coverage)) * 100))
+
+
+def l1_burden_coverage(combined_nodes: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    l1_nodes = [node for node in combined_nodes if int(node["level"]) == 1]
+    by_index = {int(node["order_path"][0]): node for node in l1_nodes}
+    coverage: list[dict[str, Any]] = []
+    for index in range(1, EXPECTED_L1_TOTAL + 1):
+        node = by_index.get(index)
+        coverage.append(
+            {
+                "l1_index": index,
+                "node_id": node.get("node_id") if node else "",
+                "status": "PLANNED_IN_STRUCTURE" if node else "MISSING_FROM_STRUCTURE",
+                "title": node.get("title") if node else "",
+                "intended_scientific_burden": L1_BURDEN_MAP[index],
+            }
+        )
+    return coverage
+
+
+def parent_child_coverage(payload: dict[str, Any]) -> dict[str, Any]:
+    depth = int(payload["depth"])
+    if depth <= 1:
+        return {"status": "NOT_APPLICABLE", "missing_parent_child_links": []}
+    own = payload["own_expansion_nodes"]
+    inherited_ids = {node["node_id"] for node in payload["inherited_locked_nodes"]}
+    missing = [
+        node["node_id"]
+        for node in own
+        if node.get("parent_id") is not None and node.get("parent_id") not in inherited_ids
+    ]
+    return {
+        "status": "PASS" if not missing else "FAIL",
+        "missing_parent_child_links": missing,
+    }
+
+
+def expected_visual_policy(node: dict[str, Any]) -> str:
+    title = str(node.get("title", "")).lower()
+    if any(word in title for word in ["visual", "atlas", "map", "figure", "table", "boundary", "tuple", "k-level", "projection"]):
+        return "FIGURE_OR_TABLE_EXPECTED"
+    if any(word in title for word in ["theorem", "proof", "dependency", "finite", "lean", "evidence", "reproducibility", "checksums"]):
+        return "TABLE_OR_TRACE_EXPECTED"
+    return "VISUAL_OPTIONAL_BUT_READER_AID_RECOMMENDED"
+
+
+def node_expectation(node: dict[str, Any]) -> dict[str, Any]:
+    level = int(node["level"])
+    title = str(node["title"])
+    return {
+        "node_id": node["node_id"],
+        "outline_number": node["outline_number"],
+        "title": title,
+        "level": level,
+        "level_name": node["level_name"],
+        "target_reader_task": f"understand the {node['level_name']} role of '{title}' in the complete OC 1.3.3 theory map",
+        "required_links": {
+            "prior_art": "required where the node states novelty, comparator, positioning, or external scientific context",
+            "formal_claim": "required where the node states model, theorem, proof, identity, boundary, k-level, or formal semantics content",
+            "evidence_or_replay": "required where the node states empirical, computational, simulation, validation, or reproducibility content",
+            "limit_or_falsifier": "required where the node states claim boundary, failure mode, demotion, risk, unsupported claim, or research-only content",
+        },
+        "expected_figures_tables": expected_visual_policy(node),
+        "future_fill_control_hook": {
+            "allowed_maturity_values": ["complete", "partial", "planned", "missing"],
+            "current_fill_maturity_status": "not_assessed_this_phase",
+            "fill_assessment_phase": "NEXT_STEP_AFTER_STRUCTURE_APPROVAL",
+        },
+    }
+
+
+def build_node_expectation_index(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    return [node_expectation(node) for node in sort_nodes(payload["own_expansion_nodes"])]
+
+
+def companion_payload_without_hash(payload: dict[str, Any]) -> dict[str, Any]:
+    return {key: value for key, value in payload.items() if key != "artifact_hash"}
+
+
+def build_companion_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    depth = int(payload["depth"])
+    if depth < COMPANION_MIN_DEPTH:
+        raise ValueError("Companion payloads are defined for L02-L10 only")
+
+    combined_nodes = payload["combined_nodes"]
+    arc_coverage = build_requirement_coverage(combined_nodes, SCIENTIFIC_ARC_REQUIREMENTS)
+    toe_coverage = build_requirement_coverage(combined_nodes, TOE_ROUTE_REQUIREMENTS)
+    l1_coverage = l1_burden_coverage(combined_nodes)
+    parent_child = parent_child_coverage(payload)
+    own_total = int(payload["node_counts"]["own_expansion"])
+    inherited_total = int(payload["node_counts"]["inherited_locked"])
+    combined_total = int(payload["node_counts"]["combined"])
+    node_expectations = build_node_expectation_index(payload)
+    unresolved = [
+        item
+        for item in [parent_child]
+        if item.get("status") == "FAIL"
+    ]
+    structure_score = 100 if payload["status"] == "DRAFT_STRUCTURE_ONLY" and own_total > 0 and inherited_total > 0 else 0
+    reader_path_score = 100 if node_expectations and all(item["target_reader_task"] for item in node_expectations) else 0
+    companion: dict[str, Any] = {
+        "artifact_kind": "MASTER_MANUSCRIPT_STRUCTURE_LEVEL_COMPANION",
+        "body_prose_included": False,
+        "version": VERSION,
+        "release_id": RELEASE_ID,
+        "depth": depth,
+        "depth_label": payload["depth_label"],
+        "structure_scope": payload["structure_scope"],
+        "status": "DRAFT_STRUCTURE_REVIEW_COMPANION",
+        "structure_artifact": payload["written_artifacts"],
+        "structure_artifact_hash": payload["artifact_hash"],
+        "structure_combined_hash": payload["combined_hash"],
+        "parent_artifact_hash": payload["parent_artifact_hash"],
+        "standard_anchors": STANDARD_ANCHORS,
+        "level_purpose": LEVEL_PURPOSES[depth],
+        "why_this_structure_order_is_correct": [
+            "It preserves every approved/frozen parent node before adding the current level.",
+            "It follows the required scientific reading path: identity, scope, problem, prior art, method, model, proof, evidence, limits, novelty, didactics, review, reproducibility, governance, synthesis, and back matter.",
+            "It is structure-only, so manuscript prose cannot bypass later fill-control and editorial gates.",
+        ],
+        "rejected_alternatives": LEVEL_REJECTED_ALTERNATIVES[depth],
+        "required_scientific_arc_coverage": arc_coverage,
+        "toe_route_coverage": toe_coverage,
+        "l1_scientific_burden_coverage": l1_coverage,
+        "next_level_expectations": LEVEL_NEXT_EXPECTATIONS[depth],
+        "node_expectation_index": node_expectations,
+        "quantitative_checks": {
+            "inherited_locked_node_total": inherited_total,
+            "own_expansion_node_total": own_total,
+            "combined_node_total": combined_total,
+            "scientific_arc_requirement_total": len(arc_coverage),
+            "scientific_arc_planned_total": sum(1 for item in arc_coverage if item["status"] == "PLANNED_IN_STRUCTURE"),
+            "toe_route_requirement_total": len(toe_coverage),
+            "toe_route_planned_total": sum(1 for item in toe_coverage if item["status"] == "PLANNED_IN_STRUCTURE"),
+            "l1_burden_total": len(l1_coverage),
+            "l1_burden_planned_total": sum(1 for item in l1_coverage if item["status"] == "PLANNED_IN_STRUCTURE"),
+            "node_expectation_total": len(node_expectations),
+            "unresolved_structure_question_total": len(unresolved),
+        },
+        "review_gate_outputs": {
+            "structure_completeness_score": structure_score,
+            "scientific_arc_coverage_score": coverage_score(arc_coverage),
+            "reader_path_coverage_score": reader_path_score,
+            "toe_target_coverage_score": coverage_score(toe_coverage),
+            "unresolved_structure_question_total": len(unresolved),
+            "review_verdict": "PASS" if not unresolved and structure_score == 100 and coverage_score(arc_coverage) == 100 and coverage_score(toe_coverage) == 100 else "FAIL",
+        },
+        "unresolved_draft_questions": unresolved,
+        "approval_policy": {
+            "owner_approval_required_before_freeze": True,
+            "current_level_freeze_status": "NOT_FROZEN_DRAFT_ONLY",
+            "allowed_now": "revise structure; do not generate prose or release artifacts",
+        },
+    }
+    companion["artifact_hash"] = sha256_text(stable_json(companion_payload_without_hash(companion)))
+    return companion
+
+
+def validate_companion_payload(companion: dict[str, Any], structure_payload: dict[str, Any]) -> list[str]:
+    failures: list[str] = []
+    depth = int(companion["depth"])
+    if depth < COMPANION_MIN_DEPTH or depth > MAX_DEPTH:
+        failures.append("companion_depth_out_of_range")
+    if companion.get("structure_artifact_hash") != structure_payload.get("artifact_hash"):
+        failures.append("structure_artifact_hash_mismatch")
+    if companion.get("structure_combined_hash") != structure_payload.get("combined_hash"):
+        failures.append("structure_combined_hash_mismatch")
+    if companion.get("body_prose_included") is not False:
+        failures.append("body_prose_flag_mismatch")
+    expected_total = structure_payload["node_counts"]["own_expansion"]
+    if companion["quantitative_checks"]["node_expectation_total"] != expected_total:
+        failures.append("node_expectation_total_mismatch")
+    gate = companion.get("review_gate_outputs", {})
+    for key in [
+        "structure_completeness_score",
+        "scientific_arc_coverage_score",
+        "reader_path_coverage_score",
+        "toe_target_coverage_score",
+    ]:
+        if int(gate.get(key, 0)) < 100:
+            failures.append(f"{key}_below_100")
+    if int(gate.get("unresolved_structure_question_total", 0)) != 0:
+        failures.append("unresolved_structure_questions_present")
+    if gate.get("review_verdict") != "PASS":
+        failures.append("review_verdict_not_pass")
+    return failures
 
 
 def build_level_catalog() -> dict[int, list[dict[str, Any]]]:
@@ -497,6 +856,77 @@ def render_level_markdown(payload: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def render_companion_markdown(companion: dict[str, Any]) -> str:
+    gate = companion["review_gate_outputs"]
+    checks = companion["quantitative_checks"]
+    lines = [
+        f"# OC Core 1.3.3 Master Manuscript Structure {companion['structure_scope']} Companion",
+        "",
+        f"Status: {companion['status']}",
+        f"Version: {companion['version']}",
+        f"Depth: {companion['depth_label']}",
+        f"Artifact hash: `{companion['artifact_hash']}`",
+        f"Structure artifact hash: `{companion['structure_artifact_hash']}`",
+        f"Structure combined hash: `{companion['structure_combined_hash']}`",
+        f"Parent artifact hash: `{companion['parent_artifact_hash'] or 'NONE'}`",
+        "",
+        "Structure-review companion only. It records scientific cartography rationale and gates; it is not manuscript prose.",
+        "",
+        "## Purpose",
+        "",
+        companion["level_purpose"],
+        "",
+        "## Standard Anchors",
+        "",
+    ]
+    for anchor in companion["standard_anchors"]:
+        lines.append(f"- {anchor['id']}: {anchor['expectation']} ({anchor['url']})")
+    lines.extend(["", "## Why This Structure And Order", ""])
+    for item in companion["why_this_structure_order_is_correct"]:
+        lines.append(f"- {item}")
+    lines.extend(["", "## Rejected Alternatives", ""])
+    for item in companion["rejected_alternatives"]:
+        lines.append(f"- {item}")
+    lines.extend(["", "## Required Scientific Arc Coverage", ""])
+    for item in companion["required_scientific_arc_coverage"]:
+        lines.append(
+            f"- {item['requirement_id']}: {item['status']} "
+            f"(matched: {', '.join(item['matched_keywords']) if item['matched_keywords'] else 'NONE'})"
+        )
+    lines.extend(["", "## TOE Route Coverage", ""])
+    for item in companion["toe_route_coverage"]:
+        lines.append(
+            f"- {item['requirement_id']}: {item['status']} "
+            f"(matched: {', '.join(item['matched_keywords']) if item['matched_keywords'] else 'NONE'})"
+        )
+    lines.extend(["", "## L1 Burden Coverage", ""])
+    for item in companion["l1_scientific_burden_coverage"]:
+        lines.append(
+            f"- L1.{item['l1_index']} {item['title']}: {item['status']} - "
+            f"{item['intended_scientific_burden']}"
+        )
+    lines.extend(["", "## Next-Level Expectations", "", companion["next_level_expectations"], ""])
+    lines.extend(["## Quantitative Checks", ""])
+    for key in sorted(checks.keys()):
+        lines.append(f"- {key}: {checks[key]}")
+    lines.extend(["", "## Review Gate Outputs", ""])
+    for key in sorted(gate.keys()):
+        lines.append(f"- {key}: {gate[key]}")
+    lines.extend(["", "## Node Expectation Index", ""])
+    for item in companion["node_expectation_index"]:
+        lines.append(
+            f"- {item['outline_number']} {item['title']} [{item['level_name']}]: "
+            f"{item['expected_figures_tables']}; fill={item['future_fill_control_hook']['current_fill_maturity_status']}"
+        )
+    lines.extend(["", "## Unresolved Draft Questions", ""])
+    if companion["unresolved_draft_questions"]:
+        for item in companion["unresolved_draft_questions"]:
+            lines.append(f"- {item}")
+    else:
+        lines.append("None.")
+    return "\n".join(lines) + "\n"
+
+
 def read_payload(depth: int) -> dict[str, Any]:
     json_path, _ = artifact_paths(depth)
     if not json_path.exists():
@@ -510,7 +940,16 @@ def expected_level_files(depth: int, parent_payload: dict[str, Any] | None = Non
     if failures:
         raise RuntimeError(f"L{depth:02d} payload validation failed: {failures}")
     json_path, md_path = artifact_paths(depth)
-    return {json_path: stable_json(payload), md_path: render_level_markdown(payload)}
+    files = {json_path: stable_json(payload), md_path: render_level_markdown(payload)}
+    if depth >= COMPANION_MIN_DEPTH:
+        companion = build_companion_payload(payload)
+        companion_failures = validate_companion_payload(companion, payload)
+        if companion_failures:
+            raise RuntimeError(f"L{depth:02d} companion validation failed: {companion_failures}")
+        companion_json_path, companion_md_path = companion_paths(depth)
+        files[companion_json_path] = stable_json(companion)
+        files[companion_md_path] = render_companion_markdown(companion)
+    return files
 
 
 def check_files(files: dict[Path, str]) -> dict[str, Any]:
@@ -566,9 +1005,27 @@ def all_payloads_from_disk() -> list[dict[str, Any]]:
 def build_index_payload(payloads: list[dict[str, Any]]) -> dict[str, Any]:
     entries = []
     for payload in payloads:
+        companion_ref: dict[str, Any] | None = None
+        if int(payload["depth"]) >= COMPANION_MIN_DEPTH:
+            companion = build_companion_payload(payload)
+            companion_json_path, companion_md_path = companion_paths(int(payload["depth"]))
+            companion_ref = {
+                "artifact_hash": companion["artifact_hash"],
+                "json": relative(companion_json_path),
+                "markdown": relative(companion_md_path),
+                "review_verdict": companion["review_gate_outputs"]["review_verdict"],
+                "scores": {
+                    "structure_completeness_score": companion["review_gate_outputs"]["structure_completeness_score"],
+                    "scientific_arc_coverage_score": companion["review_gate_outputs"]["scientific_arc_coverage_score"],
+                    "reader_path_coverage_score": companion["review_gate_outputs"]["reader_path_coverage_score"],
+                    "toe_target_coverage_score": companion["review_gate_outputs"]["toe_target_coverage_score"],
+                    "unresolved_structure_question_total": companion["review_gate_outputs"]["unresolved_structure_question_total"],
+                },
+            }
         entries.append(
             {
                 "artifact_hash": payload["artifact_hash"],
+                "companion": companion_ref,
                 "combined_hash": payload["combined_hash"],
                 "depth": payload["depth"],
                 "inherited_locked_hash": payload["inherited_locked_hash"],
@@ -587,6 +1044,8 @@ def build_index_payload(payloads: list[dict[str, Any]]) -> dict[str, Any]:
         "entries": entries,
         "release_id": RELEASE_ID,
         "structure_policy": {
+            "batch_draft_cadence": True,
+            "companion_required_for_l2_to_l10": True,
             "l1_status": "APPROVED_FROZEN_BY_OWNER",
             "l2_to_l10_status": "DRAFT_STRUCTURE_ONLY",
             "lower_levels_must_preserve_inherited_locked_nodes": True,
@@ -610,15 +1069,24 @@ def render_index_markdown(index_payload: dict[str, Any]) -> str:
         "",
         "## Artifacts",
         "",
-        "| Scope | Status | Inherited | Own | Combined | Parent artifact hash | Artifact hash |",
-        "| --- | --- | ---: | ---: | ---: | --- | --- |",
+        "| Scope | Status | Inherited | Own | Combined | Parent artifact hash | Artifact hash | Companion review |",
+        "| --- | --- | ---: | ---: | ---: | --- | --- | --- |",
     ]
     for entry in index_payload["entries"]:
         counts = entry["node_counts"]
+        companion = entry.get("companion") or {}
+        companion_note = "NONE"
+        if companion:
+            scores = companion["scores"]
+            companion_note = (
+                companion["review_verdict"] +
+                " arc=" + str(scores["scientific_arc_coverage_score"]) +
+                " toe=" + str(scores["toe_target_coverage_score"])
+            )
         lines.append(
             f"| {entry['structure_scope']} | {entry['status']} | {counts['inherited_locked']} | "
             f"{counts['own_expansion']} | {counts['combined']} | "
-            f"`{entry['parent_artifact_hash'] or 'NONE'}` | `{entry['artifact_hash']}` |"
+            f"`{entry['parent_artifact_hash'] or 'NONE'}` | `{entry['artifact_hash']}` | {companion_note} |"
         )
     return "\n".join(lines) + "\n"
 
@@ -643,6 +1111,12 @@ def validate_cascade_payloads(payloads: list[dict[str, Any]]) -> list[str]:
             failures.append(f"depth_order_mismatch::{expected_depth}")
         parent = payloads[expected_depth - 2] if expected_depth > 1 else None
         failures.extend(f"L{expected_depth:02d}::{failure}" for failure in validate_level_payload(payload, parent))
+        if expected_depth >= COMPANION_MIN_DEPTH:
+            companion = build_companion_payload(payload)
+            failures.extend(
+                f"L{expected_depth:02d}_COMPANION::{failure}"
+                for failure in validate_companion_payload(companion, payload)
+            )
     if payloads[0]["node_counts"]["own_expansion"] != EXPECTED_L1_TOTAL:
         failures.append("l1_total_mismatch")
     if payloads[1]["node_counts"]["own_expansion"] != EXPECTED_L2_TOTAL:
