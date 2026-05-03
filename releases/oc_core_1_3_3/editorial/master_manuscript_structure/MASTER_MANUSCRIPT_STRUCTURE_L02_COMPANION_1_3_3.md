@@ -3,9 +3,9 @@
 Status: DRAFT_STRUCTURE_REVIEW_COMPANION
 Version: 1.3.3
 Depth: L02
-Artifact hash: `faff03428571966808b66a13176f8b95c609c26e0602af949ea54c1f8fff7820`
-Structure artifact hash: `c45016b5dea92aefafff3f11917ed4c7991661f3b84f8fe04d50400ab37a6da8`
-Structure combined hash: `3110b5eb264eca6e2c49badb974e44830ce6799ffffb1c1580c2e68fa303256b`
+Artifact hash: `2cd78031f7eeb961c95886259d00319655ca840660b4b79c8d561386a9a58b05`
+Structure artifact hash: `184303aab44bf40180bc110c3a3164a74f4ef6a4908bf44698e34f683a3733e2`
+Structure combined hash: `618f188919def2dcb6022b02370908a414ebe2a0370c5ece4fc5579b6df82b84`
 Parent artifact hash: `13ca185e463ba65e6d5dea0f3f6bc9dc9d4619e4c8fda3753b7dda71c4c37477`
 
 Structure-review companion only. It records scientific cartography rationale and gates; it is not manuscript prose.

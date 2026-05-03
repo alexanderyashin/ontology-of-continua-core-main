@@ -1,0 +1,72 @@
+{
+  "artifact_hash": "7d599a90a607ce8d534c716aeaf7b62df4fdfc5d660c504af4a58d2ae375592f",
+  "artifact_kind": "OC_CORE_1_3_3_SCIENCE_TO_TEXT_TRANSFORMATION_RULES",
+  "body_prose_included": false,
+  "rules": [
+    {
+      "argument_role": "definition_model",
+      "general_rule": "Turn definitions, model objects, assumptions, and notation anchors into reader-facing explanatory prose with explicit scope boundaries.",
+      "must_include": [
+        "term being defined",
+        "why it is needed",
+        "formal or conceptual source",
+        "boundary of use"
+      ],
+      "must_not_include": [
+        "new empirical claims",
+        "unsupported universality",
+        "unbound jargon"
+      ],
+      "rule_id": "TRANSFORM_DEFINITION_MODEL"
+    },
+    {
+      "argument_role": "proof_evidence",
+      "general_rule": "Turn proof/data/simulation evidence into claim-support prose that identifies source, method, result type, and limitation.",
+      "must_include": [
+        "claim being supported",
+        "source artifact class",
+        "verification route",
+        "uncertainty or proof boundary"
+      ],
+      "must_not_include": [
+        "proof theater",
+        "evidence-free promotion",
+        "hidden source dependency"
+      ],
+      "rule_id": "TRANSFORM_PROOF_EVIDENCE"
+    },
+    {
+      "argument_role": "limits_falsifier",
+      "general_rule": "Turn failures, caveats, negative controls, and demotion rules into explicit limits and falsification prose.",
+      "must_include": [
+        "attack surface",
+        "what would falsify or demote",
+        "current status",
+        "research-only boundary where relevant"
+      ],
+      "must_not_include": [
+        "cosmetic caveats",
+        "buried blockers",
+        "stronger claims than evidence supports"
+      ],
+      "rule_id": "TRANSFORM_LIMITS_FALSIFIER"
+    },
+    {
+      "argument_role": "synthesis_transition",
+      "general_rule": "Turn local results into synthesis and next-step prose that closes the chapter obligation and hands off to the next node.",
+      "must_include": [
+        "what was established",
+        "what remains open",
+        "next dependency",
+        "reader orientation"
+      ],
+      "must_not_include": [
+        "new unbacked results",
+        "duplicate summary walls",
+        "broken narrative jumps"
+      ],
+      "rule_id": "TRANSFORM_SYNTHESIS_TRANSITION"
+    }
+  ],
+  "status": "ACTIVE_TRANSFORMATION_RULES_NO_TRANSFORMATION_EXECUTED"
+}

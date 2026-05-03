@@ -1,0 +1,53 @@
+{
+  "artifact_hash": "425ee15210be3857779c0c3a1f6cd154cb60f26eaeddb9c4f6c11935090e80bd",
+  "artifact_kind": "OC_CORE_1_3_3_SCIENCE_MAPPING_OBJECT_ONTOLOGY",
+  "body_prose_included": false,
+  "object_classes": [
+    {
+      "class_id": "science_source_family",
+      "external_surface": "Not directly exposed; only sanitized source bindings may enter manuscripts.",
+      "meaning": "A curated class of existing OC science artifacts that can support L10 slots."
+    },
+    {
+      "class_id": "l10_terminal_slot",
+      "external_surface": "Not exposed as prose; used to guide later drafting.",
+      "meaning": "A frozen paragraph-slot obligation in the manuscript structure."
+    },
+    {
+      "class_id": "binding_candidate",
+      "external_surface": "Internal planning only.",
+      "meaning": "A possible source-family-to-L10 connection pending exact path binding in fill-control."
+    },
+    {
+      "class_id": "transformation_rule",
+      "external_surface": "Internal editorial method unless later summarized.",
+      "meaning": "A rule for turning science material into future prose without performing the transformation now."
+    },
+    {
+      "class_id": "coverage_status",
+      "external_surface": "May be summarized only after fill assessment audit.",
+      "meaning": "A reserved maturity value for future fill assessment."
+    }
+  ],
+  "relations": [
+    {
+      "from": "science_source_family",
+      "relation_id": "source_family_supports_l10_role",
+      "rule": "Support is mediated by argument_role, not by accidental file proximity.",
+      "to": "l10_terminal_slot"
+    },
+    {
+      "from": "binding_candidate",
+      "relation_id": "binding_candidate_precedes_transformation",
+      "rule": "Exact source binding must exist before any science-to-text transformation is executed.",
+      "to": "transformation_rule"
+    },
+    {
+      "from": "coverage_status",
+      "relation_id": "coverage_status_is_not_claim",
+      "rule": "Coverage statuses guide work; they are not scientific claims.",
+      "to": "l10_terminal_slot"
+    }
+  ],
+  "status": "ACTIVE_MAPPING_ONTOLOGY_V1_0"
+}

@@ -1,0 +1,126 @@
+{
+  "allowed_coverage_statuses": [
+    "complete",
+    "partial",
+    "planned",
+    "missing",
+    "not_assessed"
+  ],
+  "artifact_hash": "7e4c3e860068d8f95944078ff1beb3383252ac674dccf99b21da6e71c9c2b882",
+  "artifact_kind": "OC_CORE_1_3_3_SCIENCE_TO_L10_MAPPING_RULES",
+  "body_prose_included": false,
+  "mapping_object_ontology_hash": "425ee15210be3857779c0c3a1f6cd154cb60f26eaeddb9c4f6c11935090e80bd",
+  "mapping_policy": {
+    "manuscript_prose_generation_not_authorized": true,
+    "mapping_does_not_assess_fill_yet": true,
+    "mapping_is_separate_from_l10_template": true,
+    "release_toc_must_consume_mapping_not_raw_l10": true
+  },
+  "role_to_source_families": {
+    "definition_model": [
+      "formal_model_and_foundation",
+      "prior_art_novelty_and_comparator",
+      "didactic_synthesis_and_reader_guidance"
+    ],
+    "limits_falsifier": [
+      "review_attack_response_and_limits",
+      "empirical_computational_evidence",
+      "prior_art_novelty_and_comparator"
+    ],
+    "proof_evidence": [
+      "formal_model_and_foundation",
+      "machine_checked_and_finite_semantics",
+      "empirical_computational_evidence",
+      "reproducibility_governance_and_artifacts"
+    ],
+    "synthesis_transition": [
+      "didactic_synthesis_and_reader_guidance",
+      "reproducibility_governance_and_artifacts",
+      "review_attack_response_and_limits"
+    ]
+  },
+  "source_cascade_freeze": {
+    "artifact_hash": "6bcbf9777d4671e6c0aacf14a6b25b8e1fe611a870c59a5dd6780d12e89d1ca3",
+    "frozen_node_manifest_hash": "a04b368d7b19e429ed98aa7481f78405ff41045dfa23646ddd3023926dff37f8",
+    "json": "releases/oc_core_1_3_3/editorial/master_manuscript_structure/MASTER_MANUSCRIPT_STRUCTURE_CASCADE_FREEZE_V1_0.json"
+  },
+  "source_families": [
+    {
+      "description": "typed foundation, model definitions, k-level semantics, identity, boundary, and operator material",
+      "id": "formal_model_and_foundation",
+      "source_globs": [
+        "formal/**",
+        "proofs/**",
+        "releases/oc_core_1_3_3/**/theorem*",
+        "releases/oc_core_1_3_3/**/proof*"
+      ]
+    },
+    {
+      "description": "Lean/Lake subset, finite-model semantics, witness cases, and tamper controls",
+      "id": "machine_checked_and_finite_semantics",
+      "source_globs": [
+        "formal/lean/**",
+        "proofs/finite_model_checks/**",
+        "releases/oc_core_1_3_3/**/finite*",
+        "releases/oc_core_1_3_3/**/lean*"
+      ]
+    },
+    {
+      "description": "validation, target-blind/held-out evidence, simulation, adversarial simulation, and counterexample search material",
+      "id": "empirical_computational_evidence",
+      "source_globs": [
+        "validation/**",
+        "simulations/**",
+        "falsification/**",
+        "releases/oc_core_1_3_3/**/evidence*",
+        "releases/oc_core_1_3_3/**/validation*"
+      ]
+    },
+    {
+      "description": "prior art, comparator, novelty, residual-delta, and positioning material",
+      "id": "prior_art_novelty_and_comparator",
+      "source_globs": [
+        "releases/oc_core_1_3_3/**/novelty*",
+        "releases/oc_core_1_3_3/**/comparator*",
+        "releases/oc_core_1_3_3/**/prior*"
+      ]
+    },
+    {
+      "description": "Cerberus, hostile review, claim-boundary, attack matrix, limitation, and failure-mode material",
+      "id": "review_attack_response_and_limits",
+      "source_globs": [
+        "releases/oc_core_1_3_3/**/cerberus*",
+        "releases/oc_core_1_3_3/**/attack*",
+        "releases/oc_core_1_3_3/**/review*",
+        "releases/oc_core_1_3_3/**/limits*"
+      ]
+    },
+    {
+      "description": "artifact inventory, checksums, replay protocol, metadata, release governance, and traceability material",
+      "id": "reproducibility_governance_and_artifacts",
+      "source_globs": [
+        "releases/oc_core_1_3_3/**/manifest*",
+        "releases/oc_core_1_3_3/**/checksum*",
+        "releases/oc_core_1_3_3/**/reproduc*",
+        "tools/oc133_*",
+        "tools/verify_oc133_*",
+        "tools/logion_project_controller.py",
+        "tools/logion_delta_queue.py",
+        "tools/logion_process_coherence_guard.py"
+      ]
+    },
+    {
+      "description": "worked examples, figures/tables, reader tracks, synthesis, and external-use guidance",
+      "id": "didactic_synthesis_and_reader_guidance",
+      "source_globs": [
+        "releases/oc_core_1_3_3/**/didactic*",
+        "releases/oc_core_1_3_3/**/figure*",
+        "releases/oc_core_1_3_3/**/guide*",
+        "releases/oc_core_1_3_3/**/synthesis*"
+      ]
+    }
+  ],
+  "source_inventory_hash": "4f3b7b46624b5417771200ecad940e496bcddf2ca79e2e82737237907ee3895b",
+  "status": "ACTIVE_MAPPING_RULES_V1_0",
+  "transformation_rules_hash": "7d599a90a607ce8d534c716aeaf7b62df4fdfc5d660c504af4a58d2ae375592f"
+}

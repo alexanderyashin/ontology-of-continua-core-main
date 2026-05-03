@@ -5,7 +5,7 @@ import hashlib
 import json
 import re
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -37,22 +37,64 @@ LEVEL_NAMES = {
     10: "paragraph_slot",
 }
 
-L3_TEMPLATES = [
-    ("Purpose and Reader Task", "purpose_and_reader_task"),
-    ("Core Material and Definitions", "core_material_and_definitions"),
-    ("Evidence and Corpus Anchors", "evidence_and_corpus_anchors"),
-    ("Boundary and Forward Transition", "boundary_and_forward_transition"),
+SEMANTIC_SECTION_ARCHETYPES = [
+    {
+        "key": "definition_model_path",
+        "section_title": "{chapter}: definition and model path",
+        "l4_title": "{chapter}: scope and concept boundary",
+        "l5_title": "{chapter}: required definition or model subclaim",
+        "l6_title": "{chapter}: definition/model paragraph group",
+        "l7_title": "{chapter}: establish concept and lawful role",
+        "l8_title": "{chapter}: source slot for definition, model, and notation",
+        "l9_title": "{chapter}: transition from definition to support",
+        "l10_title": "Paragraph Slot: define {chapter} and state its reader task",
+        "argument_role": "definition_model",
+        "support_route": "definition/model source, formal assumption, notation map, or internal ontology anchor",
+        "claim_boundary": "may define model terms and scope; may not promote empirical or universal claims without later proof/evidence slots",
+    },
+    {
+        "key": "proof_evidence_path",
+        "section_title": "{chapter}: proof, evidence, and source path",
+        "l4_title": "{chapter}: proof and evidence inclusion rule",
+        "l5_title": "{chapter}: required theorem, data, or replay subclaim",
+        "l6_title": "{chapter}: proof/evidence paragraph group",
+        "l7_title": "{chapter}: connect claim to proof or evidence",
+        "l8_title": "{chapter}: support slot for proof, data, replay, or example",
+        "l9_title": "{chapter}: transition from support to claim confidence",
+        "l10_title": "Paragraph Slot: bind {chapter} to proof, evidence, or replay",
+        "argument_role": "proof_evidence",
+        "support_route": "Lean theorem, finite-model case, proof ledger row, validation row, simulation row, comparator row, or explicit planned-evidence marker",
+        "claim_boundary": "may support promoted claims only through cited proof/data; otherwise marks the claim as partial, planned, or missing",
+    },
+    {
+        "key": "limits_falsifier_path",
+        "section_title": "{chapter}: limits, falsifiers, and demotion path",
+        "l4_title": "{chapter}: limit and falsifier boundary",
+        "l5_title": "{chapter}: required failure-mode or demotion subclaim",
+        "l6_title": "{chapter}: limits/falsifier paragraph group",
+        "l7_title": "{chapter}: expose attack surface and demotion rule",
+        "l8_title": "{chapter}: support slot for negative control, counterexample, or caveat",
+        "l9_title": "{chapter}: transition from limit to honest boundary",
+        "l10_title": "Paragraph Slot: state limits and falsifiers for {chapter}",
+        "argument_role": "limits_falsifier",
+        "support_route": "counterexample search, negative control, failure-mode row, demotion rule, or research-only obligation",
+        "claim_boundary": "must prevent overclaiming and must route unsupported strength to limits or background research",
+    },
+    {
+        "key": "synthesis_transition_path",
+        "section_title": "{chapter}: synthesis and forward transition",
+        "l4_title": "{chapter}: synthesis and reader handoff rule",
+        "l5_title": "{chapter}: required integration or transition subclaim",
+        "l6_title": "{chapter}: synthesis/transition paragraph group",
+        "l7_title": "{chapter}: integrate result and prepare next step",
+        "l8_title": "{chapter}: support slot for summary, figure, table, or cross-reference",
+        "l9_title": "{chapter}: transition from local result to next chapter",
+        "l10_title": "Paragraph Slot: synthesize {chapter} and hand off to the next obligation",
+        "argument_role": "synthesis_transition",
+        "support_route": "chapter summary, didactic figure/table, cross-reference, dependency edge, or next-obligation pointer",
+        "claim_boundary": "may synthesize established local results but must not add new unsupported claims",
+    },
 ]
-
-DEEPER_CHAIN = {
-    4: "Scope and Inclusion Rules",
-    5: "Required Subclaim Coverage",
-    6: "Paragraph Group Draft Slot",
-    7: "Argument Move Draft Slot",
-    8: "Evidence, Proof, or Example Draft Slot",
-    9: "Claim-Support Transition Draft Slot",
-    10: "Paragraph Draft Slot",
-}
 
 STOPWORDS = {
     "and",
@@ -424,9 +466,10 @@ class OutlineNode:
     status: str
     source: str
     provenance: list[dict[str, Any]]
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     def to_json(self) -> dict[str, Any]:
-        return {
+        payload = {
             "level": self.level,
             "level_name": self.level_name,
             "node_id": self.node_id,
@@ -438,6 +481,9 @@ class OutlineNode:
             "status": self.status,
             "title": self.title,
         }
+        if self.metadata:
+            payload["metadata"] = self.metadata
+        return payload
 
 
 def sha256_text(text: str) -> str:
@@ -595,6 +641,58 @@ def provenance_candidates(chapter_title: str, l1_title: str, recovered_nodes: li
         if len(candidates) == 3:
             break
     return candidates
+
+
+def semantic_reader_task(level: int, chapter_title: str, archetype: dict[str, str]) -> str:
+    if level == 3:
+        return f"locate the {archetype['argument_role']} section for {chapter_title}"
+    if level == 4:
+        return f"understand the inclusion boundary for the {archetype['argument_role']} route in {chapter_title}"
+    if level == 5:
+        return f"identify the required subclaim controlled by the {archetype['argument_role']} route in {chapter_title}"
+    if level == 6:
+        return f"reserve a coherent paragraph group for the {archetype['argument_role']} route in {chapter_title}"
+    if level == 7:
+        return f"perform the argument move '{archetype['argument_role']}' for {chapter_title}"
+    if level == 8:
+        return f"attach the required support class for the {archetype['argument_role']} route in {chapter_title}"
+    if level == 9:
+        return f"make the claim-support transition explicit for {chapter_title}"
+    if level == 10:
+        return f"fill one future paragraph that completes the {archetype['argument_role']} route for {chapter_title}"
+    return f"understand the manuscript role of {chapter_title}"
+
+
+def semantic_metadata(
+    *,
+    level: int,
+    chapter_title: str,
+    l1_title: str,
+    archetype: dict[str, str],
+    provenance: list[dict[str, Any]],
+) -> dict[str, Any]:
+    return {
+        "semantic_structure_v": "1.0",
+        "chapter_title": chapter_title,
+        "l1_title": l1_title,
+        "semantic_route": archetype["key"],
+        "argument_role": archetype["argument_role"],
+        "reader_task": semantic_reader_task(level, chapter_title, archetype),
+        "support_route": archetype["support_route"],
+        "evidence_proof_source_route": archetype["support_route"],
+        "claim_boundary": archetype["claim_boundary"],
+        "source_candidates": provenance,
+        "expected_figures_tables": "FIGURE_OR_TABLE_EXPECTED" if archetype["argument_role"] in {"definition_model", "synthesis_transition"} else "TABLE_OR_TRACE_EXPECTED",
+        "future_fill_control_hook": {
+            "allowed_maturity_values": ["complete", "partial", "planned", "missing"],
+            "current_fill_maturity_status": "not_assessed_this_phase",
+            "fill_assessment_phase": "NEXT_STEP_AFTER_STRUCTURE_APPROVAL",
+        },
+    }
+
+
+def format_archetype_title(template: str, chapter_title: str) -> str:
+    return template.format(chapter=chapter_title)
 
 
 def title_corpus(nodes: list[dict[str, Any]]) -> str:
@@ -840,21 +938,25 @@ def expected_visual_policy(node: dict[str, Any]) -> str:
 def node_expectation(node: dict[str, Any]) -> dict[str, Any]:
     level = int(node["level"])
     title = str(node["title"])
+    metadata = node.get("metadata") or {}
     return {
         "node_id": node["node_id"],
         "outline_number": node["outline_number"],
         "title": title,
         "level": level,
         "level_name": node["level_name"],
-        "target_reader_task": f"understand the {node['level_name']} role of '{title}' in the complete OC 1.3.3 theory map",
+        "target_reader_task": metadata.get("reader_task") or f"understand the {node['level_name']} role of '{title}' in the complete OC 1.3.3 theory map",
+        "argument_role": metadata.get("argument_role", "not_semantic_terminal"),
+        "evidence_proof_source_route": metadata.get("evidence_proof_source_route", "not_required_at_this_level"),
+        "claim_boundary": metadata.get("claim_boundary", "not_required_at_this_level"),
         "required_links": {
             "prior_art": "required where the node states novelty, comparator, positioning, or external scientific context",
             "formal_claim": "required where the node states model, theorem, proof, identity, boundary, k-level, or formal semantics content",
             "evidence_or_replay": "required where the node states empirical, computational, simulation, validation, or reproducibility content",
             "limit_or_falsifier": "required where the node states claim boundary, failure mode, demotion, risk, unsupported claim, or research-only content",
         },
-        "expected_figures_tables": expected_visual_policy(node),
-        "future_fill_control_hook": {
+        "expected_figures_tables": metadata.get("expected_figures_tables") or expected_visual_policy(node),
+        "future_fill_control_hook": metadata.get("future_fill_control_hook") or {
             "allowed_maturity_values": ["complete", "partial", "planned", "missing"],
             "current_fill_maturity_status": "not_assessed_this_phase",
             "fill_assessment_phase": "NEXT_STEP_AFTER_STRUCTURE_APPROVAL",
@@ -1094,12 +1196,25 @@ def build_level_catalog() -> dict[int, list[dict[str, Any]]]:
                 status="DRAFT_STRUCTURE_ONLY",
                 source="owner_approved_l2_source_demoted_to_draft_cascade",
                 provenance=[{"kind": "owner_approved_l2_source", "line": l2["line"], "path": l2["path"]}],
+                metadata={
+                    "semantic_structure_v": "1.0",
+                    "reader_task": f"understand the chapter-level obligation for {l2['title']}",
+                    "argument_role": "chapter_scientific_obligation",
+                    "claim_boundary": "L2 is draft structure below frozen L1 and cannot itself promote unfilled claims.",
+                    "evidence_proof_source_route": "L2 chapter source and later L3-L10 support routes.",
+                    "future_fill_control_hook": {
+                        "allowed_maturity_values": ["complete", "partial", "planned", "missing"],
+                        "current_fill_maturity_status": "not_assessed_this_phase",
+                        "fill_assessment_phase": "NEXT_STEP_AFTER_STRUCTURE_APPROVAL",
+                    },
+                },
             )
         )
         candidates = provenance_candidates(l2["title"], l1["title"], recovered_nodes)
-        for l3_index, (title, source_key) in enumerate(L3_TEMPLATES, start=1):
+        for l3_index, archetype in enumerate(SEMANTIC_SECTION_ARCHETYPES, start=1):
             path3 = [*path2, l3_index]
             l3_id = node_id(3, path3)
+            l3_title = format_archetype_title(archetype["section_title"], l2["title"])
             catalog[3].append(
                 OutlineNode(
                     node_id=l3_id,
@@ -1107,14 +1222,21 @@ def build_level_catalog() -> dict[int, list[dict[str, Any]]]:
                     level=3,
                     order_path=path3,
                     outline_number=outline_number(path3),
-                    title=title,
+                    title=l3_title,
                     level_name=LEVEL_NAMES[3],
                     status="DRAFT_STRUCTURE_ONLY",
-                    source=f"deterministic_l3_template::{source_key}",
+                    source=f"deterministic_l3_semantic_template::{archetype['key']}",
                     provenance=[
-                        {"kind": "template", "chapter": l2["title"], "template": source_key},
+                        {"kind": "template", "chapter": l2["title"], "template": archetype["key"]},
                         {"candidates": candidates, "kind": "recovered_corpus_candidates"},
                     ],
+                    metadata=semantic_metadata(
+                        level=3,
+                        chapter_title=l2["title"],
+                        l1_title=l1["title"],
+                        archetype=archetype,
+                        provenance=candidates,
+                    ),
                 )
             )
             parent_id = l3_id
@@ -1122,6 +1244,8 @@ def build_level_catalog() -> dict[int, list[dict[str, Any]]]:
             for level in range(4, MAX_DEPTH + 1):
                 current_path = [*parent_path, 1]
                 current_id = node_id(level, current_path)
+                title_key = f"l{level}_title"
+                semantic_title = format_archetype_title(archetype[title_key], l2["title"])
                 catalog[level].append(
                     OutlineNode(
                         node_id=current_id,
@@ -1129,11 +1253,18 @@ def build_level_catalog() -> dict[int, list[dict[str, Any]]]:
                         level=level,
                         order_path=current_path,
                         outline_number=outline_number(current_path),
-                        title=DEEPER_CHAIN[level],
+                        title=semantic_title,
                         level_name=LEVEL_NAMES[level],
                         status="DRAFT_SLOT",
-                        source=f"deterministic_l{level}_draft_slot_template",
-                        provenance=[{"kind": "template", "parent_level": level - 1, "parent_node_id": parent_id}],
+                        source=f"deterministic_l{level}_semantic_slot_template::{archetype['key']}",
+                        provenance=[{"kind": "template", "parent_level": level - 1, "parent_node_id": parent_id, "template": archetype["key"]}],
+                        metadata=semantic_metadata(
+                            level=level,
+                            chapter_title=l2["title"],
+                            l1_title=l1["title"],
+                            archetype=archetype,
+                            provenance=candidates,
+                        ),
                     )
                 )
                 parent_id = current_id

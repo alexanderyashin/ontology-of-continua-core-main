@@ -3,12 +3,12 @@
 Status: DRAFT_STRUCTURE_ONLY
 Version: 1.3.3
 Depth: L02
-Artifact hash: `c45016b5dea92aefafff3f11917ed4c7991661f3b84f8fe04d50400ab37a6da8`
+Artifact hash: `184303aab44bf40180bc110c3a3164a74f4ef6a4908bf44698e34f683a3733e2`
 Parent artifact hash: `13ca185e463ba65e6d5dea0f3f6bc9dc9d4619e4c8fda3753b7dda71c4c37477`
 Parent combined hash: `045d7ecbb9d712740f22db42d403e4e589dcc11f21d762bfe7461d20086a174f`
 Inherited locked hash: `045d7ecbb9d712740f22db42d403e4e589dcc11f21d762bfe7461d20086a174f`
-Own expansion hash: `248bbbf948b6c9e1490b65b5b2ec778261fca01880e4b12c11e4cae642342e19`
-Combined hash: `3110b5eb264eca6e2c49badb974e44830ce6799ffffb1c1580c2e68fa303256b`
+Own expansion hash: `5430747f196a55397246c0bff9a02cbbc98b6d6425d8419b8c91199b803c527f`
+Combined hash: `618f188919def2dcb6022b02370908a414ebe2a0370c5ece4fc5579b6df82b84`
 
 Structure-only artifact. It contains headings, draft slots, hashes, and provenance only.
 
