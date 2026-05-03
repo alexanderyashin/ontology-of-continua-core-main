@@ -59,6 +59,72 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         old_dir = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "oc_core_1_3_3_release_table_of_content"
         self.assertFalse(old_dir.exists())
 
+    def test_quality_metric_catalog_covers_required_families(self) -> None:
+        payload = read_json(ASSEMBLY / "quality_parameterization" / "OC_CORE_QUALITY_METRIC_CATALOG.json")
+        families = {metric["family"] for metric in payload["metrics"]}
+        for family in [
+            "scientific_validity",
+            "claim_evidence_trace",
+            "formal_proof",
+            "empirical_support",
+            "didactics",
+            "style",
+            "structure",
+            "figures_tables",
+            "bibliography_prior_art",
+            "artifact_hygiene",
+            "public_surface_safety",
+            "reproducibility",
+            "reviewer_resilience",
+        ]:
+            self.assertIn(family, families)
+        self.assertGreaterEqual(payload["metric_total"], 15)
+        self.assertEqual(len(payload["standard_sources"]), 4)
+
+    def test_l10_quality_projection_matrix_is_complete_and_waived(self) -> None:
+        matrix = read_json(ASSEMBLY / "quality_parameterization" / "OC_CORE_L10_QUALITY_PROJECTION_MATRIX.json")
+        self.assertEqual(matrix["projection_row_total"], matrix["terminal_l10_node_total"] * matrix["metric_total"])
+        self.assertGreater(matrix["applicable_projection_total"], matrix["terminal_l10_node_total"])
+        self.assertGreater(matrix["waived_projection_total"], 0)
+        required = {
+            "coverage.target_obligation",
+            "trace.exact_source_binding",
+            "claim.boundary_discipline",
+            "didactic.reader_task_payoff",
+            "structure.sequence_transition",
+            "public.no_overclaim_surface",
+        }
+        by_node: dict[str, set[str]] = {}
+        for row in matrix["projection_rows"]:
+            if row["applicable"]:
+                by_node.setdefault(row["aggregator_node_id"], set()).add(row["metric_id"])
+            else:
+                self.assertTrue(row["non_applicability_reason"])
+        for metrics in by_node.values():
+            self.assertTrue(required.issubset(metrics))
+
+    def test_release_quality_audit_does_not_fake_full_coverage(self) -> None:
+        audit_path = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "quality_validation" / "OC_CORE_RELEASE_QUALITY_AUDIT_1.3.3.json"
+        audit = read_json(audit_path)
+        self.assertEqual(audit["status"], "QUALITY_REPAIR_REQUIRED")
+        self.assertGreater(audit["summary"]["not_assessed_l10_total"], 0)
+        self.assertFalse(audit["summary"]["quality_claim_allowed"])
+        self.assertIn("VULN-QA-001", audit["vulnerability_ids"])
+
+    def test_vulnerability_protocol_and_delta_are_scoped(self) -> None:
+        base = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "quality_validation"
+        protocol = read_json(base / "OC_CORE_RELEASE_VULNERABILITY_PROTOCOL_1.3.3.json")
+        delta = read_json(base / "OC_CORE_RELEASE_REMEDIATION_DELTA_1.3.3.r001.json")
+        self.assertGreaterEqual(protocol["blocking_vulnerability_total"], 1)
+        for row in protocol["vulnerabilities"]:
+            self.assertTrue(row["vulnerability_id"])
+            self.assertTrue(row["severity"])
+            self.assertTrue(row["verification_rule"])
+            self.assertTrue(row["affected_artifacts"] or row["affected_node_ids"])
+        self.assertEqual(delta["parent_hashes"]["vulnerability_protocol_hash"], protocol["artifact_hash"])
+        self.assertEqual(delta["remediation_revision"], "r001")
+        self.assertTrue(delta["affected_artifacts"] or delta["affected_node_ids"])
+
 
 if __name__ == "__main__":
     unittest.main()

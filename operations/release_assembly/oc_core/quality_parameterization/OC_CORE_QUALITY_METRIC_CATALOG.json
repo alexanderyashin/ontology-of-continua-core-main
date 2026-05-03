@@ -1,0 +1,538 @@
+{
+  "artifact_hash": "c3fbdeba0fcb872e12d83e9c8f6a07696d219f29f24cfbcd47b3b2a7d27a9f81",
+  "artifact_kind": "OC_CORE_QUALITY_METRIC_CATALOG",
+  "body_prose_included": false,
+  "metric_total": 15,
+  "metrics": [
+    {
+      "default_mode": "auto_plus_manual",
+      "default_scorer_id": "l10_coverage_status_scorer",
+      "default_weight": 1.0,
+      "evidence_fields": [
+        "coverage_status",
+        "source_family_ids",
+        "auto_quality_index"
+      ],
+      "family": "scientific_validity",
+      "full_coverage_rule": "The L10 obligation has complete, partial, planned, missing, or not_assessed status with reason and source route.",
+      "label": "Target obligation coverage",
+      "metric_id": "coverage.target_obligation",
+      "parameterization_rule": "Map aggregator coverage_status and mapping-quality row to a numeric coverage score; not_assessed remains unscored.",
+      "polarity": "positive",
+      "required_for_all_l10": true,
+      "standard_source_ids": [
+        "logion_toe_grade_internal_standard",
+        "top_guidelines"
+      ],
+      "thresholds": {
+        "pass_min": 0.85,
+        "warn_min": 0.6
+      }
+    },
+    {
+      "default_mode": "auto",
+      "default_scorer_id": "source_family_binding_scorer",
+      "default_weight": 1.0,
+      "evidence_fields": [
+        "source_family_ids",
+        "extraction_rule",
+        "integration_rule",
+        "verification_rule"
+      ],
+      "family": "claim_evidence_trace",
+      "full_coverage_rule": "Every claim-bearing or explanatory slot has exact source family candidates and later exact artifact paths.",
+      "label": "Exact source and provenance binding",
+      "metric_id": "trace.exact_source_binding",
+      "parameterization_rule": "Score source_family_ids, extraction_rule, integration_rule, and verification_rule completeness.",
+      "polarity": "positive",
+      "required_for_all_l10": true,
+      "standard_source_ids": [
+        "nature_reporting_data_code_protocols",
+        "top_guidelines",
+        "logion_toe_grade_internal_standard"
+      ],
+      "thresholds": {
+        "pass_min": 0.9,
+        "warn_min": 0.7
+      }
+    },
+    {
+      "default_mode": "auto_plus_manual",
+      "default_scorer_id": "claim_boundary_scorer",
+      "default_weight": 1.0,
+      "evidence_fields": [
+        "claim_boundary",
+        "artifact_text_scan_hits"
+      ],
+      "family": "claim_evidence_trace",
+      "full_coverage_rule": "The node states what may and may not be claimed from its support route.",
+      "label": "Claim boundary discipline",
+      "metric_id": "claim.boundary_discipline",
+      "parameterization_rule": "Score claim_boundary specificity and scan generated artifact text for stronger language than supported.",
+      "polarity": "negative_guard",
+      "required_for_all_l10": true,
+      "standard_source_ids": [
+        "icmje_recommendations",
+        "logion_toe_grade_internal_standard"
+      ],
+      "thresholds": {
+        "forbidden_hit_max": 0,
+        "pass_min": 0.95
+      }
+    },
+    {
+      "argument_roles": [
+        "proof_evidence"
+      ],
+      "default_mode": "auto_plus_manual",
+      "default_scorer_id": "formal_artifact_binding_scorer",
+      "default_weight": 0.9,
+      "evidence_fields": [
+        "theorem_ids",
+        "proof_sheet_refs",
+        "lean_refs",
+        "finite_model_case_ids"
+      ],
+      "family": "formal_proof",
+      "full_coverage_rule": "Formal claims cite theorem/proof/Lean/finite-model evidence or are explicitly demoted.",
+      "label": "Formal theorem/proof binding",
+      "metric_id": "formal.proof_binding",
+      "parameterization_rule": "Require theorem/proof artifact references for proof-bearing nodes; waive for non-formal nodes.",
+      "polarity": "positive",
+      "source_family_patterns": [
+        "formal",
+        "machine_checked",
+        "finite"
+      ],
+      "standard_source_ids": [
+        "logion_toe_grade_internal_standard"
+      ],
+      "thresholds": {
+        "pass_min": 0.9,
+        "warn_min": 0.7
+      },
+      "title_patterns": [
+        "theorem",
+        "proof",
+        "lean",
+        "formal",
+        "typed",
+        "finite"
+      ]
+    },
+    {
+      "argument_roles": [
+        "proof_evidence"
+      ],
+      "default_mode": "auto_plus_manual",
+      "default_scorer_id": "empirical_protocol_scorer",
+      "default_weight": 0.9,
+      "evidence_fields": [
+        "formula",
+        "comparator",
+        "uncertainty",
+        "residual",
+        "negative_control",
+        "falsifier",
+        "replay_hash"
+      ],
+      "family": "empirical_support",
+      "full_coverage_rule": "Empirical nodes declare formula, comparator, uncertainty/residual, negative control, falsifier, and replay hash when promoted.",
+      "label": "Empirical or computational protocol support",
+      "metric_id": "empirical.protocol_support",
+      "parameterization_rule": "Score protocol fields when empirical support is required; otherwise waive with reason.",
+      "polarity": "positive",
+      "source_family_patterns": [
+        "empirical",
+        "computational",
+        "reproducibility"
+      ],
+      "standard_source_ids": [
+        "nature_reporting_data_code_protocols",
+        "top_guidelines"
+      ],
+      "thresholds": {
+        "pass_min": 0.9,
+        "warn_min": 0.7
+      },
+      "title_patterns": [
+        "empirical",
+        "validation",
+        "simulation",
+        "domain",
+        "target-blind",
+        "held-out",
+        "evidence"
+      ]
+    },
+    {
+      "default_mode": "auto_plus_manual",
+      "default_scorer_id": "reader_task_scorer",
+      "default_weight": 0.85,
+      "evidence_fields": [
+        "reader_task",
+        "paragraph_payoff"
+      ],
+      "family": "didactics",
+      "full_coverage_rule": "The node tells the reader what to understand or do and why it matters in the argument.",
+      "label": "Reader task and payoff",
+      "metric_id": "didactic.reader_task_payoff",
+      "parameterization_rule": "Score reader_task presence, specificity, and downstream paragraph payoff.",
+      "polarity": "positive",
+      "required_for_text_l10": true,
+      "standard_source_ids": [
+        "logion_toe_grade_internal_standard"
+      ],
+      "thresholds": {
+        "pass_min": 0.85,
+        "warn_min": 0.65
+      }
+    },
+    {
+      "default_mode": "auto_plus_llm",
+      "default_scorer_id": "publication_grade_text_scorer",
+      "default_weight": 0.8,
+      "evidence_fields": [
+        "text_extract",
+        "forbidden_hits",
+        "boilerplate_ratio",
+        "terminology_hits"
+      ],
+      "family": "style",
+      "full_coverage_rule": "Generated prose is coherent, edited, terminology-stable, and not raw ledger/control text.",
+      "label": "Publication-grade prose and terminology",
+      "metric_id": "style.publication_grade_prose",
+      "parameterization_rule": "Scan generated text for placeholders, repeated boilerplate, control-plane language, malformed notation, and rough style.",
+      "polarity": "negative_guard",
+      "required_for_text_l10": true,
+      "standard_source_ids": [
+        "icmje_recommendations",
+        "logion_toe_grade_internal_standard"
+      ],
+      "thresholds": {
+        "boilerplate_ratio_max": 0.08,
+        "forbidden_hit_max": 0
+      }
+    },
+    {
+      "default_mode": "auto_plus_manual",
+      "default_scorer_id": "sequence_transition_scorer",
+      "default_weight": 0.75,
+      "evidence_fields": [
+        "order_path",
+        "argument_role",
+        "neighbor_transition"
+      ],
+      "family": "structure",
+      "full_coverage_rule": "The node preserves the frozen top-down sequence and has an explicit handoff where needed.",
+      "label": "Argument sequence and transition quality",
+      "metric_id": "structure.sequence_transition",
+      "parameterization_rule": "Score order_path consistency and transition role against surrounding nodes.",
+      "polarity": "positive",
+      "required_for_all_l10": true,
+      "standard_source_ids": [
+        "logion_toe_grade_internal_standard"
+      ],
+      "thresholds": {
+        "pass_min": 0.85,
+        "warn_min": 0.65
+      }
+    },
+    {
+      "default_mode": "manual_or_auto",
+      "default_scorer_id": "figure_table_need_scorer",
+      "default_weight": 0.65,
+      "evidence_fields": [
+        "figure_id",
+        "table_id",
+        "caption",
+        "source_trace",
+        "reader_task"
+      ],
+      "family": "figures_tables",
+      "full_coverage_rule": "Visual/table-bearing nodes declare the intended operation, reader use, caption role, and source binding.",
+      "label": "Figure/table operationalization",
+      "metric_id": "visual.figure_table_operationalization",
+      "parameterization_rule": "Apply to figure/table/atlas/matrix nodes; waive for prose-only nodes.",
+      "polarity": "positive",
+      "standard_source_ids": [
+        "nature_reporting_data_code_protocols",
+        "logion_toe_grade_internal_standard"
+      ],
+      "thresholds": {
+        "pass_min": 0.85,
+        "warn_min": 0.65
+      },
+      "title_patterns": [
+        "figure",
+        "table",
+        "visual",
+        "atlas",
+        "map",
+        "matrix"
+      ]
+    },
+    {
+      "default_mode": "auto_plus_manual",
+      "default_scorer_id": "prior_art_depth_scorer",
+      "default_weight": 0.75,
+      "evidence_fields": [
+        "reference_count",
+        "comparator_rows",
+        "novelty_register_refs"
+      ],
+      "family": "bibliography_prior_art",
+      "full_coverage_rule": "Prior-art nodes cite current scientific context, comparator method, overlap, residual delta, and limits.",
+      "label": "Prior-art and literature depth",
+      "metric_id": "bibliography.prior_art_depth",
+      "parameterization_rule": "Apply to prior-art/comparator/bibliography nodes; waive for frontmatter and purely formal nodes.",
+      "polarity": "positive",
+      "source_family_patterns": [
+        "prior_art",
+        "comparator"
+      ],
+      "standard_source_ids": [
+        "icmje_recommendations",
+        "logion_toe_grade_internal_standard"
+      ],
+      "thresholds": {
+        "pass_min": 0.85,
+        "warn_min": 0.65
+      },
+      "title_patterns": [
+        "prior art",
+        "comparator",
+        "novelty",
+        "bibliography",
+        "references",
+        "literature"
+      ]
+    },
+    {
+      "artifact_metric": true,
+      "default_mode": "auto",
+      "default_scorer_id": "artifact_role_hygiene_scorer",
+      "default_weight": 0.9,
+      "evidence_fields": [
+        "asset_path",
+        "sha256",
+        "size_bytes",
+        "leak_scan"
+      ],
+      "family": "artifact_hygiene",
+      "full_coverage_rule": "Each release artifact matches its role, exists, hashes cleanly, and has no stale/local/secret/control leakage.",
+      "label": "Artifact role and file hygiene",
+      "metric_id": "artifact.role_hygiene",
+      "parameterization_rule": "Apply to package artifact rows, not prose-only L10 nodes.",
+      "polarity": "negative_guard",
+      "standard_source_ids": [
+        "nature_reporting_data_code_protocols",
+        "top_guidelines",
+        "logion_toe_grade_internal_standard"
+      ],
+      "thresholds": {
+        "leak_hit_max": 0,
+        "missing_asset_max": 0
+      }
+    },
+    {
+      "default_mode": "auto_plus_llm",
+      "default_scorer_id": "public_surface_safety_scorer",
+      "default_weight": 1.0,
+      "evidence_fields": [
+        "claim_boundary",
+        "overclaim_hits",
+        "external_positioning_contract"
+      ],
+      "family": "public_surface_safety",
+      "full_coverage_rule": "Public surfaces do not claim final TOE/all-domain superiority unless the evidence literally supports it.",
+      "label": "No-overclaim and public-surface safety",
+      "metric_id": "public.no_overclaim_surface",
+      "parameterization_rule": "Scan claim_boundary and generated text; route broad unsupported claims to research obligations.",
+      "polarity": "negative_guard",
+      "required_for_all_l10": true,
+      "standard_source_ids": [
+        "icmje_recommendations",
+        "logion_toe_grade_internal_standard"
+      ],
+      "thresholds": {
+        "forbidden_hit_max": 0,
+        "pass_min": 0.95
+      }
+    },
+    {
+      "default_mode": "auto",
+      "default_scorer_id": "reproducibility_trace_scorer",
+      "default_weight": 0.85,
+      "evidence_fields": [
+        "command",
+        "input_path",
+        "output_path",
+        "sha256",
+        "failure_route"
+      ],
+      "family": "reproducibility",
+      "full_coverage_rule": "Reproducibility nodes expose build/replay inputs, expected outputs, hashes, and failure interpretation.",
+      "label": "Reproducibility and replay trace",
+      "metric_id": "repro.replay_trace",
+      "parameterization_rule": "Apply to reproducibility/data/software/artifact nodes; waive elsewhere with reason.",
+      "polarity": "positive",
+      "source_family_patterns": [
+        "reproducibility"
+      ],
+      "standard_source_ids": [
+        "nature_reporting_data_code_protocols",
+        "top_guidelines"
+      ],
+      "thresholds": {
+        "pass_min": 0.9,
+        "warn_min": 0.7
+      },
+      "title_patterns": [
+        "reproducibility",
+        "replay",
+        "checksums",
+        "software",
+        "data",
+        "artifact",
+        "traceability"
+      ]
+    },
+    {
+      "argument_roles": [
+        "limits_falsifier",
+        "synthesis_transition"
+      ],
+      "default_mode": "auto_plus_llm",
+      "default_scorer_id": "reviewer_resilience_scorer",
+      "default_weight": 0.85,
+      "evidence_fields": [
+        "objection",
+        "response_evidence",
+        "residual_risk",
+        "reopen_condition"
+      ],
+      "family": "reviewer_resilience",
+      "full_coverage_rule": "Reviewer-facing nodes state objection, threatened claim, evidence answer, residual risk, and reopening condition.",
+      "label": "Reviewer resilience and objection closure",
+      "metric_id": "review.resilience_response",
+      "parameterization_rule": "Apply to review/limits/falsifier nodes; waive for title metadata and purely definitional slots.",
+      "polarity": "positive",
+      "source_family_patterns": [
+        "review_attack",
+        "limits"
+      ],
+      "standard_source_ids": [
+        "icmje_recommendations",
+        "logion_toe_grade_internal_standard"
+      ],
+      "thresholds": {
+        "pass_min": 0.85,
+        "warn_min": 0.65
+      },
+      "title_patterns": [
+        "review",
+        "objection",
+        "response",
+        "falsifier",
+        "limits",
+        "risk",
+        "caveat"
+      ]
+    },
+    {
+      "artifact_metric": true,
+      "default_mode": "auto",
+      "default_scorer_id": "metadata_identity_scorer",
+      "default_weight": 0.8,
+      "evidence_fields": [
+        "author",
+        "instrument",
+        "method",
+        "version",
+        "doi",
+        "license",
+        "citation"
+      ],
+      "family": "metadata_identity",
+      "full_coverage_rule": "Identity nodes and metadata artifacts distinguish author, instrument, method, release version, citation, and license.",
+      "label": "Identity, citation, authorship, instrument, and method metadata",
+      "metric_id": "metadata.identity_citation",
+      "parameterization_rule": "Apply to frontmatter/metadata nodes and citation artifacts; waive for scientific body paragraphs.",
+      "polarity": "positive",
+      "standard_source_ids": [
+        "icmje_recommendations",
+        "logion_toe_grade_internal_standard"
+      ],
+      "thresholds": {
+        "pass_min": 0.9,
+        "warn_min": 0.7
+      },
+      "title_patterns": [
+        "title",
+        "identity",
+        "citation",
+        "doi",
+        "version",
+        "author",
+        "instrument",
+        "method",
+        "classification",
+        "keyword"
+      ]
+    }
+  ],
+  "schema_id": "OC_CORE_QUALITY_METRIC_CATALOG_v1",
+  "standard_sources": [
+    {
+      "requirements": [
+        "replicability",
+        "data availability",
+        "code availability",
+        "protocol availability",
+        "transparent restrictions"
+      ],
+      "source_id": "nature_reporting_data_code_protocols",
+      "title": "Nature Communications reporting standards and availability of data, materials, code and protocols",
+      "url": "https://www.nature.com/ncomms/editorial-policies/reporting-standards"
+    },
+    {
+      "requirements": [
+        "authorship accountability",
+        "manuscript responsibility",
+        "AI-use boundary",
+        "conflicts",
+        "ethical reporting"
+      ],
+      "source_id": "icmje_recommendations",
+      "title": "ICMJE Recommendations",
+      "url": "https://www.icmje.org/recommendations/"
+    },
+    {
+      "requirements": [
+        "data transparency",
+        "analytic transparency",
+        "materials transparency",
+        "preregistration",
+        "replication openness"
+      ],
+      "source_id": "top_guidelines",
+      "title": "Transparency and Openness Promotion Guidelines",
+      "url": "https://incentivizingopen.org/projects2/transparency-and-openness-promotion-top-guidelines/"
+    },
+    {
+      "requirements": [
+        "claim traceability",
+        "reader payoff",
+        "no overclaim",
+        "delta-only remediation",
+        "artifact role fidelity"
+      ],
+      "source_id": "logion_toe_grade_internal_standard",
+      "title": "Logion TOE-grade positive and negative release-quality standard",
+      "url": "internal://logion/release_assembly/oc_core/text_fill_rules"
+    }
+  ],
+  "status": "OC_CORE_QUALITY_METRIC_CATALOG_READY",
+  "storage_policy": "JSON/MD canonical; SQLite is generated deterministic query cache only."
+}

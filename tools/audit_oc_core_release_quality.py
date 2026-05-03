@@ -1,0 +1,487 @@
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from collections import Counter, defaultdict
+from pathlib import Path
+from typing import Any
+
+from build_oc_core_current_release_aggregator import aggregator_paths
+from build_oc_core_l10_quality_projection_matrix import projection_paths
+from build_oc_core_quality_metric_catalog import metric_catalog_paths
+from build_oc_core_release_instance import instance_paths
+from build_oc_core_release_package_cascade import package_paths
+from build_oc_core_text_fill_rules import rules_paths
+from oc_core_release_assembly_lib import ROOT, artifact_hash, read_json, stable_json, validation_result
+
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from release_machine.versioning import version_from_release_id
+
+
+QUALITY_VALIDATION_STATUS_FAIL = "QUALITY_REPAIR_REQUIRED"
+QUALITY_VALIDATION_STATUS_PASS = "QUALITY_VALIDATION_PASS"
+DELTA_REVISION = "r001"
+
+
+def quality_dir(release_id: str) -> Path:
+    return ROOT / "releases" / release_id / "editorial" / "quality_validation"
+
+
+def quality_paths(release_id: str, version: str) -> dict[str, Path]:
+    directory = quality_dir(release_id)
+    return {
+        "audit_json": directory / f"OC_CORE_RELEASE_QUALITY_AUDIT_{version}.json",
+        "audit_md": directory / f"OC_CORE_RELEASE_QUALITY_AUDIT_{version}.md",
+        "protocol_json": directory / f"OC_CORE_RELEASE_VULNERABILITY_PROTOCOL_{version}.json",
+        "protocol_md": directory / f"OC_CORE_RELEASE_VULNERABILITY_PROTOCOL_{version}.md",
+        "delta_json": directory / f"OC_CORE_RELEASE_REMEDIATION_DELTA_{version}.{DELTA_REVISION}.json",
+        "delta_md": directory / f"OC_CORE_RELEASE_REMEDIATION_DELTA_{version}.{DELTA_REVISION}.md",
+    }
+
+
+def editorial_cerberus_path() -> Path:
+    return ROOT / "reviews" / "oc133_llm_cerberus" / "editorial_release_review" / "OC133_EDITORIAL_CERBERUS_SUMMARY.json"
+
+
+def _projection_by_node(matrix: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
+    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in matrix.get("projection_rows", []):
+        grouped[row["aggregator_node_id"]].append(row)
+    return grouped
+
+
+def _artifact_scores(review_package: dict[str, Any]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for artifact in review_package.get("artifact_rows", []):
+        candidate_total = int(artifact.get("candidate_asset_total", 0))
+        existing_total = int(artifact.get("existing_candidate_asset_total", 0))
+        rows.append(
+            {
+                "artifact_type_id": artifact["artifact_type_id"],
+                "label": artifact["label"],
+                "candidate_asset_total": candidate_total,
+                "existing_candidate_asset_total": existing_total,
+                "score": 1.0 if candidate_total > 0 and candidate_total == existing_total else 0.0,
+                "state": "PASS" if candidate_total > 0 and candidate_total == existing_total else "FAIL",
+                "candidate_assets": artifact.get("candidate_assets", []),
+                "metric_family": "artifact_hygiene",
+            }
+        )
+    return rows
+
+
+def _l10_quality_rows(aggregator: dict[str, Any], matrix: dict[str, Any]) -> list[dict[str, Any]]:
+    by_node = _projection_by_node(matrix)
+    rows: list[dict[str, Any]] = []
+    for node in aggregator.get("nodes", []):
+        if node.get("terminal_l10") is not True:
+            continue
+        projections = by_node.get(node["aggregator_node_id"], [])
+        applicable = [row for row in projections if row.get("applicable")]
+        required_ids = {
+            "coverage.target_obligation",
+            "trace.exact_source_binding",
+            "claim.boundary_discipline",
+            "didactic.reader_task_payoff",
+            "structure.sequence_transition",
+            "public.no_overclaim_surface",
+        }
+        applicable_ids = {row["metric_id"] for row in applicable}
+        missing_required = sorted(required_ids - applicable_ids)
+        coverage_status = str(node.get("coverage_status") or "not_assessed")
+        rows.append(
+            {
+                "aggregator_node_id": node["aggregator_node_id"],
+                "target_node_id": node["target_node_id"],
+                "order_label": node["order_label"],
+                "title": node["title"],
+                "argument_role": node.get("argument_role"),
+                "coverage_status": coverage_status,
+                "parameterized_metric_total": len(applicable),
+                "waived_metric_total": len(projections) - len(applicable),
+                "missing_required_metric_ids": missing_required,
+                "parameterization_score": 0.0 if missing_required else 1.0,
+                "computed_quality_score": None if coverage_status == "not_assessed" else node.get("auto_quality_index"),
+                "quality_state": "NOT_ASSESSED" if coverage_status == "not_assessed" else ("FAIL" if missing_required else "SCORED"),
+            }
+        )
+    return rows
+
+
+def _cerberus_vulnerability() -> dict[str, Any] | None:
+    path = editorial_cerberus_path()
+    if not path.exists():
+        return {
+            "vulnerability_id": "VULN-CERB-000",
+            "root_class": "editorial_cerberus_summary_missing",
+            "severity": "CRITICAL",
+            "release_blocking": True,
+            "affected_node_ids": [],
+            "affected_artifacts": ["reviews/oc133_llm_cerberus/editorial_release_review/OC133_EDITORIAL_CERBERUS_SUMMARY.json"],
+            "finding_total": 1,
+            "findings": [],
+            "required_repair": "Run mandatory editorial Cerberus review and materialize structured summary.",
+            "verification_rule": "Editorial Cerberus summary must exist with critical_open_total=0, high_open_total=0, parse_failure_total=0, all required roles present, and current PDF hashes.",
+        }
+    summary = read_json(path)
+    if summary.get("state") == "PASS" and int(summary.get("critical_open_total", 0)) == 0 and int(summary.get("high_open_total", 0)) == 0:
+        return None
+    findings = summary.get("findings", [])
+    artifacts = sorted({finding.get("artifact", "unknown") for finding in findings})
+    return {
+        "vulnerability_id": "VULN-CERB-001",
+        "root_class": "editorial_cerberus_open_findings",
+        "severity": "CRITICAL" if int(summary.get("critical_open_total", 0)) else "HIGH",
+        "release_blocking": True,
+        "affected_node_ids": [],
+        "affected_artifacts": artifacts,
+        "finding_total": len(findings),
+        "critical_open_total": summary.get("critical_open_total", 0),
+        "high_open_total": summary.get("high_open_total", 0),
+        "parse_failure_total": summary.get("parse_failure_total", 0),
+        "missing_roles": summary.get("missing_roles", []),
+        "hash_mismatch": summary.get("hash_mismatch", {}),
+        "findings": findings,
+        "required_repair": "Convert open editorial/Cerberus findings into minimal release remediation deltas, regenerate affected artifacts only, and rerun the affected roles.",
+        "verification_rule": "Fresh editorial Cerberus summary must pass with zero critical/high findings, zero parse failures, all required roles, and current artifact hashes.",
+    }
+
+
+def build_audit_payload(release_id: str) -> dict[str, Any]:
+    version = version_from_release_id(release_id)
+    paths = instance_paths(release_id, version)
+    instance = read_json(paths["instance_json"])
+    review_package = read_json(paths["review_package_json"])
+    aggregator = read_json(aggregator_paths()["aggregator_json"])
+    catalog = read_json(metric_catalog_paths()["catalog_json"])
+    matrix = read_json(projection_paths()["matrix_json"])
+    package = read_json(package_paths()["cascade_json"])
+    rules = read_json(rules_paths()["rules_json"])
+    l10_rows = _l10_quality_rows(aggregator, matrix)
+    artifact_rows = _artifact_scores(review_package)
+    not_assessed_nodes = [row["aggregator_node_id"] for row in l10_rows if row["quality_state"] == "NOT_ASSESSED"]
+    missing_metric_rows = [row for row in l10_rows if row["missing_required_metric_ids"]]
+    artifact_failures = [row for row in artifact_rows if row["state"] != "PASS"]
+    vulnerabilities = build_vulnerability_rows(release_id, l10_rows, artifact_rows)
+    blocking_total = sum(1 for row in vulnerabilities if row["release_blocking"])
+    family_counts: Counter[str] = Counter()
+    for row in matrix["projection_rows"]:
+        if row["applicable"]:
+            family_counts[row["metric_family"]] += 1
+    payload: dict[str, Any] = {
+        "schema_id": "OC_CORE_RELEASE_QUALITY_AUDIT_v1",
+        "artifact_kind": "OC_CORE_RELEASE_QUALITY_AUDIT",
+        "body_prose_included": False,
+        "status": QUALITY_VALIDATION_STATUS_FAIL if blocking_total else QUALITY_VALIDATION_STATUS_PASS,
+        "release_identity": instance["release_identity"],
+        "source_hashes": {
+            "release_instance_hash": instance["artifact_hash"],
+            "review_package_hash": review_package["artifact_hash"],
+            "current_release_aggregator_hash": aggregator["artifact_hash"],
+            "metric_catalog_hash": catalog["artifact_hash"],
+            "l10_projection_matrix_hash": matrix["artifact_hash"],
+            "package_cascade_hash": package["artifact_hash"],
+            "text_fill_rules_hash": rules["artifact_hash"],
+        },
+        "summary": {
+            "terminal_l10_node_total": len(l10_rows),
+            "metric_total": catalog["metric_total"],
+            "projection_row_total": matrix["projection_row_total"],
+            "applicable_projection_total": matrix["applicable_projection_total"],
+            "not_assessed_l10_total": len(not_assessed_nodes),
+            "missing_required_metric_node_total": len(missing_metric_rows),
+            "artifact_type_total": len(artifact_rows),
+            "artifact_failure_total": len(artifact_failures),
+            "blocking_vulnerability_total": blocking_total,
+            "vulnerability_total": len(vulnerabilities),
+            "quality_claim_allowed": blocking_total == 0 and not not_assessed_nodes,
+        },
+        "applicable_metric_family_counts": dict(sorted(family_counts.items())),
+        "l10_quality_rows": l10_rows,
+        "artifact_quality_rows": artifact_rows,
+        "vulnerability_ids": [row["vulnerability_id"] for row in vulnerabilities],
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def build_vulnerability_rows(release_id: str, l10_rows: list[dict[str, Any]], artifact_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    vulnerabilities: list[dict[str, Any]] = []
+    not_assessed = [row["aggregator_node_id"] for row in l10_rows if row["quality_state"] == "NOT_ASSESSED"]
+    if not_assessed:
+        vulnerabilities.append(
+            {
+                "vulnerability_id": "VULN-QA-001",
+                "root_class": "l10_quality_scores_not_assessed",
+                "severity": "HIGH",
+                "release_blocking": True,
+                "affected_node_ids": not_assessed,
+                "affected_node_total": len(not_assessed),
+                "affected_artifacts": [f"releases/{release_id}/editorial/quality_validation"],
+                "finding_total": len(not_assessed),
+                "required_repair": "Run or implement scorers for the L10 projection matrix and replace not_assessed with explicit complete/partial/planned/missing statuses plus evidence.",
+                "verification_rule": f"python tools/audit_oc_core_release_quality.py --release {release_id} --check must report not_assessed_l10_total=0 before final quality promotion.",
+            }
+        )
+    missing_required = [row for row in l10_rows if row["missing_required_metric_ids"]]
+    if missing_required:
+        vulnerabilities.append(
+            {
+                "vulnerability_id": "VULN-QA-002",
+                "root_class": "l10_required_metric_projection_missing",
+                "severity": "CRITICAL",
+                "release_blocking": True,
+                "affected_node_ids": [row["aggregator_node_id"] for row in missing_required],
+                "affected_node_total": len(missing_required),
+                "affected_artifacts": ["operations/release_assembly/oc_core/quality_parameterization/OC_CORE_L10_QUALITY_PROJECTION_MATRIX.json"],
+                "finding_total": len(missing_required),
+                "required_repair": "Repair projection rules so every L10 terminal node has required positive, traceability, didactic, structure, and safety metrics.",
+                "verification_rule": "python tools/build_oc_core_l10_quality_projection_matrix.py --check must pass with no node_missing_required_metrics failures.",
+            }
+        )
+    failed_artifacts = [row for row in artifact_rows if row["state"] != "PASS"]
+    if failed_artifacts:
+        vulnerabilities.append(
+            {
+                "vulnerability_id": "VULN-ASSET-001",
+                "root_class": "release_artifact_role_or_existence_failure",
+                "severity": "HIGH",
+                "release_blocking": True,
+                "affected_node_ids": [],
+                "affected_artifacts": [row["artifact_type_id"] for row in failed_artifacts],
+                "finding_total": len(failed_artifacts),
+                "required_repair": "Repair release profile or generate missing artifact candidates so every package artifact role has existing assets.",
+                "verification_rule": f"python tools/build_oc_core_release_instance.py --release {release_id} --check and quality audit must show artifact_failure_total=0.",
+            }
+        )
+    cerberus = _cerberus_vulnerability()
+    if cerberus:
+        vulnerabilities.append(cerberus)
+    return vulnerabilities
+
+
+def build_protocol_payload(release_id: str, audit: dict[str, Any]) -> dict[str, Any]:
+    l10_rows = audit["l10_quality_rows"]
+    artifact_rows = audit["artifact_quality_rows"]
+    vulnerabilities = build_vulnerability_rows(release_id, l10_rows, artifact_rows)
+    severity_counts = Counter(row["severity"] for row in vulnerabilities)
+    payload: dict[str, Any] = {
+        "schema_id": "OC_CORE_RELEASE_VULNERABILITY_PROTOCOL_v1",
+        "artifact_kind": "OC_CORE_RELEASE_VULNERABILITY_PROTOCOL",
+        "body_prose_included": False,
+        "status": "OPEN_VULNERABILITIES" if vulnerabilities else "NO_OPEN_VULNERABILITIES",
+        "release_identity": audit["release_identity"],
+        "source_hashes": {
+            "release_quality_audit_hash": audit["artifact_hash"],
+            **audit["source_hashes"],
+        },
+        "vulnerability_total": len(vulnerabilities),
+        "blocking_vulnerability_total": sum(1 for row in vulnerabilities if row["release_blocking"]),
+        "severity_counts": dict(sorted(severity_counts.items())),
+        "vulnerabilities": vulnerabilities,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def build_delta_payload(release_id: str, audit: dict[str, Any], protocol: dict[str, Any]) -> dict[str, Any]:
+    blocking = [row for row in protocol["vulnerabilities"] if row["release_blocking"]]
+    affected_nodes = sorted({node for row in blocking for node in row.get("affected_node_ids", [])})
+    affected_artifacts = sorted({artifact for row in blocking for artifact in row.get("affected_artifacts", [])})
+    payload: dict[str, Any] = {
+        "schema_id": "OC_CORE_RELEASE_REMEDIATION_DELTA_v1",
+        "artifact_kind": "OC_CORE_RELEASE_REMEDIATION_DELTA",
+        "body_prose_included": False,
+        "status": "DELTA_REPAIR_REQUIRED" if blocking else "NO_DELTA_REQUIRED",
+        "release_identity": audit["release_identity"],
+        "remediation_revision": DELTA_REVISION,
+        "parent_hashes": {
+            "release_instance_hash": audit["source_hashes"]["release_instance_hash"],
+            "release_quality_audit_hash": audit["artifact_hash"],
+            "vulnerability_protocol_hash": protocol["artifact_hash"],
+        },
+        "affected_node_total": len(affected_nodes),
+        "affected_node_ids": affected_nodes,
+        "affected_artifacts": affected_artifacts,
+        "delta_items": [
+            {
+                "delta_item_id": "DELTA-r001-QA-SCORING",
+                "source_vulnerability_ids": [row["vulnerability_id"] for row in blocking if row["root_class"] == "l10_quality_scores_not_assessed"],
+                "minimal_source_delta": "Implement or run L10 scorers against the existing projection matrix; do not rewrite prose unless a scorer localizes a concrete content defect.",
+                "expected_output_delta": "Refresh quality audit statuses from not_assessed to explicit complete/partial/planned/missing values with evidence.",
+                "verification_commands": [
+                    f"python tools/build_oc_core_l10_quality_projection_matrix.py --check",
+                    f"python tools/audit_oc_core_release_quality.py --release {release_id} --check",
+                ],
+                "closure_evidence": "not_assessed_l10_total becomes 0 or each remaining not_assessed row is justified by an explicit blocker protocol row.",
+            },
+            {
+                "delta_item_id": "DELTA-r001-CERBERUS-EDITORIAL",
+                "source_vulnerability_ids": [row["vulnerability_id"] for row in blocking if row["root_class"].startswith("editorial_cerberus")],
+                "minimal_source_delta": "Repair only artifact/source sections named by editorial Cerberus findings, then rerun the missing/current editorial roles.",
+                "expected_output_delta": "Fresh editorial Cerberus summary with current hashes and zero critical/high findings.",
+                "verification_commands": [
+                    f"python tools/audit_oc_core_release_quality.py --release {release_id} --check",
+                    "python tools\\oc133_public_release_payload.py --check",
+                ],
+                "closure_evidence": "VULN-CERB rows disappear from the vulnerability protocol.",
+            },
+        ],
+        "allowed_write_scope": [
+            f"releases/{release_id}/editorial/quality_validation",
+            "reviews/oc133_llm_cerberus/editorial_release_review",
+            "only artifact source files explicitly named by a vulnerability row",
+        ],
+        "forbidden_write_scope": ["GitHub Release", "Zenodo", "tag movement", "DOI minting", "journal submission"],
+        "rollback_or_block_rule": "If a proposed delta touches nodes or artifacts not named here, block it and create a new owner-reviewed delta revision.",
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def validate_protocol(protocol: dict[str, Any]) -> list[str]:
+    failures: list[str] = []
+    for row in protocol.get("vulnerabilities", []):
+        for key in ["vulnerability_id", "root_class", "severity", "release_blocking", "affected_artifacts", "required_repair", "verification_rule"]:
+            if key not in row or row.get(key) in (None, ""):
+                failures.append(f"vulnerability_missing_{key}::{row.get('vulnerability_id')}")
+        if not row.get("affected_artifacts") and not row.get("affected_node_ids"):
+            failures.append(f"vulnerability_missing_affected_scope::{row.get('vulnerability_id')}")
+    if protocol.get("artifact_hash") != artifact_hash(protocol):
+        failures.append("protocol_hash_mismatch")
+    return failures
+
+
+def validate_delta(delta: dict[str, Any], protocol: dict[str, Any]) -> list[str]:
+    failures: list[str] = []
+    if delta.get("parent_hashes", {}).get("vulnerability_protocol_hash") != protocol.get("artifact_hash"):
+        failures.append("delta_protocol_hash_mismatch")
+    if delta.get("status") == "DELTA_REPAIR_REQUIRED" and not delta.get("affected_artifacts") and not delta.get("affected_node_ids"):
+        failures.append("delta_missing_affected_scope")
+    for item in delta.get("delta_items", []):
+        for key in ["delta_item_id", "minimal_source_delta", "expected_output_delta", "verification_commands", "closure_evidence"]:
+            if not item.get(key):
+                failures.append(f"delta_item_missing_{key}::{item.get('delta_item_id')}")
+    if delta.get("artifact_hash") != artifact_hash(delta):
+        failures.append("delta_hash_mismatch")
+    return failures
+
+
+def validate_audit(audit: dict[str, Any], protocol: dict[str, Any], delta: dict[str, Any]) -> list[str]:
+    failures: list[str] = []
+    summary = audit.get("summary", {})
+    if summary.get("not_assessed_l10_total", 0) > 0 and audit.get("status") == QUALITY_VALIDATION_STATUS_PASS:
+        failures.append("audit_claims_pass_with_not_assessed_l10")
+    if summary.get("blocking_vulnerability_total") != protocol.get("blocking_vulnerability_total"):
+        failures.append("audit_protocol_blocking_total_mismatch")
+    failures.extend(validate_protocol(protocol))
+    failures.extend(validate_delta(delta, protocol))
+    if audit.get("artifact_hash") != artifact_hash(audit):
+        failures.append("audit_hash_mismatch")
+    return failures
+
+
+def render_audit_md(payload: dict[str, Any]) -> str:
+    summary = payload["summary"]
+    lines = [
+        f"# OC Core Release Quality Audit {payload['release_identity']['version']}",
+        "",
+        f"Status: `{payload['status']}`",
+        f"Artifact hash: `{payload['artifact_hash']}`",
+        "",
+        "## Summary",
+        "",
+    ]
+    for key, value in summary.items():
+        lines.append(f"- `{key}`: {value}")
+    lines.extend(["", "## Metric Families", ""])
+    for family, count in payload["applicable_metric_family_counts"].items():
+        lines.append(f"- `{family}`: {count}")
+    lines.extend(["", "## L10 Status Counts", ""])
+    counts = Counter(row["quality_state"] for row in payload["l10_quality_rows"])
+    for state, count in sorted(counts.items()):
+        lines.append(f"- `{state}`: {count}")
+    return "\n".join(lines)
+
+
+def render_protocol_md(payload: dict[str, Any]) -> str:
+    lines = [
+        f"# OC Core Release Vulnerability Protocol {payload['release_identity']['version']}",
+        "",
+        f"Status: `{payload['status']}`",
+        f"Artifact hash: `{payload['artifact_hash']}`",
+        f"Vulnerabilities: `{payload['vulnerability_total']}`",
+        f"Blocking: `{payload['blocking_vulnerability_total']}`",
+        "",
+    ]
+    for row in payload["vulnerabilities"]:
+        lines.append(f"## `{row['vulnerability_id']}` {row['root_class']}")
+        lines.append("")
+        lines.append(f"- Severity: `{row['severity']}`")
+        lines.append(f"- Blocking: `{row['release_blocking']}`")
+        lines.append(f"- Affected nodes: `{len(row.get('affected_node_ids', []))}`")
+        lines.append(f"- Affected artifacts: {', '.join(row.get('affected_artifacts', []))}")
+        lines.append(f"- Required repair: {row['required_repair']}")
+        lines.append(f"- Verification: {row['verification_rule']}")
+        lines.append("")
+    return "\n".join(lines)
+
+
+def render_delta_md(payload: dict[str, Any]) -> str:
+    lines = [
+        f"# OC Core Release Remediation Delta {payload['release_identity']['version']}.{payload['remediation_revision']}",
+        "",
+        f"Status: `{payload['status']}`",
+        f"Artifact hash: `{payload['artifact_hash']}`",
+        f"Affected nodes: `{payload['affected_node_total']}`",
+        "",
+        "## Delta Items",
+        "",
+    ]
+    for item in payload["delta_items"]:
+        lines.append(f"### `{item['delta_item_id']}`")
+        lines.append(f"- Source vulnerabilities: {', '.join(item['source_vulnerability_ids']) or 'none'}")
+        lines.append(f"- Minimal source delta: {item['minimal_source_delta']}")
+        lines.append(f"- Expected output delta: {item['expected_output_delta']}")
+        lines.append(f"- Closure evidence: {item['closure_evidence']}")
+        lines.append("")
+    return "\n".join(lines)
+
+
+def expected_files(release_id: str) -> dict[Path, str]:
+    version = version_from_release_id(release_id)
+    audit = build_audit_payload(release_id)
+    protocol = build_protocol_payload(release_id, audit)
+    delta = build_delta_payload(release_id, audit, protocol)
+    failures = validate_audit(audit, protocol, delta)
+    if failures:
+        raise RuntimeError(f"Release quality audit validation failed: {failures[:20]}")
+    paths = quality_paths(release_id, version)
+    return {
+        paths["audit_json"]: stable_json(audit),
+        paths["audit_md"]: render_audit_md(audit),
+        paths["protocol_json"]: stable_json(protocol),
+        paths["protocol_md"]: render_protocol_md(protocol),
+        paths["delta_json"]: stable_json(delta),
+        paths["delta_md"]: render_delta_md(delta),
+    }
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Audit OC Core release quality and emit vulnerability/delta protocols.")
+    parser.add_argument("--release", required=True, help="Release id such as oc_core_1_3_3.")
+    parser.add_argument("--write", action="store_true")
+    parser.add_argument("--check", action="store_true")
+    args = parser.parse_args(argv)
+    if not args.write and not args.check:
+        args.check = True
+    result = validation_result(expected_files(args.release), write=args.write)
+    print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
+    return 0 if result["state"] == "PASS" else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
