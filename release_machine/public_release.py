@@ -155,7 +155,7 @@ def _default_oc133_profile() -> ReleaseProfile:
         previous_zenodo_record_id="19851694",
         previous_zenodo_doi="10.5281/zenodo.19851694",
         concept_doi="10.5281/zenodo.17899134",
-        creators=[{"name": "Yashin, Alexander", "affiliation": "Logion / Estra", "orcid": "0009-0008-6166-0914"}],
+        creators=[{"name": "Yashin, Alexander", "affiliation": "Independent Researcher", "orcid": "0009-0008-6166-0914"}],
         license="cc-by-4.0",
         keywords=[
             "Ontology of Continua",
@@ -536,6 +536,10 @@ def _public_payload_suitability_ok(root: Path, profile: ReleaseProfile) -> dict[
         if "no_send" in Path(asset.path).name.lower() or "nosend" in Path(asset.path).name.lower()
     ]
     pdf_failure_total = int(payload.get("pdf_audit", {}).get("failure_total", 999))
+    publication_grade = payload.get("publication_grade_text_gate", {}) if isinstance(payload.get("publication_grade_text_gate"), dict) else {}
+    journal_editorial = payload.get("journal_editorial_board_gate", {}) if isinstance(payload.get("journal_editorial_board_gate"), dict) else {}
+    scientific_spot = payload.get("scientific_process_spot_gate", {}) if isinstance(payload.get("scientific_process_spot_gate"), dict) else {}
+    editorial_cerberus = payload.get("editorial_cerberus_gate", {}) if isinstance(payload.get("editorial_cerberus_gate"), dict) else {}
     forbidden_total = int(payload.get("public_surface_forbidden_hit_total", 999))
     zip_state = payload.get("zip_scan", {}).get("state")
     return {
@@ -543,6 +547,16 @@ def _public_payload_suitability_ok(root: Path, profile: ReleaseProfile) -> dict[
         "exists": path.exists(),
         "state": state,
         "pdf_failure_total": pdf_failure_total,
+        "publication_grade_text_gate_state": publication_grade.get("state"),
+        "publication_grade_text_failure_total": publication_grade.get("failure_total"),
+        "journal_editorial_board_gate_state": journal_editorial.get("state"),
+        "journal_editorial_board_failure_total": journal_editorial.get("failure_total"),
+        "scientific_process_spot_gate_state": scientific_spot.get("state"),
+        "scientific_process_spot_blocker_total": scientific_spot.get("spot_blocker_total"),
+        "scientific_process_spot_maturity": scientific_spot.get("maturity"),
+        "editorial_cerberus_gate_state": editorial_cerberus.get("state"),
+        "editorial_cerberus_critical_open_total": editorial_cerberus.get("critical_open_total"),
+        "editorial_cerberus_high_open_total": editorial_cerberus.get("high_open_total"),
         "science_monolith_state": monolith.get("state"),
         "science_monolith_pages": monolith.get("pages"),
         "science_monolith_text_chars": monolith.get("text_chars"),
@@ -555,6 +569,10 @@ def _public_payload_suitability_ok(root: Path, profile: ReleaseProfile) -> dict[
         and state == "PASS"
         and monolith.get("state") == "PASS"
         and pdf_failure_total == 0
+        and publication_grade.get("state") == "PASS"
+        and journal_editorial.get("state") == "PASS"
+        and scientific_spot.get("state") == "PASS"
+        and editorial_cerberus.get("state") == "PASS"
         and forbidden_total == 0
         and zip_state == "PASS"
         and len(public_zip_assets) == 1
@@ -601,6 +619,7 @@ def _github_release_body(profile: ReleaseProfile, checksums: list[dict[str, Any]
     hashtags = " ".join(profile.hashtags)
     download_base = f"https://github.com/{profile.repository}/releases/download/{profile.tag}"
     primary = [
+        ("00_OC_CORE_1_3_3_RELEASE_GUIDE_EN.pdf", "Release guide", "Public landing guide and recommended reading order."),
         ("OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf", "Master monograph", "Canonical long-form scientific reference."),
         ("OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf", "Journal core article", "Compact article-style entry point."),
         (
@@ -626,7 +645,7 @@ def _github_release_body(profile: ReleaseProfile, checksums: list[dict[str, Any]
 
 ## Table of Contents
 
-1. Scope and release boundary
+1. Scope and claim boundary
 2. Core scientific artifacts
 3. Public assets and checksums
 4. Journal package status
@@ -635,7 +654,7 @@ def _github_release_body(profile: ReleaseProfile, checksums: list[dict[str, Any]
 
 ## Scope
 
-This is the public GitHub and Zenodo release of OC Core {profile.version}. It is a bounded external-review scientific release: the release surface promotes the model-core claims supported by the included proof, finite-model, validation, reproducibility, and adversarial-review artifacts. Broader full-science and universal modern-science-superiority obligations remain in the background research program unless explicitly evidenced in this release package.
+This is the public GitHub and Zenodo release of OC Core {profile.version}. It is a bounded external-review scientific release: the release surface promotes the model-core claims supported by the included proof, finite-model, validation, reproducibility, and adversarial-review artifacts. Broader full-science and unbounded cross-science comparison obligations remain in the background research program unless explicitly evidenced in this release package.
 
 ## Public Assets
 
@@ -700,6 +719,7 @@ def _zenodo_html_description(
     )
     github_url = github_release_url or f"https://github.com/{profile.repository}/releases/tag/{profile.tag}"
     pdf_names = [
+        "00_OC_CORE_1_3_3_RELEASE_GUIDE_EN.pdf",
         "OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf",
         "OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf",
         "OC_CORE_1_3_3_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf",
@@ -728,13 +748,13 @@ def _zenodo_html_description(
         "foundation, theorem and proof ledgers, Lean/finite-model evidence, target-blind validation summaries, "
         "reproducibility material, and adversarial-review closure artifacts used for external scientific review.</p>"
         "<p>The promoted release claims are bounded by the included evidence. Broader full-science completion and "
-        "universal modern-science-superiority obligations remain part of the continuing research program unless "
+        "unbounded cross-science comparison obligations remain part of the continuing research program unless "
         "explicitly evidenced in this package.</p>"
         "<h2>Recommended reading order</h2>"
         f"<ol>{''.join(reading_rows)}</ol>"
         "<h2>Release contents</h2>"
         "<ul>"
-        "<li>Four substantive English PDF documents: monograph, journal core article, methods companion, and reviewer response map.</li>"
+        "<li>Five substantive English PDF documents: release guide, master monograph, journal core article, methods companion, and reviewer response map.</li>"
         "<li>One public reproducibility package containing proof, validation, review, metadata, and journal owner-review materials.</li>"
         f"<li>{html.escape(checksum_note)}</li>"
         "</ul>"
@@ -768,6 +788,11 @@ def _zenodo_metadata_suitability(
     creators = metadata.get("creators", [])
     creator_has_name = any(isinstance(row, dict) and row.get("name") for row in creators)
     creator_has_orcid = any(isinstance(row, dict) and row.get("orcid") for row in creators)
+    creator_affiliation_ok = all(
+        not re.search(r"\b(Logion|Estra|ESTRA)\b", str(row.get("affiliation", "")), re.IGNORECASE)
+        for row in creators
+        if isinstance(row, dict)
+    )
     markdown_heading_total = len(MARKDOWN_HEADING_RE.findall(description))
     sha256_total = len(SHA256_HEX_RE.findall(description))
     backtick_total = description.count("`")
@@ -794,6 +819,7 @@ def _zenodo_metadata_suitability(
         "license_ok": license_id == profile.license,
         "creator_has_name": creator_has_name,
         "creator_has_orcid": creator_has_orcid,
+        "creator_affiliation_not_instrument_or_method": creator_affiliation_ok,
         "html_structure_ok": html_structure,
         "no_markdown_headings": markdown_heading_total == 0,
         "no_backticks": backtick_total == 0,

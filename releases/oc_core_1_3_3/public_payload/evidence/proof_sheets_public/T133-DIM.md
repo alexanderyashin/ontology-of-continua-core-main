@@ -1,9 +1,9 @@
 # T133-DIM - Historical axis and effective-rank compatibility theorem
 
-Status: `PROMOTED_BOUNDED_THEOREM_V12_OWNER_REVIEW_LOCKED`
-Primary artifact: `appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex`
-Machine-checked subset: `formal/lean/OC133V12.lean::historical_axis_survives_rank_drop`
-Attacked claim: Historical axis activation and effective working rank are kept as distinct owner-review formal release-consistency fields; a finite/Lean witness shows compatibility of monotone historical bookkeeping with decreasing effective rank, but v12 does not promote an independent scientific dimension theorem.
+Status: `PROMOTED_BOUNDED_THEOREM_V12_release-governed`
+Primary artifact: `master monograph appendix: K Level Irreducibility Atlas`
+Machine-checked subset: `Lean declaration historical_axis_survives_rank_drop`
+Attacked claim: Historical axis activation and effective working rank are kept as distinct bounded formal consistency fields; a finite/Lean witness shows compatibility of monotone historical bookkeeping with decreasing effective rank, but current formal profile does not promote an independent scientific dimension theorem.
 
 ## Assumptions
 - Historical axes record realized dependence history.
@@ -27,9 +27,9 @@ Historical monotonicity and effective-rank decrease are compatible inside the re
 ## Proof
 A_hist is accumulated over realized dependence events; rank_eff is recomputed over active support. Lemma 1 gives compatibility; Lemma 2 gives the irreducibility test used by the atlas.
 
-The proof is promoted only as a bounded owner-review release claim with the stated assumptions. It is linked to the finite witness corpus and
+The proof is promoted only as a bounded release-governed release claim with the stated assumptions. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the
-finite corpus checks the release verdict behavior used by the public claim ledger.
+finite corpus checks the release verdict behavior used by the public claim register.
 
 ## Counterexample Boundary
 A K-level is demotable only when the alleged new axis has no witness and no observable consequence.
@@ -38,12 +38,12 @@ A K-level is demotable only when the alleged new axis has no witness and no obse
 A two-axis automaton activates memory and later freezes it; historical axes remain two while active rank becomes one.
 
 ## Dependency Refs
-- `proofs/THEOREM_INVENTORY_1_3_3.json`
-- `proofs/FINITE_MODEL_CHECKS_1_3_3.json`
+- `repository path proofs/THEOREM_INVENTORY_1_3_3.json`
+- `finite-model semantic report`
 - `formal/lean/OC133V12.lean`
-- `appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex`
+- `master monograph appendix: K Level Irreducibility Atlas`
 
 ## Reviewer Attack Answered
 The hostile attack is answered by separating type assumptions, exact theorem scope, executable
 witnesses, and a falsifier boundary. If a reviewer removes the assumptions, the claim is not silently
-weakened; the relevant v12 gate fails.
+weakened; the relevant current verification criterion fails.

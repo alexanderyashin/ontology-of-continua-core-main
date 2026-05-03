@@ -11,6 +11,8 @@ from collections import Counter
 from pathlib import Path
 from typing import Any, Callable
 
+from . import science_monolith
+
 
 RELEASE_ID = "oc_core_1_3_3"
 VERSION = "1.3.3"
@@ -191,8 +193,8 @@ def pdf_text_quality(root: Path) -> dict[str, Any]:
             for match in forbidden.finditer(extracted)
         ][:10]
         is_master = name == "OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf"
-        min_pages = 690 if is_master else 1
-        min_chars = 1_200_000 if is_master else 1800
+        min_pages = science_monolith.ANTI_SURROGATE_MIN_MONOLITH_PAGES if is_master else 1
+        min_chars = science_monolith.ANTI_SURROGATE_MIN_MONOLITH_TEXT_CHARS if is_master else 1800
         master_anchor_ok = True
         if is_master:
             master_anchor_ok = all(

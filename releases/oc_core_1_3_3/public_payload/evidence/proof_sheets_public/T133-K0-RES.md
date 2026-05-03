@@ -1,9 +1,9 @@
 # T133-K0-RES - K0 resolution-relative distinguishability theorem
 
-Status: `PROMOTED_BOUNDED_THEOREM_V12_OWNER_REVIEW_LOCKED`
-Primary artifact: `appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex`
-Machine-checked subset: `formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction`
-Attacked claim: K0 support is treated as a owner-review formal release-consistency check over declared resolution quotients: same-resolution states are not distinguished, and a finite countermodel shows raw separation need not induce resolution distinction. It is not promoted as an independent novelty or scientific theorem in v12.
+Status: `PROMOTED_BOUNDED_THEOREM_V12_release-governed`
+Primary artifact: `master monograph appendix: K0 Resolution Foundation`
+Machine-checked subset: `Lean declaration k0_countermodel_raw_separation_not_resolution_distinction`
+Attacked claim: K0 support is treated as a bounded formal consistency check over declared resolution quotients: same-resolution states are not distinguished, and a finite countermodel shows raw separation need not induce resolution distinction. It is promoted only as a bounded model-core theorem claim, not as an independent novelty or unrestricted theory-wide theorem.
 
 ## Assumptions
 - A raw carrier may be continuous, finite, countable, graph-like, proof-theoretic, or typed-combinatorial.
@@ -25,25 +25,25 @@ If two rho-cells are distinct and the quotient metric declares positive separati
 K0 is compatible with continuous raw carriers inside the declared release semantics because the required separation is a quotient property.
 
 ## Proof
-The proof factors every K0 reference through rho. Lemma 1 blocks raw discreteness leakage. Lemma 2 supplies the only positive separation used by downstream K0 checks. Therefore the owner-review formal check is about resolved classes, not raw points.
+The proof factors every K0 reference through rho. Lemma 1 blocks raw discreteness leakage. Lemma 2 supplies the only positive separation used by downstream K0 checks. Therefore the release-governed formal check is about resolved classes, not raw points.
 
-The proof is promoted only as a bounded owner-review release claim with the stated assumptions. It is linked to the finite witness corpus and
+The proof is promoted only as a bounded release-governed release claim with the stated assumptions. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the
-finite corpus checks the release verdict behavior used by the public claim ledger.
+finite corpus checks the release verdict behavior used by the public claim register.
 
 ## Counterexample Boundary
-A proof that assumes every pair of raw real states is epsilon-separated is outside v12 and fails G33.
+A proof that assumes every pair of raw real states is epsilon-separated is outside current formal profile and fails release criterion.
 
 ## Machine-Checkable Finite Example
 Partition [0,1] into four cells. Points 0.10 and 0.11 remain unresolved, while the first and second cells are separated as quotient classes.
 
 ## Dependency Refs
-- `proofs/THEOREM_INVENTORY_1_3_3.json`
-- `proofs/FINITE_MODEL_CHECKS_1_3_3.json`
+- `repository path proofs/THEOREM_INVENTORY_1_3_3.json`
+- `finite-model semantic report`
 - `formal/lean/OC133V12.lean`
-- `appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex`
+- `master monograph appendix: K0 Resolution Foundation`
 
 ## Reviewer Attack Answered
 The hostile attack is answered by separating type assumptions, exact theorem scope, executable
 witnesses, and a falsifier boundary. If a reviewer removes the assumptions, the claim is not silently
-weakened; the relevant v12 gate fails.
+weakened; the relevant current verification criterion fails.

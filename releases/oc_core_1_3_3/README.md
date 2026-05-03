@@ -2,7 +2,7 @@
 
 OC Core 1.3.3 is a bounded public external-review release of the Ontology of Continua core model.
 
-Public release assets include substantive scientific PDFs, a public reproducibility package, metadata, checksums, proof/evidence summaries, target-blind numeric evidence, and journal owner-review packets.
+Public release assets include substantive scientific PDFs, a public reproducibility package, metadata, checksums, proof/evidence summaries, bounded replay QA examples, and journal owner-review packets.
 
 Publication scope:
 - GitHub Release: owner-approved for v1.3.3

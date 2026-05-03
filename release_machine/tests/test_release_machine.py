@@ -21,6 +21,7 @@ from release_machine import public_release
 from release_machine import science_monolith
 from release_machine import versioning
 from tools import oc133_public_release_payload
+from tools import oc133_scientific_process_spot
 
 
 def _load_grand_science_loop_module():
@@ -182,6 +183,10 @@ class ReleaseMachineTests(unittest.TestCase):
             original_root = oc133_public_release_payload.ROOT
             original_assets = oc133_public_release_payload.public_assets
             original_pdf_audit = oc133_public_release_payload.public_pdf_audit
+            original_publication_grade = oc133_public_release_payload.publication_grade_text_gate
+            original_journal_editorial = oc133_public_release_payload.journal_editorial_board_gate
+            original_editorial_cerberus = oc133_public_release_payload.editorial_cerberus_gate
+            original_scientific_spot = oc133_public_release_payload.scientific_process_spot_gate
             original_surface_scan = oc133_public_release_payload.public_surface_scan
             original_zip_scan = oc133_public_release_payload.zip_public_scan
             original_monolith_audit = science_monolith.audit_monolith
@@ -196,6 +201,31 @@ class ReleaseMachineTests(unittest.TestCase):
                     "rows": [],
                     "failure_total": 0,
                 }
+                oc133_public_release_payload.publication_grade_text_gate = lambda *, persist_audit_text=False: {  # type: ignore[assignment]
+                    "state": "PASS",
+                    "rows": [],
+                    "failure_total": 0,
+                }
+                oc133_public_release_payload.journal_editorial_board_gate = lambda *, persist_audit_text=False: {  # type: ignore[assignment]
+                    "state": "PASS",
+                    "rows": [],
+                    "failure_total": 0,
+                    "bibliography_total": 42,
+                    "figure_total": 34,
+                }
+                oc133_public_release_payload.editorial_cerberus_gate = lambda: {  # type: ignore[assignment]
+                    "state": "PASS",
+                    "critical_open_total": 0,
+                    "high_open_total": 0,
+                    "parse_failure_total": 0,
+                }
+                oc133_public_release_payload.scientific_process_spot_gate = lambda *, write=False: {  # type: ignore[assignment]
+                    "state": "PASS",
+                    "spot_blocker_total": 0,
+                    "maturity": {"model_foundation_level": "BOUNDED_TYPED_MODEL_CORE"},
+                    "current_research_state": {},
+                    "external_speech_contract": {},
+                }
                 oc133_public_release_payload.public_surface_scan = lambda paths: []  # type: ignore[assignment]
                 oc133_public_release_payload.zip_public_scan = lambda: {"state": "PASS", "failure_total": 0, "failures": []}  # type: ignore[assignment]
                 science_monolith.audit_monolith = lambda repo_root: {"state": "PASS"}  # type: ignore[assignment]
@@ -208,6 +238,10 @@ class ReleaseMachineTests(unittest.TestCase):
                 oc133_public_release_payload.ROOT = original_root
                 oc133_public_release_payload.public_assets = original_assets  # type: ignore[assignment]
                 oc133_public_release_payload.public_pdf_audit = original_pdf_audit  # type: ignore[assignment]
+                oc133_public_release_payload.publication_grade_text_gate = original_publication_grade  # type: ignore[assignment]
+                oc133_public_release_payload.journal_editorial_board_gate = original_journal_editorial  # type: ignore[assignment]
+                oc133_public_release_payload.editorial_cerberus_gate = original_editorial_cerberus  # type: ignore[assignment]
+                oc133_public_release_payload.scientific_process_spot_gate = original_scientific_spot  # type: ignore[assignment]
                 oc133_public_release_payload.public_surface_scan = original_surface_scan  # type: ignore[assignment]
                 oc133_public_release_payload.zip_public_scan = original_zip_scan  # type: ignore[assignment]
                 science_monolith.audit_monolith = original_monolith_audit  # type: ignore[assignment]
@@ -296,11 +330,193 @@ class ReleaseMachineTests(unittest.TestCase):
         ledger = science_monolith.build_corpus_ledger(root)
         self.assertEqual(ledger["version"], "1.3.3")
         self.assertEqual(ledger["missing_total"], 0)
+        self.assertEqual(ledger["assembly_policy"], "SINGLE_INTEGRATED_TEX_BUILD_NO_PDF_MERGE")
+        self.assertEqual(ledger["manuscript_integration_service"], "Logion/Research/ManuscriptIntegration")
         refs = {row["ref"] for row in ledger["rows"]}
         self.assertIn("claims/CLAIM_LEDGER_1_3_3.json", refs)
         self.assertIn("formal/lean/OC133V12.lean", refs)
         self.assertIn("validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json", refs)
         self.assertIn("releases/oc_core_1_3_3/public_payload/sources/OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.md", refs)
+        self.assertIn("content/_auto_core_inputs_1_3_3_integrated.tex", refs)
+        self.assertIn("content/27a_oc_core_1_3_3_typed_foundation_and_claims.tex", refs)
+        self.assertIn("content/27d_oc_core_1_3_3_review_boundaries_and_journal_map.tex", refs)
+
+    def test_oc133_science_monolith_size_policy_has_no_upper_limit(self) -> None:
+        self.assertEqual(science_monolith.MONOLITH_SIZE_POLICY, "NO_MAXIMUM_TEXT_LIMIT_COVERAGE_FIRST")
+        self.assertEqual(
+            science_monolith.MONOLITH_VOLUME_POLICY,
+            "FULL_CORPUS_PLUS_133_INTEGRATION_NO_TRUNCATION_NO_PADDING",
+        )
+        self.assertGreater(science_monolith.ANTI_SURROGATE_MIN_MONOLITH_PAGES, 0)
+        self.assertGreater(science_monolith.ANTI_SURROGATE_MIN_MONOLITH_TEXT_CHARS, 0)
+        self.assertGreaterEqual(
+            science_monolith.ANTI_SURROGATE_MIN_MONOLITH_PAGES,
+            science_monolith.BASELINE_FULL_MONOGRAPH_REFERENCE_PAGES,
+        )
+        self.assertGreaterEqual(
+            science_monolith.ANTI_SURROGATE_MIN_MONOLITH_TEXT_CHARS,
+            science_monolith.BASELINE_FULL_MONOGRAPH_REFERENCE_TEXT_CHARS,
+        )
+        for forbidden_name in (
+            "MAX_MONOLITH_PAGES",
+            "MAX_MONOLITH_TEXT_CHARS",
+            "MONOLITH_MAX_PAGES",
+            "MONOLITH_MAX_TEXT_CHARS",
+        ):
+            self.assertFalse(hasattr(science_monolith, forbidden_name))
+
+    def test_oc133_top_down_structure_freeze_is_append_only(self) -> None:
+        self.assertEqual(
+            science_monolith.MONOLITH_STRUCTURE_POLICY,
+            "TOP_DOWN_FROZEN_LEVELS_APPEND_ONLY_NO_REDUCTION",
+        )
+        full_entrypoint = "\n".join(
+            [rf"\ocvolumeblock{{{block}}}{{frozen}}" for block in science_monolith.FROZEN_TOP_LEVEL_BLOCKS]
+            + [rf"\input{{{ref}}}" for ref in science_monolith.FROZEN_ENTRYPOINT_INPUT_REFS]
+            + [r"\input{content/future_added_chapter.tex}"]
+        )
+        full_auto = "\n".join(
+            [
+                r"\input{content/01_intro.tex}",
+                r"\input{content/07_figures.tex}",
+                r"\input{content/theorems_master.tex}",
+            ]
+        )
+        integrated_auto = "\n".join(
+            [
+                r"\input{content/01_intro.tex}",
+                r"\input{content/theorems_master.tex}",
+                r"\input{content/27a_oc_core_1_3_3_typed_foundation_and_claims.tex}",
+            ]
+        )
+        gate = science_monolith._top_down_structure_freeze_gate(
+            entrypoint_text=full_entrypoint,
+            source_auto_core_text=full_auto,
+            integrated_auto_core_text=integrated_auto,
+        )
+        self.assertEqual(gate["state"], "PASS")
+
+        reduced_entrypoint = full_entrypoint.replace(r"\input{content/26_oc_core_1_3_practical_utility.tex}", "")
+        reduced_gate = science_monolith._top_down_structure_freeze_gate(
+            entrypoint_text=reduced_entrypoint,
+            source_auto_core_text=full_auto,
+            integrated_auto_core_text=integrated_auto,
+        )
+        self.assertEqual(reduced_gate["state"], "FAIL")
+        self.assertIn("frozen_entrypoint_input_removed", reduced_gate["failures"])
+
+    def test_oc133_scientific_process_spot_exposes_positive_support_and_speech_contract(self) -> None:
+        payload = oc133_scientific_process_spot.build_spot(complete.repo_root())
+        gate_ids = {gate["gate_id"] for gate in payload["gates"]}
+        self.assertIn("SPOT-001_PROMOTED_CLAIM_SUPPORT_STACK", gate_ids)
+        self.assertIn("SPOT-002_EMPIRICAL_NUMERIC_EVIDENCE_STACK", gate_ids)
+        self.assertIn("SPOT-004_CURRENT_SCIENCE_CORPUS_COMPLETENESS", gate_ids)
+        self.assertIn("SPOT-005_EXTERNAL_POSITIONING_FROM_RESEARCH_STATE", gate_ids)
+        self.assertIn("SPOT-006_PROCESS_RESEARCH_STATE_VISIBILITY", gate_ids)
+        self.assertIn("SPOT-008_POSITIVE_MISSION_AND_METHOD_FULFILLMENT", gate_ids)
+        self.assertGreater(payload["current_research_state"]["promoted_scientific_claim_total"], 0)
+        self.assertEqual(
+            payload["current_research_state"]["full_toe_claim_status"],
+            "BACKGROUND_RESEARCH_NOT_RELEASE_PROMOTED",
+        )
+        forbidden = " ".join(payload["external_speech_contract"]["forbidden"]).lower()
+        self.assertIn("better than all modern science", forbidden)
+
+    def test_oc133_public_payload_suitability_requires_scientific_process_spot_gate(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            profile = public_release.load_profile(root, "oc_core_1_3_3")
+            audit = root / "releases" / "oc_core_1_3_3" / "editorial" / "PUBLIC_PAYLOAD_SUITABILITY_1.3.3_latest.json"
+            audit.parent.mkdir(parents=True, exist_ok=True)
+            audit.write_text(
+                json.dumps(
+                    {
+                        "state": "PASS",
+                        "pdf_audit": {"failure_total": 0},
+                        "publication_grade_text_gate": {"state": "PASS"},
+                        "journal_editorial_board_gate": {"state": "PASS"},
+                        "editorial_cerberus_gate": {"state": "PASS"},
+                        "science_monolith_audit": {"state": "PASS"},
+                        "public_surface_forbidden_hit_total": 0,
+                        "zip_scan": {"state": "PASS"},
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            gate = public_release._public_payload_suitability_ok(root, profile)
+            self.assertFalse(gate["ok"])
+            self.assertIsNone(gate["scientific_process_spot_gate_state"])
+
+    def test_oc133_publication_grade_gate_rejects_route_sheet_pdf_text(self) -> None:
+        original_pdf_text = oc133_public_release_payload.pdf_text
+        original_artifacts = oc133_public_release_payload.ARTIFACTS
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                tmp_path = Path(tmp)
+                oc133_public_release_payload.ARTIFACTS = tmp_path
+                for spec in oc133_public_release_payload.PDF_SPECS.values():
+                    (tmp_path / spec["filename"]).write_bytes(b"%PDF")
+
+                def fake_pdf_text(path: Path, *, persist_audit_text: bool = True):
+                    text = (
+                        "Ontology of Continua\nAlexander Yashin\nVersion 1.3.3\nDOI 10.5281/zenodo.test\n"
+                        "Dedicated to my dear wife Maria\nAbstract and Reader Contract\n"
+                        "This is a route sheet with a checksum wall and no real publication-grade prose."
+                    )
+                    return text, 3
+
+                oc133_public_release_payload.pdf_text = fake_pdf_text  # type: ignore[assignment]
+                gate = oc133_public_release_payload.publication_grade_text_gate()
+        finally:
+            oc133_public_release_payload.pdf_text = original_pdf_text  # type: ignore[assignment]
+            oc133_public_release_payload.ARTIFACTS = original_artifacts
+        self.assertEqual(gate["state"], "FAIL")
+        self.assertGreater(gate["failure_total"], 0)
+
+    def test_oc133_editorial_cerberus_gate_requires_current_pdf_hashes(self) -> None:
+        original_summary = oc133_public_release_payload.EDITORIAL_CERBERUS_SUMMARY
+        original_artifacts = oc133_public_release_payload.ARTIFACTS
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                tmp_path = Path(tmp)
+                artifacts = tmp_path / "artifacts"
+                artifacts.mkdir()
+                hashes = {}
+                for key, spec in oc133_public_release_payload.PDF_SPECS.items():
+                    path = artifacts / spec["filename"]
+                    path.write_bytes(f"{key}-pdf".encode("utf-8"))
+                    hashes[key] = hashlib.sha256(path.read_bytes()).hexdigest()
+                summary = tmp_path / "summary.json"
+                summary.write_text(
+                    json.dumps(
+                        {
+                            "state": "PASS",
+                            "critical_open_total": 0,
+                            "high_open_total": 0,
+                            "parse_failure_total": 0,
+                            "role_ids": [
+                                "scientific_copyeditor",
+                                "technical_editor",
+                                "journal_editor",
+                                "layout_toc_page_flow_reviewer",
+                                "hostile_reader",
+                                "bibliography_metadata_editor",
+                                "claim_evidence_prosecutor",
+                            ],
+                            "pdf_hashes": hashes,
+                        }
+                    )
+                    + "\n",
+                    encoding="utf-8",
+                )
+                oc133_public_release_payload.EDITORIAL_CERBERUS_SUMMARY = summary
+                oc133_public_release_payload.ARTIFACTS = artifacts
+                gate = oc133_public_release_payload.editorial_cerberus_gate()
+        finally:
+            oc133_public_release_payload.EDITORIAL_CERBERUS_SUMMARY = original_summary
+            oc133_public_release_payload.ARTIFACTS = original_artifacts
+        self.assertEqual(gate["state"], "PASS")
 
     def test_oc133_public_payload_suitability_requires_science_monolith_gate(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

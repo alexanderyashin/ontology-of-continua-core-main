@@ -1,1379 +1,443 @@
 ---
-title: Ontology of Continua Core 1.3.3
-subtitle: Bounded external-review scientific release
+title: OC Core 1.3.3 Reviewer Attack and Response Map
 author: Alexander Yashin
 date: 2026-05-01
+header-includes:
+ - \usepackage{tikz}
+ - \usetikzlibrary{arrows.meta,positioning}
 ---
 
-# Ontology of Continua Core 1.3.3
+**Ontology of Continua**
 
-Version: 1.3.3
-Tag: v1.3.3
-DOI: 10.5281/zenodo.19965913
-Zenodo record: https://zenodo.org/records/19965913
+**Document role.** Adversarial objections, boundaries, and response map
 
+**Author.** Alexander Yashin, Independent Researcher, ORCID 0009-0008-6166-0914.
 
-## Release Boundary
+**Research instrument.** Logion is the research-instrument and institute-automation system used to prepare, check, package, and audit the work; it is not an author.
 
-OC Core 1.3.3 is a bounded external-review scientific release. It contains a typed model foundation, theorem/proof evidence, a Lean-checked subset, finite-model semantics, target-blind numeric reconstruction rows, comparator positioning, adversarial-review closure, and journal owner-review packets.
+**Methodological framework.** ESTRA is the methodological framework used in the work; it is not an author or affiliation.
 
-The release does not claim final completion of every future scientific projection. It does not submit journal packages. It does not claim universal superiority over all modern science. Those broader ambitions remain in the background research program and require additional evidence before public promotion.
+**Version.** Version 1.3.3; tag `v1.3.3`; release date 2026-05-01.
 
-The public GitHub and Zenodo publication is owner-approved for this release phase. Journal submissions, email campaigns, and Software Heritage actions require separate approval.
+**DOI.** 10.5281/zenodo.19965913.
 
+**Zenodo record.** https://zenodo.org/records/19965913.
 
-## Adversarial Attack Matrix
+**Keywords.** Ontology of Continua; typed model core; formal methods; proof governance; finite semantic checks; target-blind replay QA; reproducible research; scientific release engineering.
 
-This map lists concrete attack classes, artifact locations, severity, required repair, and closure evidence. A row is not considered closed merely because an artifact exists.
-- **row total:** 215
-- **critical open total:** 
-- **high open total:** 
+**Dedication.** Dedicated to my dear wife Maria, without whom this work would have been impossible.
 
+# Abstract
 
-## Prior-Art Comparator and Novelty Boundary
+**Abstract.** This map presents the release under hostile review. It groups objections by attacked claim, explains why each attack matters, cites the public evidence route that answers or bounds it, and records what would reopen the issue.
 
-Comparator rows are positioning evidence, not a uniqueness proof for all possible theories. Each row states overlap, residual delta, and release-safe novelty boundary.
-- **register status:** 
-- **row total:** 14
+# Reader Contract
 
-### General System Theory
+**Reader Orientation.** This map is the hostile-review manual. It teaches a skeptical reader where to attack, what evidence answers, and what would reopen each claim family.
 
-- **absence test:** NOT_PROMOTED. Single-source absence is recorded only as a future search obligation, not as novelty evidence.
-- **feature tests:** [{'oc_feature': 'cross-domain vocabulary', 'prior_art_overlap': 'YES', 'positioning_note': 'none; not claimed novel'}, {'oc_feature': 'typed proof/data/falsifier/owner-review release governance bundle', 'prior_art_overlap': 'NOT_OBSERVED_IN_ILLUSTRATIVE_SOURCE_NOT_ABSENCE_EVIDENCE', 'positioning_note': 'auditable release-governed scientific control plane'}]
-- **uniqueness claim status:** NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-- **source refs:** [{'title': 'Ludwig von Bertalanffy, General System Theory', 'url': 'https://www.georgebraziller.com/general-systems-theory', 'source_date': '1968', 'inspected_on': '2026-04-28', 'local_protocol_snapshot_ref': 'comparators/source_snapshots/SRC-01-01.txt', 'local_protocol_snapshot_sha256': 'ac73ceab8486fb18e77fe2fd155ebf2678ee6f326f59377b2d5b66c2f5a070da', 'search_query': '"General System Theory" "organized wholes and cross-domain system language" release governance proof data falsifier', 'archive_status': 'LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION'}]
+**Scope.** The map is not a register of every row. It is adversarial prose that turns objections into claim-specific tests. The release promotes evidence-bound model-core claims and excludes unsupported complete scientific coverage or unrestricted cross-science comparison claims.
 
-### Autopoiesis
+**Reading order.** Read the attack method, then the claim-family challenges, then the role playbook, then the worked attack transcripts and reopening rules.
 
-- **absence test:** NOT_PROMOTED. Single-source absence is recorded only as a future search obligation, not as novelty evidence.
-- **feature tests:** [{'oc_feature': 'self-producing living organization', 'prior_art_overlap': 'YES', 'positioning_note': 'none; not claimed novel'}, {'oc_feature': 'residue/rebirth/identity morphism separation with owner-review claim ledger', 'prior_art_overlap': 'NOT_OBSERVED_IN_ILLUSTRATIVE_SOURCE_NOT_ABSENCE_EVIDENCE', 'positioning_note': 'typed restart/identity equivocation blocker'}]
-- **uniqueness claim status:** NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-- **source refs:** [{'title': 'Maturana and Varela, Autopoiesis and Cognition', 'url': 'https://link.springer.com/book/10.1007/978-94-009-8947-4', 'source_date': '1980', 'inspected_on': '2026-04-28', 'local_protocol_snapshot_ref': 'comparators/source_snapshots/SRC-02-01.txt', 'local_protocol_snapshot_sha256': '411971bd1277742eebee204a43f99c0ec7eabf6b7955873e67e0078a9f3ee991', 'search_query': '"Autopoiesis" "self-production and living organization" release governance proof data falsifier', 'archive_status': 'LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION'}]
+**Recommended reader path.** Read the attack method, then the claim-family challenges, then the role playbook, then the worked attack transcripts and reopening rules.
 
-### Dynamical Systems
+# Reading Map
 
-- **absence test:** NOT_PROMOTED. Single-source absence is recorded only as a future search obligation, not as novelty evidence.
-- **feature tests:** [{'oc_feature': 'state spaces, flows, iteration', 'prior_art_overlap': 'YES', 'positioning_note': 'none; not claimed novel'}, {'oc_feature': 'smooth dynamics as one typed update specialization among proof/rewrite/hybrid updates', 'prior_art_overlap': 'PARTIAL', 'positioning_note': 'anti-universal-ODE typing rule'}]
-- **uniqueness claim status:** NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-- **source refs:** [{'title': 'Encyclopedia of Mathematics, Dynamical system', 'url': 'https://encyclopediaofmath.org/wiki/Dynamical_system', 'source_date': 'reference', 'inspected_on': '2026-04-28', 'local_protocol_snapshot_ref': 'comparators/source_snapshots/SRC-03-01.txt', 'local_protocol_snapshot_sha256': '3643c2233805d87a98f3b1148de0d461354dd8f06138f4a12c4476a3a9210665', 'search_query': '"Dynamical Systems" "state evolution and flows" release governance proof data falsifier', 'archive_status': 'LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION'}]
+This reading map is document-specific. The generated PDF table of contents gives page locations; the steps below state what the reader should do with each section.
 
-### Category and Topos Formalisms
+1. Adversarial review method. Select the public claim or sentence under attack.
+2. Claim families under attack. Identify the attack family and evidence class.
+3. Proof and evidence responses. Ask what would make the claim fail.
+4. Novelty and prior-art attacks. Inspect the proof, replay, comparator, or editorial evidence named for that family.
+5. Residual risks. Apply the claim-specific reopening condition.
+6. Reopening conditions. Record whether the repair is proof, data, wording, comparator, or publication-surface work.
 
-- **absence test:** NOT_PROMOTED. Single-source absence is recorded only as a future search obligation, not as novelty evidence.
-- **feature tests:** [{'oc_feature': 'typed objects, morphisms, internal logic', 'prior_art_overlap': 'YES', 'positioning_note': 'none; not claimed novel'}, {'oc_feature': 'public-release theorem/evidence/falsifier lock over typed claims', 'prior_art_overlap': 'NOT_OBSERVED_IN_ILLUSTRATIVE_SOURCE_NOT_ABSENCE_EVIDENCE', 'positioning_note': 'release-machine governance over scientific claim promotion'}]
-- **uniqueness claim status:** NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-- **source refs:** [{'title': 'nLab, topos', 'url': 'https://ncatlab.org/nlab/show/topos', 'source_date': 'reference', 'inspected_on': '2026-04-28', 'local_protocol_snapshot_ref': 'comparators/source_snapshots/SRC-04-01.txt', 'local_protocol_snapshot_sha256': '14f4b28a97898ae48909f877e08070d560998f850230daf171605c47e4d1f669', 'search_query': '"Category and Topos Formalisms" "typed objects, morphisms, categorical semantics" release governance proof data falsifier', 'archive_status': 'LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION'}]
 
-### RAF Theory
+# Adversarial Review Structure and Audience
 
-- **absence test:** NOT_PROMOTED. Single-source absence is recorded only as a future search obligation, not as novelty evidence.
-- **feature tests:** [{'oc_feature': 'autocatalytic closure and boundary relevance', 'prior_art_overlap': 'YES', 'positioning_note': 'none; not claimed novel'}, {'oc_feature': 'K3 closure as adjacent K-level with demotion and release-proof witness rows', 'prior_art_overlap': 'PARTIAL', 'positioning_note': 'classifier-level irreducibility/demotion rule'}]
-- **uniqueness claim status:** NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-- **source refs:** [{'title': 'Hordijk and Steel, Autocatalytic sets and boundaries', 'url': 'https://link.springer.com/article/10.1186/s13322-014-0006-2', 'source_date': '2015', 'inspected_on': '2026-04-28', 'local_protocol_snapshot_ref': 'comparators/source_snapshots/SRC-05-01.txt', 'local_protocol_snapshot_sha256': 'df9ee2dff8bcf86d318fb695a2e5a6919b72d9f01a64ecee4bf7e7e0c15a2e94', 'search_query': '"RAF Theory" "autocatalytic closure and boundaries" release governance proof data falsifier', 'archive_status': 'LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION'}]
 
-### Complexity and Information Measures
+Purpose and role. This document is written for hostile reviewers testing novelty, claim boundaries, proof support, and empirical scope. It exists to answer serious objections without exposing internal routing machinery as public prose, so the opening pages identify the intended reader before they introduce formal claims.
 
-- **absence test:** NOT_PROMOTED. Single-source absence is recorded only as a future search obligation, not as novelty evidence.
-- **feature tests:** [{'oc_feature': 'information/complexity quantities', 'prior_art_overlap': 'YES', 'positioning_note': 'none; not claimed novel'}, {'oc_feature': 'historical-axis versus effective-rank distinction inside OC K-level claims', 'prior_art_overlap': 'PARTIAL', 'positioning_note': 'typed anti-conflation theorem and finite witness'}]
-- **uniqueness claim status:** NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-- **source refs:** [{'title': 'Stanford Encyclopedia of Philosophy, Information', 'url': 'https://plato.stanford.edu/entries/information/', 'source_date': 'reference', 'inspected_on': '2026-04-28', 'local_protocol_snapshot_ref': 'comparators/source_snapshots/SRC-06-01.txt', 'local_protocol_snapshot_sha256': '004e1d650f029f27ba8cd0cf99cab8fcf07cb50e83bd7ab423e836b398544f25', 'search_query': '"Complexity and Information Measures" "information-theoretic and complexity quantities" release governance proof data falsifier', 'archive_status': 'LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION'}]
+Construction and order. The argument is organized as objection, why it matters, response, evidence, residual risk, and reopening condition. The reviewer map is adversarial prose: each section begins with the objection, states the threatened claim, gives the answer, and names the residual risk.
 
-### Causal and Identity Theories
+The teaching obligation is that each challenge teaches what criticism would hit and how the release evidence answers or bounds it. The current research support is the bounded OC Core 1.3.3 model-core stack: typed model, theorem and proof route, Lean subset, finite semantic witnesses, bounded replay rows, comparator positioning, phenomenon coverage, negative controls, falsifiers, and adversarial review. For the reviewer map, the support stack is translated into objections, evidence-bound responses, residual risks, and reopening rules.
 
-- **absence test:** NOT_PROMOTED. Single-source absence is recorded only as a future search obligation, not as novelty evidence.
-- **feature tests:** [{'oc_feature': 'persistence and identity criteria', 'prior_art_overlap': 'YES', 'positioning_note': 'none; not claimed novel'}, {'oc_feature': 'residue/rebirth never promoted as identity without explicit invariant preservation', 'prior_art_overlap': 'PARTIAL', 'positioning_note': 'release claim-boundary lock'}]
-- **uniqueness claim status:** NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-- **source refs:** [{'title': 'Stanford Encyclopedia of Philosophy, Identity Over Time', 'url': 'https://plato.stanford.edu/entries/identity-time/', 'source_date': '2026', 'inspected_on': '2026-04-28', 'local_protocol_snapshot_ref': 'comparators/source_snapshots/SRC-07-01.txt', 'local_protocol_snapshot_sha256': 'ffbde0b100aeb2986e68c25b2ef79e78a2a842c92d6f03f7b53969e4b6ccdef4', 'search_query': '"Causal and Identity Theories" "diachronic identity and persistence problems" release governance proof data falsifier', 'archive_status': 'LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION'}]
+The document therefore states what the reader should learn from the evidence and where that evidence stops. It does not use release-readiness language as a substitute for scientific explanation, and it does not claim unsupported full-science completion.
 
-### Systems Engineering
+# Reviewer Response Method
 
-- **absence test:** NOT_PROMOTED. Single-source absence is recorded only as a future search obligation, not as novelty evidence.
-- **feature tests:** [{'oc_feature': 'requirements, verification, validation, lifecycle thinking', 'prior_art_overlap': 'YES', 'positioning_note': 'none; not claimed novel'}, {'oc_feature': 'owner-gated owner-review scientific release state as theorem/evidence control plane', 'prior_art_overlap': 'PARTIAL', 'positioning_note': 'scientific publication lock integrated with claim ledger'}]
-- **uniqueness claim status:** NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-- **source refs:** [{'title': 'INCOSE, Systems Engineering and System Definitions', 'url': 'https://www.incose.org/about-systems-engineering/system-and-se-definitions/', 'source_date': 'reference', 'inspected_on': '2026-04-28', 'local_protocol_snapshot_ref': 'comparators/source_snapshots/SRC-08-01.txt', 'local_protocol_snapshot_sha256': 'c279b39dbb5291d70c10d2493fbd7d5d2cd8cc1c1d067609b889ebd7373bf809', 'search_query': '"Systems Engineering" "verification, validation, lifecycle governance" release governance proof data falsifier', 'archive_status': 'LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION'}]
+The reviewer map is organized by objections rather than by internal records. Each objection should be read as an attack on a claim boundary: what is being attacked, why the attack matters, what evidence answers it, what residual risk remains, and what future work would be required if the objection reopens.
 
-### Hybrid Systems
+Complete claim, theorem, finite-model, validation, and journal-package inventories remain in the evidence package. The public reviewer PDF summarizes only the adversarial path needed for a hostile reader to locate the answer.
 
-- **absence test:** NOT_PROMOTED. Single-source absence is recorded only as a future search obligation, not as novelty evidence.
-- **feature tests:** [{'oc_feature': 'continuous/discrete hybrid transition systems', 'prior_art_overlap': 'YES', 'positioning_note': 'none; not claimed novel'}, {'oc_feature': 'hybrid operator claim used to block universal differential overreach', 'prior_art_overlap': 'PARTIAL', 'positioning_note': 'claim-boundary role in OC operator theorem'}]
-- **uniqueness claim status:** NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-- **source refs:** [{'title': 'Hybrid Systems III, Springer', 'url': 'https://link.springer.com/book/10.1007/BFb0031987', 'source_date': '1996', 'inspected_on': '2026-04-28', 'local_protocol_snapshot_ref': 'comparators/source_snapshots/SRC-09-01.txt', 'local_protocol_snapshot_sha256': '53321c329f66879221e61823275257e51d3c1e008cb5104bae6f7e9e2676a8b6', 'search_query': '"Hybrid Systems" "hybrid continuous/discrete transitions" release governance proof data falsifier', 'archive_status': 'LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION'}]
+# Claim Boundary and Research Limits
 
-### Formal Methods and Lean
+OC Core 1.3.3 is a bounded external-review scientific release. It contains a typed model foundation, theorem/proof evidence, a Lean-checked subset, finite-model semantics, bounded numeric replay QA rows, comparator positioning, and adversarial-review material.
 
-- **absence test:** NOT_PROMOTED. Single-source absence is recorded only as a future search obligation, not as novelty evidence.
-- **feature tests:** [{'oc_feature': 'machine-checked proof development', 'prior_art_overlap': 'YES', 'positioning_note': 'none; not claimed novel'}, {'oc_feature': 'Lean subset plus finite semantic witnesses plus release gates for public claim promotion', 'prior_art_overlap': 'PARTIAL', 'positioning_note': 'artifact-bound scientific release policy'}]
-- **uniqueness claim status:** NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-- **source refs:** [{'title': 'Lean 4 official site', 'url': 'https://lean4.dev/', 'source_date': 'reference', 'inspected_on': '2026-04-28', 'local_protocol_snapshot_ref': 'comparators/source_snapshots/SRC-10-01.txt', 'local_protocol_snapshot_sha256': '6d3b6cc5afbe2d8bae85a6cd7caf72f4f52d4a7195cc4d85fcd69346b8fb668b', 'search_query': '"Formal Methods and Lean" "theorem proving and formal verification" release governance proof data falsifier', 'archive_status': 'LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION'}]
+The release does not claim complete scientific coverage, unrestricted numeric closure, or unrestricted comparative victory over contemporary science. Those statements are outside the promoted 1.3.3 public claim surface.
 
-### Assurance Cases and Safety Cases
+Journal owner-review packets are included as preparation material only. They help editors and reviewers see how a later submission could be assembled, but they are not part of the scientific proof of the model core.
 
-- **absence test:** NOT_PROMOTED. Single-source absence is recorded only as a future search obligation, not as novelty evidence.
-- **feature tests:** [{'oc_feature': 'structured argument that evidence supports a claim', 'prior_art_overlap': 'YES', 'positioning_note': 'none; not claimed novel'}, {'oc_feature': 'OC v12 claim ledger plus owner-review release gates', 'prior_art_overlap': 'PARTIAL', 'positioning_note': 'scientific-release control plane around theory claims'}]
-- **uniqueness claim status:** NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-- **source refs:** [{'title': 'NASA System Safety Handbook, safety case/assurance case practice', 'url': 'https://www.nasa.gov/reference/system-safety-handbook/', 'source_date': 'reference', 'inspected_on': '2026-04-30', 'local_protocol_snapshot_ref': 'comparators/source_snapshots/SRC-11-01.txt', 'local_protocol_snapshot_sha256': '9c12be7e0cac872baf6e93547178bb857cee41b88d8c1d4e9001d548b0cba2b2', 'search_query': '"Assurance Cases and Safety Cases" "assurance case argument/evidence structures" release governance proof data falsifier', 'archive_status': 'LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION'}]
 
-### Goal Structuring Notation / Argument Patterns
+# Adversarial Objection and Response Map
 
-- **absence test:** NOT_PROMOTED. Single-source absence is recorded only as a future search obligation, not as novelty evidence.
-- **feature tests:** [{'oc_feature': 'claim -> argument -> evidence trace', 'prior_art_overlap': 'YES', 'positioning_note': 'none; not claimed novel'}, {'oc_feature': 'machine-generated attack matrix and finite-case route map', 'prior_art_overlap': 'PARTIAL', 'positioning_note': 'local scientific release binding; no uniqueness promoted'}]
-- **uniqueness claim status:** NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-- **source refs:** [{'title': 'The Assurance Case Working Group and GSN community references', 'url': 'https://scsc.uk/scsc-141B', 'source_date': 'reference', 'inspected_on': '2026-04-30', 'local_protocol_snapshot_ref': 'comparators/source_snapshots/SRC-12-01.txt', 'local_protocol_snapshot_sha256': 'ee43f5a19310487c8c6ac885bfe9068ec6cb40e3e1c303c9edc54fce5913b861', 'search_query': '"Goal Structuring Notation / Argument Patterns" "structured claim/evidence argument notation" release governance proof data falsifier', 'archive_status': 'LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION'}]
+This map is organized for a hostile reader. Each group states the threatened claim, the criticism route, the response evidence, the residual risk, and the condition under which the objection would reopen. A row is not considered closed merely because an artifact exists.
+The public text does not ask the reader to trust an internal status word. The response below is valid only when the cited proof, finite case, replay row, comparator row, or claim-boundary artifact supports the exact public claim.
+To avoid turning the map into boilerplate, the reopening rules are stated as a method before the challenge list. A novelty response reopens if same-claim prior art absorbs the residual delta. A theorem response reopens if an assumption is missing, a proof dependency fails, or a finite witness no longer separates positive and negative cases. An empirical response reopens if a formula, pinned source, comparator, uncertainty, negative control, falsifier, or replay hash is absent or inconsistent. A phenomenon response reopens if the model card lacks a testable observable. An editorial response reopens if the public PDF becomes unreadable, fragmented, or dominated by registers again.
 
-### Requirements Traceability and V&V Matrices
+## Reviewer challenge 1: Theorem Proof Binding
 
-- **absence test:** NOT_PROMOTED. Single-source absence is recorded only as a future search obligation, not as novelty evidence.
-- **feature tests:** [{'oc_feature': 'requirement/claim to verification artifact traceability', 'prior_art_overlap': 'YES', 'positioning_note': 'none; not claimed novel'}, {'oc_feature': 'theorem-to-finite-case-to-Cerberus-finding closure ledger', 'prior_art_overlap': 'PARTIAL', 'positioning_note': 'local owner-review scientific release workflow'}]
-- **uniqueness claim status:** NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-- **source refs:** [{'title': 'NASA Systems Engineering Handbook', 'url': 'https://www.nasa.gov/reference/nasa-systems-engineering-handbook/', 'source_date': 'reference', 'inspected_on': '2026-04-30', 'local_protocol_snapshot_ref': 'comparators/source_snapshots/SRC-13-01.txt', 'local_protocol_snapshot_sha256': '9c24dc9b859c4447b534b035086318467e6cc072cbc5d5b711b10073a9eab584', 'search_query': '"Requirements Traceability and V&V Matrices" "requirements traceability and verification/validation matrices" release governance proof data falsifier', 'archive_status': 'LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION'}]
+A skeptical expert would press K0 resolution theorem, lifecycle status theorem, K-zero boundary theorem, boundary representation theorem, hybrid semantics theorem, and dimension semantics theorem at the point where assumptions do not license the promoted theorem, Lean theorem name is not build-certified, positive finite witness does not realize the theorem, negative control does not fail the stronger reading, and public claim omits theorem counterexample boundary. For reviewer challenge 1, the seriousness comes from the release's evidence discipline: the public sentence is defended only by the match between the visible wording, its assumptions, and the evidence that can actually carry that wording.
+The response route is evidence-bound rather than status-bound. The relevant support is OC 1 3 3 K0 RESOLUTION FOUNDATION, proof sheet T133-K0-RES, Lean build certificate, and finite-model semantic report. The practical verification is proof-sheet assumptions and counterexample boundary for T133-K0-RES, Lean build certificate showing the cited declaration with successful build, paired finite-model positive and negative controls for K0 resolution theorem, and claim register boundary row T133-K0-RES. When that verification fails, the claim is not argued around; it is repaired, demoted, or held for a later research release.
+Public locators. For reviewer challenge 1, use master monograph evidence chapters, public theorem and claim registers, proof sheet(s) T133-K0-RES, and T133-OMEGA-STATUS, and the reopening rule printed in this challenge. These locators are intentionally file-and-section level rather than status-token level, while the full path and checksum detail stays in the manifest and evidence package so the prose remains readable.
+Residual risk is recorded as a reopening rule, not hidden in confidence language. For this challenge the repair path stays scientific: proof, finite semantics, replay evidence, comparator positioning, or public wording, depending on which cited support no longer carries the public sentence.
 
-### Scientific Workflow Provenance and Reproducibility Systems
+## Reviewer challenge 2: Theorem Public Surface Binding
 
-- **absence test:** NOT_PROMOTED. Single-source absence is recorded only as a future search obligation, not as novelty evidence.
-- **feature tests:** [{'oc_feature': 'artifact metadata, provenance, and reproducibility package', 'prior_art_overlap': 'YES', 'positioning_note': 'none; not claimed novel'}, {'oc_feature': 'strict owner-review theorem/replay/Cerberus gate stack', 'prior_art_overlap': 'PARTIAL', 'positioning_note': 'local policy coupling; no uniqueness promoted'}]
-- **uniqueness claim status:** NOT_PROMOTED_PRIOR_ART_POSITIONING_ONLY
-- **source refs:** [{'title': 'RO-Crate specification', 'url': 'https://www.researchobject.org/ro-crate/', 'source_date': 'reference', 'inspected_on': '2026-04-30', 'local_protocol_snapshot_ref': 'comparators/source_snapshots/SRC-14-01.txt', 'local_protocol_snapshot_sha256': 'b71da73a5a5235fca9d08148a048225ad33f79da1bfc73eaee920e3b9d0daff5', 'search_query': '"Scientific Workflow Provenance and Reproducibility Systems" "workflow provenance, reproducibility metadata, and research-object packaging" release governance proof data falsifier', 'archive_status': 'LOCAL_PROTOCOL_CAPSULE_ONLY_NO_ABSENCE_PROMOTION'}]
+This objection targets K0 resolution theorem, lifecycle status theorem, K-zero boundary theorem, boundary representation theorem, hybrid semantics theorem, and dimension semantics theorem at the point where hostile reader cannot trace the theorem from tuple to finite falsifier, the theorem has no explicit falsifier/counterexample boundary, the theorem dependency chain is not declared, and the public claim surface could exceed the formal theorem. For reviewer challenge 2, the seriousness comes from the release's evidence discipline: the public sentence is defended only by the match between the visible wording, its assumptions, and the evidence that can actually carry that wording.
+The answer is local to the cited support. The relevant support is OC 1 3 3 HOSTILE READER GUIDE, claim register boundary, and proof sheet T133-K0-RES. The practical verification is OC 1 3 3 HOSTILE READER GUIDE, proof-sheet assumptions and counterexample boundary for T133-K0-RES, Lean build certificate showing T133-K0-RES with successful build, and claim register boundary row T133-K0-RES. When that verification fails, the claim is not argued around; it is repaired, demoted, or held for a later research release.
+Review path. For reviewer challenge 2, use master monograph evidence chapters, public theorem and claim registers, proof sheet(s) T133-K0-RES, and T133-OMEGA-STATUS, and the reopening rule printed in this challenge. These locators are intentionally file-and-section level rather than status-token level, while the full path and checksum detail stays in the manifest and evidence package so the prose remains readable.
+Residual risk is recorded as a reopening rule, not hidden in confidence language. For this challenge the repair path stays scientific: proof, finite semantics, replay evidence, comparator positioning, or public wording, depending on which cited support no longer carries the public sentence.
 
+## Reviewer challenge 3: Minimality Component Witness
 
-## Phenomenon Coverage and Limits
+The hostile reading begins with minimality witness theorem at the point where carrier could be removed without verdict loss, realization could be removed without verdict loss, lawful_possibility could be removed without verdict loss, liveness could be removed without verdict loss, and residue could be removed without verdict loss. For reviewer challenge 3, the seriousness comes from the release's evidence discipline: the public sentence is defended only by the match between the visible wording, its assumptions, and the evidence that can actually carry that wording.
+The release answers by binding the sentence to public artifacts. The relevant support is OC133 GLOBAL MINIMALITY WITNESSES, finite-model semantic report, and Lean build certificate. The practical verification is FM-MIN-carrier observed keep verdict=PASS and observed drop verdict=FAIL, FM-MIN-realization observed keep verdict=PASS and observed drop verdict=FAIL, FM-MIN-lawful possibility observed keep verdict=PASS and observed drop verdict=FAIL, FM-MIN-liveness observed keep verdict=PASS and observed drop verdict=FAIL, and FM-MIN-residue observed keep verdict=PASS and observed drop verdict=FAIL. When that verification fails, the claim is not argued around; it is repaired, demoted, or held for a later research release.
+Where to verify. For reviewer challenge 3, use master monograph evidence chapters, public theorem and claim registers, and the reopening rule printed in this challenge. These locators are intentionally file-and-section level rather than status-token level, while the full path and checksum detail stays in the manifest and evidence package so the prose remains readable.
+Residual risk is recorded as a reopening rule, not hidden in confidence language. For this challenge the repair path stays scientific: proof, finite semantics, replay evidence, comparator positioning, or public wording, depending on which cited support no longer carries the public sentence.
 
-The phenomenon matrix records model cards and evidence routes. Rows with illustrative or protocol-ready status are not promoted as complete phenomenon explanations.
-- **row total:** 15
-- **state:** 
+## Reviewer challenge 4: Klevel Transition Witness
 
-### P001
+A journal reviewer could attack K-level witness theorem at the point where adjacent transition has no retained-witness reduction failure and lawful demotion pair. For reviewer challenge 4, the seriousness comes from the release's evidence discipline: the public sentence is defended only by the match between the visible wording, its assumptions, and the evidence that can actually carry that wording.
+The repairable claim boundary is the center of the response. The relevant support is k level irreducibility matrix, finite-model semantic report, and Lean build certificate. The practical verification is FM-KLEVEL-K0 to K1=FAILS WITH WITNESS and FM-KLEVEL-K0 to K1-NEG=DEMOTABLE WITH LOST WITNESS, FM-KLEVEL-K1 to K2=FAILS WITH WITNESS and FM-KLEVEL-K1 to K2-NEG=DEMOTABLE WITH LOST WITNESS, FM-KLEVEL-K2 to K3=FAILS WITH WITNESS and FM-KLEVEL-K2 to K3-NEG=DEMOTABLE WITH LOST WITNESS, FM-KLEVEL-K3 to K4=FAILS WITH WITNESS and FM-KLEVEL-K3 to K4-NEG=DEMOTABLE WITH LOST WITNESS, and FM-KLEVEL-K4 to K5=FAILS WITH WITNESS and FM-KLEVEL-K4 to K5-NEG=DEMOTABLE WITH LOST WITNESS. When that verification fails, the claim is not argued around; it is repaired, demoted, or held for a later research release.
+Audit route. For reviewer challenge 4, use master monograph evidence chapters, public theorem and claim registers, and the reopening rule printed in this challenge. These locators are intentionally file-and-section level rather than status-token level, while the full path and checksum detail stays in the manifest and evidence package so the prose remains readable.
+Residual risk is recorded as a reopening rule, not hidden in confidence language. For this challenge the repair path stays scientific: proof, finite semantics, replay evidence, comparator positioning, or public wording, depending on which cited support no longer carries the public sentence.
 
-- **observable:** same-cell raw pair is not distinguished; cross-cell quotient pair is distinguished
-- **negative control:** FM-T133-K0-RES-NEG
-- **falsifier:** If a same-rho-cell raw pair is accepted as resolution-distinguished, the K0 resolution boundary fails.
-- **claim boundary:** This is an internal release-consistency illustration and is excluded from phenomenon coverage totals until a domain model/evaluator is added.
+## Reviewer challenge 5: Numeric Replay Quarantine
 
-### P002
+The strongest version of the criticism is aimed at OC133-NUM-PHYS-C, OC133-NUM-CHEM-WEBBOOK-H2O, OC133-NUM-CHEM-H2O, OC133-NUM-BIO-GEO-COUNT, OC133-NUM-SYS-WDI-GDP, and OC133-NUM-MATH-FINITE at the point where numeric replay could be promoted as empirical/prediction support. For reviewer challenge 5, the seriousness comes from the release's evidence discipline: the public sentence is defended only by the match between the visible wording, its assumptions, and the evidence that can actually carry that wording.
+The evidence route is deliberately narrower than the ambition it organizes. The relevant support is bounded replay evidence table OC133 NUMERIC REPLAY QA TABLE, and bounded replay evidence table OC133 NUMERIC REPLAY LOG. The practical verification is bounded numeric replay rows with comparator, residual, negative-control, falsifier, and replay hash. When that verification fails, the claim is not argued around; it is repaired, demoted, or held for a later research release.
+Evidence entry points. For reviewer challenge 5, use master monograph evidence chapters, public theorem and claim registers, and the reopening rule printed in this challenge. These locators are intentionally file-and-section level rather than status-token level, while the full path and checksum detail stays in the manifest and evidence package so the prose remains readable.
+Residual risk is recorded as a reopening rule, not hidden in confidence language. For this challenge the repair path stays scientific: proof, finite semantics, replay evidence, comparator positioning, or public wording, depending on which cited support no longer carries the public sentence.
 
-- **observable:** death blocks live status; rebirth source is residue and target is a new live token
-- **negative control:** FM-T133-OMEGA-STATUS-NEG
-- **falsifier:** If death=true and live=true are accepted together, or rebirth targets the original identity token, the lifecycle theorem fails.
-- **claim boundary:** This is an internal release-consistency illustration and is excluded from phenomenon coverage totals until a domain model/evaluator is added.
+## Reviewer challenge 6: Phenomenon Coverage Model Card
 
-### P003
+The editorially relevant attack concerns K0 resolution theorem, lifecycle status theorem, cycle-mode theorem, boundary representation theorem, hybrid semantics theorem, and dimension semantics theorem at the point where phenomenon row lacks formal instance, observable, replay, negative control, or falsifier. For reviewer challenge 6, the seriousness comes from the release's evidence discipline: the public sentence is defended only by the match between the visible wording, its assumptions, and the evidence that can actually carry that wording.
+The public answer is acceptable only because it remains testable. The relevant support is Lean build certificate, finite-model semantic report, proof sheet T133-K0-RES, and proof sheet T133-OMEGA-STATUS. The practical verification is paired finite-model positive and negative controls for K0 resolution theorem, paired finite-model positive and negative controls for lifecycle status theorem, paired finite-model positive and negative controls for cycle-mode theorem, paired finite-model positive and negative controls for boundary representation theorem, and paired finite-model positive and negative controls for hybrid semantics theorem. When that verification fails, the claim is not argued around; it is repaired, demoted, or held for a later research release.
+Reader navigation. For reviewer challenge 6, use master monograph evidence chapters, public theorem and claim registers, proof sheet(s) T133-BOUNDARY, T133-CYCLE, T133-DIM, and T133-HYBRID, and the reopening rule printed in this challenge. These locators are intentionally file-and-section level rather than status-token level, while the full path and checksum detail stays in the manifest and evidence package so the prose remains readable.
+Residual risk is recorded as a reopening rule, not hidden in confidence language. For this challenge the repair path stays scientific: proof, finite semantics, replay evidence, comparator positioning, or public wording, depending on which cited support no longer carries the public sentence.
 
-- **observable:** live label fails without cycle or maintenance support
-- **negative control:** FM-T133-CYCLE-NEG
-- **falsifier:** If live=true is accepted with cycle_mode=none and maintenance support unavailable, the liveness route fails.
-- **claim boundary:** This is an internal release-consistency illustration and is excluded from phenomenon coverage totals until a domain model/evaluator is added.
+## Reviewer challenge 7: Prior Art Positioning
 
-### P004
+A skeptical expert would press OC133-NOVELTY-001 at the point where accepted overlap with general systems framing and cross-domain system concepts could be mistaken for OC uniqueness, accepted overlap with autopoietic organization of living systems could be mistaken for OC uniqueness, accepted overlap with mathematical dynamical-system state evolution could be mistaken for OC uniqueness, accepted overlap with category/topos formalisms and internal logic could be mistaken for OC uniqueness, and accepted overlap with RAF formalization of autocatalytic sets and boundary discussion could be mistaken for OC uniqueness. For reviewer challenge 7, the seriousness comes from the release's evidence discipline: the public sentence is defended only by the match between the visible wording, its assumptions, and the evidence that can actually carry that wording.
+The response route is evidence-bound rather than status-bound. The relevant support is prior-art comparator evidence table SRC-01-01, prior-art comparator evidence table SRC-02-01, prior-art comparator evidence table SRC-03-01, prior-art comparator evidence table SRC-04-01, prior-art comparator evidence table SRC-05-01, and prior-art comparator evidence table SRC-06-01. The practical verification is prior-art comparator evidence table General System Theory uniqueness claim status=positioning only; no priority claim; priority date status=positioning only; no priority assertion, prior-art comparator evidence table Autopoiesis uniqueness claim status=positioning only; no priority claim; priority date status=positioning only; no priority assertion, prior-art comparator evidence table Dynamical Systems uniqueness claim status=positioning only; no priority claim; priority date status=positioning only; no priority assertion, prior-art comparator evidence table Category and Topos Formalisms uniqueness claim status=positioning only; no priority claim; priority date status=positioning only; no priority assertion, and prior-art comparator evidence table RAF Theory uniqueness claim status=positioning only; no priority claim; priority date status=positioning only; no priority assertion. When that verification fails, the claim is not argued around; it is repaired, demoted, or held for a later research release.
+Public locators. For reviewer challenge 7, use master monograph evidence chapters, public theorem and claim registers, and the reopening rule printed in this challenge. These locators are intentionally file-and-section level rather than status-token level, while the full path and checksum detail stays in the manifest and evidence package so the prose remains readable.
+Residual risk is recorded as a reopening rule, not hidden in confidence language. For this challenge the repair path stays scientific: proof, finite semantics, replay evidence, comparator positioning, or public wording, depending on which cited support no longer carries the public sentence.
 
-- **observable:** classifier failure equals declared failure predicate; metric wording is allowed only when a measure is declared
-- **negative control:** FM-T133-BOUNDARY-NEG
-- **falsifier:** If metric boundary language is accepted without metric_measure_declared=true, the boundary specialization fails.
-- **claim boundary:** This is an internal release-consistency illustration and is excluded from phenomenon coverage totals until a domain model/evaluator is added.
+## Reviewer challenge 8: Attack Matrix Distinct Surface Coverage
 
-### P005
+This objection targets K0 resolution theorem, lifecycle status theorem, K-zero boundary theorem, boundary representation theorem, and hybrid semantics theorem at the point where K0 resolution-relative distinguishability theorem: assumptions could drift from the proof/evaluator boundary, K0 resolution-relative distinguishability theorem: negative control could be absent or non-responsive, K0 resolution-relative distinguishability theorem: public wording could exceed the machine-checked claim, K0 resolution-relative distinguishability theorem: falsifier could be missing, vague, or non-executable, and K0 resolution-relative distinguishability theorem: dependency refs could omit the load-bearing artifact. For reviewer challenge 8, the seriousness comes from the release's evidence discipline: the public sentence is defended only by the match between the visible wording, its assumptions, and the evidence that can actually carry that wording.
+The answer is local to the cited support. The relevant support is OC 1 3 3 K0 RESOLUTION FOUNDATION, proof sheet T133-K0-RES, claim register boundary, THEOREM REGISTRY 1 3 3, the theorem inventory, and paired finite-model positive and negative controls for K0 resolution theorem. The practical verification is paired finite-model positive and negative controls for K0 resolution theorem. When that verification fails, the claim is not argued around; it is repaired, demoted, or held for a later research release.
+Review path. For reviewer challenge 8, use master monograph evidence chapters, public theorem and claim registers, proof sheet(s) T133-K0-RES, finite case family FM-T133-K0-RES-NEG, and FM-T133-K0-RES-POS, and the reopening rule printed in this challenge. These locators are intentionally file-and-section level rather than status-token level, while the full path and checksum detail stays in the manifest and evidence package so the prose remains readable.
+Residual risk is recorded as a reopening rule, not hidden in confidence language. For this challenge the repair path stays scientific: proof, finite semantics, replay evidence, comparator positioning, or public wording, depending on which cited support no longer carries the public sentence.
 
-- **observable:** proof/rewrite update is accepted only as a typed non-smooth transition
-- **negative control:** FM-T133-HYBRID-PROOF-UPDATE-NEG
-- **falsifier:** If a proof/rewrite state can request a derivative without a smooth chart, the operator boundary fails.
-- **claim boundary:** This is an internal release-consistency illustration and is excluded from phenomenon coverage totals until a domain model/evaluator is added.
 
-### P006
+# Adversarial Review Method
 
-- **observable:** historical activation remains while effective rank drops
-- **negative control:** FM-T133-DIM-NEG
-- **falsifier:** If a historical axis can decrease when effective rank drops, the dimension theorem fails.
-- **claim boundary:** This is an internal release-consistency illustration and is excluded from phenomenon coverage totals until a domain model/evaluator is added.
+The reviewer map is written for an unsympathetic reader. Its purpose is not to persuade by accumulation of files; its purpose is to identify where the release could fail. Every serious attack is read as a relation between a public sentence, the claim it threatens, the evidence offered for that claim, and the exact condition under which the sentence would have to be repaired.
 
-### P007
+The map therefore uses a narrow standard for closure. A criticism is not closed because a document exists. It is closed only when the public wording is no stronger than the proof, finite witness, replay row, comparator row, or claim-boundary artifact that carries it. If the support is local, the response is local. If the evidence is only a bounded replay row, the public sentence must not sound like a whole-field law.
 
-- **observable:** k=0 is licensed by declared zero-cause, not empty state set
-- **negative control:** FM-T133-K-ZERO-NEG
-- **falsifier:** If k=0 is accepted with nonempty support and no declared zero-cause, the k-zero theorem fails.
-- **claim boundary:** This is an internal release-consistency illustration and is excluded from phenomenon coverage totals until a domain model/evaluator is added.
+## Attack Family 1: The Theory Is Only a Reframing
 
-### P008
+The strongest novelty attack says that OC merely relabels existing systems theory, dynamical systems, autopoiesis, category-oriented formalism, RAF closure, identity theory, or reproducibility practice. The response begins by accepting overlap. OC cannot defend itself by pretending those traditions do not exist. The defensible question is narrower: does the released object bind a typed continuum model, proof governance, finite semantic witnesses, bounded replay rows, prior-art comparison, and public claim boundaries into one auditable model-core package?
 
-- **observable:** closure cannot be reduced when production witness remains observable
-- **negative control:** FM-KLEVEL-K2_to_K3-NEG
-- **falsifier:** If K2->K3 reduction preserves the production witness while still demoting, the closure-like K transition fails.
-- **claim boundary:** This is an internal release-consistency illustration and is excluded from phenomenon coverage totals until a domain model/evaluator is added.
+The residual-delta answer remains bounded. If a comparator already supplies the same claim under the same assumptions and with the same evidence discipline, OC cannot promote priority. If OC supplies a different integration of typed status, K-level witnesses, lifecycle boundaries, and reviewable evidence surfaces, the residual claim can remain. The reviewer map keeps this distinction visible because novelty is not a mood; it is a same-claim comparison.
 
-### P009
+## Attack Family 2: The Formal Claims Are Theatre
 
-- **observable:** K6->K7 transition fails reduction when role witness changes verdict
-- **negative control:** FM-KLEVEL-K6_to_K7-NEG
-- **falsifier:** If a role/norm witness changes allowed action but the K6->K7 reduction still passes, the institution model card fails.
-- **claim boundary:** This is an internal release-consistency illustration and is excluded from phenomenon coverage totals until a domain model/evaluator is added.
+A theorem label can be decorative unless it is tied to assumptions, definitions, dependencies, proof idea, mechanized subset where available, finite witness where relevant, and counterexample boundary. The reviewer should attack theorem labels by asking which assumption does the work and what breaks if that assumption is removed. A proof sheet that cannot answer that question is not allowed to carry a promoted theorem claim.
 
-### P010
+For 1.3.3, the bounded response is that theorem claims are routed through proof sheets, selected Lean declarations, and finite semantic witnesses where applicable. The route does not imply that every mathematical sentence in the monograph has been fully mechanized. It means that the promoted theorem surface is no longer allowed to float without an evidence class. If a theorem sentence grows beyond its supporting class, the public wording must shrink or the proof surface must improve.
 
-- **observable:** K8->K9 transition fails reduction when claim revision is enabled
-- **negative control:** FM-KLEVEL-K8_to_K9-NEG
-- **falsifier:** If claim/evidence revision changes verdict but K8->K9 reduction still passes, the theory-change card fails.
-- **claim boundary:** This is an internal release-consistency illustration and is excluded from phenomenon coverage totals until a domain model/evaluator is added.
+## Attack Family 3: The Empirical Rows Are Too Weak
 
-### P011
+An empirical reviewer should not accept a number merely because it appears in a release archive. The attack asks whether each row contains the right fields: source identity, reconstruction rule or formula, split or target policy where applicable, predicted or reconstructed value, observed value, uncertainty or residual, comparator, negative control, falsifier, and replay hash. Missing fields reopen the row.
 
-- **observable:** self-application is accepted only through typed transition witness
-- **negative control:** FM-KLEVEL-K9_to_K10-NEG
-- **falsifier:** If self-application is admitted without the K9->K10 typed transition witness, the recursion card fails.
-- **claim boundary:** This is an internal release-consistency illustration and is excluded from phenomenon coverage totals until a domain model/evaluator is added.
+The response is deliberately modest. The release uses bounded replay and reconstruction rows to show operationalization and artifact-integrity discipline. It does not ask those rows to prove complete domain coverage. This is not a retreat from ambition; it is how ambition becomes testable. A future stronger empirical claim would need a stronger protocol, not louder wording.
 
-### P012
+## Attack Family 4: Phenomenon Coverage Is Inflated
 
-- **observable:** public action is rejected while global owner-review or any channel lock remains closed
-- **negative control:** ADV-NOSEND-PUBLISH-HYPOTHETICAL-OWNER-APPROVED-CONTROL
-- **falsifier:** If publish is allowed while owner approval is absent or any channel lock remains not authorized, the owner-review card fails.
-- **claim boundary:** This is an internal release-consistency illustration and is excluded from phenomenon coverage totals until a domain model/evaluator is added.
+A broad model can list phenomena faster than it explains them. The reviewer should therefore ask whether each named phenomenon has an OC instance, observable, explanation or replay path, comparator, negative control, falsifier, and claim boundary. Naming a phenomenon is not enough. A model card that lacks an observable or falsifier stays outside promoted explanation.
 
-### P013
+The release response is to keep phenomenon coverage scoped. Phenomena with complete cards can be used as bounded review examples. Phenomena that are illustrative, protocol-ready, or not yet evidenced stay in the monograph as context or future work but do not become promoted public claims. This distinction protects the reader from mistaking coverage vocabulary for evidence.
 
-- **observable:** reduction fails exactly when retained witness stays observable
-- **negative control:** FM-T133-KLEVEL-NEG
-- **falsifier:** If any adjacent K retained-witness row lacks its demotion control, the K-collapse card fails.
-- **claim boundary:** This is an internal release-consistency illustration and is excluded from phenomenon coverage totals until a domain model/evaluator is added.
+## Attack Family 5: Public Wording Outruns Evidence
 
-### P014
+The claim-boundary attack is often the most important one. A theory can have useful definitions and still fail as a publication if public language implies more than the artifact layer supports. The reviewer should scan for totality, finality, unrestricted numeric closure, unrestricted comparison, and implied endorsement. If such language appears without literal evidence, it is a release defect.
 
-- **observable:** component removal changes declared verdict in semantic finite runner
-- **negative control:** FM-T133-MIN-NEG
-- **falsifier:** If a tuple component can be removed without the semantic finite verdict changing, the minimality card fails.
-- **claim boundary:** This is an internal release-consistency illustration and is excluded from phenomenon coverage totals until a domain model/evaluator is added.
+The repaired 1.3.3 public surface uses bounded wording. It promotes a model-core package with proof, finite, replay, comparator, and review evidence. It excludes complete scientific coverage and unrestricted comparison from the promoted surface. That exclusion is not a hidden caveat; it is a scientific boundary statement that tells the reader exactly what the release is and is not claiming.
 
-### P015
+## Attack Family 6: The Package Is Not a Scientific Text
 
-- **observable:** identity continuation is accepted only when endpoint-bound identity evidence is present
-- **negative control:** FM-T133-ID-NEG
-- **falsifier:** If residue or rebirth evidence is accepted as identity continuation without endpoint-bound identity evidence, the identity theorem fails.
-- **claim boundary:** This is an internal release-consistency illustration and is excluded from phenomenon coverage totals until a domain model/evaluator is added.
+A scientific release can fail even when its checksums are correct. If the first public experience is a metadata dump, an internal routing memo, a raw register, or a collection of appended deltas, the release is not publication-grade. The reviewer should inspect the title page, dedication, abstract, table of contents, didactic order, page flow, figure use, literature discussion, and conclusion before trusting the archive.
 
+The corrected map treats editorial quality as part of scientific quality. The monograph carries the long argument. The journal core carries the article path. The methods companion explains replay. The reviewer map explains attacks. The archive carries evidence. If those roles blur again, the release reopens because the reader cannot know which artifact carries which burden.
 
-## Claim Governance
+# Reopening Rules
 
-The public claim surface is intentionally bounded: a row is promoted only when it is evidence-bound, review-clean, and explicitly scoped. Universal closure or all-domain superiority language is not promoted by this release.
-- **claim total:** 18
-- **unsupported promoted total:** 0
-- **scientific promotion allowed total:** 10
-- **absolute overclaim policy:** BLOCK_PUBLIC_PROMOTION
+A novelty response reopens if same-claim prior art absorbs the residual delta. A theorem response reopens if an assumption is missing, a proof dependency fails, or a finite witness no longer separates positive and negative cases. An empirical response reopens if a formula, pinned source, comparator, uncertainty, negative control, falsifier, or replay hash is absent or inconsistent. A phenomenon response reopens if the model card lacks a testable observable. An editorial response reopens if the public PDF becomes unreadable, fragmented, or dominated by registers again.
 
-### T133-K0-RES
+These reopening rules make the reviewer map useful after publication as well as before publication. They tell future maintainers how to classify a defect without arguing from scratch. A defect should become a known-error pattern and a gate for later releases, not a one-time apology.
 
-- **claim:** K0 support is treated as a owner-review formal release-consistency check over declared resolution quotients: same-resolution states are not distinguished, and a finite countermodel shows raw separation need not induce resolution distinction. It is not promoted as an independent novelty or scientific theorem in v12.
-- **support:** LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS
-- **evidence:** proofs/proof_sheets/T133-K0-RES.md
-- **status:** PROMOTED_BOUNDED_PUBLIC_RELEASE_V12
-- **scope limit:** Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.
+# What a Hostile Reader Should Do
 
-### T133-OMEGA-STATUS
+A hostile reader should first choose the public sentence under attack, then identify the claim family, then inspect the evidence class, then ask whether the support is strong enough for the wording. If the sentence is formal, inspect proof assumptions and mechanized or finite witnesses. If it is empirical, inspect the replay row. If it is comparative, inspect the comparator row. If it is editorial, inspect the rendered PDF and public archive page.
 
-- **claim:** Death blocks live status; residue and rebirth are token-bound evidence relations with distinct class-specific endpoint rules: residue separates source from residue while returning to the source endpoint, and rebirth separates source, residue, and new target tokens. Rebirth is non-identity unless endpoint-bound identity evidence has identity class, declared invariant preservation, no residue token, and equal source/target endpoint evidence. No categorical Hom/composition theorem is promoted.
-- **support:** LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS
-- **evidence:** proofs/proof_sheets/T133-OMEGA-STATUS.md
-- **status:** PROMOTED_BOUNDED_PUBLIC_RELEASE_V12
-- **scope limit:** Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.
+The release is designed to survive that process by being bounded, not evasive. It should be possible to disagree with OC Core 1.3.3 scientifically without discovering a hidden mismatch between files, claims, and evidence. When such a mismatch is found, the correct answer is repair, not defensiveness.
 
-### T133-K-ZERO
+# Reviewer Role Playbook
 
-- **claim:** Continuumness zero requires live support, an independently clear obstruction ledger, and a declared zero-cause family; a zero-cause label alone does not compute k=0.
-- **support:** LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS
-- **evidence:** proofs/proof_sheets/T133-K-ZERO.md
-- **status:** PROMOTED_BOUNDED_PUBLIC_RELEASE_V12
-- **scope limit:** Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.
+The attack map becomes useful only when different reviewers can use it without sharing private context. This playbook therefore rewrites the same release object through the eyes of several hostile readers. Each role names what it should attack first, what would count as a serious answer, and what would reopen the issue.
 
-### T133-BOUNDARY
+## Formal-Mathematics Reviewer
 
-- **claim:** Metric thresholds are a specialization of typed classifier boundaries.
-- **support:** LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS
-- **evidence:** proofs/proof_sheets/T133-BOUNDARY.md
-- **status:** PROMOTED_BOUNDED_PUBLIC_RELEASE_V12
-- **scope limit:** Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.
+The formal reviewer should begin by refusing to accept theorem labels as proof. The first question is whether each promoted theorem has a typed statement, assumptions, definitions, dependencies, proof idea, and counterexample boundary. The second question is whether the Lean subset and finite semantic witnesses are cited at the right strength. A Lean declaration can support a selected formal pattern, but it does not certify every surrounding informal paragraph.
 
-### T133-HYBRID
+A serious answer for this reviewer names the exact theorem identifier, the proof sheet, the dependency path, and the witness or mechanized declaration if one is claimed. A weak answer points to the monograph as a whole. A failing answer changes the wording of a theorem claim without changing its evidence. The issue reopens when an assumption is implicit, when a theorem ID is orphaned, when a proof sheet gives only a slogan, or when a finite witness is label-driven rather than fact-driven.
 
-- **claim:** OC operators are typed update semantics; chart-labelled flow-one notation is admitted only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth cases. No differentiability or ODE-solution theorem is promoted in v12.
-- **support:** LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS
-- **evidence:** proofs/proof_sheets/T133-HYBRID.md
-- **status:** PROMOTED_BOUNDED_PUBLIC_RELEASE_V12
-- **scope limit:** Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.
+## Computational-Semantics Reviewer
 
-### T133-DIM
+The computational reviewer should attack the finite-model layer as if every verdict were self-confirming until proven otherwise. The question is whether inputs contain raw model facts and whether the runner computes outcomes independently from expected labels. Mutation controls matter because they show whether the evaluator rejects tampered, inert, or wrong-witness cases.
 
-- **claim:** Historical axis activation and effective working rank are kept as distinct owner-review formal release-consistency fields; a finite/Lean witness shows compatibility of monotone historical bookkeeping with decreasing effective rank, but v12 does not promote an independent scientific dimension theorem.
-- **support:** LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS
-- **evidence:** proofs/proof_sheets/T133-DIM.md
-- **status:** PROMOTED_BOUNDED_PUBLIC_RELEASE_V12
-- **scope limit:** Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.
+A serious answer cites the finite-model report, the case family, the positive witness, and the paired negative control. A weak answer says that all cases pass. A failing answer is one in which changing a label changes the outcome or changing the model facts fails to change the outcome where the theorem says it should. The issue reopens when evidence rows contain conclusion booleans, when controls are absent, or when a public theorem cites a case whose semantics do not carry the claimed distinction.
 
-### T133-CYCLE
+## Empirical-Statistics Reviewer
 
-- **claim:** Declared eligible-live status requires an explicit cycle mode or non-vacuous maintenance predicate.
-- **support:** LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS
-- **evidence:** proofs/proof_sheets/T133-CYCLE.md
-- **status:** PROMOTED_BOUNDED_PUBLIC_RELEASE_V12
-- **scope limit:** Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.
+The empirical reviewer should treat every numeric row as suspect until the reconstruction path is complete. The row needs a source identity, pinned snapshot or official source record, formula, target policy, predicted or reconstructed value, observed value, uncertainty or residual, comparator baseline, negative control, falsifier, and replay hash. A row without a comparator cannot support comparative wording. A row without a negative control cannot support empirical promotion.
 
-### T133-ID
+A serious answer for this reviewer is local: it says exactly what the row supports and exactly what it does not support. A weak answer cites the authority of a data source without showing the replay. A failing answer uses a successful reconstruction as if it proved a whole domain. The issue reopens when a row becomes circular, when a target was not held out where the claim needs it, when residuals are not interpreted, or when public prose upgrades a bounded replay into a domain law.
 
-- **claim:** Identity continuation requires endpoint-bound identity evidence: identity class, declared invariant preservation, no residue token, equal source/target endpoint evidence, lifecycle identity-invariant truth, and typed source/target binding. Residue and rebirth evidence classes do not become identity continuation merely by preserving some invariants. No categorical Hom/composition theorem is promoted.
-- **support:** LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS
-- **evidence:** proofs/proof_sheets/T133-ID.md
-- **status:** PROMOTED_BOUNDED_PUBLIC_RELEASE_V12
-- **scope limit:** Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.
+## Prior-Art Historian
 
-### T133-MIN
+The prior-art reviewer should assume overlap until the manuscript proves a residual difference. This reviewer asks whether OC credits systems theory, autopoiesis, dynamical systems, hybrid systems, category and type-theoretic formalisms, RAF closure, complexity measures, identity theory, systems engineering, and reproducible-research practice. The comparison must be same-claim comparison, not a generic bibliography.
 
-- **claim:** Within the declared v12 release tuple semantics, each tuple component has a one-field semantic keep/drop witness that changes the release verdict.
-- **support:** LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS
-- **evidence:** proofs/proof_sheets/T133-MIN.md
-- **status:** PROMOTED_BOUNDED_PUBLIC_RELEASE_V12
-- **scope limit:** Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.
+A serious answer states what is inherited, what is reorganized, what residual delta remains, and which public claim that residual delta can support. A weak answer lists sources without using them. A failing answer claims novelty from absence of a source in a short sample. The issue reopens when a comparator row lacks overlap fields, when residual delta is vague, when a stronger priority sentence appears, or when public metadata presents the release as if it had no predecessors.
 
-### T133-KLEVEL
+## Journal Editor
 
-- **claim:** Every declared adjacent K-level transition K0->K12 has a release-atlas row, retained-witness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release classifier; independent semantic irreducibility beyond this declared classifier is a future proof obligation, not a promoted v12 theorem.
-- **support:** LEAN_SUBSET_STRUCTURED_PROOF_FINITE_WITNESS
-- **evidence:** proofs/proof_sheets/T133-KLEVEL.md
-- **status:** PROMOTED_BOUNDED_PUBLIC_RELEASE_V12
-- **scope limit:** Bounded to stated theorem assumptions, finite witnesses, and public falsifier boundary.
+The journal editor should first ask whether the package reads as a scientific manuscript set rather than as a repository export. The editor checks title pages, dedication, abstract, table of contents, argument order, section transitions, literature synthesis, figure placement, conclusion, data availability, conflict/funding statement, AI assistance disclosure, and the distinction between public release and journal submission.
 
-### OC133-NUM-PHYS-C
+A serious answer is visible before opening machine-readable files. The editor sees a monograph, a compact article, a methods companion, a reviewer map, and a curated evidence package with distinct roles. A weak answer requires the editor to infer roles from filenames. A failing answer lets metadata, checksums, internal statuses, or appended deltas become the primary public reading surface. The issue reopens when any public PDF lacks frontmatter, when page flow is broken, or when a public record previews metadata instead of the scientific landing document.
 
-- **claim:** calibration replay of an official constant, not a new law of physics
-- **support:** NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER
-- **evidence:** validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json
-- **status:** QUARANTINED_REPLAY_QA_NOT_PROMOTED_V12
-- **scope limit:** This is replay QA and falsifier plumbing, not empirical theory promotion.
+## Hostile Generalist
 
-### OC133-NUM-CHEM-WEBBOOK-H2O
+The hostile generalist should attack intelligibility. The question is not only whether the model is formal; it is whether a technically literate reader can understand why the formalism exists. This reviewer asks what problem is being solved, why the object is typed, how liveness differs from ordinary persistence, why residue is separated from identity, how K-level claims become testable, and what kind of evidence would make the model fail.
 
-- **claim:** NIST Chemistry WebBook molecular-weight field replay for water only
-- **support:** NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER
-- **evidence:** validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json
-- **status:** QUARANTINED_REPLAY_QA_NOT_PROMOTED_V12
-- **scope limit:** This is replay QA and falsifier plumbing, not empirical theory promotion.
+A serious answer gives a didactic path from tuple to theorem to example to falsifier. A weak answer says that the full monograph contains everything somewhere. A failing answer forces the reader to reconstruct the theory from registers. The issue reopens when terms are introduced without motivation, when diagrams are absent or misplaced, when examples do not connect to claims, or when a public claim cannot be explained without private process history.
 
-### OC133-NUM-CHEM-H2O
+## Publication-Metadata Reviewer
 
-- **claim:** PubChem molecular-weight field replay for water only
-- **support:** NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER
-- **evidence:** validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json
-- **status:** QUARANTINED_REPLAY_QA_NOT_PROMOTED_V12
-- **scope limit:** This is replay QA and falsifier plumbing, not empirical theory promotion.
+The metadata reviewer checks whether GitHub, Zenodo, citation metadata, CodeMeta, RO-Crate, release notes, checksum files, and public PDFs identify the same object. The author is Alexander Yashin. Logion is the research instrument and institute-automation system. ESTRA is the methodology. OC Core is the scientific model release. Misclassifying those entities is not a cosmetic problem because it changes how the public record should be cited and evaluated.
 
-### OC133-NUM-BIO-GEO-COUNT
+A serious answer keeps public metadata professional and concise. Zenodo needs a rendered abstract and reading order, not raw Markdown or a checksum-only display. GitHub can carry a longer Markdown release body, but it still has to match the DOI, asset set, and claim boundary. The issue reopens when version strings diverge, when stale assets remain, when a DOI points to an inferior file set, when inherited Zenodo files are not cleared, or when journal packages are described as submitted before a separate submission action exists.
 
-- **claim:** official GEO query-count replay; no organism-wide mechanism claim
-- **support:** NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER
-- **evidence:** validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json
-- **status:** QUARANTINED_REPLAY_QA_NOT_PROMOTED_V12
-- **scope limit:** This is replay QA and falsifier plumbing, not empirical theory promotion.
+## Release-Engineering Reviewer
 
-### OC133-NUM-SYS-WDI-GDP
+The release-engineering reviewer attacks the process rather than the theory. The question is whether a verification step can dirty the release, whether a semantic delta triggers only the necessary downstream work, and whether absence of a meaningful delta stops the chain. This reviewer also checks whether a known publication error has become a permanent regression test.
 
-- **claim:** retrospective WDI GDP snapshot replay QA with descriptive comparator, no prediction or superiority claim
-- **support:** NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER
-- **evidence:** validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json
-- **status:** QUARANTINED_REPLAY_QA_NOT_PROMOTED_V12
-- **scope limit:** This is replay QA and falsifier plumbing, not empirical theory promotion.
+A serious answer uses delta-stable verification and known-error management. A weak answer reruns everything repeatedly without explaining why. A failing answer lets a read-only check rewrite tracked artifacts or lets a public release proceed because file names look correct while text quality is poor. The issue reopens when verification creates ungoverned dirt, when a generated artifact changes without input delta, or when an already-seen defect class appears again.
 
-### OC133-NUM-MATH-FINITE
+## Synthesis Reviewer
 
-- **claim:** finite witness acceptance count for machine-checked v12 theorem inventory rows; never public-promotion, empirical, or prediction support in v12 unless a future prospective protocol explicitly flips release_promotion_allowed, prediction_support_allowed, and empirical_support_allowed after review
-- **support:** NUMERIC_REPLAY_QA_WITH_BASELINE_NEGATIVE_CONTROL_FALSIFIER
-- **evidence:** validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json
-- **status:** QUARANTINED_REPLAY_QA_NOT_PROMOTED_V12
-- **scope limit:** This is replay QA and falsifier plumbing, not empirical theory promotion.
+The synthesis reviewer asks whether the release is more than a pile of correct parts. The model, proof route, finite semantics, replay rows, comparator register, reviewer map, publication metadata, and journal packages must tell the same story. A contradiction between any two layers is a scientific defect because it makes the public claim ambiguous.
 
-### OC133-NOVELTY-001
+A serious answer shows role separation and traceability. The monograph teaches the theory, the journal core compresses it, the methods companion explains replay, the reviewer map attacks it, the public zip carries evidence, and metadata makes the archive citable. A weak answer is a set of green gates. A failing answer is a release in which every component exists but the reader cannot tell how they fit together. The issue reopens when component roles blur, when a claim is promoted in one file and bounded in another, or when external positioning diverges from evidence.
 
-- **claim:** Prior-art comparison is an illustrative bounded positioning note; uniqueness, priority, and absence are not promoted until a systematic search exists.
-- **support:** ILLUSTRATIVE_PRIOR_ART_POSITIONING_ONLY_NO_UNIQUENESS_PROMOTION
-- **evidence:** comparators/OC_1_3_3_NOVELTY_AND_PRIORITY_REGISTER.json
-- **status:** NOT_PROMOTED_RESEARCH_NOTE_V12
-- **scope limit:** No uniqueness, priority, absence, or invention claim is promoted by this row; systematic search remains future work.
+## Claim-Repair Decision Ladder
 
-### OC133-NOSEND-001
+When an attack succeeds, the repair is not always to add more text. The first decision is whether the claim is true under the current evidence class. If the claim is too strong, the correct repair is demotion or boundary clarification. If the claim is right but the evidence is hidden, the correct repair is traceability. If the evidence is insufficient but the claim is important, the correct repair is new proof, new finite semantics, new replay protocol, or new comparator work.
 
-- **claim:** Publication, DOI minting, repository release, deposit, and journal submission remain locked until both separate owner approval and an explicit manifest/channel unlock are present.
-- **support:** OWNER_GATED_OWNER_REVIEW_LOCKED_CONTROL_PLANE
-- **evidence:** releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_PUBLISH_MANIFEST_DRAFT.json
-- **status:** GOVERNANCE_CONTROL_OWNER_REVIEW_LOCKED_NOT_SCIENTIFIC_PROMOTION
-- **scope limit:** Local owner-review package only; this is not a real-world enforcement guarantee against manual or external publication. Owner approval alone is insufficient unless deposit-ready metadata, a public-record target, owner-review unlock, and every channel lock are all separately true.
+This decision ladder prevents two opposite failures. It prevents cosmetic narrowing, where ambitious claims disappear without scientific work. It also prevents rhetorical inflation, where ambition remains but evidence does not grow. The release should preserve ambitious scientific direction while promoting only the claims that the artifact layer can carry. A reviewer can therefore distinguish a present claim from a research obligation without asking the author for private clarification.
 
+## Evidence-to-Wording Calibration
 
-## Theorem and Proof Registry
+The final adversarial step is calibration. Definitional support licenses definitional language. Proof support licenses theorem language only under stated assumptions. Lean support licenses selected mechanized-subset language. Finite semantic support licenses executable witness language. Target-blind replay support licenses bounded replay and reconstruction language. Comparator support licenses overlap and residual-delta language. Editorial review support licenses publication-quality language only for the rendered artifacts that were actually inspected.
 
-The release promotes bounded theorem claims only where the theorem registry binds a proof sheet, Lean reference, finite witness route, and explicit scope boundary. Broad full-science and universal superiority claims stay outside the promoted release surface.
-- **registered theorem total:** 10
-- **machine-checked subset total:** 10
-- **adversarial blocker total:** 0
+The public sentence must be calibrated to the weakest necessary support in its dependency chain. If a sentence depends on both a theorem and a replay row, failure of either side narrows the sentence. If a sentence depends on comparator novelty, missing source coverage narrows the sentence. If a sentence depends on publication presentation, a broken Zenodo page or unreadable PDF narrows the sentence even if the science is otherwise intact. This calibration rule is the reviewer map's main protection against repeating the failed-publication pattern.
 
-### 1. T133-K0-RES: K0 resolution-relative distinguishability theorem
+## Editorial Closure Standard
 
-- **claim boundary:** K0 support is treated as a owner-review formal release-consistency check over declared resolution quotients: same-resolution states are not distinguished, and a finite countermodel shows raw separation need not induce resolution distinction. It is not promoted as an independent novelty or scientific theorem in v12.
-- **evidence ref:** appendix/OC_1_3_3_K0_RESOLUTION_FOUNDATION.tex
-- **proof sheet:** proofs/proof_sheets/T133-K0-RES.md
-- **Lean ref:** formal/lean/OC133V12.lean::k0_countermodel_raw_separation_not_resolution_distinction
-- **evidence ceiling:** BOUNDED_SCIENTIFIC_THEOREM_WITH_LEAN_SUBSET_AND_FINITE_WITNESS
-- **scope limit:** A proof that assumes every pair of raw real states is epsilon-separated is outside v12 and fails G33.
+The reviewer map closes only when a hostile reader can name the attacked claim, identify the evidence class, read the response in prose, and know what would reopen it. The map is not required to reproduce every proof sheet, every finite case, or every numeric row; that would turn it back into a register. It is required to make the adversarial logic legible. A reviewer should leave this document knowing how to attack the monograph, not merely how to browse the archive.
 
-### 2. T133-OMEGA-STATUS: Typed liveness, death, residue, and rebirth evidence-consistency theorem
+That is the difference between a defensive appendix and a scientific attack map. A defensive appendix says that objections have been handled. A scientific attack map explains why an objection matters, what evidence answers it, what remains local, and what would defeat the answer. OC Core 1.3.3 uses the second form because a broad model-core release cannot earn trust by hiding from hostile reading.
 
-- **claim boundary:** Death blocks live status; residue and rebirth are token-bound evidence relations with distinct class-specific endpoint rules: residue separates source from residue while returning to the source endpoint, and rebirth separates source, residue, and new target tokens. Rebirth is non-identity unless endpoint-bound identity evidence has identity class, declared invariant preservation, no residue token, and equal source/target endpoint evidence. No categorical Hom/composition theorem is promoted.
-- **evidence ref:** content/OC_1_3_3_TYPED_FOUNDATION.tex
-- **proof sheet:** proofs/proof_sheets/T133-OMEGA-STATUS.md
-- **Lean ref:** formal/lean/OC133V12.lean::lifecycle_residue_rebirth_morphism_boundary
-- **evidence ceiling:** BOUNDED_SCIENTIFIC_THEOREM_WITH_LEAN_SUBSET_AND_FINITE_WITNESS
-- **scope limit:** Any claim reading residue-preserving restart as same-identity survival is rejected unless endpoint-bound identity evidence is supplied.
+## Minimum Hostile Review Walkthrough
 
-### 3. T133-K-ZERO: Continuumness zero obstruction theorem
+A minimum hostile review can be completed without reading every appendix. The reviewer selects one theorem claim, one empirical row, one prior-art claim, one phenomenon claim, and one publication-quality claim. For each selected claim the reviewer asks the same questions: what is the sentence, what evidence class carries it, what assumption is doing the work, what would count as failure, and where is the failure recorded?
 
-- **claim boundary:** Continuumness zero requires live support, an independently clear obstruction ledger, and a declared zero-cause family; a zero-cause label alone does not compute k=0.
-- **evidence ref:** appendix/OC_1_3_3_CONTINUUMNESS_FUNCTIONALS.tex
-- **proof sheet:** proofs/proof_sheets/T133-K-ZERO.md
-- **Lean ref:** formal/lean/OC133V12.lean::continuumness_zero_case_iff_declared_zero_cause_with_support
-- **evidence ceiling:** BOUNDED_SCIENTIFIC_THEOREM_WITH_LEAN_SUBSET_AND_FINITE_WITNESS
-- **scope limit:** A realization with undeclared zero-cause, missing live support, or any active obstruction may not promote k=0.
+For a theorem claim, the reviewer should choose a visible theorem identifier and follow it from the public sentence to the proof sheet and any Lean or finite witness cited by that sentence. For an empirical row, the reviewer should choose one replay lane and inspect formula, data, residual, comparator, negative control, falsifier, and replay hash. For prior art, the reviewer should choose one comparator family and ask whether the residual delta survives same-claim comparison. For a phenomenon, the reviewer should ask whether the model card has an observable and falsifier. For publication quality, the reviewer should open the rendered PDFs and public archive record rather than only the manifest.
 
-### 4. T133-BOUNDARY: Metric-threshold boundary specialization theorem
+## End-to-End Attack Drill
 
-- **claim boundary:** Metric thresholds are a specialization of typed classifier boundaries.
-- **evidence ref:** appendix/OC_1_3_3_BOUNDARY_REPRESENTATION_THEOREM.tex
-- **proof sheet:** proofs/proof_sheets/T133-BOUNDARY.md
-- **Lean ref:** formal/lean/OC133V12.lean::metric_boundary_specialization
-- **evidence ceiling:** BOUNDED_SCIENTIFIC_THEOREM_WITH_LEAN_SUBSET_AND_FINITE_WITNESS
-- **scope limit:** A social or logical boundary represented numerically without a measurement rule is blocked by G40.
+The fastest way to test the release is to run one claim through every layer. Start with a public sentence such as a K-level transition claim. The formal layer asks whether the typed source and target objects are declared, whether the transition preserves the stated invariant, and whether any demotion condition is explicitly lawful. The finite layer asks whether the witness changes because model facts change, not because a label was written in a favorable way. The empirical layer asks whether the sentence depends on any numeric row and, if so, whether that row has a replay path and a falsifier.
 
-### 5. T133-HYBRID: Typed update and chart-labelled operator semantics theorem
+The prior-art layer then asks a different question: does a comparator source already provide the same claim with the same assumptions and the same evidence discipline? If yes, the novelty wording must contract. If no, the residual delta can be stated, but only at the level carried by the evidence. The editorial layer asks whether a reader can understand that entire chain without private context. If the reader needs an internal work-order history to understand the claim, the public document has failed even when the underlying science is defensible.
 
-- **claim boundary:** OC operators are typed update semantics; chart-labelled flow-one notation is admitted only for declared chart records, while proof/rewrite and guard/reset updates remain first-class non-smooth cases. No differentiability or ODE-solution theorem is promoted in v12.
-- **evidence ref:** content/OC_1_3_3_OPERATOR_SEMANTICS.tex
-- **proof sheet:** proofs/proof_sheets/T133-HYBRID.md
-- **Lean ref:** formal/lean/OC133V12.lean::integrated_operator_semantics
-- **evidence ceiling:** BOUNDED_SCIENTIFIC_THEOREM_WITH_LEAN_SUBSET_AND_FINITE_WITNESS
-- **scope limit:** Any route treating a chart token as differentiability, manifold, vector-field, or ODE-solution evidence is outside the v12 operator theorem and remains a future lint/proof obligation.
+The drill is intentionally repetitive because release failures often hide between layers. A theorem sentence may be mathematically careful but empirically overstated. A numeric row may be reproducible but unrelated to the public claim. A prior-art paragraph may be well cited but too vague about residual delta. A rendered PDF may contain correct material while placing it in an order that defeats comprehension. The reviewer map treats these as one connected failure class: a public claim is acceptable only when the sentence, evidence, comparison, and reading path agree.
 
-### 6. T133-DIM: Historical axis and effective-rank compatibility theorem
+A repaired answer names the smallest artifact that must change. If the theorem layer fails, repair the theorem statement, proof sheet, Lean subset, or finite witness. If the empirical layer fails, repair the row or demote the claim. If the comparator layer fails, repair the source-backed comparison or reduce novelty language. If the editorial layer fails, regenerate the public text from the manuscript integration service. This is cheaper than rereading the whole release after every finding and stricter than accepting a green package merely because files exist.
 
-- **claim boundary:** Historical axis activation and effective working rank are kept as distinct owner-review formal release-consistency fields; a finite/Lean witness shows compatibility of monotone historical bookkeeping with decreasing effective rank, but v12 does not promote an independent scientific dimension theorem.
-- **evidence ref:** appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex
-- **proof sheet:** proofs/proof_sheets/T133-DIM.md
-- **Lean ref:** formal/lean/OC133V12.lean::historical_axis_survives_rank_drop
-- **evidence ceiling:** BOUNDED_SCIENTIFIC_THEOREM_WITH_LEAN_SUBSET_AND_FINITE_WITNESS
-- **scope limit:** A K-level is demotable only when the alleged new axis has no witness and no observable consequence.
+## Class-Level Repair Rule
 
-### 7. T133-CYCLE: Live-status cycle-mode requirement theorem
+When a reviewer finds a broken reference, stale identity, unsupported phrase, missing frontmatter element, malformed citation, or inconsistent entity label, the repair is not local unless the defect is demonstrably unique. The default rule is class repair: fix the generator, scan the whole public surface, regenerate only the affected artifacts, and then run the smallest gate that can prove the class is gone. This rule is why the release can become cheaper without becoming softer.
 
-- **claim boundary:** Declared eligible-live status requires an explicit cycle mode or non-vacuous maintenance predicate.
-- **evidence ref:** content/OC_1_3_3_CYCLE_TAXONOMY.tex
-- **proof sheet:** proofs/proof_sheets/T133-CYCLE.md
-- **Lean ref:** formal/lean/OC133V12.lean::eligible_live_requires_cycle_or_maintenance
-- **evidence ceiling:** BOUNDED_SCIENTIFIC_THEOREM_WITH_LEAN_SUBSET_AND_FINITE_WITNESS
-- **scope limit:** An artifact that never updates, replays, checks, or maintains itself is archive residue, not live continuum.
+Class repair also prevents editorial fatigue. A copyeditor should not have to rediscover the same defect in four PDFs, a metadata file, and a public archive description. Once the defect is recognized as a class, it becomes a known-error pattern. Future releases must fail before publication if the pattern reappears. The reviewer map therefore serves two audiences at once: it helps external critics attack the current release, and it helps Logion keep the same defect from returning.
 
-### 8. T133-ID: Identity, residue, and rebirth evidence-classification theorem
+## Claim-Family Evidence Recipes
 
-- **claim boundary:** Identity continuation requires endpoint-bound identity evidence: identity class, declared invariant preservation, no residue token, equal source/target endpoint evidence, lifecycle identity-invariant truth, and typed source/target binding. Residue and rebirth evidence classes do not become identity continuation merely by preserving some invariants. No categorical Hom/composition theorem is promoted.
-- **evidence ref:** appendix/OC_1_3_3_IDENTITY_RESIDUE_REBIRTH_CLASSIFICATION.tex
-- **proof sheet:** proofs/proof_sheets/T133-ID.md
-- **Lean ref:** formal/lean/OC133V12.lean::endpoint_bound_identity_classification
-- **evidence ceiling:** BOUNDED_SCIENTIFIC_THEOREM_WITH_LEAN_SUBSET_AND_FINITE_WITNESS
-- **scope limit:** Any public claim reading rebirth as literal same-identity survival is blocked.
+Formal theorem claims follow the proof recipe. A reviewer asks for a typed statement, an explicit assumption set, a proof sheet, a named mechanized subset where the release claims one, a finite semantic witness where the theorem is operationalized, and a counterexample boundary. The public sentence may use theorem language only at that recipe's strength. If the theorem depends on a finite witness, a label-only witness is not enough; the model facts must make the verdict change.
 
-### 9. T133-MIN: Declared semantic-verdict component independence theorem
+Lifecycle and identity claims follow the status recipe. The reviewer asks which token is live, which token is dead, which trace is residue, which candidate is rebirth, and which invariant is claimed to preserve identity. The release is strongest when it refuses to collapse those statuses into ordinary-language survival talk. A rebirth case is not identity continuation unless the declared identity evidence carries the invariant; a residue is not a new live object unless the typed relation says so.
 
-- **claim boundary:** Within the declared v12 release tuple semantics, each tuple component has a one-field semantic keep/drop witness that changes the release verdict.
-- **evidence ref:** appendix/OC_1_3_3_GLOBAL_MINIMALITY_WITNESSES.tex
-- **proof sheet:** proofs/proof_sheets/T133-MIN.md
-- **Lean ref:** formal/lean/OC133V12.lean::release_tuple_semantic_component_irredundant
-- **evidence ceiling:** BOUNDED_SCIENTIFIC_THEOREM_WITH_LEAN_SUBSET_AND_FINITE_WITNESS
-- **scope limit:** If any declared tuple component can be removed while `FM-MIN-*` still returns PASS for the declared semantic verdict suite, the minimality card fails.
+Empirical replay claims follow the replay recipe. The reviewer asks for source identity, pinned input, formula, target rule, observed value, residual or uncertainty, comparator, negative control, falsifier, and replay hash. The public sentence may say that a bounded row is replayable and audit-ready. It may not infer complete scientific coverage from that row. If the row is useful mainly as artifact-integrity evidence, the wording has to say so.
 
-### 10. T133-KLEVEL: Declared adjacent K-level atlas/evaluator consistency theorem
+Prior-art claims follow the comparator recipe. The reviewer grants overlap first, then asks whether the same claim already appears with the same assumptions and evidence standard. A residual difference can be promoted only after overlap is stated. A missing source does not prove novelty. A source-backed residual delta can support a bounded contribution sentence, but not a sweeping priority sentence.
 
-- **claim boundary:** Every declared adjacent K-level transition K0->K12 has a release-atlas row, retained-witness evaluator check, executable finite row, and inert-witness demotion control inside the v12 release classifier; independent semantic irreducibility beyond this declared classifier is a future proof obligation, not a promoted v12 theorem.
-- **evidence ref:** appendix/OC_1_3_3_K_LEVEL_IRREDUCIBILITY_ATLAS.tex
-- **proof sheet:** proofs/proof_sheets/T133-KLEVEL.md
-- **Lean ref:** formal/lean/OC133V12.lean::release_atlas_manifest_has_total_finite_case_coverage
-- **evidence ceiling:** BOUNDED_SCIENTIFIC_THEOREM_WITH_LEAN_SUBSET_AND_FINITE_WITNESS
-- **scope limit:** If any adjacent K row lacks row identity, retained-witness evaluator failure, or inert-witness demotion control, the finite negative control fails; independent semantic irreducibility remains unpromoted unless separately proven.
-
-
-## Lean Formalization Subset
-
-The Lean subset is a machine-checked subset of the OC 1.3.3 theorem surface. The release does not claim that every mathematical or empirical statement is fully formalized in Lean.
-- **certificate state:** 
-- **theorem ref total:** 10
-- **missing theorem ref total:** 
-- **Lean file:** formal/lean/OC133V12.lean
+Publication-quality claims follow the rendered-surface recipe. The reviewer opens the PDF and public archive page before trusting the package. Title page, dedication, abstract, table of contents, argument order, figure logic, references, DOI, entity roles, and asset list must agree. If the public surface looks like a machine export, the release fails editorially even when the scientific archive is internally consistent.
 
-Selected declaration excerpt:
-
-```lean
-namespace OC133V12
-
-inductive Status where
- | pass
- | fail
-deriving DecidableEq, Repr
-
-inductive CycleMode where
- | maintenance
- | renewal
- | replay
- | regulatory
- | degenerate
-deriving DecidableEq, Repr
-
-inductive MorphismClass where
- | identity
- | residue
- | rebirth
-deriving DecidableEq, Repr
-
-inductive Component where
- | carrier
- | realization
- | lawfulPossibility
- | liveness
- | residue
- | morphisms
- | boundaries
- | operators
- | cycles
- | dimension
- | kFunctional
-deriving DecidableEq, Repr
-
-inductive AdjacentK where
- | k0_k1
- | k1_k2
- | k2_k3
- | k3_k4
- | k4_k5
- | k5_k6
- | k6_k7
- | k7_k8
- | k8_k9
- | k9_k10
- | k10_k11
- | k11_k12
-deriving DecidableEq, Repr
-
-def boolStatus (b : Bool) : Status :=
- if b then Status.pass else Status.fail
-
-structure Resolution (S : Type) where
- cell : S -> Nat
-
-structure RawSeparation (S : Type) where
- separated : S -> S -> Bool
-
-def sameCell {S : Type} (rho : Resolution S) (a b : S) : Prop :=
- rho.cell a = rho.cell b
-
-def distinguished {S : Type} (rho : Resolution S) (a b : S) : Prop :=
- rho.cell a != rho.cell b
-
-theorem k0_same_cell_not_distinguished {S : Type} (rho : Resolution S) (a b : S) :
- sameCell rho a b -> distinguished rho a b = False := by
- intro h
- unfold distinguished
- rw [h]
- simp
-
-theorem k0_distinguished_requires_resolved_delta {S : Type} (rho : Resolution S) (a b : S) :
- distinguished rho a b -> sameCell rho a b -> False := by
- intro hd hs
- rw [k0_same_cell_not_distinguished rho a b hs] at hd
- exact hd
-
-theorem k0_resolution_does_not_force_raw_separation {S : Type}
- (rho : Resolution S) (raw : RawSeparation S) (a b : S) :
- sameCell rho a b -> raw.separated a b = true -> distinguished rho a b = False := by
- intro hs _
- exact k0_same_cell_not_distinguished rho a b hs
-
-inductive K0CounterPoint where
- | a
- | b
-deriving DecidableEq, Repr
-
-def k0CounterResolution : Resolution K0CounterPoint :=
- { cell := fun _ => 0 }
-
-def k0CounterRawSeparation : RawSeparation K0CounterPoint :=
- { separated := fun x y => decide (x != y) }
-
-theorem k0_countermodel_raw_separation_not_resolution_distinction :
- sameCell k0CounterResolution K0CounterPoint.a K0CounterPoint.b /\
- k0CounterRawSeparation.separated K0CounterPoint.a K0CounterPoint.b = true /\
- distinguished k0CounterResolution K0CounterPoint.a K0CounterPoint.b = False := by
- exact And.intro rfl (And.intro (by decide) (k0_same_cell_not_distinguished k0CounterResolution K0CounterPoint.a K0CounterPoint.b rfl))
-
-structure MaintenanceEvidence where
- obligationChecked : Bool
- supportAvailable : Bool
-
-def nonVacuousMaintenance (m : MaintenanceEvidence) : Prop :=
- m.obligationChecked = true /\ m.supportAvailable = true
-
-structure Realization where
- Carrier : Type
- admissible : Carrier -> Bool
- live : Carrier -> Bool
- cycle : Carrier -> Option CycleMode
- maintenance : Carrier -> Option MaintenanceEvidence
-
-def maintenanceWitnessed (R : Realization) (x : R.Carrier) : Prop :=
- exists m, R.maintenance x = some m /\ nonVacuousMaintenance m
-
-def cycleWitnessed (R : Realization) (x : R.Carrier) : Prop :=
- match R.cycle x with
- | none => False
- | some CycleMode.degenerate => maintenanceWitnessed R x
- | some _ => True
-
-def supportWitnessed (R : Realization) (x : R.Carrier) : Prop :=
- cycleWitnessed R x \/ maintenanceWitnessed R x
-
-def eligibleLive (R : Realization) (x : R.Carrier) : Prop :=
- R.admissible x = true /\ R.live x = true /\ supportWitnessed R x
-
-theorem eligible_live_requires_cycle (R : Realization) (x : R.Carrier) :
- eligibleLive R x -> supportWitnessed R x := by
- intro h
- exact h.right.right
-
-theorem eligible_live_requires_cycle_or_maintenance (R : Realization) (x : R.Carrier) :
- eligibleLive R x -> cycleWitnessed R x \/ maintenanceWitnessed R x := by
- intro h
- exact h.right.right
-
-theorem eligible_live_requires_admissible (R : Realization) (x : R.Carrier) :
- eligibleLive R x -> R.admissible x = true := by
- intro h
- exact h.left
-
-theorem cycle_mode_required_for_eligible_live (R : Realization) (x : R.Carrier) :
- eligibleLive R x -> (R.maintenance x = none) -> R.cycle x != none := by
- intro h hm
- cases h.right.right with
- | inl hc =>
- unfold cycleWitnessed at hc
- cases hcyc : R.cycle x with
- | none =>
- rw [hcyc] at hc
- cases hc
- | some c =>
- simp
- | inr hmnt =>
- rcases hmnt with ⟨m, hsome, _⟩
- rw [hm] at hsome
- cases hsome
-
-structure Lifecycle (S Residue NewLive : Type) where
- admissible : S -> Bool
- live : S -> Bool
- death : S -> Bool
- deathBlocksLive : forall x : S, death x = true -> live x = false
- residueOf : S -> Option Residue
- rebirthOf : Residue -> Option NewLive
- identityInvariant : S -> NewLive -> Bool
- sourceToken : S -> Nat
- residueToken : Residue -> Nat
- newLiveToken : NewLive -> Nat
- sourceTokenInjective : forall x y : S, sourceToken x = sourceToken y -> x = y
- residueTokenInjective : forall x y : Residue, residueToken x = residueToken y -> x = y
- newLiveTokenInjective : forall x y : NewLive, newLiveToken x = newLiveToken y -> x = y
-
-theorem declared_death_blocks_live {S Residue NewLive : Type}
- (L : Lifecycle S Residue NewLive) (x : S) :
- L.death x = true -> L.live x = false := by
- intro h
- exact L.deathBlocksLive x h
-
-theorem death_live_conflict_impossible {S Residue NewLive : Type}
- (L : Lifecycle S Residue NewLive) (x : S) :
- L.death x = true -> L.live x = true -> False := by
- intro hdeath hlive
- have hblocked : L.live x = false := L.deathBlocksLive x hdeath
- rw [hlive] at hblocked
- cases hblocked
-
-theorem residue_rebirth_are_typed_source_target_relations {S Residue NewLive : Type}
- (L : Lifecycle S Residue NewLive) (x : S) (r : Residue) (y : NewLive) :
- L.residueOf x = some r -> L.rebirthOf r = some y -> L.death x = true ->
- L.live x = false /\ L.residueOf x = some r /\ L.rebirthOf r = some y := by
- intro hres hreb hdeath
- exact And.intro (declared_death_blocks_live L x hdeath) (And.intro hres hreb)
-
-theorem lifecycle_source_tokens_bind_carrier_endpoint {S Residue NewLive : Type}
- (L : Lifecycle S Residue NewLive) (x y : S) :
- L.sourceToken x = L.sourceToken y -> x = y := by
- exact L.sourceTokenInjective x y
-
-theorem lifecycle_rebirth_tokens_bind_target_endpoint {S Residue NewLive : Type}
- (L : Lifecycle S Residue NewLive) (x y : NewLive) :
- L.newLiveToken x = L.newLiveToken y -> x = y := by
- exact L.newLiveTokenInjective x y
-
-structure MorphismEvidence where
- sourceToken : Nat
- residueToken : Option Nat
- targetToken : Nat
- mclass : MorphismClass
- invariantPreserved : Bool
-
-def isIdentityMorphism (m : MorphismEvidence) : Prop :=
- m.mclass = MorphismClass.identity /\
- m.invariantPreserved = true /\
- m.residueToken = none /\
- m.sourceToken = m.targetToken
-```
-
-
-## Executable Finite-Model Evidence
-
-The finite-model runner computes semantic verdicts from model facts and mutation controls. The public summary below omits internal publication-control rows and preserves the semantic proof evidence.
-- **verdict:** 
-- **failure total:** 0
-- **semantic evaluator:** True
-- **mutation control total:** 6
-- **K-transition negative total:** 12
-
-### FM-T133-K0-RES-POS
-
-- **case type:** theorem_case
-- **observed verdict:** ACCEPT
-- **expected verdict:** ACCEPT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-K0-RES-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-OMEGA-STATUS-POS
-
-- **case type:** theorem_case
-- **observed verdict:** ACCEPT
-- **expected verdict:** ACCEPT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-OMEGA-STATUS-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-OMEGA-IDENTITY-EQUIVOCATION-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-K-ZERO-POS
-
-- **case type:** theorem_case
-- **observed verdict:** ACCEPT
-- **expected verdict:** ACCEPT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-K-ZERO-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-K-ZERO-OBSTRUCTION-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-K-ZERO-LIVE-SUPPORT-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-BOUNDARY-POS
-
-- **case type:** theorem_case
-- **observed verdict:** ACCEPT
-- **expected verdict:** ACCEPT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-BOUNDARY-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-HYBRID-POS
-
-- **case type:** theorem_case
-- **observed verdict:** ACCEPT
-- **expected verdict:** ACCEPT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-HYBRID-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-HYBRID-NO-GUARD-STEP-POS
-
-- **case type:** theorem_case
-- **observed verdict:** ACCEPT
-- **expected verdict:** ACCEPT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-HYBRID-NO-GUARD-STEP-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-HYBRID-GUARD-MISSING-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-HYBRID-GUARD-NONBOOLEAN-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-HYBRID-GUARD-VALUE-MISMATCH-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-HYBRID-RESET-SOURCE-MODE-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-HYBRID-RESET-TARGET-MODE-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-HYBRID-SMOOTH-CHART-POS
-
-- **case type:** theorem_case
-- **observed verdict:** ACCEPT
-- **expected verdict:** ACCEPT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-HYBRID-SMOOTH-CHART-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-HYBRID-PROOF-UPDATE-POS
-
-- **case type:** theorem_case
-- **observed verdict:** ACCEPT
-- **expected verdict:** ACCEPT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-HYBRID-PROOF-UPDATE-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-HYBRID-PROOF-NO-RULE-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-DIM-POS
-
-- **case type:** theorem_case
-- **observed verdict:** ACCEPT
-- **expected verdict:** ACCEPT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-DIM-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-CYCLE-POS
-
-- **case type:** theorem_case
-- **observed verdict:** ACCEPT
-- **expected verdict:** ACCEPT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-CYCLE-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-REBIRTH-NONIDENTITY-POS
-
-- **case type:** theorem_case
-- **observed verdict:** ACCEPT
-- **expected verdict:** ACCEPT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-RESIDUE-POS
-
-- **case type:** theorem_case
-- **observed verdict:** ACCEPT
-- **expected verdict:** ACCEPT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-RESIDUE-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-IDENTITY-POS
-
-- **case type:** theorem_case
-- **observed verdict:** ACCEPT
-- **expected verdict:** ACCEPT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-MIN-POS
-
-- **case type:** theorem_case
-- **observed verdict:** ACCEPT
-- **expected verdict:** ACCEPT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-MIN-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-KLEVEL-POS
-
-- **case type:** theorem_case
-- **observed verdict:** ACCEPT
-- **expected verdict:** ACCEPT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-KLEVEL-NEG
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE
-
-- **case type:** theorem_case
-- **observed verdict:** ACCEPT
-- **expected verdict:** ACCEPT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE
-
-- **case type:** theorem_case
-- **observed verdict:** ACCEPT
-- **expected verdict:** ACCEPT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-### FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE
-
-- **case type:** theorem_case
-- **observed verdict:** REJECT
-- **expected verdict:** REJECT
-- **failure total:** 
-- **witness:** 
-
-
-## Target-Blind Numeric Evidence
-
-The empirical section reports bounded target-blind reconstruction rows over pinned official snapshots. These rows support model-core external review; they do not claim complete domain validation.
-- **lane total:** 5
-- **failure total:** 0
-- **support policy:** Rows are target-blind held-out reconstructions over pinned official snapshots. They support bounded numeric reconstruction claims only, not broad domain validation or novelty.
-- **domain validation policy:** NO_EMPIRICAL_PASS_FROM_OFFICIAL_SNAPSHOT_REPLAY_QA
-
-### Physics - OC133-TARGETBLIND-PHYSICS-001
-
-- **snapshot:** validation/_raw/physics_nist_constants.txt
-- **target-blind split:** Planck constant and speed of light rows are visible; inverse-meter joule relationship row is withheld until scoring
-- **formula:** Planck_constant * speed_of_light
-- **predicted value:** 1.9864458571489286e-25
-- **observed value:** 1.986445857e-25
-- **uncertainty:** 1e-33
-- **residual:** 1.4892870576445277e-35
-- **comparator baseline:** unit-incompatible Planck-constant-only negative control
-- **comparator residual:** 1.9864458503739297e-25
-- **negative control:** drop the speed-of-light factor and require a larger residual
-- **falsifier:** Residual exceeds display-truncation tolerance or Planck-only control is not worse
-- **snapshot hash:** 77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67
-- **replay hash:** a83ea273ef65d6136ad7c0dfe2f7d870822fe15a062a47ae906a7d46705a0cf1
-- **support scope:** target-blind reconstruction of a held-out CODATA relationship from exact defining constants; not a novel physics law
-
-### Chemistry - OC133-TARGETBLIND-CHEMISTRY-001
-
-- **snapshot:** validation/_raw/chemistry_pubchem_water.txt
-- **target-blind split:** formula field is visible; MolecularWeight target is withheld until scoring
-- **formula:** 2*atomic_weight(H)+atomic_weight(O)
-- **predicted value:** 18.01528
-- **observed value:** 18.015
-- **uncertainty:** 0.02
-- **residual:** 0.000280000000000058
-- **comparator baseline:** CO2 molecular-weight negative control against water target
-- **comparator residual:** 25.994500000000002
-- **negative control:** replace H2O by CO2 and require larger residual
-- **falsifier:** Residual exceeds declared uncertainty or CO2 control is not worse than formula reconstruction
-- **snapshot hash:** 316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f
-- **replay hash:** c115a6d84fdad856976f60ad6d2fb4c9f9c397f994c7eafb09526f944004469d
-- **support scope:** target-blind reconstruction of a held-out official snapshot field; not a novel chemistry law
-
-### Biology - OC133-TARGETBLIND-BIOLOGY-001
-
-- **snapshot:** validation/_raw/biology_ncbi_geo_platform.txt
-- **target-blind split:** NCBI ESearch retstart/idlist fields are visible; retmax pagination target is withheld until scoring
-- **formula:** retstart + len(idlist)
-- **predicted value:** 20.0
-- **observed value:** 20.0
-- **uncertainty:** 0.0
-- **residual:** 0.0
-- **comparator baseline:** use total hit count as pagination-size negative control
-- **comparator residual:** 43988.0
-- **negative control:** replace page-size reconstruction by total hit count and require a larger residual
-- **falsifier:** Retmax differs from retstart plus returned id count or total-count control is not worse
-- **snapshot hash:** f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4
-- **replay hash:** 6606a563b35116d6852bc936618757a29873c52e59541a0928546bc863cd4ecb
-- **support scope:** target-blind reconstruction of a held-out NCBI/GEO API snapshot field; not a biological mechanism law
-
-### Systems - OC133-TARGETBLIND-SYSTEMS-001
-
-- **snapshot:** validation/_raw/systems_world_bank_gdp.txt
-- **target-blind split:** 2021-2023 train rows predict withheld 2024 World Bank WDI target
-- **formula:** GDP_2023 + (GDP_2023-GDP_2021)/2
-- **predicted value:** 111042234099108.1
-- **observed value:** 110982661180013.0
-- **uncertainty:** 1109826611800.1301
-- **residual:** 59572919095.09375
-- **comparator baseline:** last-observation carry-forward GDP_2023
-- **comparator residual:** 4241013358949.0
-- **negative control:** last-observation baseline must have larger residual
-- **falsifier:** Held-out residual exceeds 1 percent of observed target or comparator is not worse
-- **snapshot hash:** 52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b
-- **replay hash:** 778ffef9592179e6062fad4b770d02612408603c70455f734c423475ff704be4
-- **support scope:** retrospective target-blind holdout over pinned WDI rows; not a prospective macroeconomic law
-
-### Mathematics - OC133-TARGETBLIND-MATHEMATICS-001
-
-- **snapshot:** proofs/FINITE_MODEL_CHECKS_1_3_3.json
-- **target-blind split:** finite theorem-case rows are visible; aggregate machine_checked_subset_total is withheld until scoring
-- **formula:** count_unique(theorem_id where case_type='theorem_case' and observed_verdict='ACCEPT' and passed=true)
-- **predicted value:** 10.0
-- **observed value:** 10.0
-- **uncertainty:** 0.0
-- **residual:** 0.0
-- **comparator baseline:** positive_case_total negative control, which counts non-theorem support rows too
-- **comparator residual:** 11.0
-- **negative control:** replace theorem-id aggregate by positive_case_total and require a larger residual
-- **falsifier:** Unique accepted theorem-case count differs from machine_checked_subset_total or broad positive-case control is not worse
-- **snapshot hash:** 46ac711a2e86375ed333ce5c8a8b1b810f1f5b052fa657fb1508dbe7831b2f49
-- **replay hash:** 050e21ffb0f2a5b73ea7faab51da781bbe66adc6bc6376941bb0a0e4eda293f2
-- **support scope:** target-blind reconstruction of a finite proof-corpus aggregate; not a full-science program truth proof or empirical law
-
-
-## Journal Owner-Review Packages
-
-Eight venue packets are included for owner review. They are not submitted by this release action. Each packet contains a package manifest, cover letter draft, checklist, reproducibility/data statement, conflict/funding statement, AI assistance disclosure, and venue-fit note.
-- **package total:** 8
-- **recommended package total:** 2
-
-### FOUNDATIONS_OF_SCIENCE
-
-- **package status:** OWNER_REVIEW_READY_FOR_OWNER_REVIEW
-- **submission allowed:** False
-- **journal submissions allowed:** False
-- **recommended:** 
-
-### SYNTHESE
-
-- **package status:** OWNER_REVIEW_READY_FOR_OWNER_REVIEW
-- **submission allowed:** False
-- **journal submissions allowed:** False
-- **recommended:** 
-
-### FOUNDATIONS_OF_PHYSICS
-
-- **package status:** OWNER_REVIEW_READY_FOR_OWNER_REVIEW
-- **submission allowed:** False
-- **journal submissions allowed:** False
-- **recommended:** 
-
-### PHYSICAL_REVIEW_RESEARCH
-
-- **package status:** OWNER_REVIEW_READY_FOR_OWNER_REVIEW
-- **submission allowed:** False
-- **journal submissions allowed:** False
-- **recommended:** 
-
-### ACS_OMEGA
-
-- **package status:** OWNER_REVIEW_READY_FOR_OWNER_REVIEW
-- **submission allowed:** False
-- **journal submissions allowed:** False
-- **recommended:** 
-
-### ACTA_BIOTHEORETICA
-
-- **package status:** OWNER_REVIEW_READY_FOR_OWNER_REVIEW
-- **submission allowed:** False
-- **journal submissions allowed:** False
-- **recommended:** 
-
-### PLOS_COMPUTATIONAL_BIOLOGY
-
-- **package status:** OWNER_REVIEW_READY_FOR_OWNER_REVIEW
-- **submission allowed:** False
-- **journal submissions allowed:** False
-- **recommended:** 
-
-### GLOBAL_JOURNAL_OF_FLEXIBLE_SYSTEMS_MANAGEMENT
-
-- **package status:** OWNER_REVIEW_READY_FOR_OWNER_REVIEW
-- **submission allowed:** False
-- **journal submissions allowed:** False
-- **recommended:**
+## Cheap Review Cascade
+
+The reviewer map also defines a cheap cascade for future repairs. Deterministic scans run first because they catch stale version strings, broken references, raw Markdown leakage, malformed citations, unsupported phrases, and entity-role errors without spending reviewer time. A sampled editorial review runs next on the rendered PDFs. Full role review runs only after deterministic scans and the sample are clean.
+
+This cascade does not lower the standard. It changes the order of work. A class defect found in a sample is repaired globally at the generator or methodology layer, then the affected artifacts are regenerated and scanned. Only after the class disappears does the expensive review resume. That is the practical meaning of quality without waste: reviewers spend attention on scientific and editorial judgment, not on rediscovering the same mechanical defect.
+
+## Editorial Sampling Protocol
+
+The minimum editorial sample is deliberately cross-layered. It includes the first public page, one table-of-contents segment, one formal theorem passage, one finite-witness passage, one empirical replay passage, one prior-art passage, one figure-reference passage, one reviewer-objection passage, and one metadata/citation passage. A sample that touches only the opening pages is not enough because the release can look polished at the front and still fail in the appendices.
+
+Each sampled passage receives four questions. Does the passage have a clear reader purpose? Does it name the evidence class without asking the reader to infer it from a filename? Does it avoid stronger wording than the support allows? Does it connect to the preceding and following argument rather than behaving like a pasted record? A negative answer creates a class repair if the pattern can occur elsewhere.
+
+The protocol is intentionally cheap. It does not require a full LLM pass across every page before obvious mechanical and structural defects are gone. It does require that any sampled defect be generalized. A broken reference in one passage triggers a reference scan. A malformed table in one PDF triggers a rendered-surface scan. A repeated closure paragraph triggers a boilerplate scan. A mismatch between figure count and rendered numbering triggers a figure-sequence audit.
+
+After class repair, the sample is rerun on fresh PDF hashes. Only then does the full editorial role set run. This ordering prevents two failures at once: it prevents the machine from wasting expensive review on defects a regular expression can catch, and it prevents cheap scans from becoming a substitute for human editorial judgment. The reviewer map records the protocol because the corrected release must be maintainable, not merely corrected once.
+
+## Worked Attack Transcript A: Theorem Surface
+
+Reviewer question: the theorem sentence sounds stronger than its assumptions. The response begins by naming the theorem family and the assumption that carries it. The reviewer then checks whether the proof sheet says the same thing as the public sentence, whether the Lean subset is cited only for the declaration it actually checks, and whether the finite witness separates the positive case from the negative control. If any one of those links is missing, the theorem sentence is narrowed before publication.
+
+The repair transcript is intentionally short. First, identify the exact sentence. Second, identify the exact theorem identifier. Third, identify the proof-sheet assumption and counterexample boundary. Fourth, identify the mechanized or finite support if the sentence invokes it. Fifth, rewrite the public sentence to match the weakest surviving link. This transcript prevents theorem theatre because a theorem label is never allowed to float without its dependency path.
+
+## Worked Attack Transcript B: Replay Surface
+
+Reviewer question: the numeric row may be a reconstruction artifact rather than empirical support for the claim. The response begins by naming the lane and the claim boundary. The reviewer then checks source identity, pinned input, formula, target policy, observed value, residual or uncertainty, comparator, negative control, falsifier, and replay hash. The row supports only the wording that survives those fields.
+
+The repair transcript is again local. If the formula is absent, the row cannot carry a numeric claim. If the comparator is absent, comparative wording is removed. If the negative control is absent, empirical promotion is blocked. If the row is target-blind but not prospective, the text says target-blind replay rather than future prediction. The archive can still be useful, but the public sentence must not pretend that the row proves more than it does.
+
+## Worked Attack Transcript C: Prior-Art Surface
+
+Reviewer question: the contribution may be a reframing of existing systems, dynamical, type-theoretic, hybrid, identity, or reproducibility traditions. The response begins by granting overlap. The reviewer chooses one comparator family and asks whether the same claim already exists under the same assumptions and evidence standard. If the comparator absorbs the residual delta, the novelty sentence contracts. If the residual survives, the sentence states the residual precisely.
+
+This transcript blocks two opposite errors. It blocks empty originality language because overlap is mandatory. It also blocks self-erasure because a real residual delta can remain after overlap is granted. The correct sentence is neither promotional nor timid: it says what the release integrates and which evidence discipline makes that integration reviewable.
+
+## Worked Attack Transcript D: Public Surface
+
+Reviewer question: the archive may be technically complete while the public reading surface is not publication-grade. The response begins outside the manifest. The reviewer opens the PDF, checks the title page, dedication, abstract, table of contents, section order, figure logic, literature synthesis, claim boundaries, and citation metadata. The public archive page must present a professional abstract and reading order rather than raw package internals.
+
+The repair transcript treats presentation as evidence hygiene. If the first visible file is metadata, the public file order is wrong. If a PDF lacks frontmatter, it is not ready. If a figure count or DOI differs across files, the release identity is unstable. If journal packages are described as submitted before a separate submission action, the public record misleads the reader. These are publication-stopping scientific defects because they change what a reader can reasonably infer.
+
+## Worked Attack Transcript E: Synthesis Surface
+
+Reviewer question: the pieces may be individually correct but not integrated. The response asks whether the monograph, article, methods companion, reviewer map, evidence package, metadata, and archive page tell the same story. A theorem claim in the monograph, a replay claim in the methods companion, and a boundary statement in the reviewer map must be mutually compatible. If one file promotes what another file demotes, the release is ambiguous.
+
+The repair transcript is to align the claim surface across artifacts. The monograph carries the long argument. The article carries the compact argument. The methods companion carries replay interpretation. The reviewer map carries adversarial logic. The evidence package carries exact machine-readable objects. Metadata makes the object citable. Once these roles are stable, a reviewer can disagree with the theory scientifically without first having to repair the release package.
+
+If all five samples survive, the release has not been proven true in every possible sense, but it has passed a meaningful adversarial screen: the public surface is inspectable, claims are typed by evidence class, and failure paths are visible. If any sample fails, the map identifies the repair owner and the kind of artifact that must change. This walk-through is deliberately included in prose so future releases cannot replace editorial judgment with a file-existence checklist.
+
+# Related Work and Comparator Boundary
+
+The reviewer map treats prior art as an attack surface: a same-claim comparator can shrink or reopen OC wording.
+The release does not claim absence of predecessors, global priority, or unrestricted comparative claim over modern science. Its defensible public contribution is narrower: it integrates typed model-core claims, proof sheets, finite semantic witnesses, bounded numeric replay QA, comparator rows, and explicit reopening conditions into one auditable scientific release surface.
+
+Required comparator family: Formal ontology / BFO and ontology engineering. Boundary: OC does not promote Logion or ESTRA as authors and does not treat ontology-engineering vocabulary as a novelty claim. The release contribution is the bounded continuum model and its evidence governance.
+
+Required comparator family: Mereology and mereotopology. Boundary: OC does not claim to invent part-whole or boundary theory. It uses typed boundaries, residue relations, and classifier rules as the release-local way to keep boundary claims falsifiable.
+
+Required comparator family: Process ontology and continuity. Boundary: OC does not settle every process-metaphysical debate. It states lifecycle, death, residue, rebirth, and identity-continuation boundaries under declared assumptions.
+
+Required comparator family: Formal logic, category theory, type theory, and proof assistants. Boundary: OC uses these traditions as comparison and implementation context; a Lean declaration or finite witness supports only the exact bounded statement it encodes.
+
+Comparator tradition: General System Theory. Source anchor: Ludwig von Bertalanffy, General System Theory. OC accepts the overlap: general systems framing and cross-domain system concepts. The bounded residual delta for this release is release-bound typed theorem register plus executable finite witnesses, numeric replay QA, falsifier registry, and authorization-bounded release-governed publication controls. The boundary is equally important: OC must not claim invention of general systems theory or organized-whole analysis.
+
+Comparator tradition: Autopoiesis. Source anchor: Maturana and Varela, Autopoiesis and Cognition. OC accepts the overlap: autopoietic organization of living systems. The bounded residual delta for this release is typed distinction between liveness, death, residue, rebirth, and identity invariants. The boundary is equally important: OC must not claim invention of autopoiesis or self-producing organization.
+
+Comparator tradition: Dynamical Systems. Source anchor: Encyclopedia of Mathematics, Dynamical system. OC accepts the overlap: mathematical dynamical-system state evolution. The bounded residual delta for this release explicitly blocks differentiating non-smooth proof/rewrite states unless smooth charts are declared. The boundary is equally important: OC must not claim invention of state spaces, flows, or attractor-style dynamics.
+
+Comparator tradition: Category and Topos Formalisms. Source anchor: nLab, topos. OC accepts the overlap: category/topos formalisms and internal logic. The bounded residual delta for this release is the use of typed morphism discipline to police public scientific claims, without claiming invention of category theory. The boundary is equally important: OC must not claim invention of typed objects, morphisms, or topoi.
+
+Comparator tradition: RAF Theory. Source anchor: Hordijk and Steel, Autocatalytic sets and boundaries. OC accepts the overlap: RAF formalization of autocatalytic sets and boundary discussion. The bounded residual delta for this release is the typed placement of RAF-like closure as one K-level route with explicit reduction and demotion checks, without replacing RAF theory. The boundary is equally important: OC must not claim invention of autocatalytic-set closure.
+
+Comparator tradition: Complexity and Information Measures. Source anchor: Stanford Encyclopedia of Philosophy, Information. OC accepts the overlap: information concepts and measures. The bounded residual delta for this release is the release-local practice that separates historical activation from effective rank in the release theorem inventory. The boundary is equally important: OC must not claim invention of information or complexity measures.
+The full comparator matrix and source snapshots remain in the evidence package. If a future systematic search shows that a comparator already carries the same claim at the same strength, the OC public wording must be demoted or rewritten rather than defended by novelty rhetoric.
+
+# Visual Route - Reviewer Route Figures
+
+The reviewer map uses rendered figures as attack surfaces: each route names where a hostile objection should land.
+
+![Conceptual diagram of typed OC continuum components](../figures/oc133_tuple_route.png)
+
+Figure 1. The typed-continuum diagram connects the basic object vocabulary to the place where a public claim must be located.
+
+![Conceptual diagram of lifecycle status and identity boundaries](../figures/oc133_lifecycle_route.png)
+
+Figure 2. The lifecycle diagram separates liveness, death, residue, rebirth, and identity preservation.
+
+![Conceptual diagram of K-level witness and demotion checks](../figures/oc133_klevel_route.png)
+
+Figure 3. The K-level diagram separates witness-bearing transitions from inert observables that must be demoted.
+
+![Conceptual diagram of boundary separation and falsifier checks](../figures/oc133_boundary_route.png)
+
+Figure 4. The boundary diagram links classifier, separation, interface, negative control, and falsifier.
+
+![Conceptual diagram linking public claims to evidence and reopening conditions](../figures/oc133_evidence_route.png)
+
+Figure 5. The evidence diagram shows how a statement becomes reviewable instead of remaining a slogan.
+
+![Conceptual diagram of bounded replay and empirical claim limits](../figures/oc133_replay_boundary.png)
+
+Figure 6. The replay-boundary diagram shows why a numeric row is a bounded claim, not a whole-domain proof.
+
+Tuple route. Carrier, realization, liveness, residue, boundary, and morphism prevent the tuple from being treated as a loose metaphor.
+
+Lifecycle route. Live state, death condition, residue evidence, rebirth candidate, and identity boundary prevent residue from being confused with identity continuation.
+
+K-level route. Lower model, added observable, retained witness, reduction test, and lawful demotion prevent hierarchy from being added without a witness.
+
+Evidence route. Claim, assumptions, proof sheet, Lean or finite witness, replay row where applicable, and reopening condition prevent claims from being promoted without support.
+
+Replay route. Source, formula, comparator, residual, negative control, and falsifier prevent numeric evidence from being over-read.
+
+**Route A: Tuple map** Carrier -> realization -> liveness -> residue -> boundary -> morphism. The tuple is read left to right before theorem obligations are inspected.
+
+Review use 1. The route points to the relevant definition, evidence artifact, and reopening condition.
+
+**Route B: Lifecycle route** Live state -> death condition -> residue evidence -> rebirth candidate -> identity boundary. A failed invariant or residue mismatch blocks identity continuation.
+
+Review use 2. The route points to the relevant definition, evidence artifact, and reopening condition.
+
+**Route C: K-level route** Lower model + added observable -> transition witness -> retained distinction test -> demotion when the observable is inert.
+
+Review use 3. The route points to the relevant definition, evidence artifact, and reopening condition.
+
+**Route D: Boundary route** Classifier boundary -> observable separation -> negative control -> falsifier. Metric thresholds are special cases, not the whole boundary theory.
+
+Review use 4. The route points to the relevant definition, evidence artifact, and reopening condition.
+
+**Route E: Evidence route** Claim -> assumptions -> proof sheet -> Lean subset or finite witness -> numeric replay row when applicable -> reviewer reopening condition.
+
+Review use 5. The route points to the relevant definition, evidence artifact, and reopening condition.
+
+**Route F: Replay boundary** Pinned source -> formula -> comparator -> residual -> negative control -> falsifier. A numeric result carries only the claim whose replay boundary is complete.
+
+Review use 6. The route points to the relevant definition, evidence artifact, and reopening condition.

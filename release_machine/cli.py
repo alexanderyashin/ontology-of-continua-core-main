@@ -89,6 +89,12 @@ def main(argv: list[str] | None = None) -> int:
     public_payload.add_argument("--github-release-url", default=None)
     public_payload.add_argument("--check", action="store_true")
 
+    editorial_cerberus = sub.add_parser("editorial-cerberus")
+    editorial_cerberus.add_argument("--release-id", default=None)
+    editorial_cerberus.add_argument("--role", action="append", default=[])
+    editorial_cerberus.add_argument("--timeout", type=int, default=900)
+    editorial_cerberus.add_argument("--check", action="store_true")
+
     monolith = sub.add_parser("science-monolith")
     monolith.add_argument("--release-id", default=None)
     monolith.add_argument("--doi", default=None)
@@ -259,6 +265,20 @@ def main(argv: list[str] | None = None) -> int:
                 )
         else:
             raise ValueError(f"public-payload is not implemented for {release_id}")
+    elif args.command == "editorial-cerberus":
+        if release_id == oc133.RELEASE_ID:
+            from tools import oc133_editorial_cerberus
+
+            if args.check:
+                payload = (
+                    json.loads(oc133_editorial_cerberus.SUMMARY.read_text(encoding="utf-8"))
+                    if oc133_editorial_cerberus.SUMMARY.exists()
+                    else {"state": "FAIL", "reason": "missing editorial Cerberus summary"}
+                )
+            else:
+                payload = oc133_editorial_cerberus.run(roles=args.role or None, timeout=args.timeout)
+        else:
+            raise ValueError(f"editorial-cerberus is not implemented for {release_id}")
     elif args.command == "science-monolith":
         if release_id == oc133.RELEASE_ID:
             if args.check:

@@ -6,13 +6,13 @@ OC Core v1.3.3 is the corrected public GitHub and Zenodo release for the Ontolog
 
 - Substantive public PDFs: master monograph, journal core, methods companion, and reviewer attack/response map.
 - Typed OC foundation, bounded theorem claims, proof sheets, Lean subset, finite-model semantics, and reproducibility evidence.
-- Target-blind numeric reconstruction evidence for physics, chemistry, biology, systems, and mathematics.
+- Bounded target-blind replay QA and artifact-integrity examples for physics, chemistry, biology, systems, and mathematics.
 - Comparator and novelty positioning register, phenomenon coverage matrix, and adversarial review closure.
 - Eight journal packets are included for owner review; journal submission is not performed by this release.
 
 ## Scope Boundary
 
-This release is a bounded scientific external-review release. It does not promote universal full-science completion or universal superiority over all modern science.
+This release is a bounded scientific external-review release. It does not promote final full-science completion or an unbounded cross-science comparison victory over contemporary science.
 
 ## Citation
 

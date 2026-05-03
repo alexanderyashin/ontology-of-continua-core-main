@@ -26,7 +26,7 @@ Coherence contradiction can make k zero without set emptiness.
 Within v12, k=0 is equivalent to nonempty support, an active declared zero-cause, and no active obstruction in the independent obstruction ledger.
 
 ## Proof
-The score is computed from the obstruction ledger, not from the zero-cause label. Lemma 1 proves zero score iff no obstruction is active. Lemma 2 proves a zero-cause with clear obstruction licenses the zero verdict, while an active obstruction rejects k=0 even if a zero-cause label exists.
+The score is computed from the obstruction ledger, not from the zero-cause label. Lemma 1 proves zero score iff no obstruction is active. Lemma 2 proves that a declared zero-cause licenses the zero verdict only when the obstruction register is clear, while an active obstruction rejects k=0 even if a zero-cause label exists.
 
 The proof is promoted only as a bounded no-send release claim with the stated assumptions. It is linked to the finite witness corpus and
 to the Lean subset named above. The Lean item checks the corresponding typed invariant, while the

@@ -3,71 +3,140 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "state": "PASS",
+  "assembly_mode": "SINGLE_INTEGRATED_TEX_BUILD",
+  "pdf_merge_used": false,
   "build_dir": "build_oc_core_1_3_3_science_monolith",
   "base_source_dir": "build_oc_core_1_3_3_science_monolith/base_source",
   "base_pdf": "build_oc_core_1_3_3_science_monolith/base_source/oc_core_1_3_master_monograph.pdf",
-  "delta_pdf": "build_oc_core_1_3_3_science_monolith/oc_core_1_3_3_science_delta_appendix.pdf",
+  "integration": {
+    "integrated_content_refs": [
+      "content/27a_oc_core_1_3_3_typed_foundation_and_claims.tex",
+      "content/27b_oc_core_1_3_3_proof_and_formalization.tex",
+      "content/27c_oc_core_1_3_3_methods_evidence_and_comparators.tex",
+      "content/27d_oc_core_1_3_3_review_boundaries_and_journal_map.tex"
+    ],
+    "integrated_appendix_ref": "appendix/T_oc_core_1_3_3_science_monolith_trace.tex",
+    "integrated_content_sha256": {
+      "content/27a_oc_core_1_3_3_typed_foundation_and_claims.tex": "c74894ab0e936101ac55e6cf3fedcc09555b7ad6b43b4bd71aaf6ef26fe4bef8",
+      "content/27b_oc_core_1_3_3_proof_and_formalization.tex": "9d93280a33afcd2c51daf4f1e4e1b9d3ce8c5ac602dd8c59a48414f83cb7ef09",
+      "content/27c_oc_core_1_3_3_methods_evidence_and_comparators.tex": "89f96cddef3136c4e79dbcff71adb3fcf6784c31c04abda6ee3ff4bb86315b1b",
+      "content/27d_oc_core_1_3_3_review_boundaries_and_journal_map.tex": "7a7a4a11b03c1d3a54093b4dba8bd1ed96204ca61c1788c5c05a1a9276a52996"
+    },
+    "integrated_appendix_sha256": "4e891ba8d8dee9a7592e5579f03aa679a62e5bdfe4161d41097aa9454acbd497",
+    "claim_rows_projected": 15,
+    "theorem_rows_projected": 10,
+    "finite_rows_projected": 146,
+    "empirical_rows_projected": 5,
+    "attack_rows_projected": 215
+  },
+  "entrypoint_rewrite": {
+    "entrypoint": "oc_core_1_3_master_monograph.tex",
+    "integrated_auto_core_ref": "content/_auto_core_inputs_1_3_3_integrated.tex",
+    "entrypoint_changed": true,
+    "structure_policy": "TOP_DOWN_FROZEN_LEVELS_APPEND_ONLY_NO_REDUCTION",
+    "top_down_structure_freeze_gate": {
+      "gate_id": "TOP_DOWN_STRUCTURE_FREEZE_GATE",
+      "policy": "TOP_DOWN_FROZEN_LEVELS_APPEND_ONLY_NO_REDUCTION",
+      "state": "PASS",
+      "failure_total": 0,
+      "failures": [],
+      "frozen_top_level_blocks": [
+        "Reader Orientation",
+        "Complete Scientific Argument",
+        "Scientific Closure and Use Boundaries",
+        "Scientific Evidence and Review Appendices"
+      ],
+      "observed_top_level_blocks": [
+        "Reader Orientation",
+        "Complete Scientific Argument",
+        "Scientific Closure and Use Boundaries",
+        "Scientific Evidence and Review Appendices"
+      ],
+      "missing_top_level_blocks": [],
+      "frozen_entrypoint_input_total": 31,
+      "missing_entrypoint_inputs": [],
+      "source_auto_core_input_total": 146,
+      "integrated_auto_core_input_total": 146,
+      "allowed_relocations": {
+        "content/07_figures.tex": "appendix/N_oc_core_1_3_figure_atlas.tex",
+        "content/axioms_full.tex": "appendix/V_oc_core_1_3_3_historical_core_12_provenance_annex.tex",
+        "content/theorems_master.tex": "appendix/V_oc_core_1_3_3_historical_core_12_provenance_annex.tex",
+        "content/toe/toe_master.tex": "content/25_oc_core_1_3_toe_synthesis.tex"
+      },
+      "removed_auto_core_inputs_without_relocation": [],
+      "relocation_missing": [],
+      "append_only_rule": "Frozen top-level structure and frozen input roles may be extended but not reduced."
+    },
+    "full_auto_core_source_ref": "content/_auto_core_inputs.tex",
+    "full_auto_core_line_total": 151,
+    "integrated_auto_core_changed": true,
+    "integrated_content_in_entrypoint": {
+      "content/27a_oc_core_1_3_3_typed_foundation_and_claims.tex": true,
+      "content/27b_oc_core_1_3_3_proof_and_formalization.tex": true,
+      "content/27c_oc_core_1_3_3_methods_evidence_and_comparators.tex": true,
+      "content/27d_oc_core_1_3_3_review_boundaries_and_journal_map.tex": true
+    },
+    "all_integrated_content_in_entrypoint": true,
+    "integrated_appendix_in_entrypoint": false,
+    "full_auto_core_in_entrypoint": true
+  },
   "output_pdf": "releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf",
   "base_commands": [
     {
       "command": "xelatex -interaction=nonstopmode -halt-on-error oc_core_1_3_master_monograph.tex",
       "returncode": 0,
-      "stdout_tail": "nment at lines 59--63\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 63--71\n[] [] [] []\n[628]\nUnderfull \\hbox (badness 10000) in alignment at lines 74--78\n[] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 78--82\n[] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 82--90\n[] [] []\nignored error: Infinite glue shrinkage found in box being split [629]\nUnderfull \\hbox (badness 10000) in alignment at lines 93--97\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 97--101\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 101--108\n[] [] [] []\nignored error: Infinite glue shrinkage found in box being split [630]\nUnderfull \\hbox (badness 10000) in alignment at lines 111--115\n[] [] [] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 115--119\n[] [] [] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 119--130\n[] [] [] [] [] []\nignored error: Infinite glue shrinkage found in box being split [631]\nignored error: Infinite glue shrinkage found in box being split [632]\nUnderfull \\hbox (badness 10000) in alignment at lines 133--137\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 137--141\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 141--152\n[] [] [] []\nignored error: Infinite glue shrinkage found in box being split [633]\nUnderfull \\hbox (badness 10000) in alignment at lines 155--159\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 159--163\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 163--175\n[] [] [] []\nignored error: Infinite glue shrinkage found in box being split [634]\nUnderfull \\hbox (badness 10000) in alignment at lines 178--182\n[] [] [] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 182--186\n[] [] [] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 186--197\n[] [] [] [] [] []\nignored error: Infinite glue shrinkage found in box being split [635]\nUnderfull \\hbox (badness 10000) in alignment at lines 200--204\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 204--208\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 208--214\n[] [] [] []\n)) [636] [637]\n\nLaTeX Warning: Empty bibliography on input line 73.\n\n(oc_core_1_3_master_monograph.aux)\n\nLaTeX Warning: There were undefined references.\n\n\nLaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.\n\n\nPackage rerunfilecheck Warning: File `oc_core_1_3_master_monograph.out' has cha\nnged.\n(rerunfilecheck)                Rerun to get outlines right\n(rerunfilecheck)                or use package `bookmark'.\n\n\nPackage biblatex Warning: Please (re)run Biber on the file:\n(biblatex)                oc_core_1_3_master_monograph\n(biblatex)                and rerun LaTeX afterwards.\n\n )\n(see the transcript file for additional information)\nOutput written on oc_core_1_3_master_monograph.pdf (638 pages).\nTranscript written on oc_core_1_3_master_monograph.log.\n",
+      "stdout_tail": "eps the full file ‘content/predictions/predictions_k3.tex‘\n[629]\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 604--605\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K4, the audit rou\nte keeps the full file ‘content/predictions/predictions_k4.tex‘\n\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 621--622\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K5, the audit rou\nte keeps the full file ‘content/predictions/predictions_k5.tex‘\n[630]\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 638--639\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K6, the audit rou\nte keeps the full file ‘content/predictions/predictions_k6.tex‘\n\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 658--659\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K7, the audit rou\nte keeps the full file ‘content/predictions/predictions_k7.tex‘\n[631]\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 675--676\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K8, the audit rou\nte keeps the full file ‘content/predictions/predictions_k8.tex‘\n\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 692--693\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K9, the audit rou\nte keeps the full file ‘content/predictions/predictions_k9.tex‘\n[632]\nOverfull \\hbox (25.76216pt too wide) in paragraph at lines 709--710\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K10, the audit ro\nute keeps the full file ‘content/predictions/predictions_k10.tex‘\n\nOverfull \\hbox (25.76216pt too wide) in paragraph at lines 726--727\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K11, the audit ro\nute keeps the full file ‘content/predictions/predictions_k11.tex‘\n\nOverfull \\hbox (25.76216pt too wide) in paragraph at lines 743--744\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K12, the audit ro\nute keeps the full file ‘content/predictions/predictions_k12.tex‘\n[633]) (appendix/Q_oc_core_1_3_toe_support_dossiers.tex [634] [635])\n(appendix/V_oc_core_1_3_3_historical_core_12_provenance_annex.tex)\n(appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas.tex [636])\n[637] [638]\n\nLaTeX Warning: Empty bibliography on input line 64.\n\n(oc_core_1_3_master_monograph.aux)\n\nLaTeX Warning: There were undefined references.\n\n\nLaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.\n\n\nPackage rerunfilecheck Warning: File `oc_core_1_3_master_monograph.out' has cha\nnged.\n(rerunfilecheck)                Rerun to get outlines right\n(rerunfilecheck)                or use package `bookmark'.\n\n\nPackage biblatex Warning: Please (re)run Biber on the file:\n(biblatex)                oc_core_1_3_master_monograph\n(biblatex)                and rerun LaTeX afterwards.\n\n )\n(see the transcript file for additional information)\nOutput written on oc_core_1_3_master_monograph.pdf (639 pages).\nTranscript written on oc_core_1_3_master_monograph.log.\n",
       "stderr_tail": "",
       "ok": true
     },
     {
       "command": "biber oc_core_1_3_master_monograph",
       "returncode": 0,
-      "stdout_tail": "INFO - This is Biber 2.21\nINFO - Logfile is 'oc_core_1_3_master_monograph.blg'\nINFO - Reading 'oc_core_1_3_master_monograph.bcf'\nINFO - Using all citekeys in bib section 0\nINFO - Processing section 0\nINFO - Looking for bibtex file 'bib/references.bib' for section 0\nINFO - LaTeX decoding ...\nINFO - Found BibTeX data source 'bib/references.bib'\nINFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'\nINFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'\nINFO - Sorting list 'nyt/global//global/global/global' of type 'entry' with template 'nyt' and locale 'en-US'\nINFO - No sort tailoring available for locale 'en-US'\nINFO - Writing 'oc_core_1_3_master_monograph.bbl' with encoding 'UTF-8'\nINFO - Output to oc_core_1_3_master_monograph.bbl\n",
+      "stdout_tail": "INFO - This is Biber 2.21\nINFO - Logfile is 'oc_core_1_3_master_monograph.blg'\nINFO - Reading 'oc_core_1_3_master_monograph.bcf'\nINFO - Using all citekeys in bib section 0\nINFO - Processing section 0\nINFO - Looking for bibtex file 'bib/references.bib' for section 0\nINFO - LaTeX decoding ...\nINFO - Found BibTeX data source 'bib/references.bib'\nINFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'\nINFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'\nINFO - Sorting list 'nyt/global//global/global/global' of type 'entry' with template 'nyt' and locale 'en-US'\nINFO - No sort tailoring available for locale 'en-US'\nINFO - Writing 'oc_core_1_3_master_monograph.bbl' with encoding 'UTF-8'\nINFO - Output to oc_core_1_3_master_monograph.bbl\n",
       "stderr_tail": "",
       "ok": true
     },
     {
       "command": "xelatex -interaction=nonstopmode -halt-on-error oc_core_1_3_master_monograph.tex",
       "returncode": 0,
-      "stdout_tail": "Underfull \\hbox (badness 10000) in alignment at lines 55--59\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 59--63\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 63--71\n[] [] [] []\n[635]\nUnderfull \\hbox (badness 10000) in alignment at lines 74--78\n[] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 78--82\n[] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 82--90\n[] [] []\nignored error: Infinite glue shrinkage found in box being split [636]\nUnderfull \\hbox (badness 10000) in alignment at lines 93--97\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 97--101\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 101--108\n[] [] [] []\nignored error: Infinite glue shrinkage found in box being split [637]\nUnderfull \\hbox (badness 10000) in alignment at lines 111--115\n[] [] [] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 115--119\n[] [] [] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 119--130\n[] [] [] [] [] []\nignored error: Infinite glue shrinkage found in box being split [638]\nignored error: Infinite glue shrinkage found in box being split [639]\nUnderfull \\hbox (badness 10000) in alignment at lines 133--137\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 137--141\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 141--152\n[] [] [] []\nignored error: Infinite glue shrinkage found in box being split [640]\nUnderfull \\hbox (badness 10000) in alignment at lines 155--159\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 159--163\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 163--175\n[] [] [] []\nignored error: Infinite glue shrinkage found in box being split [641]\nUnderfull \\hbox (badness 10000) in alignment at lines 178--182\n[] [] [] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 182--186\n[] [] [] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 186--197\n[] [] [] [] [] []\nignored error: Infinite glue shrinkage found in box being split [642]\nUnderfull \\hbox (badness 10000) in alignment at lines 200--204\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 204--208\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 208--214\n[] [] [] []\n)) [643] [644] [645] [646] (oc_core_1_3_master_monograph.aux)\n\nLaTeX Warning: There were undefined references.\n\n\nLaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.\n\n\nPackage rerunfilecheck Warning: File `oc_core_1_3_master_monograph.out' has cha\nnged.\n(rerunfilecheck)                Rerun to get outlines right\n(rerunfilecheck)                or use package `bookmark'.\n\n\nPackage biblatex Warning: Please rerun LaTeX.\n(biblatex)                Page breaks have changed.\n\n )\n(see the transcript file for additional information)\nOutput written on oc_core_1_3_master_monograph.pdf (647 pages).\nTranscript written on oc_core_1_3_master_monograph.log.\n",
+      "stdout_tail": "paragraph at lines 587--588\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K3, the audit rou\nte keeps the full file ‘content/predictions/predictions_k3.tex‘\n[638]\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 604--605\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K4, the audit rou\nte keeps the full file ‘content/predictions/predictions_k4.tex‘\n\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 621--622\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K5, the audit rou\nte keeps the full file ‘content/predictions/predictions_k5.tex‘\n[639]\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 638--639\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K6, the audit rou\nte keeps the full file ‘content/predictions/predictions_k6.tex‘\n\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 658--659\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K7, the audit rou\nte keeps the full file ‘content/predictions/predictions_k7.tex‘\n[640]\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 675--676\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K8, the audit rou\nte keeps the full file ‘content/predictions/predictions_k8.tex‘\n\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 692--693\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K9, the audit rou\nte keeps the full file ‘content/predictions/predictions_k9.tex‘\n[641]\nOverfull \\hbox (25.76216pt too wide) in paragraph at lines 709--710\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K10, the audit ro\nute keeps the full file ‘content/predictions/predictions_k10.tex‘\n\nOverfull \\hbox (25.76216pt too wide) in paragraph at lines 726--727\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K11, the audit ro\nute keeps the full file ‘content/predictions/predictions_k11.tex‘\n\nOverfull \\hbox (25.76216pt too wide) in paragraph at lines 743--744\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K12, the audit ro\nute keeps the full file ‘content/predictions/predictions_k12.tex‘\n[642]) (appendix/Q_oc_core_1_3_toe_support_dossiers.tex [643] [644])\n(appendix/V_oc_core_1_3_3_historical_core_12_provenance_annex.tex)\n(appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas.tex [645])\n[646] [647] [648] [649] (oc_core_1_3_master_monograph.aux)\n\nLaTeX Warning: There were undefined references.\n\n\nLaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.\n\n\nPackage rerunfilecheck Warning: File `oc_core_1_3_master_monograph.out' has cha\nnged.\n(rerunfilecheck)                Rerun to get outlines right\n(rerunfilecheck)                or use package `bookmark'.\n\n\nPackage biblatex Warning: Please rerun LaTeX.\n(biblatex)                Page breaks have changed.\n\n )\n(see the transcript file for additional information)\nOutput written on oc_core_1_3_master_monograph.pdf (650 pages).\nTranscript written on oc_core_1_3_master_monograph.log.\n",
       "stderr_tail": "",
       "ok": true
     },
     {
       "command": "xelatex -interaction=nonstopmode -halt-on-error oc_core_1_3_master_monograph.tex",
       "returncode": 0,
-      "stdout_tail": " [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 16--28\n[] [] [] [] [] []\nignored error: Infinite glue shrinkage found in box being split [633]\nUnderfull \\hbox (badness 10000) in alignment at lines 32--36\n[] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 36--40\n[] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 40--52\n[] [] []\nignored error: Infinite glue shrinkage found in box being split [634]\nUnderfull \\hbox (badness 10000) in alignment at lines 55--59\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 59--63\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 63--71\n[] [] [] []\n[635]\nUnderfull \\hbox (badness 10000) in alignment at lines 74--78\n[] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 78--82\n[] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 82--90\n[] [] []\nignored error: Infinite glue shrinkage found in box being split [636]\nUnderfull \\hbox (badness 10000) in alignment at lines 93--97\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 97--101\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 101--108\n[] [] [] []\nignored error: Infinite glue shrinkage found in box being split [637]\nUnderfull \\hbox (badness 10000) in alignment at lines 111--115\n[] [] [] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 115--119\n[] [] [] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 119--130\n[] [] [] [] [] []\nignored error: Infinite glue shrinkage found in box being split [638]\nignored error: Infinite glue shrinkage found in box being split [639]\nUnderfull \\hbox (badness 10000) in alignment at lines 133--137\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 137--141\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 141--152\n[] [] [] []\nignored error: Infinite glue shrinkage found in box being split [640]\nUnderfull \\hbox (badness 10000) in alignment at lines 155--159\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 159--163\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 163--175\n[] [] [] []\nignored error: Infinite glue shrinkage found in box being split [641]\nUnderfull \\hbox (badness 10000) in alignment at lines 178--182\n[] [] [] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 182--186\n[] [] [] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 186--197\n[] [] [] [] [] []\nignored error: Infinite glue shrinkage found in box being split [642]\nUnderfull \\hbox (badness 10000) in alignment at lines 200--204\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 204--208\n[] [] [] []\n\nUnderfull \\hbox (badness 10000) in alignment at lines 208--214\n[] [] [] []\n)) [643] [644] [645] [646] (oc_core_1_3_master_monograph.aux) )\n(see the transcript file for additional information)\nOutput written on oc_core_1_3_master_monograph.pdf (647 pages).\nTranscript written on oc_core_1_3_master_monograph.log.\n",
+      "stdout_tail": "ide) in paragraph at lines 553--554\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K1, the audit rou\nte keeps the full file ‘content/predictions/predictions_k1.tex‘\n[637]\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 570--571\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K2, the audit rou\nte keeps the full file ‘content/predictions/predictions_k2.tex‘\n\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 587--588\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K3, the audit rou\nte keeps the full file ‘content/predictions/predictions_k3.tex‘\n[638]\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 604--605\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K4, the audit rou\nte keeps the full file ‘content/predictions/predictions_k4.tex‘\n\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 621--622\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K5, the audit rou\nte keeps the full file ‘content/predictions/predictions_k5.tex‘\n[639]\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 638--639\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K6, the audit rou\nte keeps the full file ‘content/predictions/predictions_k6.tex‘\n\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 658--659\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K7, the audit rou\nte keeps the full file ‘content/predictions/predictions_k7.tex‘\n[640]\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 675--676\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K8, the audit rou\nte keeps the full file ‘content/predictions/predictions_k8.tex‘\n\nOverfull \\hbox (14.81216pt too wide) in paragraph at lines 692--693\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K9, the audit rou\nte keeps the full file ‘content/predictions/predictions_k9.tex‘\n[641]\nOverfull \\hbox (25.76216pt too wide) in paragraph at lines 709--710\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K10, the audit ro\nute keeps the full file ‘content/predictions/predictions_k10.tex‘\n\nOverfull \\hbox (25.76216pt too wide) in paragraph at lines 726--727\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K11, the audit ro\nute keeps the full file ‘content/predictions/predictions_k11.tex‘\n\nOverfull \\hbox (25.76216pt too wide) in paragraph at lines 743--744\n[]\\TU/TeXGyreTermes(0)/m/n/10.95 For Predictions: Predictions K12, the audit ro\nute keeps the full file ‘content/predictions/predictions_k12.tex‘\n[642]) (appendix/Q_oc_core_1_3_toe_support_dossiers.tex [643] [644])\n(appendix/V_oc_core_1_3_3_historical_core_12_provenance_annex.tex)\n(appendix/R_oc_core_1_3_practical_utility_model_comparison_atlas.tex [645])\n[646] [647] [648] [649] (oc_core_1_3_master_monograph.aux) )\n(see the transcript file for additional information)\nOutput written on oc_core_1_3_master_monograph.pdf (650 pages).\nTranscript written on oc_core_1_3_master_monograph.log.\n",
       "stderr_tail": "",
       "ok": true
     }
   ],
-  "delta_command": {
-    "command": "pandoc <REPO_ROOT>\\releases\\oc_core_1_3_3\\public_payload\\sources\\OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.md --from markdown-raw_tex --toc --number-sections --pdf-engine=xelatex --metadata title=OC Core 1.3.3 Science Delta Appendix --metadata author=Alexander Yashin --metadata geometry:margin=0.9in --metadata doi=10.5281/zenodo.19965913 --metadata zenodo-record=https://zenodo.org/records/19965913 -o <REPO_ROOT>\\build_oc_core_1_3_3_science_monolith\\oc_core_1_3_3_science_delta_appendix.pdf",
-    "returncode": 0,
-    "stdout_tail": "",
-    "stderr_tail": "[WARNING] Missing character: There is no ⟨ (U+27E8) in font [lmmono10-regular]:!\n[WARNING] Missing character: There is no ⟩ (U+27E9) in font [lmmono10-regular]:!\n",
-    "ok": true
-  },
   "build_failure_total": 0,
-  "merge": {
-    "base_pages": 647,
-    "delta_pages": 59,
-    "merged_pages": 706
-  },
   "ledger_path": "releases/oc_core_1_3_3/editorial/SCIENCE_MONOLITH_CORPUS_LEDGER_1_3_3_latest.json",
   "audit_path": "releases/oc_core_1_3_3/editorial/SCIENCE_MONOLITH_AUDIT_1_3_3_latest.json",
   "audit": {
     "schema_id": "OC133_SCIENCE_MONOLITH_AUDIT_v1",
     "release_id": "oc_core_1_3_3",
     "version": "1.3.3",
-    "generated_at": "2026-05-02T02:47:18Z",
+    "generated_at": "CONTENT_HASH_STABLE_NO_WALLCLOCK",
     "state": "PASS",
     "failure_total": 0,
     "failures": [],
     "artifact": "releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf",
-    "sha256": "0a45fc7764490a6b6c8f4ae4c1a950cb437e2215bd4b291f1054831f8dc996d6",
-    "size_bytes": 2685912,
-    "pages": 706,
-    "text_chars": 1428559,
-    "min_pages": 690,
-    "min_text_chars": 1200000,
+    "sha256": "8bf86a7c8e2fce43ee0de386bf55d44d864fd255833e21961b5257e06f57627d",
+    "size_bytes": 2041657,
+    "pages": 650,
+    "text_chars": 1386172,
+    "anti_surrogate_min_pages": 650,
+    "anti_surrogate_min_text_chars": 1200000,
+    "baseline_full_monograph_reference_pages": 650,
+    "baseline_full_monograph_reference_text_chars": 1200000,
+    "maximum_pages": null,
+    "maximum_text_chars": null,
+    "size_policy": "NO_MAXIMUM_TEXT_LIMIT_COVERAGE_FIRST",
+    "volume_policy": "FULL_CORPUS_PLUS_133_INTEGRATION_NO_TRUNCATION_NO_PADDING",
+    "structure_policy": "TOP_DOWN_FROZEN_LEVELS_APPEND_ONLY_NO_REDUCTION",
+    "raw_registers_kept_in_evidence_package": true,
     "anchor_hits": {
       "Dedicated to my dear wife Maria": true,
       "Core 1.3.3": true,
@@ -79,8 +148,77 @@
       "Lean": true,
       "finite-model": true,
       "target-blind": true,
-      "Cerberus": true,
-      "Journal": true
+      "adversarial review": true,
+      "Journal": true,
+      "publication-grade manuscript": true
+    },
+    "full_monograph_gate": {
+      "assembly_mode": "SINGLE_INTEGRATED_TEX_BUILD",
+      "pdf_merge_used": false,
+      "required_integrated_hits": {
+        "single_integrated_tex_build": true,
+        "pdf_merge_not_used": true,
+        "corpus_ledger_present": true,
+        "publication_grade_manuscript_anchor": true,
+        "no_delta_appendix_language": true,
+        "full_auto_core_in_entrypoint": true,
+        "all_integrated_content_in_auto_core": true,
+        "full_auto_core_line_total_preserved": true,
+        "top_down_structure_freeze_pass": true
+      },
+      "entrypoint_rewrite": {
+        "entrypoint": "oc_core_1_3_master_monograph.tex",
+        "integrated_auto_core_ref": "content/_auto_core_inputs_1_3_3_integrated.tex",
+        "entrypoint_changed": true,
+        "structure_policy": "TOP_DOWN_FROZEN_LEVELS_APPEND_ONLY_NO_REDUCTION",
+        "top_down_structure_freeze_gate": {
+          "gate_id": "TOP_DOWN_STRUCTURE_FREEZE_GATE",
+          "policy": "TOP_DOWN_FROZEN_LEVELS_APPEND_ONLY_NO_REDUCTION",
+          "state": "PASS",
+          "failure_total": 0,
+          "failures": [],
+          "frozen_top_level_blocks": [
+            "Reader Orientation",
+            "Complete Scientific Argument",
+            "Scientific Closure and Use Boundaries",
+            "Scientific Evidence and Review Appendices"
+          ],
+          "observed_top_level_blocks": [
+            "Reader Orientation",
+            "Complete Scientific Argument",
+            "Scientific Closure and Use Boundaries",
+            "Scientific Evidence and Review Appendices"
+          ],
+          "missing_top_level_blocks": [],
+          "frozen_entrypoint_input_total": 31,
+          "missing_entrypoint_inputs": [],
+          "source_auto_core_input_total": 146,
+          "integrated_auto_core_input_total": 146,
+          "allowed_relocations": {
+            "content/07_figures.tex": "appendix/N_oc_core_1_3_figure_atlas.tex",
+            "content/axioms_full.tex": "appendix/V_oc_core_1_3_3_historical_core_12_provenance_annex.tex",
+            "content/theorems_master.tex": "appendix/V_oc_core_1_3_3_historical_core_12_provenance_annex.tex",
+            "content/toe/toe_master.tex": "content/25_oc_core_1_3_toe_synthesis.tex"
+          },
+          "removed_auto_core_inputs_without_relocation": [],
+          "relocation_missing": [],
+          "append_only_rule": "Frozen top-level structure and frozen input roles may be extended but not reduced."
+        },
+        "full_auto_core_source_ref": "content/_auto_core_inputs.tex",
+        "full_auto_core_line_total": 151,
+        "integrated_auto_core_changed": true,
+        "integrated_content_in_entrypoint": {
+          "content/27a_oc_core_1_3_3_typed_foundation_and_claims.tex": true,
+          "content/27b_oc_core_1_3_3_proof_and_formalization.tex": true,
+          "content/27c_oc_core_1_3_3_methods_evidence_and_comparators.tex": true,
+          "content/27d_oc_core_1_3_3_review_boundaries_and_journal_map.tex": true
+        },
+        "all_integrated_content_in_entrypoint": true,
+        "integrated_appendix_in_entrypoint": false,
+        "full_auto_core_in_entrypoint": true
+      },
+      "forbidden_assembly_hit_total": 0,
+      "forbidden_assembly_hits": []
     },
     "stale_public_identity_hit_total": 0,
     "stale_public_identity_hits": [],
@@ -88,7 +226,7 @@
       "path": "releases/oc_core_1_3_3/editorial/SCIENCE_MONOLITH_CORPUS_LEDGER_1_3_3_latest.json",
       "missing_total": 0,
       "baseline_source_total": 612,
-      "mandatory_delta_total": 15,
+      "mandatory_science_source_total": 21,
       "proof_sheet_total": 10
     }
   }

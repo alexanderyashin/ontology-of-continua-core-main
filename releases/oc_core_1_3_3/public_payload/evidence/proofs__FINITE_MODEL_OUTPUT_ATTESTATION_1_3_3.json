@@ -3,8 +3,8 @@
   "release_id": "oc_core_1_3_3",
   "version": "1.3.3",
   "attestation_kind": "POST_RUN_OUTPUT_ATTESTATION_SIGNED_BY_PUBLIC_SURFACE_MANIFEST",
-  "owner_review_locked": true,
-  "publication_claim": "NONE; attests local owner-review finite/replay output bytes only",
+  "release-governed": true,
+  "publication_claim": "NONE; attests local release-governed finite/replay output bytes only",
   "cycle_policy": "Root manifest/checksums/RO-Crate sign this attestation; this attestation signs runtime finite outputs. Runtime public-surface hashes inside finite output are intentionally token/schema checked and hash-attested here to avoid recursive checksum cycles.",
   "output_total": 6,
   "missing_total": 0,
@@ -14,7 +14,7 @@
   "replay_failure_total": 0,
   "rows": [
     {
-      "path": "proofs/FINITE_MODEL_CHECKS_1_3_3.json",
+      "path": "finite-model semantic report",
       "role": "finite_model_semantic_output",
       "exists": true,
       "size_bytes": 308807,
@@ -25,11 +25,11 @@
       "source_manifest_mismatch_total": 0,
       "generated_artifact_manifest_mismatch_total": 0,
       "certificate_binding_failure_total": 0,
-      "owner_review_locked_byte_binding_failure_total": 0,
+      "release-governed_byte_binding_failure_total": 0,
       "case_total": 146
     },
     {
-      "path": "proofs/finite_model_checks/FINITE_MODEL_REPLAY_REPORT.json",
+      "path": "repository path proofs/finite_model_checks/FINITE_MODEL_REPLAY_REPORT.json",
       "role": "finite_model_replay_report",
       "exists": true,
       "size_bytes": 895,
@@ -39,7 +39,7 @@
       "semantic_failure_total": 0
     },
     {
-      "path": "proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
+      "path": "repository path proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json",
       "role": "finite_model_input_contract",
       "exists": true,
       "size_bytes": 270647,
@@ -69,5 +69,11 @@
       "sha256": "6728888fc558759e1e64c2c0ebd4d227f7362b55534201c4de7451389906492f"
     }
   ],
-  "attested_payload_sha256": "dddc991b0ff70ea5161843e2bae1b70f2160c901f580d844906f6c3aac11b884"
+  "attested_payload_sha256": "dddc991b0ff70ea5161843e2bae1b70f2160c901f580d844906f6c3aac11b884",
+  "public_release_promotion_contract": {
+    "contract_id": "OC133_PUBLIC_RELEASE_PROMOTION_CONTRACT_v1",
+    "meaning": "Public GitHub and Zenodo release may promote bounded model-core claims whose rows carry scientific_promotion_allowed=true; journal submission is not implied.",
+    "journal_submission_scope": "outside this contract",
+    "full_toe_or_superiority_scope": "background research unless separately evidenced"
+  }
 }

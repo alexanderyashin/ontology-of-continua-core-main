@@ -240,6 +240,26 @@ def build_self_repair_contract() -> dict[str, Any]:
                 ],
             },
             {
+                "repair_class_id": "SCIENTIFIC_EDITORIAL_REVIEW",
+                "detects": [
+                    "publication PDFs are not coherent scientific prose",
+                    "title page, dedication, abstract, or reader contract missing from a public PDF",
+                    "editorial LLM review has critical/high findings or parse failures",
+                ],
+                "owner_capability": "Editorial/ScientificEditorial",
+                "executor": "tools/oc133_editorial_cerberus.py",
+                "safe_commands": [
+                    "python -m release_machine editorial-cerberus --release-id oc_core_1_3_3",
+                    "python -m release_machine editorial-cerberus --release-id oc_core_1_3_3 --check",
+                ],
+                "closure_evidence": [
+                    "OC133_EDITORIAL_CERBERUS_SUMMARY.json::state=PASS",
+                    "critical_open_total=0",
+                    "high_open_total=0",
+                    "parse_failure_total=0",
+                ],
+            },
+            {
                 "repair_class_id": "RELEASE_SPACE_SEPARATION",
                 "detects": [
                     "verification control language leaks into public release artifacts",
@@ -391,6 +411,11 @@ def run_self_repair_contract() -> dict[str, Any]:
             1200,
         ),
         (
+            "SCIENTIFIC_EDITORIAL_REVIEW",
+            ["python", "-m", "release_machine", "editorial-cerberus", "--release-id", RELEASE_ID],
+            3600,
+        ),
+        (
             "PUBLIC_PAYLOAD_ROLE_SEMANTICS",
             ["python", "-m", "release_machine", "public-payload", "--release-id", RELEASE_ID, "--check"],
             600,
@@ -475,7 +500,7 @@ def build_incident_payload() -> dict[str, Any]:
     scorecard = read_json(ROOT / "releases" / RELEASE_ID / "editorial" / "OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json", {})
     summary = scorecard.get("summary", scorecard)
     current_master = pdf_stats(master)
-    bad_release_records = ["19956748", "19956854", "19957779", "19964204"]
+    bad_release_records = ["19956748", "19956854", "19957779", "19964204", "19964718", "19965913"]
     root_causes = [
         {
             "root_cause_id": "RC-001",
@@ -512,6 +537,12 @@ def build_incident_payload() -> dict[str, Any]:
             "owner_capability": "ServiceArchitecture/Router",
             "cause": "The first repair design treated incident, editorial, research, verification, release, and publication as one case pipeline instead of independent Logion services.",
             "class_fix": "LOGION_SERVICE_REGISTRY and LOGION_SERVICE_ROUTER define independent service lines and route the 1.3.3 incident as one signal across them.",
+        },
+        {
+            "root_cause_id": "RC-007",
+            "owner_capability": "Editorial/ScientificEditorial",
+            "cause": "Publication was allowed after deterministic presence checks without a mandatory full editorial Cerberus review of public PDFs as human scientific texts.",
+            "class_fix": "PUBLICATION_GRADE_TEXT_GATE plus EDITORIAL_CERBERUS_LLM_REVIEW_GATE block publication replacement until critical/high editorial findings are zero.",
         },
     ]
     work_orders = [
@@ -553,6 +584,21 @@ def build_incident_payload() -> dict[str, Any]:
         },
         {
             "work_order_id": "OC133-INC-WO-004",
+            "owner_capability": "Editorial/ScientificEditorial",
+            "title": "Run publication-grade text gate and Editorial Cerberus over every public PDF",
+            "artifacts": [
+                "reviews/oc133_llm_cerberus/editorial_release_review/OC133_EDITORIAL_CERBERUS_SUMMARY.json",
+                "releases/oc_core_1_3_3/editorial/PUBLIC_PAYLOAD_SUITABILITY_1.3.3_latest.json",
+            ],
+            "closure_predicate": "publication grade text gate PASS and Editorial Cerberus critical/high/parse = 0/0/0",
+            "verification_command": "python -m release_machine public-payload --release-id oc_core_1_3_3 --check",
+            "status": "CLOSED"
+            if public_payload.get("publication_grade_text_gate", {}).get("state") == "PASS"
+            and public_payload.get("editorial_cerberus_gate", {}).get("state") == "PASS"
+            else "OPEN",
+        },
+        {
+            "work_order_id": "OC133-INC-WO-005",
             "owner_capability": "Review/Cerberus",
             "title": "Re-run release gates after monolith integration and reopen any scientific or public-surface blockers",
             "artifacts": ["releases/oc_core_1_3_3/editorial/OC_CORE_1_3_3_RELEASE_SCORECARD_latest.json"],
@@ -561,7 +607,7 @@ def build_incident_payload() -> dict[str, Any]:
             "status": "CLOSED" if summary.get("master_verdict") == "PASS" else "OPEN",
         },
         {
-            "work_order_id": "OC133-INC-WO-005",
+            "work_order_id": "OC133-INC-WO-006",
             "owner_capability": "IT/ReleaseAutomation",
             "title": "Separate development, verification, and release spaces so public artifacts contain no verification-control vocabulary",
             "artifacts": [
@@ -576,7 +622,7 @@ def build_incident_payload() -> dict[str, Any]:
             else "OPEN",
         },
         {
-            "work_order_id": "OC133-INC-WO-006",
+            "work_order_id": "OC133-INC-WO-007",
             "owner_capability": "Publication/PublicRecords",
             "title": "Replace bad GitHub and Zenodo public records only after local incident closure",
             "artifacts": ["releases/oc_core_1_3_3/editorial/PUBLIC_RELEASE_EXECUTION_REPORT_v1.3.3.json"],

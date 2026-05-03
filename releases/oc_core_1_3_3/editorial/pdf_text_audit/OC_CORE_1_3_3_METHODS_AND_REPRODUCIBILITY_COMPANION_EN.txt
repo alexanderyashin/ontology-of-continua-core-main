@@ -1,1563 +1,867 @@
 OC Core 1.3.3 Methods and Reproducibility Companion
-Bounded external-review scientific release
 Alexander Yashin
 2026-05-01
 
 Contents
-1 Ontology of Continua Core 1.3.3
-1.1 Release Boundary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.2 Lean Formalization Subset . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3 Executable Finite-Model Evidence . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.1 FM-T133-K0-RES-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.2 FM-T133-K0-RES-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.3 FM-T133-OMEGA-STATUS-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.4 FM-T133-OMEGA-STATUS-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.5 FM-T133-OMEGA-IDENTITY-EQUIVOCATION-NEG . . . . . . . . . . . . . . . . . . .
-1.3.6 FM-T133-K-ZERO-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.7 FM-T133-K-ZERO-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.8 FM-T133-K-ZERO-OBSTRUCTION-NEG . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.9 FM-T133-K-ZERO-LIVE-SUPPORT-NEG . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.10 FM-T133-BOUNDARY-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.11 FM-T133-BOUNDARY-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.12 FM-T133-HYBRID-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.13 FM-T133-HYBRID-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.14 FM-T133-HYBRID-NO-GUARD-STEP-POS . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.15 FM-T133-HYBRID-NO-GUARD-STEP-NEG . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.16 FM-T133-HYBRID-GUARD-MISSING-NEG . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.17 FM-T133-HYBRID-GUARD-NONBOOLEAN-NEG . . . . . . . . . . . . . . . . . . . . .
-1.3.18 FM-T133-HYBRID-GUARD-VALUE-MISMATCH-NEG . . . . . . . . . . . . . . . . . .
-1.3.19 FM-T133-HYBRID-RESET-SOURCE-MODE-NEG . . . . . . . . . . . . . . . . . . . . .
-1.3.20 FM-T133-HYBRID-RESET-TARGET-MODE-NEG . . . . . . . . . . . . . . . . . . . . .
-1.3.21 FM-T133-HYBRID-SMOOTH-CHART-POS . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.22 FM-T133-HYBRID-SMOOTH-CHART-NEG . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.23 FM-T133-HYBRID-PROOF-UPDATE-POS . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.24 FM-T133-HYBRID-PROOF-UPDATE-NEG . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.25 FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG . . . . . . . . . . . . . . . . . . . . . .
-1.3.26 FM-T133-HYBRID-PROOF-NO-RULE-NEG . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.27 FM-T133-DIM-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.28 FM-T133-DIM-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.29 FM-T133-CYCLE-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.30 FM-T133-CYCLE-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.31 FM-T133-ID-REBIRTH-NONIDENTITY-POS . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.32 FM-T133-ID-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.33 FM-T133-ID-RESIDUE-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.34 FM-T133-ID-RESIDUE-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.35 FM-T133-ID-IDENTITY-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
-1
-
-4
-4
-4
-8
-8
-8
-8
-9
-9
-9
-9
-9
-9
-9
-10
-10
-10
-10
-10
-10
-10
-11
-11
-11
-11
-11
-11
-11
-12
-12
-12
-12
-12
-12
-12
-13
-13
-13
-13
-
-1.3.36 FM-T133-MIN-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.37 FM-T133-MIN-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.38 FM-T133-KLEVEL-POS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.39 FM-T133-KLEVEL-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.40 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE . .
-1.3.41 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE . . .
-1.3.42 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE . . .
-1.3.43 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE . . .
-1.3.44 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE . . .
-1.3.45 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE . . .
-1.3.46 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE . . .
-1.3.47 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE . . .
-1.3.48 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE . . .
-1.3.49 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE . . .
-1.3.50 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE . . .
-1.3.51 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE . . .
-1.3.52 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE . . .
-1.3.53 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE . . .
-1.3.54 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE . . .
-1.3.55 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE . . . .
-1.3.56 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE . . .
-1.3.57 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE . . .
-1.3.58 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE . . .
-1.3.59 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE . . . .
-1.3.60 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE . . .
-1.3.61 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE . . . .
-1.3.62 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE . . . .
-1.3.63 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE . . . .
-1.3.64 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE . . .
-1.3.65 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE . . . .
-1.3.66 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE . . . .
-1.3.67 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE . . . .
-1.3.68 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE . . . .
-1.3.69 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE . . . .
-1.3.70 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE . . . .
-1.3.71 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE . . . . .
-1.3.72 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE . . .
-1.3.73 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE . . .
-1.3.74 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE . . .
-1.3.75 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE . . . .
-1.3.76 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE . . .
-1.3.77 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE . . . .
-1.3.78 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE . . . .
-1.3.79 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE . . . .
-1.3.80 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE . . .
-1.3.81 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE . . . .
-1.3.82 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE . . . .
-1.3.83 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE . . . .
-1.3.84 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE . . . .
-1.3.85 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE . . . .
-1.3.86 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE . . . .
-1.3.87 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE . . . .
-1.3.88 FM-MIN-carrier . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.89 FM-MIN-realization . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.90 FM-MIN-lawful_possibility . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1 Abstract
 
 2
 
-13
-13
-13
-14
-14
-14
-14
-14
-14
-14
-15
-15
-15
-15
-15
-15
-15
-16
-16
-16
-16
-16
-16
-16
-17
-17
-17
-17
-17
-17
-17
-18
-18
-18
-18
-18
-18
-18
-19
-19
-19
-19
-19
-19
-19
-20
-20
-20
-20
-20
-20
-20
-21
-21
-21
-
-1.3.91 FM-MIN-liveness . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.92 FM-MIN-residue . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.93 FM-MIN-morphisms . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.94 FM-MIN-boundaries . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.95 FM-MIN-operators . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.96 FM-MIN-cycles . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.97 FM-MIN-dimension . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.98 FM-MIN-k . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.99 FM-KLEVEL-K0_to_K1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.100 FM-KLEVEL-K0_to_K1-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.101 FM-KLEVEL-K1_to_K2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.102 FM-KLEVEL-K1_to_K2-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.103 FM-KLEVEL-K2_to_K3 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.104 FM-KLEVEL-K2_to_K3-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.105 FM-KLEVEL-K3_to_K4 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.106 FM-KLEVEL-K3_to_K4-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.107 FM-KLEVEL-K4_to_K5 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.108 FM-KLEVEL-K4_to_K5-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.109 FM-KLEVEL-K5_to_K6 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.110 FM-KLEVEL-K5_to_K6-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.111 FM-KLEVEL-K6_to_K7 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.112 FM-KLEVEL-K6_to_K7-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.113 FM-KLEVEL-K7_to_K8 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.114 FM-KLEVEL-K7_to_K8-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.115 FM-KLEVEL-K8_to_K9 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.116 FM-KLEVEL-K8_to_K9-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.117 FM-KLEVEL-K9_to_K10 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.118 FM-KLEVEL-K9_to_K10-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.119 FM-KLEVEL-K10_to_K11 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.120 FM-KLEVEL-K10_to_K11-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.121 FM-KLEVEL-K11_to_K12 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.122 FM-KLEVEL-K11_to_K12-NEG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.123 MUTATION-LABEL-ONLY-MIN . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.124 MUTATION-FLAG-ORACLE-BOUNDARY . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.125 MUTATION-WRONG-WITNESS-KLEVEL . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.126 MUTATION-WRONG-KLEVEL-TEXT . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.127 MUTATION-DUPLICATED-KLEVEL . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.3.128 MUTATION-MISSING-KLEVEL-CRITERION . . . . . . . . . . . . . . . . . . . . . . . .
-1.4 Target-Blind Numeric Evidence . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.4.1 Physics - OC133-TARGETBLIND-PHYSICS-001 . . . . . . . . . . . . . . . . . . . . . . .
-1.4.2 Chemistry - OC133-TARGETBLIND-CHEMISTRY-001 . . . . . . . . . . . . . . . . . . .
-1.4.3 Biology - OC133-TARGETBLIND-BIOLOGY-001 . . . . . . . . . . . . . . . . . . . . . .
-1.4.4 Systems - OC133-TARGETBLIND-SYSTEMS-001 . . . . . . . . . . . . . . . . . . . . . .
-1.4.5 Mathematics - OC133-TARGETBLIND-MATHEMATICS-001 . . . . . . . . . . . . . . .
-1.4.6 Replay Audit - Biology . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.4.7 Replay Audit - Chemistry . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.4.8 Replay Audit - Mathematics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.4.9 Replay Audit - Physics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.4.10 Replay Audit - Systems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.5 Journal Owner-Review Packages . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.5.1 FOUNDATIONS_OF_SCIENCE . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.5.2 SYNTHESE . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.5.3 FOUNDATIONS_OF_PHYSICS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.5.4 PHYSICAL_REVIEW_RESEARCH . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.5.5 ACS_OMEGA . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2 Reader Contract
 
 3
 
-21
-21
-21
-21
-22
-22
-22
-22
-22
-22
-22
-23
-23
-23
-23
-23
-23
-23
-24
-24
-24
-24
-24
-24
-24
-25
-25
-25
-25
-25
-25
-25
-26
-26
-26
-26
-26
-26
-26
-27
-27
-27
-28
-28
-28
-28
-29
-29
-29
-30
-30
-30
-30
-30
-30
+3 Reading Map
 
-1.5.6
-1.5.7
-1.5.8
+3
 
-ACTA_BIOTHEORETICA . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
-PLOS_COMPUTATIONAL_BIOLOGY . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
-GLOBAL_JOURNAL_OF_FLEXIBLE_SYSTEMS_MANAGEMENT . . . . . . . . . . 31
+4 Reproducibility Structure and Audience
 
-1 Ontology of Continua Core 1.3.3
-Version: 1.3.3 Tag: v1.3.3 DOI: 10.5281/zenodo.19965913 Zenodo record: https://zenodo.org/records/19965913
+3
 
-1.1 Release Boundary
-OC Core 1.3.3 is a bounded external-review scientific release. It contains a typed model foundation, theorem/proof evidence, a Lean-checked subset, finite-model semantics, target-blind numeric reconstruction rows,
-comparator positioning, adversarial-review closure, and journal owner-review packets.
-The release does not claim final completion of every future scientific projection. It does not submit journal
-packages. It does not claim universal superiority over all modern science. Those broader ambitions remain in
-the background research program and require additional evidence before public promotion.
-The public GitHub and Zenodo publication is owner-approved for this release phase. Journal submissions, email
-campaigns, and Software Heritage actions require separate approval.
+5 Reproducibility Method
+5.1 Prerequisites . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.2 Environment Lock . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.3 Public Archive to Repository Mapping . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.4 Inputs . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.5 Commands . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.6 Replay Order . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.7 Expected Outputs . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.8 Failure Interpretation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.9 Artifact Map . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
-1.2 Lean Formalization Subset
-The Lean subset is a machine-checked subset of the OC 1.3.3 theorem surface. The release does not claim that
-every mathematical or empirical statement is fully formalized in Lean. - certificate state: - theorem ref
-total: 10 - missing theorem ref total: - Lean file: formal/lean/OC133V12.lean
-Selected declaration excerpt:
-namespace OC133V12
-inductive Status where
-| pass
-| fail
-deriving DecidableEq, Repr
-inductive CycleMode where
-| maintenance
-| renewal
-| replay
-| regulatory
-| degenerate
-deriving DecidableEq, Repr
-inductive MorphismClass where
-| identity
-| residue
-| rebirth
-deriving DecidableEq, Repr
-inductive Component where
-| carrier
-| realization
-| lawfulPossibility
-| liveness
-| residue
-| morphisms
+3
+3
 4
-
-| boundaries
-| operators
-| cycles
-| dimension
-| kFunctional
-deriving DecidableEq, Repr
-inductive AdjacentK where
-| k0_k1
-| k1_k2
-| k2_k3
-| k3_k4
-| k4_k5
-| k5_k6
-| k6_k7
-| k7_k8
-| k8_k9
-| k9_k10
-| k10_k11
-| k11_k12
-deriving DecidableEq, Repr
-def boolStatus (b : Bool) : Status :=
-if b then Status.pass else Status.fail
-structure Resolution (S : Type) where
-cell : S -> Nat
-structure RawSeparation (S : Type) where
-separated : S -> S -> Bool
-def sameCell {S : Type} (rho : Resolution S) (a b : S) : Prop :=
-rho.cell a = rho.cell b
-def distinguished {S : Type} (rho : Resolution S) (a b : S) : Prop :=
-rho.cell a != rho.cell b
-theorem k0_same_cell_not_distinguished {S : Type} (rho : Resolution S) (a b : S) :
-sameCell rho a b -> distinguished rho a b = False := by
-intro h
-unfold distinguished
-rw [h]
-simp
-theorem k0_distinguished_requires_resolved_delta {S : Type} (rho : Resolution S) (a b : S) :
-distinguished rho a b -> sameCell rho a b -> False := by
-intro hd hs
-rw [k0_same_cell_not_distinguished rho a b hs] at hd
-exact hd
-theorem k0_resolution_does_not_force_raw_separation {S : Type}
-(rho : Resolution S) (raw : RawSeparation S) (a b : S) :
-sameCell rho a b -> raw.separated a b = true -> distinguished rho a b = False := by
-intro hs _
-exact k0_same_cell_not_distinguished rho a b hs
-
+4
+4
+4
+4
+5
+5
 5
 
-inductive K0CounterPoint where
-| a
-| b
-deriving DecidableEq, Repr
-def k0CounterResolution : Resolution K0CounterPoint :=
-{ cell := fun _ => 0 }
-def k0CounterRawSeparation : RawSeparation K0CounterPoint :=
-{ separated := fun x y => decide (x != y) }
+6 Replay Matrix for Independent Review
+6.1 Lean formal subset . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.2 Finite semantic witnesses . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.3 Bounded target-blind replay QA . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.4 Simulation and adversarial simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.5 Counterexample search . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.6 Public payload audit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
-theorem k0_countermodel_raw_separation_not_resolution_distinction :
-sameCell k0CounterResolution K0CounterPoint.a K0CounterPoint.b /\
-k0CounterRawSeparation.separated K0CounterPoint.a K0CounterPoint.b = true /\
-distinguished k0CounterResolution K0CounterPoint.a K0CounterPoint.b = False := by
-exact And.intro rfl (And.intro (by decide) (k0_same_cell_not_distinguished k0CounterResolution K0Counter
-structure MaintenanceEvidence where
-obligationChecked : Bool
-supportAvailable : Bool
-def nonVacuousMaintenance (m : MaintenanceEvidence) : Prop :=
-m.obligationChecked = true /\ m.supportAvailable = true
-structure Realization where
-Carrier : Type
-admissible : Carrier -> Bool
-live : Carrier -> Bool
-cycle : Carrier -> Option CycleMode
-maintenance : Carrier -> Option MaintenanceEvidence
-def maintenanceWitnessed (R : Realization) (x : R.Carrier) : Prop :=
-exists m, R.maintenance x = some m /\ nonVacuousMaintenance m
-def cycleWitnessed (R : Realization) (x : R.Carrier) : Prop :=
-match R.cycle x with
-| none => False
-| some CycleMode.degenerate => maintenanceWitnessed R x
-| some _ => True
-def supportWitnessed (R : Realization) (x : R.Carrier) : Prop :=
-cycleWitnessed R x \/ maintenanceWitnessed R x
-def eligibleLive (R : Realization) (x : R.Carrier) : Prop :=
-R.admissible x = true /\ R.live x = true /\ supportWitnessed R x
-theorem eligible_live_requires_cycle (R : Realization) (x : R.Carrier) :
-eligibleLive R x -> supportWitnessed R x := by
-intro h
-exact h.right.right
-theorem eligible_live_requires_cycle_or_maintenance (R : Realization) (x : R.Carrier) :
-eligibleLive R x -> cycleWitnessed R x \/ maintenanceWitnessed R x := by
-intro h
-
+5
+5
+5
+5
+6
+6
 6
 
-exact h.right.right
-theorem eligible_live_requires_admissible (R : Realization) (x : R.Carrier) :
-eligibleLive R x -> R.admissible x = true := by
-intro h
-exact h.left
-theorem cycle_mode_required_for_eligible_live (R : Realization) (x : R.Carrier) :
-eligibleLive R x -> (R.maintenance x = none) -> R.cycle x != none := by
-intro h hm
-cases h.right.right with
-| inl hc =>
-unfold cycleWitnessed at hc
-cases hcyc : R.cycle x with
-| none =>
-rw [hcyc] at hc
-cases hc
-| some c =>
-simp
-| inr hmnt =>
-rcases hmnt with �m, hsome, _�
-rw [hm] at hsome
-cases hsome
-structure Lifecycle (S Residue NewLive : Type) where
-admissible : S -> Bool
-live : S -> Bool
-death : S -> Bool
-deathBlocksLive : forall x : S, death x = true -> live x = false
-residueOf : S -> Option Residue
-rebirthOf : Residue -> Option NewLive
-identityInvariant : S -> NewLive -> Bool
-sourceToken : S -> Nat
-residueToken : Residue -> Nat
-newLiveToken : NewLive -> Nat
-sourceTokenInjective : forall x y : S, sourceToken x = sourceToken y -> x = y
-residueTokenInjective : forall x y : Residue, residueToken x = residueToken y -> x = y
-newLiveTokenInjective : forall x y : NewLive, newLiveToken x = newLiveToken y -> x = y
-theorem declared_death_blocks_live {S Residue NewLive : Type}
-(L : Lifecycle S Residue NewLive) (x : S) :
-L.death x = true -> L.live x = false := by
-intro h
-exact L.deathBlocksLive x h
-theorem death_live_conflict_impossible {S Residue NewLive : Type}
-(L : Lifecycle S Residue NewLive) (x : S) :
-L.death x = true -> L.live x = true -> False := by
-intro hdeath hlive
-have hblocked : L.live x = false := L.deathBlocksLive x hdeath
-rw [hlive] at hblocked
-cases hblocked
-theorem residue_rebirth_are_typed_source_target_relations {S Residue NewLive : Type}
-(L : Lifecycle S Residue NewLive) (x : S) (r : Residue) (y : NewLive) :
+7 Claim-to-Command Interpretation
+7.1 Lean Build . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7.2 Finite Semantic Checks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7.3 Validation QA . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7.4 Simulation and Counterexample Search . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7.5 Public Archive Consistency Check . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+6
+6
+6
+7
+7
+7
+
+8 Evidence Inputs and Outputs
 
 7
 
-L.residueOf x = some r -> L.rebirthOf r = some y -> L.death x = true ->
-L.live x = false /\ L.residueOf x = some r /\ L.rebirthOf r = some y := by
-intro hres hreb hdeath
-exact And.intro (declared_death_blocks_live L x hdeath) (And.intro hres hreb)
-theorem lifecycle_source_tokens_bind_carrier_endpoint {S Residue NewLive : Type}
-(L : Lifecycle S Residue NewLive) (x y : S) :
-L.sourceToken x = L.sourceToken y -> x = y := by
-exact L.sourceTokenInjective x y
-theorem lifecycle_rebirth_tokens_bind_target_endpoint {S Residue NewLive : Type}
-(L : Lifecycle S Residue NewLive) (x y : NewLive) :
-L.newLiveToken x = L.newLiveToken y -> x = y := by
-exact L.newLiveTokenInjective x y
-structure MorphismEvidence where
-sourceToken : Nat
-residueToken : Option Nat
-targetToken : Nat
-mclass : MorphismClass
-invariantPreserved : Bool
-def isIdentityMorphism (m : MorphismEvidence) : Prop :=
-m.mclass = MorphismClass.identity /\
-m.invariantPreserved = true /\
-m.residueToken = none /\
-m.sourceToken = m.targetToken
+9 Delta-Stable Verification
 
-1.3 Executable Finite-Model Evidence
-The finite-model runner computes semantic verdicts from model facts and mutation controls. The public
-summary below omits internal publication-control rows and preserves the semantic proof evidence. - verdict: failure total: 0 - semantic evaluator: True - mutation control total: 6 - K-transition negative total:
-12
-1.3.1 FM-T133-K0-RES-POS
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-1.3.2 FM-T133-K0-RES-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.3 FM-T133-OMEGA-STATUS-POS
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
+7
+
+10 Reviewer Checklist
+
+7
+
+11 Replay Visual Route
 
 8
 
-• failure total:
-• witness:
-1.3.4 FM-T133-OMEGA-STATUS-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.5 FM-T133-OMEGA-IDENTITY-EQUIVOCATION-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.6 FM-T133-K-ZERO-POS
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-1.3.7 FM-T133-K-ZERO-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.8 FM-T133-K-ZERO-OBSTRUCTION-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.9 FM-T133-K-ZERO-LIVE-SUPPORT-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.10 FM-T133-BOUNDARY-POS
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
+1
+
+12 Artifact Interpretation Map
+12.1 Traceability Requirements . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12.2 Minimum Reproducibility Interpretation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12.3 What a Failed Replay Means . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+8
+8
+8
+8
+
+13 Worked Audit Walk-Through
+
 9
 
-1.3.11 FM-T133-BOUNDARY-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.12 FM-T133-HYBRID-POS
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-1.3.13 FM-T133-HYBRID-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.14 FM-T133-HYBRID-NO-GUARD-STEP-POS
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-1.3.15 FM-T133-HYBRID-NO-GUARD-STEP-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.16 FM-T133-HYBRID-GUARD-MISSING-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.17 FM-T133-HYBRID-GUARD-NONBOOLEAN-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
+14 Protocol Matrix
+
+9
+
+15 Domain-Lane Interpretation
 
 10
 
-1.3.18 FM-T133-HYBRID-GUARD-VALUE-MISMATCH-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.19 FM-T133-HYBRID-RESET-SOURCE-MODE-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.20 FM-T133-HYBRID-RESET-TARGET-MODE-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.21 FM-T133-HYBRID-SMOOTH-CHART-POS
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-1.3.22 FM-T133-HYBRID-SMOOTH-CHART-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.23 FM-T133-HYBRID-PROOF-UPDATE-POS
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-1.3.24 FM-T133-HYBRID-PROOF-UPDATE-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
+16 Independent Rebuild Expectation
+
+10
+
+17 Reviewer Burden and Author Burden
 
 11
 
-1.3.25 FM-T133-HYBRID-SMOOTH-LOCAL-LAW-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.26 FM-T133-HYBRID-PROOF-NO-RULE-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.27 FM-T133-DIM-POS
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-1.3.28 FM-T133-DIM-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.29 FM-T133-CYCLE-POS
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-1.3.30 FM-T133-CYCLE-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.31 FM-T133-ID-REBIRTH-NONIDENTITY-POS
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
+18 Audit Decision Rules
+11
+18.1 Evidence Reading Examples . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+18.2 Minimum Independent Scientific Review Packet . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+19 Visual Route - Replay Route Figures
 
 12
 
-1.3.32 FM-T133-ID-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.33 FM-T133-ID-RESIDUE-POS
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-1.3.34 FM-T133-ID-RESIDUE-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.35 FM-T133-ID-IDENTITY-POS
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-1.3.36 FM-T133-MIN-POS
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-1.3.37 FM-T133-MIN-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.38 FM-T133-KLEVEL-POS
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-
-13
-
-1.3.39 FM-T133-KLEVEL-NEG
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.40 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.41 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.42 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.43 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.44 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-1.3.45 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
+20 Related Work and Comparator Boundary
 
 14
 
-1.3.46 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.47 FM-T133-ID-TT-IDENTITY-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.48 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.49 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.50 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.51 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.52 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-
+21 Observed Reproducibility Bill of Materials
 15
-
-1.3.53 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-1.3.54 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.55 FM-T133-ID-TT-IDENTITY-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.56 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.57 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.58 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.59 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
+21.1 Public Output Paths . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+22 Claim Boundary and Research Limits
 
 16
 
-1.3.60 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.61 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.62 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-1.3.63 FM-T133-ID-TT-RESIDUE-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.64 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.65 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.66 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
+23 Data and Source Authority Notes
+
+16
+
+24 Environment Version Capture
+
+16
+
+Ontology of Continua
+Document role. Reproducibility, validation, and audit-navigation companion
+Author. Alexander Yashin, Independent Researcher, ORCID 0009-0008-6166-0914.
+Research instrument. Logion is the research-instrument and institute-automation system used to prepare,
+check, package, and audit the work; it is not an author.
+Methodological framework. ESTRA is the methodological framework used in the work; it is not an author
+or aﬀiliation.
+Version. Version 1.3.3; tag v1.3.3; release date 2026-05-01.
+DOI. 10.5281/zenodo.19965913.
+Zenodo record. https://zenodo.org/records/19965913.
+Keywords. Ontology of Continua; typed model core; formal methods; proof governance; finite semantic checks;
+target-blind replay QA; reproducible research; scientific release engineering.
+Dedication. Dedicated to my dear wife Maria, without whom this work would have been impossible.
+
+1 Abstract
+Abstract. This companion explains how formal, finite-model, simulation, target-blind replay, checksum, and
+package checks relate to scientific claims. It turns commands and evidence files into a reproducibility method
+with explicit failure interpretation.
+
+2
+
+2 Reader Contract
+Reader Orientation. This companion is the independent replay manual. It tells a reviewer which command
+checks which claim surface and how to interpret a mismatch.
+Scope. The methods text does not expand the theory; it binds commands, inputs, outputs, hashes, dependency
+expectations, and claim consequences. The release promotes evidence-bound model-core claims and excludes
+unsupported complete scientific coverage or unrestricted cross-science comparison claims.
+Reading order. Read the environment section, then the replay matrix, then the command narratives, then
+failure interpretation and checksum binding.
+Recommended reader path. Read the environment section, then the replay matrix, then the command
+narratives, then failure interpretation and checksum binding.
+
+3 Reading Map
+This reading map is document-specific. The generated PDF table of contents gives page locations; the steps
+below state what the reader should do with each section.
+1. Reproducibility method. Check the environment and dependency expectations.
+2. Environment and inputs. Map each command to inputs, outputs, hashes, and claim impact.
+3. Command replay. Run formal and finite checks before empirical replay.
+4. Expected outputs and hashes. Interpret validation and simulation outputs locally.
+5. Failure interpretation. Use failure interpretation to route defects to the right claim layer.
+6. Claim affected by each check. Confirm checksum and archive identity after replay.
+
+4 Reproducibility Structure and Audience
+Purpose and role. This document is written for reviewers who want to replay the evidence locally. It exists
+to turn the release evidence into an executable methods protocol, so the opening pages identify the intended
+reader before they introduce formal claims.
+Construction and order. The argument is organized as environment, archive layout, commands, inputs, outputs,
+expected hashes, and failure interpretation. The methods companion is procedural prose: each replay or check
+is tied to the claim class it can support or reopen.
+The teaching obligation is that a reader should be able to decide which claim is threatened by each failed command. The current research support is the bounded OC Core 1.3.3 model-core stack: typed model, theorem and
+proof route, Lean subset, finite semantic witnesses, bounded replay rows, comparator positioning, phenomenon
+coverage, negative controls, falsifiers, and adversarial review. For the methods companion, the support stack is
+translated into replay inputs, expected outputs, and failure interpretation.
+The document therefore states what the reader should learn from the evidence and where that evidence stops.
+It does not use release-readiness language as a substitute for scientific explanation, and it does not claim
+unsupported full-science completion.
+
+5 Reproducibility Method
+This companion is a methods guide, not the exhaustive finite-case register. The full machine-readable register is
+in the public evidence package; the prose here explains how a reviewer should replay the evidence and interpret
+failures.
+
+5.1 Prerequisites
+A reviewer needs two objects with different roles: the public release archive for curated evidence and citation, and
+a full repository checkout at tag v1.3.3 for executable command replay. The Zenodo public zip is intentionally
+
+3
+
+curated; it is not a complete source checkout and should not be mistaken for the runner tree. Network access is
+not required for replaying already-pinned public evidence once the repository checkout and public archive have
+been downloaded.
+Canonical source checkout route: clone the public repository, then check out the exact release tag. The
+canonical repository is https://github.com/alexanderyashin/ontology-of-continua-core-main. A reviewer may use git clone https://github.com/alexanderyashin/ontology-of-continua-core-main.git,
+cd ontology-of-continua-core-main, and git checkout v1.3.3. The public archive DOI identifies the
+citable release object; the repository tag identifies the executable replay tree. The methods audit stops if those
+two identities disagree.
+
+5.2 Environment Lock
+The replay environment is treated as an explicit artifact boundary. The public archive records the repository
+manifest, checksums, Lean source, Lean build certificate, finite-model input facts, finite-model output attestation, target-blind table, validation report, simulation reports, and public payload suitability report. A reviewer
+should compare local command outputs with those named artifacts before interpreting scientific meaning.
+The minimum local toolchain is Python 3, Pandoc with XeLaTeX for public PDF regeneration, Poppler
+pdftotext for PDF text audit, and Lean/Lake for the formal subset. Exact local package versions are not
+used as scientific evidence; they are replay conditions. If a tool version changes an output hash, the mismatch
+is a reproducibility finding until explained by a regenerated and audited artifact.
+
+5.3 Public Archive to Repository Mapping
+The public archive contains the human PDFs, curated evidence projections, metadata, checksums, and the release
+zip. The repository checkout contains executable directories such as formal/lean, proofs, validation, simulations,
+falsification, tools, and release_machine. A reviewer should use the archive to identify the published claim and
+checksum state, then use the checkout to run the commands against the same tag. If the archive and checkout
+disagree on version, DOI, manifest, or checksum, the replay stops at an archive-integrity finding before scientific
+interpretation begins.
+
+5.4 Inputs
+The replay inputs are the Lean source and certificate, theorem/proof registers, finite-model input facts, bounded
+numeric tables, validation reports, comparator registers, adversarial-review summaries, public checksums, and
+release metadata.
+
+5.5 Commands
+Run the replay from the repository root. The bounded public replay path is:
+lake build OC133V12
+python proofs/finite_model_checks/run_finite_model_checks.py
+python validation/run_all.py --qa-only
+python simulations/run_all.py --write-report
+python simulations/adversarial/run_all.py
+python falsification/counterexample_search/run_counterexample_search.py
+python tools/oc133_public_release_payload.py --check
+The expected outputs are the Lean certificate, finite-model report, replay QA report, simulation reports, adversarial simulation report, counterexample report, public payload suitability report, public zip checksum, and
+PDF text-audit files named in the manifest.
+
+5.6 Replay Order
+1. Build the Lean subset and inspect the Lean certificate.
+
+4
+
+2. Run the finite-model semantic checker and confirm that positive witnesses and negative controls separate
+as declared by the theorem boundary.
+3. Run replay QA for bounded target-blind artifact-integrity and reconstruction examples.
+4. Compare generated checksums with the public checksum manifest.
+5. Treat any mismatch, parse failure, stale hash, unsupported claim, or publication-permission mismatch as
+a localized scientific or archive-integrity defect.
+
+5.7 Expected Outputs
+Expected outputs are a passing Lean certificate, a finite-model report with zero failures, replay QA rows with
+recorded residuals and falsifiers, simulation reports, a checksum manifest matching the archive, and no stale
+or private-path public-surface findings. If a command changes a generated artifact, the release is replayed and
+checksums are recomputed; if it changes nothing, delta-stable verification prevents downstream churn.
+
+5.8 Failure Interpretation
+A proof failure attacks a formal claim boundary. A finite-model mismatch attacks the executable semantic
+witness. A validation mismatch attacks a bounded replay row, not a unrestricted domain law. A checksum
+mismatch attacks package integrity. These failures are intentionally separated so that reviewers can identify the
+exact class of defect.
+
+5.9 Artifact Map
+Proof artifacts live under proofs/ and formal/lean/; numeric replay artifacts live under validation/
+and reports/; reviewer artifacts live under review/ and reviews/; publication artifacts live under
+releases/oc_core_1_3_3/. The public zip carries sanitized evidence projections for external replay.
+
+6 Replay Matrix for Independent Review
+This matrix is written in prose rather than raw table syntax so it remains readable in the PDF text extraction.
+Each item names the command, input files, output files, expected hash source, and claim consequence.
+
+6.1 Lean formal subset
+Command: lake build OC133V12. Inputs: formal/lean/OC133V12.lean and the Lake project files. Outputs:
+formal/lean/LEAN_BUILD_CERTIFICATE_1_3_3.json and the local Lake build result. Hash source: public
+checksum manifest and the Lean certificate hash recorded in the evidence package. Failure meaning: theorem
+claims citing the Lean subset are reopened until the declaration, proof boundary, or toolchain mismatch is
+repaired.
+
+6.2 Finite semantic witnesses
+Command: python proofs/finite_model_checks/run_finite_model_checks.py.
+Inputs: repository path
+proofs/finite_model_checks/OC133_FINITE_MODEL_INPUTS.json and related finite-model runner code.
+Outputs: finite-model semantic report and the public finite-model output attestation. Hash source: checksums.txt, manifest.json, and the public evidence-package projection. Failure meaning: the theorem or semantic
+witness family named by the failing case is reopened; the whole model is not silently promoted.
+
+6.3 Bounded target-blind replay QA
+Command: python validation/run_all.py --qa-only. Inputs:
+• repository path validation/target_blind/OC133_TARGET_BLIND_PREDICTION_TABLE.json;
+public evidence path evidence/validation__target_blind__OC133_TARGET_BLIND_PREDICTION_TABLE.json
+• repository path validation/numeric_replay_qa/OC133_NUMERIC_REPLAY_QA_TABLE.json
+
+5
+
+• public evidence projection evidence/validation__target_blind__OC133_TARGET_BLIND_PREDICTION_TABLE.json.
+Outputs:
+• repository path reports/OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json; public evidence
+path evidence/reports__OC_CORE_1_3_3_DOMAIN_VALIDATION_REPORT.json
+• the target-blind replay table
+• the numeric replay QA table. Hash source: public checksum manifest, domain evidence-boundary report
+hash, and replay-table hash. Failure meaning: the affected replay row loses promotion; comparative or
+empirical wording depending on that row must be narrowed.
+
+6.4 Simulation and adversarial simulation
+Command: python simulations/run_all.py --write-report; python simulations/adversarial/run_all.py.
+Inputs: simulations, adversarial simulation fixtures, and declared public model assumptions. Outputs: simulation reports and adversarial simulation summaries. Hash source: public package manifest and generated
+report checksums. Failure meaning: any claim that cites the affected simulation becomes provisional until the
+simulation report is repaired or the claim is demoted.
+
+6.5 Counterexample search
+Command: python falsification/counterexample_search/run_counterexample_search.py. Inputs: falsification/counterexample_search fixtures and declared theorem boundaries. Outputs: counterexample-search
+report with survivor or no-survivor status under the scoped. Hash source: public evidence package and
+checksums.txt. Failure meaning: a surviving counterexample reopens the exact claim boundary named by the
+search configuration.
+
+6.6 Public payload audit
+Command: python tools/oc133_public_release_payload.py --check. Inputs: public PDFs, public
+evidence package, metadata, checksums, DOI parameters, and known-error patterns. Outputs: PUBLIC_PAYLOAD_SUITABILITY_1.3.3_latest.json and PDF text-audit files. Hash source: public payload
+suitability report and generated archive checksum. Failure meaning: publication is stopped until the
+public-surface, archive, metadata, or claim-boundary defect is repaired.
+A reviewer should read this matrix before running the commands. It states which scientific claim layer is
+threatened by each failure, so replay results do not collapse into an undifferentiated build status.
+
+7 Claim-to-Command Interpretation
+The methods companion must do more than name commands. Each replay command has a scientific role, an
+expected artifact, and a failure interpretation. This prevents a reviewer from treating the reproducibility path
+as an opaque build script.
+
+7.1 Lean Build
+lake build OC133V12 checks the selected formal subset. A failure here does not merely indicate a tooling issue:
+it threatens every public theorem boundary that cites the Lean subset as support. The repair route is to inspect
+the Lean declaration, the theorem inventory binding, and the proof sheet assumption set before re-running the
+build.
+
+7.2 Finite Semantic Checks
+python proofs/finite_model_checks/run_finite_model_checks.py evaluates finite model facts independently from claimed verdict labels. The expected output is a report in which positive witnesses pass and mutation or tamper controls fail as designed. A mismatch threatens the semantic witness route for K0 resolution,
+lifecycle status, boundary classification, hybrid behavior, K-level transition, and minimality claims.
+6
+
+7.3 Validation QA
+python validation/run_all.py --qa-only checks target-blind and numeric replay rows. A passing result
+means the row has the required formula, snapshot reference, split, prediction, observation, uncertainty, comparator, residual, negative control, falsifier, and replay hash. It does not mean that the whole scientific domain
+has been proved; it means the bounded public replay claim is internally auditable.
+
+7.4 Simulation and Counterexample Search
+The simulation and adversarial-simulation commands check whether the computational examples behave consistently with the stated model boundaries. The counterexample search is the negative side of the same method:
+it tries to find cases that break promoted assumptions. A serious counterexample does not get hidden in prose;
+it reopens the relevant claim boundary and routes the release back to Research and Review.
+
+7.5 Public Archive Consistency Check
+python tools/oc133_public_release_payload.py --check checks public PDFs, monograph integration, positive mission fulfillment, scientific/process state, editorial adversarial review, public surface language, known
+error regression, zip contents, and destination-ready metadata. It is expected to be delta-stable when inputs
+have not changed.
+
+8 Evidence Inputs and Outputs
+Every replay input has a provenance role. Lean sources and certificates support formal claims. Proof sheets
+support theorem assumptions and counterexample boundaries. Finite-model facts support semantic witnesses.
+Target-blind tables support bounded replay QA and artifact-integrity examples. Domain evidence-boundary
+reports keep broad validation claims quarantined. Comparator registers support prior-art positioning. Reviewer
+summaries support adversarial closure. Checksums and manifests support archive integrity.
+Every replay output must be interpreted at the same level as its input. A passing formal check supports formal
+consistency under declared assumptions; it is not an empirical result. A passing target-blind row supports a
+reconstruction claim; it is not a proof of unrestricted domain coverage. A passing public payload audit supports
+release presentation and packaging; it is not a substitute for theorem or data evidence.
+
+9 Delta-Stable Verification
+Verification should not dirty the release tree when no meaningful input changed. If a command rewrites a
+tracked artifact with identical semantic content, the release process treats that as a process-quality defect. If a
+command produces a real semantic delta, downstream packaging is triggered deliberately and the new checksum
+state is recorded. This prevents the release process from fighting itself while preserving strict reproducibility.
+
+10 Reviewer Checklist
+A methods reviewer can audit the release by asking seven questions. First, does each promoted claim have a
+replay or proof route? Second, does each command produce the declared artifact? Third, are negative controls
+and falsifiers present where the claim requires them? Fourth, are broad domain claims kept out of the promoted
+surface? Fifth, do checksums bind the public archive? Sixth, does a repeated verification pass leave the tree
+unchanged when there is no semantic delta? Seventh, does any failure route to a named claim boundary rather
+than disappearing into a generic build status?
+Only if those questions are answerable from the public artifacts should the methods companion be considered
+publication-grade. That is why this PDF includes the interpretation protocol in prose rather than leaving
+readers with a list of commands and filenames.
+
+7
+
+11 Replay Visual Route
+The methods companion uses visual route panels as operational diagrams. They are not decorative figures:
+the tuple panel tells the reader what object the replay concerns, the lifecycle panel tells the reader which
+status transitions are being tested, the K-level panel explains transition witnesses, the boundary panel explains
+classifier and falsifier checks, and the evidence panel shows how a claim moves from prose to proof, finite witness,
+numeric row, and reviewer reopening condition.
+
+12 Artifact Interpretation Map
+The methods reader should treat the public archive as a layered argument. The master monograph is the longform scientific claim. The journal core is the article-length route. The methods companion is the replay route.
+The reviewer map is the adversarial route. The public zip is the evidence bundle. The manifest and checksum
+files bind the file set. A defect in one layer has a different meaning from a defect in another layer, so the review
+protocol separates them rather than collapsing everything into a single pass/fail label.
+If the master monograph fails, the scientific exposition itself is defective even if all machine files exist. If the
+journal core fails, the article-facing argument is not ready for editors even if the monograph is long. If the
+methods companion fails, the evidence is not reviewable even if the claims are plausible. If the reviewer map
+fails, hostile objections are not answered in public-facing form. If the public zip fails, the archive cannot be
+trusted as a reproducibility object. The release is acceptable only when all layers agree.
+
+12.1 Traceability Requirements
+Traceability is bidirectional. A claim in prose must point to an evidence route, and an evidence route must
+point back to the claim it supports. A theorem identifier must be meaningful in the theorem inventory, proof
+sheet, Lean subset where applicable, finite witness where applicable, and public explanation. A numeric row
+must be meaningful in the target-blind table, validation report, methods narrative, and claim boundary. A
+reviewer objection must name the claim under attack and cite the evidence that answers it.
+The practical rule is simple: no orphan claims and no orphan evidence. An orphan claim is a public statement
+with no proof, data, simulation, comparator, or boundary. Orphan evidence is a file or row whose scientific role
+is not explained to the reader. Both are publication defects. The methods companion gives reviewers the route
+for detecting them before a public archive is updated.
+
+12.2 Minimum Reproducibility Interpretation
+Reproducibility is interpreted at four levels. Level one is file integrity: assets match checksums and the zip
+contains the expected curated files. Level two is command replay: the listed commands run and produce the
+expected reports. Level three is semantic replay: positive examples and negative controls separate according
+to the claim boundary. Level four is public interpretation: the reader can understand what the replay result
+means without reverse-engineering internal machinery.
+A release can pass level one and still fail as science if it only archives files. It can pass level two and still fail as
+argument if the text does not connect outputs to claims. It can pass level three and still fail as publication if
+the public documents are unreadable. It can pass level four only when the archive, commands, semantics, and
+prose reinforce one another. That is the standard applied to OC Core 1.3.3.
+
+12.3 What a Failed Replay Means
+A failed replay is not automatically a refutation of the whole model. It is a localized signal. The reviewer should
+first identify the artifact class, then the claim boundary, then the dependency path, then the appropriate repair
+route. A Lean failure routes to formalization and proof assumptions. A finite semantic failure routes to witness
+construction and theorem boundary. A numeric replay failure routes to data snapshot, formula, uncertainty,
+comparator, and falsifier review. A public presentation failure routes to manuscript integration, editorial review,
+metadata, or packaging.
+
+8
+
+This localization matters because it keeps the release scientifically honest. The public claim surface is strong
+only where the evidence is strong. When the evidence is bounded, the public wording is bounded. When the
+evidence fails, the claim reopens. The methods companion therefore protects ambition by making ambition
+testable rather than by weakening it into vague language.
+
+13 Worked Audit Walk-Through
+A reviewer who wants a concrete path can start with T133-K0-RES. The reviewer reads the theorem statement
+in the monograph, checks that the claim boundary is bounded, opens the proof sheet for assumptions and
+counterexample boundary, confirms that the Lean subset or finite witness reference is not empty, then runs the
+finite semantic checker. If the finite report shows that the declared witness passes and that tampered or inert
+variants fail as expected, the reviewer has a localized reason to accept the bounded K0-support claim. If any
+part of the route is missing, the claim is not publication-ready.
+The same pattern applies to a numeric row. The reviewer selects a lane, reads the formula and support
+scope, verifies that the dataset snapshot reference exists, checks the target-blind split, compares predicted value,
+observed value, uncertainty, residual, and comparator residual, then inspects the negative control and falsifier.
+The row supports only the bounded reconstruction claim named in the table. It does not become evidence for
+total domain closure unless a separate domain-validation artifact proves that stronger statement.
+For prior art, the reviewer should not ask whether OC has no predecessors. That would be a weak and
+unscientific question. The correct question is whether the release identifies the relevant predecessor families,
+states overlap honestly, names residual delta precisely, and prevents that residual delta from inflating into a
+priority or unrestricted-comparison claim. The comparator rows and novelty register are therefore read as
+boundaries on external speech as much as evidence for novelty.
+For editorial quality, the reviewer should open the PDF directly, not only the manifest. The document must
+have title page, dedication, version, DOI, abstract, reader contract, table of contents, explanatory paragraphs,
+transition language, visual anchors, literature synthesis, claim boundary, and a clear route from prose to evidence.
+If the first visible experience is metadata or if the text is a raw register dump, the methods replay can pass and
+the release can still fail as a scientific publication.
+This walk-through is intentionally repetitive at the method level because it encodes the invariant for future
+releases: select a claim, locate its evidence, replay or inspect the evidence, check the negative boundary, compare against prior art, and read the public wording against that support. The invariant applies to formal,
+computational, empirical, editorial, and release-metadata layers alike.
+
+14 Protocol Matrix
+The replay protocol is organized as a matrix rather than a linear checklist. The rows are formal proof, finite
+semantic witness, target-blind replay QA, simulation, adversarial simulation, counterexample search, publicpayload audit, and archive checksum verification. The columns are input, command, expected artifact, scientific
+interpretation, failure meaning, and repair owner. A row is reviewable only when all six columns can be read
+from the public artifacts without consulting private notes.
+
+Protocol row
+
+Input class
+
+Expected artifact
+
+Lean subset
+
+typed formal source
+
+build certificate
+
+Finite semantics
+
+raw finite model
+facts
+
+output attestation
+
+9
+
+Scientific
+interpretation
+selected formal
+declarations
+type-check under
+declared
+assumptions
+witnesses and
+tamper controls
+separate
+semantically
+
+Failure route
+formalization and
+proof boundary
+
+theorem witness
+and evaluator
+repair
+
+Scientific
+interpretation
+
+Protocol row
+
+Input class
+
+Expected artifact
+
+Replay QA
+
+pinned numeric
+rows
+
+validation report
+
+bounded
+reconstruction row
+is auditable
+
+Simulation
+
+executable
+examples
+
+simulation report
+
+Counterexample
+search
+
+adversarial fixtures
+
+counterexample
+report
+
+Public payload
+
+manuscript and
+metadata sources
+
+suitability report
+
+examples remain
+within declared
+model behavior
+promoted boundary
+resists known
+search patterns
+public archive is
+readable and
+claim-bounded
+
+Failure route
+data, formula,
+uncertainty,
+comparator, or
+falsifier repair
+model assumption
+or example repair
+claim reopening or
+proof/data repair
+editorial, packaging,
+or metadata repair
+
+The matrix is deliberately conservative. It does not let a strong result in one row compensate for a missing row
+elsewhere. A theorem can be formally tidy and still need a finite witness if the public claim cites one. A numeric
+row can replay cleanly and still fail if the public prose describes it as whole-domain validation. A package can
+be checksummed and still fail if the first public reading experience is a metadata dump.
+
+15 Domain-Lane Interpretation
+The empirical lanes in this release are read as bounded domain-lane examples. Each lane has to name a source
+snapshot, reconstruction formula, prediction or reconstruction target, observed value, uncertainty or residual,
+comparator, negative control, falsifier, and replay hash. The lane supports the claim that the released artifact
+can be audited at that target boundary. It does not by itself prove that the entire domain is numerically solved.
+A physics row therefore has a different force from a chemistry row, a biology row, a systems row, or a mathematics
+row. The methods companion keeps these forces separated. Physics and chemistry rows are closer to numerical
+reconstruction examples; biological and systems rows are more exposed to modeling assumptions; mathematics
+rows are formal or finite-model anchors rather than empirical measurements. The public claim boundary must
+reflect those differences.
+The reader should also distinguish target-blind replay from prospective prediction. Target-blind replay can
+prevent a file from being a circular restatement of its target, but it is still bounded by the chosen snapshot,
+split rule, formula, and comparator. Prospective prediction would require a future target and a pre-registered
+scoring rule. The release therefore treats prospective prediction as a future research extension unless an artifact
+explicitly provides it.
+
+16 Independent Rebuild Expectation
+A serious reviewer should be able to rebuild the public evidence route independently. Independence here does
+not mean rewriting the whole theory. It means that the reviewer can take the public archive, rebuild the formal
+subset, replay the finite semantic checks, inspect numeric rows, compare checksums, and confirm that the public
+PDFs describe the same claim boundaries as the evidence files. The release fails if the reviewer has to infer
+missing links from private process memory.
+The release also fails if verification changes the object being verified without a declared semantic delta. Reproducibility is not only about re-running commands; it is also about preventing the release process from
+manufacturing new artifacts during inspection. When a real input changes, regeneration is correct. When no
+meaningful input changes, the correct result is a clean repeat check.
+
+10
+
+17 Reviewer Burden and Author Burden
+The methods standard assigns burden carefully. The reviewer is responsible for checking the declared evidence
+route and for naming the exact failure class if a replay or interpretation fails. The author is responsible for
+making that route available, readable, bounded, and independently inspectable. The reviewer should not have
+to discover whether Logion is an author, a research instrument, or a release process; the public metadata and
+front matter must make those entity roles explicit.
+The author burden is stricter for ambitious claims. A modest claim may need only a clear definition and
+a local example. A theorem claim needs assumptions, proof route, and boundary. A computational claim
+needs executable semantics and negative controls. An empirical claim needs data provenance, split, formula,
+comparator, residual, uncertainty, negative control, falsifier, and replay hash. A publication-readiness claim
+needs a human-readable manuscript set, editorial review, archive metadata, and post-release verification.
+This is why the methods companion belongs in the public release. It teaches reviewers how to interpret the
+evidence without letting the evidence become a pile of files. The method is itself part of the scientific object: it
+states what kind of support the release has, what kind of support it does not yet have, and what would have to
+happen for the claim boundary to move.
+
+18 Audit Decision Rules
+The audit decision rules are intentionally explicit because otherwise reviewers and release operators can talk
+past one another. A formal failure blocks theorem promotion. A semantic witness failure blocks the theorem
+route that cites that witness. A numeric residual outside the declared tolerance blocks the replay row, not the
+whole model, unless the promoted claim depends on that row as unrestricted evidence. An absent comparator
+blocks any comparative wording. An absent negative control blocks empirical promotion. Defective front matter
+or an unreadable first page blocks publication even when the scientific files exist.
+These rules prevent false escalation and false comfort. False escalation would treat a local replay mismatch
+as refutation of every OC claim. False comfort would treat a green checksum as proof that the manuscript is
+scientifically persuasive. The release needs neither habit. It needs exact routing: which claim is attacked, which
+evidence object is implicated, which standard is violated, and which capability must repair it.
+
+18.1 Evidence Reading Examples
+Example one is a finite semantic witness. The reader starts with the public theorem identifier, verifies that the
+proof sheet names assumptions, checks the finite-model case identifier, then confirms that the evaluator derives
+the result from raw model facts. If changing a label without changing facts changes the result, the evaluator is
+defective. If changing the required facts changes the result as expected, the witness is meaningful.
+Example two is a bounded replay row. The reader starts with the lane and target, then reads the formula,
+pinned snapshot, split, predicted value, observed value, uncertainty, comparator, residual, negative control,
+falsifier, and replay hash. The row earns only the scope written in the claim boundary. If the public text says
+more than the row supports, the text is wrong even when the row itself is technically reproducible.
+Example three is a prior-art comparison. The reader starts with a comparator family, checks the overlap
+statement, asks whether the claimed residual difference is specific, then verifies that the release does not infer
+absence, priority, or unrestricted comparative victory from a narrow source sample. The comparison is strong
+when it is exact and bounded. It is weak when it becomes a slogan.
+
+18.2 Minimum Independent Scientific Review Packet
+A reviewer who does not want to rebuild every artifact can still perform a minimum independent review.
+The minimum packet is the master monograph, journal core, methods companion, reviewer map, theorem registry, proof sheets, Lean source, finite-model input and output files, target-blind replay table, domain evidenceboundary report, comparator register, public checksum file, and Zenodo/GitHub metadata. Those objects must
+agree on version, DOI, claim boundary, author/instrument roles, and file identity.
+
+11
+
+Agreement is checked materially, not by trust. The version string must be the same. The DOI must identify
+the same record. The checksum must match the downloaded file. The claim wording must match the evidence
+class. The proof route must be named where theorem language appears. The empirical route must be named
+where replay language appears. The journal package language must not imply submission unless a separate
+submission action actually occurred.
+This minimum packet is the bridge between a full rebuild and a first editorial screen. It lets a journal editor, archive curator, or hostile reader detect the most serious release defects without pretending that a quick
+inspection is the same as full scientific acceptance.
+
+19 Visual Route - Replay Route Figures
+The methods companion uses the same routes as audit diagrams: each rendered image states what has to be
+replayed or inspected.
+
+Figure 1: Conceptual diagram of typed OC continuum components
+Figure 1. The typed-continuum diagram connects the basic object vocabulary to the place where a public claim
+must be located.
+
+Figure 2: Conceptual diagram of lifecycle status and identity boundaries
+Figure 2. The lifecycle diagram separates liveness, death, residue, rebirth, and identity preservation.
+
+Figure 3: Conceptual diagram of K-level witness and demotion checks
+12
+
+Figure 3. The K-level diagram separates witness-bearing transitions from inert observables that must be demoted.
+
+Figure 4: Conceptual diagram of boundary separation and falsifier checks
+Figure 4. The boundary diagram links classifier, separation, interface, negative control, and falsifier.
+
+Figure 5: Conceptual diagram linking public claims to evidence and reopening conditions
+Figure 5. The evidence diagram shows how a statement becomes reviewable instead of remaining a slogan.
+
+Figure 6: Conceptual diagram of bounded replay and empirical claim limits
+Figure 6. The replay-boundary diagram shows why a numeric row is a bounded claim, not a whole-domain
+proof.
+Tuple route. Carrier, realization, liveness, residue, boundary, and morphism prevent the tuple from being
+treated as a loose metaphor.
+Lifecycle route. Live state, death condition, residue evidence, rebirth candidate, and identity boundary prevent
+residue from being confused with identity continuation.
+K-level route. Lower model, added observable, retained witness, reduction test, and lawful demotion prevent
+hierarchy from being added without a witness.
+Evidence route. Claim, assumptions, proof sheet, Lean or finite witness, replay row where applicable, and
+reopening condition prevent claims from being promoted without support.
+13
+
+Replay route. Source, formula, comparator, residual, negative control, and falsifier prevent numeric evidence
+from being over-read.
+Route A: Tuple map Carrier -> realization -> liveness -> residue -> boundary -> morphism. The tuple is
+read left to right before theorem obligations are inspected.
+Review use 1. The route points to the relevant definition, evidence artifact, and reopening condition.
+Route B: Lifecycle route Live state -> death condition -> residue evidence -> rebirth candidate -> identity
+boundary. A failed invariant or residue mismatch blocks identity continuation.
+Review use 2. The route points to the relevant definition, evidence artifact, and reopening condition.
+Route C: K-level route Lower model + added observable -> transition witness -> retained distinction test
+-> demotion when the observable is inert.
+Review use 3. The route points to the relevant definition, evidence artifact, and reopening condition.
+Route D: Boundary route Classifier boundary -> observable separation -> negative control -> falsifier.
+Metric thresholds are special cases, not the whole boundary theory.
+Review use 4. The route points to the relevant definition, evidence artifact, and reopening condition.
+Route E: Evidence route Claim -> assumptions -> proof sheet -> Lean subset or finite witness -> numeric
+replay row when applicable -> reviewer reopening condition.
+Review use 5. The route points to the relevant definition, evidence artifact, and reopening condition.
+Route F: Replay boundary Pinned source -> formula -> comparator -> residual -> negative control ->
+falsifier. A numeric result carries only the claim whose replay boundary is complete.
+Review use 6. The route points to the relevant definition, evidence artifact, and reopening condition.
+
+20 Related Work and Comparator Boundary
+The methods companion treats prior art as a reproducibility boundary: comparison claims require source rows,
+not general confidence. The release does not claim absence of predecessors, global priority, or unrestricted
+comparative claim over modern science. Its defensible public contribution is narrower: it integrates typed
+model-core claims, proof sheets, finite semantic witnesses, bounded numeric replay QA, comparator rows, and
+explicit reopening conditions into one auditable scientific release surface.
+Required comparator family: Formal ontology / BFO and ontology engineering. Boundary: OC does not
+promote Logion or ESTRA as authors and does not treat ontology-engineering vocabulary as a novelty claim.
+The release contribution is the bounded continuum model and its evidence governance.
+Required comparator family: Mereology and mereotopology. Boundary: OC does not claim to invent part-whole
+or boundary theory. It uses typed boundaries, residue relations, and classifier rules as the release-local way to
+keep boundary claims falsifiable.
+Required comparator family: Process ontology and continuity. Boundary: OC does not settle every processmetaphysical debate. It states lifecycle, death, residue, rebirth, and identity-continuation boundaries under
+declared assumptions.
+Required comparator family: Formal logic, category theory, type theory, and proof assistants. Boundary: OC
+uses these traditions as comparison and implementation context; a Lean declaration or finite witness supports
+only the exact bounded statement it encodes.
+Comparator tradition: General System Theory. Source anchor: Ludwig von Bertalanffy, General System Theory.
+OC accepts the overlap: general systems framing and cross-domain system concepts. The bounded residual
+delta for this release is release-bound typed theorem register plus executable finite witnesses, numeric replay
+QA, falsifier registry, and authorization-bounded release-governed publication controls. The boundary is equally
+important: OC must not claim invention of general systems theory or organized-whole analysis.
+
+14
+
+Comparator tradition: Autopoiesis. Source anchor: Maturana and Varela, Autopoiesis and Cognition. OC
+accepts the overlap: autopoietic organization of living systems. The bounded residual delta for this release is
+typed distinction between liveness, death, residue, rebirth, and identity invariants. The boundary is equally
+important: OC must not claim invention of autopoiesis or self-producing organization.
+Comparator tradition: Dynamical Systems. Source anchor: Encyclopedia of Mathematics, Dynamical system.
+OC accepts the overlap: mathematical dynamical-system state evolution. The bounded residual delta for this
+release explicitly blocks differentiating non-smooth proof/rewrite states unless smooth charts are declared. The
+boundary is equally important: OC must not claim invention of state spaces, flows, or attractor-style dynamics.
+Comparator tradition: Category and Topos Formalisms. Source anchor: nLab, topos. OC accepts the overlap:
+category/topos formalisms and internal logic. The bounded residual delta for this release is the use of typed
+morphism discipline to police public scientific claims, without claiming invention of category theory. The
+boundary is equally important: OC must not claim invention of typed objects, morphisms, or topoi.
+Comparator tradition: RAF Theory. Source anchor: Hordijk and Steel, Autocatalytic sets and boundaries. OC
+accepts the overlap: RAF formalization of autocatalytic sets and boundary discussion. The bounded residual
+delta for this release is the typed placement of RAF-like closure as one K-level route with explicit reduction
+and demotion checks, without replacing RAF theory. The boundary is equally important: OC must not claim
+invention of autocatalytic-set closure.
+Comparator tradition: Complexity and Information Measures. Source anchor: Stanford Encyclopedia of Philosophy, Information. OC accepts the overlap: information concepts and measures. The bounded residual
+delta for this release is the release-local practice that separates historical activation from effective rank in the
+release theorem inventory. The boundary is equally important: OC must not claim invention of information or
+complexity measures. The full comparator matrix and source snapshots remain in the evidence package. If a
+future systematic search shows that a comparator already carries the same claim at the same strength, the OC
+public wording must be demoted or rewritten rather than defended by novelty rhetoric.
+
+21 Observed Reproducibility Bill of Materials
+This section records the build-host toolchain used to generate this public package. Long values are rendered as
+wrapped lines instead of table cells, because a public methods PDF must remain readable after PDF extraction.
+Python.
+Python 3.14.3
+Pandoc.
+pandoc 3.8.3
+XeLaTeX.
+MiKTeX-XeTeX 4.16 (MiKTeX 25.12)
+Poppler pdftotext.
+pdftotext version 24.04.0
+Lean/Lake.
+Lake version 5.0.0-src+7e01a1b (Lean version 4.28.0)
+Git commit.
+882a6ef
+
+21.1 Public Output Paths
+Master monograph. canonical long-form scientific text.
+releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf
+
+15
+
+Release guide. public landing and reading-order document.
+releases/oc_core_1_3_3/artifacts/00_OC_CORE_1_3_3_RELEASE_GUIDE_EN.pdf
+Journal core. compact article path.
+releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf
+Methods companion. replay and failure-interpretation protocol.
+releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf
+Reviewer map. hostile-review route.
+releases/oc_core_1_3_3/artifacts/OC_CORE_1_3_3_REVIEWER_ATTACK_AND_RESPONSE_MAP_EN.pdf
+Public zip. archive and replay package.
+releases/oc_core_1_3_3/artifacts/oc_core_1_3_3_public_release.zip
+Expected hashes are not copied by hand into this paragraph; the authoritative hash surface is checksums.txt
+and the public zip manifest generated in the same build. A reviewer should compare those hashes to downloaded
+assets before interpreting scientific results.
+
+22 Claim Boundary and Research Limits
+OC Core 1.3.3 is a bounded external-review scientific release. It contains a typed model foundation, theorem/proof evidence, a Lean-checked subset, finite-model semantics, bounded numeric replay QA rows, comparator positioning, and adversarial-review material.
+The release does not claim complete scientific coverage, unrestricted numeric closure, or unrestricted comparative
+victory over contemporary science. Those statements are outside the promoted 1.3.3 public claim surface.
+Journal owner-review packets are included as preparation material only. They help editors and reviewers see
+how a later submission could be assembled, but they are not part of the scientific proof of the model core.
+
+23 Data and Source Authority Notes
+The methods companion treats empirical authorities as replay inputs, not as ornamental bibliography. Physics
+rows refer to oﬀicial physical constants and pinned public-source snapshots. Chemistry rows refer to public
+chemistry property sources and compound/property snapshots. Biology rows refer to public biological datasets
+or expression snapshots. Systems rows refer to public indicator time series. Each row must keep source identity,
+access or snapshot date, formula, comparator, residual, negative control, falsifier, and replay hash together.
+Formal source references, data-source records, and bibliographic records are normalized in the public evidence
+package and metadata files. This PDF explains how to read them during replay.
+
+24 Environment Version Capture
+A reviewer should record local versions before interpreting a mismatch: Python runtime, Lean/Lake version,
+Pandoc version, XeLaTeX distribution, Poppler version, operating system, repository commit, public zip checksum, and DOI record. These values are not scientific conclusions, but they decide whether a difference is a
+model defect, a replay-environment defect, or an archive-integrity defect.
+Repository commit. This binds source files to public PDFs and manifests. A wrong commit means the replay
+is not testing the published object.
+Public zip checksum. This binds the downloaded archive to the DOI record. A mismatch is an archive-integrity
+problem before it is a scientific problem.
+
+16
+
+Python runtime. This executes finite-model, validation, simulation, and packaging scripts. Version-sensitive
+output must be recorded as a replay-environment finding.
+Lean/Lake. This checks the selected formal subset. A build failure reopens theorem boundaries that cite the
+formal subset.
+Pandoc, XeLaTeX, and Poppler. These rebuild and audit public PDFs. Text or page-count drift is an editorial
+and reproducibility finding.
+This version-capture rule prevents a common false inference. A local rebuild mismatch is not automatically a
+refutation of OC, but it is also not harmless. The reviewer first identifies which layer changed, then routes the
+finding to the claim, evidence, archive, or editorial surface that actually depends on that layer.
 
 17
-
-1.3.67 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.68 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.69 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.70 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-1.3.71 FM-T133-ID-TT-RESIDUE-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.72 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.73 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-FALSE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-
-18
-
-1.3.74 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-1.3.75 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-FALSE-RES-TRUE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.76 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.77 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-FALSE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.78 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.79 FM-T133-ID-TT-REBIRTH-INV-FALSE-END-TRUE-RES-TRUE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.80 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-
-19
-
-1.3.81 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-FALSE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.82 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: ACCEPT
-• expected verdict: ACCEPT
-• failure total:
-• witness:
-1.3.83 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-FALSE-RES-TRUE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.84 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.85 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-FALSE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.86 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-FALSE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.87 FM-T133-ID-TT-REBIRTH-INV-TRUE-END-TRUE-RES-TRUE-CLAIM-TRUE
-• case type: theorem_case
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-
-20
-
-1.3.88 FM-MIN-carrier
-• case type: component_keep_drop_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.89 FM-MIN-realization
-• case type: component_keep_drop_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.90 FM-MIN-lawful_possibility
-• case type: component_keep_drop_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.91 FM-MIN-liveness
-• case type: component_keep_drop_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.92 FM-MIN-residue
-• case type: component_keep_drop_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.93 FM-MIN-morphisms
-• case type: component_keep_drop_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.94 FM-MIN-boundaries
-• case type: component_keep_drop_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-
-21
-
-1.3.95 FM-MIN-operators
-• case type: component_keep_drop_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.96 FM-MIN-cycles
-• case type: component_keep_drop_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.97 FM-MIN-dimension
-• case type: component_keep_drop_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.98 FM-MIN-k
-• case type: component_keep_drop_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.99 FM-KLEVEL-K0_to_K1
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.100 FM-KLEVEL-K0_to_K1-NEG
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.101 FM-KLEVEL-K1_to_K2
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-
-22
-
-1.3.102 FM-KLEVEL-K1_to_K2-NEG
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.103 FM-KLEVEL-K2_to_K3
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.104 FM-KLEVEL-K2_to_K3-NEG
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.105 FM-KLEVEL-K3_to_K4
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.106 FM-KLEVEL-K3_to_K4-NEG
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.107 FM-KLEVEL-K4_to_K5
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.108 FM-KLEVEL-K4_to_K5-NEG
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-
-23
-
-1.3.109 FM-KLEVEL-K5_to_K6
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.110 FM-KLEVEL-K5_to_K6-NEG
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.111 FM-KLEVEL-K6_to_K7
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.112 FM-KLEVEL-K6_to_K7-NEG
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.113 FM-KLEVEL-K7_to_K8
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.114 FM-KLEVEL-K7_to_K8-NEG
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.115 FM-KLEVEL-K8_to_K9
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-
-24
-
-1.3.116 FM-KLEVEL-K8_to_K9-NEG
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.117 FM-KLEVEL-K9_to_K10
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.118 FM-KLEVEL-K9_to_K10-NEG
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.119 FM-KLEVEL-K10_to_K11
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.120 FM-KLEVEL-K10_to_K11-NEG
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.121 FM-KLEVEL-K11_to_K12
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-1.3.122 FM-KLEVEL-K11_to_K12-NEG
-• case type: adjacent_k_transition_witness
-• observed verdict:
-• expected verdict:
-• failure total:
-• witness:
-
-25
-
-1.3.123 MUTATION-LABEL-ONLY-MIN
-• case type: mutation_control
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.124 MUTATION-FLAG-ORACLE-BOUNDARY
-• case type: mutation_control
-• observed verdict: REJECT_FLAG_ORACLE_INPUT
-• expected verdict: REJECT_FLAG_ORACLE_INPUT
-• failure total:
-• witness:
-1.3.125 MUTATION-WRONG-WITNESS-KLEVEL
-• case type: mutation_control
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.126 MUTATION-WRONG-KLEVEL-TEXT
-• case type: mutation_control
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.127 MUTATION-DUPLICATED-KLEVEL
-• case type: mutation_control
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-1.3.128 MUTATION-MISSING-KLEVEL-CRITERION
-• case type: mutation_control
-• observed verdict: REJECT
-• expected verdict: REJECT
-• failure total:
-• witness:
-
-1.4 Target-Blind Numeric Evidence
-The empirical section reports bounded target-blind reconstruction rows over pinned oﬀicial snapshots. These
-rows support model-core external review; they do not claim complete domain validation. - lane total: 5
-- failure total: 0 - support policy: Rows are target-blind held-out reconstructions over pinned oﬀicial
-snapshots. They support bounded numeric reconstruction claims only, not broad domain validation or novelty.
-- domain validation policy: NO_EMPIRICAL_PASS_FROM_OFFICIAL_SNAPSHOT_REPLAY_QA
-
-26
-
-1.4.1 Physics - OC133-TARGETBLIND-PHYSICS-001
-• snapshot: validation/_raw/physics_nist_constants.txt
-• target-blind split: Planck constant and speed of light rows are visible; inverse-meter joule relationship
-row is withheld until scoring
-• formula: Planck_constant * speed_of_light
-• predicted value: 1.9864458571489286e-25
-• observed value: 1.986445857e-25
-• uncertainty: 1e-33
-• residual: 1.4892870576445277e-35
-• comparator baseline: unit-incompatible Planck-constant-only negative control
-• comparator residual: 1.9864458503739297e-25
-• negative control: drop the speed-of-light factor and require a larger residual
-• falsifier: Residual exceeds display-truncation tolerance or Planck-only control is not worse
-• snapshot hash: 77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67
-• replay hash: a83ea273ef65d6136ad7c0dfe2f7d870822fe15a062a47ae906a7d46705a0cf1
-• support scope: target-blind reconstruction of a held-out CODATA relationship from exact defining
-constants; not a novel physics law
-1.4.2 Chemistry - OC133-TARGETBLIND-CHEMISTRY-001
-• snapshot: validation/_raw/chemistry_pubchem_water.txt
-• target-blind split: formula field is visible; MolecularWeight target is withheld until scoring
-• formula: 2*atomic_weight(H)+atomic_weight(O)
-• predicted value: 18.01528
-• observed value: 18.015
-• uncertainty: 0.02
-• residual: 0.000280000000000058
-• comparator baseline: CO2 molecular-weight negative control against water target
-• comparator residual: 25.994500000000002
-• negative control: replace H2O by CO2 and require larger residual
-• falsifier: Residual exceeds declared uncertainty or CO2 control is not worse than formula reconstruction
-• snapshot hash: 316ed3babcf1b5fd6580fc2922881bf553b5971de33b72f268d943529bce293f
-• replay hash: c115a6d84fdad856976f60ad6d2fb4c9f9c397f994c7eafb09526f944004469d
-• support scope: target-blind reconstruction of a held-out oﬀicial snapshot field; not a novel chemistry
-law
-1.4.3 Biology - OC133-TARGETBLIND-BIOLOGY-001
-• snapshot: validation/_raw/biology_ncbi_geo_platform.txt
-• target-blind split: NCBI ESearch retstart/idlist fields are visible; retmax pagination target is withheld
-until scoring
-• formula: retstart + len(idlist)
-• predicted value: 20.0
-• observed value: 20.0
-• uncertainty: 0.0
-• residual: 0.0
-• comparator baseline: use total hit count as pagination-size negative control
-• comparator residual: 43988.0
-• negative control: replace page-size reconstruction by total hit count and require a larger residual
-• falsifier: Retmax differs from retstart plus returned id count or total-count control is not worse
-• snapshot hash: f205645ec097af8972f7c70f4753a5d7eb154c4283e9caa454235843974bfda4
-• replay hash: 6606a563b35116d6852bc936618757a29873c52e59541a0928546bc863cd4ecb
-• support scope: target-blind reconstruction of a held-out NCBI/GEO API snapshot field; not a biological
-mechanism law
-
-27
-
-1.4.4 Systems - OC133-TARGETBLIND-SYSTEMS-001
-• snapshot: validation/_raw/systems_world_bank_gdp.txt
-• target-blind split: 2021-2023 train rows predict withheld 2024 World Bank WDI target
-• formula: GDP_2023 + (GDP_2023-GDP_2021)/2
-• predicted value: 111042234099108.1
-• observed value: 110982661180013.0
-• uncertainty: 1109826611800.1301
-• residual: 59572919095.09375
-• comparator baseline: last-observation carry-forward GDP_2023
-• comparator residual: 4241013358949.0
-• negative control: last-observation baseline must have larger residual
-• falsifier: Held-out residual exceeds 1 percent of observed target or comparator is not worse
-• snapshot hash: 52a3dcef732b262251662f20923d00ba8d4df239cce96097abf67ee6b15ff12b
-• replay hash: 778ffef9592179e6062fad4b770d02612408603c70455f734c423475ff704be4
-• support scope: retrospective target-blind holdout over pinned WDI rows; not a prospective macroeconomic law
-1.4.5 Mathematics - OC133-TARGETBLIND-MATHEMATICS-001
-• snapshot: proofs/FINITE_MODEL_CHECKS_1_3_3.json
-• target-blind split: finite theorem-case rows are visible; aggregate machine_checked_subset_total is
-withheld until scoring
-• formula: count_unique(theorem_id where case_type=‘theorem_case’ and observed_verdict=‘ACCEPT’
-and passed=true)
-• predicted value: 10.0
-• observed value: 10.0
-• uncertainty: 0.0
-• residual: 0.0
-• comparator baseline: positive_case_total negative control, which counts non-theorem support rows
-too
-• comparator residual: 11.0
-• negative control: replace theorem-id aggregate by positive_case_total and require a larger residual
-• falsifier: Unique accepted theorem-case count differs from machine_checked_subset_total or broad
-positive-case control is not worse
-• snapshot hash: 46ac711a2e86375ed333ce5c8a8b1b810f1f5b052fa657fb1508dbe7831b2f49
-• replay hash: 050e21ffb0f2a5b73ea7faab51da781bbe66adc6bc6376941bb0a0e4eda293f2
-• support scope: target-blind reconstruction of a finite proof-corpus aggregate; not a full-science program
-truth proof or empirical law
-1.4.6 Replay Audit - Biology
-• verdict: NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION
-• failure total: 0
-• source log: validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json
-• row: OC133-NUM-BIO-GEO-COUNT
-• snapshot opened: True
-• computed residual: 0.0
-• negative control rejected: True
-1.4.7 Replay Audit - Chemistry
-• verdict: NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION
-
-28
-
-• failure total: 0
-• source log: validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json
-• row: OC133-NUM-CHEM-WEBBOOK-H2O
-• snapshot opened: True
-• computed residual: 0.0
-• negative control rejected: True
-• row: OC133-NUM-CHEM-H2O
-• snapshot opened: True
-• computed residual: 0.0
-• negative control rejected: True
-1.4.8 Replay Audit - Mathematics
-• verdict: NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION
-• failure total: 0
-• source log: validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json
-• row: OC133-NUM-MATH-FINITE
-• snapshot opened: True
-• computed residual: 0.0
-• negative control rejected: True
-1.4.9 Replay Audit - Physics
-• verdict: NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION
-• failure total: 0
-• source log: validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json
-• row: OC133-NUM-PHYS-C
-• snapshot opened: True
-• computed residual: 0.0
-• negative control rejected: True
-1.4.10 Replay Audit - Systems
-• verdict: NUMERIC_REPLAY_QA_NOT_DOMAIN_VALIDATION
-• failure total: 0
-• source log: validation/numeric_predictions/OC133_NUMERIC_REPLAY_LOG.json
-• row: OC133-NUM-SYS-WDI-GDP
-• snapshot opened: True
-• computed residual: 0.0
-• negative control rejected: True
-
-29
-
-1.5 Journal Owner-Review Packages
-Eight venue packets are included for owner review. They are not submitted by this release action. Each
-packet contains a package manifest, cover letter draft, checklist, reproducibility/data statement, conflict/funding
-statement, AI assistance disclosure, and venue-fit note. - package total: 8 - recommended package total:
-2
-1.5.1 FOUNDATIONS_OF_SCIENCE
-• package status: OWNER_REVIEW_READY_FOR_OWNER_REVIEW
-• submission allowed: False
-• journal submissions allowed: False
-• recommended:
-1.5.2 SYNTHESE
-• package status: OWNER_REVIEW_READY_FOR_OWNER_REVIEW
-• submission allowed: False
-• journal submissions allowed: False
-• recommended:
-1.5.3 FOUNDATIONS_OF_PHYSICS
-• package status: OWNER_REVIEW_READY_FOR_OWNER_REVIEW
-• submission allowed: False
-• journal submissions allowed: False
-• recommended:
-1.5.4 PHYSICAL_REVIEW_RESEARCH
-• package status: OWNER_REVIEW_READY_FOR_OWNER_REVIEW
-• submission allowed: False
-• journal submissions allowed: False
-• recommended:
-1.5.5 ACS_OMEGA
-• package status: OWNER_REVIEW_READY_FOR_OWNER_REVIEW
-• submission allowed: False
-• journal submissions allowed: False
-• recommended:
-1.5.6 ACTA_BIOTHEORETICA
-• package status: OWNER_REVIEW_READY_FOR_OWNER_REVIEW
-• submission allowed: False
-• journal submissions allowed: False
-• recommended:
-1.5.7 PLOS_COMPUTATIONAL_BIOLOGY
-• package status: OWNER_REVIEW_READY_FOR_OWNER_REVIEW
-• submission allowed: False
-• journal submissions allowed: False
-• recommended:
-
-30
-
-1.5.8 GLOBAL_JOURNAL_OF_FLEXIBLE_SYSTEMS_MANAGEMENT
-• package status: OWNER_REVIEW_READY_FOR_OWNER_REVIEW
-• submission allowed: False
-• journal submissions allowed: False
-• recommended:
-
-31
 
 
