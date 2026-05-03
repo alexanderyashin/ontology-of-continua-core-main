@@ -1,0 +1,311 @@
+# OC Core 1.3.3 TOC L10b Recovery Delta
+
+Status: `L10B_RECOVERY_DELTA_READY`
+Raw recovered candidates: `9607`
+Accepted recovered candidates: `4730`
+Rejected recovered candidates: `4877`
+Covered by current: `5`
+
+## Sample Accepted Recovered Rows
+
+- `OC133-L10B-MTOC-D0984DF34531` Document boundary / role=frontmatter / provenance=4
+- `OC133-L10B-MTOC-1C24AD120DAF` Release framing / role=frontmatter / provenance=1
+- `OC133-L10B-MTOC-B1181B456930` Independent-release framing / role=frontmatter / provenance=1
+- `OC133-L10B-MTOC-80C25A4669D7` Reader Contract and Navigation Guide / role=reader_contract / provenance=2
+- `OC133-L10B-MTOC-9A1B6939D1E2` Reader Contract / role=reader_contract / provenance=5
+- `OC133-L10B-MTOC-35365029CE67` Reading Map / role=reader_contract / provenance=5
+- `OC133-L10B-MTOC-3C0E8AEAC46E` Audience and Reading Path / role=reader_contract / provenance=1
+- `OC133-L10B-MTOC-BF30CC6EF9A0` Reproducibility Structure and Audience / role=reader_contract / provenance=1
+- `OC133-L10B-MTOC-853716C25E42` Adversarial Review Structure and Audience / role=reader_contract / provenance=1
+- `OC133-L10B-MTOC-47FC6C5DFF50` Core theorem route and scope / role=motivation / provenance=2
+- `OC133-L10B-MTOC-6A9F60C1C5FF` Introduction / role=motivation / provenance=3
+- `OC133-L10B-MTOC-E5978EB5AC18` Motivation / role=motivation / provenance=4
+- `OC133-L10B-MTOC-F9CB51FFA597` Scope of Core~1.3 / role=motivation / provenance=2
+- `OC133-L10B-MTOC-AC03418CF50E` Background and Motivation / role=motivation / provenance=2
+- `OC133-L10B-MTOC-BAE766971521` Continuum as a structural object / role=motivation / provenance=2
+- `OC133-L10B-MTOC-E0A3150C2469` Axes and dimensionality / role=motivation / provenance=2
+- `OC133-L10B-MTOC-1DFD7865B485` Boundaries and thresholds / role=motivation / provenance=2
+- `OC133-L10B-MTOC-66893CEA9F16` Potentials and flows / role=motivation / provenance=2
+- `OC133-L10B-MTOC-76709D44B6E6` Continuumness / role=motivation / provenance=2
+- `OC133-L10B-MTOC-C2A5AF02680E` Motivation for Core~1.3 / role=motivation / provenance=2
+- `OC133-L10B-MTOC-BCF4B9AACD69` Historical motivation / role=motivation / provenance=2
+- `OC133-L10B-MTOC-73C35570D8F3` Scope of future background material / role=motivation / provenance=2
+- `OC133-L10B-MTOC-2A8D1049E180` Theorem fate and scope discipline / role=motivation / provenance=2
+- `OC133-L10B-MTOC-5B7E7608F91D` Problem / role=motivation / provenance=1
+- `OC133-L10B-MTOC-DE34CDCF9679` Ontological Structure of the Model / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-412BC161983D` Axiomatic foundation: Level K_0K_0 / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-E772128B4FAB` Specification of \(K_0\)K_0 / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-C49BA252C2C4` Axiom 0.1 (Difference and distinguishability) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-5681ABD1394E` Axiom 0.3 (Logical substrate) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-B954C65D18AF` Construction of Level K_1K_1 / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-E1B773652FBC` Specification of \(K_1\)K_1 / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-8554826CE6BD` General definition of a continuum / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-B8A0379234F4` State space and boundary / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-B50326D1FE0E` Taxonomy of thresholds / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-762316380669` Potentials, flows, and structural tension / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-0757A78F529D` Cycles and continuumness / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-8471E73B3C52` Evolution operator / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-BD3FD4DC79A9` Embedding into meta-spaces / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-C517A99F8323` Birth of continua / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-51E8CA8D314F` Life of continua / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-9D5356733FDE` Death of continua / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-DB6F887CBED8` Irreversibility of death / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-18180A177CF1` Interaction of continua / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-A281895AA7D7` Summary / role=formal_model / provenance=24
+- `OC133-L10B-MTOC-D20D251E9A3C` Minimality route for the OC verdict interface / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-4D53DB24E73A` Route status / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-978228C71D64` OC Core 1.3.3 scientific closure bridge / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-718F447A0613` Theorem 1: Monotonicity of dimensionality / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-E52D320CEF55` Theorem 2: Impossibility of spontaneous dimension creation / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-7F96C4D607B7` Theorem 3: Death through boundary and embedding collapse / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-8CFBC0E0DBEB` Theorem 9: Death as loss of cycles / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-239468B3695B` Theorem 11: Threshold–expressivity incompatibility / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-DE8635F7B2D4` Thresholds and boundaries / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-892FE5DDE9DE` Threshold specification / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-08C80101EDD8` Thresholds govern qualitative change / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-FAB3DBA4C676` Cycles maintain persistence / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-3DE7E9A6D77F` Extended Boundary and Patch Geometry / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-3D999D630564` Formal Definition of (K)boundary / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-24FDB1F41531` Boundary geometry / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-D4469E67C929` Patch Model of Boundaries / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-7E93F29DC876` Local states / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-F0F672562E32` Local thresholds / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-5386A9DDF72D` Boundary Threshold System / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-AC1C42D08973` 1. Permeability threshold \(_ perm\) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-D8ADEBC80C8B` 2. Gradient threshold \(_ grad\) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-B13DA7C05B6E` 3. Membrane integrity threshold \(_ mem\) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-E2D86A5C8E0B` Boundary–Driven Dynamics / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-0AA48CC56CD0` Boundary Failure and Collapse / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-906EC1AD6832` Boundary and Rebirth / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-A086ED7333C9` Extended Threshold Landscape / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-3184F5ABE1B6` Definition of a Threshold / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-5D631E9C2793` 1. Existence thresholds \(_ exist\) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-D82D465353CF` 2. Stability thresholds \(_ stab\) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-40FF800C7711` 3. Critical thresholds \(_ crit\) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-A26BA622FE9A` 4. Dimensional thresholds \(_ dim\) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-80DB71DB35C4` 5. Death thresholds \(_ death\) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-61487D76D970` 6. Expressivity thresholds \(_ expr\) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-ACFFC3B46D2C` 7. Embedding thresholds \(_ embed\) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-2F519662962A` Threshold Geometry / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-DB81F9D454DF` Dimensional Thresholds / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-0BEACB345986` Threshold Cascades / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-0250D308337D` Death Thresholds / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-0B5A078F4026` Examples Across Levels / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-D442B3D908DA` \(K_1\)K_1 (Geometric continua) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-FA32FAEE6DC6` \(K_2\)K_2 (Physical continua) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-48617B96BDBF` \(K_3\)K_3 (Chemical continua) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-76462141C826` \(K_4\)K_4 (Prebiotic/biological membrane continua) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-72790CF0DD6A` \(K_5\)K_5 (Excitable continua) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-17A876155335` \(K_6\)K_6 (Cognitive continua) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-A72D9C93DBD4` \(K_7\)K_7–\(K_8\)K_8 (Social and civilizational continua) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-23E73B8BB93F` \(K_9\)K_9–\(K_10\) (Theoretical and meta–theoretical continua) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-05BA44F9CD82` Threshold / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-94EBF3275461` Cycles / role=formal_model / provenance=29
+- `OC133-L10B-MTOC-09DDBF93C70F` Thresholds / role=formal_model / provenance=23
+- `OC133-L10B-MTOC-2C1DC40B4C53` Evolution and Interaction Operators / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-F23B272E1240` Decomposition of the Evolution Operator / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-DB21C6B7407D` Operator Algebra and Constraints / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-5A743153FCE3` Compatibility with embedding spaces / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-9F20868254EE` Monotonicity of dimension / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-4698AA6599ED` Threshold-respecting dynamics / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-057DEDC6A519` Continuumness as viability indicator / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-CFB8B3678D5E` Cross-level consistency / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-D5221DBA6A00` Collapse and Rebirth of Continua / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-92F1403ACCEA` Formal Criteria for Collapse / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-41BDA1B66B3F` Definition 12.1 (Collapse) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-1410E94420E0` Proposition 12.2 (Boundary destruction) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-3AD889BE86B7` Internal vs External Collapse / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-F17A289445F0` Definition 12.3 (Internal collapse) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-C06B507BB193` Definition 12.4 (External collapse) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-30F08FD6C7B1` Mixed collapse / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-EE93393D2D90` Collapse Dynamics / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-AE64AD52E658` Critical slowing down / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-0EA4303F5797` Divergence of structural tension / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-6992A36609CD` Patch failure and boundary-driven collapse / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-0409E63CF888` Cycle breakdown / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-21BDBF1797B2` Post-Collapse Residue / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-45727012E42A` Definition 12.5 (Residue) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-6A72A3D725D9` Limits of recovery / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-4467BB1EC91D` Rebirth Mechanisms / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-3AE5EF3BD992` Definition 12.6 (Rebirth) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-52845D18F3BF` Dimensional rebirth / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-1FAA44A0161A` Formal conditions / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-5EF6A3F8296D` Examples across \(K_3\)K_3–\(K_5\)K_5 / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-11843F373D93` Rebirth at higher levels / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-B027ACFF1488` Collapse in Higher-Level Continua / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-DE70EAA62B9D` Cognitive collapse (\(K_6\)K_6) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-1B6533580C6D` Institutional collapse (\(K_7\)K_7) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-C0A3740D85B3` Civilizational collapse (\(K_8\)K_8) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-4880C8F2EA7B` Theoretical and meta-theoretical collapse (\(K_9\)K_9–\(K_10\)) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-7C070FADE970` Definition of Ontological Branches / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-BA90BCCFFF37` Definition 13.1 (Ontological branch) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-501FED842AFF` Definition 13.3 (Branch graph) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-9A4D781CCC99` Axiom 21 (Ontological Branching) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-AC22C30A40B0` Branching thresholds / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-2AE3CC956944` Definition 13.4 (Branch interaction) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-DE78AFE4D6DD` Branch Collapse / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-914901E27741` Definition 13.5 (Branch collapse) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-878EDD70AD10` Consequences for the K-Level Hierarchy / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-AFC13326ADDB` 3. K-level correspondence / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-F27F8BFF80F4` Boundary structures / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-34ED3B473A77` Predictive invariants across K-levels / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-ADED6D6F64FD` K-level criteria and falsifiers after external review / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-DAE7C830D2E6` Proposition B (article-local rebirth control) / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-1B232E50C1F6` Worked Example 1: collapse, residue, and rebirth in a minimal admissible-state model / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-5BB70B625AC9` Alternative-model competition / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-DE27EBC834DD` OC 1.3.3 Cycle Taxonomy and Liveness Modes / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-2F986F3D1A9F` Theorem / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-1F240B28CF52` Proof / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-7A331671934B` OC 1.3.3 Operator Semantics / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-BCBCCDA2B4F5` Complete Axiomatic System of Core 1.2 / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-9CF6881CB4C1` Level-0 Axioms (Meta-Domain \(M\)M) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-5E26EBC858F3` Axiom 0.1 (Existence of a meta-domain) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-5857690EB79E` Axiom 0.2 (Meta-pressure) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-F9846AEE23A9` Axiom 0.3 (Primacy of difference) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-7B5F6F84BD8A` Axiom 0.4 (Locality of thresholds) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-2D0F8E5248EA` Axiom 0.5 (Monotonicity of the meta-domain) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-C82442F142C0` Axiom 0.6 (Consistency of the environment) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-1E00540B5F71` Axiom 0.7 (Irreducibility of meta-pressure) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-9834432A022C` Axiom 0.8 (Non-degeneracy) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-5E69372EC904` Axiom 0.9 (Finite local structural complexity) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-1FAB79229733` Axioms for Continua \(K\)K / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-90F81D11C657` Axiom K.1 (Structure of a continuum) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-691096334C8A` Axiom K.2 (Non-emptiness of a living continuum) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-213950DFA475` Axiom K.3 (Axes as coordinates) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-74F5398BC15D` Axiom K.4 (Threshold-defined admissibility) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-FF69A9E4EEFA` Axiom K.5 (Flows and potentials) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-2296BCFBF2C2` Axiom K.6 (Cycles as carriers of stability) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-96854BB6787C` Axiom K.7 (Continuumness as an integral measure) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-4CF68303C8A7` Axiom K.8 (Temporal structure) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-13ED53CAE896` Axiom K.9 (Local controllability) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-D5AC7A68BCB0` Axioms for Axes \(A\)A / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-925D24C8B7AF` Axiom A.1 (Birth of a new axis) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-A3CFE1761768` Axiom A.2 (Independence of axes) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-9D450DA703EE` Axiom A.3 (Minimal dimensionality) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-1691338F5127` Axioms for Thresholds \(\) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-F0CFC0DFEC39` Axiom \(.1\).1 (Types of thresholds) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-0115250A4BF6` Axiom \(.2\).2 (Refinement of meta-thresholds) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-7118F8C4D8E1` Axiom \(.3\).3 (Critical threshold) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-C743249EE5E7` Axiom \(.4\).4 (Dimensional threshold) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-F51A896ED58E` Axiom \(.5\).5 (Death threshold) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-B9C9C8B51F67` Axioms for Potentials and Flows / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-956F9AD04A69` Axiom P.1 (Threshold-constrained potentials) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-93E3862336E0` Axiom P.2 (Gradient-driven evolution) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-79F3B3DC8093` Axiom P.3 (Boundary-flow consistency) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-77A4E2139FBC` Axioms for Cycles and Continuumness / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-53FC9FA7E69A` Axiom C.1 (Minimal supporting cycle) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-A6B1FBC3C63F` Axiom C.2 (Continuum rhythm) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-265C998D3A2E` Axiom k.1 (Evolution of continuumness) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-69488370DD04` Axioms for Dimension and the Operator \(\) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-B8C3DFDD4441` Axiom \(.1\).1 (Constraint on dimensional growth) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-3CE4756E8B89` Axiom \(.2\).2 (Operator of dimensional growth) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-4D7B2951C196` Axiom \(.3\).3 (Impossibility of dimensional reduction) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-E2A769BFBBC8` Axioms for Meta-Domain Evolution and the Operator \(\) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-95259AD8460F` Axiom \(.1\).1 (Meta-domain evolution operator) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-A8B98D9116AA` Axiom \(.2\).2 (Compatibility of \(K\)K with \(M\)M) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-3FF8C8062EC6` Axiom \(.3\).3 (Monotonic growth of ambient axes) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-928411F19900` Axioms of Death / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-E076FF9FF545` Axiom D.1 (Death as empty admissible region) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-D0621B441A9A` Axiom D.2 (Death via loss of cyclic time) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-3AB690F858D3` Axiom D.3 (Death by threshold incompatibility) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-F8701965D03B` Definition of Complexity Components / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-88788AE383CE` Component \(S_C\)S_C (cycles) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-BE53E07806A9` Component \(S_\)S_ (threshold structure) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-5EBCCE86A422` Relation to continuumness \(k(t)\) / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-B34F976F92A7` 2. Shared axes and thresholds across levels / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-02F00772F567` 3. Cross-level flows, cycles, and tensions / role=formal_model / provenance=13
+- `OC133-L10B-MTOC-CE5D1C353FAD` K0–K1 cross-level structure / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-1215B4E1D339` 1. Levels involved and their roles / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-494A90C9B344` K0 / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-73EFD1C231D3` K1 / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-15B198C49355` 2. Shared and inherited axes and thresholds / role=formal_model / provenance=10
+- `OC133-L10B-MTOC-7ACEC2E51134` Difference / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-642994CC842B` Flows / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-31A38F811925` Tension / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-BC5BD500064C` 4. Birth and death conditions across the levels / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-8FEC28664B2D` Birth of K_1K_1 / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-99218796F6EE` Death propagation / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-034849FE61CF` 5. Conceptual examples / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-E25AAD7D265B` Emergence of the first axis from minimal differences / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-2ABC58365DDC` Boundary formation / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-C56F7F08195D` First flows / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-D412AD2EFEF3` 2. Shared / inherited axes and thresholds / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-F0F546055282` New thresholds / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-59B6BED1945B` Collapse case / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-F5212E70E059` Threshold extension / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-69B7D7740736` Operator picture (creation/annihilation of clusters) / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-B594058C1808` Osmotic boundary formation / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-07CE88A6E846` Excitability as new dimension / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-7D462EBA6283` Internal models / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-EDC40A8D7929` Cognitive collapse / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-10B6861B7462` Scientific revolution cycle / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-2E97669E53EE` Meta-thresholds / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-625854A1C81F` Definition of Cross-K structures / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-45DCCABDF19D` Cycles on K_0K_0 / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-0491B5619FE5` Absence of State Space and Time / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-1287243BA9E2` Structural Reason / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-B09F0815FEC3` Implication for Higher Levels / role=formal_model / provenance=1
+- `OC133-L10B-MTOC-793F2B1716AB` Cycles on K_1K_1 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-A484D86EFA7A` Definition of Cycles on K_1K_1 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-2E722F544469` Characteristics of Cycles on K_1K_1 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-3C18E1DB54A1` Metrics for K_1K_1 Cycles / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-F844DD3D8103` Role of K_1K_1 Cycles in the Hierarchy / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-7C0F3D146F8C` Cycles on K_10 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-8DA0A1D1325A` Overview / role=formal_model / provenance=10
+- `OC133-L10B-MTOC-8354034461DF` Cycle Metrics on K_10 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-6F9982F57651` Length / role=formal_model / provenance=27
+- `OC133-L10B-MTOC-C51EC2D0B5D7` Efficiency / role=formal_model / provenance=33
+- `OC133-L10B-MTOC-6B68E6C37D2A` Stability / role=formal_model / provenance=33
+- `OC133-L10B-MTOC-A924A73F6240` Weight / role=formal_model / provenance=33
+- `OC133-L10B-MTOC-EA10B0784C63` Collapse of K_10 Cycles / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-A86F2D2293F4` Continuity from K_9K_9 to K_10 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-3B5839E96724` Cycles on K_11 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-335D3DD73DF3` Cycle Metrics on K_11 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-7D3461B263BA` Collapse of K_11 Cycles / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-245129F04DF7` Continuity from K_10 to K_11 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-3198E9A4DD30` Cycles on K_12 / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-6FD25E655130` Cycle Metrics on K_12 / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-1FEFAAAA415B` Collapse of K_12 Cycles / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-BF6676F6900F` Continuity from K_11 to K_12 / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-5ABA68962702` Cycles on K_2K_2 / role=formal_model / provenance=5
+- `OC133-L10B-MTOC-4C37A5BDC410` Definition of Cycles on K_2K_2 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-7AEE073AACD6` Types of Cycles on K_2K_2 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-E5E70A20DBB1` (1) Cluster–Rearrangement Cycles / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-A9DF1082FDE5` (2) Subcritical Connectivity Cycles / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-5F0889C52DAC` (3) Critical–Near-Critical Cycles / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-5D6105FC25B0` Structural Tension and Threshold Interaction / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-735720D5AE9E` Metrics of Cycles on K_2K_2 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-4567972DBFEF` Birth of Time and Non-Trivial Cycles / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-138483DA5B8F` Role of K_2K_2 Cycles in the Hierarchy / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-FD422998B207` Cycles on K_3K_3 / role=formal_model / provenance=5
+- `OC133-L10B-MTOC-8F63316BB164` Fundamental Types of Cycles on K_3K_3 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-372EFCE4E6DB` (1) Autocatalytic Reaction Cycles / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-2533B1B0F8A0` (2) F-closure Restoration Cycles / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-923F5AA2A68A` (3) Energetic and Redox Cycles / role=formal_model / provenance=3
+- `OC133-L10B-MTOC-8F400CF5C0F4` Structural Tension and Thresholds / role=formal_model / provenance=5
+- `OC133-L10B-MTOC-371F546A7654` Metrics of Cycles on K_3K_3 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-A663700EF54D` Time and Cycle Periods / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-A2158D08D117` Birth of Higher-Level Cycles / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-ABF28DBB63F7` Cycles on K_4K_4 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-268E6C1F073A` Classes of Cycles on K_4K_4 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-DE4DEF22887A` Metrics of Cycles at K_4K_4 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-836DB1AB2C5E` Time and Recurrence Structure / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-79AC4518B559` Collapse and Viability of C(K_4)C(K_4) / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-DBDF402E15C4` Transition Toward K_5K_5 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-70C9EDABE7BD` Cycles on K_5K_5 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-2A5C1FED5288` Overview of Cycle Structure on K_5K_5 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-9300BA9FB726` Metrics of Cycles on K_5K_5 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-ABC7D827BBD0` Collapse of C(K_5)C(K_5) / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-9327703EFB5B` Continuity from K_4K_4 to K_5K_5 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-F7D096F0C58B` Cycles on K_6K_6 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-8602750FFE17` Overview of Cognition-Level Cycles / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-5752F112451D` Metrics of Cognitive Cycles / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-544643053301` Collapse of K_6K_6 Cycles / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-481F354AA99D` Continuity from K_5K_5 to K_6K_6 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-463D83A0B14D` Cycles on K_7K_7 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-5FF03DB0958D` Cycle Metrics on K_7K_7 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-7F144F03B5A0` Collapse of K_7K_7 Cycles / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-294238160DE8` Continuity from K_6K_6 to K_7K_7 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-DE276BCD34D1` Cycles on K_8K_8 / role=formal_model / provenance=2
+- `OC133-L10B-MTOC-C3F0890539D0` Cycle Metrics on K_8K_8 / role=formal_model / provenance=2
+- ... 4430 additional recovered rows in JSON.

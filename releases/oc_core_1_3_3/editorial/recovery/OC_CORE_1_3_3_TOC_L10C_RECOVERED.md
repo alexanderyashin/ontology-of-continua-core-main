@@ -1,0 +1,353 @@
+# OC Core 1.3.3 TOC L10c Recovered
+
+Status: `L10C_RECOVERED_READY_FOR_RECOVERY_ASSEMBLY`
+Node total: `5386`
+Current L10 nodes: `656`
+Recovered nodes: `4730`
+
+## First Current Nodes
+
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-001-001-001-001-001-001-001-001-001` Define Title Page and Release Identity
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-001-002-001-001-001-001-001-001-001` Bind Title Page and Release Identity to proof, evidence, or replay
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-001-003-001-001-001-001-001-001-001` State limits and falsifiers for Title Page and Release Identity
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-001-004-001-001-001-001-001-001-001` Synthesize Title Page and Release Identity
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-002-001-001-001-001-001-001-001-001` Define Dedication to Maria
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-002-002-001-001-001-001-001-001-001` Bind Dedication to Maria to proof, evidence, or replay
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-002-003-001-001-001-001-001-001-001` State limits and falsifiers for Dedication to Maria
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-002-004-001-001-001-001-001-001-001` Synthesize Dedication to Maria
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-003-001-001-001-001-001-001-001-001` Define Abstract
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-003-002-001-001-001-001-001-001-001` Bind Abstract to proof, evidence, or replay
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-003-003-001-001-001-001-001-001-001` State limits and falsifiers for Abstract
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-003-004-001-001-001-001-001-001-001` Synthesize Abstract
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-004-001-001-001-001-001-001-001-001` Define Keywords and Classification
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-004-002-001-001-001-001-001-001-001` Bind Keywords and Classification to proof, evidence, or replay
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-004-003-001-001-001-001-001-001-001` State limits and falsifiers for Keywords and Classification
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-004-004-001-001-001-001-001-001-001` Synthesize Keywords and Classification
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-005-001-001-001-001-001-001-001-001` Define Citation, DOI, and Version Statement
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-005-002-001-001-001-001-001-001-001` Bind Citation, DOI, and Version Statement to proof, evidence, or replay
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-005-003-001-001-001-001-001-001-001` State limits and falsifiers for Citation, DOI, and Version Statement
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-005-004-001-001-001-001-001-001-001` Synthesize Citation, DOI, and Version Statement
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-006-001-001-001-001-001-001-001-001` Define Table of Contents
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-006-002-001-001-001-001-001-001-001` Bind Table of Contents to proof, evidence, or replay
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-006-003-001-001-001-001-001-001-001` State limits and falsifiers for Table of Contents
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-006-004-001-001-001-001-001-001-001` Synthesize Table of Contents
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-007-001-001-001-001-001-001-001-001` Define List of Figures and Tables
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-007-002-001-001-001-001-001-001-001` Bind List of Figures and Tables to proof, evidence, or replay
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-007-003-001-001-001-001-001-001-001` State limits and falsifiers for List of Figures and Tables
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-007-004-001-001-001-001-001-001-001` Synthesize List of Figures and Tables
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-008-001-001-001-001-001-001-001-001` Define Symbols, Abbreviations, and Notation Map
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-008-002-001-001-001-001-001-001-001` Bind Symbols, Abbreviations, and Notation Map to proof, evidence, or replay
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-008-003-001-001-001-001-001-001-001` State limits and falsifiers for Symbols, Abbreviations, and Notation Map
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-008-004-001-001-001-001-001-001-001` Synthesize Symbols, Abbreviations, and Notation Map
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-009-001-001-001-001-001-001-001-001` Define Author, Instrument, Method, and Contribution Statement
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-009-002-001-001-001-001-001-001-001` Bind Author, Instrument, Method, and Contribution Statement to proof, evidence, or replay
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-009-003-001-001-001-001-001-001-001` State limits and falsifiers for Author, Instrument, Method, and Contribution Statement
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-001-009-004-001-001-001-001-001-001-001` Synthesize Author, Instrument, Method, and Contribution Statement
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-002-001-001-001-001-001-001-001-001-001` Define Reader Contract
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-002-001-002-001-001-001-001-001-001-001` Bind Reader Contract to proof, evidence, or replay
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-002-001-003-001-001-001-001-001-001-001` State limits and falsifiers for Reader Contract
+- `OC133-L10C-CURRENT-OC-CURRENT-AGG-L10-002-001-004-001-001-001-001-001-001-001` Synthesize Reader Contract
+
+## First Recovered Nodes
+
+- `OC133-L10C-RECOVERED-MTOC-D0984DF34531` Document boundary
+- `OC133-L10C-RECOVERED-MTOC-1C24AD120DAF` Release framing
+- `OC133-L10C-RECOVERED-MTOC-B1181B456930` Independent-release framing
+- `OC133-L10C-RECOVERED-MTOC-80C25A4669D7` Reader Contract and Navigation Guide
+- `OC133-L10C-RECOVERED-MTOC-9A1B6939D1E2` Reader Contract
+- `OC133-L10C-RECOVERED-MTOC-35365029CE67` Reading Map
+- `OC133-L10C-RECOVERED-MTOC-3C0E8AEAC46E` Audience and Reading Path
+- `OC133-L10C-RECOVERED-MTOC-BF30CC6EF9A0` Reproducibility Structure and Audience
+- `OC133-L10C-RECOVERED-MTOC-853716C25E42` Adversarial Review Structure and Audience
+- `OC133-L10C-RECOVERED-MTOC-47FC6C5DFF50` Core theorem route and scope
+- `OC133-L10C-RECOVERED-MTOC-6A9F60C1C5FF` Introduction
+- `OC133-L10C-RECOVERED-MTOC-E5978EB5AC18` Motivation
+- `OC133-L10C-RECOVERED-MTOC-F9CB51FFA597` Scope of Core~1.3
+- `OC133-L10C-RECOVERED-MTOC-AC03418CF50E` Background and Motivation
+- `OC133-L10C-RECOVERED-MTOC-BAE766971521` Continuum as a structural object
+- `OC133-L10C-RECOVERED-MTOC-E0A3150C2469` Axes and dimensionality
+- `OC133-L10C-RECOVERED-MTOC-1DFD7865B485` Boundaries and thresholds
+- `OC133-L10C-RECOVERED-MTOC-66893CEA9F16` Potentials and flows
+- `OC133-L10C-RECOVERED-MTOC-76709D44B6E6` Continuumness
+- `OC133-L10C-RECOVERED-MTOC-C2A5AF02680E` Motivation for Core~1.3
+- `OC133-L10C-RECOVERED-MTOC-BCF4B9AACD69` Historical motivation
+- `OC133-L10C-RECOVERED-MTOC-73C35570D8F3` Scope of future background material
+- `OC133-L10C-RECOVERED-MTOC-2A8D1049E180` Theorem fate and scope discipline
+- `OC133-L10C-RECOVERED-MTOC-5B7E7608F91D` Problem
+- `OC133-L10C-RECOVERED-MTOC-DE34CDCF9679` Ontological Structure of the Model
+- `OC133-L10C-RECOVERED-MTOC-412BC161983D` Axiomatic foundation: Level K_0K_0
+- `OC133-L10C-RECOVERED-MTOC-E772128B4FAB` Specification of \(K_0\)K_0
+- `OC133-L10C-RECOVERED-MTOC-C49BA252C2C4` Axiom 0.1 (Difference and distinguishability)
+- `OC133-L10C-RECOVERED-MTOC-5681ABD1394E` Axiom 0.3 (Logical substrate)
+- `OC133-L10C-RECOVERED-MTOC-B954C65D18AF` Construction of Level K_1K_1
+- `OC133-L10C-RECOVERED-MTOC-E1B773652FBC` Specification of \(K_1\)K_1
+- `OC133-L10C-RECOVERED-MTOC-8554826CE6BD` General definition of a continuum
+- `OC133-L10C-RECOVERED-MTOC-B8A0379234F4` State space and boundary
+- `OC133-L10C-RECOVERED-MTOC-B50326D1FE0E` Taxonomy of thresholds
+- `OC133-L10C-RECOVERED-MTOC-762316380669` Potentials, flows, and structural tension
+- `OC133-L10C-RECOVERED-MTOC-0757A78F529D` Cycles and continuumness
+- `OC133-L10C-RECOVERED-MTOC-8471E73B3C52` Evolution operator
+- `OC133-L10C-RECOVERED-MTOC-BD3FD4DC79A9` Embedding into meta-spaces
+- `OC133-L10C-RECOVERED-MTOC-C517A99F8323` Birth of continua
+- `OC133-L10C-RECOVERED-MTOC-51E8CA8D314F` Life of continua
+- `OC133-L10C-RECOVERED-MTOC-9D5356733FDE` Death of continua
+- `OC133-L10C-RECOVERED-MTOC-DB6F887CBED8` Irreversibility of death
+- `OC133-L10C-RECOVERED-MTOC-18180A177CF1` Interaction of continua
+- `OC133-L10C-RECOVERED-MTOC-A281895AA7D7` Summary
+- `OC133-L10C-RECOVERED-MTOC-D20D251E9A3C` Minimality route for the OC verdict interface
+- `OC133-L10C-RECOVERED-MTOC-4D53DB24E73A` Route status
+- `OC133-L10C-RECOVERED-MTOC-978228C71D64` OC Core 1.3.3 scientific closure bridge
+- `OC133-L10C-RECOVERED-MTOC-718F447A0613` Theorem 1: Monotonicity of dimensionality
+- `OC133-L10C-RECOVERED-MTOC-E52D320CEF55` Theorem 2: Impossibility of spontaneous dimension creation
+- `OC133-L10C-RECOVERED-MTOC-7F96C4D607B7` Theorem 3: Death through boundary and embedding collapse
+- `OC133-L10C-RECOVERED-MTOC-8CFBC0E0DBEB` Theorem 9: Death as loss of cycles
+- `OC133-L10C-RECOVERED-MTOC-239468B3695B` Theorem 11: Threshold–expressivity incompatibility
+- `OC133-L10C-RECOVERED-MTOC-DE8635F7B2D4` Thresholds and boundaries
+- `OC133-L10C-RECOVERED-MTOC-892FE5DDE9DE` Threshold specification
+- `OC133-L10C-RECOVERED-MTOC-08C80101EDD8` Thresholds govern qualitative change
+- `OC133-L10C-RECOVERED-MTOC-FAB3DBA4C676` Cycles maintain persistence
+- `OC133-L10C-RECOVERED-MTOC-3DE7E9A6D77F` Extended Boundary and Patch Geometry
+- `OC133-L10C-RECOVERED-MTOC-3D999D630564` Formal Definition of (K)boundary
+- `OC133-L10C-RECOVERED-MTOC-24FDB1F41531` Boundary geometry
+- `OC133-L10C-RECOVERED-MTOC-D4469E67C929` Patch Model of Boundaries
+- `OC133-L10C-RECOVERED-MTOC-7E93F29DC876` Local states
+- `OC133-L10C-RECOVERED-MTOC-F0F672562E32` Local thresholds
+- `OC133-L10C-RECOVERED-MTOC-5386A9DDF72D` Boundary Threshold System
+- `OC133-L10C-RECOVERED-MTOC-AC1C42D08973` 1. Permeability threshold \(_ perm\)
+- `OC133-L10C-RECOVERED-MTOC-D8ADEBC80C8B` 2. Gradient threshold \(_ grad\)
+- `OC133-L10C-RECOVERED-MTOC-B13DA7C05B6E` 3. Membrane integrity threshold \(_ mem\)
+- `OC133-L10C-RECOVERED-MTOC-E2D86A5C8E0B` Boundary–Driven Dynamics
+- `OC133-L10C-RECOVERED-MTOC-0AA48CC56CD0` Boundary Failure and Collapse
+- `OC133-L10C-RECOVERED-MTOC-906EC1AD6832` Boundary and Rebirth
+- `OC133-L10C-RECOVERED-MTOC-A086ED7333C9` Extended Threshold Landscape
+- `OC133-L10C-RECOVERED-MTOC-3184F5ABE1B6` Definition of a Threshold
+- `OC133-L10C-RECOVERED-MTOC-5D631E9C2793` 1. Existence thresholds \(_ exist\)
+- `OC133-L10C-RECOVERED-MTOC-D82D465353CF` 2. Stability thresholds \(_ stab\)
+- `OC133-L10C-RECOVERED-MTOC-40FF800C7711` 3. Critical thresholds \(_ crit\)
+- `OC133-L10C-RECOVERED-MTOC-A26BA622FE9A` 4. Dimensional thresholds \(_ dim\)
+- `OC133-L10C-RECOVERED-MTOC-80DB71DB35C4` 5. Death thresholds \(_ death\)
+- `OC133-L10C-RECOVERED-MTOC-61487D76D970` 6. Expressivity thresholds \(_ expr\)
+- `OC133-L10C-RECOVERED-MTOC-ACFFC3B46D2C` 7. Embedding thresholds \(_ embed\)
+- `OC133-L10C-RECOVERED-MTOC-2F519662962A` Threshold Geometry
+- `OC133-L10C-RECOVERED-MTOC-DB81F9D454DF` Dimensional Thresholds
+- `OC133-L10C-RECOVERED-MTOC-0BEACB345986` Threshold Cascades
+- `OC133-L10C-RECOVERED-MTOC-0250D308337D` Death Thresholds
+- `OC133-L10C-RECOVERED-MTOC-0B5A078F4026` Examples Across Levels
+- `OC133-L10C-RECOVERED-MTOC-D442B3D908DA` \(K_1\)K_1 (Geometric continua)
+- `OC133-L10C-RECOVERED-MTOC-FA32FAEE6DC6` \(K_2\)K_2 (Physical continua)
+- `OC133-L10C-RECOVERED-MTOC-48617B96BDBF` \(K_3\)K_3 (Chemical continua)
+- `OC133-L10C-RECOVERED-MTOC-76462141C826` \(K_4\)K_4 (Prebiotic/biological membrane continua)
+- `OC133-L10C-RECOVERED-MTOC-72790CF0DD6A` \(K_5\)K_5 (Excitable continua)
+- `OC133-L10C-RECOVERED-MTOC-17A876155335` \(K_6\)K_6 (Cognitive continua)
+- `OC133-L10C-RECOVERED-MTOC-A72D9C93DBD4` \(K_7\)K_7–\(K_8\)K_8 (Social and civilizational continua)
+- `OC133-L10C-RECOVERED-MTOC-23E73B8BB93F` \(K_9\)K_9–\(K_10\) (Theoretical and meta–theoretical continua)
+- `OC133-L10C-RECOVERED-MTOC-05BA44F9CD82` Threshold
+- `OC133-L10C-RECOVERED-MTOC-94EBF3275461` Cycles
+- `OC133-L10C-RECOVERED-MTOC-09DDBF93C70F` Thresholds
+- `OC133-L10C-RECOVERED-MTOC-2C1DC40B4C53` Evolution and Interaction Operators
+- `OC133-L10C-RECOVERED-MTOC-F23B272E1240` Decomposition of the Evolution Operator
+- `OC133-L10C-RECOVERED-MTOC-DB21C6B7407D` Operator Algebra and Constraints
+- `OC133-L10C-RECOVERED-MTOC-5A743153FCE3` Compatibility with embedding spaces
+- `OC133-L10C-RECOVERED-MTOC-9F20868254EE` Monotonicity of dimension
+- `OC133-L10C-RECOVERED-MTOC-4698AA6599ED` Threshold-respecting dynamics
+- `OC133-L10C-RECOVERED-MTOC-057DEDC6A519` Continuumness as viability indicator
+- `OC133-L10C-RECOVERED-MTOC-CFB8B3678D5E` Cross-level consistency
+- `OC133-L10C-RECOVERED-MTOC-D5221DBA6A00` Collapse and Rebirth of Continua
+- `OC133-L10C-RECOVERED-MTOC-92F1403ACCEA` Formal Criteria for Collapse
+- `OC133-L10C-RECOVERED-MTOC-41BDA1B66B3F` Definition 12.1 (Collapse)
+- `OC133-L10C-RECOVERED-MTOC-1410E94420E0` Proposition 12.2 (Boundary destruction)
+- `OC133-L10C-RECOVERED-MTOC-3AD889BE86B7` Internal vs External Collapse
+- `OC133-L10C-RECOVERED-MTOC-F17A289445F0` Definition 12.3 (Internal collapse)
+- `OC133-L10C-RECOVERED-MTOC-C06B507BB193` Definition 12.4 (External collapse)
+- `OC133-L10C-RECOVERED-MTOC-30F08FD6C7B1` Mixed collapse
+- `OC133-L10C-RECOVERED-MTOC-EE93393D2D90` Collapse Dynamics
+- `OC133-L10C-RECOVERED-MTOC-AE64AD52E658` Critical slowing down
+- `OC133-L10C-RECOVERED-MTOC-0EA4303F5797` Divergence of structural tension
+- `OC133-L10C-RECOVERED-MTOC-6992A36609CD` Patch failure and boundary-driven collapse
+- `OC133-L10C-RECOVERED-MTOC-0409E63CF888` Cycle breakdown
+- `OC133-L10C-RECOVERED-MTOC-21BDBF1797B2` Post-Collapse Residue
+- `OC133-L10C-RECOVERED-MTOC-45727012E42A` Definition 12.5 (Residue)
+- `OC133-L10C-RECOVERED-MTOC-6A72A3D725D9` Limits of recovery
+- `OC133-L10C-RECOVERED-MTOC-4467BB1EC91D` Rebirth Mechanisms
+- `OC133-L10C-RECOVERED-MTOC-3AE5EF3BD992` Definition 12.6 (Rebirth)
+- `OC133-L10C-RECOVERED-MTOC-52845D18F3BF` Dimensional rebirth
+- `OC133-L10C-RECOVERED-MTOC-1FAA44A0161A` Formal conditions
+- `OC133-L10C-RECOVERED-MTOC-5EF6A3F8296D` Examples across \(K_3\)K_3–\(K_5\)K_5
+- `OC133-L10C-RECOVERED-MTOC-11843F373D93` Rebirth at higher levels
+- `OC133-L10C-RECOVERED-MTOC-B027ACFF1488` Collapse in Higher-Level Continua
+- `OC133-L10C-RECOVERED-MTOC-DE70EAA62B9D` Cognitive collapse (\(K_6\)K_6)
+- `OC133-L10C-RECOVERED-MTOC-1B6533580C6D` Institutional collapse (\(K_7\)K_7)
+- `OC133-L10C-RECOVERED-MTOC-C0A3740D85B3` Civilizational collapse (\(K_8\)K_8)
+- `OC133-L10C-RECOVERED-MTOC-4880C8F2EA7B` Theoretical and meta-theoretical collapse (\(K_9\)K_9–\(K_10\))
+- `OC133-L10C-RECOVERED-MTOC-7C070FADE970` Definition of Ontological Branches
+- `OC133-L10C-RECOVERED-MTOC-BA90BCCFFF37` Definition 13.1 (Ontological branch)
+- `OC133-L10C-RECOVERED-MTOC-501FED842AFF` Definition 13.3 (Branch graph)
+- `OC133-L10C-RECOVERED-MTOC-9A4D781CCC99` Axiom 21 (Ontological Branching)
+- `OC133-L10C-RECOVERED-MTOC-AC22C30A40B0` Branching thresholds
+- `OC133-L10C-RECOVERED-MTOC-2AE3CC956944` Definition 13.4 (Branch interaction)
+- `OC133-L10C-RECOVERED-MTOC-DE78AFE4D6DD` Branch Collapse
+- `OC133-L10C-RECOVERED-MTOC-914901E27741` Definition 13.5 (Branch collapse)
+- `OC133-L10C-RECOVERED-MTOC-878EDD70AD10` Consequences for the K-Level Hierarchy
+- `OC133-L10C-RECOVERED-MTOC-AFC13326ADDB` 3. K-level correspondence
+- `OC133-L10C-RECOVERED-MTOC-F27F8BFF80F4` Boundary structures
+- `OC133-L10C-RECOVERED-MTOC-34ED3B473A77` Predictive invariants across K-levels
+- `OC133-L10C-RECOVERED-MTOC-ADED6D6F64FD` K-level criteria and falsifiers after external review
+- `OC133-L10C-RECOVERED-MTOC-DAE7C830D2E6` Proposition B (article-local rebirth control)
+- `OC133-L10C-RECOVERED-MTOC-1B232E50C1F6` Worked Example 1: collapse, residue, and rebirth in a minimal admissible-state model
+- `OC133-L10C-RECOVERED-MTOC-5BB70B625AC9` Alternative-model competition
+- `OC133-L10C-RECOVERED-MTOC-DE27EBC834DD` OC 1.3.3 Cycle Taxonomy and Liveness Modes
+- `OC133-L10C-RECOVERED-MTOC-2F986F3D1A9F` Theorem
+- `OC133-L10C-RECOVERED-MTOC-1F240B28CF52` Proof
+- `OC133-L10C-RECOVERED-MTOC-7A331671934B` OC 1.3.3 Operator Semantics
+- `OC133-L10C-RECOVERED-MTOC-BCBCCDA2B4F5` Complete Axiomatic System of Core 1.2
+- `OC133-L10C-RECOVERED-MTOC-9CF6881CB4C1` Level-0 Axioms (Meta-Domain \(M\)M)
+- `OC133-L10C-RECOVERED-MTOC-5E26EBC858F3` Axiom 0.1 (Existence of a meta-domain)
+- `OC133-L10C-RECOVERED-MTOC-5857690EB79E` Axiom 0.2 (Meta-pressure)
+- `OC133-L10C-RECOVERED-MTOC-F9846AEE23A9` Axiom 0.3 (Primacy of difference)
+- `OC133-L10C-RECOVERED-MTOC-7B5F6F84BD8A` Axiom 0.4 (Locality of thresholds)
+- `OC133-L10C-RECOVERED-MTOC-2D0F8E5248EA` Axiom 0.5 (Monotonicity of the meta-domain)
+- `OC133-L10C-RECOVERED-MTOC-C82442F142C0` Axiom 0.6 (Consistency of the environment)
+- `OC133-L10C-RECOVERED-MTOC-1E00540B5F71` Axiom 0.7 (Irreducibility of meta-pressure)
+- `OC133-L10C-RECOVERED-MTOC-9834432A022C` Axiom 0.8 (Non-degeneracy)
+- `OC133-L10C-RECOVERED-MTOC-5E69372EC904` Axiom 0.9 (Finite local structural complexity)
+- `OC133-L10C-RECOVERED-MTOC-1FAB79229733` Axioms for Continua \(K\)K
+- `OC133-L10C-RECOVERED-MTOC-90F81D11C657` Axiom K.1 (Structure of a continuum)
+- `OC133-L10C-RECOVERED-MTOC-691096334C8A` Axiom K.2 (Non-emptiness of a living continuum)
+- `OC133-L10C-RECOVERED-MTOC-213950DFA475` Axiom K.3 (Axes as coordinates)
+- `OC133-L10C-RECOVERED-MTOC-74F5398BC15D` Axiom K.4 (Threshold-defined admissibility)
+- `OC133-L10C-RECOVERED-MTOC-FF69A9E4EEFA` Axiom K.5 (Flows and potentials)
+- `OC133-L10C-RECOVERED-MTOC-2296BCFBF2C2` Axiom K.6 (Cycles as carriers of stability)
+- `OC133-L10C-RECOVERED-MTOC-96854BB6787C` Axiom K.7 (Continuumness as an integral measure)
+- `OC133-L10C-RECOVERED-MTOC-4CF68303C8A7` Axiom K.8 (Temporal structure)
+- `OC133-L10C-RECOVERED-MTOC-13ED53CAE896` Axiom K.9 (Local controllability)
+- `OC133-L10C-RECOVERED-MTOC-D5AC7A68BCB0` Axioms for Axes \(A\)A
+- `OC133-L10C-RECOVERED-MTOC-925D24C8B7AF` Axiom A.1 (Birth of a new axis)
+- `OC133-L10C-RECOVERED-MTOC-A3CFE1761768` Axiom A.2 (Independence of axes)
+- `OC133-L10C-RECOVERED-MTOC-9D450DA703EE` Axiom A.3 (Minimal dimensionality)
+- `OC133-L10C-RECOVERED-MTOC-1691338F5127` Axioms for Thresholds \(\)
+- `OC133-L10C-RECOVERED-MTOC-F0CFC0DFEC39` Axiom \(.1\).1 (Types of thresholds)
+- `OC133-L10C-RECOVERED-MTOC-0115250A4BF6` Axiom \(.2\).2 (Refinement of meta-thresholds)
+- `OC133-L10C-RECOVERED-MTOC-7118F8C4D8E1` Axiom \(.3\).3 (Critical threshold)
+- `OC133-L10C-RECOVERED-MTOC-C743249EE5E7` Axiom \(.4\).4 (Dimensional threshold)
+- `OC133-L10C-RECOVERED-MTOC-F51A896ED58E` Axiom \(.5\).5 (Death threshold)
+- `OC133-L10C-RECOVERED-MTOC-B9C9C8B51F67` Axioms for Potentials and Flows
+- `OC133-L10C-RECOVERED-MTOC-956F9AD04A69` Axiom P.1 (Threshold-constrained potentials)
+- `OC133-L10C-RECOVERED-MTOC-93E3862336E0` Axiom P.2 (Gradient-driven evolution)
+- `OC133-L10C-RECOVERED-MTOC-79F3B3DC8093` Axiom P.3 (Boundary-flow consistency)
+- `OC133-L10C-RECOVERED-MTOC-77A4E2139FBC` Axioms for Cycles and Continuumness
+- `OC133-L10C-RECOVERED-MTOC-53FC9FA7E69A` Axiom C.1 (Minimal supporting cycle)
+- `OC133-L10C-RECOVERED-MTOC-A6B1FBC3C63F` Axiom C.2 (Continuum rhythm)
+- `OC133-L10C-RECOVERED-MTOC-265C998D3A2E` Axiom k.1 (Evolution of continuumness)
+- `OC133-L10C-RECOVERED-MTOC-69488370DD04` Axioms for Dimension and the Operator \(\)
+- `OC133-L10C-RECOVERED-MTOC-B8C3DFDD4441` Axiom \(.1\).1 (Constraint on dimensional growth)
+- `OC133-L10C-RECOVERED-MTOC-3CE4756E8B89` Axiom \(.2\).2 (Operator of dimensional growth)
+- `OC133-L10C-RECOVERED-MTOC-4D7B2951C196` Axiom \(.3\).3 (Impossibility of dimensional reduction)
+- `OC133-L10C-RECOVERED-MTOC-E2A769BFBBC8` Axioms for Meta-Domain Evolution and the Operator \(\)
+- `OC133-L10C-RECOVERED-MTOC-95259AD8460F` Axiom \(.1\).1 (Meta-domain evolution operator)
+- `OC133-L10C-RECOVERED-MTOC-A8B98D9116AA` Axiom \(.2\).2 (Compatibility of \(K\)K with \(M\)M)
+- `OC133-L10C-RECOVERED-MTOC-3FF8C8062EC6` Axiom \(.3\).3 (Monotonic growth of ambient axes)
+- `OC133-L10C-RECOVERED-MTOC-928411F19900` Axioms of Death
+- `OC133-L10C-RECOVERED-MTOC-E076FF9FF545` Axiom D.1 (Death as empty admissible region)
+- `OC133-L10C-RECOVERED-MTOC-D0621B441A9A` Axiom D.2 (Death via loss of cyclic time)
+- `OC133-L10C-RECOVERED-MTOC-3AB690F858D3` Axiom D.3 (Death by threshold incompatibility)
+- `OC133-L10C-RECOVERED-MTOC-F8701965D03B` Definition of Complexity Components
+- `OC133-L10C-RECOVERED-MTOC-88788AE383CE` Component \(S_C\)S_C (cycles)
+- `OC133-L10C-RECOVERED-MTOC-BE53E07806A9` Component \(S_\)S_ (threshold structure)
+- `OC133-L10C-RECOVERED-MTOC-5EBCCE86A422` Relation to continuumness \(k(t)\)
+- `OC133-L10C-RECOVERED-MTOC-B34F976F92A7` 2. Shared axes and thresholds across levels
+- `OC133-L10C-RECOVERED-MTOC-02F00772F567` 3. Cross-level flows, cycles, and tensions
+- `OC133-L10C-RECOVERED-MTOC-CE5D1C353FAD` K0–K1 cross-level structure
+- `OC133-L10C-RECOVERED-MTOC-1215B4E1D339` 1. Levels involved and their roles
+- `OC133-L10C-RECOVERED-MTOC-494A90C9B344` K0
+- `OC133-L10C-RECOVERED-MTOC-73EFD1C231D3` K1
+- `OC133-L10C-RECOVERED-MTOC-15B198C49355` 2. Shared and inherited axes and thresholds
+- `OC133-L10C-RECOVERED-MTOC-7ACEC2E51134` Difference
+- `OC133-L10C-RECOVERED-MTOC-642994CC842B` Flows
+- `OC133-L10C-RECOVERED-MTOC-31A38F811925` Tension
+- `OC133-L10C-RECOVERED-MTOC-BC5BD500064C` 4. Birth and death conditions across the levels
+- `OC133-L10C-RECOVERED-MTOC-8FEC28664B2D` Birth of K_1K_1
+- `OC133-L10C-RECOVERED-MTOC-99218796F6EE` Death propagation
+- `OC133-L10C-RECOVERED-MTOC-034849FE61CF` 5. Conceptual examples
+- `OC133-L10C-RECOVERED-MTOC-E25AAD7D265B` Emergence of the first axis from minimal differences
+- `OC133-L10C-RECOVERED-MTOC-2ABC58365DDC` Boundary formation
+- `OC133-L10C-RECOVERED-MTOC-C56F7F08195D` First flows
+- `OC133-L10C-RECOVERED-MTOC-D412AD2EFEF3` 2. Shared / inherited axes and thresholds
+- `OC133-L10C-RECOVERED-MTOC-F0F546055282` New thresholds
+- `OC133-L10C-RECOVERED-MTOC-59B6BED1945B` Collapse case
+- `OC133-L10C-RECOVERED-MTOC-F5212E70E059` Threshold extension
+- `OC133-L10C-RECOVERED-MTOC-69B7D7740736` Operator picture (creation/annihilation of clusters)
+- `OC133-L10C-RECOVERED-MTOC-B594058C1808` Osmotic boundary formation
+- `OC133-L10C-RECOVERED-MTOC-07CE88A6E846` Excitability as new dimension
+- `OC133-L10C-RECOVERED-MTOC-7D462EBA6283` Internal models
+- `OC133-L10C-RECOVERED-MTOC-EDC40A8D7929` Cognitive collapse
+- `OC133-L10C-RECOVERED-MTOC-10B6861B7462` Scientific revolution cycle
+- `OC133-L10C-RECOVERED-MTOC-2E97669E53EE` Meta-thresholds
+- `OC133-L10C-RECOVERED-MTOC-625854A1C81F` Definition of Cross-K structures
+- `OC133-L10C-RECOVERED-MTOC-45DCCABDF19D` Cycles on K_0K_0
+- `OC133-L10C-RECOVERED-MTOC-0491B5619FE5` Absence of State Space and Time
+- `OC133-L10C-RECOVERED-MTOC-1287243BA9E2` Structural Reason
+- `OC133-L10C-RECOVERED-MTOC-B09F0815FEC3` Implication for Higher Levels
+- `OC133-L10C-RECOVERED-MTOC-793F2B1716AB` Cycles on K_1K_1
+- `OC133-L10C-RECOVERED-MTOC-A484D86EFA7A` Definition of Cycles on K_1K_1
+- `OC133-L10C-RECOVERED-MTOC-2E722F544469` Characteristics of Cycles on K_1K_1
+- `OC133-L10C-RECOVERED-MTOC-3C18E1DB54A1` Metrics for K_1K_1 Cycles
+- `OC133-L10C-RECOVERED-MTOC-F844DD3D8103` Role of K_1K_1 Cycles in the Hierarchy
+- `OC133-L10C-RECOVERED-MTOC-7C0F3D146F8C` Cycles on K_10
+- `OC133-L10C-RECOVERED-MTOC-8DA0A1D1325A` Overview
+- `OC133-L10C-RECOVERED-MTOC-8354034461DF` Cycle Metrics on K_10
+- `OC133-L10C-RECOVERED-MTOC-6F9982F57651` Length
+- `OC133-L10C-RECOVERED-MTOC-C51EC2D0B5D7` Efficiency
+- `OC133-L10C-RECOVERED-MTOC-6B68E6C37D2A` Stability
+- `OC133-L10C-RECOVERED-MTOC-A924A73F6240` Weight
+- `OC133-L10C-RECOVERED-MTOC-EA10B0784C63` Collapse of K_10 Cycles
+- `OC133-L10C-RECOVERED-MTOC-A86F2D2293F4` Continuity from K_9K_9 to K_10
+- `OC133-L10C-RECOVERED-MTOC-3B5839E96724` Cycles on K_11
+- `OC133-L10C-RECOVERED-MTOC-335D3DD73DF3` Cycle Metrics on K_11
+- `OC133-L10C-RECOVERED-MTOC-7D3461B263BA` Collapse of K_11 Cycles
+- `OC133-L10C-RECOVERED-MTOC-245129F04DF7` Continuity from K_10 to K_11
+- `OC133-L10C-RECOVERED-MTOC-3198E9A4DD30` Cycles on K_12
+- `OC133-L10C-RECOVERED-MTOC-6FD25E655130` Cycle Metrics on K_12
+- `OC133-L10C-RECOVERED-MTOC-1FEFAAAA415B` Collapse of K_12 Cycles
+- `OC133-L10C-RECOVERED-MTOC-BF6676F6900F` Continuity from K_11 to K_12
+- `OC133-L10C-RECOVERED-MTOC-5ABA68962702` Cycles on K_2K_2
+- `OC133-L10C-RECOVERED-MTOC-4C37A5BDC410` Definition of Cycles on K_2K_2
+- `OC133-L10C-RECOVERED-MTOC-7AEE073AACD6` Types of Cycles on K_2K_2
+- `OC133-L10C-RECOVERED-MTOC-E5E70A20DBB1` (1) Cluster–Rearrangement Cycles
+- `OC133-L10C-RECOVERED-MTOC-A9DF1082FDE5` (2) Subcritical Connectivity Cycles
+- `OC133-L10C-RECOVERED-MTOC-5F0889C52DAC` (3) Critical–Near-Critical Cycles
+- `OC133-L10C-RECOVERED-MTOC-5D6105FC25B0` Structural Tension and Threshold Interaction
+- `OC133-L10C-RECOVERED-MTOC-735720D5AE9E` Metrics of Cycles on K_2K_2
+- `OC133-L10C-RECOVERED-MTOC-4567972DBFEF` Birth of Time and Non-Trivial Cycles
+- `OC133-L10C-RECOVERED-MTOC-138483DA5B8F` Role of K_2K_2 Cycles in the Hierarchy
+- `OC133-L10C-RECOVERED-MTOC-FD422998B207` Cycles on K_3K_3
+- `OC133-L10C-RECOVERED-MTOC-8F63316BB164` Fundamental Types of Cycles on K_3K_3
+- `OC133-L10C-RECOVERED-MTOC-372EFCE4E6DB` (1) Autocatalytic Reaction Cycles
+- `OC133-L10C-RECOVERED-MTOC-2533B1B0F8A0` (2) F-closure Restoration Cycles
+- `OC133-L10C-RECOVERED-MTOC-923F5AA2A68A` (3) Energetic and Redox Cycles
+- `OC133-L10C-RECOVERED-MTOC-8F400CF5C0F4` Structural Tension and Thresholds
+- `OC133-L10C-RECOVERED-MTOC-371F546A7654` Metrics of Cycles on K_3K_3
+- `OC133-L10C-RECOVERED-MTOC-A663700EF54D` Time and Cycle Periods
+- `OC133-L10C-RECOVERED-MTOC-A2158D08D117` Birth of Higher-Level Cycles
+- `OC133-L10C-RECOVERED-MTOC-ABF28DBB63F7` Cycles on K_4K_4
+- `OC133-L10C-RECOVERED-MTOC-268E6C1F073A` Classes of Cycles on K_4K_4
+- `OC133-L10C-RECOVERED-MTOC-DE4DEF22887A` Metrics of Cycles at K_4K_4
+- `OC133-L10C-RECOVERED-MTOC-836DB1AB2C5E` Time and Recurrence Structure
+- `OC133-L10C-RECOVERED-MTOC-79AC4518B559` Collapse and Viability of C(K_4)C(K_4)
+- `OC133-L10C-RECOVERED-MTOC-DBDF402E15C4` Transition Toward K_5K_5
+- `OC133-L10C-RECOVERED-MTOC-70C9EDABE7BD` Cycles on K_5K_5
+- `OC133-L10C-RECOVERED-MTOC-2A5C1FED5288` Overview of Cycle Structure on K_5K_5
+- `OC133-L10C-RECOVERED-MTOC-9300BA9FB726` Metrics of Cycles on K_5K_5
+- `OC133-L10C-RECOVERED-MTOC-ABC7D827BBD0` Collapse of C(K_5)C(K_5)
+- `OC133-L10C-RECOVERED-MTOC-9327703EFB5B` Continuity from K_4K_4 to K_5K_5
+- `OC133-L10C-RECOVERED-MTOC-F7D096F0C58B` Cycles on K_6K_6
+- `OC133-L10C-RECOVERED-MTOC-8602750FFE17` Overview of Cognition-Level Cycles
+- `OC133-L10C-RECOVERED-MTOC-5752F112451D` Metrics of Cognitive Cycles
+- `OC133-L10C-RECOVERED-MTOC-544643053301` Collapse of K_6K_6 Cycles
+- `OC133-L10C-RECOVERED-MTOC-481F354AA99D` Continuity from K_5K_5 to K_6K_6
+- `OC133-L10C-RECOVERED-MTOC-463D83A0B14D` Cycles on K_7K_7
+- `OC133-L10C-RECOVERED-MTOC-5FF03DB0958D` Cycle Metrics on K_7K_7
+- `OC133-L10C-RECOVERED-MTOC-7F144F03B5A0` Collapse of K_7K_7 Cycles
+- `OC133-L10C-RECOVERED-MTOC-294238160DE8` Continuity from K_6K_6 to K_7K_7
+- `OC133-L10C-RECOVERED-MTOC-DE276BCD34D1` Cycles on K_8K_8
+- `OC133-L10C-RECOVERED-MTOC-C3F0890539D0` Cycle Metrics on K_8K_8
+- ... 4430 additional recovered rows in JSON.

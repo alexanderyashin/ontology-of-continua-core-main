@@ -13,7 +13,7 @@ from build_oc_core_quality_metric_catalog import metric_catalog_paths
 from build_oc_core_release_instance import instance_paths
 from build_oc_core_release_package_cascade import package_paths
 from build_oc_core_text_fill_rules import rules_paths
-from assemble_oc_core_release_package import assembly_paths
+from assemble_oc_core_release_package import OLD_MASTER_BASELINE_PAGES, assembly_paths
 from oc_core_release_assembly_lib import ROOT, artifact_hash, read_json, stable_json, validation_result
 
 if str(ROOT) not in sys.path:
@@ -27,12 +27,13 @@ QUALITY_VALIDATION_STATUS_PASS = "QUALITY_VALIDATION_PASS"
 DELTA_REVISION = "r001"
 
 
-def quality_dir(release_id: str) -> Path:
-    return ROOT / "releases" / release_id / "editorial" / "quality_validation"
+def quality_dir(release_id: str, assembly_revision: str | None = None) -> Path:
+    base = ROOT / "releases" / release_id / "editorial" / "quality_validation"
+    return base / assembly_revision if assembly_revision else base
 
 
-def quality_paths(release_id: str, version: str) -> dict[str, Path]:
-    directory = quality_dir(release_id)
+def quality_paths(release_id: str, version: str, assembly_revision: str | None = None) -> dict[str, Path]:
+    directory = quality_dir(release_id, assembly_revision)
     return {
         "audit_json": directory / f"OC_CORE_RELEASE_QUALITY_AUDIT_{version}.json",
         "audit_md": directory / f"OC_CORE_RELEASE_QUALITY_AUDIT_{version}.md",
@@ -54,9 +55,9 @@ def _projection_by_node(matrix: dict[str, Any]) -> dict[str, list[dict[str, Any]
     return grouped
 
 
-def _release_package_assembly(release_id: str) -> dict[str, Any] | None:
+def _release_package_assembly(release_id: str, assembly_revision: str | None = None) -> dict[str, Any] | None:
     version = version_from_release_id(release_id)
-    path = assembly_paths(release_id, version)["assembly_json"]
+    path = assembly_paths(release_id, version, assembly_revision)["assembly_json"]
     return read_json(path) if path.exists() else None
 
 
@@ -68,17 +69,29 @@ def _artifact_scores(review_package: dict[str, Any], assembly: dict[str, Any] | 
             missing = [path for path in output_paths if not (ROOT / path).is_file()]
             pdf_build = artifact.get("pdf_build")
             pdf_ok = True if pdf_build is None else bool(pdf_build.get("ok"))
+            recovery_baseline = None
+            baseline_ok = True
+            if assembly.get("structure_source") == "recovered_l10c" and artifact.get("artifact_type_id") == "master_monograph":
+                pages = int((pdf_build or {}).get("pages") or 0)
+                baseline_ok = pages >= OLD_MASTER_BASELINE_PAGES
+                recovery_baseline = {
+                    "old_public_master_baseline_pages": OLD_MASTER_BASELINE_PAGES,
+                    "recovered_master_pages": pages,
+                    "pass": baseline_ok,
+                }
+            state = "PASS" if output_paths and not missing and pdf_ok and baseline_ok else "FAIL"
             rows.append(
                 {
                     "artifact_type_id": artifact["artifact_type_id"],
                     "label": artifact["artifact_type_id"].replace("_", " ").title(),
                     "candidate_asset_total": len(output_paths),
                     "existing_candidate_asset_total": len(output_paths) - len(missing),
-                    "score": 1.0 if output_paths and not missing and pdf_ok else 0.0,
-                    "state": "PASS" if output_paths and not missing and pdf_ok else "FAIL",
+                    "score": 1.0 if state == "PASS" else 0.0,
+                    "state": state,
                     "candidate_assets": [{"path": path, "exists_now": (ROOT / path).is_file()} for path in output_paths],
                     "metric_family": "artifact_hygiene",
                     "source": "generated_release_package_assembly",
+                    "recovery_baseline": recovery_baseline,
                 }
             )
         return rows
@@ -109,7 +122,7 @@ def _terminal_contracts_by_node(assembly: dict[str, Any] | None) -> dict[str, di
     version = assembly.get("release_identity", {}).get("version", "")
     if not release_id or not version:
         return {}
-    path = assembly_paths(release_id, version)["terminal_contracts_json"]
+    path = assembly_paths(release_id, version, assembly.get("assembly_revision"))["terminal_contracts_json"]
     if not path.exists():
         return {}
     payload = read_json(path)
@@ -186,6 +199,23 @@ def _l10_quality_rows(aggregator: dict[str, Any], matrix: dict[str, Any], assemb
     return rows
 
 
+def _recovery_regression_summary(package_assembly: dict[str, Any] | None) -> dict[str, Any]:
+    if not package_assembly or package_assembly.get("structure_source") != "recovered_l10c":
+        return {"applicable": False}
+    master_rows = [
+        row for row in package_assembly.get("artifact_rows", [])
+        if row.get("artifact_type_id") == "master_monograph"
+    ]
+    pdf_build = (master_rows[0].get("pdf_build") if master_rows else {}) or {}
+    pages = int(pdf_build.get("pages") or 0)
+    return {
+        "applicable": True,
+        "old_public_master_baseline_pages": OLD_MASTER_BASELINE_PAGES,
+        "recovered_master_pages": pages,
+        "pass": pages >= OLD_MASTER_BASELINE_PAGES,
+    }
+
+
 def _cerberus_vulnerability() -> dict[str, Any] | None:
     path = editorial_cerberus_path()
     if not path.exists():
@@ -225,7 +255,7 @@ def _cerberus_vulnerability() -> dict[str, Any] | None:
     }
 
 
-def build_audit_payload(release_id: str) -> dict[str, Any]:
+def build_audit_payload(release_id: str, assembly_revision: str | None = None) -> dict[str, Any]:
     version = version_from_release_id(release_id)
     paths = instance_paths(release_id, version)
     instance = read_json(paths["instance_json"])
@@ -235,14 +265,15 @@ def build_audit_payload(release_id: str) -> dict[str, Any]:
     matrix = read_json(projection_paths()["matrix_json"])
     package = read_json(package_paths()["cascade_json"])
     rules = read_json(rules_paths()["rules_json"])
-    package_assembly = _release_package_assembly(release_id)
+    package_assembly = _release_package_assembly(release_id, assembly_revision)
+    recovery_regression = _recovery_regression_summary(package_assembly)
     l10_rows = _l10_quality_rows(aggregator, matrix, package_assembly)
     artifact_rows = _artifact_scores(review_package, package_assembly)
     not_assessed_nodes = [row["aggregator_node_id"] for row in l10_rows if row["quality_state"] == "NOT_ASSESSED"]
     scientific_not_assessed_nodes = [row["aggregator_node_id"] for row in l10_rows if row.get("scientific_coverage_status") == "not_assessed"]
     missing_metric_rows = [row for row in l10_rows if row["missing_required_metric_ids"]]
     artifact_failures = [row for row in artifact_rows if row["state"] != "PASS"]
-    vulnerabilities = build_vulnerability_rows(release_id, l10_rows, artifact_rows)
+    vulnerabilities = build_vulnerability_rows(release_id, l10_rows, artifact_rows, recovery_regression)
     blocking_total = sum(1 for row in vulnerabilities if row["release_blocking"])
     family_counts: Counter[str] = Counter()
     for row in matrix["projection_rows"]:
@@ -254,6 +285,8 @@ def build_audit_payload(release_id: str) -> dict[str, Any]:
         "body_prose_included": False,
         "status": QUALITY_VALIDATION_STATUS_FAIL if blocking_total else QUALITY_VALIDATION_STATUS_PASS,
         "release_identity": instance["release_identity"],
+        "assembly_revision": assembly_revision,
+        "release_package_structure_source": (package_assembly or {}).get("structure_source"),
         "source_hashes": {
             "release_instance_hash": instance["artifact_hash"],
             "review_package_hash": review_package["artifact_hash"],
@@ -265,6 +298,8 @@ def build_audit_payload(release_id: str) -> dict[str, Any]:
             "text_fill_rules_hash": rules["artifact_hash"],
         },
         "summary": {
+            "release_package_assembly_revision": assembly_revision,
+            "release_package_structure_source": (package_assembly or {}).get("structure_source"),
             "terminal_l10_node_total": len(l10_rows),
             "metric_total": catalog["metric_total"],
             "projection_row_total": matrix["projection_row_total"],
@@ -274,6 +309,10 @@ def build_audit_payload(release_id: str) -> dict[str, Any]:
             "missing_required_metric_node_total": len(missing_metric_rows),
             "artifact_type_total": len(artifact_rows),
             "artifact_failure_total": len(artifact_failures),
+            "recovered_package_regression_applicable": recovery_regression["applicable"],
+            "old_public_master_baseline_pages": recovery_regression.get("old_public_master_baseline_pages"),
+            "recovered_master_pages": recovery_regression.get("recovered_master_pages"),
+            "recovered_master_baseline_pass": recovery_regression.get("pass"),
             "blocking_vulnerability_total": blocking_total,
             "vulnerability_total": len(vulnerabilities),
             "quality_claim_allowed": blocking_total == 0 and not not_assessed_nodes,
@@ -282,13 +321,19 @@ def build_audit_payload(release_id: str) -> dict[str, Any]:
         "applicable_metric_family_counts": dict(sorted(family_counts.items())),
         "l10_quality_rows": l10_rows,
         "artifact_quality_rows": artifact_rows,
+        "release_package_regression": recovery_regression,
         "vulnerability_ids": [row["vulnerability_id"] for row in vulnerabilities],
     }
     payload["artifact_hash"] = artifact_hash(payload)
     return payload
 
 
-def build_vulnerability_rows(release_id: str, l10_rows: list[dict[str, Any]], artifact_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def build_vulnerability_rows(
+    release_id: str,
+    l10_rows: list[dict[str, Any]],
+    artifact_rows: list[dict[str, Any]],
+    recovery_regression: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
     vulnerabilities: list[dict[str, Any]] = []
     not_assessed = [row["aggregator_node_id"] for row in l10_rows if row["quality_state"] == "NOT_ASSESSED"]
     if not_assessed:
@@ -337,6 +382,22 @@ def build_vulnerability_rows(release_id: str, l10_rows: list[dict[str, Any]], ar
                 "verification_rule": f"python tools/build_oc_core_release_instance.py --release {release_id} --check and quality audit must show artifact_failure_total=0.",
             }
         )
+    if recovery_regression and recovery_regression.get("applicable") and not recovery_regression.get("pass"):
+        vulnerabilities.append(
+            {
+                "vulnerability_id": "VULN-RECOVERY-001",
+                "root_class": "recovered_master_regresses_below_old_public_baseline",
+                "severity": "CRITICAL",
+                "release_blocking": True,
+                "affected_node_ids": [],
+                "affected_artifacts": ["master_monograph"],
+                "finding_total": 1,
+                "old_public_master_baseline_pages": recovery_regression.get("old_public_master_baseline_pages"),
+                "recovered_master_pages": recovery_regression.get("recovered_master_pages"),
+                "required_repair": "Recover additional historical/source-bound nodes or repair PDF assembly so the recovered master monograph does not regress below the old public baseline.",
+                "verification_rule": f"python tools/assemble_oc_core_release_package.py --release {release_id} --structure-source recovered_l10c --assembly-revision recovery_r001 --check must pass and recovered_master_pages must be >= {OLD_MASTER_BASELINE_PAGES}.",
+            }
+        )
     cerberus = _cerberus_vulnerability()
     if cerberus:
         vulnerabilities.append(cerberus)
@@ -346,7 +407,7 @@ def build_vulnerability_rows(release_id: str, l10_rows: list[dict[str, Any]], ar
 def build_protocol_payload(release_id: str, audit: dict[str, Any]) -> dict[str, Any]:
     l10_rows = audit["l10_quality_rows"]
     artifact_rows = audit["artifact_quality_rows"]
-    vulnerabilities = build_vulnerability_rows(release_id, l10_rows, artifact_rows)
+    vulnerabilities = build_vulnerability_rows(release_id, l10_rows, artifact_rows, audit.get("release_package_regression"))
     severity_counts = Counter(row["severity"] for row in vulnerabilities)
     payload: dict[str, Any] = {
         "schema_id": "OC_CORE_RELEASE_VULNERABILITY_PROTOCOL_v1",
@@ -539,15 +600,15 @@ def render_delta_md(payload: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def expected_files(release_id: str) -> dict[Path, str]:
+def expected_files(release_id: str, assembly_revision: str | None = None) -> dict[Path, str]:
     version = version_from_release_id(release_id)
-    audit = build_audit_payload(release_id)
+    audit = build_audit_payload(release_id, assembly_revision)
     protocol = build_protocol_payload(release_id, audit)
     delta = build_delta_payload(release_id, audit, protocol)
     failures = validate_audit(audit, protocol, delta)
     if failures:
         raise RuntimeError(f"Release quality audit validation failed: {failures[:20]}")
-    paths = quality_paths(release_id, version)
+    paths = quality_paths(release_id, version, assembly_revision)
     return {
         paths["audit_json"]: stable_json(audit),
         paths["audit_md"]: render_audit_md(audit),
@@ -561,12 +622,13 @@ def expected_files(release_id: str) -> dict[Path, str]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Audit OC Core release quality and emit vulnerability/delta protocols.")
     parser.add_argument("--release", required=True, help="Release id such as oc_core_1_3_3.")
+    parser.add_argument("--assembly-revision")
     parser.add_argument("--write", action="store_true")
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args(argv)
     if not args.write and not args.check:
         args.check = True
-    result = validation_result(expected_files(args.release), write=args.write)
+    result = validation_result(expected_files(args.release, args.assembly_revision), write=args.write)
     print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
     return 0 if result["state"] == "PASS" else 1
 

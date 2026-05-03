@@ -1,0 +1,131 @@
+{
+  "artifact_hash": "1dae4a227c025b47882d3e84bf7bb58cec1d977e4039ea2015d73f6b5cdc01df",
+  "artifact_kind": "OC_CORE_RELEASE_ASSEMBLY_REVISION_COMPARISON",
+  "baseline_revision": "default",
+  "candidate_revision": "recovery_r001",
+  "metric_rows": [
+    {
+      "baseline_value": 656,
+      "candidate_value": 5386,
+      "metric_id": "terminal_node_total",
+      "rule": "candidate must not reduce terminal coverage relative to the previous assembly unless a source-intake rejection report explains it",
+      "status": "PASS"
+    },
+    {
+      "baseline_value": 0,
+      "candidate_value": 0,
+      "metric_id": "blocked_terminal_total",
+      "rule": "candidate blocked terminal count must be zero",
+      "status": "PASS"
+    },
+    {
+      "baseline_value": 655,
+      "candidate_value": 5385,
+      "metric_id": "transition_record_coverage",
+      "rule": "candidate transition count must equal terminal_node_total - 1",
+      "status": "PASS"
+    },
+    {
+      "baseline_value": 13,
+      "candidate_value": 103,
+      "metric_id": "old_public_page_baseline::journal_core_article",
+      "rule": "candidate PDF pages must not regress below old public package baseline",
+      "status": "PASS"
+    },
+    {
+      "baseline_value": 650,
+      "candidate_value": 1023,
+      "metric_id": "old_public_page_baseline::master_monograph",
+      "rule": "candidate PDF pages must not regress below old public package baseline",
+      "status": "PASS"
+    },
+    {
+      "baseline_value": 17,
+      "candidate_value": 40,
+      "metric_id": "old_public_page_baseline::methods_repro_companion",
+      "rule": "candidate PDF pages must not regress below old public package baseline",
+      "status": "PASS"
+    },
+    {
+      "baseline_value": 9,
+      "candidate_value": 27,
+      "metric_id": "old_public_page_baseline::release_guide",
+      "rule": "candidate PDF pages must not regress below old public package baseline",
+      "status": "PASS"
+    },
+    {
+      "baseline_value": 19,
+      "candidate_value": 92,
+      "metric_id": "old_public_page_baseline::reviewer_attack_response_map",
+      "rule": "candidate PDF pages must not regress below old public package baseline",
+      "status": "PASS"
+    },
+    {
+      "baseline_value": 0,
+      "candidate_value": 103,
+      "metric_id": "assembly_page_delta::journal_core_article",
+      "rule": "candidate should grow or explain reductions against previous generated assembly",
+      "status": "PASS"
+    },
+    {
+      "baseline_value": 0,
+      "candidate_value": 1023,
+      "metric_id": "assembly_page_delta::master_monograph",
+      "rule": "candidate should grow or explain reductions against previous generated assembly",
+      "status": "PASS"
+    },
+    {
+      "baseline_value": 0,
+      "candidate_value": 40,
+      "metric_id": "assembly_page_delta::methods_repro_companion",
+      "rule": "candidate should grow or explain reductions against previous generated assembly",
+      "status": "PASS"
+    },
+    {
+      "baseline_value": 0,
+      "candidate_value": 27,
+      "metric_id": "assembly_page_delta::release_guide",
+      "rule": "candidate should grow or explain reductions against previous generated assembly",
+      "status": "PASS"
+    },
+    {
+      "baseline_value": 0,
+      "candidate_value": 92,
+      "metric_id": "assembly_page_delta::reviewer_attack_response_map",
+      "rule": "candidate should grow or explain reductions against previous generated assembly",
+      "status": "PASS"
+    },
+    {
+      "baseline_value": null,
+      "candidate_value": "PASS",
+      "metric_id": "machine_audit_status",
+      "rule": "candidate assembly machine audit must exist and pass before artifact review",
+      "status": "PASS"
+    },
+    {
+      "baseline_value": false,
+      "candidate_value": false,
+      "metric_id": "publication_action_total",
+      "rule": "review-space assembly must not perform public release actions",
+      "status": "PASS"
+    }
+  ],
+  "release_id": "oc_core_1_3_3",
+  "schema_id": "OC_CORE_RELEASE_ASSEMBLY_REVISION_COMPARISON_v1",
+  "source_hashes": {
+    "baseline_assembly_hash": "87e0bd9ec5f9805fe5ebd169cfb02546cbbcbd9dfa110ea958ee1abf82fd3770",
+    "candidate_assembly_hash": "211d613e40584e3f478ca82eb012fdc37d3f68005fa23a4aff35396cd8c56814",
+    "candidate_machine_audit_hash": "323b4278bf28cc28530a686515d9474aa75615aceac6daef924fe8399ff55a5e"
+  },
+  "status": "PASS",
+  "summary": {
+    "baseline_terminal_node_total": 656,
+    "candidate_master_pages": 1023,
+    "candidate_terminal_node_total": 5386,
+    "failure_total": 0,
+    "metric_total": 15,
+    "old_public_master_pages": 650,
+    "warning_total": 0
+  },
+  "version": "1.3.3"
+}

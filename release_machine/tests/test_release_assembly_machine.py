@@ -132,11 +132,17 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         profile = read_json(base / "OC_CORE_RELEASE_ARTIFACT_GENERATION_PROFILE.json")
         terminal = read_json(base / "OC_CORE_TERMINAL_TEXT_GENERATION_RULES.json")
         transitions = read_json(base / "OC_CORE_TRANSITION_RULES.json")
+        governance = read_json(base / "OC_CORE_RELEASE_ASSEMBLY_MACHINE_GOVERNANCE.json")
         self.assertEqual(profile["concept_doi_policy"]["pdf_doi"], "10.5281/zenodo.17899134")
         self.assertTrue(profile["concept_doi_policy"]["release_record_doi_is_publication_layer_only"])
         for field in ["reader_task", "claim_boundary", "source_refs", "transition_in", "transition_out"]:
             self.assertIn(field, terminal["terminal_contract_fields"])
         self.assertIn("definition_model->proof_evidence", transitions["templates"])
+        self.assertGreaterEqual(len(governance["cheap_first_ladder"]), 5)
+        metric_ids = {row["metric_id"] for row in governance["quantitative_regression_metrics"]}
+        self.assertIn("pdf_engine_warning_total", metric_ids)
+        self.assertIn("public_surface_leak_total", metric_ids)
+        self.assertTrue(governance["known_error_management"])
 
     def test_generated_release_package_is_review_space_only(self) -> None:
         base = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "generated_artifacts"
@@ -153,6 +159,57 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             self.assertTrue(row["output_paths"])
             for output in row["output_paths"]:
                 self.assertTrue((ROOT / output).exists(), output)
+
+    def test_recovery_structures_filter_source_intake_before_l10c(self) -> None:
+        base = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "recovery"
+        source_intake = read_json(base / "OC_CORE_1_3_3_SOURCE_INTAKE_AUDIT.json")
+        l10c = read_json(base / "OC_CORE_1_3_3_TOC_L10C_RECOVERED.json")
+        self.assertEqual(source_intake["status"], "PASS")
+        self.assertEqual(source_intake["summary"]["raw_recovered_candidate_total"], 9607)
+        self.assertEqual(source_intake["summary"]["accepted_recovered_candidate_total"], 4730)
+        self.assertEqual(source_intake["summary"]["rejected_recovered_candidate_total"], 4877)
+        self.assertEqual(l10c["current_l10_node_total"], 656)
+        self.assertEqual(l10c["recovered_l10b_node_total"], 4730)
+        self.assertEqual(l10c["node_total"], 5386)
+        text = json.dumps(l10c, ensure_ascii=False)
+        self.assertNotRegex(text, re.compile(r"[\u0400-\u04ff]"))
+        self.assertNotIn("Import:", text)
+
+    def test_recovered_release_package_passes_machine_and_regression_gates(self) -> None:
+        base = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "generated_artifacts_recovered" / "recovery_r001"
+        assembly = read_json(base / "package_assembly" / "OC_CORE_RELEASE_PACKAGE_ASSEMBLY_1.3.3.json")
+        machine = read_json(base / "package_assembly" / "OC_CORE_RELEASE_ASSEMBLY_MACHINE_AUDIT_1.3.3.json")
+        comparison = read_json(base / "package_assembly" / "OC_CORE_RELEASE_ASSEMBLY_REVISION_COMPARISON_1.3.3.recovery_r001.json")
+        self.assertEqual(assembly["structure_source"], "recovered_l10c")
+        self.assertEqual(assembly["assembly_revision"], "recovery_r001")
+        self.assertEqual(assembly["summary"]["terminal_node_total"], 5386)
+        self.assertEqual(assembly["summary"]["blocked_terminal_total"], 0)
+        pages = {row["artifact_type_id"]: (row.get("pdf_build") or {}).get("pages") for row in assembly["artifact_rows"]}
+        self.assertEqual(pages["master_monograph"], 1023)
+        self.assertGreaterEqual(pages["master_monograph"], 650)
+        self.assertEqual(machine["status"], "PASS")
+        self.assertEqual(machine["summary"]["finding_total"], 0)
+        self.assertEqual(comparison["status"], "PASS")
+        self.assertEqual(comparison["summary"]["failure_total"], 0)
+        self.assertEqual(comparison["summary"]["warning_total"], 0)
+        self.assertFalse(assembly["publication_actions_performed"])
+
+    def test_recovered_quality_audit_keeps_science_gates_honest(self) -> None:
+        audit = read_json(
+            ROOT
+            / "releases"
+            / "oc_core_1_3_3"
+            / "editorial"
+            / "quality_validation"
+            / "recovery_r001"
+            / "OC_CORE_RELEASE_QUALITY_AUDIT_1.3.3.json"
+        )
+        self.assertEqual(audit["summary"]["release_package_structure_source"], "recovered_l10c")
+        self.assertEqual(audit["summary"]["release_package_assembly_revision"], "recovery_r001")
+        self.assertTrue(audit["summary"]["recovered_master_baseline_pass"])
+        self.assertEqual(audit["summary"]["recovered_master_pages"], 1023)
+        self.assertEqual(audit["summary"]["artifact_failure_total"], 0)
+        self.assertIn("VULN-CERB-001", audit["vulnerability_ids"])
 
 
 if __name__ == "__main__":

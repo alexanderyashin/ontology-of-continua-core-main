@@ -1,0 +1,173 @@
+{
+  "artifact_hash": "2e9bda07a9e037e3bdd32366b113a41dba18bc0b8a50c398a856db5efa4e0446",
+  "artifact_kind": "OC_CORE_RELEASE_ASSEMBLY_MACHINE_GOVERNANCE",
+  "body_prose_included": false,
+  "cheap_first_ladder": [
+    {
+      "cost": "cheap",
+      "inputs": [
+        "package cascade",
+        "current aggregator",
+        "release instance",
+        "L10/LB/L10C structure"
+      ],
+      "required_metrics": [
+        "node_total",
+        "accepted_source_total",
+        "rejected_source_total",
+        "route_gap_total"
+      ],
+      "stage": "structure_and_toc_static_review"
+    },
+    {
+      "cost": "cheap",
+      "inputs": [
+        "source intake audit",
+        "terminal contracts",
+        "source bindings"
+      ],
+      "required_metrics": [
+        "blocked_terminal_total",
+        "non_english_source_total",
+        "control_route_total",
+        "missing_source_hash_total"
+      ],
+      "stage": "source_intake_and_contract_review"
+    },
+    {
+      "cost": "cheap",
+      "inputs": [
+        "transition records",
+        "artifact markdown sources"
+      ],
+      "required_metrics": [
+        "transition_record_total",
+        "forbidden_phrase_total",
+        "unicode_surface_warning_total",
+        "local_path_leak_total"
+      ],
+      "stage": "transition_and_public_surface_review"
+    },
+    {
+      "cost": "moderate",
+      "inputs": [
+        "PDF build logs",
+        "manifest",
+        "checksums"
+      ],
+      "required_metrics": [
+        "pdf_build_failure_total",
+        "pdf_missing_character_warning_total",
+        "manifest_missing_file_total"
+      ],
+      "stage": "pdf_and_package_smoke_review"
+    },
+    {
+      "cost": "expensive",
+      "inputs": [
+        "selected slices",
+        "high-risk artifacts",
+        "full package only after cheap gates pass"
+      ],
+      "required_metrics": [
+        "critical_finding_total",
+        "high_finding_total",
+        "regression_total"
+      ],
+      "stage": "expensive_editorial_or_llm_review"
+    }
+  ],
+  "known_error_management": [
+    {
+      "class": "route_or_control_sheet_promoted_as_scientific_artifact",
+      "known_error_id": "KERR-ASM-001",
+      "prevented_by": [
+        "source intake audit",
+        "public surface scan",
+        "artifact role gate"
+      ]
+    },
+    {
+      "class": "non_english_or_translation_source_accepted_into_english_public_release",
+      "known_error_id": "KERR-ASM-002",
+      "prevented_by": [
+        "source intake audit",
+        "assembly machine Unicode/language scan"
+      ]
+    },
+    {
+      "class": "package page/text regression hidden by green build",
+      "known_error_id": "KERR-ASM-003",
+      "prevented_by": [
+        "assembly revision comparator",
+        "old baseline page guard"
+      ]
+    },
+    {
+      "class": "pdf compiler warning ignored",
+      "known_error_id": "KERR-ASM-004",
+      "prevented_by": [
+        "assembly machine audit fails on pdf missing-character warnings"
+      ]
+    }
+  ],
+  "operating_directive": {
+    "delta_policy": "repair only the minimal affected generation, routing, source-intake, or transition rule; do not hand-edit final artifacts",
+    "error_handling": "classify the highest machine layer that can prevent the error class, repair that layer top-down, then regenerate a new assembly revision",
+    "growth_policy": "every accepted repair becomes a static regression gate so the same class cannot recur silently",
+    "primary_focus": "validate the assembly and routing machine before trusting generated artifacts",
+    "start_point": "always begin cheap review at package TOC, artifact scopes, terminal contracts, and transitions"
+  },
+  "quantitative_regression_metrics": [
+    {
+      "direction": "nondecreasing_when_recovery_scope_same",
+      "metric_id": "terminal_node_total"
+    },
+    {
+      "direction": "nondecreasing_unless_rejection_reason_recorded",
+      "metric_id": "accepted_source_total"
+    },
+    {
+      "direction": "explainable_by_rejection_class",
+      "metric_id": "rejected_source_total"
+    },
+    {
+      "direction": "zero",
+      "metric_id": "blocked_terminal_total"
+    },
+    {
+      "direction": "exact_terminal_minus_one",
+      "metric_id": "transition_record_coverage"
+    },
+    {
+      "direction": "no_baseline_regression_without_waiver",
+      "metric_id": "pdf_page_count_by_artifact"
+    },
+    {
+      "direction": "zero",
+      "metric_id": "public_surface_leak_total"
+    },
+    {
+      "direction": "zero",
+      "metric_id": "pdf_engine_warning_total"
+    },
+    {
+      "direction": "zero_in_review_space",
+      "metric_id": "publication_action_total"
+    }
+  ],
+  "required_static_gates": [
+    "python tools/build_oc_core_artifact_generation_rules.py --check",
+    "python tools/build_oc133_recovery_structures.py --check",
+    "python tools/audit_oc_core_release_assembly_machine.py --release {release_id} --assembly-revision {assembly_revision} --check",
+    "python tools/compare_oc_core_assembly_revisions.py --release {release_id} --candidate-revision {assembly_revision} --check"
+  ],
+  "schema_id": "OC_CORE_RELEASE_ASSEMBLY_MACHINE_GOVERNANCE_v1",
+  "source_hashes": {
+    "artifact_generation_profile_hash": "e1292e01e2adec9e8dcf835ceee75460f3830d42ea349b2ad7d8c62a40baa370",
+    "release_package_build_graph_hash": "49774041b4db9a45165f0d3af117f16b698f4945ca71827efb4e13315304e4d5",
+    "terminal_text_rules_hash": "2ece72a7f709e8bf54894970198c40341ec4e7f767799c645745b0a68298b1cf",
+    "transition_rules_hash": "1270ad6d0d4fd35aea43fea609e55189bdc6473df85f77e09f6ac7a67f427b62"
+  },
+  "status": "OC_CORE_ARTIFACT_GENERATION_RULES_READY"
+}

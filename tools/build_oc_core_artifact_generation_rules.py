@@ -25,6 +25,8 @@ def generation_paths() -> dict[str, Path]:
         "profile_md": ARTIFACT_GENERATION_DIR / "OC_CORE_RELEASE_ARTIFACT_GENERATION_PROFILE.md",
         "build_graph_json": ARTIFACT_GENERATION_DIR / "OC_CORE_RELEASE_PACKAGE_BUILD_GRAPH.json",
         "build_graph_md": ARTIFACT_GENERATION_DIR / "OC_CORE_RELEASE_PACKAGE_BUILD_GRAPH.md",
+        "machine_governance_json": ARTIFACT_GENERATION_DIR / "OC_CORE_RELEASE_ASSEMBLY_MACHINE_GOVERNANCE.json",
+        "machine_governance_md": ARTIFACT_GENERATION_DIR / "OC_CORE_RELEASE_ASSEMBLY_MACHINE_GOVERNANCE.md",
         "audit_json": ARTIFACT_GENERATION_DIR / "OC_CORE_ARTIFACT_GENERATION_RULES_AUDIT.json",
         "audit_md": ARTIFACT_GENERATION_DIR / "OC_CORE_ARTIFACT_GENERATION_RULES_AUDIT.md",
     }
@@ -212,6 +214,106 @@ def build_graph_payload(profile: dict[str, Any], terminal_rules: dict[str, Any],
     return payload
 
 
+def build_machine_governance_payload(
+    profile: dict[str, Any],
+    terminal_rules: dict[str, Any],
+    transition_rules: dict[str, Any],
+    build_graph: dict[str, Any],
+) -> dict[str, Any]:
+    payload: dict[str, Any] = {
+        "schema_id": "OC_CORE_RELEASE_ASSEMBLY_MACHINE_GOVERNANCE_v1",
+        "artifact_kind": "OC_CORE_RELEASE_ASSEMBLY_MACHINE_GOVERNANCE",
+        "body_prose_included": False,
+        "status": RULE_STATUS,
+        "source_hashes": {
+            "artifact_generation_profile_hash": profile["artifact_hash"],
+            "terminal_text_rules_hash": terminal_rules["artifact_hash"],
+            "transition_rules_hash": transition_rules["artifact_hash"],
+            "release_package_build_graph_hash": build_graph["artifact_hash"],
+        },
+        "operating_directive": {
+            "primary_focus": "validate the assembly and routing machine before trusting generated artifacts",
+            "start_point": "always begin cheap review at package TOC, artifact scopes, terminal contracts, and transitions",
+            "error_handling": "classify the highest machine layer that can prevent the error class, repair that layer top-down, then regenerate a new assembly revision",
+            "delta_policy": "repair only the minimal affected generation, routing, source-intake, or transition rule; do not hand-edit final artifacts",
+            "growth_policy": "every accepted repair becomes a static regression gate so the same class cannot recur silently",
+        },
+        "cheap_first_ladder": [
+            {
+                "stage": "structure_and_toc_static_review",
+                "cost": "cheap",
+                "inputs": ["package cascade", "current aggregator", "release instance", "L10/LB/L10C structure"],
+                "required_metrics": ["node_total", "accepted_source_total", "rejected_source_total", "route_gap_total"],
+            },
+            {
+                "stage": "source_intake_and_contract_review",
+                "cost": "cheap",
+                "inputs": ["source intake audit", "terminal contracts", "source bindings"],
+                "required_metrics": ["blocked_terminal_total", "non_english_source_total", "control_route_total", "missing_source_hash_total"],
+            },
+            {
+                "stage": "transition_and_public_surface_review",
+                "cost": "cheap",
+                "inputs": ["transition records", "artifact markdown sources"],
+                "required_metrics": ["transition_record_total", "forbidden_phrase_total", "unicode_surface_warning_total", "local_path_leak_total"],
+            },
+            {
+                "stage": "pdf_and_package_smoke_review",
+                "cost": "moderate",
+                "inputs": ["PDF build logs", "manifest", "checksums"],
+                "required_metrics": ["pdf_build_failure_total", "pdf_missing_character_warning_total", "manifest_missing_file_total"],
+            },
+            {
+                "stage": "expensive_editorial_or_llm_review",
+                "cost": "expensive",
+                "inputs": ["selected slices", "high-risk artifacts", "full package only after cheap gates pass"],
+                "required_metrics": ["critical_finding_total", "high_finding_total", "regression_total"],
+            },
+        ],
+        "quantitative_regression_metrics": [
+            {"metric_id": "terminal_node_total", "direction": "nondecreasing_when_recovery_scope_same"},
+            {"metric_id": "accepted_source_total", "direction": "nondecreasing_unless_rejection_reason_recorded"},
+            {"metric_id": "rejected_source_total", "direction": "explainable_by_rejection_class"},
+            {"metric_id": "blocked_terminal_total", "direction": "zero"},
+            {"metric_id": "transition_record_coverage", "direction": "exact_terminal_minus_one"},
+            {"metric_id": "pdf_page_count_by_artifact", "direction": "no_baseline_regression_without_waiver"},
+            {"metric_id": "public_surface_leak_total", "direction": "zero"},
+            {"metric_id": "pdf_engine_warning_total", "direction": "zero"},
+            {"metric_id": "publication_action_total", "direction": "zero_in_review_space"},
+        ],
+        "required_static_gates": [
+            "python tools/build_oc_core_artifact_generation_rules.py --check",
+            "python tools/build_oc133_recovery_structures.py --check",
+            "python tools/audit_oc_core_release_assembly_machine.py --release {release_id} --assembly-revision {assembly_revision} --check",
+            "python tools/compare_oc_core_assembly_revisions.py --release {release_id} --candidate-revision {assembly_revision} --check",
+        ],
+        "known_error_management": [
+            {
+                "known_error_id": "KERR-ASM-001",
+                "class": "route_or_control_sheet_promoted_as_scientific_artifact",
+                "prevented_by": ["source intake audit", "public surface scan", "artifact role gate"],
+            },
+            {
+                "known_error_id": "KERR-ASM-002",
+                "class": "non_english_or_translation_source_accepted_into_english_public_release",
+                "prevented_by": ["source intake audit", "assembly machine Unicode/language scan"],
+            },
+            {
+                "known_error_id": "KERR-ASM-003",
+                "class": "package page/text regression hidden by green build",
+                "prevented_by": ["assembly revision comparator", "old baseline page guard"],
+            },
+            {
+                "known_error_id": "KERR-ASM-004",
+                "class": "pdf compiler warning ignored",
+                "prevented_by": ["assembly machine audit fails on pdf missing-character warnings"],
+            },
+        ],
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
 def validate_payloads(payloads: dict[str, dict[str, Any]]) -> list[str]:
     failures: list[str] = []
     for name, payload in payloads.items():
@@ -231,6 +333,13 @@ def validate_payloads(payloads: dict[str, dict[str, Any]]) -> list[str]:
     for artifact in profile.get("artifact_profiles", []):
         if artifact.get("output_kind") == "markdown_and_pdf" and artifact.get("publication_record_doi_allowed_in_package_build") is not False:
             failures.append(f"artifact_allows_publication_doi::{artifact.get('artifact_type_id')}")
+    governance = payloads["machine_governance"]
+    required_metrics = {row["metric_id"] for row in governance.get("quantitative_regression_metrics", [])}
+    for metric_id in ["blocked_terminal_total", "public_surface_leak_total", "pdf_engine_warning_total", "publication_action_total"]:
+        if metric_id not in required_metrics:
+            failures.append(f"machine_governance_missing_metric::{metric_id}")
+    if len(governance.get("cheap_first_ladder", [])) < 5:
+        failures.append("machine_governance_ladder_too_short")
     return sorted(set(failures))
 
 
@@ -247,6 +356,7 @@ def build_audit_payload(payloads: dict[str, dict[str, Any]]) -> dict[str, Any]:
         "transition_rules_hash": payloads["transition_rules"]["artifact_hash"],
         "artifact_generation_profile_hash": payloads["profile"]["artifact_hash"],
         "release_package_build_graph_hash": payloads["build_graph"]["artifact_hash"],
+        "machine_governance_hash": payloads["machine_governance"]["artifact_hash"],
     }
     payload["artifact_hash"] = artifact_hash(payload)
     return payload
@@ -283,6 +393,16 @@ def render_simple_md(title: str, payload: dict[str, Any]) -> str:
     if "stages" in payload:
         lines.extend(["## Build Stages", ""])
         lines.extend(f"{index}. {stage}" for index, stage in enumerate(payload["stages"], start=1))
+    if "operating_directive" in payload:
+        lines.extend(["## Operating Directive", ""])
+        for key, value in payload["operating_directive"].items():
+            lines.append(f"- {key}: {value}")
+        lines.extend(["", "## Cheap-First Ladder", ""])
+        for row in payload["cheap_first_ladder"]:
+            lines.append(f"- `{row['stage']}` ({row['cost']}): {', '.join(row['required_metrics'])}")
+        lines.extend(["", "## Quantitative Regression Metrics", ""])
+        for row in payload["quantitative_regression_metrics"]:
+            lines.append(f"- `{row['metric_id']}`: {row['direction']}")
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -291,11 +411,13 @@ def expected_files() -> dict[Path, str]:
     transition_rules = build_transition_rules_payload()
     profile = build_profile_payload()
     build_graph = build_graph_payload(profile, terminal_rules, transition_rules)
+    machine_governance = build_machine_governance_payload(profile, terminal_rules, transition_rules, build_graph)
     payloads = {
         "terminal_rules": terminal_rules,
         "transition_rules": transition_rules,
         "profile": profile,
         "build_graph": build_graph,
+        "machine_governance": machine_governance,
     }
     audit = build_audit_payload(payloads)
     if audit["status"] != "PASS":
@@ -310,6 +432,8 @@ def expected_files() -> dict[Path, str]:
         paths["profile_md"]: render_simple_md("OC Core Release Artifact Generation Profile", profile),
         paths["build_graph_json"]: stable_json(build_graph),
         paths["build_graph_md"]: render_simple_md("OC Core Release Package Build Graph", build_graph),
+        paths["machine_governance_json"]: stable_json(machine_governance),
+        paths["machine_governance_md"]: render_simple_md("OC Core Release Assembly Machine Governance", machine_governance),
         paths["audit_json"]: stable_json(audit),
         paths["audit_md"]: render_simple_md("OC Core Artifact Generation Rules Audit", audit),
     }

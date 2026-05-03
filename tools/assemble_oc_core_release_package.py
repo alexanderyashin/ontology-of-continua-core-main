@@ -6,6 +6,7 @@ import json
 import re
 import subprocess
 import sys
+import unicodedata
 import zipfile
 from collections import defaultdict
 from pathlib import Path
@@ -34,6 +35,9 @@ PUBLICATION_FORBIDDEN_RE = re.compile(
 )
 RAW_LEDGER_RE = re.compile(r"\{\s*\"schema_id\"|route sheet|control sheet|raw ledger|checksum wall", re.IGNORECASE)
 RELEASE_RECORD_DOI_RE = re.compile(r"10\.5281/zenodo\.(?!17899134)\d+", re.IGNORECASE)
+CYRILLIC_RE = re.compile(r"[\u0400-\u04FF]")
+RECOVERED_L10C = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "recovery" / "OC_CORE_1_3_3_TOC_L10C_RECOVERED.json"
+OLD_MASTER_BASELINE_PAGES = 650
 
 
 TEXT_ARTIFACTS = {
@@ -45,12 +49,14 @@ TEXT_ARTIFACTS = {
 }
 
 
-def generated_dir(release_id: str) -> Path:
+def generated_dir(release_id: str, assembly_revision: str | None = None) -> Path:
+    if assembly_revision:
+        return ROOT / "releases" / release_id / "editorial" / "generated_artifacts_recovered" / assembly_revision
     return ROOT / "releases" / release_id / "editorial" / "generated_artifacts"
 
 
-def assembly_paths(release_id: str, version: str) -> dict[str, Path]:
-    base = generated_dir(release_id)
+def assembly_paths(release_id: str, version: str, assembly_revision: str | None = None) -> dict[str, Path]:
+    base = generated_dir(release_id, assembly_revision)
     assembly_dir = base / "package_assembly"
     return {
         "terminal_contracts_json": base / "terminal_text" / f"OC_CORE_TERMINAL_TEXT_CONTRACTS_{version}.json",
@@ -89,11 +95,83 @@ def order_key(node: dict[str, Any]) -> tuple[int, ...]:
     return tuple(int(part) for part in node.get("order_path", []))
 
 
+CYRILLIC_TRANSLIT = str.maketrans(
+    {
+        "А": "A", "Б": "B", "В": "V", "Г": "G", "Д": "D", "Е": "E", "Ё": "E", "Ж": "Zh", "З": "Z",
+        "И": "I", "Й": "I", "К": "K", "Л": "L", "М": "M", "Н": "N", "О": "O", "П": "P",
+        "Р": "R", "С": "S", "Т": "T", "У": "U", "Ф": "F", "Х": "Kh", "Ц": "Ts", "Ч": "Ch",
+        "Ш": "Sh", "Щ": "Sch", "Ъ": "", "Ы": "Y", "Ь": "", "Э": "E", "Ю": "Yu", "Я": "Ya",
+        "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "e", "ж": "zh", "з": "z",
+        "и": "i", "й": "i", "к": "k", "л": "l", "м": "m", "н": "n", "о": "o", "п": "p",
+        "р": "r", "с": "s", "т": "t", "у": "u", "ф": "f", "х": "kh", "ц": "ts", "ч": "ch",
+        "ш": "sh", "щ": "sch", "ъ": "", "ы": "y", "ь": "", "э": "e", "ю": "yu", "я": "ya",
+    }
+)
+PUBLIC_TEXT_REPLACEMENTS = {
+    "–": "-",
+    "—": "-",
+    "−": "-",
+    "→": "->",
+    "←": "<-",
+    "↔": "<->",
+    "≤": "<=",
+    "≥": ">=",
+    "≈": "~",
+    "∞": "infinity",
+    "∑": "sum",
+    "∏": "product",
+    "∈": "in",
+    "∉": "not in",
+    "∅": "empty set",
+    "⊂": "subset",
+    "⊆": "subset or equal",
+    "⊇": "superset or equal",
+    "∧": "and",
+    "∨": "or",
+    "¬": "not",
+    "∀": "for all",
+    "∃": "exists",
+    "α": "alpha",
+    "β": "beta",
+    "γ": "gamma",
+    "δ": "delta",
+    "θ": "theta",
+    "λ": "lambda",
+    "μ": "mu",
+    "π": "pi",
+    "σ": "sigma",
+    "φ": "phi",
+    "ω": "omega",
+    "Α": "Alpha",
+    "Β": "Beta",
+    "Γ": "Gamma",
+    "Δ": "Delta",
+    "Θ": "Theta",
+    "Λ": "Lambda",
+    "Μ": "Mu",
+    "Π": "Pi",
+    "Σ": "Sigma",
+    "Φ": "Phi",
+    "Ω": "Omega",
+}
+
+
+def public_text(text: str) -> str:
+    text = text.translate(CYRILLIC_TRANSLIT)
+    for source, target in PUBLIC_TEXT_REPLACEMENTS.items():
+        text = text.replace(source, target)
+    text = unicodedata.normalize("NFKD", text)
+    text = text.encode("ascii", "ignore").decode("ascii")
+    text = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
 def clean_title(title: str) -> str:
     text = title.replace("Paragraph Slot:", "").strip()
     text = re.sub(r"\s+", " ", text)
     text = text.replace(" and state its reader task", "")
     text = text.replace(" and hand off to the next obligation", "")
+    text = public_text(text)
     return text[0].upper() + text[1:] if text else "Local obligation"
 
 
@@ -106,6 +184,8 @@ def source_inventory_by_family() -> dict[str, list[str]]:
 
 
 def bind_sources(node: dict[str, Any], inventory: dict[str, list[str]]) -> list[dict[str, Any]]:
+    if node.get("source_refs"):
+        return [ref for ref in node["source_refs"] if isinstance(ref, dict)]
     refs: list[dict[str, Any]] = []
     seen: set[str] = set()
     for family_id in node.get("source_family_ids", []):
@@ -127,6 +207,13 @@ def bind_sources(node: dict[str, Any], inventory: dict[str, list[str]]) -> list[
     return refs
 
 
+def source_families_for_node(node: dict[str, Any]) -> list[str]:
+    families = [str(item) for item in node.get("source_family_ids", []) if item]
+    if families:
+        return families
+    return sorted({str(ref.get("source_family_id")) for ref in node.get("source_refs", []) if isinstance(ref, dict) and ref.get("source_family_id")})
+
+
 def build_transition_text(current: dict[str, Any], next_node: dict[str, Any] | None) -> str:
     if next_node is None:
         return "This closes the current release-assembly route and leaves no extra unsupported claim behind."
@@ -144,11 +231,11 @@ def build_transition_text(current: dict[str, Any], next_node: dict[str, Any] | N
 
 
 def build_terminal_paragraph(node: dict[str, Any], source_refs: list[dict[str, Any]], transition_out: str) -> str:
-    topic = clean_title(str(node.get("title", "")))
+    topic = public_text(clean_title(str(node.get("title", ""))))
     role = str(node.get("argument_role") or "definition_model")
-    reader_task = str(node.get("reader_task") or "understand the local scientific obligation")
-    claim_boundary = str(node.get("claim_boundary") or "keep the statement bounded to the named evidence route")
-    source_families = ", ".join(str(item).replace("_", " ") for item in node.get("source_family_ids", [])[:3])
+    reader_task = public_text(str(node.get("reader_task") or "understand the local scientific obligation"))
+    claim_boundary = public_text(str(node.get("claim_boundary") or "keep the statement bounded to the named evidence route"))
+    source_families = ", ".join(str(item).replace("_", " ") for item in source_families_for_node(node)[:3])
     source_phrase = source_families or "the mapped scientific source families"
     if role == "definition_model":
         body = (
@@ -178,10 +265,27 @@ def build_terminal_paragraph(node: dict[str, Any], source_refs: list[dict[str, A
     return body + " " + transition_out
 
 
-def build_terminal_contracts() -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
-    aggregator = read_json(aggregator_paths()["aggregator_json"])
+def terminal_nodes_for_source(structure_source: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    if structure_source == "current":
+        aggregator = read_json(aggregator_paths()["aggregator_json"])
+        nodes = sorted([node for node in aggregator["nodes"] if node.get("terminal_l10") is True], key=order_key)
+        return nodes, {
+            "structure_source": "current",
+            "current_release_aggregator_hash": aggregator["artifact_hash"],
+        }
+    if structure_source == "recovered_l10c":
+        l10c = read_json(RECOVERED_L10C)
+        nodes = sorted(l10c["nodes"], key=lambda row: int(row.get("order_index", 0)))
+        return nodes, {
+            "structure_source": "recovered_l10c",
+            "l10c_recovered_hash": l10c["artifact_hash"],
+        }
+    raise ValueError(f"Unsupported structure source: {structure_source}")
+
+
+def build_terminal_contracts(structure_source: str = "current") -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
+    terminal_nodes, structure_hashes = terminal_nodes_for_source(structure_source)
     inventory = source_inventory_by_family()
-    terminal_nodes = sorted([node for node in aggregator["nodes"] if node.get("terminal_l10") is True], key=order_key)
     contracts: list[dict[str, Any]] = []
     transition_records: list[dict[str, Any]] = []
     for index, node in enumerate(terminal_nodes):
@@ -189,18 +293,21 @@ def build_terminal_contracts() -> tuple[dict[str, Any], dict[str, Any], list[dic
         transition_out = build_transition_text(node, next_node)
         source_refs = bind_sources(node, inventory)
         buildable = bool(node.get("reader_task") and node.get("claim_boundary") and source_refs and node.get("argument_role"))
+        title_raw = str(node["title"])
+        title_public = public_text(title_raw)
         contract = {
             "aggregator_node_id": node["aggregator_node_id"],
-            "target_node_id": node["target_node_id"],
-            "order_label": node["order_label"],
+            "target_node_id": node.get("target_node_id") or node.get("l10c_node_id"),
+            "order_label": node.get("order_label") or "/".join(str(part) for part in node.get("order_path", [])),
             "order_path": node["order_path"],
-            "title": node["title"],
-            "clean_title": clean_title(str(node["title"])),
+            "title": title_public,
+            "source_title_requires_translation": bool(CYRILLIC_RE.search(title_raw)),
+            "clean_title": public_text(str(node.get("clean_title") or clean_title(str(node["title"])))),
             "argument_role": node.get("argument_role"),
-            "reader_task": node.get("reader_task"),
-            "claim_boundary": node.get("claim_boundary"),
+            "reader_task": public_text(str(node.get("reader_task") or "")),
+            "claim_boundary": public_text(str(node.get("claim_boundary") or "")),
             "source_refs": source_refs,
-            "transformation_rule": node.get("integration_rule") or node.get("extraction_rule"),
+            "transformation_rule": public_text(str(node.get("integration_rule") or node.get("extraction_rule") or "")),
             "transition_in": "Continue the inherited top-down manuscript route without modifying frozen parent structure.",
             "transition_out": transition_out,
             "quality_scorer_hooks": [
@@ -213,6 +320,8 @@ def build_terminal_contracts() -> tuple[dict[str, Any], dict[str, Any], list[dic
             ],
             "generated_text": build_terminal_paragraph(node, source_refs, transition_out) if buildable else "",
             "build_state": "BUILDABLE" if buildable else "BLOCKED_MISSING_CONTRACT_FIELD",
+            "source_layer": node.get("source_layer") or structure_source,
+            "recovery_node": node.get("source_layer") == "l10b_recovered",
         }
         contracts.append(contract)
         if next_node is not None:
@@ -232,9 +341,10 @@ def build_terminal_contracts() -> tuple[dict[str, Any], dict[str, Any], list[dic
         "artifact_kind": "OC_CORE_TERMINAL_TEXT_CONTRACTS",
         "status": "TERMINAL_TEXT_CONTRACTS_READY",
         "source_hashes": {
-            "current_release_aggregator_hash": aggregator["artifact_hash"],
+            **structure_hashes,
             "terminal_text_rules_hash": read_json(generation_paths()["terminal_rules_json"])["artifact_hash"],
         },
+        "structure_source": structure_source,
         "terminal_node_total": len(terminal_nodes),
         "buildable_terminal_total": sum(1 for row in contracts if row["build_state"] == "BUILDABLE"),
         "blocked_terminal_total": sum(1 for row in contracts if row["build_state"] != "BUILDABLE"),
@@ -319,7 +429,7 @@ def render_source_bindings_md(payload: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def artifact_scope(artifact_type_id: str, contracts: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def artifact_scope(artifact_type_id: str, contracts: list[dict[str, Any]], structure_source: str = "current") -> list[dict[str, Any]]:
     if artifact_type_id == "master_monograph":
         return contracts
     l1_scopes = {
@@ -331,10 +441,26 @@ def artifact_scope(artifact_type_id: str, contracts: list[dict[str, Any]]) -> li
     if not l1_scopes:
         return []
     scoped = [row for row in contracts if int(row["order_path"][0]) in l1_scopes]
-    if artifact_type_id != "master_monograph":
-        # Keep support PDFs concise while still preserving all role types within their selected scientific route.
-        return scoped[: min(len(scoped), 160)]
-    return scoped
+    if structure_source == "recovered_l10c":
+        recovered = [row for row in contracts if row.get("recovery_node")]
+        if artifact_type_id == "release_guide":
+            keywords = ["frontmatter", "release", "citation", "governance", "synthesis"]
+            extra_limit = 500
+        elif artifact_type_id == "journal_core_article":
+            keywords = ["model", "theorem", "proof", "evidence", "prior", "novelty"]
+            extra_limit = 1500
+        elif artifact_type_id == "methods_repro_companion":
+            keywords = ["method", "lean", "finite", "validation", "reproduc", "simulation"]
+            extra_limit = 1400
+        else:
+            keywords = ["review", "attack", "limit", "fals", "counterexample", "risk"]
+            extra_limit = 1200
+        selected = [
+            row for row in recovered
+            if any(keyword in (row.get("clean_title", "") + " " + row.get("title", "")).lower() for keyword in keywords)
+        ][:extra_limit]
+        return scoped + selected
+    return scoped[: min(len(scoped), 160)]
 
 
 def artifact_title(artifact_type_id: str, version: str) -> str:
@@ -413,7 +539,29 @@ def build_pdf(source: Path, output: Path) -> dict[str, Any]:
         "output": rel(output) if output.exists() else rel(output),
         "sha256": sha256_file(output) if output.is_file() else None,
         "size_bytes": output.stat().st_size if output.is_file() else 0,
+        "pages": pdf_pages(output) if output.is_file() else 0,
     }
+
+
+def pdf_pages(path: Path) -> int:
+    if not path.is_file():
+        return 0
+    try:
+        completed = subprocess.run(
+            ["pdfinfo", str(path)],
+            cwd=ROOT,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            capture_output=True,
+            timeout=30,
+        )
+        match = re.search(r"^Pages:\s*(\d+)\s*$", completed.stdout, re.M)
+        if match:
+            return int(match.group(1))
+    except Exception:
+        return 0
+    return 0
 
 
 def write_review_zip(zip_path: Path, files: list[Path]) -> dict[str, Any]:
@@ -428,13 +576,20 @@ def write_review_zip(zip_path: Path, files: list[Path]) -> dict[str, Any]:
     return {"path": rel(zip_path), "sha256": sha256_file(zip_path), "size_bytes": zip_path.stat().st_size}
 
 
-def assemble_release(release_id: str, *, write: bool, skip_pdf: bool = False) -> dict[str, Any]:
+def assemble_release(
+    release_id: str,
+    *,
+    write: bool,
+    skip_pdf: bool = False,
+    structure_source: str = "current",
+    assembly_revision: str | None = None,
+) -> dict[str, Any]:
     version = version_from_release_id(release_id)
-    paths = assembly_paths(release_id, version)
+    paths = assembly_paths(release_id, version, assembly_revision)
     instance = read_json(instance_paths(release_id, version)["instance_json"])
     package = read_json(package_paths()["cascade_json"])
     profile = read_json(generation_paths()["profile_json"])
-    terminal_contracts, transitions, source_payloads = build_terminal_contracts()
+    terminal_contracts, transitions, source_payloads = build_terminal_contracts(structure_source)
     source_bindings = source_payloads[0]
     generated_files: list[Path] = []
     changed: list[str] = []
@@ -461,15 +616,15 @@ def assemble_release(release_id: str, *, write: bool, skip_pdf: bool = False) ->
     artifact_rows: list[dict[str, Any]] = []
     for artifact in package["artifact_types"]:
         artifact_id = artifact["artifact_type_id"]
-        base = generated_dir(release_id)
+        base = generated_dir(release_id, assembly_revision)
         source_path = base / "sources" / f"{artifact_id}_{version}.md"
         pdf_path = base / "pdf" / f"{artifact_id}_{version}.pdf"
         json_path = base / "metadata" / f"{artifact_id}_{version}.json"
         output_paths: list[str] = []
         if artifact_id in TEXT_ARTIFACTS or artifact_id == "release_notes_changelog":
-            rows = artifact_scope(artifact_id, terminal_rows)
+            rows = artifact_scope(artifact_id, terminal_rows, structure_source)
             if artifact_id == "release_notes_changelog":
-                rows = artifact_scope("release_guide", terminal_rows)[:24]
+                rows = artifact_scope("release_guide", terminal_rows, structure_source)[:80]
             text = render_artifact_markdown(artifact_id, version, instance, rows)
             source_changed = False
             if write and write_text_if_changed(source_path, text):
@@ -487,6 +642,7 @@ def assemble_release(release_id: str, *, write: bool, skip_pdf: bool = False) ->
                         "output": rel(pdf_path),
                         "sha256": sha256_file(pdf_path) if pdf_path.is_file() else None,
                         "size_bytes": pdf_path.stat().st_size if pdf_path.is_file() else 0,
+                        "pages": pdf_pages(pdf_path) if pdf_path.is_file() else 0,
                     }
                 if pdf_path.is_file():
                     generated_files.append(pdf_path)
@@ -580,6 +736,8 @@ def assemble_release(release_id: str, *, write: bool, skip_pdf: bool = False) ->
         "concept_doi": CONCEPT_DOI,
         "release_record_doi": None,
         "publication_actions_performed": False,
+        "structure_source": structure_source,
+        "assembly_revision": assembly_revision,
         "source_hashes": {
             "release_instance_hash": instance["artifact_hash"],
             "current_release_aggregator_hash": read_json(aggregator_paths()["aggregator_json"])["artifact_hash"],
@@ -589,6 +747,7 @@ def assemble_release(release_id: str, *, write: bool, skip_pdf: bool = False) ->
             "transition_records_hash": transitions["artifact_hash"],
             "source_bindings_hash": source_bindings["artifact_hash"],
             "manifest_hash": manifest["artifact_hash"],
+            "l10c_recovered_hash": read_json(RECOVERED_L10C)["artifact_hash"] if structure_source == "recovered_l10c" else None,
         },
         "summary": {
             "terminal_node_total": terminal_contracts["terminal_node_total"],
@@ -654,6 +813,13 @@ def build_audit_payload(assembly: dict[str, Any]) -> dict[str, Any]:
         pdf_build = row.get("pdf_build")
         if row.get("output_kind") == "markdown_and_pdf" and (not pdf_build or not pdf_build.get("ok")):
             failures.append(f"pdf_build_failed::{row.get('artifact_type_id')}")
+        if (
+            assembly.get("structure_source") == "recovered_l10c"
+            and row.get("artifact_type_id") == "master_monograph"
+            and row.get("output_kind") == "markdown_and_pdf"
+            and int((pdf_build or {}).get("pages") or 0) < OLD_MASTER_BASELINE_PAGES
+        ):
+            failures.append("recovered_master_pages_below_old_650_page_baseline")
     payload: dict[str, Any] = {
         "schema_id": "OC_CORE_RELEASE_PACKAGE_ASSEMBLY_AUDIT_v1",
         "artifact_kind": "OC_CORE_RELEASE_PACKAGE_ASSEMBLY_AUDIT",
@@ -662,6 +828,8 @@ def build_audit_payload(assembly: dict[str, Any]) -> dict[str, Any]:
         "failures": sorted(set(failures)),
         "release_identity": assembly["release_identity"],
         "release_package_assembly_hash": assembly["artifact_hash"],
+        "structure_source": assembly.get("structure_source", "current"),
+        "assembly_revision": assembly.get("assembly_revision"),
         "summary": summary,
     }
     payload["artifact_hash"] = artifact_hash(payload)
@@ -675,6 +843,8 @@ def render_assembly_md(payload: dict[str, Any]) -> str:
         f"Status: `{payload['status']}`",
         f"Artifact hash: `{payload['artifact_hash']}`",
         f"Concept DOI for generated PDFs: `{payload['concept_doi']}`",
+        f"Structure source: `{payload.get('structure_source', 'current')}`",
+        f"Assembly revision: `{payload.get('assembly_revision')}`",
         "Publication actions performed: `false`",
         "",
         "## Summary",
@@ -703,9 +873,9 @@ def render_audit_md(payload: dict[str, Any]) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
-def check_release(release_id: str) -> dict[str, Any]:
+def check_release(release_id: str, *, assembly_revision: str | None = None) -> dict[str, Any]:
     version = version_from_release_id(release_id)
-    paths = assembly_paths(release_id, version)
+    paths = assembly_paths(release_id, version, assembly_revision)
     missing = [rel(path) for path in paths.values() if not path.is_file()]
     if missing:
         return {"state": "FAIL", "missing": missing, "changed": []}
@@ -730,10 +900,18 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--write", action="store_true")
     parser.add_argument("--check", action="store_true")
     parser.add_argument("--skip-pdf", action="store_true")
+    parser.add_argument("--structure-source", default="current", choices=["current", "recovered_l10c"])
+    parser.add_argument("--assembly-revision", default=None)
     args = parser.parse_args(argv)
     if not args.write and not args.check:
         args.check = True
-    payload = check_release(args.release) if args.check else assemble_release(args.release, write=True, skip_pdf=args.skip_pdf)
+    payload = check_release(args.release, assembly_revision=args.assembly_revision) if args.check else assemble_release(
+        args.release,
+        write=True,
+        skip_pdf=args.skip_pdf,
+        structure_source=args.structure_source,
+        assembly_revision=args.assembly_revision,
+    )
     print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
     return 0 if payload.get("state") == "PASS" else 1
 
