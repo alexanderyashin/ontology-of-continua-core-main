@@ -3,7 +3,7 @@
 Status: DRAFT_STRUCTURE_REVIEW_COMPANION
 Version: 1.3.3
 Depth: L06
-Artifact hash: `55bee3526e50b3874b019f5b9f69231534e00905f474a0ab9ce3ba83d85359c9`
+Artifact hash: `117fcadcc781880b995eb8fa44722636d879bbbf046ffca60047a677a4645e53`
 Structure artifact hash: `ef3c6fecae31061c47cd167677f87f0b70cd0f53729ea6b42df3e7f93be43323`
 Structure combined hash: `d92d0b657743150f4f261b9092c931dbf49eb725a367afc8cbf8b4acfd915962`
 Parent artifact hash: `e99d207fd7dbeb82588a922377268bb3aac2ed0ea167299372723a672cad1beb`
@@ -16,10 +16,35 @@ paragraph groups reserve coherent local development units without writing prose
 
 ## Standard Anchors
 
+Standards source map: `7a520a92734e6fb6311bea5af0cccb980020486c9301686f64861d93fa0b7f22` (releases/oc_core_1_3_3/editorial/master_manuscript_structure/MASTER_MANUSCRIPT_STRUCTURE_STANDARDS_SOURCE_MAP_1_3_3.md; releases/oc_core_1_3_3/editorial/master_manuscript_structure/MASTER_MANUSCRIPT_STRUCTURE_STANDARDS_SOURCE_MAP_1_3_3.json)
+
 - NATURE_REPORTING_REPRODUCIBILITY: reporting, reproducibility, data, code, material, and protocol availability are planned before manuscript prose (https://www.nature.com/ncomms/editorial-policies/reporting-standards)
 - ICMJE_RECOMMENDATIONS: authorship, contribution, accountability, manuscript preparation, and publication responsibility are explicit (https://www.icmje.org/recommendations/)
 - TOP_GUIDELINES: transparency, openness, preregisterable claims, data/code/material availability, and analytic reproducibility are structurally represented (https://incentivizingopen.org/projects2/transparency-and-openness-promotion-top-guidelines/)
 - LOGION_TOE_GRADE_POSITIVE_GATE: the structure must positively plan claim, model, proof, evidence, falsifier, limits, reviewer response, reproducibility, and synthesis routes (internal://logion/scientific-editorial-standard)
+
+## Standard-Derived Positive Criteria
+
+- CRITERION_REPRODUCIBILITY_ARCHITECTURE: PLANNED_IN_STRUCTURE - The structure must reserve explicit reporting, reproducibility, replay, and verification architecture. (sources: NATURE_REPORTING_REQUIREMENTS, TOP_TRANSPARENCY_POLICY_SET; matched: methodology, reproducibility, replay, artifact, traceability)
+- CRITERION_DATA_EVIDENCE_AVAILABILITY: PLANNED_IN_STRUCTURE - The structure must reserve data/evidence availability and minimum-evidence interpretation routes. (sources: NATURE_DATA_AVAILABILITY, TOP_DATA_CODE_MATERIALS_DESIGN_REPLICATION; matched: data availability, evidence, target-blind, held-out, ledger)
+- CRITERION_CODE_ALGORITHM_REPLAY: PLANNED_IN_STRUCTURE - The structure must reserve code, algorithm, finite-model, simulation, and replay obligations. (sources: NATURE_CODE_ALGORITHM_AVAILABILITY, TOP_DATA_CODE_MATERIALS_DESIGN_REPLICATION; matched: code availability, software, finite model, simulations, replay, lean)
+- CRITERION_PROTOCOL_MATERIAL_TRACEABILITY: PLANNED_IN_STRUCTURE - The structure must reserve protocol, source, artifact, and corpus traceability. (sources: NATURE_PROTOCOLS_MATERIALS, LOGION_CORPUS_COMPLETENESS_AND_FILL_HOOKS; matched: protocol, source, artifact, corpus ledger, traceability, checksums)
+- CRITERION_AUTHOR_INSTRUMENT_METHOD_ACCOUNTABILITY: PLANNED_IN_STRUCTURE - The structure must distinguish author, instrument, method, contribution, and accountability. (sources: ICMJE_AUTHOR_CONTRIBUTOR_ACCOUNTABILITY, ICMJE_AI_USE_BOUNDARY; matched: author, instrument, method, contribution, ai)
+- CRITERION_MANUSCRIPT_READER_NAVIGATION: PLANNED_IN_STRUCTURE - The structure must make the reader path and manuscript preparation logic explicit. (sources: ICMJE_MANUSCRIPT_PREPARATION, NATURE_REPORTING_REQUIREMENTS; matched: reader, abstract, table of contents, reading paths, didactic, worked examples)
+- CRITERION_CLAIM_TRACEABILITY: PLANNED_IN_STRUCTURE - The structure must route every promoted claim through model, proof/data evidence, boundary, and synthesis. (sources: LOGION_CLAIM_MODEL_PROOF_EVIDENCE_ROUTE, TOP_TRANSPARENCY_POLICY_SET; matched: claim, model, proof, evidence, limits, synthesis)
+- CRITERION_FALSIFICATION_NEGATIVE_CONTROL: PLANNED_IN_STRUCTURE - The structure must reserve falsifier, negative control, counterexample, demotion, and failure-mode slots. (sources: LOGION_CLAIM_MODEL_PROOF_EVIDENCE_ROUTE, TOP_DATA_CODE_MATERIALS_DESIGN_REPLICATION; matched: falsifier, negative controls, counterexample, demotion, failure modes)
+- CRITERION_PRIOR_ART_NOVELTY_POSITIONING: PLANNED_IN_STRUCTURE - The structure must reserve prior-art, comparator, novelty, non-equivalence, and residual-delta positioning. (sources: ICMJE_MANUSCRIPT_PREPARATION, LOGION_CLAIM_MODEL_PROOF_EVIDENCE_ROUTE; matched: prior art, comparator, novelty, non-equivalence, residual-delta)
+- CRITERION_VERSION_INCIDENT_RELEASE_GOVERNANCE: PLANNED_IN_STRUCTURE - The structure must reserve version, correction, incident, known-error, citation, and external-use governance. (sources: ICMJE_VERSION_CORRECTION_RESPONSIBILITY, LOGION_CORPUS_COMPLETENESS_AND_FILL_HOOKS; matched: versioning, release governance, incident, known-error, citation, external use)
+
+## Level-Specific Rationale
+
+- L6 groups future paragraphs into coherent local units that can later be filled, reviewed, and maturity-scored.
+- This prevents prose generation from flattening proofs, evidence, limits, and didactics into unreviewable long passages.
+
+## Sequence Audit
+
+Status: PASS
+Logic: identity -> scope -> problem -> prior art -> method -> preliminaries -> model -> dynamics -> proof -> formalization -> evidence -> domains -> limits -> novelty -> didactics -> review -> reproducibility -> governance -> synthesis -> back matter
 
 ## Why This Structure And Order
 
@@ -90,6 +115,27 @@ paragraph groups reserve coherent local development units without writing prose
 
 L7 must define argument moves for each paragraph group before evidence is attached
 
+## Next-Level Contract
+
+- current_depth: L06
+- next_depth: L07
+- must_preserve:
+  - all inherited_locked_nodes exactly as inherited from parent
+  - all parent hashes and combined node order
+  - L1 approved frozen titles and ordering
+  - structure-only status until owner approval
+- must_not_change:
+  - delete inherited nodes
+  - rename inherited nodes
+  - reorder inherited nodes
+  - collapse two inherited nodes into one
+  - insert manuscript prose, release payloads, or publication metadata
+  - assess fill maturity before the fill-control phase
+- verification_commands:
+  - python tools\oc133_manuscript_structure_orchestrator.py --check
+  - python tools\oc133_manuscript_structure_standards_auditor.py --check
+- must_add: L7 must define argument moves for each paragraph group before evidence is attached
+
 ## Quantitative Checks
 
 - combined_node_total: 2808
@@ -100,6 +146,8 @@ L7 must define argument moves for each paragraph group before evidence is attach
 - own_expansion_node_total: 656
 - scientific_arc_planned_total: 19
 - scientific_arc_requirement_total: 19
+- standard_criterion_planned_total: 10
+- standard_criterion_total: 10
 - toe_route_planned_total: 7
 - toe_route_requirement_total: 7
 - unresolved_structure_question_total: 0
@@ -109,6 +157,8 @@ L7 must define argument moves for each paragraph group before evidence is attach
 - reader_path_coverage_score: 100
 - review_verdict: PASS
 - scientific_arc_coverage_score: 100
+- sequence_order_score: 100
+- standards_criterion_coverage_score: 100
 - structure_completeness_score: 100
 - toe_target_coverage_score: 100
 - unresolved_structure_question_total: 0

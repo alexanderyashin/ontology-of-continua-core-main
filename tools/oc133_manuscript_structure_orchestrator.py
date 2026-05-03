@@ -6,7 +6,13 @@ import subprocess
 import sys
 from pathlib import Path
 
-from oc133_manuscript_structure_transfer_lib import EXPECTED_STRUCTURE_FILE_TOTAL, MAX_DEPTH, run_index, run_l1
+from oc133_manuscript_structure_transfer_lib import (
+    EXPECTED_STRUCTURE_FILE_TOTAL,
+    MAX_DEPTH,
+    run_index,
+    run_l1,
+    run_standards_source_map,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,6 +38,11 @@ def run_step(command: list[str]) -> dict[str, object]:
 def run_transfers(*, write: bool) -> dict[str, object]:
     flag = "--write" if write else "--check"
     steps: list[dict[str, object]] = []
+    standards_result = run_standards_source_map(write=write)
+    steps.append(standards_result)
+    if standards_result["state"] != "PASS":
+        return {"state": "FAIL", "steps": steps}
+
     l1_result = run_l1(write=write)
     steps.append(l1_result)
     if l1_result["state"] != "PASS":
