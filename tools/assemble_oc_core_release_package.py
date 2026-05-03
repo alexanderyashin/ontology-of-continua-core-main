@@ -47,6 +47,35 @@ TEXT_ARTIFACTS = {
     "methods_repro_companion",
     "reviewer_attack_response_map",
 }
+AUTHOR_DISPLAY = "Alexander Yashin"
+AUTHOR_AFFILIATION = "Independent Researcher"
+AUTHOR_ORCID = "0009-0008-6166-0914"
+DEDICATION_TEXT = "Dedicated to my dear wife Maria, without whom this work would have been impossible."
+ACKNOWLEDGEMENT_BOUNDARY = (
+    "They are acknowledged for review pressure, ideas, criticism, or external response that improved the work. "
+    "Acknowledgement does not imply authorship, endorsement, publication approval, or agreement with the theory's release form."
+)
+ACKNOWLEDGEMENT_NAMES = [
+    "G. V. Apostolov",
+    "Eduard Fadeev",
+    "Gennady Alekseevich Nosov",
+    "Sergey Shpadyrev",
+    "Stanislav Tsukrov",
+]
+FRONTMATTER_REQUIRED_SECTIONS = [
+    "Title Page",
+    "Dedication",
+    "Acknowledgements",
+    "Abstract",
+    "Reader Contract",
+    "Table of Contents",
+]
+FRONTMATTER_L1_BLOCKS = {1}
+FRONTMATTER_BODY_TITLE_RE = re.compile(
+    r"\b(Define|Bind|State limits and falsifiers for|Synthesize)\s+"
+    r"(Title Page|Dedication|Abstract|Keywords|Citation, DOI|Table of Contents|List of Figures|Symbols|Author, Instrument)",
+    re.IGNORECASE,
+)
 
 
 def generated_dir(release_id: str, assembly_revision: str | None = None) -> Path:
@@ -293,6 +322,8 @@ def build_terminal_contracts(structure_source: str = "current") -> tuple[dict[st
         transition_out = build_transition_text(node, next_node)
         source_refs = bind_sources(node, inventory)
         buildable = bool(node.get("reader_task") and node.get("claim_boundary") and source_refs and node.get("argument_role"))
+        frontmatter_document_layer = int(node.get("order_path", [0])[0]) in FRONTMATTER_L1_BLOCKS
+        build_state = "DOCUMENT_FRONTMATTER_RENDERED" if frontmatter_document_layer else ("BUILDABLE" if buildable else "BLOCKED_MISSING_CONTRACT_FIELD")
         title_raw = str(node["title"])
         title_public = public_text(title_raw)
         contract = {
@@ -318,10 +349,11 @@ def build_terminal_contracts(structure_source: str = "current") -> tuple[dict[st
                 "structure.sequence_transition",
                 "public.no_overclaim_surface",
             ],
-            "generated_text": build_terminal_paragraph(node, source_refs, transition_out) if buildable else "",
-            "build_state": "BUILDABLE" if buildable else "BLOCKED_MISSING_CONTRACT_FIELD",
+            "generated_text": "" if frontmatter_document_layer else (build_terminal_paragraph(node, source_refs, transition_out) if buildable else ""),
+            "build_state": build_state,
             "source_layer": node.get("source_layer") or structure_source,
             "recovery_node": node.get("source_layer") == "l10b_recovered",
+            "frontmatter_document_layer": frontmatter_document_layer,
         }
         contracts.append(contract)
         if next_node is not None:
@@ -346,8 +378,9 @@ def build_terminal_contracts(structure_source: str = "current") -> tuple[dict[st
         },
         "structure_source": structure_source,
         "terminal_node_total": len(terminal_nodes),
-        "buildable_terminal_total": sum(1 for row in contracts if row["build_state"] == "BUILDABLE"),
-        "blocked_terminal_total": sum(1 for row in contracts if row["build_state"] != "BUILDABLE"),
+        "buildable_terminal_total": sum(1 for row in contracts if row["build_state"] in {"BUILDABLE", "DOCUMENT_FRONTMATTER_RENDERED"}),
+        "blocked_terminal_total": sum(1 for row in contracts if str(row["build_state"]).startswith("BLOCKED")),
+        "document_frontmatter_terminal_total": sum(1 for row in contracts if row["build_state"] == "DOCUMENT_FRONTMATTER_RENDERED"),
         "terminal_contracts": contracts,
     }
     contracts_payload["artifact_hash"] = artifact_hash(contracts_payload)
@@ -475,27 +508,189 @@ def artifact_title(artifact_type_id: str, version: str) -> str:
     return f"{titles.get(artifact_type_id, artifact_type_id.replace('_', ' ').title())} v{version}"
 
 
-def render_artifact_markdown(artifact_type_id: str, version: str, instance: dict[str, Any], rows: list[dict[str, Any]]) -> str:
-    title = artifact_title(artifact_type_id, version)
+def artifact_frontmatter_profile(artifact_type_id: str, version: str, instance: dict[str, Any]) -> dict[str, str]:
+    role = {
+        "release_guide": "Public landing guide and recommended reading order",
+        "master_monograph": "Canonical long-form scientific reference",
+        "journal_core_article": "Compact article-style scientific argument",
+        "methods_repro_companion": "Methods, validation, reproducibility, and replay companion",
+        "reviewer_attack_response_map": "Adversarial objections, boundaries, and response map",
+        "release_notes_changelog": "Release notes and change log",
+    }.get(artifact_type_id, artifact_type_id.replace("_", " ").title())
+    audience = {
+        "release_guide": "first-time public readers, scientific contacts, repository visitors, and archivists",
+        "master_monograph": "scientific reviewers, formal-methods readers, systems theorists, and institutional readers who need the full argument",
+        "journal_core_article": "journal editors, reviewers, and scientists who need a compact entry point before the full monograph",
+        "methods_repro_companion": "readers checking reproducibility, formalization, finite semantics, validation, and artifact traceability",
+        "reviewer_attack_response_map": "hostile reviewers testing novelty, boundaries, evidence support, and reopening conditions",
+        "release_notes_changelog": "release reviewers checking what changed and how to navigate the review package",
+    }.get(artifact_type_id, "scientific and editorial reviewers")
+    abstract = {
+        "release_guide": (
+            "This guide orients the reader to the OC Core release package: what each public document is for, "
+            "which file to read first, how the evidence package should be used, and where the promoted claim boundary stops."
+        ),
+        "master_monograph": (
+            "This monograph is the long-form scientific route for OC Core. It integrates scope, problem statement, "
+            "prior-art positioning, formal foundation, theorem and proof route, executable semantics, empirical and computational "
+            "evidence, limits, reviewer objections, reproducibility, and synthesis under a bounded claim policy."
+        ),
+        "journal_core_article": (
+            "This article gives the compact review route through the model core. It states the scientific problem, "
+            "the formal contribution, the evidence and falsification route, novelty boundaries, and the claims that are promoted for review."
+        ),
+        "methods_repro_companion": (
+            "This companion explains how the release is checked: source traceability, proof and finite-model artifacts, "
+            "validation, simulation, counterexample search, replay, checksums, and reproducibility limits."
+        ),
+        "reviewer_attack_response_map": (
+            "This map presents the release under hostile review. It groups objections by attacked claim, explains why each attack matters, "
+            "names the response route, and records residual risk and reopening conditions."
+        ),
+        "release_notes_changelog": (
+            "These notes summarize the review-space assembly revision and point to the scientific and reproducibility documents without replacing them."
+        ),
+    }.get(artifact_type_id, "This document is part of the OC Core release review package.")
+    reader_contract = {
+        "release_guide": (
+            "Use this document as the foyer of the archive. It does not prove the theory; it tells the reader where the proof, "
+            "evidence, reviewer response, citation, and reproducibility surfaces live."
+        ),
+        "master_monograph": (
+            "Read this document as the primary scientific manuscript. Claims are valid only to the extent that their proof, evidence, "
+            "comparator, falsifier, or reproducibility route is made explicit in the text or trace materials."
+        ),
+        "journal_core_article": (
+            "Read this document as a compressed argument. It is designed to be checked against the monograph and companion artifacts, "
+            "not as an isolated replacement for them."
+        ),
+        "methods_repro_companion": (
+            "Read this document when checking whether a claim can be replayed, traced, or bounded by negative controls and reproducibility limits."
+        ),
+        "reviewer_attack_response_map": (
+            "Read this document by choosing the claim under attack, then following objection, response, evidence, residual risk, and reopening condition."
+        ),
+        "release_notes_changelog": (
+            "Use these notes only as package navigation. Scientific claims must be checked in the monograph, article, methods companion, and reviewer map."
+        ),
+    }.get(artifact_type_id, "Read this document as a bounded release artifact with explicit source trace and claim limits.")
+    release_identity = instance.get("release_identity", {})
+    return {
+        "title": artifact_title(artifact_type_id, version),
+        "subtitle": "Ontology of Continua Core release review artifact",
+        "author": AUTHOR_DISPLAY,
+        "affiliation": AUTHOR_AFFILIATION,
+        "orcid": AUTHOR_ORCID,
+        "version": version,
+        "release_id": release_identity.get("release_id", ""),
+        "concept_doi": CONCEPT_DOI,
+        "audience": audience,
+        "artifact_role": role,
+        "abstract": abstract,
+        "reader_contract": reader_contract,
+    }
+
+
+def frontmatter_toc(rows: list[dict[str, Any]]) -> list[str]:
+    seen: set[tuple[int, int]] = set()
+    entries: list[str] = [
+        "Publication identity",
+        "Dedication",
+        "Acknowledgements",
+        "Abstract",
+        "Reader contract",
+        "Reading map",
+    ]
+    for row in rows:
+        order_path = [int(part) for part in row["order_path"]]
+        key = (order_path[0], order_path[1] if len(order_path) > 1 else 0)
+        if key in seen:
+            continue
+        seen.add(key)
+        entries.append(f"Block {key[0]}: {row['clean_title'].split(' and ')[0]}")
+        if len(entries) >= 40:
+            entries.append("Additional sections continue in document order.")
+            break
+    return entries
+
+
+def render_frontmatter(artifact_type_id: str, version: str, instance: dict[str, Any], body_rows: list[dict[str, Any]]) -> str:
+    profile = artifact_frontmatter_profile(artifact_type_id, version, instance)
     lines = [
-        f"# {title}",
+        "---",
+        f"title: \"{profile['title']}\"",
+        f"subtitle: \"{profile['subtitle']}\"",
+        f"author: \"{profile['author']}\"",
+        f"date: \"Version {version}\"",
+        "---",
         "",
-        f"Version: `{version}`",
-        f"Concept DOI for PDF citation: `{CONCEPT_DOI}`",
-        "Author: Alexander Yashin",
+        f"# {profile['title']}",
         "",
-        "## Abstract",
+        "## Publication Identity",
         "",
-        "This review-space artifact is assembled from the current OC Core release aggregator, science-to-structure mapping, package cascade, terminal text contracts, and deterministic transition rules. It is not a GitHub or Zenodo publication action.",
+        f"**Author.** {profile['author']}, {profile['affiliation']}, ORCID {profile['orcid']}.",
+        "**Research instrument.** Logion is the research-instrument and institute-automation system used to prepare, check, package, and audit the work; it is not an author.",
+        "**Methodological framework.** ESTRA is the methodological framework used in the work; it is not an author or affiliation.",
+        f"**Version.** {profile['version']}.",
+        f"**Release identity.** {profile['release_id']}.",
+        f"**Concept DOI.** {profile['concept_doi']}.",
+        f"**Artifact role.** {profile['artifact_role']}.",
+        f"**Intended audience.** {profile['audience']}.",
         "",
-        "## Reader Contract",
+        "## Dedication",
         "",
-        "Read this document as an assembled scientific route. Claims are bounded by their proof, evidence, replay, comparator, or falsifier route; unsupported all-domain or superiority claims are not promoted by package assembly.",
+        DEDICATION_TEXT,
+        "",
+        "## Acknowledgements",
+        "",
+        "Substantive review and idea acknowledgements.",
+        ACKNOWLEDGEMENT_BOUNDARY,
         "",
     ]
+    lines.extend(f"- {name}" for name in ACKNOWLEDGEMENT_NAMES)
+    lines.extend(
+        [
+            "",
+            "## Abstract",
+            "",
+            profile["abstract"],
+            "",
+            "## Reader Contract",
+            "",
+            profile["reader_contract"],
+            (
+                "The release promotes evidence-bound model-core claims and excludes unsupported complete-science closure, "
+                "unrestricted all-domain numerical completion, or unrestricted superiority-over-modern-science claims."
+            ),
+            "",
+            "## Table of Contents",
+            "",
+            "The generated PDF contents provide page locations. The reader-facing route is:",
+            "",
+        ]
+    )
+    lines.extend(f"{index}. {entry}" for index, entry in enumerate(frontmatter_toc(body_rows), start=1))
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def split_frontmatter_rows(rows: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    frontmatter_rows: list[dict[str, Any]] = []
+    body_rows: list[dict[str, Any]] = []
+    for row in rows:
+        order_path = [int(part) for part in row["order_path"]]
+        if order_path and order_path[0] in FRONTMATTER_L1_BLOCKS:
+            frontmatter_rows.append(row)
+        else:
+            body_rows.append(row)
+    return frontmatter_rows, body_rows
+
+
+def render_artifact_markdown(artifact_type_id: str, version: str, instance: dict[str, Any], rows: list[dict[str, Any]]) -> str:
+    frontmatter_rows, body_rows = split_frontmatter_rows(rows)
+    lines = [render_frontmatter(artifact_type_id, version, instance, body_rows), "", "# Body", ""]
     current_l1: int | None = None
     current_l2: tuple[int, int] | None = None
-    for row in rows:
+    for row in body_rows:
         order_path = [int(part) for part in row["order_path"]]
         if current_l1 != order_path[0]:
             current_l1 = order_path[0]
@@ -503,14 +698,18 @@ def render_artifact_markdown(artifact_type_id: str, version: str, instance: dict
         l2 = (order_path[0], order_path[1] if len(order_path) > 1 else 0)
         if current_l2 != l2:
             current_l2 = l2
-            lines.extend(["", f"### {row['clean_title'].split(' and ')[0]}", ""])
-        lines.append(row["generated_text"])
+            heading = row["clean_title"].split(" and ")[0]
+            lines.extend(["", f"### {heading}", ""])
+        generated_text = row["generated_text"]
+        if FRONTMATTER_BODY_TITLE_RE.search(generated_text):
+            continue
+        lines.append(generated_text)
         lines.append("")
     lines.extend(
         [
             "## Source Trace",
             "",
-            "Exact source bindings, path hashes, quality scorer hooks, and transition records are recorded in the generated artifact package manifest. They are kept out of the main prose to avoid turning the document into a ledger dump.",
+            "Exact source bindings, path hashes, quality scorer hooks, and transition records are recorded in the review package manifest. They are kept out of the main prose to avoid turning the document into a ledger dump.",
         ]
     )
     return "\n".join(lines).rstrip() + "\n"
@@ -520,9 +719,12 @@ def build_pdf(source: Path, output: Path) -> dict[str, Any]:
     output.parent.mkdir(parents=True, exist_ok=True)
     cmd = [
         "pandoc",
-        str(source),
+        rel(source),
         "-o",
-        str(output),
+        rel(output),
+        "--toc",
+        "--toc-depth=3",
+        "--number-sections",
         "--pdf-engine=xelatex",
         "-V",
         "geometry:margin=1in",
@@ -625,6 +827,7 @@ def assemble_release(
             rows = artifact_scope(artifact_id, terminal_rows, structure_source)
             if artifact_id == "release_notes_changelog":
                 rows = artifact_scope("release_guide", terminal_rows, structure_source)[:80]
+            frontmatter_rows, body_rows = split_frontmatter_rows(rows)
             text = render_artifact_markdown(artifact_id, version, instance, rows)
             source_changed = False
             if write and write_text_if_changed(source_path, text):
@@ -654,6 +857,9 @@ def assemble_release(
                     "source_path": rel(source_path),
                     "pdf_path": rel(pdf_path) if artifact_id in TEXT_ARTIFACTS else None,
                     "terminal_node_total": len(rows),
+                    "body_terminal_node_total": len(body_rows),
+                    "frontmatter_body_excluded_total": len(frontmatter_rows),
+                    "frontmatter_required_sections": FRONTMATTER_REQUIRED_SECTIONS,
                     "output_paths": output_paths,
                     "pdf_build": pdf_build,
                 }
@@ -756,6 +962,7 @@ def assemble_release(
             "transition_record_total": transitions["transition_record_total"],
             "artifact_type_total": len(artifact_rows),
             "manifest_file_total": manifest["file_total"],
+            "frontmatter_body_excluded_total": sum(int(row.get("frontmatter_body_excluded_total") or 0) for row in artifact_rows),
         },
         "artifact_rows": artifact_rows,
         "review_zip": zip_payload,

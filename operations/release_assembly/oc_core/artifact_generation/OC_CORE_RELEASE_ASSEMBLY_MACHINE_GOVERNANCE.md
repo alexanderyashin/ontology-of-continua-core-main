@@ -1,7 +1,7 @@
 # OC Core Release Assembly Machine Governance
 
 Status: `OC_CORE_ARTIFACT_GENERATION_RULES_READY`
-Artifact hash: `2e9bda07a9e037e3bdd32366b113a41dba18bc0b8a50c398a856db5efa4e0446`
+Artifact hash: `09046639b78758e55e8e0ff917ccbaf34893f5b4909de457c570a3e2bef590f8`
 
 ## Operating Directive
 
@@ -30,3 +30,5 @@ Artifact hash: `2e9bda07a9e037e3bdd32366b113a41dba18bc0b8a50c398a856db5efa4e0446
 - `public_surface_leak_total`: zero
 - `pdf_engine_warning_total`: zero
 - `publication_action_total`: zero_in_review_space
+- `frontmatter_required_section_total`: all_reader_facing_text_artifacts_have_required_frontmatter
+- `frontmatter_body_leak_total`: zero

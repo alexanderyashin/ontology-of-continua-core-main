@@ -13,6 +13,14 @@ from oc_core_release_assembly_lib import ASSEMBLY_ROOT, artifact_hash, read_json
 ARTIFACT_GENERATION_DIR = ASSEMBLY_ROOT / "artifact_generation"
 CONCEPT_DOI = "10.5281/zenodo.17899134"
 RULE_STATUS = "OC_CORE_ARTIFACT_GENERATION_RULES_READY"
+FRONTMATTER_REQUIRED_SECTIONS = [
+    "title_page",
+    "dedication_to_maria",
+    "acknowledgements",
+    "abstract",
+    "reader_contract",
+    "table_of_contents",
+]
 
 
 def generation_paths() -> dict[str, Path]:
@@ -152,6 +160,10 @@ def build_profile_payload() -> dict[str, Any]:
                 "output_kind": output_kind,
                 "purpose": artifact["purpose"],
                 "requires_frontmatter": output_kind in {"markdown_and_pdf", "markdown", "metadata"},
+                "frontmatter_profile_required": output_kind in {"markdown_and_pdf", "markdown"},
+                "frontmatter_required_sections": FRONTMATTER_REQUIRED_SECTIONS if output_kind in {"markdown_and_pdf", "markdown"} else [],
+                "frontmatter_must_precede_body": output_kind in {"markdown_and_pdf", "markdown"},
+                "frontmatter_l10_nodes_rendered_as_body_allowed": False,
                 "requires_terminal_text": output_kind == "markdown_and_pdf",
                 "requires_source_trace": True,
                 "requires_quality_rows": True,
@@ -280,6 +292,8 @@ def build_machine_governance_payload(
             {"metric_id": "public_surface_leak_total", "direction": "zero"},
             {"metric_id": "pdf_engine_warning_total", "direction": "zero"},
             {"metric_id": "publication_action_total", "direction": "zero_in_review_space"},
+            {"metric_id": "frontmatter_required_section_total", "direction": "all_reader_facing_text_artifacts_have_required_frontmatter"},
+            {"metric_id": "frontmatter_body_leak_total", "direction": "zero"},
         ],
         "required_static_gates": [
             "python tools/build_oc_core_artifact_generation_rules.py --check",
@@ -308,6 +322,11 @@ def build_machine_governance_payload(
                 "class": "pdf compiler warning ignored",
                 "prevented_by": ["assembly machine audit fails on pdf missing-character warnings"],
             },
+            {
+                "known_error_id": "KERR-ASM-005",
+                "class": "frontmatter_obligation_rendered_as_body_prose",
+                "prevented_by": ["frontmatter renderer", "frontmatter governance gate", "no frontmatter-as-body gate"],
+            },
         ],
     }
     payload["artifact_hash"] = artifact_hash(payload)
@@ -333,9 +352,16 @@ def validate_payloads(payloads: dict[str, dict[str, Any]]) -> list[str]:
     for artifact in profile.get("artifact_profiles", []):
         if artifact.get("output_kind") == "markdown_and_pdf" and artifact.get("publication_record_doi_allowed_in_package_build") is not False:
             failures.append(f"artifact_allows_publication_doi::{artifact.get('artifact_type_id')}")
+        if artifact.get("output_kind") in {"markdown_and_pdf", "markdown"}:
+            if artifact.get("frontmatter_profile_required") is not True:
+                failures.append(f"artifact_missing_frontmatter_profile_requirement::{artifact.get('artifact_type_id')}")
+            if artifact.get("frontmatter_required_sections") != FRONTMATTER_REQUIRED_SECTIONS:
+                failures.append(f"artifact_missing_frontmatter_required_sections::{artifact.get('artifact_type_id')}")
+            if artifact.get("frontmatter_l10_nodes_rendered_as_body_allowed") is not False:
+                failures.append(f"artifact_allows_frontmatter_l10_body_rendering::{artifact.get('artifact_type_id')}")
     governance = payloads["machine_governance"]
     required_metrics = {row["metric_id"] for row in governance.get("quantitative_regression_metrics", [])}
-    for metric_id in ["blocked_terminal_total", "public_surface_leak_total", "pdf_engine_warning_total", "publication_action_total"]:
+    for metric_id in ["blocked_terminal_total", "public_surface_leak_total", "pdf_engine_warning_total", "publication_action_total", "frontmatter_body_leak_total"]:
         if metric_id not in required_metrics:
             failures.append(f"machine_governance_missing_metric::{metric_id}")
     if len(governance.get("cheap_first_ladder", [])) < 5:

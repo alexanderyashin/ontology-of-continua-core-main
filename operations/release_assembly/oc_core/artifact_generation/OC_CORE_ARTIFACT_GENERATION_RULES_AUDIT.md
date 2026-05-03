@@ -1,4 +1,4 @@
 # OC Core Artifact Generation Rules Audit
 
 Status: `PASS`
-Artifact hash: `272cd8bf7ee37055efd12b2a54214e8175544ff8b9e21d328fd8cfd432f66aea`
+Artifact hash: `2de71c2b9e64bb6e45cc69adb8c48c1bc108aab0e71f73806d7ecff07a52afa9`

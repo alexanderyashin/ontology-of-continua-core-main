@@ -1,7 +1,7 @@
 # OC Core Release Artifact Generation Profile
 
 Status: `OC_CORE_ARTIFACT_GENERATION_RULES_READY`
-Artifact hash: `e1292e01e2adec9e8dcf835ceee75460f3830d42ea349b2ad7d8c62a40baa370`
+Artifact hash: `571826b9d1d15cf5df6f423a00742fbe9407498e9984950db724f4a9c2533607`
 
 ## Concept DOI Policy
 

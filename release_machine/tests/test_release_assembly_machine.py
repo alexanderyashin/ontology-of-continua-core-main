@@ -137,12 +137,30 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertTrue(profile["concept_doi_policy"]["release_record_doi_is_publication_layer_only"])
         for field in ["reader_task", "claim_boundary", "source_refs", "transition_in", "transition_out"]:
             self.assertIn(field, terminal["terminal_contract_fields"])
+        for artifact in profile["artifact_profiles"]:
+            if artifact["output_kind"] in {"markdown_and_pdf", "markdown"}:
+                self.assertTrue(artifact["frontmatter_profile_required"])
+                self.assertFalse(artifact["frontmatter_l10_nodes_rendered_as_body_allowed"])
+                self.assertEqual(
+                    artifact["frontmatter_required_sections"],
+                    [
+                        "title_page",
+                        "dedication_to_maria",
+                        "acknowledgements",
+                        "abstract",
+                        "reader_contract",
+                        "table_of_contents",
+                    ],
+                )
         self.assertIn("definition_model->proof_evidence", transitions["templates"])
         self.assertGreaterEqual(len(governance["cheap_first_ladder"]), 5)
         metric_ids = {row["metric_id"] for row in governance["quantitative_regression_metrics"]}
         self.assertIn("pdf_engine_warning_total", metric_ids)
         self.assertIn("public_surface_leak_total", metric_ids)
+        self.assertIn("frontmatter_body_leak_total", metric_ids)
         self.assertTrue(governance["known_error_management"])
+        known_error_classes = {row["class"] for row in governance["known_error_management"]}
+        self.assertIn("frontmatter_obligation_rendered_as_body_prose", known_error_classes)
 
     def test_generated_release_package_is_review_space_only(self) -> None:
         base = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "generated_artifacts"
@@ -210,6 +228,87 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
         self.assertEqual(audit["summary"]["recovered_master_pages"], 1023)
         self.assertEqual(audit["summary"]["artifact_failure_total"], 0)
         self.assertIn("VULN-CERB-001", audit["vulnerability_ids"])
+
+    def test_recovery_r002_frontmatter_governance_is_hardened(self) -> None:
+        base = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "generated_artifacts_recovered" / "recovery_r002"
+        assembly = read_json(base / "package_assembly" / "OC_CORE_RELEASE_PACKAGE_ASSEMBLY_1.3.3.json")
+        machine = read_json(base / "package_assembly" / "OC_CORE_RELEASE_ASSEMBLY_MACHINE_AUDIT_1.3.3.json")
+        comparison = read_json(base / "package_assembly" / "OC_CORE_RELEASE_ASSEMBLY_REVISION_COMPARISON_1.3.3.recovery_r002.json")
+        self.assertEqual(assembly["structure_source"], "recovered_l10c")
+        self.assertEqual(assembly["assembly_revision"], "recovery_r002")
+        self.assertEqual(assembly["summary"]["terminal_node_total"], 5386)
+        self.assertEqual(assembly["summary"]["blocked_terminal_total"], 0)
+        self.assertGreater(assembly["summary"]["frontmatter_body_excluded_total"], 0)
+        self.assertEqual(machine["status"], "PASS")
+        self.assertEqual(machine["summary"]["finding_total"], 0)
+        self.assertEqual(comparison["status"], "PASS")
+        self.assertEqual(comparison["summary"]["failure_total"], 0)
+        pages = {row["artifact_type_id"]: (row.get("pdf_build") or {}).get("pages") for row in assembly["artifact_rows"]}
+        self.assertGreaterEqual(pages["master_monograph"], 650)
+        self.assertGreater(pages["master_monograph"], 1023)
+        self.assertFalse(assembly["publication_actions_performed"])
+        terminal = read_json(base / "terminal_text" / "OC_CORE_TERMINAL_TEXT_CONTRACTS_1.3.3.json")
+        frontmatter_rows = [row for row in terminal["terminal_contracts"] if row.get("frontmatter_document_layer")]
+        self.assertGreater(len(frontmatter_rows), 0)
+        self.assertEqual(terminal["document_frontmatter_terminal_total"], len(frontmatter_rows))
+        for row in frontmatter_rows:
+            self.assertEqual(row["build_state"], "DOCUMENT_FRONTMATTER_RENDERED")
+            self.assertEqual(row["generated_text"], "")
+
+    def test_recovery_r002_reader_sources_have_real_frontmatter_not_body_frontmatter(self) -> None:
+        base = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "generated_artifacts_recovered" / "recovery_r002" / "sources"
+        required = [
+            "## Publication Identity",
+            "## Dedication",
+            "Dedicated to my dear wife Maria, without whom this work would have been impossible.",
+            "## Acknowledgements",
+            "G. V. Apostolov",
+            "Eduard Fadeev",
+            "Gennady Alekseevich Nosov",
+            "Sergey Shpadyrev",
+            "Stanislav Tsukrov",
+            "## Abstract",
+            "## Reader Contract",
+            "## Table of Contents",
+            "# Body",
+        ]
+        forbidden = [
+            "Define Title Page",
+            "Define Dedication",
+            "Define Table of Contents",
+            "not a GitHub or Zenodo publication action",
+            "review-space artifact is assembled",
+        ]
+        for path in sorted(base.glob("*.md")):
+            text = path.read_text(encoding="utf-8")
+            if path.name == "release_notes_changelog_1.3.3.md":
+                continue
+            frontmatter_end = text.index("# Body")
+            for needle in required:
+                self.assertIn(needle, text, path.name)
+            self.assertLess(text.index("## Dedication"), frontmatter_end)
+            self.assertLess(text.index("## Acknowledgements"), frontmatter_end)
+            self.assertLess(text.index("## Abstract"), frontmatter_end)
+            self.assertLess(text.index("## Reader Contract"), frontmatter_end)
+            self.assertLess(text.index("## Table of Contents"), frontmatter_end)
+            for needle in forbidden:
+                self.assertNotIn(needle, text, path.name)
+
+    def test_recovery_r002_quality_audit_uses_recovered_package(self) -> None:
+        audit = read_json(
+            ROOT
+            / "releases"
+            / "oc_core_1_3_3"
+            / "editorial"
+            / "quality_validation"
+            / "recovery_r002"
+            / "OC_CORE_RELEASE_QUALITY_AUDIT_1.3.3.json"
+        )
+        self.assertEqual(audit["summary"]["release_package_structure_source"], "recovered_l10c")
+        self.assertEqual(audit["summary"]["release_package_assembly_revision"], "recovery_r002")
+        self.assertTrue(audit["summary"]["recovered_master_baseline_pass"])
+        self.assertGreaterEqual(audit["summary"]["recovered_master_pages"], 650)
+        self.assertEqual(audit["summary"]["artifact_failure_total"], 0)
 
 
 if __name__ == "__main__":

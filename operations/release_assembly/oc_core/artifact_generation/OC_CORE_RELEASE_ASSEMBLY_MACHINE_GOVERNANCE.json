@@ -1,5 +1,5 @@
 {
-  "artifact_hash": "2e9bda07a9e037e3bdd32366b113a41dba18bc0b8a50c398a856db5efa4e0446",
+  "artifact_hash": "09046639b78758e55e8e0ff917ccbaf34893f5b4909de457c570a3e2bef590f8",
   "artifact_kind": "OC_CORE_RELEASE_ASSEMBLY_MACHINE_GOVERNANCE",
   "body_prose_included": false,
   "cheap_first_ladder": [
@@ -109,6 +109,15 @@
       "prevented_by": [
         "assembly machine audit fails on pdf missing-character warnings"
       ]
+    },
+    {
+      "class": "frontmatter_obligation_rendered_as_body_prose",
+      "known_error_id": "KERR-ASM-005",
+      "prevented_by": [
+        "frontmatter renderer",
+        "frontmatter governance gate",
+        "no frontmatter-as-body gate"
+      ]
     }
   ],
   "operating_directive": {
@@ -154,6 +163,14 @@
     {
       "direction": "zero_in_review_space",
       "metric_id": "publication_action_total"
+    },
+    {
+      "direction": "all_reader_facing_text_artifacts_have_required_frontmatter",
+      "metric_id": "frontmatter_required_section_total"
+    },
+    {
+      "direction": "zero",
+      "metric_id": "frontmatter_body_leak_total"
     }
   ],
   "required_static_gates": [
@@ -164,8 +181,8 @@
   ],
   "schema_id": "OC_CORE_RELEASE_ASSEMBLY_MACHINE_GOVERNANCE_v1",
   "source_hashes": {
-    "artifact_generation_profile_hash": "e1292e01e2adec9e8dcf835ceee75460f3830d42ea349b2ad7d8c62a40baa370",
-    "release_package_build_graph_hash": "49774041b4db9a45165f0d3af117f16b698f4945ca71827efb4e13315304e4d5",
+    "artifact_generation_profile_hash": "571826b9d1d15cf5df6f423a00742fbe9407498e9984950db724f4a9c2533607",
+    "release_package_build_graph_hash": "9541e19c434373567ff42228af8a6f7300b3008bec37ad54eafeaa42188d72fb",
     "terminal_text_rules_hash": "2ece72a7f709e8bf54894970198c40341ec4e7f767799c645745b0a68298b1cf",
     "transition_rules_hash": "1270ad6d0d4fd35aea43fea609e55189bdc6473df85f77e09f6ac7a67f427b62"
   },

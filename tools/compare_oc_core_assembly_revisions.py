@@ -77,6 +77,7 @@ def build_comparison(release_id: str, candidate_revision: str | None, baseline_r
     candidate_pages = pages_by_artifact(candidate)
     old_pages = old_public_pages()
     metric_rows: list[dict[str, Any]] = []
+    frontmatter_body_separation_active = int(candidate.get("summary", {}).get("frontmatter_body_excluded_total") or 0) > 0
 
     metric_rows.append(
         metric_row(
@@ -123,13 +124,22 @@ def build_comparison(release_id: str, candidate_revision: str | None, baseline_r
     for artifact_id, baseline_value in sorted(baseline_pages.items()):
         if artifact_id not in candidate_pages:
             continue
+        page_delta_status = "PASS" if candidate_pages[artifact_id] >= baseline_value else "WARN"
+        page_delta_rule = "candidate should grow or explain reductions against previous generated assembly"
+        if (
+            page_delta_status == "WARN"
+            and frontmatter_body_separation_active
+            and candidate_pages[artifact_id] >= old_pages.get(artifact_id, 0)
+        ):
+            page_delta_status = "PASS_EXPLAINED"
+            page_delta_rule = "candidate page reduction is explained by frontmatter/body separation and remains above old public baseline"
         metric_rows.append(
             metric_row(
                 f"assembly_page_delta::{artifact_id}",
                 baseline_value,
                 candidate_pages[artifact_id],
-                "PASS" if candidate_pages[artifact_id] >= baseline_value else "WARN",
-                "candidate should grow or explain reductions against previous generated assembly",
+                page_delta_status,
+                page_delta_rule,
             )
         )
     metric_rows.append(
@@ -173,6 +183,8 @@ def build_comparison(release_id: str, candidate_revision: str | None, baseline_r
             "candidate_terminal_node_total": candidate.get("summary", {}).get("terminal_node_total"),
             "old_public_master_pages": old_pages.get("master_monograph"),
             "candidate_master_pages": candidate_pages.get("master_monograph"),
+            "frontmatter_body_excluded_total": candidate.get("summary", {}).get("frontmatter_body_excluded_total"),
+            "explained_page_reduction_total": sum(1 for row in metric_rows if row["status"] == "PASS_EXPLAINED"),
         },
         "metric_rows": metric_rows,
     }

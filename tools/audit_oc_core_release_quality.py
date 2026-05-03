@@ -141,7 +141,10 @@ def _contract_quality_score(contract: dict[str, Any] | None, missing_required: l
         "has_claim_boundary": bool(contract.get("claim_boundary")),
         "has_generated_text": bool(contract.get("generated_text")),
         "has_transition_out": bool(contract.get("transition_out")),
+        "frontmatter_document_layer": bool(contract.get("frontmatter_document_layer")),
     }
+    if contract.get("build_state") == "DOCUMENT_FRONTMATTER_RENDERED":
+        return 1.0, "SCORED", evidence
     if contract.get("build_state") != "BUILDABLE":
         return 0.0, "FAIL", evidence
     if missing_required:
