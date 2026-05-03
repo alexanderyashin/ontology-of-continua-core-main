@@ -22,19 +22,23 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from release_machine import science_monolith
+from release_machine.versioning import current_release
 from tools import oc133_scientific_process_spot
 
-RELEASE_ID = "oc_core_1_3_3"
-VERSION = "1.3.3"
-TAG = "v1.3.3"
+_RELEASE_IDENTITY = current_release(ROOT)
+RELEASE_ID = _RELEASE_IDENTITY.release_id
+VERSION = _RELEASE_IDENTITY.version
+TAG = f"v{VERSION}"
+RELEASE_STEM = RELEASE_ID.upper()
 RELEASE_ROOT = ROOT / "releases" / RELEASE_ID
 ARTIFACTS = RELEASE_ROOT / "artifacts"
 EDITORIAL = RELEASE_ROOT / "editorial"
+RELEASE_ASSEMBLY = EDITORIAL / "release_assembly"
 PUBLIC_PAYLOAD = RELEASE_ROOT / "public_payload"
 PUBLIC_SOURCES = PUBLIC_PAYLOAD / "sources"
 PUBLIC_EVIDENCE = PUBLIC_PAYLOAD / "evidence"
 PUBLIC_FIGURES = PUBLIC_PAYLOAD / "figures"
-PUBLIC_ZIP_NAME = "oc_core_1_3_3_public_release.zip"
+PUBLIC_ZIP_NAME = f"{RELEASE_ID}_public_release.zip"
 PUBLIC_ZIP = ARTIFACTS / PUBLIC_ZIP_NAME
 EDITORIAL_CERBERUS_SUMMARY = ROOT / "reviews" / "oc133_llm_cerberus" / "editorial_release_review" / "OC133_EDITORIAL_CERBERUS_SUMMARY.json"
 SCIENTIFIC_PROCESS_SPOT = EDITORIAL / "OC133_SCIENTIFIC_PROCESS_SPOT_latest.json"
@@ -92,8 +96,8 @@ def public_artifact_path_phrase(raw: str) -> str:
 
 PDF_SPECS = {
     "guide": {
-        "filename": "00_OC_CORE_1_3_3_RELEASE_GUIDE_EN.pdf",
-        "source": "00_OC_CORE_1_3_3_RELEASE_GUIDE_EN.md",
+        "filename": f"00_{RELEASE_STEM}_RELEASE_GUIDE_EN.pdf",
+        "source": f"00_{RELEASE_STEM}_RELEASE_GUIDE_EN.md",
         "title": "OC Core 1.3.3 Release Guide",
         "min_chars": 7000,
         "min_pages": 3,
@@ -101,32 +105,32 @@ PDF_SPECS = {
         "description": "Short public landing guide and recommended reading order for OC Core 1.3.3.",
     },
     "master": {
-        "filename": "OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.pdf",
-        "source": "OC_CORE_1_3_3_MASTER_MONOGRAPH_EN.md",
+        "filename": f"{RELEASE_STEM}_MASTER_MONOGRAPH_EN.pdf",
+        "source": f"{RELEASE_STEM}_MASTER_MONOGRAPH_EN.md",
         "title": "OC Core 1.3.3 Master Monograph",
         "min_chars": science_monolith.ANTI_SURROGATE_MIN_MONOLITH_TEXT_CHARS,
         "min_pages": science_monolith.ANTI_SURROGATE_MIN_MONOLITH_PAGES,
         "description": "Canonical full scientific monograph for OC Core 1.3.3.",
     },
     "journal": {
-        "filename": "OC_CORE_1_3_3_JOURNAL_CORE_EN.pdf",
-        "source": "OC_CORE_1_3_3_JOURNAL_CORE_EN.md",
+        "filename": f"{RELEASE_STEM}_JOURNAL_CORE_EN.pdf",
+        "source": f"{RELEASE_STEM}_JOURNAL_CORE_EN.md",
         "title": "OC Core 1.3.3 Journal Core",
         "min_chars": 24000,
         "min_pages": 10,
         "description": "Article-style entry point for external scientific review.",
     },
     "methods": {
-        "filename": "OC_CORE_1_3_3_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf",
-        "source": "OC_CORE_1_3_3_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.md",
+        "filename": f"{RELEASE_STEM}_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.pdf",
+        "source": f"{RELEASE_STEM}_METHODS_AND_REPRODUCIBILITY_COMPANION_EN.md",
         "title": "OC Core 1.3.3 Methods and Reproducibility Companion",
         "min_chars": 30000,
         "min_pages": 12,
         "description": "Reproducibility, bounded replay QA, and audit-navigation companion.",
     },
     "reviewer": {
-        "filename": "OC_CORE_1_3_3_REVIEWER_ATTACK_AND_RESPONSE_MAP_EN.pdf",
-        "source": "OC_CORE_1_3_3_REVIEWER_ATTACK_AND_RESPONSE_MAP_EN.md",
+        "filename": f"{RELEASE_STEM}_REVIEWER_ATTACK_AND_RESPONSE_MAP_EN.pdf",
+        "source": f"{RELEASE_STEM}_REVIEWER_ATTACK_AND_RESPONSE_MAP_EN.md",
         "title": "OC Core 1.3.3 Reviewer Attack and Response Map",
         "min_chars": 45000,
         "min_pages": 15,
@@ -293,6 +297,29 @@ def read_json(path: Path, default: Any | None = None) -> Any:
     if not path.exists():
         return {} if default is None else default
     return json.loads(read_text(path))
+
+
+def release_instance_path() -> Path:
+    return RELEASE_ASSEMBLY / f"OC_CORE_RELEASE_INSTANCE_{VERSION}.json"
+
+
+def release_instance_payload() -> dict[str, Any]:
+    payload = read_json(release_instance_path(), {})
+    return payload if isinstance(payload, dict) else {}
+
+
+def release_assembly_provenance() -> dict[str, Any]:
+    instance = release_instance_payload()
+    return {
+        "release_instance_path": rel(release_instance_path()),
+        "release_instance_exists": bool(instance),
+        "release_instance_hash": instance.get("artifact_hash"),
+        "current_release_aggregator_hash": instance.get("source_hashes", {}).get("current_release_aggregator_hash"),
+        "package_cascade_hash": instance.get("source_hashes", {}).get("package_cascade_hash"),
+        "text_fill_rules_hash": instance.get("source_hashes", {}).get("text_fill_rules_hash"),
+        "science_to_l10_mapping_hash": instance.get("source_hashes", {}).get("science_to_l10_mapping_hash"),
+        "identity_source": _RELEASE_IDENTITY.source,
+    }
 
 
 def write_text_if_changed(path: Path, text: str) -> bool:
@@ -4858,6 +4885,7 @@ def zip_public_scan() -> dict[str, Any]:
 
 def audit_public_payload(*, write: bool = True) -> dict[str, Any]:
     asset_paths = [ROOT / row["path"] for row in public_assets()]
+    assembly_provenance = release_assembly_provenance()
     pdf_audit = public_pdf_audit(persist_audit_text=write)
     publication_grade = publication_grade_text_gate(persist_audit_text=False)
     journal_editorial = journal_editorial_board_gate(persist_audit_text=False)
@@ -4899,6 +4927,8 @@ def audit_public_payload(*, write: bool = True) -> dict[str, Any]:
         failures.append("missing_public_assets")
     if primary_no_send_asset_names:
         failures.append("primary_public_asset_name_contains_no_send")
+    if not assembly_provenance["release_instance_exists"]:
+        failures.append("release_instance_missing")
     payload = {
         "schema_id": "OC133_PUBLIC_PAYLOAD_SUITABILITY_AUDIT_v1",
         "release_id": RELEASE_ID,
@@ -4920,6 +4950,7 @@ def audit_public_payload(*, write: bool = True) -> dict[str, Any]:
         "zip_scan": zip_scan,
         "missing_assets": missing_assets,
         "primary_no_send_asset_names": primary_no_send_asset_names,
+        "release_assembly_provenance": assembly_provenance,
         "public_zip": {
             "path": rel(PUBLIC_ZIP) if PUBLIC_ZIP.exists() else rel(PUBLIC_ZIP),
             "exists": PUBLIC_ZIP.exists(),
@@ -5083,6 +5114,7 @@ def materialize(
         "pdf_build_rows": build_rows,
         "public_zip": zip_payload,
         "suitability": audit,
+        "release_assembly_provenance": release_assembly_provenance(),
     }
     write_json_if_changed(EDITORIAL / f"PUBLIC_PAYLOAD_BUILD_{VERSION}_latest.json", payload)
     return payload

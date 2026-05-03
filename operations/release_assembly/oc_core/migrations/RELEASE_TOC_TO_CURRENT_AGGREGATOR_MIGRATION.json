@@ -1,0 +1,10 @@
+{
+  "schema_id": "OC_CORE_RELEASE_ASSEMBLY_MIGRATION_v1",
+  "migration_id": "release_toc_to_current_release_aggregator",
+  "status": "APPLIED",
+  "reason": "The previous concrete release table of contents was a version-bound planning artifact. The canonical source is now the common current-release aggregator plus a downstream versioned release instance.",
+  "old_canonical_source_removed": true,
+  "new_common_source": "operations/release_assembly/oc_core/current_release_aggregator/OC_CORE_CURRENT_RELEASE_AGGREGATOR.json",
+  "new_versioned_instance_pattern": "releases/{release_id}/editorial/release_assembly/OC_CORE_RELEASE_INSTANCE_{version}.json",
+  "governance_rule": "Common assembly inputs may not embed a concrete release version or public-record metadata. Concrete release numbers are assigned only by the release instance builder."
+}

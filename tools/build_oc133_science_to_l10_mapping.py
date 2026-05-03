@@ -324,7 +324,8 @@ def build_rules_payload() -> dict[str, Any]:
         "mapping_policy": {
             "mapping_is_separate_from_l10_template": True,
             "mapping_does_not_assess_fill_yet": True,
-            "release_toc_must_consume_mapping_not_raw_l10": True,
+            "current_release_aggregator_must_consume_mapping_not_raw_l10": True,
+            "concrete_release_toc_is_downstream_of_aggregator_and_version_resolver": True,
             "manuscript_prose_generation_not_authorized": True,
         },
     }

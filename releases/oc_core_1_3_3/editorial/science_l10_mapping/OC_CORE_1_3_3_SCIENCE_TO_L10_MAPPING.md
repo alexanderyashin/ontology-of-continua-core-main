@@ -1,7 +1,7 @@
 # OC Core 1.3.3 Science to L10 Mapping
 
 Status: DRAFT_MAPPING_NOT_FILL_ASSESSED
-Artifact hash: `d73dd5787ff6aa593d62659e828baaaf59a3165f85d8596d74fd163f4ff6719f`
+Artifact hash: `178a2bb97bc5ff5ce9ca38f212d959728f41fc9cf5781f8649707248ecf79f35`
 Rows: 656
 
 Every L10 terminal slot is mapped to science source families and fill-control rules. No fill status is assessed here.

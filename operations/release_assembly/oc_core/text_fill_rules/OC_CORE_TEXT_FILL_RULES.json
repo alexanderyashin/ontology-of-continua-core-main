@@ -1,0 +1,72 @@
+{
+  "artifact_hash": "d1578f20b493ac5e0cb3398e11a0befab20918db075aeb8ce101a932d67d902d",
+  "artifact_kind": "OC_CORE_TEXT_FILL_RULES",
+  "body_prose_included": false,
+  "rule_groups": [
+    {
+      "group_id": "positive_node_requirements",
+      "rules": [
+        "Every generated section must declare audience, purpose, reader payoff, and relation to the surrounding argument.",
+        "Every claim-bearing paragraph must bind to a claim boundary and at least one proof, evidence, source, example, or limitation route.",
+        "Every artifact must expose source trace and verification rule before it can move to package assembly."
+      ]
+    },
+    {
+      "group_id": "prohibited_generation_patterns",
+      "rules": [
+        "Do not transform raw ledgers into prose by dumping rows.",
+        "Do not emit control-plane, approval-lock, or gate-jargon language into reader-facing artifacts.",
+        "Do not emit stale version references, unsupported overclaims, broken links, bad encoding, duplicate boilerplate, or Markdown leakage.",
+        "Do not emit a paragraph without reader payoff."
+      ]
+    },
+    {
+      "group_id": "artifact_readiness_predicates",
+      "rules": [
+        "Title/frontmatter, audience contract, claim boundary, source trace, and artifact role must be present.",
+        "A generated artifact must pass forbidden-term, stale-version, local-path, link, encoding, and repeated-boilerplate scans.",
+        "A generated artifact must fail closed when required fill status remains not assessed for a promoted claim."
+      ]
+    }
+  ],
+  "schema_id": "OC_CORE_TEXT_FILL_RULES_v1",
+  "standard_sources": [
+    {
+      "criteria": [
+        "replicability",
+        "data availability",
+        "code availability",
+        "protocol availability",
+        "transparent restrictions"
+      ],
+      "source_id": "nature_reporting_data_code_protocols",
+      "title": "Nature Communications reporting standards and availability of data, materials, code and protocols",
+      "url": "https://www.nature.com/ncomms/editorial-policies/reporting-standards"
+    },
+    {
+      "criteria": [
+        "authorship accountability",
+        "manuscript responsibility",
+        "conflicts",
+        "AI-use boundary",
+        "ethical reporting"
+      ],
+      "source_id": "icmje_recommendations",
+      "title": "ICMJE Recommendations",
+      "url": "https://www.icmje.org/recommendations/"
+    },
+    {
+      "criteria": [
+        "data transparency",
+        "analytic transparency",
+        "materials transparency",
+        "preregistration where applicable",
+        "replication openness"
+      ],
+      "source_id": "top_guidelines",
+      "title": "Transparency and Openness Promotion Guidelines",
+      "url": "https://incentivizingopen.org/projects2/transparency-and-openness-promotion-top-guidelines/"
+    }
+  ],
+  "status": "OC_CORE_TEXT_FILL_RULES_READY"
+}

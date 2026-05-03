@@ -1,8 +1,8 @@
 # OC Core 1.3.3 Science to L10 Mapping Quality Audit
 
 Status: PASS
-Artifact hash: `ab119382f6635540e2924ad4c619660c584db07f7357610d7aa82345f879ebea`
-Quality hash: `949d8e93d8dadccb4bb052813951e051fa46a35596c60aa903c77b9c94714ad5`
+Artifact hash: `0fa257cb0d2564d613b1f8da9544b9b8b6a1a26373dc709276ed9e709441b812`
+Quality hash: `2a6d87e972c4eec46af09912e120ab65feb8e507431ac43519b9390901f4ee51`
 L10 rows: 656
 Mean auto quality index: 81.42
 Min auto quality index: 58.33

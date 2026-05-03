@@ -1,7 +1,7 @@
 # OC Core 1.3.3 Science to L10 Mapping Rules v1.0
 
 Status: ACTIVE_MAPPING_RULES_V1_0
-Artifact hash: `7e4c3e860068d8f95944078ff1beb3383252ac674dccf99b21da6e71c9c2b882`
+Artifact hash: `49bfacb2c26a70c641ae7a6eeb208eabcc333db553db8a4a8a8cd5a069a6df0c`
 
 This is a mapping-rule artifact. It is separate from the L10 template and does not assess fill.
 

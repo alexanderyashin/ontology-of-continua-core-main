@@ -1,8 +1,8 @@
 # OC Core 1.3.3 Science to L10 Mapping Quality and Coverage
 
 Status: AUTO_QUALITY_INDEX_READY_FILL_NOT_ASSESSED
-Artifact hash: `949d8e93d8dadccb4bb052813951e051fa46a35596c60aa903c77b9c94714ad5`
-Source mapping hash: `d73dd5787ff6aa593d62659e828baaaf59a3165f85d8596d74fd163f4ff6719f`
+Artifact hash: `2a6d87e972c4eec46af09912e120ab65feb8e507431ac43519b9390901f4ee51`
+Source mapping hash: `178a2bb97bc5ff5ce9ca38f212d959728f41fc9cf5781f8649707248ecf79f35`
 
 This document computes automatic quality indices where data exists. Manual quality statuses remain not assessed.
 
