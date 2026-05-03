@@ -21,6 +21,7 @@ from release_machine import public_release
 from release_machine import science_monolith
 from release_machine import versioning
 from tools import oc133_public_release_payload
+from tools import oc133_master_toc_recovery
 from tools import oc133_scientific_process_spot
 
 
@@ -404,6 +405,139 @@ class ReleaseMachineTests(unittest.TestCase):
         )
         self.assertEqual(reduced_gate["state"], "FAIL")
         self.assertIn("frozen_entrypoint_input_removed", reduced_gate["failures"])
+
+    def test_oc133_master_toc_recovery_artifacts_are_structure_only(self) -> None:
+        root = complete.repo_root()
+        master = json.loads(
+            (root / "releases" / "oc_core_1_3_3" / "editorial" / "MASTER_MANUSCRIPT_STRUCTURE_1_3_3.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        raw = json.loads(
+            (root / "releases" / "oc_core_1_3_3" / "editorial" / "ALL_HISTORICAL_TOC_SOURCES.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        freeze = json.loads(
+            (
+                root
+                / "releases"
+                / "oc_core_1_3_3"
+                / "editorial"
+                / "MASTER_MANUSCRIPT_STRUCTURE_FREEZE_1_3_3.json"
+            ).read_text(encoding="utf-8")
+        )
+
+        self.assertEqual(master["artifact_kind"], "TOC_ONLY_MASTER_STRUCTURE")
+        self.assertFalse(master["body_prose_included"])
+        self.assertFalse(master["release_payload_included"])
+        self.assertFalse(master["pdf_stitching_included"])
+        self.assertEqual(master["validation"]["state"], "PASS")
+        self.assertEqual(master["structural_cerberus_gate"]["state"], "PASS")
+        self.assertEqual(master["structural_cerberus_gate"]["critical_open_total"], 0)
+        self.assertEqual(master["structural_cerberus_gate"]["high_open_total"], 0)
+        self.assertGreaterEqual(master["strongest_proven_pdf_baseline"]["pages"], 706)
+        self.assertEqual(raw["collection_policy"], "TOC_ONLY_NO_BODY_PROSE_NO_PDF_STITCHING")
+        self.assertEqual(freeze["freeze_status"], "PENDING_OWNER_APPROVAL")
+        self.assertFalse(freeze["owner_approved"])
+        self.assertEqual(freeze["structure_hash"], master["structure_hash"])
+
+    def test_oc133_master_toc_required_arc_is_complete(self) -> None:
+        root = complete.repo_root()
+        master = json.loads(
+            (root / "releases" / "oc_core_1_3_3" / "editorial" / "MASTER_MANUSCRIPT_STRUCTURE_1_3_3.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        role_counts = master["validation"]["role_counts"]
+        for role in oc133_master_toc_recovery.REQUIRED_ARC:
+            self.assertGreater(role_counts.get(role, 0), 0, role)
+        titles = {node["title"] for node in master["nodes"]}
+        self.assertIn("Dedication to Maria", titles)
+        self.assertTrue(any("Theorem and Proof Registry" in title for title in titles))
+        self.assertTrue(any("Lean Formalization Subset" in title for title in titles))
+
+    def test_oc133_master_toc_append_only_guard_blocks_removal(self) -> None:
+        candidate = {
+            "nodes": [
+                {
+                    "node_id": "MTOC-A",
+                    "title": "A",
+                    "role": "frontmatter",
+                    "normalized_title": "a",
+                    "master_order": 1,
+                },
+                {
+                    "node_id": "MTOC-B",
+                    "title": "B",
+                    "role": "formal_model",
+                    "normalized_title": "b",
+                    "master_order": 2,
+                },
+            ]
+        }
+        freeze = {
+            "owner_approved": True,
+            "frozen_nodes": [
+                {
+                    "node_id": "MTOC-A",
+                    "title": "A",
+                    "role": "frontmatter",
+                    "normalized_title": "a",
+                    "master_order": 1,
+                }
+            ],
+        }
+        self.assertEqual(oc133_master_toc_recovery.validate_append_only(candidate, freeze)["state"], "PASS")
+        reduced = {"nodes": [candidate["nodes"][1]]}
+        gate = oc133_master_toc_recovery.validate_append_only(reduced, freeze)
+        self.assertEqual(gate["state"], "FAIL")
+        self.assertIn("delete_frozen_node::MTOC-A", gate["failures"])
+
+    def test_oc133_master_toc_dedup_keeps_distinct_roles(self) -> None:
+        raw = {
+            "source_total": 2,
+            "item_total": 2,
+            "strongest_proven_pdf_baseline": {"pages": 706},
+            "sources": [
+                {
+                    "items": [
+                        {
+                            "title": "Boundary",
+                            "level": 2,
+                            "kind": "markdown_heading",
+                            "role": "formal_model",
+                            "source_id": "s1",
+                            "path": "a.md",
+                            "commit": "HEAD",
+                            "line": 1,
+                            "source_order": 1,
+                            "dedupe_key": "formal_model:boundary",
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "title": "Boundary",
+                            "level": 2,
+                            "kind": "markdown_heading",
+                            "role": "reviewer_objections",
+                            "source_id": "s2",
+                            "path": "b.md",
+                            "commit": "HEAD",
+                            "line": 1,
+                            "source_order": 2,
+                            "dedupe_key": "reviewer_objections:boundary",
+                        }
+                    ]
+                },
+            ],
+        }
+        master = oc133_master_toc_recovery.synthesize_master_structure(raw)
+        nodes = [node for node in master["nodes"] if node["normalized_title"] == "boundary"]
+        self.assertEqual(len(nodes), 2)
+        self.assertEqual({node["role"] for node in nodes}, {"formal_model", "reviewer_objections"})
 
     def test_oc133_scientific_process_spot_exposes_positive_support_and_speech_contract(self) -> None:
         payload = oc133_scientific_process_spot.build_spot(complete.repo_root())
