@@ -80,6 +80,16 @@ FORM_STATUS_KEYS = [
     "cooldown_resume_status",
     "v_model_completion_status",
     "local_capability_exhaustion_status",
+    "journal_requirements_trace_status",
+    "release_spot_completeness_status",
+    "bounded_synthesis_status",
+    "source_gap_zero_status",
+    "all_venue_projection_status",
+    "submission_component_status",
+    "journal_format_compliance_status",
+    "zero_internal_leak_status",
+    "zero_fabrication_risk_status",
+    "scientific_journal_submission_ready_status",
     "form_quality_status",
 ]
 
@@ -154,6 +164,10 @@ def _machine_form_summary(machine_audit: dict[str, Any] | None) -> dict[str, Any
         "local_editorial_capability_boundary_status": summary.get("local_editorial_capability_boundary_status"),
         "unresolved_repair_record_total": summary.get("unresolved_repair_record_total"),
         "accepted_candidate_promoted_total": summary.get("accepted_candidate_promoted_total"),
+        "venue_total": summary.get("venue_total"),
+        "requirements_source_total": summary.get("requirements_source_total"),
+        "requirements_matrix_total": summary.get("requirements_matrix_total"),
+        "journal_package_total": summary.get("journal_package_total"),
     }
     payload.update({key: summary.get(key) for key in FORM_STATUS_KEYS})
     return payload

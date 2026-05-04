@@ -1,0 +1,101 @@
+% corresponding evidence-package record
+Порог эвиденса теперь привязан к каноническому science-state register, а не к плавающим сводным поверхностям. Математический якорь является replay-only: он требует детерминированного точного replay вместо маршрута бенчмарка на базе данных. Эмпирические доменные каналы требуют held-out результатов, которые проходят объявленный порог в пять сигм без увеличения числа нарушений хвоста. Простое удержание остатка в пределах допуска само по себе недостаточно для продвижения.
+
+\subsection{Глобальный порог эвиденса}
+Для эмпирических каналов порог эвиденса по умолчанию остаётся гибридной эскалацией: сначала официальные или открытые первичные данные, затем измерения, выполняемые институтами, только если соответствующее семейство наблюдаемых нельзя закрыть иным образом. Математический канал остаётся режимом только replay и закрывается детерминированным exact replay, а не маршрутом out-of-sample данных. В каждом канале дисциплина эвиденса стоит за пределами теоремно-родной трассирующей закрытости и не заменяет её.
+
+\subsection{Матрица протоколов исполнения}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{1.5pt}
+\begin{longtable}{@{}L{0.13\textwidth}L{0.10\textwidth}L{0.12\textwidth}L{0.14\textwidth}L{0.16\textwidth}L{0.13\textwidth}L{0.10\textwidth}@{}}
+\toprule
+Домен & Волна & Порог эвиденса & Политика held-out & Команда replay & Статус replay & Вердикт закрытия \\
+\midrule
+\endfirsthead
+\toprule
+Домен & Волна & Порог эвиденса & Политика held-out & Команда replay & Статус replay & Вердикт закрытия \\
+\midrule
+\endhead
+Mathematics & wave 0 anchor & \occode{HYBRID_ESCALATION} & \occode{DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY} & \occode{run_claim_simulations_v1.py} & replayable under the bounded public protocol & bounded evidence recorded \\
+Physics & wave 1 physics & \occode{HYBRID_ESCALATION} & \occode{LEAVE_ONE_BENCHMARK_FAMILY_OUT} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id PHYSICS} & replayable under the bounded public protocol & bounded evidence recorded \\
+Chemistry & wave 2 chemistry & \occode{HYBRID_ESCALATION} & \occode{HOLD_OUT_ONE_COMPOUND_OR_REACTION_CLASS} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id CHEMISTRY} & replayable under the bounded public protocol & bounded evidence recorded \\
+Biology & wave 3 biology & \occode{HYBRID_ESCALATION} & \occode{RESERVE_ONE_DATASET_FAMILY_PER_SIGNATURE_CLASS} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id BIOLOGY} & replayable under the bounded public protocol & bounded evidence recorded \\
+Systems / Civilizational projection & wave 4 systems & \occode{HYBRID_ESCALATION} & \occode{HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS} & \occode{run_oc_core_domain_hard_closure_replay_v1.py --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION} & replayable under the bounded public protocol & bounded evidence recorded \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\subsection{Лестница методов}
+\begin{longtable}{@{}L{0.07\textwidth}L{0.18\textwidth}L{0.26\textwidth}L{0.27\textwidth}@{}}
+\toprule
+Порядок & Класс метода & Условие входа & Условие антицикличности \\
+\midrule
+\endfirsthead
+\toprule
+Порядок & Класс метода & Условие входа & Условие антицикличности \\
+\midrule
+\endhead
+1 & \occode{SOURCE_EXTRACTION} & Применяется, если в требовании отсутствует точная целевая теорема, точный список зависимостей или точный исходный текст. & Не может повторяться, пока не добавлен новый исходный блок, новая семья теорем или заново сформулированное родительское требование. \\
+2 & \occode{FRESH_DERIVATION_FROM_OPERATORS} & Применяется, когда extraction из источника не закрывает теоремно-родной маршрут. & Не может повторяться, пока не появляется новая формальная посылка или новая декомпозиция пространства требований. \\
+3 & \occode{REPARAMETERIZATION_OR_CLAIM_DECOMPOSITION} & Применяется, когда требование слишком широко, слишком размыто или недостаточно конкретно, чтобы принять законный параметрический закон. & Не может повторяться, пока до replay не объявлено новое семейство наблюдаемых или новый допустимый режим. \\
+4 & \occode{NEW_DATA_OR_MEASUREMENT_ROUTE} & Применяется только после фиксации целевой теоремы, параметрического закона и политики held-out. & Не может повторяться, если новый маршрут не добавляет ранее недоступное семейство наблюдаемых или непресекающееся семейство held-out. \\
+5 & \occode{SAME_CLAIM_CLASS_ADVERSARIAL_COMPARISON} & Применяется, когда требование выдержало внутренние шаги закрытия и теперь должно встретиться с более простыми конкурентами того же класса требований. & Не может повторяться, пока не введено новое семейство сравнителей или новая метрика с нормализацией по стоимости. \\
+\bottomrule
+\end{longtable}
+
+\subsection{Доктрина эскалации по доменам}
+\paragraph{Математика.}
+Протокол \occode{OC13::EXECUTION::MATHEMATICS::ANCHOR_REPLAY} работает под порогом эвиденса \occode{HYBRID_ESCALATION} и в текущий момент сообщает готовность bounded evidence recorded.
+Фаза закрытия: \occode{PHASE_1_STABILIZE_CLOSED_CORE}. Правило запуска: \occode{MAINTAIN_ALWAYS_ON}.
+Закреплённые институты маршрута: Clay Mathematics Institute, \allowbreak American Institute of Mathematics.
+Политика held-out: \occode{DETERMINISTIC_COUNTEREXAMPLE_AND_TRACE_REPLAY}, минимум случаев \occode{31}.
+Квантитативный порог: минимум 31 случаев; строго терминализованных случаев не менее 31; выживших контрпримеров не более 0; расхождений replay не более 0.
+Средство replay: the public evidence replay route.
+Триггер запуска институтов: \occode{ONLY_IF_DETERMINISTIC_REPLAY_BREAKS}. Волна измерений: \occode{NONE}.
+Открытые разрывы: отсутствуют.
+План эскалации: расширять корпус точных вопросов, а не расширять внешние притязания при появлении разрыва replay.
+
+\paragraph{Физика.}
+Протокол \occode{OC13::EXECUTION::PHYSICS::CONSTANTS_SPECTRA_TRANSPORT} работает под порогом эвиденса \occode{HYBRID_ESCALATION} и в текущий момент сообщает готовность bounded evidence recorded.
+Фаза закрытия: \occode{PHASE_3_PHYSICS_CLOSURE}. Правило запуска: \occode{START_IMMEDIATELY_AFTER_PHASE_1}.
+Закреплённые институты маршрута: NIST, \allowbreak U.S. Department of Energy Office of Science.
+Политика held-out: \occode{LEAVE_ONE_BENCHMARK_FAMILY_OUT}, минимум случаев \occode{30}.
+Квантитативный порог: минимум 30 случаев; коэффициент покрытия 1.0; средняя абсолютная нормализованная ошибка не выше 1.0 sigma; 95-й процентиль нормализованной ошибки не выше 2.5 sigma; максимум нормализованной ошибки не выше 5.0 sigma; нарушения хвоста не более 0; порог критического остатка 2.5 sigma; порог тяжёлого остатка 1.5 sigma.
+Replay harness: \occode{public evidence replay route --domain-id PHYSICS}.
+Триггер запуска институтов: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_RESIDUAL_BREACH_PERSISTS}. Волна измерений: Physics institute-run wave 1a.
+Открытые разрывы: отсутствуют.
+План эскалации: если официальные/открытые данные не покрывают требуемое семейство наблюдаемых, поставить в очередь измерения институтов или добычу партнёрских наблюдений.
+
+\paragraph{Химия.}
+Протокол \occode{OC13::EXECUTION::CHEMISTRY::THERMOCHEMISTRY_SPECTRA_KINETICS} работает под порогом эвиденса \occode{HYBRID_ESCALATION} и в текущий момент сообщает готовность bounded evidence recorded.
+Фаза закрытия: \occode{PHASE_4_CHEMISTRY_CLOSURE}. Правило запуска: \occode{START_AFTER_PHYSICS_THEOREM_PACKET_LOCKS}.
+Закреплённые институты маршрута: NIST, \allowbreak U.S. Department of Energy Office of Science.
+Политика held-out: \occode{HOLD_OUT_ONE_COMPOUND_OR_REACTION_CLASS}, минимум случаев \occode{30}.
+Квантитативный порог: минимум 30 случаев; коэффициент покрытия 1.0; средняя абсолютная нормализованная ошибка не выше 1.0 sigma; 95-й процентиль нормализованной ошибки не выше 2.5 sigma; максимум нормализованной ошибки не выше 5.0 sigma; нарушения хвоста не более 0; порог критического остатка 2.5 sigma; порог тяжёлого остатка 1.5 sigma.
+Replay harness: \occode{public evidence replay route --domain-id CHEMISTRY}.
+Триггер запуска институтов: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_RESIDUAL_BREACH_PERSISTS}. Волна измерений: Chemistry institute-run wave 2a.
+Открытые разрывы: отсутствуют.
+План эскалации: при недостаточности официальных/открытых ссылочных данных поставить таргетированное лабораторное измерение или партнёрский сбор данных.
+
+\paragraph{Биология.}
+Протокол \occode{OC13::EXECUTION::BIOLOGY::STATE_TRANSITIONS_AND_RESPONSE_SIGNATURES} работает под порогом эвиденса \occode{HYBRID_ESCALATION} и в текущий момент сообщает готовность bounded evidence recorded.
+Фаза закрытия: \occode{PHASE_5_BIOLOGY_CLOSURE}. Правило запуска: \occode{START_AFTER_CHEMISTRY_THEOREM_PACKET_LOCKS}.
+Закреплённые институты маршрута: NCBI GEO.
+Политика held-out: \occode{RESERVE_ONE_DATASET_FAMILY_PER_SIGNATURE_CLASS}, минимум случаев \occode{30}.
+Квантитативный порог: минимум 30 случаев; коэффициент покрытия 1.0; средняя абсолютная нормализованная ошибка не выше 1.0 sigma; 95-й процентиль нормализованной ошибки не выше 2.5 sigma; максимум нормализованной ошибки не выше 5.0 sigma; нарушения хвоста не более 0; ошибка калибровки не выше 0.05.
+Replay harness: \occode{public evidence replay route --domain-id BIOLOGY}.
+Триггер запуска институтов: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_CASES_LT_30_OR_SIGNATURE_CLASS_UNDERCONSTRAINED}. Волна измерений: Biology institute-run wave 3a.
+Открытые разрывы: отсутствуют.
+План эскалации: если открытые репозитории не позволяют честно закрыть канал, внедрить план наблюдений институтов или assay вместо расширения притязаний.
+
+\paragraph{Systems / Civilizational projection.}
+Протокол \occode{OC13::EXECUTION::SYSTEMS::MACRO_TRAJECTORIES_AND_REGIME_SHIFTS} работает под порогом эвиденса \occode{HYBRID_ESCALATION} и в текущий момент сообщает готовность bounded evidence recorded.
+Фаза закрытия: \occode{PHASE_6_SYSTEMS_CLOSURE}. Правило запуска: \occode{ALLOW_PARALLEL_DATA_PREP_AFTER_CHEMISTRY_BUT_FINAL_PROMOTION_AFTER_BIOLOGY_FORMAL_ROUTE}.
+Закреплённые институты маршрута: World Bank, \allowbreak U.S. Department of Energy Office of Science.
+Политика held-out: \occode{HELD_OUT_INTERVAL_REPLAY_WITH_TURNING_POINT_CHECKS}, минимум случаев \occode{30}.
+Квантитативный порог: минимум 30 случаев; коэффициент покрытия 1.0; нарушения хвоста не более 0; Brier score не выше 0.08; ошибка калибровки не выше 0.05; critical-failure F1 не ниже 0.87; precision критического сбоя не ниже 0.85; recall критического сбоя не ниже 0.9.
+Replay harness: \occode{public evidence replay route --domain-id SYSTEMS_CIVILIZATIONAL_PROJECTION}.
+Триггер запуска институтов: \occode{OPEN_DATA_COVERAGE_LT_1_0_OR_HELD_OUT_INTERVAL_COUNT_LT_30_OR_TURNING_POINT_BREACH_PERSISTS}. Волна измерений: Systems institute-run wave 4a.
+Открытые разрывы: отсутствуют.
+План эскалации: если открытые ряды макропроцессов недостаточны, поставить в очередь проект наблюдений института или партнёрский сбор данных.

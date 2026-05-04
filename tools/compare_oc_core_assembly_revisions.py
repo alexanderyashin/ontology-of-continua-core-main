@@ -75,6 +75,16 @@ FORM_STATUS_KEYS = [
     "cooldown_resume_status",
     "v_model_completion_status",
     "local_capability_exhaustion_status",
+    "journal_requirements_trace_status",
+    "release_spot_completeness_status",
+    "bounded_synthesis_status",
+    "source_gap_zero_status",
+    "all_venue_projection_status",
+    "submission_component_status",
+    "journal_format_compliance_status",
+    "zero_internal_leak_status",
+    "zero_fabrication_risk_status",
+    "scientific_journal_submission_ready_status",
     "form_quality_status",
 ]
 
@@ -186,10 +196,10 @@ def build_comparison(release_id: str, candidate_revision: str | None, baseline_r
         row = candidate_rows.get(artifact_id, {})
         if (
             old_baseline_status == "FAIL"
-            and candidate_revision in {"recovery_r007", "recovery_r008", "recovery_r009", "recovery_r010"}
+            and candidate_revision in {"recovery_r007", "recovery_r008", "recovery_r009", "recovery_r010", "recovery_r011"}
             and artifact_id != "master_monograph"
-            and row.get("public_translation_status") in {"PUBLICATION_TRANSLATOR_R007", "PUBLICATION_TRANSLATOR_R008", "PUBLICATION_TRANSLATOR_R009", "PUBLICATION_TRANSLATOR_R010_SOURCE_GROUNDED_REPAIR"}
-            and row.get("public_translation_source") in {"deterministic_publication_translator_r007", "logion_llm_service_publication_translator_r008", "editorial_ollama_until_done_publication_translator_r009", "source_grounded_editorial_repair_publication_translator_r010"}
+            and row.get("public_translation_status") in {"PUBLICATION_TRANSLATOR_R007", "PUBLICATION_TRANSLATOR_R008", "PUBLICATION_TRANSLATOR_R009", "PUBLICATION_TRANSLATOR_R010_SOURCE_GROUNDED_REPAIR", "PUBLICATION_TRANSLATOR_R011_JOURNAL_REQUIREMENTS_SPOT"}
+            and row.get("public_translation_source") in {"deterministic_publication_translator_r007", "logion_llm_service_publication_translator_r008", "editorial_ollama_until_done_publication_translator_r009", "source_grounded_editorial_repair_publication_translator_r010", "journal_requirements_spot_publication_translator_r011"}
             and candidate_audit
             and candidate_audit.get("status") == "PASS"
             and candidate_pages[artifact_id] >= 8
@@ -220,10 +230,10 @@ def build_comparison(release_id: str, candidate_revision: str | None, baseline_r
         row = candidate_rows.get(artifact_id, {})
         if (
             page_delta_status == "WARN"
-            and candidate_revision in {"recovery_r007", "recovery_r008", "recovery_r009", "recovery_r010"}
+            and candidate_revision in {"recovery_r007", "recovery_r008", "recovery_r009", "recovery_r010", "recovery_r011"}
             and artifact_id != "master_monograph"
-            and row.get("public_translation_status") in {"PUBLICATION_TRANSLATOR_R007", "PUBLICATION_TRANSLATOR_R008", "PUBLICATION_TRANSLATOR_R009", "PUBLICATION_TRANSLATOR_R010_SOURCE_GROUNDED_REPAIR"}
-            and row.get("public_translation_source") in {"deterministic_publication_translator_r007", "logion_llm_service_publication_translator_r008", "editorial_ollama_until_done_publication_translator_r009", "source_grounded_editorial_repair_publication_translator_r010"}
+            and row.get("public_translation_status") in {"PUBLICATION_TRANSLATOR_R007", "PUBLICATION_TRANSLATOR_R008", "PUBLICATION_TRANSLATOR_R009", "PUBLICATION_TRANSLATOR_R010_SOURCE_GROUNDED_REPAIR", "PUBLICATION_TRANSLATOR_R011_JOURNAL_REQUIREMENTS_SPOT"}
+            and row.get("public_translation_source") in {"deterministic_publication_translator_r007", "logion_llm_service_publication_translator_r008", "editorial_ollama_until_done_publication_translator_r009", "source_grounded_editorial_repair_publication_translator_r010", "journal_requirements_spot_publication_translator_r011"}
             and candidate_audit
             and candidate_audit.get("status") == "PASS"
             and candidate_pages[artifact_id] >= 8
@@ -309,6 +319,10 @@ def build_comparison(release_id: str, candidate_revision: str | None, baseline_r
             "local_editorial_capability_boundary_status": audit_summary.get("local_editorial_capability_boundary_status"),
             "unresolved_repair_record_total": audit_summary.get("unresolved_repair_record_total"),
             "accepted_candidate_promoted_total": audit_summary.get("accepted_candidate_promoted_total"),
+            "venue_total": audit_summary.get("venue_total"),
+            "requirements_source_total": audit_summary.get("requirements_source_total"),
+            "requirements_matrix_total": audit_summary.get("requirements_matrix_total"),
+            "journal_package_total": audit_summary.get("journal_package_total"),
             "explained_page_reduction_total": sum(1 for row in metric_rows if row["status"] == "PASS_EXPLAINED"),
         },
         "metric_rows": metric_rows,

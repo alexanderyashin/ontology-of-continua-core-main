@@ -79,6 +79,18 @@ R009_FORM_STATUS_KEYS = R008_FORM_STATUS_KEYS + [
     "local_capability_exhaustion_status",
 ]
 R010_FORM_STATUS_KEYS = R009_FORM_STATUS_KEYS
+R011_FORM_STATUS_KEYS = R010_FORM_STATUS_KEYS + [
+    "journal_requirements_trace_status",
+    "release_spot_completeness_status",
+    "bounded_synthesis_status",
+    "source_gap_zero_status",
+    "all_venue_projection_status",
+    "submission_component_status",
+    "journal_format_compliance_status",
+    "zero_internal_leak_status",
+    "zero_fabrication_risk_status",
+    "scientific_journal_submission_ready_status",
+]
 
 
 def read_json(path: Path) -> dict:
@@ -1254,6 +1266,97 @@ class ReleaseAssemblyMachineTests(unittest.TestCase):
             self.assertEqual(row["public_translation_source"], "source_grounded_editorial_repair_publication_translator_r010")
             self.assertEqual(row["source_grounded_repair_status"], "REPAIR_REQUIRED")
             self.assertEqual(row["accepted_candidate_promoted_total"], 0)
+
+    def test_recovery_r011_journal_requirements_spot_is_owner_review_ready(self) -> None:
+        r010_base = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "generated_artifacts_recovered" / "recovery_r010"
+        r010_summary = read_json(r010_base / "editorial_repair" / "OC133_R010_SOURCE_GROUNDED_REPAIR_SUMMARY_1.3.3.json")
+        self.assertEqual(r010_summary["source_grounded_repair_status"], "REPAIR_REQUIRED")
+        self.assertGreater(r010_summary["unresolved_repair_record_total"], 0)
+        self.assertFalse((r010_base / "journal_requirements_spot").exists())
+
+        base = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "generated_artifacts_recovered" / "recovery_r011"
+        assembly = read_json(base / "package_assembly" / "OC_CORE_RELEASE_PACKAGE_ASSEMBLY_1.3.3.json")
+        machine = read_json(base / "package_assembly" / "OC_CORE_RELEASE_ASSEMBLY_MACHINE_AUDIT_1.3.3.json")
+        comparison = read_json(base / "package_assembly" / "OC_CORE_RELEASE_ASSEMBLY_REVISION_COMPARISON_1.3.3.recovery_r011.json")
+        quality = read_json(
+            ROOT
+            / "releases"
+            / "oc_core_1_3_3"
+            / "editorial"
+            / "quality_validation"
+            / "recovery_r011"
+            / "OC_CORE_RELEASE_QUALITY_AUDIT_1.3.3.json"
+        )
+        spot_root = base / "journal_requirements_spot"
+        index = read_json(spot_root / "OC133_R011_JOURNAL_REQUIREMENTS_INDEX_1.3.3.json")
+        spot = read_json(spot_root / "OC133_R011_RELEASE_SPOT_MAP_1.3.3.json")
+        acceptance = read_json(spot_root / "OC133_R011_BOUNDED_SYNTHESIS_ACCEPTANCE_1.3.3.json")
+        queue = read_json(spot_root / "OC133_R011_JOURNAL_REQUIREMENTS_SPOT_QUEUE_1.3.3.json")
+        trace = read_json(spot_root / "OC133_R011_JOURNAL_REQUIREMENTS_SPOT_TRACE_1.3.3.json")
+        summary = read_json(spot_root / "OC133_R011_JOURNAL_REQUIREMENTS_SPOT_SUMMARY_1.3.3.json")
+
+        self.assertEqual(assembly["assembly_revision"], "recovery_r011")
+        self.assertEqual(assembly["publication_translation_pipeline"]["status"], "PUBLICATION_TRANSLATOR_R011_JOURNAL_REQUIREMENTS_SPOT")
+        self.assertEqual(summary["scientific_journal_submission_ready_status"], "SCIENTIFIC_JOURNAL_SUBMISSION_READY_NO_SEND")
+        self.assertEqual(summary["status"], "PASS")
+        self.assertEqual(summary["venue_total"], 8)
+        self.assertEqual(summary["requirements_source_total"], 8)
+        self.assertEqual(summary["requirements_matrix_total"], 8)
+        self.assertEqual(summary["journal_package_total"], 8)
+        self.assertEqual(summary["unresolved_repair_record_total"], 0)
+        self.assertEqual(summary["fabrication_risk_total"], 0)
+        self.assertEqual(summary["unmanaged_ollama_call_total"], 0)
+        self.assertGreater(summary["ollama_invocation_total"], 0)
+        self.assertEqual(trace["queue_status"], "DONE")
+        self.assertEqual((trace["summary"] or {})["packet_done_total"], len(queue["requests"]))
+        self.assertEqual(index["venue_total"], 8)
+        self.assertEqual(spot["status"], "SPOT_READY")
+        self.assertEqual(acceptance["status"], "PASS")
+        self.assertEqual(acceptance["unresolved_repair_record_total"], 0)
+
+        expected_venues = {
+            "FOUNDATIONS_OF_SCIENCE",
+            "SYNTHESE",
+            "FOUNDATIONS_OF_PHYSICS",
+            "ACTA_BIOTHEORETICA",
+            "GLOBAL_JOURNAL_OF_FLEXIBLE_SYSTEMS_MANAGEMENT",
+            "PHYSICAL_REVIEW_RESEARCH",
+            "ACS_OMEGA",
+            "PLOS_COMPUTATIONAL_BIOLOGY",
+        }
+        self.assertEqual({venue["venue_id"] for venue in index["venues"]}, expected_venues)
+        venue_rows = {venue["venue_id"]: venue for venue in index["venues"]}
+        for venue_id in expected_venues:
+            source = ROOT / venue_rows[venue_id]["requirements_source_path"]
+            matrix = ROOT / venue_rows[venue_id]["requirements_matrix_path"]
+            package = ROOT / venue_rows[venue_id]["package_path"]
+            manifest = package.parent / "REQUIRED_COMPONENT_MANIFEST.json"
+            self.assertTrue(source.is_file(), venue_id)
+            self.assertTrue(matrix.is_file(), venue_id)
+            self.assertTrue(package.is_file(), venue_id)
+            self.assertTrue(manifest.is_file(), venue_id)
+            package_payload = read_json(package)
+            self.assertEqual(package_payload["status"], "OWNER_REVIEW_READY_NO_SEND")
+            self.assertTrue(package_payload["no_send_lock"])
+            self.assertFalse(package_payload["external_action_performed"])
+
+        self.assertEqual(machine["status"], "PASS")
+        self.assertEqual(comparison["status"], "PASS")
+        self.assertEqual(quality["summary"]["artifact_failure_total"], 0)
+        self.assertEqual(machine["summary"]["scientific_journal_terminal_state"], "SCIENTIFIC_JOURNAL_SUBMISSION_READY_NO_SEND")
+        for key in R011_FORM_STATUS_KEYS:
+            self.assertEqual(machine["summary"][key], "PASS", key)
+            self.assertEqual(comparison["summary"][key], "PASS", key)
+            self.assertEqual(quality["summary"][key], "PASS", key)
+
+        rows = {row["artifact_type_id"]: row for row in assembly["artifact_rows"]}
+        self.assertEqual(rows["master_monograph"]["public_translation_source"], "science_monolith_journal_requirements_spot_r011")
+        for artifact_id in ["release_guide", "journal_core_article", "methods_repro_companion", "reviewer_attack_response_map"]:
+            row = rows[artifact_id]
+            self.assertEqual(row["public_translation_status"], "PUBLICATION_TRANSLATOR_R011_JOURNAL_REQUIREMENTS_SPOT")
+            self.assertEqual(row["public_translation_source"], "journal_requirements_spot_publication_translator_r011")
+            self.assertEqual(row["source_gap_zero_status"], "PASS")
+            self.assertEqual(row["scientific_journal_submission_ready_status"], "SCIENTIFIC_JOURNAL_SUBMISSION_READY_NO_SEND")
 
 
 if __name__ == "__main__":

@@ -22,6 +22,8 @@ from assemble_oc_core_release_package import (
     R009_TRANSLATOR_STATUS,
     R010_REVISION,
     R010_TRANSLATOR_STATUS,
+    R011_REVISION,
+    R011_TRANSLATOR_STATUS,
     TEXT_ARTIFACTS,
     assembly_paths,
     artifact_title,
@@ -235,6 +237,18 @@ R009_FINDING_KINDS = {
     "publication_v_model_completion_missing",
     "publication_local_capability_exhaustion_invalid",
 }
+R011_FINDING_KINDS = {
+    "publication_journal_requirements_trace_missing",
+    "publication_release_spot_incomplete",
+    "publication_bounded_synthesis_invalid",
+    "publication_source_gap_open",
+    "publication_venue_projection_missing",
+    "publication_submission_component_missing",
+    "publication_journal_format_compliance_missing",
+    "publication_internal_leak_in_journal_projection",
+    "publication_fabrication_risk_open",
+    "publication_scientific_journal_readiness_missing",
+}
 FORM_FINDING_KINDS = (
     TITLE_PAGE_FINDING_KINDS
     | TOC_FORM_FINDING_KINDS
@@ -255,6 +269,7 @@ FORM_FINDING_KINDS = (
     | R007_FINDING_KINDS
     | R008_FINDING_KINDS
     | R009_FINDING_KINDS
+    | R011_FINDING_KINDS
 )
 
 
@@ -270,22 +285,30 @@ def scan_text(path: Path) -> list[dict[str, Any]]:
     if not path.exists():
         return [{"kind": "missing_file", "path": str(path)}]
     text = path.read_text(encoding="utf-8", errors="replace")
+    scan_target = text
+    if "recovery_r011" in str(path) or "journal_requirements_spot" in str(path):
+        scan_target = re.sub(
+            r"SCIENTIFIC_JOURNAL_SUBMISSION_READY_NO_SEND|OWNER_REVIEW_READY_NO_SEND|REPAIR_REQUIRED_NO_SEND|owner_review_no_send|no_send_lock",
+            "allowed_governance_marker",
+            scan_target,
+            flags=re.IGNORECASE,
+        )
     findings: list[dict[str, Any]] = []
     for regex, kind in [
         (CYRILLIC_RE, "cyrillic_public_surface_leak"),
         (FORBIDDEN_TEXT_RE, "forbidden_public_surface_phrase"),
         (LOCAL_PATH_RE, "local_or_private_path_leak"),
     ]:
-        for match in regex.finditer(text):
+        for match in regex.finditer(scan_target):
             start = max(0, match.start() - 60)
-            end = min(len(text), match.end() + 60)
+            end = min(len(scan_target), match.end() + 60)
             findings.append(
                 {
                     "kind": kind,
                     "path": str(path.relative_to(ROOT)),
                     "offset": match.start(),
                     "match": match.group(0),
-                    "context": text[start:end].replace("\n", " ")[:180],
+                    "context": scan_target[start:end].replace("\n", " ")[:180],
                 }
             )
             if len(findings) >= 20:
@@ -1157,6 +1180,7 @@ def collect_publication_content_richness_findings(row: dict[str, Any]) -> list[d
             "curated_public_payload_markdown_logion_llm_service_translator_r008",
             "curated_public_payload_markdown_editorial_ollama_until_done_r009",
             "curated_public_payload_markdown_source_grounded_repair_r010",
+            "curated_public_payload_markdown_journal_requirements_spot_r011",
         }:
             findings.append({"kind": "publication_body_source_not_curated_payload", "artifact_type_id": artifact_type_id, "document_body_source": row.get("document_body_source")})
     return findings
@@ -1168,7 +1192,7 @@ def collect_r007_translation_findings(row: dict[str, Any]) -> list[dict[str, Any
         return []
     findings: list[dict[str, Any]] = []
     translation_status = row.get("public_translation_status")
-    if translation_status not in {"PUBLICATION_TRANSLATOR_R007", R008_TRANSLATOR_STATUS, R009_TRANSLATOR_STATUS, R010_TRANSLATOR_STATUS}:
+    if translation_status not in {"PUBLICATION_TRANSLATOR_R007", R008_TRANSLATOR_STATUS, R009_TRANSLATOR_STATUS, R010_TRANSLATOR_STATUS, R011_TRANSLATOR_STATUS}:
         findings.append({"kind": "publication_translation_missing", "artifact_type_id": artifact_type_id, "public_translation_status": row.get("public_translation_status")})
     source = str(row.get("public_translation_source") or "")
     expected_sources = {
@@ -1180,6 +1204,8 @@ def collect_r007_translation_findings(row: dict[str, Any]) -> list[dict[str, Any
         "editorial_ollama_until_done_publication_translator_r009",
         "science_monolith_source_grounded_editorial_repair_r010",
         "source_grounded_editorial_repair_publication_translator_r010",
+        "science_monolith_journal_requirements_spot_r011",
+        "journal_requirements_spot_publication_translator_r011",
     }
     if source not in expected_sources:
         findings.append({"kind": "publication_all_reader_pdf_translation_missing", "artifact_type_id": artifact_type_id, "public_translation_source": row.get("public_translation_source")})
@@ -1191,7 +1217,7 @@ def collect_r007_translation_findings(row: dict[str, Any]) -> list[dict[str, Any
         findings.append({"kind": "publication_ollama_governance_trace_missing", "artifact_type_id": artifact_type_id, "governed_ollama_status": governed_status})
     if int(row.get("unmanaged_ollama_call_total") or 0) != 0:
         findings.append({"kind": "publication_ollama_governance_bypass", "artifact_type_id": artifact_type_id, "unmanaged_ollama_call_total": row.get("unmanaged_ollama_call_total")})
-    if translation_status in {R008_TRANSLATOR_STATUS, R009_TRANSLATOR_STATUS, R010_TRANSLATOR_STATUS}:
+    if translation_status in {R008_TRANSLATOR_STATUS, R009_TRANSLATOR_STATUS, R010_TRANSLATOR_STATUS, R011_TRANSLATOR_STATUS}:
         if not row.get("logion_llm_service_status"):
             findings.append({"kind": "publication_common_llm_service_missing", "artifact_type_id": artifact_type_id})
         if not row.get("logion_llm_service_ledger_ref"):
@@ -1263,6 +1289,91 @@ def collect_r009_queue_findings(assembly: dict[str, Any]) -> list[dict[str, Any]
     return findings
 
 
+def collect_r011_journal_spot_findings(assembly: dict[str, Any]) -> list[dict[str, Any]]:
+    if assembly.get("assembly_revision") != R011_REVISION:
+        return []
+    trace = assembly.get("governed_ollama_trace") if isinstance(assembly.get("governed_ollama_trace"), dict) else {}
+    findings: list[dict[str, Any]] = []
+    expected_pass = {
+        "journal_requirements_trace_status": "publication_journal_requirements_trace_missing",
+        "release_spot_completeness_status": "publication_release_spot_incomplete",
+        "bounded_synthesis_status": "publication_bounded_synthesis_invalid",
+        "source_gap_zero_status": "publication_source_gap_open",
+        "all_venue_projection_status": "publication_venue_projection_missing",
+        "submission_component_status": "publication_submission_component_missing",
+        "journal_format_compliance_status": "publication_journal_format_compliance_missing",
+        "zero_internal_leak_status": "publication_internal_leak_in_journal_projection",
+        "zero_fabrication_risk_status": "publication_fabrication_risk_open",
+    }
+    for key, kind in expected_pass.items():
+        if trace.get(key) != "PASS":
+            findings.append({"kind": kind, "artifact_type_id": "assembly", key: trace.get(key)})
+    if trace.get("scientific_journal_submission_ready_status") != "SCIENTIFIC_JOURNAL_SUBMISSION_READY_NO_SEND":
+        findings.append(
+            {
+                "kind": "publication_scientific_journal_readiness_missing",
+                "artifact_type_id": "assembly",
+                "scientific_journal_submission_ready_status": trace.get("scientific_journal_submission_ready_status"),
+            }
+        )
+    if int(trace.get("venue_total") or 0) != 8 or int(trace.get("requirements_source_total") or 0) != 8 or int(trace.get("requirements_matrix_total") or 0) != 8:
+        findings.append(
+            {
+                "kind": "publication_journal_requirements_trace_missing",
+                "artifact_type_id": "assembly",
+                "venue_total": trace.get("venue_total"),
+                "requirements_source_total": trace.get("requirements_source_total"),
+                "requirements_matrix_total": trace.get("requirements_matrix_total"),
+            }
+        )
+    if int(trace.get("unresolved_repair_record_total") or 0) != 0:
+        findings.append({"kind": "publication_source_gap_open", "artifact_type_id": "assembly", "unresolved_repair_record_total": trace.get("unresolved_repair_record_total")})
+    if int(trace.get("fabrication_risk_total") or 0) != 0:
+        findings.append({"kind": "publication_fabrication_risk_open", "artifact_type_id": "assembly", "fabrication_risk_total": trace.get("fabrication_risk_total")})
+    if int(trace.get("unmanaged_ollama_call_total") or 0) != 0:
+        findings.append({"kind": "publication_llm_service_bypass", "artifact_type_id": "assembly"})
+    if trace.get("editorial_llm_queue_status") != "PASS" or trace.get("actual_ollama_invocation_status") != "PASS":
+        findings.append(
+            {
+                "kind": "publication_editorial_llm_queue_not_done",
+                "artifact_type_id": "assembly",
+                "editorial_llm_queue_status": trace.get("editorial_llm_queue_status"),
+                "actual_ollama_invocation_status": trace.get("actual_ollama_invocation_status"),
+            }
+        )
+    version = assembly.get("release_identity", {}).get("version") or "1.3.3"
+    base = assembly_paths("oc_core_1_3_3", str(version), R011_REVISION)["assembly_json"].parents[1]
+    root = base / "journal_requirements_spot"
+    if not (root / f"OC133_R011_JOURNAL_REQUIREMENTS_INDEX_{version}.json").is_file():
+        findings.append({"kind": "publication_journal_requirements_trace_missing", "artifact_type_id": "assembly", "missing": "requirements_index"})
+    for venue_id in [
+        "FOUNDATIONS_OF_SCIENCE",
+        "SYNTHESE",
+        "FOUNDATIONS_OF_PHYSICS",
+        "ACTA_BIOTHEORETICA",
+        "GLOBAL_JOURNAL_OF_FLEXIBLE_SYSTEMS_MANAGEMENT",
+        "PHYSICAL_REVIEW_RESEARCH",
+        "ACS_OMEGA",
+        "PLOS_COMPUTATIONAL_BIOLOGY",
+    ]:
+        venue_dir_id = {"GLOBAL_JOURNAL_OF_FLEXIBLE_SYSTEMS_MANAGEMENT": "GJFSM"}.get(venue_id, venue_id)
+        source = root / "venues" / venue_dir_id / "JOURNAL_REQUIREMENTS_SOURCE.json"
+        matrix = root / "venues" / venue_dir_id / "JOURNAL_REQUIREMENTS_MATRIX.json"
+        package = root / "journal_packages" / venue_dir_id / "SUBMISSION_PACKAGE.json"
+        for path, kind in [
+            (source, "publication_journal_requirements_trace_missing"),
+            (matrix, "publication_journal_requirements_trace_missing"),
+            (package, "publication_venue_projection_missing"),
+        ]:
+            if not path.is_file():
+                findings.append({"kind": kind, "artifact_type_id": venue_id, "missing_path": str(path.relative_to(ROOT))})
+        if package.is_file():
+            package_payload = read_json(package)
+            if package_payload.get("status") != "OWNER_REVIEW_READY_NO_SEND" or package_payload.get("external_action_performed") is not False or package_payload.get("no_send_lock") is not True:
+                findings.append({"kind": "publication_submission_component_missing", "artifact_type_id": venue_id})
+    return findings
+
+
 def form_statuses(findings: list[dict[str, Any]]) -> dict[str, str | int]:
     kinds = {finding.get("kind") for finding in findings}
     title_status = "FAIL" if kinds & TITLE_PAGE_FINDING_KINDS else "PASS"
@@ -1313,6 +1424,16 @@ def form_statuses(findings: list[dict[str, Any]]) -> dict[str, str | int]:
     cooldown_resume_status = "FAIL" if kinds & {"publication_cooldown_resume_missing"} else "PASS"
     v_model_completion_status = "FAIL" if kinds & {"publication_v_model_completion_missing"} else "PASS"
     local_capability_exhaustion_status = "FAIL" if kinds & {"publication_local_capability_exhaustion_invalid"} else "PASS"
+    journal_requirements_trace_status = "FAIL" if kinds & {"publication_journal_requirements_trace_missing"} else "PASS"
+    release_spot_completeness_status = "FAIL" if kinds & {"publication_release_spot_incomplete"} else "PASS"
+    bounded_synthesis_status = "FAIL" if kinds & {"publication_bounded_synthesis_invalid"} else "PASS"
+    source_gap_zero_status = "FAIL" if kinds & {"publication_source_gap_open"} else "PASS"
+    all_venue_projection_status = "FAIL" if kinds & {"publication_venue_projection_missing"} else "PASS"
+    submission_component_status = "FAIL" if kinds & {"publication_submission_component_missing"} else "PASS"
+    journal_format_compliance_status = "FAIL" if kinds & {"publication_journal_format_compliance_missing"} else "PASS"
+    zero_internal_leak_status = "FAIL" if kinds & {"publication_internal_leak_in_journal_projection"} else "PASS"
+    zero_fabrication_risk_status = "FAIL" if kinds & {"publication_fabrication_risk_open"} else "PASS"
+    scientific_journal_submission_ready_status = "FAIL" if kinds & {"publication_scientific_journal_readiness_missing"} else "PASS"
     form_status = "PASS" if all(
         status == "PASS"
         for status in [
@@ -1364,6 +1485,16 @@ def form_statuses(findings: list[dict[str, Any]]) -> dict[str, str | int]:
             cooldown_resume_status,
             v_model_completion_status,
             local_capability_exhaustion_status,
+            journal_requirements_trace_status,
+            release_spot_completeness_status,
+            bounded_synthesis_status,
+            source_gap_zero_status,
+            all_venue_projection_status,
+            submission_component_status,
+            journal_format_compliance_status,
+            zero_internal_leak_status,
+            zero_fabrication_risk_status,
+            scientific_journal_submission_ready_status,
         ]
     ) else "FAIL"
     return {
@@ -1424,6 +1555,16 @@ def form_statuses(findings: list[dict[str, Any]]) -> dict[str, str | int]:
         "cooldown_resume_status": cooldown_resume_status,
         "v_model_completion_status": v_model_completion_status,
         "local_capability_exhaustion_status": local_capability_exhaustion_status,
+        "journal_requirements_trace_status": journal_requirements_trace_status,
+        "release_spot_completeness_status": release_spot_completeness_status,
+        "bounded_synthesis_status": bounded_synthesis_status,
+        "source_gap_zero_status": source_gap_zero_status,
+        "all_venue_projection_status": all_venue_projection_status,
+        "submission_component_status": submission_component_status,
+        "journal_format_compliance_status": journal_format_compliance_status,
+        "zero_internal_leak_status": zero_internal_leak_status,
+        "zero_fabrication_risk_status": zero_fabrication_risk_status,
+        "scientific_journal_submission_ready_status": scientific_journal_submission_ready_status,
         "form_quality_status": form_status,
         "form_finding_total": sum(1 for finding in findings if finding.get("kind") in FORM_FINDING_KINDS),
     }
@@ -1608,6 +1749,7 @@ def build_audit(release_id: str, assembly_revision: str | None = None) -> dict[s
         )
     findings.extend(collect_r008_service_findings(assembly))
     findings.extend(collect_r009_queue_findings(assembly))
+    findings.extend(collect_r011_journal_spot_findings(assembly))
 
     scan_paths = [
         paths["terminal_contracts_json"],
@@ -1702,6 +1844,21 @@ def build_audit(release_id: str, assembly_revision: str | None = None) -> dict[s
             "local_editorial_capability_boundary_status": trace.get("local_editorial_capability_boundary_status"),
             "unresolved_repair_record_total": trace.get("unresolved_repair_record_total"),
             "accepted_candidate_promoted_total": trace.get("accepted_candidate_promoted_total"),
+            "journal_requirements_trace_status": trace.get("journal_requirements_trace_status"),
+            "release_spot_completeness_status": trace.get("release_spot_completeness_status"),
+            "bounded_synthesis_status": trace.get("bounded_synthesis_status"),
+            "source_gap_zero_status": trace.get("source_gap_zero_status"),
+            "all_venue_projection_status": trace.get("all_venue_projection_status"),
+            "submission_component_status": trace.get("submission_component_status"),
+            "journal_format_compliance_status": trace.get("journal_format_compliance_status"),
+            "zero_internal_leak_status": trace.get("zero_internal_leak_status"),
+            "zero_fabrication_risk_status": trace.get("zero_fabrication_risk_status"),
+            "scientific_journal_submission_ready_status": trace.get("scientific_journal_submission_ready_status"),
+            "scientific_journal_terminal_state": trace.get("scientific_journal_submission_ready_status"),
+            "venue_total": trace.get("venue_total"),
+            "requirements_source_total": trace.get("requirements_source_total"),
+            "requirements_matrix_total": trace.get("requirements_matrix_total"),
+            "journal_package_total": trace.get("journal_package_total"),
             **form_summary,
         },
         "findings": findings,

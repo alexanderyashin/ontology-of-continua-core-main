@@ -1,0 +1,264 @@
+% ================================================================
+% ==== FILE: content/m_spaces/m5.tex
+% ================================================================
+
+% ==============================
+%  Ontology of Continua — Core
+%  Meta-Space: M5
+%  FULL MODULE — FINAL VERSION
+% ==============================
+
+\subsubsection{\texorpdfstring{$M_5$}{M_5} Übersicht}
+\label{sec:m5-overview}
+
+$M_5$ ist der Metaraum, der \emph{elektrische Erregbarkeit} zulässig macht.
+Es ist die Umgebung, in der ein biologisches Kontinuum Folgendes zeigen kann:
+
+\begin{itemize}
+    \item stabile Membranspannung $V(t)$,
+    \item Ionenkanal-vermittelte Leitfähigkeitszustände,
+    \item schwellenbasierte Anregung ($\Theta_{\mathrm{exc}}$),
+    \item Ausbreitung elektrischer Ereignisse (Vorläufer von Aktionspotentialen),
+    \item regeneratives Feedback für Spitzenzyklen erforderlich.
+\end{itemize}
+
+Wo $M_4$ die \emph{chemische} Kompartimentierung ermöglichte,
+$M_5$ ermöglicht \emph{elektrochemische} Dynamiken, die das $K_5$-Kontinuum definieren.
+
+% ---------------------------------------------------------------
+\subsubsection*{1. Zulässiger Konfigurationsraum \texorpdfstring{$\Omega(M_5)$}{\Omega(M_5)}}
+
+Die zulässigen Konfigurationen erweitern $\Omega(M_4)$ um:
+
+\[
+\Omega(M_5) =
+\left\{
+(\partial\Omega,\ V,\ g_{\mathrm{ion}},\
+\Pi_{\mathrm{ion}},\
+\Delta\mu_{\mathrm{ion}},\
+C_m,\
+\mathcal{C}_{\mathrm{Kanäle}})
+\ \Big|\
+\text{Zulässigkeitsbedingungen gelten}
+\right\}.
+\]
+
+Wo:
+
+\begin{itemize}
+    \item $V$ — Membranspannungsfeld,
+    \item $C_m$ — Membrankapazität,
+    \item $g_{\mathrm{ion}}$ — Leitfähigkeitszustände von Ionenkanälen,
+    \item $\mathcal{C}_{\mathrm{channels}}$ – Kanalpopulation und Gating-Logik,
+    \item $\Pi_{\mathrm{ion}}$ — ionenspezifische Permeabilitäten,
+    \item $\Delta\mu_{\mathrm{ion}}$ – elektrochemische Gradienten, die Ströme erzeugen.
+\end{itemize}
+
+Voraussetzung für die Zulassung sind:
+
+\begin{enumerate}
+    \item Membranintegrität wie in $M_4$.
+    \item Ionenkanäle, die zwischen mindestens zwei Zuständen wechseln können:
+          \[
+          \{ \text{offen},\ \text{geschlossen} \}.
+          \]
+    \item Spannungsdynamik erfüllt:
+          \[
+          C_m \frac{dV}{dt} = - \sum_i g_i (V - E_i) + I_{\mathrm{ext}}
+          \]
+          in einem zulässigen Parameterbereich.
+    \item Existenz eines nichttrivialen Gleichgewichts und einer Separatrix, die a definiert
+          Schwelle.
+\end{enumerate}
+
+Somit ist $M_5$ die minimale Umgebung, in der eine Zelle erregbar sein kann.
+
+% ---------------------------------------------------------------
+\subsubsection*{2. Zulässige Achsen \texorpdfstring{$A(M_5)$}{A(M_5)}}
+
+Es entsteht eine neue Grundachse:
+
+\[
+A_{\mathrm{exc}} = \{ \text{erregbar},\ \text{nicht erregbar} \},
+\]
+
+mit der entsprechenden Spannungs-Schwellen-Unterscheidung:
+
+\[
+A_V = \{ V < \Theta_{\mathrm{exc}},\ V \ge \Theta_{\mathrm{exc}} \}.
+\]
+
+Weitere zulässige Achsen:
+
+\begin{itemize}
+    \item $A_{\mathrm{ion}}$ — ionenspezifische Kanalkonformationen,
+    \item $A_{\mathrm{gate}}$ – Gating-Variablenzustände (Aktivierung/Inaktivierung),
+    \item $A_{\mathrm{cond}}$ – Leitfähigkeitsregime,
+    \item $A_{\mathrm{spike}}$ – Refraktär-/Überschwing-/Rücksetzphasen.
+\end{itemize}
+
+Diese Achsen definieren die hochdimensionale dynamische Geometrie anregbarer Membranen.
+
+% ---------------------------------------------------------------
+\subsubsection*{3. Potentiale \texorpdfstring{$P(M_5)$}{P(M_5)}}
+
+$M_5$ führt mit der Elektrodynamik verbundene Potentiale ein:
+
+\[
+P(M_5) =
+(U_{\mathrm{ion}},\ U_V,\ U_{\mathrm{gate}},\
+U_{\mathrm{CAP}},\ U_{\mathrm{rest}}).
+\]
+
+Interpretation:
+
+\begin{itemize}
+    \item $U_{\mathrm{ion}}$ — Nernst-ähnliche elektrochemische Potentiale,
+    \item $U_V$ — spannungsabhängige Energielandschaft,
+    \item $U_{\mathrm{gate}}$ – Gating-Energie für Kanalübergänge,
+    \item $U_{\mathrm{CAP}}$ — kapazitive Energie der Membran,
+    \item $U_{\mathrm{rest}}$ — Energieminimum im Ruhezustand.
+\end{itemize}
+
+Voraussetzungen für die Zulassung:
+
+\begin{enumerate}
+    \item $U_V$ muss ein lokales Minimum haben (Ruhezustand),
+    \item Die Verstärkungsfunktion muss eine überschwellige Instabilität zulassen,
+    \item Gating-Übergänge müssen thermisch und chemisch machbar sein.
+\end{enumerate}
+
+% ---------------------------------------------------------------
+\subsubsection*{4. Schwellenwerte \texorpdfstring{$\Theta(M_5)$}{\Theta(M_5)}}
+
+Die definierende Schwelle:
+
+\[
+\Theta_{\mathrm{exc}} = \text{minimale Depolarisation erforderlich, um ein regeneratives Ereignis auszulösen}.
+\]
+
+Zusätzliche Schwellenwerte:
+
+\begin{itemize}
+    \item $\Theta_{\mathrm{gate}}$ – Gating-Aktivierungsschwelle,
+    \item $\Theta_{\mathrm{cond}}$ — Schaltschwelle der Leitfähigkeit,
+    \item $\Theta_{\mathrm{Stabilität}}$ — Stabilitätsgrenze für Schwingungsmodi.
+\end{itemize}
+
+Kritische Beziehung:
+
+\[
+V(t) \ge \Theta_{\mathrm{exc}} \quad\Rightarrow\quad
+\text{Übergang in ein Spike-erzeugendes Regime}.
+\]
+
+% ---------------------------------------------------------------
+\subsubsection*{5. Flüsse \texorpdfstring{$J(M_5)$}{J(M_5)}}
+
+Zulässige Flüsse erweitern die in $M_4$ um Folgendes:
+
+\[
+J(M_5) =
+\big(
+J_{\mathrm{ion}},\
+J_V,\
+J_{\mathrm{Gate}},\
+J_{\mathrm{exc}},\
+\nabla_i T_5
+\Big).
+\]
+
+Wo:
+
+\begin{itemize}
+    \item $J_{\mathrm{ion}}$ — ionenspezifische Ströme,
+    \item $J_V$ – spannungsgetriebene Flüsse,
+    \item $J_{\mathrm{gate}}$ – dynamische Gating-Übergänge,
+    \item $J_{\mathrm{exc}}$ – regeneratives Anregungsflussregime,
+    \item $\nabla_i T_5$ – Strömungen, die durch Spannungsgradienten unter Erregbarkeit angetrieben werden.
+\end{itemize}
+
+Naturschutzgesetze:
+
+\[
+\sum_i J_{\mathrm{ion},i} = C_m \frac{dV}{dt}.
+\]
+
+% ---------------------------------------------------------------
+\subsubsection*{6. Zyklen in \texorpdfstring{$M_5$}{M_5}}
+
+Der Schlüsselzyklus:
+
+\[
+C_{\mathrm{Spike}}
+=
+\{\text{Rest} \to \text{Depolarisation} \to
+\text{Überschwingen} \to \text{Repolarisation} \to \text{Refraktärität} \to \text{Rest}\}.
+\]
+
+Weitere zulässige Zyklen:
+
+\begin{itemize}
+    \item $C_{\mathrm{gate}}$ – Gating-Aktivierungs-/Inaktivierungsschleife,
+    \item $C_{\mathrm{osc}}$ – Oszillationszyklen unterhalb des Schwellenwerts (sofern zulässig),
+    \item $C_{\mathrm{conduct}}$ – Übergangszyklen zwischen Leitfähigkeitszuständen.
+\end{itemize}
+
+Voraussetzung für die Existenz eines Spike-Zyklus:
+
+\[
+\oint_{C_{\mathrm{Spike}}} dA_{\mathrm{Phase}} \ approx 0
+\quad\text{und}\quad
+V(t) \text{ kreuzt } \Theta_{\mathrm{exc}} \text{ einmal pro Zyklus}.
+\]
+
+% ---------------------------------------------------------------
+\subsubsection*{7. Grenze \texorpdfstring{$\partial\Omega(M_5)$}{\partial\Omega(M_5)}}
+
+Eine Konfiguration nähert sich $\partial\Omega(M_5)$, wenn:
+
+\begin{itemize}
+    \item die Membran kann kein stabiles Ruhepotential unterstützen,
+    \item Gating-Kinetik unterbricht die Erregbarkeit,
+    \item Leitfähigkeit sättigt oder bricht zusammen,
+    \item $\Theta_{\mathrm{exc}}$ wird unerreichbar (zu hoch) oder trivial (null),
+    \item Depolarisationsblock bleibt bestehen,
+    \item Ionengradienten fallen unter minimale Lebensfähigkeitsniveaus.
+\end{itemize}
+
+Das Überschreiten von $\partial\Omega(M_5)$ macht eine Spitze unmöglich;
+somit bricht $K_5$ zusammen oder kehrt zu einem $K_4$-ähnlichen Regime zurück.
+
+% ---------------------------------------------------------------
+\subsubsection*{8. Beziehung zu \texorpdfstring{$M_4$}{M_4} und \texorpdfstring{$M_6$}{M_6}}
+
+Der Übergang $K_4 \to K_5$ ist zulässig, wenn:
+
+\[
+A_{\mathrm{exc}} \in A(M_5),
+\qquad
+V(t)\ge\Theta_{\mathrm{exc}},
+\qquad
+\text{Ionenkanäle bilden kohärente Gating-Dynamik}.
+\]
+
+Der Übergang zu $K_6$ (kognitive Attraktoren) erfordert:
+
+\[
+A_{\mathrm{Konzept}} \in A(M_6),
+\qquad
+C_{\mathrm{Spike}} \text{ muss die Kopplung mit anderen Spikes unterstützen},
+\]
+\[
+\text{Entstehung der Attraktordynamik aus Spike-Zügen}.
+\]
+
+Somit ist $M_5$ der Metaraum, der Folgendes ermöglicht:
+
+\begin{itemize}
+    \item elektrische Erregbarkeit,
+    \item Spitzengenerierung,
+    \item dynamische Leitfähigkeitsregulierung,
+    \item frühe bioelektrische Logik,
+    \item die strukturelle Brücke zur neuronalen Berechnung.
+\end{itemize}

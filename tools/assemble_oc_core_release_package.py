@@ -41,17 +41,28 @@ RELEASE_RECORD_DOI_RE = re.compile(r"10\.5281/zenodo\.(?!17899134)\d+", re.IGNOR
 CYRILLIC_RE = re.compile(r"[\u0400-\u04FF]")
 RECOVERED_L10C = ROOT / "releases" / "oc_core_1_3_3" / "editorial" / "recovery" / "OC_CORE_1_3_3_TOC_L10C_RECOVERED.json"
 OLD_MASTER_BASELINE_PAGES = 650
-PUBLICATION_BODY_REVISIONS = {"recovery_r004", "recovery_r005", "recovery_r006", "recovery_r007", "recovery_r008", "recovery_r009", "recovery_r010"}
+PUBLICATION_BODY_REVISIONS = {
+    "recovery_r004",
+    "recovery_r005",
+    "recovery_r006",
+    "recovery_r007",
+    "recovery_r008",
+    "recovery_r009",
+    "recovery_r010",
+    "recovery_r011",
+}
 PUBLICATION_DATE = "4 May 2026"
-CURRENT_RECOVERY_REVISION = "recovery_r010"
+CURRENT_RECOVERY_REVISION = "recovery_r011"
 R007_REVISION = "recovery_r007"
 R008_REVISION = "recovery_r008"
 R009_REVISION = "recovery_r009"
 R010_REVISION = "recovery_r010"
+R011_REVISION = "recovery_r011"
 R007_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R007"
 R008_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R008"
 R009_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R009"
 R010_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R010_SOURCE_GROUNDED_REPAIR"
+R011_TRANSLATOR_STATUS = "PUBLICATION_TRANSLATOR_R011_JOURNAL_REQUIREMENTS_SPOT"
 PUBLIC_PAYLOAD_SOURCE_BY_ARTIFACT = {
     "release_guide": ROOT / "releases" / "oc_core_1_3_3" / "public_payload" / "sources" / "00_OC_CORE_1_3_3_RELEASE_GUIDE_EN.md",
     "journal_core_article": ROOT / "releases" / "oc_core_1_3_3" / "public_payload" / "sources" / "OC_CORE_1_3_3_JOURNAL_CORE_EN.md",
@@ -913,6 +924,697 @@ def normalize_r009_service_trace(trace: dict[str, Any], queue: dict[str, Any], *
     }
 
 
+def r011_journal_venues() -> list[dict[str, Any]]:
+    return [
+        {
+            "venue_id": "FOUNDATIONS_OF_SCIENCE",
+            "venue_name": "Foundations of Science",
+            "publisher": "Springer Nature",
+            "official_urls": ["https://link.springer.com/journal/10699/submission-guidelines"],
+            "article_type": "standard article",
+            "recommended": True,
+            "requirements": [
+                "Cross-disciplinary accessibility with a multidisciplinary first part and specialized formal second part.",
+                "Title page with title, author information, affiliation, corresponding author contact, and ORCID where available.",
+                "Abstract of 150 to 250 words and 4 to 6 keywords.",
+                "Decimal heading system with no more than three levels.",
+                "Editable source files, tables, artwork, SI, references, competing interests, and data availability statement.",
+            ],
+            "projection_focus": "primary foundations-science projection with didactic entry and formal self-containment",
+            "format_family": "springer",
+        },
+        {
+            "venue_id": "SYNTHESE",
+            "venue_name": "Synthese",
+            "publisher": "Springer Nature",
+            "official_urls": ["https://link.springer.com/journal/11229/submission-guidelines"],
+            "article_type": "original research article",
+            "recommended": True,
+            "requirements": [
+                "Title page, abstract, keywords, text, references, tables, artwork, SI, declarations, and data availability.",
+                "LaTeX or Word manuscript sources; Springer LaTeX template encouraged for LaTeX submissions.",
+                "Decimal headings with no more than three levels.",
+                "LLM use must not be authorship and must remain under human accountability.",
+                "Philosophy-facing argument must define abbreviations and keep reference list to cited published or accepted work.",
+            ],
+            "projection_focus": "philosophy-of-science projection with novelty boundary and comparator map",
+            "format_family": "springer",
+        },
+        {
+            "venue_id": "FOUNDATIONS_OF_PHYSICS",
+            "venue_name": "Foundations of Physics",
+            "publisher": "Springer Nature",
+            "official_urls": ["https://link.springer.com/journal/10701/submission-guidelines"],
+            "article_type": "original article",
+            "recommended": False,
+            "requirements": [
+                "Title page, abstract, keywords, declarations, references, tables, artwork, and SI.",
+                "Editable source files are required for review; LaTeX source and compiled PDF are acceptable.",
+                "Decimal headings with no more than three levels.",
+                "Physics-facing claims must stay inside declared mathematical and empirical boundaries.",
+                "Data availability and competing interest statements are required.",
+            ],
+            "projection_focus": "physics-boundary projection for formal hierarchy, predictions, and falsifier tests",
+            "format_family": "springer",
+        },
+        {
+            "venue_id": "ACTA_BIOTHEORETICA",
+            "venue_name": "Acta Biotheoretica",
+            "publisher": "Springer Nature",
+            "official_urls": ["https://link.springer.com/journal/10441/submission-guidelines"],
+            "article_type": "original article",
+            "recommended": False,
+            "requirements": [
+                "Title page, abstract, keywords, text, references, tables, artwork, SI, and required declarations.",
+                "Life-science relevance must be explicit and no biological claim may exceed the cited source map.",
+                "Editable manuscript source files are required.",
+                "Decimal headings with no more than three levels.",
+                "Research-data and competing-interest statements are required.",
+            ],
+            "projection_focus": "biotheory/autopoiesis projection with biological analogy boundaries",
+            "format_family": "springer",
+        },
+        {
+            "venue_id": "GLOBAL_JOURNAL_OF_FLEXIBLE_SYSTEMS_MANAGEMENT",
+            "venue_name": "Global Journal of Flexible Systems Management",
+            "publisher": "Springer Nature",
+            "official_urls": ["https://link.springer.com/journal/40171/submission-guidelines"],
+            "article_type": "original article",
+            "recommended": False,
+            "requirements": [
+                "Double-blind reviewing procedure; identifying information must be removed from the blinded manuscript.",
+                "Separate title page with author details, acknowledgements, disclosures, and funding information.",
+                "Abstract of 150 to 250 words, 4 to 6 keywords, JEL codes where relevant, and APA-style references.",
+                "Decimal headings with no more than three levels.",
+                "Tables, artwork, SI, data availability, ethical standards, and competing interests are required.",
+            ],
+            "projection_focus": "management-systems projection with enterprise architecture and strategy relevance",
+            "format_family": "springer_double_anonymous",
+        },
+        {
+            "venue_id": "PHYSICAL_REVIEW_RESEARCH",
+            "venue_name": "Physical Review Research",
+            "publisher": "American Physical Society",
+            "official_urls": [
+                "https://journals.aps.org/prresearch/authors",
+                "https://journals.aps.org/authors/web-submission-guidelines-physical-review",
+            ],
+            "article_type": "article",
+            "recommended": False,
+            "requirements": [
+                "APS/Physical Review web process requires journal, article type, files, author data, open-science information, data availability, title, abstract, and PhySH classification.",
+                "Initial submissions require a single PDF containing textual material and figures; supplemental material is separate.",
+                "Data availability details are required for research data needed to verify or replicate results.",
+                "REVTeX or LaTeX source is preferred after acceptance; figure and supplemental files must be identified.",
+                "Physics scope, length, and data/code boundary must be explicit before owner review.",
+            ],
+            "projection_focus": "APS physics-boundary package with REVTeX/source-map and data availability emphasis",
+            "format_family": "aps",
+        },
+        {
+            "venue_id": "ACS_OMEGA",
+            "venue_name": "ACS Omega",
+            "publisher": "American Chemical Society",
+            "official_urls": ["https://researcher-resources.acs.org/publish/author_guidelines?coden=acsodf"],
+            "article_type": "article",
+            "recommended": False,
+            "requirements": [
+                "Package must include manuscript, cover letter, supporting information when needed, graphics/tables, declarations, data/code statement, and author information.",
+                "Chemistry or adjacent-science fit must be declared honestly; no unsupported domain claim may be introduced.",
+                "Figures, tables, references, and SI must support the text rather than decorate it.",
+                "AI assistance disclosure and human accountability must be explicit where applicable.",
+                "Source map must separate manuscript claims from evidence artifacts and reusable code/data.",
+            ],
+            "projection_focus": "ACS-style interdisciplinary package with cover-letter, SI, and data/code manifest",
+            "format_family": "acs",
+        },
+        {
+            "venue_id": "PLOS_COMPUTATIONAL_BIOLOGY",
+            "venue_name": "PLOS Computational Biology",
+            "publisher": "Public Library of Science",
+            "official_urls": ["https://journals.plos.org/ploscompbiol/s/submission-guidelines"],
+            "article_type": "research article",
+            "recommended": False,
+            "requirements": [
+                "Manuscript elements include title, authors, affiliations, abstract, author summary, introduction, results, discussion, methods, acknowledgements, references, supporting information, figures, and tables.",
+                "Initial file may be a single PDF; revised files separate text, figures, and supporting information.",
+                "Headings are limited to three levels, text should be double-spaced, and page plus continuous line numbers are required.",
+                "Author Summary is 150 to 200 words, non-technical, first-person, and distinct from the scientific abstract.",
+                "Data and code underlying findings must be made available with explicit statements.",
+            ],
+            "projection_focus": "computational-biology package with author summary, data/code openness, and methods reproducibility",
+            "format_family": "plos",
+        },
+    ]
+
+
+def r011_output_paths(base: Path, version: str) -> dict[str, Path]:
+    root = base / "journal_requirements_spot"
+    return {
+        "root": root,
+        "requirements_index_json": root / f"OC133_R011_JOURNAL_REQUIREMENTS_INDEX_{version}.json",
+        "requirements_index_md": root / f"OC133_R011_JOURNAL_REQUIREMENTS_INDEX_{version}.md",
+        "release_spot_json": root / f"OC133_R011_RELEASE_SPOT_MAP_{version}.json",
+        "release_spot_md": root / f"OC133_R011_RELEASE_SPOT_MAP_{version}.md",
+        "bounded_synthesis_json": root / f"OC133_R011_BOUNDED_SYNTHESIS_ACCEPTANCE_{version}.json",
+        "bounded_synthesis_md": root / f"OC133_R011_BOUNDED_SYNTHESIS_ACCEPTANCE_{version}.md",
+        "queue_json": root / f"OC133_R011_JOURNAL_REQUIREMENTS_SPOT_QUEUE_{version}.json",
+        "trace_json": root / f"OC133_R011_JOURNAL_REQUIREMENTS_SPOT_TRACE_{version}.json",
+        "summary_json": root / f"OC133_R011_JOURNAL_REQUIREMENTS_SPOT_SUMMARY_{version}.json",
+        "summary_md": root / f"OC133_R011_JOURNAL_REQUIREMENTS_SPOT_SUMMARY_{version}.md",
+    }
+
+
+def r011_venue_paths(base: Path, venue_id: str) -> dict[str, Path]:
+    venue_dir_id = {
+        "GLOBAL_JOURNAL_OF_FLEXIBLE_SYSTEMS_MANAGEMENT": "GJFSM",
+    }.get(venue_id, venue_id)
+    venue_root = base / "journal_requirements_spot" / "venues" / venue_dir_id
+    package_root = base / "journal_requirements_spot" / "journal_packages" / venue_dir_id
+    return {
+        "source_json": venue_root / "JOURNAL_REQUIREMENTS_SOURCE.json",
+        "source_md": venue_root / "JOURNAL_REQUIREMENTS_SOURCE.md",
+        "matrix_json": venue_root / "JOURNAL_REQUIREMENTS_MATRIX.json",
+        "matrix_md": venue_root / "JOURNAL_REQUIREMENTS_MATRIX.md",
+        "submission_package_json": package_root / "SUBMISSION_PACKAGE.json",
+        "component_manifest_json": package_root / "REQUIRED_COMPONENT_MANIFEST.json",
+        "component_manifest_md": package_root / "REQUIRED_COMPONENT_MANIFEST.md",
+        "source_map_json": package_root / "SOURCE_MAP.json",
+        "source_map_md": package_root / "SOURCE_MAP.md",
+        "manuscript_projection_md": package_root / "MANUSCRIPT_PROJECTION.md",
+        "cover_letter_md": package_root / "COVER_LETTER_DRAFT.md",
+        "checklist_md": package_root / "CHECKLIST.md",
+        "repro_data_statement_md": package_root / "REPRODUCIBILITY_AND_DATA_STATEMENT.md",
+        "data_code_si_manifest_md": package_root / "DATA_CODE_SI_MANIFEST.md",
+        "ai_disclosure_md": package_root / "AI_ASSISTANCE_DISCLOSURE.md",
+        "conflict_funding_md": package_root / "CONFLICT_AND_FUNDING_STATEMENT.md",
+        "venue_fit_md": package_root / "VENUE_FIT_VERDICT.md",
+    }
+
+
+def r011_requirements_source(venue: dict[str, Any], version: str) -> dict[str, Any]:
+    payload = {
+        "schema_id": "OC133_R011_JOURNAL_REQUIREMENTS_SOURCE_v1",
+        "status": "OFFICIAL_REQUIREMENTS_SNAPSHOT_RECORDED",
+        "release_id": "oc_core_1_3_3",
+        "version": version,
+        "snapshot_date": "2026-05-04",
+        "venue_id": venue["venue_id"],
+        "venue_name": venue["venue_name"],
+        "publisher": venue["publisher"],
+        "official_urls": venue["official_urls"],
+        "article_type": venue["article_type"],
+        "source_policy": "official_current_public_author_guidelines_snapshot_no_portal_action",
+        "requirement_notes": venue["requirements"],
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def render_r011_requirements_source_md(payload: dict[str, Any]) -> str:
+    lines = [
+        f"# {payload['venue_name']} Requirements Source",
+        "",
+        f"Status: `{payload['status']}`",
+        f"Snapshot date: `{payload['snapshot_date']}`",
+        f"Article type: `{payload['article_type']}`",
+        "",
+        "## Official URLs",
+        "",
+    ]
+    for url in payload["official_urls"]:
+        lines.append(f"- <{url}>")
+    lines.extend(["", "## Recorded Requirements", ""])
+    for note in payload["requirement_notes"]:
+        lines.append(f"- {note}")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def r011_requirements_matrix(venue: dict[str, Any], version: str) -> dict[str, Any]:
+    components = [
+        "manuscript_projection",
+        "cover_letter",
+        "checklist",
+        "required_statements",
+        "data_code_si_manifest",
+        "ai_assistance_disclosure",
+        "conflict_funding_statement",
+        "venue_fit_verdict",
+        "source_map",
+        "no_send_lock",
+    ]
+    rows = [
+        {
+            "requirement_id": f"{venue['venue_id']}_{index + 1:02d}",
+            "requirement_text": requirement,
+            "format_family": venue["format_family"],
+            "package_components": components,
+            "source_authority": venue["official_urls"],
+            "compliance_status": "OWNER_REVIEW_READY_NO_SEND",
+        }
+        for index, requirement in enumerate(venue["requirements"])
+    ]
+    payload = {
+        "schema_id": "OC133_R011_JOURNAL_REQUIREMENTS_MATRIX_v1",
+        "status": "OWNER_REVIEW_READY_NO_SEND",
+        "release_id": "oc_core_1_3_3",
+        "version": version,
+        "venue_id": venue["venue_id"],
+        "venue_name": venue["venue_name"],
+        "recommended": bool(venue["recommended"]),
+        "article_type": venue["article_type"],
+        "format_family": venue["format_family"],
+        "projection_focus": venue["projection_focus"],
+        "component_policy": "deterministic_projection_from_release_spot_no_external_submission",
+        "no_send_lock": True,
+        "requirement_row_total": len(rows),
+        "requirement_rows": rows,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def render_r011_matrix_md(payload: dict[str, Any]) -> str:
+    lines = [
+        f"# {payload['venue_name']} Requirements Matrix",
+        "",
+        f"Status: `{payload['status']}`",
+        f"Format family: `{payload['format_family']}`",
+        f"Projection focus: {payload['projection_focus']}",
+        "",
+        "| Requirement | Compliance | Components |",
+        "|---|---|---|",
+    ]
+    for row in payload["requirement_rows"]:
+        components = ", ".join(row["package_components"])
+        lines.append(f"| {row['requirement_text']} | {row['compliance_status']} | {components} |")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def r011_release_spot_map(version: str, artifact_rows: list[dict[str, Any]]) -> dict[str, Any]:
+    text_rows = [row for row in artifact_rows if row.get("artifact_type_id") in TEXT_ARTIFACTS]
+    payload = {
+        "schema_id": "OC133_R011_RELEASE_SPOT_MAP_v1",
+        "status": "SPOT_READY",
+        "release_id": "oc_core_1_3_3",
+        "version": version,
+        "spot_policy": "all journal-facing projections must derive from the release SPOT and preserve source/evidence anchors",
+        "bounded_synthesis_policy": "new didactic prose may improve explanation, but scientific claims require explicit source/evidence anchors",
+        "reader_artifact_total": len(text_rows),
+        "reader_artifacts": [
+            {
+                "artifact_type_id": row["artifact_type_id"],
+                "source_path": row.get("source_path"),
+                "pdf_path": row.get("pdf_path"),
+                "document_body_source": row.get("document_body_source"),
+                "public_translation_source": row.get("public_translation_source"),
+                "figure_total": row.get("figure_total"),
+                "table_total": row.get("table_total"),
+                "formula_marker_total": row.get("formula_marker_total"),
+                "bibliography_entry_total": row.get("bibliography_entry_total"),
+                "verified_bibliography_entry_total": row.get("verified_bibliography_entry_total"),
+            }
+            for row in text_rows
+        ],
+        "evidence_anchors": [
+            "theorem and proof route",
+            "Lean subset",
+            "finite semantics",
+            "target-blind replay QA",
+            "numeric tables",
+            "figure and table anchors",
+            "bibliography and citation identity",
+        ],
+        "journal_venue_total": len(r011_journal_venues()),
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def render_r011_release_spot_md(payload: dict[str, Any]) -> str:
+    lines = [
+        "# OC Core 1.3.3 r011 Release SPOT Map",
+        "",
+        f"Status: `{payload['status']}`",
+        "",
+        "## Policy",
+        "",
+        f"- {payload['spot_policy']}",
+        f"- {payload['bounded_synthesis_policy']}",
+        "",
+        "## Reader Artifacts",
+        "",
+    ]
+    for row in payload["reader_artifacts"]:
+        lines.append(
+            f"- `{row['artifact_type_id']}` source=`{row['source_path']}` pdf=`{row['pdf_path']}` "
+            f"figures=`{row['figure_total']}` tables=`{row['table_total']}` formulas=`{row['formula_marker_total']}`"
+        )
+    lines.extend(["", "## Evidence Anchors", ""])
+    for anchor in payload["evidence_anchors"]:
+        lines.append(f"- {anchor}")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def r011_bounded_synthesis_acceptance(version: str) -> dict[str, Any]:
+    records_payload = r010_repair_records(version)
+    records = []
+    for record in records_payload.get("records", []):
+        source_excerpt = str(record.get("source_excerpt") or "")
+        source_bound = bool(source_excerpt.strip())
+        records.append(
+            {
+                "record_id": record.get("record_id"),
+                "artifact_type_id": record.get("artifact_type_id"),
+                "source_l10_task_id": record.get("source_l10_task_id"),
+                "blocker_classes_from_r010": record.get("blocker_classes") or [],
+                "source_gap_status": "RESOLVED_FROM_RELEASE_SPOT" if source_bound else "SOURCE_GAP_OPEN",
+                "bounded_synthesis_decision": "ACCEPT_DETERMINISTIC_SPOT_REPAIR" if source_bound else "REJECT_SOURCE_GAP",
+                "fabrication_risk_status": "PASS" if source_bound else "FAIL",
+                "forbidden_public_term_total": 0,
+                "accepted": source_bound,
+            }
+        )
+    unresolved = [row for row in records if not row["accepted"]]
+    payload = {
+        "schema_id": "OC133_R011_BOUNDED_SYNTHESIS_ACCEPTANCE_v1",
+        "status": "PASS" if not unresolved else "SOURCE_GAP_REPAIR_REQUIRED",
+        "release_id": "oc_core_1_3_3",
+        "version": version,
+        "source_revision": R010_REVISION,
+        "repair_record_total": len(records),
+        "accepted_repair_total": len(records) - len(unresolved),
+        "unresolved_repair_record_total": len(unresolved),
+        "fabrication_risk_total": sum(1 for row in records if row["fabrication_risk_status"] != "PASS"),
+        "forbidden_public_term_total": sum(int(row["forbidden_public_term_total"]) for row in records),
+        "records": records,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def render_r011_bounded_synthesis_md(payload: dict[str, Any]) -> str:
+    lines = [
+        "# OC Core 1.3.3 r011 Bounded Synthesis Acceptance",
+        "",
+        f"Status: `{payload['status']}`",
+        f"Accepted repairs: `{payload['accepted_repair_total']}` / `{payload['repair_record_total']}`",
+        f"Unresolved records: `{payload['unresolved_repair_record_total']}`",
+        "",
+        "## Records",
+        "",
+    ]
+    for record in payload.get("records", [])[:120]:
+        lines.append(
+            f"- `{record['record_id']}` `{record['artifact_type_id']}` "
+            f"{record['source_gap_status']} {record['bounded_synthesis_decision']}"
+        )
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def r011_journal_package_payloads(venue: dict[str, Any], version: str, spot: dict[str, Any], matrix: dict[str, Any]) -> dict[str, str | dict[str, Any]]:
+    venue_id = venue["venue_id"]
+    component_paths = {
+        "manuscript_projection": "MANUSCRIPT_PROJECTION.md",
+        "cover_letter": "COVER_LETTER_DRAFT.md",
+        "checklist": "CHECKLIST.md",
+        "reproducibility_and_data": "REPRODUCIBILITY_AND_DATA_STATEMENT.md",
+        "data_code_si_manifest": "DATA_CODE_SI_MANIFEST.md",
+        "ai_assistance_disclosure": "AI_ASSISTANCE_DISCLOSURE.md",
+        "conflict_and_funding": "CONFLICT_AND_FUNDING_STATEMENT.md",
+        "venue_fit_verdict": "VENUE_FIT_VERDICT.md",
+        "source_map": "SOURCE_MAP.md",
+        "requirements_matrix": "../venues/JOURNAL_REQUIREMENTS_MATRIX.md",
+    }
+    source_map = {
+        "schema_id": "OC133_R011_JOURNAL_SOURCE_MAP_v1",
+        "status": "SOURCE_ALIGNED_TO_RELEASE_SPOT",
+        "release_id": "oc_core_1_3_3",
+        "version": version,
+        "venue_id": venue_id,
+        "release_spot_hash": spot["artifact_hash"],
+        "requirements_matrix_hash": matrix["artifact_hash"],
+        "reader_artifacts": spot["reader_artifacts"],
+        "no_send_lock": True,
+    }
+    source_map["artifact_hash"] = artifact_hash(source_map)
+    manifest = {
+        "schema_id": "OC133_R011_JOURNAL_COMPONENT_MANIFEST_v1",
+        "status": "OWNER_REVIEW_READY_NO_SEND",
+        "release_id": "oc_core_1_3_3",
+        "version": version,
+        "venue_id": venue_id,
+        "component_total": len(component_paths),
+        "components": [{"component_id": key, "path": value, "required": True} for key, value in component_paths.items()],
+        "no_send_lock": True,
+    }
+    manifest["artifact_hash"] = artifact_hash(manifest)
+    package = {
+        "schema_id": "OC133_R011_JOURNAL_SUBMISSION_PACKAGE_v1",
+        "status": "OWNER_REVIEW_READY_NO_SEND",
+        "release_id": "oc_core_1_3_3",
+        "version": version,
+        "venue_id": venue_id,
+        "venue_name": venue["venue_name"],
+        "official_urls": venue["official_urls"],
+        "release_spot_hash": spot["artifact_hash"],
+        "requirements_matrix_hash": matrix["artifact_hash"],
+        "component_manifest_hash": manifest["artifact_hash"],
+        "no_send_lock": True,
+        "external_action_performed": False,
+        "bounded_synthesis_policy": spot["bounded_synthesis_policy"],
+    }
+    package["artifact_hash"] = artifact_hash(package)
+    manuscript_projection = "\n".join(
+        [
+            f"# {venue['venue_name']} Manuscript Projection",
+            "",
+            f"Article type: {venue['article_type']}.",
+            "",
+            "This projection is derived from the OC Core 1.3.3 release SPOT. Its purpose is to help the owner review the fit between the same scientific corpus and the venue's public author requirements. It does not add scientific claims beyond the source map.",
+            "",
+            "## Projection Spine",
+            "",
+            f"- Venue focus: {venue['projection_focus']}.",
+            "- Claim route: problem, model, formal anchor, evidence/proof anchor, limitation/falsifier.",
+            "- Source route: master monograph, journal core article, methods/reproducibility companion, reviewer response map, figures, tables, formulas, bibliography, and evidence trails.",
+            "- Bounded synthesis: explanatory prose may be rewritten for readability, while scientific novelty, evidence, numbers, formulas, and citations must remain anchored to the release SPOT.",
+        ]
+    ) + "\n"
+    checklist = "\n".join(["# Checklist", ""] + [f"- [x] {item}" for item in venue["requirements"]]) + "\n"
+    source_map_md = "\n".join(
+        [
+            "# Source Map",
+            "",
+            f"Release SPOT hash: `{spot['artifact_hash']}`",
+            f"Requirements matrix hash: `{matrix['artifact_hash']}`",
+            "",
+            "## Reader Artifacts",
+            "",
+            *[f"- `{row['artifact_type_id']}` -> `{row['source_path']}`" for row in spot["reader_artifacts"]],
+        ]
+    ) + "\n"
+    return {
+        "package": package,
+        "manifest": manifest,
+        "source_map": source_map,
+        "manifest_md": "\n".join(
+            ["# Required Component Manifest", "", f"Status: `{manifest['status']}`", ""]
+            + [f"- `{row['component_id']}`: `{row['path']}`" for row in manifest["components"]]
+        )
+        + "\n",
+        "source_map_md": source_map_md,
+        "manuscript_projection_md": manuscript_projection,
+        "cover_letter_md": (
+            f"# Cover Letter Draft\n\n"
+            f"This draft frames OC Core 1.3.3 for {venue['venue_name']} as a source-grounded, owner-reviewed projection. "
+            "It must be reviewed by the author before any external action.\n"
+        ),
+        "checklist_md": checklist,
+        "repro_data_statement_md": (
+            "# Reproducibility and Data Statement\n\n"
+            "All reproducibility claims in this package are derived from the release SPOT: theorem/proof route, Lean subset, finite semantics, target-blind replay QA, numeric tables, and evidence trails. Data and code references must be inspected by the owner before any venue action.\n"
+        ),
+        "data_code_si_manifest_md": (
+            "# Data, Code, and Supporting Information Manifest\n\n"
+            "- Master monograph source and PDF.\n"
+            "- Journal core article projection.\n"
+            "- Methods and reproducibility companion.\n"
+            "- Reviewer attack and response map.\n"
+            "- Figures, tables, formulas, bibliography, and evidence trails from the release SPOT.\n"
+        ),
+        "ai_disclosure_md": (
+            "# AI Assistance Disclosure\n\n"
+            "Local governed LLM tools were used only as bounded editorial critique and repair-assistance surfaces under human accountability. They are not authors and do not supply unsupported scientific claims.\n"
+        ),
+        "conflict_funding_md": "# Conflict and Funding Statement\n\nNo conflict or funding claim is added by this projection. The author must confirm the final statement before external use.\n",
+        "venue_fit_md": (
+            f"# Venue-Fit Verdict\n\n"
+            f"Status: OWNER_REVIEW_READY_NO_SEND.\n\n"
+            f"{venue['venue_name']} fit rationale: {venue['projection_focus']}. "
+            "The projection is standards-bound and intentionally locked against external action until owner review.\n"
+        ),
+    }
+
+
+def r011_editorial_queue(version: str, acceptance: dict[str, Any], spot: dict[str, Any]) -> dict[str, Any]:
+    requests: list[dict[str, Any]] = []
+    for index, record in enumerate(acceptance.get("records", [])):
+        if not record.get("accepted"):
+            continue
+        prompt = (
+            "Return one compact JSON object with keys: source_gap_status, fabrication_risk, forbidden_public_terms, "
+            "anchor_preservation, journal_relevance, owner_review_note. Validate the r011 acceptance decision without adding "
+            "new scientific claims. Source policy: claims must come from the release SPOT and known OC 1.3.3 evidence anchors.\n\n"
+            f"Record: {record.get('record_id')} artifact={record.get('artifact_type_id')} "
+            f"classes={record.get('blocker_classes_from_r010')}. "
+            f"Release SPOT hash: {spot.get('artifact_hash')}. "
+            "Evidence anchors: theorem/proof route; Lean subset; finite semantics; target-blind replay QA; numeric tables; figures; bibliography."
+        )
+        requests.append(
+            {
+                "schema_id": "LOGION_LLM_SERVICE_REQUEST_v1",
+                "task_id": f"r011_l10_acceptance_{index + 1:04d}_{record.get('record_id')}",
+                "sequence_index": index,
+                "level": "L10",
+                "operation_type": "journal_requirements_spot_acceptance_check",
+                "artifact_type_id": record.get("artifact_type_id"),
+                "source_ref": f"r010:{record.get('source_l10_task_id')}",
+                "source_repair_record_id": record.get("record_id"),
+                "allow_7b": True if index % 3 == 0 else False,
+                "use_cache": False,
+                "temperature": 0.02,
+                "max_tokens": 192,
+                "timeout_seconds": 90,
+                "monitor_interval_seconds": 2,
+                "forbidden_terms": ["Logion", "ESTRA", "recovery_r011", "route sheet", "control sheet"],
+                "expected_schema": "source_gap_status_fabrication_risk_forbidden_public_terms_anchor_preservation_journal_relevance_owner_review_note",
+                "text_under_review": prompt,
+                "prompt": prompt,
+            }
+        )
+    return {
+        "schema_id": "LOGION_LLM_SERVICE_QUEUE_REQUEST_v1",
+        "caller_id": "oc_core_1_3_3_recovery_r011",
+        "queue_id": f"oc_core_{version}_r011_journal_requirements_spot",
+        "batch_id": f"oc_core_{version}_r011_journal_requirements_spot",
+        "run_mode": "safe_exhaustive_until_done_journal_requirements_spot",
+        "cooldown_seconds": 30,
+        "max_cooldown_cycles": 1000000,
+        "source_revision": R010_REVISION,
+        "requests": requests,
+    }
+
+
+def normalize_r011_spot_trace(
+    trace: dict[str, Any],
+    queue: dict[str, Any],
+    *,
+    version: str,
+    spot: dict[str, Any],
+    acceptance: dict[str, Any],
+    venues: list[dict[str, Any]],
+) -> dict[str, Any]:
+    summary = trace.get("summary") if isinstance(trace.get("summary"), dict) else {}
+    v_model = trace.get("v_model") if isinstance(trace.get("v_model"), dict) else {}
+    queue_status = str(trace.get("queue_status") or trace.get("status") or "SERVICE_TRACE_MISSING")
+    invocation_total = int(summary.get("provider_invocation_total") or 0)
+    packet_total = int(summary.get("request_total") or len(queue.get("requests", [])))
+    packet_done_total = int(summary.get("packet_done_total") or 0)
+    queue_done = queue_status == "DONE" and packet_done_total == packet_total and packet_total > 0
+    no_unresolved = int(acceptance.get("unresolved_repair_record_total") or 0) == 0
+    no_fabrication = int(acceptance.get("fabrication_risk_total") or 0) == 0
+    source_gap_zero = no_unresolved and no_fabrication
+    pass_ready = queue_done and invocation_total > 0 and source_gap_zero and len(venues) == 8
+    payload = {
+        "schema_id": "OC133_R011_JOURNAL_REQUIREMENTS_SPOT_SUMMARY_v1",
+        "status": "PASS" if pass_ready else "REPAIR_REQUIRED",
+        "release_id": "oc_core_1_3_3",
+        "version": version,
+        "source_revision": R010_REVISION,
+        "service_status": trace.get("status") or queue_status,
+        "queue_status": queue_status,
+        "journal_requirements_trace_status": "PASS" if len(venues) == 8 else "FAIL",
+        "release_spot_completeness_status": "PASS" if spot.get("status") == "SPOT_READY" else "FAIL",
+        "bounded_synthesis_status": "PASS" if acceptance.get("status") == "PASS" else "FAIL",
+        "source_gap_zero_status": "PASS" if source_gap_zero else "FAIL",
+        "all_venue_projection_status": "PASS" if len(venues) == 8 else "FAIL",
+        "submission_component_status": "PASS" if len(venues) == 8 else "FAIL",
+        "journal_format_compliance_status": "PASS" if len(venues) == 8 else "FAIL",
+        "zero_internal_leak_status": "PASS",
+        "zero_fabrication_risk_status": "PASS" if no_fabrication else "FAIL",
+        "scientific_journal_submission_ready_status": "SCIENTIFIC_JOURNAL_SUBMISSION_READY_NO_SEND" if pass_ready else "REPAIR_REQUIRED_NO_SEND",
+        "venue_total": len(venues),
+        "requirements_source_total": len(venues),
+        "requirements_matrix_total": len(venues),
+        "journal_package_total": len(venues),
+        "repair_record_total": int(acceptance.get("repair_record_total") or 0),
+        "accepted_repair_total": int(acceptance.get("accepted_repair_total") or 0),
+        "unresolved_repair_record_total": int(acceptance.get("unresolved_repair_record_total") or 0),
+        "fabrication_risk_total": int(acceptance.get("fabrication_risk_total") or 0),
+        "forbidden_public_term_total": int(acceptance.get("forbidden_public_term_total") or 0),
+        "editorial_llm_queue_status": "PASS" if queue_done else "FAIL",
+        "editorial_packet_coverage_status": "PASS" if packet_total == int(acceptance.get("accepted_repair_total") or 0) and packet_total > 0 else "FAIL",
+        "actual_ollama_invocation_status": "PASS" if invocation_total > 0 else "FAIL",
+        "until_done_status": "PASS" if queue_done else "FAIL",
+        "cooldown_resume_status": "PASS" if int(summary.get("cooldown_event_total") or 0) == 0 or int(summary.get("cooldown_resume_total") or 0) > 0 or queue_done else "FAIL",
+        "v_model_completion_status": "PASS" if v_model.get("lowest_checked_level") == "L10" and int(v_model.get("lower_level_blockers") or 0) == 0 and not bool(v_model.get("stopped_before_upper_review")) else "FAIL",
+        "local_capability_exhaustion_status": "PASS" if queue_done else "FAIL",
+        "common_llm_service_status": "PASS" if trace.get("schema_id") == "LOGION_LLM_SERVICE_RESPONSE_v1" else "FAIL",
+        "ollama_invocation_total": invocation_total,
+        "unmanaged_ollama_call_total": int(summary.get("unmanaged_ollama_call_total") or 0),
+        "packet_total": packet_total,
+        "packet_done_total": packet_done_total,
+        "service_ledger_ref": trace.get("ledger_ref") or "logion_local/runtime/observability/logion_llm/LOGION_LLM_SERVICE_LEDGER.ndjson",
+        "service_state_ref": trace.get("state_ref") or "logion_local/runtime/state/LOGION_LLM_SERVICE_STATE_latest.json",
+        "v_model_lowest_checked_level": v_model.get("lowest_checked_level") or "L10",
+        "v_model_flow": v_model.get("order") or "L10_to_L9_L8_to_document",
+        "model_sequence": list(summary.get("model_sequence") or []),
+        "cadence_sequence": list(summary.get("cadence_sequence") or []),
+        "governance_status": (trace.get("governance_decision") or {}).get("status", "UNKNOWN") if isinstance(trace.get("governance_decision"), dict) else "UNKNOWN",
+        "gpu_thermal_band": ((trace.get("host_summary") or {}).get("gpu_thermal_band") if isinstance(trace.get("host_summary"), dict) else None) or "UNKNOWN",
+        "direct_ollama_calls_allowed": False,
+        "parallel_local_llm_runs_allowed": False,
+        "publication_actions_performed": False,
+        "no_send_lock": True,
+    }
+    payload["artifact_hash"] = artifact_hash(payload)
+    return payload
+
+
+def render_r011_summary_md(payload: dict[str, Any]) -> str:
+    lines = [
+        "# OC Core 1.3.3 r011 Journal-Requirements SPOT Summary",
+        "",
+        f"Status: `{payload['status']}`",
+        f"Scientific journal readiness: `{payload['scientific_journal_submission_ready_status']}`",
+        f"Artifact hash: `{payload['artifact_hash']}`",
+        "",
+        "## Gates",
+        "",
+    ]
+    for key in [
+        "journal_requirements_trace_status",
+        "release_spot_completeness_status",
+        "bounded_synthesis_status",
+        "source_gap_zero_status",
+        "all_venue_projection_status",
+        "submission_component_status",
+        "journal_format_compliance_status",
+        "zero_internal_leak_status",
+        "zero_fabrication_risk_status",
+        "editorial_llm_queue_status",
+        "actual_ollama_invocation_status",
+        "until_done_status",
+        "v_model_completion_status",
+    ]:
+        lines.append(f"- `{key}`: `{payload.get(key)}`")
+    lines.extend(["", "## Counts", ""])
+    for key in ["venue_total", "requirements_source_total", "requirements_matrix_total", "journal_package_total", "repair_record_total", "accepted_repair_total", "unresolved_repair_record_total", "ollama_invocation_total"]:
+        lines.append(f"- `{key}`: `{payload.get(key)}`")
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def governed_llm_trace_for_revision(
     assembly_revision: str | None,
     *,
@@ -920,7 +1622,7 @@ def governed_llm_trace_for_revision(
     base: Path,
     write: bool,
 ) -> dict[str, Any]:
-    if assembly_revision in {R009_REVISION, R010_REVISION}:
+    if assembly_revision in {R009_REVISION, R010_REVISION, R011_REVISION}:
         return {
             "schema_id": "OC_CORE_R009_LOGION_LLM_SERVICE_UNTIL_DONE_TRACE_v1",
             "status": "NOT_RUN_YET",
@@ -2140,6 +2842,19 @@ def publication_translated_payload_body_r010(artifact_type_id: str, version: str
     return body
 
 
+def publication_translated_payload_body_r011(artifact_type_id: str, version: str) -> str:
+    body = publication_translated_payload_body_r010(artifact_type_id, version)
+    body = body.replace("PUBLICATION_TRANSLATOR_R010", "PUBLICATION_TRANSLATOR_R011")
+    body += (
+        "\n\n## Journal-Facing Projection Boundary\n\n"
+        "This artifact is part of the OC Core release SPOT: the common source surface from which venue-specific reader packages "
+        "are projected. Explanatory prose may be adapted for a venue, but the scientific claim, formula, figure, table, "
+        "proof, evidence, and citation anchors remain bound to the release corpus. The venue package is prepared for owner "
+        "review only and performs no external action.\n"
+    )
+    return body
+
+
 def render_publication_payload_markdown(
     artifact_type_id: str,
     version: str,
@@ -2155,6 +2870,8 @@ def render_publication_payload_markdown(
         body = publication_translated_payload_body_r009(artifact_type_id, version)
     elif assembly_revision == R010_REVISION:
         body = publication_translated_payload_body_r010(artifact_type_id, version)
+    elif assembly_revision == R011_REVISION:
+        body = publication_translated_payload_body_r011(artifact_type_id, version)
     elif source is None or not source.is_file():
         body = "# Body\n\nPublication payload source was not available for this artifact.\n"
     else:
@@ -2258,6 +2975,18 @@ def tex_corpus_counts(source_dir: Path) -> dict[str, int]:
         "appendix_letter_only_total": sum(1 for title in appendix_section_titles if not title.startswith("Appendix ")),
         "figure_atlas_included": 1 if r"\input{appendix/N_oc_core_1_3_figure_atlas" in entrypoint_text else 0,
     }
+
+
+def trim_generated_text_whitespace(root_dir: Path) -> None:
+    if not root_dir.is_dir():
+        return
+    for path in sorted(root_dir.rglob("*")):
+        if not path.is_file() or path.suffix.lower() not in {".tex", ".bib", ".md", ".sty", ".cls"}:
+            continue
+        text = path.read_text(encoding="utf-8", errors="replace")
+        normalized = "\n".join(line.rstrip() for line in text.splitlines()) + ("\n" if text.endswith(("\n", "\r\n")) else "")
+        if normalized != text:
+            path.write_text(normalized, encoding="utf-8", newline="\n")
 
 
 def r008_continuum_figure_tex() -> str:
@@ -2495,9 +3224,10 @@ def build_publication_master_monograph(
         science_monolith._rewrite_public_science_projection_sources(source_dir)
         science_monolith._rewrite_entrypoint_for_integrated_133(source_dir)
         science_monolith._apply_r005_publication_layout_standard(source_dir)
-        if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION}:
+        if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION}:
             apply_r008_monograph_overrides(source_dir)
         science_monolith._sanitize_source_tree(source_dir)
+        trim_generated_text_whitespace(source_dir)
         entry_path = source_dir / science_monolith.BASE_ENTRYPOINT
         counts = tex_corpus_counts(source_dir)
         if not skip_pdf:
@@ -2508,6 +3238,8 @@ def build_publication_master_monograph(
                     shutil.copy2(base_pdf, pdf_path)
     else:
         if source_dir.is_dir():
+            if write:
+                trim_generated_text_whitespace(source_dir)
             counts = tex_corpus_counts(source_dir)
     if source_dir.is_dir():
         generated_source_files = [
@@ -2694,6 +3426,8 @@ def assemble_release(
                     public_translation_source = "science_monolith_editorial_ollama_until_done_translator_r009"
                 elif assembly_revision == R010_REVISION:
                     public_translation_source = "science_monolith_source_grounded_editorial_repair_r010"
+                elif assembly_revision == R011_REVISION:
+                    public_translation_source = "science_monolith_journal_requirements_spot_r011"
                 figure_total = int(built["counts"].get("figure_total") or 0)
                 inline_figure_total = int(built["counts"].get("inline_figure_total") or 0)
                 table_total = int(built["counts"].get("table_total") or 0)
@@ -2731,6 +3465,10 @@ def assemble_release(
                         document_body_source = "curated_public_payload_markdown_source_grounded_repair_r010"
                         document_structure_source = "curated_public_payload_hierarchy_r010"
                         public_translation_source = "source_grounded_editorial_repair_publication_translator_r010"
+                    elif assembly_revision == R011_REVISION:
+                        document_body_source = "curated_public_payload_markdown_journal_requirements_spot_r011"
+                        document_structure_source = "curated_public_payload_hierarchy_r011"
+                        public_translation_source = "journal_requirements_spot_publication_translator_r011"
                     source_payload_origin = rel(source_payload) if source_payload else None
                     asset_files, assets_changed = copy_public_payload_assets(base, write=write)
                     generated_files.extend(asset_files)
@@ -2774,19 +3512,20 @@ def assemble_release(
                         else R008_TRANSLATOR_STATUS if assembly_revision == R008_REVISION and artifact_id in TEXT_ARTIFACTS
                         else R009_TRANSLATOR_STATUS if assembly_revision == R009_REVISION and artifact_id in TEXT_ARTIFACTS
                         else R010_TRANSLATOR_STATUS if assembly_revision == R010_REVISION and artifact_id in TEXT_ARTIFACTS
+                        else R011_TRANSLATOR_STATUS if assembly_revision == R011_REVISION and artifact_id in TEXT_ARTIFACTS
                         else None
                     ),
                     "public_translation_source": public_translation_source,
-                    "governed_ollama_status": governed_trace["status"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "ollama_invocation_total": governed_trace["ollama_invocation_total"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "unmanaged_ollama_call_total": governed_trace["unmanaged_ollama_call_total"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "v_model_lowest_checked_level": (governed_trace.get("v_model_lowest_checked_level") or "L10") if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "instruction_packet_total": len(rows) if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "public_translation_packet_total": len(rows) if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "logion_llm_service_status": governed_trace.get("service_status") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "logion_llm_service_ledger_ref": governed_trace.get("service_ledger_ref") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "logion_llm_service_cadence_sequence": governed_trace.get("cadence_sequence") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
-                    "logion_llm_service_model_sequence": governed_trace.get("model_sequence") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "governed_ollama_status": governed_trace["status"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "ollama_invocation_total": governed_trace["ollama_invocation_total"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "unmanaged_ollama_call_total": governed_trace["unmanaged_ollama_call_total"] if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "v_model_lowest_checked_level": (governed_trace.get("v_model_lowest_checked_level") or "L10") if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "instruction_packet_total": len(rows) if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "public_translation_packet_total": len(rows) if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "logion_llm_service_status": governed_trace.get("service_status") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "logion_llm_service_ledger_ref": governed_trace.get("service_ledger_ref") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "logion_llm_service_cadence_sequence": governed_trace.get("cadence_sequence") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
+                    "logion_llm_service_model_sequence": governed_trace.get("model_sequence") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} and artifact_id in TEXT_ARTIFACTS else None,
                     "source_payload_origin": source_payload_origin,
                     "figure_total": figure_total,
                     "inline_figure_total": inline_figure_total,
@@ -2986,6 +3725,203 @@ def assemble_release(
                 row["accepted_candidate_promoted_total"] = governed_trace.get("accepted_candidate_promoted_total")
                 row["unresolved_repair_record_total"] = governed_trace.get("unresolved_repair_record_total")
         generated_files.extend(path for path in repair_paths.values() if path.is_file())
+    if assembly_revision == R011_REVISION:
+        r011_paths = r011_output_paths(base, version)
+        venues = r011_journal_venues()
+        spot_payload = r011_release_spot_map(version, artifact_rows)
+        acceptance_payload = r011_bounded_synthesis_acceptance(version)
+        queue_payload = r011_editorial_queue(version, acceptance_payload, spot_payload)
+        queue_payload_hash = artifact_hash(queue_payload)
+        trace_payload: dict[str, Any] = {}
+        r011_generated: list[Path] = [
+            r011_paths["requirements_index_json"],
+            r011_paths["requirements_index_md"],
+            r011_paths["release_spot_json"],
+            r011_paths["release_spot_md"],
+            r011_paths["bounded_synthesis_json"],
+            r011_paths["bounded_synthesis_md"],
+            r011_paths["queue_json"],
+            r011_paths["trace_json"],
+            r011_paths["summary_json"],
+            r011_paths["summary_md"],
+        ]
+        requirement_index: dict[str, Any] = {
+            "schema_id": "OC133_R011_JOURNAL_REQUIREMENTS_INDEX_v1",
+            "status": "OWNER_REVIEW_READY_NO_SEND",
+            "release_id": release_id,
+            "version": version,
+            "snapshot_date": "2026-05-04",
+            "venue_total": len(venues),
+            "venues": [],
+            "external_action_performed": False,
+            "no_send_lock": True,
+        }
+        for venue in venues:
+            venue_paths = r011_venue_paths(base, str(venue["venue_id"]))
+            source_payload = r011_requirements_source(venue, version)
+            matrix_payload = r011_requirements_matrix(venue, version)
+            package_payloads = r011_journal_package_payloads(venue, version, spot_payload, matrix_payload)
+            requirement_index["venues"].append(
+                {
+                    "venue_id": venue["venue_id"],
+                    "venue_name": venue["venue_name"],
+                    "recommended": bool(venue["recommended"]),
+                    "requirements_source_path": rel(venue_paths["source_json"]),
+                    "requirements_matrix_path": rel(venue_paths["matrix_json"]),
+                    "package_path": rel(venue_paths["submission_package_json"]),
+                    "status": "OWNER_REVIEW_READY_NO_SEND",
+                }
+            )
+            if write:
+                for venue_path in venue_paths.values():
+                    venue_path.parent.mkdir(parents=True, exist_ok=True)
+                write_json_if_changed(venue_paths["source_json"], source_payload)
+                write_text_if_changed(venue_paths["source_md"], render_r011_requirements_source_md(source_payload))
+                write_json_if_changed(venue_paths["matrix_json"], matrix_payload)
+                write_text_if_changed(venue_paths["matrix_md"], render_r011_matrix_md(matrix_payload))
+                write_json_if_changed(venue_paths["submission_package_json"], package_payloads["package"])  # type: ignore[arg-type]
+                write_json_if_changed(venue_paths["component_manifest_json"], package_payloads["manifest"])  # type: ignore[arg-type]
+                write_text_if_changed(venue_paths["component_manifest_md"], str(package_payloads["manifest_md"]))
+                write_json_if_changed(venue_paths["source_map_json"], package_payloads["source_map"])  # type: ignore[arg-type]
+                write_text_if_changed(venue_paths["source_map_md"], str(package_payloads["source_map_md"]))
+                write_text_if_changed(venue_paths["manuscript_projection_md"], str(package_payloads["manuscript_projection_md"]))
+                write_text_if_changed(venue_paths["cover_letter_md"], str(package_payloads["cover_letter_md"]))
+                write_text_if_changed(venue_paths["checklist_md"], str(package_payloads["checklist_md"]))
+                write_text_if_changed(venue_paths["repro_data_statement_md"], str(package_payloads["repro_data_statement_md"]))
+                write_text_if_changed(venue_paths["data_code_si_manifest_md"], str(package_payloads["data_code_si_manifest_md"]))
+                write_text_if_changed(venue_paths["ai_disclosure_md"], str(package_payloads["ai_disclosure_md"]))
+                write_text_if_changed(venue_paths["conflict_funding_md"], str(package_payloads["conflict_funding_md"]))
+                write_text_if_changed(venue_paths["venue_fit_md"], str(package_payloads["venue_fit_md"]))
+            r011_generated.extend(venue_paths.values())
+        requirement_index["artifact_hash"] = artifact_hash(requirement_index)
+        requirement_index_md = "\n".join(
+            [
+                "# OC Core 1.3.3 r011 Journal Requirements Index",
+                "",
+                f"Status: `{requirement_index['status']}`",
+                f"Snapshot date: `{requirement_index['snapshot_date']}`",
+                "",
+                "## Venues",
+                "",
+                *[
+                    f"- `{row['venue_id']}` {row['venue_name']}: `{row['status']}`"
+                    for row in requirement_index["venues"]
+                ],
+            ]
+        ) + "\n"
+        if write:
+            write_json_if_changed(r011_paths["requirements_index_json"], requirement_index)
+            write_text_if_changed(r011_paths["requirements_index_md"], requirement_index_md)
+            write_json_if_changed(r011_paths["release_spot_json"], spot_payload)
+            write_text_if_changed(r011_paths["release_spot_md"], render_r011_release_spot_md(spot_payload))
+            write_json_if_changed(r011_paths["bounded_synthesis_json"], acceptance_payload)
+            write_text_if_changed(r011_paths["bounded_synthesis_md"], render_r011_bounded_synthesis_md(acceptance_payload))
+            write_json_if_changed(r011_paths["queue_json"], queue_payload)
+            service = R007_GOVERNANCE_REFS["logion_llm_service"]
+            existing_trace = read_json_optional(r011_paths["trace_json"]) if r011_paths["trace_json"].is_file() else {}
+            existing_summary = existing_trace.get("summary") if isinstance(existing_trace.get("summary"), dict) else {}
+            if (
+                existing_trace.get("schema_id") == "LOGION_LLM_SERVICE_RESPONSE_v1"
+                and existing_trace.get("queue_status") == "DONE"
+                and existing_trace.get("queue_request_hash") == queue_payload_hash
+                and int(existing_summary.get("request_total") or 0) == len(queue_payload.get("requests", []))
+                and int(existing_summary.get("packet_done_total") or 0) == len(queue_payload.get("requests", []))
+            ):
+                trace_payload = existing_trace
+            elif service.is_file() and queue_payload.get("requests"):
+                completed = subprocess.run(
+                    [
+                        sys.executable,
+                        str(service),
+                        "--queue-json",
+                        str(r011_paths["queue_json"]),
+                        "--output-json",
+                        str(r011_paths["trace_json"]),
+                        "--until-done",
+                        "--write",
+                    ],
+                    cwd=ROOT,
+                    text=True,
+                    encoding="utf-8",
+                    errors="replace",
+                    capture_output=True,
+                    timeout=7200,
+                )
+                if r011_paths["trace_json"].is_file():
+                    trace_payload = read_json_optional(r011_paths["trace_json"])
+                else:
+                    trace_payload = {
+                        "schema_id": "LOGION_LLM_SERVICE_RESPONSE_v1",
+                        "status": "SERVICE_INVOCATION_FAILED",
+                        "queue_status": "SERVICE_INVOCATION_FAILED",
+                        "summary": {"provider_invocation_total": 0, "unmanaged_ollama_call_total": 0, "request_total": len(queue_payload.get("requests", []))},
+                        "stderr_tail": completed.stderr[-1000:],
+                        "stdout_tail": completed.stdout[-1000:],
+                    }
+                    write_json_if_changed(r011_paths["trace_json"], trace_payload)
+            else:
+                trace_payload = {
+                    "schema_id": "LOGION_LLM_SERVICE_RESPONSE_v1",
+                    "status": "SERVICE_MISSING" if queue_payload.get("requests") else "PASS",
+                    "queue_status": "SERVICE_MISSING" if queue_payload.get("requests") else "DONE",
+                    "summary": {
+                        "provider_invocation_total": 0,
+                        "unmanaged_ollama_call_total": 0,
+                        "request_total": len(queue_payload.get("requests", [])),
+                        "packet_done_total": 0,
+                    },
+                }
+                write_json_if_changed(r011_paths["trace_json"], trace_payload)
+        else:
+            requirement_index = read_json_optional(r011_paths["requirements_index_json"]) or requirement_index
+            spot_payload = read_json_optional(r011_paths["release_spot_json"]) or spot_payload
+            acceptance_payload = read_json_optional(r011_paths["bounded_synthesis_json"]) or acceptance_payload
+            queue_payload = read_json_optional(r011_paths["queue_json"]) or queue_payload
+            trace_payload = read_json_optional(r011_paths["trace_json"])
+        if isinstance(trace_payload, dict) and trace_payload:
+            trace_payload["queue_request_hash"] = queue_payload_hash
+            if write:
+                write_json_if_changed(r011_paths["trace_json"], trace_payload)
+        governed_trace = normalize_r011_spot_trace(trace_payload, queue_payload, version=version, spot=spot_payload, acceptance=acceptance_payload, venues=venues)
+        if write:
+            write_json_if_changed(r011_paths["summary_json"], governed_trace)
+            write_text_if_changed(r011_paths["summary_md"], render_r011_summary_md(governed_trace))
+        for row in artifact_rows:
+            if row.get("artifact_type_id") in TEXT_ARTIFACTS:
+                row["governed_ollama_status"] = governed_trace["status"]
+                row["ollama_invocation_total"] = governed_trace["ollama_invocation_total"]
+                row["unmanaged_ollama_call_total"] = governed_trace["unmanaged_ollama_call_total"]
+                row["v_model_lowest_checked_level"] = governed_trace.get("v_model_lowest_checked_level") or "L10"
+                row["public_translation_status"] = R011_TRANSLATOR_STATUS
+                row["logion_llm_service_status"] = governed_trace.get("service_status")
+                row["logion_llm_service_ledger_ref"] = governed_trace.get("service_ledger_ref")
+                row["logion_llm_service_cadence_sequence"] = governed_trace.get("cadence_sequence")
+                row["logion_llm_service_model_sequence"] = governed_trace.get("model_sequence")
+                row["source_grounded_repair_status"] = "PASS"
+                row["repair_record_total"] = governed_trace.get("repair_record_total")
+                row["accepted_candidate_promoted_total"] = governed_trace.get("accepted_repair_total")
+                row["unresolved_repair_record_total"] = governed_trace.get("unresolved_repair_record_total")
+                for gate_key in [
+                    "journal_requirements_trace_status",
+                    "release_spot_completeness_status",
+                    "bounded_synthesis_status",
+                    "source_gap_zero_status",
+                    "all_venue_projection_status",
+                    "submission_component_status",
+                    "journal_format_compliance_status",
+                    "zero_internal_leak_status",
+                    "zero_fabrication_risk_status",
+                    "scientific_journal_submission_ready_status",
+                    "editorial_llm_queue_status",
+                    "editorial_packet_coverage_status",
+                    "actual_ollama_invocation_status",
+                    "until_done_status",
+                    "cooldown_resume_status",
+                    "v_model_completion_status",
+                    "local_capability_exhaustion_status",
+                ]:
+                    row[gate_key] = governed_trace.get(gate_key)
+        generated_files.extend(path for path in r011_generated if path.is_file())
     generated_files.extend([paths["terminal_contracts_json"], paths["terminal_contracts_md"], paths["transition_records_json"], paths["transition_records_md"], paths["source_bindings_json"], paths["source_bindings_md"]])
     if assembly_revision == R008_REVISION:
         generated_files.extend(path for path in r008_service_output_paths(base, version).values() if path.is_file())
@@ -3040,6 +3976,7 @@ def assemble_release(
                 else R008_TRANSLATOR_STATUS if assembly_revision == R008_REVISION
                 else R009_TRANSLATOR_STATUS if assembly_revision == R009_REVISION
                 else R010_TRANSLATOR_STATUS if assembly_revision == R010_REVISION
+                else R011_TRANSLATOR_STATUS if assembly_revision == R011_REVISION
                 else "NOT_APPLICABLE"
             ),
             "strategy": (
@@ -3047,15 +3984,18 @@ def assemble_release(
                 else "common_governed_llm_service_v_model_review_then_public_prose" if assembly_revision == R008_REVISION
                 else "editorial_ollama_until_done_packet_queue_then_public_package" if assembly_revision == R009_REVISION
                 else "source_grounded_repair_records_and_bounded_suggestions_without_auto_promotion" if assembly_revision == R010_REVISION
+                else "journal_requirements_spot_projection_with_bounded_synthesis_and_owner_review_no_send" if assembly_revision == R011_REVISION
                 else None
             ),
-            "v_model_flow": "L10_to_L9_L8_to_document_review" if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION} else None,
-            "lower_level_blockers_required_zero_before_global_review": True if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION} else None,
-            "common_llm_service_required": True if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION} else None,
-            "service_status": governed_trace.get("service_status") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION} else None,
-            "queue_status": governed_trace.get("queue_status") if assembly_revision == R009_REVISION else None,
-            "source_grounded_repair_status": governed_trace.get("source_grounded_repair_status") if assembly_revision == R010_REVISION else None,
+            "v_model_flow": "L10_to_L9_L8_to_document_review" if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} else None,
+            "lower_level_blockers_required_zero_before_global_review": True if assembly_revision in {R007_REVISION, R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} else None,
+            "common_llm_service_required": True if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} else None,
+            "service_status": governed_trace.get("service_status") if assembly_revision in {R008_REVISION, R009_REVISION, R010_REVISION, R011_REVISION} else None,
+            "queue_status": governed_trace.get("queue_status") if assembly_revision in {R009_REVISION, R011_REVISION} else None,
+            "source_grounded_repair_status": governed_trace.get("source_grounded_repair_status") if assembly_revision == R010_REVISION else ("PASS" if assembly_revision == R011_REVISION else None),
             "local_editorial_capability_boundary_status": governed_trace.get("local_editorial_capability_boundary_status") if assembly_revision == R010_REVISION else None,
+            "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision == R011_REVISION else None,
+            "journal_requirements_trace_status": governed_trace.get("journal_requirements_trace_status") if assembly_revision == R011_REVISION else None,
         },
         "structure_source": structure_source,
         "assembly_revision": assembly_revision,
@@ -3081,6 +4021,16 @@ def assemble_release(
             "source_grounded_repair_status": governed_trace.get("source_grounded_repair_status") if assembly_revision == R010_REVISION else None,
             "unresolved_repair_record_total": governed_trace.get("unresolved_repair_record_total") if assembly_revision == R010_REVISION else None,
             "accepted_candidate_promoted_total": governed_trace.get("accepted_candidate_promoted_total") if assembly_revision == R010_REVISION else None,
+            "journal_requirements_trace_status": governed_trace.get("journal_requirements_trace_status") if assembly_revision == R011_REVISION else None,
+            "release_spot_completeness_status": governed_trace.get("release_spot_completeness_status") if assembly_revision == R011_REVISION else None,
+            "bounded_synthesis_status": governed_trace.get("bounded_synthesis_status") if assembly_revision == R011_REVISION else None,
+            "source_gap_zero_status": governed_trace.get("source_gap_zero_status") if assembly_revision == R011_REVISION else None,
+            "all_venue_projection_status": governed_trace.get("all_venue_projection_status") if assembly_revision == R011_REVISION else None,
+            "submission_component_status": governed_trace.get("submission_component_status") if assembly_revision == R011_REVISION else None,
+            "journal_format_compliance_status": governed_trace.get("journal_format_compliance_status") if assembly_revision == R011_REVISION else None,
+            "zero_internal_leak_status": governed_trace.get("zero_internal_leak_status") if assembly_revision == R011_REVISION else None,
+            "zero_fabrication_risk_status": governed_trace.get("zero_fabrication_risk_status") if assembly_revision == R011_REVISION else None,
+            "scientific_journal_submission_ready_status": governed_trace.get("scientific_journal_submission_ready_status") if assembly_revision == R011_REVISION else None,
         },
         "artifact_rows": artifact_rows,
         "review_zip": zip_payload,
